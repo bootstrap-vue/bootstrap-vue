@@ -217,10 +217,14 @@ You can control the wrapper element tags used by setting the `header-tag` and `f
     </b-card>
 
     <b-card title="Title" header-tag="header" footer-tag="footer">
-      <h6 slot="header" class="mb-0">Header Slot</h6>
+      <template v-slot:header>
+        <h6 class="mb-0">Header Slot</h6>
+      </template>
       <b-card-text>Header and footers using slots.</b-card-text>
       <b-button href="#" variant="primary">Go somewhere</b-button>
-      <em slot="footer">Footer Slot</em>
+      <template v-slot:footer>
+        <em>Footer Slot</em>
+      </template>
     </b-card>
   </b-card-group>
 </div>
@@ -243,7 +247,9 @@ card.
     img-alt="Image"
     img-top
   >
-    <h4 slot="header">Hello World</h4>
+    <template v-slot:header>
+      <h4 class="mb-0">>Hello World</h4>
+    </template>
 
     <b-card-body>
       <b-card-title>Card Title</b-card-title>
@@ -504,12 +510,13 @@ Integrate [`<b-nav>`](/docs/components/nav) into card headers easily.
 ```html
 <div>
   <b-card title="Card Title" body-class="text-center">
-    <b-nav slot="header" card-header tabs>
-      <b-nav-item active>Active</b-nav-item>
-      <b-nav-item>Inactive</b-nav-item>
-      <b-nav-item disabled>Disabled</b-nav-item>
-    </b-nav>
-
+    <template v-slot:header>
+      <b-nav card-header tabs>
+        <b-nav-item active>Active</b-nav-item>
+        <b-nav-item>Inactive</b-nav-item>
+        <b-nav-item disabled>Disabled</b-nav-item>
+      </b-nav>
+    </template>
     <b-card-text>
       With supporting text below as a natural lead-in to additional content.
     </b-card-text>
@@ -572,14 +579,18 @@ When using card groups with footers, their content will automatically line up.
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This content is a little bit longer.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
     </b-card>
 
     <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Image" img-top>
       <b-card-text>
         This card has supporting text below as a natural lead-in to additional content.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
     </b-card>
 
     <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Image" img-top>
@@ -587,7 +598,9 @@ When using card groups with footers, their content will automatically line up.
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This card has even longer content than the first to show that equal height action.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
     </b-card>
   </b-card-group>
 </div>
@@ -609,14 +622,18 @@ automatically line up.
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This content is a little bit longer.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
     </b-card>
 
     <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
       <b-card-text>
         This card has supporting text below as a natural lead-in to additional content.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
     </b-card>
 
     <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
@@ -624,7 +641,9 @@ automatically line up.
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This card has even longer content than the first to show that equal height action.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
     </b-card>
   </b-card-group>
 </div>
@@ -696,7 +715,9 @@ set them to display: inline-block as column-break-inside: avoid isn't a bulletpr
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This card has even longer content than the first.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Footer Text</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Footer Text</small>
+      </template>
     </b-card>
   </b-card-group>
 </div>
