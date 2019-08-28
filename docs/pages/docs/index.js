@@ -41,7 +41,7 @@ export default {
       readme,
       version,
       vueVersion,
-      vueVersionMinor: '2.5',
+      vueVersionMinor: vueVersion.replace(minorRE, '$1'),
       vueVersionMajor: vueVersion.replace(majorRE, '$1')
     }
   }
