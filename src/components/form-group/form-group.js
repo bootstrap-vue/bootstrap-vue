@@ -1,6 +1,5 @@
 // Utils
 import memoize from '../../utils/memoize'
-import upperFirst from '../../utils/upper-first'
 import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
 import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
