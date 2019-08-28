@@ -2,32 +2,25 @@
  *
  * Returned class is either 'is-valid' or 'is-invalid' based on the 'state' prop
  * state can be one of five values:
- *  - true or 'valid' for is-valid
- *  - false or 'invalid' for is-invalid
- *  - null (or empty string) for no contextual state
+ *  - true for is-valid
+ *  - false for is-invalid
+ *  - null for no contextual state
  */
+import { isBoolean } from '../utils/inspect'
 
 // @vue/component
 export default {
   props: {
     state: {
-      // true/'valid', false/'invalid', '',null
-      // The order must be String first, then Boolean!
-      type: [String, Boolean],
+      // Tri-state prop: true, false, null (or undefined)
+      type: Boolean,
       default: null
     }
   },
   computed: {
     computedState() {
-      const state = this.state
-      if (state === '') {
-        return null
-      } else if (state === true || state === 'valid') {
-        return true
-      } else if (state === false || state === 'invalid') {
-        return false
-      }
-      return null
+      // If not a boolean, ensure that value is null
+      return isBoolean(this.state) ? this.state : null
     },
     stateClass() {
       const state = this.computedState

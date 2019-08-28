@@ -1,7 +1,5 @@
 # Settings
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.16</span>
-
 > BootstrapVue provides a few options for customizing component default values, and more.
 
 ## Configuring defaults
@@ -22,15 +20,11 @@ stored under the `formControls` property, while component specific defaults are 
 defined in the default configuration can be overridden. Attempting to set a config property that is
 not defined in the default will generate a console warning.
 
-The `formControls` entry was introduced in <span class="badge badge-info small">v2.0.0-rc.28</span>.
-
 ```json
 {{ defaultConfig }}
 ```
 
 ### Setting new configuration values
-
-<span class="badge badge-info small">ENHANCED in v2.0.0-rc.22</span>
 
 When you `Vue.use(BootstrapVue)`, you can optionally pass a configuration object which specifies new
 values to replace the default values. For example if you wish to define new breakpoint names (which

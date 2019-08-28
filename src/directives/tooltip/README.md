@@ -19,9 +19,8 @@ appear.
 Things to know when using tooltips:
 
 - Tooltips rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
-- Tooltips with zero-length titles are never displayed.
-- Specify container: 'body' (default) to avoid rendering problems in more complex components (like
-  input groups, button groups, etc).
+- Specify container: 'body' (the default) to avoid rendering problems in more complex components
+  (like input groups, button groups, etc).
 - Triggering tooltips on hidden elements will not work.
 - Tooltips for `disabled` elements must be triggered on a wrapper element.
 - When triggered from hyperlinks that span multiple lines, tooltips will be centered. Use
@@ -92,16 +91,16 @@ The default position is `top`. Positioning is relative to the trigger element.
   <b-container fluid>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.hover.top="'ToolTip!'" variant="primary">Top</b-button>
+        <b-button v-b-tooltip.hover.top="'Tooltip!'" variant="primary">Top</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.hover.right="'ToolTip!'" variant="primary">Right</b-button>
+        <b-button v-b-tooltip.hover.right="'Tooltip!'" variant="primary">Right</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.hover.left="'ToolTip!'" variant="primary">Left</b-button>
+        <b-button v-b-tooltip.hover.left="'Tooltip!'" variant="primary">Left</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-button>
+        <b-button v-b-tooltip.hover.bottom="'Tooltip!'" variant="primary">Bottom</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -113,7 +112,8 @@ The default position is `top`. Positioning is relative to the trigger element.
 ## Triggers
 
 Tooltips can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
-default trigger is `hover focus`.
+default trigger is `hover focus`. Or a trigger of manual can be specified, where the popover can
+only be opened or closed [programmatically](#hiding-and-showing-tooltips-via-root-events).
 
 If a tooltip has more than one trigger, then all triggers must be cleared before the tooltip will
 close. I.e. if a tooltip has the trigger `focus click`, and it was opened by `focus`, and the user
@@ -124,22 +124,50 @@ then clicks the trigger element, they must click it again **and** move focus to 
   <b-container>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip="'ToolTip!'" variant="outline-success">Hover + Focus</b-button>
+        <b-button v-b-tooltip="'Tooltip!'" variant="outline-success">Hover + Focus</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.hover="'ToolTip!'" variant="outline-success">Hover</b-button>
+        <b-button v-b-tooltip.hover="'Tooltip!'" variant="outline-success">Hover</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.click="'ToolTip!'" variant="outline-success">Click</b-button>
+        <b-button v-b-tooltip.click="'Tooltip!'" variant="outline-success">Click</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.focus="'ToolTip!'" variant="outline-success">Focus</b-button>
+        <b-button v-b-tooltip.focus="'Tooltip!'" variant="outline-success">Focus</b-button>
       </b-col>
     </b-row>
   </b-container>
 </div>
 
 <!-- b-tooltip-triggers.vue -->
+```
+
+### Making tooltips work for keyboard and assistive technology users
+
+You should only add tooltips to HTML elements that are traditionally keyboard-focusable and
+interactive (such as links, buttons, or form controls). Although arbitrary HTML elements (such as
+`<span>`s) can be made focusable by adding the `tabindex="0"` attribute, this will add potentially
+annoying and confusing tab stops on non-interactive elements for keyboard users. In addition, most
+assistive technologies currently do not announce the tooltip in this situation.
+
+Additionally, do not rely solely on `hover` as the trigger for your tooltip, as this will make your
+tooltips _impossible to trigger for keyboard-only users_.
+
+### Disabled elements
+
+Elements with the `disabled` attribute aren’t interactive, meaning users cannot focus, hover, or
+click them to trigger a tooltip (or popover). As a workaround, you’ll want to trigger the tooltip
+from a wrapper `<div>` or `<span>`, ideally made keyboard-focusable using `tabindex="0"`, and
+override the `pointer-events` on the disabled element.
+
+```html
+<div>
+  <span class="d-inline-block" tabindex="0" v-b-tooltip.top title="Disabled tooltip">
+    <b-button variant="primary" style="pointer-events: none;" disabled>Disabled button</b-button>
+  </span>
+</div>
+
+<!-- disabled-trigger-element.vue -->
 ```
 
 ### Dismiss on next click
@@ -178,14 +206,16 @@ const options = {
 }
 ```
 
-Title can also be a function reference, which is called each time the tooltip is opened.
+Title can also be a function reference, which is called _once_ each time the tooltip is opened. To
+make a title returned by a function reactive, set the title to a _new_ function reference whenever
+the content changes.
 
 ```html
 <template>
   <b-container>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-button v-b-tooltip.hover title="Tip from title attribute" variant="success">Title</b-button>
+        <b-button v-b-tooltip.hover :title="'Tip from title attribute ' + date" variant="success">Title</b-button>
       </b-col>
       <b-col md="3" class="py-3">
         <b-button v-b-tooltip.hover="'String Tip'" variant="success">String</b-button>
@@ -204,11 +234,22 @@ Title can also be a function reference, which is called each time the tooltip is
   export default {
     data() {
       return {
-        tipData: 'Tooltip <em>Message</em>'
+        tipData: { title: 'Tooltip <em>Message</em>' },
+        date: new Date(),
+        timer: null
       }
+    },
+    mounted() {
+      this.timer = setInterval(() => {
+        this.date = new Date()
+      }, 1000)
+    },
+    beforeDestroy() {
+      clearInterval(this.timer)
     },
     methods: {
       tipMethod() {
+        // Note this is called only once when the tooltip is opened
         return '<strong>' + new Date() + '</strong>'
       }
     }
@@ -219,8 +260,6 @@ Title can also be a function reference, which is called each time the tooltip is
 ```
 
 ## Variants and custom class
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
 
 BootstrapVue's tooltips support contextual color variants via our custom CSS, either by using
 directive modifiers or config options:
@@ -252,33 +291,36 @@ property:
 <b-button v-b-tooltip.hover="{ customClass: 'my-tooltip-class' }" title="Tooltip">Button</b-button>
 ```
 
-**Note:** Custom classes will not work with scoped styles, as the tooltips are appended to the
-document `<body>` element by default.
-
 ## Directive syntax and usage
 
-```
-v-b-tooltip:[container].[mod1].[mod2].[...].[modN]="<value>"
+```html
+<b-button v-b-tooltip:[container].[mod1].[mod2].[...].[modN]="<value>">Button</b-button>
 ```
 
-Where [container] can be (optional)
+Where `[container]` can be (optional):
 
 - An element ID (minus the #) to place the tooltip markup in
 - If not provided, tooltips are appended to the `body`. If the trigger element is inside a modal,
   the tooltip will be appended to the modal's container
 
-Where [modX] can be (all optional):
+Where `[modX]` can be (all optional):
 
 - Positioning: `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`,
   `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom` (last one found wins,
   defaults to `top`)
 - Event trigger: `click`, `hover`, `focus`, `blur` (if none specified, defaults to `focus` and
-  `hover`. `blur` is a close handler only, and if specified by itself, will be converted to `focus`)
+  `hover`. `blur` is a close handler only, and if specified by itself, will be converted to
+  `focus`). Use `manual` if you only want to control the visibility manually.
 - `nofade` to turn off animation
 - `html` to enable rendering raw HTML. By default HTML is escaped and converted to text
-- A delay value in the format of `d###` (where `###` is in ms, defaults to 0)
+- A delay value in the format of `d###` (where `###` is in ms, defaults to `50`), applied to both
+  `hide` and `show` (affects `hover` and `focus` only)
+- A show delay value in the format of `ds###` (where `###` is in ms, defaults to `50`), applied to
+  `show` trigger only (affects `hover` and `focus` only)
+- A hide delay value in the format of `dh###` (where `###` is in ms, defaults to `50`), applied to
+  `hide` trigger only (affects `hover` and `focus` only)
 - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults
-  to 0. Negative values allowed)
+  to `0`. Negative values allowed)
 - A boundary setting of `window` or `viewport`. The element to constrain the visual placement of the
   tooltip. If not specified, the boundary defaults to the trigger element's scroll parent (in most
   cases this will suffice)
@@ -294,21 +336,22 @@ Where `<value>` can be (optional):
 
 **Options configuration object properties:**
 
-| Property            | Type                            | Default          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------- | ------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `animation`         | boolean                         | `true`           | Apply a CSS fade transition to the tooltip.                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `container`         | string or Element or `false`    | `false`          | Appends the tooltip to a specific element. Example: `container: 'body'`. This option is particularly useful in that it allows you to position the tooltip in the flow of the document near the triggering element - which will prevent the tooltip from floating away from the triggering element during a window resize. When set to `false` the tooltip will be appended to `body`, or if the trigger element is inside a modal it will append to the modal's container. |
-| `delay`             | Number or Object                | `0`              | Delay showing and hiding the tooltip (ms). If a number is supplied, delay is applied to both hide/show. Object structure is: `delay: { "show": 500, "hide": 100 }`                                                                                                                                                                                                                                                                                                         |
-| `html`              | Boolean                         | `false`          | Allow HTML in the tooltip. If true, HTML tags in the tooltip's title will be rendered in the tooltip. If false, the title will be inserted as plain text. Use text if you're worried about XSS attacks.                                                                                                                                                                                                                                                                    |
-| `placement`         | String or Function              | `'top'`          | How to position the tooltip - `auto`, `top`, `bottom`, `left`, `right`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom`. When `auto` is specified, it will dynamically reorient the tooltip.                                                                                                                                                                                                                     |
-| `title`             | String or Element or function   | `''`             | Default title value if title attribute isn't present. If a function is given, it must return a string.                                                                                                                                                                                                                                                                                                                                                                     |
-| `trigger`           | String                          | `'hover focus'`  | How tooltip is triggered: `click`, `hover`, `focus`. You may pass multiple triggers; separate them with a space.                                                                                                                                                                                                                                                                                                                                                           |
-| `offset`            | Number or String                | `0`              | Offset of the tooltip relative to its target. For more information refer to Popper.js's offset docs.                                                                                                                                                                                                                                                                                                                                                                       |
-| `fallbackPlacement` | String or Array                 | `'flip'`         | Allow to specify which position Popper will use on fallback. Can be `flip`, `clockwise`, `counterclockwise` or an array of placements. For more information refer to Popper.js's behavior docs.                                                                                                                                                                                                                                                                            |
-| `boundary`          | String or HTMLElement reference | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll. Supported values: `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                                                                                                                     |
-| `boundaryPadding`   | Number                          | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                                                                                                                                                                                                                                                                                      |
-| `variant`           | String                          | `null`           | Contextual color variant for the tooltip.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `customClass`       | String                          | `null`           | A custom classname to apply to the tooltip outer wrapper element.                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Property            | Type                                | Default          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------- | ----------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `animation`         | Boolean                             | `true`           | Apply a CSS fade transition to the tooltip.                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `container`         | String ID or HTMLElement or `false` | `false`          | Appends the tooltip to a specific element. Example: `container: '#body'`. This option is particularly useful in that it allows you to position the tooltip in the flow of the document near the triggering element - which will prevent the tooltip from floating away from the triggering element during a window resize. When set to `false` the tooltip will be appended to `body`, or if the trigger element is inside a modal it will append to the modal's container. |
+| `delay`             | Number or Object                    | `50`             | Delay showing and hiding the tooltip (ms). If a number is supplied, delay is applied to both hide/show. Object structure is: `delay: { "show": 500, "hide": 100 }`                                                                                                                                                                                                                                                                                                          |
+| `html`              | Boolean                             | `false`          | Allow HTML in the tooltip. If true, HTML tags in the tooltip's title will be rendered in the tooltip. If false, the title will be inserted as plain text. Use text if you're worried about XSS attacks.                                                                                                                                                                                                                                                                     |
+| `placement`         | String or Function                  | `'top'`          | How to position the tooltip - `auto`, `top`, `bottom`, `left`, `right`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom`. When `auto` is specified, it will dynamically reorient the tooltip.                                                                                                                                                                                                                      |
+| `title`             | String or Element or Function       | `''`             | Default title value if title attribute isn't present. If a function is given, it must return a string.                                                                                                                                                                                                                                                                                                                                                                      |
+| `trigger`           | String                              | `'hover focus'`  | How tooltip is triggered: `click`, `hover`, `focus`. You may pass multiple triggers; separate them with a space.                                                                                                                                                                                                                                                                                                                                                            |
+| `offset`            | Number or String                    | `0`              | Offset of the tooltip relative to its target. For more information refer to Popper.js's offset docs.                                                                                                                                                                                                                                                                                                                                                                        |
+| `fallbackPlacement` | String or Array                     | `'flip'`         | Allow to specify which position Popper will use on fallback. Can be `flip`, `clockwise`, `counterclockwise` or an array of placements. For more information refer to Popper.js's behavior docs.                                                                                                                                                                                                                                                                             |
+| `boundary`          | String ID or HTMLElement            | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll. Supported values: `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                                                                                                                      |
+| `boundaryPadding`   | Number                              | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                                                                                                                                                                                                                                                                                       |
+| `variant`           | String                              | `null`           | Contextual color variant for the tooltip.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `customClass`       | String                              | `null`           | A custom classname to apply to the tooltip outer wrapper element.                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `id`                | String                              | `null`           | An ID to use on the tooltip root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page.                                                                                                                                                                                                                                                                                     |
 
 ### Usage
 
@@ -368,14 +411,16 @@ You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` e
 this.$root.$emit('bv::hide::tooltip')
 ```
 
-To close a **specific tooltip**, pass the trigger element's `id` as the first argument:
+To close a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if one
+was provided in the config object) as the first argument:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id')
 ```
 
-To open a **specific tooltip**, pass the trigger element's `id` as the first argument when emitting
-the `bv::show::tooltip` \$root event:
+To open a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if one
+was provided in the config object) as the first argument when emitting the `bv::show::tooltip`
+\$root event:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id')
@@ -397,14 +442,16 @@ You can disable **all open tooltips** by emitting the `bv::disable::tooltip` eve
 this.$root.$emit('bv::disable::tooltip')
 ```
 
-To disable a **specific tooltip**, pass the trigger element's `id` as the first argument:
+To disable a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if
+one was provided in the config object) as the first argument:
 
 ```js
 this.$root.$emit('bv::disable::tooltip', 'my-trigger-button-id')
 ```
 
-To enable a **specific tooltip**, pass the trigger element's `id` as the first argument when
-emitting the `bv::enable::tooltip` \$root event:
+To enable a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if
+one was provided in the config object) as the first argument when emitting the `bv::enable::tooltip`
+\$root event:
 
 ```js
 this.$root.$emit('bv::enable::tooltip', 'my-trigger-button-id')

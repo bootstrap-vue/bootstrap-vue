@@ -1,10 +1,10 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import ToolTip from '../../utils/tooltip.class'
-import tooltipDirective from './tooltip'
+import { VBTooltip } from './tooltip'
+import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
 
 // Key which we use to store tooltip object on element
-const BV_TOOLTIP = '__BV_ToolTip__'
+const BV_TOOLTIP = '__BV_Tooltip__'
 
 describe('v-b-tooltip directive', () => {
   const originalCreateRange = document.createRange
@@ -41,12 +41,13 @@ describe('v-b-tooltip directive', () => {
     Element.prototype.getBoundingClientRect = origGetBCR
   })
 
-  it('should have ToolTip class instance', async () => {
+  it('should have BVTooltip Vue class instance', async () => {
+    jest.useFakeTimers()
     const localVue = new CreateLocalVue()
 
     const App = localVue.extend({
       directives: {
-        bTooltip: tooltipDirective
+        bTooltip: VBTooltip
       },
       template: '<button v-b-tooltip title="foobar">button</button>'
     })
@@ -57,12 +58,22 @@ describe('v-b-tooltip directive', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
     expect(wrapper.is('button')).toBe(true)
     const $button = wrapper.find('button')
 
     // Should have instance of popover class on it
     expect($button.element[BV_TOOLTIP]).toBeDefined()
-    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(ToolTip)
+    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
 
     wrapper.destroy()
   })
@@ -73,7 +84,7 @@ describe('v-b-tooltip directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bTooltip: tooltipDirective
+        bTooltip: VBTooltip
       },
       template: '<button v-b-tooltip.click.html title="<b>foobar</b>">button</button>'
     })
@@ -84,17 +95,22 @@ describe('v-b-tooltip directive', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('button')).toBe(true)
-    const $button = wrapper.find('button')
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('button')).toBe(true)
+    const $button = wrapper.find('button')
 
     // Should have instance of popover class on it
     expect($button.element[BV_TOOLTIP]).toBeDefined()
-    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(ToolTip)
+    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
@@ -104,7 +120,11 @@ describe('v-b-tooltip directive', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($button.attributes('aria-describedby')).toBeDefined()
     const adb = $button.attributes('aria-describedby')
@@ -122,7 +142,7 @@ describe('v-b-tooltip directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bTooltip: tooltipDirective
+        bTooltip: VBTooltip
       },
       template: `<button v-b-tooltip.click.html.v-info="{ customClass: 'foobar'}" title="<b>foobar</b>">button</button>`
     })
@@ -139,7 +159,11 @@ describe('v-b-tooltip directive', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Trigger click
     $button.trigger('click')
@@ -147,7 +171,11 @@ describe('v-b-tooltip directive', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($button.attributes('aria-describedby')).toBeDefined()
     const adb = $button.attributes('aria-describedby')

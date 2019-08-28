@@ -115,8 +115,8 @@ const computeAttrs = (props, data) => {
   const link = isLink(props)
   const toggle = isToggle(props)
   const nonStdTag = isNonStandardTag(props)
-  const role = data.attrs && data.attrs['role'] ? data.attrs['role'] : null
-  let tabindex = data.attrs ? data.attrs['tabindex'] : null
+  const role = data.attrs && data.attrs.role ? data.attrs.role : null
+  let tabindex = data.attrs ? data.attrs.tabindex : null
   if (nonStdTag) {
     tabindex = '0'
   }

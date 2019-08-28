@@ -81,8 +81,6 @@ Make the nav smaller by setting the `small` prop.
 
 ## Fill and justify
 
-<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
-
 Force your `<b-nav>` content to extend the full available width.
 
 ### Fill
@@ -122,8 +120,6 @@ nav links, but unlike `fill` above, every `<b-nav-item>` will be the same width.
 ```
 
 ## Alignment
-
-<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
 
 To align your `<b-nav-item>` components, use the `align` prop. Available values are `left`, `center`
 and `right`.
@@ -174,10 +170,10 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
       toggle-class="nav-link-custom"
       right
     >
-      <b-dropdown-item>one</b-dropdown-item>
-      <b-dropdown-item>two</b-dropdown-item>
+      <b-dropdown-item>One</b-dropdown-item>
+      <b-dropdown-item>Two</b-dropdown-item>
       <b-dropdown-divider></b-dropdown-divider>
-      <b-dropdown-item>three</b-dropdown-item>
+      <b-dropdown-item>Three</b-dropdown-item>
     </b-nav-item-dropdown>
   </b-nav>
 </div>
@@ -206,8 +202,6 @@ Refer to [`<b-dropdown>`](/docs/components/dropdown) for a list of supported sub
 
 ### Optionally scoped default slot
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
-
 The dropdown default slot is optionally scoped with the following scope available:
 
 | Property or Method | Description                                                                                                                      |
@@ -216,21 +210,111 @@ The dropdown default slot is optionally scoped with the following scope availabl
 
 ### Lazy dropdown
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
-
 By default, `<b-nav-item-dropdown>` renders the menu contents in the DOM even when the menu is not
 shown. When there are a large number of dropdowns rendered on the same page, performance could be
 impacted due to larger overall memory utilization. You can instruct `<b-nav-item-dropdown>` to
 render the menu contents only when it is shown by setting the `lazy` prop to true.
 
-## Using in navbar
-
-Prop `is-nav-bar` has been deprecated and will be removed in a future release.
-
 ## Tabbed local content support
 
 See the [`<b-tabs>`](/docs/components/tabs) component for creating tabbable panes of local content
 (not suited for navigation).
+
+## Card integration
+
+Use a `<b-nav>` in a [`<b-card>`](/docs/components/card) header, by enabling the `card-header` prop
+on `<b-nav>` and setting either the `pills` or `tabs` props:
+
+**Tabs style:**
+
+```html
+<div>
+  <b-card title="Card Title" body-class="text-center">
+    <template v-slot:header>
+      <b-nav card-header tabs>
+        <b-nav-item active>Active</b-nav-item>
+        <b-nav-item>Inactive</b-nav-item>
+        <b-nav-item disabled>Disabled</b-nav-item>
+        <b-nav-item-dropdown text="Dropdown" right>
+          <b-dropdown-item>One</b-dropdown-item>
+          <b-dropdown-item>Two</b-dropdown-item>
+          <b-dropdown-item>Three</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
+    </template>
+
+    <b-card-text>
+      With supporting text below as a natural lead-in to additional content.
+    </b-card-text>
+
+    <b-button variant="primary">Go somewhere</b-button>
+  </b-card>
+</div>
+
+<!-- nav-card-tabs.vue -->
+```
+
+**Pill style:**
+
+```html
+<div>
+  <b-card title="Card Title" body-class="text-center">
+    <template v-slot:header>
+      <b-nav card-header pills>
+        <b-nav-item active>Active</b-nav-item>
+        <b-nav-item>Inactive</b-nav-item>
+        <b-nav-item disabled>Disabled</b-nav-item>
+        <b-nav-item-dropdown text="Dropdown" right>
+          <b-dropdown-item>One</b-dropdown-item>
+          <b-dropdown-item>Two</b-dropdown-item>
+          <b-dropdown-item>Three</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
+    </template>
+
+    <b-card-text>
+      With supporting text below as a natural lead-in to additional content.
+    </b-card-text>
+
+    <b-button variant="primary">Go somewhere</b-button>
+  </b-card>
+</div>
+
+<!-- nav-card-pills.vue -->
+```
+
+**Plain style:**
+
+The `card-header` prop is only needed when you are applying `tabs` or `pills` style.
+
+```html
+<div>
+  <b-card title="Card Title" body-class="text-center">
+    <template v-slot:header>
+      <b-nav>
+        <b-nav-item active>Active</b-nav-item>
+        <b-nav-item>Inactive</b-nav-item>
+        <b-nav-item disabled>Disabled</b-nav-item>
+        <b-nav-item-dropdown text="Dropdown" right>
+          <b-dropdown-item>One</b-dropdown-item>
+          <b-dropdown-item>Two</b-dropdown-item>
+          <b-dropdown-item>Three</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-nav>
+    </template>
+
+    <b-card-text>
+      With supporting text below as a natural lead-in to additional content.
+    </b-card-text>
+
+    <b-button variant="primary">Go somewhere</b-button>
+  </b-card>
+</div>
+
+<!-- nav-card-plain.vue -->
+```
+
+The `card-header` prop has no effect if the `<b-nav>` is `vertical`.
 
 ## Accessibility
 

@@ -8,7 +8,9 @@
 <div>
   <b-card>
     <b-media>
-      <b-img slot="aside" blank blank-color="#ccc" width="64" alt="placeholder"></b-img>
+      <template v-slot:aside>
+        <b-img blank blank-color="#ccc" width="64" alt="placeholder"></b-img>
+      </template>
 
       <h5 class="mt-0">Media Title</h5>
       <p>
@@ -22,7 +24,9 @@
       </p>
 
       <b-media>
-        <b-img slot="aside" blank blank-color="#ccc" width="64" alt="placeholder"></b-img>
+        <template v-slot:aside>
+          <b-img blank blank-color="#ccc" width="64" alt="placeholder"></b-img>
+        </template>
 
         <h5 class="mt-0">Nested Media</h5>
         <p class="mb-0">
@@ -42,7 +46,9 @@
 ```html
 <div>
   <b-media>
-    <img slot="aside" src="..." alt="Media Aside">
+    <template v-slot:aside>
+      <img src="..." alt="Media Aside">
+    </template>
 
     <h2>Media Body</h2>
     <p>Some text</p>
@@ -75,7 +81,9 @@
         </p>
 
         <b-media>
-          <b-img slot="aside" blank blank-color="#ccc" width="64" alt="placeholder"></b-img>
+          <template v-slot:aside>
+            <b-img blank blank-color="#ccc" width="64" alt="placeholder"></b-img>
+          </template>
           <h5 class="mt-0">Nested Media</h5>
           Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in
           faucibus.
@@ -95,8 +103,9 @@ Change the order of content in media objects by adding `right-align` property.
 ```html
 <div>
   <b-media right-align vertical-align="center">
-    <b-img slot="aside" blank blank-color="#ccc" width="80" alt="placeholder"></b-img>
-
+    <template v-slot:aside>
+      <b-img blank blank-color="#ccc" width="80" alt="placeholder"></b-img>
+    </template>
     <h5 class="mt-0 mb-1">Media object</h5>
     <p class="mb-0">
       Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
@@ -129,8 +138,9 @@ use spacing utilities wherever needed to fine tune.
 <div>
   <ul class="list-unstyled">
     <b-media tag="li">
-      <b-img slot="aside" blank blank-color="#abc" width="64" alt="placeholder"></b-img>
-
+      <template v-slot:aside>
+        <b-img blank blank-color="#abc" width="64" alt="placeholder"></b-img>
+      </template>
       <h5 class="mt-0 mb-1">List-based media object</h5>
       <p class="mb-0">
         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
@@ -140,7 +150,9 @@ use spacing utilities wherever needed to fine tune.
     </b-media>
 
     <b-media tag="li" class="my-4">
-      <b-img slot="aside" blank blank-color="#cba" width="64" alt="placeholder"></b-img>
+      <template v-slot:aside>
+       <b-img blank blank-color="#cba" width="64" alt="placeholder"></b-img>
+      </template>
 
       <h5 class="mt-0 mb-1">List-based media object</h5>
       <p class="mb-0">
@@ -151,7 +163,9 @@ use spacing utilities wherever needed to fine tune.
     </b-media>
 
     <b-media tag="li">
-      <b-img slot="aside" blank blank-color="#bac" width="64" alt="placeholder"></b-img>
+      <template v-slot:aside>
+        <b-img blank blank-color="#bac" width="64" alt="placeholder"></b-img>
+      </template>
 
       <h5 class="mt-0 mb-1">List-based media object</h5>
       <p class="mb-0">

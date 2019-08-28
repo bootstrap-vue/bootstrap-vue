@@ -366,7 +366,7 @@ Released 2019-05-31
   exports. The ESM and CJS builds now both include these top level named exports:
   - Default export is still the BootstrapVue plugin
   - Simplified import format for importing components, directives, plugins:<br>
-    `import { ModalPlugin, CardPlugin, BAlert, BRow, BCol, VBScollspyPlugin } from 'bootstrap-vue'`
+    `import { ModalPlugin, CardPlugin, BAlert, BRow, BCol, VBScrollspyPlugin } from 'bootstrap-vue'`
   - New `esm/` modular build with top-level named exports (tree shakeable)
   - New `dist/bootstrap-vue.esm.js` esm bundle with top-level named exports
   - New `dist/bootstrap-vue.common.js` cjs bundle with top-level named exports
@@ -737,7 +737,7 @@ Released 2019-04-07
 
 ### Bug Fixes v2.0.0-rc.17
 
-- **breadcrumb-item:** remove atribute `role="presentation"` for better ARIA support
+- **breadcrumb-item:** remove attribute `role="presentation"` for better ARIA support
   ([#2991](https://github.com/bootstrap-vue/bootstrap-vue/issues/2991))
   ([e84c4a7](https://github.com/bootstrap-vue/bootstrap-vue/commit/e84c4a7))
 - **docs:** add back missing leading slash to search urls
@@ -871,7 +871,7 @@ Released 2019-03-28
 - **forms:** new b-form-datalist helper component
   ([#2899](https://github.com/bootstrap-vue/bootstrap-vue/issues/2899))
   ([e9a8e85](https://github.com/bootstrap-vue/bootstrap-vue/commit/e9a8e85))
-- **table:** add basic keyboard nav when table has row-clicked handler or is selctable (closes
+- **table:** add basic keyboard nav when table has row-clicked handler or is selectable (closes
   [#2869](https://github.com/bootstrap-vue/bootstrap-vue/issues/2869))
   ([#2870](https://github.com/bootstrap-vue/bootstrap-vue/issues/2870))
   ([ddcd66a](https://github.com/bootstrap-vue/bootstrap-vue/commit/ddcd66a))
@@ -907,7 +907,7 @@ Released: 2019-03-18
   [#2807](https://github.com/bootstrap-vue/bootstrap-vue/issues/2807))
   ([#2808](https://github.com/bootstrap-vue/bootstrap-vue/issues/2808))
   ([c656fa3](https://github.com/bootstrap-vue/bootstrap-vue/commit/c656fa3))
-- **utisl/observeDom:** make sure to check for browser enviroment
+- **utils/observeDom:** make sure to check for browser environment
   ([#2838](https://github.com/bootstrap-vue/bootstrap-vue/issues/2838))
   ([8471f31](https://github.com/bootstrap-vue/bootstrap-vue/commit/8471f31))
 
@@ -1165,10 +1165,10 @@ Released: (2019-02-14)
   ([#2102](https://github.com/bootstrap-vue/bootstrap-vue/issues/2102))
   ([#1798](https://github.com/bootstrap-vue/bootstrap-vue/issues/1798))
   ([6d33cae](https://github.com/bootstrap-vue/bootstrap-vue/commit/6d33cae))
-- **dependencies:** replace opencollective with opencollective-postintall
+- **dependencies:** replace opencollective with opencollective-postinstall
   ([#2067](https://github.com/bootstrap-vue/bootstrap-vue/issues/2067))
   ([fa26882](https://github.com/bootstrap-vue/bootstrap-vue/commit/fa26882))
-- **docs:** Updaate links to bootstrap v4.3 docs
+- **docs:** Update links to bootstrap v4.3 docs
   ([b5d5499](https://github.com/bootstrap-vue/bootstrap-vue/commit/b5d5499))
 - **docs:** Button - fix typo ([#1962](https://github.com/bootstrap-vue/bootstrap-vue/issues/1962))
   ([dcbfcf9](https://github.com/bootstrap-vue/bootstrap-vue/commit/dcbfcf9))
@@ -1394,7 +1394,7 @@ Released: (2019-02-14)
 - **select:** Wait for the v-model value to update before emitting change event on form select
   ([#2207](https://github.com/bootstrap-vue/bootstrap-vue/issues/2207))
   ([7a860ee](https://github.com/bootstrap-vue/bootstrap-vue/commit/7a860ee))
-- **tab:** fix typo aria-lablelledby
+- **tab:** fix typo aria-labelledby
   ([#1959](https://github.com/bootstrap-vue/bootstrap-vue/issues/1959))
   ([#954](https://github.com/bootstrap-vue/bootstrap-vue/issues/954)
   ([5933955](https://github.com/bootstrap-vue/bootstrap-vue/commit/5933955))
@@ -1752,7 +1752,7 @@ Released: 2018-04-27
 - **docs:** typo in docs plugin
   ([#1777](https://github.com/bootstrap-vue/bootstrap-vue/issues/1777))
   ([fb50c6f](https://github.com/bootstrap-vue/bootstrap-vue/commit/fb50c6f))
-- **dropdown:** aria-labbeledby for dropdowns
+- **dropdown:** aria-labelledby for dropdowns
   ([8efa7ee](https://github.com/bootstrap-vue/bootstrap-vue/commit/8efa7ee))
 - **form-input:** revert step, min and max props
   ([#1767](https://github.com/bootstrap-vue/bootstrap-vue/issues/1767))

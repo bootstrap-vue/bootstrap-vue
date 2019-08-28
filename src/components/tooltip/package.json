@@ -4,7 +4,6 @@
   "meta": {
     "title": "Tooltip",
     "description": "Easily add tooltips to elements or components via the <b-tooltip> component or v-b-tooltip directive.",
-    "enhanced": true,
     "directives": [
       "VBTooltip"
     ],
@@ -161,6 +160,12 @@
                 "description": "(optional), tooltip id to enable"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Slot for tooltip content (HTML supported)"
           }
         ]
       }

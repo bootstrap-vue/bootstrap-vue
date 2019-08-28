@@ -1,10 +1,10 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import PopOver from '../../utils/popover.class'
-import popoverDirective from './popover'
+import { VBPopover } from './popover'
+import { BVPopover } from '../../components/popover/helpers/bv-popover'
 
 // Key which we use to store tooltip object on element
-const BV_POPOVER = '__BV_PopOver__'
+const BV_POPOVER = '__BV_Popover__'
 
 describe('v-b-popover directive', () => {
   const originalCreateRange = document.createRange
@@ -41,12 +41,13 @@ describe('v-b-popover directive', () => {
     Element.prototype.getBoundingClientRect = origGetBCR
   })
 
-  it('should have PopOver class instance', async () => {
+  it('should have BVPopover Vue instance', async () => {
+    jest.useFakeTimers()
     const localVue = new CreateLocalVue()
 
     const App = localVue.extend({
       directives: {
-        bPopover: popoverDirective
+        bPopover: VBPopover
       },
       template: `<button v-b-popover="'content'" title="foobar">button</button>`
     })
@@ -57,12 +58,22 @@ describe('v-b-popover directive', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
     expect(wrapper.is('button')).toBe(true)
     const $button = wrapper.find('button')
 
     // Should have instance of popover class on it
     expect($button.element[BV_POPOVER]).toBeDefined()
-    expect($button.element[BV_POPOVER]).toBeInstanceOf(PopOver)
+    expect($button.element[BV_POPOVER]).toBeInstanceOf(BVPopover)
 
     wrapper.destroy()
   })
@@ -73,7 +84,7 @@ describe('v-b-popover directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bPopover: popoverDirective
+        bPopover: VBPopover
       },
       template: `<button v-b-popover.click.html="'content'" title="<b>foobar</b>">button</button>`
     })
@@ -90,11 +101,15 @@ describe('v-b-popover directive', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Should have instance of popover class on it
     expect($button.element[BV_POPOVER]).toBeDefined()
-    expect($button.element[BV_POPOVER]).toBeInstanceOf(PopOver)
+    expect($button.element[BV_POPOVER]).toBeInstanceOf(BVPopover)
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
@@ -104,17 +119,20 @@ describe('v-b-popover directive', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($button.attributes('aria-describedby')).toBeDefined()
     const adb = $button.attributes('aria-describedby')
 
-    const pop = document.querySelector(`#${adb}`)
+    const pop = document.getElementById(adb)
     expect(pop).not.toBe(null)
     expect(pop.classList.contains('popover')).toBe(true)
+    expect(pop.classList.contains('b-popover')).toBe(true)
 
     wrapper.destroy()
-
-    expect(document.contains(pop)).toBe(false)
   })
 })

@@ -172,11 +172,10 @@ disabled in auto-height mode.
 
 Auto-height works by computing the resulting height via CSS queries, hence the input has to be in
 document (DOM) and visible (not hidden via `display: none`). Initial height is computed on mount. If
-the `b-form-text-area` is visually hidden on mount, the auto height cannot be computed.
-
-In situations where the text area may initially be hidden visually (i.e. in non-lazy `b-tab`
-components or non-lazy static `b-modal`), you may want to use `v-if` to delay mouting (lazy mount),
-or delay setting the value of `b-form-textarea` until it's visually hidden parent is shown.
+the browser client supports [`IntersectionObserver`](https://caniuse.com/#feat=intersectionobserver)
+(either natively or via [a polyfill](/docs#js)), `<b-form-textarea>` will take advantage of this to
+determine when the textarea becomes visible and will then compute the height. Refer to the
+[Browser support](/docs#browser) section on the getting started page.
 
 ## Contextual states
 
@@ -184,17 +183,14 @@ Bootstrap includes validation styles for `valid` and `invalid` states on most fo
 
 Generally speaking, you'll want to use a particular state for specific types of feedback:
 
-- `'invalid'` (or `false`) is great for when there's a blocking or required field. A user must fill
-  in this field properly to submit the form.
-- `'valid'` (or `true`) is ideal for situations when you have per-field validation throughout a form
-  and want to encourage a user through the rest of the fields.
-- `null` Displays no validation state
+- `false` (denotes invalid state) is great for when there's a blocking or required field. A user
+  must fill in this field properly to submit the form.
+- `true` (denotes valid state) is ideal for situations when you have per-field validation throughout
+  a form and want to encourage a user through the rest of the fields.
+- `null` Displays no validation state (neither valid nor invalid)
 
-To apply one of the contextual state icons on `<b-form-textarea>`, set the `state` prop to:
-
-- The string `'invalid'` or Boolean `false` to apply invalid styling
-- The string `'valid'` or Boolean `true` to apply valid styling
-- `null` for no validation contextual state
+To apply one of the contextual state icons on `<b-form-textarea>`, set the `state` prop to `false`
+(for invalid), `true` (for valid), or `null` (no validation state).
 
 ```html
 <template>
@@ -234,16 +230,16 @@ text block.
 
 ### `aria-invalid` attribute
 
-When `<b-form-textarea>` has an invalid contextual state (i.e. `'invalid'` or `false`) you may also
-want to set the prop `aria-invalid` to `true`, or one of the supported values:
+When `<b-form-textarea>` has an invalid contextual state (i.e. state is `false`) you may also want
+to set the prop `aria-invalid` to `true`, or one of the supported values:
 
 - `false`: No errors (default)
 - `true` or `'true'`: The value has failed validation.
 - `'grammar'`: A grammatical error has been detected.
 - `'spelling'` A spelling error has been detected.
 
-If the `state` prop is set to `false` (or `'invalid'`), and the `aria-invalid` prop is not
-explicitly set, `<b-form-textarea>` will automatically set the `aria-invalid` attribute to `'true'`.
+If the `state` prop is set to `false`, and the `aria-invalid` prop is not explicitly set,
+`<b-form-textarea>` will automatically set the `aria-invalid` attribute to `'true'`.
 
 ## Formatter support
 
@@ -298,8 +294,6 @@ Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `bl
   which handles the modifiers).
 
 ## Autofocus
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.21</span>
 
 When the `autofocus` prop is set, the textarea will be auto-focused when it is inserted into the
 document, or re-activated when inside a Vue `<keep-alive>` component. Note that this prop **does

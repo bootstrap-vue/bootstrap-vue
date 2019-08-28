@@ -21,7 +21,6 @@ to appear.
 Things to know when using popovers:
 
 - Popovers rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
-- Zero-length title and content values will never show a popover.
 - Specify container: 'body' (default) to avoid rendering problems in more complex components (like
   input groups, button groups, etc).
 - Triggering popovers on hidden elements will not work.
@@ -172,7 +171,8 @@ Positioning is relative to the trigger element.
 ## Triggers
 
 Popovers can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
-default trigger is `click`.
+default trigger is `click`. Or a trigger of `manual` can be specified, where the popover can only be
+opened or closed [programmatically](#hiding-and-showing-popovers-via-root-events).
 
 If a popover has more than one trigger, then all triggers must be cleared before the popover will
 close. I.e. if a popover has the trigger `focus click`, and it was opened by `focus`, and the user
@@ -202,6 +202,17 @@ then clicks the trigger element, they must click it again **and** move focus to 
 <!-- b-popover-triggers.vue -->
 ```
 
+### Making popovers work for keyboard and assistive technology users
+
+You should only add popovers to HTML elements that are traditionally keyboard-focusable and
+interactive (such as links, buttons, or form controls). Although arbitrary HTML elements (such as
+`<span>`s) can be made focusable by adding the `tabindex="0"` attribute, this will add potentially
+annoying and confusing tab stops on non-interactive elements for keyboard users. In addition, most
+assistive technologies currently do not announce the popover in this situation.
+
+Additionally, do not rely solely on `hover` as the trigger for your popover, as this will make your
+popovers _impossible to trigger for keyboard-only users_.
+
 ### Dismiss on next click (self dismissing)
 
 Use the `focus` trigger by itself to dismiss popovers on the next click that the user makes. `focus`
@@ -214,7 +225,7 @@ document_ - will close the popover.
 
 This `blur` trigger must be used in combination with the `click` trigger.
 
-Th following example shows the `click blur` use case. Popovers will only open on click of the
+The following example shows the `click blur` use case. Popovers will only open on click of the
 button, and will close either on click of the button, or a click anywhere else (or a focus change
 via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismissing_.
 
@@ -349,8 +360,6 @@ Content can also be a function reference, which is called each time the popover 
 
 ## Variants and custom class
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
-
 BootstrapVue's popovers support contextual color variants via our custom CSS, either by using
 directive modifiers or config options:
 
@@ -397,22 +406,16 @@ property:
 </b-button>
 ```
 
-**Note:** Custom classes will not work with scoped styles, as the popovers are appended to the
-document `<body>` element by default.
-
 ## Directive syntax and usage
 
-```
-v-b-popover:[container].[mod].[mod].[...].[mod]="<value>"
+```html
+<b-button v-b-popover:[container].[mod].[mod].[...].[mod]="<value>">Button</b-button>
 ```
 
-Where `<value>` can be (optional):
+Where `[container]` can be (optional):
 
-- A string containing the **content** of the popover
-- A function reference to generate the **content** of the popover (receives one argument which is a
-  reference to the DOM element triggering the popover)
-- An object containing more complex configuration of popover, See Bootstrap docs for possible
-  values/structure)
+- An element ID (minus the `#`) to place the popover markup in, when visible
+- If not provided, popovers are appended to the `<body>` when visible
 
 Where `[mod]` can be (all optional):
 
@@ -421,21 +424,49 @@ Where `[mod]` can be (all optional):
   `rightbottom` (last one found wins, defaults to `right`).
 - Event trigger: `click`, `hover`, `focus`, `blur` (if none specified, defaults to `click`. The
   `blur` trigger is a close handler only, and if specified by itself, will be converted to `focus`).
+  Use `manual` if you only want to control the visibility manually.
 - `nofade` to turn off animation.
 - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text.
-- A delay value in the format of `d###` (where `###` is in ms, defaults to 0).
+- A delay value in the format of `d###` (where `###` is in ms, defaults to `50`), applied to both
+  `hide` and `show` (affects `hover` and `focus` only)
+- A show delay value in the format of `ds###` (where `###` is in ms, defaults to `50`), applied to
+  `show` trigger only (affects `hover` and `focus` only)
+- A hide delay value in the format of `dh###` (where `###` is in ms, defaults to `50`), applied to
+  `hide` trigger only (affects `hover` and `focus` only)
 - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults
-  to 0. Negative values are allowed). Note if an offset is supplied, then the alignment positions
+  to `0`. Negative values are allowed). Note if an offset is supplied, then the alignment positions
   will fallback to one of `top`, `bottom`, `left`, or `right`.
 - A boundary setting of `window` or `viewport`. The element to constrain the visual placement of the
   popover. If not specified, the boundary defaults to the trigger element's scroll parent (in most
   cases this will suffice).
 - A contextual variant in the form of `v-XXX` (where `XXX` is the color variant name).
 
-Where `[container]` can be (optional):
+Where `<value>` can be (optional):
 
-- An element ID (minus the #) to place the popover markup in, when visible
-- If not provided, popovers are appended to the `<body>` when visible
+- A string containing the **content** of the popover
+- A function reference to generate the **content** of the popover (receives one argument which is a
+  reference to the DOM element triggering the popover)
+- An object containing more complex configuration of popover, See below for available options.
+
+**Options configuration object properties:**
+
+| Property            | Type                                | Default          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------- | ----------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `animation`         | Boolean                             | `true`           | Apply a CSS fade transition to the popover.                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `container`         | String ID or HTMLElement or `false` | `false`          | Appends the popover to a specific element. Example: `container: '#body'`. This option is particularly useful in that it allows you to position the popover in the flow of the document near the triggering element - which will prevent the popover from floating away from the triggering element during a window resize. When set to `false` the popover will be appended to `body`, or if the trigger element is inside a modal it will append to the modal's container. |
+| `delay`             | Number or Object                    | `50`             | Delay showing and hiding the popover (ms). If a number is supplied, delay is applied to both hide/show. Object structure is: `delay: { "show": 500, "hide": 100 }`                                                                                                                                                                                                                                                                                                          |
+| `html`              | Boolean                             | `false`          | Allow HTML in the popover. If true, HTML tags in the popover's title and content will be rendered in the tooltip. If false, the title and content will be inserted as plain text. Use text if you're worried about XSS attacks.                                                                                                                                                                                                                                             |
+| `placement`         | String or Function                  | `'top'`          | How to position the popover - `auto`, `top`, `bottom`, `left`, `right`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom`. When `auto` is specified, it will dynamically reorient the tooltip.                                                                                                                                                                                                                      |
+| `title`             | String or Function                  | `''`             | Default title value if title attribute isn't present. If a function is given, it must return a string.                                                                                                                                                                                                                                                                                                                                                                      |
+| `content`           | String or Function                  | `''`             | Default content value. If a function is given, it must return a string.                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `trigger`           | String                              | `'hover focus'`  | How tooltip is triggered: `click`, `hover`, `focus`. You may pass multiple triggers; separate them with a space. Specify `'manual'` if you are only going to show and hide the tooltip programmatically.                                                                                                                                                                                                                                                                    |
+| `offset`            | Number or String                    | `0`              | Offset of the popover relative to its target. For more information refer to Popper.js's offset docs.                                                                                                                                                                                                                                                                                                                                                                        |
+| `fallbackPlacement` | String or Array                     | `'flip'`         | Allow to specify which position Popper will use on fallback. Can be `flip`, `clockwise`, `counterclockwise` or an array of placements. For more information refer to Popper.js's behavior docs.                                                                                                                                                                                                                                                                             |
+| `boundary`          | String ID or HTMLElement            | `'scrollParent'` | The container that the popover will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll. Supported values: `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                                                                                                                      |
+| `boundaryPadding`   | Number                              | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the popover. This makes sure the popover always has a little padding between the edges of its container.                                                                                                                                                                                                                                                                                       |
+| `variant`           | String                              | `null`           | Contextual color variant for the popover.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `customClass`       | String                              | `null`           | A custom classname to apply to the popover outer wrapper element.                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `id`                | String                              | `null`           | An ID to use on the popover root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page.                                                                                                                                                                                                                                                                                     |
 
 ### Usage
 
@@ -495,14 +526,16 @@ You can close (hide) **all open popovers** by emitting the `bv::hide::popover` e
 this.$root.$emit('bv::hide::popover')
 ```
 
-To close a **specific popover**, pass the trigger element's `id` as the first argument:
+To close a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if one
+was provided in the config object) as the first argument:
 
 ```js
 this.$root.$emit('bv::hide::popover', 'my-trigger-button-id')
 ```
 
-To open (show) a **specific popover**, pass the trigger element's `id` as the first argument when
-emitting the `bv::show::popover` event:
+To open a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if one
+was provided in the config object) as the first argument when emitting the `bv::show::popover`
+event:
 
 ```js
 this.$root.$emit('bv::show::popover', 'my-trigger-button-id')
@@ -524,14 +557,16 @@ You can disable **all** popovers by emitting the `bv::disable::popover` event on
 this.$root.$emit('bv::disable::popover')
 ```
 
-To disable a **specific popover**, pass the trigger element's `id` as the first argument:
+To disable a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if
+one was provided in the config object) as the first argument:
 
 ```js
 this.$root.$emit('bv::disable::popover', 'my-trigger-button-id')
 ```
 
-To enable a **specific popover**, pass the trigger element's `id` as the first argument when
-emitting the `bv::enable::popover` event:
+To enable a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if
+one was provided in the config object) as the first argument when emitting the `bv::enable::popover`
+event:
 
 ```js
 this.$root.$emit('bv::enable::popover', 'my-trigger-button-id')

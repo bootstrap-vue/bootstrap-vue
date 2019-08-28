@@ -81,26 +81,6 @@ tags to load the required JavaScript and CSS in your page.
 </html>
 ```
 
-## Vue CLI 2
-
-<span class="badge badge-warning small">DEPRECATED</span>
-
-### `webpack-simple` example
-
-Starter template: https://github.com/bootstrap-vue/webpack-simple
-
-Note: you may need to adjust the template package.json file to use the latest BootstrapVue version
-
-Coming soon!
-
-### `webpack` example
-
-Starter template: https://github.com/bootstrap-vue/webpack
-
-Note: you may need to adjust the template package.json file to use the latest BootstrapVue version
-
-Coming soon!
-
 ## Vue CLI 3
 
 Vue CLI 3 is the newest way to create Vue apps.

@@ -131,19 +131,19 @@ For a full list of all available slots see the [Slots](#comp-ref-b-pagination-sl
       :per-page="perPage"
       class="mt-4"
     >
-      <span class="text-success" slot="first-text">First</span>
-      <span class="text-danger" slot="prev-text">Prev</span>
-      <span class="text-warning" slot="next-text">Next</span>
-      <span class="text-info" slot="last-text">Last</span>
-      <div slot="ellipsis-text">
+      <template v-slot:first-text><span class="text-success">First</span></template>
+      <template v-slot:prev-text><span class="text-danger">Prev</span></template>
+      <template v-slot:next-text><span class="text-warning">Next</span></template>
+      <template v-slot:last-text><span class="text-info">Last</span></template>
+      <template v-slot:ellipsis-text>
         <b-spinner small type="grow"></b-spinner>
         <b-spinner small type="grow"></b-spinner>
         <b-spinner small type="grow"></b-spinner>
-      </div>
-      <span slot="page" slot-scope="{ page, active }">
+      </template>
+      <template v-slot:page="{ page, active }">
         <b v-if="active">{{ page }}</b>
         <i v-else>{{ page }}</i>
-      </span>
+      </template>
     </b-pagination>
   </div>
 </template>
