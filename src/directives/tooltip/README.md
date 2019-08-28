@@ -320,7 +320,7 @@ Where `[modX]` can be (all optional):
 - A hide delay value in the format of `dh###` (where `###` is in ms, defaults to `50`), applied to
   `hide` trigger only (affects `hover` and `focus` only)
 - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults
-  to 0. Negative values allowed)
+  to `0`. Negative values allowed)
 - A boundary setting of `window` or `viewport`. The element to constrain the visual placement of the
   tooltip. If not specified, the boundary defaults to the trigger element's scroll parent (in most
   cases this will suffice)
