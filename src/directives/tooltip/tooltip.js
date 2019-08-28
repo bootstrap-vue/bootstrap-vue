@@ -1,4 +1,4 @@
-import getScopId from '../../../utils/get-scope-id'
+import getScopId from '../../utils/get-scope-id'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
