@@ -34,14 +34,15 @@ export const BVTransition = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
-    mode: {
-      type: String
-      // default: undefined
-    },
     appear: {
       // Has no effect if `trans-props` provided
       type: Boolean,
       default: false
+    },
+    mode: {
+      // Can be overridden by user supplied trans-props
+      type: String
+      // default: undefined
     },
     // For user supplied transitions (if needed)
     transProps: {
