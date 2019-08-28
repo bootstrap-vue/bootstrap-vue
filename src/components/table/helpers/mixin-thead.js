@@ -49,14 +49,17 @@ export default {
       const h = this.$createElement
       const fields = this.computedFields || []
 
-      if (this.isStacked === true || fields.length === 0) {
+      if (this.isStackedAlways || fields.length === 0) {
         // In always stacked mode, we don't bother rendering the head/foot.
         // Or if no field headings (empty table)
         return h()
       }
 
+      // Refernce to `selectAllRows` and `clearSelected()`, if table is Selectable
+      const selectAllRows = this.isSelectable ? this.selectAllRows : () => {}
+      const clearSelected = this.isSelectable ? this.clearSelected : () => {}
+
       // Helper function to generate a field <th> cell
-      // TODO: This should be moved into it's own mixin
       const makeCell = (field, colIndex) => {
         let ariaLabel = null
         if (!field.label.trim() && !field.headerTitle) {
@@ -113,17 +116,22 @@ export default {
             ...slotNames
           ]
         }
-        const slot = this.normalizeSlot(slotNames, {
-          label: field.label,
-          column: field.key,
-          field,
-          isFoot
-        })
-        if (!slot) {
-          // need to check if this will work
+        const hasSlot = this.hasNormalizedSlot(slotNames)
+        let slot = field.label
+        if (hasSlot) {
+          slot = this.normalizeSlot(slotNames, {
+            label: field.label,
+            column: field.key,
+            field,
+            isFoot,
+            // Add in row select methods
+            selectAllRows,
+            clearSelected
+          })
+        } else {
           data.domProps = htmlOrText(field.labelHtml)
         }
-        return h(BTh, data, slot || field.label)
+        return h(BTh, data, slot)
       }
 
       // Generate the array of <th> cells
@@ -136,7 +144,10 @@ export default {
       } else {
         const scope = {
           columns: fields.length,
-          fields: fields
+          fields: fields,
+          // Add in row select methods
+          selectAllRows,
+          clearSelected
         }
         $trs.push(this.normalizeSlot('thead-top', scope) || h())
         $trs.push(h(BTr, { class: this.theadTrClass }, $cells))

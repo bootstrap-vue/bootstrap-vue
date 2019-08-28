@@ -179,4 +179,36 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
   })
+
+  it('applies card-header-tabs class when tabs and card-header props set', async () => {
+    const wrapper = mount(BNav, {
+      propsData: {
+        tabs: true,
+        cardHeader: true
+      }
+    })
+
+    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.classes()).toContain('nav')
+    expect(wrapper.classes()).toContain('nav-tabs')
+    expect(wrapper.classes()).toContain('card-header-tabs')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.text()).toBe('')
+  })
+
+  it('applies card-header-pills class when pills and card-header props set', async () => {
+    const wrapper = mount(BNav, {
+      propsData: {
+        pills: true,
+        cardHeader: true
+      }
+    })
+
+    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.classes()).toContain('nav')
+    expect(wrapper.classes()).toContain('nav-pills')
+    expect(wrapper.classes()).toContain('card-header-pills')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.text()).toBe('')
+  })
 })

@@ -210,12 +210,12 @@ Generally speaking, you'll want to use a particular state for specific types of 
 
 - `false` (denotes invalid state) is great for when there's a blocking or required field. A user
   must fill in this field properly to submit the form.
-- `true` (denotes valid state) is ideal for situations when you have per-field validation
-  throughout a form and want to encourage a user through the rest of the fields.
+- `true` (denotes valid state) is ideal for situations when you have per-field validation throughout
+  a form and want to encourage a user through the rest of the fields.
 - `null` Displays no validation state (neither valid nor invalid)
 
-To apply one of the contextual state icons on `<b-form-input>`, set the `state` prop to `false`
-(for invalid), `true` (for valid), or `null` (no validation state).
+To apply one of the contextual state icons on `<b-form-input>`, set the `state` prop to `false` (for
+invalid), `true` (for valid), or `null` (no validation state).
 
 ```html
 <b-container fluid>
@@ -311,8 +311,8 @@ text block.
 Specifically for assistive technologies, invalid form controls can also be assigned an
 `aria-invalid="true"` attribute.
 
-When `<b-form-input>` has an invalid contextual state (i.e. state is `false`) you may also want
-to set the `<b-form-input>` prop `aria-invalid` to `true`, or to one of the supported values:
+When `<b-form-input>` has an invalid contextual state (i.e. state is `false`) you may also want to
+set the `<b-form-input>` prop `aria-invalid` to `true`, or to one of the supported values:
 
 - `false`: Convey no errors detected (default)
 - `true` (or `'true'`): Convey that the value has failed validation.

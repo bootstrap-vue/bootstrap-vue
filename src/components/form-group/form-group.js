@@ -293,22 +293,29 @@ export const BFormGroup = {
       return keys(this.labelColProps).length > 0
     },
     labelId() {
-      return this.$slots['label'] || this.label ? this.safeId('_BV_label_') : null
+      return this.hasNormalizedSlot('label') || this.label ? this.safeId('_BV_label_') : null
     },
     descriptionId() {
-      return this.$slots['description'] || this.description ? this.safeId('_BV_description_') : null
+      return this.hasNormalizedSlot('description') || this.description
+        ? this.safeId('_BV_description_')
+        : null
     },
     hasInvalidFeedback() {
       // Used for computing aria-describedby
-      const $slots = this.$slots
-      return this.computedState === false && ($slots['invalid-feedback'] || this.invalidFeedback)
+      return (
+        this.computedState === false &&
+        (this.hasNormalizedSlot('invalid-feedback') || this.invalidFeedback)
+      )
     },
     invalidFeedbackId() {
       return this.hasInvalidFeedback ? this.safeId('_BV_feedback_invalid_') : null
     },
     hasValidFeedback() {
       // Used for computing aria-describedby
-      return this.computedState === true && (this.$slots['valid-feedback'] || this.validFeedback)
+      return (
+        this.computedState === true &&
+        (this.hasNormalizedSlot('valid-feedback') || this.validFeedback)
+      )
     },
     validFeedbackId() {
       return this.hasValidFeedback ? this.safeId('_BV_feedback_valid_') : null

@@ -22,7 +22,7 @@ For navigation based tabs (i.e. tabs that would change the URL), use the
 
 **Tip:** You should supply each child `<b-tab>` component a unique `key` value if dynamically adding
 or removing `<b-tab>` components (i.e. `v-if` or for loops). The `key` attribute is a special Vue
-attribute, see https://vuejs.org/v2/api/#key).
+attribute, see https://vuejs.org/v2/api/#key.
 
 ## Cards integration
 
@@ -288,7 +288,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
 <div>
   <b-tabs>
     <!-- Add your b-tab components here -->
-    <template slot="tabs-end">
+    <template v-slot:tabs-end>
       <b-nav-item href="#" @click="() => {}">Another tab</b-nav-item>
       <li class="nav-item align-self-center">Plain Text</li>
     </template>
@@ -313,14 +313,14 @@ Vue component, this possible by using `title` slot of `<b-tab>`.
 <div>
   <b-tabs>
     <b-tab active>
-      <template slot="title">
+      <template v-slot:title>
         <b-spinner type="grow" small></b-spinner> I'm <i>Custom</i> <strong>Title</strong>
       </template>
       <p class="p-3">Tab Contents 1</p>
     </b-tab>
 
     <b-tab>
-      <template slot="title">
+      <template v-slot:title>
         <b-spinner type="border" small></b-spinner> Tab 2
       </template>
       <p class="p-3">Tab Contents 2</p>
@@ -479,16 +479,18 @@ order to use these methods.
           </b-button>
         </b-tab>
 
-        <!-- New Tab Button (Using tabs slot) -->
-        <template slot="tabs-end">
+        <!-- New Tab Button (Using tabs-end slot) -->
+        <template v-slot:tabs-end>
           <b-nav-item @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
         </template>
 
         <!-- Render this if no tabs -->
-        <div slot="empty" class="text-center text-muted">
-          There are no open tabs<br>
-          Open a new tab using the <b>+</b> button above.
-        </div>
+        <template v-slot:empty>
+          <div class="text-center text-muted">
+            There are no open tabs<br>
+            Open a new tab using the <b>+</b> button above.
+          </div>
+        </template>
       </b-tabs>
     </b-card>
   </div>

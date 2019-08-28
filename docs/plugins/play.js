@@ -87,12 +87,12 @@ const destroyVM = (name, vm) => {
 }
 
 const processExamples = (el, binding, vnode, oldVnode) => {
-  if (vnode.context.$options['beforeDestroy']) {
-    vnode.context.$options['beforeDestroy'] = []
-      .concat(vnode.context.$options['beforeDestroy'])
+  if (vnode.context.$options.beforeDestroy) {
+    vnode.context.$options.beforeDestroy = []
+      .concat(vnode.context.$options.beforeDestroy)
       .filter(h => h)
   } else {
-    vnode.context.$options['beforeDestroy'] = []
+    vnode.context.$options.beforeDestroy = []
   }
 
   // Get all code-snippets
@@ -122,7 +122,7 @@ const processExamples = (el, binding, vnode, oldVnode) => {
     let vm = createVM(name, pre, vnode)
 
     // Ensure we destroy the VM when parent is destroyed
-    vnode.context.$options['beforeDestroy'].push(() => destroyVM(name, vm))
+    vnode.context.$options.beforeDestroy.push(() => destroyVM(name, vm))
 
     // Enable live edit on double click
     pre.ondblclick = async () => {

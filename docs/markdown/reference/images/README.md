@@ -72,7 +72,7 @@ module.exports = {
       .use('vue-loader')
       .loader('vue-loader')
       .tap(options => {
-        options['transformAssetUrls'] = {
+        options.transformAssetUrls = {
           img: 'src',
           image: 'xlink:href',
           'b-img': 'src',

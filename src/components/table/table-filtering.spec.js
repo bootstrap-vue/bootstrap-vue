@@ -235,4 +235,67 @@ describe('table > filtering', () => {
 
     wrapper.destroy()
   })
+
+  it('filter debouncing works', async () => {
+    jest.useFakeTimers()
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        filterDebounce: 100 // 100ms
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
+    expect(wrapper.findAll('tbody > tr').length).toBe(3)
+    expect(wrapper.vm.filterTimer).toBe(null)
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(testItems)
+    expect(wrapper.vm.filterTimer).toBe(null)
+
+    // Set filter to a single character
+    wrapper.setProps({
+      filter: '1'
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.vm.filterTimer).not.toBe(null)
+
+    // Change filter
+    wrapper.setProps({
+      filter: 'z'
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.vm.filterTimer).not.toBe(null)
+
+    jest.runTimersToTime(101)
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual([testItems[2]])
+    expect(wrapper.vm.filterTimer).toBe(null)
+
+    // Change filter
+    wrapper.setProps({
+      filter: '1'
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.filterTimer).not.toBe(null)
+    expect(wrapper.emitted('input').length).toBe(2)
+
+    // Change filter-debounce to no debouncing
+    wrapper.setProps({
+      filterDebounce: 0
+    })
+    await waitNT(wrapper.vm)
+    // Should clear the pending timer
+    expect(wrapper.vm.filterTimer).toBe(null)
+    // Should immediately filter the items
+    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input')[2][0]).toEqual([testItems[1]])
+
+    wrapper.destroy()
+  })
 })

@@ -30,7 +30,7 @@ as well.
 <template>
   <div>
     <b-card no-body>
-      <b-nav pills slot="header" v-b-scrollspy:nav-scroller>
+      <b-nav pills card-header slot="header" v-b-scrollspy:nav-scroller>
         <b-nav-item href="#fat" @click="scrollIntoView">@fat</b-nav-item>
         <b-nav-item href="#mdo" @click="scrollIntoView">@mdo</b-nav-item>
         <b-nav-item-dropdown text="Dropdown 1,2,3" right-alignment>
@@ -111,15 +111,15 @@ also be active. Scroll the area next to the navbar and watch the active class ch
       <b-col cols="4">
         <b-navbar v-b-scrollspy:scrollspy-nested class="flex-column">
           <b-navbar-brand href="#">Navbar</b-navbar-brand>
-          <b-nav pills class="flex-column">
+          <b-nav pills vertical>
             <b-nav-item href="#item-1">Item 1</b-nav-item>
-            <b-nav pills class="flex-column">
+            <b-nav pills vertical>
               <b-nav-item class="ml-3 my-1" href="#item-1-1">Item 1-1</b-nav-item>
               <b-nav-item class="ml-3 my-1" href="#item-1-2">Item 1-2</b-nav-item>
             </b-nav>
             <b-nav-item href="#item-2">Item 2</b-nav-item>
             <b-nav-item href="#item-3">Item 3</b-nav-item>
-            <b-nav pills class="flex-column">
+            <b-nav pills vertical>
               <b-nav-item class="ml-3 my-1" href="#item-3-1">Item 3-1</b-nav-item>
               <b-nav-item class="ml-3 my-1" href="#item-3-2">Item 3-2</b-nav-item>
             </b-nav>

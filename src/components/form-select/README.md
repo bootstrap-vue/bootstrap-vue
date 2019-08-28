@@ -76,7 +76,7 @@ and optgroups _above_ the options specified by the `options` prop, use the named
   <div>
     <b-form-select v-model="selected" :options="options" class="mb-3">
       <!-- This slot appears above the options from 'options' prop -->
-      <template slot="first">
+      <template v-slot:first>
         <option :value="null" disabled>-- Please select an option --</option>
       </template>
 
@@ -236,7 +236,7 @@ option with an empty value as your first option.
 
 ```html
 <b-form-select v-model="selected" :options="options">
-  <template slot="first">
+  <template v-slot:first>
     <option value="" disabled>-- Please select an option --</option>
   </template>
 </b-form-select>
@@ -385,8 +385,8 @@ Generally speaking, you'll want to use a particular state for specific types of 
 
 - `false` (denotes invalid state) is great for when there's a blocking or required field. A user
   must fill in this field properly to submit the form.
-- `true` (denotes valid state) is ideal for situations when you have per-field validation
-  throughout a form and want to encourage a user through the rest of the fields.
+- `true` (denotes valid state) is ideal for situations when you have per-field validation throughout
+  a form and want to encourage a user through the rest of the fields.
 - `null` Displays no validation state (neither valid nor invalid)
 
 To apply one of the contextual state icons on `<b-form-select>`, set the `state` prop to `false`

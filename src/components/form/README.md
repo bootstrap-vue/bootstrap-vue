@@ -157,7 +157,9 @@ Custom form controls and selects are also supported.
       :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
       id="inline-form-custom-select-pref"
     >
-      <option slot="first" :value="null">Choose...</option>
+      <template v-slot:first>
+        <option :value="null">Choose...</option>
+      </template>
     </b-form-select>
 
     <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember my preference</b-form-checkbox>
@@ -337,10 +339,9 @@ of three contextual states:
 
 - `false` (denotes invalid state) is great for when there's a blocking or required field. A user
   must fill in this field properly to submit the form.
-- `true` (denotes valid state) is ideal for situations when you have per-field validation
-  throughout a form and want to encourage a user through the rest of the fields.
+- `true` (denotes valid state) is ideal for situations when you have per-field validation throughout
+  a form and want to encourage a user through the rest of the fields.
 - `null` Displays no validation state (neither valid nor invalid)
-
 
 Refer to the
 [Bootstrap v4 Form Validation Documentation](https://getbootstrap.com/docs/4.3/components/forms/#validation)

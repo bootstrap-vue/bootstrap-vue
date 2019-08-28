@@ -5,7 +5,16 @@
 
 ```html
 <div class="text-center my-3">
-  <b-button v-b-tooltip.hover title="Tooltip content">Hover Me</b-button>
+  <b-button v-b-tooltip.hover title="Tooltip directive content">
+    Hover Me
+  </b-button>
+
+  <b-button id="tooltip-target-1">
+    Hover Me
+  </b-button>
+  <b-tooltip target="tooltip-target-1" triggers="hover">
+    I am tooltip <b>component</b> content!
+  </b-popover>
 </div>
 
 <!-- b-tooltip.vue -->
@@ -16,7 +25,6 @@
 Things to know when using tooltip component:
 
 - Tooltips rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
-- Tooltips with zero-length titles are never displayed.
 - Triggering tooltips on hidden elements will not work.
 - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more
   complex components (like input groups, button groups, etc). You can use container to optionally
@@ -25,22 +33,10 @@ Things to know when using tooltip component:
 - When triggered from hyperlinks that span multiple lines, tooltips will be centered. Use
   white-space: nowrap; on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
 
-The `<b-tooltip>` component inserts a hidden (`display:none`) `<div>` intermediate container element
-at the point in the DOM where the `<b-tooltip>` component is placed. This may affect layout and/or
-styling of components such as `<b-button-group>`, `<b-button-toolbar>`, and `<b-input-group>`. To
-avoid these possible layout issues, place the `<b-tooltip>` component **outside** of these types of
-components.
-
 The target element **must** exist in the document before `<b-tooltip>` is mounted. If the target
 element is not found during mount, the tooltip will never open. Always place your `<b-tooltip>`
 component lower in the DOM than your target element. This rule also applies if a callback is used as
 target element, since that callback is called only once on mount.
-
-**Note:** _When using the default slot for the title, `<b-tooltip>` transfers the rendered DOM from
-that slot into the tooltip's markup when shown, and returns the content back to the `<b-tooltip>`
-component when hidden. This may cause some issues in rare circumstances, so please test your
-implementation accordingly! The `title` prop does not have this behavior. For simple tooltips, we
-recommend using the `v-b-tooltip` directive and enable the `html` modifier if needed._
 
 ## Positioning
 
@@ -102,11 +98,41 @@ The default position is `top`. Positioning is relative to the trigger element.
 ## Triggers
 
 Tooltips can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
-default trigger is `hover focus`.
+default trigger is `hover focus`. Or a trigger of `manual` can be specified, where the popover can
+only be opened or closed [programmatically](#programmatically-disabling-tooltip).
 
 If a tooltip has more than one trigger, then all triggers must be cleared before the tooltip will
 close. I.e. if a tooltip has the trigger `focus click`, and it was opened by `focus`, and the user
 then clicks the trigger element, they must click it again **and** move focus to close the tooltip.
+
+### Making tooltips work for keyboard and assistive technology users
+
+You should only add tooltips to HTML elements that are traditionally keyboard-focusable and
+interactive (such as links, buttons, or form controls). Although arbitrary HTML elements (such as
+`<span>`s) can be made focusable by adding the `tabindex="0"` attribute, this will add potentially
+annoying and confusing tab stops on non-interactive elements for keyboard users. In addition, most
+assistive technologies currently do not announce the tooltip in this situation.
+
+Additionally, do not rely solely on `hover` as the trigger for your tooltip, as this will make your
+tooltips _impossible to trigger for keyboard-only users_.
+
+### Disabled elements
+
+Elements with the `disabled` attribute aren’t interactive, meaning users cannot focus, hover, or
+click them to trigger a tooltip (or popover). As a workaround, you’ll want to trigger the tooltip
+from a wrapper `<div>` or `<span>`, ideally made keyboard-focusable using `tabindex="0"`, and
+override the `pointer-events` on the disabled element.
+
+```html
+<div>
+  <span id="disabled-wrapper" class="d-inline-block" tabindex="0">
+    <b-button variant="primary" style="pointer-events: none;" disabled>Disabled button</b-button>
+  </span>
+  <b-tooltip target="disabled-wrapper">Disabled tooltip</b-tooltip>
+</div>
+
+<!-- disabled-trigger-element.vue -->
+```
 
 ## `<b-tooltip>` component usage
 
@@ -149,13 +175,14 @@ then clicks the trigger element, they must click it again **and** move focus to 
 | `fallback-placement` | `'flip'`         | Auto-flip placement behaviour of the tooltip, relative to the trigger element.                                                                                                                             | `flip`, `clockwise`, `counterclockwise`, or an array of valid placements evaluated from left to right                                            |
 | `triggers`           | `'hover focus'`  | Space separated list of event(s), which will trigger open/close of tooltip                                                                                                                                 | `hover`, `focus`, `click`. Note `blur` is a special use case to close tooltip on next click, usually used in conjunction with `click`.           |
 | `no-fade`            | `false`          | Disable fade animation when set to `true`                                                                                                                                                                  | `true` or `false`                                                                                                                                |
-| `delay`              | `0`              | Delay showing and hiding of tooltip by specified number of milliseconds. Can also be specified as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays              | `0` and up, integers only.                                                                                                                       |
+| `delay`              | `50`             | Delay showing and hiding of tooltip by specified number of milliseconds. Can also be specified as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays              | `0` and up, integers only.                                                                                                                       |
 | `offset`             | `0`              | Shift the center of the tooltip by specified number of pixels                                                                                                                                              | Any negative or positive integer                                                                                                                 |
 | `container`          | `null`           | Element string ID to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default)                                                                               | Any valid in-document unique element ID.                                                                                                         |
 | `boundary`           | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
 | `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
 | `variant`            | `null`           | Contextual color variant for the tooltip                                                                                                                                                                   | Any contextual theme color variant name                                                                                                          |
-| `customClass`        | `null`           | A custom classname to apply to the tooltip outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
+| `custom-class`       | `null`           | A custom classname to apply to the tooltip outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
+| `id`                 | `null`           | An ID to use on the tooltip root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page.                    | A valid unique element ID string                                                                                                                 |
 
 ### Variants and custom class
 
@@ -184,8 +211,7 @@ A custom class can be applied to the tooltip outer wrapper `<div>` by using the 
 </div>
 ```
 
-**Note:** Custom classes will not work with scoped styles, as the tooltips are appended to the
-document `<body>` element by default.
+`variant` and `custom-class` are reactive and can be changed while the tooltip is open.
 
 Refer to the [tooltip directive](/docs/directives/tooltip) docs on applying variants and custom
 class to the directive version.
@@ -379,14 +405,15 @@ You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` e
 this.$root.$emit('bv::hide::tooltip')
 ```
 
-To close a **specific tooltip**, pass the trigger element's `id` as the argument:
+To close a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if one
+was provided via the `id` prop), as the argument:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id')
 ```
 
-To open a **specific tooltip**, pass the trigger element's `id` as the argument when emitting the
-`bv::show::tooltip` \$root event:
+To open a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if one
+was provided via the `id` prop), as the argument when emitting the `bv::show::tooltip` \$root event:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id')
@@ -408,14 +435,16 @@ You can disable **all open tooltips** by emitting the `bv::disable::tooltip` eve
 this.$root.$emit('bv::disable::tooltip')
 ```
 
-To disable a **specific tooltip**, pass the trigger element's `id` as the argument:
+To disable a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if
+one was provided via the `id` prop), as the argument:
 
 ```js
 this.$root.$emit('bv::disable::tooltip', 'my-trigger-button-id')
 ```
 
-To enable a **specific tooltip**, pass the trigger element's `id` as the argument when emitting the
-`bv::enable::tooltip` \$root event:
+To enable a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if
+one was provided via the `id` prop), as the argument when emitting the `bv::enable::tooltip` \$root
+event:
 
 ```js
 this.$root.$emit('bv::enable::tooltip', 'my-trigger-button-id')
@@ -445,15 +474,5 @@ export default {
 
 Refer to the [Events](/docs/components/tooltip#component-reference) section of documentation for the
 full list of events.
-
-## Making tooltips work for keyboard and assistive technology users
-
-You should only add tooltips to HTML elements that are traditionally keyboard-focusable and
-interactive (such as links, buttons, or form controls). Although arbitrary HTML elements (such as
-`<span>`s) can be made focusable by adding the `tabindex="0"` attribute, this will add potentially
-annoying and confusing tab stops on non-interactive elements for keyboard users, and most assistive
-technologies currently do not announce the tooltip in this situation. Additionally, do not rely
-solely on `hover` as the trigger for your tooltip, as this will make your tooltips impossible to
-trigger for keyboard users.
 
 <!-- Component reference added automatically from component package.json -->
