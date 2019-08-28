@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import getScopId from '../../utils/get-scope-id'
 import { isArray, arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
@@ -199,11 +200,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // Ensure we have initial content
       this.updateContent()
       // Pass down the scoped style attribute if available
-      const scopeId = this.$options._scopeId
-        ? this.$options._scopeId
-        : this.$parent && this.$parent.$options
-          ? this.$parent.$options._scopeId
-          : null
+      const scopeId = getScopId(this) || getScopId(this.$parent)
       // Create the instance
       const $toolpop = (this.$_bv_toolpop = new Component({
         parent: this,

@@ -1,5 +1,6 @@
 import Vue from '../../../utils/vue'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
+import scopeAttrsMixin from '../../mixins/scope-attrs'
 import { BVPopper } from './bv-popper'
 
 const NAME = 'BVTooltipTemplate'
@@ -8,6 +9,7 @@ const NAME = 'BVTooltipTemplate'
 export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
   name: NAME,
   extends: BVPopper,
+  mixins: [scopeAttrsMixin],
   props: {
     // Other non-reactive (while open) props are pulled in from BVPopper
     id: {
@@ -45,16 +47,13 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       ]
     },
     templateAttributes() {
-      const attrs = {
+      return {
         id: this.id,
         role: 'tooltip',
-        tabindex: '-1'
-      }
-      if (this.$parent && this.$parent.$options && this.$parent.$options._scopeId) {
+        tabindex: '-1',
         // Add the scoped style data attribute to the template root element
-        attrs[this.$parent.$options._scopeId] = ''
+        ...this.scopeAttrs
       }
-      return attrs
     },
     templateListeners() {
       // Used for hover/focus trigger listeners
