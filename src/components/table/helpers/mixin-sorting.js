@@ -232,7 +232,8 @@ export default {
     sortTheadThClasses(key, field, isFoot) {
       return {
         // If sortable and sortIconLeft are true, then place sort icon on the left
-        'b-table-sort-icon-left': field.sortable && this.sortIconLeft && !(isFoot && this.noFooterSorting)
+        'b-table-sort-icon-left':
+          field.sortable && this.sortIconLeft && !(isFoot && this.noFooterSorting)
       }
     },
     sortTheadThAttrs(key, field, isFoot) {
