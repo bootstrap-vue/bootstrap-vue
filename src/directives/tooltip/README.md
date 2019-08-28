@@ -297,13 +297,13 @@ property:
 <b-button v-b-tooltip:[container].[mod1].[mod2].[...].[modN]="<value>">Button</b-button>
 ```
 
-Where [container] can be (optional)
+Where `[container]` can be (optional):
 
 - An element ID (minus the #) to place the tooltip markup in
 - If not provided, tooltips are appended to the `body`. If the trigger element is inside a modal,
   the tooltip will be appended to the modal's container
 
-Where [modX] can be (all optional):
+Where `[modX]` can be (all optional):
 
 - Positioning: `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`,
   `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom` (last one found wins,
