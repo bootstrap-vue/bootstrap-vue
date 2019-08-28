@@ -990,9 +990,10 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // If the parent has a scoped style attribute, and the modal
       // is portalled, add the scoped attribute to the modal wrapper
       const $parent = this.$parent
-      const scopeAttrs = !this.static && $parent && $parent.$options._scopeId
-        ? { [`${[$parent.$options._scopeId]}`]: '' }
-        : {}
+      const scopeAttrs =
+        !this.static && $parent && $parent.$options._scopeId
+          ? { [`${[$parent.$options._scopeId]}`]: '' }
+          : {}
 
       // Assemble modal and backdrop in an outer <div>
       return h(
