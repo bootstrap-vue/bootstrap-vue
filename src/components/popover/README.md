@@ -6,7 +6,17 @@
 
 ```html
 <div class="text-center my-3">
-  <b-button v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-button>
+  <b-button v-b-popover.hover.top="'I am popover directive content!'" title="Popover Title">
+    Hover Me
+  </b-button>
+
+  <b-button id="popover-target-1">
+    Hover Me
+  </b-button>
+  <b-popover target="popover-target-1" triggers="hover" placement="top">
+    <template v-slot:title>Popover Title</template>
+    I am popover <b>component</b> content!
+  </b-popover>
 </div>
 
 <!-- b-popover.vue -->
@@ -17,7 +27,6 @@
 Things to know when using popover component:
 
 - Popovers rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
-- Popovers with zero-length title _and_ content are never displayed.
 - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more
   complex components (like input groups, button groups, etc). You can use `container` to optionally
   specify a different element to append the rendered popover to.
@@ -26,21 +35,9 @@ Things to know when using popover component:
 - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use
   `white-space: nowrap;` on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
 
-The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` intermediate container
-element at the point in the DOM where the `<b-popover>` component is placed. This may affect layout
-and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`, and
-`<b-input-group>`. To avoid these possible layout issues, place the `<b-popover>` component
-**outside** of these types of components.
-
 The target element **must** exist in the document before `<b-popover>` is mounted. If the target
 element is not found during mount, the popover will never open. Always place your `<b-popover>`
 component lower in the DOM than your target element.
-
-**Note:** _When using slots for content and/or title, `<b-popover>` transfers the rendered DOM from
-those slots into the popover's markup when shown, and returns them back to the `<b-popover>`
-component when hidden. This may cause some issues in rare circumstances, so please test your
-implementation accordingly! The `title` and `content` props do not have this behavior. For simple
-popovers, we recommend using the `v-b-popover` directive and enable the `html` modifier if needed._
 
 ## Positioning
 
@@ -155,7 +152,8 @@ Positioning is relative to the trigger element.
 ## Triggers
 
 Popovers can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
-default trigger is `click`.
+default trigger is `click`. Or a trigger of `manual` can be specified, where the popover can only be
+opened or closed [programmatically](#programmatically-disabling-popover).
 
 If a popover has more than one trigger, then all triggers must be cleared before the popover will
 close. I.e. if a popover has the trigger `focus click`, and it was opened by `focus`, and the user
@@ -259,13 +257,14 @@ The special `blur` trigger **must** be used in combination with the `click` trig
 | `disabled`           | `false`          | Programmatic control of the Popover display state. Recommended to use with [sync modifier](https://vuejs.org/v2/guide/components.html#sync-Modifier).                                                      | `true`, `false`                                                                                                                                  |
 | `triggers`           | `'click'`        | Space separated list of event(s), which will trigger open/close of popover using built-in handling                                                                                                         | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.                                                     |
 | `no-fade`            | `false`          | Disable fade animation when set to `true`                                                                                                                                                                  | `true` or `false`                                                                                                                                |
-| `delay`              | `0`              | Delay showing and hiding of popover by specified number of milliseconds. Can also be defined as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays                | `0` and up, integers only.                                                                                                                       |
+| `delay`              | `50`             | Delay showing and hiding of popover by specified number of milliseconds. Can also be defined as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays                | `0` and up, integers only.                                                                                                                       |
 | `offset`             | `0`              | Shift the center of the popover by specified number of pixels. Also affects the position of the popover arrow.                                                                                             | Any negative or positive integer                                                                                                                 |
 | `container`          | `null`           | Element string ID to append rendered popover into. If `null` or element not found, popover is appended to `<body>` (default)                                                                               | Any valid in-document unique element ID.                                                                                                         |
 | `boundary`           | `'scrollParent'` | The container that the popover will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
 | `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the popover. This makes sure the popover always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
 | `variant`            | `null`           | Contextual color variant for the popover                                                                                                                                                                   | Any contextual theme color variant name                                                                                                          |
-| `customClass`        | `null`           | A custom classname to apply to the popover outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
+| `custom-class`       | `null`           | A custom classname to apply to the popover outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
+| `id`                 | `null`           | An ID to use on the popover root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page.                    | A valid unique element ID string                                                                                                                 |
 
 ### Variants and custom class
 
@@ -300,8 +299,7 @@ A custom class can be applied to the popover outer wrapper `<div>` by using the 
 </div>
 ```
 
-**Note:** Custom classes will not work with scoped styles, as the popovers are appended to the
-document `<body>` element by default.
+`variant` and `custom-class` are reactive and can be changed while the popover is open.
 
 Refer to the [popover directive](/docs/directives/popover) docs on applying variants and custom
 class to the directive version.
@@ -582,7 +580,7 @@ Just need quick popovers without too much markup? Use the
       </b-col>
 
       <b-col md="3" class="py-3">
-        <b-button v-b-popover.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-button>
+        <b-button v-b-popover.hover.bottom="'Tooltip!'" variant="primary">Bottom</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -596,9 +594,8 @@ information on the directive usage.
 
 ## Advanced `<b-popover>` usage with reactive content
 
-You can even make your `<b-popover>` content interactive. Just remember not to use the `focus`,
-`hover` or `blur` triggers (use only `click`), otherwise your popover will close automatically as
-soon as someone will try to interact with the content.
+You can even make your `<b-popover>` content interactive. Just remember not to use the `focus` or
+triggers (use only `click`).
 
 If you absolutely must use a trigger other than `click` (or want to disable closing of the popover
 when the trigger element is clicked a second time), then you can either:
@@ -617,7 +614,7 @@ to deal with on mobile devices (such as smart-phones).
   <div id="my-container">
     <div class="my-3">
       <!-- Our triggering (target) element -->
-      <b-button id="popover-reactive-1" :disabled="popoverShow" variant="primary" ref="button">
+      <b-button id="popover-reactive-1" variant="primary" ref="button">
         Reactive Content Using Slots
       </b-button>
     </div>
@@ -798,14 +795,16 @@ You can close (hide) **all open popovers** by emitting the `bv::hide::popover` e
 this.$root.$emit('bv::hide::popover')
 ```
 
-To close a **specific popover**, pass the trigger element's `id` as the first argument:
+To close a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if one
+was provided via the `id` prop), as the first argument:
 
 ```js
 this.$root.$emit('bv::hide::popover', 'my-trigger-button-id')
 ```
 
-To open (show) a **specific popover**, pass the trigger element's `id` as the first argument when
-emitting the `bv::show::popover` event:
+To open (show) a **specific popover**, pass the trigger element's `id`, or the `id` of the popover
+(if one was provided via the `id` prop), as the first argument when emitting the `bv::show::popover`
+event:
 
 ```js
 this.$root.$emit('bv::show::popover', 'my-trigger-button-id')
@@ -827,14 +826,16 @@ You can disable **all** popovers by emitting the `bv::disable::popover` event on
 this.$root.$emit('bv::disable::popover')
 ```
 
-To disable a **specific popover**, pass the trigger element's `id` as the first argument:
+To disable a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if
+one was provided via the `id` prop), as the first argument:
 
 ```js
 this.$root.$emit('bv::disable::popover', 'my-trigger-button-id')
 ```
 
-To enable a **specific popover**, pass the trigger element's `id` as the first argument when
-emitting the `bv::enable::popover` event:
+To enable a **specific popover**, pass the trigger element's `id`, or the `id` of the popover (if
+one was provided via the `id` prop), as the first argument when emitting the `bv::enable::popover`
+event:
 
 ```js
 this.$root.$emit('bv::enable::popover', 'my-trigger-button-id')

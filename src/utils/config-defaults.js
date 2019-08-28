@@ -139,7 +139,7 @@ export default deepFreeze({
     boundary: 'scrollParent',
     boundaryPadding: 5,
     customClass: null,
-    delay: 0,
+    delay: 50,
     variant: null
   },
   BProgress: {
@@ -173,7 +173,7 @@ export default deepFreeze({
     boundary: 'scrollParent',
     boundaryPadding: 5,
     customClass: null,
-    delay: 0,
+    delay: 50,
     variant: null
   }
 })
