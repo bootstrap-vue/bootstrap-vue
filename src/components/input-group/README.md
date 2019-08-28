@@ -12,7 +12,9 @@
 
   <!-- Using slots -->
   <b-input-group class="mt-3">
-    <b-input-group-text slot="append"><strong class="text-danger">!</strong></b-input-group-text>
+    <template v-slot:append>
+      <b-input-group-text><strong class="text-danger">!</strong></b-input-group-text>
+    </template>
     <b-form-input></b-form-input>
   </b-input-group>
 
@@ -61,13 +63,17 @@ The slot content will automatically be wrapped by
 ```html
 <div>
   <b-input-group>
-    <b-input-group-text slot="prepend">Username</b-input-group-text>
+    <template v-slot:prepend>
+      <b-input-group-text >Username</b-input-group-text>
+    </template>
     <b-form-input></b-form-input>
 
-    <b-dropdown text="Dropdown" variant="success" slot="append">
-      <b-dropdown-item>Action A</b-dropdown-item>
-      <b-dropdown-item>Action B</b-dropdown-item>
-    </b-dropdown>
+    <template v-slot:append>
+      <b-dropdown text="Dropdown" variant="success">
+        <b-dropdown-item>Action A</b-dropdown-item>
+        <b-dropdown-item>Action B</b-dropdown-item>
+      </b-dropdown>
+    </template>
   </b-input-group>
 </div>
 
@@ -229,17 +235,21 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
 ```html
 <div>
   <b-input-group>
-    <b-dropdown slot="prepend" text="Dropdown" variant="info">
-      <b-dropdown-item>Action A</b-dropdown-item>
-      <b-dropdown-item>Action B</b-dropdown-item>
-    </b-dropdown>
+    <template v-slot:prepend>
+      <b-dropdown text="Dropdown" variant="info">
+        <b-dropdown-item>Action A</b-dropdown-item>
+        <b-dropdown-item>Action B</b-dropdown-item>
+      </b-dropdown>
+    </template>
 
     <b-form-input></b-form-input>
 
-    <b-dropdown slot="append" text="Dropdown" variant="outline-secondary" v-for="i in 2" :key="i">
-      <b-dropdown-item>Action C</b-dropdown-item>
-      <b-dropdown-item>Action D</b-dropdown-item>
-    </b-dropdown>
+    <template v-slot:append>
+      <b-dropdown text="Dropdown" variant="outline-secondary" v-for="i in 2" :key="i">
+        <b-dropdown-item>Action C</b-dropdown-item>
+        <b-dropdown-item>Action D</b-dropdown-item>
+      </b-dropdown>
+    </template>
   </b-input-group>
 </div>
 

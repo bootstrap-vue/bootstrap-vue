@@ -22,13 +22,13 @@
           bordered
           striped
         >
-          <template slot="cell[component]" slot-scope="{ value }">
+          <template v-slot:cell[component]="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="cell[namedExport]" slot-scope="{ value }">
+          <template v-slot:cell[namedExport]="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="cell[importPath]" slot-scope="{ value }">
+          <template v-slot:cell[importPath]="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -57,13 +57,13 @@
           bordered
           striped
         >
-          <template slot="cell[directive]" slot-scope="{ value }">
+          <template v-slot:cell[directive]="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="cell[namedExport]" slot-scope="{ value }">
+          <template v-slot:cell[namedExport]="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="cell[importPath]" slot-scope="{ value }">
+          <template v-slot:cell[importPath]="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -97,10 +97,10 @@
         bordered
         striped
       >
-        <template slot="cell[namedExport]" slot-scope="{ value }">
+        <template v-slot:cell[namedExport]="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
-        <template slot="cell[importPath]" slot-scope="{ value }">
+        <template v-slot:cell[importPath]="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
       </b-table>
