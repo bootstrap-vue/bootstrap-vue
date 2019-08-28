@@ -2,7 +2,7 @@ import getScopId from '../utils/get-scope-id'
 
 export default {
   computed: {
-    scopeAttrs() {
+    scopedStyleAttrs() {
       const scopeId = getScopId(this.$parent)
       return scopeId ? { [scopeId]: '' } : {}
     }

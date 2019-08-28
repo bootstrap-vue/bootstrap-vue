@@ -7,7 +7,7 @@ import { requestAF, eventOn, eventOff } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import scopeAttrsMixin from '../../mixins/scope-attrs'
+import scopedStyleAttrsMixin from '../../mixins/scoped-style-attrs'
 import { BToaster } from './toaster'
 import { BButtonClose } from '../button/button-close'
 import { BLink } from '../link/link'
@@ -108,7 +108,7 @@ export const props = {
 // @vue/component
 export const BToast = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin, scopeAttrsMixin],
+  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin, scopedStyleAttrsMixin],
   inheritAttrs: false,
   model: {
     prop: 'visible',
@@ -410,7 +410,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     const name = `b-toast-${this._uid}`
     // If scoped styles are applied and the toast is not static,
     // make sure the scoped style data attribute is applied
-    const scopeAttrs = !this.static ? this.scopeAttrs : {}
+    const scopedStyleAttrs = !this.static ? this.scopedStyleAttrs : {}
 
     return h(
       Portal,
@@ -432,7 +432,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
             staticClass: 'b-toast',
             class: this.bToastClasses,
             attrs: {
-              ...scopeAttrs,
+              ...scopedStyleAttrs,
               id: this.safeId('_toast_outer'),
               role: this.isHiding ? null : this.isStatus ? 'status' : 'alert',
               'aria-live': this.isHiding ? null : this.isStatus ? 'polite' : 'assertive',
