@@ -186,39 +186,57 @@
 // --- Header sort styling ---
 
 .table.b-table {
-  > thead,
+  > thead, 
   > tfoot {
-    > tr {
-      > th {
-        &[aria-sort] {
-          // `&.sorting`
-          cursor: pointer;
+    > tr { 
+      > [aria-sort] {
+        cursor: pointer;
+        background-image: none;
+        background-repeat: no-repeat;
+        background-size: $b-table-sort-icon-bg-wdith $b-table-sort-icon-bg-height;
 
-          // Up/down `sort=null` indicator
-          &::before {
-            float: right;
-            margin-left: $b-table-sort-icon-margin-left;
-            width: $b-table-sort-icon-width;
-            font-size: inherit;
-            line-height: inherit;
-            opacity: 0.4;
-            content: $b-table-sort-icon-null; // Up/down arrow
-            speak: none;
+        &:not(.b-table-sort-icon-bg-left) {
+          // Default is icon on the right
+          background-position: right $table-cell-padding center;
+          padding-right: calc(#{$table-cell-padding * 2} + $b-table-sort-icon-bg-wdith);
+        }
+
+        &.b-table-sort-icon-bg-left {
+          // Left allign sort icon
+          background-position: left $table-cell-padding center center;
+          padding-left: calc(#{$table-cell-padding * 2} + $b-table-sort-icon-bg-wdith);
+        }
+      }
+
+      > [aria-sort="none"] {
+         background-image: escape-svg($b-table-sort-icon-bg-not-sorted);
+      }
+
+      > [aria-sort="ascending"] {
+        background-image: escape-svg($b-table-sort-icon-bg-ascending);
+      }
+
+      > [aria-sort="descending"] {
+        background-image: escape-svg($b-table-sort-icon-bg-descending);
+      }
+    }
+  }
+
+  // Padding and position adjustment for small tables
+  &.table-sm {
+      > thead,
+      > tfoot {
+        > tr > [aria-sort] {
+          &:not(.b-table-sort-icon-bg-left) {
+            // Default is icon on the right
+            background-position: right $table-cell-padding center;
+            padding-right: calc(#{$table-cell-padding * 2} + $b-table-sort-icon-bg-wdith);
           }
 
-          // Ascending indicator
-          &[aria-sort="ascending"]::before {
-            // `&.sorting_asc::after.sorting_asc`
-            opacity: 1;
-            content: $b-table-sort-icon-ascending; // Down arrow
-          }
-
-          // Descending indicator
-          &[aria-sort="descending"]::before {
-            // `&.sorting_desc::after`
-            opacity: 1;
-            content: $b-table-sort-icon-descending; // Up arrow
-          }
+          &.b-table-sort-icon-bg-left {
+            // Left allign sort icon
+            background-position: left $table-cell-padding-sm center;
+            padding-left: calc(#{$table-cell-padding-sm * 2} + $b-table-sort-icon-bg-wdith);
         }
       }
     }
