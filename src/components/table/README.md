@@ -379,7 +379,9 @@ requires BootstrapVue's custom CSS.
         :options="tableVariants"
         id="table-style-variant"
       >
-        <option value="" slot="first">-- None --</option>
+        <template v-slot:first>
+          <option value="">-- None --</option>
+        </template>
       </b-form-select>
     </b-form-group>
 
@@ -625,7 +627,7 @@ bottom of the table:
 <template>
   <div>
     <b-table :items="items" :fields="fields">
-      <template slot="table-caption">This is a table caption.</template>
+      <template v-slot:table-caption>This is a table caption.</template>
     </b-table>
   </div>
 </template>
@@ -654,7 +656,7 @@ You can have the caption placed at the top of the table by setting the `caption-
 <template>
   <div>
     <b-table :items="items" :fields="fields" caption-top>
-      <template slot="table-caption">This is a table caption at the top.</template>
+      <template v-slot:table-caption>This is a table caption at the top.</template>
     </b-table>
   </div>
 </template>
@@ -708,7 +710,7 @@ element. For example:
 
 ```html
 <b-table fixed responsive :items="items" :fields="fields" ... >
-  <template slot="table-colgroup" slot-scope="scope">
+  <template v-slot:table-colgroup="scope">
     <col
       v-for="field in scope.fields"
       :key="field.key"
@@ -749,10 +751,12 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
     <b-button @click="toggleBusy">Toggle Busy State</b-button>
 
     <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
-      <div slot="table-busy" class="text-center text-danger my-2">
-        <b-spinner class="align-middle"></b-spinner>
-        <strong>Loading...</strong>
-      </div>
+      <template v-slot:table-busy>
+        <div class="text-center text-danger my-2">
+          <b-spinner class="align-middle"></b-spinner>
+          <strong>Loading...</strong>
+        </div>
+      </template>
     </b-table>
   </div>
 </template>
@@ -814,22 +818,22 @@ explicit scoped slot provided.
   <div>
     <b-table small :fields="fields" :items="items">
       <!-- A virtual column -->
-      <template slot="cell[index]" slot-scope="data">
+      <template v-slot:cell[index]="data">
         {{ data.index + 1 }}
       </template>
 
       <!-- A custom formatted column -->
-      <template slot="cell[name]" slot-scope="data">
+      <template v-slot:cell[name]="data">
         <b>{{ data.value.last }}</b>, {{ data.value.first }}
       </template>
 
       <!-- A virtual composite column -->
-      <template slot="cell[nameage]" slot-scope="data">
+      <template v-slot:cell[nameage]="data">
         {{ data.item.name.first }} is {{ data.item.age }} years old
       </template>
 
       <!-- Optional default data cell scoped slot -->
-      <template slot="cell[]" slot-scope="data">
+      <template v-slot:cell[]="data">
         <i>{{ data.value }}</i>
       </template>
     </b-table>
@@ -895,7 +899,9 @@ scoped field slot.
 <template>
   <div>
     <b-table :items="items">
-      <span slot="cell[html]" slot-scope="data" v-html="data.value"></span>
+      <template v-slot:cell[html]="data">
+        <span v-html="data.value"></span>
+      </template>
     </b-table>
   </div>
 </template>
@@ -944,7 +950,7 @@ formatted value as a string (HTML strings are not supported)
 <template>
   <div>
     <b-table :fields="fields" :items="items">
-      <template slot="cell[name]" slot-scope="data">
+      <template v-slot:cell[name]="data">
         <!-- `data.value` is the value after formatted by the Formatter -->
         <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
       </template>
@@ -1019,22 +1025,22 @@ footer cells that do not have an explicit scoped slot provided.
   <div>
     <b-table :fields="fields" :items="items" foot-clone>
       <!-- A custom formatted data column cell -->
-      <template slot="cell[name]" slot-scope="data">
+      <template v-slot:cell[name]="data">
         {{ data.value.first }} {{ data.value.last }}
       </template>
 
       <!-- A custom formatted header cell for field 'name' -->
-      <template slot="head[name]" slot-scope="data">
+      <template v-slot:head[name]="data">
         <span class="text-info">{{ data.label }}</b>
       </template>
 
       <!-- A custom formatted footer cell for field 'name' -->
-      <template slot="foot[name]" slot-scope="data">
+      <template v-slot:foot[name]="data">
         <span class="text-danger">{{ data.label }}</span>
       </template>
 
       <!-- Default fall-back custom formatted footer cell -->
-      <template slot="foot[]" slot-scope="data">
+      <template v-slot:foot[]="data">
         <i>{{ data.label }}</i>
       </template>
     </b-table>
@@ -1098,7 +1104,7 @@ rather than native browser table child elements.
       :fields="fields"
       responsive="sm"
     >
-      <template slot="thead-top" slot-scope="data">
+      <template v-slot:thead-top="data">
         <b-tr>
           <b-td colspan="2">&nbsp;</b-td>
           <b-th variant="secondary">Type 1</b-th>
@@ -1158,10 +1164,10 @@ either falsy or an array of length 0.
 ```html
 <div>
   <b-table :fields="fields" :items="items" show-empty>
-    <template slot="empty" slot-scope="scope">
+    <template v-slot:empty="scope">
       <h4>{{ scope.emptyText }}</h4>
     </template>
-    <template slot="emptyfiltered" slot-scope="scope">
+    <template v-slot:emptyfiltered="scope">
       <h4>{{ scope.emptyFilteredText }}</h4>
     </template>
   </b-table>
@@ -1255,10 +1261,14 @@ set.
     <b-form-checkbox v-model="stickyHeader" class="mb-2">Sticky header</b-form-checkbox>
     <b-table :sticky-header="stickyHeader" responsive :items="items" :fields="fields">
       <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
-      <div slot="head[id]" class="text-nowrap" slot-scope="scope">Row ID</div>
-      <div slot="head[]" class="text-nowrap" slot-scope="scope">
-        Heading {{ scope.label }}
-      </div>
+      <template v-slot:head[id]="scope">
+        <div class="text-nowrap">Row ID</div>
+      </template>
+      <template v-slot:head[]="scope">
+        <div class="text-nowrap">
+          Heading {{ scope.label }}
+        </div>
+      </template>
     </b-table>
   </div>
 </template>
@@ -1358,7 +1368,7 @@ initially showing.
 <template>
   <div>
     <b-table :items="items" :fields="fields" striped responsive="sm">
-      <template slot="cell[show_details]" slot-scope="row">
+      <template v-slot:cell[show_details]="row">
         <b-button size="sm" @click="row.toggleDetails" class="mr-2">
           {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
         </b-button>
@@ -1369,7 +1379,7 @@ initially showing.
         </b-form-checkbox>
       </template>
 
-      <template slot="row-details" slot-scope="row">
+      <template v-slot:row-details="row">
         <b-card>
           <b-row class="mb-2">
             <b-col sm="3" class="text-sm-right"><b>Age:</b></b-col>
@@ -1465,7 +1475,7 @@ Programmatic selection notes:
       responsive="sm"
     >
       <!-- Example scoped slot for select state illustrative purposes -->
-      <template slot="cell[selected]" slot-scope="{ rowSelected }">
+      <template v-slot:cell[selected]="{ rowSelected }">
         <template v-if="rowSelected">
           <span aria-hidden="true">&check;</span>
           <span class="sr-only">Selected</span>
@@ -2687,7 +2697,9 @@ your app handles the various inconsistencies with events.
         >
           <b-input-group size="sm">
             <b-form-select v-model="sortBy" id="sortBySelect" :options="sortOptions" class="w-75">
-              <option slot="first" value="">-- none --</option>
+              <template v-slot:first>
+                <option value="">-- none --</option>
+              </template>
             </b-form-select>
             <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy" class="w-25">
               <option :value="false">Asc</option>
@@ -2802,11 +2814,11 @@ your app handles the various inconsistencies with events.
       :sort-direction="sortDirection"
       @filtered="onFiltered"
     >
-      <template slot="cell[name]" slot-scope="row">
+      <template v-slot:cell[name]="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
 
-      <template slot="cell[actions]" slot-scope="row">
+      <template v-slot:cell[actions]="row">
         <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
         </b-button>
@@ -2815,7 +2827,7 @@ your app handles the various inconsistencies with events.
         </b-button>
       </template>
 
-      <template slot="row-details" slot-scope="row">
+      <template v-slot:row-details="row">
         <b-card>
           <ul>
             <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
