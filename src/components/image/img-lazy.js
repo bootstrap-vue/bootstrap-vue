@@ -1,15 +1,10 @@
 import Vue from '../../utils/vue'
 import { BImg } from './img'
 import { getComponentConfig } from '../../utils/config'
-import { getBCR, eventOn, eventOff } from '../../utils/dom'
 import { hasIntersectionObserverSupport } from '../../utils/env'
 import { VBVisible } from '../../directives/visible'
 
 const NAME = 'BImgLazy'
-
-// TODO: if we assume user has IntersectionObserver, then these can be removed
-const THROTTLE = 100
-const EVENT_OPTIONS = { passive: true, capture: false }
 
 export const props = {
   src: {
