@@ -1,9 +1,9 @@
-import getScopId from '../utils/get-scope-id'
+import getScopeId from '../utils/get-scope-id'
 
 export default {
   computed: {
     scopedStyleAttrs() {
-      const scopeId = getScopId(this.$parent)
+      const scopeId = getScopeId(this.$parent)
       return scopeId ? { [scopeId]: '' } : {}
     }
   }
