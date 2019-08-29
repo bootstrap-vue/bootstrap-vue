@@ -186,15 +186,11 @@
 // --- Header sort styling ---
 
 // Bootstrap v4.4 will include this variable as `escaped-characters`
-// But if we want to preserve backwards compatability with v4.3, we leave this in
-$bv-escaped-characters: (
-  ("<","%3c"),
-  (">","%3e"),
-  ("#","%23"),
-);
+// But if we want to preserve backwards compatibility with v4.3, we leave this in
+$bv-escaped-characters: (("<", "%3c"), (">", "%3e"), ("#", "%23"));
 
 // Bootstrap v4.4 will include this method as `escape-svg`
-// But if we want to preserve backwards compatability with v4.3, we leave this in
+// But if we want to preserve backwards compatibility with v4.3, we leave this in
 // See https://codepen.io/kevinweber/pen/dXWoRw
 @function bv-escape-svg($string) {
   @if str-index($string, "data:image/svg+xml") {
@@ -207,9 +203,9 @@ $bv-escaped-characters: (
 }
 
 .table.b-table {
-  > thead, 
+  > thead,
   > tfoot {
-    > tr { 
+    > tr {
       > [aria-sort] {
         cursor: pointer;
         background-image: none;
@@ -223,14 +219,14 @@ $bv-escaped-characters: (
         }
 
         &.b-table-sort-icon-left {
-          // Left allign sort icon
+          // Left aligned sort icon
           background-position: left calc(#{$table-cell-padding} / 2) center;
           padding-left: calc(#{$table-cell-padding} + #{$b-table-sort-icon-bg-width});
         }
       }
 
       > [aria-sort="none"] {
-         background-image: bv-escape-svg($b-table-sort-icon-bg-not-sorted);
+        background-image: bv-escape-svg($b-table-sort-icon-bg-not-sorted);
       }
 
       > [aria-sort="ascending"] {
@@ -248,7 +244,7 @@ $bv-escaped-characters: (
   &.table-dark > tfoot > tr,
   > .thead-dark > tr {
     > [aria-sort="none"] {
-       background-image: bv-escape-svg($b-table-sort-icon-bg-dark-not-sorted);
+      background-image: bv-escape-svg($b-table-sort-icon-bg-dark-not-sorted);
     }
 
     > [aria-sort="ascending"] {
@@ -264,7 +260,7 @@ $bv-escaped-characters: (
   > thead > tr > .table-dark,
   > tfoot > tr > .table-dark {
     &[aria-sort="none"] {
-       background-image: bv-escape-svg($b-table-sort-icon-bg-dark-not-sorted);
+      background-image: bv-escape-svg($b-table-sort-icon-bg-dark-not-sorted);
     }
 
     &[aria-sort="ascending"] {
@@ -278,19 +274,19 @@ $bv-escaped-characters: (
 
   // Padding and position adjustment for small tables
   &.table-sm {
-      > thead,
-      > tfoot {
-        > tr > [aria-sort] {
-          &:not(.b-table-sort-icon-left) {
-            // Default is icon on the right
-            background-position: right calc(#{$table-cell-padding-sm} / 2) center;
-            padding-right: calc(#{$table-cell-padding-sm} + #{$b-table-sort-icon-bg-width});
-          }
+    > thead,
+    > tfoot {
+      > tr > [aria-sort] {
+        &:not(.b-table-sort-icon-left) {
+          // Default is icon on the right
+          background-position: right calc(#{$table-cell-padding-sm} / 2) center;
+          padding-right: calc(#{$table-cell-padding-sm} + #{$b-table-sort-icon-bg-width});
+        }
 
-          &.b-table-sort-icon-left {
-            // Left allign sort icon
-            background-position: left calc(#{$table-cell-padding-sm} / 2) center;
-            padding-left: calc(#{$table-cell-padding-sm} + #{$b-table-sort-icon-bg-width});
+        &.b-table-sort-icon-left {
+          // Left aligned sort icon
+          background-position: left calc(#{$table-cell-padding-sm} / 2) center;
+          padding-left: calc(#{$table-cell-padding-sm} + #{$b-table-sort-icon-bg-width});
         }
       }
     }
