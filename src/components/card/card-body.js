@@ -61,5 +61,3 @@ export const BCardBody = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BCardBody
