@@ -10,14 +10,19 @@ describe('img-lazy', () => {
     // So we mock up just the basics
     global.IntersectionObserver = class IntersectionObserver {
       constructor(handler, opts) {
+        // We store a copy of handler so we can call it
+        // during tests
         this.handler = handler
       }
+
       observe() {
         return null
       }
+
       unobserve() {
         return null
       }
+
       disconnect() {
         return null
       }
@@ -29,7 +34,7 @@ describe('img-lazy', () => {
       delete global.IntersectionObserver
     } catch {}
   })
-  
+
   it('has root element "img"', async () => {
     const wrapper = mount(BImgLazy, {
       attachToDocument: true,
