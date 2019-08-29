@@ -5,8 +5,34 @@ import { BImgLazy } from './img-lazy'
 const src = 'https://picsum.photos/1024/400/?image=41'
 
 describe('img-lazy', () => {
+  beforeEach(() => {
+    // IntersectionObserver not supported by JSDOM
+    // So we mock up just the basics
+    global.IntersectionObserver = class IntersectionObserver {
+      constructor(handler, opts) {
+        this.handler = handler
+      }
+      observe() {
+        return null
+      }
+      unobserve() {
+        return null
+      }
+      disconnect() {
+        return null
+      }
+    }
+  })
+
+  afterEach(() => {
+    try {
+      delete global.IntersectionObserver
+    } catch {}
+  })
+  
   it('has root element "img"', async () => {
     const wrapper = mount(BImgLazy, {
+      attachToDocument: true,
       propsData: {
         src: src
       }
@@ -18,6 +44,7 @@ describe('img-lazy', () => {
 
   it('is initially shown show prop is set', async () => {
     const wrapper = mount(BImgLazy, {
+      attachToDocument: true,
       propsData: {
         src: src,
         show: true
@@ -33,6 +60,7 @@ describe('img-lazy', () => {
 
   it('shows when show prop is set', async () => {
     const wrapper = mount(BImgLazy, {
+      attachToDocument: true,
       propsData: {
         src: src,
         show: false
@@ -43,11 +71,19 @@ describe('img-lazy', () => {
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
 
+    // Our directive instance with test "fake" observer
+    let observer = wrapper.element.__bv__visibility_observer
+    expect(observer).toBeDefined()
+
     wrapper.setProps({
       show: true
     })
     await waitNT(wrapper.vm)
     expect(wrapper.attributes('src')).toBe(src)
+
+    // Our directive instance should be gone
+    observer = wrapper.element.__bv__visibility_observer
+    expect(observer).not.toBeDefined()
 
     wrapper.setProps({
       show: false
@@ -55,87 +91,10 @@ describe('img-lazy', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
 
+    // Our directive instance should be back
+    observer = wrapper.element.__bv__visibility_observer
+    expect(observer).toBeDefined()
+
     wrapper.destroy()
-  })
-
-  // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
-  describe('scroll events', () => {
-    const origGetBCR = Element.prototype.getBoundingClientRect
-
-    jest.useFakeTimers()
-
-    afterEach(() => {
-      // Restore prototype
-      Element.prototype.getBoundingClientRect = origGetBCR
-    })
-
-    it('triggers check on resize event event', async () => {
-      const src = 'https://picsum.photos/1024/400/?image=41'
-
-      // Fake getBCR initially "off screen"
-      Element.prototype.getBoundingClientRect = jest.fn(() => ({
-        width: 24,
-        height: 24,
-        top: 10000,
-        left: 10000,
-        bottom: -10000,
-        right: -10000
-      }))
-
-      const wrapper = mount(BImgLazy, {
-        attachToDocument: true,
-        propsData: {
-          src: src,
-          offset: 500
-        }
-      })
-      expect(wrapper.is('img')).toBe(true)
-
-      expect(wrapper.attributes('src')).toBeDefined()
-      expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
-
-      expect(wrapper.vm.scrollTimeout).toBe(null)
-
-      // Fake getBCR "in view"
-      Element.prototype.getBoundingClientRect = jest.fn(() => ({
-        width: 24,
-        height: 24,
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0
-      }))
-
-      window.dispatchEvent(new UIEvent('resize'))
-
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
-
-      expect(wrapper.vm.scrollTimeout).not.toBe(null)
-
-      // Since JSDOM doesnt support getBCR, we fake it by setting
-      // the data prop to shown
-      // wrapper.setData({
-      //   isShown: true
-      // })
-
-      // Advance the setTimeout
-      jest.runOnlyPendingTimers()
-
-      await wrapper.vm.$nextTick()
-      await wrapper.vm.$nextTick()
-
-      expect(wrapper.vm.scrollTimeout).toBe(null)
-
-      expect(wrapper.attributes('src')).toContain(src)
-
-      window.dispatchEvent(new UIEvent('resize'))
-
-      expect(wrapper.vm.scrollTimeout).toBe(null)
-
-      wrapper.destroy()
-
-      Element.prototype.getBoundingClientRect = origGetBCR
-    })
   })
 })
