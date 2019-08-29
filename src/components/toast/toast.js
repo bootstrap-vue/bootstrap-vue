@@ -449,5 +449,3 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BToast
