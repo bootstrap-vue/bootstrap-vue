@@ -100,5 +100,3 @@ export const BCard = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BCard
