@@ -66,5 +66,3 @@ export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
     ])
   }
 })
-
-export default BDropdownItemButton
