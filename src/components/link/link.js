@@ -170,10 +170,10 @@ export const BLink = /*#__PURE__*/ Vue.extend({
             : this.$attrs.tabindex,
         'aria-disabled': this.disabled ? 'true' : null
       },
-      props: this.computedProps,
-      on: isRouterLink ? {} : handlers,
-      nativeOn: isRouterLink ? handlers : {}
+      props: this.computedProps
     }
+    // Add the event handlers. We must use `navtiveOn` for `<router-link>`/`<nuxt-link>`
+    componentData[isRouterLink ? 'nativeOn' : 'on'] = handers
 
     // If href attribute exists on <router-link> (even undefined or null) it fails working on
     // SSR, so we explicitly add it here if needed (i.e. if computedHref() is truthy)
