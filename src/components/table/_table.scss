@@ -185,7 +185,7 @@
 
 // --- Header sort styling ---
 
-// Bootstrap v4.4 will include this variable as `escaped-characters`
+// Bootstrap v4.4 will include this variable as `$escaped-characters`
 // But if we want to preserve backwards compatibility with v4.3, we leave this in
 $bv-escaped-characters: (("<", "%3c"), (">", "%3e"), ("#", "%23"));
 
