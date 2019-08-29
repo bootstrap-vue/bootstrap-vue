@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router'
 import { mount, createLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BPaginationNav from './pagination-nav'
+import { BPaginationNav } from './pagination-nav'
 
 const localVue = createLocalVue()
 localVue.use(VueRouter)
