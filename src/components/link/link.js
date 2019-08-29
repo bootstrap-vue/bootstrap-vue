@@ -153,10 +153,6 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     const href = this.computedHref
     const isRouterLink = this.isRouterLink
 
-    // We want to overwrite any click handler since our callback
-    // will invoke the user supplied handler9s) if !props.disabled
-    const handlers = { ...this.$listeners, click: this.onClick }
-
     const componentData = {
       class: { active: this.active, disabled: this.disabled },
       attrs: {
@@ -172,8 +168,15 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       },
       props: this.computedProps
     }
-    // Add the event handlers. We must use `navtiveOn` for `<router-link>`/`<nuxt-link>`
-    componentData[isRouterLink ? 'nativeOn' : 'on'] = handers
+    // Add the event handlers. We must use `navtiveOn` for
+    // `<router-link>`/`<nuxt-link>` instead of `on`
+    componentData[isRouterLink ? 'nativeOn' : 'on'] = {
+      // Transfer all listeners (native) to the root element
+      ...this.$listeners,
+      // We want to overwrite any click handler since our callback
+      // will invoke the user supplied handler(s) if `!this.disabled`
+      click: this.onClick
+    }
 
     // If href attribute exists on <router-link> (even undefined or null) it fails working on
     // SSR, so we explicitly add it here if needed (i.e. if computedHref() is truthy)
