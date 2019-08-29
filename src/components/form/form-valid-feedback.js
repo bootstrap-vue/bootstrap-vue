@@ -58,5 +58,3 @@ export const BFormValidFeedback = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BFormValidFeedback

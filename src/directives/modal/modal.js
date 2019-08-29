@@ -37,5 +37,3 @@ export const VBModal = {
     }
   }
 }
-
-export default VBModal

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BMedia from './media'
+import { BMedia } from './media'
 
 describe('media', () => {
   it('has expected default structure', async () => {

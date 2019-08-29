@@ -219,5 +219,5 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
   }
 })
 
-// Export our ModalManager
-export default new ModalManager()
+// Create and export our modal manager instance
+export const modalManager = new ModalManager()

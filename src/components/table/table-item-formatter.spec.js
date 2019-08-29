@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BTable from './table'
+import { BTable } from './table'
 
 describe('table > field-formatter', () => {
   it('item field formatter as function works', async () => {

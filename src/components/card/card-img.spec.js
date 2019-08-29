@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BCardImg from './card-img'
+import { BCardImg } from './card-img'
 
 describe('card-image', () => {
   it('default has tag "img"', async () => {

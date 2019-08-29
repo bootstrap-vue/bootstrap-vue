@@ -38,5 +38,3 @@ export const BEmbed = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BEmbed

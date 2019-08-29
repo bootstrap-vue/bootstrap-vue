@@ -187,5 +187,3 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     return h(tag, componentData, this.normalizeSlot('default'))
   }
 })
-
-export default BLink

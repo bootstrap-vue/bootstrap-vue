@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BFormInvalidFeedback from './form-invalid-feedback'
+import { BFormInvalidFeedback } from './form-invalid-feedback'
 
 describe('form-invalid-feedback', () => {
   it('default should have tag div', async () => {

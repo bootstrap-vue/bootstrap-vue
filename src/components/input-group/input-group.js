@@ -99,5 +99,3 @@ export const BInputGroup = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BInputGroup

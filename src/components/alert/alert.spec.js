@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BAlert from './alert'
+import { BAlert } from './alert'
 
 describe('alert', () => {
   it('hidden alert renders comment node', async () => {

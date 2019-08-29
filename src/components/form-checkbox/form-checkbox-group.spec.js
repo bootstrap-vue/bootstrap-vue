@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import BFormCheckboxGroup from './form-checkbox-group'
-import BFormCheckbox from './form-checkbox'
+import { BFormCheckboxGroup } from './form-checkbox-group'
+import { BFormCheckbox } from './form-checkbox'
 
 describe('form-checkbox-group', () => {
   // --- Structure, class and attributes tests ---

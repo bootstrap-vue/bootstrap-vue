@@ -132,5 +132,3 @@ export const BToaster = /*#__PURE__*/ Vue.extend({
     return $toaster
   }
 })
-
-export default BToaster

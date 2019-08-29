@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BToast from './toast'
+import { BToast } from './toast'
 
 describe('b-toast', () => {
   beforeAll(() => {

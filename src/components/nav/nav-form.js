@@ -14,5 +14,3 @@ export const BNavForm = /*#__PURE__*/ Vue.extend({
     return h(BForm, mergeData(data, { props: { ...props, inline: true } }), children)
   }
 })
-
-export default BNavForm

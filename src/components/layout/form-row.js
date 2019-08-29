@@ -23,5 +23,3 @@ export const BFormRow = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BFormRow

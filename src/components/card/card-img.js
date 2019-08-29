@@ -78,5 +78,3 @@ export const BCardImg = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BCardImg

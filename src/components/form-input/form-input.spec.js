@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BFormInput from './form-input'
+import { BFormInput } from './form-input'
 
 describe('form-input', () => {
   it('has class form-control', async () => {

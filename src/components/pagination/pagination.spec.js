@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
 import { isVisible, getBCR, contains } from '../../utils/dom'
-import BPagination from './pagination'
+import { BPagination } from './pagination'
 
 describe('pagination', () => {
   it('renders with correct basic structure for root element', async () => {

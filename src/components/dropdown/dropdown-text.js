@@ -33,5 +33,3 @@ export const BDropdownText = /*#__PURE__*/ Vue.extend({
     ])
   }
 })
-
-export default BDropdownText

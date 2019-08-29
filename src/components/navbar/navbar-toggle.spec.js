@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BNavbarToggle from './navbar-toggle'
+import { BNavbarToggle } from './navbar-toggle'
 
 describe('navbar-toggle', () => {
   it('default has tag "button"', async () => {

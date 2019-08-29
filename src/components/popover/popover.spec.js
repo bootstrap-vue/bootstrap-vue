@@ -1,6 +1,6 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BPopover from './popover'
+import { BPopover } from './popover'
 
 const localVue = new CreateLocalVue()
 

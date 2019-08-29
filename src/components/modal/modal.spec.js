@@ -1,7 +1,7 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BModal from './modal'
-import BvModalEvent from './helpers/bv-modal-event.class'
+import { BModal } from './modal'
+import { BvModalEvent } from './helpers/bv-modal-event.class'
 
 // The default Z-INDEX for modal backdrop
 const DEFAULT_ZINDEX = 1040

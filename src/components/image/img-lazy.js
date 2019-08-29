@@ -270,5 +270,3 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
     })
   }
 })
-
-export default BImgLazy

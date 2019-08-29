@@ -1,7 +1,7 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BCarousel from './carousel'
-import BCarouselSlide from './carousel-slide'
+import { BCarousel } from './carousel'
+import { BCarouselSlide } from './carousel-slide'
 
 const localVue = new CreateLocalVue()
 

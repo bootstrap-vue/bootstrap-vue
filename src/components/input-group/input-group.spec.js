@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BInputGroup from './input-group'
+import { BInputGroup } from './input-group'
 
 describe('input-group', () => {
   it('should have expected default structure', async () => {

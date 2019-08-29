@@ -77,5 +77,3 @@ export const BNav = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BNav

@@ -136,5 +136,3 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BFormSelect
