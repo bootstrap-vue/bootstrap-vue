@@ -4,6 +4,7 @@
 // Instantiates template on demand
 
 import Vue from '../../../utils/vue'
+import getScopId from '../../../utils/get-scope-id'
 import looseEqual from '../../../utils/loose-equal'
 import { arrayIncludes, concat, from as arrayFrom } from '../../../utils/array'
 import {
@@ -205,7 +206,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const target = this.getTarget()
       if (target && document.contains(target)) {
         // Copy the parent's scoped style attribute
-        this.scopeId = this.$parent.$options._scopeId || null
+        this.scopeId = getScopId(this.$parent)
         // Set up all trigger handlers and listeners
         this.listen()
       } else {

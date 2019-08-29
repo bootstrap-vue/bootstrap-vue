@@ -1658,9 +1658,10 @@ rows.
 ## Sorting
 
 As mentioned in the [Fields](#fields-column-definitions) section above, you can make columns
-sortable. Clicking on a sortable column header will sort the column in ascending direction (smallest
-first), while clicking on it again will switch the direction of sorting. Clicking on a non-sortable
-column will clear the sorting. The prop `no-sort-reset` can be used to disable this feature.
+sortable in `<b-table>`. Clicking on a sortable column header will sort the column in ascending
+direction (smallest first), while clicking on it again will switch the direction of sorting to
+descending (largest first). Clicking on a non-sortable column will clear the sorting (the prop
+`no-sort-reset` can be used to disable this feature).
 
 You can control which column is pre-sorted and the order of sorting (ascending or descending). To
 pre-specify the column to be sorted, set the `sort-by` prop to the field's key. Set the sort
@@ -1668,11 +1669,9 @@ direction by setting `sort-desc` to either `true` (for descending) or `false` (f
 default).
 
 - **Ascending**: Items are sorted lowest to highest (i.e. `A` to `Z`) and will be displayed with the
-  lowest value in the first row with progressively higher values in the following rows. The header
-  indicator arrow will point in the direction of lowest to highest. (i.e. down for ascending).
+  lowest value in the first row with progressively higher values in the following rows.
 - **Descending**: Items are sorted highest to lowest (i.e. `Z` to `A`) and will be displayed with
-  the highest value in the first row with progressively lower values in the following rows. The
-  header indicator arrow will point in the direction of lowest to highest (i.e. up for descending).
+  the highest value in the first row with progressively lower values in the following rows.
 
 The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by adding the
 `.sync` modifier. Your bound variables will then be updated accordingly based on the current sort
@@ -1729,6 +1728,63 @@ clicks in the footer, set the `no-footer-sorting` prop to true.
 
 <!-- b-table-sorting.vue -->
 ```
+
+### Sort icon alignment
+
+By default the sorting icons appear right aligned in the header cell. You can change the icons to be
+left aligned by setting the prop `sort-icon-left` on `<b-table>`.
+
+```html
+<template>
+  <div>
+    <b-table
+      :items="items"
+      :fields="fields"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+      sort-icon-left
+      responsive="sm"
+    ></b-table>
+
+    <div>
+      Sorting By: <b>{{ sortBy }}</b>, Sort Direction:
+      <b>{{ sortDesc ? 'Descending' : 'Ascending' }}</b>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        sortBy: 'age',
+        sortDesc: false,
+        fields: [
+          { key: 'last_name', sortable: true },
+          { key: 'first_name', sortable: true },
+          { key: 'age', sortable: true },
+          { key: 'isActive', sortable: false }
+        ],
+        items: [
+          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-table-sorting-left.vue -->
+```
+
+### Customizing the sort icons
+
+The sorting icons are generated via the use of SVG background images. The icons can be altered by
+updating SASS/SCSS variables and recompiling the SCSS source code. Refer to the
+[theming](/docs/reference/theming) section for details on customizing Bootstrap and BootstrapVue's
+CSS.
 
 ### Sort-compare routine
 

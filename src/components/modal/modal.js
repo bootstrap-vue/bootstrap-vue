@@ -4,6 +4,7 @@ import BvModalEvent from './helpers/bv-modal-event.class'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import scopedStyleAttrsMixin from '../../mixins/scoped-style-attrs'
 import BVTransition from '../../utils/bv-transition'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
@@ -260,7 +261,7 @@ export const props = {
 // @vue/component
 export const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
+  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin, scopedStyleAttrsMixin],
   inheritAttrs: false,
   model: {
     prop: 'visible',
@@ -987,13 +988,17 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
       backdrop = h(BVTransition, { props: { noFade: this.noFade } }, [backdrop])
 
+      // If the parent has a scoped style attribute, and the modal
+      // is portalled, add the scoped attribute to the modal wrapper
+      const scopedStyleAttrs = !this.static ? this.scopedStyleAttrs : {}
+
       // Assemble modal and backdrop in an outer <div>
       return h(
         'div',
         {
           key: `modal-outer-${this._uid}`,
           style: this.modalOuterStyle,
-          attrs: { ...this.$attrs, id: this.safeId('__BV_modal_outer_') }
+          attrs: { ...scopedStyleAttrs, ...this.$attrs, id: this.safeId('__BV_modal_outer_') }
         },
         [modal, backdrop]
       )

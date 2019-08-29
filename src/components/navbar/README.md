@@ -286,6 +286,9 @@ Navbars are hidden by default when printing. Force them to be printed by setting
 
 ## See also
 
+Refer to the [Router support](/docs/reference/router-links) reference page for router-link specific
+props.
+
 Also see [`<b-nav>`](/docs/components/nav) for additional components and sub-component aliases.
 
 <!-- Component reference added automatically from component package.json -->
