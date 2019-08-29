@@ -70,5 +70,3 @@ export const BListGroupItem = /*#__PURE__*/ Vue.extend({
     return h(tag, mergeData(data, componentData), children)
   }
 })
-
-export default BListGroupItem
