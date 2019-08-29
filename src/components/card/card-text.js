@@ -17,5 +17,3 @@ export const BCardText = /*#__PURE__*/ Vue.extend({
     return h(props.textTag, mergeData(data, { staticClass: 'card-text' }), children)
   }
 })
-
-export default BCardText
