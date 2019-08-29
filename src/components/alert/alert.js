@@ -164,5 +164,3 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
     return h(BVTransition, { props: { noFade: !this.fade } }, $alert)
   }
 })
-
-export default BAlert
