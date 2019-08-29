@@ -5,10 +5,10 @@ import { BImgLazy } from './img-lazy'
 const src = 'https://picsum.photos/1024/400/?image=41'
 
 describe('img-lazy', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     // IntersectionObserver not supported by JSDOM
     // So we mock up just the basics
-    global.IntersectionObserver = class IntersectionObserver {
+    window.IntersectionObserver = class IntersectionObserver {
       constructor(handler, opts) {
         // We store a copy of handler so we can call it
         // during tests
@@ -29,9 +29,9 @@ describe('img-lazy', () => {
     }
   })
 
-  afterEach(() => {
+  afterAll(() => {
     try {
-      delete global.IntersectionObserver
+      window global.IntersectionObserver
     } catch {}
   })
 
