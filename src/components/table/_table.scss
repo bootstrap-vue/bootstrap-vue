@@ -218,14 +218,14 @@ $bv-escaped-characters: (
 
         &:not(.b-table-sort-icon-bg-left) {
           // Default is icon on the right
-          background-position: right $table-cell-padding center;
-          padding-right: calc(#{$table-cell-padding * 2} + #{$b-table-sort-icon-bg-width});
+          background-position: right calc(#{$table-cell-padding} / 2) center;
+          padding-right: calc(#{$table-cell-padding} + #{$b-table-sort-icon-bg-width});
         }
 
         &.b-table-sort-icon-bg-left {
           // Left allign sort icon
-          background-position: left $table-cell-padding center center;
-          padding-left: calc(#{$table-cell-padding * 2} + #{$b-table-sort-icon-bg-width});
+          background-position: left calc(#{$table-cell-padding} / 2) center center;
+          padding-left: calc(#{$table-cell-padding} + #{$b-table-sort-icon-bg-width});
         }
       }
 
@@ -267,14 +267,14 @@ $bv-escaped-characters: (
         > tr > [aria-sort] {
           &:not(.b-table-sort-icon-bg-left) {
             // Default is icon on the right
-            background-position: right $table-cell-padding center;
+            background-position: right calc(#{$table-cell-padding-sm} /2) center;
             padding-right: calc(#{$table-cell-padding * 2} + #{$b-table-sort-icon-bg-width});
           }
 
           &.b-table-sort-icon-bg-left {
             // Left allign sort icon
-            background-position: left $table-cell-padding-sm center;
-            padding-left: calc(#{$table-cell-padding-sm * 2} + #{$b-table-sort-icon-bg-width});
+            background-position: left calc(#{$table-cell-padding-sm} /2) center;
+            padding-left: calc(#{$table-cell-padding-sm} + #{$b-table-sort-icon-bg-width});
         }
       }
     }
