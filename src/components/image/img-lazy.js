@@ -83,13 +83,10 @@ export const props = {
     default: false
   },
   offset: {
+    // distance away from viewport 9jn pixels) before being
+    // considered "visible"
     type: [Number, String],
     default: 360
-  },
-  // TODO: if we assume user has IntersectionObserver, then this can be removed
-  throttle: {
-    type: [Number, String],
-    default: THROTTLE
   }
 }
 
@@ -102,9 +99,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
   props,
   data() {
     return {
-      isShown: false,
-      // TODO: if we assume user has IntersectionObserver, then this can be removed
-      scrollTimeout: null
+      isShown: false
     }
   },
   computed: {
@@ -124,107 +119,40 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
   watch: {
     show(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.isShown = newVal
-        // TODO: if we assume user has IntersectionObserver, then this can be removed
-        if (!newVal) {
-          // Make sure listeners are re-enabled if img is force set to blank
-          this.setListeners(true)
+        // If IntersectionObserver support is not available, image is always shown
+        const visible = hasIntersectionObserverSupport ? newVal : true
+        this.isShown = visible
+        if (visible !== newVal) {
+          // Ensure the show prop is synced (when no IntersectionObserver)
+          this.$nextTick(this.updateShowProp)
         }
       }
     },
     isShown(newVal, oldVal) {
       if (newVal !== oldVal) {
         // Update synched show prop
-        this.$emit('update:show', newVal)
+        this.updateShowProp()
       }
     }
   },
   created() {
     this.isShown = this.show
   },
-  mounted() {
-    // TODO: if we assume user has IntersectionObserver, then this can be removed
-    if (this.isShown) {
-      this.setListeners(false)
-    } else {
-      this.setListeners(true)
+  beforeMount() {
+    if (!hasIntersectionObserverSupport) {
+      // If IntersectionObserver support is not available, image is always shown
+      this.isShown = true
     }
-  },
-  activated() /* istanbul ignore next */ {
-    // TODO: if we assume user has IntersectionObserver, then this can be removed
-    if (!this.isShown) {
-      this.setListeners(true)
-    }
-  },
-  deactivated() /* istanbul ignore next */ {
-    // TODO: if we assume user has IntersectionObserver, then this can be removed
-    this.setListeners(false)
-  },
-  beforeDestroy() {
-    // TODO: if we assume user has IntersectionObserver, then this can be removed
-    this.setListeners(false)
   },
   methods: {
-    // TODO: if we assume user has IntersectionObserver, then this can be removed
-    setListeners(on) {
-      if (!hasIntersectionObserverSupport) {
-        // We only instantiate these events if the client
-        // doesn't have `InteresctionObserver` support
-        if (this.scrollTimeout) {
-          clearTimeout(this.scrollTimeout)
-          this.scrollTimeout = null
-        }
-        const events = on => {
-          const winEvts = ['scroll', 'resize', 'orientationchange']
-          const method = on ? eventOn : eventOff
-          winEvts.forEach(evt => method(window, evt, this.onScroll, EVENT_OPTIONS))
-          method(this.$el, 'load', this.checkView, EVENT_OPTIONS)
-          method(document, 'transitionend', this.onScroll, EVENT_OPTIONS)
-        }
-        events(false)
-        if (on) {
-          events(true)
-        }
-      }
+    updateShowProp() {
+      this.$emit('update:show', this.isShown)
     },
     doShow(visible) {
       if (visible && !this.isShown) {
         this.isShown = true
         // TODO: if we assume user has IntersectionObserver, then this can be removed
         this.setListeners(false)
-      }
-    },
-    checkView() {
-      // TODO: if we assume user has IntersectionObserver, then this can be removed
-      // check bounding box + offset to see if we should show
-      /* istanbul ignore next: should rarely occur */
-      if (this.isShown) {
-        this.setListeners(false)
-        return
-      }
-      const offset = parseInt(this.offset, 10) || 0
-      const docElement = document.documentElement
-      const view = {
-        l: 0 - offset,
-        t: 0 - offset,
-        b: docElement.clientHeight + offset,
-        r: docElement.clientWidth + offset
-      }
-      // JSDOM Doesn't support BCR, but we fake it in the tests
-      const box = getBCR(this.$el)
-      if (box.right >= view.l && box.bottom >= view.t && box.left <= view.r && box.top <= view.b) {
-        // image is in view (or about to be in view)
-        this.doShow(true)
-      }
-    },
-    onScroll() {
-      // TODO: if we assume user has IntersectionObserver, then this can be removed
-      /* istanbul ignore if: should rarely occur */
-      if (this.isShown) {
-        this.setListeners(false)
-      } else {
-        clearTimeout(this.scrollTimeout)
-        this.scrollTimeout = setTimeout(this.checkView, parseInt(this.throttle, 10) || THROTTLE)
       }
     }
   },
