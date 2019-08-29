@@ -1,16 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import BFormGroupAsync from './form-group'
-
-// Vue test utils doesnt currently support mounting Async Components
-// So we have to resolve the component ourselves
-// https://github.com/vuejs/vue-test-utils/issues/1012
-let BFormGroup = BFormGroupAsync
-if (typeof BFormGroupAsync === 'function') {
-  BFormGroupAsync(cmp => {
-    BFormGroup = cmp
-  })
-}
+import { BFormGroup } from './form-group'
 
 describe('form-group', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
