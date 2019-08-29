@@ -1,10 +1,11 @@
-import { BVPopover } from '../../components/popover/helpers/bv-popover'
+import getScopId from '../../utils/get-scope-id'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
 import { isFunction, isObject, isString, isUndefined } from '../../utils/inspect'
 import { keys } from '../../utils/object'
+import { BVPopover } from '../../components/popover/helpers/bv-popover'
 
 // Key which we use to store tooltip object on element
 const BV_POPOVER = '__BV_Popover__'
@@ -176,7 +177,7 @@ const applyPopover = (el, bindings, vnode) => {
     el[BV_POPOVER] = new BVPopover({
       parent: $parent,
       // Add the parent's scoped style attribute data
-      _scopeId: $parent && $parent.$options._scopeId ? $parent.$options._scopeId : undefined
+      _scopeId: getScopId($parent, undefined)
     })
     el[BV_POPOVER].__bv_prev_data__ = {}
   }
