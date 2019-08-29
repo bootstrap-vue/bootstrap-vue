@@ -23,5 +23,3 @@ export const BMediaBody = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BMediaBody
