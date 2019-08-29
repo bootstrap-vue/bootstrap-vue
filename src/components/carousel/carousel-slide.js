@@ -157,5 +157,3 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BCarouselSlide
