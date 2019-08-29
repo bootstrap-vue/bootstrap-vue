@@ -83,8 +83,8 @@ class VisibilityObserver {
       })
     } catch {
       // No IntersectionObserver support, so just stop trying to observe
-      this.donOnce = true
-      this.observer = null
+      this.doneOnce = true
+      this.observer = undefined
       this.callback(null)
       return
     }
