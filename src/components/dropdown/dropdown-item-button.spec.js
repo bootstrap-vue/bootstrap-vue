@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import BDropdownItemButton from './dropdown-item-button'
+import { BDropdownItemButton } from './dropdown-item-button'
 
 describe('dropdown-item-button', () => {
   it('renders with tag "button" and type="button" by default', async () => {
