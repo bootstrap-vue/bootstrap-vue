@@ -187,9 +187,10 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         }
       }
     },
-    doShow(isVisble) {
-      if (isVisible && !this.isShown) {
+    doShow(visible) {
+      if (visible && !this.isShown) {
         this.isShown = true
+        // TODO: if we assume user has IntersectionObserver, then this can be removed
         this.setListeners(false)
       }
     },
