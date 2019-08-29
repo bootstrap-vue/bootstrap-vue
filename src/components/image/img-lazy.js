@@ -135,7 +135,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
   },
   beforeMount() {
     if (!hasIntersectionObserverSupport) {
-      // If IntersectionObserver support is not available, image is always shown
+      // If IntersectionObserver is not available, image is always shown
       this.isShown = true
     }
   },
@@ -144,10 +144,10 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
       this.$emit('update:show', this.isShown)
     },
     doShow(visible) {
-      if (visible && !this.isShown) {
+      // If 'IntersectionObserver` is not supported, the callback
+      // will be called with `null` rather than `true` or `false`
+      if ((visible || visible === null) && !this.isShown) {
         this.isShown = true
-        // TODO: if we assume user has IntersectionObserver, then this can be removed
-        this.setListeners(false)
       }
     }
   },
