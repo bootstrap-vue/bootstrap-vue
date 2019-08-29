@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { Portal, Wormhole } from 'portal-vue'
-import BvEvent from '../../utils/bv-event.class'
 import BVTransition from '../../utils/bv-transition'
+import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF, eventOn, eventOff } from '../../utils/dom'
 import idMixin from '../../mixins/id'
