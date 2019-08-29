@@ -186,6 +186,7 @@
 // --- Header sort styling ---
 
 // Bootstrap v4.4 will include this variable as `escaped-characters`
+// But if we want to preserve backwards compatability with v4.3, we leave this in
 $bv-escaped-characters: (
   ("<","%3c"),
   (">","%3e"),
@@ -193,6 +194,7 @@ $bv-escaped-characters: (
 );
 
 // Bootstrap v4.4 will include this method as `escape-svg`
+// But if we want to preserve backwards compatability with v4.3, we leave this in
 // See https://codepen.io/kevinweber/pen/dXWoRw
 @function bv-escape-svg($string) {
   @if str-index($string, "data:image/svg+xml") {
@@ -238,6 +240,23 @@ $bv-escaped-characters: (
       > [aria-sort="descending"] {
         background-image: bv-escape-svg($b-table-sort-icon-bg-descending);
       }
+    }
+  }
+
+  // Sort icons for dark tables
+  &.table-dark > thead > tr,
+  &.table-dark > tfoot > tr,
+  > .thead-dark > tr {
+    > [aria-sort="none"] {
+       background-image: bv-escape-svg($b-table-sort-icon-bg-dark-not-sorted);
+    }
+
+    > [aria-sort="ascending"] {
+      background-image: bv-escape-svg($b-table-sort-icon-bg-dark-ascending);
+    }
+
+    > [aria-sort="descending"] {
+      background-image: bv-escape-svg($b-table-sort-icon-bg-dark-descending);
     }
   }
 
