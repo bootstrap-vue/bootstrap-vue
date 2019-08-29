@@ -20,6 +20,3 @@ class BvModalEvent extends BvEvent {
 
 // Named exports
 export { BvModalEvent }
-
-// Default export
-export default BvModalEvent
