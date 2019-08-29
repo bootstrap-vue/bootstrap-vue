@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BInputGroupAppend from './input-group-append'
+import { BInputGroupAppend } from './input-group-append'
 
 describe('input-group > input-group-append', () => {
   it('has expected default structure', async () => {
