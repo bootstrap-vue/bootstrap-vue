@@ -1779,6 +1779,13 @@ left aligned by setting the prop `sort-icon-left` on `<b-table>`.
 <!-- b-table-sorting-left.vue -->
 ```
 
+### Customizing the sort icons
+
+The sorting icons are generated via the use of SVG background images. The icons can be altered by
+updating SASS/SCSS variables and recompiling the SCSS source code. Refer to the
+[theming](/docs/reference/theming) section for details on customizing Bootstrap and BootstrapVue's
+CSS.
+
 ### Sort-compare routine
 
 The internal built-in default `sort-compare` function sorts the specified field `key` based on the
