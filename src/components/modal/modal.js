@@ -1012,5 +1012,3 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     }
   }
 })
-
-export default BModal
