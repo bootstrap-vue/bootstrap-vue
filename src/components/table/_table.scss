@@ -216,15 +216,15 @@ $bv-escaped-characters: (
         background-repeat: no-repeat;
         background-size: $b-table-sort-icon-bg-width $b-table-sort-icon-bg-height;
 
-        &:not(.b-table-sort-icon-bg-left) {
+        &:not(.b-table-sort-icon-left) {
           // Default is icon on the right
           background-position: right calc(#{$table-cell-padding} / 2) center;
           padding-right: calc(#{$table-cell-padding} + #{$b-table-sort-icon-bg-width});
         }
 
-        &.b-table-sort-icon-bg-left {
+        &.b-table-sort-icon-left {
           // Left allign sort icon
-          background-position: left calc(#{$table-cell-padding} / 2) center center;
+          background-position: left calc(#{$table-cell-padding} / 2) center;
           padding-left: calc(#{$table-cell-padding} + #{$b-table-sort-icon-bg-width});
         }
       }
