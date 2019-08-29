@@ -3412,10 +3412,10 @@ codesandbox-import-utils@^2.1.9:
     istextorbinary "^2.2.1"
     lz-string "^1.4.4"
 
-codesandbox@^2.1.9:
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.1.9.tgz#64dbbbd166546808a05402fcf13530fb002a17f4"
-  integrity sha512-/pzfhCrLYBDZ3dJv+4J0J2A9DhyiLXSeOcMxldGqxElwFpwWvKkHNwK7VZ6mOZOj5mgzrh0v9DVUcUVZaIUr2w==
+codesandbox@^2.1.10:
+  version "2.1.10"
+  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.1.10.tgz#61cd1ae35b62dd99aae829085335f6270fb514d0"
+  integrity sha512-p62wtmTLUX/j8i7VVvogVXD5FHbxNHco9jpN/DptkPIV5iLz2tnF6XPpXWNzZbJCgBAltpdbTbP+ch2vxds7Pg==
   dependencies:
     axios "^0.16.2"
     chalk "^2.4.1"
