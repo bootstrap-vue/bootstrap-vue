@@ -212,5 +212,3 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     })
   }
 })
-
-export default BFormTextarea
