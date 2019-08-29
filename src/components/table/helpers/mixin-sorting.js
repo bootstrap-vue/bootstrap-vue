@@ -73,6 +73,11 @@ export default {
     noFooterSorting: {
       type: Boolean,
       default: false
+    },
+    sortIconLeft: {
+      // Place the sorting icon on the left of the header cells
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -226,8 +231,9 @@ export default {
     // methods to compute classes and attrs for thead>th cells
     sortTheadThClasses(key, field, isFoot) {
       return {
-        // No Classes for sorting currently...
-        // All styles targeted using aria-* attrs
+        // If sortable and sortIconLeft are true, then place sort icon on the left
+        'b-table-sort-icon-left':
+          field.sortable && this.sortIconLeft && !(isFoot && this.noFooterSorting)
       }
     },
     sortTheadThAttrs(key, field, isFoot) {
