@@ -129,5 +129,3 @@ export const BJumbotron = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BJumbotron
