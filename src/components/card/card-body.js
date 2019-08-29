@@ -3,7 +3,7 @@ import { mergeData } from 'vue-functional-data-merge'
 import prefixPropName from '../../utils/prefix-prop-name'
 import copyProps from '../../utils/copy-props'
 import pluckProps from '../../utils/pluck-props'
-import cardMixin from '../../mixins/card-mixin'
+import cardMixin from '../../mixins/card'
 import { BCardTitle, props as titleProps } from './card-title'
 import { BCardSubTitle, props as subTitleProps } from './card-sub-title'
 

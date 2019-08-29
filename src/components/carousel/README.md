@@ -136,6 +136,36 @@ Set the prop `indicators` to show the slide indicator buttons.
 
 Both indicators and controls can be set at the same time or independently.
 
+## Carousel slide content
+
+`b-carousel-slide` provides several props and slots for placing content in the slide.
+
+### Props
+
+- `caption` Text to use as the main title on the slide (placed inside the inner element which has
+  the class `carousel-caption`)
+- `text` Textual placed under the title (placed inside the inner element which has the class
+  `carousel-caption`)
+- `img-src` URL of image to be placed into the background of the slide
+- `caption-html` Alternate prop to the `caption` prop, which supports HTML strings
+- `html` Alternate prop to the `text` prop, which supports HTML strings
+
+<p class="alert alert-danger">
+  <strong>Warning:</strong> Be cautious of using the <code>caption-html</code> and <code>html</code>
+  props to display user supplied content, as it may make your application vulnerable to
+  <a class="alert-link" href="https://en.wikipedia.org/wiki/Cross-site_scripting">
+  <abbr title="Cross Site Scripting Attacks">XSS attacks</abbr></a>, if you do not first
+  <a class="alert-link" href="https://en.wikipedia.org/wiki/HTML_sanitization">sanitize</a> the
+  user supplied string.
+</p>
+
+### Named slots
+
+- `default` content that will be placed inside of the inner element which has the class
+  `carousel-caption`. Appears after any content from the `caption` and `text` props.
+- `img` content to place into the background of the slide. Despite the slot's name, you can place
+  almost any content in this slot in lieu of using the `default` slot or `caption` and `text` props.
+
 ## Carousel animation
 
 Carousel, by default, uses a sliding animation. You can change the slide animation to a cross-fade
