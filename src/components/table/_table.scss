@@ -243,7 +243,7 @@ $bv-escaped-characters: (
     }
   }
 
-  // Sort icons for dark tables
+  // Sort icons for dark tables, headers, footers
   &.table-dark > thead > tr,
   &.table-dark > tfoot > tr,
   > .thead-dark > tr {
@@ -259,6 +259,21 @@ $bv-escaped-characters: (
       background-image: bv-escape-svg($b-table-sort-icon-bg-dark-descending);
     }
   }
+
+  // Sort icons when header cell has `table-dark` class
+  > thead > tr > .table-dark,
+  > tfoot > tr > .table-dark {
+    &[aria-sort="none"] {
+       background-image: bv-escape-svg($b-table-sort-icon-bg-dark-not-sorted);
+    }
+
+    &[aria-sort="ascending"] {
+      background-image: bv-escape-svg($b-table-sort-icon-bg-dark-ascending);
+    }
+
+    &[aria-sort="descending"] {
+      background-image: bv-escape-svg($b-table-sort-icon-bg-dark-descending);
+    }
 
   // Padding and position adjustment for small tables
   &.table-sm {
