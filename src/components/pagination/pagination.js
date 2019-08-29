@@ -115,5 +115,3 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
     }
   }
 })
-
-export default BPagination
