@@ -31,7 +31,8 @@ describe('img-lazy', () => {
 
   afterAll(() => {
     try {
-      window global.IntersectionObserver
+      window.IntersectionObserver = undefined
+      delete window.IntersectionObserver
     } catch {}
   })
 
