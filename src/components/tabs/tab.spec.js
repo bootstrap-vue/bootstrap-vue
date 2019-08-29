@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BTab from './tab'
+import { BTab } from './tab'
 
 describe('tab', () => {
   it('default has expected classes, attributes and structure', async () => {
