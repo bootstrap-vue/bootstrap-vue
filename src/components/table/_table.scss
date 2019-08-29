@@ -274,6 +274,7 @@ $bv-escaped-characters: (
     &[aria-sort="descending"] {
       background-image: bv-escape-svg($b-table-sort-icon-bg-dark-descending);
     }
+  }
 
   // Padding and position adjustment for small tables
   &.table-sm {
