@@ -18,5 +18,3 @@ export const BInputGroupPrepend = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BInputGroupPrepend
