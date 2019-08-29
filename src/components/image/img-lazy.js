@@ -3,9 +3,11 @@ import { BImg } from './img'
 import { getComponentConfig } from '../../utils/config'
 import { getBCR, eventOn, eventOff } from '../../utils/dom'
 import { hasIntersectionObserverSupport } from '../../utils/env'
+import { VBVisible } from '../../directives/visible'
 
 const NAME = 'BImgLazy'
 
+// TODO: if we assume user has IntersectionObserver, then these can be removed
 const THROTTLE = 100
 const EVENT_OPTIONS = { passive: true, capture: false }
 
@@ -84,6 +86,7 @@ export const props = {
     type: [Number, String],
     default: 360
   },
+  // TODO: if we assume user has IntersectionObserver, then this can be removed
   throttle: {
     type: [Number, String],
     default: THROTTLE
@@ -93,12 +96,15 @@ export const props = {
 // @vue/component
 export const BImgLazy = /*#__PURE__*/ Vue.extend({
   name: NAME,
+  directives: {
+    bVisible: VBVisible
+  },
   props,
   data() {
     return {
       isShown: false,
-      scrollTimeout: null,
-      observer: null
+      // TODO: if we assume user has IntersectionObserver, then this can be removed
+      scrollTimeout: null
     }
   },
   computed: {
@@ -119,6 +125,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
     show(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.isShown = newVal
+        // TODO: if we assume user has IntersectionObserver, then this can be removed
         if (!newVal) {
           // Make sure listeners are re-enabled if img is force set to blank
           this.setListeners(true)
@@ -136,6 +143,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
     this.isShown = this.show
   },
   mounted() {
+    // TODO: if we assume user has IntersectionObserver, then this can be removed
     if (this.isShown) {
       this.setListeners(false)
     } else {
@@ -143,56 +151,50 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
     }
   },
   activated() /* istanbul ignore next */ {
+    // TODO: if we assume user has IntersectionObserver, then this can be removed
     if (!this.isShown) {
       this.setListeners(true)
     }
   },
   deactivated() /* istanbul ignore next */ {
+    // TODO: if we assume user has IntersectionObserver, then this can be removed
     this.setListeners(false)
   },
   beforeDestroy() {
+    // TODO: if we assume user has IntersectionObserver, then this can be removed
     this.setListeners(false)
   },
   methods: {
+    // TODO: if we assume user has IntersectionObserver, then this can be removed
     setListeners(on) {
-      if (this.scrollTimeout) {
-        clearTimeout(this.scrollTimeout)
-        this.scrollTimeout = null
-      }
-      /* istanbul ignore next: JSDOM doen't support IntersectionObserver */
-      if (this.observer) {
-        this.observer.unobserve(this.$el)
-        this.observer.disconnect()
-        this.observer = null
-      }
-      const winEvts = ['scroll', 'resize', 'orientationchange']
-      winEvts.forEach(evt => eventOff(window, evt, this.onScroll, EVENT_OPTIONS))
-      eventOff(this.$el, 'load', this.checkView, EVENT_OPTIONS)
-      eventOff(document, 'transitionend', this.onScroll, EVENT_OPTIONS)
-      if (on) {
-        /* istanbul ignore if: JSDOM doen't support IntersectionObserver */
-        if (hasIntersectionObserverSupport) {
-          this.observer = new IntersectionObserver(this.doShow, {
-            root: null, // viewport
-            rootMargin: `${parseInt(this.offset, 10) || 0}px`,
-            threshold: 0 // percent intersection
-          })
-          this.observer.observe(this.$el)
-        } else {
-          // Fallback to scroll/etc events
-          winEvts.forEach(evt => eventOn(window, evt, this.onScroll, EVENT_OPTIONS))
-          eventOn(this.$el, 'load', this.checkView, EVENT_OPTIONS)
-          eventOn(document, 'transitionend', this.onScroll, EVENT_OPTIONS)
+      if (!hasIntersectionObserverSupport) {
+        // We only instantiate these events if the client
+        // doesn't have `InteresctionObserver` support
+        if (this.scrollTimeout) {
+          clearTimeout(this.scrollTimeout)
+          this.scrollTimeout = null
+        }
+        const events = on => {
+          const winEvts = ['scroll', 'resize', 'orientationchange']
+          const method = on ? eventOn : eventOff
+          winEvts.forEach(evt => method(window, evt, this.onScroll, EVENT_OPTIONS))
+          method(this.$el, 'load', this.checkView, EVENT_OPTIONS)
+          method(document, 'transitionend', this.onScroll, EVENT_OPTIONS)
+        }
+        events(false)
+        if (on) {
+          events(true)
         }
       }
     },
-    doShow(entries) {
-      if (entries && (entries[0].isIntersecting || entries[0].intersectionRatio > 0.0)) {
+    doShow(isVisble) {
+      if (isVisible && !this.isShown) {
         this.isShown = true
         this.setListeners(false)
       }
     },
     checkView() {
+      // TODO: if we assume user has IntersectionObserver, then this can be removed
       // check bounding box + offset to see if we should show
       /* istanbul ignore next: should rarely occur */
       if (this.isShown) {
@@ -211,10 +213,11 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
       const box = getBCR(this.$el)
       if (box.right >= view.l && box.bottom >= view.t && box.left <= view.r && box.top <= view.b) {
         // image is in view (or about to be in view)
-        this.doShow([{ isIntersecting: true }])
+        this.doShow(true)
       }
     },
     onScroll() {
+      // TODO: if we assume user has IntersectionObserver, then this can be removed
       /* istanbul ignore if: should rarely occur */
       if (this.isShown) {
         this.setListeners(false)
@@ -225,7 +228,26 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const directives = []
+    if (!this.isShown) {
+      // We only add the visible directive if we are not shown
+      directives.push({
+        // Visible directive will silently do nothing if
+        // `IntersectionObserver` is not supported
+        name: 'b-visible',
+        // Value expects a callback (passed on arg of visible = true/false)
+        value: this.doShow,
+        modifiers: {
+          // Root margin from viewport
+          [`${parseInt(this.offset, 10) || 0}`]: true,
+          // Once the image is shown, stop observing
+          once: true
+        }
+      })
+    }
+
     return h(BImg, {
+      directives,
       props: {
         // Computed value props
         src: this.computedSrc,
