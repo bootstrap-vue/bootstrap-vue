@@ -241,5 +241,3 @@ export const VBTooltip = {
     removeTooltip(el)
   }
 }
-
-export default VBTooltip
