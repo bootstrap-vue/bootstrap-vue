@@ -62,5 +62,3 @@ export const BButtonClose = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BButtonClose
