@@ -1,10 +1,11 @@
-import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
+import getScopId from '../../utils/get-scope-id'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
 import { isFunction, isObject, isString, isUndefined } from '../../utils/inspect'
 import { keys } from '../../utils/object'
+import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
 
 // Key which we use to store tooltip object on element
 const BV_TOOLTIP = '__BV_Tooltip__'
@@ -177,7 +178,7 @@ const applyTooltip = (el, bindings, vnode) => {
     el[BV_TOOLTIP] = new BVTooltip({
       parent: $parent,
       // Add the parent's scoped style attribute data
-      _scopeId: $parent && $parent.$options._scopeId ? $parent.$options._scopeId : undefined
+      _scopeId: getScopId($parent, undefined)
     })
     el[BV_TOOLTIP].__bv_prev_data__ = {}
   }
