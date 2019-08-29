@@ -1,4 +1,4 @@
-import BvEvent from './bv-event.class'
+import { BvEvent } from './bv-event.class'
 
 describe('utils/BvEvent class', () => {
   it('works', async () => {

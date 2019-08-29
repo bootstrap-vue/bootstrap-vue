@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BCardImgLazy from './card-img-lazy'
+import { BCardImgLazy } from './card-img-lazy'
 
 describe('card-image', () => {
   it('default has tag "img"', async () => {

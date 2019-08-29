@@ -36,5 +36,3 @@ export const BNavbarNav = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BNavbarNav

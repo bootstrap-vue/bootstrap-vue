@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BButtonGroup from './button-group'
+import { BButtonGroup } from './button-group'
 
 describe('button-group', () => {
   it('has expected default structure', async () => {

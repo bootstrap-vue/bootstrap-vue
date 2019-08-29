@@ -1,6 +1,6 @@
 import VueRouter from 'vue-router'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import BLink from './link'
+import { BLink } from './link'
 
 describe('b-link', () => {
   it('has expected default structure', async () => {

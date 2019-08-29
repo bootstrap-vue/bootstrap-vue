@@ -23,5 +23,3 @@ export const BInputGroupText = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BInputGroupText

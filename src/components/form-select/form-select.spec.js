@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BFormSelect from './form-select'
+import { BFormSelect } from './form-select'
 
 describe('form-select', () => {
   it('has select as root element', async () => {

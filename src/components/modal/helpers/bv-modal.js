@@ -1,8 +1,5 @@
-/**
- * Plugin for adding `$bvModal` property to all Vue instances
- */
-
-import BModal, { props as modalProps } from '../modal'
+// Plugin for adding `$bvModal` property to all Vue instances
+import { BModal, props as modalProps } from '../modal'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { isUndefined, isFunction } from '../../../utils/inspect'

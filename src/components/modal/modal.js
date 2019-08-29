@@ -1,6 +1,6 @@
 import Vue from '../../utils/vue'
-import modalManager from './helpers/modal-manager'
-import BvModalEvent from './helpers/bv-modal-event.class'
+import { modalManager } from './helpers/modal-manager'
+import { BvModalEvent } from './helpers/bv-modal-event.class'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -1012,5 +1012,3 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     }
   }
 })
-
-export default BModal

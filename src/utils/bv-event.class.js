@@ -61,6 +61,3 @@ class BvEvent {
 
 // Named Exports
 export { BvEvent }
-
-// Default Export
-export default BvEvent

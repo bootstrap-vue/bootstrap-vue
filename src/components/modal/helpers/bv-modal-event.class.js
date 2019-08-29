@@ -1,4 +1,4 @@
-import BvEvent from '../../../utils/bv-event.class'
+import { BvEvent } from '../../../utils/bv-event.class'
 import { defineProperties, readonlyDescriptor } from '../../../utils/object'
 
 class BvModalEvent extends BvEvent {
@@ -20,6 +20,3 @@ class BvModalEvent extends BvEvent {
 
 // Named exports
 export { BvModalEvent }
-
-// Default export
-export default BvModalEvent

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import BImgLazy from './img-lazy'
+import { BImgLazy } from './img-lazy'
 
 const src = 'https://picsum.photos/1024/400/?image=41'
 

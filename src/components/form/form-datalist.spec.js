@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BFormDatalist from './form-datalist'
+import { BFormDatalist } from './form-datalist'
 
 describe('form-datalist', () => {
   it('has root element datalist', async () => {

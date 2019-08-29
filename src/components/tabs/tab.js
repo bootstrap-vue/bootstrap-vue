@@ -197,5 +197,3 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     return h(BVTransition, { props: { mode: 'out-in', noFade: this.computedNoFade } }, [content])
   }
 })
-
-export default BTab

@@ -68,5 +68,3 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BNavbarToggle

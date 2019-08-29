@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BTableSimple from './table-simple'
+import { BTableSimple } from './table-simple'
 
 describe('table-simple', () => {
   it('has expected default classes', async () => {

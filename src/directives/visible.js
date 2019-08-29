@@ -180,5 +180,3 @@ export const VBVisible = {
   update,
   unbind
 }
-
-export default VBVisible

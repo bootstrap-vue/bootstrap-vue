@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BFormText from './form-text'
+import { BFormText } from './form-text'
 
 describe('form > form-text', () => {
   it('has expected default structure', async () => {

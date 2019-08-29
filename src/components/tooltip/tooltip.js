@@ -320,5 +320,3 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     return h()
   }
 })
-
-export default BTooltip

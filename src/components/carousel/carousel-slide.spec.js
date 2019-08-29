@@ -1,5 +1,5 @@
-import BCarouselSlide from './carousel-slide'
 import { mount } from '@vue/test-utils'
+import { BCarouselSlide } from './carousel-slide'
 
 describe('carousel-slide', () => {
   it('has root element "div"', async () => {

@@ -59,5 +59,3 @@ export const BSpinner = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BSpinner

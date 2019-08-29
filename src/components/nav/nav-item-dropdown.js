@@ -91,5 +91,3 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BNavItemDropdown

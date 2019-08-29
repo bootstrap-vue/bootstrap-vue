@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BNavbarBrand from './navbar-brand'
+import { BNavbarBrand } from './navbar-brand'
 
 describe('navbar-brand', () => {
   it('default has tag "div"', async () => {

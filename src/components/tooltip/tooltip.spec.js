@@ -1,6 +1,6 @@
 import { mount, createLocalVue as CreateLocalVue, createWrapper } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BTooltip from './tooltip'
+import { BTooltip } from './tooltip'
 
 const localVue = new CreateLocalVue()
 

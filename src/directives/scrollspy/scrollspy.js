@@ -98,5 +98,3 @@ export const VBScrollspy = {
     removeScrollspy(el)
   }
 }
-
-export default VBScrollspy

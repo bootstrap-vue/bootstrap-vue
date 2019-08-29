@@ -153,5 +153,3 @@ export const BCol = {
     return h(props.tag, mergeData(data, { class: classList }), children)
   }
 }
-
-export default BCol

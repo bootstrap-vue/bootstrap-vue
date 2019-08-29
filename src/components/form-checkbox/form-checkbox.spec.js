@@ -1,6 +1,6 @@
-import BFormCheckbox from './form-checkbox'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { BFormCheckbox } from './form-checkbox'
 
 describe('form-checkbox', () => {
   // --- Custom checkbox structure, class and attributes tests ---

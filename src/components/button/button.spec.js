@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BButton from './button'
+import { BButton } from './button'
 
 describe('button', () => {
   it('has default structure and classes', async () => {

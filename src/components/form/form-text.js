@@ -44,5 +44,3 @@ export const BFormText = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BFormText
