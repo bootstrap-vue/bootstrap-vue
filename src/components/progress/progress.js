@@ -76,5 +76,3 @@ export const BProgress = /*#__PURE__*/ Vue.extend({
     return h('div', { class: ['progress'], style: this.progressHeight }, [childNodes])
   }
 })
-
-export default BProgress

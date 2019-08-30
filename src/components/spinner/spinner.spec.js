@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BSpinner from './spinner'
+import { BSpinner } from './spinner'
 
 describe('spinner', () => {
   it('default has root element of span, and no children', async () => {

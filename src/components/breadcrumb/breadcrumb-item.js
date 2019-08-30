@@ -18,5 +18,3 @@ export const BBreadcrumbItem = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BBreadcrumbItem

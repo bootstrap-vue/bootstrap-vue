@@ -63,5 +63,3 @@ export const BMedia = /*#__PURE__*/ Vue.extend({
     return h(props.tag, mergeData(data, { staticClass: 'media' }), childNodes)
   }
 })
-
-export default BMedia

@@ -42,5 +42,3 @@ export const BDropdownHeader = /*#__PURE__*/ Vue.extend({
     ])
   }
 })
-
-export default BDropdownHeader

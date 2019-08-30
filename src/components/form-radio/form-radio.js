@@ -61,5 +61,3 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
     }
   }
 })
-
-export default BFormRadio

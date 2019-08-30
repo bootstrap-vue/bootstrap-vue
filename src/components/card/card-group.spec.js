@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BCardGroup from './card-group'
+import { BCardGroup } from './card-group'
 
 describe('card-group', () => {
   it('has root element "div"', async () => {

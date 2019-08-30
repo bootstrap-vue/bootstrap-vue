@@ -33,5 +33,3 @@ export const BDropdownForm = /*#__PURE__*/ Vue.extend({
     ])
   }
 })
-
-export default BDropdownForm

@@ -244,5 +244,3 @@ export const VBPopover = {
     removePopover(el)
   }
 }
-
-export default VBPopover

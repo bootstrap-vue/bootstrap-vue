@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BDropdownText from './dropdown-text'
+import { BDropdownText } from './dropdown-text'
 
 describe('dropdown-text', () => {
   it('renders with tag "p" by default', async () => {

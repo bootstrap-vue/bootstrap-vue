@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BProgressBar from './progress-bar'
+import { BProgressBar } from './progress-bar'
 
 describe('progress-bar', () => {
   it('has correct base class and structure', async () => {

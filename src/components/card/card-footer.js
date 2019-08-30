@@ -45,5 +45,3 @@ export const BCardFooter = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BCardFooter

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import BTable from './table'
+import { BTable } from './table'
 
 const testItems = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }]
 const testFields = [{ key: 'a', sortable: true }]

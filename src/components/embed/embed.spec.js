@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BEmbed from './embed'
+import { BEmbed } from './embed'
 
 describe('embed', () => {
   it('default should have expected default structure', async () => {

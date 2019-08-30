@@ -25,5 +25,3 @@ export const BFormDatalist = /*#__PURE__*/ Vue.extend({
     return h('datalist', { attrs: { id: this.id } }, [options, this.normalizeSlot('default')])
   }
 })
-
-export default BFormDatalist

@@ -67,5 +67,3 @@ export const BPopover = /*#__PURE__*/ Vue.extend({
   }
   // Render function provided by BTooltip
 })
-
-export default BPopover

@@ -1,5 +1,5 @@
 import Popper from 'popper.js'
-import BvEvent from '../utils/bv-event.class'
+import { BvEvent } from '../utils/bv-event.class'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
 import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'

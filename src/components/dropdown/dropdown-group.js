@@ -78,5 +78,3 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
     ])
   }
 })
-
-export default BDropdownGroup

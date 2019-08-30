@@ -141,5 +141,3 @@ export const VBToggle = {
     removeAttr(el, 'role')
   }
 }
-
-export default VBToggle

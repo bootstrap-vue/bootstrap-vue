@@ -1,6 +1,6 @@
 import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BCollapse from './collapse'
+import { BCollapse } from './collapse'
 
 // Events collapse emits on $root
 const EVENT_STATE = 'bv::collapse::state'

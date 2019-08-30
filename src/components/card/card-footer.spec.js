@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BCardFooter from './card-footer'
+import { BCardFooter } from './card-footer'
 
 describe('card-footer', () => {
   it('has root element "div"', async () => {

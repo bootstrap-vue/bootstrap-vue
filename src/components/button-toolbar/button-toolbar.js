@@ -115,5 +115,3 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BButtonToolbar

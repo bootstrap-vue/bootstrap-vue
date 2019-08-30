@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BContainer from './container'
+import { BContainer } from './container'
 
 describe('layout > container', () => {
   it('should have expected default structure', async () => {

@@ -445,5 +445,3 @@ export const BFormGroup = {
     )
   }
 }
-
-export default BFormGroup

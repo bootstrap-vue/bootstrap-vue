@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BNavbarNav from './navbar-nav'
+import { BNavbarNav } from './navbar-nav'
 
 describe('navbar-nav', () => {
   it('default has tag "ul"', async () => {

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BNavText from './nav-text'
+import { BNavText } from './nav-text'
 
 describe('nav > nav-text', () => {
   it('has expected default structure', async () => {

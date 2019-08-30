@@ -43,5 +43,3 @@ export const BButtonGroup = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BButtonGroup

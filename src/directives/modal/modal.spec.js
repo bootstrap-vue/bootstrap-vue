@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import modalDirective from './modal'
+import { VBModal } from './modal'
 
 const EVENT_SHOW = 'bv::show::modal'
 
@@ -10,7 +10,7 @@ describe('v-b-modal directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bModal: modalDirective
+        bModal: VBModal
       },
       mounted() {
         this.$root.$on(EVENT_SHOW, spy)
@@ -42,7 +42,7 @@ describe('v-b-modal directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bModal: modalDirective
+        bModal: VBModal
       },
       data() {
         return {

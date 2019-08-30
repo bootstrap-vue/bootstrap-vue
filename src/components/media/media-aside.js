@@ -30,5 +30,3 @@ export const BMediaAside = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BMediaAside
