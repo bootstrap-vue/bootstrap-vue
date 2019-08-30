@@ -764,7 +764,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               modal.scrollTop = 0
             }
             // DEBUG
-            console.log('Auto Focus Element:' el)
+            console.log('Auto Focus Element:', el)
             el.focus()
           }
         })
