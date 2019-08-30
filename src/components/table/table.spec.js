@@ -183,6 +183,26 @@ describe('table', () => {
     wrapper.destroy()
   })
 
+  it('has class "b-table-no-border-collapse" when no-border-collapse=true', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        norBorderCollapse: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(BTable)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('b-table-no-border-collapse')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
+  })
+
   it('has class "b-table-stacked" when stacked=true', async () => {
     const wrapper = mount(BTable, {
       propsData: {
