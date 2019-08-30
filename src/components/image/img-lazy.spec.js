@@ -97,6 +97,7 @@ describe('img-lazy', () => {
     })
 
     expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.vm.hasIntersectionObserverSupport).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()
