@@ -203,7 +203,9 @@ export default {
       // The new `v-slot` syntax doesn't like a slot name starting with
       // a square bracket and if using in-document HTML templates, the
       // v-slot attributes are lower-cased by the browser.
-      const slotNames = [`cell[${key}]`, `cell[${key.toLowerCase()}]`, 'cell[]']
+      // Switched to round bracket syntax to prevent confusion with
+      // dynamic slot name syntax.
+      const slotNames = [`cell(${key})`, `cell(${key.toLowerCase()})`, 'cell()']
       let $childNodes = this.hasNormalizedSlot(slotNames)
         ? this.normalizeSlot(slotNames, slotScope)
         : toString(formatted)
