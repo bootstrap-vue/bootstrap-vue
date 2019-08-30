@@ -1278,7 +1278,7 @@ set.
     </div>
     <b-table
       :sticky-header="stickyHeader"
-      :no-border-collapse="noCollaspe"
+      :no-border-collapse="noCollapse"
       responsive
       :items="items"
       :fields="fields"
