@@ -48,6 +48,8 @@ describe('img-lazy', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.vm.isShown).toBe(true)
 
