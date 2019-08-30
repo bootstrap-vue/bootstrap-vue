@@ -806,9 +806,9 @@ Scoped field slots give you greater control over how the record data appears. Yo
 slots to provided custom rendering for a particular field. If you want to add an extra field which
 does not exist in the records, just add it to the [`fields`](#fields-column-definitions) array, and
 then reference the field(s) in the scoped slot(s). Scoped field slots use the following naming
-syntax: `'cell[' + field key + ']'`.
+syntax: `'cell(' + field key + ')'`.
 
-You can use the default _fall-back_ scoped slot `'cell[]'` to format any cells that do not have an
+You can use the default _fall-back_ scoped slot `'cell()'` to format any cells that do not have an
 explicit scoped slot provided.
 
 **Example: Custom data rendering with scoped slots**
@@ -818,22 +818,22 @@ explicit scoped slot provided.
   <div>
     <b-table small :fields="fields" :items="items">
       <!-- A virtual column -->
-      <template v-slot:cell[index]="data">
+      <template v-slot:cell(index)="data">
         {{ data.index + 1 }}
       </template>
 
       <!-- A custom formatted column -->
-      <template v-slot:cell[name]="data">
+      <template v-slot:cell(name)="data">
         <b>{{ data.value.last }}</b>, {{ data.value.first }}
       </template>
 
       <!-- A virtual composite column -->
-      <template v-slot:cell[nameage]="data">
+      <template v-slot:cell(nameage)="data">
         {{ data.item.name.first }} is {{ data.item.age }} years old
       </template>
 
       <!-- Optional default data cell scoped slot -->
-      <template v-slot:cell[]="data">
+      <template v-slot:cell()="data">
         <i>{{ data.value }}</i>
       </template>
     </b-table>
@@ -899,7 +899,7 @@ scoped field slot.
 <template>
   <div>
     <b-table :items="items">
-      <template v-slot:cell[html]="data">
+      <template v-slot:cell(html)="data">
         <span v-html="data.value"></span>
       </template>
     </b-table>
@@ -950,7 +950,7 @@ formatted value as a string (HTML strings are not supported)
 <template>
   <div>
     <b-table :fields="fields" :items="items">
-      <template v-slot:cell[name]="data">
+      <template v-slot:cell(name)="data">
         <!-- `data.value` is the value after formatted by the Formatter -->
         <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
       </template>
@@ -1013,11 +1013,11 @@ It is also possible to provide custom rendering for the tables `thead` and `tfoo
 default the table footer is not rendered unless `foot-clone` is set to `true`.
 
 Scoped slots for the header and footer cells uses a special naming convention of
-`'head[<fieldkey>]'` and `'foot[<fieldkey>]'` respectively. if a `'foot[...]'` slot for a field is
-not provided, but a `'head[...]'` slot is provided, then the footer will use the `'head[...]'` slot
+`'head(<fieldkey>)'` and `'foot(<fieldkey>)'` respectively. if a `'foot(...)'` slot for a field is
+not provided, but a `'head(...)'` slot is provided, then the footer will use the `'head(...)'` slot
 content.
 
-You can use a default _fall-back_ scoped slot `'head[]'` or `'foot[]'` to format any header or
+You can use a default _fall-back_ scoped slot `'head()'` or `'foot()'` to format any header or
 footer cells that do not have an explicit scoped slot provided.
 
 ```html
@@ -1025,22 +1025,22 @@ footer cells that do not have an explicit scoped slot provided.
   <div>
     <b-table :fields="fields" :items="items" foot-clone>
       <!-- A custom formatted data column cell -->
-      <template v-slot:cell[name]="data">
+      <template v-slot:cell(name)="data">
         {{ data.value.first }} {{ data.value.last }}
       </template>
 
       <!-- A custom formatted header cell for field 'name' -->
-      <template v-slot:head[name]="data">
+      <template v-slot:head(name)="data">
         <span class="text-info">{{ data.label }}</b>
       </template>
 
       <!-- A custom formatted footer cell for field 'name' -->
-      <template v-slot:foot[name]="data">
+      <template v-slot:foot(name)="data">
         <span class="text-danger">{{ data.label }}</span>
       </template>
 
       <!-- Default fall-back custom formatted footer cell -->
-      <template v-slot:foot[]="data">
+      <template v-slot:foot()="data">
         <i>{{ data.label }}</i>
       </template>
     </b-table>
@@ -1084,7 +1084,7 @@ properties:
 | `selectAllRows` | Method | Select all rows (applicable if the table is in [`selectable`](#row-select-support) mode   |
 | `clearSelected` | Method | Unselect all rows (applicable if the table is in [`selectable`](#row-select-support) mode |
 
-When placing inputs, buttons, selects or links within a `HEAD[...]` or `FOOT[...]` slot, note that
+When placing inputs, buttons, selects or links within a `head(...)` or `foot(...)` slot, note that
 `head-clicked` event will not be emitted when the input, select, textarea is clicked (unless they
 are disabled). `head-clicked` will never be emitted when clicking on links or buttons inside the
 scoped slots (even when disabled)
@@ -1261,10 +1261,10 @@ set.
     <b-form-checkbox v-model="stickyHeader" class="mb-2">Sticky header</b-form-checkbox>
     <b-table :sticky-header="stickyHeader" responsive :items="items" :fields="fields">
       <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
-      <template v-slot:head[id]="scope">
+      <template v-slot:head(id)="scope">
         <div class="text-nowrap">Row ID</div>
       </template>
-      <template v-slot:head[]="scope">
+      <template v-slot:head()="scope">
         <div class="text-nowrap">
           Heading {{ scope.label }}
         </div>
@@ -1368,7 +1368,7 @@ initially showing.
 <template>
   <div>
     <b-table :items="items" :fields="fields" striped responsive="sm">
-      <template v-slot:cell[show_details]="row">
+      <template v-slot:cell(show_details)="row">
         <b-button size="sm" @click="row.toggleDetails" class="mr-2">
           {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
         </b-button>
@@ -1475,7 +1475,7 @@ Programmatic selection notes:
       responsive="sm"
     >
       <!-- Example scoped slot for select state illustrative purposes -->
-      <template v-slot:cell[selected]="{ rowSelected }">
+      <template v-slot:cell(selected)="{ rowSelected }">
         <template v-if="rowSelected">
           <span aria-hidden="true">&check;</span>
           <span class="sr-only">Selected</span>
@@ -2870,11 +2870,11 @@ your app handles the various inconsistencies with events.
       :sort-direction="sortDirection"
       @filtered="onFiltered"
     >
-      <template v-slot:cell[name]="row">
+      <template v-slot:cell(name)="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
 
-      <template v-slot:cell[actions]="row">
+      <template v-slot:cell(actions)="row">
         <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
         </b-button>
