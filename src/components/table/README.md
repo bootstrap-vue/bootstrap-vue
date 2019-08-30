@@ -1782,9 +1782,9 @@ left aligned by setting the prop `sort-icon-left` on `<b-table>`.
 ### Customizing the sort icons
 
 The sorting icons are generated via the use of SVG background images. The icons can be altered by
-updating SASS/SCSS variables and recompiling the SCSS source code. Refer to the
+updating BootstrapVue's SASS/SCSS variables and recompiling the SCSS source code. Refer to the
 [theming](/docs/reference/theming) section for details on customizing Bootstrap and BootstrapVue's
-CSS.
+generated CSS.
 
 ### Sort-compare routine
 
