@@ -593,13 +593,16 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       this.checkModalOverflow()
       this.isShow = true
       this.isTransitioning = false
-      // TODO: Switch this to requestAF to allow transition hooks to complete
-      // before passing control over to the otehr handlers.
+      // We use requestAF to allow transition hooks to complete
+      // before passing control over to the other handlers.
       // This will allow users to not have to use nextTick or requestAF
+      // when trying to pre-focus an element
       requestAF(() => {
         this.emitEvent(this.buildEvent('shown'))
         this.setEnforceFocus(true)
         this.$nextTick(() => {
+          // Delayed in a next tick to allow users time to pre-focus
+          // an element if the wish
           this.focusFirst()
         })
       })
