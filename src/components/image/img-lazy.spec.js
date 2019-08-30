@@ -1,8 +1,5 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import { BImgLazy } from './img-lazy'
-
-const src = 'https://picsum.photos/1024/400/?image=41'
 
 const windowIntersectionObserver = window.IntersectionObserver
 const windowIntersectionObserverEntry = window.IntersectionObserverEntry
@@ -47,6 +44,10 @@ afterAll(() => {
   window.IntersectionObserver = windowIntersectionObserver
   window.IntersectionObserverEntry = windowIntersectionObserverEntry
 })
+
+import { BImgLazy } from './img-lazy'
+
+const src = 'https://picsum.photos/1024/400/?image=41'
 
 describe('img-lazy', () => {
   it('has root element "img"', async () => {
