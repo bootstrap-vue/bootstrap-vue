@@ -9,7 +9,7 @@ export default {
       return hasNormalizedSlot(names, this.$scopedSlots, this.$slots)
     },
     normalizeSlot(names, scope = {}) {
-      // Returns an array of rendered vNodes if slot found.
+      // Returns an array of rendered VNodes if slot found.
       // Returns undefined if not found.
       // `names` can be a string name or an array of names
       const vNodes = normalizeSlot(names, scope, this.$scopedSlots, this.$slots)
