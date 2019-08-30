@@ -9,7 +9,7 @@ import BVTransition from '../../utils/bv-transition'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
 import { BTransporterSingle } from '../../utils/transporter'
-import { from as arrayFrom } from '../../utils/array'
+import { arrayIncludes } from '../../utils/array'
 import { isBrowser } from '../../utils/env'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
@@ -748,13 +748,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           // Make sure top of modal is showing (if longer than the viewport)
           // and focus the apropriate button or modal content wrapper
           const autoFocus = this.autoFocusButton
-          const el = autoFocus === 'ok' && ok
-            ? ok.$el || ok
-            : autoFocus === 'cancel' && cancel
-              ? cancel.$el || cancel
-              : autoFocus === 'close' && close
-                ? close.$el || close
-                : content
+          const el =
+            autoFocus === 'ok' && ok
+              ? ok.$el || ok
+              : autoFocus === 'cancel' && cancel
+                ? cancel.$el || cancel
+                : autoFocus === 'close' && close
+                  ? close.$el || close
+                  : content
           this.$nextTick(() => {
             if (el === content) {
               modal.scrollTop = 0
