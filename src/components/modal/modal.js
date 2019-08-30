@@ -587,9 +587,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       this.isTransitioning = false
       this.$nextTick(() => {
         this.emitEvent(this.buildEvent('shown'))
-        this.focusFirst()
+        this.setEnforceFocus(true)
         this.$nextTick(() => {
-          this.setEnforceFocus(true)
+          this.focusFirst()
         })
       })
     },
@@ -742,7 +742,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     focusFirst() {
       // Don't try and focus if we are SSR
       if (isBrowser) {
-        this.$nextTick(() => {
+        requestAF(() => {
           const modal = this.$refs.modal
           const content = this.$refs.content
           const activeElement = this.getActiveElement()
@@ -767,9 +767,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             }
             // DEBUG
             console.log('Auto Focus Element:', el)
-            requestAF(() => {
-              console.log('Focused:', attemptFocus(el))
-            })
+            console.log('Focused:', attemptFocus(el))
           }
         })
       }
