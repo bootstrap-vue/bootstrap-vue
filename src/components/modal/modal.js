@@ -14,7 +14,7 @@ import { isBrowser } from '../../utils/env'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
-import { contains, eventOff, eventOn, isVisible, select, selectAll } from '../../utils/dom'
+import { contains, eventOff, eventOn, isVisible, select, selectAll, requestAF } from '../../utils/dom'
 import { BButton } from '../button/button'
 import { BButtonClose } from '../button/button-close'
 
@@ -767,7 +767,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             }
             // DEBUG
             console.log('Auto Focus Element:', el)
-            attemptFocus(el)
+            requestAF(() => {
+              console.log('Focused:', attemptFocus(el))
+            })
           }
         })
       }
