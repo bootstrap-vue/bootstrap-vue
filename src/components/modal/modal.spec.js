@@ -1191,6 +1191,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
