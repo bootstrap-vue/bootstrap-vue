@@ -260,7 +260,10 @@ export const props = {
   autoFocusButton: {
     type: String,
     default: null,
-    validator: val => isUndefinedOrNull(val) || arrayIncludes(['ok', 'cancel', 'close'], val)
+    validator: val => {
+      /* istanbul ignore next */
+      return isUndefinedOrNull(val) || arrayIncludes(['ok', 'cancel', 'close'], val)
+    }
   }
 }
 
