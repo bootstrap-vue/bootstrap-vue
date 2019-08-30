@@ -922,11 +922,11 @@ Example Confirm Message boxes
 When using the `this.$bvModal.msgBoxOk(...)` or `this.$bvModal.msgBoxConfirm(...)` methods for
 generating modals, you may want the modal content to be more than just a string message. As
 mentioned in the [message box notes](#message-box-notes) section above, you can pass _arrays_ of
-vNodes as the message and title for more complex content.
+VNodes as the message and title for more complex content.
 
 Use Vue's
 [`this.$createElement`](https://vuejs.org/v2/guide/render-function.html#createElement-Arguments)
-method to generate vNodes.
+method to generate VNodes.
 
 ```html
 <template>
@@ -959,7 +959,7 @@ method to generate vNodes.
             }
           })
         ])
-        // We must pass the generated vNodes as arrays
+        // We must pass the generated VNodes as arrays
         this.$bvModal.msgBoxOk([messageVNode], {
           title: [titleVNode],
           buttonSize: 'sm',
