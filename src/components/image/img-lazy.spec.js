@@ -12,7 +12,7 @@ describe('img-lazy', () => {
   beforeAll(() => {
     // IntersectionObserver not supported by JSDOM
     // So we mock up just the basics
-    window.IntersectionObserver = class IntersectionObserver {
+    window.IntersectionObserver = class mockIntersectionObserver {
       constructor(calback, opts) {
         // We store a copy of handler so
         // we can call it during tests
