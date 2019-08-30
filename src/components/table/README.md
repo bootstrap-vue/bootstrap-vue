@@ -1260,9 +1260,9 @@ available horizontal space.
   borders on the sticky header from "sticking" to the header, and hence the borders will scroll when
   the body scrolls. To get around this issue, set the pop `no-border-collapse` on the table (note
   that this may cause double borders when using features such as `bordered`, etc).
-- The sticky header feature uses CSS style `position: sticky` to position the headings.
-- Internet Explorer does not support `position: sticky`, hence for IE11 the table headings will
-  scroll with the table body.
+- The sticky header feature uses CSS style `position: sticky` to position the headings. Internet
+  Explorer does not support `position: sticky`, hence for IE11 the table headings will scroll with
+  the table body.
 
 ### Sticky columns
 
