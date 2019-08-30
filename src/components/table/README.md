@@ -1239,11 +1239,11 @@ available horizontal space.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents the
   borders on the sticky header from "sticking" to the header, and hence the borders will scroll when
   the body scrolls. To get around this issue, create some custom CSS that targets
-  `table.table.b-table`, which sets they styles `border-collapse: collapsed; border-spacing: 0px;`
+  `table.table.b-table`, which sets they styles `border-collapse: separate; border-spacing: 0px;`
   (note that this may cause double borders when using features such as `bordered`, etc).
-- The sticky header feature uses CSS style `position: sticky` to position the headings.
-- Internet Explorer does not support `position: sticky`, hence for IE11 the table headings will
-  scroll with the table body.
+- The sticky header feature uses CSS style `position: sticky` to position the headings. Internet
+  Explorer does not support `position: sticky`, hence for IE11 the table headings will scroll with
+  the table body.
 
 ### Sticky columns
 
