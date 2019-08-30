@@ -4,41 +4,6 @@ import { BImgLazy } from './img-lazy'
 
 const src = 'https://picsum.photos/1024/400/?image=41'
 
-const windowIntersectionObserver = window.IntersectionObserver
-const windowIntersectionObserverEntry = window.IntersectionObserverEntry
-
-// Mock callback entry
-// const mockEntry = { isIntersecting: true, intersectionRatio: 1 }
-
-window.IntersectionObserver = class mockIntersectionObserver {
-  constructor(callback, opts) {
-    // We store a copy of callback so
-    // we can call it during tests
-    this._callback = callback
-  }
-
-  // Getter for stored callback for testing
-  get callback() {
-    return this._callback
-  }
-
-  observe() {}
-
-  unobserve() {}
-
-  disconnect() {}
-}
-
-window.IntersectionObserverEntry = class mockIntersectionObserverEntry {
-  constructor() {
-    this._foo = 1
-  }
-
-  get intersectionRatio() {
-    return this._foo
-  }
-}
-
 describe('img-lazy', () => {
   it('has root element "img"', async () => {
     const wrapper = mount(BImgLazy, {
@@ -68,17 +33,7 @@ describe('img-lazy', () => {
     wrapper.destroy()
   })
 
-  it('shows when show prop is set', async () => {
-    const hasIntersectionObserverSupport =
-      'IntersectionObserver' in window &&
-      'IntersectionObserverEntry' in window &&
-      // Edge 15 and UC Browser lack support for `isIntersecting`
-      // but we an use intersectionRatio > 0 instead
-      // 'isIntersecting' in window.IntersectionObserverEntry.prototype &&
-      'intersectionRatio' in window.IntersectionObserverEntry.prototype
-
-    expect(hasIntersectionObserverSupport).toBeTruthy()
-
+  it('shows when IntersectionObserver not supported', async () => {
     const wrapper = mount(BImgLazy, {
       attachToDocument: true,
       propsData: {
@@ -88,21 +43,20 @@ describe('img-lazy', () => {
     })
 
     expect(wrapper.is('img')).toBe(true)
-    expect(wrapper.vm.hasIntersectionObserverSupport).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.vm.isShown).toBe(false)
+    expect(wrapper.vm.isShown).toBe(true)
 
-    // Our directive instance should exist
+    // Our directive instance should not exist
     let observer = wrapper.element.__bv__visibility_observer
-    expect(observer).toBeDefined()
+    expect(observer).not.toBeDefined()
 
     expect(wrapper.attributes('src')).toBeDefined()
-    expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
+    expect(wrapper.attributes('src')).toContain(src)
 
     wrapper.setProps({
       show: true
@@ -113,8 +67,9 @@ describe('img-lazy', () => {
     await waitRAF()
 
     expect(wrapper.attributes('src')).toBe(src)
+    expect(wrapper.vm.isShown).toBe(true)
 
-    // Our directive instance should be gone
+    // Our directive instance should not exist
     observer = wrapper.element.__bv__visibility_observer
     expect(observer).not.toBeDefined()
 
@@ -126,11 +81,11 @@ describe('img-lazy', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
+    expect(wrapper.attributes('src')).toContain(src)
 
-    // Our directive instance should be back
+    // Our directive instance should not exist
     observer = wrapper.element.__bv__visibility_observer
-    expect(observer).toBeDefined()
+    expect(observer).not.toBeDefined()
 
     wrapper.destroy()
   })
