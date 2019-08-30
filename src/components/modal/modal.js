@@ -766,15 +766,15 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             const cancel = this.$refs['cancel-button']
             const close = this.$refs['close-button']
             // Focus the appropriate button or modal content wrapper
-            let el = content
             const autoFocus = this.autoFocusButton
-            if (autoFocus === 'ok' && ok) {
-              el = ok.$el || ok
-            } else if (autoFocus === 'cancel' && cancel) {
-              el = cancel.$el || cancel
-            } else if (autoFocus === 'close' && close) {
-              el = close.$el || close
-            }
+            const el =
+              autoFocus === 'ok' && ok
+                ? ok.$el || ok
+                : autoFocus === 'cancel' && cancel
+                  ? cancel.$el || cancel
+                  : autoFocus === 'close' && close
+                    ? close.$el || close
+                    : content
             // Make sure top of modal is showing (if longer than the viewport)
             if (el === content) {
               modal.scrollTop = 0
