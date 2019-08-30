@@ -180,7 +180,6 @@ const unbind = el => {
 // Export the directive
 export const VBVisible = {
   bind,
-  updated: componentUpdated,
   componentUpdated,
   unbind
 }
