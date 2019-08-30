@@ -35,10 +35,12 @@ describe('img-lazy', () => {
     }
 
     window.IntersectionObserverEntry = class mockIntersectionObserverEntry {
-      constructor() {}
+      constructor() {
+        this._foo = 1
+      }
 
       get intersectionRatio() {
-        return 1
+        return this._foo
       }
     }
   })
