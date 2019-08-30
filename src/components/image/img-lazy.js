@@ -94,9 +94,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
   props,
   data() {
     return {
-      isShown: false,
-      // DEBUG: For test debugging
-      hasIntersectionObserverSupport: hasIntersectionObserverSupport
+      isShown: false
     }
   },
   computed: {
