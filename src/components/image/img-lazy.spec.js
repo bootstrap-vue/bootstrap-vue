@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import { hasIntersectionObserverSupport } from '../../utils/env'
 import { BImgLazy } from './img-lazy'
 
 const src = 'https://picsum.photos/1024/400/?image=41'
@@ -79,6 +78,14 @@ describe('img-lazy', () => {
   })
 
   it('shows when show prop is set', async () => {
+    const hasIntersectionObserverSupport =
+      'IntersectionObserver' in window &&
+      'IntersectionObserverEntry' in window &&
+      // Edge 15 and UC Browser lack support for `isIntersecting`
+      // but we an use intersectionRatio > 0 instead
+      // 'isIntersecting' in window.IntersectionObserverEntry.prototype &&
+      'intersectionRatio' in window.IntersectionObserverEntry.prototype
+
     expect(hasIntersectionObserverSupport).toBeTruthy()
 
     const wrapper = mount(BImgLazy, {
