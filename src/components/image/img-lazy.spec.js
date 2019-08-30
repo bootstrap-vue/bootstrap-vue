@@ -6,7 +6,9 @@ const src = 'https://picsum.photos/1024/400/?image=41'
 
 describe('img-lazy', () => {
   const windowIntersectionObserver = window.IntersectionObserver
-  // Mock callback netry
+  const windowIntersectionObserverEntry = window.IntersectionObserverEntry
+
+  // Mock callback entry
   // const mockEntry = { isIntersecting: true, intersectionRatio: 1 }
 
   beforeAll(() => {
@@ -31,10 +33,19 @@ describe('img-lazy', () => {
         return null
       }
     }
+
+    window.IntersectionObserverEntry = class mockIntersectionObserverEntry {
+      constructor() {}
+
+      get intersectionRatio() {
+        return 1
+      }
+    }
   })
 
   afterAll(() => {
     window.IntersectionObserver = windowIntersectionObserver
+    window.IntersectionObserverEntry = windowIntersectionObserverEntry
   })
 
   it('has root element "img"', async () => {
