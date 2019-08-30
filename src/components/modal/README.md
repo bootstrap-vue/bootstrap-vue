@@ -910,8 +910,8 @@ Example Confirm Message boxes
 - When using Vue Router (or similar), Message Boxes will close and reject if the route changes
   before the modal hides.
 - Message boxes cannot be generated during Server Side Rendering (SSR).
-- The Message Box `message` currently does not support HTML strings, however, you can pass an _array_
-  of `VNodes` as the `message` for fine grained control of the markup. You can use Vue's
+- The Message Box `message` currently does not support HTML strings, however, you can pass an
+  _array_ of `VNodes` as the `message` for fine grained control of the markup. You can use Vue's
   [`this.$createElement`](https://vuejs.org/v2/guide/render-function.html#createElement-Arguments)
   method to generate VNodes. This can also be done for the modal title (by passing VNodes to the
   `title` option), OK button text (via the `okTitle` option), and the CANCEL button text (via the
@@ -920,13 +920,13 @@ Example Confirm Message boxes
 ### Message box advanced usage
 
 When using the `this.$bvModal.msgBoxOk(...)` or `this.$bvModal.msgBoxConfirm(...)` methods for
-generating modals, you may want the modal content to be more than just a string message. As mentioned
-in the [message box notes](#message-box-notes) section above, you can pass _arrays_ of vNodes as the
-message and title for more complex content.
+generating modals, you may want the modal content to be more than just a string message. As
+mentioned in the [message box notes](#message-box-notes) section above, you can pass _arrays_ of
+vNodes as the message and title for more complex content.
 
 Use Vue's
 [`this.$createElement`](https://vuejs.org/v2/guide/render-function.html#createElement-Arguments)
-method to generate VNodes.
+method to generate vNodes.
 
 ```html
 <template>
@@ -969,7 +969,7 @@ method to generate VNodes.
     }
   }
 </script>
-  
+
 <!-- modal-msg-box-advanced.vue -->
 ```
 
