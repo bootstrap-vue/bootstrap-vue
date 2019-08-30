@@ -1000,14 +1000,14 @@ focus a form control when the modal opens. Note that the `autofocus` prop will n
 `b-form-*` controls are _mounted in the DOM_.
 
 If you want to auto focus one of the _built-in_ modal buttons (`ok`, `cancel` or the header `close`
-button, you can set the prop `auto-focus-button` to one of the values `'ok'`, `'cancel'` or `'close'`
-and `<b-modal>` will focus the specified button if it exists. This feature is also available for
-modal message boxes.
+button, you can set the prop `auto-focus-button` to one of the values `'ok'`, `'cancel'` or
+`'close'` and `<b-modal>` will focus the specified button if it exists. This feature is also
+available for modal message boxes.
 
 <p class="alert alert-warning">
   <strong>Note:</strong> it is <strong>not recommended</strong> to autofocus an input or control
   inside of a modal for accessibility reasons, as screen reader users will not know the context of
-  where the input is (the announcment of the modal may not be spoken). It is best to let
+  where the input is (the announcement of the modal may not be spoken). It is best to let
   <code>&lt;b-modal&gt;</code> focus the modal's container, allowing the modal information to be
   spoken to the user, and then allow the user to tab into the input.
 </p>
