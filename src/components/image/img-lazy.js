@@ -94,7 +94,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
   props,
   data() {
     return {
-      isShown: false
+      isShown: this.show
     }
   },
   computed: {
@@ -130,14 +130,9 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  created() {
-    this.isShown = this.show
-  },
   mounted() {
-    if (!hasIntersectionObserverSupport) {
-      // If IntersectionObserver is not available, image is always shown
-      this.isShown = true
-    }
+    // If IntersectionObserver is not available, image is always shown
+    this.isShown = hasIntersectionObserverSupport ? this.show : true
   },
   methods: {
     updateShowProp() {
