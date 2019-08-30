@@ -106,10 +106,10 @@ describe('table > tfoot events', () => {
       },
       slots: {
         // In Vue 2.6x, slots get translated into scopedSlots
-        'foot[a]': '<button id="a">button</button>',
-        'foot[b]': '<input id="b">',
+        'foot(a)': '<button id="a">button</button>',
+        'foot(b)': '<input id="b">',
         // Will use `head` slot if foot slot not defined
-        'head[c]': '<a href="#" id="c">link</a>'
+        'head(c)': '<a href="#" id="c">link</a>'
       }
     })
     expect(wrapper).toBeDefined()
