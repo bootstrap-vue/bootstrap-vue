@@ -1,8 +1,8 @@
 import Vue from '../../utils/vue'
-import { BImg } from './img'
 import { getComponentConfig } from '../../utils/config'
 import { hasIntersectionObserverSupport } from '../../utils/env'
 import { VBVisible } from '../../directives/visible'
+import { BImg } from './img'
 
 const NAME = 'BImgLazy'
 
@@ -78,7 +78,7 @@ export const props = {
     default: false
   },
   offset: {
-    // distance away from viewport 9jn pixels) before being
+    // Distance away from viewport (in pixels) before being
     // considered "visible"
     type: [Number, String],
     default: 360
@@ -139,7 +139,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
       this.$emit('update:show', this.isShown)
     },
     doShow(visible) {
-      // If 'IntersectionObserver` is not supported, the callback
+      // If IntersectionObserver is not supported, the callback
       // will be called with `null` rather than `true` or `false`
       if ((visible || visible === null) && !this.isShown) {
         this.isShown = true
@@ -152,9 +152,9 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
       // We only add the visible directive if we are not shown
       directives.push({
         // Visible directive will silently do nothing if
-        // `IntersectionObserver` is not supported
+        // IntersectionObserver is not supported
         name: 'b-visible',
-        // Value expects a callback (passed one arg of visible = true/false)
+        // Value expects a callback (passed one arg of `visible` = `true` or `false`)
         value: this.doShow,
         modifiers: {
           // Root margin from viewport
@@ -173,7 +173,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         blank: this.computedBlank,
         width: this.computedWidth,
         height: this.computedHeight,
-        // Passthough props
+        // Passthrough props
         alt: this.alt,
         blankColor: this.blankColor,
         fluid: this.fluid,
