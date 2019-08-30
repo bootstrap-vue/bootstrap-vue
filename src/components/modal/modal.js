@@ -9,8 +9,9 @@ import BVTransition from '../../utils/bv-transition'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
 import { BTransporterSingle } from '../../utils/transporter'
+import { from as arrayFrom } from '../../utils/array'
 import { isBrowser } from '../../utils/env'
-import { isString } from '../../utils/inspect'
+import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
 import { contains, eventOff, eventOn, isVisible, select, selectAll } from '../../utils/dom'
@@ -255,6 +256,11 @@ export const props = {
   static: {
     type: Boolean,
     default: false
+  },
+  autoFocusButton: {
+    type: String,
+    default: null,
+    validator: val => isUndefinedOrNull(val) || arrayIncludes(['ok', 'cancel', 'close'], val)
   }
 }
 
@@ -736,11 +742,24 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         const activeElement = this.getActiveElement()
         // If the modal contains the activeElement, we don't do anything
         if (modal && content && !(activeElement && contains(content, activeElement))) {
+          const ok = this.$refs['ok-button']
+          const cancel = this.$refs['cancel-button']
+          const close = this.$refs['close-button']
           // Make sure top of modal is showing (if longer than the viewport)
-          // and focus the modal content wrapper
+          // and focus the apropriate button or modal content wrapper
+          const autoFocus = this.autoFocusButton
+          const el = autoFocus === 'ok' && ok
+            ? ok.$el || ok
+            : autoFocus === 'cancel' && cancel
+              ? cancel.$el || cancel
+              : autoFocus === 'close' && close
+                ? close.$el || close
+                : content
           this.$nextTick(() => {
-            modal.scrollTop = 0
-            content.focus()
+            if (el === content) {
+              modal.scrollTop = 0
+            }
+            el.focus()
           })
         }
       }
@@ -777,6 +796,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             closeButton = h(
               BButtonClose,
               {
+                ref: 'close-button',
                 props: {
                   disabled: this.isTransitioning,
                   ariaLabel: this.headerCloseLabel,
@@ -840,6 +860,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             cancelButton = h(
               BButton,
               {
+                ref: 'cancel-button',
                 props: {
                   variant: this.cancelVariant,
                   size: this.buttonSize,
@@ -857,6 +878,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           const okButton = h(
             BButton,
             {
+              ref: 'ok-button',
               props: {
                 variant: this.okVariant,
                 size: this.buttonSize,
