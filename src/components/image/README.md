@@ -209,9 +209,8 @@ The default `blank-color` is `transparent`.
 
 Lazy loading images uses
 [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
-if supported by the browser (or polyfill), otherwise it uses the document `scroll`, `resize`, and
-`transitionend` events to determine if the image is in view in order to trigger the loading of the
-final image. Scrolling of other elements is not monitored, and will not trigger image loading.
+if supported by the browser (or via a polyfill) to detect with the image should be shown. If
+`IntersectionObserver` support is _not detected_, then the image will _always_ be shown.
 
 ### Usage
 

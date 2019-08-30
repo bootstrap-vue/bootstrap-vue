@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import BFormRadioGroup from './form-radio-group'
-import BFormRadio from './form-radio'
+import { BFormRadioGroup } from './form-radio-group'
+import { BFormRadio } from './form-radio'
 
 describe('form-radio-group', () => {
   // --- Structure, class and attributes tests ---

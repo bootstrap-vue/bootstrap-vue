@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { PortalTarget } from 'portal-vue'
-import BToaster from './toaster'
+import { BToaster } from './toaster'
 
 describe('b-toaster', () => {
   it('has expected structure', async () => {

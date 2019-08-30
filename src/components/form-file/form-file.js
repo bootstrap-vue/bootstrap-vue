@@ -582,5 +582,3 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BFormFile

@@ -292,5 +292,3 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
     }
   }
 })
-
-export default BPaginationNav

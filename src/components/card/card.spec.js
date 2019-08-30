@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BCard from './card'
+import { BCard } from './card'
 
 describe('card', () => {
   it('default has expected structure', async () => {

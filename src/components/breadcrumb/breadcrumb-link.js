@@ -40,5 +40,3 @@ export const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
     return h(tag, mergeData(data, componentData), children)
   }
 })
-
-export default BBreadcrumbLink

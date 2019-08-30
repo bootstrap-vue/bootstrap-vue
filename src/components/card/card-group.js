@@ -32,5 +32,3 @@ export const BCardGroup = /*#__PURE__*/ Vue.extend({
     return h(props.tag, mergeData(data, { class: baseClass }), children)
   }
 })
-
-export default BCardGroup

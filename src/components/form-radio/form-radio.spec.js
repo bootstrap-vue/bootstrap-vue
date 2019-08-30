@@ -1,6 +1,6 @@
-import BFormRadio from './form-radio'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { BFormRadio } from './form-radio'
 
 describe('form-radio', () => {
   /* Custom radio structure, class and attributes tests */

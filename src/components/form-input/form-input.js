@@ -164,5 +164,3 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
     })
   }
 })
-
-export default BFormInput

@@ -44,5 +44,3 @@ export const BCardHeader = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BCardHeader

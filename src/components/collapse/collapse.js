@@ -270,5 +270,3 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BCollapse

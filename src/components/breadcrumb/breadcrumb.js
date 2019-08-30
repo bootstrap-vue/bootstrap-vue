@@ -42,5 +42,3 @@ export const BBreadcrumb = /*#__PURE__*/ Vue.extend({
     return h('ol', mergeData(data, { staticClass: 'breadcrumb' }), childNodes)
   }
 })
-
-export default BBreadcrumb

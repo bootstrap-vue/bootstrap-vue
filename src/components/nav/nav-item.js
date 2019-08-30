@@ -43,5 +43,3 @@ export const BNavItem = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BNavItem

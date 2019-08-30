@@ -149,5 +149,3 @@ export const BImg = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BImg

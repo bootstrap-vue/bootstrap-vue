@@ -30,5 +30,3 @@ export const BDropdownDivider = /*#__PURE__*/ Vue.extend({
     ])
   }
 })
-
-export default BDropdownDivider

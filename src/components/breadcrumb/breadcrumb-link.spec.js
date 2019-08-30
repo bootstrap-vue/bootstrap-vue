@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BBreadcrumbLink from './breadcrumb-link'
+import { BBreadcrumbLink } from './breadcrumb-link'
 
 describe('breadcrumb-link', () => {
   it('has default classes and structure', async () => {

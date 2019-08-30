@@ -30,5 +30,3 @@ export const BContainer = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BContainer

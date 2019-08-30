@@ -35,5 +35,3 @@ export const BCardSubTitle = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BCardSubTitle

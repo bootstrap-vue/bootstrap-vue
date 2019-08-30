@@ -123,5 +123,3 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
     }
   }
 })
-
-export default BFormCheckbox

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BBadge from './badge'
+import { BBadge } from './badge'
 
 describe('badge', () => {
   it('should have base classes', async () => {

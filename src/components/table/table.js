@@ -57,5 +57,3 @@ export const BTable = /*#__PURE__*/ Vue.extend({
   ]
   // render function provided by table-renderer mixin
 })
-
-export default BTable

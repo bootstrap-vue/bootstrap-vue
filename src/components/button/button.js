@@ -186,5 +186,3 @@ export const BButton = /*#__PURE__*/ Vue.extend({
     return h(link ? BLink : props.tag, mergeData(data, componentData), children)
   }
 })
-
-export default BButton

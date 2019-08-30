@@ -17,5 +17,3 @@ export const BNavText = /*#__PURE__*/ Vue.extend({
     return h(props.tag, mergeData(data, { staticClass: 'navbar-text' }), children)
   }
 })
-
-export default BNavText

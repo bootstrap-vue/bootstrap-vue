@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BImg from './img'
+import { BImg } from './img'
 
 describe('img', () => {
   it('has expected default structure', async () => {

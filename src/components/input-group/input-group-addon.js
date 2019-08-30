@@ -44,5 +44,3 @@ export const BInputGroupAddon = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BInputGroupAddon

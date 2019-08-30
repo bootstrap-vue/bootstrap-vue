@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BCardBody from './card-body'
+import { BCardBody } from './card-body'
 
 describe('card-body', () => {
   it('has root element "div"', async () => {
