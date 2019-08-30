@@ -1253,6 +1253,11 @@ available horizontal space.
 - BootstrapVue's custom CSS is required in order to support `sticky-header`.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents the
   borders on the sticky header from "sticking" to the header, and hence the borders will scroll when
+  the body scrolls. To get around this issue, create some custom CSS that targets
+  `table.table.b-table`, which sets they styles `border-collapse: separate; border-spacing: 0px;`
+  (note that this may cause double borders when using features such as `bordered`, etc).
+- Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents the
+  borders on the sticky header from "sticking" to the header, and hence the borders will scroll when
   the body scrolls. To get around this issue, set the pop `no-border-collapse` on the table (note
   that this may cause double borders when using features such as `bordered`, etc).
 - The sticky header feature uses CSS style `position: sticky` to position the headings.
