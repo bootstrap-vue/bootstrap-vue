@@ -33,10 +33,14 @@ describe('card-image', () => {
         }
       }
     })
-    expect(wrapper.attributes('width')).toBeDefined()
-    expect(wrapper.attributes('width')).toBe('1')
-    expect(wrapper.attributes('height')).toBeDefined()
-    expect(wrapper.attributes('height')).toBe('1')
+    expect(wrapper.attributes('width')).not.toBeDefined()
+    expect(wrapper.attributes('height')).not.toBeDefined()
+    // Without IntersectionObserver support, the main image is shown
+    // and the value of the width and height props are used (null in this case)
+    // expect(wrapper.attributes('width')).toBeDefined()
+    // expect(wrapper.attributes('width')).toBe('1')
+    // expect(wrapper.attributes('height')).toBeDefined()
+    // expect(wrapper.attributes('height')).toBe('1')
   })
 
   it('default has class "card-img"', async () => {
