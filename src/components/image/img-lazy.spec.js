@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { hasIntersectionObserverSupport } from '../../utils/env'
 import { BImgLazy } from './img-lazy'
 
 const src = 'https://picsum.photos/1024/400/?image=41'
@@ -15,23 +16,22 @@ describe('img-lazy', () => {
     // IntersectionObserver not supported by JSDOM
     // So we mock up just the basics
     window.IntersectionObserver = class mockIntersectionObserver {
-      constructor(calback, opts) {
-        // We store a copy of handler so
+      constructor(callback, opts) {
+        // We store a copy of callback so
         // we can call it during tests
-        this.callback = calback
+        this._callback = callback
       }
 
-      observe() {
-        return null
+      // Getter for stored callback for testing
+      get callback() {
+        return this._callback
       }
 
-      unobserve() {
-        return null
-      }
+      observe() {}
 
-      disconnect() {
-        return null
-      }
+      unobserve() {}
+
+      disconnect() {}
     }
 
     window.IntersectionObserverEntry = class mockIntersectionObserverEntry {
@@ -79,6 +79,8 @@ describe('img-lazy', () => {
   })
 
   it('shows when show prop is set', async () => {
+    expect(hasIntersectionObserverSupport).toBeTruthy()
+
     const wrapper = mount(BImgLazy, {
       attachToDocument: true,
       propsData: {
