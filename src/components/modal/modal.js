@@ -14,7 +14,15 @@ import { isBrowser } from '../../utils/env'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
 import { stripTags } from '../../utils/html'
-import { contains, eventOff, eventOn, isVisible, select, selectAll, requestAF } from '../../utils/dom'
+import {
+  contains,
+  eventOff,
+  eventOn,
+  isVisible,
+  requestAF,
+  select,
+  selectAll
+} from '../../utils/dom'
 import { BButton } from '../button/button'
 import { BButtonClose } from '../button/button-close'
 
@@ -585,7 +593,10 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       this.checkModalOverflow()
       this.isShow = true
       this.isTransitioning = false
-      this.$nextTick(() => {
+      // TODO: Switch this to requestAF to allow transition hooks to complete
+      // before passing control over to the otehr handlers.
+      // This will allow users to not have to use nextTick or requestAF
+      requestAF(() => {
         this.emitEvent(this.buildEvent('shown'))
         this.setEnforceFocus(true)
         this.$nextTick(() => {
@@ -765,9 +776,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               // Make sure top of modal is showing (if longer than the viewport)
               modal.scrollTop = 0
             }
-            // DEBUG
-            console.log('Auto Focus Element:', el)
-            console.log('Focused:', attemptFocus(el))
+            attemptFocus(el)
           }
         })
       }
