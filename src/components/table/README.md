@@ -824,7 +824,7 @@ explicit scoped slot provided.
 
       <!-- A custom formatted column -->
       <template v-slot:cell(name)="data">
-        <b>{{ data.value.last }}</b>, {{ data.value.first }}
+        <b class="text-info">{{ data.value.last.toUpperCase() }}</b>, <b>{{ data.value.first }}<b>
       </template>
 
       <!-- A virtual composite column -->
@@ -1106,7 +1106,7 @@ rather than native browser table child elements.
     >
       <template v-slot:thead-top="data">
         <b-tr>
-          <b-td colspan="2">&nbsp;</b-td>
+          <b-th colspan="2"><span class="sr-only">Name and ID</span></b-th>
           <b-th variant="secondary">Type 1</b-th>
           <b-th variant="primary" colspan="3">Type 2</b-th>
           <b-th variant="danger">Type 3</b-th>
@@ -2641,8 +2641,8 @@ helper components are as follows:
 
 These components are optimized to handle converting variants to the appropriate classes (such as
 handling table `dark` mode), and automatically applying certain accessibility attributes (i.e.
-`role`s and `scope`s). It can generate the stacked table and sticky-header requirements. Components
-`<b-table>` and `<b-table-lite>` use these helper components internally.
+`role`s and `scope`s). They also can generate the stacked table, and sticky header and column,
+markup. Components `<b-table>` and `<b-table-lite>` use these helper components internally.
 
 In the [Simple tables](#simple-tables) example, we are using the helper components `<b-thead>`,
 `<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`. While you can use regular table child
@@ -2686,9 +2686,10 @@ trigger your click on cells or rows (required for accessibility for keyboard-onl
 ### Heading accessibility
 
 When a column (field) is sortable (`<b-table>` only) or there is a `head-clicked` listener
-registered, the header (and footer) `<th>` cells will be placed into the document tab sequence (via
-`tabindex="0"`) for accessibility by keyboard-only and screen reader users, so that the user may
-trigger a click (by pressing <kbd>ENTER</kbd> on the header cells.
+registered (`<b-table>` and `<b-table-lite>`), the header (and footer) `<th>` cells will be placed
+into the document tab sequence (via `tabindex="0"`) for accessibility by keyboard-only and screen
+reader users, so that the user may trigger a click (by pressing <kbd>ENTER</kbd> on the header
+cells.
 
 ### Data row accessibility
 
