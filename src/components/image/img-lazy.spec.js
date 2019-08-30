@@ -53,9 +53,11 @@ describe('img-lazy', () => {
 
     expect(wrapper.vm.isShown).toBe(true)
 
+    // It appears that vue-test-utils does not run unbind when the directive is
+    // removed from the element. Only when the component is destroyed... unlike Vue
     // Our directive instance should not exist
-    let observer = wrapper.element.__bv__visibility_observer
-    // expect(observer).not.toBeDefined()
+    let observer = wrapper.vm.$el.__bv__visibility_observer
+    expect(observer).not.toBeDefined()
 
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toContain(src)
@@ -72,8 +74,8 @@ describe('img-lazy', () => {
     expect(wrapper.vm.isShown).toBe(true)
 
     // Our directive instance should not exist
-    observer = wrapper.element.__bv__visibility_observer
-    expect(observer).not.toBeDefined()
+    // observer = wrapper.element.__bv__visibility_observer
+    // expect(observer).not.toBeDefined()
 
     wrapper.setProps({
       show: false
@@ -86,8 +88,8 @@ describe('img-lazy', () => {
     expect(wrapper.attributes('src')).toContain(src)
 
     // Our directive instance should not exist
-    observer = wrapper.element.__bv__visibility_observer
-    expect(observer).not.toBeDefined()
+    // observer = wrapper.element.__bv__visibility_observer
+    // expect(observer).not.toBeDefined()
 
     wrapper.destroy()
   })
