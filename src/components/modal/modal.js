@@ -763,6 +763,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               // Make sure top of modal is showing (if longer than the viewport)
               modal.scrollTop = 0
             }
+            // DEBUG
+            console.log('Auto Focus Element:' el)
             el.focus()
           }
         })
