@@ -931,7 +931,7 @@ method to generate VNodes.
 ```html
 <template>
   <div>
-    <b-button @click="showMsgOk">Show message box with custom content</b-button>
+    <b-button @click="showMsgOk">Show OK message box with custom content</b-button>
   </div>
 </template>
 
@@ -949,19 +949,21 @@ method to generate VNodes.
             h('strong', {}, 'msgBoxOk'),
             ' message ',
           ]),
-          h('p', { class: ['text-center'] }, [
-            h('b-spinner', { props: { type: 'grow' } })
-          ]),
-          h('p', { class: ['text-right'] }, [
-            'Message time: ',
-            h('strong', {}, String(new Date()))
-          ])
+          h('p', { class: ['text-center'] }, [h('b-spinner')]),
+          h('b-img', {
+            props: {
+              src: 'https://picsum.photos/id/20/250/250',
+              thumbnail: true,
+              center: true,
+              fluid: true, rounded: 'circle'
+            }
+          })
         ])
         // We must pass the generated vNodes as arrays
         this.$bvModal.msgBoxOk([messageVNode], {
           title: [titleVNode],
           buttonSize: 'sm',
-          centered: true
+          centered: true, size: 'sm'
         })
       }
     }
