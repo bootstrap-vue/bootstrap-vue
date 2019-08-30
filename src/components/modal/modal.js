@@ -1,19 +1,9 @@
 import Vue from '../../utils/vue'
-import { modalManager } from './helpers/modal-manager'
-import { BvModalEvent } from './helpers/bv-modal-event.class'
-import idMixin from '../../mixins/id'
-import listenOnRootMixin from '../../mixins/listen-on-root'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
-import scopedStyleAttrsMixin from '../../mixins/scoped-style-attrs'
 import BVTransition from '../../utils/bv-transition'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
-import { BTransporterSingle } from '../../utils/transporter'
 import { arrayIncludes } from '../../utils/array'
-import { isBrowser } from '../../utils/env'
-import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { getComponentConfig } from '../../utils/config'
-import { stripTags } from '../../utils/html'
 import {
   contains,
   eventOff,
@@ -23,8 +13,18 @@ import {
   select,
   selectAll
 } from '../../utils/dom'
+import { isBrowser } from '../../utils/env'
+import { stripTags } from '../../utils/html'
+import { isString, isUndefinedOrNull } from '../../utils/inspect'
+import { BTransporterSingle } from '../../utils/transporter'
+import idMixin from '../../mixins/id'
+import listenOnRootMixin from '../../mixins/listen-on-root'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
+import scopedStyleAttrsMixin from '../../mixins/scoped-style-attrs'
 import { BButton } from '../button/button'
 import { BButtonClose } from '../button/button-close'
+import { modalManager } from './helpers/modal-manager'
+import { BvModalEvent } from './helpers/bv-modal-event.class'
 
 // --- Constants ---
 
@@ -593,15 +593,15 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       this.checkModalOverflow()
       this.isShow = true
       this.isTransitioning = false
-      // We use requestAF to allow transition hooks to complete
-      // before passing control over to the other handlers.
-      // This will allow users to not have to use nextTick or requestAF
+      // We use `requestAF()` to allow transition hooks to complete
+      // before passing control over to the other handlers
+      // This will allow users to not have to use `$nextTick()` or `requestAF()`
       // when trying to pre-focus an element
       requestAF(() => {
         this.emitEvent(this.buildEvent('shown'))
         this.setEnforceFocus(true)
         this.$nextTick(() => {
-          // Delayed in a next tick to allow users time to pre-focus
+          // Delayed in a `$nextTick()` to allow users time to pre-focus
           // an element if the wish
           this.focusFirst()
         })
@@ -765,18 +765,18 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             const ok = this.$refs['ok-button']
             const cancel = this.$refs['cancel-button']
             const close = this.$refs['close-button']
-            // Focus the apropriate button or modal content wrapper
+            // Focus the appropriate button or modal content wrapper
+            let el = content
             const autoFocus = this.autoFocusButton
-            const el =
-              autoFocus === 'ok' && ok
-                ? ok.$el || ok
-                : autoFocus === 'cancel' && cancel
-                  ? cancel.$el || cancel
-                  : autoFocus === 'close' && close
-                    ? close.$el || close
-                    : content
+            if (autoFocus === 'ok' && ok) {
+              el = ok.$el || ok
+            } else if (autoFocus === 'cancel' && cancel) {
+              el = cancel.$el || cancel
+            } else if (autoFocus === 'close' && close) {
+              el = close.$el || close
+            }
+            // Make sure top of modal is showing (if longer than the viewport)
             if (el === content) {
-              // Make sure top of modal is showing (if longer than the viewport)
               modal.scrollTop = 0
             }
             attemptFocus(el)
