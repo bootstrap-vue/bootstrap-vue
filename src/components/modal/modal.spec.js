@@ -1051,6 +1051,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -1068,6 +1069,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -1107,6 +1109,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
@@ -1136,6 +1139,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -1154,6 +1158,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -1187,6 +1192,7 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
