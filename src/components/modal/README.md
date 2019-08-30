@@ -941,7 +941,7 @@ method to generate vNodes.
       showMsgOk() {
         const h = this.$createElement
         // Using HTML string
-        const titleVNode = h('div', { domProps: { innerHTML: 'Title from <b>HTML<b> string' } })
+        const titleVNode = h('div', { domProps: { innerHTML: 'Title from <i>HTML<i> string' } })
         // More complex structure
         const messageVNode = h('div', { class: ['foobar'] }, [
           h('p', { class: ['text-center'] }, [
