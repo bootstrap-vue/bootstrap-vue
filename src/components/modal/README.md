@@ -910,12 +910,68 @@ Example Confirm Message boxes
 - When using Vue Router (or similar), Message Boxes will close and reject if the route changes
   before the modal hides.
 - Message boxes cannot be generated during Server Side Rendering (SSR).
-- The Message Box `message` currently does not support HTML strings, however, you can pass an array
-  of `VNodes` as the `message` for fine grained control of the markup. You can use Vue's
+- The Message Box `message` currently does not support HTML strings, however, you can pass an
+  _array_ of `VNodes` as the `message` for fine grained control of the markup. You can use Vue's
   [`this.$createElement`](https://vuejs.org/v2/guide/render-function.html#createElement-Arguments)
   method to generate VNodes. This can also be done for the modal title (by passing VNodes to the
   `title` option), OK button text (via the `okTitle` option), and the CANCEL button text (via the
   `cancelTitle` option).
+
+### Message box advanced usage
+
+When using the `this.$bvModal.msgBoxOk(...)` or `this.$bvModal.msgBoxConfirm(...)` methods for
+generating modals, you may want the modal content to be more than just a string message. As
+mentioned in the [message box notes](#message-box-notes) section above, you can pass _arrays_ of
+VNodes as the message and title for more complex content.
+
+Use Vue's
+[`this.$createElement`](https://vuejs.org/v2/guide/render-function.html#createElement-Arguments)
+method to generate VNodes.
+
+```html
+<template>
+  <div>
+    <b-button @click="showMsgOk">Show OK message box with custom content</b-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    methods: {
+      showMsgOk() {
+        const h = this.$createElement
+        // Using HTML string
+        const titleVNode = h('div', { domProps: { innerHTML: 'Title from <i>HTML<i> string' } })
+        // More complex structure
+        const messageVNode = h('div', { class: ['foobar'] }, [
+          h('p', { class: ['text-center'] }, [
+            ' Flashy ',
+            h('strong', {}, 'msgBoxOk'),
+            ' message ',
+          ]),
+          h('p', { class: ['text-center'] }, [h('b-spinner')]),
+          h('b-img', {
+            props: {
+              src: 'https://picsum.photos/id/20/250/250',
+              thumbnail: true,
+              center: true,
+              fluid: true, rounded: 'circle'
+            }
+          })
+        ])
+        // We must pass the generated VNodes as arrays
+        this.$bvModal.msgBoxOk([messageVNode], {
+          title: [titleVNode],
+          buttonSize: 'sm',
+          centered: true, size: 'sm'
+        })
+      }
+    }
+  }
+</script>
+
+<!-- modal-msg-box-advanced.vue -->
+```
 
 ## Listening to modal changes via \$root events
 

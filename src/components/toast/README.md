@@ -148,7 +148,7 @@ as props on the `<b-toast>` component and as properties of the options object pa
 ### Title
 
 Add a title to your toast via the `title` option. Just like the toast `message`, the title can be a
-simple string, or an array of vNodes. See the [Advanced usage](#advanced-usage) section for an
+simple string, or an array of VNodes. See the [Advanced usage](#advanced-usage) section for an
 example of passing an array of `VNodes` as the message and title.
 
 ### Transparency
@@ -416,7 +416,7 @@ toasts are closed/hidden.
 
 When using the `this.$bvToast.toast(...)` method for generating toasts, you may want the toast
 content to be more than just a string message. As mentioned in the
-[Toasts on demand](#toasts-on-demand) section above, you can pass arrays of `vNodes` as the message
+[Toasts on demand](#toasts-on-demand) section above, you can pass arrays of `VNodes` as the message
 and title for more complex content.
 
 Remember to keep toast content simple and to the point. Avoid placing interactive components or
@@ -468,7 +468,7 @@ for generating more complex toast content:
             h('small', { class: 'ml-auto text-italics' }, '5 minutes ago')
           ]
         )
-        // Pass the vNodes as an array for message and title
+        // Pass the VNodes as an array for message and title
         this.$bvToast.toast([vNodesMsg], {
           title: [vNodesTitle],
           solid: true,
