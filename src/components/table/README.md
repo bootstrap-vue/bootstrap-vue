@@ -797,8 +797,8 @@ information on the `busy` state.
 ## Custom data rendering
 
 Custom rendering for each data field in a row is possible using either
-[scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or formatter callback
-function.
+[scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or a formatter callback
+function, or a combination of both.
 
 ### Scoped field slots
 
@@ -888,6 +888,10 @@ The slot's scope variable (`data` in the above sample) will have the following p
   sorting and pagination have been applied to the original table data. The `index` value will refer
   to the **displayed row number**. This number will align with the indexes from the optional
   [`v-model` bound](#v-model-binding) variable.
+- When using the new Vue 2.6 `v-slot` syntax, note that slot names **cannot** contain spaces, and
+  when using in-browser DOM templates the slot names will _always_ be lower cased. To get around
+  this, you can pass the slot name using Vue's
+  [dynamic slot names](https://vuejs.org/v2/guide/components-slots.html#Dynamic-Slot-Names)
 
 #### Displaying raw HTML
 
@@ -1088,6 +1092,13 @@ When placing inputs, buttons, selects or links within a `head(...)` or `foot(...
 `head-clicked` event will not be emitted when the input, select, textarea is clicked (unless they
 are disabled). `head-clicked` will never be emitted when clicking on links or buttons inside the
 scoped slots (even when disabled)
+
+**Notes:**
+
+- When using the new Vue 2.6 `v-slot` syntax, note that slot names **cannot** contain spaces, and
+  when using in-browser DOM templates the slot names will _always_ be lower cased. To get around
+  this, you can pass the slot name using Vue's
+  [dynamic slot names](https://vuejs.org/v2/guide/components-slots.html#Dynamic-Slot-Names)
 
 ### Adding additional rows to the header
 
