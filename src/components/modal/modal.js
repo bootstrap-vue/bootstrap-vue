@@ -588,7 +588,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       this.$nextTick(() => {
         this.emitEvent(this.buildEvent('shown'))
         this.focusFirst()
-        this.setEnforceFocus(true)
+        this.$nextTick(() => {
+          this.setEnforceFocus(true)
+        })
       })
     },
     onBeforeLeave() {
@@ -765,7 +767,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             }
             // DEBUG
             console.log('Auto Focus Element:', el)
-            el.focus()
+            attemptFocus(el)
           }
         })
       }
