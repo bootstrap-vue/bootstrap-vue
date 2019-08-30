@@ -1253,9 +1253,8 @@ available horizontal space.
 - BootstrapVue's custom CSS is required in order to support `sticky-header`.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents the
   borders on the sticky header from "sticking" to the header, and hence the borders will scroll when
-  the body scrolls. To get around this issue, create some custom CSS that targets
-  `table.table.b-table`, which sets they styles `border-collapse: separate; border-spacing: 0px;`
-  (note that this may cause double borders when using features such as `bordered`, etc).
+  the body scrolls. To get around this issue, set the pop `no-border-collapse` on the table (note
+  that this may cause double width borders when using features such as `bordered`, etc).
 - The sticky header feature uses CSS style `position: sticky` to position the headings. Internet
   Explorer does not support `position: sticky`, hence for IE11 the table headings will scroll with
   the table body.
@@ -1350,11 +1349,11 @@ set.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents any
   borders on the sticky columns from "sticking" to the column, and hence those borders will scroll
   when the body scrolls. To get around this issue, set the prop `no-border-collapse` on the table
-  (note that this may cause double borders when using features such as `bordered`, etc).
+  (note that this may cause double width borders when using features such as `bordered`, etc).
 - BootstrapVue's custom CSS is required in order to support sticky columns.
-- The sticky column feature uses CSS style `position: sticky` to position the column cells.
-- Internet Explorer does not support `position: sticky`, hence for IE11 the sticky column will
-  scroll with the table body.
+- The sticky column feature uses CSS style `position: sticky` to position the column cells. Internet
+  Explorer does not support `position: sticky`, hence for IE11 the sticky column will scroll with
+  the table body.
 
 ### Row details support
 
