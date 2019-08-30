@@ -1,5 +1,8 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { BImgLazy } from './img-lazy'
+
+const src = 'https://picsum.photos/1024/400/?image=41'
 
 const windowIntersectionObserver = window.IntersectionObserver
 const windowIntersectionObserverEntry = window.IntersectionObserverEntry
@@ -7,47 +10,34 @@ const windowIntersectionObserverEntry = window.IntersectionObserverEntry
 // Mock callback entry
 // const mockEntry = { isIntersecting: true, intersectionRatio: 1 }
 
-beforeAll(() => {
-  // IntersectionObserver not supported by JSDOM
-  // So we mock up just the basics
-  window.IntersectionObserver = class mockIntersectionObserver {
-    constructor(callback, opts) {
-      // We store a copy of callback so
-      // we can call it during tests
-      this._callback = callback
-    }
-
-    // Getter for stored callback for testing
-    get callback() {
-      return this._callback
-    }
-
-    observe() {}
-
-    unobserve() {}
-
-    disconnect() {}
+window.IntersectionObserver = class mockIntersectionObserver {
+  constructor(callback, opts) {
+    // We store a copy of callback so
+    // we can call it during tests
+    this._callback = callback
   }
 
-  window.IntersectionObserverEntry = class mockIntersectionObserverEntry {
-    constructor() {
-      this._foo = 1
-    }
-
-    get intersectionRatio() {
-      return this._foo
-    }
+  // Getter for stored callback for testing
+  get callback() {
+    return this._callback
   }
-})
 
-afterAll(() => {
-  window.IntersectionObserver = windowIntersectionObserver
-  window.IntersectionObserverEntry = windowIntersectionObserverEntry
-})
+  observe() {}
 
-import { BImgLazy } from './img-lazy'
+  unobserve() {}
 
-const src = 'https://picsum.photos/1024/400/?image=41'
+  disconnect() {}
+}
+
+window.IntersectionObserverEntry = class mockIntersectionObserverEntry {
+  constructor() {
+    this._foo = 1
+  }
+
+  get intersectionRatio() {
+    return this._foo
+  }
+}
 
 describe('img-lazy', () => {
   it('has root element "img"', async () => {
