@@ -188,7 +188,7 @@ describe('table', () => {
       propsData: {
         items: items1,
         fields: fields1,
-        norBorderCollapse: true
+        noBorderCollapse: true
       }
     })
 
