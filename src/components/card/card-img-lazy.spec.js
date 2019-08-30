@@ -11,17 +11,7 @@ describe('card-image', () => {
       }
     })
     expect(wrapper.is('img')).toBe(true)
-  })
-
-  it('default has data src attribute', async () => {
-    const wrapper = mount(BCardImgLazy, {
-      context: {
-        props: {
-          src: 'https://picsum.photos/600/300/?image=25'
-        }
-      }
-    })
-    expect(wrapper.attributes('src')).toContain('data:image/svg+xml')
+    expect(wrapper.attributes('src')).toBeDefined()
   })
 
   it('default does not have alt attribute', async () => {
