@@ -1049,6 +1049,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
 
       // Modal should now be open
@@ -1065,6 +1066,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
 
       // Modal should now be closed
@@ -1103,6 +1105,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
 
       const $button = wrapper.find('button.trigger')
@@ -1131,6 +1134,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
 
       // Modal should now be open
@@ -1148,6 +1152,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
 
       // Modal should now be closed
