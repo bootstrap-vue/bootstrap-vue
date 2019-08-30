@@ -36,7 +36,7 @@ import { requestAF } from '../utils/dom'
 import { isFunction } from '../utils/inspect'
 import { keys } from '../utils/object'
 
-const PROP_NAME = '__bv__visibility_observer'
+const OBSERVER_PROP_NAME = '__bv__visibility_observer'
 
 class VisibilityObserver {
   constructor(el, options, vnode) {
@@ -52,19 +52,14 @@ class VisibilityObserver {
   }
 
   createObserver(vnode) {
+    // Remove any previous observer
     if (this.observer) {
-      // Remove any previous observer
       /* istanbul ignore next */
       this.stop()
     }
 
-    if (this.doneOnce) {
-      // Should only be called once
-      /* istanbul ignore next */
-      return
-    }
-
-    if (!isFunction(this.callback)) {
+    // Should only be called once and `callback` prop should be a function
+    if (this.doneOnce || !isFunction(this.callback)) {
       /* istanbul ignore next */
       return
     }
@@ -93,8 +88,8 @@ class VisibilityObserver {
     /* istanbul ignore next: IntersectionObserver not supported in JSDOM */
     vnode.context.$nextTick(() => {
       requestAF(() => {
-        // placed in an `if` just in case we were
-        // destroyed before this requestAnimationFrame runs
+        // Placed in an `if` just in case we were destroyed before
+        // this `requestAnimationFrame` runs
         if (this.observer) {
           this.observer.observe(this.el)
         }
@@ -126,11 +121,11 @@ class VisibilityObserver {
 }
 
 const destroy = el => {
-  const observer = el[PROP_NAME]
+  const observer = el[OBSERVER_PROP_NAME]
   if (observer && observer.stop) {
     observer.stop()
   }
-  delete el[PROP_NAME]
+  delete el[OBSERVER_PROP_NAME]
 }
 
 const bind = (el, { value, modifiers }, vnode) => {
@@ -152,9 +147,9 @@ const bind = (el, { value, modifiers }, vnode) => {
   // Destroy any previous observer
   destroy(el)
   // Create new observer
-  el[PROP_NAME] = new VisibilityObserver(el, options, vnode)
+  el[OBSERVER_PROP_NAME] = new VisibilityObserver(el, options, vnode)
   // Store the current modifiers on the object (cloned)
-  el[PROP_NAME]._prevModifiers = { ...modifiers }
+  el[OBSERVER_PROP_NAME]._prevModifiers = { ...modifiers }
 }
 
 // When the directive options may have been updated (or element)
@@ -164,8 +159,8 @@ const componentUpdated = (el, { value, oldValue, modifiers }, vnode) => {
   /* istanbul ignore next */
   if (
     value !== oldValue ||
-    !el[PROP_NAME] ||
-    !looseEqual(modifiers, el[PROP_NAME]._prevModifiers)
+    !el[OBSERVER_PROP_NAME] ||
+    !looseEqual(modifiers, el[OBSERVER_PROP_NAME]._prevModifiers)
   ) {
     // Re-bind on element
     bind(el, { value, modifiers }, vnode)
