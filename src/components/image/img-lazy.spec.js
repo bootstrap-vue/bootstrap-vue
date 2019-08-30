@@ -1,18 +1,22 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BImgLazy } from './img-lazy'
 
 const src = 'https://picsum.photos/1024/400/?image=41'
 
 describe('img-lazy', () => {
+  const windowIntersectionObserver = window.IntersectionObserver
+  // Mock callback netry
+  // const mockEntry = { isIntersecting: true, intersectionRatio: 1 }
+
   beforeAll(() => {
     // IntersectionObserver not supported by JSDOM
     // So we mock up just the basics
     window.IntersectionObserver = class IntersectionObserver {
-      constructor(handler, opts) {
-        // We store a copy of handler so we can call it
-        // during tests
-        this.handler = handler
+      constructor(calback, opts) {
+        // We store a copy of handler so
+        // we can call it during tests
+        this.callback = calback
       }
 
       observe() {
@@ -30,10 +34,7 @@ describe('img-lazy', () => {
   })
 
   afterAll(() => {
-    try {
-      window.IntersectionObserver = undefined
-      delete window.IntersectionObserver
-    } catch {}
+    window.IntersectionObserver = windowIntersectionObserver
   })
 
   it('has root element "img"', async () => {
@@ -72,19 +73,27 @@ describe('img-lazy', () => {
         show: false
       }
     })
+
     expect(wrapper.is('img')).toBe(true)
 
-    expect(wrapper.attributes('src')).toBeDefined()
-    expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
 
     // Our directive instance with test "fake" observer
     let observer = wrapper.element.__bv__visibility_observer
     expect(observer).toBeDefined()
 
+    expect(wrapper.attributes('src')).toBeDefined()
+    expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
+
     wrapper.setProps({
       show: true
     })
     await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+
     expect(wrapper.attributes('src')).toBe(src)
 
     // Our directive instance should be gone
@@ -94,6 +103,8 @@ describe('img-lazy', () => {
     wrapper.setProps({
       show: false
     })
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
 
