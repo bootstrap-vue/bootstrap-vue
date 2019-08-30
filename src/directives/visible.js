@@ -90,7 +90,6 @@ class VisibilityObserver {
     }
 
     // Start observing in a `$nextTick()` (to allow DOM to complete rendering)
-    /* istanbul ignore next: IntersectionObserver not supported in JSDOM */
     vnode.context.$nextTick(() => {
       requestAF(() => {
         // placed in an `if` just in case we were
@@ -102,7 +101,7 @@ class VisibilityObserver {
     })
   }
 
-  handler(entries) /* istanbul ignore next: IntersectionObserver not supported in JSDOM */ {
+  handler(entries) {
     const entry = entries ? entries[0] : {}
     const isIntersecting = Boolean(entry.isIntersecting || entry.intersectionRatio > 0.0)
     if (isIntersecting !== this.visible) {
@@ -158,7 +157,7 @@ const bind = (el, { value, modifiers }, vnode) => {
 }
 
 // When the directive options may have been updated (or element)
-const update = (el, { value, oldValue, modifiers }, vnode) => {
+const componentUpdated = (el, { value, oldValue, modifiers }, vnode) => {
   // Compare value/oldValue and modifiers to see if anything has changed
   // and if so, destroy old observer and create new observer
   /* istanbul ignore next */
@@ -181,6 +180,6 @@ const unbind = el => {
 // Export the directive
 export const VBVisible = {
   bind,
-  update,
+  componentUpdated,
   unbind
 }
