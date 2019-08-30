@@ -92,8 +92,11 @@ describe('img-lazy', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
+    await waitRAF()
 
-    // Our directive instance with test "fake" observer
+    expect(wrapper.vm.isShown).toBe(false)
+
+    // Our directive instance should exist
     let observer = wrapper.element.__bv__visibility_observer
     expect(observer).toBeDefined()
 
@@ -106,6 +109,7 @@ describe('img-lazy', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.attributes('src')).toBe(src)
 
@@ -119,6 +123,8 @@ describe('img-lazy', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
+    await waitRAF()
+
     expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
 
     // Our directive instance should be back
