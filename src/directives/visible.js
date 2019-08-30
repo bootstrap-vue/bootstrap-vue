@@ -93,7 +93,11 @@ class VisibilityObserver {
     /* istanbul ignore next: IntersectionObserver not supported in JSDOM */
     vnode.context.$nextTick(() => {
       requestAF(() => {
-        this.observer.observe(this.el)
+        // placed in an `if` just in case we were
+        // destroyed before this requestAnimationFrame runs
+        if (this.observer) {
+          this.observer.observe(this.el)
+        }
       })
     })
   }
