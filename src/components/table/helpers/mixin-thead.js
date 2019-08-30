@@ -106,13 +106,15 @@ export default {
         // Handle edge case where in-document templates are used with new
         // `v-slot:name` syntax where the browser lower-cases the v-slot's
         // name (attributes become lower cased when parsed by the browser)
-        let slotNames = [`head[${field.key}]`, `head[${field.key.toLowerCase()}]`, 'head[]']
+        // We have replaced the square bracket syntax with round brackets
+        // to prevent confusion with dynamic slot names
+        let slotNames = [`head(${field.key})`, `head(${field.key.toLowerCase()})`, 'head()']
         if (isFoot) {
           // Footer will fallback to header slot names
           slotNames = [
-            `foot[${field.key}]`,
-            `foot[${field.key.toLowerCase()}]`,
-            'foot[]',
+            `foot(${field.key})`,
+            `foot(${field.key.toLowerCase()})`,
+            'foot()',
             ...slotNames
           ]
         }
