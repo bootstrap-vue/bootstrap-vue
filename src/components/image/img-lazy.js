@@ -133,7 +133,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
   created() {
     this.isShown = this.show
   },
-  beforeMount() {
+  mounted() {
     if (!hasIntersectionObserverSupport) {
       // If IntersectionObserver is not available, image is always shown
       this.isShown = true
@@ -159,7 +159,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         // Visible directive will silently do nothing if
         // `IntersectionObserver` is not supported
         name: 'b-visible',
-        // Value expects a callback (passed on arg of visible = true/false)
+        // Value expects a callback (passed one arg of visible = true/false)
         value: this.doShow,
         modifiers: {
           // Root margin from viewport
