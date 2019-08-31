@@ -52,13 +52,17 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    numberOfPages(newVal) {
-      if (newVal === this.localNumberOfPages) {
+    numberOfPages(newNumberOfPages) {
+      if (newNumberOfPages === this.localNumberOfPages) {
         /* istanbul ignore next */
         return
       }
-      this.localNumberOfPages = newVal
-      this.currentPage = 1
+      this.localNumberOfPages = newNumberOfPages
+      if (this.currentPage > newNumberOfPages) {
+        // Try an keep the current page number if possible
+        // Otherwise set it to the first page
+        this.currentPage = 1
+      }
     }
   },
   created() {
