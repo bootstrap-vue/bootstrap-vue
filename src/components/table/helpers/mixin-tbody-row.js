@@ -228,7 +228,9 @@ export default {
       // We can return more than one TR if rowDetails enabled
       const $rows = []
 
-      // Details ID needed for aria-describedby when details showing
+      // Details ID needed for aria-details when details showing
+      // We set it to null when not showing so that atttribute
+      // does not appear on the elemet
       const detailsId = rowShowDetails ? this.safeId(`_details_${rowIndex}_`) : null
 
       // For each item data field in row
@@ -284,7 +286,7 @@ export default {
               tabindex: hasRowClickHandler ? '0' : null,
               'data-pk': rowId ? String(item[primaryKey]) : null,
               // Should this be `aria-details` instead?
-              'aria-describedby': detailsId,
+              'aria-details': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
               ...selectableAttrs
