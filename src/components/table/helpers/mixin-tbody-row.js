@@ -228,9 +228,9 @@ export default {
       // We can return more than one TR if rowDetails enabled
       const $rows = []
 
-      // Details ID needed for aria-details when details showing
-      // We set it to null when not showing so that atttribute
-      // does not appear on the elemet
+      // Details ID needed for `aria-details` when details showing
+      // We set it to `null` when not showing so that attribute
+      // does not appear on the element
       const detailsId = rowShowDetails ? this.safeId(`_details_${rowIndex}_`) : null
 
       // For each item data field in row
