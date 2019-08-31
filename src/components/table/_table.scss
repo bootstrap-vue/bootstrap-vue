@@ -219,7 +219,7 @@ $bv-escaped-characters: (("<", "%3c"), (">", "%3e"), ("#", "%23"));
         background-repeat: no-repeat;
         background-size: $b-table-sort-icon-bg-width $b-table-sort-icon-bg-height;
 
-        &:not(.b-table-sort-icon-left) {
+        &:not(.b-table-sort-icon-left):not(.b-table-sort-icon-top) {
           // Default is icon on the right
           background-position: right calc(#{$table-cell-padding} / 2) center;
           padding-right: calc(#{$table-cell-padding} + #{$b-table-sort-icon-bg-width});
@@ -229,6 +229,12 @@ $bv-escaped-characters: (("<", "%3c"), (">", "%3e"), ("#", "%23"));
           // Left aligned sort icon
           background-position: left calc(#{$table-cell-padding} / 2) center;
           padding-left: calc(#{$table-cell-padding} + #{$b-table-sort-icon-bg-width});
+        }
+
+        &.b-table-sort-icon-top {
+          // Top aligned sort icon
+          background-position: center top calc(#{$table-cell-padding} / 2);
+          padding-top: calc(#{$table-cell-padding} + #{$b-table-sort-icon-bg-height});
         }
       }
 
@@ -284,7 +290,7 @@ $bv-escaped-characters: (("<", "%3c"), (">", "%3e"), ("#", "%23"));
     > thead,
     > tfoot {
       > tr > [aria-sort] {
-        &:not(.b-table-sort-icon-left) {
+        &:not(.b-table-sort-icon-left):not(.b-table-sort-icon-top) {
           // Default is icon on the right
           background-position: right calc(#{$table-cell-padding-sm} / 2) center;
           padding-right: calc(#{$table-cell-padding-sm} + #{$b-table-sort-icon-bg-width});
@@ -294,6 +300,12 @@ $bv-escaped-characters: (("<", "%3c"), (">", "%3e"), ("#", "%23"));
           // Left aligned sort icon
           background-position: left calc(#{$table-cell-padding-sm} / 2) center;
           padding-left: calc(#{$table-cell-padding-sm} + #{$b-table-sort-icon-bg-width});
+        }
+
+        &.b-table-sort-icon-top {
+          // Left aligned sort icon
+          background-position: center top calc(#{$table-cell-padding-sm} / 2);
+          padding-left: calc(#{$table-cell-padding-sm} + #{$b-table-sort-icon-bg-height});
         }
       }
     }
