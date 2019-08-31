@@ -55,8 +55,8 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
       // Used forwarching changes to perPage and numberOfPages
       return {
         perPage: sanitizePerPage(this.perPage),
-        numberOfPages: this.numberOfPages,
-        totalRows: sanitizeTotalRows(this.totalRows)
+        totalRows: sanitizeTotalRows(this.totalRows),
+        numberOfPages: this.numberOfPages
       }
     }
   },
