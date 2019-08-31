@@ -228,7 +228,9 @@ export default {
       // We can return more than one TR if rowDetails enabled
       const $rows = []
 
-      // Details ID needed for aria-describedby when details showing
+      // Details ID needed for `aria-details` when details showing
+      // We set it to `null` when not showing so that attribute
+      // does not appear on the element
       const detailsId = rowShowDetails ? this.safeId(`_details_${rowIndex}_`) : null
 
       // For each item data field in row
@@ -284,7 +286,7 @@ export default {
               tabindex: hasRowClickHandler ? '0' : null,
               'data-pk': rowId ? String(item[primaryKey]) : null,
               // Should this be `aria-details` instead?
-              'aria-describedby': detailsId,
+              'aria-details': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
               ...selectableAttrs
@@ -322,7 +324,7 @@ export default {
         }
 
         // Render the details slot in a TD
-        const $details = h(BTd, { props: { colspan: fields.length }, attrs: { id: detailsId } }, [
+        const $details = h(BTd, { props: { colspan: fields.length } }, [
           this.normalizeSlot(detailsSlotName, detailsScope)
         ])
 
@@ -351,7 +353,7 @@ export default {
                   : this.tbodyTrClass
               ],
               props: { variant: item._rowVariant || null },
-              attrs: { id: detailsId }
+              attrs: { id: detailsId, tabindex: '-1' }
             },
             [$details]
           )
