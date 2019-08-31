@@ -753,7 +753,7 @@ describe('pagination', () => {
     })
     expect(wrapper.isVueInstance()).toBe(true)
 
-    expect(wrapper.vm.currentPage).toBe(10)
+    expect(wrapper.vm.currentPage).toBe(4)
     expect(wrapper.emitted('input')).not.toBeDefined()
 
     // Change perPage
