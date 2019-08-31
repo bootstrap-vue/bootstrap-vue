@@ -54,6 +54,10 @@ export default {
       type: [Boolean, String],
       default: false
     },
+    noBorderCollapse: {
+      type: Boolean,
+      default: false
+    },
     captionTop: {
       type: Boolean,
       default: false
@@ -111,7 +115,8 @@ export default {
           // The following are b-table custom styles
           border: this.outlined,
           'b-table-fixed': this.fixed,
-          'b-table-caption-top': this.captionTop
+          'b-table-caption-top': this.captionTop,
+          'b-table-no-border-collapse': this.noBorderCollapse
         },
         this.tableVariant ? `${this.dark ? 'bg' : 'table'}-${this.tableVariant}` : '',
         // Stacked table classes

@@ -327,28 +327,29 @@ details.
 
 `<b-table>` provides several props to alter the style of the table:
 
-| prop                | Type              | Description                                                                                                                                                                                                                                                                                                                                    |
-| ------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `striped`           | Boolean           | Add zebra-striping to the table rows within the `<tbody>`                                                                                                                                                                                                                                                                                      |
-| `bordered`          | Boolean           | For borders on all sides of the table and cells.                                                                                                                                                                                                                                                                                               |
-| `borderless`        | Boolean           | removes inner borders from table.                                                                                                                                                                                                                                                                                                              |
-| `outlined`          | Boolean           | For a thin border on all sides of the table. Has no effect if `bordered` is set.                                                                                                                                                                                                                                                               |
-| `small`             | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                   |
-| `hover`             | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                          |
-| `dark`              | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                       |
-| `fixed`             | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                       |
-| `responsive`        | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [Responsive tables](#responsive-tables) below for details. |
-| `sticky-header`     | Boolean or String | Generates a vertically scrollable table with sticky headers. Set to `true` to enable sticky headers (default table max-height of `300px`), or set it to a string containing a height (with CSS units) to specify a maximum height other than `300px`. See the [Sticky header](#sticky-headers) section below for details.                      |
-| `stacked`           | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [Stacked tables](#stacked-tables) below for details.                                                 |
-| `caption-top`       | Boolean           | If the table has a caption, and this prop is set to `true`, the caption will be visually placed above the table. If `false` (the default), the caption will be visually placed below the table.                                                                                                                                                |
-| `table-variant`     | String            | Give the table an overall theme color variant.                                                                                                                                                                                                                                                                                                 |
-| `head-variant`      | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                         |
-| `foot-variant`      | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                      |
-| `foot-clone`        | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                              |
-| `no-footer-sorting` | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                              |
+| prop                 | Type              | Description                                                                                                                                                                                                                                                                                                                                    |
+| -------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `striped`            | Boolean           | Add zebra-striping to the table rows within the `<tbody>`                                                                                                                                                                                                                                                                                      |
+| `bordered`           | Boolean           | For borders on all sides of the table and cells.                                                                                                                                                                                                                                                                                               |
+| `borderless`         | Boolean           | removes inner borders from table.                                                                                                                                                                                                                                                                                                              |
+| `outlined`           | Boolean           | For a thin border on all sides of the table. Has no effect if `bordered` is set.                                                                                                                                                                                                                                                               |
+| `small`              | Boolean           | To make tables more compact by cutting cell padding in half.                                                                                                                                                                                                                                                                                   |
+| `hover`              | Boolean           | To enable a hover highlighting state on table rows within a `<tbody>`                                                                                                                                                                                                                                                                          |
+| `dark`               | Boolean           | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap v4 class `.table-dark`)                                                                                                                                                                                                                                       |
+| `fixed`              | Boolean           | Generate a table with equal fixed-width columns (`table-layout: fixed;`)                                                                                                                                                                                                                                                                       |
+| `responsive`         | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [Responsive tables](#responsive-tables) below for details. |
+| `sticky-header`      | Boolean or String | Generates a vertically scrollable table with sticky headers. Set to `true` to enable sticky headers (default table max-height of `300px`), or set it to a string containing a height (with CSS units) to specify a maximum height other than `300px`. See the [Sticky header](#sticky-headers) section below for details.                      |
+| `stacked`            | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint. See [Stacked tables](#stacked-tables) below for details.                                                 |
+| `caption-top`        | Boolean           | If the table has a caption, and this prop is set to `true`, the caption will be visually placed above the table. If `false` (the default), the caption will be visually placed below the table.                                                                                                                                                |
+| `table-variant`      | String            | Give the table an overall theme color variant.                                                                                                                                                                                                                                                                                                 |
+| `head-variant`       | String            | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively                                                                                                                                                                                                                                                         |
+| `foot-variant`       | String            | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set                                                                                                                                                                      |
+| `foot-clone`         | Boolean           | Turns on the table footer, and defaults with the same contents a the table header                                                                                                                                                                                                                                                              |
+| `no-footer-sorting`  | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                              |
+| `no-border-collapse` | Boolean           | Disables the default of collapsing of the table borders. Mainly for use with [sticky headers](#sticky-headers) and/or [sticky columns](#sticky-columns). Will cause the appearance of double borders in some situations.                                                                                                                       |
 
-**Note:** table style options `fixed`, `stacked`, and `caption-top`, and the table sorting feature,
-requires BootstrapVue's custom CSS.
+**Note:** table style options `fixed`, `stacked`, `caption-top`, `no-border-collapse`, sticky
+headers, sticky columns, and the table sorting feature, all require BootstrapVue's custom CSS.
 
 **Example: Basic table styles**
 
@@ -365,6 +366,7 @@ requires BootstrapVue's custom CSS.
       <b-form-checkbox v-model="dark" inline>Dark</b-form-checkbox>
       <b-form-checkbox v-model="fixed" inline>Fixed</b-form-checkbox>
       <b-form-checkbox v-model="footClone" inline>Foot Clone</b-form-checkbox>
+      <b-form-checkbox v-model="noCollapse" inline>No border collapse</b-form-checkbox>
     </b-form-group>
     <b-form-group label="Head Variant" label-cols-lg="2">
       <b-form-radio-group v-model="headVariant" class="mt-lg-2">
@@ -395,6 +397,7 @@ requires BootstrapVue's custom CSS.
       :dark="dark"
       :fixed="fixed"
       :foot-clone="footClone"
+      :no-border-collapse="noCollapse"
       :items="items"
       :fields="fields"
       :head-variant="headVariant"
@@ -433,7 +436,8 @@ requires BootstrapVue's custom CSS.
         fixed: false,
         footClone: false,
         headVariant: null,
-        tableVariant: ''
+        tableVariant: '',
+        noCollapse: false
       }
     }
   }
@@ -1249,9 +1253,8 @@ available horizontal space.
 - BootstrapVue's custom CSS is required in order to support `sticky-header`.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents the
   borders on the sticky header from "sticking" to the header, and hence the borders will scroll when
-  the body scrolls. To get around this issue, create some custom CSS that targets
-  `table.table.b-table`, which sets they styles `border-collapse: separate; border-spacing: 0px;`
-  (note that this may cause double borders when using features such as `bordered`, etc).
+  the body scrolls. To get around this issue, set the pop `no-border-collapse` on the table (note
+  that this may cause double width borders when using features such as `bordered`, etc).
 - The sticky header feature uses CSS style `position: sticky` to position the headings. Internet
   Explorer does not support `position: sticky`, hence for IE11 the table headings will scroll with
   the table body.
@@ -1269,8 +1272,17 @@ set.
 ```html
 <template>
   <div>
-    <b-form-checkbox v-model="stickyHeader" class="mb-2">Sticky header</b-form-checkbox>
-    <b-table :sticky-header="stickyHeader" responsive :items="items" :fields="fields">
+    <div class="mb-2">
+      <b-form-checkbox v-model="stickyHeader" inline>Sticky header</b-form-checkbox>
+      <b-form-checkbox v-model="noCollapse" inline>No border collapse</b-form-checkbox>
+    </div>
+    <b-table
+      :sticky-header="stickyHeader"
+      :no-border-collapse="noCollapse"
+      responsive
+      :items="items"
+      :fields="fields"
+    >
       <!-- We are using utility class `text-nowrap` to help illustrate horizontal scrolling -->
       <template v-slot:head(id)="scope">
         <div class="text-nowrap">Row ID</div>
@@ -1289,6 +1301,7 @@ set.
     data() {
       return {
         stickyHeader: true,
+        noCollapse: false,
         fields: [
           { key: 'id', stickyColumn: true, isRowHeader: true, variant: 'primary' },
           'a',
@@ -1335,13 +1348,12 @@ set.
   previous sticky columns.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents any
   borders on the sticky columns from "sticking" to the column, and hence those borders will scroll
-  when the body scrolls. To get around this issue, create some custom CSS that targets
-  `table.table.b-table`, which sets they styles `border-collapse: collapsed; border-spacing: 0px;`
-  (note that this may cause double borders when using features such as `bordered`, etc).
+  when the body scrolls. To get around this issue, set the prop `no-border-collapse` on the table
+  (note that this may cause double width borders when using features such as `bordered`, etc).
 - BootstrapVue's custom CSS is required in order to support sticky columns.
-- The sticky column feature uses CSS style `position: sticky` to position the column cells.
-- Internet Explorer does not support `position: sticky`, hence for IE11 the sticky column will
-  scroll with the table body.
+- The sticky column feature uses CSS style `position: sticky` to position the column cells. Internet
+  Explorer does not support `position: sticky`, hence for IE11 the sticky column will scroll with
+  the table body.
 
 ### Row details support
 
