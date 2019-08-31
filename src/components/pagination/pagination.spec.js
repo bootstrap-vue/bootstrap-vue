@@ -679,7 +679,7 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
-  it('changing the pagesize resets to page 1', async () => {
+  it('changing the number of pages to less than current page number resets to page 1', async () => {
     // https://github.com/bootstrap-vue/bootstrap-vue/issues/2987
     const wrapper = mount(BPagination, {
       propsData: {
@@ -695,13 +695,30 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')).not.toBeDefined()
 
     wrapper.setProps({
-      perPage: 3
+      totalRows: 20
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.currentPage).toBe(10)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe(10)
+
+    // Change to page 20
+    wrapper.setProps({
+      value: 20
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.currentPage).toBe(20)
+    expect(wrapper.emitted('input').length).toBe(1)
+
+    // Decrease number of pages should reset to page 1
+    wrapper.setProps({
+      totalRows: 10
     })
     await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(1)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0][0]).toBe(1)
+    expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.emitted('input')[1][0]).toBe(1)
 
     // Change to page 3
     wrapper.setProps({
@@ -709,17 +726,16 @@ describe('pagination', () => {
     })
     await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(3)
-    expect(wrapper.emitted('input').length).toBe(2)
-    expect(wrapper.emitted('input')[1][0]).toBe(3)
+    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input')[2][0]).toBe(3)
 
-    // Increasing number of pages should reset to page 1
+    // Decrease number of pages to 5 should not reset to page 1
     wrapper.setProps({
-      perPage: 1
+      totalRows: 5
     })
     await waitNT(wrapper.vm)
-    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.vm.currentPage).toBe(3)
     expect(wrapper.emitted('input').length).toBe(3)
-    expect(wrapper.emitted('input')[2][0]).toBe(1)
 
     wrapper.destroy()
   })
