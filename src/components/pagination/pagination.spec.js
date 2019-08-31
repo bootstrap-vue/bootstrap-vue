@@ -42,8 +42,6 @@ describe('pagination', () => {
 
     lis.wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
-      expect(li.attributes('role')).toContain('none')
-      expect(li.attributes('role')).toContain('presentation')
       const pageLink = li.find('.page-link')
       expect(pageLink).toBeDefined()
       if (index === 2) {
@@ -462,8 +460,6 @@ describe('pagination', () => {
     // Grab the page buttons (includes bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
-      expect(li.attributes('role')).toContain('none')
-      expect(li.attributes('role')).toContain('presentation')
       if (index === 0) {
         // First button
         expect(li.classes()).toContain('disabled')
@@ -501,8 +497,6 @@ describe('pagination', () => {
     // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
-      expect(li.attributes('role')).toContain('none')
-      expect(li.attributes('role')).toContain('presentation')
       if (index === 0) {
         // First button
         expect(li.classes()).not.toContain('disabled')
@@ -540,8 +534,6 @@ describe('pagination', () => {
     // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
-      expect(li.attributes('role')).toContain('none')
-      expect(li.attributes('role')).toContain('presentation')
       // Page number buttons
       if (index >= 2 && index <= 5) {
         // Pages 1 to 4
