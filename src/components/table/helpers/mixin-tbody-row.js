@@ -324,7 +324,7 @@ export default {
         }
 
         // Render the details slot in a TD
-        const $details = h(BTd, { props: { colspan: fields.length }, attrs: { id: detailsId } }, [
+        const $details = h(BTd, { props: { colspan: fields.length } }, [
           this.normalizeSlot(detailsSlotName, detailsScope)
         ])
 
@@ -353,7 +353,7 @@ export default {
                   : this.tbodyTrClass
               ],
               props: { variant: item._rowVariant || null },
-              attrs: { id: detailsId }
+              attrs: { id: detailsId, tabindex: '-1' }
             },
             [$details]
           )
