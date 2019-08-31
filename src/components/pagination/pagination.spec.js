@@ -150,6 +150,7 @@ describe('pagination', () => {
     wrapper.setProps({
       totalRows: 4
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.is('ul')).toBe(true)
     expect(wrapper.findAll('li').length).toBe(8)
@@ -157,6 +158,7 @@ describe('pagination', () => {
     wrapper.setProps({
       perPage: 2
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.is('ul')).toBe(true)
     expect(wrapper.findAll('li').length).toBe(6)
