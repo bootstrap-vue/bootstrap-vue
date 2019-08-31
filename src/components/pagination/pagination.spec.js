@@ -694,14 +694,13 @@ describe('pagination', () => {
     expect(wrapper.vm.currentPage).toBe(10)
     expect(wrapper.emitted('input')).not.toBeDefined()
 
+    // Change total rows to larger value. Should not change page number
     wrapper.setProps({
       totalRows: 20
     })
     await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(10)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0][0]).toBe(10)
+    expect(wrapper.emitted('input')).not.toBeDefined()
 
     // Change to page 20
     wrapper.setProps({
@@ -709,7 +708,7 @@ describe('pagination', () => {
     })
     await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(20)
-    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')).not.toBeDefined()
 
     // Decrease number of pages should reset to page 1
     wrapper.setProps({
@@ -717,8 +716,8 @@ describe('pagination', () => {
     })
     await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(1)
-    expect(wrapper.emitted('input').length).toBe(2)
-    expect(wrapper.emitted('input')[1][0]).toBe(1)
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe(1)
 
     // Change to page 3
     wrapper.setProps({
@@ -726,8 +725,7 @@ describe('pagination', () => {
     })
     await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(3)
-    expect(wrapper.emitted('input').length).toBe(3)
-    expect(wrapper.emitted('input')[2][0]).toBe(3)
+    expect(wrapper.emitted('input').length).toBe(1)
 
     // Decrease number of pages to 5 should not reset to page 1
     wrapper.setProps({
@@ -735,7 +733,7 @@ describe('pagination', () => {
     })
     await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(3)
-    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input').length).toBe(1)
 
     wrapper.destroy()
   })
