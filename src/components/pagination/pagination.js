@@ -55,6 +55,7 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
       // Used forwarching changes to perPage and numberOfPages
       return {
         perPage: sanitizePerPage(this.perPage),
+        totalRows: sanitizeTotalRows(this.totalRows),
         numberOfPages: this.numberOfPages
       }
     }
@@ -62,7 +63,7 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
   watch: {
     pageSizeNumberOfPages(newVal, oldVal) {
       if (!isUndefinedOrNull(oldVal)) {
-        if (newVal.perPage !== oldVal.perPage) {
+        if (newVal.perPage !== oldVal.perPage && newVal.totalRows === oldVal.totalRows) {
           // If the page size changes, reset to page 1
           this.currentPage = 1
         } else if (
