@@ -680,7 +680,6 @@ describe('pagination', () => {
   })
 
   it('changing the number of pages to less than current page number resets to page 1', async () => {
-    // https://github.com/bootstrap-vue/bootstrap-vue/issues/2987
     const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 10,
@@ -737,6 +736,53 @@ describe('pagination', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(3)
     expect(wrapper.emitted('input').length).toBe(3)
+
+    wrapper.destroy()
+  })
+
+  it('changing per-page resets to page 1', async () => {
+    // https://github.com/bootstrap-vue/bootstrap-vue/issues/2987
+    const wrapper = mount(BPagination, {
+      propsData: {
+        totalRows: 10,
+        perPage: 1,
+        value: 4,
+        limit: 20
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.vm.currentPage).toBe(10)
+    expect(wrapper.emitted('input')).not.toBeDefined()
+
+    // Change perPage
+    wrapper.setProps({
+      perPage: 2
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe(1)
+
+    // Change page to 3
+    wrapper.setProps({
+      value: 3
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.currentPage).toBe(3)
+    expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.emitted('input')[1][0]).toBe(3)
+
+    // Change perPage. Should reset to page 1, even though
+    // current page is within range of numberOfPages
+    wrapper.setProps({
+      perPage: 1
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input')[2][0]).toBe(1)
 
     wrapper.destroy()
   })
