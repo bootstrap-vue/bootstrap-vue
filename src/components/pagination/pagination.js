@@ -67,14 +67,12 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
           // If the page size changes, reset to page 1
           this.currentPage = 1
         } else if (
-          newVal.numberOfPages !== this.localNumberOfPages &&
-          newVal.numberOfPages !== oldVal.numberOfPages
+          newVal.numberOfPages !== oldVal.numberOfPages &&
+          this.currentPage > newVal.numberOfPages
         ) {
-          if (this.currentPage > newVal.numberOfPages) {
-            // If numberOfPages changes and is less than
-            // the currentPage number, reset to page 1
-            this.currentPage = 1
-          }
+          // If numberOfPages changes and is less than
+          // the currentPage number, reset to page 1
+          this.currentPage = 1
         }
       }
       this.localNumberOfPages = newVal.numberOfPages
