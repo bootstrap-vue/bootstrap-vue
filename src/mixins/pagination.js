@@ -394,7 +394,7 @@ export default {
           staticClass: 'page-item',
           class: { disabled: isDisabled, 'flex-fill': fill },
           attrs: {
-            role: 'none presentation',
+            role: 'presentation',
             'aria-hidden': isDisabled ? 'true' : null
           }
         },
@@ -492,7 +492,7 @@ export default {
             key: `page-${page.number}`,
             staticClass: 'page-item',
             class: [{ disabled, active, 'flex-fill': fill }, page.classes],
-            attrs: { role: 'none presentation' }
+            attrs: { role: 'presentation' }
           },
           [inner]
         )
