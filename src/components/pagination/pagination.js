@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { isVisible } from '../../utils/dom'
+import { isUndefinedOrNull } from '../../utils/inspect'
 import paginationMixin from '../../mixins/pagination'
 
 const NAME = 'BPagination'
@@ -49,19 +50,32 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
     numberOfPages() {
       const result = Math.ceil(sanitizeTotalRows(this.totalRows) / sanitizePerPage(this.perPage))
       return result < 1 ? 1 : result
+    },
+    pageSizeNumberOfPages() {
+      // Used forwarching changes to perPage and numberOfPages
+      return {
+        perPage: sanitizePerPage(this.perPage),
+        numberOfPages: this.numberOfPages
+      }
     }
   },
   watch: {
-    numberOfPages(newNumberOfPages) {
-      if (newNumberOfPages === this.localNumberOfPages) {
-        /* istanbul ignore next */
-        return
-      }
-      this.localNumberOfPages = newNumberOfPages
-      if (this.currentPage > newNumberOfPages) {
-        // Try an keep the current page number if possible
-        // Otherwise set it to the first page
-        this.currentPage = 1
+    pageSizeNumberOfPages(newVal, oldVal) {
+      if (!isUndefinedOrNull(oldVal)) {
+        if (newVal.pageSize !== oldVal.pageSize) {
+          // If the page size changes, reset to page 1
+          this.currentPage = 1
+        } else if (newVal.numberOfPages === this.localNumberOfPages) {
+         /* istanbul ignore next */
+         return
+        } else if (newVal.numberOfPages !== oldVal.numberOfPages) {
+          this.localNumberOfPages = newVal.numberOfPages
+          if (this.currentPage > newVal.numberOfPages) {
+            // If numberOfPages changes and is less than
+            // the currentPage number, reset to page 1
+            this.currentPage = 1
+          }
+        }
       }
     }
   },
