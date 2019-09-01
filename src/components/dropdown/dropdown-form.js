@@ -14,7 +14,7 @@ export const BDropdownForm = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h, { props, data, children }) {
-    return h('li', [
+    return h('li', { attrs: { role: 'presentation' } }, [
       h(
         BForm,
         mergeData(data, {

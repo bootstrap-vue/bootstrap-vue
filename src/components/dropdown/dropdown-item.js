@@ -37,7 +37,7 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    return h('li', [
+    return h('li', { attrs: { role: 'presentation' } }, [
       h(
         BLink,
         {
