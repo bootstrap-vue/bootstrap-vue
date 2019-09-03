@@ -35,6 +35,7 @@ export default {
         // Slots could be dynamic (i.e. `v-if`), so we must compute on each render.
         // Used by tbodyRow mixin render helper.
         const cache = {}
+        const defaultSlotName = this.hasNormalizedSlot('cell()') ? 'cell()' : null
         this.computedFields.forEach(field => {
           const key = field.key
           const fullName = `cell(${key})`
@@ -43,7 +44,7 @@ export default {
             ? fullName
             : this.hasNormalizedSlot(lowerName)
               ? lowerName
-              : 'cell()'
+              : defaultSlotName
         })
         // Created as a non-reactive property so to not trigger component updates.
         // Must be a fresh object each render.
