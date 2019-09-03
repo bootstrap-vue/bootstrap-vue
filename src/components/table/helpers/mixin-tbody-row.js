@@ -205,10 +205,11 @@ export default {
       // v-slot attributes are lower-cased by the browser.
       // Switched to round bracket syntax to prevent confusion with
       // dynamic slot name syntax.
-      const slotNames = [`cell(${key})`, `cell(${key.toLowerCase()})`, 'cell()']
-      let $childNodes = this.hasNormalizedSlot(slotNames)
-        ? this.normalizeSlot(slotNames, slotScope)
-        : toString(formatted)
+      // const slotNames = [`cell(${key})`, `cell(${key.toLowerCase()})`, 'cell()']
+      // Slot names are now cached by mixin tbody in `this.$_bodyFieldSlotNameCache`
+      // Will be `null` if no slot (or fallback slot) exists
+      const slotName = this.$_bodyFieldSlotNameCache[key]
+      let $childNodes = slotName ? this.normalizeSlot(slotName, slotScope) : toString(formatted)
       if (this.isStacked) {
         // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
         $childNodes = [h('div', {}, [$childNodes])]
