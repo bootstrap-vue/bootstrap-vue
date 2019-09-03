@@ -37,16 +37,14 @@ export default {
         const cache = {}
         this.computedFields.forEach(field => {
           const key = field.key
-          // Default cell slot name
-          cache[key] = 'cell()'
-          // Data cell slot names can also be one of the following:
-          const slotNames = [`cell(${key})`, `cell(${key.toLowerCase()})`]
-          for (let i = 0; i < slotNames.length && !cache[key]; i++) {
-            const name = slotNames[i]
-            if (this.hasNormalizedSlot(name)) {
-              cache[key] = name
-            }
-          }
+          const fullName = `cell(${key})`
+          const lowerName = `cell(${key.toLowerCase()})`
+          cache[key] =
+            this.hasNormalizedSlot(fullName)
+              ? fullName
+              : this.hasNormalizedSlot(lowerName)
+                ? lowerName
+                : 'cell()'
         })
         // Created as a non-reactive property so to not trigger component updates.
         this.$_bodyFieldSlotNameCache = cache
