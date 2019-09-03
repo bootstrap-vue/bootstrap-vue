@@ -47,6 +47,7 @@ export default {
                 : 'cell()'
         })
         // Created as a non-reactive property so to not trigger component updates.
+        // Must be a fresh object each render.
         this.$_bodyFieldSlotNameCache = cache
 
         // Add static Top Row slot (hidden in visibly stacked mode as we can't control data-label attr)
