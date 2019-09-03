@@ -775,11 +775,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                   : autoFocus === 'close' && close
                     ? close.$el || close
                     : content
-            // Make sure top of modal is showing (if longer than the viewport)
-            if (el === content) {
-              modal.scrollTop = 0
-            }
+            // Focus the element
             attemptFocus(el)
+            if (el === content) {
+              // Make sure top of modal is showing (if longer than the viewport)
+              this.$nextTick(() => {
+                modal.scrollTop = 0
+              })
+            }
           }
         })
       }
