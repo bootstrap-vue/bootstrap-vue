@@ -279,7 +279,8 @@ on `<b-nav>` and setting either the `pills` or `tabs` props:
 
 **Plain style:**
 
-The `card-header` prop is only needed when you are applying `tabs` or `pills` style.
+The `card-header` prop is only needed when you are applying `tabs` or `pills` style. Note
+Bootstrap v4 SCSS does not have speial styling for `active` state plain style nav items.
 
 ```html
 <div>
@@ -305,7 +306,7 @@ The `card-header` prop is only needed when you are applying `tabs` or `pills` st
 <!-- nav-card-plain.vue -->
 ```
 
-The `card-header` prop has no effect if the `<b-nav>` is `vertical`.
+The `card-header` prop has no styling effect if the `<b-nav>` is in `vertical` mode.
 
 ### Using with Vue Router
 
