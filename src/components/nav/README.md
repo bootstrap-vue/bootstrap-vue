@@ -327,14 +327,14 @@ components, to created tabbed content that changes with route URL:
   <b-card title="Card Title" body-class="text-center">
     <template v-slot:header>
       <b-nav card-header tabs>
-        <!-- b-nav-item's with child routes. Note the trailing slash on the first b-nav-item -->
+        <!-- <b-nav-item>'s with child routes. Note the trailing slash on the first <b-nav-item> -->
         <b-nav-item to="/some/route/" exact exact-active-class="active">Active</b-nav-item>
         <b-nav-item to="/some/route/foo" exact exact-active-class="active">Foo</b-nav-item>
         <b-nav-item to="/some/route/bar" exact exact-active-class="active">Bar</b-nav-item>
       </b-nav>
     </template>
 
-    <!-- child route gets rendered in <router-view> or <nuxt-child> -->
+    <!-- Child route gets rendered in <router-view> or <nuxt-child> -->
     <router-view></router-view>
     <!-- Or if using Nuxt.js
     <nuxt-child></nuxt-child>
@@ -343,7 +343,7 @@ components, to created tabbed content that changes with route URL:
 </div>
 ```
 
-Note Vue Router does not support defining active routes with hashes (`#`), which is why you must
+Note: Vue Router does not support defining active routes with hashes (`#`), which is why you must
 define the "tab" content as child routes.
 
 **Example router config for above:**
