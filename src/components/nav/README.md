@@ -316,7 +316,7 @@ The `card-header` prop is only needed when you are applying `tabs` or `pills` st
 
 The `card-header` prop has no effect if the `<b-nav>` is `vertical`.
 
-### using with Vue Router
+### Using with Vue Router
 
 Have your card nav-tabs control vue router nested routes via `<router-view>` or `<nuxt-child>`
 components:
@@ -334,7 +334,7 @@ components:
       </b-nav>
     </template>
 
-    <!-- child route gets rendered in <router-view or nuxt-child -->
+    <!-- child route gets rendered in <router-view> or <nuxt-child> -->
     <router-view></router-view>
     <!-- Or if using Nuxt.js
     <nuxt-child></nuxt-child>
@@ -343,11 +343,30 @@ components:
 </div>
 ```
 
+Note Vue Router does not support defining active routes with hashes (`#`), which is why you must
+define the "tab" content as child routes.
+
+**Example router config for above:**
+
+```js
+const routes = [
+  {
+    path: '/some/route',
+    component: SomeRouteComponent,
+    // Child route "tabs"
+    children: [
+      { path: '', component: DefaultTabComponent },
+      { path: 'foo', component: FooTabComponent },
+      { path: 'bar', component: BarTabComponent }
+    ]
+  }
+]
+```
+
 For more details see:
 
 - [Vue Router `<router-view>`](https://router.vuejs.org/api/#router-view)
 - [Nuxt.JS `<nuxt-child>`](https://nuxtjs.org/api/components-nuxt-child)
-
 
 ## Accessibility
 
