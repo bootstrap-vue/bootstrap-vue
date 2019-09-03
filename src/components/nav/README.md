@@ -318,8 +318,8 @@ The `card-header` prop has no effect if the `<b-nav>` is `vertical`.
 
 ### Using with Vue Router
 
-Have your card nav-tabs control vue router nested routes via `<router-view>` or `<nuxt-child>`
-components:
+Have your card `<b-nav>` control vue router nested routes via `<router-view>` or `<nuxt-child>`
+components, to created tabbed content that changes with route URL:
 
 ```html
 // On page with route `/some/route`
