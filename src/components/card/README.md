@@ -509,7 +509,7 @@ Integrate [`<b-nav>`](/docs/components/nav) into card headers easily.
 
 ```html
 <div>
-  <b-card title="Card Title" body-class="text-center">
+  <b-card title="Card Title" body-class="text-center" header-tag="nav">
     <template v-slot:header>
       <b-nav card-header tabs>
         <b-nav-item active>Active</b-nav-item>
@@ -534,7 +534,7 @@ Integrate [`<b-nav>`](/docs/components/nav) into card headers easily.
 ```html
 <div>
   <b-card no-body>
-    <b-card-header>
+    <b-card-header header-tag="nav">
       <b-nav card-header tabs>
         <b-nav-item active>Active</b-nav-item>
         <b-nav-item>Inactive</b-nav-item>
