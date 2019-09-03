@@ -316,6 +316,64 @@ The `card-header` prop is only needed when you are applying `tabs` or `pills` st
 
 The `card-header` prop has no effect if the `<b-nav>` is `vertical`.
 
+### Using with Vue Router
+
+Have your card `<b-nav>` control vue router nested routes via `<router-view>` or `<nuxt-child>`
+components, to created tabbed content that changes with route URL:
+
+```html
+// On page with route `/some/route`
+<div>
+  <b-card title="Card Title" body-class="text-center">
+    <template v-slot:header>
+      <b-nav card-header tabs>
+        <!-- <b-nav-item>'s with child routes. Note the trailing slash on the first <b-nav-item> -->
+        <b-nav-item to="/some/route/" exact exact-active-class="active">Active</b-nav-item>
+        <b-nav-item to="/some/route/foo" exact exact-active-class="active">Foo</b-nav-item>
+        <b-nav-item to="/some/route/bar" exact exact-active-class="active">Bar</b-nav-item>
+      </b-nav>
+    </template>
+
+    <!-- Child route gets rendered in <router-view> or <nuxt-child> -->
+    <router-view></router-view>
+    <!-- Or if using Nuxt.js
+    <nuxt-child></nuxt-child>
+    -->
+  </b-card>
+</div>
+```
+
+Note: Vue Router does not support defining active routes with hashes (`#`), which is why you must
+define the "tab" content as child routes.
+
+**Example router config for above:**
+
+<!-- eslint-disable no-unused-vars, no-undef -->
+
+```js
+const routes = [
+  {
+    path: '/some/route',
+    component: SomeRouteComponent,
+    // Child route "tabs"
+    children: [
+      { path: '', component: DefaultTabComponent },
+      { path: 'foo', component: FooTabComponent },
+      { path: 'bar', component: BarTabComponent }
+    ]
+  }
+]
+```
+
+One can also use Vue Router
+[named routes](https://router.vuejs.org/guide/essentials/named-routes.html#named-routes) and/or
+route params instead of path based routes.
+
+For more details see:
+
+- [Vue Router `<router-view>`](https://router.vuejs.org/api/#router-view)
+- [Nuxt.JS `<nuxt-child>`](https://nuxtjs.org/api/components-nuxt-child)
+
 ## Accessibility
 
 If you're using `<b-nav>` to provide a navigation bar, be sure to add a `role="navigation"` to the
