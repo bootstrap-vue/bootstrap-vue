@@ -39,12 +39,11 @@ export default {
           const key = field.key
           const fullName = `cell(${key})`
           const lowerName = `cell(${key.toLowerCase()})`
-          cache[key] =
-            this.hasNormalizedSlot(fullName)
-              ? fullName
-              : this.hasNormalizedSlot(lowerName)
-                ? lowerName
-                : 'cell()'
+          cache[key] = this.hasNormalizedSlot(fullName)
+            ? fullName
+            : this.hasNormalizedSlot(lowerName)
+              ? lowerName
+              : 'cell()'
         })
         // Created as a non-reactive property so to not trigger component updates.
         // Must be a fresh object each render.
