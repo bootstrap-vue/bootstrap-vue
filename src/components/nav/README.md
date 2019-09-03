@@ -348,6 +348,8 @@ define the "tab" content as child routes.
 
 **Example router config for above:**
 
+<!-- eslint-disable no-unused-vars, no-undef -->
+
 ```js
 const routes = [
   {
