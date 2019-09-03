@@ -365,6 +365,10 @@ const routes = [
 ]
 ```
 
+One can also use Vue Router
+[named routes](https://router.vuejs.org/guide/essentials/named-routes.html#named-routes) and/or
+route params instead of path based routes.
+
 For more details see:
 
 - [Vue Router `<router-view>`](https://router.vuejs.org/api/#router-view)
