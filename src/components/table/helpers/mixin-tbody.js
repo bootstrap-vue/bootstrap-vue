@@ -30,6 +30,27 @@ export default {
       } else {
         // Table isn't busy, or we don't have a busy slot
 
+        // Create a slot cache for improved performace when looking up cell slot names.
+        // Values will be keyed by the field's `key` and will store the slot's name.
+        // Slots could be dynamic (i.e. `v-if`), so we must compute on each render.
+        // Used by tbodyRow mixin render helper.
+        const cache = {}
+        this.computedFields.forEach(field => {
+          const key = field.key
+          // Default cell slot name
+          cache[key] = 'cell()'
+          // Data cell slot names can also be one of the following:
+          const slotNames = [`cell(${key})`, `cell(${key.toLowerCase()})`]
+          for (let i = 0; i < slotNames.length && !cache[key]; i++) {
+            const name = slotNames[i]
+            if (this.hasNormalizedSlot(name)) {
+              cache[key] = name
+            }
+          }
+        })
+        // Created as a non-reactive property so to not trigger component updates.
+        this.$_bodyFieldSlotNameCache = cache
+
         // Add static Top Row slot (hidden in visibly stacked mode as we can't control data-label attr)
         $rows.push(this.renderTopRow ? this.renderTopRow() : h())
 
