@@ -279,8 +279,8 @@ on `<b-nav>` and setting either the `pills` or `tabs` props:
 
 **Plain style:**
 
-The `card-header` prop is only needed when you are applying `tabs` or `pills` style. Note
-Bootstrap v4 SCSS does not have speial styling for `active` state plain style nav items.
+The `card-header` prop is only needed when you are applying `tabs` or `pills` style. Note that
+Bootstrap v4 SCSS does not have special styling for `active` state plain style nav items.
 
 ```html
 <div>
@@ -387,8 +387,8 @@ Note that navigation bars, even if visually styled as tabs, should **not** be gi
 the [WAI ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices/#tabpanel). See
 [`<b-tabs>`](/docs/components/tabs) for dynamic tabbed interfaces that are compliant with WAI ARIA.
 
-Tabbed interfaces should avoid using dropdown menus, as this causes both usability and
-accessibility issues:
+Tabbed interfaces should avoid using dropdown menus, as this causes both usability and accessibility
+issues:
 
 - From a usability perspective, the fact that the currently displayed tab’s trigger element is not
   immediately visible (as it’s inside the closed dropdown menu) can cause confusion.
