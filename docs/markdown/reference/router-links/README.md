@@ -110,6 +110,10 @@ Configure the active CSS class applied when the link is active. Note the default
 configured globally via the `linkActiveClass`
 [router constructor option](https://router.vuejs.org/api/#linkactiveclass).
 
+With components that support router links (have a `to` prop), you will want to set this to the class
+`'active'` (or a space separated string that includes `'active'`) to apply Bootstrap's active
+styling on the component when the current route matches the `to` prop.
+
 ### `exact`
 
 - type: `boolean`
@@ -139,6 +143,10 @@ Check out more examples explaining active link class [live](https://jsfiddle.net
 Configure the active CSS class applied when the link is active with exact match. Note the default
 value can also be configured globally via the `linkExactActiveClass`
 [router constructor option](https://router.vuejs.org/api/#linkexactactiveclass).
+
+With components that support router links (have a `to` prop), you will want to set this to the class
+`'active'` (or a space separated string that includes `'active'`) to apply Bootstrap's active
+styling on the component when the current route matches the `to` prop.
 
 ## Nuxt.js specific router link props
 
