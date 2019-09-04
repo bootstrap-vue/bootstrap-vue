@@ -1605,11 +1605,11 @@ Vue's `<transition-group>` component internally. Three props are available for t
 
 To enable transitions you need to specify `tbody-transition-props` and/or
 `tbody-transition-handlers`, and must specify which field key to use as a unique key via the
-`primary-key` prop. Your data **must have** a column (specified by setting the `primary-key` prop
-to the _name_ of the field) that has a **unique value per row** in order for transitions to work
+`primary-key` prop. Your data **must have** a column (specified by setting the `primary-key` prop to
+the _name_ of the field) that has a **unique value per row** in order for transitions to work
 properly. The `primary-key` field's _value_ can either be a unique string or number. The field
-specified does not need to appear in the rendered table output, but it **must** exist in each row
-of your items data.
+specified does not need to appear in the rendered table output, but it **must** exist in each row of
+your items data.
 
 You must also provide CSS to handle your transitions (if using CSS transitions) in your project.
 
