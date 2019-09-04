@@ -205,7 +205,7 @@ export default {
       // v-slot attributes are lower-cased by the browser.
       // Switched to round bracket syntax to prevent confusion with
       // dynamic slot name syntax.
-      // const slotNames = [`cell(${key})`, `cell(${key.toLowerCase()})`, 'cell()']
+      // We look for slots in this order: `cell(${key})`, `cell(${key.toLowerCase()})`, 'cell()'
       // Slot names are now cached by mixin tbody in `this.$_bodyFieldSlotNameCache`
       // Will be `null` if no slot (or fallback slot) exists
       const slotName = this.$_bodyFieldSlotNameCache[key]
