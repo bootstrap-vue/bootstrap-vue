@@ -15,7 +15,7 @@ export const BDropdownDivider = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   props,
   render(h, { props, data }) {
-    return h('li', [
+    return h('li', { attrs: { role: 'presentation' } }, [
       h(
         props.tag,
         mergeData(data, {

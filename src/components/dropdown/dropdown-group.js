@@ -62,7 +62,7 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
       .join(' ')
       .trim()
 
-    return h('li', [
+    return h('li', { attrs: { role: 'presentation' } }, [
       header || h(),
       h(
         'ul',
@@ -70,6 +70,7 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
           staticClass: 'list-unstyled',
           attrs: {
             id: props.id || null,
+            role: 'group',
             'aria-describedby': adb || null
           }
         }),

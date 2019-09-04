@@ -29,7 +29,7 @@ const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
   props: {
     nodes: {
       // Even though we only support a single root element,
-      // vNodes are always passed as an array
+      // VNodes are always passed as an array
       type: [Array, Function]
       // default: undefined
     }

@@ -507,7 +507,7 @@ contents
 
 ```html
 <div>
-  <b-dropdown id="dropdown-header" text="Dropdown with group" class="m-2">
+  <b-dropdown id="dropdown-grouped" text="Dropdown with group" class="m-2">
     <b-dropdown-item-button>
       Non-grouped Item
     </b-dropdown-item-button>

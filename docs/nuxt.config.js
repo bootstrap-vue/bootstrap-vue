@@ -3,7 +3,7 @@ const path = require('path')
 const marked = require('marked')
 const hljs = require('highlight.js/lib/highlight.js')
 
-// import only the languages we need for hljs
+// Import only the languages we need from "highlight.js"
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
 hljs.registerLanguage('typescript', require('highlight.js/lib/languages/typescript'))
 hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
@@ -128,8 +128,8 @@ module.exports = {
       config.resolveLoader.alias = config.resolveLoader.alias || {}
       config.resolveLoader.alias['marked-loader'] = path.join(__dirname, './utils/marked-loader')
 
+      // Source maps make the bundles monstrous, do leave it off in prod mode
       if (isDev) {
-        // Source maps make the bundles monsterous, do leave it off in prod mode
         config.devtool = 'eval-source-map'
       }
 
@@ -142,7 +142,8 @@ module.exports = {
             options: {
               // Our customized renderer
               renderer,
-              // headerIds must always be true, since Search and Table of Contents rely on the IDs
+              // `headerIds` must always be true, since search and
+              // table of contents rely on the IDs
               headerIds: true,
               // Handle GitHub flavoured markdown
               gfm: true
@@ -151,8 +152,10 @@ module.exports = {
         ]
       })
 
-      loaders.scss.precision = 6
-      loaders.scss.outputStyle = 'expanded'
+      loaders.scss.sassOptions = {
+        precision: 6,
+        outputStyle: 'expanded'
+      }
 
       loaders.vue.transformAssetUrls = {
         // Nuxt default is missing `poster` for video

@@ -229,25 +229,22 @@ on `<b-nav>` and setting either the `pills` or `tabs` props:
 
 ```html
 <div>
-  <b-card title="Card Title" body-class="text-center">
-    <template v-slot:header>
+  <b-card title="Card Title" no-body>
+    <b-card-header header-tag="nav">
       <b-nav card-header tabs>
         <b-nav-item active>Active</b-nav-item>
         <b-nav-item>Inactive</b-nav-item>
         <b-nav-item disabled>Disabled</b-nav-item>
-        <b-nav-item-dropdown text="Dropdown" right>
-          <b-dropdown-item>One</b-dropdown-item>
-          <b-dropdown-item>Two</b-dropdown-item>
-          <b-dropdown-item>Three</b-dropdown-item>
-        </b-nav-item-dropdown>
       </b-nav>
-    </template>
+    </b-card-header>
 
-    <b-card-text>
-      With supporting text below as a natural lead-in to additional content.
-    </b-card-text>
+    <b-card-body class="text-center">
+      <b-card-text>
+        With supporting text below as a natural lead-in to additional content.
+      </b-card-text>
 
-    <b-button variant="primary">Go somewhere</b-button>
+      <b-button variant="primary">Go somewhere</b-button>
+    </b-card-body>
   </b-card>
 </div>
 
@@ -258,25 +255,22 @@ on `<b-nav>` and setting either the `pills` or `tabs` props:
 
 ```html
 <div>
-  <b-card title="Card Title" body-class="text-center">
-    <template v-slot:header>
+  <b-card title="Card Title" no-body>
+    <b-card-header header-tag="nav">
       <b-nav card-header pills>
         <b-nav-item active>Active</b-nav-item>
         <b-nav-item>Inactive</b-nav-item>
         <b-nav-item disabled>Disabled</b-nav-item>
-        <b-nav-item-dropdown text="Dropdown" right>
-          <b-dropdown-item>One</b-dropdown-item>
-          <b-dropdown-item>Two</b-dropdown-item>
-          <b-dropdown-item>Three</b-dropdown-item>
-        </b-nav-item-dropdown>
       </b-nav>
-    </template>
+    </b-card-header>
 
-    <b-card-text>
-      With supporting text below as a natural lead-in to additional content.
-    </b-card-text>
+    <b-card-body class="text-center">
+      <b-card-text>
+        With supporting text below as a natural lead-in to additional content.
+      </b-card-text>
 
-    <b-button variant="primary">Go somewhere</b-button>
+      <b-button variant="primary">Go somewhere</b-button>
+    </b-card-body>
   </b-card>
 </div>
 
@@ -285,36 +279,94 @@ on `<b-nav>` and setting either the `pills` or `tabs` props:
 
 **Plain style:**
 
-The `card-header` prop is only needed when you are applying `tabs` or `pills` style.
+The `card-header` prop is only needed when you are applying `tabs` or `pills` style. Note that
+Bootstrap v4 SCSS does not have special styling for `active` state plain style nav items.
 
 ```html
 <div>
-  <b-card title="Card Title" body-class="text-center">
-    <template v-slot:header>
+  <b-card title="Card Title" no-body>
+    <b-card-header header-tag="nav">
       <b-nav>
         <b-nav-item active>Active</b-nav-item>
         <b-nav-item>Inactive</b-nav-item>
         <b-nav-item disabled>Disabled</b-nav-item>
-        <b-nav-item-dropdown text="Dropdown" right>
-          <b-dropdown-item>One</b-dropdown-item>
-          <b-dropdown-item>Two</b-dropdown-item>
-          <b-dropdown-item>Three</b-dropdown-item>
-        </b-nav-item-dropdown>
       </b-nav>
-    </template>
+    </b-card-header>
 
-    <b-card-text>
-      With supporting text below as a natural lead-in to additional content.
-    </b-card-text>
+    <b-card-body class="text-center">
+      <b-card-text>
+        With supporting text below as a natural lead-in to additional content.
+      </b-card-text>
 
-    <b-button variant="primary">Go somewhere</b-button>
+      <b-button variant="primary">Go somewhere</b-button>
+    </b-card-body>
   </b-card>
 </div>
 
 <!-- nav-card-plain.vue -->
 ```
 
-The `card-header` prop has no effect if the `<b-nav>` is `vertical`.
+The `card-header` prop has no styling effect if the `<b-nav>` is in `vertical` mode.
+
+### Using with Vue Router
+
+Have your card `<b-nav>` control vue router nested routes via `<router-view>` or `<nuxt-child>`
+components, to created tabbed content that changes with route URL:
+
+```html
+// On page with route `/some/route`
+<div>
+  <b-card title="Card Title" no-body>
+    <b-card-header header-tag="nav">
+      <b-nav card-header tabs>
+        <!-- <b-nav-item>'s with child routes. Note the trailing slash on the first <b-nav-item> -->
+        <b-nav-item to="/some/route/" exact exact-active-class="active">Active</b-nav-item>
+        <b-nav-item to="/some/route/foo" exact exact-active-class="active">Foo</b-nav-item>
+        <b-nav-item to="/some/route/bar" exact exact-active-class="active">Bar</b-nav-item>
+      </b-nav>
+    </b-card-header>
+
+    <b-card-body>
+      <!-- Child route gets rendered in <router-view> or <nuxt-child> -->
+      <router-view></router-view>
+      <!-- Or if using Nuxt.js
+      <nuxt-child></nuxt-child>
+      -->
+    </b-card-body>
+  </b-card>
+</div>
+```
+
+Note: Vue Router does not support defining active routes with hashes (`#`), which is why you must
+define the "tab" content as child routes.
+
+**Example router config for above:**
+
+<!-- eslint-disable no-unused-vars, no-undef -->
+
+```js
+const routes = [
+  {
+    path: '/some/route',
+    component: SomeRouteComponent,
+    // Child route "tabs"
+    children: [
+      { path: '', component: DefaultTabComponent },
+      { path: 'foo', component: FooTabComponent },
+      { path: 'bar', component: BarTabComponent }
+    ]
+  }
+]
+```
+
+One can also use Vue Router
+[named routes](https://router.vuejs.org/guide/essentials/named-routes.html#named-routes) and/or
+route params instead of path based routes.
+
+For more details see:
+
+- [Vue Router `<router-view>`](https://router.vuejs.org/api/#router-view)
+- [Nuxt.JS `<nuxt-child>`](https://nuxtjs.org/api/components-nuxt-child)
 
 ## Accessibility
 
@@ -326,6 +378,23 @@ list by assistive technologies.
 When using a `<b-nav-item-dropdown>` in your `<b-nav>`, be sure to assign a unique `id` prop value
 to the `<b-nav-dropdown>` so that the appropriate `aria-*` attributes can be automatically
 generated.
+
+### Tabbed interface accessibility
+
+Note that navigation bars, even if visually styled as tabs, should **not** be given
+`role="tablist"`, `role="tab"` or `role="tabpanel"` attributes. These are only appropriate for
+[tabbed interfaces](/docs/components/tabs) that do not change the URL or `$route`, as described in
+the [WAI ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices/#tabpanel). See
+[`<b-tabs>`](/docs/components/tabs) for dynamic tabbed interfaces that are compliant with WAI ARIA.
+
+Tabbed interfaces should avoid using dropdown menus, as this causes both usability and accessibility
+issues:
+
+- From a usability perspective, the fact that the currently displayed tab’s trigger element is not
+  immediately visible (as it’s inside the closed dropdown menu) can cause confusion.
+- From an accessibility point of view, there is currently no sensible way to map this sort of
+  construct to a standard WAI ARIA pattern, meaning that it cannot be easily made understandable to
+  users of assistive technologies.
 
 ## See also
 
