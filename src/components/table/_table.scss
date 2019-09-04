@@ -7,6 +7,13 @@
     table-layout: fixed;
   }
 
+  // Disabled border-collapse
+  // Mainly for use with sticky headers and columns
+  &.b-table-no-border-collapse {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
   // Table busy styling
   &[aria-busy="true"] {
     opacity: $b-table-busy-opacity;

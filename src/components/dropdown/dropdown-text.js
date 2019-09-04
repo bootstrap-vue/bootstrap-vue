@@ -17,7 +17,7 @@ export const BDropdownText = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h, { props, data, children }) {
-    return h('li', [
+    return h('li', { attrs: { role: 'presentation' } }, [
       h(
         props.tag,
         mergeData(data, {

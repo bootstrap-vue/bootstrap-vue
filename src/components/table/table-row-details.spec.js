@@ -187,7 +187,7 @@ describe('table > row details', () => {
           scopeDetails = scope
           return 'foobar'
         },
-        'cell[a]': function(scope) {
+        'cell(a)': function(scope) {
           scopeField = scope
           return 'AAA'
         }

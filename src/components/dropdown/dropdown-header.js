@@ -23,7 +23,7 @@ export const BDropdownHeader = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   props,
   render(h, { props, data, children }) {
-    return h('li', [
+    return h('li', { attrs: { role: 'presentation' } }, [
       h(
         props.tag,
         mergeData(data, {

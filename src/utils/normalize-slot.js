@@ -12,7 +12,7 @@ import { isFunction } from './inspect'
  * @param {String, Array} name or name[]
  * @param {Object} scopedSlots
  * @param {Object} slots
- * @returns {Array|undefined} vNodes
+ * @returns {Array|undefined} VNodes
  */
 const hasNormalizedSlot = (names, $scopedSlots = {}, $slots = {}) => {
   // Ensure names is an array
@@ -22,13 +22,13 @@ const hasNormalizedSlot = (names, $scopedSlots = {}, $slots = {}) => {
 }
 
 /**
- * Returns vNodes for named slot either scoped or unscoped
+ * Returns VNodes for named slot either scoped or unscoped
  *
  * @param {String, Array} name or name[]
  * @param {String} scope
  * @param {Object} scopedSlots
  * @param {Object} slots
- * @returns {Array|undefined} vNodes
+ * @returns {Array|undefined} VNodes
  */
 const normalizeSlot = (names, scope = {}, $scopedSlots = {}, $slots = {}) => {
   // Ensure names is an array
