@@ -1177,11 +1177,11 @@ your custom footer layout.
 
 Slot `custom-foot` can be optionally scoped, receiving an object with the following properties:
 
-| Property  | Type   | Description                                                                   |
-| --------- | ------ | ----------------------------------------------------------------------------- |
-| `columns` | Number | The number of columns in the rendered table                                   |
-| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
-| `items`   | Array  | Array of the currently _displayed_ items records                              |
+| Property  | Type   | Description                                                                                |
+| --------- | ------ | ------------------------------------------------------------------------------------------ |
+| `columns` | Number | The number of columns in the rendered table                                                |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format)              |
+| `items`   | Array  | Array of the currently _displayed_ items records - after filtering, sorting and pagination |
 
 **Notes:**
 
