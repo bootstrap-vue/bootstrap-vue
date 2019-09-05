@@ -180,7 +180,7 @@ const applyPopover = (el, bindings, vnode) => {
       _scopeId: getScopId($parent, undefined)
     })
     el[BV_POPOVER].__bv_prev_data__ = {}
-    el[BV_POPOVER].$on('show', () => {
+    el[BV_POPOVER].$on('show', () => /* istanbul ignore next: for now */ {
       // Before showing the popover, we update the title
       // and content if they are functions
       const data = {}
