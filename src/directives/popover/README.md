@@ -283,7 +283,9 @@ const options = {
 }
 ```
 
-Content can also be a function reference, which is called each time the popover is opened.
+Content can also be a function reference, which is called _once_ the popover instance is created. To
+make a value returned by a function reactive, set the title or content to a _new_ function reference 
+whenever the content changes.
 
 ```html
 <template>
@@ -325,28 +327,39 @@ Content can also be a function reference, which is called each time the popover 
       return {
         popoverData: {
           title: 'Popover Title',
-          content: 'Popover Content'
+          content: new Date()
         },
-        counter: 0
+        counter: 0,
+        timer: null
       }
+    },
+    mounted() {
+      this.timer = setInterval(() => {
+        this.popoverData.content = new Date()
+      }, 1000)
+    },
+    beforeDestroy() {
+      clearInterval(this.timer)
     },
     methods: {
       popoverMethod() {
         // Returns the content as a string
-        // Will be called each time popover is opened
+        // Will be called only the first time the popover instance is created
         return '<strong>' + new Date() + '</strong>'
       }
     },
     computed: {
       popoverConfig() {
         // Both title and content specified as a function in this example
-        // and will be called each time popover is opened
+        // and will be called the first time the popover is opened
         return {
           html: true,
           title: () => {
+            // Note this is called only once when the popover instance is created
             return 'Hello <b>Popover:</b> ' + ++this.counter
           },
           content: () => {
+            // Note this is called only once when the popover instance is created
             return 'The date is:<br><em>' + new Date() + '</em>'
           }
         }
