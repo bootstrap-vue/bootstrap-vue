@@ -38,8 +38,6 @@ export default {
       }
     },
     renderTfoot() {
-      const h = this.$createElement
-
       // Passing true to renderThead will make it render a tfoot
       return this.footClone ? this.renderThead(true) : this.renderTFootCustom()
     }
