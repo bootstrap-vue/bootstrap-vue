@@ -76,12 +76,9 @@ Read the following migration guide for more details.
 - `b-nav-item-dropdown`: deprecated props `extra-menu-classes` and `extra-toggle-classes` have been
   removed. Used props `menu-class` and `toggle-class` (respectively) instead.
 - `b-table` and `b-table-lite`: **table cell field, header and footer scoped slot naming convention
-  has changed**. Users should be using the new table round bracketed slot naming syntax:
-
-  - use slot `cell(field)` instead of `field` or `[field]`
-  - use slot `head(field)` instead of `HEAD_field` or `HEAD[field]`
-  - use `foot(field)` instead of `FOOT_field` or `FOOT[field]`
-
+  has changed**. Users should be using the new table round bracketed slot naming syntax: use slot
+  `cell(field)` instead of `field` or `[field]`, use slot `head(field)` instead of `HEAD_field` or
+  `HEAD[field]` use `foot(field)` instead of `FOOT_field` or `FOOT[field]`.
   This change was _required_ for better compatibility with the new Vue `v-slot` syntax. The square
   bracket syntax introduced in `2.0.0-rc.28` has been replaced with the round bracket syntax to
   reduce possible confusion and issues with Vue 2.6's new
