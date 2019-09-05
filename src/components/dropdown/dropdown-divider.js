@@ -15,20 +15,17 @@ export const BDropdownDivider = /*#__PURE__*/ Vue.extend({
   props,
   render(h, { props, data }) {
     const $attrs = data.attrs || {}
-    delete data.attrs
+    data.attrs = {}
     return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
-      h(
-        props.tag,
-        {
-          staticClass: 'dropdown-divider',
-          attrs: {
-            ...$attrs,
-            role: 'separator',
-            'aria-orientation': 'horizontal'
-          },
-          ref: 'divider'
-        }
-      )
+      h(props.tag, {
+        staticClass: 'dropdown-divider',
+        attrs: {
+          ...$attrs,
+          role: 'separator',
+          'aria-orientation': 'horizontal'
+        },
+        ref: 'divider'
+      })
     ])
   }
 })
