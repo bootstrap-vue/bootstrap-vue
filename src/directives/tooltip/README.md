@@ -207,8 +207,8 @@ const options = {
 ```
 
 Title can also be a function reference, which is called each time the tooltip is opened. To make the
-title returned by a function reactive, set the title to a _new_ function reference whenever the
-content changes.
+title returned by a function reactive while open, set the title to a _new_ function reference whenever
+the content changes.
 
 ```html
 <template>
