@@ -132,7 +132,7 @@
           },
           {
             "event": "head-clicked",
-            "description": "Emitted when a header or footer cell is clicked.",
+            "description": "Emitted when a header or footer cell is clicked. Not applicable for 'custom-foot' slot.",
             "args": [
               {
                 "arg": "key",
@@ -379,7 +379,7 @@
           },
           {
             "event": "head-clicked",
-            "description": "Emitted when a header or footer cell is clicked.",
+            "description": "Emitted when a header or footer cell is clicked. Not applicable for 'custom-foot' slot.",
             "args": [
               {
                 "arg": "key",
