@@ -13,15 +13,17 @@ release includes _several breaking changes_.
 
 **Notable improvements:**
 
-- Tooltips an popovers are competely re-written for better reactivity and stability. The directive
-  versions are now reactive to trigger element title attribute changes and configuration changes.
-  The component versions now perform better when qucikly hovering/unhovering the trigger element.
-  Component and directive versions now have a default delay of `50`ms (affets hover and focus
-  triggers only).
-- Modals, tooltips, popovers, and toasts now work with scoped styles (requires the use of
+- Tooltips and popovers have been competely re-written for better reactivity and stability. The
+  directive versions are now reactive to trigger element `title` attribute changes and
+  configuration changes. The component versions now perform better when qucikly hovering/unhovering
+  the trigger element. Component and directive versions now have a default delay of `50`ms (affects
+  `'hover'` and `'focus'` triggers only). They can now have a trigger of `'manual'` (when used by
+  itself) of which they can only be opened or closed programmatically. Users can now optionally
+  specify the ID that the tooltip or popover uses.
+- Modals, tooltips, popovers, and toasts now work with scoped style classess (requires the use of
   vue-loader's `/deep/`, `::v-deep` or `>>>` selectors for targetting inner elements, just like with
   any other component).
-- New SVG background image based sorting indicator icons, with the ability to palce them either on
+- New SVG background image based sorting indicator icons, with the ability to palce them on either
   the right (default) or left of the table cell headers.
 - Programmatic selection of `<b-table>` selctable rows.
 
