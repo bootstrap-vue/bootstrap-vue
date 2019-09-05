@@ -26,8 +26,12 @@ export default {
       if (this.hasNormalizedSlot('custom-foot')) {
         return h(
           BTfoot,
-          { props: { footVariant: this.footVariant || this.headVariant } },
-          this.normalizeSlot('tfoot', {
+          {
+            key: 'bv-tfoot-custom',
+            class: this.tfootClass || null,
+            props: { footVariant: this.footVariant || this.headVariant || null }
+          },
+          this.normalizeSlot('custom-foot', {
             items: this.computedItems.slice(),
             fields: this.computedFields.slice(),
             columns: this.computedFields.length
