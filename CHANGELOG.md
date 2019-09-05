@@ -8,7 +8,7 @@
 
 ## [v2.0.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.28...v2.0.0)
 
-Released: 2019-09-05
+Released: 2019-09-06
 
 **BoootstrapVue 2.0.0 stable** introduces several new features and bug fixes. Please note that this
 release also _includes several breaking changes_.
