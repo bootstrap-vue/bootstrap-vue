@@ -18,7 +18,6 @@ describe('table > custom tfoot slot', () => {
     expect(wrapper.find('thead').exists()).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tfoot').exists()).toBe(false)
-    expect(wrapper.find('tfoot').classes().length).toBe(0)
 
     wrapper.destroy()
   })
@@ -40,6 +39,7 @@ describe('table > custom tfoot slot', () => {
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tfoot').exists()).toBe(true)
     expect(wrapper.find('tfoot').text()).toContain('CUSTOM-FOOTER')
+    expect(wrapper.find('tfoot').classes().length).toBe(0)
 
     wrapper.destroy()
   })
@@ -83,7 +83,7 @@ describe('table > custom tfoot slot', () => {
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tfoot').exists()).toBe(true)
     expect(wrapper.find('tfoot').text()).toContain('CUSTOM-FOOTER')
-    expect(wrapper.find('tfoot').classes()).toContain('table-dark')
+    expect(wrapper.find('tfoot').classes()).toContain('thead-dark')
     expect(wrapper.find('tfoot').classes().length).toBe(1)
 
     wrapper.destroy()
