@@ -27,7 +27,7 @@ export const BDropdownDivider = /*#__PURE__*/ Vue.extend({
             'aria-orientation': 'horizontal'
           },
           ref: 'divider'
-        })
+        }
       )
     ])
   }
