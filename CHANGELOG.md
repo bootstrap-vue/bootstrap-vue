@@ -107,6 +107,10 @@ examples, and below for a list of fixes and new features.
 
 ### Bug Fixes v2.0.0
 
+- **b-dropdown-\*:** ensure class bindings are placed on root element for all dropdown sub-components
+  (closes [#4022](https://github.com/bootstrap-vue/bootstrap-vue/issues/4022))
+  ([#4024](https://github.com/bootstrap-vue/bootstrap-vue/issues/4024))
+  ([81efb89](https://github.com/bootstrap-vue/bootstrap-vue/commit/81efb89))
 - **b-form-textarea:** handle initial auto-height when in modal, tabs, or other component with
   transition or which uses `v-show` (fixes
   [#3936](https://github.com/bootstrap-vue/bootstrap-vue/issues/3936),
