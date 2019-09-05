@@ -261,7 +261,7 @@
             "description": "Fixed bottom row slot for user supplied B-TD cells (Optionally Scoped: columns - number of B-TDs to provide, fields - array of field definition objects)"
           },
           {
-            name: "custom-foot",
+            "name": "custom-foot",
             "description": "Custom footer content slot for user supplied B-TR, B-TH, B-TD (Optionally Scoped: columns - number columns, fields - array of field definition objects, items - array of currently displayed row items)"
           }
         ]
@@ -442,7 +442,7 @@
             "description": "Slot above the column headers in the `thead` element for user-supplied B-TR with B-TH/B-TD (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
           },
           {
-            name: "custom-foot",
+            "name": "custom-foot",
             "description": "Custom footer content slot for user supplied B-TR's with B-TH/B-TD (Optionally Scoped: columns - number columns, fields - array of field definition objects, items - array of currently displayed row items)"
           }
         ]
