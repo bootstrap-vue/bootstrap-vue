@@ -63,4 +63,4 @@ describe('table > custom tfoot slot', () => {
 
     wrapper.destroy()
   })
-])
+})
