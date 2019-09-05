@@ -179,11 +179,13 @@ module.exports = {
     height: '3px'
   },
 
-  manifest: {
-    name: 'BootstrapVue',
-    short_name: 'BootstrapVue',
-    description: 'Quickly integrate Bootstrap v4 components with Vue.js',
-    theme_color: '#563d7c'
+  pwa: {
+    manifest: {
+      name: 'BootstrapVue',
+      short_name: 'BootstrapVue',
+      description: 'Quickly integrate Bootstrap v4 components with Vue.js',
+      theme_color: '#563d7c'
+    }
   },
 
   generate: {
