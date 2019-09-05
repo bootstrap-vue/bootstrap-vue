@@ -206,7 +206,7 @@ const options = {
 }
 ```
 
-Title can also be a function reference, which is called _once_ each time the tooltip is opened. To
+Title can also be a function reference, which is called _once_ time the tooltip is first opened. To
 make a title returned by a function reactive, set the title to a _new_ function reference whenever
 the content changes.
 
@@ -249,7 +249,8 @@ the content changes.
     },
     methods: {
       tipMethod() {
-        // Note this is called only once when the tooltip is opened
+        // Note this is called only once when the tooltip is first opened.
+        // Subsequent openings of the tooltip will show the same value.
         return '<strong>' + new Date() + '</strong>'
       }
     }
