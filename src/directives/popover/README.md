@@ -325,27 +325,9 @@ reference whenever the content changes.
   export default {
     data() {
       return {
-        popoverData: {
-          title: 'Popover Title',
-          content: new Date()
-        },
+        date: new Date(),
         counter: 0,
         timer: null
-      }
-    },
-    mounted() {
-      this.timer = setInterval(() => {
-        this.popoverData.content = new Date()
-      }, 1000)
-    },
-    beforeDestroy() {
-      clearInterval(this.timer)
-    },
-    methods: {
-      popoverMethod() {
-        // Returns the content as a string
-        // Will be called each time the popover is opened
-        return '<strong>' + new Date() + '</strong>'
       }
     },
     computed: {
@@ -363,6 +345,27 @@ reference whenever the content changes.
             return 'The date is:<br><em>' + new Date() + '</em>'
           }
         }
+      },
+      popoverData() {
+        return {
+          title: 'Popover Title',
+          content: 'The date is ' + this.date
+        }
+      }
+    },
+    mounted() {
+      this.timer = setInterval(() => {
+        this.date = new Date()
+      }, 1000)
+    },
+    beforeDestroy() {
+      clearInterval(this.timer)
+    },
+    methods: {
+      popoverMethod() {
+        // Returns the content as a string
+        // Will be called each time the popover is opened
+        return '<strong>' + new Date() + '</strong>'
       }
     }
   }
