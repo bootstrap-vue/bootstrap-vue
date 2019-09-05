@@ -180,6 +180,9 @@ module.exports = {
   },
 
   pwa: {
+    icon: {
+      iconFileName: 'icon.png'
+    },
     manifest: {
       name: 'BootstrapVue',
       short_name: 'BootstrapVue',
