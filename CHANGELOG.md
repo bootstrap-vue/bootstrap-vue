@@ -21,10 +21,13 @@ release also _includes several breaking changes_.
   the trigger element. Component and directive versions now have a default delay of `50`ms (affects
   `'hover'` and `'focus'` triggers only). They can now have a trigger of `'manual'` (when used by
   itself) of which they can only be opened or closed programmatically. Users can now optionally
-  specify the ID that the tooltip or popover uses.
+  specify the ID that the tooltip or popover uses. For accessibility reasons, the `title` attribute
+  is removed from the trigger element (target) only when the tooltip or popover is showing, and is
+  restored when hidden.
 - Modals, tooltips, popovers, and toasts now work with scoped style classes (requires the use of
-  vue-loader's `/deep/`, `::v-deep` or `>>>` selectors for targetting inner elements, just like with
-  any other component).
+  vue-loader's `/deep/`, `::v-deep` or `>>>`
+  [deep selectors](https://vue-loader.vuejs.org/guide/scoped-css.html#child-component-root-elements)
+  for targeting inner elements, just like with any other component).
 - New SVG background image based sorting indicator icons for `<b-table>`, with the ability to place
   them on either the right (default) or left of the table cell headers (via a new prop).
 - Programmatic selection of `<b-table>` selctable rows.
