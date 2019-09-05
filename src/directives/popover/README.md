@@ -351,7 +351,7 @@ whenever the content changes.
     computed: {
       popoverConfig() {
         // Both title and content specified as a function in this example
-        // and will be called the first time the popover is opened
+        // and will be called the each time the popover is opened
         return {
           html: true,
           title: () => {
@@ -359,7 +359,7 @@ whenever the content changes.
             return 'Hello <b>Popover:</b> ' + ++this.counter
           },
           content: () => {
-            // Note this is called only once when the popover is opened
+            // Note this is called only when the popover is opened
             return 'The date is:<br><em>' + new Date() + '</em>'
           }
         }
