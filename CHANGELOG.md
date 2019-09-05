@@ -131,6 +131,10 @@ examples, and below for a list of fixes and new features.
   [#3886](https://github.com/bootstrap-vue/bootstrap-vue/issues/3886))
   ([#3887](https://github.com/bootstrap-vue/bootstrap-vue/issues/3887))
   ([2302b31](https://github.com/bootstrap-vue/bootstrap-vue/commit/2302b31))
+- **b-table, b-table-lite:** generate `:key` for `row-details` row based on the `primary-key` field
+  value if available
+  ([#4025](https://github.com/bootstrap-vue/bootstrap-vue/issues/4025))
+  ([c7cb16f](https://github.com/bootstrap-vue/bootstrap-vue/commit/c7cb16f))
 - **v-b-toggle:** don't override `role` if element has a `role` assigned
   ([#3889](https://github.com/bootstrap-vue/bootstrap-vue/issues/3889))
   ([5d155ba](https://github.com/bootstrap-vue/bootstrap-vue/commit/5d155ba))
