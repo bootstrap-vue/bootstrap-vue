@@ -1172,16 +1172,16 @@ Slot `thead-top` can be optionally scoped, receiving an object with the followin
 
 If you need greater layout control of the content of the `<tfoot>`, you can use the optionally
 scoped slot `custom-foot` to provide your own rows and cells. Use BootstrapVue's
-[table helper sub-components](#table-helper-components) `<b-tr>`, `<b-th>`, and `<b-td>` to
-generate your custom footer layout.
+[table helper sub-components](#table-helper-components) `<b-tr>`, `<b-th>`, and `<b-td>` to generate
+your custom footer layout.
 
 Slot `custom-foot` can be optionally scoped, receiving an object with the following properties:
 
-| Property        | Type   | Description                                                                               |
-| --------------- | ------ | ----------------------------------------------------------------------------------------- |
-| `columns`       | Number | The number of columns in the rendered table                                               |
-| `fields`        | Array  | Array of field definition objects (normalized to the array of objects format)             |
-| `items        ` | Array  | Array of the currently _displayed_ items records                                          |
+| Property  | Type   | Description                                                                   |
+| --------- | ------ | ----------------------------------------------------------------------------- |
+| `columns` | Number | The number of columns in the rendered table                                   |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format) |
+| `items`   | Array  | Array of the currently _displayed_ items records                              |
 
 **Notes:**
 
