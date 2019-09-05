@@ -283,9 +283,9 @@ const options = {
 }
 ```
 
-Content can also be a function reference, which is called _once_ each time the popover is opened. To
-make a value returned by the function reactive, set the title or content to a _new_ function reference 
-whenever the content changes.
+Title and content can also be function references, which are called each time the popover is opened. To
+make a value returned by the function reactive while open, set the title or content to a _new_ function
+reference whenever the content changes.
 
 ```html
 <template>
