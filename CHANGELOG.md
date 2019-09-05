@@ -16,14 +16,14 @@ release also _includes several breaking changes_.
 **Notable improvements:**
 
 - Tooltips and popovers have been competely re-written for better reactivity and stability. The
-  directive versions are now reactive to trigger element `title` attribute changes and
-  configuration changes. The component versions now perform better when qucikly hovering/unhovering
-  the trigger element. Component and directive versions now have a default delay of `50`ms (affects
-  `'hover'` and `'focus'` triggers only). They can now have a trigger of `'manual'` (when used by
-  itself) of which they can only be opened or closed programmatically. Users can now optionally
-  specify the ID that the tooltip or popover uses. For accessibility reasons, the `title` attribute
-  is removed from the trigger element (target) only when the tooltip or popover is showing, and is
-  restored when hidden.
+  directive versions are now reactive to trigger element `title` attribute changes and configuration
+  changes. The component versions now perform better when qucikly hovering/unhovering the trigger
+  element. Component and directive versions now have a default delay of `50`ms (affects `'hover'`
+  and `'focus'` triggers only). They can now have a trigger of `'manual'` (when used by itself) of
+  which they can only be opened or closed programmatically. Users can now optionally specify the ID
+  that the tooltip or popover uses. For accessibility reasons, the `title` attribute is removed from
+  the trigger element (target) only when the tooltip or popover is showing, and is restored when
+  hidden.
 - Modals, tooltips, popovers, and toasts now work with scoped style classes (requires the use of
   vue-loader's `/deep/`, `::v-deep` or `>>>`
   [deep selectors](https://vue-loader.vuejs.org/guide/scoped-css.html#child-component-root-elements)
@@ -61,7 +61,7 @@ Read the following migration guide for more details.
 - `b-form-*` controls, `b-form-group`, `b-form-invalid-feedback` and `b-form-valid-feedback`:
   validation prop `state` now only accepts `true`, `false`, or `null` values. Passing the strings
   `'invalid'` or `'valid'` will no longer work.
-- `b-form-group`: removal of the deprecated  `horizontal` and `breakpoint` props. Use props
+- `b-form-group`: removal of the deprecated `horizontal` and `breakpoint` props. Use props
   `label-cols{-{breakpoint}}` instead.
 - `b-img-lazy`, `b-card-img-lazy`: now rely only on `IntersectionObserver` support (native or via a
   polyfill) to determine when to show the image. If `IntersectionObserver` support is not detected,
@@ -78,10 +78,10 @@ Read the following migration guide for more details.
 - `b-table` and `b-table-lite`: **table cell field, header and footer scoped slot naming convention
   has changed**. Users should be using the new table round bracketed slot naming syntax: use slot
   `cell(field)` instead of `field` or `[field]`, use slot `head(field)` instead of `HEAD_field` or
-  `HEAD[field]` use `foot(field)` instead of `FOOT_field` or `FOOT[field]`.
-  This change was _required_ for better compatibility with the new Vue `v-slot` syntax. The square
-  bracket syntax introduced in `2.0.0-rc.28` has been replaced with the round bracket syntax to
-  reduce possible confusion and issues with Vue 2.6's new
+  `HEAD[field]` use `foot(field)` instead of `FOOT_field` or `FOOT[field]`. This change was
+  _required_ for better compatibility with the new Vue `v-slot` syntax. The square bracket syntax
+  introduced in `2.0.0-rc.28` has been replaced with the round bracket syntax to reduce possible
+  confusion and issues with Vue 2.6's new
   [dynamic slot name](https://vuejs.org/v2/guide/components-slots.html#Dynamic-Slot-Names) syntax.
 - `b-table`: the `filter` prop will no longer accept a function reference (previously deprecated).
   Instead, pass a function to the `filter-function` prop when using a custom filter function. The
@@ -89,9 +89,9 @@ Read the following migration guide for more details.
   etc).
 - `b-table`: passing an object as a `fields` definition will no longer work. Use the _array of
   strings_ or _array of objects_ (or a combination of) fields definition format instead.
-- `b-table`: sorting icon SASS variables have been changed to handle the new SVG backgrounds. If
-  you previously had custom CSS styling/icons, they will not work as expected - but sorting will
-  still work.
+- `b-table`: sorting icon SASS variables have been changed to handle the new SVG backgrounds. If you
+  previously had custom CSS styling/icons, they will not work as expected - but sorting will still
+  work.
 - `b-tabs`: removal of deprecated `tabs` slot. Use slot `tabs-end` instead.
 - `b-tabs`: removal of deprecated `bottom` prop. Use the `end` prop instead
 - `b-tab`: removal of deprecated `href` prop. Use `<b-nav>` for controling panes that change with
