@@ -51,7 +51,7 @@ describe('table > custom tfoot slot', () => {
         footClone: true
       },
       slots: {
-        default: '<tr><td colspan="3">CUSTOM-FOOTER</td></tr>'
+        'custom-foot': '<tr><td colspan="3">CUSTOM-FOOTER</td></tr>'
       }
     })
     expect(wrapper).toBeDefined()
