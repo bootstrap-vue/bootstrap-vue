@@ -50,13 +50,13 @@ release also _includes several breaking changes_.
 - **the removal of the deprecated `/es` build directory:** Users should now be importing the new
   top-level named exports when importing individual components, directives, and plugins.
 
-Read below for more details.
+Read the following migration guide for more details.
 
 ### Migration guide v2.0.0
 
-- **Removal of the deprecated `/es/` build directory**. Users should now be using the new
-  simplified import syntax introduced in v2.0.0-rc.22. Users should be importing the
-  top-level _named exports_ instead.
+- **Removal of the deprecated `/es` build directory**. Users should now be using the new simplified
+  import syntax introduced in v2.0.0-rc.22. Users should be importing the top-level _named exports_
+  instead.
 - `b-dropdown`: removal of deprecated `text` slot. Use the `button-content` slot instead.
 - `b-form-*` controls, `b-form-group`, `b-form-invalid-feedback` and `b-form-valid-feedback`:
   validation prop `state` now only accepts `true`, `false`, or `null` values. Passing the strings
@@ -75,13 +75,16 @@ Read below for more details.
   placing navs in `b-navbar`.
 - `b-nav-item-dropdown`: deprecated props `extra-menu-classes` and `extra-toggle-classes` have been
   removed. Used props `menu-class` and `toggle-class` (respectively) instead.
-- `b-table` and `b-table-lite`: **table cell field, header and footer slot naming convention has
-  changed**. Users should be using the new table round bracketed slot naming syntax. Use slot
-  `cell(field)` instead of `field` or `[field]`, `head(field)` instead of `HEAD_field` or
-  `HEAD[field]`, use `foot(field)` instead of `FOOT_field` or `FOOT[field]`. This change was
-  _required_ for better compatibility with the new Vue `v-slot` syntax. The square bracket
-  syntax introduced in `2.0.0-rc.28` has been replaced with the round bracket syntax to reduce
-  possible confusion and issues with Vue 2.6's new
+- `b-table` and `b-table-lite`: **table cell field, header and footer scoped slot naming convention
+  has changed**. Users should be using the new table round bracketed slot naming syntax:
+
+  - use slot `cell(field)` instead of `field` or `[field]`
+  - use slot `head(field)` instead of `HEAD_field` or `HEAD[field]`
+  - use `foot(field)` instead of `FOOT_field` or `FOOT[field]`
+
+  This change was _required_ for better compatibility with the new Vue `v-slot` syntax. The square
+  bracket syntax introduced in `2.0.0-rc.28` has been replaced with the round bracket syntax to
+  reduce possible confusion and issues with Vue 2.6's new
   [dynamic slot name](https://vuejs.org/v2/guide/components-slots.html#Dynamic-Slot-Names) syntax.
 - `b-table`: the `filter` prop will no longer accept a function reference (previously deprecated).
   Instead, pass a function to the `filter-function` prop when using a custom filter function. The
