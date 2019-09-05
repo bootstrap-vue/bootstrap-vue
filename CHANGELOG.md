@@ -4,12 +4,14 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.0"></a>
+
 ## [v2.0.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.28...v2.0.0)
 
 Released: 2019-09-05
 
 **BoootstrapVue 2.0.0 stable** introduces several new features and bug fixes. Please note that this
-release includes _several breaking changes_.
+release also _includes several breaking changes_.
 
 **Notable improvements:**
 
@@ -20,30 +22,30 @@ release includes _several breaking changes_.
   `'hover'` and `'focus'` triggers only). They can now have a trigger of `'manual'` (when used by
   itself) of which they can only be opened or closed programmatically. Users can now optionally
   specify the ID that the tooltip or popover uses.
-- Modals, tooltips, popovers, and toasts now work with scoped style classess (requires the use of
+- Modals, tooltips, popovers, and toasts now work with scoped style classes (requires the use of
   vue-loader's `/deep/`, `::v-deep` or `>>>` selectors for targetting inner elements, just like with
   any other component).
-- New SVG background image based sorting indicator icons, with the ability to palce them on either
-  the right (default) or left of the table cell headers.
+- New SVG background image based sorting indicator icons for `<b-table>`, with the ability to place
+  them on either the right (default) or left of the table cell headers (via a new prop).
 - Programmatic selection of `<b-table>` selctable rows.
 
 ### Breaking changes and deprecated features removal v2.0.0
 
 **Please carefully read the following before upgrading to v2.0.0 stable!**
 
-Vue `2.6`+ is now **required** at a minimum, `2.6.10`+ is recommended. Some components will fail to
-work as expected if using Vue `2.5` (notably tooltips and popovers, but other components may be
-affected as well).
-
-All deprecated features have been removed in v2.0.0 stable in order to reduce bundle size.
+- Vue `2.6`+ is now **required** at a minimum, `2.6.10`+ is recommended. Some components will fail
+  to work as expected if using Vue `2.5` (notably tooltips and popovers, but other components may be
+  affected as well).
+- All **deprecated features** have been removed in v2.0.0 stable in order to reduce bundle size and
+  simplify code.
 
 **Two notable breaking changes are:**
 
-- **changes to the table slot naming syntax** (the table slot syntax introduced in rc.28 has been
-  modified in v2.0.0 stable) for better compatibility with the new Vue `v-slot` syntax and its
+- **changes to the table slot naming syntax:** the table slot syntax introduced in rc.28 has been
+  modified in v2.0.0 stable for better compatibility with the new Vue `v-slot` syntax and its
   limitations (which currently are not documented in the Vue.JS docs).
-- **the removal of the deprecated `/es` build directory.** Users should be importing the new top
-  level named exports.
+- **the removal of the deprecated `/es` build directory:** Users should now be importing the new
+  top-level named exports when importing individual components, directives, and plugins.
 
 Read below for more details.
 
@@ -72,10 +74,10 @@ Read below for more details.
   removed. Used props `menu-class` and `toggle-class` (respectively) instead.
 - `b-table` and `b-table-lite`: **table cell field, header and footer slot naming convention has
   changed**. Users should be using the new table round bracketed slot naming syntax. Use slot
-  `cell(field)` instead of `field`, `head(field)` instead of `HEAD_field`, use `foot(field)`
-  instead of `FOOT_field`. The changes were _required_ for better compatibility with the new Vue
-  `v-slot` syntax. Note that `head`, `foot` and `cell` **must** be lower case. The square bracket
-  syntax introduced in 2.0.0-rc.28 has been replaced with the round bracket syntax to reduce
+  `cell(field)` instead of `field` or `[field]`, `head(field)` instead of `HEAD_field` or
+  `HEAD[field]`, use `foot(field)` instead of `FOOT_field` or `FOOT[field]`. This change was
+  _required_ for better compatibility with the new Vue `v-slot` syntax. The square bracket
+  syntax introduced in `2.0.0-rc.28` has been replaced with the round bracket syntax to reduce
   possible confusion and issues with Vue 2.6's new
   [dynamic slot name](https://vuejs.org/v2/guide/components-slots.html#Dynamic-Slot-Names) syntax.
 - `b-table`: the `filter` prop will no longer accept a function reference (previously deprecated).
@@ -85,11 +87,12 @@ Read below for more details.
 - `b-table`: passing an object as a `fields` definition will no longer work. Use the _array of
   strings_ or _array of objects_ (or a combination of) fields definition format instead.
 - `b-table`: sorting icon SASS variables have been changed to handle the new SVG backgrounds. If
-  you previously had custom CSS styling/icons, they will not work as epected - but sorting will
+  you previously had custom CSS styling/icons, they will not work as expected - but sorting will
   still work.
 - `b-tabs`: removal of deprecated `tabs` slot. Use slot `tabs-end` instead.
 - `b-tabs`: removal of deprecated `bottom` prop. Use the `end` prop instead
-- `b-tab`: removal of deprecated `href` prop.
+- `b-tab`: removal of deprecated `href` prop. Use `<b-nav>` for controling panes that change with
+  URL changes.
 - Tooltip SCSS: deprecated variable `$bv-tooltip-bg-level` has been removed. Use variable
   `$b-tooltip-bg-level` instead.
 - Popover SCSS: deprecated variables `$bv-popover-bg-level`, `$bv-popover-border-level`, and
@@ -243,7 +246,7 @@ examples, and below for a list of fixes and new features.
   ([#3604](https://github.com/bootstrap-vue/bootstrap-vue/issues/3604))
   ([3828f59](https://github.com/bootstrap-vue/bootstrap-vue/commit/3828f59))
 
-
+<br>
 <hr>
 
 <a name="2.0.0-rc.28"></a>
