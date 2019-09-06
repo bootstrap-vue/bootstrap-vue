@@ -153,7 +153,7 @@ export default {
           } else if (isArray(data)) {
             // Provider returned Array data
             this._providerSetLocal(data)
-          } else if (this.items.length !== 2) {
+          } else if (this.items.length !== 2) /* istanbul ignore next */ {
             // Check number of arguments provider function requested
             // Provider not using callback (didn't request second argument), so we clear
             // busy state as most likely there was an error in the provider function
