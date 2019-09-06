@@ -181,7 +181,8 @@ module.exports = {
 
   pwa: {
     icon: {
-      iconFileName: 'icon.png'
+      // iconFileName: 'icon.png',
+      iconSrc: './static/icon.png'
     },
     manifest: {
       name: 'BootstrapVue',
