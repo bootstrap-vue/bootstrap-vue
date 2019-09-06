@@ -72,7 +72,7 @@ Read the following migration guide for more details.
   `preventDefault()` instead.
 - `b-modal`: the deprecated `BvModalEvent` property `modalId` has been removed. Use the property
   `componentId` instead.
-- `b-nav`: Removal of the deprecated `is-nav` prop. Use `b-navbar-nav` component instead when
+- `b-nav`: removal of the deprecated `is-nav` prop. Use `b-navbar-nav` component instead when
   placing navs in `b-navbar`.
 - `b-nav-item-dropdown`: deprecated props `extra-menu-classes` and `extra-toggle-classes` have been
   removed. Used props `menu-class` and `toggle-class` (respectively) instead.
