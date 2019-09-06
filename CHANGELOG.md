@@ -10,8 +10,8 @@
 
 Released: 2019-09-06
 
-**BoootstrapVue 2.0.0 stable** introduces several new features and bug fixes. Please note that this
-release also _includes several breaking changes_.
+> **BoootstrapVue 2.0.0 stable** introduces several new features and bug fixes. Please note that
+> this release also _includes several breaking changes_.
 
 **Notable improvements:**
 
@@ -31,6 +31,7 @@ release also _includes several breaking changes_.
 - New SVG background image based sorting indicator icons for `<b-table>`, with the ability to place
   them on either the right (default) or left of the table cell headers (via a new prop).
 - Programmatic selection of `<b-table>` selctable rows.
+- Ability to provide your own footer structure for `<b-table>` and `<b-table-simple>`
 
 ### Breaking changes and deprecated features removal v2.0.0
 
@@ -65,7 +66,7 @@ Read the following migration guide for more details.
   `label-cols{-{breakpoint}}` instead.
 - `b-img-lazy`, `b-card-img-lazy`: now rely only on `IntersectionObserver` support (native or via a
   polyfill) to determine when to show the image. If `IntersectionObserver` support is not detected,
-  then the image will always be shown. Use a polyfill if you need to support older browsers (i.e.
+  then the image will _always_ be shown. Use a polyfill if you need to support older browsers (e.g.
   IE11)
 - `b-modal`: the deprecated `BvModalEvent` method `cancel()` has been removed. Use the method
   `preventDefault()` instead.
@@ -78,24 +79,24 @@ Read the following migration guide for more details.
 - `b-table` and `b-table-lite`: **table cell field, header and footer scoped slot naming convention
   has changed**. Users should be using the new table round bracketed slot naming syntax: use slot
   `cell(field)` instead of `field` or `[field]`, use slot `head(field)` instead of `HEAD_field` or
-  `HEAD[field]` use `foot(field)` instead of `FOOT_field` or `FOOT[field]`. This change was
+  `HEAD[field]`, use `foot(field)` instead of `FOOT_field` or `FOOT[field]`. This change was
   _required_ for better compatibility with the new Vue `v-slot` syntax. The square bracket syntax
   introduced in `2.0.0-rc.28` has been replaced with the round bracket syntax to reduce possible
-  confusion and issues with Vue 2.6's new
+  confusion and potential future issues with Vue 2.6's new
   [dynamic slot name](https://vuejs.org/v2/guide/components-slots.html#Dynamic-Slot-Names) syntax.
 - `b-table`: the `filter` prop will no longer accept a function reference (previously deprecated).
   Instead, pass a function to the `filter-function` prop when using a custom filter function. The
-  prop `filter` is only to be used for filter _criteria_ (i.e. the search value, search `RegExpr`,
-  etc).
+  prop `filter` is only to be used for the filter's _criteria_ (i.e. the search value, search
+  `RegExpr`, etc).
 - `b-table`: passing an object as a `fields` definition will no longer work. Use the _array of
-  strings_ or _array of objects_ (or a combination of) fields definition format instead.
+  strings_ or _array of objects_ (or a combination of the two) fields definition format instead.
 - `b-table`: sorting icon SASS variables have been changed to handle the new SVG backgrounds. If you
   previously had custom CSS styling/icons, they will not work as expected - but sorting will still
-  work.
-- `b-tabs`: removal of deprecated `tabs` slot. Use slot `tabs-end` instead.
-- `b-tabs`: removal of deprecated `bottom` prop. Use the `end` prop instead
+  work. teh SVG backgrounds can be controlled via SASS variables.
 - `b-tab`: removal of deprecated `href` prop. Use `<b-nav>` for controling panes that change with
   URL changes.
+- `b-tabs`: removal of deprecated `tabs` slot. Use slot `tabs-end` instead.
+- `b-tabs`: removal of deprecated `bottom` prop. Use the `end` prop instead
 - Tooltip SCSS: deprecated variable `$bv-tooltip-bg-level` has been removed. Use variable
   `$b-tooltip-bg-level` instead.
 - Popover SCSS: deprecated variables `$bv-popover-bg-level`, `$bv-popover-border-level`, and
