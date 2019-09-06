@@ -211,6 +211,10 @@ examples, and below for a list of fixes and new features.
   [#2244](https://github.com/bootstrap-vue/bootstrap-vue/issues/2244))
   ([#3876](https://github.com/bootstrap-vue/bootstrap-vue/issues/3876))
   ([8784f31](https://github.com/bootstrap-vue/bootstrap-vue/commit/8784f31))
+- **b-table, b-table-lite:** add new scoped slot `custom-foot` to allow user to create their own
+  table footer (closes [#3960](https://github.com/bootstrap-vue/bootstrap-vue/issues/3960))
+  ([#4027](https://github.com/bootstrap-vue/bootstrap-vue/issues/4027))
+  ([cbeeef9](https://github.com/bootstrap-vue/bootstrap-vue/commit/cbeeef9))
 - **b-table, b-table-lite, b-table-simple:** add `no-border-collapse` prop and SCSS
   ([#3987](https://github.com/bootstrap-vue/bootstrap-vue/issues/3987))
   ([253b4f6](https://github.com/bootstrap-vue/bootstrap-vue/commit/253b4f6))
