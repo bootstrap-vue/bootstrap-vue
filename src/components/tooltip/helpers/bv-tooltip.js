@@ -371,7 +371,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const showEvt = this.buildEvent('show', { cancelable: true })
       this.emitEvent(showEvt)
       /* istanbul ignore next: ignore for now */
-      if (showEvt.defaultPrevented) {
+      if (showEvt.defaultPrevented) /* istanbul ignore next */ {
         // Don't show if event cancelled
         // Destroy the template (if for some reason it was created)
         this.destroyTemplate()
