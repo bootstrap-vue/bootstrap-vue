@@ -92,11 +92,11 @@ Read the following migration guide for more details.
   strings_ or _array of objects_ (or a combination of the two) fields definition format instead.
 - `b-table`: sorting icon SASS variables have been changed to handle the new SVG backgrounds. If you
   previously had custom CSS styling/icons, they will not work as expected - but sorting will still
-  work. teh SVG backgrounds can be controlled via SASS variables.
-- `b-tab`: removal of deprecated `href` prop. Use `<b-nav>` for controling panes that change with
+  work. the SVG backgrounds can be controlled via SASS variables.
+- `b-tab`: removal of deprecated `href` prop. Use `<b-nav>` for controlling panes that change with
   URL changes.
 - `b-tabs`: removal of deprecated `tabs` slot. Use slot `tabs-end` instead.
-- `b-tabs`: removal of deprecated `bottom` prop. Use the `end` prop instead
+- `b-tabs`: removal of deprecated `bottom` prop. Use the `end` prop instead.
 - Tooltip SCSS: deprecated variable `$bv-tooltip-bg-level` has been removed. Use variable
   `$b-tooltip-bg-level` instead.
 - Popover SCSS: deprecated variables `$bv-popover-bg-level`, `$bv-popover-border-level`, and
