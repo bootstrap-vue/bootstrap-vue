@@ -31,7 +31,7 @@ Released: 2019-09-06
 - New SVG background image based sorting indicator icons for `<b-table>`, with the ability to place
   them on either the right (default) or left of the table cell headers (via a new prop).
 - Programmatic selection of `<b-table>` selctable rows.
-- Ability to provide your own footer structure for `<b-table>` and `<b-table-simple>`
+- Ability to provide your own custom footer structure for `<b-table>` and `<b-table-lite>`.
 
 ### Breaking changes and deprecated features removal v2.0.0
 
