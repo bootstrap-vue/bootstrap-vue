@@ -1168,6 +1168,28 @@ Slot `thead-top` can be optionally scoped, receiving an object with the followin
 | `selectAllRows` | Method | Select all rows (applicable if the table is in [`selectable`](#row-select-support) mode   |
 | `clearSelected` | Method | Unselect all rows (applicable if the table is in [`selectable`](#row-select-support) mode |
 
+### Creating a custom footer
+
+If you need greater layout control of the content of the `<tfoot>`, you can use the optionally
+scoped slot `custom-foot` to provide your own rows and cells. Use BootstrapVue's
+[table helper sub-components](#table-helper-components) `<b-tr>`, `<b-th>`, and `<b-td>` to generate
+your custom footer layout.
+
+Slot `custom-foot` can be optionally scoped, receiving an object with the following properties:
+
+| Property  | Type   | Description                                                                                |
+| --------- | ------ | ------------------------------------------------------------------------------------------ |
+| `columns` | Number | The number of columns in the rendered table                                                |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format)              |
+| `items`   | Array  | Array of the currently _displayed_ items records - after filtering, sorting and pagination |
+
+**Notes:**
+
+- The `custom-foot` slot will **not** be rendered if the `foot-clone` prop has been set.
+- `head-clicked` events are not be emitted when clicking on `custom-foot` cells.
+- Sorting and sorting icons are not available for cells in the `custom-foot` slot.
+- The custom footer will not be shown when the table is in visually stacked mode.
+
 ## Custom empty and emptyfiltered rendering via slots
 
 Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
@@ -2654,8 +2676,8 @@ helper components. `TableSimplePlugin` is available as a top level named export.
 ## Table helper components
 
 BootstrapVue provides additional helper child components when using `<b-table-simple>`, or the named
-slots `top-row`, `bottom-row`, and `thead-top` (all of which accept table child elements). The
-helper components are as follows:
+slots `top-row`, `bottom-row`, `thead-top`, and `custom-foot` (all of which accept table child
+elements). The helper components are as follows:
 
 - `b-tbody` (`<b-table-simple>` only)
 - `b-thead` (`<b-table-simple>` only)

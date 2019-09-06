@@ -132,7 +132,7 @@
           },
           {
             "event": "head-clicked",
-            "description": "Emitted when a header or footer cell is clicked.",
+            "description": "Emitted when a header or footer cell is clicked. Not applicable for 'custom-foot' slot.",
             "args": [
               {
                 "arg": "key",
@@ -250,15 +250,19 @@
           },
           {
             "name": "thead-top",
-            "description": "Slot above the column headers in the `thead` element for user-supplied rows (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
+            "description": "Slot above the column headers in the `thead` element for user-supplied B-TR's with B-TH/B-TD (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
           },
           {
             "name": "top-row",
-            "description": "Fixed top row slot for user supplied TD cells (Optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
+            "description": "Fixed top row slot for user supplied B-TD cells (Optionally scoped: columns - number of B-TDs to provide, fields - array of field definition objects)"
           },
           {
             "name": "bottom-row",
-            "description": "Fixed bottom row slot for user supplied TD cells (Optionally Scoped: columns - number of TDs to provide, fields - array of field definition objects)"
+            "description": "Fixed bottom row slot for user supplied B-TD cells (Optionally Scoped: columns - number of B-TDs to provide, fields - array of field definition objects)"
+          },
+          {
+            "name": "custom-foot",
+            "description": "Custom footer content slot for user supplied B-TR, B-TH, B-TD (Optionally Scoped: columns - number columns, fields - array of field definition objects, items - array of currently displayed row items)"
           }
         ]
       },
@@ -375,7 +379,7 @@
           },
           {
             "event": "head-clicked",
-            "description": "Emitted when a header or footer cell is clicked.",
+            "description": "Emitted when a header or footer cell is clicked. Not applicable for 'custom-foot' slot.",
             "args": [
               {
                 "arg": "key",
@@ -435,7 +439,11 @@
           },
           {
             "name": "thead-top",
-            "description": "Slot above the column headers in the `thead` element for user-supplied rows (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
+            "description": "Slot above the column headers in the `thead` element for user-supplied B-TR with B-TH/B-TD (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
+          },
+          {
+            "name": "custom-foot",
+            "description": "Custom footer content slot for user supplied B-TR's with B-TH/B-TD (Optionally Scoped: columns - number columns, fields - array of field definition objects, items - array of currently displayed row items)"
           }
         ]
       },
