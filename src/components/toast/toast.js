@@ -204,6 +204,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     /* istanbul ignore next: difficult to test */
     this.listenOnRoot('bv::toaster::destroyed', toaster => {
       if (toaster === this.computedToaster) {
+        /* istanbul ignore next */
         this.hide()
       }
     })
