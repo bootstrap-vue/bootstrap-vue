@@ -1168,6 +1168,28 @@ Slot `thead-top` can be optionally scoped, receiving an object with the followin
 | `selectAllRows` | Method | Select all rows (applicable if the table is in [`selectable`](#row-select-support) mode   |
 | `clearSelected` | Method | Unselect all rows (applicable if the table is in [`selectable`](#row-select-support) mode |
 
+### Creating a custom footer
+
+If you need greater layout control of the content of the `<tfoot>`, you can use the optionally
+scoped slot `custom-foot` to provide your own rows and cells. Use BootstrapVue's
+[table helper sub-components](#table-helper-components) `<b-tr>`, `<b-th>`, and `<b-td>` to generate
+your custom footer layout.
+
+Slot `custom-foot` can be optionally scoped, receiving an object with the following properties:
+
+| Property  | Type   | Description                                                                                |
+| --------- | ------ | ------------------------------------------------------------------------------------------ |
+| `columns` | Number | The number of columns in the rendered table                                                |
+| `fields`  | Array  | Array of field definition objects (normalized to the array of objects format)              |
+| `items`   | Array  | Array of the currently _displayed_ items records - after filtering, sorting and pagination |
+
+**Notes:**
+
+- The `custom-foot` slot will **not** be rendered if the `foot-clone` prop has been set.
+- `head-clicked` events are not be emitted when clicking on `custom-foot` cells.
+- Sorting and sorting icons are not available for cells in the `custom-foot` slot.
+- The custom footer will not be shown when the table is in visually stacked mode.
+
 ## Custom empty and emptyfiltered rendering via slots
 
 Aside from using `empty-text`, `empty-filtered-text`, `empty-html`, and `empty-filtered-html`, it is
@@ -1452,10 +1474,10 @@ You can make rows selectable, by using the `<b-table>` prop `selectable`.
 
 Users can easily change the selecting mode by setting the `select-mode` prop.
 
-- `multi`: each click will select/deselect the row (default mode)
-- `single`: only a single row can be selected at one time
-- `range`: any row clicked is selected, any other deselected. the SHIFT key selects a range of rows,
-  and CTRL/CMD click will toggle the selected row.
+- `'multi'`: Each click will select/deselect the row (default mode)
+- `'single'`: Only a single row can be selected at one time
+- `'range'`: Any row clicked is selected, any other deselected. <kbd>SHIFT</kbd> + click selects a
+  range of rows, and <kbd>CTRL</kbd> (or <kbd>CMD</kbd>) + click will toggle the selected row.
 
 When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
 event, passing a single argument which is the complete list of selected items. **Treat this argument
@@ -1472,13 +1494,41 @@ Rows can also be programmatically selected and unselected via the following expo
 | `clearSelected()`      | Unselects all rows.                                                                                  |
 | `isRowSelected(index)` | Returns `true` if the row with the given `index` is selected, otherwise it returns `false`.          |
 
-Programmatic selection notes:
+**Programmatic row selection notes:**
 
-- `index` the zero-based index of the table's **visible rows**, after filtering, sorting, and
+- `index` is the zero-based index of the table's **visible rows**, after filtering, sorting, and
   pagination have been applied.
 - In `single` mode, `selectRow(index)` will unselect any previous selected row.
 - Attempting to `selectRow(index)` or `unselectRow(index)` on a non-existent row will be ignored.
 - The table must be `selectable` for any of these methods to have effect.
+
+**Row select notes:**
+
+- [Sorting](#sorting), [filtering](#filtering), or [paginating](#pagination) the table will **clear
+  the active selection**. The `row-selected` event will be emitted with an empty array (`[]`) if
+  needed.
+- When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
+  sequence (`tabindex="0"`) for [accessibility](#accessibility) reasons, and will have the attribute
+  `aria-selected` set to either `'true'` or `'false'` depending on the selected state of the row.
+- When a table is `selectable`, the table will have the attribute `aria-multiselect` set to either
+  `'false'` for `single` mode, and `'true'` for either `multi` or `range` modes.
+
+When a `<b-table>` is selectable, it will have class `b-table-selectable` and one of the following
+three classes (depending on which mode is in use) on the `<table>` element:
+
+- `b-table-select-single`
+- `b-table-select-multi`
+- `b-table-select-range`
+
+When at least one row is selected, the class `b-table-selecting` will be active on the `<table>`
+element. Rows that are selected rows will have a class of `b-row-selected` applied to the `<tr>`
+element.
+
+Use the prop `selected-variant` to apply a Bootstrap theme color to the selected row(s). Note, due
+to the order that the table variants are defined in Bootstrap's CSS, any row-variant may take
+precedence over the `selected-variant`. You can set `selected-variant` to an empty string if you
+will be using other means to convey that a row is selected (such as a scoped field slot in the below
+example).
 
 ```html
 <template>
@@ -1563,33 +1613,6 @@ Programmatic selection notes:
 <!-- b-table-selectable.vue -->
 ```
 
-When a table is selectable, it will have class `b-table-selectable`, and one of the following three
-classes (depending on which mode is in use), on the `<table>` element:
-
-- `b-table-select-single`
-- `b-table-select-multi`
-- `b-table-select-range`
-
-When at least one row is selected the class `b-table-selecting` will be active on the `<table>`
-element.
-
-Use the prop `selected-variant` to apply a Bootstrap theme color to the selected row(s). Note, due
-to the order that the table variants are defined in Bootstrap's CSS, any row-variant's may take
-precedence over the `selected-variant`. You can set `selected-variant` to an empty string if you
-will be using other means to convey that a row is selected (such as a scoped field slot in the above
-example).
-
-**Notes:**
-
-- Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
-  with an empty array if needed.
-- Selected rows will have a class of `b-row-selected` added to them.
-- When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
-  sequence (`tabindex="0"`) for [accessibility](#accessibility) reasons, and will have the attribute
-  `aria-selected` set to either `'true'` or `'false'` depending on the selected state of the row.
-- When a table is `selectable`, the table will have the attribute `aria-multiselect` set to either
-  `'false'` for `single` mode, and `'true'` for either `multi` or `range` modes.
-
 ### Table body transition support
 
 Vue transitions and animations are optionally supported on the `<tbody>` element via the use of
@@ -1604,10 +1627,11 @@ Vue's `<transition-group>` component internally. Three props are available for t
 
 To enable transitions you need to specify `tbody-transition-props` and/or
 `tbody-transition-handlers`, and must specify which field key to use as a unique key via the
-`primary-key` prop. Your data **must have** a column (specified by the `primary-key` prop) that has
-a **unique value per row** in order for transitions to work properly. The `primary-key` field's
-_value_ can either be a unique string or number. The field specified does not need to appear in the
-rendered table output, but it **must** exist in each row of your items data.
+`primary-key` prop. Your data **must have** a column (specified by setting the `primary-key` prop to
+the _name_ of the field) that has a **unique value per row** in order for transitions to work
+properly. The `primary-key` field's _value_ can either be a unique string or number. The field
+specified does not need to appear in the rendered table output, but it **must** exist in each row of
+your items data.
 
 You must also provide CSS to handle your transitions (if using CSS transitions) in your project.
 
@@ -1668,7 +1692,7 @@ table#table-transition-example .flip-list-move {
 
 If you bind a variable to the `v-model` prop, the contents of this variable will be the currently
 displayed item records (zero based index, up to `page-size` - 1). This variable (the `value` prop)
-should usually be treated as readonly.
+should usually be treated as _readonly_.
 
 The records within the `v-model` are a filtered/paginated _shallow copy_ of `items`, and hence any
 changes to a record's properties in the `v-model` will be reflected in the original `items` array
@@ -2652,8 +2676,8 @@ helper components. `TableSimplePlugin` is available as a top level named export.
 ## Table helper components
 
 BootstrapVue provides additional helper child components when using `<b-table-simple>`, or the named
-slots `top-row`, `bottom-row`, and `thead-top` (all of which accept table child elements). The
-helper components are as follows:
+slots `top-row`, `bottom-row`, `thead-top`, and `custom-foot` (all of which accept table child
+elements). The helper components are as follows:
 
 - `b-tbody` (`<b-table-simple>` only)
 - `b-thead` (`<b-table-simple>` only)
