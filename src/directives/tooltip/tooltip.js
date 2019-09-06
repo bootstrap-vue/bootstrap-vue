@@ -181,6 +181,14 @@ const applyTooltip = (el, bindings, vnode) => {
       _scopeId: getScopId($parent, undefined)
     })
     el[BV_TOOLTIP].__bv_prev_data__ = {}
+    el[BV_TOOLTIP].$on('show', () => /* istanbul ignore next: for now */ {
+      // Before showing the tooltip, we update the title if it is a function
+      if (isFunction(config.title)) {
+        el[BV_TOOLTIP].updateData({
+          title: config.title()
+        })
+      }
+    })
   }
   const data = {
     title: config.title,

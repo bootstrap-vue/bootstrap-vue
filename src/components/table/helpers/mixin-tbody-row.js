@@ -334,7 +334,7 @@ export default {
           $rows.push(
             // We don't use `BTr` here as we dont need the extra functionality
             h('tr', {
-              key: `__b-table-details-${rowIndex}-stripe__`,
+              key: `__b-table-details-stripe__${rowKey}`,
               staticClass: 'd-none',
               attrs: { 'aria-hidden': 'true', role: 'presentation' }
             })
@@ -346,7 +346,7 @@ export default {
           h(
             BTr,
             {
-              key: `__b-table-details-${rowIndex}__`,
+              key: `__b-table-details__${rowKey}`,
               staticClass: 'b-table-details',
               class: [
                 isFunction(this.tbodyTrClass)
