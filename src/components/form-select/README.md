@@ -128,8 +128,43 @@ inline html (i.e. `<i>`, `<strong>`, etc) inside `<option>` elements of a `<sele
   user supplied string.
 </p>
 
-If you want to customize fields (for example using `name` field for display text) you can easily
-change them using `text-field`, `html-field`, `value-field`, and `disabled-field` props.
+If you want to customize fields (for example using `name` field for display `text`) you can easily
+change them by setting the `text-field`, `html-field`, `value-field`, and `disabled-field` props
+to a string that contains the property name you would like to use:
+
+```html
+<template>
+  <div>
+    <b-form-select
+      v-model="selected"
+      :options="options"
+      class="mb-3"
+      value-field="item"
+      text-field="name"
+      disabled-field="notEnabled"
+    ></b-form-select>
+    <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        selected: 'A',
+        options: [
+          { item: 'A', name: 'Option A' },
+          { item: 'B', name: 'Option B' },
+          { item: 'c', name: 'Option C', notEnabled: true },
+          { item: 'D', name: 'Option D' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-form-select-options-fields.vue -->
+```
 
 ### Array
 
