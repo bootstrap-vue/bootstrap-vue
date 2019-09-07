@@ -128,9 +128,106 @@ inline html (i.e. `<i>`, `<strong>`, etc) inside `<option>` elements of a `<sele
   user supplied string.
 </p>
 
-If you want to customize fields (for example using `name` field for display `text`) you can easily
-change them by setting the `text-field`, `html-field`, `value-field`, and `disabled-field` props
-to a string that contains the property name you would like to use:
+### Options as an array
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+const options = ['A', 'B', 'C', { text: 'D', value: { d: 1 }, disabled: true }, 'E', 'F']
+```
+
+If an array entry is a string, it will be used for both the generated `value` and `text` fields.
+
+You can mix using strings and [objects](#options-as-an-array-of-objects) in the array.
+
+Internally, BootstrapVue will convert the above array to the following array (the
+[array of objects](#options-as-an-array-of-objects)) format:
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+const options = [
+  { text: 'A', value: 'A', disabled: false },
+  { text: 'B', value: 'B', disabled: false },
+  { text: 'C', value: 'C', disabled: false },
+  { text: 'D', value: { d: 1 }, disabled: true },
+  { text: 'E', value: 'E', disabled: false },
+  { text: 'F', value: 'F', disabled: false }
+]
+```
+
+### Options as an array of objects
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+const options = [
+  { text: 'Item 1', value: 'first' },
+  { text: 'Item 2', value: 'second' },
+  { html: '<b>Item</b> 3', value: 'third', disabled: true },
+  { text: 'Item 4' },
+  { text: 'Item 5', value: { foo: 'bar', baz: true } }
+]
+```
+
+If `value` is missing, then `text` will be used as both the `value` and `text` fields. If you use
+the `html` property, you **must** supply a `value` property.
+
+Internally, BootstrapVue will convert the above array to the following array (the
+[Array of Objects](#options-as-an-array-of-objects) format:
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+const options = [
+  { text: 'Item 1', value: 'first', disabled: false },
+  { text: 'Item 2', value: 'second', disabled: false },
+  { html: '<b>Item</b> 3', value: 'third', disabled: true },
+  { text: 'Item 4', value: 'Item 4', disabled: false },
+  { text: 'Item 5', value: 'E', disabled: false },
+  { text: 'F', value: { foo: 'bar', baz: true }, disabled: false }
+]
+```
+
+### Options as an object
+
+Keys are mapped to `value` and values are mapped to option `text`.
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+const options = {
+  a: 'Item A',
+  b: 'Item B',
+  c: { html: 'Item C', disabled: true },
+  d: { text: 'Item D', value: 'overridden_value' },
+  e: { text: 'Item E', value: { foo: 'bar', baz: true } }
+}
+```
+
+Internally, BootstrapVue will convert the above object to the following array (the
+[Array of Objects](#options-as-an-array-of-objects) format:
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+const options = [
+  { text: 'Item A', value: 'a', disabled: false },
+  { text: 'Item B', value: 'b', disabled: false },
+  { html: 'Item C', value: 'c', disabled: false },
+  { text: 'Item D', value: 'overridden_value', disabled: true },
+  { text: 'E', value: { foo: 'bar', baz: true }, disabled: false }
+]
+```
+
+**Note:** When using the Object format, the order of the final array is **not** guaranteed. For
+this reason, it is recommended to use either of the previously mentioned array formats.
+
+### Changing the option field names
+
+If you want to customize the field property names (for example using `name` field for display
+`text`) you can easily change them by setting the `text-field`, `html-field`, `value-field`, and
+`disabled-field` props to a string that contains the property name you would like to use:
 
 ```html
 <template>
@@ -165,101 +262,6 @@ to a string that contains the property name you would like to use:
 
 <!-- b-form-select-options-fields.vue -->
 ```
-
-### Array
-
-<!-- eslint-disable no-unused-vars -->
-
-```js
-const options = ['A', 'B', 'C', { text: 'D', value: { d: 1 }, disabled: true }, 'E', 'F']
-```
-
-If an array entry is a string, it will be used for both the generated `value` and `text` fields.
-
-You can mix using strings and [objects](#objects) in the array.
-
-Internally, BootstrapVue will convert the above array to the following array (the
-[Array of Objects](#array-of-objects) format:
-
-<!-- eslint-disable no-unused-vars -->
-
-```js
-const options = [
-  { text: 'A', value: 'A', disabled: false },
-  { text: 'B', value: 'B', disabled: false },
-  { text: 'C', value: 'C', disabled: false },
-  { text: 'D', value: { d: 1 }, disabled: true },
-  { text: 'E', value: 'E', disabled: false },
-  { text: 'F', value: 'F', disabled: false }
-]
-```
-
-### Array of objects
-
-<!-- eslint-disable no-unused-vars -->
-
-```js
-const options = [
-  { text: 'Item 1', value: 'first' },
-  { text: 'Item 2', value: 'second' },
-  { html: '<b>Item</b> 3', value: 'third', disabled: true },
-  { text: 'Item 4' },
-  { text: 'Item 5', value: { foo: 'bar', baz: true } }
-]
-```
-
-If `value` is missing, then `text` will be used as both the `value` and `text` fields. If you use
-the `html` property, you **must** supply a `value` property.
-
-Internally, BootstrapVue will convert the above array to the following array (the
-[Array of Objects](#array-of-objects) format:
-
-<!-- eslint-disable no-unused-vars -->
-
-```js
-const options = [
-  { text: 'Item 1', value: 'first', disabled: false },
-  { text: 'Item 2', value: 'second', disabled: false },
-  { html: '<b>Item</b> 3', value: 'third', disabled: true },
-  { text: 'Item 4', value: 'Item 4', disabled: false },
-  { text: 'Item 5', value: 'E', disabled: false },
-  { text: 'F', value: { foo: 'bar', baz: true }, disabled: false }
-]
-```
-
-### Object
-
-Keys are mapped to `value` and values are mapped to option `text`.
-
-<!-- eslint-disable no-unused-vars -->
-
-```js
-const options = {
-  a: 'Item A',
-  b: 'Item B',
-  c: { html: 'Item C', disabled: true },
-  d: { text: 'Item D', value: 'overridden_value' },
-  e: { text: 'Item E', value: { foo: 'bar', baz: true } }
-}
-```
-
-Internally, BootstrapVue will convert the above object to the following array (the
-[Array of Objects](#array-of-objects) format:
-
-<!-- eslint-disable no-unused-vars -->
-
-```js
-const options = [
-  { text: 'Item A', value: 'a', disabled: false },
-  { text: 'Item B', value: 'b', disabled: false },
-  { html: 'Item C', value: 'c', disabled: false },
-  { text: 'Item D', value: 'overridden_value', disabled: true },
-  { text: 'E', value: { foo: 'bar', baz: true }, disabled: false }
-]
-```
-
-**Note:** When using the [Object](#object) format, the order of the final array is **not**
-guaranteed. For this reason, it is recommended to use the above array formats.
 
 ### Option notes
 
