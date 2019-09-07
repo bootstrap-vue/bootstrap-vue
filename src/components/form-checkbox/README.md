@@ -89,8 +89,8 @@ named slot `first`.
 
 ## Checkbox group options array
 
-Please see options in [`<b-form-select>`](/docs/components/form-select) docs for details on passing
-`options` (value array) to `<b-form-checkbox-group>`.
+Please see the [`<b-form-select>` `options` prop](/docs/components/form-select#options-property) docs
+for details on the formats and helper props.
 
 ## Inline and stacked checkboxes
 
