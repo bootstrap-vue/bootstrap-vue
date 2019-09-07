@@ -252,8 +252,8 @@ If you want to customize the field property names (for example using `name` fiel
         options: [
           { item: 'A', name: 'Option A' },
           { item: 'B', name: 'Option B' },
-          { item: 'c', name: 'Option C', notEnabled: true },
-          { item: 'D', name: 'Option D' }
+          { item: 'D', name: 'Option C', notEnabled: true },
+          { item: { d: 1 }, name: 'Option D' }
         ]
       }
     }
