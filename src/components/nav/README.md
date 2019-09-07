@@ -310,8 +310,43 @@ The `card-header` prop has no styling effect if the `<b-nav>` is in `vertical` m
 
 ### Using with Vue Router
 
+Have your card `<b-nav>` control tabbed content that changes with the route hash:
+
+```html
+<div>
+  <b-card no-body>
+    <b-nav card-header slot="header" tabs>
+      <b-nav-item
+        :to="{ hash: '#default' }"
+        <!-- or :to="{ hash: '' }" -->
+        :active="$route.hash !== '#foo' && $route.hash !== '#bar'"
+      >
+        Default
+      </b-nav-item>
+      <b-nav-item :to="{ hash: '#foo' }" exact exact-active-class="active">
+        Foo
+      </b-nav-item>
+      <b-nav-item :to="{ hash: '#bar' }" exact exact-active-class="active">
+        Bar
+      </b-nav-item>
+    </b-nav>
+    <b-card-body v-show="$route.hash !== '#foo' && $route.hash !== '#bar'">
+      Default Content
+    </b-card-body>
+    <b-card-body v-show="$route.hash === '#foo'">
+     Foo Content
+    </b-card-body>
+    <b-card-body v-show="$route.hash === '#bar'">
+      Bar Content
+    </b-card-body>
+  </b-card>
+</div>
+
+<!-- nav-card-hash-routes.vue -->
+```
+
 Have your card `<b-nav>` control vue router nested routes via `<router-view>` or `<nuxt-child>`
-components, to created tabbed content that changes with route URL:
+components, to created tabbed content that changes with route URL path:
 
 ```html
 // On page with route `/some/route`
@@ -336,9 +371,6 @@ components, to created tabbed content that changes with route URL:
   </b-card>
 </div>
 ```
-
-Note: Vue Router does not support defining active routes with hashes (`#`), which is why you must
-define the "tab" content as child routes.
 
 **Example router config for above:**
 
