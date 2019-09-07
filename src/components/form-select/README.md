@@ -174,7 +174,7 @@ If `value` is missing, then `text` will be used as both the `value` and `text` f
 the `html` property, you **must** supply a `value` property.
 
 Internally, BootstrapVue will convert the above array to the following array (the
-[Array of Objects](#options-as-an-array-of-objects) format:
+[array of objects](#options-as-an-array-of-objects)) format:
 
 <!-- eslint-disable no-unused-vars -->
 
@@ -206,7 +206,7 @@ const options = {
 ```
 
 Internally, BootstrapVue will convert the above object to the following array (the
-[Array of Objects](#options-as-an-array-of-objects) format:
+[array of objects](#options-as-an-array-of-objects)) format:
 
 <!-- eslint-disable no-unused-vars -->
 
