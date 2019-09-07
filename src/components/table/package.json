@@ -201,27 +201,27 @@
         ],
         "slots": [
           {
-            "name": "cell[key]",
+            "name": "cell(key)",
             "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name. See docs for scoped data"
           },
           {
-            "name": "cell[]",
+            "name": "cell()",
             "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
           },
           {
-            "name": "head[key]",
+            "name": "head(key)",
             "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
           },
           {
-            "name": "head[]",
+            "name": "head()",
             "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
           },
           {
-            "name": "foot[key]",
+            "name": "foot(key)",
             "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer"
           },
           {
-            "name": "foot[]",
+            "name": "foot()",
             "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer"
           },
           {
@@ -402,27 +402,27 @@
         ],
         "slots": [
           {
-            "name": "cell[key]",
+            "name": "cell(key)",
             "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name. See docs for scoped data"
           },
           {
-            "name": "cell[]",
+            "name": "cell()",
             "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
           },
           {
-            "name": "head[key]",
+            "name": "head(key)",
             "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
           },
           {
-            "name": "head[]",
+            "name": "head()",
             "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
           },
           {
-            "name": "foot[key]",
+            "name": "foot(key)",
             "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer"
           },
           {
-            "name": "foot[]",
+            "name": "foot()",
             "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer"
           },
           {
