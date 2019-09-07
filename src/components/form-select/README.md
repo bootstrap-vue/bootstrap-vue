@@ -184,8 +184,7 @@ const options = [
   { text: 'Item 2', value: 'second', disabled: false },
   { html: '<b>Item</b> 3', value: 'third', disabled: true },
   { text: 'Item 4', value: 'Item 4', disabled: false },
-  { text: 'Item 5', value: 'E', disabled: false },
-  { text: 'F', value: { foo: 'bar', baz: true }, disabled: false }
+  { text: 'Item 5', value: 'E', disabled: false }
 ]
 ```
 
