@@ -1,7 +1,7 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BDropdown from './dropdown'
-import BDropdownItem from './dropdown-item'
+import { BDropdown } from './dropdown'
+import { BDropdownItem } from './dropdown-item'
 
 describe('dropdown', () => {
   const originalCreateRange = document.createRange

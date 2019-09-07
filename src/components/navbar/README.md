@@ -35,7 +35,9 @@
 
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
-          <template slot="button-content"><em>User</em></template>
+          <template v-slot:button-content>
+            <em>User</em>
+          </template>
           <b-dropdown-item href="#">Profile</b-dropdown-item>
           <b-dropdown-item href="#">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
@@ -157,9 +159,6 @@ securely aligned.
 - `<b-nav-text>` for adding vertically centered strings of text.
 - `<b-nav-item-dropdown>` for navbar dropdown menus
 - `<b-nav-form>` for adding simple forms to the navbar.
-
-**Note:** _The use of `<b-nav is-nav-bar>` inside a `<b-navbar>` has been deprecated. Use component
-`<b-navbar-nav>` instead._
 
 ### `<b-nav-item>`
 
@@ -286,6 +285,9 @@ See the first example on this page for reference, and also refer to
 Navbars are hidden by default when printing. Force them to be printed by setting the `print` prop.
 
 ## See also
+
+Refer to the [Router support](/docs/reference/router-links) reference page for router-link specific
+props.
 
 Also see [`<b-nav>`](/docs/components/nav) for additional components and sub-component aliases.
 

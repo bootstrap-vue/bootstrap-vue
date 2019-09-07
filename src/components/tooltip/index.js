@@ -8,5 +8,3 @@ const TooltipPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { TooltipPlugin, BTooltip }
-
-export default TooltipPlugin

@@ -39,10 +39,10 @@ values as you need to generate different utilities here.
 
 ```html
 <div class="text-center">
-  <div class="w-25 p-3 mb-1 bg-secondary">Width 25%</div>
-  <div class="w-50 p-3 mb-1 bg-secondary">Width 50%</div>
-  <div class="w-75 p-3 mb-1 bg-secondary">Width 75%</div>
-  <div class="w-100 p-3 bg-secondary">Width 100%</div>
+  <div class="w-25 p-3 mb-1 bg-secondary text-light">Width 25%</div>
+  <div class="w-50 p-3 mb-1 bg-secondary text-light">Width 50%</div>
+  <div class="w-75 p-3 mb-1 bg-secondary text-light">Width 75%</div>
+  <div class="w-100 p-3 bg-secondary text-light">Width 100%</div>
 </div>
 
 <!-- widths.vue -->

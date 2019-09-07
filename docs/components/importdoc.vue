@@ -10,8 +10,8 @@
         </anchored-heading>
 
         <p>
-          <b-badge variant="info" class="small">CHANGED in 2.0.0-rc.22</b-badge> You can
-          import individual components into your project via the following named exports:
+          You can import individual components into your project via the following named
+          exports:
         </p>
 
         <b-table
@@ -22,13 +22,13 @@
           bordered
           striped
         >
-          <template slot="[component]" slot-scope="{ value }">
+          <template v-slot:cell(component)="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="[namedExport]" slot-scope="{ value }">
+          <template v-slot:cell(namedExport)="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="[importPath]" slot-scope="{ value }">
+          <template v-slot:cell(importPath)="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -45,8 +45,8 @@
         </anchored-heading>
 
         <p>
-          <b-badge variant="info" class="small">CHANGED in 2.0.0-rc.22 </b-badge> You can
-          import individual directives into your project via the following named exports:
+          You can import individual directives into your project via the following named
+          exports:
         </p>
 
         <b-table
@@ -57,13 +57,13 @@
           bordered
           striped
         >
-          <template slot="[directive]" slot-scope="{ value }">
+          <template v-slot:cell(directive)="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="[namedExport]" slot-scope="{ value }">
+          <template v-slot:cell(namedExport)="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template slot="[importPath]" slot-scope="{ value }">
+          <template v-slot:cell(importPath)="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -77,11 +77,6 @@
       <anchored-heading id="importing-as-a-plugin" level="3">
         Importing as a Vue.js plugin
       </anchored-heading>
-
-      <p>
-        <b-badge variant="info" class="small">CHANGED in 2.0.0-rc.22</b-badge> Importing plugins
-        has been simplified.
-      </p>
 
       <p v-if="isComponentRoute">
         This plugin includes all of the above listed individual
@@ -102,10 +97,10 @@
         bordered
         striped
       >
-        <template slot="[namedExport]" slot-scope="{ value }">
+        <template v-slot:cell(namedExport)="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
-        <template slot="[importPath]" slot-scope="{ value }">
+        <template v-slot:cell(importPath)="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
       </b-table>
@@ -122,19 +117,6 @@
       <p><strong>Example:</strong></p>
       <pre class="hljs language-js text-monospace p-2 notranslate" translate="no">{{ pluginImportCode }}</pre>
     </article>
-
-    <aside class="alert alert-warning my-4">
-      <p class="mb-0">
-        <b-badge variant="warning" tag="strong">Deprecation Warning as of v2.0.0-rc.22:</b-badge>
-        Importing components, directives and plugins from
-        <code class="notranslate" translate="no">bootstrap-vue/es/*</code>
-        has been deprecated. All components, directives and plugins are now available as top-level named
-        exports in the <code class="notranslate" translate="no">ESM</code> and
-        <code class="notranslate" translate="no">CommonJS</code> builds. The
-        <code class="notranslate" translate="no">es/</code> directory build will be removed in a future
-        release.
-      </p>
-    </aside>
   </section>
 </template>
 
@@ -143,6 +125,8 @@ import hljs from '../utils/hljs'
 import kebabCase from 'lodash/kebabCase'
 import startCase from 'lodash/startCase'
 import AnchoredHeading from './anchored-heading'
+
+const importPath = 'bootstrap-vue'
 
 export default {
   name: 'BDVImportdoc',
@@ -212,9 +196,8 @@ export default {
     },
     directiveImportCode() {
       const firstDirective = this.directives[0]
-      const firstDirectiveImport = this.directiveImports[0]
       return [
-        `import { ${firstDirective} } from '${firstDirectiveImport.importPath}'`,
+        `import { ${firstDirective} } from '${importPath}'`,
         "// Note: Vue automatically prefixes the directive name with 'v-'",
         `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`
       ].join('\n')

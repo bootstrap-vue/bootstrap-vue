@@ -6,5 +6,3 @@ const PaginationNavPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { PaginationNavPlugin, BPaginationNav }
-
-export default PaginationNavPlugin

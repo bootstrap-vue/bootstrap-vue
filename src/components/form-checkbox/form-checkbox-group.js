@@ -46,5 +46,3 @@ export const BFormCheckboxGroup = /*#__PURE__*/ Vue.extend({
     }
   }
 })
-
-export default BFormCheckboxGroup

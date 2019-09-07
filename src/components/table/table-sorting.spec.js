@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import BTable from './table'
 import defaultSortCompare from './helpers/default-sort-compare'
+import { BTable } from './table'
 
 const testItems = [{ a: 3, b: 'b', c: 'x' }, { a: 1, b: 'c', c: 'y' }, { a: 2, b: 'a', c: 'z' }]
 const testFields = [

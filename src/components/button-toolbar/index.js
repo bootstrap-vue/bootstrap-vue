@@ -9,5 +9,3 @@ const ButtonToolbarPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { ButtonToolbarPlugin, BButtonToolbar }
-
-export default ButtonToolbarPlugin

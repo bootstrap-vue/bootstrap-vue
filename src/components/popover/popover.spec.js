@@ -1,6 +1,6 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BPopover from './popover'
+import { BPopover } from './popover'
 
 const localVue = new CreateLocalVue()
 
@@ -118,25 +118,12 @@ describe('b-popover', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('title')).toBeDefined()
-    expect($button.attributes('title')).toEqual('')
-    expect($button.attributes('data-original-title')).toBeDefined()
-    expect($button.attributes('data-original-title')).toEqual('')
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // <b-popover> wrapper
-    const $tipHolder = wrapper.find('div#bar')
+    const $tipHolder = wrapper.find(BPopover)
     expect($tipHolder.exists()).toBe(true)
-    expect($tipHolder.classes()).toContain('d-none')
-    expect($tipHolder.attributes('aria-hidden')).toBeDefined()
-    expect($tipHolder.attributes('aria-hidden')).toEqual('true')
-    expect($tipHolder.element.style.display).toEqual('none')
-
-    // Content placeholders
-    expect($tipHolder.findAll('div.d-none > div').length).toBe(2)
-    const $holders = $tipHolder.findAll('div.d-none > div')
-    expect($holders.at(0).text()).toEqual('title')
-    expect($holders.at(1).text()).toEqual('content')
+    expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
     wrapper.destroy()
   })
@@ -173,34 +160,24 @@ describe('b-popover', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('title')).toBeDefined()
-    expect($button.attributes('title')).toEqual('')
-    expect($button.attributes('data-original-title')).toBeDefined()
-    expect($button.attributes('data-original-title')).toEqual('')
-    expect($button.attributes('aria-describedby')).toBeDefined()
+    expect($button.attributes('data-original-title')).not.toBeDefined()
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
 
     // <b-popover> wrapper
-    const $tipHolder = wrapper.find('div#bar')
+    const $tipHolder = wrapper.find(BPopover)
     expect($tipHolder.exists()).toBe(true)
-    expect($tipHolder.classes()).toContain('d-none')
-    expect($tipHolder.attributes('aria-hidden')).toBeDefined()
-    expect($tipHolder.attributes('aria-hidden')).toEqual('true')
-    expect($tipHolder.element.style.display).toEqual('none')
-
-    // Content placeholders should be moved
-    expect($tipHolder.findAll('div.d-none > div').length).toBe(0)
-    expect($tipHolder.text()).toBe('')
+    expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
     // Find the popover element in the document
-    const tip = document.querySelector(`#${adb}`)
+    const tip = document.getElementById(adb)
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('popover')).toBe(true)
+    expect(tip.classList.contains('b-popover')).toBe(true)
 
-    // Hide the tooltip
+    // Hide the Popover
     wrapper.setProps({
       show: false
     })
@@ -211,15 +188,10 @@ describe('b-popover', () => {
     jest.runOnlyPendingTimers()
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
-    // Title placeholder (from default slot) will be back here
-    expect($tipHolder.findAll('div.d-none > div').length).toBe(2)
-    const $holders = $tipHolder.findAll('div.d-none > div')
-    expect($holders.at(0).text()).toEqual('title')
-    expect($holders.at(1).text()).toEqual('content')
 
     // Popover element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
-    expect(document.querySelector(`#${adb}`)).toBe(null)
+    expect(document.getElementById(adb)).toBe(null)
 
     wrapper.destroy()
   })

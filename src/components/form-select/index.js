@@ -9,5 +9,3 @@ const FormSelectPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { FormSelectPlugin, BFormSelect }
-
-export default FormSelectPlugin

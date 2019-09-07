@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import BButton from '../button/button'
-import BButtonGroup from '../button-group/button-group'
-import BButtonToolbar from './button-toolbar'
+import { BButton } from '../button/button'
+import { BButtonGroup } from '../button-group/button-group'
+import { BButtonToolbar } from './button-toolbar'
 
 describe('button-toolbar', () => {
   it('toolbar root should be "div"', async () => {

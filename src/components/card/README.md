@@ -217,10 +217,14 @@ You can control the wrapper element tags used by setting the `header-tag` and `f
     </b-card>
 
     <b-card title="Title" header-tag="header" footer-tag="footer">
-      <h6 slot="header" class="mb-0">Header Slot</h6>
+      <template v-slot:header>
+        <h6 class="mb-0">Header Slot</h6>
+      </template>
       <b-card-text>Header and footers using slots.</b-card-text>
       <b-button href="#" variant="primary">Go somewhere</b-button>
-      <em slot="footer">Footer Slot</em>
+      <template v-slot:footer>
+        <em>Footer Slot</em>
+      </template>
     </b-card>
   </b-card-group>
 </div>
@@ -243,7 +247,9 @@ card.
     img-alt="Image"
     img-top
   >
-    <h4 slot="header">Hello World</h4>
+    <template v-slot:header>
+      <h4 class="mb-0">>Hello World</h4>
+    </template>
 
     <b-card-body>
       <b-card-title>Card Title</b-card-title>
@@ -495,6 +501,65 @@ assistive technologies – such as screen readers. Ensure that information denot
 either obvious from the content itself (e.g. the visible text), or is included through alternative
 means, such as additional text hidden with the `.sr-only` class.
 
+## Nav integration
+
+Integrate [`<b-nav>`](/docs/components/nav) into card headers easily.
+
+**Using the `header` slot**:
+
+```html
+<div>
+  <b-card title="Card Title" body-class="text-center" header-tag="nav">
+    <template v-slot:header>
+      <b-nav card-header tabs>
+        <b-nav-item active>Active</b-nav-item>
+        <b-nav-item>Inactive</b-nav-item>
+        <b-nav-item disabled>Disabled</b-nav-item>
+      </b-nav>
+    </template>
+
+    <b-card-text>
+      With supporting text below as a natural lead-in to additional content.
+    </b-card-text>
+
+    <b-button variant="primary">Go somewhere</b-button>
+  </b-card>
+</div>
+
+<!-- card-with-nav-header-slot.vue -->
+```
+
+**Using `<b-card-header>` sub-component:**
+
+```html
+<div>
+  <b-card no-body>
+    <b-card-header header-tag="nav">
+      <b-nav card-header tabs>
+        <b-nav-item active>Active</b-nav-item>
+        <b-nav-item>Inactive</b-nav-item>
+        <b-nav-item disabled>Disabled</b-nav-item>
+      </b-nav>
+    </b-card-header>
+
+    <b-card-body class="text-center">
+      <b-card-title>Card Title</b-card-title>
+
+      <b-card-text>
+        With supporting text below as a natural lead-in to additional content.
+      </b-card-text>
+
+      <b-button variant="primary">Go somewhere</b-button>
+    </b-card-body>
+  </b-card>
+</div>
+
+<!-- card-with-nav-header-component.vue -->
+```
+
+For more information on using `<b-nav>` in card headers, refer to the
+[Navs documentation](/docs/components/nav).
+
 ## Card groups
 
 In addition to styling the content within cards, BootstrapVue includes a `<b-card-group>` component
@@ -515,14 +580,18 @@ When using card groups with footers, their content will automatically line up.
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This content is a little bit longer.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
     </b-card>
 
     <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Image" img-top>
       <b-card-text>
         This card has supporting text below as a natural lead-in to additional content.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
     </b-card>
 
     <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Image" img-top>
@@ -530,7 +599,9 @@ When using card groups with footers, their content will automatically line up.
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This card has even longer content than the first to show that equal height action.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
     </b-card>
   </b-card-group>
 </div>
@@ -552,14 +623,18 @@ automatically line up.
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This content is a little bit longer.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
     </b-card>
 
     <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
       <b-card-text>
         This card has supporting text below as a natural lead-in to additional content.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
     </b-card>
 
     <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
@@ -567,7 +642,9 @@ automatically line up.
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This card has even longer content than the first to show that equal height action.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </template>
     </b-card>
   </b-card-group>
 </div>
@@ -639,7 +716,9 @@ set them to display: inline-block as column-break-inside: avoid isn't a bulletpr
         This is a wider card with supporting text below as a natural lead-in to additional content.
         This card has even longer content than the first.
       </b-card-text>
-      <div slot="footer"><small class="text-muted">Footer Text</small></div>
+      <template v-slot:footer>
+        <small class="text-muted">Footer Text</small>
+      </template>
     </b-card>
   </b-card-group>
 </div>

@@ -41,5 +41,3 @@ export const BFormRadioGroup = /*#__PURE__*/ Vue.extend({
     }
   }
 })
-
-export default BFormRadioGroup

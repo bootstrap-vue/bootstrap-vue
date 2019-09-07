@@ -37,11 +37,10 @@ via the `modal-header` slot, and override the footer completely via the `modal-f
 present. Also, if you use the `modal-header` slot, the default header `X` close button will not be
 present, nor can you use the `modal-title` slot.
 
-<span class="badge badge-warning small">CHANGED in 2.0.0-rc.20</span> Modals will not render their
-content in the document until they are shown (lazily rendered). Modals, when visible, are rendered
-**appended to the `<body>` element**. The placement of the `<b-modal>` component will not affect
-layout, as it always renders as a placeholder comment node (`<!---->`). You can revert to the
-behaviour of previous BootstrapVue versions via the use of the
+Modals will not render their content in the document until they are shown (lazily rendered). Modals,
+when visible, are rendered **appended to the `<body>` element**. The placement of the `<b-modal>`
+component will not affect layout, as it always renders as a placeholder comment node (`<!---->`).
+You can revert to the behaviour of previous BootstrapVue versions via the use of the
 [`static` prop](#lazy-loading-and-static-modals).
 
 ## Toggle modal visibility
@@ -75,8 +74,6 @@ See the [Accessibility](#accessibility) section below for details.
 
 ### Using `this.$bvModal.show()` and `this.$bvModal.hide()` instance methods
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.19</span>
-
 When BootstrapVue is installed as a plugin, or the `ModalPlugin` plugin is used, BoostrapVue will
 inject a `$bvModal` object into every Vue instance (components, apps). `this.$bvModal` exposes
 several methods, of which two are for showing and hiding modals:
@@ -93,7 +90,7 @@ Both methods return immediately after being called.
   <b-button id="show-btn" @click="$bvModal.show('bv-modal-example')">Open Modal</b-button>
 
   <b-modal id="bv-modal-example" hide-footer>
-    <template slot="modal-title">
+    <template v-slot:modal-title>
       Using <code>$bvModal</code> Methods
     </template>
     <div class="d-block text-center">
@@ -381,8 +378,6 @@ are appended by specifying a container ID (refer to tooltip and popover docs for
 
 ## Lazy loading and static modals
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
-
 By default, modals will not render their content in the document until they are shown (lazily
 rendered). Modals that, when visible, are rendered appended to the `<body>` element. The `<b-modal>`
 component will not affect layout, as they render as a placeholder comment node (`<!---->`) in the
@@ -560,17 +555,19 @@ the `header-border-variant` and `footer-border-variant` props respectively.
         </b-row>
       </b-container>
 
-      <div slot="modal-footer" class="w-100">
-        <p class="float-left">Modal Footer Content</p>
-        <b-button
-          variant="primary"
-          size="sm"
-          class="float-right"
-          @click="show=false"
-        >
-          Close
-        </b-button>
-      </div>
+      <template v-slot:modal-footer>
+        <div class="w-100">
+          <p class="float-left">Modal Footer Content</p>
+          <b-button
+            variant="primary"
+            size="sm"
+            class="float-right"
+            @click="show=false"
+          >
+            Close
+          </b-button>
+        </div>
+      </template>
     </b-modal>
   </div>
 </template>
@@ -638,8 +635,6 @@ To disable both **Cancel** and **OK** buttons at the same time, simply set the `
 
 ### Custom rendering with slots
 
-<span class="badge badge-info small">ENHANCED in 2.0.0-rc.19</span>
-
 `<b-modal>` provides several named slots (of which some are optionally scoped) that you can use to
 customize the content of various sections of the modal.
 
@@ -670,7 +665,7 @@ The scope available to the slots that support optional scoping are:
   <b-button @click="$bvModal.show('modal-scoped')">Open Modal</b-button>
 
   <b-modal id="modal-scoped">
-    <template slot="modal-header" slot-scope="{ close }">
+    <template v-slot:modal-header="{ close }">
       <!-- Emulate built in modal header close button action -->
       <b-button size="sm" variant="outline-danger" @click="close()">
         Close Modal
@@ -678,12 +673,12 @@ The scope available to the slots that support optional scoping are:
       <h5>Modal Header</h5>
     </template>
 
-    <template slot="default" slot-scope="{ hide }">
+    <template v-slot:default="{ hide }">
       <p>Modal Body with button</p>
       <b-button @click="hide()">Hide Modal</b-button>
     </template>
 
-    <template slot="modal-footer" slot-scope="{ ok, cancel, hide }">
+    <template v-slot:modal-footer="{ ok, cancel, hide }">
       <b>Custom Footer</b>
       <!-- Emulate built in modal footer ok and cancel button actions -->
       <b-button size="sm" variant="success" @click="ok()">
@@ -740,8 +735,6 @@ component. This will hide the modal before another modal is shown.
   expected behaviour as each backdrop is opened over top the other modals and backdrops.
 
 ## Modal message boxes
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.19</span>
 
 BootstrapVue provides a few built in Message Box methods on the exposed `this.$bvModal` object.
 These methods provide a way to generate simple OK and Confirm style modal messages, from anywhere in
@@ -917,12 +910,68 @@ Example Confirm Message boxes
 - When using Vue Router (or similar), Message Boxes will close and reject if the route changes
   before the modal hides.
 - Message boxes cannot be generated during Server Side Rendering (SSR).
-- The Message Box `message` currently does not support HTML strings, however, you can pass an array
-  of `VNodes` as the `message` for fine grained control of the markup. You can use Vue's
+- The Message Box `message` currently does not support HTML strings, however, you can pass an
+  _array_ of `VNodes` as the `message` for fine grained control of the markup. You can use Vue's
   [`this.$createElement`](https://vuejs.org/v2/guide/render-function.html#createElement-Arguments)
   method to generate VNodes. This can also be done for the modal title (by passing VNodes to the
   `title` option), OK button text (via the `okTitle` option), and the CANCEL button text (via the
   `cancelTitle` option).
+
+### Message box advanced usage
+
+When using the `this.$bvModal.msgBoxOk(...)` or `this.$bvModal.msgBoxConfirm(...)` methods for
+generating modals, you may want the modal content to be more than just a string message. As
+mentioned in the [message box notes](#message-box-notes) section above, you can pass _arrays_ of
+VNodes as the message and title for more complex content.
+
+Use Vue's
+[`this.$createElement`](https://vuejs.org/v2/guide/render-function.html#createElement-Arguments)
+method to generate VNodes.
+
+```html
+<template>
+  <div>
+    <b-button @click="showMsgOk">Show OK message box with custom content</b-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    methods: {
+      showMsgOk() {
+        const h = this.$createElement
+        // Using HTML string
+        const titleVNode = h('div', { domProps: { innerHTML: 'Title from <i>HTML<i> string' } })
+        // More complex structure
+        const messageVNode = h('div', { class: ['foobar'] }, [
+          h('p', { class: ['text-center'] }, [
+            ' Flashy ',
+            h('strong', {}, 'msgBoxOk'),
+            ' message ',
+          ]),
+          h('p', { class: ['text-center'] }, [h('b-spinner')]),
+          h('b-img', {
+            props: {
+              src: 'https://picsum.photos/id/20/250/250',
+              thumbnail: true,
+              center: true,
+              fluid: true, rounded: 'circle'
+            }
+          })
+        ])
+        // We must pass the generated VNodes as arrays
+        this.$bvModal.msgBoxOk([messageVNode], {
+          title: [titleVNode],
+          buttonSize: 'sm',
+          centered: true, size: 'sm'
+        })
+      }
+    }
+  }
+</script>
+
+<!-- modal-msg-box-advanced.vue -->
+```
 
 ## Listening to modal changes via \$root events
 
@@ -947,8 +996,6 @@ emitted.
 (tab) _focus containment_, and automated `aria-*` attributes.
 
 ### ARIA attributes
-
-<span class="badge badge-info small">ENHANCED in 2.0.0-rc.27</span>
 
 The `aria-labelledby` and `aria-describedby` attributes will appear on the modal automatically in
 most cases.
@@ -1008,9 +1055,18 @@ focus a form control when the modal opens. Note that the `autofocus` prop will n
 `b-modal` if the `static` prop is used without the `lazy` prop set, as `autofocus` happens when the
 `b-form-*` controls are _mounted in the DOM_.
 
-**Note:** it is **not recommended** to autofocus an input inside a modal for accessibility reasons,
-as screen reader users will not know the context of where the input is. It is best to let
-`<b-modal>` focus the modal's container and then allow the user to tab into the input.
+If you want to auto focus one of the _built-in_ modal buttons (`ok`, `cancel` or the header `close`
+button, you can set the prop `auto-focus-button` to one of the values `'ok'`, `'cancel'` or
+`'close'` and `<b-modal>` will focus the specified button if it exists. This feature is also
+available for modal message boxes.
+
+<p class="alert alert-warning">
+  <strong>Note:</strong> it is <strong>not recommended</strong> to autofocus an input or control
+  inside of a modal for accessibility reasons, as screen reader users will not know the context of
+  where the input is (the announcement of the modal may not be spoken). It is best to let
+  <code>&lt;b-modal&gt;</code> focus the modal's container, allowing the modal information to be
+  spoken to the user, and then allow the user to tab into the input.
+</p>
 
 ### Returning focus to the triggering element
 

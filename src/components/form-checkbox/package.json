@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Checkbox",
-    "enhanced": true,
     "description": "Custom checkbox input and checkbox group to replace the browser default checkbox input, built on top of semantic and accessible markup. Optionally supports switch styling.",
     "components": [
       {

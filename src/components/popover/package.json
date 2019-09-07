@@ -4,7 +4,6 @@
   "meta": {
     "title": "Popover",
     "description": "The Popover feature provides a tooltip-like behavior, can be easily applied to any interactive element via the <b-popover> component or v-b-popover directive",
-    "enhanced": true,
     "directives": [
       "VBPopover"
     ],
@@ -166,7 +165,11 @@
         "slots": [
           {
             "name": "title",
-            "description": "Optional slot for title (html supported)"
+            "description": "Optional slot for title (HTML supported)"
+          },
+          {
+            "name": "default",
+            "description": "Slot for content (HTML supported)"
           }
         ]
       }

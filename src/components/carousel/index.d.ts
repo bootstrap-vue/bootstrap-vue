@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const CarouselPlugin: BvPlugin
-export default CarouselPlugin
 
 // Component: b-carousel
 export declare class BCarousel extends BvComponent {
@@ -15,7 +14,6 @@ export declare class BCarousel extends BvComponent {
   next: () => void
   start: () => void
   pause: () => void
-  restart: () => void
 }
 
 // Component: b-carousel-slide

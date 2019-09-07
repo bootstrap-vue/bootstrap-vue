@@ -73,6 +73,11 @@ export default {
     noFooterSorting: {
       type: Boolean,
       default: false
+    },
+    sortIconLeft: {
+      // Place the sorting icon on the left of the header cells
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -100,10 +105,14 @@ export default {
       const sortLocale = this.sortCompareLocale || undefined
       const nullLast = this.sortNullLast
       if (sortBy && localSorting) {
-        const field = this.computedFieldsObj[sortBy]
-        const formatter =
-          field && field.sortByFormatted ? this.getFieldFormatter(sortBy) : undefined
-        // stableSort returns a new array, and leaves the original array intact
+        const field = this.computedFieldsObj[sortBy] || {}
+        const sortByFormatted = field.sortByFormatted
+        const formatter = isFunction(sortByFormatted)
+          ? sortByFormatted
+          : sortByFormatted
+            ? this.getFieldFormatter(sortBy)
+            : undefined
+        // `stableSort` returns a new array, and leaves the original array intact
         return stableSort(items, (a, b) => {
           let result = null
           if (isFunction(sortCompare)) {
@@ -222,8 +231,9 @@ export default {
     // methods to compute classes and attrs for thead>th cells
     sortTheadThClasses(key, field, isFoot) {
       return {
-        // No Classes for sorting currently...
-        // All styles targeted using aria-* attrs
+        // If sortable and sortIconLeft are true, then place sort icon on the left
+        'b-table-sort-icon-left':
+          field.sortable && this.sortIconLeft && !(isFoot && this.noFooterSorting)
       }
     },
     sortTheadThAttrs(key, field, isFoot) {

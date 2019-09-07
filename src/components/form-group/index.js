@@ -9,5 +9,3 @@ const FormGroupPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { FormGroupPlugin, BFormGroup }
-
-export default FormGroupPlugin

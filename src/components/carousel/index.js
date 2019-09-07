@@ -10,5 +10,3 @@ const CarouselPlugin = /*#__PURE*/ pluginFactory({
 })
 
 export { CarouselPlugin, BCarousel, BCarouselSlide }
-
-export default CarouselPlugin

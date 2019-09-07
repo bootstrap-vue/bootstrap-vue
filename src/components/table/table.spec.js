@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BTable from './table'
+import { BTable } from './table'
 
 const items1 = [{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }]
 const fields1 = ['a', 'b', 'c']
@@ -176,6 +176,26 @@ describe('table', () => {
     expect(wrapper.is(BTable)).toBe(true)
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.classes()).toContain('b-table-fixed')
+    expect(wrapper.classes()).toContain('table')
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
+  })
+
+  it('has class "b-table-no-border-collapse" when no-border-collapse=true', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        items: items1,
+        fields: fields1,
+        noBorderCollapse: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is(BTable)).toBe(true)
+    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.classes()).toContain('b-table-no-border-collapse')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
@@ -629,6 +649,61 @@ describe('table', () => {
     expect($tds.at(2).attributes('data-parent')).toBe('parent')
     expect($tds.at(2).attributes('data-foo')).not.toBeDefined()
     expect($tds.at(2).classes().length).toBe(0)
+
+    wrapper.destroy()
+  })
+
+  it('item field thAttr works', async () => {
+    const Parent = {
+      methods: {
+        parentThAttrs(value, key, item, type) {
+          return { 'data-type': type }
+        }
+      }
+    }
+
+    const wrapper = mount(BTable, {
+      parentComponent: Parent,
+      propsData: {
+        items: [{ a: 1, b: 2, c: 3 }],
+        fields: [
+          { key: 'a', thAttr: { 'data-foo': 'bar' } },
+          { key: 'b', thAttr: 'parentThAttrs', isRowHeader: true },
+          {
+            key: 'c',
+            thAttr: (v, k, i, t) => {
+              return { 'data-type': t }
+            }
+          }
+        ]
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('thead > tr').length).toBe(1)
+    expect(wrapper.findAll('thead > tr > th').length).toBe(3)
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > td').length).toBe(2)
+    expect(wrapper.findAll('tbody > tr > th').length).toBe(1)
+
+    const $headerThs = wrapper.findAll('thead > tr > th')
+    expect($headerThs.at(0).attributes('data-foo')).toBe('bar')
+    expect($headerThs.at(0).attributes('data-type')).not.toBeDefined()
+    expect($headerThs.at(0).classes().length).toBe(0)
+
+    expect($headerThs.at(1).attributes('data-foo')).not.toBeDefined()
+    expect($headerThs.at(1).attributes('data-type')).toBe('head')
+    expect($headerThs.at(1).classes().length).toBe(0)
+
+    expect($headerThs.at(2).attributes('data-foo')).not.toBeDefined()
+    expect($headerThs.at(2).attributes('data-type')).toBe('head')
+    expect($headerThs.at(2).classes().length).toBe(0)
+
+    const $bodyThs = wrapper.findAll('tbody > tr > th')
+
+    expect($bodyThs.at(0).attributes('data-foo')).not.toBeDefined()
+    expect($bodyThs.at(0).attributes('data-type')).toBe('row')
+    expect($bodyThs.at(0).classes().length).toBe(0)
 
     wrapper.destroy()
   })

@@ -1,12 +1,12 @@
 import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../../tests/utils'
-import modalPlugin from '../index'
+import { ModalPlugin } from '../index'
 
 describe('$bvModal', () => {
   const localVue = new CreateLocalVue()
 
   beforeAll(() => {
-    localVue.use(modalPlugin)
+    localVue.use(ModalPlugin)
   })
 
   it('$bvModal.show() and $bvModal.hide() works', async () => {

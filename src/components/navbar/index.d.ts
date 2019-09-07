@@ -6,8 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const NavbarPlugin: BvPlugin
-export default NavbarPlugin
-
 // Component: b-navbar
 export declare class BNavbar extends BvComponent {}
 

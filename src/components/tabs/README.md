@@ -22,7 +22,7 @@ For navigation based tabs (i.e. tabs that would change the URL), use the
 
 **Tip:** You should supply each child `<b-tab>` component a unique `key` value if dynamically adding
 or removing `<b-tab>` components (i.e. `v-if` or for loops). The `key` attribute is a special Vue
-attribute, see https://vuejs.org/v2/api/#key).
+attribute, see https://vuejs.org/v2/api/#key.
 
 ## Cards integration
 
@@ -113,8 +113,6 @@ variant.
 
 ## Fill and justify
 
-<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
-
 Force your `<b-tabs>` controls to extend the full available width.
 
 ### Fill
@@ -155,8 +153,6 @@ the controls, but unlike using `fill` above, every control will be the same widt
 
 ## Alignment
 
-<span class="badge badge-info small">NEW in 2.0.0-rc19</span>
-
 To align your tab controls, use the `align` prop. Available values are `left`, `center` and `right`.
 
 ```html
@@ -196,8 +192,6 @@ Visually move the tab controls to the bottom by setting the prop `end`.
 - To provide a better user experience with bottom placed controls, ensure that the content of each
   tab pane is the same height and fits completely within the visible viewport, otherwise the user
   will need to scroll up to read the start of the tabbed content.
-
-**Note:** _the `bottom` prop has been deprecated in favor of the `end` prop._
 
 ## Vertical tabs
 
@@ -287,8 +281,6 @@ Fade is enabled by default when changing tabs. It can disabled with `no-fade` pr
 
 ## Add tabs without content
 
-<span class="badge badge-wanting small">CHANGED in v2.0.0-rc.27</span>
-
 If you want to add extra tabs that do not have any content, you can put them in `tabs-start` or
 `tabs-end` slot(s):
 
@@ -296,7 +288,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
 <div>
   <b-tabs>
     <!-- Add your b-tab components here -->
-    <template slot="tabs-end">
+    <template v-slot:tabs-end>
       <b-nav-item href="#" @click="() => {}">Another tab</b-nav-item>
       <li class="nav-item align-self-center">Plain Text</li>
     </template>
@@ -312,8 +304,6 @@ Use the `tabs-start` slot to place extra tab buttons before the content tab butt
 **Note:** extra (contentless) tab buttons should be a `<b-nav-item>` or have a root element of
 `<li>` and class `nav-item` for proper rendering and semantic markup.
 
-**DEPRECATION:** The `tabs` slot has been deprecated. please use the `tabs-end` slot instead.
-
 ## Add custom content to tab title
 
 If you want to add custom content to tab title, like HTML code, icons, or another non-interactive
@@ -323,14 +313,14 @@ Vue component, this possible by using `title` slot of `<b-tab>`.
 <div>
   <b-tabs>
     <b-tab active>
-      <template slot="title">
+      <template v-slot:title>
         <b-spinner type="grow" small></b-spinner> I'm <i>Custom</i> <strong>Title</strong>
       </template>
       <p class="p-3">Tab Contents 1</p>
     </b-tab>
 
     <b-tab>
-      <template slot="title">
+      <template v-slot:title>
         <b-spinner type="border" small></b-spinner> Tab 2
       </template>
       <p class="p-3">Tab Contents 2</p>
@@ -489,16 +479,18 @@ order to use these methods.
           </b-button>
         </b-tab>
 
-        <!-- New Tab Button (Using tabs slot) -->
-        <template slot="tabs-end">
+        <!-- New Tab Button (Using tabs-end slot) -->
+        <template v-slot:tabs-end>
           <b-nav-item @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
         </template>
 
         <!-- Render this if no tabs -->
-        <div slot="empty" class="text-center text-muted">
-          There are no open tabs<br>
-          Open a new tab using the <b>+</b> button above.
-        </div>
+        <template v-slot:empty>
+          <div class="text-center text-muted">
+            There are no open tabs<br>
+            Open a new tab using the <b>+</b> button above.
+          </div>
+        </template>
       </b-tabs>
     </b-card>
   </div>

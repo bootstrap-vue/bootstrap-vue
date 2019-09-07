@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const InputGroupPlugin: BvPlugin
-export default InputGroupPlugin
 
 // Component: b-input-group
 export declare class BInputGroup extends BvComponent {}

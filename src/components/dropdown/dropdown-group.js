@@ -33,11 +33,12 @@ export const props = {
 export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownGroup',
   functional: true,
-  inheritAttrs: false,
   props,
   render(h, { props, data, slots, scopedSlots }) {
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}
+    const $attrs = data.attrs || {}
+    data.attrs = {}
     let header
     let headerId = null
 
@@ -62,21 +63,21 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
       .join(' ')
       .trim()
 
-    return h('li', [
+    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
       header || h(),
       h(
         'ul',
-        mergeData(data, {
+        {
           staticClass: 'list-unstyled',
           attrs: {
+            ...$attrs,
             id: props.id || null,
+            role: 'group',
             'aria-describedby': adb || null
           }
-        }),
+        },
         normalizeSlot('default', {}, $scopedSlots, $slots)
       )
     ])
   }
 })
-
-export default BDropdownGroup

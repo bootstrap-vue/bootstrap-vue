@@ -6,5 +6,3 @@ const LinkPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { LinkPlugin, BLink }
-
-export default LinkPlugin

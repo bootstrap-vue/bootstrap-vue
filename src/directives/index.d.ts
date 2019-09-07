@@ -1,8 +1,7 @@
 import { BvPlugin } from '../'
 
-// Default export is a plugin that installs all plugins
-declare const BVDirectivesPlugin: BvPlugin
-export default BVDirectivesPlugin
+// Plugin that installs all plugins
+export declare const directivesPlugin: BvPlugin
 
 // Named exports of all directives
 export * from './toggle'

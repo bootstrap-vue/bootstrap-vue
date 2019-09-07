@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BFormInput from './form-input'
+import { BFormInput } from './form-input'
 
 describe('form-input', () => {
   it('has class form-control', async () => {
@@ -230,19 +230,6 @@ describe('form-input', () => {
     wrapper.destroy()
   })
 
-  it('does not have is-valid or is-invalid classes when state=""', async () => {
-    const wrapper = mount(BFormInput, {
-      propsData: {
-        state: ''
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input.classes()).not.toContain('is-valid')
-    expect(input.classes()).not.toContain('is-invalid')
-
-    wrapper.destroy()
-  })
-
   it('has class is-valid when state=true', async () => {
     const wrapper = mount(BFormInput, {
       propsData: {
@@ -256,36 +243,10 @@ describe('form-input', () => {
     wrapper.destroy()
   })
 
-  it('has class is-valid when state="valid"', async () => {
-    const wrapper = mount(BFormInput, {
-      propsData: {
-        state: 'valid'
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input.classes()).toContain('is-valid')
-    expect(input.classes()).not.toContain('is-invalid')
-
-    wrapper.destroy()
-  })
-
   it('has class is-invalid when state=false', async () => {
     const wrapper = mount(BFormInput, {
       propsData: {
         state: false
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input.classes()).toContain('is-invalid')
-    expect(input.classes()).not.toContain('is-valid')
-
-    wrapper.destroy()
-  })
-
-  it('has class is-invalid when state="invalid"', async () => {
-    const wrapper = mount(BFormInput, {
-      propsData: {
-        state: 'invalid'
       }
     })
     const input = wrapper.find('input')

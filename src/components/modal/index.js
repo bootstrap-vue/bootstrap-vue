@@ -11,5 +11,3 @@ const ModalPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { ModalPlugin, BModal }
-
-export default ModalPlugin

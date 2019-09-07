@@ -1,12 +1,12 @@
 import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../../tests/utils'
-import toastPlugin from '../index'
+import { ToastPlugin } from '../index'
 
 describe('$bvToast', () => {
   const localVue = new CreateLocalVue()
 
   beforeAll(() => {
-    localVue.use(toastPlugin)
+    localVue.use(ToastPlugin)
   })
 
   it('$bvToast.show() and $bvToast.hide() works', async () => {

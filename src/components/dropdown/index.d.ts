@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const DropdownPlugin: BvPlugin
-export default DropdownPlugin
 
 // Component: b-dropdown
 export declare class BDropdown extends BvComponent {

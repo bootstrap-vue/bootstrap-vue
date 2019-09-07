@@ -33,6 +33,19 @@ export default {
       }
       return defValue
     },
+    getThValues(item, key, thValue, type, defValue) {
+      const parent = this.$parent
+      if (thValue) {
+        const value = get(item, key, '')
+        if (isFunction(thValue)) {
+          return thValue(value, key, item, type)
+        } else if (isString(thValue) && isFunction(parent[thValue])) {
+          return parent[thValue](value, key, item, type)
+        }
+        return thValue
+      }
+      return defValue
+    },
     // Method to get the value for a field
     getFormattedValue(item, field) {
       const key = field.key
@@ -169,7 +182,9 @@ export default {
         },
         attrs: {
           'aria-colindex': String(colIndex + 1),
-          ...this.getTdValues(item, key, field.tdAttr, {})
+          ...(field.isRowHeader
+            ? this.getThValues(item, key, field.thAttr, 'row', {})
+            : this.getTdValues(item, key, field.tdAttr, {}))
         }
       }
       const slotScope = {
@@ -185,11 +200,16 @@ export default {
         // Add in rowSelected scope property if selectable rows supported
         slotScope.rowSelected = this.isRowSelected(rowIndex)
       }
-      // TODO:
-      //   Using `field.key` as scoped slot name is deprecated, to be removed in future release
-      //   New format uses the square bracketed naming convention
-      let $childNodes =
-        this.normalizeSlot([`[${key}]`, '[]', key], slotScope) || toString(formatted)
+      // The new `v-slot` syntax doesn't like a slot name starting with
+      // a square bracket and if using in-document HTML templates, the
+      // v-slot attributes are lower-cased by the browser.
+      // Switched to round bracket syntax to prevent confusion with
+      // dynamic slot name syntax.
+      // We look for slots in this order: `cell(${key})`, `cell(${key.toLowerCase()})`, 'cell()'
+      // Slot names are now cached by mixin tbody in `this.$_bodyFieldSlotNameCache`
+      // Will be `null` if no slot (or fallback slot) exists
+      const slotName = this.$_bodyFieldSlotNameCache[key]
+      let $childNodes = slotName ? this.normalizeSlot(slotName, slotScope) : toString(formatted)
       if (this.isStacked) {
         // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
         $childNodes = [h('div', {}, [$childNodes])]
@@ -209,7 +229,9 @@ export default {
       // We can return more than one TR if rowDetails enabled
       const $rows = []
 
-      // Details ID needed for aria-describedby when details showing
+      // Details ID needed for `aria-details` when details showing
+      // We set it to `null` when not showing so that attribute
+      // does not appear on the element
       const detailsId = rowShowDetails ? this.safeId(`_details_${rowIndex}_`) : null
 
       // For each item data field in row
@@ -265,7 +287,7 @@ export default {
               tabindex: hasRowClickHandler ? '0' : null,
               'data-pk': rowId ? String(item[primaryKey]) : null,
               // Should this be `aria-details` instead?
-              'aria-describedby': detailsId,
+              'aria-details': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
               ...selectableAttrs
@@ -303,7 +325,7 @@ export default {
         }
 
         // Render the details slot in a TD
-        const $details = h(BTd, { props: { colspan: fields.length }, attrs: { id: detailsId } }, [
+        const $details = h(BTd, { props: { colspan: fields.length } }, [
           this.normalizeSlot(detailsSlotName, detailsScope)
         ])
 
@@ -312,7 +334,7 @@ export default {
           $rows.push(
             // We don't use `BTr` here as we dont need the extra functionality
             h('tr', {
-              key: `__b-table-details-${rowIndex}-stripe__`,
+              key: `__b-table-details-stripe__${rowKey}`,
               staticClass: 'd-none',
               attrs: { 'aria-hidden': 'true', role: 'presentation' }
             })
@@ -324,7 +346,7 @@ export default {
           h(
             BTr,
             {
-              key: `__b-table-details-${rowIndex}__`,
+              key: `__b-table-details__${rowKey}`,
               staticClass: 'b-table-details',
               class: [
                 isFunction(this.tbodyTrClass)
@@ -332,7 +354,7 @@ export default {
                   : this.tbodyTrClass
               ],
               props: { variant: item._rowVariant || null },
-              attrs: { id: detailsId }
+              attrs: { id: detailsId, tabindex: '-1' }
             },
             [$details]
           )

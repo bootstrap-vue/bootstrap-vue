@@ -4,7 +4,6 @@
   "meta": {
     "title": "Popover",
     "description": "Add BootstrapVue popovers to any element on your site, using Bootstrap v4 CSS for styling and animations. Popovers are tooltips on steroids.",
-    "enhanced": true,
     "directive": "VBPopover"
   }
 }

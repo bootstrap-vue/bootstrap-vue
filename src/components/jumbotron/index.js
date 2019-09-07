@@ -6,5 +6,3 @@ const JumbotronPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { JumbotronPlugin, BJumbotron }
-
-export default JumbotronPlugin

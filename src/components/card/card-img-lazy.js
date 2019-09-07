@@ -74,5 +74,3 @@ export const BCardImgLazy = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BCardImgLazy

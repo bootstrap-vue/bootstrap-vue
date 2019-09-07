@@ -163,7 +163,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         })
         // Adjust sticky content margin
         /* istanbul ignore next: difficult to test in JSDOM */
-        selectAll(Selector.STICKY_CONTENT).forEach(el => {
+        selectAll(Selector.STICKY_CONTENT).forEach(el => /* istanbul ignore next */ {
           const actualMargin = el.style.marginRight
           const calculatedMargin = getCS(el).marginRight || 0
           setAttr(el, 'data-margin-right', actualMargin)
@@ -172,7 +172,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         })
         // Adjust <b-navbar-toggler> margin
         /* istanbul ignore next: difficult to test in JSDOM */
-        selectAll(Selector.NAVBAR_TOGGLER).forEach(el => {
+        selectAll(Selector.NAVBAR_TOGGLER).forEach(el => /* istanbul ignore next */ {
           const actualMargin = el.style.marginRight
           const calculatedMargin = getCS(el).marginRight || 0
           setAttr(el, 'data-margin-right', actualMargin)
@@ -219,5 +219,5 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
   }
 })
 
-// Export our ModalManager
-export default new ModalManager()
+// Create and export our modal manager instance
+export const modalManager = new ModalManager()

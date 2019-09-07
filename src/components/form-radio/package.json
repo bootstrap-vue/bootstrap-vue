@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Radio",
-    "enhanced": true,
     "description": "Cross browser consistent radio inputs and radio groups, using Bootstrap's custom radio input to replace the browser default radio input.",
     "components": [
       {

@@ -1,6 +1,6 @@
-import BFormCheckbox from './form-checkbox'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { BFormCheckbox } from './form-checkbox'
 
 describe('form-checkbox', () => {
   // --- Custom checkbox structure, class and attributes tests ---
@@ -364,46 +364,10 @@ describe('form-checkbox', () => {
     wrapper.destroy()
   })
 
-  it('default has input validation class is-valid when state="valid"', async () => {
-    const wrapper = mount(BFormCheckbox, {
-      propsData: {
-        state: 'valid',
-        checked: false
-      },
-      slots: {
-        default: 'foobar'
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input).toBeDefined()
-    expect(input.classes()).not.toContain('is-invalid')
-    expect(input.classes()).toContain('is-valid')
-
-    wrapper.destroy()
-  })
-
   it('default has input validation class is-invalid when state=false', async () => {
     const wrapper = mount(BFormCheckbox, {
       propsData: {
         state: false,
-        checked: false
-      },
-      slots: {
-        default: 'foobar'
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input).toBeDefined()
-    expect(input.classes()).toContain('is-invalid')
-    expect(input.classes()).not.toContain('is-valid')
-
-    wrapper.destroy()
-  })
-
-  it('default has input validation class is-invalid when state="invalid"', async () => {
-    const wrapper = mount(BFormCheckbox, {
-      propsData: {
-        state: 'invalid',
         checked: false
       },
       slots: {
@@ -610,48 +574,10 @@ describe('form-checkbox', () => {
     wrapper.destroy()
   })
 
-  it('plain has input validation class is-valid when state="valid"', async () => {
-    const wrapper = mount(BFormCheckbox, {
-      propsData: {
-        state: 'valid',
-        plain: true,
-        checked: false
-      },
-      slots: {
-        default: 'foobar'
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input).toBeDefined()
-    expect(input.classes()).not.toContain('is-invalid')
-    expect(input.classes()).toContain('is-valid')
-
-    wrapper.destroy()
-  })
-
   it('plain has input validation class is-invalid when state=false', async () => {
     const wrapper = mount(BFormCheckbox, {
       propsData: {
         state: false,
-        plain: true,
-        checked: false
-      },
-      slots: {
-        default: 'foobar'
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input).toBeDefined()
-    expect(input.classes()).toContain('is-invalid')
-    expect(input.classes()).not.toContain('is-valid')
-
-    wrapper.destroy()
-  })
-
-  it('plain has input validation class is-invalid when state="invalid"', async () => {
-    const wrapper = mount(BFormCheckbox, {
-      propsData: {
-        state: 'invalid',
         plain: true,
         checked: false
       },

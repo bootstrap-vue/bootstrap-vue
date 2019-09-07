@@ -1,7 +1,6 @@
 // Utils
 import memoize from '../../utils/memoize'
 import upperFirst from '../../utils/upper-first'
-import warn from '../../utils/warn'
 import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
 import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
@@ -24,9 +23,6 @@ const NAME = 'BFormGroup'
 
 // Selector for finding first input in the form-group
 const SELECTOR = 'input:not([disabled]),textarea:not([disabled]),select:not([disabled])'
-
-const DEPRECATED_MSG =
-  'Props "horizontal" and "breakpoint" are deprecated. Use "label-cols(-{breakpoint})" props instead.'
 
 // Render helper functions (here rather than polluting the instance with more methods)
 const renderInvalidFeedback = (h, ctx) => {
@@ -235,18 +231,6 @@ const generateProps = () => {
     disabled: {
       type: Boolean,
       default: false
-    },
-    horizontal: {
-      // Deprecated
-      type: Boolean,
-      default: false,
-      deprecated: DEPRECATED_MSG
-    },
-    breakpoint: {
-      // Deprecated (ignored if horizontal is not true)
-      type: String,
-      default: null, // legacy value 'sm',
-      deprecated: DEPRECATED_MSG
     }
   }
 }
@@ -268,18 +252,6 @@ export const BFormGroup = {
   computed: {
     labelColProps() {
       const props = {}
-      /* istanbul ignore next: deprecated */
-      if (this.horizontal) {
-        // Deprecated setting of horizontal/breakpoint props
-        /* istanbul ignore next */
-        warn(`b-form-group: ${DEPRECATED_MSG}`)
-        // Legacy default is breakpoint sm and cols 3
-        const bp = this.breakpoint || getBreakpointsUpCached()[1] // 'sm'
-        const cols = parseInt(this.labelCols, 10) || 3
-        props[bp] = cols > 0 ? cols : 3
-        // We then return the single breakpoint prop for legacy compatibility
-        return props
-      }
       getBreakpointsUpCached().forEach(breakpoint => {
         // Grab the value if the label column breakpoint prop
         let propVal = this[makePropName(breakpoint, 'labelCols')]
@@ -321,22 +293,29 @@ export const BFormGroup = {
       return keys(this.labelColProps).length > 0
     },
     labelId() {
-      return this.$slots['label'] || this.label ? this.safeId('_BV_label_') : null
+      return this.hasNormalizedSlot('label') || this.label ? this.safeId('_BV_label_') : null
     },
     descriptionId() {
-      return this.$slots['description'] || this.description ? this.safeId('_BV_description_') : null
+      return this.hasNormalizedSlot('description') || this.description
+        ? this.safeId('_BV_description_')
+        : null
     },
     hasInvalidFeedback() {
       // Used for computing aria-describedby
-      const $slots = this.$slots
-      return this.computedState === false && ($slots['invalid-feedback'] || this.invalidFeedback)
+      return (
+        this.computedState === false &&
+        (this.hasNormalizedSlot('invalid-feedback') || this.invalidFeedback)
+      )
     },
     invalidFeedbackId() {
       return this.hasInvalidFeedback ? this.safeId('_BV_feedback_invalid_') : null
     },
     hasValidFeedback() {
       // Used for computing aria-describedby
-      return this.computedState === true && (this.$slots['valid-feedback'] || this.validFeedback)
+      return (
+        this.computedState === true &&
+        (this.hasNormalizedSlot('valid-feedback') || this.validFeedback)
+      )
     },
     validFeedbackId() {
       return this.hasValidFeedback ? this.safeId('_BV_feedback_valid_') : null
@@ -466,5 +445,3 @@ export const BFormGroup = {
     )
   }
 }
-
-export default BFormGroup

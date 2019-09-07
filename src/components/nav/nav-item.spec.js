@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import BLink from '../link/link'
-import BNavItem from './nav-item'
+import { BLink } from '../link/link'
+import { BNavItem } from './nav-item'
 
 describe('nav-item', () => {
   it('has expected default structure', async () => {

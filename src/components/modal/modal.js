@@ -1,20 +1,30 @@
 import Vue from '../../utils/vue'
-import modalManager from './helpers/modal-manager'
-import BvModalEvent from './helpers/bv-modal-event.class'
-import idMixin from '../../mixins/id'
-import listenOnRootMixin from '../../mixins/listen-on-root'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BVTransition from '../../utils/bv-transition'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
-import { BTransporterSingle } from '../../utils/transporter'
-import { isBrowser } from '../../utils/env'
-import { isString } from '../../utils/inspect'
+import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
+import {
+  contains,
+  eventOff,
+  eventOn,
+  isVisible,
+  requestAF,
+  select,
+  selectAll
+} from '../../utils/dom'
+import { isBrowser } from '../../utils/env'
 import { stripTags } from '../../utils/html'
-import { contains, eventOff, eventOn, isVisible, select, selectAll } from '../../utils/dom'
+import { isString, isUndefinedOrNull } from '../../utils/inspect'
+import { BTransporterSingle } from '../../utils/transporter'
+import idMixin from '../../mixins/id'
+import listenOnRootMixin from '../../mixins/listen-on-root'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
+import scopedStyleAttrsMixin from '../../mixins/scoped-style-attrs'
 import { BButton } from '../button/button'
 import { BButtonClose } from '../button/button-close'
+import { modalManager } from './helpers/modal-manager'
+import { BvModalEvent } from './helpers/bv-modal-event.class'
 
 // --- Constants ---
 
@@ -254,13 +264,22 @@ export const props = {
   static: {
     type: Boolean,
     default: false
+  },
+  autoFocusButton: {
+    type: String,
+    default: null,
+    validator: val => {
+      /* istanbul ignore next */
+      return isUndefinedOrNull(val) || arrayIncludes(['ok', 'cancel', 'close'], val)
+    }
   }
 }
 
 // @vue/component
 export const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
+  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin, scopedStyleAttrsMixin],
+  inheritAttrs: false,
   model: {
     prop: 'visible',
     event: 'change'
@@ -436,7 +455,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
       if (this.isClosing) {
         // If we are in the process of closing, wait until hidden before re-opening
-        /* istanbul ignore next: very difficult to test */
+        /* istanbul ignore next */
         this.$once('hidden', this.show)
         /* istanbul ignore next */
         return
@@ -574,10 +593,18 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       this.checkModalOverflow()
       this.isShow = true
       this.isTransitioning = false
-      this.$nextTick(() => {
+      // We use `requestAF()` to allow transition hooks to complete
+      // before passing control over to the other handlers
+      // This will allow users to not have to use `$nextTick()` or `requestAF()`
+      // when trying to pre-focus an element
+      requestAF(() => {
         this.emitEvent(this.buildEvent('shown'))
-        this.focusFirst()
         this.setEnforceFocus(true)
+        this.$nextTick(() => {
+          // Delayed in a `$nextTick()` to allow users time to pre-focus
+          // an element if the wish
+          this.focusFirst()
+        })
       })
     },
     onBeforeLeave() {
@@ -729,18 +756,35 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     focusFirst() {
       // Don't try and focus if we are SSR
       if (isBrowser) {
-        const modal = this.$refs.modal
-        const content = this.$refs.content
-        const activeElement = this.getActiveElement()
-        // If the modal contains the activeElement, we don't do anything
-        if (modal && content && !(activeElement && contains(content, activeElement))) {
-          // Make sure top of modal is showing (if longer than the viewport)
-          // and focus the modal content wrapper
-          this.$nextTick(() => {
-            modal.scrollTop = 0
-            content.focus()
-          })
-        }
+        requestAF(() => {
+          const modal = this.$refs.modal
+          const content = this.$refs.content
+          const activeElement = this.getActiveElement()
+          // If the modal contains the activeElement, we don't do anything
+          if (modal && content && !(activeElement && contains(content, activeElement))) {
+            const ok = this.$refs['ok-button']
+            const cancel = this.$refs['cancel-button']
+            const close = this.$refs['close-button']
+            // Focus the appropriate button or modal content wrapper
+            const autoFocus = this.autoFocusButton
+            const el =
+              autoFocus === 'ok' && ok
+                ? ok.$el || ok
+                : autoFocus === 'cancel' && cancel
+                  ? cancel.$el || cancel
+                  : autoFocus === 'close' && close
+                    ? close.$el || close
+                    : content
+            // Focus the element
+            attemptFocus(el)
+            if (el === content) {
+              // Make sure top of modal is showing (if longer than the viewport)
+              this.$nextTick(() => {
+                modal.scrollTop = 0
+              })
+            }
+          }
+        })
       }
     },
     returnFocusTo() {
@@ -775,6 +819,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             closeButton = h(
               BButtonClose,
               {
+                ref: 'close-button',
                 props: {
                   disabled: this.isTransitioning,
                   ariaLabel: this.headerCloseLabel,
@@ -838,6 +883,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             cancelButton = h(
               BButton,
               {
+                ref: 'cancel-button',
                 props: {
                   variant: this.cancelVariant,
                   size: this.buttonSize,
@@ -855,6 +901,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           const okButton = h(
             BButton,
             {
+              ref: 'ok-button',
               props: {
                 variant: this.okVariant,
                 size: this.buttonSize,
@@ -986,13 +1033,17 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
       backdrop = h(BVTransition, { props: { noFade: this.noFade } }, [backdrop])
 
+      // If the parent has a scoped style attribute, and the modal
+      // is portalled, add the scoped attribute to the modal wrapper
+      const scopedStyleAttrs = !this.static ? this.scopedStyleAttrs : {}
+
       // Assemble modal and backdrop in an outer <div>
       return h(
         'div',
         {
           key: `modal-outer-${this._uid}`,
           style: this.modalOuterStyle,
-          attrs: { id: this.safeId('__BV_modal_outer_') }
+          attrs: { ...scopedStyleAttrs, ...this.$attrs, id: this.safeId('__BV_modal_outer_') }
         },
         [modal, backdrop]
       )
@@ -1006,5 +1057,3 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     }
   }
 })
-
-export default BModal

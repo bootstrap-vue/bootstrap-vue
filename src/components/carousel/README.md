@@ -38,14 +38,15 @@
       <!-- Slides with img slot -->
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
       <b-carousel-slide>
-        <img
-          slot="img"
-          class="d-block img-fluid w-100"
-          width="1024"
-          height="480"
-          src="https://picsum.photos/1024/480/?image=55"
-          alt="image slot"
-        >
+        <template v-slot:img>
+          <img
+            class="d-block img-fluid w-100"
+            width="1024"
+            height="480"
+            src="https://picsum.photos/1024/480/?image=55"
+            alt="image slot"
+          >
+        </template>
       </b-carousel-slide>
 
       <!-- Slide with blank fluid image to maintain slide aspect ratio -->
@@ -135,6 +136,36 @@ Set the prop `indicators` to show the slide indicator buttons.
 
 Both indicators and controls can be set at the same time or independently.
 
+## Carousel slide content
+
+`b-carousel-slide` provides several props and slots for placing content in the slide.
+
+### Props
+
+- `caption` Text to use as the main title on the slide (placed inside the inner element which has
+  the class `carousel-caption`)
+- `text` Textual placed under the title (placed inside the inner element which has the class
+  `carousel-caption`)
+- `img-src` URL of image to be placed into the background of the slide
+- `caption-html` Alternate prop to the `caption` prop, which supports HTML strings
+- `html` Alternate prop to the `text` prop, which supports HTML strings
+
+<p class="alert alert-danger">
+  <strong>Warning:</strong> Be cautious of using the <code>caption-html</code> and <code>html</code>
+  props to display user supplied content, as it may make your application vulnerable to
+  <a class="alert-link" href="https://en.wikipedia.org/wiki/Cross-site_scripting">
+  <abbr title="Cross Site Scripting Attacks">XSS attacks</abbr></a>, if you do not first
+  <a class="alert-link" href="https://en.wikipedia.org/wiki/HTML_sanitization">sanitize</a> the
+  user supplied string.
+</p>
+
+### Named slots
+
+- `default` content that will be placed inside of the inner element which has the class
+  `carousel-caption`. Appears after any content from the `caption` and `text` props.
+- `img` content to place into the background of the slide. Despite the slot's name, you can place
+  almost any content in this slot in lieu of using the `default` slot or `caption` and `text` props.
+
 ## Carousel animation
 
 Carousel, by default, uses a sliding animation. You can change the slide animation to a cross-fade
@@ -209,6 +240,13 @@ Set the `<b-carousel>` `no-animation` prop to `true` to disable slide animation.
 <!-- b-carousel-no-animation.vue -->
 ```
 
+## Slide wrapping
+
+Normally when the carousel reaches one end or the other in the list of slides, it will wrap to the
+opposite end of the list of slides and continue cycling.
+
+To disable carousel slide wrapping, set the `no-wrap` prop to true.
+
 ## Hide slide text content on small screens
 
 On smaller screens you may want to hide the captions and headings. You can do so via the
@@ -225,6 +263,43 @@ disable touch control, set the `no-touch` prop to `true`.
 
 Programmatically control which slide is showing via `v-model` (which binds to the `value` prop).
 Note, that slides are indexed starting at `0`.
+
+## Programmatic slide control
+
+The `<b-carousel>` instance provides several public methods for controlling sliding:
+
+| Method            | Description                                             |
+| ----------------- | ------------------------------------------------------- |
+| `setSlide(index)` | Go to slide specified by `index`                        |
+| `next()`          | Go to next slide                                        |
+| `prev()`          | Go to previous slide                                    |
+| `pause()`         | Pause the slide cycling                                 |
+| `start()`         | Start slide cycling (prop `interval` must have a value) |
+
+You will need a reference (via `this.$refs`) to the carousel instance in order to call these
+methods:
+
+```html
+<template>
+  <b-carousel ref="myCarousel" .... >
+    <!-- slides go here -->
+  </b-carousel>
+</template>
+
+<script>
+  export default {
+    // ...
+    methods: {
+      prev() {
+        this.$refs.myCarousel.prev()
+      },
+      next() {
+        this.$refs.myCarousel.next()
+      }
+    }
+  }
+</script>
+```
 
 ## Accessibility
 

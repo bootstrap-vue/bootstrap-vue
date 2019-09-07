@@ -6,5 +6,3 @@ const VBScrollspyPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { VBScrollspyPlugin, VBScrollspy }
-
-export default VBScrollspyPlugin

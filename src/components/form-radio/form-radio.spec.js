@@ -1,6 +1,6 @@
-import BFormRadio from './form-radio'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { BFormRadio } from './form-radio'
 
 describe('form-radio', () => {
   /* Custom radio structure, class and attributes tests */
@@ -350,48 +350,10 @@ describe('form-radio', () => {
     wrapper.destroy()
   })
 
-  it('default has input validation class is-valid when state="valid"', async () => {
-    const wrapper = mount(BFormRadio, {
-      propsData: {
-        state: 'valid',
-        checked: '',
-        value: 'a'
-      },
-      slots: {
-        default: 'foobar'
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input).toBeDefined()
-    expect(input.classes()).not.toContain('is-invalid')
-    expect(input.classes()).toContain('is-valid')
-
-    wrapper.destroy()
-  })
-
   it('default has input validation class is-invalid when state=false', async () => {
     const wrapper = mount(BFormRadio, {
       propsData: {
         state: false,
-        checked: '',
-        value: 'a'
-      },
-      slots: {
-        default: 'foobar'
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input).toBeDefined()
-    expect(input.classes()).toContain('is-invalid')
-    expect(input.classes()).not.toContain('is-valid')
-
-    wrapper.destroy()
-  })
-
-  it('default has input validation class is-invalid when state="invalid"', async () => {
-    const wrapper = mount(BFormRadio, {
-      propsData: {
-        state: 'invalid',
         checked: '',
         value: 'a'
       },
@@ -577,50 +539,10 @@ describe('form-radio', () => {
     wrapper.destroy()
   })
 
-  it('plain has input validation class is-valid when state="valid"', async () => {
-    const wrapper = mount(BFormRadio, {
-      propsData: {
-        state: 'valid',
-        plain: true,
-        checked: '',
-        value: 'a'
-      },
-      slots: {
-        default: 'foobar'
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input).toBeDefined()
-    expect(input.classes()).not.toContain('is-invalid')
-    expect(input.classes()).toContain('is-valid')
-
-    wrapper.destroy()
-  })
-
   it('plain has input validation class is-invalid when state=false', async () => {
     const wrapper = mount(BFormRadio, {
       propsData: {
         state: false,
-        plain: true,
-        checked: '',
-        value: 'a'
-      },
-      slots: {
-        default: 'foobar'
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input).toBeDefined()
-    expect(input.classes()).toContain('is-invalid')
-    expect(input.classes()).not.toContain('is-valid')
-
-    wrapper.destroy()
-  })
-
-  it('plain has input validation class is-invalid when state="invalid"', async () => {
-    const wrapper = mount(BFormRadio, {
-      propsData: {
-        state: 'invalid',
         plain: true,
         checked: '',
         value: 'a'

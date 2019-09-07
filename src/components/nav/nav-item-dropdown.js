@@ -9,24 +9,7 @@ import { BLink } from '../link/link'
 
 // -- Constants --
 
-export const props = {
-  ...pluckProps(['menuClass', 'toggleClass', 'noCaret', 'role'], BDropdownProps),
-  extraMenuClasses: {
-    type: String,
-    default: '',
-    // `deprecated` -> Don't use this prop
-    // `deprecation` -> Refers to a change in prop usage
-    deprecated: 'Setting prop "extra-menu-classes" is deprecated. Use "menu-class" prop instead.'
-  },
-  extraToggleClasses: {
-    type: String,
-    default: '',
-    // `deprecated` -> Don't use this prop
-    // `deprecation` -> Refers to a change in prop usage
-    deprecated:
-      'Setting prop "extra-toggle-classes" is deprecated. Use "toggle-class" prop instead.'
-  }
-}
+export const props = pluckProps(['menuClass', 'toggleClass', 'noCaret', 'role'], BDropdownProps)
 
 // @vue/component
 export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
@@ -43,7 +26,6 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
     },
     menuClasses() {
       return [
-        this.extraMenuClasses, // Deprecated
         this.menuClass,
         {
           'dropdown-menu-right': this.right,
@@ -52,13 +34,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
       ]
     },
     toggleClasses() {
-      return [
-        this.extraToggleClasses, // Deprecated
-        this.toggleClass,
-        {
-          'dropdown-toggle-no-caret': this.noCaret
-        }
-      ]
+      return [this.toggleClass, { 'dropdown-toggle-no-caret': this.noCaret }]
     }
   },
   render(h) {
@@ -115,5 +91,3 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BNavItemDropdown

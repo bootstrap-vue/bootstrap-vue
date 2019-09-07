@@ -23,5 +23,3 @@ const NavPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { NavPlugin, BNav, BNavItem, BNavText, BNavForm, BNavItemDropdown }
-
-export default NavPlugin

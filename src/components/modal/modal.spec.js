@@ -1,7 +1,7 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BModal from './modal'
-import BvModalEvent from './helpers/bv-modal-event.class'
+import { BModal } from './modal'
+import { BvModalEvent } from './helpers/bv-modal-event.class'
 
 // The default Z-INDEX for modal backdrop
 const DEFAULT_ZINDEX = 1040
@@ -1049,7 +1049,9 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -1065,7 +1067,9 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -1103,7 +1107,9 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
@@ -1131,7 +1137,9 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -1148,7 +1156,9 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -1181,7 +1191,9 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)

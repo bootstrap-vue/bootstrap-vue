@@ -1,12 +1,13 @@
 import Vue from '../../utils/vue'
 import { Portal, Wormhole } from 'portal-vue'
-import BvEvent from '../../utils/bv-event.class'
 import BVTransition from '../../utils/bv-transition'
+import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF, eventOn, eventOff } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import scopedStyleAttrsMixin from '../../mixins/scoped-style-attrs'
 import { BToaster } from './toaster'
 import { BButtonClose } from '../button/button-close'
 import { BLink } from '../link/link'
@@ -107,7 +108,7 @@ export const props = {
 // @vue/component
 export const BToast = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
+  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin, scopedStyleAttrsMixin],
   inheritAttrs: false,
   model: {
     prop: 'visible',
@@ -203,6 +204,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     /* istanbul ignore next: difficult to test */
     this.listenOnRoot('bv::toaster::destroyed', toaster => {
       if (toaster === this.computedToaster) {
+        /* istanbul ignore next */
         this.hide()
       }
     })
@@ -407,6 +409,10 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       return h()
     }
     const name = `b-toast-${this._uid}`
+    // If scoped styles are applied and the toast is not static,
+    // make sure the scoped style data attribute is applied
+    const scopedStyleAttrs = !this.static ? this.scopedStyleAttrs : {}
+
     return h(
       Portal,
       {
@@ -427,6 +433,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
             staticClass: 'b-toast',
             class: this.bToastClasses,
             attrs: {
+              ...scopedStyleAttrs,
               id: this.safeId('_toast_outer'),
               role: this.isHiding ? null : this.isStatus ? 'status' : 'alert',
               'aria-live': this.isHiding ? null : this.isStatus ? 'polite' : 'assertive',
@@ -443,5 +450,3 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BToast

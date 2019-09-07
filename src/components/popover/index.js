@@ -8,5 +8,3 @@ const PopoverPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { PopoverPlugin, BPopover }
-
-export default PopoverPlugin

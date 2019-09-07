@@ -1,95 +1,69 @@
 import Vue from '../../utils/vue'
-import PopOver from '../../utils/popover.class'
-import warn from '../../utils/warn'
-import { isArray, arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { HTMLElement } from '../../utils/safe-types'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
-import toolpopMixin from '../../mixins/toolpop'
+import { BTooltip } from '../tooltip/tooltip'
+import { BVPopover } from './helpers/bv-popover'
 
 const NAME = 'BPopover'
 
-export const props = {
-  title: {
-    type: String,
-    default: ''
-  },
-  content: {
-    type: String,
-    default: ''
-  },
-  triggers: {
-    type: [String, Array],
-    default: 'click'
-  },
-  placement: {
-    type: String,
-    default: 'right'
-  },
-  fallbackPlacement: {
-    type: [String, Array],
-    default: 'flip',
-    validator(value) {
-      return isArray(value) || arrayIncludes(['flip', 'clockwise', 'counterclockwise'], value)
-    }
-  },
-  variant: {
-    type: String,
-    default: () => getComponentConfig(NAME, 'variant')
-  },
-  customClass: {
-    type: String,
-    default: () => getComponentConfig(NAME, 'customClass')
-  },
-  delay: {
-    type: [Number, Object, String],
-    default: () => getComponentConfig(NAME, 'delay')
-  },
-  boundary: {
-    // String: scrollParent, window, or viewport
-    // Element: element reference
-    type: [String, HTMLElement],
-    default: () => getComponentConfig(NAME, 'boundary')
-  },
-  boundaryPadding: {
-    type: Number,
-    default: () => getComponentConfig(NAME, 'boundaryPadding')
-  }
-}
-
-// @vue/component
 export const BPopover = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [toolpopMixin, normalizeSlotMixin],
-  props,
-  methods: {
-    createToolpop() {
-      // getTarget is in toolpop mixin
-      const target = this.getTarget()
-      /* istanbul ignore else */
-      if (target) {
-        this._toolpop = new PopOver(target, this.getConfig(), this)
-      } else {
-        this._toolpop = null
-        warn("b-popover: 'target' element not found!")
-      }
-      return this._toolpop
+  extends: BTooltip,
+  inheritAttrs: false,
+  props: {
+    title: {
+      type: String
+      // default: undefined
+    },
+    content: {
+      type: String
+      // default: undefined
+    },
+    triggers: {
+      type: [String, Array],
+      default: 'click'
+    },
+    placement: {
+      type: String,
+      default: 'right'
+    },
+    variant: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'variant')
+    },
+    customClass: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'customClass')
+    },
+    delay: {
+      type: [Number, Object, String],
+      default: () => getComponentConfig(NAME, 'delay')
+    },
+    boundary: {
+      // String: scrollParent, window, or viewport
+      // Element: element reference
+      // Object: Vue component
+      type: [String, HTMLElement, Object],
+      default: () => getComponentConfig(NAME, 'boundary')
+    },
+    boundaryPadding: {
+      type: Number,
+      default: () => getComponentConfig(NAME, 'boundaryPadding')
     }
   },
-  render(h) {
-    return h(
-      'div',
-      {
-        class: ['d-none'],
-        style: { display: 'none' },
-        attrs: { 'aria-hidden': true }
-      },
-      [
-        h('div', { ref: 'title' }, this.normalizeSlot('title')),
-        h('div', { ref: 'content' }, this.normalizeSlot('default'))
-      ]
-    )
+  methods: {
+    getComponent() {
+      // Overridden by BPopover
+      return BVPopover
+    },
+    updateContent() {
+      // Tooltip: Default slot is `title`
+      // Popover: Default slot is `content`, `title` slot is title
+      // We pass a scoped slot function by default (v2.6x)
+      // And pass the title prop as a fallback
+      this.setContent(this.$scopedSlots.default || this.content)
+      this.setTitle(this.$scopedSlots.title || this.title)
+    }
   }
+  // Render function provided by BTooltip
 })
-
-export default BPopover

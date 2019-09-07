@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BFormInvalidFeedback from './form-invalid-feedback'
+import { BFormInvalidFeedback } from './form-invalid-feedback'
 
 describe('form-invalid-feedback', () => {
   it('default should have tag div', async () => {
@@ -71,33 +71,11 @@ describe('form-invalid-feedback', () => {
     expect(feedback.classes()).toContain('d-block')
   })
 
-  it('should contain class d-block when state is "invalid"', async () => {
-    const feedback = mount(BFormInvalidFeedback, {
-      context: {
-        props: {
-          state: 'invalid'
-        }
-      }
-    })
-    expect(feedback.classes()).toContain('d-block')
-  })
-
   it('should not contain class d-block when state is true', async () => {
     const feedback = mount(BFormInvalidFeedback, {
       context: {
         props: {
           state: true
-        }
-      }
-    })
-    expect(feedback.classes()).not.toContain('d-block')
-  })
-
-  it('should not contain class d-block when state is "valid"', async () => {
-    const feedback = mount(BFormInvalidFeedback, {
-      context: {
-        props: {
-          state: 'valid'
         }
       }
     })

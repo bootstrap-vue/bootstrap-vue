@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BListGroup from './list-group'
+import { BListGroup } from './list-group'
 
 describe('list-group', () => {
   it('default should have tag div', async () => {

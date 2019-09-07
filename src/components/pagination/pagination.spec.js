@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
 import { isVisible, getBCR, contains } from '../../utils/dom'
-import BPagination from './pagination'
+import { BPagination } from './pagination'
 
 describe('pagination', () => {
   it('renders with correct basic structure for root element', async () => {
@@ -42,8 +42,6 @@ describe('pagination', () => {
 
     lis.wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
-      expect(li.attributes('role')).toContain('none')
-      expect(li.attributes('role')).toContain('presentation')
       const pageLink = li.find('.page-link')
       expect(pageLink).toBeDefined()
       if (index === 2) {
@@ -150,6 +148,7 @@ describe('pagination', () => {
     wrapper.setProps({
       totalRows: 4
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.is('ul')).toBe(true)
     expect(wrapper.findAll('li').length).toBe(8)
@@ -157,6 +156,7 @@ describe('pagination', () => {
     wrapper.setProps({
       perPage: 2
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.is('ul')).toBe(true)
     expect(wrapper.findAll('li').length).toBe(6)
@@ -460,8 +460,6 @@ describe('pagination', () => {
     // Grab the page buttons (includes bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
-      expect(li.attributes('role')).toContain('none')
-      expect(li.attributes('role')).toContain('presentation')
       if (index === 0) {
         // First button
         expect(li.classes()).toContain('disabled')
@@ -499,8 +497,6 @@ describe('pagination', () => {
     // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
-      expect(li.attributes('role')).toContain('none')
-      expect(li.attributes('role')).toContain('presentation')
       if (index === 0) {
         // First button
         expect(li.classes()).not.toContain('disabled')
@@ -538,8 +534,6 @@ describe('pagination', () => {
     // Grab the page buttons (including bookends)
     wrapper.findAll('li').wrappers.forEach((li, index) => {
       expect(li.classes()).toContain('page-item')
-      expect(li.attributes('role')).toContain('none')
-      expect(li.attributes('role')).toContain('presentation')
       // Page number buttons
       if (index >= 2 && index <= 5) {
         // Pages 1 to 4
@@ -679,8 +673,8 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
-  it('changing the pagesize resets to page 1', async () => {
-    // https://github.com/bootstrap-vue/bootstrap-vue/issues/2987
+  it('changing the number of pages to less than current page number resets to page 1', async () => {
+    // https://github.com/bootstrap-vue/bootstrap-vue/issues/3716
     const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 10,
@@ -694,8 +688,71 @@ describe('pagination', () => {
     expect(wrapper.vm.currentPage).toBe(10)
     expect(wrapper.emitted('input')).not.toBeDefined()
 
+    // Change total rows to larger value. Should not change page number
     wrapper.setProps({
-      perPage: 3
+      totalRows: 20
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.currentPage).toBe(10)
+    expect(wrapper.emitted('input')).not.toBeDefined()
+
+    // Change to page 20
+    wrapper.setProps({
+      value: 20
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.currentPage).toBe(20)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe(20)
+
+    // Decrease number of pages should reset to page 1
+    wrapper.setProps({
+      totalRows: 10
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.currentPage).toBe(1)
+    expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.emitted('input')[1][0]).toBe(1)
+
+    // Change to page 3
+    wrapper.setProps({
+      value: 3
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.currentPage).toBe(3)
+    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input')[2][0]).toBe(3)
+
+    // Decrease number of pages to 5 should not reset to page 1
+    wrapper.setProps({
+      totalRows: 5
+    })
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.currentPage).toBe(3)
+    expect(wrapper.emitted('input').length).toBe(3)
+
+    wrapper.destroy()
+  })
+
+  it('changing per-page resets to page 1', async () => {
+    // https://github.com/bootstrap-vue/bootstrap-vue/issues/2987
+    const wrapper = mount(BPagination, {
+      propsData: {
+        totalRows: 10,
+        perPage: 1,
+        value: 4,
+        limit: 20
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.vm.currentPage).toBe(4)
+    expect(wrapper.emitted('input')).not.toBeDefined()
+
+    // Change perPage
+    wrapper.setProps({
+      perPage: 2
     })
     await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(1)
@@ -703,7 +760,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(1)
 
-    // Change to page 3
+    // Change page to 3
     wrapper.setProps({
       value: 3
     })
@@ -712,7 +769,8 @@ describe('pagination', () => {
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
 
-    // Increasing number of pages should reset to page 1
+    // Change perPage. Should reset to page 1, even though
+    // current page is within range of numberOfPages
     wrapper.setProps({
       perPage: 1
     })

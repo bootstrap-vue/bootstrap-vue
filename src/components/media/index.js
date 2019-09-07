@@ -12,5 +12,3 @@ const MediaPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { MediaPlugin, BMedia, BMediaAside, BMediaBody }
-
-export default MediaPlugin

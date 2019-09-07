@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BCardTitle from './card-title'
+import { BCardTitle } from './card-title'
 
 describe('card-title', () => {
   it('default has tag "h4"', async () => {

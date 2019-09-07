@@ -1,5 +1,5 @@
 import looseEqual from '../../utils/loose-equal'
-import { addClass, removeAttr, removeClass, setAttr } from '../../utils/dom'
+import { addClass, hasAttr, removeAttr, removeClass, setAttr } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { bindTargets, getTargets, unbindTargets } from '../../utils/target'
 
@@ -91,7 +91,7 @@ export const VBToggle = {
       setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
       setAttr(el, 'aria-expanded', 'false')
       // If element is not a button, we add `role="button"` for accessibility
-      if (el.tagName !== 'BUTTON') {
+      if (el.tagName !== 'BUTTON' && !hasAttr(el, 'role')) {
         setAttr(el, 'role', 'button')
       }
 
@@ -141,5 +141,3 @@ export const VBToggle = {
     removeAttr(el, 'role')
   }
 }
-
-export default VBToggle

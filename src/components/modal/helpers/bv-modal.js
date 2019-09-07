@@ -1,8 +1,5 @@
-/**
- * Plugin for adding `$bvModal` property to all Vue instances
- */
-
-import BModal, { props as modalProps } from '../modal'
+// Plugin for adding `$bvModal` property to all Vue instances
+import { BModal, props as modalProps } from '../modal'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { isUndefined, isFunction } from '../../../utils/inspect'
@@ -82,7 +79,7 @@ const plugin = Vue => {
       // Self destruct after hidden
       this.$once('hidden', handleDestroy)
       // Self destruct on route change
-      /* istanbul ignore if */
+      /* istanbul ignore next */
       if (this.$router && this.$route) {
         const unwatch = this.$watch('$router', handleDestroy)
         this.$once('hook:beforeDestroy', unwatch)
@@ -266,5 +263,3 @@ const plugin = Vue => {
 export const BVModalPlugin = /*#__PURE__*/ pluginFactory({
   plugins: { plugin }
 })
-
-export default BVModalPlugin

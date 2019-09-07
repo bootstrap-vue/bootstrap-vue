@@ -1,35 +1,25 @@
-//
-// Modals
-//
+// --- Modals ---
 import Vue, { VNode } from 'vue'
 import { BvPlugin, BvComponent, BvEvent } from '../../'
 
-// Modal Plugin
+// Modal plugin
 export declare const ModalPlugin: BvPlugin
-export default ModalPlugin
 
-// Component: b-modal
+// Component: <b-modal>
 export declare class BModal extends BvComponent {
   // Public methods
   show: () => void
   hide: (trigger?: string) => void
 }
 
-//
-// Types
-//
+// --- Types ---
 export type BvMsgBoxData = boolean | null | BvModalEvent | any
 
-//
-// Interfaces
-//
+// --- Interfaces ---
 export interface BvModalEvent extends BvEvent {
   readonly trigger: string | null
   // Future
   // details: any | null
-  // Deprecated
-  readonly modalId: string | null
-  cancel: () => void
 }
 
 export interface BvMsgBoxOptions {
@@ -96,9 +86,7 @@ export interface BvModal {
   hide: (id: string) => void
 }
 
-//
-// Vue Prototype Injections
-//
+// --- Vue prototype injections ---
 declare module 'vue/types/vue' {
   interface Vue {
     // Modal injection

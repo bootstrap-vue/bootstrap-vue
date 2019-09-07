@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BTable from './table'
+import { BTable } from './table'
 
 const testItems = [{ a: 1, b: 2, c: 3 }]
 const testFields = [{ key: 'a', label: 'A' }, { key: 'b', label: 'B' }, { key: 'c', label: 'C' }]
@@ -106,10 +106,10 @@ describe('table > tfoot events', () => {
       },
       slots: {
         // In Vue 2.6x, slots get translated into scopedSlots
-        FOOT_a: '<button id="a">button</button>',
-        FOOT_b: '<input id="b">',
-        // Will use HEAD slot if foot slot not defined
-        HEAD_c: '<a href="#" id="c">link</a>'
+        'foot(a)': '<button id="a">button</button>',
+        'foot(b)': '<input id="b">',
+        // Will use `head` slot if foot slot not defined
+        'head(c)': '<a href="#" id="c">link</a>'
       }
     })
     expect(wrapper).toBeDefined()

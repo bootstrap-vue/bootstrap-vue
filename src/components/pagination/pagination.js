@@ -1,24 +1,15 @@
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { isVisible } from '../../utils/dom'
+import { isUndefinedOrNull } from '../../utils/inspect'
 import paginationMixin from '../../mixins/pagination'
+
+// --- Constants ---
 
 const NAME = 'BPagination'
 
 const DEFAULT_PER_PAGE = 20
 const DEFAULT_TOTAL_ROWS = 0
-
-// Sanitize the provided per page number (converting to a number)
-const sanitizePerPage = val => {
-  const perPage = parseInt(val, 10) || DEFAULT_PER_PAGE
-  return perPage < 1 ? 1 : perPage
-}
-
-// Sanitize the provided total rows number (converting to a number)
-const sanitizeTotalRows = val => {
-  const totalRows = parseInt(val, 10) || DEFAULT_TOTAL_ROWS
-  return totalRows < 0 ? 0 : totalRows
-}
 
 const props = {
   size: {
@@ -39,7 +30,21 @@ const props = {
   }
 }
 
-// The render function is brought in via the pagination mixin
+// --- Helper functions ---
+
+// Sanitize the provided per page number (converting to a number)
+const sanitizePerPage = val => {
+  const perPage = parseInt(val, 10) || DEFAULT_PER_PAGE
+  return perPage < 1 ? 1 : perPage
+}
+
+// Sanitize the provided total rows number (converting to a number)
+const sanitizeTotalRows = val => {
+  const totalRows = parseInt(val, 10) || DEFAULT_TOTAL_ROWS
+  return totalRows < 0 ? 0 : totalRows
+}
+
+// The render function is brought in via the `paginationMixin`
 // @vue/component
 export const BPagination = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -49,16 +54,32 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
     numberOfPages() {
       const result = Math.ceil(sanitizeTotalRows(this.totalRows) / sanitizePerPage(this.perPage))
       return result < 1 ? 1 : result
+    },
+    pageSizeNumberOfPages() {
+      // Used for watching changes to `perPage` and `numberOfPages`
+      return {
+        perPage: sanitizePerPage(this.perPage),
+        totalRows: sanitizeTotalRows(this.totalRows),
+        numberOfPages: this.numberOfPages
+      }
     }
   },
   watch: {
-    numberOfPages(newVal) {
-      if (newVal === this.localNumberOfPages) {
-        /* istanbul ignore next */
-        return
+    pageSizeNumberOfPages(newVal, oldVal) {
+      if (!isUndefinedOrNull(oldVal)) {
+        if (newVal.perPage !== oldVal.perPage && newVal.totalRows === oldVal.totalRows) {
+          // If the page size changes, reset to page 1
+          this.currentPage = 1
+        } else if (
+          newVal.numberOfPages !== oldVal.numberOfPages &&
+          this.currentPage > newVal.numberOfPages
+        ) {
+          // If `numberOfPages` changes and is less than
+          // the `currentPage` number, reset to page 1
+          this.currentPage = 1
+        }
       }
-      this.localNumberOfPages = newVal
-      this.currentPage = 1
+      this.localNumberOfPages = newVal.numberOfPages
     }
   },
   created() {
@@ -115,5 +136,3 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
     }
   }
 })
-
-export default BPagination

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BTable from './table'
+import { BTable } from './table'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 const testFields = ['a', 'b', 'c']
@@ -333,12 +333,13 @@ describe('table > tbody row events', () => {
       },
       slots: {
         // In Vue 2.6x, slots get translated into scopedSlots
-        a: '<button id="a">button</button>',
-        b: '<input id="b">',
-        c: '<a href="#" id="c">link</a>',
-        d: '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>',
-        e: '<label for="e">label</label><input id="e">',
-        f: '<label class="f-label"><input id="e"></label>'
+        'cell(a)': '<button id="a">button</button>',
+        'cell(b)': '<input id="b">',
+        'cell(c)': '<a href="#" id="c">link</a>',
+        'cell(d)':
+          '<div class="dropdown-menu"><div id="d" class="dropdown-item">dropdown</div></div>',
+        'cell(e)': '<label for="e">label</label><input id="e">',
+        'cell(f)': '<label class="f-label"><input id="e"></label>'
       },
       listeners: {
         // Row-clicked will only occur if there is a registered listener

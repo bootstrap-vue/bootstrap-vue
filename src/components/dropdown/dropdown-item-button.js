@@ -43,7 +43,7 @@ export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    return h('li', [
+    return h('li', { attrs: { role: 'presentation' } }, [
       h(
         'button',
         {
@@ -66,5 +66,3 @@ export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
     ])
   }
 })
-
-export default BDropdownItemButton

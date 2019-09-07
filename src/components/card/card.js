@@ -5,7 +5,7 @@ import unPrefixPropName from '../../utils/unprefix-prop-name'
 import copyProps from '../../utils/copy-props'
 import pluckProps from '../../utils/pluck-props'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
-import cardMixin from '../../mixins/card-mixin'
+import cardMixin from '../../mixins/card'
 import { BCardBody, props as bodyProps } from './card-body'
 import { BCardHeader, props as headerProps } from './card-header'
 import { BCardFooter, props as footerProps } from './card-footer'
@@ -100,5 +100,3 @@ export const BCard = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BCard

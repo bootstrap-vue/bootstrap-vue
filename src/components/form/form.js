@@ -42,5 +42,3 @@ export const BForm = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BForm

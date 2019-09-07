@@ -1,6 +1,6 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import toggleDirective from './toggle'
+import { VBToggle } from './toggle'
 
 // Emitted control event for collapse (emitted to collapse)
 const EVENT_TOGGLE = 'bv::toggle::collapse'
@@ -18,7 +18,7 @@ describe('v-b-toggle directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bToggle: toggleDirective
+        bToggle: VBToggle
       },
       mounted() {
         this.$root.$on(EVENT_TOGGLE, spy)
@@ -56,7 +56,7 @@ describe('v-b-toggle directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bToggle: toggleDirective
+        bToggle: VBToggle
       },
       mounted() {
         this.$root.$on(EVENT_TOGGLE, spy)
@@ -95,7 +95,7 @@ describe('v-b-toggle directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bToggle: toggleDirective
+        bToggle: VBToggle
       },
       data() {
         return {
@@ -151,7 +151,7 @@ describe('v-b-toggle directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bToggle: toggleDirective
+        bToggle: VBToggle
       },
       template: '<button v-b-toggle.test>button</button>'
     })
@@ -190,7 +190,7 @@ describe('v-b-toggle directive', () => {
 
     const App = localVue.extend({
       directives: {
-        bToggle: toggleDirective
+        bToggle: VBToggle
       },
       template: '<button v-b-toggle.test>button</button>'
     })

@@ -72,7 +72,7 @@ module.exports = {
       .use('vue-loader')
       .loader('vue-loader')
       .tap(options => {
-        options['transformAssetUrls'] = {
+        options.transformAssetUrls = {
           img: 'src',
           image: 'xlink:href',
           'b-img': 'src',
@@ -117,9 +117,8 @@ module.exports = {
 }
 ```
 
-<span class="badge badge-info small">NEW in v2.0.0-rc.22</span> If using the
-[BootstrapVue Nuxt](/docs#nuxtjs-module) module with Nuxt.js, the plugin module will automatically
-add in the BootstrapVue specific `transformAssetUrls` configuration for you.
+If using the [BootstrapVue Nuxt](/docs#nuxtjs-module) module with Nuxt.js, the plugin module will
+automatically add in the BootstrapVue specific `transformAssetUrls` configuration for you.
 
 ## Using `require` to resolve image paths
 

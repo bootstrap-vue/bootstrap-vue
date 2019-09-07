@@ -1,7 +1,7 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BCarousel from './carousel'
-import BCarouselSlide from './carousel-slide'
+import { BCarousel } from './carousel'
+import { BCarouselSlide } from './carousel-slide'
 
 const localVue = new CreateLocalVue()
 
@@ -14,6 +14,7 @@ const appDef = {
     controls: false,
     fade: false,
     noAnimation: false,
+    noWrap: false,
     value: 0
   },
   render(h) {
@@ -26,6 +27,7 @@ const appDef = {
           controls: this.controls,
           fade: this.fade,
           noAnimation: this.noAnimation,
+          noWrap: this.noWrap,
           value: this.value
         }
       },
@@ -991,6 +993,180 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')[1][0]).toEqual(3)
     expect($carousel.emitted('input').length).toBe(2)
     expect($carousel.emitted('input')[1][0]).toEqual(3)
+    expect($carousel.vm.isSliding).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('Next/Prev slide wraps to end/start when no-wrap is false', async () => {
+    const wrapper = mount(localVue.extend(appDef), {
+      localVue: localVue,
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: true,
+        noWrap: false,
+        indicators: true,
+        controls: true,
+        // Start at last slide
+        value: 3
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    const $carousel = wrapper.find(BCarousel)
+    expect($carousel).toBeDefined()
+    expect($carousel.isVueInstance()).toBe(true)
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $indicators = $carousel.findAll('.carousel-indicators > li')
+    expect($indicators.length).toBe(4)
+
+    expect($carousel.emitted('sliding-start')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('input')).not.toBeDefined()
+
+    expect($carousel.vm.index).toBe(3)
+    expect($carousel.vm.isSliding).toBe(false)
+
+    // Transitions (or fallback timers) are not used when no-animation set
+    // Call vm.next()
+    $carousel.vm.next()
+    await waitNT(wrapper.vm)
+
+    expect($carousel.emitted('sliding-start')).toBeDefined()
+    expect($carousel.emitted('sliding-end')).toBeDefined()
+    expect($carousel.emitted('sliding-start').length).toBe(1)
+    expect($carousel.emitted('sliding-end').length).toBe(1)
+    // Should have index of 0
+    expect($carousel.emitted('sliding-start')[0][0]).toEqual(0)
+    expect($carousel.emitted('sliding-end')[0][0]).toEqual(0)
+    expect($carousel.emitted('input')).toBeDefined()
+    expect($carousel.emitted('input').length).toBe(1)
+    expect($carousel.emitted('input')[0][0]).toEqual(0)
+    expect($carousel.vm.index).toBe(0)
+    expect($carousel.vm.isSliding).toBe(false)
+
+    // Call vm.prev()
+    $carousel.vm.prev()
+    await waitNT(wrapper.vm)
+
+    expect($carousel.emitted('sliding-start').length).toBe(2)
+    expect($carousel.emitted('sliding-end').length).toBe(2)
+    // Should have index set to last slide
+    expect($carousel.emitted('sliding-start')[1][0]).toEqual(3)
+    expect($carousel.emitted('sliding-end')[1][0]).toEqual(3)
+    expect($carousel.emitted('input').length).toBe(2)
+    expect($carousel.emitted('input')[1][0]).toEqual(3)
+    expect($carousel.vm.index).toBe(3)
+    expect($carousel.vm.isSliding).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('Next/Prev slide does not wrap to end/start when no-wrap is true', async () => {
+    const wrapper = mount(localVue.extend(appDef), {
+      localVue: localVue,
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        // Transitions (or fallback timers) are not used when no-animation set
+        noAnimation: true,
+        noWrap: true,
+        indicators: true,
+        controls: true,
+        // Start at last slide
+        value: 3
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    const $carousel = wrapper.find(BCarousel)
+    expect($carousel).toBeDefined()
+    expect($carousel.isVueInstance()).toBe(true)
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $indicators = $carousel.findAll('.carousel-indicators > li')
+    expect($indicators.length).toBe(4)
+
+    expect($carousel.emitted('sliding-start')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('input')).not.toBeDefined()
+
+    expect($carousel.vm.index).toBe(3)
+    expect($carousel.vm.isSliding).toBe(false)
+
+    // Call vm.next()
+    $carousel.vm.next()
+    await waitNT(wrapper.vm)
+
+    // Should not slide to start
+    expect($carousel.emitted('sliding-start')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    // Should have index of 3 (no input event emitted since value set to 3)
+    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.vm.index).toBe(3)
+    expect($carousel.vm.isSliding).toBe(false)
+
+    // Call vm.prev()
+    $carousel.vm.prev()
+    await waitNT(wrapper.vm)
+
+    expect($carousel.emitted('sliding-start').length).toBe(1)
+    expect($carousel.emitted('sliding-end').length).toBe(1)
+    // Should have index set to 2
+    expect($carousel.emitted('sliding-start')[0][0]).toEqual(2)
+    expect($carousel.emitted('sliding-end')[0][0]).toEqual(2)
+    expect($carousel.emitted('input')).toBeDefined()
+    expect($carousel.emitted('input').length).toBe(1)
+    expect($carousel.emitted('input')[0][0]).toEqual(2)
+    expect($carousel.vm.index).toBe(2)
+    expect($carousel.vm.isSliding).toBe(false)
+
+    // Call vm.prev()
+    $carousel.vm.prev()
+    await waitNT(wrapper.vm)
+
+    expect($carousel.emitted('sliding-start').length).toBe(2)
+    expect($carousel.emitted('sliding-end').length).toBe(2)
+    // Should have index set to 1
+    expect($carousel.emitted('sliding-start')[1][0]).toEqual(1)
+    expect($carousel.emitted('sliding-end')[1][0]).toEqual(1)
+    expect($carousel.emitted('input').length).toBe(2)
+    expect($carousel.emitted('input')[1][0]).toEqual(1)
+    expect($carousel.vm.index).toBe(1)
+    expect($carousel.vm.isSliding).toBe(false)
+
+    // Call vm.prev()
+    $carousel.vm.prev()
+    await waitNT(wrapper.vm)
+
+    expect($carousel.emitted('sliding-start').length).toBe(3)
+    expect($carousel.emitted('sliding-end').length).toBe(3)
+    // Should have index set to 0
+    expect($carousel.emitted('sliding-start')[2][0]).toEqual(0)
+    expect($carousel.emitted('sliding-end')[2][0]).toEqual(0)
+    expect($carousel.emitted('input').length).toBe(3)
+    expect($carousel.emitted('input')[2][0]).toEqual(0)
+    expect($carousel.vm.index).toBe(0)
+    expect($carousel.vm.isSliding).toBe(false)
+
+    // Call vm.prev() (should not wrap)
+    $carousel.vm.prev()
+    await waitNT(wrapper.vm)
+
+    expect($carousel.emitted('sliding-start').length).toBe(3)
+    expect($carousel.emitted('sliding-end').length).toBe(3)
+    // Should have index still set to 0, and emit input to update v-model
+    expect($carousel.emitted('input').length).toBe(4)
+    expect($carousel.emitted('input')[3][0]).toEqual(0)
+    expect($carousel.vm.index).toBe(0)
     expect($carousel.vm.isSliding).toBe(false)
 
     wrapper.destroy()

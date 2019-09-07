@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BFormSelect from './form-select'
+import { BFormSelect } from './form-select'
 
 describe('form-select', () => {
   it('has select as root element', async () => {
@@ -179,38 +179,10 @@ describe('form-select', () => {
     wrapper.destroy()
   })
 
-  it('has class is-invalid and attr aria-invalid="true" when state="invalid"', async () => {
-    const wrapper = mount(BFormSelect, {
-      propsData: {
-        state: 'invalid'
-      }
-    })
-    expect(wrapper.attributes('aria-invalid')).toBe('true')
-    expect(wrapper.classes()).toContain('is-invalid')
-    expect(wrapper.classes()).toContain('custom-select')
-    expect(wrapper.classes().length).toBe(2)
-
-    wrapper.destroy()
-  })
-
   it('has class is-valid when state=true', async () => {
     const wrapper = mount(BFormSelect, {
       propsData: {
         state: true
-      }
-    })
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
-    expect(wrapper.classes()).toContain('is-valid')
-    expect(wrapper.classes()).toContain('custom-select')
-    expect(wrapper.classes().length).toBe(2)
-
-    wrapper.destroy()
-  })
-
-  it('has class is-valid when state="valid"', async () => {
-    const wrapper = mount(BFormSelect, {
-      propsData: {
-        state: 'valid'
       }
     })
     expect(wrapper.attributes('aria-invalid')).not.toBeDefined()

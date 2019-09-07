@@ -8,7 +8,6 @@ import { BvPlugin, BvComponent } from '../../'
 export declare const TablePlugin: BvPlugin
 export declare const TableLitePlugin: BvPlugin
 export declare const TableSimplePlugin: BvPlugin
-export default TablePlugin
 
 // Component: b-table
 export declare class BTable extends BvComponent {
@@ -22,7 +21,7 @@ export declare class BTable extends BvComponent {
   // Props
   id?: string
   items: Array<any> | BvTableProviderCallback
-  fields?: BvTableFieldObject | BvTableFieldArray
+  fields?: BvTableFieldArray
   primaryKey?: string
   sortBy?: string | null
   sortDesc?: boolean
@@ -38,6 +37,14 @@ export declare class BTable extends BvComponent {
   filterIncludedFields?: Array<string>
   busy?: boolean
   tbodyTrClass?: string | Array<any> | object | BvTableTbodyTrClassCallback
+  tabelVariant?: BvTableVariant | string
+  headVariant?: BvTableHeadFootVariant | string
+  footVariant?: BvTableHeadFootVariant | string
+  tbodyTransitionProps?: BvTableTbodyTransitionProps
+  tbodyTransitionHandlers?: BvTableTbodyTransitionHandlers
+  responsive?: boolean | string
+  stacked?: boolean | string
+  stickyHeader?: boolean
 }
 
 // Component: b-table-lite
@@ -45,34 +52,69 @@ export declare class BTableLite extends BvComponent {
   // Props
   id?: string
   items: Array<any> | BvTableProviderCallback
-  fields?: BvTableFieldObject | BvTableFieldArray
+  fields?: BvTableFieldArray
   primaryKey?: string
   tbodyTrClass?: string | Array<any> | object | BvTableTbodyTrClassCallback
+  tableClass?: string
+  tableVariant?: BvTableVariant | string
+  headVariant?: BvTableHeadFootVariant | string
+  footVariant?: BvTableHeadFootVariant | string
+  tbodyTransitionProps?: BvTableTbodyTransitionProps
+  tbodyTransitionHandlers?: BvTableTbodyTransitionHandlers
+  responsive?: boolean | string
+  stacked?: boolean | string
+  stickyHeader?: boolean
 }
 
 // Component: b-table-simple
 export declare class BTableSimple extends BvComponent {
   // Props
   id?: string
+  tableClass?: string
+  tabelVariant?: BvTableVariant | string
+  responsive?: boolean | string
+  stacked?: boolean | string
+  stickyHeader?: boolean
 }
 
 // Component: b-tbody
-export declare class BTbody extends BvComponent {}
+export declare class BTbody extends BvComponent {
+  tbodyTransitionProps?: BvTableTbodyTransitionProps
+  tbodyTransitionHandlers?: BvTableTbodyTransitionHandlers
+}
 
 // Component: b-thead
-export declare class BThead extends BvComponent {}
+export declare class BThead extends BvComponent {
+  headVariant?: BvTableHeadFootVariant | string
+}
 
 // Component: b-tfoot
-export declare class BTfoot extends BvComponent {}
+export declare class BTfoot extends BvComponent {
+  footVariant?: BvTableHeadFootVariant | string
+}
 
 // Component: b-tr
-export declare class BTr extends BvComponent {}
+export declare class BTr extends BvComponent {
+  variant?: BvTableVariant | string
+}
 
 // Component: b-th
-export declare class BTh extends BvComponent {}
+export declare class BTh extends BvComponent {
+  variant?: BvTableVariant | string
+  colspan?: number | string
+  rowspan?: number | string
+  stackedHeading?: number | string
+  stickyColumn?: boolean
+}
 
 // Component: b-td
-export declare class BTd extends BvComponent {}
+export declare class BTd extends BvComponent {
+  variant?: BvTableVariant | string
+  colspan?: number | string
+  rowspan?: number | string
+  stackedHeading?: number | string
+  stickyColumn?: boolean
+}
 
 export type BvTableVariant =
   | 'active'
@@ -84,6 +126,8 @@ export type BvTableVariant =
   | 'secondary'
   | 'light'
   | 'dark'
+
+export type BvTableHeadFootVariant = 'light' | 'dark'
 
 export type BvTableSortDirection = 'asc' | 'desc' | 'last'
 
@@ -100,6 +144,39 @@ export type BvTableLocaleCompareOptionSensitivity = 'base' | 'accent' | 'case' |
 export type BvTableLocaleCompareOptionCaseFirst = 'upper' | 'lower' | 'false'
 
 export type BvTableLocaleCompareOptionUsage = 'sort'
+
+export interface BvTableTbodyTransitionProps {
+  name?: string
+  appear?: boolean
+  css?: boolean
+  type?: string
+  duration?: number
+  moveClass?: string
+  enterClass?: string
+  leaveClass?: string
+  appearClass?: string
+  enterToClass?: string
+  leaveToClass?: string
+  appearToClass?: string
+  enterActiveClass?: string
+  leaveActiveClass?: string
+  appearActiveClass?: string
+}
+
+export interface BvTableTbodyTransitionHandlers {
+  beforeEnter?: (el: any) => void
+  beforeLeave?: (el: any) => void
+  beforeAppear?: (el: any) => void
+  enter?: (el: any, done: () => void) => void
+  leave?: (el: any, done: () => void) => void
+  appear?: (el: any, done: () => void) => void
+  afterEnter?: (el: any) => void
+  afterLeave?: (el: any) => void
+  afterAppear?: (el: any) => void
+  enterCancelled?: (el: any) => void
+  leaveCancelled?: (el: any) => void
+  appearCancelled?: (el: any) => void
+}
 
 export interface BvTableLocaleCompareOptions {
   ignorePunctuation?: boolean
@@ -145,18 +222,15 @@ export interface BvTableField {
   formatter?: string | BvTableFormatterCallback
   sortable?: boolean
   sortDirection?: BvTableSortDirection
-  sortByFormatted?: boolean
-  filterByFormatted?: boolean
+  sortByFormatted?: boolean | BvTableFormatterCallback
+  filterByFormatted?: boolean | BvTableFormatterCallback
   tdClass?: string | string[] | ((value: any, key: string, item: any) => any)
   thClass?: string | string[]
   thStyle?: any
   variant?: BvTableVariant | string
   tdAttr?: any | ((value: any, key: string, item: any) => any)
+  thAttr?: any | ((value: any, key: string, item: any, type: string) => any)
   isRowHeader?: boolean
-}
-
-export interface BvTableFieldObject {
-  [key: string]: BvTableField
 }
 
 export type BvTableFieldArray = Array<string | ({ key: string } & BvTableField)>

@@ -10,5 +10,3 @@ const TabsPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { TabsPlugin, BTabs, BTab }
-
-export default TabsPlugin

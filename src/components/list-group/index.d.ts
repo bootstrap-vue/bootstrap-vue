@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const ListGroupPlugin: BvPlugin
-export default ListGroupPlugin
 
 // Component: b-list-group
 export declare class BListGroup extends BvComponent {}

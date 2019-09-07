@@ -1,5 +1,4 @@
-import BvEvent from '../../../utils/bv-event.class'
-import warn from '../../../utils/warn'
+import { BvEvent } from '../../../utils/bv-event.class'
 import { defineProperties, readonlyDescriptor } from '../../../utils/object'
 
 class BvModalEvent extends BvEvent {
@@ -9,18 +8,6 @@ class BvModalEvent extends BvEvent {
     defineProperties(this, {
       trigger: readonlyDescriptor()
     })
-  }
-
-  get modalId() /* istanbul ignore next */ {
-    // Backwards compatability <= 2.0.0-rc.19
-    warn('b-modal: evt.modalId is deprecated. Please use evt.componentId.')
-    return this.componentId
-  }
-
-  cancel() /* istanbul ignore next */ {
-    // Backwards compatibility for BootstrapVue 1.x
-    warn('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().')
-    this.preventDefault()
   }
 
   static get Defaults() {
@@ -33,6 +20,3 @@ class BvModalEvent extends BvEvent {
 
 // Named exports
 export { BvModalEvent }
-
-// Default export
-export default BvModalEvent

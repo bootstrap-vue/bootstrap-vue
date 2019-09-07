@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const BreadcrumbPlugin: BvPlugin
-export default BreadcrumbPlugin
 
 // Component: b-breadcrumb
 export declare class BBreadcrumb extends BvComponent {}

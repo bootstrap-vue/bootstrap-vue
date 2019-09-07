@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const ProgressPlugin: BvPlugin
-export default ProgressPlugin
 
 // Component: b-progress
 export declare class BProgress extends BvComponent {}

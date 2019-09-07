@@ -49,14 +49,17 @@ export default {
       const h = this.$createElement
       const fields = this.computedFields || []
 
-      if (this.isStacked === true || fields.length === 0) {
+      if (this.isStackedAlways || fields.length === 0) {
         // In always stacked mode, we don't bother rendering the head/foot.
         // Or if no field headings (empty table)
         return h()
       }
 
+      // Refernce to `selectAllRows` and `clearSelected()`, if table is Selectable
+      const selectAllRows = this.isSelectable ? this.selectAllRows : () => {}
+      const clearSelected = this.isSelectable ? this.clearSelected : () => {}
+
       // Helper function to generate a field <th> cell
-      // TODO: This should be moved into it's own mixin
       const makeCell = (field, colIndex) => {
         let ariaLabel = null
         if (!field.label.trim() && !field.headerTitle) {
@@ -95,33 +98,42 @@ export default {
             title: field.headerTitle || null,
             'aria-colindex': String(colIndex + 1),
             'aria-label': ariaLabel,
+            ...this.getThValues(null, field.key, field.thAttr, isFoot ? 'foot' : 'head', {}),
             ...sortAttrs
           },
           on: handlers
         }
-        const fieldScope = { label: field.label, column: field.key, field, isFoot }
-        let slot
-        if (
-          isFoot &&
-          this.hasNormalizedSlot([`FOOT[${field.key}]`, 'FOOT[]', `FOOT_${field.key}`])
-        ) {
-          // TODO: `FOOT_${field.key}` is deprecated, to be removed in future release
-          slot = this.normalizeSlot(
-            [`FOOT[${field.key}]`, 'FOOT[]', `FOOT_${field.key}`],
-            fieldScope
-          )
-        } else {
-          // TODO: `HEAD_${field.key}` is deprecated, to be removed in future release
-          slot = this.normalizeSlot(
-            [`HEAD[${field.key}]`, 'HEAD[]', `HEAD_${field.key}`],
-            fieldScope
-          )
+        // Handle edge case where in-document templates are used with new
+        // `v-slot:name` syntax where the browser lower-cases the v-slot's
+        // name (attributes become lower cased when parsed by the browser)
+        // We have replaced the square bracket syntax with round brackets
+        // to prevent confusion with dynamic slot names
+        let slotNames = [`head(${field.key})`, `head(${field.key.toLowerCase()})`, 'head()']
+        if (isFoot) {
+          // Footer will fallback to header slot names
+          slotNames = [
+            `foot(${field.key})`,
+            `foot(${field.key.toLowerCase()})`,
+            'foot()',
+            ...slotNames
+          ]
         }
-        if (!slot) {
-          // need to check if this will work
+        const hasSlot = this.hasNormalizedSlot(slotNames)
+        let slot = field.label
+        if (hasSlot) {
+          slot = this.normalizeSlot(slotNames, {
+            label: field.label,
+            column: field.key,
+            field,
+            isFoot,
+            // Add in row select methods
+            selectAllRows,
+            clearSelected
+          })
+        } else {
           data.domProps = htmlOrText(field.labelHtml)
         }
-        return h(BTh, data, slot || field.label)
+        return h(BTh, data, slot)
       }
 
       // Generate the array of <th> cells
@@ -134,7 +146,10 @@ export default {
       } else {
         const scope = {
           columns: fields.length,
-          fields: fields
+          fields: fields,
+          // Add in row select methods
+          selectAllRows,
+          clearSelected
         }
         $trs.push(this.normalizeSlot('thead-top', scope) || h())
         $trs.push(h(BTr, { class: this.theadTrClass }, $cells))

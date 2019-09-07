@@ -1,5 +1,5 @@
-import BRow from './row'
 import { mount } from '@vue/test-utils'
+import { BRow } from './row'
 
 describe('layout > row', () => {
   it('has expected default structure', async () => {

@@ -112,11 +112,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     let split = h()
-    const buttonContent =
-      this.normalizeSlot('button-content') ||
-      this.normalizeSlot('text') ||
-      this.html ||
-      stripTags(this.text)
+    const buttonContent = this.normalizeSlot('button-content') || this.html || stripTags(this.text)
     if (this.split) {
       const btnProps = {
         disabled: this.disabled,
@@ -198,5 +194,3 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BDropdown

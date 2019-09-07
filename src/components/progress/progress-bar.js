@@ -136,5 +136,3 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BProgressBar

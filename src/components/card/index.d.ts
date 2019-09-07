@@ -6,7 +6,6 @@ import { BvPlugin, BvComponent } from '../../'
 
 // Plugin
 export declare const CardPlugin: BvPlugin
-export default CardPlugin
 
 // Component: b-card
 export declare class BCard extends BvComponent {}

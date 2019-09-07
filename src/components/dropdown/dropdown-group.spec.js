@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BDropdownGroup from './dropdown-group'
+import { BDropdownGroup } from './dropdown-group'
 
 describe('dropdown > dropdown-header', () => {
   it('works', async () => {

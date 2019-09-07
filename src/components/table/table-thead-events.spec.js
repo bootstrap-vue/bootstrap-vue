@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BTable from './table'
+import { BTable } from './table'
 
 const testItems = [{ a: 1, b: 2, c: 3 }]
 const testFields = [{ key: 'a', label: 'A' }, { key: 'b', label: 'B' }, { key: 'c', label: 'C' }]
@@ -120,9 +120,9 @@ describe('table > thead events', () => {
       },
       slots: {
         // In Vue 2.6x, slots get translated into scopedSlots
-        HEAD_a: '<button id="a">button</button>',
-        HEAD_b: '<input id="b">',
-        HEAD_c: '<a href="#" id="c">link</a>'
+        'head(a)': '<button id="a">button</button>',
+        'head(b)': '<input id="b">',
+        'head(c)': '<a href="#" id="c">link</a>'
       }
     })
     expect(wrapper).toBeDefined()

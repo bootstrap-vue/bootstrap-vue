@@ -40,7 +40,7 @@ precedence.
   </b-dropdown>
 
   <b-dropdown>
-    <template slot="button-content">
+    <template v-slot:button-content>
       Custom <strong>Content</strong> with <em>HTML</em> via Slot
     </template>
     <b-dropdown-item href="#">An item</b-dropdown-item>
@@ -199,8 +199,6 @@ router link `to` value via the `split-to` prop, while maintaining the look of a 
 
 ### Split button type
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.27</span>
-
 The split button defaults to a button `type` of `'button'`. You can specify an alternate type via
 the `split-button-type` prop. Supported values are: `'button'`, `'submit'` and `'reset'`.
 
@@ -323,7 +321,9 @@ to `true`. This is useful when the dropdown is to be displayed as an icon.
 ```html
 <div>
   <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none" no-caret>
-    <template slot="button-content">&#x1f50d;<span class="sr-only">Search</span></template>
+    <template v-slot:button-content>
+      &#x1f50d;<span class="sr-only">Search</span>
+    </template>
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here...</b-dropdown-item>
@@ -336,8 +336,6 @@ to `true`. This is useful when the dropdown is to be displayed as an icon.
 **Note:** The caret will always be shown when using `split` mode.
 
 ## Lazy dropdown
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.26</span>
 
 By default, `<b-dropdown>` renders the menu contents in the DOM even when the menu is not shown.
 When there are a large number of dropdowns rendered on the same page, performance could be impacted
@@ -509,7 +507,7 @@ contents
 
 ```html
 <div>
-  <b-dropdown id="dropdown-header" text="Dropdown with group" class="m-2">
+  <b-dropdown id="dropdown-grouped" text="Dropdown with group" class="m-2">
     <b-dropdown-item-button>
       Non-grouped Item
     </b-dropdown-item-button>
@@ -587,12 +585,9 @@ export default {
 }
 ```
 
-Refer to the [Events](/docs/components/dropdown#component-reference) section of documentation for
-the full list of events.
+Refer to the [Events](#component-reference) section of documentation for the full list of events.
 
 ## Optionally scoped default slot
-
-<span class="badge badge-info small">NEW in 2.0.0-rc.20</span>
 
 The default slot is optionally scoped with the following scope available:
 
@@ -656,11 +651,10 @@ form controls within the menu.
 
 ## Implementation notes
 
-<span class="badge badge-info small">NEW in 2.0.0-rc.19</span> The dropdown menu is rendered with
-semantic `<ul>` and `<li>` elements for accessibility reasons. The `.dropdown-menu` is the `<ul>`
-element, while dropdown items (items, buttons, text, form, headers, and dividers) are wrapped in an
-`<li>` element. If creating custom items to place inside the dropdown menu, ensure they are wrapped
-with a plain `<li>`.
+The dropdown menu is rendered with semantic `<ul>` and `<li>` elements for accessibility reasons.
+The `.dropdown-menu` is the `<ul>` element, while dropdown items (items, buttons, text, form,
+headers, and dividers) are wrapped in an `<li>` element. If creating custom items to place inside
+the dropdown menu, ensure they are wrapped with a plain `<li>`.
 
 On touch-enabled devices, opening a `<b-dropdown>` adds empty (noop) `mouseover` handlers to the
 immediate children of the `<body>` element. This admittedly ugly hack is necessary to work around a

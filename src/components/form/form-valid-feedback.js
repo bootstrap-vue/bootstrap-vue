@@ -19,7 +19,7 @@ export const props = {
     default: false
   },
   state: {
-    type: [Boolean, String],
+    type: Boolean,
     default: null
   },
   ariaLive: {
@@ -38,7 +38,7 @@ export const BFormValidFeedback = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
-    const show = props.forceShow === true || props.state === true || props.state === 'valid'
+    const show = props.forceShow === true || props.state === true
     return h(
       props.tag,
       mergeData(data, {
@@ -58,5 +58,3 @@ export const BFormValidFeedback = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BFormValidFeedback

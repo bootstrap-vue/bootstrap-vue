@@ -125,13 +125,16 @@ automatically be destroyed and removed from the document.
 
 - The `this.$bvToast` injection is only available when using the full `BootstrapVue` plugin or the
   `ToastPlugin` plugin. It is not available if importing just the `b-toast` or `b-toaster`
-  components. To just import the injection, use the `BVToastPlugin` plugin.
+  components. To just import the `$bvToast` injection, use the `BVToastPlugin` plugin.
 - A new `$bvToast` injection (mixin) is created for each Vue virtual machine instance (i.e. each
   instantiated component), and is not usable via direct access to the `Vue.prototype`, as it needs
   access to the instance's `this` and `$root` contexts.
 - Toasts generated via `this.$bvToast.toast()` are children of the Vue instance that calls the
   `this.$bvToast.toast()` method, and will be hidden and destroyed if that Vue instance (i.e. your
-  component or app) is also destroyed.
+  component or app) is also destroyed. If the vm context is inside a `<router-view>`, and the
+  `$route` changes, the toast will also be destroyed (as all the children of `<router-view>` are
+  destroyed. To make on-demand toasts persist across router `$route` changes, use
+  `this.$root.$bvToast.toast()` instead to make the toast's parent the root of your app.
 - Toasts require a message. Toasts on demand with an empty message will silently not be shown.
 
 ## Options
@@ -145,7 +148,7 @@ as props on the `<b-toast>` component and as properties of the options object pa
 ### Title
 
 Add a title to your toast via the `title` option. Just like the toast `message`, the title can be a
-simple string, or an array of vNodes. See the [Advanced usage](#advanced-usage) section for an
+simple string, or an array of VNodes. See the [Advanced usage](#advanced-usage) section for an
 example of passing an array of `VNodes` as the message and title.
 
 ### Transparency
@@ -332,11 +335,13 @@ component.
     <b-button @click="$bvToast.show('my-toast')">Show toast</b-button>
 
     <b-toast id="my-toast" variant="warning" solid>
-      <div slot="toast-title" class="d-flex flex-grow-1 align-items-baseline">
-        <b-img blank blank-color="#ff5555" class="mr-2" width="12" height="12"></b-img>
-        <strong class="mr-auto">Notice!</strong>
-        <small class="text-muted mr-2">42 seconds ago</small>
-      </div>
+      <template v-slot:toast-title>
+        <div class="d-flex flex-grow-1 align-items-baseline">
+          <b-img blank blank-color="#ff5555" class="mr-2" width="12" height="12"></b-img>
+          <strong class="mr-auto">Notice!</strong>
+          <small class="text-muted mr-2">42 seconds ago</small>
+        </div>
+      </template>
       This is the content of the toast.
       It is short and to the point.
     </b-toast>
@@ -411,7 +416,7 @@ toasts are closed/hidden.
 
 When using the `this.$bvToast.toast(...)` method for generating toasts, you may want the toast
 content to be more than just a string message. As mentioned in the
-[Toasts on demand](#toasts-on-demand) section above, you can pass arrays of `vNodes` as the message
+[Toasts on demand](#toasts-on-demand) section above, you can pass arrays of `VNodes` as the message
 and title for more complex content.
 
 Remember to keep toast content simple and to the point. Avoid placing interactive components or
@@ -463,7 +468,7 @@ for generating more complex toast content:
             h('small', { class: 'ml-auto text-italics' }, '5 minutes ago')
           ]
         )
-        // Pass the vNodes as an array for message and title
+        // Pass the VNodes as an array for message and title
         this.$bvToast.toast([vNodesMsg], {
           title: [vNodesTitle],
           solid: true,

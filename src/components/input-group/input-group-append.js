@@ -18,5 +18,3 @@ export const BInputGroupAppend = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BInputGroupAppend

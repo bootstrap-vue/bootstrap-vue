@@ -55,7 +55,7 @@ export const props = {
     default: null,
     validator(value) {
       const num = parseInt(value, 10)
-      /* istanbul ignore if */
+      /* istanbul ignore next */
       if (!isNull(value) && (isNaN(num) || num < 1)) {
         warn('pagination: v-model value must be a number greater than 0')
         return false
@@ -68,7 +68,7 @@ export const props = {
     default: DEFAULT_LIMIT,
     validator(value) {
       const num = parseInt(value, 10)
-      /* istanbul ignore if */
+      /* istanbul ignore next */
       if (isNaN(num) || num < 1) {
         warn('pagination: prop "limit" must be a number greater than 0')
         return false
@@ -394,7 +394,7 @@ export default {
           staticClass: 'page-item',
           class: { disabled: isDisabled, 'flex-fill': fill },
           attrs: {
-            role: 'none presentation',
+            role: 'presentation',
             'aria-hidden': isDisabled ? 'true' : null
           }
         },
@@ -492,7 +492,7 @@ export default {
             key: `page-${page.number}`,
             staticClass: 'page-item',
             class: [{ disabled, active, 'flex-fill': fill }, page.classes],
-            attrs: { role: 'none presentation' }
+            attrs: { role: 'presentation' }
           },
           [inner]
         )

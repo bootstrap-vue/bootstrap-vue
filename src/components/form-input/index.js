@@ -9,5 +9,3 @@ const FormInputPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { FormInputPlugin, BFormInput }
-
-export default FormInputPlugin

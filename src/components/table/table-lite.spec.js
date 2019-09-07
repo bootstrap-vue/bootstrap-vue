@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BTableLite from './table-lite'
+import { BTableLite } from './table-lite'
 
 const items1 = [{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }]
 const fields1 = ['a', 'b', 'c']
@@ -585,6 +585,61 @@ describe('table-lite', () => {
     expect($tds.at(2).attributes('data-parent')).toBe('parent')
     expect($tds.at(2).attributes('data-foo')).not.toBeDefined()
     expect($tds.at(2).classes().length).toBe(0)
+
+    wrapper.destroy()
+  })
+
+  it('item field thAttr works', async () => {
+    const Parent = {
+      methods: {
+        parentThAttrs(value, key, item, type) {
+          return { 'data-type': type }
+        }
+      }
+    }
+
+    const wrapper = mount(BTableLite, {
+      parentComponent: Parent,
+      propsData: {
+        items: [{ a: 1, b: 2, c: 3 }],
+        fields: [
+          { key: 'a', thAttr: { 'data-foo': 'bar' } },
+          { key: 'b', thAttr: 'parentThAttrs', isRowHeader: true },
+          {
+            key: 'c',
+            thAttr: (v, k, i, t) => {
+              return { 'data-type': t }
+            }
+          }
+        ]
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAll('thead > tr').length).toBe(1)
+    expect(wrapper.findAll('thead > tr > th').length).toBe(3)
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+    expect(wrapper.findAll('tbody > tr > td').length).toBe(2)
+    expect(wrapper.findAll('tbody > tr > th').length).toBe(1)
+
+    const $headerThs = wrapper.findAll('thead > tr > th')
+    expect($headerThs.at(0).attributes('data-foo')).toBe('bar')
+    expect($headerThs.at(0).attributes('data-type')).not.toBeDefined()
+    expect($headerThs.at(0).classes().length).toBe(0)
+
+    expect($headerThs.at(1).attributes('data-foo')).not.toBeDefined()
+    expect($headerThs.at(1).attributes('data-type')).toBe('head')
+    expect($headerThs.at(1).classes().length).toBe(0)
+
+    expect($headerThs.at(2).attributes('data-foo')).not.toBeDefined()
+    expect($headerThs.at(2).attributes('data-type')).toBe('head')
+    expect($headerThs.at(2).classes().length).toBe(0)
+
+    const $bodyThs = wrapper.findAll('tbody > tr > th')
+
+    expect($bodyThs.at(0).attributes('data-foo')).not.toBeDefined()
+    expect($bodyThs.at(0).attributes('data-type')).toBe('row')
+    expect($bodyThs.at(0).classes().length).toBe(0)
 
     wrapper.destroy()
   })

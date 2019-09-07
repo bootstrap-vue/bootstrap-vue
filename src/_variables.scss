@@ -65,11 +65,17 @@ $b-custom-file-height-inner-sm: calc(
 $b-table-busy-opacity: 0.55 !default;
 
 // Table sorting
-$b-table-sort-icon-null: "\2195" !default; // Up-Down arrow
-$b-table-sort-icon-ascending: "\2193" !default; // Down arrow
-$b-table-sort-icon-descending: "\2191" !default; // Up arrow
-$b-table-sort-icon-margin-left: 0.5em !default;
-$b-table-sort-icon-width: 0.5em !default;
+$b-table-sort-icon-bg-width: 0.65em !default;
+$b-table-sort-icon-bg-height: 1em !default;
+// Sort icons are square, but "squished" horizontally by the above variables
+$b-table-sort-icon-bg-not-sorted: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'><path fill='black' opacity='.3' d='M51 1l25 23 24 22H1l25-22zM51 101l25-23 24-22H1l25 22z'/></svg>") !default;
+$b-table-sort-icon-bg-ascending: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'><path fill='black' d='M51 1l25 23 24 22H1l25-22z'/><path fill='black' opacity='.3' d='M51 101l25-23 24-22H1l25 22z'/></svg>") !default;
+$b-table-sort-icon-bg-descending: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'><path fill='black' opacity='.3' d='M51 1l25 23 24 22H1l25-22z'/><path fill='black' d='M51 101l25-23 24-22H1l25 22z'/></svg>") !default;
+// Icons to use on dark table or dark header/footer (lighter color icons)
+// We simply just replace the fill color 'black' white 'white'
+$b-table-sort-icon-bg-dark-not-sorted: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'><path fill='white' opacity='.3' d='M51 1l25 23 24 22H1l25-22zM51 101l25-23 24-22H1l25 22z'/></svg>") !default;
+$b-table-sort-icon-bg-dark-ascending: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'><path fill='white' d='M51 1l25 23 24 22H1l25-22z'/><path fill='white' opacity='.3' d='M51 101l25-23 24-22H1l25 22z'/></svg>") !default;
+$b-table-sort-icon-bg-dark-descending: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'><path fill='white' opacity='.3' d='M51 1l25 23 24 22H1l25-22z'/><path fill='white' d='M51 101l25-23 24-22H1l25 22z'/></svg>") !default;
 
 // Flag to enable sticky table header and column CSS generation
 $bv-enable-table-sticky: true !default;
@@ -109,12 +115,6 @@ $bv-enable-tooltip-variants: true !default;
 
 // Tooltip background variant level wrt theme color value
 $b-tooltip-bg-level: 0 !default;
-// Deprecated
-$bv-tooltip-bg-level: null !default;
-@if $bv-tooltip-bg-level {
-  @warn ("Variable '\$bv-tooltip-bg-level' has been deprecated. Use '\$b-tooltip-bg-level' instead.");
-  $b-tooltip-bg-level: $bv-tooltip-bg-level;
-}
 
 // --- Popovers ---
 
@@ -125,19 +125,3 @@ $bv-enable-popover-variants: true !default;
 $b-popover-bg-level: $alert-bg-level !default;
 $b-popover-border-level: $alert-border-level !default;
 $b-popover-color-level: $alert-color-level !default;
-// Deprecated
-$bv-popover-bg-level: null !default;
-@if $bv-popover-bg-level {
-  @warn ("Variable '\$bv-popover-bg-level' has been deprecated. Use '\$b-popover-bg-level' instead.");
-  $b-popover-bg-level: $bv-popover-bg-level;
-}
-$bv-popover-border-level: null !default;
-@if $bv-popover-border-level {
-  @warn ("Variable '\$bv-popover-border-level' has been deprecated. Use '\$b-popover-border-level' instead.");
-  $b-popover-border-level: $bv-popover-border-level;
-}
-$bv-popover-color-level: null !default;
-@if $bv-popover-color-level {
-  @warn ("Variable '\$bv-popover-color-level' has been deprecated. Use '\$b-popover-color-level' instead.");
-  $b-popover-color-level: $bv-popover-color-level;
-}

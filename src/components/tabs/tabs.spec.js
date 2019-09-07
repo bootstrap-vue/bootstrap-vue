@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BLink from '../link/link'
-import BTab from './tab'
-import BTabs from './tabs'
+import { BLink } from '../link/link'
+import { BTab } from './tab'
+import { BTabs } from './tabs'
 
 describe('tabs', () => {
   it('default has expected classes and structure', async () => {

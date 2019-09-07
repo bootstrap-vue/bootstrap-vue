@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BFormFile from './form-file'
+import { BFormFile } from './form-file'
 
 describe('form-file', () => {
   it('default has expected structure, classes and attributes', async () => {

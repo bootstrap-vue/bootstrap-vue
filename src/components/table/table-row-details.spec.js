@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import BTable from './table'
+import { BTable } from './table'
 
 describe('table > row details', () => {
   it('does not show details if slot row-details not defined', async () => {
@@ -187,7 +187,7 @@ describe('table > row details', () => {
           scopeDetails = scope
           return 'foobar'
         },
-        a: function(scope) {
+        'cell(a)': function(scope) {
           scopeField = scope
           return 'AAA'
         }

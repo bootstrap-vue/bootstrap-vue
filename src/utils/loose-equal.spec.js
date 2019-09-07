@@ -168,8 +168,10 @@ describe('utils/looseEqual', () => {
   it('compares null and undefined values correctly', () => {
     expect(looseEqual(null, null)).toBe(true)
     expect(looseEqual(undefined, undefined)).toBe(true)
+    // eslint-disable-next-line no-void
     expect(looseEqual(void 0, undefined)).toBe(true)
     expect(looseEqual(null, undefined)).toBe(false)
+    // eslint-disable-next-line no-void
     expect(looseEqual(null, void 0)).toBe(false)
     expect(looseEqual(null, '')).toBe(false)
     expect(looseEqual(null, false)).toBe(false)

@@ -5,7 +5,6 @@ import { mergeData } from 'vue-functional-data-merge'
 export const BDropdownText = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownText',
   functional: true,
-  inheritAttrs: false,
   props: {
     tag: {
       type: String,
@@ -17,21 +16,22 @@ export const BDropdownText = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h, { props, data, children }) {
-    return h('li', [
+    const $attrs = data.attrs || {}
+    data.attrs = {}
+    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
       h(
         props.tag,
-        mergeData(data, {
+        {
           staticClass: 'b-dropdown-text',
           class: {
             [`text-${props.variant}`]: props.variant
           },
           props,
+          attrs: $attrs,
           ref: 'text'
-        }),
+        },
         children
       )
     ])
   }
 })
-
-export default BDropdownText

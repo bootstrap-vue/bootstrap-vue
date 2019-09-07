@@ -454,19 +454,27 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
 
 Use `order-*` props for controlling the visual order of your content. These props are responsive, so
 you can set the order by breakpoint (e.g., `order="1" order-md="2"`). Includes support for 1 through
-12 across all five grid tiers.
+12 across all five grid tiers. `<b-col>` defaults to an order value of `0`.
 
 ```html
 <b-container fluid class="bv-example-row">
-  <b-row>
-    <b-col>First, but unordered</b-col>
-    <b-col order="12">Second, but last</b-col>
-    <b-col order="1">Third, but first</b-col>
+  <b-row class="mb-3">
+    <b-col>First in DOM, no order applied</b-col>
+    <b-col order="5">Second in DOM, with a larger order</b-col>
+    <b-col order="1">Third in DOM, with an order of 1</b-col>
+  </b-row>
+
+  <b-row class="mb-3">
+    <b-col order="6">First in DOM, with order of 6</b-col>
+    <b-col order="1">Second in DOM, with an order of 1</b-col>
+    <b-col>Third in DOM, no order applied</b-col>
   </b-row>
 </b-container>
 
 <!-- b-grid-order.vue -->
 ```
+
+Ordering is controlled by flexbox's CSS style `order`.
 
 ### Offsetting columns
 

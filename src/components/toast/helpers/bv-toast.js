@@ -194,6 +194,3 @@ const plugin = Vue => {
 export const BVToastPlugin = /*#__PURE__*/ pluginFactory({
   plugins: { plugin }
 })
-
-// Default export is the Plugin
-export default BVToastPlugin

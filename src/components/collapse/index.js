@@ -8,5 +8,3 @@ const CollapsePlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { CollapsePlugin, BCollapse }
-
-export default CollapsePlugin

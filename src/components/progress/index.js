@@ -10,5 +10,3 @@ const ProgressPlugin = /*#__PURE__*/ pluginFactory({
 })
 
 export { ProgressPlugin, BProgress, BProgressBar }
-
-export default ProgressPlugin

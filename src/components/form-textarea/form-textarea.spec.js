@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import BFormTextarea from './form-textarea'
+import { BFormTextarea } from './form-textarea'
 
 describe('form-textarea', () => {
   it('root element is textarea', async () => {
@@ -161,34 +161,10 @@ describe('form-textarea', () => {
     wrapper.destroy()
   })
 
-  it('has class is-valid when state=valid', async () => {
-    const wrapper = mount(BFormTextarea, {
-      propsData: {
-        state: 'valid'
-      }
-    })
-    expect(wrapper.classes()).toContain('is-valid')
-    expect(wrapper.classes()).not.toContain('is-invalid')
-
-    wrapper.destroy()
-  })
-
   it('has class is-invalid when state=false', async () => {
     const wrapper = mount(BFormTextarea, {
       propsData: {
         state: false
-      }
-    })
-    expect(wrapper.classes()).toContain('is-invalid')
-    expect(wrapper.classes()).not.toContain('is-valid')
-
-    wrapper.destroy()
-  })
-
-  it('has class is-invalid when state=invalid', async () => {
-    const wrapper = mount(BFormTextarea, {
-      propsData: {
-        state: 'invalid'
       }
     })
     expect(wrapper.classes()).toContain('is-invalid')
@@ -215,32 +191,10 @@ describe('form-textarea', () => {
     wrapper.destroy()
   })
 
-  it('does not have aria-invalid attribute when state=valid', async () => {
-    const wrapper = mount(BFormTextarea, {
-      propsData: {
-        state: 'valid'
-      }
-    })
-    expect(wrapper.contains('[aria-invalid]')).toBe(false)
-
-    wrapper.destroy()
-  })
-
   it('has aria-invalid attribute when state=false', async () => {
     const input = mount(BFormTextarea, {
       propsData: {
         state: false
-      }
-    })
-    expect(input.attributes('aria-invalid')).toBe('true')
-
-    input.destroy()
-  })
-
-  it('has aria-invalid attribute when state=invalid', async () => {
-    const input = mount(BFormTextarea, {
-      propsData: {
-        state: 'invalid'
       }
     })
     expect(input.attributes('aria-invalid')).toBe('true')
@@ -818,52 +772,6 @@ describe('form-textarea', () => {
     expect(input.vm.localValue).toEqual('TEST')
 
     input.destroy()
-  })
-
-  it('activate and deactivate hooks work (keepalive)', async () => {
-    const Keepalive = {
-      template:
-        '<div><keep-alive>' +
-        '<b-form-textarea ref="textarea" v-if="show" v-model="value"></b-form-textarea>' +
-        '<p v-else></p>' +
-        '</keep-alive></div>',
-      components: { BFormTextarea },
-      props: { show: true },
-      data() {
-        return { value: '' }
-      }
-    }
-
-    const keepalive = mount(Keepalive, {
-      attachToDocument: true,
-      propsData: {
-        show: true
-      }
-    })
-
-    expect(keepalive).toBeDefined()
-
-    const textarea = keepalive.find(BFormTextarea)
-    expect(textarea).toBeDefined()
-    expect(textarea.isVueInstance()).toBe(true)
-
-    // Check that the internal dontResize flag is now false
-    await keepalive.vm.$nextTick()
-    expect(textarea.vm.dontResize).toEqual(false)
-
-    // v-if the component out of document
-    keepalive.setProps({ show: false })
-    // Check that the internal dontResize flag is now true
-    await keepalive.vm.$nextTick()
-    expect(textarea.vm.dontResize).toEqual(true)
-
-    // v-if the component out of document
-    keepalive.setProps({ show: true })
-    // Check that the internal dontResize flag is now false
-    await keepalive.vm.$nextTick()
-    expect(textarea.vm.dontResize).toEqual(false)
-
-    keepalive.destroy()
   })
 
   it('trim modifier prop works', async () => {

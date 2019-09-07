@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import BBreadcrumb from './breadcrumb'
+import { BBreadcrumb } from './breadcrumb'
 
 describe('breadcrumb', () => {
   it('should have expected default structure', async () => {

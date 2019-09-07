@@ -9,11 +9,11 @@ export default {
   },
   computed: {
     isStacked() {
-      // `true` when always stacked, or breakpoint specified
-      return this.stacked === '' ? true : Boolean(this.stacked)
+      // `true` when always stacked, or returns breakpoint specified
+      return this.stacked === '' ? true : this.stacked
     },
     isStackedAlways() {
-      return this.stacked === true || this.stacked === ''
+      return this.isStacked === true
     },
     stackedTableClasses() {
       return {

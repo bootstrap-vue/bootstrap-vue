@@ -20,27 +20,27 @@ export const props = {
 export const BDropdownHeader = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownHeader',
   functional: true,
-  inheritAttrs: false,
   props,
   render(h, { props, data, children }) {
-    return h('li', [
+    const $attrs = data.attrs || {}
+    data.attrs = {}
+    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
       h(
         props.tag,
-        mergeData(data, {
+        {
           staticClass: 'dropdown-header',
           class: {
             [`text-${props.variant}`]: props.variant
           },
           attrs: {
+            ...$attrs,
             id: props.id || null,
             role: 'heading'
           },
           ref: 'header'
-        }),
+        },
         children
       )
     ])
   }
 })
-
-export default BDropdownHeader
