@@ -205,7 +205,7 @@
             "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name. See docs for scoped data"
           },
           {
-            "name": "cell[]",
+            "name": "cell()",
             "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
           },
           {
