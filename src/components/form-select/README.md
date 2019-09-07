@@ -215,7 +215,7 @@ const options = [
   { text: 'Item B', value: 'b', disabled: false },
   { html: 'Item C', value: 'c', disabled: false },
   { text: 'Item D', value: 'overridden_value', disabled: true },
-  { text: 'E', value: { foo: 'bar', baz: true }, disabled: false }
+  { text: 'Item E', value: { foo: 'bar', baz: true }, disabled: false }
 ]
 ```
 
