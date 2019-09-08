@@ -157,12 +157,12 @@ export default {
             // Check number of arguments provider function requested
             // Provider not using callback (didn't request second argument), so we clear
             // busy state as most likely there was an error in the provider function
-            /* istanbul ignore next */
-            warn(
-              "b-table provider function didn't request callback and did not return a promise or data"
-            )
-            /* istanbul ignore next */
-            this.localBusy = false
+            /* istanbul ignore next */ {
+              warn(
+                "b-table provider function didn't request callback and did not return a promise or data"
+              )
+              this.localBusy = false
+            }
           }
         } catch (e) /* istanbul ignore next */ {
           // Provider function borked on us, so we spew out a warning
