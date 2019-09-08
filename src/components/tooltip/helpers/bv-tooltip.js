@@ -407,6 +407,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       /* istanbul ignore next: ignore for now */
       if (hideEvt.defaultPrevented) {
         // Don't hide if event cancelled
+        /* istanbul ignore next */
         return
       }
 
