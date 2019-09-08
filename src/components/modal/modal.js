@@ -453,6 +453,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         /* istanbul ignore next */
         return
       }
+      /* istanbul ignore next */
       if (this.isClosing) {
         // If we are in the process of closing, wait until hidden before re-opening
         /* istanbul ignore next */
