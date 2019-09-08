@@ -124,22 +124,21 @@
           >
             <!-- Template -->
             <b-card no-body header-tag="header">
-              <div
-                slot="header"
-                class="d-flex justify-content-between align-items-center"
-              >
-                <h5 class="mb-0">
-                  <span class="notranslate" translate="no">Template</span>
-                </h5>
-                <b-btn
-                  size="sm"
-                  variant="outline-info"
-                  class="d-none d-md-inline-block"
-                  @click="toggleFull"
-                >
-                  <span>{{ full ? 'Split' : 'Full' }}</span>
-                </b-btn>
-              </div>
+              <template v-slot:header>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">
+                    <span class="notranslate" translate="no">Template</span>
+                  </h5>
+                  <b-btn
+                    size="sm"
+                    variant="outline-info"
+                    class="d-none d-md-inline-block"
+                    @click="toggleFull"
+                  >
+                    <span>{{ full ? 'Split' : 'Full' }}</span>
+                  </b-btn>
+                </div>
+              </template>
 
               <code-mirror v-model="html" mode="htmlmixed"></code-mirror>
             </b-card>
@@ -154,23 +153,22 @@
           >
             <!-- JavaScript -->
             <b-card no-body header-tag="header">
-              <div
-                slot="header"
-                class="d-flex justify-content-between align-items-center"
-              >
-                <h5 class="mb-0">
-                  <span class="notranslate" translate="no">JavaScript</span>
-                  <small v-if="compiling" class="text-muted"> compiling</small>
-                </h5>
-                <b-btn
-                  size="sm"
-                  variant="outline-info"
-                  class="d-none d-md-inline-block"
-                  @click="toggleFull"
-                >
-                  <span>{{ full ? 'Split' : 'Full' }}</span>
-                </b-btn>
-              </div>
+              <template v-slot:header>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">
+                    <span class="notranslate" translate="no">JavaScript</span>
+                    <small v-if="compiling" class="text-muted"> compiling</small>
+                  </h5>
+                  <b-btn
+                    size="sm"
+                    variant="outline-info"
+                    class="d-none d-md-inline-block"
+                    @click="toggleFull"
+                  >
+                    <span>{{ full ? 'Split' : 'Full' }}</span>
+                  </b-btn>
+                </div>
+              </template>
 
               <code-mirror v-model="js" mode="javascript"></code-mirror>
             </b-card>
@@ -184,27 +182,26 @@
           <!-- Result column -->
           <b-col cols="12" class="mt-3">
             <!-- Result -->
-            <b-card class="play-result" header-tag="header">
-              <div
-                slot="header"
-                class="d-flex justify-content-between align-items-center"
-              >
-                <h5 class="mb-0">
-                  <span>Result</span>
-                  <small v-if="compiling || building" class="text-muted"> building</small>
-                </h5>
-                <b-btn
-                  v-if="!full"
-                  size="sm"
-                  variant="outline-info"
-                  class="d-none d-md-inline-block"
-                  @click="toggleVertical"
-                >
-                  <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
-                </b-btn>
-              </div>
+            <b-card no-body class="play-result" header-tag="header">
+              <template v-slot:header>
+                <div class="d-flex justify-content-between align-items-center" >
+                  <h5 class="mb-0">
+                    <span>Result</span>
+                    <small v-if="compiling || building" class="text-muted"> building</small>
+                  </h5>
+                  <b-btn
+                    v-if="!full"
+                    size="sm"
+                    variant="outline-info"
+                    class="d-none d-md-inline-block"
+                    @click="toggleVertical"
+                  >
+                    <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
+                  </b-btn>
+                </div>
+              </template>
 
-              <div ref="result" class="notranslate" translate="no"></div>
+              <b-card-body ref="result" class="play-result-body notranslate" translate="no"></b-card-body>
             </b-card>
           </b-col>
 
@@ -212,19 +209,21 @@
           <b-col cols="12" class="mt-3 notranslate" translate="no">
             <!-- Console -->
             <b-card no-body header-tag="header">
-              <div slot="header" class="d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">
-                  <span>Console log</span>
-                </h5>
-                <b-btn
-                  :disabled="messages.length === 0"
-                  size="sm"
-                  variant="outline-danger"
-                  @click="clear"
-                >
-                  <span>Clear</span>
-                </b-btn>
-              </div>
+              <template v-slot:header>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">
+                    <span>Console log</span>
+                  </h5>
+                  <b-btn
+                    :disabled="messages.length === 0"
+                    size="sm"
+                    variant="outline-danger"
+                    @click="clear"
+                  >
+                    <span>Clear</span>
+                  </b-btn>
+                </div>
+              </template>
 
               <transition-group
                 tag="ul"
@@ -257,7 +256,7 @@
 </template>
 
 <style scoped>
-.play-result /deep/ .card-body,
+.play-result-body,
 .play-log {
   min-height: 300px;
 }
