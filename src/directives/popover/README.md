@@ -283,7 +283,9 @@ const options = {
 }
 ```
 
-Content can also be a function reference, which is called each time the popover is opened.
+Title and content can also be function references, which are called each time the popover is opened.
+To make a value returned by the function reactive while open, set the title or content to a _new_
+function reference whenever the content changes.
 
 ```html
 <template>
@@ -323,33 +325,47 @@ Content can also be a function reference, which is called each time the popover 
   export default {
     data() {
       return {
-        popoverData: {
-          title: 'Popover Title',
-          content: 'Popover Content'
-        },
-        counter: 0
-      }
-    },
-    methods: {
-      popoverMethod() {
-        // Returns the content as a string
-        // Will be called each time popover is opened
-        return '<strong>' + new Date() + '</strong>'
+        date: new Date(),
+        counter: 0,
+        timer: null
       }
     },
     computed: {
       popoverConfig() {
         // Both title and content specified as a function in this example
-        // and will be called each time popover is opened
+        // and will be called the each time the popover is opened
         return {
           html: true,
           title: () => {
+            // Note this is called only when the popover is opened
             return 'Hello <b>Popover:</b> ' + ++this.counter
           },
           content: () => {
+            // Note this is called only when the popover is opened
             return 'The date is:<br><em>' + new Date() + '</em>'
           }
         }
+      },
+      popoverData() {
+        return {
+          title: 'Popover Title',
+          content: 'The date is ' + this.date
+        }
+      }
+    },
+    mounted() {
+      this.timer = setInterval(() => {
+        this.date = new Date()
+      }, 1000)
+    },
+    beforeDestroy() {
+      clearInterval(this.timer)
+    },
+    methods: {
+      popoverMethod() {
+        // Returns the content as a string
+        // Will be called each time the popover is opened
+        return '<strong>' + new Date() + '</strong>'
       }
     }
   }

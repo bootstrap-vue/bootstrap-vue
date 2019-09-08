@@ -50,6 +50,7 @@ const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
     if (nodes && nodes.length > 0 && !nodes[0].text) {
       return nodes[0]
     } else {
+      /* istanbul ignore next */
       return h()
     }
   }

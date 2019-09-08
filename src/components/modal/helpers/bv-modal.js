@@ -79,7 +79,7 @@ const plugin = Vue => {
       // Self destruct after hidden
       this.$once('hidden', handleDestroy)
       // Self destruct on route change
-      /* istanbul ignore if */
+      /* istanbul ignore next */
       if (this.$router && this.$route) {
         const unwatch = this.$watch('$router', handleDestroy)
         this.$once('hook:beforeDestroy', unwatch)
