@@ -10,14 +10,14 @@
 
 Released: 2019-09-06
 
-> **BoootstrapVue 2.0.0 stable** introduces several new features and bug fixes. Please note that
-> this release also _includes several breaking changes_.
+> **BootstrapVue 2.0.0 stable** introduces several new features and bug fixes. Please note that this
+> release also _includes several breaking changes_.
 
 **Notable improvements:**
 
-- Tooltips and popovers have been competely re-written for better reactivity and stability. The
+- Tooltips and popovers have been completely re-written for better reactivity and stability. The
   directive versions are now reactive to trigger element `title` attribute changes and configuration
-  changes. The component versions now perform better when qucikly hovering/unhovering the trigger
+  changes. The component versions now perform better when quickly hovering/un-hovering the trigger
   element. Component and directive versions now have a default delay of `50`ms (affects `'hover'`
   and `'focus'` triggers only). They can now have a trigger of `'manual'` (when used by itself) of
   which they can only be opened or closed programmatically. Users can now optionally specify the ID
@@ -30,7 +30,7 @@ Released: 2019-09-06
   for targeting inner elements, just like with any other component).
 - New SVG background image based sorting indicator icons for `<b-table>`, with the ability to place
   them on either the right (default) or left of the table cell headers (via a new prop).
-- Programmatic selection of `<b-table>` selctable rows.
+- Programmatic selection of `<b-table>` selectable rows.
 - Ability to provide your own custom footer structure for `<b-table>` and `<b-table-lite>`.
 
 ### Breaking changes and deprecated features removal v2.0.0
@@ -108,8 +108,8 @@ examples, and below for a list of fixes and new features.
 
 ### Bug Fixes v2.0.0
 
-- **b-dropdown-\*:** ensure class bindings are placed on root element for all dropdown sub-components
-  (closes [#4022](https://github.com/bootstrap-vue/bootstrap-vue/issues/4022))
+- **b-dropdown-\*:** ensure class bindings are placed on root element for all dropdown
+  sub-components (closes [#4022](https://github.com/bootstrap-vue/bootstrap-vue/issues/4022))
   ([#4024](https://github.com/bootstrap-vue/bootstrap-vue/issues/4024))
   ([81efb89](https://github.com/bootstrap-vue/bootstrap-vue/commit/81efb89))
 - **b-form-textarea:** handle initial auto-height when in modal, tabs, or other component with
@@ -137,8 +137,7 @@ examples, and below for a list of fixes and new features.
   ([#3887](https://github.com/bootstrap-vue/bootstrap-vue/issues/3887))
   ([2302b31](https://github.com/bootstrap-vue/bootstrap-vue/commit/2302b31))
 - **b-table, b-table-lite:** generate `:key` for `row-details` row based on the `primary-key` field
-  value if available
-  ([#4025](https://github.com/bootstrap-vue/bootstrap-vue/issues/4025))
+  value if available ([#4025](https://github.com/bootstrap-vue/bootstrap-vue/issues/4025))
   ([c7cb16f](https://github.com/bootstrap-vue/bootstrap-vue/commit/c7cb16f))
 - **v-b-toggle:** don't override `role` if element has a `role` assigned
   ([#3889](https://github.com/bootstrap-vue/bootstrap-vue/issues/3889))
@@ -232,7 +231,7 @@ examples, and below for a list of fixes and new features.
   ([#3908](https://github.com/bootstrap-vue/bootstrap-vue/issues/3908))
   ([eebab43](https://github.com/bootstrap-vue/bootstrap-vue/commit/eebab43))
 
-### Depreaction removals v2.0.0
+### Deprecation removals v2.0.0
 
 - **b-dropdown:** remove deprecated slot `text`
   ([#3868](https://github.com/bootstrap-vue/bootstrap-vue/issues/3868))
