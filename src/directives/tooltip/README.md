@@ -19,6 +19,7 @@ appear.
 Things to know when using tooltips:
 
 - Tooltips rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
+- Tooltips require BootstrapVue's custom SCSS/CSS for transitions and color variants.
 - Specify container: 'body' (the default) to avoid rendering problems in more complex components
   (like input groups, button groups, etc).
 - Triggering tooltips on hidden elements will not work.
