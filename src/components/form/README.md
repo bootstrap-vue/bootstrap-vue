@@ -324,8 +324,8 @@ export default {
 See also:
 
 - [`<b-form-input> datalist`](/docs/components/form-input#datalist-support) for datalist usage.
-- [`<b-form-select>` `options` prop](/docs/components/form-select#options-property) docs for
-  details on the formats and helper props associated with `options`.
+- [`<b-form-select>` `options` prop](/docs/components/form-select#options-property) docs for details
+  on the formats and helper props associated with `options`.
 
 ## Validation
 

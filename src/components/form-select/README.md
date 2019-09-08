@@ -219,8 +219,8 @@ const options = [
 ]
 ```
 
-**Note:** When using the Object format, the order of the final array is **not** guaranteed. For
-this reason, it is recommended to use either of the previously mentioned array formats.
+**Note:** When using the Object format, the order of the final array is **not** guaranteed. For this
+reason, it is recommended to use either of the previously mentioned array formats.
 
 ### Changing the option field names
 
