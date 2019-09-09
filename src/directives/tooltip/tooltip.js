@@ -49,6 +49,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     offset: 0,
     id: null,
     html: false,
+    disabled: false,
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
     boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0,
@@ -203,6 +204,7 @@ const applyTooltip = (el, bindings, vnode) => {
     offset: config.offset,
     noFade: !config.animation,
     id: config.id,
+    disabled: config.disabled,
     html: config.html
   }
   const oldData = el[BV_TOOLTIP].__bv_prev_data__

@@ -47,6 +47,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     container: false, // Default of body
     animation: true,
     offset: 0,
+    disabled: false,
     id: null,
     html: false,
     delay: getComponentConfig(NAME, 'delay'),
@@ -209,6 +210,7 @@ const applyPopover = (el, bindings, vnode) => {
     offset: config.offset,
     noFade: !config.animation,
     id: config.id,
+    disabled: config.disabled,
     html: config.html
   }
   const oldData = el[BV_POPOVER].__bv_prev_data__
