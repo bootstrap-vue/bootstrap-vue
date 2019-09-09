@@ -83,7 +83,6 @@ const plugin = Vue => {
       if (this.$router && this.$route) {
         /* istanbul ignore next */
         const unwatch = this.$watch('$router', handleDestroy)
-        /* istanbul ignore next */
         this.$once('hook:beforeDestroy', unwatch)
       }
       // Show the `BMsgBox`
