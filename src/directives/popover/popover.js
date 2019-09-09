@@ -210,6 +210,7 @@ const applyPopover = (el, bindings, vnode) => {
     offset: config.offset,
     noFade: !config.animation,
     id: config.id,
+    disabled: config.disabled,
     html: config.html
   }
   const oldData = el[BV_POPOVER].__bv_prev_data__
