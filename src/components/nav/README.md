@@ -348,12 +348,15 @@ define the "tab" content as child routes.
 const routes = [
   {
     path: '/some/route',
+    // We don't provide a name on this parent route, but rather
+    // set the name of the default child route instead
+    // name: 'some-route',
     component: SomeRouteComponent,
     // Child route "tabs"
     children: [
-      // Note we provide a unique route name for the default tab route
-      // so that vue-router can diferentiate if from the parent route
-      { path: '', component: DefaultTabComponent, name: 'some-route-default-tab-content' },
+      // Note we provide the above parent route name on the default child
+      // tab route to ensure this tab is rendered when using named routes
+      { path: '', component: DefaultTabComponent, name: 'some-route' },
       { path: 'foo', component: FooTabComponent },
       { path: 'bar', component: BarTabComponent }
     ]
