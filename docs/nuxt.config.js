@@ -179,6 +179,11 @@ module.exports = {
     height: '3px'
   },
 
+  manifest: {
+    // Hack needed to get around a bug in 3.0.0-beta.17 of @nuxtjs/pwa
+    icons: []
+  },
+
   pwa: {
     icon: {
       // iconFileName: 'icon.png',
