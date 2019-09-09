@@ -351,7 +351,9 @@ const routes = [
     component: SomeRouteComponent,
     // Child route "tabs"
     children: [
-      { path: '', component: DefaultTabComponent },
+      // Note we provide a unique route name for the default tab route
+      // so that vue-router can diferentiate if from the parent route
+      { path: '', component: DefaultTabComponent, name: 'some-route-default-tab-content' },
       { path: 'foo', component: FooTabComponent },
       { path: 'bar', component: BarTabComponent }
     ]
