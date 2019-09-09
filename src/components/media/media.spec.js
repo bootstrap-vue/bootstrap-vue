@@ -139,7 +139,7 @@ describe('media', () => {
     // Should have only two child elements
     expect(wrapper.findAll('.media > *').length).toBe(2)
     // Should have media aside with self align bottom
-    expect(wrapper.find('.d-flex').classes()).toContain('align-self-bottom')
+    expect(wrapper.find('.d-flex').classes()).toContain('align-self-end')
     // Should have content in aside
     expect(wrapper.find('.d-flex').text()).toEqual('foobar')
   })
