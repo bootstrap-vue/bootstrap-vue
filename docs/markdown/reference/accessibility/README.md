@@ -83,6 +83,30 @@ sliding animation in carousels) will be disabled.
 If you are expecting animations and/or transitions to work and they are not, then you may have the
 reduced motion (no animation) setting enabled in your operating system control panel.
 
+## Testing your application for accessibility
+
+It is highly reccommended to test your app for accessibility before deployment. Note that some contries
+even have laws [requiring all websites to be accessible](https://webaim.org/articles/laws/world/).
+
+There are just two main things to think about when making your web app accessible:
+
+- Defining the right keyboard behavior. BootstrapVue provides keyboard control for most of our components,
+  but you shoud make sure your custom components are also keyboard accessibile.
+- Making it possible for screen readers to understand your app. Bootstrap, in most sitations, will
+  automatically set the correct `role` and `aria-*` attributes on our components. You should also make
+  sure that all of your custom components provide the correct roles and attributes (use semantic HTML
+  elements and markup where possible).
+
+Steps you should do for testing:
+
+- Try using the _keyboard only_ to see if all interactive components can be reached and controlled. Ensure
+  that controls have focus styling so that the user knows which interactive element they are on. Rememeber,
+  keybaord user _cannot_ trigger an element's `hover` state.
+- Use a screen reader (combined with keyboard only) to navigate and interact with your app. There are
+  several free screen readers available for various OS'es and browsers. Remember that screen reader users
+  can only "see" what they hear.
+- See how your app looks and works when increasing the zoom level (and/or font size) of your browser.
+
 ## Additional resources
 
 - [Bootstrap v4 Accessibility Documentation](https://getbootstrap.com/docs/4.3/getting-started/accessibility/)
