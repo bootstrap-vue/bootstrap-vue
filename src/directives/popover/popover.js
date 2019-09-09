@@ -47,6 +47,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     container: false, // Default of body
     animation: true,
     offset: 0,
+    disabled: false,
     id: null,
     html: false,
     delay: getComponentConfig(NAME, 'delay'),
