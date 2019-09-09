@@ -1468,17 +1468,16 @@
   dependencies:
     vue-analytics "^5.16.2"
 
-"@nuxtjs/pwa@^3.0.0-beta.17":
-  version "3.0.0-beta.17"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-3.0.0-beta.17.tgz#00a3ad5fa8ae39ac94e0f6eaa7058315b4a1c036"
-  integrity sha512-WSAyXGJpSg3Zgd5Seqzzk44lnuOQF14KRCcUZeW8HDktJnaN0vIqHUOgrvUhuF7qhRJ1OxypybYVOG+EVI1NPQ==
+"@nuxtjs/pwa@^3.0.0-beta.18":
+  version "3.0.0-beta.18"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-3.0.0-beta.18.tgz#5205c21237d2cab5d2ac09301306a7b708376867"
+  integrity sha512-t9fpdHsJKWgd5qxsIcJmCH8sJ+iplpkPi+XeAgsE2rBasXVw675TP6+WMSlEEkZF/4D4xl2m0upimNLb0rzVOA==
   dependencies:
     defu "^0.0.3"
     execa "^1.0.0"
     fs-extra "^8.1.0"
     hasha "^5.0.0"
-    jimp-compact "^0.6.8"
-    lodash.template "^4.5.0"
+    jimp-compact "^0.8.0"
     workbox-cdn "^4.3.1"
 
 "@nuxtjs/youch@^4.2.3":
@@ -7271,10 +7270,10 @@ jest@^24.9.0:
     import-local "^2.0.0"
     jest-cli "^24.9.0"
 
-jimp-compact@^0.6.8:
-  version "0.6.8"
-  resolved "https://registry.yarnpkg.com/jimp-compact/-/jimp-compact-0.6.8.tgz#e915446206c60a65df8bb413902fe6b42bef44ef"
-  integrity sha512-K3xHMUYkzrX3Gfu/WKrA75RlD9BtwJ0bQqSO4EDVqXNmUQQLrB4N2mAfTz3L2P2vadTfhjBWt4JLOuTHz/FyWg==
+jimp-compact@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/jimp-compact/-/jimp-compact-0.8.0.tgz#2a7831b9d0e3202678a0617dd9fd9a3ed5423886"
+  integrity sha512-X20NDmsndoplmKtws5fcZYPnRzdtP1vftKlZaiKmKQ3+LMSXLPGoOCPZlckVZg4DjZlPzDOjA+nj//TPFGxMQw==
 
 js-base64@^2.1.8:
   version "2.5.1"
@@ -7671,7 +7670,7 @@ lodash.sortby@^4.7.0:
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
-lodash.template@^4.0.2, lodash.template@^4.2.4, lodash.template@^4.4.0, lodash.template@^4.5.0:
+lodash.template@^4.0.2, lodash.template@^4.2.4, lodash.template@^4.4.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.template/-/lodash.template-4.5.0.tgz#f976195cf3f347d0d5f52483569fe8031ccce8ab"
   integrity sha512-84vYFxIkmidUiFxidA/KjjH9pAycqW+h980j7Fuz5qxRtO9pgB7MDFTdys1N7A5mcucRiDyEq4fusljItR1T/A==
@@ -10620,10 +10619,10 @@ rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^1.21.0:
-  version "1.21.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.21.0.tgz#b5395271dcd91656dc8844b5403ecfb34106fd77"
-  integrity sha512-FDIPkcIdLg7262zzqteTWNr7GxU7hw3nJiiKY9P38LE3BAZ7tFC0Di/AzISIxHEQBvneu5bW51a7o50P1NgDCg==
+rollup@^1.21.2:
+  version "1.21.2"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.21.2.tgz#eaabd07d0bd309587ad8bebf731fca6fcb96f4d0"
+  integrity sha512-sCAHlcQ/PExU5t/kRwkEWHdhGmQrZ2IgdQzbjPVNfhWbKHMMZGYqkASVTpQqRPLtQKg15xzEscc+BnIK/TE7/Q==
   dependencies:
     "@types/estree" "0.0.39"
     "@types/node" "^12.7.4"
@@ -11589,10 +11588,10 @@ terser@^4.1.2:
     source-map "~0.6.1"
     source-map-support "~0.5.12"
 
-terser@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-4.3.0.tgz#0259070576ff34d89c5cd2b8d91055cdce0212d5"
-  integrity sha512-w5CzrvQOwYAH54aG22IrUJI4yX1w62XQmMdEOM6H4w0ii6rc3HJ89fmcOGN5mRwBWfUgaqO7RJTp4aoY/uE+qQ==
+terser@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-4.3.1.tgz#09820bcb3398299c4b48d9a86aefc65127d0ed65"
+  integrity sha512-pnzH6dnFEsR2aa2SJaKb1uSCl3QmIsJ8dEkj0Fky+2AwMMcC9doMqLOQIH6wVTEKaVfKVvLSk5qxPBEZT9mywg==
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"
