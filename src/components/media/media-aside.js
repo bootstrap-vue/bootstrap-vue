@@ -18,12 +18,17 @@ export const BMediaAside = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
+    const align = props.verticalAlign === 'top'
+      ? 'start'
+      : props.verticalAlign === 'bottom'
+        ? 'end'
+        : props.verticalAlign
     return h(
       props.tag,
       mergeData(data, {
         staticClass: 'd-flex',
         class: {
-          [`align-self-${props.verticalAlign}`]: props.verticalAlign
+          [`align-self-${props.verticalAlign}`]: align
         }
       }),
       children
