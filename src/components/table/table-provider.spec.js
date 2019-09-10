@@ -322,7 +322,7 @@ describe('table > provider functions', () => {
       lastProviderContext = ctx
       return testItems.slice()
     }
-    const app = {
+    const App = {
       data() {
         // We use `this.$data` to get around a "bug" in Vue test utils that
         // doesn't let us change a child property in an object and update
