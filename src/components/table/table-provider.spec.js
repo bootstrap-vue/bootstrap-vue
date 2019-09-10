@@ -289,7 +289,11 @@ describe('table > provider functions', () => {
     
     await Vue.nextTick()
 
-    expect(providerCallCount).toBe(1)
+    expect(providerCallCount).toBe(2)
+    
+    await Vue.nextTick()
+
+    expect(providerCallCount).toBe(2)
   })
 
   it('reacts to items provider function change', async () => {
