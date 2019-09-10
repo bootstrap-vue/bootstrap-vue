@@ -279,7 +279,7 @@ describe('table > provider functions', () => {
       return testItems.slice()
     }
 
-    mount(BTable, {
+    const wrapper = mount(BTable, {
       propsData: {
         filter,
         fields,
@@ -294,6 +294,8 @@ describe('table > provider functions', () => {
     await Vue.nextTick()
 
     expect(providerCallCount).toBe(1)
+    
+    wrapper.destroy()
   })
   
   it('provider not being called when filter object changed', async () => {
@@ -309,7 +311,7 @@ describe('table > provider functions', () => {
       return testItems.slice()
     }
 
-    mount(BTable, {
+    const wrapper = mount(BTable, {
       propsData: {
         filter,
         items: provider
@@ -324,14 +326,16 @@ describe('table > provider functions', () => {
     // the provider is being called twice
     expect(providerCallCount).toBe(2)
 
-    filter.a = '456';
+    wrapper.setfilter.a = '456';
 
     await Vue.nextTick()
-    
+
     expect(lastProviderContext.filter).toBe({
       a: '456'
     })
     expect(providerCallCount).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('reacts to items provider function change', async () => {
