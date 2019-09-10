@@ -322,16 +322,18 @@ describe('table > provider functions', () => {
       lastProviderContext = ctx
       return testItems.slice()
     }
+    // We need a wrapper app to get around a "bug" in Vue test utils that
+    // doesn't let us change a child property in an object and update
+    // that prop with the same object reference
+    // https://forum.vuejs.org/t/vue-test-utils-watchers-on-object-properties-not-triggered/50900/11?u=tmorehouse
     const App = {
-      data {
-        // We use `this.$data` to get around a "bug" in Vue test utils that
-        // doesn't let us change a child property in an object and update
-        //that prop with the same object reference
-        // https://forum.vuejs.org/t/vue-test-utils-watchers-on-object-properties-not-triggered/50900/11?u=tmorehouse
-        a: '123'
+      data: {
+        filter: {
+          a: '123'
+        }
       },
       render(h) {
-        h(BTable, { props: { filter: this.$data, items: provider } })
+        h(BTable, { props: { filter: this.filter, items: provider } })
       }
     }
 
@@ -340,18 +342,14 @@ describe('table > provider functions', () => {
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
-    expect(wrapper.$data).toEqual({
-      a: '123'
-    })
 
     expect(lastProviderContext.filter).toEqual({
       a: '123'
     })
 
     // Change the filter criteria child property, but not the object reference
-    wrapper.setData({
-      a: '456'
-    })
+    // `setData` recursivly traverses the object and only changes the leaf values
+    wrapper.setData({ filter: { a: '456' } })
 
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
