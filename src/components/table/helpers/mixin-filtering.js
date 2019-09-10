@@ -32,7 +32,7 @@ export default {
     return {
       // Flag for displaying which empty slot to show and some event triggering
       isFiltered: false,
-      // Where we store the copy of the filter citeria after debouncing
+      // Where we store the copy of the filter criteria after debouncing
       localFilter: ''
     }
   },
@@ -109,19 +109,19 @@ export default {
           this.$_filterTimer = null
         }
         if (timeout) {
-          // If we have a debounce time, delay the update of this.localFilter
+          // If we have a debounce time, delay the update of `localFilter`
           this.$_filterTimer = setTimeout(() => {
             this.$_filterTimer = null
             this.localFilter = this.filterSanitize(this.filter)
           }, timeout)
         } else {
-          // Otherwise, immediately update this.localFilter
+          // Otherwise, immediately update `localFilter`
           this.localFilter = this.filterSanitize(this.filter)
         }
       }
     },
-    // Watch for changes to the filter criteria and filtered items vs localItems).
-    // And set visual state and emit events as required
+    // Watch for changes to the filter criteria and filtered items vs `localItems`
+    // Set visual state and emit events as required
     filteredCheck({ filteredItems, localItems, localFilter }) {
       // Determine if the dataset is filtered or not
       let isFiltered = false
@@ -152,10 +152,10 @@ export default {
     // Create non-reactive prop where we store the debounce timer id
     this.$_filterTimer = null
     // If filter is "pre-set", set the criteria
-    // This will trigger any watchers/dependants
+    // This will trigger any watchers/dependents
     this.localFilter = this.filterSanitize(this.filter)
-    // Set the initial filtered state.
-    // In a nextTick so that we trigger a filtered event if needed
+    // Set the initial filtered state
+    // In a `$nextTick()` so that we trigger a filtered event if needed
     this.$nextTick(() => {
       this.isFiltered = Boolean(this.localFilter)
     })
@@ -175,7 +175,7 @@ export default {
         !this.localFilterFn &&
         !(isString(criteria) || isRegExp(criteria))
       ) {
-        // If using internal filter function, which only accepts string or RegExp
+        // If using internal filter function, which only accepts string or RegExp,
         // return '' to signify no filter
         return ''
       }
