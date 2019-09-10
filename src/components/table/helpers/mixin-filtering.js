@@ -103,8 +103,6 @@ export default {
       // an object when using `filter-function`
       deep: true,
       handler(newFilter, oldFilter) {
-        // DEBUG
-        console.log('Filter prop changed:', newFilter, oldFilter)
         const timeout = this.computedFilterDebounce
         if (this.$_filterTimer) {
           clearTimeout(this.$_filterTimer)
@@ -117,8 +115,7 @@ export default {
             this.localFilter = this.filterSanitize(this.filter)
           }, timeout)
         } else {
-          // Otherwise, immediately update `localFilter`
-          // this.localFilter = this.filterSanitize(this.filter)
+          // Otherwise, immediately update `localFilter` with `newFilter` value
           this.localFilter = this.filterSanitize(newFilter)
         }
       }
