@@ -380,6 +380,6 @@ describe('table > provider functions', () => {
       a: '456'
     })
 
-    wrapper.detroy()
+    wrapper.destroy()
   })
 })
