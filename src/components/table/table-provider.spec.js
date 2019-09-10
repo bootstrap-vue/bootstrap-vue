@@ -317,7 +317,7 @@ describe('table > provider functions', () => {
   })
 
   it('provider is called when filter object child property is changed', async () => {
-    let lastProviderContext = null
+    let lastProviderContext = {}
     const provider = ctx => {
       lastProviderContext = ctx
       return testItems.slice()
@@ -341,6 +341,7 @@ describe('table > provider functions', () => {
 
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
 
     expect(lastProviderContext.filter).toEqual({
       a: '123'
@@ -351,6 +352,7 @@ describe('table > provider functions', () => {
       a: '456'
     })
 
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
