@@ -264,6 +264,29 @@ describe('table > provider functions', () => {
 
     wrapper.destroy()
   })
+  
+  it('calls provider only once when filter is object', async () => {
+    let providerCallCount = 0
+    let filter = {
+      a: '123'
+    }
+
+    const provider = () => {
+      providerCallCount += 1
+      return testItems.slice()
+    }
+
+    const wrapper = mount(BTable, {
+      propsData: {
+        filter,
+        items: provider
+      }
+    })
+    
+    await Vue.nextTick()
+    
+    expect(providerCallCount).toBe(1)
+  })
 
   it('reacts to items provider function change', async () => {
     const provider1 = () => {
