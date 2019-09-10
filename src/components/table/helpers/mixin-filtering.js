@@ -243,7 +243,7 @@ export default {
         // Users can ignore filtering on specific fields, or on only certain fields,
         // and can optionall specify searching results of fields with formatter
         //
-        // TODO: Enable searching on scoped slots
+        // TODO: Enable searching on scoped slots (optional, as it will be SLOW)
         //
         // Generated function returns true if the criteria matches part of
         // the serialized data, otherwise false
