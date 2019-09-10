@@ -341,6 +341,9 @@ describe('table > provider functions', () => {
 
     // Change the filter criteria child property, but not the object reference
     filter.a = '456'
+    wrapper.setProps({
+      filter: filter
+    })
 
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
