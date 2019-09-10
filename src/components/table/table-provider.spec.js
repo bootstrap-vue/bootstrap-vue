@@ -1,5 +1,5 @@
-import Vue from 'vue'
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
 import { BTable } from './table'
 
 const testItems = [
@@ -25,7 +25,7 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
     expect(wrapper.emitted('input')).toBeDefined()
@@ -59,7 +59,7 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
 
@@ -73,12 +73,12 @@ describe('table > provider functions', () => {
     // Should have single empty row
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(doResolve).toBeDefined()
     doResolve(testItems.slice())
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(
       wrapper
@@ -106,7 +106,7 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
 
@@ -120,12 +120,12 @@ describe('table > provider functions', () => {
     // Should have single empty row
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(callback).toBeDefined()
     callback(testItems.slice())
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(
       wrapper
@@ -151,7 +151,7 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
 
@@ -165,7 +165,7 @@ describe('table > provider functions', () => {
     // Should have single empty row
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     // Expect busy to be updated to false
     expect(wrapper.vm.localBusy).toBe(false)
@@ -196,7 +196,7 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     // Always initially emits a refresh when provider used
     expect(wrapper.emitted('refreshed')).toBeDefined()
@@ -204,12 +204,12 @@ describe('table > provider functions', () => {
 
     // Instance refresh method
     wrapper.vm.refresh()
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(2)
 
     // Root event refreshing
     wrapper.vm.$root.$emit('bv::refresh::table', 'the-table')
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(3)
 
     wrapper.destroy()
@@ -233,7 +233,7 @@ describe('table > provider functions', () => {
 
     expect(wrapper.emitted('refreshed')).not.toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('refreshed')).not.toBeDefined()
     expect(wrapper.vm.localBusy).toBe(true)
@@ -244,12 +244,12 @@ describe('table > provider functions', () => {
     // Trigger a context change that would trigger an internal _providerUpdate
     wrapper.setProps({ sortBy: 'b' })
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed')).not.toBeDefined()
 
     expect(callback).toBeDefined()
     callback(testItems.slice())
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     // Refreshed event should happen only once, even though
     // triggered 3 times while busy
@@ -257,9 +257,9 @@ describe('table > provider functions', () => {
     expect(wrapper.emitted('refreshed').length).toBe(1)
 
     // Just to be sure, we wait again and re-test
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(1)
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(1)
 
     wrapper.destroy()
@@ -282,7 +282,7 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
     expect(wrapper.emitted('input')).toBeDefined()
@@ -300,7 +300,7 @@ describe('table > provider functions', () => {
       items: provider2
     })
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(
