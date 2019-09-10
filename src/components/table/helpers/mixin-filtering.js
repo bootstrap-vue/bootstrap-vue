@@ -94,7 +94,7 @@ export default {
       if (!newVal && this.$_filterTimer) {
         clearTimeout(this.$_filterTimer)
         this.$_filterTimer = null
-        this.localFilter = this.filter
+        this.localFilter = this.filterSanitize(this.filter)
       }
     },
     // Watch for changes to the filter criteria, and debounce if necessary
@@ -112,7 +112,9 @@ export default {
           // If we have a debounce time, delay the update of `localFilter`
           this.$_filterTimer = setTimeout(() => {
             this.$_filterTimer = null
+            // this.$nextTick(() => {
             this.localFilter = this.filterSanitize(this.filter)
+            // })
           }, timeout)
         } else {
           // Otherwise, immediately update `localFilter` with `newFilter` value
