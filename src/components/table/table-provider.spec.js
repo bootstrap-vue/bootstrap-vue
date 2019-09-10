@@ -327,6 +327,7 @@ describe('table > provider functions', () => {
         // We use `this.$data` to get around a "bug" in Vue test utils that
         // doesn't let us change a child property in an object and update
         //that prop with the same object reference
+        // https://forum.vuejs.org/t/vue-test-utils-watchers-on-object-properties-not-triggered/50900/11?u=tmorehouse
         return {
           a: '123'
         }
@@ -334,7 +335,9 @@ describe('table > provider functions', () => {
       render(h) {
         h(BTable, { props: { filter: this.$data, items: provider } })
       }
-    })
+    }
+
+    const wrapper = mount(App)
 
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
