@@ -184,7 +184,7 @@
             <!-- Result -->
             <b-card no-body class="play-result" header-tag="header">
               <template v-slot:header>
-                <div class="d-flex justify-content-between align-items-center" >
+                <div class="d-flex justify-content-between align-items-center">
                   <h5 class="mb-0">
                     <span>Result</span>
                     <small v-if="compiling || building" class="text-muted"> building</small>
