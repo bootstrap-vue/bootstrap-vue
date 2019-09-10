@@ -318,17 +318,21 @@ describe('table > provider functions', () => {
 
   it('provider is called when filter object child property is changed', async () => {
     let lastProviderContext = null
-    const filter = {
-      a: '123'
-    }
     const provider = ctx => {
       lastProviderContext = ctx
       return testItems.slice()
     }
-    const wrapper = mount(BTable, {
-      propsData: {
-        filter,
-        items: provider
+    const app = {
+      data() {
+        // We use `this.$data` to get around a "bug" in Vue test utils that
+        // doesn't let us change a child property in an object and update
+        //that prop with the same object reference
+        return {
+          a: '123'
+        }
+      },
+      render(h) {
+        h(BTable, { props: { filter: this.$data, items: provider } })
       }
     })
 
@@ -340,9 +344,8 @@ describe('table > provider functions', () => {
     })
 
     // Change the filter criteria child property, but not the object reference
-    filter.a = '456'
-    wrapper.setProps({
-      filter: filter
+    wrapper.setData({
+      a: '456'
     })
 
     await waitNT(wrapper.vm)
