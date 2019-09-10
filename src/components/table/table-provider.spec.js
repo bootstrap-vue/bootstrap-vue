@@ -335,14 +335,14 @@ describe('table > provider functions', () => {
         }
       },
       render(h) {
-        h(BTable, { props: { filter: this.filter, items: provider } })
+        h(BTable, {
+          props: { filter: this.filter, items: provider, noLoalFiltering: true }
+        })
       }
     }
 
     const wrapper = mount(App)
 
-    await waitNT(wrapper.vm)
-    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
     expect(lastProviderContext.filter).toEqual({
