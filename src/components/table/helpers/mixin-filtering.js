@@ -33,7 +33,7 @@ export default {
       // Flag for displaying which empty slot to show and some event triggering
       isFiltered: false,
       // Where we store the copy of the filter citeria after debouncing
-      localFilter: null
+      localFilter: ''
     }
   },
   computed: {
@@ -66,8 +66,8 @@ export default {
     // Returns the original `localItems` array if not sorting
     filteredItems() {
       const items = this.localItems || []
-      // Note the criteria is debounced
-      const criteria = this.filterSanitize(this.localFilter)
+      // Note the criteria is pre debounced and sanitized
+      const criteria = this.localFilter
 
       // Resolve the filtering function, when requested
       // We prefer the provided filtering function and fallback to the internal one
@@ -91,23 +91,23 @@ export default {
   watch: {
     // Watch for debounce being set to 0
     computedFilterDebounce(newVal, oldVal) {
-      if (!newVal && this.filterTimer) {
-        clearTimeout(this.filterTimer)
-        this.filterTimer = null
+      if (!newVal && this.$_filterTimer) {
+        clearTimeout(this.$_filterTimer)
+        this.$_filterTimer = null
         this.localFilter = this.filter
       }
     },
     // Watch for changes to the filter criteria, and debounce if necessary
     filter(newFilter, oldFilter) {
       const timeout = this.computedFilterDebounce
-      if (this.filterTimer) {
-        clearTimeout(this.filterTimer)
-        this.filterTimer = null
+      if (this.$_filterTimer) {
+        clearTimeout(this.$_filterTimer)
+        this.$_filterTimer = null
       }
       if (timeout) {
         // If we have a debounce time, delay the update of this.localFilter
-        this.filterTimer = setTimeout(() => {
-          this.filterTimer = null
+        this.$_filterTimer = setTimeout(() => {
+          this.$_filterTimer = null
           this.localFilter = this.filterSanitize(this.filter)
         }, timeout)
       } else {
@@ -145,7 +145,7 @@ export default {
   },
   created() {
     // Create non-reactive prop where we store the debounce timer id
-    this.filterTimer = null
+    this.$_filterTimer = null
     // If filter is "pre-set", set the criteria
     // This will trigger any watchers/dependants
     this.localFilter = this.filterSanitize(this.filter)
@@ -157,9 +157,9 @@ export default {
   },
   beforeDestroy() {
     /* istanbul ignore next */
-    if (this.filterTimer) {
-      clearTimeout(this.filterTimer)
-      this.filterTimer = null
+    if (this.$_filterTimer) {
+      clearTimeout(this.$_filterTimer)
+      this.$_filterTimer = null
     }
   },
   methods: {
@@ -171,8 +171,8 @@ export default {
         !(isString(criteria) || isRegExp(criteria))
       ) {
         // If using internal filter function, which only accepts string or RegExp
-        // return null to signify no filter
-        return null
+        // return '' to signify no filter
+        return ''
       }
 
       // Could be a string, object or array, as needed by external filter function
@@ -210,6 +210,7 @@ export default {
     },
     defaultFilterFnFactory(criteria) {
       // Generates the default filter function, using the given filter criteria
+      // Returns `null` if no criteria or criteria format not supported
       if (!criteria || !(isString(criteria) || isRegExp(criteria))) {
         // Built in filter can only support strings or RegExp criteria (at the moment)
         return null
