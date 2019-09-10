@@ -323,14 +323,12 @@ describe('table > provider functions', () => {
       return testItems.slice()
     }
     const App = {
-      data() {
+      data {
         // We use `this.$data` to get around a "bug" in Vue test utils that
         // doesn't let us change a child property in an object and update
         //that prop with the same object reference
         // https://forum.vuejs.org/t/vue-test-utils-watchers-on-object-properties-not-triggered/50900/11?u=tmorehouse
-        return {
-          a: '123'
-        }
+        a: '123'
       },
       render(h) {
         h(BTable, { props: { filter: this.$data, items: provider } })
@@ -342,6 +340,9 @@ describe('table > provider functions', () => {
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
+    expect(wrapper.$data).toEqual({
+      a: '123'
+    })
 
     expect(lastProviderContext.filter).toEqual({
       a: '123'
