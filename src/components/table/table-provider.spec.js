@@ -326,7 +326,11 @@ describe('table > provider functions', () => {
     // the provider is being called twice
     expect(providerCallCount).toBe(2)
 
-    wrapper.setfilter.a = '456';
+    wrapper.setProps({
+      filter: {
+        a: '456'
+      }
+    });
 
     await Vue.nextTick()
 
