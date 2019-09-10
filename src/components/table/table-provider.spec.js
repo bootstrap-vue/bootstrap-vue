@@ -324,7 +324,7 @@ describe('table > provider functions', () => {
 
     await Vue.nextTick()
     
-    expect(providerCallCount.filter).toBe({
+    expect(lastProviderContext.filter).toBe({
       a: '456'
     })
     expect(providerCallCount).toBe(3)
