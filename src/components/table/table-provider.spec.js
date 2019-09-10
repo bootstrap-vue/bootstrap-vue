@@ -270,6 +270,9 @@ describe('table > provider functions', () => {
     const filter = {
       a: '123'
     }
+    const fields = [
+      'a' 
+    ]  
 
     const provider = () => {
       providerCallCount += 1
@@ -279,6 +282,7 @@ describe('table > provider functions', () => {
     mount(BTable, {
       propsData: {
         filter,
+        fields,
         items: provider
       }
     })
