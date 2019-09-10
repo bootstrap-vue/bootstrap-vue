@@ -327,9 +327,11 @@ describe('table > provider functions', () => {
     // that prop with the same object reference
     // https://forum.vuejs.org/t/vue-test-utils-watchers-on-object-properties-not-triggered/50900/11?u=tmorehouse
     const App = {
-      data: {
-        filter: {
-          a: '123'
+      data() {
+        return {
+          filter: {
+            a: '123'
+          }
         }
       },
       render(h) {
