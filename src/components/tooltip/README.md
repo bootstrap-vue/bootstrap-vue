@@ -14,7 +14,7 @@
   </b-button>
   <b-tooltip target="tooltip-target-1" triggers="hover">
     I am tooltip <b>component</b> content!
-  </b-popover>
+  </b-tooltip>
 </div>
 
 <!-- b-tooltip.vue -->
