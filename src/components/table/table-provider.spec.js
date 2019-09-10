@@ -166,6 +166,7 @@ describe('table > provider functions', () => {
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
 
     await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
 
     // Expect busy to be updated to false
     expect(wrapper.vm.localBusy).toBe(false)
