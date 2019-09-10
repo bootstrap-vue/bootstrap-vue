@@ -360,6 +360,7 @@ describe('table > provider functions', () => {
 
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
 
     expect(lastProviderContext.filter).toEqual({
       a: '123'
@@ -368,7 +369,9 @@ describe('table > provider functions', () => {
     // Change the filter criteria child property, but not the object reference
     // `setData` recursivly traverses the object and only changes the leaf values
     wrapper.setData({ filter: { a: '456' } })
+    expect(wrapper.vm.filter).toEqual({ a: '456' })
 
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
