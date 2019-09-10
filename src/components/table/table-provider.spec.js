@@ -339,8 +339,7 @@ describe('table > provider functions', () => {
           props: {
             items: provider,
             fields: testFields,
-            filter: this.filter,
-            noLoalFiltering: true
+            filter: this.filter
           }
         })
       }
@@ -349,6 +348,9 @@ describe('table > provider functions', () => {
     const wrapper = mount(App)
 
     expect(wrapper.is('table')).toBe(true)
+
+    const $table = wtrapper.find(BTable)
+    expect($table.exists()).toBe(true)
 
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
