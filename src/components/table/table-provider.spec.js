@@ -318,10 +318,7 @@ describe('table > provider functions', () => {
 
   it('provider is called when filter object child property is changed', async () => {
     let lastProviderContext = {}
-    const provider = ctx => {
-      lastProviderContext = ctx
-      return testItems.slice()
-    }
+
     // We need a wrapper app to get around a "bug" in Vue test utils that
     // doesn't let us change a child property in an object and update
     // that prop with the same object reference
@@ -331,14 +328,21 @@ describe('table > provider functions', () => {
         return {
           filter: {
             a: '123'
-          }
+          },
+          fields: testFields
+        }
+      },
+      methods: {
+        provider(ctx) {
+          lastProviderContext = ctx
+          return testItems.slice()
         }
       },
       render(h) {
         h(BTable, {
           props: {
-            items: provider,
-            fields: testFields,
+            items: this.provider,
+            fields: this.fields,
             filter: this.filter
           }
         })
@@ -349,7 +353,7 @@ describe('table > provider functions', () => {
 
     expect(wrapper.is('table')).toBe(true)
 
-    const $table = wtrapper.find(BTable)
+    const $table = wrapper.find(BTable)
     expect($table.exists()).toBe(true)
 
     await waitNT(wrapper.vm)
