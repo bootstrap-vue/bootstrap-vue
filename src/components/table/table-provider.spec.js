@@ -291,6 +291,39 @@ describe('table > provider functions', () => {
 
     expect(providerCallCount).toBe(1)
   })
+  
+  it('provider not being called when filter object changed', async () => {
+    let providerCallCount = 0
+    const filter = {
+      a: '123'
+    }
+
+    const provider = () => {
+      providerCallCount += 1
+      return testItems.slice()
+    }
+
+    mount(BTable, {
+      propsData: {
+        filter,
+        items: provider
+      }
+    })
+
+    await Vue.nextTick()
+
+    expect(providerCallCount).toBe(1)
+
+    await Vue.nextTick()
+    // the provider is being called twice
+    expect(providerCallCount).toBe(2)
+    
+    filter.a = '456';
+    
+    await Vue.nextTick()
+    // the provider is being called twice
+    expect(providerCallCount).toBe(3)
+  })
 
   it('reacts to items provider function change', async () => {
     const provider1 = () => {
