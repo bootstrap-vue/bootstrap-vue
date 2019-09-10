@@ -264,10 +264,10 @@ describe('table > provider functions', () => {
 
     wrapper.destroy()
   })
-  
+
   it('calls provider only once when filter is object', async () => {
     let providerCallCount = 0
-    let filter = {
+    const filter = {
       a: '123'
     }
 
@@ -282,9 +282,13 @@ describe('table > provider functions', () => {
         items: provider
       }
     })
+
+    await Vue.nextTick()
+
+    expect(providerCallCount).toBe(1)
     
     await Vue.nextTick()
-    
+
     expect(providerCallCount).toBe(1)
   })
 
