@@ -276,7 +276,7 @@ describe('table > provider functions', () => {
       return testItems.slice()
     }
 
-    const wrapper = mount(BTable, {
+    mount(BTable, {
       propsData: {
         filter,
         items: provider
@@ -286,14 +286,10 @@ describe('table > provider functions', () => {
     await Vue.nextTick()
 
     expect(providerCallCount).toBe(1)
-    
+
     await Vue.nextTick()
 
-    expect(providerCallCount).toBe(2)
-    
-    await Vue.nextTick()
-
-    expect(providerCallCount).toBe(2)
+    expect(providerCallCount).toBe(1)
   })
 
   it('reacts to items provider function change', async () => {
