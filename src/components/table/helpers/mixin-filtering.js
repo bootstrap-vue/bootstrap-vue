@@ -112,9 +112,7 @@ export default {
           // If we have a debounce time, delay the update of `localFilter`
           this.$_filterTimer = setTimeout(() => {
             this.$_filterTimer = null
-            // this.$nextTick(() => {
             this.localFilter = this.filterSanitize(this.filter)
-            // })
           }, timeout)
         } else {
           // Otherwise, immediately update `localFilter` with `newFilter` value
