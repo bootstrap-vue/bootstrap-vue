@@ -70,12 +70,16 @@ export default {
     items(newVal, oldVal) {
       // If a new provider has been specified, trigger an update
       if (this.hasProvider || isFunction(newVal)) {
+        // DEBUG
+        console.log('Items watcher calling provider update')
         this.$nextTick(this._providerUpdate)
       }
     },
     providerTriggerContext(newVal, oldVal) {
       // Trigger the provider to update as the relevant context values have changed.
       if (!looseEqual(newVal, oldVal)) {
+        // DEBUG
+        console.log('providerTriggerContext', newVal, oldVal)
         this.$nextTick(this._providerUpdate)
       }
     }
@@ -83,6 +87,8 @@ export default {
   mounted() {
     // Call the items provider if necessary
     if (this.hasProvider && (!this.localItems || this.localItems.length === 0)) {
+      // DEBUG
+      console.log('Mounted calling provider update)
       // Fetch on mount if localItems is empty
       this._providerUpdate()
     }
@@ -131,6 +137,8 @@ export default {
       }
       // If table is busy, wait until refreshed before calling again
       if (this.computedBusy) {
+        // DEBUG
+        console.log('_providerUpdate, delaying update')
         // Schedule a new refresh once `refreshed` is emitted
         this.$nextTick(this.refresh)
         return
@@ -141,6 +149,8 @@ export default {
 
       // Call provider function with context and optional callback after DOM is fully updated
       this.$nextTick(() => {
+        // DEBUG
+        console.log('_providerUpdate updating after nextTick')
         try {
           // Call provider function passing it the context and optional callback
           const data = this.items(this.context, this._providerSetLocal)
