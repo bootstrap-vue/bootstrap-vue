@@ -167,7 +167,7 @@ export default {
       // Sanitizes filter criteria based on internal or external filtering
       if (
         this.localFiltering &&
-        !isFunction(this.filterFunction) &&
+        !this.localFilterFn &&
         !(isString(criteria) || isRegExp(criteria))
       ) {
         // If using internal filter function, which only accepts string or RegExp
