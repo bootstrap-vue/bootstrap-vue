@@ -329,7 +329,7 @@ describe('table > provider functions', () => {
           filter: {
             a: '123'
           },
-          fields: testFields
+          fields: testFields.slice()
         }
       },
       methods: {
@@ -339,7 +339,7 @@ describe('table > provider functions', () => {
         }
       },
       render(h) {
-        h(BTable, {
+        return h(BTable, {
           props: {
             items: this.provider,
             fields: this.fields,
@@ -349,7 +349,9 @@ describe('table > provider functions', () => {
       }
     }
 
-    const wrapper = mount(App)
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
 
     expect(wrapper.is('table')).toBe(true)
 
