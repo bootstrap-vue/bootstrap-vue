@@ -326,7 +326,7 @@ options are visible.
 Note when `select-size` is set to a value greater than 1, the Bootstrap v4 custom styling will
 **not** be applied, unless the `multiple` prop is also set.
 
-Note: not all mobile browsers will show a the select as a list-box.
+Note: not all mobile browsers will show the select as a list-box.
 
 ```html
 <template>
