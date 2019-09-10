@@ -270,9 +270,7 @@ describe('table > provider functions', () => {
     const filter = {
       a: '123'
     }
-    const fields = [
-      'a' 
-    ]  
+    const fields = ['a']
 
     const provider = () => {
       providerCallCount += 1
@@ -294,10 +292,10 @@ describe('table > provider functions', () => {
     await Vue.nextTick()
 
     expect(providerCallCount).toBe(1)
-    
+
     wrapper.destroy()
   })
-  
+
   it('provider not being called when filter object changed', async () => {
     let providerCallCount = 0
     let lastProviderContext = null
@@ -305,7 +303,7 @@ describe('table > provider functions', () => {
       a: '123'
     }
 
-    const provider = (ctx) => {
+    const provider = ctx => {
       providerCallCount += 1
       lastProviderContext = ctx
       return testItems.slice()
@@ -330,13 +328,11 @@ describe('table > provider functions', () => {
       filter: {
         a: '456'
       }
-    });
+    })
 
     await Vue.nextTick()
 
-    expect(lastProviderContext.filter).toBe({
-      a: '456'
-    })
+    expect(lastProviderContext.filter.a).toBe('456')
     expect(providerCallCount).toBe(3)
 
     wrapper.destroy()
