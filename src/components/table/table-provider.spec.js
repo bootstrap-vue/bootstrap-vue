@@ -321,15 +321,13 @@ describe('table > provider functions', () => {
     const filter = {
       a: '123'
     }
-    const provider = (ctx) => {
+    const provider = ctx => {
       lastProviderContext = ctx
       return testItems.slice()
     }
-
     const wrapper = mount(BTable, {
       propsData: {
         filter,
-        filterFunction: filterFn,
         items: provider
       }
     })
