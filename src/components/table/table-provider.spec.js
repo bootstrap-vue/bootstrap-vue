@@ -336,13 +336,21 @@ describe('table > provider functions', () => {
       },
       render(h) {
         h(BTable, {
-          props: { filter: this.filter, items: provider, noLoalFiltering: true }
+          props: {
+            items: provider,
+            fields: testFields,
+            filter: this.filter,
+            noLoalFiltering: true
+          }
         })
       }
     }
 
     const wrapper = mount(App)
 
+    expect(wrapper.is('table')).toBe(true)
+
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
     expect(lastProviderContext.filter).toEqual({
