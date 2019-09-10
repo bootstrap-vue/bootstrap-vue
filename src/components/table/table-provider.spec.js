@@ -294,12 +294,14 @@ describe('table > provider functions', () => {
   
   it('provider not being called when filter object changed', async () => {
     let providerCallCount = 0
+    let lastProviderContext = null
     const filter = {
       a: '123'
     }
 
-    const provider = () => {
+    const provider = (ctx) => {
       providerCallCount += 1
+      lastProviderContext = ctx
       return testItems.slice()
     }
 
@@ -317,11 +319,14 @@ describe('table > provider functions', () => {
     await Vue.nextTick()
     // the provider is being called twice
     expect(providerCallCount).toBe(2)
-    
+
     filter.a = '456';
-    
+
     await Vue.nextTick()
-    // the provider is being called twice
+    
+    expect(providerCallCount.filter).toBe({
+      a: '456'
+    })
     expect(providerCallCount).toBe(3)
   })
 
