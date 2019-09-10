@@ -367,7 +367,7 @@ describe('table > provider functions', () => {
     })
 
     // Change the filter criteria child property, but not the object reference
-    // `setData` recursivly traverses the object and only changes the leaf values
+    // `setData` recursively traverses the object and only changes the leaf values
     wrapper.setData({ filter: { a: '456' } })
     expect(wrapper.vm.filter).toEqual({ a: '456' })
 
