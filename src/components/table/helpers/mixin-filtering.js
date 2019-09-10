@@ -98,23 +98,26 @@ export default {
       }
     },
     // Watch for changes to the filter criteria, and debounce if necessary
-    filter(newFilter, oldFilter) {
-      // DEBUG
-      console.log('Filter Changed Detected:', newFilter)
-      const timeout = this.computedFilterDebounce
-      if (this.$_filterTimer) {
-        clearTimeout(this.$_filterTimer)
-        this.$_filterTimer = null
-      }
-      if (timeout) {
-        // If we have a debounce time, delay the update of this.localFilter
-        this.$_filterTimer = setTimeout(() => {
+    filter: {
+      // We need a deep watcher incase the user passes
+      // an object when using `filter-function`
+      deep: true,
+      handler(newFilter, oldFilter) {
+        const timeout = this.computedFilterDebounce
+        if (this.$_filterTimer) {
+          clearTimeout(this.$_filterTimer)
           this.$_filterTimer = null
+        }
+        if (timeout) {
+          // If we have a debounce time, delay the update of this.localFilter
+          this.$_filterTimer = setTimeout(() => {
+            this.$_filterTimer = null
+            this.localFilter = this.filterSanitize(this.filter)
+          }, timeout)
+        } else {
+          // Otherwise, immediately update this.localFilter
           this.localFilter = this.filterSanitize(this.filter)
-        }, timeout)
-      } else {
-        // Otherwise, immediately update this.localFilter
-        this.localFilter = this.filterSanitize(this.filter)
+        }
       }
     },
     // Watch for changes to the filter criteria and filtered items vs localItems).
