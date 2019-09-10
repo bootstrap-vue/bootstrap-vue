@@ -315,4 +315,42 @@ describe('table > provider functions', () => {
 
     wrapper.destroy()
   })
+
+  it('provider is called when filter object child property is changed', async () => {
+    let lastProviderContext = null
+    const filter = {
+      a: '123'
+    }
+    const provider = (ctx) => {
+      lastProviderContext = ctx
+      return testItems.slice()
+    }
+
+    const wrapper = mount(BTable, {
+      propsData: {
+        filter,
+        filterFunction: filterFn,
+        items: provider
+      }
+    })
+
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+
+    expect(lastProviderContext.filter).toEqual({
+      a: '123'
+    })
+
+    // Change the filter criteria child property, but not the object reference
+    filter.a = '456'
+
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+
+    expect(lastProviderContext.filter).toEqual({
+      a: '456'
+    })
+
+    wrapper.detroy()
+  })
 })
