@@ -99,6 +99,8 @@ export default {
     },
     // Watch for changes to the filter criteria, and debounce if necessary
     filter(newFilter, oldFilter) {
+      // DEBUG
+      console.log('Filter Changed Detected:', newFilter)
       const timeout = this.computedFilterDebounce
       if (this.$_filterTimer) {
         clearTimeout(this.$_filterTimer)
