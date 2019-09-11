@@ -23,7 +23,14 @@ import {
   eventOn,
   eventOff
 } from '../../../utils/dom'
-import { isFunction, isNumber, isPlainObject, isString, isUndefined } from '../../../utils/inspect'
+import {
+  isFunction,
+  isNumber,
+  isPlainObject,
+  isString,
+  isUndefined,
+  isUndefinedOrNull
+} from '../../../utils/inspect'
 import { keys } from '../../../utils/object'
 import { warn } from '../../../utils/warn'
 import { BvEvent } from '../../../utils/bv-event.class'
@@ -358,9 +365,13 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         !target ||
         !contains(document.body, target) ||
         !isVisible(target) ||
-        this.dropdownOpen()
+        this.dropdownOpen() ||
+        ((isUndefinedOrNull(this.title) || this.title === '') &&
+          (isUndefinedOrNull(this.content) || this.content === ''))
       ) {
-        // If trigger element isn't in the DOM or is not visible, or is on an open dropdown toggle
+        // If trigger element isn't in the DOM or is not visible, or
+        // is on an open dropdown toggle, or has no content, then
+        // we exit without showing
         return
       }
 

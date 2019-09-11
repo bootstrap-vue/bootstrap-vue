@@ -18,10 +18,11 @@ to appear.
 
 ## Overview
 
-Things to know when using popovers:
+Things to know when using the popover directive:
 
 - Popovers rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
 - Popovers require BootstrapVue's custom SCSS/CSS for transitions and color variants.
+- If both title and content is not provided (or are an empty string), the popover will not show.
 - Specify container: 'body' (default) to avoid rendering problems in more complex components (like
   input groups, button groups, etc).
 - Triggering popovers on hidden elements will not work.
