@@ -97,22 +97,20 @@ export default {
       // an object when using `filter-function`
       deep: true,
       handler(newFilter, oldFilter) {
-        if (!looseEqual(newFilter, oldFilter)) {
-          const timeout = this.computedFilterDebounce
-          if (this.$_filterTimer) {
-            clearTimeout(this.$_filterTimer)
+        const timeout = this.computedFilterDebounce
+        if (this.$_filterTimer) {
+          clearTimeout(this.$_filterTimer)
+          this.$_filterTimer = null
+        }
+        if (timeout) {
+          // If we have a debounce time, delay the update of `localFilter`
+          this.$_filterTimer = setTimeout(() => {
             this.$_filterTimer = null
-          }
-          if (timeout) {
-            // If we have a debounce time, delay the update of `localFilter`
-            this.$_filterTimer = setTimeout(() => {
-              this.$_filterTimer = null
-              this.localFilter = this.filterSanitize(this.filter)
-            }, timeout)
-          } else {
-            // Otherwise, immediately update `localFilter` with `newFilter` value
-            this.localFilter = this.filterSanitize(newFilter)
-          }
+            this.localFilter = this.filterSanitize(this.filter)
+          }, timeout)
+        } else {
+          // Otherwise, immediately update `localFilter` with `newFilter` value
+          this.localFilter = this.filterSanitize(newFilter)
         }
       }
     },
