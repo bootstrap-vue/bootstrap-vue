@@ -354,7 +354,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Show the tooltip
       const target = this.getTarget()
 
-      if (!target || !contains(document.body, target) || !isVisible(target) || this.dropdownOpen()) {
+      if (
+        !target ||
+        !contains(document.body, target) ||
+        !isVisible(target) ||
+        this.dropdownOpen()
+      ) {
         // If trigger element isn't in the DOM or is not visible, or is on an open dropdown toggle
         return
       }
