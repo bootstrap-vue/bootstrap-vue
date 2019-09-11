@@ -196,6 +196,7 @@ module.exports = {
       theme_color: '#563d7c'
     },
     meta: {
+      ogHost: 'https://bootstrap-vue.js.org/',
       ogImage: true,
       twitterCard: 'summary',
       twitterSite: '@BootstrapVue',
