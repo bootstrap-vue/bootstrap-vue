@@ -316,6 +316,34 @@ describe('table > provider functions', () => {
     wrapper.destroy()
   })
 
+  it('calls provider only once when filter is pre-set object', async () => {
+    let providerCallCount = 0
+    const provider = () => {
+      providerCallCount++
+      return testItems.slice()
+    }
+
+    const wrapper = mount(BTable, {
+      propsData: {
+        filter: { a: '123' },
+        fields: testFields.slice(),
+        items: provider
+      }
+    })
+
+    await waitNT(wrapper.vm)
+
+    expect(providerCallCount).toBe(1)
+
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+
+    expect(providerCallCount).toBe(1)
+
+    wrapper.destroy()
+  })
+
   it('provider is called when filter object child property is changed', async () => {
     let lastProviderContext = {}
 
@@ -371,7 +399,6 @@ describe('table > provider functions', () => {
     wrapper.setData({ filter: { a: '456' } })
     expect(wrapper.vm.filter).toEqual({ a: '456' })
 
-    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
