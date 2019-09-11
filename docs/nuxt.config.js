@@ -179,11 +179,6 @@ module.exports = {
     height: '3px'
   },
 
-  // Test to get around issue with og:image not being generated
-  manifest: {
-    icons: []
-  },
-
   pwa: {
     icon: {
       // iconFileName: 'icon.png',
@@ -197,7 +192,7 @@ module.exports = {
     },
     meta: {
       // `ogHost` is required for `og:image` to be populated
-      ogHost: 'https://bootstrap-vue.js.org/',
+      ogHost: 'https://bootstrap-vue.js.org',
       ogImage: true,
       twitterCard: 'summary',
       twitterSite: '@BootstrapVue',
