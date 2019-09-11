@@ -33,7 +33,7 @@ export default {
       // Flag for displaying which empty slot to show and some event triggering
       isFiltered: false,
       // Where we store the copy of the filter criteria after debouncing
-      // localFilter: ''
+      // We pre-set it with the sanitized filter value
       localFilter: this.filterSanitize(this.filter)
     }
   },
@@ -73,20 +73,13 @@ export default {
       // Resolve the filtering function, when requested
       // We prefer the provided filtering function and fallback to the internal one
       // When no filtering criteria is specified the filtering factories will return `null`
-      let filterFn = null
-      if (this.localFiltering) {
-        filterFn =
-          this.filterFnFactory(this.localFilterFn, criteria) ||
+      const filterFn = this.localFiltering
+        ? this.filterFnFactory(this.localFilterFn, criteria) ||
           this.defaultFilterFnFactory(criteria)
-      }
+        : null
 
       // We only do local filtering when requested and there are records to filter
-      if (filterFn && items.length > 0) {
-        return items.filter(filterFn)
-      }
-
-      // Otherwise return all items
-      return items
+      return filterFn && items.length > 0 ? items.filter(filterFn) : items
     }
   },
   watch: {
