@@ -1,5 +1,6 @@
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
+import { requestAF } from '../../../utils/dom'
 import { isArray, isFunction, isPromise } from '../../../utils/inspect'
 import listenOnRootMixin from '../../../mixins/listen-on-root'
 
@@ -141,38 +142,41 @@ export default {
 
       // Call provider function with context and optional callback after DOM is fully updated
       this.$nextTick(() => {
-        try {
-          // Call provider function passing it the context and optional callback
-          const data = this.items(this.context, this._providerSetLocal)
-          if (isPromise(data)) {
-            // Provider returned Promise
-            data.then(items => {
-              // Provider resolved with items
-              this._providerSetLocal(items)
-            })
-          } else if (isArray(data)) {
-            // Provider returned Array data
-            this._providerSetLocal(data)
-          } else {
-            /* istanbul ignore if */
-            if (this.items.length !== 2) {
-              // Check number of arguments provider function requested
-              // Provider not using callback (didn't request second argument), so we clear
-              // busy state as most likely there was an error in the provider function
-              /* istanbul ignore next */
-              warn(
-                "b-table provider function didn't request callback and did not return a promise or data"
-              )
-              this.localBusy = false
+        // Added in RAF to allow time for busy styling to render
+        requestAF(() => {
+          try {
+            // Call provider function passing it the context and optional callback
+            const data = this.items(this.context, this._providerSetLocal)
+            if (isPromise(data)) {
+              // Provider returned Promise
+              data.then(items => {
+                // Provider resolved with items
+                this._providerSetLocal(items)
+              })
+            } else if (isArray(data)) {
+              // Provider returned Array data
+              this._providerSetLocal(data)
+            } else {
+              /* istanbul ignore if */
+              if (this.items.length !== 2) {
+                // Check number of arguments provider function requested
+                // Provider not using callback (didn't request second argument), so we clear
+                // busy state as most likely there was an error in the provider function
+                /* istanbul ignore next */
+                warn(
+                  "b-table provider function didn't request callback and did not return a promise or data"
+                )
+                this.localBusy = false
+              }
             }
+          } catch (e) /* istanbul ignore next */ {
+            // Provider function borked on us, so we spew out a warning
+            // and clear the busy state
+            warn(`b-table provider function error [${e.name}] ${e.message}`)
+            this.localBusy = false
+            this.$off('refreshed', this.refresh)
           }
-        } catch (e) /* istanbul ignore next */ {
-          // Provider function borked on us, so we spew out a warning
-          // and clear the busy state
-          warn(`b-table provider function error [${e.name}] ${e.message}`)
-          this.localBusy = false
-          this.$off('refreshed', this.refresh)
-        }
+        })
       })
     }
   }
