@@ -3,7 +3,14 @@ import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
-import { isFunction, isObject, isString, isUndefined, isUndefinedOrNull } from '../../utils/inspect'
+import {
+  isFunction,
+  isObject,
+  isNumber,
+  isString,
+  isUndefined,
+  isUndefinedOrNull
+} from '../../utils/inspect'
 import { keys } from '../../utils/object'
 import { BVPopover } from '../../components/popover/helpers/bv-popover'
 
@@ -58,7 +65,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   }
 
   // Process `bindings.value`
-  if (isString(bindings.value)) {
+  if (isString(bindings.value) || isNumber(bindings.value)) {
     // Value is popover content (html optionally supported)
     config.content = bindings.value
   } else if (isFunction(bindings.value)) {
