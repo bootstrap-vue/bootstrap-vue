@@ -88,7 +88,7 @@ export default {
     // Call the items provider if necessary
     if (this.hasProvider && (!this.localItems || this.localItems.length === 0)) {
       // DEBUG
-      console.log('Mounted calling provider update)
+      console.log('Mounted calling provider update')
       // Fetch on mount if localItems is empty
       this._providerUpdate()
     }
