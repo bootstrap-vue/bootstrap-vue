@@ -189,6 +189,12 @@ module.exports = {
       short_name: 'BootstrapVue',
       description: 'Quickly integrate Bootstrap v4 components with Vue.js',
       theme_color: '#563d7c'
+    },
+    meta: {
+      ogImage: true,
+      twitterCard: 'summary',
+      twitterSite: '@BootstrapVue',
+      twitterCreator: '@BootstrapVue'
     }
   },
 
