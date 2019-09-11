@@ -33,7 +33,9 @@ export default {
       // Flag for displaying which empty slot to show and some event triggering
       isFiltered: false,
       // Where we store the copy of the filter criteria after debouncing
-      localFilter: ''
+      // localFilter: ''
+      // Will this work, since it used computed props?
+      localFilter: this.sanitizeFilter(this.filter)
     }
   },
   computed: {
