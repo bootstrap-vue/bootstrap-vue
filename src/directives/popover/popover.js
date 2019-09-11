@@ -80,9 +80,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   if (isUndefined(config.title)) {
     // Try attribute
     const data = vnode.data || {}
-    config.title = data.attrs && !isUndefinedOrNull(data.attrs.title)
-      ? data.attrs.title
-      : undefined
+    config.title = data.attrs && !isUndefinedOrNull(data.attrs.title) ? data.attrs.title : undefined
   }
 
   // Normalize delay
