@@ -12,6 +12,7 @@ import {
   isDisabled,
   isVisible,
   closest,
+  contains,
   select,
   getById,
   hasClass,
@@ -211,7 +212,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
     this.$nextTick(() => {
       const target = this.getTarget()
-      if (target && document.contains(target)) {
+      if (target && contains(document.body, target)) {
         // Copy the parent's scoped style attribute
         this.scopeId = getScopId(this.$parent)
         // Set up all trigger handlers and listeners
@@ -362,7 +363,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
       if (
         !target ||
-        !document.body.contains(target) ||
+        !contains(document.body, target) ||
         !isVisible(target) ||
         this.dropdownOpen() ||
         ((isUndefinedOrNull(this.title) || this.title === '') &&
@@ -799,13 +800,13 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         /* istanbul ignore next */
         if (
           // From tip to target
-          (tip && tip.contains(evtTarget) && target.contains(relatedTarget)) ||
+          (tip && contains(tip, evtTarget) && contains(target, relatedTarget)) ||
           // From target to tip
-          (tip && target.contains(evtTarget) && tip.contains(relatedTarget)) ||
+          (tip && contains(target, evtTarget) && contains(tip, relatedTarget)) ||
           // Within tip
-          (tip && tip.contains(evtTarget) && tip.contains(relatedTarget)) ||
+          (tip && contains(tip, evtTarget) && contains(tip, relatedTarget)) ||
           // Within target
-          (target.contains(evtTarget) && target.contains(relatedTarget))
+          (contains(target, evtTarget) && contains(target, relatedTarget))
         ) {
           // If focus/hover moves within `tip` and `target`, don't trigger a leave
           return
