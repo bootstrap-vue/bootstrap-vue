@@ -3,7 +3,7 @@ import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
-import { isFunction, isObject, isString, isUndefined } from '../../utils/inspect'
+import { isFunction, isObject, isString, isUndefined, isUndefinedOrNull } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 import { BVPopover } from '../../components/popover/helpers/bv-popover'
 
@@ -80,7 +80,9 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   if (isUndefined(config.title)) {
     // Try attribute
     const data = vnode.data || {}
-    config.title = data.attrs && data.attrs.title ? data.attrs.title : undefined
+    config.title = data.attrs && !isUndefinedOrNull(data.attrs.title)
+      ? data.attrs.title
+      : undefined
   }
 
   // Normalize delay
