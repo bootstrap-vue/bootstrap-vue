@@ -1,4 +1,5 @@
 import looseEqual from '../../../utils/loose-equal'
+import { cloneDeep } from '../../utils/clone-deep'
 import { isArray, isFunction, isNull, isString, isUndefined } from '../../../utils/inspect'
 import normalizeFields from './normalize-fields'
 
@@ -79,7 +80,9 @@ export default {
     context() {
       // Current state of sorting, filtering and pagination props/values
       return {
-        filter: this.localFilter,
+        // We use `cloneDeep` on `localFilter` to remove any
+        // reactive watchers if filter is an object
+        filter: cloneDeep(this.localFilter),
         sortBy: this.localSortBy,
         sortDesc: this.localSortDesc,
         perPage: parseInt(this.perPage, 10) || 0,
