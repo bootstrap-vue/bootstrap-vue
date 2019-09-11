@@ -1,5 +1,5 @@
-import Vue from 'vue'
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
 import { BTable } from './table'
 
 const testItems = [
@@ -25,7 +25,7 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
     expect(wrapper.emitted('input')).toBeDefined()
@@ -59,7 +59,7 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
 
@@ -73,12 +73,12 @@ describe('table > provider functions', () => {
     // Should have single empty row
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(doResolve).toBeDefined()
     doResolve(testItems.slice())
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(
       wrapper
@@ -106,7 +106,7 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
 
@@ -120,12 +120,12 @@ describe('table > provider functions', () => {
     // Should have single empty row
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(callback).toBeDefined()
     callback(testItems.slice())
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(
       wrapper
@@ -151,7 +151,7 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
 
@@ -165,7 +165,8 @@ describe('table > provider functions', () => {
     // Should have single empty row
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
 
     // Expect busy to be updated to false
     expect(wrapper.vm.localBusy).toBe(false)
@@ -196,7 +197,7 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     // Always initially emits a refresh when provider used
     expect(wrapper.emitted('refreshed')).toBeDefined()
@@ -204,12 +205,12 @@ describe('table > provider functions', () => {
 
     // Instance refresh method
     wrapper.vm.refresh()
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(2)
 
     // Root event refreshing
     wrapper.vm.$root.$emit('bv::refresh::table', 'the-table')
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(3)
 
     wrapper.destroy()
@@ -233,7 +234,7 @@ describe('table > provider functions', () => {
 
     expect(wrapper.emitted('refreshed')).not.toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('refreshed')).not.toBeDefined()
     expect(wrapper.vm.localBusy).toBe(true)
@@ -244,12 +245,12 @@ describe('table > provider functions', () => {
     // Trigger a context change that would trigger an internal _providerUpdate
     wrapper.setProps({ sortBy: 'b' })
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed')).not.toBeDefined()
 
     expect(callback).toBeDefined()
     callback(testItems.slice())
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     // Refreshed event should happen only once, even though
     // triggered 3 times while busy
@@ -257,9 +258,9 @@ describe('table > provider functions', () => {
     expect(wrapper.emitted('refreshed').length).toBe(1)
 
     // Just to be sure, we wait again and re-test
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(1)
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(1)
 
     wrapper.destroy()
@@ -282,7 +283,7 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
     expect(wrapper.emitted('input')).toBeDefined()
@@ -300,7 +301,7 @@ describe('table > provider functions', () => {
       items: provider2
     })
 
-    await Vue.nextTick()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(
@@ -311,6 +312,100 @@ describe('table > provider functions', () => {
     ).toBe(true)
 
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
+
+    wrapper.destroy()
+  })
+
+  it('calls provider only once when filter is pre-set object', async () => {
+    let providerCallCount = 0
+    const provider = () => {
+      providerCallCount++
+      return testItems.slice()
+    }
+
+    const wrapper = mount(BTable, {
+      propsData: {
+        filter: { a: '123' },
+        fields: testFields.slice(),
+        items: provider
+      }
+    })
+
+    await waitNT(wrapper.vm)
+
+    expect(providerCallCount).toBe(1)
+
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+
+    expect(providerCallCount).toBe(1)
+
+    wrapper.destroy()
+  })
+
+  it('provider is called when filter object child property is changed', async () => {
+    let lastProviderContext = {}
+
+    // We need a wrapper app to get around a "bug" in Vue test utils that
+    // doesn't let us change a child property in an object and update
+    // that prop with the same object reference
+    // https://forum.vuejs.org/t/vue-test-utils-watchers-on-object-properties-not-triggered/50900/11?u=tmorehouse
+    const App = {
+      data() {
+        return {
+          filter: {
+            a: '123'
+          },
+          fields: testFields.slice()
+        }
+      },
+      methods: {
+        provider(ctx) {
+          lastProviderContext = ctx
+          return testItems.slice()
+        }
+      },
+      render(h) {
+        return h(BTable, {
+          props: {
+            items: this.provider,
+            fields: this.fields,
+            filter: this.filter
+          }
+        })
+      }
+    }
+
+    const wrapper = mount(App, {
+      attachToDocument: true
+    })
+
+    expect(wrapper.is('table')).toBe(true)
+
+    const $table = wrapper.find(BTable)
+    expect($table.exists()).toBe(true)
+
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+
+    expect(lastProviderContext.filter).toEqual({
+      a: '123'
+    })
+
+    // Change the filter criteria child property, but not the object reference
+    // `setData` recursively traverses the object and only changes the leaf values
+    wrapper.setData({ filter: { a: '456' } })
+    expect(wrapper.vm.filter).toEqual({ a: '456' })
+
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+
+    expect(lastProviderContext.filter).toEqual({
+      a: '456'
+    })
 
     wrapper.destroy()
   })

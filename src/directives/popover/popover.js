@@ -3,7 +3,14 @@ import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
-import { isFunction, isObject, isString, isUndefined } from '../../utils/inspect'
+import {
+  isFunction,
+  isObject,
+  isNumber,
+  isString,
+  isUndefined,
+  isUndefinedOrNull
+} from '../../utils/inspect'
 import { keys } from '../../utils/object'
 import { BVPopover } from '../../components/popover/helpers/bv-popover'
 
@@ -47,6 +54,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     container: false, // Default of body
     animation: true,
     offset: 0,
+    disabled: false,
     id: null,
     html: false,
     delay: getComponentConfig(NAME, 'delay'),
@@ -57,7 +65,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   }
 
   // Process `bindings.value`
-  if (isString(bindings.value)) {
+  if (isString(bindings.value) || isNumber(bindings.value)) {
     // Value is popover content (html optionally supported)
     config.content = bindings.value
   } else if (isFunction(bindings.value)) {
@@ -79,7 +87,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   if (isUndefined(config.title)) {
     // Try attribute
     const data = vnode.data || {}
-    config.title = data.attrs && data.attrs.title ? data.attrs.title : undefined
+    config.title = data.attrs && !isUndefinedOrNull(data.attrs.title) ? data.attrs.title : undefined
   }
 
   // Normalize delay
@@ -209,6 +217,7 @@ const applyPopover = (el, bindings, vnode) => {
     offset: config.offset,
     noFade: !config.animation,
     id: config.id,
+    disabled: config.disabled,
     html: config.html
   }
   const oldData = el[BV_POPOVER].__bv_prev_data__

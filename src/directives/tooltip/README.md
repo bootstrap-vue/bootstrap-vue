@@ -16,9 +16,11 @@ appear.
 
 ## Overview
 
-Things to know when using tooltips:
+Things to know when using the tooltip directive:
 
 - Tooltips rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
+- Tooltips require BootstrapVue's custom SCSS/CSS for transitions and color variants.
+- If a title is not provided (or is an empty string), the tooltip will not show.
 - Specify container: 'body' (the default) to avoid rendering problems in more complex components
   (like input groups, button groups, etc).
 - Triggering tooltips on hidden elements will not work.
@@ -352,6 +354,7 @@ Where `<value>` can be (optional):
 | `variant`           | String                              | `null`           | Contextual color variant for the tooltip.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `customClass`       | String                              | `null`           | A custom classname to apply to the tooltip outer wrapper element.                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `id`                | String                              | `null`           | An ID to use on the tooltip root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page.                                                                                                                                                                                                                                                                                     |
+| `disabled`          | Boolean                             | `false`          | Set to `true` to disable the tooltip                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 ### Usage
 

@@ -179,11 +179,25 @@ module.exports = {
     height: '3px'
   },
 
-  manifest: {
-    name: 'BootstrapVue',
-    short_name: 'BootstrapVue',
-    description: 'Quickly integrate Bootstrap v4 components with Vue.js',
-    theme_color: '#563d7c'
+  pwa: {
+    icon: {
+      // iconFileName: 'icon.png',
+      iconSrc: '~/static/icon.png'
+    },
+    manifest: {
+      name: 'BootstrapVue',
+      short_name: 'BootstrapVue',
+      description: 'Quickly integrate Bootstrap v4 components with Vue.js',
+      theme_color: '#563d7c'
+    },
+    meta: {
+      // `ogHost` is required for `og:image` to be populated
+      ogHost: 'https://bootstrap-vue.js.org',
+      ogImage: true,
+      twitterCard: 'summary',
+      twitterSite: '@BootstrapVue',
+      twitterCreator: '@BootstrapVue'
+    }
   },
 
   generate: {
