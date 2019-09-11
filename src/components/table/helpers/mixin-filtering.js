@@ -33,9 +33,8 @@ export default {
       // Flag for displaying which empty slot to show and some event triggering
       isFiltered: false,
       // Where we store the copy of the filter criteria after debouncing
-      // localFilter: ''
-      // Will this work, since it used computed props?
-      localFilter: this.sanitizeFilter(this.filter)
+      localFilter: ''
+      // localFilter: this.filter
     }
   },
   computed: {
@@ -68,8 +67,8 @@ export default {
     // Returns the original `localItems` array if not sorting
     filteredItems() {
       const items = this.localItems || []
-      // Note the criteria is pre debounced and sanitized
-      const criteria = this.localFilter
+      // Note the criteria is debounced and might not be sanitized
+      const criteria = this.sanitizeFilter(this.localFilter)
 
       // Resolve the filtering function, when requested
       // We prefer the provided filtering function and fallback to the internal one
@@ -150,12 +149,15 @@ export default {
       }
     }
   },
+  beforeCreate() {
+    this.localFilter = this.filterSanitize(this.filter)
+  },
   created() {
     // Create non-reactive prop where we store the debounce timer id
     this.$_filterTimer = null
     // If filter is "pre-set", set the criteria
     // This will trigger any watchers/dependents
-    this.localFilter = this.filterSanitize(this.filter)
+    // this.localFilter = this.filterSanitize(this.filter)
     // Set the initial filtered state in a `$nextTick()` so that
     // we trigger a filtered event if needed
     this.$nextTick(() => {
