@@ -196,6 +196,7 @@ module.exports = {
       theme_color: '#563d7c'
     },
     meta: {
+      // `ogHost` is required for `og:image` to be populated
       ogHost: 'https://bootstrap-vue.js.org/',
       ogImage: true,
       twitterCard: 'summary',
