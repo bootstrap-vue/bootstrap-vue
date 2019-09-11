@@ -365,10 +365,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         !document.body.contains(target) ||
         !isVisible(target) ||
         this.dropdownOpen() ||
-        (
-          (isUndefinedOrNull(this.title) || this.title === '') &&
-          (isUndefinedOrNull(this.content) || this.content === '')
-        )
+        ((isUndefinedOrNull(this.title) || this.title === '') &&
+          (isUndefinedOrNull(this.content) || this.content === ''))
       ) {
         // If trigger element isn't in the DOM or is not visible, or
         // is on an open dropdown toggle, or has no content, then
