@@ -69,8 +69,8 @@
         const ocURL = `${baseURL}${type}?limit=100`
         const xhr = new XMLHttpRequest()
 
-        const.open('GET', ocURL, true)
-        const.addEventListener('load', function () {
+        xhr.open('GET', ocURL, true)
+        xhr.addEventListener('load', function () {
           if (xhr.readyState !== 4) {
             return
           }
