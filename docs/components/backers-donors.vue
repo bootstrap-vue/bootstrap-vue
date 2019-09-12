@@ -92,10 +92,10 @@
             slug: n.fromAccount.slug,
             imageUrl: n.fromAccount.imageUrl,
             website: n.fromAccount.website,
-            amount: n.totalDonations
+            amount: n.totalDonations,
             status: n.status,
             frequency: n.frequency,
-            tier: n.tier.slug
+            tier: n.tier.slug,
             date: new Date(n.createdAt)
           }
         })
