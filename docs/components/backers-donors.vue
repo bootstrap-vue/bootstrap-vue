@@ -66,7 +66,7 @@ export default {
   mounted() {
     // Backers are people/organizations with recurring (active) donations
     this.requestOC(this.processBackers, 'active')
-    // Donors are  are people/organizations with one-time (paid) donations
+    // Donors are people/organizations with one-time (paid) donations
     this.requestOC(this.processDonors, 'paid')
   },
   methods: {
@@ -82,7 +82,7 @@ export default {
         }
         if (xhr.status === 200) {
           const response = JSON.parse(xhr.responseText) || {}
-          cb(this.processOcNodes(response.nodes), null)
+          cb(this.processOcNodes(response.nodes || []), null)
         } else {
           // We just return an empty node list rather than spew an error
           // eslint-disable-next-line standard/no-callback-literal
@@ -93,22 +93,25 @@ export default {
       xhr.send()
     },
     processOcNodes(nodes = []) {
-      return nodes.map(n => {
+      // DEBUG
+      console.log('Nodes:', nodes)
+      return nodes.map(entry => {
         return {
-          name: n.fromAccount.name,
-          slug: n.fromAccount.slug,
-          imageUrl: n.fromAccount.imageUrl,
-          website: n.fromAccount.website,
-          amount: n.totalDonations,
-          status: n.status,
-          frequency: n.frequency,
-          tier: n.tier.slug,
-          date: new Date(n.createdAt)
+          slug: entry.fromAccount.slug,
+          name: entry.fromAccount.name,
+          type: entry.fromAccount.type,
+          imageUrl: entry.fromAccount.imageUrl,
+          website: entry.fromAccount.website,
+          status: entry.status,
+          amount: entry.totalDonations,
+          frequency: entry.frequency,
+          tier: entry.tier.slug,
+          date: new Date(entry.createdAt)
         }
       })
     },
     sortCompare(a = {}, b = {}) {
-      // sort first by amount, then by date
+      // Sort first by amount, then by date
       return (a.amount || 0) - (b.amount || 0) || (a.date || 0) - (b.date || 0)
     },
     processBackers(backers = []) {
@@ -116,7 +119,7 @@ export default {
       // so we sort by larger amount first, then by date
       // Limit to top 10 backers
       this.backers = backers
-        .filter(b => b.status === 'ACTIVE')
+        .filter(backer => backer.status === 'ACTIVE')
         .sort(this.sortCompare)
         .slice(0, 10)
     },
@@ -127,10 +130,10 @@ export default {
       // We sort by larger amount first, then by date
       // Limit to top 20 most recent donors
       this.donors = donors
-        .filter(d => d.status === 'PAID')
-        .reduce((arr, d) => {
-          if (arr.map(i => i.slug).indexOf(d.slug) === -1) {
-            arr.push(d)
+        .filter(donor => donor.status === 'PAID')
+        .reduce((arr, donor) => {
+          if (arr.map(d => d.slug).indexOf(donor.slug) === -1) {
+            arr.push(donor)
           }
           return arr
         }, [])
