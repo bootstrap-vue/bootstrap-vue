@@ -126,6 +126,8 @@ export default {
       return (a.amount || 0) - (b.amount || 0) || (a.date || 0) - (b.date || 0)
     },
     processBackers(backers = []) {
+      // DEBUG
+      console.log('Backers:', backers)
       // Backers are provided in reverse chronological order
       // so we sort by larger amount first, then by date
       // Limit to top 10 backers
@@ -135,6 +137,8 @@ export default {
         .slice(0, 10)
     },
     processDonors(donors = []) {
+      // DEBUG
+      console.log('Donors:', donors)
       // Donors are provided in reverse chronological order,
       // but donors can be listed more than once (for each individual donation),
       // although the totalDonations is the same on each entry.
