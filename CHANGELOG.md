@@ -4,6 +4,34 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.1"></a>
+
+## [v2.0.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0...v2.0.1)
+
+Released: 2019-09-12
+
+### Bug Fixes v2.0.1
+
+- **b-media:** fix vertical align class when `top` or `bottom` selected (fixes
+  [#4052](https://github.com/bootstrap-vue/bootstrap-vue/issues/4052))
+  ([#4055](https://github.com/bootstrap-vue/bootstrap-vue/issues/4055))
+  ([9ccfe4c](https://github.com/bootstrap-vue/bootstrap-vue/commit/9ccfe4c))
+- **b-table:** handle filter as an object when using items provider, and prevent duplicate provider calls
+  on mount (fixes [#4065](https://github.com/bootstrap-vue/bootstrap-vue/issues/4065))
+  ([#4068](https://github.com/bootstrap-vue/bootstrap-vue/issues/4068))
+  ([9ddd115](https://github.com/bootstrap-vue/bootstrap-vue/commit/9ddd115))
+- **tooltips, popovers:** check `document.body` instead of `document` for IE11 support (fixes
+  [#4074](https://github.com/bootstrap-vue/bootstrap-vue/issues/4074))
+  ([#4075](https://github.com/bootstrap-vue/bootstrap-vue/issues/4075))
+  ([1eda4fe](https://github.com/bootstrap-vue/bootstrap-vue/commit/1eda4fe))
+- **v-b-tooltip, v-b-popover:** add missing `disabled` config option
+  ([#4057](https://github.com/bootstrap-vue/bootstrap-vue/issues/4057))
+  ([f488dc1](https://github.com/bootstrap-vue/bootstrap-vue/commit/f488dc1))
+- **v-b-tooltip, v-b-popover:** don't show if no title/content provided (closes
+  [#4064](https://github.com/bootstrap-vue/bootstrap-vue/issues/4064))
+  ([#4076](https://github.com/bootstrap-vue/bootstrap-vue/issues/4076))
+  ([0b7de29](https://github.com/bootstrap-vue/bootstrap-vue/commit/0b7de29))
+
 <a name="2.0.0"></a>
 
 ## [v2.0.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.28...v2.0.0)
