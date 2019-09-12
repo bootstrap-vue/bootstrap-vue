@@ -10,6 +10,8 @@
 
 Released: 2019-09-12
 
+This patch release includes a few minor bug fixes and documentation updates.
+
 ### Bug Fixes v2.0.1
 
 - **b-media:** fix vertical align class when `top` or `bottom` selected (fixes
