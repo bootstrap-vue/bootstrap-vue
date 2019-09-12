@@ -8,7 +8,12 @@
             <b-img-lazy :src="backer.imageUrl" fluid block aria-hidden="true"></b-img-lazy>
           </div>
           <h6 class="pt-2">
-            <b-link v-if="backer.url" :href="backer.url" class="stretched-link text-reset">
+            <b-link
+              v-if="backer.url"
+              :href="backer.url"
+              target="_blank"
+              class="stretched-link text-reset"
+            >
               {{ backer.name }}
             </b-link>
             <template v-else>
@@ -24,7 +29,12 @@
       <div class="donor-container d-flex flex-wrap mx-n1 text-center">
         <div v-for="donor in donors" :key="donor.slug" class="m-1 position-relative">
           <div class="img-thumbnail d-flex align-items-center justify-content-center overflow-hidden">
-            <b-link v-if="donor.url" :href="donor.url" class="stretched-link" :title="donor.name">
+            <b-link
+              v-if="donor.url"
+              :href="donor.url"
+              target="_blank"
+              class="stretched-link" :title="donor.name"
+            >
               <b-img-lazy :src="donor.imageUrl" fluid block :alt="donor.name"></b-img-lazy>
             </b-link>
             <b-img-lazy
