@@ -459,6 +459,8 @@
         >
           Become a sponsor
         </b-button>
+
+        <BackersDonors class="mt-2"></BackersDonors>
       </b-container>
     </section>
 
@@ -710,8 +712,10 @@ $bv-angle-padding-md: 6rem;
 
 <script>
 import { version, bootstrapVersion, vueVersion } from '~/content'
+import BackersDonors from '~/components/backers-donors'
 
 export default {
+  components: { BackersDonors },
   data() {
     return {
       isIE: false,
