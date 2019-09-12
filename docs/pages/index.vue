@@ -459,6 +459,14 @@
         >
           Become a sponsor
         </b-button>
+        <b-button
+          href="https://opencollective.com/bootstrap-vue#donate"
+          size="sm"
+          variant="outline-secondary"
+          target="_blank"
+        >
+          Donate
+        </b-button>
 
         <BackersDonors class="mt-2"></BackersDonors>
       </b-container>
