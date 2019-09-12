@@ -31,9 +31,10 @@
           <div class="img-thumbnail d-flex align-items-center justify-content-center overflow-hidden">
             <b-link
               v-if="donor.url"
+              :title="donor.name"
               :href="donor.url"
               target="_blank"
-              class="stretched-link" :title="donor.name"
+              class="stretched-link"
             >
               <b-img-lazy :src="donor.imageUrl" fluid block :alt="donor.name"></b-img-lazy>
             </b-link>
