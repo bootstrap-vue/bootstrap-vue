@@ -2,7 +2,7 @@
   <div>
     <template v-if="backers.length > 0">
       <h5 class="mx-auto">Backers</h5>
-      <div class="backer-container d-flex flex-wrap mx-n2 text-center font-weight-bold">
+      <div class="backer-container d-flex flex-wrap mx-n2 text-center justify-content-center font-weight-bold">
         <div v-for="backer in backers" :key="backer.slug" class="m-2 position-relative">
           <div class="backer img-thumbnail bg-light mx-auto d-flex align-items-center justify-content-center overflow-hidden">
             <b-img-lazy :src="backer.imageUrl" fluid block aria-hidden="true"></b-img-lazy>
@@ -26,7 +26,7 @@
 
     <template v-if="donors.length > 0">
       <h5 class="mx-auto">Donors</h5>
-      <div class="donor-container d-flex flex-wrap mx-n1 text-center">
+      <div class="donor-container d-flex flex-wrap mx-n1 text-center justify-content-center">
         <div v-for="donor in donors" :key="donor.slug" class="m-1 position-relative">
           <div class="donor img-thumbnail d-flex align-items-center justify-content-center overflow-hidden">
             <b-link
