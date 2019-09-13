@@ -4,6 +4,299 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.1"></a>
+
+## [v2.0.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0...v2.0.1)
+
+Released: 2019-09-13
+
+This patch release includes a few minor bug fixes and documentation updates.
+
+### Bug Fixes v2.0.1
+
+- **b-media:** fix vertical align class when `top` or `bottom` selected (fixes
+  [#4052](https://github.com/bootstrap-vue/bootstrap-vue/issues/4052))
+  ([#4055](https://github.com/bootstrap-vue/bootstrap-vue/issues/4055))
+  ([9ccfe4c](https://github.com/bootstrap-vue/bootstrap-vue/commit/9ccfe4c))
+- **b-table:** handle filter as an object when using items provider, and prevent duplicate provider calls
+  on mount (fixes [#4065](https://github.com/bootstrap-vue/bootstrap-vue/issues/4065))
+  ([#4068](https://github.com/bootstrap-vue/bootstrap-vue/issues/4068))
+  ([9ddd115](https://github.com/bootstrap-vue/bootstrap-vue/commit/9ddd115))
+- **b-table:** remove extra slashes in mixins imports
+  ([#4087](https://github.com/bootstrap-vue/bootstrap-vue/issues/4087))
+  ([77f5be1](https://github.com/bootstrap-vue/bootstrap-vue/commit/77f5be1))
+- **tooltips, popovers:** check `document.body` instead of `document` for IE11 support (fixes
+  [#4074](https://github.com/bootstrap-vue/bootstrap-vue/issues/4074))
+  ([#4075](https://github.com/bootstrap-vue/bootstrap-vue/issues/4075))
+  ([1eda4fe](https://github.com/bootstrap-vue/bootstrap-vue/commit/1eda4fe))
+- **v-b-tooltip, v-b-popover:** add missing `disabled` config option
+  ([#4057](https://github.com/bootstrap-vue/bootstrap-vue/issues/4057))
+  ([f488dc1](https://github.com/bootstrap-vue/bootstrap-vue/commit/f488dc1))
+- **v-b-tooltip, v-b-popover:** don't show if no title/content provided (closes
+  [#4064](https://github.com/bootstrap-vue/bootstrap-vue/issues/4064))
+  ([#4076](https://github.com/bootstrap-vue/bootstrap-vue/issues/4076))
+  ([0b7de29](https://github.com/bootstrap-vue/bootstrap-vue/commit/0b7de29))
+
+<a name="2.0.0"></a>
+
+## [v2.0.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.28...v2.0.0)
+
+Released: 2019-09-06
+
+> **BootstrapVue 2.0.0 stable** introduces several new features and bug fixes. Please note that this
+> release also _includes several breaking changes_.
+
+**Notable improvements:**
+
+- Tooltips and popovers have been completely re-written for better reactivity and stability. The
+  directive versions are now reactive to trigger element `title` attribute changes and configuration
+  changes. The component versions now perform better when quickly hovering/un-hovering the trigger
+  element. Component and directive versions now have a default delay of `50`ms (affects `'hover'`
+  and `'focus'` triggers only). They can now have a trigger of `'manual'` (when used by itself) of
+  which they can only be opened or closed programmatically. Users can now optionally specify the ID
+  that the tooltip or popover uses. For accessibility reasons, the `title` attribute is removed from
+  the trigger element (target) only when the tooltip or popover is showing, and is restored when
+  hidden.
+- Modals, tooltips, popovers, and toasts now work with scoped style classes (requires the use of
+  vue-loader's `/deep/`, `::v-deep` or `>>>`
+  [deep selectors](https://vue-loader.vuejs.org/guide/scoped-css.html#child-component-root-elements)
+  for targeting inner elements, just like with any other component).
+- New SVG background image based sorting indicator icons for `<b-table>`, with the ability to place
+  them on either the right (default) or left of the table cell headers (via a new prop).
+- Programmatic selection of `<b-table>` selectable rows.
+- Ability to provide your own custom footer structure for `<b-table>` and `<b-table-lite>`.
+
+### Breaking changes and deprecated features removal v2.0.0
+
+**Please carefully read the following before upgrading to v2.0.0 stable!**
+
+- Vue `2.6`+ is now **required** at a minimum, `2.6.10`+ is recommended. Some components will fail
+  to work as expected if using Vue `2.5` (notably tooltips and popovers, but other components may be
+  affected as well).
+- All **deprecated features** have been removed in v2.0.0 stable in order to reduce bundle size and
+  simplify code.
+
+**Two notable breaking changes are:**
+
+- **changes to the table slot naming syntax:** the table slot syntax introduced in rc.28 has been
+  modified in v2.0.0 stable for better compatibility with the new Vue `v-slot` syntax and its
+  limitations (which currently are not documented in the Vue.JS docs).
+- **the removal of the deprecated `/es` build directory:** Users should now be importing the new
+  top-level named exports when importing individual components, directives, and plugins.
+
+Read the following migration guide for more details.
+
+### Migration guide v2.0.0
+
+- **Removal of the deprecated `/es` build directory**. Users should now be using the new simplified
+  import syntax introduced in v2.0.0-rc.22. Users should be importing the top-level _named exports_
+  instead.
+- `b-dropdown`: removal of deprecated `text` slot. Use the `button-content` slot instead.
+- `b-form-*` controls, `b-form-group`, `b-form-invalid-feedback` and `b-form-valid-feedback`:
+  validation prop `state` now only accepts `true`, `false`, or `null` values. Passing the strings
+  `'invalid'` or `'valid'` will no longer work.
+- `b-form-group`: removal of the deprecated `horizontal` and `breakpoint` props. Use props
+  `label-cols{-{breakpoint}}` instead.
+- `b-img-lazy`, `b-card-img-lazy`: now rely only on `IntersectionObserver` support (native or via a
+  polyfill) to determine when to show the image. If `IntersectionObserver` support is not detected,
+  then the image will _always_ be shown. Use a polyfill if you need to support older browsers (e.g.
+  IE11)
+- `b-modal`: the deprecated `BvModalEvent` method `cancel()` has been removed. Use the method
+  `preventDefault()` instead.
+- `b-modal`: the deprecated `BvModalEvent` property `modalId` has been removed. Use the property
+  `componentId` instead.
+- `b-nav`: removal of the deprecated `is-nav` prop. Use `b-navbar-nav` component instead when
+  placing navs in `b-navbar`.
+- `b-nav-item-dropdown`: deprecated props `extra-menu-classes` and `extra-toggle-classes` have been
+  removed. Used props `menu-class` and `toggle-class` (respectively) instead.
+- `b-table` and `b-table-lite`: **table cell field, header and footer scoped slot naming convention
+  has changed**. Users should be using the new table round bracketed slot naming syntax: use slot
+  `cell(field)` instead of `field` or `[field]`, use slot `head(field)` instead of `HEAD_field` or
+  `HEAD[field]`, use `foot(field)` instead of `FOOT_field` or `FOOT[field]`. This change was
+  _required_ for better compatibility with the new Vue `v-slot` syntax. The square bracket syntax
+  introduced in `2.0.0-rc.28` has been replaced with the round bracket syntax to reduce possible
+  confusion and potential future issues with Vue 2.6's new
+  [dynamic slot name](https://vuejs.org/v2/guide/components-slots.html#Dynamic-Slot-Names) syntax.
+- `b-table`: the `filter` prop will no longer accept a function reference (previously deprecated).
+  Instead, pass a function to the `filter-function` prop when using a custom filter function. The
+  prop `filter` is only to be used for the filter's _criteria_ (i.e. the search value, search
+  `RegExpr`, etc).
+- `b-table`: passing an object as a `fields` definition will no longer work. Use the _array of
+  strings_ or _array of objects_ (or a combination of the two) fields definition format instead.
+- `b-table`: sorting icon SASS variables have been changed to handle the new SVG backgrounds. If you
+  previously had custom CSS styling/icons, they will not work as expected - but sorting will still
+  work. the SVG backgrounds can be controlled via SASS variables.
+- `b-tab`: removal of deprecated `href` prop. Use `<b-nav>` for controlling panes that change with
+  URL changes.
+- `b-tabs`: removal of deprecated `tabs` slot. Use slot `tabs-end` instead.
+- `b-tabs`: removal of deprecated `bottom` prop. Use the `end` prop instead.
+- Tooltip SCSS: deprecated variable `$bv-tooltip-bg-level` has been removed. Use variable
+  `$b-tooltip-bg-level` instead.
+- Popover SCSS: deprecated variables `$bv-popover-bg-level`, `$bv-popover-border-level`, and
+  `$bv-popover-color-level` have been removed. Use variables `$b-popover-bg-level`,
+  `$b-popover-border-level`, and `$b-popover-color-level` (respectively) instead.
+
+Please refer to the [documentation](https://bootstrap-vue.js.org/) for the latest usage and
+examples, and below for a list of fixes and new features.
+
+### Bug Fixes v2.0.0
+
+- **b-dropdown-\*:** ensure class bindings are placed on root element for all dropdown
+  sub-components (closes [#4022](https://github.com/bootstrap-vue/bootstrap-vue/issues/4022))
+  ([#4024](https://github.com/bootstrap-vue/bootstrap-vue/issues/4024))
+  ([81efb89](https://github.com/bootstrap-vue/bootstrap-vue/commit/81efb89))
+- **b-form-textarea:** handle initial auto-height when in modal, tabs, or other component with
+  transition or which uses `v-show` (fixes
+  [#3936](https://github.com/bootstrap-vue/bootstrap-vue/issues/3936),
+  [#3702](https://github.com/bootstrap-vue/bootstrap-vue/issues/3702))
+  ([#3937](https://github.com/bootstrap-vue/bootstrap-vue/issues/3937))
+  ([be3ac62](https://github.com/bootstrap-vue/bootstrap-vue/commit/be3ac62))
+- **b-link:** only add the `nativeOn` property to componentData when rendering a router link
+  ([#3976](https://github.com/bootstrap-vue/bootstrap-vue/issues/3976))
+  ([62fb0b6](https://github.com/bootstrap-vue/bootstrap-vue/commit/62fb0b6))
+- **b-modal:** ensure non-prop attributes are transferred to the modal outer wrapper `div` (closes
+  [#3896](https://github.com/bootstrap-vue/bootstrap-vue/issues/3896))
+  ([#3921](https://github.com/bootstrap-vue/bootstrap-vue/issues/3921))
+  ([8bf3a55](https://github.com/bootstrap-vue/bootstrap-vue/commit/8bf3a55))
+- **b-modal:** fix scroll to top issue when modal has `no-fade` set
+  ([#4004](https://github.com/bootstrap-vue/bootstrap-vue/issues/4004))
+  ([332b79f](https://github.com/bootstrap-vue/bootstrap-vue/commit/332b79f))
+- **b-table, b-table-lite:** handle edge case where field slot returns no vNodes (fixes
+  [#3919](https://github.com/bootstrap-vue/bootstrap-vue/issues/3919))
+  ([#3920](https://github.com/bootstrap-vue/bootstrap-vue/issues/3920))
+  ([a392059](https://github.com/bootstrap-vue/bootstrap-vue/commit/a392059))
+- **b-table, b-table-lite:** render header when not always stacked mode (fixes
+  [#3886](https://github.com/bootstrap-vue/bootstrap-vue/issues/3886))
+  ([#3887](https://github.com/bootstrap-vue/bootstrap-vue/issues/3887))
+  ([2302b31](https://github.com/bootstrap-vue/bootstrap-vue/commit/2302b31))
+- **b-table, b-table-lite:** generate `:key` for `row-details` row based on the `primary-key` field
+  value if available ([#4025](https://github.com/bootstrap-vue/bootstrap-vue/issues/4025))
+  ([c7cb16f](https://github.com/bootstrap-vue/bootstrap-vue/commit/c7cb16f))
+- **v-b-toggle:** don't override `role` if element has a `role` assigned
+  ([#3889](https://github.com/bootstrap-vue/bootstrap-vue/issues/3889))
+  ([5d155ba](https://github.com/bootstrap-vue/bootstrap-vue/commit/5d155ba))
+- **tooltip, popover:** overall code refactor for better reactivity and performance (fixes:
+  [#1990](https://github.com/bootstrap-vue/bootstrap-vue/issues/1990),
+  [#2937](https://github.com/bootstrap-vue/bootstrap-vue/issues/2937),
+  [#3480](https://github.com/bootstrap-vue/bootstrap-vue/issues/3480),
+  [#3717](https://github.com/bootstrap-vue/bootstrap-vue/issues/3717),
+  [#3854](https://github.com/bootstrap-vue/bootstrap-vue/issues/3854), closes
+  [#3451](https://github.com/bootstrap-vue/bootstrap-vue/issues/3451))
+  ([#3908](https://github.com/bootstrap-vue/bootstrap-vue/issues/3908))
+  ([eebab43](https://github.com/bootstrap-vue/bootstrap-vue/commit/eebab43))
+
+### Features v2.0.0
+
+- **b-carousel:** add prop `no-wrap` for disabling wrapping to start/end (closes
+  [#3902](https://github.com/bootstrap-vue/bootstrap-vue/issues/3902))
+  ([#3905](https://github.com/bootstrap-vue/bootstrap-vue/issues/3905))
+  ([2c8bd23](https://github.com/bootstrap-vue/bootstrap-vue/commit/2c8bd23))
+- **b-dropdown:** add `role=presentation` to `<li>` elements for improved a11y
+  ([#3996](https://github.com/bootstrap-vue/bootstrap-vue/issues/3996))
+  ([464d257](https://github.com/bootstrap-vue/bootstrap-vue/commit/464d257))
+- **b-img-lazy:** switch IntersectionObserver to use private `v-b-visible` directive
+  ([#3977](https://github.com/bootstrap-vue/bootstrap-vue/issues/3977))
+  ([249ccfa](https://github.com/bootstrap-vue/bootstrap-vue/commit/249ccfa))
+- **b-modal:** add scoped style support when portalled (non-static modal)
+  ([#3962](https://github.com/bootstrap-vue/bootstrap-vue/issues/3962))
+  ([77ad6b9](https://github.com/bootstrap-vue/bootstrap-vue/commit/77ad6b9))
+- **b-nav:** add card header support
+  ([#3883](https://github.com/bootstrap-vue/bootstrap-vue/issues/3883))
+  ([4046a53](https://github.com/bootstrap-vue/bootstrap-vue/commit/4046a53))
+- **b-pagination:** if number of pages changes, try and keep current page active (closes
+  [#3716](https://github.com/bootstrap-vue/bootstrap-vue/issues/3716))
+  ([#3990](https://github.com/bootstrap-vue/bootstrap-vue/issues/3990))
+  ([ae8ce78](https://github.com/bootstrap-vue/bootstrap-vue/commit/ae8ce78))
+- **b-modal:** add prop for auto focusing one of the built in-buttons once `shown` (closes
+  [#3945](https://github.com/bootstrap-vue/bootstrap-vue/issues/3945))
+  ([#3979](https://github.com/bootstrap-vue/bootstrap-vue/issues/3979))
+  ([6f2827e](https://github.com/bootstrap-vue/bootstrap-vue/commit/6f2827e))
+- **b-table:** allow field definition properties `filterByFormatted` and `sortByFormatted` to accept
+  a formatter function reference (closes
+  [#3892](https://github.com/bootstrap-vue/bootstrap-vue/issues/3892))
+  ([#3898](https://github.com/bootstrap-vue/bootstrap-vue/issues/3898))
+  ([5492b38](https://github.com/bootstrap-vue/bootstrap-vue/commit/5492b38))
+- **b-table:** new sorting icons using SVG, plus option to place icon on left of header cell (closes
+  [#3687](https://github.com/bootstrap-vue/bootstrap-vue/issues/3687),
+  [#3696](https://github.com/bootstrap-vue/bootstrap-vue/issues/3696),
+  [#3918](https://github.com/bootstrap-vue/bootstrap-vue/issues/3918),
+  [#3966](https://github.com/bootstrap-vue/bootstrap-vue/issues/3966))
+  ([#3968](https://github.com/bootstrap-vue/bootstrap-vue/issues/3968))
+  ([c4442f4](https://github.com/bootstrap-vue/bootstrap-vue/commit/c4442f4))
+- **b-table:** add `filter-debounce` prop for debouncing filter updates
+  ([#3891](https://github.com/bootstrap-vue/bootstrap-vue/issues/3891))
+  ([03536a5](https://github.com/bootstrap-vue/bootstrap-vue/commit/03536a5))
+- **b-table:** add `selectAllRows()` and `clearSelected()` to thead/tfoot slot scopes (addresses
+  [#3901](https://github.com/bootstrap-vue/bootstrap-vue/issues/3901))
+  ([#3907](https://github.com/bootstrap-vue/bootstrap-vue/issues/3907))
+  ([86c53dd](https://github.com/bootstrap-vue/bootstrap-vue/commit/86c53dd))
+- **b-table, b-table-lite:** switch slot name syntax to use round brackets instead of square
+  brackets ([#3986](https://github.com/bootstrap-vue/bootstrap-vue/issues/3986))
+  ([fca7bd5](https://github.com/bootstrap-vue/bootstrap-vue/commit/fca7bd5))
+- **b-table, b-table-lite:** remove deprecated slot names, introduce new slot names
+  ([#3866](https://github.com/bootstrap-vue/bootstrap-vue/issues/3866))
+  ([249efd9](https://github.com/bootstrap-vue/bootstrap-vue/commit/249efd9))
+- **b-table, b-table-lite:** use `aria-details` rather than `aria-describedby` when details row
+  showing (addresses [#3801](https://github.com/bootstrap-vue/bootstrap-vue/issues/3801))
+  ([#3992](https://github.com/bootstrap-vue/bootstrap-vue/issues/3992))
+  ([f6f73c7](https://github.com/bootstrap-vue/bootstrap-vue/commit/f6f73c7))
+- **b-table, b-table-lite:** add support for custom header attributes (closes
+  [#2244](https://github.com/bootstrap-vue/bootstrap-vue/issues/2244))
+  ([#3876](https://github.com/bootstrap-vue/bootstrap-vue/issues/3876))
+  ([8784f31](https://github.com/bootstrap-vue/bootstrap-vue/commit/8784f31))
+- **b-table, b-table-lite:** add new scoped slot `custom-foot` to allow user to create their own
+  table footer (closes [#3960](https://github.com/bootstrap-vue/bootstrap-vue/issues/3960))
+  ([#4027](https://github.com/bootstrap-vue/bootstrap-vue/issues/4027))
+  ([cbeeef9](https://github.com/bootstrap-vue/bootstrap-vue/commit/cbeeef9))
+- **b-table, b-table-lite, b-table-simple:** add `no-border-collapse` prop and SCSS
+  ([#3987](https://github.com/bootstrap-vue/bootstrap-vue/issues/3987))
+  ([253b4f6](https://github.com/bootstrap-vue/bootstrap-vue/commit/253b4f6))
+- **b-toast:** add support for scoped styles
+  ([#3963](https://github.com/bootstrap-vue/bootstrap-vue/issues/3963))
+  ([ca1b5de](https://github.com/bootstrap-vue/bootstrap-vue/commit/ca1b5de))
+- **tooltip, popover:** overall code refactor for better reactivity and performance (fixes:
+  [#1990](https://github.com/bootstrap-vue/bootstrap-vue/issues/1990),
+  [#2937](https://github.com/bootstrap-vue/bootstrap-vue/issues/2937),
+  [#3480](https://github.com/bootstrap-vue/bootstrap-vue/issues/3480),
+  [#3717](https://github.com/bootstrap-vue/bootstrap-vue/issues/3717),
+  [#3854](https://github.com/bootstrap-vue/bootstrap-vue/issues/3854), closes
+  [#3451](https://github.com/bootstrap-vue/bootstrap-vue/issues/3451))
+  ([#3908](https://github.com/bootstrap-vue/bootstrap-vue/issues/3908))
+  ([eebab43](https://github.com/bootstrap-vue/bootstrap-vue/commit/eebab43))
+
+### Deprecation removals v2.0.0
+
+- **b-dropdown:** remove deprecated slot `text`
+  ([#3868](https://github.com/bootstrap-vue/bootstrap-vue/issues/3868))
+  ([29eb8b1](https://github.com/bootstrap-vue/bootstrap-vue/commit/29eb8b1))
+- **b-form-group:** remove deprecated prop `horizontal` and `breakpoint`
+  ([#3879](https://github.com/bootstrap-vue/bootstrap-vue/issues/3879))
+  ([b301822](https://github.com/bootstrap-vue/bootstrap-vue/commit/b301822))
+- **b-nav, b-nav-item-dropdown:** remove deprecated slot and props
+  ([#3867](https://github.com/bootstrap-vue/bootstrap-vue/issues/3867))
+  ([21fab35](https://github.com/bootstrap-vue/bootstrap-vue/commit/21fab35))
+- **b-modal:** remove `BvModalEvent` deprecations
+  ([#3864](https://github.com/bootstrap-vue/bootstrap-vue/issues/3864))
+  ([90c299c](https://github.com/bootstrap-vue/bootstrap-vue/commit/90c299c))
+- **b-table, b-table-lite:** switch slot name syntax to use round brackets instead of square
+  brackets ([#3986](https://github.com/bootstrap-vue/bootstrap-vue/issues/3986))
+  ([fca7bd5](https://github.com/bootstrap-vue/bootstrap-vue/commit/fca7bd5))
+- **b-table, b-table-lite:** remove deprecated slot names, introduce new slot names
+  ([#3866](https://github.com/bootstrap-vue/bootstrap-vue/issues/3866))
+  ([249efd9](https://github.com/bootstrap-vue/bootstrap-vue/commit/249efd9))
+- **b-tabs:** remove deprecations
+  ([#3863](https://github.com/bootstrap-vue/bootstrap-vue/issues/3863))
+  ([0edac49](https://github.com/bootstrap-vue/bootstrap-vue/commit/0edac49))
+- **tooltip/popover:** remove SCSS deprecations
+  ([#3869](https://github.com/bootstrap-vue/bootstrap-vue/issues/3869))
+  ([bea49d4](https://github.com/bootstrap-vue/bootstrap-vue/commit/bea49d4))
+- **build:** remove deprecated `es/` build
+  ([#3604](https://github.com/bootstrap-vue/bootstrap-vue/issues/3604))
+  ([3828f59](https://github.com/bootstrap-vue/bootstrap-vue/commit/3828f59))
+
+<br>
+<hr>
+
 <a name="2.0.0-rc.28"></a>
 
 ## [v2.0.0-rc.28](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.27...v2.0.0-rc.28)

@@ -81,8 +81,9 @@ const plugin = Vue => {
       // Self destruct on route change
       /* istanbul ignore if */
       if (this.$router && this.$route) {
-        const unwatch = this.$watch('$router', handleDestroy)
-        this.$once('hook:beforeDestroy', unwatch)
+        // Destroy ourselves if route changes
+        /* istanbul ignore next */
+        this.$once('hook:beforeDestroy', this.$watch('$router', handleDestroy))
       }
       // Show the `BMsgBox`
       this.show()

@@ -136,6 +136,59 @@ describe('v-b-tooltip directive', () => {
     wrapper.destroy()
   })
 
+  it('should nowshow tooltip when title is empty', async () => {
+    jest.useFakeTimers()
+    const localVue = new CreateLocalVue()
+
+    const App = localVue.extend({
+      directives: {
+        bTooltip: VBTooltip
+      },
+      template: '<button v-b-tooltip.click title="">button</button>'
+    })
+
+    const wrapper = mount(App, {
+      localVue: localVue,
+      attachToDocument: true
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('button')).toBe(true)
+    const $button = wrapper.find('button')
+
+    // Should have instance of popover class on it
+    expect($button.element[BV_TOOLTIP]).toBeDefined()
+    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
+
+    expect($button.attributes('aria-describedby')).not.toBeDefined()
+
+    // Trigger click
+    $button.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($button.attributes('aria-describedby')).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
   it('variant and customClass should work', async () => {
     jest.useFakeTimers()
     const localVue = new CreateLocalVue()

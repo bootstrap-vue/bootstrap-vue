@@ -33,8 +33,9 @@ export default {
     return {
       // Flag for displaying which empty slot to show and some event triggering
       isFiltered: false,
-      // Where we store the copy of the filter citeria after debouncing
-      localFilter: null
+      // Where we store the copy of the filter criteria after debouncing
+      // We pre-set it with the sanitized filter value
+      localFilter: this.filterSanitize(this.filter)
     }
   },
   computed: {
@@ -67,57 +68,55 @@ export default {
     // Returns the original `localItems` array if not sorting
     filteredItems() {
       const items = this.localItems || []
-      // Note the criteria is debounced
-      const criteria = this.filterSanitize(this.localFilter)
+      // Note the criteria is debounced and sanitized
+      const criteria = this.localFilter
 
       // Resolve the filtering function, when requested
       // We prefer the provided filtering function and fallback to the internal one
       // When no filtering criteria is specified the filtering factories will return `null`
-      let filterFn = null
-      if (this.localFiltering) {
-        filterFn =
-          this.filterFnFactory(this.localFilterFn, criteria) ||
+      const filterFn = this.localFiltering
+        ? this.filterFnFactory(this.localFilterFn, criteria) ||
           this.defaultFilterFnFactory(criteria)
-      }
+        : null
 
       // We only do local filtering when requested and there are records to filter
-      if (filterFn && items.length > 0) {
-        return items.filter(filterFn)
-      }
-
-      // Otherwise return all items
-      return items
+      return filterFn && items.length > 0 ? items.filter(filterFn) : items
     }
   },
   watch: {
     // Watch for debounce being set to 0
     computedFilterDebounce(newVal, oldVal) {
-      if (!newVal && this.filterTimer) {
-        clearTimeout(this.filterTimer)
-        this.filterTimer = null
-        this.localFilter = this.filter
-      }
-    },
-    // Watch for changes to the filter criteria, and debounce if necessary
-    filter(newFilter, oldFilter) {
-      const timeout = this.computedFilterDebounce
-      if (this.filterTimer) {
-        clearTimeout(this.filterTimer)
-        this.filterTimer = null
-      }
-      if (timeout) {
-        // If we have a debounce time, delay the update of this.localFilter
-        this.filterTimer = setTimeout(() => {
-          this.filterTimer = null
-          this.localFilter = this.filterSanitize(this.filter)
-        }, timeout)
-      } else {
-        // Otherwise, immediately update this.localFilter
+      if (!newVal && this.$_filterTimer) {
+        clearTimeout(this.$_filterTimer)
+        this.$_filterTimer = null
         this.localFilter = this.filterSanitize(this.filter)
       }
     },
-    // Watch for changes to the filter criteria and filtered items vs localItems).
-    // And set visual state and emit events as required
+    // Watch for changes to the filter criteria, and debounce if necessary
+    filter: {
+      // We need a deep watcher in case the user passes
+      // an object when using `filter-function`
+      deep: true,
+      handler(newFilter, oldFilter) {
+        const timeout = this.computedFilterDebounce
+        if (this.$_filterTimer) {
+          clearTimeout(this.$_filterTimer)
+          this.$_filterTimer = null
+        }
+        if (timeout) {
+          // If we have a debounce time, delay the update of `localFilter`
+          this.$_filterTimer = setTimeout(() => {
+            this.$_filterTimer = null
+            this.localFilter = this.filterSanitize(this.filter)
+          }, timeout)
+        } else {
+          // Otherwise, immediately update `localFilter` with `newFilter` value
+          this.localFilter = this.filterSanitize(newFilter)
+        }
+      }
+    },
+    // Watch for changes to the filter criteria and filtered items vs `localItems`
+    // Set visual state and emit events as required
     filteredCheck({ filteredItems, localItems, localFilter }) {
       // Determine if the dataset is filtered or not
       let isFiltered = false
@@ -146,21 +145,21 @@ export default {
   },
   created() {
     // Create non-reactive prop where we store the debounce timer id
-    this.filterTimer = null
+    this.$_filterTimer = null
     // If filter is "pre-set", set the criteria
-    // This will trigger any watchers/dependants
-    this.localFilter = this.filterSanitize(this.filter)
-    // Set the initial filtered state.
-    // In a nextTick so that we trigger a filtered event if needed
+    // This will trigger any watchers/dependents
+    // this.localFilter = this.filterSanitize(this.filter)
+    // Set the initial filtered state in a `$nextTick()` so that
+    // we trigger a filtered event if needed
     this.$nextTick(() => {
       this.isFiltered = Boolean(this.localFilter)
     })
   },
   beforeDestroy() {
     /* istanbul ignore next */
-    if (this.filterTimer) {
-      clearTimeout(this.filterTimer)
-      this.filterTimer = null
+    if (this.$_filterTimer) {
+      clearTimeout(this.$_filterTimer)
+      this.$_filterTimer = null
     }
   },
   methods: {
@@ -168,12 +167,12 @@ export default {
       // Sanitizes filter criteria based on internal or external filtering
       if (
         this.localFiltering &&
-        !isFunction(this.filterFunction) &&
+        !this.localFilterFn &&
         !(isString(criteria) || isRegExp(criteria))
       ) {
-        // If using internal filter function, which only accepts string or RegExp
-        // return null to signify no filter
-        return null
+        // If using internal filter function, which only accepts string or RegExp,
+        // return '' to signify no filter
+        return ''
       }
 
       // Could be a string, object or array, as needed by external filter function
@@ -211,6 +210,7 @@ export default {
     },
     defaultFilterFnFactory(criteria) {
       // Generates the default filter function, using the given filter criteria
+      // Returns `null` if no criteria or criteria format not supported
       if (!criteria || !(isString(criteria) || isRegExp(criteria))) {
         // Built in filter can only support strings or RegExp criteria (at the moment)
         return null
@@ -236,7 +236,7 @@ export default {
         // Users can ignore filtering on specific fields, or on only certain fields,
         // and can optionall specify searching results of fields with formatter
         //
-        // TODO: Enable searching on scoped slots
+        // TODO: Enable searching on scoped slots (optional, as it will be SLOW)
         //
         // Generated function returns true if the criteria matches part of
         // the serialized data, otherwise false

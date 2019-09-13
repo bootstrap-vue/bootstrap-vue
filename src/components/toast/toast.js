@@ -203,7 +203,9 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     // Make sure we hide when toaster is destroyed
     /* istanbul ignore next: difficult to test */
     this.listenOnRoot('bv::toaster::destroyed', toaster => {
+      /* istanbul ignore next */
       if (toaster === this.computedToaster) {
+        /* istanbul ignore next */
         this.hide()
       }
     })

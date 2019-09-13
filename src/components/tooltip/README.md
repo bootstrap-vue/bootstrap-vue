@@ -14,7 +14,7 @@
   </b-button>
   <b-tooltip target="tooltip-target-1" triggers="hover">
     I am tooltip <b>component</b> content!
-  </b-popover>
+  </b-tooltip>
 </div>
 
 <!-- b-tooltip.vue -->
@@ -25,6 +25,7 @@
 Things to know when using tooltip component:
 
 - Tooltips rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
+- Tooltips require BootstrapVue's custom SCSS/CSS for transitions and color variants.
 - Triggering tooltips on hidden elements will not work.
 - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more
   complex components (like input groups, button groups, etc). You can use container to optionally

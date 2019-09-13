@@ -18,9 +18,11 @@ to appear.
 
 ## Overview
 
-Things to know when using popovers:
+Things to know when using the popover directive:
 
 - Popovers rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
+- Popovers require BootstrapVue's custom SCSS/CSS for transitions and color variants.
+- If both title and content is not provided (or are an empty string), the popover will not show.
 - Specify container: 'body' (default) to avoid rendering problems in more complex components (like
   input groups, button groups, etc).
 - Triggering popovers on hidden elements will not work.
@@ -283,7 +285,9 @@ const options = {
 }
 ```
 
-Content can also be a function reference, which is called each time the popover is opened.
+Title and content can also be function references, which are called each time the popover is opened.
+To make a value returned by the function reactive while open, set the title or content to a _new_
+function reference whenever the content changes.
 
 ```html
 <template>
@@ -323,33 +327,47 @@ Content can also be a function reference, which is called each time the popover 
   export default {
     data() {
       return {
-        popoverData: {
-          title: 'Popover Title',
-          content: 'Popover Content'
-        },
-        counter: 0
-      }
-    },
-    methods: {
-      popoverMethod() {
-        // Returns the content as a string
-        // Will be called each time popover is opened
-        return '<strong>' + new Date() + '</strong>'
+        date: new Date(),
+        counter: 0,
+        timer: null
       }
     },
     computed: {
       popoverConfig() {
         // Both title and content specified as a function in this example
-        // and will be called each time popover is opened
+        // and will be called the each time the popover is opened
         return {
           html: true,
           title: () => {
+            // Note this is called only when the popover is opened
             return 'Hello <b>Popover:</b> ' + ++this.counter
           },
           content: () => {
+            // Note this is called only when the popover is opened
             return 'The date is:<br><em>' + new Date() + '</em>'
           }
         }
+      },
+      popoverData() {
+        return {
+          title: 'Popover Title',
+          content: 'The date is ' + this.date
+        }
+      }
+    },
+    mounted() {
+      this.timer = setInterval(() => {
+        this.date = new Date()
+      }, 1000)
+    },
+    beforeDestroy() {
+      clearInterval(this.timer)
+    },
+    methods: {
+      popoverMethod() {
+        // Returns the content as a string
+        // Will be called each time the popover is opened
+        return '<strong>' + new Date() + '</strong>'
       }
     }
   }
@@ -467,6 +485,7 @@ Where `<value>` can be (optional):
 | `variant`           | String                              | `null`           | Contextual color variant for the popover.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `customClass`       | String                              | `null`           | A custom classname to apply to the popover outer wrapper element.                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `id`                | String                              | `null`           | An ID to use on the popover root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page.                                                                                                                                                                                                                                                                                     |
+| `disabled`          | Boolean                             | `false`          | Set to `true` to disable the popover                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 ### Usage
 

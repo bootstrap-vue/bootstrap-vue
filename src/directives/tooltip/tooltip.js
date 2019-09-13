@@ -3,7 +3,14 @@ import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
-import { isFunction, isObject, isString, isUndefined } from '../../utils/inspect'
+import {
+  isFunction,
+  isNumber,
+  isObject,
+  isString,
+  isUndefined,
+  isUndefinedOrNull
+} from '../../utils/inspect'
 import { keys } from '../../utils/object'
 import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
 
@@ -49,6 +56,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     offset: 0,
     id: null,
     html: false,
+    disabled: false,
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
     boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0,
@@ -57,7 +65,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   }
 
   // Process `bindings.value`
-  if (isString(bindings.value)) {
+  if (isString(bindings.value) || isNumber(bindings.value)) {
     // Value is tooltip content (HTML optionally supported)
     config.title = bindings.value
   } else if (isFunction(bindings.value)) {
@@ -72,7 +80,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   if (isUndefined(config.title)) {
     // Try attribute
     const data = vnode.data || {}
-    config.title = data.attrs && data.attrs.title ? data.attrs.title : ''
+    config.title = data.attrs && !isUndefinedOrNull(data.attrs.title) ? data.attrs.title : undefined
   }
 
   // Normalize delay
@@ -203,6 +211,7 @@ const applyTooltip = (el, bindings, vnode) => {
     offset: config.offset,
     noFade: !config.animation,
     id: config.id,
+    disabled: config.disabled,
     html: config.html
   }
   const oldData = el[BV_TOOLTIP].__bv_prev_data__
