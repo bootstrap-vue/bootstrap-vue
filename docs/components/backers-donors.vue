@@ -120,7 +120,7 @@ export default {
           status: entry.status,
           amount: entry.totalDonations.value,
           frequency: entry.frequency,
-          tier: entry.tier.slug,
+          tier: (entry.tier || {}).slug,
           date: new Date(entry.createdAt)
         }
       })
