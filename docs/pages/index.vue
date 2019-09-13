@@ -368,7 +368,7 @@
 
     <section class="bv-section bv-gray">
       <b-container tag="article" class="text-center">
-        <h2 class="h5 text-muted text-center">Integrate with NuxtJS</h2>
+        <h2 class="h5 text-center bd-text-purple-bright">Integrate with NuxtJS</h2>
         <div class="mb-2 d-flex flex-row justify-content-center align-items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
