@@ -127,9 +127,10 @@
 
     <section class="bv-section bv-gray-color">
       <b-container tag="article">
+        <h2 class="h4 text-center bd-text-purple-bright">Overview</h2>
         <b-row class="mb-4">
           <b-col lg="10" offset-lg="1">
-            <b-card-text class="text-lg-center">
+            <p class="text-lg-center">
               With over 40 available plugins and more than 80 custom UI components,
               <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
               comprehensive implementations of the
@@ -140,7 +141,7 @@
                 <abbr title="Web Accessibility Initiative – Accessible Rich Internet Applications">WAI-ARIA</abbr>
               </b-link>
               accessibility markup.
-            </b-card-text>
+            </p>
           </b-col>
         </b-row>
 
@@ -184,9 +185,10 @@
 
     <section class="bv-section bv-white">
       <b-container>
+        <h2 class="h4 text-center text-muted">Reasons to choose BootstrapVue</h2>
         <b-card-group deck class="mb-sm-4">
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
-            <b-card-text text-tag="h5" class="text-center mb-2 bd-text-purple-bright">
+            <b-card-text text-tag="h3" class="h5 text-center mb-2 bd-text-purple-bright">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="2.5em"
@@ -215,7 +217,7 @@
           </b-card>
 
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
-            <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
+            <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="2.5em"
@@ -245,7 +247,7 @@
           </b-card>
 
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
-            <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
+            <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="2.5em"
@@ -275,7 +277,7 @@
 
         <b-card-group deck class="mb-n3">
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
-            <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
+            <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="2.5em"
@@ -301,7 +303,7 @@
           </b-card>
 
           <b-card tag="article" body-text-variant="muted" body-class="px-2" class="rounded-0 border-0">
-            <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
+            <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="2.5em"
@@ -336,7 +338,7 @@
           </b-card>
 
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
-            <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
+            <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="2.5em"
@@ -366,6 +368,7 @@
 
     <section class="bv-section bv-gray">
       <b-container tag="article" class="text-center">
+        <h2 class="h4 text-center bd-text-purple-bright">Integrate with Nuxt.js</h2>
         <div class="mb-2 d-flex flex-row justify-content-center align-items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -410,18 +413,34 @@
             <path d="m767 196h339c62 0 112 14 150 43 38 28 56 71 56 129 0 36-8 66-25 91s-42 44-74 58v2c43 9 75 29 98 61 22 31 33 71 33 118 0 28-5 53-15 77s-25 44-46 61c-21 18-47 31-80 41-32 11-71 16-116 16h-320zm122 292h199c29 0 54-9 73-25 20-17 29-41 29-72 0-35-8-60-26-75-17-14-43-21-76-21h-199zm0 305h216c37 0 66-10 86-29s31-46 31-81-10-61-31-80-49-28-86-28h-216z" fill="#fff" />
           </svg>
         </div>
-        <p>
+        <b-row class="mb-3">
+          <b-col lg="10" offset-lg="1">
+            <p class="text-lg-center mb-0">
+              Easily integrate BootstrapVue into your Nuxt.js projects using our included Nuxt.js module.
+              You can optionally specify only the components, directives and/or plugins you require.
+            </p>
+          </b-col>
+        </b-row>
+
+        <b-button
+          to="/docs#nuxtjs-module"
+          size="sm"
+          variant="outline-secondary"
+          class="mb-3"
+        >
+          BootstrapVue Nuxt.js module
+        </b-button>
+        <p class="mb-0 text-center">
           BootstrapVue's documentation is created using
           <span class="bd-text-purple-bright">BootstrapVue</span> and
           generated with <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>
         </p>
-        <b-button to="/docs#nuxtjs-module" size="sm" variant="outline-secondary">BootstrapVue Nuxt.js module</b-button>
       </b-container>
     </section>
 
     <section class="bv-section bv-white">
       <b-container tag="article" class="text-center">
-        <h5 class="text-center bd-text-purple-bright mb-3">
+        <h2 class="h4 text-center bd-text-purple-bright mb-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 40 41"
@@ -442,12 +461,13 @@
             <path d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z" />
           </svg>
           Support BootstrapVue on Open Collective
-        </h5>
+        </h2>
         <b-button
           href="https://opencollective.com/bootstrap-vue#backer"
           size="sm"
           variant="outline-secondary"
           target="_blank"
+          class="mb-2"
         >
           Become a backer
         </b-button>
@@ -456,15 +476,27 @@
           size="sm"
           variant="outline-secondary"
           target="_blank"
+          class="mb-2"
         >
           Become a sponsor
         </b-button>
+        <b-button
+          href="https://opencollective.com/bootstrap-vue#donate"
+          size="sm"
+          variant="outline-secondary"
+          target="_blank"
+          class="mb-2"
+        >
+          Donate
+        </b-button>
+
+        <BackersDonors></BackersDonors>
       </b-container>
     </section>
 
-    <section class="bv-section bv-gray bv-p-reset">
+    <div class="bv-section bv-gray bv-p-reset" aria-hidden="true">
       <!-- to give footer on landing page angled top -->
-    </section>
+    </div>
   </main>
 </template>
 
@@ -710,8 +742,10 @@ $bv-angle-padding-md: 6rem;
 
 <script>
 import { version, bootstrapVersion, vueVersion } from '~/content'
+import BackersDonors from '~/components/backers-donors'
 
 export default {
+  components: { BackersDonors },
   data() {
     return {
       isIE: false,
