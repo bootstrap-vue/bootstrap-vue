@@ -41,10 +41,10 @@
             <b-img-lazy
               v-else
               :src="donor.imageUrl"
-              :title="donor.name" 
+              :title="donor.name"
               alt="Donor image"
               fluid
-              block 
+              block
             ></b-img-lazy>
           </div>
         </div>
