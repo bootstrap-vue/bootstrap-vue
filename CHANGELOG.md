@@ -22,6 +22,9 @@ This patch release includes a few minor bug fixes and documentation updates.
   on mount (fixes [#4065](https://github.com/bootstrap-vue/bootstrap-vue/issues/4065))
   ([#4068](https://github.com/bootstrap-vue/bootstrap-vue/issues/4068))
   ([9ddd115](https://github.com/bootstrap-vue/bootstrap-vue/commit/9ddd115))
+- **b-table:** remove extra slashes in mixins imports
+  ([#4087](https://github.com/bootstrap-vue/bootstrap-vue/issues/4087))
+  ([77f5be1](https://github.com/bootstrap-vue/bootstrap-vue/commit/77f5be1))
 - **tooltips, popovers:** check `document.body` instead of `document` for IE11 support (fixes
   [#4074](https://github.com/bootstrap-vue/bootstrap-vue/issues/4074))
   ([#4075](https://github.com/bootstrap-vue/bootstrap-vue/issues/4075))
