@@ -4,7 +4,7 @@
       <h5 class="mx-auto">Backers</h5>
       <div class="backer-container d-flex flex-wrap mx-n2 text-center font-weight-bold">
         <div v-for="backer in backers" :key="backer.slug" class="m-2 position-relative">
-          <div class="img-thumbnail bg-light mx-auto d-flex align-items-center justify-content-center overflow-hidden">
+          <div class="backer img-thumbnail bg-light mx-auto d-flex align-items-center justify-content-center overflow-hidden">
             <b-img-lazy :src="backer.imageUrl" fluid block aria-hidden="true"></b-img-lazy>
           </div>
           <h6 class="pt-2">
@@ -28,7 +28,7 @@
       <h5 class="mx-auto">Donors</h5>
       <div class="donor-container d-flex flex-wrap mx-n1 text-center">
         <div v-for="donor in donors" :key="donor.slug" class="m-1 position-relative">
-          <div class="img-thumbnail d-flex align-items-center justify-content-center overflow-hidden">
+          <div class="donor img-thumbnail d-flex align-items-center justify-content-center overflow-hidden">
             <b-link
               v-if="donor.url"
               :title="donor.name"
@@ -106,11 +106,7 @@ export default {
       xhr.send()
     },
     processOcNodes(nodes = []) {
-      // DEBUG
-      console.log('Nodes:', nodes)
       return nodes.map(entry => {
-        // DEBUG
-        console.log('  Entry:', entry)
         return {
           slug: entry.fromAccount.slug,
           name: entry.fromAccount.name,
@@ -127,11 +123,9 @@ export default {
     },
     sortCompare(a = {}, b = {}) {
       // Sort first by amount, then by date
-      return (a.amount || 0) - (b.amount || 0) || (a.date || 0) - (b.date || 0)
+      return (b.amount || 0) - (a.amount || 0) || (b.date || 0) - (a.date || 0)
     },
     processBackers(backers = []) {
-      // DEBUG
-      console.log('Backers:', backers)
       // Backers are provided in reverse chronological order
       // so we sort by larger amount first, then by date
       // Limit to top 10 backers
@@ -141,8 +135,6 @@ export default {
         .slice(0, 10)
     },
     processDonors(donors = []) {
-      // DEBUG
-      console.log('Donors:', donors)
       // Donors are provided in reverse chronological order,
       // but donors can be listed more than once (for each individual donation),
       // although the totalDonations is the same on each entry.
