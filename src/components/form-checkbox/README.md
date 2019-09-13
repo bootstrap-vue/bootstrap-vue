@@ -209,6 +209,10 @@ pre-selected.
 When placing individual `<b-form-checkbox>` components within a `<b-form-checkbox-group>`, most
 props and the `v-model` are inherited from the `<b-form-checkbox-group>`.
 
+**Note:** that the `unchecked-value` prop does not affect the native `<input>`'s `value` attribute,
+because browsers don't include unchecked boxes in form submissions. To guarantee that one of two
+values is submitted in a native `<form>` submit (e.g. `'yes'` or `'no'`), use radio inputs instead.
+
 ### Multiple checkboxes and accessibility
 
 When binding multiple checkboxes together, you must set the `name` prop to the same value for all
