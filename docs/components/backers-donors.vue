@@ -9,8 +9,8 @@
           </div>
           <small class="pt-2">
             <b-link
-              v-if="backer.url"
-              :href="backer.url"
+              v-if="backer.website"
+              :href="backer.website"
               target="_blank"
               class="stretched-link text-reset"
             >
@@ -30,9 +30,9 @@
         <div v-for="donor in donors" :key="donor.slug" class="m-1 position-relative">
           <div class="donor img-thumbnail d-flex align-items-center justify-content-center overflow-hidden">
             <b-link
-              v-if="donor.url"
+              v-if="donor.website"
+              :href="donor.website"
               :title="donor.name"
-              :href="donor.url"
               target="_blank"
               class="stretched-link"
             >
@@ -115,8 +115,16 @@ export default {
           imageUrl: entry.fromAccount.imageUrl,
           website: entry.fromAccount.website,
           status: entry.status,
-          amount: entry.totalDonations.value,
+          // For recurring donations, this is the installment amount
+          // For one time donations, this is the donation amount  (most recent)
+          amount: entry.amount.value,
+          // For recurring donations, this is the total amount donated
+          // For users that donate multiple times, this will be the total of all one time donations
+          totalAmount: entry.totalDonations.value,
+          // For recurring donations, this is how often the donation is received
           frequency: entry.frequency,
+          // We now have sponsor tiers, but some appear as
+          // `null` (they were made before the tiers were created)
           tier: (entry.tier || {}).slug,
           date: new Date(entry.createdAt)
         }
@@ -124,7 +132,7 @@ export default {
     },
     sortCompare(a = {}, b = {}) {
       // Sort first by amount, then by date
-      return (b.amount || 0) - (a.amount || 0) || (b.date || 0) - (a.date || 0)
+      return (b.totalAmount || 0) - (a.totalAmount || 0) || (b.date || 0) - (a.date || 0)
     },
     processBackers(backers = []) {
       // Backers are provided in reverse chronological order
