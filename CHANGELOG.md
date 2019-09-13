@@ -8,7 +8,7 @@
 
 ## [v2.0.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0...v2.0.1)
 
-Released: 2019-09-12
+Released: 2019-09-13
 
 This patch release includes a few minor bug fixes and documentation updates.
 
