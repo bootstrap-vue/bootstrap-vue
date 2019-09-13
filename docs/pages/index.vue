@@ -127,7 +127,7 @@
 
     <section class="bv-section bv-gray-color">
       <b-container tag="article">
-        <h2 class="h4 mx-auto bd-text-purple-bright">Overview</h2>
+        <h2 class="h4 text-center bd-text-purple-bright">Overview</h2>
         <b-row class="mb-4">
           <b-col lg="10" offset-lg="1">
             <b-card-text class="text-lg-center">
@@ -185,7 +185,7 @@
 
     <section class="bv-section bv-white">
       <b-container>
-        <h2 class="h4 mx-auto bd-text-purple-bright">Features</h2>
+        <h2 class="h4 text-center text-muted">Reasons to choose BootstrapVue</h2>
         <b-card-group deck class="mb-sm-4">
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
             <b-card-text text-tag="h3" class="h5 text-center mb-2 bd-text-purple-bright">
@@ -368,6 +368,7 @@
 
     <section class="bv-section bv-gray">
       <b-container tag="article" class="text-center">
+        <h2 class="h5 text-muted text-center">Integrate with NuxtJS</h2>
         <div class="mb-2 d-flex flex-row justify-content-center align-items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -413,11 +414,22 @@
           </svg>
         </div>
         <p>
+          Easily integrate BootstrapVue into your NuxtJS projects using our included NuxtJS module.
+          You can optionally specify only the components, directives and/or plugins you require.
+        </p>
+        <b-button
+          to="/docs#nuxtjs-module"
+          size="sm"
+          variant="outline-secondary"
+          class="mb-3"
+        >
+          BootstrapVue Nuxt.js module
+        </b-button>
+        <p class="mb-0">
           BootstrapVue's documentation is created using
           <span class="bd-text-purple-bright">BootstrapVue</span> and
           generated with <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>
         </p>
-        <b-button to="/docs#nuxtjs-module" size="sm" variant="outline-secondary">BootstrapVue Nuxt.js module</b-button>
       </b-container>
     </section>
 
