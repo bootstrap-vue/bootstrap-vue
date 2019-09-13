@@ -55,13 +55,13 @@
 
 <style scoped>
 .backer {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
 }
 
 .donor {
-  width: 80px;
-  height: 80px;
+  width: 55px;
+  height: 55px;
 }
 </style>
 
@@ -150,7 +150,7 @@ export default {
           return arr
         }, [])
         .sort(this.sortCompare)
-        .slice(0, 25)
+        .slice(0, 32)
     }
   }
 }
