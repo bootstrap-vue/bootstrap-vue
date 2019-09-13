@@ -1039,7 +1039,7 @@ footer cells that do not have an explicit scoped slot provided.
 
       <!-- A custom formatted header cell for field 'name' -->
       <template v-slot:head(name)="data">
-        <span class="text-info">{{ data.label.toUpperCase() }}</b>
+        <span class="text-info">{{ data.label.toUpperCase() }}</span>
       </template>
 
       <!-- A custom formatted footer cell for field 'name' -->
