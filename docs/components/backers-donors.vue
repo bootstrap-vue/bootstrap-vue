@@ -158,7 +158,7 @@ export default {
           return arr
         }, [])
         .sort(this.sortCompare)
-        .slice(0, 32)
+        .slice(0, 34)
     }
   }
 }
