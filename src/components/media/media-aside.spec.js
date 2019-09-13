@@ -7,7 +7,7 @@ describe('media-aside', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('d-flex')
-    expect(wrapper.classes()).toContain('align-self-top')
+    expect(wrapper.classes()).toContain('align-self-start')
     expect(wrapper.text()).toEqual('')
   })
 
@@ -20,7 +20,7 @@ describe('media-aside', () => {
 
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('d-flex')
-    expect(wrapper.classes()).toContain('align-self-top')
+    expect(wrapper.classes()).toContain('align-self-start')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('')
   })
@@ -34,7 +34,7 @@ describe('media-aside', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('d-flex')
-    expect(wrapper.classes()).toContain('align-self-bottom')
+    expect(wrapper.classes()).toContain('align-self-end')
     expect(wrapper.classes().length).toBe(2)
   })
 
@@ -47,7 +47,7 @@ describe('media-aside', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('d-flex')
-    expect(wrapper.classes()).toContain('align-self-top')
+    expect(wrapper.classes()).toContain('align-self-start')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.findAll('b').length).toBe(1)
     expect(wrapper.find('b').text()).toBe('foobar')

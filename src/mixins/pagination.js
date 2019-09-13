@@ -53,9 +53,8 @@ export const props = {
   value: {
     type: [Number, String],
     default: null,
-    validator(value) {
+    validator(value) /* istanbul ignore next */ {
       const num = parseInt(value, 10)
-      /* istanbul ignore next */
       if (!isNull(value) && (isNaN(num) || num < 1)) {
         warn('pagination: v-model value must be a number greater than 0')
         return false
@@ -66,9 +65,8 @@ export const props = {
   limit: {
     type: [Number, String],
     default: DEFAULT_LIMIT,
-    validator(value) {
+    validator(value) /* istanbul ignore next */ {
       const num = parseInt(value, 10)
-      /* istanbul ignore next */
       if (isNaN(num) || num < 1) {
         warn('pagination: prop "limit" must be a number greater than 0')
         return false

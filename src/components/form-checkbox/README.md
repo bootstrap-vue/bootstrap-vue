@@ -89,8 +89,8 @@ named slot `first`.
 
 ## Checkbox group options array
 
-Please see options in [`<b-form-select>`](/docs/components/form-select) docs for details on passing
-`options` (value array) to `<b-form-checkbox-group>`.
+Please see the [`<b-form-select>` `options` prop](/docs/components/form-select#options-property)
+docs for details on the formats and helper props associated with `options`.
 
 ## Inline and stacked checkboxes
 
@@ -208,6 +208,12 @@ pre-selected.
 
 When placing individual `<b-form-checkbox>` components within a `<b-form-checkbox-group>`, most
 props and the `v-model` are inherited from the `<b-form-checkbox-group>`.
+
+**Note:** the `unchecked-value` prop _does not_ affect the native `<input>`'s `value` attribute,
+because browsers don't include unchecked boxes in form submissions. To guarantee that one of two
+values is submitted in a native `<form>` submit (e.g. `'yes'` or `'no'`), use radio inputs instead.
+This is the same limitation that
+[Vue has with native checkbox inputs](https://vuejs.org/v2/guide/forms.html#Checkbox-1).
 
 ### Multiple checkboxes and accessibility
 

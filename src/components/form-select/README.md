@@ -128,10 +128,7 @@ inline html (i.e. `<i>`, `<strong>`, etc) inside `<option>` elements of a `<sele
   user supplied string.
 </p>
 
-If you want to customize fields (for example using `name` field for display text) you can easily
-change them using `text-field`, `html-field`, `value-field`, and `disabled-field` props.
-
-### Array
+### Options as an array
 
 <!-- eslint-disable no-unused-vars -->
 
@@ -141,10 +138,10 @@ const options = ['A', 'B', 'C', { text: 'D', value: { d: 1 }, disabled: true }, 
 
 If an array entry is a string, it will be used for both the generated `value` and `text` fields.
 
-You can mix using strings and [objects](#objects) in the array.
+You can mix using strings and [objects](#options-as-an-array-of-objects) in the array.
 
 Internally, BootstrapVue will convert the above array to the following array (the
-[Array of Objects](#array-of-objects) format:
+[array of objects](#options-as-an-array-of-objects)) format:
 
 <!-- eslint-disable no-unused-vars -->
 
@@ -159,7 +156,7 @@ const options = [
 ]
 ```
 
-### Array of objects
+### Options as an array of objects
 
 <!-- eslint-disable no-unused-vars -->
 
@@ -177,7 +174,7 @@ If `value` is missing, then `text` will be used as both the `value` and `text` f
 the `html` property, you **must** supply a `value` property.
 
 Internally, BootstrapVue will convert the above array to the following array (the
-[Array of Objects](#array-of-objects) format:
+[array of objects](#options-as-an-array-of-objects)) format:
 
 <!-- eslint-disable no-unused-vars -->
 
@@ -187,12 +184,11 @@ const options = [
   { text: 'Item 2', value: 'second', disabled: false },
   { html: '<b>Item</b> 3', value: 'third', disabled: true },
   { text: 'Item 4', value: 'Item 4', disabled: false },
-  { text: 'Item 5', value: 'E', disabled: false },
-  { text: 'F', value: { foo: 'bar', baz: true }, disabled: false }
+  { text: 'Item 5', value: 'E', disabled: false }
 ]
 ```
 
-### Object
+### Options as an object
 
 Keys are mapped to `value` and values are mapped to option `text`.
 
@@ -209,7 +205,7 @@ const options = {
 ```
 
 Internally, BootstrapVue will convert the above object to the following array (the
-[Array of Objects](#array-of-objects) format:
+[array of objects](#options-as-an-array-of-objects)) format:
 
 <!-- eslint-disable no-unused-vars -->
 
@@ -219,12 +215,52 @@ const options = [
   { text: 'Item B', value: 'b', disabled: false },
   { html: 'Item C', value: 'c', disabled: false },
   { text: 'Item D', value: 'overridden_value', disabled: true },
-  { text: 'E', value: { foo: 'bar', baz: true }, disabled: false }
+  { text: 'Item E', value: { foo: 'bar', baz: true }, disabled: false }
 ]
 ```
 
-**Note:** When using the [Object](#object) format, the order of the final array is **not**
-guaranteed. For this reason, it is recommended to use the above array formats.
+**Note:** When using the Object format, the order of the final array is **not** guaranteed. For this
+reason, it is recommended to use either of the previously mentioned array formats.
+
+### Changing the option field names
+
+If you want to customize the field property names (for example using `name` field for display
+`text`) you can easily change them by setting the `text-field`, `html-field`, `value-field`, and
+`disabled-field` props to a string that contains the property name you would like to use:
+
+```html
+<template>
+  <div>
+    <b-form-select
+      v-model="selected"
+      :options="options"
+      class="mb-3"
+      value-field="item"
+      text-field="name"
+      disabled-field="notEnabled"
+    ></b-form-select>
+    <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        selected: 'A',
+        options: [
+          { item: 'A', name: 'Option A' },
+          { item: 'B', name: 'Option B' },
+          { item: 'D', name: 'Option C', notEnabled: true },
+          { item: { d: 1 }, name: 'Option D' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-form-select-options-fields.vue -->
+```
 
 ### Option notes
 
@@ -290,7 +326,7 @@ options are visible.
 Note when `select-size` is set to a value greater than 1, the Bootstrap v4 custom styling will
 **not** be applied, unless the `multiple` prop is also set.
 
-Note: not all mobile browsers will show a the select as a list-box.
+Note that not all mobile browsers will show the select as a list-box.
 
 ```html
 <template>

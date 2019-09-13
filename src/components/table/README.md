@@ -828,7 +828,7 @@ explicit scoped slot provided.
 
       <!-- A custom formatted column -->
       <template v-slot:cell(name)="data">
-        <b class="text-info">{{ data.value.last.toUpperCase() }}</b>, <b>{{ data.value.first }}<b>
+        <b class="text-info">{{ data.value.last.toUpperCase() }}</b>, <b>{{ data.value.first }}</b>
       </template>
 
       <!-- A virtual composite column -->

@@ -1,6 +1,5 @@
 // --- <b-toast> custom transition SCSS ---
 
-// This is still a work in progress... will be changing
 // PortalVue appears to have issues with transition classes on portaled items
 
 .b-toaster {
@@ -41,47 +40,6 @@
 
       &.b-toaster-leave-to {
       }
-
-      /*
-      &.b-toaster-enter-active,
-      &.b-toaster-enter-to {
-        .toast.fade {
-          // Delay the appearance of the toast until
-          // the move transition has completed
-          transition-delay: 0.175s;
-        }
-      }
-
-      &.b-toaster-move {
-        transition: transform 0.175s;
-        // transition-delay: 0.175s;
-      }
-
-      &.b-toaster-enter-active {
-        z-index: 0;
-      }
-
-      &.b-toaster-leave-active {
-        transition: transform 0.175s;
-      }
-
-      &.b-toaster-leave,
-      &.b-toaster-leave-active {
-        position: absolute;
-        z-index: 0;
-        transition-delay: 0.175s;
-
-        .toast.fade {
-          transition-delay: 0s;
-        }
-      }
-
-      &.b-toaster-leave {
-      }
-
-      &.b-toaster-leave-to {
-      }
-      */
     }
   }
 }
