@@ -7,7 +7,7 @@
           <div class="backer img-thumbnail bg-light mx-auto d-flex align-items-center justify-content-center overflow-hidden">
             <b-img-lazy :src="backer.imageUrl" fluid block alt="Backer image"></b-img-lazy>
           </div>
-          <small class="pt-2">
+          <small class="backer-name pt-2">
             <b-link
               v-if="backer.website"
               :href="backer.website"
@@ -57,6 +57,10 @@
 .backer {
   width: 80px;
   height: 80px;
+}
+
+.backer-name {
+  width: 80px;
 }
 
 .donor {
