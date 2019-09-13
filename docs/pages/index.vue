@@ -467,6 +467,7 @@
           size="sm"
           variant="outline-secondary"
           target="_blank"
+          class="mb-2"
         >
           Become a backer
         </b-button>
@@ -475,6 +476,7 @@
           size="sm"
           variant="outline-secondary"
           target="_blank"
+          class="mb-2"
         >
           Become a sponsor
         </b-button>
@@ -483,6 +485,7 @@
           size="sm"
           variant="outline-secondary"
           target="_blank"
+          class="mb-2"
         >
           Donate
         </b-button>
