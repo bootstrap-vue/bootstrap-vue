@@ -83,8 +83,8 @@ export default {
   },
   methods: {
     requestOC(cb, type = 'active') {
-      // Do the async request
-      const ocURL = `${baseURL}${type}?limit=100`
+      // Do the async request (we limit to the most recent 50 entries)
+      const ocURL = `${baseURL}${type}?limit=50`
       const xhr = new XMLHttpRequest()
 
       const onLoad = () => {
