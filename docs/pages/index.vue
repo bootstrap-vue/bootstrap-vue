@@ -444,7 +444,7 @@
             <path d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z" />
           </svg>
           Support BootstrapVue on Open Collective
-        </h5>
+        </h2>
         <b-button
           href="https://opencollective.com/bootstrap-vue#backer"
           size="sm"
