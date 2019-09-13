@@ -127,6 +127,7 @@
 
     <section class="bv-section bv-gray-color">
       <b-container tag="article">
+        <h2 class="h4 mx-auto bd-text-purple-bright">Overview</h2>
         <b-row class="mb-4">
           <b-col lg="10" offset-lg="1">
             <b-card-text class="text-lg-center">
@@ -184,9 +185,10 @@
 
     <section class="bv-section bv-white">
       <b-container>
+        <h2 class="h4 mx-auto bd-text-purple-bright">Features</h2>
         <b-card-group deck class="mb-sm-4">
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
-            <b-card-text text-tag="h5" class="text-center mb-2 bd-text-purple-bright">
+            <b-card-text text-tag="h3" class="h5 text-center mb-2 bd-text-purple-bright">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="2.5em"
@@ -215,7 +217,7 @@
           </b-card>
 
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
-            <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
+            <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="2.5em"
@@ -245,7 +247,7 @@
           </b-card>
 
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
-            <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
+            <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="2.5em"
@@ -275,7 +277,7 @@
 
         <b-card-group deck class="mb-n3">
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
-            <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
+            <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="2.5em"
@@ -301,7 +303,7 @@
           </b-card>
 
           <b-card tag="article" body-text-variant="muted" body-class="px-2" class="rounded-0 border-0">
-            <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
+            <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="2.5em"
@@ -336,7 +338,7 @@
           </b-card>
 
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
-            <b-card-text text-tag="h5" class="text-center bd-text-purple-bright mb-2">
+            <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="2.5em"
@@ -421,7 +423,7 @@
 
     <section class="bv-section bv-white">
       <b-container tag="article" class="text-center">
-        <h5 class="text-center bd-text-purple-bright mb-3">
+        <h2 class="h5 text-center bd-text-purple-bright mb-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 40 41"
@@ -468,13 +470,13 @@
           Donate
         </b-button>
 
-        <BackersDonors class="mt-2"></BackersDonors>
+        <BackersDonors></BackersDonors>
       </b-container>
     </section>
 
-    <section class="bv-section bv-gray bv-p-reset">
+    <div class="bv-section bv-gray bv-p-reset" aria-hidden="true">
       <!-- to give footer on landing page angled top -->
-    </section>
+    </div>
   </main>
 </template>
 
