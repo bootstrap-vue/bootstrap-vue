@@ -130,7 +130,7 @@
         <h2 class="h4 text-center bd-text-purple-bright">Overview</h2>
         <b-row class="mb-4">
           <b-col lg="10" offset-lg="1">
-            <b-card-text class="text-lg-center">
+            <p class="text-lg-center">
               With over 40 available plugins and more than 80 custom UI components,
               <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
               comprehensive implementations of the
@@ -141,7 +141,7 @@
                 <abbr title="Web Accessibility Initiative – Accessible Rich Internet Applications">WAI-ARIA</abbr>
               </b-link>
               accessibility markup.
-            </b-card-text>
+            </p>
           </b-col>
         </b-row>
 
@@ -368,7 +368,7 @@
 
     <section class="bv-section bv-gray">
       <b-container tag="article" class="text-center">
-        <h2 class="h5 text-center bd-text-purple-bright">Integrate with NuxtJS</h2>
+        <h2 class="h4 text-center bd-text-purple-bright">Integrate with NuxtJS</h2>
         <div class="mb-2 d-flex flex-row justify-content-center align-items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -413,10 +413,15 @@
             <path d="m767 196h339c62 0 112 14 150 43 38 28 56 71 56 129 0 36-8 66-25 91s-42 44-74 58v2c43 9 75 29 98 61 22 31 33 71 33 118 0 28-5 53-15 77s-25 44-46 61c-21 18-47 31-80 41-32 11-71 16-116 16h-320zm122 292h199c29 0 54-9 73-25 20-17 29-41 29-72 0-35-8-60-26-75-17-14-43-21-76-21h-199zm0 305h216c37 0 66-10 86-29s31-46 31-81-10-61-31-80-49-28-86-28h-216z" fill="#fff" />
           </svg>
         </div>
-        <p>
-          Easily integrate BootstrapVue into your NuxtJS projects using our included NuxtJS module.
-          You can optionally specify only the components, directives and/or plugins you require.
-        </p>
+        <b-row class="mb-4">
+          <b-col lg="10" offset-lg="1">
+            <p class="text-lg-center">
+              Easily integrate BootstrapVue into your NuxtJS projects using our included NuxtJS module.
+              You can optionally specify only the components, directives and/or plugins you require.
+            </p>
+          </b-col>
+        </b-row>
+
         <b-button
           to="/docs#nuxtjs-module"
           size="sm"
@@ -435,7 +440,7 @@
 
     <section class="bv-section bv-white">
       <b-container tag="article" class="text-center">
-        <h2 class="h5 text-center bd-text-purple-bright mb-3">
+        <h2 class="h4 text-center bd-text-purple-bright mb-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 40 41"
