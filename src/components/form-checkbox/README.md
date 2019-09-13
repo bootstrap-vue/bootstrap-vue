@@ -212,6 +212,8 @@ props and the `v-model` are inherited from the `<b-form-checkbox-group>`.
 **Note:** the `unchecked-value` prop _does not_ affect the native `<input>`'s `value` attribute,
 because browsers don't include unchecked boxes in form submissions. To guarantee that one of two
 values is submitted in a native `<form>` submit (e.g. `'yes'` or `'no'`), use radio inputs instead.
+This is the same limitation that
+[Vue has with native checkbox inputs](https://vuejs.org/v2/guide/forms.html#Checkbox-1).
 
 ### Multiple checkboxes and accessibility
 
