@@ -5,9 +5,9 @@
       <div class="backer-container d-flex flex-wrap mx-n2 text-center justify-content-center font-weight-bold">
         <div v-for="backer in backers" :key="backer.slug" class="m-2 position-relative">
           <div class="backer img-thumbnail bg-light mx-auto d-flex align-items-center justify-content-center overflow-hidden">
-            <b-img-lazy :src="backer.imageUrl" fluid block aria-hidden="true"></b-img-lazy>
+            <b-img-lazy :src="backer.imageUrl" fluid block alt="Backer image"></b-img-lazy>
           </div>
-          <h6 class="pt-2">
+          <small class="pt-2">
             <b-link
               v-if="backer.url"
               :href="backer.url"
@@ -19,7 +19,7 @@
             <template v-else>
               {{ backer.name }}
             </template>
-          </h6>
+          </small>
         </div>
       </div>
     </template>
@@ -36,12 +36,13 @@
               target="_blank"
               class="stretched-link"
             >
-              <b-img-lazy :src="donor.imageUrl" fluid block :alt="donor.name"></b-img-lazy>
+              <b-img-lazy :src="donor.imageUrl" fluid block alt="Donor image"></b-img-lazy>
             </b-link>
             <b-img-lazy
               v-else
               :src="donor.imageUrl"
-              :alt="donor.name"
+              :title="donor.name" 
+              alt="Donor image"
               fluid
               block 
             ></b-img-lazy>
