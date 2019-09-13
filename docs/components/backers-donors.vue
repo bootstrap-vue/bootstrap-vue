@@ -76,9 +76,9 @@ export default {
   },
   mounted() {
     // Backers are people/organizations with recurring (active) donations
-    this.requestOC(this.processBackers, 'active')
+    this.requestOC(this.processBackers.bind(this), 'active')
     // Donors are people/organizations with one-time (paid) donations
-    this.requestOC(this.processDonors, 'paid')
+    this.requestOC(this.processDonors.bind(this), 'paid')
   },
   methods: {
     requestOC(cb, type = 'active') {
@@ -86,8 +86,7 @@ export default {
       const ocURL = `${baseURL}${type}?limit=100`
       const xhr = new XMLHttpRequest()
 
-      xhr.open('GET', ocURL, true)
-      xhr.addEventListener('load', () => {
+      const onLoad = () => {
         if (xhr.readyState !== 4) {
           return
         }
@@ -99,7 +98,10 @@ export default {
           // eslint-disable-next-line standard/no-callback-literal
           cb([], xhr.statusText)
         }
-      })
+      }
+
+      xhr.open('GET', ocURL, true)
+      xhr.addEventListener('load', onLoad)
       // Initiate the request
       xhr.send()
     },
@@ -107,6 +109,8 @@ export default {
       // DEBUG
       console.log('Nodes:', nodes)
       return nodes.map(entry => {
+        // DEBUG
+        console.log('  Entry:', entry)
         return {
           slug: entry.fromAccount.slug,
           name: entry.fromAccount.name,
@@ -114,7 +118,7 @@ export default {
           imageUrl: entry.fromAccount.imageUrl,
           website: entry.fromAccount.website,
           status: entry.status,
-          amount: entry.totalDonations,
+          amount: entry.totalDonations.value,
           frequency: entry.frequency,
           tier: entry.tier.slug,
           date: new Date(entry.createdAt)
