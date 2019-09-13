@@ -368,7 +368,7 @@
 
     <section class="bv-section bv-gray">
       <b-container tag="article" class="text-center">
-        <h2 class="h4 text-center bd-text-purple-bright">Integrate with NuxtJS</h2>
+        <h2 class="h4 text-center bd-text-purple-bright">Integrate with Nuxt.js</h2>
         <div class="mb-2 d-flex flex-row justify-content-center align-items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -416,7 +416,7 @@
         <b-row class="mb-3">
           <b-col lg="10" offset-lg="1">
             <p class="text-lg-center mb-0">
-              Easily integrate BootstrapVue into your NuxtJS projects using our included NuxtJS module.
+              Easily integrate BootstrapVue into your Nuxt.js projects using our included Nuxt.js module.
               You can optionally specify only the components, directives and/or plugins you require.
             </p>
           </b-col>
