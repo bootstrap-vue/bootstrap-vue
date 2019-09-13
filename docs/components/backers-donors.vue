@@ -128,18 +128,18 @@ export default {
     processBackers(backers = []) {
       // Backers are provided in reverse chronological order
       // so we sort by larger amount first, then by date
-      // Limit to top 10 backers
+      // Limit to top 16 backers
       this.backers = backers
         .filter(backer => backer.status === 'ACTIVE')
         .sort(this.sortCompare)
-        .slice(0, 10)
+        .slice(0, 16)
     },
     processDonors(donors = []) {
       // Donors are provided in reverse chronological order,
       // but donors can be listed more than once (for each individual donation),
       // although the totalDonations is the same on each entry.
       // We sort by larger amount first, then by date
-      // Limit to top 20 most recent donors
+      // Limit to top 25 most recent donors
       this.donors = donors
         .filter(donor => donor.status === 'PAID')
         .reduce((arr, donor) => {
@@ -149,7 +149,7 @@ export default {
           return arr
         }, [])
         .sort(this.sortCompare)
-        .slice(0, 20)
+        .slice(0, 25)
     }
   }
 }
