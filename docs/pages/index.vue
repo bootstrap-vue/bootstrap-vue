@@ -413,9 +413,9 @@
             <path d="m767 196h339c62 0 112 14 150 43 38 28 56 71 56 129 0 36-8 66-25 91s-42 44-74 58v2c43 9 75 29 98 61 22 31 33 71 33 118 0 28-5 53-15 77s-25 44-46 61c-21 18-47 31-80 41-32 11-71 16-116 16h-320zm122 292h199c29 0 54-9 73-25 20-17 29-41 29-72 0-35-8-60-26-75-17-14-43-21-76-21h-199zm0 305h216c37 0 66-10 86-29s31-46 31-81-10-61-31-80-49-28-86-28h-216z" fill="#fff" />
           </svg>
         </div>
-        <b-row class="mb-4">
+        <b-row class="mb-3">
           <b-col lg="10" offset-lg="1">
-            <p class="text-lg-center">
+            <p class="text-lg-center mb-0">
               Easily integrate BootstrapVue into your NuxtJS projects using our included NuxtJS module.
               You can optionally specify only the components, directives and/or plugins you require.
             </p>
@@ -430,7 +430,7 @@
         >
           BootstrapVue Nuxt.js module
         </b-button>
-        <p class="mb-0">
+        <p class="mb-0 text-center">
           BootstrapVue's documentation is created using
           <span class="bd-text-purple-bright">BootstrapVue</span> and
           generated with <a href="https://nuxtjs.org" target="_blank">Nuxt.js</a>
