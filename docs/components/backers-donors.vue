@@ -7,7 +7,7 @@
           <div class="backer img-thumbnail bg-light mx-auto d-flex align-items-center justify-content-center overflow-hidden">
             <b-img-lazy :src="backer.imageUrl" fluid block alt="Backer image"></b-img-lazy>
           </div>
-          <small class="backer-name pt-2">
+          <p class="backer-name small mb-0 pt-2">
             <b-link
               v-if="backer.website"
               :href="backer.website"
@@ -19,7 +19,7 @@
             <template v-else>
               {{ backer.name }}
             </template>
-          </small>
+          </p>
         </div>
       </div>
     </template>
