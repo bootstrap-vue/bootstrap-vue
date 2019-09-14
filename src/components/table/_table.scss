@@ -36,8 +36,8 @@
   }
 
   // Add in missing `bg-active` class for table tbody rows
-  // Bootstrap v4.3 is this for dark tables
-  // This bg-active class cannot be applied to individual cells
+  // Bootstrap v4.3 is missing this for dark tables
+  // `bg-active` class cannot be applied to individual cells
   > tbody > .bg-active {
     &,
     > th,
