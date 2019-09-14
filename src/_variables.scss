@@ -88,6 +88,10 @@ $bv-enable-table-stacked: true !default;
 $b-table-stacked-heading-width: 40% !default;
 $b-table-stacked-gap: 1rem !default;
 
+// Bootstrap v4.3 is missing the "avtive" variant for dark tables
+// Which translates to `bg-active`, but only for tables
+$table-dark-active-bg: $table-dark-hover-bg !default;
+
 // --- Toasts ---
 
 // Toaster defaults
