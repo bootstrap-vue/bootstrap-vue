@@ -1548,7 +1548,7 @@ provide some other visual means of conveying that a row is selected, as shown in
       ref="selectableTable"
       selectable
       :select-mode="selectMode"
-      selected-variant="avtive"
+      selected-variant="active"
       :items="items"
       :fields="fields"
       @row-selected="onRowSelected"
