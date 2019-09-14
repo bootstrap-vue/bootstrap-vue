@@ -1525,10 +1525,14 @@ element. Rows that are selected rows will have a class of `b-row-selected` appli
 element.
 
 Use the prop `selected-variant` to apply a Bootstrap theme color to the selected row(s). Note, due
-to the order that the table variants are defined in Bootstrap's CSS, any row-variant may take
+to the order that the table variants are defined in Bootstrap's CSS, any row-variant _might_ take
 precedence over the `selected-variant`. You can set `selected-variant` to an empty string if you
 will be using other means to convey that a row is selected (such as a scoped field slot in the below
 example).
+
+The `selected-variant` can be any of the
+[stadard (or custom) bootstrap base color variants](/docs/referance/color-variants), or the special
+[table variant `active`](/docs/reference/color-variants#table-variants).
 
 ```html
 <template>
@@ -1541,7 +1545,7 @@ example).
       ref="selectableTable"
       selectable
       :select-mode="selectMode"
-      selected-variant="success"
+      selected-variant="avtive"
       :items="items"
       :fields="fields"
       @row-selected="onRowSelected"
