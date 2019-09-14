@@ -34,6 +34,17 @@
       caption-side: top !important;
     }
   }
+
+  // Add in missing `bg-active` class for table tbody rows
+  // Bootstrap v4.3 is this for dark tables
+  // This bg-active class cannot be applied to individual cells
+  > tbody > .bg-active {
+    &,
+    > th,
+    > td {
+      background-color: $table-dark-active-bg;
+    }
+  }
 }
 
 // --- Table sticky header styling ---
