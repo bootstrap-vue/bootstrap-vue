@@ -55,12 +55,12 @@ describe('nav > nav-form', () => {
   })
 
   it('listeners are bound to form element', async () => {
-    const onSubmit = jest.$fn()
+    const onSubmit = jest.fn()
     const wrapper = mount(BNavForm, {
       propsData: {
         id: 'baz'
       },
-      on: {
+      listeners: {
         submit: onSubmit
       },
       slots: {
