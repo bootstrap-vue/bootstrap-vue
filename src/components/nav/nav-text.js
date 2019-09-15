@@ -4,7 +4,7 @@ import { mergeData } from 'vue-functional-data-merge'
 export const props = {
   tag: {
     type: String,
-    default: 'span'
+    default: 'li'
   }
 }
 
