@@ -11,19 +11,6 @@ describe('nav > nav-text', () => {
     expect(wrapper.text()).toEqual('')
   })
 
-  it('renders custom root element when prop tag is set', async () => {
-    const wrapper = mount(BNavText, {
-      propsData: {
-        tag: 'div'
-      }
-    })
-
-    expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.classes()).toContain('navbar-text')
-    expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.text()).toEqual('')
-  })
-
   it('renders default slot content', async () => {
     const wrapper = mount(BNavText, {
       slots: {
