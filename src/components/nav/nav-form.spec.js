@@ -14,8 +14,6 @@ describe('nav > nav-form', () => {
     expect($form.classes()).toContain('form-inline')
     expect($form.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
-
-    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
@@ -33,8 +31,6 @@ describe('nav > nav-form', () => {
     expect($form.exists()).toBe(true)
     expect($form.classes()).toContain('form-inline')
     expect($form.text()).toEqual('foobar')
-
-    wrapper.destroy()
   })
 
   it('applies ID to form when prop ID is set', async () => {
@@ -56,8 +52,6 @@ describe('nav > nav-form', () => {
     expect($form.classes()).toContain('form-inline')
     expect($form.text()).toEqual('foobar')
     expect($form.attributes('id')).toEqual('baz')
-
-    wrapper.destroy()
   })
 
   it('listeners are bound to form element', async () => {
@@ -87,7 +81,5 @@ describe('nav > nav-form', () => {
 
     $form.trigger('submit')
     expect(onSubmit).toHaveBeenCalled()
-
-    wrapper.destroy()
   })
 })
