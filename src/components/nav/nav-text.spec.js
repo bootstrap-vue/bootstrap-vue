@@ -5,7 +5,7 @@ describe('nav > nav-text', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BNavText)
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.is('li')).toBe(true)
     expect(wrapper.classes()).toContain('navbar-text')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
@@ -31,7 +31,7 @@ describe('nav > nav-text', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.is('li')).toBe(true)
     expect(wrapper.classes()).toContain('navbar-text')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
