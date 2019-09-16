@@ -50,5 +50,5 @@ WAI-ARIA compliant, nor accessible to keyboard-only and/or screen-reader users.
 
 ## Site generation
 
-- [NuxtJS](https://nuxtjs.org) - Static + PWA + SSR
-- [Gridsome](https://gridsome.org) - Static + PWA
+- [NuxtJS](https://nuxtjs.org) - Static + SPA+ PWA + SSR
+- [Gridsome](https://gridsome.org) - Static + SPA + PWA
