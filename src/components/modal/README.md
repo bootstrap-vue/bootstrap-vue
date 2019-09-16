@@ -27,7 +27,7 @@ using the `ok-title` and `cancel-title` props, or using the named slots `modal-o
 
 `<b-modal>` supports close on ESC (enabled by default), close on backdrop click (enabled by
 default), and the `X` close button in the header (enabled by default). These features may be
-disabled by setting the the props `no-close-on-esc`, `no-close-on-backdrop`, and `hide-header-close`
+disabled by setting the props `no-close-on-esc`, `no-close-on-backdrop`, and `hide-header-close`
 respectively.
 
 You can override the modal title via the named slot `modal-title`, override the header completely
