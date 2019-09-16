@@ -1,4 +1,5 @@
 {
-  "title": "Thirs party libraries",
+  "title": "Third party libraries",
+  "slug": "third-party",
   "description": "There are several 3rd party modules that you can use to add additional functionality and features to your BootstrapVue project."
 }
