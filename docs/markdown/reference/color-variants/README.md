@@ -16,7 +16,7 @@
 - `dark` - <span class="text-dark">Dark</span>
 
 The base variants will translate to various Bootstrap v4 contextual class names based on the
-component (and variant purpose) where they are used. See the below sections for details.
+component (and variant purpose) where they are used. See the sections below for details.
 
 ## Background and border variants
 
