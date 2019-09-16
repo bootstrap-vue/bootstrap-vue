@@ -15,7 +15,7 @@ Notes:
 ### Type Ahead
 
 - [Vue Bootstrap TypeAhead](https://github.com/alexurquhart/vue-bootstrap-typeahead) _note:
-  this component is accessible, but is not fully WAI-ARIA compliant_
+  this component is keyboard accessible, but is not fully WAI-ARIA compliant_
 
 ### Date and Time Pickers
 
