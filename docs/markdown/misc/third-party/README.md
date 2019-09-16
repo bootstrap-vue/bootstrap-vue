@@ -7,7 +7,7 @@ Notes:
 - The components and libraries listed here are not directly endorsed by BootstrapVue, and are listed
   here only for convenience.
 - Many of the 3rd party components listed are lacking accessibility features and may not be WAI-ARIA
-  compliant, nor accessible to keyboard only users.
+  compliant, nor accessible to keyboard-only and/or screen-reader users.
 - These libraries may have additional dependancies.
 
 ## Components
