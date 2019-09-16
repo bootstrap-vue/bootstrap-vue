@@ -31,6 +31,19 @@ WAI-ARIA compliant, nor accessible to keyboard-only and/or screen-reader users.
 
 - [Vue Disqus](https://github.com/ktquez/vue-disqus)
 
+### Icons
+
+- [Vue Fontawesome](https://fontawesome.com/how-to-use/on-the-web/using-with/vuejs)
+- [Vue Icon](https://github.com/qinshenxue/vue-icon)
+- [Vue Ionicons](https://mazipan.github.io/vue-ionicons/)
+- [Vue Unicons](https://antonreshetov.github.io/vue-unicons/)
+
+### Charting
+
+- [Vue Chartjs](https://vue-chartjs.org/)
+- [Vue Highcharts](https://github.com/weizhenye/vue-highcharts)
+- [Vue Graph](https://github.com/juijs/vue-graph)
+
 ## Form validation
 
 - [VeeValidate](https://logaretm.github.io/vee-validate/)
