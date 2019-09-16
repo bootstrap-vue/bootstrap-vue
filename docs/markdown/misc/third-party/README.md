@@ -21,7 +21,6 @@ WAI-ARIA compliant, nor accessible to keyboard-only and/or screen-reader users.
 ### Date and Time Pickers
 
 - [Vue AirBnB Style Datepicker](https://mikaeledebro.gitbooks.io/vue-airbnb-style-datepicker/)
-- [Vue2 Datepicker](https://mengxiong10.github.io/vue2-datepicker/) _note: not WAI-ARIA compliant_
 - [Vue Datepicker](https://livelybone.github.io/vue/vue-datepicker/) _note: not WAI-ARIA compliant_
 - [Vue date pick](https://dbrekalo.github.io/vue-date-pick/) _note: not WAI-ARIA compliant_
 - [Vue2 date range picker](https://innologica.github.io/vue2-daterange-picker/) _note: not WAI-ARIA
