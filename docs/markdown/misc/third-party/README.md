@@ -6,11 +6,12 @@
 Notes:
 - The components and libraries listed here are not directly endorsed by BootstrapVue, and are listed
   here only for convenience.
-- Many of the 3rd party components listed are lacking accessibility features and may not be WAI-ARIA
-  compliant, nor accessible to keyboard-only and/or screen-reader users.
 - These libraries may have additional dependancies.
 
 ## Components
+
+Note: Many of the 3rd party components listed are lacking accessibility features and may not be fully
+WAI-ARIA compliant, nor accessible to keyboard-only and/or screen-reader users.
 
 ### Type Ahead
 
@@ -26,8 +27,16 @@ Notes:
 - [Vue2 date range picker](https://innologica.github.io/vue2-daterange-picker/) _note: not WAI-ARIA
   compliant_
 
-## Validation
+### Commenting and discussion
+
+- [Vue Disqus](https://github.com/ktquez/vue-disqus)
+
+## Form validation
 
 - [VeeValidate](https://logaretm.github.io/vee-validate/)
 - [Vuelidate](https://github.com/vuelidate/vuelidate/)
 
+## Site generation
+
+- [NuxtJS](https://nuxtjs.org) - Static + PWA + SSR
+- [Gridsome](https://gridsome.org) - Static + PWA
