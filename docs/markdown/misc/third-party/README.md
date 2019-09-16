@@ -5,7 +5,7 @@
 
 Notes:
 - The components and libraries listed here are not directly endorsed by BootstrapVue, and are listed
-  here only for convenience.
+  here only for convenience, and is by no means a complete list.
 - These libraries may have additional dependancies.
 
 ## Components
