@@ -199,10 +199,11 @@ const processComponentGroup = groupSlug => {
           // Slot props not documented in meta yet
           slot.properties = slotObj.scope.forEach(propDef => {
             const property = {
-              name: propDef.name,
-              type: 'any',
-              description: propDef.description,
+              name: propDef.prop,
               'doc-url': docUrl
+            }
+            if (propDef.description) {
+              property.description = propDef.description
             }
             if (propDef.type) {
               property.type = computePropType(propDef)
