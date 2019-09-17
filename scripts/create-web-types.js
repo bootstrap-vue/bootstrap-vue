@@ -1,5 +1,5 @@
 const path = require('path')
-const fs = require('fs')
+// const fs = require('fs')
 const pkg = require('../package.json')
 const requireContext = require('require-context')
 
@@ -185,7 +185,6 @@ const processComponentGroup = groupSlug => {
     // Add slots
     if ($slots.length) {
       tag['vue-scoped-slots'] = $slots.map(slotObj => {
-        const properties = []
         const slot = {
           name: slotObj.name,
           description: slotObj.description || '',
@@ -226,13 +225,16 @@ const processComponentGroup = groupSlug => {
 }
 
 // Grab the component meta data
-const componentsContext = requireContext(path.resolve(baseDir, 'src/components'), true, /package.json/)
+const componentsContext = requireContext(
+  path.resolve(baseDir, 'src/components'),
+  true,
+  /package.json/
+)
 const componentGroups = importAll(componentsContext)
 
-// Grab teh directive meta data
+// Grab the directive meta data
 // const directivesContext = requireContext(path.resolve(baseDir, 'src/directives'), true, /package.json/)
 // const directiveGroups = importAll(directivesContext)
-
 
 // Process all components
 Object.keys(componentGroups).forEach(processComponentGroup)
