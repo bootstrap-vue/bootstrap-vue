@@ -58,7 +58,7 @@ const kebabCase = str => {
   return str.replace(kebabRE, '-$1').toLowerCase()
 }
 
-// Compute hte web-type "type" from the a prop type
+// Compute the web-type "type" from the a prop type
 const computePropType = ({ type }) => {
   if (!type) {
     return 'any'
