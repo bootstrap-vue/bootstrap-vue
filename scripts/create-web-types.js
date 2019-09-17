@@ -75,7 +75,7 @@ const computePropType = ({ type }) => {
     } else {
       // Handle cases for BvEvent, BvModalEvent and other native
       // event types (i.e. HTMLElement, MouseEvent, etc)
-      return /^[A-Z].*[A-Z].+/.test(type) ? type : type.toLowerCase()
+      return /^[A-Z].*[A-Z].+/.test(type) || type === 'Event' ? type : type.toLowerCase()
     }
   }
   if (type.name === 'Array') {
