@@ -84,4 +84,9 @@ cd ..
 echo 'Done.'
 echo ''
 
+echo 'Building web-types...'
+node -r esm scripts/create-web-types.js || exit 1
+echo 'Done.'
+echo ''
+
 echo 'Done building assets.'
