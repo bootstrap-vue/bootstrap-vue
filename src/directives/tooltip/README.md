@@ -309,24 +309,24 @@ Where `[modX]` can be (all optional):
 
 - Positioning: `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`,
   `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom` (last one found wins,
-  defaults to `top`)
+  defaults to `top`).
 - Event trigger: `click`, `hover`, `focus`, `blur` (if none specified, defaults to `focus` and
   `hover`. `blur` is a close handler only, and if specified by itself, will be converted to
   `focus`). Use `manual` if you only want to control the visibility manually.
-- `nofade` to turn off animation
+- `nofade` to turn off animation.
 - `html` to enable rendering raw HTML. By default HTML is escaped and converted to text
 - A delay value in the format of `d###` (where `###` is in ms, defaults to `50`), applied to both
-  `hide` and `show`
+  `hide` and `show`.
 - A show delay value in the format of `ds###` (where `###` is in ms, defaults to `50`), applied to
-  `show` trigger only
+  `show` trigger only.
 - A hide delay value in the format of `dh###` (where `###` is in ms, defaults to `50`), applied to
-  `hide` trigger only
+  `hide` trigger only.
 - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults
-  to `0`. Negative values allowed)
+  to `0`. Negative values allowed).
 - A boundary setting of `window` or `viewport`. The element to constrain the visual placement of the
   tooltip. If not specified, the boundary defaults to the trigger element's scroll parent (in most
-  cases this will suffice)
-- A contextual variant in the form of `v-XXX` (where `XXX` is the color variant name)
+  cases this will suffice).
+- A contextual variant in the form of `v-XXX` (where `XXX` is the color variant name).
 
 Where `<value>` can be (optional):
 
