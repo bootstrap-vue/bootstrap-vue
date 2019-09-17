@@ -6,7 +6,7 @@ import { keys } from '../utils/object'
 export default {
   props: {
     options: {
-      type: [Array, Object],
+      type: Array,
       default() {
         return []
       }
