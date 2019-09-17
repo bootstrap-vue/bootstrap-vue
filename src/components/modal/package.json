@@ -145,7 +145,7 @@
               },
               {
                 "arg": "modalId",
-                "Type": "String",
+                "type": "String",
                 "description": "modal ID"
               }
             ]
@@ -161,7 +161,7 @@
               },
               {
                 "arg": "modalId",
-                "Type": "String",
+                "type": "String",
                 "description": "modal ID"
               }
             ]
@@ -179,7 +179,7 @@
               },
               {
                 "arg": "elIDtoFocusOnClose",
-                "Type": ["String", "HTMLElement"]
+                "type": ["String", "HTMLElement"],
                 "description": "(optional), specify the element reference, or CSS selector, to return focus to once the modal is closed"
               }
             ]
