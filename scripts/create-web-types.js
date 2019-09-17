@@ -173,7 +173,7 @@ const processComponentGroup = groupSlug => {
         if (eventObj.description) {
           event.description = eventObj.description
         }
-        if (eventObj.args) {
+        if (Array.isArray(eventObj.args)) {
           event.arguments = eventObj.args.map(arg => {
             arg = typeof arg === 'object' ? arg : { arg: arg }
             const argument = {
@@ -203,9 +203,9 @@ const processComponentGroup = groupSlug => {
         if (slotObj.description) {
           slot.description = slotObj.description
         }
-        if (slotObj.scope) {
+        if (Array.isArray(slotObj.scope)) {
           // Slot props not documented in meta yet
-          slot.properties = slotObj.scope.forEach(propDef => {
+          slot.properties = slotObj.scope.map(propDef => {
             const property = {
               name: propDef.prop,
               'doc-url': docUrl
