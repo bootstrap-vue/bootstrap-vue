@@ -27,7 +27,7 @@ const webTypes = {
 }
 
 // Import metatdata from a directory glob package.json files
-export const importAll = r => {
+const importAll = r => {
   const obj = {}
   r.keys()
     .map(r)
@@ -52,11 +52,13 @@ export const importAll = r => {
   return obj
 }
 
+// Util to kebab-case a PascalCase or camelCase string
 const kebabRE = /\B([A-Z])/g
 const kebabCase = str => {
   return str.replace(kebabRE, '-$1').toLowerCase()
 }
 
+// Compute hte web-type "type" from the a prop type
 const computePropType = ({ type }) => {
   if (!type) {
     return 'any'
@@ -83,6 +85,7 @@ const computePropType = ({ type }) => {
   return type.name.toLowerCase()
 }
 
+// Compute the default value (in web-type form) for a given prop definition
 const computePropDefault = ({ default: def, type }) => {
   // Default could be a function that retruns a non-primative type
   def = typeof def === 'function' ? def.call({}) : def
@@ -94,13 +97,14 @@ const computePropDefault = ({ default: def, type }) => {
   return JSON.stringify(def)
 }
 
-// Create tag entries for each component in a group group
+// Create tag entries for each component in a component group
 const processComponentGroup = groupSlug => {
   // Array of components in the group
   const groupMeta = componentGroups[groupSlug] || {}
   const componentsMeta = groupMeta.components || []
   const docUrl = `${baseDocs}/docs/components/${groupSlug}/`
 
+  // We import the component from the transpiled `esm/` dir
   const groupRef = require(path.resolve(baseDir, 'esm/components/' + groupSlug))
 
   // Process each component
@@ -225,7 +229,57 @@ const processComponentGroup = groupSlug => {
   })
 }
 
-// Grab the component meta data
+// Create attribute entries for each directive
+const processDirectiveGroup = groupSlug => {
+  // Directives only have a single entry in their Meta for `directive`
+  const directiveMeta = directiveGroups[groupSlug] || {}
+  const docUrl = `${baseDocs}/docs/directives/${groupSlug}/`
+
+  // Process the directive meta
+  const name = directiveMeta.directive
+  const arg = directiveMeta.arg
+  const modifiers = directiveMeta.modifiers
+  const expression = directiveMeta.expression
+
+  // Base attribute definition
+  const attribute = {
+    name: kebabCase(name),
+    source: {
+      module: libraryName,
+      symbol: name
+    },
+    required: false,
+    description: `${name} - BootstrapVue directive '${kebabCase(name)}'`,
+    'doc-url': docUrl
+  }
+  // Add in argument details
+  if (arg) {
+    // TODO as this is missing from the schema def
+    // https://github.com/JetBrains/web-types/issues/7
+  }
+  // Add in any modifier details
+  if (modifiers) {
+    attribute['vue-modifiers'] = modifiers.map(mod => {
+      const modifier = {
+        name: mod.modifer,
+        description: mod.description || '',
+        'doc-url': docUrl
+      }
+      return modifer
+    })
+  }
+  // Add in value (expression) type
+  if (expression) {
+    attribute.value = {
+      kind: 'expression',
+      type: computePropType(expression)
+    }
+  }
+  // Add the directive to the html attributes array
+  webTypes.contributions.html.attributes.push(attribute)
+}
+
+// Grab the component meta data (from the source dir component's package.json)
 const componentsContext = requireContext(
   path.resolve(baseDir, 'src/components'),
   true,
@@ -234,11 +288,18 @@ const componentsContext = requireContext(
 const componentGroups = importAll(componentsContext)
 
 // Grab the directive meta data
-// const directivesContext = requireContext(path.resolve(baseDir, 'src/directives'), true, /package.json/)
-// const directiveGroups = importAll(directivesContext)
+const directivesContext = requireContext(
+  path.resolve(baseDir, 'src/directives'),
+  true,
+  /package.json/
+)
+const directiveGroups = importAll(directivesContext)
 
 // Process all components
 Object.keys(componentGroups).forEach(processComponentGroup)
+
+// Process all directives
+Object.keys(directiveGroups).forEach(processDirectiveGroup)
 
 // Convert to JSON string
 const json = JSON.stringify(webTypes, null, 2)
