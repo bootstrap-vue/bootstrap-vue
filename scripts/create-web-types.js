@@ -265,7 +265,7 @@ const processDirectiveGroup = groupSlug => {
         description: mod.description || '',
         'doc-url': docUrl
       }
-      return modifer
+      return modifier
     })
   }
   // Add in value (expression) type
