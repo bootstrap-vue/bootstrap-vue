@@ -166,24 +166,30 @@ const processComponentGroup = groupSlug => {
     // Add events
     if ($events.length) {
       tag.events = $events.map(eventObj => {
-        return {
+        const event = {
           name: eventObj.event,
-          description: eventObj.description,
-          'doc-url': docUrl,
-          arguments: (eventObj.args || []).map(arg => {
+          'doc-url': docUrl
+        }
+        if (eventObj.description) {
+          event.description = eventObj.description
+        }
+        if (eventObj.args) {
+          event.arguments = eventObj.args.map(arg => {
             arg = typeof arg === 'object' ? arg : { arg: arg }
-            const event = {
+            const argument = {
               name: arg.arg,
-              type: 'any',
-              description: arg.description || '',
               'doc-url': docUrl
             }
-            if (arg.type) {
-              event.type = computePropType(arg)
+            if (arg.description) {
+              argument.description = arg.description
             }
-            return event
+            if (arg.type) {
+              argument.type = computePropType(arg)
+            }
+            return argument
           })
         }
+        return event
       })
     }
 
@@ -192,8 +198,10 @@ const processComponentGroup = groupSlug => {
       tag['vue-scoped-slots'] = $slots.map(slotObj => {
         const slot = {
           name: slotObj.name,
-          description: slotObj.description || '',
           'doc-url': docUrl
+        }
+        if (slotObj.description) {
+          slot.description = slotObj.description
         }
         if (slotObj.scope) {
           // Slot props not documented in meta yet
