@@ -615,7 +615,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const target = this.getTarget()
       if (target && hasAttr(target, 'data-original-title')) {
         setAttr(target, 'title', getAttr(target, 'data-original-title') || '')
-        setAttr(target, 'data-original-title', '')
+        removeAttr(target, 'data-original-title')
       }
     },
     //
