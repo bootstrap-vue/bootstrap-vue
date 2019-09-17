@@ -2,11 +2,11 @@ const path = require('path')
 // const fs = require('fs')
 const requireContext = require('require-context')
 
-const pkg = require(path.resolve(__dirname, 'package.json'))
+const baseDir = path.resolve(__dirname, '..')
+const pkg = require(path.resolve(baseDir, 'package.json'))
+
 const libraryName = pkg.name
 const libraryVersion = pkg.version
-
-const baseDir = path.resolve(__dirname, '..')
 const baseDocs = pkg.homepage.replace(/\/$/, '')
 
 // Base web-types object
