@@ -40,7 +40,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
   props: {
     id: {
       type: String,
-      required: true
+      default: null
     },
     isNav: {
       type: Boolean,
