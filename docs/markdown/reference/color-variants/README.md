@@ -16,7 +16,7 @@
 - `dark` - <span class="text-dark">Dark</span>
 
 The base variants will translate to various Bootstrap v4 contextual class names based on the
-component (and variant purpose) where they are used.
+component (and variant purpose) where they are used. See the sections below for details.
 
 ## Background and border variants
 
@@ -24,10 +24,10 @@ All the **base variants** plus:
 
 - `transparent`
 
-These translate to class names `bg-<variant>` for backgrounds and `border-<variant>` for borders.
+These translate to class names `bg-{variant}` for backgrounds and `border-{variant}` for borders.
 
-These variants are used by components (such as `<b-card>`, `<b-jumbotron>` and `<b-modal>`) that
-provide `bg-variant`, `*-bg-variant`, `border-variant` and `*-border-variant` props
+These variants are used by components (such as `<b-card>`, `<b-jumbotron>`, `<b-modal>`, etc.) that
+provide `bg-variant`, `*-bg-variant`, `border-variant` and `*-border-variant` props.
 
 ## Text variants
 
@@ -37,10 +37,10 @@ All the **base variants** plus:
 - `white`
 - `black`
 
-These translate to class names `text-<variant>`
+These translate to class names `text-{variant}`
 
-These variants are used by components (such as `<b-card>`, `<b-jumbotron>` and `<b-modal>`) that
-provide `text-variant` and `*-text-variant` props
+These variants are used by components (such as `<b-card>`, `<b-jumbotron>`, `<b-modal>`, etc.) that
+provide `text-variant` and `*-text-variant` props.
 
 ## Component specific variants
 
@@ -51,22 +51,22 @@ Some Bootstrap v4 components require additional CSS styling, or additional pseud
 
 All the **base variants**
 
-These translate to class names `alert-<variant>`.
+These translate to class names `alert-{variant}`.
 
 ### Badge variants
 
 All the **base variants**
 
-These translate to class names `badge-<variant>`.
+These translate to class names `badge-{variant}`.
 
 ### Button variants
 
 All the **base variants** plus:
 
-- `outline-<base variant>`
-- `link` which renders the button with the look of a link but retains button padding and margins.
+- `outline-{base variant}` which generates an outline button version of the base variant
+- `link` which renders the button with the look of a link but retains button padding and margins
 
-These translate to class names `btn-<variant>` and `btn-outline-<variant>`.
+These translate to class names `btn-{variant}` and `btn-outline-{variant}`.
 
 Note the `link` variant does not have an outline version.
 
@@ -76,27 +76,30 @@ All the **base variants** plus:
 
 - `active`
 
-These variants translate to class names `table-<variant>`.
+These variants translate to class names `table-{variant}`.
 
-When the table has the `dark` prop set, the variants translate to the `bg-<variant>` classes.
+When the table has the `dark` prop set, the variants translate to the `bg-{variant}` classes.
+
+Note that the `active` variant is only applicable to `<tr>` elements within the `<tbody>`, and can
+not be applied to individual table cells or used as the `table-variant`.
 
 ### Popover variants
 
 All the **base variants**
 
-These translate to BootstrapVue custom class names `b-popover-<variant>`.
+These translate to BootstrapVue custom class names `b-popover-{variant}`.
 
 ### Tooltip variants
 
 All the **base variants**
 
-These translate to BootstrapVue custom class names `b-tooltip-<variant>`.
+These translate to BootstrapVue custom class names `b-tooltip-{variant}`.
 
 ### Toast variants
 
 All the **base variants**
 
-These translate to BootstrapVue custom class names `b-toast-<variant>`.
+These translate to BootstrapVue custom class names `b-toast-{variant}`.
 
 ## Using variant classes
 
