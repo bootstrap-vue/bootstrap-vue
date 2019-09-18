@@ -121,8 +121,8 @@ multiple target IDs using modifiers:
 ## Accordion support
 
 Turn a group of `<b-collapse>` components into an accordion by supplying an accordion group
-identifier via the `accordion` prop. Note that only oone collapse in an accordian group can be
-open at a time.
+identifier via the `accordion` prop. Note that only one collapse in an accordion group can be open
+at a time.
 
 ```html
 <template>
@@ -194,7 +194,7 @@ open at a time.
 - If using the `v-model` feature of `<b-collapse>` in accordion mode, do not bind the `v-model` or
   `visible` prop of all the collapses in the accordion group to the same variable!
 - Ensure, at most, only one `<b-collapse>` in the accordion group has the `visible` prop and/or
-  `v-model` set to `true`. Only one collapse in an accordian group can be open at a time.
+  `v-model` set to `true`. Only one collapse in an accordion group can be open at a time.
 
 ## Hiding and showing content in the toggle button based on collapse state
 
