@@ -17,6 +17,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object"
               }
             ]
@@ -27,6 +28,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object."
               }
             ]
@@ -37,6 +39,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object"
               }
             ]
@@ -47,6 +50,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object."
               }
             ]
@@ -65,6 +69,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object"
               }
             ]
@@ -75,6 +80,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object."
               }
             ]
@@ -85,6 +91,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object"
               }
             ]
@@ -95,6 +102,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object."
               }
             ]
@@ -105,6 +113,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object."
               }
             ]
@@ -115,6 +124,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object."
               }
             ]
@@ -127,6 +137,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), tooltip id to hide"
               }
             ]
@@ -137,6 +148,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), tooltip id to show"
               }
             ]
@@ -147,6 +159,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), tooltip id to disable"
               }
             ]
@@ -157,6 +170,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), tooltip id to enable"
               }
             ]
@@ -165,7 +179,7 @@
         "slots": [
           {
             "name": "default",
-            "description": "Slot for tooltip content (HTML supported)"
+            "description": "Slot for tooltip content (HTML/Components supported)"
           }
         ]
       }
