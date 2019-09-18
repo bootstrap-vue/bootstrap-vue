@@ -1,29 +1,30 @@
-# Third party linraries
+# Third party libraries
 
 > There are several 3rd party modules that you can use to add additional functionality and features
 > to your BootstrapVue project.
 
 Notes:
+
 - The components and libraries listed here are not directly endorsed by BootstrapVue, and are listed
   here only for convenience, and is by no means a complete list.
-- These libraries may have additional dependancies.
+- These libraries may have additional dependencies.
 
 ## Components
 
-Note: Many of the 3rd party components listed are lacking accessibility features and may not be fully
-WAI-ARIA compliant, nor accessible to keyboard-only and/or screen-reader users.
+Note: Many of the 3rd party components listed are lacking accessibility features and may not be
+fully WAI-ARIA compliant, nor accessible to keyboard-only and/or screen-reader users.
 
 ### Type Ahead
 
-- [Vue Bootstrap TypeAhead](https://github.com/alexurquhart/vue-bootstrap-typeahead) _note:
-  this component is keyboard accessible, but is not fully WAI-ARIA compliant_
+- [Vue Bootstrap TypeAhead](https://github.com/alexurquhart/vue-bootstrap-typeahead) _Note: This
+  component is keyboard accessible, but is not fully WAI-ARIA compliant_
 
 ### Date and Time Pickers
 
 - [Vue AirBnB Style Datepicker](https://mikaeledebro.gitbooks.io/vue-airbnb-style-datepicker/)
 - [Vue Datepicker](https://livelybone.github.io/vue/vue-datepicker/) _note: not WAI-ARIA compliant_
 - [Vue date pick](https://dbrekalo.github.io/vue-date-pick/) _note: not WAI-ARIA compliant_
-- [Vue2 date range picker](https://innologica.github.io/vue2-daterange-picker/) _note: not WAI-ARIA
+- [Vue2 date range picker](https://innologica.github.io/vue2-daterange-picker/) _Note: Not WAI-ARIA
   compliant_
 
 ### Commenting and discussion
@@ -39,7 +40,7 @@ WAI-ARIA compliant, nor accessible to keyboard-only and/or screen-reader users.
 
 ### Charting
 
-- [Vue Chartjs](https://vue-chartjs.org/)
+- [Vue Chart.js](https://vue-chartjs.org/)
 - [Vue Highcharts](https://github.com/weizhenye/vue-highcharts)
 - [Vue Graph](https://github.com/juijs/vue-graph)
 
