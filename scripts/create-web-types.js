@@ -1,8 +1,12 @@
+// Creates a web-types.json file and places it in /dist
 const path = require('path')
-// const fs = require('fs')
+const fs = require('fs')
 const requireContext = require('require-context')
 
 const baseDir = path.resolve(__dirname, '..')
+const distDir = path.resolve(baseDir, 'dist')
+
+// Import project package.json
 const pkg = require(path.resolve(baseDir, 'package.json'))
 
 const libraryName = pkg.name
@@ -244,9 +248,13 @@ const processDirectiveGroup = groupSlug => {
   const docUrl = `${baseDocs}/docs/directives/${groupSlug}/`
 
   // Process the directive meta
+  // String (PascalCase)
   const name = directiveMeta.directive
+  // Object
   const arg = directiveMeta.arg
+  // Array
   const modifiers = directiveMeta.modifiers
+  // Object
   const expression = directiveMeta.expression
 
   // Base attribute definition
@@ -260,6 +268,9 @@ const processDirectiveGroup = groupSlug => {
     description: `${name} - BootstrapVue directive '${kebabCase(name)}'`,
     'doc-url': docUrl
   }
+  // The following are not in the directive package.json meta section yet.
+  // There are currently a few issues with what the schema supports,
+  // so we may need to adjust the following once it is completed.
   // Add in argument details
   if (arg) {
     // TODO as this is missing from the schema def
@@ -287,30 +298,39 @@ const processDirectiveGroup = groupSlug => {
   webTypes.contributions.html.attributes.push(attribute)
 }
 
-// Grab the component meta data (from the source dir component's package.json)
-const componentsContext = requireContext(
-  path.resolve(baseDir, 'src/components'),
-  true,
-  /package.json/
-)
-const componentGroups = importAll(componentsContext)
+try {
+  // Grab the component meta data (from the source dir component's package.json)
+  const componentsContext = requireContext(
+    path.resolve(baseDir, 'src/components'),
+    true,
+    /package.json/
+  )
+  const componentGroups = importAll(componentsContext)
 
-// Grab the directive meta data
-const directivesContext = requireContext(
-  path.resolve(baseDir, 'src/directives'),
-  true,
-  /package.json/
-)
-const directiveGroups = importAll(directivesContext)
+  // Grab the directive meta data
+  const directivesContext = requireContext(
+    path.resolve(baseDir, 'src/directives'),
+    true,
+    /package.json/
+  )
+  const directiveGroups = importAll(directivesContext)
 
-// Process all components
-Object.keys(componentGroups).forEach(processComponentGroup)
+  // Process all components
+  Object.keys(componentGroups).forEach(processComponentGroup)
 
-// Process all directives
-Object.keys(directiveGroups).forEach(processDirectiveGroup)
+  // Process all directives
+  Object.keys(directiveGroups).forEach(processDirectiveGroup)
 
-// Convert to JSON string
-const json = JSON.stringify(webTypes, null, 2)
+  // Convert to JSON string (prettifed with indent of 2 spaces)
+  const json = JSON.stringify(webTypes, null, 2)
 
-// To be replaced with a write to a file
-console.log('JSON:', json)
+  // Write JSON to file
+  fs.writeFileSync(path.resolve(distDir, 'web-types.json'), json)
+} catch (err) {
+  // Add some basic error handling here
+  logError(`create-web-types.js: an error occurred...`)
+  console.log()
+  console.error(err)
+  console.log()
+  process.exit(1)
+}
