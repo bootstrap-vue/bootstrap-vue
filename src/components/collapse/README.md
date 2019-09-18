@@ -63,7 +63,8 @@ the `visible` prop.
 
 Note, when using `v-model` to control `<b-collapse>`, the `aria-*` attributes and class `collapsed`
 are not automatically placed on the trigger button (as is the case when using the `v-b-toggle`
-directive). In this example we must control them ourselves.
+directive). In this example we **must control the attributes ourselves** for proper accessibility
+support.
 
 ```html
 <template>
@@ -120,7 +121,8 @@ multiple target IDs using modifiers:
 ## Accordion support
 
 Turn a group of `<b-collapse>` components into an accordion by supplying an accordion group
-identifier via the `accordion` prop:
+identifier via the `accordion` prop. Note that only one collapse in an accordion group can be open
+at a time.
 
 ```html
 <template>
@@ -192,7 +194,7 @@ identifier via the `accordion` prop:
 - If using the `v-model` feature of `<b-collapse>` in accordion mode, do not bind the `v-model` or
   `visible` prop of all the collapses in the accordion group to the same variable!
 - Ensure, at most, only one `<b-collapse>` in the accordion group has the `visible` prop and/or
-  `v-model` set to `true`.
+  `v-model` set to `true`. Only one collapse in an accordion group can be open at a time.
 
 ## Hiding and showing content in the toggle button based on collapse state
 
