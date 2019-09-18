@@ -106,7 +106,7 @@
     "eslint-plugin-jest": "^22.17.0",
     "eslint-plugin-markdown": "^1.0.0",
     "eslint-plugin-node": "^10.0.0",
-    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^5.2.3",
