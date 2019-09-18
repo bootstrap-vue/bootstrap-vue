@@ -23,7 +23,13 @@
             "args": [
               {
                 "arg": "value",
-                "description": "current selected value of the select."
+                "type": [
+                  "String",
+                  "Number",
+                  "Object",
+                  "Array"
+                ],
+                "description": "current selected value(s) of the select."
               }
             ]
           },
@@ -33,7 +39,13 @@
             "args": [
               {
                 "arg": "value",
-                "description": "current selected value of the select."
+                "type": [
+                  "String",
+                  "Number",
+                  "Object",
+                  "Array"
+                ],
+                "description": "current selected value(s) of the select."
               }
             ]
           }
