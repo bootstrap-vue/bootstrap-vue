@@ -100,7 +100,7 @@
         striped
       >
         <template v-slot:cell(name)="{ value }">
-          <code class="text-nowrap nostranslate" translate="no">{{ value }}</code>
+          <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
         <template v-slot:cell(scope)="{ value, toggleDetails }">
           <b-button
@@ -118,17 +118,17 @@
             <b-table-lite
               v-if="item.scope"
               :items="item.scope"
-              :fields="[{ key: 'prop', label: 'Scope property' }, 'type', 'description']"
+              :fields="[{ key: 'prop', label: 'Property' }, 'type', 'description']"
               class="mb-0"
+              head-variant="dark"
               striped
-              dark
               small
             >
               <template v-slot:cell(prop)="{ value }">
-                <code class="text-nowrap nostranslate text-white" translate="no">{{ value }}</code>
+                <code class="text-nowrap notranslate text-white" translate="no">{{ value }}</code>
               </template>
               <template v-slot:cell(type)="{ value }">
-                <span v-if="value" class="text-nowrap nostranslate" translate="no">{{ value }}</span>
+                <span v-if="value" class="text-nowrap notranslate" translate="no">{{ value }}</span>
                 <template v-else>Any</template>
               </template>
             </b-table-lite>
