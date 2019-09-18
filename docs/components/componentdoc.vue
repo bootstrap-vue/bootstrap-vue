@@ -46,8 +46,6 @@
         :fields="propsFields"
         class="bv-docs-table"
         responsive="sm"
-        head-variant="default"
-        bordered
         striped
       >
         <template v-slot:cell(prop)="{ value, item }">
@@ -78,8 +76,6 @@
           :fields="[{ key: 'prop', label: 'Property' }, 'event']"
           class="bv-docs-table"
           responsive="sm"
-          head-variant="default"
-          bordered
           striped
         >
           <template v-slot:cell(prop)="{ value }">
@@ -101,8 +97,6 @@
         :fields="slotsFields"
         class="bv-docs-table"
         responsive="sm"
-        head-variant="default"
-        bordered
         striped
       >
         <template v-slot:cell(name)="{ value }">
@@ -116,11 +110,13 @@
             v-if="item.scope"
             :items="item.scope"
             :fields="['prop', 'type', 'description']"
+            class="mb-0"
             striped
+            dark
             small
           >
             <template v-slot:cell(prop)="{ value }">
-              <code class="text-nowrap nostranslate" translate="no">{{ value }}</code>
+              <code class="text-nowrap nostranslate text-white" translate="no">{{ value }}</code>
             </template>
             <template v-slot:cell(type)="{ value }">
               <span v-if="value" class="text-nowrap nostranslate" translate="no">{{ value }}</span>
@@ -140,8 +136,6 @@
         :fields="eventsFields"
         class="bv-docs-table"
         responsive="sm"
-        head-variant="default"
-        bordered
         striped
       >
         <template v-slot:cell(event)="{ value }">
@@ -175,8 +169,6 @@
         :fields="rootEventListenersFields"
         class="bv-docs-table"
         responsive="sm"
-        head-variant="default"
-        bordered
         striped
       >
         <template v-slot:cell(event)="{ value }">
