@@ -7,7 +7,7 @@
     "components": [
       {
         "component": "BCarousel",
-        "description": "The <b-carousel> component is a slideshow for cycling through a series of content",
+        "description": "The <b-carousel> component is a slideshow for cycling through a series of slide content",
         "events": [
           {
             "event": "sliding-start",
