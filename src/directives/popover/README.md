@@ -446,11 +446,11 @@ Where `[mod]` can be (all optional):
 - `nofade` to turn off animation.
 - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text.
 - A delay value in the format of `d###` (where `###` is in ms, defaults to `50`), applied to both
-  `hide` and `show` (affects `hover` and `focus` only)
+  `hide` and `show`.
 - A show delay value in the format of `ds###` (where `###` is in ms, defaults to `50`), applied to
-  `show` trigger only (affects `hover` and `focus` only)
+  `show` trigger only.
 - A hide delay value in the format of `dh###` (where `###` is in ms, defaults to `50`), applied to
-  `hide` trigger only (affects `hover` and `focus` only)
+  `hide` trigger only.
 - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults
   to `0`. Negative values are allowed). Note if an offset is supplied, then the alignment positions
   will fallback to one of `top`, `bottom`, `left`, or `right`.
