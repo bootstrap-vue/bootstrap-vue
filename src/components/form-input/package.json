@@ -17,6 +17,10 @@
             "args": [
               {
                 "arg": "value",
+                "type": [
+                  "String",
+                  "Number"
+                ],
                 "description": "Current value of input"
               }
             ]
@@ -27,6 +31,10 @@
             "args": [
               {
                 "arg": "value",
+                "type": [
+                  "String",
+                  "Number"
+                ],
                 "description": "Current value of input"
               }
             ]
@@ -37,6 +45,10 @@
             "args": [
               {
                 "arg": "value",
+                "type": [
+                  "String",
+                  "Number"
+                ],
                 "description": "Value of input, after any formatting. Not emitted if the value does not change"
               }
             ]
@@ -47,6 +59,7 @@
             "args": [
               {
                 "arg": "event",
+                "type": "FocusEvent",
                 "description": "Native blur event (before any formatting)"
               }
             ]
