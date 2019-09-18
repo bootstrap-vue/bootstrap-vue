@@ -18,7 +18,22 @@
             "args": [
               {
                 "arg": "dismissCountDown",
+                "type": "Number",
                 "description": "Time remaining to dismissed"
+              }
+            ]
+          },
+          {
+            "event": "input",
+            "description": "Used to update the v-model show value",
+            "args": [
+              {
+                "arg": "show",
+                "type": [
+                  "Boolean",
+                  "Number"
+                ],
+                "description": "Boolean state of alert, or Number for current countdown value"
               }
             ]
           }
