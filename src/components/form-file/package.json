@@ -13,7 +13,18 @@
         "slots": [
           {
             "name": "file-name",
-            "description": "Scoped slot for formatting the file names. Scoped props: files - array of File objects, names: array of file names"
+            "description": "Scoped slot for formatting the file names",
+            "scope": [
+              {
+                "prop": "files",
+                "type": "Array",
+                "descripton": "Array if File objects"
+              },
+              {
+                "prop": "names",
+                "type": "Array",
+                "decription": "Array of file names (strings)"
+            ]
           }
         ],
         "events": [
@@ -23,12 +34,24 @@
             "args": [
               {
                 "arg": "event"
+                "type": "Event",
+                "description": "Native change event object"
               }
             ]
           },
           {
             "event": "input",
-            "description": "[see above docs]"
+            "description": "Updates the v-model value (see docs for more details)",
+            "args": [
+              {
+                "arg": "file",
+                "type": [
+                  "File",
+                  "Array"
+                ],
+                "description": "Will be a single File object in single mode or an array of File objects in multiple mode"
+              }
+            ]
           }
         ]
       }
