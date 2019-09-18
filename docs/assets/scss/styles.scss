@@ -201,15 +201,15 @@ pre.editable {
 }
 
 // Additional styling for (responsive) markdown tables
-t.bv-docs-table {
+.bv-docs-table {
   font-size: 90%;
 
   > thead,
   > tbody,
   > tfoot {
     > tr {
-      th,
-      td {
+      > th,
+      > td {
         padding: 0.5rem;
       }
     }
