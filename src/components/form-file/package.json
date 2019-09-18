@@ -24,6 +24,7 @@
                 "prop": "names",
                 "type": "Array",
                 "decription": "Array of file names (strings)"
+              }
             ]
           }
         ],
