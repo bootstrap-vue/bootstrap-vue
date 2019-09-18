@@ -623,7 +623,32 @@ hidden. You can disable this behaviour by setting the `no-close-on-backdrop` pro
 To disable the fading transition/animation when modal opens and closes, just set the prop `no-fade`
 on the `<b-modal>` component.
 
-### Disabling built-in buttons
+### Footer button sizing
+
+Fancy smaller or larger buttons in the default footer? Simply set the `button-size` prop to `'sm'`
+for small buttons, or `'lg'` for larger buttons.
+
+```html
+<div>
+  <b-button v-b-modal.modal-footer-sm>Small Footer Buttons</b-button>
+  <b-button v-b-modal.modal-footer-lg>Large Footer Buttons</b-button>
+
+  <b-modal id="modal-footer-sm" title="BootstrapVue" button-size="sm">
+    <p class="my-2">This modal has small footer buttons</p>
+  </b-modal>
+
+  <b-modal id="modal-footer-lg" title="BootstrapVue" button-size="lg">
+    <p class="my-2">This modal has large footer buttons</p>
+  </b-modal>
+</div>
+
+<!-- modal-footer-btn-sizes.vue -->
+```
+
+The prop `button-size` has no effect if you have provided your own footer via the
+[`modal-footer`](#custom-rendering-with-slots) slot.
+
+### Disabling built-in footer buttons
 
 You can disable the built-in footer buttons programmatically.
 
