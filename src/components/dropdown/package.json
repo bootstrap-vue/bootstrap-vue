@@ -17,6 +17,7 @@
             "args": [
               {
                 "arg": "bvEvt",
+                "type": "BvEvent",
                 "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show."
               }
             ]
@@ -31,6 +32,7 @@
             "args": [
               {
                 "arg": "bvEvt",
+                "type": "BvEvent",
                 "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide."
               }
             ]
@@ -45,7 +47,14 @@
           },
           {
             "event": "click",
-            "description": "Emitted when split button is clicked in split mode."
+            "description": "Emitted when split button is clicked in split mode.",
+            "args": [
+              {
+                "arg": "event",
+                "type": "MouseEvent",
+                "description": "Native click event object"
+              }
+            ]
           },
           {
             "event": "bv::dropdown::show",
@@ -53,6 +62,7 @@
             "args": [
               {
                 "arg": "bvEvt",
+                "type": "BvEvent",
                 "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show."
               }
             ]
@@ -63,6 +73,7 @@
             "args": [
               {
                 "arg": "bvEvt",
+                "type": "BvEvent",
                 "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide."
               }
             ]
@@ -72,6 +83,17 @@
           {
             "name": "button-content",
             "description": "Can be used to implement custom text with icons and more styling."
+          },
+          {
+            "name": "default",
+            "description": "Optionally scoped default slot for dropdown menu content",
+            "scope": [
+              {
+                "prop": "hide",
+                "type": "Function",
+                "description": "Can be used to close the dropdown menu. Accepts an optional boolean argument, which if true returns focus to the toggle button."
+              }
+            ]
           }
         ]
       },
@@ -87,6 +109,7 @@
             "args": [
               {
                 "name": "event",
+                "type": "MouseEvent",
                 "description": "Native click event object"
               }
             ]
@@ -107,6 +130,7 @@
             "args": [
               {
                 "name": "event",
+                "type": "MouseEvent",
                 "description": "Native click event object"
               }
             ]
