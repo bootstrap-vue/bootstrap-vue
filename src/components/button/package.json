@@ -17,6 +17,7 @@
             "args": [
               {
                 "name": "event",
+                "type": "MouseEvent",
                 "description": "Native click event object"
               }
             ]
@@ -35,6 +36,7 @@
             "args": [
               {
                 "name": "event",
+                "type": "MouseEvent",
                 "description": "Native click event object"
               }
             ]
