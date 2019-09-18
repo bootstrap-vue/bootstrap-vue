@@ -34,7 +34,7 @@
             "description": "original native change event on input",
             "args": [
               {
-                "arg": "event"
+                "arg": "event",
                 "type": "Event",
                 "description": "Native change event object"
               }
