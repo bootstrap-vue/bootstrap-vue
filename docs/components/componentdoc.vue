@@ -108,7 +108,7 @@
         <template v-slot:cell(name)="{ value }">
           <code class="text-nowrap nostranslate" translate="no">{{ value }}</code>
         </template>
-        <template v-slot:cell(scoped)="{ value, toggleDetails }">
+        <template v-slot:cell(scope)="{ value, toggleDetails }">
           <b-button v-if="value" size="sm" @click="toggleDetails">Scope</b-button>
         </template>
         <template v-slot:row-details="{ item }">
@@ -121,7 +121,7 @@
               <template v-else>Any</template>
             </template>
           </b-table-simple>
-         </template>
+        </template>
       </b-table>
     </article>
 
@@ -281,9 +281,7 @@ export default {
         { key: 'description', label: 'Description' }
       ]
       if (this.slots.length > 0 && this.slots.some(s => s.scope)) {
-        fields.push({
-          key: 'scoped', label: 'Scoped'
-        })
+        fields.push({ key: 'scope', label: 'Scoped' })
       }
       return fields
     },
