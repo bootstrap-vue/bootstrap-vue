@@ -108,6 +108,20 @@
         <template v-slot:cell(name)="{ value }">
           <code class="text-nowrap nostranslate" translate="no">{{ value }}</code>
         </template>
+        <template v-slot:cell(scoped)="{ value, toggleDetails }">
+          <b-button v-if="value" size="sm" @click="toggleDetails">Scope</b-button>
+        </template>
+        <template v-slot:row-details="{ item }">
+          <b-table-simple :items="item.scope" :fields="[prop, type, description]">
+            <template v-slot:cell(prop)="{ value }">
+              <code class="text-nowrap nostranslate" translate="no">{{ value }}</code>
+            </template>
+            <template v-slot:cell(type)="{ value }">
+              <template v-if="value">{{ value }}</template>
+              <template v-else>Any</template>
+            </template>
+          </b-table-simple>
+         </template>
       </b-table>
     </article>
 
@@ -262,7 +276,16 @@ export default {
       ]
     },
     slotsFields() {
-      return [{ key: 'name', label: 'Slot' }, { key: 'description', label: 'Description' }]
+      const fields = [
+        { key: 'name', label: 'Slot Name' },
+        { key: 'description', label: 'Description' }
+      ]
+      if (this.slots.length > 0 && this.slots.some(s => s.scope)) {
+        fields.push({
+          key: 'scoped', label: 'Scoped'
+        })
+      }
+      return fields
     },
     propsItems() {
       const props = this.componentProps
