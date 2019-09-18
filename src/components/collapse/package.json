@@ -12,6 +12,17 @@
         "component": "BCollapse",
         "events": [
           {
+            "event": "input",
+            "description": "Used to update the v-model",
+            "args": [
+              {
+                "arg": "visible",
+                "type": "Boolean",
+                "description": "Will be true if the collapse is visible"
+              }
+            ]
+          },
+          {
             "event": "show",
             "description": "Emitted when collapse has started to open"
           },
@@ -33,11 +44,13 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "changed state collapse id"
               },
               {
                 "arg": "state",
-                "description": "true/false, i.e. opened/closed"
+                "type": "Boolean",
+                "description": "true or false, i.e. opened or closed"
               }
             ]
           }
@@ -49,6 +62,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "collapse id to toggle"
               }
             ]
