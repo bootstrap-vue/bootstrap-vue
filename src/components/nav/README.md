@@ -26,7 +26,7 @@ nav.
 `<b-nav>` supports teh following child components:
 
 - `<b-nav-item>` for actionable links (or router-links)
-- `<b-nav-item-dropdown>` for drodpowns
+- `<b-nav-item-dropdown>` for dropdowns
 - `<b-nav-text>` for plain text content
 - `<b-nav-form>` for inline forms
 
@@ -257,7 +257,7 @@ Use the `<b-nav-form>` child component to place an _inline_ form into the nav:
 <!-- b-nav-form.vue -->
 ```
 
-Refer to the [`<b-form>`binline](/docs/components/form#inline-form) documentation for additional
+Refer to the [`<b-form>` inline](/docs/components/form#inline-form) documentation for additional
 details on placing form controls.
 
 ## Tabbed local content support
