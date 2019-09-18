@@ -68,23 +68,20 @@ const computePropType = ({ type }) => {
     // Array of types
     return type.map(t => computePropType({ type: t })).join('|')
   }
-  if (typeof type === 'string') {
-    // Mainly for events and slots
-    if (type === 'Array') {
-      return 'any[]'
-    } else {
-      // Handle cases for BvEvent, BvModalEvent and other native
-      // event types (i.e. HTMLElement, MouseEvent, Event, etc) as strings
-      // We use strings (or array of strings) in the component group package.json meta
-      return /^[A-Z].+[A-Z].+[a-z]$/.test(type) || type === 'Event' ? type : type.toLowerCase()
-    }
+  if (typeof type === 'undefined') {
+    return 'any'
   }
-  if (type.name === 'Array') {
+  if (typeof type !== 'string') {
+    type = type.name
+  }
+  if (type === 'Array') {
     // For simplicity return arrays of any type entries
     return 'any[]'
   }
-  // Prop types are typically class references (String, Function, etc)
-  return type.name.toLowerCase()
+  // For browser types, we leave them capitalized, otherwise we return a lowercase typescipt name
+  return ['Boolean', 'String', 'Number', 'Function', 'Object'].indexOf(type) > -1
+    ? type.toLowerCase()
+    : type
 }
 
 // Compute the default value (in web-type form) for a given prop definition (component props only)
