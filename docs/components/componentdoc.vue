@@ -106,23 +106,25 @@
           <b-button v-if="value" size="sm" class="py-0" @click="toggleDetails()">Scope</b-button>
         </template>
         <template v-slot:row-details="{ item }">
-          <b-table-lite
-            v-if="item.scope"
-            :items="item.scope"
-            :fields="['prop', 'type', 'description']"
-            class="mb-0"
-            striped
-            dark
-            small
-          >
-            <template v-slot:cell(prop)="{ value }">
-              <code class="text-nowrap nostranslate text-white" translate="no">{{ value }}</code>
-            </template>
-            <template v-slot:cell(type)="{ value }">
-              <span v-if="value" class="text-nowrap nostranslate" translate="no">{{ value }}</span>
-              <template v-else>Any</template>
-            </template>
-          </b-table-lite>
+          <b-card>
+            <b-table-lite
+              v-if="item.scope"
+              :items="item.scope"
+              :fields="['prop', 'type', 'description']"
+              class="mb-0"
+              striped
+              dark
+              small
+            >
+              <template v-slot:cell(prop)="{ value }">
+                <code class="text-nowrap nostranslate text-white" translate="no">{{ value }}</code>
+              </template>
+              <template v-slot:cell(type)="{ value }">
+                <span v-if="value" class="text-nowrap nostranslate" translate="no">{{ value }}</span>
+                <template v-else>Any</template>
+              </template>
+            </b-table-lite>
+          </b-card>
         </template>
       </b-table>
     </article>
