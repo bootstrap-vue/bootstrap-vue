@@ -44,7 +44,7 @@
       <b-table
         :items="propsItems"
         :fields="propsFields"
-        class="bv-docs-table"
+        table-class="bv-docs-table"
         responsive="sm"
         striped
       >
@@ -74,7 +74,7 @@
         <b-table
           :items="[componentVModel]"
           :fields="[{ key: 'prop', label: 'Property' }, 'event']"
-          class="bv-docs-table"
+          table-class="bv-docs-table"
           responsive="sm"
           striped
         >
@@ -95,7 +95,7 @@
       <b-table
         :items="slots.map(s => ({ ...s }))"
         :fields="slotsFields"
-        class="bv-docs-table"
+        table-class="bv-docs-table"
         responsive="sm"
         striped
       >
@@ -134,7 +134,7 @@
       <b-table
         :items="events"
         :fields="eventsFields"
-        class="bv-docs-table"
+        table-class="bv-docs-table"
         responsive="sm"
         striped
       >
@@ -167,7 +167,7 @@
       <b-table
         :items="rootEventListeners"
         :fields="rootEventListenersFields"
-        class="bv-docs-table"
+        table-class="bv-docs-table"
         responsive="sm"
         striped
       >
