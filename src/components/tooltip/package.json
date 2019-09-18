@@ -18,7 +18,7 @@
               {
                 "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "bvEvent object"
+                "description": "bvEvent object. Cancelable."
               }
             ]
           },
@@ -40,7 +40,7 @@
               {
                 "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "bvEvent object"
+                "description": "bvEvent object. Cancelable."
               }
             ]
           },
@@ -57,11 +57,25 @@
           },
           {
             "event": "enabled",
-            "description": "Emitted when tooltip becomes enabled"
+            "description": "Emitted when tooltip becomes enabled",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "bvEvent object"
+              }
+            ]
           },
           {
             "event": "disabled",
-            "description": "Emitted when tooltip becomes disabled"
+            "description": "Emitted when tooltip becomes disabled",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "bvEvent object"
+              }
+            ]
           },
           {
             "event": "bv::tooltip::show",
@@ -70,7 +84,7 @@
               {
                 "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "bvEvent object"
+                "description": "bvEvent object. Cancelable."
               }
             ]
           },
@@ -92,7 +106,7 @@
               {
                 "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "bvEvent object"
+                "description": "bvEvent object. Cancelable."
               }
             ]
           },
