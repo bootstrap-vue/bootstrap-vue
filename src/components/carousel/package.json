@@ -7,6 +7,7 @@
     "components": [
       {
         "component": "BCarousel",
+        "description": "The <b-carousel> component is a slideshow for cycling through a series of content",
         "events": [
           {
             "event": "sliding-start",
@@ -14,6 +15,7 @@
             "args": [
               {
                 "arg": "slide",
+                "type": "Number",
                 "description": "Slide number that is being slid to."
               }
             ]
@@ -24,6 +26,7 @@
             "args": [
               {
                 "arg": "slide",
+                "type": "Number",
                 "description": "Slide number that was slid to."
               }
             ]
@@ -32,6 +35,7 @@
       },
       {
         "component": "BCarouselSlide",
+        "description": "The <b-carousel-slide> component is a slide to be placed in the <b-carousel>",
         "slots": [
           {
             "name": "img",
