@@ -125,10 +125,16 @@
               small
               caption-top
             >
-              <template v-slot:table-caption>
-                Slot
-                <code class="text-nowrap notranslate" translate="no">{{ item.name }}</code>
-                scoped properties
+              <template v-slot:thead-top>
+                <b-tr>
+                  <b-th colspan="3" class="text-center">
+                    Slot
+                    <code class="text-nowrap notranslate text-white" translate="no">
+                      {{ item.name }}
+                    </code>
+                    scoped properties
+                  </b-th>
+                </b-tr>
               </template>
               <template v-slot:cell(prop)="{ value }">
                 <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
