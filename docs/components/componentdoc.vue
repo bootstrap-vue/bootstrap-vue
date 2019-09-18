@@ -97,7 +97,7 @@
         Slots
       </anchored-heading>
       <b-table
-        :items="slots"
+        :items="slots.map(s => ({ ...s }))"
         :fields="slotsFields"
         class="bv-docs-table"
         responsive="sm"
@@ -113,8 +113,9 @@
         </template>
         <template v-slot:row-details="{ item }">
           <b-table-lite
-            :items="item.scope.map(s => { ...s })"
-            :fields="[prop, type, description]"
+            v-if="item.scope"
+            :items="item.scope"
+            :fields="['prop', 'type', 'description']"
             striped
             small
           >
