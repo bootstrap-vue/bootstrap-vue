@@ -414,6 +414,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const tip = this.getTemplateElement()
       if (!tip || !this.localShow) {
         /* istanbul ignore next */
+        this.restoreTitle()
+        /* istanbul ignore next */
         return
       }
 
@@ -613,7 +615,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const target = this.getTarget()
       if (target && hasAttr(target, 'data-original-title')) {
         setAttr(target, 'title', getAttr(target, 'data-original-title') || '')
-        setAttr(target, 'data-original-title', '')
+        removeAttr(target, 'data-original-title')
       }
     },
     //
@@ -886,9 +888,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       if (!this.computedDelay.show) {
         this.show()
       } else {
+        // Hide any title attribute while enter delay is active
+        this.fixTitle()
         this.hoverTimeout = setTimeout(() => {
+          /* istanbul ignore else */
           if (this.$_hoverState === 'in') {
             this.show()
+          } else if (!this.localShow) {
+            this.restoreTitle()
           }
         }, this.computedDelay.show)
       }
