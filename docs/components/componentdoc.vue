@@ -103,7 +103,7 @@
           <code class="text-nowrap nostranslate" translate="no">{{ value }}</code>
         </template>
         <template v-slot:cell(scope)="{ value, toggleDetails }">
-          <b-button v-if="value" size="sm" @click="toggleDetails()">Scope</b-button>
+          <b-button v-if="value" size="sm" class="py-0" @click="toggleDetails()">Scope</b-button>
         </template>
         <template v-slot:row-details="{ item }">
           <b-table-lite
