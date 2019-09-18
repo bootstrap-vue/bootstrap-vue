@@ -10,6 +10,7 @@
   "style": "dist/bootstrap-vue.css",
   "license": "MIT",
   "types": "src/index.d.ts",
+  "web-types": "dist/web-types.json",
   "repository": "bootstrap-vue/bootstrap-vue",
   "homepage": "https://bootstrap-vue.js.org",
   "contributors": [
