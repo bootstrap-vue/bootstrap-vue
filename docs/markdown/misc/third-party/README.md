@@ -33,7 +33,7 @@ fully WAI-ARIA compliant, nor accessible to keyboard-only and/or screen-reader u
 
 ### Icons
 
-- [Vue Fontawesome](https://fontawesome.com/how-to-use/on-the-web/using-with/vuejs)
+- [Vue Font Awesome](https://fontawesome.com/how-to-use/on-the-web/using-with/vuejs)
 - [Vue Icon](https://github.com/qinshenxue/vue-icon)
 - [Vue Ionicons](https://mazipan.github.io/vue-ionicons/)
 - [Vue Unicons](https://antonreshetov.github.io/vue-unicons/)
