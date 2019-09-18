@@ -26,8 +26,8 @@ All the **base variants** plus:
 
 These translate to class names `bg-{variant}` for backgrounds and `border-{variant}` for borders.
 
-These variants are used by components (such as `<b-card>`, `<b-jumbotron>`, `<b-modal>`, etc.)
-that provide `bg-variant`, `*-bg-variant`, `border-variant` and `*-border-variant` props.
+These variants are used by components (such as `<b-card>`, `<b-jumbotron>`, `<b-modal>`, etc.) that
+provide `bg-variant`, `*-bg-variant`, `border-variant` and `*-border-variant` props.
 
 ## Text variants
 
@@ -39,8 +39,8 @@ All the **base variants** plus:
 
 These translate to class names `text-{variant}`
 
-These variants are used by components (such as `<b-card>`, `<b-jumbotron>`, `<b-modal>`, etc.)
-that provide `text-variant` and `*-text-variant` props.
+These variants are used by components (such as `<b-card>`, `<b-jumbotron>`, `<b-modal>`, etc.) that
+provide `text-variant` and `*-text-variant` props.
 
 ## Component specific variants
 
@@ -80,8 +80,8 @@ These variants translate to class names `table-{variant}`.
 
 When the table has the `dark` prop set, the variants translate to the `bg-{variant}` classes.
 
-Note that the `active` variant is only applicable to `<tr>` elements within the `<tbody>`, and
-cannont be applied to individual table cells or used as the `table-variant`.
+Note that the `active` variant is only applicable to `<tr>` elements within the `<tbody>`, and can
+not be applied to individual table cells or used as the `table-variant`.
 
 ### Popover variants
 
