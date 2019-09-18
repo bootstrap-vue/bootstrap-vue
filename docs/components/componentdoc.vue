@@ -109,18 +109,23 @@
           <code class="text-nowrap nostranslate" translate="no">{{ value }}</code>
         </template>
         <template v-slot:cell(scope)="{ value, toggleDetails }">
-          <b-button v-if="value" size="sm" @click="toggleDetails">Scope</b-button>
+          <b-button v-if="value" size="sm" @click="toggleDetails()">Scope</b-button>
         </template>
         <template v-slot:row-details="{ item }">
-          <b-table-simple :items="item.scope" :fields="[prop, type, description]">
+          <b-table-lite
+            :items="item.scope.map(s => { ...s })"
+            :fields="[prop, type, description]"
+            striped
+            small
+          >
             <template v-slot:cell(prop)="{ value }">
               <code class="text-nowrap nostranslate" translate="no">{{ value }}</code>
             </template>
             <template v-slot:cell(type)="{ value }">
-              <template v-if="value">{{ value }}</template>
+              <span v-if="value" class="text-nowrap nostranslate" translate="no">{{ value }}</span>
               <template v-else>Any</template>
             </template>
-          </b-table-simple>
+          </b-table-lite>
         </template>
       </b-table>
     </article>
