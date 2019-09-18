@@ -13,6 +13,10 @@ const libraryName = pkg.name
 const libraryVersion = pkg.version
 const baseDocs = pkg.homepage.replace(/\/$/, '')
 
+// Placeholder arrays
+let componentGroups = {}
+let directiveGroups = {}
+
 // Base web-types object
 const webTypes = {
   $schema: '',
@@ -305,7 +309,7 @@ try {
     true,
     /package.json/
   )
-  const componentGroups = importAll(componentsContext)
+  componentGroups = importAll(componentsContext)
 
   // Grab the directive meta data
   const directivesContext = requireContext(
@@ -313,7 +317,7 @@ try {
     true,
     /package.json/
   )
-  const directiveGroups = importAll(directivesContext)
+  directiveGroups = importAll(directivesContext)
 
   // Process all components
   Object.keys(componentGroups).forEach(processComponentGroup)
@@ -328,7 +332,7 @@ try {
   fs.writeFileSync(path.resolve(distDir, 'web-types.json'), json)
 } catch (err) {
   // Add some basic error handling here
-  logError(`create-web-types.js: an error occurred...`)
+  console.log(`create-web-types.js: an error occurred...`)
   console.log()
   console.error(err)
   console.log()
