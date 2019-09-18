@@ -110,7 +110,7 @@
             <b-table-lite
               v-if="item.scope"
               :items="item.scope"
-              :fields="['prop', 'type', 'description']"
+              :fields="[{ key: 'prop', label: 'Scope property' }, 'type', 'description']"
               class="mb-0"
               striped
               dark
