@@ -17,6 +17,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object"
               }
             ]
@@ -27,7 +28,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object."
+                "type": "BvEvent",
+                "description": "bvEvent object"
               }
             ]
           },
@@ -37,6 +39,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object"
               }
             ]
@@ -47,17 +50,32 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object."
+                "type": "BvEvent",
+                "description": "bvEvent object"
               }
             ]
           },
           {
             "event": "enabled",
-            "description": "Emitted when popover becomes enabled"
+            "description": "Emitted when popover becomes enabled",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "bvEvent object"
+              }
+            ]
           },
           {
             "event": "disabled",
-            "description": "Emitted when popover becomes disabled"
+            "description": "Emitted when popover becomes disabled",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "bvEvent object"
+              }
+            ]
           },
           {
             "event": "bv::popover::show",
@@ -65,6 +83,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object"
               }
             ]
@@ -75,7 +94,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object."
+                "type": "BvEvent",
+                "description": "bvEvent object"
               }
             ]
           },
@@ -85,6 +105,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object"
               }
             ]
@@ -95,7 +116,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object."
+                "type": "BvEvent",
+                "description": "bvEvent object"
               }
             ]
           },
@@ -105,7 +127,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object."
+                "type": "BvEvent",
+                "description": "bvEvent object"
               }
             ]
           },
@@ -115,7 +138,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object."
+                "type": "BvEvent",
+                "description": "bvEvent object"
               }
             ]
           }
@@ -127,6 +151,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), popover id to hide"
               }
             ]
@@ -137,6 +162,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), popover id to show"
               }
             ]
@@ -147,6 +173,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), popover id to disable"
               }
             ]
@@ -157,6 +184,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), popover id to enable"
               }
             ]
@@ -165,11 +193,11 @@
         "slots": [
           {
             "name": "title",
-            "description": "Optional slot for title (HTML supported)"
+            "description": "Optional slot for title (HTML/components supported)"
           },
           {
             "name": "default",
-            "description": "Slot for content (HTML supported)"
+            "description": "Slot for content (HTML/components supported)"
           }
         ]
       }
