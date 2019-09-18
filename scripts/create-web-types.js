@@ -66,30 +66,32 @@ const computePropType = ({ type }) => {
   type = type || Object
   if (Array.isArray(type)) {
     // Array of types
-    return type.map(type => computePropType({ type: type })).join('|')
+    return type.map(t => computePropType({ type: t })).join('|')
   }
   if (typeof type === 'string') {
     // Mainly for events and slots
     if (type === 'Array') {
-      type = Array
+      return 'any[]'
     } else {
       // Handle cases for BvEvent, BvModalEvent and other native
-      // event types (i.e. HTMLElement, MouseEvent, etc)
-      return /^[A-Z].*[A-Z].+/.test(type) || type === 'Event' ? type : type.toLowerCase()
+      // event types (i.e. HTMLElement, MouseEvent, Event, etc) as strings
+      // We use strings (or array of strings) in the component group package.json meta
+      return /^[A-Z].+[A-Z].+[a-z]$/.test(type) || type === 'Event' ? type : type.toLowerCase()
     }
   }
   if (type.name === 'Array') {
     // For simplicity return arrays of any type entries
     return 'any[]'
   }
+  // Prop types are typically class references (String, Function, etc)
   return type.name.toLowerCase()
 }
 
-// Compute the default value (in web-type form) for a given prop definition
+// Compute the default value (in web-type form) for a given prop definition (component props only)
 const computePropDefault = ({ default: def, type }) => {
   // Default could be a function that retruns a non-primative type
   def = typeof def === 'function' ? def.call({}) : def
-  if (type === Boolean || (Array.isArray(type) && type[0] === Boolean)) {
+  if (type === Boolean || (Array.isArray(type) && type[0] === Boolean && !def)) {
     def = Boolean(def)
   } else if (def === undefined) {
     def = null
