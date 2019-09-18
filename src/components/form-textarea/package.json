@@ -17,6 +17,7 @@
             "args": [
               {
                 "arg": "value",
+                "type": "String",
                 "description": "Current value of textarea"
               }
             ]
@@ -27,6 +28,7 @@
             "args": [
               {
                 "arg": "value",
+                "type": "String",
                 "description": "Current value of the textarea"
               }
             ]
@@ -37,6 +39,7 @@
             "args": [
               {
                 "arg": "value",
+                "type": "String",
                 "description": "Value of textarea, after any formatting. Not emitted if the value does nto change"
               }
             ]
@@ -47,7 +50,8 @@
             "args": [
               {
                 "arg": "event",
-                "description": "Native blur event (before any formatting)"
+                "type": "FocusEvent",
+                "description": "Native blur event (before any optional formatting occurs)"
               }
             ]
           }
