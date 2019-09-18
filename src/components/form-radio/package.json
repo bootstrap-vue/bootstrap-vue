@@ -23,6 +23,11 @@
             "args": [
               {
                 "arg": "checked",
+                "type": [
+                  "String",
+                  "Number",
+                  "Object"
+                ],
                 "description": "current selected Value of radio group."
               }
             ]
@@ -33,6 +38,11 @@
             "args": [
               {
                 "arg": "checked",
+                "type": [
+                  "String",
+                  "Number",
+                  "Object"
+                ],
                 "description": "current selected Value of radio group."
               }
             ]
@@ -51,6 +61,11 @@
             "args": [
               {
                 "arg": "checked",
+                "type": [
+                  "String",
+                  "Number",
+                  "Object"
+                ],
                 "description": "current selected Value of radio group."
               }
             ]
@@ -61,6 +76,11 @@
             "args": [
               {
                 "arg": "checked",
+                "type": [
+                  "String",
+                  "Number",
+                  "Object"
+                ],
                 "description": "current selected Value of radio group."
               }
             ]
