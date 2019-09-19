@@ -326,10 +326,19 @@ try {
   Object.keys(directiveGroups).forEach(processDirectiveGroup)
 
   // Convert to JSON string (prettifed with indent of 2 spaces)
-  const json = JSON.stringify(webTypes, null, 2)
+  const webTypesJson = JSON.stringify(webTypes, null, 2)
 
   // Write JSON to file
-  fs.writeFileSync(path.resolve(distDir, 'web-types.json'), json)
+  console.log('   Writing dist/web-types.json...')
+  fs.writeFileSync(path.resolve(distDir, 'web-types.json'), webTypesJson)
+  
+  // Create Vetur tags and attributes files
+  // console.log('   Writing dist/tags.json...')
+  // TODO: dist/tags.json
+  //   Massage webTypes.contributions.html.tags into tags
+  // console.log('   Writing dist/attributes.json...')
+  // TODO: dist/attributes.json
+  //   Massage webTypes.contributions.html.tags into attributes
 } catch (err) {
   // Add some basic error handling here
   console.log(`create-web-types.js: an error occurred...`)
