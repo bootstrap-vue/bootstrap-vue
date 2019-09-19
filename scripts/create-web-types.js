@@ -334,12 +334,13 @@ try {
     veturTags[tag] = {
       subtags: [],
       description: def.description,
-      attributes: def.attributes.map(attrObj => attrObj.name)
+      attributes: def.attributes.map(attrObj => kebabCase(attrObj.name))
     }
     def.attributes.forEach(attrObj => {
-      veturAttributes[`${tag}/${attrObj.name}`] = {
-        description: attrObj.description,
-        type: attrObj.type
+      const type = (attrObj.value || { type: 'any'}).type
+      veturAttributes[`${tag}/${kebabCase(attrObj.name)}`] = {
+        description: attrObj.description || `One of: ${type.split('|').join(' or ')}`,
+        type: type
       }
     })
   })
