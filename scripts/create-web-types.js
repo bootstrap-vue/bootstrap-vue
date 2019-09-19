@@ -230,6 +230,13 @@ const processComponentGroup = groupSlug => {
         if (slotObj.description) {
           slot.description = slotObj.description
         }
+        if (slotObj.pattern) {
+          // Allow RegExpr for synamic slot names
+          // Passed as a string with `\` escaped
+          slot.pattern = slotObj.pattern
+          // The name of the slot should have the variable part surrounded by { }
+          // for auto positioning the cursor to fill in the name
+        }
         if (Array.isArray(slotObj.scope)) {
           // Slot props not documented in meta yet
           slot.properties = slotObj.scope.map(propDef => {
