@@ -8,7 +8,22 @@
       "BVModalPlugin"
     ],
     "directives": [
-      "VBModal"
+      {
+        "directive": "VBModal",
+        "description": "Directive for opening a modal by ID",
+        "arg": [
+          "pattern": "[a-zA-Z][a-zA-Z0-9_\\-]*",
+          "description": "Modal ID to open"
+        ],
+        "expression": "String",
+        "modifiers": [
+          {
+            "name": "{modalid}",
+            "pattern": "[a-zA-Z][a-zA-Z0-9_\\-]*",
+            "description": "Modal ID to open. Replace `{modalid}` with the modal's ID"
+          }
+        ]
+      }
     ],
     "components": [
       {
