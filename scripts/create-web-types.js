@@ -105,7 +105,7 @@ const computePropDefault = ({ default: def, type }) => {
 }
 
 // Process a single component's meta and efinition/class objects
-const processComponentMeta((meta, componentRef, docUrl) => {
+const processComponentMeta = (meta, componentRef, docUrl) => {
   const componentName = meta.component
 
   // Pull information from the component definition/class
@@ -261,10 +261,10 @@ const processComponentMeta((meta, componentRef, docUrl) => {
       webTypes.contributions.html.tags.push(aliasTag)
     })
   }
-})
+}
 
 // Process a single directive meta object
-const processDirectiveMeta((directiveMeta, docUrl) => {
+const processDirectiveMeta = (directiveMeta, docUrl) => {
   // Process the directive meta
   // String (PascalCase)
   const name = directiveMeta.directive
@@ -325,7 +325,7 @@ const processDirectiveMeta((directiveMeta, docUrl) => {
 
   // Add the directive to the html attributes array
   webTypes.contributions.html.attributes.push(attribute)
-})
+}
 
 // Create tag entries for each component in a component group
 const processComponentGroup = groupSlug => {
