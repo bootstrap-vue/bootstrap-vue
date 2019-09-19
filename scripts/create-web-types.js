@@ -57,7 +57,7 @@ const importAll = r => {
       if (m.directives) {
         // Normalize `meta.directives` to array of objects form
         // Applicable to component group package.json
-        m.directives = m.directive.map(d => (typeof d === 'string' ? { directive: d } : d))
+        m.directives = m.directives.map(d => (typeof d === 'string' ? { directive: d } : d))
       }
       obj[m.slug] = m
     })
