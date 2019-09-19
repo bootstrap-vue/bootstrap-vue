@@ -54,6 +54,11 @@ const importAll = r => {
         // Normalize `meta.components` to array of objects form
         m.components = m.components.map(c => (typeof c === 'string' ? { component: c } : c))
       }
+      if (m.directives) {
+        // Normalize `meta.directives` to array of objects form
+        // Applicable to component group package.json
+        m.directives = m.directive.map(d => (typeof d === 'string' ? { directive: d } : d))
+      }
       obj[m.slug] = m
     })
 
@@ -332,11 +337,7 @@ const processComponentGroup = groupSlug => {
   // Array of components in the group
   const groupMeta = componentGroups[groupSlug] || {}
   const componentsMeta = groupMeta.components || []
-  const directivesMeta = (groupMeta.directives || []).map(d => {
-    // The component group's directive meta could be a string
-    // So we map it to the object format
-    return typeof d === 'string' ? { directive: d } : d
-  })
+  const directivesMeta = groupMeta.directives || []
 
   // The URL to the components docs
   const docUrl = `${baseDocs}/docs/components/${groupSlug}/`
