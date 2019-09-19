@@ -1,4 +1,4 @@
-// Creates a web-types.json file and places it in /dist
+// Creates a web-types.json, tags.json and attributes.json files and places them in /dist
 const path = require('path')
 const fs = require('fs')
 const requireContext = require('require-context')
@@ -319,26 +319,47 @@ try {
   )
   directiveGroups = importAll(directivesContext)
 
-  // Process all components
+  // Process all components into webTypes
   Object.keys(componentGroups).forEach(processComponentGroup)
 
-  // Process all directives
+  // Process all directives into webTypes
   Object.keys(directiveGroups).forEach(processDirectiveGroup)
 
-  // Convert to JSON string (prettifed with indent of 2 spaces)
-  const webTypesJson = JSON.stringify(webTypes, null, 2)
-
-  // Write JSON to file
-  console.log('   Writing dist/web-types.json...')
-  fs.writeFileSync(path.resolve(distDir, 'web-types.json'), webTypesJson)
-  
   // Create Vetur tags and attributes files
-  // console.log('   Writing dist/tags.json...')
-  // TODO: dist/tags.json
-  //   Massage webTypes.contributions.html.tags into tags
-  // console.log('   Writing dist/attributes.json...')
-  // TODO: dist/attributes.json
-  //   Massage webTypes.contributions.html.tags into attributes
+  const veturTags = {}
+  const veturAttributes = {}
+  Object.keys(webTypes.contributions.html.tags).forEach(component => {
+    const def = webTypes.contributions.html.tags[component]
+    const tag = kebabCase(def.name)
+    veturTags[tag] = {
+      subtags: [],
+      description: def.description,
+      attributes: def.attributes.map(attrObj => attrObj.name)
+    }
+    def.attributes.forEach(attrObj => {
+      veturAttributes[`${tag}/${attrObj.name}`] = {
+        description: attrObj.description,
+        type: attrObj.type
+      }
+    })
+  })
+
+  // Write web-types.json to file
+  console.log('   Writing dist/web-types.json...')
+  const webTypesJson = JSON.stringify(webTypes, null, 2)
+  fs.writeFileSync(path.resolve(distDir, 'web-types.json'), webTypesJson)
+
+  // Write tags.json to file
+  console.log('   Writing dist/tags.json...')
+  const veturTagsJson = JSON.stringify(veturTags, null, 2)
+  fs.writeFileSync(path.resolve(distDir, 'tags.json'), veturTagsJson)
+
+  // Write attributes.json to file
+  console.log('   Writing dist/attributes.json...')
+  const veturAttributesJson = JSON.stringify(veturAttributes, null, 2)
+  fs.writeFileSync(path.resolve(distDir, 'attributes.json'), veturAttributesJson)
+
+  // Done
 } catch (err) {
   // Add some basic error handling here
   console.log(`create-web-types.js: an error occurred...`)
