@@ -1532,10 +1532,12 @@ example).
 
 The `selected-variant` can be any of the
 [standard (or custom) bootstrap base color variants](/docs/reference/color-variants), or the special
-[table `active` variant](/docs/reference/color-variants#table-variants).
+[table `active` variant](/docs/reference/color-variants#table-variants) which takes precedence over
+any specific row or cell variants.
 
-For accessibility reasons (specifically for color blind users), it is highly recommended to always
-provide some other visual means of conveying that a row is selected, as shown in the example below.
+For accessibility reasons (specifically for color blind users, or users with color contrast issues),
+it is highly recommended to always provide some other visual means of conveying that a row is
+selected, such as shown in the example below.
 
 ```html
 <template>
