@@ -126,6 +126,9 @@ const processComponentGroup = groupSlug => {
     const $events = meta.events || []
     const $slots = meta.slots || []
     const $aliases = meta.aliases || []
+    // This doesn't exist yet (for prop descriptions, info)
+    // For description (and possibly more) for props docs
+    const $propsExtra = meta.props || {}
 
     const tagName = kebabCase(componentName)
 
@@ -153,18 +156,23 @@ const processComponentGroup = groupSlug => {
     if (Object.keys($props).length) {
       tag.attributes = Object.keys($props).map(propName => {
         const $prop = $props[propName]
+        const $propExtra = $propsExtra[propName] || {}
         const prop = {
           name: propName,
           value: {
             type: computePropType($prop),
             default: computePropDefault($prop)
           },
-          // description: '',
           'doc-url': docUrl
         }
         // Add required prop is required
         if ($prop.required) {
           prop.value.required = true
+        }
+        // If we have a description, add it
+        // TODO: this doesn't exist in the component meta yet
+        if ($propExtra.description) {
+          prop.description = $propExtra.description
         }
         return prop
       })
