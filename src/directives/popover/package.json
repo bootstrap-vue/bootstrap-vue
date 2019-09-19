@@ -65,7 +65,7 @@
       },
       {
         "name": "nofade",
-        "description": "Disabled teh fade animation of the popover"
+        "description": "Disabled the fade animation of the popover"
       },
       {
         "name": "html",
