@@ -105,7 +105,7 @@ const computePropDefault = ({ default: def, type }) => {
 }
 
 // Process a single component's meta and efinition/class objects
-const processComponentMeta = (meta, componentRef, docUrl) => {
+const processComponentMeta = (meta, groupRef, docUrl) => {
   const componentName = meta.component
 
   // Pull information from the component definition/class
