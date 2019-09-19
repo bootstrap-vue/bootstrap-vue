@@ -84,7 +84,7 @@ cd ..
 echo 'Done.'
 echo ''
 
-echo 'Building web-types.json...'
+echo 'Building IDE auto-complete files...'
 node -r esm scripts/create-web-types.js || exit 1
 echo 'Done.'
 echo ''
