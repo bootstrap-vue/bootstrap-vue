@@ -283,7 +283,7 @@ const processDirectiveGroup = groupSlug => {
   const name = directiveMeta.directive
   // Object
   const arg = directiveMeta.arg
-  // Array
+  // Array of objects
   const modifiers = directiveMeta.modifiers
   // Object
   const expression = directiveMeta.expression
@@ -306,23 +306,34 @@ const processDirectiveGroup = groupSlug => {
   if (arg) {
     // TODO as this is missing from the schema def
     // https://github.com/JetBrains/web-types/issues/7
+    attribute['vue-argument'] = {
+      // RegExpr string pattern for argument
+      pattern: arg.pattern,
+      description: arg.description
+    }
   }
   // Add in any modifier details
   if (modifiers) {
     attribute['vue-modifiers'] = modifiers.map(mod => {
       const modifier = {
         name: mod.modifer,
-        description: mod.description || '',
         'doc-url': docUrl
+      }
+      if (mod.pattern) {
+        modifier.pattern = mod.pattern
+      }
+      if (mod.description) {
+        modifier.description = mod.description
       }
       return modifier
     })
   }
   // Add in value (expression) type
+  // Array of types or a single type
   if (expression) {
     attribute.value = {
       kind: 'expression',
-      type: computePropType(expression)
+      type: computePropType({ type: expression })
     }
   }
   // Add the directive to the html attributes array
