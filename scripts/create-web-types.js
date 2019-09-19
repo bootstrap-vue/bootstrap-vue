@@ -307,7 +307,7 @@ const processDirectiveMeta = (directiveMeta, docUrl) => {
   if (modifiers) {
     attribute['vue-modifiers'] = modifiers.map(mod => {
       const modifier = {
-        name: mod.modifer,
+        name: mod.name,
         'doc-url': docUrl
       }
       if (mod.pattern) {
