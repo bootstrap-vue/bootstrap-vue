@@ -157,10 +157,11 @@ const processComponentGroup = groupSlug => {
       tag.attributes = Object.keys($props).map(propName => {
         const $prop = $props[propName]
         const $propExtra = $propsExtra[propName] || {}
+        const type = computePropType($prop)
         const prop = {
           name: propName,
           value: {
-            type: computePropType($prop),
+            type: type,
             default: computePropDefault($prop)
           },
           'doc-url': docUrl
@@ -169,10 +170,21 @@ const processComponentGroup = groupSlug => {
         if ($prop.required) {
           prop.value.required = true
         }
-        // If we have a description, add it
+        if (type === 'boolean') {
+          // Deprecated. Use 'value' property instead. Specify only if type is
+          // 'boolean' for backwards compatibility with WebStorm 2019.2
+          prop.type = 'boolean'
+        }
+        // If we have a description, add it to the prop
         // TODO: this doesn't exist in the component meta yet
         if ($propExtra.description) {
           prop.description = $propExtra.description
+        }
+        // TODO: this doesn't exist in the component meta yet
+        if ($propExtra.href) {
+          // If the prop has a document ID link, add it on here
+          // The `href` property is an ID in the docs page
+          prop['doc-url'] = `${docUrl}#${$propExtra.href.replace(/^#/, '')}`
         }
         return prop
       })
