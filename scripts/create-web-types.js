@@ -345,7 +345,7 @@ try {
       attributes: def.attributes.map(attrObj => kebabCase(attrObj.name))
     }
     def.attributes.forEach(attrObj => {
-      const type = (attrObj.value || { type: 'any'}).type
+      const type = (attrObj.value || { type: 'any' }).type
       veturAttributes[`${tag}/${kebabCase(attrObj.name)}`] = {
         description: attrObj.description || `One of: ${type.split('|').join(' or ')}`,
         type: type
