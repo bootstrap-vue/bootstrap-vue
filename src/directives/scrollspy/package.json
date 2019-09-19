@@ -26,7 +26,8 @@
       },
       {
         "name": "position",
-        "description": "Position calculation method using the `position` procedure".
+        "description": "Position calculation method using the `position` procedure"
+      },
       {
         "name": "auto",
         "description": "Position calculation method: `auto` will choose `offset` if scroll element is body, else the method is `position`. This is the default.".
