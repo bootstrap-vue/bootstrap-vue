@@ -184,10 +184,13 @@ export default {
       return [].concat(this.meta.component, subcomponents).filter(c => c)
     },
     directives() {
-      return [].concat(this.meta.directive, this.meta.directives)
-        .filter(d => d)
-        // We just need the directive name
-        .map(d => typeof d === 'string' ? d : d.directive)
+      // We just need the directive name
+      return (
+        []
+          .concat(this.meta.directive, this.meta.directives)
+          .filter(d => d)
+          .map(d => (typeof d === 'string' ? d : d.directive))
+      )
     },
     componentImportCode() {
       const firstComponent = this.components[0]
