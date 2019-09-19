@@ -228,8 +228,9 @@
         ],
         "slots": [
           {
-            "name": "cell(key)",
-            "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name. See docs for scoped data",
+            "name": "cell({key})",
+            "pattern": "cell\\([a-zA-Z0-9$_.\\-]+\\)",
+            "description": "Scoped slot for custom data rendering of field data. '{key}' is the fields key name. See docs for scoped data",
             "scope": [
               {
                 "prop": "index",
@@ -307,6 +308,7 @@
           },
           {
             "name": "head(key)",
+            "pattern": "head\\([a-zA-Z0-9$_.\\-]+\\)",
             "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header",
             "scope": [
               {
@@ -379,6 +381,7 @@
           },
           {
             "name": "foot(key)",
+            "pattern": "foot\\([a-zA-Z0-9$_.\\-]+\\)",
             "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer",
             "scope": [
               {
@@ -800,8 +803,9 @@
         ],
         "slots": [
           {
-            "name": "cell(key)",
-            "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name.",
+            "name": "cell({key})",
+            "pattern": "cell\\([a-zA-Z0-9$_.\\-]+\\)",
+            "description": "Scoped slot for custom data rendering of field data. '{key}' is the fields key name.",
             "scope": [
               {
                 "prop": "index",
@@ -869,6 +873,7 @@
           },
           {
             "name": "head(key)",
+            "pattern": "head\\([a-zA-Z0-9$_.\\-]+\\)",
             "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name",
             "scope": [
               {
@@ -921,6 +926,7 @@
           },
           {
             "name": "foot(key)",
+            "pattern": "foot\\([a-zA-Z0-9$_.\\-]+\\)",
             "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name.",
             "scope": [
               {
