@@ -230,7 +230,7 @@
           {
             "name": "cell({key})",
             "pattern": "cell\\([a-zA-Z0-9$_.\\-]+\\)",
-            "description": "Scoped slot for custom data rendering of field data. '{key}' is the fields key name. See docs for scoped data",
+            "description": "Scoped slot for custom data rendering of field data. '{key}' is the field's key name. See docs for scoped data",
             "scope": [
               {
                 "prop": "index",
@@ -307,14 +307,14 @@
             ]
           },
           {
-            "name": "head(key)",
+            "name": "head({key})",
             "pattern": "head\\([a-zA-Z0-9$_.\\-]+\\)",
-            "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header",
+            "description": "Scoped slot for custom rendering of field header. '{key}' is the field's key name. See docs for scoped header",
             "scope": [
               {
                 "prop": "column",
                 "type": "String",
-                "description": "The fields's key value"
+                "description": "The field's key value"
               },
               {
                 "prop": "field",
@@ -324,7 +324,7 @@
               {
                 "prop": "label",
                 "type": "String",
-                "description": "The fields label value"
+                "description": "The field's label value"
               },
               {
                 "prop": "selectAllRows",
@@ -350,7 +350,7 @@
               {
                 "prop": "column",
                 "type": "String",
-                "description": "The fields's key value"
+                "description": "The field's key value"
               },
               {
                 "prop": "field",
@@ -360,7 +360,7 @@
               {
                 "prop": "label",
                 "type": "String",
-                "description": "The fields label value"
+                "description": "The field's label value"
               },
               {
                 "prop": "selectAllRows",
@@ -380,14 +380,14 @@
             ]
           },
           {
-            "name": "foot(key)",
+            "name": "foot({key})",
             "pattern": "foot\\([a-zA-Z0-9$_.\\-]+\\)",
-            "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer",
+            "description": "Scoped slot for custom rendering of field footer. '{key}' is the field's key name. See docs for scoped footer",
             "scope": [
               {
                 "prop": "column",
                 "type": "String",
-                "description": "The fields's key value"
+                "description": "The field's key value"
               },
               {
                 "prop": "field",
@@ -397,7 +397,7 @@
               {
                 "prop": "label",
                 "type": "String",
-                "description": "The fields label value"
+                "description": "The field's label value"
               },
               {
                 "prop": "selectAllRows",
@@ -418,7 +418,7 @@
               {
                 "prop": "column",
                 "type": "String",
-                "description": "The fields's key value"
+                "description": "The field's key value"
               },
               {
                 "prop": "field",
@@ -428,7 +428,7 @@
               {
                 "prop": "label",
                 "type": "String",
-                "description": "The fields label value"
+                "description": "The field's label value"
               },
               {
                 "prop": "selectAllRows",
@@ -805,7 +805,7 @@
           {
             "name": "cell({key})",
             "pattern": "cell\\([a-zA-Z0-9$_.\\-]+\\)",
-            "description": "Scoped slot for custom data rendering of field data. '{key}' is the fields key name.",
+            "description": "Scoped slot for custom data rendering of field data. '{key}' is the field's key name.",
             "scope": [
               {
                 "prop": "index",
@@ -872,14 +872,14 @@
             ]
           },
           {
-            "name": "head(key)",
+            "name": "head({key})",
             "pattern": "head\\([a-zA-Z0-9$_.\\-]+\\)",
-            "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name",
+            "description": "Scoped slot for custom rendering of field header. '{key}' is the field's key name",
             "scope": [
               {
                 "prop": "column",
                 "type": "String",
-                "description": "The fields's key value"
+                "description": "The field's key value"
               },
               {
                 "prop": "field",
@@ -889,7 +889,7 @@
               {
                 "prop": "label",
                 "type": "String",
-                "description": "The fields label value"
+                "description": "The field's label value"
               },
               {
                 "prop": "isFoot",
@@ -905,7 +905,7 @@
               {
                 "prop": "column",
                 "type": "String",
-                "description": "The fields's key value"
+                "description": "The field's key value"
               },
               {
                 "prop": "field",
@@ -915,7 +915,7 @@
               {
                 "prop": "label",
                 "type": "String",
-                "description": "The fields label value"
+                "description": "The field's label value"
               },
               {
                 "prop": "isFoot",
@@ -925,14 +925,14 @@
             ]
           },
           {
-            "name": "foot(key)",
+            "name": "foot({key})",
             "pattern": "foot\\([a-zA-Z0-9$_.\\-]+\\)",
-            "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name.",
+            "description": "Scoped slot for custom rendering of field footer. '{key}' is the field's key name.",
             "scope": [
               {
                 "prop": "column",
                 "type": "String",
-                "description": "The fields's key value"
+                "description": "The field's key value"
               },
               {
                 "prop": "field",
@@ -942,7 +942,7 @@
               {
                 "prop": "label",
                 "type": "String",
-                "description": "The fields label value"
+                "description": "The field's label value"
               }
             ]
           },
@@ -953,7 +953,7 @@
               {
                 "prop": "column",
                 "type": "String",
-                "description": "The fields's key value"
+                "description": "The field's key value"
               },
               {
                 "prop": "field",
@@ -963,7 +963,7 @@
               {
                 "prop": "label",
                 "type": "String",
-                "description": "The fields label value"
+                "description": "The field's label value"
               }
             ]
           },
