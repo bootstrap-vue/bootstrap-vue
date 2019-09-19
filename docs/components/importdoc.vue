@@ -185,12 +185,10 @@ export default {
     },
     directives() {
       // We just need the directive name
-      return (
-        []
-          .concat(this.meta.directive, this.meta.directives)
-          .filter(d => d)
-          .map(d => (typeof d === 'string' ? d : d.directive))
-      )
+      return []
+        .concat(this.meta.directive, this.meta.directives)
+        .filter(d => d)
+        .map(d => (typeof d === 'string' ? d : d.directive))
     },
     componentImportCode() {
       const firstComponent = this.components[0]
