@@ -65,7 +65,7 @@
       },
       {
         "name": "nofade",
-        "description": "Disabled teh fade animation of the tooltip"
+        "description": "Disabled the fade animation of the tooltip"
       },
       {
         "name": "html",
@@ -73,11 +73,11 @@
       },
       {
         "name": "viewport",
-        "description": "Sets teh boundary constraint to the viewport"
+        "description": "Sets the boundary constraint to the viewport"
       },
       {
         "name": "window",
-        "description": "sets teh boundary constrain to the window"
+        "description": "sets the boundary constrain to the window"
       },
       {
         "name": "v-{variant}",
