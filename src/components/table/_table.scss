@@ -35,6 +35,30 @@
     }
   }
 
+  // Re-declare `table-active` class here so that it can take
+  // precedence over row variants when used on selectable rows
+  // Class can only be applied to rows and not individual cells
+  > tbody > .table-active {
+    &,
+    > th,
+    > td {
+      background-color: $table-active-bg;
+    }
+  }
+
+  // Add special hover styling for `table-active` row variant
+  &.table-hover > tbody > tr.table-active:hover {
+    td,
+    th {
+      color: $table-hover-color;
+      // `$table-hover-bg` default is a very transparent black
+      // We overlay it over the background color to achieve the
+      // same color effect while keeping the background solid
+      background-image: linear-gradient($table-hover-bg, $table-hover-bg);
+      background-repeat: no-repeat;
+    }
+  }
+
   // Add in missing `bg-active` class for table tbody rows
   // Bootstrap v4.3 is missing this for dark tables
   // `bg-active` class cannot be applied to individual cells
@@ -42,7 +66,22 @@
     &,
     > th,
     > td {
-      background-color: $table-dark-active-bg;
+      // Important is needed to override the standard `bg-variants`
+      // as the also use `!important`
+      background-color: $table-dark-active-bg !important;
+    }
+  }
+
+  // Add special hover styling for `bg-active` row variant (dark tables)
+  &.table-hover.table-dark > tbody > tr.bg-active:hover {
+    td,
+    th {
+      color: $table-dark-hover-color;
+      // `$table-dark-hover-bg` default is a very transparent white
+      // We overlay it over the background color to achieve the
+      // same color effect while keeping the background solid
+      background-image: linear-gradient($table-dark-hover-bg, $table-dark-hover-bg);
+      background-repeat: no-repeat;
     }
   }
 }
