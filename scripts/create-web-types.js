@@ -348,7 +348,7 @@ const processComponentGroup = groupSlug => {
   componentsMeta.forEach(meta => {
     processComponentMeta(meta, groupRef, docUrl)
   })
-  
+
   // Process any directives provided in the meta
   // These directives do not have their own package.json files
   directivesMeta.forEach(directiveMeta => {
