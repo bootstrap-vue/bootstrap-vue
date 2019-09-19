@@ -704,4 +704,11 @@ above for an example.
 
 If you are using [VS Code](https://code.visualstudio.com/) as your text editor, BootstrapVue has
 intellisense autocompletion for component attributes available when using the
-[Vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur).
+[Vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur). The helper
+json files are `dist/tags.json` and `dist/attributes.json`
+
+### JetBrains WebStorm web-types
+
+BootstrapVue provides `dist/web-types.json` for autocompletion of component tags, attributes, slot
+names (and scoped properties), and directives. This file is for use with WebStorm and other
+IDEs that support the `web-types` schema specification.
