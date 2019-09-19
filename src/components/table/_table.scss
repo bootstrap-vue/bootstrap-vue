@@ -35,6 +35,17 @@
     }
   }
 
+  // Re-declare `table-active` class here so that it can take
+  // precedence over row variants when used on selectable rows
+  // Class can only be applied to rows and not individual cells
+  > tbody > .table-active {
+    &,
+    > th,
+    > td {
+      background-color: $table-active-bg;
+    }
+  }
+
   // Add in missing `bg-active` class for table tbody rows
   // Bootstrap v4.3 is missing this for dark tables
   // `bg-active` class cannot be applied to individual cells
