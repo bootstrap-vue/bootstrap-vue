@@ -104,180 +104,167 @@ const computePropDefault = ({ default: def, type }) => {
   return JSON.stringify(def)
 }
 
-// Create tag entries for each component in a component group
-const processComponentGroup = groupSlug => {
-  // Array of components in the group
-  const groupMeta = componentGroups[groupSlug] || {}
-  const componentsMeta = groupMeta.components || []
-  const docUrl = `${baseDocs}/docs/components/${groupSlug}/`
+// Process a single component's meta and efinition/class objects
+const processComponentMeta((meta, componentRef, docUrl) => {
+  const componentName = meta.component
 
-  // We import the component from the transpiled `esm/` dir
-  const groupRef = require(path.resolve(baseDir, 'esm/components/' + groupSlug))
+  // Pull information from the component definition/class
+  const componentRef = groupRef[componentName] || {}
+  const $options = componentRef.options || componentRef
+  const $props = $options.props || {}
+  const $model = $options.model || null
 
-  // Process each component
-  componentsMeta.forEach(meta => {
-    const componentName = meta.component
-    const componentRef = groupRef[componentName] || {}
-    // Pull information from the component definition/class
-    const $options = componentRef.options || componentRef
-    const $props = $options.props || {}
-    const $model = $options.model || null
-    // Pull additional info from meta
-    const $events = meta.events || []
-    const $slots = meta.slots || []
-    const $aliases = meta.aliases || []
-    // This doesn't exist yet (for prop descriptions, info)
-    // For description (and possibly more) for props docs
-    const $propsExtra = meta.props || {}
+  // Pull additional info from meta
+  const $events = meta.events || []
+  const $slots = meta.slots || []
+  const $aliases = meta.aliases || []
+  // This doesn't exist yet (for prop descriptions, info)
+  // For description (and possibly more) for props docs
+  const $propsExtra = meta.props || {}
 
-    const tagName = kebabCase(componentName)
+  const tagName = kebabCase(componentName)
 
-    // Build the tag reference
-    const tag = {
-      name: componentName,
-      source: {
-        module: libraryName,
-        symbol: componentName
-      },
-      'docs-url': docUrl,
-      description: `'${componentName}' - BootstrapVue component <${tagName}>`,
-      attributes: []
+  // Build the tag reference
+  const tag = {
+    name: componentName,
+    source: {
+      module: libraryName,
+      symbol: componentName
+    },
+    'docs-url': docUrl,
+    description: `'${componentName}' - BootstrapVue component '${tagName}'`,
+    attributes: []
+  }
+
+  // Add v-model information
+  if ($model && $model.prop && $model.event) {
+    tag['vue-model'] = {
+      prop: $model.prop,
+      event: $model.event
     }
+  }
 
-    // Add v-model information
-    if ($model && $model.prop && $model.event) {
-      tag['vue-model'] = {
-        prop: $model.prop,
-        event: $model.event
+  // Add props
+  if (Object.keys($props).length) {
+    tag.attributes = Object.keys($props).map(propName => {
+      const $prop = $props[propName]
+      const $propExtra = $propsExtra[propName] || {}
+      const type = computePropType($prop)
+      const prop = {
+        name: propName,
+        value: {
+          type: type,
+          default: computePropDefault($prop)
+        },
+        'doc-url': docUrl
       }
-    }
+      // Add required prop is required
+      if ($prop.required) {
+        prop.value.required = true
+      }
+      if (type === 'boolean') {
+        // Deprecated. Use 'value' property instead. Specify only if type is
+        // 'boolean' for backwards compatibility with WebStorm 2019.2
+        prop.type = 'boolean'
+      }
+      // If we have a description, add it to the prop
+      // TODO: this doesn't exist in the component meta yet
+      if ($propExtra.description) {
+        prop.description = $propExtra.description
+      }
+      // TODO: this doesn't exist in the component meta yet
+      if ($propExtra.href) {
+        // If the prop has a document ID link, add it on here
+        // The `href` property is an ID in the docs page
+        prop['doc-url'] = `${docUrl}#${$propExtra.href.replace(/^#/, '')}`
+      }
+      return prop
+    })
+  }
 
-    // Add props
-    if (Object.keys($props).length) {
-      tag.attributes = Object.keys($props).map(propName => {
-        const $prop = $props[propName]
-        const $propExtra = $propsExtra[propName] || {}
-        const type = computePropType($prop)
-        const prop = {
-          name: propName,
-          value: {
-            type: type,
-            default: computePropDefault($prop)
-          },
-          'doc-url': docUrl
-        }
-        // Add required prop is required
-        if ($prop.required) {
-          prop.value.required = true
-        }
-        if (type === 'boolean') {
-          // Deprecated. Use 'value' property instead. Specify only if type is
-          // 'boolean' for backwards compatibility with WebStorm 2019.2
-          prop.type = 'boolean'
-        }
-        // If we have a description, add it to the prop
-        // TODO: this doesn't exist in the component meta yet
-        if ($propExtra.description) {
-          prop.description = $propExtra.description
-        }
-        // TODO: this doesn't exist in the component meta yet
-        if ($propExtra.href) {
-          // If the prop has a document ID link, add it on here
-          // The `href` property is an ID in the docs page
-          prop['doc-url'] = `${docUrl}#${$propExtra.href.replace(/^#/, '')}`
-        }
-        return prop
-      })
-    }
+  // Add events
+  if ($events.length) {
+    tag.events = $events.map(eventObj => {
+      const event = {
+        name: eventObj.event,
+        'doc-url': docUrl
+      }
+      if (eventObj.description) {
+        event.description = eventObj.description
+      }
+      if (Array.isArray(eventObj.args)) {
+        event.arguments = eventObj.args.map(arg => {
+          arg = typeof arg === 'object' ? arg : { arg: arg }
+          const argument = {
+            name: arg.arg,
+            'doc-url': docUrl
+          }
+          if (arg.description) {
+            argument.description = arg.description
+          }
+          if (arg.type) {
+            argument.type = computePropType(arg)
+          }
+          return argument
+        })
+      }
+      return event
+    })
+  }
 
-    // Add events
-    if ($events.length) {
-      tag.events = $events.map(eventObj => {
-        const event = {
-          name: eventObj.event,
-          'doc-url': docUrl
-        }
-        if (eventObj.description) {
-          event.description = eventObj.description
-        }
-        if (Array.isArray(eventObj.args)) {
-          event.arguments = eventObj.args.map(arg => {
-            arg = typeof arg === 'object' ? arg : { arg: arg }
-            const argument = {
-              name: arg.arg,
-              'doc-url': docUrl
-            }
-            if (arg.description) {
-              argument.description = arg.description
-            }
-            if (arg.type) {
-              argument.type = computePropType(arg)
-            }
-            return argument
-          })
-        }
-        return event
-      })
-    }
+  // Add slots
+  if ($slots.length) {
+    tag['vue-scoped-slots'] = $slots.map(slotObj => {
+      const slot = {
+        name: slotObj.name,
+        'doc-url': docUrl
+      }
+      if (slotObj.description) {
+        slot.description = slotObj.description
+      }
+      if (slotObj.pattern) {
+        // Allow RegExpr for synamic slot names
+        // Passed as a string with `\` escaped
+        slot.pattern = slotObj.pattern
+        // The name of the slot should have the variable part surrounded by { }
+        // for auto positioning the cursor to fill in the name
+      }
+      if (Array.isArray(slotObj.scope)) {
+        // Slot props not documented in meta yet
+        slot.properties = slotObj.scope.map(propDef => {
+          const property = {
+            name: propDef.prop,
+            'doc-url': docUrl
+          }
+          if (propDef.description) {
+            property.description = propDef.description
+          }
+          if (propDef.type) {
+            property.type = computePropType(propDef)
+          }
+          return property
+        })
+      }
+      return slot
+    })
+  }
 
-    // Add slots
-    if ($slots.length) {
-      tag['vue-scoped-slots'] = $slots.map(slotObj => {
-        const slot = {
-          name: slotObj.name,
-          'doc-url': docUrl
-        }
-        if (slotObj.description) {
-          slot.description = slotObj.description
-        }
-        if (slotObj.pattern) {
-          // Allow RegExpr for synamic slot names
-          // Passed as a string with `\` escaped
-          slot.pattern = slotObj.pattern
-          // The name of the slot should have the variable part surrounded by { }
-          // for auto positioning the cursor to fill in the name
-        }
-        if (Array.isArray(slotObj.scope)) {
-          // Slot props not documented in meta yet
-          slot.properties = slotObj.scope.map(propDef => {
-            const property = {
-              name: propDef.prop,
-              'doc-url': docUrl
-            }
-            if (propDef.description) {
-              property.description = propDef.description
-            }
-            if (propDef.type) {
-              property.type = computePropType(propDef)
-            }
-            return property
-          })
-        }
-        return slot
-      })
-    }
+  // Add the component tag
+  webTypes.contributions.html.tags.push(tag)
 
-    // Add the component tag
-    webTypes.contributions.html.tags.push(tag)
+  // Add in any component alias tags
+  if ($aliases.length) {
+    // Add the aliases
+    $aliases.forEach(alias => {
+      const aliasTag = { ...tag, name: alias, source: { ...tag.source, symbol: alias } }
+      aliasTag.description = `'${alias}' '${kebabCase(alias)}' (Alias for ${tag.description})`
+      webTypes.contributions.html.tags.push(aliasTag)
+    })
+  }
+})
 
-    // Add in any component alias tags
-    if ($aliases.length) {
-      // Add the aliases
-      $aliases.forEach(alias => {
-        const aliasTag = { ...tag, name: alias, source: { ...tag.source, symbol: alias } }
-        aliasTag.description = `'${alias}' <${kebabCase(alias)}> (Alias for ${tag.description})`
-        webTypes.contributions.html.tags.push(aliasTag)
-      })
-    }
-  })
-}
-
-// Create attribute entries for each directive
-const processDirectiveGroup = groupSlug => {
-  // Directives only have a single entry in their Meta for `directive`
-  const directiveMeta = directiveGroups[groupSlug] || {}
-  const docUrl = `${baseDocs}/docs/directives/${groupSlug}/`
-
+// Process a single directive meta object
+const processDirectiveMeta((directiveMeta, docUrl) => {
   // Process the directive meta
   // String (PascalCase)
   const name = directiveMeta.directive
@@ -288,7 +275,7 @@ const processDirectiveGroup = groupSlug => {
   // Object
   const expression = directiveMeta.expression
 
-  // Base attribute definition
+  // Build the attribute (directive) def
   const attribute = {
     name: kebabCase(name),
     source: {
@@ -299,9 +286,7 @@ const processDirectiveGroup = groupSlug => {
     description: `${name} - BootstrapVue directive '${kebabCase(name)}'`,
     'doc-url': docUrl
   }
-  // The following are not in the directive package.json meta section yet.
-  // There are currently a few issues with what the schema supports,
-  // so we may need to adjust the following once it is completed.
+
   // Add in argument details
   if (arg) {
     // TODO as this is missing from the schema def
@@ -312,6 +297,7 @@ const processDirectiveGroup = groupSlug => {
       description: arg.description
     }
   }
+
   // Add in any modifier details
   if (modifiers) {
     attribute['vue-modifiers'] = modifiers.map(mod => {
@@ -328,16 +314,56 @@ const processDirectiveGroup = groupSlug => {
       return modifier
     })
   }
-  // Add in value (expression) type
-  // Array of types or a single type
+
+  // Add in value (expression) type (Array of types or a single type)
   if (expression) {
     attribute.value = {
       kind: 'expression',
       type: computePropType({ type: expression })
     }
   }
+
   // Add the directive to the html attributes array
   webTypes.contributions.html.attributes.push(attribute)
+})
+
+// Create tag entries for each component in a component group
+const processComponentGroup = groupSlug => {
+  // Array of components in the group
+  const groupMeta = componentGroups[groupSlug] || {}
+  const componentsMeta = groupMeta.components || []
+  const directivesMeta = (groupMeta.directives || []).map(d => {
+    // The component group's directive meta could be a string
+    // So we map it to the object format
+    return typeof d === 'string' ? { directive: d } : d
+  })
+
+  // The URL to the components docs
+  const docUrl = `${baseDocs}/docs/components/${groupSlug}/`
+
+  // We import the component from the transpiled `esm/` dir
+  const groupRef = require(path.resolve(baseDir, 'esm/components/' + groupSlug))
+
+  // Process each component
+  componentsMeta.forEach(meta => {
+    processComponentMeta(meta, groupRef, docUrl)
+  })
+  
+  // Process any directives provided in the meta
+  // These directives do not have their own package.json files
+  directivesMeta.forEach(directiveMeta => {
+    processDirectiveMeta(directiveMeta, docUrl)
+  })
+}
+
+// Create attribute entries for each directive
+const processDirectiveGroup = groupSlug => {
+  // Directives only have a single entry in their Meta for `directive`
+  const directiveMeta = directiveGroups[groupSlug] || {}
+  const docUrl = `${baseDocs}/docs/directives/${groupSlug}/`
+
+  // Process the directive meta
+  processDirectiveMeta(directiveMeta, docUrl)
 }
 
 try {
