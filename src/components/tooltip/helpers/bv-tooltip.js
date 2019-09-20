@@ -285,11 +285,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           html: this.html,
           placement: this.placement,
           fallbackPlacement: this.fallbackPlacement,
-          offset: this.offset,
-          arrowPadding: this.arrowPadding,
-          boundaryPadding: this.boundaryPadding,
+          target: this.getPlacementTarget(),
           boundary: this.getBoundary(),
-          target: this.getPlacementTarget()
+          // Ensure the following are integers
+          offset: parseInt(this.offset, 10) || 0,
+          arrowPadding: parseInt(this.arrowPadding, 10) || 0,
+          boundaryPadding: parseInt(this.boundaryPadding, 10) || 0
         }
       }))
       // We set the initial reactive data (values that can be changed while open)
