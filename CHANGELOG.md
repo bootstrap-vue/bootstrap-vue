@@ -47,8 +47,8 @@ This patch release includes a few minor bug fixes and documentation updates.
   [#4052](https://github.com/bootstrap-vue/bootstrap-vue/issues/4052))
   ([#4055](https://github.com/bootstrap-vue/bootstrap-vue/issues/4055))
   ([9ccfe4c](https://github.com/bootstrap-vue/bootstrap-vue/commit/9ccfe4c))
-- **b-table:** handle filter as an object when using items provider, and prevent duplicate provider calls
-  on mount (fixes [#4065](https://github.com/bootstrap-vue/bootstrap-vue/issues/4065))
+- **b-table:** handle filter as an object when using items provider, and prevent duplicate provider
+  calls on mount (fixes [#4065](https://github.com/bootstrap-vue/bootstrap-vue/issues/4065))
   ([#4068](https://github.com/bootstrap-vue/bootstrap-vue/issues/4068))
   ([9ddd115](https://github.com/bootstrap-vue/bootstrap-vue/commit/9ddd115))
 - **b-table:** remove extra slashes in mixins imports

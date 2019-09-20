@@ -481,12 +481,13 @@ for generating more complex toast content:
 
 <!-- toasts-advanced.vue -->
 ```
+
 ## Alerts versus toasts
 
-In some cases you may need just a simple alert style message (i.e. cookie usage notifications, etc.).
-In these cases is is usually better to use an fixed position alert instead of a toast, by applying a
-few Bootstrap [utility classes](/docs/reference/utility-classes) and a small bit of custom styling
-on a [`<b-alert>`](/docs/components/alert) component:
+In some cases you may need just a simple alert style message (i.e. cookie usage notifications,
+etc.). In these cases is is usually better to use an fixed position alert instead of a toast, by
+applying a few Bootstrap [utility classes](/docs/reference/utility-classes) and a small bit of
+custom styling on a [`<b-alert>`](/docs/components/alert) component:
 
 ```html
 <template>
@@ -533,12 +534,12 @@ export default {
 <!-- fixed-position-alerts.vue -->
 ```
 
-We use class `position-fixed` to set the positioning to fixed within the user's viewport, and
-either class `fixed-bottom` or `fixed-top` to position the alert on the bottom or top of the
-viewport. Class `m-0` removes the default margins around the alert and `rounded-0` removes the
-default rounded corners.  We also set the `z-index` to a large value to ensure the alert apepars
-over any other content on the page (the default for `fixed-top` and `fixed-bottom` is `1030`). You
-may need to adjust the `z-index` for your specific layout.
+We use class `position-fixed` to set the positioning to fixed within the user's viewport, and either
+class `fixed-bottom` or `fixed-top` to position the alert on the bottom or top of the viewport.
+Class `m-0` removes the default margins around the alert and `rounded-0` removes the default rounded
+corners. We also set the `z-index` to a large value to ensure the alert appears over any other
+content on the page (the default for `fixed-top` and `fixed-bottom` is `1030`). You may need to
+adjust the `z-index` for your specific layout.
 
 Since the alert markup remains in the DOM where you placed the `<b-alert>` component, it's tab
 sequence (for accessing the dismiss button) is easily accessible to screen reader and keyboard-only
