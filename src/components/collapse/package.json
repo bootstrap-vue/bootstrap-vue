@@ -6,7 +6,7 @@
     "description": "Easily toggle content visibility on your pages. Includes support for making accordions.",
     "directives": [
       {
-        "directive": "VBToggle"
+        "directive": "VBToggle",
         "description": "Directive for toggling a collapse by ID",
         "expression": "String",
         "modifiers": [
