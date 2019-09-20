@@ -245,19 +245,21 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // Overridden by BPopover
       // Tooltip: Default slot is `title`
       // Popover: Default slot is `content`, `title` slot is title
-      // We pass a scoped slot function by default (v2.6x)
+      // We pass a scoped slot function reference by default (Vue v2.6x)
       // And pass the title prop as a fallback
       this.setTitle(this.$scopedSlots.default || this.title)
     },
     // Helper methods for `updateContent()`
     setTitle(val) {
       val = isUndefinedOrNull(val) ? '' : val
+      // We only update the value if it has changed
       if (this.localTitle !== val) {
         this.localTitle = val
       }
     },
     setContent(val) {
       val = isUndefinedOrNull(val) ? '' : val
+      // We only update the value if it has changed
       if (this.localContent !== val) {
         this.localContent = val
       }
