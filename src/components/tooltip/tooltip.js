@@ -122,7 +122,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         customClass: this.customClass,
         container: this.container,
         boundary: this.boundary,
-        boundaryPadding: parseInt(this.boundaryPadding, 10) || 0,
+        boundaryPadding: this.boundaryPadding,
         delay: this.delay,
         offset: this.offset,
         noFade: this.noFade,
