@@ -4,6 +4,35 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.2"></a>
+
+## [v2.0.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.1...v2.0.2)
+
+Released: 2019-09-20
+
+This patch release includes a few minor bug fixes and documentation updates.
+
+### Bug Fixes v2.0.2
+
+- **b-popover, b-tooltip:** ensure prop `boundary-padding` is passed to popper instance (fixes
+  [#4131](https://github.com/bootstrap-vue/bootstrap-vue/issues/4131))
+  ([#4133](https://github.com/bootstrap-vue/bootstrap-vue/issues/4133))
+  ([a54a647](https://github.com/bootstrap-vue/bootstrap-vue/commit/a54a647))
+- **b-collapse:** make `id` prop not required
+  ([#4109](https://github.com/bootstrap-vue/bootstrap-vue/issues/4109))
+  ([4f935ce](https://github.com/bootstrap-vue/bootstrap-vue/commit/4f935ce))
+- **tables:** add in missing Bootstrap variant class `bg-active` for dark tables
+  ([#4098](https://github.com/bootstrap-vue/bootstrap-vue/issues/4098))
+  ([d9900ab](https://github.com/bootstrap-vue/bootstrap-vue/commit/d9900ab))
+- **tables:** ensure row variant `active` (class `table-active`) takes precedence over other row
+  variants (addresses [#3008](https://github.com/bootstrap-vue/bootstrap-vue/issues/3008))
+  ([#4127](https://github.com/bootstrap-vue/bootstrap-vue/issues/4127))
+  ([fdb8bb6](https://github.com/bootstrap-vue/bootstrap-vue/commit/fdb8bb6))
+- **tooltips, popovers:** hide trigger element `title` attribute during show delay (fixes
+  [#4114](https://github.com/bootstrap-vue/bootstrap-vue/issues/4114))
+  ([#4120](https://github.com/bootstrap-vue/bootstrap-vue/issues/4120))
+  ([2dd8d5a](https://github.com/bootstrap-vue/bootstrap-vue/commit/2dd8d5a))
+
 <a name="2.0.1"></a>
 
 ## [v2.0.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0...v2.0.1)
@@ -18,8 +47,8 @@ This patch release includes a few minor bug fixes and documentation updates.
   [#4052](https://github.com/bootstrap-vue/bootstrap-vue/issues/4052))
   ([#4055](https://github.com/bootstrap-vue/bootstrap-vue/issues/4055))
   ([9ccfe4c](https://github.com/bootstrap-vue/bootstrap-vue/commit/9ccfe4c))
-- **b-table:** handle filter as an object when using items provider, and prevent duplicate provider calls
-  on mount (fixes [#4065](https://github.com/bootstrap-vue/bootstrap-vue/issues/4065))
+- **b-table:** handle filter as an object when using items provider, and prevent duplicate provider
+  calls on mount (fixes [#4065](https://github.com/bootstrap-vue/bootstrap-vue/issues/4065))
   ([#4068](https://github.com/bootstrap-vue/bootstrap-vue/issues/4068))
   ([9ddd115](https://github.com/bootstrap-vue/bootstrap-vue/commit/9ddd115))
 - **b-table:** remove extra slashes in mixins imports

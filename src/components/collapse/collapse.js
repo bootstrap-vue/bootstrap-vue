@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { isBrowser } from '../../utils/env'
@@ -32,16 +33,12 @@ const EventOptions = { passive: true, capture: false }
 // @vue/component
 export const BCollapse = /*#__PURE__*/ Vue.extend({
   name: 'BCollapse',
-  mixins: [listenOnRootMixin, normalizeSlotMixin],
+  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
     prop: 'visible',
     event: 'input'
   },
   props: {
-    id: {
-      type: String,
-      required: true
-    },
     isNav: {
       type: Boolean,
       default: false
@@ -105,7 +102,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     })
     // Listen for "Sync state" requests from `v-b-toggle`
     this.listenOnRoot(EVENT_STATE_REQUEST, id => {
-      if (id === this.id) {
+      if (id === this.safeId()) {
         this.$nextTick(this.emitSync)
       }
     })
@@ -174,17 +171,17 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     emitState() {
       this.$emit('input', this.show)
       // Let v-b-toggle know the state of this collapse
-      this.$root.$emit(EVENT_STATE, this.id, this.show)
+      this.$root.$emit(EVENT_STATE, this.safeId(), this.show)
       if (this.accordion && this.show) {
         // Tell the other collapses in this accordion to close
-        this.$root.$emit(EVENT_ACCORDION, this.id, this.accordion)
+        this.$root.$emit(EVENT_ACCORDION, this.safeId(), this.accordion)
       }
     },
     emitSync() {
       // Emit a private event every time this component updates to ensure
       // the toggle button is in sync with the collapse's state
       // It is emitted regardless if the visible state changes
-      this.$root.$emit(EVENT_STATE_SYNC, this.id, this.show)
+      this.$root.$emit(EVENT_STATE_SYNC, this.safeId(), this.show)
     },
     checkDisplayBlock() {
       // Check to see if the collapse has `display: block !important;` set.
@@ -211,7 +208,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       }
     },
     handleToggleEvt(target) {
-      if (target !== this.id) {
+      if (target !== this.safeId()) {
         return
       }
       this.toggle()
@@ -220,7 +217,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       if (!this.accordion || accordion !== this.accordion) {
         return
       }
-      if (openedId === this.id) {
+      if (openedId === this.safeId()) {
         // Open this collapse if not shown
         if (!this.show) {
           this.toggle()
@@ -243,7 +240,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       {
         class: this.classObject,
         directives: [{ name: 'show', value: this.show }],
-        attrs: { id: this.id || null },
+        attrs: { id: this.safeId() },
         on: { click: this.clickHandler }
       },
       [this.normalizeSlot('default')]

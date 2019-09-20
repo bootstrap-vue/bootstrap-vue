@@ -47,7 +47,7 @@ export const BPopover = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME, 'boundary')
     },
     boundaryPadding: {
-      type: Number,
+      type: [Number, String],
       default: () => getComponentConfig(NAME, 'boundaryPadding')
     }
   },
@@ -59,7 +59,7 @@ export const BPopover = /*#__PURE__*/ Vue.extend({
     updateContent() {
       // Tooltip: Default slot is `title`
       // Popover: Default slot is `content`, `title` slot is title
-      // We pass a scoped slot function by default (v2.6x)
+      // We pass a scoped slot function references by default (Vue v2.6x)
       // And pass the title prop as a fallback
       this.setContent(this.$scopedSlots.default || this.content)
       this.setTitle(this.$scopedSlots.title || this.title)
