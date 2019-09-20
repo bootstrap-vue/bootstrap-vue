@@ -11,8 +11,8 @@
   "license": "MIT",
   "types": "src/index.d.ts",
   "vetur": {
-    "tags": "dist/tags.json",
-    "attributes": "dist/attributes.json"
+    "tags": "dist/vetur-tags.json",
+    "attributes": "dist/vetur-attributes.json"
   },
   "web-types": "dist/web-types.json",
   "repository": "bootstrap-vue/bootstrap-vue",
