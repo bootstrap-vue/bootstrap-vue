@@ -494,9 +494,6 @@ on a [`<b-alert>`](/docs/components/alert) component:
     <b-button size="sm" @click="showBottom = !showBottom">
       {{ showBottom ? 'Hide' : 'Show' }} Fixed bottom Alert
     </b-button>
-    <b-button size="sm" @click="showTop = !showTop">
-      {{ showTop ? 'Hide' : 'Show' }} Fixed top Alert
-    </b-button>
     <b-alert
       v-model="showBottom"
       class="position-fixed fixed-bottom m-0 rounded-0"
@@ -506,6 +503,10 @@ on a [`<b-alert>`](/docs/components/alert) component:
     >
       Fixed position (bottom) alert!
     </b-alert>
+
+    <b-button size="sm" @click="showTop = !showTop">
+      {{ showTop ? 'Hide' : 'Show' }} Fixed top Alert
+    </b-button>
     <b-alert
       v-model="showTop"
       class="position-fixed fixed-top m-0 rounded-0"
