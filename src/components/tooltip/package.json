@@ -4,8 +4,8 @@
   "meta": {
     "title": "Tooltip",
     "description": "Easily add tooltips to elements or components via the <b-tooltip> component or v-b-tooltip directive.",
-    "directives": [
-      "VBTooltip"
+    "plugins": [
+      "VBTooltipPlugin"
     ],
     "components": [
       {
