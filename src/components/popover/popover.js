@@ -47,7 +47,7 @@ export const BPopover = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME, 'boundary')
     },
     boundaryPadding: {
-      type: Number,
+      type: [Number, String],
       default: () => getComponentConfig(NAME, 'boundaryPadding')
     }
   },
