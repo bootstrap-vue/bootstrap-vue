@@ -393,14 +393,17 @@ try {
   // Create Vetur tags and attributes files
   const veturTags = {}
   const veturAttributes = {}
+  // Add component specific info
   Object.keys(webTypes.contributions.html.tags).forEach(component => {
     const def = webTypes.contributions.html.tags[component]
     const tag = kebabCase(def.name)
+    // Component tag
     veturTags[tag] = {
       subtags: [],
       description: def.description,
       attributes: def.attributes.map(attrObj => kebabCase(attrObj.name))
     }
+    // Component props
     def.attributes.forEach(attrObj => {
       const type = (attrObj.value || { type: 'any' }).type
       veturAttributes[`${tag}/${kebabCase(attrObj.name)}`] = {
@@ -409,6 +412,15 @@ try {
       }
     })
   })
+  // Add global directive "attributes"
+  Object.keys(webTypes.contributions.html.attributes).forEach(directive => {
+    const def = webTypes.contributions.html.attributes[directive]
+    const attr = kebabCase(def.name)
+    veturAttributes[attr] = {
+      global: true,
+      description: def.description
+    }
+  })
 
   // Write web-types.json to file
   console.log('   Writing dist/web-types.json...')
@@ -416,14 +428,14 @@ try {
   fs.writeFileSync(path.resolve(distDir, 'web-types.json'), webTypesJson)
 
   // Write tags.json to file
-  console.log('   Writing dist/tags.json...')
+  console.log('   Writing dist/vetur-tags.json...')
   const veturTagsJson = JSON.stringify(veturTags, null, 2)
-  fs.writeFileSync(path.resolve(distDir, 'tags.json'), veturTagsJson)
+  fs.writeFileSync(path.resolve(distDir, 'vetur-tags.json'), veturTagsJson)
 
   // Write attributes.json to file
-  console.log('   Writing dist/attributes.json...')
+  console.log('   Writing dist/vetur-attributes.json...')
   const veturAttributesJson = JSON.stringify(veturAttributes, null, 2)
-  fs.writeFileSync(path.resolve(distDir, 'attributes.json'), veturAttributesJson)
+  fs.writeFileSync(path.resolve(distDir, 'vetur-attributes.json'), veturAttributesJson)
 
   // Done
 } catch (err) {
