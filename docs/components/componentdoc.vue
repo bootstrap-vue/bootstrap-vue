@@ -283,7 +283,7 @@ export default {
       // Returns the propsMeta array in object format for easy lookups
       return this.propsMeta.reduce((obj, propMeta) => {
         if (propMeta.prop) {
-          obj[propMeta.prop]: propMeta
+          obj[propMeta.prop] = propMeta
         }
         return obj
       }, {})
