@@ -5,7 +5,18 @@
     "title": "Collapse",
     "description": "Easily toggle content visibility on your pages. Includes support for making accordions.",
     "directives": [
-      "VBToggle"
+      {
+        "directive": "VBToggle"
+        "description": "Directive for toggling a collapse by ID",
+        "expression": "String",
+        "modifiers": [
+          {
+            "name": "{collapseid}",
+            "pattern": "[a-zA-Z][a-zA-Z0-9_\\-]*",
+            "description": "Collapse ID to open. Replace `{collapse}` with the collapse's ID"
+          }
+        ]
+      }
     ],
     "components": [
       {
