@@ -223,6 +223,11 @@ export default {
   components: { AnchoredHeading },
   props: {
     component: {},
+    propsMeta: {
+      // For getting pro descriptions
+      type: Array,
+      default: () => []
+    },
     slots: {
       type: Array,
       default: () => []
@@ -274,11 +279,21 @@ export default {
     componentProps() {
       return this.componentOptions.props || {}
     },
+    componentPropsMetaObj() {
+      // Returns the propsMeta array in object format for easy lookups
+      return this.propsMeta.reduce((obj, propMeta) => {
+        if (propMeta.prop) {
+          obj[propMeta.prop]: propMeta
+        }
+        return obj
+      }, {})
+    },
     propsFields() {
       return [
         { key: 'prop', label: 'Property' },
         { key: 'type', label: 'Type' },
-        { key: 'defaultValue', label: 'Default Value' }
+        { key: 'defaultValue', label: 'Default Value' },
+        { key: 'description', label: 'Description' }
       ]
     },
     eventsFields() {
@@ -307,9 +322,11 @@ export default {
     },
     propsItems() {
       const props = this.componentProps
+      const propsMetaObj = this.componentPropsMetaObj
 
       return Object.keys(props).map(prop => {
         const p = props[prop]
+        const meta = propsMetaObj[prop] || {}
 
         // Describe type
         let type = p.type || Object
@@ -341,6 +358,7 @@ export default {
           typeClass,
           defaultValue: defaultVal,
           required: p.required || false,
+          description: meta.description || '',
           deprecated: p.deprecated || false,
           deprecation: p.deprecation || false,
           _showDetails: typeof p.deprecated === 'string' || typeof p.deprecation === 'string'
