@@ -382,7 +382,7 @@ export default {
           this.$nextTick(() => {
             if (
               this.visible &&
-              !contains(this.$refs.menu, relatedTarget)
+              !contains(this.$refs.menu, relatedTarget) &&
               !contains(this.toggler, relatedTarget)
             ) {
               this.hide(false)
