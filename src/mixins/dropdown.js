@@ -385,6 +385,8 @@ export default {
     onFocusOut(evt) {
       // `relatedTarget` is the element gaining focus
       const related = evt.relatedTarget
+      // DEBUG
+      console.log('Focusout handler:', related, evt)
       // If focus moves outside the menu or toggler, then close menu
       if (
         this.visible &&
@@ -392,8 +394,10 @@ export default {
         !contains(this.toggler, related) &&
         // If the element gaining focus is another dropdown-toggle, we ignore
         // as the root listener will close the dropdown for us
-        !(hasClass(related, '.dropdown-toggle') || closest('.dropdown-toggle', related))
+        !(hasClass(related, 'dropdown-toggle') || closest('.dropdown-toggle', related))
       ) {
+        // DEBUG
+        console.log('  Focusout handler: closing self')
         this.visible = false
       }
     },
