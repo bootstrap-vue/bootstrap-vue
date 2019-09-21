@@ -2,7 +2,16 @@ import Popper from 'popper.js'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
 import { BvEvent } from '../utils/bv-event.class'
-import { closest, contains, isVisible, requestAF, selectAll, eventOn, eventOff } from '../utils/dom'
+import {
+  closest,
+  contains,
+  hasClass,
+  isVisible,
+  requestAF,
+  selectAll,
+  eventOn,
+  eventOff
+} from '../utils/dom'
 import { isNull } from '../utils/inspect'
 import idMixin from './id'
 
@@ -375,23 +384,18 @@ export default {
     // Drodpwon wrapper focusOut handler
     onFocusOut(evt) {
       // `relatedTarget` is the element gaining focus
-      const relatedTarget = evt.relatedTarget
+      const related = evt.relatedTarget
       // If focus moves outside the menu or toggler, then close menu
-      this.$nextTick(() => {
-        requestAF(() => {
-          this.$nextTick(() => {
-            if (
-              this.visible &&
-              !contains(this.$refs.menu, relatedTarget) &&
-              !contains(this.toggler, relatedTarget)
-            ) {
-              requestAF(() => {
-                this.visible = false
-              })
-            }
-          })
-        })
-      })
+      if (
+        this.visible &&
+        !contains(this.$refs.menu, related) &&
+        !contains(this.toggler, related) &&
+        // If the element gaining focus is another dropdown-toggle, we ignore
+        // as the root listener will close the dropdown for us
+        !(hasClass(related, '.dropdown-toggle') || closest('.dropdown-toggle', related))
+      ) {
+        this.visible = false
+      }
     },
     // Keyboard nav
     focusNext(evt, up) {
