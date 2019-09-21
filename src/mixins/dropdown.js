@@ -14,6 +14,9 @@ const ROOT_DROPDOWN_PREFIX = 'bv::dropdown::'
 const ROOT_DROPDOWN_SHOWN = `${ROOT_DROPDOWN_PREFIX}shown`
 const ROOT_DROPDOWN_HIDDEN = `${ROOT_DROPDOWN_PREFIX}hidden`
 
+// Delay when loosing focus before closing menu (in ms)
+const FOCUSOUT_DELAY = 100
+
 // Dropdown item CSS selectors
 const Selector = {
   FORM_CHILD: '.dropdown form',
@@ -391,7 +394,7 @@ export default {
           // on the screen do to a navbar menu above it collapsing)
           setTimeout(() => {
             this.visible = false
-          }, 50)
+          }, FOCUSOUT_DELAY)
         })
       }
     },
