@@ -379,9 +379,13 @@ export default {
       // If focus moves outside the menu or toggler, then close menu
       this.$nextTick(() => {
         requestAF(() => {
-          requestAF(() => {
-            if (this.visible && !contains(this.$refs.menu, relatedTarget)) {
-              this.visible = false
+          this.$nextTick(() => {
+            if (
+              this.visible &&
+              !contains(this.$refs.menu, relatedTarget)
+              !contains(this.toggler, relatedTarget)
+            ) {
+              this.hide(false)
             }
           })
         })
