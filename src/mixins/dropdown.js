@@ -384,15 +384,9 @@ export default {
       ) {
         // Delay dropdown closing, just in case next element
         // focused (then followed by a click) is another dropdown togle
-        this.$nextTick(() => {
-          requestAF(() => {
-            this.$nextTick(() => {
-              setTimeout(() => {
-                this.visible = false
-              }, 100)
-            })
-          })
-        })
+        setTimeout(() => {
+          this.visible = false
+        }, 0)
       }
     },
     // Keyboard nav
