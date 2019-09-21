@@ -136,7 +136,8 @@ export default {
           cancelable: true,
           vueTarget: this,
           target: this.$refs.menu,
-          relatedTarget: null
+          relatedTarget: null,
+          componentId: this.safeId ? this.safeId() : this.id || null
         })
         this.emitEvent(bvEvt)
         if (bvEvt.defaultPrevented) {
@@ -334,7 +335,11 @@ export default {
       if (this.visible) {
         this.hide(true)
       } else {
-        this.show()
+        // Allow time for any other dropdown to close if
+        // focus moves from dropdown to dropdown
+        this.$nextTick(() => {
+          this.show()
+        })
       }
     },
     // Called only in split button mode, for the split button
