@@ -128,12 +128,16 @@ export const closest = (selector, root, includeRoot = false) => {
   }
   const el = closestEl.call(root, selector)
 
-  return includeRoot
-    // Native closest behaviour when `includeRoot` is truthy
-    ? el
-    // Else emulate jQuery closest and return `null` if
-    // match is the passed in root element
-    : el === root ? null : el
+  return (
+    includeRoot
+      // Native closest behaviour when `includeRoot` is truthy
+      ? el
+      // Else emulate jQuery closest and return `null` if
+      // match is the passed in root element
+      : el === root
+        ? null
+        : el
+  )
 }
 
 // Returns true if the parent element contains the child element
