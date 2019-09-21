@@ -385,7 +385,9 @@ export default {
               !contains(this.$refs.menu, relatedTarget) &&
               !contains(this.toggler, relatedTarget)
             ) {
-              this.hide(false)
+              requestAF(() => {
+                this.visible = false
+              })
             }
           })
         })
