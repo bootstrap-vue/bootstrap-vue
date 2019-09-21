@@ -386,13 +386,12 @@ export default {
         // focused (then followed by a click) is another dropdown toggle
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
         this.$nextTick(() => {
-          requestAF(() => {
-            this.$nextTick(() => {
-              requestAF(() => {
-                this.visible = false
-              })
-            })
-          })
+          // We do this in a delay so that the next element has a chance
+          // to have it's click handler fired (in case it's positon moves
+          // on the screen do to a navbar menu above it collapsing)
+          setTimeout(() => {
+            this.visible = false
+          }, 50)
         })
       }
     },
