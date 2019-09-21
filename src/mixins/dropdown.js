@@ -387,9 +387,11 @@ export default {
     focusInHandler(evt) {
       const target = evt.target
       // If focus leaves dropdown, hide it
-      if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
-        this.visible = false
-      }
+      requestAF(() => {
+        if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
+          this.visible = false
+        }
+      })
     },
     // Keyboard nav
     focusNext(evt, up) {
