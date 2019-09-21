@@ -380,12 +380,17 @@ export default {
       if (
         this.visible &&
         !contains(this.$refs.menu, relatedTarget) &&
-        !contains(this.toggler, relatedTarget) &&
-        // If the element gaining focus is another dropdown-toggle, we ignore
-        // as the root listener will close the dropdown for us
-        !closest('.dropdown-toggle', relatedTarget, true)
+        !contains(this.toggler, relatedTarget)
       ) {
-        this.visible = false
+        // Delay dropdown closing, just in case next element
+        // focused (then followed by a click) is another dropdown togle
+        this.$nextTick(() => {
+          requestAF(() => {
+            this.$nextTick(() => {
+              this.visible = false
+            })
+          })
+        })
       }
     },
     // Keyboard nav
