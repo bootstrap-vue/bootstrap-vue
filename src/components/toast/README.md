@@ -482,6 +482,69 @@ for generating more complex toast content:
 <!-- toasts-advanced.vue -->
 ```
 
+## Alerts versus toasts
+
+In some cases you may need just a simple alert style message (i.e. cookie usage notifications,
+etc.). In these cases is is usually better to use an fixed position alert instead of a toast, by
+applying a few Bootstrap [utility classes](/docs/reference/utility-classes) and a small bit of
+custom styling on a [`<b-alert>`](/docs/components/alert) component:
+
+```html
+<template>
+  <div>
+    <b-button size="sm" @click="showBottom = !showBottom">
+      {{ showBottom ? 'Hide' : 'Show' }} Fixed bottom Alert
+    </b-button>
+    <b-alert
+      v-model="showBottom"
+      class="position-fixed fixed-bottom m-0 rounded-0"
+      style="z-index: 2000;"
+      variant="warning"
+      dismissible
+    >
+      Fixed position (bottom) alert!
+    </b-alert>
+
+    <b-button size="sm" @click="showTop = !showTop">
+      {{ showTop ? 'Hide' : 'Show' }} Fixed top Alert
+    </b-button>
+    <b-alert
+      v-model="showTop"
+      class="position-fixed fixed-top m-0 rounded-0"
+      style="z-index: 2000;"
+      variant="success"
+      dismissible
+    >
+      Fixed position (top) alert!
+    </b-alert>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      showBottom: false,
+      showTop: false
+    }
+  }
+}
+</script>
+
+<!-- fixed-position-alerts.vue -->
+```
+
+We use class `position-fixed` to set the positioning to fixed within the user's viewport, and either
+class `fixed-bottom` or `fixed-top` to position the alert on the bottom or top of the viewport.
+Class `m-0` removes the default margins around the alert and `rounded-0` removes the default rounded
+corners. We also set the `z-index` to a large value to ensure the alert appears over any other
+content on the page (the default for `fixed-top` and `fixed-bottom` is `1030`). You may need to
+adjust the `z-index` for your specific layout.
+
+Since the alert markup remains in the DOM where you placed the `<b-alert>` component, it's tab
+sequence (for accessing the dismiss button) is easily accessible to screen reader and keyboard-only
+users.
+
 ## Accessibility
 
 Toasts are intended to be **small interruptions** to your visitors or users, so to help those with
@@ -492,6 +555,9 @@ Additionally, `aria-atomic="true"` is automatically set to ensure that the entir
 announced as a single (atomic) unit, rather than announcing what was changed (which could lead to
 problems if you only update part of the toast's content, or if displaying the same toast content at
 a later point in time).
+
+If you just need a single simple message to appear along the bottom or top of the user's window, use
+a [fixed position `<b-alert>`](#alerts-versus-toasts) instead.
 
 ### Accessibility tips
 
