@@ -318,6 +318,8 @@ export default {
     // Called only by a button that toggles the menu
     toggle(evt) {
       evt = evt || {}
+      // DEBUG
+      console.log('Toggle hanlder', evt)
       const type = evt.type
       const key = evt.keyCode
       if (
@@ -380,13 +382,13 @@ export default {
     },
     // Drodpwon wrapper focusOut handler
     focusOutHandler(evt) {
+      // DEBUG
+      console.log('Focusout hanlder', evt)
       // `relatedTarget` is the element gaining focus
       const relatedTarget = evt.relatedTarget
-      if (
-        this.visible &&
-        !contains(this.$refs.menu, relatedTarget) &&
-        !contains(this.toggler, relatedTarget)
-      ) {
+      if (this.visible && !contains(this.$refs.menu, relatedTarget)) {
+        // DEBUG
+        console.log('Focusout left menu', evt)
         // If focus moves outside the menu or toggler, then close menu
         this.visible = false
       }
