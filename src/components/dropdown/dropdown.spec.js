@@ -479,8 +479,10 @@ describe('dropdown', () => {
     expect(document.activeElement).toBe($menu.element)
 
     // Close menu by moving focus away from menu
-    const focusInEvt = new FocusEvent('focusin')
-    document.dispatchEvent(focusInEvt)
+    // which triggers a focusout event on menu
+    $menu.trigger('focusout', {
+      relatedTarget: document.body
+    })
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')
