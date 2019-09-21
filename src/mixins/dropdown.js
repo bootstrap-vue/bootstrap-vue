@@ -2,7 +2,7 @@ import Popper from 'popper.js'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
 import { BvEvent } from '../utils/bv-event.class'
-import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
+import { closest, contains, isVisible, requestAF, selectAll, eventOn, eventOff } from '../utils/dom'
 import { isNull } from '../utils/inspect'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
@@ -269,17 +269,20 @@ export default {
       }
       return { ...popperConfig, ...(this.popperOpts || {}) }
     },
-    whileOpenListen(open) {
+    whileOpenListen(isOpen) {
       // turn listeners on/off while open
-      if (open) {
+      if (isOpen) {
         // If another dropdown is opened
         this.$root.$on(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
+        // Hide the menu when focus moves out
+        eventOn(this.$el, 'focusout', this.focusOutHandler, { passive: true })
         // Hide the dropdown when clicked outside
-        this.listenForClickOut = true
+        // this.listenForClickOut = true
         // Hide the dropdown when it loses focus
-        this.listenForFocusIn = true
+        // this.listenForFocusIn = true
       } else {
         this.$root.$off(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
+        eventOff(this.$el, 'focusout', this.focusOutHandler, { passive: true })
         this.listenForClickOut = false
         this.listenForFocusIn = false
       }
@@ -373,6 +376,19 @@ export default {
         evt.stopPropagation()
         // Return focus to original trigger button
         this.$once('hidden', this.focusToggler)
+      }
+    },
+    // Drodpwon wrapper focusOut handler
+    focusOutHandler(evt) {
+      // `relatedTarget` is the element gaining focus
+      const relatedTarget = evt.relatedTarget
+      if (
+        this.visible &&
+        !contains(this.$refs.menu, relatedTarget) &&
+        !contains(this.toggler, relatedTarget)
+      ) {
+        // If focus moves outside the menu or toggler, then close menu
+        this.visible = false
       }
     },
     // Document click out listener
