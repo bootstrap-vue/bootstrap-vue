@@ -10,6 +10,11 @@ import focusInMixin from './focus-in'
 // Return an array of visible items
 const filterVisibles = els => (els || []).filter(isVisible)
 
+// Root dropdown event names
+const ROOT_DROPDOWN_PREFIX = 'bv::dropdown::'
+const ROOT_DROPDOWN_SHOWN = `${ROOT_DROPDOWN_PREFIX}shown`
+const ROOT_DROPDOWN_HIDDEN = `${ROOT_DROPDOWN_PREFIX}hidden`
+
 // Dropdown item CSS selectors
 const Selector = {
   FORM_CHILD: '.dropdown form',
@@ -182,7 +187,7 @@ export default {
     emitEvent(bvEvt) {
       const type = bvEvt.type
       this.$emit(type, bvEvt)
-      this.$root.$emit(`bv::dropdown::${type}`, bvEvt)
+      this.$root.$emit(`${ROOT_DROPDOWN_PREFIX}${type}`, bvEvt)
     },
     showMenu() {
       if (this.disabled) {
@@ -190,7 +195,7 @@ export default {
         return
       }
       // Ensure other menus are closed
-      this.$root.$emit('bv::dropdown::shown', this)
+      this.$root.$emit(ROOT_DROPDOWN_SHOWN, this)
 
       // Are we in a navbar ?
       if (isNull(this.inNavbar) && this.isNav) {
@@ -226,7 +231,7 @@ export default {
     },
     hideMenu() {
       this.whileOpenListen(false)
-      this.$root.$emit('bv::dropdown::hidden', this)
+      this.$root.$emit(ROOT_DROPDOWN_HIDDEN, this)
       this.$emit('hidden')
       this.removePopper()
     },
@@ -268,13 +273,13 @@ export default {
       // turn listeners on/off while open
       if (open) {
         // If another dropdown is opened
-        this.$root.$on('bv::dropdown::shown', this.rootCloseListener)
+        this.$root.$on(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
         // Hide the dropdown when clicked outside
-        // this.listenForClickOut = true
+        this.listenForClickOut = true
         // Hide the dropdown when it loses focus
         this.listenForFocusIn = true
       } else {
-        this.$root.$off('bv::dropdown::shown', this.rootCloseListener)
+        this.$root.$off(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
         this.listenForClickOut = false
         this.listenForFocusIn = false
       }
@@ -372,9 +377,11 @@ export default {
     },
     // Document click out listener
     clickOutHandler() {
-      if (this.visible) {
-        this.visible = false
-      }
+      requestAF(() => {
+        if (this.visible) {
+          this.visible = false
+        }
+      })
     },
     // Document focusin listener
     focusInHandler(evt) {
