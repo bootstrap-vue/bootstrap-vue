@@ -385,10 +385,10 @@ export default {
         // Delay dropdown closing, just in case next element
         // focused (then followed by a click) is another dropdown toggle
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
-        requestAF(() => {
+        this.$nextTick(() => {
           requestAF(() => {
-            requestAF(() => {
-              this.$nextTick(() => {
+            this.$nextTick(() => {
+              requestAF(() => {
                 this.visible = false
               })
             })
