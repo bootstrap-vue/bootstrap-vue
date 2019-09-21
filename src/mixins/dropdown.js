@@ -2,7 +2,7 @@ import Popper from 'popper.js'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
 import { BvEvent } from '../utils/bv-event.class'
-import { closest, contains, hasClass, isVisible, requestAF, selectAll } from '../utils/dom'
+import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
 import { isNull } from '../utils/inspect'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
@@ -384,12 +384,7 @@ export default {
     focusInHandler(evt) {
       const target = evt.target
       // If focus leaves dropdown, hide it
-      if (
-        this.visible &&
-        !contains(this.$refs.menu, target) &&
-        !contains(this.toggler, target) &&
-        !hasClass(target, 'dropdown-toggle')
-      ) {
+      if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
         this.visible = false
       }
     },
