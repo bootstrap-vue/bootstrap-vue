@@ -389,7 +389,9 @@ export default {
         console.log('Focusout left menu', relatedTarget, evt)
         // If focus moves outside the menu or toggler, then close menu
         requestAF(() => {
-          this.visible = false
+          this.$nextTick(() => {
+            this.visible = false
+          })
         })
       }
     },
