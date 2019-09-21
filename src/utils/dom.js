@@ -122,13 +122,18 @@ export const matches = (el, selector) => {
 }
 
 // Finds closest element matching selector. Returns `null` if not found
-export const closest = (selector, root) => {
+export const closest = (selector, root, includeRoot = false) => {
   if (!isElement(root)) {
     return null
   }
   const el = closestEl.call(root, selector)
-  // Emulate jQuery closest and return `null` if match is the passed in element (root)
-  return el === root ? null : el
+
+  return includeRoot
+    // Native closest behaviour when `includeRoot` is truthy
+    ? el
+    // Else emulate jQuery closest and return `null` if
+    // match is the passed in root element
+    : el === root ? null : el
 }
 
 // Returns true if the parent element contains the child element
