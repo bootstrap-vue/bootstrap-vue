@@ -496,9 +496,11 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
 
-    // Close menu by clicking outside of menu
-    const clickEvt = new MouseEvent('click')
-    document.dispatchEvent(clickEvt)
+    // Close menu by moving focus away from menu
+    // which triggers a focusout event on menu
+    $menu.trigger('focusout', {
+      relatedTarget: document.body
+    })
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')
