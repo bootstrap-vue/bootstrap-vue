@@ -387,7 +387,9 @@ export default {
         this.$nextTick(() => {
           requestAF(() => {
             this.$nextTick(() => {
-              this.visible = false
+              setTimeout(() => {
+                this.visible = false
+              }, 100)
             })
           })
         })
