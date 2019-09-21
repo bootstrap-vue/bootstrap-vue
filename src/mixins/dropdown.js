@@ -337,7 +337,7 @@ export default {
       } else {
         // Allow time for any other dropdown to close if
         // focus moves from dropdown to dropdown
-        this.$nextTick(() => {
+        requestAF(() => {
           this.show()
         })
       }
