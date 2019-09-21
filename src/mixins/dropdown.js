@@ -4,8 +4,7 @@ import warn from '../utils/warn'
 import { BvEvent } from '../utils/bv-event.class'
 import { closest, contains, isVisible, requestAF, selectAll, eventOn, eventOff } from '../utils/dom'
 import { isNull } from '../utils/inspect'
-import clickOutMixin from './click-out'
-import focusInMixin from './focus-in'
+import idMixin from './id'
 
 // Return an array of visible items
 const filterVisibles = els => (els || []).filter(isVisible)
@@ -45,7 +44,7 @@ const AttachmentMap = {
 
 // @vue/component
 export default {
-  mixins: [clickOutMixin, focusInMixin],
+  mixins: [idMixin],
   provide() {
     return {
       bvDropdown: this
@@ -194,9 +193,6 @@ export default {
         /* istanbul ignore next */
         return
       }
-      // Ensure other menus are closed
-      this.$root.$emit(ROOT_DROPDOWN_SHOWN, this)
-
       // Are we in a navbar ?
       if (isNull(this.inNavbar) && this.isNav) {
         // We should use an injection for this
@@ -218,6 +214,9 @@ export default {
           this.createPopper(element)
         }
       }
+
+      // Ensure other menus are closed
+      this.$root.$emit(ROOT_DROPDOWN_SHOWN, this)
 
       this.whileOpenListen(true)
 
@@ -275,16 +274,10 @@ export default {
         // If another dropdown is opened
         this.$root.$on(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
         // Hide the menu when focus moves out
-        eventOn(this.$el, 'focusout', this.focusOutHandler, { passive: true })
-        // Hide the dropdown when clicked outside
-        // this.listenForClickOut = true
-        // Hide the dropdown when it loses focus
-        // this.listenForFocusIn = true
+        eventOn(this.$el, 'focusout', this.onFocusOut, { passive: true })
       } else {
         this.$root.$off(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
-        eventOff(this.$el, 'focusout', this.focusOutHandler, { passive: true })
-        this.listenForClickOut = false
-        this.listenForFocusIn = false
+        eventOff(this.$el, 'focusout', this.onFocusOut, { passive: true })
       }
     },
     rootCloseListener(vm) {
@@ -318,8 +311,6 @@ export default {
     // Called only by a button that toggles the menu
     toggle(evt) {
       evt = evt || {}
-      // DEBUG
-      console.log('Toggle hanlder', evt)
       const type = evt.type
       const key = evt.keyCode
       if (
@@ -381,36 +372,16 @@ export default {
       }
     },
     // Drodpwon wrapper focusOut handler
-    focusOutHandler(evt) {
+    onFocusOut(evt) {
       // `relatedTarget` is the element gaining focus
       const relatedTarget = evt.relatedTarget
-      if (this.visible && !contains(this.$refs.menu, relatedTarget)) {
-        // DEBUG
-        console.log('Focusout left menu', relatedTarget, evt)
-        // If focus moves outside the menu or toggler, then close menu
+      // If focus moves outside the menu or toggler, then close menu
+      requestAF(() => {
         requestAF(() => {
-          this.$nextTick(() => {
+          if (this.visible && !contains(this.$refs.menu, relatedTarget)) {
             this.visible = false
-          })
+          }
         })
-      }
-    },
-    // Document click out listener
-    clickOutHandler() {
-      requestAF(() => {
-        if (this.visible) {
-          this.visible = false
-        }
-      })
-    },
-    // Document focusin listener
-    focusInHandler(evt) {
-      const target = evt.target
-      // If focus leaves dropdown, hide it
-      requestAF(() => {
-        if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
-          this.visible = false
-        }
       })
     },
     // Keyboard nav
