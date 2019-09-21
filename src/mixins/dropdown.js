@@ -383,10 +383,15 @@ export default {
         !contains(this.toggler, relatedTarget)
       ) {
         // Delay dropdown closing, just in case next element
-        // focused (then followed by a click) is another dropdown togle
-        setTimeout(() => {
-          this.visible = false
-        }, 0)
+        // focused (then followed by a click) is another dropdown toggle
+        // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
+        requestAF(() => {
+          requestAF(() => {
+            requestAF(() => {
+              this.visible = false
+            })
+          })
+        })
       }
     },
     // Keyboard nav
