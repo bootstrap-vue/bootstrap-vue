@@ -384,20 +384,16 @@ export default {
     // Drodpwon wrapper focusOut handler
     onFocusOut(evt) {
       // `relatedTarget` is the element gaining focus
-      const related = evt.relatedTarget
-      // DEBUG
-      console.log('Focusout handler:', related, evt)
+      const relatedTarget = evt.relatedTarget
       // If focus moves outside the menu or toggler, then close menu
       if (
         this.visible &&
-        !contains(this.$refs.menu, related) &&
-        !contains(this.toggler, related) &&
+        !contains(this.$refs.menu, relatedTarget) &&
+        !contains(this.toggler, relatedTarget) &&
         // If the element gaining focus is another dropdown-toggle, we ignore
         // as the root listener will close the dropdown for us
-        !(hasClass(related, 'dropdown-toggle') || closest('.dropdown-toggle', related))
+        !closest('.dropdown-toggle', relatedTarget, true)
       ) {
-        // DEBUG
-        console.log('  Focusout handler: closing self')
         this.visible = false
       }
     },
