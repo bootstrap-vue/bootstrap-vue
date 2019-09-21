@@ -270,7 +270,7 @@ export default {
         // If another dropdown is opened
         this.$root.$on('bv::dropdown::shown', this.rootCloseListener)
         // Hide the dropdown when clicked outside
-        this.listenForClickOut = true
+        // this.listenForClickOut = true
         // Hide the dropdown when it loses focus
         this.listenForFocusIn = true
       } else {
@@ -335,11 +335,7 @@ export default {
       if (this.visible) {
         this.hide(true)
       } else {
-        // Allow time for any other dropdown to close if
-        // focus moves from dropdown to dropdown
-        requestAF(() => {
-          this.show()
-        })
+        this.show()
       }
     },
     // Called only in split button mode, for the split button
