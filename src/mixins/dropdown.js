@@ -386,7 +386,7 @@ export default {
       const relatedTarget = evt.relatedTarget
       if (this.visible && !contains(this.$refs.menu, relatedTarget)) {
         // DEBUG
-        console.log('Focusout left menu', evt)
+        console.log('Focusout left menu', relatedTarget, evt)
         // If focus moves outside the menu or toggler, then close menu
         requestAF(() => {
           this.visible = false
