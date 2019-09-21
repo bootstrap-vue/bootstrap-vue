@@ -362,6 +362,7 @@ export default {
         this.focusNext(evt, true)
       }
     },
+    // If uses presses ESC to close menu
     onEsc(evt) {
       if (this.visible) {
         this.visible = false
@@ -376,11 +377,13 @@ export default {
       // `relatedTarget` is the element gaining focus
       const relatedTarget = evt.relatedTarget
       // If focus moves outside the menu or toggler, then close menu
-      requestAF(() => {
+      this.$nextTick(() => {
         requestAF(() => {
-          if (this.visible && !contains(this.$refs.menu, relatedTarget)) {
-            this.visible = false
-          }
+          requestAF(() => {
+            if (this.visible && !contains(this.$refs.menu, relatedTarget)) {
+              this.visible = false
+            }
+          })
         })
       })
     },
