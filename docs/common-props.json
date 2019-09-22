@@ -1,4 +1,13 @@
 {
+  "disabled": {
+    "description": "When set to 'true', disables the component's functionality and places it in a disabled state"
+  },
+  "active": {
+    "description": "When set to 'true', places the component in the active state with active styling"
+  },
+  "rel": {
+    "description": "Sets the 'rel' attribute on the rendered link"
+  },
   "href": {
     "description": "Denotes the target URL of the link for standard a links"
   },
@@ -15,10 +24,13 @@
     "description": "router-link prop: The default active class matching behavior is inclusive match. Setting this prop forces the mode to exactly match the route"
   },
   "activeClass": {
-    "description": "router-link prop: Configure the active CSS class applied when the link is active. typically you will want to set this to class name 'active'"
+    "description": "router-link prop: Configure the active CSS class applied when the link is active. Typically you will want to set this to class name 'active'"
   },
   "exactActiveClass": {
-    "description": "router-link prop: Configure the active CSS class applied when the link is active with exact match. typically you will want to set this to class name 'active'"
+    "description": "router-link prop: Configure the active CSS class applied when the link is active with exact match. Typically you will want to set this to class name 'active'"
+  },
+  "routerTag": {
+    "description": "router-link prop: Specify which tag to render, and it will still listen to click events for navigation. 'router-tag' translates to the tag prop on the final rendered router-link. Typically you should use the default value"
   },
   "noPrefetch": {
     "description": "nuxt-link prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting no-prefetch will disabled this feature for the specific link"
