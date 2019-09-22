@@ -8,6 +8,12 @@
       {
         "component": "BButtonGroup",
         "description": "Group a series of buttons together on a single line",
+        "props": [
+          {
+            "prop": "vertical",
+            "description": "When set, renderd the button group in vertical mode"
+          }
+        ],
         "aliases": [
           "BBtnGroup"
         ]
