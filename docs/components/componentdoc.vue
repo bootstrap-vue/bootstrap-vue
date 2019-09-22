@@ -69,9 +69,9 @@
       </b-table>
       <p v-if="hasRouterProps" class="alert alert-info small">
         <code class="notranslate" translate="no">{{ tag }}</code> supports generating
-        <code class="notranslate" translate="no">&lt;router-link&gt;</code> and
-        <code class="notranslate" translate="no">&lt;nuxt-link&gt;</code> components. For more
-        details on the router link specific props, see the
+        <code class="notranslate" translate="no">&lt;router-link&gt;</code> or
+        <code class="notranslate" translate="no">&lt;nuxt-link&gt;</code> component (if using Nuxt.js).
+        For more details on the router link (or nuxt link) specific props, see the
         <b-link to="/docs/reference/router-links" class="alert-link">Router support</b-link>
         reference section.
       </p>
