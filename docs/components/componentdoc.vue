@@ -67,26 +67,33 @@
           </p>
         </template>
       </b-table>
+      <p v-if="hasRouterProps">
+        This component supports generating
+        <code class="notranslate" translate="no">&lt;router-link&gt;</code> and
+        <code class="notranslate" translate="no">&lt;nuxt-link&gt;</code> components. For more
+        details on the router link specific props, see the
+        [Router support](/docs/reference/router-links) reference section.
+      </p>
+   </article>
 
-      <template v-if="componentVModel">
-        <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4">
-          v-model
-        </anchored-heading>
-        <b-table
-          :items="[componentVModel]"
-          :fields="[{ key: 'prop', label: 'Property' }, 'event']"
-          table-class="bv-docs-table"
-          responsive="sm"
-          striped
-        >
-          <template v-slot:cell(prop)="{ value }">
-            <code class="notranslate" translate="no">{{ kebabCase(value) }}</code>
-          </template>
-          <template v-slot:cell(event)="{ value }">
-            <code class="notranslate" translate="no">{{ value }}</code>
-          </template>
-        </b-table>
-      </template>
+   <article v-if="componentVModel">
+      <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4">
+        v-model
+      </anchored-heading>
+      <b-table
+        :items="[componentVModel]"
+        :fields="[{ key: 'prop', label: 'Property' }, 'event']"
+        table-class="bv-docs-table"
+        responsive="sm"
+        striped
+      >
+        <template v-slot:cell(prop)="{ value }">
+          <code class="notranslate" translate="no">{{ kebabCase(value) }}</code>
+        </template>
+        <template v-slot:cell(event)="{ value }">
+          <code class="notranslate" translate="no">{{ value }}</code>
+        </template>
+      </b-table>
     </article>
 
     <article v-if="slots && slots.length > 0" class="bd-content">
@@ -281,6 +288,9 @@ export default {
     },
     componentProps() {
       return this.componentOptions.props || {}
+    },
+    hasRouterProps() {
+      return this.propsItems.some(p => p.prop === 'to')
     },
     componentPropsMetaObj() {
       // Returns the propsMeta array in object format for easy lookups
