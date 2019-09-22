@@ -375,7 +375,7 @@ export default {
         this.$once('hidden', this.focusToggler)
       }
     },
-    // Drodpwon wrapper focusOut handler
+    // Dropdown wrapper focusOut handler
     onFocusOut(evt) {
       // `relatedTarget` is the element gaining focus
       const relatedTarget = evt.relatedTarget
@@ -390,7 +390,7 @@ export default {
         }
         // When we are in a navbar (which has been responsively stacked), we
         // delay the dropdown's closing so that the next element has a chance
-        // to have it's click handler fired (in case it's positon moves on
+        // to have it's click handler fired (in case it's position moves on
         // the screen do to a navbar menu above it collapsing)
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
         this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
