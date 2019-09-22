@@ -51,7 +51,8 @@
         <template v-slot:cell(prop)="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
-          <b-badge v-else-if="item.deprecated" variant="danger">Deprecated</b-badge>
+          <b-badge v-if="item.isVModel" variant="primary">v-model</b-badge>
+          <b-badge v-if="item.deprecated" variant="danger">Deprecated</b-badge>
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
         </template>
         <template v-slot:cell(defaultValue)="{ value }">
@@ -275,8 +276,8 @@ export default {
       return this.componentOptions.functional
     },
     componentVModel() {
-      const model = this.componentOptions.model
-      return model && model.prop && model.event ? model : false
+      const model = this.componentOptions.model || {}
+      return model.prop && model.event ? model : false
     },
     componentProps() {
       return this.componentOptions.props || {}
@@ -370,6 +371,7 @@ export default {
           defaultValue: defaultVal,
           required: p.required || false,
           description: description || '',
+          isVModel: this.componentVModel && componentVModel.prop === prop,
           deprecated: p.deprecated || false,
           deprecation: p.deprecation || false,
           _showDetails: typeof p.deprecated === 'string' || typeof p.deprecation === 'string'
