@@ -1,0 +1,26 @@
+{
+  "href": {
+    "description": "Denotes the target URL of the link for standard a links"
+  },
+  "to": {
+    "description": "router-link prop: Denotes the target route of the link. When clicked, the value of the to prop will be passed to router.push() internally, so the value can be either a string or a Location descriptor object"
+  },
+  "replace": {
+    "description": "router-link prop: Setting replace prop will call router.replace() instead of router.push() when clicked, so the navigation will not leave a history record"
+  },
+  "append": {
+    "description": "router-link prop: Setting append prop always appends the relative path to the current path"
+  },
+  "exact": {
+    "description": "router-link prop: The default active class matching behavior is inclusive match. Setting this prop forces the mode to exactly match the route"
+  },
+  "activeClass": {
+    "description": "router-link prop: Configure the active CSS class applied when the link is active. typically you will want to set this to class name 'active'"
+  },
+  "exactActiveClass": {
+    "description": "router-link prop: Configure the active CSS class applied when the link is active with exact match. typically you will want to set this to class name 'active'"
+  },
+  "noPrefetch": {
+    "description": "nuxt-link prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting no-prefetch will disabled this feature for the specific link"
+  }
+}
