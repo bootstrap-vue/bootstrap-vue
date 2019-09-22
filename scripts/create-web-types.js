@@ -180,9 +180,10 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
       }
       // If we have a description, add it to the prop
       // TODO: this doesn't exist in the component meta yet
-      prop.description = typeof $propExtra.description === 'undefined'
-        ? $propFallbackExtra.description
-        : $propExtra.description
+      prop.description =
+        typeof $propExtra.description === 'undefined'
+          ? $propFallbackExtra.description
+          : $propExtra.description
       if (!prop.description) {
         // JSON stringification will remove properties with an undefined value
         prop.description = undefined
