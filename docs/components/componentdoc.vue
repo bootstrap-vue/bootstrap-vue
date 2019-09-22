@@ -217,6 +217,8 @@
 import Vue from 'vue'
 import kebabCase from 'lodash/kebabCase'
 import AnchoredHeading from './anchored-heading'
+// Fallback descriptions for common props (mainly router-link props)
+import commonProps from '../../common-props.json'
 
 export default {
   name: 'BDVComponentdoc',
@@ -357,13 +359,19 @@ export default {
         }
         defaultVal = (defaultVal || '').replace(/"/g, "'")
 
+        const fallbackMeta = commonProps[prop] || {}
+
+        const description = typeof meta.description === 'undefined'
+          ? fallbackMeta.description
+          : meta.description
+
         return {
           prop: kebabCase(prop),
           type,
           typeClass,
           defaultValue: defaultVal,
           required: p.required || false,
-          description: meta.description || '',
+          description: description || '',
           deprecated: p.deprecated || false,
           deprecation: p.deprecation || false,
           _showDetails: typeof p.deprecated === 'string' || typeof p.deprecation === 'string'
