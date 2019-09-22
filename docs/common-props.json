@@ -33,7 +33,7 @@
     "description": "Sets the 'autocomplete' attribute value on the form control"
   },
   "autofocus": {
-    "description": "When set to 'true', auto-focuses the control once it is mounted. Does not set the 'autofocus' attribute on the control"
+    "description": "When set to 'true', attempts to auto-focus the control when it is mounted, or re-actived when in a keep-alive. Does not set the 'autofocus' attribute on the control"
   },
   "state": {
     "description": "Controls the validation state appearence of the component. 'true' for valid, 'false' for invalid', or 'null' for no validation state"
