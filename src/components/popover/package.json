@@ -10,6 +10,12 @@
     "components": [
       {
         "component": "BPopover",
+        "props": [
+          {
+            "prop": "target",
+            "description": "Element string ID, or a reference to an element or component, that you want to trigger the popover."
+          }
+        ],
         "events": [
           {
             "event": "show",
