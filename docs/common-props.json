@@ -8,6 +8,9 @@
   "rel": {
     "description": "Sets the 'rel' attribute on the rendered link"
   },
+  "target": {
+    "description": "Sets the 'target' attribute on the rendered link"
+  },
   "href": {
     "description": "Denotes the target URL of the link for standard a links"
   },
