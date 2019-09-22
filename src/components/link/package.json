@@ -7,6 +7,14 @@
     "components": [
       {
         "component": "BLink",
+        "props": {
+          "target": {
+            "description": "Sets the 'target' attribute on the rendered link"
+          },
+          "event": {
+            "description": "router-link prop: The event to use to trigger the link. You should leave this at the default value"
+          }
+        },
         "events": [
           {
             "event": "click",
