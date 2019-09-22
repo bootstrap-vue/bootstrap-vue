@@ -385,17 +385,13 @@ export default {
         !contains(this.$refs.menu, relatedTarget) &&
         !contains(this.toggler, relatedTarget)
       ) {
-        // Delay dropdown closing, just in case next element
-        // focused (then followed by a click) is another dropdown toggle
+        const doHide = () => this.visible = false
+        // When we are in a navbar (which has been responsively stacked), we
+        // delay the dropdown's closing so that the next element has a chance
+        // to have it's click handler fired (in case it's positon moves on
+        // the screen do to a navbar menu above it collapsing)
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
-        this.$nextTick(() => {
-          // We do this in a delay so that the next element has a chance
-          // to have it's click handler fired (in case it's positon moves
-          // on the screen do to a navbar menu above it collapsing)
-          setTimeout(() => {
-            this.visible = false
-          }, FOCUSOUT_DELAY)
-        })
+        this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
       }
     },
     // Keyboard nav
