@@ -8,6 +8,12 @@
   "textVariant": {
     "description": "Applies one of the Bootstrap theme color variants to the text"
   },
+  "bgVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the background"
+  },
+  "borderVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the border"
+  },
   "tag": {
     "description": "Specify the HTML tag to render instead of the default tag"
   },
