@@ -130,7 +130,11 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
   const $aliases = meta.aliases || []
   // This doesn't exist yet (for prop descriptions, info)
   // For description (and possibly more) for props docs
-  const $propsExtra = meta.props || {}
+  // source isarray format, so we convert to a hash object
+  const $propsExtra = (meta.props || []).reduce((obj, p) => {
+    obj[p.prop] = p
+    return obj
+  }, {})
 
   const tagName = kebabCase(componentName)
 
