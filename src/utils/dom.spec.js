@@ -120,6 +120,8 @@ describe('utils/dom', () => {
     expect(closest('div.baz', $btns.at(0).element)).toBeDefined()
     expect(closest('div.baz', $btns.at(0).element)).toBe($baz.element)
     expect(closest('div.nothere', $btns.at(0).element)).toBe(null)
+    expect(closest('div.baz', $baz.element)).toBe(null)
+    expect(closest('div.baz', $baz.element, true)).toBe($baz.element)
 
     wrapper.destroy()
   })
