@@ -72,7 +72,7 @@
         <code class="notranslate" translate="no">&lt;router-link&gt;</code> and
         <code class="notranslate" translate="no">&lt;nuxt-link&gt;</code> components. For more
         details on the router link specific props, see the
-        [Router support](/docs/reference/router-links) reference section.
+        <b-link to="/docs/reference/router-links">Router support</b-link> reference section.
       </p>
    </article>
 
