@@ -26,23 +26,29 @@
   "options": {
     "description": "Array of items to render in the component"
   },
-  "value-field": {
+  "valueField": {
     "description": "Field name in the 'options' array that should be used for the value"
   },
-  "text-field": {
+  "textField": {
     "description": "Field name in the 'options' array that should be used for the text label"
   },
-  "html-field": {
+  "htmlField": {
     "description": "Field name in the 'options' array that should be used for the html label instead of text field. Use with caution."
   },
-  "disabled-field": {
+  "disabledField": {
     "description": "Field name in the 'options' array that should be used for the disabled state"
   },
   "plain": {
     "description": "Render the form control in plain mode, rahter than custom styled mode"
   },
+  "static": {
+    "description": "Renders the content of the component in-place in the DOM, rather than portalling it to be appended to the body element"
+  },
   "role": {
     "description": "Sets the ARIA attribute 'role' to a specific value"
+  },
+  "ariaLive": {
+    "description": "When the rendered element is an aria-live region (for screen reader users), set to either 'polite' or 'assertive'"
   },
   "fade": {
     "description": "When set to 'true', enables the fade animation/transition on the component"
