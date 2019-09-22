@@ -24,7 +24,7 @@
           {
             "prop": "html",
             "description": "HTML string to render in the breadcrumb item. Use with caution"
-          },
+          }
         ],
         "events": [
           {
