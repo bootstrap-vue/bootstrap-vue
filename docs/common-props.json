@@ -2,6 +2,9 @@
   "id": {
     "description": "Used to set the 'id' attribute on the rendered content, and used as the base to generate any additional element IDs as needed"
   },
+  "variant": {
+    "description": "Applies on of the Bootstra theme colar variants to the component"
+  },
   "tag": {
     "description": "Specify the HTML tag to render instead of hte default tag"
   },
@@ -13,6 +16,9 @@
   },
   "role": {
     "description": "Sets the ARIA attribute 'role' to a specific value"
+  },
+  "fade": {
+    "description": "When set to 'true', enables the fade animation/transition on the component"
   },
   "noFade": {
     "description": "When set to 'true', disables the fade animation/transition on the component"
@@ -52,6 +58,9 @@
   },
   "routerTag": {
     "description": "router-link prop: Specify which tag to render, and it will still listen to click events for navigation. 'router-tag' translates to the tag prop on the final rendered router-link. Typically you should use the default value"
+  },
+  "event": {
+    "description": "router-link prop: Specify the event that triggers the link. In most cases you should leave this as the default"
   },
   "noPrefetch": {
     "description": "nuxt-link prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'no-prefetch' will disabled this feature for the specific link"
