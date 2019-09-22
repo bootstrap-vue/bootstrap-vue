@@ -289,12 +289,17 @@ export default {
       }, {})
     },
     propsFields() {
-      return [
+      const fields = [
         { key: 'prop', label: 'Property' },
         { key: 'type', label: 'Type' },
-        { key: 'defaultValue', label: 'Default Value' },
-        { key: 'description', label: 'Description' }
+        { key: 'defaultValue', label: 'Default Value' }
       ]
+      if (this.propsItems.some(p => p.description)) {
+        // If any of the props have a description, then
+        // add the description column
+        fields.push({ key: 'description', label: 'Description' })
+      }
+      return fields
     },
     eventsFields() {
       return [
