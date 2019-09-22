@@ -24,6 +24,10 @@
           {
             "prop": "html",
             "description": "HTML string to render in the breadcrumb item. Use with caution"
+          },
+          {
+            "prop": "ariaCurrent",
+            "description": "Sets the value of the 'aria-current' attribute (when the item is the active item). Supported string values are 'location', 'page', or 'true'"
           }
         ],
         "events": [
