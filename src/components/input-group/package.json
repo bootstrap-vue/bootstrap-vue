@@ -7,6 +7,24 @@
     "components": [
       {
         "component": "BInputGroup",
+        "props": [
+          {
+            "prop": "append",
+            "description": "Text to append to the input group"
+          },
+          {
+            "prop": "appendHtml",
+            "description": "HTML string to append to the input group. Has precedence over 'append' prop. Use with caution"
+          },
+          {
+            "prop": "prepend",
+            "description": "Text to prepend to the input group"
+          },
+          {
+            "prop": "prependHtml",
+            "description": "HTML string to prepend to the input group. Has precedence over 'prepend' prop. Use with caution"
+          }
+        ],
         "slots": [
           {
             "name": "prepend",
