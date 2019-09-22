@@ -3,10 +3,10 @@
     "description": "Used to set the 'id' attribute on the rendered content, and used as the base to generate any additional element IDs as needed"
   },
   "variant": {
-    "description": "Applies on of the Bootstra theme colar variants to the component"
+    "description": "Applies one of the Bootstrap theme color variants to the component"
   },
   "tag": {
-    "description": "Specify the HTML tag to render instead of hte default tag"
+    "description": "Specify the HTML tag to render instead of the default tag"
   },
   "size": {
     "description": "Set the size of the component's appearence. 'sm', 'md' (default), or 'lg'"
