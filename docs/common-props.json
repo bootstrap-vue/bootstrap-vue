@@ -15,7 +15,22 @@
     "description": "Adds the 'required' attribute to the form control"
   },
   "form": {
-    "description": "ID of the form that the form control belongs to. Sets the 'form' attribute on the control."
+    "description": "ID of the form that the form control belongs to. Sets the 'form' attribute on the control"
+  },
+  "name": {
+    "description": "Sets the value of hte 'name' attribute on the form control"
+  },
+  "placeholder": {
+    "description": "Sets the 'placeholder' attribute value on the form control"
+  },
+  "readonly": {
+    "description": "Sets the 'readonly' attribute on hte form control"
+  },
+  "plaintext": {
+    "description" "Set the form control as readonly and renders the control to look like plain text (no borders)"
+  },
+  "autocomplete": {
+    "description": "Sets the 'autocomplete' attribute value on hte form control"
   },
   "autofocus": {
     "description": "When set to 'true', auto-focuses the control once it is mounted. Does not set the 'autofocus' attribute on the control"
