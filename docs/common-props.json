@@ -1,4 +1,7 @@
 {
+  "id": {
+    "description": "Used to set the 'id' attribute on the rendered content, and used as teh base to generate any additional element IDs as needed"
+  },
   "disabled": {
     "description": "When set to 'true', disables the component's functionality and places it in a disabled state"
   },
