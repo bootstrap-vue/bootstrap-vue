@@ -371,7 +371,7 @@ export default {
           defaultValue: defaultVal,
           required: p.required || false,
           description: description || '',
-          isVModel: this.componentVModel && componentVModel.prop === prop,
+          isVModel: this.componentVModel && this.componentVModel.prop === prop,
           deprecated: p.deprecated || false,
           deprecation: p.deprecation || false,
           _showDetails: typeof p.deprecated === 'string' || typeof p.deprecation === 'string'
