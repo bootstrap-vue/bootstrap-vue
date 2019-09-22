@@ -1,6 +1,6 @@
 {
   "id": {
-    "description": "Used to set the 'id' attribute on the rendered content, and used as teh base to generate any additional element IDs as needed"
+    "description": "Used to set the 'id' attribute on the rendered content, and used as the base to generate any additional element IDs as needed"
   },
   "tag": {
     "description": "Specify the HTML tag to render instead of hte default tag"
