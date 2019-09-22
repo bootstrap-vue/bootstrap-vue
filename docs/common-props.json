@@ -4,7 +4,7 @@
   },
   "noFade": {
     "description": "When set to 'true', disables the fade animation/transition on the component"
-  }
+  },
   "id": {
     "description": "Used to set the 'id' attribute on the rendered content, and used as teh base to generate any additional element IDs as needed"
   },
