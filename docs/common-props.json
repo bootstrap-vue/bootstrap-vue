@@ -15,7 +15,7 @@
     "description": "router-link prop: Denotes the target route of the link. When clicked, the value of the to prop will be passed to router.push() internally, so the value can be either a string or a Location descriptor object"
   },
   "replace": {
-    "description": "router-link prop: Setting replace prop will call router.replace() instead of router.push() when clicked, so the navigation will not leave a history record"
+    "description": "router-link prop: Setting the replace prop will call 'router.replace()' instead of 'router.push()' when clicked, so the navigation will not leave a history record"
   },
   "append": {
     "description": "router-link prop: Setting append prop always appends the relative path to the current path"
@@ -33,6 +33,6 @@
     "description": "router-link prop: Specify which tag to render, and it will still listen to click events for navigation. 'router-tag' translates to the tag prop on the final rendered router-link. Typically you should use the default value"
   },
   "noPrefetch": {
-    "description": "nuxt-link prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting no-prefetch will disabled this feature for the specific link"
+    "description": "nuxt-link prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'no-prefetch' will disabled this feature for the specific link"
   }
 }
