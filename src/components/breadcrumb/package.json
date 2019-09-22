@@ -32,7 +32,7 @@
             "description": "Emitted when clicked",
             "args": [
               {
-                "name": "event",
+                "arg": "event",
                 "type": "MouseEvent",
                 "description": "Native click event object"
               }
