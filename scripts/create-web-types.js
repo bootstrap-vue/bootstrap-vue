@@ -367,6 +367,7 @@ const processDirectiveGroup = groupSlug => {
   processDirectiveMeta(directiveMeta, docUrl)
 }
 
+// Wrapped in a try/catch to handle any errors
 try {
   // Grab the component meta data (from the source dir component's package.json)
   const componentsContext = requireContext(
@@ -421,6 +422,10 @@ try {
       description: def.description
     }
   })
+
+  // Write out json files.
+  // Note that `JSON.stringigy` will remove any object
+  // properties that have an `undefined` value
 
   // Write web-types.json to file
   console.log('   Writing dist/web-types.json...')
