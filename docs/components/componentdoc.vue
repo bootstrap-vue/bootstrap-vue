@@ -218,7 +218,7 @@ import Vue from 'vue'
 import kebabCase from 'lodash/kebabCase'
 import AnchoredHeading from './anchored-heading'
 // Fallback descriptions for common props (mainly router-link props)
-import commonProps from '../../common-props.json'
+import commonProps from '../common-props.json'
 
 export default {
   name: 'BDVComponentdoc',
