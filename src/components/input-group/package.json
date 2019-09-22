@@ -36,10 +36,41 @@
           }
         ]
       },
-      "BInputGroupPrepend",
-      "BInputGroupAppend",
-      "BInputGroupText",
-      "BInputGroupAddon"
+      {
+        "component": "BInputGroupPrepend",
+        "props": [
+          {
+            "prop": "isText",
+            "description": "When 'true', wraps the content in a b-input-group-text component"
+          }
+        ]
+      },
+      {
+        "component": "BInputGroupAppend",
+        "props": [
+          {
+            "prop": "isText",
+            "description": "When 'true', wraps the content in a b-input-group-text component"
+          }
+        ]
+      },
+      {
+        "component": "BInputGroupText",
+        "props": []
+      },
+      {
+        "component": "BInputGroupAddon",
+        "props": [
+          {
+            "prop": "append",
+            "description": "When set to 'true' sets the addon as being appended. defaults to 'false' which is prepended"
+          },
+          {
+            "prop": "isText",
+            "description": "When 'true', wraps the content in a b-input-group-text component"
+          }
+        ]
+      }
     ]
   }
 }
