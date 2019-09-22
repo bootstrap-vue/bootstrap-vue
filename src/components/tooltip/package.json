@@ -10,6 +10,12 @@
     "components": [
       {
         "component": "BTooltip",
+        "props": [
+          {
+            "prop": "target",
+            "description": "Element string ID, or a reference to an element or component, that you want to trigger the tooltip."
+          }
+        ],
         "events": [
           {
             "event": "show",
