@@ -360,10 +360,8 @@ export default {
         defaultVal = (defaultVal || '').replace(/"/g, "'")
 
         const fallbackMeta = commonProps[prop] || {}
-
-        const description = typeof meta.description === 'undefined'
-          ? fallbackMeta.description
-          : meta.description
+        const description =
+          typeof meta.description === 'undefined' ? fallbackMeta.description : meta.description
 
         return {
           prop: kebabCase(prop),
