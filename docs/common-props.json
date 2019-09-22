@@ -11,8 +11,35 @@
   "size": {
     "description": "Set the size of the component's appearence. 'sm', 'md' (default), or 'lg'"
   },
+  "required": {
+    "description": "Adds the 'required' attribute to the form control"
+  },
+  "form": {
+    "description": "ID of the form that the form control belongs to. Sets the 'form' attribute on the control."
+  },
+  "autofocus": {
+    "description": "When set to 'true', auto-focuses the control once it is mounted. Does not set the 'autofocus' attribute on the control"
+  },
   "state": {
     "description": "Controls the validation state appearence of hte component. 'true' for valid, 'false' for invalid', or 'null' for no validation state"
+  },
+  "options": {
+    "description": "Array of items to render in the component"
+  },
+  "value-field": {
+    "description": "Field name in the 'options' array that should be used for the value"
+  },
+  "text-field": {
+    "description": "Field name in the 'options' array that should be used for the text label"
+  },
+  "html-field": {
+    "description": "Field name in the 'options' array that should be used for the html label instead of text field. Use with caution."
+  },
+  "disabled-field": {
+    "description": "Field name in the 'options' array that should be used for the disabled state"
+  },
+  "plain": {
+    "description": "Render the form control in plain mode, rahter than custom styled mode"
   },
   "role": {
     "description": "Sets the ARIA attribute 'role' to a specific value"
