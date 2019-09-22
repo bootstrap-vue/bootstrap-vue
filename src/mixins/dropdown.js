@@ -385,7 +385,9 @@ export default {
         !contains(this.$refs.menu, relatedTarget) &&
         !contains(this.toggler, relatedTarget)
       ) {
-        const doHide = () => this.visible = false
+        const doHide = () => {
+          this.visible = false
+        }
         // When we are in a navbar (which has been responsively stacked), we
         // delay the dropdown's closing so that the next element has a chance
         // to have it's click handler fired (in case it's positon moves on
