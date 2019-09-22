@@ -5,6 +5,7 @@ const requireContext = require('require-context')
 
 const baseDir = path.resolve(__dirname, '..')
 const distDir = path.resolve(baseDir, 'dist')
+const docsDir = path.resolve(baseDir, 'docs')
 
 // Import project package.json
 const pkg = require(path.resolve(baseDir, 'package.json'))
@@ -12,6 +13,10 @@ const pkg = require(path.resolve(baseDir, 'package.json'))
 const libraryName = pkg.name
 const libraryVersion = pkg.version
 const baseDocs = pkg.homepage.replace(/\/$/, '')
+
+// Import common props fallback meta description file
+// Note file is a lookup hash
+const commonPropsMeta = require(path.resolve(docsDir, 'common-props.json'))
 
 // Placeholder arrays
 let componentGroups = {}
@@ -154,6 +159,7 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
     tag.attributes = Object.keys($props).map(propName => {
       const $prop = $props[propName]
       const $propExtra = $propsExtra[propName] || {}
+      const $propFallbackExtra = commonPropsMeta[propName] || {}
       const type = computePropType($prop)
       const prop = {
         name: propName,
@@ -174,8 +180,12 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
       }
       // If we have a description, add it to the prop
       // TODO: this doesn't exist in the component meta yet
-      if ($propExtra.description) {
-        prop.description = $propExtra.description
+      prop.description = typeof $propExtra.description === 'undefined'
+        ? $propFallbackExtra.description
+        : $propExtra.description
+      if (!prop.description) {
+        // JSON stringification will remove properties with an undefined value
+        prop.description = undefined
       }
       // TODO: this doesn't exist in the component meta yet
       if ($propExtra.href) {
