@@ -67,12 +67,13 @@
           </p>
         </template>
       </b-table>
-      <p v-if="hasRouterProps">
+      <p v-if="hasRouterProps" class="alert alert-info">
         This component supports generating
         <code class="notranslate" translate="no">&lt;router-link&gt;</code> and
         <code class="notranslate" translate="no">&lt;nuxt-link&gt;</code> components. For more
         details on the router link specific props, see the
-        <b-link to="/docs/reference/router-links">Router support</b-link> reference section.
+        <b-link to="/docs/reference/router-links" class="alert-link">Router support</b-link>
+        reference section.
       </p>
    </article>
 
