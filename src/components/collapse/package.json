@@ -21,6 +21,20 @@
     "components": [
       {
         "component": "BCollapse",
+        "props": [
+          {
+            "prop": "isNav",
+            "description": "When set, signifies that hte collapse is bart of a navbar, enabling certain features for navbar support"
+          },
+          {
+            "prop": "accordion",
+            "description": "The name of the accordion group that this collapse belongs to"
+          },
+          {
+            "prop": "visible",
+            "description": "When 'true', expands the collapse"
+          }
+        ],
         "events": [
           {
             "event": "input",
