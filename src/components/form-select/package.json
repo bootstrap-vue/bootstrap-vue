@@ -10,6 +10,24 @@
         "aliases": [
           "BSelect"
         ],
+        "props": [
+          {
+            "prop": "value",
+            "description": "current value of the select"
+          },
+          {
+            "prop": "multiple",
+            "description": "When set, allows multiple options to be selected (multi-select)"
+          },
+          {
+            "prop": "selectSize",
+            "description": "When set to a number larger than 0, will set the number of display optiopn rows. Note not all browser will respect this setting"
+          },
+          {
+            "prop": "ariaInvalid",
+            "description": "Optional value to set for the 'aria-invalid' attribute. Supported values are 'true' and 'false'. If not set, the 'state' prop will dictate the value"
+          }
+        ],
         "slots": [
           {
             "name": "first",
