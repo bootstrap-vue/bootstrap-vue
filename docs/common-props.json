@@ -62,6 +62,21 @@
   "bodyTag": {
     "description": "Specify the HTML tag to render instead of the default tag for the body"
   },
+  "titleTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for the title"
+  },
+  "headerClass": {
+    "description": "CSS class (or classes) to apply to the header"
+  },
+  "footerClass": {
+    "description": "CSS class (or classes) to apply to the footer"
+  },
+  "bodyClass": {
+    "description": "CSS class (or classes) to apply to the body"
+  },
+  "titleClass": {
+    "description": "CSS class (or classes) to apply to the title"
+  },
   "size": {
     "description": "Set the size of the component's appearence. 'sm', 'md' (default), or 'lg'"
   },
@@ -112,6 +127,9 @@
   },
   "static": {
     "description": "Renders the content of the component in-place in the DOM, rather than portalling it to be appended to the body element"
+  },
+  "alt": {
+    "description": "Value to set for the 'alt' attribute"
   },
   "role": {
     "description": "Sets the ARIA attribute 'role' to a specific value"
