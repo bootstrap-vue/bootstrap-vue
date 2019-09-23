@@ -361,13 +361,12 @@ export default {
         const meta = propsMetaObj[prop] || {}
 
         // Describe type
-        let type = p.type || Object
-        let typeClass = String
+        let type = p.type
         if (Array.isArray(type)) {
-          typeClass = type[0]
           type = type.map(t => t.name).join(' or ')
+        } else if (typeof type === 'undefined') {
+          type = 'Any'
         } else {
-          typeClass = type
           type = type.name
         }
 
@@ -391,7 +390,6 @@ export default {
         return {
           prop: kebabCase(prop),
           type,
-          typeClass,
           defaultValue: defaultVal,
           required: p.required || false,
           description: description || '',
