@@ -1,5 +1,5 @@
 <template>
-  <nav class="doc-quicklinks d-xl-none">
+  <nav class="doc-quicklinks d-lg-none">
     <header class="font-weight-bold">On this page:</header>
     <ul>
       <li v-for="h2 in toc.toc" :key="h2.href">
@@ -13,7 +13,7 @@
 
 <style scoped lang="scss">
 .doc-quicklinks {
-  border-left: 3px solid #333;
+  border-left: 5px solid #ccc;
   padding-left: 1rem;
   margin-bottom: 1rem;
 }
