@@ -48,7 +48,7 @@
         :fields="propsFields"
         table-class="bv-docs-table"
         responsive="sm"
-        sticky-header="500px"
+        sticky-header="calc(100vh - 12rem)"
         no-border-collapse
         sort-icon-left
         striped
@@ -117,6 +117,8 @@
         :fields="slotsFields"
         table-class="bv-docs-table"
         responsive="sm"
+        sticky-header="calc(100vh - 12rem)"
+        no-border-collapse
         striped
       >
         <template v-slot:cell(name)="{ value }">
