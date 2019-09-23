@@ -85,7 +85,7 @@
       <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4">
         v-model
       </anchored-heading>
-      <b-table
+      <b-table-lite
         :items="[componentVModel]"
         :fields="[{ key: 'prop', label: 'Property' }, 'event']"
         table-class="bv-docs-table"
@@ -98,7 +98,7 @@
         <template v-slot:cell(event)="{ value }">
           <code class="notranslate" translate="no">{{ value }}</code>
         </template>
-      </b-table>
+      </b-table-lite>
     </article>
 
     <article v-if="slots && slots.length > 0" class="bd-content">
@@ -199,7 +199,7 @@
         You can control <code class="notranslate" translate="no">{{ tag }}</code> by emitting the
         following events on <samp class="notranslate" translate="no">$root</samp>:
       </p>
-      <b-table
+      <b-table-lite
         :items="rootEventListeners"
         :fields="rootEventListenersFields"
         table-class="bv-docs-table"
@@ -221,7 +221,7 @@
             </template>
           </p>
         </template>
-      </b-table>
+      </b-table-lite>
     </article>
   </section>
 </template>
@@ -317,7 +317,7 @@ export default {
     },
     propsFields() {
       const fields = [
-        { key: 'prop', label: 'Property' },
+        { key: 'prop', label: 'Property', sortable: this.propsItems.length > 9 },
         { key: 'type', label: 'Type' },
         { key: 'defaultValue', label: 'Default Value' }
       ]
