@@ -132,7 +132,9 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
   // For description (and possibly more) for props docs
   // source isarray format, so we convert to a hash object
   const $propsExtra = (meta.props || []).reduce((obj, p) => {
-    obj[p.prop] = p
+    if (p && p.prop) {
+      obj[p.prop] = p
+    }
     return obj
   }, {})
 
