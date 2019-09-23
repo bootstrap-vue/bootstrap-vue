@@ -27,10 +27,8 @@
       </anchored-heading>
       <p><code class="notranslate" translate="no">{{ tag }}</code> can also be used via the following aliases:</p>
       <ul>
-        <li>
-          <li v-for="alias in aliases" :key="alias">
-            <code class="notranslate" translate="no">&lt;{{ kebabCase(alias) }}&gt;</code>
-          </li>
+        <li v-for="alias in aliases" :key="alias">
+          <code class="notranslate" translate="no">&lt;{{ kebabCase(alias) }}&gt;</code>
         </li>
       </ul>
       <div class="alert alert-info">
