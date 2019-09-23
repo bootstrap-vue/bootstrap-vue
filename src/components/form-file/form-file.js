@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { from as arrayFrom, isArray, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isFunction } from '../../utils/inspect'
+import { File } from '../../utils/safe-types'
 import formCustomMixin from '../../mixins/form-custom'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
@@ -25,7 +26,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig('BFormControl', 'size')
     },
     value: {
-      // type: Object,
+      type: [File, Array],
       default: null
     },
     accept: {
