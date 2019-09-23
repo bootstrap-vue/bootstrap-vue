@@ -20,6 +20,12 @@
   "headerTextVariant": {
     "description": "Applies one of the Bootstrap theme color variants to the header text"
   },
+  "titleTextVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the title text"
+  },
+  "subTitleTextVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the sub title text"
+  },
   "headerBgVariant": {
     "description": "Applies one of the Bootstrap theme color variants to the header background"
   },
@@ -64,6 +70,9 @@
   },
   "titleTag": {
     "description": "Specify the HTML tag to render instead of the default tag for the title"
+  },
+  "textTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for the text content"
   },
   "headerClass": {
     "description": "CSS class (or classes) to apply to the header"
@@ -145,6 +154,9 @@
   },
   "static": {
     "description": "Renders the content of the component in-place in the DOM, rather than portalling it to be appended to the body element"
+  },
+  "src": {
+    "description": "URL to set for the 'src' attribute"
   },
   "alt": {
     "description": "Value to set for the 'alt' attribute"
