@@ -31,7 +31,7 @@
           <code class="notranslate" translate="no">&lt;{{ kebabCase(alias) }}&gt;</code>
         </li>
       </ul>
-      <p class="small text-muted">
+      <p class="alert alert-info small">
         Note: component aliases are only available when importing all of BootstrapVue or using
         the component group plugin.
       </p>
