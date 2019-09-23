@@ -25,7 +25,7 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
   props: {
     checked: {
       // v-model
-      type: [String, Object, Number, Boolean],
+      // type: [String, Number, Boolean, Object],
       default: null
     }
   },
