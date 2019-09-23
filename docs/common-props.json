@@ -77,6 +77,24 @@
   "titleClass": {
     "description": "CSS class (or classes) to apply to the title"
   },
+  "header": {
+    "description": "Text content to place in the header"
+  },
+  "headerHtml": {
+    "description": "HTML string content to place in the header. Use with caution"
+  },
+  "footer": {
+    "description": "Text content to place in the footer"
+  },
+  "footerHtml": {
+    "description": "HTML string content to place in the footer. Use with caution"
+  },
+  "title": {
+    "description": "Text content to place in the title"
+  },
+  "titleHtml": {
+    "description": "HTML string content to place in the title. Use with caution"
+  },
   "size": {
     "description": "Set the size of the component's appearence. 'sm', 'md' (default), or 'lg'"
   },
