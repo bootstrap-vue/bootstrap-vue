@@ -222,6 +222,15 @@
   </section>
 </template>
 
+<style scoped>
+h3::before {
+  display: block;
+  height: 1rem;
+  margin-top: -1rem;
+  content: "";
+}
+</style>
+
 <script>
 import Vue from 'vue'
 import kebabCase from 'lodash/kebabCase'
