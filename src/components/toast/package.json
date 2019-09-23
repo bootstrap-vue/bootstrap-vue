@@ -155,7 +155,7 @@
             "description": "The toaster's target name"
           },
           {
-            "prop": "aria-atomic",
+            "prop": "ariaAtomic",
             "description": "When screen reader's should read out the entire contents (set to string 'true') or just the changes (set to string 'false'). Leave blank for most cases"
           }
         ]
