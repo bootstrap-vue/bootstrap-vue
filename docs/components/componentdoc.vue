@@ -180,6 +180,8 @@
         :fields="eventsFields"
         table-class="bv-docs-table"
         responsive="sm"
+        sticky-header="calc(100vh - 12rem)"
+        no-border-collapse
         striped
       >
         <template v-slot:cell(event)="{ value }">
@@ -328,7 +330,7 @@ export default {
       const fields = [
         { key: 'prop', label: 'Property', sortable: this.propsItems.length > 9 },
         { key: 'type', label: 'Type' },
-        { key: 'defaultValue', label: 'Default Value' }
+        { key: 'defaultValue', label: 'Default' }
       ]
       if (this.propsItems.some(p => p.description)) {
         // If any of the props have a description, then
