@@ -14,8 +14,53 @@
   "borderVariant": {
     "description": "Applies one of the Bootstrap theme color variants to the border"
   },
+  "headerVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the header"
+  },
+  "headerTextVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the header text"
+  },
+  "headerBgVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the header background"
+  },
+  "headerBorderVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the header border"
+  },
+  "footerVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the footer"
+  },
+  "footerTextVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the footer text"
+  },
+  "footerBgVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the footer background"
+  },
+  "footerBorderVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the footer border"
+  },
+  "bodyVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the body"
+  },
+  "bodyTextVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the body text"
+  },
+  "bodyBgVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the body background"
+  },
+  "bodyBorderVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the body border"
+  },
   "tag": {
     "description": "Specify the HTML tag to render instead of the default tag"
+  },
+  "headerTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for the header"
+  },
+  "footerTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for the footer"
+  },
+  "bodyTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for the body"
   },
   "size": {
     "description": "Set the size of the component's appearence. 'sm', 'md' (default), or 'lg'"
