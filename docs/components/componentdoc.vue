@@ -415,7 +415,7 @@ export default {
     slotsItems() {
       // We use object spread here so that _showDetails doesn't
       // mutate the original array objects
-      return this.slots ? this.slots.map(s => ({ ...s }) : []
+      return this.slots ? this.slots.map(s => ({ ...s })) : []
     },
     componentName() {
       return kebabCase(this.component)
