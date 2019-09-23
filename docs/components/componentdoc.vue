@@ -23,7 +23,7 @@
 
     <article v-if="aliases && aliases.length > 0" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-aliases`" level="4">
-        Component aliases
+        <code class="notranslate" translate="no">{{ tag }}</code> aliases
       </anchored-heading>
       <p><code class="notranslate" translate="no">{{ tag }}</code> can also be used via the following aliases:</p>
       <b-list-group horizontal="sm" :style="{ maxWidth: '320px' }">
