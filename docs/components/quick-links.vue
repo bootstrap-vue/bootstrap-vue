@@ -1,5 +1,5 @@
 <template>
-  <nav class="doc-quicklinks d-lg-none">
+  <nav class="doc-quicklinks">
     <header class="font-weight-bold">On this page:</header>
     <ul>
       <li v-for="h2 in toc.toc" :key="h2.href">
