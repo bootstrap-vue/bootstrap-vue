@@ -23,14 +23,16 @@
 
     <article v-if="aliases && aliases.length > 0" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-aliases`" level="4">
-        <code class="notranslate" translate="no">{{ tag }}</code> aliases
+        Component aliases
       </anchored-heading>
       <p><code class="notranslate" translate="no">{{ tag }}</code> can also be used via the following aliases:</p>
-      <b-list-group horizontal="sm" :style="{ maxWidth: '320px' }">
-        <b-list-group-item v-for="alias in aliases" :key="alias">
-          <code class="notranslate" translate="no">&lt;{{ kebabCase(alias) }}&gt;</code>
-        </b-list-group-item>
-      </b-list-group>
+      <ul>
+        <li>
+          <li v-for="alias in aliases" :key="alias">
+            <code class="notranslate" translate="no">&lt;{{ kebabCase(alias) }}&gt;</code>
+          </li>
+        </li>
+      </ul>
       <div class="alert alert-info">
         <p class="mb-0 small">
           Note: component aliases are only available when importing all of BootstrapVue or using
