@@ -62,15 +62,17 @@ export default {
       return makeTOC(this.readme, this.meta)
     }
   },
+  created() {
+    this.$root.$on('setTOC', (readme, meta) => {
+      this.readme = readme
+      this.meta = meta || null
+    })
+  },
   mounted() {
     const $header = document.body.querySelector('header.navbar')
     if ($header) {
       this.offset = $header.offsetHeight + 6
     }
-    this.$root.$on('setTOC', (readme, meta) => {
-      this.readme = readme
-      this.meta = meta || null
-    })
   },
   methods: {
     isArray(value) {
