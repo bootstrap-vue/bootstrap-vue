@@ -26,7 +26,7 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   },
   props: {
     value: {
-      // type: [Object, Boolean],
+      // type: [String, Number, Boolean, Object, Array],
       default: true
     },
     uncheckedValue: {
