@@ -13,7 +13,7 @@
         "props": [
           {
             "prop": "value",
-            "description": "current value of the select"
+            "description": "current value of the select. Should be set to an array when the 'multiple' prop is set"
           },
           {
             "prop": "multiple",
