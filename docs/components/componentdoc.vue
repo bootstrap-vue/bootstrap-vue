@@ -240,6 +240,10 @@ h3::before {
   margin-top: -1rem;
   content: '';
 }
+
+.b-table /deep/ .text-wrap {
+    white-space: normal!important;
+}
 </style>
 
 <script>
