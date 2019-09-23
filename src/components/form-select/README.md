@@ -410,8 +410,9 @@ control the select width, place the input inside standard Bootstrap grid column.
 ## Autofocus
 
 When the `autofocus` prop is set on `<b-form-select>`, the select will be auto-focused when it is
-inserted into the document or re-activated when inside a Vue `<keep-alive>` component. Note that
-this prop **does not** set the `autofocus` attribute on the select.
+inserted (i.e. **mounted**) into the document or re-activated when inside a Vue `<keep-alive>`
+component. Note that this prop **does not** set the `autofocus` attribute on the select, nor can it
+tell when the select becomes visible.
 
 ## Contextual states
 
