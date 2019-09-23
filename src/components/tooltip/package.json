@@ -29,7 +29,7 @@
           },
           {
             "prop": "fallbackPlacement",
-            "description": "placement to use when the tip would be out of boundaries. Refer to the docs for more details"
+            "description": "placement to use when the tooltip would be out of boundaries. Refer to the docs for more details"
           },
           {
             "prop": "customClass",
