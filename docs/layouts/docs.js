@@ -27,8 +27,8 @@ export default {
       },
       [
         h(Feedback, { class: ['float-right', 'mt-2', 'mb-0', 'mb-lg-2'] }),
-        h('div', { class: ['clearfix', 'd-bock', 'd-lg-none'] }),
-        h(QuickLinks, { class: 'clearfix' }),
+        h('div', { class: ['clearfix', 'd-bock', 'd-xl-none'] }),
+        h(QuickLinks, { class: 'd-xl-none' }),
         h('nuxt')
       ]
     )
