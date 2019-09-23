@@ -31,10 +31,12 @@
           <code class="notranslate" translate="no">&lt;{{ kebabCase(alias) }}&gt;</code>
         </li>
       </ul>
-      <p class="alert alert-info small">
-        Note: component aliases are only available when importing all of BootstrapVue or using
-        the component group plugin.
-      </p>
+      <div class="alert alert-info">
+        <p class="mb-0 small">
+          Note: component aliases are only available when importing all of BootstrapVue or using
+          the component group plugin.
+        </p>
+      </div>
     </article>
 
     <article v-if="propsItems && propsItems.length > 0" class="bd-content">
@@ -67,14 +69,16 @@
           </p>
         </template>
       </b-table>
-      <p v-if="hasRouterProps" class="alert alert-info small">
-        <code class="notranslate" translate="no">{{ tag }}</code> supports generating
-        <code class="notranslate" translate="no">&lt;router-link&gt;</code> or
-        <code class="notranslate" translate="no">&lt;nuxt-link&gt;</code> component (if using Nuxt.js).
-        For more details on the router link (or nuxt link) specific props, see the
-        <b-link to="/docs/reference/router-links" class="alert-link">Router support</b-link>
-        reference section.
-      </p>
+      <div v-if="hasRouterProps" class="alert alert-info">
+        <p class="mb-0 small">
+          <code class="notranslate" translate="no">{{ tag }}</code> supports generating
+          <code class="notranslate" translate="no">&lt;router-link&gt;</code> or
+          <code class="notranslate" translate="no">&lt;nuxt-link&gt;</code> component (if using Nuxt.js).
+          For more details on the router link (or nuxt link) specific props, see the
+          <b-link to="/docs/reference/router-links" class="alert-link">Router support</b-link>
+          reference section.
+        </p>
+      </div>
     </article>
 
     <article v-if="componentVModel" class="bd-content">
