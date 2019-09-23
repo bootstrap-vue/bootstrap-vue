@@ -102,14 +102,16 @@
     }
   }
 
-  .b-table-sticky-header {
-    overflow-y: auto;
-    // Annoyingly, when overflow-y is set, browsers convert
-    // 'overflow-x: visible' to 'overflow-x: auto' - so it becomes
-    // responsive in the x axis automatically
-    // Default `max-height` before a scrollbar will show
-    // We don't use `height` as table could be shorter than this value
-    max-height: $b-table-sticky-header-max-height;
+  @media screen {
+    .b-table-sticky-header {
+      overflow-y: auto;
+      // Annoyingly, when overflow-y is set, browsers convert
+      // 'overflow-x: visible' to 'overflow-x: auto' - so it becomes
+      // responsive in the x axis automatically
+      // Default `max-height` before a scrollbar will show
+      // We don't use `height` as table could be shorter than this value
+      max-height: $b-table-sticky-header-max-height;
+    }
   }
 
   @supports (position: sticky) {
