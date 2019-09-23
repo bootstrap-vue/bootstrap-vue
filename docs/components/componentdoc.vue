@@ -49,6 +49,7 @@
         table-class="bv-docs-table"
         responsive="sm"
         sticky-header="95vh"
+        no-border-collapse
         sort-icon-left
         striped
       >
