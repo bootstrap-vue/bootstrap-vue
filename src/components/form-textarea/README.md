@@ -295,10 +295,10 @@ Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `bl
 
 ## Autofocus
 
-When the `autofocus` prop is set on `<b-form-textarea>`, the tetarea will be auto-focused when it
-is inserted (i.e. **mounted**) into the document or re-activated when inside a Vue `<keep-alive>`
-component. Note that this prop **does not** set the `autofocus` attribute on the tetarea, nor can
-it tell when the textarea becomes visible.
+When the `autofocus` prop is set on `<b-form-textarea>`, the tetarea will be auto-focused when it is
+inserted (i.e. **mounted**) into the document or re-activated when inside a Vue `<keep-alive>`
+component. Note that this prop **does not** set the `autofocus` attribute on the tetarea, nor can it
+tell when the textarea becomes visible.
 
 ## Native and custom events
 
