@@ -48,6 +48,8 @@
         :fields="propsFields"
         table-class="bv-docs-table"
         responsive="sm"
+        sticky-header="95vh"
+        sort-icon-left
         striped
       >
         <template v-slot:cell(prop)="{ value, item }">
