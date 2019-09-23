@@ -83,12 +83,6 @@
         "component": "BFormDatalist",
         "aliases": [
           "BDatalist"
-        ],
-        "props": [
-          {
-            "prop": "",
-            "description": ""
-          }
         ]
       }
     ]
