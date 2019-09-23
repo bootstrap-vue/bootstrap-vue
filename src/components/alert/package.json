@@ -10,7 +10,7 @@
         "props": [
           {
             "prop": "dismissible",
-            "description": "When set to 'true', enables the dimiss close button"
+            "description": "When set, enables the dismiss close button"
           },
           {
             "prop": "dismissLabel",
@@ -18,7 +18,7 @@
           },
           {
             "prop": "show",
-            "description": "When set to 'true', shows the alert. Set to a number (seconds) to show and automatically dismiss the alert after the number of seconds has elapsed"
+            "description": "When set, shows the alert. Set to a number (seconds) to show and automatically dismiss the alert after the number of seconds has elapsed"
           }
         ],
         "events": [
