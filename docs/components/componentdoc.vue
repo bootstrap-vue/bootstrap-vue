@@ -75,9 +75,9 @@
         <b-link to="/docs/reference/router-links" class="alert-link">Router support</b-link>
         reference section.
       </p>
-   </article>
+    </article>
 
-   <article v-if="componentVModel">
+    <article v-if="componentVModel" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4">
         v-model
       </anchored-heading>
@@ -227,7 +227,7 @@ h3::before {
   display: block;
   height: 1rem;
   margin-top: -1rem;
-  content: "";
+  content: '';
 }
 </style>
 
