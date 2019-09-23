@@ -113,12 +113,13 @@
         Slots
       </anchored-heading>
       <b-table
-        :items="slots.map(s => ({ ...s }))"
+        :items="slotsItems"
         :fields="slotsFields"
         table-class="bv-docs-table"
         responsive="sm"
         sticky-header="calc(100vh - 12rem)"
         no-border-collapse
+        sort-icon-left
         striped
       >
         <template v-slot:cell(name)="{ value }">
@@ -185,7 +186,7 @@
         striped
       >
         <template v-slot:cell(event)="{ value }">
-          <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
+          <code class="notranslate" translate="no">{{ value }}</code>
         </template>
         <template v-slot:cell(args)="{ value, item }">
           <p
@@ -194,7 +195,7 @@
             class="mb-1"
           >
             <template v-if="arg.arg">
-              <code class="text-nowrap notranslate" translate="no">{{ arg.arg }}</code> -
+              <code class="notranslate" translate="no">{{ arg.arg }}</code> -
             </template>
             <span>{{ arg.description }}</span>
           </p>
@@ -355,7 +356,7 @@ export default {
     },
     slotsFields() {
       const fields = [
-        { key: 'name', label: 'Slot Name' },
+        { key: 'name', label: 'Slot Name', sortable: this.slotsItems.length > 9 },
         { key: 'description', label: 'Description' }
       ]
       if (this.slots.length > 0 && this.slots.some(s => s.scope)) {
@@ -410,6 +411,11 @@ export default {
           _showDetails: typeof p.deprecated === 'string' || typeof p.deprecation === 'string'
         }
       })
+    },
+    slotsItems() {
+      // We use object spread here so that _showDetails doesn't
+      // mutate the original array objects
+      return this.slots ? this.slots.map(s => ({ ...s }) : []
     },
     componentName() {
       return kebabCase(this.component)
