@@ -71,6 +71,9 @@
   "titleTag": {
     "description": "Specify the HTML tag to render instead of the default tag for the title"
   },
+  "subTitleTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for the sub title"
+  },
   "textTag": {
     "description": "Specify the HTML tag to render instead of the default tag for the text content"
   },
@@ -103,6 +106,9 @@
   },
   "titleHtml": {
     "description": "HTML string content to place in the title. Use with caution"
+  },
+  "subTitle": {
+    "description": "Text content to place in the sub title"
   },
   "size": {
     "description": "Set the size of the component's appearence. 'sm', 'md' (default), or 'lg'"
