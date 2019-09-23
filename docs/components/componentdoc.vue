@@ -61,11 +61,7 @@
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
         </template>
         <template v-slot:cell(defaultValue)="{ value }">
-          <code
-            v-if="value"
-            :class="['notranslate', typeof value ==='string' ? 'text-wrap' : '']"
-            translate="no"
-          >{{ value }}</code>
+          <code v-if="value" class="text-wrap notranslate" translate="no">{{ value }}</code>
         </template>
         <template v-slot:row-details="{ item }">
           <p v-if="typeof item.deprecated === 'string'" class="mb-1 small">
