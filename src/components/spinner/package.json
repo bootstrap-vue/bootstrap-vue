@@ -8,6 +8,20 @@
     "components": [
       {
         "component": "BSpinner",
+        "props": [
+          {
+            "prop": "type",
+            "description": "Type of spinner to show. Current supported types are 'border' and 'grow'"
+          },
+          {
+            "prop": "label",
+            "description": "Text content to place in the sr-only label"
+          },
+          {
+            "prop": "small",
+            "description": "When set, rendered a smaller spinner suitable for placing in buttons"
+          }
+        ],
         "slots": [
           {
             "name": "label",
