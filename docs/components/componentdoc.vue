@@ -48,7 +48,7 @@
         :fields="propsFields"
         table-class="bv-docs-table"
         responsive="sm"
-        sticky-header="95vh"
+        sticky-header="500px"
         no-border-collapse
         sort-icon-left
         striped
