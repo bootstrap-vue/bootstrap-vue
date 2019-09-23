@@ -236,13 +236,9 @@
 <style scoped>
 h3::before {
   display: block;
-  height: 1rem;
-  margin-top: -1rem;
+  height: 1.25rem;
+  margin-top: -1.25rem;
   content: '';
-}
-
-.b-table /deep/ .text-wrap {
-    white-space: normal!important;
 }
 </style>
 
