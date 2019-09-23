@@ -50,7 +50,8 @@ export default {
     meta() {
       return {
         title: 'Getting started',
-        description: "Get started with BootstrapVue, based on the world's most popular framework - Bootstrap v4, for building responsive, mobile-first sites using Vue.js"
+        description:
+          "Get started with BootstrapVue, based on the world's most popular framework - Bootstrap v4, for building responsive, mobile-first sites using Vue.js"
       }
     }
   }
