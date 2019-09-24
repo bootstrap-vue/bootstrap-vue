@@ -163,7 +163,7 @@
         "slots": [
           {
             "name": "img",
-            "description": "Slot for img element or image component",
+            "description": "Slot for img element or image component"
           }
         ]
       }
