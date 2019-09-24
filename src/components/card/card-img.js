@@ -38,11 +38,11 @@ export const props = {
     default: false
   },
   height: {
-    type: String,
+    type: [Number, String],
     default: null
   },
   width: {
-    type: String,
+    type: [Number, String],
     default: null
   }
 }
