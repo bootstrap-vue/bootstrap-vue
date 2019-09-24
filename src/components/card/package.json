@@ -41,7 +41,7 @@
             "description": "Set if the image should appear at the top of the card"
           },
           {
-            "prop": "ImgBottom",
+            "prop": "imgBottom",
             "description": "Set if the image should appear at the bottom of the card"
           },
           {
@@ -105,19 +105,19 @@
             "description": "Set if the image will be placed at the bottom of the card"
           },
           {
-            "prop": "imgStart",
+            "prop": "start",
             "description": "Set if the image will be placed at the start (left) of the card"
           },
           {
-            "prop": "imgLeft",
+            "prop": "left",
             "description": "Set if the image will be placed at the start (left) of the card. Synonym for the 'left' prop"
           },
           {
-            "prop": "imgEnd",
+            "prop": "end",
             "description": "Set if the image will be placed at the end (right) of the card"
           },
           {
-            "prop": "imgRight",
+            "prop": "right",
             "description": "Set if the image will be placed at the end (right) of the card. Synonym for the 'right' prop"
           }
         ]
@@ -166,19 +166,19 @@
             "description": "Set if the image will be placed at the bottom of the card"
           },
           {
-            "prop": "imgStart",
+            "prop": "start",
             "description": "Set if the image will be placed at the start (left) of the card"
           },
           {
-            "prop": "imgLeft",
+            "prop": "left",
             "description": "Set if the image will be placed at the start (left) of the card. Synonym for the 'left' prop"
           },
           {
-            "prop": "imgEnd",
+            "prop": "end",
             "description": "Set if the image will be placed at the end (right) of the card"
           },
           {
-            "prop": "imgRight",
+            "prop": "right",
             "description": "Set if the image will be placed at the end (right) of the card. Synonym for the 'right' prop"
           }
         ]
