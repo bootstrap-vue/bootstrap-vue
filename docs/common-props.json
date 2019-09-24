@@ -180,7 +180,7 @@
     "description": "The ID of the element that provides a label for this component. Used as the value for the 'aria-labelledby' attribute"
   },
   "ariaDescribedby": {
-    "description": "The ID of the element that provides additional contet for this component. Used as the value for the 'aria-describedby' attribute"
+    "description": "The ID of the element that provides additional context for this component. Used as the value for the 'aria-describedby' attribute"
   },
   "ariaLive": {
     "description": "When the rendered element is an aria-live region (for screen reader users), set to either 'polite' or 'assertive'"
