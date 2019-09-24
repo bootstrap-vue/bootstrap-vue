@@ -59,7 +59,7 @@
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
         </template>
         <template v-slot:cell(defaultValue)="{ value }">
-          <code v-if="value" class="text-wrap notranslate" translate="no">{{ value }}</code>
+          <code v-if="value" class="word-wrap-normal notranslate" translate="no">{{ value }}</code>
         </template>
         <template v-slot:row-details="{ item }">
           <p v-if="typeof item.deprecated === 'string'" class="mb-1 small">
@@ -234,6 +234,12 @@ h3::before {
   height: 1.25rem;
   margin-top: -1.25rem;
   content: '';
+}
+
+/deep/ .word-wrap-normal {
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
 }
 </style>
 
