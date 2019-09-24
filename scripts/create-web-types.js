@@ -236,7 +236,7 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
 
   // Add slots
   if ($slots.length) {
-    tag['vue-scoped-slots'] = $slots.map(slotObj => {
+    tag.slots = $slots.map(slotObj => {
       const slot = {
         name: slotObj.name,
         'doc-url': docUrl
@@ -252,8 +252,7 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
         // for auto positioning the cursor to fill in the name
       }
       if (Array.isArray(slotObj.scope)) {
-        // Slot props not documented in meta yet
-        slot.properties = slotObj.scope.map(propDef => {
+        slot['vue-properties'] = slotObj.scope.map(propDef => {
           const property = {
             name: propDef.prop,
             'doc-url': docUrl
