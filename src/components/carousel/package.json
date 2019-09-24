@@ -158,7 +158,7 @@
           {
             "prop": "background",
             "description": "CSS color to use as the slide's background color"
-          },
+          }
         ],
         "slots": [
           {
