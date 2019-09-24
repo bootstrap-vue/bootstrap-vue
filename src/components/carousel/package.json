@@ -11,7 +11,7 @@
         "props": [
           {
             "prop": "fade",
-            "description": "When set, changed the slide animation to a crossfade instead of a sliding effect"
+            "description": "When set, changes the slide animation to a crossfade instead of a sliding effect"
           },
           {
             "prop": "noAnimation",
