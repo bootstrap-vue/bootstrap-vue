@@ -383,11 +383,13 @@ export default {
         if (defaultVal instanceof Function && !Array.isArray(defaultVal)) {
           defaultVal = defaultVal()
         }
-        if (defaultVal === '' || defaultVal === 'null' || typeof defaultVal === 'undefined') {
-          defaultVal = null
+        if (typeof defaultVal === 'undefined') {
+          defaultVal = ''
         }
         defaultVal = JSON.stringify(defaultVal).replace(/"/g, "'")
-        defaultVal = defaultVal === 'null' ? '' : defaultVal
+        if (defaultVal === "''") {
+          defaultVal = ''
+        }
 
         const fallbackMeta = commonProps[prop] || {}
         const description =
