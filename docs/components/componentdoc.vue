@@ -383,7 +383,7 @@ export default {
         if (defaultVal instanceof Function && !Array.isArray(defaultVal)) {
           defaultVal = defaultVal()
         }
-        if (typeof defaultVal === 'undefined') {
+        if (typeof defaultVal === 'undefined' || defaultValue === null) {
           defaultVal = ''
         }
         defaultVal = JSON.stringify(defaultVal).replace(/"/g, "'")
