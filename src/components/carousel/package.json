@@ -31,7 +31,7 @@
           },
           {
             "prop": "noTouch",
-            "description": "Disable controling the slides via touch/drag"
+            "description": "Disable controling the slides via touch swipes"
           },
           {
             "prop": "noHoverPause",
