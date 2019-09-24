@@ -378,18 +378,15 @@ export default {
           type = type.name
         }
 
-        // Describe value
+        // Default value
         let defaultVal = p.default
         if (defaultVal instanceof Function && !Array.isArray(defaultVal)) {
           defaultVal = defaultVal()
         }
-        if (typeof defaultVal !== 'string') {
-          defaultVal = JSON.stringify(defaultVal)
+        if (defaultVal === '' || defaultVal === 'null' || typeof defaultValue === 'undefined') {
+          defaultVal = null
         }
-        if (defaultVal === '' || defaultVal === null || defaultVal === 'null') {
-          defaultVal = ''
-        }
-        defaultVal = (defaultVal || '').replace(/"/g, "'")
+        defaultVal = JSON.stringify(defaultVal).replace(/"/g, "'")
 
         const fallbackMeta = commonProps[prop] || {}
         const description =
