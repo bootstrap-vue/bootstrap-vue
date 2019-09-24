@@ -387,6 +387,7 @@ export default {
           defaultVal = null
         }
         defaultVal = JSON.stringify(defaultVal).replace(/"/g, "'")
+        defaultValue = defaultValue = 'null' ? '' : defaultValue
 
         const fallbackMeta = commonProps[prop] || {}
         const description =
