@@ -46,7 +46,7 @@ export default {
     }
   },
   computed: {
-    // Todo: pull this from the meta.json file
+    // TODO: pull this from the meta.json file
     meta() {
       return {
         title: 'Getting started',
