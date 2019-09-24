@@ -112,6 +112,15 @@
     max-height: $b-table-sticky-header-max-height;
   }
 
+  @media print {
+    // Overide any styles (including inline styles)
+    // when printing
+    .b-table-sticky-header {
+      overflow-y: visible !important;
+      max-height: none !important;
+    }
+  }
+
   @supports (position: sticky) {
     // Positioning of sticky headers
     .b-table-sticky-header > .table.b-table > thead > tr > th {
