@@ -80,6 +80,10 @@
         ],
         "props": [
           {
+            "prop": "checked",
+            "description": "The current value of the checkboxe. Must be an array when there are multiple checkboxes bound to the same v-model"
+          },
+          {
             "prop": "value",
             "description": "Value returned when this checkbox is checked"
           },
