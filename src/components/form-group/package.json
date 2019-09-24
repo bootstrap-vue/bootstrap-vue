@@ -32,11 +32,11 @@
             "description": "Text to place in the help text area of the form group"
           },
           {
-            "prop": "invalid-feedback",
+            "prop": "invalidFeedback",
             "description": "Text to show when the form group has an invalid state"
           },
           {
-            "prop": "valid-feedback",
+            "prop": "validFeedback",
             "description": "Text to show when the form group has a valid state"
           },
           {
@@ -118,11 +118,11 @@
             "description": "Content to place in the description area."
           },
           {
-            "name": "invalidFeedback",
+            "name": "invalid-feedback",
             "description": "Content to place in the invalid feedback area"
           },
           {
-            "name": "validFeedback",
+            "name": "valid-feedback",
             "description": "Content to place in the valid feedback area"
           }
         ]
