@@ -10,6 +10,92 @@
         "aliases": [
           "BDd"
         ],
+        "props": [
+          {
+            "prop": "text",
+            "description": "Text to place in the toggle button, or in the split button is split mode"
+          },
+          {
+            "prop": "html",
+            "description": "HTML string to place in the toggle button, or in the split button is split mode. Use with caution"
+          },
+          {
+            "prop": "dropup",
+            "description": "When set, positions the menu on the top of the button"
+          },
+          {
+            "prop": "dropright",
+            "description": "When set, positions the menu to the right of the button"
+          },
+          {
+            "prop": "dropleft",
+            "description": "When set, positions the menu to the left of the button"
+          },
+          {
+            "prop": "right",
+            "description": "Align the right edge of the menu with the right of the button"
+          },
+          {
+            "prop": "noFlip",
+            "description": "Prevent the mnue from auto flipping positions"
+          },
+          {
+            "prop": "offset",
+            "description": "Specify the number of pixes to shift the menu by. Negative values supported"
+          },
+          {
+            "prop": "lazy",
+            "description": "When set, will only mount the menu content into the DOM when the menu is open"
+          },
+          {
+            "prop": "popperOpts",
+            "description": "Additional configuration to pass to Popper.js"
+          },
+          {
+            "prop": "toggleText",
+            "description": "ARIA label (sr-only) to set on the toggle when in split mode"
+          },
+          {
+            "prop": "menuClass",
+            "description": "CSS class (or classes) to add to the menu container"
+          },
+          {
+            "prop": "toggleTag",
+            "description": "Specify the HTML tag to render instead of the default tag. Use with caution"
+          },
+          {
+            "prop": "toggleClass",
+            "description": "CSS class (or classes) to add to the toggle button"
+          },
+          {
+            "prop": "noCaret",
+            "description": "Hide the caret indicator on teh toggle button"
+          },
+          {
+            "prop": "split",
+            "description": "When set, renders a split button dropdown"
+          },
+          {
+            "prop": "splitHref",
+            "description": "Denotes the target URL of the link for the split button"
+          },
+          {
+            "prop": "splitTo",
+            "description": "router-link prop: Denotes the target route of the split button. When clicked, the value of the to prop will be passed to router.push() internally, so the value can be either a string or a Location descriptor object"
+          },
+          {
+            "prop": "splitVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the split button. Defaults to the 'variant' prop value"
+          },
+          {
+            "prop": "splitButtonType",
+            "description": "Value to place in the 'type' attribute on the split button: 'button', 'submit', 'reset'"
+          },
+          {
+            "prop": "boundary",
+            "description": "The boundary constraint of the menu: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement"
+          }
+        ],
         "events": [
           {
             "event": "show",
@@ -147,6 +233,20 @@
         "component": "BDropdownForm",
         "aliases": [
           "BDdForm"
+        ],
+        "props": [
+          {
+            "prop": "inline",
+            "description": "When set, the form will be in inline mode which display labels, form controls, and buttons on a single horizontal row"
+          },
+          {
+            "prop": "novalidate",
+            "description": "When set, disables browser native HTML5 validation on controls in the form"
+          },
+          {
+            "prop": "validated",
+            "description": "When set, adds the Bootstrap class 'was-validated' on the form, triggering the native browser validation states"
+          }
         ]
       },
       {
@@ -159,6 +259,12 @@
         "component": "BDropdownGroup",
         "aliases": [
           "BDdGroup"
+        ],
+        "props": [
+          {
+            "prop": "headerClasses",
+            "description": "CSS class (or classes) to add to the header"
+          }
         ],
         "slots": [
           {
