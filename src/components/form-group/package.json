@@ -118,11 +118,11 @@
             "description": "Content to place in the description area."
           },
           {
-            "name": "invalid-feedback",
+            "name": "invalidFeedback",
             "description": "Content to place in the invalid feedback area"
           },
           {
-            "name": "valid-feedback",
+            "name": "validFeedback",
             "description": "Content to place in the valid feedback area"
           }
         ]
