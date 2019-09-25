@@ -15,10 +15,6 @@ const parseSpan = val => {
 const spanValidator = val => isUndefinedOrNull(val) || parseSpan(val) > 0
 
 export const props = {
-  header: {
-    type: Boolean,
-    default: false
-  },
   variant: {
     type: String,
     default: null
@@ -68,8 +64,9 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
   },
   props,
   computed: {
-    tag() {
-      return this.header ? 'th' : 'td'
+    tag() /* istanbul ignore next */ {
+      // Overridden by b-td and b-th
+      return 'td'
     },
     isDark() {
       return this.bvTable && this.bvTable.dark
