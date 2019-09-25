@@ -42,7 +42,7 @@
 </style>
 
 <script>
-import { makeTOC, offsetTop, scrollTo } from '~/utils'
+import { offsetTop, scrollTo } from '~/utils'
 
 export default {
   name: 'BDVToc',
