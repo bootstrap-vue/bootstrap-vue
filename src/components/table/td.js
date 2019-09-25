@@ -40,7 +40,7 @@ export const props = {
 }
 
 // @vue/component
-export const BTableCell = /*#__PURE__*/ Vue.extend({
+export const BTd = /*#__PURE__*/ Vue.extend({
   name: 'BTableCell',
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
