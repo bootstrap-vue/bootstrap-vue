@@ -26,8 +26,8 @@
 <style scoped lang="scss">
 #quick-links-collapse {
   border-left: 5px solid #ccc;
-  padding-left: 1rem;
-  padding-top: 1rem;
+  padding-left: 2.5rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 </style>
