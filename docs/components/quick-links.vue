@@ -1,8 +1,8 @@
 <template>
-  <nav>
+  <nav class="bd-quick-links d-none mb-3">
     <header>
       <b-button
-        v-b-toggle.quick-links-collapse
+        v-b-toggle.bd-quick-links-collapse
         class="font-weight-bold"
         variant="outline-secondary"
         size="sm"
@@ -13,7 +13,7 @@
         Page table of contents
       </b-button>
     </header>
-    <b-collapse v-mdel="quickLinksVisible" id="quick-links-collapse" tag="ul">
+    <b-collapse id="bd-quick-links-collapse" v-model="quickLinksVisible" tag="ul">
       <li v-for="h2 in toc.toc" :key="h2.href">
         <b-link :href="h2.href" @click="scrollIntoView($event, h2.href)">
           <span v-html="h2.label"></span>
@@ -24,11 +24,10 @@
 </template>
 
 <style scoped lang="scss">
-#quick-links-collapse {
+#bd-quick-links-collapse {
   border-left: 5px solid #ccc;
   padding-left: 2.5rem;
   margin-top: 1rem;
-  margin-bottom: 1rem;
 }
 </style>
 
@@ -57,10 +56,20 @@ export default {
     })
   },
   mounted() {
-    const $header = document.body.querySelector('header.navbar')
+    const $body = document.body
+    // Set the correct offset based on the header height
+    const $header = $body.querySelector('header.navbar')
     if ($header) {
       this.offset = $header.offsetHeight + 6
     }
+    // Move the quick links to the correct position, if possible
+    const $referenceNode = $body.querySelector('.bd-lead') || $body.querySelector('h1')
+    if ($referenceNode) {
+      $referenceNode.after(this.$el)
+    }
+    // Make the quick links visible
+    // We hide them initially to make the position change not that distracting
+    this.$el.classList.remove('d-none')
   },
   methods: {
     isArray(value) {
