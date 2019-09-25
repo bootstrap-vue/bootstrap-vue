@@ -13,7 +13,7 @@
           </li>
         </ul>
       </nav>
-    <Section>
+    </Section>
   </Main>
 </template>
 
