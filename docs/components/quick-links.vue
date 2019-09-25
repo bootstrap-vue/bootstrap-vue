@@ -73,6 +73,8 @@ export default {
     if ($header) {
       this.offset = $header.offsetHeight + 6
     }
+    // Re-position the quick links
+    this.positionQuickLinks()
   },
   methods: {
     isArray(value) {
