@@ -39,7 +39,7 @@ export default {
       return `bd-section-toc-${this.slug}`
     },
     slug() {
-      return this.$route.path.split('/')[1] || ''
+      return this.$route.path.replace(/^\//,'').split('/')[1] || ''
     },
     group() {
       return nav[this.slug] || {}
