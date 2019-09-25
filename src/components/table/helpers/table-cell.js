@@ -68,6 +68,9 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
   },
   props,
   computed: {
+    tag() {
+      return this.header ? 'th' : 'td'
+    },
     isDark() {
       return this.bvTable && this.bvTable.dark
     },
@@ -172,7 +175,7 @@ export const BTableCell = /*#__PURE__*/ Vue.extend({
   render(h) {
     const content = [this.normalizeSlot('default')]
     return h(
-      this.header ? 'th' : 'td',
+      this.tag,
       {
         class: this.cellClasses,
         attrs: this.cellAttrs,
