@@ -147,7 +147,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         // Header or footer cells
         role = 'columnheader'
         scope = colspan > 0 ? 'colspan' : 'col'
-      } else if (this.header) {
+      } else if (this.tag === 'th') {
         // th's in tbody
         role = 'rowheader'
         scope = rowspan > 0 ? 'rowgroup' : 'row'
