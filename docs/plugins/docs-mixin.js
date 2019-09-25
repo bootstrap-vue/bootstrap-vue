@@ -80,7 +80,10 @@ export default {
     this.scrollTimeout = null
     this.focusScroll()
     this.$nextTick(() => {
-      this.$root.$emit('docs-set-toc', makeTOC(this.readme || '', this.meta || null))
+      // In a RAF to allow page time to finish processing
+      requestAnimationFrame(() => {
+        this.$root.$emit('docs-set-toc', makeTOC(this.readme || '', this.meta || null))
+      })
     })
   },
 
