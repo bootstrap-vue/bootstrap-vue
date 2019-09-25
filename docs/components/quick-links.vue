@@ -1,5 +1,5 @@
 <template>
-  <nav class="bd-quick-links d-none mb-3">
+  <nav :class="['bd-quick-links', 'mb-3', { 'd-none': quickLinksMoved }]">
     <header>
       <b-button
         v-b-toggle.bd-quick-links-collapse
@@ -42,6 +42,7 @@ export default {
       meta: null,
       offset: 0,
       quickLinksVisible: false
+      quickLinksMoved: false
     }
   },
   computed: {
@@ -65,11 +66,14 @@ export default {
     // Move the quick links to the correct position, if possible
     const $referenceNode = $body.querySelector('.bd-lead') || $body.querySelector('h1')
     if ($referenceNode) {
-      $referenceNode.after(this.$el)
+      // IE 11 doesn't support the .after() method, and appears
+      // that the polyfill doesn't polyfill this method
+      // $referenceNode.after(this.$el)
+      $referenceNode.insertAdjacentElement('afterend', this.$el)
     }
     // Make the quick links visible
     // We hide them initially to make the position change not that distracting
-    this.$el.classList.remove('d-none')
+    this.quickLinksMoved = true
   },
   methods: {
     isArray(value) {
