@@ -13,12 +13,12 @@
         page table of contents
       </b-button>
     </header>
-    <b-collapse id="bd-quick-links-collapse" v-model="quickLinksExpanded" tag="ul">
+    <b-collapse id="bd-quick-links-collapse" v-model="quickLinksExpanded" tag="ul" class="list-unstyled">
       <li v-for="h2 in toc.toc" :key="h2.href">
         <b-link :href="h2.href" @click="scrollIntoView($event, h2.href)">
           <span v-html="h2.label"></span>
         </b-link>
-        <ul v-if="h2.toc && h2.toc.length > 0" :key="`sub-${h2.href}`">
+        <ul v-if="h2.toc && h2.toc.length > 0" :key="`sub-${h2.href}`" class="list-unstyled">
           <li v-for="h3 in h2.toc" :key="h3.href">
             <b-link :href="h3.href" @click="scrollIntoView($event, h3.href)">
               <span v-html="h3.label"></span>
@@ -33,8 +33,13 @@
 <style scoped lang="scss">
 #bd-quick-links-collapse {
   border-left: 5px solid #ccc;
-  padding-left: 2.5rem;
+  padding-left: 1rem;
   margin-top: 1rem;
+
+  ul {
+    padding-left: 1rem;
+    margin-bottom: 0.5rem;
+  }
 }
 </style>
 
