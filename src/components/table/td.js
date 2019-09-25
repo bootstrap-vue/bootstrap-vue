@@ -1,7 +1,7 @@
-import Vue from '../../../utils/vue'
-import toString from '../../../utils/to-string'
-import { isUndefinedOrNull } from '../../../utils/inspect'
-import normalizeSlotMixin from '../../../mixins/normalize-slot'
+import Vue from '../../utils/vue'
+import toString from '../../utils/to-string'
+import { isUndefinedOrNull } from '../../utils/inspect'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const digitsRx = /^\d+$/
 
