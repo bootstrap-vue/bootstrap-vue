@@ -8,12 +8,12 @@
         size="sm"
         block
       >
-        <span v-if="quickLinksVisible">Hide</span>
+        <span v-if="quickLinksExpanded">Hide</span>
         <span v-else>Show</span>
-        Page table of contents
+        page table of contents
       </b-button>
     </header>
-    <b-collapse id="bd-quick-links-collapse" v-model="quickLinksVisible" tag="ul">
+    <b-collapse id="bd-quick-links-collapse" v-model="quickLinksExpanded" tag="ul">
       <li v-for="h2 in toc.toc" :key="h2.href">
         <b-link :href="h2.href" @click="scrollIntoView($event, h2.href)">
           <span v-html="h2.label"></span>
@@ -40,17 +40,22 @@ export default {
     return {
       readme: '',
       meta: null,
+      // toc: [],
       offset: 0,
-      quickLinksVisible: false,
+      quickLinksExpanded: false,
       quickLinksMoved: false
     }
   },
   computed: {
     toc() {
+      // TODO: this will be pre-done when emitted and 
+      //       will be replaced by a toc entry in data
       return makeTOC(this.readme, this.meta)
     }
   },
   created() {
+    // TODO: the TOC will be pre-processed when emitted
+    // this.$root.$on('setTOC', toc => this.toc = toc)
     this.$root.$on('setTOC', (readme, meta) => {
       this.readme = readme
       this.meta = meta || null
