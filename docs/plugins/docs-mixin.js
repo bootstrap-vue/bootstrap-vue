@@ -1,7 +1,7 @@
 /*
  * docs-mixin: used by any page under /docs path
  */
-import { scrollTo, offsetTop } from '~/utils'
+import { makeTOC, scrollTo, offsetTop } from '~/utils'
 import { bvDescription } from '~/content'
 
 // @vue/component
@@ -80,7 +80,7 @@ export default {
     this.scrollTimeout = null
     this.focusScroll()
     this.$nextTick(() => {
-      this.$root.$emit('setTOC', this.readme || '', this.meta || null)
+      this.$root.$emit('docs-set-toc', makeTOC(this.readme || '', this.meta || null))
     })
   },
 
