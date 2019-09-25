@@ -52,21 +52,12 @@ export default {
   name: 'BDVToc',
   data() {
     return {
-      readme: '',
-      meta: null,
+      toc: [],
       offset: 0
     }
   },
-  computed: {
-    toc() {
-      return makeTOC(this.readme, this.meta)
-    }
-  },
   created() {
-    this.$root.$on('setTOC', (readme, meta) => {
-      this.readme = readme
-      this.meta = meta || null
-    })
+    this.$root.$on('docs-set-toc', toc => this.toc = toc)
   },
   mounted() {
     const $header = document.body.querySelector('header.navbar')
