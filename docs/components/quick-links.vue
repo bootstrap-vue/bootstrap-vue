@@ -1,13 +1,17 @@
 <template>
   <nav class="doc-quicklinks">
-    <header class="font-weight-bold">On this page:</header>
-    <ul>
+    <header class="font-weight-bold">
+      <b-button variant="light" block v-b-toggle.quick-links-collapse>
+        Page table of contents
+      </b-button>
+    </header>
+    <b-collapse tag="ul" id="quick-links-collapse">
       <li v-for="h2 in toc.toc" :key="h2.href">
         <b-link :href="h2.href" @click="scrollIntoView($event, h2.href)">
           <span v-html="h2.label"></span>
         </b-link>
       </li>
-    </ul>
+    </b-collapse>
   </nav>
 </template>
 
