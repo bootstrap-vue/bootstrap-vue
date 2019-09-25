@@ -44,5 +44,15 @@ export default {
       vueVersionMinor: vueVersion.replace(minorRE, '$1'),
       vueVersionMajor: vueVersion.replace(majorRE, '$1')
     }
+  },
+  computed: {
+    // TODO: pull this from the meta.json file
+    meta() {
+      return {
+        title: 'Getting started',
+        description:
+          "Get started with BootstrapVue, based on the world's most popular framework - Bootstrap v4, for building responsive, mobile-first sites using Vue.js"
+      }
+    }
   }
 }
