@@ -1,11 +1,19 @@
 <template>
-  <nav class="doc-quicklinks">
+  <nav>
     <header class="font-weight-bold">
-      <b-button variant="light" block v-b-toggle.quick-links-collapse>
+      <b-button
+        v-b-toggle.quick-links-collapse
+        variant="light"
+        size="sm"
+        variant="outline-secondary"
+        block
+      >
+        <span v-if="quickLinksVisible">Hide</span>
+        <span v-else>Show</span>
         Page table of contents
       </b-button>
     </header>
-    <b-collapse tag="ul" id="quick-links-collapse">
+    <b-collapse v-mdel="quickLinksVisible" tag="ul" id="quick-links-collapse">
       <li v-for="h2 in toc.toc" :key="h2.href">
         <b-link :href="h2.href" @click="scrollIntoView($event, h2.href)">
           <span v-html="h2.label"></span>
@@ -16,9 +24,10 @@
 </template>
 
 <style scoped lang="scss">
-.doc-quicklinks {
+#quick-links-collapse {
   border-left: 5px solid #ccc;
   padding-left: 1rem;
+  padding-top: 1rem;
   margin-bottom: 1rem;
 }
 </style>
@@ -32,7 +41,8 @@ export default {
     return {
       readme: '',
       meta: null,
-      offset: 0
+      offset: 0,
+      quickLinksVisible: false
     }
   },
   computed: {
