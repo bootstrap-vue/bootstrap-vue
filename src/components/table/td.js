@@ -65,7 +65,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   props,
   computed: {
     tag() {
-      // Overridden by b-th
+      // Overridden by <b-th>
       return 'td'
     },
     isDark() {
@@ -83,7 +83,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     },
     isStickyHeader() {
       // Needed to handle header background classes, due to lack of
-      // bg color inheritance with Bootstrap v4 tabl css
+      // background color inheritance with Bootstrap v4 table CSS
       // Sticky headers only apply to cells in table `thead`
       return (
         !this.isStacked &&
@@ -95,9 +95,9 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     },
     isStickyColumn() {
       // Needed to handle header background classes, due to lack of
-      // background color inheritance with Bootstrap v4 table css.
+      // background color inheritance with Bootstrap v4 table CSS
       // Sticky column cells are only available in responsive
-      // mode (horzontal scrolling) or when sticky header mode.
+      // mode (horizontal scrolling) or when sticky header mode
       // Applies to cells in `thead`, `tbody` and `tfoot`
       return (
         (this.isResponsive || this.isStickyHeader) &&
@@ -115,7 +115,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         (!variant && this.isStickyHeader && !this.bvTableThead.headVariant) ||
         (!variant && this.isStickyColumn)
       ) {
-        // Needed for stickyheader mode as Bootstrap v4 table cells do
+        // Needed for sticky-header mode as Bootstrap v4 table cells do
         // not inherit parent's background-color. Boo!
         variant = this.bvTableTr.variant || this.bvTable.tableVariant || 'b-table-default'
       }
@@ -179,7 +179,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         // Transfer any native listeners
         on: this.$listeners
       },
-      [this.isStackedCell ? h('div', {}, [content]) : content]
+      [this.isStackedCell ? h('div', [content]) : content]
     )
   }
 })
