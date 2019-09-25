@@ -14,15 +14,15 @@
         "props": [
           {
             "prop": "stacked",
-            "description": "When set, renders teh checkbox group in stacked mode"
+            "description": "When set, renders the checkbox group in stacked mode"
           },
           {
             "prop": "switches",
-            "description": "When set, renders teh checkboxes in the group with switche stying"
+            "description": "When set, renders the checkboxes in the group with switch stying"
           },
           {
             "prop": "buttons",
-            "description": "When set, renderes teh checkboxes in this group with button styling"
+            "description": "When set, renderes the checkboxes in this group with button styling"
           },
           {
             "prop": "buttonVariant",
@@ -81,7 +81,7 @@
         "props": [
           {
             "prop": "checked",
-            "description": "The current value of the checkboxe. Must be an array when there are multiple checkboxes bound to the same v-model"
+            "description": "The current value of the checkbox(es). Must be an array when there are multiple checkboxes bound to the same v-model"
           },
           {
             "prop": "value",
@@ -92,20 +92,16 @@
             "description": "Value returned when this checkbox is unchecked. Note not applicable when multiple checkboxes bound to the same v-model array"
           },
           {
-            "prop": "chacked",
-            "description": "Current value of this checkbox. Must be an array when multile checkboxes bound to the same v-model"
-          },
-          {
             "prop": "inline",
             "description": "When set, renders the checkbox as an inline element rather than as a 100% width block"
           },
           {
             "prop": "switch",
-            "description": "When set, renders teh checkbox with the appearence of a switch"
+            "description": "When set, renders the checkbox with the appearence of a switch"
           },
           {
             "prop": "button",
-            "description": "When set, renders teh checkbox with the appearence of a button"
+            "description": "When set, renders the checkbox with the appearence of a button"
           },
           {
             "prop": "buttonVariant",
