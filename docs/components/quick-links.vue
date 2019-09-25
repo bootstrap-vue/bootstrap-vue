@@ -1,5 +1,5 @@
 <template>
-  <nav :class="['bd-quick-links', 'mb-3', { 'd-none': !quickLinksMoved }]">
+  <nav :class="['bd-quick-links', 'mb-3', { 'd-none': !quickLinksVisible }]">
     <header>
       <b-button
         v-b-toggle.bd-quick-links-collapse
@@ -43,12 +43,12 @@ export default {
       // toc: [],
       offset: 0,
       quickLinksExpanded: false,
-      quickLinksMoved: false
+      quickLinksVisible: false
     }
   },
   computed: {
     toc() {
-      // TODO: this will be pre-done when emitted and 
+      // TODO: this will be pre-done when emitted and
       //       will be replaced by a toc entry in data
       return makeTOC(this.readme, this.meta)
     }
@@ -57,28 +57,22 @@ export default {
     // TODO: the TOC will be pre-processed when emitted
     // this.$root.$on('setTOC', toc => this.toc = toc)
     this.$root.$on('setTOC', (readme, meta) => {
+      // Reset visible/expanded states
+      this.quickLinksVisible = false
+      this.quickLinksExpanded = false
+      // Update the content
       this.readme = readme
       this.meta = meta || null
+      // Re-position the quick links
+      this.positionQuickLinks()
     })
   },
   mounted() {
-    const $body = document.body
     // Set the correct offset based on the header height
-    const $header = $body.querySelector('header.navbar')
+    const $header = document.body.querySelector('header.navbar')
     if ($header) {
       this.offset = $header.offsetHeight + 6
     }
-    // Move the quick links to the correct position, if possible
-    const $referenceNode = $body.querySelector('.bd-lead') || $body.querySelector('h1')
-    if ($referenceNode) {
-      // IE 11 doesn't support the .after() method, and appears
-      // that the polyfill doesn't polyfill this method
-      // $referenceNode.after(this.$el)
-      $referenceNode.insertAdjacentElement('afterend', this.$el)
-    }
-    // Make the quick links visible
-    // We hide them initially to make the position change not that distracting
-    this.quickLinksMoved = true
   },
   methods: {
     isArray(value) {
@@ -102,6 +96,19 @@ export default {
           $el.focus()
         })
       }
+    },
+    positionQuickLinks() {
+      // Move the quick links to the correct position, if possible
+      const $body = document.body
+      const $referenceNode = $body.querySelector('.bd-lead') || $body.querySelector('h1')
+      if ($referenceNode) {
+        // IE 11 doesn't support the `node.after()` method, and appears
+        // that the polyfill doesn't polyfill this method
+        $referenceNode.insertAdjacentElement('afterend', this.$el)
+      }
+      // Make the quick links visible
+      // We hide them initially to make the position change not that distracting
+      this.quickLinksVisible = true
     }
   }
 }
