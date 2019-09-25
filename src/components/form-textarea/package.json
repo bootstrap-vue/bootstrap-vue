@@ -10,6 +10,52 @@
         "aliases": [
           "BTextarea"
         ],
+        "props": [
+          {
+            "prop": "value",
+            "description": "The current value of the input.  Result will always be a string, except whe nteh 'number' prop is used"
+          },
+          {
+            "prop": "ariaInvalid",
+            "description": "Sets the 'aria-invalid' attribute with the specified value"
+          },
+          {
+            "prop": "trim",
+            "description": "When set, trims any leading and trailing white space from the input value"
+          },
+          {
+            "prop": "number",
+            "description": "When set attempts to convert the input value to a native number"
+          },
+          {
+            "prop": "formatter",
+            "description": "reference to a function for formatting the input"
+          },
+          {
+            "prop": "lazyFormatter",
+            "description": "When set, teh input is formatted on blur"
+          },
+          {
+            "prop": "rows",
+            "description": "The minimum number of rows to display. Must be a value greater than 1"
+          },
+          {
+            "prop": "maxRows",
+            "description": "The maximum number of rows to show. When provided, the textarea will grow to fit the content up to maximum rows"
+          },
+          {
+            "prop": "wrap",
+            "description": "The value to place on the textarea's 'wrap' attribute. Controls how line break are returned"
+          },
+          {
+            "prop": "noResize",
+            "description": "When set, disabled the browser's resize handle which prevents teh user from changing the height of the textarea. Automatically set when in auto height mode"
+          },
+          {
+            "prop": "noAutoShrink",
+            "description": "When set, prevents teh auto height textare from shrking to fit the content"
+          }
+        ],
         "events": [
           {
             "event": "input",
