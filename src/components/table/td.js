@@ -1,5 +1,4 @@
 import Vue from '../../utils/vue'
-import { omit } from '../../utils/object'
 import { BTableCell } from './helpers/table-cell'
 
 // @vue/component
