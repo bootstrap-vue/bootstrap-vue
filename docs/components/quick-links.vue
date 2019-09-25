@@ -32,13 +32,13 @@
 
 <style scoped lang="scss">
 #bd-quick-links-collapse {
-  list-style-type: none;
+  list-style-type: square;
   border-left: 5px solid #ccc;
-  padding-left: 1rem;
+  padding-left: 2.5rem;
   margin-top: 1rem;
 
   ul {
-    list-style-type: square;
+    list-style-type: disc;
     margin-bottom: 0.5rem;
   }
 }
