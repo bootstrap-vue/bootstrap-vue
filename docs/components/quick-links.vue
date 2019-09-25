@@ -1,8 +1,9 @@
 <template>
   <nav>
-    <header class="font-weight-bold">
+    <header>
       <b-button
         v-b-toggle.quick-links-collapse
+        class="font-weight-bold"
         variant="outline-secondary"
         size="sm"
         block
