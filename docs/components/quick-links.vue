@@ -48,31 +48,20 @@ export default {
   name: 'BDVToc',
   data() {
     return {
-      readme: '',
-      meta: null,
-      // toc: [],
+      toc: [],
       offset: 0,
       quickLinksExpanded: false,
       quickLinksVisible: false
     }
   },
-  computed: {
-    toc() {
-      // TODO: this will be pre-done when emitted and
-      //       will be replaced by a toc entry in data
-      return makeTOC(this.readme, this.meta)
-    }
-  },
   created() {
     // TODO: the TOC will be pre-processed when emitted
-    // this.$root.$on('setTOC', toc => this.toc = toc)
-    this.$root.$on('setTOC', (readme, meta) => {
+    this.$root.$on('docs-set-toc', toc => {
       // Reset visible/expanded states
       this.quickLinksVisible = false
       this.quickLinksExpanded = false
-      // Update the content
-      this.readme = readme
-      this.meta = meta || null
+      // Update the TOC content
+      this.toc = toc
       // Re-position the quick links
       this.positionQuickLinks()
     })
