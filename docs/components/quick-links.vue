@@ -39,6 +39,7 @@
 
   ul {
     list-style-type: disc;
+    padding-left: 1.25rem;
     margin-bottom: 0.5rem;
   }
 }
