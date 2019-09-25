@@ -103,19 +103,20 @@ export default {
       }
     },
     positionQuickLinks() {
-      // Move the quick links to the correct position, if possible
-      if (typeof document !== 'undefined') {
-        const $body = document.body
-        const $referenceNode = $body.querySelector('.bd-lead') || $body.querySelector('h1')
-        if ($referenceNode) {
-          // IE 11 doesn't support the `node.after()` method, and appears
-          // that the polyfill doesn't polyfill this method
-          $referenceNode.insertAdjacentElement('afterend', this.$el)
-        }
-        // Make the quick links visible
-        // We hide them initially to make the position change not that distracting
-        this.quickLinksVisible = true
+      if (typeof document === 'undefined') {
+        return
       }
+      // Move the quick links to the correct position, if possible
+      const $body = document.body
+      const $referenceNode = $body.querySelector('.bd-lead') || $body.querySelector('h1')
+      if ($referenceNode) {
+        // IE 11 doesn't support the `node.after()` method, and appears
+        // that the polyfill doesn't polyfill this method
+        $referenceNode.insertAdjacentElement('afterend', this.$el)
+      }
+      // Make the quick links visible
+      // We hide them initially to make the position change not that distracting
+      this.quickLinksVisible = true
     }
   }
 }
