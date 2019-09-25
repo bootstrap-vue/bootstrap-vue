@@ -1,4 +1,4 @@
-import SectionToc from '~components/section-toc.vue'
+import SectionToc from '~/components/section-toc.vue'
 
 export default {
   extends: SectionToc
