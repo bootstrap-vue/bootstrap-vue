@@ -3,9 +3,8 @@
     <header class="font-weight-bold">
       <b-button
         v-b-toggle.quick-links-collapse
-        variant="light"
-        size="sm"
         variant="outline-secondary"
+        size="sm"
         block
       >
         <span v-if="quickLinksVisible">Hide</span>
@@ -13,7 +12,7 @@
         Page table of contents
       </b-button>
     </header>
-    <b-collapse v-mdel="quickLinksVisible" tag="ul" id="quick-links-collapse">
+    <b-collapse v-mdel="quickLinksVisible" id="quick-links-collapse" tag="ul">
       <li v-for="h2 in toc.toc" :key="h2.href">
         <b-link :href="h2.href" @click="scrollIntoView($event, h2.href)">
           <span v-html="h2.label"></span>
