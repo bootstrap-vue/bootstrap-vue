@@ -18,6 +18,16 @@
         <b-link :href="h2.href" @click="scrollIntoView($event, h2.href)">
           <span v-html="h2.label"></span>
         </b-link>
+        <ul v-if="h2.toc && h2.toc.length > 0" :key="`sub-${h2.href}`">
+          <li 
+            v-for="h3 in h2.toc"
+            :key="h3.href"
+            :href="h3.href"
+            @click="scrollIntoView($event, h3.href)"
+          >
+            <span v-html="h3.label"></span>
+          </li>
+        </ul>
       </li>
     </b-collapse>
   </nav>
