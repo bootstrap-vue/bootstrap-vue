@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { makeTOC, offsetTop, scrollTo } from '~/utils'
+import { offsetTop, scrollTo } from '~/utils'
 
 export default {
   name: 'BDVToc',
@@ -57,7 +57,9 @@ export default {
     }
   },
   created() {
-    this.$root.$on('docs-set-toc', toc => this.toc = toc)
+    this.$root.$on('docs-set-toc', toc => {
+      this.toc = toc
+    })
   },
   mounted() {
     const $header = document.body.querySelector('header.navbar')
