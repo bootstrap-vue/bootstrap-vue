@@ -1,5 +1,5 @@
 <template>
-  <nav :class="['bd-quick-links', 'mb-3', { 'd-none': quickLinksMoved }]">
+  <nav :class="['bd-quick-links', 'mb-3', { 'd-none': !quickLinksMoved }]">
     <header>
       <b-button
         v-b-toggle.bd-quick-links-collapse
