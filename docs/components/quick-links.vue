@@ -41,7 +41,7 @@ export default {
       readme: '',
       meta: null,
       offset: 0,
-      quickLinksVisible: false
+      quickLinksVisible: false,
       quickLinksMoved: false
     }
   },
