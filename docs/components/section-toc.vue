@@ -58,7 +58,11 @@ export default {
     },
     groupTitle() {
       const title = this.group.title || ''
-      return title === 'Components' ? 'Component groups' : title
+      return title === 'Components'
+        ? 'Component groups'
+        : title === 'Misc'
+          ? 'Miscellaneous'
+          : title || ''
     },
     pages() {
       return this.group.pages || []
