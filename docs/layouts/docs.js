@@ -9,7 +9,7 @@ import Toc from '~/components/toc.vue'
 export default {
   name: 'BVDDocsLayout',
   data() {
-    return: {
+    return {
       hasToc: false
     }
   },
