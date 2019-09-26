@@ -31,7 +31,7 @@ export default {
       } else if (/^docs-reference/.test(routeName)) {
         section = 'Reference'
       } else if (/^docs-misc/.test(routeName)) {
-        section = 'Misc'
+        section = 'Miscellaneous'
       }
       return [title, section, 'BootstrapVue'].filter(Boolean).join(' | ')
     },
