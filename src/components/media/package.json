@@ -13,7 +13,7 @@
             "description": "When set, does not render a 'b-media-body' wrapper around the default slot content"
           },
           {
-            "prop": "right-align",
+            "prop": "rightAlign",
             "description": "Render the 'aside' slot on the right. Default is on the left"
           },
           {
