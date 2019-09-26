@@ -7,7 +7,7 @@
     "components": [
       {
         "component": "BPagination",
-         "events": [
+        "events": [
           {
             "event": "input",
             "description": "when page changes via user interaction or programmatically",

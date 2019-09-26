@@ -83,7 +83,7 @@ export default {
     this.scrollTimeout = null
     this.focusScroll()
     this.$nextTick(() => {
-      // In a setTimeout to allow page time to finish processing
+      // In a `setTimeout()` to allow page time to finish processing
       setTimeout(() => {
         const key = `${this.$route.path}_${this.$route.params.slug || ''}`
         const toc =
@@ -109,8 +109,8 @@ export default {
       this.$nextTick(() => {
         let el
         if (hash) {
-          // We use an attribute querySelector rather than getElementByID, as some auto
-          // generated ID's are invalid, and some may appear more than once
+          // We use an attribute `querySelector()` rather than `getElementByID()`,
+          // as some auto-generated ID's are invalid or not unique
           el = this.$el.querySelector(`[id="${hash.replace('#', '')}"]`)
           this.scrollIntoView(el)
         }
