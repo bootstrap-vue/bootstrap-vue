@@ -4,6 +4,12 @@
   </div>
 </template>
 
+<style scoped>
+.breadcrumb /deep/ .breadcrumb-item {
+  margin-bottom: 0
+}
+</style>
+
 <script>
 import { nav } from '~/content'
 
