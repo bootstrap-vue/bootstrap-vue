@@ -6,6 +6,11 @@ export default {
     }
   },
   computed: {
+    show() {
+      const name = this.$route.name
+      const slug = this.$route.params.slug
+      return slug || name === 'docs'
+    },
     reportIssueUrl() {
       // Add appreciate query params for proper issue title
       return `${this.baseUrl}/issues/new?title=Docs`
@@ -35,6 +40,9 @@ export default {
     }
   },
   render(h) {
+    if (!this.show) {
+      return h()
+    }
     const $reportIssueButton = h(
       'b-button',
       {

@@ -1,5 +1,8 @@
+import SectionToc from '~/components/section-toc.vue'
+import docsMixin from '~/plugins/docs-mixin'
+
 export default {
-  fetch({ redirect }) {
-    redirect('/docs/directives/popover')
-  }
+  name: 'BVDocsDirectivesIndex',
+  mixins: [docsMixin],
+  extends: SectionToc
 }
