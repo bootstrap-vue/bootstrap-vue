@@ -52,7 +52,8 @@ export default {
       return groups[this.slug] || {}
     },
     groupTitle() {
-      return this.group.title || ''
+      const title = this.group.title || ''
+      return title === 'Components' ? 'Component groups' : title
     },
     pages() {
       return this.group.pages || []
