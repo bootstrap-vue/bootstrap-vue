@@ -4,7 +4,7 @@
       <h1 :id="id" tabindex="-1">
         <span class="bd-content-title">{{ groupTitle }}</span>
       </h1>
-      <p clas="lead">
+      <p class="lead">
         Table of contents
       </p>
       <nav class="bd-section-contents" :aria-labelledby="id">
@@ -13,6 +13,8 @@
             <b-link :to="`/docs/${slug}/${page.slug}`" active-class="">
               {{ page.title }}
             </b-link>
+            &mdash;
+            <span class="text-muted">{{ page.description }}</span>
           </li>
         </ul>
       </nav>
