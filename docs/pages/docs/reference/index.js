@@ -4,4 +4,3 @@ export default {
   name: 'BVDocsReferenceIndex',
   extends: SectionToc
 }
-
