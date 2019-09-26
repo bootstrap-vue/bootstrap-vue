@@ -2,9 +2,9 @@
   <Main>
     <Section>
       <h1 :id="id" tabindex="-1">
-        <span class="bd-content-title">{{ groupTitle }}</span>
+        <span class="bd-content-title">{{ groupTitle }} table of contents</span>
       </h1>
-      <p class="bd-lead">Table of contents</p>
+      <p class="bd-lead" v-if="groupDescription">{{ groupDescription }}</p>
       <b-list-group tag="nav" :aria-label="`${groupTitle} section navigation`">
         <b-list-group-item
           v-for="page in pages"
@@ -53,6 +53,9 @@ export default {
     },
     group() {
       return groups[this.slug] || {}
+    },
+    groupDescription() {
+      return this.group.description
     },
     groupTitle() {
       const title = this.group.title || ''
