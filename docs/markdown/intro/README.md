@@ -677,7 +677,7 @@ If you want to support older IE, Android, and iOS device web browsers, you may w
 [core-js](https://github.com/zloirock/core-js) and
 [intersection-observer](https://www.npmjs.com/package/intersection-observer):
 
-- `npm install core-js regenerator-runtime intersection-observer`
+- <samp class="text-monospace">npm install core-js regenerator-runtime intersection-observer</samp>
 - Import the polyfills in your app main entry point:
 
 <!-- eslint-disable no-unused-vars -->
@@ -692,7 +692,7 @@ import BootstrapVue from 'bootstrap-vue'
 
 If using deprecated [@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill/):
 
-- `npm install @babel/polyfill intersection-observer`
+- <samp class="text-monospace">npm install @babel/polyfill intersection-observer</samp>
 - Import the polyfills in your app main entry point:
 
 <!-- eslint-disable no-unused-vars -->
