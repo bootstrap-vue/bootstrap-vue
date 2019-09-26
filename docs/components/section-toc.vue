@@ -8,15 +8,15 @@
         Table of contents
       </p>
       <nav class="bd-section-contents" :aria-labelledby="id">
-        <ul>
-          <li v-for="page in pages" :key="page.slug">
+        <b-list-group tag="ul">
+          <b-list-group-item v-for="page in pages" :key="page.slug" tag="li">
             <b-link :to="`/docs/${slug}/${page.slug}`" active-class="">
               {{ page.title }}
             </b-link>
             &mdash;
             <span class="text-muted">{{ page.description }}</span>
-          </li>
-        </ul>
+          </b-list-group-item>
+        </b-list-group>
       </nav>
     </Section>
   </Main>
