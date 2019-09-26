@@ -4,20 +4,19 @@
       <h1 :id="id" tabindex="-1">
         <span class="bd-content-title">{{ groupTitle }}</span>
       </h1>
-      <p class="bd-lead">
-        Table of contents
-      </p>
-      <nav :aria-label="`${groupTitle} section navigation`">
-        <b-list-group tag="ul">
-          <b-list-group-item v-for="page in pages" :key="page.slug" tag="li">
-            <b-link :to="`/docs/${slug}/${page.slug}`" active-class="">
-              {{ page.title }}
-            </b-link>
-            &mdash;
-            <span class="text-muted">{{ page.description }}</span>
-          </b-list-group-item>
-        </b-list-group>
-      </nav>
+      <p class="bd-lead">Table of contents</p>
+      <b-list-group tag="nav" :aria-label="`${groupTitle} section navigation`">
+        <b-list-group-item
+          v-for="page in pages"
+          :key="page.slug"
+          :to="`/docs/${slug}/${page.slug}`"
+          active-class=""
+        >
+          <strong>{{ page.title }}</strong>
+          &mdash;
+          <span class="text-muted">{{ page.description }}</span>
+        </b-list-group-item>
+      </b-list-group>
     </Section>
   </Main>
 </template>
