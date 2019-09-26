@@ -5,7 +5,7 @@
         <span class="bd-content-title">{{ groupTitle }} table of contents</span>
       </h1>
       <p v-if="groupDescription" class="bd-lead">{{ groupDescription }}</p>
-      <b-list-group tag="nav" :aria-label="`${groupTitle} section navigation`" clas="mb-5">
+      <b-list-group tag="nav" :aria-label="`${groupTitle} section navigation`" class="mb-5">
         <b-list-group-item
           v-for="page in pages"
           :key="page.slug"
