@@ -13,6 +13,16 @@
 
 Check out what is new in [BootstrapVue release v{{ version }}](/docs/misc/changelog).
 
+## Documentation sections
+
+The online documentation is comprised of the following sections:
+
+- [Components](/docs/components) - Components and plugin documentation
+- [Directives](/docs/directives) - Directives and plugin documentation
+- [Reference](/docs/reference) - Reference information and documentation
+- [Miscellaneous](/docs/misc) - Miscellaneous information
+- [Playground](/play) - Online playground
+
 ## Prerequisites
 
 Before getting started with BootstrapVue, you should have general familiarity with Vue functionality
