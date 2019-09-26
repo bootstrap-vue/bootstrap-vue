@@ -94,7 +94,7 @@ export default {
   },
 
   beforeDestroy() {
-    this.$root.$emit('docs-set-toc', [])
+    this.$root.$emit('docs-set-toc', {})
   },
 
   methods: {
