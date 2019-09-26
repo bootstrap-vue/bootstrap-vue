@@ -1,3 +1,4 @@
+import DocsBreadcrumbs from '~/components/docs-breadcrumbs.vue'
 import Feedback from '~/components/feedback'
 import Header from '~/components/header'
 import Footer from '~/components/footer'
@@ -36,6 +37,7 @@ export default {
         props: { cols: 12, md: 9, xl: 8 }
       },
       [
+        h(DocsBreadcrumbs, { class: ['float-left', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h(Feedback, { class: ['float-right', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h('div', { class: ['clearfix', 'd-bock', 'd-xl-none'] }),
         h(QuickLinks, { class: 'd-xl-none' }),
