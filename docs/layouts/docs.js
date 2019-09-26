@@ -10,13 +10,13 @@ export default {
   name: 'BVDDocsLayout',
   data() {
     return: {
-      toc: {}
+      hasToc: false
     }
   },
   created() {
-    // ONly needed so we can set aria-hidden on the TOC nav wrapper
+    // Only needed so we can set/clear aria-hidden on the TOC nav wrapper
     this.$root.$on('docs-set-toc', toc => {
-      this.toc = toc
+      this.hasToc = !!toc.toc
     })
   },
   render(h) {
@@ -50,7 +50,7 @@ export default {
         props: { tag: 'nav', xl: 2 },
         attrs: {
           'aria-label': 'Secondary navigation',
-          'aria-hidden': this.toc.toc ? null : 'true'
+          'aria-hidden': this.hasToc ? null : 'true'
         }
       },
       [h(Toc)]
