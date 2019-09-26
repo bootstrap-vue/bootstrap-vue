@@ -1,5 +1,7 @@
 <template>
-  <b-breadcrumb :items="items" class="d-inline-flex small px-2 py-1"></b-breadcrumb>
+  <nav aria-label="Breadcrumbs">
+    <b-breadcrumb :items="items" class="d-inline-flex small bg-light px-2 py-1 my-0"></b-breadcrumb>
+  </div>
 </template>
 
 <script>
