@@ -85,7 +85,8 @@ export default {
       // In a RAF to allow page time to finish processing
       requestAnimationFrame(() => {
         const key = `${this.$route.path}_${this.$route.params.slug || ''}`
-        const toc = TOC_CACHE[key] || (TOC_CACHE[key] = makeTOC(this.readme || '', this.meta || null))
+        const toc =
+          TOC_CACHE[key] || (TOC_CACHE[key] = makeTOC(this.readme || '', this.meta || null))
         this.$root.$emit('docs-set-toc', toc)
       })
     })
