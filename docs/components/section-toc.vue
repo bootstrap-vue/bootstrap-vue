@@ -5,7 +5,7 @@
         <span class="bd-content-title">{{ groupTitle }}</span>
       </h1>
       <p class="bd-lead">Table of contents</p>
-      <b-list-group tag="nav" :aria-label="`${groupTitle} section navigation`">
+      <b-list-group tag="nav" class="bd-section-index" :aria-label="`${groupTitle} section navigation`">
         <b-list-group-item
           v-for="page in pages"
           :key="page.slug"
@@ -20,6 +20,12 @@
     </Section>
   </Main>
 </template>
+
+<style scoped>
+.bd-section-index /deep/ .list-group-item:hover strong {
+  text-decoration: underline;
+}
+</style>
 
 <script>
 import Main from '~/components/main'
