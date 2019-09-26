@@ -1,14 +1,21 @@
 import Popper from 'popper.js'
-import { BvEvent } from '../utils/bv-event.class'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
-import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
+import { BvEvent } from '../utils/bv-event.class'
+import { closest, contains, isVisible, requestAF, selectAll, eventOn, eventOff } from '../utils/dom'
 import { isNull } from '../utils/inspect'
-import clickOutMixin from './click-out'
-import focusInMixin from './focus-in'
+import idMixin from './id'
 
 // Return an array of visible items
 const filterVisibles = els => (els || []).filter(isVisible)
+
+// Root dropdown event names
+const ROOT_DROPDOWN_PREFIX = 'bv::dropdown::'
+const ROOT_DROPDOWN_SHOWN = `${ROOT_DROPDOWN_PREFIX}shown`
+const ROOT_DROPDOWN_HIDDEN = `${ROOT_DROPDOWN_PREFIX}hidden`
+
+// Delay when loosing focus before closing menu (in ms)
+const FOCUSOUT_DELAY = 100
 
 // Dropdown item CSS selectors
 const Selector = {
@@ -40,7 +47,7 @@ const AttachmentMap = {
 
 // @vue/component
 export default {
-  mixins: [clickOutMixin, focusInMixin],
+  mixins: [idMixin],
   provide() {
     return {
       bvDropdown: this
@@ -136,7 +143,8 @@ export default {
           cancelable: true,
           vueTarget: this,
           target: this.$refs.menu,
-          relatedTarget: null
+          relatedTarget: null,
+          componentId: this.safeId ? this.safeId() : this.id || null
         })
         this.emitEvent(bvEvt)
         if (bvEvt.defaultPrevented) {
@@ -181,16 +189,13 @@ export default {
     emitEvent(bvEvt) {
       const type = bvEvt.type
       this.$emit(type, bvEvt)
-      this.$root.$emit(`bv::dropdown::${type}`, bvEvt)
+      this.$root.$emit(`${ROOT_DROPDOWN_PREFIX}${type}`, bvEvt)
     },
     showMenu() {
       if (this.disabled) {
         /* istanbul ignore next */
         return
       }
-      // Ensure other menus are closed
-      this.$root.$emit('bv::dropdown::shown', this)
-
       // Are we in a navbar ?
       if (isNull(this.inNavbar) && this.isNav) {
         // We should use an injection for this
@@ -213,6 +218,9 @@ export default {
         }
       }
 
+      // Ensure other menus are closed
+      this.$root.$emit(ROOT_DROPDOWN_SHOWN, this)
+
       this.whileOpenListen(true)
 
       // Wrap in nextTick to ensure menu is fully rendered/shown
@@ -225,7 +233,7 @@ export default {
     },
     hideMenu() {
       this.whileOpenListen(false)
-      this.$root.$emit('bv::dropdown::hidden', this)
+      this.$root.$emit(ROOT_DROPDOWN_HIDDEN, this)
       this.$emit('hidden')
       this.removePopper()
     },
@@ -263,19 +271,16 @@ export default {
       }
       return { ...popperConfig, ...(this.popperOpts || {}) }
     },
-    whileOpenListen(open) {
+    whileOpenListen(isOpen) {
       // turn listeners on/off while open
-      if (open) {
+      if (isOpen) {
         // If another dropdown is opened
-        this.$root.$on('bv::dropdown::shown', this.rootCloseListener)
-        // Hide the dropdown when clicked outside
-        this.listenForClickOut = true
-        // Hide the dropdown when it loses focus
-        this.listenForFocusIn = true
+        this.$root.$on(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
+        // Hide the menu when focus moves out
+        eventOn(this.$el, 'focusout', this.onFocusOut, { passive: true })
       } else {
-        this.$root.$off('bv::dropdown::shown', this.rootCloseListener)
-        this.listenForClickOut = false
-        this.listenForFocusIn = false
+        this.$root.$off(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
+        eventOff(this.$el, 'focusout', this.onFocusOut, { passive: true })
       }
     },
     rootCloseListener(vm) {
@@ -360,6 +365,7 @@ export default {
         this.focusNext(evt, true)
       }
     },
+    // If uses presses ESC to close menu
     onEsc(evt) {
       if (this.visible) {
         this.visible = false
@@ -369,18 +375,25 @@ export default {
         this.$once('hidden', this.focusToggler)
       }
     },
-    // Document click out listener
-    clickOutHandler() {
-      if (this.visible) {
-        this.visible = false
-      }
-    },
-    // Document focusin listener
-    focusInHandler(evt) {
-      const target = evt.target
-      // If focus leaves dropdown, hide it
-      if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
-        this.visible = false
+    // Dropdown wrapper focusOut handler
+    onFocusOut(evt) {
+      // `relatedTarget` is the element gaining focus
+      const relatedTarget = evt.relatedTarget
+      // If focus moves outside the menu or toggler, then close menu
+      if (
+        this.visible &&
+        !contains(this.$refs.menu, relatedTarget) &&
+        !contains(this.toggler, relatedTarget)
+      ) {
+        const doHide = () => {
+          this.visible = false
+        }
+        // When we are in a navbar (which has been responsively stacked), we
+        // delay the dropdown's closing so that the next element has a chance
+        // to have it's click handler fired (in case it's position moves on
+        // the screen do to a navbar menu above it collapsing)
+        // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
+        this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
       }
     },
     // Keyboard nav
