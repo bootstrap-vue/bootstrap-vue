@@ -4,6 +4,9 @@
       <h1 :id="id" tabindex="-1">
         <span class="bd-content-title">{{ groupTitle }}</span>
       </h1>
+      <p clas="lead">
+        Table of contents
+      </p>
       <nav class="bd-section-contents" :aria-labelledby="id">
         <ul>
           <li v-for="page in pages" :key="page.slug">
