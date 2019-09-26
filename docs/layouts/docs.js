@@ -16,7 +16,7 @@ export default {
   created() {
     // Only needed so we can set/clear aria-hidden on the TOC nav wrapper
     this.$root.$on('docs-set-toc', toc => {
-      this.hasToc = !!toc.toc
+      this.hasToc = Boolean(toc && toc.toc)
     })
   },
   render(h) {
