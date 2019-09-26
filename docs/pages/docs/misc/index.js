@@ -4,4 +4,3 @@ export default {
   name: 'BVDocsMiscIndex',
   extends: SectionToc
 }
-
