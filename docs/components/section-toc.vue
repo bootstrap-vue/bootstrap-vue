@@ -12,8 +12,7 @@
           :to="`/docs/${slug}/${page.slug}`"
           active-class=""
         >
-          <strong>{{ page.title }}</strong>
-          &mdash;
+          <strong>{{ page.title }}</strong> &mdash;
           <span class="text-muted">{{ page.description }}</span>
         </b-list-group-item>
       </b-list-group>
