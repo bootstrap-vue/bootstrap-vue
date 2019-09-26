@@ -60,6 +60,7 @@ export default {
           content: desc
         })
       } else if (bvDescription) {
+        // TODO: Check if section group has description
         meta.push({
           hid: 'description',
           name: 'description',
