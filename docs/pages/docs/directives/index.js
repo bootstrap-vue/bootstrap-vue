@@ -1,5 +1,6 @@
+import SectionToc from '~/components/section-toc.vue'
+
 export default {
-  fetch({ redirect }) {
-    redirect('/docs/directives/popover')
-  }
+  name: 'BVDocsDirectivesIndex',
+  extends: SectionToc
 }
