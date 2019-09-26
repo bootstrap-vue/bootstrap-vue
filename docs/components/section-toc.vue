@@ -3,7 +3,7 @@
     <Section>
       <h1 :id="id" tabindex="-1">
         <span class="bd-content-title">
-          {{ groupTitle }} &mdash; <small class="text-muted">table of contents<small>
+          {{ groupTitle }} <span class="small text-muted">&mdash; table of contents<span>
         </span>
       </h1>
       <p v-if="groupDescription" class="bd-lead">{{ groupDescription }}</p>
