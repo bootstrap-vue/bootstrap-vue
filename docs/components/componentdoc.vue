@@ -46,6 +46,7 @@
       <b-table
         :items="propsItems"
         :fields="propsFields"
+        primary-key="prop"
         table-class="bv-docs-table"
         responsive="sm"
         sort-icon-left
@@ -109,6 +110,7 @@
       <b-table
         :items="slotsItems"
         :fields="slotsFields"
+        primary-key="name"
         table-class="bv-docs-table"
         responsive="sm"
         sort-icon-left
@@ -134,6 +136,7 @@
               v-if="item.scope"
               :items="item.scope"
               :fields="[{ key: 'prop', label: 'Property' }, 'type', 'description']"
+              primary-key="prop"
               class="mb-0"
               head-variant="dark"
               striped
@@ -171,6 +174,7 @@
       <b-table
         :items="events"
         :fields="eventsFields"
+        primary-key="event"
         table-class="bv-docs-table"
         responsive="sm"
         striped
@@ -204,6 +208,7 @@
       <b-table-lite
         :items="rootEventListeners"
         :fields="rootEventListenersFields"
+        primary-key="event"
         table-class="bv-docs-table"
         responsive="sm"
         striped
