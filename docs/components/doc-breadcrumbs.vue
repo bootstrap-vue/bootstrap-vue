@@ -21,14 +21,14 @@ export default {
       const section = this.$route.name.split('-')[1] || ''
       const slug = this.$route.params.slug || ''
       if (section) {
-        const sectionMeta = (navLookup[section] || {}
+        const sectionMeta = navLookup[section] || {}
         items.push({
           text: sectionMeta.title || section,
           to: ['/docs', section].join('/')
         })
         if (slug) {
           items.push({
-            text: (sectionMeta)[slug] || {}).title || slug,
+            text: (sectionMeta[slug] || {}).title || slug,
             to: ['/docs', section, slug].join('/')
           })
         }
