@@ -3,7 +3,7 @@
     :class="['bd-quick-links', 'mb-3', { 'd-none': !quickLinksVisible || !hasContent }]"
     :aria-hidden="hasContent ? null : 'true'"
   >
-    <header v-if="hasContent" >
+    <header v-if="hasContent">
       <b-button
         v-b-toggle.bd-quick-links-collapse
         class="font-weight-bold"
@@ -63,7 +63,7 @@ export default {
   },
   computed: {
     hasContent() {
-      return !!toc.toc
+      return !!this.toc.toc
     }
   },
   created() {
