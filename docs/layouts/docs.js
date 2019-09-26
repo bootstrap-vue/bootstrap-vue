@@ -8,8 +8,18 @@ import Toc from '~/components/toc.vue'
 
 export default {
   name: 'BVDDocsLayout',
-  functional: true,
-  render: h => {
+  data() {
+    return: {
+      toc: {}
+    }
+  },
+  created() {
+    // ONly needed so we can set aria-hidden on the TOC nav wrapper
+    this.$root.$on('docs-set-toc', toc => {
+      this.toc = toc
+    })
+  },
+  render(h) {
     const $sidebarCol = h(
       'b-col',
       {
@@ -38,7 +48,10 @@ export default {
         staticClass: 'bd-toc',
         class: ['d-none', 'd-xl-block'],
         props: { tag: 'nav', xl: 2 },
-        attrs: { 'aria-label': 'Secondary navigation' }
+        attrs: {
+          'aria-label': 'Secondary navigation',
+          'aria-hidden': this.toc.toc ? null : 'true'
+        }
       },
       [h(Toc)]
     )
