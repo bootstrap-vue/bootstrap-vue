@@ -28,6 +28,13 @@ import Main from '~/components/main'
 import Section from '~/components/section'
 import { nav } from '~/content'
 
+// Normalize nav into a lookup object
+const groups = nav.reduce((obj, g) => {
+  const groupSlug = g.base.replace(/\/$/, '')
+  obj[groupSlug] = g
+  return obj
+}, {})
+
 export default {
   layout: 'docs',
   components: {
@@ -35,14 +42,14 @@ export default {
     Section
   },
   computed: {
-    id() {
-      return `bd-section-toc-${this.slug}`
-    },
     slug() {
       return this.$route.path.replace(/^\//, '').split('/')[1] || ''
     },
+    id() {
+      return `bd-section-toc-${this.slug}`
+    },
     group() {
-      return nav[this.slug] || {}
+      return groups[this.slug] || {}
     },
     groupTitle() {
       return this.group.title || ''
