@@ -1,6 +1,6 @@
 <template>
-  <nav :class="['bd-quick-links', 'mb-3', { 'd-none': !quickLinksVisible }]">
-    <header>
+  <nav :class="['bd-quick-links', 'mb-3', { 'd-none': !quickLinksVisible || !toc.toc }]">
+    <header v-if="toc.toc" >
       <b-button
         v-b-toggle.bd-quick-links-collapse
         class="font-weight-bold"
@@ -13,7 +13,7 @@
         page table of contents
       </b-button>
     </header>
-    <b-collapse id="bd-quick-links-collapse" v-model="quickLinksExpanded" tag="ul">
+    <b-collapse v-if="toc.toc" id="bd-quick-links-collapse" v-model="quickLinksExpanded" tag="ul">
       <li v-for="h2 in toc.toc" :key="h2.href">
         <b-link :href="h2.href" @click="scrollIntoView($event, h2.href)">
           <span v-html="h2.label"></span>
@@ -59,7 +59,6 @@ export default {
     }
   },
   created() {
-    // TODO: the TOC will be pre-processed when emitted
     this.$root.$on('docs-set-toc', toc => {
       // Reset visible/expanded states
       this.quickLinksVisible = false
