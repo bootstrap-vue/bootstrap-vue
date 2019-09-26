@@ -1,11 +1,5 @@
 <template>
-  <b-collapse
-    id="bd-docs-nav"
-    class="bd-links"
-    tag="nav"
-    is-nav
-    aria-label="Main navigation"
-  >
+  <nav id="bd-docs-nav" class="bd-links d-none d-md-block" aria-label="Main navigation">
     <b-link to="/" exact router-tag="div" active-class="active">
       <b-link to="/" exact class="bd-toc-link" active-class="">Home</b-link>
     </b-link>
@@ -59,7 +53,7 @@
     <b-link to="/play" exact router-tag="div" active-class="active">
       <b-link to="/play" exact class="bd-toc-link" active-class="">Playground</b-link>
     </b-link>
-  </b-collapse>
+  </nav>
 </template>
 
 <script>

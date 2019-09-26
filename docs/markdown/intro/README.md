@@ -13,6 +13,16 @@
 
 Check out what is new in [BootstrapVue release v{{ version }}](/docs/misc/changelog).
 
+## Documentation sections
+
+The online documentation is comprised of the following sections:
+
+- [Components](/docs/components) - Components and plugin documentation
+- [Directives](/docs/directives) - Directives and plugin documentation
+- [Reference](/docs/reference) - Reference information and documentation
+- [Miscellaneous](/docs/misc) - Miscellaneous information
+- [Playground](/play) - Online playground
+
 ## Prerequisites
 
 Before getting started with BootstrapVue, you should have general familiarity with Vue functionality
@@ -642,6 +652,8 @@ your project:
 - If Bootstrap is the only thing relying on `jQuery`, you can safely remove it — BootstrapVue **does
   not** depend on `jQuery`
 - Convert your native Bootstrap HTML markup into the simplified BootstrapVue custom component markup
+- Start by converting only the interactive controls that require Bootstrap's javascript first.
+
 
 ## Browser support
 
@@ -667,8 +679,11 @@ If you want to support older IE, Android, and iOS device web browsers, you may w
 [core-js](https://github.com/zloirock/core-js) and
 [intersection-observer](https://www.npmjs.com/package/intersection-observer):
 
-- `npm install core-js regenerator-runtime intersection-observer`
-- Import the polyfills in your app main entry point:
+```bash
+npm install core-js regenerator-runtime intersection-observer
+```
+
+Then import the polyfills in your app main entry point:
 
 <!-- eslint-disable no-unused-vars -->
 
@@ -682,8 +697,11 @@ import BootstrapVue from 'bootstrap-vue'
 
 If using deprecated [@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill/):
 
-- `npm install @babel/polyfill intersection-observer`
-- Import the polyfills in your app main entry point:
+```bash
+npm install @babel/polyfill intersection-observer
+```
+
+Then import the polyfills in your app main entry point:
 
 <!-- eslint-disable no-unused-vars -->
 
