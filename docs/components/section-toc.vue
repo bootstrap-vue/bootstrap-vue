@@ -7,7 +7,7 @@
       <p class="bd-lead">
         Table of contents
       </p>
-      <nav class="bd-section-contents" :aria-labelledby="id">
+      <nav :aria-label="`${groupTitle} section navigation`">
         <b-list-group tag="ul">
           <b-list-group-item v-for="page in pages" :key="page.slug" tag="li">
             <b-link :to="`/docs/${slug}/${page.slug}`" active-class="">
@@ -21,12 +21,6 @@
     </Section>
   </Main>
 </template>
-
-<style scoped>
-.bd-section-contents ul {
-  list-item-style: square;
-}
-</style>
 
 <script>
 import Main from '~/components/main'
