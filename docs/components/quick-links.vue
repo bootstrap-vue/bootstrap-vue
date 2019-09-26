@@ -52,7 +52,7 @@ export default {
   name: 'BDVToc',
   data() {
     return {
-      toc: [],
+      toc: {},
       offset: 0,
       quickLinksExpanded: false,
       quickLinksVisible: false
