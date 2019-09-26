@@ -24,13 +24,13 @@ export default {
       if (this.meta && this.meta.title) {
         title = this.meta.title
       }
-      if (routeName === 'docs-components-slug') {
+      if (/^docs-components/.test(routeName)) {
         section = 'Components'
-      } else if (routeName === 'docs-directives-slug') {
+      } else if (/^docs-directives/.test(routeName)) {
         section = 'Directives'
-      } else if (routeName === 'docs-reference-slug') {
+      } else if (/^docs-reference/.test(routeName)) {
         section = 'Reference'
-      } else if (routeName === 'docs-misc-slug') {
+      } else if (/^docs-misc/.test(routeName)) {
         section = 'Misc'
       }
       return [title, section, 'BootstrapVue'].filter(Boolean).join(' | ')
