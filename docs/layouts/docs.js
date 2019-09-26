@@ -57,6 +57,6 @@ export default {
     )
     const $row = h('b-row', { class: ['flex-xl-nowrap2'] }, [$sidebarCol, $contentCol, $tocCol])
     const $container = h('b-container', { props: { fluid: true } }, [$row])
-    return [h(Header), $container, h(Footer, { props: { isDocs: true } })]
+    return h('div', {}, [h(Header), $container, h(Footer, { props: { isDocs: true } })])
   }
 }
