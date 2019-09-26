@@ -1,6 +1,7 @@
 <template>
   <b-nav
     v-b-scrollspy="{ offset }"
+    :aria-hidden="toc.toc ? null : 'true'"
     class="section-nav"
     vertical
   >
