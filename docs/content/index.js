@@ -21,7 +21,7 @@ export const nav = [
     exact: true
   },
   {
-    title: 'Component groups',
+    title: 'Components',
     base: 'components/',
     pages: components
   },
