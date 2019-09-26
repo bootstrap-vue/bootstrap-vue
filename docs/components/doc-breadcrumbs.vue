@@ -1,12 +1,14 @@
 <template>
   <nav aria-label="Breadcrumbs">
-    <b-breadcrumb :items="items" class="d-inline-flex small bg-transparent px-2 py-1 my-0">
+    <b-breadcrumb :items="items" class="d-inline-flex bg-transparent px-2 py-1 my-0">
     </b-breadcrumb>
   </nav>
 </template>
 
 <style scoped>
 .breadcrumb /deep/ .breadcrumb-item {
+  font-size: 0.875rem;
+  line-height: 1.5;
   margin-bottom: 0;
 }
 </style>
