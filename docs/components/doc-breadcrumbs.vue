@@ -1,7 +1,7 @@
 <template>
   <nav aria-label="Breadcrumbs">
     <b-breadcrumb :items="items" class="d-inline-flex small bg-light px-2 py-1 my-0"></b-breadcrumb>
-  </div>
+  </nav>
 </template>
 
 <style scoped>
