@@ -14,10 +14,7 @@ export default {
   name: 'BDVBreadcrumbs',
   computed: {
     items() {
-      const items = [
-        { text: 'Home', to: '/' },
-        { text: 'Docs', to: '/docs' }
-      ]
+      const items = [{ text: 'Home', to: '/' }, { text: 'Docs', to: '/docs' }]
       const section = this.$route.name.split('-')[1] || ''
       const slug = this.$route.params.slug || ''
       if (section) {
