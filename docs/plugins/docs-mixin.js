@@ -4,6 +4,8 @@
 import { makeTOC, scrollTo, offsetTop } from '~/utils'
 import { bvDescription } from '~/content'
 
+const TOC_CACHE = {}
+
 // @vue/component
 export default {
   data() {
@@ -82,7 +84,9 @@ export default {
     this.$nextTick(() => {
       // In a RAF to allow page time to finish processing
       requestAnimationFrame(() => {
-        this.$root.$emit('docs-set-toc', makeTOC(this.readme || '', this.meta || null))
+        const key = `${this.$route.path}_${this.$route.params.slug || ''}`
+        const toc = TOC_CACHE[key] || (TOC_CACHE[key] = makeTOC(this.readme || '', this.meta || null))
+        this.$root.$emit('docs-set-toc', toc)
       })
     })
   },
