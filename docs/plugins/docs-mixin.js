@@ -82,13 +82,13 @@ export default {
     this.scrollTimeout = null
     this.focusScroll()
     this.$nextTick(() => {
-      // In a RAF to allow page time to finish processing
-      requestAnimationFrame(() => {
+      // In a setTimeout to allow page time to finish processing
+      setTimeout(() => {
         const key = `${this.$route.path}_${this.$route.params.slug || ''}`
         const toc =
           TOC_CACHE[key] || (TOC_CACHE[key] = makeTOC(this.readme || '', this.meta || null))
         this.$root.$emit('docs-set-toc', toc)
-      })
+      }, 1)
     })
   },
 
