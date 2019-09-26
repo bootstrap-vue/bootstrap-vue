@@ -2,7 +2,9 @@
   <Main>
     <Section>
       <h1 :id="id" tabindex="-1">
-        <span class="bd-content-title">{{ groupTitle }} table of contents</span>
+        <span class="bd-content-title">
+          {{ groupTitle }} &mdash; <small class="text-muted">table of contents<small>
+        </span>
       </h1>
       <p v-if="groupDescription" class="bd-lead">{{ groupDescription }}</p>
       <b-list-group tag="nav" :aria-label="`${groupTitle} section navigation`" class="mb-5">
