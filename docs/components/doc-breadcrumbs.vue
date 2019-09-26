@@ -32,8 +32,9 @@ export default {
           to: ['/docs', section].join('/')
         })
         if (slug) {
+          const pagesMeta = sectionMeta.pages || {}
           items.push({
-            text: (sectionMeta[slug] || {}).title || slug,
+            text: (pagesMeta[slug] || {}).title || slug,
             to: ['/docs', section, slug].join('/')
           })
         }
