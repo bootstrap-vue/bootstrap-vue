@@ -4,7 +4,7 @@
       <h1 :id="id" tabindex="-1">
         <span class="bd-content-title">{{ groupTitle }}</span>
       </h1>
-      <p class="lead">
+      <p class="bd-lead">
         Table of contents
       </p>
       <nav class="bd-section-contents" :aria-labelledby="id">
