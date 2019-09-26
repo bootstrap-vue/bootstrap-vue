@@ -1,5 +1,5 @@
 <template>
-  <nav id="bd-docs-nav" class="bd-links" aria-label="Main navigation">
+  <nav id="bd-docs-nav" class="bd-links d-none d-md-block" aria-label="Main navigation">
     <b-link to="/" exact router-tag="div" active-class="active">
       <b-link to="/" exact class="bd-toc-link" active-class="">Home</b-link>
     </b-link>
