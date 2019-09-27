@@ -97,7 +97,7 @@
           },
           {
             "prop": "button",
-            "description": "When set, renders the radio with the appearence of a button"
+            "description": "When set, renders the radio with the appearance of a button"
           },
           {
             "prop": "buttonVariant",
