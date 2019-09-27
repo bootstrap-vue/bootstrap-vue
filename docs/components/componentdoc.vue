@@ -56,6 +56,7 @@
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
           <b-badge v-if="item.isVModel" variant="primary">v-model</b-badge>
+          <b-badge v-if="item.xss" variant="danger">XSS warning</b-badge>
           <b-badge v-if="item.deprecated" variant="danger">Deprecated</b-badge>
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
         </template>
@@ -79,6 +80,13 @@
           For more details on the router link (or nuxt link) specific props, see the
           <b-link to="/docs/reference/router-links" class="alert-link">Router support</b-link>
           reference section.
+        </p>
+      </div>
+      <div v-if="hasHtmlProps" class="alert alert-danger">
+        <p class="mb-0 small">
+          Props that support HTML strings (<code class="notranslate" translate="no">*-html</code>) can
+          be vulerable to Cross Site Scripting (XSS) attacks when using user supplied values. You must
+          properly sanitize the user input first!
         </p>
       </div>
     </article>
@@ -321,6 +329,9 @@ export default {
         return p.prop === 'to' || p.prop === 'splitTo' || p.prop === 'exactActiveClass'
       })
     },
+    hasHtmlProps() {
+      return this.propsItems.some(p => /[a-z]Html$/.test(p.prop))
+    },
     componentPropsMetaObj() {
       // Returns the propsMeta array in object format for easy lookups
       return this.propsMeta.reduce((obj, propMeta) => {
@@ -408,6 +419,7 @@ export default {
           defaultValue: defaultVal,
           required: p.required || false,
           description: description || '',
+          xss: /[a-z]Html$/.test(prop),
           isVModel: this.componentVModel && this.componentVModel.prop === prop,
           deprecated: p.deprecated || false,
           deprecation: p.deprecation || false,
