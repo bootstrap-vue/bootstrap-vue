@@ -14,7 +14,7 @@ import { BNav, props as BNavProps } from '../nav/nav'
 
 // -- Constants --
 
-const navProps = omit(BNavProps, ['tabs', 'isNavBar'])
+const navProps = omit(BNavProps, ['tabs', 'isNavBar', 'cardHeader'])
 
 // -- Utils --
 

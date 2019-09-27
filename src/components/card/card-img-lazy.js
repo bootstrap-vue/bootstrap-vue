@@ -26,23 +26,23 @@ export const props = {
     type: Boolean,
     default: false
   },
-  left: {
-    type: Boolean,
-    default: false
-  },
   start: {
     type: Boolean,
     default: false
-    // alias of 'left'
   },
-  right: {
+  left: {
+    // alias of 'start'
     type: Boolean,
     default: false
   },
   end: {
     type: Boolean,
     default: false
-    // alias of 'right'
+  },
+  right: {
+    // alias of 'end'
+    type: Boolean,
+    default: false
   }
 }
 

@@ -26,11 +26,11 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   },
   props: {
     value: {
-      // type: [Object, Boolean],
+      // type: [String, Number, Boolean, Object],
       default: true
     },
     uncheckedValue: {
-      // type: [Object, Boolean],
+      // type: [String, Number, Boolean, Object],
       // Not applicable in multi-check mode
       default: false
     },
@@ -45,8 +45,8 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
       default: false
     },
     checked: {
-      // v-model
-      type: [String, Number, Object, Array, Boolean],
+      // v-model (Array when multiple checkboxes have same name)
+      // type: [String, Number, Boolean, Object, Array],
       default: null
     }
   },

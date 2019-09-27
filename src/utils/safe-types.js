@@ -6,4 +6,6 @@ import { hasWindowSupport } from './env'
 
 const w = hasWindowSupport ? window : {}
 
-export const HTMLElement = w.HTMLElement || Object
+export const HTMLElement = hasWindowSupport ? w.HTMLElement : class HTMLElement extends Object {}
+
+export const File = hasWindowSupport ? w.File : class File extends Object {}
