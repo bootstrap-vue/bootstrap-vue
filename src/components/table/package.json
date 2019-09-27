@@ -26,7 +26,7 @@
           },
           {
             "prop": "outlined",
-            "description": "Adds an ouline border to the table element"
+            "description": "Adds an outline border to the table element"
           },
           {
             "prop": "dark",
@@ -46,7 +46,7 @@
           },
           {
             "prop": "responsive",
-            "description": "Makes the table responsive in width, adding a horiontal scrollbar. Set to true for always responsive or set to one of the breakpoints to switch from resonsive to normal: 'sm', 'md', 'lg', 'xl'"
+            "description": "Makes the table responsive in width, adding a horizontal scrollbar. Set to true for always responsive or set to one of the breakpoints to switch from responsive to normal: 'sm', 'md', 'lg', 'xl'"
           },
           {
             "prop": "stickyHeader",
@@ -54,7 +54,7 @@
           },
           {
             "prop": "noBorderCollapse",
-            "description": "Disable's the collapsing of table borders. Usefull when table has sticky headers or columns"
+            "description": "Disable's the collapsing of table borders. Useful when table has sticky headers or columns"
           },
           {
             "prop": "captionTop",
@@ -174,7 +174,7 @@
           },
           {
             "prop": "noFooterSorting",
-            "description": "When the build in forrter is used, setting this prop will disable the sorting ability in the footer"
+            "description": "When the build in formatter is used, setting this prop will disable the sorting ability in the footer"
           },
           {
             "prop": "sortIconLeft",
@@ -182,7 +182,7 @@
           },
           {
             "prop": "noSortReset",
-            "description": "When a table is sortable, cliking on any non-sortable column heading will clear the current sort values. Set this prop to disable this feature"
+            "description": "When a table is sortable, clicking on any non-sortable column heading will clear the current sort values. Set this prop to disable this feature"
           },
           {
             "prop": "sortNullLast",
@@ -210,7 +210,7 @@
           },
           {
             "prop": "sortCompareLocale",
-            "description": "The locale string (or array of locale string) taht specified the languagewhen sorting. See docs for details"
+            "description": "The locale string (or array of locale string) that specified the language when sorting. See docs for details"
           },
           {
             "prop": "labelSortAsc",
@@ -238,7 +238,7 @@
           },
           {
             "prop": "showEmpty",
-            "description": "When enabled, and there are no item resocrds to show, shows a message that there are no rows to show"
+            "description": "When enabled, and there are no item records to show, shows a message that there are no rows to show"
           },
           {
             "prop": "emptyText",
@@ -928,7 +928,7 @@
           },
           {
             "prop": "outlined",
-            "description": "Adds an ouline border to the table element"
+            "description": "Adds an outline border to the table element"
           },
           {
             "prop": "dark",
@@ -948,7 +948,7 @@
           },
           {
             "prop": "responsive",
-            "description": "Makes the table responsive in width, adding a horiontal scrollbar. Set to true for always responsive or set to one of the breakpoints to switch from resonsive to normal: 'sm', 'md', 'lg', 'xl'"
+            "description": "Makes the table responsive in width, adding a horizontal scrollbar. Set to true for always responsive or set to one of the breakpoints to switch from responsive to normal: 'sm', 'md', 'lg', 'xl'"
           },
           {
             "prop": "stickyHeader",
@@ -956,7 +956,7 @@
           },
           {
             "prop": "noBorderCollapse",
-            "description": "Disable's the collapsing of table borders. Usefull when table has sticky headers or columns"
+            "description": "Disable's the collapsing of table borders. Useful when table has sticky headers or columns"
           },
           {
             "prop": "captionTop",
@@ -1475,7 +1475,7 @@
           },
           {
             "prop": "outlined",
-            "description": "Adds an ouline border to the table element"
+            "description": "Adds an outline border to the table element"
           },
           {
             "prop": "dark",
@@ -1495,7 +1495,7 @@
           },
           {
             "prop": "responsive",
-            "description": "Makes the table responsive in width, adding a horiontal scrollbar. Set to true for always responsive or set to one of the breakpoints to switch from resonsive to normal: 'sm', 'md', 'lg', 'xl'"
+            "description": "Makes the table responsive in width, adding a horizontal scrollbar. Set to true for always responsive or set to one of the breakpoints to switch from responsive to normal: 'sm', 'md', 'lg', 'xl'"
           },
           {
             "prop": "stickyHeader",
@@ -1503,7 +1503,7 @@
           },
           {
             "prop": "noBorderCollapse",
-            "description": "Disable's the collapsing of table borders. Usefull when table has sticky headers or columns"
+            "description": "Disable's the collapsing of table borders. Useful when table has sticky headers or columns"
           },
           {
             "prop": "captionTop",
