@@ -24,6 +24,132 @@
     "components": [
       {
         "component": "BModal",
+        "props": [
+          {
+            "prop": "visible",
+            "description": "The current visibility state of the modal"
+          },
+          {
+            "prop": "modalClass",
+            "description": "CSS class (or classes) to apply to the '.modal' wrapper elememnt"
+          },
+          {
+            "prop": "contentClass",
+            "description": "CSS class (or classes) to apply to the '.modal-content' wrapper elememnt"
+          },
+          {
+            "prop": "dialogClass",
+            "description": "CSS class (or classes) to apply to the '.modal-dialog' wrapper elememnt"
+          },
+          {
+            "prop": "bodyClass",
+            "description": "CSS class (or classes) to apply to the '.modal-body' wrapper elememnt"
+          },
+          {
+            "prop": "headerClass",
+            "description": "CSS class (or classes) to apply to the '.modal-header' wrapper elememnt"
+          },
+          {
+            "prop": "footerClass",
+            "description": "CSS class (or classes) to apply to the '.modal-footer' wrapper elememnt"
+          },
+          {
+            "prop": "size",
+            "description": "Set the size of the modal'swidth. 'sm', 'md' (default), 'lg', or 'xl'"
+          },
+          {
+            "prop": "centered",
+            "description": "Vertically centers the modal in the viewport"
+          },
+          {
+            "prop": "scrollable",
+            "description": "Enables scrolling of the modal body"
+          },
+          {
+            "prop": "headerCloseVariant",
+            "description": "Text theme color variant to apply to the header close button"
+          },
+          {
+            "prop": "lazy",
+            "description": "When the modal has the `static` prop set, renders the modal content lazily"
+          },
+          {
+            "prop": "buttonSize",
+            "description": "Size of the built in footer buttons: 'sm', 'md' (default), or 'lg'"
+          },
+          {
+            "prop": "noStacking",
+            "description": "Prevents other modals from stacking over this one"
+          },
+          {
+            "prop": "noCloseOnBackdrop",
+            "description": "Disables the ability to close the modal by clicking the backdrop"
+          },
+          {
+            "prop": "noCloseOnEsc",
+            "description": "Disables the ability to close the modal by pressing ESC"
+          },
+          {
+            "prop": "no-enforce-focus",
+            "description": "Disabled teh enforce focus routine which maintains focus inside the modal"
+          },
+          {
+            "prop": "titleSrOnly",
+            "description": "Wraps the title in an '.sr-only' wrapper"
+          },
+          {
+            "prop": "ariaLabel",
+            "description": "Explitly supply an 'aria-label' attribute for the modal. Should be set when the modal has no title. When not set 'aria-labeledby' will point to the modal's title"
+          },
+          {
+            "prop": "hideHeader",
+            "description": "Disables rendering of the modal header"
+          },
+          {
+            "prop": "hideFooter",
+            "description": "Disables rendering of the modal footer"
+          },
+          {
+            "prop": "headerCloseLabel",
+            "description": "Value of the 'aria-label' on the header close button"
+          },
+          {
+            "prop": "returnFocus",
+            "description": "HTML Element reference of CSS selector to return focus to when the modal closes. When not set, will return focus to the element that last had focus before the modal opened"
+          },
+          {
+            "prop": "cancelTitle",
+            "description": "Text string to place in the default footer Cancel button"
+          },
+          {
+            "prop": "cancelTitleHtml",
+            "description": "HTML string to place in the default footer Cancel button. Use with caution"
+          },
+          {
+            "prop": "okTitle",
+            "description": "Text string to place in the default footer OK button"
+          },
+          {
+            "prop": "okTitleHtml",
+            "description": "HTML string to place in the default footer OK button. Use with caution"
+          },
+          {
+            "prop": "cancelVariant",
+            "description": "Button color theme variant to apply to the default footer Cancel button"
+          },
+          {
+            "prop": "okVariant",
+            "description": "Button color theme variant to apply to the default footer OK button"
+          },
+          {
+            "prop": "busy",
+            "description": ""
+          },
+          {
+            "prop": "autoFocusButton",
+            "description": "Specify which built-in button to focus once the modal opens: 'ok', 'cancel', or 'close'"
+          }
+        ],
         "events": [
           {
             "event": "change",
