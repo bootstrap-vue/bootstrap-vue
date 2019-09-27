@@ -37,7 +37,7 @@
           },
           {
             "prop": "noFlip",
-            "description": "Prevent the mnue from auto flipping positions"
+            "description": "Prevent the menu from auto flipping positions"
           },
           {
             "prop": "offset",
