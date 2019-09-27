@@ -135,7 +135,7 @@
           },
           {
             "prop": "returnFocus",
-            "description": "HTML Element reference, or CSS selector to return focus to when the modal closes. When not set, will return focus to the element that last had focus before the modal opened"
+            "description": "HTML Element reference, CSS selector, or component reference to return focus to when the modal closes. When not set, will return focus to the element that last had focus before the modal opened"
           },
           {
             "prop": "cancelTitle",
