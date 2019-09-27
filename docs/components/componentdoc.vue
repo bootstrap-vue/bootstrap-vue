@@ -89,7 +89,7 @@
           <b-link href="https://en.wikipedia.org/wiki/Cross-site_scripting" class="alert-link" target="_blank">
             Cross Site Scripting (XSS) attacks
           </b-link>
-          when using user supplied values. You must properly
+          when passed raw user supplied values. You must properly
           <b-link href="https://en.wikipedia.org/wiki/HTML_sanitization" class="alert-link" target="_blank">
             sanitize
           </b-link>
