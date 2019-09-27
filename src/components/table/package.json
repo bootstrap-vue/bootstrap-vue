@@ -87,6 +87,54 @@
           {
             "prop": "tbodyTransitionHandlers",
             "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+          },
+          {
+            "prop": "caption",
+            "description": "Text string to place in the caption element"
+          },
+          {
+            "prop": "captionHtml",
+            "description": "HTML string to place in the caption element. Use with caution"
+          },
+          {
+            "prop": "theadClass",
+            "description": "CSS class (or classes) to apply to the thead element"
+          },
+          {
+            "prop": "theadTrClass",
+            "description": "CSS class (or classes) to apply to the tr element in the thead"
+          },
+          {
+            "prop": "footClone",
+            "description": "Enable to the footer of the table, and clone the header content by default"
+          },
+          {
+            "prop": "tfootClass",
+            "description": "CSS class (or classes) to apply to the tfoot element"
+          },
+          {
+            "prop": "tfootTrClass",
+            "description": "CSS class (or classes) to apply to the tr element in the tfoot"
+          },
+          {
+            "prop": "tbodyClass",
+            "description": "CSS class (or classes) to apply to the tbody element"
+          },
+          {
+            "prop": "tbodyTrClass",
+            "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
+          },
+          {
+            "prop": "value",
+            "description": "Currently displayed row data. Read-only. Do not set a value on this prop"
+          },
+          {
+            "prop": "fields",
+            "description": "Array of field names or array of field definition objects"
+          },
+          {
+            "prop": "items",
+            "description": "Array of items to display, or an items provider function reference. Refer to the docs for details"
           }
         ],
         "events": [
@@ -801,6 +849,54 @@
           {
             "prop": "tbodyTransitionHandlers",
             "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+          },
+          {
+            "prop": "caption",
+            "description": "Text string to place in the caption element"
+          },
+          {
+            "prop": "captionHtml",
+            "description": "HTML string to place in the caption element. Use with caution"
+          },
+          {
+            "prop": "theadClass",
+            "description": "CSS class (or classes) to apply to the thead element"
+          },
+          {
+            "prop": "theadTrClass",
+            "description": "CSS class (or classes) to apply to the tr element in the thead"
+          },
+          {
+            "prop": "footClone",
+            "description": "Enable to the footer of the table, and clone the header content by default"
+          },
+          {
+            "prop": "tfootClass",
+            "description": "CSS class (or classes) to apply to the tfoot element"
+          },
+          {
+            "prop": "tfootTrClass",
+            "description": "CSS class (or classes) to apply to the tr element in the tfoot"
+          },
+          {
+            "prop": "tbodyClass",
+            "description": "CSS class (or classes) to apply to the tbody element"
+          },
+          {
+            "prop": "tbodyTrClass",
+            "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
+          },
+          {
+            "prop": "value",
+            "description": "Currently displayed row data. Read-only. Do not set a value on this prop"
+          },
+          {
+            "prop": "fields",
+            "description": "Array of field names or array of field definition objects"
+          },
+          {
+            "prop": "items",
+            "description": "Array of items to display"
           }
         ],
         "events": [
