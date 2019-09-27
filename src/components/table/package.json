@@ -135,6 +135,10 @@
           {
             "prop": "items",
             "description": "Array of items to display, or an items provider function reference. Refer to the docs for details"
+          },
+          {
+            "prop": "primaryKey",
+            "description": "Name of a table field that contains a guaranteed unique value per row. Needed for tbody transition support, and also speeds up table rendering"
           }
         ],
         "events": [
@@ -897,6 +901,10 @@
           {
             "prop": "items",
             "description": "Array of items to display"
+          },
+          {
+            "prop": "primaryKey",
+            "description": "Name of a table field that contains a guaranteed unique value per row. Needed for tbody transition support, and also speeds up table rendering"
           }
         ],
         "events": [
