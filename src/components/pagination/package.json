@@ -61,6 +61,10 @@
             "description": "Value to place in the 'aria-label' attribute of the goto previous page button"
           },
           {
+            "prop": "labelPage",
+            "description": "Value to place in the 'aria-label' attribute of the goto page button. Page number will be prepended automatically"
+          },
+          {
             "prop": "prevText",
             "description": "Content to place in the goto previous page button"
           },
