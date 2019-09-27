@@ -33,7 +33,7 @@
           },
           {
             "prop": "lazyFormatter",
-            "description": "When set, the textarea is formatted on blur instead of each keystroke (if there is a formatter specfied)"
+            "description": "When set, the textarea is formatted on blur instead of each keystroke (if there is a formatter specified)"
           },
           {
             "prop": "rows",
@@ -53,7 +53,7 @@
           },
           {
             "prop": "noAutoShrink",
-            "description": "When set, prevents the auto height textarea from shrking to fit the content"
+            "description": "When set, prevents the auto height textarea from shrink to fit the content"
           }
         ],
         "events": [
