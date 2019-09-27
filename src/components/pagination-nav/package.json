@@ -14,7 +14,7 @@
           },
           {
             "prop": "baseUrl",
-            "description": "Bsae URL to use when auto generating page links"
+            "description": "Base URL to use when auto generating page links"
           },
           {
             "prop": "useRouter",
