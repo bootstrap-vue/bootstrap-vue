@@ -225,8 +225,8 @@ export const props = {
     default: false
   },
   returnFocus: {
-    // HTML Element or CSS selector string
-    type: [HTMLElement, String],
+    // HTML Element, CSS selector string or Vue component instance
+    type: [HTMLElement, String, Object],
     default: null
   },
   headerCloseLabel: {
