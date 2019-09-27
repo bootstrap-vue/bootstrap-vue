@@ -99,7 +99,7 @@
           },
           {
             "prop": "ariaLabel",
-            "description": "Explitly supply an 'aria-label' attribute for the modal. Should be set when the modal has no title. When not set 'aria-labeledby' will point to the modal's title"
+            "description": "Explicitly supply an 'aria-label' attribute for the modal. Should be set when the modal has no title. When not set 'aria-labeledby' will point to the modal's title"
           },
           {
             "prop": "hideHeader",
@@ -135,7 +135,7 @@
           },
           {
             "prop": "returnFocus",
-            "description": "HTML Element reference of CSS selector to return focus to when the modal closes. When not set, will return focus to the element that last had focus before the modal opened"
+            "description": "HTML Element reference, or CSS selector to return focus to when the modal closes. When not set, will return focus to the element that last had focus before the modal opened"
           },
           {
             "prop": "cancelTitle",
