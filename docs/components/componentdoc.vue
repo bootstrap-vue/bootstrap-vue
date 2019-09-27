@@ -333,7 +333,7 @@ export default {
     },
     hasRouterProps() {
       return this.propsItems.some(p => {
-        return p.prop === 'to' || p.prop === 'splitTo' || p.prop === 'exactActiveClass'
+        return p.prop === 'to' || p.prop === 'split-to' || p.prop === 'exact-active-class'
       })
     },
     hasHtmlProps() {
