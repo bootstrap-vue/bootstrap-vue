@@ -75,11 +75,11 @@
           },
           {
             "prop": "label",
-            "description": "Text string to explicit set the label as"
+            "description": "Text string to explicitly set the label as"
           },
           {
             "prop": "labelHtml",
-            "description": "HTML string to explicit set the label as. Use with caution"
+            "description": "HTML string to explicitly set the label as. Use with caution"
           }
         ]
       }
