@@ -10,7 +10,7 @@
         "props": [
           {
             "prop": "pills",
-            "description": "Renders the nav items with the appeaence of pill buttons"
+            "description": "Renders the nav items with the appearance of pill buttons"
           },
           {
             "prop": "small",
@@ -34,7 +34,7 @@
           },
           {
             "prop": "card",
-            "description": "When set to true, renders the tabs the the apropriate styles to be placed into a 'b-card'"
+            "description": "When set to true, renders the tabs the the appropriate styles to be placed into a 'b-card'"
           },
           {
             "prop": "vertical",

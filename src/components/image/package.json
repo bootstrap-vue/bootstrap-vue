@@ -30,7 +30,7 @@
           },
           {
             "prop": "rounded",
-            "description": "When set to 'true', makes the image corners slightly rounded. Can also be used to disable rounded corners or make teh image a circle/oval. See docs for details"
+            "description": "When set to 'true', makes the image corners slightly rounded. Can also be used to disable rounded corners or make the image a circle/oval. See docs for details"
           },
           {
             "prop": "blank",
@@ -87,7 +87,7 @@
           },
           {
             "prop": "rounded",
-            "description": "When set to 'true', makes the image corners slightly rounded. Can also be used to disable rounded corners or make teh image a circle/oval. See docs for details"
+            "description": "When set to 'true', makes the image corners slightly rounded. Can also be used to disable rounded corners or make the image a circle/oval. See docs for details"
           },
           {
             "prop": "blankColor",

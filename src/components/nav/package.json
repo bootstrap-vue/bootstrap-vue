@@ -13,11 +13,11 @@
         "props": [
           {
             "prop": "tabs",
-            "description": "Renders the nav items with the appeaence of tabs"
+            "description": "Renders the nav items with the appearance of tabs"
           },
           {
             "prop": "pills",
-            "description": "Renders the nav items with the appeaence of pill buttons"
+            "description": "Renders the nav items with the appearance of pill buttons"
           },
           {
             "prop": "small",
@@ -121,7 +121,7 @@
           },
           {
             "prop": "noFlip",
-            "description": "Prevent the mnue from auto flipping positions"
+            "description": "Prevent the menu from auto flipping positions"
           },
           {
             "prop": "lazy",
@@ -141,7 +141,7 @@
           },
           {
             "prop": "noCaret",
-            "description": "Hide the caret indicator on teh toggle button"
+            "description": "Hide the caret indicator on the toggle button"
           }
         ],
         "slots": [

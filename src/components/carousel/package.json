@@ -15,7 +15,7 @@
           },
           {
             "prop": "noAnimation",
-            "description": "When set, diables animation when transitioning between slides"
+            "description": "When set, disables animation when transitioning between slides"
           },
           {
             "prop": "indicators",
@@ -27,15 +27,15 @@
           },
           {
             "prop": "noWrap",
-            "description": "Do not restart the slide show when then end is readched"
+            "description": "Do not restart the slide show when then end is reached"
           },
           {
             "prop": "noTouch",
-            "description": "Disable controling the slides via touch swipes"
+            "description": "Disable controlling the slides via touch swipes"
           },
           {
             "prop": "noHoverPause",
-            "description": "When set, disables the pausing of hte slide show when teh current slide is hovered"
+            "description": "When set, disables the pausing of hte slide show when the current slide is hovered"
           },
           {
             "prop": "interval",
@@ -51,7 +51,7 @@
           },
           {
             "prop": "value",
-            "description": "The curently active slide (zero-indexed)"
+            "description": "The currently active slide (zero-indexed)"
           },
           {
             "prop": "labelPrev",
@@ -67,7 +67,7 @@
           },
           {
             "prop": "labelIndicators",
-            "description": "Sets the 'aria-label' on the indicator cotrols wrapper"
+            "description": "Sets the 'aria-label' on the indicator controls wrapper"
           },
           {
             "prop": "background",
@@ -105,7 +105,7 @@
         "props": [
           {
             "prop": "imgSrc",
-            "description": "Sets teh URL of the image"
+            "description": "Sets the URL of the image"
           },
           {
             "prop": "imgAlt",
@@ -121,11 +121,11 @@
           },
           {
             "prop": "imgBlank",
-            "description": "If set, will render a blacnk image instead of the img-src"
+            "description": "If set, will render a blank image instead of the img-src"
           },
           {
             "prop": "imgBlankColor",
-            "description": "Set teh CSS color to use as teh fill of the blank image"
+            "description": "Set the CSS color to use as the fill of the blank image"
           },
           {
             "prop": "contentTag",

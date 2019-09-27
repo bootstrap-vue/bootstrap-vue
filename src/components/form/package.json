@@ -41,7 +41,7 @@
         "props": [
           {
             "prop": "inline",
-            "description": "When set, renders the help text as an inline lement, rather than a block element"
+            "description": "When set, renders the help text as an inline element, rather than a block element"
           }
         ]
       },

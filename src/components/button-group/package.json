@@ -11,7 +11,7 @@
         "props": [
           {
             "prop": "vertical",
-            "description": "When set, renderd the button group in vertical mode"
+            "description": "When set, rendered the button group in vertical mode"
           }
         ],
         "aliases": [

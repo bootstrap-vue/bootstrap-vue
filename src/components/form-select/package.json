@@ -21,7 +21,7 @@
           },
           {
             "prop": "selectSize",
-            "description": "When set to a number larger than 0, will set the number of display optiopn rows. Note not all browser will respect this setting"
+            "description": "When set to a number larger than 0, will set the number of display option rows. Note not all browser will respect this setting"
           },
           {
             "prop": "ariaInvalid",

@@ -13,11 +13,11 @@
         "props": [
           {
             "prop": "disabled",
-            "description": "Disabled the fieldset element, which in turn disables teh form controls (on browsers that support disabled fieldssets). Has no effect if 'label-for' is set"
+            "description": "Disabled the fieldset element, which in turn disables the form controls (on browsers that support disabled fieldsets). Has no effect if 'label-for' is set"
           },
           {
             "prop": "label",
-            "description": "Tet to palce in hte label/legend of the form group"
+            "description": "Text to place in the label/legend of the form group"
           },
           {
             "prop": "labelFor",
@@ -25,7 +25,7 @@
           },
           {
             "prop": "labelSrOnly",
-            "description": "Visually hides the label, but makes it available to screen reaer users"
+            "description": "Visually hides the label, but makes it available to screen reader users"
           },
           {
             "prop": "description",
@@ -89,15 +89,15 @@
           },
           {
             "prop": "labelClass",
-            "description": "CSS class (or classes) to add to teh label/legend element"
+            "description": "CSS class (or classes) to add to the label/legend element"
           },
           {
             "prop": "labelSize",
-            "description": "Sets the text size of the label: 'sm;, 'md' (default) or 'lg'. Use this prop to have the label size match the form control size"
+            "description": "Sets the text size of the label: 'sm', 'md' (default) or 'lg'. Use this prop to have the label size match the form control size"
           },
           {
             "prop": "state",
-            "description": "Controls teh validation state of hte feedback. 'true' force shows valid-feedback, 'false' force shows invalid feedback, 'null' does not force show the feedback"
+            "description": "Controls the validation state of hte feedback. 'true' force shows valid-feedback, 'false' force shows invalid feedback, 'null' does not force show the feedback"
           },
           {
             "prop": "tooltip",
@@ -105,7 +105,7 @@
           },
           {
             "prop": "validated",
-            "description": "When set, adds the Bootstrap valdation trigger class 'was-validated' on the component"
+            "description": "When set, adds the Bootstrap validation trigger class 'was-validated' on the component"
           }
         ],
         "slots": [

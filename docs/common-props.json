@@ -111,7 +111,7 @@
     "description": "Text content to place in the sub title"
   },
   "size": {
-    "description": "Set the size of the component's appearence. 'sm', 'md' (default), or 'lg'"
+    "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
   },
   "required": {
     "description": "Adds the 'required' attribute to the form control"
@@ -135,10 +135,10 @@
     "description": "Sets the 'autocomplete' attribute value on the form control"
   },
   "autofocus": {
-    "description": "When set to 'true', attempts to auto-focus the control when it is mounted, or re-actived when in a keep-alive. Does not set the 'autofocus' attribute on the control"
+    "description": "When set to 'true', attempts to auto-focus the control when it is mounted, or re-activated when in a keep-alive. Does not set the 'autofocus' attribute on the control"
   },
   "state": {
-    "description": "Controls the validation state appearence of the component. 'true' for valid, 'false' for invalid', or 'null' for no validation state"
+    "description": "Controls the validation state appearance of the component. 'true' for valid, 'false' for invalid', or 'null' for no validation state"
   },
   "options": {
     "description": "Array of items to render in the component"
@@ -156,7 +156,7 @@
     "description": "Field name in the 'options' array that should be used for the disabled state"
   },
   "plain": {
-    "description": "Render the form control in plain mode, rahter than custom styled mode"
+    "description": "Render the form control in plain mode, rather than custom styled mode"
   },
   "static": {
     "description": "Renders the content of the component in-place in the DOM, rather than portalling it to be appended to the body element"

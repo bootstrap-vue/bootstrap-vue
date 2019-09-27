@@ -28,7 +28,7 @@
           },
           {
             "prop": "alignH",
-            "description": "Horzontal alignment/spacing of all columns: 'start', 'center', 'end', 'around', or 'between'"
+            "description": "Horizontal alignment/spacing of all columns: 'start', 'center', 'end', 'around', or 'between'"
           },
           {
             "prop": "alignContent",

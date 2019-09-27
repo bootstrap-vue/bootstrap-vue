@@ -17,51 +17,51 @@
     "modifiers": [
       {
         "name": "top",
-        "description": "Potitions the tooltip on the top of the trigger element (default)"
+        "description": "Positions the tooltip on the top of the trigger element (default)"
       },
       {
         "name": "right",
-        "description": "Potitions the tooltip on the right of the trigger element"
+        "description": "Positions the tooltip on the right of the trigger element"
       },
       {
         "name": "bottom",
-        "description": "Potitions the tooltip on the bottom of the trigger element"
+        "description": "Positions the tooltip on the bottom of the trigger element"
       },
       {
         "name": "auto",
-        "description": "Potitions the tooltip in the best fit place around the trigger element"
+        "description": "Positions the tooltip in the best fit place around the trigger element"
       },
       {
         "name": "topright",
-        "description": "Potitions the tooltip on the top-right of the trigger element"
+        "description": "Positions the tooltip on the top-right of the trigger element"
       },
       {
         "name": "topleft",
-        "description": "Potitions the tooltip on the top-left of the trigger element"
+        "description": "Positions the tooltip on the top-left of the trigger element"
       },
       {
         "name": "bottomright",
-        "description": "Potitions the tooltip on the bottom-right of the trigger element"
+        "description": "Positions the tooltip on the bottom-right of the trigger element"
       },
       {
         "name": "bottomleft",
-        "description": "Potitions the tooltip on the bottom-left of the trigger element"
+        "description": "Positions the tooltip on the bottom-left of the trigger element"
       },
       {
         "name": "lefttop",
-        "description": "Potitions the tooltip on the left-top of the trigger element"
+        "description": "Positions the tooltip on the left-top of the trigger element"
       },
       {
         "name": "leftbottom",
-        "description": "Potitions the tooltip on the left-bottom of the trigger element"
+        "description": "Positions the tooltip on the left-bottom of the trigger element"
       },
       {
         "name": "righttop",
-        "description": "Potitions the tooltip on the right-top of the trigger element"
+        "description": "Positions the tooltip on the right-top of the trigger element"
       },
       {
         "name": "rightbottom",
-        "description": "Potitions the tooltip on the right-bottom of the trigger element"
+        "description": "Positions the tooltip on the right-bottom of the trigger element"
       },
       {
         "name": "nofade",

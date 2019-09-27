@@ -654,7 +654,6 @@ your project:
 - Convert your native Bootstrap HTML markup into the simplified BootstrapVue custom component markup
 - Start by converting only the interactive controls that require Bootstrap's javascript first.
 
-
 ## Browser support
 
 ### CSS
@@ -718,20 +717,8 @@ above for an example.
 
 ## Tooling support
 
-Starting with version 2.1.0 of BootstrapVue, the following IDE autocompletion support files are
-included with the BootstrapVue distribution.
-
 ### VS Code + Vetur
 
 If you are using [VS Code](https://code.visualstudio.com/) as your text editor, BootstrapVue has
-intellisense autocompletion for component tags, attributes, and directives available when using the
-[Vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur). The helper
-json files are `dist/vetur-tags.json` and `dist/vetur-attributes.json`, and are indicated via the
-`"vetur"` entry in our `package.json` file.
-
-### JetBrains WebStorm web-types
-
-BootstrapVue provides `dist/web-types.json` for autocompletion of component tags, attributes, slot
-names (and scoped properties), and directives. This file is for use with WebStorm and other IDEs
-that support the `web-types` schema specification. The web-types file is indicated via the
-`"web-types"` entry in our `package.json` file.
+intellisense autocompletion for component attributes available when using the
+[Vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur).

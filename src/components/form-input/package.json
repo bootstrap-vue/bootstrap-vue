@@ -45,7 +45,7 @@
           },
           {
             "prop": "lazyFormatter",
-            "description": "When set, the input is formatted on blur instead of each keystroke (if there is a formatter specfied)"
+            "description": "When set, the input is formatted on blur instead of each keystroke (if there is a formatter specified)"
           },
           {
             "prop": "min",
