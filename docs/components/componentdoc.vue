@@ -330,7 +330,7 @@ export default {
       })
     },
     hasHtmlProps() {
-      return this.propsItems.some(p => /[a-z]Html$/.test(p.prop))
+      return this.propsItems.some(p => p.xss)
     },
     componentPropsMetaObj() {
       // Returns the propsMeta array in object format for easy lookups
