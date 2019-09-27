@@ -114,7 +114,7 @@
             "description": "Disables rendering of the modal footer"
           },
           {
-            "prop": "hideBakdrop",
+            "prop": "hideBackdrop",
             "description": "Disables rendering of the modal backdrop"
           },
           {
