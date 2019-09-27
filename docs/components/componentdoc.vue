@@ -85,8 +85,13 @@
       <div v-if="hasHtmlProps" class="alert alert-danger">
         <p class="mb-0 small">
           Props that support HTML strings (<code class="notranslate" translate="no">*-html</code>) can
-          be vulerable to Cross Site Scripting (XSS) attacks when using user supplied values. You must
-          properly sanitize the user input first!
+          be vulerable to
+          <b-link href="https://en.wikipedia.org/wiki/Cross-site_scripting" target=_blank">
+            Cross Site Scripting (XSS) attacks
+          </b-link>
+          when using user supplied values. You must properly
+          <b-link href="https://en.wikipedia.org/wiki/HTML_sanitization" target="_blank">sanitize</b-link>
+          the user input first!
         </p>
       </div>
     </article>
