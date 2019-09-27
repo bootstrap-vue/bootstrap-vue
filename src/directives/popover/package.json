@@ -17,51 +17,51 @@
     "modifiers": [
       {
         "name": "top",
-        "description": "Potitions the popover on the top of the trigger element (default)"
+        "description": "Positions the popover on the top of the trigger element (default)"
       },
       {
         "name": "right",
-        "description": "Potitions the popover on the right of the trigger element"
+        "description": "Positions the popover on the right of the trigger element"
       },
       {
         "name": "bottom",
-        "description": "Potitions the popover on the bottom of the trigger element"
+        "description": "Positions the popover on the bottom of the trigger element"
       },
       {
         "name": "auto",
-        "description": "Potitions the popover in the best fit place around the trigger element"
+        "description": "Positions the popover in the best fit place around the trigger element"
       },
       {
         "name": "topright",
-        "description": "Potitions the popover on the top-right of the trigger element"
+        "description": "Positions the popover on the top-right of the trigger element"
       },
       {
         "name": "topleft",
-        "description": "Potitions the popover on the top-left of the trigger element"
+        "description": "Positions the popover on the top-left of the trigger element"
       },
       {
         "name": "bottomright",
-        "description": "Potitions the popover on the bottom-right of the trigger element"
+        "description": "Positions the popover on the bottom-right of the trigger element"
       },
       {
         "name": "bottomleft",
-        "description": "Potitions the popover on the bottom-left of the trigger element"
+        "description": "Positions the popover on the bottom-left of the trigger element"
       },
       {
         "name": "lefttop",
-        "description": "Potitions the popover on the left-top of the trigger element"
+        "description": "Positions the popover on the left-top of the trigger element"
       },
       {
         "name": "leftbottom",
-        "description": "Potitions the popover on the left-bottom of the trigger element"
+        "description": "Positions the popover on the left-bottom of the trigger element"
       },
       {
         "name": "righttop",
-        "description": "Potitions the popover on the right-top of the trigger element"
+        "description": "Positions the popover on the right-top of the trigger element"
       },
       {
         "name": "rightbottom",
-        "description": "Potitions the popover on the right-bottom of the trigger element"
+        "description": "Positions the popover on the right-bottom of the trigger element"
       },
       {
         "name": "nofade",
