@@ -13,11 +13,11 @@
         "props": [
           {
             "prop": "disabled",
-            "description": "Disabled the fieldset element, which in turn disables teh form controls (on browsers that support disabled fieldssets). Has no effect if 'label-for' is set"
+            "description": "Disabled the fieldset element, which in turn disables teh form controls (on browsers that support disabled fieldsets). Has no effect if 'label-for' is set"
           },
           {
             "prop": "label",
-            "description": "Tet to palce in hte label/legend of the form group"
+            "description": "Text to place in the label/legend of the form group"
           },
           {
             "prop": "labelFor",
@@ -25,7 +25,7 @@
           },
           {
             "prop": "labelSrOnly",
-            "description": "Visually hides the label, but makes it available to screen reaer users"
+            "description": "Visually hides the label, but makes it available to screen reader users"
           },
           {
             "prop": "description",
@@ -105,7 +105,7 @@
           },
           {
             "prop": "validated",
-            "description": "When set, adds the Bootstrap valdation trigger class 'was-validated' on the component"
+            "description": "When set, adds the Bootstrap validation trigger class 'was-validated' on the component"
           }
         ],
         "slots": [
