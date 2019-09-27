@@ -11,9 +11,9 @@
         "expression": "String",
         "modifiers": [
           {
-            "name": "{collapseid}",
+            "name": "{collapseId}",
             "pattern": "[a-zA-Z][a-zA-Z0-9_\\-]*",
-            "description": "Collapse ID to open. Replace `{collapseid}` with the collapse's ID"
+            "description": "Collapse ID to open. Replace `{collapseId}` with the collapse's ID"
           }
         ]
       }
