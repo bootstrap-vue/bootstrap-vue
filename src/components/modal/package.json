@@ -336,7 +336,10 @@
               },
               {
                 "arg": "elIDtoFocusOnClose",
-                "type": ["String", "HTMLElement"],
+                "type": [
+                  "String",
+                  "HTMLElement"
+                ],
                 "description": "(optional), specify the element reference, or CSS selector, to return focus to once the modal is closed"
               }
             ]
@@ -363,7 +366,10 @@
               },
               {
                 "arg": "elIDtoFocusOnClose",
-                "type": ["String", "HTMLElement"],
+                "type": [
+                  "String",
+                  "HTMLElement"
+                ],
                 "description": "(optional), specify the element reference, or CSS selector, to return focus to once the modal is closed"
               }
             ]

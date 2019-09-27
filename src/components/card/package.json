@@ -12,7 +12,7 @@
             "prop": "overlay",
             "description": "When set, will overlay the card body on top of the image (if the card has an image)"
           },
-           {
+          {
             "prop": "noBody",
             "description": "Disable rendering of the default inner card-body element"
           },
@@ -85,10 +85,10 @@
       },
       "BCardTitle",
       "BCardSubTitle",
-      { 
+      {
         "component": "BCardImg",
         "props": [
-         {
+          {
             "prop": "width",
             "description": "The value to set on the image's 'width' attribute"
           },
@@ -122,7 +122,7 @@
           }
         ]
       },
-      { 
+      {
         "component": "BCardImgLazy",
         "props": [
           {
