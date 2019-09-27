@@ -11,6 +11,24 @@
     "components": [
       {
         "component": "BTable",
+        "props": [
+          {
+            "prop": "headVariant",
+            "description": "Header variant: 'light' or 'dark', or unset"
+          },
+          {
+            "prop": "footVariant",
+            "description": "Footer variant: 'light' or 'dark', or unset"
+          },
+          {
+            "prop": "tbodyTransitionProps",
+            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+          },
+          {
+            "prop": "tbodyTransitionHandlers",
+            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+          }
+        ],
         "events": [
           {
             "event": "row-clicked",
@@ -647,6 +665,24 @@
       },
       {
         "component": "BTableLite",
+        "props": [
+          {
+            "prop": "headVariant",
+            "description": "Header variant: 'light' or 'dark', or unset"
+          },
+          {
+            "prop": "footVariant",
+            "description": "Footer variant: 'light' or 'dark', or unset"
+          },
+          {
+            "prop": "tbodyTransitionProps",
+            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+          },
+          {
+            "prop": "tbodyTransitionHandlers",
+            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+          }
+        ],
         "events": [
           {
             "event": "row-clicked",
@@ -1063,25 +1099,89 @@
         ]
       },
       {
-        "component": "BTableSimple"
+        "component": "BTableSimple",
+        "props": [
+          {
+            "prop": "",
+            "description": ""
+          }
+        ]
       },
       {
-        "component": "BTbody"
+        "component": "BTbody",
+        "props": [
+          {
+            "prop": "tbodyTransitionProps",
+            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+          },
+          {
+            "prop": "tbodyTransitionHandlers",
+            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+          }
+        ]
       },
       {
-        "component": "BThead"
+        "component": "BThead",
+        "props": [
+          {
+            "prop": "headVariant",
+            "description": "Header variant: 'light' or 'dark', or unset"
+          }
+        ]
       },
       {
-        "component": "BTfoot"
+        "component": "BTfoot",
+        "props": [
+          {
+            "prop": "footVariant",
+            "description": "Footer variant: 'light' or 'dark', or unset"
+          }
+        ]
       },
       {
         "component": "BTr"
       },
       {
-        "component": "BTd"
+        "component": "BTd",
+        "props": [
+          {
+            "prop": "colspan",
+            "description": "Number of columns this cell spans"
+          },
+          {
+            "prop": "rowspan",
+            "description": "Number of rows this cell spans"
+          },
+          {
+            "prop": "stackedHeading",
+            "description": "Heading for the cell when in stacked mode. Only applicable to cells in the 'tbody' element"
+          },
+          {
+            "prop": "stickyColumn",
+            "description": "If this will be a sticky colum. Must be set on all cells in this column. table must be in sticky-header or responsive mode to work"
+          }
+        ]
       },
       {
-        "component": "BTh"
+        "component": "BTh",
+        "props": [
+          {
+            "prop": "colspan",
+            "description": "Number of columns this cell spans"
+          },
+          {
+            "prop": "rowspan",
+            "description": "Number of rows this cell spans"
+          },
+          {
+            "prop": "stackedHeading",
+            "description": "Heading for the cell when in stacked mode. Only applicable to cells in the 'tbody' element"
+          },
+          {
+            "prop": "stickyColumn",
+            "description": "If this will be a sticky colum. Must be set on all cells in this column. table must be in sticky-header or responsive mode to work"
+          }
+        ]
       }
     ]
   }
