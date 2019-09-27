@@ -49,7 +49,7 @@
           },
           {
             "prop": "boundaryPadding",
-            "description": "The popover will try and stay away from the edge of the boundary element by the number of pixels specificed"
+            "description": "The popover will try and stay away from the edge of the boundary element by the number of pixels specified"
           },
           {
             "prop": "offset",
