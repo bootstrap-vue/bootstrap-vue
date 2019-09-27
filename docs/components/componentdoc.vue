@@ -56,7 +56,7 @@
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
           <b-badge v-if="item.isVModel" variant="primary">v-model</b-badge>
-          <b-badge v-if="item.xss" variant="danger">XSS warning</b-badge>
+          <b-badge v-if="item.xss" variant="warning">Use with caution</b-badge>
           <b-badge v-if="item.deprecated" variant="danger">Deprecated</b-badge>
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
         </template>
@@ -82,15 +82,17 @@
           reference section.
         </p>
       </div>
-      <div v-if="hasHtmlProps" class="alert alert-danger">
+      <div v-if="hasHtmlProps" class="alert alert-warning">
         <p class="mb-0 small">
           Props that support HTML strings (<code class="notranslate" translate="no">*-html</code>) can
           be vulerable to
-          <b-link href="https://en.wikipedia.org/wiki/Cross-site_scripting" target=_blank">
+          <b-link href="https://en.wikipedia.org/wiki/Cross-site_scripting" class="alert-link" target=_blank">
             Cross Site Scripting (XSS) attacks
           </b-link>
           when using user supplied values. You must properly
-          <b-link href="https://en.wikipedia.org/wiki/HTML_sanitization" target="_blank">sanitize</b-link>
+          <b-link href="https://en.wikipedia.org/wiki/HTML_sanitization" class="alert-link" target="_blank">
+            sanitize
+          </b-link>
           the user input first!
         </p>
       </div>
