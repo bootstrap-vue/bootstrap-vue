@@ -97,7 +97,7 @@
           },
           {
             "prop": "state",
-            "description": "Controls teh validation state of hte feedback. 'true' force shows valid-feedback, 'false' force shows invalid feedback, 'null' does not force show the feedback"
+            "description": "Controls the validation state of hte feedback. 'true' force shows valid-feedback, 'false' force shows invalid feedback, 'null' does not force show the feedback"
           },
           {
             "prop": "tooltip",
