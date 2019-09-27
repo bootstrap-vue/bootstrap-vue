@@ -7,6 +7,80 @@
     "components": [
       {
         "component": "BTabs",
+        "props": [
+          {
+            "prop": "pills",
+            "description": "Renders the nav items with the appeaence of pill buttons"
+          },
+          {
+            "prop": "small",
+            "description": "Makes the nav smaller"
+          },
+          {
+            "prop": "align",
+            "description": "Align the nav items in the nav: 'start' (or 'left'), 'center', 'end' (or 'right')"
+          },
+          {
+            "prop": "fill",
+            "description": "Proportionately fills all horizontal space with nav items. All horizontal space is occupied, but not every nav item has the same width"
+          },
+          {
+            "prop": "justified",
+            "description": "Fills all horizontal space with nav items, but unlike 'fill', every nav item will be the same width"
+          },
+          {
+            "prop": "vertical",
+            "description": "Renders the nav vertically"
+          },
+          {
+            "prop": "card",
+            "description": "When set to true, renders the tabs the the apropriate styles to be placed into a 'b-card'"
+          },
+          {
+            "prop": "vertical",
+            "description": "Renders the tab controls vertically"
+          },
+          {
+            "prop": "end",
+            "description": "Place the tab controls at the bottom (horizontal tabs), or right (vertical tabs)"
+          },
+          {
+            "prop": "lazy",
+            "description": "Lazily render the b-tab contents when shown"
+          },
+          {
+            "prop": "noNavStyle",
+            "description": "Do not render the tab controls with tab styling"
+          },
+          {
+            "prop": "noKeyNav",
+            "description": "Disable keyboard navigation of the tab controls"
+          },
+          {
+            "prop": "contentClass",
+            "description": "CSS class (or classes) to apply to the tab-content wrapper"
+          },
+          {
+            "prop": "navClass",
+            "description": "CSS class (or classes) to apply to the tablist (nav) wrapper"
+          },
+          {
+            "prop": "navWrapperClass",
+            "description": "CSS class (or classes) to apply to the tab controls wrapper element"
+          },
+          {
+            "prop": "activeTabClass",
+            "description": "CSS class (or classes) to apply to the currently active tab"
+          },
+          {
+            "prop": "activeNavItemClass",
+            "description": "CSS class (or classes) to apply to the active nav item tab control"
+          },
+          {
+            "prop": "value",
+            "description": "Currently visible tab index (zero-based)"
+          }
+        ],
         "events": [
           {
             "event": "input",
@@ -53,6 +127,28 @@
       },
       {
         "component": "BTab",
+        "props": [
+          {
+            "prop": "buttonId",
+            "description": "Use a specific ID for this tab's tab control button. If not provided, one will automatically be generated"
+          },
+          {
+            "prop": "titleItemClass",
+            "description": "CSS class (or classes) to apply to the tab's control button 'li' element"
+          },
+          {
+            "prop": "titleLinkClass",
+            "description": "CSS class (or classes) to apply to the tab's control button inner link element"
+          },
+          {
+            "prop": "noBody",
+            "description": "When the parent b-tabs has the 'card' prop set, do not render a card-body wrapper"
+          },
+          {
+            "prop": "lazy",
+            "description": "Lazily render this tab's content when shown"
+          }
+        ],
         "events": [
           {
             "event": "click",
