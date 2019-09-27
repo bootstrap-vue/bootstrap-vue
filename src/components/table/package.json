@@ -50,7 +50,7 @@
           },
           {
             "prop": "stickyHeader",
-            "description": "Makes the table header sticky. Set to true for 30px tall table, or set to any valid CSS hight (including units)"
+            "description": "Makes the table header sticky. Set to true for a maximum height 300px tall table, or set to any valid CSS hight (including units)"
           },
           {
             "prop": "noBorderCollapse",
@@ -952,7 +952,7 @@
           },
           {
             "prop": "stickyHeader",
-            "description": "Makes the table header sticky. Set to true for 30px tall table, or set to any valid CSS hight (including units)"
+            "description": "Makes the table header sticky. Set to true for a maximum height 300px tall table, or set to any valid CSS hight (including units)"
           },
           {
             "prop": "noBorderCollapse",
@@ -1499,7 +1499,7 @@
           },
           {
             "prop": "stickyHeader",
-            "description": "Makes the table header sticky. Set to true for 30px tall table, or set to any valid CSS hight (including units)"
+            "description": "Makes the table header sticky. Set to true for a maximum height 300px tall table, or set to any valid CSS hight (including units)"
           },
           {
             "prop": "noBorderCollapse",
