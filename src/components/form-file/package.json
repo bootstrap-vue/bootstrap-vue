@@ -60,12 +60,12 @@
               {
                 "prop": "files",
                 "type": "Array",
-                "descripton": "Array if File objects"
+                "description": "Array if File objects"
               },
               {
                 "prop": "names",
                 "type": "Array",
-                "decription": "Array of file names (strings)"
+                "description": "Array of file names (strings)"
               }
             ]
           }
