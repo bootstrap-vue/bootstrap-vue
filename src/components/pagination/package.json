@@ -18,7 +18,7 @@
           },
           {
             "prop": "totalRows",
-            "description": "Total number of rws in the dataset"
+            "description": "Total number of rows in the dataset"
           },
           {
             "prop": "value",
