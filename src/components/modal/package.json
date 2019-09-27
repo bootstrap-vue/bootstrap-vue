@@ -90,7 +90,7 @@
             "description": "Disables the ability to close the modal by pressing ESC"
           },
           {
-            "prop": "no-enforce-focus",
+            "prop": "noEnforceFocus",
             "description": "Disabled teh enforce focus routine which maintains focus inside the modal"
           },
           {
@@ -106,8 +106,28 @@
             "description": "Disables rendering of the modal header"
           },
           {
+            "prop": "hideHeaderClose",
+            "description": "Disables rendering of the modal header's close button"
+          },
+          {
             "prop": "hideFooter",
             "description": "Disables rendering of the modal footer"
+          },
+          {
+            "prop": "hideBakdrop",
+            "description": "Disables rendering of the modal backdrop"
+          },
+          {
+            "prop": "okOnly",
+            "description": "Disables rendering of the default footer Cancel button"
+          },
+          {
+            "prop": "okDisabled",
+            "description": "Places the default footer OK button in the disabled state"
+          },
+          {
+            "prop": "cancelDisabled",
+            "description": "Places the default footer Cancel button in the disabled state"
           },
           {
             "prop": "headerCloseLabel",
@@ -143,7 +163,7 @@
           },
           {
             "prop": "busy",
-            "description": ""
+            "description": "Places the built in default footer OK and Cancel buttons in the disabled state"
           },
           {
             "prop": "autoFocusButton",
