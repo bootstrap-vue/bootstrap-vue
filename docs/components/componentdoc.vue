@@ -317,7 +317,9 @@ export default {
       return this.componentOptions.props || {}
     },
     hasRouterProps() {
-      return this.propsItems.some(p => p.prop === 'to' || p.prop === 'splitTo')
+      return this.propsItems.some(p => {
+        return p.prop === 'to' || p.prop === 'splitTo' || p.prop === 'exactActiveClass'
+      })
     },
     componentPropsMetaObj() {
       // Returns the propsMeta array in object format for easy lookups
