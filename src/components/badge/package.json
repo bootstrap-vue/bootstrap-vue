@@ -10,7 +10,7 @@
         "props": [
           {
             "prop": "pill",
-            "description": "When set to 'true', denders the badge in pill style"
+            "description": "When set to 'true', renders the badge in pill style"
           }
         ]
       }
