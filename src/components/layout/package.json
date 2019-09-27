@@ -24,11 +24,11 @@
           },
           {
             "prop": "alignV",
-            "description": "Vertical alignment of columns in a row: 'start', 'center', or 'end'"
+            "description": "Vertical alignment of all columns in a row: 'start', 'center', or 'end'"
           },
           {
             "prop": "alignH",
-            "description": "Horzontal alignment/spacing of columns: 'start', 'center', 'end', 'around', or 'between'"
+            "description": "Horzontal alignment/spacing of all columns: 'start', 'center', 'end', 'around', or 'between'"
           },
           {
             "prop": "alignContent",
