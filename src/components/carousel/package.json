@@ -15,7 +15,7 @@
           },
           {
             "prop": "noAnimation",
-            "description": "When set, diables animation when transitioning between slides"
+            "description": "When set, disables animation when transitioning between slides"
           },
           {
             "prop": "indicators",
@@ -27,11 +27,11 @@
           },
           {
             "prop": "noWrap",
-            "description": "Do not restart the slide show when then end is readched"
+            "description": "Do not restart the slide show when then end is reached"
           },
           {
             "prop": "noTouch",
-            "description": "Disable controling the slides via touch swipes"
+            "description": "Disable controlling the slides via touch swipes"
           },
           {
             "prop": "noHoverPause",
@@ -51,7 +51,7 @@
           },
           {
             "prop": "value",
-            "description": "The curently active slide (zero-indexed)"
+            "description": "The currently active slide (zero-indexed)"
           },
           {
             "prop": "labelPrev",
@@ -67,7 +67,7 @@
           },
           {
             "prop": "labelIndicators",
-            "description": "Sets the 'aria-label' on the indicator cotrols wrapper"
+            "description": "Sets the 'aria-label' on the indicator controls wrapper"
           },
           {
             "prop": "background",
@@ -121,7 +121,7 @@
           },
           {
             "prop": "imgBlank",
-            "description": "If set, will render a blacnk image instead of the img-src"
+            "description": "If set, will render a blank image instead of the img-src"
           },
           {
             "prop": "imgBlankColor",
