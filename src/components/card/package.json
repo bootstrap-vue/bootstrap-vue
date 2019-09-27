@@ -139,7 +139,7 @@
           },
           {
             "prop": "blankColor",
-            "description": "CSS color of the blacnk SVG placeholder image. Has no effect if 'blank-src' is set"
+            "description": "CSS color of the blank SVG placeholder image. Has no effect if 'blank-src' is set"
           },
           {
             "prop": "blankWidth",
@@ -193,7 +193,7 @@
           },
           {
             "prop": "columns",
-            "description": "When set, renders the card group in a masonary-like columnar style"
+            "description": "When set, renders the card group in a masonry-like columnar style"
           }
         ]
       }
