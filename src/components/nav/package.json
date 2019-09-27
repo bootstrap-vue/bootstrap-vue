@@ -141,7 +141,7 @@
           },
           {
             "prop": "noCaret",
-            "description": "Hide the caret indicator on teh toggle button"
+            "description": "Hide the caret indicator on the toggle button"
           }
         ],
         "slots": [

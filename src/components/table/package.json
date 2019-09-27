@@ -142,7 +142,7 @@
           },
           {
             "prop": "busy",
-            "description": "When set, forces teh table into the busy state.Automatically set when an items provider function is being called"
+            "description": "When set, forces the table into the busy state.Automatically set when an items provider function is being called"
           },
           {
             "prop": "noProviderPaging",
@@ -170,7 +170,7 @@
           },
           {
             "prop": "noLocalSorting",
-            "description": "Disabled the internal sorting routine, and expects teh user to provde teh items sorted. Sorting controls will still be available"
+            "description": "Disabled the internal sorting routine, and expects the user to provde the items sorted. Sorting controls will still be available"
           },
           {
             "prop": "noFooterSorting",

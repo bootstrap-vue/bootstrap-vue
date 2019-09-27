@@ -17,7 +17,7 @@
           },
           {
             "prop": "type",
-            "description": "The value to set teh button's 'type' attribute to. Can be one of 'button', 'submit', or 'reset'"
+            "description": "The value to set the button's 'type' attribute to. Can be one of 'button', 'submit', or 'reset'"
           },
           {
             "prop": "pill",

@@ -13,7 +13,7 @@
         "props": [
           {
             "prop": "disabled",
-            "description": "Disabled the fieldset element, which in turn disables teh form controls (on browsers that support disabled fieldsets). Has no effect if 'label-for' is set"
+            "description": "Disabled the fieldset element, which in turn disables the form controls (on browsers that support disabled fieldsets). Has no effect if 'label-for' is set"
           },
           {
             "prop": "label",
@@ -89,7 +89,7 @@
           },
           {
             "prop": "labelClass",
-            "description": "CSS class (or classes) to add to teh label/legend element"
+            "description": "CSS class (or classes) to add to the label/legend element"
           },
           {
             "prop": "labelSize",
