@@ -223,6 +223,58 @@
           {
             "prop": "labelSortClear",
             "description": "String to place in the header cell's 'aria-label' when clicking the cell will clear the current sorting direction"
+          },
+          {
+            "prop": "selectable",
+            "description": "When set, places the table body rows in selectable mode"
+          },
+          {
+            "prop": "selectMode",
+            "description": "The selectable mode for the table when 'selectable' is set. Possible values: 'single', 'multi' or 'range'"
+          },
+          {
+            "prop": "selectedVariant",
+            "description": "Bootstrap color theme variant to set selected rows to. use any of hte standard Bootstrap theme variants, or the special table row variant 'active'"
+          },
+          {
+            "prop": "showEmpty",
+            "description": "When enabled, and there are no item resocrds to show, shows a message that there are no rows to show"
+          },
+          {
+            "prop": "emptyText",
+            "description": "Text string to show when the table has no items to show"
+          },
+          {
+            "prop": "emptyHtml",
+            "description": "HTML string to show when the table has no items to show. Usw with caution"
+          },
+          {
+            "prop": "emptyFilteredText",
+            "description": "Text string to show when the table has no items to show due to filtering"
+          },
+          {
+            "prop": "emptyFilteredHtml",
+            "description": "HTML string to show when the table has no items to show due to filtering. Use with caution"
+          },
+          {
+            "prop": "filter",
+            "description": "Criteria for filtering. Internal filtering supports only string or RegExpr criteria."
+          },
+          {
+            "prop": "filterFunction",
+            "description": "Reference to a function to use instead of the internal filtering function. Refer to the docs for details"
+          },
+          {
+            "prop": "filterIgnoredFields",
+            "description": "Array of top level fields to ignore when filtering the item data"
+          },
+          {
+            "prop": "filterIncludedFields",
+            "description": "Array of fields to include when filtering. Overrides filter-ignore-fields"
+          },
+          {
+            "prop": "filterDebounce",
+            "description": "Time in milliseconds to debounce changes to the filter criteria before filtering hte records"
           }
         ],
         "events": [
