@@ -91,7 +91,7 @@
           },
           {
             "prop": "noEnforceFocus",
-            "description": "Disabled teh enforce focus routine which maintains focus inside the modal"
+            "description": "Disables the enforce focus routine which maintains focus inside the modal"
           },
           {
             "prop": "titleSrOnly",
