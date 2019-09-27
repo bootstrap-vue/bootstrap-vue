@@ -93,7 +93,7 @@
           },
           {
             "prop": "labelSize",
-            "description": "Sets the text size of the label: 'sm;, 'md' (default) or 'lg'. Use this prop to have the label size match the form control size"
+            "description": "Sets the text size of the label: 'sm', 'md' (default) or 'lg'. Use this prop to have the label size match the form control size"
           },
           {
             "prop": "state",
