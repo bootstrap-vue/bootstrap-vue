@@ -14,9 +14,9 @@
         "expression": "String",
         "modifiers": [
           {
-            "name": "{modalid}",
+            "name": "{modalId}",
             "pattern": "[a-zA-Z][a-zA-Z0-9_\\-]*",
-            "description": "Modal ID to open. Replace `{modalid}` with the modal's ID"
+            "description": "Modal ID to open. Replace `{modalId}` with the modal's ID"
           }
         ]
       }
@@ -31,31 +31,31 @@
           },
           {
             "prop": "modalClass",
-            "description": "CSS class (or classes) to apply to the '.modal' wrapper elememnt"
+            "description": "CSS class (or classes) to apply to the '.modal' wrapper element"
           },
           {
             "prop": "contentClass",
-            "description": "CSS class (or classes) to apply to the '.modal-content' wrapper elememnt"
+            "description": "CSS class (or classes) to apply to the '.modal-content' wrapper element"
           },
           {
             "prop": "dialogClass",
-            "description": "CSS class (or classes) to apply to the '.modal-dialog' wrapper elememnt"
+            "description": "CSS class (or classes) to apply to the '.modal-dialog' wrapper element"
           },
           {
             "prop": "bodyClass",
-            "description": "CSS class (or classes) to apply to the '.modal-body' wrapper elememnt"
+            "description": "CSS class (or classes) to apply to the '.modal-body' wrapper element"
           },
           {
             "prop": "headerClass",
-            "description": "CSS class (or classes) to apply to the '.modal-header' wrapper elememnt"
+            "description": "CSS class (or classes) to apply to the '.modal-header' wrapper element"
           },
           {
             "prop": "footerClass",
-            "description": "CSS class (or classes) to apply to the '.modal-footer' wrapper elememnt"
+            "description": "CSS class (or classes) to apply to the '.modal-footer' wrapper element"
           },
           {
             "prop": "size",
-            "description": "Set the size of the modal'swidth. 'sm', 'md' (default), 'lg', or 'xl'"
+            "description": "Set the size of the modal's width. 'sm', 'md' (default), 'lg', or 'xl'"
           },
           {
             "prop": "centered",
@@ -99,7 +99,7 @@
           },
           {
             "prop": "ariaLabel",
-            "description": "Explicitly supply an 'aria-label' attribute for the modal. Should be set when the modal has no title. When not set 'aria-labeledby' will point to the modal's title"
+            "description": "Explicitly supply an 'aria-label' attribute for the modal. Should be set when the modal has no title. When not set 'aria-labelledby' will point to the modal's title"
           },
           {
             "prop": "hideHeader",
