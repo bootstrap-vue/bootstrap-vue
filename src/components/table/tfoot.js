@@ -15,16 +15,22 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   provide() {
     return {
-      bvTableTfoot: this
+      bvTableTfoot: this,
+      bvTableRowGroup: this
     }
   },
   inject: {
     bvTable: {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
       default: null
     }
   },
   props,
   computed: {
+    isTfoot() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return true
+    },
     tfootClasses() {
       return [this.footVariant ? `thead-${this.footVariant}` : null]
     },
