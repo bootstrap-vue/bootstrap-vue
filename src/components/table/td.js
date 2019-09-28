@@ -60,7 +60,6 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     },
     inThead() {
       return this.bvTableTr.inThead
-      )
     },
     inTfoot() {
       return this.bvTableTr.inTfoot
