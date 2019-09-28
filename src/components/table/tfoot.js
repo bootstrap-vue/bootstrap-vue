@@ -32,7 +32,7 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
       // Sniffed by <b-tr> / <b-td> / <b-th>
       return true
     },
-    isDark() {
+    isDark() /* istanbul ignore next: Not currently sniffed in tests */ {
       // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.dark
     },
