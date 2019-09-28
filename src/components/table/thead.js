@@ -52,7 +52,7 @@ export const BThead = /*#__PURE__*/ Vue.extend({
       // Sticky headers only apply to cells in table `thead`
       return !this.isStacked && this.bvTable.stickyHeader
     },
-    tableVariant() /* istanbul ignore next: Not currently sniffed */ {
+    tableVariant() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.tableVariant
     },
