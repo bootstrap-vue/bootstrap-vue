@@ -15,7 +15,6 @@ export const BThead = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   provide() {
     return {
-      bvTableThead: this,
       bvTableRowGroup: this
     }
   },
@@ -30,6 +29,14 @@ export const BThead = /*#__PURE__*/ Vue.extend({
     isTfoot() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
       return true
+    },
+    isDark() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return this.bvTable && this.bvTable.dark
+    },
+    isStacked() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return this.bvTable && this.bvTable.isStacked
     },
     theadClasses() {
       return [this.headVariant ? `thead-${this.headVariant}` : null]
