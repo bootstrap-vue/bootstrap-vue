@@ -99,6 +99,9 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     headVariant() {
       return this.bvTableTr.headVariant
     },
+    footVariant() /* istnabul ignore next: need to add in tests for footer variant */ {
+      return this.bvTableTr.footVariant
+    },
     tableVariant() {
       return this.bvTableTr.tableVariant
     },
@@ -111,6 +114,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     cellClasses() {
       // We use computed props here for improved performance by caching
       // the results of the string interpolation
+      // TODO: need to add handling for footVariant
       let variant = this.variant
       if (
         (!variant && this.isStickyHeader && !this.headVariant) ||
