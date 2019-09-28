@@ -91,7 +91,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       // Sticky headers only apply to cells in table `thead`
       return (
         !this.isStacked &&
-        this.inTbody &&
+        this.inThead &&
         this.bvTableTr.bvTableRowGroup.bvTable.stickyHeader
       )
     },
