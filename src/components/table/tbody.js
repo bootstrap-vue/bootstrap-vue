@@ -25,7 +25,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
   inject: {
     bvTable: {
       // Sniffed by <b-tr> / <b-td> / <b-th>
-      default: null
+      default: () => ({})
     }
   },
   props,
@@ -36,20 +36,24 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
     },
     isDark() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
-      return this.bvTable && this.bvTable.dark
+      return this.bvTable.dark
     },
     isStacked() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
-      return this.bvTable && this.bvTable.isStacked
+      return this.bvTable.isStacked
     },
     isResponsive() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
-      return !this.isStacked && this.bvTable && this.bvTable.isResponsive
+      return !this.isStacked && this.bvTable.isResponsive
     },
     isStickyHeader() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
       // Sticky headers are only supported in thead
       return false
+    },
+    tableVariant() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return this.bvTable.tableVariant
     },
     isTransitionGroup() {
       return this.tbodyTransitionProps || this.tbodyTransitionHandlers
