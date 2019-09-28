@@ -55,6 +55,14 @@ export const BTr = /*#__PURE__*/ Vue.extend({
       // Sticky headers are only supported in thead
       return this.bvTableRowGroup.isStickyHeader
     },
+    tableVariant() {
+     // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup.tableVariant
+    },
+    headVariant() {
+     // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup.headVariant
+    },
     trClasses() {
       return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
     },
