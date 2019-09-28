@@ -87,7 +87,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       return this.bvTableTr && this.bvTableTr.isDark
     },
     isStacked() {
-      return this.inTable && this.bvTableTr.bvTableRowGroup.bvTable.isStacked
+      return this.bvTableTr && this.bvTableTr.isStacked
     },
     isStackedCell() {
       // We only support stacked-heading in tbody in stacked mode
