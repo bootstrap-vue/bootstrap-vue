@@ -15,7 +15,6 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   provide() {
     return {
-      bvTableTfoot: this,
       bvTableRowGroup: this
     }
   },
