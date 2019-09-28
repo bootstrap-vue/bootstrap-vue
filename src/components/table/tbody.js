@@ -46,7 +46,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
     },
     isResponsive() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
-      return !this.isStacked && this.bvTable.isResponsive
+      return this.bvTable.isResponsive
     },
     isStickyHeader() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
