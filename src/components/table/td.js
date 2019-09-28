@@ -46,7 +46,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   inject: {
     bvTableTr: {
-      default: null
+      default: () => ({})
     }
   },
   props,
@@ -55,44 +55,34 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       // Overridden by <b-th>
       return 'td'
     },
-    inTable() {
-      return (
-        this.bvTableTr &&
-        this.bvTableTr.bvTableRowGroup &&
-        this.bvTableTr.bvTableRowGroup.bvTable
-      )
-    },
     inTbody() {
-      return this.bvTableTr && this.bvTableTr.inTbody
+      return this.bvTableTr.inTbody
     },
     inThead() {
-      return this.bvTableTr && this.bvTableTr.inThead
+      return this.bvTableTr.inThead
       )
     },
     inTfoot() {
-      return this.bvTableTr && this.bvTableTr.inTfoot
+      return this.bvTableTr.inTfoot
     },
     isDark() {
-      return this.bvTableTr && this.bvTableTr.isDark
+      return this.bvTableTr.isDark
     },
     isStacked() {
-      return this.bvTableTr && this.bvTableTr.isStacked
+      return this.bvTableTr.isStacked
     },
     isStackedCell() {
       // We only support stacked-heading in tbody in stacked mode
       return this.inTbody && this.isStacked
     },
     isResponsive() {
-      return !this.isStacked && this.inTable && this.bvTableTr.bvTableRowGroup.bvTable.isResponsive
+      return this.bvTableTr.isResponsive
     },
     isStickyHeader() {
       // Needed to handle header background classes, due to lack of
       // background color inheritance with Bootstrap v4 table CSS
       // Sticky headers only apply to cells in table `thead`
-      return (
-        !this.isStacked &&
-        this.inThead &&
-        this.bvTableTr.bvTableRowGroup.bvTable.stickyHeader
+      return this.bvTableTr.isStickyHeader
       )
     },
     isStickyColumn() {
@@ -104,13 +94,19 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       return !this.isStacked && (this.isResponsive || this.isStickyHeader) && this.stickyColumn
     },
     rowVariant() {
-      return this.bvTableTr ? this.bvTableTr.variant : null
+      return this.bvTableTr.variant
     },
     headVariant() {
-      return this.isThead ? this.bvTableTr.bvTableRowGroup.headVariant : null
+      return this.bvTableTr.headVariant
     },
     tableVariant() {
-      return this.inTable ? this.bvTableTr.bvTableRowGroup.bvTable.tableVariant : null
+      return this.bvTableTr.tableVariant
+    },
+    computedColspan() {
+      return parseSpan(this.colspan)
+    },
+    computedRowspan() {
+      return parseSpan(this.rowspan)
     },
     cellClasses() {
       // We use computed props here for improved performance by caching
@@ -128,12 +124,6 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         variant ? `${this.isDark ? 'bg' : 'table'}-${variant}` : null,
         this.isStickyColumn ? 'b-table-sticky-column' : null
       ]
-    },
-    computedColspan() {
-      return parseSpan(this.colspan)
-    },
-    computedRowspan() {
-      return parseSpan(this.rowspan)
     },
     cellAttrs() {
       // We use computed props here for improved performance by caching
