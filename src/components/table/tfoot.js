@@ -31,6 +31,14 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
       // Sniffed by <b-tr> / <b-td> / <b-th>
       return true
     },
+    isDark() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return this.bvTable && this.bvTable.dark
+    },
+    isStacked() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return this.bvTable && this.bvTable.isStacked
+    },
     tfootClasses() {
       return [this.footVariant ? `thead-${this.footVariant}` : null]
     },
