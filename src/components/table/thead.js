@@ -22,7 +22,7 @@ export const BThead = /*#__PURE__*/ Vue.extend({
   inject: {
     bvTable: {
       // Sniffed by <b-tr> / <b-td> / <b-th>
-      default: () => ({})
+      default: () => /* istanbul ignore next */ ({})
     }
   },
   props,
