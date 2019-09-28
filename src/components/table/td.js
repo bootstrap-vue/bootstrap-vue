@@ -82,7 +82,6 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       // background color inheritance with Bootstrap v4 table CSS
       // Sticky headers only apply to cells in table `thead`
       return this.bvTableTr.isStickyHeader
-      )
     },
     isStickyColumn() {
       // Needed to handle header background classes, due to lack of
