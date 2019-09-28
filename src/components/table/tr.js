@@ -46,6 +46,15 @@ export const BTr = /*#__PURE__*/ Vue.extend({
       // Sniffed by <b-td> / <b-th>
       return this.bvTableRowGroup && this.bvTableRowGroup.isStacked
     },
+    isResponsive() {
+      // Sniffed by <b-td> / <b-th>
+      return !this.isStacked && this.bvTableRowGroup && this.bvTableRowGroup.isResponsive
+    },
+    isStickyHeader() {
+      // Sniffed by <b-td> / <b-th>
+      // Sticky headers are only supported in thead
+      return this.bvTableRowGroup && this.bvTableRowGroup.isStacked
+    },
     trClasses() {
       return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
     },
