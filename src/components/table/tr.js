@@ -25,6 +25,19 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   },
   props,
   computed: {
+    inTbody() {
+      // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup && this.bvTableRowGroup.isTbody
+    },
+    inThead() {
+      // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup && this.bvTableRowGroup.isThead
+    },
+    inTfoot() {
+      // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup && this.bvTableRowGroup.isTfoot
+      )
+    },
     isDark() {
       // Sniffed by <b-td> / <b-th>
       return this.bvTableRowGroup && this.bvTableRowGroup.isDark
