@@ -84,7 +84,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       )
     },
     isDark() {
-      return this.inTable && this.bvTableTr.bvTableRowGroup.bvTable.dark
+      return this.bvTableTr && this.bvTableTr.isDark
     },
     isStacked() {
       return this.inTable && this.bvTableTr.bvTableRowGroup.bvTable.isStacked
