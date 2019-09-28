@@ -99,7 +99,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     headVariant() {
       return this.bvTableTr.headVariant
     },
-    footVariant() /* istnabul ignore next: need to add in tests for footer variant */ {
+    footVariant() /* istanbul ignore next: need to add in tests for footer variant */ {
       return this.bvTableTr.footVariant
     },
     tableVariant() {
