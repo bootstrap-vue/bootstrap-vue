@@ -19,7 +19,6 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   provide() {
     return {
-      bvTableTbody: this,
       bvTableRowGroup: this
     }
   },
@@ -34,6 +33,14 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
     isTbody() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
       return true
+    },
+    isDark() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return this.bvTable && this.bvTable.dark
+    },
+    isStacked() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return this.bvTable && this.bvTable.isStacked
     },
     isTransitionGroup() {
       return this.tbodyTransitionProps || this.tbodyTransitionHandlers
