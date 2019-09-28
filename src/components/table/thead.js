@@ -21,7 +21,7 @@ export const BThead = /*#__PURE__*/ Vue.extend({
   inject: {
     bvTable: {
       // Sniffed by <b-tr> / <b-td> / <b-th>
-      default: null
+      default: () => ({})
     }
   },
   props,
@@ -32,22 +32,26 @@ export const BThead = /*#__PURE__*/ Vue.extend({
     },
     isDark() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
-      return this.bvTable && this.bvTable.dark
+      return this.bvTable.dark
     },
     isStacked() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
-      return this.bvTable && this.bvTable.isStacked
+      return this.bvTable.isStacked
     },
     isResponsive() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
-      return !this.isStacked && this.bvTable && this.bvTable.isResponsive
+      return !this.isStacked && this.bvTable.isResponsive
     },
     isStickyHeader() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
       // Needed to handle header background classes, due to lack of
       // background color inheritance with Bootstrap v4 table CSS
       // Sticky headers only apply to cells in table `thead`
+      return !this.isStacked && this.bvTable.stickyHeader
+    },
+    tableVariant() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
-      return !this.isStacked && this.bvTable && this.bvTable.stickyHeader
+      return this.bvTable.tableVariant
     },
     theadClasses() {
       return [this.headVariant ? `thead-${this.headVariant}` : null]
