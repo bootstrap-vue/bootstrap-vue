@@ -19,14 +19,14 @@ export const BTr = /*#__PURE__*/ Vue.extend({
     }
   },
   inject: {
-    bvTable: {
-      default: null
+    bvTableRowGroup: {
+      defaut: null
     }
   },
   props,
   computed: {
     isDark() {
-      return this.bvTable && this.bvTable.dark
+      return this.bvTableRowGroup && this.bvTableRowGroup.bvTable && this.bvTableRowGroup.bvTable.dark
     },
     trClasses() {
       return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
