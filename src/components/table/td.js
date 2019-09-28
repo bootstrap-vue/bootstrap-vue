@@ -63,25 +63,14 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       )
     },
     inTbody() {
-      return (
-        this.bvTableTr &&
-        this.bvTableTr.bvTableRowGroup &&
-        this.bvTableTr.bvTableRowGroup.isTbody
-      )
+      return this.bvTableTr && this.bvTableTr.inTbody
     },
     inThead() {
-      return (
-        this.bvTableTr &&
-        this.bvTableTr.bvTableRowGroup &&
-        this.bvTableTr.bvTableRowGroup.isThead
+      return this.bvTableTr && this.bvTableTr.inThead
       )
     },
     inTfoot() {
-      return (
-        this.bvTableTr &&
-        this.bvTableTr.bvTableRowGroup &&
-        this.bvTableTr.bvTableRowGroup.isTfoot
-      )
+      return this.bvTableTr && this.bvTableTr.inTfoot
     },
     isDark() {
       return this.bvTableTr && this.bvTableTr.isDark
@@ -103,7 +92,6 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       return (
         !this.isStacked &&
         this.inTbody &&
-        this.inTable &&
         this.bvTableTr.bvTableRowGroup.bvTable.stickyHeader
       )
     },
