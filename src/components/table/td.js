@@ -46,7 +46,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   inject: {
     bvTableTr: {
-      default: () => ({})
+      default: () => /* istanbul ignore next */ ({})
     }
   },
   props,
