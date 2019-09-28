@@ -27,11 +27,11 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   computed: {
     isDark() {
       // Sniffed by <b-td> / <b-th>
-      return this.bvTableRowGroup && this.bvTableRowGroup.bvTable && this.bvTableRowGroup.bvTable.dark
+      return this.bvTableRowGroup && this.bvTableRowGroup.isDark
     },
     isStacked() {
       // Sniffed by <b-td> / <b-th>
-      return this.bvTableRowGroup && this.bvTableRowGroup.bvTable && this.bvTableRowGroup.bvTable.isStacked
+      return this.bvTableRowGroup && this.bvTableRowGroup.isStacked
     },
     trClasses() {
       return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
