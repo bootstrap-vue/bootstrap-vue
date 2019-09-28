@@ -3,6 +3,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 export const props = {
   headVariant: {
+    // Also sniffed by <b-tr> / <b-td> / <b-th>
     type: String, // supported values: 'lite', 'dark', or null
     default: null
   }
