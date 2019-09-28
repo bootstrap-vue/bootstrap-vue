@@ -15,16 +15,22 @@ export const BThead = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   provide() {
     return {
-      bvTableThead: this
+      bvTableThead: this,
+      bvTableRowGroup: this
     }
   },
   inject: {
     bvTable: {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
       default: null
     }
   },
   props,
   computed: {
+    isTfoot() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return true
+    },
     theadClasses() {
       return [this.headVariant ? `thead-${this.headVariant}` : null]
     },
