@@ -20,7 +20,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   },
   inject: {
     bvTableRowGroup: {
-      defaut: () => ({})
+      defaut: () => /* istanbul ignore next */ ({})
     }
   },
   props,
