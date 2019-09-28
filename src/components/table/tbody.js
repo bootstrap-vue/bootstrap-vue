@@ -42,6 +42,15 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
       // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable && this.bvTable.isStacked
     },
+    isResponsive() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return !this.isStacked && this.bvTable && this.bvTable.isResponsive
+    },
+    isStickyHeader() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      // Sticky headers are only supported in thead
+      return false
+    },
     isTransitionGroup() {
       return this.tbodyTransitionProps || this.tbodyTransitionHandlers
     },
