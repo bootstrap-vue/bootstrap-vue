@@ -19,16 +19,22 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   provide() {
     return {
-      bvTableTbody: this
+      bvTableTbody: this,
+      bvTableRowGroup: this
     }
   },
   inject: {
     bvTable: {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
       default: null
     }
   },
   props,
   computed: {
+    isTbody() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return true
+    },
     isTransitionGroup() {
       return this.tbodyTransitionProps || this.tbodyTransitionHandlers
     },
