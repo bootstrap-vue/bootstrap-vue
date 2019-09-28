@@ -26,7 +26,12 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   props,
   computed: {
     isDark() {
+      // Sniffed by <b-td> / <b-th>
       return this.bvTableRowGroup && this.bvTableRowGroup.bvTable && this.bvTableRowGroup.bvTable.dark
+    },
+    isStacked() {
+      // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup && this.bvTableRowGroup.bvTable && this.bvTableRowGroup.bvTable.isStacked
     },
     trClasses() {
       return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
