@@ -45,19 +45,6 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
   inject: {
-    // Injections for feature / attribute detection
-    bvTable: {
-      default: null
-    },
-    bvTableTbody: {
-      default: null
-    },
-    bvTableThead: {
-      default: null
-    },
-    bvTableTfoot: {
-      default: null
-    },
     bvTableTr: {
       default: null
     }
@@ -68,18 +55,46 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       // Overridden by <b-th>
       return 'td'
     },
+    inTable() {
+      return (
+        this.bvTableTr &&
+        this.bvTableTr.bvTableRowGroup &&
+        this.bvTableTr.bvTableRowGroup.bvTable
+      )
+    },
+    inTbody() {
+      return (
+        this.bvTableTr &&
+        this.bvTableTr.bvTableRowGroup &&
+        this.bvTableTr.bvTableRowGroup.isTbody
+      )
+    },
+    inThead() {
+      return (
+        this.bvTableTr &&
+        this.bvTableTr.bvTableRowGroup &&
+        this.bvTableTr.bvTableRowGroup.isThead
+      )
+    },
+    inTfoot() {
+      return (
+        this.bvTableTr &&
+        this.bvTableTr.bvTableRowGroup &&
+        this.bvTableTr.bvTableRowGroup.isTfoot
+      )
+    },
     isDark() {
-      return this.bvTable && this.bvTable.dark
+      return this.inTable && this.bvTableTr.bvTableRowGroup.bvTable.dark
     },
     isStacked() {
-      return this.bvTable && this.bvTable.isStacked
+      return this.inTable && this.bvTableTr.bvTableRowGroup.bvTable.isStacked
     },
     isStackedCell() {
       // We only support stacked-heading in tbody in stacked mode
-      return this.bvTableTbody && this.isStacked
+      return this.inTbody && this.isStacked
     },
     isResponsive() {
-      return this.bvTable && this.bvTable.isResponsive && !this.isStacked
+      return !this.isStacked && this.inTable && this.bvTableTr.bvTableRowGroup.bvTable.isResponsive
     },
     isStickyHeader() {
       // Needed to handle header background classes, due to lack of
@@ -87,10 +102,9 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       // Sticky headers only apply to cells in table `thead`
       return (
         !this.isStacked &&
-        this.bvTable &&
-        this.bvTableThead &&
-        this.bvTableTr &&
-        this.bvTable.stickyHeader
+        this.inTbody &&
+        this.inTable &&
+        this.bvTableTr.bvTableRowGroup.bvTable.stickyHeader
       )
     },
     isStickyColumn() {
@@ -99,25 +113,28 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       // Sticky column cells are only available in responsive
       // mode (horizontal scrolling) or when sticky header mode
       // Applies to cells in `thead`, `tbody` and `tfoot`
-      return (
-        (this.isResponsive || this.isStickyHeader) &&
-        this.stickyColumn &&
-        !this.isStacked &&
-        this.bvTable &&
-        this.bvTableTr
-      )
+      return !this.isStacked && (this.isResponsive || this.isStickyHeader) && this.stickyColumn
+    },
+    rowVariant() {
+      return this.bvTableTr ? this.bvTableTr.variant : null
+    },
+    headVariant() {
+      return this.isThead ? this.bvTableTr.bvTableRowGroup.headVariant : null
+    },
+    tableVariant() {
+      return this.inTable ? this.bvTableTr.bvTableRowGroup.bvTable.tableVariant : null
     },
     cellClasses() {
       // We use computed props here for improved performance by caching
       // the results of the string interpolation
       let variant = this.variant
       if (
-        (!variant && this.isStickyHeader && !this.bvTableThead.headVariant) ||
+        (!variant && this.isStickyHeader && !this.headVariant) ||
         (!variant && this.isStickyColumn)
       ) {
         // Needed for sticky-header mode as Bootstrap v4 table cells do
         // not inherit parent's background-color. Boo!
-        variant = this.bvTableTr.variant || this.bvTable.tableVariant || 'b-table-default'
+        variant = this.rowVariant || this.tableVariant || 'b-table-default'
       }
       return [
         variant ? `${this.isDark ? 'bg' : 'table'}-${variant}` : null,
@@ -133,7 +150,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     cellAttrs() {
       // We use computed props here for improved performance by caching
       // the results of the object spread (Object.assign)
-      const headOrFoot = this.bvTableThead || this.bvTableTfoot
+      const headOrFoot = this.inThead || this.inTfoot
       // Make sure col/rowspan's are > 0 or null
       const colspan = this.computedColspan
       const rowspan = this.computedRowspan
