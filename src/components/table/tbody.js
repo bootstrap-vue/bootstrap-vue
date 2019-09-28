@@ -53,7 +53,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
       // Sticky headers are only supported in thead
       return false
     },
-    tableVariant() {
+    tableVariant()  /* istanbul ignore next: Not currently sniffed in tests */{
       // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.tableVariant
     },
