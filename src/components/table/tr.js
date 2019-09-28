@@ -36,7 +36,6 @@ export const BTr = /*#__PURE__*/ Vue.extend({
     inTfoot() {
       // Sniffed by <b-td> / <b-th>
       return this.bvTableRowGroup.isTfoot
-      )
     },
     isDark() {
       // Sniffed by <b-td> / <b-th>
