@@ -29,7 +29,7 @@ export const BThead = /*#__PURE__*/ Vue.extend({
   },
   props,
   computed: {
-    isTfoot() {
+    isThead() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
       return true
     },
@@ -43,7 +43,7 @@ export const BThead = /*#__PURE__*/ Vue.extend({
     },
     isResponsive() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
-      return !this.isStacked && this.bvTable.isResponsive
+      return this.bvTable.isResponsive
     },
     isStickyHeader() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
