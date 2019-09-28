@@ -20,40 +20,40 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   },
   inject: {
     bvTableRowGroup: {
-      defaut: null
+      defaut: () => ({})
     }
   },
   props,
   computed: {
     inTbody() {
       // Sniffed by <b-td> / <b-th>
-      return this.bvTableRowGroup && this.bvTableRowGroup.isTbody
+      return this.bvTableRowGroup.isTbody
     },
     inThead() {
       // Sniffed by <b-td> / <b-th>
-      return this.bvTableRowGroup && this.bvTableRowGroup.isThead
+      return this.bvTableRowGroup.isThead
     },
     inTfoot() {
       // Sniffed by <b-td> / <b-th>
-      return this.bvTableRowGroup && this.bvTableRowGroup.isTfoot
+      return this.bvTableRowGroup.isTfoot
       )
     },
     isDark() {
       // Sniffed by <b-td> / <b-th>
-      return this.bvTableRowGroup && this.bvTableRowGroup.isDark
+      return this.bvTableRowGroup.isDark
     },
     isStacked() {
       // Sniffed by <b-td> / <b-th>
-      return this.bvTableRowGroup && this.bvTableRowGroup.isStacked
+      return this.bvTableRowGroup.isStacked
     },
     isResponsive() {
       // Sniffed by <b-td> / <b-th>
-      return !this.isStacked && this.bvTableRowGroup && this.bvTableRowGroup.isResponsive
+      return this.bvTableRowGroup.isResponsive
     },
     isStickyHeader() {
       // Sniffed by <b-td> / <b-th>
       // Sticky headers are only supported in thead
-      return this.bvTableRowGroup && this.bvTableRowGroup.isStacked
+      return this.bvTableRowGroup.isStickyHeader
     },
     trClasses() {
       return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
