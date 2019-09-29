@@ -13,7 +13,7 @@
         "props": [
           {
             "prop": "value",
-            "description": "The current value of the file input. Will be an array if multiple or directory is set. Can be set to null or empty array to reset the file input"
+            "description": "The current value of the file input. Will be an array of Files if multiple or directory is set. Can be set to null, empty array, or empty string to reset the file input"
           },
           {
             "prop": "accept",
