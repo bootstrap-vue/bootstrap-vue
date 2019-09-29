@@ -31,7 +31,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       default: null,
       validator: val => {
         if (val === '') {
-          warn(`${NAME} - setting value/v-model to an empty string for reset is deprecated. Set to 'null' instead`)
+          warn(
+            `${NAME} - setting value/v-model to an empty string for reset is deprecated. Set to 'null' instead`
+          )
           return true
         }
         return (
