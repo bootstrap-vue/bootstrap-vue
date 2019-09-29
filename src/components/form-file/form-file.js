@@ -26,7 +26,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig('BFormControl', 'size')
     },
     value: {
-      type: [File, Array],
+      // Type `String` needed for resetting by pasing empty string `''`
+      type: [File, Array, String],
       default: null
     },
     accept: {
