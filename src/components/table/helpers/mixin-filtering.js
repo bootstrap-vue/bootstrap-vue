@@ -96,21 +96,18 @@ export default {
       // We need a deep watcher in case the user passes
       // an object when using `filter-function`
       deep: true,
-      handler(newFilter, oldFilter) {
+      handler(newCriteria, oldCriteria) {
         const timeout = this.computedFilterDebounce
-        if (this.$_filterTimer) {
-          clearTimeout(this.$_filterTimer)
-          this.$_filterTimer = null
-        }
-        if (timeout) {
+        clearTimeout(this.$_filterTimer)
+        this.$_filterTimer = null
+        if (timeout && timeout > 0) {
           // If we have a debounce time, delay the update of `localFilter`
           this.$_filterTimer = setTimeout(() => {
-            this.$_filterTimer = null
-            this.localFilter = this.filterSanitize(this.filter)
+            this.localFilter = this.filterSanitize(newCriteria)
           }, timeout)
         } else {
           // Otherwise, immediately update `localFilter` with `newFilter` value
-          this.localFilter = this.filterSanitize(newFilter)
+          this.localFilter = this.filterSanitize(newCriteria)
         }
       }
     },
@@ -154,12 +151,9 @@ export default {
       this.isFiltered = Boolean(this.localFilter)
     })
   },
-  beforeDestroy() {
-    /* istanbul ignore next */
-    if (this.$_filterTimer) {
-      clearTimeout(this.$_filterTimer)
-      this.$_filterTimer = null
-    }
+  beforeDestroy() /* istanbul ignore next */ {
+    clearTimeout(this.$_filterTimer)
+    this.$_filterTimer = null
   },
   methods: {
     filterSanitize(criteria) {
