@@ -115,18 +115,18 @@ export default {
     updateValue(value, lazyUpdate = false) {
       value = this.stringifyValue(value)
       if (value !== this.localValue) {
-        // Keep the input set to the value before modifiers
-        this.localValue = value
-        if (this.number) {
-          // Emulate `.number` modifier behaviour
-          const num = parseFloat(value)
-          value = isNaN(num) ? value : num
-        } else if (this.trim) {
-          // Emulate `.trim` modifier behaviour
-          value = value.trim()
-        }
         // Update the v-model (if not a lazy update)
         if (!lazyUpdate) {
+          // Keep the input set to the value before modifiers
+          this.localValue = value
+          if (this.number) {
+            // Emulate `.number` modifier behaviour
+            const num = parseFloat(value)
+            value = isNaN(num) ? value : num
+          } else if (this.trim) {
+            // Emulate `.trim` modifier behaviour
+            value = value.trim()
+          }
           this.$emit('update', value)
         }
       } else if (this.$refs.input && value !== this.$refs.input.value) {
