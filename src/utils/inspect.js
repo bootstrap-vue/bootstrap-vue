@@ -30,7 +30,7 @@ export const isDate = val => val instanceof Date
 
 export const isEvent = val => val instanceof Event
 
-export const isFile = val => val instance of File
+export const isFile = val => val instanceof File
 
 export const isRegExp = val => toRawType(val) === 'RegExp'
 
