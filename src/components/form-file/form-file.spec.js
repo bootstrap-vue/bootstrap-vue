@@ -358,8 +358,7 @@ describe('form-file', () => {
     wrapper.setProps({ value: null })
     await waitNT(wrapper.vm)
 
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual(null)
+    expect(wrapper.emitted('input').length).toEqual(1)
 
     wrapper.destroy()
   })
