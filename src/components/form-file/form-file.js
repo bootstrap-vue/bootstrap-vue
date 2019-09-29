@@ -29,12 +29,14 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // Type `String` needed for resetting input by pasing empty string `''`
       type: [File, Array, String],
       default: null,
-      validator: val => (
-        isUndefinedOrNull(val) ||
-        val === '' ||
-        isFile(val) ||
-        (isArray(val) && (val.length === 0 || val.every(isFile)))
-      )
+      validator: val => {
+        return (
+          isUndefinedOrNull(val) ||
+          val === '' ||
+          isFile(val) ||
+          (isArray(val) && (val.length === 0 || val.every(isFile)))
+        )
+      }
     },
     accept: {
       type: String,
