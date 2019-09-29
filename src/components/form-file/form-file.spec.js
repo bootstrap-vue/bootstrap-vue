@@ -340,7 +340,7 @@ describe('form-file', () => {
     const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
-        value: ''
+        value: null
       }
     })
     const file1 = new File(['foo'], 'foo.txt', {
