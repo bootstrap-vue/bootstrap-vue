@@ -35,6 +35,10 @@ export default {
       type: Function,
       default: null
     },
+    lazyFormatter: {
+      type: Boolean,
+      value: false
+    },
     trim: {
       type: Boolean,
       default: false
@@ -43,9 +47,10 @@ export default {
       type: Boolean,
       default: false
     },
-    lazyFormatter: {
+    lazy: {
+      // Only update the v-model on blur/change events
       type: Boolean,
-      value: false
+      default: false
     }
   },
   data() {
@@ -107,7 +112,7 @@ export default {
       }
       return value
     },
-    updateValue(value) {
+    updateValue(value, lazyUpdate = false) {
       value = this.stringifyValue(value)
       if (value !== this.localValue) {
         // Keep the input set to the value before modifiers
@@ -120,8 +125,10 @@ export default {
           // Emulate `.trim` modifier behaviour
           value = value.trim()
         }
-        // Update the v-model
-        this.$emit('update', value)
+        // Update the v-model (if not a lazy update)
+        if (!lazyUpdate) {
+          this.$emit('update', value)
+        }
       } else if (this.$refs.input && value !== this.$refs.input.value) {
         // When the `localValue` hasn't changed but the actual input value
         // is out of sync, make sure to change it to the given one.
@@ -148,7 +155,7 @@ export default {
         evt.preventDefault()
         return
       }
-      this.updateValue(formatted)
+      this.updateValue(formatted, this.lazy)
       this.$emit('input', formatted)
     },
     onChange(evt) {
@@ -166,7 +173,7 @@ export default {
         evt.preventDefault()
         return
       }
-      this.updateValue(formatted)
+      this.updateValue(formatted, false)
       this.$emit('change', formatted)
     },
     onBlur(evt) {
@@ -177,7 +184,7 @@ export default {
         if (formatted === false) {
           return
         }
-        this.updateValue(formatted)
+        this.updateValue(formatted, false)
       }
       // Emit native blur event
       this.$emit('blur', evt)
