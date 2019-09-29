@@ -21,11 +21,15 @@
           },
           {
             "prop": "trim",
-            "description": "When set, trims any leading and trailing white space from the input value"
+            "description": "When set, trims any leading and trailing white space from the input value. Emulates the Vue '.trim' v-model modifier"
           },
           {
             "prop": "number",
-            "description": "When set attempts to convert the input value to a native number"
+            "description": "When set attempts to convert the input value to a native number. Emulates the Vue '.number' v-model modifier"
+          },
+          {
+            "prop": "lazy",
+            "description": "When set updates the v-model on 'change' event instead of 'input'. Emulates the Vue '.lazy' v-model modifier"
           },
           {
             "prop": "type",
