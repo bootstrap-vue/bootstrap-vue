@@ -37,7 +37,7 @@ export default {
     },
     lazyFormatter: {
       type: Boolean,
-      value: false
+      default: false
     },
     trim: {
       type: Boolean,
