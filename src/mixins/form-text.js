@@ -114,10 +114,19 @@ export default {
     },
     updateValue(value, lazyUpdate = false) {
       value = this.stringifyValue(value)
+      const $input = this.$refs.input
       if (value !== this.localValue) {
-        // Update the v-model (if not a lazy update)
-        if (!lazyUpdate) {
-          // Keep the input set to the value before modifiers
+        if (lazyUpdate) {
+          // If lazy update, we just update the input's value
+          // and will emit v-model update on chnage/blur later
+          if ($input && $input.value !== value) {
+            // Apply any formating to input's value,
+            // but only if the value has changed
+            $input.value = value
+          }
+        } else {
+          // Update the v-model (if not a lazy update)
+          // Keep the input set to the value before any modifiers
           this.localValue = value
           if (this.number) {
             // Emulate `.number` modifier behaviour
@@ -129,7 +138,7 @@ export default {
           }
           this.$emit('update', value)
         }
-      } else if (this.$refs.input && value !== this.$refs.input.value) {
+      } else if ($input && $input.value !== value) {
         // When the `localValue` hasn't changed but the actual input value
         // is out of sync, make sure to change it to the given one.
         // Usually casued by browser autocomplete and how it triggers the
