@@ -277,9 +277,9 @@ form field styling and preserve the correct text size, margin, padding and heigh
 Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of custom
 component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
 
-To get around this, `<b-for-textarea>` and `<b-form-input>` have two boolean props `trim` and
-`number` which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectively.
-Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `blur` events instead).
+To get around this, `<b-form-input>` and `<b-form-textarea>` have three boolean props `trim`,
+`number`, and `lazy` which emulate the native Vue `v-model` modifiers `.trim` and `.number` and 
+`.lazy` respectively.
 
 **Notes:**
 
