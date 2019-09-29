@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { from as arrayFrom, isArray, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { isFunction } from '../../utils/inspect'
+import { isFile, isFunction, isUndefinedOrNull } from '../../utils/inspect'
 import { File } from '../../utils/safe-types'
 import formCustomMixin from '../../mixins/form-custom'
 import formMixin from '../../mixins/form'
@@ -26,9 +26,15 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig('BFormControl', 'size')
     },
     value: {
-      // Type `String` needed for resetting by pasing empty string `''`
+      // Type `String` needed for resetting input by pasing empty string `''`
       type: [File, Array, String],
-      default: null
+      default: null,
+      validator: val => (
+        isUndefinedOrNull(val) ||
+        val === '' ||
+        isFile(val) ||
+        (isArray(val) && (val.length === 0 || val.every(isFile))
+      )
     },
     accept: {
       type: String,
