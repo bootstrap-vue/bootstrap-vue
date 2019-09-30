@@ -30,7 +30,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       type: [File, Array],
       default: null,
       validator: val => {
-        if (val === '') {
+        if (val === '') /* istanbul ignore next */ {
           warn(
             `${NAME} - setting value/v-model to an empty string for reset is deprecated. Set to 'null' instead`
           )
