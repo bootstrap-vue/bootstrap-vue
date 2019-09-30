@@ -45,21 +45,10 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
   inject: {
-    // Injections for feature / attribute detection
-    bvTable: {
-      default: null
-    },
-    bvTableTbody: {
-      default: null
-    },
-    bvTableThead: {
-      default: null
-    },
-    bvTableTfoot: {
-      default: null
-    },
     bvTableTr: {
-      default: null
+      default() /* istanbul ignore next */ {
+        return {}
+      }
     }
   },
   props,
@@ -68,30 +57,33 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       // Overridden by <b-th>
       return 'td'
     },
+    inTbody() {
+      return this.bvTableTr.inTbody
+    },
+    inThead() {
+      return this.bvTableTr.inThead
+    },
+    inTfoot() {
+      return this.bvTableTr.inTfoot
+    },
     isDark() {
-      return this.bvTable && this.bvTable.dark
+      return this.bvTableTr.isDark
     },
     isStacked() {
-      return this.bvTable && this.bvTable.isStacked
+      return this.bvTableTr.isStacked
     },
     isStackedCell() {
       // We only support stacked-heading in tbody in stacked mode
-      return this.bvTableTbody && this.isStacked
+      return this.inTbody && this.isStacked
     },
     isResponsive() {
-      return this.bvTable && this.bvTable.isResponsive && !this.isStacked
+      return this.bvTableTr.isResponsive
     },
     isStickyHeader() {
       // Needed to handle header background classes, due to lack of
       // background color inheritance with Bootstrap v4 table CSS
       // Sticky headers only apply to cells in table `thead`
-      return (
-        !this.isStacked &&
-        this.bvTable &&
-        this.bvTableThead &&
-        this.bvTableTr &&
-        this.bvTable.stickyHeader
-      )
+      return this.bvTableTr.isStickyHeader
     },
     isStickyColumn() {
       // Needed to handle header background classes, due to lack of
@@ -99,30 +91,19 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       // Sticky column cells are only available in responsive
       // mode (horizontal scrolling) or when sticky header mode
       // Applies to cells in `thead`, `tbody` and `tfoot`
-      return (
-        (this.isResponsive || this.isStickyHeader) &&
-        this.stickyColumn &&
-        !this.isStacked &&
-        this.bvTable &&
-        this.bvTableTr
-      )
+      return !this.isStacked && (this.isResponsive || this.isStickyHeader) && this.stickyColumn
     },
-    cellClasses() {
-      // We use computed props here for improved performance by caching
-      // the results of the string interpolation
-      let variant = this.variant
-      if (
-        (!variant && this.isStickyHeader && !this.bvTableThead.headVariant) ||
-        (!variant && this.isStickyColumn)
-      ) {
-        // Needed for sticky-header mode as Bootstrap v4 table cells do
-        // not inherit parent's background-color. Boo!
-        variant = this.bvTableTr.variant || this.bvTable.tableVariant || 'b-table-default'
-      }
-      return [
-        variant ? `${this.isDark ? 'bg' : 'table'}-${variant}` : null,
-        this.isStickyColumn ? 'b-table-sticky-column' : null
-      ]
+    rowVariant() {
+      return this.bvTableTr.variant
+    },
+    headVariant() {
+      return this.bvTableTr.headVariant
+    },
+    footVariant() /* istanbul ignore next: need to add in tests for footer variant */ {
+      return this.bvTableTr.footVariant
+    },
+    tableVariant() {
+      return this.bvTableTr.tableVariant
     },
     computedColspan() {
       return parseSpan(this.colspan)
@@ -130,10 +111,28 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     computedRowspan() {
       return parseSpan(this.rowspan)
     },
+    cellClasses() {
+      // We use computed props here for improved performance by caching
+      // the results of the string interpolation
+      // TODO: need to add handling for footVariant
+      let variant = this.variant
+      if (
+        (!variant && this.isStickyHeader && !this.headVariant) ||
+        (!variant && this.isStickyColumn)
+      ) {
+        // Needed for sticky-header mode as Bootstrap v4 table cells do
+        // not inherit parent's background-color. Boo!
+        variant = this.rowVariant || this.tableVariant || 'b-table-default'
+      }
+      return [
+        variant ? `${this.isDark ? 'bg' : 'table'}-${variant}` : null,
+        this.isStickyColumn ? 'b-table-sticky-column' : null
+      ]
+    },
     cellAttrs() {
       // We use computed props here for improved performance by caching
       // the results of the object spread (Object.assign)
-      const headOrFoot = this.bvTableThead || this.bvTableTfoot
+      const headOrFoot = this.inThead || this.inTfoot
       // Make sure col/rowspan's are > 0 or null
       const colspan = this.computedColspan
       const rowspan = this.computedRowspan
