@@ -122,6 +122,7 @@ export default {
           if ($input && $input.value !== value) {
             // Apply any formating to input's value,
             // but only if the value has changed
+            /* istanbul ignore next: hard to test */
             $input.value = value
           }
         } else {
