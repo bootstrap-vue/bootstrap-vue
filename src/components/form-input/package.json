@@ -29,6 +29,7 @@
           },
           {
             "prop": "lazy",
+            "version": "2.1.0",
             "description": "When set updates the v-model on 'change' event instead of 'input'. Emulates the Vue '.lazy' v-model modifier"
           },
           {
