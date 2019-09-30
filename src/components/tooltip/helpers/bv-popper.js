@@ -8,7 +8,7 @@
 import Vue from '../../../utils/vue'
 import Popper from 'popper.js'
 import { getCS, select } from '../../../utils/dom'
-import { HTMLElement } from '../../../utils/safe-types'
+import { HTMLElement, SVGElement } from '../../../utils/safe-types'
 import { BVTransition } from '../../../utils/bv-transition'
 
 const NAME = 'BVPopper'
@@ -51,7 +51,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
   props: {
     target: {
       // Element that the tooltip/popover is positioned relative to
-      type: HTMLElement,
+      type: [HTMLElement, SVGElement],
       default: null
     },
     placement: {
