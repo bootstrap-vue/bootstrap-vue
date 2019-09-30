@@ -118,7 +118,7 @@ export default {
       if (value !== this.localValue) {
         if (lazyUpdate) {
           // If lazy update, we just update the input's value
-          // and will emit v-model update on chnage/blur later
+          // and will emit v-model update on change/blur later
           if ($input && $input.value !== value) {
             // Apply any formating to input's value,
             // but only if the value has changed
@@ -140,9 +140,9 @@ export default {
         }
       } else if ($input && $input.value !== value) {
         // When the `localValue` hasn't changed but the actual input value
-        // is out of sync, make sure to change it to the given one.
-        // Usually casued by browser autocomplete and how it triggers the
-        // change or input event, or depending on the formatter function.
+        // is out of sync, make sure to change it to the given one
+        // Usually caused by browser autocomplete and how it triggers the
+        // change or input event, or depending on the formatter function
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/2657
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/3498
         /* istanbul ignore next: hard to test */
