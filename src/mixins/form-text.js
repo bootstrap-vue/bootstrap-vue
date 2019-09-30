@@ -177,8 +177,8 @@ export default {
       const formatted = this.getFormatted(evt.target.value, evt)
       // Exit when the `formatter` function strictly returned `false`
       // or prevented the input event
+      /* istanbul ignore next */
       if (formatted === false || evt.defaultPrevented) {
-        /* istanbul ignore next */
         evt.preventDefault()
         return
       }
@@ -190,6 +190,7 @@ export default {
       if (this.lazyFormatter) {
         const formatted = this.getFormatted(evt.target.value, evt, true)
         // Exit when the `formatter` function strictly returned `false`
+        /* istanbul ignore next */
         if (formatted === false) {
           return
         }
