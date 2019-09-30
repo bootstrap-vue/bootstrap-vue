@@ -19,14 +19,50 @@ export const BTr = /*#__PURE__*/ Vue.extend({
     }
   },
   inject: {
-    bvTable: {
-      default: null
+    bvTableRowGroup: {
+      defaut() /* istanbul ignore next */ {
+        return {}
+      }
     }
   },
   props,
   computed: {
+    inTbody() {
+      // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup.isTbody
+    },
+    inThead() {
+      // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup.isThead
+    },
+    inTfoot() {
+      // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup.isTfoot
+    },
     isDark() {
-      return this.bvTable && this.bvTable.dark
+      // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup.isDark
+    },
+    isStacked() {
+      // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup.isStacked
+    },
+    isResponsive() {
+      // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup.isResponsive
+    },
+    isStickyHeader() {
+      // Sniffed by <b-td> / <b-th>
+      // Sticky headers are only supported in thead
+      return this.bvTableRowGroup.isStickyHeader
+    },
+    tableVariant() {
+      // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup.tableVariant
+    },
+    headVariant() {
+      // Sniffed by <b-td> / <b-th>
+      return this.bvTableRowGroup.headVariant
     },
     trClasses() {
       return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
