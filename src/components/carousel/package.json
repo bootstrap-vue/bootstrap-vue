@@ -27,6 +27,7 @@
           },
           {
             "prop": "noWrap",
+            "version": "2.0.0",
             "description": "Do not restart the slide show when then end is reached"
           },
           {
