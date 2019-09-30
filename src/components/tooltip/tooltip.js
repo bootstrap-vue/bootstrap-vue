@@ -3,7 +3,7 @@ import getScopId from '../../utils/get-scope-id'
 import { isArray, arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
-import { HTMLElement } from '../../utils/safe-types'
+import { HTMLElement, SVGElement } from '../../utils/safe-types'
 import { BVTooltip } from './helpers/bv-tooltip'
 
 const NAME = 'BTooltip'
@@ -24,7 +24,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     target: {
       // String ID of element, or element/component reference
       // Or function that returns one of the above
-      type: [String, HTMLElement, Function, Object],
+      type: [String, HTMLElement, SVGElement, Function, Object],
       // default: undefined,
       required: true
     },
