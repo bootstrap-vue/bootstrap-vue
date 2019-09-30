@@ -55,6 +55,7 @@
         <template v-slot:cell(prop)="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
+          <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
           <b-badge v-if="item.isVModel" variant="primary">v-model</b-badge>
           <b-badge v-if="item.xss" variant="warning">Use with caution</b-badge>
           <b-badge v-if="item.deprecated" variant="danger">Deprecated</b-badge>
@@ -419,6 +420,7 @@ export default {
         const fallbackMeta = commonProps[prop] || {}
         const description =
           typeof meta.description === 'undefined' ? fallbackMeta.description : meta.description
+        const version = typeof meta.version === 'undefined' ? fallbackMeta.version : meta.version
 
         return {
           prop: kebabCase(prop),
@@ -426,6 +428,7 @@ export default {
           defaultValue: defaultVal,
           required: p.required || false,
           description: description || '',
+          version,
           xss: /[a-z]Html$/.test(prop),
           isVModel: this.componentVModel && this.componentVModel.prop === prop,
           deprecated: p.deprecated || false,

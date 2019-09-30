@@ -167,6 +167,7 @@
           },
           {
             "prop": "autoFocusButton",
+            "version": "2.0.0",
             "description": "Specify which built-in button to focus once the modal opens: 'ok', 'cancel', or 'close'"
           }
         ],

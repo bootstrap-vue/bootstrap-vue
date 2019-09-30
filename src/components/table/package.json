@@ -54,6 +54,7 @@
           },
           {
             "prop": "noBorderCollapse",
+            "version": "2.0.0",
             "description": "Disable's the collapsing of table borders. Useful when table has sticky headers or columns"
           },
           {
@@ -274,6 +275,7 @@
           },
           {
             "prop": "filterDebounce",
+            "version": "2.0.0",
             "description": "Time in milliseconds to debounce changes to the filter criteria before filtering hte records"
           }
         ],
@@ -956,6 +958,7 @@
           },
           {
             "prop": "noBorderCollapse",
+            "version": "2.0.0",
             "description": "Disable's the collapsing of table borders. Useful when table has sticky headers or columns"
           },
           {
@@ -1503,6 +1506,7 @@
           },
           {
             "prop": "noBorderCollapse",
+            "version": "2.0.0",
             "description": "Disable's the collapsing of table borders. Useful when table has sticky headers or columns"
           },
           {
