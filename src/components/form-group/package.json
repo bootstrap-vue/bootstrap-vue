@@ -21,11 +21,11 @@
           },
           {
             "prop": "labelFor",
-            "description": "Set to the ID of the singular form-control in the form-group. Do not set if there is more than one form control in the group."
+            "description": "Set to the ID of the singular form-control in the form-group. Do not set a value if there is more than one form control in the group."
           },
           {
             "prop": "labelSrOnly",
-            "description": "Visually hides the label, but makes it available to screen reader users"
+            "description": "Visually hides the label content, but makes it available to screen reader users"
           },
           {
             "prop": "description",
@@ -97,7 +97,7 @@
           },
           {
             "prop": "state",
-            "description": "Controls the validation state of hte feedback. 'true' force shows valid-feedback, 'false' force shows invalid feedback, 'null' does not force show the feedback"
+            "description": "Controls the validation state of the feedback. 'true' force shows valid-feedback, 'false' force shows invalid feedback, 'null' does not force show the feedback"
           },
           {
             "prop": "tooltip",
