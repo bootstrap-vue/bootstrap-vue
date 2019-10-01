@@ -111,8 +111,11 @@ export default {
     stringifyValue(value) {
       return isUndefined(value) || isNull(value) ? '' : String(value)
     },
-    formatValue(value, evt, applyFormatter = true) {
+    formatValue(value, evt, force = false) {
       value = this.stringifyValue(value)
+      if (this.lazy && !force) {
+        return value
+      }
       // Emulate `.trim` modifier behaviour
       if (this.trim) {
         value = value.trim()
@@ -122,7 +125,7 @@ export default {
         const num = parseFloat(value)
         value = isNaN(num) ? value : num
       }
-      if (applyFormatter && isFunction(this.formatter)) {
+      if ((!this.lazyFormatter || force) && isFunction(this.formatter)) {
         value = this.formatter(value, evt)
       }
       return value
@@ -133,9 +136,7 @@ export default {
         if (!lazy) {
           this.$emit('update', value)
         }
-        return true
       }
-      return false
     },
     onInput(evt) {
       // `evt.target.composing` is set by Vue
@@ -145,7 +146,7 @@ export default {
         return
       }
       const value = evt.target.value
-      const formattedValue = this.formatValue(value, evt, !this.lazyFormatter)
+      const formattedValue = this.formatValue(value, evt)
       // Exit when the `formatter` function strictly returned `false`
       // or prevented the input event
       /* istanbul ignore next */
@@ -154,9 +155,8 @@ export default {
         return
       }
       this.localValue = value
-      if (this.updateValue(formattedValue, this.lazy)) {
-        this.$emit('input', value)
-      }
+      this.updateValue(formattedValue, this.lazy)
+      this.$emit('input', formattedValue)
     },
     onChange(evt) {
       // `evt.target.composing` is set by Vue
@@ -175,11 +175,19 @@ export default {
         return
       }
       this.localValue = formattedValue
-      if (this.updateValue(formattedValue)) {
-        this.$emit('change', formattedValue)
-      }
+      this.updateValue(formattedValue, this.lazy)
+      this.$emit('change', formattedValue)
     },
     onBlur(evt) {
+      // Lazy v-model handling
+      if (this.lazy || this.lazyFormatter) {
+        const value = evt.target.value
+        const formattedValue = this.formatValue(value, evt, true)
+        if (formattedValue !== false) {
+          this.localValue = formattedValue
+          this.updateValue(formattedValue)
+        }
+      }
       // Emit native blur event
       this.$emit('blur', evt)
     },

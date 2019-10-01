@@ -259,9 +259,6 @@ describe('form-textarea', () => {
     const input = mount(BFormTextarea)
 
     input.element.value = 'test'
-    // Need to trigger an input event before change can be emitted
-    input.trigger('input')
-    expect(input.emitted('change')).not.toBeDefined()
 
     input.trigger('change')
     expect(input.emitted('change')).toBeDefined()

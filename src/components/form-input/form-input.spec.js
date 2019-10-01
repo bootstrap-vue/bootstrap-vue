@@ -416,8 +416,6 @@ describe('form-input', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual('test')
 
-    expect(input.vm.localValue).toEqual('test')
-
     wrapper.destroy()
   })
 
