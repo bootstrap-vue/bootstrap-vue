@@ -78,7 +78,7 @@
     "vue-functional-data-merge": "^3.1.0"
   },
   "devDependencies": {
-    "@applitools/eyes-cypress": "^3.6.49",
+    "@applitools/eyes-cypress": "^3.8.6",
     "@babel/cli": "^7.6.2",
     "@babel/core": "^7.6.2",
     "@babel/plugin-transform-modules-commonjs": "^7.6.0",
