@@ -89,8 +89,9 @@ export default {
   },
   watch: {
     value(newVal) {
-      if (newVal !== this.localValue) {
-        this.localValue = this.stringifyValue(newVal)
+      const value = this.stringifyValue(newVal)
+      if (value !== this.localValue) {
+        this.localValue = value
       }
     }
   },
@@ -105,50 +106,21 @@ export default {
     stringifyValue(value) {
       return isUndefined(value) || isNull(value) ? '' : String(value)
     },
-    getFormatted(value, evt, force = false) {
+    formatValue(value, evt, applyFormatter = true) {
       value = this.stringifyValue(value)
-      if ((!this.lazyFormatter || force) && isFunction(this.formatter)) {
+      // Emulate `.trim` modifier behaviour
+      if (this.trim) {
+        value = value.trim()
+      }
+      // Emulate `.number` modifier behaviour
+      if (this.number) {
+        const num = parseFloat(value)
+        value = isNaN(num) ? value : num
+      }
+      if (applyFormatter && isFunction(this.formatter)) {
         value = this.formatter(value, evt)
       }
       return value
-    },
-    updateValue(value, lazyUpdate = false) {
-      value = this.stringifyValue(value)
-      const $input = this.$refs.input
-      if (value !== this.localValue) {
-        if (lazyUpdate) {
-          // If lazy update, we just update the input's value
-          // and will emit v-model update on change/blur later
-          if ($input && $input.value !== value) {
-            // Apply any formating to input's value,
-            // but only if the value has changed
-            /* istanbul ignore next: hard to test */
-            $input.value = value
-          }
-        } else {
-          // Update the v-model (if not a lazy update)
-          // Keep the input set to the value before any modifiers
-          this.localValue = value
-          if (this.number) {
-            // Emulate `.number` modifier behaviour
-            const num = parseFloat(value)
-            value = isNaN(num) ? value : num
-          } else if (this.trim) {
-            // Emulate `.trim` modifier behaviour
-            value = value.trim()
-          }
-          this.$emit('update', value)
-        }
-      } else if ($input && $input.value !== value) {
-        // When the `localValue` hasn't changed but the actual input value
-        // is out of sync, make sure to change it to the given one
-        // Usually caused by browser autocomplete and how it triggers the
-        // change or input event, or depending on the formatter function
-        // https://github.com/bootstrap-vue/bootstrap-vue/issues/2657
-        // https://github.com/bootstrap-vue/bootstrap-vue/issues/3498
-        /* istanbul ignore next: hard to test */
-        this.$refs.input.value = value
-      }
     },
     onInput(evt) {
       // `evt.target.composing` is set by Vue
@@ -157,16 +129,20 @@ export default {
       if (evt.target.composing) {
         return
       }
-      const formatted = this.getFormatted(evt.target.value, evt)
+      const value = evt.target.value
+      const formattedValue = this.formatValue(value, evt, !this.lazyFormatter)
       // Exit when the `formatter` function strictly returned `false`
       // or prevented the input event
-      if (formatted === false || evt.defaultPrevented) {
-        /* istanbul ignore next */
+      /* istanbul ignore next */
+      if (formattedValue === false || evt.defaultPrevented) {
         evt.preventDefault()
         return
       }
-      this.updateValue(formatted, this.lazy)
-      this.$emit('input', formatted)
+      this.localValue = value
+      if (!this.lazy) {
+        this.$emit('update', formattedValue)
+      }
+      this.$emit('input', value)
     },
     onChange(evt) {
       // `evt.target.composing` is set by Vue
@@ -175,28 +151,20 @@ export default {
       if (evt.target.composing) {
         return
       }
-      const formatted = this.getFormatted(evt.target.value, evt)
+      const value = evt.target.value
+      const formattedValue = this.formatValue(value, evt)
       // Exit when the `formatter` function strictly returned `false`
       // or prevented the input event
       /* istanbul ignore next */
-      if (formatted === false || evt.defaultPrevented) {
+      if (formattedValue === false || evt.defaultPrevented) {
         evt.preventDefault()
         return
       }
-      this.updateValue(formatted, false)
-      this.$emit('change', formatted)
+      this.localValue = formattedValue
+      this.$emit('update', formattedValue)
+      this.$emit('change', formattedValue)
     },
     onBlur(evt) {
-      // Lazy formatter
-      if (this.lazyFormatter) {
-        const formatted = this.getFormatted(evt.target.value, evt, true)
-        // Exit when the `formatter` function strictly returned `false`
-        /* istanbul ignore next */
-        if (formatted === false) {
-          return
-        }
-        this.updateValue(formatted, false)
-      }
       // Emit native blur event
       this.$emit('blur', evt)
     },
