@@ -44,11 +44,6 @@ export const BTab = /*#__PURE__*/ Vue.extend({
       type: [String, Array, Object],
       default: null
     },
-    headHtml: {
-      // Is this actually ever used?
-      type: String,
-      default: null
-    },
     disabled: {
       type: Boolean,
       default: false

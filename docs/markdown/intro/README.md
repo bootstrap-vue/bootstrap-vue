@@ -654,7 +654,6 @@ your project:
 - Convert your native Bootstrap HTML markup into the simplified BootstrapVue custom component markup
 - Start by converting only the interactive controls that require Bootstrap's javascript first.
 
-
 ## Browser support
 
 ### CSS

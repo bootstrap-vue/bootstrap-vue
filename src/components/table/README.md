@@ -820,7 +820,7 @@ explicit scoped slot provided.
 ```html
 <template>
   <div>
-    <b-table small :fields="fields" :items="items">
+    <b-table small :fields="fields" :items="items" responsive="sm">
       <!-- A virtual column -->
       <template v-slot:cell(index)="data">
         {{ data.index + 1 }}

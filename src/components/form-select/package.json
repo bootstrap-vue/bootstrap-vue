@@ -10,6 +10,24 @@
         "aliases": [
           "BSelect"
         ],
+        "props": [
+          {
+            "prop": "value",
+            "description": "Current value of the select. Should be set to an array when the 'multiple' prop is set"
+          },
+          {
+            "prop": "multiple",
+            "description": "When set, allows multiple options to be selected (multi-select)"
+          },
+          {
+            "prop": "selectSize",
+            "description": "When set to a number larger than 0, will set the number of display option rows. Note not all browser will respect this setting"
+          },
+          {
+            "prop": "ariaInvalid",
+            "description": "Optional value to set for the 'aria-invalid' attribute. Supported values are 'true' and 'false'. If not set, the 'state' prop will dictate the value"
+          }
+        ],
         "slots": [
           {
             "name": "first",
@@ -23,7 +41,13 @@
             "args": [
               {
                 "arg": "value",
-                "description": "current selected value of the select."
+                "type": [
+                  "String",
+                  "Number",
+                  "Object",
+                  "Array"
+                ],
+                "description": "current selected value(s) of the select."
               }
             ]
           },
@@ -33,7 +57,13 @@
             "args": [
               {
                 "arg": "value",
-                "description": "current selected value of the select."
+                "type": [
+                  "String",
+                  "Number",
+                  "Object",
+                  "Array"
+                ],
+                "description": "current selected value(s) of the select."
               }
             ]
           }

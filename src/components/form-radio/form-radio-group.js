@@ -8,7 +8,7 @@ import formStateMixin from '../../mixins/form-state'
 
 export const props = {
   checked: {
-    type: [String, Object, Number, Boolean],
+    // type: [String, Number, Boolean, Object],
     default: null
   }
 }

@@ -238,6 +238,7 @@ describe('table > filtering', () => {
 
   it('filter debouncing works', async () => {
     jest.useFakeTimers()
+    let lastFilterTimer = null
     const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
@@ -254,6 +255,7 @@ describe('table > filtering', () => {
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(testItems)
     expect(wrapper.vm.$_filterTimer).toBe(null)
+    lastFilterTimer = wrapper.vm.$_filterTimer
 
     // Set filter to a single character
     wrapper.setProps({
@@ -262,6 +264,9 @@ describe('table > filtering', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.vm.$_filterTimer).not.toBe(null)
+    expect(wrapper.vm.$_filterTimer).not.toEqual(lastFilterTimer)
+    lastFilterTimer = wrapper.vm.$_filterTimer
+    expect(wrapper.vm.localFilter).not.toEqual('1')
 
     // Change filter
     wrapper.setProps({
@@ -270,12 +275,17 @@ describe('table > filtering', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.vm.$_filterTimer).not.toBe(null)
+    expect(wrapper.vm.$_filterTimer).not.toEqual(lastFilterTimer)
+    lastFilterTimer = wrapper.vm.$_filterTimer
+    expect(wrapper.vm.localFilter).not.toEqual('z')
 
     jest.runTimersToTime(101)
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toEqual([testItems[2]])
-    expect(wrapper.vm.$_filterTimer).toBe(null)
+    expect(wrapper.vm.$_filterTimer).toEqual(lastFilterTimer)
+    lastFilterTimer = wrapper.vm.$_filterTimer
+    expect(wrapper.vm.localFilter).toEqual('z')
 
     // Change filter
     wrapper.setProps({
@@ -284,6 +294,10 @@ describe('table > filtering', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.vm.$_filterTimer).not.toBe(null)
     expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.vm.$_filterTimer).not.toEqual(lastFilterTimer)
+    lastFilterTimer = wrapper.vm.$_filterTimer
+    expect(wrapper.vm.localFilter).not.toEqual('1')
+    expect(wrapper.vm.localFilter).toEqual('z')
 
     // Change filter-debounce to no debouncing
     wrapper.setProps({
@@ -295,6 +309,7 @@ describe('table > filtering', () => {
     // Should immediately filter the items
     expect(wrapper.emitted('input').length).toBe(3)
     expect(wrapper.emitted('input')[2][0]).toEqual([testItems[1]])
+    expect(wrapper.vm.localFilter).toEqual('1')
 
     wrapper.destroy()
   })
