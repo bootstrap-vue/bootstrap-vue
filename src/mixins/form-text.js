@@ -54,8 +54,11 @@ export default {
     }
   },
   data() {
+    const value = this.stringifyValue(this.value)
+
     return {
-      localValue: this.stringifyValue(this.value)
+      localValue: value,
+      formattedValue: value
     }
   },
   computed: {
@@ -92,6 +95,7 @@ export default {
       const value = this.stringifyValue(newVal)
       if (value !== this.localValue) {
         this.localValue = value
+        this.formattedValue = value
       }
     }
   },
@@ -100,6 +104,7 @@ export default {
     if (value !== this.localValue) {
       /* istanbul ignore next */
       this.localValue = value
+      this.formattedValue = value
     }
   },
   methods: {
@@ -122,6 +127,16 @@ export default {
       }
       return value
     },
+    updateValue(value, lazy = false) {
+      if (value !== this.formattedValue) {
+        this.formattedValue = value
+        if (!lazy) {
+          this.$emit('update', value)
+        }
+        return true
+      }
+      return false
+    },
     onInput(evt) {
       // `evt.target.composing` is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
@@ -139,10 +154,9 @@ export default {
         return
       }
       this.localValue = value
-      if (!this.lazy) {
-        this.$emit('update', formattedValue)
+      if (this.updateValue(formattedValue, this.lazy)) {
+        this.$emit('input', value)
       }
-      this.$emit('input', value)
     },
     onChange(evt) {
       // `evt.target.composing` is set by Vue
@@ -161,8 +175,9 @@ export default {
         return
       }
       this.localValue = formattedValue
-      this.$emit('update', formattedValue)
-      this.$emit('change', formattedValue)
+      if (this.updateValue(formattedValue)) {
+        this.$emit('change', formattedValue)
+      }
     },
     onBlur(evt) {
       // Emit native blur event
