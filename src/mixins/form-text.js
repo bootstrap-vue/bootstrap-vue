@@ -96,7 +96,7 @@ export default {
       const localValue = this.localValue
       if (
         (this.trim && value === localValue.trim()) ||
-        (this.number && value === Number(localValue))
+        (this.number && value === parseFloat(localValue))
       ) {
         // Emulate Vue .trim / .number modifiers
         // And do not update the input's value of trim/number is
@@ -133,7 +133,7 @@ export default {
     },
     updateVModel(value) {
       if (this.number) {
-        const number = Number(value)
+        const number = parseFloat(value)
         value = isNaN(number) ? value : number
       } else if (this.trim) {
         value = String(value).trim()
