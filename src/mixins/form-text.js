@@ -126,25 +126,26 @@ export default {
       if (this.lazy && !force) {
         return value
       }
-      // Emulate `.trim` modifier behaviour
-      if (this.trim) {
-        value = value.trim()
-      }
-      // Emulate `.number` modifier behaviour
-      if (this.number) {
-        const num = parseFloat(value)
-        value = isNaN(num) ? value : num
-      }
       if ((!this.lazyFormatter || force) && isFunction(this.formatter)) {
         value = this.formatter(value, evt)
       }
       return value
     },
+    updateVModel(value) {
+      if (this.number) {
+        value = Number(value)
+      } else if (this.trim) {
+        value = String(value).trim()
+      }
+      if (this.value !== value) {
+        this.$emit('update', value)
+      }
+    },
     updateValue(value, lazy = false) {
       if (value !== this.formattedValue) {
         this.formattedValue = value
         if (!lazy) {
-          this.$emit('update', value)
+          this.updateVModel(value)
         }
       }
     },
