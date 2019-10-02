@@ -133,7 +133,8 @@ export default {
     },
     updateVModel(value) {
       if (this.number) {
-        value = Number(value)
+        const number = Number(value)
+        value = isNaN(number) ? value : number
       } else if (this.trim) {
         value = String(value).trim()
       }
