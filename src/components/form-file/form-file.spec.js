@@ -340,7 +340,7 @@ describe('form-file', () => {
     const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
-        value: ''
+        value: null
       }
     })
     const file1 = new File(['foo'], 'foo.txt', {
@@ -358,8 +358,7 @@ describe('form-file', () => {
     wrapper.setProps({ value: null })
     await waitNT(wrapper.vm)
 
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual(null)
+    expect(wrapper.emitted('input').length).toEqual(1)
 
     wrapper.destroy()
   })

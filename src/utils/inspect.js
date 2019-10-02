@@ -1,5 +1,6 @@
 import { isArray } from './array'
 import { isObject, isPlainObject } from './object'
+import { File } from './safe-types'
 
 // --- Convenience inspection utilities ---
 
@@ -28,6 +29,8 @@ export const isPrimitive = val => isBoolean(val) || isString(val) || isNumber(va
 export const isDate = val => val instanceof Date
 
 export const isEvent = val => val instanceof Event
+
+export const isFile = val => val instanceof File
 
 export const isRegExp = val => toRawType(val) === 'RegExp'
 
