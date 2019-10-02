@@ -63,7 +63,7 @@
         "events": [
           {
             "event": "input",
-            "description": "Input event triggered by user interaction. Emitted after any formatting and after the v-model is updated",
+            "description": "Input event triggered by user interaction. Emitted after any formatting (not inclusing 'trim' or 'number' props) and after the v-model is updated",
             "args": [
               {
                 "arg": "value",
@@ -74,7 +74,7 @@
           },
           {
             "event": "change",
-            "description": "Change event triggered by user interaction. Emitted after any formatting and after the v-model is updated.",
+            "description": "Change event triggered by user interaction. Emitted after any formatting (not inclusing 'trim' or 'number' props) and after the v-model is updated.",
             "args": [
               {
                 "arg": "value",
