@@ -129,13 +129,14 @@ export default {
       }
       return value
     },
-    updateValue(value, lazy = false) {
+    updateValue(value, force = false) {
+      if (this.lazy && !force) {
+        return
+      }
       value = this.modifyValue(value)
       if (value !== this.vModelValue) {
         this.vModelValue = value
-        if (!lazy) {
-          this.$emit('update', value)
-        }
+        this.$emit('update', value)
       }
     },
     onInput(evt) {
@@ -155,7 +156,7 @@ export default {
         return
       }
       this.localValue = formattedValue
-      this.updateValue(formattedValue, this.lazy)
+      this.updateValue(formattedValue)
       this.$emit('input', formattedValue)
     },
     onChange(evt) {
@@ -175,7 +176,7 @@ export default {
         return
       }
       this.localValue = formattedValue
-      this.updateValue(formattedValue, this.lazy)
+      this.updateValue(formattedValue)
       this.$emit('change', formattedValue)
     },
     onBlur(evt) {
@@ -189,7 +190,7 @@ export default {
         this.localValue = this.stringifyValue(this.modifyValue(formattedValue))
         // We pass the formatted value here since the `updateValue` method
         // handles the modifies itself
-        this.updateValue(formattedValue)
+        this.updateValue(formattedValue, true)
       }
       // Emit native blur event
       this.$emit('blur', evt)
