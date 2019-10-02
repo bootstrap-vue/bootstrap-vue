@@ -93,7 +93,15 @@ export default {
   watch: {
     value(newVal) {
       const value = this.stringifyValue(newVal)
-      if (value !== this.localValue) {
+      const localValue = this.localValue
+      if (
+        this.trim && value === localValue.trim() ||
+        this.number && value === Number(localValue)
+      ) {
+        // Emulate Vue .trim / .number modifiers
+        return
+      }
+      if (value !== localValue) {
         this.localValue = value
         this.formattedValue = value
       }
