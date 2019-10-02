@@ -675,16 +675,16 @@ describe('form-input', () => {
     await waitNT(wrapper.vm)
 
     expect(input.element.value).toBe('123.450')
-    // Pre converted value as string
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0].length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual('123.450')
     // v-model update event (should emit a numerical value)
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toBe(1)
     expect(wrapper.emitted('update')[0].length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
+    // Pre converted value as string (raw input value)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0].length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual('123.450')
 
     // Update the input to be different string-wise, but same numerically
     input.element.value = '123.4500'
