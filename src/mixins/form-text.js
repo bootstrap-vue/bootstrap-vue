@@ -54,11 +54,9 @@ export default {
     }
   },
   data() {
-    const value = this.stringifyValue(this.value)
-
     return {
-      localValue: value,
-      formattedValue: value
+      localValue: this.stringifyValue(this.value),
+      vModelValue: this.value
     }
   },
   computed: {
@@ -92,19 +90,20 @@ export default {
   },
   watch: {
     value(newVal) {
-      const value = this.stringifyValue(newVal)
-      if (value !== this.localValue) {
-        this.localValue = value
-        this.formattedValue = value
+      const stringifyValue = this.stringifyValue(newVal)
+      if (stringifyValue !== this.localValue && newVal !== this.vModelValue) {
+        this.localValue = stringifyValue
+        this.vModelValue = newVal
       }
     }
   },
   mounted() {
-    const value = this.stringifyValue(this.value)
+    const value = this.value
+    const stringifyValue = this.stringifyValue(value)
     /* istanbul ignore next */
-    if (value !== this.localValue) {
-      this.localValue = value
-      this.formattedValue = value
+    if (stringifyValue !== this.localValue && value !== this.vModelValue) {
+      this.localValue = stringifyValue
+      this.vModelValue = value
     }
   },
   methods: {
@@ -113,9 +112,12 @@ export default {
     },
     formatValue(value, evt, force = false) {
       value = this.stringifyValue(value)
-      if (this.lazy && !force) {
-        return value
+      if ((!this.lazyFormatter || force) && isFunction(this.formatter)) {
+        value = this.formatter(value, evt)
       }
+      return value
+    },
+    modifyValue(value) {
       // Emulate `.trim` modifier behaviour
       if (this.trim) {
         value = value.trim()
@@ -125,14 +127,12 @@ export default {
         const number = parseFloat(value)
         value = isNaN(number) ? value : number
       }
-      if ((!this.lazyFormatter || force) && isFunction(this.formatter)) {
-        value = this.formatter(value, evt)
-      }
       return value
     },
     updateValue(value, lazy = false) {
-      if (value !== this.formattedValue) {
-        this.formattedValue = value
+      value = this.modifyValue(value)
+      if (value !== this.vModelValue) {
+        this.vModelValue = value
         if (!lazy) {
           this.$emit('update', value)
         }
@@ -154,7 +154,7 @@ export default {
         evt.preventDefault()
         return
       }
-      this.localValue = value
+      this.localValue = formattedValue
       this.updateValue(formattedValue, this.lazy)
       this.$emit('input', formattedValue)
     },
@@ -179,14 +179,17 @@ export default {
       this.$emit('change', formattedValue)
     },
     onBlur(evt) {
-      // Lazy v-model handling
-      if (this.lazy || this.lazyFormatter) {
-        const value = evt.target.value
-        const formattedValue = this.formatValue(value, evt, true)
-        if (formattedValue !== false) {
-          this.localValue = formattedValue
-          this.updateValue(formattedValue)
-        }
+      // Apply the `localValue` on blur to prevent cursor jumps
+      // on mobile browsers (e.g. caused by autocomplete)
+      const value = evt.target.value
+      const formattedValue = this.formatValue(value, evt, true)
+      if (formattedValue !== false) {
+        // We need to use the modified value here to apply the
+        // `.trim` and `.number` modifiers properly
+        this.localValue = this.stringifyValue(this.modifyValue(formattedValue))
+        // We pass the formatted value here since the `updateValue` method
+        // handles the modifies itself
+        this.updateValue(formattedValue)
       }
       // Emit native blur event
       this.$emit('blur', evt)
