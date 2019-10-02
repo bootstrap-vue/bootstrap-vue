@@ -93,17 +93,7 @@ export default {
   watch: {
     value(newVal) {
       const value = this.stringifyValue(newVal)
-      const localValue = this.localValue
-      if (
-        (this.trim && value === localValue.trim()) ||
-        (this.number && value === parseFloat(localValue))
-      ) {
-        // Emulate Vue .trim / .number modifiers
-        // And do not update the input's value of trim/number is
-        // the same after mdodifier modification
-        return
-      }
-      if (value !== localValue) {
+      if (value !== this.localValue) {
         this.localValue = value
         this.formattedValue = value
       }
