@@ -5,16 +5,39 @@
     "title": "Breadcrumb",
     "description": "Indicate the current page's location within a navigational hierarchy. Separators are automatically added in CSS through ::before and content.",
     "components": [
-      "BBreadcrumb",
+      {
+        "component": "BBreadcrumb",
+        "props": [
+          {
+            "prop": "items",
+            "description": "Array of breadcrumb items to render"
+          }
+        ]
+      },
       {
         "component": "BBreadcrumbItem",
+        "props": [
+          {
+            "prop": "text",
+            "description": "Text to render in the breadcrumb item"
+          },
+          {
+            "prop": "html",
+            "description": "HTML string to render in the breadcrumb item. Use with caution"
+          },
+          {
+            "prop": "ariaCurrent",
+            "description": "Sets the value of the 'aria-current' attribute (when the item is the active item). Supported string values are 'location', 'page', or 'true'"
+          }
+        ],
         "events": [
           {
             "event": "click",
             "description": "Emitted when clicked",
             "args": [
               {
-                "name": "event",
+                "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native click event object"
               }
             ]

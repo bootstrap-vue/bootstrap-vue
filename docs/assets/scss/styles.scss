@@ -204,17 +204,23 @@ pre.editable {
 .bv-docs-table {
   font-size: 90%;
 
-  th,
-  td {
-    padding: 0.5rem;
+  > thead,
+  > tbody,
+  > tfoot {
+    > tr {
+      > th,
+      > td {
+        padding: 0.5rem;
+      }
+    }
   }
 
-  thead > tr > th {
+  > thead > tr > th {
     min-width: 80px;
   }
 
   code {
-    white-space: nowrap !important;
+    white-space: nowrap;
   }
 }
 

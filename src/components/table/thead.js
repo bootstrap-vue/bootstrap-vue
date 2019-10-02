@@ -3,6 +3,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 export const props = {
   headVariant: {
+    // Also sniffed by <b-tr> / <b-td> / <b-th>
     type: String, // supported values: 'lite', 'dark', or null
     default: null
   }
@@ -15,16 +16,46 @@ export const BThead = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   provide() {
     return {
-      bvTableThead: this
+      bvTableRowGroup: this
     }
   },
   inject: {
     bvTable: {
-      default: null
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      default() /* istanbul ignore next */ {
+        return {}
+      }
     }
   },
   props,
   computed: {
+    isThead() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return true
+    },
+    isDark() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return this.bvTable.dark
+    },
+    isStacked() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return this.bvTable.isStacked
+    },
+    isResponsive() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return this.bvTable.isResponsive
+    },
+    isStickyHeader() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      // Needed to handle header background classes, due to lack of
+      // background color inheritance with Bootstrap v4 table CSS
+      // Sticky headers only apply to cells in table `thead`
+      return !this.isStacked && this.bvTable.stickyHeader
+    },
+    tableVariant() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      return this.bvTable.tableVariant
+    },
     theadClasses() {
       return [this.headVariant ? `thead-${this.headVariant}` : null]
     },

@@ -4,6 +4,34 @@
   "meta": {
     "title": "Scrollspy",
     "description": "Automatically activate BootstrapVue navigation or list group components based on scroll position to indicate which link is currently active in the viewport.",
-    "directive": "VBScrollspy"
+    "directive": "VBScrollspy",
+    "arg": {
+      "pattern": "[a-zA-Z][a-ZA-Z0-9_\\-]*",
+      "description": "ID of element to monitor scrolling on (if not provided defaults to the body element)"
+    },
+    "expression": [
+      "String",
+      "Number",
+      "Object"
+    ],
+    "modifiers": [
+      {
+        "name": "###",
+        "pattern": "[\\d]+",
+        "description": "Offset (in pixels) from top of scrolling viewport before triggering active state"
+      },
+      {
+        "name": "offset",
+        "description": "Position calculation method using `offset` procedure (default process for body)"
+      },
+      {
+        "name": "position",
+        "description": "Position calculation method using the `position` procedure"
+      },
+      {
+        "name": "auto",
+        "description": "Position calculation method: `auto` will choose `offset` if scroll element is body, else the method is `position`. This is the default."
+      }
+    ]
   }
 }

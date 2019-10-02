@@ -7,10 +7,18 @@
     "components": [
       {
         "component": "BLink",
+        "props": [],
         "events": [
           {
             "event": "click",
-            "description": "when link clicked"
+            "description": "when link clicked",
+            "args": [
+              {
+                "name": "event",
+                "type": "MouseEvent",
+                "description": "Native click event"
+              }
+            ]
           }
         ]
       }

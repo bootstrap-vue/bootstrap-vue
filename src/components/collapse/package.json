@@ -5,12 +5,48 @@
     "title": "Collapse",
     "description": "Easily toggle content visibility on your pages. Includes support for making accordions.",
     "directives": [
-      "VBToggle"
+      {
+        "directive": "VBToggle",
+        "description": "Directive for toggling a collapse by ID",
+        "expression": "String",
+        "modifiers": [
+          {
+            "name": "{collapseId}",
+            "pattern": "[a-zA-Z][a-zA-Z0-9_\\-]*",
+            "description": "Collapse ID to open. Replace `{collapseId}` with the collapse's ID"
+          }
+        ]
+      }
     ],
     "components": [
       {
         "component": "BCollapse",
+        "props": [
+          {
+            "prop": "isNav",
+            "description": "When set, signifies that hte collapse is bart of a navbar, enabling certain features for navbar support"
+          },
+          {
+            "prop": "accordion",
+            "description": "The name of the accordion group that this collapse belongs to"
+          },
+          {
+            "prop": "visible",
+            "description": "When 'true', expands the collapse"
+          }
+        ],
         "events": [
+          {
+            "event": "input",
+            "description": "Used to update the v-model",
+            "args": [
+              {
+                "arg": "visible",
+                "type": "Boolean",
+                "description": "Will be true if the collapse is visible"
+              }
+            ]
+          },
           {
             "event": "show",
             "description": "Emitted when collapse has started to open"
@@ -33,11 +69,13 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "changed state collapse id"
               },
               {
                 "arg": "state",
-                "description": "true/false, i.e. opened/closed"
+                "type": "Boolean",
+                "description": "true or false, i.e. opened or closed"
               }
             ]
           }
@@ -49,6 +87,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "collapse id to toggle"
               }
             ]

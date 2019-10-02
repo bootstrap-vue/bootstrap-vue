@@ -11,6 +11,274 @@
     "components": [
       {
         "component": "BTable",
+        "props": [
+          {
+            "prop": "striped",
+            "description": "Applies striping to the tbody rows"
+          },
+          {
+            "prop": "bordered",
+            "description": "Adds borders to all the cells and headers"
+          },
+          {
+            "prop": "borderless",
+            "description": "Removes all borders from cells"
+          },
+          {
+            "prop": "outlined",
+            "description": "Adds an outline border to the table element"
+          },
+          {
+            "prop": "dark",
+            "description": "Places the table in dark mode"
+          },
+          {
+            "prop": "hover",
+            "description": "Enables hover styling on rows"
+          },
+          {
+            "prop": "small",
+            "description": "Renders the table with smaller cell padding"
+          },
+          {
+            "prop": "fixed",
+            "description": "Makes all columns equal width (fixed layout table). Will speed up rendering for large tables. Column widths can be set via CSS or colgroup"
+          },
+          {
+            "prop": "responsive",
+            "description": "Makes the table responsive in width, adding a horizontal scrollbar. Set to true for always responsive or set to one of the breakpoints to switch from responsive to normal: 'sm', 'md', 'lg', 'xl'"
+          },
+          {
+            "prop": "stickyHeader",
+            "description": "Makes the table header sticky. Set to true for a maximum height 300px tall table, or set to any valid CSS hight (including units)"
+          },
+          {
+            "prop": "noBorderCollapse",
+            "version": "2.0.0",
+            "description": "Disable's the collapsing of table borders. Useful when table has sticky headers or columns"
+          },
+          {
+            "prop": "captionTop",
+            "description": "Visually place the table caption above the table. Default is below."
+          },
+          {
+            "prop": "tableVariant",
+            "description": "Apply a Bootstrap theme color variant to the entire table"
+          },
+          {
+            "prop": "tableClass",
+            "description": "CSS class (or classes) to apply to the table element"
+          },
+          {
+            "prop": "stacked",
+            "description": "Place the table in stacked mode. Set to true for always stacked, or set to one of the breakpoints to switch from stacked to normal: 'sm', 'md', 'lg', 'xl'"
+          },
+          {
+            "prop": "headVariant",
+            "description": "Header variant: 'light' or 'dark', or unset"
+          },
+          {
+            "prop": "footVariant",
+            "description": "Footer variant: 'light' or 'dark', or unset"
+          },
+          {
+            "prop": "tbodyTransitionProps",
+            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+          },
+          {
+            "prop": "tbodyTransitionHandlers",
+            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+          },
+          {
+            "prop": "caption",
+            "description": "Text string to place in the caption element"
+          },
+          {
+            "prop": "captionHtml",
+            "description": "HTML string to place in the caption element. Use with caution"
+          },
+          {
+            "prop": "theadClass",
+            "description": "CSS class (or classes) to apply to the thead element"
+          },
+          {
+            "prop": "theadTrClass",
+            "description": "CSS class (or classes) to apply to the tr element in the thead"
+          },
+          {
+            "prop": "footClone",
+            "description": "Enable to the footer of the table, and clone the header content by default"
+          },
+          {
+            "prop": "tfootClass",
+            "description": "CSS class (or classes) to apply to the tfoot element"
+          },
+          {
+            "prop": "tfootTrClass",
+            "description": "CSS class (or classes) to apply to the tr element in the tfoot"
+          },
+          {
+            "prop": "tbodyClass",
+            "description": "CSS class (or classes) to apply to the tbody element"
+          },
+          {
+            "prop": "tbodyTrClass",
+            "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
+          },
+          {
+            "prop": "value",
+            "description": "Currently displayed row data. Read-only. Do not set a value on this prop"
+          },
+          {
+            "prop": "fields",
+            "description": "Array of field names or array of field definition objects"
+          },
+          {
+            "prop": "items",
+            "description": "Array of items to display, or an items provider function reference. Refer to the docs for details"
+          },
+          {
+            "prop": "primaryKey",
+            "description": "Name of a table field that contains a guaranteed unique value per row. Needed for tbody transition support, and also speeds up table rendering"
+          },
+          {
+            "prop": "busy",
+            "description": "When set, forces the table into the busy state.Automatically set when an items provider function is being called"
+          },
+          {
+            "prop": "noProviderPaging",
+            "description": "When set, uses internal paging to pagination the data. Otherwise the items provider is expected to perform the paging"
+          },
+          {
+            "prop": "noProviderSorting",
+            "description": "When set, uses internal sorting to sort the data. Otherwise the items provider is expected to perform the sorting"
+          },
+          {
+            "prop": "noProviderFiltering",
+            "description": "When set, uses internal filtering to pagination the data. Otherwise the provider is expected to perform the filtering"
+          },
+          {
+            "prop": "apiUrl",
+            "description": "Pass through prop. Passed as part of the context object sent to the items provider function"
+          },
+          {
+            "prop": "perPage",
+            "description": "Number of rows to show per page. Set to 0 to disable pagination"
+          },
+          {
+            "prop": "currentPage",
+            "description": "The current page number to display when the table is paginated. Starting from 1 and up"
+          },
+          {
+            "prop": "noLocalSorting",
+            "description": "Disabled the internal sorting routine, and expects the user to provde the items sorted. Sorting controls will still be available"
+          },
+          {
+            "prop": "noFooterSorting",
+            "description": "When the build in formatter is used, setting this prop will disable the sorting ability in the footer"
+          },
+          {
+            "prop": "sortIconLeft",
+            "description": "Positions the sort control to the left of the header text. Default is on the right of the header text"
+          },
+          {
+            "prop": "noSortReset",
+            "description": "When a table is sortable, clicking on any non-sortable column heading will clear the current sort values. Set this prop to disable this feature"
+          },
+          {
+            "prop": "sortNullLast",
+            "description": "When sorting, null and undefined values will be sorted first (or last, depending on 'sort-desc'). Set this prop to sort null values last. Only applicable to internal sorting"
+          },
+          {
+            "prop": "sortBy",
+            "description": "Field name that is currently being sorted. Set to null to clear sorting. Syncable with the .sync prop modifier"
+          },
+          {
+            "prop": "sortDesc",
+            "description": "Set to true to sort the column in descending order. Syncable with the .sync prop modifier"
+          },
+          {
+            "prop": "sortDirection",
+            "description": "The initial sorting direction to sort an unsorted column by: 'asc', 'desc', or 'last' (to use the previous sort direction)"
+          },
+          {
+            "prop": "sortCompare",
+            "description": "A reference to a function for sort-comparing tow rows of data. Defaults to the internal sort compare routine. See docs for details"
+          },
+          {
+            "prop": "sortCompareOptions",
+            "description": "An object containing sort configuration for the 'String.prototype.sortLocale' method. See docs for details"
+          },
+          {
+            "prop": "sortCompareLocale",
+            "description": "The locale string (or array of locale string) that specified the language when sorting. See docs for details"
+          },
+          {
+            "prop": "labelSortAsc",
+            "description": "String to place in the header cell's 'aria-label' when clicking the cell will change the sort direction to ascending"
+          },
+          {
+            "prop": "labelSortDesc",
+            "description": "String to place in the header cell's 'aria-label' when clicking the cell will change the sort direction to descending"
+          },
+          {
+            "prop": "labelSortClear",
+            "description": "String to place in the header cell's 'aria-label' when clicking the cell will clear the current sorting direction"
+          },
+          {
+            "prop": "selectable",
+            "description": "When set, places the table body rows in selectable mode"
+          },
+          {
+            "prop": "selectMode",
+            "description": "The selectable mode for the table when 'selectable' is set. Possible values: 'single', 'multi' or 'range'"
+          },
+          {
+            "prop": "selectedVariant",
+            "description": "Bootstrap color theme variant to set selected rows to. use any of hte standard Bootstrap theme variants, or the special table row variant 'active'"
+          },
+          {
+            "prop": "showEmpty",
+            "description": "When enabled, and there are no item records to show, shows a message that there are no rows to show"
+          },
+          {
+            "prop": "emptyText",
+            "description": "Text string to show when the table has no items to show"
+          },
+          {
+            "prop": "emptyHtml",
+            "description": "HTML string to show when the table has no items to show. Usw with caution"
+          },
+          {
+            "prop": "emptyFilteredText",
+            "description": "Text string to show when the table has no items to show due to filtering"
+          },
+          {
+            "prop": "emptyFilteredHtml",
+            "description": "HTML string to show when the table has no items to show due to filtering. Use with caution"
+          },
+          {
+            "prop": "filter",
+            "description": "Criteria for filtering. Internal filtering supports only string or RegExpr criteria."
+          },
+          {
+            "prop": "filterFunction",
+            "description": "Reference to a function to use instead of the internal filtering function. Refer to the docs for details"
+          },
+          {
+            "prop": "filterIgnoredFields",
+            "description": "Array of top level fields to ignore when filtering the item data"
+          },
+          {
+            "prop": "filterIncludedFields",
+            "description": "Array of fields to include when filtering. Overrides filter-ignore-fields"
+          },
+          {
+            "prop": "filterDebounce",
+            "version": "2.0.0",
+            "description": "Time in milliseconds to debounce changes to the filter criteria before filtering hte records"
+          }
+        ],
         "events": [
           {
             "event": "row-clicked",
@@ -18,14 +286,17 @@
             "args": [
               {
                 "arg": "item",
+                "type": "Object",
                 "description": "Item data of the row being clicked."
               },
               {
                 "arg": "index",
+                "type": "Number",
                 "description": "Index of the row being clicked."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -36,14 +307,17 @@
             "args": [
               {
                 "arg": "item",
+                "type": "Object",
                 "description": "Item data of the row being double clicked."
               },
               {
                 "arg": "index",
+                "type": "Number",
                 "description": "Index of the row being double clicked."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -54,14 +328,17 @@
             "args": [
               {
                 "arg": "item",
+                "type": "Object",
                 "description": "Item data of the row being middle clicked."
               },
               {
                 "arg": "index",
+                "type": "Number",
                 "description": "Index of the row being middle clicked."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -72,14 +349,17 @@
             "args": [
               {
                 "arg": "item",
+                "type": "Object",
                 "description": "Item data of the row being right clicked."
               },
               {
                 "arg": "index",
+                "type": "Number",
                 "description": "Index of the row being right clicked."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -90,14 +370,17 @@
             "args": [
               {
                 "arg": "item",
+                "type": "Object",
                 "description": "Item data of the row being hovered."
               },
               {
                 "arg": "index",
+                "type": "Number",
                 "description": "Index of the row being hovered."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -108,24 +391,28 @@
             "args": [
               {
                 "arg": "item",
+                "type": "Object",
                 "description": "Item data of the row being unhovered."
               },
               {
                 "arg": "index",
+                "type": "Number",
                 "description": "Index of the row being unhovered."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
           },
           {
             "event": "row-selected",
-            "description": "Emitted when a row or rows have been selected.",
+            "description": "Emitted when a row or rows have been selected or unselected.",
             "args": [
               {
                 "arg": "rows",
+                "type": "Array",
                 "description": "Array of the row items that are selected."
               }
             ]
@@ -136,18 +423,22 @@
             "args": [
               {
                 "arg": "key",
+                "type": "String",
                 "description": "Column key clicked (field name)."
               },
               {
                 "arg": "field",
+                "type": "Object",
                 "description": "Field definition object."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               },
               {
                 "arg": "isFooter",
+                "type": "Boolean",
                 "description": "'True' if this event originated from clicking on the footer cell"
               }
             ]
@@ -158,6 +449,7 @@
             "args": [
               {
                 "arg": "ctx",
+                "type": "Object",
                 "description": "Table state context object. See docs."
               }
             ]
@@ -168,6 +460,7 @@
             "args": [
               {
                 "arg": "ctx",
+                "type": "Object",
                 "description": "Table state context object. See docs."
               }
             ]
@@ -178,6 +471,7 @@
             "args": [
               {
                 "arg": "filteredItems",
+                "type": "Array",
                 "description": "Array of items after filtering (before local pagination occurs)."
               }
             ]
@@ -194,6 +488,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "table id to refresh data"
               }
             ]
@@ -201,28 +496,219 @@
         ],
         "slots": [
           {
-            "name": "cell(key)",
-            "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name. See docs for scoped data"
+            "name": "cell({key})",
+            "pattern": "cell\\([a-zA-Z0-9$_.\\-]+\\)",
+            "description": "Scoped slot for custom data rendering of field data. '{key}' is the field's key name. See docs for scoped data",
+            "scope": [
+              {
+                "prop": "index",
+                "type": "Number",
+                "description": "The row's index (zero-based) with respect to the displayed rows"
+              },
+              {
+                "prop": "item",
+                "type": "Object",
+                "description": "The row's item data object"
+              },
+              {
+                "prop": "value",
+                "description": "The value for this key in the record (null or undefined if a virtual column), or the output of the field's formatter function"
+              },
+              {
+                "prop": "unformatted",
+                "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
+              },
+              {
+                "prop": "detailsShowing",
+                "type": "Boolean",
+                "description": "Will be true if the row's row-details scoped slot is visible"
+              },
+              {
+                "prop": "toggleDetails",
+                "type": "Function",
+                "description": "Can be called to toggle the visibility of the rows row-details scoped slot"
+              },
+              {
+                "prop": "rowSelected",
+                "type": "Boolean",
+                "description": "Will be true if the row has been selected."
+              }
+            ]
           },
           {
             "name": "cell()",
-            "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
+            "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data",
+            "scope": [
+              {
+                "prop": "index",
+                "type": "Number",
+                "description": "The row's index (zero-based) with respect to the displayed rows"
+              },
+              {
+                "prop": "item",
+                "type": "Object",
+                "description": "The row's item data object"
+              },
+              {
+                "prop": "value",
+                "description": "The value for this key in the record (null or undefined if a virtual column), or the output of the field's formatter function"
+              },
+              {
+                "prop": "unformatted",
+                "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
+              },
+              {
+                "prop": "detailsShowing",
+                "type": "Boolean",
+                "description": "Will be true if the row's row-details scoped slot is visible"
+              },
+              {
+                "prop": "toggleDetails",
+                "type": "Function",
+                "description": "Can be called to toggle the visibility of the rows row-details scoped slot"
+              },
+              {
+                "prop": "rowSelected",
+                "type": "Boolean",
+                "description": "Will be true if the row has been selected."
+              }
+            ]
           },
           {
-            "name": "head(key)",
-            "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
+            "name": "head({key})",
+            "pattern": "head\\([a-zA-Z0-9$_.\\-]+\\)",
+            "description": "Scoped slot for custom rendering of field header. '{key}' is the field's key name. See docs for scoped header",
+            "scope": [
+              {
+                "prop": "column",
+                "type": "String",
+                "description": "The field's key value"
+              },
+              {
+                "prop": "field",
+                "type": "Object",
+                "description": "the field's definition object (from the fields prop)"
+              },
+              {
+                "prop": "label",
+                "type": "String",
+                "description": "The field's label value"
+              },
+              {
+                "prop": "selectAllRows",
+                "type": "Function",
+                "description": "Select all rows (applicable if the table is in selectable mode)"
+              },
+              {
+                "prop": "clearSelected",
+                "type": "Function",
+                "description": "Unselect all rows (applicable if the table is in selectable mode)"
+              },
+              {
+                "prop": "isFoot",
+                "type": "Boolean",
+                "description": "Will be true if the slot is being rendered in the table footer"
+              }
+            ]
           },
           {
             "name": "head()",
-            "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
+            "description": "Default scoped slot for custom rendering of field header. See docs for scoped header",
+            "scope": [
+              {
+                "prop": "column",
+                "type": "String",
+                "description": "The field's key value"
+              },
+              {
+                "prop": "field",
+                "type": "Object",
+                "description": "the field's definition object (from the fields prop)"
+              },
+              {
+                "prop": "label",
+                "type": "String",
+                "description": "The field's label value"
+              },
+              {
+                "prop": "selectAllRows",
+                "type": "Function",
+                "description": "Select all rows (applicable if the table is in selectable mode)"
+              },
+              {
+                "prop": "clearSelected",
+                "type": "Function",
+                "description": "Unselect all rows (applicable if the table is in selectable mode)"
+              },
+              {
+                "prop": "isFoot",
+                "type": "Boolean",
+                "description": "Will be true if the slot is being rendered in the table footer"
+              }
+            ]
           },
           {
-            "name": "foot(key)",
-            "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer"
+            "name": "foot({key})",
+            "pattern": "foot\\([a-zA-Z0-9$_.\\-]+\\)",
+            "description": "Scoped slot for custom rendering of field footer. '{key}' is the field's key name. See docs for scoped footer",
+            "scope": [
+              {
+                "prop": "column",
+                "type": "String",
+                "description": "The field's key value"
+              },
+              {
+                "prop": "field",
+                "type": "Object",
+                "description": "the field's definition object (from the fields prop)"
+              },
+              {
+                "prop": "label",
+                "type": "String",
+                "description": "The field's label value"
+              },
+              {
+                "prop": "selectAllRows",
+                "type": "Function",
+                "description": "Select all rows (applicable if the table is in selectable mode)"
+              },
+              {
+                "prop": "clearSelected",
+                "type": "Function",
+                "description": "Unselect all rows (applicable if the table is in selectable mode)"
+              }
+            ]
           },
           {
             "name": "foot()",
-            "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer"
+            "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer",
+            "scope": [
+              {
+                "prop": "column",
+                "type": "String",
+                "description": "The field's key value"
+              },
+              {
+                "prop": "field",
+                "type": "Object",
+                "description": "the field's definition object (from the fields prop)"
+              },
+              {
+                "prop": "label",
+                "type": "String",
+                "description": "The field's label value"
+              },
+              {
+                "prop": "selectAllRows",
+                "type": "Function",
+                "description": "Select all rows (applicable if the table is in selectable mode)"
+              },
+              {
+                "prop": "clearSelected",
+                "type": "Function",
+                "description": "Unselect all rows (applicable if the table is in selectable mode)"
+              }
+            ]
           },
           {
             "name": "table-caption",
@@ -230,7 +716,19 @@
           },
           {
             "name": "table-colgroup",
-            "description": "Slot to place custom colgroup and col elements (optionally scoped: columns - number of columns, fields - array of field definition objects)"
+            "description": "Slot to place custom colgroup and col elements. Optionally scoped",
+            "scope": [
+              {
+                "prop": "columns",
+                "type": "Number",
+                "description": "the number of columns in the table"
+              },
+              {
+                "prop": "fields",
+                "type": "Array",
+                "description": "Array of field definition objects"
+              }
+            ]
           },
           {
             "name": "table-busy",
@@ -238,36 +736,316 @@
           },
           {
             "name": "row-details",
-            "description": "Scoped slot for optional rendering additional record details. See docs for Row details support"
+            "description": "Scoped slot for optional rendering additional record details. See docs for Row details support",
+            "scope": [
+              {
+                "prop": "item",
+                "type": "Object",
+                "description": "The entire row's record data object"
+              },
+              {
+                "prop": "index",
+                "type": "Number",
+                "description": "The item's row index number (with respect to the displayed item rows)"
+              },
+              {
+                "prop": "fields",
+                "type": "Array",
+                "description": "The normalized fields definition array (in the array of objects format)"
+              },
+              {
+                "prop": "toggleDetails",
+                "type": "Function",
+                "description": "Function to toggle visibility of the row's details slot"
+              }
+            ]
           },
           {
             "name": "empty",
-            "description": "Content to display when no items are present in the `items` array (optionally scoped: see docs for details)"
+            "description": "Content to display when no items are present in the `items` array. Optionally scoped",
+            "scope": [
+              {
+                "prop": "fields",
+                "type": "Array",
+                "description": "The normalized fields definition array (in the array of objects format)"
+              },
+              {
+                "prop": "items",
+                "type": "Array",
+                "description": "The items array. Exposed here to check null vs []"
+              },
+              {
+                "prop": "emptyText",
+                "type": "String",
+                "description": "The value of the empty-text prop"
+              },
+              {
+                "prop": "emptyHtml",
+                "type": "String",
+                "description": "The value of the empty-html prop"
+              },
+              {
+                "prop": "emptyFilteredText",
+                "type": "String",
+                "description": "The value of the empty-filtered-text prop"
+              },
+              {
+                "prop": "emptyFilteredHtml",
+                "type": "String",
+                "description": "The value of the empty-filtered-html prop"
+              }
+            ]
           },
           {
             "name": "emptyfiltered",
-            "description": "Content to display when no items are present in the filtered `items` array (optionally scoped: see docs for details)"
+            "description": "Content to display when no items are present in the filtered `items` array. Optionally scoped",
+            "scope": [
+              {
+                "prop": "fields",
+                "type": "Array",
+                "description": "The normalized fields definition array (in the array of objects format)"
+              },
+              {
+                "prop": "items",
+                "type": "Array",
+                "description": "The items array. Exposed here to check null vs []"
+              },
+              {
+                "prop": "emptyText",
+                "type": "String",
+                "description": "The value of the empty-text prop"
+              },
+              {
+                "prop": "emptyHtml",
+                "type": "String",
+                "description": "The value of the empty-html prop"
+              },
+              {
+                "prop": "emptyFilteredText",
+                "type": "String",
+                "description": "The value of the empty-filtered-text prop"
+              },
+              {
+                "prop": "emptyFilteredHtml",
+                "type": "String",
+                "description": "The value of the empty-filtered-html prop"
+              }
+            ]
           },
           {
             "name": "thead-top",
-            "description": "Slot above the column headers in the `thead` element for user-supplied B-TR's with B-TH/B-TD (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
+            "description": "Slot above the column headers in the `thead` element for user-supplied B-TR's with B-TH/B-TD. Optionally scoped.",
+            "scope": [
+              {
+                "prop": "columns",
+                "type": "Number",
+                "description": "the number of columns in the table"
+              },
+              {
+                "prop": "fields",
+                "type": "Array",
+                "description": "The normalized fields definition array (in the array of objects format)"
+              },
+              {
+                "prop": "selectAllRows",
+                "type": "Function",
+                "description": "Select all rows (applicable if the table is in selectable mode)"
+              },
+              {
+                "prop": "clearSelected",
+                "type": "Function",
+                "description": "Unselect all rows (applicable if the table is in selectable mode)"
+              }
+            ]
           },
           {
             "name": "top-row",
-            "description": "Fixed top row slot for user supplied B-TD cells (Optionally scoped: columns - number of B-TDs to provide, fields - array of field definition objects)"
+            "description": "Fixed top row slot for user supplied B-TD cells. Optionally scoped",
+            "scope": [
+              {
+                "prop": "columns",
+                "type": "Number",
+                "description": "the number of columns in the table"
+              },
+              {
+                "prop": "fields",
+                "type": "Array",
+                "description": "The normalized fields definition array (in the array of objects format)"
+              }
+            ]
           },
           {
             "name": "bottom-row",
-            "description": "Fixed bottom row slot for user supplied B-TD cells (Optionally Scoped: columns - number of B-TDs to provide, fields - array of field definition objects)"
+            "description": "Fixed bottom row slot for user supplied B-TD cells. Optionally Scoped",
+            "scope": [
+              {
+                "prop": "columns",
+                "type": "Number",
+                "description": "the number of columns in the table"
+              },
+              {
+                "prop": "fields",
+                "type": "Array",
+                "description": "The normalized fields definition array (in the array of objects format)"
+              }
+            ]
           },
           {
             "name": "custom-foot",
-            "description": "Custom footer content slot for user supplied B-TR, B-TH, B-TD (Optionally Scoped: columns - number columns, fields - array of field definition objects, items - array of currently displayed row items)"
+            "description": "Custom footer content slot for user supplied B-TR, B-TH, B-TD. Optionally Scoped",
+            "scope": [
+              {
+                "prop": "columns",
+                "type": "Number",
+                "description": "the number of columns in the table"
+              },
+              {
+                "prop": "fields",
+                "type": "Array",
+                "description": "The normalized fields definition array (in the array of objects format)"
+              },
+              {
+                "prop": "items",
+                "type": "Array",
+                "description": "Array of items that are currently being displayed"
+              }
+            ]
           }
         ]
       },
       {
         "component": "BTableLite",
+        "props": [
+          {
+            "prop": "striped",
+            "description": "Applies striping to the tbody rows"
+          },
+          {
+            "prop": "bordered",
+            "description": "Adds borders to all the cells and headers"
+          },
+          {
+            "prop": "borderless",
+            "description": "Removes all borders from cells"
+          },
+          {
+            "prop": "outlined",
+            "description": "Adds an outline border to the table element"
+          },
+          {
+            "prop": "dark",
+            "description": "Places the table in dark mode"
+          },
+          {
+            "prop": "hover",
+            "description": "Enables hover styling on rows"
+          },
+          {
+            "prop": "small",
+            "description": "Renders the table with smaller cell padding"
+          },
+          {
+            "prop": "fixed",
+            "description": "Makes all columns equal width (fixed layout table). Will speed up rendering for large tables. Column widths can be set via CSS or colgroup"
+          },
+          {
+            "prop": "responsive",
+            "description": "Makes the table responsive in width, adding a horizontal scrollbar. Set to true for always responsive or set to one of the breakpoints to switch from responsive to normal: 'sm', 'md', 'lg', 'xl'"
+          },
+          {
+            "prop": "stickyHeader",
+            "description": "Makes the table header sticky. Set to true for a maximum height 300px tall table, or set to any valid CSS hight (including units)"
+          },
+          {
+            "prop": "noBorderCollapse",
+            "version": "2.0.0",
+            "description": "Disable's the collapsing of table borders. Useful when table has sticky headers or columns"
+          },
+          {
+            "prop": "captionTop",
+            "description": "Visually place the table caption above the table. Default is below."
+          },
+          {
+            "prop": "tableVariant",
+            "description": "Apply a Bootstrap theme color variant to the entire table"
+          },
+          {
+            "prop": "tableClass",
+            "description": "CSS class (or classes) to apply to the table element"
+          },
+          {
+            "prop": "stacked",
+            "description": "Place the table in stacked mode. Set to true for always stacked, or set to one of the breakpoints to switch from stacked to normal: 'sm', 'md', 'lg', 'xl'"
+          },
+          {
+            "prop": "headVariant",
+            "description": "Header variant: 'light' or 'dark', or unset"
+          },
+          {
+            "prop": "footVariant",
+            "description": "Footer variant: 'light' or 'dark', or unset"
+          },
+          {
+            "prop": "tbodyTransitionProps",
+            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+          },
+          {
+            "prop": "tbodyTransitionHandlers",
+            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+          },
+          {
+            "prop": "caption",
+            "description": "Text string to place in the caption element"
+          },
+          {
+            "prop": "captionHtml",
+            "description": "HTML string to place in the caption element. Use with caution"
+          },
+          {
+            "prop": "theadClass",
+            "description": "CSS class (or classes) to apply to the thead element"
+          },
+          {
+            "prop": "theadTrClass",
+            "description": "CSS class (or classes) to apply to the tr element in the thead"
+          },
+          {
+            "prop": "footClone",
+            "description": "Enable to the footer of the table, and clone the header content by default"
+          },
+          {
+            "prop": "tfootClass",
+            "description": "CSS class (or classes) to apply to the tfoot element"
+          },
+          {
+            "prop": "tfootTrClass",
+            "description": "CSS class (or classes) to apply to the tr element in the tfoot"
+          },
+          {
+            "prop": "tbodyClass",
+            "description": "CSS class (or classes) to apply to the tbody element"
+          },
+          {
+            "prop": "tbodyTrClass",
+            "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
+          },
+          {
+            "prop": "value",
+            "description": "Currently displayed row data. Read-only. Do not set a value on this prop"
+          },
+          {
+            "prop": "fields",
+            "description": "Array of field names or array of field definition objects"
+          },
+          {
+            "prop": "items",
+            "description": "Array of items to display"
+          },
+          {
+            "prop": "primaryKey",
+            "description": "Name of a table field that contains a guaranteed unique value per row. Needed for tbody transition support, and also speeds up table rendering"
+          }
+        ],
         "events": [
           {
             "event": "row-clicked",
@@ -275,14 +1053,17 @@
             "args": [
               {
                 "arg": "item",
+                "type": "Object",
                 "description": "Item data of the row being clicked."
               },
               {
                 "arg": "index",
+                "type": "Number",
                 "description": "Index of the row being clicked."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -293,14 +1074,17 @@
             "args": [
               {
                 "arg": "item",
+                "type": "Object",
                 "description": "Item data of the row being double clicked."
               },
               {
                 "arg": "index",
+                "type": "Number",
                 "description": "Index of the row being double clicked."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -311,14 +1095,17 @@
             "args": [
               {
                 "arg": "item",
+                "type": "Object",
                 "description": "Item data of the row being middle clicked."
               },
               {
                 "arg": "index",
+                "type": "Number",
                 "description": "Index of the row being middle clicked."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -329,14 +1116,17 @@
             "args": [
               {
                 "arg": "item",
+                "type": "Object",
                 "description": "Item data of the row being right clicked."
               },
               {
                 "arg": "index",
+                "type": "Number",
                 "description": "Index of the row being right clicked."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -347,14 +1137,17 @@
             "args": [
               {
                 "arg": "item",
+                "type": "Object",
                 "description": "Item data of the row being hovered."
               },
               {
                 "arg": "index",
+                "type": "Number",
                 "description": "Index of the row being hovered."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -365,14 +1158,17 @@
             "args": [
               {
                 "arg": "item",
+                "type": "Object",
                 "description": "Item data of the row being unhovered."
               },
               {
                 "arg": "index",
+                "type": "Number",
                 "description": "Index of the row being unhovered."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -383,18 +1179,22 @@
             "args": [
               {
                 "arg": "key",
+                "type": "String",
                 "description": "Column key clicked (field name)."
               },
               {
                 "arg": "field",
+                "type": "Object",
                 "description": "Field definition object."
               },
               {
                 "arg": "event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               },
               {
                 "arg": "isFooter",
+                "type": "Boolean",
                 "description": "'True' if this event originated from clicking on the footer cell"
               }
             ]
@@ -402,28 +1202,169 @@
         ],
         "slots": [
           {
-            "name": "cell(key)",
-            "description": "Scoped slot for custom data rendering of field data. 'key' is the fields key name. See docs for scoped data"
+            "name": "cell({key})",
+            "pattern": "cell\\([a-zA-Z0-9$_.\\-]+\\)",
+            "description": "Scoped slot for custom data rendering of field data. '{key}' is the field's key name.",
+            "scope": [
+              {
+                "prop": "index",
+                "type": "Number",
+                "description": "The row's index (zero-based) with respect to the displayed rows"
+              },
+              {
+                "prop": "item",
+                "type": "Object",
+                "description": "The row's item data object"
+              },
+              {
+                "prop": "value",
+                "description": "The value for this key in the record (null or undefined if a virtual column), or the output of the field's formatter function"
+              },
+              {
+                "prop": "unformatted",
+                "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
+              },
+              {
+                "prop": "detailsShowing",
+                "type": "Boolean",
+                "description": "Will be true if the row's row-details scoped slot is visible"
+              },
+              {
+                "prop": "toggleDetails",
+                "type": "Function",
+                "description": "Can be called to toggle the visibility of the rows row-details scoped slot"
+              }
+            ]
           },
           {
             "name": "cell()",
-            "description": "Default scoped slot for custom data rendering of field data. See docs for scoped data"
+            "description": "Default scoped slot for custom data rendering of field data.",
+            "scope": [
+              {
+                "prop": "index",
+                "type": "Number",
+                "description": "The row's index (zero-based) with respect to the displayed rows"
+              },
+              {
+                "prop": "item",
+                "type": "Object",
+                "description": "The row's item data object"
+              },
+              {
+                "prop": "value",
+                "description": "The value for this key in the record (null or undefined if a virtual column), or the output of the field's formatter function"
+              },
+              {
+                "prop": "unformatted",
+                "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
+              },
+              {
+                "prop": "detailsShowing",
+                "type": "Boolean",
+                "description": "Will be true if the row's row-details scoped slot is visible"
+              },
+              {
+                "prop": "toggleDetails",
+                "type": "Function",
+                "description": "Can be called to toggle the visibility of the rows row-details scoped slot"
+              }
+            ]
           },
           {
-            "name": "head(key)",
-            "description": "Scoped slot for custom rendering of field header. 'key' is the fields key name. See docs for scoped header"
+            "name": "head({key})",
+            "pattern": "head\\([a-zA-Z0-9$_.\\-]+\\)",
+            "description": "Scoped slot for custom rendering of field header. '{key}' is the field's key name",
+            "scope": [
+              {
+                "prop": "column",
+                "type": "String",
+                "description": "The field's key value"
+              },
+              {
+                "prop": "field",
+                "type": "Object",
+                "description": "the field's definition object (from the fields prop)"
+              },
+              {
+                "prop": "label",
+                "type": "String",
+                "description": "The field's label value"
+              },
+              {
+                "prop": "isFoot",
+                "type": "Boolean",
+                "description": "Will be true if the slot is being rendered in the table footer"
+              }
+            ]
           },
           {
             "name": "head()",
-            "description": "Default scoped slot for custom rendering of field header. See docs for scoped header"
+            "description": "Default scoped slot for custom rendering of field header.",
+            "scope": [
+              {
+                "prop": "column",
+                "type": "String",
+                "description": "The field's key value"
+              },
+              {
+                "prop": "field",
+                "type": "Object",
+                "description": "the field's definition object (from the fields prop)"
+              },
+              {
+                "prop": "label",
+                "type": "String",
+                "description": "The field's label value"
+              },
+              {
+                "prop": "isFoot",
+                "type": "Boolean",
+                "description": "Will be true if the slot is being rendered in the table footer"
+              }
+            ]
           },
           {
-            "name": "foot(key)",
-            "description": "Scoped slot for custom rendering of field footer. 'key' is the fields key name. See docs for scoped footer"
+            "name": "foot({key})",
+            "pattern": "foot\\([a-zA-Z0-9$_.\\-]+\\)",
+            "description": "Scoped slot for custom rendering of field footer. '{key}' is the field's key name.",
+            "scope": [
+              {
+                "prop": "column",
+                "type": "String",
+                "description": "The field's key value"
+              },
+              {
+                "prop": "field",
+                "type": "Object",
+                "description": "the field's definition object (from the fields prop)"
+              },
+              {
+                "prop": "label",
+                "type": "String",
+                "description": "The field's label value"
+              }
+            ]
           },
           {
             "name": "foot()",
-            "description": "Default scoped slot for custom rendering of field footer. See docs for scoped footer"
+            "description": "Default scoped slot for custom rendering of field footer",
+            "scope": [
+              {
+                "prop": "column",
+                "type": "String",
+                "description": "The field's key value"
+              },
+              {
+                "prop": "field",
+                "type": "Object",
+                "description": "the field's definition object (from the fields prop)"
+              },
+              {
+                "prop": "label",
+                "type": "String",
+                "description": "The field's label value"
+              }
+            ]
           },
           {
             "name": "table-caption",
@@ -431,42 +1372,236 @@
           },
           {
             "name": "table-colgroup",
-            "description": "Slot to place custom colgroup and col elements (optionally scoped: columns - number of columns, fields - array of field definition objects)"
+            "description": "Slot to place custom colgroup and col elements. Optionally scoped",
+            "scope": [
+              {
+                "prop": "columns",
+                "type": "Number",
+                "description": "the number of columns in the table"
+              },
+              {
+                "prop": "fields",
+                "type": "Array",
+                "description": "Array of field definition objects"
+              }
+            ]
           },
           {
             "name": "row-details",
-            "description": "Scoped slot for optional rendering additional record details. See docs for Row details support"
+            "description": "Scoped slot for optional rendering additional record details. See docs for Row details support",
+            "scope": [
+              {
+                "prop": "item",
+                "type": "Object",
+                "description": "The entire row's record data object"
+              },
+              {
+                "prop": "index",
+                "type": "Number",
+                "description": "The item's row index number (with respect to the displayed item rows)"
+              },
+              {
+                "prop": "fields",
+                "type": "Array",
+                "description": "The normalized fields definition array (in the array of objects format)"
+              },
+              {
+                "prop": "toggleDetails",
+                "type": "Function",
+                "description": "Function to toggle visibility of the row's details slot"
+              }
+            ]
           },
           {
             "name": "thead-top",
-            "description": "Slot above the column headers in the `thead` element for user-supplied B-TR with B-TH/B-TD (optionally scoped: columns - number of TDs to provide, fields - array of field definition objects)"
+            "description": "Slot above the column headers in the `thead` element for user-supplied B-TR with B-TH/B-TD. Optionally scoped.",
+            "scope": [
+              {
+                "prop": "columns",
+                "type": "Number",
+                "description": "the number of columns in the table"
+              },
+              {
+                "prop": "fields",
+                "type": "Array",
+                "description": "The normalized fields definition array (in the array of objects format)"
+              },
+              {
+                "prop": "selectAllRows",
+                "type": "Function",
+                "description": "Select all rows (applicable if the table is in selectable mode)"
+              },
+              {
+                "prop": "clearSelected",
+                "type": "Function",
+                "description": "Unselect all rows (applicable if the table is in selectable mode)"
+              }
+            ]
           },
           {
             "name": "custom-foot",
-            "description": "Custom footer content slot for user supplied B-TR's with B-TH/B-TD (Optionally Scoped: columns - number columns, fields - array of field definition objects, items - array of currently displayed row items)"
+            "description": "Custom footer content slot for user supplied B-TR's with B-TH/B-TD. Optionally Scoped",
+            "scope": [
+              {
+                "prop": "columns",
+                "type": "Number",
+                "description": "the number of columns in the table"
+              },
+              {
+                "prop": "fields",
+                "type": "Array",
+                "description": "The normalized fields definition array (in the array of objects format)"
+              },
+              {
+                "prop": "items",
+                "type": "Array",
+                "description": "Array of items that are currently being displayed"
+              }
+            ]
           }
         ]
       },
       {
-        "component": "BTableSimple"
+        "component": "BTableSimple",
+        "props": [
+          {
+            "prop": "striped",
+            "description": "Applies striping to the tbody rows"
+          },
+          {
+            "prop": "bordered",
+            "description": "Adds borders to all the cells and headers"
+          },
+          {
+            "prop": "borderless",
+            "description": "Removes all borders from cells"
+          },
+          {
+            "prop": "outlined",
+            "description": "Adds an outline border to the table element"
+          },
+          {
+            "prop": "dark",
+            "description": "Places the table in dark mode"
+          },
+          {
+            "prop": "hover",
+            "description": "Enables hover styling on rows"
+          },
+          {
+            "prop": "small",
+            "description": "Renders the table with smaller cell padding"
+          },
+          {
+            "prop": "fixed",
+            "description": "Makes all columns equal width (fixed layout table). Will speed up rendering for large tables. Column widths can be set via CSS or colgroup"
+          },
+          {
+            "prop": "responsive",
+            "description": "Makes the table responsive in width, adding a horizontal scrollbar. Set to true for always responsive or set to one of the breakpoints to switch from responsive to normal: 'sm', 'md', 'lg', 'xl'"
+          },
+          {
+            "prop": "stickyHeader",
+            "description": "Makes the table header sticky. Set to true for a maximum height 300px tall table, or set to any valid CSS hight (including units)"
+          },
+          {
+            "prop": "noBorderCollapse",
+            "version": "2.0.0",
+            "description": "Disable's the collapsing of table borders. Useful when table has sticky headers or columns"
+          },
+          {
+            "prop": "captionTop",
+            "description": "Visually place the table caption above the table. Default is below."
+          },
+          {
+            "prop": "tableVariant",
+            "description": "Apply a Bootstrap theme color variant to the entire table"
+          },
+          {
+            "prop": "tableClass",
+            "description": "CSS class (or classes) to apply to the table element"
+          },
+          {
+            "prop": "stacked",
+            "description": "Place the table in stacked mode. Set to true for always stacked, or set to one of the breakpoints to switch from stacked to normal: 'sm', 'md', 'lg', 'xl'"
+          }
+        ]
       },
       {
-        "component": "BTbody"
+        "component": "BTbody",
+        "props": [
+          {
+            "prop": "tbodyTransitionProps",
+            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+          },
+          {
+            "prop": "tbodyTransitionHandlers",
+            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+          }
+        ]
       },
       {
-        "component": "BThead"
+        "component": "BThead",
+        "props": [
+          {
+            "prop": "headVariant",
+            "description": "Header variant: 'light' or 'dark', or unset"
+          }
+        ]
       },
       {
-        "component": "BTfoot"
+        "component": "BTfoot",
+        "props": [
+          {
+            "prop": "footVariant",
+            "description": "Footer variant: 'light' or 'dark', or unset"
+          }
+        ]
       },
       {
         "component": "BTr"
       },
       {
-        "component": "BTd"
+        "component": "BTd",
+        "props": [
+          {
+            "prop": "colspan",
+            "description": "Number of columns this cell spans"
+          },
+          {
+            "prop": "rowspan",
+            "description": "Number of rows this cell spans"
+          },
+          {
+            "prop": "stackedHeading",
+            "description": "Heading for the cell when in stacked mode. Only applicable to cells in the 'tbody' element"
+          },
+          {
+            "prop": "stickyColumn",
+            "description": "If this will be a sticky colum. Must be set on all cells in this column. table must be in sticky-header or responsive mode to work"
+          }
+        ]
       },
       {
-        "component": "BTh"
+        "component": "BTh",
+        "props": [
+          {
+            "prop": "colspan",
+            "description": "Number of columns this cell spans"
+          },
+          {
+            "prop": "rowspan",
+            "description": "Number of rows this cell spans"
+          },
+          {
+            "prop": "stackedHeading",
+            "description": "Heading for the cell when in stacked mode. Only applicable to cells in the 'tbody' element"
+          },
+          {
+            "prop": "stickyColumn",
+            "description": "If this will be a sticky colum. Must be set on all cells in this column. table must be in sticky-header or responsive mode to work"
+          }
+        ]
       }
     ]
   }

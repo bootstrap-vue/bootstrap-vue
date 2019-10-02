@@ -7,6 +7,60 @@
     "components": [
       {
         "component": "BCard",
+        "props": [
+          {
+            "prop": "overlay",
+            "description": "When set, will overlay the card body on top of the image (if the card has an image)"
+          },
+          {
+            "prop": "noBody",
+            "description": "Disable rendering of the default inner card-body element"
+          },
+          {
+            "prop": "align",
+            "description": "Text alignment for the card's content: 'left', 'center' or 'right'"
+          },
+          {
+            "prop": "imgSrc",
+            "description": "URL for the optional image"
+          },
+          {
+            "prop": "imgAlt",
+            "description": "Value to set the image attribute 'alt'"
+          },
+          {
+            "prop": "imgWidth",
+            "description": "The value to set on the image's 'width' attribute"
+          },
+          {
+            "prop": "imgHeight",
+            "description": "The value to set on the image's 'height' attribute"
+          },
+          {
+            "prop": "imgTop",
+            "description": "Set if the image should appear at the top of the card"
+          },
+          {
+            "prop": "imgBottom",
+            "description": "Set if the image should appear at the bottom of the card"
+          },
+          {
+            "prop": "imgStart",
+            "description": "Set if the image should appear at the start (left) of the card"
+          },
+          {
+            "prop": "imgLeft",
+            "description": "Set if the image should appear at the start (left) of the card. Synonym for the 'left' prop"
+          },
+          {
+            "prop": "imgEnd",
+            "description": "Set if the image should appear at the end (right) of the card"
+          },
+          {
+            "prop": "imgRight",
+            "description": "Set if the image should appear at the end (right) of the card. Synonym for the 'right' prop"
+          }
+        ],
         "slots": [
           {
             "name": "header",
@@ -20,13 +74,129 @@
       },
       "BCardHeader",
       "BCardFooter",
-      "BCardBody",
+      {
+        "component": "BCardBody",
+        "props": [
+          {
+            "prop": "overlay",
+            "description": "When set, will overlay the card body on top of the image (if the card has an image)"
+          }
+        ]
+      },
       "BCardTitle",
       "BCardSubTitle",
-      "BCardImg",
-      "BCardImgLazy",
+      {
+        "component": "BCardImg",
+        "props": [
+          {
+            "prop": "width",
+            "description": "The value to set on the image's 'width' attribute"
+          },
+          {
+            "prop": "height",
+            "description": "The value to set on the image's 'height' attribute"
+          },
+          {
+            "prop": "top",
+            "description": "Set if the image will be placed at the top of the card"
+          },
+          {
+            "prop": "bottom",
+            "description": "Set if the image will be placed at the bottom of the card"
+          },
+          {
+            "prop": "start",
+            "description": "Set if the image will be placed at the start (left) of the card"
+          },
+          {
+            "prop": "left",
+            "description": "Set if the image will be placed at the start (left) of the card. Synonym for the 'left' prop"
+          },
+          {
+            "prop": "end",
+            "description": "Set if the image will be placed at the end (right) of the card"
+          },
+          {
+            "prop": "right",
+            "description": "Set if the image will be placed at the end (right) of the card. Synonym for the 'right' prop"
+          }
+        ]
+      },
+      {
+        "component": "BCardImgLazy",
+        "props": [
+          {
+            "prop": "show",
+            "description": "If set to true, will force show the image specified via the 'src' prop"
+          },
+          {
+            "prop": "offset",
+            "description": "Number of pixels away from the viewport edge before the lazy image is loaded"
+          },
+          {
+            "prop": "blankSrc",
+            "description": "URL of placeholder image. If not set, an SVG placeholder placeholder will be used"
+          },
+          {
+            "prop": "blankColor",
+            "description": "CSS color of the blank SVG placeholder image. Has no effect if 'blank-src' is set"
+          },
+          {
+            "prop": "blankWidth",
+            "description": "Value of the 'width' attribute for the placeholder image"
+          },
+          {
+            "prop": "blankHeight",
+            "description": "Value of the 'height' attribute for the placeholder image"
+          },
+          {
+            "prop": "width",
+            "description": "The value to set on the image's 'width' attribute"
+          },
+          {
+            "prop": "height",
+            "description": "The value to set on the image's 'height' attribute"
+          },
+          {
+            "prop": "top",
+            "description": "Set if the image will be placed at the top of the card"
+          },
+          {
+            "prop": "bottom",
+            "description": "Set if the image will be placed at the bottom of the card"
+          },
+          {
+            "prop": "start",
+            "description": "Set if the image will be placed at the start (left) of the card"
+          },
+          {
+            "prop": "left",
+            "description": "Set if the image will be placed at the start (left) of the card. Synonym for the 'left' prop"
+          },
+          {
+            "prop": "end",
+            "description": "Set if the image will be placed at the end (right) of the card"
+          },
+          {
+            "prop": "right",
+            "description": "Set if the image will be placed at the end (right) of the card. Synonym for the 'right' prop"
+          }
+        ]
+      },
       "BCardText",
-      "BCardGroup"
+      {
+        "component": "BCardGroup",
+        "props": [
+          {
+            "prop": "deck",
+            "description": "When set renders the card group with gutters between cards"
+          },
+          {
+            "prop": "columns",
+            "description": "When set, renders the card group in a masonry-like columnar style"
+          }
+        ]
+      }
     ]
   }
 }
