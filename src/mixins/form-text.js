@@ -99,6 +99,8 @@ export default {
         this.number && value === Number(localValue)
       ) {
         // Emulate Vue .trim / .number modifiers
+        // And do not update the input's value of trim/number is
+        // the same after mdodifier modification
         return
       }
       if (value !== localValue) {
