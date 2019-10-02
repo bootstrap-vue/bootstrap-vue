@@ -111,8 +111,8 @@ export default {
   },
   mounted() {
     const value = this.stringifyValue(this.value)
+    /* istanbul ignore next */
     if (value !== this.localValue) {
-      /* istanbul ignore next */
       this.localValue = value
       this.formattedValue = value
     }
