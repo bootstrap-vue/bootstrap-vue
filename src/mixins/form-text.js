@@ -95,8 +95,8 @@ export default {
       const value = this.stringifyValue(newVal)
       const localValue = this.localValue
       if (
-        this.trim && value === localValue.trim() ||
-        this.number && value === Number(localValue)
+        (this.trim && value === localValue.trim()) ||
+        (this.number && value === Number(localValue))
       ) {
         // Emulate Vue .trim / .number modifiers
         // And do not update the input's value of trim/number is
