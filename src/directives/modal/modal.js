@@ -53,7 +53,7 @@ const bind = (el, binding, vnode) => {
     el[HANDLER] = evt => {
       // currentTarget is the element with the listener on it
       const currentTarget = evt.currentTarget
-      if (!isDisabled(currentTarget) && !evt.defaultPrevented) {
+      if (!isDisabled(currentTarget)) {
         const type = evt.type
         // Open modal only if trigger is not disabled
         if (type === 'click' || (type === 'keydown' && evt.keyCode === 32)) {
