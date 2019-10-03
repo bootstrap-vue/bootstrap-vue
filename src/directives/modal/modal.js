@@ -20,17 +20,12 @@ const HANDLER = '__bv_modal_directive__'
 const EVENT_OPTS = { passive: true }
 
 const getTarget = ({ modifiers = {}, arg, value }) => {
-  let target
-  if (isString(value)) {
-    target = value
-  } else if (isString(arg)) {
-    target = arg
-  } else {
-    keys(modifiers).forEach(mod => {
-      target = mod
-    })
-  }
-  return target
+  // Try value, then arg, otherwise pick last modifier
+  return isString(value)
+    ? value
+    : isString(arg)
+      ? arg
+      : keys(modifiers).reverse()[0]
 }
 
 const getTriggerElement = el => {
