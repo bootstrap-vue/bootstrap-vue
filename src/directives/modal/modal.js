@@ -24,7 +24,7 @@ const getTarget = ({ modifiers = {}, value }) => {
 const getTriggerElement = el => {
   // If root element is a dropdown item or nav item, we
   // need to target the inner link or button instead
-  return el && matches(el, 'li.dropdown-item, li.nav-item') ? select('a, button', el) || el : el
+  return el && matches(el, '.dropdown-menu > li, li.nav-item') ? select('a, button', el) || el : el
 }
 
 const setRole = trigger => {
