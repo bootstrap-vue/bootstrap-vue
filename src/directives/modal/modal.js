@@ -1,4 +1,4 @@
-import { eventOn, eventOff, hasAttr, matches, select, setAttr } from '../../utils/dom'
+import { eventOn, eventOff, getAttr, hasAttr, isDisabled, matches, select, setAttr } from '../../utils/dom'
 import { isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 
@@ -28,6 +28,7 @@ const getTriggerElement = el => {
 }
 
 const setRole = trigger => {
+  // Only set a role if the trigger element doesn't have one
   if (trigger && trigger.tagName !== 'BUTTON' && !hasAttr(trigger, 'role')) {
     setAttr(trigger, 'role', 'button')
   }
@@ -38,13 +39,22 @@ const bind = (el, binding, vnode) => {
   const trigger = getTriggerElement(el)
   if (target && trigger) {
     el[HANDLER] = evt => {
-      if (target) {
-        vnode.context.$root.$emit(EVENT_SHOW, target, trigger)
+      if (!isDisabled(evt.currentTarget)) {
+        const type = evt.type
+        // Open modal only if trigger is not disabled
+        if (target && (type === 'click' || (type === 'keydown' && evt.keyCode === 32))) {
+          vnode.context.$root.$emit(EVENT_SHOW, target, trigger)
+        }
       }
     }
-    eventOn(trigger, 'click', el[HANDLER], EVENT_OPTS)
     // If element is not a button, we add `role="button"` for accessibility
     setRole(trigger)
+    // Listen for click events
+    eventOn(trigger, 'click', el[HANDLER], EVENT_OPTS)
+    if (trigger.tagName !== 'BUTTON' && getAttr(trigger, 'role') === 'button') {
+      // If trigger isn't a button but has role button, we also listen for keydown.space
+      eventOn(trigger, 'keydown', el[HANDLER], EVENT_OPTS)
+    }
   }
 }
 
@@ -52,6 +62,7 @@ const unbind = (el, binding, vnode) => {
   const trigger = getTriggerElement(el)
   if (trigger && el && el[HANDLER]) {
     eventOff(trigger, 'click', el[HANDLER], EVENT_OPTS)
+    eventOff(trigger, 'keydown', el[HANDLER], EVENT_OPTS)
   }
   delete el[HANDLER]
 }
