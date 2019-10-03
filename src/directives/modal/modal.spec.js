@@ -1,5 +1,4 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
 import { VBModal } from './modal'
 
 const EVENT_SHOW = 'bv::show::modal'
@@ -26,7 +25,6 @@ describe('v-b-modal directive', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
     expect(wrapper.is('button')).toBe(true)
     expect(spy).not.toHaveBeenCalled()
 
@@ -64,7 +62,6 @@ describe('v-b-modal directive', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
     expect(wrapper.is('span')).toBe(true)
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('span').attributes('role')).toBe('button')
