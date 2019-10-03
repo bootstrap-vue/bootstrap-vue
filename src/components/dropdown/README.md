@@ -607,6 +607,21 @@ When a menu item doesn't trigger navigation, it is recommended to use the `<b-dr
 sub-component (which is not announced as a link) instead of `<b-dropdown-item>` (which is presented
 as a link to the user).
 
+### Triggering modals with dropdown items
+
+Avoid using the `v-b-modal` directive directly on `<b-dropdown-item>` or `<b-dropdown-item-button>`
+child components. The directive attaches itself to the root element of the drodpown item, which is
+an `<li>`, and not to the child `<a>` or `<button>` elements. This can cause accessibility issues as
+the `v-b-modal` directive sees the `<li>` element as non-interactive and changes it's role to be
+`button`.  Instead, use `this.$bvModal` to trigger the modal to open via the dropdown item's click
+handler:
+
+```html
+<b-dropdown-item-button @click="$bvModal.show('modal-1')">
+  Open Modal
+</b-dropdown-item-button>
+```
+
 ### Headers and accessibility
 
 When using `<b-dropdown-header>` components in the dropdown menu, it is recommended to add an `id`
