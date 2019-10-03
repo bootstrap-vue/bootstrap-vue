@@ -1,6 +1,6 @@
 import { eventOn, eventOff, matches, select, setAttr, removeAttr } from '../../utils/dom'
 import { isString } from '../../utils/inspect'
-import { keys } from './object'
+import { keys } from '../../object'
 
 // Emitted show event for modal
 const EVENT_SHOW = 'bv::show::modal'
