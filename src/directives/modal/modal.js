@@ -2,9 +2,6 @@ import { eventOn, eventOff, matches, select, setAttr, removeAttr } from '../../u
 import { isString } from '../../utils/inspect'
 import { keys } from './object'
 
-// Target listen types
-const listenTypes = { click: true }
-
 // Emitted show event for modal
 const EVENT_SHOW = 'bv::show::modal'
 
@@ -18,7 +15,7 @@ const getTarget = ({ modifiers = {}, value }) => {
   keys(modifiers).forEach(mod => {
     target = mod
   })
-  if (isString(binding.value)) {
+  if (isString(value)) {
     target = value
   }
   return target
@@ -27,9 +24,7 @@ const getTarget = ({ modifiers = {}, value }) => {
 const getTriggerElement = el => {
   // If root element is a dropdown item or nav item, we
   // need to target the inner link or button instead
-  return el && matches(el, 'li.dropdown-item, li.nav-item')
-    ? select('a, button', el) || el
-    : el
+  return el && matches(el, 'li.dropdown-item, li.nav-item') ? select('a, button', el) || el : el
 }
 
 const setRole = trigger => {
