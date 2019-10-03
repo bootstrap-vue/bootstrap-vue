@@ -1,4 +1,13 @@
-import { eventOn, eventOff, getAttr, hasAttr, isDisabled, matches, select, setAttr } from '../../utils/dom'
+import {
+  eventOn,
+  eventOff,
+  getAttr,
+  hasAttr,
+  isDisabled,
+  matches,
+  select,
+  setAttr
+} from '../../utils/dom'
 import { isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 
@@ -39,11 +48,13 @@ const bind = (el, binding, vnode) => {
   const trigger = getTriggerElement(el)
   if (target && trigger) {
     el[HANDLER] = evt => {
-      if (!isDisabled(evt.currentTarget)) {
+      // currentTarget is the element with the listener on it
+      const currentTarget = evt.currentTarget
+      if (!isDisabled(currentTarget) && !evt.defaultPrevented) {
         const type = evt.type
         // Open modal only if trigger is not disabled
-        if (target && (type === 'click' || (type === 'keydown' && evt.keyCode === 32))) {
-          vnode.context.$root.$emit(EVENT_SHOW, target, trigger)
+        if (type === 'click' || (type === 'keydown' && evt.keyCode === 32)) {
+          vnode.context.$root.$emit(EVENT_SHOW, target, currentTarget)
         }
       }
     }
