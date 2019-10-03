@@ -5,8 +5,32 @@
     "title": "List group",
     "description": "List groups are a flexible and powerful component for displaying a series of content. List group items can be modified to support just about any content within. They can also be used as navigation via various props.",
     "components": [
-      "BListGroup",
-      "BListGroupItem"
+      {
+        "component": "BListGroup",
+        "props": [
+          {
+            "prop": "flush",
+            "description": "When set, renders a flush list group with no left and right borders"
+          },
+          {
+            "prop": "horizontal",
+            "description": "When set, renders the list-group horizontally rather than the default of vertical"
+          }
+        ]
+      },
+      {
+        "component": "BListGroupItem",
+        "props": [
+          {
+            "prop": "button",
+            "description": "When true renders the list-group-item as a button element"
+          },
+          {
+            "prop": "action",
+            "description": "When set, give the item the appearance of having an action. Not needed when props 'to', 'href' or 'button' are used"
+          }
+        ]
+      }
     ]
   }
 }

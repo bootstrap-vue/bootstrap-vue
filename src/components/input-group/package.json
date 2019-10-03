@@ -7,6 +7,24 @@
     "components": [
       {
         "component": "BInputGroup",
+        "props": [
+          {
+            "prop": "append",
+            "description": "Text to append to the input group"
+          },
+          {
+            "prop": "appendHtml",
+            "description": "HTML string to append to the input group. Has precedence over 'append' prop. Use with caution"
+          },
+          {
+            "prop": "prepend",
+            "description": "Text to prepend to the input group"
+          },
+          {
+            "prop": "prependHtml",
+            "description": "HTML string to prepend to the input group. Has precedence over 'prepend' prop. Use with caution"
+          }
+        ],
         "slots": [
           {
             "name": "prepend",
@@ -18,10 +36,41 @@
           }
         ]
       },
-      "BInputGroupPrepend",
-      "BInputGroupAppend",
-      "BInputGroupText",
-      "BInputGroupAddon"
+      {
+        "component": "BInputGroupPrepend",
+        "props": [
+          {
+            "prop": "isText",
+            "description": "When 'true', wraps the content in a b-input-group-text component"
+          }
+        ]
+      },
+      {
+        "component": "BInputGroupAppend",
+        "props": [
+          {
+            "prop": "isText",
+            "description": "When 'true', wraps the content in a b-input-group-text component"
+          }
+        ]
+      },
+      {
+        "component": "BInputGroupText",
+        "props": []
+      },
+      {
+        "component": "BInputGroupAddon",
+        "props": [
+          {
+            "prop": "append",
+            "description": "When set to 'true' sets the addon as being appended. defaults to 'false' which is prepended"
+          },
+          {
+            "prop": "isText",
+            "description": "When 'true', wraps the content in a b-input-group-text component"
+          }
+        ]
+      }
     ]
   }
 }
