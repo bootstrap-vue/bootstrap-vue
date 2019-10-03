@@ -1521,8 +1521,8 @@ three classes (depending on which mode is in use) on the `<table>` element:
 - `b-table-select-range`
 
 When at least one row is selected, the class `b-table-selecting` will be active on the `<table>`
-element. Rows that are selected rows will have a class of `b-row-selected` applied to the `<tr>`
-element.
+element. Rows that are selected rows will have a class of `b-table-row-selected` applied to the
+`<tr>` element.
 
 Use the prop `selected-variant` to apply a Bootstrap theme color to the selected row(s). Note, due
 to the order that the table variants are defined in Bootstrap's CSS, any row-variant _might_ take
