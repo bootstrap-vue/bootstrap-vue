@@ -50,8 +50,8 @@ const bind = (el, binding, vnode) => {
   const target = getTarget(binding)
   const trigger = getTriggerElement(el)
   if (target && trigger) {
-    el[HANDLER] = evt => {
-      // currentTarget is the element with the listener on it
+    const handler = evt => {
+      // `currentTarget` is the element with the listener on it
       const currentTarget = evt.currentTarget
       if (!isDisabled(currentTarget)) {
         const type = evt.type
@@ -61,22 +61,25 @@ const bind = (el, binding, vnode) => {
         }
       }
     }
+    el[HANDLER] = handler
     // If element is not a button, we add `role="button"` for accessibility
     setRole(trigger)
     // Listen for click events
-    eventOn(trigger, 'click', el[HANDLER], EVENT_OPTS)
+    eventOn(trigger, 'click', handler, EVENT_OPTS)
     if (trigger.tagName !== 'BUTTON' && getAttr(trigger, 'role') === 'button') {
-      // If trigger isn't a button but has role button, we also listen for keydown.space
-      eventOn(trigger, 'keydown', el[HANDLER], EVENT_OPTS)
+      // If trigger isn't a button but has role button,
+      // we also listen for `keydown.space`
+      eventOn(trigger, 'keydown', handler, EVENT_OPTS)
     }
   }
 }
 
-const unbind = (el, binding, vnode) => {
+const unbind = el => {
   const trigger = getTriggerElement(el)
-  if (trigger && el && el[HANDLER]) {
-    eventOff(trigger, 'click', el[HANDLER], EVENT_OPTS)
-    eventOff(trigger, 'keydown', el[HANDLER], EVENT_OPTS)
+  const handler = el ? el[HANDLER] : null
+  if (trigger && handler) {
+    eventOff(trigger, 'click', handler, EVENT_OPTS)
+    eventOff(trigger, 'keydown', handler, EVENT_OPTS)
   }
   delete el[HANDLER]
 }
