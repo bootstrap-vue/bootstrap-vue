@@ -21,11 +21,7 @@ const EVENT_OPTS = { passive: true }
 
 const getTarget = ({ modifiers = {}, arg, value }) => {
   // Try value, then arg, otherwise pick last modifier
-  return isString(value)
-    ? value
-    : isString(arg)
-      ? arg
-      : keys(modifiers).reverse()[0]
+  return isString(value) ? value : isString(arg) ? arg : keys(modifiers).reverse()[0]
 }
 
 const getTriggerElement = el => {
