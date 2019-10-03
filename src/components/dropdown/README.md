@@ -610,10 +610,10 @@ as a link to the user).
 ### Triggering modals with dropdown items
 
 Avoid using the `v-b-modal` directive directly on `<b-dropdown-item>` or `<b-dropdown-item-button>`
-child components. The directive attaches itself to the root element of the drodpown item, which is
+child components. The directive attaches itself to the root element of the dropdown item, which is
 an `<li>`, and not to the child `<a>` or `<button>` elements. This can cause accessibility issues as
 the `v-b-modal` directive sees the `<li>` element as non-interactive and changes it's role to be
-`button`.  Instead, use `this.$bvModal` to trigger the modal to open via the dropdown item's click
+`button`. Instead, use `this.$bvModal` to trigger the modal to open via the dropdown item's click
 handler:
 
 ```html
