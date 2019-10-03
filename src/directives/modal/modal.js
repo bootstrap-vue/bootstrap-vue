@@ -1,4 +1,4 @@
-import { eventOn, eventOff, hasAttr, matches, select, setAttr, removeAttr } from '../../utils/dom'
+import { eventOn, eventOff, hasAttr, matches, select, setAttr } from '../../utils/dom'
 import { isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 
