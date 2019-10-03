@@ -35,17 +35,20 @@ const setRole = trigger => {
 
 const bind = (el, binding, vnode) => {
   const target = getTarget(binding)
-  const trigger = getTriggerElement(el)
-  if (target && trigger) {
-    el[HANDLER] = evt => {
-      if (target) {
-        vnode.context.$root.$emit(EVENT_SHOW, target, trigger)
+  vnode.context.$nextTick(() => {
+    // Performed in a next tick to ensure DOM is rendered
+    const trigger = getTriggerElement(el)
+    if (target && trigger) {
+      el[HANDLER] = evt => {
+        if (target) {
+          vnode.context.$root.$emit(EVENT_SHOW, target, trigger)
+        }
       }
+      eventOn(trigger, 'click', el[HANDLER], EVENT_OPTS)
+      // If element is not a button, we add `role="button"` for accessibility
+      setRole(trigger)
     }
-    eventOn(trigger, 'click', el[HANDLER], EVENT_OPTS)
-    // If element is not a button, we add `role="button"` for accessibility
-    setRole(trigger)
-  }
+  })
 }
 
 const unbind = (el, binding, vnode) => {
