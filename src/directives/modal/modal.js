@@ -19,13 +19,16 @@ const HANDLER = '__bv_modal_directive__'
 
 const EVENT_OPTS = { passive: true }
 
-const getTarget = ({ modifiers = {}, value }) => {
+const getTarget = ({ modifiers = {}, arg, value }) => {
   let target
-  keys(modifiers).forEach(mod => {
-    target = mod
-  })
   if (isString(value)) {
     target = value
+  } else if (isString(arg)) {
+    target = arg
+  } else {
+    keys(modifiers).forEach(mod => {
+      target = mod
+    })
   }
   return target
 }
