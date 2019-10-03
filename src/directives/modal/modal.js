@@ -1,4 +1,4 @@
-import { eventOn, eventOff, matches, select, setAttr, removeAttr } from '../../utils/dom'
+import { eventOn, eventOff, hasAttr, matches, select, setAttr, removeAttr } from '../../utils/dom'
 import { isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 
@@ -28,14 +28,8 @@ const getTriggerElement = el => {
 }
 
 const setRole = trigger => {
-  if (trigger && trigger.tagName !== 'BUTTON') {
+  if (trigger && trigger.tagName !== 'BUTTON' && !hasAttr(trigger, 'role')) {
     setAttr(trigger, 'role', 'button')
-  }
-}
-
-const clearRole = trigger => {
-  if (trigger && trigger.tagName !== 'BUTTON') {
-    removeAttr(trigger, 'role')
   }
 }
 
@@ -58,8 +52,6 @@ const unbind = (el, binding, vnode) => {
   const trigger = getTriggerElement(el)
   if (trigger && el && el[HANDLER]) {
     eventOff(trigger, 'click', el[HANDLER], EVENT_OPTS)
-    // If element is not a button, we added `role="button"` for accessibility
-    clearRole(trigger)
   }
   delete el[HANDLER]
 }
