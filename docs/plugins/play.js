@@ -118,6 +118,9 @@ const processExamples = (el, binding, vnode, oldVnode) => {
     // Add editable class
     pre.classList.add(CLASS_NAMES.editable)
 
+    // Store "previous" content on pre element
+    pre.$_v_play_content = pre.textContent
+
     // Initial load
     let vm = createVM(name, pre, vnode)
 
@@ -134,9 +137,19 @@ const processExamples = (el, binding, vnode, oldVnode) => {
       pre.onblur = () => {
         // Re-highlight
         hljs.highlightBlock(pre)
+        // Store "previous" content on pre element
+        pre.$_v_play_content === pre.textContent
       }
 
       pre.onkeyup = debounce(() => {
+        if (pre.$_v_play_content === pre.textContent) {
+          // Early exit if no changes to content
+          return
+        }
+
+        // Store "previous" content on pre element
+        pre.$_v_play_content === pre.textContent
+
         // Recreate VM
         destroyVM(name, vm)
         vm = createVM(name, pre, vnode)
