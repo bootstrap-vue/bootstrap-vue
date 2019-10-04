@@ -40,11 +40,12 @@ export default {
     headMeta() {
       const section = this.$route.name.split('-')[1]
       const sectionMeta = section ? nav.find(n => n.base === `${section}/`) : null
-      const description = this.meta && this.meta.description
-        ? this.meta.description
-        : sectionMeta && sectionMeta.description
-          ? sectionMeta.description
-          : bvDescription
+      const description =
+        this.meta && this.meta.description
+          ? this.meta.description
+          : sectionMeta && sectionMeta.description
+            ? sectionMeta.description
+            : bvDescription
       const meta = [
         {
           hid: 'og:title',
