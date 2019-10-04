@@ -109,7 +109,7 @@ export default {
         this.emitTbodyRowEvent('row-middle-clicked', evt)
       }
     },
-    onTbodyRowContextmenu(evt, item, index) {
+    onTbodyRowContextmenu(evt) {
       if (!this.tbodyRowEvtStopped(evt)) {
         this.emitTbodyRowEvent('row-contextmenu', evt)
       }
@@ -181,7 +181,7 @@ export default {
         // We may wan to to only instantiate these handlers
         // if there is an event listener registered
         auxclick: this.onTbodyRowMiddleMouseRowClicked,
-        contenxtmenu: this.onTbodyRowContextmenu,
+        contextmenu: this.onTbodyRowContextmenu,
         // The following event(s) is not considered A11Y friendly
         dblclick: this.onTbodyRowDblClicked
         // hover events (mouseenter/mouseleave) ad handled by tbody-row mixin
