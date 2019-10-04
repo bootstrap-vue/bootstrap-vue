@@ -111,7 +111,7 @@ export default {
     },
     onTbodyRowContextmenu(evt, item, index) {
       if (!this.tbodyRowEvtStopped(evt)) {
-        this.emitTbodyRowEvent('rowcontextmenu', evt)
+        this.emitTbodyRowEvent('row-contextmenu', evt)
       }
     },
     onTbodyRowDblClicked(evt) {
