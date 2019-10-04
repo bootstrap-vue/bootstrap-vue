@@ -195,6 +195,7 @@ export default {
       const $tbody = h(
         BTbody,
         {
+          ref: 'tbody',
           class: this.tbodyClass || null,
           props: {
             tbodyTransitionProps: this.tbodyTransitionProps,
