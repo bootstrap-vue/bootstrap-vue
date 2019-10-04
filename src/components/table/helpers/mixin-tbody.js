@@ -7,11 +7,11 @@ import textSelectionActive from './text-selection-active'
 import tbodyRowMixin from './mixin-tbody-row'
 
 const props = {
+  ...tbodyProps,
   tbodyClass: {
     type: [String, Array, Object]
     // default: undefined
-  },
-  ...tbodyProps
+  }
 }
 
 export default {
@@ -40,7 +40,7 @@ export default {
       if (type && evt && evt.target) {
         const rowIndex = this.getTbodyTrIndex(evt.target)
         if (rowIndex > -1) {
-          // The Array of TRs correlate to the computedItems array
+          // The array of TRs correlate to the `computedItems` array
           const item = this.computedItems[rowIndex]
           this.$emit(type, item, rowIndex, evt)
         }
@@ -49,7 +49,7 @@ export default {
     tbodyRowEvtStopped(evt) {
       return this.stopIfBusy && this.stopIfBusy(evt)
     },
-    // Delegated Row Event handlers
+    // Delegated row event handlers
     onTbodyRowKeydown(evt) {
       // Keyboard navigation and row click emulation
       const target = evt.target
@@ -120,7 +120,7 @@ export default {
         this.emitTbodyRowEvent('row-dblclicked', evt)
       }
     },
-    // Note: row hover handlers are handled by the tbody-row mixin
+    // Note: Row hover handlers are handled by the tbody-row mixin
     // As mouseenter/mouseleave events do not bubble
     //
     // Render Helper
@@ -142,10 +142,10 @@ export default {
       } else {
         // Table isn't busy, or we don't have a busy slot
 
-        // Create a slot cache for improved performace when looking up cell slot names.
-        // Values will be keyed by the field's `key` and will store the slot's name.
-        // Slots could be dynamic (i.e. `v-if`), so we must compute on each render.
-        // Used by tbodyRow mixin render helper.
+        // Create a slot cache for improved performance when looking up cell slot names
+        // Values will be keyed by the field's `key` and will store the slot's name
+        // Slots could be dynamic (i.e. `v-if`), so we must compute on each render
+        // Used by tbody-row mixin render helper
         const cache = {}
         const defaultSlotName = this.hasNormalizedSlot('cell()') ? 'cell()' : null
         this.computedFields.forEach(field => {
@@ -158,23 +158,25 @@ export default {
               ? lowerName
               : defaultSlotName
         })
-        // Created as a non-reactive property so to not trigger component updates.
-        // Must be a fresh object each render.
+        // Created as a non-reactive property so to not trigger component updates
+        // Must be a fresh object each render
         this.$_bodyFieldSlotNameCache = cache
 
-        // Add static Top Row slot (hidden in visibly stacked mode as we can't control data-label attr)
+        // Add static top row slot (hidden in visibly stacked mode
+        // as we can't control `data-label` attr)
         $rows.push(this.renderTopRow ? this.renderTopRow() : h())
 
-        // render the rows
+        // Render the rows
         items.forEach((item, rowIndex) => {
           // Render the individual item row (rows if details slot)
           $rows.push(this.renderTbodyRow(item, rowIndex))
         })
 
-        // Empty Items / Empty Filtered Row slot (only shows if items.length < 1)
+        // Empty items / empty filtered row slot (only shows if `items.length < 1`)
         $rows.push(this.renderEmpty ? this.renderEmpty() : h())
 
-        // Static bottom row slot (hidden in visibly stacked mode as we can't control data-label attr)
+        // Static bottom row slot (hidden in visibly stacked mode
+        // as we can't control `data-label` attr)
         $rows.push(this.renderBottomRow ? this.renderBottomRow() : h())
       }
 
@@ -202,7 +204,7 @@ export default {
             tbodyTransitionHandlers: this.tbodyTransitionHandlers
           },
           // BTbody transfers all native event listeners to the root element
-          // TODO: only set the handlers if the table is not busy
+          // TODO: Only set the handlers if the table is not busy
           on: handlers
         },
         $rows
