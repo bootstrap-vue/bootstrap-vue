@@ -77,86 +77,11 @@ export default {
       }
     },
     // Row event handlers (will be wrapped by the above rowEvtFactory function)
-    tbodyRowKeydown(evt, item, rowIndex) {
-      // Keypress handler
-      const keyCode = evt.keyCode
-      const target = evt.target
-      // `this.$refs.itemRow`s is most likely an array of `BTr` components, but it
-      // could be regular `tr` elements, so we map to the `tr` elements just in case
-      const trs = (this.$refs.itemRows || []).map(tr => tr.$el || tr)
-      if (!(target && target.tagName === 'TR' && target === document.activeElement)) {
-        // Ignore if not the active tr element
-        return
-      } else if (target.tabIndex !== 0) {
-        // Ignore if not focusable
-        /* istanbul ignore next */
-        return
-      } else if (trs.length === 0) {
-        // No item rows
-        /* istanbul ignore next */
-        return
-      }
-      const index = trs.indexOf(target)
-      if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
-        // We also allow enter/space to trigger a click (when row is focused)
-        evt.stopPropagation()
-        evt.preventDefault()
-        // We translate to a row-clicked event
-        this.rowClicked(evt, item, rowIndex)
-      } else if (
-        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
-      ) {
-        // Keyboard navigation of rows
-        evt.stopPropagation()
-        evt.preventDefault()
-        const shift = evt.shiftKey
-        if (keyCode === KeyCodes.HOME || (shift && keyCode === KeyCodes.UP)) {
-          // Focus first row
-          trs[0].focus()
-        } else if (keyCode === KeyCodes.END || (shift && keyCode === KeyCodes.DOWN)) {
-          // Focus last row
-          trs[trs.length - 1].focus()
-        } else if (keyCode === KeyCodes.UP && index > 0) {
-          // Focus previous row
-          trs[index - 1].focus()
-        } else if (keyCode === KeyCodes.DOWN && index < trs.length - 1) {
-          // Focus next row
-          trs[index + 1].focus()
-        }
-      }
-    },
-    rowClicked(evt, item, index) {
-      if (filterEvent(evt)) {
-        // clicked on a non-disabled control so ignore
-        return
-      } else if (textSelectionActive(this.$el)) {
-        // User is selecting text, so ignore
-        /* istanbul ignore next: JSDOM doesn't support getSelection() */
-        return
-      }
-      this.$emit('row-clicked', item, index, evt)
-    },
-    middleMouseRowClicked(evt, item, index) {
-      if (evt.which === 2) {
-        this.$emit('row-middle-clicked', item, index, evt)
-      }
-    },
-    rowDblClicked(evt, item, index) {
-      if (filterEvent(evt)) {
-        // clicked on a non-disabled control so ignore
-        /* istanbul ignore next: event filtering already tested via click handler */
-        return
-      }
-      this.$emit('row-dblclicked', item, index, evt)
-    },
     rowHovered(evt, item, index) {
       this.$emit('row-hovered', item, index, evt)
     },
     rowUnhovered(evt, item, index) {
       this.$emit('row-unhovered', item, index, evt)
-    },
-    rowContextmenu(evt, item, index) {
-      this.$emit('row-contextmenu', item, index, evt)
     },
     // Render helpers
     renderTbodyRowCell(field, colIndex, item, rowIndex) {
@@ -258,11 +183,6 @@ export default {
       const rowId = hasPkValue ? this.safeId(`_row_${item[primaryKey]}`) : null
 
       const evtFactory = this.rowEvtFactory
-      const handlers = {}
-      if (hasRowClickHandler) {
-        handlers.click = evtFactory(this.rowClicked, item, rowIndex)
-        handlers.keydown = evtFactory(this.tbodyRowKeydown, item, rowIndex)
-      }
 
       // Selectable classes and attributes
       const selectableClasses = this.selectableRowClasses ? this.selectableRowClasses(rowIndex) : {}
@@ -293,20 +213,8 @@ export default {
               ...selectableAttrs
             },
             on: {
-              ...handlers,
-              // TODO:
-              //   Instantiate the following handlers only if we have registered
-              //   listeners i.e. `this.$listeners['row-middle-clicked']`, etc.
-              //
-              //   Could make all of this (including the above click/key handlers)
-              //   the result of a factory function and/or make it a delegated event
-              //   handler on the tbody (if we store the row index as a data-attribute
-              //   on the TR as we can lookup the item data from the computedItems array
-              //   or it could be a hidden prop (via attrs) on BTr instance)
-              auxclick: evtFactory(this.middleMouseRowClicked, item, rowIndex),
-              contextmenu: evtFactory(this.rowContextmenu, item, rowIndex),
+              // TODO: make these generic handlers, and not anonymous functions
               // Note: These events are not accessibility friendly!
-              dblclick: evtFactory(this.rowDblClicked, item, rowIndex),
               mouseenter: evtFactory(this.rowHovered, item, rowIndex),
               mouseleave: evtFactory(this.rowUnhovered, item, rowIndex)
             }
