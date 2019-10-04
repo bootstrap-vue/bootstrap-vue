@@ -1,5 +1,6 @@
 import KeyCodes from '../../../utils/key-codes'
-import { closest, select, isElement } from '../../../utils/dom'
+import { arrayIncludes } from '../../../utils/array'
+import { closest, isElement } from '../../../utils/dom'
 import { props as tbodyProps, BTbody } from '../tbody'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
@@ -30,7 +31,7 @@ export default {
       if (!isElement(el)) {
         return -1
       }
-      const tr = el.tagName === 'TR' ? tr : closest('tr', el, true)
+      const tr = el.tagName === 'TR' ? el : closest('tr', el, true)
       return tr ? this.getTbodyTrs().indexOf(tr) : -1
     },
     emitTbodyRowEvent(type, evt) {
@@ -62,11 +63,13 @@ export default {
       }
       const keyCode = evt.keyCode
       if (arrayIncludes([KeyCodes.ENTER, KeyCodes.SPACE], keyCode)) {
-        // Emulated click, transfer to click handler
+        // Emulated click for keyboard users, transfer to click handler
         evt.stopPropagation()
         evt.preventDefault()
         this.onTBodyRowClicked(evt)
-      } else if (arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)) {
+      } else if (
+        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
+      ) {
         // Keyboard navigation
         const rowIndex = this.getTbodyTrIndex(target)
         if (rowIndex > -1) {
