@@ -61,23 +61,22 @@ export default {
         }
       }
     },
-    rowEvtFactory(handler, item, rowIndex) {
-      // Return a row event handler
-      return evt => {
-        // If table is busy (via provider) then don't propagate
-        if (this.stopIfBusy && this.stopIfBusy(evt)) {
-          return
-        }
-        // Otherwise call the handler
-        handler(evt, item, rowIndex)
+    // Row event handlers
+    rowHovered(evt) {
+      // `mouseenter` handler (non-bubbling)
+      // `this.tbodyRowEvtStopped` from tbody mixin
+      if (!this.tbodyRowEvtStopped(evt)) {
+        // `this.emitTbodyRowEvent` from tbody mixin
+        this.emitTbodyRowEvent('row-hovered', evt)
       }
     },
-    // Row event handlers (will be wrapped by the above rowEvtFactory function)
-    rowHovered(evt, item, index) {
-      this.$emit('row-hovered', item, index, evt)
-    },
-    rowUnhovered(evt, item, index) {
-      this.$emit('row-unhovered', item, index, evt)
+    rowUnhovered(evt) {
+      // `mouseleave` handler (non-bubbling)
+      // `this.tbodyRowEvtStopped` from tbody mixin
+      if (!this.tbodyRowEvtStopped(evt)) {
+        // `this.emitTbodyRowEvent` from tbody mixin
+        this.emitTbodyRowEvent('row-unhovered', evt)
+      }
     },
     // Render helpers
     renderTbodyRowCell(field, colIndex, item, rowIndex) {
@@ -178,8 +177,6 @@ export default {
       // In the format of '{tableId}__row_{primaryKeyValue}'
       const rowId = hasPkValue ? this.safeId(`_row_${item[primaryKey]}`) : null
 
-      const evtFactory = this.rowEvtFactory
-
       // Selectable classes and attributes
       const selectableClasses = this.selectableRowClasses ? this.selectableRowClasses(rowIndex) : {}
       const selectableAttrs = this.selectableRowAttrs ? this.selectableRowAttrs(rowIndex) : {}
@@ -209,10 +206,9 @@ export default {
               ...selectableAttrs
             },
             on: {
-              // TODO: make these generic handlers, and not anonymous functions
-              // Note: These events are not accessibility friendly!
-              mouseenter: evtFactory(this.rowHovered, item, rowIndex),
-              mouseleave: evtFactory(this.rowUnhovered, item, rowIndex)
+              // Note: These events are not A11Y friendly!
+              mouseenter: this.rowHovered,
+              mouseleave: this.rowUnhovered
             }
           },
           $tds
