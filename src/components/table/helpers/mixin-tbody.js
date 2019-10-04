@@ -28,6 +28,7 @@ export default {
     getTbodyTrIndex(el) {
       // Returns index of a particular TBODY item TR
       // We set `true` on closest to include self in result
+      /* istanbul ignore next: should not normally happen */
       if (!isElement(el)) {
         return -1
       }
