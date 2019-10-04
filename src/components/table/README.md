@@ -454,7 +454,7 @@ You can also style every row using the `tbody-tr-class` prop
 | -------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `tbodyTrClass` | String, Array or Function | Classes to be applied to every row on the table. If a function is given, it will be called as `tbodyTrClass( item, type )` and it may return an `Array`, `Object` or `String`. |
 
-When passing a function reference to `tbody-tr-class`, the arguments will be as follows:
+When passing a function reference to `tbody-tr-class`, the function's arguments will be as follows:
 
 - `item` - The item record data associated with the row. For rows that are not associated with an
   item record, this value will be `null` or `undefined`
