@@ -23,13 +23,10 @@ export default {
       // Returns all the item TR elements (excludes detail and spacer rows)
       // `this.$refs.itemRows` is an array of item TR components/elements
       // Rows should all be B-TR components, but we map to TR elements
-      // TODO: This can take time for many rows, so we may want to cache
+      // TODO: This may take time for tables many rows, so we may want to cache
       //       the result of this during each render cycle on a non-reactive
-      //       property, or perhaps in a watcher + nextTick on changes to
-      //       this.computedItems (since during render they will not exist
-      //       until after the render is complete).
-      //       Or, we clear out the cache as render starts, and populate
-      //       it on first access if null
+      //       property. We clear out the cache as each render starts, and
+      //       populate it on first access of this method if null
       return (this.$refs.itemRows || []).map(tr => tr.$el || tr)
     },
     getTbodyTrIndex(el) {
