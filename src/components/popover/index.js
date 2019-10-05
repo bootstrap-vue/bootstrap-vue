@@ -1,10 +1,10 @@
 import { BPopover } from './popover'
-import { VBPopover } from '../../directives/popover/popover'
+import { VBPopoverPlugin } from '../../directives/popover'
 import { pluginFactory } from '../../utils/plugins'
 
 const PopoverPlugin = /*#__PURE__*/ pluginFactory({
   components: { BPopover },
-  directives: { VBPopover }
+  plugins: { VBPopoverPlugin }
 })
 
 export { PopoverPlugin, BPopover }

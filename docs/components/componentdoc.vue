@@ -31,10 +31,12 @@
           <code class="notranslate" translate="no">&lt;{{ kebabCase(alias) }}&gt;</code>
         </li>
       </ul>
-      <p class="small text-muted">
-        Note: component aliases are only available when importing all of BootstrapVue or using
-        the component group plugin.
-      </p>
+      <div class="alert alert-info">
+        <p class="mb-0 small">
+          Note: component aliases are only available when importing all of BootstrapVue or using
+          the component group plugin.
+        </p>
+      </div>
     </article>
 
     <article v-if="propsItems && propsItems.length > 0" class="bd-content">
@@ -44,20 +46,23 @@
       <b-table
         :items="propsItems"
         :fields="propsFields"
-        class="bv-docs-table"
+        primary-key="prop"
+        table-class="bv-docs-table"
         responsive="sm"
-        head-variant="default"
-        bordered
+        sort-icon-left
         striped
       >
         <template v-slot:cell(prop)="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
-          <b-badge v-else-if="item.deprecated" variant="danger">Deprecated</b-badge>
+          <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
+          <b-badge v-if="item.isVModel" variant="primary">v-model</b-badge>
+          <b-badge v-if="item.xss" variant="warning">Use with caution</b-badge>
+          <b-badge v-if="item.deprecated" variant="danger">Deprecated</b-badge>
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
         </template>
         <template v-slot:cell(defaultValue)="{ value }">
-          <code v-if="value" class="notranslate" translate="no">{{ value }}</code>
+          <code v-if="value" class="word-wrap-normal notranslate" translate="no">{{ value }}</code>
         </template>
         <template v-slot:row-details="{ item }">
           <p v-if="typeof item.deprecated === 'string'" class="mb-1 small">
@@ -68,28 +73,50 @@
           </p>
         </template>
       </b-table>
+      <div v-if="hasRouterProps" class="alert alert-info">
+        <p class="mb-0 small">
+          <code class="notranslate" translate="no">{{ tag }}</code> supports generating
+          <code class="notranslate" translate="no">&lt;router-link&gt;</code> or
+          <code class="notranslate" translate="no">&lt;nuxt-link&gt;</code> component (if using Nuxt.js).
+          For more details on the router link (or nuxt link) specific props, see the
+          <b-link to="/docs/reference/router-links" class="alert-link">Router support</b-link>
+          reference section.
+        </p>
+      </div>
+      <div v-if="hasHtmlProps" class="alert alert-warning">
+        <p class="mb-0 small">
+          <strong>Caution:</strong> Props that support HTML strings
+          (<code class="notranslate" translate="no">*-html</code>) can be vulerable to
+          <b-link href="https://en.wikipedia.org/wiki/Cross-site_scripting" class="alert-link" target="_blank">
+            Cross Site Scripting (XSS) attacks
+          </b-link>
+          when passed raw user supplied values. You must properly
+          <b-link href="https://en.wikipedia.org/wiki/HTML_sanitization" class="alert-link" target="_blank">
+            sanitize
+          </b-link>
+          the user input first!
+        </p>
+      </div>
+    </article>
 
-      <template v-if="componentVModel">
-        <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4">
-          v-model
-        </anchored-heading>
-        <b-table
-          :items="[componentVModel]"
-          :fields="[{ key: 'prop', label: 'Property' }, 'event']"
-          class="bv-docs-table"
-          responsive="sm"
-          head-variant="default"
-          bordered
-          striped
-        >
-          <template v-slot:cell(prop)="{ value }">
-            <code class="notranslate" translate="no">{{ kebabCase(value) }}</code>
-          </template>
-          <template v-slot:cell(event)="{ value }">
-            <code class="notranslate" translate="no">{{ value }}</code>
-          </template>
-        </b-table>
-      </template>
+    <article v-if="componentVModel" class="bd-content">
+      <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4">
+        v-model
+      </anchored-heading>
+      <b-table-lite
+        :items="[componentVModel]"
+        :fields="[{ key: 'prop', label: 'Property' }, 'event']"
+        table-class="bv-docs-table"
+        responsive="sm"
+        striped
+      >
+        <template v-slot:cell(prop)="{ value }">
+          <code class="notranslate" translate="no">{{ kebabCase(value) }}</code>
+        </template>
+        <template v-slot:cell(event)="{ value }">
+          <code class="notranslate" translate="no">{{ value }}</code>
+        </template>
+      </b-table-lite>
     </article>
 
     <article v-if="slots && slots.length > 0" class="bd-content">
@@ -97,16 +124,61 @@
         Slots
       </anchored-heading>
       <b-table
-        :items="slots"
+        :items="slotsItems"
         :fields="slotsFields"
-        class="bv-docs-table"
+        primary-key="name"
+        table-class="bv-docs-table"
         responsive="sm"
-        head-variant="default"
-        bordered
+        sort-icon-left
         striped
       >
         <template v-slot:cell(name)="{ value }">
-          <code class="text-nowrap nostranslate" translate="no">{{ value }}</code>
+          <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
+        </template>
+        <template v-slot:cell(scope)="{ value, toggleDetails }">
+          <b-button
+            v-if="value"
+            variant="info"
+            size="sm"
+            class="py-0"
+            @click="toggleDetails()"
+          >
+            Scope
+          </b-button>
+        </template>
+        <template v-slot:row-details="{ item }">
+          <b-card>
+            <b-table-lite
+              v-if="item.scope"
+              :items="item.scope"
+              :fields="[{ key: 'prop', label: 'Property' }, 'type', 'description']"
+              primary-key="prop"
+              class="mb-0"
+              head-variant="dark"
+              striped
+              small
+              caption-top
+            >
+              <template v-slot:thead-top>
+                <b-tr>
+                  <b-th colspan="3" class="text-center">
+                    Slot
+                    <code class="text-nowrap notranslate text-white" translate="no">
+                      {{ item.name }}
+                    </code>
+                    scoped properties
+                  </b-th>
+                </b-tr>
+              </template>
+              <template v-slot:cell(prop)="{ value }">
+                <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
+              </template>
+              <template v-slot:cell(type)="{ value }">
+                <span v-if="value" class="text-nowrap notranslate" translate="no">{{ value }}</span>
+                <template v-else>Any</template>
+              </template>
+            </b-table-lite>
+          </b-card>
         </template>
       </b-table>
     </article>
@@ -118,14 +190,13 @@
       <b-table
         :items="events"
         :fields="eventsFields"
-        class="bv-docs-table"
+        primary-key="event"
+        table-class="bv-docs-table"
         responsive="sm"
-        head-variant="default"
-        bordered
         striped
       >
         <template v-slot:cell(event)="{ value }">
-          <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
+          <code class="notranslate" translate="no">{{ value }}</code>
         </template>
         <template v-slot:cell(args)="{ value, item }">
           <p
@@ -134,7 +205,7 @@
             class="mb-1"
           >
             <template v-if="arg.arg">
-              <code class="text-nowrap notranslate" translate="no">{{ arg.arg }}</code> -
+              <code class="notranslate" translate="no">{{ arg.arg }}</code> -
             </template>
             <span>{{ arg.description }}</span>
           </p>
@@ -150,13 +221,12 @@
         You can control <code class="notranslate" translate="no">{{ tag }}</code> by emitting the
         following events on <samp class="notranslate" translate="no">$root</samp>:
       </p>
-      <b-table
+      <b-table-lite
         :items="rootEventListeners"
         :fields="rootEventListenersFields"
-        class="bv-docs-table"
+        primary-key="event"
+        table-class="bv-docs-table"
         responsive="sm"
-        head-variant="default"
-        bordered
         striped
       >
         <template v-slot:cell(event)="{ value }">
@@ -174,21 +244,43 @@
             </template>
           </p>
         </template>
-      </b-table>
+      </b-table-lite>
     </article>
   </section>
 </template>
+
+<style scoped>
+h3::before {
+  display: block;
+  height: 1.25rem;
+  margin-top: -1.25rem;
+  content: '';
+}
+
+/deep/ .word-wrap-normal {
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+}
+</style>
 
 <script>
 import Vue from 'vue'
 import kebabCase from 'lodash/kebabCase'
 import AnchoredHeading from './anchored-heading'
+// Fallback descriptions for common props (mainly router-link props)
+import commonProps from '../common-props.json'
 
 export default {
   name: 'BDVComponentdoc',
   components: { AnchoredHeading },
   props: {
     component: {},
+    propsMeta: {
+      // For getting pro descriptions
+      type: Array,
+      default: () => []
+    },
     slots: {
       type: Array,
       default: () => []
@@ -234,18 +326,41 @@ export default {
       return this.componentOptions.functional
     },
     componentVModel() {
-      const model = this.componentOptions.model
-      return model && model.prop && model.event ? model : false
+      const model = this.componentOptions.model || {}
+      return model.prop && model.event ? model : false
     },
     componentProps() {
       return this.componentOptions.props || {}
     },
+    hasRouterProps() {
+      return this.propsItems.some(p => {
+        return p.prop === 'to' || p.prop === 'split-to' || p.prop === 'exact-active-class'
+      })
+    },
+    hasHtmlProps() {
+      return this.propsItems.some(p => p.xss)
+    },
+    componentPropsMetaObj() {
+      // Returns the propsMeta array in object format for easy lookups
+      return this.propsMeta.reduce((obj, propMeta) => {
+        if (propMeta.prop) {
+          obj[propMeta.prop] = propMeta
+        }
+        return obj
+      }, {})
+    },
     propsFields() {
-      return [
-        { key: 'prop', label: 'Property' },
+      const fields = [
+        { key: 'prop', label: 'Property', sortable: this.propsItems.length > 9 },
         { key: 'type', label: 'Type' },
-        { key: 'defaultValue', label: 'Default Value' }
+        { key: 'defaultValue', label: 'Default' }
       ]
+      if (this.propsItems.some(p => p.description)) {
+        // If any of the props have a description, then
+        // add the description column
+        fields.push({ key: 'description', label: 'Description' })
+      }
+      return fields
     },
     eventsFields() {
       return [
@@ -262,49 +377,70 @@ export default {
       ]
     },
     slotsFields() {
-      return [{ key: 'name', label: 'Slot' }, { key: 'description', label: 'Description' }]
+      const fields = [
+        { key: 'name', label: 'Slot Name', sortable: this.slotsItems.length > 9 },
+        { key: 'description', label: 'Description' }
+      ]
+      if (this.slots.length > 0 && this.slots.some(s => s.scope)) {
+        fields.push({ key: 'scope', label: 'Scoped' })
+      }
+      return fields
     },
     propsItems() {
       const props = this.componentProps
+      const propsMetaObj = this.componentPropsMetaObj
 
       return Object.keys(props).map(prop => {
         const p = props[prop]
+        const meta = propsMetaObj[prop] || {}
 
         // Describe type
-        let type = p.type || Object
-        let typeClass = String
+        let type = p.type
         if (Array.isArray(type)) {
-          typeClass = type[0]
           type = type.map(t => t.name).join(' or ')
+        } else if (typeof type === 'undefined') {
+          type = 'Any'
         } else {
-          typeClass = type
           type = type.name
         }
 
-        // Describe value
+        // Default value
         let defaultVal = p.default
         if (defaultVal instanceof Function && !Array.isArray(defaultVal)) {
           defaultVal = defaultVal()
         }
-        if (typeof defaultVal !== 'string') {
-          defaultVal = JSON.stringify(defaultVal)
-        }
-        if (defaultVal === '' || defaultVal === null || defaultVal === 'null') {
+        if (typeof defaultVal === 'undefined' || defaultVal === null) {
           defaultVal = ''
         }
-        defaultVal = (defaultVal || '').replace(/"/g, "'")
+        defaultVal = JSON.stringify(defaultVal).replace(/"/g, "'")
+        if (defaultVal === "''") {
+          defaultVal = ''
+        }
+
+        const fallbackMeta = commonProps[prop] || {}
+        const description =
+          typeof meta.description === 'undefined' ? fallbackMeta.description : meta.description
+        const version = typeof meta.version === 'undefined' ? fallbackMeta.version : meta.version
 
         return {
           prop: kebabCase(prop),
           type,
-          typeClass,
           defaultValue: defaultVal,
           required: p.required || false,
+          description: description || '',
+          version,
+          xss: /[a-z]Html$/.test(prop),
+          isVModel: this.componentVModel && this.componentVModel.prop === prop,
           deprecated: p.deprecated || false,
           deprecation: p.deprecation || false,
           _showDetails: typeof p.deprecated === 'string' || typeof p.deprecation === 'string'
         }
       })
+    },
+    slotsItems() {
+      // We use object spread here so that _showDetails doesn't
+      // mutate the original array objects
+      return this.slots ? this.slots.map(s => ({ ...s })) : []
     },
     componentName() {
       return kebabCase(this.component)

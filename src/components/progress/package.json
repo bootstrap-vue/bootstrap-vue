@@ -5,8 +5,84 @@
     "title": "Progress",
     "description": "A custom progress component for displaying simple or complex progress bars, featuring support for horizontally stacked bars, animated backgrounds, and text labels.",
     "components": [
-      "BProgress",
-      "BProgressBar"
+      {
+        "component": "BProgress",
+        "props": [
+          {
+            "prop": "striped",
+            "description": "Enable the striped background"
+          },
+          {
+            "prop": "animated",
+            "description": "Enable the animated background. Also automatically sets 'striped'"
+          },
+          {
+            "prop": "height",
+            "description": "Override the default height by specifying a CSS height value (including units)"
+          },
+          {
+            "prop": "showProgress",
+            "description": "Displays the current progress value as a percentage"
+          },
+          {
+            "prop": "showValue",
+            "description": "Displays the current progress value"
+          },
+          {
+            "prop": "precision",
+            "description": "The number of digits after the decimal to round the value to"
+          },
+          {
+            "prop": "max",
+            "description": "Set the maximum value"
+          },
+          {
+            "prop": "value",
+            "description": "The current value of the progress bar"
+          }
+        ]
+      },
+      {
+        "component": "BProgressBar",
+        "props": [
+          {
+            "prop": "striped",
+            "description": "Enable the striped background"
+          },
+          {
+            "prop": "animated",
+            "description": "Enable the animated background. Also automatically sets 'striped'"
+          },
+          {
+            "prop": "showProgress",
+            "description": "Displays the current progress value as a percentage"
+          },
+          {
+            "prop": "showValue",
+            "description": "Displays the current progress value"
+          },
+          {
+            "prop": "precision",
+            "description": "The number of digits after the decimal to round the value to"
+          },
+          {
+            "prop": "max",
+            "description": "Set the maximum value"
+          },
+          {
+            "prop": "value",
+            "description": "The current value of the progress bar"
+          },
+          {
+            "prop": "label",
+            "description": "Text string to explicitly set the label as"
+          },
+          {
+            "prop": "labelHtml",
+            "description": "HTML string to explicitly set the label as. Use with caution"
+          }
+        ]
+      }
     ]
   }
 }

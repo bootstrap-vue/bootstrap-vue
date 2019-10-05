@@ -450,8 +450,8 @@ from an array of options.
 
 - Datalists work in conjunction with the browser's built in auto-complete, displaying datalist
   options first, followed by auto-complete options. To only display datalist options, set
-  `autocomplete="off"`.
-- Datalists cannot be applied to input fields with `type="password"`.
+  `autocomplete="off"` on `<b-form-input>`.
+- Datalists **cannot** be applied to input fields with type `password`, `range` or `color`.
 - Not all browsers fully support `<datalist>` and implementations can be buggy. It is recommended
   that datalists be treated as an enhancement and not be relied upon at this time. Check
   [Can I Use](https://caniuse.com/#feat=datalist) for full support details on all browsers.
@@ -479,9 +479,10 @@ Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `bl
 
 ## Autofocus
 
-When the `autofocus` prop is set, the input will be auto-focused when it is inserted into the
-document, or re-activated when inside a Vue `<keep-alive>` component. Note that this prop **does
-not** set the `autofocus` attribute on the input.
+When the `autofocus` prop is set, the input will be auto-focused when it is inserted (i.e.
+**mounted**) into the document, or re-activated when inside a Vue `<keep-alive>` component. Note
+that this prop **does not** set the `autofocus` attribute on the input, nor can it tell when the
+input becomes visible.
 
 ## Native and custom events
 

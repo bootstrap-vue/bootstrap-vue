@@ -23,22 +23,26 @@ export const nav = [
   {
     title: 'Components',
     base: 'components/',
-    pages: components
+    pages: components,
+    description: 'BootstrapVue components and component group plugins'
   },
   {
     title: 'Directives',
     base: 'directives/',
-    pages: directives
+    pages: directives,
+    description: 'BootstrapVue directives and directive group plugins'
   },
   {
     title: 'Reference',
     base: 'reference/',
-    pages: reference
+    pages: reference,
+    description: 'BootstrapVue and Bootstrap reference documentation'
   },
   {
     title: 'Misc',
     base: 'misc/',
-    pages: misc
+    pages: misc,
+    description: 'BootstrapVue changelog, settings, and miscellaneous additional resources'
   }
 ]
 

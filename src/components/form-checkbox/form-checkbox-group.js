@@ -13,7 +13,7 @@ export const props = {
     default: false
   },
   checked: {
-    type: [String, Number, Object, Array, Boolean],
+    type: Array,
     default: null
   }
 }

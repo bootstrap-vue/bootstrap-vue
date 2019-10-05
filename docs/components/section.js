@@ -9,7 +9,7 @@ const scrollIntoView = (evt, href) => {
   evt.preventDefault()
   evt.stopPropagation()
   // We use an attribute `querySelector()` rather than `getElementByID()`,
-  // as some auto-generated ID's are invalid or may not be unique
+  // as some auto-generated ID's are invalid or not unique
   const id = (href || '').replace(/#/g, '')
   const $el = document.body.querySelector(`[id="${id}"]`)
   if ($el) {

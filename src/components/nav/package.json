@@ -8,10 +8,86 @@
       "DropdownPlugin"
     ],
     "components": [
-      "BNav",
-      "BNavItem",
-      "BNavText",
-      "BNavForm",
+      {
+        "component": "BNav",
+        "props": [
+          {
+            "prop": "tabs",
+            "description": "Renders the nav items with the appearance of tabs"
+          },
+          {
+            "prop": "pills",
+            "description": "Renders the nav items with the appearance of pill buttons"
+          },
+          {
+            "prop": "small",
+            "description": "Makes the nav smaller"
+          },
+          {
+            "prop": "align",
+            "description": "Align the nav items in the nav: 'start' (or 'left'), 'center', 'end' (or 'right')"
+          },
+          {
+            "prop": "fill",
+            "description": "Proportionately fills all horizontal space with nav items. All horizontal space is occupied, but not every nav item has the same width"
+          },
+          {
+            "prop": "justified",
+            "description": "Fills all horizontal space with nav items, but unlike 'fill', every nav item will be the same width"
+          },
+          {
+            "prop": "vertical",
+            "description": "Renders the nav vertically"
+          },
+          {
+            "prop": "cardHeader",
+            "version": "2.0.0",
+            "description": "Set this prop when the nav is placed inside a card header"
+          }
+        ]
+      },
+      {
+        "component": "BNavItem",
+        "props": [
+          {
+            "prop": "linkAttrs",
+            "description": "Additional attributes to place on the nested link element"
+          },
+          {
+            "prop": "linkClasses",
+            "description": "CSS class (or classes) to place on the nested link element"
+          }
+        ]
+      },
+      {
+        "component": "BNavText"
+      },
+      {
+        "component": "BNavForm",
+        "props": [
+          {
+            "prop": "novalidate",
+            "description": "When set, disables browser native HTML5 validation on controls in the form"
+          },
+          {
+            "prop": "validated",
+            "description": "When set, adds the Bootstrap class 'was-validated' on the form, triggering the native browser validation states"
+          }
+        ],
+        "events": [
+          {
+            "event": "submit",
+            "description": "Emitted when the form is being submitted",
+            "args": [
+              {
+                "arg": "event",
+                "type": "Event",
+                "description": "Native submit event."
+              }
+            ]
+          }
+        ]
+      },
       {
         "component": "BNavItemDropdown",
         "aliases": [
@@ -19,10 +95,71 @@
           "BNavDropdown",
           "BNavDd"
         ],
+        "props": [
+          {
+            "prop": "text",
+            "description": "Text to place in the toggle button, or in the split button is split mode"
+          },
+          {
+            "prop": "html",
+            "description": "HTML string to place in the toggle button, or in the split button is split mode. Use with caution"
+          },
+          {
+            "prop": "dropup",
+            "description": "When set, positions the menu on the top of the button"
+          },
+          {
+            "prop": "dropright",
+            "description": "When set, positions the menu to the right of the button"
+          },
+          {
+            "prop": "dropleft",
+            "description": "When set, positions the menu to the left of the button"
+          },
+          {
+            "prop": "right",
+            "description": "Align the right edge of the menu with the right of the button"
+          },
+          {
+            "prop": "noFlip",
+            "description": "Prevent the menu from auto flipping positions"
+          },
+          {
+            "prop": "lazy",
+            "description": "When set, will only mount the menu content into the DOM when the menu is open"
+          },
+          {
+            "prop": "popperOpts",
+            "description": "Additional configuration to pass to Popper.js"
+          },
+          {
+            "prop": "menuClass",
+            "description": "CSS class (or classes) to add to the menu container"
+          },
+          {
+            "prop": "toggleClass",
+            "description": "CSS class (or classes) to add to the toggle button"
+          },
+          {
+            "prop": "noCaret",
+            "description": "Hide the caret indicator on the toggle button"
+          }
+        ],
         "slots": [
           {
             "name": "button-content",
             "description": "Can be used to implement custom text with icons and more styling."
+          },
+          {
+            "name": "default",
+            "description": "Optionally scoped default slot for dropdown menu content.",
+            "scope": [
+              {
+                "prop": "hide",
+                "type": "Function",
+                "description": "Can be used to close the dropdown menu. Accepts an optional boolean argument, which if true returns focus to the toggle button."
+              }
+            ]
           }
         ],
         "events": [
@@ -32,6 +169,7 @@
             "args": [
               {
                 "arg": "bvEvt",
+                "type": "BvEvent",
                 "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show."
               }
             ]
@@ -46,6 +184,7 @@
             "args": [
               {
                 "arg": "bvEvt",
+                "type": "BvEvent",
                 "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide."
               }
             ]

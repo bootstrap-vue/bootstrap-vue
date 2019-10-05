@@ -349,8 +349,9 @@ group.
 ## Autofocus
 
 When the `autofocus` prop is set on `<b-form-radio>`, the input will be auto-focused when it is
-inserted into the document or re-activated when inside a Vue `<keep-alive>` component. Note that
-this prop **does not** set the `autofocus` attribute on the input.
+inserted (i.e. **mounted**) into the document or re-activated when inside a Vue `<keep-alive>`
+component. Note that this prop **does not** set the `autofocus` attribute on the input, nor can it
+tell when the input becomes visible.
 
 ## Contextual states
 

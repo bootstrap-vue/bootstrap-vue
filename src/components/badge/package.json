@@ -5,7 +5,15 @@
     "title": "Badge",
     "description": "Small and adaptive tag for adding context to just about any content.",
     "components": [
-      "BBadge"
+      {
+        "component": "BBadge",
+        "props": [
+          {
+            "prop": "pill",
+            "description": "When set to 'true', renders the badge in pill style"
+          }
+        ]
+      }
     ]
   }
 }

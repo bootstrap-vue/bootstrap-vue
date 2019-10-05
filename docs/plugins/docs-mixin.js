@@ -1,8 +1,10 @@
 /*
  * docs-mixin: used by any page under /docs path
  */
-import { scrollTo, offsetTop } from '~/utils'
-import { bvDescription } from '~/content'
+import { makeTOC, scrollTo, offsetTop } from '~/utils'
+import { bvDescription, nav } from '~/content'
+
+const TOC_CACHE = {}
 
 // @vue/component
 export default {
@@ -24,18 +26,26 @@ export default {
       if (this.meta && this.meta.title) {
         title = this.meta.title
       }
-      if (routeName === 'docs-components-slug') {
+      if (/^docs-components/.test(routeName)) {
         section = 'Components'
-      } else if (routeName === 'docs-directives-slug') {
+      } else if (/^docs-directives/.test(routeName)) {
         section = 'Directives'
-      } else if (routeName === 'docs-reference-slug') {
+      } else if (/^docs-reference/.test(routeName)) {
         section = 'Reference'
-      } else if (routeName === 'docs-misc-slug') {
-        section = 'Misc'
+      } else if (/^docs-misc/.test(routeName)) {
+        section = 'Miscellaneous'
       }
       return [title, section, 'BootstrapVue'].filter(Boolean).join(' | ')
     },
     headMeta() {
+      const section = this.$route.name.split('-')[1]
+      const sectionMeta = section ? nav.find(n => n.base === `${section}/`) : null
+      const description =
+        this.meta && this.meta.description
+          ? this.meta.description
+          : sectionMeta && sectionMeta.description
+            ? sectionMeta.description
+            : bvDescription
       const meta = [
         {
           hid: 'og:title',
@@ -44,24 +54,17 @@ export default {
           content: this.headTitle
         }
       ]
-      if (this.meta && this.meta.description) {
-        const desc = this.meta.description
+      if (description) {
         meta.push({
           hid: 'description',
           name: 'description',
-          content: desc
+          content: description
         })
         meta.push({
           hid: 'og:description',
           name: 'og:description',
           property: 'og:description',
-          content: desc
-        })
-      } else if (bvDescription) {
-        meta.push({
-          hid: 'description',
-          name: 'description',
-          content: bvDescription
+          content: description
         })
       }
       return meta
@@ -80,7 +83,13 @@ export default {
     this.scrollTimeout = null
     this.focusScroll()
     this.$nextTick(() => {
-      this.$root.$emit('setTOC', this.readme || '', this.meta || null)
+      // In a `setTimeout()` to allow page time to finish processing
+      setTimeout(() => {
+        const key = `${this.$route.path}_${this.$route.params.slug || ''}`
+        const toc =
+          TOC_CACHE[key] || (TOC_CACHE[key] = makeTOC(this.readme || '', this.meta || null))
+        this.$root.$emit('docs-set-toc', toc)
+      }, 1)
     })
   },
 
@@ -91,7 +100,7 @@ export default {
   },
 
   beforeDestroy() {
-    this.$root.$emit('setTOC', '')
+    this.$root.$emit('docs-set-toc', {})
   },
 
   methods: {
@@ -100,8 +109,8 @@ export default {
       this.$nextTick(() => {
         let el
         if (hash) {
-          // We use an attribute querySelector rather than getElementByID, as some auto
-          // generated ID's are invalid, and some may appear more than once
+          // We use an attribute `querySelector()` rather than `getElementByID()`,
+          // as some auto-generated ID's are invalid or not unique
           el = this.$el.querySelector(`[id="${hash.replace('#', '')}"]`)
           this.scrollIntoView(el)
         }

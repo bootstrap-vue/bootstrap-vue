@@ -10,10 +10,64 @@
         "aliases": [
           "BFile"
         ],
+        "props": [
+          {
+            "prop": "value",
+            "description": "The current value of the file input. Will be a single File object or an array of File objects (if multiple or directory is set). Can be set to null, or an empty array to reset the file input"
+          },
+          {
+            "prop": "accept",
+            "description": "Value to set on the file input's 'accept' attribute"
+          },
+          {
+            "prop": "capture",
+            "description": "When set, will instruction the browser to use the devices camera (if supported)"
+          },
+          {
+            "prop": "browseText",
+            "description": "Text content for the file browse button"
+          },
+          {
+            "prop": "dropPlaceholder",
+            "description": "Text to display as the placeholder when fies are being dragged"
+          },
+          {
+            "prop": "multiple",
+            "description": "When set, will allow multiple files to be selected. v-model will be an array"
+          },
+          {
+            "prop": "directory",
+            "description": "Enable directory drop mode (on browsers that support directory mode)"
+          },
+          {
+            "prop": "noTraverse",
+            "description": "For directory drop mode: returns files as a flat array"
+          },
+          {
+            "prop": "noDrop",
+            "description": "Disable drag and drop mode"
+          },
+          {
+            "prop": "fileNameFormatter",
+            "description": "Method to format the file names for display. Refer to the docs for details"
+          }
+        ],
         "slots": [
           {
             "name": "file-name",
-            "description": "Scoped slot for formatting the file names. Scoped props: files - array of File objects, names: array of file names"
+            "description": "Scoped slot for formatting the file names",
+            "scope": [
+              {
+                "prop": "files",
+                "type": "Array",
+                "description": "Array if File objects"
+              },
+              {
+                "prop": "names",
+                "type": "Array",
+                "description": "Array of file names (strings)"
+              }
+            ]
           }
         ],
         "events": [
@@ -22,13 +76,25 @@
             "description": "original native change event on input",
             "args": [
               {
-                "arg": "event"
+                "arg": "event",
+                "type": "Event",
+                "description": "Native change event object"
               }
             ]
           },
           {
             "event": "input",
-            "description": "[see above docs]"
+            "description": "Updates the v-model value (see docs for more details)",
+            "args": [
+              {
+                "arg": "file",
+                "type": [
+                  "File",
+                  "Array"
+                ],
+                "description": "Will be a single File object in single mode or an array of File objects in multiple mode"
+              }
+            ]
           }
         ]
       }

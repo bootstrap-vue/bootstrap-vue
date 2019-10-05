@@ -8,6 +8,20 @@
     "components": [
       {
         "component": "BForm",
+        "props": [
+          {
+            "prop": "inline",
+            "description": "When set, the form will be in inline mode which display labels, form controls, and buttons on a single horizontal row"
+          },
+          {
+            "prop": "novalidate",
+            "description": "When set, disables browser native HTML5 validation on controls in the form"
+          },
+          {
+            "prop": "validated",
+            "description": "When set, adds the Bootstrap class 'was-validated' on the form, triggering the native browser validation states"
+          }
+        ],
         "events": [
           {
             "event": "submit",
@@ -15,20 +29,62 @@
             "args": [
               {
                 "arg": "event",
+                "type": "Event",
                 "description": "Native submit event."
               }
             ]
           }
         ]
       },
-      "BFormText",
-      "BFormInvalidFeedback",
-      "BFormValidFeedback",
+      {
+        "component": "BFormText",
+        "props": [
+          {
+            "prop": "inline",
+            "description": "When set, renders the help text as an inline element, rather than a block element"
+          }
+        ]
+      },
+      {
+        "component": "BFormInvalidFeedback",
+        "props": [
+          {
+            "prop": "tooltip",
+            "description": "Renders the feedback text in a rudimentary tooltip style"
+          },
+          {
+            "prop": "forceShow",
+            "description": "Shows the feedback text, regardless of the value of the 'state' prop"
+          },
+          {
+            "prop": "state",
+            "description": "When explicitly 'false', forces the feedback to show"
+          }
+        ]
+      },
+      {
+        "component": "BFormValidFeedback",
+        "props": [
+          {
+            "prop": "tooltip",
+            "description": "Renders the feedback text in a rudimentary tooltip style"
+          },
+          {
+            "prop": "forceShow",
+            "description": "Shows the feedback text, regardless of the value of the 'state' prop"
+          },
+          {
+            "prop": "state",
+            "description": "When explicitly 'true', forces the feedback to show"
+          }
+        ]
+      },
       {
         "component": "BFormDatalist",
         "aliases": [
           "BDatalist"
-        ]
+        ],
+        "props": []
       }
     ]
   }

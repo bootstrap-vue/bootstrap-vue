@@ -3,14 +3,22 @@
   "version": "1.0.0",
   "meta": {
     "title": "Link",
-    "desscription": "Use BootstrapVue's custom <b-link> component for generating a standard <a> link or <router-link>. <b-link> supports the disabled state and click event propagation.",
+    "description": "Use BootstrapVue's custom <b-link> component for generating a standard <a> link or <router-link>. <b-link> supports the disabled state and click event propagation.",
     "components": [
       {
         "component": "BLink",
+        "props": [],
         "events": [
           {
             "event": "click",
-            "description": "when link clicked"
+            "description": "when link clicked",
+            "args": [
+              {
+                "name": "event",
+                "type": "MouseEvent",
+                "description": "Native click event"
+              }
+            ]
           }
         ]
       }

@@ -16,10 +16,9 @@
 
         <b-table
           :items="componentImports"
-          class="bv-docs-table"
+          table-class="bv-docs-table"
           responsive="sm"
           head-variant="default"
-          bordered
           striped
         >
           <template v-slot:cell(component)="{ value }">
@@ -51,10 +50,9 @@
 
         <b-table
           :items="directiveImports"
-          class="bv-docs-table"
+          table-class="bv-docs-table"
           responsive="sm"
           head-variant="default"
-          bordered
           striped
         >
           <template v-slot:cell(directive)="{ value }">
@@ -90,11 +88,10 @@
       <b-table
         :items="pluginImports"
         :fileds="['namedExport', 'importPath']"
-        class="bv-docs-table"
+        table-class="bv-docs-table"
         responsive="sm"
         head-variant="default"
         caption-top
-        bordered
         striped
       >
         <template v-slot:cell(namedExport)="{ value }">
@@ -184,7 +181,11 @@ export default {
       return [].concat(this.meta.component, subcomponents).filter(c => c)
     },
     directives() {
-      return [].concat(this.meta.directive, this.meta.directives).filter(d => d)
+      // We just need the directive name
+      return []
+        .concat(this.meta.directive, this.meta.directives)
+        .filter(d => d)
+        .map(d => (typeof d === 'string' ? d : d.directive))
     },
     componentImportCode() {
       const firstComponent = this.components[0]

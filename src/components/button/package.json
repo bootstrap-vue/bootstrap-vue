@@ -10,6 +10,28 @@
         "aliases": [
           "BBtn"
         ],
+        "props": [
+          {
+            "prop": "block",
+            "description": "Renders a 100% width button (expands to the width of it's parent container)"
+          },
+          {
+            "prop": "type",
+            "description": "The value to set the button's 'type' attribute to. Can be one of 'button', 'submit', or 'reset'"
+          },
+          {
+            "prop": "pill",
+            "description": "Renders the button with the pill style appearance when set to 'true'"
+          },
+          {
+            "prop": "squared",
+            "description": "Renders the button with non-rounded corners when set to 'true'"
+          },
+          {
+            "prop": "pressed",
+            "description": "When set to 'true', gives the button the appearance of being pressed. Syncable with the .sync modifier"
+          }
+        ],
         "events": [
           {
             "event": "click",
@@ -17,6 +39,7 @@
             "args": [
               {
                 "name": "event",
+                "type": "MouseEvent",
                 "description": "Native click event object"
               }
             ]
@@ -35,6 +58,7 @@
             "args": [
               {
                 "name": "event",
+                "type": "MouseEvent",
                 "description": "Native click event object"
               }
             ]

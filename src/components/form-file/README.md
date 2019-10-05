@@ -238,8 +238,9 @@ invalid), `true` (for valid), or `null` (no validation state).
 ## Autofocus
 
 When the `autofocus` prop is set on `<b-form-file>`, the input will be auto-focused when it is
-inserted into the document or re-activated when inside a Vue `<keep-alive>` component. Note that
-this prop **does not** set the `autofocus` attribute on the input.
+inserted (i.e. **mounted**) into the document, or re-activated when inside a Vue `<keep-alive>`
+component. Note that this prop **does not** set the `autofocus` attribute on the input, nor can it
+tell when the input becomes visible.
 
 ## Accessibility
 
@@ -252,7 +253,7 @@ assistive technologies.
 
 With inputs of type file, normally the `v-model` is uni-directional (meaning you cannot pre-set the
 selected files). However, you can clear the file input's selected files by setting the `v-model` to
-either `null`, an empty string `''`, or an empty array `[]`).
+either `null` (for single mode) or an empty array `[]` (for multiple/directory mode).
 
 Alternatively, `<b-form-file>` provides a `reset()` method that can be called to clear the file
 input. To take advantage of the `reset()` method, you will need to obtain a reference to the

@@ -311,7 +311,7 @@ The slot `page` is always scoped, while the slots `first-text`, `prev-text`, `ne
 | `index`    | Number  | Page number (indexed from `0` to `numberOfPages -1`)      |
 | `active`   | Boolean | If the page is the active page                            |
 | `disabled` | Boolean | If the page button is disabled                            |
-| `content`  | String  | default content, or the result of the `link-gen` function |
+| `content`  | String  | default content, or the result of the `page-gen` function |
 
 **Scoped variables properties available to the `first-text`, `prev-text`, `next-text` and
 `last-text` slots:**
