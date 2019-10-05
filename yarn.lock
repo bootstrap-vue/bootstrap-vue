@@ -11657,10 +11657,10 @@ terser@^4.3.4:
     source-map "~0.6.1"
     source-map-support "~0.5.12"
 
-terser@^4.3.6:
-  version "4.3.6"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-4.3.6.tgz#3a36ae197d4470e11069557b4a4bd712f84f998d"
-  integrity sha512-QQXGTgXT7zET9IbGSdRvExcL+rFZGiOxMDbPg1W0tc5gqbX6m7J6Eu0W3fQ2bK5Dks1WSvC2xAKOH+mzAuMLcg==
+terser@^4.3.7:
+  version "4.3.7"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-4.3.7.tgz#9dafb4a6730868608c9c7af96d44182f4107b29f"
+  integrity sha512-rJFxzWIzJdgiOwYIPJHu6L3hDegEYJj2cHuKcngMraUfhMXGDEbok9Tqjw7yxzrU4IagvG74uTEKdiqeG6T7bg==
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"
