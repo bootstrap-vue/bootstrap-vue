@@ -2,7 +2,7 @@
  * docs-mixin: used by any page under /docs path
  */
 import { makeTOC, scrollTo, offsetTop } from '~/utils'
-import { bvDescription } from '~/content'
+import { bvDescription, nav } from '~/content'
 
 const TOC_CACHE = {}
 
@@ -38,6 +38,14 @@ export default {
       return [title, section, 'BootstrapVue'].filter(Boolean).join(' | ')
     },
     headMeta() {
+      const section = this.$route.name.split('-')[1]
+      const sectionMeta = section ? nav.find(n => n.base === `${section}/`) : null
+      const description =
+        this.meta && this.meta.description
+          ? this.meta.description
+          : sectionMeta && sectionMeta.description
+            ? sectionMeta.description
+            : bvDescription
       const meta = [
         {
           hid: 'og:title',
@@ -46,25 +54,17 @@ export default {
           content: this.headTitle
         }
       ]
-      if (this.meta && this.meta.description) {
-        const desc = this.meta.description
+      if (description) {
         meta.push({
           hid: 'description',
           name: 'description',
-          content: desc
+          content: description
         })
         meta.push({
           hid: 'og:description',
           name: 'og:description',
           property: 'og:description',
-          content: desc
-        })
-      } else if (bvDescription) {
-        // TODO: Check if section group has description
-        meta.push({
-          hid: 'description',
-          name: 'description',
-          content: bvDescription
+          content: description
         })
       }
       return meta
