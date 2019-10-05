@@ -56,7 +56,7 @@ Released: 2019-10-05
 - add quick links (page table of contents) to docs pages for small screens, and add table of contents to
   section index pages (instead of a redirect to first child page)
   ([#4145](https://github.com/bootstrap-vue/bootstrap-vue/issues/4145))
-  ([fdd2a83](https://github.com/bootstrap-vue/bootstrap-vue/commit/22268aa))
+  ([22268aa](https://github.com/bootstrap-vue/bootstrap-vue/commit/22268aa))
 
 <a name="2.0.2"></a>
 
