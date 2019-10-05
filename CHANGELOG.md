@@ -4,7 +4,7 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
-<a name="2.0.2"></a>
+<a name="2.0.3"></a>
 
 ## [v2.0.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.2...v2.0.3)
 
