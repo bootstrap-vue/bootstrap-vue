@@ -4,6 +4,60 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.3"></a>
+
+## [v2.0.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.2...v2.0.3)
+
+Released: 2019-10-05
+
+### Bug Fixes v2.0.3
+
+- **b-form-file:** fix prop type checking for `value` prop
+  ([#4168](https://github.com/bootstrap-vue/bootstrap-vue/issues/4168))
+  ([a8e2e56](https://github.com/bootstrap-vue/bootstrap-vue/commit/a8e2e56))
+- **b-nav-item-dropdown:** focus-out handling when new focus comes from another `dropdown-toggle` (closes
+  [#4113](https://github.com/bootstrap-vue/bootstrap-vue/issues/4113))
+  ([#4139](https://github.com/bootstrap-vue/bootstrap-vue/issues/4139))
+  ([9c37875](https://github.com/bootstrap-vue/bootstrap-vue/commit/9c37875))
+- **b-table:** minor code optimizations to filter debouncing
+  ([#4167](https://github.com/bootstrap-vue/bootstrap-vue/issues/4167))
+  ([018eef1](https://github.com/bootstrap-vue/bootstrap-vue/commit/018eef1))
+- **b-table, b-table-lite, b-table-simple:** disable sticky header max-height on printers / print media
+  ([#4147](https://github.com/bootstrap-vue/bootstrap-vue/issues/4147))
+  ([24c62c5](https://github.com/bootstrap-vue/bootstrap-vue/commit/24c62c5))
+- **b-tooltip, b-popover:** add `SVGElement` as acceptable prop type (closes
+  [#4173](https://github.com/bootstrap-vue/bootstrap-vue/issues/4173))
+  ([#4174](https://github.com/bootstrap-vue/bootstrap-vue/issues/4174))
+  ([fab7fea](https://github.com/bootstrap-vue/bootstrap-vue/commit/fab7fea))
+- **v-b-modal:** bind to inner link or button for dropdown items or nav items (fixes
+  [#4149](https://github.com/bootstrap-vue/bootstrap-vue/issues/4149))
+  ([#4187](https://github.com/bootstrap-vue/bootstrap-vue/issues/4187))
+  ([5c28bd2](https://github.com/bootstrap-vue/bootstrap-vue/commit/5c28bd2))
+
+### Performance v2.0.3
+
+- **b-table, b-table-lite:** delegate row event handlers to the tbody element
+  ([#4192](https://github.com/bootstrap-vue/bootstrap-vue/issues/4192))
+  ([3f0d46a](https://github.com/bootstrap-vue/bootstrap-vue/commit/3f0d46a))
+- **tables:** make `b-th` extend `b-td` instead of using functional wrappers
+  ([#4156](https://github.com/bootstrap-vue/bootstrap-vue/issues/4156))
+  ([c9715a8](https://github.com/bootstrap-vue/bootstrap-vue/commit/c9715a8))
+- **tables:** improve provide/inject performance (addresses
+  [#4155](https://github.com/bootstrap-vue/bootstrap-vue/issues/4155))
+  ([#4164](https://github.com/bootstrap-vue/bootstrap-vue/issues/4164))
+  ([152fefc](https://github.com/bootstrap-vue/bootstrap-vue/commit/152fefc))
+
+### Docs v2.0.3
+
+- add prop descriptions to component reference tables (closes
+  [#3647](https://github.com/bootstrap-vue/bootstrap-vue/issues/3647))
+  ([#4161](https://github.com/bootstrap-vue/bootstrap-vue/issues/4161))
+  ([fdd2a83](https://github.com/bootstrap-vue/bootstrap-vue/commit/fdd2a83))
+- add quick links (page table of contents) to docs pages for small screens, and add table of contents to
+  section index pages (instead of a redirect to first child page)
+  ([#4145](https://github.com/bootstrap-vue/bootstrap-vue/issues/4145))
+  ([22268aa](https://github.com/bootstrap-vue/bootstrap-vue/commit/22268aa))
+
 <a name="2.0.2"></a>
 
 ## [v2.0.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.1...v2.0.2)

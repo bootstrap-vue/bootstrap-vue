@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "BootstrapVue, with over 40 plugins and more than 80 custom components, provides one of the most comprehensive implementations of Bootstrap v4 components and grid system for Vue.js. With extensive and automated WAI-ARIA accessibility markup.",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
@@ -87,7 +87,7 @@
     "@nuxtjs/google-analytics": "^2.2.0",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
     "@vue/test-utils": "^1.0.0-beta.29",
-    "autoprefixer": "^9.6.1",
+    "autoprefixer": "^9.6.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
@@ -99,7 +99,7 @@
     "core-js": ">=2.6.5 <3.0.0",
     "cross-env": "^6.0.3",
     "eslint": "^6.5.1",
-    "eslint-config-prettier": "^6.3.0",
+    "eslint-config-prettier": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-import": "^2.18.2",
@@ -124,13 +124,13 @@
     "postcss-cli": "^6.1.3",
     "prettier": "1.14.3",
     "require-context": "^1.1.0",
-    "rollup": "^1.23.0",
+    "rollup": "^1.23.1",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "sass-loader": "^8.0.0",
     "standard-version": "^7.0.0",
-    "terser": "^4.3.4",
+    "terser": "^4.3.7",
     "vue": "^2.6.10",
     "vue-jest": "^3.0.5",
     "vue-router": "^3.1.3",
@@ -140,7 +140,41 @@
   "standard-version": {
     "scripts": {
       "postchangelog": "./node_modules/.bin/prettier --write CHANGELOG.md"
-    }
+    },
+    "types": [
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "perf",
+        "section": "Performance"
+      },
+      {
+        "type": "docs",
+        "hidden": true
+      },
+      {
+        "type": "style",
+        "hidden": true
+      },
+      {
+        "type": "refactor",
+        "hidden": true
+      },
+      {
+        "type": "chore",
+        "hidden": true
+      },
+      {
+        "type": "test",
+        "hidden": true
+      }
+    ]
   },
   "keywords": [
     "Bootstrap",
