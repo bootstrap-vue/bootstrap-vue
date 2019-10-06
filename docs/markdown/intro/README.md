@@ -104,10 +104,10 @@ browsers and devices while providing slightly more opinionated resets to common
 
 ## Using module bundlers
 
-If you are using module bundlers like [webpack](https://webpack.js.org/),
-[rollup.js](https://rollupjs.org/), etc, you may prefer to directly include the package into your
-project. To get started, use `yarn` or `npm` to get the latest version of Vue.js, BootstrapVue and
-Bootstrap v4:
+If you are using module bundlers like [Webpack](https://webpack.js.org/),
+[Parcel](https://parceljs.org/) or [rollup.js](https://rollupjs.org/), you may prefer to directly
+include the package into your project. To get started, use `yarn` or `npm` to get the latest version
+of Vue.js, BootstrapVue and Bootstrap v4:
 
 ```bash
 # With npm
@@ -117,7 +117,7 @@ npm install vue bootstrap-vue bootstrap
 yarn add vue bootstrap-vue bootstrap
 ```
 
-Then, register BootstrapVue plugin in your app entry point:
+Then, register BootstrapVue in your app entry point:
 
 ```js
 // app.js
@@ -143,9 +143,11 @@ Or import Bootstrap and BootstrapVue `scss` files via a single custom SCSS file:
 @import 'node_modules/bootstrap-vue/src/index.scss';
 ```
 
+Finally import the `custom.scss` file in your app entry point:
+
 ```js
 // app.js
-import 'custom.scss'
+import './custom.scss'
 ```
 
 Be sure to `@import` or define your custom variable values _before_ including Bootstrap SCSS
@@ -156,8 +158,31 @@ Place all of the SCSS `@import`s into a **single SCSS file**, and import that si
 project. Importing individual SCSS files into your project will **not** share variable values and
 functions between files by default.
 
-**Note**: Requires webpack configuration to load CSS/SCSS files
-([official guide](https://webpack.js.org/guides/asset-management/#loading-css)).
+Webpack and Parcel support prepending the `scss` modules with tilde paths (`~`) when importing from
+a `scss` file:
+
+```scss
+// Webpack example
+@import '~bootstrap';
+@import '~bootstrap-vue';
+```
+
+```scss
+// Parcel example
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';
+```
+
+For more details how to configure asset loading and how modules are resolved, please consult the
+module bundlers documentation.
+
+**Notes**:
+
+- Webpack configuration to load CSS files
+  ([official guide](https://webpack.js.org/guides/asset-management/#loading-css)).
+- Webpack Loader for SASS/SCSS files ([official guide](https://webpack.js.org/loaders/sass-loader/))
+- Parcel CSS ([official guide](https://parceljs.org/css.html))
+- Parcel SCSS ([official guide](https://parceljs.org/scss.html))
 
 For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
 section.
