@@ -19,7 +19,7 @@
           },
           {
             "prop": "toggleable",
-            "description": "Ste to 'true' for an always collapsed navbar, or to a specific breakpoint at which point the navbar will be expanded: 'sn', 'ms', 'lg' or 'xl'"
+            "description": "Set to 'true' for an always collapsed navbar, or to a specific breakpoint at which point the navbar will be expanded: 'sm', 'md', 'lg' or 'xl'"
           },
           {
             "prop": "fixed",
