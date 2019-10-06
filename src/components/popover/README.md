@@ -569,19 +569,19 @@ Just need quick popovers without too much markup? Use the
   <b-container fluid>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-button v-b-popover.hover.top="'Popover!'" variant="primary">Top</b-button>
+        <b-button v-b-popover.hover.top="'Popover!'" title="Title" variant="primary">Top</b-button>
       </b-col>
 
       <b-col md="3" class="py-3">
-        <b-button v-b-popover.hover.right="'Popover!'" variant="primary">Right</b-button>
+        <b-button v-b-popover.hover.right="'Popover!'" title="Title" variant="primary">Right</b-button>
       </b-col>
 
       <b-col md="3" class="py-3">
-        <b-button v-b-popover.hover.left="'Popover!'" variant="primary">Left</b-button>
+        <b-button v-b-popover.hover.left="'Popover!'" title="Title" variant="primary">Left</b-button>
       </b-col>
 
       <b-col md="3" class="py-3">
-        <b-button v-b-popover.hover.bottom="'Tooltip!'" variant="primary">Bottom</b-button>
+        <b-button v-b-popover.hover.bottom="'Popover!'" title="Title" variant="primary">Bottom</b-button>
       </b-col>
     </b-row>
   </b-container>
