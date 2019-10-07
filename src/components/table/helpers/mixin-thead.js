@@ -2,6 +2,7 @@ import KeyCodes from '../../../utils/key-codes'
 import startCase from '../../../utils/startcase'
 import { getComponentConfig } from '../../../utils/config'
 import { htmlOrText } from '../../../utils/html'
+import { isUndefinedOrNull } from '../../../utils/inspect'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
 import { BThead } from '../thead'
@@ -14,6 +15,10 @@ export default {
     headVariant: {
       type: String, // 'light', 'dark' or null (or custom)
       default: () => getComponentConfig('BTable', 'headVariant')
+    },
+    headRowVariant: {
+      type: String, // Any Bootstrap theme variant  (or custom)
+      default: null
     },
     theadClass: {
       type: [String, Array, Object]
@@ -142,7 +147,10 @@ export default {
       // Genrate the row(s)
       const $trs = []
       if (isFoot) {
-        $trs.push(h(BTr, { class: this.tfootTrClass }, $cells))
+        const trProps = {
+          variant: isUndefinedOrNull(this.footRowVariant) ? this.headRowVariant : this.footRowVariant
+        }
+        $trs.push(h(BTr, { class: this.tfootTrClass, props: trProps}, $cells))
       } else {
         const scope = {
           columns: fields.length,
@@ -152,7 +160,7 @@ export default {
           clearSelected
         }
         $trs.push(this.normalizeSlot('thead-top', scope) || h())
-        $trs.push(h(BTr, { class: this.theadTrClass }, $cells))
+        $trs.push(h(BTr, { class: this.theadTrClass, props: { variant: this.headRowVariant } }, $cells))
       }
 
       return h(
