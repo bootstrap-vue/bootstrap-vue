@@ -79,6 +79,7 @@
           },
           {
             "prop": "headRowVariant",
+            "version": "2.1.0",
             "description": "Apply a Bootstrap theme color variant to the tr element in the thead"
           },
           {
@@ -87,6 +88,7 @@
           },
           {
             "prop": "footRowVariant",
+            "version": "2.1.0",
             "description": "Apply a Bootstrap theme color variant to the tr element in the tfoot. Falls back to head-row-variant"
           },
           {
@@ -991,6 +993,7 @@
           },
           {
             "prop": "headRowVariant",
+            "version": "2.1.0",
             "description": "Apply a Bootstrap theme color variant to the tr element in the thead"
           },
           {
@@ -999,6 +1002,7 @@
           },
           {
             "prop": "footRowVariant",
+            "version": "2.1.0",
             "description": "Apply a Bootstrap theme color variant to the tr element in the tfoot. Falls back to head-row-variant"
           },
           {
