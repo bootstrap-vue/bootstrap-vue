@@ -148,9 +148,11 @@ export default {
       const $trs = []
       if (isFoot) {
         const trProps = {
-          variant: isUndefinedOrNull(this.footRowVariant) ? this.headRowVariant : this.footRowVariant
+          variant: isUndefinedOrNull(this.footRowVariant)
+            ? this.headRowVariant
+            : this.footRowVariant
         }
-        $trs.push(h(BTr, { class: this.tfootTrClass, props: trProps}, $cells))
+        $trs.push(h(BTr, { class: this.tfootTrClass, props: trProps }, $cells))
       } else {
         const scope = {
           columns: fields.length,
@@ -160,7 +162,9 @@ export default {
           clearSelected
         }
         $trs.push(this.normalizeSlot('thead-top', scope) || h())
-        $trs.push(h(BTr, { class: this.theadTrClass, props: { variant: this.headRowVariant } }, $cells))
+        $trs.push(
+          h(BTr, { class: this.theadTrClass, props: { variant: this.headRowVariant } }, $cells)
+        )
       }
 
       return h(
