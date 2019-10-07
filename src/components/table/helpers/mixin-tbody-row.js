@@ -85,6 +85,9 @@ export default {
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const formatted = this.getFormattedValue(item, field)
       const key = field.key
+      // We only uses the helper components for sticky columns to
+      // improve performance of BTable/BTableLite by reducing the
+      // total number of vue instances created during render
       const cellTag = field.stickyColumn
         ? field.isRowHeader
           ? BTh
