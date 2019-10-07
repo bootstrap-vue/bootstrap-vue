@@ -498,6 +498,20 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     // Prev and next controls
     let controls = h()
     if (this.controls) {
+      const prevHandler = evt => {
+        if (!this.isSliding) {
+          this.handleClick(evt, this.prev)
+        } else {
+          evt.preventDefault()
+        }
+      }
+      const nextHandler = evt => {
+        if (!this.isSliding) {
+          this.handleClick(evt, this.next)
+        } else {
+          evt.preventDefault()
+        }
+      }
       controls = [
         h(
           'a',
@@ -510,16 +524,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
               'aria-disabled': this.isSliding ? 'true' : null
             },
             on: {
-              click: evt => {
-                if (!this.isSliding) {
-                  this.handleClick(evt, this.prev)
-                }
-              },
-              keydown: evt => {
-                if (!this.isSliding) {
-                  this.handleClick(evt, this.prev)
-                }
-              }
+              click: prevHandler,
+              keydown: prevHandler
             }
           },
           [
@@ -538,16 +544,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
               'aria-disabled': this.isSliding ? 'true' : null
             },
             on: {
-              click: evt => {
-                if (!this.isSliding) {
-                  this.handleClick(evt, this.next)
-                }
-              },
-              keydown: evt => {
-                if (!this.isSliding) {
-                  this.handleClick(evt, this.next)
-                }
-              }
+              click: nextHandler,
+              keydown: nextHandler
             }
           },
           [
