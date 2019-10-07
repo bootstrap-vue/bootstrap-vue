@@ -86,8 +86,12 @@ export default {
       const formatted = this.getFormattedValue(item, field)
       const key = field.key
       const cellTag = field.stickyColumn
-        ? field.isRowHeader ? BTh : BTd
-        : field.isRowHeader ? 'th' : 'td'
+        ? field.isRowHeader
+          ? BTh
+          : BTd
+        : field.isRowHeader
+          ? 'th'
+          : 'td'
       const variant = item._cellVariants && item._cellVariants[key]
         ? item._cellVariants[key]
         : field.variant || null
@@ -116,9 +120,8 @@ export default {
       } else {
         // Using native TD or TH element, so we need to
         // add in the attributes and variant class
-        data.attrs['data-label'] = this.isStacked && !isUndefinedOrNull(this.stackedHeading)
-          ? toString(field.label)
-          : null
+        data.attrs['data-label'] =
+          this.isStacked && !isUndefinedOrNull(field.label) ? toString(field.label) : null
         data.attrs.role = field.isRowHeader ? 'rowheader' : 'cell'
         data.attrs.scope = field.isRowHeader ? 'row' : null
         // Add in the variant class
