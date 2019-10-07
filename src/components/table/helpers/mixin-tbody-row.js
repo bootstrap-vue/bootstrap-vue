@@ -92,9 +92,10 @@ export default {
         : field.isRowHeader
           ? 'th'
           : 'td'
-      const variant = item._cellVariants && item._cellVariants[key]
-        ? item._cellVariants[key]
-        : field.variant || null
+      const cellVariant =
+        item._cellVariants && item._cellVariants[key]
+          ? item._cellVariants[key]
+          : field.variant || null
       const data = {
         // For the Vue key, we concatenate the column index and
         // field key (as field keys could be duplicated)
@@ -115,7 +116,7 @@ export default {
         data.props = {
           stackedHeading: this.isStacked ? field.label : null,
           stickyColumn: field.stickyColumn,
-          variant: variant
+          variant: cellVariant
         }
       } else {
         // Using native TD or TH element, so we need to
@@ -125,8 +126,8 @@ export default {
         data.attrs.role = field.isRowHeader ? 'rowheader' : 'cell'
         data.attrs.scope = field.isRowHeader ? 'row' : null
         // Add in the variant class
-        if (variant) {
-          data.class.push(`${this.dark ? 'bg' : 'table'}-${variant}`)
+        if (cellVariant) {
+          data.class.push(`${this.dark ? 'bg' : 'table'}-${cellVariant}`)
         }
       }
       const slotScope = {
