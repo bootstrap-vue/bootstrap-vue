@@ -12,7 +12,7 @@ export default {
       default: () => getComponentConfig('BTable', 'footVariant')
     },
     footRowVariant: {
-      type: String, // Any Bootstrap theme variant  (or custom). Falls back to headRowVariant
+      type: String, // Any Bootstrap theme variant (or custom). Falls back to headRowVariant
       default: null
     },
     tfootClass: {
