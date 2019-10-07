@@ -75,7 +75,7 @@
           },
           {
             "prop": "headVariant",
-            "description": "Header variant: 'light' or 'dark', or unset"
+            "description": "Header variant: 'light' or 'dark', or unset. May take precedence over head-row-variant"
           },
           {
             "prop": "headRowVariant",
@@ -84,7 +84,7 @@
           },
           {
             "prop": "footVariant",
-            "description": "Footer variant: 'light' or 'dark', or unset"
+            "description": "Footer variant: 'light' or 'dark', or unset. May take precedence over foot-row-variant"
           },
           {
             "prop": "footRowVariant",
@@ -989,7 +989,7 @@
           },
           {
             "prop": "headVariant",
-            "description": "Header variant: 'light' or 'dark', or unset"
+            "description": "Header variant: 'light' or 'dark', or unset. May take precedence over head-row-variant"
           },
           {
             "prop": "headRowVariant",
@@ -998,7 +998,7 @@
           },
           {
             "prop": "footVariant",
-            "description": "Footer variant: 'light' or 'dark', or unset"
+            "description": "Footer variant: 'light' or 'dark', or unset. May take precedence over foot-row-variant"
           },
           {
             "prop": "footRowVariant",
