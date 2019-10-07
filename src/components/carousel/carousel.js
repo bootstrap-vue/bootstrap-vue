@@ -503,13 +503,22 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
           'a',
           {
             class: ['carousel-control-prev'],
-            attrs: { href: '#', role: 'button', 'aria-controls': this.safeId('__BV_inner_') },
+            attrs: {
+              href: '#',
+              role: 'button',
+              'aria-controls': this.safeId('__BV_inner_'),
+              'aria-disabled': this.isSliding ? 'true' : null
+            },
             on: {
               click: evt => {
-                this.handleClick(evt, this.prev)
+                if (!this.isSliding) {
+                  this.handleClick(evt, this.prev)
+                }
               },
               keydown: evt => {
-                this.handleClick(evt, this.prev)
+                if (!this.isSliding) {
+                  this.handleClick(evt, this.prev)
+                }
               }
             }
           },
@@ -522,13 +531,22 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
           'a',
           {
             class: ['carousel-control-next'],
-            attrs: { href: '#', role: 'button', 'aria-controls': this.safeId('__BV_inner_') },
+            attrs: {
+              href: '#',
+              role: 'button',
+              'aria-controls': this.safeId('__BV_inner_'),
+              'aria-disabled': this.isSliding ? 'true' : null
+            },
             on: {
               click: evt => {
-                this.handleClick(evt, this.next)
+                if (!this.isSliding) {
+                  this.handleClick(evt, this.next)
+                }
               },
               keydown: evt => {
-                this.handleClick(evt, this.next)
+                if (!this.isSliding) {
+                  this.handleClick(evt, this.next)
+                }
               }
             }
           },
