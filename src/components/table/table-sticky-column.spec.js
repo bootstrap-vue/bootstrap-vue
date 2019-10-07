@@ -6,7 +6,7 @@ import { BTh } from './th'
 const items = [{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }]
 const fields = [
   { key: 'a', stickyColumn: true, isRowHeader: true },
-  { key: 'b', stickyColumn: true},
+  { key: 'b', stickyColumn: true },
   'c'
 ]
 
@@ -29,10 +29,10 @@ describe('table > sticky columns', () => {
     expect(table.classes()).toContain('b-table')
 
     const trs = wrapper.findAll('tbody > tr')
-    expect(trs.length).tobe(2)
+    expect(trs.length).toBe(2)
 
     const cells = trs.findAll('th, td')
-    expect(cells.length).tobe(3)
+    expect(cells.length).toBe(3)
 
     // First column should be BTh with sticky classes
     expect(cells.at(0).is(BTh)).toBe(true)
