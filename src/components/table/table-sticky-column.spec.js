@@ -31,7 +31,7 @@ describe('table > sticky columns', () => {
     const trs = wrapper.findAll('tbody > tr')
     expect(trs.length).toBe(2)
 
-    const cells = trs.findAll('th, td')
+    const cells = trs.at(0).findAll('th, td')
     expect(cells.length).toBe(3)
 
     // First column should be BTh with sticky classes
