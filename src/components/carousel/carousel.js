@@ -499,6 +499,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     let controls = h()
     if (this.controls) {
       const prevHandler = evt => {
+        /* istanbul ignore next */
         if (!this.isSliding) {
           this.handleClick(evt, this.prev)
         } else {
@@ -506,6 +507,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         }
       }
       const nextHandler = evt => {
+        /* istanbul ignore next */
         if (!this.isSliding) {
           this.handleClick(evt, this.next)
         } else {
