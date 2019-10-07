@@ -78,8 +78,16 @@
             "description": "Header variant: 'light' or 'dark', or unset"
           },
           {
+            "prop": "headRowVariant",
+            "description": "Apply a Bootstrap theme color variant to the tr element in the thead"
+          },
+          {
             "prop": "footVariant",
             "description": "Footer variant: 'light' or 'dark', or unset"
+          },
+          {
+            "prop": "footRowVariant",
+            "description": "Apply a Bootstrap theme color variant to the tr element in the tfoot. Falls back to head-row-variant"
           },
           {
             "prop": "tbodyTransitionProps",
@@ -982,8 +990,16 @@
             "description": "Header variant: 'light' or 'dark', or unset"
           },
           {
+            "prop": "headRowVariant",
+            "description": "Apply a Bootstrap theme color variant to the tr element in the thead"
+          },
+          {
             "prop": "footVariant",
             "description": "Footer variant: 'light' or 'dark', or unset"
+          },
+          {
+            "prop": "footRowVariant",
+            "description": "Apply a Bootstrap theme color variant to the tr element in the tfoot. Falls back to head-row-variant"
           },
           {
             "prop": "tbodyTransitionProps",
