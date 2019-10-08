@@ -4,12 +4,62 @@
   "meta": {
     "title": "Tooltip",
     "description": "Easily add tooltips to elements or components via the <b-tooltip> component or v-b-tooltip directive.",
-    "directives": [
-      "VBTooltip"
+    "plugins": [
+      "VBTooltipPlugin"
     ],
     "components": [
       {
         "component": "BTooltip",
+        "props": [
+          {
+            "prop": "target",
+            "description": "Element string ID, or a reference to an element or component, that you want to trigger the tooltip."
+          },
+          {
+            "prop": "title",
+            "description": "Text to place in the tooltip"
+          },
+          {
+            "prop": "triggers",
+            "description": "Specify which triggers will show the tooltip. Supported values are 'click', 'hover', 'focus'. Refer to the docs for special triggers 'blur' and 'manual'"
+          },
+          {
+            "prop": "placement",
+            "description": "Placement of the tooltip: One of 'top', 'bottom', 'right', 'left', 'top-left', 'top-right', 'bottom-left', 'bottom-right', 'left-top', 'left-bottom', 'right-top', 'right-bottom'"
+          },
+          {
+            "prop": "fallbackPlacement",
+            "description": "placement to use when the tooltip would be out of boundaries. Refer to the docs for more details"
+          },
+          {
+            "prop": "customClass",
+            "description": "CSS class (or classes) to apply to the tooltip's root element"
+          },
+          {
+            "prop": "delay",
+            "description": "Value for the show and hide delay. Applies to both show and hide when specified as a number or string. Use object form to set show and hide delays individually"
+          },
+          {
+            "prop": "boundary",
+            "description": "The boundary constraint of the tooltip: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement or component"
+          },
+          {
+            "prop": "boundaryPadding",
+            "description": "The tooltip will try and stay away from the edge of the boundary element by the number of pixels specificed"
+          },
+          {
+            "prop": "offset",
+            "description": "Offset (in pixels) for the arrow center compared to the trigger target element"
+          },
+          {
+            "prop": "container",
+            "description": "The container element to append the rendered tooltip when visible. Default's to the body element"
+          },
+          {
+            "prop": "show",
+            "description": "When set will show the tooltip"
+          }
+        ],
         "events": [
           {
             "event": "show",
@@ -17,7 +67,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object"
+                "type": "BvEvent",
+                "description": "bvEvent object. Cancelable."
               }
             ]
           },
@@ -27,6 +78,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object."
               }
             ]
@@ -37,7 +89,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object"
+                "type": "BvEvent",
+                "description": "bvEvent object. Cancelable."
               }
             ]
           },
@@ -47,17 +100,32 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object."
               }
             ]
           },
           {
             "event": "enabled",
-            "description": "Emitted when tooltip becomes enabled"
+            "description": "Emitted when tooltip becomes enabled",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "bvEvent object"
+              }
+            ]
           },
           {
             "event": "disabled",
-            "description": "Emitted when tooltip becomes disabled"
+            "description": "Emitted when tooltip becomes disabled",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "bvEvent object"
+              }
+            ]
           },
           {
             "event": "bv::tooltip::show",
@@ -65,7 +133,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object"
+                "type": "BvEvent",
+                "description": "bvEvent object. Cancelable."
               }
             ]
           },
@@ -75,6 +144,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object."
               }
             ]
@@ -85,7 +155,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object"
+                "type": "BvEvent",
+                "description": "bvEvent object. Cancelable."
               }
             ]
           },
@@ -95,6 +166,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object."
               }
             ]
@@ -105,6 +177,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object."
               }
             ]
@@ -115,6 +188,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object."
               }
             ]
@@ -127,6 +201,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), tooltip id to hide"
               }
             ]
@@ -137,6 +212,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), tooltip id to show"
               }
             ]
@@ -147,6 +223,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), tooltip id to disable"
               }
             ]
@@ -157,6 +234,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), tooltip id to enable"
               }
             ]
@@ -165,7 +243,7 @@
         "slots": [
           {
             "name": "default",
-            "description": "Slot for tooltip content (HTML supported)"
+            "description": "Slot for tooltip content (HTML/components supported)"
           }
         ]
       }

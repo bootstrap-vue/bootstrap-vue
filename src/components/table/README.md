@@ -454,6 +454,14 @@ You can also style every row using the `tbody-tr-class` prop
 | -------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `tbodyTrClass` | String, Array or Function | Classes to be applied to every row on the table. If a function is given, it will be called as `tbodyTrClass( item, type )` and it may return an `Array`, `Object` or `String`. |
 
+When passing a function reference to `tbody-tr-class`, the function's arguments will be as follows:
+
+- `item` - The item record data associated with the row. For rows that are not associated with an
+  item record, this value will be `null` or `undefined`
+- `type` - The type of row being rendered. `'row'` for an item row, `'row-details'` for an item
+  details row, `'row-top'` for the fixed row top slot, `'row-bottom'` for the fixed row bottom slot,
+  or `'table-busy'` for the table busy slot.
+
 **Example: Basic row styles**
 
 ```html
@@ -820,7 +828,7 @@ explicit scoped slot provided.
 ```html
 <template>
   <div>
-    <b-table small :fields="fields" :items="items">
+    <b-table small :fields="fields" :items="items" responsive="sm">
       <!-- A virtual column -->
       <template v-slot:cell(index)="data">
         {{ data.index + 1 }}
@@ -1521,14 +1529,23 @@ three classes (depending on which mode is in use) on the `<table>` element:
 - `b-table-select-range`
 
 When at least one row is selected, the class `b-table-selecting` will be active on the `<table>`
-element. Rows that are selected rows will have a class of `b-row-selected` applied to the `<tr>`
-element.
+element. Rows that are selected rows will have a class of `b-table-row-selected` applied to the
+`<tr>` element.
 
 Use the prop `selected-variant` to apply a Bootstrap theme color to the selected row(s). Note, due
-to the order that the table variants are defined in Bootstrap's CSS, any row-variant may take
+to the order that the table variants are defined in Bootstrap's CSS, any row-variant _might_ take
 precedence over the `selected-variant`. You can set `selected-variant` to an empty string if you
 will be using other means to convey that a row is selected (such as a scoped field slot in the below
 example).
+
+The `selected-variant` can be any of the
+[standard (or custom) bootstrap base color variants](/docs/reference/color-variants), or the special
+[table `active` variant](/docs/reference/color-variants#table-variants) which takes precedence over
+any specific row or cell variants.
+
+For accessibility reasons (specifically for color blind users, or users with color contrast issues),
+it is highly recommended to always provide some other visual means of conveying that a row is
+selected, such as shown in the example below.
 
 ```html
 <template>
@@ -1541,7 +1558,7 @@ example).
       ref="selectableTable"
       selectable
       :select-mode="selectMode"
-      selected-variant="success"
+      selected-variant="active"
       :items="items"
       :fields="fields"
       @row-selected="onRowSelected"

@@ -11,6 +11,36 @@
           "BCheckboxGroup",
           "BCheckGroup"
         ],
+        "props": [
+          {
+            "prop": "stacked",
+            "description": "When set, renders the checkbox group in stacked mode"
+          },
+          {
+            "prop": "switches",
+            "description": "When set, renders the checkboxes in the group with switch styling"
+          },
+          {
+            "prop": "buttons",
+            "description": "When set, renderes the checkboxes in this group with button styling"
+          },
+          {
+            "prop": "buttonVariant",
+            "description": "Specifies the Bootstrap contextual color theme variant the apply to the button style checkboxes"
+          },
+          {
+            "prop": "checked",
+            "description": "The current value of the checked checkboxes in the group. Must be an array when there are multiple checkboxes"
+          },
+          {
+            "prop": "validated",
+            "description": "When set, adds the Bootstrap class 'was-validated' to the group wrapper"
+          },
+          {
+            "prop": "ariaInvalid",
+            "description": "Sets the 'aria-invalid' attribute value on the wrapper element. When not provided, the 'state' prop will control the attribute"
+          }
+        ],
         "slots": [
           {
             "name": "first",
@@ -24,6 +54,7 @@
             "args": [
               {
                 "arg": "checked",
+                "type": "Array",
                 "description": "Value of checkboxes. Value will be an array."
               }
             ]
@@ -34,6 +65,7 @@
             "args": [
               {
                 "arg": "checked",
+                "type": "Array",
                 "description": "Value of checkboxes. Value will be an array."
               }
             ]
@@ -46,6 +78,40 @@
           "BCheckbox",
           "BCheck"
         ],
+        "props": [
+          {
+            "prop": "checked",
+            "description": "The current value of the checkbox(es). Must be an array when there are multiple checkboxes bound to the same v-model"
+          },
+          {
+            "prop": "value",
+            "description": "Value returned when this checkbox is checked"
+          },
+          {
+            "prop": "uncheckedValue",
+            "description": "Value returned when this checkbox is unchecked. Note not applicable when multiple checkboxes bound to the same v-model array"
+          },
+          {
+            "prop": "inline",
+            "description": "When set, renders the checkbox as an inline element rather than as a 100% width block"
+          },
+          {
+            "prop": "switch",
+            "description": "When set, renders the checkbox with the appearance of a switch"
+          },
+          {
+            "prop": "button",
+            "description": "When set, renders the checkbox with the appearance of a button"
+          },
+          {
+            "prop": "buttonVariant",
+            "description": "Applies on of Bootstrap's theme colors when in 'button' mode"
+          },
+          {
+            "prop": "indeterminate",
+            "description": "Renders the checkbox in an indeterminate state. Syncable via the .sync modifier"
+          }
+        ],
         "events": [
           {
             "event": "input",
@@ -53,6 +119,13 @@
             "args": [
               {
                 "arg": "checked",
+                "type": [
+                  "Boolean",
+                  "String",
+                  "Number",
+                  "Object",
+                  "Array"
+                ],
                 "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array."
               }
             ]
@@ -63,6 +136,13 @@
             "args": [
               {
                 "arg": "checked",
+                "type": [
+                  "Boolean",
+                  "String",
+                  "Number",
+                  "Object",
+                  "Array"
+                ],
                 "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array."
               }
             ]

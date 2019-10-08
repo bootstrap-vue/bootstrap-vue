@@ -10,6 +10,56 @@
         "aliases": [
           "BInput"
         ],
+        "props": [
+          {
+            "prop": "value",
+            "description": "The current value of the input.  Result will always be a string, except when the 'number' prop is used"
+          },
+          {
+            "prop": "ariaInvalid",
+            "description": "Sets the 'aria-invalid' attribute with the specified value"
+          },
+          {
+            "prop": "trim",
+            "description": "When set, trims any leading and trailing white space from the input value"
+          },
+          {
+            "prop": "number",
+            "description": "When set attempts to convert the input value to a native number"
+          },
+          {
+            "prop": "type",
+            "description": "The type of input to render. See the docs for supported types"
+          },
+          {
+            "prop": "noWheel",
+            "description": "For number-like inputs, disables the mouse wheel from incrementing or decrementing the value"
+          },
+          {
+            "prop": "list",
+            "description": "The ID of the associated datalist element or component"
+          },
+          {
+            "prop": "formatter",
+            "description": "reference to a function for formatting the input"
+          },
+          {
+            "prop": "lazyFormatter",
+            "description": "When set, the input is formatted on blur instead of each keystroke (if there is a formatter specified)"
+          },
+          {
+            "prop": "min",
+            "description": "Value to set in the 'min' attribute on the input. Used by number-like inputs"
+          },
+          {
+            "prop": "max",
+            "description": "Value to set in the 'max' attribute on the input. Used by number-like inputs"
+          },
+          {
+            "prop": "step",
+            "description": "Value to set in the 'step' attribute on the input. Used by number-like inputs"
+          }
+        ],
         "events": [
           {
             "event": "input",
@@ -17,6 +67,10 @@
             "args": [
               {
                 "arg": "value",
+                "type": [
+                  "String",
+                  "Number"
+                ],
                 "description": "Current value of input"
               }
             ]
@@ -27,6 +81,10 @@
             "args": [
               {
                 "arg": "value",
+                "type": [
+                  "String",
+                  "Number"
+                ],
                 "description": "Current value of input"
               }
             ]
@@ -37,6 +95,10 @@
             "args": [
               {
                 "arg": "value",
+                "type": [
+                  "String",
+                  "Number"
+                ],
                 "description": "Value of input, after any formatting. Not emitted if the value does not change"
               }
             ]
@@ -47,6 +109,7 @@
             "args": [
               {
                 "arg": "event",
+                "type": "FocusEvent",
                 "description": "Native blur event (before any formatting)"
               }
             ]

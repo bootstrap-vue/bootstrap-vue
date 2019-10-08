@@ -16,6 +16,7 @@ import {
 import { isBrowser } from '../../utils/env'
 import { stripTags } from '../../utils/html'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
+import { HTMLElement } from '../../utils/safe-types'
 import { BTransporterSingle } from '../../utils/transporter'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -224,7 +225,8 @@ export const props = {
     default: false
   },
   returnFocus: {
-    // type: Object,
+    // HTML Element, CSS selector string or Vue component instance
+    type: [HTMLElement, String, Object],
     default: null
   },
   headerCloseLabel: {

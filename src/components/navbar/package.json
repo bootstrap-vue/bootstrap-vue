@@ -10,13 +10,69 @@
       "CollapsePlugin"
     ],
     "components": [
-      "BNavbar",
-      "BNavbarNav",
-      "BNavbarBrand",
+      {
+        "component": "BNavbar",
+        "props": [
+          {
+            "prop": "type",
+            "description": "Control the text color by setting to 'light' for use with light background color variants, or 'dark' for dark background color variants"
+          },
+          {
+            "prop": "toggleable",
+            "description": "Set to 'true' for an always collapsed navbar, or to a specific breakpoint at which point the navbar will be expanded: 'sm', 'md', 'lg' or 'xl'"
+          },
+          {
+            "prop": "fixed",
+            "description": "Set to 'top' for fixed to the top of the viewport, or 'bottom' for fixed to the bottom of the viewport"
+          },
+          {
+            "prop": "sticky",
+            "description": "Set to true to make the navbar stick to the top of the viewport (or parent container that has 'position: relative' set) when scrolled"
+          },
+          {
+            "prop": "print",
+            "description": "Navbars are hidden by default when printing. When this prop is set it will be printed"
+          }
+        ]
+      },
+      {
+        "component": "BNavbarNav",
+        "props": [
+          {
+            "prop": "small",
+            "description": "Makes the nav smaller"
+          },
+          {
+            "prop": "align",
+            "description": "Align the nav items in the nav: 'start' (or 'left'), 'center', 'end' (or 'right')"
+          },
+          {
+            "prop": "fill",
+            "description": "Proportionately fills all horizontal space with nav items. All horizontal space is occupied, but not every nav item has the same width"
+          },
+          {
+            "prop": "justified",
+            "description": "Fills all horizontal space with nav items, but unlike 'fill', every nav item will be the same width"
+          }
+        ]
+      },
+      {
+        "component": "BNavbarBrand"
+      },
       {
         "component": "BNavbarToggle",
         "aliases": [
           "BNavToggle"
+        ],
+        "props": [
+          {
+            "prop": "target",
+            "description": "ID of the collapse the toggle controls"
+          },
+          {
+            "prop": "label",
+            "description": "String to place in the toggle's 'aria-label' attribute"
+          }
         ],
         "events": [
           {
@@ -25,6 +81,7 @@
             "args": [
               {
                 "name": "event",
+                "type": "MouseEvent",
                 "description": "Native click event object"
               }
             ]

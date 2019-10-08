@@ -4,6 +4,106 @@
   "meta": {
     "title": "Popover",
     "description": "Add BootstrapVue popovers to any element on your site, using Bootstrap v4 CSS for styling and animations. Popovers are tooltips on steroids.",
-    "directive": "VBPopover"
+    "directive": "VBPopover",
+    "arg": {
+      "pattern": "[a-zA-Z][a-ZA-Z0-9_\\-]*",
+      "description": "ID of element to append the popover markup when visible. Optional, defaults to the body"
+    },
+    "expression": [
+      "String",
+      "Function",
+      "Object"
+    ],
+    "modifiers": [
+      {
+        "name": "top",
+        "description": "Positions the popover on the top of the trigger element (default)"
+      },
+      {
+        "name": "right",
+        "description": "Positions the popover on the right of the trigger element"
+      },
+      {
+        "name": "bottom",
+        "description": "Positions the popover on the bottom of the trigger element"
+      },
+      {
+        "name": "auto",
+        "description": "Positions the popover in the best fit place around the trigger element"
+      },
+      {
+        "name": "topright",
+        "description": "Positions the popover on the top-right of the trigger element"
+      },
+      {
+        "name": "topleft",
+        "description": "Positions the popover on the top-left of the trigger element"
+      },
+      {
+        "name": "bottomright",
+        "description": "Positions the popover on the bottom-right of the trigger element"
+      },
+      {
+        "name": "bottomleft",
+        "description": "Positions the popover on the bottom-left of the trigger element"
+      },
+      {
+        "name": "lefttop",
+        "description": "Positions the popover on the left-top of the trigger element"
+      },
+      {
+        "name": "leftbottom",
+        "description": "Positions the popover on the left-bottom of the trigger element"
+      },
+      {
+        "name": "righttop",
+        "description": "Positions the popover on the right-top of the trigger element"
+      },
+      {
+        "name": "rightbottom",
+        "description": "Positions the popover on the right-bottom of the trigger element"
+      },
+      {
+        "name": "nofade",
+        "description": "Disabled the fade animation of the popover"
+      },
+      {
+        "name": "html",
+        "description": "Enables basic HTML in the title/content (use with caution)"
+      },
+      {
+        "name": "viewport",
+        "description": "Sets the boundary constraint to the viewport"
+      },
+      {
+        "name": "window",
+        "description": "sets the boundary constrain to the window"
+      },
+      {
+        "name": "v-{variant}",
+        "pattern": "v-[a-z]+",
+        "description": "Sets the popover contextual color variant to `{variant}`"
+      },
+      {
+        "name": "d{###}",
+        "pattern": "d[0-9]+",
+        "description": "The show and hide delay in milliseconds (where `{###}` is the value in milliseconds)"
+      },
+      {
+        "name": "ds{###}",
+        "pattern": "ds[0-9]+",
+        "description": "The show delay in milliseconds (where `{###}` is the value in milliseconds)"
+      },
+      {
+        "name": "dh{###}",
+        "pattern": "dh[0-9]+",
+        "description": "The hide delay in milliseconds (where `{###}` is the value in milliseconds)"
+      },
+      {
+        "name": "o{###}",
+        "pattern": "o-?[0-9]+",
+        "description": "An offset value in pixels (where `{###}` is the number of pixels, defaults to 0. Negative values allowed)"
+      }
+    ]
   }
 }

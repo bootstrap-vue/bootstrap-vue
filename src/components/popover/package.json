@@ -4,12 +4,66 @@
   "meta": {
     "title": "Popover",
     "description": "The Popover feature provides a tooltip-like behavior, can be easily applied to any interactive element via the <b-popover> component or v-b-popover directive",
-    "directives": [
-      "VBPopover"
+    "plugins": [
+      "VBPopoverPlugin"
     ],
     "components": [
       {
         "component": "BPopover",
+        "props": [
+          {
+            "prop": "target",
+            "description": "Element string ID, or a reference to an element or component, that you want to trigger the popover."
+          },
+          {
+            "prop": "title",
+            "description": "Text to place in the popovers title"
+          },
+          {
+            "prop": "content",
+            "description": "Text to place in the body of the popover"
+          },
+          {
+            "prop": "triggers",
+            "description": "Specify which triggers will show the popover. Supported values are 'click', 'hover', 'focus'. Refer to the docs for special triggers 'blur' and 'manual'"
+          },
+          {
+            "prop": "placement",
+            "description": "Placement of the popover: One of 'top', 'bottom', 'right', 'left', 'top-left', 'top-right', 'bottom-left', 'bottom-right', 'left-top', 'left-bottom', 'right-top', 'right-bottom'"
+          },
+          {
+            "prop": "fallbackPlacement",
+            "description": "placement to use when the popover would be out of boundaries. Refer to the docs for more details"
+          },
+          {
+            "prop": "customClass",
+            "description": "CSS class (or classes) to apply to the popover's root element"
+          },
+          {
+            "prop": "delay",
+            "description": "Value for the show and hide delay. Applies to both show and hide when specified as a number or string. Use object form to set show and hide delays individually"
+          },
+          {
+            "prop": "boundary",
+            "description": "The boundary constraint of the popover: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement or component"
+          },
+          {
+            "prop": "boundaryPadding",
+            "description": "The popover will try and stay away from the edge of the boundary element by the number of pixels specified"
+          },
+          {
+            "prop": "offset",
+            "description": "Offset (in pixels) for the arrow center compared to the trigger target element"
+          },
+          {
+            "prop": "container",
+            "description": "The container element to append the rendered popover when visible. Default's to the body element"
+          },
+          {
+            "prop": "show",
+            "description": "When set will show the popover"
+          }
+        ],
         "events": [
           {
             "event": "show",
@@ -17,6 +71,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object"
               }
             ]
@@ -27,7 +82,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object."
+                "type": "BvEvent",
+                "description": "bvEvent object"
               }
             ]
           },
@@ -37,6 +93,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object"
               }
             ]
@@ -47,17 +104,32 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object."
+                "type": "BvEvent",
+                "description": "bvEvent object"
               }
             ]
           },
           {
             "event": "enabled",
-            "description": "Emitted when popover becomes enabled"
+            "description": "Emitted when popover becomes enabled",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "bvEvent object"
+              }
+            ]
           },
           {
             "event": "disabled",
-            "description": "Emitted when popover becomes disabled"
+            "description": "Emitted when popover becomes disabled",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "bvEvent object"
+              }
+            ]
           },
           {
             "event": "bv::popover::show",
@@ -65,6 +137,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object"
               }
             ]
@@ -75,7 +148,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object."
+                "type": "BvEvent",
+                "description": "bvEvent object"
               }
             ]
           },
@@ -85,6 +159,7 @@
             "args": [
               {
                 "arg": "bvEvent",
+                "type": "BvEvent",
                 "description": "bvEvent object"
               }
             ]
@@ -95,7 +170,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object."
+                "type": "BvEvent",
+                "description": "bvEvent object"
               }
             ]
           },
@@ -105,7 +181,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object."
+                "type": "BvEvent",
+                "description": "bvEvent object"
               }
             ]
           },
@@ -115,7 +192,8 @@
             "args": [
               {
                 "arg": "bvEvent",
-                "description": "bvEvent object."
+                "type": "BvEvent",
+                "description": "bvEvent object"
               }
             ]
           }
@@ -127,6 +205,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), popover id to hide"
               }
             ]
@@ -137,6 +216,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), popover id to show"
               }
             ]
@@ -147,6 +227,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), popover id to disable"
               }
             ]
@@ -157,6 +238,7 @@
             "args": [
               {
                 "arg": "id",
+                "type": "String",
                 "description": "(optional), popover id to enable"
               }
             ]
@@ -165,11 +247,11 @@
         "slots": [
           {
             "name": "title",
-            "description": "Optional slot for title (HTML supported)"
+            "description": "Optional slot for title (HTML/components supported)"
           },
           {
             "name": "default",
-            "description": "Slot for content (HTML supported)"
+            "description": "Slot for content (HTML/components supported)"
           }
         ]
       }

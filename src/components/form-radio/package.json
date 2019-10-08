@@ -10,6 +10,32 @@
         "aliases": [
           "BRadioGroup"
         ],
+        "props": [
+          {
+            "prop": "stacked",
+            "description": "When set, renders the radio group in stacked mode"
+          },
+          {
+            "prop": "buttons",
+            "description": "When set, renderes the radios in this group with button styling"
+          },
+          {
+            "prop": "buttonVariant",
+            "description": "Specifies the Bootstrap contextual color theme variant the apply to the button style radios"
+          },
+          {
+            "prop": "checked",
+            "description": "The current value of the checked radio in the group"
+          },
+          {
+            "prop": "validated",
+            "description": "When set, adds the Bootstrap class 'was-validated' to the group wrapper"
+          },
+          {
+            "prop": "ariaInvalid",
+            "description": "Sets the 'aria-invalid' attribute value on the wrapper element. When not provided, the 'state' prop will control the attribute"
+          }
+        ],
         "slots": [
           {
             "name": "first",
@@ -23,6 +49,12 @@
             "args": [
               {
                 "arg": "checked",
+                "type": [
+                  "Boolean",
+                  "String",
+                  "Number",
+                  "Object"
+                ],
                 "description": "current selected Value of radio group."
               }
             ]
@@ -33,6 +65,12 @@
             "args": [
               {
                 "arg": "checked",
+                "type": [
+                  "Boolean",
+                  "String",
+                  "Number",
+                  "Object"
+                ],
                 "description": "current selected Value of radio group."
               }
             ]
@@ -44,6 +82,28 @@
         "aliases": [
           "BRadio"
         ],
+        "props": [
+          {
+            "prop": "checked",
+            "description": "The current value of the radio(s)"
+          },
+          {
+            "prop": "value",
+            "description": "Value returned when this radio is checked"
+          },
+          {
+            "prop": "inline",
+            "description": "When set, renders the radio as an inline element rather than as a 100% width block"
+          },
+          {
+            "prop": "button",
+            "description": "When set, renders the radio with the appearance of a button"
+          },
+          {
+            "prop": "buttonVariant",
+            "description": "Applies on of Bootstrap's theme colors when in 'button' mode"
+          }
+        ],
         "events": [
           {
             "event": "input",
@@ -51,6 +111,12 @@
             "args": [
               {
                 "arg": "checked",
+                "type": [
+                  "Boolean",
+                  "String",
+                  "Number",
+                  "Object"
+                ],
                 "description": "current selected Value of radio group."
               }
             ]
@@ -61,6 +127,12 @@
             "args": [
               {
                 "arg": "checked",
+                "type": [
+                  "Boolean",
+                  "String",
+                  "Number",
+                  "Object"
+                ],
                 "description": "current selected Value of radio group."
               }
             ]

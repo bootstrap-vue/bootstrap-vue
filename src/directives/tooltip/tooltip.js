@@ -6,7 +6,7 @@ import { isBrowser } from '../../utils/env'
 import {
   isFunction,
   isNumber,
-  isObject,
+  isPlainObject,
   isString,
   isUndefined,
   isUndefinedOrNull
@@ -71,7 +71,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   } else if (isFunction(bindings.value)) {
     // Title generator function
     config.title = bindings.value
-  } else if (isObject(bindings.value)) {
+  } else if (isPlainObject(bindings.value)) {
     // Value is config object, so merge
     config = { ...config, ...bindings.value }
   }
@@ -84,10 +84,10 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   }
 
   // Normalize delay
-  if (!isObject(config.delay)) {
+  if (!isPlainObject(config.delay)) {
     config.delay = {
-      show: config.delay,
-      hide: config.delay
+      show: parseInt(config.delay, 10) || 0,
+      hide: parseInt(config.delay, 10) || 0
     }
   }
 
