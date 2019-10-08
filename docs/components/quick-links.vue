@@ -41,7 +41,7 @@
   margin-top: 1rem;
 
   ul {
-    list-style-type: disc;
+    list-style-type: circle;
     padding-left: 1.25rem;
     margin-bottom: 0.25rem;
   }
