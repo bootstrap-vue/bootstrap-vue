@@ -6,7 +6,8 @@ $bv-dropdown-form-defined: false !default;
 
   // Custom styles for <b-dropdown-form>
   // Based on class `.dropdown-item`
-  .dropdown.b-dropdown {
+  .dropdown.b-dropdown,
+  .dropdown.b-nav-dropdown {
     .b-dropdown-form {
       display: inline-block;
       padding: $dropdown-item-padding-y $dropdown-item-padding-x;
