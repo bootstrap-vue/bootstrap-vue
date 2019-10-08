@@ -12,10 +12,10 @@ colors, etc) adjust the custom BootstrapVue css generation.
 ## SASS variable defaults
 
 Every Sass variable in Bootstrap v4 and BootstrapVue includes the `!default` flag allowing you to
-override the variable’s default value in your own Sass without modifying Bootstrap and BootstrapVue's
-source SCSS code. Copy and paste variables as needed, modify their values, and remove the `!default`
-flag. If a variable has already been assigned, then it won’t be re-assigned by the default values in
-Bootstrap and BootstrapVue.
+override the variable’s default value in your own Sass without modifying Bootstrap and
+BootstrapVue's source SCSS code. Copy and paste variables as needed, modify their values, and remove
+the `!default` flag. If a variable has already been assigned, then it won’t be re-assigned by the
+default values in Bootstrap and BootstrapVue.
 
 You will find the complete list of Bootstrap’s variables in `bootstrap/scss/_variables.scss`. Some
 variables are set to `null`, these variables don’t output the property unless they are overridden in
