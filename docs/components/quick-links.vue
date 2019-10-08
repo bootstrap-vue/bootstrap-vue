@@ -16,7 +16,7 @@
         page table of contents
       </b-button>
     </header>
-    <b-collapse v-if="hasContent" id="bd-quick-links-collapse" v-model="quickLinksExpanded" tag="ul">
+    <b-collapse v-if="hasContent" id="bd-quick-links-collapse" v-model="quickLinksExpanded" tag="ol">
       <li v-for="h2 in toc.toc" :key="h2.href">
         <b-link :href="h2.href" @click="scrollIntoView($event, h2.href)">
           <span v-html="h2.label"></span>
@@ -36,12 +36,16 @@
 <style scoped lang="scss">
 #bd-quick-links-collapse {
   list-style-type: square;
-  border-left: 5px solid #ccc;
+  border-left: .25em solid #eee;
   padding-left: 2.5rem;
   margin-top: 1rem;
 
+  li {
+    color: #7952b3
+  }
+
   ul {
-    list-style-type: circle;
+    list-style-type: disc;
     padding-left: 1.25rem;
     margin-bottom: 0.25rem;
   }
