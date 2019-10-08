@@ -40,10 +40,6 @@
   padding-left: 2.5rem;
   margin-top: 1rem;
 
-  li {
-    color: #7952b3;
-  }
-
   ul {
     list-style-type: disc;
     padding-left: 1.25rem;
