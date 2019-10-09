@@ -534,4 +534,30 @@ these methods and properties. Support will vary based on input type.
 
 You can use `<b-form-input>` by it's shorter alias `<b-input>`.
 
+## Using HTML5 `<input>` as an alternative
+
+If you just need a simple input with basic bootstrap styling, you can simply used the following:
+
+```html
+<template>
+  <div>
+    <input v-model="value" type="text" class="form-control">
+    <br>
+    <p>Value: "{{ value }}"</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    }
+  }
+</script>
+
+<!-- native-input.vue -->
+```
+
 <!-- Component reference added automatically from component package.json -->
