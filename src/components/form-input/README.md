@@ -536,7 +536,7 @@ You can use `<b-form-input>` by it's shorter alias `<b-input>`.
 
 ## Using HTML5 `<input>` as an alternative
 
-If you just need a simple input with basic bootstrap styling, you can simply used the following:
+If you just need a simple input with basic bootstrap styling, you can simply use the following:
 
 ```html
 <template>
