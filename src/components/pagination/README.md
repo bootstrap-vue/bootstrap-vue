@@ -259,7 +259,7 @@ Easily switch to pill style buttons by setting hte `pills` prop
   }
 </script>
 
-<!-- b-pagination-size.vue -->
+<!-- b-pagination-pills.vue -->
 ```
 
 ### Alignment
