@@ -20,7 +20,7 @@ Released: 2019-10-10
   [#4220](https://github.com/bootstrap-vue/bootstrap-vue/issues/4220))
   ([#4223](https://github.com/bootstrap-vue/bootstrap-vue/issues/4223))
   ([b852bba](https://github.com/bootstrap-vue/bootstrap-vue/commit/b852bba))
-- **types:** BCardSubTitle component declared export name
+- **types:** correct the declared export name for `BCardSubTitle` component
   ([#4229](https://github.com/bootstrap-vue/bootstrap-vue/issues/4229))
   ([9f216df](https://github.com/bootstrap-vue/bootstrap-vue/commit/9f216df))
 
