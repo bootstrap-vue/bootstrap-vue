@@ -1,4 +1,4 @@
-// --- BootstrapVue Utility Classes ---
+// --- BootstrapVue utility / helper classes ---
 
 $bv-utility-classes-defined: false !default;
 
@@ -15,6 +15,20 @@ $bv-utility-classes-defined: false !default;
     }
   }
 
-  // Set line-height to 1
-  .bv-line-height-1: 1 !important;
+  // Pagination pill style
+  .b-pagination-pills {
+    .page-item {
+      .page-link {
+        border-radius: 50rem;
+        margin-left: 0.25rem;
+        line-height: 1;
+      }
+
+      &:first-child {
+        .page-link {
+          margin-left: 0;
+        }
+      }
+    }
+  }
 }
