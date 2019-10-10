@@ -19,7 +19,7 @@ $bv-utility-classes-defined: false !default;
   .b-pagination-pills {
     .page-item {
       .page-link {
-        border-radius: 50rem;
+        border-radius: 50rem !important;
         margin-left: 0.25rem;
         line-height: 1;
       }
