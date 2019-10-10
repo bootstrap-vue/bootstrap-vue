@@ -14,4 +14,7 @@ $bv-utility-classes-defined: false !default;
       }
     }
   }
+
+  // Set line-height to 1
+  .bv-line-height: 1 !important;
 }
