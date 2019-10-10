@@ -34,6 +34,7 @@
           },
           {
             "prop": "pills",
+            "version": "2.1.0",
             "description": "Applies pill styling to the pagination buttons"
           },
           {
