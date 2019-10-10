@@ -262,6 +262,8 @@ Easily switch to pill style buttons by setting hte `pills` prop
 <!-- b-pagination-pills.vue -->
 ```
 
+**Note:** Pill styling requires BootstrapVue's custom CSS/SCSS.
+
 ### Alignment
 
 By default the pagination component is left aligned. Change the alignment to `center`, `right`
