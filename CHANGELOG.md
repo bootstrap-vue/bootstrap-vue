@@ -4,6 +4,39 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.4"></a>
+
+## [v2.0.4](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.3...v2.0.4)
+
+Released: 2019-10-10
+
+### Bug Fixes v2.0.4
+
+- **b-carousel:** disable the next/prev controls when the carousel is sliding (closes
+  [#4210](https://github.com/bootstrap-vue/bootstrap-vue/issues/4210))
+  ([#4212](https://github.com/bootstrap-vue/bootstrap-vue/issues/4212))
+  ([64d556d](https://github.com/bootstrap-vue/bootstrap-vue/commit/64d556d))
+- **b-dropdown-form:** fix SCSS styling when placed in a nav dropdown (fixes
+  [#4220](https://github.com/bootstrap-vue/bootstrap-vue/issues/4220))
+  ([#4223](https://github.com/bootstrap-vue/bootstrap-vue/issues/4223))
+  ([b852bba](https://github.com/bootstrap-vue/bootstrap-vue/commit/b852bba))
+- **types:** correct the declared export name for `BCardSubTitle` component
+  ([#4229](https://github.com/bootstrap-vue/bootstrap-vue/issues/4229))
+  ([9f216df](https://github.com/bootstrap-vue/bootstrap-vue/commit/9f216df))
+
+### Performance v2.0.4
+
+- **b-table, b-table-lite:** improve render performance for large tables (closes
+  [#4211](https://github.com/bootstrap-vue/bootstrap-vue/issues/4211),
+  [#4155](https://github.com/bootstrap-vue/bootstrap-vue/issues/4155))
+  ([#4213](https://github.com/bootstrap-vue/bootstrap-vue/issues/4213))
+  ([f3f42f2](https://github.com/bootstrap-vue/bootstrap-vue/commit/f3f42f2))
+
+### Other v2.0.4
+
+- add `"sass"` entry in `package.json`
+- minor docs fixes and updates
+
 <a name="2.0.3"></a>
 
 ## [v2.0.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.2...v2.0.3)
