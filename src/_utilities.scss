@@ -14,21 +14,4 @@ $bv-utility-classes-defined: false !default;
       }
     }
   }
-
-  // Pagination pill style
-  .b-pagination-pills {
-    .page-item {
-      .page-link {
-        border-radius: 50rem !important;
-        margin-left: 0.25rem;
-        line-height: 1;
-      }
-
-      &:first-child {
-        .page-link {
-          margin-left: 0;
-        }
-      }
-    }
-  }
 }
