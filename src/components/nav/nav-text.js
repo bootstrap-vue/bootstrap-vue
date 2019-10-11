@@ -1,12 +1,7 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'span'
-  }
-}
+export const props = {}
 
 // @vue/component
 export const BNavText = /*#__PURE__*/ Vue.extend({
@@ -14,6 +9,6 @@ export const BNavText = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
-    return h(props.tag, mergeData(data, { staticClass: 'navbar-text' }), children)
+    return h('li', mergeData(data, { staticClass: 'navbar-text' }), children)
   }
 })
