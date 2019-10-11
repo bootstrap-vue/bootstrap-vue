@@ -19,7 +19,7 @@ appear.
 Things to know when using the tooltip directive:
 
 - Tooltips rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
-- Tooltips require BootstrapVue's custom SCSS/CSS for transitions and color variants.
+- Tooltips require BootstrapVue's custom SCSS/CSS in order to function correctly, and for variants.
 - If a title is not provided (or is an empty string), the tooltip will not show.
 - Specify container: 'body' (the default) to avoid rendering problems in more complex components
   (like input groups, button groups, etc).
