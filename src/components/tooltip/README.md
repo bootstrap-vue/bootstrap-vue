@@ -25,7 +25,7 @@
 Things to know when using tooltip component:
 
 - Tooltips rely on the 3rd party library [Popper.js](https://popper.js.org/) for positioning.
-- Tooltips require BootstrapVue's custom SCSS/CSS for transitions and color variants.
+- Tooltips require BootstrapVue's custom SCSS/CSS in order to function correctly, and for variants.
 - Triggering tooltips on hidden elements will not work.
 - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more
   complex components (like input groups, button groups, etc). You can use container to optionally
