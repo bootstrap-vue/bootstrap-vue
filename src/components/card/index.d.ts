@@ -22,8 +22,8 @@ export declare class BCardBody extends BvComponent {}
 // Component: b-card-title
 export declare class BCardTitle extends BvComponent {}
 
-// Component: b-card-subtitle
-export declare class BCardSubtitle extends BvComponent {}
+// Component: b-card-sub-title
+export declare class BCardSubTitle extends BvComponent {}
 
 // Component: b-card-img
 export declare class BCardImg extends BvComponent {}
