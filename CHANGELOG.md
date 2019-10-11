@@ -4,6 +4,39 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.0.4"></a>
+
+## [v2.0.4](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.3...v2.0.4)
+
+Released: 2019-10-11
+
+### Bug Fixes v2.0.4
+
+- **b-carousel:** disable the next/prev controls when the carousel is sliding (closes
+  [#4210](https://github.com/bootstrap-vue/bootstrap-vue/issues/4210))
+  ([#4212](https://github.com/bootstrap-vue/bootstrap-vue/issues/4212))
+  ([64d556d](https://github.com/bootstrap-vue/bootstrap-vue/commit/64d556d))
+- **b-dropdown-form:** fix SCSS styling when placed in a nav dropdown (fixes
+  [#4220](https://github.com/bootstrap-vue/bootstrap-vue/issues/4220))
+  ([#4223](https://github.com/bootstrap-vue/bootstrap-vue/issues/4223))
+  ([b852bba](https://github.com/bootstrap-vue/bootstrap-vue/commit/b852bba))
+- **types:** correct the declared export name for `BCardSubTitle` component
+  ([#4229](https://github.com/bootstrap-vue/bootstrap-vue/issues/4229))
+  ([9f216df](https://github.com/bootstrap-vue/bootstrap-vue/commit/9f216df))
+
+### Performance v2.0.4
+
+- **b-table, b-table-lite:** improve render performance for large tables (closes
+  [#4211](https://github.com/bootstrap-vue/bootstrap-vue/issues/4211),
+  [#4155](https://github.com/bootstrap-vue/bootstrap-vue/issues/4155))
+  ([#4213](https://github.com/bootstrap-vue/bootstrap-vue/issues/4213))
+  ([f3f42f2](https://github.com/bootstrap-vue/bootstrap-vue/commit/f3f42f2))
+
+### Other v2.0.4
+
+- add `"sass"` entry in `package.json`
+- minor docs fixes and updates
+
 <a name="2.0.3"></a>
 
 ## [v2.0.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.2...v2.0.3)
@@ -15,15 +48,15 @@ Released: 2019-10-05
 - **b-form-file:** fix prop type checking for `value` prop
   ([#4168](https://github.com/bootstrap-vue/bootstrap-vue/issues/4168))
   ([a8e2e56](https://github.com/bootstrap-vue/bootstrap-vue/commit/a8e2e56))
-- **b-nav-item-dropdown:** focus-out handling when new focus comes from another `dropdown-toggle` (closes
-  [#4113](https://github.com/bootstrap-vue/bootstrap-vue/issues/4113))
+- **b-nav-item-dropdown:** focus-out handling when new focus comes from another `dropdown-toggle`
+  (closes [#4113](https://github.com/bootstrap-vue/bootstrap-vue/issues/4113))
   ([#4139](https://github.com/bootstrap-vue/bootstrap-vue/issues/4139))
   ([9c37875](https://github.com/bootstrap-vue/bootstrap-vue/commit/9c37875))
 - **b-table:** minor code optimizations to filter debouncing
   ([#4167](https://github.com/bootstrap-vue/bootstrap-vue/issues/4167))
   ([018eef1](https://github.com/bootstrap-vue/bootstrap-vue/commit/018eef1))
-- **b-table, b-table-lite, b-table-simple:** disable sticky header max-height on printers / print media
-  ([#4147](https://github.com/bootstrap-vue/bootstrap-vue/issues/4147))
+- **b-table, b-table-lite, b-table-simple:** disable sticky header max-height on printers / print
+  media ([#4147](https://github.com/bootstrap-vue/bootstrap-vue/issues/4147))
   ([24c62c5](https://github.com/bootstrap-vue/bootstrap-vue/commit/24c62c5))
 - **b-tooltip, b-popover:** add `SVGElement` as acceptable prop type (closes
   [#4173](https://github.com/bootstrap-vue/bootstrap-vue/issues/4173))
@@ -53,8 +86,8 @@ Released: 2019-10-05
   [#3647](https://github.com/bootstrap-vue/bootstrap-vue/issues/3647))
   ([#4161](https://github.com/bootstrap-vue/bootstrap-vue/issues/4161))
   ([fdd2a83](https://github.com/bootstrap-vue/bootstrap-vue/commit/fdd2a83))
-- add quick links (page table of contents) to docs pages for small screens, and add table of contents to
-  section index pages (instead of a redirect to first child page)
+- add quick links (page table of contents) to docs pages for small screens, and add table of
+  contents to section index pages (instead of a redirect to first child page)
   ([#4145](https://github.com/bootstrap-vue/bootstrap-vue/issues/4145))
   ([22268aa](https://github.com/bootstrap-vue/bootstrap-vue/commit/22268aa))
 

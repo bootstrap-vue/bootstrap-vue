@@ -36,7 +36,7 @@
 <style scoped lang="scss">
 #bd-quick-links-collapse {
   list-style-type: square;
-  border-left: 5px solid #ccc;
+  border-left: 0.25em solid #eee;
   padding-left: 2.5rem;
   margin-top: 1rem;
 
