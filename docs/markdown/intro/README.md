@@ -179,7 +179,7 @@ module bundlers documentation.
 **Notes**:
 
 - Webpack configuration to load CSS files
-  ([official guide](https://webpack.js.org/guides/asset-management/#loading-css)).
+  ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))
 - Webpack Loader for SASS/SCSS files ([official guide](https://webpack.js.org/loaders/sass-loader/))
 - Parcel CSS ([official guide](https://parceljs.org/css.html))
 - Parcel SCSS ([official guide](https://parceljs.org/scss.html))

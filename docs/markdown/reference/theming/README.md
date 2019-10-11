@@ -144,13 +144,13 @@ your project, which you can include in your main app `app.vue` file:
 </style>
 ```
 
-The `custom-vars.scss` file, which needs to be loaded before Bootstrap's SCSS and BootstrapVue's SCSS,
-will include your Bootstrap v4 variable overrides (i.e. colors, shadows, font sizes, breakpoints,
-etc).
+The `custom-vars.scss` file, which needs to be loaded before Bootstrap's SCSS and BootstrapVue's
+SCSS, will include your Bootstrap v4 variable overrides (i.e. colors, shadows, font sizes,
+breakpoints, etc).
 
 **Via app main entry point:**
 
-Create an SCSS file with your custom theme variables which also impoerts Bootstrap and BootstrapVue's
+Create an SCSS file with your custom theme variables which also imports Bootstrap and BootstrapVue's
 SCSS:
 
 ```scss
