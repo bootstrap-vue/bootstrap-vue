@@ -85,6 +85,20 @@ export default {
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const formatted = this.getFormattedValue(item, field)
       const key = field.key
+      // We only uses the helper components for sticky columns to
+      // improve performance of BTable/BTableLite by reducing the
+      // total number of vue instances created during render
+      const cellTag = field.stickyColumn
+        ? field.isRowHeader
+          ? BTh
+          : BTd
+        : field.isRowHeader
+          ? 'th'
+          : 'td'
+      const cellVariant =
+        item._cellVariants && item._cellVariants[key]
+          ? item._cellVariants[key]
+          : field.variant || null
       const data = {
         // For the Vue key, we concatenate the column index and
         // field key (as field keys could be duplicated)
@@ -92,19 +106,31 @@ export default {
         //   So we could change this to: `row-${rowIndex}-cell-${key}`
         key: `row-${rowIndex}-cell-${colIndex}-${key}`,
         class: [field.class ? field.class : '', this.getTdValues(item, key, field.tdClass, '')],
-        props: {
-          stackedHeading: this.isStacked ? field.label : null,
-          stickyColumn: field.stickyColumn,
-          variant:
-            item._cellVariants && item._cellVariants[key]
-              ? item._cellVariants[key]
-              : field.variant || null
-        },
+        props: {},
         attrs: {
           'aria-colindex': String(colIndex + 1),
           ...(field.isRowHeader
             ? this.getThValues(item, key, field.thAttr, 'row', {})
             : this.getTdValues(item, key, field.tdAttr, {}))
+        }
+      }
+      if (field.stickyColumn) {
+        // We are using the helper BTd or BTh
+        data.props = {
+          stackedHeading: this.isStacked ? field.label : null,
+          stickyColumn: field.stickyColumn,
+          variant: cellVariant
+        }
+      } else {
+        // Using native TD or TH element, so we need to
+        // add in the attributes and variant class
+        data.attrs['data-label'] =
+          this.isStacked && !isUndefinedOrNull(field.label) ? toString(field.label) : null
+        data.attrs.role = field.isRowHeader ? 'rowheader' : 'cell'
+        data.attrs.scope = field.isRowHeader ? 'row' : null
+        // Add in the variant class
+        if (cellVariant) {
+          data.class.push(`${this.dark ? 'bg' : 'table'}-${cellVariant}`)
         }
       }
       const slotScope = {
@@ -135,7 +161,7 @@ export default {
         $childNodes = [h('div', {}, [$childNodes])]
       }
       // Render either a td or th cell
-      return h(field.isRowHeader ? BTh : BTd, data, [$childNodes])
+      return h(cellTag, data, [$childNodes])
     },
     renderTbodyRow(item, rowIndex) {
       // Renders an item's row (or rows if details supported)

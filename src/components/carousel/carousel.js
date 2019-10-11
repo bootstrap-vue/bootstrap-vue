@@ -498,19 +498,36 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     // Prev and next controls
     let controls = h()
     if (this.controls) {
+      const prevHandler = evt => {
+        /* istanbul ignore next */
+        if (!this.isSliding) {
+          this.handleClick(evt, this.prev)
+        } else {
+          evt.preventDefault()
+        }
+      }
+      const nextHandler = evt => {
+        /* istanbul ignore next */
+        if (!this.isSliding) {
+          this.handleClick(evt, this.next)
+        } else {
+          evt.preventDefault()
+        }
+      }
       controls = [
         h(
           'a',
           {
             class: ['carousel-control-prev'],
-            attrs: { href: '#', role: 'button', 'aria-controls': this.safeId('__BV_inner_') },
+            attrs: {
+              href: '#',
+              role: 'button',
+              'aria-controls': this.safeId('__BV_inner_'),
+              'aria-disabled': this.isSliding ? 'true' : null
+            },
             on: {
-              click: evt => {
-                this.handleClick(evt, this.prev)
-              },
-              keydown: evt => {
-                this.handleClick(evt, this.prev)
-              }
+              click: prevHandler,
+              keydown: prevHandler
             }
           },
           [
@@ -522,14 +539,15 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
           'a',
           {
             class: ['carousel-control-next'],
-            attrs: { href: '#', role: 'button', 'aria-controls': this.safeId('__BV_inner_') },
+            attrs: {
+              href: '#',
+              role: 'button',
+              'aria-controls': this.safeId('__BV_inner_'),
+              'aria-disabled': this.isSliding ? 'true' : null
+            },
             on: {
-              click: evt => {
-                this.handleClick(evt, this.next)
-              },
-              keydown: evt => {
-                this.handleClick(evt, this.next)
-              }
+              click: nextHandler,
+              keydown: nextHandler
             }
           },
           [

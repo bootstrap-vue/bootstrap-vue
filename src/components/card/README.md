@@ -248,7 +248,7 @@ card.
     img-top
   >
     <template v-slot:header>
-      <h4 class="mb-0">>Hello World</h4>
+      <h4 class="mb-0">Hello World</h4>
     </template>
 
     <b-card-body>
