@@ -295,6 +295,10 @@ h3::before {
   content: '';
 }
 
+h3 /deep/ .bd-content-title code {
+ font-size: 110%
+}
+
 ul.component-ref-mini-toc:empty {
   display: none;
 }
