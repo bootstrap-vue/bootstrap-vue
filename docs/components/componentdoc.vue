@@ -56,7 +56,7 @@
     </ul>
 
     <article v-if="aliases && aliases.length > 0" class="bd-content">
-      <anchored-heading :id="`comp-ref-${componentName}-aliases`" level="4">
+      <anchored-heading :id="`comp-ref-${componentName}-aliases`" level="4" class="mb-3">
         Component aliases
       </anchored-heading>
       <p><code class="notranslate" translate="no">{{ tag }}</code> can also be used via the following aliases:</p>
@@ -74,7 +74,7 @@
     </article>
 
     <article v-if="propsItems && propsItems.length > 0" class="bd-content">
-      <anchored-heading :id="`comp-ref-${componentName}-props`" level="4">
+      <anchored-heading :id="`comp-ref-${componentName}-props`" level="4" class="mb-3">
         Properties
       </anchored-heading>
       <b-table
@@ -134,7 +134,7 @@
     </article>
 
     <article v-if="componentVModel" class="bd-content">
-      <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4">
+      <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4" class="mb-3">
         v-model
       </anchored-heading>
       <b-table-lite
@@ -154,7 +154,7 @@
     </article>
 
     <article v-if="slots && slots.length > 0" class="bd-content">
-      <anchored-heading :id="`comp-ref-${componentName}-slots`" level="4">
+      <anchored-heading :id="`comp-ref-${componentName}-slots`" level="4" class="mb-3">
         Slots
       </anchored-heading>
       <b-table
@@ -220,7 +220,7 @@
     </article>
 
     <article v-if="events && events.length > 0" class="bd-content">
-      <anchored-heading :id="`comp-ref-${componentName}-events`" level="4">
+      <anchored-heading :id="`comp-ref-${componentName}-events`" level="4" class="mb-3">
         Events
       </anchored-heading>
       <b-table
@@ -251,7 +251,7 @@
     </article>
 
     <article v-if="rootEventListeners && rootEventListeners.length > 0" class="bd-content">
-      <anchored-heading :id="`comp-ref-${componentName}-rootEventListeners`" level="4">
+      <anchored-heading :id="`comp-ref-${componentName}-rootEventListeners`" level="4" class="mb-3">
         <code class="notranslate" translate="no">$root</code> Event Listeners
       </anchored-heading>
       <p>
