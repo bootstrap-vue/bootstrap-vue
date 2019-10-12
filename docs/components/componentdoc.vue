@@ -3,7 +3,7 @@
     <b-row tag="header" align-v="center">
       <b-col sm="9">
         <anchored-heading :id="`comp-ref-${componentName}`" level="3">
-          <code class="notranslate" translate="no">{{ tag }}</code>
+          <code class="notranslate bigger" translate="no">{{ tag }}</code>
         </anchored-heading>
         <b-badge
           v-if="componentFunctional"
@@ -295,8 +295,8 @@ h3::before {
   content: '';
 }
 
-h3 /deep/ .bd-content-title code {
-  font-size: 110%;
+code.bigger {
+  font-size: 105%;
 }
 
 ul.component-ref-mini-toc:empty {
