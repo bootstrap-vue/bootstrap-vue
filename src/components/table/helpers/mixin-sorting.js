@@ -2,7 +2,7 @@ import stableSort from '../../../utils/stable-sort'
 import startCase from '../../../utils/startcase'
 import looseEqual from '../../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../../utils/array'
-import { isBoolean, isFunction, isNumber, isUndefined, isUndefinedOrNull } from '../../../utils/inspect'
+import { isBoolean, isFunction, isNumber, isUndefined } from '../../../utils/inspect'
 import defaultSortCompare from './default-sort-compare'
 
 export default {
@@ -186,30 +186,24 @@ export default {
         this.$off('head-clicked', this.handleSort)
       }
     },
-    sortBy: {
-      immediate: true,
-      handler(newVal, oldVal) {
-        if (looseEqual(newVal, this.localSortBy)) {
-          /* istanbul ignore next */
-          return
-        }
-        // TODO in this PR:
-        //   Update sortInfo object
-        this.localSortBy = newVal ? concat(newVal) : []
+    sortBy(newVal, oldVal) {
+      if (looseEqual(newVal, this.localSortBy)) {
+        /* istanbul ignore next */
+        return
       }
+      // TODO in this PR:
+      //   Update sortInfo object
+      this.localSortBy = newVal ? concat(newVal) : []
     },
-    sortDesc: {
-      immediate: true,
-      handler(newVal, oldVal) {
-        if (looseEqual(newVal, this.localSortDesc)) {
-          /* istanbul ignore next */
-          return
-        }
-        // TODO in this PR:
-        //   Update sortInfo object
-        newVal = isUndefined(newVal) ? [] : concat(newVal)
-        this.localSortDesc = newVal.map(d => (isBoolean(d) ? d : null))
+    sortDesc(newVal, oldVal) {
+      if (looseEqual(newVal, this.localSortDesc)) {
+        /* istanbul ignore next */
+        return
       }
+      // TODO in this PR:
+      //   Update sortInfo object
+      newVal = isUndefined(newVal) ? [] : concat(newVal)
+      this.localSortDesc = newVal.map(d => (isBoolean(d) ? d : null))
     },
     // Update .sync props
     // TODO in this PR:
