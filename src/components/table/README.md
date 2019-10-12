@@ -890,6 +890,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                           |
 | `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's [`formatter` function](#formatter-callback)                |
 | `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's [`formatter` function](#formatter-callback) |
+| `field`          | Object   | The field's normalized field definition object                                                                                                                           |
 | `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [Row details support](#row-details-support) below for additional information                |
 | `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information    |
 | `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [Row select support](#row-select-support) for additional information                                             |
