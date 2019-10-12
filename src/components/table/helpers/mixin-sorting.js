@@ -1,24 +1,35 @@
 import stableSort from '../../../utils/stable-sort'
 import startCase from '../../../utils/startcase'
-import { arrayIncludes } from '../../../utils/array'
-import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
+import looseEqual from '../../../utils/loose-equal'
+import { arrayIncludes, concat } from '../../../utils/array'
+import { isBoolean, isFunction, isNumber, isUndefined, isUndefinedOrNull } from '../../../utils/inspect'
 import defaultSortCompare from './default-sort-compare'
 
 export default {
   props: {
     sortBy: {
-      type: String,
+      // Array for multi-sort (prop sort-multi must be set to true)
+      type: [String, Array],
       default: ''
     },
     sortDesc: {
-      // TODO: Make this tri-state: true, false, null
+      // Array for multi-sort. Must be same length as sortBy
+      // (prop sort-multi must be set to true)
+      // TODO: Support tri-state: true, false, null
+      type: [Boolean, Array],
+      default: false
+    },
+    sortMulti: {
+      // Enables multi-columns sorting When set, also implies tri-state sorting
       type: Boolean,
       default: false
     },
     sortDirection: {
       // This prop is named incorrectly
-      // It should be `initialSortDirection` as it is a bit misleading
-      // (not to mention it screws up the ARIA label on the headers)
+      // It should be `initialSortDirection` as it is misleading
+      // (not to mention it screws up computing the ARIA label on the headers)
+      // It (last) should probably be deprecated in favour of multi-sort, as
+      // 'last' will make multi-sort very bloated!
       type: String,
       default: 'asc',
       validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)
@@ -82,8 +93,8 @@ export default {
   },
   data() {
     return {
-      localSortBy: this.sortBy || '',
-      localSortDesc: this.sortDesc || false
+      localSortBy: [''],
+      localSortDesc: [false]
     }
   },
   computed: {
@@ -93,48 +104,75 @@ export default {
     isSortable() {
       return this.computedFields.some(f => f.sortable)
     },
+    computedSortBy() {
+      return this.sortMulti ? this.localSortBy : this.localSortBy.slice(0, 1)
+    },
+    computedSortDesc() {
+      // Ensure values are tri-state (true, false, null), and same length as localSortBy array
+      const sortDesc = this.localSortDesc
+      return this.computedSortBy.map((_, idx) => (isBoolean(sortDesc[idx]) ? sortDesc[idx] : null))
+    },
+    computedSortInfo() {
+      // TODO in this PR:
+      //   Make sortInfo a data property which we update
+      //   via watchers on sortBy/SortDesc and event handlers.
+      //   When a column is no longer sorted (null) we remove it from the array
+      return this.computedSortBy
+        .map((key, idx) => {
+          const field = this.computedFieldsObj[key] || {}
+          return {
+            sortBy: key,
+            sortDesc: this.computedSortDesc[idx],
+            formatter: isFunction(field.formatter)
+              ? field.formatter
+              : field.formatter
+                ? this.getFieldFormatter(key)
+                : undefined
+          }
+        })
+        .filter(x => x.sortBy && isBoolean(x.sortDesc))
+    },
     sortedItems() {
       // Sorts the filtered items and returns a new array of the sorted items
       // or the original items array if not sorted.
       const items = (this.filteredItems || this.localItems || []).slice()
-      const sortBy = this.localSortBy
-      const sortDesc = this.localSortDesc
+      const sortInfo = this.computedSortInfo
       const sortCompare = this.sortCompare
       const localSorting = this.localSorting
       const sortOptions = { ...this.sortCompareOptions, usage: 'sort' }
       const sortLocale = this.sortCompareLocale || undefined
       const nullLast = this.sortNullLast
-      if (sortBy && localSorting) {
-        const field = this.computedFieldsObj[sortBy] || {}
-        const sortByFormatted = field.sortByFormatted
-        const formatter = isFunction(sortByFormatted)
-          ? sortByFormatted
-          : sortByFormatted
-            ? this.getFieldFormatter(sortBy)
-            : undefined
+      if (sortInfo && sortInfo.length > 0 && localSorting) {
         // `stableSort` returns a new array, and leaves the original array intact
         return stableSort(items, (a, b) => {
-          let result = null
-          if (isFunction(sortCompare)) {
-            // Call user provided sortCompare routine
-            result = sortCompare(a, b, sortBy, sortDesc, formatter, sortOptions, sortLocale)
+          let result = 0
+          for (let idx = 0; idx < sortInfo.length && !result; idx++) {
+              const formatter = sortInfo[idx].formatter
+              const sortBy = sortInfo[idx].sortBy
+              const sortDesc = sortInfo[idx].sortDesc
+              let value = null
+              if (isFunction(sortCompare)) {
+                // Call user provided sortCompare routine
+                value = sortCompare(a, b, sortBy, sortDesc, formatter, sortOptions, sortLocale)
+              }
+              if (!isNumber(value)) {
+                // Fallback to built-in defaultSortCompare if sortCompare
+                // is not defined or doesn't return a number
+                value = defaultSortCompare(
+                  a,
+                  b,
+                  sortBy,
+                  sortDesc,
+                  formatter,
+                  sortOptions,
+                  sortLocale,
+                  nullLast
+                )
+              }
+            // Negate result if sorting if descending order
+            result = (value || 0) * (sortDesc[idx] ? -1 : 1)
           }
-          if (isUndefinedOrNull(result) || result === false) {
-            // Fallback to built-in defaultSortCompare if sortCompare
-            // is not defined or returns null/false
-            result = defaultSortCompare(
-              a,
-              b,
-              sortBy,
-              sortDesc,
-              formatter,
-              sortOptions,
-              sortLocale,
-              nullLast
-            )
-          }
-          // Negate result if sorting in descending order
-          return (result || 0) * (sortDesc ? -1 : 1)
+          return result
         })
       }
       return items
@@ -143,37 +181,49 @@ export default {
   watch: {
     isSortable(newVal, oldVal) /* istanbul ignore next: pain in the butt to test */ {
       if (newVal) {
-        if (this.isSortable) {
-          this.$on('head-clicked', this.handleSort)
-        }
+        this.$on('head-clicked', this.handleSort)
       } else {
         this.$off('head-clicked', this.handleSort)
       }
     },
-    sortDesc(newVal, oldVal) {
-      if (newVal === this.localSortDesc) {
-        /* istanbul ignore next */
-        return
+    sortBy: {
+      immediate: true,
+      handler(newVal, oldVal) {
+        if (looseEqual(newVal, this.localSortBy)) {
+          /* istanbul ignore next */
+          return
+        }
+        // TODO in this PR:
+        //   Update sortInfo object
+        this.localSortBy = newVal ? concat(newVal) : []
       }
-      this.localSortDesc = newVal || false
     },
-    sortBy(newVal, oldVal) {
-      if (newVal === this.localSortBy) {
-        /* istanbul ignore next */
-        return
+    sortDesc: {
+      immediate: true,
+      handler(newVal, oldVal) {
+        if (looseEqual(newVal, this.localSortDesc)) {
+          /* istanbul ignore next */
+          return
+        }
+        // TODO in this PR:
+        //   Update sortInfo object
+        newVal = isUndefined(newVal) ? [] : concat(newVal)
+        this.localSortDesc = newVal.map(d => (isBoolean(d) ? d : null))
       }
-      this.localSortBy = newVal || ''
     },
     // Update .sync props
+    // TODO in this PR:
+    //   Instead watch the sortInfo array, and emit the apropriate
+    //   updated values as needed
     localSortDesc(newVal, oldVal) {
       // Emit update to sort-desc.sync
-      if (newVal !== oldVal) {
-        this.$emit('update:sortDesc', newVal)
+      if (!looseEqual(newVal, oldVal)) {
+        this.$emit('update:sortDesc', this.sortMulti ? newVal : newVal[0])
       }
     },
     localSortBy(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.$emit('update:sortBy', newVal)
+      if (!looseEqual(newVal, oldVal)) {
+        this.$emit('update:sortBy', this.sortMulti ? newVal : newVal[0])
       }
     }
   },
@@ -184,7 +234,6 @@ export default {
   },
   methods: {
     // Handlers
-    // Need to move from thead-mixin
     handleSort(key, field, evt, isFoot) {
       if (!this.isSortable) {
         /* istanbul ignore next */
@@ -193,35 +242,48 @@ export default {
       if (isFoot && this.noFooterSorting) {
         return
       }
-      // TODO: make this tri-state sorting
+      // TODO in this PR:
+      //   Make a sequence of sorting cycle based on this.sortDirection
+      //   i.e. [true, false, null] vs [false, true, null]
+      //   const sequence = this.sortDirection === 'desc' ? [true, false, null] : [false, true, null]
+      // TODO in this PR:
+      //   Handle this via lookup
+      const sortBy = this.localSortBy[0]
+      // TODO: make this tri-state sorting (for multi-sort only)
       // cycle desc => asc => none => desc => ...
       let sortChanged = false
       const toggleLocalSortDesc = () => {
         const sortDirection = field.sortDirection || this.sortDirection
         if (sortDirection === 'asc') {
-          this.localSortDesc = false
+          this.localSortDesc = [false]
         } else if (sortDirection === 'desc') {
-          this.localSortDesc = true
+          this.localSortDesc = [true]
         } else {
           // sortDirection === 'last'
           // Leave at last sort direction from previous column
+          // TODO in this PR:
+          //   If multi-sort, then use sort sequence
         }
       }
       if (field.sortable) {
-        if (key === this.localSortBy) {
+        // TODO in this PR:
+        //   handle toggling on the index
+        if (key === sortBy) {
           // Change sorting direction on current column
-          this.localSortDesc = !this.localSortDesc
+          this.localSortDesc[0] = !this.localSortDesc[0]
         } else {
           // Start sorting this column ascending
-          this.localSortBy = key
+          this.localSortBy[0] = key
           // this.localSortDesc = false
           toggleLocalSortDesc()
         }
         sortChanged = true
       } else if (this.localSortBy && !this.noSortReset) {
-        this.localSortBy = ''
+        this.localSortBy = ['']
         toggleLocalSortDesc()
         sortChanged = true
+        // } else {
+        //   sortChanged = false
       }
       if (sortChanged) {
         // Sorting parameters changed
@@ -242,6 +304,19 @@ export default {
         return {}
       }
       const sortable = field.sortable
+      // TODO in this PR:
+      //   This is just temporary. Will need to lookup the index of this
+      //   key in this.localSortBy or this.localSortInfo
+      const sortOrder = 1
+      // TODO for this PR:
+      //   Find index of key in this.computedSortBy (or this.computedSortInfo),
+      //   and then grab the sorting value
+      const sortDesc = this.localSortDesc[0]
+      // TODO in this PR:
+      //   This is just temporary. Will need to lookup if this column key is
+      //   in this.localSortBy
+      const sortBy = this.localSortBy[0]
+      // Now we get down to business determining the aria-label value
       let ariaLabel = ''
       if ((!field.label || !field.label.trim()) && !field.headerTitle) {
         // In case field's label and title are empty/blank, we need to
@@ -251,17 +326,18 @@ export default {
         /* istanbul ignore next */
         ariaLabel = startCase(key)
       }
-      // The correctness of these labels is very important for screen-reader users.
+      // The correctness of these labels is very important for screen-reader users,
+      // and should sync up with the aria-sort attributes
       let ariaLabelSorting = ''
       if (sortable) {
-        if (this.localSortBy === key) {
+        if (key === sortBy) {
           // currently sorted sortable column.
-          ariaLabelSorting = this.localSortDesc ? this.labelSortAsc : this.labelSortDesc
+          ariaLabelSorting = sortDesc ? this.labelSortAsc : this.labelSortDesc
         } else {
           // Not currently sorted sortable column.
           // Not using nested ternary's here for clarity/readability
           // Default for ariaLabel
-          ariaLabelSorting = this.localSortDesc ? this.labelSortDesc : this.labelSortAsc
+          ariaLabelSorting = sortDesc ? this.labelSortDesc : this.labelSortAsc
           // Handle sortDirection setting
           const sortDirection = this.sortDirection || field.sortDirection
           if (sortDirection === 'asc') {
@@ -278,18 +354,27 @@ export default {
       ariaLabel = [ariaLabel.trim(), ariaLabelSorting.trim()].filter(Boolean).join(': ')
       // Assemble the aria-sort attribute value
       const ariaSort =
-        sortable && this.localSortBy === key
-          ? this.localSortDesc
+        sortable && key === sortBy
+          ? sortDesc
             ? 'descending'
             : 'ascending'
           : sortable
             ? 'none'
             : null
       // Return the attributes
-      // (All the above just to get these two values)
       return {
+        // All the above just to get these two values correct :(
         'aria-label': ariaLabel || null,
-        'aria-sort': ariaSort
+        'aria-sort': ariaSort,
+        // Add indication as to which order the columns are sorted by (numeric)
+        // This will be placed as a mini pill badge on the top of the field header
+        // TODO in this PR:
+        //   Add sort index (1-based) if multi sort.
+        //   Also, add prop to disable showing the sort order
+        //   And figure out how to set a variant for this badge
+        //   May require additiona CSS generation. or we just make 2 options: dark and light
+        //   Or use the column text variant (currentColor) to make an outline badge
+        'data-sort-order': this.sortMulti ? String(sortOrder) : null
       }
     }
   }
