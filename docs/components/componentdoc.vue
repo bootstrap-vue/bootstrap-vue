@@ -23,22 +23,22 @@
 
     <ul class="component-ref-mini-toc">
       <li v-if="aliases && aliases.length > 0">
-        <a :href="#comp-ref-${componentName}-aliases`">Component aliases</a>
+        <a :href="`#comp-ref-${componentName}-aliases`">Component aliases</a>
       </li>
       <li v-if="propsItems && propsItems.length > 0">
-        <a :href="#comp-ref-${componentName}-props`">Properties</a>
+        <a :href="`#comp-ref-${componentName}-props`">Properties</a>
       </li>
       <li v-if="componentVModel">
-        <a :href="#comp-ref-${componentName}-v-model`">v-model</a>
+        <a :href="`#comp-ref-${componentName}-v-model`">v-model</a>
       </li>
       <li v-if="slots && slots.length > 0">
-        <a :href="#comp-ref-${componentName}-slots`">Slots</a>
+        <a :href="`#comp-ref-${componentName}-slots`">Slots</a>
       </li>
       <li v-if="events && events.length > 0">
-        <a :href="#comp-ref-${componentName}-events`">Events</a>
+        <a :href="`#comp-ref-${componentName}-events`">Events</a>
       </li>
       <li v-if="rootEventListeners && rootEventListeners.length > 0">
-        <a :href="#comp-ref-${componentName}-rootEventListeners`">
+        <a :href="`#comp-ref-${componentName}-rootEventListeners`">
           <code class="notranslate" translate="no">$root</code> Event Listeners
         </a>
       </li>
