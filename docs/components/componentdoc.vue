@@ -23,22 +23,33 @@
 
     <ul class="component-ref-mini-toc my-3">
       <li v-if="aliases && aliases.length > 0">
-        <a :href="`#comp-ref-${componentName}-aliases`">Component aliases</a>
+        <a :href="`#comp-ref-${componentName}-aliases`">
+          <code class="notranslate" translate="no">{{ tag }}</code> Component aliases
+        </a>
       </li>
       <li v-if="propsItems && propsItems.length > 0">
-        <a :href="`#comp-ref-${componentName}-props`">Properties</a>
+        <a :href="`#comp-ref-${componentName}-props`">
+          <code class="notranslate" translate="no">{{ tag }}</code> Properties
+        </a>
       </li>
       <li v-if="componentVModel">
-        <a :href="`#comp-ref-${componentName}-v-model`">v-model</a>
+        <a :href="`#comp-ref-${componentName}-v-model`">
+          <code class="notranslate" translate="no">{{ tag }}</code> v-model
+        </a>
       </li>
       <li v-if="slots && slots.length > 0">
-        <a :href="`#comp-ref-${componentName}-slots`">Slots</a>
+        <a :href="`#comp-ref-${componentName}-slots`">
+          <code class="notranslate" translate="no">{{ tag }}</code> Slots
+        </a>
       </li>
       <li v-if="events && events.length > 0">
-        <a :href="`#comp-ref-${componentName}-events`">Events</a>
+        <a :href="`#comp-ref-${componentName}-events`">
+          <code class="notranslate" translate="no">{{ tag }}</code> Events
+        </a>
       </li>
       <li v-if="rootEventListeners && rootEventListeners.length > 0">
         <a :href="`#comp-ref-${componentName}-rootEventListeners`">
+          <code class="notranslate" translate="no">{{ tag }}</code>
           <code class="notranslate" translate="no">$root</code> Event Listeners
         </a>
       </li>
