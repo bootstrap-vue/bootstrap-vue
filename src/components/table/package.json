@@ -519,6 +519,11 @@
                 "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
               },
               {
+                "prop": "field",
+                "type": "Object",
+                "description": "the field's normalized definition object (from the fields prop)"
+              },
+              {
                 "prop": "detailsShowing",
                 "type": "Boolean",
                 "description": "Will be true if the row's row-details scoped slot is visible"
@@ -558,6 +563,11 @@
                 "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
               },
               {
+                "prop": "field",
+                "type": "Object",
+                "description": "the field's normalized definition object (from the fields prop)"
+              },
+              {
                 "prop": "detailsShowing",
                 "type": "Boolean",
                 "description": "Will be true if the row's row-details scoped slot is visible"
@@ -587,7 +597,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "the field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -623,7 +633,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "the field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -660,7 +670,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "the field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1225,6 +1235,11 @@
                 "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
               },
               {
+                "prop": "field",
+                "type": "Object",
+                "description": "the field's normalized definition object (from the fields prop)"
+              },
+              {
                 "prop": "detailsShowing",
                 "type": "Boolean",
                 "description": "Will be true if the row's row-details scoped slot is visible"
@@ -1259,6 +1274,11 @@
                 "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
               },
               {
+                "prop": "field",
+                "type": "Object",
+                "description": "the field's normalized definition object (from the fields prop)"
+              },
+              {
                 "prop": "detailsShowing",
                 "type": "Boolean",
                 "description": "Will be true if the row's row-details scoped slot is visible"
@@ -1283,7 +1303,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "the field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1309,7 +1329,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "the field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1336,7 +1356,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "the field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1357,7 +1377,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "the field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
