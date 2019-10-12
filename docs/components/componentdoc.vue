@@ -21,7 +21,7 @@
       </b-col>
     </b-row>
 
-    <ul class="component-ref-mini-toc">
+    <ul class="component-ref-mini-toc my-3">
       <li v-if="aliases && aliases.length > 0">
         <a :href="`#comp-ref-${componentName}-aliases`">Component aliases</a>
       </li>
