@@ -194,7 +194,7 @@
                   </b-th>
                 </b-tr>
               </template>
-              <template v-slot:cell(prop)="{ value. item }">
+              <template v-slot:cell(prop)="{ value, item }">
                 <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
                 <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
               </template>
