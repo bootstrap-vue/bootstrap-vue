@@ -521,7 +521,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's normalized definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "detailsShowing",
@@ -565,7 +565,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's normalized definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "detailsShowing",
@@ -597,7 +597,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's normalized definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -633,7 +633,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's normalized definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -670,7 +670,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's normalized definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -701,7 +701,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -731,7 +731,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -849,7 +849,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -875,7 +875,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -891,7 +891,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -907,7 +907,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -1237,7 +1237,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's normalized definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "detailsShowing",
@@ -1276,7 +1276,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's normalized definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "detailsShowing",
@@ -1303,7 +1303,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's normalized definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1329,7 +1329,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's normalized definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1356,7 +1356,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's normalized definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1377,7 +1377,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's normalized definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1397,7 +1397,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -1439,7 +1439,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -1465,7 +1465,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
