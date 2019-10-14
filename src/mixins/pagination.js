@@ -78,6 +78,10 @@ export const props = {
     type: String,
     default: 'left'
   },
+  pills: {
+    type: Boolean,
+    default: false
+  },
   hideGotoEndButtons: {
     type: Boolean,
     default: false
@@ -165,6 +169,9 @@ export default {
         return 'text-center'
       }
       return ''
+    },
+    styleClass() {
+      return this.pills ? 'b-pagination-pills' : ''
     },
     computedCurrentPage() {
       return sanitizeCurrentPage(this.currentPage, this.localNumberOfPages)
@@ -532,7 +539,7 @@ export default {
       {
         ref: 'ul',
         staticClass: 'pagination',
-        class: ['b-pagination', this.btnSize, this.alignment],
+        class: ['b-pagination', this.btnSize, this.alignment, this.styleClass],
         attrs: {
           role: 'menubar',
           'aria-disabled': disabled ? 'true' : 'false',
