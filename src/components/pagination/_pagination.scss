@@ -1,2 +1,26 @@
 // <pagination> and <pagination-nav> require the helper utility classes
 @import "../../utilities";
+
+$bv-pagination-classes-defined: false !default;
+
+// Make sure to include these style definitions only once
+@if $bv-pagination-classes-defined == false {
+  $bv-pagination-classes-defined: true;
+
+  // Pagination pill style
+  .b-pagination-pills {
+    .page-item {
+      .page-link {
+        border-radius: 50rem !important;
+        margin-left: 0.25rem;
+        line-height: 1;
+      }
+
+      &:first-child {
+        .page-link {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
