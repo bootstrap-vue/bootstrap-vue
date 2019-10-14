@@ -224,6 +224,46 @@ smaller buttons or `'lg'` for larger buttons.
 <!-- b-pagination-size.vue -->
 ```
 
+### Pill style
+
+Easily switch to pill style buttons by setting hte `pills` prop
+
+```html
+<template>
+  <div class="overflow-auto">
+    <div>
+      <h6>Small Pills</h6>
+      <b-pagination v-model="currentPage" pills :total-rows="rows" size="sm"></b-pagination>
+    </div>
+
+    <div class="mt-3">
+      <h6>Default Pills</h6>
+      <b-pagination v-model="currentPage" pills :total-rows="rows"></b-pagination>
+    </div>
+
+    <div class="mt-3">
+      <h6>Large Pills</h6>
+      <b-pagination v-model="currentPage" pills :total-rows="rows" size="lg"></b-pagination>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        rows: 100,
+        currentPage: 1
+      }
+    }
+  }
+</script>
+
+<!-- b-pagination-pills.vue -->
+```
+
+**Note:** Pill styling requires BootstrapVue's custom CSS/SCSS.
+
 ### Alignment
 
 By default the pagination component is left aligned. Change the alignment to `center`, `right`

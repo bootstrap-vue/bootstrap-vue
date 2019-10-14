@@ -23,7 +23,7 @@ types of navigation components. It includes some style overrides (for working wi
 padding for larger hit areas, and basic disabled styling. No active states are included in the base
 nav.
 
-`<b-nav>` supports teh following child components:
+`<b-nav>` supports the following child components:
 
 - `<b-nav-item>` for actionable links (or router-links)
 - `<b-nav-item-dropdown>` for dropdowns
