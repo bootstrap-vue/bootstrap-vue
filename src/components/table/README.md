@@ -1546,7 +1546,7 @@ precedence over any specific row or cell variants.
 
 For accessibility reasons (specifically for color blind users, or users with color contrast issues),
 it is highly recommended to always provide some other visual means of conveying that a row is
-selected, such as a virtual columns as shown in the example below.
+selected, such as a virtual column as shown in the example below.
 
 ```html
 <template>
