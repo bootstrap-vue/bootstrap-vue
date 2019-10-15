@@ -13,11 +13,11 @@
   "repository": "bootstrap-vue/bootstrap-vue",
   "homepage": "https://bootstrap-vue.js.org",
   "types": "src/index.d.ts",
+  "web-types": "dist/web-types.json",
   "vetur": {
     "tags": "dist/vetur-tags.json",
     "attributes": "dist/vetur-attributes.json"
   },
-  "web-types": "dist/web-types.json",
   "contributors": [
     {
       "name": "Pooya Parsa",
