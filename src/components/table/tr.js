@@ -65,11 +65,11 @@ export const BTr = /*#__PURE__*/ Vue.extend({
     },
     headVariant() {
       // Sniffed by <b-td> / <b-th>
-      return this.bvTableRowGroup.headVariant
+      return this.inThead ? this.bvTableRowGroup.headVariant : null
     },
     footVariant() {
       // Sniffed by <b-td> / <b-th>
-      return this.bvTableRowGroup.footVariant
+      return this.inTfoot ? this.bvTableRowGroup.footVariant : null
     },
     isRowDark() {
       return this.headVariant === LIGHT || this.footVariant === LIGHT
