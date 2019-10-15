@@ -39,7 +39,7 @@ const webTypes = {
   }
 }
 
-// Import metatdata from a directory glob package.json files
+// Import metadata from a directory glob package.json files
 const importAll = r => {
   const obj = {}
   r.keys()
@@ -96,7 +96,7 @@ const computePropType = ({ type }) => {
     // For simplicity return arrays of any type entries
     return 'any[]'
   }
-  // For browser types, we leave them capitalized, otherwise we return a lowercase typescipt name
+  // For browser types, we leave them capitalized, otherwise we return a lowercase TypeScript name
   return ['Boolean', 'String', 'Number', 'Function', 'Object'].indexOf(type) > -1
     ? type.toLowerCase()
     : type
@@ -104,7 +104,7 @@ const computePropType = ({ type }) => {
 
 // Compute the default value (in web-type form) for a given prop definition (component props only)
 const computePropDefault = ({ default: def, type }) => {
-  // Default could be a function that retruns a non-primative type
+  // Default could be a function that returns a non-primitive type
   def = typeof def === 'function' ? def.call({}) : def
   if (type === Boolean || (Array.isArray(type) && type[0] === Boolean && !def)) {
     def = Boolean(def)
@@ -114,7 +114,7 @@ const computePropDefault = ({ default: def, type }) => {
   return JSON.stringify(def)
 }
 
-// Process a single component's meta and efinition/class objects
+// Process a single component's meta and definition/class objects
 const processComponentMeta = (meta, groupRef, docUrl) => {
   const componentName = meta.component
 
@@ -130,7 +130,7 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
   const $aliases = meta.aliases || []
   // This doesn't exist yet (for prop descriptions, info)
   // For description (and possibly more) for props docs
-  // source isarray format, so we convert to a hash object
+  // source is array format, so we convert to a hash object
   const $propsExtra = (meta.props || []).reduce((obj, p) => {
     if (p && p.prop) {
       obj[p.prop] = p
@@ -245,7 +245,7 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
         slot.description = slotObj.description
       }
       if (slotObj.pattern) {
-        // Allow RegExpr for synamic slot names
+        // Allow RegExpr for dynamic slot names
         // Passed as a string with `\` escaped
         slot.pattern = slotObj.pattern
         // The name of the slot should have the variable part surrounded by { }
@@ -441,8 +441,8 @@ try {
     }
   })
 
-  // Write out json files.
-  // Note that `JSON.stringigy` will remove any object
+  // Write out JSON files
+  // Note that `JSON.stringify` will remove any object
   // properties that have an `undefined` value
 
   // Write web-types.json to file
