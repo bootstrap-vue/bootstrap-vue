@@ -29,7 +29,7 @@
           },
           {
             "prop": "lazy",
-            "description": "When set updates the v-model on 'change' event instead of 'input'. Emulates the Vue '.lazy' v-model modifier"
+            "description": "When set, updates the v-model on 'blur' event instead of 'input'. Emulates the Vue '.lazy' v-model modifier"
           },
           {
             "prop": "formatter",
