@@ -8,6 +8,9 @@ export const props = {
   }
 }
 
+const LIGHT = 'light'
+const DARK = 'dark'
+
 // @vue/component
 export const BTr = /*#__PURE__*/ Vue.extend({
   name: 'BTr',
@@ -62,10 +65,21 @@ export const BTr = /*#__PURE__*/ Vue.extend({
     },
     headVariant() {
       // Sniffed by <b-td> / <b-th>
-      return this.bvTableRowGroup.headVariant
+      return this.inThead ? this.bvTableRowGroup.headVariant : null
+    },
+    footVariant() {
+      // Sniffed by <b-td> / <b-th>
+      return this.inTfoot ? this.bvTableRowGroup.footVariant : null
+    },
+    isRowDark() {
+      return this.headVariant === LIGHT || this.footVariant === LIGHT
+        ? false
+        : this.headVariant === DARK || this.footVariant === DARK
+          ? true
+          : this.isDark
     },
     trClasses() {
-      return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
+      return [this.variant ? `${this.isRowDark ? 'bg' : 'table'}-${this.variant}` : null]
     },
     trAttrs() {
       return { role: 'row', ...this.$attrs }
