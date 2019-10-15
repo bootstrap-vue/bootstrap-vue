@@ -416,7 +416,9 @@ try {
     const tag = kebabCase(def.name)
     // Component tag
     veturTags[tag] = {
-      subtags: [],
+      // `subtags` is a list of supported child components, but
+      // we do not have a way of populating this at the moment
+      // subtags: [],
       description: def.description,
       attributes: def.attributes.map(attrObj => kebabCase(attrObj.name))
     }
