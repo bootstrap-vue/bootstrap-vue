@@ -13,11 +13,11 @@ import { BTh } from '../th'
 export default {
   props: {
     headVariant: {
-      type: String, // 'light', 'dark' or null (or custom)
+      type: String, // 'light', 'dark' or `null` (or custom)
       default: () => getComponentConfig('BTable', 'headVariant')
     },
     headRowVariant: {
-      type: String, // Any Bootstrap theme variant  (or custom)
+      type: String, // Any Bootstrap theme variant (or custom)
       default: null
     },
     theadClass: {
