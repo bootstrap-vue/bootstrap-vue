@@ -8,8 +8,12 @@ export default {
       default: false
     },
     footVariant: {
-      type: String,
+      type: String, // 'dark', 'light', or `null` (or custom)
       default: () => getComponentConfig('BTable', 'footVariant')
+    },
+    footRowVariant: {
+      type: String, // Any Bootstrap theme variant (or custom). Falls back to `headRowVariant`
+      default: null
     },
     tfootClass: {
       type: [String, Array, Object],
