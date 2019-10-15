@@ -2032,7 +2032,7 @@ Released: (2019-02-14)
 - **table:** add support for transitions on tbody element
   ([#1821](https://github.com/bootstrap-vue/bootstrap-vue/issues/1821))
   ([#2450](https://github.com/bootstrap-vue/bootstrap-vue/issues/2450))
-  ([91514af](https://github.com/bootstrap-vue/bootstrap-vue/commit/91514af445221286ef0bc55985556d58e3c54fdc))
+  ([91514af](https://github.com/bootstrap-vue/bootstrap-vue/commit/91514af))
 - **table:** add table row middle click (auxclicked) event
   ([#2425](https://github.com/bootstrap-vue/bootstrap-vue/issues/2425))
   ([23250a2](https://github.com/bootstrap-vue/bootstrap-vue/commit/23250a2))
