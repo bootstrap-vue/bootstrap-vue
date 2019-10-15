@@ -2,6 +2,7 @@ import KeyCodes from '../../../utils/key-codes'
 import startCase from '../../../utils/startcase'
 import { getComponentConfig } from '../../../utils/config'
 import { htmlOrText } from '../../../utils/html'
+import { isUndefinedOrNull } from '../../../utils/inspect'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
 import { BThead } from '../thead'
@@ -12,8 +13,12 @@ import { BTh } from '../th'
 export default {
   props: {
     headVariant: {
-      type: String, // 'light', 'dark' or null (or custom)
+      type: String, // 'light', 'dark' or `null` (or custom)
       default: () => getComponentConfig('BTable', 'headVariant')
+    },
+    headRowVariant: {
+      type: String, // Any Bootstrap theme variant (or custom)
+      default: null
     },
     theadClass: {
       type: [String, Array, Object]
@@ -50,12 +55,12 @@ export default {
       const fields = this.computedFields || []
 
       if (this.isStackedAlways || fields.length === 0) {
-        // In always stacked mode, we don't bother rendering the head/foot.
+        // In always stacked mode, we don't bother rendering the head/foot
         // Or if no field headings (empty table)
         return h()
       }
 
-      // Refernce to `selectAllRows` and `clearSelected()`, if table is Selectable
+      // Reference to `selectAllRows` and `clearSelected()`, if table is selectable
       const selectAllRows = this.isSelectable ? this.selectAllRows : () => {}
       const clearSelected = this.isSelectable ? this.clearSelected : () => {}
 
@@ -142,7 +147,12 @@ export default {
       // Genrate the row(s)
       const $trs = []
       if (isFoot) {
-        $trs.push(h(BTr, { class: this.tfootTrClass }, $cells))
+        const trProps = {
+          variant: isUndefinedOrNull(this.footRowVariant)
+            ? this.headRowVariant
+            : this.footRowVariant
+        }
+        $trs.push(h(BTr, { class: this.tfootTrClass, props: trProps }, $cells))
       } else {
         const scope = {
           columns: fields.length,
@@ -152,7 +162,9 @@ export default {
           clearSelected
         }
         $trs.push(this.normalizeSlot('thead-top', scope) || h())
-        $trs.push(h(BTr, { class: this.theadTrClass }, $cells))
+        $trs.push(
+          h(BTr, { class: this.theadTrClass, props: { variant: this.headRowVariant } }, $cells)
+        )
       }
 
       return h(
