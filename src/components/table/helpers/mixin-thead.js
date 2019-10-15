@@ -55,12 +55,12 @@ export default {
       const fields = this.computedFields || []
 
       if (this.isStackedAlways || fields.length === 0) {
-        // In always stacked mode, we don't bother rendering the head/foot.
+        // In always stacked mode, we don't bother rendering the head/foot
         // Or if no field headings (empty table)
         return h()
       }
 
-      // Refernce to `selectAllRows` and `clearSelected()`, if table is Selectable
+      // Reference to `selectAllRows` and `clearSelected()`, if table is selectable
       const selectAllRows = this.isSelectable ? this.selectAllRows : () => {}
       const clearSelected = this.isSelectable ? this.clearSelected : () => {}
 
