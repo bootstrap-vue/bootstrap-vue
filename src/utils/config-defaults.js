@@ -152,7 +152,7 @@ export default deepFreeze({
     variant: null
   },
   BTable: {
-    selectedVariant: 'primary',
+    selectedVariant: 'active',
     headVariant: null,
     footVariant: null
   },

@@ -11,11 +11,11 @@ colors, etc) adjust the custom BootstrapVue css generation.
 
 ## SASS variable defaults
 
-Every Sass variable in Bootstrap v4 includes the `!default` flag allowing you to override the
-variable’s default value in your own Sass without modifying Bootstrap and BootstrapVue's source SCSS
-code. Copy and paste variables as needed, modify their values, and remove the `!default` flag. If a
-variable has already been assigned, then it won’t be re-assigned by the default values in Bootstrap
-and BootstrapVue.
+Every Sass variable in Bootstrap v4 and BootstrapVue includes the `!default` flag allowing you to
+override the variable’s default value in your own Sass without modifying Bootstrap and
+BootstrapVue's source SCSS code. Copy and paste variables as needed, modify their values, and remove
+the `!default` flag. If a variable has already been assigned, then it won’t be re-assigned by the
+default values in Bootstrap and BootstrapVue.
 
 You will find the complete list of Bootstrap’s variables in `bootstrap/scss/_variables.scss`. Some
 variables are set to `null`, these variables don’t output the property unless they are overridden in
@@ -82,6 +82,8 @@ docs for more details. All theme colors automatically become available as
 Customize Bootstrap 4 with the built-in custom variables file and easily toggle global CSS
 preferences with Bootstrap's `$enable-*` Sass variables.
 
+### Bootstrap SASS variables
+
 Some commonly used Bootstrap v4 variables are:
 
 | Variable                        | Type    | Default | Description                                                                                                  |
@@ -95,6 +97,8 @@ Some commonly used Bootstrap v4 variables are:
 
 Refer to [Bootstrap's theming](https://getbootstrap.com/docs/4.3/getting-started/theming/) docs for
 additional Bootstrap v4 variable information.
+
+### BootstrapVue SASS variables
 
 BootstrapVue also defines several Sass variables for controlling BootstrapVue's custom CSS
 generation. If you are not using these features in your project, you can disable the feature's CSS
@@ -114,14 +118,16 @@ Note that BootstrapVue's custom SCSS relies on Bootstrap's SASS variables, funct
 ## Generating custom themes
 
 To use your own theme and colors in BootstrapVue, you will need to create a `custom.scss` file in
-your project, which you can include in your main app:
+your project, which you can include in your main app `app.vue` file:
 
 **Via template:**
 
 ```html
 <style lang="scss">
-  // Import custom SASS variable overrides
-  @import 'assets/custom.scss';
+  // Import custom SASS variable overrides, or alternatively
+  // define your variable overrides here instead
+  @import 'assets/custom-vars.scss';
+
   // Import Bootstrap and BootstrapVue source SCSS files
   @import '~bootstrap/scss/bootstrap.scss';
   @import '~bootstrap-vue/src/index.scss';
@@ -130,17 +136,22 @@ your project, which you can include in your main app:
   body {
     margin: 0;
   }
+
+  .my-widget {
+    color: var(--danger);
+  }
   // ...
 </style>
 ```
 
-The `custom.scss` file, which needs to be loaded before Bootstrap's SCSS and BootstrapVue's SCSS,
-will include your Bootstrap v4 variable overrides (i.e. colors, shadows, font sizes, breakpoints,
-etc).
+The `custom-vars.scss` file, which needs to be loaded before Bootstrap's SCSS and BootstrapVue's
+SCSS, will include your Bootstrap v4 variable overrides (i.e. colors, shadows, font sizes,
+breakpoints, etc).
 
 **Via app main entry point:**
 
-Create an SCSS file with your custom theme variables:
+Create an SCSS file with your custom theme variables which also imports Bootstrap and BootstrapVue's
+SCSS:
 
 ```scss
 // File: custom.scss
@@ -165,10 +176,14 @@ $bv-enable-table-stacked: false;
 body {
   margin: 0;
 }
+
+.my-widget {
+  color: var(--danger);
+}
 // ...
 ```
 
-Then import that single SCSS file into your app code entry point:
+Then import that single SCSS file into your main app code entry point:
 
 ```js
 // app.js
@@ -199,7 +214,8 @@ general prototyping.
 
 ### Available Bootstrap CSS variables
 
-Here are the variables that are generated. The values shown are based on the Bootstrap v4 defaults:
+Here are the CSS variables that are generated. The values shown are based on the Bootstrap v4
+_defaults_:
 
 ```scss
 :root {

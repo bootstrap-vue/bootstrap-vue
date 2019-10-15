@@ -23,6 +23,13 @@ types of navigation components. It includes some style overrides (for working wi
 padding for larger hit areas, and basic disabled styling. No active states are included in the base
 nav.
 
+`<b-nav>` supports the following child components:
+
+- `<b-nav-item>` for actionable links (or router-links)
+- `<b-nav-item-dropdown>` for dropdowns
+- `<b-nav-text>` for plain text content
+- `<b-nav-form>` for inline forms
+
 ## Link appearance
 
 Two style variations are supported: `tabs` and `pills`, which support `active` state styling. These
@@ -214,6 +221,44 @@ By default, `<b-nav-item-dropdown>` renders the menu contents in the DOM even wh
 shown. When there are a large number of dropdowns rendered on the same page, performance could be
 impacted due to larger overall memory utilization. You can instruct `<b-nav-item-dropdown>` to
 render the menu contents only when it is shown by setting the `lazy` prop to true.
+
+## Nav text content
+
+Use the `<b-nav-text>` child component to place plain text content into the nav:
+
+```html
+<div>
+  <b-nav >
+    <b-nav-item href="#1">Link 1</b-nav-item>
+    <b-nav-item href="#2">Link 2</b-nav-item>
+    <b-nav-text>Plain text</b-nav-text>
+  </b-nav>
+</div>
+
+<!-- b-nav-text.vue -->
+```
+
+## Nav inline forms
+
+Use the `<b-nav-form>` child component to place an _inline_ form into the nav:
+
+```html
+<div>
+  <b-nav pills>
+    <b-nav-item href="#1" active>Link 1</b-nav-item>
+    <b-nav-item href="#2">Link 2</b-nav-item>
+    <b-nav-form @submit.stop.prevent="alert('Form Submitted')">
+      <b-form-input aria-label="Input" class="mr-1"></b-form-input>
+      <b-button type="submit">Ok</b-button>
+    </b-nav-form>
+  </b-nav>
+</div>
+
+<!-- b-nav-form.vue -->
+```
+
+Refer to the [`<b-form>` inline](/docs/components/form#inline-form) documentation for additional
+details on placing form controls.
 
 ## Tabbed local content support
 

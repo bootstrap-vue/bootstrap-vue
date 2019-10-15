@@ -258,7 +258,7 @@ export const BFormGroup = {
         // Handle case where the prop's value is an empty string,
         // which represents true
         propVal = propVal === '' ? true : propVal || false
-        if (!isBoolean(propVal)) {
+        if (!isBoolean(propVal) && propVal !== 'auto') {
           // Convert to column size to number
           propVal = parseInt(propVal, 10) || 0
           // Ensure column size is greater than 0

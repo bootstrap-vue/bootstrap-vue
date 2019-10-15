@@ -242,7 +242,7 @@ The following field properties are recognized:
 | `class`             | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                                                                                                                               |
 | `formatter`         | String or Function          | A formatter callback function or name of a method in your component, can be used instead of (or in conjunction with) scoped field slots. The formatter will be called with the syntax `formatter(value, key, item)`. Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                                                                                   |
 | `sortable`          | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                                                                                                                                         |
-| `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                                                                                                                                      |
+| `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#change-initial-sort-direction) Section for more details.                                                                                                                                                                                                                                                      |
 | `sortByFormatted`   | Boolean or Function         | Sort the column by the result of the field's `formatter` callback function when set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value for sorting purposes only. Refer to the [Sorting](#sorting) Section for more details.                                                                                  |
 | `filterByFormatted` | Boolean or Function         | Filter the column by the result of the field's `formatter` callback function when set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value for filtering purposes only. Refer to the [Filtering](#filtering) section for more details.                                                                          |
 | `tdClass`           | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead. The function will be called as `tdClass(value, key, item)` and it must return an `Array` or `String`.                                                                                                                                            |
@@ -890,6 +890,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                           |
 | `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's [`formatter` function](#formatter-callback)                |
 | `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's [`formatter` function](#formatter-callback) |
+| `field`          | Object   | The field's normalized field definition object                                                                                                                           |
 | `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [Row details support](#row-details-support) below for additional information                |
 | `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information    |
 | `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [Row select support](#row-select-support) for additional information                                             |
@@ -1540,12 +1541,12 @@ example).
 
 The `selected-variant` can be any of the
 [standard (or custom) bootstrap base color variants](/docs/reference/color-variants), or the special
-[table `active` variant](/docs/reference/color-variants#table-variants) which takes precedence over
-any specific row or cell variants.
+[table `active` variant](/docs/reference/color-variants#table-variants) (the default) which takes
+precedence over any specific row or cell variants.
 
 For accessibility reasons (specifically for color blind users, or users with color contrast issues),
 it is highly recommended to always provide some other visual means of conveying that a row is
-selected, such as shown in the example below.
+selected, such as a virtual column as shown in the example below.
 
 ```html
 <template>
@@ -1558,7 +1559,6 @@ selected, such as shown in the example below.
       ref="selectableTable"
       selectable
       :select-mode="selectMode"
-      selected-variant="active"
       :items="items"
       :fields="fields"
       @row-selected="onRowSelected"

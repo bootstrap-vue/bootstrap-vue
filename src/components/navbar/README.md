@@ -80,13 +80,14 @@ Navbars come with built-in support for a handful of sub-components. Choose from 
 needed:
 
 - `<b-navbar-brand>` for your company, product, or project name.
-- `<b-navbar-nav>` for a full-height and lightweight navigation (including support for dropdowns).
-- `<b-nav-item>` for link (and router-link) action items
-- `<b-nav-item-dropdown>` for navbar dropdown menus
-- `<b-nav-text>` for adding vertically centered strings of text.
-- `<b-nav-form>` for any form controls and actions.
 - `<b-navbar-toggle>` for use with the `<b-collapse is-nav>` component.
 - `<b-collapse is-nav>` for grouping and hiding navbar contents by a parent breakpoint.
+- `<b-navbar-nav>` for a full-height and lightweight navigation (including support for dropdowns).
+  The following sub-components inside `<b-navbar-nav>` are supported:
+  - `<b-nav-item>` for link (and router-link) action items
+  - `<b-nav-item-dropdown>` for nav dropdown menus
+  - `<b-nav-text>` for adding vertically centered strings of text.
+  - `<b-nav-form>` for any form controls and actions.
 
 ### `<b-navbar-brand>`
 
@@ -153,7 +154,7 @@ Navbar navigation links build on the `<b-navbar-nav>` parent component and requi
 navbars will also grow to occupy as much horizontal space as possible to keep your navbar contents
 securely aligned.
 
-`<b-navbar-nav>` supports the following components:
+`<b-navbar-nav>` supports the following child components:
 
 - `<b-nav-item>` for link (and router-link) action items
 - `<b-nav-text>` for adding vertically centered strings of text.
