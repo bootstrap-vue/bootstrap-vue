@@ -709,6 +709,41 @@ describe('form-input', () => {
     wrapper.destroy()
   })
 
+it('"lazy" modifier prop works', async () => {
+    const wrapper = mount(BFormInput, {
+      propsData: {
+        type: 'text',
+        lazy: true
+      }
+    })
+
+    const input = wrapper.find('input')
+    input.element.value = 'a'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('a')
+    // v-model update event snould not have emitted
+    expect(wrapper.emitted('update')).not.toBeDefined()
+
+    input.element.value = 'ab'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('ab')
+    // v-model update event snould not have emitted
+    expect(wrapper.emitted('update')).not.toBeDefined()
+
+    // trigger a change event
+    input.trigger('change')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('ab')
+    // v-model update event snould have emitted
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update')[0].length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toBe('ab')
+
+    wrapper.destroy()
+  })
+
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormInput, {
       mountToDocument: true
