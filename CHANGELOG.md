@@ -2032,7 +2032,7 @@ Released: (2019-02-14)
 - **table:** add support for transitions on tbody element
   ([#1821](https://github.com/bootstrap-vue/bootstrap-vue/issues/1821))
   ([#2450](https://github.com/bootstrap-vue/bootstrap-vue/issues/2450))
-  ([91514af](https://github.com/bootstrap-vue/bootstrap-vue/commit/91514af))
+  ([91514af](https://github.com/bootstrap-vue/bootstrap-vue/commit/91514af445221286ef0bc55985556d58e3c54fdc))
 - **table:** add table row middle click (auxclicked) event
   ([#2425](https://github.com/bootstrap-vue/bootstrap-vue/issues/2425))
   ([23250a2](https://github.com/bootstrap-vue/bootstrap-vue/commit/23250a2))
@@ -2261,7 +2261,7 @@ Released: 2018-04-01
 ### Bug Fixes v2.0.0-rc.4
 
 - **build:** don't exclude lodash.get
-  ([543c3c2](https://github.com/bootstrap-vue/bootstrap-vue/commit/543c3c2))
+  ([543c3c2](https://github.com/bootstrap-vue/bootstrap-vue/commit/543c3c2f9aeccffb03c571aeea93333774243ab3))
 - **card:** pass children instead of default prop to sub-components
   ([63b35e3](https://github.com/bootstrap-vue/bootstrap-vue/commit/63b35e3))
 
