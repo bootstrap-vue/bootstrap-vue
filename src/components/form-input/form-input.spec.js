@@ -709,7 +709,7 @@ describe('form-input', () => {
     wrapper.destroy()
   })
 
-it('"lazy" modifier prop works', async () => {
+  it('"lazy" modifier prop works', async () => {
     const wrapper = mount(BFormInput, {
       propsData: {
         type: 'text',
@@ -732,8 +732,8 @@ it('"lazy" modifier prop works', async () => {
     // v-model update event snould not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
 
-    // trigger a change event
-    input.trigger('change')
+    // trigger a blur event
+    input.trigger('blur')
     await waitNT(wrapper.vm)
     expect(input.element.value).toBe('ab')
     // v-model update event snould have emitted
