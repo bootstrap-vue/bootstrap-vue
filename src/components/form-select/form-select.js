@@ -129,8 +129,15 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
       [
         this.normalizeSlot('first'),
         this.formOptions.map((option, index) => {
-          const tag = isArray(option.options) ? BFormSelectOptionGroup : BFormSelectOption
-          return h(tag, { props: option, key: `option_${index}_opt` })
+          const key = `option_${index}_opt`
+          const options = option.options
+          return isArray(options)
+            ? h(BFormSelectOptionGroup, { props: { label: option.label, options }, key })
+            : h(
+                BFormSelectOption,
+                { props: { value: option.value, disabled: option.disabled }, key },
+                option.html || option.text
+              )
         }),
         this.normalizeSlot('default')
       ]

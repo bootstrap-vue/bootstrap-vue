@@ -1,5 +1,6 @@
 import warn from '../utils/warn'
 import { isArray, isPlainObject, isUndefined } from '../utils/inspect'
+import { stripTags } from '../utils/html'
 import { keys } from '../utils/object'
 
 const DEPRECATED_MSG =
@@ -50,7 +51,7 @@ export default {
         const text = option[this.textField]
         return {
           value: isUndefined(value) ? key || text : value,
-          text: String(isUndefined(text) ? key : text),
+          text: stripTags(String(isUndefined(text) ? key : text)),
           html: option[this.htmlField],
           disabled: Boolean(option[this.disabledField])
         }
@@ -58,7 +59,7 @@ export default {
       // Otherwise create an `<option>` object from the given value
       return {
         value: key || option,
-        text: String(option),
+        text: stripTags(String(option)),
         disabled: false
       }
     }
