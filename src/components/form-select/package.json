@@ -31,7 +31,7 @@
         "slots": [
           {
             "name": "first",
-            "description": "Slot to place option tags above options provided via options prop"
+            "description": "Slot to place options or option groups above options provided via the 'options' prop"
           }
         ],
         "events": [
