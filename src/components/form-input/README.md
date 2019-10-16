@@ -76,8 +76,8 @@ rendered and a console warning will be issued.
 
 - Not all browsers support all input types, nor do some types render in the same format across
   browser types/versions.
-- Browsers that do not support a particular type will fall back to a `text` input type (event
-  through the rendered `type` attribute markup shows the requested type).
+- Browsers that do not support a particular type will fall back to a `text` input type (even though
+  the rendered `type` attribute markup shows the requested type).
 - No testing is performed to see if the requested input type is supported by the browser.
 - Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
   Instead of using `datetime`, since support should be deprecated, use `date` and `time` as two
@@ -86,13 +86,15 @@ rendered and a console warning will be issued.
 - For date and time style inputs, where supported, the displayed value in the GUI may be different
   than what is returned by it's value (i.e. ordering of year-month-date).
 - Regardless of input type, the value is **always** returned as a string representation.
-- `v-model.lazy` is not supported by `<b-form-input>` (nor any custom Vue component).
+- `v-model.lazy` is not supported by `<b-form-input>` (nor any custom Vue component). Use the `lazy`
+  prop instead.
 - `v-model` modifiers `.number` and `.trim` can cause unexpected cursor jumps when the user is
   typing (this is a Vue issue with `v-model` on custom components). _Avoid using these modifiers_.
+  Use the `number` or `trip` props instead.
 - Older version of Firefox may not support `readonly` for `range` type inputs.
 - Input types that do not support `min`, `max` and `step` (i.e. `text`, `password`, `tel`, `email`,
   `url`, etc) will silently ignore these values (although they will still be rendered on the input
-  markup).
+  markup) iv values are provided.
 
 ### Range type input
 
