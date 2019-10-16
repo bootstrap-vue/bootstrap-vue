@@ -591,7 +591,7 @@ describe('form-input', () => {
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
-    // no-wheel=true will fire a blur event on the input when wheel fired
+    // `:no-wheel="true"` will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
 
     wrapper.destroy()
@@ -618,7 +618,7 @@ describe('form-input', () => {
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
-    // no-wheel=false will not fire a blur event on the input when wheel fired
+    // `:no-wheel="false"` will not fire a blur event on the input when wheel fired
     expect(spy).not.toHaveBeenCalled()
 
     wrapper.destroy()
@@ -675,7 +675,7 @@ describe('form-input', () => {
     await waitNT(wrapper.vm)
 
     expect(input.element.value).toBe('123.450')
-    // v-model update event (should emit a numerical value)
+    // `v-model` update event (should emit a numerical value)
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toBe(1)
     expect(wrapper.emitted('update')[0].length).toEqual(1)
@@ -695,11 +695,11 @@ describe('form-input', () => {
     // Should emit a new input event
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual('123.4500')
-    // v-model value stays the same and update event shouldn't be emitted again
+    // `v-model` value stays the same and update event shouldn't be emitted again
     expect(wrapper.emitted('update').length).toBe(1)
     expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
 
-    // Updating the v-model to new numeric value
+    // Updating the `v-model` to new numeric value
     wrapper.setProps({
       value: 45.6
     })
@@ -722,21 +722,21 @@ describe('form-input', () => {
     input.trigger('input')
     await waitNT(wrapper.vm)
     expect(input.element.value).toBe('a')
-    // v-model update event snould not have emitted
+    // `v-model` update event should not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
 
     input.element.value = 'ab'
     input.trigger('input')
     await waitNT(wrapper.vm)
     expect(input.element.value).toBe('ab')
-    // v-model update event snould not have emitted
+    // `v-model` update event should not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
 
     // trigger a change event
     input.trigger('change')
     await waitNT(wrapper.vm)
     expect(input.element.value).toBe('ab')
-    // v-model update event snould have emitted
+    // `v-model` update event should have emitted
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toBe('ab')
@@ -745,21 +745,21 @@ describe('form-input', () => {
     input.trigger('input')
     await waitNT(wrapper.vm)
     expect(input.element.value).toBe('abc')
-    // v-model update event snould not have emitted new event
+    // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toEqual(1)
 
     input.element.value = 'abcd'
     input.trigger('input')
     await waitNT(wrapper.vm)
     expect(input.element.value).toBe('abcd')
-    // v-model update event snould not have emitted new event
+    // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toEqual(1)
 
-    // trigger a blur event
+    // Trigger a blur event
     input.trigger('blur')
     await waitNT(wrapper.vm)
     expect(input.element.value).toBe('abcd')
-    // v-model update event snould have emitted
+    // `v-model` update event should have emitted
     expect(wrapper.emitted('update').length).toEqual(2)
     expect(wrapper.emitted('update')[1][0]).toBe('abcd')
 
