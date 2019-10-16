@@ -48,7 +48,7 @@ export default {
       default: false
     },
     lazy: {
-      // Only update the v-model on blur/change events
+      // Only update the `v-model` on blur/change events
       type: Boolean,
       default: false
     }
@@ -63,12 +63,13 @@ export default {
     computedClass() {
       return [
         {
-          // Range input needs class custom-range
+          // Range input needs class `custom-range`
           'custom-range': this.type === 'range',
-          // plaintext not supported by type=range or type=color
+          // `plaintext` not supported by `type="range"` or `type="color"`
           'form-control-plaintext':
             this.plaintext && this.type !== 'range' && this.type !== 'color',
-          // form-control not used by type=range or plaintext. Always used by type=color
+          // `form-control` not used by `type="range"` or `plaintext`
+          // Always used by `type="color"`
           'form-control': (!this.plaintext && this.type !== 'range') || this.type === 'color'
         },
         this.sizeFormClass,
@@ -77,11 +78,11 @@ export default {
     },
     computedAriaInvalid() {
       if (!this.ariaInvalid || this.ariaInvalid === 'false') {
-        // this.ariaInvalid is null or false or 'false'
+        // `this.ariaInvalid` is `null` or `false` or 'false'
         return this.computedState === false ? 'true' : null
       }
       if (this.ariaInvalid === true) {
-        // User wants explicit aria-invalid=true
+        // User wants explicit `:aria-invalid="true"`
         return 'true'
       }
       // Most likely a string value (which could be the string 'true')
