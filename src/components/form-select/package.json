@@ -68,6 +68,30 @@
             ]
           }
         ]
+      },
+      {
+        "component": "BFormSelectOption",
+        "aliases": [
+          "BSelectOption"
+        ],
+        "props": [
+          {
+            "prop": "value",
+            "description": "The value of the option"
+          }
+        ]
+      },
+      {
+        "component": "BFormSelectOptionGroup",
+        "aliases": [
+          "BSelectOptionGroup"
+        ],
+        "slots": [
+          {
+            "name": "first",
+            "description": "Slot to place options or option groups above options provided via the 'options' prop"
+          }
+        ]
       }
     ]
   }
