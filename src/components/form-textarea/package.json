@@ -29,7 +29,8 @@
           },
           {
             "prop": "lazy",
-            "description": "When set, updates the v-model on 'blur' event instead of 'input'. Emulates the Vue '.lazy' v-model modifier"
+            "version": "2.1.0",
+            "description": "When set, updates the v-model on 'change'/'blur' events instead of 'input'. Emulates the Vue '.lazy' v-model modifier"
           },
           {
             "prop": "formatter",
