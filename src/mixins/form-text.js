@@ -1,4 +1,4 @@
-import { isFunction, isNull, isUndefined } from '../utils/inspect'
+import { isFunction, isNull, isUndefinedOrNull } from '../utils/inspect'
 
 // @vue/component
 export default {
@@ -108,7 +108,7 @@ export default {
   },
   methods: {
     stringifyValue(value) {
-      return isUndefined(value) || isNull(value) ? '' : String(value)
+      return isUndefinedOrNull(value) ? '' : String(value)
     },
     formatValue(value, evt, force = false) {
       value = this.stringifyValue(value)
@@ -176,7 +176,7 @@ export default {
         return
       }
       this.localValue = formattedValue
-      this.updateValue(formattedValue)
+      this.updateValue(formattedValue, true)
       this.$emit('change', formattedValue)
     },
     onBlur(evt) {
@@ -189,7 +189,7 @@ export default {
         // `.trim` and `.number` modifiers properly
         this.localValue = this.stringifyValue(this.modifyValue(formattedValue))
         // We pass the formatted value here since the `updateValue` method
-        // handles the modifies itself
+        // handles the modifiers itself
         this.updateValue(formattedValue, true)
       }
       // Emit native blur event
