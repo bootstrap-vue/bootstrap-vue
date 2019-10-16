@@ -463,7 +463,7 @@ component based inputs, and may generate a bad user experience. Avoid using Vue'
 
 To get around this, `<b-form-input>` and `<b-form-textarea>` have three boolean props `trim`,
 `number`, and `lazy` which emulate the native Vue `v-model` modifiers `.trim` and `.number` and
-`.lazy` respectively. The `lazy` prop will update the v-model on `blur` of the input.
+`.lazy` respectively. The `lazy` prop will update the v-model on `change`/`blur`events.
 
 **Notes:**
 
