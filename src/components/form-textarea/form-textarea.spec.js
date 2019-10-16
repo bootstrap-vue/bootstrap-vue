@@ -796,7 +796,7 @@ describe('form-textarea', () => {
     input.trigger('input')
 
     expect(input.vm.localValue).toEqual('TEST  ')
-    // v-model value stays the same and update event shouldn't be emitted again
+    // `v-model` value stays the same and update event shouldn't be emitted again
     expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update').length).toEqual(1)
     expect(input.emitted('input')).toBeDefined()
@@ -807,7 +807,7 @@ describe('form-textarea', () => {
     input.trigger('input')
 
     expect(input.vm.localValue).toEqual('  TEST  ')
-    // v-model value stays the same and update event shouldn't be emitted again
+    // `v-model` value stays the same and update event shouldn't be emitted again
     expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update').length).toEqual(1)
     expect(input.emitted('input')).toBeDefined()
@@ -817,7 +817,7 @@ describe('form-textarea', () => {
     input.trigger('input')
 
     expect(input.vm.localValue).toEqual('  TEST  ')
-    // v-model value stays the same and update event shouldn't be emitted again
+    // `v-model` value stays the same and update event shouldn't be emitted again
     expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update').length).toEqual(1)
     expect(input.emitted('input')).toBeDefined()
@@ -827,7 +827,7 @@ describe('form-textarea', () => {
     input.trigger('change')
 
     expect(input.vm.localValue).toEqual('  TEST  ')
-    // v-model value stays the same and update event shouldn't be emitted again
+    // `v-model` value stays the same and update event shouldn't be emitted again
     expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update').length).toEqual(1)
     expect(input.emitted('change')).toBeDefined()
@@ -877,7 +877,7 @@ describe('form-textarea', () => {
     input.trigger('input')
 
     expect(input.vm.localValue).toEqual('0123.450')
-    // v-model value stays the same and update event shouldn't be emitted again
+    // `v-model` value stays the same and update event shouldn't be emitted again
     expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update').length).toEqual(2)
     expect(input.emitted('update')[1][0]).toEqual(123.45)
@@ -902,12 +902,13 @@ describe('form-textarea', () => {
     input.destroy()
   })
 
-  // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
+  // These tests are wrapped in a new describe to limit
+  // the scope of the `getBoundingClientRect` mock
   describe('prop `autofocus`', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 
     beforeEach(() => {
-      // Mock getBCR so that the isVisible(el) test returns true
+      // Mock `getBoundingClientRect` so that the `isVisible(el)` test returns `true`
       // In our test below, all pagination buttons would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 24,
