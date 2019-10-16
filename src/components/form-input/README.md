@@ -50,14 +50,14 @@ native browser HTML5 types: `text`, `password`, `email`, `number`, `url`, `tel`,
       return {
         types: [
           'text',
-          'password',
-          'search'
-          'email',
           'number',
+          'email',
+          'password',
+          'search',
           'url',
           'tel',
           'date',
-          `time`,
+          'time',
           'range',
           'color'
         ]
