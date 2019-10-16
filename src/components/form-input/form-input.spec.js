@@ -732,14 +732,36 @@ describe('form-input', () => {
     // v-model update event snould not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
 
-    // trigger a blur event
-    input.trigger('blur')
+    // trigger a change event
+    input.trigger('change')
     await waitNT(wrapper.vm)
     expect(input.element.value).toBe('ab')
     // v-model update event snould have emitted
     expect(wrapper.emitted('update')).toBeDefined()
-    expect(wrapper.emitted('update')[0].length).toEqual(1)
+    expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toBe('ab')
+
+    input.element.value = 'abc'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('abc')
+    // v-model update event snould not have emitted new event
+    expect(wrapper.emitted('update').length).toEqual(1)
+
+    input.element.value = 'abcd'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('abcd')
+    // v-model update event snould not have emitted new event
+    expect(wrapper.emitted('update').length).toEqual(1)
+
+    // trigger a blur event
+    input.trigger('blur')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('abcd')
+    // v-model update event snould have emitted
+    expect(wrapper.emitted('update').length).toEqual(2)
+    expect(wrapper.emitted('update')[1][0]).toBe('abcd')
 
     wrapper.destroy()
   })
