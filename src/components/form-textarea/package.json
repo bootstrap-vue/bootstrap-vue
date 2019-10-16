@@ -58,7 +58,7 @@
           },
           {
             "prop": "noAutoShrink",
-            "description": "When set, prevents the auto height textarea from shrink to fit the content"
+            "description": "When set, prevents the auto height textarea from shrinking to fit the content"
           }
         ],
         "events": [
