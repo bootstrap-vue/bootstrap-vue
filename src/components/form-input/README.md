@@ -35,7 +35,7 @@ native browser HTML5 types: `text`, `password`, `email`, `number`, `url`, `tel`,
   <b-container fluid>
     <b-row class="my-1" v-for="type in types" :key="type">
       <b-col sm="3">
-        <label :for="`type-${type}`">Type {{ type }}:</label>
+        <label :for="`type-${type}`">Type <code>{{ type }}</code>:</label>
       </b-col>
       <b-col sm="9">
         <b-form-input :id="`type-${type}`" :type="type"></b-form-input>
@@ -51,6 +51,7 @@ native browser HTML5 types: `text`, `password`, `email`, `number`, `url`, `tel`,
         types: [
           'text',
           'password',
+          'search'
           'email',
           'number',
           'url',
