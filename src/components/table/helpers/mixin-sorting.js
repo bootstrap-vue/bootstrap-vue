@@ -266,7 +266,11 @@ export default {
         //   handle toggling on the index
         if (key === sortBy) {
           // Change sorting direction on current column
-          this.localSortDesc[0] = !this.localSortDesc[0]
+          // this.localSortDesc[0] = !this.localSortDesc[0]
+          this.localSortDesc = [!this.localSortDesc[0]]
+          // TODO in this PR:
+          //   Check if sort is clearing (third click), and
+          //   if so remove the sort item from both localSortBy/localSortDesc
         } else {
           // Start sorting this column ascending
           this.localSortBy[0] = key
@@ -274,8 +278,8 @@ export default {
           toggleLocalSortDesc()
         }
         sortChanged = true
-      } else if (this.localSortBy && !this.noSortReset) {
-        this.localSortBy = ['']
+      } else if (this.localSortBy.length > 0 && !this.noSortReset) {
+        this.localSortBy = []
         toggleLocalSortDesc()
         sortChanged = true
         // } else {
