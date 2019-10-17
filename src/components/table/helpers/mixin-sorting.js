@@ -119,12 +119,14 @@ export default {
       //   Make sortInfo a data property which we update
       //   via watchers on sortBy/SortDesc and event handlers.
       //   When a column is no longer sorted (null) we remove it from the array
+      const computedSortDesc = this.computedSortDesc
+      const computedFieldsObj = this.computedFieldsObj
       return this.localSortBy
         .map((key, idx) => {
-          const field = this.computedFieldsObj[key] || {}
+          const field = computedFieldsObj[key] || {}
           return {
             sortBy: key,
-            sortDesc: this.computedSortDesc[idx],
+            sortDesc: computedSortDesc[idx],
             formatter: isFunction(field.formatter)
               ? field.formatter
               : field.formatter
