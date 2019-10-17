@@ -68,6 +68,10 @@
             "description": "CSS class (or classes) to add to the toggle button"
           },
           {
+            "prop": "block",
+            "description": "Renders a 100% width toggle button (expands to the width of it's parent container)"
+          },
+          {
             "prop": "noCaret",
             "description": "Hide the caret indicator on the toggle button"
           },
