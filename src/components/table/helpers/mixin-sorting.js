@@ -280,9 +280,13 @@ export default {
           toggleLocalSortDesc()
         }
         sortChanged = true
-      } else if (this.localSortBy.length > 0 && !this.noSortReset) {
+      } else if (this.computedSortInfo.length > 0 && !this.noSortReset) {
         this.localSortBy = []
-        toggleLocalSortDesc()
+        if (this.sortMulti) {
+          this.localSortDesc = []
+        } else {
+          toggleLocalSortDesc()
+        }
         sortChanged = true
         // } else {
         //   sortChanged = false
