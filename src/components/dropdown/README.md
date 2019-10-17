@@ -339,6 +339,27 @@ dropdowns are supported.
 <!-- b-dropdown-block.vue -->
 ```
 
+If you want the dropdown menu to span to the full width of the parent container too, add the `w-100`
+utility class to the `menu-class` prop.
+
+```html
+<div>
+  <b-dropdown
+    text="Block Level Dropdown Menu"
+    block
+    variant="primary"
+    class="m-2"
+    menu-class="w-100"
+  >
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- b-dropdown-block-menu.vue -->
+```
+
 ### Dropdown sub-component color variants
 
 Many of the supported dropdown [sub-components](#dropdown-supported-sub-components) provide a
