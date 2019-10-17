@@ -247,6 +247,30 @@ describe('dropdown', () => {
     wrapper.destroy()
   })
 
+  it('should not have "btn-group" class when block is true', async () => {
+    const wrapper = mount(BDropdown, {
+      attachToDocument: true,
+      propsData: {
+        block: true
+      }
+    })
+    expect(wrapper.classes()).not.toContain('btn-group')
+    wrapper.destroy()
+  })
+
+  it('should have "btn-group" and "d-flex" classes when block and split are true', async () => {
+    const wrapper = mount(BDropdown, {
+      attachToDocument: true,
+      propsData: {
+        block: true,
+        split: true
+      }
+    })
+    expect(wrapper.classes()).toContain('btn-group')
+    expect(wrapper.classes()).toContain('d-flex')
+    wrapper.destroy()
+  })
+
   it('should have "dropdown-toggle-no-caret" class when no-caret is true', async () => {
     const wrapper = mount(BDropdown, {
       attachToDocument: true,
