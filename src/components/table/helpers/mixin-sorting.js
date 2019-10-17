@@ -109,15 +109,16 @@ export default {
     },
     computedSortDesc() {
       // Ensure values are tri-state (true, false, null), and same length as localSortBy array
-      const sortDesc = this.localSortDesc
-      return this.computedSortBy.map((_, idx) => (isBoolean(sortDesc[idx]) ? sortDesc[idx] : null))
+      let sortDesc = this.localSortDesc
+      sortDesc = this.computedSortBy.map((_, idx) => (isBoolean(sortDesc[idx]) ? sortDesc[idx] : null))
+      return this.sortMulti ? sortDesc : sortDesc.slice(0, 1)
     },
     computedSortInfo() {
       // TODO in this PR:
       //   Make sortInfo a data property which we update
       //   via watchers on sortBy/SortDesc and event handlers.
       //   When a column is no longer sorted (null) we remove it from the array
-      return this.computedSortBy
+      return this.localSortBy
         .map((key, idx) => {
           const field = this.computedFieldsObj[key] || {}
           return {
