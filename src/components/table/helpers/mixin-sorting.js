@@ -147,28 +147,28 @@ export default {
         return stableSort(items, (a, b) => {
           let result = 0
           for (let idx = 0; idx < sortInfo.length && !result; idx++) {
-              const formatter = sortInfo[idx].formatter
-              const sortBy = sortInfo[idx].sortBy
-              const sortDesc = sortInfo[idx].sortDesc
-              let value = null
-              if (isFunction(sortCompare)) {
-                // Call user provided sortCompare routine
-                value = sortCompare(a, b, sortBy, sortDesc, formatter, sortOptions, sortLocale)
-              }
-              if (!isNumber(value)) {
-                // Fallback to built-in defaultSortCompare if sortCompare
-                // is not defined or doesn't return a number
-                value = defaultSortCompare(
-                  a,
-                  b,
-                  sortBy,
-                  sortDesc,
-                  formatter,
-                  sortOptions,
-                  sortLocale,
-                  nullLast
-                )
-              }
+            const formatter = sortInfo[idx].formatter
+            const sortBy = sortInfo[idx].sortBy
+            const sortDesc = sortInfo[idx].sortDesc
+            let value = null
+            if (isFunction(sortCompare)) {
+              // Call user provided sortCompare routine
+              value = sortCompare(a, b, sortBy, sortDesc, formatter, sortOptions, sortLocale)
+            }
+            if (!isNumber(value)) {
+              // Fallback to built-in defaultSortCompare if sortCompare
+              // is not defined or doesn't return a number
+              value = defaultSortCompare(
+                a,
+                b,
+                sortBy,
+                sortDesc,
+                formatter,
+                sortOptions,
+                sortLocale,
+                nullLast
+              )
+            }
             // Negate result if sorting if descending order
             result = (value || 0) * (sortDesc[idx] ? -1 : 1)
           }
