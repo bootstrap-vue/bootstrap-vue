@@ -742,8 +742,15 @@ above for an example.
 
 ## Tooling support
 
+BootstrapVue provides additional helper files for auto completion in popular IDE editors.
+
 ### VS Code + Vetur
 
 If you are using [VS Code](https://code.visualstudio.com/) as your text editor, BootstrapVue has
-intellisense autocompletion for component attributes available when using the
-[Vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur).
+intellisense autocompletion for component attributes and directives available via the
+`dist/vetur-tags.json` and `dist/vetur-attributes.json` files.
+
+### JetBrains WebStorm (and compatible)
+
+For [WebStorm](https://www.jetbrains.com/webstorm/) editor (or web-types compatible), BootstrapVue
+provides the file `dist/web-types.json` for component attribute and directive auto-completion.

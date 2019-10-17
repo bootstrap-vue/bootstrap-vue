@@ -75,11 +75,21 @@
           },
           {
             "prop": "headVariant",
-            "description": "Header variant: 'light' or 'dark', or unset"
+            "description": "Header variant: 'light' or 'dark', or unset. May take precedence over head-row-variant"
+          },
+          {
+            "prop": "headRowVariant",
+            "version": "2.1.0",
+            "description": "Apply a Bootstrap theme color variant to the tr element in the thead"
           },
           {
             "prop": "footVariant",
-            "description": "Footer variant: 'light' or 'dark', or unset"
+            "description": "Footer variant: 'light' or 'dark', or unset. May take precedence over foot-row-variant"
+          },
+          {
+            "prop": "footRowVariant",
+            "version": "2.1.0",
+            "description": "Apply a Bootstrap theme color variant to the tr element in the tfoot. Falls back to head-row-variant"
           },
           {
             "prop": "tbodyTransitionProps",
@@ -235,7 +245,7 @@
           },
           {
             "prop": "selectedVariant",
-            "description": "Bootstrap color theme variant to set selected rows to. use any of hte standard Bootstrap theme variants, or the special table row variant 'active'"
+            "description": "Bootstrap color theme variant to set selected rows to. Use any of the standard Bootstrap theme color variants, or the special table row variant 'active' (default). Set to an empty string to not use a variant"
           },
           {
             "prop": "showEmpty",
@@ -519,6 +529,11 @@
                 "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
               },
               {
+                "prop": "field",
+                "type": "Object",
+                "description": "The field's normalized definition object (from the fields prop)"
+              },
+              {
                 "prop": "detailsShowing",
                 "type": "Boolean",
                 "description": "Will be true if the row's row-details scoped slot is visible"
@@ -558,6 +573,11 @@
                 "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
               },
               {
+                "prop": "field",
+                "type": "Object",
+                "description": "The field's normalized definition object (from the fields prop)"
+              },
+              {
                 "prop": "detailsShowing",
                 "type": "Boolean",
                 "description": "Will be true if the row's row-details scoped slot is visible"
@@ -587,7 +607,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -623,7 +643,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -660,7 +680,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -691,7 +711,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -721,7 +741,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -839,7 +859,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -865,7 +885,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -881,7 +901,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -897,7 +917,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -979,11 +999,21 @@
           },
           {
             "prop": "headVariant",
-            "description": "Header variant: 'light' or 'dark', or unset"
+            "description": "Header variant: 'light' or 'dark', or unset. May take precedence over head-row-variant"
+          },
+          {
+            "prop": "headRowVariant",
+            "version": "2.1.0",
+            "description": "Apply a Bootstrap theme color variant to the tr element in the thead"
           },
           {
             "prop": "footVariant",
-            "description": "Footer variant: 'light' or 'dark', or unset"
+            "description": "Footer variant: 'light' or 'dark', or unset. May take precedence over foot-row-variant"
+          },
+          {
+            "prop": "footRowVariant",
+            "version": "2.1.0",
+            "description": "Apply a Bootstrap theme color variant to the tr element in the tfoot. Falls back to head-row-variant"
           },
           {
             "prop": "tbodyTransitionProps",
@@ -1225,6 +1255,11 @@
                 "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
               },
               {
+                "prop": "field",
+                "type": "Object",
+                "description": "The field's normalized definition object (from the fields prop)"
+              },
+              {
                 "prop": "detailsShowing",
                 "type": "Boolean",
                 "description": "Will be true if the row's row-details scoped slot is visible"
@@ -1259,6 +1294,11 @@
                 "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
               },
               {
+                "prop": "field",
+                "type": "Object",
+                "description": "The field's normalized definition object (from the fields prop)"
+              },
+              {
                 "prop": "detailsShowing",
                 "type": "Boolean",
                 "description": "Will be true if the row's row-details scoped slot is visible"
@@ -1283,7 +1323,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1309,7 +1349,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1336,7 +1376,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1357,7 +1397,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1377,7 +1417,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -1419,7 +1459,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -1445,7 +1485,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",

@@ -35,7 +35,7 @@ native browser HTML5 types: `text`, `password`, `email`, `number`, `url`, `tel`,
   <b-container fluid>
     <b-row class="my-1" v-for="type in types" :key="type">
       <b-col sm="3">
-        <label :for="`type-${type}`">Type {{ type }}:</label>
+        <label :for="`type-${type}`">Type <code>{{ type }}</code>:</label>
       </b-col>
       <b-col sm="9">
         <b-form-input :id="`type-${type}`" :type="type"></b-form-input>
@@ -50,13 +50,14 @@ native browser HTML5 types: `text`, `password`, `email`, `number`, `url`, `tel`,
       return {
         types: [
           'text',
-          'password',
-          'email',
           'number',
+          'email',
+          'password',
+          'search',
           'url',
           'tel',
           'date',
-          `time`,
+          'time',
           'range',
           'color'
         ]
@@ -75,8 +76,8 @@ rendered and a console warning will be issued.
 
 - Not all browsers support all input types, nor do some types render in the same format across
   browser types/versions.
-- Browsers that do not support a particular type will fall back to a `text` input type (event
-  through the rendered `type` attribute markup shows the requested type).
+- Browsers that do not support a particular type will fall back to a `text` input type (even though
+  the rendered `type` attribute markup shows the requested type).
 - No testing is performed to see if the requested input type is supported by the browser.
 - Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
   Instead of using `datetime`, since support should be deprecated, use `date` and `time` as two
@@ -85,13 +86,15 @@ rendered and a console warning will be issued.
 - For date and time style inputs, where supported, the displayed value in the GUI may be different
   than what is returned by it's value (i.e. ordering of year-month-date).
 - Regardless of input type, the value is **always** returned as a string representation.
-- `v-model.lazy` is not supported by `<b-form-input>` (nor any custom Vue component).
+- `v-model.lazy` is not supported by `<b-form-input>` (nor any custom Vue component). Use the `lazy`
+  prop instead.
 - `v-model` modifiers `.number` and `.trim` can cause unexpected cursor jumps when the user is
   typing (this is a Vue issue with `v-model` on custom components). _Avoid using these modifiers_.
+  Use the `number` or `trip` props instead.
 - Older version of Firefox may not support `readonly` for `range` type inputs.
 - Input types that do not support `min`, `max` and `step` (i.e. `text`, `password`, `tel`, `email`,
   `url`, etc) will silently ignore these values (although they will still be rendered on the input
-  markup).
+  markup) iv values are provided.
 
 ### Range type input
 
@@ -461,9 +464,9 @@ from an array of options.
 Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of custom
 component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
 
-To get around this, `<b-form-input>` and `<b-form-textarea>` have two boolean props `trim` and
-`number` which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectively.
-Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `blur` events instead).
+To get around this, `<b-form-input>` and `<b-form-textarea>` have three boolean props `trim`,
+`number`, and `lazy` which emulate the native Vue `v-model` modifiers `.trim` and `.number` and
+`.lazy` respectively. The `lazy` prop will update the v-model on `change`/`blur`events.
 
 **Notes:**
 

@@ -252,7 +252,7 @@ The following field properties are recognized:
 | `tdAttr`            | Object or Function          | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead. The function will be called as `tdAttr(value, key, item)` and it must return an `Object`.                                                                                                                                             |
 | `thAttr`            | Object or Function          | JavaScript object representing additional attributes to apply to the field's `<thead>`/`<tfoot>` heading `<th>` cell. If the field's `isRowHeader` is set to `true`, the attributes will also apply to the `<tbody>` field `<th>` cell. If custom attributes per cell are required, a callback function can be specified instead. The function will be called as `thAttr(value, key, item, type)` and it must return an `Object`. |
 | `isRowHeader`       | Boolean                     | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.                                                                                                                                                                                                                                                                                                                    |
-| `stickyColumn`      | Boolean                     | When set to `true`, and the table in in [responsive](#responsive-tables) mode or has [sticky headers](#sticky-headers), will cause the column to become fixed to the left when the table's horizontal scrollbar is scrolled. See [Sticky columns](#sticky-columns) for more details                                                                                                                                               |
+| `stickyColumn`      | Boolean                     | When set to `true`, and the table in [responsive](#responsive-tables) mode or has [sticky headers](#sticky-headers), will cause the column to become fixed to the left when the table's horizontal scrollbar is scrolled. See [Sticky columns](#sticky-columns) for more details                                                                                                                                               |
 
 **Notes:**
 
@@ -890,6 +890,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                           |
 | `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's [`formatter` function](#formatter-callback)                |
 | `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's [`formatter` function](#formatter-callback) |
+| `field`          | Object   | The field's normalized field definition object                                                                                                                           |
 | `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [Row details support](#row-details-support) below for additional information                |
 | `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information    |
 | `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [Row select support](#row-select-support) for additional information                                             |
@@ -1540,12 +1541,12 @@ example).
 
 The `selected-variant` can be any of the
 [standard (or custom) bootstrap base color variants](/docs/reference/color-variants), or the special
-[table `active` variant](/docs/reference/color-variants#table-variants) which takes precedence over
-any specific row or cell variants.
+[table `active` variant](/docs/reference/color-variants#table-variants) (the default) which takes
+precedence over any specific row or cell variants.
 
 For accessibility reasons (specifically for color blind users, or users with color contrast issues),
 it is highly recommended to always provide some other visual means of conveying that a row is
-selected, such as shown in the example below.
+selected, such as a virtual column as shown in the example below.
 
 ```html
 <template>
@@ -1558,7 +1559,6 @@ selected, such as shown in the example below.
       ref="selectableTable"
       selectable
       :select-mode="selectMode"
-      selected-variant="active"
       :items="items"
       :fields="fields"
       @row-selected="onRowSelected"
@@ -1932,7 +1932,7 @@ sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` 
 **Notes:**
 
 - Refer to
-  [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/enUS/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
+  [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
   for details on the options object property values.
 - Refer to
   [MDN locales documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument)
