@@ -174,7 +174,7 @@ export default {
               )
             }
             // Negate result if sorting if descending order
-            result = (value || 0) * (sortDesc[idx] ? -1 : 1)
+            result = (value || 0) * (sortDesc ? -1 : 1)
           }
           return result
         })
