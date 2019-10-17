@@ -1,13 +1,13 @@
 import Vue from '../../utils/vue'
-import { isArray } from '../../utils/inspect'
+import { htmlOrText } from '../../utils/html'
+import formOptionsMixin from '../../mixins/form-options'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import optionsMixin from './helpers/mixin-options'
 import { BFormSelectOption } from './form-select-option'
 
 // @vue/component
 const BFormSelectOptionGroup = /*#__PURE__*/ Vue.extend({
   name: 'BFormSelectOptionGroup',
-  mixins: [normalizeSlotMixin, optionsMixin],
+  mixins: [normalizeSlotMixin, formOptionsMixin],
   props: {
     label: {
       type: String,
@@ -17,17 +17,13 @@ const BFormSelectOptionGroup = /*#__PURE__*/ Vue.extend({
   render(h) {
     return h('optgroup', { attrs: { label: this.label } }, [
       this.normalizeSlot('first'),
-      this.formOptions.map((option, index) => {
-        const key = `option_${index}_opt`
-        const options = option.options
-        return isArray(options)
-          ? h(BFormSelectOptionGroup, { props: { label: option.label, options }, key })
-          : h(
-              BFormSelectOption,
-              { props: { value: option.value, disabled: option.disabled }, key },
-              option.html || option.text
-            )
-      }),
+      this.formOptions.map((option, index) =>
+        h(BFormSelectOption, {
+          props: { value: option.value, disabled: option.disabled },
+          domProps: htmlOrText(option.html, option.text),
+          key: `option_${index}_opt`
+        })
+      ),
       this.normalizeSlot('default')
     ])
   }

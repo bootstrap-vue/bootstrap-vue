@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { from as arrayFrom, isArray } from '../../utils/array'
+import { htmlOrText } from '../../utils/html'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
@@ -133,11 +134,11 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
           const options = option.options
           return isArray(options)
             ? h(BFormSelectOptionGroup, { props: { label: option.label, options }, key })
-            : h(
-                BFormSelectOption,
-                { props: { value: option.value, disabled: option.disabled }, key },
-                option.html || option.text
-              )
+            : h(BFormSelectOption, {
+                props: { value: option.value, disabled: option.disabled },
+                domProps: htmlOrText(option.html, option.text),
+                key
+              })
         }),
         this.normalizeSlot('default')
       ]
