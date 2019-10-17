@@ -109,8 +109,9 @@ export default {
     },
     computedSortDesc() {
       // Ensure values are tri-state (true, false, null), and same length as localSortBy array
-      let sortDesc = this.localSortDesc
-      sortDesc = this.computedSortBy.map((_, idx) => (isBoolean(sortDesc[idx]) ? sortDesc[idx] : null))
+      const sortDesc = this.localSortBy.map(
+        (_, idx) => (isBoolean(this.localSortDesc[idx]) ? this.localSortDesc[idx] : null)
+      )
       return this.sortMulti ? sortDesc : sortDesc.slice(0, 1)
     },
     computedSortInfo() {
