@@ -81,7 +81,9 @@ export default {
       return {
         filter: this.localFilter,
         sortBy: this.sortMulti ? this.computedSortBy : (this.computedSortBy || [])[0] || '',
-        sortDesc: this.sortMulti ? this.computedSortDesc : (this.computedSortDesc || [])[0] || false,
+        sortDesc: this.sortMulti
+          ? this.computedSortDesc
+          : (this.computedSortDesc || [])[0] || false,
         perPage: parseInt(this.perPage, 10) || 0,
         currentPage: parseInt(this.currentPage, 10) || 1,
         apiUrl: this.apiUrl
