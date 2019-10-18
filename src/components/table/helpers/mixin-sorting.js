@@ -93,8 +93,9 @@ export default {
   },
   data() {
     return {
-      localSortBy: [''],
-      localSortDesc: [false]
+      // Array of sort Objects: [{ sortBy: 'field', sortDesc: false }, ... ]
+      // Will be an empty array if no sorting
+      localSortInfo: []
     }
   },
   computed: {
@@ -102,39 +103,13 @@ export default {
       return this.hasProvider ? !!this.noProviderSorting : !this.noLocalSorting
     },
     isSortable() {
-      return this.computedFields.some(f => f.sortable)
+      return this.computedFields.some(field => field.sortable)
     },
     computedSortBy() {
-      return this.sortMulti ? this.localSortBy : this.localSortBy.slice(0, 1)
+      return this.localSortInfo.map(info => info.sortBy)
     },
     computedSortDesc() {
-      // Ensure values are tri-state (true, false, null), and same length as localSortBy array
-      const sortDesc = this.localSortBy.map(
-        (_, idx) => (isBoolean(this.localSortDesc[idx]) ? this.localSortDesc[idx] : null)
-      )
-      return this.sortMulti ? sortDesc : sortDesc.slice(0, 1)
-    },
-    computedSortInfo() {
-      // TODO in this PR:
-      //   Make sortInfo a data property which we update
-      //   via watchers on sortBy/SortDesc and event handlers.
-      //   When a column is no longer sorted (null) we remove it from the array
-      const computedSortDesc = this.computedSortDesc
-      const computedFieldsObj = this.computedFieldsObj
-      return this.localSortBy
-        .map((key, idx) => {
-          const field = computedFieldsObj[key] || {}
-          return {
-            sortBy: key,
-            sortDesc: computedSortDesc[idx],
-            formatter: isFunction(field.formatter)
-              ? field.formatter
-              : field.formatter
-                ? this.getFieldFormatter(key)
-                : undefined
-          }
-        })
-        .filter(x => x.sortBy && isBoolean(x.sortDesc))
+      return this.localSortInfo.map(info => info.sortDesc)
     },
     sortedItems() {
       // Sorts the filtered items and returns a new array of the sorted items
@@ -190,47 +165,64 @@ export default {
         this.$off('head-clicked', this.handleSort)
       }
     },
-    sortBy(newVal, oldVal) {
-      if (looseEqual(newVal, this.localSortBy)) {
-        /* istanbul ignore next */
-        return
+    sortBy(newVal) {
+      // Update localSortInfo object
+      if (!looseEqual(newVal, this.computedSortBy)) {
+        // Update localSortInfo object
+        this.updateLocalSortInfo(newVal, this.sortDesc)
       }
-      // TODO in this PR:
-      //   Update sortInfo object
-      this.localSortBy = newVal ? concat(newVal) : []
     },
-    sortDesc(newVal, oldVal) {
-      if (looseEqual(newVal, this.localSortDesc)) {
-        /* istanbul ignore next */
-        return
+    sortDesc(newVal) {
+      // Update localSortInfo object
+      if (!looseEqual(newVal, this.computedSortDesc)) {
+        this.updateLocalSortInfo(this.sortBy, newVal)
       }
-      // TODO in this PR:
-      //   Update sortInfo object
-      newVal = isUndefined(newVal) ? [] : concat(newVal)
-      this.localSortDesc = newVal.map(d => (isBoolean(d) ? d : null))
     },
     // Update .sync props
-    // TODO in this PR:
-    //   Instead watch the sortInfo array, and emit the apropriate
-    //   updated values as needed
-    localSortDesc(newVal, oldVal) {
-      // Emit update to sort-desc.sync
-      if (!looseEqual(newVal, oldVal)) {
-        this.$emit('update:sortDesc', this.sortMulti ? newVal : newVal[0])
+    computedSortBy(newSortBy = [], oldSortBy = []) {
+      if (!looseEqual(newSortBy, oldSortBy)) {
+        // Emit update to sort-by.sync
+        this.$emit('update:sortBy', this.sortMulti ? newSortBy : newSortBy[0] || '')
       }
     },
-    localSortBy(newVal, oldVal) {
-      if (!looseEqual(newVal, oldVal)) {
-        this.$emit('update:sortBy', this.sortMulti ? newVal : newVal[0])
+    computedSortDesc(newSortDesc = [], oldSortDesc = []) {
+      if (!looseEqual(newSortDesc, oldSortDesc)) {
+        // Emit update to sort-desc.sync
+        this.$emit('update:sortBy', this.sortMulti ? newSortDesc : newSortDesc[0] || '')
       }
     }
   },
   created() {
     if (this.isSortable) {
       this.$on('head-clicked', this.handleSort)
+      // Update sortInfo object
+      this.updateLocalSortInfo(this.sortBy, newVal)
     }
   },
   methods: {
+    updateLocalSortInfo(sortBy, sortDesc) {
+      if (this.isSortable) {
+        // Updates localSortInfo array with the given values
+        const sortByArr = concat(sortBy).filter(s => !isUndefinedOrNull(s))
+        const sortDescArr = concat(sortDesc)
+        const computedFieldsObj = this.computedFieldsObj
+        this.localSortInfo = sortByArr.map((key, idx) => {
+          const field = computedFieldsObj[key] || {}
+          return {
+            sortBy: String(key),
+            sortDesc: Boolean(sortDescArr[idx]),
+            formatter: isFunction(field.formatter)
+              ? field.formatter
+              : field.formatter
+                ? this.getFieldFormatter(key)
+                : undefined
+          }
+        })
+      } else {
+        // Not sortable so reset the localSortInfo array
+        this.localSortInfo = []
+      }
+    },
     // Handlers
     handleSort(key, field, evt, isFoot) {
       if (!this.isSortable) {
@@ -246,53 +238,45 @@ export default {
       //   const sequence = this.sortDirection === 'desc' ? [true, false, null] : [false, true, null]
       // TODO in this PR:
       //   Handle this via lookup
-      const sortBy = this.localSortBy[0]
-      // TODO: make this tri-state sorting (for multi-sort only)
-      // cycle desc => asc => none => desc => ...
+      const sortMulti = this.sortMulti
+      const sortInfo = this.localSortInfo
+      const sortIndex = this.computedSortBy.indexOf(key)
       let sortChanged = false
-      const toggleLocalSortDesc = () => {
-        const sortDirection = field.sortDirection || this.sortDirection
-        if (sortDirection === 'asc') {
-          this.localSortDesc = [false]
-        } else if (sortDirection === 'desc') {
-          this.localSortDesc = [true]
-        } else {
-          // sortDirection === 'last'
-          // Leave at last sort direction from previous column
-          // TODO in this PR:
-          //   If multi-sort, then use sort sequence
-        }
-      }
+      // Get the initial sort Direction
+      const intialDirection = sortMulti
+        ? this.sortDirection
+        : field.sortDirection || this.sortDirection
+      const intialSortDesc = intialDirection === 'asc'
+        ? false
+        : intialDirection === 'desc'
+          ? true
+          : sortMulti
+            ? false
+            : (sortInfo[0] || {}).sortDesc || false
       if (field.sortable) {
-        // TODO in this PR:
-        //   handle toggling on the index
-        if (key === sortBy) {
-          // Change sorting direction on current column
-          // this.localSortDesc[0] = !this.localSortDesc[0]
-          this.localSortDesc = [!this.localSortDesc[0]]
-          // TODO in this PR:
-          //   Check if sort is clearing (third click), and
-          //   if so remove the sort item from both localSortBy/localSortDesc
+        if (sortIndex === -1) {
+          // Field not sorted currently
+          this.localSortInfo.push({
+            sortBy: key,
+            sortDesc: intialSortDesc
+          })
         } else {
-          // Start sorting this column ascending
-          this.localSortBy[0] = key
-          // this.localSortDesc = false
-          toggleLocalSortDesc()
+          // Field is currently sorted
+          if (sortInfo[sortIndex].sortDesc === intialSortDesc) {
+            // If transitioning from true<=>false, toggle the direction
+            sortInfo[sortIndex].sortDesc = !sortInfo[sortIndex].sortDesc
+          } else {
+            // Else transitoning to unsorted, so remove from sort info
+            this.localSortInfo.splice(sortIndex, 1)
+          }
         }
         sortChanged = true
       } else if (this.computedSortInfo.length > 0 && !this.noSortReset) {
-        this.localSortBy = []
-        if (this.sortMulti) {
-          this.localSortDesc = []
-        } else {
-          toggleLocalSortDesc()
-        }
+        this.localSortInfo = []
         sortChanged = true
-        // } else {
-        //   sortChanged = false
       }
       if (sortChanged) {
-        // Sorting parameters changed
+        // Sorting parameters changed via user interaction
         this.$emit('sort-changed', this.context)
       }
     },
@@ -310,18 +294,10 @@ export default {
         return {}
       }
       const sortable = field.sortable
-      // TODO in this PR:
-      //   This is just temporary. Will need to lookup the index of this
-      //   key in this.localSortBy or this.localSortInfo
-      const sortOrder = 1
-      // TODO for this PR:
-      //   Find index of key in this.computedSortBy (or this.computedSortInfo),
-      //   and then grab the sorting value
-      const sortDesc = this.localSortDesc[0]
-      // TODO in this PR:
-      //   This is just temporary. Will need to lookup if this column key is
-      //   in this.localSortBy
-      const sortBy = this.localSortBy[0]
+      const sortIndex = this.computedSortBy.indexOf(key)
+      const sortOrder = sortIndex + 1
+      const sortBy = this.computedSortBy[sortIndex]
+      const sortDesc = this.computedSortDesc[sortIndex] || false
       // Now we get down to business determining the aria-label value
       let ariaLabel = ''
       if ((!field.label || !field.label.trim()) && !field.headerTitle) {
@@ -345,7 +321,9 @@ export default {
           // Default for ariaLabel
           ariaLabelSorting = sortDesc ? this.labelSortDesc : this.labelSortAsc
           // Handle sortDirection setting
-          const sortDirection = this.sortDirection || field.sortDirection
+          const sortDirection = this.sortMulti
+            ? this.sortDirection
+            : this.sortDirection || field.sortDirection
           if (sortDirection === 'asc') {
             ariaLabelSorting = this.labelSortAsc
           } else if (sortDirection === 'desc') {
@@ -354,7 +332,7 @@ export default {
         }
       } else if (!this.noSortReset) {
         // Non sortable column
-        ariaLabelSorting = this.localSortBy ? this.labelSortClear : ''
+        ariaLabelSorting = sortInfo.length > 0 ? this.labelSortClear : ''
       }
       // Assemble the aria-label attribute value
       ariaLabel = [ariaLabel.trim(), ariaLabelSorting.trim()].filter(Boolean).join(': ')
@@ -380,7 +358,7 @@ export default {
         //   And figure out how to set a variant for this badge
         //   May require additiona CSS generation. or we just make 2 options: dark and light
         //   Or use the column text variant (currentColor) to make an outline badge
-        'data-sort-order': this.sortMulti ? String(sortOrder) : null
+        'data-sort-order': this.sortMulti && sortOrder ? String(sortOrder) : null
       }
     }
   }
