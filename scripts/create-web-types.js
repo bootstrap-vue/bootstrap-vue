@@ -129,9 +129,7 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
   const $events = meta.events || []
   const $slots = meta.slots || []
   const $aliases = meta.aliases || []
-  // This doesn't exist yet (for prop descriptions, info)
-  // For description (and possibly more) for props docs
-  // source is array format, so we convert to a hash object
+  // Pull in any prop info from the meta (i.e. description)
   const $propsExtra = (meta.props || []).reduce((obj, p) => {
     if (p && p.prop) {
       obj[p.prop] = p
