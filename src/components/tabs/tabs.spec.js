@@ -311,6 +311,73 @@ describe('tabs', () => {
     wrapper.destroy()
   })
 
+  it('`activate-tab` event works', async () => {
+    
+    const App = Vue.extend({
+      methods: {
+        preventTab(next, prev, bvEvt) {
+          // Prevent 3rd tab (index === 2) from activating
+          if (next === 2) {
+            bvEvt.preventDefault()
+          }
+        }
+      },
+      render(h) {
+        return h(BTabs, { props: { value: 0 }, on: { 'activate-tab': this.preventTab } }, [
+          h(BTab, { props: {} }, 'tab 0'),
+          h(BTab, { props: {} }, 'tab 1'),
+          h(BTab, { props: {} }, 'tab 2')
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    const tabs = wrapper.find(BTabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(BTab).length).toBe(3)
+
+    // Expect 1st tab (index 0) to be active
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tabs.vm.tabs[0].localActive).toBe(true)
+    expect(tabs.emitted('input')).not.toBeDefined()
+    expect(tabs.emitted('activate-tab')).not.toBeDefined()
+
+    // Set 2nd BTab to be active
+    tabs.setProps({ value: 1 })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tabs.vm.currentTab).toBe(1)
+    expect(tabs.emitted('input')).toBeDefined()
+    expect(tabs.emitted('input').length).toBe(1)
+    expect(tabs.emitted('input')[0][0]).toBe(1)
+    expect(tabs.emitted('activate-tab')).toBeDefined()
+    expect(tabs.emitted('activate-tab').length).toBe(1)
+    expect(tabs.emitted('activate-tab')[0][0]).toBe(1)
+    expect(tabs.emitted('activate-tab')[0][1]).toBe(0)
+    expect(tabs.emitted('activate-tab')[0][3]).toBeDefined()
+    expect(tabs.emitted('activate-tab')[0][3].vueTarget).toBe(tabs.vm)
+
+    // Attempt to set 3rd BTab to be active
+    tabs.setProps({ value: 2 })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tabs.vm.currentTab).toBe(1)
+    expect(tabs.emitted('input')).toBeDefined()
+    expect(tabs.emitted('input').length).toBe(2)
+    expect(tabs.emitted('input')[1][0]).toBe(1)
+    expect(tabs.emitted('activate-tab').length).toBe(2)
+    expect(tabs.emitted('activate-tab')[1][0]).toBe(2)
+    expect(tabs.emitted('activate-tab')[1][1]).toBe(1)
+    expect(tabs.emitted('activate-tab')[1][3]).toBeDefined()
+    expect(tabs.emitted('activate-tab')[1][3].vueTarget).toBe(tabs.vm)
+    expect(tabs.emitted('activate-tab')[1][3].defaultPrevented).toBe(true)
+
+    wrapper.destroy()
+  })
+
   it('clicking on tab activates the tab, and tab emits click event', async () => {
     const App = Vue.extend({
       render(h) {
