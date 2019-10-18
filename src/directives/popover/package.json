@@ -6,8 +6,9 @@
     "description": "Add BootstrapVue popovers to any element on your site, using Bootstrap v4 CSS for styling and animations. Popovers are tooltips on steroids.",
     "directive": "VBPopover",
     "arg": {
-      "pattern": "[a-zA-Z][a-ZA-Z0-9_\\-]*",
-      "description": "ID of element to append the popover markup when visible. Optional, defaults to the body"
+      "pattern": "[a-zA-Z][a-zA-Z0-9_\\-]*",
+      "description": "ID of element to append the popover markup when visible. Optional, defaults to the body",
+      "required": false
     },
     "expression": [
       "String",

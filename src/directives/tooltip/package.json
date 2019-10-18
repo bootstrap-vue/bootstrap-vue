@@ -6,8 +6,9 @@
     "description": "Add custom BootstrapVue tooltips to any element. Tooltips can be triggered by hovering, focusing, or clicking an element.",
     "directive": "VBTooltip",
     "arg": {
-      "pattern": "[a-zA-Z][a-ZA-Z0-9_\\-]*",
-      "description": "ID of element to append the tooltip markup when visible. Optional, defaults to the body"
+      "pattern": "[a-zA-Z][a-zA-Z0-9_\\-]*",
+      "description": "ID of element to append the tooltip markup when visible. Optional, defaults to the body",
+      "required": false
     },
     "expression": [
       "String",
