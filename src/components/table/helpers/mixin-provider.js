@@ -56,7 +56,9 @@ export default {
       }
       if (!this.noProviderSorting) {
         ctx.sortBy = this.sortMulti ? this.computedSortBy : (this.computedSortBy || [])[0] || ''
-        ctx.sortDesc = this.sortMulti ? this.computedSortDesc : (this.computedSortDesc || [])[0] || false
+        ctx.sortDesc = this.sortMulti
+          ? this.computedSortDesc
+          : (this.computedSortDesc || [])[0] || false
       }
       if (!this.noProviderPaging) {
         ctx.perPage = this.perPage
