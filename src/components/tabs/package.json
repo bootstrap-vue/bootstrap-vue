@@ -96,7 +96,7 @@
           {
             "event": "activate-tab",
             "version": "2.1.0",
-            "description": "Emitted just before a tab is shown/activated (excluding tab change via v-model). Cancelable",
+            "description": "Emitted just before a tab is shown/activated (excluding tab change via v-model/value prop). Cancelable",
             "args": [
               {
                 "arg": "newTabIndex",
