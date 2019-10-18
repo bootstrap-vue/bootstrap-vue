@@ -263,7 +263,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         old = parseInt(old, 10) || 0
         const tabs = this.tabs
         if (tabs[val] && !tabs[val].disabled) {
-          this.currentTab = val
+          // this.currentTab = val
+          this.activateTab(tabs[val])
         } else {
           // Try next or prev tabs
           if (val < old) {
