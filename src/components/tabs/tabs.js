@@ -496,12 +496,10 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           }
         }
       }
-      if (!result) {
-        // Couldn't set tab, so ensure v-model is set to `this.currentTab`
-        /* istanbul ignore next: should rarely happen */
-        if (this.currentTab !== this.value) {
-          this.$emit('input', this.currentTab)
-        }
+      // Couldn't set tab, so ensure v-model is set to `this.currentTab`
+      /* istanbul ignore next: should rarely happen */
+      if (!result && this.currentTab !== this.value) {
+        this.$emit('input', this.currentTab)
       }
       return result
     },
