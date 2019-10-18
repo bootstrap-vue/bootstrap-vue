@@ -24,13 +24,14 @@ let directiveGroups = {}
 
 // Base web-types object
 const webTypes = {
-  $schema: '',
+  $schema: 'https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json',
   framework: 'vue',
   name: libraryName,
   version: libraryVersion,
   contributions: {
     html: {
       'types-syntax': 'typescript',
+      'description-markup': 'markdown',
       // Components get placed here
       tags: [],
       // Directives get placed in here
@@ -115,7 +116,7 @@ const computePropDefault = ({ default: def, type }) => {
 }
 
 // Process a single component's meta and definition/class objects
-const processComponentMeta = (meta, groupRef, docUrl) => {
+const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
   const componentName = meta.component
 
   // Pull information from the component definition/class
@@ -128,17 +129,13 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
   const $events = meta.events || []
   const $slots = meta.slots || []
   const $aliases = meta.aliases || []
-  // This doesn't exist yet (for prop descriptions, info)
-  // For description (and possibly more) for props docs
-  // source is array format, so we convert to a hash object
+  // Pull in any prop info from the meta (i.e. description)
   const $propsExtra = (meta.props || []).reduce((obj, p) => {
     if (p && p.prop) {
       obj[p.prop] = p
     }
     return obj
   }, {})
-
-  const tagName = kebabCase(componentName)
 
   // Build the tag reference
   const tag = {
@@ -147,8 +144,8 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
       module: libraryName,
       symbol: componentName
     },
-    'docs-url': docUrl,
-    description: `'${componentName}' - BootstrapVue component '${tagName}'`,
+    'doc-url': docUrl,
+    description: groupDescription,
     attributes: []
   }
 
@@ -170,14 +167,15 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
       const prop = {
         name: propName,
         value: {
-          type: type,
-          default: computePropDefault($prop)
+          kind: 'expression',
+          type: type
         },
+        default: computePropDefault($prop),
         'doc-url': docUrl
       }
       // Add required prop is required
       if ($prop.required) {
-        prop.value.required = true
+        prop.required = true
       }
       if (type === 'boolean') {
         // Deprecated. Use 'value' property instead. Specify only if type is
@@ -215,10 +213,11 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
         event.description = eventObj.description
       }
       if (Array.isArray(eventObj.args)) {
-        event.arguments = eventObj.args.map(arg => {
+        event.arguments = eventObj.args.map((arg, index) => {
           arg = typeof arg === 'object' ? arg : { arg: arg }
+          const name = arg.arg || (arg.type ? computePropType(arg) : undefined) || 'arg' + index
           const argument = {
-            name: arg.arg,
+            name: name.charAt(0).toLowerCase() + name.slice(1),
             'doc-url': docUrl
           }
           if (arg.description) {
@@ -278,14 +277,14 @@ const processComponentMeta = (meta, groupRef, docUrl) => {
     // Add the aliases
     $aliases.forEach(alias => {
       const aliasTag = { ...tag, name: alias, source: { ...tag.source, symbol: alias } }
-      aliasTag.description = `'${alias}' '${kebabCase(alias)}' (Alias for ${tag.description})`
+      aliasTag.description = `${tag.description}\n\n*Alias for ${tag.name}*`
       webTypes.contributions.html.tags.push(aliasTag)
     })
   }
 }
 
 // Process a single directive meta object
-const processDirectiveMeta = (directiveMeta, docUrl) => {
+const processDirectiveMeta = (directiveMeta, directiveDescription, docUrl) => {
   // Process the directive meta
   // String (PascalCase)
   const name = directiveMeta.directive
@@ -304,18 +303,17 @@ const processDirectiveMeta = (directiveMeta, docUrl) => {
       symbol: name
     },
     required: false,
-    description: `${name} - BootstrapVue directive '${kebabCase(name)}'`,
+    description: directiveDescription,
     'doc-url': docUrl
   }
 
   // Add in argument details
   if (arg) {
-    // TODO as this is missing from the schema def
-    // https://github.com/JetBrains/web-types/issues/7
     attribute['vue-argument'] = {
       // RegExpr string pattern for argument
       pattern: arg.pattern,
-      description: arg.description
+      description: arg.description,
+      required: arg.required
     }
   }
 
@@ -363,13 +361,13 @@ const processComponentGroup = groupSlug => {
 
   // Process each component
   componentsMeta.forEach(meta => {
-    processComponentMeta(meta, groupRef, docUrl)
+    processComponentMeta(meta, groupRef, groupMeta.description, docUrl)
   })
 
   // Process any directives provided in the meta
   // These directives do not have their own package.json files
   directivesMeta.forEach(directiveMeta => {
-    processDirectiveMeta(directiveMeta, docUrl)
+    processDirectiveMeta(directiveMeta, groupMeta.description, docUrl)
   })
 }
 
@@ -380,7 +378,7 @@ const processDirectiveGroup = groupSlug => {
   const docUrl = `${baseDocs}/docs/directives/${groupSlug}/`
 
   // Process the directive meta
-  processDirectiveMeta(directiveMeta, docUrl)
+  processDirectiveMeta(directiveMeta, directiveMeta.description, docUrl)
 }
 
 // Wrapped in a try/catch to handle any errors
