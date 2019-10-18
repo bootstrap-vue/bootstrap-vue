@@ -203,7 +203,8 @@ export default {
     updateLocalSortInfo(sortBy, sortDesc) {
       if (this.isSortable) {
         // Updates localSortInfo array with the given values
-        const sortByArr = concat(sortBy).filter(s => !isUndefinedOrNull(s))
+        let sortByArr = concat(sortBy).filter(s => !isUndefinedOrNull(s))
+        sortByArr = this.sortMulti ? sortByArr : sortByArr[0] || []
         const sortDescArr = concat(sortDesc)
         const computedFieldsObj = this.computedFieldsObj
         this.localSortInfo = sortByArr.map((key, idx) => {
