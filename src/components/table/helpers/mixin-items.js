@@ -80,8 +80,8 @@ export default {
       // Current state of sorting, filtering and pagination props/values
       return {
         filter: this.localFilter,
-        sortBy: this.localSortBy,
-        sortDesc: this.localSortDesc,
+        sortBy: this.computedSortBy,
+        sortDesc: this.computedSortDesc,
         perPage: parseInt(this.perPage, 10) || 0,
         currentPage: parseInt(this.currentPage, 10) || 1,
         apiUrl: this.apiUrl
