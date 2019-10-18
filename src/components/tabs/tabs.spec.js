@@ -312,7 +312,6 @@ describe('tabs', () => {
   })
 
   it('`activate-tab` event works', async () => {
-    
     const App = Vue.extend({
       methods: {
         preventTab(next, prev, bvEvt) {
@@ -357,8 +356,8 @@ describe('tabs', () => {
     expect(tabs.emitted('activate-tab').length).toBe(1)
     expect(tabs.emitted('activate-tab')[0][0]).toBe(1)
     expect(tabs.emitted('activate-tab')[0][1]).toBe(0)
-    expect(tabs.emitted('activate-tab')[0][3]).toBeDefined()
-    expect(tabs.emitted('activate-tab')[0][3].vueTarget).toBe(tabs.vm)
+    expect(tabs.emitted('activate-tab')[0][2]).toBeDefined()
+    expect(tabs.emitted('activate-tab')[0][2].vueTarget).toBe(tabs.vm)
 
     // Attempt to set 3rd BTab to be active
     tabs.setProps({ value: 2 })
@@ -371,9 +370,9 @@ describe('tabs', () => {
     expect(tabs.emitted('activate-tab').length).toBe(2)
     expect(tabs.emitted('activate-tab')[1][0]).toBe(2)
     expect(tabs.emitted('activate-tab')[1][1]).toBe(1)
-    expect(tabs.emitted('activate-tab')[1][3]).toBeDefined()
-    expect(tabs.emitted('activate-tab')[1][3].vueTarget).toBe(tabs.vm)
-    expect(tabs.emitted('activate-tab')[1][3].defaultPrevented).toBe(true)
+    expect(tabs.emitted('activate-tab')[1][2]).toBeDefined()
+    expect(tabs.emitted('activate-tab')[1][2].vueTarget).toBe(tabs.vm)
+    expect(tabs.emitted('activate-tab')[1][2].defaultPrevented).toBe(true)
 
     wrapper.destroy()
   })
