@@ -2,7 +2,7 @@ import stableSort from '../../../utils/stable-sort'
 import startCase from '../../../utils/startcase'
 import looseEqual from '../../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../../utils/array'
-import { isBoolean, isFunction, isNumber, isUndefined } from '../../../utils/inspect'
+import { isFunction, isNumber, isUndefinedOrNull } from '../../../utils/inspect'
 import defaultSortCompare from './default-sort-compare'
 
 export default {
@@ -196,7 +196,7 @@ export default {
     if (this.isSortable) {
       this.$on('head-clicked', this.handleSort)
       // Update sortInfo object
-      this.updateLocalSortInfo(this.sortBy, newVal)
+      this.updateLocalSortInfo(this.sortBy, this.sortDesc)
     }
   },
   methods: {
@@ -246,13 +246,14 @@ export default {
       const intialDirection = sortMulti
         ? this.sortDirection
         : field.sortDirection || this.sortDirection
-      const intialSortDesc = intialDirection === 'asc'
-        ? false
-        : intialDirection === 'desc'
-          ? true
-          : sortMulti
-            ? false
-            : (sortInfo[0] || {}).sortDesc || false
+      const intialSortDesc =
+        intialDirection === 'asc'
+          ? false
+          : intialDirection === 'desc'
+            ? true
+            : sortMulti
+              ? false
+              : (sortInfo[0] || {}).sortDesc || false
       if (field.sortable) {
         if (sortIndex === -1) {
           // Field not sorted currently
@@ -332,7 +333,7 @@ export default {
         }
       } else if (!this.noSortReset) {
         // Non sortable column
-        ariaLabelSorting = sortInfo.length > 0 ? this.labelSortClear : ''
+        ariaLabelSorting = this.localSortInfo.length > 0 ? this.labelSortClear : ''
       }
       // Assemble the aria-label attribute value
       ariaLabel = [ariaLabel.trim(), ariaLabelSorting.trim()].filter(Boolean).join(': ')
