@@ -82,16 +82,17 @@ export default {
       const tagName = (target.tagName || '').toUpperCase()
       const keyCode = evt.keyCode
       const shift = evt.shiftKey
-      // const ctrl = evt.ctrlKey
+      const ctrl = evt.ctrlKey
+      const shiftOrCtrl = shift || ctrl
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.isSelectable
       const hasCellClickHandler = this.$listeners['cell-clicked']
       if (
         this.tbodyRowEvtStopped(evt) ||
-        (tagName !== 'TR' && tagName !== 'TD' && tagName !== 'TH') ||
+        (tagName !== 'TR' && tagName !== 'TD' && tagName !== 'TH' && tagName !== 'TBODY') ||
         target !== document.activeElement ||
         (target.tabIndex !== 0 && target.tabIndex !== -1)
       ) {
-        // Early exit if not an item row TR or TD/TH cell, or not focusable
+        // Early exit if not an item row TR or TD/TH cell or TBODY, or not focusable
         return
       }
       if (arrayIncludes([KeyCodes.ENTER, KeyCodes.SPACE], keyCode)) {
@@ -100,84 +101,87 @@ export default {
         evt.preventDefault()
         this.onTBodyRowClicked(evt)
       } else if (
-        tagName === 'TR' &&
         hasRowClickHandler &&
+        !hasCellClickHandler &&
+        tagName === 'TR' &&
         arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
       ) {
-        // Keyboard navigation of body rows
-        // TODO:
-        //   Rather than placing all rows in the tab sequence, use the
-        //   roving tab index method (only one row with tab-index="0", and
-        //   the rest with tabindex="-1"
-        //   And update data to specify which row is active
-        const rowIndex = this.getTbodyTrIndex(target)
-        if (rowIndex > -1) {
+        // Keyboard navigation of body rows (only if no cell click handler)
+        const trs = this.getTbodyTrs()
+        if (trs.length > -1) {
           evt.stopPropagation()
           evt.preventDefault()
-          const trs = this.getTbodyTrs()
-          let tr = null
-          if (keyCode === KeyCodes.HOME || (shift && keyCode === KeyCodes.UP)) {
+          // Row inde with initial focus (might be -1)
+          let rowIndex = this.getTbodyTrIndex(target)
+          if (keyCode === KeyCodes.HOME || (shiftOrCtrl && keyCode === KeyCodes.UP)) {
             // Focus first row
-            tr = trs[0]
-          } else if (keyCode === KeyCodes.END || (shift && keyCode === KeyCodes.DOWN)) {
+            rowIndex = 0
+          } else if (keyCode === KeyCodes.END || (shiftOrCtrl && keyCode === KeyCodes.DOWN)) {
             // Focus last row
-            tr = trs[trs.length - 1]
+            rowIndex = trs.length - 1
           } else if (keyCode === KeyCodes.UP && rowIndex > 0) {
             // Focus previous row
-            tr = trs[rowIndex - 1]
+            rowIndex = rowIndex - 1
           } else if (keyCode === KeyCodes.DOWN && rowIndex < trs.length - 1) {
             // Focus next row
-            tr = trs[rowIndex + 1]
+            rowIndex = rowIndex + 1
           }
           // Attempt to focus row
           try {
-            tr.focus()
-          } catch {}
+            // TODO:
+            //   Set this rows's tabIndex to 0 and all others to -1
+            //   Could set a dataObject with row/cell index after the focus
+            //   But this would cause a re-render of the full table
+            //   Would also need to reset the row/cell index to 0 on any
+            //   sort/filter/paginate change
+            //   Might be able to use non-reactive props for this
+            //   and manually clear previous row tabindex and set new row tabindex
+            //   Could listen to focusout events on cells to clear the previous row's
+            //   tab index
+            trs[rowIndex].focus()
+          } catch {
+            // Ignore any focus errors
+          }
         }
       } else if (
-        (tagName === 'TD' || tagName === 'TH') &&
         hasCellClickHandler &&
+        (tagName === 'TD' || tagName === 'TH') &&
         arrayIncludes(
           [KeyCodes.LEFT, KeyCodes.RIGHT, KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END],
           keyCode
         )
       ) {
         // Keyboard navigation of cells
-        // TODO:
-        //   Rather than placing all cells in the tab sequence, use the
-        //   roving tab index method (only one cell with tab-index="0", and
-        //   the rest with tabindex="-1"
-        //   And update data to specify which cell is active
-        // Curent row index of focused cell
-        let rowIndex = this.getTbodyTrIndex(target)
-        if (rowIndex > -1) {
+        // Get the array of data item TRs
+        const trs = this.getTbodyTrs()
+        if (trs.length > -1) {
           evt.stopPropagation()
           evt.preventDefault()
           // Method to get the visible cells in the row (in case of hidden columns)
           const getVisibleRowCells = tr => {
             return tr ? arrayFrom(tr.children).filter(isVisible) : []
           }
-          // Get the array of data item TRs
-          const trs = this.getTbodyTrs()
+          // Curent row index of focused cell (-1 for no cell focused)
+          let rowIndex = this.getTbodyTrIndex(target)
           // Current focused cell index (target is always a TD or TH)
           let cellIndex = getVisibleRowCells(trs[rowIndex]).indexOf(target)
-          if (shift && keyCode === KeyCodes.HOME) {
+          if (shiftOrCtrl && keyCode === KeyCodes.HOME) {
             // Focus first cell in first row
             cellIndex = 0
             rowIndex = 0
-          } else if (shift && keyCode === KeyCodes.END) {
+          } else if (shiftOrCtrl && keyCode === KeyCodes.END) {
             // Focus last cell in last row
             rowIndex = trs.length - 1
             cellIndex = getVisibleRowCells(trs[rowIndex]).length - 1
           } else if (
-            (!shift && keyCode === KeyCodes.HOME) ||
-            (shift && keyCode === KeyCodes.LEFT)
+            (!shiftOrCtrl  && keyCode === KeyCodes.HOME) ||
+            (shiftOrCtrl && keyCode === KeyCodes.LEFT)
           ) {
             // Focus first cell in current row
             cellIndex = 0
           } else if (
-            (!shift && keyCode === KeyCodes.END) ||
-            (shift && keyCode === KeyCodes.RIGHT)
+            (!shiftOrCtrl && keyCode === KeyCodes.END) ||
+            (shiftOrCtrl && keyCode === KeyCodes.RIGHT)
           ) {
             // Focus last cell in current row
             cellIndex = getVisibleRowCells(trs[rowIndex]).length - 1
@@ -189,13 +193,19 @@ export default {
             cellIndex = cellIndex + 1
           } else if (keyCode === KeyCodes.UP) {
             // Focus same cellIndex in previous row or first row (shift)
-            rowIndex = shift ? 0 : rowIndex - 1
+            rowIndex = shiftOrCtrl ? 0 : rowIndex - 1
           } else if (keyCode === KeyCodes.DOWN) {
             // Focus same cellIndex in next row or last row (shift)
-            rowIndex = shift ? trs.length - 1 : rowIndex + 1
+            rowIndex = shiftOrCtrl ? trs.length - 1 : rowIndex + 1
           }
           // Attempt to focus the cell
           try {
+            // TODO:
+            //   Set this cell's tabIndex to 0 and all others to -1
+            //   Could set a dataObject with row/cell index after the focus
+            //   But this would cause a re-render of the full table
+            //   Would also need to reset the row/cell index to 0 on any
+            //   sort/filter/paginate change
             getVisibleRowCells(trs[rowIndex])[cellIndex].focus()
           } catch {
             // Ignore any error from focus attempt
