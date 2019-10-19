@@ -417,7 +417,7 @@ describe('table > tbody row events', () => {
     $btn.trigger('click')
     expect(wrapper.emitted('cell-clicked')).not.toBeDefined()
 
-    const $span = $rows.find('span[id="b"]')
+    const $span = wrapper.find('span[id="b"]')
     expect($span.exists()).toBe(true)
     // Click on span (2nd cell)
     $span.trigger('click')
