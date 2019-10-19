@@ -23,22 +23,17 @@ export default {
       // Returns all the item TR elements (excludes detail and spacer rows)
       // `this.$refs.itemRows` is an array of item TR components/elements
       // Rows should all be B-TR components, but we map to TR elements
-      // TODO: This may take time for tables many rows, so we may want to cache
-      //       the result of this during each render cycle on a non-reactive
-      //       property. We clear out the cache as each render starts, and
-      //       populate it on first access of this method if null
       return (this.$refs.itemRows || []).map(tr => tr.$el || tr)
     },
-    getTbodyTrIndex(el, trs = null) {
+    getTbodyTrIndex(el) {
       // Returns index of a particular TBODY item TR
-      // We set `true` on closest to include self in result
       /* istanbul ignore next: should not normally happen */
       if (!isElement(el)) {
         return -1
       }
-      trs = trs || this.getTbodyTrs()
+      // We set `true` on closest to include self in result
       const tr = el.tagName === 'TR' ? el : closest('tr', el, true)
-      return tr ? trs.indexOf(tr) : -1
+      return tr ? this.getTbodyTrs().indexOf(tr) : -1
     },
     getCellIndex(el) {
       // Returns the index of a given TD/TH in an array of TDs/THs
@@ -78,47 +73,119 @@ export default {
     },
     // Delegated row event handlers
     onTbodyRowKeydown(evt) {
-      // Keyboard navigation and row click emulation
-      const target = evt.target
-      if (
-        this.tbodyRowEvtStopped(evt) ||
-        (target.tagName !== 'TR' && (target.tagName !== 'TD' || target.tagName !== 'TH')) ||
-        target !== document.activeElement ||
-        target.tabIndex !== 0
-      ) {
-        // Early exit if not an item row TR
+      // Keyboard navigation and row/cell click emulation
+      if (!evt || !evt.target) {
+        /* istanbul ignore next */
         return
       }
+      const target = evt.target
+      const tagName = (target.tagName || '').toUpperCase()
       const keyCode = evt.keyCode
+      if (
+        this.tbodyRowEvtStopped(evt) ||
+        (tagName !== 'TR' && (tagName !== 'TD' || tagName !== 'TH')) ||
+        target !== document.activeElement ||
+        (target.tabIndex !== 0 || target.tabIndex !== -1)
+      ) {
+        // Early exit if not an item row TR or TD/TH cell, or not focusable
+        return
+      }
       if (arrayIncludes([KeyCodes.ENTER, KeyCodes.SPACE], keyCode)) {
         // Emulated click for keyboard users, transfer to click handler
         evt.stopPropagation()
         evt.preventDefault()
         this.onTBodyRowClicked(evt)
       } else if (
-        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode) &&
-        (this.$listeners['row-clicked'] || this.isSelectable)
+        tagName === 'TR' &&
+        (this.$listeners['row-clicked'] || this.isSelectable) &&
+        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
       ) {
-        // Keyboard navigation
+        // Keyboard navigation of body rows
+        // TODO:
+        //   Rather than placing all rows in the tab sequence, use the
+        //   roving tab index method (only one row with tab-index="0", and
+        //   the rest with tabindex="-1"
+        //   And update data to specify which row is active
         const rowIndex = this.getTbodyTrIndex(target)
         if (rowIndex > -1) {
           evt.stopPropagation()
           evt.preventDefault()
           const trs = this.getTbodyTrs()
           const shift = evt.shiftKey
+          let tr = null
           if (keyCode === KeyCodes.HOME || (shift && keyCode === KeyCodes.UP)) {
             // Focus first row
-            trs[0].focus()
+            tr = trs[0]
           } else if (keyCode === KeyCodes.END || (shift && keyCode === KeyCodes.DOWN)) {
             // Focus last row
-            trs[trs.length - 1].focus()
+            tr = trs[trs.length - 1]
           } else if (keyCode === KeyCodes.UP && rowIndex > 0) {
             // Focus previous row
-            trs[rowIndex - 1].focus()
+            tr = trs[rowIndex - 1]
           } else if (keyCode === KeyCodes.DOWN && rowIndex < trs.length - 1) {
             // Focus next row
-            trs[rowIndex + 1].focus()
+            tr = trs[rowIndex + 1]
           }
+          // Attempt to focus row
+          try {
+            tr.focus()
+          } catch {}
+        }
+      } else if (
+        (tagName === 'TD' || tagName === 'TH') &&
+        this.$listeners['cell-clicked'] &&
+        arrayIncludes(
+          [KeyCodes.LEFT, KeyCodes.RIGHT, KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END],
+          keyCode
+        )
+      ) {
+        // Keyboard navigation of cells
+        // TODO:
+        //   Rather than placing all cells in the tab sequence, use the
+        //   roving tab index method (only one cell with tab-index="0", and
+        //   the rest with tabindex="-1"
+        //   And update data to specify which cell is active
+        const rowIndex = this.getTbodyTrIndex(target)
+        if (rowIndex > -1) {
+          evt.stopPropagation()
+          evt.preventDefault()
+          const trs = this.getTbodyTrs()
+          const tr = trs[rowIndex]
+          const shift = evt.shiftKey
+          // `target` is always the TD or TH cell
+          let cell = target
+          const cellIndex = arrayFrom(tr.children).indexOf(cell)
+          if ((!shift && keyCode === KeyCodes.HOME) || (shift && keyCode === KeyCodes.LEFT)) {
+            // Focus first cell in row
+            cell = tr.firstElementChild || cell
+          } else if (shift && keyCode === KeyCodes.HOME) {
+            // Focus first cell in first row
+            cell = trs[0].firstElementChild || cell
+          } else if ((!shift && keyCode === KeyCodes.END) || (shift && keyCode === KeyCodes.RIGHT)) {
+            // Focus last cell in row
+            cell = tr.lastElementChild || cell
+          } else if (shift && keyCode === KeyCodes.END) {
+            // Focus last cell in last row
+            cell = trs[trs.length - 1].lastElementChild || cell
+          } else if (keyCode === KeyCodes.LEFT) {
+            // Focus previous cell row
+            cell = cell.previousElementSibling || cell
+          } else if (keyCode === KeyCodes.RIGHT) {
+            // Focus next cell in the row
+            cell = cell.nextElementSibling || cell
+          } else if (keyCode === KeyCodes.UP) {
+            // Focus same cellInde cell in previous row or first row
+            const row = trs[shift ? 0 : rowIndex - 1] || trs[0]
+            cell = row && row[cellIndex] ? row[cellIndex] : cell
+          } else if (keyCode === KeyCodes.DOWN) {
+            // Focus cell in next row or last row
+            const row = trs[shift ? trs.length - 1 : rowIndex + 1] || trs[trs.length - 1]
+            cell = row && row[cellIndex] ? row[cellIndex] : cell
+          }
+          // Attempt to focus the cell
+          try {
+            cell.focus()
+          } catch {}
         }
       }
     },
