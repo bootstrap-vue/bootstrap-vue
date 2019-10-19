@@ -110,7 +110,7 @@ export default {
         props: {},
         attrs: {
           'aria-colindex': String(colIndex + 1),
-          // Add in user hattributes
+          // Add in user attributes
           ...(field.isRowHeader
             ? this.getThValues(item, key, field.thAttr, 'row', {})
             : this.getTdValues(item, key, field.tdAttr, {})),
