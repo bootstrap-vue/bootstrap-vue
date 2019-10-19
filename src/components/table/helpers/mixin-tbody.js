@@ -71,7 +71,8 @@ export default {
             // Special handling for cell-clicked event
             // Emitted before row-clicked event is emitted
             const cellIndex = this.getTdIndex(trs[rowIndex], target)
-            const field = this.computedFields ? this.computedFields[cellIndex] : null
+            const field = this.computedFields[cellIndex]
+            console.log('Cell Clicked Info', cellIndex, field)
             if (field && field.key) {
               this.$emit('cell-clicked', item, field.key, cellIndex, rowIndex, evt)
             }
