@@ -81,9 +81,12 @@ export default {
       const target = evt.target
       const tagName = (target.tagName || '').toUpperCase()
       const keyCode = evt.keyCode
+      const shift = evt.shiftKey
+      const hasRowClickHandler = this.$listeners['row-clicked'] || this.isSelectable
+      const hasCellClickHandler = this.$listeners['cel-clicked']
       if (
         this.tbodyRowEvtStopped(evt) ||
-        (tagName !== 'TR' && (tagName !== 'TD' || tagName !== 'TH')) ||
+        (tagName !== 'TR' && tagName !== 'TD' && tagName !== 'TH') ||
         target !== document.activeElement ||
         (target.tabIndex !== 0 && target.tabIndex !== -1)
       ) {
@@ -111,7 +114,6 @@ export default {
           evt.stopPropagation()
           evt.preventDefault()
           const trs = this.getTbodyTrs()
-          const shift = evt.shiftKey
           let tr = null
           if (keyCode === KeyCodes.HOME || (shift && keyCode === KeyCodes.UP)) {
             // Focus first row
@@ -151,7 +153,6 @@ export default {
           evt.preventDefault()
           const trs = this.getTbodyTrs()
           const tr = trs[rowIndex]
-          const shift = evt.shiftKey
           // `target` is always the TD or TH cell
           let cell = target
           const cellIndex = arrayFrom(tr.children).indexOf(cell)
@@ -162,7 +163,8 @@ export default {
             // Focus first cell in first row
             cell = trs[0].firstElementChild || cell
           } else if (
-            (!shift && keyCode === KeyCodes.END) || (shift && keyCode === KeyCodes.RIGHT)
+            (!shift && keyCode === KeyCodes.END) ||
+            (shift && keyCode === KeyCodes.RIGHT)
           ) {
             // Focus last cell in row
             cell = tr.lastElementChild || cell
