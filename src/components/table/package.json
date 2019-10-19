@@ -93,11 +93,11 @@
           },
           {
             "prop": "tbodyTransitionProps",
-            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' properties. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "tbodyTransitionHandlers",
-            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' event handlers. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "caption",
@@ -1049,11 +1049,11 @@
           },
           {
             "prop": "tbodyTransitionProps",
-            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' properties. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "tbodyTransitionHandlers",
-            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' event handlers. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "caption",
@@ -1636,11 +1636,11 @@
         "props": [
           {
             "prop": "tbodyTransitionProps",
-            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' properties. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "tbodyTransitionHandlers",
-            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' event handlers. When provided will make the tbody a Vue 'transition-group' component"
           }
         ]
       },
