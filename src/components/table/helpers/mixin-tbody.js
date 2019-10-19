@@ -41,7 +41,7 @@ export default {
       return tr ? trs.indexOf(tr) : -1
     },
     getCellIndex(el) {
-      // Returns the index of a given td/th in an array of td's/th's
+      // Returns the index of a given TD/TH in an array of TDs/THs
       /* istanbul ignore next: should not normally happen */
       if (!isElement(el)) {
         return -1
@@ -49,7 +49,7 @@ export default {
       // We set `true` on closest to include self in result
       const cell = el.tagName === 'TD' || el.tagName === 'TH' ? el : closest('td, th', el, true)
       const colIndex = parseInt(getAttr(cell, 'aria-colindex'), 10)
-      // aria-colindex is indexed from 1 upwards
+      // `aria-colindex` is indexed from 1 upwards
       return isNaN(colIndex) ? -1 : colIndex - 1
     },
     emitTbodyRowEvent(type, evt) {
@@ -61,8 +61,8 @@ export default {
           // The array of TRs correlate to the `computedItems` array
           const item = this.computedItems[rowIndex]
           if (type === 'row-clicked' && this.$listeners['cell-clicked']) {
-            // Special handling for cell-clicked event
-            // Emitted before row-clicked event is emitted
+            // Special handling for `cell-clicked` event
+            // Emitted before `row-clicked` event is emitted
             const cellIndex = this.getCellIndex(target)
             const field = this.computedFields[cellIndex]
             if (field && field.key) {
