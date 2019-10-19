@@ -398,7 +398,7 @@ describe('table > tbody row events', () => {
         // In Vue 2.6x, slots get translated into scopedSlots
         // We test on a disabled button, and non-diabled button
         'cell(a)': '<button id="a" disabled>button</button>',
-        'cell(b)': '<button id="b">button</button>',
+        'cell(b)': '<button id="b">button</button>'
       },
       listeners: {
         // cell-clicked will only occur if there is a registered listener
