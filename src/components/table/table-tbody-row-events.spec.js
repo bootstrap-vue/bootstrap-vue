@@ -397,8 +397,8 @@ describe('table > tbody row events', () => {
       slots: {
         // In Vue 2.6x, slots get translated into scopedSlots
         // We test on a disabled button, and non-diabled button
-        'cell(a)': '<button id="a" disabled>button</button>',
-        'cell(b)': '<button id="b">button</button>'
+        'cell(a)': '<button id="a">button</button>',
+        'cell(b)': '<button id="b" disabled>button</button>'
       },
       listeners: {
         // cell-clicked will only occur if there is a registered listener
@@ -414,7 +414,7 @@ describe('table > tbody row events', () => {
 
     const $btn1 = wrapper.find('button[id="a"]')
     expect($btn1.exists()).toBe(true)
-    // Click on cell 1 disabled button
+    // Click on cell 1 non-disabled button
     $btn1.trigger('click')
     expect(wrapper.emitted('cell-clicked')).not.toBeDefined()
 
