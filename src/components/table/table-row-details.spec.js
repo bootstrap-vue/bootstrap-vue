@@ -87,10 +87,11 @@ describe('table > row details', () => {
     expect($trs.at(1).is('tr.b-table-details')).toBe(true)
     expect($trs.at(1).findAll('td').length).toBe(1)
     expect($trs.at(1).text()).toBe('foobar')
+    const $detailsTd = $trs.at(1).find('td')
+    expect($detailsTd.classes().length).toBe(1)
+    expect($detailsTd.classes()).toContain('foobar-class')
     expect($trs.at(2).is('tr.b-table-details')).toBe(false)
     expect($trs.at(2).findAll('td').length).toBe(3)
-    expect($trs.at(2).find('td').classes().length).toBe(1)
-    expect($trs.at(2).find('td').classes()).toContain('foobar-class')
     expect($trs.at(3).is('tr.b-table-details')).toBe(false)
     expect($trs.at(3).findAll('td').length).toBe(3)
 
