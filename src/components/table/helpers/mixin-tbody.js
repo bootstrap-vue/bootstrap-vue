@@ -49,7 +49,6 @@ export default {
       // We set `true` on closest to include self in result
       const cell = el.tagName === 'TD' || el.tagName === 'TH' ? el : closest('td, th', el, true)
       const colIndex = parseInt(getAttr(cell, 'aria-colindex'), 10)
-      console.log('Get TD Index', cell, colIndex)
       // aria-colindex is indexed from 1 upwards
       return isNaN(colIndex) ? -1 : colIndex - 1
     },
@@ -66,7 +65,6 @@ export default {
             // Emitted before row-clicked event is emitted
             const cellIndex = this.getCellIndex(target)
             const field = this.computedFields[cellIndex]
-            console.log('Cell Clicked Info', cellIndex, field)
             if (field && field.key) {
               this.$emit('cell-clicked', item, field.key, cellIndex, rowIndex, evt)
             }
