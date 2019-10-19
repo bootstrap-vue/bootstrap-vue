@@ -47,10 +47,11 @@ export default {
         return []
       }
       // Ensure the array only includes TD/TH
-      return arrayFrom(tr.children).filter(el => el.tagName === 'TD' || el.tagName === 'TH')
+      return arrayFrom(tr.children || []).filter(el => el.tagName === 'TD' || el.tagName === 'TH')
     },
     getTdIndex(tr, el) {
       // Returns the index of a given td/th in an array of td's/th's
+      /* istanbul ignore next: should not normally happen */
       if (!isElement(el)) {
         return -1
       }
@@ -70,7 +71,7 @@ export default {
             // Special handling for cell-clicked event
             // Emitted before row-clicked event is emitted
             const cellIndex = this.getTdIndex(trs[rowIndex], target)
-            const field = this.computedFields[cellIndex]
+            const field = this.computedFields ? this.computedFields[cellIndex] : null
             if (field && field.key) {
               this.$emit('cell-clicked', item, field.key, cellIndex, rowIndex, evt)
             }
