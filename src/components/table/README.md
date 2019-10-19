@@ -2758,9 +2758,9 @@ cells.
 ### Data row accessibility
 
 When the table is in `selectable` mode (`<b-table>` only), or if there is a `row-clicked` event
-listener registered (`<b-table>` and `<b-table-lite>`), all data item rows (`<tr>` elements) will be
-placed into the document tab sequence (via `tabindex="0"`) to allow keyboard-only and screen reader
-users the ability to click the rows by pressing <kbd>ENTER</kbd>.
+listener registered (`<b-table>` and `<b-table-lite>`), all data item rows (`<tr>` elements within
+the `<tbody>`) will be placed into the document tab sequence (via `tabindex="0"`) to allow
+keyboard-only and screen reader users the ability to click the rows by pressing <kbd>ENTER</kbd>.
 
 When the table items rows are placed in the document tab sequence (`<b-table>` and
 `<b-table-lite>`), they will also support basic keyboard navigation when focused:
@@ -2772,6 +2772,16 @@ When the table items rows are placed in the document tab sequence (`<b-table>` a
 - <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row.
 - <kbd>SHIFT</kbd> and <kbd>CTRL</kbd> modifiers will also work (depending on the table selectable
   mode, for `<b-table>` only).
+
+### Data cell accessibility
+
+When the table has a `cell-clicked` event listener registered (`<b-table>` and `<b-table-lite>`), all
+data item cells (`<td>` and `<th>` elements within the `<tbody>`) will be placed into the document
+tab sequence (via `tabindex="0"`) to allow keyboard-only and screen reader users the ability to click
+the cells by pressing <kbd>ENTER</kbd>.
+
+Keyboard navigation of cells, when a `cell-clicked` event listener registered, is only provided via
+native <kbd>TAB</kbd> and <kbd>SHIFT</kbd>+<kbd>TAB</kbd> handling.
 
 ### Row event accessibility
 
