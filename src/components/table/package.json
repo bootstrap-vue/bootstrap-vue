@@ -291,6 +291,37 @@
         ],
         "events": [
           {
+            "event": "cell-clicked",
+            "description": "Emitted when a cell is clicked.",
+            "args": [
+              {
+                "arg": "item",
+                "type": "Object",
+                "description": "Item data of the cell being clicked."
+              },
+              {
+                "arg": "key",
+                "type": "String",
+                "description": "Field key of the cell being clicked."
+              },
+              {
+                "arg": "cellIndex",
+                "type": "Number",
+                "description": "Cell index of the cell being clicked."
+              },
+              {
+                "arg": "rowIndex",
+                "type": "Number",
+                "description": "Row index of the cell being clicked."
+              },
+              {
+                "arg": "event",
+                "type": "MouseEvent",
+                "description": "Native event object."
+              }
+            ]
+          },
+          {
             "event": "row-clicked",
             "description": "Emitted when a row is clicked.",
             "args": [
@@ -1077,6 +1108,37 @@
           }
         ],
         "events": [
+          {
+            "event": "cell-clicked",
+            "description": "Emitted when a cell is clicked.",
+            "args": [
+              {
+                "arg": "item",
+                "type": "Object",
+                "description": "Item data of the cell being clicked."
+              },
+              {
+                "arg": "key",
+                "type": "String",
+                "description": "Field key of the cell being clicked."
+              },
+              {
+                "arg": "cellIndex",
+                "type": "Number",
+                "description": "Cell index of the cell being clicked."
+              },
+              {
+                "arg": "rowIndex",
+                "type": "Number",
+                "description": "Row index of the cell being clicked."
+              },
+              {
+                "arg": "event",
+                "type": "MouseEvent",
+                "description": "Native event object."
+              }
+            ]
+          },
           {
             "event": "row-clicked",
             "description": "Emitted when a row is clicked.",
