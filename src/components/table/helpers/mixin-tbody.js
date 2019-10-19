@@ -85,7 +85,7 @@ export default {
         this.tbodyRowEvtStopped(evt) ||
         (tagName !== 'TR' && (tagName !== 'TD' || tagName !== 'TH')) ||
         target !== document.activeElement ||
-        (target.tabIndex !== 0 || target.tabIndex !== -1)
+        (target.tabIndex !== 0 && target.tabIndex !== -1)
       ) {
         // Early exit if not an item row TR or TD/TH cell, or not focusable
         return
@@ -97,8 +97,8 @@ export default {
         this.onTBodyRowClicked(evt)
       } else if (
         tagName === 'TR' &&
-        (this.$listeners['row-clicked'] || this.isSelectable) &&
-        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
+        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode) &&
+        (this.$listeners['row-clicked'] || this.isSelectable)
       ) {
         // Keyboard navigation of body rows
         // TODO:
@@ -162,9 +162,8 @@ export default {
             // Focus first cell in first row
             cell = trs[0].firstElementChild || cell
           } else if (
-            (!shift && keyCode === KeyCodes.END) ||
-            (shift && keyCode === KeyCodes.RIGHT))
-          {
+            (!shift && keyCode === KeyCodes.END) || (shift && keyCode === KeyCodes.RIGHT)
+          ) {
             // Focus last cell in row
             cell = tr.lastElementChild || cell
           } else if (shift && keyCode === KeyCodes.END) {
