@@ -1,6 +1,6 @@
 import KeyCodes from '../../../utils/key-codes'
 import { arrayIncludes, from as arrayFrom } from '../../../utils/array'
-import { closest, isElement } from '../../../utils/dom'
+import { closest, getAttr, isElement } from '../../../utils/dom'
 import { props as tbodyProps, BTbody } from '../tbody'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
@@ -40,38 +40,31 @@ export default {
       const tr = el.tagName === 'TR' ? el : closest('tr', el, true)
       return tr ? trs.indexOf(tr) : -1
     },
-    getTrTds(tr) {
-      // Returns all the td/th elements in a given tr
-      /* istanbul ignore next: should not normally happen */
-      if (!isElement(tr) || tr.tagName !== 'TR') {
-        return []
-      }
-      // Ensure the array only includes TD/TH
-      return arrayFrom(tr.children || []).filter(el => el.tagName === 'TD' || el.tagName === 'TH')
-    },
-    getTdIndex(tr, el) {
+    getCellIndex(el) {
       // Returns the index of a given td/th in an array of td's/th's
       /* istanbul ignore next: should not normally happen */
       if (!isElement(el)) {
         return -1
       }
       // We set `true` on closest to include self in result
-      const td = el.tagName === 'TD' || el.tagName === 'TH' ? el : closest('td, th', el, true)
-      return this.getTrTds(tr).indexOf(td)
+      const cell = el.tagName === 'TD' || el.tagName === 'TH' ? el : closest('td, th', el, true)
+      const colIndex = parseInt(getAttr(cell, 'aria-colindex'), 10)
+      console.log('Get TD Index', cell, colIndex)
+      // aria-colindex is indexed from 1 upwards
+      return isNaN(colIndex) ? -1 : colIndex - 1
     },
     emitTbodyRowEvent(type, evt) {
       // Emits a row event, with the item object, row index and original event
       if (type && evt && evt.target) {
-        const trs = this.getTbodyTrs()
         const target = evt.target
-        const rowIndex = this.getTbodyTrIndex(target, trs)
+        const rowIndex = this.getTbodyTrIndex(target)
         if (rowIndex > -1) {
           // The array of TRs correlate to the `computedItems` array
           const item = this.computedItems[rowIndex]
-          if (type === 'row-clicked') {
+          if (type === 'row-clicked' && this.$listeners['cell-clicked']) {
             // Special handling for cell-clicked event
             // Emitted before row-clicked event is emitted
-            const cellIndex = this.getTdIndex(trs[rowIndex], target)
+            const cellIndex = this.getCellIndex(target)
             const field = this.computedFields[cellIndex]
             console.log('Cell Clicked Info', cellIndex, field)
             if (field && field.key) {
