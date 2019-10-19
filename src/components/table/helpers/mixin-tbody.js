@@ -55,6 +55,7 @@ export default {
       if (!isElement(el)) {
         return -1
       }
+      // We set `true` on closest to include self in result
       const td = el.tagName === 'TD' || el.tagName === 'TH' ? el : closest('td, th', el, true)
       return this.getTrTds(tr).indexOf(td)
     },
