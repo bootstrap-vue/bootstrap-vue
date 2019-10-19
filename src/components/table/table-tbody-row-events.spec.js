@@ -429,7 +429,7 @@ describe('table > tbody row events', () => {
     expect(wrapper.emitted('cell-clicked')[0][3]).toEqual(0) // Row Index
     expect(wrapper.emitted('cell-clicked')[0][4]).toBeInstanceOf(Event) // Native Event
 
-    const $cells = $rows.findAll('td')
+    const $cells = $rows.at(0).findAll('td')
     expect($cells.length).toBe(testFields.length)
     // Click on 3rd cell
     $cells.at(2).trigger('click')
