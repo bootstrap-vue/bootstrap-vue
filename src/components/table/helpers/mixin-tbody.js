@@ -38,7 +38,7 @@ export default {
       }
       trs = trs || this.getTbodyTrs()
       const tr = el.tagName === 'TR' ? el : closest('tr', el, true)
-      return tr ? this.getTbodyTrs().indexOf(tr) : -1
+      return tr ? trs.indexOf(tr) : -1
     },
     getTrTds(tr) {
       // Returns all the td/th elements in a given tr
