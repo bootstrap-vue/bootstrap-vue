@@ -1,5 +1,5 @@
 import KeyCodes from '../../../utils/key-codes'
-import { arrayIncludes } from '../../../utils/array'
+import { arrayIncludes, from as arrayFrom } from '../../../utils/array'
 import { closest, getAttr, isElement } from '../../../utils/dom'
 import { props as tbodyProps, BTbody } from '../tbody'
 import filterEvent from './filter-event'
@@ -161,7 +161,10 @@ export default {
           } else if (shift && keyCode === KeyCodes.HOME) {
             // Focus first cell in first row
             cell = trs[0].firstElementChild || cell
-          } else if ((!shift && keyCode === KeyCodes.END) || (shift && keyCode === KeyCodes.RIGHT)) {
+          } else if (
+            (!shift && keyCode === KeyCodes.END) ||
+            (shift && keyCode === KeyCodes.RIGHT))
+          {
             // Focus last cell in row
             cell = tr.lastElementChild || cell
           } else if (shift && keyCode === KeyCodes.END) {
