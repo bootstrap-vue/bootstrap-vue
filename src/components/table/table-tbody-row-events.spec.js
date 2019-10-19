@@ -396,9 +396,8 @@ describe('table > tbody row events', () => {
       },
       slots: {
         // In Vue 2.6x, slots get translated into scopedSlots
-        // We test on a disabled button, and non-diabled button
         'cell(a)': '<button id="a">button</button>',
-        'cell(b)': '<button id="b" disabled>button</button>'
+        'cell(b)': '<span id="b">span</span>',
       },
       listeners: {
         // cell-clicked will only occur if there is a registered listener
@@ -412,16 +411,16 @@ describe('table > tbody row events', () => {
     expect($rows.length).toBe(1)
     expect(wrapper.emitted('cell-clicked')).not.toBeDefined()
 
-    const $btn1 = wrapper.find('button[id="a"]')
-    expect($btn1.exists()).toBe(true)
+    const $btn = wrapper.find('button[id="a"]')
+    expect($btn.exists()).toBe(true)
     // Click on cell 1 non-disabled button
-    $btn1.trigger('click')
+    $btn.trigger('click')
     expect(wrapper.emitted('cell-clicked')).not.toBeDefined()
 
-    const $btn2 = wrapper.find('button[id="b"]')
-    expect($btn2.exists()).toBe(true)
-    // Click on cell 2 non-disabled button
-    $btn2.trigger('click')
+    const $span = $rows.find('span[id="b"]')
+    expect($span.exists()).toBe(true)
+    // Click on span (2nd cell)
+    $span.trigger('click')
     expect(wrapper.emitted('cell-clicked')).toBeDefined()
     expect(wrapper.emitted('cell-clicked').length).toBe(1)
     expect(wrapper.emitted('cell-clicked')[0][0]).toEqual(testItems[0]) // Item
@@ -434,7 +433,6 @@ describe('table > tbody row events', () => {
     expect($cells.length).toBe(testFields.length)
     // Click on 3rd cell
     $cells.at(2).trigger('click')
-    expect(wrapper.emitted('cell-clicked')).toBeDefined()
     expect(wrapper.emitted('cell-clicked').length).toBe(2)
     expect(wrapper.emitted('cell-clicked')[1][0]).toEqual(testItems[0]) // Item
     expect(wrapper.emitted('cell-clicked')[1][1]).toEqual('c') // Field key
