@@ -83,7 +83,7 @@ export default {
       const keyCode = evt.keyCode
       const shift = evt.shiftKey
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.isSelectable
-      const hasCellClickHandler = this.$listeners['cel-clicked']
+      const hasCellClickHandler = this.$listeners['cell-clicked']
       if (
         this.tbodyRowEvtStopped(evt) ||
         (tagName !== 'TR' && tagName !== 'TD' && tagName !== 'TH') ||
@@ -141,6 +141,8 @@ export default {
           keyCode
         )
       ) {
+        // DEBUG
+        console.log('Cell navigation triggered')
         // Keyboard navigation of cells
         // TODO:
         //   Rather than placing all cells in the tab sequence, use the
