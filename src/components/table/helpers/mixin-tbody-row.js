@@ -83,6 +83,7 @@ export default {
       // Renders a TD or TH for a row's field
       const h = this.$createElement
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
+      const hasCellClickHandler = this.$listeners['cell-clicked']
       const formatted = this.getFormattedValue(item, field)
       const key = field.key
       // We only uses the helper components for sticky columns to
@@ -109,9 +110,12 @@ export default {
         props: {},
         attrs: {
           'aria-colindex': String(colIndex + 1),
+          // Add in user hattributes
           ...(field.isRowHeader
             ? this.getThValues(item, key, field.thAttr, 'row', {})
-            : this.getTdValues(item, key, field.tdAttr, {}))
+            : this.getTdValues(item, key, field.tdAttr, {})),
+          // Add in tabindex if cell is clickable
+          tabindex: hasCellClickHandler ? '0' : null
         }
       }
       if (field.stickyColumn) {
