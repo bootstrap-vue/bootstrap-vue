@@ -91,8 +91,7 @@ export default {
       const target = evt.target
       if (
         this.tbodyRowEvtStopped(evt) ||
-        target.tagName !== 'TR' ||
-        target.tagName !== 'TD' ||
+        (target.tagName !== 'TR' && (target.tagName !== 'TD' || target.tagName !== 'TH')) ||
         target !== document.activeElement ||
         target.tabIndex !== 0
       ) {
