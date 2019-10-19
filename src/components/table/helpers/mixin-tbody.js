@@ -92,6 +92,7 @@ export default {
       if (
         this.tbodyRowEvtStopped(evt) ||
         target.tagName !== 'TR' ||
+        target.tagName !== 'TD' ||
         target !== document.activeElement ||
         target.tabIndex !== 0
       ) {
@@ -105,7 +106,8 @@ export default {
         evt.preventDefault()
         this.onTBodyRowClicked(evt)
       } else if (
-        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
+        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode) &&
+        (this.$listeners['row-clicked'] || this.isSelectable)
       ) {
         // Keyboard navigation
         const rowIndex = this.getTbodyTrIndex(target)
@@ -166,7 +168,7 @@ export default {
       // Shortcut to `createElement` (could use `this._c()` instead)
       const h = this.$createElement
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.isSelectable
-
+      const hasCellClickHandler = this.$listeners['cell-clicked']
       // Prepare the tbody rows
       const $rows = []
 
@@ -228,7 +230,7 @@ export default {
         dblclick: this.onTbodyRowDblClicked
         // hover events (mouseenter/mouseleave) ad handled by tbody-row mixin
       }
-      if (hasRowClickHandler) {
+      if (hasRowClickHandler || hasCellClickHandler) {
         handlers.click = this.onTBodyRowClicked
         handlers.keydown = this.onTbodyRowKeydown
       }
