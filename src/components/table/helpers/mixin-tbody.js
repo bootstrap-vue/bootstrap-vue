@@ -155,7 +155,7 @@ export default {
           evt.preventDefault()
           // Method to get the visible cells in the row (in case of hidden columns)
           const getVisibleRowCells = tr => {
-            arrayFrom(tr.children).filter(isVisible)
+            return tr ? arrayFrom(tr.children).filter(isVisible) : []
           }
           // Get the array of data item TRs
           const trs = this.getTbodyTrs()
