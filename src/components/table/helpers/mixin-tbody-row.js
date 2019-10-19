@@ -100,6 +100,9 @@ export default {
         item._cellVariants && item._cellVariants[key]
           ? item._cellVariants[key]
           : field.variant || null
+      const userAttrs = field.isRowHeader
+        ? this.getThValues(item, key, field.thAttr, 'row', {})
+        : this.getTdValues(item, key, field.tdAttr, {})
       const data = {
         // For the Vue key, we concatenate the column index and
         // field key (as field keys could be duplicated)
@@ -111,9 +114,7 @@ export default {
         attrs: {
           'aria-colindex': String(colIndex + 1),
           // Add in user attributes
-          ...(field.isRowHeader
-            ? this.getThValues(item, key, field.thAttr, 'row', {})
-            : this.getTdValues(item, key, field.tdAttr, {})),
+          ...userAttrs,
           // Add in tabindex if cell is clickable
           tabindex: hasCellClickHandler ? '0' : null
         }
