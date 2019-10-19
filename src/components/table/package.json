@@ -137,6 +137,7 @@
           },
           {
             "prop": "detailsTdClass",
+            "version": "2.1.0",
             "description": "CSS class (or classes) to apply to the td element in the details row"
           },
           {
@@ -1065,6 +1066,7 @@
           },
           {
             "prop": "detailsTdClass",
+            "version": "2.1.0",
             "description": "CSS class (or classes) to apply to the td element in the details row"
           },
           {
