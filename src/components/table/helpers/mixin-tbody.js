@@ -100,8 +100,8 @@ export default {
         this.onTBodyRowClicked(evt)
       } else if (
         tagName === 'TR' &&
-        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode) &&
-        (this.$listeners['row-clicked'] || this.isSelectable)
+        hasRowClickHandler &&
+        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
       ) {
         // Keyboard navigation of body rows
         // TODO:
@@ -135,7 +135,7 @@ export default {
         }
       } else if (
         (tagName === 'TD' || tagName === 'TH') &&
-        this.$listeners['cell-clicked'] &&
+        hasCellClickHandler &&
         arrayIncludes(
           [KeyCodes.LEFT, KeyCodes.RIGHT, KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END],
           keyCode
