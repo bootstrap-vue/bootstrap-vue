@@ -1,5 +1,5 @@
 import KeyCodes from '../../../utils/key-codes'
-import { arrayIncludes } from '../../../utils/array'
+import { arrayIncludes, from as arrayFrom } from '../../../utils/array'
 import { closest, isElement } from '../../../utils/dom'
 import { props as tbodyProps, BTbody } from '../tbody'
 import filterEvent from './filter-event'
@@ -29,23 +29,52 @@ export default {
       //       populate it on first access of this method if null
       return (this.$refs.itemRows || []).map(tr => tr.$el || tr)
     },
-    getTbodyTrIndex(el) {
+    getTbodyTrIndex(el, trs = null) {
       // Returns index of a particular TBODY item TR
       // We set `true` on closest to include self in result
       /* istanbul ignore next: should not normally happen */
       if (!isElement(el)) {
         return -1
       }
+      trs = trs || this.getTbodyTrs()
       const tr = el.tagName === 'TR' ? el : closest('tr', el, true)
       return tr ? this.getTbodyTrs().indexOf(tr) : -1
+    },
+    getTrTds(tr) {
+      // Returns all the td/th elements in a given tr
+      /* istanbul ignore next: should not normally happen */
+      if (!isElement(tr) || tr.tagName !== 'TR') {
+        return []
+      }
+      // Ensure the array only includes TD/TH
+      return arrayFrom(tr.children).filter(el => el.tagName === 'TD' || el.tagName === 'TH')
+    },
+    getTdIndex(tr, el) {
+      // Returns the index of a given td/th in an array of td's/th's
+      if (!isElement(el)) {
+        return -1
+      }
+      const td = el.tagName === 'TD' || el.tagName === 'TH' ? el : closest('td, th', el, true)
+      return this.getTrTds(tr).indexOf(td)
     },
     emitTbodyRowEvent(type, evt) {
       // Emits a row event, with the item object, row index and original event
       if (type && evt && evt.target) {
-        const rowIndex = this.getTbodyTrIndex(evt.target)
+        const trs = this.getTbodyTrs()
+        const target = evt.target
+        const rowIndex = this.getTbodyTrIndex(target, trs)
         if (rowIndex > -1) {
           // The array of TRs correlate to the `computedItems` array
           const item = this.computedItems[rowIndex]
+          if (type === 'row-clicked') {
+            // Special handling for cell-clicked event
+            // Emitted before row-clicked event is emitted
+            const cellIndex = this.getTdIndex(trs[rowIndex], target)
+            const field = this.computedFields[cellIndex]
+            if (field && field.key) {
+              this.$emit('cell-clicked', item, field.key, cellIndex, rowIndex, evt)
+            }
+          }
           this.$emit(type, item, rowIndex, evt)
         }
       }
