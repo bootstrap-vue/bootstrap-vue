@@ -385,6 +385,66 @@ describe('table > tbody row events', () => {
     wrapper.destroy()
   })
 
+  it('should emit cell-clicked event when clicking on a button or other interactive element', async () => {
+    const wrapper = mount(BTable, {
+      attachToDocument: true,
+      propsData: {
+        // Add extra virtual columns
+        fields: testFields,
+        // We just use a single row for testing
+        items: [testItems[0]]
+      },
+      slots: {
+        // In Vue 2.6x, slots get translated into scopedSlots
+        // We test on a disabled button, and non-diabled button
+        'cell(a)': '<button id="a" disabled>button</button>',
+        'cell(b)': '<button id="b">button</button>',
+      },
+      listeners: {
+        // cell-clicked will only occur if there is a registered listener
+        // Note: cell-clicked will also enable row-clicked emitter
+        'cell-clicked': () => {}
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is('table')).toBe(true)
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(1)
+    expect(wrapper.emitted('cell-clicked')).not.toBeDefined()
+
+    const $btn1 = wrapper.find('button[id="a"]')
+    expect($btn1.exists()).toBe(true)
+    // Click on cell 1 disabled button
+    $btn1.trigger('click')
+    expect(wrapper.emitted('cell-clicked')).not.toBeDefined()
+
+    const $btn2 = wrapper.find('button[id="b"]')
+    expect($btn2.exists()).toBe(true)
+    // Click on cell 2 non-disabled button
+    $btn2.trigger('click')
+    expect(wrapper.emitted('cell-clicked')).toBeDefined()
+    expect(wrapper.emitted('cell-clicked').length).toBe(1)
+    expect(wrapper.emitted('cell-clicked')[0][0]).toEqual(testItems[0]) // Item
+    expect(wrapper.emitted('cell-clicked')[0][1]).toEqual('b') // Field key
+    expect(wrapper.emitted('cell-clicked')[0][2]).toEqual(1) // Cell Index
+    expect(wrapper.emitted('cell-clicked')[0][3]).toEqual(0) // Row Index
+    expect(wrapper.emitted('cell-clicked')[0][4]).toBeInstanceOf(Event) // Native Event
+
+    const $cells = $rows.findAll('td')
+    expect($cells.length).toBe(testFields.length)
+    // Click on 3rd cell
+    $cells.at(2).trigger('click')
+    expect(wrapper.emitted('cell-clicked')).toBeDefined()
+    expect(wrapper.emitted('cell-clicked').length).toBe(2)
+    expect(wrapper.emitted('cell-clicked')[1][0]).toEqual(testItems[0]) // Item
+    expect(wrapper.emitted('cell-clicked')[1][1]).toEqual('c') // Field key
+    expect(wrapper.emitted('cell-clicked')[1][2]).toEqual(2) // Cell Index
+    expect(wrapper.emitted('cell-clicked')[1][3]).toEqual(0) // Row Index
+    expect(wrapper.emitted('cell-clicked')[1][4]).toBeInstanceOf(Event) // Native Event
+
+    wrapper.destroy()
+  })
+
   it('keyboard events moves focus to appropriate rows', async () => {
     const wrapper = mount(BTable, {
       propsData: {
