@@ -82,6 +82,7 @@ export default {
       const tagName = (target.tagName || '').toUpperCase()
       const keyCode = evt.keyCode
       const shift = evt.shiftKey
+      // const ctrl = evt.ctrlKey
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.isSelectable
       const hasCellClickHandler = this.$listeners['cell-clicked']
       if (
@@ -141,57 +142,64 @@ export default {
           keyCode
         )
       ) {
-        // DEBUG
-        console.log('Cell navigation triggered')
         // Keyboard navigation of cells
         // TODO:
         //   Rather than placing all cells in the tab sequence, use the
         //   roving tab index method (only one cell with tab-index="0", and
         //   the rest with tabindex="-1"
         //   And update data to specify which cell is active
-        const rowIndex = this.getTbodyTrIndex(target)
+        // Curent row index of focused cell
+        let rowIndex = this.getTbodyTrIndex(target)
         if (rowIndex > -1) {
           evt.stopPropagation()
           evt.preventDefault()
+          // Method to get the visible cells in the row (in case of hidden columns)
+          const getVisibleRowCells = tr => {
+            arrayFrom(tr.children).filter(isVisible)
+          }
+          // Get the array of data item TRs
           const trs = this.getTbodyTrs()
-          const tr = trs[rowIndex]
-          // `target` is always the TD or TH cell
-          let cell = target
-          const cellIndex = arrayFrom(tr.children).indexOf(cell)
-          if ((!shift && keyCode === KeyCodes.HOME) || (shift && keyCode === KeyCodes.LEFT)) {
-            // Focus first cell in row
-            cell = tr.firstElementChild || cell
-          } else if (shift && keyCode === KeyCodes.HOME) {
+          // Current focused cell index (target is always a TD or TH)
+          let cellIndex = getVisibleRowCells(trs[rowIndex]).indexOf(target)
+          if (shift && keyCode === KeyCodes.HOME) {
             // Focus first cell in first row
-            cell = trs[0].firstElementChild || cell
+            cellIndex = 0
+            rowIndex = 0
+          } else if (shift && keyCode === KeyCodes.END) {
+            // Focus last cell in last row
+            rowIndex = trs.length - 1
+            cellIndex = getVisibleRowCells(trs[rowIndex]).length - 1
+          } else if (
+            (!shift && keyCode === KeyCodes.HOME) ||
+            (shift && keyCode === KeyCodes.LEFT)
+          ) {
+            // Focus first cell in current row
+            cellIndex = 0
           } else if (
             (!shift && keyCode === KeyCodes.END) ||
             (shift && keyCode === KeyCodes.RIGHT)
           ) {
-            // Focus last cell in row
-            cell = tr.lastElementChild || cell
-          } else if (shift && keyCode === KeyCodes.END) {
-            // Focus last cell in last row
-            cell = trs[trs.length - 1].lastElementChild || cell
+            // Focus last cell in current row
+            cellIndex = getVisibleRowCells(trs[rowIndex]).length - 1
           } else if (keyCode === KeyCodes.LEFT) {
-            // Focus previous cell row
-            cell = cell.previousElementSibling || cell
+            // Focus previous cell in current row
+            cellIndex = cellIndex - 1
           } else if (keyCode === KeyCodes.RIGHT) {
-            // Focus next cell in the row
-            cell = cell.nextElementSibling || cell
+            // Focus next cell in current row
+            cellIndex = cellIndex + 1
           } else if (keyCode === KeyCodes.UP) {
-            // Focus same cellInde cell in previous row or first row
-            const row = trs[shift ? 0 : rowIndex - 1] || trs[0]
-            cell = row && row[cellIndex] ? row[cellIndex] : cell
+            // Focus same cellIndex in previous row or first row (shift)
+            rowIndex = shift ? 0 : rowIndex - 1
           } else if (keyCode === KeyCodes.DOWN) {
-            // Focus cell in next row or last row
-            const row = trs[shift ? trs.length - 1 : rowIndex + 1] || trs[trs.length - 1]
-            cell = row && row[cellIndex] ? row[cellIndex] : cell
+            // Focus same cellIndex in next row or last row (shift)
+            rowIndex = shift ? trs.length - 1 : rowIndex + 1
           }
           // Attempt to focus the cell
           try {
-            cell.focus()
-          } catch {}
+            getVisibleRowCells(trs[rowIndex])[cellIndex].focus()
+          } catch {
+            // Ignore any error from focus attempt
+          }
         }
       }
     },
