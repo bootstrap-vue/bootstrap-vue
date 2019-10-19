@@ -136,6 +136,11 @@
             "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
           },
           {
+            "prop": "detailsTdClass",
+            "version": "2.1.0",
+            "description": "CSS class (or classes) to apply to the td element in the details row"
+          },
+          {
             "prop": "value",
             "description": "Currently displayed row data. Read-only. Do not set a value on this prop"
           },
@@ -1090,6 +1095,11 @@
           {
             "prop": "tbodyTrClass",
             "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
+          },
+          {
+            "prop": "detailsTdClass",
+            "version": "2.1.0",
+            "description": "CSS class (or classes) to apply to the td element in the details row"
           },
           {
             "prop": "value",

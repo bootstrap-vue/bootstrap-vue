@@ -10,7 +10,11 @@ const detailsSlotName = 'row-details'
 export default {
   props: {
     tbodyTrClass: {
-      type: [String, Array, Function],
+      type: [String, Array, Object, Function],
+      default: null
+    },
+    detailsTdClass: {
+      type: [String, Array, Object],
       default: null
     }
   },
@@ -256,14 +260,15 @@ export default {
         }
 
         // Render the details slot in a TD
-        const $details = h(BTd, { props: { colspan: fields.length } }, [
+        const $details = h(BTd, { props: { colspan: fields.length }, class: this.detailsTdClass }, [
           this.normalizeSlot(detailsSlotName, detailsScope)
         ])
 
         // Add a hidden row to keep table row striping consistent when details showing
+        // Only added if the table is striped
         if (tableStriped) {
           $rows.push(
-            // We don't use `BTr` here as we dont need the extra functionality
+            // We don't use `BTr` here as we don't need the extra functionality
             h('tr', {
               key: `__b-table-details-stripe__${rowKey}`,
               staticClass: 'd-none',
