@@ -78,7 +78,7 @@ export default {
       return this.stopIfBusy && this.stopIfBusy(evt)
     },
     // Delegated row event handlers
-    onTbodyRowKeydown(evt) {
+    onTbodyKeydown(evt) {
       // Keyboard navigation and row/cell click emulation
       if (!evt || !evt.target) {
         /* istanbul ignore next */
@@ -87,9 +87,7 @@ export default {
       const target = evt.target
       const tagName = (target.tagName || '').toUpperCase()
       const keyCode = evt.keyCode
-      const shift = evt.shiftKey
       const ctrl = evt.ctrlKey
-      const shiftOrCtrl = shift || ctrl
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.isSelectable
       const hasCellClickHandler = this.$listeners['cell-clicked']
       if (
@@ -105,7 +103,7 @@ export default {
         // Emulated click for keyboard users, transfer to click handler
         evt.stopPropagation()
         evt.preventDefault()
-        this.onTBodyRowClicked(evt)
+        this.onTBodyClicked(evt)
       } else if (
         hasRowClickHandler &&
         !hasCellClickHandler &&
@@ -119,10 +117,10 @@ export default {
           evt.preventDefault()
           // Row inde with initial focus (might be -1)
           let rowIndex = this.getTbodyTrIndex(target)
-          if (keyCode === KeyCodes.HOME || (shiftOrCtrl && keyCode === KeyCodes.UP)) {
+          if (keyCode === KeyCodes.HOME || (ctrl && keyCode === KeyCodes.UP)) {
             // Focus first row
             rowIndex = 0
-          } else if (keyCode === KeyCodes.END || (shiftOrCtrl && keyCode === KeyCodes.DOWN)) {
+          } else if (keyCode === KeyCodes.END || (ctrl && keyCode === KeyCodes.DOWN)) {
             // Focus last row
             rowIndex = trs.length - 1
           } else if (keyCode === KeyCodes.UP && rowIndex > 0) {
@@ -181,24 +179,18 @@ export default {
           let rowIndex = this.getTbodyTrIndex(target)
           // Current focused cell index (target is always a TD or TH)
           let cellIndex = getVisibleRowCells(trs[rowIndex]).indexOf(target)
-          if (shiftOrCtrl && keyCode === KeyCodes.HOME) {
+          if (ctrl && keyCode === KeyCodes.HOME) {
             // Focus first cell in first row
             cellIndex = 0
             rowIndex = 0
-          } else if (shiftOrCtrl && keyCode === KeyCodes.END) {
+          } else if (ctrl && keyCode === KeyCodes.END) {
             // Focus last cell in last row
             rowIndex = trs.length - 1
             cellIndex = getVisibleRowCells(trs[rowIndex]).length - 1
-          } else if (
-            (!shiftOrCtrl && keyCode === KeyCodes.HOME) ||
-            (shiftOrCtrl && keyCode === KeyCodes.LEFT)
-          ) {
+          } else if ((!ctrl && keyCode === KeyCodes.HOME) || (ctrl && keyCode === KeyCodes.LEFT)) {
             // Focus first cell in current row
             cellIndex = 0
-          } else if (
-            (!shiftOrCtrl && keyCode === KeyCodes.END) ||
-            (shiftOrCtrl && keyCode === KeyCodes.RIGHT)
-          ) {
+          } else if ((!ctrl && keyCode === KeyCodes.END) || (ctrl && keyCode === KeyCodes.RIGHT)) {
             // Focus last cell in current row
             cellIndex = getVisibleRowCells(trs[rowIndex]).length - 1
           } else if (keyCode === KeyCodes.LEFT) {
@@ -209,10 +201,10 @@ export default {
             cellIndex = cellIndex + 1
           } else if (keyCode === KeyCodes.UP) {
             // Focus same cellIndex in previous row or first row (shift)
-            rowIndex = shiftOrCtrl ? 0 : rowIndex - 1
+            rowIndex = ctrl ? 0 : rowIndex - 1
           } else if (keyCode === KeyCodes.DOWN) {
             // Focus same cellIndex in next row or last row (shift)
-            rowIndex = shiftOrCtrl ? trs.length - 1 : rowIndex + 1
+            rowIndex = ctrl ? trs.length - 1 : rowIndex + 1
           }
           // Attempt to focus the cell
           try {
@@ -241,7 +233,7 @@ export default {
         }
       }
     },
-    onTBodyRowClicked(evt) {
+    onTBodyClicked(evt) {
       if (this.tbodyRowEvtStopped(evt)) {
         // If table is busy, then don't propagate
         return
@@ -340,8 +332,8 @@ export default {
         // hover events (mouseenter/mouseleave) ad handled by tbody-row mixin
       }
       if (hasRowClickHandler || hasCellClickHandler) {
-        handlers.click = this.onTBodyRowClicked
-        handlers.keydown = this.onTbodyRowKeydown
+        handlers.click = this.onTBodyClicked
+        handlers.keydown = this.onTbodyKeydown
       }
       // Assemble rows into the tbody
       const $tbody = h(
