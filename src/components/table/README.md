@@ -2767,11 +2767,12 @@ When the table items rows are placed in the document tab sequence (`<b-table>` a
 
 - <kbd>DOWN</kbd> will move to the next row
 - <kbd>UP</kbd> will move to the previous row
-- <kbd>END</kbd> or <kbd>DOWN</kbd>+<kbd>SHIFT</kbd> will move to the last row
-- <kbd>HOME</kbd> or <kbd>UP</kbd>+<kbd>SHIFT</kbd> will move to the first row
+- <kbd>END</kbd> or <kbd>CTRL</kbd>+<kbd>DOWN</kbd> will move to the last row
+- <kbd>HOME</kbd> or <kbd>CTRL</kbd>+<kbd>UP</kbd> will move to the first row
 - <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row.
-- <kbd>SHIFT</kbd> and <kbd>CTRL</kbd> modifiers will also work (depending on the table selectable
-  mode, for `<b-table>` only).
+
+When a `cell-clicked` event listener is registered, keyboard navigation for
+[Data cell accessibility](#data-cell-accessibility) will take precedence.
 
 ### Data cell accessibility
 
@@ -2780,8 +2781,20 @@ all data item cells (`<td>` and `<th>` elements within the `<tbody>`) will be pl
 document tab sequence (via `tabindex="0"`) to allow keyboard-only and screen reader users the
 ability to click the cells by pressing <kbd>ENTER</kbd>.
 
-Keyboard navigation of cells, when a `cell-clicked` event listener registered, is only provided via
-native <kbd>TAB</kbd> and <kbd>SHIFT</kbd>+<kbd>TAB</kbd> handling.
+- <kbd>LEFT</kbd> will move focus one cell to the left
+- <kbd>END</kbd> or <kbd>CTRL</kbd>+<kbd>LEFT</kbd> will move focus to the last cell in the row
+- <kbd>RIGHT</kbd> will move focus one cell to the right
+- <kbd>HOME</kbd> or <kbd>CTRL</kbd>+<kbd>LEFT</kbd> will move focus to the first cell of the first
+  row
+- <kbd>DOWN</kbd> will move focus to the cell in the next row
+- <kbd>UP</kbd> will move focu to the cell in the previous row
+- <kbd>CTRL</kbd>+<kbd>DOWN</kbd> will move focus to the cell in the last row
+- <kbd>CTRL</kbd>+<kbd>UP</kbd> will move focus to the cell in the first row
+- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the cell.
+
+When a `cell-clicked` event listener is registered, keyboard navigation for data cell accessibility
+will take precedence over the keyboard navigation of
+[Data row accessibility](#data-row-accessibility).
 
 ### Accessibility of row events
 
