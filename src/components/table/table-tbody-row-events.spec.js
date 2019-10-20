@@ -529,10 +529,11 @@ describe('table > tbody row events', () => {
       expect($rows.length).toBe(3)
       expect(wrapper.element.contains(document.activeElement)).toBe(false)
 
-      const $cells = []
-      const $cells[0] = $rows.at(0).findAll('td, th')
-      const $cells[1] = $rows.at(1).findAll('td, th')
-      const $cells[2] = $rows.at(2).findAll('td, th')
+      const $cells = [
+        $rows.at(0).findAll('td, th'),
+        $rows.at(1).findAll('td, th'),
+        $rows.at(2).findAll('td, th')
+      ]
 
       expect($cells[0].length).toBe(3)
       expect($cells[1].length).toBe(3)
