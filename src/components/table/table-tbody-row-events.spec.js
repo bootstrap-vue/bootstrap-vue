@@ -444,7 +444,7 @@ describe('table > tbody row events', () => {
   })
 
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
-  describe('pagination keyboard navigation', () => {
+  describe('row/cell keyboard navigation', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 
     beforeEach(() => {
@@ -530,9 +530,9 @@ describe('table > tbody row events', () => {
       expect(wrapper.element.contains(document.activeElement)).toBe(false)
 
       const $cells = [
-        $rows.at(0).findAll('td, th'),
-        $rows.at(1).findAll('td, th'),
-        $rows.at(2).findAll('td, th')
+        $rows.at(0).findAll('td'),
+        $rows.at(1).findAll('td'),
+        $rows.at(2).findAll('td')
       ]
 
       expect($cells[0].length).toBe(3)
