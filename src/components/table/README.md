@@ -2783,11 +2783,11 @@ ability to click the cells by pressing <kbd>ENTER</kbd>.
 Keyboard navigation of cells, when a `cell-clicked` event listener registered, is only provided via
 native <kbd>TAB</kbd> and <kbd>SHIFT</kbd>+<kbd>TAB</kbd> handling.
 
-### Row event accessibility
+### Accessibility of row events
 
 Note the following row based events/actions (available with `<b-table>` and `<b-table-lite>`) are
-not considered accessible, and should only be used if the functionality is non critical or can be
-provided via other means:
+not considered accessible (not easily triggered on mobile browsers), and should only be used if the
+functionality is non critical or can be provided via other means:
 
 - `row-dblclicked`
 - `row-contextmenu`
