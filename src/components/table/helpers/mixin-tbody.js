@@ -173,7 +173,10 @@ export default {
           evt.preventDefault()
           // Method to get the visible cells in the row (in case of hidden columns)
           const getVisibleRowCells = tr => {
-            return tr ? arrayFrom(tr.children).filter(isVisible) : []
+            const cells = tr ? arrayFrom(tr.children).filter(isVisible) : []
+            // DEBUG
+            console.log('Visible Cells', cells.length, cells) 
+            return cells
           }
           // Curent row index of focused cell (-1 for no cell focused)
           let rowIndex = this.getTbodyTrIndex(target)
