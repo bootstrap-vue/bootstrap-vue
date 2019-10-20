@@ -476,7 +476,7 @@ describe('table > tbody row events', () => {
     $rows.at(1).trigger('keydown.up')
     expect(document.activeElement).toBe($rows.at(0).element)
 
-    $rows.at(0).trigger('keydown.down', { ctrltKey: true })
+    $rows.at(0).trigger('keydown.down', { ctrlKey: true })
     expect(document.activeElement).toBe($rows.at(2).element)
 
     $rows.at(2).trigger('keydown.up', { ctrlKey: true })
