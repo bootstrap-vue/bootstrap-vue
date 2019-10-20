@@ -234,7 +234,7 @@ export default {
             // })
             // Update the non-reactive props
             this.$_rowIndex = rowIndex
-            this.$_cellIndex = parseInt(getAttr(cell, 'aria-colindex') || 1), 10) - 1
+            this.$_cellIndex = parseInt(getAttr(cell, 'aria-colindex') || 1, 10) - 1
           } catch {
             // Ignore any error from focus attempt
           }
