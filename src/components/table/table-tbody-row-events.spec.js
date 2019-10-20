@@ -443,52 +443,138 @@ describe('table > tbody row events', () => {
     wrapper.destroy()
   })
 
-  it('keyboard events moves focus to appropriate rows', async () => {
-    const wrapper = mount(BTable, {
-      propsData: {
-        fields: testFields,
-        items: testItems
-      },
-      listeners: {
-        // Tabindex will only be set if there is a row-clicked listener
-        'row-clicked': () => {}
-      }
+  // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
+  describe('pagination keyboard navigation', () => {
+    const origGetBCR = Element.prototype.getBoundingClientRect
+
+    beforeEach(() => {
+      // Mock getBCR so that the isVisible(el) test returns true
+      // In our test below, all pagination buttons would normally be visible
+      Element.prototype.getBoundingClientRect = jest.fn(() => ({
+        width: 24,
+        height: 24,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+      }))
     })
-    expect(wrapper).toBeDefined()
-    const $rows = wrapper.findAll('tbody > tr')
-    expect($rows.length).toBe(3)
-    expect(document.activeElement).not.toBe($rows.at(0).element)
-    expect(document.activeElement).not.toBe($rows.at(1).element)
-    expect(document.activeElement).not.toBe($rows.at(2).element)
+    afterEach(() => {
+      // Restore prototype
+      Element.prototype.getBoundingClientRect = origGetBCR
+    })
 
-    $rows.at(0).element.focus()
-    expect(document.activeElement).toBe($rows.at(0).element)
+    it('row keyboard events moves focus to appropriate rows', async () => {
+      const wrapper = mount(BTable, {
+        propsData: {
+          fields: testFields,
+          items: testItems
+        },
+        listeners: {
+          // Keyboard navigation will only work if there is a row-clicked listener
+          'row-clicked': () => {}
+        }
+      })
+      expect(wrapper).toBeDefined()
+      const $rows = wrapper.findAll('tbody > tr')
+      expect($rows.length).toBe(3)
+      expect(document.activeElement).not.toBe($rows.at(0).element)
+      expect(document.activeElement).not.toBe($rows.at(1).element)
+      expect(document.activeElement).not.toBe($rows.at(2).element)
 
-    $rows.at(0).trigger('keydown.end')
-    expect(document.activeElement).toBe($rows.at(2).element)
+      $rows.at(0).element.focus()
+      expect(document.activeElement).toBe($rows.at(0).element)
 
-    $rows.at(2).trigger('keydown.home')
-    expect(document.activeElement).toBe($rows.at(0).element)
+      $rows.at(0).trigger('keydown.end')
+      expect(document.activeElement).toBe($rows.at(2).element)
 
-    $rows.at(0).trigger('keydown.down')
-    expect(document.activeElement).toBe($rows.at(1).element)
+      $rows.at(2).trigger('keydown.home')
+      expect(document.activeElement).toBe($rows.at(0).element)
 
-    $rows.at(1).trigger('keydown.up')
-    expect(document.activeElement).toBe($rows.at(0).element)
+      $rows.at(0).trigger('keydown.down')
+      expect(document.activeElement).toBe($rows.at(1).element)
 
-    $rows.at(0).trigger('keydown.down', { ctrlKey: true })
-    expect(document.activeElement).toBe($rows.at(2).element)
+      $rows.at(1).trigger('keydown.up')
+      expect(document.activeElement).toBe($rows.at(0).element)
 
-    $rows.at(2).trigger('keydown.up', { ctrlKey: true })
-    expect(document.activeElement).toBe($rows.at(0).element)
+      $rows.at(0).trigger('keydown.down', { ctrlKey: true })
+      expect(document.activeElement).toBe($rows.at(2).element)
 
-    // Should only move focus if TR was target
-    $rows
-      .at(0)
-      .find('td')
-      .trigger('keydown.down')
-    expect(document.activeElement).toBe($rows.at(0).element)
+      $rows.at(2).trigger('keydown.up', { ctrlKey: true })
+      expect(document.activeElement).toBe($rows.at(0).element)
 
-    wrapper.destroy()
+      // Should only move focus if TR was target
+      $rows
+        .at(0)
+        .find('td')
+        .trigger('keydown.down')
+      expect(document.activeElement).toBe($rows.at(0).element)
+
+      wrapper.destroy()
+    })
+
+    it('cell keyboard events moves focus to appropriate cells', async () => {
+      const wrapper = mount(BTable, {
+        propsData: {
+          fields: testFields,
+          items: testItems
+        },
+        listeners: {
+          // Keyboard navigation will only work if there is a cell-clicked listener
+          'cell-clicked': () => {}
+        }
+      })
+      expect(wrapper).toBeDefined()
+      const $rows = wrapper.findAll('tbody > tr')
+      expect($rows.length).toBe(3)
+      expect(wrapper.element.contains(document.activeElement)).toBe(false)
+
+      const $cells = []
+      const $cells[0] = $rows.at(0).findAll('td, th')
+      const $cells[1] = $rows.at(1).findAll('td, th')
+      const $cells[2] = $rows.at(2).findAll('td, th')
+
+      expect($cells[0].length).toBe(3)
+      expect($cells[1].length).toBe(3)
+      expect($cells[2].length).toBe(3)
+
+      $cells[0].at(0).element.focus()
+      expect(document.activeElement).toBe($cells[0].at(0).element)
+
+      $cells[0].at(0).trigger('keydown.right')
+      expect(document.activeElement).toBe($cells[0].at(1).element)
+
+      $cells[0].at(0).trigger('keydown.left')
+      expect(document.activeElement).toBe($cells[0].at(0).element)
+
+      $cells[0].at(0).trigger('keydown.end')
+      expect(document.activeElement).toBe($cells[0].at(2).element)
+
+      $cells[0].at(0).trigger('keydown.home')
+      expect(document.activeElement).toBe($cells[0].at(0).element)
+
+      $cells[0].at(0).trigger('keydown.down')
+      expect(document.activeElement).toBe($cells[1].at(0).element)
+
+      $cells[0].at(0).trigger('keydown.up')
+      expect(document.activeElement).toBe($cells[0].at(0).element)
+
+      $cells[0].at(0).trigger('keydown.right')
+      expect(document.activeElement).toBe($cells[0].at(1).element)
+
+      $cells[0].at(1).trigger('keydown.down', { ctrlKey: true })
+      expect(document.activeElement).toBe($cells[2].at(1).element)
+
+      $cells[2].at(1).trigger('keydown.up', { ctrlKey: true })
+      expect(document.activeElement).toBe($cells[0].at(1).element)
+
+      $cells[0].at(1).trigger('keydown.end', { ctrlKey: true })
+      expect(document.activeElement).toBe($cells[2].at(2).element)
+
+      $cells[2].at(2).trigger('keydown.home', { ctrlKey: true })
+      expect(document.activeElement).toBe($cells[0].at(0).element)
+
+      wrapper.destroy()
+    })
   })
 })
