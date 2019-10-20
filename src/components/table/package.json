@@ -297,7 +297,7 @@
         "events": [
           {
             "event": "cell-clicked",
-            "description": "Emitted when a cell is clicked.",
+            "description": "Emitted when a cell is clicked. Emitted just before the row-clicked event",
             "version": "2.1.0",
             "args": [
               {
@@ -329,7 +329,7 @@
           },
           {
             "event": "row-clicked",
-            "description": "Emitted when a row is clicked.",
+            "description": "Emitted when a row is clicked",
             "args": [
               {
                 "arg": "item",
@@ -350,7 +350,7 @@
           },
           {
             "event": "row-dblclicked",
-            "description": "Emitted when a row is double clicked.",
+            "description": "Emitted when a row is double clicked. Not considered accessible",
             "args": [
               {
                 "arg": "item",
@@ -371,7 +371,7 @@
           },
           {
             "event": "row-middle-clicked",
-            "description": "Emitted when a row is middle clicked.",
+            "description": "Emitted when a row is middle clicked. Not considered accessible",
             "args": [
               {
                 "arg": "item",
@@ -392,7 +392,7 @@
           },
           {
             "event": "row-contextmenu",
-            "description": "Emitted when a row is right clicked.",
+            "description": "Emitted when a row is right clicked. Not considered accessible",
             "args": [
               {
                 "arg": "item",
@@ -413,7 +413,7 @@
           },
           {
             "event": "row-hovered",
-            "description": "Emitted when a row is hovered.",
+            "description": "Emitted when a row is hovered. Not considered accessible",
             "args": [
               {
                 "arg": "item",
@@ -434,7 +434,7 @@
           },
           {
             "event": "row-unhovered",
-            "description": "Emitted when a row is unhovered.",
+            "description": "Emitted when a row is unhovered. Not considered accessible",
             "args": [
               {
                 "arg": "item",
@@ -1121,7 +1121,7 @@
         "events": [
           {
             "event": "cell-clicked",
-            "description": "Emitted when a cell is clicked.",
+            "description": "Emitted when a cell is clicked. Emitted just before hte row-clicked event",
             "version": "2.1.0",
             "args": [
               {
@@ -1153,7 +1153,7 @@
           },
           {
             "event": "row-clicked",
-            "description": "Emitted when a row is clicked.",
+            "description": "Emitted when a row is clicked",
             "args": [
               {
                 "arg": "item",
@@ -1174,7 +1174,7 @@
           },
           {
             "event": "row-dblclicked",
-            "description": "Emitted when a row is double clicked.",
+            "description": "Emitted when a row is double clicked. Not considered accessible",
             "args": [
               {
                 "arg": "item",
@@ -1195,7 +1195,7 @@
           },
           {
             "event": "row-middle-clicked",
-            "description": "Emitted when a row is middle clicked.",
+            "description": "Emitted when a row is middle clicked. Not considered accessible",
             "args": [
               {
                 "arg": "item",
@@ -1216,7 +1216,7 @@
           },
           {
             "event": "row-contextmenu",
-            "description": "Emitted when a row is right clicked.",
+            "description": "Emitted when a row is right clicked. Not considered accessible",
             "args": [
               {
                 "arg": "item",
@@ -1237,7 +1237,7 @@
           },
           {
             "event": "row-hovered",
-            "description": "Emitted when a row is hovered.",
+            "description": "Emitted when a row is hovered. Not considered accessible",
             "args": [
               {
                 "arg": "item",
@@ -1258,7 +1258,7 @@
           },
           {
             "event": "row-unhovered",
-            "description": "Emitted when a row is unhovered.",
+            "description": "Emitted when a row is unhovered. Not considered accessible",
             "args": [
               {
                 "arg": "item",
