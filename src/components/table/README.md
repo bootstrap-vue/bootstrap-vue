@@ -2786,7 +2786,7 @@ native <kbd>TAB</kbd> and <kbd>SHIFT</kbd>+<kbd>TAB</kbd> handling.
 ### Accessibility of row events
 
 Note the following row based events/actions (available with `<b-table>` and `<b-table-lite>`) are
-not considered accessible (not easily triggered on mobile browsers), and should only be used if the
+not considered accessible (nor easily triggered on mobile browsers), and should only be used if the
 functionality is non critical or can be provided via other means:
 
 - `row-dblclicked`
