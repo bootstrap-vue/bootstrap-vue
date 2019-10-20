@@ -92,7 +92,7 @@ export default {
       const hasCellClickHandler = this.$listeners['cell-clicked']
       if (
         this.tbodyRowEvtStopped(evt) ||
-        (tagName !== 'TR' && tagName !== 'TD' && tagName !== 'TH' && tagName !== 'TBODY') ||
+        (tagName !== 'TR' && tagName !== 'TD' && tagName !== 'TH') ||
         target !== document.activeElement ||
         (target.tabIndex !== 0 && target.tabIndex !== -1)
       ) {
