@@ -17,6 +17,12 @@ const props = {
 export default {
   mixins: [tbodyRowMixin],
   props,
+  created() {
+    // Non-reactive props for setting the row or cell tabindex during render
+    // These will be updated by the keyboard navigation focus control
+    this.$_rowIndex = 0
+    this.$_cellIndex = 0
+  },
   methods: {
     // Helper methods
     getTbodyTrs() {
@@ -138,7 +144,17 @@ export default {
             //   and manually clear previous row tabindex and set new row tabindex
             //   Could listen to focusout events on cells to clear the previous row's
             //   tab index
-            trs[rowIndex].focus()
+            const tr = trs[rowIndex]
+            tr.focus()
+            // The above line will throw an error if tr is undefined
+            // and the following will not run, but if it is defined
+            // then we update the tab indexes
+            // trs.forEach(r => {
+            //   r.tabIndex = r === tr ? 0 : -1
+            // })
+            // Update the non-reactive props
+            this.$_rowIndex = rowIndex
+            this.$_cellIndex = 0
           } catch {
             // Ignore any focus errors
           }
@@ -174,7 +190,7 @@ export default {
             rowIndex = trs.length - 1
             cellIndex = getVisibleRowCells(trs[rowIndex]).length - 1
           } else if (
-            (!shiftOrCtrl  && keyCode === KeyCodes.HOME) ||
+            (!shiftOrCtrl && keyCode === KeyCodes.HOME) ||
             (shiftOrCtrl && keyCode === KeyCodes.LEFT)
           ) {
             // Focus first cell in current row
@@ -201,12 +217,24 @@ export default {
           // Attempt to focus the cell
           try {
             // TODO:
-            //   Set this cell's tabIndex to 0 and all others to -1
+            //   Set the focused cell tabIndex to 0 and all others to -1
             //   Could set a dataObject with row/cell index after the focus
             //   But this would cause a re-render of the full table
             //   Would also need to reset the row/cell index to 0 on any
             //   sort/filter/paginate change
-            getVisibleRowCells(trs[rowIndex])[cellIndex].focus()
+            const cell = getVisibleRowCells(trs[rowIndex])[cellIndex]
+            cell.focus()
+            // The above line will throw an error if cell is undefined
+            // and the following will not run, but if it is defined
+            // then we update the tab indexes
+            // trs.forEach(r => {
+            //   getVisibleRowCells(r).forEach(c => {
+            //     c.tabIndex = c === cell ? 0 : -1
+            //   })
+            // })
+            // Update the non-reactive props
+            this.$_rowIndex = rowIndex
+            this.$_cellIndex = parseInt(getAttr(cell, 'aria-colindex') || 1), 10) - 1
           } catch {
             // Ignore any error from focus attempt
           }
