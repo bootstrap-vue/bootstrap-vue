@@ -556,11 +556,13 @@
               {
                 "prop": "selectRow",
                 "type": "Function",
+                "version": "2.1.0",
                 "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
               },
               {
                 "prop": "unselectRow",
                 "type": "Function",
+                "version": "2.1.0",
                 "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
@@ -610,11 +612,13 @@
               {
                 "prop": "selectRow",
                 "type": "Function",
+                "version": "2.1.0",
                 "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
               },
               {
                 "prop": "unselectRow",
                 "type": "Function",
+                "version": "2.1.0",
                 "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
@@ -806,16 +810,19 @@
               {
                 "prop": "rowSelected",
                 "type": "Boolean",
+                "version": "2.1.0",
                 "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
               },
               {
                 "prop": "selectRow",
                 "type": "Function",
+                "version": "2.1.0",
                 "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
               },
               {
                 "prop": "unselectRow",
                 "type": "Function",
+                "version": "2.1.0",
                 "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
