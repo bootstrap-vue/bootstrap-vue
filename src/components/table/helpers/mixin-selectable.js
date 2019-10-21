@@ -98,8 +98,8 @@ export default {
       }
     }
   },
-  beforeMount() {
-    // Set up handlers
+  created() {
+    // Set up handlers if needed
     if (this.isSelectable) {
       this.setSelectionHandlers(true)
     }
