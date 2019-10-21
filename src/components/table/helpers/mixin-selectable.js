@@ -31,6 +31,9 @@ export default {
     isSelectable() {
       return this.selectable && this.selectMode
     },
+    supportsSelectable() {
+      return true
+    },
     selectableHasSelection() {
       return (
         this.isSelectable &&
