@@ -144,11 +144,10 @@ export default {
         unformatted: get(item, key, ''),
         value: formatted,
         toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item),
-        detailsShowing: Boolean(item._showDetails)
-      }
-      if (this.selectedRows) {
-        // Add in rowSelected scope property if selectable rows supported
-        slotScope.rowSelected = this.isRowSelected(rowIndex)
+        detailsShowing: Boolean(item._showDetails),
+        rowSelected: this.isSelectable ? this.isRowSelected(rowIndex) : false,
+        selectRow: this.isSelectable ? () => this.selectRow(rowIndex) : () => {},
+        unselectRow: this.isSelectable ? () => this.unselectRow(rowIndex) : () => {},
       }
       // The new `v-slot` syntax doesn't like a slot name starting with
       // a square bracket and if using in-document HTML templates, the
@@ -251,7 +250,10 @@ export default {
           item: item,
           index: rowIndex,
           fields: fields,
-          toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item)
+          toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item),
+          rowSelected: this.isSelectable ? this.isRowSelected(rowIndex) : false,
+          selectRow: this.isSelectable ? () => this.selectRow(rowIndex) : () => {},
+          unselectRow: this.isSelectable ? () => this.unselectRow(rowIndex) : () => {},
         }
 
         // Render the details slot in a TD
