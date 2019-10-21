@@ -547,19 +547,19 @@ describe('table > tbody row events', () => {
       $cells[0].at(0).trigger('keydown.right')
       expect(document.activeElement).toBe($cells[0].at(1).element)
 
-      $cells[0].at(0).trigger('keydown.left')
+      $cells[0].at(1).trigger('keydown.left')
       expect(document.activeElement).toBe($cells[0].at(0).element)
 
       $cells[0].at(0).trigger('keydown.end')
       expect(document.activeElement).toBe($cells[0].at(2).element)
 
-      $cells[0].at(0).trigger('keydown.home')
+      $cells[0].at(2).trigger('keydown.home')
       expect(document.activeElement).toBe($cells[0].at(0).element)
 
       $cells[0].at(0).trigger('keydown.down')
       expect(document.activeElement).toBe($cells[1].at(0).element)
 
-      $cells[0].at(0).trigger('keydown.up')
+      $cells[1].at(0).trigger('keydown.up')
       expect(document.activeElement).toBe($cells[0].at(0).element)
 
       $cells[0].at(0).trigger('keydown.right')
