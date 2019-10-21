@@ -551,7 +551,17 @@
               {
                 "prop": "rowSelected",
                 "type": "Boolean",
-                "description": "Will be true if the row has been selected."
+                "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "selectRow",
+                "type": "Function",
+                "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "unselectRow",
+                "type": "Function",
+                "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
           },
@@ -595,7 +605,17 @@
               {
                 "prop": "rowSelected",
                 "type": "Boolean",
-                "description": "Will be true if the row has been selected."
+                "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "selectRow",
+                "type": "Function",
+                "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "unselectRow",
+                "type": "Function",
+                "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
           },
@@ -782,6 +802,21 @@
                 "prop": "toggleDetails",
                 "type": "Function",
                 "description": "Function to toggle visibility of the row's details slot"
+              },
+              {
+                "prop": "rowSelected",
+                "type": "Boolean",
+                "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "selectRow",
+                "type": "Function",
+                "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "unselectRow",
+                "type": "Function",
+                "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
           },
