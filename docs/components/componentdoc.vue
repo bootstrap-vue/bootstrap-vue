@@ -236,16 +236,18 @@
           <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
         </template>
         <template v-slot:cell(args)="{ value, item }">
-          <p
-            v-for="arg in value"
-            :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
-            class="mb-1"
-          >
-            <template v-if="arg.arg">
-              <code class="notranslate" translate="no">{{ arg.arg }}</code> -
-            </template>
-            <span>{{ arg.description }}</span>
-          </p>
+          <ol v-if="value && value.length > 0" class="list-unstyled mb-0">
+            <li
+              v-for="(arg, idx) in value"
+              :key="`event-${item.event}-${arg.arg || idx}`"
+              class="mb-1"
+            >
+              <template v-if="arg.arg">
+                <code class="notranslate" translate="no">{{ arg.arg }}</code> -
+              </template>
+              <span>{{ arg.description }}</span>
+            </li>
+          </ol>
         </template>
       </b-table>
     </article>
