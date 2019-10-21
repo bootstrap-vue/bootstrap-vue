@@ -177,7 +177,7 @@ export default {
       const tableStriped = this.striped
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const rowShowDetails = Boolean(item._showDetails && hasDetailsSlot)
-      const hasRowClickHandler = this.$listeners['row-clicked'] || this.isSelectable
+      const hasRowClickHandler = this.$listeners['row-clicked']
 
       // We can return more than one TR if rowDetails enabled
       const $rows = []
