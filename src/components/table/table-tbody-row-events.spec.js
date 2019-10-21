@@ -543,6 +543,7 @@ describe('table > tbody row events', () => {
       expect(document.activeElement).toBe($cells[0].at(0).element)
 
       $cells[0].at(0).trigger('keydown.right')
+      await wrapper.vm.$nextTick()
       expect(document.activeElement).toBe($cells[0].at(1).element)
 
       $cells[0].at(0).trigger('keydown.left')
