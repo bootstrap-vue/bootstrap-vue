@@ -316,7 +316,10 @@
               },
               {
                 "arg": "event",
-                "type": "Event",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
                 "description": "Native event object."
               }
             ]
@@ -379,7 +382,7 @@
               },
               {
                 "arg": "event",
-                "type": "Event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -453,7 +456,10 @@
               },
               {
                 "arg": "event",
-                "type": "Event",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
                 "description": "Native event object."
               },
               {
@@ -1150,7 +1156,10 @@
               },
               {
                 "arg": "event",
-                "type": "Event",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
                 "description": "Native event object."
               }
             ]
@@ -1213,7 +1222,7 @@
               },
               {
                 "arg": "event",
-                "type": "Event",
+                "type": "MouseEvent",
                 "description": "Native event object."
               }
             ]
@@ -1276,7 +1285,10 @@
               },
               {
                 "arg": "event",
-                "type": "Event",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
                 "description": "Native event object."
               },
               {
