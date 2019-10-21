@@ -57,11 +57,15 @@ export default {
       return {
         'b-table-selectable': this.isSelectable,
         [`b-table-select-${this.selectMode}`]: this.isSelectable,
-        'b-table-selecting': this.selectableHasSelection
+        'b-table-selecting': this.selectableHasSelection,
+        'b-table-selectable-no-click': this.isSelectable && !this.hasSelectableRowClick
       }
     },
     selectableTableAttrs() {
       return {
+        // TODO:
+        //   Should this attribute not be included when no-select-on-click is set
+        //   since this attribute implies keyboard navigation?
         'aria-multiselectable': !this.isSelectable
           ? null
           : this.selectableIsMultiSelect
