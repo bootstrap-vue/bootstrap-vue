@@ -253,6 +253,11 @@
             "description": "Bootstrap color theme variant to set selected rows to. Use any of the standard Bootstrap theme color variants, or the special table row variant 'active' (default). Set to an empty string to not use a variant"
           },
           {
+            "prop": "noSelectOnClick",
+            "version": "2.1.0",
+            "description": "Disables row selection via click events. Row selection will be only available programmatically"
+          },
+          {
             "prop": "showEmpty",
             "description": "When enabled, and there are no item records to show, shows a message that there are no rows to show"
           },
@@ -551,7 +556,19 @@
               {
                 "prop": "rowSelected",
                 "type": "Boolean",
-                "description": "Will be true if the row has been selected."
+                "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "selectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "unselectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
           },
@@ -595,7 +612,19 @@
               {
                 "prop": "rowSelected",
                 "type": "Boolean",
-                "description": "Will be true if the row has been selected."
+                "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "selectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "unselectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
           },
@@ -782,6 +811,24 @@
                 "prop": "toggleDetails",
                 "type": "Function",
                 "description": "Function to toggle visibility of the row's details slot"
+              },
+              {
+                "prop": "rowSelected",
+                "type": "Boolean",
+                "version": "2.1.0",
+                "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "selectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "unselectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
           },

@@ -894,6 +894,8 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [Row details support](#row-details-support) below for additional information                |
 | `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information    |
 | `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [Row select support](#row-select-support) for additional information                                             |
+| `selectRow`      | Function | When called, selects the current row. See section [Row select support](#row-select-support) for additional information                                                    |
+| `unselectRow`    | Function | When called, unselects the current row. See section [Row select support](#row-select-support) for additional information                                                  |
 
 **Notes:**
 
@@ -1407,12 +1409,17 @@ for proper reactive detection of changes to it's value. Read more about
 
 **Available `row-details` scoped variable properties:**
 
-| Property        | Type     | Description                                                               |
-| --------------- | -------- | ------------------------------------------------------------------------- |
-| `item`          | Object   | The entire row record data object                                         |
-| `index`         | Number   | The current visible row number                                            |
-| `fields`        | Array    | The normalized fields definition array (in the _array of objects_ format) |
-| `toggleDetails` | Function | Function to toggle visibility of the row's details slot                   |
+| Property        | Type     | Description                                                                                                                   |
+| --------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `item`          | Object   | The entire row record data object                                                                                             |
+| `index`         | Number   | The current visible row number                                                                                                |
+| `fields`        | Array    | The normalized fields definition array (in the _array of objects_ format)                                                     |
+| `toggleDetails` | Function | Function to toggle visibility of the row's details slot                                                                       |
+| `rowSelected`   | Boolean  | Will be `true` if the row has been selected. See section [Row select support](#row-select-support) for additional information |
+| `selectRow`     | Function | When called, selects the current row. See section [Row select support](#row-select-support) for additional information        |
+| `unselectRow`   | Function | When called, unselects the current row. See section [Row select support](#row-select-support) for additional information      |
+
+Note: the row select related scope properties are only available in `<b-table>`.
 
 In the following example, we show two methods of toggling the visibility of the details: one via a
 button, and one via a checkbox. We also have the third row details defaulting to have details
@@ -1510,6 +1517,8 @@ Rows can also be programmatically selected and unselected via the following expo
 - In `single` mode, `selectRow(index)` will unselect any previous selected row.
 - Attempting to `selectRow(index)` or `unselectRow(index)` on a non-existent row will be ignored.
 - The table must be `selectable` for any of these methods to have effect.
+- You can disable selection of rows via click events by setting the `no-select-on-click` prop. Rows
+  will then only be selectable programmatically.
 
 **Row select notes:**
 
@@ -2757,10 +2766,11 @@ cells.
 
 ### Data row accessibility
 
-When the table is in `selectable` mode (`<b-table>` only), or if there is a `row-clicked` event
-listener registered (`<b-table>` and `<b-table-lite>`), all data item rows (`<tr>` elements) will be
-placed into the document tab sequence (via `tabindex="0"`) to allow keyboard-only and screen reader
-users the ability to click the rows by pressing <kbd>ENTER</kbd>.
+When the table is in `selectable` mode (`<b-table>` only, and prop `no-select-on-click` is not set),
+or if there is a `row-clicked` event listener registered (`<b-table>` and `<b-table-lite>`), all
+data item rows (`<tr>` elements) will be placed into the document tab sequence (via `tabindex="0"`)
+to allow keyboard-only and screen reader users the ability to click the rows by pressing
+<kbd>ENTER</kbd> or <kbd>SPACE</kbd>.
 
 When the table items rows are placed in the document tab sequence (`<b-table>` and
 `<b-table-lite>`), they will also support basic keyboard navigation when focused:
@@ -2770,8 +2780,6 @@ When the table items rows are placed in the document tab sequence (`<b-table>` a
 - <kbd>END</kbd> or <kbd>DOWN</kbd>+<kbd>SHIFT</kbd> will move to the last row
 - <kbd>HOME</kbd> or <kbd>UP</kbd>+<kbd>SHIFT</kbd> will move to the first row
 - <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row.
-- <kbd>SHIFT</kbd> and <kbd>CTRL</kbd> modifiers will also work (depending on the table selectable
-  mode, for `<b-table>` only).
 
 ### Row event accessibility
 

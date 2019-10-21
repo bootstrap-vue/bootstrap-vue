@@ -146,9 +146,12 @@ export default {
         toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item),
         detailsShowing: Boolean(item._showDetails)
       }
-      if (this.selectedRows) {
-        // Add in rowSelected scope property if selectable rows supported
+      // If table supports selectable mode, then add in the following scope
+      // this.supportsSelectableRows will be undefined if mixin isn't loaded
+      if (this.supportsSelectableRows) {
         slotScope.rowSelected = this.isRowSelected(rowIndex)
+        slotScope.selectRow = () => this.selectRow(rowIndex)
+        slotScope.unselectRow = () => this.unselectRow(rowIndex)
       }
       // The new `v-slot` syntax doesn't like a slot name starting with
       // a square bracket and if using in-document HTML templates, the
@@ -174,7 +177,7 @@ export default {
       const tableStriped = this.striped
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const rowShowDetails = Boolean(item._showDetails && hasDetailsSlot)
-      const hasRowClickHandler = this.$listeners['row-clicked'] || this.isSelectable
+      const hasRowClickHandler = this.$listeners['row-clicked'] || this.hasSelectableRowClick
 
       // We can return more than one TR if rowDetails enabled
       const $rows = []
@@ -252,6 +255,13 @@ export default {
           index: rowIndex,
           fields: fields,
           toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item)
+        }
+        // If table supports selectable mode, then add in the following scope
+        // this.supportsSelectableRows will be undefined if mixin isn't loaded
+        if (this.supportsSelectableRows) {
+          detailsScope.rowSelected = this.isRowSelected(rowIndex)
+          detailsScope.selectRow = () => this.selectRow(rowIndex)
+          detailsScope.unselectRow = () => this.unselectRow(rowIndex)
         }
 
         // Render the details slot in a TD
