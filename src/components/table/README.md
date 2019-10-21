@@ -2766,10 +2766,11 @@ cells.
 
 ### Data row accessibility
 
-When the table is in `selectable` mode (`<b-table>` only), or if there is a `row-clicked` event
-listener registered (`<b-table>` and `<b-table-lite>`), all data item rows (`<tr>` elements) will be
-placed into the document tab sequence (via `tabindex="0"`) to allow keyboard-only and screen reader
-users the ability to click the rows by pressing <kbd>ENTER</kbd>.
+When the table is in `selectable` mode (`<b-table>` only, and prop `no-select-on-click` is not set),
+or if there is a `row-clicked` event listener registered (`<b-table>` and `<b-table-lite>`), all
+data item rows (`<tr>` elements) will be placed into the document tab sequence (via `tabindex="0"`)
+to allow keyboard-only and screen reader users the ability to click the rows by pressing
+<kbd>ENTER</kbd> or <kbd>SPACE</kbd>.
 
 When the table items rows are placed in the document tab sequence (`<b-table>` and
 `<b-table-lite>`), they will also support basic keyboard navigation when focused:
@@ -2779,8 +2780,6 @@ When the table items rows are placed in the document tab sequence (`<b-table>` a
 - <kbd>END</kbd> or <kbd>DOWN</kbd>+<kbd>SHIFT</kbd> will move to the last row
 - <kbd>HOME</kbd> or <kbd>UP</kbd>+<kbd>SHIFT</kbd> will move to the first row
 - <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row.
-- <kbd>SHIFT</kbd> and <kbd>CTRL</kbd> modifiers will also work (depending on the table selectable
-  mode, for `<b-table>` only).
 
 ### Row event accessibility
 
