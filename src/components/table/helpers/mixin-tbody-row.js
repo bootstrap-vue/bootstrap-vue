@@ -148,7 +148,7 @@ export default {
       }
       // If table supports selectable mode, then add in the following scope
       // this.selectedRows will be undefined if table-selectable mixin isn't loaded
-      if (this.selectedRows) {
+      if (this.supportsSelectableRows) {
         slotScope.rowSelected = this.isRowSelected(rowIndex)
         slotScope.selectRow = () => this.selectRow(rowIndex)
         slotScope.unselectRow = () => this.unselectRow(rowIndex)
@@ -258,7 +258,7 @@ export default {
         }
         // If table supports selectable mode, then add in the following scope
         // this.selectedRows will be undefined if table-selectable mixin isn't loaded
-        if (this.selectedRows) {
+        if (this.supportsSelectableRows) {
           detailsScope.rowSelected = this.isRowSelected(rowIndex)
           detailsScope.selectRow = () => this.selectRow(rowIndex)
           detailsScope.unselectRow = () => this.unselectRow(rowIndex)
