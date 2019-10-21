@@ -31,7 +31,7 @@ export default {
     isSelectable() {
       return this.selectable && this.selectMode
     },
-    supportsSelectable() {
+    supportsSelectableRows() {
       return true
     },
     selectableHasSelection() {
