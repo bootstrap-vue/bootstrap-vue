@@ -449,7 +449,7 @@ describe('table > tbody row events', () => {
 
     beforeEach(() => {
       // Mock getBCR so that the isVisible(el) test returns true
-      // In our test below, all pagination buttons would normally be visible
+      // In our test below, all rows/cells would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 24,
         height: 24,
