@@ -147,7 +147,7 @@ export default {
         detailsShowing: Boolean(item._showDetails)
       }
       // If table supports selectable mode, then add in the following scope
-      // this.selectedRows will be undefined if table-selectable mixin isn't loaded
+      // this.supportsSelectableRows will be undefined if mixin isn't loaded
       if (this.supportsSelectableRows) {
         slotScope.rowSelected = this.isRowSelected(rowIndex)
         slotScope.selectRow = () => this.selectRow(rowIndex)
@@ -257,7 +257,7 @@ export default {
           toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item)
         }
         // If table supports selectable mode, then add in the following scope
-        // this.selectedRows will be undefined if table-selectable mixin isn't loaded
+        // this.supportsSelectableRows will be undefined if mixin isn't loaded
         if (this.supportsSelectableRows) {
           detailsScope.rowSelected = this.isRowSelected(rowIndex)
           detailsScope.selectRow = () => this.selectRow(rowIndex)
