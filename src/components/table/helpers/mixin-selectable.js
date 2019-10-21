@@ -19,6 +19,11 @@ export default {
     selectedVariant: {
       type: String,
       default: () => getComponentConfig('BTable', 'selectedVariant')
+    },
+    noSelectOnClick: {
+      // Disable use of click handers for row selection
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -84,6 +89,9 @@ export default {
     },
     selectMode(newVal, oldVal) {
       this.clearSelected()
+    },
+    noSelectOnClick(newVal, oldVal) {
+      this.setSelectionHandlers(!newVal)
     },
     selectedRows(selectedRows, oldVal) {
       if (this.isSelectable && !looseEqual(selectedRows, oldVal)) {
@@ -164,7 +172,7 @@ export default {
       }
     },
     setSelectionHandlers(on) {
-      const method = on ? '$on' : '$off'
+      const method = on && !this.noSelectOnClick ? '$on' : '$off'
       // Handle row-clicked event
       this[method]('row-clicked', this.selectionHandler)
       // Clear selection on filter, pagination, and sort changes
@@ -173,11 +181,9 @@ export default {
     },
     selectionHandler(item, index, evt) {
       /* istanbul ignore if: should never happen */
-      if (!this.isSelectable) {
+      if (!this.isSelectable || this.noSelectOnClick) {
         // Don't do anything if table is not in selectable mode
-        /* istanbul ignore next: should never happen */
         this.clearSelected()
-        /* istanbul ignore next: should never happen */
         return
       }
       const selectMode = this.selectMode
