@@ -237,15 +237,11 @@
         </template>
         <template v-slot:cell(args)="{ value, item }">
           <ol v-if="value && value.length > 0" class="list-unstyled mb-0">
-            <li
-              v-for="(arg, idx) in value"
-              :key="`event-${item.event}-${arg.arg || idx}`"
-              class="mb-1"
-            >
+            <li v-for="(arg, idx) in value" :key="`event-${item.event}-${arg.arg || idx}`">
               <template v-if="arg.arg">
                 <code class="notranslate" translate="no">{{ arg.arg }}</code> -
               </template>
-              <span>{{ arg.description }}</span>
+              <span v-if="arg.description">{{ arg.description }}</span>
             </li>
           </ol>
         </template>
