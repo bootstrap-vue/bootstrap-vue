@@ -37,7 +37,7 @@ export default {
       return this.selectable && this.selectMode
     },
     hasSelectableRowClick() {
-      return this.selectable && this.selectMode && !this.noSelectOnClick
+      return this.isSelectable && !this.noSelectOnClick
     },
     supportsSelectableRows() {
       return true
