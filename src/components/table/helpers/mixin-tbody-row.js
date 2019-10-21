@@ -147,7 +147,7 @@ export default {
         detailsShowing: Boolean(item._showDetails),
         rowSelected: this.isSelectable ? this.isRowSelected(rowIndex) : false,
         selectRow: this.isSelectable ? () => this.selectRow(rowIndex) : () => {},
-        unselectRow: this.isSelectable ? () => this.unselectRow(rowIndex) : () => {},
+        unselectRow: this.isSelectable ? () => this.unselectRow(rowIndex) : () => {}
       }
       // The new `v-slot` syntax doesn't like a slot name starting with
       // a square bracket and if using in-document HTML templates, the
@@ -253,7 +253,7 @@ export default {
           toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item),
           rowSelected: this.isSelectable ? this.isRowSelected(rowIndex) : false,
           selectRow: this.isSelectable ? () => this.selectRow(rowIndex) : () => {},
-          unselectRow: this.isSelectable ? () => this.unselectRow(rowIndex) : () => {},
+          unselectRow: this.isSelectable ? () => this.unselectRow(rowIndex) : () => {}
         }
 
         // Render the details slot in a TD
