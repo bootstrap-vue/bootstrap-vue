@@ -21,7 +21,7 @@ export default {
       default: () => getComponentConfig('BTable', 'selectedVariant')
     },
     noSelectOnClick: {
-      // Disable use of click handers for row selection
+      // Disable use of click handlers for row selection
       type: Boolean,
       default: false
     }
