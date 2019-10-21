@@ -316,7 +316,7 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": "Event",
                 "description": "Native event object."
               }
             ]
@@ -379,7 +379,7 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": "Event",
                 "description": "Native event object."
               }
             ]
@@ -453,7 +453,7 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": "Event",
                 "description": "Native event object."
               },
               {
@@ -1150,7 +1150,7 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": "Event",
                 "description": "Native event object."
               }
             ]
@@ -1213,7 +1213,7 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": "Event",
                 "description": "Native event object."
               }
             ]
@@ -1276,7 +1276,7 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": "Event",
                 "description": "Native event object."
               },
               {
