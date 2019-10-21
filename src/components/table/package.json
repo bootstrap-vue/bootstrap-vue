@@ -298,7 +298,7 @@
           {
             "event": "cell-clicked",
             "description": "Emitted when a cell is clicked. Emitted just before the row-clicked event",
-            "version": "2.1.0",
+            "version": "2.2.0",
             "args": [
               {
                 "arg": "item",
@@ -1122,7 +1122,7 @@
           {
             "event": "cell-clicked",
             "description": "Emitted when a cell is clicked. Emitted just before hte row-clicked event",
-            "version": "2.1.0",
+            "version": "2.2.0",
             "args": [
               {
                 "arg": "item",
