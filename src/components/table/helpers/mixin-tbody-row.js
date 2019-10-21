@@ -144,10 +144,14 @@ export default {
         unformatted: get(item, key, ''),
         value: formatted,
         toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item),
-        detailsShowing: Boolean(item._showDetails),
-        rowSelected: this.isSelectable ? this.isRowSelected(rowIndex) : false,
-        selectRow: this.isSelectable ? () => this.selectRow(rowIndex) : () => {},
-        unselectRow: this.isSelectable ? () => this.unselectRow(rowIndex) : () => {}
+        detailsShowing: Boolean(item._showDetails)
+      }
+      // If table supports selectable mode, then add in the following scope
+      // this.selectedRows will be undefined if table-selectable mixin isn't loaded
+      if (this.selectedRows) {
+        slotScope.rowSelected = this.isRowSelected(rowIndex),
+        slotScope.selectRow = () => this.selectRow(rowIndex),
+        slotScope.unselectRow = () => this.unselectRow(rowIndex)
       }
       // The new `v-slot` syntax doesn't like a slot name starting with
       // a square bracket and if using in-document HTML templates, the
@@ -250,10 +254,14 @@ export default {
           item: item,
           index: rowIndex,
           fields: fields,
-          toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item),
-          rowSelected: this.isSelectable ? this.isRowSelected(rowIndex) : false,
-          selectRow: this.isSelectable ? () => this.selectRow(rowIndex) : () => {},
-          unselectRow: this.isSelectable ? () => this.unselectRow(rowIndex) : () => {}
+          toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item)
+        }
+        // If table supports selectable mode, then add in the following scope
+        // this.selectedRows will be undefined if table-selectable mixin isn't loaded
+        if (this.selectedRows) {
+          detailsScope.rowSelected = this.isRowSelected(rowIndex),
+          detailsScope.selectRow = () => this.selectRow(rowIndex),
+          detailsScope.unselectRow = () => this.unselectRow(rowIndex)
         }
 
         // Render the details slot in a TD
