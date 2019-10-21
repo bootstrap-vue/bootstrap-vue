@@ -6,20 +6,27 @@ import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
 import tbodyRowMixin from './mixin-tbody-row'
 
-const props = {
-  ...tbodyProps,
-  tbodyClass: {
-    type: [String, Array, Object]
-    // default: undefined
-  }
+// Helper method to get the visible cells in the row (in case of hidden columns)
+const getVisibleRowCells = tr => {
+  return tr ? arrayFrom(tr.children).filter(isVisible) : []
 }
 
 export default {
   mixins: [tbodyRowMixin],
-  props,
+  props: {
+    ...tbodyProps,
+    tbodyClass: {
+      type: [String, Array, Object]
+      // default: undefined
+    }
+  },
   created() {
     // Non-reactive props for setting the row or cell tabindex during render
-    // These will be updated by the keyboard navigation focus control
+    // These will be updated by the keyboard navigation focus control (roving tab-index)
+    // TODO:
+    //   Implement using these values in the render function(s)
+    //   And reset them to 0 on sort/filter/pagination change,
+    //   on refresh and possibly when a new items array is provided
     this.$_rowIndex = 0
     this.$_cellIndex = 0
   },
@@ -106,7 +113,10 @@ export default {
         this.onTBodyClicked(evt)
       } else if (
         hasRowClickHandler &&
-        !hasCellClickHandler &&
+        // TODO:
+        //   Determine if we should remove row tabindexs when a cell clicked handler is present?
+        //   IF we do, then we uncomment the following line
+        // !hasCellClickHandler &&
         tagName === 'TR' &&
         arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
       ) {
@@ -171,10 +181,6 @@ export default {
         if (trs.length > -1) {
           evt.stopPropagation()
           evt.preventDefault()
-          // Method to get the visible cells in the row (in case of hidden columns)
-          const getVisibleRowCells = tr => {
-            return tr ? arrayFrom(tr.children).filter(isVisible) : []
-          }
           // Curent row index of focused cell (-1 for no cell focused)
           let rowIndex = this.getTbodyTrIndex(target)
           // Current focused cell index (target is always a TD or TH)
