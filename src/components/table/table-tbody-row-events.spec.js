@@ -466,6 +466,7 @@ describe('table > tbody row events', () => {
 
     it('row keyboard events moves focus to appropriate rows', async () => {
       const wrapper = mount(BTable, {
+        attachToDocument: true,
         propsData: {
           fields: testFields,
           items: testItems
@@ -515,6 +516,7 @@ describe('table > tbody row events', () => {
 
     it('cell keyboard events moves focus to appropriate cells', async () => {
       const wrapper = mount(BTable, {
+        attachToDocument: true,
         propsData: {
           fields: testFields,
           items: testItems
@@ -543,7 +545,6 @@ describe('table > tbody row events', () => {
       expect(document.activeElement).toBe($cells[0].at(0).element)
 
       $cells[0].at(0).trigger('keydown.right')
-      await wrapper.vm.$nextTick()
       expect(document.activeElement).toBe($cells[0].at(1).element)
 
       $cells[0].at(0).trigger('keydown.left')
