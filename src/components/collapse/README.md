@@ -70,14 +70,14 @@ support.
 <template>
   <div>
     <b-button
-      :class="showCollapse ? 'collapsed' : null"
-      :aria-expanded="showCollapse ? 'true' : 'false'"
+      :class="visible ? null : 'collapsed'"
+      :aria-expanded="visible ? 'true' : 'false'"
       aria-controls="collapse-4"
-      @click="showCollapse = !showCollapse"
+      @click="visible = !visible"
     >
       Toggle Collapse
     </b-button>
-    <b-collapse id="collapse-4" v-model="showCollapse" class="mt-2">
+    <b-collapse id="collapse-4" v-model="visible" class="mt-2">
       <b-card>I should start open!</b-card>
     </b-collapse>
   </div>
@@ -87,7 +87,7 @@ support.
   export default {
     data() {
       return {
-        showCollapse: true
+        visible: true
       }
     }
   }
