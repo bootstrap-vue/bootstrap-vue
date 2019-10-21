@@ -93,7 +93,8 @@ export default {
     selectMode(newVal, oldVal) {
       this.clearSelected()
     },
-    noSelectOnClick(newVal, oldVal) {
+    hasSelectableRowClick(newVal, oldVal) {
+      this.clearSelected()
       this.setSelectionHandlers(!newVal)
     },
     selectedRows(selectedRows, oldVal) {
