@@ -31,6 +31,7 @@ describe('table > row select', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-multiselectable')).not.toBeDefined()
     expect(wrapper.classes()).not.toContain('b-table-selectable')
+    expect(wrapper.classes()).not.toContain('b-table-selectable-no-click')
     expect(wrapper.classes()).not.toContain('b-table-selecting')
     expect(wrapper.classes()).not.toContain('b-table-select-single')
     expect(wrapper.classes()).not.toContain('b-table-select-multi')
@@ -59,6 +60,7 @@ describe('table > row select', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-multiselectable')).not.toBeDefined()
     expect(wrapper.classes()).not.toContain('b-table-selectable')
+    expect(wrapper.classes()).not.toContain('b-table-selectable-no-click')
     expect(wrapper.classes()).not.toContain('b-table-selecting')
     expect(wrapper.classes()).not.toContain('b-table-select-single')
     expect(wrapper.classes()).not.toContain('b-table-select-multi')
@@ -69,6 +71,31 @@ describe('table > row select', () => {
     expect($rows.is('tr[aria-selected]')).toBe(false)
     // Does have tabindex attribute on all TRs
     expect($rows.is('tr[tabindex]')).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('has class b-table-selectable-no-click when prop no-select-on-click set', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'single',
+        noSelectOnClick: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
+    expect(wrapper.attributes('aria-multiselectable')).toBe('false')
+    expect(wrapper.classes()).toContain('b-table-selectable')
+    expect(wrapper.classes()).toContain('b-table-select-single')
+    expect(wrapper.classes()).toContain('b-table-selectable-no-click')
+    expect(wrapper.classes()).not.toContain('b-table-selecting')
+    expect(wrapper.classes()).not.toContain('b-table-select-multi')
+    expect(wrapper.classes()).not.toContain('b-table-select-range')
+    expect(wrapper.emitted('row-selected')).not.toBeDefined()
 
     wrapper.destroy()
   })
@@ -89,6 +116,7 @@ describe('table > row select', () => {
     expect(wrapper.attributes('aria-multiselectable')).toBe('false')
     expect(wrapper.classes()).toContain('b-table-selectable')
     expect(wrapper.classes()).toContain('b-table-select-single')
+    expect(wrapper.classes()).not.toContain('b-table-selectable-no-click')
     expect(wrapper.classes()).not.toContain('b-table-selecting')
     expect(wrapper.classes()).not.toContain('b-table-select-multi')
     expect(wrapper.classes()).not.toContain('b-table-select-range')

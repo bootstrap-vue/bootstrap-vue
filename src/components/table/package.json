@@ -93,11 +93,11 @@
           },
           {
             "prop": "tbodyTransitionProps",
-            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' properties. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "tbodyTransitionHandlers",
-            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' event handlers. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "caption",
@@ -134,6 +134,11 @@
           {
             "prop": "tbodyTrClass",
             "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
+          },
+          {
+            "prop": "detailsTdClass",
+            "version": "2.1.0",
+            "description": "CSS class (or classes) to apply to the td element in the details row"
           },
           {
             "prop": "value",
@@ -248,6 +253,11 @@
             "description": "Bootstrap color theme variant to set selected rows to. Use any of the standard Bootstrap theme color variants, or the special table row variant 'active' (default). Set to an empty string to not use a variant"
           },
           {
+            "prop": "noSelectOnClick",
+            "version": "2.1.0",
+            "description": "Disables row selection via click events. Row selection will be only available programmatically"
+          },
+          {
             "prop": "showEmpty",
             "description": "When enabled, and there are no item records to show, shows a message that there are no rows to show"
           },
@@ -306,7 +316,10 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
                 "description": "Native event object."
               }
             ]
@@ -443,7 +456,10 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
                 "description": "Native event object."
               },
               {
@@ -546,7 +562,19 @@
               {
                 "prop": "rowSelected",
                 "type": "Boolean",
-                "description": "Will be true if the row has been selected."
+                "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "selectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "unselectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
           },
@@ -590,7 +618,19 @@
               {
                 "prop": "rowSelected",
                 "type": "Boolean",
-                "description": "Will be true if the row has been selected."
+                "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "selectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "unselectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
           },
@@ -777,6 +817,24 @@
                 "prop": "toggleDetails",
                 "type": "Function",
                 "description": "Function to toggle visibility of the row's details slot"
+              },
+              {
+                "prop": "rowSelected",
+                "type": "Boolean",
+                "version": "2.1.0",
+                "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "selectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "unselectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
           },
@@ -1017,11 +1075,11 @@
           },
           {
             "prop": "tbodyTransitionProps",
-            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' properties. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "tbodyTransitionHandlers",
-            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' event handlers. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "caption",
@@ -1060,6 +1118,11 @@
             "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
           },
           {
+            "prop": "detailsTdClass",
+            "version": "2.1.0",
+            "description": "CSS class (or classes) to apply to the td element in the details row"
+          },
+          {
             "prop": "value",
             "description": "Currently displayed row data. Read-only. Do not set a value on this prop"
           },
@@ -1093,7 +1156,10 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
                 "description": "Native event object."
               }
             ]
@@ -1219,7 +1285,10 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
                 "description": "Native event object."
               },
               {
@@ -1572,11 +1641,11 @@
         "props": [
           {
             "prop": "tbodyTransitionProps",
-            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' properties. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "tbodyTransitionHandlers",
-            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' event handlers. When provided will make the tbody a Vue 'transition-group' component"
           }
         ]
       },

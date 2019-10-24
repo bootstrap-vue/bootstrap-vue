@@ -419,6 +419,23 @@ methods are `.activate()` and `.deactivate()`, respectively. If activation or de
 will remain active and the method will return `false`. You will need a reference to the `<b-tab>` in
 order to use these methods.
 
+## Preventing a `<b-tab>` from being activated
+
+To prevent a tab from activating, simply set the `disabled` prop on the `<b-tab>` component.
+
+Alternatively, you can listen for the `activate-tab` event, which provides an option to prevent the
+tab from activating. The `activate-tab` event is emitted with three arguments:
+
+- `newTabIndex`: The index of the tab that is going to be activated
+- `prevTabIndex`: The index of the currently active tab
+- `bvEvent`: The `BvEvent` object. Call `bvEvt.preventDefault()` to prevent `newTabIndex` from being
+  activated
+
+For accessibility reasons, when using the `activate-tab` event to prevent a tab from activating, you
+should provide some means of notification to the user as to why the tab is not able to be activated.
+It is recommended to use the `disabled` attribute on the `<b-tab>` component instead of using the
+`activate-tab` event (as `disabled` is more intuitive for screen reader users).
+
 ## Advanced examples
 
 ### External controls using `v-model`

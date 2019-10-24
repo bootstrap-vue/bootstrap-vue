@@ -133,7 +133,7 @@ export default {
       const items = this.computedItems
       // Shortcut to `createElement` (could use `this._c()` instead)
       const h = this.$createElement
-      const hasRowClickHandler = this.$listeners['row-clicked'] || this.isSelectable
+      const hasRowClickHandler = this.$listeners['row-clicked'] || this.hasSelectableRowClick
 
       // Prepare the tbody rows
       const $rows = []
