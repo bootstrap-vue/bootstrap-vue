@@ -296,7 +296,7 @@
           {
             "prop": "filterDebounce",
             "version": "2.0.0",
-            "description": "Time in milliseconds to debounce changes to the filter criteria before filtering hte records"
+            "description": "Time in milliseconds to debounce changes to the filter criteria before filtering the records"
           }
         ],
         "events": [
