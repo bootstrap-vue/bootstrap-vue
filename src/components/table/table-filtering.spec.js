@@ -246,8 +246,6 @@ describe('table > filtering', () => {
     it('filter debouncing works', async () => {
       jest.useFakeTimers()
       let lastFilterTimer = null
-      const originalWarn = console.warn
-
       const wrapper = mount(BTable, {
         propsData: {
           fields: testFields,
