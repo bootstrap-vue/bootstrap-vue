@@ -50,6 +50,7 @@ export default {
     },
     computedFilterDebounce() {
       const ms = parseInt(this.filterDebounce, 10) || 0
+      /* istanbul ignore next */
       if (ms > 0) {
         warn(DEPRECATED_DEBOUNCE)
       }
