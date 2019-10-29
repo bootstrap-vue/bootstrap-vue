@@ -239,16 +239,17 @@ describe('table > filtering', () => {
   describe('debouncing (deprecated)', () => {
     // Wrapped in a describe to limit console.warn override
     // to prevent depreacted prop warnings
-    const originalWarn = console.warn
+    let originalWarn = console.warn
 
     beforeEach(() => {
+      originalWarn = originalWarn || console.warn
       console.warn = () => {}
     })
-    
+
     afterEach(() => {
       console.warn = originalWarn
     })
-    
+
     it('filter debouncing works', async () => {
       jest.useFakeTimers()
       let lastFilterTimer = null
