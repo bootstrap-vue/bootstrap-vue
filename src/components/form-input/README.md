@@ -480,6 +480,39 @@ To get around this, `<b-form-input>` and `<b-form-textarea>` have three boolean 
   optional formatting (which may not match the value returned via the `v-model` `update` event,
   which handles the modifiers).
 
+## Debounce support
+
+As an alternative to the `lazy` modifier prop, `<b-form-input>` and `<b-form-textarea>` optionally
+support debouncing user input, updating the `v-model` after a period of idle time from when the
+last character was entered by the user (or a `change` event occurs). If the user enters a new
+character (or deletes characters) before the idle timeout expires, the timeout is re-started.
+
+To enable debouncing, set the prop `debounce` to any integer greater than zero. The value is
+specified in milliseconds. Setting `debounce` to `0` will disable debouncing.
+
+Note: debouncing will _not_ occur if the `lazy` prop is set.
+
+```html
+<template>
+  <div>
+    <b-form-input v-model="value" type="text" debounce="500"></b-form-input>
+    <div class="mt-2">Value: "{{ value }}"</div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    }
+  }
+</script>
+
+<!-- b-form-input-debounce.vue -->
+```
+
 ## Autofocus
 
 When the `autofocus` prop is set, the input will be auto-focused when it is inserted (i.e.
