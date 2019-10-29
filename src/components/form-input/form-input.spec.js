@@ -799,7 +799,7 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')[1][0]).toBe('ab')
 
     // Advance timer
-    jest.runAllPendingTimers()
+    jest.runOnlyPendingTimers()
     // Should update the v-model
     expect(input.element.value).toBe('ab')
     // `v-model` update event should have emitted
