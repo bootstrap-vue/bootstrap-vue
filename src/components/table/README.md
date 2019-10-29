@@ -2344,8 +2344,9 @@ of records.
   respective `no-provider-*` prop set to `true`).
 - The `no-local-sorting` prop has no effect when `items` is a provider function.
 - When using provider filtering, you may find that setting the
-  [`filter-debounce` prop](#debouncing-filter-criteria-changes) to a value greater than `100` ms
-  will help minimize the number of calls to your back end API as the user types in the criteria.
+  [`debounce` prop on `<b-form-input>`](/docs/components/form-input#debounce-support) to a value
+  greater than `100` ms will help minimize the number of calls to your back end API as the user types
+  in the criteria.
 
 ### Force refreshing of table data
 
