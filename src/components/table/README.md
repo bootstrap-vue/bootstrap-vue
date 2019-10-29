@@ -2134,6 +2134,9 @@ Setting the prop `filter` to null or an empty string will clear local items filt
 
 ### Debouncing filter criteria changes
 
+<span class="badge badge-warning small">deprecated in v2.1.0</span> Use the `debounce` feature of
+[`<b-form-input>`](/docs/components/form-input#debounce-support) instead.
+
 If you have a text input tied to the `filter` prop of `<b-table>`, the filtering process will occur
 for each character typed by the user. With large items datasets, this process can take a while and
 may cause the text input to appear sluggish.
