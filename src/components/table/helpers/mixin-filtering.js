@@ -55,7 +55,7 @@ export default {
       if (ms > 0) {
         warn(DEPRECATED_DEBOUNCE)
       }
-      return ms 
+      return ms
     },
     localFiltering() {
       return this.hasProvider ? !!this.noProviderFiltering : true
