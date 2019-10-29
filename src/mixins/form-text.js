@@ -158,14 +158,17 @@ export default {
       }
       value = this.modifyValue(value)
       if (value !== this.vModelValue) {
-        this.vModelValue = value
         this.clearDebounce()
+        const doUpdate = () => {
+          this.vModelValue = value
+          this.$emit('update', value)
+        }
         if (ms > 0 && !lazy && !force) {
-          // Change events will not be debounced
-          this.$_inputDebounceTimer = setTimeout(() => this.$emit('update', value), ms)
+          // Change/Blur/Force will not be debounced
+          this.$_inputDebounceTimer = setTimeout(doUpdate, ms)
         } else {
           // Immediately update the v-model
-          this.$emit('update', value)
+          doUpdate()
         }
       }
     },
