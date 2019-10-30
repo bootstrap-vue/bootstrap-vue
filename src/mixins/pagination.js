@@ -290,7 +290,6 @@ export default {
     handleKeyNav(evt) {
       const keyCode = evt.keyCode
       const shift = evt.shiftKey
-      // const ctrl = evt.ctrlKey
       if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
         evt.preventDefault()
         shift ? this.focusFirst() : this.focusPrev()
