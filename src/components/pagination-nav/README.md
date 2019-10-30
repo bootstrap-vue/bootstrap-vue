@@ -465,9 +465,9 @@ recommended unless the content of the button textually conveys it's purpose.
 pattern.
 
 - Tabbing into the pagination component will autofocus the current active page button
-- <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the
-  page list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the
-  focused page button
+- <kbd>LEFT</kbd> (or <kbd>UP</kbd>) and <kbd>RIGHT</kbd> (or <kbd>DOWN</kbd>) arrow keys will
+  focus the previous and next buttons, respectively, in the page list
+- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the currently focused page button
 - Pressing <kbd>TAB</kbd> will move to the next control or link on the page, while pressing
   <kbd>SHIFT</kbd>+<kbd>TAB</kbd> will move to the previous control or link on the page.
 
