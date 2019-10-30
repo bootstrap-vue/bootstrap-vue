@@ -6,7 +6,7 @@
     "description": "The `v-b-visible` directive allws you to react when an element becomes visbile in the viewport.",
     "directive": "VBVisible",
     "expression": [
-      "Function",
+      "Function"
     ],
     "modifiers": [
       {
