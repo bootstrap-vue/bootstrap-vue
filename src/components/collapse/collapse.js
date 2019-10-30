@@ -3,15 +3,14 @@ import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { isBrowser } from '../../utils/env'
+import { BVCollapse } from '../../utils/bv-collapse'
 import {
   addClass,
   hasClass,
   removeClass,
   closest,
   matches,
-  reflow,
   getCS,
-  getBCR,
   eventOn,
   eventOff
 } from '../../utils/dom'
@@ -146,30 +145,20 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       this.show = !this.show
     },
     onEnter(el) {
-      el.style.height = 0
-      reflow(el)
-      el.style.height = el.scrollHeight + 'px'
       this.transitioning = true
       // This should be moved out so we can add cancellable events
       this.$emit('show')
     },
     onAfterEnter(el) {
-      el.style.height = null
       this.transitioning = false
       this.$emit('shown')
     },
     onLeave(el) {
-      el.style.height = 'auto'
-      el.style.display = 'block'
-      el.style.height = getBCR(el).height + 'px'
-      reflow(el)
       this.transitioning = true
-      el.style.height = 0
       // This should be moved out so we can add cancellable events
       this.$emit('hide')
     },
     onAfterLeave(el) {
-      el.style.height = null
       this.transitioning = false
       this.$emit('hidden')
     },
@@ -251,17 +240,9 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       [this.normalizeSlot('default')]
     )
     return h(
-      'transition',
+      BVTransition,
       {
-        props: {
-          appear: this.appear,
-          enterClass: '',
-          enterActiveClass: 'collapsing',
-          enterToClass: '',
-          leaveClass: '',
-          leaveActiveClass: 'collapsing',
-          leaveToClass: ''
-        },
+        props: { appear: this.appear },
         on: {
           enter: this.onEnter,
           afterEnter: this.onAfterEnter,
