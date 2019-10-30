@@ -399,11 +399,11 @@ focus.
 Disable keyboard navigation by setting the prop `no-key-nav`. Behavior will now default to regular
 browser navigation with TAB key.
 
-| Keypress                        | Action                                                 |
-| ------------------------------- | ------------------------------------------------------ |
-| <kbd>TAB</kbd>                  | Move to the next tab button or control on the page     |
-| <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Move to the previous tab button or control on the page |
-| <kbd>ENTER</kbd>                | Activate current focused button's tab                  |
+| Keypress                             | Action                                                 |
+| ------------------------------------ | ------------------------------------------------------ |
+| <kbd>TAB</kbd>                       | Move to the next tab button or control on the page     |
+| <kbd>SHIFT</kbd>+<kbd>TAB</kbd>      | Move to the previous tab button or control on the page |
+| <kbd>ENTER</kbd> or <kbd>SPACE</kbd> | Activate current focused button's tab                  |
 
 ## Programmatically activating and deactivating tabs
 
