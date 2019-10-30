@@ -3,6 +3,7 @@
 > The `v-b-visible` directive allows you to react when an element becomes visible in the viewport.
 > Requires broswer support of (or a polyfill for) `IntersectionObserver`.
 
+The `v-b-visible` directive was added in version `2.1.0`.
 
 ## Overview
 
