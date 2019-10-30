@@ -300,5 +300,9 @@ export { VBToggle } from './directives/toggle/toggle'
 export { VBTooltipPlugin } from './directives/tooltip'
 export { VBTooltip } from './directives/tooltip/tooltip'
 
+// export * from './directives/tooltip'
+export { VBVisiblePlugin } from './directives/visible'
+export { VBVisible } from './directives/visible/visible'
+
 // Default export is the BootstrapVue plugin
 export default BootstrapVue
