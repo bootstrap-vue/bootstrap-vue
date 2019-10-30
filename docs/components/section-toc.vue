@@ -16,8 +16,8 @@
         >
           <strong class="text-primary">{{ page.title }}</strong> &mdash;
           <b-badge v-if="page.new" variant="success">NEW</b-badge>
-          <b-badge v-if="page.version" variant="secondary">v{{ page.version }}</b-badge>
           <span class="text-muted">{{ page.description }}</span>
+          <b-badge v-if="page.version" variant="secondary">v{{ page.version }}</b-badge>
         </b-list-group-item>
       </b-list-group>
     </Section>
