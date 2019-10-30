@@ -23,7 +23,7 @@ const onLeave = el => {
   el.style.display = 'block'
   el.style.height = getBCR(el).height + 'px'
   reflow(el)
-  el.style.height = 0
+  // el.style.height = 0
 }
 
 const onAfterLeave = el => {
@@ -52,7 +52,7 @@ const APPEAR_TRANS_PROPS = {
 const TRANS_HANDLERS = {
   enter: onEnter,
   afterEnter: onAfterEnter,
-  leave: onLeave,
+  beforeLeave: onLeave,
   afterLeave: onAfterLeave
 }
 
