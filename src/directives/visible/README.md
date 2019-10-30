@@ -1,14 +1,14 @@
 # Visible
 
 > The `v-b-visible` directive allows you to react when an element becomes visible in the viewport.
-> Requires broswer support of (or a polyfill for) `IntersectionObserver`.
+> Requires browsers support of (or a polyfill for) `IntersectionObserver`.
 
 The `v-b-visible` directive was added in version `2.1.0`.
 
 ## Overview
 
-- `v-b-visible` will call your callback method with a boolean value indicating if the element
-  is visible (interecting) with the viewport.
+- `v-b-visible` will call your callback method with a boolean value indicating if the element is
+  visible (intersecting) with the viewport.
 - The directive can be placed on almost any element or component.
 - Changes in visibility cqn also be detected (such as `display: none`), as long as the element is
   within (or partially within) the viewport.
@@ -27,7 +27,7 @@ The `v-b-visible` directive was added in version `2.1.0`.
 Where `callback` is required:
 
 - A function reference that will be called whenever visibility changes. The callback is passed a
-  single boolean argument. `true` idicates that the element is intersecting (partially or entirely
+  single boolean argument. `true` indicates that the element is intersecting (partially or entirely
   visible) in the viewport, or `false` if the element is not visible/intersecting with the viewport.
   The callback will be called each time the element's visibility changes (except when hte `once`
   modifier is used. See below for details)
@@ -35,12 +35,12 @@ Where `callback` is required:
 Where `[mod]` can be (all optional):
 
 - A positive number representing the offset (margin) in pixels _away_ from the edge of the viewport
-  to determine when the element is considered in (or just about to be in) the viewport. The value adds
-  a margin around the view port. The default value is `0`.
-- The keyword `once`. When this modifier is present, the callback will be called once (with the argument
-  of `true` idicating the element is intersecting/visible) when the element is intersecting with the
-  viewport. Note the callback may be called prior to this with an argument of `false` signifying the
-  element is not intersecting/visible.
+  to determine when the element is considered in (or just about to be in) the viewport. The value
+  adds a margin around the view port. The default value is `0`.
+- The keyword `once`. When this modifier is present, the callback will be called once (with the
+  argument of `true` indicating the element is intersecting/visible) when the element is
+  intersecting with the viewport. Note the callback may be called prior to this with an argument of
+  `false` signifying the element is not intersecting/visible.
 
 ### Usage examples
 
@@ -48,12 +48,12 @@ Basic:
 
 ```html
 <template>
-  <div v-b-visible="visbleHandler"> ... </div>
+  <div v-b-visible="visibleHandler"> ... </div>
 </template>
 <script>
 export default {
   methods: {
-    visbleHandler(isVisible) {
+    visibleHandler(isVisible) {
       if (isVisible) {
         // Do something
       } else {
@@ -65,17 +65,17 @@ export default {
 </script>
 ```
 
-With viewport offset modifier of 350px (if the element is outside of the phsycial viewport
-by at least 350px, then it will be considered "visible"):
+With viewport offset modifier of 350px (if the element is outside of the physical viewport by at
+least 350px, then it will be considered "visible"):
 
 ```html
 <template>
-  <div v-b-visible.350="visbleHandler"> ... </div>
+  <div v-b-visible.350="visibleHandler"> ... </div>
 </template>
 <script>
 export default {
   methods: {
-    visbleHandler(isVisible) {
+    visibleHandler(isVisible) {
       if (isVisible) {
         // Do something
       } else {
@@ -91,12 +91,12 @@ With `once` modifier:
 
 ```html
 <template>
-  <div v-b-visible.350="visbleHandler"> ... </div>
+  <div v-b-visible.350="visibleHandler"> ... </div>
 </template>
 <script>
 export default {
   methods: {
-    visbleHandler(isVisible) {
+    visibleHandler(isVisible) {
       if (isVisible) {
         // This will only ever happen once, when the
         // element has become visible for the first time
@@ -115,12 +115,12 @@ With `once` and offset modifiers:
 
 ```html
 <template>
-  <div v-b-visible.350.once="visbleHandler"> ... </div>
+  <div v-b-visible.350.once="visibleHandler"> ... </div>
 </template>
 <script>
 export default {
   methods: {
-    visbleHandler(isVisible) {
+    visibleHandler(isVisible) {
       if (isVisible) {
         // This will only ever happen once, when the
         // element has become visible for the first time
@@ -134,4 +134,3 @@ export default {
 }
 </script>
 ```
-
