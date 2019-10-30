@@ -41,7 +41,7 @@ Where `[mod]` can be (all optional):
   intersecting with the viewport. Note the callback may be called prior to this with an argument of
   `false` signifying the element is not intersecting/visible.
 
-### Usage examples
+### Usage syntax examples
 
 Basic:
 
@@ -132,4 +132,84 @@ export default {
   }
 }
 </script>
+```
+
+## Examples
+
+Here are two live examples showing two use cases.
+
+### Visibility of scrolled element
+
+Scroll the container to see the reaction when the `<b-badge>` scrolls into view:
+
+```html
+<template>
+  <div>
+    <div
+      :class="isVisible ? 'bg-info' : 'bg-light'"
+      style="height: 150px; overflow-y: scroll;"
+    >
+      <br><br><br><br><br><br><br><br>
+      <b-badge v-b-visible="handleVisibility">Element with v-b-visible directive</b-badge>
+      <br><br><br><br><br><br><br><br>
+    </div>
+    <p class="mt-3">
+      Visible: {{ isVisible }}
+    </p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        isVisible: false
+      }
+    },
+    methods: {
+      handleVisibility(isVisible) {
+        this.isVisible = isVisible
+      }
+    }
+  }
+</script>
+
+<!-- v-b-visible-scroll.vue -->
+```
+
+### CSS display visibility detection
+
+Click the button to change the `<div>` visibility state:
+
+```html
+<template>
+  <div>
+    <b-button @click="show = !show" class="mb-2">Toggle display</b-button>
+    <p>Visible: {{ isVisible }}</p>
+    <div class="border p-2" style="height: 3em;">
+      <!-- We use Vue's v-show directive to control the display of the div --> 
+      <div v-show="show">
+        <b-badge v-b-visible="handleVisibility">Element with v-b-visible directive</b-badge>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        show: true,
+        isVisible: false
+      }
+    },
+    methods: {
+      handleVisibility(isVisible) {
+        this.isVisible = isVisible
+      }
+    }
+  }
+</script>
+
+<!-- v-b-visible-display.vue -->
 ```
