@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "meta": {
     "title": "Visible",
-    "description": "The `v-b-visible` directive allows you to react when an element becomes visbile in the viewport.",
+    "description": "The `v-b-visible` directive allows you to react when an element becomes visible in the viewport.",
     "directive": "VBVisible",
     "version": "2.1.0",
     "expression": [
