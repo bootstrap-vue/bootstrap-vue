@@ -38,7 +38,7 @@ const TRANS_PROPS = {
   enterToClass: 'collapse show',
   leaveClass: 'collapse show',
   leaveActiveClass: 'collapsing',
-  leaveToClass: ''
+  leaveToClass: 'collapse'
 }
 
 const APPEAR_TRANS_PROPS = {
