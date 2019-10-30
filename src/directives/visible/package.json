@@ -1,0 +1,23 @@
+{
+  "name": "@bootstrap-vue/v-b-visible",
+  "version": "0.0.0",
+  "meta": {
+    "title": "Visible",
+    "description": "The `v-b-visible` directive allws you to react when an element becomes visbile in the viewport.",
+    "directive": "VBVisible",
+    "expression": [
+      "Function",
+    ],
+    "modifiers": [
+      {
+        "name": "once",
+        "description": "Only calles the callback once when the element becomes visible in the viewport"
+      },
+      {
+        "name": "{###}",
+        "pattern": "[0-9]+",
+        "description": "An offset value in pixels (where `{###}` is the number of pixels, defaults to 0. Negative values allowed)"
+      }
+    ]
+  }
+}
