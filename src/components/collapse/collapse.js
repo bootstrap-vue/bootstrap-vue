@@ -90,10 +90,8 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
   created() {
     this.show = this.visible
   },
-  beforeMount() {
-    this.show = this.visible
-  },
   mounted() {
+    this.show = this.visible
     // Listen for toggle events to open/close us
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
     // Listen to other collapses for accordion events
