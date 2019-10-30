@@ -72,9 +72,9 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
         stop()
         this.$emit('click', evt)
       } else if (type === 'keydown' && key === KeyCodes.SPACE) {
-        // For ARIA tabs the SPACE key will also trigger a click/select.
+        // For ARIA tabs the SPACE key will also trigger a click/select
         // Even with keyboard navigation disabled, SPACE should "click" the button
-        // See https://github.com/bootstrap-vue/bootstrap-vue/issues/4323
+        // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/4323
         stop()
         this.$emit('click', evt)
       } else if (type === 'keydown' && !this.noKeyNav) {
