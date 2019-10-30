@@ -491,7 +491,7 @@ describe('tabs', () => {
     wrapper
       .findAll('.nav-link')
       .at(1)
-      .trigger('keddown.space')
+      .trigger('keydown.space')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(tabs.vm.currentTab).toBe(1)
