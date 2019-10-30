@@ -47,8 +47,9 @@ export {
 //
 // Export named injection plugins
 //
-// TODO: we should probably move injections into their
-//       own parent directory (i.e. /src/injections)
+// TODO:
+//   We should probably move injections into their own
+//   parent directory (i.e. `/src/injections`)
 export { BVModalPlugin } from './components/modal/helpers/bv-modal'
 export { BVToastPlugin } from './components/toast/helpers/bv-toast'
 
@@ -56,12 +57,12 @@ export { BVToastPlugin } from './components/toast/helpers/bv-toast'
 // Export all individual components and component group plugins as named exports.
 //
 
-// Webpack 4 has optimization difficulties with re-eport of re-exports, so
-// we import the components individulaly here for better tree shaking,
+// Webpack 4 has optimization difficulties with re-export of re-exports,
+// so we import the components individually here for better tree shaking
 //
 // Webpack v5 fixes the optimizations with re-export of re-exports so this
-// can be reverted back to `export * from './table'` when Webpack v5 is released.
-// https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
+// can be reverted back to `export * from './table'` when Webpack v5 is released
+// See: https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
 
 // export * from './components/alert'
 export { AlertPlugin } from './components/alert'
@@ -273,11 +274,11 @@ export { BTooltip } from './components/tooltip/tooltip'
 // Named exports of all directives (VB<Name>) and Plugins (VB<name>Plugin)
 //
 
-// Webpack 4 has optimization difficulties with re-eport of re-exports, so
-// we import the directives individulaly here for better tree shaking,
+// Webpack 4 has optimization difficulties with re-export of re-exports,
+// so we import the directives individually here for better tree shaking
 //
 // Webpack v5 fixes the optimizations with re-export of re-exports so this
-// can be reverted back to `export * from './scrollspy'` when Webpack v5 is released.
+// can be reverted back to `export * from './scrollspy'` when Webpack v5 is released
 // https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
 
 // export * from './directives/modal'
@@ -299,6 +300,10 @@ export { VBToggle } from './directives/toggle/toggle'
 // export * from './directives/tooltip'
 export { VBTooltipPlugin } from './directives/tooltip'
 export { VBTooltip } from './directives/tooltip/tooltip'
+
+// export * from './directives/tooltip'
+export { VBVisiblePlugin } from './directives/visible'
+export { VBVisible } from './directives/visible/visible'
 
 // Default export is the BootstrapVue plugin
 export default BootstrapVue
