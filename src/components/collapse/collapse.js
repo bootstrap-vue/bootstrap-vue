@@ -54,6 +54,11 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     tag: {
       type: String,
       default: 'div'
+    },
+    appear: {
+      // If true (and visible is true on mount), animate initially visible
+      type: Boolean,
+      deault: false
     }
   },
   data() {
@@ -249,6 +254,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       'transition',
       {
         props: {
+          appear: this.appear,
           enterClass: '',
           enterActiveClass: 'collapsing',
           enterToClass: '',
