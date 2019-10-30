@@ -783,7 +783,7 @@ describe('form-input', () => {
     expect(input.element.value).toBe('a')
     // `v-model` update event should not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
-    // input event should be emitted
+    // `input` event should be emitted
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe('a')
@@ -794,7 +794,7 @@ describe('form-input', () => {
     expect(input.element.value).toBe('ab')
     // `v-model` update event should not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
-    // input event should be emitted
+    // `input` event should be emitted
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toBe('ab')
 
@@ -806,7 +806,7 @@ describe('form-input', () => {
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toBe(1)
     expect(wrapper.emitted('update')[0][0]).toBe('ab')
-    // input event should not have emitted new event
+    // `input` event should not have emitted new event
     expect(wrapper.emitted('input').length).toBe(2)
 
     // Update input
@@ -816,7 +816,7 @@ describe('form-input', () => {
     expect(input.element.value).toBe('abc')
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toBe(1)
-    // input event should be emitted
+    // `input` event should be emitted
     expect(wrapper.emitted('input').length).toBe(3)
     expect(wrapper.emitted('input')[2][0]).toBe('abc')
 
@@ -827,18 +827,18 @@ describe('form-input', () => {
     expect(input.element.value).toBe('abcd')
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toEqual(1)
-    // input event should be emitted
+    // `input` event should be emitted
     expect(wrapper.emitted('input').length).toBe(4)
     expect(wrapper.emitted('input')[3][0]).toBe('abcd')
 
-    // trigger a change event
+    // Trigger a `change` event
     input.trigger('change')
     await waitNT(wrapper.vm)
     expect(input.element.value).toBe('abcd')
     // `v-model` update event should have emitted (change overrides debounce)
     expect(wrapper.emitted('update').length).toEqual(2)
     expect(wrapper.emitted('update')[1][0]).toBe('abcd')
-    // input event should not have emitted new event
+    // `input` event should not have emitted new event
     expect(wrapper.emitted('input').length).toBe(4)
 
     wrapper.destroy()
