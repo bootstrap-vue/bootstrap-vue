@@ -33,18 +33,18 @@ const onAfterLeave = el => {
 // Default transition props
 const TRANS_PROPS = {
   css: true,
-  enterClass: '',
-  enterActiveClass: 'collapsing',
+  enterClass: 'collapse',
+  enterActiveClass: 'collapse collapsing',
   enterToClass: 'collapse show',
   leaveClass: 'collapse show',
-  leaveActiveClass: 'collapsing',
+  leaveActiveClass: 'collapse collapsing',
   leaveToClass: 'collapse'
 }
 
 const APPEAR_TRANS_PROPS = {
   ...TRANS_PROPS,
-  appearClass: '',
-  appearActiveClass: 'collapsing',
+  appearClass: 'collapse',
+  appearActiveClass: 'collapse collapsing',
   appearToClass: 'collapse show'
 }
 
