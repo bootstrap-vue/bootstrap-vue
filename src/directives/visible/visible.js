@@ -160,7 +160,8 @@ const componentUpdated = (el, { value, oldValue, modifiers }, vnode) => {
   modifiers = { ...modifiers }
   /* istanbul ignore next */
   if (
-    el && (
+    el &&
+    (
       value !== oldValue ||
       !el[OBSERVER_PROP_NAME] ||
       !looseEqual(modifiers, el[OBSERVER_PROP_NAME]._prevModifiers)
