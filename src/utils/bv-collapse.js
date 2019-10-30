@@ -33,9 +33,6 @@ const onAfterLeave = el => {
 // Default transition props
 const TRANS_PROPS = {
   css: true,
-  appearClass: '',
-  appearActiveClass: 'collapsing',
-  appearToClass: 'collapse show',
   enterClass: '',
   enterActiveClass: 'collapsing',
   enterToClass: 'collapse show',
@@ -44,14 +41,24 @@ const TRANS_PROPS = {
   leaveToClass: ''
 }
 
+const APPEAR_TRANS_PROPS = {
+  ...TRANS_PROPS,
+  appearClass: '',
+  appearActiveClass: 'collapsing',
+  appearToClass: 'collapse show',
+}
 // Default transition handlers
 const TRANS_HANDLERS = {
-  appear: onEnter,
-  afterAppear: onAfterEnter,
   enter: onEnter,
   afterEnter: onAfterEnter,
   leave: onLeave,
   afterLeave: onAfterLeave
+}
+
+const APPEAR_TRANS_HANDLERS = {
+  ...TRANS_HANDLERS,
+  appear: onEnter,
+  afterAppear: onAfterEnter
 }
 
 // @vue/component
@@ -66,9 +73,11 @@ export const BVCollapse = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h, { props, data, children }) {
+    const transProps = props.appear ? APPEAR_TRANS_HANDLERS : TRANS_PROPS
+    const transHandlers = props.appear ? APPEAR_TRANS_HANDLERS : TRANS_HANDLERS
     return h(
       'transition',
-      mergeData(data, { props: TRANS_PROPS, on: TRANS_HANDLERS }, { props }),
+      mergeData(data, { props: transProps, on: transHandlers }, { props }),
       children
     )
   }
