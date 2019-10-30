@@ -161,11 +161,9 @@ const componentUpdated = (el, { value, oldValue, modifiers }, vnode) => {
   /* istanbul ignore next */
   if (
     el &&
-    (
-      value !== oldValue ||
+    (value !== oldValue ||
       !el[OBSERVER_PROP_NAME] ||
-      !looseEqual(modifiers, el[OBSERVER_PROP_NAME]._prevModifiers)
-    )
+      !looseEqual(modifiers, el[OBSERVER_PROP_NAME]._prevModifiers))
   ) {
     // Re-bind on element
     bind(el, { value, modifiers }, vnode)
