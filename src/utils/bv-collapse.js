@@ -14,7 +14,7 @@ const onEnter = el => {
   el.style.height = el.scrollHeight + 'px'
 }
 
-const onAfterEnter => el {
+const onAfterEnter = el => {
   el.style.height = null
 }
 
