@@ -864,13 +864,22 @@ describe('pagination', () => {
       expect(document.activeElement).toEqual(links.at(3).element)
 
       // LEFT
-      // links.at(3).trigger('keydown.left')
       wrapper.trigger('keydown.left')
       await waitNT(wrapper.vm)
       expect(document.activeElement).toEqual(links.at(2).element)
 
       // RIGHT
       links.at(2).trigger('keydown.right')
+      await waitNT(wrapper.vm)
+      expect(document.activeElement).toEqual(links.at(3).element)
+
+      // UP (same as LEFT)
+      wrapper.trigger('keydown.up')
+      await waitNT(wrapper.vm)
+      expect(document.activeElement).toEqual(links.at(2).element)
+
+      // DOWN (same as RIGHT)
+      links.at(2).trigger('keydown.down')
       await waitNT(wrapper.vm)
       expect(document.activeElement).toEqual(links.at(3).element)
 
