@@ -1,8 +1,8 @@
 // Generic collapse transion helper component
 //
-// applies the classes `collapse`, `show` and `collapsing`
-// during hte enter/leave transition phases only
-//
+// Note:
+//   Applies the classes `collapse`, `show` and `collapsing`
+//   during the enter/leave transition phases only
 import Vue from './vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getBCR, reflow } from './dom'
