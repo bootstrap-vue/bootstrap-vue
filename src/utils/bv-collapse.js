@@ -45,8 +45,9 @@ const APPEAR_TRANS_PROPS = {
   ...TRANS_PROPS,
   appearClass: '',
   appearActiveClass: 'collapsing',
-  appearToClass: 'collapse show',
+  appearToClass: 'collapse show'
 }
+
 // Default transition handlers
 const TRANS_HANDLERS = {
   enter: onEnter,
@@ -73,7 +74,7 @@ export const BVCollapse = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h, { props, data, children }) {
-    const transProps = props.appear ? APPEAR_TRANS_HANDLERS : TRANS_PROPS
+    const transProps = props.appear ? APPEAR_TRANS_PROPS : TRANS_PROPS
     const transHandlers = props.appear ? APPEAR_TRANS_HANDLERS : TRANS_HANDLERS
     return h(
       'transition',
