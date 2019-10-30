@@ -15,7 +15,8 @@
           active-class=""
         >
           <strong class="text-primary">{{ page.title }}</strong> &mdash;
-          <b-badge v-if="page.new" variant="success">NEW {{ page.version }}</b-badge>
+          <b-badge v-if="page.new" variant="success">NEW</b-badge>
+          <b-badge v-if="page.version" variant="secondary">{{ page.version }}</b-badge>
           <span class="text-muted">{{ page.description }}</span>
         </b-list-group-item>
       </b-list-group>
