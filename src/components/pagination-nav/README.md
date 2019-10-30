@@ -352,7 +352,7 @@ smaller buttons or `'lg'` for larger buttons.
 
 ### Pill style
 
-Easily switch to pill style buttons by setting hte `pills` prop
+Easily switch to pill style buttons by setting the `pills` prop
 
 ```html
 <template>
