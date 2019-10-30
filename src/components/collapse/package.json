@@ -33,6 +33,11 @@
           {
             "prop": "visible",
             "description": "When 'true', expands the collapse"
+          },
+          {
+            "prop": "appear",
+            "version": "2.1.0",
+            "description": "When set, and prop 'visible' is true on mount, will animate on initial mount"
           }
         ],
         "events": [
