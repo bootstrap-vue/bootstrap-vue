@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { hasIntersectionObserverSupport } from '../../utils/env'
-import { VBVisible } from '../../directives/visible'
+import { VBVisible } from '../../directives/visible/visible'
 import { BImg } from './img'
 
 const NAME = 'BImgLazy'

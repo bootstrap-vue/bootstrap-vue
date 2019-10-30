@@ -5,6 +5,7 @@ import { VBPopoverPlugin } from './popover'
 import { VBScrollspyPlugin } from './scrollspy'
 import { VBTogglePlugin } from './toggle'
 import { VBTooltipPlugin } from './tooltip'
+import { VBVisiblePlugin } from './visible'
 
 // Main plugin for installing all directive plugins
 export const directivesPlugin = /*#__PURE__*/ pluginFactory({
@@ -13,6 +14,7 @@ export const directivesPlugin = /*#__PURE__*/ pluginFactory({
     VBPopoverPlugin,
     VBScrollspyPlugin,
     VBTogglePlugin,
-    VBTooltipPlugin
+    VBTooltipPlugin,
+    VBVisiblePlugin
   }
 })
