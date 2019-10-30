@@ -50,15 +50,15 @@ const APPEAR_TRANS_PROPS = {
 
 // Default transition handlers
 const TRANS_HANDLERS = {
-  beforeEnter: onEnter,
+  enter: onEnter,
   afterEnter: onAfterEnter,
-  beforeLeave: onLeave,
+  leave: onLeave,
   afterLeave: onAfterLeave
 }
 
 const APPEAR_TRANS_HANDLERS = {
   ...TRANS_HANDLERS,
-  beforeAppear: onEnter,
+  appear: onEnter,
   afterAppear: onAfterEnter
 }
 
