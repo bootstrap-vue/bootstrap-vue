@@ -1,7 +1,6 @@
 # Visible
 
 > The `v-b-visible` directive allows you to react when an element becomes visible in the viewport.
-> Requires browsers support of (or a polyfill for) `IntersectionObserver`.
 
 The `v-b-visible` directive was added in version `2.1.0`.
 
@@ -11,7 +10,7 @@ The `v-b-visible` directive was added in version `2.1.0`.
   visible (intersecting) with the viewport.
 - The directive can be placed on almost any element or component.
 - Changes in visibility cqn also be detected (such as `display: none`), as long as the element is
-  within (or partially within) the viewport.
+  within (or partially within) the viewport, or within the optional offset.
 - Several BootstrapVue components use `v-b-visible`, such as `<b-img-lazy>`.
 - The `v-b-visible` directive requires browser support of
   [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
