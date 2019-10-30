@@ -240,7 +240,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       [this.normalizeSlot('default')]
     )
     return h(
-      BVTransition,
+      BVCollapse,
       {
         props: { appear: this.appear },
         on: {
