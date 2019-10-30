@@ -454,6 +454,83 @@ describe('tabs', () => {
     wrapper.destroy()
   })
 
+  it('pressing space on tab activates the tab, and tab emits click event', async () => {
+    const App = Vue.extend({
+      render(h) {
+        return h(BTabs, { props: { value: 0, noKeyNav: true } }, [
+          h(BTab, { props: { title: 'one' } }, 'tab 0'),
+          h(BTab, { props: { title: 'two' } }, 'tab 1'),
+          h(BTab, { props: { title: 'three' } }, 'tab 2')
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    const tabs = wrapper.find(BTabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(BTab).length).toBe(3)
+
+    const tab1 = tabs.findAll(BTab).at(0)
+    const tab2 = tabs.findAll(BTab).at(1)
+    const tab3 = tabs.findAll(BTab).at(2)
+
+    expect(wrapper.findAll('.nav-link')).toBeDefined()
+    expect(wrapper.findAll('.nav-link').length).toBe(3)
+
+    // Expect 1st tab (index 0) to be active
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tab1.vm.localActive).toBe(true)
+    expect(tab2.vm.localActive).toBe(false)
+    expect(tab3.vm.localActive).toBe(false)
+
+    // Try to set 2nd BTab to be active via space keypress
+    expect(tab2.emitted('click')).not.toBeDefined()
+    wrapper
+      .findAll('.nav-link')
+      .at(1)
+      .trigger('keddown.space')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tabs.vm.currentTab).toBe(1)
+    expect(tab1.vm.localActive).toBe(false)
+    expect(tab2.vm.localActive).toBe(true)
+    expect(tab3.vm.localActive).toBe(false)
+    expect(tab2.emitted('click')).toBeDefined()
+
+    // Try to set 3rd BTab to be active via space keypress
+    expect(tab3.emitted('click')).not.toBeDefined()
+    wrapper
+      .findAll('.nav-link')
+      .at(2)
+      .trigger('keydown.space')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tabs.vm.currentTab).toBe(2)
+    expect(tab1.vm.localActive).toBe(false)
+    expect(tab2.vm.localActive).toBe(false)
+    expect(tab3.vm.localActive).toBe(true)
+    expect(tab3.emitted('click')).toBeDefined()
+
+    // Try to set 1st BTab to be active via space keypress
+    expect(tab1.emitted('click')).not.toBeDefined()
+    wrapper
+      .findAll('.nav-link')
+      .at(0)
+      .trigger('keydown.space')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tab1.vm.localActive).toBe(true)
+    expect(tab2.vm.localActive).toBe(false)
+    expect(tab3.vm.localActive).toBe(false)
+    expect(tab1.emitted('click')).toBeDefined()
+
+    wrapper.destroy()
+  })
+
   it('key nav works', async () => {
     const App = Vue.extend({
       render(h) {
