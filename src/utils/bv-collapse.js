@@ -46,6 +46,8 @@ const TRANS_PROPS = {
 
 // Default transition handlers
 const TRANS_HANDLERS = {
+  appear: onEnter,
+  afterAppear: onAfterEnter,
   enter: onEnter,
   afterEnter: onAfterEnter,
   leave: onLeave,
