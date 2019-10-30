@@ -157,10 +157,14 @@ const componentUpdated = (el, { value, oldValue, modifiers }, vnode) => {
   // Compare value/oldValue and modifiers to see if anything has changed
   // and if so, destroy old observer and create new observer
   /* istanbul ignore next */
+  modifiers = { ...modifiers }
+  /* istanbul ignore next */
   if (
-    value !== oldValue ||
-    !el[OBSERVER_PROP_NAME] ||
-    !looseEqual(modifiers, el[OBSERVER_PROP_NAME]._prevModifiers)
+    el && (
+      value !== oldValue ||
+      !el[OBSERVER_PROP_NAME] ||
+      !looseEqual(modifiers, el[OBSERVER_PROP_NAME]._prevModifiers)
+    )
   ) {
     // Re-bind on element
     bind(el, { value, modifiers }, vnode)
