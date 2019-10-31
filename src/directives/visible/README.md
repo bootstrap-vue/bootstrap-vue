@@ -1,6 +1,7 @@
 # Visible
 
-> The `v-b-visible` directive allows you to react when an element becomes visible in the viewport.
+> The `v-b-visible` directive allows you to react when an element becomes visible in the viewport,
+> and/or when it moved out of the viewport (or is no longer visible)
 
 The `v-b-visible` directive was added in version `2.1.0`.
 
@@ -36,19 +37,21 @@ Where `callback` is required:
 
 Where `[mod1]` or `[mod2]` can be (all optional):
 
-- A positive number representing the offset (margin) in pixels _away_ from the edge of the viewport
-  to determine when the element is considered in (or just about to be in) the viewport. The value
-  adds a margin around the view port. The default value is `0`.
-- The keyword `once`. When this modifier is present, the callback will be called once (with the
-  argument of `true` indicating the element is intersecting/visible) when the element is
-  intersecting with the viewport. Note the callback may be called prior to this with an argument of
+- A positive integer number representing the offset (margin) in pixels _away_ from the edge of the
+  _viewport_ to determine when the element is considered in (or just about to be in) the viewport.
+  The value adds a margin around the viewport. The default value is `0`.
+- The keyword `once`. When this modifier is present, the callback will be called only once the first
+  time the element is visible (with the argument of `true` indicating the element is
+  intersecting/visible). Note the callback _may be_ called prior to this with an argument of
   `false` signifying the element is not intersecting/visible.
 
 The order of the modifiers is not important.
 
 ### Usage syntax examples
 
-Basic:
+In all use cases, the callback function is required.
+
+#### Basic (no modifiers)
 
 ```html
 <template>
@@ -69,8 +72,10 @@ export default {
 </script>
 ```
 
-With viewport offset modifier of 350px (if the element is outside of the physical viewport by at
-least 350px, then it will be considered "visible"):
+#### With viewport offset modifier
+
+In this example, the modifier value represents 350px (if the element is outside of the physical
+viewport by at least 350px, then it will be considered "visible"):
 
 ```html
 <template>
@@ -91,7 +96,7 @@ export default {
 </script>
 ```
 
-With `once` modifier:
+#### With the `once` modifier
 
 ```html
 <template>
@@ -115,7 +120,7 @@ export default {
 </script>
 ```
 
-With `once` and offset modifiers:
+#### With both `once` and offset modifiers
 
 ```html
 <template>
@@ -141,7 +146,7 @@ export default {
 
 ## Live examples
 
-Here are two live examples showing two use cases.
+Here are two live examples showing two common use cases.
 
 ### Visibility of scrolled content
 
@@ -152,11 +157,11 @@ Scroll the container to see the reaction when the `<b-badge>` scrolls into view:
   <div>
     <div
       :class="[isVisible ? 'bg-info' : 'bg-light', 'border', 'p-2', 'text-center']"
-      style="height: 100px; overflow-y: scroll;"
+      style="height: 85px; overflow-y: scroll;"
     >
-      <br><br><br><br><br><br><br><br>
+      <p>{{ text }}</p>
       <b-badge v-b-visible="handleVisibility">Element with v-b-visible directive</b-badge>
-      <br><br><br><br><br><br><br><br>
+      <p>{{ text }}</p>
     </div>
     <p class="mt-2">
       Visible: {{ isVisible }}
@@ -168,7 +173,17 @@ Scroll the container to see the reaction when the `<b-badge>` scrolls into view:
   export default {
     data() {
       return {
-        isVisible: false
+        isVisible: false,
+        text: `
+          Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+          tempor. Laborum consequat non elit enim exercitation cillum aliqua
+          consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+          laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+          Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+          nisi sit est tempor laborum mollit labore officia laborum excepteur commodo
+          non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur ipsum
+          commodo tempor sunt in proident. Non elixir food exorcism nacho tequila tasty.
+        `
       }
     },
     methods: {
@@ -192,7 +207,7 @@ Click the button to change the `<div>` visibility state:
     <b-button @click="show = !show" class="mb-2">Toggle display</b-button>
     <p>Visible: {{ isVisible }}</p>
     <div class="border p-3" style="height: 6em;">
-      <!-- We use Vue's v-show directive to control the display of the div --> 
+      <!-- We use Vue's v-show directive to control the CSS `display` of the div --> 
       <div v-show="show" class="bg-info p-3">
         <b-badge v-b-visible="handleVisibility">Element with v-b-visible directive</b-badge>
       </div>
@@ -218,3 +233,8 @@ Click the button to change the `<div>` visibility state:
 
 <!-- v-b-visible-display.vue -->
 ```
+
+## See also
+
+For more details on `IntersectionObserver`, refer to the
+[MDN documentation](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
