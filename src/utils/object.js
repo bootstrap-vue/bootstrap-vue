@@ -36,6 +36,8 @@ export const isObject = obj => obj !== null && typeof obj === 'object'
  */
 export const isPlainObject = obj => Object.prototype.toString.call(obj) === '[object Object]'
 
+export const clone = obj => ({ ...obj })
+
 // @link https://gist.github.com/bisubus/2da8af7e801ffd813fab7ac221aa7afc
 export const omit = (obj, props) =>
   keys(obj)
