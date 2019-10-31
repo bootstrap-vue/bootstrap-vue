@@ -138,7 +138,7 @@ export default {
 
 Here are two live examples showing two use cases.
 
-### Visibility of scrolled element
+### Visibility of scrolled content
 
 Scroll the container to see the reaction when the `<b-badge>` scrolls into view:
 
@@ -146,14 +146,14 @@ Scroll the container to see the reaction when the `<b-badge>` scrolls into view:
 <template>
   <div>
     <div
-      :class="isVisible ? 'bg-info' : 'bg-light'"
-      style="height: 150px; overflow-y: scroll;"
+      :class="[isVisible ? 'bg-info' : 'bg-light', 'border', 'p-2', 'text-center']"
+      style="height: 100px; overflow-y: scroll;"
     >
       <br><br><br><br><br><br><br><br>
       <b-badge v-b-visible="handleVisibility">Element with v-b-visible directive</b-badge>
       <br><br><br><br><br><br><br><br>
     </div>
-    <p class="mt-3">
+    <p class="mt-2">
       Visible: {{ isVisible }}
     </p>
   </div>
@@ -186,9 +186,9 @@ Click the button to change the `<div>` visibility state:
   <div>
     <b-button @click="show = !show" class="mb-2">Toggle display</b-button>
     <p>Visible: {{ isVisible }}</p>
-    <div class="border p-2" style="height: 3em;">
+    <div class="border p-3" style="height: 6em;">
       <!-- We use Vue's v-show directive to control the display of the div --> 
-      <div v-show="show">
+      <div v-show="show" class="bg-info p-3">
         <b-badge v-b-visible="handleVisibility">Element with v-b-visible directive</b-badge>
       </div>
     </div>
