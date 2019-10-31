@@ -90,7 +90,7 @@ With `once` modifier:
 
 ```html
 <template>
-  <div v-b-visible.350="visibleHandler"> ... </div>
+  <div v-b-visible.once="visibleHandler"> ... </div>
 </template>
 <script>
 export default {
@@ -114,7 +114,7 @@ With `once` and offset modifiers:
 
 ```html
 <template>
-  <div v-b-visible.350.once="visibleHandler"> ... </div>
+  <div v-b-visible.once.350="visibleHandler"> ... </div>
 </template>
 <script>
 export default {
@@ -122,7 +122,8 @@ export default {
     visibleHandler(isVisible) {
       if (isVisible) {
         // This will only ever happen once, when the
-        // element has become visible for the first time
+        // element is outside of the physical viewport
+        // by at least 350px for the first time
       } else {
         // This may happen zero or more times before
         // the element becomes visible, but will never
