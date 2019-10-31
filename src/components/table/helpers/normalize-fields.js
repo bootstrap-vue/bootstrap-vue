@@ -1,6 +1,6 @@
 import startCase from '../../../utils/startcase'
 import { isArray, isFunction, isObject, isString } from '../../../utils/inspect'
-import { keys } from '../../../utils/object'
+import { clone, keys } from '../../../utils/object'
 import { IGNORED_FIELD_KEYS } from './constants'
 
 // Private function to massage field entry into common object format
@@ -13,7 +13,7 @@ const processField = (key, value) => {
     // Formatter shortcut
     field = { key: key, formatter: value }
   } else if (isObject(value)) {
-    field = { ...value }
+    field = clone(value)
     field.key = field.key || key
   } else if (value !== false) {
     // Fallback to just key
@@ -35,7 +35,7 @@ const normalizeFields = (origFields, items) => {
         fields.push({ key: f, label: startCase(f) })
       } else if (isObject(f) && f.key && isString(f.key)) {
         // Full object definition. We use assign so that we don't mutate the original
-        fields.push({ ...f })
+        fields.push(clone(f))
       } else if (isObject(f) && keys(f).length === 1) {
         // Shortcut object (i.e. { 'foo_bar': 'This is Foo Bar' }
         const key = keys(f)[0]

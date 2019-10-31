@@ -1,6 +1,7 @@
 import looseEqual from '../../../utils/loose-equal'
 import warn from '../../../utils/warn'
 import { isArray, isFunction, isPromise } from '../../../utils/inspect'
+import { clone } from '../../../utils/object'
 import listenOnRootMixin from '../../../mixins/listen-on-root'
 
 export default {
@@ -62,7 +63,7 @@ export default {
         ctx.perPage = this.perPage
         ctx.currentPage = this.currentPage
       }
-      return { ...ctx }
+      return clone(ctx)
     }
   },
   watch: {

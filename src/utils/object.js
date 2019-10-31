@@ -36,12 +36,25 @@ export const isObject = obj => obj !== null && typeof obj === 'object'
  */
 export const isPlainObject = obj => Object.prototype.toString.call(obj) === '[object Object]'
 
-// @link https://gist.github.com/bisubus/2da8af7e801ffd813fab7ac221aa7afc
+/**
+ * Shallow copy an object. If the passed in object
+ * is null or undefined, returns an empty object
+ */
+export const clone = obj => ({ ...obj })
+
+/**
+ * Return a shallow copy of object with
+ * the specified properties omitted
+ * @link https://gist.github.com/bisubus/2da8af7e801ffd813fab7ac221aa7afc
+ */
 export const omit = (obj, props) =>
   keys(obj)
     .filter(key => props.indexOf(key) === -1)
     .reduce((result, key) => ({ ...result, [key]: obj[key] }), {})
 
+/**
+ * Convenience method to create a read-only descriptor
+ */
 export const readonlyDescriptor = () => ({ enumerable: true, configurable: false, writable: false })
 
 /**
