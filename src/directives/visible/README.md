@@ -16,11 +16,13 @@ The `v-b-visible` directive was added in version `2.1.0`.
   [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
   For older browsers that do not support `IntersectionObserver`, you will need to use a
   [polyfill](/docs/#js).
+- If `IntersectionObserver` support is not detected, then `v-b-visible` will assume the element is
+  always visible, and will call the callback once with the argument set to `true`
 
 ## Directive syntax and usage
 
 ```html
-<div v-b-visible.[mod].[...]="callback">content</div>
+<div v-b-visible.[mod1].[mod2]="callback">content</div>
 ```
 
 Where `callback` is required:
@@ -28,10 +30,10 @@ Where `callback` is required:
 - A function reference that will be called whenever visibility changes. The callback is passed a
   single boolean argument. `true` indicates that the element is intersecting (partially or entirely
   visible) in the viewport, or `false` if the element is not visible/intersecting with the viewport.
-  The callback will be called each time the element's visibility changes (except when hte `once`
+  The callback will be called each time the element's visibility changes (except when the `once`
   modifier is used. See below for details)
 
-Where `[mod]` can be (all optional):
+Where `[mod1]` or `[mod2]` can be (all optional):
 
 - A positive number representing the offset (margin) in pixels _away_ from the edge of the viewport
   to determine when the element is considered in (or just about to be in) the viewport. The value
@@ -40,6 +42,8 @@ Where `[mod]` can be (all optional):
   argument of `true` indicating the element is intersecting/visible) when the element is
   intersecting with the viewport. Note the callback may be called prior to this with an argument of
   `false` signifying the element is not intersecting/visible.
+
+The order of the modifiers is not important.
 
 ### Usage syntax examples
 
@@ -134,7 +138,7 @@ export default {
 </script>
 ```
 
-## Examples
+## Live examples
 
 Here are two live examples showing two use cases.
 
