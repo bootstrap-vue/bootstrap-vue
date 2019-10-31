@@ -7,17 +7,18 @@ The `v-b-visible` directive was added in version `2.1.0`.
 ## Overview
 
 - `v-b-visible` will call your callback method with a boolean value indicating if the element is
-  visible (intersecting) with the viewport.
+  visible (intersecting with the viewport) or not.
 - The directive can be placed on almost any element or component.
-- Changes in visibility cqn also be detected (such as `display: none`), as long as the element is
-  within (or partially within) the viewport, or within the optional offset.
-- Several BootstrapVue components use `v-b-visible`, such as `<b-img-lazy>`.
+- Changes in visibility can also be detected (such as `display: none`), as long as the element is
+  within (or partially within) the viewport, or within the optional offset. Note: transitioning to
+  a non-visible state due to `v-if="false"` _cannot_ be detected.
+- Internally, BootstrapVue uses this directive in serveral components, such as `<b-img-lazy>`.
 - The `v-b-visible` directive requires browser support of
   [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
   For older browsers that do not support `IntersectionObserver`, you will need to use a
   [polyfill](/docs/#js).
 - If `IntersectionObserver` support is not detected, then `v-b-visible` will assume the element is
-  always visible, and will call the callback once with the argument set to `true`
+  _always visible_, and will call the callback once with the argument set to `true`.
 
 ## Directive syntax and usage
 
