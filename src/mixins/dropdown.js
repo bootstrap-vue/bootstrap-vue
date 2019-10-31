@@ -2,6 +2,7 @@ import Popper from 'popper.js'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
 import { BvEvent } from '../utils/bv-event.class'
+import { from as arrayFrom } from '../utils/array'
 import { closest, contains, isVisible, requestAF, selectAll, eventOn, eventOff } from '../utils/dom'
 import { isNull } from '../utils/inspect'
 import idMixin from './id'
@@ -281,6 +282,20 @@ export default {
       } else {
         this.$root.$off(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
         eventOff(this.$el, 'focusout', this.onFocusOut, { passive: true })
+      }
+      // Handle special case for touch events on iOS 
+      this.setOnTouchStartListener(isOpen)
+    },
+    setOnTouchStartListener(isOpen) /* istanbul ignore next: JSDOM doesn't support `ontouchstart` */ {
+      // If this is a touch-enabled device we add extra empty
+      // `mouseover` listeners to the body's immediate children
+      // Only needed because of broken event delegation on iOS
+      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+      if ('ontouchstart' in document.documentElement) {
+        const method = isOpen ? eventOn : eventOff
+        arrayFrom(document.body.children).forEach(el => {
+          method(el, 'mouseover', this.$_noop)
+        })
       }
     },
     rootCloseListener(vm) {
