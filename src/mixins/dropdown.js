@@ -172,7 +172,8 @@ export default {
   },
   created() {
     // Create non-reactive property
-    this._popper = null
+    this.$_popper = null
+    this.$_noop = () => {}
   },
   deactivated() /* istanbul ignore next: not easy to test */ {
     // In case we are inside a `<keep-alive>`
@@ -240,14 +241,14 @@ export default {
     },
     createPopper(element) {
       this.removePopper()
-      this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
+      this.$_popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
     removePopper() {
-      if (this._popper) {
+      if (this.$_popper) {
         // Ensure popper event listeners are removed cleanly
-        this._popper.destroy()
+        this.$_popper.destroy()
       }
-      this._popper = null
+      this.$_popper = null
     },
     getPopperConfig() {
       let placement = AttachmentMap.BOTTOM
