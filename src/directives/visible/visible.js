@@ -34,7 +34,7 @@
 import looseEqual from '../../utils/loose-equal'
 import { requestAF } from '../../utils/dom'
 import { isFunction } from '../../utils/inspect'
-import { keys } from '../../utils/object'
+import { clone, keys } from '../../utils/object'
 
 const OBSERVER_PROP_NAME = '__bv__visibility_observer'
 
@@ -149,7 +149,7 @@ const bind = (el, { value, modifiers }, vnode) => {
   // Create new observer
   el[OBSERVER_PROP_NAME] = new VisibilityObserver(el, options, vnode)
   // Store the current modifiers on the object (cloned)
-  el[OBSERVER_PROP_NAME]._prevModifiers = { ...modifiers }
+  el[OBSERVER_PROP_NAME]._prevModifiers = clone(modifiers)
 }
 
 // When the directive options may have been updated (or element)
@@ -157,10 +157,13 @@ const componentUpdated = (el, { value, oldValue, modifiers }, vnode) => {
   // Compare value/oldValue and modifiers to see if anything has changed
   // and if so, destroy old observer and create new observer
   /* istanbul ignore next */
+  modifiers = clone(modifiers)
+  /* istanbul ignore next */
   if (
-    value !== oldValue ||
-    !el[OBSERVER_PROP_NAME] ||
-    !looseEqual(modifiers, el[OBSERVER_PROP_NAME]._prevModifiers)
+    el &&
+    (value !== oldValue ||
+      !el[OBSERVER_PROP_NAME] ||
+      !looseEqual(modifiers, el[OBSERVER_PROP_NAME]._prevModifiers))
   ) {
     // Re-bind on element
     bind(el, { value, modifiers }, vnode)
