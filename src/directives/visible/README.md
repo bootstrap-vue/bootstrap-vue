@@ -11,9 +11,9 @@ The `v-b-visible` directive was added in version `2.1.0`.
   visible (intersecting with the viewport) or not.
 - The directive can be placed on almost any element or component.
 - Changes in visibility can also be detected (such as `display: none`), as long as the element is
-  within (or partially within) the viewport, or within the optional offset. Note: transitioning to
-  a non-visible state due to `v-if="false"` _cannot_ be detected.
-- Internally, BootstrapVue uses this directive in serveral components, such as `<b-img-lazy>`.
+  within (or partially within) the viewport, or within the optional offset. Note: transitioning to a
+  non-visible state due to `v-if="false"` _cannot_ be detected.
+- Internally, BootstrapVue uses this directive in several components, such as `<b-img-lazy>`.
 - The `v-b-visible` directive requires browser support of
   [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
   For older browsers that do not support `IntersectionObserver`, you will need to use a
@@ -42,8 +42,8 @@ Where `[mod1]` or `[mod2]` can be (all optional):
   The value adds a margin around the viewport. The default value is `0`.
 - The keyword `once`. When this modifier is present, the callback will be called only once the first
   time the element is visible (with the argument of `true` indicating the element is
-  intersecting/visible). Note the callback _may be_ called prior to this with an argument of
-  `false` signifying the element is not intersecting/visible.
+  intersecting/visible). Note the callback _may be_ called prior to this with an argument of `false`
+  signifying the element is not intersecting/visible.
 
 The order of the modifiers is not important.
 
@@ -207,7 +207,7 @@ Click the button to change the `<div>` visibility state:
     <b-button @click="show = !show" class="mb-2">Toggle display</b-button>
     <p>Visible: {{ isVisible }}</p>
     <div class="border p-3" style="height: 6em;">
-      <!-- We use Vue's v-show directive to control the CSS `display` of the div --> 
+      <!-- We use Vue's `v-show` directive to control the CSS `display` of the div -->
       <div v-show="show" class="bg-info p-3">
         <b-badge v-b-visible="handleVisibility">Element with v-b-visible directive</b-badge>
       </div>
