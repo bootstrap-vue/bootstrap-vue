@@ -1,7 +1,7 @@
 # Visible
 
-> The `v-b-visible` directive allows you to react when an element becomes visible in the viewport,
-> and/or when it moved out of the viewport (or is no longer visible)
+> `v-b-visible` is a lightweight directive that allows you to react when an element becomes visible
+> in the viewport and/or when it moves out of the viewport (or is no longer visible).
 
 The `v-b-visible` directive was added in version `2.1.0`.
 
