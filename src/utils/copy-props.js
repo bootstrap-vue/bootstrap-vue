@@ -1,5 +1,6 @@
 import identity from './identity'
 import { isArray, isObject } from './inspect'
+import { clone } from './object'
 
 /**
  * Copies props from one array/object to a new array/object. Prop values
@@ -22,7 +23,7 @@ const copyProps = (props, transformFn = identity) => {
     if (props.hasOwnProperty(prop)) {
       // If the prop value is an object, do a shallow clone to prevent
       // potential mutations to the original object.
-      copied[transformFn(prop)] = isObject(props[prop]) ? { ...props[prop] } : props[prop]
+      copied[transformFn(prop)] = isObject(props[prop]) ? clone(props[prop]) : props[prop]
     }
   }
 
