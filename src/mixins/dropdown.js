@@ -284,10 +284,10 @@ export default {
         this.$root.$off(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
         eventOff(this.$el, 'focusout', this.onFocusOut, { passive: true })
       }
-      // Handle special case for touch events on iOS 
+      // Handle special case for touch events on iOS
       this.setOnTouchStartListener(isOpen)
     },
-    setOnTouchStartListener(isOpen) /* istanbul ignore next: JSDOM doesn't support `ontouchstart` */ {
+    setOnTouchStartListener(isOpen) /* istanbul ignore next: No JSDOM support of `ontouchstart` */ {
       // If this is a touch-enabled device we add extra empty
       // `mouseover` listeners to the body's immediate children
       // Only needed because of broken event delegation on iOS
