@@ -199,8 +199,8 @@ visibility state will also change if the element is scrolled out of the viewport
 <!-- v-b-visible-scroll.vue -->
 ```
 
-One use case for this, when combined with the `once` modifier, is to see if a user has scrolled to the
-bottom of a page or scollable div (i.e. has "read" the entire terms of service).
+One use case for this, when combined with the `once` modifier, is to see if a user has scrolled to
+the bottom of a page or scrollable div (i.e. has "read" the entire terms of service).
 
 ### CSS display visibility detection
 
