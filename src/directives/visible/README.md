@@ -151,7 +151,8 @@ Here are two live examples showing two common use cases.
 
 ### Visibility of scrolled content
 
-Scroll the container to see the reaction when the `<b-badge>` scrolls into view:
+Scroll the container to see the reaction when the `<b-badge>` scrolls into view. Note that
+visibility state will also change if the element is scrolled out of the viewport.
 
 ```html
 <template>
@@ -198,9 +199,13 @@ Scroll the container to see the reaction when the `<b-badge>` scrolls into view:
 <!-- v-b-visible-scroll.vue -->
 ```
 
+One use case for this, when combined with the `once` modifier, is to see if a user has scrolled to the
+bottom of a page or scollable div (i.e. has "read" the entire terms of service).
+
 ### CSS display visibility detection
 
-Click the button to change the `<div>` visibility state:
+Click the button to change the `<div>` visibility state. Note that visibility state will also change
+if the element is scrolled out of the viewport.
 
 ```html
 <template>
