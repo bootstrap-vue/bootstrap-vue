@@ -255,6 +255,7 @@ export default {
       this.$_popper = null
     },
     clearHideTimeout() {
+      /* istanbul ignore next */
       if (this.$_hideTimeout) {
         clearTimeout(this.$_hideTimeout)
         this.$_hideTimeout = null
