@@ -407,6 +407,7 @@ export default {
         ) {
           const doHide = () => {
             this.visible = false
+            return null
           }
           // Clear hide timeout anyway
           this.clearHideTimeout()
@@ -415,9 +416,7 @@ export default {
           // to have it's click handler fired (in case it's position moves on
           // the screen do to a navbar menu above it collapsing)
           // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
-          this.inNavbar
-            ? (this.$_hideTimeout = setTimeout(doHide, FOCUSOUT_DELAY))
-            : doHide()
+          this.$_hideTimeout = this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
         }
       }
       // On Mac/iOS evt.relatedTarget is null, so we delay by an
