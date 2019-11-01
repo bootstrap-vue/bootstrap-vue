@@ -2,6 +2,7 @@ import Popper from 'popper.js'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
 import { BvEvent } from '../utils/bv-event.class'
+import { from as arrayFrom } from '../utils/array'
 import { closest, contains, isVisible, requestAF, selectAll, eventOn, eventOff } from '../utils/dom'
 import { isNull } from '../utils/inspect'
 import idMixin from './id'
@@ -171,7 +172,8 @@ export default {
   },
   created() {
     // Create non-reactive property
-    this._popper = null
+    this.$_popper = null
+    this.$_noop = () => {}
   },
   deactivated() /* istanbul ignore next: not easy to test */ {
     // In case we are inside a `<keep-alive>`
@@ -239,14 +241,14 @@ export default {
     },
     createPopper(element) {
       this.removePopper()
-      this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
+      this.$_popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
     removePopper() {
-      if (this._popper) {
+      if (this.$_popper) {
         // Ensure popper event listeners are removed cleanly
-        this._popper.destroy()
+        this.$_popper.destroy()
       }
-      this._popper = null
+      this.$_popper = null
     },
     getPopperConfig() {
       let placement = AttachmentMap.BOTTOM
@@ -281,6 +283,20 @@ export default {
       } else {
         this.$root.$off(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
         eventOff(this.$el, 'focusout', this.onFocusOut, { passive: true })
+      }
+      // Handle special case for touch events on iOS
+      this.setOnTouchStartListener(isOpen)
+    },
+    setOnTouchStartListener(isOpen) /* istanbul ignore next: No JSDOM support of `ontouchstart` */ {
+      // If this is a touch-enabled device we add extra empty
+      // `mouseover` listeners to the body's immediate children
+      // Only needed because of broken event delegation on iOS
+      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+      if ('ontouchstart' in document.documentElement) {
+        const method = isOpen ? eventOn : eventOff
+        arrayFrom(document.body.children).forEach(el => {
+          method(el, 'mouseover', this.$_noop)
+        })
       }
     },
     rootCloseListener(vm) {
@@ -377,24 +393,34 @@ export default {
     },
     // Dropdown wrapper focusOut handler
     onFocusOut(evt) {
-      // `relatedTarget` is the element gaining focus
-      const relatedTarget = evt.relatedTarget
-      // If focus moves outside the menu or toggler, then close menu
-      if (
-        this.visible &&
-        !contains(this.$refs.menu, relatedTarget) &&
-        !contains(this.toggler, relatedTarget)
-      ) {
+      const handleFocusOut = () => {
+        // On Mac/iOS evt.relatedTarget is null, so we fallback
+        // to document.activeElement (after one anmation frame)
+        // https://github.com/bootstrap-vue/bootstrap-vue/issues/4328
+        const relatedTarget = evt.relatedTarget || document.activeElement
         const doHide = () => {
           this.visible = false
         }
-        // When we are in a navbar (which has been responsively stacked), we
-        // delay the dropdown's closing so that the next element has a chance
-        // to have it's click handler fired (in case it's position moves on
-        // the screen do to a navbar menu above it collapsing)
-        // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
-        this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
+        if (
+          this.visible &&
+          !contains(this.$refs.menu, relatedTarget) &&
+          !contains(this.toggler, relatedTarget)
+        ) {
+          const doHide = () => {
+            this.visible = false
+          }
+          // When we are in a navbar (which has been responsively stacked), we
+          // delay the dropdown's closing so that the next element has a chance
+          // to have it's click handler fired (in case it's position moves on
+          // the screen do to a navbar menu above it collapsing)
+          // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
+          this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
+        }
       }
+      // On Mac/iOS evt.relatedTarget is null, so we delay by an
+      // animationFrame to allow document.activeElement to be populated first
+      // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/4328
+      evt.relatedTarget ? handleFocusOut() : requestAF(handleFocusOut)
     },
     // Keyboard nav
     focusNext(evt, up) {
