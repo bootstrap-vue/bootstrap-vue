@@ -483,21 +483,21 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
 
-    // Open menu via .show() method
+    // Open menu via ´.show()´ method
     $dropdown.vm.show()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect($dropdown.classes()).toContain('show')
 
-    // Close menu via .hide() method
-    $dropdown.vm.hide()
+    // Close menu via  ´.hide()´ method
+    $dropdown.vm ´.hide()´
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
 
-    // Open menu via .show() method again
+    // Open menu via ´.show()´ method again
     $dropdown.vm.show()
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -527,7 +527,7 @@ describe('dropdown', () => {
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
-    // Open menu via .show() method again
+    // Open menu via ´.show()´ method again
     $dropdown.vm.show()
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -541,7 +541,7 @@ describe('dropdown', () => {
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
-    // Open menu via .show() method again
+    // Open menu via ´.show()´ method again
     $dropdown.vm.show()
     await waitNT(wrapper.vm)
     await waitRAF()
