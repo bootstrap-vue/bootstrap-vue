@@ -175,6 +175,7 @@ export default {
     // Create non-reactive property
     this.$_popper = null
     this.$_hideTimeout = null
+    this.$_noop = () => {}
   },
   deactivated() /* istanbul ignore next: not easy to test */ {
     // In case we are inside a `<keep-alive>`
