@@ -173,18 +173,20 @@ export default {
   created() {
     // Create non-reactive property
     this.$_popper = null
+    this.$_hideTimeout = null
     this.$_noop = () => {}
   },
   deactivated() /* istanbul ignore next: not easy to test */ {
     // In case we are inside a `<keep-alive>`
     this.visible = false
     this.whileOpenListen(false)
-    this.removePopper()
+    this.destroyPopper()
   },
   beforeDestroy() {
     this.visible = false
     this.whileOpenListen(false)
-    this.removePopper()
+    this.clearHideTimeout()
+    this.destroyPopper()
   },
   methods: {
     // Event emitter
@@ -237,13 +239,13 @@ export default {
       this.whileOpenListen(false)
       this.$root.$emit(ROOT_DROPDOWN_HIDDEN, this)
       this.$emit('hidden')
-      this.removePopper()
+      this.destroyPopper()
     },
     createPopper(element) {
-      this.removePopper()
+      this.destroyPopper()
       this.$_popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
-    removePopper() {
+    destroyPopper() {
       if (this.$_popper) {
         // Ensure popper event listeners are removed cleanly
         this.$_popper.destroy()
@@ -398,9 +400,6 @@ export default {
         // to document.activeElement (after one anmation frame)
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/4328
         const relatedTarget = evt.relatedTarget || document.activeElement
-        const doHide = () => {
-          this.visible = false
-        }
         if (
           this.visible &&
           !contains(this.$refs.menu, relatedTarget) &&
@@ -409,18 +408,29 @@ export default {
           const doHide = () => {
             this.visible = false
           }
+          // Clear hide timeout anyway
+          this.clearHideTimeout()
           // When we are in a navbar (which has been responsively stacked), we
           // delay the dropdown's closing so that the next element has a chance
           // to have it's click handler fired (in case it's position moves on
           // the screen do to a navbar menu above it collapsing)
           // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
-          this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
+          this.inNavbar
+            ? (this.$_hideTimeout = setTimeout(doHide, FOCUSOUT_DELAY))
+            : doHide()
         }
       }
       // On Mac/iOS evt.relatedTarget is null, so we delay by an
       // animationFrame to allow document.activeElement to be populated first
       // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/4328
       evt.relatedTarget ? handleFocusOut() : requestAF(handleFocusOut)
+    },
+    clearHideTimeout() {
+      /* istanbul ignore next */
+      if (this.$_hideTimeout) {
+        clearTimeout(this.$_hideTimeout)
+        this.$_hideTimeout = null
+      }
     },
     // Keyboard nav
     focusNext(evt, up) {
