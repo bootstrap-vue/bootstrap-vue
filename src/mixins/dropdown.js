@@ -17,8 +17,6 @@ const ROOT_DROPDOWN_HIDDEN = `${ROOT_DROPDOWN_PREFIX}hidden`
 // Delay when loosing focus before closing menu (in ms)
 const FOCUSOUT_DELAY = 100
 
-const FOCUSOUT_EVENT_OPTIONS = { passive: true }
-
 // Dropdown item CSS selectors
 const Selector = {
   FORM_CHILD: '.dropdown form',
