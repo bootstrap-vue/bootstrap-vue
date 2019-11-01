@@ -16,6 +16,9 @@ const ROOT_DROPDOWN_PREFIX = 'bv::dropdown::'
 const ROOT_DROPDOWN_SHOWN = `${ROOT_DROPDOWN_PREFIX}shown`
 const ROOT_DROPDOWN_HIDDEN = `${ROOT_DROPDOWN_PREFIX}hidden`
 
+// Delay when loosing focus before closing menu (in ms)
+const FOCUSOUT_DELAY = 100
+
 // Dropdown item CSS selectors
 const Selector = {
   FORM_CHILD: '.dropdown form',
@@ -378,7 +381,15 @@ export default {
     // Document click out listener
     clickOutHandler(evt) {
       if (this.visible && !this.isDropdownElement(evt.target)) {
-        this.visible = false
+        const doHide = () => {
+          this.visible = false
+        }
+        // When we are in a navbar (which has been responsively stacked), we
+        // delay the dropdown's closing so that the next element has a chance
+        // to have it's click handler fired (in case it's position moves on
+        // the screen do to a navbar menu above it collapsing)
+        // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
+        this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
       }
     },
     // Document focusin listener
