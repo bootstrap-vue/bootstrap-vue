@@ -394,9 +394,7 @@ export default {
     },
     // Document focusin listener
     focusInHandler(evt) {
-      if (this.visible && !this.isDropdownElement(evt.target)) {
-        this.visible = false
-      }
+      this.clickOutHandler(evt)
     },
     // Keyboard nav
     focusNext(evt, up) {
