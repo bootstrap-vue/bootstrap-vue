@@ -417,8 +417,9 @@ describe('dropdown', () => {
     const localVue = new CreateLocalVue()
     const App = localVue.extend({
       render(h) {
-        return h('div', {}, [
-          h(BDropdown, { props: { id: 'test' } }, [h(BDropdownItem, {}, 'item')])
+        return h('div', { attrs: { id: 'container' } }, [
+          h(BDropdown, { props: { id: 'test' } }, [h(BDropdownItem, {}, 'item')]),
+          h('input', { attrs: { id: 'input' } })
         ])
       }
     })
@@ -434,10 +435,12 @@ describe('dropdown', () => {
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     expect(wrapper.findAll('.dropdown-menu .dropdown-item').length).toBe(1)
 
+    const $container = wrapper.find('#container')
     const $dropdown = wrapper.find('.dropdown')
     const $toggle = wrapper.find('.dropdown-toggle')
     const $menu = wrapper.find('.dropdown-menu')
     const $item = wrapper.find('.dropdown-item')
+    const $input = wrapper.find('#input')
 
     expect($dropdown.isVueInstance()).toBe(true)
 
@@ -503,10 +506,7 @@ describe('dropdown', () => {
     expect(document.activeElement).toBe($menu.element)
 
     // Close menu by moving focus away from menu
-    // which triggers a focusout event on menu
-    $menu.trigger('focusout', {
-      relatedTarget: document.body
-    })
+    $input.trigger('focusin')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')
@@ -520,11 +520,8 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
 
-    // Close menu by moving focus away from menu
-    // which triggers a focusout event on menu
-    $menu.trigger('focusout', {
-      relatedTarget: document.body
-    })
+    // Close menu by clicking outside
+    $container.trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')
