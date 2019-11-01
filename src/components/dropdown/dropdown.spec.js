@@ -490,8 +490,8 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect($dropdown.classes()).toContain('show')
 
-    // Close menu via  ´.hide()´ method
-    $dropdown.vm ´.hide()´
+    // Close menu via ´.hide()´ method
+    $dropdown.vm.hide()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
