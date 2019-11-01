@@ -6041,10 +6041,10 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
-highlight.js@^9.16.1:
-  version "9.16.1"
-  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.16.1.tgz#827f49ca96eae006d8a2a0d5e3acd56041c26fc5"
-  integrity sha512-pyyiU56NR1XSm8M/l1QDKGGCA2n2GrcTxFahBo4v/2dH3gy4IiALczwhC9YJicyjoRh6JQWM+h3PvY1ZZ+D0+g==
+highlight.js@^9.16.2:
+  version "9.16.2"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.16.2.tgz#68368d039ffe1c6211bcc07e483daf95de3e403e"
+  integrity sha512-feMUrVLZvjy0oC7FVJQcSQRqbBq9kwqnYE4+Kj9ZjbHh3g+BisiPgF49NyQbVLNdrL/qqZr3Ca9yOKwgn2i/tw==
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
