@@ -1,6 +1,7 @@
 import Popper from 'popper.js'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
+import { from as arrayFrom } from '../utils/array'
 import { BvEvent } from '../utils/bv-event.class'
 import { closest, contains, isVisible, requestAF, selectAll, eventOn, eventOff } from '../utils/dom'
 import { isNull } from '../utils/inspect'
@@ -293,7 +294,7 @@ export default {
       this.$root[method](ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
       this.setOnTouchStartListener(isOpen)
     },
-    setOnTouchStartListener(isOpen) /* istanbul ignore next: JSDOM doesn't support `ontouchstart` */ {
+    setOnTouchStartListener(isOpen) /* istanbul ignore next: JSDOM has no `ontouchstart` */ {
       // If this is a touch-enabled device we add extra empty
       // `mouseover` listeners to the body's immediate children
       // Only needed because of broken event delegation on iOS
