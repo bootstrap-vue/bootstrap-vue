@@ -2,7 +2,7 @@ import Popper from 'popper.js'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
 import { BvEvent } from '../utils/bv-event.class'
-import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
+import { closest, contains, isVisible, requestAF, selectAll, eventOn, eventOff } from '../utils/dom'
 import { isNull } from '../utils/inspect'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
@@ -290,6 +290,19 @@ export default {
       // Hide the dropdown when another dropdown is opened
       const method = isOpen ? '$on' : '$off'
       this.$root[method](ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
+      this.setOnTouchStartListener(isOpen)
+    },
+    setOnTouchStartListener(isOpen) /* istanbul ignore next: JSDOM doesn't support `ontouchstart` */ {
+      // If this is a touch-enabled device we add extra empty
+      // `mouseover` listeners to the body's immediate children
+      // Only needed because of broken event delegation on iOS
+      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+      if ('ontouchstart' in document.documentElement) {
+        const method = isOpen ? eventOn : eventOff
+        arrayFrom(document.body.children).forEach(el => {
+          method(el, 'mouseover', this.$_noop)
+        })
+      }
     },
     rootCloseListener(vm) {
       if (vm !== this) {
