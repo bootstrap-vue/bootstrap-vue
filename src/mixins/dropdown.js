@@ -17,7 +17,7 @@ const ROOT_DROPDOWN_SHOWN = `${ROOT_DROPDOWN_PREFIX}shown`
 const ROOT_DROPDOWN_HIDDEN = `${ROOT_DROPDOWN_PREFIX}hidden`
 
 // Delay when loosing focus before closing menu (in ms)
-const FOCUSOUT_DELAY = 100
+const FOCUSOUT_DELAY = 150
 
 // Dropdown item CSS selectors
 const Selector = {
@@ -174,17 +174,19 @@ export default {
   created() {
     // Create non-reactive property
     this.$_popper = null
+    this.$_hideTimeout = null
   },
   deactivated() /* istanbul ignore next: not easy to test */ {
     // In case we are inside a `<keep-alive>`
     this.visible = false
     this.whileOpenListen(false)
-    this.removePopper()
+    this.destroyPopper()
   },
   beforeDestroy() {
     this.visible = false
     this.whileOpenListen(false)
-    this.removePopper()
+    this.destroyPopper()
+    this.clearHideTimeout()
   },
   methods: {
     // Event emitter
@@ -237,18 +239,24 @@ export default {
       this.whileOpenListen(false)
       this.$root.$emit(ROOT_DROPDOWN_HIDDEN, this)
       this.$emit('hidden')
-      this.removePopper()
+      this.destroyPopper()
     },
     createPopper(element) {
-      this.removePopper()
+      this.destroyPopper()
       this.$_popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
-    removePopper() {
+    destroyPopper() {
       if (this.$_popper) {
         // Ensure popper event listeners are removed cleanly
         this.$_popper.destroy()
       }
       this.$_popper = null
+    },
+    clearHideTimeout() {
+      if (this.$_hideTimeout) {
+        clearTimeout(this.$_hideTimeout)
+        this.$_hideTimeout = null
+      }
     },
     getPopperConfig() {
       let placement = AttachmentMap.BOTTOM
@@ -272,9 +280,6 @@ export default {
         popperConfig.modifiers.preventOverflow = { boundariesElement: this.boundary }
       }
       return { ...popperConfig, ...(this.popperOpts || {}) }
-    },
-    isDropdownElement(el) {
-      return contains(this.$refs.menu, el) || contains(this.toggler, el)
     },
     // Turn listeners on/off while open
     whileOpenListen(isOpen) {
@@ -380,7 +385,11 @@ export default {
     },
     // Document click out listener
     clickOutHandler(evt) {
-      if (this.visible && !this.isDropdownElement(evt.target)) {
+      const target = evt.target
+      if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
+        // Clear hide timeout anyway
+        this.clearHideTimeout()
+        // Create temp hide function to reuse in belows logic
         const doHide = () => {
           this.visible = false
         }
@@ -393,10 +402,9 @@ export default {
       }
     },
     // Document focusin listener
-    focusInHandler(evt) {
-      if (this.visible && !this.isDropdownElement(evt.target)) {
-        this.visible = false
-      }
+    focusInHandler(...args) {
+      // Shared logic with click out
+      this.clickOutHandler(...args)
     },
     // Keyboard nav
     focusNext(evt, up) {
