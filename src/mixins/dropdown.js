@@ -16,9 +16,6 @@ const ROOT_DROPDOWN_PREFIX = 'bv::dropdown::'
 const ROOT_DROPDOWN_SHOWN = `${ROOT_DROPDOWN_PREFIX}shown`
 const ROOT_DROPDOWN_HIDDEN = `${ROOT_DROPDOWN_PREFIX}hidden`
 
-// Delay when loosing focus before closing menu (in ms)
-const FOCUSOUT_DELAY = 300
-
 // Dropdown item CSS selectors
 const Selector = {
   FORM_CHILD: '.dropdown form',
@@ -283,6 +280,9 @@ export default {
       }
       return { ...popperConfig, ...(this.popperOpts || {}) }
     },
+    isDropdownElement(el) {
+      return contains(this.$refs.menu, el) || contains(this.toggler, el)
+    },
     // Turn listeners on/off while open
     whileOpenListen(isOpen) {
       // Hide the dropdown when clicked outside
@@ -387,26 +387,16 @@ export default {
     },
     // Document click out listener
     clickOutHandler(evt) {
-      const target = evt.target
-      if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
-        // Clear hide timeout anyway
-        this.clearHideTimeout()
-        // Create temp hide function to reuse in belows logic
-        const doHide = () => {
-          this.visible = false
-        }
-        // When we are in a navbar (which has been responsively stacked), we
-        // delay the dropdown's closing so that the next element has a chance
-        // to have it's click handler fired (in case it's position moves on
-        // the screen do to a navbar menu above it collapsing)
-        // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
-        this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
+      if (this.visible && !this.isDropdownElement(evt.target)) {
+        this.visible = false
       }
     },
+
     // Document focusin listener
-    focusInHandler(...args) {
-      // Shared logic with click out
-      this.clickOutHandler(...args)
+    focusInHandler(evt) {
+      if (this.visible && !this.inNavbar && !this.isDropdownElement(evt.target)) {
+        this.visible = false
+      }
     },
     // Keyboard nav
     focusNext(evt, up) {
