@@ -2,7 +2,7 @@ import Popper from 'popper.js'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
 import { BvEvent } from '../utils/bv-event.class'
-import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
+import { closest, contains, hasClass, isVisible, requestAF, selectAll } from '../utils/dom'
 import { isNull } from '../utils/inspect'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
@@ -393,7 +393,12 @@ export default {
     },
     // Document focusin listener
     focusInHandler(evt) {
-      if (this.visible && !this.inNavbar && !this.isDropdownElement(evt.target)) {
+      const target = evt.target
+      if (
+        this.visible &&
+        !this.isDropdownElement(target) &&
+        !(this.inNavbar && hasClass(target, 'dropdown-toggle'))
+      ) {
         this.visible = false
       }
     },
