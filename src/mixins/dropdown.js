@@ -391,7 +391,6 @@ export default {
         this.visible = false
       }
     },
-
     // Document focusin listener
     focusInHandler(evt) {
       if (this.visible && !this.inNavbar && !this.isDropdownElement(evt.target)) {
