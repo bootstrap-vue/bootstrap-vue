@@ -3,6 +3,7 @@ import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
 import { BvEvent } from '../utils/bv-event.class'
 import { closest, contains, hasClass, isVisible, requestAF, selectAll } from '../utils/dom'
+import { hasTouchSupport } from '../utils/env'
 import { isNull } from '../utils/inspect'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
@@ -17,7 +18,7 @@ const ROOT_DROPDOWN_SHOWN = `${ROOT_DROPDOWN_PREFIX}shown`
 const ROOT_DROPDOWN_HIDDEN = `${ROOT_DROPDOWN_PREFIX}hidden`
 
 // Delay when loosing focus before closing menu (in ms)
-const FOCUSOUT_DELAY = 500
+const FOCUSOUT_DELAY = hasTouchSupport ? 450 : 150
 
 // Dropdown item CSS selectors
 const Selector = {
@@ -283,9 +284,6 @@ export default {
       }
       return { ...popperConfig, ...(this.popperOpts || {}) }
     },
-    isDropdownElement(el) {
-      return contains(this.$refs.menu, el) || contains(this.toggler, el)
-    },
     // Turn listeners on/off while open
     whileOpenListen(isOpen) {
       // Hide the dropdown when clicked outside
@@ -390,18 +388,8 @@ export default {
     },
     // Document click out listener
     clickOutHandler(evt) {
-      if (this.visible && !this.isDropdownElement(evt.target)) {
-        this.visible = false
-      }
-    },
-    // Document focusin listener
-    focusInHandler(evt) {
       const target = evt.target
-      if (
-        this.visible &&
-        !this.isDropdownElement(target) &&
-        !(this.inNavbar && hasClass(target, 'dropdown-toggle'))
-      ) {
+      if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
         const doHide = () => {
           this.visible = false
           return null
@@ -414,6 +402,11 @@ export default {
         this.clearHideTimeout()
         this.$_hideTimeout = this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
       }
+    },
+    // Document focusin listener
+    focusInHandler(evt) {
+      // Shared logic with click-out handler
+      this.clickOutHandler(evt)
     },
     // Keyboard nav
     focusNext(evt, up) {
