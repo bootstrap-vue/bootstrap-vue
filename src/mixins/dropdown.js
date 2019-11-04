@@ -404,18 +404,15 @@ export default {
       ) {
         const doHide = () => {
           this.visible = false
+          return null
         }
         // When we are in a navbar (which has been responsively stacked), we
         // delay the dropdown's closing so that the next element has a chance
         // to have it's click handler fired (in case it's position moves on
         // the screen do to a navbar menu above it collapsing)
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
-        if (this.inNavbar) {
-          this.clearHideTimeout()
-          this.$_hideTimeout = setTimeout(doHide, FOCUSOUT_DELAY)
-        } else {
-          doHide()
-        }
+        this.clearHideTimeout()
+        this.$_hideTimeout = this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
       }
     },
     // Keyboard nav
