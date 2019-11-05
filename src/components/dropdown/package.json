@@ -41,7 +41,7 @@
           },
           {
             "prop": "offset",
-            "description": "Specify the number of pixes to shift the menu by. Negative values supported"
+            "description": "Specify the number of pixels to shift the menu by. Negative values supported"
           },
           {
             "prop": "lazy",
