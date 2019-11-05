@@ -69,6 +69,7 @@
           },
           {
             "prop": "block",
+            "version": "2.1.0",
             "description": "Renders a 100% width toggle button (expands to the width of it's parent container)"
           },
           {
