@@ -209,6 +209,10 @@ The default `blank-color` is `transparent`.
 on images. The props accept either a string value, or an array of strings (the array of strings will
 be converted into a single string separated by commas).
 
+For details on usage of these attributes, refer to
+[MDN's Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)
+guide.
+
 **Notes:**
 
 - If the `blank` prop is set, then `srcset` and `sizes` props are ignored
