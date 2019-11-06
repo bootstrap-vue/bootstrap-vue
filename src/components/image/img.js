@@ -115,8 +115,12 @@ export const BImg = /*#__PURE__*/ Vue.extend({
     let height = parseInt(props.height, 10) ? parseInt(props.height, 10) : null
     let align = null
     let block = props.block
-    const srcset = concat(props.srcset).filter(Boolean).join(',')
-    const sizes = concat(props.sizes).filter(Boolean).join(',')
+    const srcset = concat(props.srcset)
+      .filter(Boolean)
+      .join(',')
+    const sizes = concat(props.sizes)
+      .filter(Boolean)
+      .join(',')
     if (props.blank) {
       if (!height && Boolean(width)) {
         height = width
