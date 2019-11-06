@@ -1,6 +1,6 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import { concat } from '../../array'
+import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isString } from '../../utils/inspect'
 
