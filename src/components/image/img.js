@@ -115,10 +115,10 @@ export const BImg = /*#__PURE__*/ Vue.extend({
     let height = parseInt(props.height, 10) ? parseInt(props.height, 10) : null
     let align = null
     let block = props.block
-    const srcset = concat(props.srcset)
+    let srcset = concat(props.srcset)
       .filter(Boolean)
       .join(',')
-    const sizes = concat(props.sizes)
+    let sizes = concat(props.sizes)
       .filter(Boolean)
       .join(',')
     if (props.blank) {
@@ -133,6 +133,9 @@ export const BImg = /*#__PURE__*/ Vue.extend({
       }
       // Make a blank SVG image
       src = makeBlankImgSrc(width, height, props.blankColor || 'transparent')
+      // Disable srcset and sizes
+      srcset = null
+      sizes = null
     }
     if (props.left) {
       align = 'float-left'
