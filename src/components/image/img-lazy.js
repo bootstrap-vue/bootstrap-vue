@@ -120,11 +120,15 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
       return this.isShown ? this.height : this.blankHeight || this.height
     },
     computedSrcset() {
-      const srcset = concat(this.srcset).filter(Boolean).join(',')
+      const srcset = concat(this.srcset)
+        .filter(Boolean)
+        .join(',')
       return !this.blankSrc || this.isShown ? srcset : null
     },
     computedSizes() {
-      const sizes = concat(this.sizes).filter(Boolean).join(',')
+      const sizes = concat(this.sizes)
+        .filter(Boolean)
+        .join(',')
       return !this.blankSrc || this.isShown ? sizes : null
     }
   },
