@@ -64,7 +64,7 @@
           {
             "prop": "sizes",
             "version": "2.1.0",
-            "description": "One or more strings separated by commas (or an array of strings), indicating a set of source sizes. Mut be used in combinatin with the srcset prop"
+            "description": "One or more strings separated by commas (or an array of strings), indicating a set of source sizes. Optionally used in combinatin with the srcset prop"
           }
         ]
       },
@@ -143,7 +143,7 @@
           {
             "prop": "sizes",
             "version": "2.1.0",
-            "description": "One or more strings separated by commas (or an array of strings), indicating a set of source sizes. Mut be used in combinatin with the srcset prop"
+            "description": "One or more strings separated by commas (or an array of strings), indicating a set of source sizes. Optionally used in combinatin with the srcset prop"
           }
         ]
       }
