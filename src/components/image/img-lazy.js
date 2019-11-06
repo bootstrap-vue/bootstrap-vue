@@ -194,6 +194,8 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         blank: this.computedBlank,
         width: this.computedWidth,
         height: this.computedHeight,
+        srcset: this.computedSrcset || null,
+        sizes: this.computedSizes || null,
         // Passthrough props
         alt: this.alt,
         blankColor: this.blankColor,
@@ -205,11 +207,6 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         left: this.left,
         right: this.right,
         center: this.center
-      },
-      attrs: {
-        // Computed srcset support
-        srcset: this.computedSrcset || null,
-        sizes: this.computedSizes || null
       }
     })
   }
