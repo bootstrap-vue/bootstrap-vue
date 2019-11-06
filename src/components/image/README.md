@@ -317,4 +317,6 @@ rendered `<img>` element. These props will only be applied to the image once it 
 
 See [`srcset` support](#srcset-support) above for prop usage details and limiations.
 
+Support for `srcset` and `sizes` was added in release `2.1.0`.
+
 <!-- Component reference added automatically from component package.json -->
