@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import { concat } from '../../array'
 import { getComponentConfig } from '../../utils/config'
 import { isString } from '../../utils/inspect'
 
@@ -18,6 +19,14 @@ const BLANK_TEMPLATE =
 export const props = {
   src: {
     type: String,
+    default: null
+  },
+  srcset: {
+    type: [String, Array],
+    default: null
+  },
+  sizes: {
+    type: [String, Array],
     default: null
   },
   alt: {
@@ -106,6 +115,8 @@ export const BImg = /*#__PURE__*/ Vue.extend({
     let height = parseInt(props.height, 10) ? parseInt(props.height, 10) : null
     let align = null
     let block = props.block
+    const srcset = concat(props.srcset).filter(Boolean).join(',')
+    const sizes = concat(props.sizes).filter(Boolean).join(',')
     if (props.blank) {
       if (!height && Boolean(width)) {
         height = width
@@ -134,7 +145,9 @@ export const BImg = /*#__PURE__*/ Vue.extend({
           src: src,
           alt: props.alt,
           width: width ? String(width) : null,
-          height: height ? String(height) : null
+          height: height ? String(height) : null,
+          srcset: srcset || null,
+          sizes: sizes || null
         },
         class: {
           'img-thumbnail': props.thumbnail,
