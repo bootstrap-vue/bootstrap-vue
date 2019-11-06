@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { hasIntersectionObserverSupport } from '../../utils/env'
 import { VBVisible } from '../../directives/visible/visible'
@@ -11,6 +12,14 @@ export const props = {
     type: String,
     default: null,
     required: true
+  },
+  srcset: {
+    type: [String, Array],
+    default: null
+  },
+  sizes: {
+    type: [String, Array],
+    default: null
   },
   alt: {
     type: String,
@@ -109,6 +118,14 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
     },
     computedHeight() {
       return this.isShown ? this.height : this.blankHeight || this.height
+    },
+    computedSrcset() {
+      const srcset = concat(this.srcset).filter(Boolean).join(',')
+      return !this.blankSrc || this.isShown ? srcset : null
+    },
+    computedSizes() {
+      const sizes = concat(this.sizes).filter(Boolean).join(',')
+      return !this.blankSrc || this.isShown ? sizes : null
     }
   },
   watch: {
@@ -184,6 +201,11 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         left: this.left,
         right: this.right,
         center: this.center
+      },
+      attrs: {
+        // Computed srcset support
+        srcset: this.computedSrcset || null,
+        sizes: this.computedSizes || null
       }
     })
   }
