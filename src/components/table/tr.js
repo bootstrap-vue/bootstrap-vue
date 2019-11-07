@@ -63,7 +63,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
       // Sniffed by <b-tr> / <b-td> / <b-th>
       // Needed to handle header background classes, due to lack of
       // background color inheritance with Bootstrap v4 table CSS
-      return !this.isStacked && this.bvTableRowGroup.stickyHeader
+      return !this.isStacked && this.bvTableRowGroup.hasStickyHeader
     },
     tableVariant() {
       // Sniffed by <b-td> / <b-th>
