@@ -74,6 +74,7 @@ describe('table > sticky columns', () => {
     expect(table.classes()).toContain('table')
     expect(table.classes()).toContain('b-table')
 
+    // Tbody cells
     let trs = wrapper.findAll('tbody > tr')
     expect(trs.length).toBe(2)
 
@@ -93,7 +94,7 @@ describe('table > sticky columns', () => {
     // Third column should be td
     expect(cells.at(2).is(BTd)).toBe(false)
     expect(cells.at(2).is(BTh)).toBe(false)
-    expect(cells.at(2).is('th')).toBe(true)
+    expect(cells.at(2).is('td')).toBe(true)
     expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
 
     // Header cells
