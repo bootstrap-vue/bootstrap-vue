@@ -380,6 +380,43 @@ need to accommodate your custom classes for this._
 <!-- b-tabs-with-classes.vue -->
 ```
 
+## Load tab content only when active
+
+Sometimes it's preferred to load components & data only when activating a tab, instead of loading all tabs (and associated data) when rendering the `<b-tabs>` set.
+
+Individual `<b-tab>` components can be lazy loaded via the `lazy` prop, which when set doesn't mount the content of the `<b-tab>` until it is shown/activated, and will be un-mounted when the tab is deactivated/hidden:
+
+```html
+<b-tabs>
+  <b-tab title="abc">
+    <!-- this component will always be mounted -->
+    <my-abc-component></my-abc-component>
+  </b-tab>
+  <b-tab title="xyz" lazy>
+    <!-- this component will not be mounted until this tab is shown -->
+    <!-- and will be un-mounted when hidden -->
+    <my-xyz-component></my-xyz-component>
+  </b-tab>
+</b-tabs>
+```
+
+One can also make all tab's lazy by setting the `lazy` prop on the parent `<b-tabs>` component:
+
+```html
+<b-tabs lazy>
+  <b-tab title="abc">
+    <!-- this component will not be mounted until this tab is shown -->
+    <!-- and will be un-mounted when hidden -->
+    <my-abc-component></my-abc-component>
+  </b-tab>
+  <b-tab title="xyz">
+    <!-- this component will not be mounted until this tab is shown -->
+    <!-- and will be un-mounted when hidden -->
+    <my-xyz-component></my-xyz-component>
+  </b-tab>
+</b-tabs>
+```
+
 ## Keyboard navigation
 
 Keyboard navigation is enabled by default for ARIA compliance with tablists when a tab button has
