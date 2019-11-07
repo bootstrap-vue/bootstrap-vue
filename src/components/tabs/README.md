@@ -392,11 +392,11 @@ deactivated (hidden):
 ```html
 <b-tabs>
   <b-tab title="abc">
-    <!-- this component will always be mounted -->
-    <my-abc-component></my-abc-component>
+    <!-- this content will always be mounted -->
+    <div>Tab ABC content</div>
   </b-tab>
   <b-tab title="xyz" lazy>
-    <!-- this component will not be mounted until this tab is shown -->
+    <!-- this content will not be mounted until this tab is shown -->
     <!-- and will be un-mounted when hidden -->
     <my-xyz-component></my-xyz-component>
   </b-tab>
@@ -408,12 +408,12 @@ One can also make all tab's lazy by setting the `lazy` prop on the parent `<b-ta
 ```html
 <b-tabs lazy>
   <b-tab title="abc">
-    <!-- this component will not be mounted until this tab is shown -->
+    <!-- this content will not be mounted until this tab is shown -->
     <!-- and will be un-mounted when hidden -->
-    <my-abc-component></my-abc-component>
+    <div>Tab ABC content</div>
   </b-tab>
   <b-tab title="xyz">
-    <!-- this component will not be mounted until this tab is shown -->
+    <!-- this content will not be mounted until this tab is shown -->
     <!-- and will be un-mounted when hidden -->
     <my-xyz-component></my-xyz-component>
   </b-tab>
