@@ -380,11 +380,14 @@ need to accommodate your custom classes for this._
 <!-- b-tabs-with-classes.vue -->
 ```
 
-## Load tab content only when active
+## Lazy loading tab content
 
-Sometimes it's preferred to load components & data only when activating a tab, instead of loading all tabs (and associated data) when rendering the `<b-tabs>` set.
+Sometimes it's preferred to load components & data only when activating a tab, instead of loading
+all tabs (and associated data) when rendering the `<b-tabs>` set.
 
-Individual `<b-tab>` components can be lazy loaded via the `lazy` prop, which when set doesn't mount the content of the `<b-tab>` until it is shown/activated, and will be un-mounted when the tab is deactivated/hidden:
+Individual `<b-tab>` components can be lazy loaded via the `lazy` prop, which when set doesn't mount
+the content of the `<b-tab>` until it is activated (shown), and will be un-mounted when the tab is
+deactivated (hidden):
 
 ```html
 <b-tabs>
