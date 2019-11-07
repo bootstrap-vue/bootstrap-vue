@@ -54,7 +54,7 @@ describe('table > sticky columns', () => {
     wrapper.destroy()
   })
 
-  it('has expected classes when sticky column is enabled', async () => {
+  it('has expected classes when sticky column is enabled with sticky headers', async () => {
     const wrapper = mount(BTable, {
       propsData: {
         responsive: false,
