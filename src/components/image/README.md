@@ -312,10 +312,10 @@ Vue `.sync` modifier, and will be updated to `true` when the final image is show
 
 ### Lazy loaded `srcset` support
 
-`<b-img-lazy>` supports setting the [`srset` and `sizes`](#srcset-support) attributes on the
+`<b-img-lazy>` supports setting the [`srcset` and `sizes`](#srcset-support) attributes on the
 rendered `<img>` element. These props will only be applied to the image once it has come into view.
 
-See [`srcset` support](#srcset-support) above for prop usage details and limiations.
+See [`srcset` support](#srcset-support) above for prop usage details and limitations.
 
 Support for `srcset` and `sizes` was added in release `2.1.0`.
 
