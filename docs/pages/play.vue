@@ -372,32 +372,6 @@ export default {
       building: false
     }
   },
-  head() {
-    const title = `${this.title} | BootstrapVue`
-    const description = 'Interactively play and test BootstrapVue components online.'
-    return {
-      title,
-      meta: [
-        {
-          hid: 'og:title',
-          name: 'og:title',
-          property: 'og:title',
-          content: title
-        },
-        {
-          hid: 'og:description',
-          name: 'og:description',
-          property: 'og:description',
-          content: description
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          content: description
-        }
-      ]
-    }
-  },
   computed: {
     title() {
       return 'Online Playground'
@@ -938,6 +912,32 @@ export default {
         (cb => setTimeout(cb, 16))
 
       return raf(fn)
+    }
+  },
+  head() {
+    const title = `${this.title} | BootstrapVue`
+    const description = 'Interactively play and test BootstrapVue components online.'
+    return {
+      title,
+      meta: [
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          property: 'og:title',
+          content: title
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          property: 'og:description',
+          content: description
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        }
+      ]
     }
   }
 }
