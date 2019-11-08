@@ -41,7 +41,7 @@
           },
           {
             "prop": "offset",
-            "description": "Specify the number of pixes to shift the menu by. Negative values supported"
+            "description": "Specify the number of pixels to shift the menu by. Negative values supported"
           },
           {
             "prop": "lazy",
@@ -69,6 +69,7 @@
           },
           {
             "prop": "block",
+            "version": "2.1.0",
             "description": "Renders a 100% width toggle button (expands to the width of it's parent container)"
           },
           {

@@ -212,7 +212,8 @@ module.exports = {
 
   plugins: ['~/plugins/bootstrap-vue.js', '~/plugins/play.js', '~/plugins/docs.js'],
 
-  modules: ['@nuxtjs/pwa', '@nuxtjs/google-analytics'],
+  buildModules: ['@nuxtjs/google-analytics'],
+  modules: ['@nuxtjs/pwa'],
 
   'google-analytics': {
     id: 'UA-89526435-1',

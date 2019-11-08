@@ -2,7 +2,11 @@ import cloneDeep from '../../../utils/clone-deep'
 import looseEqual from '../../../utils/loose-equal'
 import { concat } from '../../../utils/array'
 import { isFunction, isString, isRegExp } from '../../../utils/inspect'
+import { warn } from '../../../utils/warn'
 import stringifyRecordValues from './stringify-record-values'
+
+const DEPRECATED_DEBOUNCE =
+  'b-table: Prop "filter-debounce" is deprecated. Use the debounce feature of <b-form-input> instead'
 
 export default {
   props: {
@@ -24,6 +28,7 @@ export default {
     },
     filterDebounce: {
       type: [Number, String],
+      deprecated: DEPRECATED_DEBOUNCE,
       default: 0,
       validator: val => /^\d+/.test(String(val))
     }
@@ -45,7 +50,12 @@ export default {
       return this.filterIncludedFields ? concat(this.filterIncludedFields).filter(Boolean) : null
     },
     computedFilterDebounce() {
-      return parseInt(this.filterDebounce, 10) || 0
+      const ms = parseInt(this.filterDebounce, 10) || 0
+      /* istanbul ignore next */
+      if (ms > 0) {
+        warn(DEPRECATED_DEBOUNCE)
+      }
+      return ms
     },
     localFiltering() {
       return this.hasProvider ? !!this.noProviderFiltering : true

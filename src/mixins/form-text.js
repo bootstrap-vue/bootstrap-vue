@@ -51,6 +51,11 @@ export default {
       // Only update the `v-model` on blur/change events
       type: Boolean,
       default: false
+    },
+    debounce: {
+      // Debounce timout (in ms). Not applicable with `lazy` prop
+      type: [Number, String],
+      default: 0
     }
   },
   data() {
@@ -60,6 +65,10 @@ export default {
     }
   },
   computed: {
+    computedDebounce() {
+      // Ensure we have a positive number equal to or greater than 0
+      return Math.max(parseInt(this.debounce, 10) || 0, 0)
+    },
     computedClass() {
       return [
         {
@@ -93,12 +102,19 @@ export default {
     value(newVal) {
       const stringifyValue = this.stringifyValue(newVal)
       if (stringifyValue !== this.localValue && newVal !== this.vModelValue) {
+        // Clear any pending debounce timeout, as we are overwriting the user input
+        this.clearDebounce()
+        // Update the local values
         this.localValue = stringifyValue
         this.vModelValue = newVal
       }
     }
   },
   mounted() {
+    // Create non-reactive property and set up destroy handler
+    this.$_inputDebounceTimer = null
+    this.$on('hook:beforeDestroy', this.clearDebounce)
+    // Preset the internal state
     const value = this.value
     const stringifyValue = this.stringifyValue(value)
     /* istanbul ignore next */
@@ -108,6 +124,10 @@ export default {
     }
   },
   methods: {
+    clearDebounce() {
+      clearTimeout(this.$_inputDebounceTimer)
+      this.$_inputDebounceTimer = null
+    },
     stringifyValue(value) {
       return isUndefinedOrNull(value) ? '' : String(value)
     },
@@ -131,13 +151,25 @@ export default {
       return value
     },
     updateValue(value, force = false) {
-      if (this.lazy && !force) {
+      const lazy = this.lazy
+      const ms = this.computedDebounce
+      if (lazy && !force) {
         return
       }
       value = this.modifyValue(value)
       if (value !== this.vModelValue) {
-        this.vModelValue = value
-        this.$emit('update', value)
+        this.clearDebounce()
+        const doUpdate = () => {
+          this.vModelValue = value
+          this.$emit('update', value)
+        }
+        if (ms > 0 && !lazy && !force) {
+          // Change/Blur/Force will not be debounced
+          this.$_inputDebounceTimer = setTimeout(doUpdate, ms)
+        } else {
+          // Immediately update the v-model
+          doUpdate()
+        }
       }
     },
     onInput(evt) {
