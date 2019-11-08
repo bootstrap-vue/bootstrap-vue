@@ -52,6 +52,12 @@ export const BThead = /*#__PURE__*/ Vue.extend({
       // Sticky headers only apply to cells in table `thead`
       return !this.isStacked && this.bvTable.stickyHeader
     },
+    hasStickyHeader() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      // Needed to handle header background classes, due to lack of
+      // background color inheritance with Bootstrap v4 table CSS
+      return !this.isStacked && this.bvTable.stickyHeader
+    },
     tableVariant() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.tableVariant

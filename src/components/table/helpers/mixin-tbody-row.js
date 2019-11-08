@@ -89,10 +89,12 @@ export default {
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const formatted = this.getFormattedValue(item, field)
       const key = field.key
+      const stickyColumn =
+        !this.isStacked && (this.isResponsive || this.stickyHeader) && field.stickyColumn
       // We only uses the helper components for sticky columns to
       // improve performance of BTable/BTableLite by reducing the
       // total number of vue instances created during render
-      const cellTag = field.stickyColumn
+      const cellTag = stickyColumn
         ? field.isRowHeader
           ? BTh
           : BTd
@@ -118,11 +120,11 @@ export default {
             : this.getTdValues(item, key, field.tdAttr, {}))
         }
       }
-      if (field.stickyColumn) {
+      if (stickyColumn) {
         // We are using the helper BTd or BTh
         data.props = {
           stackedHeading: this.isStacked ? field.label : null,
-          stickyColumn: field.stickyColumn,
+          stickyColumn: true,
           variant: cellVariant
         }
       } else {
