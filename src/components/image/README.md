@@ -202,6 +202,28 @@ The default `blank-color` is `transparent`.
 - The `width` and `height` props will also apply the `width` and `height` attributes to the rendered
   `<img>` tag, even if `blank` is not set.
 
+## `srcset` support
+
+`<b-img>` supports the
+[`srcset` and `sizes` attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-srcset)
+on images. The props accept either a string value, or an array of strings (the array of strings will
+be converted into a single string separated by commas).
+
+For details on usage of these attributes, refer to
+[MDN's Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)
+guide.
+
+**Notes:**
+
+- If the `blank` prop is set, then `srcset` and `sizes` props are ignored
+- IE 11 does not support `srcset` and `sizes`, so ensure you have a value for the `src` prop
+- Vue-loader does not support project relative URLs (asset URLs) on the `srcset` attribute. Instead
+  use `require(...)` to resolve the individual URL paths. Be cautious of creating a string of data
+  URI's longer than supported by the maximum attribute value length of the browser. If your webpack
+  config has a limit for the `url-loader` and you want to prevent inline data-urls, you may have to
+  overwrite the loader limits: `require('!!url-loader?limit=0!./assets/photo.jpg')`
+- Support for `srcset` and `sizes` was added in release `2.1.0`
+
 ## Lazy loaded images
 
 > Use our complementary `<b-img-lazy>` image component (based on `<b-img>`) to lazy load images as
@@ -287,5 +309,14 @@ removed.
 
 To force the final image to be shown, set the `show` prop to `true`. The `show` prop supports the
 Vue `.sync` modifier, and will be updated to `true` when the final image is shown.
+
+### Lazy loaded `srcset` support
+
+`<b-img-lazy>` supports setting the [`srcset` and `sizes`](#srcset-support) attributes on the
+rendered `<img>` element. These props will only be applied to the image once it has come into view.
+
+See [`srcset` support](#srcset-support) above for prop usage details and limitations.
+
+Support for `srcset` and `sizes` was added in release `2.1.0`.
 
 <!-- Component reference added automatically from component package.json -->

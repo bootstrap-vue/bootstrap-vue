@@ -55,6 +55,16 @@
           {
             "prop": "right",
             "description": "Floats the image to the right when set"
+          },
+          {
+            "prop": "srcset",
+            "version": "2.1.0",
+            "description": "One or more strings separated by commas (or an array of strings), indicating possible image sources for the user agent to use"
+          },
+          {
+            "prop": "sizes",
+            "version": "2.1.0",
+            "description": "One or more strings separated by commas (or an array of strings), indicating a set of source sizes. Optionally used in combination with the srcset prop"
           }
         ]
       },
@@ -124,6 +134,16 @@
           {
             "prop": "right",
             "description": "Floats the image to the right when set"
+          },
+          {
+            "prop": "srcset",
+            "version": "2.1.0",
+            "description": "One or more strings separated by commas (or an array of strings), indicating possible image sources for the user agent to use"
+          },
+          {
+            "prop": "sizes",
+            "version": "2.1.0",
+            "description": "One or more strings separated by commas (or an array of strings), indicating a set of source sizes. Optionally used in combination with the srcset prop"
           }
         ]
       }
