@@ -26,8 +26,8 @@ describe('v-b-modal directive', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('button')).toBe(true)
-    expect(wrapper.find('buttun').attributes('tabindex')).not.toBeDefined()
-    expect(wrapper.find('buttun').attributes('role')).not.toBeDefined()
+    expect(wrapper.find('button').attributes('tabindex')).not.toBeDefined()
+    expect(wrapper.find('button').attributes('role')).not.toBeDefined()
     expect(spy).not.toHaveBeenCalled()
 
     const $button = wrapper.find('button')
