@@ -32,9 +32,16 @@ const getTriggerElement = el => {
 }
 
 const setRole = trigger => {
-  // Only set a role if the trigger element doesn't have one
-  if (trigger && trigger.tagName !== 'BUTTON' && !hasAttr(trigger, 'role')) {
-    setAttr(trigger, 'role', 'button')
+  // Ensure accessibility on non button elements
+  if (trigger && trigger.tagName !== 'BUTTON') {
+    // Only set a role if the trigger element doesn't have one
+    if (!hasAttr(trigger, 'role')) {
+      setAttr(trigger, 'role', 'button')
+    }
+    // Add a tabindex is not a button or link, and tabindex is not provided
+    if (trigger.tagName !== 'A' && !hasAttr(trigger, 'tabindex')) {
+      setAttr(trigger, 'tabindex', '0')
+    }
   }
 }
 
