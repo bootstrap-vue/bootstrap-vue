@@ -70,7 +70,7 @@ describe('v-b-modal directive', () => {
     expect(wrapper.find('a').attributes('tabindex')).not.toBeDefined()
     expect(wrapper.find('a').text()).toBe('link')
 
-    const $link = wrapper.find('link')
+    const $link = wrapper.find('a')
     $link.trigger('click')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test', $link.element)
