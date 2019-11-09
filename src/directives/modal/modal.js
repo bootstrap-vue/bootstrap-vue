@@ -47,7 +47,7 @@ const bind = (el, binding, vnode) => {
       if (!isDisabled(currentTarget)) {
         const type = evt.type
         // Open modal only if trigger is not disabled
-        if (type === 'click' || (type === 'keydown' && evt.keyCode === 32)) {
+        if (type === 'click' || (type === 'keydown' && (evt.keyCode === 13 || evt.keyCode === 32))) {
           vnode.context.$root.$emit(EVENT_SHOW, target, currentTarget)
         }
       }
