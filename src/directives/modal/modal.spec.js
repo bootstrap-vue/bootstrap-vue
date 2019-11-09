@@ -115,7 +115,7 @@ describe('v-b-modal directive', () => {
     expect(wrapper.find('span').text()).toBe('span')
 
     const $span = wrapper.find('span')
-    $span.trigger('keydown', { keyCode: 32 })
+    $span.trigger('keydown.space')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test', $span.element)
     expect(wrapper.find('span').attributes('role')).toBe('button')
@@ -155,7 +155,7 @@ describe('v-b-modal directive', () => {
     expect(wrapper.find('span').text()).toBe('span')
 
     const $span = wrapper.find('span')
-    $span.trigger('keydown', { keyCode: 13 })
+    $span.trigger('keydown.enter')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test', $span.element)
     expect(wrapper.find('span').attributes('role')).toBe('button')
