@@ -233,7 +233,7 @@ export default {
             attrs: {
               id: rowId,
               tabindex: hasRowClickHandler ? '0' : null,
-              'data-pk': rowId || null,
+              'data-pk': primaryKeyValue || null,
               'aria-details': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
