@@ -1160,7 +1160,7 @@ the prop `no-enforce-focus`, although this is highly discouraged.
 
 ### `v-b-modal` directive accessibility
 
-Notes on `v-b-modal` drective accessibility:
+Notes on `v-b-modal` directive accessibility:
 
 - If the element is anything other than a `<button>` (or component that renders a `<button>`), the
   ARIA `role` will be set to `button`, and a keydown event listeners for <kbd>ENTER</kbd> and
