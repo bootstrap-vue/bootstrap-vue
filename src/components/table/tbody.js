@@ -74,18 +74,33 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
     },
     tbodyListeners() {
       const handlers = this.tbodyTransitionHandlers || {}
-      return { ...this.$listeners, ...handlers }
+      return this.isTransitionGroup ? handlers : this.$listeners
+    },
+    tbodyNativeListeners() {
+      return this.isTransitionGroup ? this.$listeners : {}
     }
   },
   render(h) {
+    const data = {
+      props: this.tbodyProps,
+      attrs: this.tbodyAttrs,
+      // Pass down any listeners
+      on: this.tbodyListeners,
+      
+      nativeOn: this.tbodyNativeListeners
+    }
+    if (this.isTransitionGroup) {
+      // We use native listeners if a transition group
+      // for any delegated events
+      data.on = this.tbodyTransitionHandlers || {}
+      data.nativeOn = this.$listeners || {}
+    } else {
+      // Otherwise we place any listeners on the tbody element
+      data.on: this.$listeners || {}
+    }
     return h(
       this.isTransitionGroup ? 'transition-group' : 'tbody',
-      {
-        props: this.tbodyProps,
-        attrs: this.tbodyAttrs,
-        // Pass down any listeners
-        on: this.tbodyListeners
-      },
+      data,
       this.normalizeSlot('default', {})
     )
   }
