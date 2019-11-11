@@ -205,12 +205,12 @@ export default {
       // rows index within the tbody.
       // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
       const primaryKey = this.primaryKey
-      const hasPkValue = primaryKey && !isUndefinedOrNull(item[primaryKey])
-      const rowKey = hasPkValue ? toString(item[primaryKey]) : String(rowIndex)
+      const primaryKeyValue = toString(get(item, primaryKey)) || null
+      const rowKey = primaryKeyValue || String(rowIndex)
 
       // If primary key is provided, use it to generate a unique ID on each tbody > tr
       // In the format of '{tableId}__row_{primaryKeyValue}'
-      const rowId = hasPkValue ? this.safeId(`_row_${item[primaryKey]}`) : null
+      const rowId = primaryKeyValue ? this.safeId(`_row_${primaryKeyValue}`) : null
 
       // Selectable classes and attributes
       const selectableClasses = this.selectableRowClasses ? this.selectableRowClasses(rowIndex) : {}
@@ -233,8 +233,7 @@ export default {
             attrs: {
               id: rowId,
               tabindex: hasRowClickHandler ? '0' : null,
-              'data-pk': rowId ? String(item[primaryKey]) : null,
-              // Should this be `aria-details` instead?
+              'data-pk': rowId || null,
               'aria-details': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
