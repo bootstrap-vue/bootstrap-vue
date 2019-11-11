@@ -25,12 +25,12 @@ export default {
       // Rows should all be B-TR components, but we map to TR elements
       // Also note that `this.$refs.itemRows` may not always be in document order
       const tbody = this.$refs.tbody.$el || this.$refs.tbody
-      const btrs = (this.$refs.itemRows || []).map(tr => tr.$el || tr)
+      const trs = (this.$refs.itemRows || []).map(tr => tr.$el || tr)
       // TODO: This may take time for tables many rows, so we may want to cache
       //       the result of this during each render cycle on a non-reactive
       //       property. We clear out the cache as each render starts, and
       //       populate it on first access of this method if null
-      return arrayFrom(tbody.children).filter(tr => arrayIncludes(btrs, tr))
+      return arrayFrom(tbody.children).filter(tr => arrayIncludes(trs, tr))
     },
     getTbodyTrIndex(el) {
       // Returns index of a particular TBODY item TR
