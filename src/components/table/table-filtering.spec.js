@@ -236,81 +236,89 @@ describe('table > filtering', () => {
     wrapper.destroy()
   })
 
-  it('filter debouncing works', async () => {
-    jest.useFakeTimers()
-    let lastFilterTimer = null
-    const wrapper = mount(BTable, {
-      propsData: {
-        fields: testFields,
-        items: testItems,
-        filterDebounce: 100 // 100ms
-      }
+  describe('debouncing (deprecated)', () => {
+    // Wrapped in a describe to limit console.warn override
+    // to prevent depreacted prop warnings
+    const originalWarn = console.warn
+    afterEach(() => (console.warn = originalWarn))
+    beforeEach(() => (console.warn = () => {}))
+
+    it('filter debouncing works', async () => {
+      jest.useFakeTimers()
+      let lastFilterTimer = null
+      const wrapper = mount(BTable, {
+        propsData: {
+          fields: testFields,
+          items: testItems,
+          filterDebounce: 100 // 100ms
+        }
+      })
+      expect(wrapper).toBeDefined()
+      expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
+      expect(wrapper.findAll('tbody > tr').length).toBe(3)
+      expect(wrapper.vm.$_filterTimer).toBe(null)
+      await waitNT(wrapper.vm)
+      expect(wrapper.emitted('input')).toBeDefined()
+      expect(wrapper.emitted('input').length).toBe(1)
+      expect(wrapper.emitted('input')[0][0]).toEqual(testItems)
+      expect(wrapper.vm.$_filterTimer).toBe(null)
+      lastFilterTimer = wrapper.vm.$_filterTimer
+
+      // Set filter to a single character
+      wrapper.setProps({
+        filter: '1'
+      })
+      await waitNT(wrapper.vm)
+      expect(wrapper.emitted('input').length).toBe(1)
+      expect(wrapper.vm.$_filterTimer).not.toBe(null)
+      expect(wrapper.vm.$_filterTimer).not.toEqual(lastFilterTimer)
+      lastFilterTimer = wrapper.vm.$_filterTimer
+      expect(wrapper.vm.localFilter).not.toEqual('1')
+
+      // Change filter
+      wrapper.setProps({
+        filter: 'z'
+      })
+      await waitNT(wrapper.vm)
+      expect(wrapper.emitted('input').length).toBe(1)
+      expect(wrapper.vm.$_filterTimer).not.toBe(null)
+      expect(wrapper.vm.$_filterTimer).not.toEqual(lastFilterTimer)
+      lastFilterTimer = wrapper.vm.$_filterTimer
+      expect(wrapper.vm.localFilter).not.toEqual('z')
+
+      jest.runTimersToTime(101)
+      await waitNT(wrapper.vm)
+      expect(wrapper.emitted('input').length).toBe(2)
+      expect(wrapper.emitted('input')[1][0]).toEqual([testItems[2]])
+      expect(wrapper.vm.$_filterTimer).toEqual(lastFilterTimer)
+      lastFilterTimer = wrapper.vm.$_filterTimer
+      expect(wrapper.vm.localFilter).toEqual('z')
+
+      // Change filter
+      wrapper.setProps({
+        filter: '1'
+      })
+      await waitNT(wrapper.vm)
+      expect(wrapper.vm.$_filterTimer).not.toBe(null)
+      expect(wrapper.emitted('input').length).toBe(2)
+      expect(wrapper.vm.$_filterTimer).not.toEqual(lastFilterTimer)
+      lastFilterTimer = wrapper.vm.$_filterTimer
+      expect(wrapper.vm.localFilter).not.toEqual('1')
+      expect(wrapper.vm.localFilter).toEqual('z')
+
+      // Change filter-debounce to no debouncing
+      wrapper.setProps({
+        filterDebounce: 0
+      })
+      await waitNT(wrapper.vm)
+      // Should clear the pending timer
+      expect(wrapper.vm.$_filterTimer).toBe(null)
+      // Should immediately filter the items
+      expect(wrapper.emitted('input').length).toBe(3)
+      expect(wrapper.emitted('input')[2][0]).toEqual([testItems[1]])
+      expect(wrapper.vm.localFilter).toEqual('1')
+
+      wrapper.destroy()
     })
-    expect(wrapper).toBeDefined()
-    expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
-    expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    expect(wrapper.vm.$_filterTimer).toBe(null)
-    await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(testItems)
-    expect(wrapper.vm.$_filterTimer).toBe(null)
-    lastFilterTimer = wrapper.vm.$_filterTimer
-
-    // Set filter to a single character
-    wrapper.setProps({
-      filter: '1'
-    })
-    await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.vm.$_filterTimer).not.toBe(null)
-    expect(wrapper.vm.$_filterTimer).not.toEqual(lastFilterTimer)
-    lastFilterTimer = wrapper.vm.$_filterTimer
-    expect(wrapper.vm.localFilter).not.toEqual('1')
-
-    // Change filter
-    wrapper.setProps({
-      filter: 'z'
-    })
-    await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.vm.$_filterTimer).not.toBe(null)
-    expect(wrapper.vm.$_filterTimer).not.toEqual(lastFilterTimer)
-    lastFilterTimer = wrapper.vm.$_filterTimer
-    expect(wrapper.vm.localFilter).not.toEqual('z')
-
-    jest.runTimersToTime(101)
-    await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input').length).toBe(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual([testItems[2]])
-    expect(wrapper.vm.$_filterTimer).toEqual(lastFilterTimer)
-    lastFilterTimer = wrapper.vm.$_filterTimer
-    expect(wrapper.vm.localFilter).toEqual('z')
-
-    // Change filter
-    wrapper.setProps({
-      filter: '1'
-    })
-    await waitNT(wrapper.vm)
-    expect(wrapper.vm.$_filterTimer).not.toBe(null)
-    expect(wrapper.emitted('input').length).toBe(2)
-    expect(wrapper.vm.$_filterTimer).not.toEqual(lastFilterTimer)
-    lastFilterTimer = wrapper.vm.$_filterTimer
-    expect(wrapper.vm.localFilter).not.toEqual('1')
-    expect(wrapper.vm.localFilter).toEqual('z')
-
-    // Change filter-debounce to no debouncing
-    wrapper.setProps({
-      filterDebounce: 0
-    })
-    await waitNT(wrapper.vm)
-    // Should clear the pending timer
-    expect(wrapper.vm.$_filterTimer).toBe(null)
-    // Should immediately filter the items
-    expect(wrapper.emitted('input').length).toBe(3)
-    expect(wrapper.emitted('input')[2][0]).toEqual([testItems[1]])
-    expect(wrapper.vm.localFilter).toEqual('1')
-
-    wrapper.destroy()
   })
 })

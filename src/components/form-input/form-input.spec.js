@@ -766,6 +766,84 @@ describe('form-input', () => {
     wrapper.destroy()
   })
 
+  it('"debounce" prop works', async () => {
+    jest.useFakeTimers()
+    const wrapper = mount(BFormInput, {
+      propsData: {
+        type: 'text',
+        value: '',
+        debounce: 100
+      }
+    })
+
+    const input = wrapper.find('input')
+    input.element.value = 'a'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('a')
+    // `v-model` update event should not have emitted
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    // `input` event should be emitted
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe('a')
+
+    input.element.value = 'ab'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('ab')
+    // `v-model` update event should not have emitted
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    // `input` event should be emitted
+    expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.emitted('input')[1][0]).toBe('ab')
+
+    // Advance timer
+    jest.runOnlyPendingTimers()
+    // Should update the v-model
+    expect(input.element.value).toBe('ab')
+    // `v-model` update event should have emitted
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toBe(1)
+    expect(wrapper.emitted('update')[0][0]).toBe('ab')
+    // `input` event should not have emitted new event
+    expect(wrapper.emitted('input').length).toBe(2)
+
+    // Update input
+    input.element.value = 'abc'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('abc')
+    // `v-model` update event should not have emitted new event
+    expect(wrapper.emitted('update').length).toBe(1)
+    // `input` event should be emitted
+    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input')[2][0]).toBe('abc')
+
+    // Update input
+    input.element.value = 'abcd'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('abcd')
+    // `v-model` update event should not have emitted new event
+    expect(wrapper.emitted('update').length).toEqual(1)
+    // `input` event should be emitted
+    expect(wrapper.emitted('input').length).toBe(4)
+    expect(wrapper.emitted('input')[3][0]).toBe('abcd')
+
+    // Trigger a `change` event
+    input.trigger('change')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('abcd')
+    // `v-model` update event should have emitted (change overrides debounce)
+    expect(wrapper.emitted('update').length).toEqual(2)
+    expect(wrapper.emitted('update')[1][0]).toBe('abcd')
+    // `input` event should not have emitted new event
+    expect(wrapper.emitted('input').length).toBe(4)
+
+    wrapper.destroy()
+  })
+
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormInput, {
       mountToDocument: true
@@ -790,7 +868,6 @@ describe('form-input', () => {
 
     beforeEach(() => {
       // Mock getBCR so that the isVisible(el) test returns true
-      // In our test below, all pagination buttons would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 24,
         height: 24,

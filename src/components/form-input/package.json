@@ -33,6 +33,11 @@
             "description": "When set, updates the v-model on 'change'/'blur' events instead of 'input'. Emulates the Vue '.lazy' v-model modifier"
           },
           {
+            "prop": "debounce",
+            "version": "2.1.0",
+            "description": "When set to a number of milliseconds greater than zero, will debounce the user input. Has no effect if prop 'lazy' is set"
+          },
+          {
             "prop": "type",
             "description": "The type of input to render. See the docs for supported types"
           },

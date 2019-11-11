@@ -193,10 +193,10 @@ const applyPopover = (el, bindings, vnode) => {
       // and content if they are functions
       const data = {}
       if (isFunction(config.title)) {
-        data.title = config.title()
+        data.title = config.title(el)
       }
       if (isFunction(config.content)) {
-        data.content = config.content()
+        data.content = config.content(el)
       }
       if (keys(data).length > 0) {
         el[BV_POPOVER].updateData(data)
@@ -233,7 +233,7 @@ const applyPopover = (el, bindings, vnode) => {
         // If title/content is a function, we execute it here
         newData[prop] =
           (prop === 'title' || prop === 'content') && isFunction(data[prop])
-            ? data[prop]()
+            ? data[prop](el)
             : data[prop]
       }
     })

@@ -229,7 +229,8 @@ Guide for full details on setting up aliases for [webpack](https://webpack.js.or
 ## Tree shaking with module bundlers
 
 When using a module bundler you can optionally import only specific components groups (plugins),
-components and/or directives. Note tree shaking only applies to the JavaScript code and not CSS/SCSS.
+components and/or directives. Note tree shaking only applies to the JavaScript code and not
+CSS/SCSS.
 
 <div class="alert alert-info">
   <p class="mb-0">
