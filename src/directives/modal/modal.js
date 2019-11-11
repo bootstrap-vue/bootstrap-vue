@@ -1,3 +1,4 @@
+import KeyCodes from '../../utils/key-codes'
 import {
   eventOn,
   eventOff,
@@ -10,7 +11,6 @@ import {
 } from '../../utils/dom'
 import { isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
-import KeyCodes from '../../utils/key-codes'
 
 // Emitted show event for modal
 const EVENT_SHOW = 'bv::show::modal'
