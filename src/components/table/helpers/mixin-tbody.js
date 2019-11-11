@@ -1,5 +1,5 @@
 import KeyCodes from '../../../utils/key-codes'
-import { arrayIncludes } from '../../../utils/array'
+import { arrayIncludes, from as arrayFrom } from '../../../utils/array'
 import { closest, isElement } from '../../../utils/dom'
 import { props as tbodyProps, BTbody } from '../tbody'
 import filterEvent from './filter-event'
@@ -23,11 +23,14 @@ export default {
       // Returns all the item TR elements (excludes detail and spacer rows)
       // `this.$refs.itemRows` is an array of item TR components/elements
       // Rows should all be B-TR components, but we map to TR elements
+      // Also note that `this.$refs.itemRows` may not always be in document order
+      const tbody = this.$refs.tbody.$el || this.$refs.tbody
+      const btrs = (this.$refs.itemRows || []).map(tr => tr.$el || tr)
       // TODO: This may take time for tables many rows, so we may want to cache
       //       the result of this during each render cycle on a non-reactive
       //       property. We clear out the cache as each render starts, and
       //       populate it on first access of this method if null
-      return (this.$refs.itemRows || []).map(tr => tr.$el || tr)
+      return arrayFrom(tbody.children).filter(tr => arrayIncludes(btrs, tr))
     },
     getTbodyTrIndex(el) {
       // Returns index of a particular TBODY item TR
