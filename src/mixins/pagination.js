@@ -287,6 +287,17 @@ export default {
     })
   },
   methods: {
+    handleKeyNav(evt) {
+      const keyCode = evt.keyCode
+      const shift = evt.shiftKey
+      if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
+        evt.preventDefault()
+        shift ? this.focusFirst() : this.focusPrev()
+      } else if (keyCode === KeyCodes.RIGHT || keyCode === KeyCodes.DOWN) {
+        evt.preventDefault()
+        shift ? this.focusLast() : this.focusNext()
+      }
+    },
     getButtons() {
       // Return only buttons that are visible
       return selectAll('a.page-link', this.$el).filter(btn => isVisible(btn))
@@ -545,19 +556,7 @@ export default {
           'aria-disabled': disabled ? 'true' : 'false',
           'aria-label': this.ariaLabel || null
         },
-        on: {
-          keydown: evt => {
-            const keyCode = evt.keyCode
-            const shift = evt.shiftKey
-            if (keyCode === KeyCodes.LEFT) {
-              evt.preventDefault()
-              shift ? this.focusFirst() : this.focusPrev()
-            } else if (keyCode === KeyCodes.RIGHT) {
-              evt.preventDefault()
-              shift ? this.focusLast() : this.focusNext()
-            }
-          }
-        }
+        on: { keydown: this.handleKeyNav }
       },
       buttons
     )
