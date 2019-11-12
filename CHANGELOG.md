@@ -104,7 +104,7 @@ Released: 2019-11-12
 - **v-b-visible:** fix type error in `componentUpdated` hook + minor docs update/fixes
   ([#4327](https://github.com/bootstrap-vue/bootstrap-vue/issues/4327))
   ([5f3ba9e](https://github.com/bootstrap-vue/bootstrap-vue/commit/5f3ba9e))
-- **web-types:** update web-types code generation to match schema
+- **web-types:** update web-types code generation to match latest schema
   ([#4271](https://github.com/bootstrap-vue/bootstrap-vue/issues/4271))
   ([009431e](https://github.com/bootstrap-vue/bootstrap-vue/commit/009431e))
 
