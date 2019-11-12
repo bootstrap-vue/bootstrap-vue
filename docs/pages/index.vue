@@ -67,8 +67,9 @@
 
             <p class="lead">
               With <span class="font-weight-bolder">BootstrapVue</span> you can build responsive,
-              mobile-first projects on the web using <span class="text-muted font-weight-bolder">Vue.js</span>
-              and the world's most popular front-end CSS library &mdash;
+              mobile-first, and ARIA accessible projects on the web using
+              <span class="text-muted font-weight-bolder">Vue.js</span> and the world's most popular
+              front-end CSS library &mdash;
               <span class="text-muted font-weight-bolder">Bootstrap v4</span>.
             </p>
 
