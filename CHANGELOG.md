@@ -108,6 +108,11 @@ Released: 2019-11-12
   ([#4271](https://github.com/bootstrap-vue/bootstrap-vue/issues/4271))
   ([009431e](https://github.com/bootstrap-vue/bootstrap-vue/commit/009431e))
 
+### Other v2.1.0
+
+- **b-table:** deprecate prop `filter-debounce` in favour of `b-form-input` debouncing
+- documentation updates and fixes
+
 <a name="2.0.4"></a>
 
 ## [v2.0.4](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.3...v2.0.4)
