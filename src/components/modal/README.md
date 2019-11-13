@@ -1020,7 +1020,7 @@ emitted.
 `<b-modal>` provides several accessibility features, including auto focus, return focus, keyboard
 (tab) _focus containment_, and automated `aria-*` attributes.
 
-### ARIA attributes
+### Modal ARIA attributes
 
 The `aria-labelledby` and `aria-describedby` attributes will appear on the modal automatically in
 most cases.
@@ -1157,5 +1157,16 @@ content and can make some of your elements unreachable via keyboard navigation.
 
 In some circumstances, you may need to disable the enforce focus feature. You can do this by setting
 the prop `no-enforce-focus`, although this is highly discouraged.
+
+### `v-b-modal` directive accessibility
+
+Notes on `v-b-modal` directive accessibility:
+
+- If the element is anything other than a `<button>` (or component that renders a `<button>`), the
+  ARIA `role` will be set to `button`, and a keydown event listeners for <kbd>ENTER</kbd> and
+  <kbd>SPACE</kbd> will be added, along with a `click` listener.
+- If the element is anything other than a `<button>` or `<a>` (or a component that renders either),
+  then a `tabindex` of `0` will be added to the element to ensure accessibility, unless there is
+  already a `tabindex` set.
 
 <!-- Component reference added automatically from component package.json -->
