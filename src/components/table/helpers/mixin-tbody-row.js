@@ -255,6 +255,8 @@ export default {
         )
       )
 
+      const detailsKey = hasDetailsSlot ? `__b-table-details__${rowKey}` : null
+
       // Row Details slot
       if (rowShowDetails) {
         const detailsScope = {
@@ -292,7 +294,7 @@ export default {
         $details = h(
           BTr,
           {
-            key: `__b-table-details__${rowKey}`,
+            key: detailsKey,
             staticClass: 'b-table-details',
             class: [
               isFunction(this.tbodyTrClass)
@@ -306,7 +308,7 @@ export default {
         )
         // Wrap in transition if collapsing requested
         $details = detailsCollapse
-          ? h(BVCollapse, { props: { appear: true } }, [$details])
+          ? h(BVCollapse, { key: detailsKey, props: { appear: true } }, [$details])
           : $details
         $rows.push($details)
       } else if (hasDetailsSlot) {
@@ -315,7 +317,10 @@ export default {
           $rows.push(h())
         }
         // Only add the placeholder if a the table has a row-details slot defined (but not shown)
-        $rows.push(detailsCollapse ? h(BVCollapse, { props: { appear: true } }, [h()]) : h())
+        $rows.push(detailsCollapse
+            ? h(BVCollapse, { key: detailsKey, props: { appear: true } }, [h()])
+            : h()
+        )
       }
 
       // Return the row(s)
