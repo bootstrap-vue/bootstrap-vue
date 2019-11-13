@@ -23,7 +23,7 @@ const onLeave = el => {
   el.style.display = 'block'
   el.style.height = `${getBCR(el).height}px`
   reflow(el)
-  // el.style.height = 0
+  el.style.height = 0
 }
 
 const onAfterLeave = el => {
