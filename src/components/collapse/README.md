@@ -56,7 +56,7 @@ To make the `<b-collapse>` show initially, set the `visible` prop:
 <!-- b-collapse-visible.vue -->
 ```
 
-By default, an initially visible collspase will not animate on mount. To enable the collapse
+By default, an initially visible collapse will not animate on mount. To enable the collapse
 expanding animation on mount (when `visible` or `v-model` is `true`), set the `appear` prop on
 `<b-collapse>`.
 
