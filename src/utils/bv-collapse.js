@@ -35,6 +35,7 @@ const onAfterLeave = el => {
 }
 
 // Default transition props
+// `appear` will use the enter classes
 const TRANSITION_PROPS = {
   css: true,
   enterClass: '',
@@ -45,25 +46,13 @@ const TRANSITION_PROPS = {
   leaveToClass: 'collapse'
 }
 
-const APPEAR_TRANSITION_PROPS = {
-  ...TRANSITION_PROPS
-  // appearClass: '',
-  // appearActiveClass: 'collapsing',
-  // appearToClass: 'collapse show'
-}
-
 // Default transition handlers
+// `appear` will use the enter handlers
 const TRANSITION_HANDLERS = {
   enter: onEnter,
   afterEnter: onAfterEnter,
   leave: onLeave,
   afterLeave: onAfterLeave
-}
-
-const APPEAR_TRANSITION_HANDLERS = {
-  ...TRANSITION_HANDLERS
-  // appear: onEnter,
-  // afterAppear: onAfterEnter
 }
 
 // @vue/component
@@ -78,11 +67,11 @@ export const BVCollapse = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h, { props, data, children }) {
-    const transitionProps = props.appear ? APPEAR_TRANSITION_PROPS : TRANSITION_PROPS
-    const transitionHandlers = props.appear ? APPEAR_TRANSITION_HANDLERS : TRANSITION_HANDLERS
     return h(
       'transition',
-      mergeData(data, { props: transitionProps, on: transitionHandlers }, { props }),
+      // We merge in the `appear` prop last
+      mergeData(data, { props: TRANSITION_PROPS, on: TRANSITION_HANDLERS }, { props }),
+      // Note: `<tranition>` supports a single root element only
       children
     )
   }
