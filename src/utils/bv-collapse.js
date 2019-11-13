@@ -11,7 +11,7 @@ import { getBCR, reflow } from './dom'
 const onEnter = el => {
   el.style.height = 0
   reflow(el)
-  el.style.height = el.scrollHeight + 'px'
+  el.style.height = `${el.scrollHeight}px`
 }
 
 const onAfterEnter = el => {
@@ -21,7 +21,7 @@ const onAfterEnter = el => {
 const onLeave = el => {
   el.style.height = 'auto'
   el.style.display = 'block'
-  el.style.height = getBCR(el).height + 'px'
+  el.style.height = `${getBCR(el).height}px`
   reflow(el)
   // el.style.height = 0
 }
@@ -31,7 +31,7 @@ const onAfterLeave = el => {
 }
 
 // Default transition props
-const TRANS_PROPS = {
+const TRANSITION_PROPS = {
   css: true,
   enterClass: '',
   enterActiveClass: 'collapsing',
@@ -41,23 +41,23 @@ const TRANS_PROPS = {
   leaveToClass: 'collapse'
 }
 
-const APPEAR_TRANS_PROPS = {
-  ...TRANS_PROPS,
+const APPEAR_TRANSITION_PROPS = {
+  ...TRANSITION_PROPS,
   appearClass: '',
   appearActiveClass: 'collapsing',
   appearToClass: 'collapse show'
 }
 
 // Default transition handlers
-const TRANS_HANDLERS = {
+const TRANSITION_HANDLERS = {
   enter: onEnter,
   afterEnter: onAfterEnter,
   leave: onLeave,
   afterLeave: onAfterLeave
 }
 
-const APPEAR_TRANS_HANDLERS = {
-  ...TRANS_HANDLERS,
+const APPEAR_TRANSITION_HANDLERS = {
+  ...TRANSITION_HANDLERS,
   appear: onEnter,
   afterAppear: onAfterEnter
 }
@@ -68,17 +68,17 @@ export const BVCollapse = /*#__PURE__*/ Vue.extend({
   functional: true,
   props: {
     appear: {
-      // If true (and content is visible on mount), animate initially visible state
+      // If `true` (and `visible` is `true` on mount), animate initially visible
       type: Boolean,
-      deault: false
+      default: false
     }
   },
   render(h, { props, data, children }) {
-    const transProps = props.appear ? APPEAR_TRANS_PROPS : TRANS_PROPS
-    const transHandlers = props.appear ? APPEAR_TRANS_HANDLERS : TRANS_HANDLERS
+    const transitionProps = props.appear ? APPEAR_TRANSITION_PROPS : TRANSITION_PROPS
+    const transitionHandlers = props.appear ? APPEAR_TRANSITION_HANDLERS : TRANSITION_HANDLERS
     return h(
       'transition',
-      mergeData(data, { props: transProps, on: transHandlers }, { props }),
+      mergeData(data, { props: transitionProps, on: transitionHandlers }, { props }),
       children
     )
   }
