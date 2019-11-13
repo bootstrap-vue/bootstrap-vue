@@ -59,9 +59,9 @@ const TRANSITION_HANDLERS = {
 }
 
 const APPEAR_TRANSITION_HANDLERS = {
-  ...TRANSITION_HANDLERS,
-  appear: onEnter,
-  afterAppear: onAfterEnter
+  ...TRANSITION_HANDLERS
+  // appear: onEnter,
+  // afterAppear: onAfterEnter
 }
 
 // @vue/component
