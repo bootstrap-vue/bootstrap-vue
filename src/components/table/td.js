@@ -85,13 +85,18 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       // Sticky headers only apply to cells in table `thead`
       return this.bvTableTr.isStickyHeader
     },
-    isStickyColumn() {
+    hasStickyHeader() {
       // Needed to handle header background classes, due to lack of
+      // background color inheritance with Bootstrap v4 table CSS
+      return this.bvTableTr.hasStickyHeader
+    },
+    isStickyColumn() {
+      // Needed to handle background classes, due to lack of
       // background color inheritance with Bootstrap v4 table CSS
       // Sticky column cells are only available in responsive
       // mode (horizontal scrolling) or when sticky header mode
       // Applies to cells in `thead`, `tbody` and `tfoot`
-      return !this.isStacked && (this.isResponsive || this.isStickyHeader) && this.stickyColumn
+      return !this.isStacked && (this.isResponsive || this.hasStickyHeader) && this.stickyColumn
     },
     rowVariant() {
       return this.bvTableTr.variant

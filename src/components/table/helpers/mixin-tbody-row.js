@@ -89,10 +89,12 @@ export default {
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const formatted = this.getFormattedValue(item, field)
       const key = field.key
+      const stickyColumn =
+        !this.isStacked && (this.isResponsive || this.stickyHeader) && field.stickyColumn
       // We only uses the helper components for sticky columns to
       // improve performance of BTable/BTableLite by reducing the
       // total number of vue instances created during render
-      const cellTag = field.stickyColumn
+      const cellTag = stickyColumn
         ? field.isRowHeader
           ? BTh
           : BTd
@@ -118,11 +120,11 @@ export default {
             : this.getTdValues(item, key, field.tdAttr, {}))
         }
       }
-      if (field.stickyColumn) {
+      if (stickyColumn) {
         // We are using the helper BTd or BTh
         data.props = {
           stackedHeading: this.isStacked ? field.label : null,
-          stickyColumn: field.stickyColumn,
+          stickyColumn: true,
           variant: cellVariant
         }
       } else {
@@ -203,12 +205,12 @@ export default {
       // rows index within the tbody.
       // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
       const primaryKey = this.primaryKey
-      const hasPkValue = primaryKey && !isUndefinedOrNull(item[primaryKey])
-      const rowKey = hasPkValue ? toString(item[primaryKey]) : String(rowIndex)
+      const primaryKeyValue = toString(get(item, primaryKey)) || null
+      const rowKey = primaryKeyValue || String(rowIndex)
 
       // If primary key is provided, use it to generate a unique ID on each tbody > tr
       // In the format of '{tableId}__row_{primaryKeyValue}'
-      const rowId = hasPkValue ? this.safeId(`_row_${item[primaryKey]}`) : null
+      const rowId = primaryKeyValue ? this.safeId(`_row_${primaryKeyValue}`) : null
 
       // Selectable classes and attributes
       const selectableClasses = this.selectableRowClasses ? this.selectableRowClasses(rowIndex) : {}
@@ -231,8 +233,7 @@ export default {
             attrs: {
               id: rowId,
               tabindex: hasRowClickHandler ? '0' : null,
-              'data-pk': rowId ? String(item[primaryKey]) : null,
-              // Should this be `aria-details` instead?
+              'data-pk': primaryKeyValue || null,
               'aria-details': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,

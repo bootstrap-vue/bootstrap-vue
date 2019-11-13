@@ -59,6 +59,12 @@ export const BTr = /*#__PURE__*/ Vue.extend({
       // Sticky headers are only supported in thead
       return this.bvTableRowGroup.isStickyHeader
     },
+    hasStickyHeader() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      // Needed to handle header background classes, due to lack of
+      // background color inheritance with Bootstrap v4 table CSS
+      return !this.isStacked && this.bvTableRowGroup.hasStickyHeader
+    },
     tableVariant() {
       // Sniffed by <b-td> / <b-th>
       return this.bvTableRowGroup.tableVariant
