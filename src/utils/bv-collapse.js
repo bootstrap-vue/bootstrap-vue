@@ -44,10 +44,10 @@ const TRANSITION_PROPS = {
 }
 
 const APPEAR_TRANSITION_PROPS = {
-  ...TRANSITION_PROPS,
-  appearClass: '',
-  appearActiveClass: 'collapsing',
-  appearToClass: 'collapse show'
+  ...TRANSITION_PROPS
+  // appearClass: '',
+  // appearActiveClass: 'collapsing',
+  // appearToClass: 'collapse show'
 }
 
 // Default transition handlers
