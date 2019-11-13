@@ -55,9 +55,9 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       default: 'div'
     },
     appear: {
-      // If true (and visible is true on mount), animate initially visible
+      // If `true` (and `visible` is `true` on mount), animate initially visible
       type: Boolean,
-      deault: false
+      default: false
     }
   },
   data() {
@@ -164,7 +164,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     },
     emitState() {
       this.$emit('input', this.show)
-      // Let v-b-toggle know the state of this collapse
+      // Let `v-b-toggle` know the state of this collapse
       this.$root.$emit(EVENT_STATE, this.safeId(), this.show)
       if (this.accordion && this.show) {
         // Tell the other collapses in this accordion to close
@@ -178,13 +178,15 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       this.$root.$emit(EVENT_STATE_SYNC, this.safeId(), this.show)
     },
     checkDisplayBlock() {
-      // Check to see if the collapse has `display: block !important;` set.
-      // We can't set `display: none;` directly on this.$el, as it would
-      // trigger a new transition to start (or cancel a current one).
+      // Check to see if the collapse has `display: block !important` set
+      // We can't set `display: none` directly on `this.$el`, as it would
+      // trigger a new transition to start (or cancel a current one)
       const restore = hasClass(this.$el, 'show')
       removeClass(this.$el, 'show')
       const isBlock = getCS(this.$el).display === 'block'
-      restore && addClass(this.$el, 'show')
+      if (restore) {
+        addClass(this.$el, 'show')
+      }
       return isBlock
     },
     clickHandler(evt) {
@@ -196,7 +198,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       }
       if (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item', el)) {
         if (!this.checkDisplayBlock()) {
-          // Only close the collapse if it is not forced to be 'display: block !important;'
+          // Only close the collapse if it is not forced to be `display: block !important`
           this.show = false
         }
       }
