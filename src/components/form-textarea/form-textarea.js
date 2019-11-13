@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import { VBVisible } from '../../directives/visible'
+import { VBVisible } from '../../directives/visible/visible'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'

@@ -193,7 +193,7 @@ const applyTooltip = (el, bindings, vnode) => {
       // Before showing the tooltip, we update the title if it is a function
       if (isFunction(config.title)) {
         el[BV_TOOLTIP].updateData({
-          title: config.title()
+          title: config.title(el)
         })
       }
     })
@@ -225,7 +225,7 @@ const applyTooltip = (el, bindings, vnode) => {
       // We only pass data properties that have changed
       if (data[prop] !== oldData[prop]) {
         // if title is a function, we execute it here
-        newData[prop] = prop === 'title' && isFunction(data[prop]) ? data[prop]() : data[prop]
+        newData[prop] = prop === 'title' && isFunction(data[prop]) ? data[prop](el) : data[prop]
       }
     })
     el[BV_TOOLTIP].updateData(newData)

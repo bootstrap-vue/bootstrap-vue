@@ -21,11 +21,21 @@
           },
           {
             "prop": "trim",
-            "description": "When set, trims any leading and trailing white space from the input value"
+            "description": "When set, trims any leading and trailing white space from the input value. Emulates the Vue '.trim' v-model modifier"
           },
           {
             "prop": "number",
-            "description": "When set attempts to convert the input value to a native number"
+            "description": "When set attempts to convert the input value to a native number. Emulates the Vue '.number' v-model modifier"
+          },
+          {
+            "prop": "lazy",
+            "version": "2.1.0",
+            "description": "When set, updates the v-model on 'change'/'blur' events instead of 'input'. Emulates the Vue '.lazy' v-model modifier"
+          },
+          {
+            "prop": "debounce",
+            "version": "2.1.0",
+            "description": "When set to a number of milliseconds greater than zero, will debounce the user input. Has no effect if prop 'lazy' is set"
           },
           {
             "prop": "type",
@@ -63,7 +73,7 @@
         "events": [
           {
             "event": "input",
-            "description": "Input event triggered by user interaction. Emitted after any formatting and after the v-model is updated",
+            "description": "Input event triggered by user interaction. Emitted after any formatting (not including 'trim' or 'number' props) and after the v-model is updated",
             "args": [
               {
                 "arg": "value",
@@ -77,7 +87,7 @@
           },
           {
             "event": "change",
-            "description": "Change event triggered by user interaction. Emitted after any formatting and after the v-model is updated.",
+            "description": "Change event triggered by user interaction. Emitted after any formatting (not including 'trim' or 'number' props) and after the v-model is updated.",
             "args": [
               {
                 "arg": "value",

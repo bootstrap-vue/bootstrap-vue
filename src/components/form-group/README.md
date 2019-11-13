@@ -79,9 +79,10 @@ By default, the label appears above the input element(s), but you may optionally
 (label to the left of the input) at the various standard Bootstrap breakpoints.
 
 The props`label-cols` and `label-cols-{breakpoint}` allow you to specify how many columns the label
-should occupy in the row. The input(s) will fill the rest of the row. The value must be a number
+should occupy in the row. The input will fill the rest of the row width. The value must be a number
 greater than `0`. Or you can set the prop to `true` to make the label and input(s) each occupy half
-of the width of the rendered row (handy if you have custom Bootstrap with an odd number of columns).
+of the width of the rendered row (handy if you have custom Bootstrap with an odd number of columns),
+or set the value to `'auto'` so that the label occupies only the width that is needed.
 
 | prop            | description                       |
 | --------------- | --------------------------------- |
@@ -109,6 +110,8 @@ of the width of the rendered row (handy if you have custom Bootstrap with an odd
 
 <!-- b-form-group-horizontal.vue -->
 ```
+
+The ability to set the label cols to `'auto'` was added in BootstrapVue version <samp>2.1.0</samp>.
 
 ### Label size
 
@@ -228,7 +231,7 @@ of related form controls:
 Setting the `disabled` prop will disable the rendered `<fieldset>` and, on most browsers, will
 disable all the input elements contained within the fieldset.
 
-`disabled` has no effect when `label-for` is set (as a `fieldset` element is not rendered).
+`disabled` has no effect when `label-for` is set (as a `<fieldset>` element is not rendered).
 
 ## Validation state feedback
 

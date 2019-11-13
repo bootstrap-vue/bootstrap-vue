@@ -6,8 +6,9 @@
     "description": "Automatically activate BootstrapVue navigation or list group components based on scroll position to indicate which link is currently active in the viewport.",
     "directive": "VBScrollspy",
     "arg": {
-      "pattern": "[a-zA-Z][a-ZA-Z0-9_\\-]*",
-      "description": "ID of element to monitor scrolling on (if not provided defaults to the body element)"
+      "pattern": "[a-zA-Z][a-zA-Z0-9_\\-]*",
+      "description": "ID of element to monitor scrolling on (if not provided defaults to the body element)",
+      "required": false
     },
     "expression": [
       "String",

@@ -3,7 +3,7 @@
     <b-row tag="header" align-v="center">
       <b-col sm="9">
         <anchored-heading :id="`comp-ref-${componentName}`" level="3">
-          <code class="notranslate" translate="no">{{ tag }}</code>
+          <code class="notranslate bigger" translate="no">{{ tag }}</code>
         </anchored-heading>
         <b-badge
           v-if="componentFunctional"
@@ -21,8 +21,42 @@
       </b-col>
     </b-row>
 
+    <ul class="component-ref-mini-toc my-3">
+      <li v-if="aliases && aliases.length > 0">
+        <a :href="`#comp-ref-${componentName}-aliases`">
+          <code class="notranslate" translate="no">{{ tag }}</code> Component aliases
+        </a>
+      </li>
+      <li v-if="propsItems && propsItems.length > 0">
+        <a :href="`#comp-ref-${componentName}-props`">
+          <code class="notranslate" translate="no">{{ tag }}</code> Properties
+        </a>
+      </li>
+      <li v-if="componentVModel">
+        <a :href="`#comp-ref-${componentName}-v-model`">
+          <code class="notranslate" translate="no">{{ tag }}</code> v-model
+        </a>
+      </li>
+      <li v-if="slots && slots.length > 0">
+        <a :href="`#comp-ref-${componentName}-slots`">
+          <code class="notranslate" translate="no">{{ tag }}</code> Slots
+        </a>
+      </li>
+      <li v-if="events && events.length > 0">
+        <a :href="`#comp-ref-${componentName}-events`">
+          <code class="notranslate" translate="no">{{ tag }}</code> Events
+        </a>
+      </li>
+      <li v-if="rootEventListeners && rootEventListeners.length > 0">
+        <a :href="`#comp-ref-${componentName}-rootEventListeners`">
+          <code class="notranslate" translate="no">{{ tag }}</code>
+          <code class="notranslate" translate="no">$root</code> Event Listeners
+        </a>
+      </li>
+    </ul>
+
     <article v-if="aliases && aliases.length > 0" class="bd-content">
-      <anchored-heading :id="`comp-ref-${componentName}-aliases`" level="4">
+      <anchored-heading :id="`comp-ref-${componentName}-aliases`" level="4" class="mb-3">
         Component aliases
       </anchored-heading>
       <p><code class="notranslate" translate="no">{{ tag }}</code> can also be used via the following aliases:</p>
@@ -40,7 +74,7 @@
     </article>
 
     <article v-if="propsItems && propsItems.length > 0" class="bd-content">
-      <anchored-heading :id="`comp-ref-${componentName}-props`" level="4">
+      <anchored-heading :id="`comp-ref-${componentName}-props`" level="4" class="mb-3">
         Properties
       </anchored-heading>
       <b-table
@@ -100,7 +134,7 @@
     </article>
 
     <article v-if="componentVModel" class="bd-content">
-      <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4">
+      <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4" class="mb-3">
         v-model
       </anchored-heading>
       <b-table-lite
@@ -120,7 +154,7 @@
     </article>
 
     <article v-if="slots && slots.length > 0" class="bd-content">
-      <anchored-heading :id="`comp-ref-${componentName}-slots`" level="4">
+      <anchored-heading :id="`comp-ref-${componentName}-slots`" level="4" class="mb-3">
         Slots
       </anchored-heading>
       <b-table
@@ -132,8 +166,9 @@
         sort-icon-left
         striped
       >
-        <template v-slot:cell(name)="{ value }">
+        <template v-slot:cell(name)="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
+          <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
         </template>
         <template v-slot:cell(scope)="{ value, toggleDetails }">
           <b-button
@@ -170,8 +205,9 @@
                   </b-th>
                 </b-tr>
               </template>
-              <template v-slot:cell(prop)="{ value }">
+              <template v-slot:cell(prop)="{ value, item }">
                 <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
+                <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
               </template>
               <template v-slot:cell(type)="{ value }">
                 <span v-if="value" class="text-nowrap notranslate" translate="no">{{ value }}</span>
@@ -184,7 +220,7 @@
     </article>
 
     <article v-if="events && events.length > 0" class="bd-content">
-      <anchored-heading :id="`comp-ref-${componentName}-events`" level="4">
+      <anchored-heading :id="`comp-ref-${componentName}-events`" level="4" class="mb-3">
         Events
       </anchored-heading>
       <b-table
@@ -195,26 +231,25 @@
         responsive="sm"
         striped
       >
-        <template v-slot:cell(event)="{ value }">
+        <template v-slot:cell(event)="{ value, item }">
           <code class="notranslate" translate="no">{{ value }}</code>
+          <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
         </template>
         <template v-slot:cell(args)="{ value, item }">
-          <p
-            v-for="arg in value"
-            :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
-            class="mb-1"
-          >
-            <template v-if="arg.arg">
-              <code class="notranslate" translate="no">{{ arg.arg }}</code> -
-            </template>
-            <span>{{ arg.description }}</span>
-          </p>
+          <ol v-if="value && value.length > 0" class="list-unstyled mb-0">
+            <li v-for="(arg, idx) in value" :key="`event-${item.event}-${arg.arg || idx}`">
+              <template v-if="arg.arg">
+                <code class="notranslate" translate="no">{{ arg.arg }}</code> -
+              </template>
+              <span v-if="arg.description">{{ arg.description }}</span>
+            </li>
+          </ol>
         </template>
       </b-table>
     </article>
 
     <article v-if="rootEventListeners && rootEventListeners.length > 0" class="bd-content">
-      <anchored-heading :id="`comp-ref-${componentName}-rootEventListeners`" level="4">
+      <anchored-heading :id="`comp-ref-${componentName}-rootEventListeners`" level="4" class="mb-3">
         <code class="notranslate" translate="no">$root</code> Event Listeners
       </anchored-heading>
       <p>
@@ -229,8 +264,9 @@
         responsive="sm"
         striped
       >
-        <template v-slot:cell(event)="{ value }">
+        <template v-slot:cell(event)="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
+          <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
         </template>
         <template v-slot:cell(args)="{ value, item }">
           <p
@@ -255,6 +291,14 @@ h3::before {
   height: 1.25rem;
   margin-top: -1.25rem;
   content: '';
+}
+
+code.bigger {
+  font-size: 105%;
+}
+
+ul.component-ref-mini-toc:empty {
+  display: none;
 }
 
 /deep/ .word-wrap-normal {

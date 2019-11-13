@@ -35,7 +35,7 @@ native browser HTML5 types: `text`, `password`, `email`, `number`, `url`, `tel`,
   <b-container fluid>
     <b-row class="my-1" v-for="type in types" :key="type">
       <b-col sm="3">
-        <label :for="`type-${type}`">Type {{ type }}:</label>
+        <label :for="`type-${type}`">Type <code>{{ type }}</code>:</label>
       </b-col>
       <b-col sm="9">
         <b-form-input :id="`type-${type}`" :type="type"></b-form-input>
@@ -50,13 +50,14 @@ native browser HTML5 types: `text`, `password`, `email`, `number`, `url`, `tel`,
       return {
         types: [
           'text',
-          'password',
-          'email',
           'number',
+          'email',
+          'password',
+          'search',
           'url',
           'tel',
           'date',
-          `time`,
+          'time',
           'range',
           'color'
         ]
@@ -75,8 +76,8 @@ rendered and a console warning will be issued.
 
 - Not all browsers support all input types, nor do some types render in the same format across
   browser types/versions.
-- Browsers that do not support a particular type will fall back to a `text` input type (event
-  through the rendered `type` attribute markup shows the requested type).
+- Browsers that do not support a particular type will fall back to a `text` input type (even though
+  the rendered `type` attribute markup shows the requested type).
 - No testing is performed to see if the requested input type is supported by the browser.
 - Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
   Instead of using `datetime`, since support should be deprecated, use `date` and `time` as two
@@ -85,13 +86,15 @@ rendered and a console warning will be issued.
 - For date and time style inputs, where supported, the displayed value in the GUI may be different
   than what is returned by it's value (i.e. ordering of year-month-date).
 - Regardless of input type, the value is **always** returned as a string representation.
-- `v-model.lazy` is not supported by `<b-form-input>` (nor any custom Vue component).
+- `v-model.lazy` is not supported by `<b-form-input>` (nor any custom Vue component). Use the `lazy`
+  prop instead.
 - `v-model` modifiers `.number` and `.trim` can cause unexpected cursor jumps when the user is
   typing (this is a Vue issue with `v-model` on custom components). _Avoid using these modifiers_.
+  Use the `number` or `trip` props instead.
 - Older version of Firefox may not support `readonly` for `range` type inputs.
 - Input types that do not support `min`, `max` and `step` (i.e. `text`, `password`, `tel`, `email`,
   `url`, etc) will silently ignore these values (although they will still be rendered on the input
-  markup).
+  markup) iv values are provided.
 
 ### Range type input
 
@@ -324,8 +327,8 @@ attribute on the input will automatically be set to `'true'`;
 
 ## Formatter support
 
-`<b-form-input>` and `<b-form-textarea>` optionally supports formatting by passing a function
-reference to the `formatter` prop.
+`<b-form-input>` optionally supports formatting by passing a function reference to the `formatter`
+prop.
 
 Formatting (when a formatter function is supplied) occurs when the control's native `input` and
 `change` events fire. You can use the boolean prop `lazy-formatter` to restrict the formatter
@@ -341,30 +344,36 @@ Formatting does not occur if a `formatter` is not provided.
 ```html
 <template>
   <div>
-    <label for="input-formatter">Text input with formatter (on input)</label>
-    <b-form-input
-      id="input-formatter"
-      v-model="text1"
-      :formatter="format"
-      placeholder="Enter your name"
-      aria-describedby="input-formatter-help"
-    ></b-form-input>
-    <b-form-text id="input-formatter-help">
-      We will convert your name to lowercase instantly
-    </b-form-text>
-    <div>Value: {{ text1 }}</div>
+    <b-form-group
+      class="mb-0"
+      label="Text input with formatter (on input)"
+      label-for="input-formatter"
+      description="We will convert your name to lowercase instantly"
+    >
+      <b-form-input
+        id="input-formatter"
+        v-model="text1"
+        placeholder="Enter your name"
+        :formatter="format"
+      ></b-form-input>
+    </b-form-group>
+    <p><b>Value:</b> {{ text1 }}</p>
 
-    <label for="input-lazy">Text input with lazy formatter (on blur)</label>
-    <b-form-input
-      id="input-lazy"
-      v-model="text2"
-      :formatter="format"
-      placeholder="Enter your name"
-      aria-describedby="input-lazy-help"
-      lazy-formatter
-    ></b-form-input>
-    <b-form-text id="input-lazy-help">This one is a little lazy!</b-form-text>
-    <div>Value: {{ text2 }}</div>
+    <b-form-group
+      class="mb-0"
+      label="Text input with lazy formatter (on blur)"
+      label-for="input-lazy"
+      description="This one is a little lazy!"
+    >
+      <b-form-input
+        id="input-lazy"
+        v-model="text2"
+        placeholder="Enter your name"
+        lazy-formatter
+        :formatter="format"
+      ></b-form-input>
+    </b-form-group>
+    <p class="mb-0"><b>Value:</b> {{ text2 }}</p>
   </div>
 </template>
 
@@ -461,9 +470,9 @@ from an array of options.
 Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of custom
 component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
 
-To get around this, `<b-form-input>` and `<b-form-textarea>` have two boolean props `trim` and
-`number` which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectively.
-Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `blur` events instead).
+To get around this, `<b-form-input>` has three boolean props `trim`, `number`, and `lazy` which
+emulate the native Vue `v-model` modifiers `.trim` and `.number` and `.lazy` respectively. The
+`lazy` prop will update the v-model on `change`/`blur`events.
 
 **Notes:**
 
@@ -476,6 +485,39 @@ Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `bl
   events. These events will always return the string value of the content of `<textarea>` after
   optional formatting (which may not match the value returned via the `v-model` `update` event,
   which handles the modifiers).
+
+## Debounce support
+
+As an alternative to the `lazy` modifier prop, `<b-form-input>` optionally supports debouncing user
+input, updating the `v-model` after a period of idle time from when the last character was entered
+by the user (or a `change` event occurs). If the user enters a new character (or deletes characters)
+before the idle timeout expires, the timeout is re-started.
+
+To enable debouncing, set the prop `debounce` to any integer greater than zero. The value is
+specified in milliseconds. Setting `debounce` to `0` will disable debouncing.
+
+Note: debouncing will _not_ occur if the `lazy` prop is set.
+
+```html
+<template>
+  <div>
+    <b-form-input v-model="value" type="text" debounce="500"></b-form-input>
+    <div class="mt-2">Value: "{{ value }}"</div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    }
+  }
+</script>
+
+<!-- b-form-input-debounce.vue -->
+```
 
 ## Autofocus
 
@@ -529,10 +571,6 @@ component reference (i.e. assign a `ref` to your `<b-form-input ref="foo" ...>` 
 
 Refer to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement for more information on
 these methods and properties. Support will vary based on input type.
-
-## Component alias
-
-You can use `<b-form-input>` by it's shorter alias `<b-input>`.
 
 ## Using HTML5 `<input>` as an alternative
 

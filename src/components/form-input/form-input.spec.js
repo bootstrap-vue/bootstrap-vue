@@ -416,8 +416,6 @@ describe('form-input', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual('test')
 
-    expect(input.vm.localValue).toEqual('test')
-
     wrapper.destroy()
   })
 
@@ -593,7 +591,7 @@ describe('form-input', () => {
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
-    // no-wheel=true will fire a blur event on the input when wheel fired
+    // `:no-wheel="true"` will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
 
     wrapper.destroy()
@@ -620,7 +618,7 @@ describe('form-input', () => {
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
-    // no-wheel=false will not fire a blur event on the input when wheel fired
+    // `:no-wheel="false"` will not fire a blur event on the input when wheel fired
     expect(spy).not.toHaveBeenCalled()
 
     wrapper.destroy()
@@ -677,16 +675,16 @@ describe('form-input', () => {
     await waitNT(wrapper.vm)
 
     expect(input.element.value).toBe('123.450')
-    // Pre converted value as string
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0].length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual('123.450')
-    // v-model update event (should emit a numerical value)
+    // `v-model` update event (should emit a numerical value)
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toBe(1)
     expect(wrapper.emitted('update')[0].length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
+    // Pre converted value as string (raw input value)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0].length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual('123.450')
 
     // Update the input to be different string-wise, but same numerically
     input.element.value = '123.4500'
@@ -697,16 +695,151 @@ describe('form-input', () => {
     // Should emit a new input event
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual('123.4500')
-    // Should emit a new update event
-    expect(wrapper.emitted('update').length).toBe(2)
+    // `v-model` value stays the same and update event shouldn't be emitted again
+    expect(wrapper.emitted('update').length).toBe(1)
     expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
 
-    // Updating the v-model to new numeric value
+    // Updating the `v-model` to new numeric value
     wrapper.setProps({
       value: 45.6
     })
     await waitNT(wrapper.vm)
     expect(input.element.value).toBe('45.6')
+
+    wrapper.destroy()
+  })
+
+  it('"lazy" modifier prop works', async () => {
+    const wrapper = mount(BFormInput, {
+      propsData: {
+        type: 'text',
+        lazy: true
+      }
+    })
+
+    const input = wrapper.find('input')
+    input.element.value = 'a'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('a')
+    // `v-model` update event should not have emitted
+    expect(wrapper.emitted('update')).not.toBeDefined()
+
+    input.element.value = 'ab'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('ab')
+    // `v-model` update event should not have emitted
+    expect(wrapper.emitted('update')).not.toBeDefined()
+
+    // trigger a change event
+    input.trigger('change')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('ab')
+    // `v-model` update event should have emitted
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toBe('ab')
+
+    input.element.value = 'abc'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('abc')
+    // `v-model` update event should not have emitted new event
+    expect(wrapper.emitted('update').length).toEqual(1)
+
+    input.element.value = 'abcd'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('abcd')
+    // `v-model` update event should not have emitted new event
+    expect(wrapper.emitted('update').length).toEqual(1)
+
+    // Trigger a blur event
+    input.trigger('blur')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('abcd')
+    // `v-model` update event should have emitted
+    expect(wrapper.emitted('update').length).toEqual(2)
+    expect(wrapper.emitted('update')[1][0]).toBe('abcd')
+
+    wrapper.destroy()
+  })
+
+  it('"debounce" prop works', async () => {
+    jest.useFakeTimers()
+    const wrapper = mount(BFormInput, {
+      propsData: {
+        type: 'text',
+        value: '',
+        debounce: 100
+      }
+    })
+
+    const input = wrapper.find('input')
+    input.element.value = 'a'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('a')
+    // `v-model` update event should not have emitted
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    // `input` event should be emitted
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe('a')
+
+    input.element.value = 'ab'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('ab')
+    // `v-model` update event should not have emitted
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    // `input` event should be emitted
+    expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.emitted('input')[1][0]).toBe('ab')
+
+    // Advance timer
+    jest.runOnlyPendingTimers()
+    // Should update the v-model
+    expect(input.element.value).toBe('ab')
+    // `v-model` update event should have emitted
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toBe(1)
+    expect(wrapper.emitted('update')[0][0]).toBe('ab')
+    // `input` event should not have emitted new event
+    expect(wrapper.emitted('input').length).toBe(2)
+
+    // Update input
+    input.element.value = 'abc'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('abc')
+    // `v-model` update event should not have emitted new event
+    expect(wrapper.emitted('update').length).toBe(1)
+    // `input` event should be emitted
+    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input')[2][0]).toBe('abc')
+
+    // Update input
+    input.element.value = 'abcd'
+    input.trigger('input')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('abcd')
+    // `v-model` update event should not have emitted new event
+    expect(wrapper.emitted('update').length).toEqual(1)
+    // `input` event should be emitted
+    expect(wrapper.emitted('input').length).toBe(4)
+    expect(wrapper.emitted('input')[3][0]).toBe('abcd')
+
+    // Trigger a `change` event
+    input.trigger('change')
+    await waitNT(wrapper.vm)
+    expect(input.element.value).toBe('abcd')
+    // `v-model` update event should have emitted (change overrides debounce)
+    expect(wrapper.emitted('update').length).toEqual(2)
+    expect(wrapper.emitted('update')[1][0]).toBe('abcd')
+    // `input` event should not have emitted new event
+    expect(wrapper.emitted('input').length).toBe(4)
 
     wrapper.destroy()
   })
@@ -735,7 +868,6 @@ describe('form-input', () => {
 
     beforeEach(() => {
       // Mock getBCR so that the isVisible(el) test returns true
-      // In our test below, all pagination buttons would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 24,
         height: 24,

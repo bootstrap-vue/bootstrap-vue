@@ -11,9 +11,10 @@ functional layout components.
 
 ## How it works
 
-Bootstrap's grid system uses a series of containers, rows, and columns to lay out and align content.
-It's built with flexbox and is fully responsive. Below is an example and an in-depth look at how the
-grid comes together.
+Bootstrap's grid system uses a series of containers, rows, and columns to layout and align content.
+It's built with
+[flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)
+and is fully responsive. Below is an example and an in-depth look at how the grid comes together.
 
 ```html
 <b-container class="bv-example-row">
@@ -29,17 +30,18 @@ grid comes together.
 
 The above example creates three equal-width columns on small, medium, large, and extra large devices
 using Bootstrap v4's predefined grid classes. Those columns are centered in the page with the parent
-.container.
+`.container`.
 
-Here's how it works:
+Breaking it down, here's how it works:
 
-- Containers provide a means to center your site's contents. Use `<b-container>` for fixed width or
-  `<b-container fluid>` for full width.
-- Rows are horizontal groups of columns that ensure your columns are lined up properly. We use the
-  negative margin method on `<b-row>` to ensure all your content is aligned properly down the left
-  side.
-- Content should be placed within `<b-col>` columns, and only columns may be immediate children of
-  `<b-row>`.
+- Containers provide a means to center and horizontally pad your site's contents. Use
+  `<b-container>` for a responsive pixel width or `<b-container fluid>` for `width: 100%` across all
+  viewport and device sizes.
+- Rows are wrappers for columns. Each column has horizontal `padding` (called a gutter) for
+  controlling the space between them. This `padding` is then counteracted on the rows with negative
+  margins. This way, all the content in your columns is visually aligned down the left side.
+- In a grid layout, content must be placed within columns and only columns may be immediate children
+  of rows.
 - Thanks to flexbox, grid columns without a set width will automatically layout with equal widths.
   For example, four instances of `<b-col sm="auto">` will each automatically be 25% wide for small
   breakpoints.
@@ -50,20 +52,21 @@ Here's how it works:
   possible 12 per row, at the various breakpoints. So, if you want three equal-width columns at
   breakpoint `sm`, you can use `<b-col sm="4">`. the special value `auto` can be used to take up the
   remaining available column space in a row.
-- Column widths, internally, are set in percentages, so they're always fluid and sized relative to
-  their parent element.
-- Columns have horizontal padding to create the gutters between individual columns, however, you can
-  remove the margin from `<b-row>` and padding from `<b-col>` by setting the `no-gutters` prop on
-  `<b-row>`.
-- There are five grid tiers, one for each responsive breakpoint: all breakpoints (extra small),
-  small, medium, large, and extra large.
-- Grid tiers are based on minimum widths, meaning they apply to that one tier and all those above it
-  (e.g., `<b-col sm="4">` applies to small, medium, large, and extra large devices).
+- Column `width`s are set in percentages, so they're always fluid and sized relative to their parent
+  element.
+- Columns have horizontal `padding` to create the gutters between individual columns, however, you
+  can remove the `margin` from `<b-row>` and `padding` from `<b-col>` by setting the `no-gutters`
+  prop on `<b-row>`.
+- To make the grid responsive, there are five grid breakpoints, one for each responsive breakpoint:
+  all breakpoints (extra small), small, medium, large, and extra large.
+- Grid breakpoints are based on minimum width media queries, meaning **they apply to that one
+  breakpoint and all those above it** (e.g., `<b-col sm="4">` applies to small, medium, large, and
+  extra large devices, but not the first `xs` breakpoint).
 - You can use predefined grid classes or Sass mixins for more semantic markup.
 
 Be aware of the limitations and [bugs around flexbox](https://github.com/philipwalton/flexbugs),
 like the
-[inability to use some HTML elements as flex containers](https://github.com/philipwalton/flexbugs#9-some-html-elements-cant-be-flex-containers).
+[inability to use some HTML elements as flex containers](https://github.com/philipwalton/flexbugs#flexbug-9).
 
 ## Containers `<b-container>`
 
@@ -109,7 +112,7 @@ the class `row` applied to it, or - in the case of [forms](/docs/components/form
 
 ## Grid options
 
-While Bootstrap uses `ems` or `rems` for defining most sizes, `px`s are used for grid breakpoints
+While Bootstrap uses `em`s or `rem`s for defining most sizes, `px`s are used for grid breakpoints
 and container widths. This is because the viewport width is in pixels and does not change with the
 [font size](https://drafts.csswg.org/mediaqueries-3/#units).
 
@@ -198,8 +201,8 @@ like `<b-col sm="6">`.
 
 ### Equal-width columns
 
-For example, here are two grid layouts that apply to every device and viewport, from xs to xl. Add
-any number of unit-less classes for each breakpoint you need and every column will be the same
+For example, here are two grid layouts that apply to every device and viewport, from `xs` to `xl`.
+Add any number of unit-less classes for each breakpoint you need and every column will be the same
 width.
 
 ```html
@@ -219,15 +222,16 @@ width.
 <!-- b-grid-equal-width.vue -->
 ```
 
-Equal-width columns can be broken into multiple lines, but there is a
-[Safari flexbox bug](https://github.com/philipwalton/flexbugs#11-min-and-max-size-declarations-are-ignored-when-wrapping-flex-items)
-that prevents this from working without an explicit flex-basis or border. Our example works thanks
-to the border being set; you can do the same with `.col { border: 1px solid transparent; }`.
-Alternatively, you can set the flex-basis to the width of the column (e.g.,
-`.col { flex: 1 0 50%; }`).
+### Equal-width multi-line
 
-Both these fixes have been documented in a
-[reduced test case outside Bootstrap](https://output.jsbin.com/micohor).
+Create equal-width columns that span multiple lines by inserting a `.w-100` where you want the
+columns to break to a new line. Make the breaks responsive by mixing `.w-100` with some
+[responsive display utilities](https://getbootstrap.com/docs/4.3/utilities/display/).
+
+There was a [Safari flexbox bug](https://github.com/philipwalton/flexbugs#flexbug-11) that prevented
+this from working without an explicit `flex-basis` or `border`. There are workarounds for older
+browser versions, but they shouldn't be necessary if your target browsers don't fall into the buggy
+versions.
 
 ```html
 <b-container class="bv-example-row">

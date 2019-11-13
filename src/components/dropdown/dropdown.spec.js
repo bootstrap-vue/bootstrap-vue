@@ -247,6 +247,30 @@ describe('dropdown', () => {
     wrapper.destroy()
   })
 
+  it('should not have "btn-group" class when block is true', async () => {
+    const wrapper = mount(BDropdown, {
+      attachToDocument: true,
+      propsData: {
+        block: true
+      }
+    })
+    expect(wrapper.classes()).not.toContain('btn-group')
+    wrapper.destroy()
+  })
+
+  it('should have "btn-group" and "d-flex" classes when block and split are true', async () => {
+    const wrapper = mount(BDropdown, {
+      attachToDocument: true,
+      propsData: {
+        block: true,
+        split: true
+      }
+    })
+    expect(wrapper.classes()).toContain('btn-group')
+    expect(wrapper.classes()).toContain('d-flex')
+    wrapper.destroy()
+  })
+
   it('should have "dropdown-toggle-no-caret" class when no-caret is true', async () => {
     const wrapper = mount(BDropdown, {
       attachToDocument: true,
@@ -393,8 +417,9 @@ describe('dropdown', () => {
     const localVue = new CreateLocalVue()
     const App = localVue.extend({
       render(h) {
-        return h('div', {}, [
-          h(BDropdown, { props: { id: 'test' } }, [h(BDropdownItem, {}, 'item')])
+        return h('div', { attrs: { id: 'container' } }, [
+          h(BDropdown, { props: { id: 'test' } }, [h(BDropdownItem, {}, 'item')]),
+          h('input', { attrs: { id: 'input' } })
         ])
       }
     })
@@ -410,10 +435,12 @@ describe('dropdown', () => {
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     expect(wrapper.findAll('.dropdown-menu .dropdown-item').length).toBe(1)
 
+    const $container = wrapper.find('#container')
     const $dropdown = wrapper.find('.dropdown')
     const $toggle = wrapper.find('.dropdown-toggle')
     const $menu = wrapper.find('.dropdown-menu')
     const $item = wrapper.find('.dropdown-item')
+    const $input = wrapper.find('#input')
 
     expect($dropdown.isVueInstance()).toBe(true)
 
@@ -456,21 +483,21 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
 
-    // Open menu via .show() method
+    // Open menu via ´.show()´ method
     $dropdown.vm.show()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect($dropdown.classes()).toContain('show')
 
-    // Close menu via .hide() method
+    // Close menu via ´.hide()´ method
     $dropdown.vm.hide()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
 
-    // Open menu via .show() method again
+    // Open menu via ´.show()´ method again
     $dropdown.vm.show()
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -479,10 +506,7 @@ describe('dropdown', () => {
     expect(document.activeElement).toBe($menu.element)
 
     // Close menu by moving focus away from menu
-    // which triggers a focusout event on menu
-    $menu.trigger('focusout', {
-      relatedTarget: document.body
-    })
+    $input.trigger('focusin')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')
@@ -496,17 +520,14 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
 
-    // Close menu by moving focus away from menu
-    // which triggers a focusout event on menu
-    $menu.trigger('focusout', {
-      relatedTarget: document.body
-    })
+    // Close menu by clicking outside
+    $container.trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
-    // Open menu via .show() method again
+    // Open menu via ´.show()´ method again
     $dropdown.vm.show()
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -520,7 +541,7 @@ describe('dropdown', () => {
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
-    // Open menu via .show() method again
+    // Open menu via ´.show()´ method again
     $dropdown.vm.show()
     await waitNT(wrapper.vm)
     await waitRAF()

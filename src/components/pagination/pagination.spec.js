@@ -19,6 +19,7 @@ describe('pagination', () => {
     expect(wrapper.classes()).not.toContain('pagination-lg')
     expect(wrapper.classes()).not.toContain('justify-content-center')
     expect(wrapper.classes()).not.toContain('justify-content-end')
+    expect(wrapper.classes()).not.toContain('b-pagination-pills')
     // Attributes
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
@@ -164,6 +165,30 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
+  it('has class "b-pagination-pills" when prop pills is set', async () => {
+    const wrapper = mount(BPagination, {
+      propsData: {
+        pills: true,
+        totalRows: 1,
+        perPage: 1
+      }
+    })
+    expect(wrapper.is('ul')).toBe(true)
+    // Classes
+    expect(wrapper.classes()).toContain('pagination')
+    expect(wrapper.classes()).toContain('b-pagination')
+    expect(wrapper.classes()).toContain('b-pagination-pills')
+    expect(wrapper.classes()).not.toContain('pagination-lg')
+    expect(wrapper.classes()).not.toContain('justify-content-center')
+    expect(wrapper.classes()).not.toContain('justify-content-end')
+    // Attributes
+    expect(wrapper.attributes('role')).toBe('menubar')
+    expect(wrapper.attributes('aria-disabled')).toBe('false')
+    expect(wrapper.attributes('aria-label')).toBe('Pagination')
+
+    wrapper.destroy()
+  })
+
   it('has class "pagination-sm" when prop size="sm"', async () => {
     const wrapper = mount(BPagination, {
       propsData: {
@@ -180,6 +205,7 @@ describe('pagination', () => {
     expect(wrapper.classes()).not.toContain('pagination-lg')
     expect(wrapper.classes()).not.toContain('justify-content-center')
     expect(wrapper.classes()).not.toContain('justify-content-end')
+    expect(wrapper.classes()).not.toContain('b-pagination-pills')
     // Attributes
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
@@ -204,6 +230,7 @@ describe('pagination', () => {
     expect(wrapper.classes()).toContain('pagination-lg')
     expect(wrapper.classes()).not.toContain('justify-content-center')
     expect(wrapper.classes()).not.toContain('justify-content-end')
+    expect(wrapper.classes()).not.toContain('b-pagination-pills')
     // Attributes
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
@@ -229,6 +256,7 @@ describe('pagination', () => {
     expect(wrapper.classes()).not.toContain('pagination-lg')
     expect(wrapper.classes()).not.toContain('justify-content-center')
     expect(wrapper.classes()).not.toContain('justify-content-end')
+    expect(wrapper.classes()).not.toContain('b-pagination-pills')
     // Attributes
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
@@ -253,6 +281,7 @@ describe('pagination', () => {
     expect(wrapper.classes()).not.toContain('pagination-lg')
     expect(wrapper.classes()).toContain('justify-content-center')
     expect(wrapper.classes()).not.toContain('justify-content-end')
+    expect(wrapper.classes()).not.toContain('b-pagination-pills')
     // Attributes
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
@@ -277,6 +306,7 @@ describe('pagination', () => {
     expect(wrapper.classes()).not.toContain('pagination-lg')
     expect(wrapper.classes()).not.toContain('justify-content-center')
     expect(wrapper.classes()).toContain('justify-content-end')
+    expect(wrapper.classes()).not.toContain('b-pagination-pills')
     // Attributes
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
@@ -301,6 +331,7 @@ describe('pagination', () => {
     expect(wrapper.classes()).not.toContain('pagination-lg')
     expect(wrapper.classes()).not.toContain('justify-content-center')
     expect(wrapper.classes()).toContain('justify-content-end')
+    expect(wrapper.classes()).not.toContain('b-pagination-pills')
     // Attributes
     expect(wrapper.attributes('role')).toBe('menubar')
     expect(wrapper.attributes('aria-disabled')).toBe('false')
@@ -329,6 +360,7 @@ describe('pagination', () => {
     expect(wrapper.classes()).not.toContain('pagination-lg')
     expect(wrapper.classes()).not.toContain('justify-content-center')
     expect(wrapper.classes()).not.toContain('justify-content-end')
+    expect(wrapper.classes()).not.toContain('b-pagination-pills')
 
     expect(wrapper.findAll('li.flex-fill').length).toBe(8)
 
@@ -832,13 +864,22 @@ describe('pagination', () => {
       expect(document.activeElement).toEqual(links.at(3).element)
 
       // LEFT
-      // links.at(3).trigger('keydown.left')
       wrapper.trigger('keydown.left')
       await waitNT(wrapper.vm)
       expect(document.activeElement).toEqual(links.at(2).element)
 
       // RIGHT
       links.at(2).trigger('keydown.right')
+      await waitNT(wrapper.vm)
+      expect(document.activeElement).toEqual(links.at(3).element)
+
+      // UP (same as LEFT)
+      wrapper.trigger('keydown.up')
+      await waitNT(wrapper.vm)
+      expect(document.activeElement).toEqual(links.at(2).element)
+
+      // DOWN (same as RIGHT)
+      links.at(2).trigger('keydown.down')
       await waitNT(wrapper.vm)
       expect(document.activeElement).toEqual(links.at(3).element)
 

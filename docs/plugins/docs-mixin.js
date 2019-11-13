@@ -71,13 +71,6 @@ export default {
     }
   },
 
-  head() {
-    return {
-      title: this.headTitle,
-      meta: this.headMeta
-    }
-  },
-
   mounted() {
     clearTimeout(this.scrollTimeout)
     this.scrollTimeout = null
@@ -134,6 +127,13 @@ export default {
           this.scrollTimeout = null
         }, 100)
       }
+    }
+  },
+
+  head() {
+    return {
+      title: this.headTitle,
+      meta: this.headMeta
     }
   }
 }

@@ -8,6 +8,9 @@ export const props = {
   }
 }
 
+const LIGHT = 'light'
+const DARK = 'dark'
+
 // @vue/component
 export const BTr = /*#__PURE__*/ Vue.extend({
   name: 'BTr',
@@ -56,16 +59,33 @@ export const BTr = /*#__PURE__*/ Vue.extend({
       // Sticky headers are only supported in thead
       return this.bvTableRowGroup.isStickyHeader
     },
+    hasStickyHeader() {
+      // Sniffed by <b-tr> / <b-td> / <b-th>
+      // Needed to handle header background classes, due to lack of
+      // background color inheritance with Bootstrap v4 table CSS
+      return !this.isStacked && this.bvTableRowGroup.hasStickyHeader
+    },
     tableVariant() {
       // Sniffed by <b-td> / <b-th>
       return this.bvTableRowGroup.tableVariant
     },
     headVariant() {
       // Sniffed by <b-td> / <b-th>
-      return this.bvTableRowGroup.headVariant
+      return this.inThead ? this.bvTableRowGroup.headVariant : null
+    },
+    footVariant() {
+      // Sniffed by <b-td> / <b-th>
+      return this.inTfoot ? this.bvTableRowGroup.footVariant : null
+    },
+    isRowDark() {
+      return this.headVariant === LIGHT || this.footVariant === LIGHT
+        ? false
+        : this.headVariant === DARK || this.footVariant === DARK
+          ? true
+          : this.isDark
     },
     trClasses() {
-      return [this.variant ? `${this.isDark ? 'bg' : 'table'}-${this.variant}` : null]
+      return [this.variant ? `${this.isRowDark ? 'bg' : 'table'}-${this.variant}` : null]
     },
     trAttrs() {
       return { role: 'row', ...this.$attrs }

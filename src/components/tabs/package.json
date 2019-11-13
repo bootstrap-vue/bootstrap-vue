@@ -94,6 +94,28 @@
             ]
           },
           {
+            "event": "activate-tab",
+            "version": "2.1.0",
+            "description": "Emitted just before a tab is shown/activated. Cancelable",
+            "args": [
+              {
+                "arg": "newTabIndex",
+                "type": "Number",
+                "description": "Tab being activated (0-based index)"
+              },
+              {
+                "arg": "prevTabIndex",
+                "type": "Number",
+                "description": "Tab that is currently active (0-based index). Will be -1 if no current active tab"
+              },
+              {
+                "arg": "bvEvt",
+                "type": "BvEvent",
+                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel"
+              }
+            ]
+          },
+          {
             "event": "changed",
             "description": "Emitted when a tab is added, removed, or tabs are re-ordered",
             "args": [

@@ -243,8 +243,79 @@ If the `state` prop is set to `false`, and the `aria-invalid` prop is not explic
 
 ## Formatter support
 
-Refer to the [`<b-form-input>`](/docs/components/form-input) documentation regarding usage of the
-optional formatter feature.
+`<b-form-textarea>` optionally supports formatting by passing a function reference to the
+`formatter` prop.
+
+Formatting (when a formatter function is supplied) occurs when the control's native `input` and
+`change` events fire. You can use the boolean prop `lazy-formatter` to restrict the formatter
+function to being called on the control's native `blur` event.
+
+The `formatter` function receives two arguments: the raw `value` of the input element, and the
+native `event` object that triggered the format (if available).
+
+The `formatter` function should return the formatted value as a _string_.
+
+Formatting does not occur if a `formatter` is not provided.
+
+```html
+<template>
+  <div>
+    <b-form-group
+      class="mb-0"
+      label="Textarea with formatter (on input)"
+      label-for="textarea-formatter"
+      description="We will convert your text to lowercase instantly"
+    >
+      <b-form-textarea
+        id="textarea-formatter"
+        v-model="text1"
+        placeholder="Enter your text"
+        :formatter="format"
+      ></b-form-textarea>
+    </b-form-group>
+    <p style="white-space: pre-line"><b>Value:</b> {{ text1 }}</p>
+
+    <b-form-group
+      class="mb-0"
+      label="Textarea with lazy formatter (on blur)"
+      label-for="textarea-lazy"
+      description="This one is a little lazy!"
+    >
+      <b-form-textarea
+        id="textarea-lazy"
+        v-model="text2"
+        placeholder="Enter your text"
+        lazy-formatter
+        :formatter="format"
+      ></b-form-textarea>
+    </b-form-group>
+    <p class="mb-0" style="white-space: pre-line"><b>Value:</b> {{ text2 }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        text1: '',
+        text2: ''
+      }
+    },
+    methods: {
+      format(value, event) {
+        return value.toLowerCase()
+      }
+    }
+  }
+</script>
+
+<!-- b-form-textarea-formatter.vue -->
+```
+
+**Note:** With non-lazy formatting, if the cursor is not at the end of the input value, the cursor
+may jump to the end _after_ a character is typed. You can use the provided event object and the
+`event.target` to access the native input's selection methods and properties to control where the
+insertion point is. This is left as an exercise for the reader.
 
 ## Readonly plain text
 
@@ -277,9 +348,9 @@ form field styling and preserve the correct text size, margin, padding and heigh
 Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of custom
 component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
 
-To get around this, `<b-for-textarea>` and `<b-form-input>` have two boolean props `trim` and
-`number` which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectively.
-Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `blur` events instead).
+To get around this, `<b-form-textarea>` has three boolean props `trim`, `number`, and `lazy` which
+emulate the native Vue `v-model` modifiers `.trim` and `.number` and `.lazy` respectively. The
+`lazy` prop will update the v-model on `change`/`blur`events.
 
 **Notes:**
 
@@ -293,12 +364,45 @@ Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `bl
   optional formatting (which may not match the value returned via the `v-model` `update` event,
   which handles the modifiers).
 
+## Debounce support
+
+As an alternative to the `lazy` modifier prop, `<b-form-textarea>` optionally supports debouncing
+user input, updating the `v-model` after a period of idle time from when the last character was
+entered by the user (or a `change` event occurs). If the user enters a new character (or deletes
+characters) before the idle timeout expires, the timeout is re-started.
+
+To enable debouncing, set the prop `debounce` to any integer greater than zero. The value is
+specified in milliseconds. Setting `debounce` to `0` will disable debouncing.
+
+Note: debouncing will _not_ occur if the `lazy` prop is set.
+
+```html
+<template>
+  <div>
+    <b-form-textarea v-model="value" debounce="500" rows="3" max-rows="5"></b-form-textarea>
+    <pre class="mt-2 mb-0">{{ value }}</pre>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    }
+  }
+</script>
+
+<!-- b-form-textarea-debounce.vue -->
+```
+
 ## Autofocus
 
-When the `autofocus` prop is set on `<b-form-textarea>`, the tetarea will be auto-focused when it is
-inserted (i.e. **mounted**) into the document or re-activated when inside a Vue `<keep-alive>`
-component. Note that this prop **does not** set the `autofocus` attribute on the tetarea, nor can it
-tell when the textarea becomes visible.
+When the `autofocus` prop is set on `<b-form-textarea>`, the textarea will be auto-focused when it
+is inserted (i.e. **mounted**) into the document or re-activated when inside a Vue `<keep-alive>`
+component. Note that this prop **does not** set the `autofocus` attribute on the textarea, nor can
+it tell when the textarea becomes visible.
 
 ## Native and custom events
 
@@ -315,8 +419,8 @@ You can always access the native `input` and `change` events by using the `.nati
 
 ## Exposed input properties and methods
 
-`<b-form-input>` exposes several of the native input element's properties and methods on the
-component reference (i.e. assign a `ref` to your `<b-form-input ref="foo" ...>` and use
+`<b-form-textarea>` exposes several of the native input element's properties and methods on the
+component reference (i.e. assign a `ref` to your `<b-form-textarea ref="foo" ...>` and use
 `this.$refs['foo'].propertyName` or `this.$refs['foo'].methodName(...)`).
 
 ### Input properties
@@ -345,9 +449,5 @@ component reference (i.e. assign a `ref` to your `<b-form-input ref="foo" ...>` 
 
 Refer to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement for more information on
 these methods and properties. Support will vary based on input type.
-
-## Component alias
-
-You can use `<b-form-textarea>` by it's shorter alias `<b-textarea>`.
 
 <!-- Component reference added automatically from component package.json -->

@@ -1,2 +1,2 @@
-// <pagination> and <pagination-nav> require the helper utility classes
-@import "../../utilities";
+// <pagination-nav> shares <pagination> SCSS
+@import "../pagination/index";

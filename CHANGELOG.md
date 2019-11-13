@@ -4,6 +4,115 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.1.0"></a>
+
+## [v2.1.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.4...v2.1.0)
+
+Released: 2019-11-12
+
+### Features v2.1.0
+
+- auto-generate file `web-types.json` for WebStorm, and files `vetur-tags.json` and
+  `vetur-attributes.json` for Vetur (closes
+  [#4107](https://github.com/bootstrap-vue/bootstrap-vue/issues/4107))
+  ([#4110](https://github.com/bootstrap-vue/bootstrap-vue/issues/4110))
+  ([1a3e6a5](https://github.com/bootstrap-vue/bootstrap-vue/commit/1a3e6a5))
+- **b-dropdown:** add `block` support to toggle button (closes
+  [#4266](https://github.com/bootstrap-vue/bootstrap-vue/issues/4266))
+  ([#4269](https://github.com/bootstrap-vue/bootstrap-vue/issues/4269))
+  ([30029e3](https://github.com/bootstrap-vue/bootstrap-vue/commit/30029e3))
+- **b-form-group:** allow setting label cols props to `auto` (closes
+  [#4217](https://github.com/bootstrap-vue/bootstrap-vue/issues/4217))
+  ([#4218](https://github.com/bootstrap-vue/bootstrap-vue/issues/4218))
+  ([21a822b](https://github.com/bootstrap-vue/bootstrap-vue/commit/21a822b))
+- **b-form-input, b-form-textarea:** add `lazy` modifier prop to update v-model on change/blur event
+  ([#4169](https://github.com/bootstrap-vue/bootstrap-vue/issues/4169))
+  ([55787dd](https://github.com/bootstrap-vue/bootstrap-vue/commit/55787dd))
+- **b-form-input, b-form-textarea:** add `v-model` debouncing feature, and deprecate `<b-table>`
+  prop `filter-debounce` (closes
+  [#4150](https://github.com/bootstrap-vue/bootstrap-vue/issues/4150))
+  ([#4314](https://github.com/bootstrap-vue/bootstrap-vue/issues/4314))
+  ([3ecdfa2](https://github.com/bootstrap-vue/bootstrap-vue/commit/3ecdfa2))
+- **b-img, b-img-lazy:** add support for `srcset` and `sizes` props (closes
+  [#4348](https://github.com/bootstrap-vue/bootstrap-vue/issues/4348))
+  ([#4350](https://github.com/bootstrap-vue/bootstrap-vue/issues/4350))
+  ([f419cb4](https://github.com/bootstrap-vue/bootstrap-vue/commit/f419cb4))
+- **b-pagination, b-pagination-nav:** add `pills` style option
+  ([#4236](https://github.com/bootstrap-vue/bootstrap-vue/issues/4236))
+  ([605d4c4](https://github.com/bootstrap-vue/bootstrap-vue/commit/605d4c4))
+- **b-table:** add `selectRow()` and `unselectRow()` methods to cell and row-details slot scopes,
+  and new prop `no-select-on-click`
+  ([#4283](https://github.com/bootstrap-vue/bootstrap-vue/issues/4283))
+  ([64b881f](https://github.com/bootstrap-vue/bootstrap-vue/commit/64b881f))
+- **b-table:** default the row select feature `selected-variant` to the `active` variant
+  ([#4128](https://github.com/bootstrap-vue/bootstrap-vue/issues/4128))
+  ([af372b0](https://github.com/bootstrap-vue/bootstrap-vue/commit/af372b0))
+- **b-table, b-table-lite:** add in head/foot row variant prop (addresses
+  [#4215](https://github.com/bootstrap-vue/bootstrap-vue/issues/4215))
+  ([#4216](https://github.com/bootstrap-vue/bootstrap-vue/issues/4216))
+  ([b222c7c](https://github.com/bootstrap-vue/bootstrap-vue/commit/b222c7c))
+- **b-table, b-table-lite:** add prop `details-td-class` for applying classes to the details row
+  `<td>` ([#4276](https://github.com/bootstrap-vue/bootstrap-vue/issues/4276))
+  ([702a1ef](https://github.com/bootstrap-vue/bootstrap-vue/commit/702a1ef))
+- **b-tabs:** emit cancelable BvEvent before changing tabs via new `activate-tab` event (closes
+  [#4273](https://github.com/bootstrap-vue/bootstrap-vue/issues/4273))
+  ([#4274](https://github.com/bootstrap-vue/bootstrap-vue/issues/4274))
+  ([9b195dd](https://github.com/bootstrap-vue/bootstrap-vue/commit/9b195dd))
+- **v-b-visible:** make `v-b-visible` directive available for public use
+  ([#4318](https://github.com/bootstrap-vue/bootstrap-vue/issues/4318))
+  ([5fa7e22](https://github.com/bootstrap-vue/bootstrap-vue/commit/5fa7e22))
+
+### Bug Fixes v2.1.0
+
+- **b-dropdown:** handle issue with touch devices on MacOS using Safari/Firefox (Fixes
+  [#4328](https://github.com/bootstrap-vue/bootstrap-vue/issues/4328),
+  [#4344](https://github.com/bootstrap-vue/bootstrap-vue/issues/4344))
+  ([#4329](https://github.com/bootstrap-vue/bootstrap-vue/issues/4329))
+  ([2779a0a](https://github.com/bootstrap-vue/bootstrap-vue/commit/2779a0a))
+- **b-nav-form, b-nav-text:** ensure these sub-components have `<li>` as root element for
+  accessibility ([#4100](https://github.com/bootstrap-vue/bootstrap-vue/issues/4100))
+  ([6774800](https://github.com/bootstrap-vue/bootstrap-vue/commit/6774800))
+- **b-pagination, b-pagination-nav:** add UP/DOWN keyboard navigation support for JAWS (fixes
+  [#4322](https://github.com/bootstrap-vue/bootstrap-vue/issues/4322))
+  ([#4325](https://github.com/bootstrap-vue/bootstrap-vue/issues/4325))
+  ([c686088](https://github.com/bootstrap-vue/bootstrap-vue/commit/c686088))
+- **b-table, b-table-lite, b-table-simple:** fix issue with sticky columns when table is not
+  responsive but has sticky headers
+  (fixes [#4354](https://github.com/bootstrap-vue/bootstrap-vue/issues/4354))
+  ([#4356](https://github.com/bootstrap-vue/bootstrap-vue/issues/4356))
+  ([56b3958](https://github.com/bootstrap-vue/bootstrap-vue/commit/56b3958))
+- **b-table, b-table-lite, b-tbody:** fix delegated event handlers when transition + minor
+  adjustment to row `key` generation (fixes
+  [#4370](https://github.com/bootstrap-vue/bootstrap-vue/issues/4370),
+  [#4360](https://github.com/bootstrap-vue/bootstrap-vue/issues/4360))
+  ([#4372](https://github.com/bootstrap-vue/bootstrap-vue/issues/4372))
+  ([030a3d8](https://github.com/bootstrap-vue/bootstrap-vue/commit/030a3d8))
+- **b-tabs:** allow space to trigger tab activation when `no-key-nav` is enabled (fixes
+  [#4323](https://github.com/bootstrap-vue/bootstrap-vue/issues/4323))
+  ([#4326](https://github.com/bootstrap-vue/bootstrap-vue/issues/4326))
+  ([731365b](https://github.com/bootstrap-vue/bootstrap-vue/commit/731365b))
+- **v-b-modal:** ensure trigger element is keyboard accessible if not a link or button, for A11Y
+  ([#4365](https://github.com/bootstrap-vue/bootstrap-vue/issues/4365))
+  ([f54ca29](https://github.com/bootstrap-vue/bootstrap-vue/commit/f54ca29))
+- **v-b-modal:** open modal using `ENTER` key on non-button elements for A11Y
+  ([#4364](https://github.com/bootstrap-vue/bootstrap-vue/issues/4364))
+  ([0d27d7b](https://github.com/bootstrap-vue/bootstrap-vue/commit/0d27d7b))
+- **v-b-tooltip, v-b-popover:** ensure reference to trigger element is passed to title/content
+  function (fixes [#4331](https://github.com/bootstrap-vue/bootstrap-vue/issues/4331))
+  ([#4332](https://github.com/bootstrap-vue/bootstrap-vue/issues/4332))
+  ([ea0cbda](https://github.com/bootstrap-vue/bootstrap-vue/commit/ea0cbda))
+- **v-b-visible:** fix type error in `componentUpdated` hook + minor docs update/fixes
+  ([#4327](https://github.com/bootstrap-vue/bootstrap-vue/issues/4327))
+  ([5f3ba9e](https://github.com/bootstrap-vue/bootstrap-vue/commit/5f3ba9e))
+- **web-types:** update web-types code generation to match latest schema
+  ([#4271](https://github.com/bootstrap-vue/bootstrap-vue/issues/4271))
+  ([009431e](https://github.com/bootstrap-vue/bootstrap-vue/commit/009431e))
+
+### Other v2.1.0
+
+- **b-table:** deprecate prop `filter-debounce` in favour of `b-form-input` debouncing
+- documentation updates and fixes
+
 <a name="2.0.4"></a>
 
 ## [v2.0.4](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.3...v2.0.4)
@@ -48,15 +157,15 @@ Released: 2019-10-05
 - **b-form-file:** fix prop type checking for `value` prop
   ([#4168](https://github.com/bootstrap-vue/bootstrap-vue/issues/4168))
   ([a8e2e56](https://github.com/bootstrap-vue/bootstrap-vue/commit/a8e2e56))
-- **b-nav-item-dropdown:** focus-out handling when new focus comes from another `dropdown-toggle` (closes
-  [#4113](https://github.com/bootstrap-vue/bootstrap-vue/issues/4113))
+- **b-nav-item-dropdown:** focus-out handling when new focus comes from another `dropdown-toggle`
+  (closes [#4113](https://github.com/bootstrap-vue/bootstrap-vue/issues/4113))
   ([#4139](https://github.com/bootstrap-vue/bootstrap-vue/issues/4139))
   ([9c37875](https://github.com/bootstrap-vue/bootstrap-vue/commit/9c37875))
 - **b-table:** minor code optimizations to filter debouncing
   ([#4167](https://github.com/bootstrap-vue/bootstrap-vue/issues/4167))
   ([018eef1](https://github.com/bootstrap-vue/bootstrap-vue/commit/018eef1))
-- **b-table, b-table-lite, b-table-simple:** disable sticky header max-height on printers / print media
-  ([#4147](https://github.com/bootstrap-vue/bootstrap-vue/issues/4147))
+- **b-table, b-table-lite, b-table-simple:** disable sticky header max-height on printers / print
+  media ([#4147](https://github.com/bootstrap-vue/bootstrap-vue/issues/4147))
   ([24c62c5](https://github.com/bootstrap-vue/bootstrap-vue/commit/24c62c5))
 - **b-tooltip, b-popover:** add `SVGElement` as acceptable prop type (closes
   [#4173](https://github.com/bootstrap-vue/bootstrap-vue/issues/4173))
@@ -86,8 +195,8 @@ Released: 2019-10-05
   [#3647](https://github.com/bootstrap-vue/bootstrap-vue/issues/3647))
   ([#4161](https://github.com/bootstrap-vue/bootstrap-vue/issues/4161))
   ([fdd2a83](https://github.com/bootstrap-vue/bootstrap-vue/commit/fdd2a83))
-- add quick links (page table of contents) to docs pages for small screens, and add table of contents to
-  section index pages (instead of a redirect to first child page)
+- add quick links (page table of contents) to docs pages for small screens, and add table of
+  contents to section index pages (instead of a redirect to first child page)
   ([#4145](https://github.com/bootstrap-vue/bootstrap-vue/issues/4145))
   ([22268aa](https://github.com/bootstrap-vue/bootstrap-vue/commit/22268aa))
 
@@ -2032,7 +2141,7 @@ Released: (2019-02-14)
 - **table:** add support for transitions on tbody element
   ([#1821](https://github.com/bootstrap-vue/bootstrap-vue/issues/1821))
   ([#2450](https://github.com/bootstrap-vue/bootstrap-vue/issues/2450))
-  ([91514af](https://github.com/bootstrap-vue/bootstrap-vue/commit/91514af))
+  ([91514af](https://github.com/bootstrap-vue/bootstrap-vue/commit/91514af445221286ef0bc55985556d58e3c54fdc))
 - **table:** add table row middle click (auxclicked) event
   ([#2425](https://github.com/bootstrap-vue/bootstrap-vue/issues/2425))
   ([23250a2](https://github.com/bootstrap-vue/bootstrap-vue/commit/23250a2))
@@ -2261,7 +2370,7 @@ Released: 2018-04-01
 ### Bug Fixes v2.0.0-rc.4
 
 - **build:** don't exclude lodash.get
-  ([543c3c2](https://github.com/bootstrap-vue/bootstrap-vue/commit/543c3c2))
+  ([543c3c2](https://github.com/bootstrap-vue/bootstrap-vue/commit/543c3c2f9aeccffb03c571aeea93333774243ab3))
 - **card:** pass children instead of default prop to sub-components
   ([63b35e3](https://github.com/bootstrap-vue/bootstrap-vue/commit/63b35e3))
 

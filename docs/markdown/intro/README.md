@@ -179,7 +179,7 @@ module bundlers documentation.
 **Notes**:
 
 - Webpack configuration to load CSS files
-  ([official guide](https://webpack.js.org/guides/asset-management/#loading-css)).
+  ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))
 - Webpack Loader for SASS/SCSS files ([official guide](https://webpack.js.org/loaders/sass-loader/))
 - Parcel CSS ([official guide](https://parceljs.org/css.html))
 - Parcel SCSS ([official guide](https://parceljs.org/scss.html))
@@ -229,7 +229,8 @@ Guide for full details on setting up aliases for [webpack](https://webpack.js.or
 ## Tree shaking with module bundlers
 
 When using a module bundler you can optionally import only specific components groups (plugins),
-components and/or directives.
+components and/or directives. Note tree shaking only applies to the JavaScript code and not
+CSS/SCSS.
 
 <div class="alert alert-info">
   <p class="mb-0">
@@ -473,7 +474,8 @@ The BootstrapVue Nuxt plugin module will automatically add in the BootstrapVue s
 
 If you wish to reduce your production bundle size because you only use a subset of the available
 BootstrapVue plugins, you can configure the list of BootstrapVue `componentPlugins` or
-`directivePlugins` you want to globally install in your Nuxt.js project.
+`directivePlugins` you want to globally install in your Nuxt.js project. Note tree shaking only
+applies to the JavaScript code and not CSS/SCSS.
 
 ```js
 module.exports = {
@@ -742,8 +744,15 @@ above for an example.
 
 ## Tooling support
 
+BootstrapVue provides additional helper files for auto completion in popular IDE editors.
+
 ### VS Code + Vetur
 
 If you are using [VS Code](https://code.visualstudio.com/) as your text editor, BootstrapVue has
-intellisense autocompletion for component attributes available when using the
-[Vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur).
+intellisense autocompletion for component attributes and directives available via the
+`dist/vetur-tags.json` and `dist/vetur-attributes.json` files.
+
+### JetBrains WebStorm (and compatible)
+
+For [WebStorm](https://www.jetbrains.com/webstorm/) editor (or web-types compatible), BootstrapVue
+provides the file `dist/web-types.json` for component attribute and directive auto-completion.

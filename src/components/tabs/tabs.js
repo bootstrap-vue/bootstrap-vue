@@ -4,6 +4,7 @@ import looseEqual from '../../utils/loose-equal'
 import observeDom from '../../utils/observe-dom'
 import stableSort from '../../utils/stable-sort'
 import { arrayIncludes, concat } from '../../utils/array'
+import { BvEvent } from '../../utils/bv-event.class'
 import { requestAF, selectAll } from '../../utils/dom'
 import { isEvent } from '../../utils/inspect'
 import { omit } from '../../utils/object'
@@ -70,8 +71,10 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
       if (type === 'click') {
         stop()
         this.$emit('click', evt)
-      } else if (type === 'keydown' && !this.noKeyNav && key === KeyCodes.SPACE) {
-        // In keynav mode, SPACE press will also trigger a click/select
+      } else if (type === 'keydown' && key === KeyCodes.SPACE) {
+        // For ARIA tabs the SPACE key will also trigger a click/select
+        // Even with keyboard navigation disabled, SPACE should "click" the button
+        // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/4323
         stop()
         this.$emit('click', evt)
       } else if (type === 'keydown' && !this.noKeyNav) {
@@ -262,7 +265,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         old = parseInt(old, 10) || 0
         const tabs = this.tabs
         if (tabs[val] && !tabs[val].disabled) {
-          this.currentTab = val
+          this.activateTab(tabs[val])
         } else {
           // Try next or prev tabs
           if (val < old) {
@@ -481,14 +484,22 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       let result = false
       if (tab) {
         const index = this.tabs.indexOf(tab)
-        if (!tab.disabled && index > -1) {
-          result = true
-          this.currentTab = index
+        if (!tab.disabled && index > -1 && index !== this.currentTab) {
+          const tabEvt = new BvEvent('activate-tab', {
+            cancelable: true,
+            vueTarget: this,
+            componentId: this.safeId()
+          })
+          this.$emit(tabEvt.type, index, this.currentTab, tabEvt)
+          if (!tabEvt.defaultPrevented) {
+            result = true
+            this.currentTab = index
+          }
         }
       }
-      if (!result) {
-        // Couldn't set tab, so ensure v-model is set to `this.currentTab`
-        /* istanbul ignore next: should rarely happen */
+      // Couldn't set tab, so ensure v-model is set to `this.currentTab`
+      /* istanbul ignore next: should rarely happen */
+      if (!result && this.currentTab !== this.value) {
         this.$emit('input', this.currentTab)
       }
       return result
@@ -500,11 +511,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         // Find first non-disabled tab that isn't the one being deactivated
         // If no tabs are available, then don't deactivate current tab
         return this.activateTab(this.tabs.filter(t => t !== tab).find(notDisabled))
-      } else {
-        // No tab specified
-        /* istanbul ignore next: should never happen */
-        return false
       }
+      /* istanbul ignore next: should never/rarely happen */
+      return false
     },
     // Focus a tab button given it's <b-tab> instance
     focusButton(tab) {

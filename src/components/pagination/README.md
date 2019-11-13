@@ -224,6 +224,46 @@ smaller buttons or `'lg'` for larger buttons.
 <!-- b-pagination-size.vue -->
 ```
 
+### Pill style
+
+Easily switch to pill style buttons by setting the `pills` prop
+
+```html
+<template>
+  <div class="overflow-auto">
+    <div>
+      <h6>Small Pills</h6>
+      <b-pagination v-model="currentPage" pills :total-rows="rows" size="sm"></b-pagination>
+    </div>
+
+    <div class="mt-3">
+      <h6>Default Pills</h6>
+      <b-pagination v-model="currentPage" pills :total-rows="rows"></b-pagination>
+    </div>
+
+    <div class="mt-3">
+      <h6>Large Pills</h6>
+      <b-pagination v-model="currentPage" pills :total-rows="rows" size="lg"></b-pagination>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        rows: 100,
+        currentPage: 1
+      }
+    }
+  }
+</script>
+
+<!-- b-pagination-pills.vue -->
+```
+
+**Note:** Pill styling requires BootstrapVue's custom CSS/SCSS.
+
 ### Alignment
 
 By default the pagination component is left aligned. Change the alignment to `center`, `right`
@@ -307,9 +347,9 @@ recommended unless the content of the button textually conveys it's purpose.
 pattern.
 
 - Tabbing into the pagination component will autofocus the current active page button
-- <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the
-  page list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the
-  focused page button
+- <kbd>LEFT</kbd> (or <kbd>UP</kbd>) and <kbd>RIGHT</kbd> (or <kbd>DOWN</kbd>) arrow keys will focus
+  the previous and next buttons, respectively, in the page list
+- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the currently focused page button
 - Pressing <kbd>TAB</kbd> will move to the next control or link on the page, while pressing
   <kbd>SHIFT</kbd>+<kbd>TAB</kbd> will move to the previous control or link on the page.
 
