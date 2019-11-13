@@ -1,6 +1,7 @@
 import get from '../../../utils/get'
 import toString from '../../../utils/to-string'
 import { isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
+import { BVCollapse } from '../../../utils/bv-collapse'
 import { BTr } from '../tr'
 import { BTd } from '../td'
 import { BTh } from '../th'
@@ -16,6 +17,10 @@ export default {
     detailsTdClass: {
       type: [String, Array, Object],
       default: null
+    },
+    detailsCollapse: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -179,6 +184,7 @@ export default {
       const tableStriped = this.striped
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const rowShowDetails = Boolean(item._showDetails && hasDetailsSlot)
+      const detailsCollapse = this.detailsCollapse
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.hasSelectableRowClick
 
       // We can return more than one TR if rowDetails enabled
@@ -265,11 +271,6 @@ export default {
           detailsScope.unselectRow = () => this.unselectRow(rowIndex)
         }
 
-        // Render the details slot in a TD
-        const $details = h(BTd, { props: { colspan: fields.length }, class: this.detailsTdClass }, [
-          this.normalizeSlot(detailsSlotName, detailsScope)
-        ])
-
         // Add a hidden row to keep table row striping consistent when details showing
         // Only added if the table is striped
         if (tableStriped) {
@@ -283,31 +284,38 @@ export default {
           )
         }
 
+        // Render the details slot in a TD
+        let $details = h(BTd, { props: { colspan: fields.length }, class: this.detailsTdClass }, [
+          this.normalizeSlot(detailsSlotName, detailsScope)
+        ])
         // Add the actual details row
-        $rows.push(
-          h(
-            BTr,
-            {
-              key: `__b-table-details__${rowKey}`,
-              staticClass: 'b-table-details',
-              class: [
-                isFunction(this.tbodyTrClass)
-                  ? this.tbodyTrClass(item, detailsSlotName)
-                  : this.tbodyTrClass
-              ],
-              props: { variant: item._rowVariant || null },
-              attrs: { id: detailsId, tabindex: '-1' }
-            },
-            [$details]
-          )
+        $details = h(
+          BTr,
+          {
+            key: `__b-table-details__${rowKey}`,
+            staticClass: 'b-table-details',
+            class: [
+              isFunction(this.tbodyTrClass)
+                ? this.tbodyTrClass(item, detailsSlotName)
+                : this.tbodyTrClass
+            ],
+            props: { variant: item._rowVariant || null },
+            attrs: { id: detailsId, tabindex: '-1' }
+          },
+          [$details]
         )
+        // Wrap in transition if collapsing requested
+        $details = detailsCollapse
+          ? h(BVCollapse, { props: { appear: true } }, [$details])
+          : $details
+        $rows.push($details)
       } else if (hasDetailsSlot) {
-        // Only add the placeholder if a the table has a row-details slot defined (but not shown)
-        $rows.push(h())
         if (tableStriped) {
           // Add extra placeholder if table is striped
           $rows.push(h())
         }
+        // Only add the placeholder if a the table has a row-details slot defined (but not shown)
+        $rows.push(detailsCollapse ? h(BVCollapse, { props: { appear: true } }, [h()]) : h())
       }
 
       // Return the row(s)
