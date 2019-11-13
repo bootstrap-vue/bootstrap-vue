@@ -3,6 +3,8 @@
 // Note:
 //   Applies the classes `collapse`, `show` and `collapsing`
 //   during the enter/leave transition phases only
+//   Although it appears that Vue may be leaving the classes
+//   in-place after the transition completes
 import Vue from './vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getBCR, reflow, requestAF } from './dom'
