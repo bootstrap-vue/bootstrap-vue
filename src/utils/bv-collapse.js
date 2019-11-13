@@ -12,6 +12,7 @@ import { getBCR, reflow, requestAF } from './dom'
 // Transition event handler helpers
 const onEnter = el => {
   el.style.height = 0
+  // Animaton frame delay neeeded for `appear` to work
   requestAF(() => {
     reflow(el)
     el.style.height = `${el.scrollHeight}px`
