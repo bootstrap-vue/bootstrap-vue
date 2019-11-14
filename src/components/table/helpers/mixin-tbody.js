@@ -27,7 +27,7 @@ export default {
       const refs = this.$refs || {}
       const tbody = refs.tbody ? refs.tbody.$el || refs.tbody : null
       const trs = (refs.itemRows || []).map(tr => tr.$el || tr)
-      return tbody && trs.length
+      return tbody && tbody.children && tbody.children.length > 0 && trs && trs.length > 0
         ? arrayFrom(tbody.children).filter(tr => arrayIncludes(trs, tr))
         : []
     },
