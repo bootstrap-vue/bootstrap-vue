@@ -43,9 +43,7 @@ export default {
     },
     emitTbodyRowEvent(type, evt) {
       // Emits a row event, with the item object, row index and original event
-      // If a consumer listener is not registered for the event type, do not
-      // emit the event (to save on row index processing/lookup time)
-      if (type && this.$listeners[type] && evt && evt.target) {
+      if (type && evt && evt.target) {
         const rowIndex = this.getTbodyTrIndex(evt.target)
         if (rowIndex > -1) {
           // The array of TRs correlate to the `computedItems` array
@@ -103,6 +101,7 @@ export default {
       }
     },
     onTBodyRowClicked(evt) {
+      // Row-clicked handler is only added when needed
       if (this.tbodyRowEvtStopped(evt)) {
         // If table is busy, then don't propagate
         return
@@ -114,18 +113,21 @@ export default {
       this.emitTbodyRowEvent('row-clicked', evt)
     },
     onTbodyRowMiddleMouseRowClicked(evt) {
-      if (!this.tbodyRowEvtStopped(evt) && evt.which === 2) {
-        this.emitTbodyRowEvent('row-middle-clicked', evt)
+      const type = 'row-middle-clicked'
+      if (this.$listeners[type] && !this.tbodyRowEvtStopped(evt) && evt.which === 2) {
+        this.emitTbodyRowEvent(type, evt)
       }
     },
     onTbodyRowContextmenu(evt) {
-      if (!this.tbodyRowEvtStopped(evt)) {
-        this.emitTbodyRowEvent('row-contextmenu', evt)
+      const type = 'row-contextmenu'
+      if (this.$listeners[type] && !this.tbodyRowEvtStopped(evt)) {
+        this.emitTbodyRowEvent(type, evt)
       }
     },
     onTbodyRowDblClicked(evt) {
-      if (!this.tbodyRowEvtStopped(evt) && !filterEvent(evt)) {
-        this.emitTbodyRowEvent('row-dblclicked', evt)
+      const type = 'row-dblclicked'
+      if (this.$listeners[type] && !this.tbodyRowEvtStopped(evt) && !filterEvent(evt)) {
+        this.emitTbodyRowEvent(type, evt)
       }
     },
     // Note: Row hover handlers are handled by the tbody-row mixin
