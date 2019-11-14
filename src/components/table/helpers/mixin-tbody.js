@@ -188,9 +188,8 @@ export default {
         $rows.push(this.renderBottomRow ? this.renderBottomRow() : h())
       }
 
+      // Note: these events will only emit if a listener is registered
       const handlers = {
-        // TODO: We may want to to only instantiate these handlers
-        //       if there is an event listener registered
         auxclick: this.onTbodyRowMiddleMouseRowClicked,
         // TODO: Perhaps we do want to automatically prevent the
         //       default context menu from showing if there is
@@ -198,12 +197,14 @@ export default {
         contextmenu: this.onTbodyRowContextmenu,
         // The following event(s) is not considered A11Y friendly
         dblclick: this.onTbodyRowDblClicked
-        // hover events (mouseenter/mouseleave) ad handled by tbody-row mixin
+        // hover events (mouseenter/mouseleave) are handled by tbody-row mixin
       }
+      // Add in click/keydown listenrs if needed
       if (hasRowClickHandler) {
         handlers.click = this.onTBodyRowClicked
         handlers.keydown = this.onTbodyRowKeydown
       }
+
       // Assemble rows into the tbody
       const $tbody = h(
         BTbody,
