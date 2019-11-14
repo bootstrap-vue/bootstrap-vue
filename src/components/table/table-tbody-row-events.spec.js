@@ -224,6 +224,7 @@ describe('table > tbody row events', () => {
       propsData: {
         fields: testFields,
         items: testItems
+      }
     })
     expect(wrapper).toBeDefined()
     const $rows = wrapper.findAll('tbody > tr')
@@ -287,6 +288,7 @@ describe('table > tbody row events', () => {
       propsData: {
         fields: testFields,
         items: testItems
+      }
     })
     expect(wrapper).toBeDefined()
     const $rows = wrapper.findAll('tbody > tr')
