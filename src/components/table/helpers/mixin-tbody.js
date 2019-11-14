@@ -43,7 +43,9 @@ export default {
     },
     emitTbodyRowEvent(type, evt) {
       // Emits a row event, with the item object, row index and original event
-      if (type && evt && evt.target) {
+      // If a consumer listener is not registered for the event type, do not
+      // emit the event (to save on row index processing/lookup time)
+      if (type && this.$listeners[type] && evt && evt.target) {
         const rowIndex = this.getTbodyTrIndex(evt.target)
         if (rowIndex > -1) {
           // The array of TRs correlate to the `computedItems` array
