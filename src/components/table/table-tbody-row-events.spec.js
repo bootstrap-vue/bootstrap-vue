@@ -82,6 +82,10 @@ describe('table > tbody row events', () => {
       propsData: {
         fields: testFields,
         items: testItems
+      },
+      listeners: {
+        // Row-dblclicked will only occur if there is a registered listener
+        'row-dblclicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -104,6 +108,10 @@ describe('table > tbody row events', () => {
         fields: testFields,
         items: testItems,
         busy: true
+      },
+      listeners: {
+        // Row-dblclicked will only occur if there is a registered listener
+        'row-dblclicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -121,6 +129,10 @@ describe('table > tbody row events', () => {
       propsData: {
         fields: testFields,
         items: testItems
+      },
+      listeners: {
+        // Row-middle-clicked will only occur if there is a registered listener
+        'row-middle-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -143,6 +155,10 @@ describe('table > tbody row events', () => {
         fields: testFields,
         items: testItems,
         busy: true
+      },
+      listeners: {
+        // Row-middle-clicked will only occur if there is a registered listener
+        'row-middle-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -160,6 +176,10 @@ describe('table > tbody row events', () => {
       propsData: {
         fields: testFields,
         items: testItems
+      },
+      listeners: {
+        // Row-contextmenu will only occur if there is a registered listener
+        'row-contextmenu': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -182,6 +202,10 @@ describe('table > tbody row events', () => {
         fields: testFields,
         items: testItems,
         busy: true
+      },
+      listeners: {
+        // Row-contextmenu will only occur if there is a registered listener
+        'row-contextmenu': () => {}
       }
     })
     expect(wrapper).toBeDefined()
