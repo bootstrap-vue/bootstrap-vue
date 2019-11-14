@@ -69,7 +69,7 @@ export default {
     rowHovered(evt) {
       // `mouseenter` handler (non-bubbling)
       // `this.tbodyRowEvtStopped` from tbody mixin
-      if (this.$listeners['row-hovered'] && !this.tbodyRowEvtStopped(evt)) {
+      if (!this.tbodyRowEvtStopped(evt)) {
         // `this.emitTbodyRowEvent` from tbody mixin
         this.emitTbodyRowEvent('row-hovered', evt)
       }
@@ -77,7 +77,7 @@ export default {
     rowUnhovered(evt) {
       // `mouseleave` handler (non-bubbling)
       // `this.tbodyRowEvtStopped` from tbody mixin
-      if (this.$listeners['row-unhovered'] && !this.tbodyRowEvtStopped(evt)) {
+      if (!this.tbodyRowEvtStopped(evt)) {
         // `this.emitTbodyRowEvent` from tbody mixin
         this.emitTbodyRowEvent('row-unhovered', evt)
       }
