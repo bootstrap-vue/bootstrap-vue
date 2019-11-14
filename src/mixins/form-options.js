@@ -1,3 +1,4 @@
+import get from '../utils/get'
 import { stripTags } from '../utils/html'
 import { isArray, isPlainObject, isUndefined } from '../utils/inspect'
 import { keys } from '../utils/object'
@@ -40,13 +41,13 @@ export default {
         // Normalize flat-ish arrays to Array of Objects
         return options.map(option => {
           if (isPlainObject(option)) {
-            const value = option[valueField]
-            const text = String(option[textField])
+            const value = get(option, valueField)
+            const text = String(get(option, textField))
             return {
               value: isUndefined(value) ? text : value,
               text: stripTags(text),
-              html: option[htmlField],
-              disabled: Boolean(option[disabledField])
+              html: get(option, htmlField),
+              disabled: Boolean(get(option, disabledField))
             }
           }
           return {
@@ -61,13 +62,13 @@ export default {
         return keys(options).map(key => {
           const option = options[key] || {}
           if (isPlainObject(option)) {
-            const value = option[valueField]
-            const text = option[textField]
+            const value = get(option, valueField)
+            const text = get(option, textField)
             return {
               value: isUndefined(value) ? key : value,
               text: isUndefined(text) ? stripTags(String(key)) : stripTags(String(text)),
-              html: option[htmlField],
-              disabled: Boolean(option[disabledField])
+              html: get(option, htmlField),
+              disabled: Boolean(get(option, disabledField))
             }
           }
           return {
