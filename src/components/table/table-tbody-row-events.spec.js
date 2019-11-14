@@ -199,6 +199,10 @@ describe('table > tbody row events', () => {
       propsData: {
         fields: testFields,
         items: testItems
+      },
+      listeners: {
+        // Row-hovered will only occur if there is a registered listener
+        'row-hovered': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -215,12 +219,32 @@ describe('table > tbody row events', () => {
     wrapper.destroy()
   })
 
+  it('should not emit row-hovered event when a row is hovered and no listener', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect(wrapper.emitted('row-hovered')).not.toBeDefined()
+    $rows.at(1).trigger('mouseenter')
+    expect(wrapper.emitted('row-hovered')).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
   it('should not emit row-hovered event when a row is hovered and table busy', async () => {
     const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
         busy: true
+      },
+      listeners: {
+        // Row-hovered will only occur if there is a registered listener
+        'row-hovered': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -238,6 +262,10 @@ describe('table > tbody row events', () => {
       propsData: {
         fields: testFields,
         items: testItems
+      },
+      listeners: {
+        // Row-unhovered will only occur if there is a registered listener
+        'row-unhovered': () => {}
       }
     })
     expect(wrapper).toBeDefined()
@@ -254,12 +282,32 @@ describe('table > tbody row events', () => {
     wrapper.destroy()
   })
 
+  it('should not emit row-nhovered event when a row is hovered and no listener', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('tbody > tr')
+    expect($rows.length).toBe(3)
+    expect(wrapper.emitted('row-unhovered')).not.toBeDefined()
+    $rows.at(1).trigger('mouseleave')
+    expect(wrapper.emitted('row-unhovered')).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
   it('should not emit row-unhovered event when a row is unhovered and table busy', async () => {
     const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
         items: testItems,
         busy: true
+      },
+      listeners: {
+        // Row-unhovered will only occur if there is a registered listener
+        'row-unhovered': () => {}
       }
     })
     expect(wrapper).toBeDefined()
