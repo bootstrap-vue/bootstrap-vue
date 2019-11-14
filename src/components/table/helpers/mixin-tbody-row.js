@@ -6,7 +6,6 @@ import { BTd } from '../td'
 import { BTh } from '../th'
 
 const detailsSlotName = 'row-details'
-const noop = () => {}
 
 export default {
   props: {
@@ -70,7 +69,7 @@ export default {
     rowHovered(evt) {
       // `mouseenter` handler (non-bubbling)
       // `this.tbodyRowEvtStopped` from tbody mixin
-      if (!this.tbodyRowEvtStopped(evt)) {
+      if (this.$listeners['row-hovered'] && !this.tbodyRowEvtStopped(evt)) {
         // `this.emitTbodyRowEvent` from tbody mixin
         this.emitTbodyRowEvent('row-hovered', evt)
       }
@@ -78,7 +77,7 @@ export default {
     rowUnhovered(evt) {
       // `mouseleave` handler (non-bubbling)
       // `this.tbodyRowEvtStopped` from tbody mixin
-      if (!this.tbodyRowEvtStopped(evt)) {
+      if (this.$listeners['row-unhovered'] && !this.tbodyRowEvtStopped(evt)) {
         // `this.emitTbodyRowEvent` from tbody mixin
         this.emitTbodyRowEvent('row-unhovered', evt)
       }
@@ -181,8 +180,6 @@ export default {
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const rowShowDetails = Boolean(item._showDetails && hasDetailsSlot)
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.hasSelectableRowClick
-      const hasRowHoveredHandler = this.$listeners['row-hovered']
-      const hasRowUnhoveredHandler = this.$listeners['row-unhovered']
 
       // We can return more than one TR if rowDetails enabled
       const $rows = []
@@ -244,9 +241,8 @@ export default {
             },
             on: {
               // Note: These events are not A11Y friendly!
-              // Event handlers only called if there are listeners registered
-              mouseenter: hasRowHoveredHandler ? this.rowHovered : noop,
-              mouseleave: hasRowUnhoveredHandler ? this.rowUnhovered : noop
+              mouseenter: this.rowHovered,
+              mouseleave: this.rowUnhovered
             }
           },
           $tds
