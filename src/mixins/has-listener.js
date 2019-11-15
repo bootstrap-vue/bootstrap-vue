@@ -2,7 +2,7 @@
 // either via `v-on:name` (in the parent) or programmatically
 // via `vm.$on('name', ...)`
 import { isArray } from '../utils/array'
-import ( isDefined } from '../utils/inspect'
+import { isDefined } from '../utils/inspect'
 
 export default {
   methods: {
