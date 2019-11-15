@@ -2,7 +2,6 @@ import get from '../utils/get'
 import warn from '../utils/warn'
 import { stripTags } from '../utils/html'
 import { isArray, isPlainObject, isUndefined } from '../utils/inspect'
-import { stripTags } from '../utils/html'
 import { keys } from '../utils/object'
 
 const DEPRECATED_MSG =
