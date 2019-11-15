@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 
 // Mixins
-import hasListenerMixin '../../mixins/has-listener'
+import hasListenerMixin from '../../mixins/has-listener'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
