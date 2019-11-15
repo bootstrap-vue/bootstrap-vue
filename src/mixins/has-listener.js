@@ -10,6 +10,8 @@ export default {
       // Only includes listeners registerd via `v-on:name`
       const $listeners = this.$listeners || {}
       // Includes `v-on:name` and `this.$on('name')` registerd listeners
+      // Note this property is not part of the public Vue API, but it is
+      // the only way to determine if a listener was added via `vm.$on`
       const $events = this._events || {}
       // Registered listeners in this._events are always an array (but might be 0 length)
       return isDefined($listeners[name]) || (isArray($events[name]) && $events[name].length > 0)
