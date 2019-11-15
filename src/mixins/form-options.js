@@ -1,4 +1,6 @@
+import get from '../utils/get'
 import warn from '../utils/warn'
+import { stripTags } from '../utils/html'
 import { isArray, isPlainObject, isUndefined } from '../utils/inspect'
 import { stripTags } from '../utils/html'
 import { keys } from '../utils/object'
@@ -47,13 +49,13 @@ export default {
     normalizeOption(option, key = null) {
       // When the option is an object, normalize it
       if (isPlainObject(option)) {
-        const value = option[this.valueField]
-        const text = option[this.textField]
+        const value = get(option, this.valueField)
+        const text = get(option, this.textField)
         return {
           value: isUndefined(value) ? key || text : value,
           text: stripTags(String(isUndefined(text) ? key : text)),
-          html: option[this.htmlField],
-          disabled: Boolean(option[this.disabledField])
+          html: get(option, this.htmlField),
+          disabled: Boolean(get(option, this.disabledField))
         }
       }
       // Otherwise create an `<option>` object from the given value
