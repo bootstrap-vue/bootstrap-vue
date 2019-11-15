@@ -73,7 +73,7 @@ export default {
           /* istanbul ignore next */
           ariaLabel = startCase(field.key)
         }
-        const hasHeadClickListener = this.$listeners['head-clicked'] || this.isSortable
+        const hasHeadClickListener = this.hasListener('head-clicked') || this.isSortable
         const handlers = {}
         if (hasHeadClickListener) {
           handlers.click = evt => {
