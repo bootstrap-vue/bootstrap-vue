@@ -193,15 +193,16 @@ export default {
       // Note: these events will only emit if a listener is registered
       const handlers = {
         auxclick: this.onTbodyRowMiddleMouseRowClicked,
-        // TODO: Perhaps we do want to automatically prevent the
-        //       default context menu from showing if there is
-        //       a `row-contextmenu` listener registered.
+        // TODO:
+        //   Perhaps we do want to automatically prevent the
+        //   default context menu from showing if there is a
+        //   `row-contextmenu` listener registered
         contextmenu: this.onTbodyRowContextmenu,
         // The following event(s) is not considered A11Y friendly
         dblclick: this.onTbodyRowDblClicked
-        // hover events (mouseenter/mouseleave) are handled by tbody-row mixin
+        // Hover events (`mouseenter`/`mouseleave`) are handled by `tbody-row` mixin
       }
-      // Add in click/keydown listenrs if needed
+      // Add in click/keydown listeners if needed
       if (hasRowClickHandler) {
         handlers.click = this.onTBodyRowClicked
         handlers.keydown = this.onTbodyRowKeydown
