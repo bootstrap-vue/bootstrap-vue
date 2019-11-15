@@ -2,7 +2,7 @@
 // either via `v-on:name` (in the parent) or programmatically
 // via `vm.$on('name', ...)`
 import { isArray } from '../utils/array'
-import { isDefined } from '../utils/inspect'
+import { isUndefined } from '../utils/inspect'
 
 export default {
   methods: {
@@ -14,7 +14,7 @@ export default {
       // the only way to determine if a listener was added via `vm.$on`
       const $events = this._events || {}
       // Registered listeners in this._events are always an array (but might be 0 length)
-      return isDefined($listeners[name]) || (isArray($events[name]) && $events[name].length > 0)
+      return !isUndefined($listeners[name]) || (isArray($events[name]) && $events[name].length > 0)
     }
   }
 }
