@@ -43,7 +43,7 @@ export default {
     },
     emitTbodyRowEvent(type, evt) {
       // Emits a row event, with the item object, row index and original event
-      if (type && evt && evt.target) {
+      if (type && this.hasListener(type) && evt && evt.target) {
         const rowIndex = this.getTbodyTrIndex(evt.target)
         if (rowIndex > -1) {
           // The array of TRs correlate to the `computedItems` array
@@ -101,7 +101,6 @@ export default {
       }
     },
     onTBodyRowClicked(evt) {
-      // Row-clicked handler is only added when needed
       if (this.tbodyRowEvtStopped(evt)) {
         // If table is busy, then don't propagate
         return
@@ -113,21 +112,18 @@ export default {
       this.emitTbodyRowEvent('row-clicked', evt)
     },
     onTbodyRowMiddleMouseRowClicked(evt) {
-      const type = 'row-middle-clicked'
-      if (this.$listeners[type] && !this.tbodyRowEvtStopped(evt) && evt.which === 2) {
-        this.emitTbodyRowEvent(type, evt)
+      if (!this.tbodyRowEvtStopped(evt) && evt.which === 2) {
+        this.emitTbodyRowEvent('row-middle-clicked', evt)
       }
     },
     onTbodyRowContextmenu(evt) {
-      const type = 'row-contextmenu'
-      if (this.$listeners[type] && !this.tbodyRowEvtStopped(evt)) {
-        this.emitTbodyRowEvent(type, evt)
+      if (!this.tbodyRowEvtStopped(evt)) {
+        this.emitTbodyRowEvent('row-contextmenu', evt)
       }
     },
     onTbodyRowDblClicked(evt) {
-      const type = 'row-dblclicked'
-      if (this.$listeners[type] && !this.tbodyRowEvtStopped(evt) && !filterEvent(evt)) {
-        this.emitTbodyRowEvent(type, evt)
+      if (!this.tbodyRowEvtStopped(evt) && !filterEvent(evt)) {
+        this.emitTbodyRowEvent('row-dblclicked', evt)
       }
     },
     // Note: Row hover handlers are handled by the tbody-row mixin
@@ -139,7 +135,7 @@ export default {
       const items = this.computedItems
       // Shortcut to `createElement` (could use `this._c()` instead)
       const h = this.$createElement
-      const hasRowClickHandler = this.$listeners['row-clicked'] || this.hasSelectableRowClick
+      const hasRowClickHandler = this.hasListener('row-clicked') || this.hasSelectableRowClick
 
       // Prepare the tbody rows
       const $rows = []
