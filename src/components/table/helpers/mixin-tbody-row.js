@@ -69,19 +69,17 @@ export default {
     rowHovered(evt) {
       // `mouseenter` handler (non-bubbling)
       // `this.tbodyRowEvtStopped` from tbody mixin
-      const type = 'row-hovered'
-      if (this.$listeners[type] && !this.tbodyRowEvtStopped(evt)) {
+      if (!this.tbodyRowEvtStopped(evt)) {
         // `this.emitTbodyRowEvent` from tbody mixin
-        this.emitTbodyRowEvent(type, evt)
+        this.emitTbodyRowEvent('row-hovered', evt)
       }
     },
     rowUnhovered(evt) {
       // `mouseleave` handler (non-bubbling)
       // `this.tbodyRowEvtStopped` from tbody mixin
-      const type = 'row-unhovered'
-      if (this.$listeners[type] && !this.tbodyRowEvtStopped(evt)) {
+      if (!this.tbodyRowEvtStopped(evt)) {
         // `this.emitTbodyRowEvent` from tbody mixin
-        this.emitTbodyRowEvent(type, evt)
+        this.emitTbodyRowEvent('row-unhovered', evt)
       }
     },
     // Render helpers
