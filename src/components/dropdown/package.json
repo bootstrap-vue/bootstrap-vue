@@ -97,6 +97,10 @@
             "description": "Value to place in the 'type' attribute on the split button: 'button', 'submit', 'reset'"
           },
           {
+            "prop": "splitClass",
+            "description": "CSS class (or classes) to add to the split button"
+          },
+          {
             "prop": "boundary",
             "description": "The boundary constraint of the menu: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement"
           }
