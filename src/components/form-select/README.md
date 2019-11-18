@@ -209,8 +209,8 @@ const options = [
 If `value` is missing, then `text` will be used as both the `value` and `text` fields. If you use
 the `html` property, you **must** supply a `value` property.
 
-To define options groups just add an object with a `label` prop as the groups name and a `options`
-property with the array of options of the group.
+<span class="badge badge-info">New in v2.2.0</span> To define option groups, just add an object with
+a `label` prop as the groups name and a `options` property with the array of options of the group.
 
 <!-- eslint-disable no-unused-vars -->
 
