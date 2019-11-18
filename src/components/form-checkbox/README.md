@@ -193,7 +193,7 @@ If you want to customize the field property names (for example using `name` fiel
   export default {
     data() {
       return {
-        selected: 'A',
+        selected: [],
         options: [
           { item: 'A', name: 'Option A' },
           { item: 'B', name: 'Option B' },
