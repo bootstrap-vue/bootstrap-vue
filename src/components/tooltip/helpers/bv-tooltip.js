@@ -219,7 +219,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.listen()
       } else {
         /* istanbul ignore next */
-        warn(`${this.templateType} unable to find target element in document`)
+        warn('Unable to find target element in document.', this.templateType)
       }
     })
   },

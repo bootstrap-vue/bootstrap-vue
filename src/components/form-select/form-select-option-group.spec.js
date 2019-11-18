@@ -100,7 +100,7 @@ describe('form-select-option-group', () => {
     expect($options.at(2).attributes('value')).toBe('three')
 
     expect(spyWarn).toHaveBeenLastCalledWith(
-      '[BootstrapVue warn]: BFormSelectOptionGroup: Setting prop "options" to an object is deprecated. Use the array format instead.'
+      '[BootstrapVue warn]: BFormSelectOptionGroup - Setting prop "options" to an object is deprecated. Use the array format instead.'
     )
 
     wrapper.destroy()

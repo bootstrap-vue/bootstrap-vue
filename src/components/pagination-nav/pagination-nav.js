@@ -28,7 +28,7 @@ const props = {
     validator(value) /* istanbul ignore next */ {
       const num = parseInt(value, 10)
       if (isNaN(num) || num < 1) {
-        warn('b-pagination: prop "number-of-pages" must be a number greater than 0')
+        warn('Prop "number-of-pages" must be a number greater than "0"', NAME)
         return false
       }
       return true

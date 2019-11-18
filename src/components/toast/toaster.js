@@ -82,7 +82,10 @@ export const BToaster = /*#__PURE__*/ Vue.extend({
     this.staticName = this.name
     /* istanbul ignore if */
     if (Wormhole.hasTarget(this.staticName)) {
-      warn(`b-toaster: A <portal-target> with name '${this.name}' already exists in the document.`)
+      warn(
+        `A "<portal-target>" with name "${this.name}" already exists in the document.`,
+        'BToaster'
+      )
       this.dead = true
     } else {
       this.doRender = true

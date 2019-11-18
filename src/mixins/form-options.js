@@ -4,7 +4,7 @@ import { stripTags } from '../utils/html'
 import { isArray, isPlainObject, isUndefined } from '../utils/inspect'
 import { keys } from '../utils/object'
 
-const DEPRECATED_MSG =
+const OPTIONS_OBJECT_DEPRECATED_MSG =
   'Setting prop "options" to an object is deprecated. Use the array format instead.'
 
 // @vue/component
@@ -39,7 +39,7 @@ export default {
         return options.map(option => this.normalizeOption(option))
       }
       // Deprecate the object options format
-      warn(`${this.$options.name}: ${DEPRECATED_MSG}`)
+      warn(OPTIONS_OBJECT_DEPRECATED_MSG, this.$options.name)
       // Normalize a `options` object to an array of options
       return keys(options).map(key => this.normalizeOption(options[key] || {}, key))
     }
