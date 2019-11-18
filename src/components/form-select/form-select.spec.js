@@ -343,6 +343,84 @@ describe('form-select', () => {
     wrapper.destroy()
   })
 
+  it('has option group elements with options from options array of objects', async () => {
+    const wrapper = mount(BFormSelect, {
+      propsData: {
+        options: [
+          {
+            label: 'group one',
+            options: [{ text: 'one', value: 1 }, { text: 'two', value: 2 }]
+          },
+          {
+            label: 'group two',
+            options: [{ text: 'three', value: 3 }, { text: 'four', value: 4, disabled: true }]
+          }
+        ]
+      }
+    })
+
+    const $groups = wrapper.findAll('optgroup')
+    expect($groups.length).toBe(2)
+    expect($groups.at(0).attributes('label')).toBe('group one')
+    expect($groups.at(1).attributes('label')).toBe('group two')
+    expect($groups.at(0).findAll('option').length).toBe(2)
+    expect($groups.at(1).findAll('option').length).toBe(2)
+
+    const $options = wrapper.findAll('option')
+    expect($options.length).toBe(4)
+    expect($options.at(0).text()).toBe('one')
+    expect($options.at(1).text()).toBe('two')
+    expect($options.at(2).text()).toBe('three')
+    expect($options.at(3).text()).toBe('four')
+    expect($options.at(0).attributes('value')).toBe('1')
+    expect($options.at(1).attributes('value')).toBe('2')
+    expect($options.at(2).attributes('value')).toBe('3')
+    expect($options.at(3).attributes('value')).toBe('4')
+    expect($options.at(0).is('[disabled]')).toBe(false)
+    expect($options.at(1).is('[disabled]')).toBe(false)
+    expect($options.at(2).is('[disabled]')).toBe(false)
+    expect($options.at(3).is('[disabled]')).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('has option group and option elements from options array of objects', async () => {
+    const wrapper = mount(BFormSelect, {
+      propsData: {
+        options: [
+          { text: 'one', value: 1 },
+          {
+            label: 'group',
+            options: [{ text: 'two', value: 2 }, { text: 'three', value: 3 }]
+          },
+          { text: 'four', value: 4, disabled: true }
+        ]
+      }
+    })
+
+    const $groups = wrapper.findAll('optgroup')
+    expect($groups.length).toBe(1)
+    expect($groups.at(0).attributes('label')).toBe('group')
+    expect($groups.at(0).findAll('option').length).toBe(2)
+
+    const $options = wrapper.findAll('option')
+    expect($options.length).toBe(4)
+    expect($options.at(0).text()).toBe('one')
+    expect($options.at(1).text()).toBe('two')
+    expect($options.at(2).text()).toBe('three')
+    expect($options.at(3).text()).toBe('four')
+    expect($options.at(0).attributes('value')).toBe('1')
+    expect($options.at(1).attributes('value')).toBe('2')
+    expect($options.at(2).attributes('value')).toBe('3')
+    expect($options.at(3).attributes('value')).toBe('4')
+    expect($options.at(0).is('[disabled]')).toBe(false)
+    expect($options.at(1).is('[disabled]')).toBe(false)
+    expect($options.at(2).is('[disabled]')).toBe(false)
+    expect($options.at(3).is('[disabled]')).toBe(true)
+
+    wrapper.destroy()
+  })
+
   it('has option elements from options legacy object format', async () => {
     const spyWarn = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
     const wrapper = mount(BFormSelect, {
