@@ -1,3 +1,4 @@
+import get from '../../../utils/get'
 import { isArray, isPlainObject, isUndefined } from '../../../utils/inspect'
 import formOptionsMixin from '../../../mixins/form-options'
 
@@ -18,13 +19,13 @@ export default {
     normalizeOption(option, key = null) {
       // When the option is an object, normalize it
       if (isPlainObject(option)) {
-        const value = option[this.valueField]
-        const text = option[this.textField]
-        const options = option[this.optionsField]
+        const value = get(option, this.valueField)
+        const text = get(option, this.textField)
+        const options = get(option, this.optionsField)
         // When it has options, create an `<optgroup>` object
         if (isArray(options)) {
           return {
-            label: String(option[this.labelField] || text),
+            label: String(get(option, this.labelField) || text),
             options
           }
         }
@@ -32,8 +33,8 @@ export default {
         return {
           value: isUndefined(value) ? key || text : value,
           text: String(isUndefined(text) ? key : text),
-          html: option[this.htmlField],
-          disabled: Boolean(option[this.disabledField])
+          html: get(option, this.htmlField),
+          disabled: Boolean(get(option, this.disabledField))
         }
       }
       // Otherwise create an `<option>` object from the given value
