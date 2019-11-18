@@ -228,6 +228,8 @@ const options = [
 
 ### Options as an object
 
+<span class="badge badge-warning">Deprecated</span>
+
 Keys are mapped to `value` and values are mapped to option `text`.
 
 <!-- eslint-disable no-unused-vars -->
