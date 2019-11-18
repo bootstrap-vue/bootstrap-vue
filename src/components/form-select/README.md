@@ -209,21 +209,6 @@ const options = [
 If `value` is missing, then `text` will be used as both the `value` and `text` fields. If you use
 the `html` property, you **must** supply a `value` property.
 
-Internally, BootstrapVue will convert the above array to the following array (the
-[array of objects](#options-as-an-array-of-objects)) format:
-
-<!-- eslint-disable no-unused-vars -->
-
-```js
-const options = [
-  { text: 'Item 1', value: 'first', disabled: false },
-  { text: 'Item 2', value: 'second', disabled: false },
-  { html: '<b>Item</b> 3', value: 'third', disabled: true },
-  { text: 'Item 4', value: 'Item 4', disabled: false },
-  { text: 'Item 5', value: 'E', disabled: false }
-]
-```
-
 To define options groups just add an object with a `label` prop as the groups name and a `options`
 property with the array of options of the group.
 
