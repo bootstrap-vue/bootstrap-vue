@@ -5,8 +5,8 @@ import { isFunction, isString, isRegExp } from '../../../utils/inspect'
 import { warn } from '../../../utils/warn'
 import stringifyRecordValues from './stringify-record-values'
 
-const DEPRECATED_DEBOUNCE =
-  'b-table: Prop "filter-debounce" is deprecated. Use the debounce feature of <b-form-input> instead'
+const DEBOUNCE_DEPRECATED_MSG =
+  'Prop "filter-debounce" is deprecated. Use the debounce feature of "<b-form-input>" instead.'
 
 export default {
   props: {
@@ -28,7 +28,7 @@ export default {
     },
     filterDebounce: {
       type: [Number, String],
-      deprecated: DEPRECATED_DEBOUNCE,
+      deprecated: DEBOUNCE_DEPRECATED_MSG,
       default: 0,
       validator: val => /^\d+/.test(String(val))
     }
@@ -53,7 +53,7 @@ export default {
       const ms = parseInt(this.filterDebounce, 10) || 0
       /* istanbul ignore next */
       if (ms > 0) {
-        warn(DEPRECATED_DEBOUNCE)
+        warn(DEBOUNCE_DEPRECATED_MSG, 'BTable')
       }
       return ms
     },

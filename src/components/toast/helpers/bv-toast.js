@@ -183,7 +183,7 @@ const plugin = Vue => {
       get() {
         /* istanbul ignore next */
         if (!this || !this[PROP_NAME_PRIV]) {
-          warn(`'${PROP_NAME}' must be accessed from a Vue instance 'this' context`)
+          warn(`"${PROP_NAME}" must be accessed from a Vue instance "this" context.`, 'BToast')
         }
         return this[PROP_NAME_PRIV]
       }

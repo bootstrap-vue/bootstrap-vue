@@ -12,6 +12,9 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BFormFile'
 
+const VALUE_EMPTY_DEPRECATED_MSG =
+  'Setting "value"/"v-model" to an empty string for reset is deprecated. Set to "null" instead.'
+
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -32,9 +35,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       validator: val => {
         /* istanbul ignore next */
         if (val === '') {
-          warn(
-            `${NAME} - setting value/v-model to an empty string for reset is deprecated. Set to 'null' instead`
-          )
+          warn(VALUE_EMPTY_DEPRECATED_MSG, NAME)
           return true
         }
         return (
