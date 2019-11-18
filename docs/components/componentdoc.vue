@@ -5,6 +5,7 @@
         <anchored-heading :id="`comp-ref-${componentName}`" level="3">
           <code class="notranslate bigger" translate="no">{{ tag }}</code>
         </anchored-heading>
+        <b-badge v-if="version" variant="success">v{{ version }}+</b-badge>
         <b-badge
           v-if="componentFunctional"
           variant="secondary"
@@ -340,6 +341,10 @@ export default {
     aliases: {
       type: Array,
       default: () => []
+    },
+    version: {
+      type: String,
+      default: null
     }
   },
   computed: {
