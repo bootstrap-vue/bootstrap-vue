@@ -343,6 +343,42 @@ describe('form-select', () => {
     wrapper.destroy()
   })
 
+  it('has option elements from options array of objects with custom field names', async () => {
+    const wrapper = mount(BFormSelect, {
+      propsData: {
+        options: [
+          { price: 1.5, display: { text: '1,50 €' } },
+          {
+            price: 5,
+            display: { text: '5,00 €', html: '<span class="lowest-price">5,00 €</span>' }
+          },
+          { price: 50.75, display: { text: '50,75 €' }, notAvailable: true }
+        ],
+        valueField: 'price',
+        textField: 'display.text',
+        htmlField: 'display.html',
+        disabledField: 'notAvailable'
+      }
+    })
+
+    const $options = wrapper.findAll('option')
+    expect($options.length).toBe(3)
+    expect($options.at(0).text()).toBe('1,50 €')
+    expect($options.at(1).text()).toBe('5,00 €')
+    expect($options.at(2).text()).toBe('50,75 €')
+    expect($options.at(0).contains('span')).toBe(false)
+    expect($options.at(1).contains('span')).toBe(true)
+    expect($options.at(2).contains('span')).toBe(false)
+    expect($options.at(0).attributes('value')).toBe('1.5')
+    expect($options.at(1).attributes('value')).toBe('5')
+    expect($options.at(2).attributes('value')).toBe('50.75')
+    expect($options.at(0).is('[disabled]')).toBe(false)
+    expect($options.at(1).is('[disabled]')).toBe(false)
+    expect($options.at(2).is('[disabled]')).toBe(true)
+
+    wrapper.destroy()
+  })
+
   it('has option group elements with options from options array of objects', async () => {
     const wrapper = mount(BFormSelect, {
       propsData: {
