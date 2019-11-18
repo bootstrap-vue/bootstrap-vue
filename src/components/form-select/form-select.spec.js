@@ -3,6 +3,10 @@ import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormSelect } from './form-select'
 
 describe('form-select', () => {
+  afterAll(() => {
+    console.warn.mockClear()
+  })
+
   it('has select as root element', async () => {
     const wrapper = mount(BFormSelect)
     expect(wrapper.is('select')).toBe(true)
@@ -323,8 +327,8 @@ describe('form-select', () => {
         ]
       }
     })
-    const $options = wrapper.findAll('option')
 
+    const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
     expect($options.at(0).text()).toBe('one')
     expect($options.at(1).text()).toBe('two')
@@ -340,13 +344,14 @@ describe('form-select', () => {
   })
 
   it('has option elements from options legacy object format', async () => {
+    const spyWarn = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
     const wrapper = mount(BFormSelect, {
       propsData: {
         options: { one: 1, two: { value: 2, text: 'Two' }, three: 'three' }
       }
     })
-    const $options = wrapper.findAll('option')
 
+    const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
     expect($options.at(0).text()).toBe('1')
     expect($options.at(1).text()).toBe('Two')
@@ -354,6 +359,10 @@ describe('form-select', () => {
     expect($options.at(0).attributes('value')).toBe('one')
     expect($options.at(1).attributes('value')).toBe('2')
     expect($options.at(2).attributes('value')).toBe('three')
+
+    expect(spyWarn).toHaveBeenLastCalledWith(
+      '[BootstrapVue warn]: BFormSelect: Setting prop "options" to an object is deprecated. Use the array format instead.'
+    )
 
     wrapper.destroy()
   })
@@ -368,16 +377,15 @@ describe('form-select', () => {
         ]
       }
     })
+
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
-
     expect($options.at(0).text()).toBe('one')
     expect($options.at(1).text()).toBe('two')
     expect($options.at(2).text()).toBe('three')
     expect($options.at(0).attributes('value')).toBe('1')
     expect($options.at(1).attributes('value')).toBe('2')
     expect($options.at(2).attributes('value')).toBe('3')
-    expect($options.is('[disabled]')).toBe(false)
 
     wrapper.destroy()
   })
