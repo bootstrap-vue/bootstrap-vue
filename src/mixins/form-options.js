@@ -39,7 +39,7 @@ export default {
         return options.map(option => this.normalizeOption(option))
       }
       // Deprecate the object options format
-      warn(`b-form: ${DEPRECATED_MSG}`)
+      warn(`${this.$options.name}: ${DEPRECATED_MSG}`)
       // Normalize a `options` object to an array of options
       return keys(options).map(key => this.normalizeOption(options[key] || {}, key))
     }
