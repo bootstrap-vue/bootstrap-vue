@@ -98,6 +98,7 @@
           },
           {
             "prop": "splitClass",
+            "version": "2.2.0",
             "description": "CSS class (or classes) to add to the split button"
           },
           {
