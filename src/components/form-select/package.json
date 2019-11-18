@@ -71,6 +71,7 @@
       },
       {
         "component": "BFormSelectOption",
+        "version": "2.2.0",
         "aliases": [
           "BSelectOption"
         ],
@@ -83,6 +84,7 @@
       },
       {
         "component": "BFormSelectOptionGroup",
+        "version": "2.2.0",
         "aliases": [
           "BSelectOptionGroup"
         ],
