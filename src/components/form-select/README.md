@@ -10,7 +10,6 @@ Generate your select options by passing an array or object to the `options` prop
   <div>
     <b-form-select v-model="selected" :options="options"></b-form-select>
     <b-form-select v-model="selected" :options="options" size="sm" class="mt-3"></b-form-select>
-
     <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
@@ -35,19 +34,54 @@ Generate your select options by passing an array or object to the `options` prop
 <!-- b-form-select-options.vue -->
 ```
 
-Or manually provide your options and optgroups:
+You can even define option groups with the `options` prop:
+
+```html
+<template>
+  <div>
+    <b-form-select v-model="selected" :options="options"></b-form-select>
+    <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        selected: null,
+        options: [
+          { value: null, text: 'Please select an option' },
+          { value: 'a', text: 'This is First option' },
+          { value: 'b', text: 'Selected Option', disabled: true },
+          {
+            label: 'Grouped options',
+            options: [
+              { value: { C: '3PO' }, text: 'Option with object value' },
+              { value: { R: '2D2' }, text: 'Another option with object value' }
+            ]
+          }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-form-select-options.vue -->
+```
+
+Or manually provide your options and option groups:
 
 ```html
 <template>
   <div>
     <b-form-select v-model="selected" class="mb-3">
-      <option :value="null">Please select an option</option>
-      <option value="a">Option A</option>
-      <option value="b" disabled>Option B (disabled)</option>
-      <optgroup label="Grouped Options">
-        <option :value="{ C: '3PO' }">Option with object value</option>
-        <option :value="{ R: '2D2' }">Another option with object value</option>
-      </optgroup>
+      <b-form-select-option :value="null">Please select an option</b-form-select-option>
+      <b-form-select-option value="a">Option A</b-form-select-option>
+      <b-form-select-option value="b" disabled>Option B (disabled)</b-form-select-option>
+      <b-form-select-option-group label="Grouped options">
+        <b-form-select-option :value="{ C: '3PO' }">Option with object value</b-form-select-option>
+        <b-form-select-option :value="{ R: '2D2' }">Another option with object value</b-form-select-option>
+      </b-form-select-option-group>
     </b-form-select>
 
     <div class="mt-2">Selected: <strong>{{ selected }}</strong></div>
@@ -67,9 +101,10 @@ Or manually provide your options and optgroups:
 <!-- b-form-select-manual.vue -->
 ```
 
-Feel free to mix the `options` prop with `<option>` and `<optgroup>`. Manually placed options and
-optgroups will appear _below_ the options generated via the `options` prop. To place manual options
-and optgroups _above_ the options specified by the `options` prop, use the named slot `first`.
+Feel free to mix the `options` prop with `<b-form-select-option>` and
+`<b-form-select-option-group>`. Manually placed options and option groups will appear _below_ the
+options generated via the `options` prop. To place manual options and option groups _above_ the
+options specified by the `options` prop, use the named slot `first`.
 
 ```html
 <template>
@@ -77,11 +112,12 @@ and optgroups _above_ the options specified by the `options` prop, use the named
     <b-form-select v-model="selected" :options="options" class="mb-3">
       <!-- This slot appears above the options from 'options' prop -->
       <template v-slot:first>
-        <option :value="null" disabled>-- Please select an option --</option>
+        <b-form-select-option :value="null" disabled>-- Please select an option --</b-form-select-option>
       </template>
 
       <!-- These options will appear after the ones from 'options' prop -->
-      <option value="C">Option C</option> <option value="D">Option D</option>
+      <b-form-select-option value="C">Option C</b-form-select-option>
+      <b-form-select-option value="D">Option D</b-form-select-option>
     </b-form-select>
 
     <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
@@ -188,6 +224,23 @@ const options = [
 ]
 ```
 
+To define options groups just add an object with a `label` prop as the groups name and a `options`
+property with the array of options of the group.
+
+<!-- eslint-disable no-unused-vars -->
+
+```js
+const options = [
+  { text: 'Item 1', value: 'first' },
+  { text: 'Item 2', value: 'second' },
+  {
+    label: 'Grouped options',
+    options: [{ html: '<b>Item</b> 3', value: 'third', disabled: true }, { text: 'Item 4' }]
+  },
+  { text: 'Item 5', value: { foo: 'bar', baz: true } }
+]
+```
+
 ### Options as an object
 
 Keys are mapped to `value` and values are mapped to option `text`.
@@ -239,6 +292,7 @@ If you want to customize the field property names (for example using `name` fiel
       text-field="name"
       disabled-field="notEnabled"
     ></b-form-select>
+
     <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
@@ -273,7 +327,7 @@ option with an empty value as your first option.
 ```html
 <b-form-select v-model="selected" :options="options">
   <template v-slot:first>
-    <option value="" disabled>-- Please select an option --</option>
+    <b-form-select-option value="" disabled>-- Please select an option --</b-form-select-option>
   </template>
 </b-form-select>
 ```
