@@ -60,6 +60,10 @@ export const props = {
     type: String,
     default: () => getComponentConfig(NAME, 'splitVariant')
   },
+  splitClass: {
+    type: [String, Array],
+    default: null
+  },
   splitButtonType: {
     type: String,
     default: 'button',
@@ -144,6 +148,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
         {
           ref: 'button',
           props: btnProps,
+          class: this.splitClass,
           attrs: {
             id: this.safeId('_BV_button_')
           },
