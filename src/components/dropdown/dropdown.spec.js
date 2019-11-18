@@ -368,6 +368,21 @@ describe('dropdown', () => {
     wrapper.destroy()
   })
 
+  it('split should have class specified in split class property', () => {
+    const splitClass = 'custom-button-class'
+    const wrapper = mount(BDropdown, {
+      attachToDocument: true,
+      propsData: {
+        splitClass,
+        split: true
+      }
+    })
+    const $buttons = wrapper.findAll('button')
+    const $split = $buttons.at(0)
+
+    expect($split.classes()).toContain(splitClass)
+  })
+
   it('menu should have class dropdown-menu-right when prop right set', async () => {
     const wrapper = mount(BDropdown, {
       attachToDocument: true,
