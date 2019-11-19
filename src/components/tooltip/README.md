@@ -47,7 +47,7 @@ The default position is `top`. Positioning is relative to the trigger element.
 
 <div class="bd-example bd-example-tooltip-static">
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
-    <div class="arrow" style="left: 6px"></div>
+    <div class="arrow" style="left: calc(50% - 6px)"></div>
     <div class="tooltip-inner">Tooltip on the top</div>
   </div>
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
@@ -59,7 +59,7 @@ The default position is `top`. Positioning is relative to the trigger element.
     <div class="tooltip-inner">Tooltip on the topright</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
-    <div class="arrow" style="top: 4px"></div>
+    <div class="arrow" style="top: calc(50% - 5px)"></div>
     <div class="tooltip-inner">Tooltip on the right</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
@@ -71,7 +71,7 @@ The default position is `top`. Positioning is relative to the trigger element.
     <div class="tooltip-inner">Tooltip on the rightbottom</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
-    <div class="arrow" style="left: 6px"></div>
+    <div class="arrow" style="left: calc(50% - 6px)"></div>
     <div class="tooltip-inner">Tooltip on the bottom</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
@@ -83,7 +83,7 @@ The default position is `top`. Positioning is relative to the trigger element.
     <div class="tooltip-inner">Tooltip on the bottomright</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
-    <div class="arrow" style="top: 4px"></div>
+    <div class="arrow" style="top: calc(50% - 5px)"></div>
     <div class="tooltip-inner">Tooltip on the left</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
