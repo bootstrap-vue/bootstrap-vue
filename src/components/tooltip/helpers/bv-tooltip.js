@@ -36,7 +36,6 @@ import { keys } from '../../../utils/object'
 import { warn } from '../../../utils/warn'
 import { BvEvent } from '../../../utils/bv-event.class'
 import { BVTooltipTemplate } from './bv-tooltip-template'
-import { template } from 'handlebars'
 
 const NAME = 'BVTooltip'
 
