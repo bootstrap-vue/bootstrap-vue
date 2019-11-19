@@ -35,8 +35,8 @@ import {
 import { keys } from '../../../utils/object'
 import { warn } from '../../../utils/warn'
 import { BvEvent } from '../../../utils/bv-event.class'
-
 import { BVTooltipTemplate } from './bv-tooltip-template'
+import { template } from 'handlebars'
 
 const NAME = 'BVTooltip'
 
@@ -237,18 +237,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     // Remove all handler/listeners
     this.unListen()
     this.setWhileOpenListeners(false)
-
     // Clear any timeouts/intervals
     this.clearHoverTimeout()
     this.clearVisibilityInterval()
-
+    // Destroy the template
     this.destroyTemplate()
-    this.restoreTitle()
   },
   methods: {
-    //
-    // Methods for creating and destroying the template
-    //
+    // --- Methods for creating and destroying the template ---
     getTemplate() {
       // Overridden by BVPopover
       return BVTooltipTemplate
@@ -272,21 +268,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.fixTitle()
       }
     },
-    clearHoverTimeout() {
-      if (this.$_hoverTimeout) {
-        clearTimeout(this.$_hoverTimeout)
-        this.$_hoverTimeout = null
-      }
-    },
-    clearVisibilityInterval() {
-      if (this.$_visibleInterval) {
-        clearInterval(this.$_visibleInterval)
-        this.$_visibleInterval = null
-      }
-    },
     createTemplateAndShow() {
       // Creates the template instance and show it
-      // this.destroyTemplate()
       const container = this.getContainer()
       const Template = this.getTemplate()
       const $tip = (this.$_tip = new Template({
@@ -351,6 +334,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.$_tip && this.$_tip.$destroy()
       } catch {}
       this.$_tip = null
+      this.removeAriaDescribedby()
+      this.restoreTitle()
       this.localShow = false
     },
     getTemplateElement() {
@@ -370,13 +355,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         })
       }
     },
-    //
-    // Show and Hide handlers
-    //
+    // --- Show/Hide handlers ---
+    // Show the tooltip
     show() {
-      // Show the tooltip
       const target = this.getTarget()
-
       if (
         !target ||
         !contains(document.body, target) ||
@@ -390,38 +372,29 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // we exit without showing
         return
       }
-
+      // If tip already exists, exit early
       if (this.$_tip || this.localShow) {
-        // If tip already exists, exit early
         /* istanbul ignore next */
         return
       }
-
       // In the process of showing
       this.localShow = true
-
       // Create a cancelable BvEvent
       const showEvt = this.buildEvent('show', { cancelable: true })
       this.emitEvent(showEvt)
+      // Don't show if event cancelled
       /* istanbul ignore next: ignore for now */
       if (showEvt.defaultPrevented) {
-        // Don't show if event cancelled
         // Destroy the template (if for some reason it was created)
         /* istanbul ignore next */
         this.destroyTemplate()
-        // Clear the localShow flag
-        /* istanbul ignore next */
-        this.localShow = false
         /* istanbul ignore next */
         return
       }
-
       // Fix the title attribute on target
       this.fixTitle()
-
       // Set aria-describedby on target
       this.addAriaDescribedby()
-
       // Create and show the tooltip
       this.createTemplateAndShow()
     },
@@ -473,49 +446,42 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     enable() {
       this.$_enabled = true
       // Create a non-cancelable BvEvent
-      this.emitEvent(this.buildEvent('enabled', {}))
+      this.emitEvent(this.buildEvent('enabled'))
     },
     disable() {
       this.$_enabled = false
       // Create a non-cancelable BvEvent
-      this.emitEvent(this.buildEvent('disabled', {}))
+      this.emitEvent(this.buildEvent('disabled'))
     },
-    //
-    // Handlers for template events
-    //
+    // --- Handlers for template events ---
+    // When template is inserted into DOM, but not yet shown
     onTemplateShow() {
-      // When template is inserted into DOM, but not yet shown
       // Enable while open listeners/watchers
       this.setWhileOpenListeners(true)
     },
+    // When template show transition completes
     onTemplateShown() {
-      // When template show transition completes
       const prevHoverState = this.$_hoverState
       this.$_hoverState = ''
       if (prevHoverState === 'out') {
         this.leave(null)
       }
       // Emit a non-cancelable BvEvent 'shown'
-      this.emitEvent(this.buildEvent('shown', {}))
+      this.emitEvent(this.buildEvent('shown'))
     },
+    // When template is starting to hide
     onTemplateHide() {
-      // When template is starting to hide
       // Disable while open listeners/watchers
       this.setWhileOpenListeners(false)
     },
+    // When template has completed closing (just before it self destructs)
     onTemplateHidden() {
-      // When template has completed closing (just before it self destructs)
-      // TODO:
-      //   The next two lines could be moved into `destroyTemplate()`
-      this.removeAriaDescribedby()
-      this.restoreTitle()
+      // Destroy the template
       this.destroyTemplate()
       // Emit a non-cancelable BvEvent 'shown'
       this.emitEvent(this.buildEvent('hidden', {}))
     },
-    //
-    // Utility methods
-    //
+    // --- Utility methods ---
     getTarget() {
       // Handle case where target may be a component ref
       let target = this.target ? this.target.$el || this.target : null
@@ -575,6 +541,18 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const target = this.getTarget()
       return this.isDropdown() && target && select(DROPDOWN_OPEN_SELECTOR, target)
     },
+    clearHoverTimeout() {
+      if (this.$_hoverTimeout) {
+        clearTimeout(this.$_hoverTimeout)
+        this.$_hoverTimeout = null
+      }
+    },
+    clearVisibilityInterval() {
+      if (this.$_visibleInterval) {
+        clearInterval(this.$_visibleInterval)
+        this.$_visibleInterval = null
+      }
+    },
     clearActiveTriggers() {
       for (const trigger in this.activeTrigger) {
         this.activeTrigger[trigger] = false
@@ -628,9 +606,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         removeAttr(target, 'data-original-title')
       }
     },
-    //
-    // BvEvent helpers
-    //
+    // --- BvEvent helpers ---
     buildEvent(type, opts = {}) {
       // Defaults to a non-cancellable event
       return new BvEvent(type, {
@@ -653,9 +629,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       }
       this.$emit(evtName, bvEvt)
     },
-    //
-    // Event handler setup methods
-    //
+    // --- Event handler setup methods ---
     listen() {
       // Enable trigger event handlers
       const el = this.getTarget()
@@ -663,10 +637,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         /* istanbul ignore next */
         return
       }
-
       // Listen for global show/hide events
       this.setRootListener(true)
-
       // Set up our listeners on the target trigger element
       this.computedTriggers.forEach(trigger => {
         if (trigger === 'click') {
@@ -770,9 +742,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         target.__vue__[on ? '$on' : '$off']('shown', this.forceHide)
       }
     },
-    //
-    // Event handlers
-    //
+    // --- Event handlers ---
     handleEvent(evt) {
       // General trigger event handler
       // target is the trigger element
