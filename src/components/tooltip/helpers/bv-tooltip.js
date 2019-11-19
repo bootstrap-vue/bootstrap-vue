@@ -336,6 +336,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // then emit the `hidden` event once it is fully hidden
       // The `hook:destroyed` will also be called (safety measure)
       this.$_tip && this.$_tip.hide()
+      // Clear out any stragging active triggers
+      this.clearActiveTriggers()
+      // Reset the hover state
+      this.$_hoverState = ''
     },
     // Destroy the template instance and reset state
     destroyTemplate() {
@@ -444,11 +448,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
       // Tell the template to hide
       this.hideTemplate()
-      // TODO: The following could be added to `hideTemplate()`
-      // Clear out any stragging active triggers
-      this.clearActiveTriggers()
-      // Reset the hover state
-      this.$_hoverState = ''
     },
     forceHide() {
       // Forcefully hides/destroys the template, regardless of any active triggers
