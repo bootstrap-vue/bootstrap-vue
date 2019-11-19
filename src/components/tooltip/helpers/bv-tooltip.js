@@ -6,6 +6,7 @@
 import Vue from '../../../utils/vue'
 import getScopId from '../../../utils/get-scope-id'
 import looseEqual from '../../../utils/loose-equal'
+import noop from '../../../utils/noop'
 import { arrayIncludes, concat, from as arrayFrom } from '../../../utils/array'
 import {
   isElement,
@@ -203,7 +204,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.$_hoverState = ''
     this.$_visibleInterval = null
     this.$_enabled = !this.disabled
-    this.$_noop = () => {}
+    this.$_noop = noop
 
     // Destroy ourselves when the parent is destroyed
     if (this.$parent) {
