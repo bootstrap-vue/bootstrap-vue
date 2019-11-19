@@ -326,6 +326,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     // Destroy the template instance and reset state
     destroyTemplate() {
+      this.setWhileOpenListeners(false)
       this.clearHoverTimeout()
       this.$_hoverState = ''
       this.clearActiveTriggers()
