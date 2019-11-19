@@ -203,7 +203,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.$_hoverState = ''
     this.$_visibleInterval = null
     this.$_enabled = !this.disabled
-    this.$_noop = noop
+    this.$_noop = noop.bind(this)
 
     // Destroy ourselves when the parent is destroyed
     if (this.$parent) {
