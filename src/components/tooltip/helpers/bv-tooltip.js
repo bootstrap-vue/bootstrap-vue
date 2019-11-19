@@ -237,9 +237,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.unListen()
     this.setWhileOpenListeners(false)
 
-    // Clear any timeouts/Timers
-    clearTimeout(this.$_hoverTimeout)
-    this.$_hoverTimeout = null
+    // Clear any timeouts/intervals
+    this.clearHoverTimeout()
+    this.clearVisibilityInterval()
 
     this.destroyTemplate()
     this.restoreTitle()
@@ -269,6 +269,18 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // attribute on the trigger target. We only do this while the
         // template is open
         this.fixTitle()
+      }
+    },
+    clearHoverTimeout() {
+      if (this.$_hoverTimeout) {
+        clearTimeout(this.$_hoverTimeout)
+        this.$_hoverTimeout = null
+      }
+    },
+    clearVisibilityInterval() {
+      if (this.$_visibleInterval) {
+        clearInterval(this.$_visibleInterval)
+        this.$_visibleInterval = null
       }
     },
     createTemplateAndShow() {
@@ -324,11 +336,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // The `hook:destroyed` will also be called (safety measure)
       this.$_tip && this.$_tip.hide()
     },
+    // Destroy the template instance and reset state
     destroyTemplate() {
-      // Destroy the template instance and reset state
-      this.setWhileOpenListeners(false)
-      clearTimeout(this.$_hoverTimeout)
-      this.$_hoverTimout = null
+      this.clearHoverTimeout()
       this.$_hoverState = ''
       this.clearActiveTriggers()
       this.localPlacementTarget = null
@@ -450,8 +460,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // This is also done in the template `hide` evt handler
       this.setWhileOpenListeners(false)
       // Clear any hover enter/leave event
-      clearTimeout(this.hoverTimeout)
-      this.$_hoverTimeout = null
+      this.clearHoverTimeout()
       this.$_hoverState = ''
       this.clearActiveTriggers()
       // Disable the fade animation on the template
@@ -712,14 +721,13 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // On-touch start listeners
       this.setOnTouchStartListener(on)
     },
+    // Handler for periodic visibility check
     visibleCheck(on) {
-      // Handler for periodic visibility check
-      clearInterval(this.$_visibleInterval)
-      this.$_visibleInterval = null
+      this.clearVisibilityInterval()
       const target = this.getTarget()
       const tip = this.getTemplateElement()
       if (on) {
-        this.visibleInterval = setInterval(() => {
+        this.$_visibleInterval = setInterval(() => {
           if (tip && this.localShow && (!target.parentNode || !isVisible(target))) {
             // Target element is no longer visible or not in DOM, so force-hide the tooltip
             this.forceHide()
@@ -884,14 +892,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.$_hoverState = 'in'
         return
       }
-      clearTimeout(this.hoverTimeout)
+      this.clearHoverTimeout()
       this.$_hoverState = 'in'
       if (!this.computedDelay.show) {
         this.show()
       } else {
         // Hide any title attribute while enter delay is active
         this.fixTitle()
-        this.hoverTimeout = setTimeout(() => {
+        this.$_hoverTimeout = setTimeout(() => {
           /* istanbul ignore else */
           if (this.$_hoverState === 'in') {
             this.show()
@@ -917,12 +925,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       if (this.isWithActiveTrigger) {
         return
       }
-      clearTimeout(this.hoverTimeout)
+      this.clearHoverTimeout()
       this.$_hoverState = 'out'
       if (!this.computedDelay.hide) {
         this.hide()
       } else {
-        this.$hoverTimeout = setTimeout(() => {
+        this.$_hoverTimeout = setTimeout(() => {
           if (this.$_hoverState === 'out') {
             this.hide()
           }
