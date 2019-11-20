@@ -232,6 +232,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const scope = {
+      visible: this.show,
       close: () => (this.show = false)
     }
     const content = h(
