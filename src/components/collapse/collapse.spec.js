@@ -566,4 +566,59 @@ describe('collapse', () => {
 
     wrapper.destroy()
   })
+
+  it('default slot scope works', async () => {
+    let scope = null
+    const wrapper = mount(BCollapse, {
+      attachToDocument: true,
+      propsData: {
+        // 'id' is a required prop
+        id: 'test',
+        visible: true
+      },
+      scopedSlots: {
+        default(props) {
+          scope = props
+          return this.$createElement('div', 'foobar')
+        }
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    const rootWrapper = createWrapper(wrapper.vm.$root)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.emitted('show')).not.toBeDefined() // Does not emit show when initially visible
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe(true)
+    expect(rootWrapper.emitted(EVENT_ACCORDION)).not.toBeDefined()
+    expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).not.toBeDefined()
+
+    expect(scope).not.toBe(null)
+    expect(scope.visible).toBe(true)
+    expect(typeof scope.close).toBe('function')
+
+    scope.close()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).toBeDefined()
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC).length).toBe(2)
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[1][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[1][1]).toBe(false) // Visible state
+
+    expect(scope).not.toBe(null)
+    expect(scope.visible).toBe(false)
+    expect(typeof scope.close).toBe('function')
+
+    wrapper.destroy()
+  })
 })
