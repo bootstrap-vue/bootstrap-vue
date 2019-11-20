@@ -578,7 +578,7 @@ describe('collapse', () => {
       },
       scopedSlots: {
         default: props => {
-          scope = scope
+          scope = props
           return this.$createElement('div', 'foobar')
         }
       },
