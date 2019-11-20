@@ -611,9 +611,9 @@ describe('collapse', () => {
     await waitRAF()
 
     expect(rootWrapper.emitted(EVENT_STATE_SYNC)).toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][0]).toBe('test') // ID
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC).length).toBe(2)
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[1][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[1][1]).toBe(false) // Visible state
 
     expect(scope).not.toBe(null)
     expect(scope.visible).toBe(false)
