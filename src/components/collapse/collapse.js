@@ -232,7 +232,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const scope = {
-      close: () => this.show = false
+      close: this.toggle
     }
     const content = h(
       this.tag,
