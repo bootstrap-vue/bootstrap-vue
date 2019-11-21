@@ -53,6 +53,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: null
     },
+    size: {
+      type: String,
+      default: null
+    },
     inputClass: {
       type: [String, Array, Object],
       default: null
@@ -310,7 +314,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           focus: this.hasFocus,
           disabled: this.disabled,
           'is-valid': this.state === true,
-          'is-invalid': this.state === false
+          'is-invalid': this.state === false,
+          [`form-control-${this.size}`]: this.size
         },
         attrs: {
           id: this.safeId(),
