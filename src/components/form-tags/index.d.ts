@@ -12,3 +12,7 @@ export declare class BFormTags extends BvComponent {
   focus: () => void
   blur: () => void
 }
+
+// Component: b-form-tag
+export declare class BFormTag extends BvComponent {
+}
