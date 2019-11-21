@@ -45,7 +45,7 @@
               {
                 "prop": "inputId",
                 "type": "String",
-                "description": "ID to add to the new tag input element. Defaults to prop 'input-id'. If not provided a unique ID is auto-generated"
+                "description": "ID to add to the new tag input element. Defaults to prop 'input-id'. If not provided a unique ID is auto-generated. Also available via 'inputAttrs.id'"
               },
               {
                 "prop": "removeTag",
