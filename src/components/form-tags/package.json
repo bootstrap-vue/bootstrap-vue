@@ -1,0 +1,49 @@
+{
+  "name": "@bootstrap-vue/form-tags",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Form Tags",
+    "new": true,
+    "description": "Custom tagged input component, with ability for user to override rendering",
+    "components": [
+      {
+        "component": "BFormTags",
+        "version": "2.x.0",
+        "aliases": [
+          "BTags"
+        ],
+        "props": [
+          {
+            "prop": "value",
+            "description": "Array of current tags"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Slot to override rendering of the tagged input",
+            "scope": [
+              {
+                "prop": "tags",
+                "description": "Array of currently selected tags"
+              }
+            ]
+          }
+        ],
+        "events": [
+          {
+            "event": "input",
+            "description": "Emitted with the value changes",
+            "args": [
+              {
+                "arg": "value",
+                "type": "Array",
+                "description": "current tags value(s) of the input."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
