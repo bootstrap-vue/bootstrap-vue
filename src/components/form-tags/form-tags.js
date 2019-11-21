@@ -300,7 +300,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     return h(
       'div',
       {
-        staticClass: 'b-form-tags form-control',
+        staticClass: 'b-form-tags form-control h-auto',
         class: {
           focus: this.hasFocus,
           disabled: this.disabled,
