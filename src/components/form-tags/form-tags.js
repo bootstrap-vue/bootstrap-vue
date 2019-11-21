@@ -226,9 +226,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Methods
       addTag: this.addTag,
       removeTag: this.removeTag,
-      // input v-bind
-      inputAttrs: this.inputAttrs,
-      // input v-on
+      // <input> v-bind
+      inputAttrs: this.computedInputAttrs,
+      // <input> v-on
       inputHandlers: this.computedInputHandlers,
       // Pass-though values
       removeLabel: this.tagRemoveLabel,
