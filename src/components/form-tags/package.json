@@ -31,12 +31,12 @@
               {
                 "prop": "inputAttrs",
                 "type": "Object",
-                "description": "Object of attributes to apply to the input element via 'v-bind:inputAttrs'"
+                "description": "Object of attributes to apply to native input elements via 'v-bind=\"inputAttrs\"'"
               },
               {
                 "prop": "inputHandlers",
                 "type": "Object",
-                "description": "Object of event handlers to apply to the input element via 'v-on:inputHandlers'"
+                "description": "Object of event handlers to apply to native input elements via 'v-on=\"inputHandlers\"'"
               },
               {
                 "prop": "removeTag",
