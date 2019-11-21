@@ -1,6 +1,5 @@
 .b-form-tags {
-  &.focus,
-  &:focus-within  {
+  &.focus {
     color: $input-focus-color;
     background-color: $input-focus-bg;
     border-color: $input-focus-border-color;
@@ -19,8 +18,7 @@
   &.is-valid {
     border-color: $form-feedback-valid-color;
 
-    &:focus,
-    &:focus-within {
+    &:focus {
       border-color: $form-feedback-valid-color;
       box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-valid-color, 0.25);
     }
@@ -29,8 +27,7 @@
   &.is-invalid {
     border-color: $form-feedback-invalid-color;
 
-    &:focus,
-    &:focus-within {
+    &:focus {
       border-color: $form-feedback-invalid-color;
       box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-invalid-color, 0.25);
     }
