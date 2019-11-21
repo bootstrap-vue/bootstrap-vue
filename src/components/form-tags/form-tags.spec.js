@@ -20,4 +20,16 @@ describe('form-tags', () => {
 
     wrapper.destroy()
   })
+
+  it('has hidden inputs when name is set', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['apple', 'orange'],
+        name: 'foo'
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+
+    wrapper.destroy()
+  })
 })
