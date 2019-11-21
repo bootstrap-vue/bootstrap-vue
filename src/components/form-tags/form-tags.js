@@ -188,7 +188,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       })
     },
     getInput() {
-      return select(`#{this.computedInputId}`, this.$el)
+      return select(`#${this.computedInputId}`, this.$el)
     },
     // -- Public methods
     focus() {
