@@ -122,7 +122,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     value(newValue) {
-      this.tags = cleanTags(newValue)
+      const tags = cleanTags(newValue)
+      if (!looseEqual(tags, this.tags)) {
+        this.tags = tags
+      }
     },
     tags(newValue) {
       if (!looseEqual(newValue, this.value)) {
@@ -243,7 +246,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         return h(
           BBadge,
           {
-            key: `li-tag-${idx}`,
+            key: `li-tag__${tag}`,
             staticClass: 'b-form-tag d-inline-flex align-items-center font-weight-normal',
             class: this.tagClass,
             style: { margin: '1px 2px 1px 0' },
@@ -269,7 +272,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         on: this.computedInputHandlers
       })
       $content.push(
-        h('li', { key: 'li-input', staticClass: 'd-inline-flex flex-grow-1' }, [$input])
+        h('li', { key: 'li-input__', staticClass: 'd-inline-flex flex-grow-1' }, [$input])
       )
 
       // Wrap in a list element
@@ -288,8 +291,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // for native submission of forms
       this.tags.forEach(tag => {
         const $hidden = h('input', {
+          key: tag,
           attrs: {
             type: 'hidden',
+            value: tag,
             name: this.name,
             form: this.form || null
           }
