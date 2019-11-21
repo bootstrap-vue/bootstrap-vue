@@ -227,7 +227,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // input v-bind
       inputAttrs: this.inputAttrs,
       // input v-on
-      inputHandlers: this.inputHandlers,
+      inputHandlers: this.computedInputHandlers,
       // Pass-though values
       removeLabel: this.tagRemoveLabel,
       disabled: this.disabled,
@@ -276,7 +276,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           class: this.inputClass,
           style: { outline: 0 },
           attrs: this.computedInputAttrs,
-          on: this.computedInputHanlders
+          on: this.computedInputHandlers
         })
         $content.push(
           h('li', { key: 'li-input', staticClass: 'd-inline-flex flex-grow-1' }, [$input])
