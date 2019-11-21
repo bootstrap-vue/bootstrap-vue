@@ -160,6 +160,7 @@ export { BFormRadioGroup } from './components/form-radio/form-radio-group'
 // export * from './components/form-tags'
 export { FormTagsPlugin } from './components/form-tags'
 export { BFormTags } from './components/form-tags/form-tags'
+export { BFormTag } from './components/form-tags/form-tag'
 
 // export * from './components/form-select'
 export { FormSelectPlugin } from './components/form-select'
