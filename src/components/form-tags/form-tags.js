@@ -242,9 +242,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       })
     } else {
       // Internal rendering
-      data.class['d-flex'] = true
-      data.class['flex-wrap'] = true
-
       // Render any provided tags
       $content = this.tags.map((tag, idx) => {
         let $remove = h()
