@@ -90,4 +90,33 @@ describe('form-tags', () => {
 
     wrapper.destroy()
   })
+
+  it('removes tags when user clicks remove on tag', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['apple', 'orange', 'pear', 'peach']
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach'])
+    expect(wrapper.vm.newTag).toEqual('')
+
+    let $tags = wrapper.findAll('.badge')
+    expect($tags.length).toBe(4)
+  
+    expect($tags.at(1).attributes('title')).toEqual('orange')
+
+    const $btn = $tags.at(1).find('button')
+    expect($btn.exists()).toBe(true)
+
+    $btn.trigger('click')
+    expect(wrapper.vm.tags).toEqual(['apple', 'pear', 'peach'])
+
+    $tags = wrapper.findAll('.badge')
+    expect($tags.length).toBe(3)
+    expect($tags.at(1).attributes('title')).toEqual('pear')
+
+    wrapper.destroy()
+  })
 })
