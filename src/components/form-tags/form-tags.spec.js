@@ -4,7 +4,7 @@ import { BFormTags } from './form-tags'
 
 describe('form-tags', () => {
   it('has div as root element', async () => {
-    const wrapper = mount(BFormTagd)
+    const wrapper = mount(BFormTags)
     expect(wrapper.is('div')).toBe(true)
 
     wrapper.destroy()
