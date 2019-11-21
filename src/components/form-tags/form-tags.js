@@ -17,7 +17,7 @@ const cleanTags = tags => {
   return concat(tags).filter(tag => toString(tag).length > 0)
 }
 
-export const BFormTags /*#__PURE__*/ Vue.extend({
+export const BFormTags = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMiin],
   props: {
