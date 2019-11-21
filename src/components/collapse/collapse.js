@@ -231,6 +231,10 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const scope = {
+      visible: this.show,
+      close: () => (this.show = false)
+    }
     const content = h(
       this.tag,
       {
@@ -239,7 +243,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
         attrs: { id: this.safeId() },
         on: { click: this.clickHandler }
       },
-      [this.normalizeSlot('default')]
+      [this.normalizeSlot('default', scope)]
     )
     return h(
       BVCollapse,
