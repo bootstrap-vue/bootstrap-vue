@@ -226,16 +226,16 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // Array of tags
         tags: this.tags,
         // Methods
-        addTag: this.addTag,
         removeTag: this.removeTag,
-        // <input> v-bind
+        addTag: this.addTag,
+        // <input> v-bind:inputAttrs
         inputAttrs: this.computedInputAttrs,
-        // <input> v-on
+        // <input> v-on:inputHandlers
         inputHandlers: this.computedInputHandlers,
         // Pass-though values
-        removeLabel: this.tagRemoveLabel,
         disabled: this.disabled,
         state: this.state,
+        tagRemoveLabel: this.tagRemoveLabel,
         tagVariant: this.variant
       })
     } else {
