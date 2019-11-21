@@ -134,8 +134,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     value(newValue) {
       this.tags = cleanTags(newValue)
     },
-    newtag(newValue) {
-      // Update synable prop `input-value`
+    newTag(newValue) {
+      // Update syncable prop `input-value`
       this.$emit('update:inputValue', newValue)
     },
     tags(newValue) {
