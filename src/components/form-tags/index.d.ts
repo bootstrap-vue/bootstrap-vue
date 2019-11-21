@@ -14,5 +14,4 @@ export declare class BFormTags extends BvComponent {
 }
 
 // Component: b-form-tag
-export declare class BFormTag extends BvComponent {
-}
+export declare class BFormTag extends BvComponent {}
