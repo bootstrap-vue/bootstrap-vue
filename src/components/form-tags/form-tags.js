@@ -2,7 +2,6 @@
 import Vue from '../../utils/vue'
 import { concat } from '../../utils/array'
 import { requestAF, select } from '../../utils/dom'
-import { isUndefinedOrNull } from '../../utils/inspect'
 import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import toString from '../../utils/to-string'
@@ -19,7 +18,11 @@ const cleanTags = tags => {
 
 export const BFormTags = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin],
+  mixins: [idMixin, normalizeSlotMixin],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
   props: {
     inputId: {
       type: String,
@@ -87,25 +90,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       default: () => []
     }
   },
-  model: {
-    prop: "value",
-    event: "input"
-  },
   data() {
     return {
       newTag: '',
       tags: cleanTags(this.value),
       hasFocus: false
-    }
-  },
-  watch: {
-    value(newValue) {
-      this.tags = cleanTags(newValue)
-    },
-    tags(newValue) {
-      if (!looseEqual(newValue, this.value)) {
-        this.$emit('input', newValue)
-      }
     }
   },
   computed: {
@@ -128,6 +117,16 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         input: this.onInput,
         change: this.onChange,
         keydown: this.onKeydown
+      }
+    }
+  },
+  watch: {
+    value(newValue) {
+      this.tags = cleanTags(newValue)
+    },
+    tags(newValue) {
+      if (!looseEqual(newValue, this.value)) {
+        this.$emit('input', newValue)
       }
     }
   },
