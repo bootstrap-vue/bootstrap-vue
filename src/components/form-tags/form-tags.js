@@ -103,7 +103,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       this.tags = cleanTags(newValue)
     },
     tags(newValue) {
-      if (!looseEqual(newValue, this.value) {
+      if (!looseEqual(newValue, this.value)) {
         this.$emit('input', newValue)
       }
     }
@@ -228,9 +228,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // input v-bind
       inputAttrs: this.inputAttrs,
       // input v-on
-      inputHandlers: this.inputHandlers
+      inputHandlers: this.inputHandlers,
       // Pass-though values
-      removeLabel: this.removeLabel
+      removeLabel: this.tagRemoveLabel,
       disabled: this.disabled,
       state: this.state,
       tagVariant: this.variant,
@@ -247,7 +247,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           $remove = h(
             BButtonClose,
             {
-              props: { ariaLabel: this.removeLabel }
+              props: { ariaLabel: this.removeLabel },
               staticClass: 'b-form-tag-remove ml-1 text-reset d-inline-flex float-none',
               style: { fontSize: '1.25em' },
               on: {
@@ -261,8 +261,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           BBadge,
           {
             key: `li-tag-${idx}`,
-            staticClass: 'b-form-tag d-inline-flex align-items-center font-weight-normal'
-            class: this.tagClass
+            staticClass: 'b-form-tag d-inline-flex align-items-center font-weight-normal',
+            class: this.tagClass,
             style: { margin: '1px 2px 1px 0' },
             props: {
               tag: 'li',
@@ -278,7 +278,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             'input',
             {
               ref: 'input',
-              staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0'
+              staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
               class: this.inputClass,
               style: { outline: 0 },
               attrs: this.computedInputAttrs,
