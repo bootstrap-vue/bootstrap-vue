@@ -25,7 +25,48 @@
             "scope": [
               {
                 "prop": "tags",
+                "type": "Array",
                 "description": "Array of currently selected tags"
+              },
+              {
+                "prop": "addTag",
+                "type": "Function",
+                "description": "TBD"
+              },
+              {
+                "prop": "removeTag",
+                "type": "Function",
+                "description": "TBD"
+              },
+              {
+                "prop": "inputAttrs",
+                "type": "Object",
+                "description": "TBD"
+              },
+              {
+                "prop": "inputHandlers",
+                "type": "Object",
+                "description": "TBD"
+              },
+              {
+                "prop": "removeLabel",
+                "type": "String",
+                "description": "TBD"
+              },
+              {
+                "prop": "disabled",
+                "type": "Boolean",
+                "description": "TBD"
+              },
+              {
+                "prop": "state",
+                "type": "Boolean",
+                "description": "TBD"
+              },
+              {
+                "prop": "tagVariant",
+                "type": "String",
+                "description": "TBD"
               }
             ]
           }
