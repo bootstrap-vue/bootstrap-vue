@@ -141,9 +141,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       tag = toString(tag).trim()
       if (tag.length > 0 && !arrayIncludes(this.tags, tag)) {
         this.tags.push(tag)
-        this.$nextTick(() => {
-          this.newTag = ''
-        })
+        this.newTag = ''
       }
     },
     removeTag(tag) {
@@ -226,7 +224,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         addTag: this.addTag,
         removeTag: this.removeTag,
         // <input> v-bind
-        inputAttrs: inputAttrs,
+        inputAttrs: this.computedInputAttrs,
         // <input> v-on
         inputHandlers: this.computedInputHandlers,
         // Pass-though values
@@ -276,8 +274,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
           class: this.inputClass,
           style: { outline: 0, minWidth: '5rem' },
-          attrs: inputAttrs,
-          domProps: { value: inputAttrs.value },
+          attrs: this.computedInputAttrs,
+          domProps: { value: this.newTag },
           on: this.computedInputHandlers
         })
         $content.push(
