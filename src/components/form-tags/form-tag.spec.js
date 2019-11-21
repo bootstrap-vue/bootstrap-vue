@@ -109,7 +109,7 @@ describe('form-tag', () => {
     $btn.trigger('click')
 
     expect(wrapper.emitted('remove')).toBeDefined()
-    expect(wrapper.emitted('remove').lenght).toBe(1)
+    expect(wrapper.emitted('remove').length).toBe(1)
 
     wrapper.destroy()
   })
