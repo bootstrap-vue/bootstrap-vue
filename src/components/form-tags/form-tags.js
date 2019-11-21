@@ -95,6 +95,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: String,
       default: () => getComponentConfig(NAME, 'tagRemoveLabel')
     },
+    noOuterFocus: {
+      type: Boolean,
+      default: false
+    },
     value: {
       type: Array,
       default: () => []
@@ -306,7 +310,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'b-form-tags form-control h-auto',
         class: {
-          focus: this.hasFocus,
+          focus: this.hasFocus && !this.noOuterFocus,
           disabled: this.disabled,
           'is-valid': this.state === true,
           'is-invalid': this.state === false,
