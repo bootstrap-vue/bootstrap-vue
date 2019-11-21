@@ -181,7 +181,7 @@ describe('form-tags', () => {
     $input.trigger('focusin')
     expect(wrapper.classes()).toContain('focus')
 
-    $input.trigger('blur')
+    $input.element.blur()
     await waitNT(wrapper.vm)
     await waitRAF()
 
