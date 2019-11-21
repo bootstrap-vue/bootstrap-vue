@@ -1,6 +1,7 @@
 // tagged input
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
+import { getComponentConfig } from '../../utils/config'
 import { requestAF, select } from '../../utils/dom'
 import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
@@ -30,7 +31,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     placeholder: {
       type: String,
-      default: 'Add tag...'
+      default: () => getComponentConfig(NAME, 'placeholder')
     },
     disabled: {
       type: Boolean,
@@ -75,7 +76,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     tagVariant: {
       type: String,
-      default: 'secondary'
+      default: () => getComponentConfig(NAME, 'tagVariant')
     },
     tagClass: {
       type: [String, Array, Object],
@@ -87,7 +88,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     tagRemoveLabel: {
       type: String,
-      default: 'Remove tag'
+      default: () => getComponentConfig(NAME, 'tagRemoveLabel')
     },
     value: {
       type: Array,
@@ -118,8 +119,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         placeholder: this.placeholder || null,
         disabled: this.disabled || null,
         maxlength: this.tagMaxlength || null,
-        minlength: this.tagMinlength || null,
-        type: this.inputType || null
+        minlength: this.tagMinlength || null
       }
     },
     computedInputHandlers() {
@@ -235,6 +235,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // Pass-though values
         disabled: this.disabled,
         state: this.state,
+        placeholder: this.placeholder,
         tagRemoveLabel: this.tagRemoveLabel,
         tagVariant: this.variant
       })
@@ -278,7 +279,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
         class: this.inputClass,
         style: { outline: 0, minWidth: '5rem' },
-        attrs: this.computedInputAttrs,
+        attrs: { ...this.computedInputAttrs, type: 'text' },
         domProps: { value: this.newTag },
         on: this.computedInputHandlers
       })
