@@ -1,8 +1,9 @@
 # Form tags
 
-> Lightweight customizable tagged input form control
+> Lightweight customizable tagged input form control, with options for custom interface
+> rendering
 
-TBD
+## Basic usage
 
 **Default render:**
 
@@ -26,6 +27,10 @@ TBD
 
 <!-- form-tags-example.vue -->
 ```
+
+### Styling Options
+
+TBD
 
 ## Custom rending with default scoped slot
 
@@ -174,8 +179,9 @@ greater control over tag creation:
             v-for="tag in scope.tags"
             @remove="scope.removeTag(tag)"
             :key="tag"
-            :title="tag"
+            :title="'Tag: ' + tag"
             :variant="scope.tagVariant"
+            :removeLabel="scope.tagRemoveLabel"
             :disabled="scope.disabled"
             class="mr-2"
           >{{ tag }}</b-form-tag>
