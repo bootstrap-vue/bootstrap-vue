@@ -44,7 +44,7 @@ inputs or selects.
 ```html
 <template>
   <div>
-    <b-form-tags v-model="value" class="mb-2">
+    <b-form-tags v-model="value" no-outer-focus class="mb-2">
       <template v-slot:default="scope">
         <b-input-group class="mb-2">
           <input
@@ -93,7 +93,7 @@ event object).
 ```html
 <template>
   <div>
-    <b-form-tags v-model="value" class="mb-2">
+    <b-form-tags v-model="value" no-outer-focus class="mb-2">
       <template v-slot:default="scope">
         <b-input-group class="mb-2">
           <b-form-input
@@ -149,6 +149,7 @@ greater control over tag creation:
       tag-variant="success"
       class="mb-2 mt-2"
       :disabled="disabled"
+      no-outer-focus
       placeholder="Enter a new tag value and click Add"
     >
       <template v-slot:default="scope">
