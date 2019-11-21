@@ -153,7 +153,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   methods: {
     addTag(tag = this.newTag) {
       tag = toString(tag).trim()
-      if (tag.length > 0 !arrayIncludes(this.tags, tag)) {
+      if (tag.length > 0 && !arrayIncludes(this.tags, tag)) {
         this.tags.push(tag)
         this.newTag = ''
       }
