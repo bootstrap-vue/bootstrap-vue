@@ -204,22 +204,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    // Base wrapper data
-    const data = {
-      staticClass: 'b-form-tags form-control',
-      class: {
-        focus: this.hasFocus,
-        disabled: this.disabled,
-        'is-valid': this.state === true,
-        'is-invalid': this.state === false
-      },
-      attrs: {
-        id: this.safeId(),
-        role: 'group',
-        tabindex: this.disabled ? null : '-1'
-      }
-    }
-
     // Generate the control content
     let $content = h()
     if (this.hasNormalizedSlot('default')) {
@@ -313,6 +297,23 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         $content.push($hidden)
       })
     }
-    return h('div', data, $content)
+    return h(
+      'div',
+      {
+        staticClass: 'b-form-tags form-control',
+        class: {
+          focus: this.hasFocus,
+          disabled: this.disabled,
+          'is-valid': this.state === true,
+          'is-invalid': this.state === false
+        },
+        attrs: {
+          id: this.safeId(),
+          role: 'group',
+          tabindex: this.disabled ? null : '-1'
+        }
+      },
+      $content
+    )
   }
 })
