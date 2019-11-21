@@ -204,15 +204,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const inputAttrs = {
-      id: this.computedInputId,
-      value: this.newTag,
-      placeholder: this.placeholder || null,
-      disabled: this.disabled || null,
-      maxlength: this.tagMaxlength || null,
-      minlength: this.tagMinlength || null,
-      type: this.inputType || null
-    }
     // Generate the control content
     let $content = h()
     if (this.hasNormalizedSlot('default')) {
@@ -268,20 +259,18 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       })
 
       // Add default input
-      if (!this.disabled) {
-        const $input = h('input', {
-          ref: 'input',
-          staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
-          class: this.inputClass,
-          style: { outline: 0, minWidth: '5rem' },
-          attrs: this.computedInputAttrs,
-          domProps: { value: this.newTag },
-          on: this.computedInputHandlers
-        })
-        $content.push(
-          h('li', { key: 'li-input', staticClass: 'd-inline-flex flex-grow-1' }, [$input])
-        )
-      }
+      const $input = h('input', {
+        ref: 'input',
+        staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
+        class: this.inputClass,
+        style: { outline: 0, minWidth: '5rem' },
+        attrs: this.computedInputAttrs,
+        domProps: { value: this.newTag },
+        on: this.computedInputHandlers
+      })
+      $content.push(
+        h('li', { key: 'li-input', staticClass: 'd-inline-flex flex-grow-1' }, [$input])
+      )
 
       // Wrap in a list element
       $content = h(
