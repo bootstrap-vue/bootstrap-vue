@@ -15,7 +15,7 @@
         "props": [
           {
             "prop": "value",
-            "description": "Array of current tags"
+            "description": "Array of current tags. This is the v-model"
           }
         ],
         "slots": [
@@ -78,24 +78,13 @@
         ],
         "events": [
           {
-            "event": "change",
+            "event": "input",
             "description": "Emitted when the tags changes. Updates the v-model",
             "args": [
               {
                 "arg": "value",
                 "type": "Array",
                 "description": "Array of current tags."
-              }
-            ]
-          },
-          {
-            "event": "update:inputValue",
-            "description": "Emitted when content of the new tag entry input changes",
-            "args": [
-              {
-                "arg": "value",
-                "type": "String",
-                "description": "value of the input element."
               }
             ]
           }
