@@ -18,11 +18,7 @@ const cleanTags = tags => {
 }
 
 const processEventValue = evt => {
-  const value = isString(evt)
-    ? evt
-    : evt instanceof Event
-      ? evt.target.value
-      : ''
+  const value = isString(evt) ? evt : evt instanceof Event ? evt.target.value : ''
   return value || ''
 }
 
