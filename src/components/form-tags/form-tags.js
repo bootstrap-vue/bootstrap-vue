@@ -21,7 +21,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin, normalizeSlotMixin],
   model: {
     prop: 'value',
-    event: 'change'
+    event: 'input'
   },
   props: {
     inputId: {
@@ -128,7 +128,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     tags(newValue) {
       if (!looseEqual(newValue, this.value)) {
-        this.$emit('change', newValue)
+        this.$emit('input', newValue)
       }
     }
   },
