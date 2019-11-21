@@ -213,7 +213,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     blur() {
       try {
         const input = this.getInput()
-        input.focus()
+        input.blur()
       } catch {}
     }
   },
