@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-// import { waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormTags } from './form-tags'
 
 describe('form-tags', () => {
@@ -32,6 +32,36 @@ describe('form-tags', () => {
     wrapper.setProps({
       value: ['pear']
     })
+
+    wrapper.destroy()
+  })
+
+  it('default slot has expected scope', async () => {
+    let scope
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['apple', 'orange']
+      },
+      scopedSlots: {
+        default(props) {
+          scope = props
+        }
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(scope).toBeDefined()
+    expect(typeof scope).toBe('object')
+
+    expect(Array.isArray(scope.tags)).toBe(true)
+    expect(scope.tags).toEqual(['apple', 'orange'])
+    expect(typeof scope.addTag).toBe('function')
+    expect(typeof scope.removeTag).toBe('function')
+    expect(typeof scope.disabled).toBe('boolean')
+    expect(typeof scope.tagRemoveLabel).toBe('string')
+    expect(scope.tagRemoveLabel).toBe('Remove tag')
 
     wrapper.destroy()
   })
@@ -104,7 +134,7 @@ describe('form-tags', () => {
 
     let $tags = wrapper.findAll('.badge')
     expect($tags.length).toBe(4)
-  
+
     expect($tags.at(1).attributes('title')).toEqual('orange')
 
     const $btn = $tags.at(1).find('button')
@@ -116,6 +146,58 @@ describe('form-tags', () => {
     $tags = wrapper.findAll('.badge')
     expect($tags.length).toBe(3)
     expect($tags.at(1).attributes('title')).toEqual('pear')
+
+    wrapper.destroy()
+  })
+
+  it('focuses input when weapper clicked', async () => {
+    const wrapper = mount(BFormTags, {
+      attachToDocument: true,
+      propsData: {
+        value: ['apple', 'orange']
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    expect(wrapper.vm.newTag).toEqual('')
+
+    expect(wrapper.classes()).not.toContain('focus')
+
+    const $input = wrapper.find('input')
+
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+
+    expect(document.activeElement).not.toBe($input.element)
+
+    wrapper.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).toBe($input.element)
+    expect(wrapper.classes()).toContain('focus')
+
+    $input.trigger('blur')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).not.toBe($input.element)
+    expect(wrapper.classes()).not.toContain('focus')
+
+    wrapper.vm.focus()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(document.activeElement).toBe($input.element)
+    expect(wrapper.classes()).toContain('focus')
+
+    wrapper.vm.blur()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(document.activeElement).not.toBe($input.element)
+    expect(wrapper.classes()).not.toContain('focus')
 
     wrapper.destroy()
   })
