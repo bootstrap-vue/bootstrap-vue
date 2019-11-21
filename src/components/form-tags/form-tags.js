@@ -116,7 +116,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       return {
         id: this.computedInputId,
         value: this.newTag,
-        placeholder: this.placeholder || null,
         disabled: this.disabled || null,
         maxlength: this.tagMaxlength || null,
         minlength: this.tagMinlength || null
@@ -237,7 +236,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         state: this.state,
         placeholder: this.placeholder,
         tagRemoveLabel: this.tagRemoveLabel,
-        tagVariant: this.variant
+        tagVariant: this.tagVariant
       })
     } else {
       // Internal rendering
@@ -279,7 +278,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
         class: this.inputClass,
         style: { outline: 0, minWidth: '5rem' },
-        attrs: { ...this.computedInputAttrs, type: 'text' },
+        attrs: { ...this.computedInputAttrs, type: 'text', placeholder: this.placeholder || null },
         domProps: { value: this.newTag },
         on: this.computedInputHandlers
       })
