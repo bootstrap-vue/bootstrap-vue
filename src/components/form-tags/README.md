@@ -136,22 +136,23 @@ event object).
 
 ### Advanced custom rendering usage
 
-In situations where the `inputHandlers` will not work wiht your custom input, or if you need
+In situations where the `inputHandlers` will not work with your custom input, or if you need
 greater control over tag creation:
 
 ```html
 <template>
-  <b-form-checkbox switch size="lg" v-model="disabled">Disable</b-form-checkbox>
   <div>
+    <b-form-checkbox switch size="lg" v-model="disabled">Disable</b-form-checkbox>
     <b-form-tags
       v-model="value"
       @input="resetInputValue()"
       tag-variant="success"
-      class="mb-2"
+      class="mb-2 mt-2"
       :disabled="disabled"
+      placeholder="Enter a new tag value and click Add"
     >
       <template v-slot:default="scope">
-        <b-input-group class="mb-2">
+        <b-input-group>
           <!-- Always bind the id to the input so that it can be focused when needed -->
           <b-form-input
             v-model="newTag"
@@ -161,15 +162,16 @@ greater control over tag creation:
             class="form-control"
           ></b-form-input>
           <b-input-group-append>
-            <b-button @click="scope.addTag(newTag)" variant="primary">Add</b-button>
+            <b-button @click="scope.addTag(newTag)" :disabled="disabled" variant="primary">Add</b-button>
           </b-input-group-append>
         </b-input-group>
-        <b-form-invalid-feedback :state="isNotDuplicate" class="mb-1">
+        <b-form-invalid-feedback :state="isNotDuplicate">
           Duplicate tag value cannot be added again!
         </b-form-invalid-feedback>
-        <div style="font-size: 1.5rem;">
+        <div v-if="scope.tags.length" style="font-size: 1.5rem;" class="mt-2">
           <b-form-tag
             v-for="tag in scope.tags"
+            @remove="scope.removeTag(tag)"
             :key="tag"
             :title="tag"
             :variant="scope.tagVariant"
@@ -177,6 +179,9 @@ greater control over tag creation:
             class="mr-2"
           >{{ tag }}</b-form-tag>
         </div>
+        <b-form-text v-else>
+          There are no tags specified. Add a new tag above.
+        </b-form-text>
       </template>
     </b-form-tags>
   </div>
