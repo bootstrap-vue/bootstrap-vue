@@ -1,6 +1,6 @@
 // tagged input
 import Vue from '../../utils/vue'
-import { concat } from '../../utils/array'
+import { arrayIncludes, concat } from '../../utils/array'
 import { requestAF, select } from '../../utils/dom'
 import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
@@ -145,7 +145,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       }
     },
     removeTag(tag) {
-      this.tags = this.tags.filter(t => t !== tag )
+      this.tags = this.tags.filter(t => t !== tag)
     },
     // -- Input element event handlers
     onInput(evt) {
@@ -209,13 +209,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         focus: this.hasFocus,
         disabled: this.disabled,
         'is-valid': this.state === true,
-        'is-invalid': this.state === false,
+        'is-invalid': this.state === false
       },
       attrs: {
         id: this.safeId(),
         role: 'group',
         tabindex: this.disabled ? null : '-1'
-      },
+      }
     }
     // Default slot scope
     const scope = {
@@ -232,10 +232,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       removeLabel: this.tagRemoveLabel,
       disabled: this.disabled,
       state: this.state,
-      tagVariant: this.variant,
+      tagVariant: this.variant
     }
     // User supplied default slot render
-    let $content = normalizeSlot('defaut', scope)
+    let $content = this.normalizeSlot('defaut', scope)
     // Internal rendering
     if (!$content) {
       data.class['d-flex'] = true
@@ -243,17 +243,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       $content = this.computedTags.map((tag, idx) => {
         let $remove = h()
         if (!this.disabled) {
-          $remove = h(
-            BButtonClose,
-            {
-              props: { ariaLabel: this.removeLabel },
-              staticClass: 'b-form-tag-remove ml-1 text-reset d-inline-flex float-none',
-              style: { fontSize: '1.25em' },
-              on: {
-                click: () => this.removeTag(tag)
-              }
+          $remove = h(BButtonClose, {
+            props: { ariaLabel: this.removeLabel },
+            staticClass: 'b-form-tag-remove ml-1 text-reset d-inline-flex float-none',
+            style: { fontSize: '1.25em' },
+            on: {
+              click: () => this.removeTag(tag)
             }
-          )
+          })
         }
         const $tag = h('span', {}, toString(tag))
         return h(
@@ -273,23 +270,16 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         )
       })
       if (!this.disabled) {
-        const $input = h(
-          'input',
-          {
-            ref: 'input',
-            staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
-            class: this.inputClass,
-            style: { outline: 0 },
-            attrs: this.computedInputAttrs,
-            on: this.computedInputHanlders
-          }
-        )
+        const $input = h('input', {
+          ref: 'input',
+          staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
+          class: this.inputClass,
+          style: { outline: 0 },
+          attrs: this.computedInputAttrs,
+          on: this.computedInputHanlders
+        })
         $content.push(
-          h(
-            'li',
-            { key: 'li-input', staticClass: 'd-inline-flex flex-grow-1' },
-            [$input]
-          )
+          h('li', { key: 'li-input', staticClass: 'd-inline-flex flex-grow-1' }, [$input])
         )
       }
       $content = h(
@@ -311,7 +301,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             name: this.name,
             form: this.form || null
           }
-        }) 
+        })
         $content.push($hidden)
       })
     }
