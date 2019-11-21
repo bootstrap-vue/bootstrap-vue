@@ -14,7 +14,6 @@ describe('form-tag', () => {
     expect(wrapper.classes()).toContain('b-form-tag')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).toContain('badge-secondary')
-    expect(wrapper.classes()).toContain('d-inline-flex')
     expect(wrapper.attributes('title')).toBe('foobar')
     expect(wrapper.text()).toContain('foobar')
 
@@ -40,8 +39,7 @@ describe('form-tag', () => {
     expect(wrapper.classes()).toContain('b-form-tag')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).toContain('badge-secondary')
-    expect(wrapper.classes()).toContain('d-inline-flex')
-    expect(wrapper.attributes('title')).toBe('foobar')
+     expect(wrapper.attributes('title')).toBe('foobar')
     expect(wrapper.text()).toContain('foobar')
 
     const $btn = wrapper.find('button')
@@ -68,7 +66,6 @@ describe('form-tag', () => {
     expect(wrapper.classes()).toContain('b-form-tag')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).toContain('badge-secondary')
-    expect(wrapper.classes()).toContain('d-inline-flex')
     expect(wrapper.attributes('title')).toBe('foo')
     expect(wrapper.text()).toContain('bar')
     expect(wrapper.text()).not.toContain('foo')
