@@ -15,12 +15,10 @@
         "props": [
           {
             "prop": "value",
-            "type": "Array",
             "description": "Array of current tags. This is the v-model"
           },
           {
             "prop": "noOuterFocus",
-            "type": "Boolean",
             "description": "When set, disables the focus styling of the component root element"
           }
         ],
@@ -43,6 +41,11 @@
                 "prop": "inputHandlers",
                 "type": "Object",
                 "description": "Object of event handlers to apply to native input elements via 'v-on=\"inputHandlers\"'"
+              },
+              {
+                "prop": "inputId",
+                "type": "String",
+                "description": "ID to add to the new tag input element. Defaults to prop 'input-id'. If not provided a unique ID is auto-generated"
               },
               {
                 "prop": "removeTag",
