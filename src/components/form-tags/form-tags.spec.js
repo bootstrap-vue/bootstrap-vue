@@ -21,6 +21,21 @@ describe('form-tags', () => {
     wrapper.destroy()
   })
 
+  it('responds to changes in value prop', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['apple', 'orange']
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+
+    wrapper.setProps({
+      value: ['pear']
+    })
+
+    wrapper.destroy()
+  })
+
   it('has hidden inputs when name is set', async () => {
     const wrapper = mount(BFormTags, {
       propsData: {
