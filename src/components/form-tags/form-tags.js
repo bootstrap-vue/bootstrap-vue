@@ -21,7 +21,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin, normalizeSlotMixin],
   model: {
     prop: 'value',
-    event: 'input'
+    event: 'change'
   },
   props: {
     inputId: {
@@ -92,6 +92,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     value: {
       type: Array,
       default: () => []
+    },
+    inputValue: {
+      // Syncable prop with the current value
+      // of the text in the <input>
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -118,22 +124,23 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedInputHandlers() {
       return {
-        input: this.onInput,
-        change: this.onChange,
-        keydown: this.onKeydown
+        input: this.onInputInput,
+        change: this.onInputChange,
+        keydown: this.onInputKeydown
       }
     }
   },
   watch: {
     value(newValue) {
-      const tags = cleanTags(newValue)
-      if (!looseEqual(tags, this.tags)) {
-        this.tags = tags
-      }
+      this.tags = cleanTags(newValue)
+    },
+    newtag(newValue) {
+      // Update synable prop `input-value`
+      this.$emit('update:inputValue', newValue)
     },
     tags(newValue) {
       if (!looseEqual(newValue, this.value)) {
-        this.$emit('input', newValue)
+        this.$emit('change', newValue)
       }
     }
   },
@@ -146,7 +153,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   methods: {
     addTag(tag = this.newTag) {
       tag = toString(tag).trim()
-      if (tag.length > 0 && !arrayIncludes(this.tags, tag)) {
+      if (tag.length > 0 !arrayIncludes(this.tags, tag)) {
         this.tags.push(tag)
         this.newTag = ''
       }
@@ -155,16 +162,16 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       this.tags = this.tags.filter(t => t !== tag)
     },
     // -- Input element event handlers
-    onInput(evt) {
+    onInputInput(evt) {
       this.newTag = evt.target.value || ''
     },
-    onChange(evt) {
-      // Change is triggered on input blur, or select selected
+    onInputChange(evt) {
+      // Change is triggered on `<input>` blur, or `<select>` selected
       // We listen to this event since ENTER on mobile is not always possible
       this.newTag = evt.target.value || ''
       this.addTag()
     },
-    onKeydown(evt) {
+    onInputKeydown(evt) {
       if (evt.keyCode === KeyCodes.ENTER) {
         evt.preventDefault()
         this.addTag()
