@@ -321,7 +321,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: this.safeId(),
           role: 'group',
-          tabindex: this.disabled ? null : '-1'
+          tabindex: this.disabled ? null : this.noOuterFocus ? null : '-1'
         },
         on: {
           focusin: this.onFocusin,
