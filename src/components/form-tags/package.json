@@ -59,6 +59,11 @@
                 "description": "The contextual state of the component. Value of the 'state' prop. Possible values are true, false or null"
               },
               {
+                "prop": "placeholder",
+                "type": "String",
+                "description": "The value of the 'placeholder' prop"
+              },
+              {
                 "prop": "tagRemoveLabel",
                 "type": "String",
                 "description": "ARIA label for the remove button on tags. Value of the 'tag-remove-label' prop"
