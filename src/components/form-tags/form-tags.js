@@ -92,12 +92,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     value: {
       type: Array,
       default: () => []
-    },
-    inputValue: {
-      // Syncable prop with the current value
-      // of the text in the <input>
-      type: String,
-      default: ''
     }
   },
   data() {
@@ -131,10 +125,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   watch: {
     value(newValue) {
       this.tags = cleanTags(newValue)
-    },
-    newTag(newValue) {
-      // Update syncable prop `input-value`
-      this.$emit('update:inputValue', newValue)
     },
     tags(newValue) {
       if (!looseEqual(newValue, this.value)) {
