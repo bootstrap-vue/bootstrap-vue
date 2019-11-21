@@ -258,6 +258,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             staticClass: 'b-form-tag d-inline-flex align-items-center font-weight-normal',
             class: this.tagClass,
             style: { margin: '1px 2px 1px 0' },
+            attrs: { title: tag },
             props: {
               tag: 'li',
               variant: this.tagVariant,
@@ -276,6 +277,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           class: this.inputClass,
           style: { outline: 0, minWidth: '5rem' },
           attrs: inputAttrs,
+          domProps: { value: inputAttrs.value },
           on: this.computedInputHandlers
         })
         $content.push(
