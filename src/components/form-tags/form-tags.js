@@ -8,6 +8,7 @@ import looseEqual from '../../utils/loose-equal'
 import toString from '../../utils/to-string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { BFormTag } from './form-tag'
 import { BButtonClose } from '../button/button-close'
 import { BBadge } from '../badge/badge'
 
@@ -242,33 +243,26 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Internal rendering
       // Render any provided tags
       $content = this.tags.map((tag, idx) => {
-        let $remove = h()
-        if (!this.disabled) {
-          $remove = h(BButtonClose, {
-            props: { ariaLabel: this.tagRemoveLabel },
-            staticClass: 'b-form-tag-remove ml-1 text-reset d-inline-flex float-none',
-            style: { fontSize: '1.25em' },
-            on: {
-              click: () => this.removeTag(tag)
-            }
-          })
-        }
-        const $tag = h('span', {}, toString(tag))
+        tag = toString(tag)
         return h(
-          BBadge,
+          BFormTag,
           {
             key: `li-tag__${tag}`,
-            staticClass: 'b-form-tag d-inline-flex align-items-center font-weight-normal',
             class: this.tagClass,
             style: { margin: '1px 2px 1px 0' },
-            attrs: { title: tag },
             props: {
               tag: 'li',
+              title: tag,
+              disabled: this.disabled,
               variant: this.tagVariant,
-              pill: this.tagPills
+              pill: this.pills,
+              removeLabel: this.tagRemoveLabel
+            },
+            on: {
+              remove: () => this.removeTag(tag)
             }
           },
-          [$tag, $remove]
+          tag
         )
       })
 
