@@ -219,29 +219,33 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         tabindex: this.disabled ? null : '-1'
       }
     }
-    // Default slot scope
-    const scope = {
-      // Array of tags
-      tags: this.tags,
-      // Methods
-      addTag: this.addTag,
-      removeTag: this.removeTag,
-      // <input> v-bind
-      inputAttrs: this.computedInputAttrs,
-      // <input> v-on
-      inputHandlers: this.computedInputHandlers,
-      // Pass-though values
-      removeLabel: this.tagRemoveLabel,
-      disabled: this.disabled,
-      state: this.state,
-      tagVariant: this.variant
-    }
-    // User supplied default slot render
-    let $content = this.normalizeSlot('defaut', scope)
-    // Internal rendering
-    if (!$content) {
+
+    // Generate the control content
+    let $content = h()
+    if (this.hasNormalizedSlot('default')) {
+      // User supplied default slot render
+      $content = this.normalizeSlot('default', {
+        // Array of tags
+        tags: this.tags,
+        // Methods
+        addTag: this.addTag,
+        removeTag: this.removeTag,
+        // <input> v-bind
+        inputAttrs: this.computedInputAttrs,
+        // <input> v-on
+        inputHandlers: this.computedInputHandlers,
+        // Pass-though values
+        removeLabel: this.tagRemoveLabel,
+        disabled: this.disabled,
+        state: this.state,
+        tagVariant: this.variant
+      })
+    } else {
+      // Internal rendering
       data.class['d-flex'] = true
       data.class['flex-wrap'] = true
+
+      // Render any provided tags
       $content = this.tags.map((tag, idx) => {
         let $remove = h()
         if (!this.disabled) {
@@ -271,6 +275,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           [$tag, $remove]
         )
       })
+
+      // Add default input
       if (!this.disabled) {
         const $input = h('input', {
           ref: 'input',
@@ -284,6 +290,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           h('li', { key: 'li-input', staticClass: 'd-inline-flex flex-grow-1' }, [$input])
         )
       }
+
+      // Wrap in a list element
       $content = h(
         'ul',
         {
@@ -292,10 +300,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         $content
       )
     }
+    // Ensure we have an array
+    $content = concat($content)
     if (this.name) {
       // We add hidden inputs for each tag if a name is provided
       // for native submission of forms
-      $content = concat($content)
       this.tags.forEach(tag => {
         const $hidden = h('input', {
           attrs: {
