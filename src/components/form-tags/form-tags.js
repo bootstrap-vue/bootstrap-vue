@@ -104,7 +104,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     computedInputAttrs() {
       return {
         id: this.computedInputId,
-        value: this.newTag || '',
+        value: this.newTag,
         placeholder: this.placeholder || null,
         disabled: this.disabled || null,
         maxlength: this.tagMaxlength || null,
@@ -141,7 +141,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       tag = toString(tag).trim()
       if (tag.length > 0 && !arrayIncludes(this.tags, tag)) {
         this.tags.push(tag)
-        this.$nextTick(() => (this.newTag = ''))
+        this.$nextTick(() => {
+          this.newTag = ''
+        })
       }
     },
     removeTag(tag) {
@@ -166,7 +168,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     // -- Wrapper event handlers
     onClick(evt) {
       if (evt.target === evt.currentTarget && !this.disabled) {
-        this.focus()
+        this.$nextTick(this.focus)
       }
     },
     onFocusin() {
@@ -204,6 +206,15 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const inputAttrs = {
+      id: this.computedInputId,
+      value: this.newTag,
+      placeholder: this.placeholder || null,
+      disabled: this.disabled || null,
+      maxlength: this.tagMaxlength || null,
+      minlength: this.tagMinlength || null,
+      type: this.inputType || null
+    }
     // Generate the control content
     let $content = h()
     if (this.hasNormalizedSlot('default')) {
@@ -215,7 +226,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         addTag: this.addTag,
         removeTag: this.removeTag,
         // <input> v-bind
-        inputAttrs: this.computedInputAttrs,
+        inputAttrs: inputAttrs,
         // <input> v-on
         inputHandlers: this.computedInputHandlers,
         // Pass-though values
@@ -264,7 +275,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
           class: this.inputClass,
           style: { outline: 0, minWidth: '5rem' },
-          attrs: this.computedInputAttrs,
+          attrs: inputAttrs,
           on: this.computedInputHandlers
         })
         $content.push(
