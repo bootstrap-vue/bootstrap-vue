@@ -9,8 +9,6 @@ import toString from '../../utils/to-string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BFormTag } from './form-tag'
-import { BButtonClose } from '../button/button-close'
-import { BBadge } from '../badge/badge'
 
 const NAME = 'BFormTags'
 
