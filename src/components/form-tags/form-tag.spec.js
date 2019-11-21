@@ -94,7 +94,6 @@ describe('form-tag', () => {
     expect(wrapper.classes()).toContain('b-form-tag')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).toContain('badge-secondary')
-    expect(wrapper.classes()).toContain('d-inline-flex')
     expect(wrapper.attributes('title')).toBe('foobar')
     expect(wrapper.text()).toContain('foobar')
 
