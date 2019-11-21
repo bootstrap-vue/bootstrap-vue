@@ -311,6 +311,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           id: this.safeId(),
           role: 'group',
           tabindex: this.disabled ? null : '-1'
+        },
+        on: {
+          focusin: this.onFocusin,
+          focusout: this.onFocusout,
+          click: this.onClick
         }
       },
       $content
