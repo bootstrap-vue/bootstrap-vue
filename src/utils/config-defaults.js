@@ -85,6 +85,10 @@ export default deepFreeze({
     placeholder: 'No file chosen',
     dropPlaceholder: 'Drop files here'
   },
+  BFormTag: {
+    removeLabel: 'Remove tag',
+    variant: 'secondary'
+  },
   BFormTags: {
     placeholder: 'Add tag...',
     tagRemoveLabel: 'Remove tag',
