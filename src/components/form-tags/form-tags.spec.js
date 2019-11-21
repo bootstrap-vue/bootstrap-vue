@@ -84,7 +84,7 @@ describe('form-tags', () => {
     expect(typeof scope.addTag).toBe('function')
     expect(typeof scope.removeTag).toBe('function')
     expect(typeof scope.disabled).toBe('boolean')
-    expect(typeof scope.state).toEqual(null)
+    expect(scope.state).toEqual(null)
     expect(typeof scope.tagRemoveLabel).toBe('string')
     expect(scope.tagRemoveLabel).toBe('Remove tag')
     expect(typeof scope.placeholder).toBe('string')
