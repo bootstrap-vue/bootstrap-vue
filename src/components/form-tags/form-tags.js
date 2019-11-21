@@ -221,8 +221,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     if (this.hasNormalizedSlot('default')) {
       // User supplied default slot render
       $content = this.normalizeSlot('default', {
-        // Array of tags
-        tags: this.tags,
+        // Array of tags (shallow copy)
+        tags: this.tags.slice(),
         // Methods
         removeTag: this.removeTag,
         addTag: this.addTag,
