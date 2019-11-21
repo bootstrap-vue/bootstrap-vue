@@ -230,6 +230,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         inputAttrs: this.computedInputAttrs,
         // <input> v-on:inputHandlers
         inputHandlers: this.computedInputHandlers,
+        // <input> :id="inputId"
+        inputId: this.computedInputId,
         // Pass-though values
         disabled: this.disabled,
         state: this.state,
