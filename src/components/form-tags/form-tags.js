@@ -178,7 +178,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     handleAutofocus() {
       this.$nextTick(() => {
         requestAF(() => {
-          this.focus()
+          if (this.autofocus) {
+            this.focus()
+          }
         })
       })
     },
