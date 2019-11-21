@@ -19,7 +19,7 @@ const cleanTags = tags => {
 
 export const BFormTags = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMiin],
+  mixins: [idMixin],
   props: {
     inputId: {
       type: String,
