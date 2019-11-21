@@ -150,7 +150,7 @@ describe('form-tags', () => {
     wrapper.destroy()
   })
 
-  it('focuses input when weapper clicked', async () => {
+  it('focuses input when wrapper div clicked', async () => {
     const wrapper = mount(BFormTags, {
       attachToDocument: true,
       propsData: {
@@ -202,6 +202,33 @@ describe('form-tags', () => {
     expect(document.activeElement).not.toBe($input.element)
     $input.trigger('focusout')
     expect(wrapper.classes()).not.toContain('focus')
+
+    wrapper.destroy()
+  })
+
+  it('autofocus works', async () => {
+    const wrapper = mount(BFormTags, {
+      attachToDocument: true,
+      propsData: {
+        autofocus: true,
+        value: ['apple', 'orange']
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    expect(wrapper.vm.newTag).toEqual('')
+
+    expect(wrapper.classes()).not.toContain('focus')
+
+    const $input = wrapper.find('input')
+
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+
+    expect(document.activeElement).toBe($input.element)
 
     wrapper.destroy()
   })
