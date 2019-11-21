@@ -21,65 +21,76 @@
         "slots": [
           {
             "name": "default",
-            "description": "Slot to override rendering of the tagged input",
+            "description": "Slot to override the default rendering of the tags component",
             "scope": [
               {
                 "prop": "tags",
                 "type": "Array",
-                "description": "Array of currently selected tags"
-              },
-              {
-                "prop": "addTag",
-                "type": "Function",
-                "description": "TBD"
-              },
-              {
-                "prop": "removeTag",
-                "type": "Function",
-                "description": "TBD"
+                "description": "Array of tags to render"
               },
               {
                 "prop": "inputAttrs",
                 "type": "Object",
-                "description": "TBD"
+                "description": "Object of attributes to apply to the input element via 'v-bind:inputAttrs'"
               },
               {
                 "prop": "inputHandlers",
                 "type": "Object",
-                "description": "TBD"
+                "description": "Object of event handlers to apply to the input element via 'v-on:inputHandlers'"
               },
               {
-                "prop": "removeLabel",
-                "type": "String",
-                "description": "TBD"
+                "prop": "removeTag",
+                "type": "Function",
+                "description": "Method to remove a tag. Accepts one argument which is the tag value to remove"
+              },
+              {
+                "prop": "addTag",
+                "type": "Function",
+                "description": "Method to add a new tag. Assumes the tag is the value of the input, but optionally accepts one argument which is the tag value to be added"
               },
               {
                 "prop": "disabled",
                 "type": "Boolean",
-                "description": "TBD"
+                "description": "If the component is in the disabled state. Value of the 'disabled' prop"
               },
               {
                 "prop": "state",
                 "type": "Boolean",
-                "description": "TBD"
+                "description": "The contextual state of the component. Value of the 'state' prop. Possible values are true, false or null"
+              },
+              {
+                "prop": "tagRemoveLabel",
+                "type": "String",
+                "description": "ARIA label for the remove button on tags. Value of the 'tag-remove-label' prop"
               },
               {
                 "prop": "tagVariant",
                 "type": "String",
-                "description": "TBD"
+                "description": "Value of the 'tag-variant' prop"
               }
             ]
           }
         ],
         "events": [
           {
-            "event": "input",
-            "description": "Emitted with the value changes",
+            "event": "change",
+            "description": "Emitted when the tags changes. Updates the v-model",
             "args": [
               {
                 "arg": "value",
                 "type": "Array",
-                "description": "current tags value(s) of the input."
+                "description": "Array of current tags."
+              }
+            ]
+          },
+          {
+            "event": "update:inputValue",
+            "description": "Emitted when content of the new tag entry input changes",
+            "args": [
+              {
+                "arg": "value",
+                "type": "String",
+                "description": "value of the input element."
               }
             ]
           }
