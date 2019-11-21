@@ -7,6 +7,11 @@ describe('form-tags', () => {
     const wrapper = mount(BFormTags)
     expect(wrapper.is('div')).toBe(true)
 
+    expect(wrapper.classes()).toContain('b-form-tags')
+    expect(wrapper.classes()).toContain('form-control')
+    expect(wrapper.attributes('role')).toBe('group')
+    expect(wrapper.attributes('tabindex')).toBe('-1')
+
     wrapper.destroy()
   })
 
@@ -17,6 +22,23 @@ describe('form-tags', () => {
       }
     })
     expect(wrapper.is('div')).toBe(true)
+
+    const $tags = wrapper.findAll('.b-form-tag')
+    expect($tags.length).toBe(2)
+
+    const $tag0 = $tags.at(0)
+    expect($tag0.attributes('title')).toEqual('apple')
+    expect($tag0.classes()).toContain('badge')
+    expect($tag0.classes()).toContain('badge-secondary')
+    expect($tag0.text()).toContain('apple')
+    expect($tag0.find('button.close').exists()).toBe(true)
+
+    const $tag1 = $tags.at(1)
+    expect($tag1.attributes('title')).toEqual('orange')
+    expect($tag1.classes()).toContain('badge')
+    expect($tag1.classes()).toContain('badge-secondary')
+    expect($tag1.text()).toContain('orange')
+    expect($tag1.find('button.close').exists()).toBe(true)
 
     wrapper.destroy()
   })
@@ -32,6 +54,8 @@ describe('form-tags', () => {
     wrapper.setProps({
       value: ['pear']
     })
+
+    expect(wrapper.vm.tags).toEqual(['pear'])
 
     wrapper.destroy()
   })
@@ -60,8 +84,15 @@ describe('form-tags', () => {
     expect(typeof scope.addTag).toBe('function')
     expect(typeof scope.removeTag).toBe('function')
     expect(typeof scope.disabled).toBe('boolean')
+    expect(typeof scope.state).toEqual(null)
     expect(typeof scope.tagRemoveLabel).toBe('string')
     expect(scope.tagRemoveLabel).toBe('Remove tag')
+    expect(typeof scope.placeholder).toBe('string')
+    expect(scope.placeholder).toBe('Add tag...')
+    expect(typeof scope.tagVariant).toBe('string')
+    expect(scope.tagVariant).toBe('secondary')
+    expect(scope.inputAttrs).toEqual(wrapper.vm.computedInputAttrs)
+    expect(scope.inputHandlers).toEqual(wrapper.vm.computedInputHandlers)
 
     wrapper.destroy()
   })
