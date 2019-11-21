@@ -3,6 +3,7 @@ import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF, select } from '../../utils/dom'
+import { isString } from '../../utils/inspect'
 import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import toString from '../../utils/to-string'
@@ -14,6 +15,15 @@ const NAME = 'BFormTags'
 
 const cleanTags = tags => {
   return concat(tags).filter(tag => toString(tag).length > 0)
+}
+
+const processEventValue = evt => {
+  const value = isString(evt)
+    ? evt
+    : evt instanceof Event
+      ? evt.target.value
+      : ''
+  return value || ''
 }
 
 export const BFormTags = /*#__PURE__*/ Vue.extend({
@@ -151,12 +161,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     // -- Input element event handlers
     onInputInput(evt) {
-      this.newTag = evt.target.value || ''
+      this.newTag = processEventValue(evt)
     },
     onInputChange(evt) {
       // Change is triggered on `<input>` blur, or `<select>` selected
       // We listen to this event since ENTER on mobile is not always possible
-      this.newTag = evt.target.value || ''
+      this.newTag = processEventValue(evt)
       this.addTag()
     },
     onInputKeydown(evt) {
