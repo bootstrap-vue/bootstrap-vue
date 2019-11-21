@@ -240,7 +240,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     if (!$content) {
       data.class['d-flex'] = true
       data.class['flex-wrap'] = true
-      $content = this.computedTags.map((tag, idx) => {
+      $content = this.tags.map((tag, idx) => {
         let $remove = h()
         if (!this.disabled) {
           $remove = h(BButtonClose, {
