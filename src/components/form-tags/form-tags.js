@@ -275,16 +275,15 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       })
       if (!this.disabled) {
         const $input = h(
-            'input',
-            {
-              ref: 'input',
-              staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
-              class: this.inputClass,
-              style: { outline: 0 },
-              attrs: this.computedInputAttrs,
-              on: this.computedInputHanlders
-            }
-          )
+          'input',
+          {
+            ref: 'input',
+            staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
+            class: this.inputClass,
+            style: { outline: 0 },
+            attrs: this.computedInputAttrs,
+            on: this.computedInputHanlders
+          }
         )
         $content.push(
           h(
