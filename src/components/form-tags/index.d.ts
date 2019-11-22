@@ -1,6 +1,4 @@
-//
-// Form Tags
-//
+// --- Form Tags ---
 import Vue from 'vue'
 import { BvPlugin, BvComponent } from '../../'
 
