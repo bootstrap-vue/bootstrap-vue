@@ -1,3 +1,5 @@
+// Tagged input form control
+// Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
