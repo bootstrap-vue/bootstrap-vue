@@ -38,6 +38,14 @@
             "description": "Maximum number of characters for a tag. Applied as the 'maxlength' attribute on the new tags input"
           },
           {
+            "prop": "addButtonText",
+            "description": "Text for the built in 'Add' button. Slot `button-text' takes precedence"
+          },
+          {
+            "prop": "addButtonVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the 'Add' button"
+          },
+          {
             "prop": "tagVariant",
             "description": "Applies one of the Bootstrap theme color variants to the tags"
           },
@@ -59,6 +67,9 @@
           }
         ],
         "slots": [
+          {
+            "name": "add-button-text",
+            "description": "Content to place in the built in  'Add' button. Takes precedence over the 'add-button-text' prop"
           {
             "name": "default",
             "description": "Slot to override the default rendering of the tags component",
