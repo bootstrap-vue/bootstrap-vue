@@ -186,6 +186,7 @@ event object).
         <div>
           <b-form-tag
             v-for="tag in scope.tags"
+            @remove="scope.removeTag(tag)"
             :key="tag"
             :title="tag"
             :variant="scope.tagvariant"
@@ -227,6 +228,7 @@ greater control over tag creation:
       :disabled="disabled"
       no-outer-focus
       placeholder="Enter a new tag value and click Add"
+      :state="state"
     >
       <template v-slot:default="scope">
         <b-input-group>
@@ -242,7 +244,7 @@ greater control over tag creation:
             <b-button @click="scope.addTag(newTag)" :disabled="disabled" variant="primary">Add</b-button>
           </b-input-group-append>
         </b-input-group>
-        <b-form-invalid-feedback :state="isNotDuplicate">
+        <b-form-invalid-feedback :state="state">
           Duplicate tag value cannot be added again!
         </b-form-invalid-feedback>
         <div v-if="scope.tags.length" style="font-size: 1.5rem;" class="mt-2">
@@ -275,8 +277,9 @@ greater control over tag creation:
       }
     },
     computed: {
-      isNotDuplicate() {
-        return this.value.indexOf(this.newTag) < 0
+      state() {
+        // Return false (invalid) if new tag is a duplicate
+        return this.value.indexOf(this.newTag.trim()) > -1 ? false : null
       }
     },
     methods: {
