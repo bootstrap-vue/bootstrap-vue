@@ -14,6 +14,9 @@ The tagged input was aded in BootstrapVue release v2.x.0
 Tags will have any leading and tailing whitespace removed, and duplicate tags are not permitted.
 Tags that contain spaces are permitted by default.
 
+Tags are added by pressing <kbd>ENTER</kbd> or when the `change` event fires on the new tag input
+(i.e. when focus moves from the input).
+
 **Default render:**
 
 ```html
