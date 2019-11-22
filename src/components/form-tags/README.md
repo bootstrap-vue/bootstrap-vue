@@ -1,13 +1,15 @@
 # Form tags
 
-> Lightweight customizable tagged input form control, with options for custom interface
-> rendering
+> Lightweight custom tagged input form control, with options for customized interface
+> rendering.
 
 Tags are arrays of short strings, used in various ways such as assinging categories.
 
 The tagged input was aded in BootstrapVue release v2.x.0
 
 ## Basic usage
+
+Tags will have any leading and tailing whitespace removed, and duplicate tags are not permitted.
 
 **Default render:**
 
@@ -101,7 +103,7 @@ This object contains event handlers to bind (`v-on`) to the new tag input elemen
 
 | Property  | Type     | Description                                                                                                                                                                    |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `input`   | Function | Event handler for the input element `input` event. Accepts a single argument of either an event object or a string. Updates the internal v-model for the new tah input element |
+| `input`   | Function | Event handler for the input element `input` event. Accepts a single argument of either an event object or a string. Updates the internal v-model for the new tag input element |
 | `change`  | Function | Event handler for the input element `change` event. Accepts a single argument of either an event object or a string. Change will trigger adding the tag                        |
 | `keydown` | Function | Event handler or the input element `keydown` <kbd>ENTER</kbd> event. Triggers adding the new tag                                                                               |
 
