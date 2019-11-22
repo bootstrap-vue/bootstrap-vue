@@ -11,6 +11,7 @@ import { isString } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BFormTag } from './form-tag'
+import { BButton } from '../button/button'
 
 const NAME = 'BFormTags'
 
@@ -78,6 +79,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: [Number, String],
       default: null
     },
+    addButtonText: {
+      type: String,
+      default: 'Add'
+    },
+    addButtonVariant: {
+      type: String,
+      default: 'outline-secondary'
+    },
     tagVariant: {
       type: String,
       default: () => getComponentConfig(NAME, 'tagVariant')
@@ -93,6 +102,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     tagRemoveLabel: {
       type: String,
       default: () => getComponentConfig(NAME, 'tagRemoveLabel')
+    },
+    noAddOnChange: {
+      type: Boolean,
+      default: false
+    },
+    noAddOnEnter: {
+      type: Boolean,
+      default: false
     },
     noOuterFocus: {
       type: Boolean,
@@ -153,26 +170,38 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   methods: {
     addTag(tag = this.newTag) {
       tag = toString(tag).trim()
+      // TODO:
+      //   Emit a cancellable 'new-tag' event
+      //   Emit a 'duplicate-tag' event if duplicate attempted
       if (tag.length > 0 && !arrayIncludes(this.tags, tag)) {
         this.tags.push(tag)
         this.newTag = ''
       }
     },
     removeTag(tag) {
+      // TODO:
+      //   Emit a cancellable 'remove-tag' event
       this.tags = this.tags.filter(t => t !== tag)
     },
     // --- Input element event handlers ---
     onInputInput(evt) {
       this.newTag = processEventValue(evt)
+      // TODO:
+      //   Check if last character on input is special (i.e. space, comma, etc)
+      //   And trigger the tag add (stripping off trailing special character
+      //   The character stripping could be handled in this.addTag() method
+      //   Need a prop that users can specify the characters
     },
     onInputChange(evt) {
       // Change is triggered on `<input>` blur, or `<select>` selected
       // We listen to this event since ENTER on mobile is not always possible
-      this.newTag = processEventValue(evt)
-      this.addTag()
+      if (!this.noAddOnChange && evt) {
+        this.newTag = processEventValue(evt)
+        this.addTag()
+      }
     },
     onInputKeydown(evt) {
-      if (evt && evt.keyCode === KeyCodes.ENTER) {
+      if (!this.noAddOnEnter && evt && evt.keyCode === KeyCodes.ENTER) {
         evt.preventDefault()
         this.addTag()
       }
@@ -272,10 +301,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         )
       })
 
-      // Add default input
+      // Add default input and button
       const $input = h('input', {
         ref: 'input',
-        staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
+        staticClass: 'b-form-tags-input w-100 flex-grow-1 px-1 py-0 m-0 bg-transparent border-0',
         class: this.inputClass,
         style: { outline: 0, minWidth: '5rem' },
         attrs: {
@@ -286,16 +315,30 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         domProps: { value: this.newTag },
         on: this.computedInputHandlers
       })
+      const newTag = this.newTag.trim()
+      const $button = h(
+        BButton,
+        {
+          ref: 'button',
+          staticClass: 'py-0',
+          class: {
+            // Only show the button if the tag can be added
+            invisible: newTag.length === 0 && arrayIncludes(this.tags, newTag)
+          },
+          style: { fontSize: '90%' },
+          props: { variant: this.addButtonVariant },
+          on: { click: () => this.addTag() }
+        },
+        [this.normalizeSlot('add-button') || this.addButtonText]
+      )
       $content.push(
-        h('li', { key: 'li-input__', staticClass: 'd-inline-flex flex-grow-1' }, [$input])
+        h('li', { key: 'li-input__', staticClass: 'd-inline-flex flex-grow-1' }, [$input, $button])
       )
 
-      // Wrap in a list element
+      // Wrap in an unordered list element
       $content = h(
         'ul',
-        {
-          staticClass: 'list-unstyled m-0 d-flex flex-wrap align-items-center'
-        },
+        { staticClass: 'list-unstyled m-0 d-flex flex-wrap align-items-center' },
         $content
       )
     }
