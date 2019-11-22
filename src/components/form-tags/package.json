@@ -39,7 +39,7 @@
           },
           {
             "prop": "addButtonText",
-            "description": "Text for the built in 'Add' button. Slot `button-text' takes precedence"
+            "description": "Text for the built in 'Add' button. Slot `add-button-text' takes precedence"
           },
           {
             "prop": "addButtonVariant",
