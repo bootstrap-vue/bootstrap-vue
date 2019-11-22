@@ -1,11 +1,9 @@
 # Form tags
 
-> Lightweight custom tagged input form control, with options for customized interface
-> rendering.
+> Lightweight custom tagged input form control, with options for customized interface rendering.
 
-Tags are arrays of short strings, used in various ways such as assinging categories. Use the
-default user interface, or create your own custom interface via hte use of the default scoped
-slot.
+Tags are arrays of short strings, used in various ways such as assinging categories. Use the default
+user interface, or create your own custom interface via hte use of the default scoped slot.
 
 The tagged input was aded in BootstrapVue release v2.x.0
 
@@ -44,24 +42,23 @@ Tags are added by pressing <kbd>ENTER</kbd> or when the `change` event fires on 
 
 Several props are available to alter the basic styling of the default tagged interface:
 
-| Prop          | Description                                                                                            |
-| ------------- | ------------------------------------------------------------------------------------------------------ |
-| `tag-pills`   | Renders the tags with the apeparance of pills                                                          |
-| `tag-variant` | Applies one of the Bootstrap contextual variant theme colors to the tags                               |
-| `size`        | Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'                              |
-| `placeholder` | The placeholder text for the new tag input element                                                     |
-| `state`       | Sets teh contextual state of the conntrol. Set to `true` (for valid), `false` (for invalid), or `null` |
+| Prop          | Description                                                                                           |
+| ------------- | ----------------------------------------------------------------------------------------------------- |
+| `tag-pills`   | Renders the tags with the appearance of pills                                                         |
+| `tag-variant` | Applies one of the Bootstrap contextual variant theme colors to the tags                              |
+| `size`        | Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'                             |
+| `placeholder` | The placeholder text for the new tag input element                                                    |
+| `state`       | Sets the contextual state of the control. Set to `true` (for valid), `false` (for invalid), or `null` |
 
-For additional props, see the component reference section at hte botom of this page.
+For additional props, see the component reference section at hte bottom of this page.
 
 The focus and validation state styling of the component relies upon BootstrapVue's custom CSS.
 
 ## Using with native browser `<form>` submission
 
-The value of the tagged input will not be submitted via standard form `action` unless you
-provide a name via the `name` prop. When a name is provided, `<b-form-tags>` will create a
-hidden `<input>` for each tag. The hidden input will have the `name` attribute set to the
-value of the `name` prop.
+The value of the tagged input will not be submitted via standard form `action` unless you provide a
+name via the `name` prop. When a name is provided, `<b-form-tags>` will create a hidden `<input>`
+for each tag. The hidden input will have the `name` attribute set to the value of the `name` prop.
 
 ## Custom rending with default scoped slot
 
@@ -71,7 +68,7 @@ rendering via the default scoped slot. You can either create your own tags, or u
 
 ### Scope properties
 
-The default scoped slot provides numerous propteries and methods for use in rendering your custom
+The default scoped slot provides numerous properties and methods for use in rendering your custom
 interface. Not all properties or methods are required to generate your interface.
 
 The default slot scope properties are as follows:
@@ -115,32 +112,32 @@ This object contains event handlers to bind (`v-on`) to the new tag input elemen
 
 ### Using native browser inputs
 
-The scope contains attributes and event handlers that can be directly bound to native form
-inputs or selects.
+The scope contains attributes and event handlers that can be directly bound to native form inputs or
+selects.
 
 ```html
 <template>
   <div>
     <b-form-tags v-model="value" no-outer-focus class="mb-2">
-      <template v-slot:default="scope">
+      <template v-slot="{ tags, inputAttrs, inputHandlers, addTag, removeTag }">
         <b-input-group class="mb-2">
           <input
-            v-bind="scope.inputAttrs"
-            v-on="scope.inputHandlers"
+            v-bind="inputAttrs"
+            v-on="inputHandlers"
             placeholder="New tag - Press enter to add"
             class="form-control">
           <b-input-group-append>
-            <b-button @click="scope.addTag()" variant="primary">Add</b-button>
+            <b-button @click="addTag()" variant="primary">Add</b-button>
           </b-input-group-append>
         </b-input-group>
         <b-list-group>
           <b-list-group-item
-            v-for="tag in scope.tags.slice().reverse()"
+            v-for="tag in tags.slice().reverse()"
             :key="tag"
             class="py-1"
           >
             <strong>{{ tag }}</strong>
-            <b-button @click="scope.removeTag(tag)" variant="link" size="sm">remove</b-button>
+            <b-button @click="removeTag(tag)" variant="link" size="sm">remove</b-button>
           </b-list-group-item>
         </b-list-group>
       </template>
@@ -152,7 +149,7 @@ inputs or selects.
   export default {
     data() {
       return {
-        value: ['apple', 'orange', 'bananna', 'pear', 'peach']
+        value: ['apple', 'orange', 'banana', 'pear', 'peach']
       }
     }
   }
@@ -163,33 +160,32 @@ inputs or selects.
 
 ### Using custom form components
 
-The scope contains attributes and event handlers that can be directly bound to _most_ custom
-inputs or select components (the event handlers accept both a string tag value _or_ a native
-event object).
+The scope contains attributes and event handlers that can be directly bound to _most_ custom inputs
+or select components (the event handlers accept both a string tag value _or_ a native event object).
 
 ```html
 <template>
   <div>
     <b-form-tags v-model="value" no-outer-focus class="mb-2">
-      <template v-slot:default="scope">
+      <template v-slot="{ tags, inputAttrs, inputHandlers, tagVariant, addTag, removeTag }">
         <b-input-group class="mb-2">
           <b-form-input
-            v-bind="scope.inputAttrs"
-            v-on="scope.inputHandlers"
+            v-bind="inputAttrs"
+            v-on="inputHandlers"
             placeholder="New tag - Press enter to add"
             class="form-control"
           ></b-form-input>
           <b-input-group-append>
-            <b-button @click="scope.addTag()" variant="primary">Add</b-button>
+            <b-button @click="addTag()" variant="primary">Add</b-button>
           </b-input-group-append>
         </b-input-group>
         <div>
           <b-form-tag
-            v-for="tag in scope.tags"
-            @remove="scope.removeTag(tag)"
+            v-for="tag in tags"
+            @remove="removeTag(tag)"
             :key="tag"
             :title="tag"
-            :variant="scope.tagvariant"
+            :variant="tagVariant"
             class="mr-1"
           >{{ tag }}</b-form-tag>
         </div>
@@ -202,7 +198,7 @@ event object).
   export default {
     data() {
       return {
-        value: ['apple', 'orange', 'bananna', 'pear', 'peach']
+        value: ['apple', 'orange', 'banana', 'pear', 'peach']
       }
     }
   }
@@ -213,8 +209,8 @@ event object).
 
 ### Advanced custom rendering usage
 
-In situations where the `inputHandlers` will not work with your custom input, or if you need
-greater control over tag creation:
+In situations where the `inputHandlers` will not work with your custom input, or if you need greater
+control over tag creation:
 
 ```html
 <template>
@@ -230,32 +226,34 @@ greater control over tag creation:
       placeholder="Enter a new tag value and click Add"
       :state="state"
     >
-      <template v-slot:default="scope">
+      <template v-slot="{
+        tags, inputAttrs, placeholder, disabled, tagVariant, tagRemoveLabel, addTag, removeTag
+      }">
         <b-input-group>
           <!-- Always bind the id to the input so that it can be focused when needed -->
           <b-form-input
             v-model="newTag"
-            :id="scope.inputAttrs.id"
-            :placeholder="scope.placeholder"
-            :disabled="scope.disabled"
+            :id="inputAttrs.id"
+            :placeholder="placeholder"
+            :disabled="disabled"
             class="form-control"
           ></b-form-input>
           <b-input-group-append>
-            <b-button @click="scope.addTag(newTag)" :disabled="disabled" variant="primary">Add</b-button>
+            <b-button @click="addTag(newTag)" :disabled="disabled" variant="primary">Add</b-button>
           </b-input-group-append>
         </b-input-group>
         <b-form-invalid-feedback :state="state">
           Duplicate tag value cannot be added again!
         </b-form-invalid-feedback>
-        <div v-if="scope.tags.length" style="font-size: 1.5rem;" class="mt-2">
+        <div v-if="tags.length" style="font-size: 1.5rem;" class="mt-2">
           <b-form-tag
-            v-for="tag in scope.tags"
-            @remove="scope.removeTag(tag)"
+            v-for="tag in tags"
+            @remove="removeTag(tag)"
             :key="tag"
-            :title="'Tag: ' + tag"
-            :variant="scope.tagVariant"
-            :removeLabel="scope.tagRemoveLabel"
-            :disabled="scope.disabled"
+            :title="`Tag: ${tag}`"
+            :variant="tagVariant"
+            :removeLabel="tagRemoveLabel"
+            :disabled="disabled"
             class="mr-2"
           >{{ tag }}</b-form-tag>
         </div>
@@ -273,7 +271,7 @@ greater control over tag creation:
       return {
         newTag: '',
         disabled: false,
-        value: ['apple', 'orange', 'bananna', 'pear', 'peach']
+        value: ['apple', 'orange', 'banana', 'pear', 'peach']
       }
     },
     computed: {
