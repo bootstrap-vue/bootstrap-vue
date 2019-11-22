@@ -46,7 +46,14 @@ Several props are available to alter the basic styling of the default tagged int
 
 For additional props, see the component reference section at hte botom of this page.
 
-The focus styling of the component relies upon BootstrapVue's custom CSS.
+The focus and validation state styling of the component relies upon BootstrapVue's custom CSS.
+
+## Using with native browser `<form>` submission
+
+The value of the tagged input will not be submitted via standard form `action` unless you
+provide a name via the `name` prop. When a name is provided, `<b-form-tags>` will create a
+hidden `<input>` for each tag. The hidden input will have the `name` attribute set to the
+value of the `name` prop.
 
 ## Custom rending with default scoped slot
 
