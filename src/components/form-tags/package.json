@@ -18,6 +18,42 @@
             "description": "Array of current tags. This is the v-model"
           },
           {
+            "prop": "name",
+            "description": "Sets the value of the 'name' attribute on the form control. When set, creates a hidden input for each tag"
+          },
+          {
+            "prop": "inputId",
+            "description": "ID to apply to the new tag input element. If not provided, a unique ID will be auto generated"
+          },
+          {
+            "prop": "inputClass",
+            "description": "Class (or classes) to apply to the new tag input element"
+          },
+          {
+            "prop": "inputMinlength",
+            "description": "Minimum number of characters for a tag. Applied as the 'minlength' attribute on the new tags input"
+          },
+          {
+            "prop": "inputMaxlength",
+            "description": "Maximum number of characters for a tag. Applied as the 'maxlength' attribute on the new tags input"
+          },
+          {
+            "prop": "tagVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the tags"
+          },
+          {
+            "prop": "tagClass",
+            "description": "Class (or classes) to apply to the tags"
+          },
+          {
+            "prop": "tagPills",
+            "description": "Makes the built in tags have a pill appearance"
+          },
+          {
+            "prop": "tagRemoveLabel",
+            "description": "The value of the 'aria-label' attribute on the remove button in the tag"
+          },
+          {
             "prop": "noOuterFocus",
             "description": "When set, disables the focus styling of the component root element"
           }
@@ -128,6 +164,14 @@
           {
             "prop": "title",
             "description": "Value to place in the 'title' attribute of the tag. Will also be used for the tag content if no default slot provided"
+          },
+          {
+            "prop": "pill",
+            "description": "Makes the tag have a pill appearance"
+          },
+          {
+            "prop": "removeLabel",
+            "description": "The value of the 'aria-label' attribute on the remove button in the tag"
           }
         ],
         "events": [
