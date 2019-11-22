@@ -3,6 +3,8 @@
 > Lightweight customizable tagged input form control, with options for custom interface
 > rendering
 
+Tags are arrays of short strings, used in various ways such as assinging categories.
+
 ## Basic usage
 
 **Default render:**
@@ -39,7 +41,47 @@ rendering via the default scoped slot.
 
 ### Scope properties
 
-TBD
+The default scoped slot provides numerous propteries and methods for use in rendering your custom
+interface. Not all properties or methods are required to generate your interface.
+
+The default slot scope properties are as follows:
+
+| Property         | Type                     | Description                                                                                                                                            |
+| ---------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `tags`           | Array                    | Array of current tag strings                                                                                                                           |
+| `inputAttrs`     | Object                   | Object of attributes to apply to the new tag input element via `v-bind="inputAttrs"`. See below for details                                            |
+| `inputHandlers`  | Object                   | Object of event handlers to apply to the new tag input element via `v-on="inputHandlers"`. See below for details                                       |
+| `removeTag`      | Function                 | Method to remove a tag. Accepts one argument which is the tag value to remove                                                                          |
+| `addTag`         | Function                 | Method to add a new tag. Assumes the tag is the value of the input, but optionally accepts one argument which is the tag value to be added             |
+| `inputId`        | String                   | ID to add to the new tag input element. Defaults to prop `input-id`. If not provided a unique ID is auto-generated. Also available via 'inputAttrs.id' |
+| `disabled`       | Boolean                  | `true` tf the component is in the disabled state. Value of the `disabled` prop                                                                         |
+| `state`          | Boolean                  | The contextual state of the component. Value of the `state` prop. Possible values are `true`, `false` or `null`                                        |
+| `placeholder`    | String                   | The value of the `placeholder` prop                                                                                                                    |
+| `tagRemoveLabel` | String                   | Value of the `tag-remove-label` prop. Used as the `aria-label` attribute on the remove button of tags                                                  |
+| `tagVariant`     | String                   | The value of the `tag-variant` prop                                                                                                                    |
+| `tagClass`       | String, Array, or Object | The value of the `tag-variant` prop. Class (or classes) to apply to the tag elements                                                                   |
+
+#### `inputAttrs` object properties
+
+This object contains attributes to bind (`v-bind`) to the new tag input element.
+
+| Property    | Type    | Description                                                                        |
+| ----------- | ------- | ---------------------------------------------------------------------------------- |
+| `id`        | String  | the `id` attribute for the new tag input                                           |
+| `value`     | String  | The `value` attribute for the new tag input                                        |
+| `disabled`  | Boolean | The `disabled` attribute for the new tag input. Value of the `disabled` prop       |
+| `minlength` | String  | The `minlength` attribute for the new tag input. Value of the `tag-minlength` prop |
+| `maxlength` | String  | The `maxlength` attribute for the new tag input. Value of the `tag-maxlength` prop |
+
+#### `inputHandlers` object properties
+
+This object contains event handlers to bind (`v-on`) to the new tag input element.
+
+| Property  | Type     | Description                                                                                                                                                                    |
+| --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `input`   | Function | Event handler for the input element `input` event. Accepts a single argument of either an event object or a string. Updates the internal v-model for the new tah input element |
+| `change`  | Function | Event handler for the input element `change` event. Accepts a single argument of either an event object or a string. Change will trigger adding the tag                        |
+| `keydown` | Function | Event handler or the input element `keydown` <kbd>ENTER</kbd> event. Triggers adding the new tag                                                                               |
 
 ### Using native browser inputs
 
