@@ -117,9 +117,8 @@ event object).
             :key="tag"
             :title="tag"
             :variant="scope.tagvariant"
-          >
-            {{ tag }}
-          </b-form-tag>
+            class="mr-1"
+          >{{ tag }}</b-form-tag>
         </div>
       </template>
     </b-form-tags>
