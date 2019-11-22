@@ -3,13 +3,16 @@
 > Lightweight custom tagged input form control, with options for customized interface
 > rendering.
 
-Tags are arrays of short strings, used in various ways such as assinging categories.
+Tags are arrays of short strings, used in various ways such as assinging categories. Use the
+default user interface, or create your own custom interface via hte use of the default scoped
+slot.
 
 The tagged input was aded in BootstrapVue release v2.x.0
 
 ## Basic usage
 
 Tags will have any leading and tailing whitespace removed, and duplicate tags are not permitted.
+Tags that contain spaces are permitted by default.
 
 **Default render:**
 
