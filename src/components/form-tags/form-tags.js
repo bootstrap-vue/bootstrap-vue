@@ -15,7 +15,9 @@ import { BFormTag } from './form-tag'
 const NAME = 'BFormTags'
 
 const cleanTags = tags => {
-  return concat(tags).filter(tag => toString(tag).length > 0)
+  return concat(tags)
+    .map(tag => toString(tag).trim())
+    .filter((tag, index, arr) => (tag.length > 0 && arr.indexOf(tag) === index))
 }
 
 const processEventValue = evt => {
@@ -104,7 +106,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   data() {
     return {
       newTag: '',
-      tags: cleanTags(this.value),
+      tags: [],
       hasFocus: false
     }
   },
@@ -138,6 +140,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         this.$emit('input', newValue)
       }
     }
+  },
+  created() {
+    this.tags = cleanTags(this.value)
   },
   mounted() {
     this.handleAutofocus()
