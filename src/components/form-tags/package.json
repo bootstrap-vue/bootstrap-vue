@@ -48,6 +48,15 @@
                 "description": "ID to add to the new tag input element. Defaults to prop 'input-id'. If not provided a unique ID is auto-generated. Also available via 'inputAttrs.id'"
               },
               {
+                "prop": "inputClass",
+                "type": [
+                  "String",
+                  "Array",
+                  "Object"
+                ],
+                "description": "Class (or classes) to apply to the new tag input element. Value of the 'input-class' prop"
+              },
+              {
                 "prop": "removeTag",
                 "type": "Function",
                 "description": "Method to remove a tag. Accepts one argument which is the tag value to remove"
@@ -81,6 +90,15 @@
                 "prop": "tagVariant",
                 "type": "String",
                 "description": "Value of the 'tag-variant' prop"
+              },
+              {
+                "prop": "tagClass",
+                "type": [
+                  "String",
+                  "Array",
+                  "Object"
+                ],
+                "description": "Class (or classes) to apply to the tag elements. Value of the 'tag-class' prop"
               }
             ]
           }
