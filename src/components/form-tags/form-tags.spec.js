@@ -181,6 +181,40 @@ describe('form-tags', () => {
     wrapper.destroy()
   })
 
+  it('adds new tags when add button clicked', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['apple', 'orange']
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    expect(wrapper.vm.newTag).toEqual('')
+
+    const $input = wrapper.find('input')
+    const $button = wrapper.find('button.b-form-tags-button')
+
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+    expect($button.exists()).toBe(true)
+    expect($button.classes()).toContain('invisible')
+
+    $input.element.value = 'pear'
+    $input.trigger('input')
+    expect(wrapper.vm.newTag).toEqual('pear')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    expect($button.classes()).not.toContain('invisible')
+
+    $button.trigger('click')
+
+    expect($button.classes()).toContain('invisible')
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
+
+    wrapper.destroy()
+  })
+
   it('focuses input when wrapper div clicked', async () => {
     const wrapper = mount(BFormTags, {
       attachToDocument: true,
