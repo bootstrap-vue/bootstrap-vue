@@ -12,8 +12,9 @@ The tagged input was aded in BootstrapVue release v2.x.0
 Tags will have any leading and tailing whitespace removed, and duplicate tags are not permitted.
 Tags that contain spaces are permitted by default.
 
-Tags are added by pressing <kbd>ENTER</kbd> or when the `change` event fires on the new tag input
-(i.e. when focus moves from the input).
+Tags are added by clicking the **Add** button, pressing the <kbd>ENTER</kbd> key or when the
+`change` event fires on the new tag input (i.e. when focus moves from the input). The **Add**
+button will only appear when the user has entered a new tag value.
 
 **Default render:**
 
@@ -38,6 +39,9 @@ Tags are added by pressing <kbd>ENTER</kbd> or when the `change` event fires on 
 <!-- form-tags-example.vue -->
 ```
 
+You can disable addig a new tag when pressing <kbd>ENTER</kbd> via the `no-add-on-enter` prop, and
+disable adding a tag on the input's `change` event via the `no-add-on-change` prop.
+
 ### Styling Options
 
 Several props are available to alter the basic styling of the default tagged interface:
@@ -50,7 +54,7 @@ Several props are available to alter the basic styling of the default tagged int
 | `placeholder` | The placeholder text for the new tag input element                                                    |
 | `state`       | Sets the contextual state of the control. Set to `true` (for valid), `false` (for invalid), or `null` |
 
-For additional props, see the component reference section at hte bottom of this page.
+For additional props, see the component reference section at the bottom of this page.
 
 The focus and validation state styling of the component relies upon BootstrapVue's custom CSS.
 
