@@ -74,10 +74,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: [Number, String],
       default: null
     },
-    inputType: {
-      type: String,
-      default: 'text'
-    },
     tagVariant: {
       type: String,
       default: () => getComponentConfig(NAME, 'tagVariant')
