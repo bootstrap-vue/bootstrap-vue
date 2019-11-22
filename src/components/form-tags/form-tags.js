@@ -329,7 +329,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           props: { variant: this.addButtonVariant },
           on: { click: () => this.addTag() }
         },
-        [this.normalizeSlot('add-button') || this.addButtonText]
+        [this.normalizeSlot('add-button-text') || this.addButtonText]
       )
       $content.push(
         h('li', { key: 'li-input__', staticClass: 'd-inline-flex flex-grow-1' }, [$input, $button])
