@@ -17,7 +17,7 @@ const NAME = 'BFormTags'
 const cleanTags = tags => {
   return concat(tags)
     .map(tag => toString(tag).trim())
-    .filter((tag, index, arr) => (tag.length > 0 && arr.indexOf(tag) === index))
+    .filter((tag, index, arr) => tag.length > 0 && arr.indexOf(tag) === index)
 }
 
 const processEventValue = evt => {
