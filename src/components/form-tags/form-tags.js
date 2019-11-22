@@ -81,11 +81,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     addButtonText: {
       type: String,
-      default: 'Add'
+      default: () => getComponentConfig(NAME, 'addButtonText')
     },
     addButtonVariant: {
       type: String,
-      default: 'outline-secondary'
+      default: () => getComponentConfig(NAME, 'addButtonVariant')
     },
     tagVariant: {
       type: String,
