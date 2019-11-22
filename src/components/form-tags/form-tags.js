@@ -323,7 +323,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           staticClass: 'py-0',
           class: {
             // Only show the button if the tag can be added
-            invisible: newTag.length === 0 && arrayIncludes(this.tags, newTag)
+            invisible: newTag.length === 0 || arrayIncludes(this.tags, newTag)
           },
           style: { fontSize: '90%' },
           props: { variant: this.addButtonVariant },
