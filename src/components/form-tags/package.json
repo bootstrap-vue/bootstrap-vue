@@ -123,6 +123,11 @@
                 "description": "ARIA label for the remove button on tags. Value of the 'tag-remove-label' prop"
               },
               {
+                "prop": "tagPills",
+                "type": "Boolean",
+                "description": "Value of the `tag-pills` prop"
+              },
+              {
                 "prop": "tagVariant",
                 "type": "String",
                 "description": "Value of the 'tag-variant' prop"
