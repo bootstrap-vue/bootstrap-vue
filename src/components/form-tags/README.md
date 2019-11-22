@@ -89,10 +89,10 @@ inputs or selects.
 <!-- form-tags-custom-native.vue -->
 ```
 
-### Using custom form components and advanced usage
+### Using custom form components
 
 The scope contains attributes and event handlers that can be directly bound to _most_ custom
-inputs or select components (the event handlers accept either a string tag value or a native
+inputs or select components (the event handlers accept both a string tag value _or_ a native
 event object).
 
 ```html
