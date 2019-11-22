@@ -90,6 +90,8 @@ export default deepFreeze({
     variant: 'secondary'
   },
   BFormTags: {
+    addButtonText: 'Add',
+    addButtonVariant: 'outline-secondary',
     placeholder: 'Add tag...',
     tagRemoveLabel: 'Remove tag',
     tagVariant: 'secondary'
