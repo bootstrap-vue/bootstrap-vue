@@ -5,6 +5,8 @@
 
 Tags are arrays of short strings, used in various ways such as assinging categories.
 
+The tagged input was aded in BootstrapVue release v2.x.0
+
 ## Basic usage
 
 **Default render:**
@@ -32,12 +34,23 @@ Tags are arrays of short strings, used in various ways such as assinging categor
 
 ### Styling Options
 
-TBD
+Several props are available to alter teh basi styling of hte built in tagged interface:
+
+| Prop          | Description                                                                                            |
+| ------------- | ------------------------------------------------------------------------------------------------------ |
+| `tag-pills`   | Renders the tags with the apeparance of pills                                                          |
+| `tag-variant` | Applies one of the Bootstrap contextual variant theme colors to the tags                               |
+| `size`        | Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'                              |
+| `placeholder` | The placeholder text for the new tag input element                                                     |
+| `state`       | Sets teh contextual state of the conntrol. Set to `true` (for valid), `false` (for invalid), or `null` |
+
+For additional props, see the component reference section at hte botom of this page.
 
 ## Custom rending with default scoped slot
 
 If you fancy a different look and feel for the tags control, you can provide your own custom
-rendering via the default scoped slot.
+rendering via the default scoped slot. You can either create your own tags, or use our helper
+`<b-form-tag>` component.
 
 ### Scope properties
 
