@@ -62,6 +62,14 @@
             "description": "The value of the 'aria-label' attribute on the remove button in the tag"
           },
           {
+            "prop": "noAddOnChange",
+            "description": "When set, disables adding the tag on the input's 'change' event"
+          },
+          {
+            "prop": "noAddOnEnter",
+            "description": "When set, disables adding the tag on the input's 'keydown.enter' event"
+          },
+          {
             "prop": "noOuterFocus",
             "description": "When set, disables the focus styling of the component root element"
           }
@@ -70,6 +78,7 @@
           {
             "name": "add-button-text",
             "description": "Content to place in the built in  'Add' button. Takes precedence over the 'add-button-text' prop"
+          },
           {
             "name": "default",
             "description": "Slot to override the default rendering of the tags component",
