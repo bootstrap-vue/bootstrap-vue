@@ -1,4 +1,3 @@
-// tagged input
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -170,7 +169,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       this.addTag()
     },
     onInputKeydown(evt) {
-      if (evt.keyCode === KeyCodes.ENTER) {
+      if (evt && evt.keyCode === KeyCodes.ENTER) {
         evt.preventDefault()
         this.addTag()
       }
