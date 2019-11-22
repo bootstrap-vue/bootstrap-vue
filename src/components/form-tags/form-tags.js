@@ -334,7 +334,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Wrap in an unordered list element
       $content = h(
         'ul',
-        { staticClass: 'list-unstyled m-0 d-flex flex-wrap align-items-center'},
+        { staticClass: 'list-unstyled m-0 d-flex flex-wrap align-items-center' },
         $content
       )
     }
