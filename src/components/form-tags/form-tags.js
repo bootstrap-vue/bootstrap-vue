@@ -171,16 +171,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     addTag(tag = this.newTag) {
       tag = toString(tag).trim()
       // TODO:
-      //   Emit a cancellable 'new-tag' event
-      //   Emit a 'duplicate-tag' event if duplicate attempted
+      //   Add option for user supplied validator function
       if (tag.length > 0 && !arrayIncludes(this.tags, tag)) {
         this.tags.push(tag)
         this.newTag = ''
       }
     },
     removeTag(tag) {
-      // TODO:
-      //   Emit a cancellable 'remove-tag' event
       this.tags = this.tags.filter(t => t !== tag)
     },
     // --- Input element event handlers ---
@@ -190,7 +187,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       //   Check if last character on input is special (i.e. space, comma, etc)
       //   And trigger the tag add (stripping off trailing special character
       //   The character stripping could be handled in this.addTag() method
-      //   Need a prop that users can specify the characters
+      //   Need a prop that users can specify the characters as a RegExpr
     },
     onInputChange(evt) {
       // Change is triggered on `<input>` blur, or `<select>` selected
