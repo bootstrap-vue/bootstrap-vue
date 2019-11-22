@@ -1,13 +1,13 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import Vue from '../../utils/vue'
+import KeyCodes from '../../utils/key-codes'
+import looseEqual from '../../utils/loose-equal'
+import toString from '../../utils/to-string'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF, select } from '../../utils/dom'
 import { isString } from '../../utils/inspect'
-import KeyCodes from '../../utils/key-codes'
-import looseEqual from '../../utils/loose-equal'
-import toString from '../../utils/to-string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BFormTag } from './form-tag'
@@ -58,7 +58,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       default: false
     },
     state: {
-      // tri-state: true, false, null
+      // Tri-state: true, false, null
       type: Boolean,
       default: null
     },
@@ -161,7 +161,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     removeTag(tag) {
       this.tags = this.tags.filter(t => t !== tag)
     },
-    // -- Input element event handlers
+    // --- Input element event handlers ---
     onInputInput(evt) {
       this.newTag = processEventValue(evt)
     },
@@ -177,7 +177,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         this.addTag()
       }
     },
-    // -- Wrapper event handlers
+    // --- Wrapper event handlers ---
     onClick(evt) {
       if (evt.target === evt.currentTarget && !this.disabled) {
         this.$nextTick(this.focus)
@@ -201,7 +201,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     getInput() {
       return select(`#${this.computedInputId}`, this.$el)
     },
-    // -- Public methods
+    // --- Public methods ---
     focus() {
       if (!this.disabled) {
         try {
@@ -219,7 +219,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     // Generate the control content
-    let $content = h()
+    let $content = null
     if (this.hasNormalizedSlot('default')) {
       // User supplied default slot render
       $content = this.normalizeSlot('default', {
@@ -261,7 +261,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
               title: tag,
               disabled: this.disabled,
               variant: this.tagVariant,
-              pill: this.pills,
+              pill: this.tagPills,
               removeLabel: this.tagRemoveLabel
             },
             on: {
@@ -278,7 +278,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-form-tags-input w-100 px-1 py-0 m-0 bg-transparent border-0',
         class: this.inputClass,
         style: { outline: 0, minWidth: '5rem' },
-        attrs: { ...this.computedInputAttrs, type: 'text', placeholder: this.placeholder || null },
+        attrs: {
+          ...this.computedInputAttrs,
+          type: 'text',
+          placeholder: this.placeholder || null
+        },
         domProps: { value: this.newTag },
         on: this.computedInputHandlers
       })
@@ -327,7 +331,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: this.safeId(),
           role: 'group',
-          tabindex: this.disabled ? null : this.noOuterFocus ? null : '-1'
+          tabindex: !this.disabled && !this.noOuterFocus ? '-1' : null
         },
         on: {
           focusin: this.onFocusin,
