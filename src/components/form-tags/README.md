@@ -34,7 +34,7 @@ The tagged input was aded in BootstrapVue release v2.x.0
 
 ### Styling Options
 
-Several props are available to alter teh basi styling of hte built in tagged interface:
+Several props are available to alter the basic styling of the default tagged interface:
 
 | Prop          | Description                                                                                            |
 | ------------- | ------------------------------------------------------------------------------------------------------ |
@@ -45,6 +45,8 @@ Several props are available to alter teh basi styling of hte built in tagged int
 | `state`       | Sets teh contextual state of the conntrol. Set to `true` (for valid), `false` (for invalid), or `null` |
 
 For additional props, see the component reference section at hte botom of this page.
+
+The focus styling of the component relies upon BootstrapVue's custom CSS.
 
 ## Custom rending with default scoped slot
 
