@@ -261,6 +261,17 @@ To toggle (open/close) a **specific collapse**, pass the collapse `id`:
 this.$root.$emit('bv::toggle::collapse', 'my-collapse-id')
 ```
 
+## Optionally scoped default slot
+
+<span class="badge badge-info small">New in v2.2.0</span>
+
+The default slot can be optionally scoped. The following scope properties are available:
+
+| Property   | Type     | Description                          |
+| ---------- | -------- | ------------------------------------ |
+| `visible`  | Boolean  | Visible state of the collapse        |
+| `close`    | Function | When called, will close the collapse |
+
 ## Accessibility
 
 The `v-b-toggle` directive will automatically add the ARIA attributes `aria-controls` and
