@@ -320,7 +320,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         BButton,
         {
           ref: 'button',
-          staticClass: 'py-0',
+          staticClass: 'b-form-tags-button py-0',
           class: {
             // Only show the button if the tag can be added
             invisible: newTag.length === 0 || arrayIncludes(this.tags, newTag)
