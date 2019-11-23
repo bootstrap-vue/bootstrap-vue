@@ -93,6 +93,9 @@ The value of the tagged input will not be submitted via standard form `action` u
 name via the `name` prop. When a name is provided, `<b-form-tags>` will create a hidden `<input>`
 for each tag. The hidden input will have the `name` attribute set to the value of the `name` prop.
 
+The hidden inputs will also be generated when using
+[custom rendering](#custom-rendering-with-default-scoped-slot) (and the `name` prop is set).
+
 ## Tag validation
 
 You can optionally provide a tag validator method via the `tag-validator` prop. The validator
@@ -113,7 +116,7 @@ or duplicate tags are not added. The event handler will receive three arrays as 
 - `duplicateTags` (tags that were not added as they would be a duplicate of existing or
    validTags).
 
-## Custom rending with default scoped slot
+## Custom rendering with default scoped slot
 
 If you fancy a different look and feel for the tags control, you can provide your own custom
 rendering via the default scoped slot. You can either create your own tags, or use our helper
