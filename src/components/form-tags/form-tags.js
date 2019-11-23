@@ -186,9 +186,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const separator = this.computedSeparator
       // Split the tag(s) via the optional separator
       const tags = separator ? newTag.split(separator) : [newTag]
-      if (separator && tags.length > 1 && separator.test(newTag.charAt(newTag.length -1))) {
+      if (separator && tags.length > 1 && separator.test(newTag.charAt(newTag.length - 1))) {
         // If last tag doesn't have a trailing separator
         // then we set the input to that value
+        // This is mainly for handling copy/paste issues
         oldTag = tags.pop()
       }
       // Get the unique tags
@@ -206,10 +207,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           }
         })
       // Add any new tags to the tags array
-      if (newTags.length > 0) {
+      if (addTags.length > 0) {
         // We add the new tags in one atomic operation
         // to trigger reactivity once (instead of once per tag)
-        this.tags = [...this.tags, ...newTags]
+        this.tags = [...this.tags, ...addTags]
         // Clear the user input
         this.newTag = oldTag
       }
