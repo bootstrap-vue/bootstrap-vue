@@ -8,7 +8,7 @@
     "components": [
       {
         "component": "BFormTags",
-        "version": "2.x.0",
+        "version": "2.2.0",
         "aliases": [
           "BTags"
         ],
@@ -217,7 +217,7 @@
       },
       {
         "component": "BFormTag",
-        "version": "2.x.0",
+        "version": "2.2.0",
         "description": "Helper component for custom rending of tags in tagged input",
         "aliases": [
           "BTag"
