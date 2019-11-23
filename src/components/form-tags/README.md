@@ -42,6 +42,35 @@ button will only appear when the user has entered a new tag value.
 You can disable addig a new tag when pressing <kbd>ENTER</kbd> via the `no-add-on-enter` prop, and
 disable adding a tag on the input's `change` event via the `no-add-on-change` prop.
 
+To auto create tags when a separator character is typed (i.e. space, `,`, `;`, etc), set the
+`separator` prop to the character that will trigger the tag to be added. If multiple separators
+are needed, then include them as a single string (i.e. `' ,;'`, which will trigger a new tag to be
+added when <kbd>space</KBD>, <kbd>,</kbd>, or <kbd>;</kbd> are typed. 
+
+THe follwing example will auto create a tag when <kbd>space</KBD>, <kbd>,</kbd>, or <kbd>;</kbd>
+are typed:
+
+```html
+<template>
+  <div>
+    <b-form-tags v-model="value" separator=" ,;" class="mb-2"></b-form-tags>
+    <p>Value: {{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ['one', 'two']
+      }
+    }
+  }
+</script>
+
+<!-- form-tags-separator.vue -->
+```
+
 ### Styling Options
 
 Several props are available to alter the basic styling of the default tagged interface:
@@ -87,6 +116,7 @@ The default slot scope properties are as follows:
 | `inputId`        | String                   | ID to add to the new tag input element. Defaults to prop `input-id`. If not provided a unique ID is auto-generated. Also available via 'inputAttrs.id' |
 | `disabled`       | Boolean                  | `true` tf the component is in the disabled state. Value of the `disabled` prop                                                                         |
 | `state`          | Boolean                  | The contextual state of the component. Value of the `state` prop. Possible values are `true`, `false` or `null`                                        |
+| `separator`      | String                   | The value of the `separator` prop                                                                                                                      |
 | `placeholder`    | String                   | The value of the `placeholder` prop                                                                                                                    |
 | `tagRemoveLabel` | String                   | Value of the `tag-remove-label` prop. Used as the `aria-label` attribute on the remove button of tags                                                  |
 | `tagVariant`     | String                   | The value of the `tag-variant` prop                                                                                                                    |
@@ -101,8 +131,6 @@ This object contains attributes to bind (`v-bind`) to the new tag input element.
 | `id`        | String  | the `id` attribute for the new tag input                                           |
 | `value`     | String  | The `value` attribute for the new tag input                                        |
 | `disabled`  | Boolean | The `disabled` attribute for the new tag input. Value of the `disabled` prop       |
-| `minlength` | String  | The `minlength` attribute for the new tag input. Value of the `tag-minlength` prop |
-| `maxlength` | String  | The `maxlength` attribute for the new tag input. Value of the `tag-maxlength` prop |
 
 #### `inputHandlers` object properties
 
