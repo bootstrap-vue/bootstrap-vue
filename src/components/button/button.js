@@ -83,8 +83,7 @@ const isLink = props => props.href || props.to || tagIs(props.tag, 'a')
 const isToggle = props => isBoolean(props.pressed)
 
 // Is the button "really" a button?
-const isButton = props => !(isLink(props) || (props.tag && !tagIs(props.tag, 'button'))
-}
+const isButton = props => !(isLink(props) || (props.tag && !tagIs(props.tag, 'button')))
 
 // Is the requested tag not a button or link?
 const isNonStandardTag = props => !isLink(props) && !isButton(props)
