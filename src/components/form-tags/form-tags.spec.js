@@ -219,7 +219,7 @@ describe('form-tags', () => {
     const wrapper = mount(BFormTags, {
       propsData: {
         separator: ' ',
-        tagValidator: tag => tag.length < 4
+        tagValidator: tag => tag.length < 4,
         value: ['one', 'two']
       }
     })
