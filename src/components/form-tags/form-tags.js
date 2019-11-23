@@ -8,7 +8,7 @@ import toString from '../../utils/to-string'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF, select } from '../../utils/dom'
-import { isEvent, isString, isRegExp } from '../../utils/inspect'
+import { isEvent, isString } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BFormTag } from './form-tag'
@@ -34,7 +34,7 @@ const cleanTags = tags => {
     .filter((tag, index, arr) => tag.length > 0 && arr.indexOf(tag) === index)
 }
 
-const processEventValue = evt => isString(evt) ? evt : isEvent(evt) ? evt.target.value || '' : ''
+const processEventValue = evt => (isString(evt) ? evt : isEvent(evt) ? evt.target.value || '' : '')
 
 // @vue/component
 export const BFormTags = /*#__PURE__*/ Vue.extend({
@@ -155,9 +155,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedSeparator() {
       // We use a computed prop here to precompile the RegExp
-      let separator = this.separator
+      const separator = this.separator
       return separator && isString(separator)
-        ? new RegExp(`(${separator.split('').map(escapeRegExp).join('|')})+`)
+        ? new RegExp(
+          `(${separator
+            .split('')
+            .map(escapeRegExp)
+            .join('|')
+          })+`)
         : null
     }
   },
@@ -188,7 +193,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const tags = separator ? newTag.split(separator) : [newTag]
       // Get the unique tags
       const newTags = []
-      tags.map(tag => tag.trim())
+      tags
+        .map(tag => tag.trim())
         .filter(identity)
         .forEach(tag => {
           // We only add unique tags
