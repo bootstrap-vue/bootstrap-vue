@@ -54,7 +54,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
       'span',
       {
         staticClass: 'b-form-tag-content text-truncate',
-        style: { maxWidth: 'calc(100% - 1em)' }
+        style: { maxWidth: this.disabled ? '100%' : 'calc(100% - 1em)' }
       },
       this.normalizeSlot('default') || this.title || [h()]
     )
