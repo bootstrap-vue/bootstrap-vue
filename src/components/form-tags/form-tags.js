@@ -231,6 +231,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     // --- Input element event handlers ---
     onInputInput(evt) {
+      /* istanbul ignore if: hard to test composition events */
+      if (isEvent(evt) && evt.target.composing) {
+        // `evt.target.composing` is set by Vue (v-model directive)
+        // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
+        return
+      }
       const newTag = processEventValue(evt)
       const separator = this.computedSeparator
       this.newTag = newTag
@@ -360,6 +366,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Add default input and button
       const $input = h('input', {
         ref: 'input',
+        // Directive needed to get `evt.target.composing` set (if needed)
+        directives: [{ name: 'model', value: this.newTag }],
         staticClass: 'b-form-tags-input w-100 flex-grow-1 px-1 py-0 m-0 bg-transparent border-0',
         class: this.inputClass,
         style: { outline: 0, minWidth: '5rem' },
