@@ -199,7 +199,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         .filter(identity)
         .forEach(tag => {
           // We only add unique tags
-          if (!arrayIncludes(this.tags, tag) && !arrayIncludes(newTags, tag)) {
+          if (!arrayIncludes(this.tags, tag) && !arrayIncludes(addTags, tag)) {
             // TODO:
             //   Add optional tag validator function prop
             //   And tag formatter function prop
