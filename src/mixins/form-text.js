@@ -61,7 +61,7 @@ export default {
   },
   data() {
     return {
-      localValue: this.stringifyValue(this.value),
+      localValue: toString(this.value),
       vModelValue: this.value
     }
   },
@@ -101,7 +101,7 @@ export default {
   },
   watch: {
     value(newVal) {
-      const stringifyValue = this.stringifyValue(newVal)
+      const stringifyValue = toString(newVal)
       if (stringifyValue !== this.localValue && newVal !== this.vModelValue) {
         // Clear any pending debounce timeout, as we are overwriting the user input
         this.clearDebounce()
@@ -117,7 +117,7 @@ export default {
     this.$on('hook:beforeDestroy', this.clearDebounce)
     // Preset the internal state
     const value = this.value
-    const stringifyValue = this.stringifyValue(value)
+    const stringifyValue = toString(value)
     /* istanbul ignore next */
     if (stringifyValue !== this.localValue && value !== this.vModelValue) {
       this.localValue = stringifyValue
@@ -128,9 +128,6 @@ export default {
     clearDebounce() {
       clearTimeout(this.$_inputDebounceTimer)
       this.$_inputDebounceTimer = null
-    },
-    stringifyValue(value) {
-      return toString(value)
     },
     formatValue(value, evt, force = false) {
       value = toString(value)
