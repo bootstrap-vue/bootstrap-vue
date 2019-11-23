@@ -181,6 +181,40 @@ describe('form-tags', () => {
     wrapper.destroy()
   })
 
+  it('adds new tags via separator', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        separator: ' ,;',
+        value: ['apple', 'orange']
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    expect(wrapper.vm.newTag).toEqual('')
+
+    const $input = wrapper.find('input')
+
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+
+    $input.element.value = 'pear'
+    $input.trigger('input')
+    expect(wrapper.vm.newTag).toEqual('pear')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    $input.element.value = 'pear '
+    $input.trigger('input')
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
+
+    $input.element.value = 'peach; foo,bar apple'
+    $input.trigger('input')
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach', 'foo', 'bar'])
+
+    wrapper.destroy()
+  })
+
   it('adds new tags when add button clicked', async () => {
     const wrapper = mount(BFormTags, {
       propsData: {
