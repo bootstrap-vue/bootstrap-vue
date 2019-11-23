@@ -30,14 +30,6 @@
             "description": "Class (or classes) to apply to the new tag input element"
           },
           {
-            "prop": "inputMinlength",
-            "description": "Minimum number of characters for a tag. Applied as the 'minlength' attribute on the new tags input"
-          },
-          {
-            "prop": "inputMaxlength",
-            "description": "Maximum number of characters for a tag. Applied as the 'maxlength' attribute on the new tags input"
-          },
-          {
             "prop": "addButtonText",
             "description": "Text for the built in 'Add' button. Slot `add-button-text' takes precedence"
           },
@@ -131,6 +123,11 @@
                 "prop": "state",
                 "type": "Boolean",
                 "description": "The contextual state of the component. Value of the 'state' prop. Possible values are true, false or null"
+              },
+              {
+                "prop": "separator",
+                "type": "String",
+                "description": "Value of the 'separator' prop"
               },
               {
                 "prop": "placeholder",
