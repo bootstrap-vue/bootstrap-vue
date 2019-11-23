@@ -207,12 +207,10 @@ describe('form-tags', () => {
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
 
-    $input.element.value = 'peach;  apple foo,bar pie'
+    $input.element.value = 'peach;  foo,bar apple pie'
     $input.trigger('input')
-    // since the last "tag" doesn't have a training separator
-    // it remains in the input value
-    expect(wrapper.vm.newTag).toEqual('pie')
-    expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach', 'foo', 'bar'])
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach', 'foo', 'bar', 'pie'])
 
     wrapper.destroy()
   })
