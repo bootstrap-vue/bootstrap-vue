@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { hasIntersectionObserverSupport } from '../../utils/env'
@@ -121,13 +122,13 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
     },
     computedSrcset() {
       const srcset = concat(this.srcset)
-        .filter(Boolean)
+        .filter(identity)
         .join(',')
       return !this.blankSrc || this.isShown ? srcset : null
     },
     computedSizes() {
       const sizes = concat(this.sizes)
-        .filter(Boolean)
+        .filter(identity)
         .join(',')
       return !this.blankSrc || this.isShown ? sizes : null
     }
