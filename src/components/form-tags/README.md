@@ -394,10 +394,10 @@ You can easily create a custom wrapper component with your preferred rendering s
 
 BootstrapVue provides the helper component `<b-form-tag>`, for use with the default scoped slot of
 `<b-form-tags>`. The component is based upon [`<b-badge>`](/docs/components/badge) and
-[`<b-button-close>`](/docs/components/button/#comp-ref-b-button-close].
+[`<b-button-close>`](/docs/components/button/#comp-ref-b-button-close).
 
 `<b-form-tag>` supports the same variants as `<b-badge>` and also supports `pill` styling. Sizing is
-based on the containing elements font-size.
+based on the containing element's font-size.
 
 The `remove` event is emitted when the `<b-form-tag>` remove button is clicked.
 
