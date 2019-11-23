@@ -47,22 +47,23 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
         props: { ariaLabel: this.removeLabel },
         staticClass: 'b-form-tag-remove ml-1 text-reset float-none',
         style: { fontSize: 'inherit' },
-        on: {
-          click: this.onClick
-        }
+        on: { click: this.onClick }
       })
     }
-    const $tag = h('span', {}, this.normalizeSlot('default') || this.title || [h()])
+    const $tag = h(
+      'span',
+      {
+        staticClass: 'b-form-tag-content text-truncate',
+        style: { maxWidth: 'calc(100% - 1em)' }
+      },
+      this.normalizeSlot('default') || this.title || [h()]
+    )
     return h(
       BBadge,
       {
-        staticClass: 'b-form-tag font-weight-normal',
+        staticClass: 'b-form-tag font-weight-normal mw-100 d-inline-block',
         attrs: { title: this.title || null },
-        props: {
-          tag: this.tag,
-          variant: this.variant,
-          pill: this.pill
-        }
+        props: { tag: this.tag, variant: this.variant, pill: this.pill }
       },
       [$tag, $remove]
     )
