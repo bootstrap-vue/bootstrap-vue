@@ -8,7 +8,7 @@ import toString from '../../utils/to-string'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF, select } from '../../utils/dom'
-import { isEvent, isString } from '../../utils/inspect'
+import { isEvent, isFunction, isString } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BFormTag } from './form-tag'
@@ -28,7 +28,7 @@ const trimLeft = str => str.replace(RX_TRIM_LEFT, '')
 
 // This is similar to the escape used by table filtering,
 // but the second replace is different
-const escapeRegExp = str => str.replace(RX_ESCAPE_1, '\\$&').replace(RX_ESCAPE_2, '\\s')
+const escapeRegExpChars = str => str.replace(RX_ESCAPE_1, '\\$&').replace(RX_ESCAPE_2, '\\s')
 
 const cleanTags = tags => {
   return concat(tags)
@@ -108,6 +108,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: String,
       default: () => getComponentConfig(NAME, 'tagRemoveLabel')
     },
+    tagValidator: {
+      type: Function,
+      default: null
+    },
     separator: {
       // Character (or characters) that trigger adding tags
       type: String,
@@ -158,7 +162,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     computedSeparator() {
       // We use a computed prop here to precompile the RegExp
       const separator = this.separator
-      return separator && isString(separator) ? new RegExp(`[${escapeRegExp(separator)}]+`) : null
+      return separator && isString(separator)
+        ? new RegExp(`[${escapeRegExpChars(separator)}]+`)
+        : null
     }
   },
   watch: {
@@ -194,10 +200,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         .forEach(tag => {
           // We only add unique tags
           if (!arrayIncludes(this.tags, tag) && !arrayIncludes(addTags, tag)) {
-            // TODO:
-            //   Add optional tag validator function prop
-            //   And tag formatter function prop
-            addTags.push(tag)
+            if (this.validateTag(tag)) {
+              addTags.push(tag)
+            }
           }
         })
       // Add any new tags to the tags array
@@ -257,6 +262,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           }
         })
       })
+    },
+    // --- Private methods ---
+    validateTag(tag) {
+      const validator = this.tagValidator
+      return isFunction(validator) ? validator(tag) : true
     },
     getInput() {
       return select(`#${this.computedInputId}`, this.$el)
