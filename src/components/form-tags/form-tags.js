@@ -191,27 +191,37 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       newTag = toString(newTag)
       const separator = this.computedSeparator
       // Split the tag(s) via the optional separator
+      // Normally only a single tag is provided, but copy/paste
+      // can enter multiple tags in a single operation
       const tags = separator ? trimLeft(newTag).split(separator) : [newTag]
+      // Tags to be added
+      const validTags = []
+      // Tags that can not be added
+      const invalidTags = []
       // Get the unique tags
-      const addTags = []
       tags
         .map(tag => tag.trim())
         .filter(identity)
         .forEach(tag => {
           // We only add unique tags
-          if (!arrayIncludes(this.tags, tag) && !arrayIncludes(addTags, tag)) {
+          if (!arrayIncludes(this.tags, tag) && !arrayIncludes(validTags, tag)) {
             if (this.validateTag(tag)) {
-              addTags.push(tag)
+              validTags.push(tag)
+            } else {
+              invalidTags.push(tag)
             }
           }
         })
       // Add any new tags to the tags array
-      if (addTags.length > 0) {
+      if (validTags.length > 0) {
         // We add the new tags in one atomic operation
         // to trigger reactivity once (instead of once per tag)
-        this.tags = [...this.tags, ...addTags]
+        this.tags = [...this.tags, ...validTags]
         // Clear the user input
         this.newTag = ''
+      }
+      if (validTags.length > 0 || invalidTags.length > 0) {
+        this.$emit('new-tags', validTags, invalidTags)
       }
     },
     removeTag(tag) {
