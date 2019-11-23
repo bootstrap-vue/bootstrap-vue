@@ -16,17 +16,18 @@ import { BButton } from '../button/button'
 
 const NAME = 'BFormTags'
 
-// --- pre-compiled regular expresions for performance reasons ---
+// --- Pre-compiled regular expressions for performance reasons ---
 
 const RX_ESCAPE_1 = /[-/\\^$*+?.()|[\]{}]/g
 const RX_ESCAPE_2 = /[\s\uFEFF\xA0]+/g
-const RX_TRIMLEFT = /^s+/
+const RX_TRIM_LEFT = /^s+/
 
 // --- Utility methods ---
 
-const trimLeft = str => str.replace(RX_TRIMLEFT, '')
+const trimLeft = str => str.replace(RX_TRIM_LEFT, '')
 
-// This is similar to the escape used by table filtering, but the second replace is different
+// This is similar to the escape used by table filtering,
+// but the second replace is different
 const escapeRegExp = str => str.replace(RX_ESCAPE_1, '\\$&').replace(RX_ESCAPE_2, '\\s')
 
 const cleanTags = tags => {

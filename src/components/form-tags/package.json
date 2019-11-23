@@ -127,7 +127,7 @@
               {
                 "prop": "size",
                 "type": "String",
-                "description": "The alue of the 'size' prop"
+                "description": "The value of the 'size' prop"
               },
               {
                 "prop": "separator",
