@@ -24,9 +24,10 @@ const RX_TRIMLEFT = /^s+/
 
 // --- Utility methods ---
 
-const escapeRegExp = str => str.replace(RX_ESCAPE_1, '\\$&').replace(RX_ESCAPE_2, '\\s+')
-
 const trimLeft = str => str.replace(RX_TRIMLEFT, '')
+
+// This is similar to the escape used by table filtering, but the second replace is different
+const escapeRegExp = str => str.replace(RX_ESCAPE_1, '\\$&').replace(RX_ESCAPE_2, '\\s')
 
 const cleanTags = tags => {
   return concat(tags)
@@ -157,12 +158,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // We use a computed prop here to precompile the RegExp
       const separator = this.separator
       return separator && isString(separator)
-        ? new RegExp(
-            `(${separator
-              .split('')
-              .map(escapeRegExp)
-              .join('|')})+`
-          )
+        ? new RegExp(`[${escapeRegExp(separator)}]+`)
         : null
     }
   },
