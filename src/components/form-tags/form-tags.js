@@ -1,13 +1,14 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import Vue from '../../utils/vue'
+import identity from '../../utils/identity'
 import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import toString from '../../utils/to-string'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF, select } from '../../utils/dom'
-import { isString } from '../../utils/inspect'
+import { isEvent, isString, isRegExp } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BFormTag } from './form-tag'
@@ -15,17 +16,27 @@ import { BButton } from '../button/button'
 
 const NAME = 'BFormTags'
 
+// --- pre-compiled regular expresions for performance reasons ---
+
+const RX_ESCAPE_1 = /[-/\\^$*+?.()|[\]{}]/g
+const RX_ESCAPE_2 = /[\s\uFEFF\xA0]+/g
+const RX_TRIMLEFT = /^s+/
+
+// --- Utility methods ---
+
+const escapeRegExp = str => str.replace(RX_ESCAPE_1, '\\$&').replace(RX_ESCAPE_2, '\\s+')
+
+const trimLeft = str => str.replace(RX_TRIMLEFT, '')
+
 const cleanTags = tags => {
   return concat(tags)
     .map(tag => toString(tag).trim())
     .filter((tag, index, arr) => tag.length > 0 && arr.indexOf(tag) === index)
 }
 
-const processEventValue = evt => {
-  const value = isString(evt) ? evt : evt instanceof Event ? evt.target.value : ''
-  return value || ''
-}
+const processEventValue = evt => isString(evt) ? evt : isEvent(evt) ? evt.target.value || '' : ''
 
+// @vue/component
 export const BFormTags = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, normalizeSlotMixin],
@@ -71,14 +82,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: [String, Array, Object],
       default: null
     },
-    inputMaxlength: {
-      type: [Number, String],
-      default: null
-    },
-    inputMinlength: {
-      type: [Number, String],
-      default: null
-    },
     addButtonText: {
       type: String,
       default: () => getComponentConfig(NAME, 'addButtonText')
@@ -102,6 +105,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     tagRemoveLabel: {
       type: String,
       default: () => getComponentConfig(NAME, 'tagRemoveLabel')
+    },
+    separator: {
+      // Character (or characters) that trigger adding tags
+      type: String,
+      default: null
     },
     noAddOnChange: {
       type: Boolean,
@@ -135,9 +143,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       return {
         id: this.computedInputId,
         value: this.newTag,
-        disabled: this.disabled || null,
-        maxlength: this.tagMaxlength || null,
-        minlength: this.tagMinlength || null
+        disabled: this.disabled || null
       }
     },
     computedInputHandlers() {
@@ -146,6 +152,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         change: this.onInputChange,
         keydown: this.onInputKeydown
       }
+    },
+    computedSeparator() {
+      // We use a computed prop here to precompile the RegExp
+      let separator = this.separator
+      return separator && isString(separator))
+        ? new RegExp(`(${separator.split('').map(escapeRegExp).join('|')})+`)
+        : null
     }
   },
   watch: {
@@ -168,12 +181,30 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     this.handleAutofocus()
   },
   methods: {
-    addTag(tag = this.newTag) {
-      tag = toString(tag).trim()
-      // TODO:
-      //   Add option for user supplied validator function
-      if (tag.length > 0 && !arrayIncludes(this.tags, tag)) {
-        this.tags.push(tag)
+    addTag(newTag = this.newTag) {
+      newTag = toString(newTag)
+      const separator = this.computedSeparator
+      // Split the tag(s) via the optional separator
+      const tags = separator ? newTag.split(separator) : [newTag]
+      // Get the unique tags
+      const newTags = []
+      tags.map(tag => tag.trim())
+        .filter(identity)
+        .forEach(tag => {
+          // We only add unique tags
+          if (!arrayIncludes(this.tags, tag) && !arrayIncludes(newTags, tag)) {
+            // TODO:
+            //   Add optional tag validator function prop
+            //   And tag formatter function prop
+            newTags.push(tag)
+          }
+        })
+      // Add any new tags to the tags array
+      if (newTags.length > 0) {
+        // We add the new tags in one atomic operation
+        // to trigger reactivity once (instead of once per tag)
+        this.tags = [...this.tags, ...newTags]
+        // Clear the user input
         this.newTag = ''
       }
     },
@@ -182,12 +213,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     // --- Input element event handlers ---
     onInputInput(evt) {
-      this.newTag = processEventValue(evt)
-      // TODO:
-      //   Check if last character on input is special (i.e. space, comma, etc)
-      //   And trigger the tag add (stripping off trailing special character
-      //   The character stripping could be handled in this.addTag() method
-      //   Need a prop that users can specify the characters as a RegExpr
+      const newTag = processEventValue(evt)
+      const separator = this.computedSeparator
+      this.newTag = newTag
+      if (separator && separator.test(trimLeft(newTag))) {
+        // A separator character was entered, so add the tag(s).
+        // Note, more than one tag on input event is possible via copy/paste
+        this.addTag()
+      }
     },
     onInputChange(evt) {
       // Change is triggered on `<input>` blur, or `<select>` selected
@@ -263,6 +296,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // <input> :id="inputClass"
         inputClass: this.inputClass,
         // Pass-though values
+        separator: this.separator,
         disabled: this.disabled,
         state: this.state,
         placeholder: this.placeholder,
@@ -313,6 +347,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         on: this.computedInputHandlers
       })
       const newTag = this.newTag.trim()
+      const hideButton = newTag.length === 0 || arrayIncludes(this.tags, newTag)
       const $button = h(
         BButton,
         {
@@ -320,10 +355,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           staticClass: 'b-form-tags-button py-0',
           class: {
             // Only show the button if the tag can be added
-            invisible: newTag.length === 0 || arrayIncludes(this.tags, newTag)
+            // We use the `invisible` class to maintain layout
+            // to prevent the user input from jumping around
+            invisible: hideButton
           },
           style: { fontSize: '90%' },
-          props: { variant: this.addButtonVariant },
+          props: { variant: this.addButtonVariant, disabled: hideButton },
           on: { click: () => this.addTag() }
         },
         [this.normalizeSlot('add-button-text') || this.addButtonText]
