@@ -156,7 +156,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     computedSeparator() {
       // We use a computed prop here to precompile the RegExp
       let separator = this.separator
-      return separator && isString(separator))
+      return separator && isString(separator)
         ? new RegExp(`(${separator.split('').map(escapeRegExp).join('|')})+`)
         : null
     }
