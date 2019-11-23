@@ -100,6 +100,19 @@ function will receive one argument which is the tag being added, and should retu
 the tag passes validation and can be added, or `false` if the tag fails validation (in which case it
 is not added to the array of tags).
 
+Tag validation occurs only for tags added via user input. Changes to the tags via the `v-model` are
+not validated.
+
+## Detecting new, invalid, and duplicate tags
+
+The event `new-tags` will be emitted whenever new tags are added, tags that do not pass validation,
+or duplicate tags are not added. The event handler will receive three arrays as it's aruments:
+
+- `validTags` (tags that were successfully added)
+- `invalidTags` (tags that did not pass validation)
+- `duplicateTags` (tags that were not added as they would be a duplicate of existing or
+   validTags).
+
 ## Custom rending with default scoped slot
 
 If you fancy a different look and feel for the tags control, you can provide your own custom
