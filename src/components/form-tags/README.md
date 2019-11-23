@@ -401,4 +401,8 @@ based on the containing element's font-size.
 
 The `remove` event is emitted when the `<b-form-tag>` remove button is clicked.
 
+Tags that are too wide for thir parent container will automatically have thier text content
+truncated with an ellipsis. For this reason, it is always good practice to supply a title via the
+`title` prop when using the default slot of `<b-form-tag>` for the tag content.
+
 <!-- Component reference added automatically from component package.json -->
