@@ -295,7 +295,8 @@ default slot's scope.
             <span>{{ tag }}</span>
             <b-button
               :disabled="disabled"
-              :size="sm"
+              class="py-0"
+              size="sm"
               variant="outline-danger"
               @click="removeTag(tag)"
             >
