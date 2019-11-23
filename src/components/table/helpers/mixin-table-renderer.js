@@ -1,5 +1,5 @@
-import identity from '../../utils/identity'
-import toString from '../../utils/to-string'
+import identity from '../../../utils/identity'
+import toString from '../../../utils/to-string'
 import { isBoolean } from '../../../utils/inspect'
 
 // Main `<table>` render mixin
