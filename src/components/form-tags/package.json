@@ -54,6 +54,10 @@
             "description": "The value of the 'aria-label' attribute on the remove button in the tag"
           },
           {
+            "prop": "tagValidator",
+            "description": "Optional tag validator method. Passed a single argument of tag being added. Should return 'true' if the tag passes validation, or 'false' if the tag cannot be added"
+          },
+          {
             "prop": "noAddOnChange",
             "description": "When set, disables adding the tag on the input's 'change' event"
           },
