@@ -48,12 +48,19 @@ needed, then include them as a single string (i.e. `' ,;'`, which will trigger a
 when <kbd>space</KBD>, <kbd>,</kbd>, or <kbd>;</kbd> are typed.
 
 The following example will auto create a tag when <kbd>space</KBD>, <kbd>,</kbd>, or <kbd>;</kbd>
-are typed (as well as the default tag creation via <kbd>ENTER</kbd>):
+are typed:
 
 ```html
 <template>
   <div>
-    <b-form-tags v-model="value" separator=" ,;" no-add-on-change class="mb-2"></b-form-tags>
+    <b-form-tags
+      v-model="value"
+      separator=" ,;"
+      placeholder="Enter new tags seprated by space, comma or semicolon"
+      no-add-on-enter
+      no-add-on-change
+      class="mb-2"
+    ></b-form-tags>
     <p>Value: {{ value }}</p>
   </div>
 </template>
