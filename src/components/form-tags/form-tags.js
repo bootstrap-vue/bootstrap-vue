@@ -196,20 +196,22 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const tags = separator ? trimLeft(newTag).split(separator) : [newTag]
       // Tags to be added
       const validTags = []
-      // Tags that can not be added
+      // Tags that do not pass validation
       const invalidTags = []
-      // Get the unique tags
+      // Tags that are duplicates
+      const duplicateTags = []
+      // Get the unique tags (and ignore any empty tags)
       tags
         .map(tag => tag.trim())
         .filter(identity)
         .forEach(tag => {
-          // We only add unique tags
-          if (!arrayIncludes(this.tags, tag) && !arrayIncludes(validTags, tag)) {
-            if (this.validateTag(tag)) {
-              validTags.push(tag)
-            } else {
-              invalidTags.push(tag)
-            }
+          // We only add unique/valid tags
+          if (arrayIncludes(this.tags, tag) || arrayIncludes(validTags, tag)) {
+            duplicateTags.push(tag)
+          } else if (this.validateTag(tag)) {
+            validTags.push(tag)
+          } else {
+            invalidTags.push(tag)
           }
         })
       // Add any new tags to the tags array
@@ -217,11 +219,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // We add the new tags in one atomic operation
         // to trigger reactivity once (instead of once per tag)
         this.tags = [...this.tags, ...validTags]
-        // Clear the user input
+        // Clear the user input model
         this.newTag = ''
       }
-      if (validTags.length > 0 || invalidTags.length > 0) {
-        this.$emit('new-tags', validTags, invalidTags)
+      if (validTags.length > 0 || invalidTags.length > 0 || duplicateTags.length > 0) {
+        this.$emit('new-tags', validTags, invalidTags, duplicateTags)
       }
     },
     removeTag(tag) {
