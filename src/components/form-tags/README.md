@@ -106,25 +106,28 @@ interface. Not all properties or methods are required to generate your interface
 
 The default slot scope properties are as follows:
 
-| Property         | Type                     | Description                                                                                                                                            |
-| ---------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `tags`           | Array                    | Array of current tag strings                                                                                                                           |
-| `inputAttrs`     | Object                   | Object of attributes to apply to the new tag input element via `v-bind="inputAttrs"`. See below for details                                            |
-| `inputHandlers`  | Object                   | Object of event handlers to apply to the new tag input element via `v-on="inputHandlers"`. See below for details                                       |
-| `removeTag`      | Function                 | Method to remove a tag. Accepts one argument which is the tag value to remove                                                                          |
-| `addTag`         | Function                 | Method to add a new tag. Assumes the tag is the value of the input, but optionally accepts one argument which is the tag value to be added             |
-| `inputId`        | String                   | ID to add to the new tag input element. Defaults to prop `input-id`. If not provided a unique ID is auto-generated. Also available via 'inputAttrs.id' |
-| `disabled`       | Boolean                  | `true` tf the component is in the disabled state. Value of the `disabled` prop                                                                         |
-| `state`          | Boolean                  | The contextual state of the component. Value of the `state` prop. Possible values are `true`, `false` or `null`                                        |
-| `separator`      | String                   | The value of the `separator` prop                                                                                                                      |
-| `placeholder`    | String                   | The value of the `placeholder` prop                                                                                                                    |
-| `tagRemoveLabel` | String                   | Value of the `tag-remove-label` prop. Used as the `aria-label` attribute on the remove button of tags                                                  |
-| `tagVariant`     | String                   | The value of the `tag-variant` prop                                                                                                                    |
-| `tagClass`       | String, Array, or Object | The value of the `tag-variant` prop. Class (or classes) to apply to the tag elements                                                                   |
+| Property           | Type                     | Description                                                                                                                                            |
+| ------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `tags`             | Array                    | Array of current tag strings                                                                                                                           |
+| `inputAttrs`       | Object                   | Object of attributes to apply to the new tag input element via `v-bind="inputAttrs"`. See below for details                                            |
+| `inputHandlers`    | Object                   | Object of event handlers to apply to the new tag input element via `v-on="inputHandlers"`. See below for details                                       |
+| `removeTag`        | Function                 | Method to remove a tag. Accepts one argument which is the tag value to remove                                                                          |
+| `addTag`           | Function                 | Method to add a new tag. Assumes the tag is the value of the input, but optionally accepts one argument which is the tag value to be added             |
+| `inputId`          | String                   | ID to add to the new tag input element. Defaults to prop `input-id`. If not provided a unique ID is auto-generated. Also available via 'inputAttrs.id' |
+| `disabled`         | Boolean                  | `true` tf the component is in the disabled state. Value of the `disabled` prop                                                                         |
+| `state`            | Boolean                  | The contextual state of the component. Value of the `state` prop. Possible values are `true`, `false` or `null`                                        |
+| `size`             | String                   | The value of the `size` prop                                                                                                                            |
+| `separator`        | String                   | The value of the `separator` prop                                                                                                                      |
+| `placeholder`      | String                   | The value of the `placeholder` prop                                                                                                                    |
+| `tagRemoveLabel`   | String                   | Value of the `tag-remove-label` prop. Used as the `aria-label` attribute on the remove button of tags                                                  |
+| `tagVariant`       | String                   | The value of the `tag-variant` prop                                                                                                                    |
+| `tagClass`         | String, Array, or Object | The value of the `tag-variant` prop. Class (or classes) to apply to the tag elements                                                                   |
+| `addButtonText`    | String                   | The value of the `add-button-text` prop                                                                                                                |
+| `addButtonVariant` | String                   | The value of the `add-button-variant` prop                                                                                                              |
 
 #### `inputAttrs` object properties
 
-This object contains attributes to bind (`v-bind`) to the new tag input element.
+The `inputAttrs` object contains attributes to bind (`v-bind`) to the new tag input element.
 
 | Property    | Type    | Description                                                                        |
 | ----------- | ------- | ---------------------------------------------------------------------------------- |
@@ -134,13 +137,13 @@ This object contains attributes to bind (`v-bind`) to the new tag input element.
 
 #### `inputHandlers` object properties
 
-This object contains event handlers to bind (`v-on`) to the new tag input element.
+The `inputHandlers` object contains event handlers to bind (`v-on`) to the new tag input element.
 
 | Property  | Type     | Description                                                                                                                                                                    |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `input`   | Function | Event handler for the input element `input` event. Accepts a single argument of either an event object or a string. Updates the internal v-model for the new tag input element |
 | `change`  | Function | Event handler for the input element `change` event. Accepts a single argument of either an event object or a string. Change will trigger adding the tag                        |
-| `keydown` | Function | Event handler or the input element `keydown` <kbd>ENTER</kbd> event. Triggers adding the new tag                                                                               |
+| `keydown` | Function | Event handler or the input element `keydown` <kbd>ENTER</kbd> event. Triggers adding the new tag. Accepts a single argument which is the native keydown event object           |
 
 ### Using native browser inputs
 
@@ -195,6 +198,9 @@ selects.
 The scope contains attributes and event handlers that can be directly bound to _most_ custom inputs
 or select components (the event handlers accept both a string tag value _or_ a native event object).
 
+In this example, we are using the [`<b-form-tag>` helper component](#b-form-tag-helper-comonent),
+but feel free to render tags using standard HTML or components.
+
 ```html
 <template>
   <div>
@@ -211,7 +217,7 @@ or select components (the event handlers accept both a string tag value _or_ a n
             <b-button @click="addTag()" variant="primary">Add</b-button>
           </b-input-group-append>
         </b-input-group>
-        <div>
+        <div style="font-size: 1.5rem;">
           <b-form-tag
             v-for="tag in tags"
             @remove="removeTag(tag)"
@@ -230,7 +236,7 @@ or select components (the event handlers accept both a string tag value _or_ a n
   export default {
     data() {
       return {
-        value: ['apple', 'orange', 'banana', 'pear', 'peach']
+        value: ['apple', 'orange', 'banana']
       }
     }
   }
@@ -242,7 +248,8 @@ or select components (the event handlers accept both a string tag value _or_ a n
 ### Advanced custom rendering usage
 
 In situations where the `inputHandlers` will not work with your custom input, or if you need greater
-control over tag creation:
+control over tag creation, you can take advantage of the additional properties provided via the
+default slot's scope.
 
 ```html
 <template>
@@ -251,6 +258,7 @@ control over tag creation:
     <b-form-tags
       v-model="value"
       @input="resetInputValue()"
+      size="lg"
       tag-variant="success"
       class="mb-2 mt-2"
       :disabled="disabled"
@@ -258,17 +266,15 @@ control over tag creation:
       placeholder="Enter a new tag value and click Add"
       :state="state"
     >
-      <template v-slot="{
-        tags, inputAttrs, placeholder, disabled, tagVariant, tagRemoveLabel, addTag, removeTag
-      }">
-        <b-input-group>
+      <template v-slot="{tags, inputId, placeholder, disabled, addTag, removeTag, size}">
+        <b-input-group :size="size">
           <!-- Always bind the id to the input so that it can be focused when needed -->
           <b-form-input
             v-model="newTag"
-            :id="inputAttrs.id"
+            :id="inputId"
             :placeholder="placeholder"
             :disabled="disabled"
-            class="form-control"
+            :formatter="formatter"
           ></b-form-input>
           <b-input-group-append>
             <b-button @click="addTag(newTag)" :disabled="disabled" variant="primary">Add</b-button>
@@ -277,18 +283,19 @@ control over tag creation:
         <b-form-invalid-feedback :state="state">
           Duplicate tag value cannot be added again!
         </b-form-invalid-feedback>
-        <div v-if="tags.length" style="font-size: 1.5rem;" class="mt-2">
-          <b-form-tag
-            v-for="tag in tags"
-            @remove="removeTag(tag)"
-            :key="tag"
-            :title="`Tag: ${tag}`"
-            :variant="tagVariant"
-            :removeLabel="tagRemoveLabel"
-            :disabled="disabled"
-            class="mr-2"
-          >{{ tag }}</b-form-tag>
-        </div>
+        <ul v-if="tags.length > 0" class="mt-2 mb-0">
+          <li v-for="tag in tags" :key="tag" :title="`Tag: ${tag}`">
+            <span>{{ tag }}</span>
+            <b-button
+              :disabled="disabled"
+              :size="sm"
+              variant="outline-danger"
+              @click="removeTag(tag)"
+            >
+              remove tag
+            </b-button>
+          </li>
+        </ul>
         <b-form-text v-else>
           There are no tags specified. Add a new tag above.
         </b-form-text>
@@ -303,7 +310,7 @@ control over tag creation:
       return {
         newTag: '',
         disabled: false,
-        value: ['apple', 'orange', 'banana', 'pear', 'peach']
+        value: []
       }
     },
     computed: {
@@ -315,6 +322,9 @@ control over tag creation:
     methods: {
       resetInputValue() {
         this.newTag = ''
+      },
+      formatter(value) {
+        return value.toUpperCase()
       }
     }
   }
@@ -322,3 +332,49 @@ control over tag creation:
 
 <!-- form-tags-custom-components-advanced.vue -->
 ```
+### Creating wrapper components
+
+You can easily create a custom wrapper component with your prefered rendering style
+as follows:
+
+```html
+<template>
+  <b-form-tags :value="value" @input="$emit('input', $event)">
+    <template v-slot="{ tags, addTag, removeTag, inputAttrs, inputHandlers }">
+     <!-- Place your custom rendering here -->
+    </template>
+  </b-form-tags>
+</template>
+
+<script>
+  import { BFormTags } from 'bootstrap-vue'
+
+  export default {
+    name: 'MyCustomTags",
+    components: { BFormTags },
+    model: {
+      prop: 'value',
+      event: 'input'
+    },
+    props: {
+      value: {
+        type: Array,
+        default: () => []
+      }
+    }
+  }
+</script>
+```
+
+## `<b-form-tag>` helper comonent
+
+BootstrapVue provides the helper component `<b-form-tag>`, for use with the default scoped slot
+of `<b-form-tags>`. The compoent is based upon [`<b-badge>`](/docs/components/badge) and
+[`<b-button-close>`](/docs/components/button/#comp-ref-b-button-close].
+
+`<b-form-tag>` supports the same variants as `<b-badge>` and also supports `pill` styling. Sizing
+is based on the containing elements font-size.
+
+The `remove` event is emitted when the `<b-form-tag>` remove button is clicked.
+
+<!-- Component reference added automatically from component package.json -->
