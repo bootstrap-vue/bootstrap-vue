@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
+import toString from '../../utils/to-string'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { addClass, removeClass } from '../../utils/dom'
@@ -62,6 +63,9 @@ export const props = { ...linkProps, ...btnProps }
 
 // --- Helper methods ---
 
+// Returns true if a tag's name is name
+const tagIs = (tag, name) => toString(tag).toLowerCase() === toString(name).toLowerCase()
+
 // Focus handler for toggle buttons.  Needs class of 'focus' when focused.
 const handleFocus = evt => {
   if (evt.type === 'focusin') {
@@ -72,22 +76,15 @@ const handleFocus = evt => {
 }
 
 // Is the requested button a link?
-const isLink = props => {
-  // If tag prop is set to `a`, we use a b-link to get proper disabled handling
-  return Boolean(props.href || props.to || (props.tag && String(props.tag).toLowerCase() === 'a'))
+// If tag prop is set to `a`, we use a b-link to get proper disabled handling
+const isLink = props => props.href || props.to || tagIs(props.tag, 'a')
 }
 
 // Is the button to be a toggle button?
 const isToggle = props => isBoolean(props.pressed)
 
 // Is the button "really" a button?
-const isButton = props => {
-  if (isLink(props)) {
-    return false
-  } else if (props.tag && String(props.tag).toLowerCase() !== 'button') {
-    return false
-  }
-  return true
+const isButton = props => !(isLink(props) || (props.tag && !tagIs(props.tag, 'button'))
 }
 
 // Is the requested tag not a button or link?
@@ -97,7 +94,7 @@ const isNonStandardTag = props => !isLink(props) && !isButton(props)
 const computeClass = props => [
   `btn-${props.variant || getComponentConfig(NAME, 'variant')}`,
   {
-    [`btn-${props.size}`]: Boolean(props.size),
+    [`btn-${props.size}`]: props.size,
     'btn-block': props.block,
     'rounded-pill': props.pill,
     'rounded-0': props.squared && !props.pill,
