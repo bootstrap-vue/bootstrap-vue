@@ -293,17 +293,19 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         inputHandlers: this.computedInputHandlers,
         // <input> :id="inputId"
         inputId: this.computedInputId,
-        // <input> :id="inputClass"
-        inputClass: this.inputClass,
         // Pass-though values
         separator: this.separator,
         disabled: this.disabled,
         state: this.state,
+        size: this.size,
         placeholder: this.placeholder,
+        inputClass: this.inputClass,
         tagRemoveLabel: this.tagRemoveLabel,
         tagVariant: this.tagVariant,
         tagPills: this.tagPills,
-        tagClass: this.tagClass
+        tagClass: this.tagClass,
+        addButtonText: this.addButtontext,
+        addButtonVariant: this.addButtonVariant
       })
     } else {
       // Internal rendering
