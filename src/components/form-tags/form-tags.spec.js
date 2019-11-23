@@ -243,7 +243,7 @@ describe('form-tags', () => {
     $input.element.value = 'tag '
     $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('')
-    expect(wrapper.vm.tags).toEqual(['one', 'two' 'tag'])
+    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     expect(wrapper.emitted('new-tags')).toBeDefined()
     expect(wrapper.emitted('new-tags').length).toBe(1)
     // Tag added
@@ -256,7 +256,7 @@ describe('form-tags', () => {
     $input.element.value = 'three four one four '
     $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('')
-    expect(wrapper.vm.tags).toEqual(['one', 'two' 'tag', 'four'])
+    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four'])
     expect(wrapper.emitted('new-tags').length).toBe(2)
     // Tag added
     expect(wrapper.emitted('new-tags')[1][0]).toEqual(['four'])
@@ -268,7 +268,7 @@ describe('form-tags', () => {
     $input.element.value = ' three '
     $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('three ')
-    expect(wrapper.vm.tags).toEqual(['one', 'two' 'tag', 'four'])
+    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four'])
     expect(wrapper.emitted('new-tags').length).toBe(3)
     // Tags added
     expect(wrapper.emitted('new-tags')[2][0]).toEqual([])
@@ -280,7 +280,7 @@ describe('form-tags', () => {
     $input.element.value = '    '
     $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('    ')
-    expect(wrapper.vm.tags).toEqual(['one', 'two' 'tag', 'four'])
+    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four'])
     expect(wrapper.emitted('new-tags').length).toBe(3)
 
     wrapper.destroy()
