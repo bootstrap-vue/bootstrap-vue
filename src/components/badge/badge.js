@@ -32,7 +32,7 @@ export const BBadge = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
-    const isBLink = !props.href && !props.to
+    const isBLink = props.href || props.to
     const tag = isBLink ? BLink : props.tag
 
     const componentData = {
