@@ -78,7 +78,6 @@ const handleFocus = evt => {
 // Is the requested button a link?
 // If tag prop is set to `a`, we use a b-link to get proper disabled handling
 const isLink = props => props.href || props.to || tagIs(props.tag, 'a')
-}
 
 // Is the button to be a toggle button?
 const isToggle = props => isBoolean(props.pressed)
