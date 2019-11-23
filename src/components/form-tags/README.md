@@ -265,7 +265,6 @@ default slot's scope.
     <b-form-tags
       v-model="value"
       @input="resetInputValue()"
-      size="lg"
       tag-variant="success"
       class="mb-2 mt-2"
       :disabled="disabled"
@@ -273,8 +272,8 @@ default slot's scope.
       placeholder="Enter a new tag value and click Add"
       :state="state"
     >
-      <template v-slot="{tags, inputId, placeholder, disabled, addTag, removeTag, size}">
-        <b-input-group :size="size">
+      <template v-slot="{tags, inputId, placeholder, disabled, addTag, removeTag }">
+        <b-input-group>
           <!-- Always bind the id to the input so that it can be focused when needed -->
           <b-form-input
             v-model="newTag"
@@ -290,18 +289,19 @@ default slot's scope.
         <b-form-invalid-feedback :state="state">
           Duplicate tag value cannot be added again!
         </b-form-invalid-feedback>
-        <ul v-if="tags.length > 0" class="mt-2 mb-0">
-          <li v-for="tag in tags" :key="tag" :title="`Tag: ${tag}`">
-            <span>{{ tag }}</span>
-            <b-button
-              :disabled="disabled"
-              class="py-0"
-              size="sm"
-              variant="outline-danger"
-              @click="removeTag(tag)"
-            >
-              remove tag
-            </b-button>
+        <ul v-if="tags.length > 0" class="mb-0">
+          <li v-for="tag in tags" :key="tag" :title="`Tag: ${tag}`" class="mt-2">
+            <span  class="d-flex align-items-center">
+              <span class="mr-2">{{ tag }}</span>
+              <b-button
+                :disabled="disabled"
+                size="sm"
+                variant="outline-danger"
+                @click="removeTag(tag)"
+              >
+                remove tag
+              </b-button>
+            </span>
           </li>
         </ul>
         <b-form-text v-else>
