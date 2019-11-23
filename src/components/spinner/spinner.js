@@ -50,9 +50,9 @@ export const BSpinner = /*#__PURE__*/ Vue.extend({
           'aria-hidden': label ? null : 'true'
         },
         class: {
-          [`spinner-${props.type}`]: Boolean(props.type),
+          [`spinner-${props.type}`]: props.type,
           [`spinner-${props.type}-sm`]: props.small,
-          [`text-${props.variant}`]: Boolean(props.variant)
+          [`text-${props.variant}`]: props.variant
         }
       }),
       [label || h()]
