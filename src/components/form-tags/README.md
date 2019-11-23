@@ -93,6 +93,13 @@ The value of the tagged input will not be submitted via standard form `action` u
 name via the `name` prop. When a name is provided, `<b-form-tags>` will create a hidden `<input>`
 for each tag. The hidden input will have the `name` attribute set to the value of the `name` prop.
 
+## Tag validation
+
+You can optionally provide a tag validator method via the `tag-validator` prop. The validator
+function will receive one argument which is the tag being added, and should return either `true` if
+the tag passes validation and can be added, or `false` if the tag fails validation (in which case it
+is not added to the array of tags).
+
 ## Custom rending with default scoped slot
 
 If you fancy a different look and feel for the tags control, you can provide your own custom
