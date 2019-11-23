@@ -47,13 +47,13 @@ To auto create tags when a separator character is typed (i.e. space, `,`, `;`, e
 needed, then include them as a single string (i.e. `' ,;'`, which will trigger a new tag to be added
 when <kbd>space</KBD>, <kbd>,</kbd>, or <kbd>;</kbd> are typed.
 
-THe following example will auto create a tag when <kbd>space</KBD>, <kbd>,</kbd>, or <kbd>;</kbd>
-are typed:
+The following example will auto create a tag when <kbd>space</KBD>, <kbd>,</kbd>, or <kbd>;</kbd>
+are typed (as well as the default tag creation via <kbd>ENTER</kbd>):
 
 ```html
 <template>
   <div>
-    <b-form-tags v-model="value" separator=" ,;" class="mb-2"></b-form-tags>
+    <b-form-tags v-model="value" separator=" ,;" no-add-on-change class="mb-2"></b-form-tags>
     <p>Value: {{ value }}</p>
   </div>
 </template>
