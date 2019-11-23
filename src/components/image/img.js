@@ -1,4 +1,6 @@
 import Vue from '../../utils/vue'
+import identity from '../../utils/identity'
+import toString from '../../utils/to-string'
 import { mergeData } from 'vue-functional-data-merge'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -97,8 +99,8 @@ export const props = {
 
 const makeBlankImgSrc = (width, height, color) => {
   const src = encodeURIComponent(
-    BLANK_TEMPLATE.replace('%{w}', String(width))
-      .replace('%{h}', String(height))
+    BLANK_TEMPLATE.replace('%{w}', toString(width))
+      .replace('%{h}', toString(height))
       .replace('%{f}', color)
   )
   return `data:image/svg+xml;charset=UTF-8,${src}`
@@ -116,15 +118,15 @@ export const BImg = /*#__PURE__*/ Vue.extend({
     let align = null
     let block = props.block
     let srcset = concat(props.srcset)
-      .filter(Boolean)
+      .filter(identity)
       .join(',')
     let sizes = concat(props.sizes)
-      .filter(Boolean)
+      .filter(identity)
       .join(',')
     if (props.blank) {
-      if (!height && Boolean(width)) {
+      if (!height && width) {
         height = width
-      } else if (!width && Boolean(height)) {
+      } else if (!width && height) {
         width = height
       }
       if (!width && !height) {
@@ -151,8 +153,8 @@ export const BImg = /*#__PURE__*/ Vue.extend({
         attrs: {
           src: src,
           alt: props.alt,
-          width: width ? String(width) : null,
-          height: height ? String(height) : null,
+          width: width ? toString(width) : null,
+          height: height ? toString(height) : null,
           srcset: srcset || null,
           sizes: sizes || null
         },
@@ -162,7 +164,7 @@ export const BImg = /*#__PURE__*/ Vue.extend({
           'w-100': props.fluidGrow,
           rounded: props.rounded === '' || props.rounded === true,
           [`rounded-${props.rounded}`]: isString(props.rounded) && props.rounded !== '',
-          [align]: Boolean(align),
+          [align]: align,
           'd-block': block
         }
       })
