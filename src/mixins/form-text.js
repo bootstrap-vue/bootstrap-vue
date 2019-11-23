@@ -1,4 +1,5 @@
-import { isFunction, isUndefinedOrNull } from '../utils/inspect'
+import toString from '../utils/to-string'
+import { isFunction } from '../utils/inspect'
 
 // @vue/component
 export default {
@@ -129,10 +130,10 @@ export default {
       this.$_inputDebounceTimer = null
     },
     stringifyValue(value) {
-      return isUndefinedOrNull(value) ? '' : String(value)
+      return toString(value)
     },
     formatValue(value, evt, force = false) {
-      value = this.stringifyValue(value)
+      value = toString(value)
       if ((!this.lazyFormatter || force) && isFunction(this.formatter)) {
         value = this.formatter(value, evt)
       }
@@ -220,7 +221,7 @@ export default {
       if (formattedValue !== false) {
         // We need to use the modified value here to apply the
         // `.trim` and `.number` modifiers properly
-        this.localValue = this.stringifyValue(this.modifyValue(formattedValue))
+        this.localValue = toString(this.modifyValue(formattedValue))
         // We pass the formatted value here since the `updateValue` method
         // handles the modifiers itself
         this.updateValue(formattedValue, true)
