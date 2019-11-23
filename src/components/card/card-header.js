@@ -34,9 +34,9 @@ export const BCardHeader = /*#__PURE__*/ Vue.extend({
         class: [
           props.headerClass,
           {
-            [`bg-${props.headerBgVariant}`]: Boolean(props.headerBgVariant),
-            [`border-${props.headerBorderVariant}`]: Boolean(props.headerBorderVariant),
-            [`text-${props.headerTextVariant}`]: Boolean(props.headerTextVariant)
+            [`bg-${props.headerBgVariant}`]: props.headerBgVariant,
+            [`border-${props.headerBorderVariant}`]: props.headerBorderVariant,
+            [`text-${props.headerTextVariant}`]: props.headerTextVariant
           }
         ]
       }),
