@@ -60,7 +60,7 @@ export const BListGroupItem = /*#__PURE__*/ Vue.extend({
       props: itemProps,
       staticClass: 'list-group-item',
       class: {
-        [`list-group-item-${props.variant}`]: Boolean(props.variant),
+        [`list-group-item-${props.variant}`]: props.variant,
         'list-group-item-action': isAction,
         active: props.active,
         disabled: props.disabled
