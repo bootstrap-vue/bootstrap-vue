@@ -158,11 +158,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const separator = this.separator
       return separator && isString(separator)
         ? new RegExp(
-          `(${separator
-            .split('')
-            .map(escapeRegExp)
-            .join('|')
-          })+`)
+            `(${separator
+              .split('')
+              .map(escapeRegExp)
+              .join('|')})+`
+          )
         : null
     }
   },
