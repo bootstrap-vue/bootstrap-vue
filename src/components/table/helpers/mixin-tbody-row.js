@@ -178,7 +178,7 @@ export default {
       const fields = this.computedFields
       const tableStriped = this.striped
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
-      const rowShowDetails = Boolean(item._showDetails && hasDetailsSlot)
+      const rowShowDetails = item._showDetails && hasDetailsSlot
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.hasSelectableRowClick
 
       // We can return more than one TR if rowDetails enabled
@@ -206,7 +206,7 @@ export default {
       // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
       const primaryKey = this.primaryKey
       const primaryKeyValue = toString(get(item, primaryKey)) || null
-      const rowKey = primaryKeyValue || String(rowIndex)
+      const rowKey = primaryKeyValue || toString(rowIndex)
 
       // If primary key is provided, use it to generate a unique ID on each tbody > tr
       // In the format of '{tableId}__row_{primaryKeyValue}'
