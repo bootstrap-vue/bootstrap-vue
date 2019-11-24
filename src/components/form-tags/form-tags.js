@@ -214,6 +214,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     addTag(newTag = this.newTag) {
+      /* istanbul ignore next */
+      if (this.disabled) {
+        return
+      }
       const { all, valid, invalid, duplicate } = this.parseTags(newTag)
       // Add any new tags to the tags array, or if the
       // array of allTags is empty, we clear the input
@@ -236,17 +240,21 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       }
     },
     removeTag(tag) {
+      /* istanbul ignore next */
+      if (this.disabled) {
+        return
+      }
       // TODO:
       //   Add onRemoveTag(tag) user method, which if returns false
       //   prevent tag from being removed (i.e. confirmation)
       this.tags = this.tags.filter(t => t !== tag)
-      // TODO:
-      //   Should we focus the input after a tag is deleted
+      // return focus to the input (if possible)
+      this.focus()
     },
     // --- Input element event handlers ---
     onInputInput(evt) {
-      /* istanbul ignore if: hard to test composition events */
-      if (isEvent(evt) && evt.target.composing) {
+      /* istanbul ignore next: hard to test composition events */
+      if (this.disabled || (isEvent(evt) && evt.target.composing))) {
         // `evt.target.composing` is set by Vue (v-model directive)
         // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
         return
@@ -270,14 +278,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     onInputChange(evt) {
       // Change is triggered on `<input>` blur, or `<select>` selected
       // We listen to this event since ENTER on mobile is not always possible
-      if (!this.noAddOnChange && isEvent(evt)) {
+      if (!this.disabled && !this.noAddOnChange && isEvent(evt)) {
         this.newTag = processEventValue(evt)
         this.addTag()
       }
     },
     onInputKeydown(evt) {
       /* istanbul ignore next */
-      if (!isEvent(evt)) {
+      if (this.disabled || !isEvent(evt)) {
         // Early exit
         return
       }
@@ -296,7 +304,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     // --- Wrapper event handlers ---
     onClick(evt) {
-      if (isEvent(evt) && evt.target === evt.currentTarget && !this.disabled) {
+      if (!this.disabled && isEvent(evt) && evt.target === evt.currentTarget ) {
         this.$nextTick(this.focus)
       }
     },
@@ -309,7 +317,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     handleAutofocus() {
       this.$nextTick(() => {
         requestAF(() => {
-          if (this.autofocus) {
+          if (this.autofocus && !this.disabled) {
             this.focus()
           }
         })
@@ -509,7 +517,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'b-form-tags form-control h-auto',
         class: {
-          focus: this.hasFocus && !this.noOuterFocus,
+          focus: this.hasFocus && !this.noOuterFocus && !this.disabled,
           disabled: this.disabled,
           'is-valid': this.state === true,
           'is-invalid': this.state === false,
