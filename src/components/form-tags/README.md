@@ -81,7 +81,7 @@ are typed:
 <!-- form-tags-separator.vue -->
 ```
 
-## Optional last tag deletion via <kbd>DEL</del>
+## Last tag removal via delete keypress
 
 When the prop `remove-on-delete` is set, and the user presses <kbd>DEL</kbd> _and_ the input value
 is empty, the last tag in the tag list will be removed.
@@ -126,10 +126,40 @@ Several props are available to alter the basic styling of the default tagged int
 | `size`        | Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'                             |
 | `placeholder` | The placeholder text for the new tag input element                                                    |
 | `state`       | Sets the contextual state of the control. Set to `true` (for valid), `false` (for invalid), or `null` |
+| `disabled`    | Places the component in a disabled state                                                              |
 
 For additional props, see the component reference section at the bottom of this page.
 
 The focus and validation state styling of the component relies upon BootstrapVue's custom CSS.
+
+```html
+<template>
+  <div>
+    <b-form-tags
+      v-model="value"
+      variant="primary",
+      size="lg"
+      separator=" "
+      placeholder="Enter new tags separated by space"
+      class="mb-2"
+    ></b-form-tags>
+    <p>Value: {{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ['apple', 'orange', 'grape']
+      }
+    }
+  }
+</script>
+
+<!-- form-tags-styling.vue -->
+```
+
 
 ## Using with native browser `<form>` submission
 
