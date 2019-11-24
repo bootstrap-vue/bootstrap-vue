@@ -119,7 +119,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     separator: {
       // Character (or characters) that trigger adding tags
-      type: String,
+      type: [String, Array],
       default: null
     },
     removeOnDelete: {
@@ -175,14 +175,19 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedSeparator() {
       // We use a computed prop here to precompile the RegExp
-      const separator = this.separator
-      return separator && isString(separator)
-        ? new RegExp(`[${escapeRegExpChars(separator)}]+`)
-        : null
+      const separator = concat(this.separator)
+        .filter(isString)
+        .filter(identity)
+        .join('')
+    },
+    computedSeparatorRegExp() {
+      // We use a computed prop here to precompile the RegExp
+      const separator = this.computedSeparator
+      return separator ? new RegExp(`[${escapeRegExpChars(separator)}]+`) : null
     },
     conputedJoiner() {
       // When tag(s) are invalid (not duplicate), we leave them in the input
-      const joiner = toString(this.separator).charAt(0)
+      const joiner = this.computedSeparator.charAt(0)
       return joiner !== ' ' ? `${joiner} ` : joiner
     }
   },
@@ -245,9 +250,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         return
       }
       const newTag = processEventValue(evt)
-      const separator = this.computedSeparator
+      const separatorRe = this.computedSeparatorRegExp
       this.newTag = newTag
-      if (separator && separator.test(trimLeft(newTag))) {
+      if (separatorRe && separatorRe.test(trimLeft(newTag))) {
         // A separator character was entered, so add the tag(s).
         // Note, more than one tag on input event is possible via copy/paste
         this.addTag()
@@ -313,11 +318,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Takes newTag value and parses it into validTags,
       // invalidTags, and duplicate tags: as an object
       newTag = toString(newTag)
-      const separator = this.computedSeparator
+      const separatorRe = this.computedSeparatorRegExp
       // Split the tag(s) via the optional separator
       // Normally only a single tag is provided, but copy/paste
       // can enter multiple tags in a single operation
-      const tags = (separator ? newTag.split(separator) : [newTag])
+      const tags = (separatorRe ? newTag.split(separatorRe) : [newTag])
         .map(tag => tag.trim())
         .filter(identity)
       // Base results
