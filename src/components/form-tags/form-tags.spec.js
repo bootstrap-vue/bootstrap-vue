@@ -292,11 +292,24 @@ describe('form-tags', () => {
     // Duplicate tags
     expect(wrapper.emitted('new-tags')[3][2]).toEqual([])
 
+    $input.element.value = ' three cat seven '
+    $input.trigger('input')
+    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four', 'cat'])
+    // No tags(s) were accepted so the input is left as is
+    expect(wrapper.vm.newTag).toEqual('three seven')
+    expect(wrapper.emitted('new-tags').length).toBe(5)
+    // Tags added
+    expect(wrapper.emitted('new-tags')[4][0]).toEqual(['cat'])
+    // Invalid tag
+    expect(wrapper.emitted('new-tags')[4][1]).toEqual(['three', 'seven'])
+    // Duplicate tags
+    expect(wrapper.emitted('new-tags')[4][2]).toEqual([])
+
     $input.element.value = '    '
     $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('')
-    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four'])
-    expect(wrapper.emitted('new-tags').length).toBe(4)
+    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four', 'cat'])
+    expect(wrapper.emitted('new-tags').length).toBe(5)
 
     wrapper.destroy()
   })
