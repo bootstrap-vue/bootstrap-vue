@@ -207,25 +207,25 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     addTag(newTag = this.newTag) {
-      const parsed = this.parseTags(newTag)
+      const { all, valid, invalid, duplicate } = this.parseTags(newTag)
       // Add any new tags to the tags array, or if the
       // array of allTags is empty, we clear the input
-      if (parsed.valid.length > 0 || parsed.all.length === 0) {
+      if (valid.length > 0 || all.length === 0) {
         // We add the new tags in one atomic operation
         // to trigger reactivity once (instead of once per tag)
         // concat can be faster than array spread, when both args are arrays
-        this.tags = concat(this.tags, parsed.valid)
+        this.tags = concat(this.tags, valid)
         // Clear the user input model (and leave in any invalid tag(s)
         // Duplicate tags are not left in, but could be by doing
-        // const invalidAndDups = [...parsed.invalid, ...parsed.duplicate]
+        // const invalidAndDups = [...invalid, ...duplicate]
         // this.newTag = parsed.allTags
         //   .filter(tag => arrayIncludes(invalidAndDups, tag))
         //   .join(this.computedJoiner)
         // But that may be confusing to the user (best to ignore duplicates?)
-        this.newTag = parsed.invalid.join(this.computedJoiner)
+        this.newTag = invalid.join(this.computedJoiner)
       }
-      if (parsed.allTags.length > 0) {
-        this.$emit('new-tags', parsed.validTags, parsed.invalidTags, parsed.duplicateTags)
+      if (all.length > 0) {
+        this.$emit('new-tags', valid, invalid, duplicate)
       }
     },
     removeTag(tag) {
