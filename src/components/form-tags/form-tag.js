@@ -42,7 +42,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    let tagId = this.safeId()
+    const tagId = this.safeId()
     let $remove = h()
     if (!this.disabled) {
       $remove = h(BButtonClose, {
