@@ -137,7 +137,8 @@ The focus and validation state styling of the component relies upon BootstrapVue
   <div>
     <b-form-tags
       v-model="value"
-      variant="primary",
+      tag-variant="primary"
+      tag-pills
       size="lg"
       separator=" "
       placeholder="Enter new tags separated by space"
@@ -157,7 +158,7 @@ The focus and validation state styling of the component relies upon BootstrapVue
   }
 </script>
 
-<!-- form-tags-styling.vue -->
+<!-- form-tags-style-options.vue -->
 ```
 
 
