@@ -42,12 +42,14 @@ will only appear when the user has entered a new tag value.
 You can disable adding a new tag when pressing <kbd>ENTER</kbd> via the `no-add-on-enter` prop, and
 disable adding a tag on the input's `change` event via the `no-add-on-change` prop.
 
+## Tag creation using separators
+
 To auto create tags when a separator character is typed (i.e. space, `,`, `;`, etc), set the
 `separator` prop to the character that will trigger the tag to be added. If multiple separators are
 needed, then include them as a single string (i.e. `' ,;'`, which will trigger a new tag to be added
-when <kbd>space</KBD>, <kbd>,</kbd>, or <kbd>;</kbd> are typed.
+when <kbd>space</KBD>, <kbd>,</kbd>, or <kbd>;</kbd> are typed).
 
-The following example will auto create a tag when <kbd>space</KBD>, <kbd>,</kbd>, or <kbd>;</kbd>
+The following example will auto create a tag when <kbd>SPACE</KBD>, <kbd>,</kbd>, or <kbd>;</kbd>
 are typed:
 
 ```html
