@@ -46,8 +46,9 @@ disable adding a tag on the input's `change` event via the `no-add-on-change` pr
 
 To auto create tags when a separator character is typed (i.e. space, `,`, `;`, etc), set the
 `separator` prop to the character that will trigger the tag to be added. If multiple separators are
-needed, then include them as a single string (i.e. `' ,;'`, which will trigger a new tag to be added
-when <kbd>space</KBD>, <kbd>,</kbd>, or <kbd>;</kbd> are typed).
+needed, then include them as a single string (i.e. `' ,;'`), or an array of characters (i.e.
+`[' ', ',', ';']`), which will trigger a new tag to be added when <kbd>space</KBD>, <kbd>,</kbd>, or
+<kbd>;</kbd> are typed).
 
 The following example will auto create a tag when <kbd>SPACE</KBD>, <kbd>,</kbd>, or <kbd>;</kbd>
 are typed:
@@ -78,6 +79,40 @@ are typed:
 </script>
 
 <!-- form-tags-separator.vue -->
+```
+
+## Optional last tag deletion via <kbd>DEL</del>
+
+When the prop `remove-on-delete` is set, and the user presses <kbd>DEL</kbd> _and_ the input value
+is empty, the last tag in the tag list will be removed.
+
+```html
+<template>
+  <div>
+    <b-form-tags
+      v-model="value"
+      separator=" "
+      placeholder="Enter new tags separated by space"
+      remove-on-delete
+      no-add-on-enter
+      no-add-on-change
+      class="mb-2"
+    ></b-form-tags>
+    <p>Value: {{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ['apple', 'orange', 'grape']
+      }
+    }
+  }
+</script>
+
+<!-- form-tags-remove-on-delete.vue -->
 ```
 
 ### Styling Options
@@ -174,7 +209,7 @@ The `inputHandlers` object contains event handlers to bind (`v-on`) to the new t
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `input`   | Function | Event handler for the input element `input` event. Accepts a single argument of either an event object or a string. Updates the internal v-model for the new tag input element |
 | `change`  | Function | Event handler for the input element `change` event. Accepts a single argument of either an event object or a string. Change will trigger adding the tag                        |
-| `keydown` | Function | Event handler or the input element `keydown` <kbd>ENTER</kbd> event. Triggers adding the new tag. Accepts a single argument which is the native keydown event object           |
+| `keydown` | Function | Event handler for the input element `keydown` <kbd>ENTER</kbd> and <kbd>DEL</kbd> events. Accepts a single argument which is the native keydown event object                   |
 
 ### Using native browser inputs
 
