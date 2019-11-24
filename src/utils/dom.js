@@ -53,10 +53,10 @@ export const MutationObs =
 export const parseEventOptions = options => {
   /* istanbul ignore else: can't test in JSDOM, as it supports passive */
   if (hasPassiveEventSupport) {
-    return isObject(options) ? options : { useCapture: Boolean(options || false) }
+    return isObject(options) ? options : { useCapture: (!!options || false) }
   } else {
     // Need to translate to actual Boolean value
-    return Boolean(isObject(options) ? options.useCapture : options)
+    return !!(isObject(options) ? options.useCapture : options)
   }
 }
 
@@ -73,6 +73,9 @@ export const eventOff = (el, evtName, handler, options) => {
     el.removeEventListener(evtName, handler, parseEventOptions(options))
   }
 }
+
+// remove a node from DOM
+export const removeNode = el => el && el.parentNode && el.parentNode.removeChild(el)
 
 // Determine if an element is an HTML Element
 export const isElement = el => Boolean(el && el.nodeType === Node.ELEMENT_NODE)
@@ -96,7 +99,7 @@ export const isVisible = el => {
 
 // Determine if an element is disabled
 export const isDisabled = el =>
-  !isElement(el) || el.disabled || Boolean(getAttr(el, 'disabled')) || hasClass(el, 'disabled')
+  !isElement(el) || el.disabled || hasAttr(el, 'disabled') || hasClass(el, 'disabled')
 
 // Cause/wait-for an element to reflow it's content (adjusting it's height/width)
 export const reflow = el => {
