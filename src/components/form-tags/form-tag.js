@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
+import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BBadge } from '../badge/badge'
 import { BButtonClose } from '../button/button-close'
@@ -8,7 +9,7 @@ const NAME = 'BFormTag'
 
 export const BFormTag = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [normalizeSlotMixin],
+  mixins: [idMixin, normalizeSlotMixin],
   props: {
     variant: {
       type: String,
@@ -41,12 +42,14 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    let tagId = this.safeId()
     let $remove = h()
     if (!this.disabled) {
       $remove = h(BButtonClose, {
-        props: { ariaLabel: this.removeLabel },
         staticClass: 'b-form-tag-remove ml-1 text-reset float-none',
         style: { fontSize: 'inherit' },
+        props: { ariaLabel: this.removeLabel },
+        attrs: { 'aria-controls': tagId },
         on: { click: this.onClick }
       })
     }
@@ -62,7 +65,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
       BBadge,
       {
         staticClass: 'b-form-tag font-weight-normal mw-100 d-inline-block',
-        attrs: { title: this.title || null },
+        attrs: { id: tagId, title: this.title || null },
         props: { tag: this.tag, variant: this.variant, pill: this.pill }
       },
       [$tag, $remove]
