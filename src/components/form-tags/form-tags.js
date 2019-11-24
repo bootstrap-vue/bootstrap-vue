@@ -254,7 +254,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     // --- Input element event handlers ---
     onInputInput(evt) {
       /* istanbul ignore next: hard to test composition events */
-      if (this.disabled || (isEvent(evt) && evt.target.composing))) {
+      if (this.disabled || (isEvent(evt) && evt.target.composing)) {
         // `evt.target.composing` is set by Vue (v-model directive)
         // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
         return
