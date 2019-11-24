@@ -53,7 +53,7 @@ export const MutationObs =
 export const parseEventOptions = options => {
   /* istanbul ignore else: can't test in JSDOM, as it supports passive */
   if (hasPassiveEventSupport) {
-    return isObject(options) ? options : { useCapture: (!!options || false) }
+    return isObject(options) ? options : { useCapture: !!options || false }
   } else {
     // Need to translate to actual Boolean value
     return !!(isObject(options) ? options.useCapture : options)
