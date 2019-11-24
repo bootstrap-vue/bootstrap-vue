@@ -84,6 +84,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: [String, Array, Object],
       default: null
     },
+    inputAttrs: {
+      // Additional attributes to add to the input element
+      type: Object,
+      default: () => ({})
+    },
     addButtonText: {
       type: String,
       default: () => getComponentConfig(NAME, 'addButtonText')
@@ -117,11 +122,19 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: String,
       default: null
     },
+    removeOnDelete: {
+      // Enable deleteing last tag in list when DEL is
+      // pressed and input is empty
+      type: Boolean,
+      default: false
+    },
     noAddOnChange: {
+      // Disable change event from triggering tag addition
       type: Boolean,
       default: false
     },
     noAddOnEnter: {
+      // Disable ENTER key from triggering tag addition
       type: Boolean,
       default: false
     },
@@ -147,6 +160,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedInputAttrs() {
       return {
+        ...this.inputAttrs,
         id: this.computedInputId,
         value: this.newTag,
         disabled: this.disabled || null
@@ -165,6 +179,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       return separator && isString(separator)
         ? new RegExp(`[${escapeRegExpChars(separator)}]+`)
         : null
+    },
+    conputedJoiner() {
+      // When tag(s) are invalid (not duplicate), we leave them in the input
+      const joiner = toString(this.separator).charAt(0)
+      return joiner !== ' ' ? `${joiner} ` : joiner
     }
   },
   watch: {
@@ -188,45 +207,34 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     addTag(newTag = this.newTag) {
-      newTag = toString(newTag)
-      const separator = this.computedSeparator
-      // Split the tag(s) via the optional separator
-      // Normally only a single tag is provided, but copy/paste
-      // can enter multiple tags in a single operation
-      let tags = separator ? trimLeft(newTag).split(separator) : [newTag]
-      tags = tags.map(tag => tag.trim()).filter(identity)
-      // Tags to be added
-      const validTags = []
-      // Tags that do not pass validation
-      const invalidTags = []
-      // Tags that are duplicates
-      const duplicateTags = []
-      // Get the unique tags
-      tags.forEach(tag => {
-        // We only add unique/valid tags
-        if (arrayIncludes(this.tags, tag) || arrayIncludes(validTags, tag)) {
-          duplicateTags.push(tag)
-        } else if (this.validateTag(tag)) {
-          validTags.push(tag)
-        } else {
-          invalidTags.push(tag)
-        }
-      })
+      const parsed = this.parsedTags(newTag)
       // Add any new tags to the tags array, or if the
-      // array of "raw" tags is empty, we clear the input
-      if (validTags.length > 0 || tags.length === 0) {
+      // array of allTags is empty, we clear the input
+      if (parsed.valid.length > 0 || parsed.all.length === 0) {
         // We add the new tags in one atomic operation
         // to trigger reactivity once (instead of once per tag)
-        this.tags = [...this.tags, ...validTags]
-        // Clear the user input model
-        this.newTag = ''
+        // concat can be faster than array spread, when both args are arrays
+        this.tags = concat(this.tags, parsed.valid)
+        // Clear the user input model (and leave in any invalid tag(s)
+        // Duplicate tags are not left in, but could be by doing
+        // const invalidAndDups = [...parsed.invalid, ...parsed.duplicate]
+        // this.newTag = parsed.allTags
+        //   .filter(tag => arrayIncludes(invalidAndDups, tag))
+        //   .join(this.computedJoiner)
+        // But that may be confusing to the user (best to ignore duplicates?)
+        this.newTag = parsed.invalid.join(this.computedJoiner)
       }
-      if (validTags.length > 0 || invalidTags.length > 0 || duplicateTags.length > 0) {
-        this.$emit('new-tags', validTags, invalidTags, duplicateTags)
+      if (parsed.allTags.length > 0) {
+        this.$emit('new-tags', parsed.validTags, parsed.invalidTags, parsed.duplicateTags)
       }
     },
     removeTag(tag) {
+      // TODO:
+      //   Add onRemoveTag(tag) user method, which if returns false
+      //   prevent tag from being removed (i.e. confirmation)
       this.tags = this.tags.filter(t => t !== tag)
+      // TODO:
+      //   Should we focus the input after a tag is deleted
     },
     // --- Input element event handlers ---
     onInputInput(evt) {
@@ -243,25 +251,45 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // A separator character was entered, so add the tag(s).
         // Note, more than one tag on input event is possible via copy/paste
         this.addTag()
+      } else {
+        // TODO:
+        //    Validate tag as typed (optionally), and store validation
+        //    state in data and make available to scoped slot. Also
+        //    if tag is valid, but is a duplicate set a isDuplicate flag
+        //    Also, passing the invalid and duplicate tag arrays to the
+        //    scoped slot may be usefull for user error messages
       }
     },
     onInputChange(evt) {
       // Change is triggered on `<input>` blur, or `<select>` selected
       // We listen to this event since ENTER on mobile is not always possible
-      if (!this.noAddOnChange && evt) {
+      if (!this.noAddOnChange && isEvent(evt)) {
         this.newTag = processEventValue(evt)
         this.addTag()
       }
     },
     onInputKeydown(evt) {
-      if (!this.noAddOnEnter && evt && evt.keyCode === KeyCodes.ENTER) {
+      /* istanbul ignore next */
+      if (!isEvent(evt)) {
+        // Early exit
+        return
+      }
+      const keyCode = evt.keyCode
+      const value = evt.target.value || ''
+      /* istanbul ignore else: testing to be added later */
+      if (!this.noAddOnEnter && keyCode === KeyCodes.ENTER) {
+        // Attempt to add the tag when user presses enter
         evt.preventDefault()
         this.addTag()
+      } else if (this.removeOnDelete && keyCode === KeyCodes.BACKSPACE && value = '') {
+        // Remove the last tag if the user pressed backspace and the input is empty 
+        evt.preventDefault()
+        this.tags.pop()
       }
     },
     // --- Wrapper event handlers ---
     onClick(evt) {
-      if (evt.target === evt.currentTarget && !this.disabled) {
+      if (isEvent(evt) && evt.target === evt.currentTarget && !this.disabled) {
         this.$nextTick(this.focus)
       }
     },
@@ -281,11 +309,49 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       })
     },
     // --- Private methods ---
+    parsedTags(newTag) {
+      // Takes newTag value and parses it into validTags,
+      // invalidTags, and duplicate tags: as an object
+      newTag = toString(newTag)
+      const separator = this.computedSeparator
+      // Split the tag(s) via the optional separator
+      // Normally only a single tag is provided, but copy/paste
+      // can enter multiple tags in a single operation
+      const tags = (separator ? newTag.split(separator) : [newTag])
+        .map(tag => tag.trim())
+        .filter(identity)
+      // Base results
+      const parsed = {
+        all: tags,
+        valid: [],
+        invalid: [],
+        duplicate: []
+      }
+      // Parse the unique tags
+      // TODO:
+      //   Possibly store the parsed object in data,
+      //   so we can make computed props for tagValid, tagDuplicate flags
+      //   and pass invalidTags and duplicateTags to the scoped lot
+      return tags.reduce((parsed, tag) => {
+        if (arrayIncludes(this.tags, tag) || arrayIncludes(parsed.valid, tag)) {
+          // Filter out duplicate tags
+          parsed.duplicate.push(tag)
+        } else if (this.validateTag(tag)) {
+          // We only add unique/valid tags
+          parsed.valid.push(tag)
+        } else {
+          // tag is invalid
+          parsed.invalid.push(tag)
+        }
+      }, parsed)
+    },
     validateTag(tag) {
+      // Call the user supplied tag validator
       const validator = this.tagValidator
       return isFunction(validator) ? validator(tag) : true
     },
     getInput() {
+      // Returns the input element reference (or null if not found)
       return select(`#${this.computedInputId}`, this.$el)
     },
     // --- Public methods ---
@@ -310,7 +376,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     if (this.hasNormalizedSlot('default')) {
       // User supplied default slot render
       $content = this.normalizeSlot('default', {
-        // Array of tags (shallow copy)
+        // Array of tags (shallow copy to prevent mutations)
         tags: this.tags.slice(),
         // Methods
         removeTag: this.removeTag,
@@ -334,9 +400,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         tagClass: this.tagClass,
         addButtonText: this.addButtontext,
         addButtonVariant: this.addButtonVariant
+        // TODO:
+        //   Add in input validation state (isInvalid, isDuplicate)
+        //   as well as the arrays of invalid and duplicate tags
       })
     } else {
       // Internal rendering
+      // TODO: move this to a method this.defaultRender(scope)
       // Render any provided tags
       $content = this.tags.map((tag, idx) => {
         tag = toString(tag)
