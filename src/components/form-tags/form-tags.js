@@ -202,8 +202,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
-    // We do this in created to make sure an input event happens
-    //  if the cleaned tags are not equal to the value prop
+    // We do this in created to make sure an input event emits
+    // if the cleaned tags are not equal to the value prop
     this.tags = cleanTags(this.value)
   },
   mounted() {
