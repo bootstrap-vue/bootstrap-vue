@@ -143,7 +143,10 @@
               },
               {
                 "prop": "separator",
-                "type": "String",
+                "type": [
+                  "String",
+                  "Array"
+                ],
                 "description": "The value of the 'separator' prop"
               },
               {
