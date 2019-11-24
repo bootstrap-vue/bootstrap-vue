@@ -115,7 +115,7 @@ is empty, the last tag in the tag list will be removed.
 <!-- form-tags-remove-on-delete.vue -->
 ```
 
-### Styling Options
+## Styling Options
 
 Several props are available to alter the basic styling of the default tagged interface:
 
