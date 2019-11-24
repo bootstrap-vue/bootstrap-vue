@@ -207,7 +207,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     addTag(newTag = this.newTag) {
-      const parsed = this.parsedTags(newTag)
+      const parsed = this.parseTags(newTag)
       // Add any new tags to the tags array, or if the
       // array of allTags is empty, we clear the input
       if (parsed.valid.length > 0 || parsed.all.length === 0) {
@@ -309,7 +309,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       })
     },
     // --- Private methods ---
-    parsedTags(newTag) {
+    parseTags(newTag) {
       // Takes newTag value and parses it into validTags,
       // invalidTags, and duplicate tags: as an object
       newTag = toString(newTag)
@@ -332,7 +332,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       //   Possibly store the parsed object in data,
       //   so we can make computed props for tagValid, tagDuplicate flags
       //   and pass invalidTags and duplicateTags to the scoped lot
-      return tags.reduce((parsed, tag) => {
+      tags.forEach(tag => {
         if (arrayIncludes(this.tags, tag) || arrayIncludes(parsed.valid, tag)) {
           // Filter out duplicate tags
           parsed.duplicate.push(tag)
@@ -343,7 +343,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           // tag is invalid
           parsed.invalid.push(tag)
         }
-      }, parsed)
+      })
+      return parsed
     },
     validateTag(tag) {
       // Call the user supplied tag validator
