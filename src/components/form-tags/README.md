@@ -56,7 +56,7 @@ are typed:
     <b-form-tags
       v-model="value"
       separator=" ,;"
-      placeholder="Enter new tags seprated by space, comma or semicolon"
+      placeholder="Enter new tags separated by space, comma or semicolon"
       no-add-on-enter
       no-add-on-change
       class="mb-2"
