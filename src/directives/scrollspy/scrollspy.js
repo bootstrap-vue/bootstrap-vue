@@ -45,7 +45,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
     // Value is config object
     // Filter the object based on our supported config options
     keys(bindings.value)
-      .filter(k => !!(ScrollSpy.DefaultType[k]))
+      .filter(k => !!ScrollSpy.DefaultType[k])
       .forEach(k => {
         config[k] = bindings.value[k]
       })
