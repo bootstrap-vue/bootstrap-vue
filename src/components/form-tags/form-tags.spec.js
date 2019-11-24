@@ -256,7 +256,8 @@ describe('form-tags', () => {
     $input.element.value = 'three four one four '
     $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four'])
-    expect(wrapper.vm.newTag).toEqual('')
+    // invalid tags are left in the input
+    expect(wrapper.vm.newTag).toEqual('three')
     expect(wrapper.emitted('new-tags').length).toBe(2)
     // Tag added
     expect(wrapper.emitted('new-tags')[1][0]).toEqual(['four'])
@@ -268,7 +269,7 @@ describe('form-tags', () => {
     $input.element.value = ' three '
     $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four'])
-    expect(wrapper.vm.newTag).toEqual(' three ')
+    expect(wrapper.vm.newTag).toEqual('three')
     expect(wrapper.emitted('new-tags').length).toBe(3)
     // Tags added
     expect(wrapper.emitted('new-tags')[2][0]).toEqual([])
