@@ -56,7 +56,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
     const $tag = h(
       'span',
       {
-        staticClass: 'b-form-tag-content d-inline-block text-truncate',
+        staticClass: 'b-form-tag-content flex-grow-1 text-truncate',
         style: { maxWidth: this.disabled ? '100%' : 'calc(100% - 1em)' }
       },
       this.normalizeSlot('default') || this.title || [h()]
@@ -64,7 +64,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
     return h(
       BBadge,
       {
-        staticClass: 'b-form-tag font-weight-normal mw-100 d-inline-block',
+        staticClass: 'b-form-tag d-inline-flex font-weight-normal mw-100',
         attrs: { id: tagId, title: this.title || null },
         props: { tag: this.tag, variant: this.variant, pill: this.pill }
       },
