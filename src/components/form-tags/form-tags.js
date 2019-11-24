@@ -185,7 +185,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const separator = this.computedSeparator
       return separator ? new RegExp(`[${escapeRegExpChars(separator)}]+`) : null
     },
-    conputedJoiner() {
+    computedJoiner() {
       // When tag(s) are invalid (not duplicate), we leave them in the input
       const joiner = this.computedSeparator.charAt(0)
       return joiner !== ' ' ? `${joiner} ` : joiner
@@ -202,6 +202,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
+    // We do this in created to make sure an input event happens
+    //  if the cleaned tags are not equal to the value prop
     this.tags = cleanTags(this.value)
   },
   mounted() {
