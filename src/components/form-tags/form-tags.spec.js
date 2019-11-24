@@ -269,7 +269,6 @@ describe('form-tags', () => {
     $input.element.value = ' three '
     $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four'])
-    expect(wrapper.vm.newTag).toEqual('three')
     expect(wrapper.emitted('new-tags').length).toBe(3)
     // Tags added
     expect(wrapper.emitted('new-tags')[2][0]).toEqual([])
@@ -277,6 +276,7 @@ describe('form-tags', () => {
     expect(wrapper.emitted('new-tags')[2][1]).toEqual(['three'])
     // Duplicate tags
     expect(wrapper.emitted('new-tags')[2][2]).toEqual([])
+    expect(wrapper.vm.newTag).toEqual('three')
 
     $input.element.value = '    '
     $input.trigger('input')
