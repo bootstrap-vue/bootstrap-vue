@@ -62,6 +62,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
       BBadge,
       {
         staticClass: 'b-form-tag d-inline-flex font-weight-normal mw-100',
+        style: { fontSize: '1em' },
         attrs: { id: tagId, title: this.title || null },
         props: { tag: this.tag, variant: this.variant, pill: this.pill }
       },
