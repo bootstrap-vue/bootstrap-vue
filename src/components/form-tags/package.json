@@ -30,6 +30,10 @@
             "description": "Class (or classes) to apply to the new tag input element"
           },
           {
+            "prop": "inputAttrs",
+            "description": "Additional attributes to apply to the new tag input element"
+          },
+          {
             "prop": "addButtonText",
             "description": "Text for the built in 'Add' button. Slot `add-button-text' takes precedence"
           },
@@ -56,6 +60,10 @@
           {
             "prop": "tagValidator",
             "description": "Optional tag validator method. Passed a single argument of tag being added. Should return 'true' if the tag passes validation, or 'false' if the tag cannot be added"
+          },
+          {
+            "prop": "removeOnDelete",
+            "description": "When set, enables removal of last tag in tags when user presses delete and the input is empty"
           },
           {
             "prop": "noAddOnChange",
