@@ -118,12 +118,11 @@ not validated.
 ## Detecting new, invalid, and duplicate tags
 
 The event `new-tags` will be emitted whenever new tags are added, tags that do not pass validation,
-or duplicate tags are not added. The event handler will receive three arrays as it's aruments:
+or duplicate tags are not added. The event handler will receive three arrays as it's arguments:
 
 - `validTags` (tags that were successfully added)
 - `invalidTags` (tags that did not pass validation)
-- `duplicateTags` (tags that were not added as they would be a duplicate of existing or
-   validTags).
+- `duplicateTags` (tags that were not added as they would be a duplicate of existing or validTags).
 
 ## Custom rendering with default scoped slot
 
@@ -410,7 +409,7 @@ based on the containing element's font-size.
 
 The `remove` event is emitted when the `<b-form-tag>` remove button is clicked.
 
-Tags that are too wide for thir parent container will automatically have thier text content
+Tags that are too wide for their parent container will automatically have their text content
 truncated with an ellipsis. For this reason, it is always good practice to supply a title via the
 `title` prop when using the default slot of `<b-form-tag>` for the tag content.
 
