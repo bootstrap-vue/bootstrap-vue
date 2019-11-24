@@ -304,7 +304,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     // --- Wrapper event handlers ---
     onClick(evt) {
-      if (!this.disabled && isEvent(evt) && evt.target === evt.currentTarget ) {
+      if (!this.disabled && isEvent(evt) && evt.target === evt.currentTarget) {
         this.$nextTick(this.focus)
       }
     },
