@@ -1,4 +1,7 @@
+import idendity from './identity'
 import { isArray, isObject } from './inspect'
+
+const RX_ARRAY_NOTATION = /\[(\d+)]/g
 
 /**
  * Get property defined by dot/array notation in string.
@@ -28,9 +31,9 @@ const get = (obj, path, defaultValue = null) => {
   }
 
   // Handle string array notation (numeric indices only)
-  path = String(path).replace(/\[(\d+)]/g, '.$1')
+  path = String(path).replace(RX_ARRAY_NOTATION, '.$1')
 
-  const steps = path.split('.').filter(Boolean)
+  const steps = path.split('.').filter(idendity)
 
   // Handle case where someone passes a string of only dots
   if (steps.length === 0) {
