@@ -281,7 +281,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // Attempt to add the tag when user presses enter
         evt.preventDefault()
         this.addTag()
-      } else if (this.removeOnDelete && keyCode === KeyCodes.BACKSPACE && value = '') {
+      } else if (this.removeOnDelete && keyCode === KeyCodes.BACKSPACE && value === '') {
         // Remove the last tag if the user pressed backspace and the input is empty 
         evt.preventDefault()
         this.tags.pop()
