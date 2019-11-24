@@ -175,7 +175,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedSeparator() {
       // We use a computed prop here to precompile the RegExp
-      const separator = concat(this.separator)
+      return concat(this.separator)
         .filter(isString)
         .filter(identity)
         .join('')
