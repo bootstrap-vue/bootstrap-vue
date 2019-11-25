@@ -479,4 +479,6 @@ Tags that are too wide for their parent container will automatically have their 
 truncated with an ellipsis. For this reason, it is always good practice to supply a title via the
 `title` prop when using the default slot of `<b-form-tag>` for the tag content.
 
+Note `<b-form-tag>` requires BootstrapVue's custom CSS/SCSS for proper styling.
+
 <!-- Component reference added automatically from component package.json -->
