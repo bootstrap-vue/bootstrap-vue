@@ -468,9 +468,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         tagClass: this.tagClass,
         addButtonText: this.addButtontext,
         addButtonVariant: this.addButtonVariant
-        // TODO:
-        //   Add in input validation state (isInvalid, isDuplicate)
-        //   as well as the arrays of invalid and duplicate tags
       })
     } else {
       // Internal rendering
@@ -563,23 +560,29 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
 
     // Add invalid tag feedback if needed
     if (this.invalidTagText && this.hasInvalidTags) {
+      const invalids = this.invalidTags
+        .map(t => `"${t}"`)
+        .join(this.computedJoiner)
       $content.push(
         h(
           BFormInvalidFeedback,
           { props: { ID: this.safeId('__invalid_feedback__'), forceShow: true } },
-          [this.invalidTagText, ': ', this.invalidTags.map(t = > `"${t}"`).join(', ')]
+          [this.invalidTagText, ': ', invalids]
         )
       )
     }
 
     // Add duplicate tag feedback if needed (warning, not error)
     if (this.duplicateTagText && this.hasDuplicateTags) {
+      const duplicates = this.duplicateTags
+        .map(t => `"${t}"`)
+        .join(this.computedJoiner)
       $content.push(
         h(
           BFormText,
           { props: { id: this.safeId('__duplicate_feedback__') } },
-          [this.duplicateTagText, ': ', this.duplicateTags.map(t = > `"${t}"`).join(', ')
-        ])
+          [this.duplicateTagText, ': ', duplicates]
+        )
       )
     }
 
