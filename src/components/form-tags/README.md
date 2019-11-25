@@ -44,11 +44,11 @@ disable adding a tag on the input's `change` event via the `no-add-on-change` pr
 
 ## Tag creation using separators
 
-To auto create tags when a separator character is typed (i.e. space, `,`, `;`, etc), set the
-`separator` prop to the character that will trigger the tag to be added. If multiple separators are
-needed, then include them as a single string (i.e. `' ,;'`), or an array of characters (i.e.
-`[' ', ',', ';']`), which will trigger a new tag to be added when <kbd>space</KBD>, <kbd>,</kbd>, or
-<kbd>;</kbd> are typed).
+To auto create tags when a separator character is typed (i.e. kbd>space</KBD>, <kbd>,</kbd>, etc),
+set the `separator` prop to the character that will trigger the tag to be added. If multiple
+separator characters are needed, then include them as a single string (i.e. `' ,;'`), or an array of
+characters (i.e. `[' ', ',', ';']`), which will trigger a new tag to be added when <kbd>space</KBD>,
+<kbd>,</kbd>, or <kbd>;</kbd> are typed). Separators must be a single character.
 
 The following example will auto create a tag when <kbd>SPACE</KBD>, <kbd>,</kbd>, or <kbd>;</kbd>
 are typed:
@@ -211,7 +211,7 @@ The default slot scope properties are as follows:
 | `removeTag`        | Function                 | Method to remove a tag. Accepts one argument which is the tag value to remove                                                                          |
 | `addTag`           | Function                 | Method to add a new tag. Assumes the tag is the value of the input, but optionally accepts one argument which is the tag value to be added             |
 | `inputId`          | String                   | ID to add to the new tag input element. Defaults to prop `input-id`. If not provided a unique ID is auto-generated. Also available via 'inputAttrs.id' |
-| `disabled`         | Boolean                  | `true` tf the component is in the disabled state. Value of the `disabled` prop                                                                         |
+| `disabled`         | Boolean                  | `true` if the component is in the disabled state. Value of the `disabled` prop                                                                         |
 | `state`            | Boolean                  | The contextual state of the component. Value of the `state` prop. Possible values are `true`, `false` or `null`                                        |
 | `size`             | String                   | The value of the `size` prop                                                                                                                           |
 | `separator`        | String                   | The value of the `separator` prop                                                                                                                      |
