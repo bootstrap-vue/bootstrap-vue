@@ -62,6 +62,14 @@
             "description": "Optional tag validator method. Passed a single argument of tag being added. Should return 'true' if the tag passes validation, or 'false' if the tag cannot be added"
           },
           {
+            "prop": "invalidTagText",
+            "description": "The error message when invalid tags are detected. Set to an empty string to disable the message"
+          },
+          {
+            "prop": "duplicateTagText",
+            "description": "The message when duplicate tags are detected. Set to an empty string to disable the message"
+          },
+          {
             "prop": "separator",
             "description": "Separator character(s) that will trigger a tag to be created"
           },
@@ -177,6 +185,16 @@
                 "prop": "placeholder",
                 "type": "String",
                 "description": "The value of the 'placeholder' prop"
+              },
+              {
+                "prop": "invalidTagText",
+                "type": "String",
+                "description": "The value of the 'invalid-tag-text' prop"
+              },
+              {
+                "prop": "duplicateTagText",
+                "type": "String",
+                "description": "The value of the 'duplicate-tag-text' prop"
               },
               {
                 "prop": "tagRemoveLabel",
