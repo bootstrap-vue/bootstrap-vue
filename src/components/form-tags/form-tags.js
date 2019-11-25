@@ -268,7 +268,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         this.tags = concat(this.tags, valid)
         // Clear the user input model (and leave in any invalid tag(s)
         const invalidAndDups = [...invalid, ...duplicate]
-        this.newTag = parsed.allTags
+        this.newTag = all
           .filter(tag => arrayIncludes(invalidAndDups, tag))
           .join(this.computedJoiner)
       }
