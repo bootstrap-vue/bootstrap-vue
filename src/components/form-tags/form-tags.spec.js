@@ -319,6 +319,101 @@ describe('form-tags', () => {
     wrapper.destroy()
   })
 
+  it('validate on input tag validation works', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        separator: ' ',
+        tagValidator: tag => tag.length < 5,
+        value: ['one', 'two']
+      }
+    })
+    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.vm.tags).toEqual(['one', 'two'])
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.duplicateTags).toEqual([])
+    expect(wrapper.vm.invalidTags).toEqual([])
+    expect(wrapper.emitted('new-tags')).not.toBeDefined()
+
+    const $input = wrapper.find('input')
+
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+
+    $input.element.value = 'tag'
+    $input.trigger('input')
+    expect(wrapper.vm.tags).toEqual(['one', 'two'])
+    expect(wrapper.vm.newTag).toEqual('tag')
+    expect(wrapper.vm.duplicateTags).toEqual([])
+    expect(wrapper.vm.invalidTags).toEqual([])
+    expect(wrapper.emitted('new-tags')).not.toBeDefined()
+
+    $input.element.value = 'tag '
+    $input.trigger('input')
+    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.duplicateTags).toEqual([])
+    expect(wrapper.vm.invalidTags).toEqual([])
+    expect(wrapper.emitted('new-tags')).toBeDefined()
+    expect(wrapper.emitted('new-tags').length).toBe(1)
+    // Tag added
+    expect(wrapper.emitted('new-tags')[0][0]).toEqual(['tag'])
+    // Invalid tags
+    expect(wrapper.emitted('new-tags')[0][1]).toEqual([])
+    // Duplicate tags
+    expect(wrapper.emitted('new-tags')[0][2]).toEqual([])
+
+    $input.element.value = 'thre'
+    $input.trigger('input')
+    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
+    // invalid tags are left in the input
+    expect(wrapper.vm.newTag).toEqual('thre')
+    expect(wrapper.vm.duplicateTags).toEqual([])
+    expect(wrapper.vm.invalidTags).toEqual([])
+    expect(wrapper.emitted('new-tags').length).toBe(1)
+
+    $input.element.value = 'three'
+    $input.trigger('input')
+    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
+    // No tags(s) were accepted so the input is left as is
+    expect(wrapper.vm.newTag).toEqual('three')
+    expect(wrapper.emitted('new-tags').length).toBe(1)
+    expect(wrapper.vm.duplicateTags).toEqual([])
+    expect(wrapper.vm.invalidTags).toEqual(['three'])
+
+    $input.element.value = 'two'
+    $input.trigger('input')
+    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
+    // No tags(s) were accepted so the input is left as is
+    expect(wrapper.vm.newTag).toEqual('two')
+    expect(wrapper.emitted('new-tags').length).toBe(1)
+    expect(wrapper.vm.duplicateTags).toEqual(['two'])
+    expect(wrapper.vm.invalidTags).toEqual([])
+
+    $input.element.value = ' three two '
+    $input.trigger('input')
+    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
+    // No tags(s) were accepted so the input is left as is
+    expect(wrapper.vm.newTag).toEqual('three two')
+    expect(wrapper.emitted('new-tags').length).toBe(2)
+    // Tags added
+    expect(wrapper.emitted('new-tags')[1][0]).toEqual([])
+    // Invalid tag
+    expect(wrapper.emitted('new-tags')[1][1]).toEqual(['three'])
+    // Duplicate tags
+    expect(wrapper.emitted('new-tags')[4][2]).toEqual(['two'])
+
+    $input.element.value = '    '
+    $input.trigger('input')
+    expect(wrapper.vm.newTag).toEqual('    ')
+    expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
+    expect(wrapper.emitted('new-tags').length).toBe(2)
+    expect(wrapper.vm.duplicateTags).toEqual([])
+    expect(wrapper.vm.invalidTags).toEqual([])
+
+    wrapper.destroy()
+  })
+
   it('adds new tags when add button clicked', async () => {
     const wrapper = mount(BFormTags, {
       propsData: {
