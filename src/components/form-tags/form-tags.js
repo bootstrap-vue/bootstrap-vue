@@ -267,13 +267,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // concat can be faster than array spread, when both args are arrays
         this.tags = concat(this.tags, valid)
         // Clear the user input model (and leave in any invalid tag(s)
-        // Duplicate tags are not left in, but could be by doing
-        // const invalidAndDups = [...invalid, ...duplicate]
-        // this.newTag = parsed.allTags
-        //   .filter(tag => arrayIncludes(invalidAndDups, tag))
-        //   .join(this.computedJoiner)
-        // But that may be confusing to the user (best to ignore duplicates?)
-        this.newTag = invalid.join(this.computedJoiner)
+        const invalidAndDups = [...invalid, ...duplicate]
+        this.newTag = parsed.allTags
+          .filter(tag => arrayIncludes(invalidAndDups, tag))
+          .join(this.computedJoiner)
       }
       if (all.length > 0) {
         this.$emit('new-tags', valid, invalid, duplicate)
