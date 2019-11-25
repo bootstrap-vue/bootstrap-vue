@@ -430,8 +430,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           BFormTag,
           {
             key: `li-tag__${tag}`,
+            staticClass: 'mt-1 mr-1',
             class: this.tagClass,
-            style: { margin: '1px 2px 1px 0' },
             props: {
               tag: 'li',
               title: tag,
@@ -484,13 +484,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         [this.normalizeSlot('add-button-text') || this.addButtonText]
       )
       $content.push(
-        h('li', { key: 'li-input__', staticClass: 'd-inline-flex flex-grow-1' }, [$input, $button])
+        h('li', { key: 'li-input__', staticClass: 'd-inline-flex flex-grow-1 mt-1' }, [$input, $button])
       )
 
       // Wrap in an unordered list element
       $content = h(
         'ul',
-        { staticClass: 'list-unstyled m-0 d-flex flex-wrap align-items-center' },
+        { staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center' },
         $content
       )
     }
