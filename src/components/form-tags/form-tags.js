@@ -12,6 +12,8 @@ import { isEvent, isFunction, isString } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BFormTag } from './form-tag'
+import { BFormInvalidFeedback } from '.../form/form-invalid-feedback'
+import { BFormText } from '.../form/form-text'
 import { BButton } from '../button/button'
 
 const NAME = 'BFormTags'
@@ -122,6 +124,16 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Set duplicateTags/invalidTags arrays on input
       type: Boolean,
       default: false
+    },
+    duplicateTagText: {
+      // TODO: Move to config defaults
+      type: String,
+      default: 'Duplicate tag(s)'
+    },
+    invalidTagText: {
+      // TODO: Move to config defaults
+      type: String,
+      default: 'Invalid tag(s)'
     },
     separator: {
       // Character (or characters) that trigger adding tags
@@ -498,6 +510,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         style: { outline: 0, minWidth: '5rem' },
         attrs: {
           ...this.computedInputAttrs,
+          // TODO:
+          //   Add in aria-describedby atribute pointing to
+          //   feedback element IDs, if present below. Must
+          //   preserve any aria-describedby attribute provided
+          //   by the user in this.inputAttrs
           type: 'text',
           placeholder: this.placeholder || null
         },
@@ -543,6 +560,30 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     }
     // Ensure we have an array
     $content = concat($content)
+
+    // Add invalid tag feedback if needed
+    if (this.invalidTagText && this.hasInvalidTags) {
+      $content.push(
+        h(
+          BFormInvalidFeedback,
+          { props: { ID: this.safeId('__invalid_feedback__'), forceShow: true } },
+          [this.invalidTagText, ': ', this.invalidTags.map(t = > `"${t}"`).join(', ')]
+        )
+      )
+    }
+
+    // Add duplicate tag feedback if needed (warning, not error)
+    if (this.duplicateTagText && this.hasDuplicateTags) {
+      $content.push(
+        h(
+          BFormText,
+          { props: { id: this.safeId('__duplicate_feedback__') } },
+          [this.duplicateTagText, ': ', this.duplicateTags.map(t = > `"${t}"`).join(', ')
+        ])
+      )
+    }
+
+    // Add hidden inputs for form submission
     if (this.name) {
       // We add hidden inputs for each tag if a name is provided
       // for native submission of forms
