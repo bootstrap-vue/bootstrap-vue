@@ -25,7 +25,7 @@ const RX_TRIM_LEFT = /^\s+/
 // --- Utility methods ---
 
 // Remove leading whitespace from string
-const trimLeft => val => val.replace(RX_TRIM_LEFT, '')
+const trimLeft = str => str.replace(RX_TRIM_LEFT, '')
 
 // This is similar to the escape used by table filtering,
 // but the second replace is different
