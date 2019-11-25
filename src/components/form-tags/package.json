@@ -62,6 +62,10 @@
             "description": "Optional tag validator method. Passed a single argument of tag being added. Should return 'true' if the tag passes validation, or 'false' if the tag cannot be added"
           },
           {
+            "prop": "validateOnInput",
+            "description": "Validate (duplicate, invalid) tags as the user types. Default is to validate only when a tag is attempted to be added"
+          },
+          {
             "prop": "removeOnDelete",
             "description": "When set, enables removal of last tag in tags when user presses delete and the input is empty"
           },
@@ -125,6 +129,26 @@
                 "prop": "addTag",
                 "type": "Function",
                 "description": "Method to add a new tag. Assumes the tag is the value of the input, but optionally accepts one argument which is the tag value to be added"
+              },
+              {
+                "prop": "invalidTags",
+                "type": "Array",
+                "description": "Array of invalid tag(s) that could not be added. Requires a validator function via the 'tag-validator' prop"
+              },
+              {
+                "prop": "isInvalid",
+                "type": "Boolean",
+                "description": "Will be true if the input has invalid tag(s). Requires a validator function via the 'tag-validator' prop"
+              },
+              {
+                "prop": "duplicateTags",
+                "type": "Array",
+                "description": "Array of duplicate tag(s) that could not be added"
+              },
+              {
+                "prop": "isDuplicate",
+                "type": "Boolean",
+                "description": "Will be true if the user has attempted to add duplicate tag(s)"
               },
               {
                 "prop": "disabled",
