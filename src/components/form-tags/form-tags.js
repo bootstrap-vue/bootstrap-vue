@@ -297,7 +297,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       } else if (newTag === '') {
         this.duplicateTags = []
         this.invalidTags = []
-      } else if (this.validateOnInput)) {
+      } else if (this.validateOnInput) {
         // Validate (parse tags) on input event
         const { duplicate, invalid } = this.parseTags(newTag)
         this.duplicateTags = duplicate
