@@ -149,9 +149,17 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
+      hasFocus: false,
       newTag: '',
       tags: [],
-      hasFocus: false
+      // Populated when tags are parsed
+      // TODO:
+      //   Populate this information on add, and optionally on input
+      //   Also disable addTags / Add button when duplicates and/or
+      //   Invalids are still in the input element, to prevent weird
+      //   input behaviour while the user is deleting characters
+      duplicateTags: [],
+      invalidTags: []
     }
   },
   computed: {
@@ -184,7 +192,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // We use a computed prop here to precompile the RegExp
       // The RegExp is a character class RE in the form of
       // /[abc]+/ where a, b, and c are the separator characters
-      // For some reason /(a|b|c)+/ has issues with leaving some
+      //    tags = str.split(/[abc]+/).filter(t => t)
+      // For some reason /(a|b|c)+/ has issues with leaving some consecutive
       // separators in the tags array, when using str.split(/(a|b|c)+/)
       const separator = this.computedSeparator
       return separator ? new RegExp(`[${escapeRegExpChars(separator)}]+`) : null
@@ -193,6 +202,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // When tag(s) are invalid (not duplicate), we leave them in the input
       const joiner = this.computedSeparator.charAt(0)
       return joiner !== ' ' ? `${joiner} ` : joiner
+    },
+    hasDuplicateTags() {
+      return this.duplicateTags.length > 0
+    },
+    hasInvalidTags() {
+      return this.invalidTags.length > 0
     }
   },
   watch: {
@@ -411,7 +426,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         inputHandlers: this.computedInputHandlers,
         // <input> :id="inputId"
         inputId: this.computedInputId,
+        // Ivvalid/Duplicate state information
+        invalidTags: this.invalidTags.slice(),
+        isInvalid: this.hasInvalidTags,
+        duplicateTags: this.duplicateTags.slice(),
+        isDuplicate: this.hasDuplicateTags,
         // Pass-though values
+        state: this.state,
         separator: this.separator,
         disabled: this.disabled,
         state: this.state,
