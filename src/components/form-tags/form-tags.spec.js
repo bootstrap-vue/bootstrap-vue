@@ -312,7 +312,7 @@ describe('form-tags', () => {
 
     $input.element.value = '    '
     $input.trigger('input')
-    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.newTag).toEqual('    ')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four', 'cat'])
     expect(wrapper.emitted('new-tags').length).toBe(5)
 
