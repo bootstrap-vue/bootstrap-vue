@@ -182,6 +182,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedSeparatorRegExp() {
       // We use a computed prop here to precompile the RegExp
+      // The RegExp is a character class RE in the form of
+      // /[abc]+/ where a, b, and c are the separator characters
+      // For some reason /(a|b|c)+/ has issues with leaving some
+      // separators in the tags array, when using str.split(/(a|b|c)+/)
       const separator = this.computedSeparator
       return separator ? new RegExp(`[${escapeRegExpChars(separator)}]+`) : null
     },
@@ -349,14 +353,18 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       //   and pass invalidTags and duplicateTags to the scoped lot
       tags.forEach(tag => {
         if (arrayIncludes(this.tags, tag) || arrayIncludes(parsed.valid, tag)) {
-          // Filter out duplicate tags
-          parsed.duplicate.push(tag)
+          // Unique duplicate tags
+          if (!arrayIncludes(parsed.duplicate, tag)) {
+            parsed.duplicate.push(tag)
+          }
         } else if (this.validateTag(tag)) {
           // We only add unique/valid tags
           parsed.valid.push(tag)
         } else {
-          // tag is invalid
-          parsed.invalid.push(tag)
+          // Unique invalid tags
+          if (!arrayIncludes(parsed.invalid, tag)) {
+            parsed.invalid.push(tag)
+          }
         }
       })
       return parsed
