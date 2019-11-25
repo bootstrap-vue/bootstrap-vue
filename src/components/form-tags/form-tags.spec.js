@@ -395,7 +395,7 @@ describe('form-tags', () => {
     $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
-    expect(wrapper.vm.newTag).toEqual('three two')
+    expect(wrapper.vm.newTag).toEqual(' three two ')
     expect(wrapper.emitted('new-tags').length).toBe(2)
     // Tags added
     expect(wrapper.emitted('new-tags')[1][0]).toEqual([])
