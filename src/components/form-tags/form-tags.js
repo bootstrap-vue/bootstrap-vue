@@ -20,8 +20,12 @@ const NAME = 'BFormTags'
 
 const RX_ESCAPE_1 = /[-/\\^$*+?.()|[\]{}]/g
 const RX_ESCAPE_2 = /[\s\uFEFF\xA0]+/g
+const RX_TRIM_LEFT = /^\s+/
 
 // --- Utility methods ---
+
+// Remove leading whitespace from string
+const trimLeft => val => val.replace(RX_TRIM_LEFT, '')
 
 // This is similar to the escape used by table filtering,
 // but the second replace is different
@@ -113,6 +117,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     tagValidator: {
       type: Function,
       default: null
+    },
+    validateOnInput: {
+      // Set duplicateTags/invalidTags arrays on input
+      type: Boolean,
+      default: false
     },
     separator: {
       // Character (or characters) that trigger adding tags
@@ -232,8 +241,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     addTag(newTag = this.newTag) {
+      newTag = toString(newTag)
       /* istanbul ignore next */
-      if (this.disabled) {
+      if (this.disabled || newTag.trim() === '') {
         return
       }
       const { all, valid, invalid, duplicate } = this.parseTags(newTag)
@@ -280,17 +290,18 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const newTag = processEventValue(evt)
       const separatorRe = this.computedSeparatorRegExp
       this.newTag = newTag
-      if (separatorRe && separatorRe.test(newTag.slice(-1))) {
-        // A separator character was entered, so add the tag(s).
+      if (separatorRe && separatorRe.test(trimLeft(newTag).slice(-1))) {
+        // A trailing separator character was entered,  add the tag(s).
         // Note, more than one tag on input event is possible via copy/paste
         this.addTag()
-      } else {
-        // TODO:
-        //    Validate tag as typed (optionally), and store validation
-        //    state in data and make available to scoped slot. Also
-        //    if tag is valid, but is a duplicate set a isDuplicate flag
-        //    Also, passing the invalid and duplicate tag arrays to the
-        //    scoped slot may be usefull for user error messages
+      } else if (newTag === '') {
+        this.duplicateTags = []
+        this.invalidTags = []
+      } else if (this.validateOnInput)) {
+        // Validate (parse tags) on input event
+        const { duplicate, invalid } = this.parseTags(newTag)
+        this.duplicateTags = duplicate
+        this.invalidTags = invalid
       }
     },
     onInputChange(evt) {
