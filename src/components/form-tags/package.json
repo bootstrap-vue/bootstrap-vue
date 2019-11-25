@@ -4,6 +4,7 @@
   "meta": {
     "title": "Form Tags",
     "new": true,
+    "version": "2.2.0",
     "description": "Custom tagged input component, with ability for user to override rendering",
     "components": [
       {
