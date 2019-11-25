@@ -30,6 +30,7 @@
   // Override default badge settings
   // Due to using text-truncate on the inner content
   font-size: 75%;
+  font-weight: normal;
   line-height: $input-line-height;
 
   &.disabled {
