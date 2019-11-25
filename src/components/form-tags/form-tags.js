@@ -459,7 +459,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         tagPills: this.tagPills,
         tagClass: this.tagClass,
         addButtonText: this.addButtontext,
-        addButtonVariant: this.addButtonVariant
+        addButtonVariant: this.addButtonVariant,
+        invalidTagText: this.invalidTagText,
+        duplicateTagText: this.duplicateTagText
       })
     } else {
       // Internal rendering
