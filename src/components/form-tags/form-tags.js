@@ -266,6 +266,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         this.newTag = all
           .filter(tag => arrayIncludes(invalidAndDups, tag))
           .join(this.computedJoiner)
+          .concat(invalidAndDups.length > 1 ? this.computedJoiner.charAt(0) : '')
       }
       if (all.length > 0) {
         this.$emit('new-tags', valid, invalid, duplicate)
