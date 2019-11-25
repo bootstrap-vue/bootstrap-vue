@@ -39,7 +39,9 @@
   // Override default close button settings
   > button.b-form-tag-remove {
     color: inherit;
-    font-size: inherit;
+    font-size: 125%;
+    line-height: 1;
+    float: none;
   }
 }
 
