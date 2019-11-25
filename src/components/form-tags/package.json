@@ -89,7 +89,7 @@
         "slots": [
           {
             "name": "add-button-text",
-            "description": "Content to place in the built in  'Add' button. Takes precedence over the 'add-button-text' prop"
+            "description": "Content to place in the built in  'Add' button. Takes precedence over the 'add-button-text' prop. Not used when the default scoped slot is provided"
           },
           {
             "name": "default",
