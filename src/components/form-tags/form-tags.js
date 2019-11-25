@@ -261,12 +261,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // to trigger reactivity once (instead of once per tag)
         // concat can be faster than array spread, when both args are arrays
         this.tags = concat(this.tags, valid)
-        // Clear the user input model (and leave in any invalid tag(s)
+        // Clear the user input model (and leave in any invalid/duplicate tag(s)
         const invalidAndDups = [...invalid, ...duplicate]
         this.newTag = all
           .filter(tag => arrayIncludes(invalidAndDups, tag))
           .join(this.computedJoiner)
-          .concat(invalidAndDups.length > 1 ? this.computedJoiner.charAt(0) : '')
+          .concat(invalidAndDups.length > 0 ? this.computedJoiner.charAt(0) : '')
       }
       if (all.length > 0) {
         this.$emit('new-tags', valid, invalid, duplicate)
