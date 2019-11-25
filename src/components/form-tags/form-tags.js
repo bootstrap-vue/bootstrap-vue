@@ -290,8 +290,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const newTag = processEventValue(evt)
       const separatorRe = this.computedSeparatorRegExp
       this.newTag = newTag
-      if (separatorRe && separatorRe.test(trimLeft(newTag).slice(-1))) {
-        // A trailing separator character was entered,  add the tag(s).
+      // We ignore leading whitespace for the following
+      newTag = trimLeft(newTag)
+      if (separatorRe && separatorRe.test(newTag.slice(-1))) {
+        // A trailing separator character was entered, so add the tag(s).
         // Note, more than one tag on input event is possible via copy/paste
         this.addTag()
       } else if (newTag === '') {
