@@ -46,8 +46,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
     let $remove = h()
     if (!this.disabled) {
       $remove = h(BButtonClose, {
-        staticClass: 'b-form-tag-remove ml-1 text-reset float-none',
-        style: { fontSize: 'inherit' },
+        staticClass: 'b-form-tag-remove ml-1',
         props: { ariaLabel: this.removeLabel },
         attrs: { 'aria-controls': tagId },
         on: { click: this.onClick }
@@ -61,8 +60,8 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
     return h(
       BBadge,
       {
-        staticClass: 'b-form-tag d-inline-flex font-weight-normal mw-100',
-        style: { fontSize: '1em' },
+        staticClass: 'b-form-tag d-inline-flex mw-100 font-weight-normal',
+        class: { disabled: this.disabled },
         attrs: { id: tagId, title: this.title || null },
         props: { tag: this.tag, variant: this.variant, pill: this.pill }
       },
