@@ -324,6 +324,7 @@ describe('form-tags', () => {
       propsData: {
         separator: ' ',
         tagValidator: tag => tag.length < 5,
+        validateOnInput: true,
         value: ['one', 'two']
       }
     })
