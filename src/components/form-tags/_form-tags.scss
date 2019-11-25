@@ -1,8 +1,8 @@
 .b-form-tag {
   // Override default badge settings
   // Due to using text-truncate on the inner content
-  font-size: 80%;
-  line-height: 1.25;
+  font-size: 75%;
+  line-height: 1.5;
 
   &.disabled {
     opacity: .75;
