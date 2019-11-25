@@ -434,7 +434,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         state: this.state,
         separator: this.separator,
         disabled: this.disabled,
-        state: this.state,
         size: this.size,
         placeholder: this.placeholder,
         inputClass: this.inputClass,
