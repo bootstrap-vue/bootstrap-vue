@@ -484,7 +484,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         [this.normalizeSlot('add-button-text') || this.addButtonText]
       )
       $content.push(
-        h('li', { key: 'li-input__', staticClass: 'd-inline-flex flex-grow-1 mt-1' }, [$input, $button])
+        h(
+          'li',
+          { key: 'li-input__', staticClass: 'd-inline-flex flex-grow-1 mt-1' },
+          [$input, $button]
+        )
       )
 
       // Wrap in an unordered list element
