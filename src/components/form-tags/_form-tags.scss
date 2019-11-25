@@ -1,3 +1,20 @@
+.b-form-tag {
+  // Override default badge settings
+  // Due to using text-truncate on the inner content
+  font-size: 80%;
+  line-height: 1.25;
+
+  &.disabled {
+    opacity: .75;
+  }
+  
+  // Override default close button settings
+  > button.b-form-tag-remove {
+    color: inherit;
+    font-size: inherit;
+  }
+}
+
 .b-form-tags {
   &.focus {
     color: $input-focus-color;
