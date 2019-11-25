@@ -402,7 +402,7 @@ describe('form-tags', () => {
     // Invalid tag
     expect(wrapper.emitted('new-tags')[1][1]).toEqual(['three'])
     // Duplicate tags
-    expect(wrapper.emitted('new-tags')[4][2]).toEqual(['two'])
+    expect(wrapper.emitted('new-tags')[1][2]).toEqual(['two'])
 
     $input.element.value = '    '
     $input.trigger('input')
