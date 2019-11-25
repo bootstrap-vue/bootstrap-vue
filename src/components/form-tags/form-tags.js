@@ -152,9 +152,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Populated when tags are parsed
       // TODO:
       //   Populate this information on add, and optionally on input
-      //   Also disable addTags / Add button when duplicates and/or
-      //   Invalids are still in the input element, to prevent weird
-      //   input behaviour while the user is deleting characters
+      //   And clear when input is zero length
       duplicateTags: [],
       invalidTags: []
     }
@@ -165,7 +163,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedInputAttrs() {
       return {
+        // Merge in user supplied attributes
         ...this.inputAttrs,
+        // Must have attributes
         id: this.computedInputId,
         value: this.newTag,
         disabled: this.disabled || null
@@ -179,7 +179,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       }
     },
     computedSeparator() {
-      // We use a computed prop here to precompile the RegExp
+      // Merge the array into a string
       return concat(this.separator)
         .filter(isString)
         .filter(identity)
@@ -188,10 +188,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     computedSeparatorRegExp() {
       // We use a computed prop here to precompile the RegExp
       // The RegExp is a character class RE in the form of
-      // /[abc]+/ where a, b, and c are the separator characters
+      // /[abc]+/ where a, b, and c are the valid separator characters
       //    tags = str.split(/[abc]+/).filter(t => t)
       // For some reason /(a|b|c)+/ has issues with leaving some consecutive
       // separators in the tags array, when using str.split(/(a|b|c)+/)
+      // perhaps /(?:a|b|c)+/ would work better, but we would need to create
+      // two RegExps: /(?:a|b|c)+/ (splitting) and /(?:a|b|c)+$/ (end string test)
       const separator = this.computedSeparator
       return separator ? new RegExp(`[${escapeRegExpChars(separator)}]+`) : null
     },
