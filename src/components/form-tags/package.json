@@ -62,10 +62,6 @@
             "description": "Optional tag validator method. Passed a single argument of tag being added. Should return 'true' if the tag passes validation, or 'false' if the tag cannot be added"
           },
           {
-            "prop": "validateOnInput",
-            "description": "Validate (duplicate, invalid) tags as the user types. Default is to validate only when a tag is being added. If a 'tag-validator' is not provided, only duplicate tags will be detected"
-          },
-          {
             "prop": "separator",
             "description": "Separator character(s) that will trigger a tag to be created"
           },
