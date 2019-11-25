@@ -493,7 +493,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         ref: 'input',
         // Directive needed to get `evt.target.composing` set (if needed)
         directives: [{ name: 'model', value: this.newTag }],
-        staticClass: 'b-form-tags-input w-100 flex-grow-1 px-1 py-0 m-0 bg-transparent border-0',
+        staticClass: 'b-form-tags-input w-100 flex-grow-1 p-0 m-0 bg-transparent border-0',
         class: this.inputClass,
         style: { outline: 0, minWidth: '5rem' },
         attrs: {
