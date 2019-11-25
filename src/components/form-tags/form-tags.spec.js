@@ -209,7 +209,7 @@ describe('form-tags', () => {
 
     $input.element.value = 'peach;  foo,bar apple pie'
     $input.trigger('input')
-    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.newTag).toEqual('peach;  foo,bar apple pie')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
 
     $input.element.value = 'peach;  foo,bar apple pie '
