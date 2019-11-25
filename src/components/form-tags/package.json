@@ -66,6 +66,10 @@
             "description": "Validate (duplicate, invalid) tags as the user types. Default is to validate only when a tag is being added. If a 'tag-validator' is not provided, only duplicate tags will be detected"
           },
           {
+            "prop": "separator",
+            "description": "Separator character(s) that will trigger a tag to be created"
+          },
+          {
             "prop": "removeOnDelete",
             "description": "When set, enables removal of last tag in tags when user presses delete and the input is empty"
           },
