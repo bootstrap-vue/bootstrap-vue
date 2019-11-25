@@ -20,11 +20,8 @@ const NAME = 'BFormTags'
 
 const RX_ESCAPE_1 = /[-/\\^$*+?.()|[\]{}]/g
 const RX_ESCAPE_2 = /[\s\uFEFF\xA0]+/g
-const RX_TRIM_LEFT = /^s+/
 
 // --- Utility methods ---
-
-const trimLeft = str => str.replace(RX_TRIM_LEFT, '')
 
 // This is similar to the escape used by table filtering,
 // but the second replace is different
@@ -281,7 +278,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const newTag = processEventValue(evt)
       const separatorRe = this.computedSeparatorRegExp
       this.newTag = newTag
-      if (separatorRe && separatorRe.test(trimLeft(newTag))) {
+      if (separatorRe && separatorRe.test(newTag.slice(-1))) {
         // A separator character was entered, so add the tag(s).
         // Note, more than one tag on input event is possible via copy/paste
         this.addTag()
