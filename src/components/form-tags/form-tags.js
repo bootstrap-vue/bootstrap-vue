@@ -287,7 +287,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
         return
       }
-      const newTag = processEventValue(evt)
+      let newTag = processEventValue(evt)
       const separatorRe = this.computedSeparatorRegExp
       this.newTag = newTag
       // We ignore leading whitespace for the following
