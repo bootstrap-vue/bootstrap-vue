@@ -12,8 +12,8 @@ import { isEvent, isFunction, isString } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BFormTag } from './form-tag'
-import { BFormInvalidFeedback } from '.../form/form-invalid-feedback'
-import { BFormText } from '.../form/form-text'
+import { BFormInvalidFeedback } from '../form/form-invalid-feedback'
+import { BFormText } from '../form/form-text'
 import { BButton } from '../button/button'
 
 const NAME = 'BFormTags'
@@ -560,9 +560,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
 
     // Add invalid tag feedback if needed
     if (this.invalidTagText && this.hasInvalidTags) {
-      const invalids = this.invalidTags
-        .map(t => `"${t}"`)
-        .join(this.computedJoiner)
+      const invalids = this.invalidTags.join(this.computedJoiner)
       $content.push(
         h(
           BFormInvalidFeedback,
@@ -574,15 +572,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
 
     // Add duplicate tag feedback if needed (warning, not error)
     if (this.duplicateTagText && this.hasDuplicateTags) {
-      const duplicates = this.duplicateTags
-        .map(t => `"${t}"`)
-        .join(this.computedJoiner)
+      const duplicates = this.duplicateTags.join(this.computedJoiner)
       $content.push(
-        h(
-          BFormText,
-          { props: { id: this.safeId('__duplicate_feedback__') } },
-          [this.duplicateTagText, ': ', duplicates]
-        )
+        h(BFormText, { props: { id: this.safeId('__duplicate_feedback__') } }, [
+          this.duplicateTagText, ': ', duplicates
+        ])
       )
     }
 
