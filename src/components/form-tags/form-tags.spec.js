@@ -301,7 +301,7 @@ describe('form-tags', () => {
     $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four', 'cat'])
     // No tags(s) were accepted so the input is left as is
-    expect(wrapper.vm.newTag).toEqual('three seven')
+    expect(wrapper.vm.newTag).toEqual('three seven ')
     expect(wrapper.emitted('new-tags').length).toBe(5)
     // Tags added
     expect(wrapper.emitted('new-tags')[4][0]).toEqual(['cat'])
@@ -319,7 +319,7 @@ describe('form-tags', () => {
     wrapper.destroy()
   })
 
-  it('validate on input tag validation works', async () => {
+  it('tag validation on input event works', async () => {
     const wrapper = mount(BFormTags, {
       propsData: {
         separator: ' ',
