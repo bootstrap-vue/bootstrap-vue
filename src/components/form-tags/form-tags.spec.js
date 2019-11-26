@@ -255,7 +255,7 @@ describe('form-tags', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four'])
     // No tags(s) were accepted so the input is left as is
-    expect(wrapper.vm.newTag).toEqual('three one ')
+    expect(wrapper.vm.newTag).toEqual('three four one four ')
 
     $input.element.value = ' three '
     $input.trigger('input')
