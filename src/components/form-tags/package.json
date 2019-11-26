@@ -79,8 +79,8 @@
             "description": "When set, enables removal of last tag in tags when user presses delete and the input is empty"
           },
           {
-            "prop": "noAddOnChange",
-            "description": "When set, disables adding the tag on the input's 'change' event"
+            "prop": "addOnChange",
+            "description": "When set, enables adding the tag on the input's 'change' event"
           },
           {
             "prop": "noAddOnEnter",
