@@ -235,19 +235,19 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         !this.splitTags(newTag).some(t => !arrayIncludes(this.tags, t) && this.validateTag(t))
     },
     duplicateTags() {
-      this.tagState.duplicate
+      return this.tagState.duplicate
     },
     hasDuplicateTags() {
       return this.duplicateTags.length > 0
     },
     invalidTags() {
-      this.tagState.invalid
+      return this.tagState.invalid
     },
     hasInvalidTags() {
       return this.invalidTags.length > 0
     },
     validTags() {
-      this.tagState.valid
+      return this.tagState.valid
     },
     hasValidTags() {
       return this.validTags.length > 0
@@ -302,7 +302,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // do not have a <option disabled value=""> on Safari
         // Perhaps we should have an example with select in the docs
         const invalidAndDups = [...parsed.invalid, ...parsed.duplicate]
-        this.newTag = all
+        this.newTag = parsed.all
           .filter(tag => arrayIncludes(invalidAndDups, tag))
           .join(this.computedJoiner)
           .concat(invalidAndDups.length > 0 ? this.computedJoiner.charAt(0) : '')
@@ -530,18 +530,19 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       })
 
       // Feedback IDs if needed
-      const invalidFeedbackId = this.invalidTagText && this.hasInvalidTags
-        ? this.safeId('__invalid_feedback__')
-        : null
-      const duplicateFeedbackId = this.duplicateTagText && this.hasDuplicateTags
-        ? this.safeId('__duplicate_feedback__')
-        : null
+      const invalidFeedbackId =
+        this.invalidTagText && this.hasInvalidTags ? this.safeId('__invalid_feedback__') : null
+      const duplicateFeedbackId = 
+        this.duplicateTagText && this.hasDuplicateTags
+          ? this.safeId('__duplicate_feedback__')
+          : null
       // Compute the aria-describedby attribute value
       const ariaDescribedby = [
         this.computedInputAttrs['aria-describedby'],
         invalidFeedbackId,
         duplicateFeedbackId
-      ].filter(identity).join(' ')
+      ]
+        .filter(identity).join(' ')
 
       // Add default input and button
       const $input = h('input', {
@@ -602,11 +603,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       if (invalidFeedbackId) {
         const invalids = this.invalidTags.join(this.computedJoiner)
         $content.push(
-          h(
-            BFormInvalidFeedback,
-            { props: { id: invalidFeedbackId, forceShow: true } },
-            [this.invalidTagText, ': ', invalids]
-          )
+          h(BFormInvalidFeedback, { props: { id: invalidFeedbackId, forceShow: true } }, [
+            this.invalidTagText,
+            ': ',
+            invalids
+          ])
         )
       }
 
