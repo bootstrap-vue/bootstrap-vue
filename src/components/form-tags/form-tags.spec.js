@@ -396,11 +396,11 @@ describe('form-tags', () => {
     expect(wrapper.vm.duplicateTags).toEqual([])
     expect(wrapper.vm.invalidTags).toEqual([])
     // Tags added
-    expect(wrapper.emitted('tag-state')[6][0]).toEqual([])
+    expect(wrapper.emitted('tag-state')[5][0]).toEqual([])
     // Invalid tag
-    expect(wrapper.emitted('tag-state')[6][1]).toEqual([])
+    expect(wrapper.emitted('tag-state')[5][1]).toEqual([])
     // Duplicate tags
-    expect(wrapper.emitted('tag-state')[6][2]).toEqual([])
+    expect(wrapper.emitted('tag-state')[5][2]).toEqual([])
 
     wrapper.destroy()
   })
