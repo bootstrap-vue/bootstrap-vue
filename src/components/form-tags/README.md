@@ -263,7 +263,13 @@ empty string (`''`) or `null`.
 ```html
 <template>
   <div>
-    <b-form-tags v-model="tags" separator=" " @tag-state="onTagState"></b-form-tags>
+    <b-form-tags
+      v-model="tags"
+      :tag-validator="validator"
+      placeholder="Enter tags (3-5 characters) separated by space"
+      separator=" "
+      @tag-state="onTagState"
+    ></b-form-tags>
     <p>Tags: {{ tags }}</p>
     <p>Event values:</p>
     <ul>
@@ -278,9 +284,9 @@ empty string (`''`) or `null`.
   export default {
     data() {
       return {
-        tags: []
+        tags: [],
         validTags: [],
-        invalidTags: []
+        invalidTags: [],
         duplicateTags: []
       }
     },
@@ -289,6 +295,9 @@ empty string (`''`) or `null`.
         this.validTags = valid
         this.invalidTags = invalid
         this.duplicateTags = duplicate
+      },
+      validator(tag) {
+        return tag.length > 2 and tag.length < 6
       }
     }
   }
