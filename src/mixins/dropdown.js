@@ -387,7 +387,7 @@ export default {
         this.$once('hidden', this.focusToggler)
       }
     },
-    // Handler
+    // Shared hide handler between click-out and focus-in events
     hideHandler(evt) {
       const target = evt.target
       if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
@@ -414,6 +414,8 @@ export default {
     // Document focus-in listener
     focusInHandler(evt) {
       this.clearHideTimeout()
+      // We need to delay the hide handling on focus-in to give
+      // click handlers (like `toggle()`) time to be executed first
       this.$_hideTimeout = setTimeout(() => {
         this.clearHideTimeout()
         this.hideHandler(evt)
