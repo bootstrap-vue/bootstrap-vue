@@ -242,20 +242,60 @@ not validated.
 
 ### Detecting new, invalid, and duplicate tags
 
-The event `new-tags` will be emitted whenever new tags are added, tags that do not pass validation,
-or duplicate tags are not added. The event handler will receive three arrays as it's arguments:
+The event `new-tags` will be emitted whenever new tags are entered into the new tag input element,
+tags that do not pass validation, or duplicate tags are detected. The event handler will receive
+three arrays as it's arguments:
 
-- `validTags` (tags that were successfully added)
-- `invalidTags` (tags that did not pass validation)
-- `duplicateTags` (tags that were not added as they would be a duplicate of existing or validTags).
+- `validTags` (tags that pass validation)
+- `invalidTags` (tags that do not pass validation)
+- `duplicateTags` (tags that would be a duplicate of existing or validTags).
 
-The event will be emiited only when a user attempts to add a tag (i.e. via <kbd>ENTER</kbd>, clicking
-the **Add** button, or entering a separator).
+The event will be emiited only when the new tag input changes (characters are entered that would be
+considered part of a tag), or when the user attempts to add a tag (i.e. via <kbd>ENTER</kbd>, clicking
+the **Add** button, or entering a separator). The three arrays will be empty when the user clears the
+new tag input element (or contains just spaces).
 
 If you are providing your own feedback for duplicate and invalid tags (via the use of the `new-tags`
 event) outside of the `<b-form-tags>` component, you can disable the built in duplicate and invalid
 messages by setting the props `duplicate-tag-text` and `invalid-tag-text` (respectively) to either an
 empty string (`''`) or `null`.
+
+```html
+<template>
+  <div>
+    <b-form-tags v-model="tags" separator=" " @tag-state="onTagState"></b-form-tags>
+    <p>Tags: {{ tags }}</p>
+    <p>Event values:</p>
+    <ul>
+        <li>validTags: {{ validTags }}</li>
+        <li>invalidTags: {{ invalidTags }}</li>
+        <li>duplicateTags: {{ duplicateTags }}</li>
+    </ul>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        tags: []
+        validTags: [],
+        invalidTags: []
+        duplicateTags: []
+      }
+    },
+    methods: {
+      onTagState(valid, invalid, duplicate) {
+        this.validTags = valid
+        this.invalidTags = invalid
+        this.duplicateTags = duplicate
+      }
+    }
+  }
+</script>
+
+<!-- b-form-tags-tags-state-event.vue -->
+```
 
 ## Custom rendering with default scoped slot
 
