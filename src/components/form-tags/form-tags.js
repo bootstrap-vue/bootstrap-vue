@@ -39,8 +39,18 @@ const cleanTags = tags => {
     .filter((tag, index, arr) => tag.length > 0 && arr.indexOf(tag) === index)
 }
 
+// Processes an input/change event, normalizing string or event argument
 const processEventValue = evt => (isString(evt) ? evt : isEvent(evt) ? evt.target.value || '' : '')
 
+// Returns a ffresh empty tagState object
+const cleanTagState = () => {
+  return {
+    all: [],
+    valid: [],
+    invalid: [],
+    duplicate: []
+  }
+}
 // @vue/component
 export const BFormTags = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -152,10 +162,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       default: false
     },
     noOuterFocus: {
+      // Disable the focus ring on the root element
       type: Boolean,
       default: false
     },
     value: {
+      // The v-model prop
       type: Array,
       default: () => []
     }
@@ -166,9 +178,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       newTag: '',
       tags: [],
       // Populated when tags are parsed
-      // TODO:
-      //   Populate this information on add, and optionally on input
-      //   And clear when input is zero length
+      tagsState: cleanTagState(),
       duplicateTags: [],
       invalidTags: []
     }
@@ -206,32 +216,59 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // The RegExp is a character class RE in the form of
       // /[abc]+/ where a, b, and c are the valid separator characters
       //    tags = str.split(/[abc]+/).filter(t => t)
-      // For some reason /(a|b|c)+/ has issues with leaving some consecutive
-      // separators in the tags array, when using str.split(/(a|b|c)+/)
-      // perhaps /(?:a|b|c)+/ would work better, but we would need to create
-      // two RegExps: /(?:a|b|c)+/ (splitting) and /(?:a|b|c)+$/ (end string test)
       const separator = this.computedSeparator
       return separator ? new RegExp(`[${escapeRegExpChars(separator)}]+`) : null
     },
     computedJoiner() {
-      // When tag(s) are invalid (not duplicate), we leave them in the input
+      // When tag(s) are invalid or duplicate, we leave them
+      // in the input so that the user can see them
+      // If there are more than one tag in the input, we use the
+      // first separator character as the separator in the input
+      // We append a space if the first separator is not a space
       const joiner = this.computedSeparator.charAt(0)
       return joiner !== ' ' ? `${joiner} ` : joiner
+    },
+    disableAddButton() {
+      // if Add button should be disabled
+      // If the input contains at least one tag that can
+      // be added, then the Add button should be enabled
+      const newTag = this.newTag.trim()
+      return newTag === '' ||
+        !this.splitTags(newTag).some(t => !arrayIncludes(this.tags, t) && this.validateTag(t))
+    },
+    duplicateTags() {
+      this.tagState.duplicate
     },
     hasDuplicateTags() {
       return this.duplicateTags.length > 0
     },
+    invalidTags() {
+      this.tagState.invalid
+    },
     hasInvalidTags() {
       return this.invalidTags.length > 0
+    },
+    validTags() {
+      this.tagState.valid
+    },
+    hasValidTags() {
+      return this.validTags.length > 0
     }
   },
   watch: {
-    value(newValue) {
-      this.tags = cleanTags(newValue)
+    value(newVal) {
+      this.tags = cleanTags(newVal)
     },
-    tags(newValue) {
-      if (!looseEqual(newValue, this.value)) {
-        this.$emit('input', newValue)
+    tags(newVal) {
+      // Update the v-model (if it differs from the value prop)
+      if (!looseEqual(newVal, this.value)) {
+        this.$emit('input', newVal)
+      }
+    },
+    tagsState(newVal, oldVal) {
+      // Emit a tag-state event when the tagState object changes
+      if (!looseEqual(newVal, oldVal)) {
+        this.$emit('tag-state', newVal.valid, newVal.invalid, newVal.duplicate)
       }
     }
   },
@@ -251,26 +288,28 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       newTag = toString(newTag)
       /* istanbul ignore next */
       if (this.disabled || newTag.trim() === '') {
+        // Early exit
         return
       }
-      const { all, valid, invalid, duplicate } = this.parseTags(newTag)
+      const parsed = this.parseTags(newTag)
       // Add any new tags to the tags array, or if the
       // array of allTags is empty, we clear the input
-      if (valid.length > 0 || all.length === 0) {
+      if (parsed.valid.length > 0 || parsed.all.length === 0) {
         // We add the new tags in one atomic operation
         // to trigger reactivity once (instead of once per tag)
         // concat can be faster than array spread, when both args are arrays
-        this.tags = concat(this.tags, valid)
-        // Clear the user input model (and leave in any invalid/duplicate tag(s)
-        const invalidAndDups = [...invalid, ...duplicate]
+        this.tags = concat(this.tags, parsed.valid)
+        // Clear the user input element (and leave in any invalid/duplicate tag(s)
+        // Note: this may cause issues with <select> elements that
+        // do not have a <option disabled value=""> on Safari
+        // Perhaps we should have an example with select in the docs
+        const invalidAndDups = [...parsed.invalid, ...parsed.duplicate]
         this.newTag = all
           .filter(tag => arrayIncludes(invalidAndDups, tag))
           .join(this.computedJoiner)
           .concat(invalidAndDups.length > 0 ? this.computedJoiner.charAt(0) : '')
       }
-      if (all.length > 0) {
-        this.$emit('new-tags', valid, invalid, duplicate)
-      }
+      this.tagState = parsed
     },
     removeTag(tag) {
       /* istanbul ignore next */
@@ -279,7 +318,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       }
       // TODO:
       //   Add onRemoveTag(tag) user method, which if returns false
-      //   prevent tag from being removed (i.e. confirmation)
+      //   will prevent the tag from being removed (i.e. confirmation)
       this.tags = this.tags.filter(t => t !== tag)
       // return focus to the input (if possible)
       this.focus()
@@ -302,13 +341,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // Note, more than one tag on input event is possible via copy/paste
         this.addTag()
       } else if (newTag === '') {
-        this.duplicateTags = []
-        this.invalidTags = []
+        this.tagState = cleanTagState()
       } else {
         // Validate (parse tags) on input event
-        const { duplicate, invalid } = this.parseTags(newTag)
-        this.duplicateTags = duplicate
-        this.invalidTags = invalid
+        this.tagState = this.parseTags(newTag)
       }
     },
     onInputChange(evt) {
@@ -360,17 +396,22 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       })
     },
     // --- Private methods ---
-    parseTags(newTag) {
-      // Takes newTag value and parses it into validTags,
-      // invalidTags, and duplicate tags: as an object
+    splitTags(newTag) {
+      // Split the input into an array of raw tags
       newTag = toString(newTag)
       const separatorRe = this.computedSeparatorRegExp
       // Split the tag(s) via the optional separator
       // Normally only a single tag is provided, but copy/paste
       // can enter multiple tags in a single operation
-      const tags = (separatorRe ? newTag.split(separatorRe) : [newTag])
+      return (separatorRe ? newTag.split(separatorRe) : [newTag])
         .map(tag => tag.trim())
         .filter(identity)
+    },
+    parseTags(newTag) {
+      // Takes newTag value and parses it into validTags,
+      // invalidTags, and duplicate tags as an object
+      // Split the input into raw tags
+      const tags = this.splitTags(newTag)
       // Base results
       const parsed = {
         all: tags,
@@ -379,10 +420,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         duplicate: []
       }
       // Parse the unique tags
-      // TODO:
-      //   Possibly store the parsed object in data,
-      //   so we can make computed props for tagValid, tagDuplicate flags
-      //   and pass invalidTags and duplicateTags to the scoped lot
       tags.forEach(tag => {
         if (arrayIncludes(this.tags, tag) || arrayIncludes(parsed.valid, tag)) {
           // Unique duplicate tags
@@ -443,11 +480,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         inputHandlers: this.computedInputHandlers,
         // <input> :id="inputId"
         inputId: this.computedInputId,
-        // Ivvalid/Duplicate state information
+        // Invalid/Duplicate state information
         invalidTags: this.invalidTags.slice(),
         isInvalid: this.hasInvalidTags,
         duplicateTags: this.duplicateTags.slice(),
         isDuplicate: this.hasDuplicateTags,
+        // If the add buton should be disabled
+        disableAddButton: this.disableAddButton,
         // Pass-though values
         state: this.state,
         separator: this.separator,
@@ -492,6 +531,20 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         )
       })
 
+      // Feedback IDs if needed
+      const invalidFeedbackId = this.invalidTagText && this.hasInvalidTags
+        ? this.safeId('__invalid_feedback__')
+        : null
+      const duplicateFeedbackId = this.duplicateTagText && this.hasDuplicateTags
+        ? this.safeId('__duplicate_feedback__')
+        : null
+      // Compute the aria-describedby attribute value
+      const ariaDescribedby = [
+        this.computedInputAttrs['aria-describedby'],
+        invalidFeedbackId,
+        duplicateFeedbackId
+      ].filter(identity).join(' ')
+
       // Add default input and button
       const $input = h('input', {
         ref: 'input',
@@ -502,28 +555,23 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         style: { outline: 0, minWidth: '5rem' },
         attrs: {
           ...this.computedInputAttrs,
-          // TODO:
-          //   Add in aria-describedby atribute pointing to
-          //   feedback element IDs, if present below. Must
-          //   preserve any aria-describedby attribute provided
-          //   by the user in this.inputAttrs
+          'aria-describedby': ariaDescribedby || null,
           type: 'text',
           placeholder: this.placeholder || null
         },
         domProps: { value: this.newTag },
         on: this.computedInputHandlers
       })
-      const newTag = this.newTag.trim()
-      const hideButton = newTag.length === 0 || arrayIncludes(this.tags, newTag)
+      const hideButton = this.disableAddButton
       const $button = h(
         BButton,
         {
           ref: 'button',
           staticClass: 'b-form-tags-button py-0',
           class: {
-            // Only show the button if the tag can be added
-            // We use the `invisible` class to maintain layout
-            // to prevent the user input from jumping around
+            // Only show the button if the tag can be added. We use the
+            // `invisible` class instead of not rendering the button, so that
+            // we maintain layout to prevent the user input from jumping around
             invisible: hideButton
           },
           style: { fontSize: '90%' },
@@ -543,39 +591,41 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         )
       )
 
-      // Wrap in an unordered list element
+      // Ensure we have an array
+      $content = concat($content)
+
+      // Wrap in an unordered list element (we use a list for accesibility)
       $content = h(
         'ul',
         { staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center' },
         $content
       )
+      // Add invalid tag feedback if needed
+      if (invalidFeedbackId) {
+        const invalids = this.invalidTags.join(this.computedJoiner)
+        $content.push(
+          h(
+            BFormInvalidFeedback,
+            { props: { id: invalidFeedbackId, forceShow: true } },
+            [this.invalidTagText, ': ', invalids]
+          )
+        )
+      }
+
+      // Add duplicate tag feedback if needed (warning, not error)
+      if (duplicateFeedbackId) {
+        const duplicates = this.duplicateTags.join(this.computedJoiner)
+        $content.push(
+          h(BFormText, { props: { id: duplicateFeedbackId } }, [
+            this.duplicateTagText,
+            ': ',
+            duplicates
+          ])
+        )
+      }
     }
     // Ensure we have an array
     $content = concat($content)
-
-    // Add invalid tag feedback if needed
-    if (this.invalidTagText && this.hasInvalidTags) {
-      const invalids = this.invalidTags.join(this.computedJoiner)
-      $content.push(
-        h(
-          BFormInvalidFeedback,
-          { props: { ID: this.safeId('__invalid_feedback__'), forceShow: true } },
-          [this.invalidTagText, ': ', invalids]
-        )
-      )
-    }
-
-    // Add duplicate tag feedback if needed (warning, not error)
-    if (this.duplicateTagText && this.hasDuplicateTags) {
-      const duplicates = this.duplicateTags.join(this.computedJoiner)
-      $content.push(
-        h(BFormText, { props: { id: this.safeId('__duplicate_feedback__') } }, [
-          this.duplicateTagText,
-          ': ',
-          duplicates
-        ])
-      )
-    }
 
     // Add hidden inputs for form submission
     if (this.name) {
