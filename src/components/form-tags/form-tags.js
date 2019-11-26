@@ -133,12 +133,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     duplicateTagText: {
       // TODO: Move to config defaults
       type: String,
-      default: 'Duplicate tag(s)'
+      default: () => getComponentConfig(NAME, 'duplicateTagText')
     },
     invalidTagText: {
       // TODO: Move to config defaults
       type: String,
-      default: 'Invalid tag(s)'
+      default: () => getComponentConfig(NAME, 'invalidTagText')
     },
     separator: {
       // Character (or characters) that trigger adding tags
