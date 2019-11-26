@@ -615,7 +615,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           h(BFormText, { props: { id: duplicateFeedbackId } }, [
             this.duplicateTagText,
             ': ',
-            this.duplicateTags.join(this.computedJoiner
+            this.duplicateTags.join(this.computedJoiner)
           ])
         )
       }
