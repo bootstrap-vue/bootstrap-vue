@@ -151,8 +151,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
-    noAddOnChange: {
-      // Disable change event from triggering tag addition
+    addOnChange: {
+      // Enable change event triggering tag addition
+      // Handy if using <select> as the input
       type: Boolean,
       default: false
     },
@@ -343,8 +344,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     onInputChange(evt) {
       // Change is triggered on `<input>` blur, or `<select>` selected
-      // We listen to this event since ENTER on mobile is not always possible
-      if (!this.disabled && !this.noAddOnChange && isEvent(evt)) {
+      // This event is opt-in
+      if (!this.disabled && this.addOnChange && isEvent(evt)) {
         this.newTag = processEventValue(evt)
         this.addTag()
       }
