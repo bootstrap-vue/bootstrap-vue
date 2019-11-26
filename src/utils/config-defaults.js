@@ -92,6 +92,8 @@ export default deepFreeze({
   BFormTags: {
     addButtonText: 'Add',
     addButtonVariant: 'outline-secondary',
+    duplicateTagText: 'Duplicate tag(s)',
+    invalidTagText: 'Invalid tag(s)',
     placeholder: 'Add tag...',
     tagRemoveLabel: 'Remove tag',
     tagVariant: 'secondary'
