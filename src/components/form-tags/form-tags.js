@@ -247,12 +247,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     hasInvalidTags() {
       return this.invalidTags.length > 0
-    },
-    validTags() {
-      return this.tagsState.valid
-    },
-    hasValidTags() {
-      return this.validTags.length > 0
     }
   },
   watch: {
@@ -582,6 +576,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         },
         [this.normalizeSlot('add-button-text') || this.addButtonText]
       )
+
       $content.push(
         h(
           'li',
@@ -593,39 +588,39 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         )
       )
 
-      // Ensure we have an array
-      $content = concat($content)
-
       // Wrap in an unordered list element (we use a list for accesibility)
       $content = h(
         'ul',
         { staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center' },
         $content
       )
+
+      // Ensure we have an array
+      $content = concat($content)
+
       // Add invalid tag feedback if needed
       if (invalidFeedbackId) {
-        const invalids = this.invalidTags.join(this.computedJoiner)
         $content.push(
           h(BFormInvalidFeedback, { props: { id: invalidFeedbackId, forceShow: true } }, [
             this.invalidTagText,
             ': ',
-            invalids
+            this.invalidTags.join(this.computedJoiner)
           ])
         )
       }
 
       // Add duplicate tag feedback if needed (warning, not error)
       if (duplicateFeedbackId) {
-        const duplicates = this.duplicateTags.join(this.computedJoiner)
         $content.push(
           h(BFormText, { props: { id: duplicateFeedbackId } }, [
             this.duplicateTagText,
             ': ',
-            duplicates
+            this.duplicateTags.join(this.computedJoiner
           ])
         )
       }
     }
+
     // Ensure we have an array
     $content = concat($content)
 
