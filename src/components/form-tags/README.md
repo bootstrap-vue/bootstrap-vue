@@ -173,15 +173,74 @@ The hidden inputs will also be generated when using
 
 ## Tag validation
 
+By default, `<b-form-tags>` detects when the user is attempting to enter a (case-sensitive) duplicate
+tag, and will provide integrated feedback to the user.
+
 You can optionally provide a tag validator method via the `tag-validator` prop. The validator
 function will receive one argument which is the tag being added, and should return either `true` if
 the tag passes validation and can be added, or `false` if the tag fails validation (in which case it
-is not added to the array of tags).
+is not added to the array of tags). itegrated feedback will be provided to the user listing the
+invalid tag(s) that could not be added.
 
 Tag validation occurs only for tags added via user input. Changes to the tags via the `v-model` are
 not validated.
 
-## Detecting new, invalid, and duplicate tags
+```html
+<template>
+  <div>
+    <b-form-group :state="state" label="Tags validation example">
+      <b-form-tags
+        v-model="tags"
+        :state="state"
+        :tag-validator="tagValidator"
+        separator=" "
+        no-add-on-change
+      ></b-form-tags>
+      <!-- The following slots are for b-form-group -->
+      <template v-slot:invalid-feedback>
+        You must provide at least 3 tags and no more than 8
+      </template>
+      <template v-slot:description>
+        Tags must be 3 to 5 characters in length and all lower
+        case. Enter tags separated by spaces or press enter.
+      </template>
+    </b-form-group>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        tags: [],
+        dirty: false
+      }
+    },
+    computed: {
+      state() {
+        // Overall component validation state
+        return this.dirty ? (this.tags.length > 2 && this.tags.length < 9) : null
+      }
+    },
+    watch: {
+      tags(newVal, oldVal) {
+        // Set the dirty flag on first change to the tags array
+        this.dirty = true
+      }
+    },
+    methods: {
+      tagValidator(tag) {
+        // Individual tag validator function
+        return tag === tag.toLowerCase() && tag.length > 2 && tag.length < 6
+      }
+    }
+  }
+</script>
+
+<!-- b-form-tags-validation-feedback.vue -->
+```
+
+### Detecting new, invalid, and duplicate tags
 
 The event `new-tags` will be emitted whenever new tags are added, tags that do not pass validation,
 or duplicate tags are not added. The event handler will receive three arrays as it's arguments:
@@ -189,6 +248,14 @@ or duplicate tags are not added. The event handler will receive three arrays as 
 - `validTags` (tags that were successfully added)
 - `invalidTags` (tags that did not pass validation)
 - `duplicateTags` (tags that were not added as they would be a duplicate of existing or validTags).
+
+The event will be emiited only when a user attempts to add a tag (i.e. via <kbd>ENTER</kbd>, clicking
+the **Add** button, or entering a separator).
+
+If you are providing your own feedback for duplicate and invalid tags (via the use of the `new-tags`
+event) outside of the `<b-form-tags>` component, you can disable the built in duplicate and invalid
+messages by setting the props `duplicate-tag-text` and `invalid-tag-text` (respectively) to either an
+empty string (`''`) or `null`.
 
 ## Custom rendering with default scoped slot
 
@@ -211,6 +278,10 @@ The default slot scope properties are as follows:
 | `removeTag`        | Function                 | Method to remove a tag. Accepts one argument which is the tag value to remove                                                                          |
 | `addTag`           | Function                 | Method to add a new tag. Assumes the tag is the value of the input, but optionally accepts one argument which is the tag value to be added             |
 | `inputId`          | String                   | ID to add to the new tag input element. Defaults to prop `input-id`. If not provided a unique ID is auto-generated. Also available via 'inputAttrs.id' |
+| `isInvalid`        | Boolean                  | `true` if the user input contains invalid tag(s)                                                                                                       |
+| `invalidTags`      | Array                    | Array of the invalid tag(s) the user has entered                                                                                                       |
+| `isDuplicate`      | Boolean                  | `true` if the user input contains duplicate tag(s)                                                                                                     |
+| `duplicateTags`    | Array                    | Array of the duplicate tag(s) the user has entered                                                                                                     |
 | `disabled`         | Boolean                  | `true` if the component is in the disabled state. Value of the `disabled` prop                                                                         |
 | `state`            | Boolean                  | The contextual state of the component. Value of the `state` prop. Possible values are `true`, `false` or `null`                                        |
 | `size`             | String                   | The value of the `size` prop                                                                                                                           |
@@ -231,6 +302,10 @@ The `inputAttrs` object contains attributes to bind (`v-bind`) to the new tag in
 | `id`       | String  | the `id` attribute for the new tag input                                     |
 | `value`    | String  | The `value` attribute for the new tag input                                  |
 | `disabled` | Boolean | The `disabled` attribute for the new tag input. Value of the `disabled` prop |
+
+The `inputAttrs` object will also include any attributes set via the `input-attrs` prop. Note
+that the above attributes take precedence over any of the same attributes specified in the
+`input-attrs` prop.
 
 #### `inputHandlers` object properties
 
@@ -430,6 +505,27 @@ default slot's scope.
 
 <!-- form-tags-custom-components-advanced.vue -->
 ```
+
+If your component is using custom event names that mimic `input` and `change`, and need the
+`.native` modifier for keydown, you can do something similar to below to bind the event handlers:
+
+```html
+<template v-slot:default="{ inputAttrs, inputHandlers, removeTag, tags }">
+  <custom-input
+    :id="inputAttrs.id"
+    :value="inputAttrs.value"
+    @custom-input-event="inputHandlers.input($event)"
+    @custom-change-event="inputHandlers.change($event)"
+    @keydown.native="inputHandlers.keydown($event)"
+  ></custom-input>
+  <template v-for="tag in tags">
+    <!-- your custom tag list here -->
+  </template>
+</template>
+```
+
+The `inputHandlers.input` handler must be bound to an event that updates with each
+character typed by the user in order for _as-you-type_ tag validation.
 
 ### Creating wrapper components
 
