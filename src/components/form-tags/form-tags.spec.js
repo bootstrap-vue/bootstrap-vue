@@ -301,6 +301,7 @@ describe('form-tags', () => {
 
     $input.element.value = 'tag'
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['one', 'two'])
     expect(wrapper.vm.newTag).toEqual('tag')
     expect(wrapper.vm.duplicateTags).toEqual([])
@@ -316,6 +317,7 @@ describe('form-tags', () => {
 
     $input.element.value = 'tag '
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.duplicateTags).toEqual([])
@@ -326,6 +328,7 @@ describe('form-tags', () => {
 
     $input.element.value = 'thre'
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // invalid tags are left in the input
     expect(wrapper.vm.newTag).toEqual('thre')
@@ -341,6 +344,7 @@ describe('form-tags', () => {
 
     $input.element.value = 'three'
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual('three')
@@ -356,6 +360,7 @@ describe('form-tags', () => {
 
     $input.element.value = 'two'
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual('two')
@@ -371,6 +376,7 @@ describe('form-tags', () => {
 
     $input.element.value = ' three two '
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
@@ -383,6 +389,7 @@ describe('form-tags', () => {
     expect(wrapper.emitted('tag-state')[4][2]).toEqual(['two'])
 
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
@@ -390,6 +397,7 @@ describe('form-tags', () => {
 
     $input.element.value = '    '
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.newTag).toEqual('    ')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     expect(wrapper.emitted('tag-state').length).toBe(6)
