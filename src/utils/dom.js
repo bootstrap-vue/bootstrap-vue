@@ -74,10 +74,10 @@ export const eventOff = (el, evtName, handler, options) => {
   }
 }
 
-// remove a node from DOM
+// Remove a node from DOM
 export const removeNode = el => el && el.parentNode && el.parentNode.removeChild(el)
 
-// Determine if an element is an HTML Element
+// Determine if an element is an HTML element
 export const isElement = el => Boolean(el && el.nodeType === Node.ELEMENT_NODE)
 
 // Determine if an HTML element is visible - Faster than CSS check
