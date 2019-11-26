@@ -374,27 +374,33 @@ describe('form-tags', () => {
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
-    expect(wrapper.emitted('tag-state').length).toBe(4)
+    expect(wrapper.emitted('tag-state').length).toBe(5)
     // Tags added
-    expect(wrapper.emitted('tag-state')[3][0]).toEqual([])
+    expect(wrapper.emitted('tag-state')[4][0]).toEqual([])
     // Invalid tag
-    expect(wrapper.emitted('tag-state')[3][1]).toEqual(['three'])
+    expect(wrapper.emitted('tag-state')[4][1]).toEqual(['three'])
     // Duplicate tags
-    expect(wrapper.emitted('tag-state')[3][2]).toEqual(['two'])
+    expect(wrapper.emitted('tag-state')[4][2]).toEqual(['two'])
 
     $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
-    expect(wrapper.emitted('tag-state').length).toBe(4)
+    expect(wrapper.emitted('tag-state').length).toBe(5)
 
     $input.element.value = '    '
     $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('    ')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
-    expect(wrapper.emitted('tag-state').length).toBe(4)
+    expect(wrapper.emitted('tag-state').length).toBe(6)
     expect(wrapper.vm.duplicateTags).toEqual([])
     expect(wrapper.vm.invalidTags).toEqual([])
+    // Tags added
+    expect(wrapper.emitted('tag-state')[6][0]).toEqual([])
+    // Invalid tag
+    expect(wrapper.emitted('tag-state')[6][1]).toEqual([])
+    // Duplicate tags
+    expect(wrapper.emitted('tag-state')[6][2]).toEqual([])
 
     wrapper.destroy()
   })
