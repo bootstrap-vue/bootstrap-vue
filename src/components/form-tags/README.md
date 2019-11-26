@@ -169,7 +169,7 @@ name via the `name` prop. When a name is provided, `<b-form-tags>` will create a
 for each tag. The hidden input will have the `name` attribute set to the value of the `name` prop.
 
 The hidden inputs will also be generated when using
-[custom rendering](#custom-rendering-with-default-scoped-slot) (and the `name` prop is set).
+[custom rendering](#custom-rendering-with-default-scoped-slot) (when the `name` prop is set).
 
 ## Tag validation
 
