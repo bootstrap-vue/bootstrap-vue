@@ -178,9 +178,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       newTag: '',
       tags: [],
       // Populated when tags are parsed
-      tagsState: cleanTagState(),
-      duplicateTags: [],
-      invalidTags: []
+      tagsState: cleanTagState()
     }
   },
   computed: {
