@@ -42,8 +42,8 @@ const cleanTags = tags => {
 // Processes an input/change event, normalizing string or event argument
 const processEventValue = evt => (isString(evt) ? evt : isEvent(evt) ? evt.target.value || '' : '')
 
-// Returns a ffresh empty tagState object
-const cleanTagState = () => {
+// Returns a ffresh empty tagsState object
+const cleanTagsState = () => {
   return {
     all: [],
     valid: [],
@@ -178,7 +178,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       newTag: '',
       tags: [],
       // Populated when tags are parsed
-      tagsState: cleanTagState()
+      tagsState: cleanTagsState()
     }
   },
   computed: {
@@ -231,23 +231,25 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // If the input contains at least one tag that can
       // be added, then the Add button should be enabled
       const newTag = this.newTag.trim()
-      return newTag === '' ||
+      return (
+        newTag === '' ||
         !this.splitTags(newTag).some(t => !arrayIncludes(this.tags, t) && this.validateTag(t))
+      )
     },
     duplicateTags() {
-      return this.tagState.duplicate
+      return this.tagsState.duplicate
     },
     hasDuplicateTags() {
       return this.duplicateTags.length > 0
     },
     invalidTags() {
-      return this.tagState.invalid
+      return this.tagsState.invalid
     },
     hasInvalidTags() {
       return this.invalidTags.length > 0
     },
     validTags() {
-      return this.tagState.valid
+      return this.tagsState.valid
     },
     hasValidTags() {
       return this.validTags.length > 0
@@ -264,7 +266,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       }
     },
     tagsState(newVal, oldVal) {
-      // Emit a tag-state event when the tagState object changes
+      // Emit a tag-state event when the tagsState object changes
       if (!looseEqual(newVal, oldVal)) {
         this.$emit('tag-state', newVal.valid, newVal.invalid, newVal.duplicate)
       }
@@ -307,7 +309,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           .join(this.computedJoiner)
           .concat(invalidAndDups.length > 0 ? this.computedJoiner.charAt(0) : '')
       }
-      this.tagState = parsed
+      this.tagsState = parsed
     },
     removeTag(tag) {
       /* istanbul ignore next */
@@ -339,10 +341,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // Note, more than one tag on input event is possible via copy/paste
         this.addTag()
       } else if (newTag === '') {
-        this.tagState = cleanTagState()
+        this.tagsState = cleanTagsState()
       } else {
         // Validate (parse tags) on input event
-        this.tagState = this.parseTags(newTag)
+        this.tagsState = this.parseTags(newTag)
       }
     },
     onInputChange(evt) {
@@ -532,7 +534,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Feedback IDs if needed
       const invalidFeedbackId =
         this.invalidTagText && this.hasInvalidTags ? this.safeId('__invalid_feedback__') : null
-      const duplicateFeedbackId = 
+      const duplicateFeedbackId =
         this.duplicateTagText && this.hasDuplicateTags
           ? this.safeId('__duplicate_feedback__')
           : null
@@ -542,7 +544,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         invalidFeedbackId,
         duplicateFeedbackId
       ]
-        .filter(identity).join(' ')
+        .filter(identity)
+        .join(' ')
 
       // Add default input and button
       const $input = h('input', {
