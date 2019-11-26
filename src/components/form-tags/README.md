@@ -268,6 +268,7 @@ empty string (`''`) or `null`.
       :tag-validator="validator"
       placeholder="Enter tags (3-5 characters) separated by space"
       separator=" "
+      no-add-on-change
       @tag-state="onTagState"
     ></b-form-tags>
     <p>Tags: {{ tags }}</p>
@@ -297,7 +298,7 @@ empty string (`''`) or `null`.
         this.duplicateTags = duplicate
       },
       validator(tag) {
-        return tag.length > 2 and tag.length < 6
+        return tag.length > 2 && tag.length < 6
       }
     }
   }
