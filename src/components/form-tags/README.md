@@ -271,7 +271,7 @@ empty string (`''`) or `null`.
       no-add-on-change
       @tag-state="onTagState"
     ></b-form-tags>
-    <p>Tags: {{ tags }}</p>
+    <p class="mt-2">Tags: {{ tags }}</p>
     <p>Event values:</p>
     <ul>
         <li>validTags: {{ validTags }}</li>
