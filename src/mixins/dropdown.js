@@ -17,7 +17,8 @@ const ROOT_DROPDOWN_PREFIX = 'bv::dropdown::'
 const ROOT_DROPDOWN_SHOWN = `${ROOT_DROPDOWN_PREFIX}shown`
 const ROOT_DROPDOWN_HIDDEN = `${ROOT_DROPDOWN_PREFIX}hidden`
 
-// Delay when loosing focus before closing menu (in ms)
+// Delays for gaining/loosing focus before closing menu (in ms)
+const FOCUSIN_DELAY = 150
 const FOCUSOUT_DELAY = hasTouchSupport ? 450 : 150
 
 // Dropdown item CSS selectors
@@ -154,7 +155,7 @@ export default {
           // Reset value and exit if canceled
           this.visibleChangePrevented = true
           this.visible = oldValue
-          // Just in case a child element triggered this.hide(true)
+          // Just in case a child element triggered `this.hide(true)`
           this.$off('hidden', this.focusToggler)
           return
         }
@@ -386,27 +387,37 @@ export default {
         this.$once('hidden', this.focusToggler)
       }
     },
-    // Document click out listener
-    clickOutHandler(evt) {
+    // Handler
+    hideHandler(evt) {
       const target = evt.target
       if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
-        const doHide = () => {
-          this.visible = false
-          return null
-        }
+        this.clearHideTimeout()
         // When we are in a navbar (which has been responsively stacked), we
         // delay the dropdown's closing so that the next element has a chance
         // to have it's click handler fired (in case it's position moves on
         // the screen do to a navbar menu above it collapsing)
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
-        this.clearHideTimeout()
-        this.$_hideTimeout = this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
+        if (this.inNavbar) {
+          this.$_hideTimeout = setTimeout(() => {
+            this.clearHideTimeout()
+            this.hide()
+          }, FOCUSOUT_DELAY)
+        } else {
+          this.hide()
+        }
       }
     },
-    // Document focusin listener
+    // Document click-out listener
+    clickOutHandler(evt) {
+      this.hideHandler(evt)
+    },
+    // Document focus-in listener
     focusInHandler(evt) {
-      // Shared logic with click-out handler
-      this.clickOutHandler(evt)
+      this.clearHideTimeout()
+      this.$_hideTimeout = setTimeout(() => {
+        this.clearHideTimeout()
+        this.hideHandler(evt)
+      }, FOCUSIN_DELAY)
     },
     // Keyboard nav
     focusNext(evt, up) {
