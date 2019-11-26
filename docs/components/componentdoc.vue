@@ -121,7 +121,7 @@
       <div v-if="hasHtmlProps" class="alert alert-warning">
         <p class="mb-0 small">
           <strong>Caution:</strong> Props that support HTML strings
-          (<code class="notranslate" translate="no">*-html</code>) can be vulerable to
+          (<code class="notranslate" translate="no">*-html</code>) can be vulnerable to
           <b-link href="https://en.wikipedia.org/wiki/Cross-site_scripting" class="alert-link" target="_blank">
             Cross Site Scripting (XSS) attacks
           </b-link>
