@@ -643,7 +643,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       tagVariant: this.tagVariant,
       tagPills: this.tagPills,
       tagClass: this.tagClass,
-      addButtonText: this.addButtontext,
+      addButtonText: this.addButtonText,
       addButtonVariant: this.addButtonVariant,
       invalidTagText: this.invalidTagText,
       duplicateTagText: this.duplicateTagText
