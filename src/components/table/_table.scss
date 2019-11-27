@@ -361,7 +361,7 @@ $bv-escaped-characters: (("<", "%3c"), (">", "%3e"), ("#", "%23"));
 
 // --- Selectable rows ---
 .table.b-table {
-  &.b-table-selectable {
+  &.b-table-selectable:not(.b-table-selectable-no-click) {
     & > tbody > tr {
       cursor: pointer;
     }

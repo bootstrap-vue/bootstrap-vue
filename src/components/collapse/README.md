@@ -56,6 +56,10 @@ To make the `<b-collapse>` show initially, set the `visible` prop:
 <!-- b-collapse-visible.vue -->
 ```
 
+By default, an initially visible collapse will not animate on mount. To enable the collapse
+expanding animation on mount (when `visible` or `v-model` is `true`), set the `appear` prop on
+`<b-collapse>`.
+
 ## `v-model` support
 
 The component's collapsed (visible) state can also be set with `v-model` which binds internally to
@@ -70,14 +74,14 @@ support.
 <template>
   <div>
     <b-button
-      :class="showCollapse ? 'collapsed' : null"
-      :aria-expanded="showCollapse ? 'true' : 'false'"
+      :class="visible ? null : 'collapsed'"
+      :aria-expanded="visible ? 'true' : 'false'"
       aria-controls="collapse-4"
-      @click="showCollapse = !showCollapse"
+      @click="visible = !visible"
     >
       Toggle Collapse
     </b-button>
-    <b-collapse id="collapse-4" v-model="showCollapse" class="mt-2">
+    <b-collapse id="collapse-4" v-model="visible" class="mt-2">
       <b-card>I should start open!</b-card>
     </b-collapse>
   </div>
@@ -87,7 +91,7 @@ support.
   export default {
     data() {
       return {
-        showCollapse: true
+        visible: true
       }
     }
   }
@@ -256,6 +260,17 @@ To toggle (open/close) a **specific collapse**, pass the collapse `id`:
 ```js
 this.$root.$emit('bv::toggle::collapse', 'my-collapse-id')
 ```
+
+## Optionally scoped default slot
+
+<span class="badge badge-info small">New in v2.2.0</span>
+
+The default slot can be optionally scoped. The following scope properties are available:
+
+| Property   | Type     | Description                          |
+| ---------- | -------- | ------------------------------------ |
+| `visible`  | Boolean  | Visible state of the collapse        |
+| `close`    | Function | When called, will close the collapse |
 
 ## Accessibility
 

@@ -36,10 +36,10 @@ component in order to properly decorate the card header and remove the extra pad
   <b-card no-body>
     <b-tabs card>
       <b-tab title="Tab 1" active>
-        <b-card-text>Tab Contents 1</b-card-text>
+        <b-card-text>Tab contents 1</b-card-text>
       </b-tab>
       <b-tab title="Tab 2">
-        <b-card-text>Tab Contents 2</b-card-text>
+        <b-card-text>Tab contents 2</b-card-text>
       </b-tab>
     </b-tabs>
   </b-card>
@@ -102,8 +102,8 @@ variant.
 <div>
   <b-card no-body>
     <b-tabs pills card>
-      <b-tab title="Tab 1" active><b-card-text>Tab Contents 1</b-card-text></b-tab>
-      <b-tab title="Tab 2"><b-card-text>Tab Contents 2</b-card-text></b-tab>
+      <b-tab title="Tab 1" active><b-card-text>Tab contents 1</b-card-text></b-tab>
+      <b-tab title="Tab 2"><b-card-text>Tab contents 2</b-card-text></b-tab>
     </b-tabs>
   </b-card>
 </div>
@@ -175,8 +175,8 @@ Visually move the tab controls to the bottom by setting the prop `end`.
 <div>
   <b-card no-body>
     <b-tabs pills card end>
-      <b-tab title="Tab 1" active><b-card-text>Tab Contents 1</b-card-text></b-tab>
-      <b-tab title="Tab 2"><b-card-text>Tab Contents 2</b-card-text></b-tab>
+      <b-tab title="Tab 1" active><b-card-text>Tab contents 1</b-card-text></b-tab>
+      <b-tab title="Tab 2"><b-card-text>Tab contents 2</b-card-text></b-tab>
     </b-tabs>
   </b-card>
 </div>
@@ -202,9 +202,9 @@ tabs work with or without `card` mode enabled.
 <div>
   <b-card no-body>
     <b-tabs pills card vertical>
-      <b-tab title="Tab 1" active><b-card-text>Tab Contents 1</b-card-text></b-tab>
-      <b-tab title="Tab 2"><b-card-text>Tab Contents 2</b-card-text></b-tab>
-      <b-tab title="Tab 3"><b-card-text>Tab Contents 3</b-card-text></b-tab>
+      <b-tab title="Tab 1" active><b-card-text>Tab contents 1</b-card-text></b-tab>
+      <b-tab title="Tab 2"><b-card-text>Tab contents 2</b-card-text></b-tab>
+      <b-tab title="Tab 3"><b-card-text>Tab contents 3</b-card-text></b-tab>
     </b-tabs>
   </b-card>
 </div>
@@ -218,9 +218,9 @@ Visually move the tab controls to the right hand side by setting the `end` prop:
 <div>
   <b-card no-body>
     <b-tabs pills card vertical end>
-      <b-tab title="Tab 1" active><b-card-text>Tab Contents 1</b-card-text></b-tab>
-      <b-tab title="Tab 2"><b-card-text>Tab Contents 2</b-card-text></b-tab>
-      <b-tab title="Tab 3"><b-card-text>Tab Contents 3</b-card-text></b-tab>
+      <b-tab title="Tab 1" active><b-card-text>Tab contents 1</b-card-text></b-tab>
+      <b-tab title="Tab 2"><b-card-text>Tab contents 2</b-card-text></b-tab>
+      <b-tab title="Tab 3"><b-card-text>Tab contents 3</b-card-text></b-tab>
     </b-tabs>
   </b-card>
 </div>
@@ -237,9 +237,9 @@ column classes such as `col-2`, `col-3`, etc.
 <div>
   <b-card no-body>
     <b-tabs pills card vertical nav-wrapper-class="w-50">
-      <b-tab title="Tab 1" active><b-card-text>Tab Contents 1</b-card-text></b-tab>
-      <b-tab title="Tab 2"><b-card-text>Tab Contents 2</b-card-text></b-tab>
-      <b-tab title="Tab 3"><b-card-text>Tab Contents 3</b-card-text></b-tab>
+      <b-tab title="Tab 1" active><b-card-text>Tab contents 1</b-card-text></b-tab>
+      <b-tab title="Tab 2"><b-card-text>Tab contents 2</b-card-text></b-tab>
+      <b-tab title="Tab 3"><b-card-text>Tab contents 3</b-card-text></b-tab>
     </b-tabs>
   </b-card>
 </div>
@@ -290,7 +290,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
     <!-- Add your b-tab components here -->
     <template v-slot:tabs-end>
       <b-nav-item href="#" @click="() => {}">Another tab</b-nav-item>
-      <li class="nav-item align-self-center">Plain Text</li>
+      <li class="nav-item align-self-center">Plain text</li>
     </template>
   </b-tabs>
 </div>
@@ -314,16 +314,16 @@ Vue component, this possible by using `title` slot of `<b-tab>`.
   <b-tabs>
     <b-tab active>
       <template v-slot:title>
-        <b-spinner type="grow" small></b-spinner> I'm <i>Custom</i> <strong>Title</strong>
+        <b-spinner type="grow" small></b-spinner> I'm <i>custom</i> <strong>title</strong>
       </template>
-      <p class="p-3">Tab Contents 1</p>
+      <p class="p-3">Tab contents 1</p>
     </b-tab>
 
     <b-tab>
       <template v-slot:title>
         <b-spinner type="border" small></b-spinner> Tab 2
       </template>
-      <p class="p-3">Tab Contents 2</p>
+      <p class="p-3">Tab contents 2</p>
     </b-tab>
   </b-tabs>
 </div>
@@ -350,9 +350,9 @@ need to accommodate your custom classes for this._
   <div>
     <b-card no-body>
       <b-tabs v-model="tabIndex" card>
-        <b-tab title="Tab 1" :title-link-class="linkClass(0)">Tab Contents 1</b-tab>
-        <b-tab title="Tab 2" :title-link-class="linkClass(1)">Tab Contents 2</b-tab>
-        <b-tab title="Tab 3" :title-link-class="linkClass(2)">Tab Contents 3</b-tab>
+        <b-tab title="Tab 1" :title-link-class="linkClass(0)">Tab contents 1</b-tab>
+        <b-tab title="Tab 2" :title-link-class="linkClass(1)">Tab contents 2</b-tab>
+        <b-tab title="Tab 3" :title-link-class="linkClass(2)">Tab contents 3</b-tab>
       </b-tabs>
     </b-card>
   </div>
@@ -380,6 +380,39 @@ need to accommodate your custom classes for this._
 <!-- b-tabs-with-classes.vue -->
 ```
 
+## Lazy loading tab content
+
+Sometimes it's preferred to load components & data only when activating a tab, instead of loading
+all tabs (and associated data) when rendering the `<b-tabs>` set.
+
+Individual `<b-tab>` components can be lazy loaded via the `lazy` prop, which when set doesn't mount
+the content of the `<b-tab>` until it is activated (shown), and will be un-mounted when the tab is
+deactivated (hidden):
+
+```html
+<b-tabs content-class="mt-3">
+  <!-- This tabs content will always be mounted -->
+  <b-tab title="Regular tab"><b-alert show>I'm always mounted</b-alert></b-tab>
+
+  <!-- This tabs content will not be mounted until the tab is shown -->
+  <!-- and will be un-mounted when hidden -->
+  <b-tab title="Lazy tab" lazy><b-alert show>I'm lazy mounted!</b-alert></b-tab>
+</b-tabs>
+
+<!-- b-tabs-lazy-tab.vue -->
+```
+
+One can also make all tab's lazy by setting the `lazy` prop on the parent `<b-tabs>` component:
+
+```html
+<b-tabs content-class="mt-3" lazy>
+  <b-tab title="Tab 1"><b-alert show>I'm lazy mounted!</b-alert></b-tab>
+  <b-tab title="Tab 2"><b-alert show>I'm lazy mounted too!</b-alert></b-tab>
+</b-tabs>
+
+<!-- b-tabs-lazy.vue -->
+```
+
 ## Keyboard navigation
 
 Keyboard navigation is enabled by default for ARIA compliance with tablists when a tab button has
@@ -399,11 +432,11 @@ focus.
 Disable keyboard navigation by setting the prop `no-key-nav`. Behavior will now default to regular
 browser navigation with TAB key.
 
-| Keypress                        | Action                                                 |
-| ------------------------------- | ------------------------------------------------------ |
-| <kbd>TAB</kbd>                  | Move to the next tab button or control on the page     |
-| <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Move to the previous tab button or control on the page |
-| <kbd>ENTER</kbd>                | Activate current focused button's tab                  |
+| Keypress                             | Action                                                 |
+| ------------------------------------ | ------------------------------------------------------ |
+| <kbd>TAB</kbd>                       | Move to the next tab button or control on the page     |
+| <kbd>SHIFT</kbd>+<kbd>TAB</kbd>      | Move to the previous tab button or control on the page |
+| <kbd>ENTER</kbd> or <kbd>SPACE</kbd> | Activate current focused button's tab                  |
 
 ## Programmatically activating and deactivating tabs
 
@@ -418,6 +451,23 @@ methods are `.activate()` and `.deactivate()`, respectively. If activation or de
 (i.e. a tab is disabled or no tab is available to move activation to), then the currently active tab
 will remain active and the method will return `false`. You will need a reference to the `<b-tab>` in
 order to use these methods.
+
+## Preventing a `<b-tab>` from being activated
+
+To prevent a tab from activating, simply set the `disabled` prop on the `<b-tab>` component.
+
+Alternatively, you can listen for the `activate-tab` event, which provides an option to prevent the
+tab from activating. The `activate-tab` event is emitted with three arguments:
+
+- `newTabIndex`: The index of the tab that is going to be activated
+- `prevTabIndex`: The index of the currently active tab
+- `bvEvent`: The `BvEvent` object. Call `bvEvt.preventDefault()` to prevent `newTabIndex` from being
+  activated
+
+For accessibility reasons, when using the `activate-tab` event to prevent a tab from activating, you
+should provide some means of notification to the user as to why the tab is not able to be activated.
+It is recommended to use the `disabled` attribute on the `<b-tab>` component instead of using the
+`activate-tab` event (as `disabled` is more intuitive for screen reader users).
 
 ## Advanced examples
 
@@ -473,7 +523,7 @@ order to use these methods.
       <b-tabs card>
         <!-- Render Tabs, supply a unique `key` to each tab -->
         <b-tab v-for="i in tabs" :key="'dyn-tab-' + i" :title="'Tab ' + i">
-          Tab Contents {{ i }}
+          Tab contents {{ i }}
           <b-button size="sm" variant="danger" class="float-right" @click="closeTab(i)">
             Close tab
           </b-button>

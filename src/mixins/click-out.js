@@ -1,5 +1,7 @@
 import { contains, eventOff, eventOn } from '../utils/dom'
 
+const eventOptions = { passive: true, capture: false }
+
 // @vue/component
 export default {
   data() {
@@ -10,9 +12,9 @@ export default {
   watch: {
     listenForClickOut(newValue, oldValue) {
       if (newValue !== oldValue) {
-        eventOff(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, false)
+        eventOff(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, eventOptions)
         if (newValue) {
-          eventOn(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, false)
+          eventOn(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, eventOptions)
         }
       }
     }
@@ -30,11 +32,11 @@ export default {
       this.clickOutEventName = 'ontouchstart' in document.documentElement ? 'touchstart' : 'click'
     }
     if (this.listenForClickOut) {
-      eventOn(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, false)
+      eventOn(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, eventOptions)
     }
   },
   beforeDestroy() /* istanbul ignore next */ {
-    eventOff(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, false)
+    eventOff(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, eventOptions)
   },
   methods: {
     isClickOut(evt) {

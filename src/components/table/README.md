@@ -242,7 +242,7 @@ The following field properties are recognized:
 | `class`             | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                                                                                                                               |
 | `formatter`         | String or Function          | A formatter callback function or name of a method in your component, can be used instead of (or in conjunction with) scoped field slots. The formatter will be called with the syntax `formatter(value, key, item)`. Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                                                                                   |
 | `sortable`          | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                                                                                                                                         |
-| `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#Change-initial-sort-direction) Section for more details.                                                                                                                                                                                                                                                      |
+| `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#change-initial-sort-direction) Section for more details.                                                                                                                                                                                                                                                      |
 | `sortByFormatted`   | Boolean or Function         | Sort the column by the result of the field's `formatter` callback function when set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value for sorting purposes only. Refer to the [Sorting](#sorting) Section for more details.                                                                                  |
 | `filterByFormatted` | Boolean or Function         | Filter the column by the result of the field's `formatter` callback function when set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value for filtering purposes only. Refer to the [Filtering](#filtering) section for more details.                                                                          |
 | `tdClass`           | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead. The function will be called as `tdClass(value, key, item)` and it must return an `Array` or `String`.                                                                                                                                            |
@@ -252,7 +252,7 @@ The following field properties are recognized:
 | `tdAttr`            | Object or Function          | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead. The function will be called as `tdAttr(value, key, item)` and it must return an `Object`.                                                                                                                                             |
 | `thAttr`            | Object or Function          | JavaScript object representing additional attributes to apply to the field's `<thead>`/`<tfoot>` heading `<th>` cell. If the field's `isRowHeader` is set to `true`, the attributes will also apply to the `<tbody>` field `<th>` cell. If custom attributes per cell are required, a callback function can be specified instead. The function will be called as `thAttr(value, key, item, type)` and it must return an `Object`. |
 | `isRowHeader`       | Boolean                     | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.                                                                                                                                                                                                                                                                                                                    |
-| `stickyColumn`      | Boolean                     | When set to `true`, and the table in in [responsive](#responsive-tables) mode or has [sticky headers](#sticky-headers), will cause the column to become fixed to the left when the table's horizontal scrollbar is scrolled. See [Sticky columns](#sticky-columns) for more details                                                                                                                                               |
+| `stickyColumn`      | Boolean                     | When set to `true`, and the table in [responsive](#responsive-tables) mode or has [sticky headers](#sticky-headers), will cause the column to become fixed to the left when the table's horizontal scrollbar is scrolled. See [Sticky columns](#sticky-columns) for more details                                                                                                                                                  |
 
 **Notes:**
 
@@ -890,9 +890,12 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                           |
 | `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's [`formatter` function](#formatter-callback)                |
 | `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's [`formatter` function](#formatter-callback) |
+| `field`          | Object   | The field's normalized field definition object                                                                                                                            |
 | `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [Row details support](#row-details-support) below for additional information                |
 | `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information    |
 | `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [Row select support](#row-select-support) for additional information                                             |
+| `selectRow`      | Function | When called, selects the current row. See section [Row select support](#row-select-support) for additional information                                                    |
+| `unselectRow`    | Function | When called, unselects the current row. See section [Row select support](#row-select-support) for additional information                                                  |
 
 **Notes:**
 
@@ -1406,12 +1409,17 @@ for proper reactive detection of changes to it's value. Read more about
 
 **Available `row-details` scoped variable properties:**
 
-| Property        | Type     | Description                                                               |
-| --------------- | -------- | ------------------------------------------------------------------------- |
-| `item`          | Object   | The entire row record data object                                         |
-| `index`         | Number   | The current visible row number                                            |
-| `fields`        | Array    | The normalized fields definition array (in the _array of objects_ format) |
-| `toggleDetails` | Function | Function to toggle visibility of the row's details slot                   |
+| Property        | Type     | Description                                                                                                                   |
+| --------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `item`          | Object   | The entire row record data object                                                                                             |
+| `index`         | Number   | The current visible row number                                                                                                |
+| `fields`        | Array    | The normalized fields definition array (in the _array of objects_ format)                                                     |
+| `toggleDetails` | Function | Function to toggle visibility of the row's details slot                                                                       |
+| `rowSelected`   | Boolean  | Will be `true` if the row has been selected. See section [Row select support](#row-select-support) for additional information |
+| `selectRow`     | Function | When called, selects the current row. See section [Row select support](#row-select-support) for additional information        |
+| `unselectRow`   | Function | When called, unselects the current row. See section [Row select support](#row-select-support) for additional information      |
+
+Note: the row select related scope properties are only available in `<b-table>`.
 
 In the following example, we show two methods of toggling the visibility of the details: one via a
 button, and one via a checkbox. We also have the third row details defaulting to have details
@@ -1509,6 +1517,8 @@ Rows can also be programmatically selected and unselected via the following expo
 - In `single` mode, `selectRow(index)` will unselect any previous selected row.
 - Attempting to `selectRow(index)` or `unselectRow(index)` on a non-existent row will be ignored.
 - The table must be `selectable` for any of these methods to have effect.
+- You can disable selection of rows via click events by setting the `no-select-on-click` prop. Rows
+  will then only be selectable programmatically.
 
 **Row select notes:**
 
@@ -1540,12 +1550,12 @@ example).
 
 The `selected-variant` can be any of the
 [standard (or custom) bootstrap base color variants](/docs/reference/color-variants), or the special
-[table `active` variant](/docs/reference/color-variants#table-variants) which takes precedence over
-any specific row or cell variants.
+[table `active` variant](/docs/reference/color-variants#table-variants) (the default) which takes
+precedence over any specific row or cell variants.
 
 For accessibility reasons (specifically for color blind users, or users with color contrast issues),
 it is highly recommended to always provide some other visual means of conveying that a row is
-selected, such as shown in the example below.
+selected, such as a virtual column as shown in the example below.
 
 ```html
 <template>
@@ -1558,7 +1568,6 @@ selected, such as shown in the example below.
       ref="selectableTable"
       selectable
       :select-mode="selectMode"
-      selected-variant="active"
       :items="items"
       :fields="fields"
       @row-selected="onRowSelected"
@@ -1932,7 +1941,7 @@ sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` 
 **Notes:**
 
 - Refer to
-  [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/enUS/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
+  [MDN `String.prototype.localeCompare()` documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)
   for details on the options object property values.
 - Refer to
   [MDN locales documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument)
@@ -2124,6 +2133,9 @@ When local filtering is applied, and the resultant number of items change, `<b-t
 Setting the prop `filter` to null or an empty string will clear local items filtering.
 
 ### Debouncing filter criteria changes
+
+<span class="badge badge-warning small">deprecated in v2.1.0</span> Use the `debounce` feature of
+[`<b-form-input>`](/docs/components/form-input#debounce-support) instead.
 
 If you have a text input tied to the `filter` prop of `<b-table>`, the filtering process will occur
 for each character typed by the user. With large items datasets, this process can take a while and
@@ -2332,8 +2344,9 @@ of records.
   respective `no-provider-*` prop set to `true`).
 - The `no-local-sorting` prop has no effect when `items` is a provider function.
 - When using provider filtering, you may find that setting the
-  [`filter-debounce` prop](#debouncing-filter-criteria-changes) to a value greater than `100` ms
-  will help minimize the number of calls to your back end API as the user types in the criteria.
+  [`debounce` prop on `<b-form-input>`](/docs/components/form-input#debounce-support) to a value
+  greater than `100` ms will help minimize the number of calls to your back end API as the user
+  types in the criteria.
 
 ### Force refreshing of table data
 
@@ -2757,10 +2770,11 @@ cells.
 
 ### Data row accessibility
 
-When the table is in `selectable` mode (`<b-table>` only), or if there is a `row-clicked` event
-listener registered (`<b-table>` and `<b-table-lite>`), all data item rows (`<tr>` elements) will be
-placed into the document tab sequence (via `tabindex="0"`) to allow keyboard-only and screen reader
-users the ability to click the rows by pressing <kbd>ENTER</kbd>.
+When the table is in `selectable` mode (`<b-table>` only, and prop `no-select-on-click` is not set),
+or if there is a `row-clicked` event listener registered (`<b-table>` and `<b-table-lite>`), all
+data item rows (`<tr>` elements) will be placed into the document tab sequence (via `tabindex="0"`)
+to allow keyboard-only and screen reader users the ability to click the rows by pressing
+<kbd>ENTER</kbd> or <kbd>SPACE</kbd>.
 
 When the table items rows are placed in the document tab sequence (`<b-table>` and
 `<b-table-lite>`), they will also support basic keyboard navigation when focused:
@@ -2770,8 +2784,6 @@ When the table items rows are placed in the document tab sequence (`<b-table>` a
 - <kbd>END</kbd> or <kbd>DOWN</kbd>+<kbd>SHIFT</kbd> will move to the last row
 - <kbd>HOME</kbd> or <kbd>UP</kbd>+<kbd>SHIFT</kbd> will move to the first row
 - <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row.
-- <kbd>SHIFT</kbd> and <kbd>CTRL</kbd> modifiers will also work (depending on the table selectable
-  mode, for `<b-table>` only).
 
 ### Row event accessibility
 

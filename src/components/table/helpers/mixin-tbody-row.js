@@ -10,7 +10,11 @@ const detailsSlotName = 'row-details'
 export default {
   props: {
     tbodyTrClass: {
-      type: [String, Array, Function],
+      type: [String, Array, Object, Function],
+      default: null
+    },
+    detailsTdClass: {
+      type: [String, Array, Object],
       default: null
     }
   },
@@ -85,6 +89,22 @@ export default {
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const formatted = this.getFormattedValue(item, field)
       const key = field.key
+      const stickyColumn =
+        !this.isStacked && (this.isResponsive || this.stickyHeader) && field.stickyColumn
+      // We only uses the helper components for sticky columns to
+      // improve performance of BTable/BTableLite by reducing the
+      // total number of vue instances created during render
+      const cellTag = stickyColumn
+        ? field.isRowHeader
+          ? BTh
+          : BTd
+        : field.isRowHeader
+          ? 'th'
+          : 'td'
+      const cellVariant =
+        item._cellVariants && item._cellVariants[key]
+          ? item._cellVariants[key]
+          : field.variant || null
       const data = {
         // For the Vue key, we concatenate the column index and
         // field key (as field keys could be duplicated)
@@ -92,19 +112,31 @@ export default {
         //   So we could change this to: `row-${rowIndex}-cell-${key}`
         key: `row-${rowIndex}-cell-${colIndex}-${key}`,
         class: [field.class ? field.class : '', this.getTdValues(item, key, field.tdClass, '')],
-        props: {
-          stackedHeading: this.isStacked ? field.label : null,
-          stickyColumn: field.stickyColumn,
-          variant:
-            item._cellVariants && item._cellVariants[key]
-              ? item._cellVariants[key]
-              : field.variant || null
-        },
+        props: {},
         attrs: {
           'aria-colindex': String(colIndex + 1),
           ...(field.isRowHeader
             ? this.getThValues(item, key, field.thAttr, 'row', {})
             : this.getTdValues(item, key, field.tdAttr, {}))
+        }
+      }
+      if (stickyColumn) {
+        // We are using the helper BTd or BTh
+        data.props = {
+          stackedHeading: this.isStacked ? field.label : null,
+          stickyColumn: true,
+          variant: cellVariant
+        }
+      } else {
+        // Using native TD or TH element, so we need to
+        // add in the attributes and variant class
+        data.attrs['data-label'] =
+          this.isStacked && !isUndefinedOrNull(field.label) ? toString(field.label) : null
+        data.attrs.role = field.isRowHeader ? 'rowheader' : 'cell'
+        data.attrs.scope = field.isRowHeader ? 'row' : null
+        // Add in the variant class
+        if (cellVariant) {
+          data.class.push(`${this.dark ? 'bg' : 'table'}-${cellVariant}`)
         }
       }
       const slotScope = {
@@ -116,9 +148,12 @@ export default {
         toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item),
         detailsShowing: Boolean(item._showDetails)
       }
-      if (this.selectedRows) {
-        // Add in rowSelected scope property if selectable rows supported
+      // If table supports selectable mode, then add in the following scope
+      // this.supportsSelectableRows will be undefined if mixin isn't loaded
+      if (this.supportsSelectableRows) {
         slotScope.rowSelected = this.isRowSelected(rowIndex)
+        slotScope.selectRow = () => this.selectRow(rowIndex)
+        slotScope.unselectRow = () => this.unselectRow(rowIndex)
       }
       // The new `v-slot` syntax doesn't like a slot name starting with
       // a square bracket and if using in-document HTML templates, the
@@ -135,7 +170,7 @@ export default {
         $childNodes = [h('div', {}, [$childNodes])]
       }
       // Render either a td or th cell
-      return h(field.isRowHeader ? BTh : BTd, data, [$childNodes])
+      return h(cellTag, data, [$childNodes])
     },
     renderTbodyRow(item, rowIndex) {
       // Renders an item's row (or rows if details supported)
@@ -144,7 +179,7 @@ export default {
       const tableStriped = this.striped
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const rowShowDetails = Boolean(item._showDetails && hasDetailsSlot)
-      const hasRowClickHandler = this.$listeners['row-clicked'] || this.isSelectable
+      const hasRowClickHandler = this.$listeners['row-clicked'] || this.hasSelectableRowClick
 
       // We can return more than one TR if rowDetails enabled
       const $rows = []
@@ -170,12 +205,12 @@ export default {
       // rows index within the tbody.
       // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
       const primaryKey = this.primaryKey
-      const hasPkValue = primaryKey && !isUndefinedOrNull(item[primaryKey])
-      const rowKey = hasPkValue ? toString(item[primaryKey]) : String(rowIndex)
+      const primaryKeyValue = toString(get(item, primaryKey)) || null
+      const rowKey = primaryKeyValue || String(rowIndex)
 
       // If primary key is provided, use it to generate a unique ID on each tbody > tr
       // In the format of '{tableId}__row_{primaryKeyValue}'
-      const rowId = hasPkValue ? this.safeId(`_row_${item[primaryKey]}`) : null
+      const rowId = primaryKeyValue ? this.safeId(`_row_${primaryKeyValue}`) : null
 
       // Selectable classes and attributes
       const selectableClasses = this.selectableRowClasses ? this.selectableRowClasses(rowIndex) : {}
@@ -198,8 +233,7 @@ export default {
             attrs: {
               id: rowId,
               tabindex: hasRowClickHandler ? '0' : null,
-              'data-pk': rowId ? String(item[primaryKey]) : null,
-              // Should this be `aria-details` instead?
+              'data-pk': primaryKeyValue || null,
               'aria-details': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
@@ -223,16 +257,24 @@ export default {
           fields: fields,
           toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item)
         }
+        // If table supports selectable mode, then add in the following scope
+        // this.supportsSelectableRows will be undefined if mixin isn't loaded
+        if (this.supportsSelectableRows) {
+          detailsScope.rowSelected = this.isRowSelected(rowIndex)
+          detailsScope.selectRow = () => this.selectRow(rowIndex)
+          detailsScope.unselectRow = () => this.unselectRow(rowIndex)
+        }
 
         // Render the details slot in a TD
-        const $details = h(BTd, { props: { colspan: fields.length } }, [
+        const $details = h(BTd, { props: { colspan: fields.length }, class: this.detailsTdClass }, [
           this.normalizeSlot(detailsSlotName, detailsScope)
         ])
 
         // Add a hidden row to keep table row striping consistent when details showing
+        // Only added if the table is striped
         if (tableStriped) {
           $rows.push(
-            // We don't use `BTr` here as we dont need the extra functionality
+            // We don't use `BTr` here as we don't need the extra functionality
             h('tr', {
               key: `__b-table-details-stripe__${rowKey}`,
               staticClass: 'd-none',

@@ -33,9 +33,9 @@ export default {
       h(AnchoredHeading, { props: { id: 'component-reference' } }, 'Component reference'),
       // Component reference information
       ...this.meta.components.map(
-        ({ component, events, rootEventListeners, slots, aliases, props: propsMeta }) =>
+        ({ component, events, rootEventListeners, slots, aliases, props: propsMeta, version }) =>
           h(Componentdoc, {
-            props: { component, events, rootEventListeners, slots, aliases, propsMeta }
+            props: { component, events, rootEventListeners, slots, aliases, propsMeta, version }
           })
       ),
       // Component importing information

@@ -1,5 +1,6 @@
 import looseEqual from '../../../utils/loose-equal'
 import { isArray, isFunction, isNull, isString, isUndefined } from '../../../utils/inspect'
+import { clone } from '../../../utils/object'
 import normalizeFields from './normalize-fields'
 
 export default {
@@ -50,7 +51,7 @@ export default {
       const parent = this.$parent
       return this.computedFields.reduce((obj, f) => {
         // We use object spread here so we don't mutate the original field object
-        obj[f.key] = { ...f }
+        obj[f.key] = clone(f)
         if (f.formatter) {
           // Normalize formatter to a function ref or `undefined`
           let formatter = f.formatter

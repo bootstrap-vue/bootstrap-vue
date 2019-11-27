@@ -2,8 +2,11 @@ import Popper from 'popper.js'
 import KeyCodes from '../utils/key-codes'
 import warn from '../utils/warn'
 import { BvEvent } from '../utils/bv-event.class'
-import { closest, contains, isVisible, requestAF, selectAll, eventOn, eventOff } from '../utils/dom'
+import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
+import { hasTouchSupport } from '../utils/env'
 import { isNull } from '../utils/inspect'
+import clickOutMixin from './click-out'
+import focusInMixin from './focus-in'
 import idMixin from './id'
 
 // Return an array of visible items
@@ -15,7 +18,7 @@ const ROOT_DROPDOWN_SHOWN = `${ROOT_DROPDOWN_PREFIX}shown`
 const ROOT_DROPDOWN_HIDDEN = `${ROOT_DROPDOWN_PREFIX}hidden`
 
 // Delay when loosing focus before closing menu (in ms)
-const FOCUSOUT_DELAY = 100
+const FOCUSOUT_DELAY = hasTouchSupport ? 450 : 150
 
 // Dropdown item CSS selectors
 const Selector = {
@@ -47,7 +50,7 @@ const AttachmentMap = {
 
 // @vue/component
 export default {
-  mixins: [idMixin],
+  mixins: [idMixin, clickOutMixin, focusInMixin],
   provide() {
     return {
       bvDropdown: this
@@ -171,18 +174,21 @@ export default {
   },
   created() {
     // Create non-reactive property
-    this._popper = null
+    this.$_popper = null
+    this.$_hideTimeout = null
+    this.$_noop = () => {}
   },
   deactivated() /* istanbul ignore next: not easy to test */ {
     // In case we are inside a `<keep-alive>`
     this.visible = false
     this.whileOpenListen(false)
-    this.removePopper()
+    this.destroyPopper()
   },
   beforeDestroy() {
     this.visible = false
     this.whileOpenListen(false)
-    this.removePopper()
+    this.destroyPopper()
+    this.clearHideTimeout()
   },
   methods: {
     // Event emitter
@@ -235,18 +241,25 @@ export default {
       this.whileOpenListen(false)
       this.$root.$emit(ROOT_DROPDOWN_HIDDEN, this)
       this.$emit('hidden')
-      this.removePopper()
+      this.destroyPopper()
     },
     createPopper(element) {
-      this.removePopper()
-      this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
+      this.destroyPopper()
+      this.$_popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
-    removePopper() {
-      if (this._popper) {
+    destroyPopper() {
+      if (this.$_popper) {
         // Ensure popper event listeners are removed cleanly
-        this._popper.destroy()
+        this.$_popper.destroy()
       }
-      this._popper = null
+      this.$_popper = null
+    },
+    clearHideTimeout() {
+      /* istanbul ignore next */
+      if (this.$_hideTimeout) {
+        clearTimeout(this.$_hideTimeout)
+        this.$_hideTimeout = null
+      }
     },
     getPopperConfig() {
       let placement = AttachmentMap.BOTTOM
@@ -271,17 +284,15 @@ export default {
       }
       return { ...popperConfig, ...(this.popperOpts || {}) }
     },
+    // Turn listeners on/off while open
     whileOpenListen(isOpen) {
-      // turn listeners on/off while open
-      if (isOpen) {
-        // If another dropdown is opened
-        this.$root.$on(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
-        // Hide the menu when focus moves out
-        eventOn(this.$el, 'focusout', this.onFocusOut, { passive: true })
-      } else {
-        this.$root.$off(ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
-        eventOff(this.$el, 'focusout', this.onFocusOut, { passive: true })
-      }
+      // Hide the dropdown when clicked outside
+      this.listenForClickOut = isOpen
+      // Hide the dropdown when it loses focus
+      this.listenForFocusIn = isOpen
+      // Hide the dropdown when another dropdown is opened
+      const method = isOpen ? '$on' : '$off'
+      this.$root[method](ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
     },
     rootCloseListener(vm) {
       if (vm !== this) {
@@ -375,26 +386,27 @@ export default {
         this.$once('hidden', this.focusToggler)
       }
     },
-    // Dropdown wrapper focusOut handler
-    onFocusOut(evt) {
-      // `relatedTarget` is the element gaining focus
-      const relatedTarget = evt.relatedTarget
-      // If focus moves outside the menu or toggler, then close menu
-      if (
-        this.visible &&
-        !contains(this.$refs.menu, relatedTarget) &&
-        !contains(this.toggler, relatedTarget)
-      ) {
+    // Document click out listener
+    clickOutHandler(evt) {
+      const target = evt.target
+      if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
         const doHide = () => {
           this.visible = false
+          return null
         }
         // When we are in a navbar (which has been responsively stacked), we
         // delay the dropdown's closing so that the next element has a chance
         // to have it's click handler fired (in case it's position moves on
         // the screen do to a navbar menu above it collapsing)
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
-        this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
+        this.clearHideTimeout()
+        this.$_hideTimeout = this.inNavbar ? setTimeout(doHide, FOCUSOUT_DELAY) : doHide()
       }
+    },
+    // Document focusin listener
+    focusInHandler(evt) {
+      // Shared logic with click-out handler
+      this.clickOutHandler(evt)
     },
     // Keyboard nav
     focusNext(evt, up) {

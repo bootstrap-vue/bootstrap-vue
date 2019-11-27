@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 
 // Mixins
+import hasListenerMixin from '../../mixins/has-listener'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
@@ -24,6 +25,7 @@ export const BTableLite = /*#__PURE__*/ Vue.extend({
   // They are merged from first to last, followed by this component.
   mixins: [
     // Required mixins
+    hasListenerMixin,
     idMixin,
     normalizeSlotMixin,
     itemsMixin,

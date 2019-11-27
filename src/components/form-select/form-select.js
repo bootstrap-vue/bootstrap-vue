@@ -1,13 +1,15 @@
 import Vue from '../../utils/vue'
+import { from as arrayFrom, isArray } from '../../utils/array'
+import { htmlOrText } from '../../utils/html'
 import idMixin from '../../mixins/id'
-import formOptionsMixin from '../../mixins/form-options'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { from as arrayFrom } from '../../utils/array'
-import { htmlOrText } from '../../utils/html'
+import optionsMixin from './helpers/mixin-options'
+import { BFormSelectOption } from './form-select-option'
+import { BFormSelectOptionGroup } from './form-select-option-group'
 
 // @vue/component
 export const BFormSelect = /*#__PURE__*/ Vue.extend({
@@ -19,7 +21,7 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
     formSizeMixin,
     formStateMixin,
     formCustomMixin,
-    formOptionsMixin
+    optionsMixin
   ],
   model: {
     prop: 'value',
@@ -88,13 +90,6 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const options = this.formOptions.map((option, index) => {
-      return h('option', {
-        key: `option_${index}_opt`,
-        attrs: { disabled: Boolean(option.disabled) },
-        domProps: { ...htmlOrText(option.html, option.text), value: option.value }
-      })
-    })
     return h(
       'select',
       {
@@ -132,7 +127,21 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
           }
         }
       },
-      [this.normalizeSlot('first'), options, this.normalizeSlot('default')]
+      [
+        this.normalizeSlot('first'),
+        this.formOptions.map((option, index) => {
+          const key = `option_${index}_opt`
+          const options = option.options
+          return isArray(options)
+            ? h(BFormSelectOptionGroup, { props: { label: option.label, options }, key })
+            : h(BFormSelectOption, {
+                props: { value: option.value, disabled: option.disabled },
+                domProps: htmlOrText(option.html, option.text),
+                key
+              })
+        }),
+        this.normalizeSlot('default')
+      ]
     )
   }
 })

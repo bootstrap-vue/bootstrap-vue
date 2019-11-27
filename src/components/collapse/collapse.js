@@ -3,15 +3,14 @@ import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { isBrowser } from '../../utils/env'
+import { BVCollapse } from '../../utils/bv-collapse'
 import {
   addClass,
   hasClass,
   removeClass,
   closest,
   matches,
-  reflow,
   getCS,
-  getBCR,
   eventOn,
   eventOff
 } from '../../utils/dom'
@@ -54,6 +53,11 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     tag: {
       type: String,
       default: 'div'
+    },
+    appear: {
+      // If `true` (and `visible` is `true` on mount), animate initially visible
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -141,36 +145,26 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       this.show = !this.show
     },
     onEnter(el) {
-      el.style.height = 0
-      reflow(el)
-      el.style.height = el.scrollHeight + 'px'
       this.transitioning = true
       // This should be moved out so we can add cancellable events
       this.$emit('show')
     },
     onAfterEnter(el) {
-      el.style.height = null
       this.transitioning = false
       this.$emit('shown')
     },
     onLeave(el) {
-      el.style.height = 'auto'
-      el.style.display = 'block'
-      el.style.height = getBCR(el).height + 'px'
-      reflow(el)
       this.transitioning = true
-      el.style.height = 0
       // This should be moved out so we can add cancellable events
       this.$emit('hide')
     },
     onAfterLeave(el) {
-      el.style.height = null
       this.transitioning = false
       this.$emit('hidden')
     },
     emitState() {
       this.$emit('input', this.show)
-      // Let v-b-toggle know the state of this collapse
+      // Let `v-b-toggle` know the state of this collapse
       this.$root.$emit(EVENT_STATE, this.safeId(), this.show)
       if (this.accordion && this.show) {
         // Tell the other collapses in this accordion to close
@@ -184,13 +178,15 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       this.$root.$emit(EVENT_STATE_SYNC, this.safeId(), this.show)
     },
     checkDisplayBlock() {
-      // Check to see if the collapse has `display: block !important;` set.
-      // We can't set `display: none;` directly on this.$el, as it would
-      // trigger a new transition to start (or cancel a current one).
+      // Check to see if the collapse has `display: block !important` set
+      // We can't set `display: none` directly on `this.$el`, as it would
+      // trigger a new transition to start (or cancel a current one)
       const restore = hasClass(this.$el, 'show')
       removeClass(this.$el, 'show')
       const isBlock = getCS(this.$el).display === 'block'
-      restore && addClass(this.$el, 'show')
+      if (restore) {
+        addClass(this.$el, 'show')
+      }
       return isBlock
     },
     clickHandler(evt) {
@@ -202,7 +198,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       }
       if (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item', el)) {
         if (!this.checkDisplayBlock()) {
-          // Only close the collapse if it is not forced to be 'display: block !important;'
+          // Only close the collapse if it is not forced to be `display: block !important`
           this.show = false
         }
       }
@@ -235,6 +231,10 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const scope = {
+      visible: this.show,
+      close: () => (this.show = false)
+    }
     const content = h(
       this.tag,
       {
@@ -243,19 +243,12 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
         attrs: { id: this.safeId() },
         on: { click: this.clickHandler }
       },
-      [this.normalizeSlot('default')]
+      [this.normalizeSlot('default', scope)]
     )
     return h(
-      'transition',
+      BVCollapse,
       {
-        props: {
-          enterClass: '',
-          enterActiveClass: 'collapsing',
-          enterToClass: '',
-          leaveClass: '',
-          leaveActiveClass: 'collapsing',
-          leaveToClass: ''
-        },
+        props: { appear: this.appear },
         on: {
           enter: this.onEnter,
           afterEnter: this.onAfterEnter,

@@ -104,10 +104,10 @@ browsers and devices while providing slightly more opinionated resets to common
 
 ## Using module bundlers
 
-If you are using module bundlers like [webpack](https://webpack.js.org/),
-[rollup.js](https://rollupjs.org/), etc, you may prefer to directly include the package into your
-project. To get started, use `yarn` or `npm` to get the latest version of Vue.js, BootstrapVue and
-Bootstrap v4:
+If you are using module bundlers like [Webpack](https://webpack.js.org/),
+[Parcel](https://parceljs.org/) or [rollup.js](https://rollupjs.org/), you may prefer to directly
+include the package into your project. To get started, use `yarn` or `npm` to get the latest version
+of Vue.js, BootstrapVue and Bootstrap v4:
 
 ```bash
 # With npm
@@ -117,7 +117,7 @@ npm install vue bootstrap-vue bootstrap
 yarn add vue bootstrap-vue bootstrap
 ```
 
-Then, register BootstrapVue plugin in your app entry point:
+Then, register BootstrapVue in your app entry point:
 
 ```js
 // app.js
@@ -143,9 +143,11 @@ Or import Bootstrap and BootstrapVue `scss` files via a single custom SCSS file:
 @import 'node_modules/bootstrap-vue/src/index.scss';
 ```
 
+Finally import the `custom.scss` file in your app entry point:
+
 ```js
 // app.js
-import 'custom.scss'
+import './custom.scss'
 ```
 
 Be sure to `@import` or define your custom variable values _before_ including Bootstrap SCSS
@@ -156,8 +158,31 @@ Place all of the SCSS `@import`s into a **single SCSS file**, and import that si
 project. Importing individual SCSS files into your project will **not** share variable values and
 functions between files by default.
 
-**Note**: Requires webpack configuration to load CSS/SCSS files
-([official guide](https://webpack.js.org/guides/asset-management/#loading-css)).
+Webpack and Parcel support prepending the `scss` modules with tilde paths (`~`) when importing from
+a `scss` file:
+
+```scss
+// Webpack example
+@import '~bootstrap';
+@import '~bootstrap-vue';
+```
+
+```scss
+// Parcel example
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';
+```
+
+For more details how to configure asset loading and how modules are resolved, please consult the
+module bundlers documentation.
+
+**Notes**:
+
+- Webpack configuration to load CSS files
+  ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))
+- Webpack Loader for SASS/SCSS files ([official guide](https://webpack.js.org/loaders/sass-loader/))
+- Parcel CSS ([official guide](https://parceljs.org/css.html))
+- Parcel SCSS ([official guide](https://parceljs.org/scss.html))
 
 For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
 section.
@@ -204,7 +229,8 @@ Guide for full details on setting up aliases for [webpack](https://webpack.js.or
 ## Tree shaking with module bundlers
 
 When using a module bundler you can optionally import only specific components groups (plugins),
-components and/or directives.
+components and/or directives. Note tree shaking only applies to the JavaScript code and not
+CSS/SCSS.
 
 <div class="alert alert-info">
   <p class="mb-0">
@@ -448,7 +474,8 @@ The BootstrapVue Nuxt plugin module will automatically add in the BootstrapVue s
 
 If you wish to reduce your production bundle size because you only use a subset of the available
 BootstrapVue plugins, you can configure the list of BootstrapVue `componentPlugins` or
-`directivePlugins` you want to globally install in your Nuxt.js project.
+`directivePlugins` you want to globally install in your Nuxt.js project. Note tree shaking only
+applies to the JavaScript code and not CSS/SCSS.
 
 ```js
 module.exports = {
@@ -717,8 +744,15 @@ above for an example.
 
 ## Tooling support
 
+BootstrapVue provides additional helper files for auto completion in popular IDE editors.
+
 ### VS Code + Vetur
 
 If you are using [VS Code](https://code.visualstudio.com/) as your text editor, BootstrapVue has
-intellisense autocompletion for component attributes available when using the
-[Vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur).
+intellisense autocompletion for component attributes and directives available via the
+`dist/vetur-tags.json` and `dist/vetur-attributes.json` files.
+
+### JetBrains WebStorm (and compatible)
+
+For [WebStorm](https://www.jetbrains.com/webstorm/) editor (or web-types compatible), BootstrapVue
+provides the file `dist/web-types.json` for component attribute and directive auto-completion.

@@ -311,6 +311,72 @@ describe('tabs', () => {
     wrapper.destroy()
   })
 
+  it('`activate-tab` event works', async () => {
+    const App = Vue.extend({
+      methods: {
+        preventTab(next, prev, bvEvt) {
+          // Prevent 3rd tab (index === 2) from activating
+          if (next === 2) {
+            bvEvt.preventDefault()
+          }
+        }
+      },
+      render(h) {
+        return h(BTabs, { props: { value: 0 }, on: { 'activate-tab': this.preventTab } }, [
+          h(BTab, { props: {} }, 'tab 0'),
+          h(BTab, { props: {} }, 'tab 1'),
+          h(BTab, { props: {} }, 'tab 2')
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    const tabs = wrapper.find(BTabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(BTab).length).toBe(3)
+
+    // Expect 1st tab (index 0) to be active
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tabs.vm.tabs[0].localActive).toBe(true)
+    expect(tabs.emitted('input')).not.toBeDefined()
+    expect(tabs.emitted('activate-tab')).not.toBeDefined()
+
+    // Set 2nd BTab to be active
+    tabs.setProps({ value: 1 })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tabs.vm.currentTab).toBe(1)
+    expect(tabs.emitted('input')).toBeDefined()
+    expect(tabs.emitted('input').length).toBe(1)
+    expect(tabs.emitted('input')[0][0]).toBe(1)
+    expect(tabs.emitted('activate-tab')).toBeDefined()
+    expect(tabs.emitted('activate-tab').length).toBe(1)
+    expect(tabs.emitted('activate-tab')[0][0]).toBe(1)
+    expect(tabs.emitted('activate-tab')[0][1]).toBe(0)
+    expect(tabs.emitted('activate-tab')[0][2]).toBeDefined()
+    expect(tabs.emitted('activate-tab')[0][2].vueTarget).toBe(tabs.vm)
+
+    // Attempt to set 3rd BTab to be active
+    tabs.setProps({ value: 2 })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tabs.vm.currentTab).toBe(1)
+    expect(tabs.emitted('input')).toBeDefined()
+    expect(tabs.emitted('input').length).toBe(2)
+    expect(tabs.emitted('input')[1][0]).toBe(1)
+    expect(tabs.emitted('activate-tab').length).toBe(2)
+    expect(tabs.emitted('activate-tab')[1][0]).toBe(2)
+    expect(tabs.emitted('activate-tab')[1][1]).toBe(1)
+    expect(tabs.emitted('activate-tab')[1][2]).toBeDefined()
+    expect(tabs.emitted('activate-tab')[1][2].vueTarget).toBe(tabs.vm)
+    expect(tabs.emitted('activate-tab')[1][2].defaultPrevented).toBe(true)
+
+    wrapper.destroy()
+  })
+
   it('clicking on tab activates the tab, and tab emits click event', async () => {
     const App = Vue.extend({
       render(h) {
@@ -372,6 +438,83 @@ describe('tabs', () => {
     expect(tab3.emitted('click')).toBeDefined()
 
     // Try to set 1st BTab to be active via click (space === click in keynav mode)
+    expect(tab1.emitted('click')).not.toBeDefined()
+    wrapper
+      .findAll('.nav-link')
+      .at(0)
+      .trigger('keydown.space')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tab1.vm.localActive).toBe(true)
+    expect(tab2.vm.localActive).toBe(false)
+    expect(tab3.vm.localActive).toBe(false)
+    expect(tab1.emitted('click')).toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('pressing space on tab activates the tab, and tab emits click event', async () => {
+    const App = Vue.extend({
+      render(h) {
+        return h(BTabs, { props: { value: 0, noKeyNav: true } }, [
+          h(BTab, { props: { title: 'one' } }, 'tab 0'),
+          h(BTab, { props: { title: 'two' } }, 'tab 1'),
+          h(BTab, { props: { title: 'three' } }, 'tab 2')
+        ])
+      }
+    })
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    const tabs = wrapper.find(BTabs)
+    expect(tabs).toBeDefined()
+    expect(tabs.findAll(BTab).length).toBe(3)
+
+    const tab1 = tabs.findAll(BTab).at(0)
+    const tab2 = tabs.findAll(BTab).at(1)
+    const tab3 = tabs.findAll(BTab).at(2)
+
+    expect(wrapper.findAll('.nav-link')).toBeDefined()
+    expect(wrapper.findAll('.nav-link').length).toBe(3)
+
+    // Expect 1st tab (index 0) to be active
+    expect(tabs.vm.currentTab).toBe(0)
+    expect(tab1.vm.localActive).toBe(true)
+    expect(tab2.vm.localActive).toBe(false)
+    expect(tab3.vm.localActive).toBe(false)
+
+    // Try to set 2nd BTab to be active via space keypress
+    expect(tab2.emitted('click')).not.toBeDefined()
+    wrapper
+      .findAll('.nav-link')
+      .at(1)
+      .trigger('keydown.space')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tabs.vm.currentTab).toBe(1)
+    expect(tab1.vm.localActive).toBe(false)
+    expect(tab2.vm.localActive).toBe(true)
+    expect(tab3.vm.localActive).toBe(false)
+    expect(tab2.emitted('click')).toBeDefined()
+
+    // Try to set 3rd BTab to be active via space keypress
+    expect(tab3.emitted('click')).not.toBeDefined()
+    wrapper
+      .findAll('.nav-link')
+      .at(2)
+      .trigger('keydown.space')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tabs.vm.currentTab).toBe(2)
+    expect(tab1.vm.localActive).toBe(false)
+    expect(tab2.vm.localActive).toBe(false)
+    expect(tab3.vm.localActive).toBe(true)
+    expect(tab3.emitted('click')).toBeDefined()
+
+    // Try to set 1st BTab to be active via space keypress
     expect(tab1.emitted('click')).not.toBeDefined()
     wrapper
       .findAll('.nav-link')

@@ -33,6 +33,11 @@
             "description": "Alignment of the page buttons: 'start' (or 'left'), 'center', 'end' (or 'right'), or 'fill'"
           },
           {
+            "prop": "pills",
+            "version": "2.1.0",
+            "description": "Applies pill styling to the pagination buttons"
+          },
+          {
             "prop": "hideGotoEndButtons",
             "description": "Hides the goto first and goto last page buttons"
           },

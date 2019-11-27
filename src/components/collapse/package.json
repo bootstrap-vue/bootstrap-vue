@@ -33,6 +33,29 @@
           {
             "prop": "visible",
             "description": "When 'true', expands the collapse"
+          },
+          {
+            "prop": "appear",
+            "version": "2.2.0",
+            "description": "When set, and prop 'visible' is true on mount, will animate on initial mount"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "version": "2.2.0",
+            "scope": [
+              {
+                "prop": "visible",
+                "type": "Boolean",
+                "description": "Visible state of the collapse: true if the collapse is visible"
+              },
+              {
+                "prop": "close",
+                "type": "Function",
+                "description": "Method for closing the collapse"
+              }
+            ]
           }
         ],
         "events": [

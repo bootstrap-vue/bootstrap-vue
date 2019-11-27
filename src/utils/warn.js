@@ -4,9 +4,9 @@ import { isBrowser, hasPromiseSupport, hasMutationObserverSupport, getNoWarn } f
  * Log a warning message to the console with BootstrapVue formatting
  * @param {string} message
  */
-export const warn = message => /* istanbul ignore next */ {
+export const warn = (message, source = null) => /* istanbul ignore next */ {
   if (!getNoWarn()) {
-    console.warn(`[BootstrapVue warn]: ${message}`)
+    console.warn(`[BootstrapVue warn]: ${source ? `${source} - ` : ''}${message}`)
   }
 }
 

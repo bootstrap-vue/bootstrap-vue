@@ -24,6 +24,10 @@ export const props = {
     type: String,
     default: () => getComponentConfig(NAME, 'variant')
   },
+  block: {
+    type: Boolean,
+    default: false
+  },
   menuClass: {
     type: [String, Array],
     default: null
@@ -56,6 +60,10 @@ export const props = {
     type: String,
     default: () => getComponentConfig(NAME, 'splitVariant')
   },
+  splitClass: {
+    type: [String, Array],
+    default: null
+  },
   splitButtonType: {
     type: String,
     default: 'button',
@@ -84,9 +92,16 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
         this.directionClass,
         {
           show: this.visible,
-          // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
-          // when boundary is anything other than `scrollParent`
-          // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
+          // The 'btn-group' class is required in `split` mode for button alignment
+          // It needs also to be applied when `block` is disabled to allow multiple
+          // dropdowns to be aligned one line
+          'btn-group': this.split || !this.block,
+          // When `block` is enabled and we are in `split` mode the 'd-flex' class
+          // needs to be applied to allow the buttons to stretch to full width
+          'd-flex': this.block && this.split,
+          // Position `static` is needed to allow menu to "breakout" of the `scrollParent`
+          // boundaries when boundary is anything other than `scrollParent`
+          // See: https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
           'position-static': this.boundary !== 'scrollParent' || !this.boundary
         }
       ]
@@ -115,9 +130,10 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
     const buttonContent = this.normalizeSlot('button-content') || this.html || stripTags(this.text)
     if (this.split) {
       const btnProps = {
-        disabled: this.disabled,
         variant: this.splitVariant || this.variant,
-        size: this.size
+        size: this.size,
+        block: this.block,
+        disabled: this.disabled
       }
       // We add these as needed due to router-link issues with defined property with undefined/null values
       if (this.splitTo) {
@@ -132,6 +148,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
         {
           ref: 'button',
           props: btnProps,
+          class: this.splitClass,
           attrs: {
             id: this.safeId('_BV_button_')
           },
@@ -149,10 +166,11 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
         staticClass: 'dropdown-toggle',
         class: this.toggleClasses,
         props: {
+          tag: this.toggleTag,
           variant: this.variant,
           size: this.size,
-          disabled: this.disabled,
-          tag: this.toggleTag
+          block: this.block && !this.split,
+          disabled: this.disabled
         },
         attrs: {
           id: this.safeId('_BV_toggle_'),
@@ -186,7 +204,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
     return h(
       'div',
       {
-        staticClass: 'dropdown btn-group b-dropdown',
+        staticClass: 'dropdown b-dropdown',
         class: this.dropdownClasses,
         attrs: { id: this.safeId() }
       },

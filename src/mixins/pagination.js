@@ -78,6 +78,10 @@ export const props = {
     type: String,
     default: 'left'
   },
+  pills: {
+    type: Boolean,
+    default: false
+  },
   hideGotoEndButtons: {
     type: Boolean,
     default: false
@@ -165,6 +169,9 @@ export default {
         return 'text-center'
       }
       return ''
+    },
+    styleClass() {
+      return this.pills ? 'b-pagination-pills' : ''
     },
     computedCurrentPage() {
       return sanitizeCurrentPage(this.currentPage, this.localNumberOfPages)
@@ -280,6 +287,17 @@ export default {
     })
   },
   methods: {
+    handleKeyNav(evt) {
+      const keyCode = evt.keyCode
+      const shift = evt.shiftKey
+      if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
+        evt.preventDefault()
+        shift ? this.focusFirst() : this.focusPrev()
+      } else if (keyCode === KeyCodes.RIGHT || keyCode === KeyCodes.DOWN) {
+        evt.preventDefault()
+        shift ? this.focusLast() : this.focusNext()
+      }
+    },
     getButtons() {
       // Return only buttons that are visible
       return selectAll('a.page-link', this.$el).filter(btn => isVisible(btn))
@@ -532,25 +550,13 @@ export default {
       {
         ref: 'ul',
         staticClass: 'pagination',
-        class: ['b-pagination', this.btnSize, this.alignment],
+        class: ['b-pagination', this.btnSize, this.alignment, this.styleClass],
         attrs: {
           role: 'menubar',
           'aria-disabled': disabled ? 'true' : 'false',
           'aria-label': this.ariaLabel || null
         },
-        on: {
-          keydown: evt => {
-            const keyCode = evt.keyCode
-            const shift = evt.shiftKey
-            if (keyCode === KeyCodes.LEFT) {
-              evt.preventDefault()
-              shift ? this.focusFirst() : this.focusPrev()
-            } else if (keyCode === KeyCodes.RIGHT) {
-              evt.preventDefault()
-              shift ? this.focusLast() : this.focusNext()
-            }
-          }
-        }
+        on: { keydown: this.handleKeyNav }
       },
       buttons
     )

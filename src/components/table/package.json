@@ -75,19 +75,29 @@
           },
           {
             "prop": "headVariant",
-            "description": "Header variant: 'light' or 'dark', or unset"
+            "description": "Header variant: 'light' or 'dark', or unset. May take precedence over head-row-variant"
+          },
+          {
+            "prop": "headRowVariant",
+            "version": "2.1.0",
+            "description": "Apply a Bootstrap theme color variant to the tr element in the thead"
           },
           {
             "prop": "footVariant",
-            "description": "Footer variant: 'light' or 'dark', or unset"
+            "description": "Footer variant: 'light' or 'dark', or unset. May take precedence over foot-row-variant"
+          },
+          {
+            "prop": "footRowVariant",
+            "version": "2.1.0",
+            "description": "Apply a Bootstrap theme color variant to the tr element in the tfoot. Falls back to head-row-variant"
           },
           {
             "prop": "tbodyTransitionProps",
-            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' properties. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "tbodyTransitionHandlers",
-            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' event handlers. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "caption",
@@ -124,6 +134,11 @@
           {
             "prop": "tbodyTrClass",
             "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
+          },
+          {
+            "prop": "detailsTdClass",
+            "version": "2.1.0",
+            "description": "CSS class (or classes) to apply to the td element in the details row"
           },
           {
             "prop": "value",
@@ -235,7 +250,12 @@
           },
           {
             "prop": "selectedVariant",
-            "description": "Bootstrap color theme variant to set selected rows to. use any of hte standard Bootstrap theme variants, or the special table row variant 'active'"
+            "description": "Bootstrap color theme variant to set selected rows to. Use any of the standard Bootstrap theme color variants, or the special table row variant 'active' (default). Set to an empty string to not use a variant"
+          },
+          {
+            "prop": "noSelectOnClick",
+            "version": "2.1.0",
+            "description": "Disables row selection via click events. Row selection will be only available programmatically"
           },
           {
             "prop": "showEmpty",
@@ -276,7 +296,7 @@
           {
             "prop": "filterDebounce",
             "version": "2.0.0",
-            "description": "Time in milliseconds to debounce changes to the filter criteria before filtering hte records"
+            "description": "Time in milliseconds to debounce changes to the filter criteria before filtering the records"
           }
         ],
         "events": [
@@ -296,7 +316,10 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
                 "description": "Native event object."
               }
             ]
@@ -433,7 +456,10 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
                 "description": "Native event object."
               },
               {
@@ -519,6 +545,11 @@
                 "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
               },
               {
+                "prop": "field",
+                "type": "Object",
+                "description": "The field's normalized definition object (from the fields prop)"
+              },
+              {
                 "prop": "detailsShowing",
                 "type": "Boolean",
                 "description": "Will be true if the row's row-details scoped slot is visible"
@@ -531,7 +562,19 @@
               {
                 "prop": "rowSelected",
                 "type": "Boolean",
-                "description": "Will be true if the row has been selected."
+                "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "selectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "unselectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
           },
@@ -558,6 +601,11 @@
                 "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
               },
               {
+                "prop": "field",
+                "type": "Object",
+                "description": "The field's normalized definition object (from the fields prop)"
+              },
+              {
                 "prop": "detailsShowing",
                 "type": "Boolean",
                 "description": "Will be true if the row's row-details scoped slot is visible"
@@ -570,7 +618,19 @@
               {
                 "prop": "rowSelected",
                 "type": "Boolean",
-                "description": "Will be true if the row has been selected."
+                "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "selectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "unselectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
           },
@@ -587,7 +647,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -623,7 +683,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -660,7 +720,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -691,7 +751,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -721,7 +781,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -757,6 +817,24 @@
                 "prop": "toggleDetails",
                 "type": "Function",
                 "description": "Function to toggle visibility of the row's details slot"
+              },
+              {
+                "prop": "rowSelected",
+                "type": "Boolean",
+                "version": "2.1.0",
+                "description": "Will be true if the row has been selected. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "selectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to select the current row. Only applicable when table is in selectable mode"
+              },
+              {
+                "prop": "unselectRow",
+                "type": "Function",
+                "version": "2.1.0",
+                "description": "Can be called to unselect the current row. Only applicable when table is in selectable mode"
               }
             ]
           },
@@ -839,7 +917,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -865,7 +943,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -881,7 +959,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -897,7 +975,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -979,19 +1057,29 @@
           },
           {
             "prop": "headVariant",
-            "description": "Header variant: 'light' or 'dark', or unset"
+            "description": "Header variant: 'light' or 'dark', or unset. May take precedence over head-row-variant"
+          },
+          {
+            "prop": "headRowVariant",
+            "version": "2.1.0",
+            "description": "Apply a Bootstrap theme color variant to the tr element in the thead"
           },
           {
             "prop": "footVariant",
-            "description": "Footer variant: 'light' or 'dark', or unset"
+            "description": "Footer variant: 'light' or 'dark', or unset. May take precedence over foot-row-variant"
+          },
+          {
+            "prop": "footRowVariant",
+            "version": "2.1.0",
+            "description": "Apply a Bootstrap theme color variant to the tr element in the tfoot. Falls back to head-row-variant"
           },
           {
             "prop": "tbodyTransitionProps",
-            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' properties. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "tbodyTransitionHandlers",
-            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' event handlers. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "caption",
@@ -1030,6 +1118,11 @@
             "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
           },
           {
+            "prop": "detailsTdClass",
+            "version": "2.1.0",
+            "description": "CSS class (or classes) to apply to the td element in the details row"
+          },
+          {
             "prop": "value",
             "description": "Currently displayed row data. Read-only. Do not set a value on this prop"
           },
@@ -1063,7 +1156,10 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
                 "description": "Native event object."
               }
             ]
@@ -1189,7 +1285,10 @@
               },
               {
                 "arg": "event",
-                "type": "MouseEvent",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
                 "description": "Native event object."
               },
               {
@@ -1223,6 +1322,11 @@
               {
                 "prop": "unformatted",
                 "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
+              },
+              {
+                "prop": "field",
+                "type": "Object",
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "detailsShowing",
@@ -1259,6 +1363,11 @@
                 "description": "The raw value for this key in the item record (null or undefined if a virtual column), before being passed to the field's formatter function"
               },
               {
+                "prop": "field",
+                "type": "Object",
+                "description": "The field's normalized definition object (from the fields prop)"
+              },
+              {
                 "prop": "detailsShowing",
                 "type": "Boolean",
                 "description": "Will be true if the row's row-details scoped slot is visible"
@@ -1283,7 +1392,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1309,7 +1418,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1336,7 +1445,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1357,7 +1466,7 @@
               {
                 "prop": "field",
                 "type": "Object",
-                "description": "the field's definition object (from the fields prop)"
+                "description": "The field's normalized definition object (from the fields prop)"
               },
               {
                 "prop": "label",
@@ -1377,7 +1486,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -1419,7 +1528,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -1445,7 +1554,7 @@
               {
                 "prop": "columns",
                 "type": "Number",
-                "description": "the number of columns in the table"
+                "description": "The number of columns in the table"
               },
               {
                 "prop": "fields",
@@ -1532,11 +1641,11 @@
         "props": [
           {
             "prop": "tbodyTransitionProps",
-            "description": "Vue 'transition-list' properties. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' properties. When provided will make the tbody a Vue 'transition-group' component"
           },
           {
             "prop": "tbodyTransitionHandlers",
-            "description": "Vue 'transition-list' event handlers. When provided will make the tbody a Vue 'transition-list' component"
+            "description": "Vue 'transition-group' event handlers. When provided will make the tbody a Vue 'transition-group' component"
           }
         ]
       },
