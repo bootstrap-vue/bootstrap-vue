@@ -390,6 +390,21 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         })
       })
     },
+    // --- Public methods ---
+    focus() {
+      if (!this.disabled) {
+        try {
+          const input = this.getInput()
+          input.focus()
+        } catch {}
+      }
+    },
+    blur() {
+      try {
+        const input = this.getInput()
+        input.blur()
+      } catch {}
+    },
     // --- Private methods ---
     splitTags(newTag) {
       // Split the input into an array of raw tags
@@ -442,124 +457,90 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Returns the input element reference (or null if not found)
       return select(`#${this.computedInputId}`, this.$el)
     },
-    // --- Public methods ---
-    focus() {
-      if (!this.disabled) {
-        try {
-          const input = this.getInput()
-          input.focus()
-        } catch {}
-      }
-    },
-    blur() {
-      try {
-        const input = this.getInput()
-        input.blur()
-      } catch {}
-    }
-  },
-  render(h) {
-    // Generate the control content
-    let $content = null
-    if (this.hasNormalizedSlot('default')) {
-      // User supplied default slot render
-      $content = this.normalizeSlot('default', {
-        // Array of tags (shallow copy to prevent mutations)
-        tags: this.tags.slice(),
-        // Methods
-        removeTag: this.removeTag,
-        addTag: this.addTag,
-        // <input> v-bind:inputAttrs
-        inputAttrs: this.computedInputAttrs,
-        // <input> v-on:inputHandlers
-        inputHandlers: this.computedInputHandlers,
-        // <input> :id="inputId"
-        inputId: this.computedInputId,
-        // Invalid/Duplicate state information
-        invalidTags: this.invalidTags.slice(),
-        isInvalid: this.hasInvalidTags,
-        duplicateTags: this.duplicateTags.slice(),
-        isDuplicate: this.hasDuplicateTags,
-        // If the add buton should be disabled
-        disableAddButton: this.disableAddButton,
-        // Pass-though values
-        state: this.state,
-        separator: this.separator,
-        disabled: this.disabled,
-        size: this.size,
-        placeholder: this.placeholder,
-        inputClass: this.inputClass,
-        tagRemoveLabel: this.tagRemoveLabel,
-        tagVariant: this.tagVariant,
-        tagPills: this.tagPills,
-        tagClass: this.tagClass,
-        addButtonText: this.addButtontext,
-        addButtonVariant: this.addButtonVariant,
-        invalidTagText: this.invalidTagText,
-        duplicateTagText: this.duplicateTagText
-      })
-    } else {
-      // Internal rendering
-      // TODO: move this to a method this.defaultRender(scope)
-      // Render any provided tags
-      $content = this.tags.map((tag, idx) => {
+    defaultRender({
+      tags,
+      addTag,
+      removeTag,
+      inputAttrs,
+      inputHandlers,
+      inputClass,
+      tagClass,
+      tagVariant,
+      tagPills,
+      tagRemoveLabel,
+      invalidTagText,
+      duplicateTagText,
+      isInvalid,
+      invalidTags,
+      isDuplicate,
+      duplicateTags,
+      disabled,
+      placeholder,
+      addButtonText,
+      addButtonVariant,
+      disableAddButton
+    }) {
+      const h = this.$createElement
+
+      // Make the list of tags
+      const $tags = tags.map((tag, idx) => {
         tag = toString(tag)
         return h(
           BFormTag,
           {
             key: `li-tag__${tag}`,
             staticClass: 'mt-1 mr-1',
-            class: this.tagClass,
+            class: tagClass,
             props: {
               tag: 'li',
               title: tag,
-              disabled: this.disabled,
-              variant: this.tagVariant,
-              pill: this.tagPills,
-              removeLabel: this.tagRemoveLabel
+              disabled: disabled,
+              variant: tagVariant,
+              pill: tagPills,
+              removeLabel: tagRemoveLabel
             },
-            on: {
-              remove: () => this.removeTag(tag)
-            }
+            on: { remove: () => removeTag(tag) }
           },
           tag
         )
       })
 
       // Feedback IDs if needed
-      const invalidFeedbackId =
-        this.invalidTagText && this.hasInvalidTags ? this.safeId('__invalid_feedback__') : null
-      const duplicateFeedbackId =
-        this.duplicateTagText && this.hasDuplicateTags
-          ? this.safeId('__duplicate_feedback__')
-          : null
+      const invalidFeedbackId = invalidTagText && isInvalid
+        ? this.safeId('__invalid_feedback__')
+        : null
+      const duplicateFeedbackId = duplicateTagText && isDuplicate
+        ? this.safeId('__duplicate_feedback__')
+        : null
+
       // Compute the aria-describedby attribute value
       const ariaDescribedby = [
-        this.computedInputAttrs['aria-describedby'],
+        inputAttrs['aria-describedby'],
         invalidFeedbackId,
         duplicateFeedbackId
       ]
         .filter(identity)
         .join(' ')
 
-      // Add default input and button
+      // Input
       const $input = h('input', {
         ref: 'input',
         // Directive needed to get `evt.target.composing` set (if needed)
-        directives: [{ name: 'model', value: this.newTag }],
+        directives: [{ name: 'model', value: inputAttrs.value }],
         staticClass: 'b-form-tags-input w-100 flex-grow-1 p-0 m-0 bg-transparent border-0',
-        class: this.inputClass,
+        class: inputClass,
         style: { outline: 0, minWidth: '5rem' },
         attrs: {
-          ...this.computedInputAttrs,
+          ...inputAttrs,
           'aria-describedby': ariaDescribedby || null,
           type: 'text',
-          placeholder: this.placeholder || null
+          placeholder: placeholder || null
         },
-        domProps: { value: this.newTag },
-        on: this.computedInputHandlers
+        domProps: { value: inputAttrs.value },
+        on: inputHandlers
       })
-      const hideButton = this.disableAddButton
+
+      // Add button
       const $button = h(
         BButton,
         {
@@ -569,68 +550,104 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             // Only show the button if the tag can be added. We use the
             // `invisible` class instead of not rendering the button, so that
             // we maintain layout to prevent the user input from jumping around
-            invisible: hideButton
+            invisible: disableAddButton
           },
           style: { fontSize: '90%' },
-          props: { variant: this.addButtonVariant, disabled: hideButton },
-          on: { click: () => this.addTag() }
+          props: { variant: addButtonVariant, disabled: disableAddButton },
+          on: { click: () => addTag() }
         },
-        [this.normalizeSlot('add-button-text') || this.addButtonText]
+        [this.normalizeSlot('add-button-text') || addButtonText]
       )
 
-      $content.push(
-        h(
-          'li',
-          {
-            key: 'li-input__',
-            staticClass: 'd-inline-flex flex-grow-1 mt-1'
-          },
-          [$input, $button]
-        )
+      const $field = h(
+        'li',
+        {
+          key: 'li-input__',
+          staticClass: 'd-inline-flex flex-grow-1 mt-1'
+        },
+        [$input, $button]
       )
 
       // Wrap in an unordered list element (we use a list for accesibility)
-      $content = h(
+      const $ul = h(
         'ul',
         { staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center' },
-        $content
+        // Array.concat() is faster than array spread when args are known to be arrays
+        concat($tags, $field)
       )
 
-      // Ensure we have an array
-      $content = concat($content)
-
-      // Add invalid tag feedback if needed
+      // Invalid tag feedback if needed (error)
+      let $invalid = h()
       if (invalidFeedbackId) {
-        $content.push(
-          h(BFormInvalidFeedback, { props: { id: invalidFeedbackId, forceShow: true } }, [
-            this.invalidTagText,
-            ': ',
-            this.invalidTags.join(this.computedJoiner)
-          ])
-        )
+        $invalid = h(BFormInvalidFeedback, { props: { id: invalidFeedbackId, forceShow: true } }, [
+          this.invalidTagText,
+          ': ',
+          this.invalidTags.join(this.computedJoiner)
+        ])
       }
 
-      // Add duplicate tag feedback if needed (warning, not error)
+      // Duplicate tag feedback if needed (warning, not error)
+      let $duplicate = h()
       if (duplicateFeedbackId) {
-        $content.push(
-          h(BFormText, { props: { id: duplicateFeedbackId } }, [
-            this.duplicateTagText,
-            ': ',
-            this.duplicateTags.join(this.computedJoiner)
-          ])
-        )
+        $duplicate = h(BFormText, { props: { id: duplicateFeedbackId } }, [
+          this.duplicateTagText,
+          ': ',
+          this.duplicateTags.join(this.computedJoiner)
+        ])
       }
+
+      // Return the content
+      return [$ul, $invalid, $duplicate]
+    }
+  },
+  render(h) {
+    // Scoped slot properties
+    const scope = {
+      // Array of tags (shallow copy to prevent mutations)
+      tags: this.tags.slice(),
+      // Methods
+      removeTag: this.removeTag,
+      addTag: this.addTag,
+      // <input> v-bind:inputAttrs
+      inputAttrs: this.computedInputAttrs,
+      // <input> v-on:inputHandlers
+      inputHandlers: this.computedInputHandlers,
+      // <input> :id="inputId"
+      inputId: this.computedInputId,
+      // Invalid/Duplicate state information
+      invalidTags: this.invalidTags.slice(),
+      isInvalid: this.hasInvalidTags,
+      duplicateTags: this.duplicateTags.slice(),
+      isDuplicate: this.hasDuplicateTags,
+      // If the Add buton should be disabled
+      disableAddButton: this.disableAddButton,
+      // Pass-though values
+      state: this.state,
+      separator: this.separator,
+      disabled: this.disabled,
+      size: this.size,
+      placeholder: this.placeholder,
+      inputClass: this.inputClass,
+      tagRemoveLabel: this.tagRemoveLabel,
+      tagVariant: this.tagVariant,
+      tagPills: this.tagPills,
+      tagClass: this.tagClass,
+      addButtonText: this.addButtontext,
+      addButtonVariant: this.addButtonVariant,
+      invalidTagText: this.invalidTagText,
+      duplicateTagText: this.duplicateTagText
     }
 
-    // Ensure we have an array
-    $content = concat($content)
+    // Generate the user interface
+    let $content = this.normalizeSlot('default', scope) || this.defaultRender(scope)
 
     // Add hidden inputs for form submission
+    let $hidden = h()
     if (this.name) {
       // We add hidden inputs for each tag if a name is provided
       // for native submission of forms
-      this.tags.forEach(tag => {
-        const $hidden = h('input', {
+      $hidden = this.tags.map(tag => {
+        return h('input', {
           key: tag,
           attrs: {
             type: 'hidden',
@@ -639,9 +656,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             form: this.form || null
           }
         })
-        $content.push($hidden)
       })
     }
+
+    // Return the rendered output
     return h(
       'div',
       {
@@ -664,7 +682,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           click: this.onClick
         }
       },
-      $content
+      concat($content, $hidden)
     )
   }
 })
