@@ -78,7 +78,7 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
       this.localValue = newVal
     },
     localValue(newVal, oldVal) {
-      this.$emit('input', newVal)
+      this.$emit('input', this.localValue)
     }
   },
   methods: {
@@ -120,10 +120,9 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
             const selectedVal = arrayFrom(target.options)
               .filter(o => o.selected)
               .map(o => ('_value' in o ? o._value : o.value))
-            const newVal = target.multiple ? selectedVal : selectedVal[0]
-            this.localValue = newVal
+            this.localValue = target.multiple ? selectedVal : selectedVal[0]
             this.$nextTick(() => {
-              this.$emit('change', newVal)
+              this.$emit('change', this.localValuel)
             })
           }
         }
