@@ -533,7 +533,7 @@ If the custom input is using custom event names that mimic `input` and `change`,
 <template v-slot:default="{ inputAttrs, inputHandlers, removeTag, tags }">
   <custom-input
     :id="inputAttrs.id"
-    :value="inputAttrs.value"
+    :vistom-value-prop="inputAttrs.value"
     @custom-input-event="inputHandlers.input($event)"
     @custom-change-event="inputHandlers.change($event)"
     @keydown.native="inputHandlers.keydown($event)"
@@ -545,7 +545,7 @@ If the custom input is using custom event names that mimic `input` and `change`,
 ```
 
 The `inputHandlers.input` handler **must** be bound to an event that updates with each character
-typed by the user for _as-you-type_ tag validation to work.
+entered by the user forthe _as-you-type_ tag validation to work.
 
 ### Advanced custom rendering usage
 
