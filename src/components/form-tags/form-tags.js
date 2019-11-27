@@ -54,6 +54,12 @@ const cleanTagsState = () => ({
 export const BFormTags = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, normalizeSlotMixin],
+  model: {
+    // Even though this is the default that Vue assumes, we need
+    // to add it for the docs to reflect that this is the model
+    prop: 'value',
+    event: 'input'
+  },
   props: {
     inputId: {
       type: String,
