@@ -12,7 +12,7 @@ The tagged input was aded in BootstrapVue release `v2.2.0`.
 Tags will have any leading and tailing whitespace removed, and duplicate tags are not permitted.
 Tags that contain spaces are permitted by default.
 
-Tags are added by clicking the **Add** button, pressing the <kbd>ENTER</kbd> key or when the
+Tags are added by clicking the **Add** button, pressing the <kbd>ENTER</kbd> key or optionally when the
 `change` event fires on the new tag input (i.e. when focus moves from the input). The **Add** button
 will only appear when the user has entered a new tag value.
 
@@ -40,7 +40,7 @@ will only appear when the user has entered a new tag value.
 ```
 
 You can disable adding a new tag when pressing <kbd>ENTER</kbd> via the `no-add-on-enter` prop, and
-disable adding a tag on the input's `change` event via the `no-add-on-change` prop.
+enable adding a tag on the input's `change` event via the `add-on-change` prop.
 
 ## Tag creation using separators
 
@@ -61,7 +61,6 @@ are typed:
       separator=" ,;"
       placeholder="Enter new tags separated by space, comma or semicolon"
       no-add-on-enter
-      no-add-on-change
       class="mb-2"
     ></b-form-tags>
     <p>Value: {{ value }}</p>
@@ -95,7 +94,6 @@ is empty, the last tag in the tag list will be removed.
       placeholder="Enter new tags separated by space"
       remove-on-delete
       no-add-on-enter
-      no-add-on-change
       class="mb-2"
     ></b-form-tags>
     <p>Value: {{ value }}</p>
@@ -194,7 +192,6 @@ not validated.
         :state="state"
         :tag-validator="tagValidator"
         separator=" "
-        no-add-on-change
       ></b-form-tags>
       <!-- The following slots are for b-form-group -->
       <template v-slot:invalid-feedback>
@@ -268,7 +265,6 @@ empty string (`''`) or `null`.
       :tag-validator="validator"
       placeholder="Enter tags (3-5 characters) separated by space"
       separator=" "
-      no-add-on-change
       @tag-state="onTagState"
     ></b-form-tags>
     <p class="mt-2">Tags: {{ tags }}</p>
@@ -364,8 +360,11 @@ The `inputHandlers` object contains event handlers to bind (`v-on`) to the new t
 | Property  | Type     | Description                                                                                                                                                                    |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `input`   | Function | Event handler for the input element `input` event. Accepts a single argument of either an event object or a string. Updates the internal v-model for the new tag input element |
-| `change`  | Function | Event handler for the input element `change` event. Accepts a single argument of either an event object or a string. Change will trigger adding the tag                        |
+| `change`  | Function | Event handler for the input element `change` event. Accepts a single argument of either an event object or a string. Change will trigger adding the tag.                        |
 | `keydown` | Function | Event handler for the input element `keydown` <kbd>ENTER</kbd> and <kbd>DEL</kbd> events. Accepts a single argument which is the native keydown event object                   |
+
+The `change` handler, when needed, must be enabled via the `add-on-change` prop, otherwise it is a
+noop method.
 
 ### Using native browser inputs
 
