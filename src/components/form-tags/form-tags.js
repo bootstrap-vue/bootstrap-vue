@@ -299,8 +299,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         if (matches(this.getInput(), 'select')) {
           // The following delay is needed to properly
           // work with `<select>` elements
-          // DEBUG
-          console.log('Is Select')
           requestAF(() => this.$nextTick(() => (this.newTag = '')))
         } else {
           const invalidAndDups = [...parsed.invalid, ...parsed.duplicate]
@@ -320,6 +318,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // TODO:
       //   Add onRemoveTag(tag) user method, which if returns false
       //   will prevent the tag from being removed (i.e. confirmation)
+      //   Or emit cancelable BvEvent
       this.tags = this.tags.filter(t => t !== tag)
       // return focus to the input (if possible)
       this.focus()
@@ -334,25 +333,29 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       }
       let newTag = processEventValue(evt)
       const separatorRe = this.computedSeparatorRegExp
-      this.newTag = newTag
+      if (this.newTag !== newTag) {
+        this.newTag = newTag
+      }
       // We ignore leading whitespace for the following
-      newTag = trimLeft(newTag)
+      const newTag = trimLeft(newTag)
       if (separatorRe && separatorRe.test(newTag.slice(-1))) {
         // A trailing separator character was entered, so add the tag(s).
         // Note, more than one tag on input event is possible via copy/paste
         this.addTag()
-      } else if (newTag === '') {
-        this.tagsState = cleanTagsState()
       } else {
         // Validate (parse tags) on input event
-        this.tagsState = this.parseTags(newTag)
+        this.tagsState = value === '' ? cleanTagsState() : this.parseTags(newTag)
       }
     },
     onInputChange(evt) {
       // Change is triggered on `<input>` blur, or `<select>` selected
       // This event is opt-in
-      if (!this.disabled && this.addOnChange && isEvent(evt)) {
-        this.newTag = processEventValue(evt)
+      if (!this.disabled && this.addOnChange) {
+        const newTag = processEventValue(evt)
+        /* istanbul ignore next */
+        if (this.newTag !== newTag) {
+          this.newTag = newTag
+        }
         this.addTag()
       }
     },
