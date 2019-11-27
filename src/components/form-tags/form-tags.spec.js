@@ -348,17 +348,17 @@ describe('form-tags', () => {
     expect(wrapper.find('.invalid-feedback').exists()).toBe(false)
     expect(wrapper.find('.form-text').exists()).toBe(false)
 
-    $input.element.value = 'thre'
+    $input.element.value = 'three'
     $input.trigger('input')
     await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
-    // invalid tags are left in the input
-    expect(wrapper.vm.newTag).toEqual('thre')
+    // Invalid tags are left in the input
+    expect(wrapper.vm.newTag).toEqual('three')
     expect(wrapper.vm.duplicateTags).toEqual([])
     expect(wrapper.vm.invalidTags).toEqual([])
     expect(wrapper.emitted('tag-state').length).toBe(2)
     // Valid tags
-    expect(wrapper.emitted('tag-state')[1][0]).toEqual(['thre'])
+    expect(wrapper.emitted('tag-state')[1][0]).toEqual(['three'])
     // Invalid tags
     expect(wrapper.emitted('tag-state')[1][1]).toEqual([])
     // Duplicate tags

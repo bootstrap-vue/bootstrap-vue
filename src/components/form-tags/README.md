@@ -12,9 +12,9 @@ The tagged input was aded in BootstrapVue release `v2.2.0`.
 Tags will have any leading and tailing whitespace removed, and duplicate tags are not permitted.
 Tags that contain spaces are permitted by default.
 
-Tags are added by clicking the **Add** button, pressing the <kbd>ENTER</kbd> key or optionally when the
-`change` event fires on the new tag input (i.e. when focus moves from the input). The **Add** button
-will only appear when the user has entered a new tag value.
+Tags are added by clicking the **Add** button, pressing the <kbd>ENTER</kbd> key or optionally when
+the `change` event fires on the new tag input (i.e. when focus moves from the input). The **Add**
+button will only appear when the user has entered a new tag value.
 
 **Default render:**
 
@@ -159,7 +159,6 @@ The focus and validation state styling of the component relies upon BootstrapVue
 <!-- form-tags-style-options.vue -->
 ```
 
-
 ## Using with native browser `<form>` submission
 
 The value of the tagged input will not be submitted via standard form `action` unless you provide a
@@ -171,13 +170,13 @@ The hidden inputs will also be generated when using
 
 ## Tag validation
 
-By default, `<b-form-tags>` detects when the user is attempting to enter a (case-sensitive) duplicate
-tag, and will provide integrated feedback to the user.
+By default, `<b-form-tags>` detects when the user is attempting to enter a (case-sensitive)
+duplicate tag, and will provide integrated feedback to the user.
 
 You can optionally provide a tag validator method via the `tag-validator` prop. The validator
 function will receive one argument which is the tag being added, and should return either `true` if
 the tag passes validation and can be added, or `false` if the tag fails validation (in which case it
-is not added to the array of tags). itegrated feedback will be provided to the user listing the
+is not added to the array of tags). integrated feedback will be provided to the user listing the
 invalid tag(s) that could not be added.
 
 Tag validation occurs only for tags added via user input. Changes to the tags via the `v-model` are
@@ -247,15 +246,15 @@ three arrays as it's arguments:
 - `invalidTags` (tags that do not pass validation)
 - `duplicateTags` (tags that would be a duplicate of existing or validTags).
 
-The event will be emiited only when the new tag input changes (characters are entered that would be
-considered part of a tag), or when the user attempts to add a tag (i.e. via <kbd>ENTER</kbd>, clicking
-the **Add** button, or entering a separator). The three arrays will be empty when the user clears the
-new tag input element (or contains just spaces).
+The event will be emitted only when the new tag input changes (characters are entered that would be
+considered part of a tag), or when the user attempts to add a tag (i.e. via <kbd>ENTER</kbd>,
+clicking the **Add** button, or entering a separator). The three arrays will be empty when the user
+clears the new tag input element (or contains just spaces).
 
 If you are providing your own feedback for duplicate and invalid tags (via the use of the `new-tags`
 event) outside of the `<b-form-tags>` component, you can disable the built in duplicate and invalid
-messages by setting the props `duplicate-tag-text` and `invalid-tag-text` (respectively) to either an
-empty string (`''`) or `null`.
+messages by setting the props `duplicate-tag-text` and `invalid-tag-text` (respectively) to either
+an empty string (`''`) or `null`.
 
 ```html
 <template>
@@ -350,9 +349,9 @@ The `inputAttrs` object contains attributes to bind (`v-bind`) to the new tag in
 | `value`    | String  | The `value` attribute for the new tag input                                  |
 | `disabled` | Boolean | The `disabled` attribute for the new tag input. Value of the `disabled` prop |
 
-The `inputAttrs` object will also include any attributes set via the `input-attrs` prop. Note
-that the above attributes take precedence over any of the same attributes specified in the
-`input-attrs` prop.
+The `inputAttrs` object will also include any attributes set via the `input-attrs` prop. Note that
+the above attributes take precedence over any of the same attributes specified in the `input-attrs`
+prop.
 
 #### `inputHandlers` object properties
 
@@ -361,7 +360,7 @@ The `inputHandlers` object contains event handlers to bind (`v-on`) to the new t
 | Property  | Type     | Description                                                                                                                                                                    |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `input`   | Function | Event handler for the input element `input` event. Accepts a single argument of either an event object or a string. Updates the internal v-model for the new tag input element |
-| `change`  | Function | Event handler for the input element `change` event. Accepts a single argument of either an event object or a string. Change will trigger adding the tag.                        |
+| `change`  | Function | Event handler for the input element `change` event. Accepts a single argument of either an event object or a string. Change will trigger adding the tag.                       |
 | `keydown` | Function | Event handler for the input element `keydown` <kbd>ENTER</kbd> and <kbd>DEL</kbd> events. Accepts a single argument which is the native keydown event object                   |
 
 The `change` handler, when needed, must be enabled via the `add-on-change` prop, otherwise it is a
@@ -477,7 +476,7 @@ of tags:
 <template>
   <div>
     <b-form-group label="Tagged input using select">
-      <!-- prop `add-on-change` is needed to enable adding tags vie the `change` event --> 
+      <!-- prop `add-on-change` is needed to enable adding tags vie the `change` event -->
       <b-form-tags v-model="value" size="lg" add-on-change no-outer-focus class="mb-2">
         <template v-slot="{ tags, inputAttrs, inputHandlers, disabled, removeTag }">
         <ul v-if="tags.length > 0" class="list-inline mb-2">
@@ -544,8 +543,8 @@ If the custom input is using custom event names that mimic `input` and `change`,
 </template>
 ```
 
-The `inputHandlers.input` handler **must** be bound to an event that updates with each
-character typed by the user for _as-you-type_ tag validation to work.
+The `inputHandlers.input` handler **must** be bound to an event that updates with each character
+typed by the user for _as-you-type_ tag validation to work.
 
 ### Advanced custom rendering usage
 
