@@ -299,7 +299,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         if (matches(this.getInput(), 'select')) {
           // The following delay is needed to properly
           // work with `<select>` elements
-          this.$nextTick(() => requestAF(() => (this.newTag = '')))
+          // DEBUG
+          console.log('Is Select')
+          requestAF(() => this.$nextTick(() => (this.newTag = '')))
         } else {
           const invalidAndDups = [...parsed.invalid, ...parsed.duplicate]
           this.newTag = parsed.all
