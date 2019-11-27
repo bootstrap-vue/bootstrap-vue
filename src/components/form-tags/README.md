@@ -369,8 +369,8 @@ noop method.
 
 ### Using native browser inputs
 
-The scope contains attributes and event handlers that can be directly bound to native form inputs or
-selects.
+The scope contains attributes and event handlers that can be directly bound to native `<input>` or
+`<select>` elements.
 
 ```html
 <template>
@@ -418,7 +418,10 @@ selects.
 ### Using custom form components
 
 The scope contains attributes and event handlers that can be directly bound to _most_ custom inputs
-or select components (the event handlers accept both a string tag value _or_ a native event object).
+or select components (the event handlers accept either a string tag value _or_ a native event
+object). Any component that emits `input` as characters are typed, and (optionally) emits `change`
+when the input value changes (i.e on blur or select), and uses the prop `value` as the v-model,
+should work without modification.
 
 In this example, we are using the [`<b-form-tag>` helper component](#b-form-tag-helper-component),
 but feel free to render tags using standard HTML or components.
@@ -464,8 +467,85 @@ but feel free to render tags using standard HTML or components.
   }
 </script>
 
-<!-- form-tags-custom-components-1.vue -->
+<!-- form-tags-custom-components-input.vue -->
 ```
+
+The following is an example of using a custom select component for choosing from a pre-defined set
+of tags:
+
+```html
+<template>
+  <div>
+    <b-form-group label="Tagged input using select">
+      <!-- prop `add-on-change` is needed to enable adding tags vie the `change` event --> 
+      <b-form-tags v-model="value" size="lg" add-on-change no-outer-focus class="mb-2">
+        <template v-slot="{ tags, inputAttrs, inputHandlers, disabled, removeTag }">
+        <ul v-if="tags.length > 0" class="list-inline mb-2">
+          <li v-for="tag in tags" :key="tag" class="list-inline-item">
+            <b-form-tag
+              @remove="removeTag(tag)"
+              :title="tag"
+              :disabled="disabled"
+              variant="info"
+            >{{ tag }}</b-form-tag>
+          </li>
+        </ul>
+        <b-form-select
+          v-bind="inputAttrs"
+          v-on="inputHandlers"
+          :disabled="disabled || availableOptions.length === 0"
+          :options="availableOptions"
+        >
+          <template v-slot:first>
+            <!-- This is required to prevent bugs with Safari -->
+            <option disabled value="">Choose a tag...</option>
+          </template>
+        </b-form-select>
+        </template>
+      </b-form-tags>
+    </b-form-group>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        allOptions: ['Apple', 'Orange', 'Banana', 'Lime', 'Peach', 'Chocolate', 'Strawberry'],
+        value: []
+      }
+    },
+    computed: {
+      availableOptions() {
+        return this.allOptions.filter(opt => this.value.indexOf(opt) === -1)
+      }
+    }
+  }
+</script>
+
+<!-- b-form-tags-components-select.vue -->
+```
+
+If the custom input is using custom event names that mimic `input` and `change`, and/or needs the
+`.native` modifier for keydown, you can do something similar to below to bind the event handlers:
+
+```html
+<template v-slot:default="{ inputAttrs, inputHandlers, removeTag, tags }">
+  <custom-input
+    :id="inputAttrs.id"
+    :value="inputAttrs.value"
+    @custom-input-event="inputHandlers.input($event)"
+    @custom-change-event="inputHandlers.change($event)"
+    @keydown.native="inputHandlers.keydown($event)"
+  ></custom-input>
+  <template v-for="tag in tags">
+    <!-- your custom tag list here -->
+  </template>
+</template>
+```
+
+The `inputHandlers.input` handler **must** be bound to an event that updates with each
+character typed by the user for _as-you-type_ tag validation to work.
 
 ### Advanced custom rendering usage
 
@@ -555,27 +635,6 @@ default slot's scope.
 
 <!-- form-tags-custom-components-advanced.vue -->
 ```
-
-If your component is using custom event names that mimic `input` and `change`, and need the
-`.native` modifier for keydown, you can do something similar to below to bind the event handlers:
-
-```html
-<template v-slot:default="{ inputAttrs, inputHandlers, removeTag, tags }">
-  <custom-input
-    :id="inputAttrs.id"
-    :value="inputAttrs.value"
-    @custom-input-event="inputHandlers.input($event)"
-    @custom-change-event="inputHandlers.change($event)"
-    @keydown.native="inputHandlers.keydown($event)"
-  ></custom-input>
-  <template v-for="tag in tags">
-    <!-- your custom tag list here -->
-  </template>
-</template>
-```
-
-The `inputHandlers.input` handler must be bound to an event that updates with each
-character typed by the user in order for _as-you-type_ tag validation.
 
 ### Creating wrapper components
 
