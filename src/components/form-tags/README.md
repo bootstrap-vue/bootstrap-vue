@@ -377,7 +377,7 @@ The scope contains attributes and event handlers that can be directly bound to n
   <div>
     <b-form-tags v-model="value" no-outer-focus class="mb-2">
       <template v-slot="{ tags, inputAttrs, inputHandlers, addTag, removeTag }">
-        <b-input-group class="mb-2">
+        <b-input-group>
           <input
             v-bind="inputAttrs"
             v-on="inputHandlers"
@@ -387,11 +387,11 @@ The scope contains attributes and event handlers that can be directly bound to n
             <b-button @click="addTag()" variant="primary">Add</b-button>
           </b-input-group-append>
         </b-input-group>
-        <b-list-group>
+        <b-list-group horizontal class="flex-wrap justify-content">
           <b-list-group-item
-            v-for="tag in tags.slice().reverse()"
+            v-for="tag in tags"
             :key="tag"
-            class="py-1"
+            class="mt-2 mr-2 py-1 text-nowrap"
           >
             <strong>{{ tag }}</strong>
             <b-button @click="removeTag(tag)" variant="link" size="sm">remove</b-button>
