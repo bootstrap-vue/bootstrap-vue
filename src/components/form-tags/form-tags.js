@@ -290,16 +290,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Add any new tags to the tags array, or if the
       // array of allTags is empty, we clear the input
       if (parsed.valid.length > 0 || parsed.all.length === 0) {
-        // We add the new tags in one atomic operation
-        // to trigger reactivity once (instead of once per tag)
-        // concat can be faster than array spread, when both args are arrays
-        this.tags = concat(this.tags, parsed.valid)
         // Clear the user input element (and leave in any invalid/duplicate tag(s)
         /* istanbul ignore if: full testing to be added later */
         if (matches(this.getInput(), 'select')) {
-          // The following delay is needed to properly
+          // The following is needed to properly
           // work with `<select>` elements
-          requestAF(() => this.$nextTick(() => (this.newTag = '')))
+          this.newTag = ''
         } else {
           const invalidAndDups = [...parsed.invalid, ...parsed.duplicate]
           this.newTag = parsed.all
@@ -307,6 +303,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             .join(this.computedJoiner)
             .concat(invalidAndDups.length > 0 ? this.computedJoiner.charAt(0) : '')
         }
+      }
+      if (parsed.valid.length > 0) {
+        // We add the new tags in one atomic operation
+        // to trigger reactivity once (instead of once per tag)
+        // We do this after we update the new tag input value
+        // Concat can be faster than array spread, when both args are arrays
+        this.tags = concat(this.tags, parsed.valid)
       }
       this.tagsState = parsed
     },
@@ -320,7 +323,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       //   will prevent the tag from being removed (i.e. confirmation)
       //   Or emit cancelable BvEvent
       this.tags = this.tags.filter(t => t !== tag)
-      // return focus to the input (if possible)
+      // Return focus to the input (if possible)
       this.focus()
     },
     // --- Input element event handlers ---
@@ -337,7 +340,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         this.newTag = newTag
       }
       // We ignore leading whitespace for the following
-      const newTag = trimLeft(newTag)
+      newTag = trimLeft(newTag)
       if (separatorRe && separatorRe.test(newTag.slice(-1))) {
         // A trailing separator character was entered, so add the tag(s).
         // Note, more than one tag on input event is possible via copy/paste
