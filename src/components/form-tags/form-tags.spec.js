@@ -411,15 +411,8 @@ describe('form-tags', () => {
     expect(wrapper.vm.newTag).toEqual('three ')
     expect(wrapper.vm.duplicateTags).toEqual([])
     expect(wrapper.vm.invalidTags).toEqual(['three'])
-    expect(wrapper.emitted('tag-state').length).toBe(5)
-    // Valid tags
-    expect(wrapper.emitted('tag-state')[4][0]).toEqual([])
-    // Invalid tags
-    expect(wrapper.emitted('tag-state')[4][1]).toEqual(['three'])
-    // Duplicate tags
-    expect(wrapper.emitted('tag-state')[4][2]).toEqual([])
-    expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
-    expect(wrapper.find('.form-text').exists()).toBe(false)
+    // State hasn't changed, so event not emitted
+    expect(wrapper.emitted('tag-state').length).toBe(4)
 
     $input.element.value = 'two'
     $input.trigger('input')
@@ -429,13 +422,13 @@ describe('form-tags', () => {
     expect(wrapper.vm.newTag).toEqual('two')
     expect(wrapper.vm.duplicateTags).toEqual(['two'])
     expect(wrapper.vm.invalidTags).toEqual([])
-    expect(wrapper.emitted('tag-state').length).toBe(6)
+    expect(wrapper.emitted('tag-state').length).toBe(5)
     // Valid tags
-    expect(wrapper.emitted('tag-state')[5][0]).toEqual([])
+    expect(wrapper.emitted('tag-state')[4][0]).toEqual([])
     // Invalid tags
-    expect(wrapper.emitted('tag-state')[5][1]).toEqual([])
+    expect(wrapper.emitted('tag-state')[4][1]).toEqual([])
     // Duplicate tags
-    expect(wrapper.emitted('tag-state')[5][2]).toEqual(['two'])
+    expect(wrapper.emitted('tag-state')[4][2]).toEqual(['two'])
     expect(wrapper.find('.invalid-feedback').exists()).toBe(false)
     expect(wrapper.find('.form-text').exists()).toBe(true)
 
@@ -445,7 +438,7 @@ describe('form-tags', () => {
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
-    expect(wrapper.emitted('tag-state').length).toBe(7)
+    expect(wrapper.emitted('tag-state').length).toBe(6)
     // Tags added
     expect(wrapper.emitted('tag-state')[5][0]).toEqual([])
     // Invalid tag
@@ -454,13 +447,12 @@ describe('form-tags', () => {
     expect(wrapper.emitted('tag-state')[5][2]).toEqual(['two'])
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
     expect(wrapper.find('.form-text').exists()).toBe(true)
-
     $input.trigger('input')
     await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
-    expect(wrapper.emitted('tag-state').length).toBe(7)
+    expect(wrapper.emitted('tag-state').length).toBe(6)
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
     expect(wrapper.find('.form-text').exists()).toBe(true)
 
@@ -469,15 +461,15 @@ describe('form-tags', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.vm.newTag).toEqual('    ')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
-    expect(wrapper.emitted('tag-state').length).toBe(8)
+    expect(wrapper.emitted('tag-state').length).toBe(7)
     expect(wrapper.vm.duplicateTags).toEqual([])
     expect(wrapper.vm.invalidTags).toEqual([])
     // Tags added
-    expect(wrapper.emitted('tag-state')[7][0]).toEqual([])
+    expect(wrapper.emitted('tag-state')[6][0]).toEqual([])
     // Invalid tag
-    expect(wrapper.emitted('tag-state')[7][1]).toEqual([])
+    expect(wrapper.emitted('tag-state')[6][1]).toEqual([])
     // Duplicate tags
-    expect(wrapper.emitted('tag-state')[7][2]).toEqual([])
+    expect(wrapper.emitted('tag-state')[6][2]).toEqual([])
     expect(wrapper.find('.invalid-feedback').exists()).toBe(false)
     expect(wrapper.find('.form-text').exists()).toBe(false)
 
