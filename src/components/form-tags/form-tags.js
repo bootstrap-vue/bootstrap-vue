@@ -506,12 +506,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       })
 
       // Feedback IDs if needed
-      const invalidFeedbackId = invalidTagText && isInvalid
-        ? this.safeId('__invalid_feedback__')
-        : null
-      const duplicateFeedbackId = duplicateTagText && isDuplicate
-        ? this.safeId('__duplicate_feedback__')
-        : null
+      const invalidFeedbackId =
+        invalidTagText && isInvalid ? this.safeId('__invalid_feedback__') : null
+      const duplicateFeedbackId =
+        duplicateTagText && isDuplicate ? this.safeId('__duplicate_feedback__') : null
 
       // Compute the aria-describedby attribute value
       const ariaDescribedby = [
@@ -639,7 +637,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     }
 
     // Generate the user interface
-    let $content = this.normalizeSlot('default', scope) || this.defaultRender(scope)
+    const $content = this.normalizeSlot('default', scope) || this.defaultRender(scope)
 
     // Add hidden inputs for form submission
     let $hidden = h()
