@@ -7,7 +7,7 @@ import looseEqual from '../../utils/loose-equal'
 import toString from '../../utils/to-string'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { requestAF, select } from '../../utils/dom'
+import { matches, requestAF, select } from '../../utils/dom'
 import { isEvent, isFunction, isString } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -295,14 +295,18 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // concat can be faster than array spread, when both args are arrays
         this.tags = concat(this.tags, parsed.valid)
         // Clear the user input element (and leave in any invalid/duplicate tag(s)
-        // Note: this may cause issues with <select> elements that
-        // do not have a <option disabled value=""> on Safari
-        // Perhaps we should have an example with select in the docs
-        const invalidAndDups = [...parsed.invalid, ...parsed.duplicate]
-        this.newTag = parsed.all
-          .filter(tag => arrayIncludes(invalidAndDups, tag))
-          .join(this.computedJoiner)
-          .concat(invalidAndDups.length > 0 ? this.computedJoiner.charAt(0) : '')
+        /* istanbul ignore if: full testing to be added later */
+        if (matches(this.getInput(), 'select')) {
+          // The following delay is needed to properly
+          // work with `<select>` elements
+          this.$nextTick(() => (this.newTag = ''))
+        } else {
+          const invalidAndDups = [...parsed.invalid, ...parsed.duplicate]
+          this.newTag = parsed.all
+            .filter(tag => arrayIncludes(invalidAndDups, tag))
+            .join(this.computedJoiner)
+            .concat(invalidAndDups.length > 0 ? this.computedJoiner.charAt(0) : '')
+        }
       }
       this.tagsState = parsed
     },
@@ -457,6 +461,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Returns the input element reference (or null if not found)
       return select(`#${this.computedInputId}`, this.$el)
     },
+    // Default User Interface render
     defaultRender({
       tags,
       addTag,
