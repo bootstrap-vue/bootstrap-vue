@@ -328,6 +328,7 @@ The default slot scope properties are as follows:
 | `invalidTags`      | Array                    | Array of the invalid tag(s) the user has entered                                                                                                       |
 | `isDuplicate`      | Boolean                  | `true` if the user input contains duplicate tag(s)                                                                                                     |
 | `duplicateTags`    | Array                    | Array of the duplicate tag(s) the user has entered                                                                                                     |
+| `disableAddButton` | Boolean                  | Will be `true` if the tag(s) in the input cannot be added (all invalid and/or duplicates)                                                              |
 | `disabled`         | Boolean                  | `true` if the component is in the disabled state. Value of the `disabled` prop                                                                         |
 | `state`            | Boolean                  | The contextual state of the component. Value of the `state` prop. Possible values are `true`, `false` or `null`                                        |
 | `size`             | String                   | The value of the `size` prop                                                                                                                           |
