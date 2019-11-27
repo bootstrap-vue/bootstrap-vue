@@ -141,13 +141,13 @@ describe('form-tags', () => {
     expect(wrapper.vm.newTag).toEqual('pear')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     wrapper.setProps({
-      addOnChange: true;
+      addOnChange: true
     })
     $input.trigger('change')
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
     wrapper.setProps({
-      addOnChange: false;
+      addOnChange: false
     })
 
     $input.element.value = 'peach'
