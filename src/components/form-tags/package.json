@@ -160,6 +160,11 @@
                 "description": "Will be true if the user has attempted to add duplicate tag(s)"
               },
               {
+                "prop": "disableAddButton",
+                "type": "Boolean",
+                "description": "Will be true if the tag(s) in the input cannot be added (all invalid and/or duplicates)"
+              },
+              {
                 "prop": "disabled",
                 "type": "Boolean",
                 "description": "If the component is in the disabled state. Value of the 'disabled' prop"
