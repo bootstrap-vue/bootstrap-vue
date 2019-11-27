@@ -347,7 +347,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         this.addTag()
       } else {
         // Validate (parse tags) on input event
-        this.tagsState = value === '' ? cleanTagsState() : this.parseTags(newTag)
+        this.tagsState = newTag === '' ? cleanTagsState() : this.parseTags(newTag)
       }
     },
     onInputChange(evt) {
