@@ -421,9 +421,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Split the tag(s) via the optional separator
       // Normally only a single tag is provided, but copy/paste
       // can enter multiple tags in a single operation
-      return (separatorRe ? newTag.split(separatorRe) : [newTag])
-        .map(trim)
-        .filter(identity)
+      return (separatorRe ? newTag.split(separatorRe) : [newTag]).map(trim).filter(identity)
     },
     parseTags(newTag) {
       // Takes `newTag` value and parses it into `validTags`,
