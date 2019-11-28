@@ -1,5 +1,6 @@
-import toString from '../utils/to-string'
 import { isFunction } from '../utils/inspect'
+import { toInteger, toFloat } from '../utils/number'
+import { toString } from '../utils/string'
 
 // @vue/component
 export default {
@@ -68,7 +69,7 @@ export default {
   computed: {
     computedDebounce() {
       // Ensure we have a positive number equal to or greater than 0
-      return Math.max(parseInt(this.debounce, 10) || 0, 0)
+      return Math.max(toInteger(this.debounce) || 0, 0)
     },
     computedClass() {
       return [
@@ -143,7 +144,7 @@ export default {
       }
       // Emulate `.number` modifier behaviour
       if (this.number) {
-        const number = parseFloat(value)
+        const number = toFloat(value)
         value = isNaN(number) ? value : number
       }
       return value
