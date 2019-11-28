@@ -504,6 +504,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             staticClass: 'mt-1 mr-1',
             class: tagClass,
             props: {
+              // 'BFormTag' will auto generate an ID
+              // so we do not need to set the ID prop
               tag: 'li',
               title: tag,
               disabled: disabled,
@@ -570,11 +572,19 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         [this.normalizeSlot('add-button-text') || addButtonText]
       )
 
+      // ID of the tags+input '<ul>' list
+      // Note we could concatinate inputAttrs.id with '__TAG__LIST__'
+      // But note that the inputID may be null until after mount
+      // safeId returns null, if no user provied ID, until after
+      // mount when a unique ID is generated
+      const tagListId = this.safeId('__TAG__LIST__')
+
       const $field = h(
         'li',
         {
-          key: 'li-input__',
-          staticClass: 'd-inline-flex flex-grow-1 mt-1'
+          key: '__li-input__',
+          staticClass: 'd-inline-flex flex-grow-1 mt-1',
+          attrs: { role: 'group', 'aria-live': 'off', 'aria-controls': tagListId }
         },
         [$input, $button]
       )
@@ -582,31 +592,54 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Wrap in an unordered list element (we use a list for accessibility)
       const $ul = h(
         'ul',
-        { staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center' },
+        {
+          staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center',
+          attrs: {
+            id: tagListId,
+            // Don't interupt the user abruptly
+            // Although maybe this should be 'assertive'
+            // to provide imediate feedback of the tag added/removed
+            'aria-live': 'polite',
+            // Only read elements that have been added or removed
+            'aria-atomic': 'false',
+            'aria-relevant': 'additions removals'
+          }
+        },
         // `concat()` is faster than array spread when args are known to be arrays
         concat($tags, $field)
       )
 
-      // Invalid tag feedback if needed (error)
-      let $invalid = h()
-      if (invalidFeedbackId) {
-        $invalid = h(BFormInvalidFeedback, { props: { id: invalidFeedbackId, forceShow: true } }, [
-          this.invalidTagText,
-          ': ',
-          this.invalidTags.join(this.computedJoiner)
-        ])
-      }
+      let $feedback = h()
+      if (invalidTagText || duplicateTagText) {
+        // Add an aria live region for the invalid/duplicate tag
+        // messages if the user has not diabled the messages
 
-      // Duplicate tag feedback if needed (warning, not error)
-      let $duplicate = h()
-      if (duplicateFeedbackId) {
-        $duplicate = h(BFormText, { props: { id: duplicateFeedbackId } }, [
-          this.duplicateTagText,
-          ': ',
-          this.duplicateTags.join(this.computedJoiner)
-        ])
-      }
+        // Invalid tag feedback if needed (error)
+        let $invalid = h()
+        if (invalidFeedbackId) {
+          $invalid = h(BFormInvalidFeedback, { props: { id: invalidFeedbackId, forceShow: true } }, [
+            this.invalidTagText,
+            ': ',
+            this.invalidTags.join(this.computedJoiner)
+          ])
+        }
 
+        // Duplicate tag feedback if needed (warning, not error)
+        let $duplicate = h()
+        if (duplicateFeedbackId) {
+          $duplicate = h(BFormText, { props: { id: duplicateFeedbackId } }, [
+            this.duplicateTagText,
+            ': ',
+            this.duplicateTags.join(this.computedJoiner)
+          ])
+        }
+
+        const $feedback = h(
+          'div',
+          { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } },
+          [$invalid, $duplicate]
+        )
+      }
       // Return the content
       return [$ul, $invalid, $duplicate]
     }
@@ -685,7 +718,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: this.safeId(),
           role: 'group',
-          tabindex: !this.disabled && !this.noOuterFocus ? '-1' : null
+          tabindex: this.disabled || this.noOuterFocus ? null : '-1'
         },
         on: {
           focusin: this.onFocusin,
