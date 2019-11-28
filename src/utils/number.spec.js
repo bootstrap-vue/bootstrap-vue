@@ -27,7 +27,7 @@ describe('utils/number', () => {
     expect(toFloat('foo 256bar')).toBe(NaN)
     expect(toFloat({})).toBe(NaN)
     expect(toFloat([])).toBe(NaN)
-    expect(toFloat(new Date()).toBe(NaN)
+    expect(toFloat(new Date())).toBe(NaN)
     expect(toFloat(null)).toBe(NaN)
     expect(toFloat(undefined)).toBe(NaN)
   })
