@@ -1,4 +1,4 @@
-import { toFixed, toInteger, toFixed } from './number'
+import { toFixed, toFloat, toInteger } from './number'
 
 describe('utils/number', () => {
   it('toInteger works', async () => {
