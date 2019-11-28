@@ -31,7 +31,7 @@ export const BProgress = /*#__PURE__*/ Vue.extend({
       default: null
     },
     precision: {
-      type: [Number, String]
+      type: [Number, String],
       default: 0
     },
     showProgress: {
