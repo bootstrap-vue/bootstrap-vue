@@ -4,6 +4,7 @@ import toString from '../utils/to-string'
 import warn from '../utils/warn'
 import { isFunction, isNull } from '../utils/inspect'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
+import { toInteger } from '../utils/number'
 import normalizeSlotMixin from '../mixins/normalize-slot'
 import { BLink } from '../components/link/link'
 
@@ -22,13 +23,13 @@ const makePageArray = (startNumber, numberOfPages) =>
 
 // Sanitize the provided limit value (converting to a number)
 const sanitizeLimit = val => {
-  const limit = parseInt(val, 10) || 1
+  const limit = toInteger(val) || 1
   return limit < 1 ? DEFAULT_LIMIT : limit
 }
 
 // Sanitize the provided current page number (converting to a number)
 const sanitizeCurrentPage = (val, numberOfPages) => {
-  const page = parseInt(val, 10) || 1
+  const page = toInteger(val) || 1
   return page > numberOfPages ? numberOfPages : page < 1 ? 1 : page
 }
 
@@ -54,7 +55,7 @@ export const props = {
     type: [Number, String],
     default: null,
     validator(value) /* istanbul ignore next */ {
-      const num = parseInt(value, 10)
+      const num = toInteger(value)
       if (!isNull(value) && (isNaN(num) || num < 1)) {
         warn('pagination: v-model value must be a number greater than 0')
         return false
@@ -66,7 +67,7 @@ export const props = {
     type: [Number, String],
     default: DEFAULT_LIMIT,
     validator(value) /* istanbul ignore next */ {
-      const num = parseInt(value, 10)
+      const num = toInteger(value)
       if (isNaN(num) || num < 1) {
         warn('pagination: prop "limit" must be a number greater than 0')
         return false
@@ -145,7 +146,7 @@ export default {
   },
   props,
   data() {
-    const curr = parseInt(this.value, 10)
+    const curr = toInteger(this.value)
     return {
       // -1 signifies no page initially selected
       currentPage: curr > 0 ? curr : -1,
@@ -309,7 +310,7 @@ export default {
       // We do this in next tick to ensure buttons have finished rendering
       this.$nextTick(() => {
         const btn = this.getButtons().find(
-          el => parseInt(getAttr(el, 'aria-posinset'), 10) === this.computedCurrentPage
+          el => toInteger(getAttr(el, 'aria-posinset')) === this.computedCurrentPage
         )
         if (btn && btn.focus) {
           this.setBtnFocus(btn)
