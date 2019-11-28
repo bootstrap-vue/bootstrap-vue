@@ -1,12 +1,12 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
-import toString from '../../utils/to-string'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { addClass, removeClass } from '../../utils/dom'
 import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
 import { keys } from '../../utils/object'
+import { toString } from '../../utils/string'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 
 // --- Constants --

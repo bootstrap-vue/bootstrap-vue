@@ -1,6 +1,6 @@
 import get from '../../../utils/get'
-import toString from '../../../utils/to-string'
 import { isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
+import { toString } from '../../../utils/string'
 import { BTr } from '../tr'
 import { BTd } from '../td'
 import { BTh } from '../th'

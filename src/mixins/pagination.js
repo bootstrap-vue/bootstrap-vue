@@ -1,10 +1,10 @@
 import KeyCodes from '../utils/key-codes'
 import range from '../utils/range'
-import toString from '../utils/to-string'
-import warn from '../utils/warn'
-import { isFunction, isNull } from '../utils/inspect'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
+import { isFunction, isNull } from '../utils/inspect'
 import { toInteger } from '../utils/number'
+import { toString } from '../utils/string'
+import { warn } from '../utils/warn'
 import normalizeSlotMixin from '../mixins/normalize-slot'
 import { BLink } from '../components/link/link'
 

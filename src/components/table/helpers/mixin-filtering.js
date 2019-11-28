@@ -3,6 +3,7 @@ import looseEqual from '../../../utils/loose-equal'
 import { concat } from '../../../utils/array'
 import { isFunction, isString, isRegExp } from '../../../utils/inspect'
 import { toInteger } from '../../../utils/number'
+import { escapeRegExp } from '../../../utils/string'
 import { warn } from '../../../utils/warn'
 import stringifyRecordValues from './stringify-record-values'
 
@@ -220,17 +221,15 @@ export default {
         return null
       }
 
-      // Build the regexp needed for filtering
-      let regexp = criteria
-      if (isString(regexp)) {
-        // Escape special `RegExp` characters in the string and convert contiguous
-        // whitespace to `\s+` matches
-        const pattern = criteria
-          .replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
-          .replace(/[\s\uFEFF\xA0]+/g, '\\s+')
-        // Build the `RegExp` (no need for global flag, as we only need
+      // Build the RegExp needed for filtering
+      let regExp = criteria
+      if (isString(regExp)) {
+        // Escape special RegExp characters in the string and convert contiguous
+        // whitespace to \s+ matches
+        const pattern = escapeRegExp(criteria).replace(/[\s\uFEFF\xA0]+/g, '\\s+')
+        // Build the RegExp (no need for global flag, as we only need
         // to find the value once in the string)
-        regexp = new RegExp(`.*${pattern}.*`, 'i')
+        regExp = new RegExp(`.*${pattern}.*`, 'i')
       }
 
       // Generate the wrapped filter test function to use
@@ -246,9 +245,10 @@ export default {
         //
         // Generated function returns true if the criteria matches part of
         // the serialized data, otherwise false
+        //
         // We set `lastIndex = 0` on the `RegExp` in case someone specifies the `/g` global flag
-        regexp.lastIndex = 0
-        return regexp.test(
+        regExp.lastIndex = 0
+        return regExp.test(
           stringifyRecordValues(
             item,
             this.computedFilterIgnored,

@@ -1,6 +1,6 @@
 import identity from '../../../utils/identity'
-import toString from '../../../utils/to-string'
 import { isBoolean } from '../../../utils/inspect'
+import { toString } from '../../../utils/string'
 
 // Main `<table>` render mixin
 // Includes all main table styling options
