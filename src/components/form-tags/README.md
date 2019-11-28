@@ -372,12 +372,15 @@ noop method.
 The scope contains attributes and event handlers that can be directly bound to native `<input>` or
 `<select>` elements.
 
+The following example includes the suggested ARIA attributes and roles needed for screen-reader
+support.
+
 ```html
 <template>
   <div>
     <b-form-tags v-model="value" no-outer-focus class="mb-2">
       <template v-slot="{ tags, inputAttrs, inputHandlers, addTag, removeTag }">
-        <b-input-group>
+        <b-input-group aria-controls="my-custom-tags-list">
           <input
             v-bind="inputAttrs"
             v-on="inputHandlers"
@@ -387,16 +390,33 @@ The scope contains attributes and event handlers that can be directly bound to n
             <b-button @click="addTag()" variant="primary">Add</b-button>
           </b-input-group-append>
         </b-input-group>
-        <b-list-group horizontal class="flex-wrap justify-content">
-          <b-list-group-item
+        <ul
+          id="my-custom-tags-list"
+          class="list-unstyled d-flex flex-wrap mb-0"
+          aria-live="polite"
+          aria-atomic="false"
+          aria-relevant="additions removals"
+        >
+          <!-- Always use the tag value as the :key, not the index! -->
+          <!-- Otherwise screen readers will not read the tag       -->
+          <!-- additions and removals correctly.                    -->
+          <b-card
             v-for="tag in tags"
             :key="tag"
-            class="mt-2 mr-2 py-1 text-nowrap"
+            :id="`my-custom-tags-tag_${tag.replace(/\s/g, '_')}_`"
+            tag="li"
+            class="mt-1 mr-1"
+            body-class="py-1 pr-2 text-nowrap"
           >
             <strong>{{ tag }}</strong>
-            <b-button @click="removeTag(tag)" variant="link" size="sm">remove</b-button>
-          </b-list-group-item>
-        </b-list-group>
+            <b-button
+              @click="removeTag(tag)"
+              variant="link"
+              size="sm"
+              :aria-controls="`my-custom-tags-tag_${tag.replace(/\s/g, '_')}_`"
+            >remove</b-button>
+          </b-card>
+        </ul>
       </template>
     </b-form-tags>
   </div>
