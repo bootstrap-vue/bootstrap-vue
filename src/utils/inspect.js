@@ -18,8 +18,7 @@ export const isEmptyString = val => val === ''
 
 export const isUndefinedOrNull = val => isUndefined(val) || isNull(val)
 
-export const isUndefinedOrNullOrEmpty =
-  val => isUndefined(val) || isNull(val) || isEmptyString(val)
+export const isUndefinedOrNullOrEmpty = val => isUndefinedOrNull(val) || isEmptyString(val)
 
 export const isFunction = val => toType(val) === 'function'
 
