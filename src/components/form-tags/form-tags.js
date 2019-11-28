@@ -700,7 +700,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
 
     // Add hidden inputs for form submission
     let $hidden = h()
-    if (this.name) {
+    if (this.name && !this.disabled) {
       // We add hidden inputs for each tag if a name is provided
       // for native submission of forms
       $hidden = this.tags.map(tag => {
