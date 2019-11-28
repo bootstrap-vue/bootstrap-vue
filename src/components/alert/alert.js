@@ -31,7 +31,7 @@ const parseShow = show => {
 }
 
 // Is a value number like (i.e. a number or a number as string)
-const isNumericLike = value => !isNaN(computed(value))
+const isNumericLike = value => !isNaN(toInteger(value))
 
 // @vue/component
 export const BAlert = /*#__PURE__*/ Vue.extend({
