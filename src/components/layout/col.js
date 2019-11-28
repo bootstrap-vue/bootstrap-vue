@@ -3,7 +3,7 @@ import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
 import suffixPropName from '../../utils/suffix-prop-name'
 import { arrayIncludes } from '../../utils/array'
-import { isUndefined, isNull } from '../../utils/inspect'
+import { isUndefinedOrNull } from '../../utils/inspect'
 import { keys, assign, create } from '../../utils/object'
 import { getBreakpointsUpCached } from '../../utils/config'
 
@@ -24,7 +24,7 @@ const strNum = () => ({
 // Compute a breakpoint class name
 const computeBreakpoint = (type, breakpoint, val) => {
   let className = type
-  if (isUndefined(val) || isNull(val) || val === false) {
+  if (isUndefinedOrNull(val) || val === false) {
     return undefined
   }
   if (breakpoint) {
