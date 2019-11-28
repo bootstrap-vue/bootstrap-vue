@@ -21,7 +21,7 @@ const RX_TRIM_RIGHT = /\s+$/
 export const trimRight = str => toString(str).replace(RX_TRIM_RIGHT, '')
 
 // Remove leading and trailing white space from a string
-eport const trim = str => toString(str).trim()
+export const trim = str => toString(str).trim()
 
 // Lower case a string
 export const lowerCase = str => toString(str).toLowerCase()
