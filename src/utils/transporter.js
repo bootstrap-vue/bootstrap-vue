@@ -1,6 +1,7 @@
 import Vue from './vue'
+import identity from './identity'
 import { concat } from './array'
-import { select } from './dom'
+import { removeNode, select } from './dom'
 import { isBrowser } from './env'
 import { isFunction, isString } from './inspect'
 import { HTMLElement } from './safe-types'
@@ -40,8 +41,7 @@ const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
     }
   },
   destroyed() {
-    const el = this.$el
-    el && el.parentNode && el.parentNode.removeChild(el)
+    removeNode(this.$el)
   },
   render(h) {
     let nodes = isFunction(this.updatedNodes) ? this.updatedNodes({}) : this.updatedNodes
@@ -164,7 +164,7 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     if (this.disabled) {
-      const nodes = concat(this.normalizeSlot('default')).filter(Boolean)
+      const nodes = concat(this.normalizeSlot('default')).filter(identity)
       if (nodes.length > 0 && !nodes[0].text) {
         return nodes[0]
       }

@@ -55,10 +55,10 @@ export const BNavbar = /*#__PURE__*/ Vue.extend({
         class: {
           'd-print': props.print,
           'sticky-top': props.sticky,
-          [`navbar-${props.type}`]: Boolean(props.type),
-          [`bg-${props.variant}`]: Boolean(props.variant),
-          [`fixed-${props.fixed}`]: Boolean(props.fixed),
-          [`${breakpoint}`]: Boolean(breakpoint)
+          [`navbar-${props.type}`]: props.type,
+          [`bg-${props.variant}`]: props.variant,
+          [`fixed-${props.fixed}`]: props.fixed,
+          [`${breakpoint}`]: breakpoint
         },
         attrs: {
           role: props.tag === 'nav' ? null : 'navigation'

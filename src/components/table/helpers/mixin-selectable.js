@@ -1,3 +1,4 @@
+import identity from '../../../utils/identity'
 import looseEqual from '../../../utils/loose-equal'
 import range from '../../../utils/range'
 import { isArray, arrayIncludes } from '../../../utils/array'
@@ -47,7 +48,7 @@ export default {
         this.isSelectable &&
         this.selectedRows &&
         this.selectedRows.length > 0 &&
-        this.selectedRows.some(Boolean)
+        this.selectedRows.some(identity)
       )
     },
     selectableIsMultiSelect() {
@@ -155,7 +156,7 @@ export default {
     },
     isRowSelected(index) {
       // Determine if a row is selected (indexed based on `computedItems`)
-      return Boolean(isNumber(index) && this.selectedRows[index])
+      return !!(isNumber(index) && this.selectedRows[index])
     },
     clearSelected() {
       // Clear any active selected row(s)

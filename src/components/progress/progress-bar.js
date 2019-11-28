@@ -1,7 +1,9 @@
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
-import { isBoolean, isNumber } from '../../utils/inspect'
+import { isBoolean } from '../../utils/inspect'
+import { toFixed, toFloat, toInteger } from '../../utils/number'
+import { toString } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BProgressBar'
@@ -19,7 +21,7 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
   },
   props: {
     value: {
-      type: Number,
+      type: [Number, String],
       default: 0
     },
     label: {
@@ -32,11 +34,11 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
     // $parent (this.bvProgress) prop values may take precedence over the following props
     // Which is why they are defaulted to null
     max: {
-      type: Number,
+      type: [Number, String],
       default: null
     },
     precision: {
-      type: Number,
+      type: [Number, String],
       default: null
     },
     variant: {
@@ -70,24 +72,30 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
     },
     progressBarStyles() {
       return {
-        width: 100 * (this.value / this.computedMax) + '%'
+        width: 100 * (this.computedValue / this.computedMax) + '%'
       }
     },
-    computedProgress() {
-      const p = Math.pow(10, this.computedPrecision)
-      return Math.round((100 * p * this.value) / this.computedMax) / p
+    computedValue() {
+      return toFloat(this.value) || 0
     },
     computedMax() {
       // Prefer our max over parent setting
-      return isNumber(this.max) ? this.max : this.bvProgress.max || 100
+      const max = toFloat(this.max)
+      return isNaN(max) ? toFloat(this.bvProgress.max) || 100 : max
+    },
+    computedPrecision() {
+      // Prefer our precision over parent setting
+      const precision = toInteger(this.precision)
+      return isNaN(precision) ? toInteger(this.bvProgress.precision) || 0 : precision
+    },
+    computedProgress() {
+      const precision = this.computedPrecision
+      const p = Math.pow(10, precision)
+      return toFixed((100 * p * this.computedValue) / this.computedMax / p, precision)
     },
     computedVariant() {
       // Prefer our variant over parent setting
       return this.variant || this.bvProgress.variant
-    },
-    computedPrecision() {
-      // Prefer our precision over parent setting
-      return isNumber(this.precision) ? this.precision : this.bvProgress.precision || 0
     },
     computedStriped() {
       // Prefer our striped over parent setting
@@ -115,9 +123,9 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
     } else if (this.label || this.labelHtml) {
       childNodes = h('span', { domProps: htmlOrText(this.labelHtml, this.label) })
     } else if (this.computedShowProgress) {
-      childNodes = this.computedProgress.toFixed(this.computedPrecision)
+      childNodes = this.computedProgress
     } else if (this.computedShowValue) {
-      childNodes = this.value.toFixed(this.computedPrecision)
+      childNodes = toFixed(this.computedValue, this.computedPrecision)
     }
     return h(
       'div',
@@ -128,8 +136,8 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
         attrs: {
           role: 'progressbar',
           'aria-valuemin': '0',
-          'aria-valuemax': this.computedMax.toString(),
-          'aria-valuenow': this.value.toFixed(this.computedPrecision)
+          'aria-valuemax': toString(this.computedMax),
+          'aria-valuenow': toFixed(this.computedValue, this.computedPrecision)
         }
       },
       [childNodes]

@@ -1,12 +1,12 @@
 // Utils
 import memoize from '../../utils/memoize'
-import upperFirst from '../../utils/upper-first'
 import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
 import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isBoolean } from '../../utils/inspect'
 import { keys, create } from '../../utils/object'
+import { upperFirst } from '../../utils/string'
 // Mixins
 import formStateMixin from '../../mixins/form-state'
 import idMixin from '../../mixins/id'

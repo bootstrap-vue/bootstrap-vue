@@ -1,9 +1,9 @@
 import OurVue from './vue'
 import cloneDeep from './clone-deep'
 import get from './get'
-import warn from './warn'
 import { isArray, isPlainObject, isString, isUndefined } from './inspect'
 import { getOwnPropertyNames, hasOwnProperty } from './object'
+import { warn } from './warn'
 import DEFAULTS from './config-defaults'
 
 // --- Constants ---
