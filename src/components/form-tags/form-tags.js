@@ -188,7 +188,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // Must have attributes
         id: this.computedInputId,
         value: this.newTag,
-        disabled: this.disabled || null
+        disabled: this.disabled || null,
+        form: this.form || null
       }
     },
     computedInputHandlers() {
