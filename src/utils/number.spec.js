@@ -21,7 +21,8 @@ describe('utils/number', () => {
     expect(toFloat(1.23)).toBe(1.23)
     expect(toFloat('1.23')).toBe(1.23)
     expect(toFloat(1e5)).toBe(100000)
-    expect(toFloat('1e5')).toBe(1)
+    // parseFloat works differntly than patseInt in this case
+    expect(toFloat('1e5')).toBe(100000)
     expect(toFloat('256 foobar')).toBe(256)
     expect(toFloat('256.78 foobar')).toBe(256.78)
     expect(toFloat('foo 256bar')).toBe(NaN)
