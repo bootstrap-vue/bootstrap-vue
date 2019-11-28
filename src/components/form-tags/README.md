@@ -349,6 +349,7 @@ The `inputAttrs` object contains attributes to bind (`v-bind`) to the new tag in
 | `id`       | String  | the `id` attribute for the new tag input                                     |
 | `value`    | String  | The `value` attribute for the new tag input                                  |
 | `disabled` | Boolean | The `disabled` attribute for the new tag input. Value of the `disabled` prop |
+| `form`     | String  | The `form` attribute for the new tag input. Value of the `form` prop         |
 
 The `inputAttrs` object will also include any attributes set via the `input-attrs` prop. Note that
 the above attributes take precedence over any of the same attributes specified in the `input-attrs`
