@@ -4,11 +4,11 @@ import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
-import toString from '../../utils/to-string'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { matches, requestAF, select } from '../../utils/dom'
 import { isEvent, isFunction, isString } from '../../utils/inspect'
+import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BFormTag } from './form-tag'
@@ -20,22 +20,18 @@ const NAME = 'BFormTags'
 
 // --- Pre-compiled regular expressions for performance reasons ---
 
-const RX_ESCAPE_1 = /[-/\\^$*+?.()|[\]{}]/g
-const RX_ESCAPE_2 = /[\s\uFEFF\xA0]+/g
-const RX_TRIM_LEFT = /^\s+/
+const RX_SPACES = /[\s\uFEFF\xA0]+/g
 
 // --- Utility methods ---
 
-// Remove leading whitespace from string
-const trimLeft = str => str.replace(RX_TRIM_LEFT, '')
+// Escape special chars in string and replace
+// contiguous spaces with a whitespace match
+const escapeRegExpChars = str => escapeRegExp(str).replace(RX_SPACES, '\\s')
 
-// This is similar to the escape used by table filtering,
-// but the second replace is different
-const escapeRegExpChars = str => str.replace(RX_ESCAPE_1, '\\$&').replace(RX_ESCAPE_2, '\\s')
-
+// Remove leading/trailing spaces from array of tags and remove duplicates
 const cleanTags = tags => {
   return concat(tags)
-    .map(tag => toString(tag).trim())
+    .map(tag => trim(toString(tag)))
     .filter((tag, index, arr) => tag.length > 0 && arr.indexOf(tag) === index)
 }
 
@@ -230,7 +226,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // If 'Add' button should be disabled
       // If the input contains at least one tag that can
       // be added, then the 'Add' button should be enabled
-      const newTag = this.newTag.trim()
+      const newTag = trim(this.newTag)
       return (
         newTag === '' ||
         !this.splitTags(newTag).some(t => !arrayIncludes(this.tags, t) && this.validateTag(t))
@@ -281,7 +277,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     addTag(newTag = this.newTag) {
       newTag = toString(newTag)
       /* istanbul ignore next */
-      if (this.disabled || newTag.trim() === '') {
+      if (this.disabled || trim(newTag) === '') {
         // Early exit
         return
       }
@@ -426,7 +422,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Normally only a single tag is provided, but copy/paste
       // can enter multiple tags in a single operation
       return (separatorRe ? newTag.split(separatorRe) : [newTag])
-        .map(tag => tag.trim())
+        .map(trim)
         .filter(identity)
     },
     parseTags(newTag) {
