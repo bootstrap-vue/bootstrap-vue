@@ -1,10 +1,11 @@
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
-import toString from '../../utils/to-string'
-import { mergeData } from 'vue-functional-data-merge'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isString } from '../../utils/inspect'
+import { toInteger } from '../../utils/number'
+import { toString } from '../../utils/string'
+import { mergeData } from 'vue-functional-data-merge'
 
 // --- Constants --
 
@@ -113,8 +114,8 @@ export const BImg = /*#__PURE__*/ Vue.extend({
   props,
   render(h, { props, data }) {
     let src = props.src
-    let width = parseInt(props.width, 10) ? parseInt(props.width, 10) : null
-    let height = parseInt(props.height, 10) ? parseInt(props.height, 10) : null
+    let width = toInteger(props.width) || null
+    let height = toInteger(props.height) || null
     let align = null
     let block = props.block
     let srcset = concat(props.srcset)
