@@ -274,8 +274,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     this.handleAutofocus()
   },
   methods: {
-    addTag(newTag = this.newTag) {
-      newTag = toString(newTag)
+    addTag(newTag) {
+      newTag = isString(newTag) ? newTag : this.newTag
       /* istanbul ignore next */
       if (this.disabled || trim(newTag) === '') {
         // Early exit
