@@ -25,7 +25,7 @@ A clear and concise description of what the pull request does.
 - [ ] It's submitted to the `dev` branch, **not** the `master` branch
 - [ ] When resolving a specific issue, it's referenced in the PR's title (i.e. `[...] (fixes #xxx[,#xxx])`, where "xxx" is the issue number)
 - [ ] It should address only one issue or feature. If adding multiple features or fixing a bug and adding a new feature, break them into separate PRs if at all possible.
-- [ ] The title should follow the [**Conventional Commits**](https://www.conventionalcommits.org/) naming convention (i.e. `fix(alert): not alerting during SSR render`, `docs(badge): update pill examples, fix typos`, `chore: fix typo in README`, etc). **This is very important, as the `CHANGELOG` is generated from these messages.**
+- [ ] The title should follow the [**Conventional Commits**](https://www.conventionalcommits.org/) naming convention (i.e. `fix(alert): not alerting during SSR render`, `docs(badge): update pill examples`, `chore(docs): fix typo in README`, etc). **This is very important, as the `CHANGELOG` is generated from these messages.**
 
 **If new features/enhancement/fixes are added or changed:**
 
@@ -33,6 +33,7 @@ A clear and concise description of what the pull request does.
 - [ ] Includes any needed TypeScript declaration file updates
 - [ ] New/updated tests are included and passing (if required)
 - [ ] Existing test suites are passing
+- [ ] CodeCov for patch has met target
 - [ ] The changes have not impacted the functionality of other components or directives
 - [ ] ARIA Accessibility has been taken into consideration (Does it affect screen reader users or keyboard only users? Clickable items should be in the tab index, etc.)
 
