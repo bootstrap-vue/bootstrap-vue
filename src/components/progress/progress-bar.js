@@ -2,7 +2,7 @@ import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { isBoolean } from '../../utils/inspect'
-import { toFloat, toInteger } from '../../utils/number'
+import { toFixed, toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
@@ -86,12 +86,12 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
     computedPrecision() {
       // Prefer our precision over parent setting
       const precision = toInteger(this.precision)
-      return isNaN(precision) ? toInteger(this.bvProgress.precision) || 0 : precision 
+      return isNaN(precision) ? toInteger(this.bvProgress.precision) || 0 : precision
     },
     computedProgress() {
       const precision = this.computedPrecision
       const p = Math.pow(10, precision)
-      return ToFixed(((100 * p * this.computedValue) / this.computedMax) / p, precision)
+      return ToFixed((100 * p * this.computedValue) / this.computedMax / p, precision)
     },
     computedVariant() {
       // Prefer our variant over parent setting
@@ -137,7 +137,7 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
           role: 'progressbar',
           'aria-valuemin': '0',
           'aria-valuemax': toString(this.computedMax),
-          'aria-valuenow': toFixed(value, this.computedPrecision)
+          'aria-valuenow': toFixed(this.computedValue, this.computedPrecision)
         }
       },
       [childNodes]
