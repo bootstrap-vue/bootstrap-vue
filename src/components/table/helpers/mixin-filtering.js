@@ -10,6 +10,8 @@ import stringifyRecordValues from './stringify-record-values'
 const DEBOUNCE_DEPRECATED_MSG =
   'Prop "filter-debounce" is deprecated. Use the debounce feature of "<b-form-input>" instead.'
 
+const RX_SPACES = /[\s\uFEFF\xA0]+/g
+
 export default {
   props: {
     filter: {
@@ -226,7 +228,7 @@ export default {
       if (isString(regExp)) {
         // Escape special RegExp characters in the string and convert contiguous
         // whitespace to \s+ matches
-        const pattern = escapeRegExp(criteria).replace(/[\s\uFEFF\xA0]+/g, '\\s+')
+        const pattern = escapeRegExp(criteria).replace(RX_SPACES, '\\s+')
         // Build the RegExp (no need for global flag, as we only need
         // to find the value once in the string)
         regExp = new RegExp(`.*${pattern}.*`, 'i')
