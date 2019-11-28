@@ -311,6 +311,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         this.tags = concat(this.tags, parsed.valid)
       }
       this.tagsState = parsed
+      // Atempt to re-focus the input (specifically for when using the Add
+      // button, as the button disappears after successfully adding a tag
+      this.focus()
     },
     removeTag(tag) {
       /* istanbul ignore next */
@@ -405,15 +408,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     focus() {
       if (!this.disabled) {
         try {
-          const input = this.getInput()
-          input.focus()
+          this.getInput().focus()
         } catch {}
       }
     },
     blur() {
       try {
-        const input = this.getInput()
-        input.blur()
+        this.getInput().blur()
       } catch {}
     },
     // --- Private methods ---
