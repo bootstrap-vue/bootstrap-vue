@@ -617,11 +617,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         // Invalid tag feedback if needed (error)
         let $invalid = h()
         if (invalidFeedbackId) {
-          $invalid = h(BFormInvalidFeedback, { props: { id: invalidFeedbackId, forceShow: true } }, [
-            this.invalidTagText,
-            ': ',
-            this.invalidTags.join(this.computedJoiner)
-          ])
+          $invalid = h(
+            BFormInvalidFeedback,
+            { props: { id: invalidFeedbackId, forceShow: true } },
+            [this.invalidTagText, ': ', this.invalidTags.join(this.computedJoiner)]
+          )
         }
 
         // Duplicate tag feedback if needed (warning, not error)
@@ -634,11 +634,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           ])
         }
 
-        const $feedback = h(
-          'div',
-          { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } },
-          [$invalid, $duplicate]
-        )
+        $feedback = h('div', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, [
+          $invalid, $duplicate
+        ])
       }
       // Return the content
       return [$ul, $invalid, $duplicate]
