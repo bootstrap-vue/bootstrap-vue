@@ -31,7 +31,7 @@ export const BProgress = /*#__PURE__*/ Vue.extend({
       default: null
     },
     precision: {
-      type: Number,
+      type: [Number, String],
       default: 0
     },
     showProgress: {
@@ -43,12 +43,12 @@ export const BProgress = /*#__PURE__*/ Vue.extend({
       default: false
     },
     max: {
-      type: Number,
+      type: [Number, String],
       default: 100
     },
     // This prop is not inherited by child b-progress-bar(s)
     value: {
-      type: Number,
+      type: [Number, String],
       default: 0
     }
   },

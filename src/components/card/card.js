@@ -90,10 +90,10 @@ export const BCard = /*#__PURE__*/ Vue.extend({
           'flex-row': props.imgLeft || props.imgStart,
           'flex-row-reverse':
             (props.imgRight || props.imgEnd) && !(props.imgLeft || props.imgStart),
-          [`text-${props.align}`]: Boolean(props.align),
-          [`bg-${props.bgVariant}`]: Boolean(props.bgVariant),
-          [`border-${props.borderVariant}`]: Boolean(props.borderVariant),
-          [`text-${props.textVariant}`]: Boolean(props.textVariant)
+          [`text-${props.align}`]: props.align,
+          [`bg-${props.bgVariant}`]: props.bgVariant,
+          [`border-${props.borderVariant}`]: props.borderVariant,
+          [`text-${props.textVariant}`]: props.textVariant
         }
       }),
       [imgFirst, header, ...content, footer, imgLast]

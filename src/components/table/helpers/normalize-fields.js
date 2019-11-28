@@ -1,3 +1,4 @@
+import identity from '../../../utils/identity'
 import startCase from '../../../utils/startcase'
 import { isArray, isFunction, isObject, isString } from '../../../utils/inspect'
 import { clone, keys } from '../../../utils/object'
@@ -30,7 +31,7 @@ const normalizeFields = (origFields, items) => {
 
   if (isArray(origFields)) {
     // Normalize array Form
-    origFields.filter(f => f).forEach(f => {
+    origFields.filter(identity).forEach(f => {
       if (isString(f)) {
         fields.push({ key: f, label: startCase(f) })
       } else if (isObject(f) && f.key && isString(f.key)) {

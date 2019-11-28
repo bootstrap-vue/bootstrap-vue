@@ -38,6 +38,8 @@ import { clone, keys } from '../../utils/object'
 
 const OBSERVER_PROP_NAME = '__bv__visibility_observer'
 
+const onlyDgitsRE = /^\d+$/
+
 class VisibilityObserver {
   constructor(el, options, vnode) {
     this.el = el
@@ -138,7 +140,7 @@ const bind = (el, { value, modifiers }, vnode) => {
   // Parse modifiers
   keys(modifiers).forEach(mod => {
     /* istanbul ignore else: Until <b-img-lazy> is switched to use this directive */
-    if (/^\d+$/.test(mod)) {
+    if (onlyDgitsRE.test(mod)) {
       options.margin = `${mod}px`
     } else if (mod.toLowerCase() === 'once') {
       options.once = true

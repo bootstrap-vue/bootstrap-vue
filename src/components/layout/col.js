@@ -1,10 +1,13 @@
 import { mergeData } from 'vue-functional-data-merge'
+import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
 import suffixPropName from '../../utils/suffix-prop-name'
 import { arrayIncludes } from '../../utils/array'
-import { isUndefined, isNull } from '../../utils/inspect'
+import { isUndefinedOrNull } from '../../utils/inspect'
 import { keys, assign, create } from '../../utils/object'
 import { getBreakpointsUpCached } from '../../utils/config'
+
+const RX_COL_CLASS = /^col-/
 
 // Generates a prop object with a type of `[Boolean, String, Number]`
 const boolStrNum = () => ({
@@ -21,7 +24,7 @@ const strNum = () => ({
 // Compute a breakpoint class name
 const computeBreakpoint = (type, breakpoint, val) => {
   let className = type
-  if (isUndefined(val) || isNull(val) || val === false) {
+  if (isUndefinedOrNull(val) || val === false) {
     return undefined
   }
   if (breakpoint) {
@@ -48,7 +51,7 @@ let breakpointPropMap = create(null)
 // Lazy evaled props factory for BCol
 const generateProps = () => {
   // Grab the breakpoints from the cached config (exclude the '' (xs) breakpoint)
-  const breakpoints = getBreakpointsUpCached().filter(Boolean)
+  const breakpoints = getBreakpointsUpCached().filter(identity)
 
   // Supports classes like: .col-sm, .col-md-6, .col-lg-auto
   const breakpointCol = breakpoints.reduce((propMap, breakpoint) => {
@@ -139,7 +142,7 @@ export const BCol = {
       }
     }
 
-    const hasColClasses = classList.some(className => /^col-/.test(className))
+    const hasColClasses = classList.some(className => RX_COL_CLASS.test(className))
 
     classList.push({
       // Default to .col if no other col-{bp}-* classes generated nor `cols` specified.

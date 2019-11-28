@@ -54,6 +54,3 @@ export const warnNoMutationObserverSupport = source => {
     return true
   }
 }
-
-// Default export
-export default warn

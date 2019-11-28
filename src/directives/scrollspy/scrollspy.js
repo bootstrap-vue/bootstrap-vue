@@ -6,6 +6,10 @@ import { isNumber, isObject, isString } from '../../utils/inspect'
 // Key we use to store our instance
 const BV_SCROLLSPY = '__BV_ScrollSpy__'
 
+// Pre-compiled regular expressions
+const onlyDigitsRE = /^\d+$/
+const offsetRE = /^(auto|position|offset)$/
+
 // Build a ScrollSpy config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
 /* istanbul ignore next: not easy to test */
@@ -21,10 +25,10 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
 
   // Process modifiers
   keys(bindings.modifiers).forEach(mod => {
-    if (/^\d+$/.test(mod)) {
+    if (onlyDigitsRE.test(mod)) {
       // Offset value
       config.offset = parseInt(mod, 10)
-    } else if (/^(auto|position|offset)$/.test(mod)) {
+    } else if (offsetRE.test(mod)) {
       // Offset method
       config.method = mod
     }
@@ -41,7 +45,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
     // Value is config object
     // Filter the object based on our supported config options
     keys(bindings.value)
-      .filter(k => Boolean(ScrollSpy.DefaultType[k]))
+      .filter(k => !!ScrollSpy.DefaultType[k])
       .forEach(k => {
         config[k] = bindings.value[k]
       })

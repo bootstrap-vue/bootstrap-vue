@@ -1,4 +1,5 @@
 import getScopId from '../../utils/get-scope-id'
+import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -39,6 +40,7 @@ const delayShowRE = /^ds\d+$/i
 const delayHideRE = /^dh\d+$/i
 const offsetRE = /^o-?\d+$/i
 const variantRE = /^v-.+$/i
+const spacesRE = /\s+/
 
 // Build a Popover config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
@@ -139,11 +141,11 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
 
   // Parse current config object trigger
   concat(config.trigger || '')
-    .filter(Boolean)
+    .filter(identity)
     .join(' ')
     .trim()
     .toLowerCase()
-    .split(/\s+/)
+    .split(spacesRE)
     .forEach(trigger => {
       if (validTriggers[trigger]) {
         selectedTriggers[trigger] = true

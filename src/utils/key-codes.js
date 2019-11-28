@@ -1,8 +1,9 @@
 /*
  * Key Codes (events)
  */
+import { freeze } from './object'
 
-const KEY_CODES = {
+const KEY_CODES = freeze({
   SPACE: 32,
   ENTER: 13,
   ESC: 27,
@@ -24,6 +25,6 @@ const KEY_CODES = {
   INSERT: 45,
   INS: 45,
   DELETE: 46
-}
+})
 
 export default KEY_CODES

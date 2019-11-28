@@ -1,4 +1,6 @@
-import { isFunction, isUndefinedOrNull } from '../utils/inspect'
+import { isFunction } from '../utils/inspect'
+import { toInteger, toFloat } from '../utils/number'
+import { toString } from '../utils/string'
 
 // @vue/component
 export default {
@@ -60,14 +62,14 @@ export default {
   },
   data() {
     return {
-      localValue: this.stringifyValue(this.value),
+      localValue: toString(this.value),
       vModelValue: this.value
     }
   },
   computed: {
     computedDebounce() {
       // Ensure we have a positive number equal to or greater than 0
-      return Math.max(parseInt(this.debounce, 10) || 0, 0)
+      return Math.max(toInteger(this.debounce) || 0, 0)
     },
     computedClass() {
       return [
@@ -100,7 +102,7 @@ export default {
   },
   watch: {
     value(newVal) {
-      const stringifyValue = this.stringifyValue(newVal)
+      const stringifyValue = toString(newVal)
       if (stringifyValue !== this.localValue && newVal !== this.vModelValue) {
         // Clear any pending debounce timeout, as we are overwriting the user input
         this.clearDebounce()
@@ -116,7 +118,7 @@ export default {
     this.$on('hook:beforeDestroy', this.clearDebounce)
     // Preset the internal state
     const value = this.value
-    const stringifyValue = this.stringifyValue(value)
+    const stringifyValue = toString(value)
     /* istanbul ignore next */
     if (stringifyValue !== this.localValue && value !== this.vModelValue) {
       this.localValue = stringifyValue
@@ -128,11 +130,8 @@ export default {
       clearTimeout(this.$_inputDebounceTimer)
       this.$_inputDebounceTimer = null
     },
-    stringifyValue(value) {
-      return isUndefinedOrNull(value) ? '' : String(value)
-    },
     formatValue(value, evt, force = false) {
-      value = this.stringifyValue(value)
+      value = toString(value)
       if ((!this.lazyFormatter || force) && isFunction(this.formatter)) {
         value = this.formatter(value, evt)
       }
@@ -145,7 +144,7 @@ export default {
       }
       // Emulate `.number` modifier behaviour
       if (this.number) {
-        const number = parseFloat(value)
+        const number = toFloat(value)
         value = isNaN(number) ? value : number
       }
       return value
@@ -220,7 +219,7 @@ export default {
       if (formattedValue !== false) {
         // We need to use the modified value here to apply the
         // `.trim` and `.number` modifiers properly
-        this.localValue = this.stringifyValue(this.modifyValue(formattedValue))
+        this.localValue = toString(this.modifyValue(formattedValue))
         // We pass the formatted value here since the `updateValue` method
         // handles the modifiers itself
         this.updateValue(formattedValue, true)

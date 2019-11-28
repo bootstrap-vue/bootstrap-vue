@@ -1,4 +1,4 @@
-import warn from './warn'
+import { warn } from './warn'
 
 describe('utils/warn', () => {
   const dummyWarning = 'This is a dummy warning.'

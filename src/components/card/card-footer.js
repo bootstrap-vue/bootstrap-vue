@@ -35,9 +35,9 @@ export const BCardFooter = /*#__PURE__*/ Vue.extend({
         class: [
           props.footerClass,
           {
-            [`bg-${props.footerBgVariant}`]: Boolean(props.footerBgVariant),
-            [`border-${props.footerBorderVariant}`]: Boolean(props.footerBorderVariant),
-            [`text-${props.footerTextVariant}`]: Boolean(props.footerTextVariant)
+            [`bg-${props.footerBgVariant}`]: props.footerBgVariant,
+            [`border-${props.footerBorderVariant}`]: props.footerBorderVariant,
+            [`text-${props.footerTextVariant}`]: props.footerTextVariant
           }
         ]
       }),

@@ -50,9 +50,9 @@ export const BCardBody = /*#__PURE__*/ Vue.extend({
         class: [
           {
             'card-img-overlay': props.overlay,
-            [`bg-${props.bodyBgVariant}`]: Boolean(props.bodyBgVariant),
-            [`border-${props.bodyBorderVariant}`]: Boolean(props.bodyBorderVariant),
-            [`text-${props.bodyTextVariant}`]: Boolean(props.bodyTextVariant)
+            [`bg-${props.bodyBgVariant}`]: props.bodyBgVariant,
+            [`border-${props.bodyBorderVariant}`]: props.bodyBorderVariant,
+            [`text-${props.bodyTextVariant}`]: props.bodyTextVariant
           },
           props.bodyClass || {}
         ]

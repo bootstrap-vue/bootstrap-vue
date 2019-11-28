@@ -17,10 +17,16 @@
  * @param {String} str
  * @returns {String}
  */
+
+// Precompile regular expressions for performance
+const RX_UNDERSCORE = /_/g
+const RX_LOWER_UPPER = /([a-z])([A-Z])/g
+const RX_START_SPACE_WORD = /(\s|^)(\w)/g
+
 const startCase = str =>
   str
-    .replace(/_/g, ' ')
-    .replace(/([a-z])([A-Z])/g, (str, $1, $2) => $1 + ' ' + $2)
-    .replace(/(\s|^)(\w)/g, (str, $1, $2) => $1 + $2.toUpperCase())
+    .replace(RX_UNDERSCORE, ' ')
+    .replace(RX_LOWER_UPPER, (str, $1, $2) => $1 + ' ' + $2)
+    .replace(RX_START_SPACE_WORD, (str, $1, $2) => $1 + $2.toUpperCase())
 
 export default startCase

@@ -21,7 +21,7 @@ export const BNavbarBrand = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
-    const isLink = Boolean(props.to || props.href)
+    const isLink = props.to || props.href
     const tag = isLink ? BLink : props.tag
 
     return h(

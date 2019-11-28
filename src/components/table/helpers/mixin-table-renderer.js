@@ -1,4 +1,6 @@
+import identity from '../../../utils/identity'
 import { isBoolean } from '../../../utils/inspect'
+import { toString } from '../../../utils/string'
 
 // Main `<table>` render mixin
 // Includes all main table styling options
@@ -89,7 +91,7 @@ export default {
           : this.isResponsive
             ? `table-responsive-${this.responsive}`
             : ''
-      ].filter(Boolean)
+      ].filter(identity)
     },
     wrapperStyles() {
       return this.isStickyHeader && !isBoolean(this.isStickyHeader)
@@ -128,7 +130,7 @@ export default {
     tableAttrs() {
       // Preserve user supplied aria-describedby, if provided in `$attrs`
       const adb =
-        [(this.$attrs || {})['aria-describedby'], this.captionId].filter(Boolean).join(' ') || null
+        [(this.$attrs || {})['aria-describedby'], this.captionId].filter(identity).join(' ') || null
       const items = this.computedItems
       const filteredItems = this.filteredItems
       const fields = this.computedFields
@@ -137,12 +139,12 @@ export default {
         ? {}
         : {
             'aria-busy': this.computedBusy ? 'true' : 'false',
-            'aria-colcount': String(fields.length),
+            'aria-colcount': toString(fields.length),
             'aria-describedby': adb
           }
       const rowCount =
         items && filteredItems && filteredItems.length > items.length
-          ? String(filteredItems.length)
+          ? toString(filteredItems.length)
           : null
 
       return {
@@ -190,7 +192,7 @@ export default {
         class: this.tableClasses,
         attrs: this.tableAttrs
       },
-      $content.filter(Boolean)
+      $content.filter(identity)
     )
 
     // Add responsive/sticky wrapper if needed and return table

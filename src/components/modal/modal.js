@@ -329,7 +329,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     dialogClasses() {
       return [
         {
-          [`modal-${this.size}`]: Boolean(this.size),
+          [`modal-${this.size}`]: this.size,
           'modal-dialog-centered': this.centered,
           'modal-dialog-scrollable': this.scrollable
         },
@@ -339,9 +339,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     headerClasses() {
       return [
         {
-          [`bg-${this.headerBgVariant}`]: Boolean(this.headerBgVariant),
-          [`text-${this.headerTextVariant}`]: Boolean(this.headerTextVariant),
-          [`border-${this.headerBorderVariant}`]: Boolean(this.headerBorderVariant)
+          [`bg-${this.headerBgVariant}`]: this.headerBgVariant,
+          [`text-${this.headerTextVariant}`]: this.headerTextVariant,
+          [`border-${this.headerBorderVariant}`]: this.headerBorderVariant
         },
         this.headerClass
       ]
@@ -352,8 +352,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     bodyClasses() {
       return [
         {
-          [`bg-${this.bodyBgVariant}`]: Boolean(this.bodyBgVariant),
-          [`text-${this.bodyTextVariant}`]: Boolean(this.bodyTextVariant)
+          [`bg-${this.bodyBgVariant}`]: this.bodyBgVariant,
+          [`text-${this.bodyTextVariant}`]: this.bodyTextVariant
         },
         this.bodyClass
       ]
@@ -361,9 +361,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     footerClasses() {
       return [
         {
-          [`bg-${this.footerBgVariant}`]: Boolean(this.footerBgVariant),
-          [`text-${this.footerTextVariant}`]: Boolean(this.footerTextVariant),
-          [`border-${this.footerBorderVariant}`]: Boolean(this.footerBorderVariant)
+          [`bg-${this.footerBgVariant}`]: this.footerBgVariant,
+          [`text-${this.footerTextVariant}`]: this.footerTextVariant,
+          [`border-${this.footerBorderVariant}`]: this.footerBorderVariant
         },
         this.footerClass
       ]
