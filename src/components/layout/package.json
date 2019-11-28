@@ -11,7 +11,7 @@
         "props": [
           {
             "prop": "fluid",
-            "description": "When set, makes the row 100% wide all the time"
+            "description": "When set to true, makes the row 100% wide all the time, or set to one of the Bootstrap breakpoint names for 100% width up to the breakpoint"
           }
         ]
       },
