@@ -14,7 +14,7 @@
           },
           {
             "prop": "containerFluid",
-            "description": "When prop 'fluid' is set, this prop will make the inner container wrapper also fluid in width"
+            "description": "When prop 'fluid' is set, this prop will make the inner container wrapper also fluid in width. Can also be set to one of the Bootstrap breakpoint names"
           },
           {
             "prop": "headerLevel",

@@ -13,7 +13,7 @@ export const props = {
     default: false
   },
   containerFluid: {
-    type: Boolean,
+    type: [Boolean, String],
     default: false
   },
   header: {

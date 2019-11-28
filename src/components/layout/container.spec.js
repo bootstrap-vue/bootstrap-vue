@@ -37,6 +37,19 @@ describe('layout > container', () => {
     expect(wrapper.text()).toEqual('')
   })
 
+  it('should have container-md class when prop fluid="md"', async () => {
+    const wrapper = mount(BContainer, {
+      propsData: {
+        fluid: 'md'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('container-md')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.text()).toEqual('')
+  })
+
   it('has content from default slot', async () => {
     const wrapper = mount(BContainer, {
       slots: {
