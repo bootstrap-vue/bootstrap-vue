@@ -593,6 +593,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const $ul = h(
         'ul',
         {
+          key: '_tags_list_',
           staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center',
           attrs: {
             id: tagListId,
@@ -609,37 +610,50 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         concat($tags, $field)
       )
 
+      // Assembple the feedback
       let $feedback = h()
       if (invalidTagText || duplicateTagText) {
         // Add an aria live region for the invalid/duplicate tag
         // messages if the user has not diabled the messages
+        const joiner = this.computedJoiner
 
         // Invalid tag feedback if needed (error)
         let $invalid = h()
         if (invalidFeedbackId) {
           $invalid = h(
             BFormInvalidFeedback,
-            { props: { id: invalidFeedbackId, forceShow: true } },
-            [this.invalidTagText, ': ', this.invalidTags.join(this.computedJoiner)]
+            {
+              key: '_tags_invalid_feedback_',
+              props: { id: invalidFeedbackId, forceShow: true }
+            },
+            [this.invalidTagText, ': ', this.invalidTags.join(joiner)]
           )
         }
 
         // Duplicate tag feedback if needed (warning, not error)
         let $duplicate = h()
         if (duplicateFeedbackId) {
-          $duplicate = h(BFormText, { props: { id: duplicateFeedbackId } }, [
-            this.duplicateTagText,
-            ': ',
-            this.duplicateTags.join(this.computedJoiner)
-          ])
+          $duplicate = h(
+            BFormText,
+            {
+              key: '_tags_duplicate_feedback_',
+              props: { id: duplicateFeedbackId }
+            },
+            [this.duplicateTagText, ': ', this.duplicateTags.join(joiner)]
+          )
         }
 
-        $feedback = h('div', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, [
-          $invalid, $duplicate
-        ])
+        $feedback = h(
+          'div',
+          {
+            key: '_tags_feedback_',
+            attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' }
+          },
+          [$invalid, $duplicate]
+        )
       }
       // Return the content
-      return [$ul, $invalid, $duplicate]
+      return [$ul, $feedback]
     }
   },
   render(h) {
