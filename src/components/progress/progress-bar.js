@@ -91,7 +91,7 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
     computedProgress() {
       const precision = this.computedPrecision
       const p = Math.pow(10, precision)
-      return ToFixed((100 * p * this.computedValue) / this.computedMax / p, precision)
+      return toFixed((100 * p * this.computedValue) / this.computedMax / p, precision)
     },
     computedVariant() {
       // Prefer our variant over parent setting
