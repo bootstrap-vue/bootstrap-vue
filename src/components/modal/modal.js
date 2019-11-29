@@ -20,6 +20,7 @@ import { HTMLElement } from '../../utils/safe-types'
 import { BTransporterSingle } from '../../utils/transporter'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import listenOnWindowMixin from '../../mixins/listen-on-window'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import scopedStyleAttrsMixin from '../../mixins/scoped-style-attrs'
 import { BButton } from '../button/button'
@@ -280,7 +281,13 @@ export const props = {
 // @vue/component
 export const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin, scopedStyleAttrsMixin],
+  mixins: [
+    idMixin,
+    listenOnRootMixin,
+    listenOnWindowMixin,
+    normalizeSlotMixin,
+    scopedStyleAttrsMixin
+  ],
   inheritAttrs: false,
   model: {
     prop: 'visible',
@@ -419,7 +426,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       this._observer = null
     }
     this.setEnforceFocus(false)
-    this.setResizeEvent(false)
     if (this.isVisible) {
       this.isVisible = false
       this.isShow = false
@@ -726,11 +732,11 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     // Resize listener
     setResizeEvent(on) {
-      const method = on ? eventOn : eventOff
+      const method = on ? 'listenOnWindow' : 'listenOffWindow'
       // These events should probably also check if
       // body is overflowing
-      method(window, 'resize', this.checkModalOverflow, EVT_OPTIONS)
-      method(window, 'orientationchange', this.checkModalOverflow, EVT_OPTIONS)
+      this[method]('resize', this.checkModalOverflow)
+      this[method]('orientationchange', this.checkModalOverflow)
     },
     // Root listener handlers
     showHandler(id, triggerEl) {
