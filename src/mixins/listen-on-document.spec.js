@@ -44,7 +44,7 @@ describe('mixins/listen-on-document', () => {
         destroy: {
           type: Boolean,
           default: false
-        },
+        }
       },
       render(h) {
         const props = {
