@@ -1,4 +1,4 @@
-import { concat } from '../utils/array'
+import { arrayIncludes } from '../utils/array'
 import { eventOff, eventOn } from '../utils/dom'
 import { isBrowser } from '../utils/env'
 import { isString, isFunction } from '../utils/inspect'
@@ -18,28 +18,30 @@ export default {
   },
   beforeDestroy() {
     if (isBrowser) {
-      keys(this[PROP]).forEach(type => {
-        const handlers = this[PROP][type] || []
-        handlers.forEach(handler => {
-          this.listenOffWindow(type, handler)
-        })
+      keys(this[PROP]).forEach(evtName => {
+        const handlers = this[PROP][evtName] || []
+        handlers.forEach(handler => this.listenOffWindow(evtName, handler))
       })
+      delete this[PROP]
     }
   },
   methods: {
-    listenDocument(on, type, handler) {
-      on ? this.listenOnDocument(type, handler) : this.listenOffDocument(type, handler)
+    listenDocument(on, evtName, handler) {
+      on ? this.listenOnDocument(evtName, handler) : this.listenOffDocument(evtName, handler)
     },
-    listenOnDocument(type, handler) {
-      if (isBrowser && isString(type) && isFunction(handler) && this[PROP]) {
-        this[PROP][type] = concat(this[PROP][type] || [], handler)
-        eventOn(document, type, handler, eventOptions)
+    listenOnDocument(evtName, handler) {
+      if (isBrowser && this[PROP] && isString(evtName) && isFunction(handler)) {
+        this[PROP][evtName] = this[PROP][evtName] || []
+        if (!arrayIncludes(this[PROP][evtName], handler)) {
+          this[PROP][evtName].push(handler)
+          eventOn(document, evtName, handler, eventOptions)
+        }
       }
     },
-    listenOffDocument(type, handler) {
-      if (isBrowser && isString(type) && isFunction(handler) && this[PROP]) {
-        eventOff(document, type, handler, eventOptions)
-        this[PROP][type] = (this[PROP][type] || []).filter(h => h !== handler)
+    listenOffDocument(evtName, handler) {
+      if (isBrowser && this[PROP] && isString(evtName) && isFunction(handler)) {
+        eventOff(document, evtName, handler, eventOptions)
+        this[PROP][evtName] = (this[PROP][evtName] || []).filter(h => h !== handler)
       }
     }
   }
