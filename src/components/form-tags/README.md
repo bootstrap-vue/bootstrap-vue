@@ -566,7 +566,7 @@ If the custom input is using custom event names that mimic `input` and `change`,
 ```
 
 The `inputHandlers.input` handler **must** be bound to an event that updates with each character
-entered by the user forthe _as-you-type_ tag validation to work.
+entered by the user for the _as-you-type_ tag validation to work.
 
 ### Advanced custom rendering usage
 
