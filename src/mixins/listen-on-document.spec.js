@@ -17,7 +17,7 @@ describe('mixins/listen-on-document', () => {
           default: false
         }
       },
-      created() {
+      mounted() {
         this.listenOnDocument('click', spyClick1)
         this.listenOnDocument('focusin', spyFocusin)
         this.listenOnDocument('click', spyClick2)
