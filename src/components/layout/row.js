@@ -4,7 +4,6 @@ import memoize from '../../utils/memoize'
 import suffixPropName from '../../utils/suffix-prop-name'
 import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
-import { isUndefinedOrNull } from '../../utils/inspect'
 import { keys, create } from '../../utils/object'
 import { lowerCase, toString, trim } from '../../utils/string'
 
@@ -72,8 +71,8 @@ const generateProps = () => {
     alignContent: {
       type: String,
       default: null,
-      validator:
-        str => arrayIncludes(COMMON_ALIGNMENT.concat(['between', 'around', 'stretch']), str)
+      validator: str =>
+        arrayIncludes(COMMON_ALIGNMENT.concat(['between', 'around', 'stretch']), str)
     },
     ...rowColsProps
   }
