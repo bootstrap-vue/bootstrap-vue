@@ -24,18 +24,17 @@ export default {
           this.listenOffWindow(type, handler)
         })
       })
-      delete this[PROP]
     }
   },
   methods: {
     listenOnWindow(type, handler) {
-      if (isBrowser && isString(type) && isFunction(handler)) {
+      if (isBrowser && isString(type) && isFunction(handler) && this[PROP]) {
         this[PROP][type] = concat(this[PROP][type] || [], handler)
         eventOn(window, type, handler, eventOptions)
       }
     },
     listenOffWindow(type, handler) {
-      if (isBrowser && isString(type) && isFunction(handler)) {
+      if (isBrowser && isString(type) && isFunction(handler) && this[PROP]) {
         eventOff(window, type, handler, eventOptions)
         this[PROP][type] = (this[PROP][type] || []).filter(h => h !== handler)
       }
