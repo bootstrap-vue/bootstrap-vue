@@ -3,9 +3,10 @@ import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
 import suffixPropName from '../../utils/suffix-prop-name'
 import { arrayIncludes } from '../../utils/array'
+import { getBreakpointsUpCached } from '../../utils/config'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { keys, assign, create } from '../../utils/object'
-import { getBreakpointsUpCached } from '../../utils/config'
+import { lowerCase } from '../../utils/object'
 
 const RX_COL_CLASS = /^col-/
 
@@ -35,11 +36,11 @@ const computeBreakpoint = (type, breakpoint, val) => {
   // Since the default is false, an empty string indicates the prop's presence.
   if (type === 'col' && (val === '' || val === true)) {
     // .col-md
-    return className.toLowerCase()
+    return lowerCase(className)
   }
   // .order-md-6
   className += `-${val}`
-  return className.toLowerCase()
+  return lowerCase(className)
 }
 
 // Memoized function for better performance on generating class names
