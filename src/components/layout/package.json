@@ -40,22 +40,22 @@
             "description": "The number row columns to create at the 'xs' breakpoint. Requires Bootstrap v4.4 CSS"
           },
           {
-            "prop": "cols-sm",
+            "prop": "colsSm",
             "version": "2.2.0",
             "description": "The number row columns to create at the 'sm' breakpoint. Requires Bootstrap v4.4 CSS"
           },
           {
-            "prop": "cols-md",
+            "prop": "colsMd",
             "version": "2.2.0",
             "description": "The number row columns to create at the 'md' breakpoint. Requires Bootstrap v4.4 CSS"
           },
           {
-            "prop": "cols-lg",
+            "prop": "colsLg",
             "version": "2.2.0",
             "description": "The number row columns to create at the 'lg' breakpoint. Requires Bootstrap v4.4 CSS"
           },
           {
-            "prop": "cols-xl",
+            "prop": "colsXl",
             "version": "2.2.0",
             "description": "The number row columns to create at the 'xl' breakpoint. Requires Bootstrap v4.4 CSS"
           }
