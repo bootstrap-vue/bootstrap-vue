@@ -34,7 +34,7 @@ export default {
         eventOn(window, type, handler, eventOptions)
       }
     },
-    listenOffWidow(type, handler) {
+    listenOffWindow(type, handler) {
       if (isBrowser && isString(type) && isFunction(handler)) {
         eventOff(window, type, handler, eventOptions)
         this[PROP][type] = (this[PROP][type] || []).filter(h => h !== handler)
