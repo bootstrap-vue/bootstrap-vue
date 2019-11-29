@@ -70,11 +70,11 @@ like the
 
 ## Containers `<b-container>`
 
-Containers (`<b-container>`) are the most basic layout element in Bootstrap and is **required when
-using the grid system**. Choose from a responsive, fixed-width container (meaning its max-width
-changes at each breakpoint) by default, or fluid-width (meaning it's 100% wide all the time) by
-setting 'fluid' prop, or responsive containers where the container is fluid up until a specific
-breakpoint.
+Containers (`<b-container>`) are the most basic layout element in Bootstrap. Choose from a
+responsive, fixed-width container (meaning its max-width changes at each breakpoint) by default,
+or fluid-width (meaning it's 100% wide all the time) by setting 'fluid' prop, or responsive
+containers where the container is fluid up until a specific breakpoint (requires Bootstrap CSS
+`v4.4+`).
 
 While containers can be nested, most layouts do not require a nested container.
 
@@ -85,7 +85,7 @@ The default breakpoint widths can be configured using Bootstrap V4.x SCSS variab
 ### Default container
 
 The default `<b-container>` is a responsive, fixed-width container, meaning its `max-width` changes
-at each breakpoint.
+at each viewport width breakpoint.
 
 ```html
 <b-container>
@@ -109,7 +109,7 @@ Setting the `fluid` prop to true (or an empty string) is equivalent to the Boots
 
 ### Responsive fluid containers
 
-<span class="badge badge-warning small">Requires Bootstrap v4.4+ CSS</span>
+<span class="badge badge-info small">Requires Bootstrap v4.4+ CSS</span>
 
 Responsive containers are new in Bootstrap v4.4. They allow you to specify a container that is 100%
 wide (fluid) until particular breakpoint is reached at which point a `max-width` is applied. For
@@ -137,8 +137,9 @@ Setting the fluid prop to a breakpoint name translates to the Bootstrap class
 
 ## Rows `<b-row>` and `<b-form-row>`
 
-`<b-row>` components should be placed inside a `<b-container>` component, or an element (such as a
-`<div>`) that has the class `container` or `container-fluid` applied to it.
+Rows are wrappers for [columns](#columns-b-col). Each column has horizontal padding (called a gutter)
+for controlling the space between them. This padding is then counteracted on the rows with negative
+margins. This way, all the content in your columns is visually aligned down the left side.
 
 You can remove the margin from `<b-row>` and padding from `<b-col>` by setting the `no-gutters` prop
 on `<b-row>`.
@@ -620,6 +621,86 @@ within an existing `<b-col>` component. Nested rows should include a set of colu
 </b-container>
 
 <!-- b-grid-nesting.vue -->
+```
+
+## Row columns
+
+<span class="badge badge-info small">Requires Bootstrap v4.4+ CSS</span>
+
+Use the responsive `cols-*` props in `<b-row>` to quickly set the number of columns that best render
+your content and layout. Whereas normal collum widths are apply to the individual `<b-col>` columns
+(e.g., `<b-col md="4">`), the row columns `col-*` props are set on the parent `<b-row>` as a shortcut.
+
+Use these row columns to quickly create basic grid layouts or to control your card layouts. The default
+maximum number of row columns in Bootstrap v4.4 is `6` (unlike the regular columns which have a default
+maximum of `12` columns)
+
+The value specifed in the `<b-row>` prop(s) is the number of columns to create per row (whereas the
+props on `<b-col>` refer to the number of columns to occupy).
+
+```html
+<b-container class="bv-example-row">
+  <b-row cols="2">
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+  </b-row>
+</b-container>
+
+<b-container class="bv-example-row">
+  <b-row cols="3">
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+  </b-row>
+</b-container>
+
+<b-container class="bv-example-row">
+  <b-row cols="4">
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+  </b-row>
+</b-container>
+
+<b-container class="bv-example-row">
+  <b-row cols="4">
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col cols="6">Column</b-col>
+    <b-col>Column</b-col>
+  </b-row>
+</b-container>
+
+<!-- b-grid-row-cols-introduction.vue -->
+```
+
+You can control the number of columns at each breakpoint level via the folowing `<b-row>` props:
+
+- `cols` for `xs` and up screens
+- `cols-sm` for `sm` and up screens
+- `cols-md` for `md` and up screens
+- `cols-lg` for `lg` and up screens
+- `cols-xl` for `xl` and up screens
+
+```html
+<b-container class="bv-example-row">
+  <b-row cols="1" cols-sm="2" cols-md="4" cols-lg="6" cols-xl="8">
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+    <b-col>Column</b-col>
+  </b-row>
+</b-container>
+
+<!-- b-grid-row-cols-breakpoints.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->
