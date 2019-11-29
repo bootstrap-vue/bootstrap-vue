@@ -1,7 +1,9 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import listenOnDocumentMixin from './listen-on-document'
 
 describe('mixins/listen-on-document', () => {
+  const localVue = new CreateLocalVue()
+
   it('works', async () => {
     const spyClick1 = jest.fn()
     const spyClick2 = jest.fn()
@@ -29,8 +31,8 @@ describe('mixins/listen-on-document', () => {
       },
       render(h) {
         return h('div', {}, [
-          h('span', { }, ''),
-          h('input', { type: text }),
+          h('span', {}, ''),
+          h('input', { type: 'text' }),
           this.destroy ? h() : h(TestComponent, {}, 'test-component')
         ])
       }
