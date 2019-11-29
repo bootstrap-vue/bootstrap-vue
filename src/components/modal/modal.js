@@ -284,7 +284,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [
     idMixin,
-    listenOnDocumentMixin
+    listenOnDocumentMixin,
     listenOnRootMixin,
     listenOnWindowMixin,
     normalizeSlotMixin,
