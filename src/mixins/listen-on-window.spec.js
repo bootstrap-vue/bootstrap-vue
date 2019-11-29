@@ -1,4 +1,4 @@
-import { mount, createLocalVue as CreateLocalVue, createWrapper } from '@vue/test-utils'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import listenOnWindowMixin from './listen-on-window'
 
 describe('mixins/listen-on-window', () => {
@@ -10,7 +10,7 @@ describe('mixins/listen-on-window', () => {
     const spyScroll = jest.fn()
 
     const TestComponent = localVue.extend({
-      mixins: [listenOnDocumentMixin],
+      mixins: [listenOnWindowMixin],
       props: {
         offResizeOne: {
           type: Boolean,
@@ -50,9 +50,7 @@ describe('mixins/listen-on-window', () => {
         const props = {
           offResizeOne: this.offResizeOne
         }
-        return h('div', {}, [
-          this.destroy ? h() : h(TestComponent, { props }, 'test-component')
-        ])
+        return h('div', {}, [this.destroy ? h() : h(TestComponent, { props }, 'test-component')])
       }
     })
 
@@ -114,9 +112,9 @@ describe('mixins/listen-on-window', () => {
 
     window.dispatchEvent(new Event('resize'))
 
-    expect(spyClick1).toHaveBeenCalledTimes(1)
-    expect(spyClick2).toHaveBeenCalledTimes(2)
-    expect(spyFocusin).toHaveBeenCalledTimes(2)
+    expect(spyResize1).toHaveBeenCalledTimes(1)
+    expect(spyResize2).toHaveBeenCalledTimes(2)
+    expect(spyScroll).toHaveBeenCalledTimes(2)
 
     wrapper.destroy()
   })
