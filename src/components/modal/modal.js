@@ -728,16 +728,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     // Turn on/off focusin listener
     setEnforceFocus(on) {
-      const method = on ? 'listenOnDocument' : 'listenOffDocument'
-      this[method]('focusin', this.focusHandler)
+      this.listenDocument(on, 'focusin', this.focusHandler) 
     },
     // Resize listener
     setResizeEvent(on) {
-      const method = on ? 'listenOnWindow' : 'listenOffWindow'
-      // These events should probably also check if
-      // body is overflowing
-      this[method]('resize', this.checkModalOverflow)
-      this[method]('orientationchange', this.checkModalOverflow)
+      this.listenOnWindow(on, 'resize', this.checkModalOverflow)
+      this.listenOnWindow(on, 'orientationchange', this.checkModalOverflow)
     },
     // Root listener handlers
     showHandler(id, triggerEl) {
