@@ -1,4 +1,4 @@
-import { concat } from '../utils/array'
+import { arrayIncludes } from '../utils/array'
 import { eventOff, eventOn } from '../utils/dom'
 import { isBrowser } from '../utils/env'
 import { isString, isFunction } from '../utils/inspect'
@@ -18,28 +18,35 @@ export default {
   },
   beforeDestroy() {
     if (isBrowser) {
-      keys(this[PROP]).forEach(type => {
-        const handlers = this[PROP][type] || []
-        handlers.forEach(handler => {
-          this.listenOffWindow(type, handler)
-        })
+      const items = this[PROP]
+      // Immediately delete this[PROP] to prevent the
+      // listenOn/Off methods from running (which may occur
+      // due to requestAnimationFrame delays)
+      delete this[PROP]
+      // Remove all registered event handlers
+      keys(items).forEach(evtName => {
+        const handlers = items[evtName] || []
+        handlers.forEach(handler => eventOff(window, evtName, handler, eventOptions))
       })
     }
   },
   methods: {
-    listenWindow(on, type, handler) {
-      on ? this.listenOnWindow(type, handler) : this.listenOffWindow(type, handler)
+    listenWindow(on, evtName, handler) {
+      on ? this.listenOnWindow(evtName, handler) : this.listenOffWindow(evtName, handler)
     },
-    listenOnWindow(type, handler) {
-      if (isBrowser && isString(type) && isFunction(handler) && this[PROP]) {
-        this[PROP][type] = concat(this[PROP][type] || [], handler)
-        eventOn(window, type, handler, eventOptions)
+    listenOnWindow(evtName, handler) {
+      if (isBrowser && this[PROP] && isString(evtName) && isFunction(handler)) {
+        this[PROP][evtName] = this[PROP][evtName] || []
+        if (!arrayIncludes(this[PROP][evtName], handler)) {
+          this[PROP][evtName].push(handler)
+          eventOn(window, evtName, handler, eventOptions)
+        }
       }
     },
-    listenOffWindow(type, handler) {
-      if (isBrowser && isString(type) && isFunction(handler) && this[PROP]) {
-        eventOff(window, type, handler, eventOptions)
-        this[PROP][type] = (this[PROP][type] || []).filter(h => h !== handler)
+    listenOffWindow(evtName, handler) {
+      if (isBrowser && this[PROP] && isString(evtName) && isFunction(handler)) {
+        eventOff(window, evtName, handler, eventOptions)
+        this[PROP][evtName] = (this[PROP][evtName] || []).filter(h => h !== handler)
       }
     }
   }
