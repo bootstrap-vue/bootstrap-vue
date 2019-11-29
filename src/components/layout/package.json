@@ -36,28 +36,28 @@
           },
           {
             "prop": "cols",
-            "version": "2.2.0"
-            "description": "The number row columns to create at the 'xs' breakpoint"
+            "version": "2.2.0",
+            "description": "The number row columns to create at the 'xs' breakpoint. Requires Bootstrap v4.4 CSS"
           },
           {
             "prop": "cols-sm",
-            "version": "2.2.0"
-            "description": "The number row columns to create at the 'sm' breakpoint"
+            "version": "2.2.0",
+            "description": "The number row columns to create at the 'sm' breakpoint. Requires Bootstrap v4.4 CSS"
           },
           {
             "prop": "cols-md",
-            "version": "2.2.0"
-            "description": "The number row columns to create at the 'md' breakpoint"
+            "version": "2.2.0",
+            "description": "The number row columns to create at the 'md' breakpoint. Requires Bootstrap v4.4 CSS"
           },
           {
             "prop": "cols-lg",
-            "version": "2.2.0"
-            "description": "The number row columns to create at the 'lg' breakpoint"
+            "version": "2.2.0",
+            "description": "The number row columns to create at the 'lg' breakpoint. Requires Bootstrap v4.4 CSS"
           },
           {
             "prop": "cols-xl",
-            "version": "2.2.0"
-            "description": "The number row columns to create at the 'xl' breakpoint"
+            "version": "2.2.0",
+            "description": "The number row columns to create at the 'xl' breakpoint. Requires Bootstrap v4.4 CSS"
           }
         ]
       },
