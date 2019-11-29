@@ -19,6 +19,7 @@ import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { HTMLElement } from '../../utils/safe-types'
 import { BTransporterSingle } from '../../utils/transporter'
 import idMixin from '../../mixins/id'
+import listenOnDocumentMixin from '../../mixins/listen-on-document'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import listenOnWindowMixin from '../../mixins/listen-on-window'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -283,6 +284,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [
     idMixin,
+    listenOnDocumentMixin
     listenOnRootMixin,
     listenOnWindowMixin,
     normalizeSlotMixin,
@@ -425,7 +427,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       this._observer.disconnect()
       this._observer = null
     }
-    this.setEnforceFocus(false)
     if (this.isVisible) {
       this.isVisible = false
       this.isShow = false
@@ -727,8 +728,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     // Turn on/off focusin listener
     setEnforceFocus(on) {
-      const method = on ? eventOn : eventOff
-      method(document, 'focusin', this.focusHandler, EVT_OPTIONS)
+      const method = on ? 'listenOnDocument' : 'listenOffDocument'
+      this[method]('focusin', this.focusHandler)
     },
     // Resize listener
     setResizeEvent(on) {
