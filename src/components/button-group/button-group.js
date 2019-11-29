@@ -35,7 +35,7 @@ export const BButtonGroup = /*#__PURE__*/ Vue.extend({
         class: {
           'btn-group': !props.vertical,
           'btn-group-vertical': props.vertical,
-          [`btn-group-${props.size}`]: Boolean(props.size)
+          [`btn-group-${props.size}`]: props.size
         },
         attrs: { role: props.ariaRole }
       }),

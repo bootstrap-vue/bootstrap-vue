@@ -1,8 +1,10 @@
 import Vue from '../../utils/vue'
+import identity from '../../utils/identity'
 import { from as arrayFrom, isArray, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isFile, isFunction, isUndefinedOrNull } from '../../utils/inspect'
 import { File } from '../../utils/safe-types'
+import { toString } from '../../utils/string'
 import { warn } from '../../utils/warn'
 import formCustomMixin from '../../mixins/form-custom'
 import formMixin from '../../mixins/form'
@@ -107,7 +109,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
 
       // Convert selectedFile to an array (if not already one)
-      const files = concat(this.selectedFile).filter(Boolean)
+      const files = concat(this.selectedFile).filter(identity)
 
       if (this.hasNormalizedSlot('file-name')) {
         // There is a slot for formatting the files/names
@@ -120,7 +122,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       } else {
         // Use the user supplied formatter, or the built in one.
         return isFunction(this.fileNameFormatter)
-          ? String(this.fileNameFormatter(files))
+          ? toString(this.fileNameFormatter(files))
           : files.map(file => file.name).join(', ')
       }
     }
@@ -330,7 +332,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         class: [
           this.stateClass,
           {
-            [`b-custom-control-${this.size}`]: Boolean(this.size)
+            [`b-custom-control-${this.size}`]: this.size
           }
         ],
         attrs: { id: this.safeId('_BV_file_outer_') },

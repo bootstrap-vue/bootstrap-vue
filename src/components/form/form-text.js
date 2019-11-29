@@ -34,7 +34,7 @@ export const BFormText = /*#__PURE__*/ Vue.extend({
       mergeData(data, {
         class: {
           'form-text': !props.inline,
-          [`text-${props.textVariant}`]: Boolean(props.textVariant)
+          [`text-${props.textVariant}`]: props.textVariant
         },
         attrs: {
           id: props.id

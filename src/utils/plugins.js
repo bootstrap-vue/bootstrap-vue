@@ -1,7 +1,7 @@
 import OurVue from './vue'
-import warn from './warn'
 import { setConfig } from './config-set'
 import { hasWindowSupport, isJSDOM } from './env'
+import { warn } from './warn'
 
 /**
  * Checks if there are multiple instances of Vue, and warns (once) about possible issues.

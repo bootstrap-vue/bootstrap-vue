@@ -1,3 +1,4 @@
+import identity from '../../../utils/identity'
 import KeyCodes from '../../../utils/key-codes'
 import startCase from '../../../utils/startcase'
 import { getComponentConfig } from '../../../utils/config'
@@ -101,7 +102,7 @@ export default {
             tabindex: hasHeadClickListener ? '0' : null,
             abbr: field.headerAbbr || null,
             title: field.headerTitle || null,
-            'aria-colindex': String(colIndex + 1),
+            'aria-colindex': colIndex + 1,
             'aria-label': ariaLabel,
             ...this.getThValues(null, field.key, field.thAttr, isFoot ? 'foot' : 'head', {}),
             ...sortAttrs
@@ -142,7 +143,7 @@ export default {
       }
 
       // Generate the array of <th> cells
-      const $cells = fields.map(makeCell).filter(th => th)
+      const $cells = fields.map(makeCell).filter(identity)
 
       // Genrate the row(s)
       const $trs = []

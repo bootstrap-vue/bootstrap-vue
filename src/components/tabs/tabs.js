@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import identity from '../../utils/identity'
 import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import observeDom from '../../utils/observe-dom'
@@ -407,7 +408,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         const selector = tabs.map(tab => `#${tab.safeId()}`).join(', ')
         order = selectAll(selector, this.$el)
           .map(el => el.id)
-          .filter(Boolean)
+          .filter(identity)
       }
       // Stable sort keeps the original order if not found in the
       // `order` array, which will be an empty array before mount.

@@ -31,7 +31,7 @@ export const BEmbed = /*#__PURE__*/ Vue.extend({
         ref: data.ref,
         staticClass: 'embed-responsive',
         class: {
-          [`embed-responsive-${props.aspect}`]: Boolean(props.aspect)
+          [`embed-responsive-${props.aspect}`]: props.aspect
         }
       },
       [h(props.type, mergeData(data, { ref: '', staticClass: 'embed-responsive-item' }), children)]

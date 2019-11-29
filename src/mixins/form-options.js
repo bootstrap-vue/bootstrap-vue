@@ -1,8 +1,8 @@
 import get from '../utils/get'
-import warn from '../utils/warn'
 import { stripTags } from '../utils/html'
 import { isArray, isPlainObject, isUndefined } from '../utils/inspect'
 import { keys } from '../utils/object'
+import { warn } from '../utils/warn'
 
 const OPTIONS_OBJECT_DEPRECATED_MSG =
   'Setting prop "options" to an object is deprecated. Use the array format instead.'

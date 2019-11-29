@@ -89,7 +89,7 @@ export const BInputGroup = /*#__PURE__*/ Vue.extend({
       props.tag,
       mergeData(data, {
         staticClass: 'input-group',
-        class: { [`input-group-${props.size}`]: Boolean(props.size) },
+        class: { [`input-group-${props.size}`]: props.size },
         attrs: {
           id: props.id || null,
           role: 'group'

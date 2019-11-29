@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBoolean } from '../../utils/inspect'
+import { toInteger } from '../../utils/number'
 import BVTransition from '../../utils/bv-transition'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButtonClose } from '../button/button-close'
@@ -13,7 +14,7 @@ const parseCountDown = show => {
   if (show === '' || isBoolean(show)) {
     return 0
   }
-  show = parseInt(show, 10)
+  show = toInteger(show)
   return show > 0 ? show : 0
 }
 
@@ -22,15 +23,15 @@ const parseShow = show => {
   if (show === '' || show === true) {
     return true
   }
-  if (parseInt(show, 10) < 1) {
+  if (toInteger(show) < 1) {
     // Boolean will always return false for the above comparison
     return false
   }
-  return Boolean(show)
+  return !!show
 }
 
 // Is a value number like (i.e. a number or a number as string)
-const isNumericLike = value => !isNaN(parseInt(value, 10))
+const isNumericLike = value => !isNaN(toInteger(value))
 
 // @vue/component
 export const BAlert = /*#__PURE__*/ Vue.extend({

@@ -1,12 +1,15 @@
-import toString from './to-string'
 import { isArray, isNull, isPlainObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
+import { toString } from './string'
 
 const ANCHOR_TAG = 'a'
 
 // Precompile RegExp
 const commaRE = /%2C/g
 const encodeReserveRE = /[!'()*]/g
+const plusRE = /\+/g
+const queryStartRE = /^(\?|#|&)/
+
 // Method to replace reserved chars
 const encodeReserveReplacer = c => '%' + c.charCodeAt(0).toString(16)
 
@@ -61,14 +64,14 @@ export const parseQuery = query => {
   const parsed = {}
   query = toString(query)
     .trim()
-    .replace(/^(\?|#|&)/, '')
+    .replace(queryStartRE, '')
 
   if (!query) {
     return parsed
   }
 
   query.split('&').forEach(param => {
-    const parts = param.replace(/\+/g, ' ').split('=')
+    const parts = param.replace(plusRE, ' ').split('=')
     const key = decode(parts.shift())
     const val = parts.length > 0 ? decode(parts.join('=')) : null
 

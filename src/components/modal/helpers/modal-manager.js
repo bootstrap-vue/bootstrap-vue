@@ -18,6 +18,7 @@ import {
 } from '../../../utils/dom'
 import { isBrowser } from '../../../utils/env'
 import { isNull } from '../../../utils/inspect'
+import { toFloat, toInteger } from '../../../utils/number'
 
 // --- Constants ---
 
@@ -103,7 +104,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         div.className = 'modal-backdrop d-none'
         div.style.display = 'none'
         document.body.appendChild(div)
-        this.baseZIndex = parseInt(getCS(div).zIndex || DEFAULT_ZINDEX, 10)
+        this.baseZIndex = toInteger(getCS(div).zIndex || DEFAULT_ZINDEX)
         document.body.removeChild(div)
       }
       return this.baseZIndex || DEFAULT_ZINDEX
@@ -158,7 +159,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
           const actualPadding = el.style.paddingRight
           const calculatedPadding = getCS(el).paddingRight || 0
           setAttr(el, 'data-padding-right', actualPadding)
-          el.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`
+          el.style.paddingRight = `${toFloat(calculatedPadding) + scrollbarWidth}px`
           body._paddingChangedForModal.push(el)
         })
         // Adjust sticky content margin
@@ -167,7 +168,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
           const actualMargin = el.style.marginRight
           const calculatedMargin = getCS(el).marginRight || 0
           setAttr(el, 'data-margin-right', actualMargin)
-          el.style.marginRight = `${parseFloat(calculatedMargin) - scrollbarWidth}px`
+          el.style.marginRight = `${toFloat(calculatedMargin) - scrollbarWidth}px`
           body._marginChangedForModal.push(el)
         })
         // Adjust <b-navbar-toggler> margin
@@ -176,14 +177,14 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
           const actualMargin = el.style.marginRight
           const calculatedMargin = getCS(el).marginRight || 0
           setAttr(el, 'data-margin-right', actualMargin)
-          el.style.marginRight = `${parseFloat(calculatedMargin) + scrollbarWidth}px`
+          el.style.marginRight = `${toFloat(calculatedMargin) + scrollbarWidth}px`
           body._marginChangedForModal.push(el)
         })
         // Adjust body padding
         const actualPadding = body.style.paddingRight
         const calculatedPadding = getCS(body).paddingRight
         setAttr(body, 'data-padding-right', actualPadding)
-        body.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`
+        body.style.paddingRight = `${toFloat(calculatedPadding) + scrollbarWidth}px`
       }
     },
     resetScrollbar() {

@@ -3,7 +3,6 @@
  */
 
 import observeDom from '../../utils/observe-dom'
-import warn from '../../utils/warn'
 import {
   isElement,
   isVisible,
@@ -23,6 +22,7 @@ import {
 } from '../../utils/dom'
 import { isString, isUndefined } from '../../utils/inspect'
 import { toString as objectToString } from '../../utils/object'
+import { warn } from '../../utils/warn'
 
 /*
  * Constants / Defaults

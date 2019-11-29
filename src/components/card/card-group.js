@@ -22,13 +22,12 @@ export const BCardGroup = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
-    let baseClass = 'card-group'
-    if (props.deck) {
-      baseClass = 'card-deck'
-    } else if (props.columns) {
-      baseClass = 'card-columns'
-    }
-
-    return h(props.tag, mergeData(data, { class: baseClass }), children)
+    return h(
+      props.tag,
+      mergeData(data, {
+        class: props.deck ? 'card-deck' : props.columns ? 'card-columns' : 'card-group'
+      }),
+      children
+    )
   }
 })
