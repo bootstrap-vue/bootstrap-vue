@@ -20,7 +20,7 @@ export default {
     if (isBrowser) {
       keys(this[PROP]).forEach(evtName => {
         const handlers = this[PROP][evtName] || []
-        handlers.forEach(handler => this.listenOffWindow(evtName, handler))
+        handlers.forEach(handler => this.listenOffDocument(evtName, handler))
       })
       delete this[PROP]
     }
