@@ -6,7 +6,7 @@ import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { keys, assign, create } from '../../utils/object'
-import { lowerCase } from '../../utils/object'
+import { lowerCase } from '../../utils/string'
 
 const RX_COL_CLASS = /^col-/
 
