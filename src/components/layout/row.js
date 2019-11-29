@@ -19,14 +19,11 @@ const strNum = () => ({
 // Memoized function for better performance on generating class names
 const computeRowColsClass = memoize((breakpoint, cols) => {
   cols = trim(toString(cols))
-  if (!cols) {
-    return undefined
-  }
-  return lowerCase(['row-cols', breakpoint, cols].filter(identity).join('-'))
+  return cols ? lowerCase(['row-cols', breakpoint, cols].filter(identity).join('-')) : null
 })
 
 // Get the breakpoint name from the rowCols prop name
-// Memoized function for better performance on generating breakpoint names
+// Memoized function for better performance on extracting breakpoint names
 const computeRowColsBreakpoint = memoize(prop => lowerCase(prop.replace('cols', '')))
 
 // Cached copy of the row-cols breakpoint prop names
