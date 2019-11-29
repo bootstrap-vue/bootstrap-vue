@@ -27,6 +27,9 @@ export default {
     }
   },
   methods: {
+    listenDocument(on, type, handler) {
+      on ? this.listenOnDocument(type, handler) : this.listenOffDocument(type, handler)
+    },
     listenOnDocument(type, handler) {
       if (isBrowser && isString(type) && isFunction(handler) && this[PROP]) {
         this[PROP][type] = concat(this[PROP][type] || [], handler)
