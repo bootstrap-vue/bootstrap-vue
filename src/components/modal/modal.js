@@ -728,7 +728,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     // Turn on/off focusin listener
     setEnforceFocus(on) {
-      this.listenDocument(on, 'focusin', this.focusHandler) 
+      this.listenDocument(on, 'focusin', this.focusHandler)
     },
     // Resize listener
     setResizeEvent(on) {
