@@ -28,13 +28,13 @@ export default {
   },
   methods: {
     listenOnDocument(type, handler) {
-      if (isBrowser && isString(type) && isFunction(handler)) {
+      if (isBrowser && isString(type) && isFunction(handler) && this[PROP]) {
         this[PROP][type] = concat(this[PROP][type] || [], handler)
         eventOn(document, type, handler, eventOptions)
       }
     },
     listenOffDocument(type, handler) {
-      if (isBrowser && isString(type) && isFunction(handler)) {
+      if (isBrowser && isString(type) && isFunction(handler) && this[PROP]) {
         eventOff(document, type, handler, eventOptions)
         this[PROP][type] = (this[PROP][type] || []).filter(h => h !== handler)
       }
