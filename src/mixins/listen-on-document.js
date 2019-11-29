@@ -24,7 +24,6 @@ export default {
           this.listenOffWindow(type, handler)
         })
       })
-      delete this[PROP]
     }
   },
   methods: {
