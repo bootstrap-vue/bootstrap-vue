@@ -1,5 +1,8 @@
 $bv-dropdown-defined: false !default;
 
+// <b-dropdown> and <b-nav-item-dropdown> require the helper utility classes
+@import "../../utilities";
+
 // Make sure to include these style definitions only once
 @if $bv-dropdown-defined == false {
   $bv-dropdown-defined: true;
