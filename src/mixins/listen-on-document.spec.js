@@ -11,10 +11,20 @@ describe('mixins/listen-on-document', () => {
 
     const TestComponent = localVue.extend({
       mixins: [listenOnDocumentMixin],
+      props: {
+        offClickOne: false
+      },
       created() {
         this.listenOnDocument('click', spyClick1)
         this.listenOnDocument('focusin', spyFocusin)
         this.listenOnDocument('click', spyClick2)
+      },
+      watch: {
+        offClickOne(newVal, oldVal) {
+          if (newVal) {
+            this.listenOffDocument('click', spyClick1)
+          }
+        }
       },
       render(h) {
         return h('div', {}, this.$slots.default)
@@ -24,10 +34,14 @@ describe('mixins/listen-on-document', () => {
     const App = localVue.extend({
       components: { TestComponent },
       props: {
+        offClickOne: {
+          type: Boolean,
+          default: false
+        },
         destroy: {
           type: Boolean,
           default: false
-        }
+        },
       },
       render(h) {
         return h('div', {}, [
@@ -71,23 +85,33 @@ describe('mixins/listen-on-document', () => {
     expect(spyFocusin).toHaveBeenCalledTimes(1)
 
     wrapper.setProps({
+      offClickOne: true
+    })
+
+    $span.trigger('click')
+
+    expect(spyClick1).toHaveBeenCalledTimes(1)
+    expect(spyClick2).toHaveBeenCalledTimes(2)
+    expect(spyFocusin).toHaveBeenCalledTimes(1)
+
+    wrapper.setProps({
       destroy: true
     })
 
     expect(spyClick1).toHaveBeenCalledTimes(1)
-    expect(spyClick2).toHaveBeenCalledTimes(1)
-    expect(spyFocusin).not.toHaveBeenCalled(1)
+    expect(spyClick2).toHaveBeenCalledTimes(2)
+    expect(spyFocusin).toHaveBeenCalledTimes(1)
 
     $input.trigger('focusin')
 
     expect(spyClick1).toHaveBeenCalledTimes(1)
-    expect(spyClick2).toHaveBeenCalledTimes(1)
+    expect(spyClick2).toHaveBeenCalledTimes(2)
     expect(spyFocusin).toHaveBeenCalledTimes(1)
 
     $span.trigger('click')
 
     expect(spyClick1).toHaveBeenCalledTimes(1)
-    expect(spyClick2).toHaveBeenCalledTimes(1)
+    expect(spyClick2).toHaveBeenCalledTimes(2)
     expect(spyFocusin).toHaveBeenCalledTimes(1)
 
     wrapper.destroy()
