@@ -399,8 +399,8 @@ support.
           aria-relevant="additions removals"
         >
           <!-- Always use the tag value as the :key, not the index! -->
-          <!-- Otherwise screen readers will not read the tag       -->
-          <!-- additions and removals correctly.                    -->
+          <!-- Otherwise screen readers will not read the tag
+               additions and removals correctly -->
           <b-card
             v-for="tag in tags"
             :key="tag"
@@ -560,7 +560,7 @@ If the custom input is using custom event names that mimic `input` and `change`,
     @keydown.native="inputHandlers.keydown($event)"
   ></custom-input>
   <template v-for="tag in tags">
-    <!-- your custom tag list here -->
+    <!-- Your custom tag list here -->
   </template>
 </template>
 ```
