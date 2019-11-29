@@ -1,4 +1,3 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
@@ -7,7 +6,7 @@ import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { keys, create } from '../../utils/object'
-import { lowerCase, toString } from '../../utils/string'
+import { lowerCase, toString, trim } from '../../utils/string'
 
 const COMMON_ALIGNMENT = ['start', 'end', 'center']
 
@@ -29,7 +28,7 @@ const computeRowColsClass = memoize((breakpoint, cols) => {
 
 // Get the breakpoint name from the rowCols prop name
 // Memoized function for better performance on generating breakpoint names
-const computeRowColsBreakpoint = memoize(prop => lowerCase(prop.replace('rowCols', '')))
+const computeRowColsBreakpoint = memoize(prop => lowerCase(prop.replace('cols', '')))
 
 // Cached copy of the row-cols breakpoint prop names
 // Will be populated when the props are generated
@@ -43,7 +42,7 @@ const generateProps = () => {
 
   // Supports classes like: .row-cols, row-cols-md, .row-cols-xl
   const rowColsProps = breakpoints.reduce((props, breakpoint) => {
-    props[suffixPropName('rowCols', breakpoint)] = strNum()
+    props[suffixPropName('cols', breakpoint)] = strNum()
     return props
   }, create(null))
 
@@ -73,7 +72,8 @@ const generateProps = () => {
     alignContent: {
       type: String,
       default: null,
-      validator: str => arrayIncludes(COMMON_ALIGNMENT.concat(['between', 'around', 'stretch']), str)
+      validator:
+        str => arrayIncludes(COMMON_ALIGNMENT.concat(['between', 'around', 'stretch']), str)
     },
     ...rowColsProps
   }
