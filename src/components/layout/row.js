@@ -36,7 +36,7 @@ const generateProps = () => {
   // Grab the breakpoints from the cached config (including the '' (xs) breakpoint)
   const breakpoints = getBreakpointsUpCached()
 
-  // Supports classes like: `row-cols-2`, r`ow-cols-md-4`, `row-cols-xl-6`
+  // Supports classes like: `row-cols-2`, `row-cols-md-4`, `row-cols-xl-6`
   const rowColsProps = breakpoints.reduce((props, breakpoint) => {
     props[suffixPropName(breakpoint, 'cols')] = strNum()
     return props
