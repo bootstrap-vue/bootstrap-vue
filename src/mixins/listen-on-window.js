@@ -27,6 +27,9 @@ export default {
     }
   },
   methods: {
+    listenWindow(on, type, handler) {
+      on ? this.listenOnWindow(type, handler) : this.listenOffWindow(type, handler)
+    },
     listenOnWindow(type, handler) {
       if (isBrowser && isString(type) && isFunction(handler) && this[PROP]) {
         this[PROP][type] = concat(this[PROP][type] || [], handler)
