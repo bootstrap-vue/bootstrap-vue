@@ -1,8 +1,5 @@
 $bv-dropdown-defined: false !default;
 
-// <b-dropdown> and <b-nav-item-dropdown> require the helper utility classes
-@import "../../utilities";
-
 // Make sure to include these style definitions only once
 @if $bv-dropdown-defined == false {
   $bv-dropdown-defined: true;
@@ -26,6 +23,12 @@ $bv-dropdown-defined: false !default;
           display: none !important;
         }
       }
+    }
+
+    // Hide the focus ring introduced by Bootstratp v4.4 reboot
+    // on items with tabindex="-1"
+    .dropdown-menu:focus {
+      outline: none
     }
 
     // Prevent dropdown background overflow if there's no padding
