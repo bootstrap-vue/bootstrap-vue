@@ -89,7 +89,7 @@ renderer.heading = function(text, level, raw, slugger) {
       ? `<a class="anchorjs-link" href="#${link}" aria-label="Anchor"></a>`
       : ''
 
-  return `<h${level} id="${link}">${getTextMarkup(text + anchor)}</h${level}>\n`
+  return `<h${level} id="${link}" class="bv-no-focus-ring">${getTextMarkup(text + anchor)}</h${level}>\n`
 }
 
 // Convert lead-in blockquote paragraphs to true bootstrap docs leads
