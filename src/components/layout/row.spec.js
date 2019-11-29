@@ -122,7 +122,7 @@ describe('layout > row', () => {
         colsSm: 2,
         colsMd: 3,
         colsLg: 4,
-        colsXl: 5        
+        colsXl: 5
       }
     })
 
