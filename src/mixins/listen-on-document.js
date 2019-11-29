@@ -10,14 +10,16 @@ const PROP = '$_bv_documentHandlers_'
 
 // @vue/component
 export default {
-  beforeMount() {
+  created() {
+    /* istanbul ignore next */
+    if (!isBrowser) {
+      return
+    }
     // Declare non-reactive property
     // Object of arrays, keyed by event name,
     // where value is an array of handlers
     // Prop will be defined on client only
-    // We check for browser support in case testing
-    // in vue-test-utils without `attachToDocoument: true`
-    this[PROP] = isBrowser ? {} : null
+    this[PROP] = {}
     // Set up our beforeDestroy handler (client only)
     this.$once('hook:beforeDestroy', () => {
       const items = this[PROP] || {}
