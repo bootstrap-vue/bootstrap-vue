@@ -19,7 +19,8 @@ export default {
   beforeDestroy() {
     if (isBrowser) {
       keys(this[PROP]).forEach(type => {
-        (this[PROP][type] || []).forEach(handler => {
+        const handlers = this[PROP][type] || []
+        handlers.forEach(handler => {
           this.listenOffBody(type, handler)
         })
       })
