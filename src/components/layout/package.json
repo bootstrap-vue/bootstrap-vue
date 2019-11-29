@@ -33,6 +33,31 @@
           {
             "prop": "alignContent",
             "description": "Align columns items together on the cross axis: 'start', 'center', 'end', 'around', 'between' or 'stretch'. Has no effect on single rows of items"
+          },
+          {
+            "prop": "cols",
+            "version": "2.2.0"
+            "description": "The number row columns to create at the 'xs' breakpoint"
+          },
+          {
+            "prop": "cols-sm",
+            "version": "2.2.0"
+            "description": "The number row columns to create at the 'sm' breakpoint"
+          },
+          {
+            "prop": "cols-md",
+            "version": "2.2.0"
+            "description": "The number row columns to create at the 'md' breakpoint"
+          },
+          {
+            "prop": "cols-lg",
+            "version": "2.2.0"
+            "description": "The number row columns to create at the 'lg' breakpoint"
+          },
+          {
+            "prop": "cols-xl",
+            "version": "2.2.0"
+            "description": "The number row columns to create at the 'xl' breakpoint"
           }
         ]
       },
