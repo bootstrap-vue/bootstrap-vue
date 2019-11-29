@@ -17,7 +17,7 @@ describe('mixins/listen-on-window', () => {
           default: false
         }
       },
-      created() {
+      mounted() {
         this.listenOnWindow('resize', spyResize1)
         this.listenOnWindow('scroll', spyScroll)
         this.listenOnWindow('resize', spyResize2)
