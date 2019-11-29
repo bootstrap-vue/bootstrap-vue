@@ -639,7 +639,7 @@ The value specified in the `<b-row>` prop(s) is the number of columns to create 
 props on `<b-col>` refer to the number of columns to occupy).
 
 ```html
-<b-container class="bv-example-row">
+<b-container class="bv-example-row mb-3">
   <b-row cols="2">
     <b-col>Column</b-col>
     <b-col>Column</b-col>
@@ -648,7 +648,7 @@ props on `<b-col>` refer to the number of columns to occupy).
   </b-row>
 </b-container>
 
-<b-container class="bv-example-row">
+<b-container class="bv-example-row mb-3">
   <b-row cols="3">
     <b-col>Column</b-col>
     <b-col>Column</b-col>
@@ -657,7 +657,7 @@ props on `<b-col>` refer to the number of columns to occupy).
   </b-row>
 </b-container>
 
-<b-container class="bv-example-row">
+<b-container class="bv-example-row mb-3">
   <b-row cols="4">
     <b-col>Column</b-col>
     <b-col>Column</b-col>
@@ -688,9 +688,7 @@ You can control the number of columns at each breakpoint level via the following
 
 ```html
 <b-container class="bv-example-row">
-  <b-row cols="1" cols-sm="2" cols-md="4" cols-lg="6" cols-xl="8">
-    <b-col>Column</b-col>
-    <b-col>Column</b-col>
+  <b-row cols="1" cols-sm="2" cols-md="4" cols-lg="6">
     <b-col>Column</b-col>
     <b-col>Column</b-col>
     <b-col>Column</b-col>
