@@ -4,7 +4,7 @@ import memoize from '../../utils/memoize'
 import suffixPropName from '../../utils/suffix-prop-name'
 import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
-import { keys, create } from '../../utils/object'
+import { create, keys } from '../../utils/object'
 import { lowerCase, toString, trim } from '../../utils/string'
 
 const COMMON_ALIGNMENT = ['start', 'end', 'center']
@@ -15,28 +15,28 @@ const strNum = () => ({
   default: null
 })
 
-// Compute a row-cols-{breakpoint}-{cols} class name
+// Compute a `row-cols-{breakpoint}-{cols}` class name
 // Memoized function for better performance on generating class names
 const computeRowColsClass = memoize((breakpoint, cols) => {
   cols = trim(toString(cols))
   return cols ? lowerCase(['row-cols', breakpoint, cols].filter(identity).join('-')) : null
 })
 
-// Get the breakpoint name from the rowCols prop name
+// Get the breakpoint name from the `rowCols` prop name
 // Memoized function for better performance on extracting breakpoint names
 const computeRowColsBreakpoint = memoize(prop => lowerCase(prop.replace('cols', '')))
 
-// Cached copy of the row-cols breakpoint prop names
+// Cached copy of the `row-cols` breakpoint prop names
 // Will be populated when the props are generated
 let rowColsPropList = []
 
-// Lazy evaled props factory for BRow (called only once,
+// Lazy evaled props factory for <b-row> (called only once,
 // the first time the component is used)
 const generateProps = () => {
   // Grab the breakpoints from the cached config (including the '' (xs) breakpoint)
   const breakpoints = getBreakpointsUpCached()
 
-  // Supports classes like: .row-cols-2, row-cols-md-4, .row-cols-xl-6
+  // Supports classes like: `row-cols-2`, r`ow-cols-md-4`, `row-cols-xl-6`
   const rowColsProps = breakpoints.reduce((props, breakpoint) => {
     props[suffixPropName(breakpoint, 'cols')] = strNum()
     return props
@@ -75,7 +75,7 @@ const generateProps = () => {
   }
 }
 
-// We do not use Vue.extend here as that would evaluate the props
+// We do not use `Vue.extend()` here as that would evaluate the props
 // immediately, which we do not want to happen
 // @vue/component
 export const BRow = {
@@ -83,18 +83,18 @@ export const BRow = {
   functional: true,
   get props() {
     // Allow props to be lazy evaled on first access and
-    // then they become a non-getter afterwards.
+    // then they become a non-getter afterwards
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#Smart_self-overwriting_lazy_getters
     delete this.props
-    // eslint-disable-next-line no-return-assign
-    return (this.props = generateProps())
+    this.props = generateProps()
+    return this.props
   },
   render(h, { props, data, children }) {
     const classList = []
     // Loop through row-cols breakpoint props and generate the classes
     rowColsPropList.forEach(prop => {
       const c = computeRowColsClass(computeRowColsBreakpoint(prop), props[prop])
-      // If a class is returned, push it onto the array.
+      // If a class is returned, push it onto the array
       if (c) {
         classList.push(c)
       }
