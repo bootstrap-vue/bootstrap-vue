@@ -18,11 +18,16 @@ export default {
   },
   beforeDestroy() {
     if (isBrowser) {
-      keys(this[PROP]).forEach(evtName => {
-        const handlers = this[PROP][evtName] || []
-        handlers.forEach(handler => this.listenOffDocument(evtName, handler))
-      })
+      const items = this[PROP]
+      // Immediately delete this[PROP] to prevent the
+      // listenOn/Off methods from running (which may occur
+      // due to requestAnimationFrame delays)
       delete this[PROP]
+      // Remove all registered event handlers
+      keys(items).forEach(evtName => {
+        const handlers = items[evtName] || []
+        handlers.forEach(handler => eventOff(document, evtName, handler, eventOptions))
+      })
     }
   },
   methods: {
