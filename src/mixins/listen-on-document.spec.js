@@ -12,7 +12,10 @@ describe('mixins/listen-on-document', () => {
     const TestComponent = localVue.extend({
       mixins: [listenOnDocumentMixin],
       props: {
-        offClickOne: false
+        offClickOne: {
+          type: Boolean,
+          default: false
+        }
       },
       created() {
         this.listenOnDocument('click', spyClick1)
@@ -44,10 +47,13 @@ describe('mixins/listen-on-document', () => {
         },
       },
       render(h) {
+        const props = {
+          offClickOne: this.offClickOne
+        }
         return h('div', {}, [
           h('span', {}, ''),
           h('input', { type: 'text' }),
-          this.destroy ? h() : h(TestComponent, {}, 'test-component')
+          this.destroy ? h() : h(TestComponent, { props }, 'test-component')
         ])
       }
     })
@@ -94,25 +100,31 @@ describe('mixins/listen-on-document', () => {
     expect(spyClick2).toHaveBeenCalledTimes(2)
     expect(spyFocusin).toHaveBeenCalledTimes(1)
 
+    $input.trigger('focusin')
+
+    expect(spyClick1).toHaveBeenCalledTimes(1)
+    expect(spyClick2).toHaveBeenCalledTimes(2)
+    expect(spyFocusin).toHaveBeenCalledTimes(2)
+
     wrapper.setProps({
       destroy: true
     })
 
     expect(spyClick1).toHaveBeenCalledTimes(1)
     expect(spyClick2).toHaveBeenCalledTimes(2)
-    expect(spyFocusin).toHaveBeenCalledTimes(1)
+    expect(spyFocusin).toHaveBeenCalledTimes(2)
 
     $input.trigger('focusin')
 
     expect(spyClick1).toHaveBeenCalledTimes(1)
     expect(spyClick2).toHaveBeenCalledTimes(2)
-    expect(spyFocusin).toHaveBeenCalledTimes(1)
+    expect(spyFocusin).toHaveBeenCalledTimes(2)
 
     $span.trigger('click')
 
     expect(spyClick1).toHaveBeenCalledTimes(1)
     expect(spyClick2).toHaveBeenCalledTimes(2)
-    expect(spyFocusin).toHaveBeenCalledTimes(1)
+    expect(spyFocusin).toHaveBeenCalledTimes(2)
 
     wrapper.destroy()
   })
