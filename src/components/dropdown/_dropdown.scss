@@ -26,7 +26,8 @@ $bv-dropdown-defined: false !default;
     }
 
     // Hide the focus ring introduced by Bootstratp v4.4 reboot
-    // on items with tabindex="-1"
+    // on items with tabindex="-1", as we know how users feel
+    // about blue rings where they don't expect them.
     .dropdown-menu:focus {
       outline: none
     }
