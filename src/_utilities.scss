@@ -7,7 +7,7 @@ $bv-utility-classes-defined: false !default;
   $bv-utility-classes-defined: true;
 
   // No focus outline helper (use sparingly)
-  .no-focus-ring:focus {
+  .bv-no-focus-ring:focus {
     outline: none;
   }
 
