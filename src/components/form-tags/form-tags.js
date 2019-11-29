@@ -308,7 +308,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         this.tags = concat(this.tags, parsed.valid)
       }
       this.tagsState = parsed
-      // Atempt to re-focus the input (specifically for when using the Add
+      // Attempt to re-focus the input (specifically for when using the Add
       // button, as the button disappears after successfully adding a tag
       this.focus()
     },
@@ -568,10 +568,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         [this.normalizeSlot('add-button-text') || addButtonText]
       )
 
-      // ID of the tags+input '<ul>' list
-      // Note we could concatinate inputAttrs.id with '__TAG__LIST__'
+      // ID of the tags+input `<ul>` list
+      // Note we could concatenate inputAttrs.id with `__TAG__LIST__`
       // But note that the inputID may be null until after mount
-      // safeId returns null, if no user provied ID, until after
+      // `safeId` returns `null`, if no user provided ID, until after
       // mount when a unique ID is generated
       const tagListId = this.safeId('__TAG__LIST__')
 
@@ -593,9 +593,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center',
           attrs: {
             id: tagListId,
-            // Don't interupt the user abruptly
+            // Don't interrupt the user abruptly
             // Although maybe this should be 'assertive'
-            // to provide imediate feedback of the tag added/removed
+            // to provide immediate feedback of the tag added/removed
             'aria-live': 'polite',
             // Only read elements that have been added or removed
             'aria-atomic': 'false',
@@ -606,11 +606,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         concat($tags, $field)
       )
 
-      // Assembple the feedback
+      // Assemble the feedback
       let $feedback = h()
       if (invalidTagText || duplicateTagText) {
         // Add an aria live region for the invalid/duplicate tag
-        // messages if the user has not diabled the messages
+        // messages if the user has not disabled the messages
         const joiner = this.computedJoiner
 
         // Invalid tag feedback if needed (error)
