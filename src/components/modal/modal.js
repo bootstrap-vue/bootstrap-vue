@@ -732,8 +732,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     // Resize listener
     setResizeEvent(on) {
-      this.listenOnWindow(on, 'resize', this.checkModalOverflow)
-      this.listenOnWindow(on, 'orientationchange', this.checkModalOverflow)
+      this.listenWindow(on, 'resize', this.checkModalOverflow)
+      this.listenWindow(on, 'orientationchange', this.checkModalOverflow)
     },
     // Root listener handlers
     showHandler(id, triggerEl) {
