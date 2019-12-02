@@ -9,6 +9,8 @@ describe('navbar-toggle', () => {
       }
     })
     expect(wrapper.is('button')).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('default has class "navbar-toggler"', async () => {
@@ -19,6 +21,8 @@ describe('navbar-toggle', () => {
     })
     expect(wrapper.classes()).toContain('navbar-toggler')
     expect(wrapper.classes().length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('default has default attributes', async () => {
@@ -31,6 +35,8 @@ describe('navbar-toggle', () => {
     expect(wrapper.attributes('aria-controls')).toBe('target')
     expect(wrapper.attributes('aria-expanded')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Toggle navigation')
+
+    wrapper.destroy()
   })
 
   it('default has inner button-close', async () => {
@@ -40,6 +46,8 @@ describe('navbar-toggle', () => {
       }
     })
     expect(wrapper.find('span.navbar-toggler-icon')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('accepts custom label when label prop is set', async () => {
@@ -50,6 +58,8 @@ describe('navbar-toggle', () => {
       }
     })
     expect(wrapper.attributes('aria-label')).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('emits click event', async () => {
@@ -72,6 +82,8 @@ describe('navbar-toggle', () => {
     expect(rootClicked).toBe(true)
 
     wrapper.vm.$root.$off('bv::toggle::collapse', onRootClick)
+
+    wrapper.destroy()
   })
 
   it('sets aria-expanded when receives root emit for target', async () => {
@@ -83,18 +95,30 @@ describe('navbar-toggle', () => {
 
     // Private state event
     wrapper.vm.$root.$emit('bv::collapse::state', 'target', true)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('true')
+
     wrapper.vm.$root.$emit('bv::collapse::state', 'target', false)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
+
     wrapper.vm.$root.$emit('bv::collapse::state', 'foo', true)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
 
     // Private sync event
     wrapper.vm.$root.$emit('bv::collapse::sync::state', 'target', true)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('true')
+
     wrapper.vm.$root.$emit('bv::collapse::sync::state', 'target', false)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
+
     wrapper.vm.$root.$emit('bv::collapse::sync::state', 'foo', true)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
+
+    wrapper.destroy()
   })
 })
