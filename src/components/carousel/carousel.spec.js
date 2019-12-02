@@ -286,20 +286,25 @@ describe('carousel', () => {
   })
 
   it('should not automatically scroll to next slide when interval=0', async () => {
-    const app = App.extend({
-      data() {
-        return {
-          interval: 0,
-          fade: false,
-          noAnimation: false,
-          indicators: true,
-          controls: true
-        }
-      }
-    })
-    const wrapper = mount(app, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false,
+        indicators: true,
+        controls: true
+      },
+      components: { BCarouselSlide },
+      slots: {
+        default: [
+          '<BCarouselSlide>slide 1</BCarouselSlide>',
+          '<BCarouselSlide>slide 2</BCarouselSlide>',
+          '<BCarouselSlide>slide 3</BCarouselSlide>',
+          '<BCarouselSlide>slide 4</BCarouselSlide>'
+        ]
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -322,21 +327,26 @@ describe('carousel', () => {
   })
 
   it('should scroll to next/prev slide when next/prev clicked', async () => {
-    const app = App.extend({
-      data() {
-        return {
-          interval: 0,
-          fade: false,
-          noAnimation: false,
-          indicators: true,
-          controls: true,
-          value: 0
-        }
-      }
-    })
-    const wrapper = mount(app, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false,
+        indicators: true,
+        controls: true,
+        value: 0
+      },
+      components: { BCarouselSlide },
+      slots: {
+        default: [
+          '<BCarouselSlide>slide 1</BCarouselSlide>',
+          '<BCarouselSlide>slide 2</BCarouselSlide>',
+          '<BCarouselSlide>slide 3</BCarouselSlide>',
+          '<BCarouselSlide>slide 4</BCarouselSlide>'
+        ]
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -399,21 +409,26 @@ describe('carousel', () => {
   })
 
   it('should scroll to next/prev slide when next/prev space keypress', async () => {
-    const app = App.extend({
-      data() {
-        return {
-          interval: 0,
-          fade: false,
-          noAnimation: false,
-          indicators: true,
-          controls: true,
-          value: 0
-        }
-      }
-    })
-    const wrapper = mount(app, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false,
+        indicators: true,
+        controls: true,
+        value: 0
+      },
+      components: { BCarouselSlide },
+      slots: {
+        default: [
+          '<BCarouselSlide>slide 1</BCarouselSlide>',
+          '<BCarouselSlide>slide 2</BCarouselSlide>',
+          '<BCarouselSlide>slide 3</BCarouselSlide>',
+          '<BCarouselSlide>slide 4</BCarouselSlide>'
+        ]
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -476,21 +491,26 @@ describe('carousel', () => {
   })
 
   it('should scroll to specified slide when indicator clicked', async () => {
-    const app = App.extend({
-      data() {
-        return {
-          interval: 0,
-          fade: false,
-          noAnimation: false,
-          indicators: true,
-          controls: true,
-          value: 0
-        }
-      }
-    })
-    const wrapper = mount(app, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false,
+        indicators: true,
+        controls: true,
+        value: 0
+      },
+      components: { BCarouselSlide },
+      slots: {
+        default: [
+          '<BCarouselSlide>slide 1</BCarouselSlide>',
+          '<BCarouselSlide>slide 2</BCarouselSlide>',
+          '<BCarouselSlide>slide 3</BCarouselSlide>',
+          '<BCarouselSlide>slide 4</BCarouselSlide>'
+        ]
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -553,21 +573,26 @@ describe('carousel', () => {
   })
 
   it('should scroll to specified slide when indicator kepress space/enter', async () => {
-    const app = App.extend({
-      data() {
-        return {
-          interval: 0,
-          fade: false,
-          noAnimation: false,
-          indicators: true,
-          controls: true,
-          value: 0
-        }
-      }
-    })
-    const wrapper = mount(app, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false,
+        indicators: true,
+        controls: true,
+        value: 0
+      },
+      components: { BCarouselSlide },
+      slots: {
+        default: [
+          '<BCarouselSlide>slide 1</BCarouselSlide>',
+          '<BCarouselSlide>slide 2</BCarouselSlide>',
+          '<BCarouselSlide>slide 3</BCarouselSlide>',
+          '<BCarouselSlide>slide 4</BCarouselSlide>'
+        ]
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -630,21 +655,26 @@ describe('carousel', () => {
   })
 
   it('should scroll to next/prev slide when key next/prev pressed', async () => {
-    const app = App.extend({
-      data() {
-        return {
-          interval: 0,
-          fade: false,
-          noAnimation: false,
-          indicators: true,
-          controls: true,
-          value: 0
-        }
-      }
-    })
-    const wrapper = mount(app, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false,
+        indicators: true,
+        controls: true,
+        value: 0
+      },
+      components: { BCarouselSlide },
+      slots: {
+        default: [
+          '<BCarouselSlide>slide 1</BCarouselSlide>',
+          '<BCarouselSlide>slide 2</BCarouselSlide>',
+          '<BCarouselSlide>slide 3</BCarouselSlide>',
+          '<BCarouselSlide>slide 4</BCarouselSlide>'
+        ]
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -798,21 +828,26 @@ describe('carousel', () => {
   })
 
   it('should scroll to specified slide when value (v-model) changed', async () => {
-    const app = App.extend({
-      data() {
-        return {
-          interval: 0,
-          fade: false,
-          noAnimation: false,
-          indicators: true,
-          controls: true,
-          value: 0
-        }
-      }
-    })
-    const wrapper = mount(app, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false,
+        indicators: true,
+        controls: true,
+        value: 0
+      },
+      components: { BCarouselSlide },
+      slots: {
+        default: [
+          '<BCarouselSlide>slide 1</BCarouselSlide>',
+          '<BCarouselSlide>slide 2</BCarouselSlide>',
+          '<BCarouselSlide>slide 3</BCarouselSlide>',
+          '<BCarouselSlide>slide 4</BCarouselSlide>'
+        ]
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -833,7 +868,7 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(0)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.setData({
+    wrapper.setProps({
       value: 1
     })
 
@@ -859,7 +894,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input')[0][0]).toEqual(1)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.setData({
+    wrapper.setProps({
       value: 3
     })
 
@@ -886,21 +921,26 @@ describe('carousel', () => {
   })
 
   it('changing slides works when no-animation set', async () => {
-    const app = App.extend({
-      data() {
-        return {
-          interval: 0,
-          fade: false,
-          noAnimation: true,
-          indicators: true,
-          controls: true,
-          value: 0
-        }
-      }
-    })
-    const wrapper = mount(app, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: true,
+        indicators: true,
+        controls: true,
+        value: 0
+      },
+      components: { BCarouselSlide },
+      slots: {
+        default: [
+          '<BCarouselSlide>slide 1</BCarouselSlide>',
+          '<BCarouselSlide>slide 2</BCarouselSlide>',
+          '<BCarouselSlide>slide 3</BCarouselSlide>',
+          '<BCarouselSlide>slide 4</BCarouselSlide>'
+        ]
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -922,7 +962,7 @@ describe('carousel', () => {
     expect($carousel.vm.isSliding).toBe(false)
 
     // Transitions (or fallback timers) are not used when no-animation set
-    wrapper.setData({
+    wrapper.setProps({
       value: 1
     })
 
@@ -940,7 +980,7 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(1)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.setData({
+    wrapper.setProps({
       value: 3
     })
 
@@ -959,21 +999,26 @@ describe('carousel', () => {
   })
 
   it('setting new slide when sliding is active, schedules the new slide to happen after finished', async () => {
-    const app = App.extend({
-      data() {
-        return {
-          interval: 0,
-          fade: false,
-          noAnimation: false,
-          indicators: true,
-          controls: true,
-          value: 0
-        }
-      }
-    })
-    const wrapper = mount(app, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false,
+        indicators: true,
+        controls: true,
+        value: 0
+      },
+      components: { BCarouselSlide },
+      slots: {
+        default: [
+          '<BCarouselSlide>slide 1</BCarouselSlide>',
+          '<BCarouselSlide>slide 2</BCarouselSlide>',
+          '<BCarouselSlide>slide 3</BCarouselSlide>',
+          '<BCarouselSlide>slide 4</BCarouselSlide>'
+        ]
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -994,7 +1039,7 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(0)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.setData({
+    wrapper.setProps({
       value: 1
     })
 
@@ -1009,7 +1054,7 @@ describe('carousel', () => {
     expect($carousel.vm.isSliding).toBe(true)
 
     // Set new slide while sliding
-    wrapper.setData({
+    wrapper.setProps({
       value: 3
     })
 
@@ -1046,23 +1091,28 @@ describe('carousel', () => {
   })
 
   it('Next/Prev slide wraps to end/start when no-wrap is false', async () => {
-    const app = App.extend({
-      data() {
-        return {
-          interval: 0,
-          fade: false,
-          noAnimation: true,
-          noWrap: false,
-          indicators: true,
-          controls: true,
-          // Start at last slide
-          value: 3
-        }
-      }
-    })
-    const wrapper = mount(app, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: true,
+        noWrap: false,
+        indicators: true,
+        controls: true,
+        // Start at last slide
+        value: 3
+      },
+      components: { BCarouselSlide },
+      slots: {
+        default: [
+          '<BCarouselSlide>slide 1</BCarouselSlide>',
+          '<BCarouselSlide>slide 2</BCarouselSlide>',
+          '<BCarouselSlide>slide 3</BCarouselSlide>',
+          '<BCarouselSlide>slide 4</BCarouselSlide>'
+        ]
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -1119,9 +1169,10 @@ describe('carousel', () => {
   })
 
   it('Next/Prev slide does not wrap to end/start when no-wrap is true', async () => {
-    const app = App.extend({
-      data() {
-        return {
+    const wrapper = mount(BCarousel, {
+      localVue: localVue,
+      attachToDocument: true,
+      propsData: {
           interval: 0,
           fade: false,
           // Transitions (or fallback timers) are not used when no-animation set
@@ -1131,12 +1182,16 @@ describe('carousel', () => {
           controls: true,
           // Start at last slide
           value: 3
-        }
+      },
+      components: { BCarouselSlide },
+      slots: {
+        default: [
+          '<BCarouselSlide>slide 1</BCarouselSlide>',
+          '<BCarouselSlide>slide 2</BCarouselSlide>',
+          '<BCarouselSlide>slide 3</BCarouselSlide>',
+          '<BCarouselSlide>slide 4</BCarouselSlide>'
+        ]
       }
-    })
-    const wrapper = mount(app, {
-      localVue: localVue,
-      attachToDocument: true
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
