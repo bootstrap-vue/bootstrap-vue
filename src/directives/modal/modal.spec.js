@@ -1,4 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
 import { VBModal } from './modal'
 
 const EVENT_SHOW = 'bv::show::modal'
