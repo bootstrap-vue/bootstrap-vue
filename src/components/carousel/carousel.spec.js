@@ -718,6 +718,7 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    expect(wrapper.props('interval')).toBe(1000)
     expect($carousel.props('interval')).toBe(1000)
     expect($carousel.vm.interval).toBe(1000)
 
