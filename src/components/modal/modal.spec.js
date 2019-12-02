@@ -441,6 +441,8 @@ describe('modal', () => {
 
       // Try and close modal (but we prevent it)
       $close.trigger('click')
+      await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
@@ -457,6 +459,8 @@ describe('modal', () => {
       trigger = null
       evt = null
       $close.trigger('click')
+      await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
@@ -522,6 +526,8 @@ describe('modal', () => {
 
       // Try and close modal (but we prevent it)
       $ok.trigger('click')
+      await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('ok')
 
       await waitNT(wrapper.vm)
@@ -536,6 +542,8 @@ describe('modal', () => {
       cancelHide = false
       trigger = null
       $cancel.trigger('click')
+      await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('cancel')
 
       await waitNT(wrapper.vm)
