@@ -8,7 +8,7 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.html()).toBe('')
 
     wrapper.destroy()
   })
@@ -22,7 +22,7 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.html()).toBe('')
 
     wrapper.destroy()
   })
@@ -36,7 +36,7 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.html()).toBe('')
 
     wrapper.destroy()
   })
@@ -136,13 +136,13 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.html()).toBe('')
 
     wrapper.setProps({
       show: true
     })
-
     await waitNT(wrapper.vm)
+
     expect(wrapper.html()).toBeDefined()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
@@ -252,6 +252,8 @@ describe('alert', () => {
     wrapper.setProps({
       show: true
     })
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
@@ -272,7 +274,7 @@ describe('alert', () => {
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
 
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.html()).toBe('')
 
     wrapper.destroy()
   })
@@ -309,7 +311,7 @@ describe('alert', () => {
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.html()).toBe('')
 
     wrapper.destroy()
   })
@@ -323,6 +325,8 @@ describe('alert', () => {
     })
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
@@ -346,7 +350,7 @@ describe('alert', () => {
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.html()).toBe('')
 
     wrapper.destroy()
   })
@@ -374,6 +378,8 @@ describe('alert', () => {
     wrapper.setProps({
       show: 3
     })
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(3) // 3 - 0
 
@@ -398,7 +404,7 @@ describe('alert', () => {
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.html()).toBe('')
 
     wrapper.destroy()
   })
@@ -436,7 +442,7 @@ describe('alert', () => {
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.html()).toBe('')
 
     wrapper.destroy()
   })
