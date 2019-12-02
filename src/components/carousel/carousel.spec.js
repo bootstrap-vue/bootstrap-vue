@@ -4,44 +4,10 @@ import { BCarousel } from './carousel'
 import { BCarouselSlide } from './carousel-slide'
 
 const localVue = new CreateLocalVue()
+// Add in our slide component for E2E testing
+localVue.component('BCarouselSlide', BCarouselSlide)
 
 jest.useFakeTimers()
-
-const App = localVue.extend({
-  data() {
-    return {
-      interval: 0,
-      indicators: false,
-      controls: false,
-      fade: false,
-      noAnimation: false,
-      noWrap: false,
-      value: 0
-    }
-  },
-  render(h) {
-    return h(
-      BCarousel,
-      {
-        props: {
-          interval: this.interval,
-          indicators: this.indicators,
-          controls: this.controls,
-          fade: this.fade,
-          noAnimation: this.noAnimation,
-          noWrap: this.noWrap,
-          value: this.value
-        }
-      },
-      [
-        h(BCarouselSlide, {}, 'slide 1'),
-        h(BCarouselSlide, {}, 'slide 2'),
-        h(BCarouselSlide, {}, 'slide 3'),
-        h(BCarouselSlide, {}, 'slide 4')
-      ]
-    )
-  }
-})
 
 describe('carousel', () => {
   it('has expected default structure', async () => {
@@ -296,7 +262,6 @@ describe('carousel', () => {
         indicators: true,
         controls: true
       },
-      components: { BCarouselSlide },
       slots: {
         default: [
           '<BCarouselSlide>slide 1</BCarouselSlide>',
@@ -338,7 +303,6 @@ describe('carousel', () => {
         controls: true,
         value: 0
       },
-      components: { BCarouselSlide },
       slots: {
         default: [
           '<BCarouselSlide>slide 1</BCarouselSlide>',
@@ -420,7 +384,6 @@ describe('carousel', () => {
         controls: true,
         value: 0
       },
-      components: { BCarouselSlide },
       slots: {
         default: [
           '<BCarouselSlide>slide 1</BCarouselSlide>',
@@ -502,7 +465,6 @@ describe('carousel', () => {
         controls: true,
         value: 0
       },
-      components: { BCarouselSlide },
       slots: {
         default: [
           '<BCarouselSlide>slide 1</BCarouselSlide>',
@@ -584,7 +546,6 @@ describe('carousel', () => {
         controls: true,
         value: 0
       },
-      components: { BCarouselSlide },
       slots: {
         default: [
           '<BCarouselSlide>slide 1</BCarouselSlide>',
@@ -666,7 +627,6 @@ describe('carousel', () => {
         controls: true,
         value: 0
       },
-      components: { BCarouselSlide },
       slots: {
         default: [
           '<BCarouselSlide>slide 1</BCarouselSlide>',
@@ -745,7 +705,6 @@ describe('carousel', () => {
         controls: true,
         value: 0
       },
-      components: { BCarouselSlide },
       slots: {
         default: [
           '<BCarouselSlide>slide 1</BCarouselSlide>',
@@ -839,7 +798,6 @@ describe('carousel', () => {
         controls: true,
         value: 0
       },
-      components: { BCarouselSlide },
       slots: {
         default: [
           '<BCarouselSlide>slide 1</BCarouselSlide>',
@@ -932,7 +890,6 @@ describe('carousel', () => {
         controls: true,
         value: 0
       },
-      components: { BCarouselSlide },
       slots: {
         default: [
           '<BCarouselSlide>slide 1</BCarouselSlide>',
@@ -1010,7 +967,6 @@ describe('carousel', () => {
         controls: true,
         value: 0
       },
-      components: { BCarouselSlide },
       slots: {
         default: [
           '<BCarouselSlide>slide 1</BCarouselSlide>',
@@ -1104,7 +1060,6 @@ describe('carousel', () => {
         // Start at last slide
         value: 3
       },
-      components: { BCarouselSlide },
       slots: {
         default: [
           '<BCarouselSlide>slide 1</BCarouselSlide>',
@@ -1173,17 +1128,16 @@ describe('carousel', () => {
       localVue: localVue,
       attachToDocument: true,
       propsData: {
-          interval: 0,
-          fade: false,
-          // Transitions (or fallback timers) are not used when no-animation set
-          noAnimation: true,
-          noWrap: true,
-          indicators: true,
-          controls: true,
-          // Start at last slide
-          value: 3
+        interval: 0,
+        fade: false,
+        // Transitions (or fallback timers) are not used when no-animation set
+        noAnimation: true,
+        noWrap: true,
+        indicators: true,
+        controls: true,
+        // Start at last slide
+        value: 3
       },
-      components: { BCarouselSlide },
       slots: {
         default: [
           '<BCarouselSlide>slide 1</BCarouselSlide>',
