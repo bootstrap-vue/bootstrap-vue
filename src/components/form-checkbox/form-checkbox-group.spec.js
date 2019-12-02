@@ -327,6 +327,7 @@ describe('form-checkbox-group', () => {
     expect(wrapper.vm.localChecked).toEqual([])
 
     checks.at(0).trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.localChecked).toEqual(['one'])
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
@@ -336,6 +337,7 @@ describe('form-checkbox-group', () => {
     expect(wrapper.emitted('input')[0][0]).toEqual(['one'])
 
     checks.at(2).trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.localChecked).toEqual(['one', 'three'])
     expect(wrapper.emitted('change').length).toBe(2)
     expect(wrapper.emitted('change')[1][0]).toEqual(['one', 'three'])
@@ -343,6 +345,7 @@ describe('form-checkbox-group', () => {
     expect(wrapper.emitted('input')[1][0]).toEqual(['one', 'three'])
 
     checks.at(0).trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.localChecked).toEqual(['three'])
     expect(wrapper.emitted('change').length).toBe(3)
     expect(wrapper.emitted('change')[2][0]).toEqual(['three'])
@@ -350,6 +353,7 @@ describe('form-checkbox-group', () => {
     expect(wrapper.emitted('input')[2][0]).toEqual(['three'])
 
     checks.at(1).trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.localChecked).toEqual(['three', 'two'])
     expect(wrapper.emitted('change').length).toBe(4)
     expect(wrapper.emitted('change')[3][0]).toEqual(['three', 'two'])
@@ -379,6 +383,7 @@ describe('form-checkbox-group', () => {
     wrapper.setProps({
       checked: ['three', 'one']
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.vm.localChecked).toEqual(['three', 'one'])
     expect(checks.is('input[type=checkbox]')).toBe(true)
