@@ -657,6 +657,7 @@ describe('form-radio', () => {
         default: 'foobar'
       }
     })
+    await waitNT(wrapper.vm)
     const label = wrapper.find('label')
     expect(label).toBeDefined()
     const input = wrapper.find('input')
@@ -667,6 +668,7 @@ describe('form-radio', () => {
     expect(label.classes()).toContain('btn')
     expect(label.classes()).toContain('btn-secondary')
     input.setChecked(true)
+    await waitNT(wrapper.vm)
     expect(label.classes().length).toEqual(3)
     expect(label.classes()).toContain('active')
     expect(label.classes()).toContain('btn')
@@ -686,6 +688,7 @@ describe('form-radio', () => {
         default: 'foobar'
       }
     })
+    await waitNT(wrapper.vm)
     const label = wrapper.find('label')
     expect(label).toBeDefined()
     const input = wrapper.find('input')
@@ -696,9 +699,11 @@ describe('form-radio', () => {
     expect(label.classes()).toContain('btn-secondary')
     expect(input).toBeDefined()
     input.trigger('focus')
+    await waitNT(wrapper.vm)
     expect(label.classes().length).toEqual(3)
     expect(label.classes()).toContain('focus')
     input.trigger('blur')
+    await waitNT(wrapper.vm)
     expect(label.classes().length).toEqual(2)
     expect(label.classes()).not.toContain('focus')
 
@@ -717,6 +722,7 @@ describe('form-radio', () => {
         default: 'foobar'
       }
     })
+    await waitNT(wrapper.vm)
     const label = wrapper.find('label')
     expect(label).toBeDefined()
     expect(label.classes().length).toEqual(2)
@@ -781,6 +787,7 @@ describe('form-radio', () => {
     wrapper.setProps({
       checked: 'bar'
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.localChecked).toEqual('bar')
     expect(wrapper.emitted('input')).toBeDefined()
     const last = wrapper.emitted('input').length - 1
@@ -809,6 +816,7 @@ describe('form-radio', () => {
     expect(input).toBeDefined()
 
     input.trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
     expect(wrapper.emitted('change')[0][0]).toEqual('bar')
@@ -834,6 +842,7 @@ describe('form-radio', () => {
     expect(input).toBeDefined()
 
     input.trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.localChecked).toEqual({ bar: 1, baz: 2 })
 
     wrapper.destroy()
@@ -863,11 +872,11 @@ describe('form-radio', () => {
     expect(input.element).not.toBe(document.activeElement)
 
     wrapper.vm.focus()
-    wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(input.element).toBe(document.activeElement)
 
     wrapper.vm.blur()
-    wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(input.element).not.toBe(document.activeElement)
 
     wrapper.destroy()
