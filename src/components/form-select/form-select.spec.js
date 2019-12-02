@@ -544,6 +544,7 @@ describe('form-select', () => {
     wrapper.setProps({
       value: 'two'
     })
+    await waitNT(wrapper.vm)
 
     expect($options.at(1).element.selected).toBe(true)
 
@@ -551,6 +552,7 @@ describe('form-select', () => {
     wrapper.setProps({
       value: { three: 3 }
     })
+    await waitNT(wrapper.vm)
 
     expect($options.at(2).element.selected).toBe(true)
 
