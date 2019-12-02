@@ -88,10 +88,13 @@ describe('form-textarea', () => {
     })
     expect(wrapper.classes()).toContain('form-control-sm')
     wrapper.setProps({ size: 'lg' })
+    await waitNT(wrapper.vm)
     expect(wrapper.classes()).toContain('form-control-lg')
     wrapper.setProps({ size: 'foobar' })
+    await waitNT(wrapper.vm)
     expect(wrapper.classes()).toContain('form-control-foobar')
     wrapper.setProps({ size: '' })
+    await waitNT(wrapper.vm)
     expect(wrapper.classes()).not.toContain('form-control-')
 
     wrapper.destroy()
@@ -366,13 +369,16 @@ describe('form-textarea', () => {
     expect(input.attributes('rows')).toEqual('10')
     // Should work with both text and number values
     input.setProps({ rows: '20' })
+    await waitNT(input.vm)
     expect(input.attributes('rows')).toBeDefined()
     expect(input.attributes('rows')).toEqual('20')
     // Should use minimum value of 2 when rows is set less than 2
     input.setProps({ rows: '1' })
+    await waitNT(input.vm)
     expect(input.attributes('rows')).toBeDefined()
     expect(input.attributes('rows')).toEqual('2')
     input.setProps({ rows: -10 })
+    await waitNT(input.vm)
     expect(input.attributes('rows')).toBeDefined()
     expect(input.attributes('rows')).toEqual('2')
 
@@ -390,6 +396,7 @@ describe('form-textarea', () => {
     expect(input.attributes('rows')).toEqual('5')
     // Should work with both text and number values
     input.setProps({ rows: '10', maxRows: '10' })
+    await waitNT(input.vm)
     expect(input.attributes('rows')).toBeDefined()
     expect(input.attributes('rows')).toEqual('10')
 
@@ -589,6 +596,7 @@ describe('form-textarea', () => {
     })
     input.element.value = 'TEST'
     input.trigger('input')
+    await waitNT(input.vm)
 
     // Update event fires first with formatted value
     expect(input.emitted('update')).toBeDefined()
@@ -616,6 +624,7 @@ describe('form-textarea', () => {
     })
     input.element.value = 'TEST'
     input.trigger('change')
+    await waitNT(input.vm)
 
     // Update event fires first with formatted value
     expect(input.emitted('update')).toBeDefined()
@@ -644,6 +653,7 @@ describe('form-textarea', () => {
 
     input.element.value = 'TEST'
     input.trigger('input')
+    await waitNT(input.vm)
 
     // Update event fires first
     expect(input.emitted('update')).toBeDefined()
@@ -656,6 +666,7 @@ describe('form-textarea', () => {
     expect(input.vm.localValue).toEqual('TEST')
 
     input.trigger('change')
+    await waitNT(input.vm)
     // Update does not fire again
     expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update').length).toEqual(1)
@@ -667,6 +678,7 @@ describe('form-textarea', () => {
     expect(input.vm.localValue).toEqual('TEST')
 
     input.trigger('blur')
+    await waitNT(input.vm)
 
     // Update fires before change with formatted value
     expect(input.emitted('update')).toBeDefined()
@@ -696,6 +708,7 @@ describe('form-textarea', () => {
         }
       }
     })
+    await waitNT(input.vm)
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
     expect(input.emitted('update')).not.toBeDefined()
@@ -715,6 +728,7 @@ describe('form-textarea', () => {
         lazyFormatter: true
       }
     })
+    await waitNT(input.vm)
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
     expect(input.emitted('update')).not.toBeDefined()
@@ -733,11 +747,13 @@ describe('form-textarea', () => {
         }
       }
     })
+    await waitNT(input.vm)
     expect(input.emitted('update')).not.toBeDefined()
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
     expect(input.vm.localValue).toEqual('')
     input.setProps({ value: 'TEST' })
+    await waitNT(input.vm)
     expect(input.emitted('update')).not.toBeDefined()
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
@@ -757,11 +773,13 @@ describe('form-textarea', () => {
         lazyFormatter: true
       }
     })
+    await waitNT(input.vm)
     expect(input.emitted('update')).not.toBeDefined()
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
     expect(input.vm.localValue).toEqual('')
     input.setProps({ value: 'TEST' })
+    await waitNT(input.vm)
     // Does not emit any events
     expect(input.emitted('update')).not.toBeDefined()
     expect(input.emitted('input')).not.toBeDefined()
@@ -779,10 +797,12 @@ describe('form-textarea', () => {
         trim: true
       }
     })
+    await waitNT(input.vm)
     expect(input.vm.localValue).toEqual('')
 
     input.element.value = 'TEST'
     input.trigger('input')
+    await waitNT(input.vm)
 
     expect(input.vm.localValue).toEqual('TEST')
     expect(input.emitted('update')).toBeDefined()
@@ -794,6 +814,7 @@ describe('form-textarea', () => {
 
     input.element.value = 'TEST  '
     input.trigger('input')
+    await waitNT(input.vm)
 
     expect(input.vm.localValue).toEqual('TEST  ')
     // `v-model` value stays the same and update event shouldn't be emitted again
@@ -805,6 +826,7 @@ describe('form-textarea', () => {
 
     input.element.value = '  TEST  '
     input.trigger('input')
+    await waitNT(input.vm)
 
     expect(input.vm.localValue).toEqual('  TEST  ')
     // `v-model` value stays the same and update event shouldn't be emitted again
@@ -815,6 +837,7 @@ describe('form-textarea', () => {
     expect(input.emitted('input')[2][0]).toEqual('  TEST  ')
 
     input.trigger('input')
+    await waitNT(input.vm)
 
     expect(input.vm.localValue).toEqual('  TEST  ')
     // `v-model` value stays the same and update event shouldn't be emitted again
@@ -825,6 +848,7 @@ describe('form-textarea', () => {
     expect(input.emitted('input')[3][0]).toEqual('  TEST  ')
 
     input.trigger('change')
+    await waitNT(input.vm)
 
     expect(input.vm.localValue).toEqual('  TEST  ')
     // `v-model` value stays the same and update event shouldn't be emitted again
@@ -845,10 +869,12 @@ describe('form-textarea', () => {
         number: true
       }
     })
+    await waitNT(input.vm)
     expect(input.vm.localValue).toEqual('')
 
     input.element.value = 'TEST'
     input.trigger('input')
+    await waitNT(input.vm)
 
     expect(input.vm.localValue).toEqual('TEST')
     expect(input.emitted('update')).toBeDefined()
@@ -862,6 +888,7 @@ describe('form-textarea', () => {
 
     input.element.value = '123.45'
     input.trigger('input')
+    await waitNT(input.vm)
 
     expect(input.vm.localValue).toEqual('123.45')
     expect(input.emitted('update')).toBeDefined()
@@ -875,6 +902,7 @@ describe('form-textarea', () => {
 
     input.element.value = '0123.450'
     input.trigger('input')
+    await waitNT(input.vm)
 
     expect(input.vm.localValue).toEqual('0123.450')
     // `v-model` value stays the same and update event shouldn't be emitted again
@@ -888,6 +916,7 @@ describe('form-textarea', () => {
 
     input.element.value = '0123 450'
     input.trigger('input')
+    await waitNT(input.vm)
 
     expect(input.vm.localValue).toEqual('0123 450')
     expect(input.emitted('update')).toBeDefined()
