@@ -704,21 +704,26 @@ describe('carousel', () => {
   })
 
   it('should emit paused and unpaused events when interval changed to 0', async () => {
-    const app = App.extend({
-      data() {
-        return {
-          interval: 0,
-          fade: false,
-          noAnimation: false,
-          indicators: true,
-          controls: true,
-          value: 0
-        }
-      }
-    })
-    const wrapper = mount(app, {
+    const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        interval: 0,
+        fade: false,
+        noAnimation: false,
+        indicators: true,
+        controls: true,
+        value: 0
+      },
+      components: { BCarouselSlide },
+      slots: {
+        default: [
+          '<BCarouselSlide>slide 1</BCarouselSlide>',
+          '<BCarouselSlide>slide 2</BCarouselSlide>',
+          '<BCarouselSlide>slide 3</BCarouselSlide>',
+          '<BCarouselSlide>slide 4</BCarouselSlide>'
+        ]
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -742,7 +747,7 @@ describe('carousel', () => {
     expect($carousel.emitted('unpaused')).not.toBeDefined()
     expect($carousel.emitted('paused')).not.toBeDefined()
 
-    wrapper.setData({
+    wrapper.setProps({
       interval: 1000
     })
     await waitNT(wrapper.vm)
@@ -762,7 +767,7 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    wrapper.setData({
+    wrapper.setProps({
       interval: 0
     })
     await waitNT(wrapper.vm)
@@ -778,7 +783,7 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    wrapper.setData({
+    wrapper.setProps({
       interval: 1000
     })
     await waitNT(wrapper.vm)
