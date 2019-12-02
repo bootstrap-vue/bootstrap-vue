@@ -224,7 +224,7 @@ describe('alert', () => {
     await waitNT(wrapper.vm)
 
     expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.html()).toBe('')
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.emitted('input')).toBeDefined()
@@ -247,7 +247,7 @@ describe('alert', () => {
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.html()).toBe('')
 
     wrapper.setProps({
       show: true
@@ -288,6 +288,8 @@ describe('alert', () => {
     })
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
@@ -364,6 +366,8 @@ describe('alert', () => {
     })
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
@@ -419,6 +423,7 @@ describe('alert', () => {
     })
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).toBeDefined()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
@@ -430,6 +435,7 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
 
     wrapper.find('button').trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(0)
 
