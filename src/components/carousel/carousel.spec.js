@@ -717,9 +717,8 @@ describe('carousel', () => {
     })
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
+    expect($carousel.props('interval')).toBe(1000)
     expect($carousel.vm.interval).toBe(1000)
 
     jest.runOnlyPendingTimers()
