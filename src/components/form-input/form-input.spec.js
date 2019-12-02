@@ -512,9 +512,13 @@ describe('form-input', () => {
       },
       attachToDocument: true
     })
+    await waitNT(wrapper.vm)
+
+    const input = wrapper.find('input')
+    expect(input.element.value).toEqual('')
 
     wrapper.setProps({ value: 'TEST' })
-    const input = wrapper.find('input')
+    await waitNT(wrapper.vm)
 
     expect(input.element.value).toEqual('TEST')
     expect(wrapper.emitted('update')).not.toBeDefined() // Note emitted as value hasn't changed
@@ -537,6 +541,7 @@ describe('form-input', () => {
       attachToDocument: true
     })
     wrapper.setProps({ value: 'TEST' })
+    await waitNT(wrapper.vm)
     const input = wrapper.find('input')
 
     expect(input.element.value).toEqual('TEST')
@@ -561,6 +566,7 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     input.element.value = 'TEST'
     input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('update')).not.toBeDefined()
     // Value in input should remain the same as entered
@@ -591,6 +597,7 @@ describe('form-input', () => {
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
+    await waitNT(wrapper.vm)
     // `:no-wheel="true"` will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
 
@@ -617,6 +624,7 @@ describe('form-input', () => {
 
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    await waitNT(wrapper.vm)
 
     // `:no-wheel="false"` will not fire a blur event on the input when wheel fired
     expect(spy).not.toHaveBeenCalled()
@@ -644,16 +652,19 @@ describe('form-input', () => {
 
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    await waitNT(wrapper.vm)
 
     // no-wheel=false will not fire a blur event on the input when wheel fired
     expect(spy).not.toHaveBeenCalled()
 
     wrapper.setProps({ noWheel: true })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.props().noWheel).toBe(true)
 
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    await waitNT(wrapper.vm)
 
     // no-wheel=true will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
@@ -855,8 +866,10 @@ describe('form-input', () => {
 
     expect(document.activeElement).not.toBe(input.element)
     wrapper.vm.focus()
+    await waitNT(wrapper.vm)
     expect(document.activeElement).toBe(input.element)
     wrapper.vm.blur()
+    await waitNT(wrapper.vm)
     expect(document.activeElement).not.toBe(input.element)
 
     wrapper.destroy()
