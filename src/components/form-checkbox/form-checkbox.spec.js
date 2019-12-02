@@ -784,6 +784,7 @@ describe('form-checkbox', () => {
         default: 'foobar'
       }
     })
+    await waitNT(wrapper.vm)
     const label = wrapper.find('label')
     expect(label).toBeDefined()
     const input = wrapper.find('input')
@@ -795,7 +796,7 @@ describe('form-checkbox', () => {
     expect(label.classes()).toContain('btn-secondary')
     expect(label.classes().length).toEqual(2)
     input.setChecked(true)
-    await awaitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     expect(label.classes()).toContain('btn')
     expect(label.classes()).toContain('btn-secondary')
     expect(label.classes()).toContain('active')
@@ -825,11 +826,11 @@ describe('form-checkbox', () => {
     expect(label.classes()).toContain('btn-secondary')
     expect(input).toBeDefined()
     input.trigger('focus')
-    await awaitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     expect(label.classes()).toContain('focus')
     expect(label.classes().length).toEqual(3)
     input.trigger('blur')
-    await awaitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     expect(label.classes()).not.toContain('focus')
     expect(label.classes().length).toEqual(2)
 
