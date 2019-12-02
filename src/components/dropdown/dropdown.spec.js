@@ -909,6 +909,7 @@ describe('dropdown', () => {
     wrapper.setProps({
       splitVariant: 'danger'
     })
+    await waitNT(wrapper.vm)
     expect($split.classes()).toContain('btn-danger')
     expect($toggle.classes()).toContain('btn-primary')
 
