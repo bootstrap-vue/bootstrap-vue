@@ -122,6 +122,7 @@ describe('v-b-modal directive', () => {
     wrapper.setData({
       text: 'foobar'
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.find('span').text()).toBe('foobar')
     expect(wrapper.find('span').attributes('role')).toBe('button')
 
