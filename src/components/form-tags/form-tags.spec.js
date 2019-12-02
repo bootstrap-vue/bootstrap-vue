@@ -54,6 +54,7 @@ describe('form-tags', () => {
     wrapper.setProps({
       value: ['pear']
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.vm.tags).toEqual(['pear'])
 
@@ -135,26 +136,32 @@ describe('form-tags', () => {
 
     $input.element.value = 'pear'
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.newTag).toEqual('pear')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     $input.trigger('change')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.newTag).toEqual('pear')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     wrapper.setProps({
       addOnChange: true
     })
+    await waitNT(wrapper.vm)
     $input.trigger('change')
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
     wrapper.setProps({
       addOnChange: false
     })
+    await waitNT(wrapper.vm)
 
     $input.element.value = 'peach'
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.newTag).toEqual('peach')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
     $input.trigger('keydown.enter')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach'])
 
@@ -181,6 +188,7 @@ describe('form-tags', () => {
     expect($btn.exists()).toBe(true)
 
     $btn.trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['apple', 'pear', 'peach'])
 
     $tags = wrapper.findAll('.badge')
@@ -209,20 +217,24 @@ describe('form-tags', () => {
 
     $input.element.value = 'pear'
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.newTag).toEqual('pear')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     $input.element.value = 'pear '
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
 
     $input.element.value = 'peach;  foo,bar apple pie'
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.newTag).toEqual('peach;  foo,bar apple pie')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
 
     $input.element.value = 'peach;  foo,bar apple pie '
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.newTag).toEqual('apple ')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach', 'foo', 'bar', 'pie'])
 
@@ -275,18 +287,21 @@ describe('form-tags', () => {
 
     $input.element.value = ' three seven '
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three seven ')
 
     $input.element.value = ' three cat seven '
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four', 'cat'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual('three seven ')
 
     $input.element.value = '    '
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.newTag).toEqual('    ')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four', 'cat'])
 
@@ -497,11 +512,13 @@ describe('form-tags', () => {
 
     $input.element.value = 'pear'
     $input.trigger('input')
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.newTag).toEqual('pear')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect($button.classes()).not.toContain('invisible')
 
     $button.trigger('click')
+    await waitNT(wrapper.vm)
 
     expect($button.classes()).toContain('invisible')
     expect(wrapper.vm.newTag).toEqual('')
