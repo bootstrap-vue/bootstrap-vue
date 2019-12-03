@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT } from '../../../test/utils'
+import { waitNT } from '../../test/utils'
 import listenOnRootMixin from './listen-on-root'
 
 describe('mixins/listen-on-root', () => {
