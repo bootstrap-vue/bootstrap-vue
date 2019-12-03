@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BAlert } from './alert'
 
-describe('alert', () => {
+describe('b-alert', () => {
   it('hidden alert renders comment node', async () => {
     const wrapper = mount(BAlert)
     expect(wrapper.isVueInstance()).toBe(true)
@@ -430,17 +430,19 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
 
-    jest.runTimersToTime(1000)
+    jest.runTimersToTime(1001)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
 
     wrapper.find('button').trigger('click')
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(0)
 
     // Should not emit any new countdown values
     jest.runAllTimers()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
 
     await waitNT(wrapper.vm)
