@@ -328,7 +328,7 @@ describe('b-toast', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.is('div')).toBe(false)
     expect(wrapper.vm.timer).toBe(null)
 
     wrapper.setProps({
@@ -341,6 +341,8 @@ describe('b-toast', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.vm.timer).not.toBe(null)
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
