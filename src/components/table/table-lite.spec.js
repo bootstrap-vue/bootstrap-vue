@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../test/utils'
+import { waitNT } from '../../../tests/utils'
 
 import { BTableLite } from './table-lite'
 
