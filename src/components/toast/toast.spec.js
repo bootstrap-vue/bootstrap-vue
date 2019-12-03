@@ -1,6 +1,8 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF, FakeTransition } from '../../../tests/utils'
 import { BToast } from './toast'
+
+const localVue = new CreateLocalVue()
 
 describe('b-toast', () => {
   beforeAll(() => {
@@ -311,6 +313,7 @@ describe('b-toast', () => {
   it('hover pause has no effect when no-hover-pause is set', async () => {
     const wrapper = mount(BToast, {
       attachToDocument: true,
+      localVue: localVue,
       propsData: {
         static: true,
         noAutoHide: false,
@@ -322,7 +325,7 @@ describe('b-toast', () => {
         default: 'content'
       },
       stubs: {
-        transition: FakeTransition
+        transition: localVue.extend(FakeTransition)
       }
     })
 
