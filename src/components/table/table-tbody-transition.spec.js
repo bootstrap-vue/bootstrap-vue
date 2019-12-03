@@ -1,6 +1,13 @@
 import { mount, TransitionGroupStub } from '@vue/test-utils'
 import { BTable } from './table'
 
+const FakeTransitionGroup = {
+  name: 'TransitinGroup',
+  render(h) {
+    return this.$slots.default
+  }
+}
+
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 const testFields = ['a', 'b', 'c']
 
@@ -13,14 +20,14 @@ describe('table > tbody transition', () => {
         items: testItems
       },
       stubs: {
-        'transition-group': TransitionGroupStub
+        'transition-group': FakeTransitionGroup
       }
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tbody').is('tbody')).toBe(true)
-    expect(wrapper.find(TransitionGroupStub).exists()).toBe(false)
+    expect(wrapper.find(FakeTransitionGroup).exists()).toBe(false)
 
     wrapper.destroy()
   })
@@ -36,12 +43,12 @@ describe('table > tbody transition', () => {
         }
       },
       stubs: {
-        'transition-group': TransitionGroupStub
+        'transition-group': FakeTransitionGroup
       }
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
-    expect(wrapper.find(TransitionGroupStub).exists()).toBe(true)
+    expect(wrapper.find(FakeTransitionGroup).exists()).toBe(true)
     // Transition-group stub doesn't render itself with the specified tag
     expect(wrapper.find('tbody').exists()).toBe(false)
 
