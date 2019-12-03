@@ -12,7 +12,7 @@ describe('b-toast', () => {
     // Return empty transition CSS
     jest.spyOn(window, 'getComputedStyle').mockImplementation(node => {
       return Object.assign(getComputedStyle(node), {
-        transitionDelay: '',
+        transitionDelay: '0s',
         animationDelay: '',
         transitionDuration: '0s',
         animationDuration: ''
@@ -199,6 +199,8 @@ describe('b-toast', () => {
 
     $body.trigger('click')
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
