@@ -3,8 +3,14 @@ import { BTable } from './table'
 
 const FakeTransitionGroup = {
   name: 'TransitinGroup',
+  props: {
+    tag: {
+      type: String,
+      default: 'div'
+    }
+  },
   render(h) {
-    return this.$slots.default
+    return h(this.tag, {}, this.$slots.default)
   }
 }
 
