@@ -328,7 +328,7 @@ describe('b-toast', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(false)
+    expect(wrapper.html()).toBe('')
     expect(wrapper.vm.timer).toBe(null)
 
     wrapper.setProps({
