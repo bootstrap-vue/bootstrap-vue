@@ -12,7 +12,9 @@ describe('$bvModal', () => {
   it('$bvModal.show() and $bvModal.hide() works', async () => {
     const App = localVue.extend({
       render(h) {
-        return h('b-modal', { props: { static: true, id: 'test1' } }, 'content')
+        return h('div', null, [
+          h('b-modal', { props: { static: true, id: 'test1' } }, 'content')
+        ])
       }
     })
     const wrapper = mount(App, {
@@ -22,6 +24,8 @@ describe('$bvModal', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -45,8 +49,6 @@ describe('$bvModal', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     $modal = wrapper.find('.modal')
     expect($modal.exists()).toBe(true)
@@ -56,8 +58,6 @@ describe('$bvModal', () => {
 
     wrapper.vm.$bvModal.hide('test1')
 
-    await waitNT(wrapper.vm)
-    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
