@@ -56,7 +56,7 @@ function hasParentTransition(vnode) {
 
 export default {
   render(h) {
-    let children: ?Array<VNode> = this.$options._renderChildren
+    let children = this.$options._renderChildren
     if (!children) {
       return
     }
@@ -112,20 +112,14 @@ export default {
     const data = child.data || (child.data = {})
     const oldRawChild = this._vnode
     const oldChild = getRealChild(oldRawChild)
-    if (
-      child.data.directives &&
-      child.data.directives.some(d => d.name === 'show')
-    ) {
+    if (child.data.directives && child.data.directives.some(d => d.name === 'show')) {
       child.data.show = true
     }
 
     // mark v-show
     // so that the transition module can hand over the control
     // to the directive
-    if (
-      child.data.directives &&
-      child.data.directives.some(d => d.name === 'show')
-    ) {
+    if (child.data.directives && child.data.directives.some(d => d.name === 'show')) {
       child.data.show = true
     }
     if (
@@ -134,10 +128,7 @@ export default {
       !isSameChild(child, oldChild) &&
       !isAsyncPlaceholder(oldChild) &&
       // #6687 component root is a comment node
-      !(
-        oldChild.componentInstance &&
-        oldChild.componentInstance._vnode.isComment
-      )
+      !(oldChild.componentInstance && oldChild.componentInstance._vnode.isComment)
     ) {
       oldChild.data = { ...data }
     }
