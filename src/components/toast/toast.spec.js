@@ -209,10 +209,12 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.emitted('hide')).toBeDefined()
-    expect(wrapper.emitted('hidden')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('hidden')).toBeDefined()
 
     expect(wrapper.html()).toBe('')
 
