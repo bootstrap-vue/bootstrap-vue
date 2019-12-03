@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../test/utils'
+import { waitNT } from '../../../tests/utils'
 import { BTable } from './table'
 
 const items1 = [{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }]
