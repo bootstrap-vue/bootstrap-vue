@@ -553,8 +553,8 @@ describe('form-tags', () => {
     wrapper.trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
-
     expect(document.activeElement).toBe($input.element)
+
     $input.trigger('focusin')
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -574,14 +574,20 @@ describe('form-tags', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(document.activeElement).toBe($input.element)
+
     $input.trigger('focusin')
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.classes()).toContain('focus')
 
     wrapper.vm.blur()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(document.activeElement).not.toBe($input.element)
+
     $input.trigger('focusout')
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.classes()).not.toContain('focus')
 
     wrapper.destroy()
