@@ -1151,6 +1151,8 @@ describe('b-tooltip', () => {
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
