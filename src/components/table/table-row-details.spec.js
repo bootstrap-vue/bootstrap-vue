@@ -121,6 +121,8 @@ describe('table > row details', () => {
     expect(wrapper.findAll('tbody > tr').length).toBe(4)
 
     wrapper.vm.localItems[2]._showDetails = true
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     const $trs = wrapper.findAll('tbody > tr')
     expect($trs.length).toBe(5)
     expect($trs.at(0).is('tr.b-table-details')).toBe(false)
@@ -164,6 +166,8 @@ describe('table > row details', () => {
     expect($trs.at(3).is('tr.b-table-details')).toBe(false)
 
     wrapper.vm.localItems[0]._showDetails = false
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     $trs = wrapper.findAll('tbody > tr')
     expect($trs.length).toBe(3)
     expect($trs.at(0).is('tr.b-table-details')).toBe(false)
@@ -247,6 +251,7 @@ describe('table > row details', () => {
     expect(scopeDetails).not.toBe(null)
     scopeDetails.toggleDetails()
     await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
 
@@ -257,6 +262,7 @@ describe('table > row details', () => {
     // Toggle details via field slot
     expect(scopeField).not.toBe(null)
     scopeField.toggleDetails()
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
