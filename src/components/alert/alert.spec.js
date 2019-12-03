@@ -430,7 +430,9 @@ describe('b-alert', () => {
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
 
-    jest.runTimersToTime(1001)
+    jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
 
