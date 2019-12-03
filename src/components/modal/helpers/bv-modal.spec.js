@@ -31,8 +31,9 @@ describe('$bvModal', () => {
     expect(wrapper.vm.$bvModal.hide).toBeDefined()
     expect(typeof wrapper.vm.$bvModal.hide).toEqual('function')
 
-    const $modal = wrapper.find('.modal')
+    let $modal = wrapper.find('.modal')
     expect($modal.exists()).toBe(true)
+    expect($modal.isVueInstance()).toBe(true)
 
     expect($modal.element.style.display).toEqual('none')
 
@@ -44,6 +45,12 @@ describe('$bvModal', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    $modal = wrapper.find('.modal')
+    expect($modal.exists()).toBe(true)
+    expect($modal.isVueInstance()).toBe(true)
 
     expect($modal.element.style.display).toEqual('')
 
@@ -55,6 +62,12 @@ describe('$bvModal', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    $modal = wrapper.find('.modal')
+    expect($modal.exists()).toBe(true)
+    expect($modal.isVueInstance()).toBe(true)
 
     expect($modal.element.style.display).toEqual('none')
 
