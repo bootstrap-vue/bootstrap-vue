@@ -372,7 +372,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // Styles needed for proper stacking of modals
       return {
         position: 'absolute',
-        top: 0,
         zIndex: this.zIndex
       }
     },
@@ -1041,8 +1040,16 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       let tabTrapTop = h()
       let tabTrapBottom = h()
       if (this.isVisible && !this.noEnforceFocus) {
-        tabTrapTop = h('span', { ref: 'topTrap', attrs: { tabindex: '0' } })
-        tabTrapBottom = h('span', { ref: 'bottomTrap', attrs: { tabindex: '0' } })
+        tabTrapTop = h('span', {
+          ref: 'topTrap',
+          staticClass: 'fixed-top',
+          attrs: { tabindex: '0' }
+        })
+        tabTrapBottom = h('span', {
+          ref: 'bottomTrap',
+          staticClass: 'fixed-bottom',
+          attrs: { tabindex: '0' }
+        })
       }
 
       // Assemble modal, backdrop, and tab traps in an outer <div>
