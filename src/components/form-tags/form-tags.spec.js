@@ -556,6 +556,8 @@ describe('form-tags', () => {
 
     expect(document.activeElement).toBe($input.element)
     $input.trigger('focusin')
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.classes()).toContain('focus')
 
     $input.element.blur()
