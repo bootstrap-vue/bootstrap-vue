@@ -5,26 +5,24 @@ import { BToast } from './toast'
 const localVue = new CreateLocalVue()
 
 describe('b-toast', () => {
-  const { getComputedStyle } = window
-
   beforeAll(() => {
     // Prevent multiple Vue warnings in tests
     jest.spyOn(console, 'warn').mockImplementation(() => {})
 
     // Return empty transition CSS
-    window.getComputedStyle = node => {
-     return Object.assign(getComputedStyle(node), {
-       transitionDelay: '',
-       animationDelay: '',
-       transitionDuration: '',
-       animationDuration: '',
-     })
-    }
+    jest.spyOn(window, 'getComputedStyle').mockImplementation(node => {
+      return Object.assign(getComputedStyle(node), {
+        transitionDelay: '',
+        animationDelay: '',
+        transitionDuration: '',
+        animationDuration: ''
+      })
+    })
   })
 
   afterAll(() => {
     console.warn.mockClear()
-    window.getComputedStyle = getComputedStyle
+    window.getComputedStyle.mockClear()
   })
 
   it('has expected structure', async () => {
@@ -210,11 +208,11 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.html()).toBe('')
-
     expect(wrapper.emitted('hide')).toBeDefined()
     expect(wrapper.emitted('hidden')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
+
+    expect(wrapper.html()).toBe('')
 
     wrapper.destroy()
   })
