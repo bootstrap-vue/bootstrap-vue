@@ -282,7 +282,7 @@ describe('table > provider functions', () => {
       }
     })
     expect(wrapper).toBeDefined()
-
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
@@ -300,7 +300,7 @@ describe('table > provider functions', () => {
     wrapper.setProps({
       items: provider2
     })
-
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
     expect(wrapper.find('tbody').exists()).toBe(true)
