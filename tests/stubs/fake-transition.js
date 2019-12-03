@@ -38,9 +38,10 @@ function isPrimitive(value) {
   )
 }
 
-function isAsyncPlaceholder(node): boolean {
+function isAsyncPlaceholder(node) {
   return node.isComment && node.asyncFactory
 }
+
 const camelizeRE = /-(\w)/g
 export const camelize = str => {
   return str.replace(camelizeRE, (_, c) => (c ? c.toUpperCase() : ''))
