@@ -160,8 +160,10 @@ describe('pagination-nav', () => {
     wrapper.setProps({
       numberOfPages: 5
     })
-
     await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+
     $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(9)
 
@@ -388,6 +390,8 @@ describe('pagination-nav', () => {
     wrapper.setProps({
       pages: ['/baz?1', '/baz?2', '/baz?3', '/baz?4']
     })
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
 
     $links = wrapper.findAll('a.page-link')
