@@ -38,11 +38,12 @@ describe('$bvModal', () => {
     let $modal = wrapper.find('.modal')
     expect($modal.exists()).toBe(true)
     expect($modal.isVueInstance()).toBe(true)
-
     expect($modal.element.style.display).toEqual('none')
 
     wrapper.vm.$bvModal.show('test1')
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -58,6 +59,8 @@ describe('$bvModal', () => {
 
     wrapper.vm.$bvModal.hide('test1')
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
