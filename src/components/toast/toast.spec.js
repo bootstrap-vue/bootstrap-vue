@@ -1,5 +1,5 @@
-import { mount, FakeTransition } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { mount } from '@vue/test-utils'
+import { waitNT, waitRAF, FakeTransition } from '../../../tests/utils'
 import { BToast } from './toast'
 
 describe('b-toast', () => {
