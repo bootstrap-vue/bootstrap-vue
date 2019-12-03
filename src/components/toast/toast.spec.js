@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { sleep, waitNT, waitRAF } from '../../../tests/utils'
 import { BToast } from './toast'
 
 const localVue = new CreateLocalVue()
@@ -205,12 +205,7 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await sleep(1000)
 
     expect(wrapper.emitted('hide')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
