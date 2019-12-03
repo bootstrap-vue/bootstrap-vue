@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../test/utils'
+import { waitNT } from '../../../tests/utils'
 import { BCardImgLazy } from './card-img-lazy'
 
 describe('card-image', () => {
