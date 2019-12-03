@@ -372,7 +372,7 @@ describe('form-checkbox-group', () => {
       }
     })
     expect(wrapper.classes()).toBeDefined()
-    const checks = wrapper.findAll('input')
+    let checks = wrapper.findAll('input')
     expect(checks.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual(['two'])
     expect(checks.is('input[type=checkbox]')).toBe(true)
@@ -384,7 +384,9 @@ describe('form-checkbox-group', () => {
       checked: ['three', 'one']
     })
     await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
 
+    checks = wrapper.findAll('input')
     expect(wrapper.vm.localChecked).toEqual(['three', 'one'])
     expect(checks.is('input[type=checkbox]')).toBe(true)
     expect(checks.at(0).element.checked).toBe(true)
