@@ -15,9 +15,6 @@ describe('b-toast', () => {
   it('has expected structure', async () => {
     const wrapper = mount(BToast, {
       attachToDocument: true,
-      stubs: {
-        transition: false
-      },
       propsData: {
         static: true,
         noAutoHide: true,
@@ -151,9 +148,6 @@ describe('b-toast', () => {
   it('alert with link closes on click works', async () => {
     const wrapper = mount(BToast, {
       attachToDocument: true,
-      stubs: {
-        transition: false
-      },
       propsData: {
         static: true,
         noAutoHide: true,
@@ -209,9 +203,6 @@ describe('b-toast', () => {
     jest.useFakeTimers()
     const wrapper = mount(BToast, {
       attachToDocument: true,
-      stubs: {
-        transition: false
-      },
       propsData: {
         static: true,
         noAutoHide: false,
@@ -257,9 +248,6 @@ describe('b-toast', () => {
   it('hover pause works', async () => {
     const wrapper = mount(BToast, {
       attachToDocument: true,
-      stubs: {
-        transition: false
-      },
       propsData: {
         static: true,
         noAutoHide: false,
@@ -305,9 +293,6 @@ describe('b-toast', () => {
   it('hover pause has no effect when no-hover-pause is set', async () => {
     const wrapper = mount(BToast, {
       attachToDocument: true,
-      stubs: {
-        transition: false
-      },
       propsData: {
         static: true,
         noAutoHide: false,
