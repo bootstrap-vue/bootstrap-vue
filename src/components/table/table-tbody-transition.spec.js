@@ -3,6 +3,7 @@ import { BTable } from './table'
 
 const FakeTransitionGroup = {
   name: 'TransitinGroup',
+  inheritAttrs: false,
   props: {
     tag: {
       type: String,
@@ -85,6 +86,8 @@ describe('table > tbody transition', () => {
     expect(wrapper.find('tbody').is('tbody')).toBe(true)
     expect(wrapper.find(FakeTransitionGroup).exists()).toBe(true)
     expect(wrapper.find(FakeTransitionGroup).is('tbody')).toBe(true)
+    expect(wrapper.find('tbody').exists()).toBe(true)
+    expect(wrapper.find('tbody').is('tbody')).toBe(true)
 
     wrapper.destroy()
   })
