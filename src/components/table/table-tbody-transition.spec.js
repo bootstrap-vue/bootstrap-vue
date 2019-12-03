@@ -1,21 +1,13 @@
 import { mount } from '@vue/test-utils'
 import { BTable } from './table'
 
+// Transition stub element from vue-test-utils-beta.29 (removed in beta 30)
 const FakeTransitionGroup = {
   name: 'FakeTransitinGroup',
-  inheritAttrs: false,
-  props: {
-    tag: {
-      type: String,
-      default: 'div'
-    }
-  },
   render(h) {
-    return h(
-      'transition-group',
-      { props: { tag: this.tag }, on: this.$listeners },
-      this.$slots.default
-    )
+    const tag = this.tag || this.$vnode.data.tag || 'span'
+    const children = this.$slots.default || []
+    return h(tag, null, children)
   }
 }
 
