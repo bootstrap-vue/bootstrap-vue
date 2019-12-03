@@ -124,6 +124,8 @@ describe('tab', () => {
     expect(value).toBe(null)
 
     wrapper.setData({ localActive: true })
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(called).toBe(true)
     expect(value).toBe(true)
@@ -224,6 +226,8 @@ describe('tab', () => {
     })
 
     wrapper.setData({ localActive: true })
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(called).toBe(true)
     expect(vm).toEqual(wrapper.vm)
@@ -268,6 +272,8 @@ describe('tab', () => {
     expect(deactivateVm).toBe(null)
 
     wrapper.setProps({ active: true })
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(activateCalled).toBe(true)
     expect(activateVm).toBe(wrapper.vm)
@@ -280,6 +286,8 @@ describe('tab', () => {
     deactivateVm = null
 
     wrapper.setProps({ active: false })
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(activateCalled).toBe(false)
     expect(activateVm).toBe(null)
@@ -317,6 +325,8 @@ describe('tab', () => {
     expect(activateVm).toBe(null)
 
     wrapper.setProps({ active: true })
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(activateCalled).toBe(false)
     expect(activateVm).toBe(null)
