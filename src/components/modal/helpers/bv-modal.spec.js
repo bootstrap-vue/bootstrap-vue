@@ -1,5 +1,5 @@
 import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../../tests/utils'
+import { waitNT, waitRAF, FakeTransition } from '../../../../tests/utils'
 import { ModalPlugin } from '../index'
 
 describe('$bvModal', () => {
@@ -17,7 +17,10 @@ describe('$bvModal', () => {
     })
     const wrapper = mount(App, {
       attachToDocument: true,
-      localVue: localVue
+      localVue: localVue,
+      stubs: {
+        transition: localVue.extend(FakeTransition)
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
