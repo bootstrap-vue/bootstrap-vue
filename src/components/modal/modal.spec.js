@@ -1206,21 +1206,21 @@ describe('modal', () => {
 
       expect($modal.element.style.display).toEqual('block')
       expect(document.activeElement).not.toBe(document.body)
-      expect(document.activeElement).toBe($content.element)
+      expect(document.activeElement).toBe($modal.element)
 
       // Try and set focusin on external button
       $button.trigger('focusin')
       await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($button.element)
-      expect(document.activeElement).toBe($content.element)
+      expect(document.activeElement).toBe($modal.element)
 
       // Try and set focusin on external button
       $button.trigger('focus')
       await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($button.element)
-      expect(document.activeElement).toBe($content.element)
+      expect(document.activeElement).toBe($modal.element)
 
       // Emulate TAB by focusing the `bottomTrap` span element.
       // Should focus first button in modal (in the header)
@@ -1237,7 +1237,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($bottomTrap.element)
-      expect(document.activeElement).not.toBe($content.element)
+      expect(document.activeElement).not.toBe($modal.element)
       // The close (x) button (first tabable in modal) should be focused
       expect(document.activeElement).toBe($closeButton.element)
 
@@ -1257,7 +1257,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($topTrap.element)
       expect(document.activeElement).not.toBe($bottomTrap.element)
-      expect(document.activeElement).not.toBe($content.element)
+      expect(document.activeElement).not.toBe($modal.element)
       // The OK button (last tabbable in modal) should be focused
       expect(document.activeElement).toBe($okButton.element)
 
