@@ -731,6 +731,7 @@ describe('table > sorting', () => {
       sortBy: 'c',
       sortDesc: false
     })
+    await waitNT(wrapper.vm)
 
     // Grab the sorted TRs
     $trs = wrapper.findAll('tbody > tr')
