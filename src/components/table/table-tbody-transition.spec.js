@@ -11,7 +11,11 @@ const FakeTransitionGroup = {
     }
   },
   render(h) {
-    return h('transition-group', { props: { tag: props.tag } }, this.$slots.default)
+    return h(
+      'transition-group',
+      { props: { tag: this.tag }, on: this.$listeners },
+      this.$slots.default
+    )
   }
 }
 
