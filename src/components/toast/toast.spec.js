@@ -311,7 +311,7 @@ describe('b-toast', () => {
   })
 
   it('hover pause has no effect when no-hover-pause is set', async () => {
-    const wrapper = mount(BToast, {
+    const wrapper = mount(localVue.extend(BToast), {
       attachToDocument: true,
       localVue: localVue,
       propsData: {
