@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { BTable } from './table'
 
 const FakeTransitionGroup = {
-  name: 'TransitinGroup',
+  name: 'FakeTransitinGroup',
   inheritAttrs: false,
   props: {
     tag: {
@@ -11,7 +11,7 @@ const FakeTransitionGroup = {
     }
   },
   render(h) {
-    return h(this.tag, {}, this.$slots.default)
+    return h('transition-group', { props: { tag: props.tag } }, this.$slots.default)
   }
 }
 
@@ -86,8 +86,6 @@ describe('table > tbody transition', () => {
     expect(wrapper.find('tbody').is('tbody')).toBe(true)
     expect(wrapper.find(FakeTransitionGroup).exists()).toBe(true)
     expect(wrapper.find(FakeTransitionGroup).is('tbody')).toBe(true)
-    expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('tbody').is('tbody')).toBe(true)
 
     wrapper.destroy()
   })
