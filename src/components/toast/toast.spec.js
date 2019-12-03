@@ -31,6 +31,8 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('b-toast')
@@ -110,6 +112,8 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
 
@@ -124,6 +128,8 @@ describe('b-toast', () => {
       visible: false
     })
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -274,14 +280,26 @@ describe('b-toast', () => {
     expect(wrapper.vm.timer).not.toEqual(null)
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     wrapper.trigger('mouseenter')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.vm.timer).toEqual(null)
 
     wrapper.trigger('mouseleave')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -320,14 +338,26 @@ describe('b-toast', () => {
     expect(wrapper.vm.timer).not.toEqual(null)
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     wrapper.trigger('mouseenter')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.vm.timer).not.toEqual(null)
 
     wrapper.trigger('mouseleave')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
