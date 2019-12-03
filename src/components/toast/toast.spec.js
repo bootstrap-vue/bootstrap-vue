@@ -14,7 +14,7 @@ describe('b-toast', () => {
       return Object.assign(getComputedStyle(node), {
         transitionDelay: '',
         animationDelay: '',
-        transitionDuration: '',
+        transitionDuration: '0s',
         animationDuration: ''
       })
     })
