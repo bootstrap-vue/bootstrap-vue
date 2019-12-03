@@ -566,7 +566,6 @@ describe('form-input', () => {
     const input = wrapper.find('input')
     input.element.value = 'TEST'
     input.trigger('input')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('update')).not.toBeDefined()
     // Value in input should remain the same as entered
