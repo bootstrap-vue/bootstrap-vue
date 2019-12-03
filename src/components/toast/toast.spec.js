@@ -323,9 +323,6 @@ describe('b-toast', () => {
       },
       slots: {
         default: 'content'
-      },
-      stubs: {
-        transition: localVue.extend(FakeTransition)
       }
     })
 
@@ -333,41 +330,23 @@ describe('b-toast', () => {
 
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.vm.timer).not.toEqual(null)
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    expect(wrapper.vm.timer).not.toBe(null)
     await waitNT(wrapper.vm)
     await waitRAF()
 
     wrapper.trigger('mouseenter')
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
-    expect(wrapper.vm.timer).not.toEqual(null)
+    expect(wrapper.vm.timer).not.toBe(null)
 
     wrapper.trigger('mouseleave')
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
-    expect(wrapper.vm.timer).not.toEqual(null)
+    expect(wrapper.vm.timer).not.toBe(null)
 
     wrapper.destroy()
   })
