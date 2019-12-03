@@ -5,6 +5,7 @@ import { BTable } from './table'
 const FakeTransitionGroup = {
   name: 'FakeTransitinGroup',
   render(h) {
+    // Note Stubs don't actually render content in vue-test-utils
     const tag = this.tag || this.$vnode.data.tag || 'span'
     const children = this.$slots.default || []
     return h(tag, null, children)
@@ -52,8 +53,8 @@ describe('table > tbody transition', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find(FakeTransitionGroup).exists()).toBe(true)
-    expect(wrapper.find(FakeTransitionGroup).is('tbody')).toBe(true)
-    expect(wrapper.find('tbody').exists()).toBe(true)
+    // Stubs are not rendered in vue-test-utils
+    expect(wrapper.find('tbody').exists()).toBe(false)
 
     wrapper.destroy()
   })
@@ -78,8 +79,8 @@ describe('table > tbody transition', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
     expect(wrapper.find(FakeTransitionGroup).exists()).toBe(true)
-    expect(wrapper.find(FakeTransitionGroup).is('tbody')).toBe(true)
-    expect(wrapper.find('tbody').exists()).toBe(true)
+    // Stubs are not rendered in vue-test-utils
+    expect(wrapper.find('tbody').exists()).toBe(false)
 
     wrapper.destroy()
   })
