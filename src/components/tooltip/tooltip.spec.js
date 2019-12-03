@@ -205,9 +205,12 @@ describe('b-tooltip', () => {
     await waitRAF()
 
     expect($button.attributes('aria-describedby')).toBeDefined()
+    // ID of the tooltip that will be in the body
+    const adb2 = $button.attributes('aria-describedby')
 
     // Note tip always has the same ID
-    const tip2 = document.getElementById(adb)
+    expect(adb2).toEqual(adb)
+    const tip2 = document.getElementById(adb2)
     expect(tip2).not.toBe(null)
     expect(tip2).toBeInstanceOf(HTMLElement)
     expect(tip2.tagName).toEqual('DIV')
