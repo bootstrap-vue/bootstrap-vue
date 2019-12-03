@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { mount, FakeTransition } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BToast } from './toast'
 
@@ -320,6 +320,9 @@ describe('b-toast', () => {
       },
       slots: {
         default: 'content'
+      },
+      stubs: {
+        transition: FakeTransition
       }
     })
 
