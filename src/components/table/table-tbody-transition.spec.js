@@ -1,4 +1,4 @@
-import { mount, TransitionGroupStub } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { BTable } from './table'
 
 const FakeTransitionGroup = {
@@ -69,12 +69,12 @@ describe('table > tbody transition', () => {
         }
       },
       stubs: {
-        'transition-group': TransitionGroupStub
+        'transition-group': FakeTransitionGroup
       }
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.is('table')).toBe(true)
-    expect(wrapper.find(TransitionGroupStub).exists()).toBe(true)
+    expect(wrapper.find(FakeTransitionGroup).exists()).toBe(true)
     // Transition-group stub doesn't render itself with the specified tag
     expect(wrapper.find('tbody').exists()).toBe(false)
 
