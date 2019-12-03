@@ -1,5 +1,9 @@
+// fake-transition component. Used as a transition stub
+//
 // From vue-test-utils-beta.29 (removed in  beta.30)
 // https://github.com/vuejs/vue-test-utils/blob/v1.0.0-beta.29/packages/test-utils/src/components/TransitionStub.js
+//
+// Note: does not emit events, nor call handlers
 
 function getRealChild(vnode) {
   const compOptions = vnode && vnode.componentOptions
