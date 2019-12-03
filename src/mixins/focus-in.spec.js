@@ -44,6 +44,7 @@ describe('utils/focus-in', () => {
     wrapper.setData({
       listenForFocusIn: false
     })
+    await waitNT(wrapper.vm)
     expect(count).toBe(2)
     wrapper.find('button').trigger('focusin')
     expect(count).toBe(2)
