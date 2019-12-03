@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
 import { BTable } from './table'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
@@ -59,6 +60,7 @@ describe('table > busy state', () => {
     wrapper.setData({
       localBusy: true
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.attributes('aria-busy')).toBeDefined()
     expect(wrapper.attributes('aria-busy')).toEqual('true')
@@ -77,6 +79,7 @@ describe('table > busy state', () => {
     wrapper.setData({
       localBusy: true
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
     expect(wrapper.emitted('update:busy')[0][0]).toEqual(true)
@@ -111,6 +114,7 @@ describe('table > busy state', () => {
     wrapper.setProps({
       busy: true
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.attributes('aria-busy')).toBeDefined()
     expect(wrapper.attributes('aria-busy')).toEqual('true')
@@ -133,6 +137,7 @@ describe('table > busy state', () => {
     wrapper.setProps({
       busy: false
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.attributes('aria-busy')).toBeDefined()
     expect(wrapper.attributes('aria-busy')).toEqual('false')
