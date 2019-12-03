@@ -991,7 +991,11 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               !(this.hasNormalizedSlot('modal-title') || this.titleHtml || this.title)
                 ? null
                 : this.safeId('__BV_modal_title_'),
-            'aria-describedby': this.safeId('__BV_modal_body_')
+            // Use `aria-details` instead of `aria-describedby`
+            // As `aria-describedby` "flattens" the structured content
+            // into a flat "run-on" string (i.e. element.innerText)
+            // removing any semantic meaning from the content
+            'aria-details': this.safeId('__BV_modal_body_')
           },
           on: { keydown: this.onEsc, click: this.onClickOut }
         },
