@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
 import { BTable } from './table'
 
 const testItems = [
@@ -85,6 +86,7 @@ describe('table > pagination', () => {
     wrapper.setProps({
       currentPage: 2
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
     $trs = wrapper.findAll('tbody > tr')
@@ -104,6 +106,7 @@ describe('table > pagination', () => {
     wrapper.setProps({
       currentPage: 3
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').length).toBe(0)
 
@@ -124,6 +127,7 @@ describe('table > pagination', () => {
     wrapper.setProps({
       currentPage: 10
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
     const $tr = wrapper.find('tbody > tr')
