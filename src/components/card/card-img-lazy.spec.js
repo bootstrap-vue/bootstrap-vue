@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../test/utils'
 import { BCardImgLazy } from './card-img-lazy'
 
 describe('card-image', () => {
@@ -10,6 +11,7 @@ describe('card-image', () => {
         }
       }
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.is('img')).toBe(true)
     expect(wrapper.attributes('src')).toBeDefined()
   })
@@ -22,6 +24,7 @@ describe('card-image', () => {
         }
       }
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('alt')).not.toBeDefined()
   })
 
@@ -33,6 +36,7 @@ describe('card-image', () => {
         }
       }
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('width')).not.toBeDefined()
     expect(wrapper.attributes('height')).not.toBeDefined()
     // Without IntersectionObserver support, the main image is shown
@@ -51,6 +55,7 @@ describe('card-image', () => {
         }
       }
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.classes()).toContain('card-img')
   })
 
@@ -63,6 +68,7 @@ describe('card-image', () => {
         }
       }
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.classes()).toContain('card-img-top')
   })
 
@@ -75,6 +81,7 @@ describe('card-image', () => {
         }
       }
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.classes()).toContain('card-img-bottom')
   })
 
@@ -88,6 +95,7 @@ describe('card-image', () => {
         }
       }
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.classes()).toContain('card-img-top')
   })
 
@@ -100,6 +108,7 @@ describe('card-image', () => {
         }
       }
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.classes()).toContain('card-img-left')
   })
 
@@ -112,6 +121,7 @@ describe('card-image', () => {
         }
       }
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.classes()).toContain('card-img-right')
   })
 
@@ -124,6 +134,7 @@ describe('card-image', () => {
         }
       }
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('alt')).toBeDefined()
     expect(wrapper.attributes('alt')).toBe('image')
   })
@@ -137,6 +148,7 @@ describe('card-image', () => {
         }
       }
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('width')).toBeDefined()
     expect(wrapper.attributes('width')).toBe('600')
   })
@@ -150,6 +162,7 @@ describe('card-image', () => {
         }
       }
     })
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('height')).toBeDefined()
     expect(wrapper.attributes('height')).toBe('300')
   })
