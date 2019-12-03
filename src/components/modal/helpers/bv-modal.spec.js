@@ -12,9 +12,7 @@ describe('$bvModal', () => {
   it('$bvModal.show() and $bvModal.hide() works', async () => {
     const App = localVue.extend({
       render(h) {
-        return h('div', null, [
-          h('b-modal', { props: { static: true, id: 'test1' } }, 'content')
-        ])
+        return h('div', null, [h('b-modal', { props: { static: true, id: 'test1' } }, 'content')])
       }
     })
     const wrapper = mount(App, {
