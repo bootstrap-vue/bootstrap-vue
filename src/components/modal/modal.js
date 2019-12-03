@@ -372,6 +372,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // Styles needed for proper stacking of modals
       return {
         position: 'absolute',
+        top: 0,
         zIndex: this.zIndex
       }
     },
@@ -553,7 +554,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // Assumes users have not used tabindex > 0 on elements!
       return selectAll(TABABLE_SELECTOR, this.$refs.content)
         .filter(isVisible)
-        .filter(i => i.tabIndex > -1 && !i.disabled)
+        .filter(el => el.tabIndex > -1 && !el.disabled)
     },
     // Private method to finish showing modal
     doShow() {
@@ -777,7 +778,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                   ? cancel.$el || cancel
                   : autoFocus === 'close' && close
                     ? close.$el || close
-                    : content
+                    : modal
             // Focus the element
             attemptFocus(el)
             if (el === content) {
@@ -940,21 +941,11 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           class: this.contentClass,
           attrs: {
             role: 'document',
-            id: this.safeId('__BV_modal_content_'),
-            tabindex: '-1'
+            id: this.safeId('__BV_modal_content_')
           }
         },
         [header, body, footer]
       )
-
-      // Tab trap to prevent page from scrolling to next element in
-      // tab index during enforce focus tab cycle
-      let tabTrapTop = h()
-      let tabTrapBottom = h()
-      if (this.isVisible && !this.noEnforceFocus) {
-        tabTrapTop = h('span', { ref: 'topTrap', attrs: { tabindex: '0' } })
-        tabTrapBottom = h('span', { ref: 'bottomTrap', attrs: { tabindex: '0' } })
-      }
 
       // Modal dialog wrapper
       const modalDialog = h(
@@ -965,7 +956,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           class: this.dialogClasses,
           on: { mousedown: this.onDialogMousedown }
         },
-        [tabTrapTop, modalContent, tabTrapBottom]
+        [modalContent]
       )
 
       // Modal
@@ -982,6 +973,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           attrs: {
             id: this.safeId(),
             role: 'dialog',
+            tabindex: '-1',
             'aria-hidden': this.isVisible ? null : 'true',
             'aria-modal': this.isVisible ? 'true' : null,
             'aria-label': this.ariaLabel,
@@ -1044,7 +1036,16 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // is portalled, add the scoped attribute to the modal wrapper
       const scopedStyleAttrs = !this.static ? this.scopedStyleAttrs : {}
 
-      // Assemble modal and backdrop in an outer <div>
+      // Tab trap to prevent page from scrolling to next element in
+      // tab index during enforce focus tab cycle
+      let tabTrapTop = h()
+      let tabTrapBottom = h()
+      if (this.isVisible && !this.noEnforceFocus) {
+        tabTrapTop = h('span', { ref: 'topTrap', attrs: { tabindex: '0' } })
+        tabTrapBottom = h('span', { ref: 'bottomTrap', attrs: { tabindex: '0' } })
+      }
+
+      // Assemble modal, backdrop, and tab traps in an outer <div>
       return h(
         'div',
         {
@@ -1052,7 +1053,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           style: this.modalOuterStyle,
           attrs: { ...scopedStyleAttrs, ...this.$attrs, id: this.safeId('__BV_modal_outer_') }
         },
-        [modal, backdrop]
+        [tabTrapTop, modal, tabTrapBottom, backdrop]
       )
     }
   },
