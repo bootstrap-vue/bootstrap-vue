@@ -1,4 +1,6 @@
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../test/utils'
+
 import { BTableLite } from './table-lite'
 
 const items1 = [{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }]
@@ -358,6 +360,7 @@ describe('table-lite', () => {
     wrapper.setProps({
       dark: true
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
     expect(wrapper.find('tbody > tr').classes()).toContain('bg-primary')
@@ -382,6 +385,7 @@ describe('table-lite', () => {
     wrapper.setProps({
       dark: true
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
     expect(wrapper.findAll('tbody > tr > td').length).toBe(1)
@@ -402,9 +406,12 @@ describe('table-lite', () => {
     expect(wrapper).toBeDefined()
 
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
+
     wrapper.setProps({
       items: items2
     })
+    await waitNT(wrapper.vm)
+
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
 
     wrapper.destroy()
@@ -433,6 +440,7 @@ describe('table-lite', () => {
         return item.a === 1 ? 'foo' : 'bar'
       }
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
     $trs = wrapper.findAll('tbody > tr')
@@ -463,6 +471,7 @@ describe('table-lite', () => {
     wrapper.setProps({
       headVariant: 'light'
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('thead').classes()).toContain('thead-light')
     expect(wrapper.find('tfoot').classes()).toContain('thead-light')
@@ -470,6 +479,7 @@ describe('table-lite', () => {
     wrapper.setProps({
       footVariant: 'dark'
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('thead').classes()).toContain('thead-light')
     expect(wrapper.find('tfoot').classes()).toContain('thead-dark')
@@ -478,6 +488,7 @@ describe('table-lite', () => {
       theadClass: 'foo',
       tfootClass: 'bar'
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('thead').classes()).toContain('thead-light')
     expect(wrapper.find('thead').classes()).toContain('foo')
@@ -488,6 +499,7 @@ describe('table-lite', () => {
       theadTrClass: 'willy',
       tfootTrClass: 'wonka'
     })
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('thead > tr').classes()).toContain('willy')
     expect(wrapper.find('tfoot > tr').classes()).toContain('wonka')
