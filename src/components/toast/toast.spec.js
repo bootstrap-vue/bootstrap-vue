@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF, FakeTransition } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BToast } from './toast'
 
 const localVue = new CreateLocalVue()
@@ -311,14 +311,15 @@ describe('b-toast', () => {
   })
 
   it('hover pause has no effect when no-hover-pause is set', async () => {
-    const wrapper = mount(localVue.extend(BToast), {
+    jest.useFakeTimers()
+    const wrapper = mount(BToast, {
       attachToDocument: true,
       localVue: localVue,
       propsData: {
         static: true,
         noAutoHide: false,
         noHoverPause: true,
-        visible: true,
+        visible: false,
         title: 'title'
       },
       slots: {
@@ -327,7 +328,14 @@ describe('b-toast', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm.timer).toBe(null)
 
+    wrapper.setProps({
+      visible: true
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
