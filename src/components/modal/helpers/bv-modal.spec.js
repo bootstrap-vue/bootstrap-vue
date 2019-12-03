@@ -42,11 +42,15 @@ describe('$bvModal', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($modal.element.style.display).toEqual('')
 
     wrapper.vm.$bvModal.hide('test1')
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
