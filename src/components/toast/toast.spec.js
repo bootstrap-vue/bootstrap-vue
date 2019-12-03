@@ -331,7 +331,6 @@ describe('b-toast', () => {
   })
 
   it('hover pause has no effect when no-hover-pause is set', async () => {
-    jest.useFakeTimers()
     const wrapper = mount(BToast, {
       attachToDocument: true,
       localVue: localVue,
