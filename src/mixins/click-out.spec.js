@@ -46,6 +46,7 @@ describe('utils/click-out', () => {
     wrapper.setData({
       listenForClickOut: false
     })
+    await waitNT(wrapper.vm)
     document.dispatchEvent(clickEvt)
     await waitNT(wrapper.vm)
     expect(count).toBe(1)
