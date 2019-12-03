@@ -56,6 +56,8 @@ describe('modal', () => {
       expect($modal.attributes('id')).toEqual('test')
       expect($modal.attributes('role')).toBeDefined()
       expect($modal.attributes('role')).toEqual('dialog')
+      expect($modal.attributes('tabindex')).toBeDefined()
+      expect($modal.attributes('tabindex')).toEqual('-1')
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
       expect($modal.classes()).toContain('modal')
@@ -68,8 +70,6 @@ describe('modal', () => {
       // Modal content wrapper
       const $content = $dialog.find('div.modal-content')
       expect($content.exists()).toBe(true)
-      expect($content.attributes('tabindex')).toBeDefined()
-      expect($content.attributes('tabindex')).toEqual('-1')
       expect($content.attributes('role')).toBeDefined()
       expect($content.attributes('role')).toEqual('document')
 
@@ -145,6 +145,8 @@ describe('modal', () => {
       expect($modal.attributes('id')).toEqual('test')
       expect($modal.attributes('role')).toBeDefined()
       expect($modal.attributes('role')).toEqual('dialog')
+      expect($modal.attributes('tabindex')).toBeDefined()
+      expect($modal.attributes('tabindex')).toEqual('-1')
       expect($modal.attributes('aria-hidden')).not.toBeDefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
@@ -162,8 +164,6 @@ describe('modal', () => {
       // Modal content wrapper
       const $content = $dialog.find('div.modal-content')
       expect($content.exists()).toBe(true)
-      expect($content.attributes('tabindex')).toBeDefined()
-      expect($content.attributes('tabindex')).toEqual('-1')
       expect($content.attributes('role')).toBeDefined()
       expect($content.attributes('role')).toEqual('document')
 
