@@ -465,6 +465,7 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles([file])
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
