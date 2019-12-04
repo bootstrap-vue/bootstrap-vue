@@ -123,6 +123,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       localShow: false,
       isTransitioning: false,
       isHiding: false,
+      isShowStarting: false,
       order: 0,
       timer: null,
       dismissStarted: 0,
@@ -216,7 +217,8 @@ export const BToast = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     show() {
-      if (!this.localShow) {
+      if (!this.localShow && !this.isShowStarting) {
+        this.isShowStarting = true
         this.ensureToaster()
         const showEvt = this.buildEvent('show')
         this.emitEvent(showEvt)
@@ -229,6 +231,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           // so that screen readers will properly announce the toast
           requestAF(() => {
             this.localShow = true
+            this.isShowStarting = false
           })
         })
       }
