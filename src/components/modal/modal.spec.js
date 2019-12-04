@@ -22,25 +22,9 @@ describe('b-modal', () => {
     }))
   })
 
-  beforeAll(() => {
-    // Return empty transition CSS
-    jest.spyOn(window, 'getComputedStyle').mockImplementation(node => {
-      return Object.assign(getComputedStyle(node), {
-        transitionDelay: '',
-        animationDelay: '',
-        transitionDuration: '',
-        animationDuration: ''
-      })
-    })
-  })
-
   afterEach(() => {
     // Restore prototype
     Element.prototype.getBoundingClientRect = origGetBCR
-  })
-
-  afterAll(() => {
-    window.getComputedStyle.mockClear()
   })
 
   describe('structure', () => {
