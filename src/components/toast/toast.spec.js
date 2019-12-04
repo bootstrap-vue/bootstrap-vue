@@ -85,9 +85,6 @@ describe('b-toast', () => {
   it('visible prop works', async () => {
     const wrapper = mount(BToast, {
       attachToDocument: true,
-      stubs: {
-        transition: false
-      },
       propsData: {
         static: true,
         noAutoHide: true,
@@ -101,8 +98,6 @@ describe('b-toast', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
-    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -129,10 +124,6 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
 
@@ -147,10 +138,6 @@ describe('b-toast', () => {
       visible: false
     })
 
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
