@@ -153,10 +153,10 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     transitionHandlers() {
       return {
-        beforeEnter: this.onBeforeEnter,
-        afterEnter: this.onAfterEnter,
-        beforeLeave: this.onBeforeLeave,
-        afterLeave: this.onAfterLeave
+        'before-enter': this.onBeforeEnter,
+        'after-enter': this.onAfterEnter,
+        'before-leave': this.onBeforeLeave,
+        'after-leave': this.onAfterLeave
       }
     }
   },
