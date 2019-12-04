@@ -71,7 +71,7 @@ export const BVTransition = /*#__PURE__*/ Vue.extend({
       // We always need `css` true
       css: true
     }
-    data.attrs = [}
+    data.attrs = {}
     return h(
       'transition',
       // Any transition event listeners will get merged here
