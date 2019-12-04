@@ -20,6 +20,9 @@ describe('b-modal', () => {
       bottom: 0,
       right: 0
     }))
+  })
+
+  beforeAll(() => {
     // Return empty transition CSS
     jest.spyOn(window, 'getComputedStyle').mockImplementation(node => {
       return Object.assign(getComputedStyle(node), {
@@ -34,6 +37,9 @@ describe('b-modal', () => {
   afterEach(() => {
     // Restore prototype
     Element.prototype.getBoundingClientRect = origGetBCR
+  })
+
+  afterAll(() => {
     window.getComputedStyle.mockClear()
   })
 
