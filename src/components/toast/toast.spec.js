@@ -8,21 +8,10 @@ describe('b-toast', () => {
   beforeAll(() => {
     // Prevent multiple Vue warnings in tests
     jest.spyOn(console, 'warn').mockImplementation(() => {})
-
-    // Return empty transition CSS
-    jest.spyOn(window, 'getComputedStyle').mockImplementation(node => {
-      return Object.assign(getComputedStyle(node), {
-        transitionDelay: '',
-        animationDelay: '',
-        transitionDuration: '',
-        animationDuration: ''
-      })
-    })
   })
 
   afterAll(() => {
     console.warn.mockClear()
-    window.getComputedStyle.mockClear()
   })
 
   it('has expected structure', async () => {
@@ -128,6 +117,10 @@ describe('b-toast', () => {
     expect(wrapper.is('div')).toBe(true)
 
     expect(wrapper.emitted('show')).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     expect(wrapper.emitted('shown')).toBeDefined()
     expect(wrapper.emitted('hide')).not.toBeDefined()
     expect(wrapper.emitted('hidden')).not.toBeDefined()
