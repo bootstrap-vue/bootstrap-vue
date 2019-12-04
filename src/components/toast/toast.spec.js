@@ -1,10 +1,10 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { sleep, waitNT, waitRAF } from '../../../tests/utils'
-import { BToast } from './toast'
-
-const localVue = new CreateLocalVue()
+import { BToast } from './index'
 
 describe('b-toast', () => {
+  const localVue = new CreateLocalVue()
+
   beforeAll(() => {
     // Prevent multiple Vue warnings in tests
     jest.spyOn(console, 'warn').mockImplementation(() => {})
@@ -72,13 +72,9 @@ describe('b-toast', () => {
   })
 
   it('visible prop works', async () => {
-    const app = {
-      components: { BToast },
-      template:
-        '<div><b-toast v-bind="{ ...$props, ...$attrs }" v-on="$listeners">content</b-toast></div>'
-    }
-    const wrapper = mount(app, {
+    const wrapper = mount(localVue.extend(BToast), {
       attachToDocument: true,
+      localVue: localVue,
       propsData: {
         static: true,
         noAutoHide: true,
