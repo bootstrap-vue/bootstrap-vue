@@ -72,7 +72,12 @@ describe('b-toast', () => {
   })
 
   it('visible prop works', async () => {
-    const wrapper = mount(BToast, {
+    const app = {
+      components: { BToast },
+      template:
+        '<div><b-toast v-bind="{ ...$props, ...$attrs }" v-on="$listeners">content</b-toast></div>'
+    }
+    const wrapper = mount(app, {
       attachToDocument: true,
       propsData: {
         static: true,
@@ -87,24 +92,18 @@ describe('b-toast', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    const $toast = wrapper.find(BToast)
+    expect($toast.exists()).toBe(true)
+    expect($toast.isVueInstance()).toBe(true)
 
-    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
-
-    expect(wrapper.emitted('show')).not.toBeDefined()
-    expect(wrapper.emitted('shown')).not.toBeDefined()
-    expect(wrapper.emitted('hide')).not.toBeDefined()
-    expect(wrapper.emitted('hidden')).not.toBeDefined()
+    expect($toast.emitted('show')).not.toBeDefined()
+    expect($toast.emitted('shown')).not.toBeDefined()
+    expect($toast.emitted('hide')).not.toBeDefined()
+    expect($toast.emitted('hidden')).not.toBeDefined()
 
     wrapper.setProps({
       visible: true
     })
-
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -114,15 +113,12 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
-
-    expect(wrapper.emitted('show')).toBeDefined()
-    expect(wrapper.emitted('show').length).toBe(1)
-    // This is not emitting for some reason in Vue Test Utils
-    // expect(wrapper.emitted('shown')).toBeDefined()
-    // expect(wrapper.emitted('shown').length).toBe(1)
-    expect(wrapper.emitted('hide')).not.toBeDefined()
-    expect(wrapper.emitted('hidden')).not.toBeDefined()
+    expect($toast.emitted('show')).toBeDefined()
+    expect($toast.emitted('show').length).toBe(1)
+    expect($toast.emitted('shown')).toBeDefined()
+    expect($toast.emitted('shown').length).toBe(1)
+    expect($toast.emitted('hide')).not.toBeDefined()
+    expect($toast.emitted('hidden')).not.toBeDefined()
 
     wrapper.setProps({
       visible: false
@@ -138,16 +134,16 @@ describe('b-toast', () => {
     await waitRAF()
     await sleep(500)
 
-    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
+    expect($toast.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    expect(wrapper.emitted('hide')).toBeDefined()
-    expect(wrapper.emitted('hide').length).toBe(1)
-    expect(wrapper.emitted('show')).toBeDefined()
-    expect(wrapper.emitted('show').length).toBe(1)
-    expect(wrapper.emitted('shown')).toBeDefined()
-    expect(wrapper.emitted('shown').length).toBe(1)
-    expect(wrapper.emitted('hidden')).toBeDefined()
-    expect(wrapper.emitted('hidden').length).toBe(1)
+    expect($toast.emitted('hide')).toBeDefined()
+    expect($toast.emitted('hide').length).toBe(1)
+    expect($toast.emitted('show')).toBeDefined()
+    expect($toast.emitted('show').length).toBe(1)
+    expect($toast.emitted('shown')).toBeDefined()
+    expect($toast.emitted('shown').length).toBe(1)
+    expect($toast.emitted('hidden')).toBeDefined()
+    expect($toast.emitted('hidden').length).toBe(1)
 
     wrapper.destroy()
   })
