@@ -96,6 +96,7 @@ describe('b-toast', () => {
     wrapper.setProps({
       visible: true
     })
+    wrapper.vm.$forceUpdate()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -115,7 +116,7 @@ describe('b-toast', () => {
     wrapper.setProps({
       visible: false
     })
-
+    wrapper.vm.$forceUpdate()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
