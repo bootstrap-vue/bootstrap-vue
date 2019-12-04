@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { sleep, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BToast } from './index'
 
 describe('b-toast', () => {
@@ -74,7 +74,6 @@ describe('b-toast', () => {
   it('visible prop works', async () => {
     const wrapper = mount(BToast, {
       attachToDocument: true,
-      localVue: localVue,
       propsData: {
         static: true,
         noAutoHide: true,
@@ -105,6 +104,11 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
 
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(1)
@@ -125,7 +129,10 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    await sleep(500)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
