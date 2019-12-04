@@ -975,18 +975,19 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             tabindex: '-1',
             'aria-hidden': this.isVisible ? null : 'true',
             'aria-modal': this.isVisible ? 'true' : null,
-            'aria-label': this.ariaLabel,
+            'aria-label': this.ariaLabel || null,
             'aria-labelledby':
               this.hideHeader ||
               this.ariaLabel ||
               !(this.hasNormalizedSlot('modal-title') || this.titleHtml || this.title)
                 ? null
-                : this.safeId('__BV_modal_title_'),
+                : this.safeId('__BV_modal_title_')
             // Use `aria-details` instead of `aria-describedby`
             // As `aria-describedby` "flattens" the structured content
             // into a flat "run-on" string (i.e. element.innerText)
             // removing any semantic meaning from the content
-            'aria-details': this.safeId('__BV_modal_body_')
+            // 'aria-details': this.safeId('__BV_modal_body_')
+            // It appears MAC only reads the content with aria-details
           },
           on: { keydown: this.onEsc, click: this.onClickOut }
         },
