@@ -12,9 +12,9 @@ describe('b-toast', () => {
     // Return empty transition CSS
     jest.spyOn(window, 'getComputedStyle').mockImplementation(node => {
       return Object.assign(getComputedStyle(node), {
-        transitionDelay: '0s',
+        transitionDelay: '',
         animationDelay: '',
-        transitionDuration: '0s',
+        transitionDuration: '',
         animationDuration: ''
       })
     })
@@ -127,6 +127,10 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
 
@@ -141,6 +145,10 @@ describe('b-toast', () => {
       visible: false
     })
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
