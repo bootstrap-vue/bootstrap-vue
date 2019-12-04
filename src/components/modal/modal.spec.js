@@ -411,6 +411,10 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       wrapper.vm.$on('hide', bvEvent => {
         if (cancelHide) {
@@ -444,9 +448,17 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
@@ -464,9 +476,17 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
@@ -507,6 +527,10 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -533,6 +557,10 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('ok')
 
       await waitNT(wrapper.vm)
@@ -547,6 +575,10 @@ describe('b-modal', () => {
       cancelHide = false
       trigger = null
       $cancel.trigger('click')
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
@@ -612,6 +644,10 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('esc')
 
       await waitNT(wrapper.vm)
@@ -670,6 +706,10 @@ describe('b-modal', () => {
 
       // Try and close modal via click out
       $modal.trigger('click')
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
@@ -748,6 +788,10 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       expect(called).toEqual(false)
       expect(trigger).toEqual(null)
@@ -765,6 +809,10 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       expect(called).toEqual(false)
       expect(trigger).toEqual(null)
@@ -775,6 +823,10 @@ describe('b-modal', () => {
       // Try and close modal via click out
       $modal.trigger('click')
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
@@ -821,6 +873,10 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -828,6 +884,10 @@ describe('b-modal', () => {
       // Try and close modal via `bv::hide::modal`
       wrapper.vm.$root.$emit('bv::hide::modal', 'test')
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
@@ -871,6 +931,10 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -882,6 +946,10 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -889,6 +957,10 @@ describe('b-modal', () => {
       // Try and open modal via `bv::toggle::modal` with wrong ID
       wrapper.vm.$root.$emit('bv::toggle::modal', 'not-test')
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
@@ -941,6 +1013,10 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should not open
       expect(called).toBe(true)
@@ -958,6 +1034,10 @@ describe('b-modal', () => {
       // Try and open modal via `bv::show::modal`
       wrapper.vm.$root.$emit('bv::show::modal', 'test')
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
@@ -1002,6 +1082,10 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -1009,6 +1093,10 @@ describe('b-modal', () => {
       // Try and close modal via `.toggle()` method
       wrapper.vm.toggle()
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
