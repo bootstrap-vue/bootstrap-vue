@@ -402,15 +402,6 @@ describe('b-modal', () => {
           static: true,
           id: 'test',
           visible: true
-        },
-        listeners: {
-          hide: bvEvent => {
-            if (cancelHide) {
-              bvEvent.preventDefault()
-            }
-            trigger = bvEvent.trigger
-            evt = bvEvent
-          }
         }
       })
 
@@ -420,6 +411,14 @@ describe('b-modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+
+      wrapper.vm.$on('hide', bvEvent => {
+        if (cancelHide) {
+          bvEvent.preventDefault()
+        }
+        trigger = bvEvent.trigger
+        evt = bvEvent
+      })
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
