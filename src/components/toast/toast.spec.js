@@ -102,6 +102,10 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(1)
