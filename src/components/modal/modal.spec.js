@@ -6,7 +6,7 @@ import { BvModalEvent } from './helpers/bv-modal-event.class'
 // The default Z-INDEX for modal backdrop
 const DEFAULT_ZINDEX = 1040
 
-describe('modal', () => {
+describe('b-modal', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
 
   beforeEach(() => {
@@ -443,6 +443,8 @@ describe('modal', () => {
       $close.trigger('click')
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
@@ -459,6 +461,8 @@ describe('modal', () => {
       trigger = null
       evt = null
       $close.trigger('click')
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       expect(trigger).toEqual('headerclose')
@@ -528,6 +532,8 @@ describe('modal', () => {
       $ok.trigger('click')
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('ok')
 
       await waitNT(wrapper.vm)
@@ -542,6 +548,8 @@ describe('modal', () => {
       cancelHide = false
       trigger = null
       $cancel.trigger('click')
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       expect(trigger).toEqual('cancel')
@@ -601,6 +609,10 @@ describe('modal', () => {
 
       // Try and close modal via ESC
       $modal.trigger('keydown.esc')
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('esc')
 
       await waitNT(wrapper.vm)
@@ -659,6 +671,10 @@ describe('modal', () => {
 
       // Try and close modal via click out
       $modal.trigger('click')
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('backdrop')
 
       await waitNT(wrapper.vm)
