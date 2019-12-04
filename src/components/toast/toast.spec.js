@@ -72,7 +72,7 @@ describe('b-toast', () => {
   })
 
   it('visible prop works', async () => {
-    const wrapper = mount(localVue.extend(BToast), {
+    const wrapper = mount(BToast, {
       attachToDocument: true,
       localVue: localVue,
       propsData: {
