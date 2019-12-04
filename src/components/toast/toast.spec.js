@@ -105,7 +105,9 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(1)
@@ -123,7 +125,9 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
