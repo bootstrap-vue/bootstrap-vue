@@ -79,23 +79,20 @@ describe('b-toast', () => {
         static: true,
         noAutoHide: true,
         visible: false,
-        title: 'title',
-        href: '#foobar'
+        title: 'title'
       },
       slots: {
         default: 'content'
       }
     })
 
+    expect(wrapper.exists()).toBe(true)
     expect(wrapper.isVueInstance()).toBe(true)
-    const $toast = wrapper.find(BToast)
-    expect($toast.exists()).toBe(true)
-    expect($toast.isVueInstance()).toBe(true)
 
-    expect($toast.emitted('show')).not.toBeDefined()
-    expect($toast.emitted('shown')).not.toBeDefined()
-    expect($toast.emitted('hide')).not.toBeDefined()
-    expect($toast.emitted('hidden')).not.toBeDefined()
+    expect(wrapper.emitted('show')).not.toBeDefined()
+    expect(wrapper.emitted('shown')).not.toBeDefined()
+    expect(wrapper.emitted('hide')).not.toBeDefined()
+    expect(wrapper.emitted('hidden')).not.toBeDefined()
 
     wrapper.setProps({
       visible: true
@@ -109,12 +106,12 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($toast.emitted('show')).toBeDefined()
-    expect($toast.emitted('show').length).toBe(1)
-    expect($toast.emitted('shown')).toBeDefined()
-    expect($toast.emitted('shown').length).toBe(1)
-    expect($toast.emitted('hide')).not.toBeDefined()
-    expect($toast.emitted('hidden')).not.toBeDefined()
+    expect(wrapper.emitted('show')).toBeDefined()
+    expect(wrapper.emitted('show').length).toBe(1)
+    expect(wrapper.emitted('shown')).toBeDefined()
+    expect(wrapper.emitted('shown').length).toBe(1)
+    expect(wrapper.emitted('hide')).not.toBeDefined()
+    expect(wrapper.emitted('hidden')).not.toBeDefined()
 
     wrapper.setProps({
       visible: false
@@ -130,16 +127,16 @@ describe('b-toast', () => {
     await waitRAF()
     await sleep(500)
 
-    expect($toast.element.nodeType).toBe(Node.COMMENT_NODE)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    expect($toast.emitted('hide')).toBeDefined()
-    expect($toast.emitted('hide').length).toBe(1)
-    expect($toast.emitted('show')).toBeDefined()
-    expect($toast.emitted('show').length).toBe(1)
-    expect($toast.emitted('shown')).toBeDefined()
-    expect($toast.emitted('shown').length).toBe(1)
-    expect($toast.emitted('hidden')).toBeDefined()
-    expect($toast.emitted('hidden').length).toBe(1)
+    expect(wrapper.emitted('hide')).toBeDefined()
+    expect(wrapper.emitted('hide').length).toBe(1)
+    expect(wrapper.emitted('show')).toBeDefined()
+    expect(wrapper.emitted('show').length).toBe(1)
+    expect(wrapper.emitted('shown')).toBeDefined()
+    expect(wrapper.emitted('shown').length).toBe(1)
+    expect(wrapper.emitted('hidden')).toBeDefined()
+    expect(wrapper.emitted('hidden').length).toBe(1)
 
     wrapper.destroy()
   })
