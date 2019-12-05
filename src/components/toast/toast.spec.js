@@ -8,8 +8,10 @@ import { BToast } from './toast'
 // Vue-Test-Utils-beta.30 issues
 const TransitionVisibilityMock = {
   data() {
-    isVisible: false,
-    isMounted: false
+    return {
+      isVisible: false,
+      isMounted: false
+    }
   },
   watch: {
     isVisible(newVal, oldVal) {
