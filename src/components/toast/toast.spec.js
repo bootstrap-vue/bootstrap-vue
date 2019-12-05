@@ -110,7 +110,7 @@ describe('b-toast', () => {
       components: { BToast },
       template: `
         <div>
-          <b-toast static no-auto-hide title="title">content</b-toast>
+          <b-toast :visible="false" static no-auto-hide title="title">content</b-toast>
         </div>
       `
     }
@@ -126,7 +126,7 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    const $toast = wrapper.find(BToast)
+    let $toast = wrapper.find(BToast)
     expect($toast.exists()).toBe(true)
     expect($toast.isVueInstance()).toBe(true)
     expect($toast.element.nodeType).toBe(Node.COMMENT_NODE)
@@ -149,6 +149,7 @@ describe('b-toast', () => {
     expect($toast.emitted('show').length).toBe(1)
 
     await waitForExpect(() => {
+      $toast = wrapper.find(BToast)
       expect($toast.emitted('shown')).toBeDefined()
     }, 1000)
     expect($toast.emitted('shown').length).toBe(1)
@@ -170,6 +171,7 @@ describe('b-toast', () => {
     expect($toast.emitted('shown').length).toBe(1)
 
     await waitForExpect(() => {
+      $toast = wrapper.find(BToast)
       expect($toast.emitted('hidden')).toBeDefined()
     }, 1000)
     expect($toast.emitted('hidden').length).toBe(1)
