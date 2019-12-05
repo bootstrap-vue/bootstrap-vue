@@ -4,51 +4,40 @@ import { BToast } from './toast'
 
 const localVue = new CreateLocalVue()
 
-// Mocks a transition with a single root element
-// that is shown/hidden with v-if/v-show
-// Needed to ger around some weirdness with
-// Vue-Test-Utils-beta.30 issues
-const TransitionVisibilityMock = localVue.extend({
-  data() {
-    return {
-      isVisible: false
-    }
-  },
-  watch: {
-    isVisible(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        const state = newVal ? 'enter' : 'leave'
-        this.emit(`before-${state}`, this.$el)
-        this.emit(state, this.$el)
-        this.emit(`after-${state}`, this.$el)
-      }
-    }
-  },
-  mounted() {
-    this.$nextTick(this.checkVisibility)
-  },
-  updated() {
-    this.$nextTick(this.checkVisibility)
-  },
-  methods: {
-    checkVisibility() {
-      if (
-        this.$el &&
-        this.$el.nodeType &&
-        this.$el.nodeType === Node.ELEMENT_NODE &&
-        // Testing for v-show=false
-        this.$el.style.display !== 'none'
-      ) {
-        this.isVisible = true
+const TIMEOUT = 3000
+const INTERVAL = 50
+const setTO = window.setTimeout
+
+const waitForExpect = function waitForExpect(
+  expectationFn,
+  timeout = TIMEOUT,
+  interval = INTERVAL
+) {
+  interval = interval < 1 ? 1 : interval
+  const maxTries = Math.ceil(timeout / interval)
+  let tries = 0
+  return new Promise((resolve, reject) => {
+    const rejectOrRerun = (error) => {
+      if (tries > maxTries) {
+        reject(error)
+        return
       } else {
-        this.isVisible = false
+        setTO(runExpectation, interval)
       }
     }
-  },
-  render(h) {
-    return this.$slots.default
-  }
-})
+    const runExpectation = () => {
+      tries += 1;
+      try {
+        Promise.resolve(expectationFn())
+          .then(resolve)
+          .catch(rejectOrRerun)
+      } catch (error) {
+        rejectOrRerun(error)
+      }
+    }
+    setTO(runExpectation, 0)
+  })
+}
 
 describe('b-toast', () => {
   beforeAll(() => {
@@ -128,9 +117,6 @@ describe('b-toast', () => {
       },
       slots: {
         default: 'content'
-      },
-      stubs: {
-        transition: TransitionVisibilityMock
       }
     })
 
@@ -150,18 +136,13 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(1)
-    // For some reason vue-test-utils beta.30 doesn't emit
-    // the afterEnter or afterLeave events for transition
-    expect(wrapper.emitted('shown')).toBeDefined()
+
+    await waitForExpect((
+      expect(wrapper.emitted('shown')).toBeDefined()
+    ) => {}, 1000)
     expect(wrapper.emitted('shown').length).toBe(1)
     expect(wrapper.emitted('hide')).not.toBeDefined()
     expect(wrapper.emitted('hidden')).not.toBeDefined()
@@ -173,25 +154,17 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
-    // expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     expect(wrapper.emitted('hide')).toBeDefined()
     expect(wrapper.emitted('hide').length).toBe(1)
-    expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(1)
-    // For some reason vue-test-utils beta.30 doesn't emit
-    // the afterEnter or afterLeave events for transition
-    expect(wrapper.emitted('shown')).toBeDefined()
     expect(wrapper.emitted('shown').length).toBe(1)
-    expect(wrapper.emitted('hidden')).toBeDefined()
+
+    await waitForExpect((
+      expect(wrapper.emitted('hidden')).toBeDefined()
+    ) => {}, 1000)
     expect(wrapper.emitted('hidden').length).toBe(1)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.destroy()
   })
