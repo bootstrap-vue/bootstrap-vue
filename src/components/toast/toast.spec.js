@@ -19,6 +19,7 @@ const waitForExpect = function waitForExpect(
   return new Promise((resolve, reject) => {
     const rejectOrRerun = error => {
       if (tries > maxTries) {
+        console.log('Tried ' + tries + ' times (' + (maxTries * interval) + ')')
         reject(error)
       } else {
         setTO(runExpectation, interval)
