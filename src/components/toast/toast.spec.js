@@ -257,7 +257,6 @@ describe('b-toast', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    wrapper.vm.$forceUpdate()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -268,7 +267,6 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    wrapper.vm.$forceUpdate()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -276,7 +274,6 @@ describe('b-toast', () => {
     expect(wrapper.vm.timer).not.toEqual(null)
 
     jest.runOnlyPendingTimers()
-    wrapper.vm.$forceUpdate()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -287,7 +284,6 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    wrapper.vm.$forceUpdate()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -334,10 +330,7 @@ describe('b-toast', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.vm.timer).not.toEqual(null)
 
-    wrapper.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    wrapper.vm.$forceUpdate()
+    wrapper.find('.toast').trigger('mouseenter')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -346,16 +339,14 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    wrapper.vm.$forceUpdate()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.vm.timer).toEqual(null)
 
-    wrapper.trigger('mouseleave')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    wrapper.vm.$forceUpdate()
+    wrapper.find('.toast').trigger('mouseleave')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -364,7 +355,8 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    wrapper.vm.$forceUpdate()
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
