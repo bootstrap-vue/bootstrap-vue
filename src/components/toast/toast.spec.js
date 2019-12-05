@@ -22,7 +22,6 @@ const TransitionVisibilityMock = {
           this.emit(state, this.$el)
           this.emit(`after-${state}`, this.$el)
         }
-        this.isMounted = true
       }
     }
   },
@@ -41,10 +40,11 @@ const TransitionVisibilityMock = {
         // testing for v-show
         this.$el.style.display !== 'none'
       ) {
-        this.isVisible = false
-      } else {
         this.isVisible = true
+      } else {
+        this.isVisible = false
       }
+      this.$nextTick(() => (this.isMounted = true))
     }
   },
   render(h) {
