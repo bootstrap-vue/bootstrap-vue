@@ -17,16 +17,15 @@ const waitForExpect = function waitForExpect(
   const maxTries = Math.ceil(timeout / interval)
   let tries = 0
   return new Promise((resolve, reject) => {
-    const rejectOrRerun = (error) => {
+    const rejectOrRerun = error => {
       if (tries > maxTries) {
         reject(error)
-        return
       } else {
         setTO(runExpectation, interval)
       }
     }
     const runExpectation = () => {
-      tries += 1;
+      tries += 1
       try {
         Promise.resolve(expectationFn())
           .then(resolve)
@@ -107,28 +106,37 @@ describe('b-toast', () => {
   })
 
   it('visible prop works', async () => {
-    const wrapper = mount(BToast, {
-      attachToDocument: true,
-      propsData: {
-        static: true,
-        noAutoHide: true,
-        visible: false,
-        title: 'title'
-      },
-      slots: {
-        default: 'content'
-      }
+    const app = {
+      components: { BToast },
+      template: `
+        <div>
+          <b-toast static no-auto-hide title="title">content</b-toast>
+        </div>
+      `
+    }
+    const wrapper = mount(app, {
+      attachToDocument: true
     })
 
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.isVueInstance()).toBe(true)
 
-    expect(wrapper.emitted('show')).not.toBeDefined()
-    expect(wrapper.emitted('shown')).not.toBeDefined()
-    expect(wrapper.emitted('hide')).not.toBeDefined()
-    expect(wrapper.emitted('hidden')).not.toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
-    wrapper.setProps({
+    const $toast = wrapper.find(BToast)
+    expect($toast.exists()).toBe(true)
+    expect($toast.isVueInstance()).toBe(true)
+    expect($toast.element.nodeType).toBe(Node.COMMENT_NODE)
+
+    expect($toast.emitted('show')).not.toBeDefined()
+    expect($toast.emitted('shown')).not.toBeDefined()
+    expect($toast.emitted('hide')).not.toBeDefined()
+    expect($toast.emitted('hidden')).not.toBeDefined()
+
+    $toast.setProps({
       visible: true
     })
 
@@ -137,17 +145,18 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.emitted('show')).toBeDefined()
-    expect(wrapper.emitted('show').length).toBe(1)
+    expect($toast.emitted('show')).toBeDefined()
+    expect($toast.emitted('show').length).toBe(1)
 
     await waitForExpect(() => {
-      expect(wrapper.emitted('shown')).toBeDefined()
+      expect($toast.emitted('shown')).toBeDefined()
     }, 1000)
-    expect(wrapper.emitted('shown').length).toBe(1)
-    expect(wrapper.emitted('hide')).not.toBeDefined()
-    expect(wrapper.emitted('hidden')).not.toBeDefined()
+    expect($toast.emitted('shown').length).toBe(1)
+    expect($toast.emitted('hide')).not.toBeDefined()
+    expect($toast.emitted('hidden')).not.toBeDefined()
+    expect($toast.element.nodeType).toBe(Node.ELEMENT_NODE)
 
-    wrapper.setProps({
+    $toast.setProps({
       visible: false
     })
     await waitNT(wrapper.vm)
@@ -155,16 +164,16 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.emitted('hide')).toBeDefined()
-    expect(wrapper.emitted('hide').length).toBe(1)
-    expect(wrapper.emitted('show').length).toBe(1)
-    expect(wrapper.emitted('shown').length).toBe(1)
+    expect($toast.emitted('hide')).toBeDefined()
+    expect($toast.emitted('hide').length).toBe(1)
+    expect($toast.emitted('show').length).toBe(1)
+    expect($toast.emitted('shown').length).toBe(1)
 
     await waitForExpect(() => {
-      expect(wrapper.emitted('hidden')).toBeDefined()
+      expect($toast.emitted('hidden')).toBeDefined()
     }, 1000)
-    expect(wrapper.emitted('hidden').length).toBe(1)
-    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
+    expect($toast.emitted('hidden').length).toBe(1)
+    expect($toast.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.destroy()
   })
