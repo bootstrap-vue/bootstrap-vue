@@ -19,7 +19,6 @@ const waitForExpect = function waitForExpect(
   return new Promise((resolve, reject) => {
     const rejectOrRerun = error => {
       if (tries > maxTries) {
-        console.log('Tried ' + tries + ' times (' + (maxTries * interval) + ')')
         reject(error)
       } else {
         setTO(runExpectation, interval)
@@ -42,11 +41,11 @@ const waitForExpect = function waitForExpect(
 describe('b-toast', () => {
   beforeAll(() => {
     // Prevent multiple Vue warnings in tests
-    jest.spyOn(console, 'warn').mockImplementation(() => {})
+    // jest.spyOn(console, 'warn').mockImplementation(() => {})
   })
 
   afterAll(() => {
-    console.warn.mockClear()
+    // console.warn.mockClear()
   })
 
   it('has expected structure', async () => {
