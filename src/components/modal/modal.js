@@ -605,8 +605,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         this.setEnforceFocus(true)
         this.$nextTick(() => {
           // Delayed in a `$nextTick()` to allow users time to pre-focus
-          // an element if the wish
-          this.focusFirst()
+          // an element if the wish, and to get around A11Y issues
+          // when announcing the modal information via screen readers
+          this.$nextTick(this.focusFirst)
         })
       })
     },
