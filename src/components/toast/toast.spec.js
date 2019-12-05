@@ -254,7 +254,6 @@ describe('b-toast', () => {
   })
 
   it('hover pause works', async () => {
-    jest.useFakeTimers()
     const wrapper = mount(BToast, {
       attachToDocument: true,
       propsData: {
@@ -287,18 +286,6 @@ describe('b-toast', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.vm.timer).not.toEqual(null)
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     wrapper.trigger('mouseenter')
     await waitNT(wrapper.vm)
@@ -336,7 +323,6 @@ describe('b-toast', () => {
   })
 
   it('hover pause has no effect when no-hover-pause is set', async () => {
-    jest.useFakeTimers()
     const wrapper = mount(BToast, {
       attachToDocument: true,
       localVue: localVue,
@@ -359,6 +345,9 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('div')).toBe(true)
@@ -377,16 +366,6 @@ describe('b-toast', () => {
     await waitRAF()
 
     expect(wrapper.vm.timer).not.toBe(null)
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     wrapper.trigger('mouseleave')
     await waitNT(wrapper.vm)
