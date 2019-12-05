@@ -2,26 +2,25 @@ import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BToast } from './toast'
 
+const localVue = new CreateLocalVue()
+
 // Mocks a transition with a single root element
 // that is shown/hidden with v-if/v-show
 // Needed to ger around some weirdness with
 // Vue-Test-Utils-beta.30 issues
-const TransitionVisibilityMock = {
+const TransitionVisibilityMock = localVue.extend({
   data() {
     return {
-      isVisible: false,
-      isMounted: false
+      isVisible: null
     }
   },
   watch: {
     isVisible(newVal, oldVal) {
-      if(newVal !== oldVal) {
-        if (this.isMounted) {
-          const state = newVal ? 'enter' : 'leave'
-          this.emit(`before-${state}`, this.$el)
-          this.emit(state, this.$el)
-          this.emit(`after-${state}`, this.$el)
-        }
+      if (newVal !== oldVal) {
+        const state = newVal ? 'enter' : 'leave'
+        this.emit(`before-${state}`, this.$el)
+        this.emit(state, this.$el)
+        this.emit(`after-${state}`, this.$el)
       }
     }
   },
@@ -37,24 +36,21 @@ const TransitionVisibilityMock = {
         this.$el &&
         this.$el.nodeType &&
         this.$el.nodeType === Node.ELEMENT_NODE &&
-        // testing for v-show
+        // Testing for v-show=false
         this.$el.style.display !== 'none'
       ) {
         this.isVisible = true
       } else {
         this.isVisible = false
       }
-      this.$nextTick(() => (this.isMounted = true))
     }
   },
   render(h) {
     return this.$slots.default
   }
-}
+})
 
 describe('b-toast', () => {
-  const localVue = new CreateLocalVue()
-
   beforeAll(() => {
     // Prevent multiple Vue warnings in tests
     jest.spyOn(console, 'warn').mockImplementation(() => {})
