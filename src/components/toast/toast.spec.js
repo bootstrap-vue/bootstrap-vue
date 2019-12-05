@@ -38,6 +38,13 @@ const waitForExpect = function waitForExpect(
   })
 }
 
+const BVTransitionStub = {
+  functional: true,
+  render(h, { data, children }) {
+    return h('transition', data, children)
+  }
+}
+
 describe('b-toast', () => {
   beforeAll(() => {
     // Prevent multiple Vue warnings in tests
@@ -130,7 +137,10 @@ describe('b-toast', () => {
       `
     }
     const wrapper = mount(app, {
-      attachToDocument: true
+      attachToDocument: true,
+      stubs: {
+        BVTransition: BVTransitionStub
+      }
     })
 
     expect(wrapper.exists()).toBe(true)
