@@ -1,6 +1,6 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import { BToast } from './toast'
+import { BToast, ToastPlugin } from './index'
 
 const localVue = new CreateLocalVue()
 
@@ -40,12 +40,13 @@ const waitForExpect = function waitForExpect(
 
 describe('b-toast', () => {
   beforeAll(() => {
+    localVue.use(ToastPlugin)
     // Prevent multiple Vue warnings in tests
-    // jest.spyOn(console, 'warn').mockImplementation(() => {})
+    jest.spyOn(console, 'warn').mockImplementation(() => {})
   })
 
   afterAll(() => {
-    // console.warn.mockClear()
+    console.warn.mockClear()
   })
 
   it('has expected structure', async () => {
@@ -109,19 +110,12 @@ describe('b-toast', () => {
     const onShown = jest.fn()
     const onHidden = jest.fn()
     const app = {
-      components: { BToast },
-      methods: {
-        shown: onShown,
-        hidden: onHidden
-      },
       template: `
         <div>
           <b-toast
             :visible="false"
             static
             no-auto-hide
-            @shown="onShown"
-            @hidden="onHidden"
             title="title"
           >
             content
@@ -164,8 +158,7 @@ describe('b-toast', () => {
     expect($toast.emitted('show').length).toBe(1)
 
     await waitForExpect(() => {
-      expect(onShown).toHaveBeenCalled()
-      // expect($toast.emitted('shown')).toBeDefined()
+      expect($toast.emitted('shown')).toBeDefined()
     }, 1000)
     expect($toast.emitted('shown').length).toBe(1)
     expect($toast.emitted('hide')).not.toBeDefined()
@@ -186,8 +179,7 @@ describe('b-toast', () => {
     expect($toast.emitted('shown').length).toBe(1)
 
     await waitForExpect(() => {
-      expect(onHidden).toHaveBeenCalled()
-      // expect($toast.emitted('hidden')).toBeDefined()
+      expect($toast.emitted('hidden')).toBeDefined()
     }, 1000)
     expect($toast.emitted('hidden').length).toBe(1)
     expect($toast.element.nodeType).toBe(Node.COMMENT_NODE)
