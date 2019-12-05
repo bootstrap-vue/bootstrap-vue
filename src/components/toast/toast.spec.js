@@ -11,7 +11,7 @@ const localVue = new CreateLocalVue()
 const TransitionVisibilityMock = localVue.extend({
   data() {
     return {
-      isVisible: null
+      isVisible: false
     }
   },
   watch: {
