@@ -2,6 +2,54 @@ import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BToast } from './toast'
 
+// Mocks a transition with a single root element
+// that is shown/hidden with v-if/v-show
+// Needed to ger around some weirdness with
+// Vue-Test-Utils-beta.30 issues
+const TransitionVisibilityMock = {
+  data() {
+    isVisible: false,
+    isMounted: false
+  },
+  watch: {
+    isVisible(newVal, oldVal) {
+      if(newVal !== oldVal) {
+        if (this.isMounted) {
+          const state = newVal ? 'enter' : 'leave'
+          this.emit(`before-${state}`, this.$el)
+          this.emit(state, this.$el)
+          this.emit(`after-${state}`, this.$el)
+        }
+        this.isMounted = true
+      }
+    }
+  },
+  mounted() {
+    this.$nextTick(this.checkVisibility)
+  },
+  updated() {
+    this.$nextTick(this.checkVisibility)
+  },
+  methods: {
+    checkVisibility() {
+      if (
+        this.$el &&
+        this.$el.nodeType &&
+        this.$el.nodeType === NODE.ELEMENT_NODE &&
+        // testing for v-show
+        this.$el.style.display !== 'none'
+      ) {
+        this.isVisible = false
+      } else {
+        this.isVisible = true
+      }
+    }
+  },
+  render(h) {
+    return this.$slots.default
+  }
+}
+
 describe('b-toast', () => {
   const localVue = new CreateLocalVue()
 
@@ -83,6 +131,7 @@ describe('b-toast', () => {
       slots: {
         default: 'content'
       }
+      stubs: TransitionVisibilityMock
     })
 
     expect(wrapper.exists()).toBe(true)
@@ -96,6 +145,7 @@ describe('b-toast', () => {
     wrapper.setProps({
       visible: true
     })
+
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -111,8 +161,8 @@ describe('b-toast', () => {
     expect(wrapper.emitted('show').length).toBe(1)
     // For some reason vue-test-utils beta.30 doesn't emit
     // the afterEnter or afterLeave events for transition
-    // expect(wrapper.emitted('shown')).toBeDefined()
-    // expect(wrapper.emitted('shown').length).toBe(1)
+    expect(wrapper.emitted('shown')).toBeDefined()
+    expect(wrapper.emitted('shown').length).toBe(1)
     expect(wrapper.emitted('hide')).not.toBeDefined()
     expect(wrapper.emitted('hidden')).not.toBeDefined()
 
@@ -138,10 +188,10 @@ describe('b-toast', () => {
     expect(wrapper.emitted('show').length).toBe(1)
     // For some reason vue-test-utils beta.30 doesn't emit
     // the afterEnter or afterLeave events for transition
-    // expect(wrapper.emitted('shown')).toBeDefined()
-    // expect(wrapper.emitted('shown').length).toBe(1)
-    // expect(wrapper.emitted('hidden')).toBeDefined()
-    // expect(wrapper.emitted('hidden').length).toBe(1)
+    expect(wrapper.emitted('shown')).toBeDefined()
+    expect(wrapper.emitted('shown').length).toBe(1)
+    expect(wrapper.emitted('hidden')).toBeDefined()
+    expect(wrapper.emitted('hidden').length).toBe(1)
 
     wrapper.destroy()
   })
