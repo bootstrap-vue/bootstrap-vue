@@ -124,7 +124,8 @@ describe('b-toast', () => {
       `
     }
     const wrapper = mount(app, {
-      attachToDocument: true
+      attachToDocument: true,
+      localVue: localVue
     })
 
     expect(wrapper.exists()).toBe(true)
