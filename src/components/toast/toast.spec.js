@@ -132,8 +132,10 @@ describe('b-toast', () => {
       },
       slots: {
         default: 'content'
+      },
+      stubs: {
+        transition: TransitionVisibilityMock
       }
-      stubs: TransitionVisibilityMock
     })
 
     expect(wrapper.exists()).toBe(true)
