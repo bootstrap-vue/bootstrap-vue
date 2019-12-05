@@ -36,7 +36,7 @@ const TransitionVisibilityMock = {
       if (
         this.$el &&
         this.$el.nodeType &&
-        this.$el.nodeType === NODE.ELEMENT_NODE &&
+        this.$el.nodeType === Node.ELEMENT_NODE &&
         // testing for v-show
         this.$el.style.display !== 'none'
       ) {
