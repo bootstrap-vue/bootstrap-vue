@@ -106,11 +106,26 @@ describe('b-toast', () => {
   })
 
   it('visible prop works', async () => {
+    const onShown = jest.fn()
+    const onHidden = jest.fn()
     const app = {
       components: { BToast },
+      methods: {
+        shown: onShown,
+        hidden: onHidden
+      },
       template: `
         <div>
-          <b-toast :visible="false" static no-auto-hide title="title">content</b-toast>
+          <b-toast
+            :visible="false"
+            static
+            no-auto-hide
+            @shown="onShown"
+            @hidden="onHidden"
+            title="title"
+          >
+            content
+          </b-toast>
         </div>
       `
     }
@@ -126,7 +141,7 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    let $toast = wrapper.find(BToast)
+    const $toast = wrapper.find(BToast)
     expect($toast.exists()).toBe(true)
     expect($toast.isVueInstance()).toBe(true)
     expect($toast.element.nodeType).toBe(Node.COMMENT_NODE)
@@ -149,8 +164,8 @@ describe('b-toast', () => {
     expect($toast.emitted('show').length).toBe(1)
 
     await waitForExpect(() => {
-      $toast = wrapper.find(BToast)
-      expect($toast.emitted('shown')).toBeDefined()
+      expect(onShown).toHaveBeenCalled()
+      // expect($toast.emitted('shown')).toBeDefined()
     }, 1000)
     expect($toast.emitted('shown').length).toBe(1)
     expect($toast.emitted('hide')).not.toBeDefined()
@@ -171,8 +186,8 @@ describe('b-toast', () => {
     expect($toast.emitted('shown').length).toBe(1)
 
     await waitForExpect(() => {
-      $toast = wrapper.find(BToast)
-      expect($toast.emitted('hidden')).toBeDefined()
+      expect(onHidden).toHaveBeenCalled()
+      // expect($toast.emitted('hidden')).toBeDefined()
     }, 1000)
     expect($toast.emitted('hidden').length).toBe(1)
     expect($toast.element.nodeType).toBe(Node.COMMENT_NODE)
