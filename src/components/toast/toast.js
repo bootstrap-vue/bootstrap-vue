@@ -121,7 +121,6 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       isMounted: false,
       doRender: false,
       localShow: false,
-      isTransitioning: false,
       isHiding: false,
       isShowStarting: false,
       order: 0,
@@ -153,9 +152,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     transitionHandlers() {
       return {
-        'before-enter': this.onBeforeEnter,
         'after-enter': this.onAfterEnter,
-        'before-leave': this.onBeforeLeave,
         'after-leave': this.onAfterLeave
       }
     }
@@ -326,21 +323,13 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         })
       })
     },
-    onBeforeEnter() {
-      this.isTransitioning = true
-    },
     onAfterEnter() {
-      this.isTransitioning = false
       const hiddenEvt = this.buildEvent('shown')
       this.emitEvent(hiddenEvt)
       this.startDismissTimer()
       this.setHoverHandler(true)
     },
-    onBeforeLeave() {
-      this.isTransitioning = true
-    },
     onAfterLeave() {
-      this.isTransitioning = false
       this.order = 0
       this.resumeDismiss = this.dismissStarted = 0
       const hiddenEvt = this.buildEvent('hidden')
