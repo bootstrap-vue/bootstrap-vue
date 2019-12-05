@@ -140,9 +140,9 @@ describe('b-toast', () => {
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(1)
 
-    await waitForExpect((
+    await waitForExpect(() => {
       expect(wrapper.emitted('shown')).toBeDefined()
-    ) => {}, 1000)
+    }, 1000)
     expect(wrapper.emitted('shown').length).toBe(1)
     expect(wrapper.emitted('hide')).not.toBeDefined()
     expect(wrapper.emitted('hidden')).not.toBeDefined()
@@ -160,9 +160,9 @@ describe('b-toast', () => {
     expect(wrapper.emitted('show').length).toBe(1)
     expect(wrapper.emitted('shown').length).toBe(1)
 
-    await waitForExpect((
+    await waitForExpect(() => {
       expect(wrapper.emitted('hidden')).toBeDefined()
-    ) => {}, 1000)
+    }, 1000)
     expect(wrapper.emitted('hidden').length).toBe(1)
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
