@@ -85,19 +85,19 @@ export const makeTOC = (readme, meta = null) => {
   let parentIdx = 0
 
   // Get the first <h1> tag with ID
-  const h1 = readme.match(/<h1 id=([^> ]+)>(.+?)<\/h1>/) || []
+  const h1 = readme.match(/<h1 id=([^> ]+)[^>]*>(.+?)<\/h1>/) || []
   if (h1) {
     top = `#${stripQuotes(h1[1])}`
     title = stripHTML(h1[2])
   }
 
   // Get all the <h2> and <h3> headings with ID's
-  const headings = readme.match(/<h([23]) id=[^> ]+>.+?<\/h\1>/g) || []
+  const headings = readme.match(/<h([23]) id=[^> ]+[^>]*>.+?<\/h\1>/g) || []
 
   // Process the <h2> and <h3> headings into a TOC structure
   headings
     // Create a match `[value, tag, id, content]`
-    .map(heading => heading.match(/^<(h[23]) id=([^> ]+)>(.+?)<\/\1>$/))
+    .map(heading => heading.match(/^<(h[23]) id=([^> ]+)[^>]*>(.+?)<\/\1>$/))
     // Filter out un-matched values
     .filter(v => Array.isArray(v))
     // Create TOC structure
