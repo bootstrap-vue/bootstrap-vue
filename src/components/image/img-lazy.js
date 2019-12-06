@@ -1,7 +1,9 @@
 import Vue from '../../utils/vue'
+import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { hasIntersectionObserverSupport } from '../../utils/env'
+import { toInteger } from '../../utils/number'
 import { VBVisible } from '../../directives/visible/visible'
 import { BImg } from './img'
 
@@ -121,13 +123,13 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
     },
     computedSrcset() {
       const srcset = concat(this.srcset)
-        .filter(Boolean)
+        .filter(identity)
         .join(',')
       return !this.blankSrc || this.isShown ? srcset : null
     },
     computedSizes() {
       const sizes = concat(this.sizes)
-        .filter(Boolean)
+        .filter(identity)
         .join(',')
       return !this.blankSrc || this.isShown ? sizes : null
     }
@@ -179,7 +181,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         value: this.doShow,
         modifiers: {
           // Root margin from viewport
-          [`${parseInt(this.offset, 10) || 0}`]: true,
+          [`${toInteger(this.offset) || 0}`]: true,
           // Once the image is shown, stop observing
           once: true
         }

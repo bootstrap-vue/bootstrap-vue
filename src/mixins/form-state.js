@@ -24,12 +24,7 @@ export default {
     },
     stateClass() {
       const state = this.computedState
-      if (state === true) {
-        return 'is-valid'
-      } else if (state === false) {
-        return 'is-invalid'
-      }
-      return null
+      return state === true ? 'is-valid' : state === false ? 'is-invalid' : null
     }
   }
 }

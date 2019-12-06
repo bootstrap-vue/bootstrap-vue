@@ -32,19 +32,20 @@ export const BBadge = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
-    const tag = !props.href && !props.to ? props.tag : BLink
+    const isBLink = props.href || props.to
+    const tag = isBLink ? BLink : props.tag
 
     const componentData = {
       staticClass: 'badge',
       class: [
         props.variant ? `badge-${props.variant}` : 'badge-secondary',
         {
-          'badge-pill': Boolean(props.pill),
+          'badge-pill': props.pill,
           active: props.active,
           disabled: props.disabled
         }
       ],
-      props: pluckProps(linkProps, props)
+      props: isBLink ? pluckProps(linkProps, props) : {}
     }
 
     return h(tag, mergeData(data, componentData), children)

@@ -1,5 +1,6 @@
 import { keys } from '../../../utils/object'
 import { isDate, isObject, isUndefinedOrNull } from '../../../utils/inspect'
+import { toString } from '../../../utils/string'
 
 // Recursively stringifies the values of an object, space separated, in an
 // SSR safe deterministic way (keys are sorted before stringification)
@@ -26,7 +27,7 @@ const stringifyObjectValues = val => {
       .map(k => stringifyObjectValues(val[k]))
       .join(' ')
   }
-  return String(val)
+  return toString(val)
 }
 
 export default stringifyObjectValues
