@@ -16,6 +16,7 @@ import { FormPlugin } from './form'
 import { FormGroupPlugin } from './form-group'
 import { FormCheckboxPlugin } from './form-checkbox'
 import { FormRadioPlugin } from './form-radio'
+import { FormTagsPlugin } from './form-tags'
 import { FormInputPlugin } from './form-input'
 import { FormTextareaPlugin } from './form-textarea'
 import { FormFilePlugin } from './form-file'
@@ -60,6 +61,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     FormCheckboxPlugin,
     FormRadioPlugin,
     FormInputPlugin,
+    FormTagsPlugin,
     FormTextareaPlugin,
     FormFilePlugin,
     FormSelectPlugin,

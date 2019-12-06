@@ -1,7 +1,7 @@
 <template>
   <Main>
     <Section>
-      <h1 :id="id" tabindex="-1">
+      <h1 :id="id" class="bv-no-focus-ring" tabindex="-1">
         <span class="bd-content-title">
           {{ groupTitle }} <span class="small text-muted">- table of contents</span>
         </span>
