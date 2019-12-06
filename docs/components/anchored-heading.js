@@ -26,6 +26,7 @@ export default {
     return h(
       `h${props.level}`,
       mergeData(data, {
+        staticClass: 'bv-no-focus-ring',
         attrs: {
           id: props.id,
           tabindex: '-1'

@@ -1,0 +1,308 @@
+{
+  "name": "@bootstrap-vue/form-tags",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Form Tags",
+    "new": true,
+    "version": "2.2.0",
+    "description": "Lightweight custom tagged input form control, with options for customized interface rendering, duplicate tag detection and optional tag validation",
+    "components": [
+      {
+        "component": "BFormTags",
+        "version": "2.2.0",
+        "aliases": [
+          "BTags"
+        ],
+        "props": [
+          {
+            "prop": "value",
+            "description": "Array of current tags. This is the v-model"
+          },
+          {
+            "prop": "name",
+            "description": "Sets the value of the 'name' attribute on the form control. When set, creates a hidden input for each tag"
+          },
+          {
+            "prop": "inputId",
+            "description": "ID to apply to the new tag input element. If not provided, a unique ID will be auto generated"
+          },
+          {
+            "prop": "inputClass",
+            "description": "Class (or classes) to apply to the new tag input element"
+          },
+          {
+            "prop": "inputAttrs",
+            "description": "Additional attributes to apply to the new tag input element"
+          },
+          {
+            "prop": "addButtonText",
+            "description": "Text for the built in 'Add' button. Slot `add-button-text' takes precedence"
+          },
+          {
+            "prop": "addButtonVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the 'Add' button"
+          },
+          {
+            "prop": "tagVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the tags"
+          },
+          {
+            "prop": "tagClass",
+            "description": "Class (or classes) to apply to the tags"
+          },
+          {
+            "prop": "tagPills",
+            "description": "Makes the built in tags have a pill appearance"
+          },
+          {
+            "prop": "tagRemoveLabel",
+            "description": "The value of the 'aria-label' attribute on the remove button in the tag"
+          },
+          {
+            "prop": "tagValidator",
+            "description": "Optional tag validator method. Passed a single argument of tag being added. Should return 'true' if the tag passes validation, or 'false' if the tag cannot be added"
+          },
+          {
+            "prop": "invalidTagText",
+            "description": "The error message when invalid tags are detected. Set to an empty string to disable the message"
+          },
+          {
+            "prop": "duplicateTagText",
+            "description": "The message when duplicate tags are detected. Set to an empty string to disable the message"
+          },
+          {
+            "prop": "separator",
+            "description": "Separator character(s) that will trigger a tag to be created"
+          },
+          {
+            "prop": "removeOnDelete",
+            "description": "When set, enables removal of last tag in tags when user presses delete and the input is empty"
+          },
+          {
+            "prop": "addOnChange",
+            "description": "When set, enables adding the tag on the input's 'change' event"
+          },
+          {
+            "prop": "noAddOnEnter",
+            "description": "When set, disables adding the tag on the input's 'keydown.enter' event"
+          },
+          {
+            "prop": "noOuterFocus",
+            "description": "When set, disables the focus styling of the component root element"
+          }
+        ],
+        "slots": [
+          {
+            "name": "add-button-text",
+            "description": "Content to place in the built in  'Add' button. Takes precedence over the 'add-button-text' prop. Not used when the default scoped slot is provided"
+          },
+          {
+            "name": "default",
+            "description": "Slot to override the default rendering of the tags component",
+            "scope": [
+              {
+                "prop": "tags",
+                "type": "Array",
+                "description": "Array of tags to render"
+              },
+              {
+                "prop": "inputAttrs",
+                "type": "Object",
+                "description": "Object of attributes to apply to native input elements via 'v-bind=\"inputAttrs\"'"
+              },
+              {
+                "prop": "inputHandlers",
+                "type": "Object",
+                "description": "Object of event handlers to apply to native input elements via 'v-on=\"inputHandlers\"'"
+              },
+              {
+                "prop": "inputId",
+                "type": "String",
+                "description": "ID to add to the new tag input element. Defaults to prop 'input-id'. If not provided a unique ID is auto-generated. Also available via 'inputAttrs.id'"
+              },
+              {
+                "prop": "inputClass",
+                "type": [
+                  "String",
+                  "Array",
+                  "Object"
+                ],
+                "description": "Class (or classes) to apply to the new tag input element. Value of the 'input-class' prop"
+              },
+              {
+                "prop": "removeTag",
+                "type": "Function",
+                "description": "Method to remove a tag. Accepts one argument which is the tag value to remove"
+              },
+              {
+                "prop": "addTag",
+                "type": "Function",
+                "description": "Method to add a new tag. Assumes the tag is the value of the input, but optionally accepts one argument which is the tag value to be added"
+              },
+              {
+                "prop": "invalidTags",
+                "type": "Array",
+                "description": "Array of invalid tag(s) that could not be added. Requires a validator function via the 'tag-validator' prop"
+              },
+              {
+                "prop": "isInvalid",
+                "type": "Boolean",
+                "description": "Will be true if the input has invalid tag(s). Requires a validator function via the 'tag-validator' prop"
+              },
+              {
+                "prop": "duplicateTags",
+                "type": "Array",
+                "description": "Array of duplicate tag(s) that could not be added"
+              },
+              {
+                "prop": "isDuplicate",
+                "type": "Boolean",
+                "description": "Will be true if the user has attempted to add duplicate tag(s)"
+              },
+              {
+                "prop": "disableAddButton",
+                "type": "Boolean",
+                "description": "Will be true if the tag(s) in the input cannot be added (all invalid and/or duplicates)"
+              },
+              {
+                "prop": "disabled",
+                "type": "Boolean",
+                "description": "If the component is in the disabled state. Value of the 'disabled' prop"
+              },
+              {
+                "prop": "state",
+                "type": "Boolean",
+                "description": "The contextual state of the component. Value of the 'state' prop. Possible values are true, false or null"
+              },
+              {
+                "prop": "size",
+                "type": "String",
+                "description": "The value of the 'size' prop"
+              },
+              {
+                "prop": "separator",
+                "type": [
+                  "String",
+                  "Array"
+                ],
+                "description": "The value of the 'separator' prop"
+              },
+              {
+                "prop": "placeholder",
+                "type": "String",
+                "description": "The value of the 'placeholder' prop"
+              },
+              {
+                "prop": "invalidTagText",
+                "type": "String",
+                "description": "The value of the 'invalid-tag-text' prop"
+              },
+              {
+                "prop": "duplicateTagText",
+                "type": "String",
+                "description": "The value of the 'duplicate-tag-text' prop"
+              },
+              {
+                "prop": "tagRemoveLabel",
+                "type": "String",
+                "description": "ARIA label for the remove button on tags. Value of the 'tag-remove-label' prop"
+              },
+              {
+                "prop": "tagPills",
+                "type": "Boolean",
+                "description": "Value of the `tag-pills` prop"
+              },
+              {
+                "prop": "tagVariant",
+                "type": "String",
+                "description": "Value of the 'tag-variant' prop"
+              },
+              {
+                "prop": "tagClass",
+                "type": [
+                  "String",
+                  "Array",
+                  "Object"
+                ],
+                "description": "Class (or classes) to apply to the tag elements. Value of the 'tag-class' prop"
+              },
+              {
+                "prop": "addButtonText",
+                "type": "String",
+                "description": "Value of the 'add-button-text' prop"
+              },
+              {
+                "prop": "addButtonVariant",
+                "type": "String",
+                "description": "Value of the 'add-button-variant' prop"
+              }
+            ]
+          }
+        ],
+        "events": [
+          {
+            "event": "input",
+            "description": "Emitted when the tags changes. Updates the v-model",
+            "args": [
+              {
+                "arg": "value",
+                "type": "Array",
+                "description": "Array of current tags."
+              }
+            ]
+          },
+          {
+            "event": "tag-state",
+            "description": "Emitted when tags in the user input are parsed",
+            "args": [
+              {
+                "arg": "validTags",
+                "type": "Array",
+                "description": "Array of new tag(s) added (or that will be added). Will be zero length if no tags added."
+              },
+              {
+                "arg": "invalidTags",
+                "type": "Array",
+                "description": "Array of tag(s) that can not added because they did not pass validation. Will be zero length if no invalid tags."
+              },
+              {
+                "arg": "duplicateTags",
+                "type": "Array",
+                "description": "Array of tag(s) that can not added because they would be a duplicate tag. Will be zero length if no duplicate tags."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "BFormTag",
+        "version": "2.2.0",
+        "description": "Helper component for custom rending of tags in tagged input",
+        "aliases": [
+          "BTag"
+        ],
+        "props": [
+          {
+            "prop": "title",
+            "description": "Value to place in the 'title' attribute of the tag. Will also be used for the tag content if no default slot provided"
+          },
+          {
+            "prop": "pill",
+            "description": "Makes the tag have a pill appearance"
+          },
+          {
+            "prop": "removeLabel",
+            "description": "The value of the 'aria-label' attribute on the remove button in the tag"
+          }
+        ],
+        "events": [
+          {
+            "event": "remove",
+            "description": "Emitted when the remove button is clicked",
+            "args": []
+          }
+        ]
+      }
+    ]
+  }
+}

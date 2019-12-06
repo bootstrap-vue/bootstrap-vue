@@ -178,27 +178,6 @@ describe('tab', () => {
     wrapper.destroy()
   })
 
-  it('has attribute tabindex="-1" when parent has keynav enabled and active', async () => {
-    const wrapper = mount(BTab, {
-      provide() {
-        return {
-          bvTabs: {
-            fade: false,
-            lazy: false,
-            card: false,
-            noKeyNav: false
-          }
-        }
-      },
-      propsData: { active: true }
-    })
-
-    expect(wrapper.attributes('tabindex')).toBeDefined()
-    expect(wrapper.attributes('tabindex')).toBe('-1')
-
-    wrapper.destroy()
-  })
-
   it("calls parent's updateButton() when title slot provided", async () => {
     let called = false
     let vm = null
