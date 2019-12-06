@@ -9,12 +9,7 @@ export const BTab = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
     bvTabs: {
-      default() {
-        return {
-          // Don't set a tab index if not rendered inside <b-tabs>
-          noKeyNav: true
-        }
-      }
+      default: () => ({})
     }
   },
   props: {
@@ -181,7 +176,6 @@ export const BTab = /*#__PURE__*/ Vue.extend({
         attrs: {
           role: 'tabpanel',
           id: this.safeId(),
-          tabindex: this.localActive && !this.bvTabs.noKeyNav ? '-1' : null,
           'aria-hidden': this.localActive ? 'false' : 'true',
           'aria-labelledby': this.controlledBy || null
         }

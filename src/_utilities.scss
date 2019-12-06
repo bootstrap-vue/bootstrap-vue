@@ -6,6 +6,11 @@ $bv-utility-classes-defined: false !default;
 @if $bv-utility-classes-defined == false {
   $bv-utility-classes-defined: true;
 
+  // No focus outline helper (use sparingly)
+  .bv-no-focus-ring:focus {
+    outline: none;
+  }
+
   // Create `.bv-d-<bp>-down-none` helper classes
   @each $breakpoint in map-keys($grid-breakpoints) {
     @include media-breakpoint-down($breakpoint) {
