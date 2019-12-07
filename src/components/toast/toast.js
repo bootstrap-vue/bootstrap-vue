@@ -170,7 +170,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     toaster(newVal) /* istanbul ignore next */ {
       // If toaster target changed, make sure toaster exists
-      this.$nextTick(() => this.ensureToaster)
+      this.$nextTick(() => this.ensureToaster())
     },
     static(newVal) /* istanbul ignore next */ {
       // If static changes to true, and the toast is showing,
