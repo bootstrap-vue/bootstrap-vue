@@ -14,7 +14,7 @@
 Check out what is new in [BootstrapVue release v{{ version }}](/docs/misc/changelog).
 
 If you are migrating from a previous `v2.0.0-rc.##` release, please see the
-[v2.0.0 migration guide](/docs/misc/changelog#v200).
+[`v2.0.0` migration guide](/docs/misc/changelog#v200).
 
 ## Documentation sections
 
