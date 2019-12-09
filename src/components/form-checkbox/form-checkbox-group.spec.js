@@ -17,9 +17,10 @@ describe('form-checkbox-group', () => {
     wrapper.destroy()
   })
 
-  it('default has no classes on wrapper', async () => {
+  it('default has no classes on wrapper other than focus ring', async () => {
     const wrapper = mount(BFormCheckboxGroup)
-    expect(wrapper.classes().length).toEqual(0)
+    expect(wrapper.classes()).toContain('bv-no-focus-ring')
+    expect(wrapper.classes().length).toEqual(1)
 
     wrapper.destroy()
   })
@@ -177,9 +178,10 @@ describe('form-checkbox-group', () => {
       }
     })
     expect(wrapper.classes()).toBeDefined()
-    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.classes().length).toBe(3)
     expect(wrapper.classes()).toContain('btn-group')
     expect(wrapper.classes()).toContain('btn-group-toggle')
+    expect(wrapper.classes()).toContain('bv-no-focus-ring')
 
     wrapper.destroy()
   })
@@ -193,9 +195,10 @@ describe('form-checkbox-group', () => {
       }
     })
     expect(wrapper.classes()).toBeDefined()
-    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.classes().length).toBe(3)
     expect(wrapper.classes()).toContain('btn-group-vertical')
     expect(wrapper.classes()).toContain('btn-group-toggle')
+    expect(wrapper.classes()).toContain('bv-no-focus-ring')
 
     wrapper.destroy()
   })
@@ -209,10 +212,11 @@ describe('form-checkbox-group', () => {
       }
     })
     expect(wrapper.classes()).toBeDefined()
-    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.classes().length).toBe(4)
     expect(wrapper.classes()).toContain('btn-group')
     expect(wrapper.classes()).toContain('btn-group-toggle')
     expect(wrapper.classes()).toContain('btn-group-lg')
+    expect(wrapper.classes()).toContain('bv-no-focus-ring')
 
     wrapper.destroy()
   })
@@ -227,10 +231,11 @@ describe('form-checkbox-group', () => {
       }
     })
     expect(wrapper.classes()).toBeDefined()
-    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.classes().length).toBe(4)
     expect(wrapper.classes()).toContain('btn-group-vertical')
     expect(wrapper.classes()).toContain('btn-group-toggle')
     expect(wrapper.classes()).toContain('btn-group-lg')
+    expect(wrapper.classes()).toContain('bv-no-focus-ring')
 
     wrapper.destroy()
   })
