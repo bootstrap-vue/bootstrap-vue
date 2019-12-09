@@ -126,7 +126,7 @@ const renderLabel = (h, ctx) => {
           tabindex: isLegend ? '-1' : null
         },
         class: [
-          // Hide the focus ring on the legend 
+          // Hide the focus ring on the legend
           isLegend ? 'bv-no-focus-ring' : '',
           // When horizontal or if a legend is rendered, add col-form-label
           // for correct sizing as Bootstrap has inconsistent font styling
