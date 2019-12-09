@@ -244,8 +244,8 @@ export default {
               'aria-details': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
-              ...selectableAttrs,
-              ...additionalAttrs
+              ...additionalAttrs,
+              ...selectableAttrs
             },
             on: {
               // Note: These events are not A11Y friendly!
