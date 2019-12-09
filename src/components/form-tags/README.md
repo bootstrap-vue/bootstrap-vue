@@ -501,7 +501,7 @@ of tags:
       <!-- prop `add-on-change` is needed to enable adding tags vie the `change` event -->
       <b-form-tags v-model="value" size="lg" add-on-change no-outer-focus class="mb-2">
         <template v-slot="{ tags, inputAttrs, inputHandlers, disabled, removeTag }">
-        <ul v-if="tags.length > 0" class="list-inline mb-2 w-auto">
+        <ul v-if="tags.length > 0" class="list-inline d-inline-block mb-2">
           <li v-for="tag in tags" :key="tag" class="list-inline-item">
             <b-form-tag
               @remove="removeTag(tag)"
