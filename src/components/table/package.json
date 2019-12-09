@@ -108,6 +108,10 @@
             "description": "HTML string to place in the caption element. Use with caution"
           },
           {
+            "prop": "trAttr",
+            "description": "Attributes to be added to each tr element, or a function returning such attributes"
+          },
+          {
             "prop": "theadClass",
             "description": "CSS class (or classes) to apply to the thead element"
           },
@@ -1088,6 +1092,10 @@
           {
             "prop": "captionHtml",
             "description": "HTML string to place in the caption element. Use with caution"
+          },
+          {
+            "prop": "trAttr",
+            "description": "Attributes to be added to each tr element, or a function returning such attributes"
           },
           {
             "prop": "theadClass",

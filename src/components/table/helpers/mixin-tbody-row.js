@@ -16,6 +16,10 @@ export default {
     detailsTdClass: {
       type: [String, Array, Object],
       default: null
+    },
+    trAttr: {
+      type: [Object, Function],
+      default: null
     }
   },
   methods: {
@@ -216,6 +220,9 @@ export default {
       const selectableClasses = this.selectableRowClasses ? this.selectableRowClasses(rowIndex) : {}
       const selectableAttrs = this.selectableRowAttrs ? this.selectableRowAttrs(rowIndex) : {}
 
+      // Additional attributes
+      const additionalAttrs = isFunction(this.trAttr) ? this.trAttr(item) : this.trAttr
+
       // Add the item row
       $rows.push(
         h(
@@ -237,7 +244,8 @@ export default {
               'aria-details': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
-              ...selectableAttrs
+              ...selectableAttrs,
+              ...additionalAttrs
             },
             on: {
               // Note: These events are not A11Y friendly!
