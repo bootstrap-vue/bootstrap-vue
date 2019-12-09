@@ -20,6 +20,17 @@ describe('dropdown-form', () => {
     expect(form.classes()).not.toContain('disabled')
   })
 
+  it('should have custom form classes on form', async () => {
+    const wrapper = mount(BDropdownForm, {
+      propsData: {
+        formClass: ['form-class-custom', 'form-class-custom-2']
+      }
+    })
+
+    const form = wrapper.find('form')
+    expect(form.classes()).toEqual(['b-dropdown-form', 'form-class-custom', 'form-class-custom-2'])
+  })
+
   it('has tabindex on form', async () => {
     const wrapper = mount(BDropdownForm)
     expect(wrapper.is('li')).toBe(true)
