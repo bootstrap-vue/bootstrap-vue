@@ -109,6 +109,7 @@
           },
           {
             "prop": "trAttr",
+            "version": "2.2.0",
             "description": "Attributes to be added to each tr element, or a function returning such attributes"
           },
           {
