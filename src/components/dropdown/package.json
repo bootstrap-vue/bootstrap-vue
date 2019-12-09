@@ -256,6 +256,10 @@
           {
             "prop": "validated",
             "description": "When set, adds the Bootstrap class 'was-validated' on the form, triggering the native browser validation states"
+          },
+          {
+            "prop": "formClass",
+            "description": "CSS class (or classes) to add to the form"
           }
         ]
       },
