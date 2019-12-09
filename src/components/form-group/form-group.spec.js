@@ -215,7 +215,8 @@ describe('form-group', () => {
     expect(wrapper.find('legend').text()).toEqual('test')
     expect(wrapper.find('fieldset > div > div').exists()).toBe(true)
     expect(wrapper.find('fieldset > div > div').classes()).toContain('col')
-    expect(wrapper.find('fieldset > div > div').classes().length).toBe(1)
+    expect(wrapper.find('fieldset > div > div').classes()).toContain('bv-no-focus-ring')
+    expect(wrapper.find('fieldset > div > div').classes().length).toBe(2)
     expect(wrapper.find('fieldset > div > div').attributes('role')).toEqual('group')
     expect(wrapper.find('fieldset > div > div').attributes('tabindex')).toEqual('-1')
 
