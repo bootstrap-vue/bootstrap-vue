@@ -5,8 +5,8 @@
 
 - [Vue.js](https://vuejs.org/) `v{{ vueVersionMinor }}` is required, `v{{ vueVersion }}` is
   recommended
-- [Bootstrap](https://getbootstrap.com/) `4.3.1` is required,
-  `v{{ bootstrapVersion }}` is recommended
+- [Bootstrap](https://getbootstrap.com/) `4.3.1` is required, `v{{ bootstrapVersion }}` is
+  recommended
 - [PortalVue](https://portal-vue.linusb.org/) `v{{ portalVueVersionMinor }}` is required by
   [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
 - [jQuery](https://jquery.com/) is **not** required
