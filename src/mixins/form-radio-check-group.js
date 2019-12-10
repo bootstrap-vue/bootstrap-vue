@@ -98,11 +98,12 @@ export default {
     return h(
       'div',
       {
-        class: this.groupClasses,
+        class: [this.groupClasses, 'bv-no-focus-ring'],
         attrs: {
           id: this.safeId(),
           role: this.isRadioGroup ? 'radiogroup' : 'group',
-          // Tabindex to allow group to be focused if needed
+          // Tabindex to allow group to be focused
+          // if needed by screen readers
           tabindex: '-1',
           'aria-required': this.required ? 'true' : null,
           'aria-invalid': this.computedAriaInvalid
