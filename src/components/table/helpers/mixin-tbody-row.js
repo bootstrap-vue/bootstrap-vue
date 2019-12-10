@@ -236,11 +236,7 @@ export default {
             key: `__b-table-row-${rowKey}__`,
             ref: 'itemRows',
             refInFor: true,
-            class: [
-              userTrClasses,
-              selectableClasses,
-              rowShowDetails ? 'b-table-has-details' : ''
-            ],
+            class: [userTrClasses, selectableClasses, rowShowDetails ? 'b-table-has-details' : ''],
             props: { variant: item._rowVariant || null },
             attrs: {
               id: rowId,
