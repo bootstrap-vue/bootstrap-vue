@@ -64,7 +64,10 @@ export default {
               isFunction(this.tbodyTrClass)
                 ? this.tbodyTrClass(null, 'row-empty')
                 : this.tbodyTrClass
-            ]
+            ],
+            attrs: isFunction(this.tbodyTrAttr)
+              ? this.tbodyTrAttr(null, 'row-empty')
+              : this.tbodyTrAttr
           },
           [$empty]
         )

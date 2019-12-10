@@ -13,6 +13,10 @@ export default {
       type: [String, Array, Object, Function],
       default: null
     },
+    tbodyTrAttr: {
+      type: [Object, Function],
+      default: null
+    },
     detailsTdClass: {
       type: [String, Array, Object],
       default: null
@@ -216,6 +220,14 @@ export default {
       const selectableClasses = this.selectableRowClasses ? this.selectableRowClasses(rowIndex) : {}
       const selectableAttrs = this.selectableRowAttrs ? this.selectableRowAttrs(rowIndex) : {}
 
+      // Additional classes and attributes
+      const userTrClasses = isFunction(this.tbodyTrClass)
+        ? this.tbodyTrClass(item, 'row')
+        : this.tbodyTrClass
+      const userTrAttrs = isFunction(this.tbodyTrAttr)
+        ? this.tbodyTrAttr(item, 'row')
+        : this.tbodyTrAttr
+
       // Add the item row
       $rows.push(
         h(
@@ -224,14 +236,12 @@ export default {
             key: `__b-table-row-${rowKey}__`,
             ref: 'itemRows',
             refInFor: true,
-            class: [
-              isFunction(this.tbodyTrClass) ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass,
-              selectableClasses,
-              rowShowDetails ? 'b-table-has-details' : ''
-            ],
+            class: [userTrClasses, selectableClasses, rowShowDetails ? 'b-table-has-details' : ''],
             props: { variant: item._rowVariant || null },
             attrs: {
               id: rowId,
+              ...userTrAttrs,
+              // Users cannot override the following attributes
               tabindex: hasRowClickHandler ? '0' : null,
               'data-pk': primaryKeyValue || null,
               'aria-details': detailsId,
@@ -284,19 +294,26 @@ export default {
         }
 
         // Add the actual details row
+        const userDetailsTrClasses = isFunction(this.tbodyTrClass)
+          ? this.tbodyTrClass(item, detailsSlotName)
+          : this.tbodyTrClass
+        const userDetailsTrAttrs = isFunction(this.tbodyTrAttr)
+          ? this.tbodyTrAttr(item, detailsSlotName)
+          : this.tbodyTrAttr
         $rows.push(
           h(
             BTr,
             {
               key: `__b-table-details__${rowKey}`,
               staticClass: 'b-table-details',
-              class: [
-                isFunction(this.tbodyTrClass)
-                  ? this.tbodyTrClass(item, detailsSlotName)
-                  : this.tbodyTrClass
-              ],
+              class: [userDetailsTrClasses],
               props: { variant: item._rowVariant || null },
-              attrs: { id: detailsId, tabindex: '-1' }
+              attrs: {
+                ...userDetailsTrAttrs,
+                // Users cannot override the following attributes
+                id: detailsId,
+                tabindex: '-1'
+              }
             },
             [$details]
           )

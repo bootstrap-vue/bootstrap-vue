@@ -136,6 +136,11 @@
             "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
           },
           {
+            "prop": "tbodyTrAttr",
+            "version": "2.2.0",
+            "description": "Attributes to be added to each tr in the tbody, or a function returning such attributes (see docs for details)"
+          },
+          {
             "prop": "detailsTdClass",
             "version": "2.1.0",
             "description": "CSS class (or classes) to apply to the td element in the details row"
@@ -1116,6 +1121,11 @@
           {
             "prop": "tbodyTrClass",
             "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
+          },
+          {
+            "prop": "tbodyTrAttr",
+            "version": "2.2.0",
+            "description": "Attributes to be added to each tr in the tbody, or a function returning such attributes (see docs for details)"
           },
           {
             "prop": "detailsTdClass",
