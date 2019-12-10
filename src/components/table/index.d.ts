@@ -36,8 +36,8 @@ export declare class BTable extends BvComponent {
   filterIgnoredFields?: Array<string>
   filterIncludedFields?: Array<string>
   busy?: boolean
-  trAttr?: object | BvTableTrAttrCallback
   tbodyTrClass?: string | Array<any> | object | BvTableTbodyTrClassCallback
+  tbosyTrAttr?: object | BvTableTbodyTrAttrCallback
   tabelVariant?: BvTableVariant | string
   headVariant?: BvTableHeadFootVariant | string
   footVariant?: BvTableHeadFootVariant | string
@@ -134,7 +134,7 @@ export type BvTableSortDirection = 'asc' | 'desc' | 'last'
 
 export type BvTableFormatterCallback = ((value: any, key: string, item: any) => any)
 
-export type BvTableTrAttrCallback = ((item: any) => object)
+export type BvTableTbodyTrAttrCallback = ((item: any, type: string) => object)
 
 export type BvTableTbodyTrClassCallback = ((item: any, type: string) => any)
 
