@@ -241,6 +241,7 @@ export default {
             attrs: {
               id: rowId,
               ...userTrAttrs,
+              // Users cannot override the following attributes
               tabindex: hasRowClickHandler ? '0' : null,
               'data-pk': primaryKeyValue || null,
               'aria-details': detailsId,
@@ -309,6 +310,7 @@ export default {
               props: { variant: item._rowVariant || null },
               attrs: {
                 ...userDetailsTrAttrs,
+                // Users cannot override the following attributes
                 id: detailsId,
                 tabindex: '-1'
               }
