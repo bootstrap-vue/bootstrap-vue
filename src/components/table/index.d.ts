@@ -37,7 +37,7 @@ export declare class BTable extends BvComponent {
   filterIncludedFields?: Array<string>
   busy?: boolean
   tbodyTrClass?: string | Array<any> | object | BvTableTbodyTrClassCallback
-  tbosyTrAttr?: object | BvTableTbodyTrAttrCallback
+  tbodyTrAttr?: object | BvTableTbodyTrAttrCallback
   tabelVariant?: BvTableVariant | string
   headVariant?: BvTableHeadFootVariant | string
   footVariant?: BvTableHeadFootVariant | string
@@ -56,6 +56,7 @@ export declare class BTableLite extends BvComponent {
   fields?: BvTableFieldArray
   primaryKey?: string
   tbodyTrClass?: string | Array<any> | object | BvTableTbodyTrClassCallback
+  tbodyTrAttr?: object | BvTableTbodyTrAttrCallback
   tableClass?: string
   tableVariant?: BvTableVariant | string
   headVariant?: BvTableHeadFootVariant | string
