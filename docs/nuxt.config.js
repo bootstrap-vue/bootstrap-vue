@@ -226,7 +226,8 @@ module.exports = {
     meta: [{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
     script: [
       {
-        src: '//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver&flags=gated',
+        src: '//polyfill.io/v3/polyfill.js?features=es2015%2CIntersectionObserver&flags=gated',
+        // src: '//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver&flags=gated',
         crossorigin: 'anonymous'
       }
     ]
