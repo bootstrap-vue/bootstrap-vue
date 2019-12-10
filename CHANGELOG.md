@@ -77,8 +77,8 @@ Released: 2019-11-12
   ([#4325](https://github.com/bootstrap-vue/bootstrap-vue/issues/4325))
   ([c686088](https://github.com/bootstrap-vue/bootstrap-vue/commit/c686088))
 - **b-table, b-table-lite, b-table-simple:** fix issue with sticky columns when table is not
-  responsive but has sticky headers
-  (fixes [#4354](https://github.com/bootstrap-vue/bootstrap-vue/issues/4354))
+  responsive but has sticky headers (fixes
+  [#4354](https://github.com/bootstrap-vue/bootstrap-vue/issues/4354))
   ([#4356](https://github.com/bootstrap-vue/bootstrap-vue/issues/4356))
   ([56b3958](https://github.com/bootstrap-vue/bootstrap-vue/commit/56b3958))
 - **b-table, b-table-lite, b-tbody:** fix delegated event handlers when transition + minor

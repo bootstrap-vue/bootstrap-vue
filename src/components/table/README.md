@@ -451,7 +451,7 @@ headers, sticky columns, and the table sorting feature, all require BootstrapVue
 You can also style every row using the `tbody-tr-class` prop, and optionally supply additional
 attributes via the `tbody-tr-attr` prop:
 
-| Property       | Type                      | Description                                                                                                                                                                      |
+| Property         | Type                      | Description                                                                                                                                                                    |
 | ---------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `tbody-tr-class` | String, Array or Function | Classes to be applied to every row on the table. If a function is given, it will be called as `tbodyTrClass( item, type )` and it may return an `Array`, `Object` or `String`. |
 | `tbody-tr-attr`  | Object or Function        | Attributes to be applied to every row on the table. If a function is given, it will be called as `tbodyTrAttr( item, type )` and it must return an `Object`.                   |

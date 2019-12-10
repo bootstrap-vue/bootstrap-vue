@@ -29,7 +29,7 @@ $bv-dropdown-defined: false !default;
     // on items with tabindex="-1", as we know how users feel
     // about blue rings where they don't expect them.
     .dropdown-menu:focus {
-      outline: none
+      outline: none;
     }
 
     // Prevent dropdown background overflow if there's no padding
