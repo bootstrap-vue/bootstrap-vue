@@ -13,12 +13,12 @@ export default {
       type: [String, Array, Object, Function],
       default: null
     },
-    detailsTdClass: {
-      type: [String, Array, Object],
+    tbodyTrAttr: {
+      type: [Object, Function],
       default: null
     },
-    trAttr: {
-      type: [Object, Function],
+    detailsTdClass: {
+      type: [String, Array, Object],
       default: null
     }
   },
@@ -220,8 +220,13 @@ export default {
       const selectableClasses = this.selectableRowClasses ? this.selectableRowClasses(rowIndex) : {}
       const selectableAttrs = this.selectableRowAttrs ? this.selectableRowAttrs(rowIndex) : {}
 
-      // Additional attributes
-      const additionalAttrs = isFunction(this.trAttr) ? this.trAttr(item) : this.trAttr
+      // Additional classes and attributes
+      const userTrClasses = isFunction(this.tbodyTrClass)
+        ? this.tbodyTrClass(item, 'row')
+        : this.tbodyTrClass
+      const userTrAttrs = isFunction(this.tbodyTrAttr)
+        ? this.tbodyTrAttr(item, 'row')
+        : this.tbodyTrAttr
 
       // Add the item row
       $rows.push(
@@ -232,19 +237,19 @@ export default {
             ref: 'itemRows',
             refInFor: true,
             class: [
-              isFunction(this.tbodyTrClass) ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass,
+              userTrClasses,
               selectableClasses,
               rowShowDetails ? 'b-table-has-details' : ''
             ],
             props: { variant: item._rowVariant || null },
             attrs: {
               id: rowId,
+              ...userTrAttrs,
               tabindex: hasRowClickHandler ? '0' : null,
               'data-pk': primaryKeyValue || null,
               'aria-details': detailsId,
               'aria-owns': detailsId,
               'aria-rowindex': ariaRowIndex,
-              ...additionalAttrs,
               ...selectableAttrs
             },
             on: {
@@ -292,19 +297,25 @@ export default {
         }
 
         // Add the actual details row
+        const userDetailsTrClasses = isFunction(this.tbodyTrClass)
+          ? this.tbodyTrClass(item, detailsSlotName)
+          : this.tbodyTrClass
+        const userDetailsTrAttrs = isFunction(this.tbodyTrAttr)
+          ? this.tbodyTrAttr(item, detailsSlotName)
+          : this.tbodyTrAttr
         $rows.push(
           h(
             BTr,
             {
               key: `__b-table-details__${rowKey}`,
               staticClass: 'b-table-details',
-              class: [
-                isFunction(this.tbodyTrClass)
-                  ? this.tbodyTrClass(item, detailsSlotName)
-                  : this.tbodyTrClass
-              ],
+              class: [userDetailsTrClasses],
               props: { variant: item._rowVariant || null },
-              attrs: { id: detailsId, tabindex: '-1' }
+              attrs: {
+                ...userDetailsTrAttrs,
+                id: detailsId,
+                tabindex: '-1'
+              }
             },
             [$details]
           )
