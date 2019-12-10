@@ -393,7 +393,7 @@ support.
         </b-input-group>
         <ul
           id="my-custom-tags-list"
-          class="list-unstyled d-flex flex-wrap mb-0"
+          class="list-unstyled d-inline-flex flex-wrap mb-0"
           aria-live="polite"
           aria-atomic="false"
           aria-relevant="additions removals"
@@ -463,7 +463,7 @@ but feel free to render tags using standard HTML or components.
             <b-button @click="addTag()" variant="primary">Add</b-button>
           </b-input-group-append>
         </b-input-group>
-        <div style="font-size: 1.5rem;">
+        <div class="d-inline-block" style="font-size: 1.5rem;">
           <b-form-tag
             v-for="tag in tags"
             @remove="removeTag(tag)"
@@ -501,7 +501,7 @@ of tags:
       <!-- prop `add-on-change` is needed to enable adding tags vie the `change` event -->
       <b-form-tags v-model="value" size="lg" add-on-change no-outer-focus class="mb-2">
         <template v-slot="{ tags, inputAttrs, inputHandlers, disabled, removeTag }">
-        <ul v-if="tags.length > 0" class="list-inline mb-2">
+        <ul v-if="tags.length > 0" class="list-inline d-inline-block mb-2">
           <li v-for="tag in tags" :key="tag" class="list-inline-item">
             <b-form-tag
               @remove="removeTag(tag)"
