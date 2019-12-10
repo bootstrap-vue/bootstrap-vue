@@ -446,15 +446,18 @@ headers, sticky columns, and the table sorting feature, all require BootstrapVue
 <!-- b-table-bordered.vue -->
 ```
 
-### Row styling
+### Row styling and attributes
 
-You can also style every row using the `tbody-tr-class` prop
+You can also style every row using the `tbody-tr-class` prop, and optionally supply additional
+attributes via the `tbody-tr-attr` prop:
 
-| Property       | Type                      | Description                                                                                                                                                                    |
-| -------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `tbodyTrClass` | String, Array or Function | Classes to be applied to every row on the table. If a function is given, it will be called as `tbodyTrClass( item, type )` and it may return an `Array`, `Object` or `String`. |
+| Property       | Type                      | Description                                                                                                                                                                      |
+| ---------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `tbody-tr-class` | String, Array or Function | Classes to be applied to every row on the table. If a function is given, it will be called as `tbodyTrClass( item, type )` and it may return an `Array`, `Object` or `String`. |
+| `tbody-tr-attr`  | Object or Function        | Attributes to be applied to every row on the table. If a function is given, it will be called as `tbodyTrAttr( item, type )` and it must return an `Object`.                   |
 
-When passing a function reference to `tbody-tr-class`, the function's arguments will be as follows:
+When passing a function reference to `tbody-tr-class` or `tbody-tr-attr`, the function's arguments
+will be as follows:
 
 - `item` - The item record data associated with the row. For rows that are not associated with an
   item record, this value will be `null` or `undefined`
@@ -485,7 +488,7 @@ When passing a function reference to `tbody-tr-class`, the function's arguments 
     },
     methods: {
       rowClass(item, type) {
-        if (!item) return
+        if (!item || type !== 'row') return
         if (item.status === 'awesome') return 'table-success'
       }
     }
