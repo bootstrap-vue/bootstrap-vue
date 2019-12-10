@@ -108,11 +108,6 @@
             "description": "HTML string to place in the caption element. Use with caution"
           },
           {
-            "prop": "trAttr",
-            "version": "2.2.0",
-            "description": "Attributes to be added to each tr element, or a function returning such attributes"
-          },
-          {
             "prop": "theadClass",
             "description": "CSS class (or classes) to apply to the thead element"
           },
@@ -139,6 +134,11 @@
           {
             "prop": "tbodyTrClass",
             "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
+          },
+          {
+            "prop": "tbodyTrAttr",
+            "version": "2.2.0",
+            "description": "Attributes to be added to each tr in the tbody, or a function returning such attributes (see docs for details)"
           },
           {
             "prop": "detailsTdClass",
@@ -1095,11 +1095,6 @@
             "description": "HTML string to place in the caption element. Use with caution"
           },
           {
-            "prop": "trAttr",
-            "version": "2.2.0",
-            "description": "Attributes to be added to each tr element, or a function returning such attributes"
-          },
-          {
             "prop": "theadClass",
             "description": "CSS class (or classes) to apply to the thead element"
           },
@@ -1126,6 +1121,11 @@
           {
             "prop": "tbodyTrClass",
             "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
+          },
+          {
+            "prop": "tbodyTrAttr",
+            "version": "2.2.0",
+            "description": "Attributes to be added to each tr in the tbody, or a function returning such attributes (see docs for details)"
           },
           {
             "prop": "detailsTdClass",
