@@ -718,7 +718,7 @@ export default {
         this.playVM = new Vue({
           ...options,
           el: holder,
-          // Router needed for tooltips/popovers/toasts so 
+          // Router needed for tooltips/popovers/toasts so
           // that they hide when docs route changes
           router: this.$router,
           // We set a fake parent so we can capture most runtime and
