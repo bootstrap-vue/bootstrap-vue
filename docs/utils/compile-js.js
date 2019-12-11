@@ -7,21 +7,22 @@ import { transform, disableScriptTags } from '@babel/standalone'
 // IE 11 does not support either, and polyfill.io does not polyfill them
 // So we do it here (as this file is only loaded if we need transpilation):
 if (typeof window !== 'undefined') {
-  const String = window.String
-  const Proto = String.prototype
+  const Proto = window.String.prototype
 
   // Ensure we have a `trimStart` method
   ;((obj, prop) => {
     if (!(prop in obj && obj[prop])) {
       const rx = /^\s+/
-      obj[prop] = obj.trimLeft || function() {
-        return this.replace(rx, '')
-      }
+      obj[prop] =
+        obj.trimLeft ||
+        function() {
+          return this.replace(rx, '')
+        }
     }
   })(Proto, 'trimStart')
 
   // Ensure we have a `trimLeft` method
-  ;((obj, prop)=>{
+  ;((obj, prop) => {
     if (!(prop in obj && obj[prop])) {
       obj[prop] = obj.trimStart
     }
@@ -31,9 +32,11 @@ if (typeof window !== 'undefined') {
   ;((obj, prop) => {
     if (!(prop in obj && obj[prop])) {
       const rx = /\s+$/
-      obj[prop] = obj.trimRight || function() {
-        return this.replace(rx, '')
-      }
+      obj[prop] =
+        obj.trimRight ||
+        function() {
+          return this.replace(rx, '')
+        }
     }
   })(Proto, 'trimEnd')
 
