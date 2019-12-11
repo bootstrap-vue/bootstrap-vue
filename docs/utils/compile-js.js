@@ -7,7 +7,8 @@ if (typeof window !== 'undefined' && window && window.removeEventListener) {
 }
 
 const transformOptions = {
-  presets: ['es2015', 'es2016', 'es2017'],
+  presets: ['es2015'],
+  // presets: ['es2015', 'es2016', 'es2017'],
   plugins: [
     // Not used as we need to import the helpers into the transpiled code
     // 'transform-runtime',
