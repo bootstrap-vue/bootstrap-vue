@@ -636,8 +636,6 @@ export default {
       const js = this.compiledJs
       const html = this.html.trim()
 
-      window.console.log('CreateVM JS:', js)
-
       // Disable the export buttons
       this.isOk = false
 
@@ -759,19 +757,13 @@ export default {
       this.$nextTick(() => {
         this.requestAF(() => {
           try {
-            // DEBUG
-            window.console.log('JS Raw:', js)
             // The app build process expects the app options to
             // be assigned to the `options` variable
             compiled = this.compiler(';options = ' + js + ';')
-            // DEBUG
-            window.console.log('JS Compiled:', compiled)
           } catch (err) {
             this.errHandler(err, 'javascript')
             window.console.error('Error in javascript', err)
             compiled = null
-            // DEBUG
-            window.console.log('Compilation Failed:', compiled)
           }
           this.compiledJs = compiled
           this.$nextTick(() => {
