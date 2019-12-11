@@ -656,7 +656,7 @@ export default {
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
-        window.console.error('Error in javascript', err)
+        window.console.error('Error in javascript eval', err)
         window.console.error('         javascript:', js)
         return
       }
@@ -710,15 +710,15 @@ export default {
         })
       }
 
-      // Try and buld the user app
+      // Try and build the user app
       try {
         const holder = document.createElement('div')
         this.$refs.result.appendChild(holder)
         this.playVM = new Vue({
           ...options,
           el: holder,
-          // Router needed for tooltips/popovers so they hide when
-          // docs route changes
+          // Router needed for tooltips/popovers/toasts so 
+          // that they hide when docs route changes
           router: this.$router,
           // We set a fake parent so we can capture most runtime and
           // render errors (this is an error boundary component)
@@ -726,7 +726,7 @@ export default {
             template: '<span></span>',
             errorCaptured(err, vm, info) {
               // Pass error to playground error handler
-              playground.errHandler(err, info)
+              playground.errHandler(err, info + ' (errorCapture)')
               // Don't propagate to parent/global error handler!
               return false
             }
