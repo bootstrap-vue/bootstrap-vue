@@ -235,15 +235,15 @@
           },
           {
             "prop": "labelSortAsc",
-            "description": "String to place in the header cell's 'aria-label' when clicking the cell will change the sort direction to ascending"
+            "description": "Hidden string to place in the header cell when clicking the cell will change the sort direction to ascending"
           },
           {
             "prop": "labelSortDesc",
-            "description": "String to place in the header cell's 'aria-label' when clicking the cell will change the sort direction to descending"
+            "description": "Hidden string to place in the header cell when clicking the cell will change the sort direction to descending"
           },
           {
             "prop": "labelSortClear",
-            "description": "String to place in the header cell's 'aria-label' when clicking the cell will clear the current sorting direction"
+            "description": "Hidden string to place in the header cell when clicking the cell will clear the current sorting direction"
           },
           {
             "prop": "selectable",
