@@ -77,17 +77,32 @@ describe('table > sorting', () => {
     // Currently sorted as ascending
     expect($ths.at(0).attributes('aria-sort')).toBe('ascending')
     // For switching to descending
-    expect($ths.at(0).find('.sr-only').text()).toBe(wrapper.vm.labelSortDesc)
+    expect(
+      $ths
+        .at(0)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortDesc)
 
     // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
     // For sorting by ascending
-    expect($ths.at(1).find('.sr-only').text()).toBe(wrapper.vm.labelSortAsc)
+    expect(
+      $ths
+        .at(1)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortAsc)
 
     // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
     // For clearing sorting
-    expect($ths.at(2).find('.sr-only').text()).toBe(wrapper.vm.labelSortClear)
+    expect(
+      $ths
+        .at(2)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortClear)
 
     // Change sort direction
     wrapper.setProps({
@@ -113,17 +128,32 @@ describe('table > sorting', () => {
     // Currently sorted as descending
     expect($ths.at(0).attributes('aria-sort')).toBe('descending')
     // For switching to ascending
-    expect($ths.at(0).find('.sr-only').text()).toBe(wrapper.vm.labelSortAsc)
+    expect(
+      $ths
+        .at(0)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortAsc)
 
     // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
     // For sorting by ascending
-    expect($ths.at(1).find('.sr-only').text()).toBe(wrapper.vm.labelSortAsc)
+    expect(
+      $ths
+        .at(1)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortAsc)
 
     // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
     // For clearing sorting
-    expect($ths.at(2).find('.sr-only').text()).toBe(wrapper.vm.labelSortClear)
+    expect(
+      $ths
+        .at(2)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortClear)
 
     // Clear sort
     wrapper.setProps({
@@ -150,17 +180,32 @@ describe('table > sorting', () => {
     // Currently not sorted
     expect($ths.at(0).attributes('aria-sort')).toBe('none')
     // For sorting by ascending
-    expect($ths.at(0).find('.sr-only').text()).toBe(wrapper.vm.labelSortAsc)
+    expect(
+      $ths
+        .at(0)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortAsc)
 
     // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
     // For sorting by ascending
-    expect($ths.at(1).find('.sr-only').text()).toBe(wrapper.vm.labelSortAsc)
+    expect(
+      $ths
+        .at(1)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortAsc)
 
     // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
     // For clearing sorting
-    expect($ths.at(2).find('.sr-only').exists()).toBe(false)
+    expect(
+      $ths
+        .at(2)
+        .find('.sr-only')
+        .exists()
+    ).toBe(false)
 
     wrapper.destroy()
   })
@@ -483,7 +528,7 @@ describe('table > sorting', () => {
     expect(columnA[2]).toBe('2')
     // Shouldn't have aria-* labels
     expect(wrapper.findAll('tfoot > tr > th[aria-sort]').length).toBe(0)
-    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(0)
+    expect(wrapper.findAll('tfoot > tr > th > .sr-only').length).toBe(0)
 
     // Click first column
     wrapper
@@ -506,7 +551,7 @@ describe('table > sorting', () => {
     expect(columnA[2]).toBe('2')
     // Shouldn't have aria-* labels
     expect(wrapper.findAll('tfoot > tr > th[aria-sort]').length).toBe(0)
-    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(0)
+    expect(wrapper.findAll('tfoot > tr > th > .sr-only').length).toBe(0)
 
     // Click third column header
     wrapper
@@ -529,7 +574,7 @@ describe('table > sorting', () => {
     expect(columnA[2]).toBe('2')
     // Shouldn't have aria-* labels
     expect(wrapper.findAll('tfoot > tr > th[aria-sort]').length).toBe(0)
-    expect(wrapper.findAll('tfoot > tr > th[aria-label]').length).toBe(0)
+    expect(wrapper.findAll('tfoot > tr > th > .sr-only').length).toBe(0)
 
     wrapper.destroy()
   })
@@ -568,17 +613,32 @@ describe('table > sorting', () => {
     // Currently not sorted
     expect($ths.at(0).attributes('aria-sort')).toBe('none')
     // For switching to descending
-    expect($ths.at(0).find('.sr-only').text()).toBe(wrapper.vm.labelSortDesc)
+    expect(
+      $ths
+        .at(0)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortDesc)
 
     // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
     // For sorting by ascending
-    expect($ths.at(1).find('.sr-only').text()).toBe(wrapper.vm.labelSortDesc)
+    expect(
+      $ths
+        .at(1)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortDesc)
 
     // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
     // For clearing sorting
-    expect($ths.at(2).find('.sr-only').exists()).toBe(false)
+    expect(
+      $ths
+        .at(2)
+        .find('.sr-only')
+        .exists()
+    ).toBe(false)
 
     // Change sort direction (should be descending first)
     wrapper
@@ -605,17 +665,32 @@ describe('table > sorting', () => {
     // Currently sorted as descending
     expect($ths.at(0).attributes('aria-sort')).toBe('descending')
     // For switching to ascending
-    expect($ths.at(0).find('.sr-only').text()).toBe(wrapper.vm.labelSortAsc)
+    expect(
+      $ths
+        .at(0)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortAsc)
 
     // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
     // For sorting by ascending
-    expect($ths.at(1).find('.sr-only').text()).toBe(wrapper.vm.labelSortDesc)
+    expect(
+      $ths
+        .at(1)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortDesc)
 
     // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
     // For clearing sorting
-    expect($ths.at(2).find('.sr-only').text()).toBe(wrapper.vm.labelSortClear)
+    expect(
+      $ths
+        .at(2)
+        .find('.sr-only')
+        .text()
+    ).toBe(wrapper.vm.labelSortClear)
 
     wrapper.destroy()
   })
