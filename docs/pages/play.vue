@@ -762,6 +762,9 @@ export default {
             // The app build process expects the app options to
             // be assigned to the `options` variable
             compiled = this.compiler(`;options = ${js};`)
+            // DEBUG
+            window.console.log('JS Raw:', js)
+            window.console.log('JS Compiled:', compiled)
           } catch (err) {
             this.errHandler(err, 'javascript')
             window.console.error('Error in javascript', err)
