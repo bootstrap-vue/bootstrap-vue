@@ -727,6 +727,7 @@ export default {
             errorCaptured(err, vm, info) {
               // Pass error to playground error handler
               playground.errHandler(err, info + ' (errorCapture)')
+              window.console.error('Javascript:', js)
               // Don't propagate to parent/global error handler!
               return false
             }
