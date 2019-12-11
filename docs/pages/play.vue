@@ -636,6 +636,8 @@ export default {
       const js = this.compiledJs
       const html = this.html.trim()
 
+      window.console.log('CreateVM JS:', js)
+
       // Disable the export buttons
       this.isOk = false
 
@@ -656,8 +658,7 @@ export default {
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
-        window.console.error('Error in javascript eval', err)
-        window.console.error('         javascript:', js)
+        window.console.error('Error in javascript', err)
         return
       }
 
@@ -726,8 +727,7 @@ export default {
             template: '<span></span>',
             errorCaptured(err, vm, info) {
               // Pass error to playground error handler
-              playground.errHandler(err, info + ' (errorCapture)')
-              window.console.error('Javascript:', js)
+              playground.errHandler(err, info)
               // Don't propagate to parent/global error handler!
               return false
             }
@@ -764,7 +764,7 @@ export default {
             compiled = this.compiler(`;options = ${js};`)
           } catch (err) {
             this.errHandler(err, 'javascript')
-            window.console.error('Error in javascript transpilation', err)
+            window.console.error('Error in javascript', err)
             compiled = null
           }
           this.compiledJs = compiled
