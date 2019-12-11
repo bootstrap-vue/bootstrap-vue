@@ -89,6 +89,7 @@ export default {
         }
         const sortAttrs = this.isSortable ? this.sortTheadThAttrs(field.key, field, isFoot) : {}
         const sortClass = this.isSortable ? this.sortTheadThClasses(field.key, field, isFoot) : null
+        const sortLabel = this.isSortable ? this.sortTheadThLabel(field.key, field, isFoot) : null
         const data = {
           key: field.key,
           class: [this.fieldClasses(field), sortClass],
@@ -136,10 +137,11 @@ export default {
             selectAllRows,
             clearSelected
           })
-        } else {
-          data.domProps = htmlOrText(field.labelHtml)
+        } else if (field.labelHtml) {
+          slot = h('div', { domprops: htmlOrText(field.labelHtml)})
         }
-        return h(BTh, data, slot)
+        const srLabel = sortLabel ? h('span', { staticClass: 'sr-only' }, sortLabel) : null
+        return h(BTh, data, [slot, srLabel].filter(identity))
       }
 
       // Generate the array of <th> cells
