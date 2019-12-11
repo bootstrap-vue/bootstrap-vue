@@ -17,7 +17,7 @@ const tests = [
   'const test5a = [1, 2]; const test5b = [...test5a, 3, 4]',
   // String interpolation
   /* eslint-disable no-template-curly-in-string */
-  'const test6a = "bar"; const test6b = `foo${test5a}`'
+  'const test6a = "bar"; const test6b = `foo${test6a}`'
   /* eslint-enable no-template-curly-in-string */
 ]
 
