@@ -657,6 +657,7 @@ export default {
       } catch (err) {
         this.errHandler(err, 'javascript')
         window.console.error('Error in javascript', err)
+        window.console.error('         javascript:', js)
         return
       }
 
