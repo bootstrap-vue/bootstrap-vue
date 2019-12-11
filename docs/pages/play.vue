@@ -753,7 +753,7 @@ export default {
         this.compiledJs = null
         return
       }
-      const js = this.js.trim() || '{}'
+      const js = (this.js || '').trim() || '{}'
       this.compiling = true
       let compiled = null
       this.$nextTick(() => {
@@ -763,7 +763,7 @@ export default {
             window.console.log('JS Raw:', js)
             // The app build process expects the app options to
             // be assigned to the `options` variable
-            compiled = this.compiler(`;options = ${js};`)
+            compiled = this.compiler(';options = ' + js + ';')
             // DEBUG
             window.console.log('JS Compiled:', compiled)
           } catch (err) {
