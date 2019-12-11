@@ -227,7 +227,7 @@ module.exports = {
     script: [
       {
         src:
-          '//polyfill.io/v3/polyfill.js?flags=gated&features=default%2Ces2015%2Ces6%2Ces2016%2CIntersectionObserver',
+          '//polyfill.io/v3/polyfill.js?features=default%2Ces2015%2Ces2016%2Ces2017%2Ces5%2Ces6%2Ces7%2Ces2018%2CIntersectionObserver',
         // src: '//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver',
         crossorigin: 'anonymous'
       }
