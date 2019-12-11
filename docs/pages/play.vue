@@ -762,7 +762,7 @@ export default {
             compiled = this.compiler(`;options = ${js};`)
           } catch (err) {
             this.errHandler(err, 'javascript')
-            window.console.error('Error in javascript', err)
+            window.console.error('Error in javascript transpilation', err)
             compiled = null
           }
           this.compiledJs = compiled
