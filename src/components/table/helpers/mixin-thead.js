@@ -125,23 +125,20 @@ export default {
             ...slotNames
           ]
         }
-        const hasSlot = this.hasNormalizedSlot(slotNames)
-        let slot = field.label
-        if (hasSlot) {
-          slot = this.normalizeSlot(slotNames, {
-            label: field.label,
-            column: field.key,
-            field,
-            isFoot,
-            // Add in row select methods
-            selectAllRows,
-            clearSelected
-          })
-        } else if (field.labelHtml) {
-          slot = h('div', { domProps: htmlOrText(field.labelHtml) })
+        const scope = {
+          label: field.label,
+          column: field.key,
+          field,
+          isFoot,
+          // Add in row select methods
+          selectAllRows,
+          clearSelected
         }
+        const content = this.normalizeSlot(slotNames, scope) ||
+          field.labelHtml ? h('div', { domProps: htmlOrText(field.labelHtml) }) : field.label
         const srLabel = sortLabel ? h('span', { staticClass: 'sr-only' }, sortLabel) : null
-        return h(BTh, data, [slot, srLabel].filter(identity))
+        // Return the header cell
+        return h(BTh, data, [content, srLabel].filter(identity))
       }
 
       // Generate the array of <th> cells
