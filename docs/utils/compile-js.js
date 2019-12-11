@@ -1,5 +1,5 @@
 // Utility for tranpiling ES6 code into ES5 for playground and v-play
-import { transformSync, disableScriptTags } from '@babel/standalone'
+import { transform, disableScriptTags } from '@babel/standalone'
 
 if (typeof window !== 'undefined' && window && window.removeEventListener) {
   // Prevent Babel/Standalone from processing <script> tag insertions
@@ -20,6 +20,6 @@ export default function compileJs(code) {
   if (!code) {
     return ''
   }
-  const result = transformSync(code, transformOptions)
+  const result = transform(code, transformOptions)
   return result && result.code ? result.code : ''
 }
