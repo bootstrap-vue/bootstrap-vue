@@ -82,7 +82,7 @@ describe('table > sorting', () => {
         .at(0)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortDesc)
+    ).toContain(wrapper.vm.labelSortDesc)
 
     // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
@@ -92,7 +92,7 @@ describe('table > sorting', () => {
         .at(1)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortAsc)
+    ).toContain(wrapper.vm.labelSortAsc)
 
     // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
@@ -102,7 +102,7 @@ describe('table > sorting', () => {
         .at(2)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortClear)
+    ).toContain(wrapper.vm.labelSortClear)
 
     // Change sort direction
     wrapper.setProps({
@@ -133,7 +133,7 @@ describe('table > sorting', () => {
         .at(0)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortAsc)
+    ).toContain(wrapper.vm.labelSortAsc)
 
     // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
@@ -143,7 +143,7 @@ describe('table > sorting', () => {
         .at(1)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortAsc)
+    ).toContain(wrapper.vm.labelSortAsc)
 
     // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
@@ -153,7 +153,7 @@ describe('table > sorting', () => {
         .at(2)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortClear)
+    ).toContain(wrapper.vm.labelSortClear)
 
     // Clear sort
     wrapper.setProps({
@@ -185,7 +185,7 @@ describe('table > sorting', () => {
         .at(0)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortAsc)
+    ).toContain(wrapper.vm.labelSortAsc)
 
     // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
@@ -195,7 +195,7 @@ describe('table > sorting', () => {
         .at(1)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortAsc)
+    ).toContain(wrapper.vm.labelSortAsc)
 
     // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
@@ -618,7 +618,7 @@ describe('table > sorting', () => {
         .at(0)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortDesc)
+    ).toContain(wrapper.vm.labelSortDesc)
 
     // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
@@ -628,7 +628,7 @@ describe('table > sorting', () => {
         .at(1)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortDesc)
+    ).toContain(wrapper.vm.labelSortDesc)
 
     // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
@@ -670,7 +670,7 @@ describe('table > sorting', () => {
         .at(0)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortAsc)
+    ).toContain(wrapper.vm.labelSortAsc)
 
     // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
@@ -680,7 +680,7 @@ describe('table > sorting', () => {
         .at(1)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortDesc)
+    ).toContain(wrapper.vm.labelSortDesc)
 
     // Not a sortable column
     expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
@@ -690,7 +690,7 @@ describe('table > sorting', () => {
         .at(2)
         .find('.sr-only')
         .text()
-    ).toBe(wrapper.vm.labelSortClear)
+    ).toContain(wrapper.vm.labelSortClear)
 
     wrapper.destroy()
   })
