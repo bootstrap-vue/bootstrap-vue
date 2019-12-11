@@ -11,38 +11,38 @@ if (typeof window !== 'undefined') {
   const Proto = String.prototype
 
   // Ensure we have a `trimStart` method
-  ((obj, prop) => {
+  ;((obj, prop) => {
     if (!(prop in obj && obj[prop])) {
       const rx = /^\s+/
       obj[prop] = obj.trimLeft || function() {
         return this.replace(rx, '')
       }
     }
-  })(Proto,'trimStart')
+  })(Proto, 'trimStart')
 
   // Ensure we have a `trimLeft` method
-  ((obj, prop)=>{
+  ;((obj, prop)=>{
     if (!(prop in obj && obj[prop])) {
       obj[prop] = obj.trimStart
     }
-  })(Proto,'trimLeft')
+  })(Proto, 'trimLeft')
 
   // Ensure we have a `trimEnd` method
-  ((obj, prop) => {
+  ;((obj, prop) => {
     if (!(prop in obj && obj[prop])) {
       const rx = /\s+$/
       obj[prop] = obj.trimRight || function() {
         return this.replace(rx, '')
       }
     }
-  })(Proto,'trimEnd')
+  })(Proto, 'trimEnd')
 
   // Ensure we have a `trimRight` method
-  ((obj, prop) => {
+  ;((obj, prop) => {
     if (!(prop in obj && obj[prop])) {
       obj[prop] = obj.trimEnd
     }
-  })(Proto,'trimRight')
+  })(Proto, 'trimRight')
 }
 
 // Prevent Babel/Standalone from processing <script> tag insertions
