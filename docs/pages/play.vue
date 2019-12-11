@@ -680,11 +680,15 @@ export default {
         this.errHandler('render must be a function', 'javascript')
         return
       }
+      // Compile the string template into render function(s)
+      // So that ES6 in templates on IE11 work
       if (!options.render) {
-        options.template = `<div id="playground-app">${options.template || html}</div>`
-      } else {
-        delete options.template
+        options = {
+          ...Vue.compile(`<div id="playground-app">${options.template || html}</div>`),
+          ...options
+        }
       }
+      delete options.template
 
       // Vue's `errorCapture` doesn't always handle errors in methods (although it
       // does if the method is used as a `v-on`/`@` handler), so we wrap any methods
