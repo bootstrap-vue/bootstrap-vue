@@ -135,7 +135,7 @@ export default {
           clearSelected
         }
         const content = this.normalizeSlot(slotNames, scope) ||
-          field.labelHtml ? h('div', { domProps: htmlOrText(field.labelHtml) }) : field.label
+          (field.labelHtml ? h('div', { domProps: htmlOrText(field.labelHtml) }) : field.label)
         const srLabel = sortLabel ? h('span', { staticClass: 'sr-only' }, sortLabel) : null
         // Return the header cell
         return h(BTh, data, [content, srLabel].filter(identity))
