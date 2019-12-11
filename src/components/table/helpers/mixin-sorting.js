@@ -1,5 +1,4 @@
 import stableSort from '../../../utils/stable-sort'
-import startCase from '../../../utils/startcase'
 import { arrayIncludes } from '../../../utils/array'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
 import { trim } from '../../../utils/string'
