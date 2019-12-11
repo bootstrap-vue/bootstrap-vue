@@ -2,6 +2,7 @@ import stableSort from '../../../utils/stable-sort'
 import startCase from '../../../utils/startcase'
 import { arrayIncludes } from '../../../utils/array'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
+import { trim } from '../../../utils/string'
 import defaultSortCompare from './default-sort-compare'
 
 export default {
@@ -291,6 +292,39 @@ export default {
         'aria-label': ariaLabel || null,
         'aria-sort': ariaSort
       }
+    },
+    sortTheadThLabel(key, field, isFoot) {
+      // A label to be placed in an `.sr-only` element in the header cell
+      if (!this.isSortable || (isFoot && this.noFooterSorting)) {
+        // No label if not a sortable table
+        return null
+      }
+      const sortable = field.sortable
+      // The correctness of these labels is very important for screen-reader users.
+      let labelSorting = ''
+      if (sortable) {
+        if (this.localSortBy === key) {
+          // currently sorted sortable column.
+          labelSorting = this.localSortDesc ? this.labelSortAsc : this.labelSortDesc
+        } else {
+          // Not currently sorted sortable column.
+          // Not using nested ternary's here for clarity/readability
+          // Default for ariaLabel
+          labelSorting = this.localSortDesc ? this.labelSortDesc : this.labelSortAsc
+          // Handle sortDirection setting
+          const sortDirection = this.sortDirection || field.sortDirection
+          if (sortDirection === 'asc') {
+            labelSorting = this.labelSortAsc
+          } else if (sortDirection === 'desc') {
+            labelSorting = this.labelSortDesc
+          }
+        }
+      } else if (!this.noSortReset) {
+        // Non sortable column
+        labelSorting = this.localSortBy ? this.labelSortClear : ''
+      }
+      // Return the sr-only sort label or null if no label
+      return trim(labelSorting) || null
     }
   }
 }
