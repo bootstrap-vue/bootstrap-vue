@@ -138,7 +138,7 @@ export default {
             clearSelected
           })
         } else if (field.labelHtml) {
-          slot = h('div', { domprops: htmlOrText(field.labelHtml)})
+          slot = h('div', { domProps: htmlOrText(field.labelHtml) })
         }
         const srLabel = sortLabel ? h('span', { staticClass: 'sr-only' }, sortLabel) : null
         return h(BTh, data, [slot, srLabel].filter(identity))
