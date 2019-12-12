@@ -28,5 +28,6 @@ describe('icons', () => {
 
   // TODO:
   //   Test for variants
+  //   Test for invalid icon name
   //   Test a few individual icon components
 })
