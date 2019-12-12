@@ -1,19 +1,19 @@
 <template>
   <div class="bd-example bv-icons-table notranslate" role="group" key="_bv-icons-table_">
     <b-form @submit.prevent>
-     <b-form-group
-       label="Search icons"
-       label-cols-sm="6"
-       label-cols-md="8"
-       label-align-sm="right"
-     >
-       <b-form-input
-         key="_bv-icons-table-input_"
-         v-model="iconFilter"
-         type="search"
-         aria-controls="bv-icons-table"
-       ></b-form-input>
-     </b-form-group>
+      <b-form-group
+        label="Search icons"
+        label-cols-sm="6"
+        label-cols-md="8"
+        label-align-sm="right"
+      >
+        <b-form-input
+          key="_bv-icons-table-input_"
+          v-model="iconFilter"
+          type="search"
+          aria-controls="bv-icons-table"
+        ></b-form-input>
+      </b-form-group>
     </b-form>
     <b-row
       id="bv-icons-table"
@@ -76,4 +76,3 @@ export default {
   }
 }
 </script>
-
