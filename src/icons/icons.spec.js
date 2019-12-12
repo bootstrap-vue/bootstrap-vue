@@ -25,6 +25,11 @@ describe('icons', () => {
     expect(wrapper.attributes('role')).toBe('img')
     expect(wrapper.attributes('alt')).toBe('icon')
     expect(wrapper.attributes('focusable')).toBe('false')
+    expect(wrapper.attributes('xmlns')).toBe('http://www.w3.org/2000/svg')
+    expect(wrapper.attributes('width')).toBe('1em')
+    expect(wrapper.attributes('height')).toBe('1em')
+    expect(wrapper.attributes('viewBox')).toBe('0 0 20 20')
+    expect(wrapper.attributes('fill')).toBe('currentColor')
     expect(wrapper.find('path').exists()).toBe(true)
   })
 
