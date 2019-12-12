@@ -3,9 +3,10 @@
     <b-form @submit.prevent>
       <b-form-group
         label="Search icons"
-        label-cols-sm="6"
-        label-cols-md="4"
-        label-cols-lg="8"
+        label-cols-sm="4"
+        label-cols-md="6"
+        label-cols-lg="7"
+        label-cols-xl="8"
         label-align-sm="right"
       >
         <b-form-input
