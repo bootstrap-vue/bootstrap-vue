@@ -28,6 +28,17 @@ describe('icons', () => {
     expect(wrapper.find('path').exists()).toBe(true)
   })
 
+  it('b-icon without icon name renders nothing', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(false)
+    expect(wrapper.text()).toBe('')
+    expect(wrapper.html()).toBe('')
+  })
+
   it('b-icon variant works', async () => {
     const wrapper = mount(BIcon, {
       localVue: localVue,
