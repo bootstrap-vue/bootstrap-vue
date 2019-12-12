@@ -17,60 +17,62 @@ by default (except in the [browser build](/docs#build-variants)).
     - Include full component name ?
 -->
 
-<b-row tag="ul" cols="3" cols-sm="4" cols-lg="6" class="list-unstyled">
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="alert-circle-fill"></b-icon></b-card>
-    <b-form-text class="pt-1">alert-circle-fill</b-form-text>
-  </b-col>
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="alert-circle"></b-icon></b-card>
-    <b-form-text class="pt-1">alert-circle</b-form-text>
-  </b-col>
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="alert-octagon-fill"></b-icon></b-card>
-    <b-form-text class="pt-1">alert-octagon-fill</b-form-text>
-  </b-col>
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="alert-octagon"></b-icon></b-card>
-    <b-form-text class="pt-1">alert-octagon</b-form-text>
-  </b-col>
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="alert-square-fill"></b-icon></b-card>
-    <b-form-text class="pt-1">alert-square-fill</b-form-text>
-  </b-col>
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="alert-square"></b-icon></b-card>
-    <b-form-text class="pt-1">alert-square</b-form-text>
-  </b-col>
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="alert-triangle-fill"></b-icon></b-card>
-    <b-form-text class="pt-1">alert-triangle-fill</b-form-text>
-  </b-col>
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="alert-triangle"></b-icon></b-card>
-    <b-form-text class="pt-1">alert-triangle</b-form-text>
-  </b-col>
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="alert-triangle"></b-icon></b-card>
-    <b-form-text class="pt-1">alert-triangle</b-form-text>
-  </b-col>
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="archive-fill"></b-icon></b-card>
-    <b-form-text class="pt-1">archive-fill</b-form-text>
-  </b-col>
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="archive"></b-icon></b-card>
-    <b-form-text class="pt-1">archive</b-form-text>
-  </b-col>
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="arrow-clockwise"></b-icon></b-card>
-    <b-form-text class="pt-1">arrow-clockwise</b-form-text>
-  </b-col>
-  <b-col tag="li" class="mb-4 text-center">
-    <b-card bg-variant="light"><b-icon icon="arrow-counterclockwise"></b-icon></b-card>
-    <b-form-text class="pt-1">arrow-counterclockwise</b-form-text>
-  </b-col>
-</b-row>
+<div class="bd-example bv-icons-table notranslate">
+  <b-row tag="ul" cols="3" cols-sm="4" cols-lg="6" class="list-unstyled">
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="alert-circle-fill"></b-icon></b-card>
+      <b-form-text class="pt-1">alert-circle-fill</b-form-text>
+    </b-col>
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="alert-circle"></b-icon></b-card>
+      <b-form-text class="pt-1">alert-circle</b-form-text>
+    </b-col>
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="alert-octagon-fill"></b-icon></b-card>
+      <b-form-text class="pt-1">alert-octagon-fill</b-form-text>
+    </b-col>
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="alert-octagon"></b-icon></b-card>
+      <b-form-text class="pt-1">alert-octagon</b-form-text>
+    </b-col>
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="alert-square-fill"></b-icon></b-card>
+      <b-form-text class="pt-1">alert-square-fill</b-form-text>
+    </b-col>
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="alert-square"></b-icon></b-card>
+      <b-form-text class="pt-1">alert-square</b-form-text>
+    </b-col>
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="alert-triangle-fill"></b-icon></b-card>
+      <b-form-text class="pt-1">alert-triangle-fill</b-form-text>
+    </b-col>
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="alert-triangle"></b-icon></b-card>
+      <b-form-text class="pt-1">alert-triangle</b-form-text>
+    </b-col>
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="alert-triangle"></b-icon></b-card>
+      <b-form-text class="pt-1">alert-triangle</b-form-text>
+    </b-col>
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="archive-fill"></b-icon></b-card>
+      <b-form-text class="pt-1">archive-fill</b-form-text>
+    </b-col>
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="archive"></b-icon></b-card>
+      <b-form-text class="pt-1">archive</b-form-text>
+    </b-col>
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="arrow-clockwise"></b-icon></b-card>
+      <b-form-text class="pt-1">arrow-clockwise</b-form-text>
+    </b-col>
+    <b-col tag="li" class="mb-4 text-center">
+      <b-card bg-variant="light"><b-icon icon="arrow-counterclockwise"></b-icon></b-card>
+      <b-form-text class="pt-1">arrow-counterclockwise</b-form-text>
+    </b-col>
+  </b-row>
+</div>
 
 ## Usage
 
