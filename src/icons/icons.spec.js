@@ -21,14 +21,35 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes().length).toBe(2)
     expect(wrapper.attributes('role')).toBe('img')
     expect(wrapper.attributes('alt')).toBe('icon')
-    expect(wrapper.attributes('focusable')).toBe('true')
+    expect(wrapper.attributes('focusable')).toBe('false')
+    expect(wrapper.find('path').exists()).toBe(true)
+  })
+
+  it('b-icon variant works', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      propsData: {
+        icon: 'alert-circle-fill',
+        variant: 'danger'
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('text-danger')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.attributes('role')).toBe('img')
+    expect(wrapper.attributes('alt')).toBe('icon')
+    expect(wrapper.attributes('focusable')).toBe('false')
     expect(wrapper.find('path').exists()).toBe(true)
   })
 
   // TODO:
-  //   Test for variants
   //   Test for invalid icon name
   //   Test a few individual icon components
 })
