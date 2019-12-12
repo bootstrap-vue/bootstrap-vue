@@ -18,7 +18,7 @@ const pascalCase = str => {
 const hyphenateRE = /\B([A-Z])/g
 export const kebabCase = str => {
   return str.replace(hyphenateRE, '-$1').toLowerCase()
-})
+}
 
 // Icon component generator function
 // @name: (string) icon name (minus the leading `BIcon`)
