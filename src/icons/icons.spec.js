@@ -1,4 +1,4 @@
-import { mount, createLocalVue as CreateLocalVue } from 'vue-test-utils'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { IconsPlugin } from './index'
 
 describe('icons', () => {
