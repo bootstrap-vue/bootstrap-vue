@@ -17,7 +17,8 @@ export default {
   data() {
     return {
       readme: readme,
-      meta: iconsMeta || {}
+      // key for icons meta is '' (empty slug)
+      meta: iconsMeta['']
     }
   },
   computed: {}
