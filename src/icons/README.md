@@ -12,7 +12,7 @@ by default (except in the [browser build](/docs#build-variants)).
 
 <!-- component rendered by docs/pages/docs/icons.index.js -->
 
-<icons-table></icons-table>
+<div is="IconsTable"></div>
 
 ## Usage
 
