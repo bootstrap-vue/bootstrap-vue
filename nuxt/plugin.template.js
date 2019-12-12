@@ -1,9 +1,16 @@
 import Vue from 'vue';
 
 <% if (!options.treeShake) { %>
-import BootstrapVue from 'bootstrap-vue';
+<%   if (options.icons) { %>
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 
 Vue.use(BootstrapVue, <%= JSON.stringify(options.config || {}, undefined, 2) %>);
+Vue.use(IconsPlugin);
+<%   } else { %>
+import { BootstrapVue } from 'bootstrap-vue';
+
+Vue.use(BootstrapVue, <%= JSON.stringify(options.config || {}, undefined, 2) %>);
+<%   } %>
 <% } %>
 
 <% if (options.treeShake) { %>
