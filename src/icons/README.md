@@ -37,6 +37,9 @@ by default (except in the [browser build](/docs#build-variants)).
       <b-form-text class="mt-1">{{ icon }}</b-form-text>
     </b-col>
   </b-row>
+  <b-alert :show="filteredIcons.length === 0" class="text-center">
+    Nothing found. Try searching again.
+  </b-alert>
 </div>
 
 ## Usage
