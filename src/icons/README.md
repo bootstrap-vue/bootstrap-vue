@@ -81,6 +81,10 @@ TBD
 
 TBD
 
+### Helper component
+
+TBD
+
 ### Variants
 
 TBD
@@ -88,8 +92,6 @@ TBD
 ### Sizing
 
 TBD
-
-### Helper component
 
 ## Working with SVGs
 
