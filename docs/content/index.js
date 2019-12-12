@@ -39,7 +39,7 @@ export const nav = [
     title: 'Icons',
     base: 'icons',
     exact: true,
-    meta: iconsContex,
+    meta: icons,
     description: 'BootstrapVue icons'
   },
   {
