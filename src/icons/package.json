@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Bootstrap Icons",
+    "slug": "",
     "description": "Bootstrap Icons are designed to work with Bootstrap components, from form controls to navigation. Bootstrap Icons are SVGs, so they scale quickly and easily and can be styled with CSS.",
     "components": [
       {
