@@ -12,7 +12,9 @@ by default (except in the [browser build](/docs#build-variants)).
 
 <!-- component rendered by docs/pages/docs/icons.index.js -->
 
-<div is="IconsTable"></div>
+<div class="bd-example notranslate">
+  <icons-table></icons-table>
+</div>
 
 ## Usage
 
