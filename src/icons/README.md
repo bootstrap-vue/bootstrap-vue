@@ -37,8 +37,8 @@ by default (except in the [browser build](/docs#build-variants)).
       tag="li"
       class="mb-2 text-center"
     >
-      <b-card bg-variant="light"><b-icon icon="alert-circle-fill"></b-icon></b-card>
-      <b-form-text class="mt-1">alert-circle-fill</b-form-text>
+      <b-card bg-variant="light"><b-icon :icon="icon"></b-icon></b-card>
+      <b-form-text class="mt-1">{{ icon }}</b-form-text>
     </b-col>
   </b-row>
 </div>
