@@ -62,6 +62,14 @@ Bootstrap, they'll work in any project.
     <b-card bg-variant="light"><b-icon icon="archive"></b-icon></b-card>
     <b-form-text class="pt-1">archive</b-form-text>
   </b-col>
+  <b-col tag="li" class="mb-4 text-center">
+    <b-card bg-variant="light"><b-icon icon="arrow-clockwise"></b-icon></b-card>
+    <b-form-text class="pt-1">arrow-clockwise</b-form-text>
+  </b-col>
+  <b-col tag="li" class="mb-4 text-center">
+    <b-card bg-variant="light"><b-icon icon="arrow-counterclockwise"></b-icon></b-card>
+    <b-form-text class="pt-1">arrow-counterclockwise</b-form-text>
+  </b-col>
 </b-row>
 
 ## Usage
