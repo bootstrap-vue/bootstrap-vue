@@ -17,7 +17,7 @@ export const kebabCase = str => {
 }
 
 // Converts a kebab-case or camelCase string to PascalCase
-const pascalCase = str => {
+export const pascalCase = str => {
   str = kebabCase(str).replace(RX_UNKEBAB, (_, c) => (c ? c.toUpperCase() : ''))
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
