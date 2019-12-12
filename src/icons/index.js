@@ -21,6 +21,10 @@ export const iconComponents = {}
 
 // --- Generic Icon Component for ease of use ---
 
+// Pre-compiled RegExpr
+
+const RX_ICON_PREFIX = /^BIcon/
+
 // Requires individual icon components to be installed
 export const BIcon = /*#__PURE__*/ Vue.extend({
   name: 'BIcon',
@@ -36,11 +40,11 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h, { data, props }) {
-    const icon = pascalCase(trim(props.icon || ''))
+    const icon = pascalCase(trim(props.icon || '')).replace(RX_ICON_PREFIX, '')
     if (!icon) {
       return h()
     }
-    const componentName = `BIcon${icon.replace(/^BIcon/, '')}`
+    const componentName = `BIcon${icon}`
     // TODO:
     //   Could check Vue.options.components[componentName]
     //   To see if the icon is registered/valid
