@@ -1,3 +1,4 @@
+<!-- Should this file instead be placed in /docs/markdown/icons? -->
 # Bootstrap Icons
 
 > BootstrapVue includes icon components based on [`bootstrap-icons`](https://icons.getbootstrap.com/).
