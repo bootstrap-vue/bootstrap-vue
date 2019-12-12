@@ -1,15 +1,16 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { IconsPlugin } from './index'
+import { IconsPlugin, BIcon } from './index'
 
 describe('icons', () => {
   const localVue = new CreateLocalVue()
 
   beforeAll(() => {
+    // We install all icon components so that BIcon will work
     localVue.use(IconsPlugin)
   })
 
   it('b-icon has expected structure', async () => {
-    const wrapper = mount('BIcon', {
+    const wrapper = mount(BIcon, {
       localVue: localVue,
       propsData: {
         icon: 'alert-rounded-fill'
