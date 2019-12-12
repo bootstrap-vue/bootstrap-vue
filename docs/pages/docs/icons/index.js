@@ -31,7 +31,9 @@ export default {
       const rx = /^BIcon/
       const kebabRx = /\B([A-Z])/g
       return this.iconNames.map(name => {
-        return name.replace(rx, '').replace(kebabRx, '-$1').toLowerCase()
+        return name.replace(rx, '')
+          .replace(kebabRx, '-$1')
+          .toLowerCase()
       })
     },
     filteredIcons() {
