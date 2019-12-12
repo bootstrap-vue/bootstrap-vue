@@ -9,9 +9,9 @@
 //   As there are over 200 icons in the Bootstrap-icons library
 //
 import { makeIcon } from './helpers/make-icon'
+import Vue from '../utils/vue'
 import { pluginFactory } from '../utils/plugins'
 import { pascalCase, trim } from '../utils/string'
-import { Vue } from '../utils/vue'
 
 // We export this object mainly for the docs
 // for generating the icon "table"
