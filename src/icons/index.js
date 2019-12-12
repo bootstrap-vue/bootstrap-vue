@@ -135,6 +135,10 @@ iconComponents.BIconArrowCounterclockwise = BIconArrowCounterclockwise
 // TODO:
 //   Add remaining icons
 
+// --- Array of icon names (PascalCase) for use in docs ---
+
+export const iconNames = Object.keys(iconComponents) || []
+
 // --- Main plugin export --
 
 export const IconsPlugin = /*#__PURE__*/ pluginFactory({ components: iconComponents })
