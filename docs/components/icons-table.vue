@@ -32,14 +32,16 @@
         class="mb-2 text-center"
       >
         <b-card bg-variant="light" no-body>
-          <b-card-body body-class="py-3"><b-icon :icon="icon"></b-icon></b-card-body>
+          <b-card-body body-class="py-3">
+            <b-icon :icon="icon"></b-icon>
+          </b-card-body>
         </b-card>
         <b-form-text class="mt-1">{{ icon }}</b-form-text>
       </b-col>
     </b-row>
-    <div aria-lice="polite" aria-atomic="true">
+    <div aria-live="polite" aria-atomic="true">
       <b-alert :show="filteredIcons.length === 0" class="text-center mb-0">
-        Nothing matching icons found. Try searching again.
+        No matching icons found. Try searching again.
       </b-alert>
     </div>
   </div>
