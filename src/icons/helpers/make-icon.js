@@ -1,29 +1,16 @@
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
-// import { kebabCase, pascalCase } from '../../utils/string'
+import { kebabCase, pascalCase } from '../../utils/string'
 import { mergeData } from 'vue-functional-data-merge'
 
-// TODO:
-//   Move the following methods to utils/string
-
-// Converts a kebab-case or camelCase string to PascalCase
-const unKebabRE = /-(\w)/g
-const pascalCase = str => {
-  str = str.replace(unKebabRE, (_, c) => (c ? c.toUpperCase() : ''))
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
-
-// Converts PascalCase or camelCase to kebab-case
-const hyphenateRE = /\B([A-Z])/g
-export const kebabCase = str => {
-  return str.replace(hyphenateRE, '-$1').toLowerCase()
-}
-
-// Icon component generator function
-// @name: (string) icon name (minus the leading `BIcon`)
-// @content: (String|Arrya<string>) raw inner HTML for SVG
-// returns VueComponent
+/**
+ * Icon component generator function
+ *
+ * @param {string} icon name (minus the leading `BIcon`)
+ * @param {string|string[]} raw innerHTML for SVG
+ * @return {VueComponent}
+ */
 export const makeIcon = (name, content) => {
   const svgContent = concat(content)
     .filter(identity)
