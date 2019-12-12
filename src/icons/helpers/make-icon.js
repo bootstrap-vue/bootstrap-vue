@@ -45,7 +45,7 @@ const makeIcon = (name, content = '') => {
       }
     },
     render(h, { data, props }) {
-      return h('svg', mergeData(
+      const componentData = mergeData(
         {
           staticClass: iconClass,
           class: { [`text-${props.variant}`]: !!props.variant },
@@ -62,7 +62,8 @@ const makeIcon = (name, content = '') => {
         },
         data,
         { domProps: { innerHTML: content } }
-      ))
+      )
+      return h('svg', componentData)
     }
   })
 }
