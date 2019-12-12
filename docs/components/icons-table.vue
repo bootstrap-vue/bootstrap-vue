@@ -4,7 +4,8 @@
       <b-form-group
         label="Search icons"
         label-cols-sm="6"
-        label-cols-md="8"
+        label-cols-md="4"
+        label-cols-lg="8"
         label-align-sm="right"
       >
         <b-form-input
