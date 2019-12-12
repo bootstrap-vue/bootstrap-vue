@@ -34,7 +34,6 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(false)
     expect(wrapper.text()).toBe('')
     expect(wrapper.html()).toBe('')
   })
