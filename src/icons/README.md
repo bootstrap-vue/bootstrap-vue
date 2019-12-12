@@ -10,12 +10,7 @@ by default (except in the [browser build](/docs#build-variants)).
 
 ## Icons
 
-<!--
-  TODO:
-    - Include full component name?
--->
-
-<div class="bd-example bv-icons-table notranslate">
+<div class="bd-example bv-icons-table notranslate" key="_bv-icons-table_">
   <b-form @submit.prevent>
    <b-form-group
      label="Search icons"
@@ -24,6 +19,7 @@ by default (except in the [browser build](/docs#build-variants)).
      label-align-sm="right"
    >
      <b-form-input
+       key="_bv-icons-table-input_"
        v-model="iconFilter"
        type="search"
        aria-controls="bv-icons-table"
