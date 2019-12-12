@@ -60,7 +60,7 @@ const icons = iconNames
   .map(name => name.toLowerCase())
 
 export default {
-  name: 'BVDIconstable',
+  name: 'BVDIconsTable',
   data() {
     return {
       iconFilter: ''
