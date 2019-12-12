@@ -47,5 +47,9 @@ export default {
         return terms.every(term => name.indexOf(term) !== -1)
       })
     }
+  },
+  mounted() {
+    // Debug
+    console.log('iconsMeta:', iconsMeta)
   }
 }
