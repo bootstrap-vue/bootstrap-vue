@@ -8,8 +8,9 @@
 //   Create a utility script to auto-generate/update this file
 //   As there are over 200 icons in the Bootstrap-icons library
 //
-import { makeIcon } from './helpers/make-icon'
 import Vue from '../utils/vue'
+import { mergeData } from 'vue-functional-data-merge'
+import { makeIcon } from './helpers/make-icon'
 import { pluginFactory } from '../utils/plugins'
 import { pascalCase, trim } from '../utils/string'
 
@@ -27,15 +28,15 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
   props: {
     icon: {
       type: String,
-      default: null,
+      default: null
     },
     variant: {
       type: String,
-      default: null,
+      default: null
     }
   },
   render(h, { data, props }) {
-    let icon = pascaleCase(trim((props.icon || '')))
+    const icon = pascalCase(trim(props.icon || ''))
     if (!icon) {
       return h()
     }
@@ -58,13 +59,13 @@ iconComponents.BIcon = BIcon
 //   As there are over 200 icons in the Bootstrap-icons library
 
 export const BIconAlertCircleFill = /*#__PURE__*/ makeIcon('AlertCircleFill', [
- '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8.998 3a1 1 0 112 0 1 1 0 01-2 0zM10 6a.905.905 0 00-.9.995l.35 3.507a.553.553 0 001.1 0l.35-3.507A.905.905 0 0010 6z" clip-rule="evenodd"/>'
+  '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8.998 3a1 1 0 112 0 1 1 0 01-2 0zM10 6a.905.905 0 00-.9.995l.35 3.507a.553.553 0 001.1 0l.35-3.507A.905.905 0 0010 6z" clip-rule="evenodd"/>'
 ])
 iconComponents.BIconAlertCircleFill = BIconAlertCircleFill
 
 export const BIconAlertCircle = /*#__PURE__*/ makeIcon('AlertCircle', [
- '<path fill-rule="evenodd" d="M10 17a7 7 0 100-14 7 7 0 000 14zm0 1a8 8 0 100-16 8 8 0 000 16z" clip-rule="evenodd"/>',
- '<path d="M9.002 13a1 1 0 112 0 1 1 0 01-2 0zM9.1 6.995a.905.905 0 111.8 0l-.35 3.507a.553.553 0 01-1.1 0L9.1 6.995z"/>'
+  '<path fill-rule="evenodd" d="M10 17a7 7 0 100-14 7 7 0 000 14zm0 1a8 8 0 100-16 8 8 0 000 16z" clip-rule="evenodd"/>',
+  '<path d="M9.002 13a1 1 0 112 0 1 1 0 01-2 0zM9.1 6.995a.905.905 0 111.8 0l-.35 3.507a.553.553 0 01-1.1 0L9.1 6.995z"/>'
 ])
 iconComponents.BIconAlertCircle = BIconAlertCircle
 
