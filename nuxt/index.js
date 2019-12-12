@@ -104,7 +104,8 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     // Base options available to template
     const templateOptions = {
       // Flag if we are tree shaking
-      treeShake: false
+      treeShake: false,
+      icons: !!options.icons
     }
 
     // Specific component and/or directive plugins
