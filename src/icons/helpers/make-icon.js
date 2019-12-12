@@ -24,9 +24,12 @@ export const kebabCase = str => {
 // @name: (string) icon name (minus the leading `BIcon`)
 // @content: (String|Arrya<string>) raw inner HTML for SVG
 // returns VueComponent
-const makeIcon = (name, content = '') => {
-  content = concat(content).filter(identity).join('').trim()
-  // The following is needed if we import the raw SVGs from 
+export const makeIcon = (name, content) => {
+  const svgContent = concat(content)
+    .filter(identity)
+    .join('')
+    .trim()
+  // The following is needed if we import the raw SVGs from
   // bootstrap-icons/icons/*.svg and do not strip the <svg> root element
   // content = content.replace(/<svg[^>]+>/, '').replace(/<\/svg>/, '')
 
@@ -61,7 +64,7 @@ const makeIcon = (name, content = '') => {
           }
         },
         data,
-        { domProps: { innerHTML: content } }
+        { domProps: { innerHTML: svgContent } }
       )
       return h('svg', componentData)
     }
