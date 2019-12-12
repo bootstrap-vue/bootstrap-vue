@@ -50,11 +50,11 @@ const makeIcon = (name, content = '') => {
           staticClass: iconClass,
           class: { [`text-${props.variant}`]: !!props.variant },
           attrs: {
-            xmlns: 'http://www.w3.org/2000/svg'
+            xmlns: 'http://www.w3.org/2000/svg',
             width: '1em',
             height: '1em',
             viewBox: '0 0 20 20',
-            fill: 'currentColor'
+            fill: 'currentColor',
             role: 'img',
             alt: 'icon',
             focusable: 'false'
