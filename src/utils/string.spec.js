@@ -1,6 +1,24 @@
-import { escapeRegExp, lowerFirst, toString, upperFirst } from './string'
+import { escapeRegExp, kebabCase, lowerFirst, pascalCase, toString, upperFirst } from './string'
 
 describe('utils/string', () => {
+  it('kebabCase works', async () => {
+    expect(kebabCase('foo')).toBe('foo')
+    expect(kebabCase('Foo')).toBe('foo')
+    expect(kebabCase('fooBar')).toBe('foo-bar')
+    expect(kebabCase('FooBar')).toBe('foo-bar')
+    expect(kebabCase('XFooBar')).toBe('x-foo-bar')
+  })
+
+  it('pascalCase works', async () => {
+    expect(pascalCase('foo')).toBe('Foo')
+    expect(pascalCase('Foo')).toBe('Foo')
+    expect(pascalCase('fooBar')).toBe('FooBar')
+    expect(pascalCase('FooBar')).toBe('FooBar')
+    expect(pascalCase('foo-bar')).toBe('FooBar')
+    expect(pascalCase('x-foo-bar')).toBe('XFooBar')
+    expect(pascalCase('xFooBar')).toBe('XFooBar')
+  })
+
   it('lowerFirst works', async () => {
     expect(lowerFirst('Upper')).toBe('upper')
     expect(lowerFirst(' Upper ')).toBe('upper')
