@@ -29,13 +29,14 @@ describe('icons', () => {
   })
 
   it('b-icon without icon name renders nothing', async () => {
+    // This test assumes Vue doesn't puke on unknown component names
+    // As we currently do not check the validity of icon names
     const wrapper = mount(BIcon, {
       localVue: localVue
     })
-
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.text()).toBe('')
-    expect(wrapper.html()).toBe('')
+    expect(wrapper.html()).not.toBeDefined()
   })
 
   it('b-icon variant works', async () => {
