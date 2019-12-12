@@ -1,0 +1,23 @@
+{
+  "name": "@bootstrap-vue/icons",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Bootstrap Icons",
+    "description": "Bootstrap Icons are designed to work with Bootstrap components, from form controls to navigation. Bootstrap Icons are SVGs, so they scale quickly and easily and can be styled with CSS.",
+    "components": [
+      {
+        "component": "BIcon",
+        "props": [
+          {
+            "prop": "icon",
+            "description": "Name of icon to render. The corresponding icon component must be installed"
+          },
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      }
+    ]
+  }
+}
