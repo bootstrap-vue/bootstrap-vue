@@ -149,6 +149,16 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       }
     }
 
+    // If tree shaking, and icons requesed, add in
+    // the IconsPlugin if not already specified
+    if (
+      templateOptions.treeShake &&
+      templateOptions.icons &&
+      templateOptions.componentPlugins.indexOf('IconsPlugin') === -1
+    ) {
+      templateOptions.componentPlugins.push('IconsPlugin')
+    }
+
     // Add BootstrapVue configuration if present
     if (options.config && Object.prototype.toString.call(options.config) === '[object Object]') {
       templateOptions.config = { ...options.config }
