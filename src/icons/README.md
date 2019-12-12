@@ -10,10 +10,10 @@ by default (except in the [browser build](/docs#build-variants)).
 
 ## Icons
 
-<!-- component rendered by docs/pages/docs/icons.index.js -->
-
 <div class="bd-example notranslate">
-  <icons-table></icons-table>
+  <!-- Component rendered by docs/pages/docs/icons.index.js -->
+  <!-- We use a `<div is="...">` to prevent marked loader from mangling the unknown tag-->
+  <div is="IconsTable"></div>
 </div>
 
 ## Usage
