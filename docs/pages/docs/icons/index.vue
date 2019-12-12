@@ -1,15 +1,7 @@
 import Main from '~/components/main'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
-import {
-  bootstrapVersion,
-  defaultConfig,
-  nuxtVersion,
-  portalVueVersion,
-  version,
-  vueVersion
-} from '~/content'
-
+import { icons as iconsMeta } from '~/content'
 const getReadMe = () => import(`~/../src/icons/README.md` /* webpackChunkName: "docs/icons" */)
 
 export default {
@@ -24,7 +16,7 @@ export default {
   mixins: [docsMixin],
   async asyncData({ params }) {
     const readme = (await getReadMe()).default
-    const meta = componentsMeta['icons']
+    const meta = iconMeta
     return { readme, meta }
   },
   data() {
