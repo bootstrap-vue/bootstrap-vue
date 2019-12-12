@@ -60,7 +60,9 @@ const icons = iconNames
 export default {
   name: 'BVDIconstable',
   data() {
-    iconFilter: ''
+    return {
+      iconFilter: ''
+    }
   },
   computed: {
     filteredIcons() {
