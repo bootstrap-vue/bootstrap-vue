@@ -14,9 +14,9 @@ import { makeIcon } from './helpers/make-icon'
 import { pluginFactory } from '../utils/plugins'
 import { pascalCase, trim } from '../utils/string'
 
-// We export this object mainly for the docs
-// for generating the icon "table"
-// it is also used in the IconsPlugin export
+// We export this object mainly for the docs for generating the icon "table"
+// It is also used in the IconsPlugin export at the bootom of this file
+// Populated as Icon components are defined
 export const iconComponents = {}
 
 // --- Generic Icon Component for ease of use ---
