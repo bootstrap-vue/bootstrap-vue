@@ -22,7 +22,7 @@ export const iconComponents = {}
 
 // Requires individual icon components to be installed
 export const BIcon = /*#__PURE__*/ Vue.extend({
-  name: 'BIcon'
+  name: 'BIcon',
   functional: true,
   props: {
     icon: {
@@ -44,7 +44,7 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
     //   Could check Vue.options.components[componentName]
     //   To see if the icon is registered/valid
     //   Could also use <component :is="componentName"> instead
-    return h(componentName, mergeData(data, { props: { variant: props.variant } })
+    return h(componentName, mergeData(data, { props: { variant: props.variant } }))
   }
 })
 iconComponents.BIcon = BIcon
