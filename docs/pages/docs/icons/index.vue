@@ -2,7 +2,7 @@ import Main from '~/components/main'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { icons as iconsMeta } from '~/content'
-const getReadMe = () => import(`~/../src/icons/README.md` /* webpackChunkName: "docs/icons" */)
+import readme from '~/../src/icons/README.md'
 
 export default {
   name: 'BDVIcons',
@@ -14,13 +14,11 @@ export default {
     Section
   },
   mixins: [docsMixin],
-  async asyncData({ params }) {
-    const readme = (await getReadMe()).default
-    const meta = iconMeta
-    return { readme, meta }
-  },
   data() {
-    return {}
+    return {
+      readme: readme,
+      meta: iconsMeta || {}
+    }
   },
   computed: {}
 }
