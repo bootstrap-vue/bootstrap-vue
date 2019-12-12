@@ -54,7 +54,7 @@ export { BVModalPlugin } from './components/modal/helpers/bv-modal'
 export { BVToastPlugin } from './components/toast/helpers/bv-toast'
 
 //
-// Export Icon components and plugins
+// Export Icon components and IconPlugin
 //
 export * from './icons'
 
