@@ -8,7 +8,7 @@ export const components = importAll(componentsContext)
 const directivesContext = require.context('~/../src/directives/', true, /package.json/)
 export const directives = importAll(directivesContext)
 
-const iconsContext = require.context('~/../src/icons/', false, /package.json/)
+const iconsContext = require.context('~/../src/icons', false, /package.json/)
 export const icons = importAll(iconsContext)
 
 const referenceContext = require.context('~/markdown/reference', true, /meta.json/)
@@ -39,7 +39,6 @@ export const nav = [
     title: 'Icons',
     base: 'icons',
     exact: true,
-    pages: icons,
     description: 'BootstrapVue icons'
   },
   {
