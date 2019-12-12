@@ -13,14 +13,14 @@ describe('icons', () => {
     const wrapper = mount(BIcon, {
       localVue: localVue,
       propsData: {
-        icon: 'alert-rounded-fill'
+        icon: 'alert-circle-fill'
       }
     })
 
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-rounded-fill')
+    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
     expect(wrapper.attributes('role')).toBe('img')
     expect(wrapper.attributes('alt')).toBe('icon')
     expect(wrapper.attributes('focusable')).toBe('true')
