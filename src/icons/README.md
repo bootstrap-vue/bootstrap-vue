@@ -32,7 +32,7 @@ by default (except in the [browser build](/docs#build-variants)).
   </b-col>
   <b-col tag="li" class="mb-4 text-center">
     <b-card bg-variant="light"><b-icon icon="alert-octagon"></b-icon></b-card>
-    <b-card-text class="pt-1">alert-octagon</b-form-text>
+    <b-form-text class="pt-1">alert-octagon</b-form-text>
   </b-col>
   <b-col tag="li" class="mb-4 text-center">
     <b-card bg-variant="light"><b-icon icon="alert-square-fill"></b-icon></b-card>
