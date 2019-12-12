@@ -8,7 +8,7 @@ describe('icons', () => {
     localVue.use(IconsPlugin)
   })
 
-  describe('b-icon has expected structure', async () => {
+  it('b-icon has expected structure', async () => {
     const wrapper = mount('BIcon', {
       localVue: localVue,
       propsData: {
