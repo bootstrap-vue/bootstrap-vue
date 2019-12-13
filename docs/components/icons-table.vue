@@ -26,7 +26,7 @@
       cols="3"
       cols-sm="4"
       cols-lg="6"
-      class="list-unstyled mb-0"
+      class="list-unstyled mb-n3"
     >
       <b-col
         v-for="icon in filteredIcons"
