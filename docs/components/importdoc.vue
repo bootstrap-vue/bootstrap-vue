@@ -219,7 +219,7 @@ export default {
   },
   methods: {
     componentName(component) {
-      return kebabCase(component)
+      return kebabCase(component).replace('{-', '{')
     },
     componentTag(component) {
       return `<${this.componentName(component)}>`
