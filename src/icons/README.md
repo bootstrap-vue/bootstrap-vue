@@ -88,8 +88,10 @@ of the icon names listed in the [Icons](#icons) section above.
 
 ```html
 <template>
-  <b-icon-arrow-up></b-icon-arrow-up>
-  <b-icon-arrow-down></b-icon-arrow-down>
+  <div>
+    <b-icon-arrow-up></b-icon-arrow-up>
+    <b-icon-arrow-down></b-icon-arrow-down>
+  </div>
 </template>
 
 <!-- icons-individual-usage.vue -->
@@ -99,8 +101,10 @@ of the icon names listed in the [Icons](#icons) section above.
 
 ```html
 <template>
-  <b-icon icon="arrow-up"></b-icon>
-  <b-icon icon="arrow-down"></b-icon>
+  <div>
+    <b-icon icon="arrow-up"></b-icon>
+    <b-icon icon="arrow-down"></b-icon>
+  </div>
 </template>
 
 <!-- icons-helper-usage.vue -->
@@ -116,16 +120,31 @@ provide a `variant` prop to apply one of the bootstrap contextual text variant c
 
 ```html
 <template>
-  <b-icon icon="alert-circle-fill" variant="success"></b-icon>
-  <b-icon icon="alert-circle-fill" variant="warning"></b-icon>
-  <b-icon icon="alert-circle-fill" variant="danger"></b-icon>
-  <b-icon icon="alert-circle-fill" variant="info"></b-icon>
-  <b-icon icon="alert-circle-fill" variant="primary"></b-icon>
-  <b-icon icon="alert-circle-fill" variant="secondary"></b-icon>
-  <b-icon icon="alert-circle-fill" variant="dark"></b-icon>
+  <div>
+    <b-icon icon="alert-circle-fill" variant="success"></b-icon>
+    <b-icon icon="alert-circle-fill" variant="warning"></b-icon>
+    <b-icon icon="alert-circle-fill" variant="danger"></b-icon>
+    <b-icon icon="alert-circle-fill" variant="info"></b-icon>
+    <b-icon icon="alert-circle-fill" variant="primary"></b-icon>
+    <b-icon icon="alert-circle-fill" variant="secondary"></b-icon>
+    <b-icon icon="alert-circle-fill" variant="dark"></b-icon>
+  </div>
 </template>
 
-<!-- icons-variants.vue -->
+<!-- icons-color-variants.vue -->
+```
+
+You can also use custom CSS to set the icon color, either via direct `style` attribute, or
+via custom classes:
+
+```html
+<template>
+  <div>
+    <b-icon icon="battery-full" style="color: #7952b3;"></b-icon>
+  </div>
+</template>
+
+<!-- icons-color-css.vue -->
 ```
 
 ## Sizing
@@ -135,18 +154,43 @@ the current font size:
 
 ```html
 <template>
-  <p class="h1 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
-  <p class="h2 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
-  <p class="h3 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
-  <p class="h4 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
-  <p class="h5 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
+  <div>
+    <p class="h1 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
+    <p class="h2 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
+    <p class="h3 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
+    <p class="h4 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
+    <p class="h5 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
+  </div>
 </template>
+
+<!-- icons-size-inherit.vue -->
+```
+
+You can also use custom CSS to set the icon size, either via direct `style` attribute, or
+via custom classes:
+
+```html
+<template>
+  <div>
+    <b-icon icon="alert-circle" style="width: 120px; height: 120px;"></b-icon>
+  </div>
+</template>
+
+<!-- icons-size-css.vue -->
 ```
 
 Alternatively, you can override the `<svg>` `width` and `height` attributes to set an explicit
 size:
 
-TBD
+```html
+<template>
+  <div>
+    <b-icon icon="bell-fill" width="120px" height="120px"></b-icon>
+  </div>
+</template>
+
+<!-- icons-size-attrs.vue -->
+```
 
 ## Working with SVGs
 
