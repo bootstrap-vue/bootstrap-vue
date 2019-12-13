@@ -45,7 +45,14 @@
       </b-col>
     </b-row>
     <div aria-live="polite" aria-atomic="true">
-      <b-alert :show="filteredIcons.length === 0" variant="light" class="text-center mb-0">
+      <b-alert
+        :show="filteredIcons.length === 0"
+        :role="null"
+        :aria-live="null"
+        :aria-atomic="null"
+        variant="light"
+        class="text-center mb-0"
+      >
         No matching icons found. Try searching again.
       </b-alert>
     </div>
