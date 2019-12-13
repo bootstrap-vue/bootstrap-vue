@@ -48,7 +48,7 @@
           :aria-live="null"
           :aria-atomic="null"
           variant="light"
-          class="text-center mb-0 d-flex align-items-center justify-content-center"
+          class="text-center mt-4 d-flex align-items-center justify-content-center"
         >
           <b-icon icon="alert-triangle-fill" aria-hidden="true"></b-icon>
           <span>No matching icons found. Try searching again.</span>
