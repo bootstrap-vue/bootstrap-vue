@@ -35,7 +35,7 @@
         >
           <b-card bg-variant="light" no-body>
             <b-card-body body-class="py-3">
-              <b-icon :icon="icon.name"></b-icon>
+              <b-icon :icon="icon.name" :title="icon.name"></b-icon>
             </b-card-body>
           </b-card>
           <b-form-text class="mt-1 text-break" :title="icon.name">{{ icon.name }}</b-form-text>
