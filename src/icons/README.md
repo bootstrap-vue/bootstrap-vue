@@ -67,7 +67,7 @@ export default {
     BIcon,
     BIconArrowUp,
     BIconArrowDown
-  }
+  },
   props: {
     // ...
   }
