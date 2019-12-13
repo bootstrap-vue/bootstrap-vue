@@ -59,7 +59,7 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .bv-icons-table /deep/ .bi {
   font-size: 2rem;
 }
@@ -84,7 +84,6 @@
 .flip-icon-list-enter, .flip-icon-list-leave-to
   opacity: 0;
 }
-
 </style>
 
 <script>
