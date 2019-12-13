@@ -30,7 +30,7 @@ export default {
           ></Componentdoc>
         </template>
         <div class="alert alert-info small">
-          <p>
+          <p class="mb-0">
             Individual icon components are not listed here due to the large number of components.
             All individual icon components have a single prop <code>variant</code> which accepts
             a bootstrap theme color variant name.
