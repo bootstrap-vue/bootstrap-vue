@@ -3,14 +3,17 @@
     <b-form @submit.prevent>
       <b-form-group
         label="Search icons"
+        label-for="bv-icons-table-search"
         label-cols-sm="4"
         label-cols-md="6"
         label-cols-lg="7"
         label-cols-xl="8"
         label-align-sm="right"
+        :description="`Showing ${filteredIcons.length} of ${totalIcons} icons`"
       >
         <b-form-input
-          key="_bv-icons-table-input_"
+          id="bv-icons-table-search"
+          key="_bv-icons-table-search_"
           v-model="iconFilter"
           type="search"
           aria-controls="bv-icons-table"
@@ -48,8 +51,12 @@
 </template>
 
 <style scoped>
-.bv-icons-table .bi {
+.bv-icons-table /deep/ .bi {
   font-size: 2rem;
+}
+
+.form-group /deep/ .form-text {
+  text-align: right;
 }
 </style>
 
@@ -66,7 +73,8 @@ export default {
   name: 'BVDIconsTable',
   data() {
     return {
-      iconFilter: ''
+      iconFilter: '',
+      totalIcons: icons.length
     }
   },
   computed: {
