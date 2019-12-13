@@ -1,4 +1,4 @@
-// Utility for tranpiling ES6 code into ES5 for playground and v-play
+// Utility for transpiling ES6 code into ES5 for playground and `v-play`
 // Imported only on demand when needed
 import { transform, disableScriptTags } from '@babel/standalone'
 
@@ -64,7 +64,7 @@ const transformOptions = {
   ]
 }
 
-// Our traspilation compiler method
+// Our transpilation compiler method
 export default function compileJs(code) {
   if (!code) {
     return ''
