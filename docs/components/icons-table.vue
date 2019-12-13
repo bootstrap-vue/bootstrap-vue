@@ -1,5 +1,5 @@
 <template>
-  <div class="bv-icons-table notranslate" role="group" key="_bv-icons-table_">
+  <div class="bv-icons-table notranslate" key="_bv-icons-table_" role="group">
     <b-form @submit.prevent>
       <b-form-group
         label="Search icons"
@@ -30,14 +30,14 @@
     >
       <b-col
         v-for="icon in filteredIcons"
-        v-b-tooltip.hover
         :key="`_icon_${icon.name}`"
+        v-b-tooltip.hover
         tag="li"
         :title="icon.component"
         class="mb-2 text-center"
       >
         <b-card bg-variant="light" no-body>
-          <b-card-body body-class="py-3" :title="">
+          <b-card-body body-class="py-3">
             <b-icon :icon="icon.name"></b-icon>
           </b-card-body>
         </b-card>
@@ -45,7 +45,7 @@
       </b-col>
     </b-row>
     <div aria-live="polite" aria-atomic="true">
-      <b-alert :show="filteredIcons.length === 0" class="text-center mb-0">
+      <b-alert :show="filteredIcons.length === 0" variant="light" class="text-center mb-0">
         No matching icons found. Try searching again.
       </b-alert>
     </div>
@@ -68,7 +68,7 @@ import { iconNames } from '~/../src/index'
 const icons = iconNames
   .filter(name => name !== 'BIcon')
   .sort()
-  .map(fullName => { 
+  .map(fullName => {
     return {
       component: fullName,
       name: fullName
@@ -97,6 +97,6 @@ export default {
       }
       return icons.filter(icon => terms.every(term => icon.name.indexOf(term) !== -1))
     }
-  },
+  }
 }
 </script>
