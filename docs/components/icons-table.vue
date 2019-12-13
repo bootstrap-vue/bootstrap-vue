@@ -81,7 +81,7 @@
   position: absolute;
 }
 
-.flip-icon-list-enter, .flip-icon-list-leave-to
+.flip-icon-list-enter, .flip-icon-list-leave-to {
   opacity: 0;
 }
 </style>
