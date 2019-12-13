@@ -25,7 +25,7 @@ export default {
             :root-event-listeners="c.rootEventListeners"
             :slots="c.slots"
             :aliases="c.aliases"
-            :props="c.propsMeta"
+            :props-meta="c.props"
             :version="c.version"
           ></Componentdoc>
         </template>
