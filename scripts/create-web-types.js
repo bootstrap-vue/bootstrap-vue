@@ -20,6 +20,7 @@ const commonPropsMeta = require(path.resolve(docsDir, 'common-props.json'))
 
 // Placeholder arrays
 let componentGroups = {}
+let iconGroups = {}
 let directiveGroups = {}
 
 // Base web-types object
@@ -371,6 +372,24 @@ const processComponentGroup = groupSlug => {
   })
 }
 
+// Create tag entries for each component in a component group
+const processIconGroup = groupSlug => {
+  // Array of components in the group
+  const groupMeta = iconGroups[groupSlug] || {}
+  const iconsMeta = groupMeta.components || []
+
+  // The URL to the components docs
+  const docUrl = `${baseDocs}/docs/icons/`
+
+  // We import the component from the transpiled `esm/` dir
+  const groupRef = require(path.resolve(baseDir, 'esm/icons'))
+
+  // Process each icon component
+  iconsMeta.forEach(meta => {
+    processComponentMeta(meta, groupRef, groupMeta.description, docUrl)
+  })
+}
+
 // Create attribute entries for each directive
 const processDirectiveGroup = groupSlug => {
   // Directives only have a single entry in their Meta for `directive`
@@ -391,6 +410,14 @@ try {
   )
   componentGroups = importAll(componentsContext)
 
+  // Grab the icons meta data
+  const iconsContext = requireContext(
+    path.resolve(baseDir, 'src/icons'),
+    false,
+    /package.json/
+  )
+  iconGroups = importAll(iconsContext)
+
   // Grab the directive meta data
   const directivesContext = requireContext(
     path.resolve(baseDir, 'src/directives'),
@@ -401,6 +428,9 @@ try {
 
   // Process all components into webTypes
   Object.keys(componentGroups).forEach(processComponentGroup)
+
+  // Process all icons into webTypes (note there is only one group)
+  Object.keys(iconGroups).forEach(processIconGroup)
 
   // Process all directives into webTypes
   Object.keys(directiveGroups).forEach(processDirectiveGroup)
