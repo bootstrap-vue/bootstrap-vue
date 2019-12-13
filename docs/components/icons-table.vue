@@ -16,6 +16,7 @@
           key="_bv-icons-table-search_"
           v-model="iconFilter"
           type="search"
+          debounce="150"
           aria-controls="bv-icons-table"
         ></b-form-input>
       </b-form-group>
@@ -70,7 +71,7 @@
 }
 
 .flip-icon-list-move {
-  transition: transform 0.3s
+  transition: transform 0.3s;
 }
 
 .flip-icon-list-leave-active {
