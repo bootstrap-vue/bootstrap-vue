@@ -21,7 +21,7 @@
             "description": "Contextual color variant. By default the icon inherits the current text color"
           }
         ]
-      }
+      },
       {
         "component": "BIcon{IconName}",
         "version": "2.3.0",
