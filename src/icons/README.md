@@ -9,7 +9,8 @@ Icons are opt-in, meaning that they explicity need to be imported in order to be
 installed by default (except in the [browser build](/docs#build-variants)).
 
 <p class="alert alert-info">
-  **Note:** Botstrap Icon SVGs are currently in the alpha release stage, and are subject to change.
+  <strong>Note:</strong> Bootstrap Icon SVGs are currently in the alpha release stage, and may be
+  subject to change.
 </p>
 
 ## Icons
