@@ -28,8 +28,7 @@
       <b-col
         v-for="icon in filteredIcons"
         :key="`_icon_${icon.name}`"
-        v-b-tooltip.hover.ds200
-        tag="li"
+         tag="li"
         :title="icon.component"
         class="flip-icon-list-icon d-inline-flex flex-column mb-3 text-center"
       >
