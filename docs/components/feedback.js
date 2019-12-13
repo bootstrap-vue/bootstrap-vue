@@ -9,7 +9,7 @@ export default {
     show() {
       const name = this.$route.name
       const slug = this.$route.params.slug
-      return slug || name === 'docs'
+      return slug || name === 'docs' || name === 'docs-icons'
     },
     reportIssueUrl() {
       // Add appreciate query params for proper issue title
@@ -23,6 +23,8 @@ export default {
         path = `/docs/markdown/intro/README.md`
       } else if (name === 'docs-components-slug') {
         path = `/src/components/${slug}/README.md`
+      } else if (name === 'docs-icons') {
+        path = `/src/icons/README.md`
       } else if (name === 'docs-directives-slug') {
         path = `/src/directives/${slug}/README.md`
       } else if (name === 'docs-reference-slug') {
