@@ -4,6 +4,38 @@ import { concat } from '../../utils/array'
 import { kebabCase, pascalCase } from '../../utils/string'
 import { mergeData } from 'vue-functional-data-merge'
 
+// Shared base component to reduce bundle size
+// @vue/component
+const BVIconBase = {
+  name: 'BVIconBase',
+  functional: true,
+  props: {
+    variant: {
+      type: String
+    }
+  },
+  render(h, { data, props }) {
+    const componentData = mergeData(
+      {
+        staticClass: iconClass,
+        class: { [`text-${props.variant}`]: !!props.variant },
+        attrs: {
+          xmlns: 'http://www.w3.org/2000/svg',
+          width: '1em',
+          height: '1em',
+          viewBox: '0 0 20 20',
+          fill: 'currentColor',
+          role: 'img',
+          alt: 'icon',
+          focusable: 'false'
+        }
+      },
+      data
+    )
+    return h('svg', componentData)
+  }
+}
+
 /**
  * Icon component generator function
  *
@@ -35,25 +67,8 @@ export const makeIcon = (name, content) => {
       }
     },
     render(h, { data, props }) {
-      const componentData = mergeData(
-        {
-          staticClass: iconClass,
-          class: { [`text-${props.variant}`]: !!props.variant },
-          attrs: {
-            xmlns: 'http://www.w3.org/2000/svg',
-            width: '1em',
-            height: '1em',
-            viewBox: '0 0 20 20',
-            fill: 'currentColor',
-            role: 'img',
-            alt: 'icon',
-            focusable: 'false'
-          }
-        },
-        data,
-        { domProps: { innerHTML: svgContent } }
-      )
-      return h('svg', componentData)
+      const componentData = 
+      return h(BVIconBase, mergeData(data, { props, domProps: { innerHTML: svgContent } }))
     }
   })
 }
