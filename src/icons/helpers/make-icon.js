@@ -18,26 +18,29 @@ const BVIconBase = {
     }
   },
   render(h, { data, props }) {
-    return h('svg', mergeData(
-      {
-        staticClass: 'bi',
-        class: { [`text-${props.variant}`]: !!props.variant },
-        attrs: {
-          width: '1em',
-          height: '1em',
-          viewBox: '0 0 20 20',
-          role: 'img',
-          alt: 'icon',
-          focusable: 'false'
+    return h(
+      'svg',
+      mergeData(
+        {
+          staticClass: 'bi',
+          class: { [`text-${props.variant}`]: !!props.variant },
+          attrs: {
+            width: '1em',
+            height: '1em',
+            viewBox: '0 0 20 20',
+            role: 'img',
+            alt: 'icon',
+            focusable: 'false'
+          }
+        },
+        data,
+        // These cannot be overridden by users
+        {
+          attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' },
+          domProps: { innerHTML: props.content || '' }
         }
-      },
-      data,
-      // These cannot be overridden by users
-      {
-        attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' },
-        domProps: { innerHTML: props.content || '' }
-      }
-    ))
+      )
+    )
   }
 }
 
@@ -70,10 +73,13 @@ export const makeIcon = (name, content) => {
       }
     },
     render(h, { data, props }) {
-      return h(BVIconBase, mergeData(data, {
-        staticClass: iconNameClass,
-        props: { content: svgContent, variant: props.variant },
-      }))
+      return h(
+        BVIconBase,
+        mergeData(data, {
+          staticClass: iconNameClass,
+          props: { content: svgContent, variant: props.variant },
+        })
+      )
     }
   })
 }
