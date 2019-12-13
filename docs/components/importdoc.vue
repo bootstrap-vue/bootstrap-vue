@@ -140,7 +140,7 @@ export default {
       return name === 'docs-components-slug' || name === 'docs-icons'
     },
     pluginDir() {
-      return this.$route.params.slug
+      return this.$route.params.slug || this.meta.slug
     },
     pluginName() {
       // Directive plugin names are prefixed with `VB`
