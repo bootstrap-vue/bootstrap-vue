@@ -29,7 +29,7 @@ export default {
             :version="c.version"
           ></Componentdoc>
         </template>
-        <Importdoc :meta="meta"></ImportDoc>
+        <Importdoc :meta="{ ...meta, slug: 'icons' }"></ImportDoc>
       </Section>
     </Main>`,
   components: {
