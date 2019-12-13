@@ -70,7 +70,7 @@ export const makeIcon = (name, content) => {
     render(h, { data, props }) {
       return h(BVIconBase, mergeData(data, {
         staticClass: iconNameClass,
-        props: { props.variant, content: svgContent },
+        props: { content: svgContent, variant: props.variant },
       }))
     }
   })
