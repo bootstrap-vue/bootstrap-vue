@@ -187,7 +187,9 @@ export const importAll = r => {
     .map(r)
     .map(m => m.meta || m)
     .map(m => ({
-      slug: m.slug || (m.title || '').replace(' ', '-').toLowerCase(),
+      slug: typeof m.slug === 'undefined'
+        ? (m.title || '').replace(' ', '-').toLowerCase()
+        : m.slug,
       ...m
     }))
     .sort((a, b) => {
