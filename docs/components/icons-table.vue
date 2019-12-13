@@ -17,41 +17,43 @@
           v-model="iconFilter"
           type="search"
           debounce="150"
-          aria-controls="bv-icons-table"
+          aria-controls="bv-icons-table-result"
         ></b-form-input>
       </b-form-group>
     </b-form>
-    <transition-group
-      tag="ul"
-      name="flip-icon-list"
-      class="row-cols-3 row-cols-sm-4 row-cols-lg-6 list-unstyled mb-n3"
-    >
-      <b-col
-        v-for="icon in filteredIcons"
-        :key="`_icon_${icon.name}`"
-        tag="li"
-        class="flip-icon-list-icon d-inline-flex flex-column mb-3 text-center"
+    <div id="bv-icons-table-result">
+      <transition-group
+        tag="ul"
+        name="flip-icon-list"
+        class="row-cols-3 row-cols-sm-4 row-cols-lg-6 list-unstyled mb-n3"
       >
-        <b-card bg-variant="light" no-body>
-          <b-card-body body-class="py-3">
-            <b-icon :icon="icon.name"></b-icon>
-          </b-card-body>
-        </b-card>
-        <b-form-text class="mt-1">{{ icon.name }}</b-form-text>
-      </b-col>
-    </transition-group>
-    <div aria-live="polite" aria-atomic="true">
-      <b-alert
-        :show="filteredIcons.length === 0"
-        :role="null"
-        :aria-live="null"
-        :aria-atomic="null"
-        variant="light"
-        class="text-center mb-0 d-flex align-items-center justify-content-center"
-      >
-        <b-icon icon="alert-triangle-fill" style="font-size: 2em;" aria-hidden="true"></b-icon>
-        <span>No matching icons found. Try searching again.</span>
-      </b-alert>
+        <b-col
+          v-for="icon in filteredIcons"
+          :key="`_icon_${icon.name}`"
+          tag="li"
+          class="flip-icon-list-icon d-inline-flex flex-column mb-3 text-center"
+        >
+          <b-card bg-variant="light" no-body>
+            <b-card-body body-class="py-3">
+              <b-icon :icon="icon.name"></b-icon>
+            </b-card-body>
+          </b-card>
+          <b-form-text class="mt-1">{{ icon.name }}</b-form-text>
+        </b-col>
+      </transition-group>
+      <div aria-live="polite" aria-atomic="true">
+        <b-alert
+          :show="filteredIcons.length === 0"
+          :role="null"
+          :aria-live="null"
+          :aria-atomic="null"
+          variant="light"
+          class="text-center mb-0 d-flex align-items-center justify-content-center"
+        >
+          <b-icon icon="alert-triangle-fill" aria-hidden="true"></b-icon>
+          <span>No matching icons found. Try searching again.</span>
+        </b-alert>
+      </div>
     </div>
   </div>
 </template>
@@ -63,6 +65,11 @@
 
 .form-group /deep/ .form-text {
   text-align: right;
+}
+
+#bv-icons-table-result {
+  height: calc(100vh - 10rem);
+  overfow-y: scroll;
 }
 
 // Transion group classes
