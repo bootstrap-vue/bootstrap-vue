@@ -30,16 +30,18 @@
     >
       <b-col
         v-for="icon in filteredIcons"
-        :key="`_icon_${icon}`"
+        v-b-tooltip.hover
+        :key="`_icon_${icon.name}`"
         tag="li"
+        :title="icon.component"
         class="mb-2 text-center"
       >
         <b-card bg-variant="light" no-body>
-          <b-card-body body-class="py-3">
-            <b-icon :icon="icon"></b-icon>
+          <b-card-body body-class="py-3" :title="">
+            <b-icon :icon="icon.name"></b-icon>
           </b-card-body>
         </b-card>
-        <b-form-text class="mt-1">{{ icon }}</b-form-text>
+        <b-form-text class="mt-1">{{ icon.name }}</b-form-text>
       </b-col>
     </b-row>
     <div aria-live="polite" aria-atomic="true">
@@ -65,9 +67,16 @@ import { iconNames } from '~/../src/index'
 
 const icons = iconNames
   .filter(name => name !== 'BIcon')
-  .map(name => name.replace(/^BIcon/, ''))
-  .map(name => name.replace(/\B([A-Z])/g, '-$1'))
-  .map(name => name.toLowerCase())
+  .sort()
+  .map(name => { 
+     return {
+       name: name
+        .replace(/^BIcon/, '')
+        .replace(/\B([A-Z])/g, '-$1')
+        .toLowerCase(),
+       component: name
+     }
+  )
 
 export default {
   name: 'BVDIconsTable',
@@ -86,8 +95,8 @@ export default {
       if (terms.length === 0) {
         return icons.slice()
       }
-      return icons.filter(icon => terms.every(term => icon.indexOf(term) !== -1))
+      return icons.filter(icon => terms.every(term => icon.name.indexOf(term) !== -1))
     }
-  }
+  },
 }
 </script>
