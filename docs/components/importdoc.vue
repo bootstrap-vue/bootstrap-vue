@@ -136,7 +136,8 @@ export default {
       return 'bootstrap-vue'
     },
     isComponentRoute() {
-      return this.$route.name === 'docs-components-slug'
+      const name = this.$route.name
+      return name === 'docs-components-slug' || name === 'docs-icons'
     },
     pluginDir() {
       return this.$route.params.slug
