@@ -15,7 +15,7 @@ import { pluginFactory } from '../utils/plugins'
 import { pascalCase, trim } from '../utils/string'
 
 // We export this object mainly for the docs for generating the icon "table"
-// It is also used in the IconsPlugin export at the bootom of this file
+// It is also used in the IconsPlugin export at the bottom of this file
 // Populated as Icon components are defined
 export const iconComponents = {}
 

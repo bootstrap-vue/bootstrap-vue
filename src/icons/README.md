@@ -5,7 +5,7 @@
 > are built for Bootstrap, they will work in any project.
 
 BootstrapVue icon components are based on [`bootstrap-icons`](https://icons.getbootstrap.com/).
-Icons are opt-in, meaning that they explicity need to be imported in order to be used. They are not
+Icons are opt-in, meaning that they explicitly need to be imported in order to be used. They are not
 installed by default (except in the [browser build](/docs#build-variants)).
 
 <div class="alert alert-info small text-center mb-3">
@@ -25,8 +25,8 @@ installed by default (except in the [browser build](/docs#build-variants)).
 
 ## Usage
 
-BootstrapVue icons are not automatically installed when using BootstrapVue in your project, you
-must explicity include them.
+BootstrapVue icons are not automatically installed when using BootstrapVue in your project, you must
+explicitly include them.
 
 Icons inherit the current font color and font size from their parent container element. To change
 the color of the icon, refer to the [Variants](#variants) section, and to change the size of the
@@ -117,7 +117,7 @@ unless you are using the `IconsPlugin`.
 
 ## Variants
 
-By defaut, icons inherit the current font color of their parent element.  All icon components
+By default, icons inherit the current font color of their parent element. All icon components
 provide a `variant` prop to apply one of the bootstrap contextual text variant colors:
 
 ```html
@@ -136,8 +136,8 @@ provide a `variant` prop to apply one of the bootstrap contextual text variant c
 <!-- icons-color-variants.vue -->
 ```
 
-You can also use custom CSS to set the icon color, either via direct `style` attribute, or
-via custom classes:
+You can also use custom CSS to set the icon color, either via direct `style` attribute, or via
+custom classes:
 
 ```html
 <template>
@@ -151,8 +151,8 @@ via custom classes:
 
 ## Sizing
 
-Icons have a default width and height of `1em`, which means they will scale with the size of
-the current font size:
+Icons have a default width and height of `1em`, which means they will scale with the size of the
+current font size:
 
 ```html
 <template>
@@ -168,8 +168,8 @@ the current font size:
 <!-- icons-size-inherit.vue -->
 ```
 
-You can also use custom CSS to set the icon size, either via direct `style` attribute, or
-via custom classes:
+You can also use custom CSS to set the icon size, either via direct `style` attribute, or via custom
+classes:
 
 ```html
 <template>
@@ -181,8 +181,7 @@ via custom classes:
 <!-- icons-size-css.vue -->
 ```
 
-Alternatively, you can override the `<svg>` `width` and `height` attributes to set an explicit
-size:
+Alternatively, you can override the `<svg>` `width` and `height` attributes to set an explicit size:
 
 ```html
 <template>
@@ -200,8 +199,8 @@ SVGs are awesome to work with, but they do have some known quirks to work around
 
 - **Focus handling is broken in Internet Explorer and Edge.** We have added the attribute
   `focusable="false"` to the `<svg>` element. You can override this attribute.
-- **Browsers inconsistently announce SVGs as `<img>` tags with voice assistance.** Hence, we
-  have added added the attributes `role="img"` and `alt="icon"`. You can override these
-  attributes if needed.
+- **Browsers inconsistently announce SVGs as `<img>` tags with voice assistance.** Hence, we have
+  added added the attributes `role="img"` and `alt="icon"`. You can override these attributes if
+  needed.
 - **Safari skips `aria-label` when used on non-focusable SVGs.** As such, use `aria-hidden="true"`
   when using the icon and use CSS to visually hide an equivalent label.
