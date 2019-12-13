@@ -53,6 +53,8 @@ export const makeIcon = (name, content) => {
   // each instantiation of the icon component
   const iconName = `BIcon${pascalCase(name)}`
   const iconNameClass = `bi-${kebabCase(name)}`
+  // The following could be simplified if the content is
+  // guaranteed to be a single pre-trimmed string
   const svgContent = concat(content)
     .filter(identity)
     .join('')
