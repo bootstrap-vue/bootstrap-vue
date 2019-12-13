@@ -31,7 +31,7 @@
       <b-col
         v-for="icon in filteredIcons"
         :key="`_icon_${icon.name}`"
-        v-b-tooltip.hover
+        v-b-tooltip.hover.ds200
         tag="li"
         :title="icon.component"
         class="mb-3 text-center"
