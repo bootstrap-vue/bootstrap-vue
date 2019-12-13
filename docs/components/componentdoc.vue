@@ -322,7 +322,7 @@ export default {
   props: {
     component: {},
     propsMeta: {
-      // For getting pro descriptions
+      // For getting prop descriptions
       type: Array,
       default: () => []
     },
