@@ -74,6 +74,7 @@
 
 .flip-icon-list-icon:hover /deep/ .bi {
   transform: scale(2);
+  transition: transform 0.15s;
 }
 
 // Transion group classes
