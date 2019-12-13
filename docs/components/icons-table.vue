@@ -68,7 +68,7 @@
 }
 
 #bv-icons-table-result {
-  height: calc(100vh - 10rem);
+  height: calc(100vh - 12rem);
   overflow-y: scroll;
 }
 
