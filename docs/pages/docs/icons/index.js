@@ -62,9 +62,5 @@ export default {
       meta.components = [...meta.components, { component: 'BIcon{IconName}' }]
       return meta
     }
-  },
-  mounted() {
-    // Debug
-    console.log('iconsMeta data:', iconsMeta)
   }
 }
