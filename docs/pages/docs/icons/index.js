@@ -29,6 +29,11 @@ export default {
             :version="c.version"
           ></Componentdoc>
         </template>
+        <p class="alert alert-info">
+          Individual icon components are not listed here due to the large number of components.
+          All individual icon components have a single prop <code>variant</code> which accepts
+          a bootstrap theme color variant name.
+        </p>
         <Importdoc :meta="{ ...meta, slug: 'icons' }"></ImportDoc>
       </Section>
     </Main>`,
