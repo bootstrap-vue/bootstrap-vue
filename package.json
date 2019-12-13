@@ -98,6 +98,7 @@
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-plugin-istanbul": "^5.2.0",
+    "boostrap-icons": "^1.0.0-alpha",
     "clean-css-cli": "^4.3.0",
     "codecov": "^3.6.1",
     "codemirror": "^5.49.2",
