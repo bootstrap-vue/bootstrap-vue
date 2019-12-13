@@ -72,6 +72,10 @@
   overflow-y: scroll;
 }
 
+.flip-icon-list-icon:hover /deep/ .bi {
+  transform: scale(2);
+}
+
 // Transion group classes
 .flip-icon-list-icon {
   transition: all 0.3s;
