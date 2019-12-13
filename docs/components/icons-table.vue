@@ -68,15 +68,15 @@ import { iconNames } from '~/../src/index'
 const icons = iconNames
   .filter(name => name !== 'BIcon')
   .sort()
-  .map(name => { 
-     return {
-       name: name
+  .map(fullName => { 
+    return {
+      component: fullName,
+      name: fullName
         .replace(/^BIcon/, '')
         .replace(/\B([A-Z])/g, '-$1')
-        .toLowerCase(),
-       component: name
-     }
-  )
+        .toLowerCase()
+    }
+  })
 
 export default {
   name: 'BVDIconsTable',
