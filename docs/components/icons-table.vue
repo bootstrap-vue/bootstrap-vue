@@ -34,7 +34,7 @@
         v-b-tooltip.hover
         tag="li"
         :title="icon.component"
-        class="mb-2 text-center"
+        class="mb-3 text-center"
       >
         <b-card bg-variant="light" no-body>
           <b-card-body body-class="py-3">
