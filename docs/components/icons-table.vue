@@ -21,7 +21,7 @@
         ></b-form-input>
       </b-form-group>
     </b-form>
-    <div id="bv-icons-table-result">
+    <div id="bv-icons-table-result" class="py-3 border">
       <transition-group
         tag="ul"
         name="flip-icon-list"
