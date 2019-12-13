@@ -90,7 +90,7 @@ of the icon names listed in the [Icons](#icons) section above.
 
 ```html
 <template>
-  <div>
+  <div class="h2 mb-0">
     <b-icon-arrow-up></b-icon-arrow-up>
     <b-icon-arrow-down></b-icon-arrow-down>
   </div>
@@ -103,7 +103,7 @@ of the icon names listed in the [Icons](#icons) section above.
 
 ```html
 <template>
-  <div>
+  <div class="h2 mb-0">
     <b-icon icon="arrow-up"></b-icon>
     <b-icon icon="arrow-down"></b-icon>
   </div>
@@ -122,7 +122,7 @@ provide a `variant` prop to apply one of the bootstrap contextual text variant c
 
 ```html
 <template>
-  <div>
+  <div class="h2 mb-0">
     <b-icon icon="alert-circle-fill" variant="success"></b-icon>
     <b-icon icon="alert-circle-fill" variant="warning"></b-icon>
     <b-icon icon="alert-circle-fill" variant="danger"></b-icon>
@@ -141,7 +141,7 @@ via custom classes:
 
 ```html
 <template>
-  <div>
+  <div class="h2 mb-0">
     <b-icon icon="battery-full" style="color: #7952b3;"></b-icon>
   </div>
 </template>
