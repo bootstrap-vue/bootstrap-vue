@@ -196,6 +196,25 @@ Alternatively, you can override the `<svg>` `width` and `height` attributes to s
 <!-- icons-size-attrs.vue -->
 ```
 
+## Styling
+
+With the use of Bootstrap's border and background
+[utility classes](/docs/reference/utility-classes), you can create various styling effects:
+
+```html
+<template>
+  <div style="font-size: 4rem;">
+    <b-icon icon="bell-fill" class="border rounded"></b-icon>
+    <b-icon icon="bell-fill" class="border border-info rounded" variant="info"></b-icon>
+    <b-icon icon="bell-fill" class="rounded-circle bg-danger p-1" variant="light"></b-icon>
+    <b-icon icon="unlock-fill" class="rounded bg-primary p-1" variant="light"></b-icon>
+  </div>
+</template>
+
+<!-- icons-styling.vue -->
+```
+
+
 ## Working with SVGs
 
 SVGs are awesome to work with, but they do have some known quirks to work around.
