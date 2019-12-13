@@ -23,7 +23,7 @@ export default {
             :component="c.component"
             :events="c.events"
             :root-event-listeners="c.rootEventListeners"
-            :slots=c.slots"
+            :slots="c.slots"
             :aliases="c.aliases"
             :props="c.propsMeta"
             :version="c.version"
