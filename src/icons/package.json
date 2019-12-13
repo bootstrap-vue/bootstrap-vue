@@ -10,11 +10,23 @@
     "components": [
       {
         "component": "BIcon",
+        "version": "2.3.0",
         "props": [
           {
             "prop": "icon",
             "description": "Name of icon to render. The corresponding icon component must be installed"
           },
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      }
+      {
+        "component": "BIcon{IconName}",
+        "version": "2.3.0",
+        "description": "Individual icon components",
+        "props": [
           {
             "prop": "variant",
             "description": "Contextual color variant. By default the icon inherits the current text color"
