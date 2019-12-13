@@ -10,29 +10,34 @@ const BVIconBase = {
   name: 'BVIconBase',
   functional: true,
   props: {
+    content: {
+      type: String
+    },
     variant: {
       type: String
     }
   },
   render(h, { data, props }) {
-    const componentData = mergeData(
+    return h('svg', mergeData(
       {
-        staticClass: iconClass,
+        staticClass: 'bi',
         class: { [`text-${props.variant}`]: !!props.variant },
         attrs: {
-          xmlns: 'http://www.w3.org/2000/svg',
           width: '1em',
           height: '1em',
           viewBox: '0 0 20 20',
-          fill: 'currentColor',
           role: 'img',
           alt: 'icon',
           focusable: 'false'
         }
       },
-      data
-    )
-    return h('svg', componentData)
+      data,
+      // These cannot be overridden by users
+      {
+        attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' },
+        domProps: { innerHTML: props.content || '' }
+      }
+    ))
   }
 }
 
@@ -44,18 +49,14 @@ const BVIconBase = {
  * @return {VueComponent}
  */
 export const makeIcon = (name, content) => {
+  // Pre-compute some values, so they are not computed on
+  // each instantiation of the icon component
+  const iconName = `BIcon${pascalCase(name)}`
+  const iconNameClass = `bi-${kebabCase(name)}`
   const svgContent = concat(content)
     .filter(identity)
     .join('')
     .trim()
-  // The following is needed if we import the raw SVGs from
-  // bootstrap-icons/icons/*.svg and do not strip the <svg> root element
-  // content = content.replace(/<svg[^>]+>/, '').replace(/<\/svg>/, '')
-
-  // Pre-compute some values, so they are not computed on
-  // each instantiation of the icon component
-  const iconName = `BIcon${pascalCase(name)}`
-  const iconClass = `bi bi-${kebabCase(name)}`
   // Return the icon component
   return Vue.extend({
     name: iconName,
@@ -67,8 +68,10 @@ export const makeIcon = (name, content) => {
       }
     },
     render(h, { data, props }) {
-      const componentData = 
-      return h(BVIconBase, mergeData(data, { props, domProps: { innerHTML: svgContent } }))
+      return h(BVIconBase, mergeData(data, {
+        staticClass: iconNameClass,
+        props: { props.variant, content: svgContent },
+      }))
     }
   })
 }
