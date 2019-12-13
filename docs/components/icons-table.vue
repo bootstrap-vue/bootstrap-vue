@@ -49,9 +49,10 @@
           :aria-live="null"
           :aria-atomic="null"
           variant="light"
-          class="text-center mb-0"
+          class="text-center mb-0 d-flex align-items-center justify-content-center"
         >
-          No matching icons found. Try searching again.
+          <b-icon="alert-circle" style="font-size: 200%;"></b-icon>
+          <span>No matching icons found. Try searching again.</span>
         </b-alert>
       </div>
     </b-card>
