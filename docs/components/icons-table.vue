@@ -51,7 +51,7 @@
           variant="light"
           class="text-center mb-0 d-flex align-items-center justify-content-center"
         >
-          <b-icon="alert-circle" style="font-size: 200%;"></b-icon>
+          <b-icon icon="alert-circle" style="font-size: 200%;"></b-icon>
           <span>No matching icons found. Try searching again.</span>
         </b-alert>
       </div>
