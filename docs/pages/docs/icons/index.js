@@ -53,6 +53,13 @@ export default {
       meta: iconsMeta['']
     }
   },
+  computed: {
+    importMeta() {
+      const meta = { ...this.meta, slug: 'icons' }
+      // We add in our "catch all" component
+      meta.components = [].concat(meta.components, { component: 'BIcon{IconName}' }) 
+    }
+  },
   mounted() {
     // Debug
     console.log('iconsMeta data:', iconsMeta)
