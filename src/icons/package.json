@@ -8,7 +8,7 @@
     "components": [
       {
         "component": "BIcon",
-        "props": [
+        "propsMeta": [
           {
             "prop": "icon",
             "description": "Name of icon to render. The corresponding icon component must be installed"
