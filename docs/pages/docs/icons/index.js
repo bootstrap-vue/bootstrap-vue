@@ -34,7 +34,7 @@ export default {
           All individual icon components have a single prop <code>variant</code> which accepts
           a bootstrap theme color variant name.
         </p>
-        <Importdoc :meta="{ ...meta, slug: 'icons' }"></ImportDoc>
+        <Importdoc :meta="importMeta"></ImportDoc>
       </Section>
     </Main>`,
   components: {
@@ -57,7 +57,8 @@ export default {
     importMeta() {
       const meta = { ...this.meta, slug: 'icons' }
       // We add in our "catch all" component
-      meta.components = [].concat(meta.components, { component: 'BIcon{IconName}' }) 
+      meta.components = [...meta.components, { component: 'BIcon{IconName}' }]
+      return meta
     }
   },
   mounted() {
