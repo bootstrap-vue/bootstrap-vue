@@ -4,9 +4,13 @@
 > Bootstrap Icons are SVGs, so they scale quickly and easily and can be styled with CSS. While they
 > are built for Bootstrap, they will work in any project.
 
-BootstrapVue icon components are based on [`bootstrap-icons`](https://icons.getbootstrap.com/). Icons
-are opt-in, meaning that they explicity need to be imported in order to be used. They are not installed
-by default (except in the [browser build](/docs#build-variants)).
+BootstrapVue icon components are based on [`bootstrap-icons`](https://icons.getbootstrap.com/).
+Icons are opt-in, meaning that they explicity need to be imported in order to be used. They are not
+installed by default (except in the [browser build](/docs#build-variants)).
+
+<p class="alert alert-info">
+  **Note:** Botstrap Icon SVGs are currently in the alpha release stage, and are subject to change.
+</p>
 
 ## Icons
 
@@ -18,23 +22,126 @@ by default (except in the [browser build](/docs#build-variants)).
 
 ## Usage
 
-TBD
+BootstrapVue icons are not automatically installed when using BootstrapVue in your project, you
+must explicity include them.
 
-### Naming convention
+Icons inherit the current font color and font size from their parent container element. To change
+the color of the icon, refer to the [Variants](#variants) section, and to change the size of the
+icon refer to the [Sizing](#sizing) section.
 
-TBD
+All icons are exported with the name in <samp>PascalCase</samp>, prefixed with <samp>BIcon</samp>.
 
-### Helper component
+### Importing into your project
 
-TBD
+**Importing all icons:**
 
-### Variants
+```js
+import Vue from 'vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
-TBD
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
+```
 
-### Sizing
+**Importing specific icons:**
 
-TBD
+Making them globally available:
+
+```js
+import Vue from 'vue'
+import { BootstrapVue, BIcon, BIconArrowUp, BIconArrowDown } from 'bootstrap-vue'
+
+Vue.use(BootstrapVue)
+Vue.component('BIcon', BIcon)
+Vue.component('BIconArrowUp', BIconArrowUp)
+Vue.component('BIconArrowDown', BIconArrowDown)
+```
+
+Or if using in specific pages or components:
+
+```js
+import { BIcon, BIconArrowUp, BIconArrowDown } from 'bootstrap-vue'
+
+export default {
+  components: {
+    BIcon,
+    BIconArrowUp,
+    BIconArrowDown
+  }
+  props: {
+    // ...
+  }
+  // ...
+}
+```
+
+### Icon components
+
+You can either uses individual icon components, or use a the icon helper component `<b-icon>`, to
+place icons in your project templates.
+
+All individual icon components are prefixed with the name `<b-icon-{name}>`, where `{name}` is one
+of the icon names listed in the [Icons](#icons) section above.
+
+**Using individual icon components:**
+
+```html
+<template>
+  <b-icon-arrow-up></b-icon-arrow-up>
+  <b-icon-arrow-down></b-icon-arrow-down>
+</template>
+
+<!-- icons-individual-usage.vue -->
+```
+
+**Using the `<b-icon>` helper component:**
+
+```html
+<template>
+  <b-icon name="arrow-up"></b-icon>
+  <b-icon name="arrow-down"></b-icon>
+</template>
+
+<!-- icons-helper-usage.vue -->
+```
+
+**Note:** when using `<b-icon>`, you **must** also import the required individual icon components
+unless you are using the `IconsPlugin`.
+
+## Variants
+
+By defaut, icons inherit the current font color of their parent element.  All icon components
+provide a `variant` prop to apply one of the bootstrap contextual text variant colors:
+
+```html
+<template>
+  <b-icon name="alert-circle-fill" variant="success"></b-icon>
+  <b-icon name="alert-circle-fill" variant="warning"></b-icon>
+  <b-icon name="alert-circle-fill" variant="danger"></b-icon>
+  <b-icon name="alert-circle-fill" variant="info"></b-icon>
+  <b-icon name="alert-circle-fill" variant="primary"></b-icon>
+  <b-icon name="alert-circle-fill" variant="secondary"></b-icon>
+  <b-icon name="alert-circle-fill" variant="dark"></b-icon>
+</template>
+
+<!-- icons-variants.vue -->
+```
+
+## Sizing
+
+Icons have a default width and height of `1em`, which means they will scale with the size of
+the current font size:
+
+```html
+<template>
+  <p class="h1 mb-2">Icon <b-icon name="alert-circle-fill"></b-icon></p>
+  <p class="h2 mb-2">Icon <b-icon name="alert-circle-fill"></b-icon></p>
+  <p class="h3 mb-2">Icon <b-icon name="alert-circle-fill"></b-icon></p>
+  <p class="h4 mb-2">Icon <b-icon name="alert-circle-fill"></b-icon></p>
+  <p class="h5 mb-2">Icon <b-icon name="alert-circle-fill"></b-icon></p>
+</template>
+
+
 
 ## Working with SVGs
 
