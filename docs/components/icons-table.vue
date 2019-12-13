@@ -38,7 +38,7 @@
               <b-icon :icon="icon.name"></b-icon>
             </b-card-body>
           </b-card>
-          <b-form-text class="mt-1">{{ icon.name }}</b-form-text>
+          <b-form-text class="mt-1 text-break" :title="icon.name">{{ icon.name }}</b-form-text>
         </b-col>
       </transition-group>
       <div aria-live="polite" aria-atomic="true">
