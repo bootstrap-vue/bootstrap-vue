@@ -1,5 +1,5 @@
 <template>
-  <div class="bv-icons-table notranslate" key="_bv-icons-table_" role="group">
+  <div key="_bv-icons-table_" class="bv-icons-table notranslate" role="group">
     <b-form @submit.prevent>
       <b-form-group
         label="Search icons"
