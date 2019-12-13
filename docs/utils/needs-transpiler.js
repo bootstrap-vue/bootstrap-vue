@@ -8,14 +8,16 @@ const tests = [
   // Arrow functions
   'const test1 = (a) => a',
   // Object function shortcut
-  'const test2 = { a: 1, b () { return 0 } }',
+  'const test2 = { a: 1, b() { return 0 } }',
   // Object shortcut
-  'const test3a = { a: 1}; const test3b = { test3a, b: 2 }',
-  // Object rest spread
-  'const test4a = { a: 1, b: 2}; const test4b = { c: 3, ...test4a }',
+  'const test3a = { a: 1 }; const test3b = { test3a, b: 2 }',
+  // Object spread
+  'const test4a = { a: 1, b: 2 }; const test4b = { c: 3, ...test4a }',
+  // Array spread
+  'const test5a = [1, 2]; const test5b = [...test5a, 3, 4]',
   // String interpolation
   /* eslint-disable no-template-curly-in-string */
-  'const test5a = "bar"; const test5b = `foo${test5a}`'
+  'const test6a = "bar"; const test6b = `foo${test6a}`'
   /* eslint-enable no-template-curly-in-string */
 ]
 
