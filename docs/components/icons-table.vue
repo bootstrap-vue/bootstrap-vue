@@ -28,8 +28,7 @@
       <b-col
         v-for="icon in filteredIcons"
         :key="`_icon_${icon.name}`"
-         tag="li"
-        :title="icon.component"
+        tag="li"
         class="flip-icon-list-icon d-inline-flex flex-column mb-3 text-center"
       >
         <b-card bg-variant="light" no-body>
