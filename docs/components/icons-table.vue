@@ -69,7 +69,7 @@
 
 #bv-icons-table-result {
   height: calc(100vh - 10rem);
-  overfow-y: scroll;
+  overflow-y: scroll;
 }
 
 // Transion group classes
