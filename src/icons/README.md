@@ -98,8 +98,8 @@ of the icon names listed in the [Icons](#icons) section above.
 
 ```html
 <template>
-  <b-icon name="arrow-up"></b-icon>
-  <b-icon name="arrow-down"></b-icon>
+  <b-icon icon="arrow-up"></b-icon>
+  <b-icon icon="arrow-down"></b-icon>
 </template>
 
 <!-- icons-helper-usage.vue -->
@@ -115,13 +115,13 @@ provide a `variant` prop to apply one of the bootstrap contextual text variant c
 
 ```html
 <template>
-  <b-icon name="alert-circle-fill" variant="success"></b-icon>
-  <b-icon name="alert-circle-fill" variant="warning"></b-icon>
-  <b-icon name="alert-circle-fill" variant="danger"></b-icon>
-  <b-icon name="alert-circle-fill" variant="info"></b-icon>
-  <b-icon name="alert-circle-fill" variant="primary"></b-icon>
-  <b-icon name="alert-circle-fill" variant="secondary"></b-icon>
-  <b-icon name="alert-circle-fill" variant="dark"></b-icon>
+  <b-icon icon="alert-circle-fill" variant="success"></b-icon>
+  <b-icon icon="alert-circle-fill" variant="warning"></b-icon>
+  <b-icon icon="alert-circle-fill" variant="danger"></b-icon>
+  <b-icon icon="alert-circle-fill" variant="info"></b-icon>
+  <b-icon icon="alert-circle-fill" variant="primary"></b-icon>
+  <b-icon icon="alert-circle-fill" variant="secondary"></b-icon>
+  <b-icon icon="alert-circle-fill" variant="dark"></b-icon>
 </template>
 
 <!-- icons-variants.vue -->
@@ -134,15 +134,27 @@ the current font size:
 
 ```html
 <template>
-  <p class="h1 mb-2">Icon <b-icon name="alert-circle-fill"></b-icon></p>
-  <p class="h2 mb-2">Icon <b-icon name="alert-circle-fill"></b-icon></p>
-  <p class="h3 mb-2">Icon <b-icon name="alert-circle-fill"></b-icon></p>
-  <p class="h4 mb-2">Icon <b-icon name="alert-circle-fill"></b-icon></p>
-  <p class="h5 mb-2">Icon <b-icon name="alert-circle-fill"></b-icon></p>
+  <p class="h1 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
+  <p class="h2 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
+  <p class="h3 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
+  <p class="h4 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
+  <p class="h5 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
 </template>
+```
 
+Alternatively, you can override the `<svg>` `width` and `height` attributes to set an explicit
+size:
 
+TBD
 
 ## Working with SVGs
 
-TBD
+SVGs are awesome to work with, but they do have some known quirks to work around.
+
+- **Focus handling is broken in Internet Explorer and Edge.** We have added the attribute
+  `focusable="false"` to the `<svg>` element. You can override this attribute.
+- **Browsers inconsistently announce SVGs as `<img>` tags with voice assistance.** Hence, we
+  have added added the attributes `role="img"` and `alt="icon"`. You can override these
+  attributes if needed.
+- **Safari skips `aria-label` when used on non-focusable SVGs.** As such, use `aria-hidden="true"`
+  when using the icon and use CSS to visually hide an equivalent label.
