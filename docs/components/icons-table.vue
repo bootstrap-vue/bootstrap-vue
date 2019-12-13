@@ -20,42 +20,43 @@
         ></b-form-input>
       </b-form-group>
     </b-form>
-    <b-row
-      id="bv-icons-table"
-      tag="ul"
-      cols="3"
-      cols-sm="4"
-      cols-lg="6"
-      class="list-unstyled mb-n3"
-    >
-      <b-col
-        v-for="icon in filteredIcons"
-        :key="`_icon_${icon.name}`"
-        v-b-tooltip.hover.ds200
-        tag="li"
-        :title="icon.component"
-        class="mb-3 text-center"
-      >
-        <b-card bg-variant="light" no-body>
-          <b-card-body body-class="py-3">
-            <b-icon :icon="icon.name"></b-icon>
-          </b-card-body>
-        </b-card>
-        <b-form-text class="mt-1">{{ icon.name }}</b-form-text>
-      </b-col>
-    </b-row>
-    <div aria-live="polite" aria-atomic="true">
-      <b-alert
-        :show="filteredIcons.length === 0"
-        :role="null"
-        :aria-live="null"
-        :aria-atomic="null"
-        variant="light"
-        class="text-center mb-0"
-      >
-        No matching icons found. Try searching again.
-      </b-alert>
-    </div>
+    <b-card id="bv-icons-table" no-body class="p-2 py-1"
+      <template v-if="filteredIcons.length !== 0">
+        <transition-group
+          tag="ul"
+          name="flip-icon-list"
+          class="row-cols-3 row-cols-sm-4 row-cols-lg-6 list-unstyled mb-n3"
+        >
+          <b-col
+            v-for="icon in filteredIcons"
+            :key="`_icon_${icon.name}`"
+            v-b-tooltip.hover.ds200
+            tag="li"
+            :title="icon.component"
+            class="flip-icon-list-icon mb-3 text-center"
+          >
+            <b-card bg-variant="light" no-body>
+              <b-card-body body-class="py-3">
+                <b-icon :icon="icon.name"></b-icon>
+              </b-card-body>
+            </b-card>
+            <b-form-text class="mt-1">{{ icon.name }}</b-form-text>
+          </b-col>
+        </transition-group>
+      </template>
+      <div aria-live="polite" aria-atomic="true">
+        <b-alert
+          :show="filteredIcons.length === 0"
+          :role="null"
+          :aria-live="null"
+          :aria-atomic="null"
+          variant="light"
+          class="text-center mb-0"
+        >
+          No matching icons found. Try searching again.
+        </b-alert>
+      </div>
+    </b-card>
   </div>
 </template>
 
@@ -67,6 +68,24 @@
 .form-group /deep/ .form-text {
   text-align: right;
 }
+
+// Transion group classes
+.flip-icon-list-icon {
+  transition: all 1s;
+  // display: inline-block;
+}
+
+.flip-icon-list-move {
+}
+
+.flip-icon-list-leave-active {
+  position: absolute;
+}
+
+.flip-icon-list-enter, .flip-icon-list-leave-to
+  opacity: 0;
+}
+
 </style>
 
 <script>
