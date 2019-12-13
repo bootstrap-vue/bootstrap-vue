@@ -58,6 +58,7 @@ import { iconNames } from '~/../src/index'
 
 const icons = iconNames
   .filter(name => name !== 'BIcon')
+  .map(name => name.replace(/^BIcon/, '')
   .map(name => name.replace(/\B([A-Z])/g, '-$1'))
   .map(name => name.toLowerCase())
 
