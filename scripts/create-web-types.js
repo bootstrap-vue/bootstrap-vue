@@ -411,11 +411,7 @@ try {
   componentGroups = importAll(componentsContext)
 
   // Grab the icons meta data
-  const iconsContext = requireContext(
-    path.resolve(baseDir, 'src/icons'),
-    false,
-    /package.json/
-  )
+  const iconsContext = requireContext(path.resolve(baseDir, 'src/icons'), false, /package.json/)
   iconGroups = importAll(iconsContext)
 
   // Grab the directive meta data
