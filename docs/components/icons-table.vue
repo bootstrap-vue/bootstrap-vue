@@ -72,6 +72,7 @@
 }
 
 .flip-icon-list-move {
+  transition: transform 0.3s
 }
 
 .flip-icon-list-leave-active {
@@ -81,6 +82,7 @@
 .flip-icon-list-enter,
 .flip-icon-list-leave-to {
   opacity: 0;
+  transform: scale(0.25);
 }
 </style>
 
