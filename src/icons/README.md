@@ -37,7 +37,9 @@ Icons inherit the current font color and font size from their parent container e
 the color of the icon, refer to the [Variants](#variants) section, and to change the size of the
 icon refer to the [Sizing](#sizing) section.
 
-All icons are exported with the name in <samp>PascalCase</samp>, prefixed with <samp>BIcon</samp>.
+All icons are exported with the name in <samp>PascalCase</samp>, prefixed with <samp>BIcon</samp>. i.e
+`alert-circle-fill` is exported as `BIconAlertCircleFill`, `x` is exported as `BIconX`, and
+`x-square-fill` is exported as `BIconXSquareFill`.
 
 ### Importing into your project
 
@@ -221,9 +223,9 @@ With the use of Bootstrap's border and background
 Easily place icons as content in other components.
 
 Note that icons placed in BootstrapVue components use BootstrapVue's custom CSS for additional
-styling compensation due to current issues with Bootstrap Icons `<svg>` current alignment
-implementaton and for additional aesthetic sclaing (icons placed in the components listed below
-will be scaled by 150%).
+styling compensation due to current issues with Bootstrap Icons `<svg>` alignment implementaton,
+and for additional aesthetic sclaing (icons placed in the components listed below will be scaled
+by 150%).
 
 ### Input groups
 
@@ -246,11 +248,11 @@ will be scaled by 150%).
       <b-input-group-prepend is-text>
         <b-icon icon="envelope"></b-icon>
       </b-input-group-prepend>
-      <b-form-input type="email" placeholder="me@example.com""></b-form-input>
+      <b-form-input type="email" placeholder="me@example.com"></b-form-input>
     </b-input-group>
   </div>
 </template>
-                                                              
+
 <!-- icons-input-groups.vue -->
 ```
 
@@ -260,15 +262,15 @@ will be scaled by 150%).
 <template>
   <div>
     <b-button class="mb-2" size="sm">
-      <b-icon icon="gear-fill"></b-icon> Settings
+      <b-icon icon="gear-fill" class="mr-1"></b-icon> Settings
     </b-button>
     <br>
     <b-button class="mb-2" variant="primary">
-      Settings <b-icon icon="gear-fill"></b-icon>
+      Pay now <b-icon icon="credit-card" class="ml-1"></b-icon>
     </b-button>
     <br>
-    <b-button size="lg" variant="info">
-      <b-icon icon="gear-fill"></b-icon> Settings
+    <b-button size="lg" variant="outline-info">
+      <b-icon icon="power" class="mr-1"></b-icon> Logout
     </b-button>
   </div>
 </template>
@@ -283,24 +285,24 @@ will be scaled by 150%).
   <div>
     <b-dropdown variant="primary">
       <template v-slot:button-content>
-        <b-icon icon="gear-fill"></b-icon> Settings
+        <b-icon icon="gear-fill" class="mr-1"></b-icon> Settings
       </template>
       <b-dropdown-item-button>
-         <b-icon icon="lock-fill"></b-icon>
+         <b-icon icon="lock-fill" class="mr-1"></b-icon>
          Locked <span class="sr-only">(Click to unlock)</span>
       </b-dropdown-item-button>
       <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-group header="Choose options" class="small">
         <b-dropdown-item-button>
-           <b-icon icon="blank"></b-icon>
+           <b-icon icon="blank" class="mr-1"></b-icon>
            Option A
         </b-dropdown-item-button>
         <b-dropdown-item-button>
-           <b-icon icon="check"></b-icon>
+           <b-icon icon="check" class="mr-1"></b-icon>
            Option B <span class="sr-only">(Selected)</span>
         </b-dropdown-item-button>
          <b-dropdown-item-button>
-           <b-icon icon="blank"></b-icon>
+           <b-icon icon="blank" class="mr-1"></b-icon>
            Option C
         </b-dropdown-item-button>
       </b-dropdown-group>
@@ -309,7 +311,7 @@ will be scaled by 150%).
       <b-dropdown-item-button>Some other action</b-dropdown-item-button>
       <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-item-button variant="danger">
-        <b-icon icon="alert-square-fill"></b-icon>
+        <b-icon icon="circle-slash" class="mr-1"></b-icon>
         Delete
       </b-dropdown-item-button>
     </b-dropdown>
