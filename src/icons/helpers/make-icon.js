@@ -1,7 +1,6 @@
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
-import { toFloat } from '../../utils/number'
 import { kebabCase, pascalCase } from '../../utils/string'
 import { mergeData } from 'vue-functional-data-merge'
 
