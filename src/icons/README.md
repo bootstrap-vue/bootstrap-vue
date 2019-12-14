@@ -290,7 +290,7 @@ will be scaled by 150%).
          Locked <span class="sr-only">(Click to unlock)</span>
       </b-dropdown-item-button>
       <b-dropdown-divider></b-dropdown-divider>
-      <b-dropdown-group header="Options">
+      <b-dropdown-group header="Choose options" class="small">
         <b-dropdown-item-button>
            <b-icon icon="blank"></b-icon>
            Option A
