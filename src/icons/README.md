@@ -222,7 +222,7 @@ Easily place icons as content in other components.
 
 Note that icons placed in BootstrapVue components use BootstrapVue's custom CSS for additional
 styling compensation due to current issues with Bootstrap Icons `<svg>` current alignment
-implementaton and for additional asthetics sclaing (icons placed in the components listed below
+implementaton and for additional aesthetic sclaing (icons placed in the components listed below
 will be scaled by 150%).
 
 ### Input groups
