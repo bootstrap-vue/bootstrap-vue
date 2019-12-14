@@ -66,30 +66,6 @@ describe('icons', () => {
     expect(wrapper.find('path').exists()).toBe(true)
   })
 
-  it('b-icon nudge prop works', async () => {
-    // This test assumes Vue doesn't puke on unknown component names
-    // As we currently do not check the validity of icon names
-    const wrapper = mount(BIcon, {
-      localVue: localVue,
-      propsData: {
-        nudge: 4
-      }
-    })
-    expect(wrapper.exists()).toBe(true)
-    expect(wrapper.text()).toBe('')
-    expect(wrapper.is('svg')).toBe(true)
-    expect(wrapper.find('svg').isEmpty()).toBe(true)
-    await localVue.nextTick()
-    // (4+1)/8 em
-    expect(wrapper.element.style.verticalAlign).toEqual('-0.625em')
-
-    wrapper.setProps({
-      nudge: 0
-    })
-    await localVue.nextTick()
-    expect(wrapper.element.style.verticalAlign).toEqual(``)
-  })
-
   // TODO:
   //   Test for invalid icon name
   //   Test a few individual icon components
