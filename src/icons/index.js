@@ -491,7 +491,10 @@ export const BIconCircle = /*#__PURE__*/ makeIcon(
 )
 iconComponents.BIconCircle = BIconCircle
 
-export const BIconCircleFill = /*#__PURE__*/ makeIcon('CircleFill', '<circle cx="10" cy="10" r="8"/>')
+export const BIconCircleFill = /*#__PURE__*/ makeIcon(
+  'CircleFill',
+  '<circle cx="10" cy="10" r="8"/>'
+)
 iconComponents.BIconCircleFill = BIconCircleFill
 
 export const BIconCircleSlash = /*#__PURE__*/ makeIcon(
