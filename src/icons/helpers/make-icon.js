@@ -9,10 +9,6 @@ import { mergeData } from 'vue-functional-data-merge'
 export const commonIconProps = {
   variant: {
     type: String
-  },
-  nudge: {
-    type: [Number, String],
-    default: 0
   }
 }
 
@@ -28,17 +24,6 @@ const BVIconBase = {
     ...commonIconProps
   },
   render(h, { data, props }) {
-    const iconData = {
-      attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' },
-      domProps: { innerHTML: props.content || '' }
-    }
-    const nudge = toFloat(props.nudge) || false
-    if (nudge) {
-      iconData.style = iconData.style || {}
-      // The `+ 1` is to compensate for current alignment issues
-      // with the Bootstrap Icons 1.0.0-alpha release implementation
-      iconData.style.verticalAlign = `-${(nudge + 1) / 8}em`
-    }
     return h(
       'svg',
       mergeData(
@@ -56,7 +41,10 @@ const BVIconBase = {
         },
         data,
         // These cannot be overridden by users
-        iconData
+        {
+          attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' },
+          domProps: { innerHTML: props.content || '' }
+        }
       )
     )
   }
