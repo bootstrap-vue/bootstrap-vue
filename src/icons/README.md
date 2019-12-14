@@ -256,11 +256,12 @@ will be scaled by 150%).
     <b-button class="mb-2" size="sm">
       <b-icon icon="gear-fill"></b-icon> Settings
     </b-button>
+    <br>
     <b-button class="mb-2" variant="primary">
-      Settings <b-icon icon="gear-fill"></b-icon> Settings
+      Settings <b-icon icon="gear-fill"></b-icon>
     </b-button>
     <br>
-    <b-button size="lg" variant="secondary">
+    <b-button size="lg" variant="info">
       <b-icon icon="gear-fill"></b-icon> Settings
     </b-button>
   </div>
