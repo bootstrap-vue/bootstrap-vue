@@ -10,6 +10,7 @@
   .input-group-prepend,
   .input-group-append {
     .input-group-text {
+      // Perhaps this should be an SCSS variable
       transform: scale(1.5);
     }
   }
