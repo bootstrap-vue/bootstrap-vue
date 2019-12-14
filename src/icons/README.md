@@ -286,7 +286,7 @@ will be scaled by 150%).
       <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-group header="Options">
         <b-dropdown-item-button>
-           <b-icon icon=blank" class="ml-n3"></b-icon>
+           <b-icon icon="blank" class="ml-n3"></b-icon>
            Option A
         </b-dropdown-item-button>
         <b-dropdown-item-button>
@@ -294,7 +294,7 @@ will be scaled by 150%).
           Option B <span class="sr-only">(Selected)</span>
         </b-dropdown-item-button>
         <b-dropdown-item-button>
-          <b-icon icon=blank" class="ml-n3"></b-icon>
+          <b-icon icon="blank" class="ml-n3"></b-icon>
           Option C
         </b-dropdown-item-button>
       </b-dropdown-group>
