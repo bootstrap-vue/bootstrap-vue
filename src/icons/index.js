@@ -867,11 +867,29 @@ export const BIconLockFill = /*#__PURE__*/ makeIcon(
 )
 iconComponents.BIconLockFill = BIconLockFill
 
-// export const BIcon = /*#__PURE__*/ makeIcon(
-//   '',
-//   ''
-// )
-// iconComponents.BIcon = BIcon
+export const BIconMusicPlayer = /*#__PURE__*/ makeIcon(
+  'MusicPlayer',
+  '<path fill-rule="evenodd" d="M14 3H6a1 1 0 00-1 1v12a1 1 0 001 1h8a1 1 0 001-1V4a1 1 0 00-1-1zM6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H6z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M13 5H7v3h6V5zM7 4a1 1 0 00-1 1v3a1 1 0 001 1h6a1 1 0 001-1V5a1 1 0 00-1-1H7zm3 11a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd"/><circle cx="10" cy="13" r="1"/>'
+)
+iconComponents.BIconMusicPlayer = BIconMusicPlayer
+
+export const BIconMusicPlayerFill = /*#__PURE__*/ makeIcon(
+  'MusicPlayerFill',
+  '<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 1a1 1 0 011-1h6a1 1 0 011 1v2.5a1 1 0 01-1 1H7a1 1 0 01-1-1V5zm7 8a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd"/><circle cx="10" cy="13" r="1"/>'
+)
+iconComponents.BIconMusicPlayerFill = BIconMusicPlayerFill
+
+export const BIconOption = /*#__PURE__*/ makeIcon(
+  'Option',
+  '<path fill-rule="evenodd" d="M2.5 4.5A.5.5 0 013 4h4a.5.5 0 01.439.26L13.297 15H17a.5.5 0 010 1h-4a.5.5 0 01-.439-.26L6.703 5H3a.5.5 0 01-.5-.5zm10 0A.5.5 0 0113 4h4a.5.5 0 010 1h-4a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconOption = BIconOption
+
+export const BIconPause = /*#__PURE__*/ makeIcon(
+  'Pause',
+  '<path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v8a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm4 0a.5.5 0 01.5.5v8a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconPause = BIconPause
 
 export const BIconPeople = /*#__PURE__*/ makeIcon(
   'People',
@@ -897,11 +915,29 @@ export const BIconPersonFill = /*#__PURE__*/ makeIcon(
 )
 iconComponents.BIconPersonFill = BIconPersonFill
 
-// export const BIcon = /*#__PURE__*/ makeIcon(
-//   '',
-//   ''
-// )
-// iconComponents.BIcon = BIcon
+export const BIconPhone = /*#__PURE__*/ makeIcon(
+  'Phone',
+  '<path fill-rule="evenodd" d="M13 3H7a1 1 0 00-1 1v11a1 1 0 001 1h6a1 1 0 001-1V4a1 1 0 00-1-1zM7 2a2 2 0 00-2 2v11a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10 15a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconPhone = BIconPhone
+
+export const BIconPhoneLandscape = /*#__PURE__*/ makeIcon(
+  'PhoneLandscape',
+  '<path fill-rule="evenodd" d="M3.5 6.5v6a1 1 0 001 1h11a1 1 0 001-1v-6a1 1 0 00-1-1h-11a1 1 0 00-1 1zm-1 6a2 2 0 002 2h11a2 2 0 002-2v-6a2 2 0 00-2-2h-11a2 2 0 00-2 2v6z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M15.5 9.5a1 1 0 10-2 0 1 1 0 002 0z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconPhoneLandscape = BIconPhoneLandscape
+
+export const BIconPlay = /*#__PURE__*/ makeIcon(
+  'Play',
+  '<path fill-rule="evenodd" d="M12.804 10L7 6.633v6.734L12.804 10zm.792-.696a.802.802 0 010 1.392l-6.363 3.692C6.713 14.69 6 14.345 6 13.692V6.308c0-.653.713-.998 1.233-.696l6.363 3.692z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconPlay = BIconPlay
+
+export const BIconPlayFill = /*#__PURE__*/ makeIcon(
+  'PlayFill',
+  '<path d="M13.596 10.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V6.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 010 1.393z"/>'
+)
+iconComponents.BIconPlayFill = BIconPlayFill
 
 export const BIconPlus = /*#__PURE__*/ makeIcon(
   'Plus',
@@ -939,11 +975,29 @@ export const BIconQuestionSquareFill = /*#__PURE__*/ makeIcon(
 )
 iconComponents.BIconQuestionSquareFill = BIconQuestionSquareFill
 
-// export const BIcon = /*#__PURE__*/ makeIcon(
-//   '',
-//   ''
-// )
-// iconComponents.BIcon = BIcon
+export const BIconReply = /*#__PURE__*/ makeIcon(
+  'Reply',
+  '<path fill-rule="evenodd" d="M11.502 7.013a.144.144 0 00-.202.134V8.3a.5.5 0 01-.5.5c-.667 0-2.013.005-3.3.822-.984.624-1.99 1.76-2.595 3.876 1.02-.983 2.185-1.516 3.205-1.799a8.745 8.745 0 011.921-.306 7.468 7.468 0 01.798.008h.013l.005.001h.001l-.048.498.05-.498a.5.5 0 01.45.498v1.153c0 .108.11.176.202.134l3.984-2.933a.522.522 0 01.042-.028.147.147 0 000-.252.51.51 0 01-.042-.028l-3.984-2.933zM10.3 12.386a7.745 7.745 0 00-1.923.277c-1.326.368-2.896 1.201-3.94 3.08a.5.5 0 01-.933-.305c.464-3.71 1.886-5.662 3.46-6.66 1.245-.79 2.527-.942 3.336-.971v-.66a1.144 1.144 0 011.767-.96l3.994 2.94a1.147 1.147 0 010 1.946l-3.994 2.94a1.144 1.144 0 01-1.767-.96v-.667z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconReply = BIconReply
+
+export const BIconReplyFill = /*#__PURE__*/ makeIcon(
+  'ReplyFill',
+  '<path d="M11.079 13.9l4.568-3.281a.719.719 0 000-1.238L11.079 6.1A.716.716 0 0010 6.719V8c-1.5 0-6 0-7 8 2.5-4.5 7-4 7-4v1.281c0 .56.606.898 1.079.62z"/>'
+)
+iconComponents.BIconReplyFill = BIconReplyFill
+
+export const BIconReplyAll = /*#__PURE__*/ makeIcon(
+  'ReplyAll',
+  '<path fill-rule="evenodd" d="M10.002 7.013a.144.144 0 00-.202.134V8.3a.5.5 0 01-.5.5c-.667 0-2.013.005-3.3.822-.984.624-1.99 1.76-2.595 3.876 1.02-.983 2.185-1.516 3.205-1.799a8.745 8.745 0 011.921-.306 7.47 7.47 0 01.798.008h.013l.005.001h.001L9.3 11.9l.05-.498a.5.5 0 01.45.498v1.153c0 .108.11.176.202.134l3.984-2.933a.522.522 0 01.042-.028.147.147 0 000-.252.51.51 0 01-.042-.028l-3.984-2.933zM8.8 12.386a7.745 7.745 0 00-1.923.277c-1.326.368-2.896 1.201-3.94 3.08a.5.5 0 01-.933-.305c.464-3.71 1.886-5.662 3.46-6.66 1.245-.79 2.527-.942 3.336-.971v-.66a1.144 1.144 0 011.767-.96l3.994 2.94a1.147 1.147 0 010 1.946l-3.994 2.94a1.144 1.144 0 01-1.767-.96v-.667z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.868 6.293a.5.5 0 01.7-.106l3.993 2.94a1.147 1.147 0 010 1.946l-3.994 2.94a.5.5 0 11-.593-.805l4.012-2.954a.523.523 0 01.042-.028.147.147 0 000-.252.512.512 0 01-.042-.028l-4.012-2.954a.5.5 0 01-.106-.699z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconReplyAll = BIconReplyAll
+
+export const BIconReplyAllFill = /*#__PURE__*/ makeIcon(
+  'ReplyAllFill',
+  '<path d="M10.079 13.9l4.568-3.281a.719.719 0 000-1.238L10.079 6.1A.716.716 0 009 6.719V8c-1.5 0-6 0-7 8 2.5-4.5 7-4 7-4v1.281c0 .56.606.898 1.079.62z"/><path fill-rule="evenodd" d="M12.868 6.293a.5.5 0 01.7-.106l3.993 2.94a1.147 1.147 0 010 1.946l-3.994 2.94a.5.5 0 11-.593-.805l4.012-2.954a.523.523 0 01.042-.028.147.147 0 000-.252.512.512 0 01-.042-.028l-4.012-2.954a.5.5 0 01-.106-.699z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconReplyAllFill = BIconReplyAllFill
 
 export const BIconSearch = /*#__PURE__*/ makeIcon(
   'Search',
