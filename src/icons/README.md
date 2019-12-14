@@ -286,24 +286,25 @@ will be scaled by 150%).
       <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-group header="Options">
         <b-dropdown-item-button>
-           <b-icon icon="blank" class="ml-n3"></b-icon>
+           <b-icon icon="blank"></b-icon>
            Option A
         </b-dropdown-item-button>
         <b-dropdown-item-button>
-          <b-icon icon="check" class="ml-n3"></b-icon>
-          Option B <span class="sr-only">(Selected)</span>
+           <b-icon icon="check"></b-icon>
+           Option B <span class="sr-only">(Selected)</span>
         </b-dropdown-item-button>
-        <b-dropdown-item-button>
-          <b-icon icon="blank" class="ml-n3"></b-icon>
-          Option C
+         <b-dropdown-item-button>
+           <b-icon icon="blank"></b-icon>
+           Option C
         </b-dropdown-item-button>
       </b-dropdown-group>
       <b-dropdown-divider></b-dropdown-divider>
-      <b-dropdown-item-button>
-        Some action
-      </b-dropdown-item-button>
-      <b-dropdown-item-button>
-        Some other action
+      <b-dropdown-item-button>Some action</b-dropdown-item-button>
+      <b-dropdown-item-button>Some other action</b-dropdown-item-button>
+      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-item-button variant="danger">
+        <b-icon icon="alert-square-fill"></b-icon>
+        Delete
       </b-dropdown-item-button>
     </b-dropdown>
   </div>
