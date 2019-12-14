@@ -28,6 +28,7 @@ const RX_ICON_PREFIX = /^BIcon/
 export const BIcon = /*#__PURE__*/ Vue.extend({
   name: 'BIcon',
   functional: true,
+  componets: { BIconBlank },
   props: {
     icon: {
       type: String,
@@ -37,10 +38,7 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
   },
   render(h, { data, props }) {
     const icon = pascalCase(trim(props.icon || '')).replace(RX_ICON_PREFIX, '')
-    if (!icon) {
-      return h()
-    }
-    const componentName = `BIcon${icon}`
+    const component = icon ? `BIcon${icon}` : BIconBlank
     // TODO:
     //   Could check Vue.options.components[componentName]
     //   To see if the icon is registered/valid
@@ -52,7 +50,7 @@ iconComponents.BIcon = BIcon
 
 // --- Individual Icon components ---
 
-// Empty icon
+// Empty icon (BootstrapVue custom icon)
 export const BIconBlank = /*#__PURE__*/ makeIcon('Blank', '')
 iconComponents.BIconBlank = BIconBlank
 
