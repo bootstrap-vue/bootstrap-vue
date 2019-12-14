@@ -4,6 +4,16 @@ import { concat } from '../../utils/array'
 import { kebabCase, pascalCase } from '../../utils/string'
 import { mergeData } from 'vue-functional-data-merge'
 
+export commonIconProps = {
+  variant: {
+    type: String
+  },
+  nudge: {
+    type: [Number, String],
+    default: 1
+  }
+}
+
 // Shared base component to reduce bundle size
 // @vue/component
 const BVIconBase = {
@@ -13,11 +23,12 @@ const BVIconBase = {
     content: {
       type: String
     },
-    variant: {
-      type: String
-    }
+    ...commonIconProps
   },
   render(h, { data, props }) {
+    const style = {
+      marginBottom: `calc(${props.nudge} * (1em / 16))`
+    }
     return h(
       'svg',
       mergeData(
