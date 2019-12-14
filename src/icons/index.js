@@ -437,6 +437,201 @@ export const BIconCheckCircle = /*#__PURE__*/ makeIcon(
 )
 iconComponents.BIconCheckCircle = BIconCheckCircle
 
+export const BIconChevronCompactDown = /*#__PURE__*/ makeIcon(
+  'ChevronCompactDown',
+  '<path fill-rule="evenodd" d="M3.553 8.776a.5.5 0 01.67-.223L10 11.44l5.776-2.888a.5.5 0 11.448.894l-6 3a.5.5 0 01-.448 0l-6-3a.5.5 0 01-.223-.67z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconChevronCompactDown = BIconChevronCompactDown
+
+export const BIconChevronCompactLeft = /*#__PURE__*/ makeIcon(
+  'ChevronCompactLeft',
+  '<path fill-rule="evenodd" d="M11.224 3.553a.5.5 0 01.223.67L8.56 10l2.888 5.776a.5.5 0 11-.894.448l-3-6a.5.5 0 010-.448l3-6a.5.5 0 01.67-.223z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconChevronCompactLeft = BIconChevronCompactLeft
+
+export const BIconChevronCompactRight = /*#__PURE__*/ makeIcon(
+  'ChevronCompactRight',
+  '<path fill-rule="evenodd" d="M8.776 3.553a.5.5 0 01.671.223l3 6a.5.5 0 010 .448l-3 6a.5.5 0 11-.894-.448L11.44 10 8.553 4.224a.5.5 0 01.223-.671z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconChevronCompactRight = BIconChevronCompactRight
+
+export const BIconChevronCompactUp = /*#__PURE__*/ makeIcon(
+  'ChevronCompactUp',
+  '<path fill-rule="evenodd" d="M9.776 7.553a.5.5 0 01.448 0l6 3a.5.5 0 11-.448.894L10 8.56l-5.776 2.888a.5.5 0 11-.448-.894l6-3z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconChevronCompactUp = BIconChevronCompactUp
+
+export const BIconChevronDown = /*#__PURE__*/ makeIcon(
+  'ChevronDown',
+  '<path fill-rule="evenodd" d="M3.646 6.646a.5.5 0 01.708 0L10 12.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconChevronDown = BIconChevronDown
+
+export const BIconChevronLeft = /*#__PURE__*/ makeIcon(
+  'ChevronLeft',
+  '<path fill-rule="evenodd" d="M13.354 3.646a.5.5 0 010 .708L7.707 10l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconChevronLeft = BIconChevronLeft
+
+export const BIconChevronRight = /*#__PURE__*/ makeIcon(
+  'ChevronRight',
+  '<path fill-rule="evenodd" d="M6.646 3.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L12.293 10 6.646 4.354a.5.5 0 010-.708z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconChevronRight = BIconChevronRight
+
+export const BIconChevronUp = /*#__PURE__*/ makeIcon(
+  'ChevronUp',
+  '<path fill-rule="evenodd" d="M9.646 6.646a.5.5 0 01.708 0l6 6a.5.5 0 01-.708.708L10 7.707l-5.646 5.647a.5.5 0 01-.708-.708l6-6z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconChevronUp = BIconChevronUp
+
+export const BIconCircle = /*#__PURE__*/ makeIcon(
+  'Circle',
+  '<path fill-rule="evenodd" d="M10 17a7 7 0 100-14 7 7 0 000 14zm0 1a8 8 0 100-16 8 8 0 000 16z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconCircle = BIconCircle
+
+export const BIconCircleFill = /*#__PURE__*/ makeIcon('CircleFill', '<circle cx="10" cy="10" r="8"/>')
+iconComponents.BIconCircleFill = BIconCircleFill
+
+export const BIconCircleSlash = /*#__PURE__*/ makeIcon(
+  'CircleSlash',
+  '<path fill-rule="evenodd" d="M1.5 10a8.5 8.5 0 1117 0 8.5 8.5 0 01-17 0zM10 2.5a7.5 7.5 0 100 15 7.5 7.5 0 000-15zm4.72 12.927L4.608 5.315l.707-.707L15.427 14.72l-.707.707z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconCircleSlash = BIconCircleSlash
+
+export const BIconClock = /*#__PURE__*/ makeIcon(
+  'Clock',
+  '<path fill-rule="evenodd" d="M10 17a7 7 0 100-14 7 7 0 000 14zm8-7a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10 4a.5.5 0 01.5.5V10a.5.5 0 01-.5.5H5.5a.5.5 0 010-1h4v-5A.5.5 0 0110 4z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconClock = BIconClock
+
+export const BIconClockFill = /*#__PURE__*/ makeIcon(
+  'ClockFill',
+  '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM5.5 9.5h4v-5a.5.5 0 011 0V10a.5.5 0 01-.5.5H5.5a.5.5 0 010-1z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconClockFill = BIconClockFill
+
+export const BIconCloud = /*#__PURE__*/ makeIcon(
+  'Cloud',
+  '<path fill-rule="evenodd" d="M6.887 9.2l-.964-.165A2.5 2.5 0 105.5 14h10a1.5 1.5 0 00.237-2.982l-1.038-.164.216-1.028a4 4 0 10-7.843-1.587l-.185.96zm9.084.341a5 5 0 00-9.88-1.492A3.5 3.5 0 105.5 15h9.999a2.5 2.5 0 00.394-4.968c.033-.16.06-.324.077-.49z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconCloud = BIconCloud
+
+export const BIconCloudFill = /*#__PURE__*/ makeIcon(
+  'CloudFill',
+  '<path fill-rule="evenodd" d="M5.5 15a3.5 3.5 0 11.59-6.95 5.002 5.002 0 119.804 1.98A2.5 2.5 0 0115.5 15h-10z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconCloudFill = BIconCloudFill
+
+export const BIconCode = /*#__PURE__*/ makeIcon(
+  'Code',
+  '<path fill-rule="evenodd" d="M7.854 6.146a.5.5 0 010 .708L4.707 10l3.147 3.146a.5.5 0 01-.708.708l-3.5-3.5a.5.5 0 010-.708l3.5-3.5a.5.5 0 01.708 0zm4.292 0a.5.5 0 000 .708L15.293 10l-3.147 3.146a.5.5 0 00.708.708l3.5-3.5a.5.5 0 000-.708l-3.5-3.5a.5.5 0 00-.708 0z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconCode = BIconCode
+
+export const BIconCodeSlash = /*#__PURE__*/ makeIcon(
+  'CodeSlash',
+  '<path fill-rule="evenodd" d="M6.854 6.146a.5.5 0 010 .708L3.707 10l3.147 3.146a.5.5 0 01-.708.708l-3.5-3.5a.5.5 0 010-.708l3.5-3.5a.5.5 0 01.708 0zm6.292 0a.5.5 0 000 .708L16.293 10l-3.147 3.146a.5.5 0 00.708.708l3.5-3.5a.5.5 0 000-.708l-3.5-3.5a.5.5 0 00-.708 0zm-.999-3.124a.5.5 0 01.33.625l-4 13a.5.5 0 11-.955-.294l4-13a.5.5 0 01.625-.33z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconCodeSlash = BIconCodeSlash
+
+export const BIconCommand = /*#__PURE__*/ makeIcon(
+  'Command',
+  '<path fill-rule="evenodd" d="M3.5 5A1.5 1.5 0 005 6.5h1.5V5a1.5 1.5 0 10-3 0zm4 2.5V5A2.5 2.5 0 105 7.5h2.5zm9-2.5A1.5 1.5 0 0115 6.5h-1.5V5a1.5 1.5 0 013 0zm-4 2.5V5A2.5 2.5 0 1115 7.5h-2.5zm-9 7.5A1.5 1.5 0 015 13.5h1.5V15a1.5 1.5 0 01-3 0zm4-2.5V15A2.5 2.5 0 115 12.5h2.5zm9 2.5a1.5 1.5 0 00-1.5-1.5h-1.5V15a1.5 1.5 0 003 0zm-4-2.5V15a2.5 2.5 0 102.5-2.5h-2.5z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.5 7.5h-5v5h5v-5zm-6-1v7h7v-7h-7z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconCommand = BIconCommand
+
+export const BIconCompass = /*#__PURE__*/ makeIcon(
+  'Compass',
+  '<path fill-rule="evenodd" d="M10 17.016a6.5 6.5 0 100-13 6.5 6.5 0 000 13zm0 1a7.5 7.5 0 100-15 7.5 7.5 0 000 15z" clip-rule="evenodd"/><rect width="4" height="2" x="8" y="2" rx="1"/><path d="M8.94 9.44l4.95-2.83-2.83 4.95-4.95 2.83 2.83-4.95z"/>'
+)
+iconComponents.BIconCompass = BIconCompass
+
+export const BIconCreditCard = /*#__PURE__*/ makeIcon(
+  'CreditCard',
+  '<path fill-rule="evenodd" d="M16 5H4a1 1 0 00-1 1v8a1 1 0 001 1h12a1 1 0 001-1V6a1 1 0 00-1-1zM4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4z" clip-rule="evenodd"/><rect width="3" height="3" x="4" y="11" rx="1"/><path d="M3 7h14v2H3z"/>'
+)
+iconComponents.BIconCreditCard = BIconCreditCard
+
+export const BIconCursor = /*#__PURE__*/ makeIcon(
+  'Cursor',
+  '<path fill-rule="evenodd" d="M16.081 4.182a.5.5 0 01.104.557l-5.657 12.727a.5.5 0 01-.917-.006L7.57 12.694l-4.766-2.042a.5.5 0 01-.006-.917L15.525 4.08a.5.5 0 01.556.103zM4.25 10.184l3.897 1.67a.5.5 0 01.262.263l1.67 3.897L14.743 5.52 4.25 10.184z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconCursor = BIconCursor
+
+export const BIconCursorFill = /*#__PURE__*/ makeIcon(
+  'CursorFill',
+  '<path fill-rule="evenodd" d="M16.081 4.182a.5.5 0 01.104.557l-5.657 12.727a.5.5 0 01-.917-.006L7.57 12.694l-4.766-2.042a.5.5 0 01-.006-.917L15.525 4.08a.5.5 0 01.556.103z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconCursorFill = BIconCursorFill
+
+export const BIconDash = /*#__PURE__*/ makeIcon(
+  'Dash',
+  '<path fill-rule="evenodd" d="M5.5 10a.5.5 0 01.5-.5h8a.5.5 0 010 1H6a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconDash = BIconDash
+
+export const BIconDisplay = /*#__PURE__*/ makeIcon(
+  'Display',
+  '<path d="M7.75 15.5c.167-.333.25-.833.25-1.5h4c0 .667.083 1.167.25 1.5H13a.5.5 0 010 1H7a.5.5 0 010-1h.75z"/><path fill-rule="evenodd" d="M15.991 5H4c-.325 0-.502.078-.602.145a.758.758 0 00-.254.302A1.46 1.46 0 003 6.01V12c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 00.538.143L4.01 13H16c.325 0 .502-.078.602-.145a.758.758 0 00.254-.302 1.464 1.464 0 00.143-.538L17 11.99V6c0-.325-.078-.502-.145-.602a.757.757 0 00-.302-.254A1.46 1.46 0 0015.99 5zM16 4H4C2 4 2 6 2 6v6c0 2 2 2 2 2h12c2 0 2-2 2-2V6c0-2-2-2-2-2z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconDisplay = BIconDisplay
+
+export const BIconDocument = /*#__PURE__*/ makeIcon(
+  'Document',
+  '<path fill-rule="evenodd" d="M6 3h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2zm0 1a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V5a1 1 0 00-1-1H6z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconDocument = BIconDocument
+
+export const BIconDocumentCode = /*#__PURE__*/ makeIcon(
+  'DocumentCode',
+  '<path fill-rule="evenodd" d="M6 3h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2zm0 1a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V5a1 1 0 00-1-1H6z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.646 7.646a.5.5 0 01.708 0l2 2a.5.5 0 010 .708l-2 2a.5.5 0 01-.708-.708L12.293 10l-1.647-1.646a.5.5 0 010-.708zm-1.292 0a.5.5 0 00-.708 0l-2 2a.5.5 0 000 .708l2 2a.5.5 0 00.708-.708L7.707 10l1.647-1.646a.5.5 0 000-.708z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconDocumentCode = BIconDocumentCode
+
+export const BIconDocumentDiff = /*#__PURE__*/ makeIcon(
+  'DocumentDiff',
+  '<path fill-rule="evenodd" d="M6 3h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2zm0 1a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V5a1 1 0 00-1-1H6z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M7.5 13a.5.5 0 01.5-.5h4a.5.5 0 010 1H8a.5.5 0 01-.5-.5zM10 6.5a.5.5 0 01.5.5v4a.5.5 0 01-1 0V7a.5.5 0 01.5-.5z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M7.5 9a.5.5 0 01.5-.5h4a.5.5 0 010 1H8a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconDocumentDiff = BIconDocumentDiff
+
+export const BIconDocumentRichtext = /*#__PURE__*/ makeIcon(
+  'DocumentRichtext',
+  '<path fill-rule="evenodd" d="M6 3h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2zm0 1a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V5a1 1 0 00-1-1H6z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M6.5 14a.5.5 0 01.5-.5h3a.5.5 0 010 1H7a.5.5 0 01-.5-.5zm0-2a.5.5 0 01.5-.5h6a.5.5 0 010 1H7a.5.5 0 01-.5-.5zm1.639-3.958l1.33.886 1.854-1.855a.25.25 0 01.289-.047L13.5 8v1.75a.5.5 0 01-.5.5H7a.5.5 0 01-.5-.5v-.5s1.54-1.274 1.639-1.208zM8.25 7a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconDocumentRichtext = BIconDocumentRichtext
+
+export const BIconDocumentText = /*#__PURE__*/ makeIcon(
+  'DocumentText',
+  '<path fill-rule="evenodd" d="M6 3h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2zm0 1a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V5a1 1 0 00-1-1H6z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M6.5 14a.5.5 0 01.5-.5h3a.5.5 0 010 1H7a.5.5 0 01-.5-.5zm0-2a.5.5 0 01.5-.5h6a.5.5 0 010 1H7a.5.5 0 01-.5-.5zm0-2a.5.5 0 01.5-.5h6a.5.5 0 010 1H7a.5.5 0 01-.5-.5zm0-2a.5.5 0 01.5-.5h6a.5.5 0 010 1H7a.5.5 0 01-.5-.5zm0-2a.5.5 0 01.5-.5h6a.5.5 0 010 1H7a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconDocumentText = BIconDocumentText
+
+export const BIconDocuments = /*#__PURE__*/ makeIcon(
+  'Documents',
+  '<path fill-rule="evenodd" d="M5 4h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2zm0 1a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V6a1 1 0 00-1-1H5z" clip-rule="evenodd"/><path d="M7 2h8a2 2 0 012 2v10a2 2 0 01-2 2v-1a1 1 0 001-1V4a1 1 0 00-1-1H7a1 1 0 00-1 1H5a2 2 0 012-2z"/>'
+)
+iconComponents.BIconDocuments = BIconDocuments
+
+export const BIconDocumentsAlt = /*#__PURE__*/ makeIcon(
+  'DocumentsAlt',
+  '<path fill-rule="evenodd" d="M5 3h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm0 1a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V5a1 1 0 00-1-1H5z" clip-rule="evenodd"/><path d="M15 6V5a2 2 0 012 2v6a2 2 0 01-2 2v-1a1 1 0 001-1V7a1 1 0 00-1-1z"/>'
+)
+iconComponents.BIconDocumentsAlt = BIconDocumentsAlt
+
+export const BIconDot = /*#__PURE__*/ makeIcon(
+  'Dot',
+  '<path fill-rule="evenodd" d="M10 11.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconDot = BIconDot
+
+export const BIconEnvelope = /*#__PURE__*/ makeIcon(
+  'Envelope',
+  '<path fill-rule="evenodd" d="M16 5H4a1 1 0 00-1 1v8a1 1 0 001 1h12a1 1 0 001-1V6a1 1 0 00-1-1zM4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M2.071 6.243a.5.5 0 01.686-.172L10 10.417l7.243-4.346a.5.5 0 11.514.858L10 11.583 2.243 6.93a.5.5 0 01-.172-.686z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconEnvelope = BIconEnvelope
+
 // export const BIcon = /*#__PURE__*/ makeIcon('', [
 // ])
 // iconComponents.BIcon = BIcon
