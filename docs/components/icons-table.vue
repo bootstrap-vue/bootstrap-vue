@@ -72,12 +72,15 @@
   overflow-y: scroll;
 }
 
-.flip-icon-list-icon:hover /deep/ .bi {
-  transition: transform 0.15s;
-}
+// Icon zoom on hover
+.flip-icon-list-icon /deep/ .card
+  .bi {
+    transition: transform 0.15s;
+  }
 
-.flip-icon-list-icon:hover /deep/ .bi {
-  transform: scale(2);
+  &:hover .bi {
+    transform: scale(2);
+  }
 }
 
 // Transion group classes
