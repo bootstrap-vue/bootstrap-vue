@@ -24,6 +24,10 @@ export const iconComponents = {}
 
 const RX_ICON_PREFIX = /^BIcon/
 
+// Empty icon (BootstrapVue custom icon)
+export const BIconBlank = /*#__PURE__*/ makeIcon('Blank', '')
+iconComponents.BIconBlank = BIconBlank
+
 // Requires individual icon components to be installed
 export const BIcon = /*#__PURE__*/ Vue.extend({
   name: 'BIcon',
@@ -43,16 +47,12 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
     //   Could check Vue.options.components[componentName]
     //   To see if the icon is registered/valid
     //   Could also use <component :is="componentName"> instead
-    return h(componentName, mergeData(data, { props: { ...props, icon: null } }))
+    return h(component, mergeData(data, { props: { ...props, icon: null } }))
   }
 })
 iconComponents.BIcon = BIcon
 
 // --- Individual Icon components ---
-
-// Empty icon (BootstrapVue custom icon)
-export const BIconBlank = /*#__PURE__*/ makeIcon('Blank', '')
-iconComponents.BIconBlank = BIconBlank
 
 // Source SVG Files can be found at:
 // https://github.com/twbs/icons/tree/master/icons
