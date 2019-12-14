@@ -33,7 +33,7 @@ describe('icons', () => {
     expect(wrapper.find('path').exists()).toBe(true)
   })
 
-  it('b-icon without icon name renders nothing', async () => {
+  it('b-icon without icon name renders empty SVG element', async () => {
     // This test assumes Vue doesn't puke on unknown component names
     // As we currently do not check the validity of icon names
     const wrapper = mount(BIcon, {
@@ -41,7 +41,8 @@ describe('icons', () => {
     })
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.text()).toBe('')
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.fins('svg').isEmpty()).toBe(true)
   })
 
   it('b-icon variant works', async () => {
