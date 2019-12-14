@@ -27,7 +27,7 @@ const BVIconBase = {
     ...commonIconProps
   },
   render(h, { data, props }) {
-    const style = {
+    const iconStyle = {
       marginBottom: `calc(${props.nudge} * (1em / 16))`
     }
     return h(
@@ -36,6 +36,7 @@ const BVIconBase = {
         {
           staticClass: 'bi',
           class: { [`text-${props.variant}`]: !!props.variant },
+          style: iconStyle,
           attrs: {
             width: '1em',
             height: '1em',
