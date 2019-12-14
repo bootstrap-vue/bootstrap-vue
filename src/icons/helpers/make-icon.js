@@ -35,7 +35,7 @@ const BVIconBase = {
     const nudge = toFloat(props.nudge) || false
     if (nudge) {
       iconData.style = iconData.style || {}
-      iconData.style.verticalAlign = `calc(-${nudge} * (1em / 16))`
+      iconData.style.verticalAlign = `calc(-${nudge} * (1em / 8))`
     }
     return h(
       'svg',
