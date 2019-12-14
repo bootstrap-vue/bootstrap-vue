@@ -77,7 +77,7 @@ describe('icons', () => {
     expect(wrapper.text()).toBe('')
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.find('svg').isEmpty()).toBe(true)
-    expect(wrapper.element.style.verticalAlign).toEqual(`-0.5em`)
+    expect(wrapper.element.style.verticalAlign).toEqual(`-0.625em`)
 
     wrapper.setProps({
       nudge: 0
