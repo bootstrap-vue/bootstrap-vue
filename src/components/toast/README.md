@@ -485,7 +485,7 @@ for generating more complex toast content:
 ## Alerts versus toasts
 
 In some cases you may need just a simple alert style message (i.e. cookie usage notifications,
-etc.). In these cases is is usually better to use an fixed position alert instead of a toast, by
+etc.). In these cases it is usually better to use an fixed position alert instead of a toast, by
 applying a few Bootstrap [utility classes](/docs/reference/utility-classes) and a small bit of
 custom styling on a [`<b-alert>`](/docs/components/alert) component:
 
