@@ -35,7 +35,9 @@ const BVIconBase = {
     const nudge = toFloat(props.nudge) || false
     if (nudge) {
       iconData.style = iconData.style || {}
-      iconData.style.verticalAlign = `calc(-${nudge + 1} * (1em / 8))`
+      // The `+ 1` is to compensate for current alignment issues
+      // with the Bootstrap Icons alpah release implementation
+      iconData.style.verticalAlign = `-${(nudge + 1)/8}em`
     }
     return h(
       'svg',
