@@ -52,6 +52,10 @@ iconComponents.BIcon = BIcon
 
 // --- Individual Icon components ---
 
+// Empty icon
+export const BIconBlank = /*#__PURE__*/ makeIcon('Blank', '')
+iconComponents.BIconBlank = BIconBlank
+
 // Source SVG Files can be found at:
 // https://github.com/twbs/icons/tree/master/icons
 // TODO:
