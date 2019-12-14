@@ -10,10 +10,9 @@
 //
 import Vue from '../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import { makeIcon } from './helpers/make-icon'
+import { makeIcon, commonIconProps } from './helpers/make-icon'
 import { pluginFactory } from '../utils/plugins'
 import { pascalCase, trim } from '../utils/string'
-
 // We export this object mainly for the docs for generating the icon "table"
 // It is also used in the IconsPlugin export at the bottom of this file
 // Populated as Icon components are defined
@@ -34,10 +33,7 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
       type: String,
       default: null
     },
-    variant: {
-      type: String,
-      default: null
-    }
+    ...commonIconProps,
   },
   render(h, { data, props }) {
     const icon = pascalCase(trim(props.icon || '')).replace(RX_ICON_PREFIX, '')
@@ -49,7 +45,7 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
     //   Could check Vue.options.components[componentName]
     //   To see if the icon is registered/valid
     //   Could also use <component :is="componentName"> instead
-    return h(componentName, mergeData(data, { props: { variant: props.variant } }))
+    return h(componentName, mergeData(data, { props: { ...props, icon: null } }))
   }
 })
 iconComponents.BIcon = BIcon
