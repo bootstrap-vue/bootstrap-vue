@@ -244,12 +244,29 @@ will be scaled by 150%).
   </div>
 </template>
 
-<!-- icons-input-group.vue -->
+<!-- icons-input-groups.vue -->
 ```
 
 ### Buttons
 
-TBD
+```html
+<template>
+  <div>
+    <b-button class="mb-2" size="sm">
+      <b-icon icon="gear-fill"></b-icon> Settings
+    </b-button>
+    <b-button class="mb-2" variant="primary">
+      Settings <b-icon icon="gear-fill"></b-icon> Settings
+    </b-button>
+    <br>
+    <b-button size="lg" variant="secondary">
+      <b-icon icon="gear-fill"></b-icon> Settings
+    </b-button>
+  </div>
+</template>
+
+<!-- icons-buttons.vue -->
+```
 
 ### Dropdowns
 
