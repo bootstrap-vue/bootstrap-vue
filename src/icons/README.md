@@ -218,6 +218,10 @@ With the use of Bootstrap's border and background
 
 Easily place icons as content in other components.
 
+Note that icons placed in BootstrapVue components require BootstrapVue's custom CSS for
+additional styling compensation due to current issues with Bootstrap Icons alpaha `<svg>`
+alignment implementaton and for additional asthentics sclaing.
+
 ### Input groups
 
 ```html
