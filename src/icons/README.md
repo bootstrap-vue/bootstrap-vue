@@ -107,8 +107,8 @@ of the icon names listed in the [Icons](#icons) section above.
 ```html
 <template>
   <div class="h2 mb-0">
-    <b-icon icon="arrow-up"></b-icon>
-    <b-icon icon="arrow-down"></b-icon>
+    <b-icon icon="alert-triangle-fill"></b-icon>
+    <b-icon icon="alert-triangle"></b-icon>
   </div>
 </template>
 
