@@ -73,7 +73,7 @@
 }
 
 // Icon zoom on hover
-.flip-icon-list-icon /deep/ .card
+.flip-icon-list-icon /deep/ .card {
   .bi {
     transition: transform 0.15s;
   }
