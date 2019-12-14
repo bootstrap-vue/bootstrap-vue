@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
+import { toNumber } from '../../utils/number'
 import { kebabCase, pascalCase } from '../../utils/string'
 import { mergeData } from 'vue-functional-data-merge'
 
@@ -11,7 +12,7 @@ export const commonIconProps = {
   },
   nudge: {
     type: [Number, String],
-    default: 1
+    default: 0
   }
 }
 
@@ -27,8 +28,15 @@ const BVIconBase = {
     ...commonIconProps
   },
   render(h, { data, props }) {
-    const iconStyle = {
-      marginBottom: `calc(${props.nudge} * (1em / 16))`
+    const iconData = {
+      attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' },
+      domProps: { innerHTML: props.content || '' },
+      style: null
+    }
+    const nudge = toNumber(props.nudge) || 0
+    if (nudge) {
+      iconData.style = iconData.style || {}
+      iconData.style.verticalAlign = `calc(-${nudge} * (1em / 16))`
     }
     return h(
       'svg',
