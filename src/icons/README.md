@@ -11,7 +11,7 @@ installed by default (except in the [browser build](/docs#build-variants)).
 <div class="alert alert-info small">
   <p class="mb-0">
     <strong>Note:</strong> Bootstrap's Icon SVGs are currently in the alpha release stage, and may
-    be subject to change. icons use BootstrapVue's custom CSS for additional styling compensation due
+    be subject to change. Icons use BootstrapVue's custom CSS for additional styling compensation due
     to Bootstrap Icons' <code>&lt;svg&gt;</code> current vertical alignment issues. This may change
     in future releases of BootstrapVue.
   </p>
