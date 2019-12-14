@@ -4,7 +4,8 @@ import { concat } from '../../utils/array'
 import { kebabCase, pascalCase } from '../../utils/string'
 import { mergeData } from 'vue-functional-data-merge'
 
-export commonIconProps = {
+// Common icon props
+export const commonIconProps = {
   variant: {
     type: String
   },
