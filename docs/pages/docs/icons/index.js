@@ -32,8 +32,8 @@ export default {
         <div class="alert alert-info small">
           <p class="mb-0">
             Individual icon components are not listed here due to the large number of components.
-            All individual icon components have a single prop <code>variant</code> which accepts
-            a bootstrap theme color variant name.
+            All individual icon components have the same props as <code>&lt;b-icon&gt;</code> other
+            than the <code>icon</code> prop.
           </p>
         </div>
         <Importdoc :meta="importMeta"></ImportDoc>
