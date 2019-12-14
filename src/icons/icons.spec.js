@@ -77,11 +77,15 @@ describe('icons', () => {
     expect(wrapper.text()).toBe('')
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.find('svg').isEmpty()).toBe(true)
-    expect(wrapper.element.style.verticalAlign).toEqual(`-0.625em`)
+    await localVue.nextTick()
+    // (4+1)/8 em
+    // expect(wrapper.element.style.verticalAlign).toEqual('-0.625em')
+    expect(wrapper.attributes('style')).toEqual('vertical-align: -0.625em')
 
     wrapper.setProps({
       nudge: 0
     })
+    await localVue.nextTick()
     expect(wrapper.element.style.verticalAlign).toEqual(``)
   })
 
