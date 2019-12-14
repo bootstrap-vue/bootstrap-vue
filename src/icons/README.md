@@ -15,6 +15,9 @@ installed by default (except in the [browser build](/docs#build-variants)).
   </p>
 </div>
 
+Note that icons use BootstrapVue's custom CSS for additional styling compensation due to Bootstrap
+Icons' `<svg>` current vertical alignment issues. This may change in future releases.
+
 ## Icons
 
 The library includes over 210 icons.  Use the explorer below to browse the available icons:
@@ -218,9 +221,10 @@ With the use of Bootstrap's border and background
 
 Easily place icons as content in other components.
 
-Note that icons placed in BootstrapVue components require BootstrapVue's custom CSS for
-additional styling compensation due to current issues with Bootstrap Icons `<svg>` alignment
-implementaton and for additional asthentics sclaing.
+Note that icons placed in BootstrapVue components use BootstrapVue's custom CSS for additional
+styling compensation due to current issues with Bootstrap Icons `<svg>` current alignment
+implementaton and for additional asthetics sclaing (icons placed in the components listed below
+will be scaled by 150%).
 
 ### Input groups
 
