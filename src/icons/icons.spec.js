@@ -42,7 +42,7 @@ describe('icons', () => {
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.text()).toBe('')
     expect(wrapper.is('svg')).toBe(true)
-    expect(wrapper.fins('svg').isEmpty()).toBe(true)
+    expect(wrapper.find('svg').isEmpty()).toBe(true)
   })
 
   it('b-icon variant works', async () => {
