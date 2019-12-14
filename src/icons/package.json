@@ -19,6 +19,10 @@
           {
             "prop": "variant",
             "description": "Contextual color variant. By default the icon inherits the current text color"
+          },
+          {
+            "prop": "nudge",
+            "description": "Positive values shift the incon upwards, while negative values will shift the icon down. Units are 1/16 of an 'em'"
           }
         ]
       }
