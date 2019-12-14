@@ -71,7 +71,9 @@ describe('icons', () => {
     // As we currently do not check the validity of icon names
     const wrapper = mount(BIcon, {
       localVue: localVue,
-      nudge: 4
+      propsData: {
+        nudge: 4
+      }
     })
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.text()).toBe('')
@@ -79,8 +81,7 @@ describe('icons', () => {
     expect(wrapper.find('svg').isEmpty()).toBe(true)
     await localVue.nextTick()
     // (4+1)/8 em
-    // expect(wrapper.element.style.verticalAlign).toEqual('-0.625em')
-    expect(wrapper.attributes('style')).toEqual('vertical-align: -0.625em')
+    expect(wrapper.element.style.verticalAlign).toEqual('-0.625em')
 
     wrapper.setProps({
       nudge: 0
