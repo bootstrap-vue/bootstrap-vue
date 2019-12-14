@@ -36,7 +36,7 @@ const BVIconBase = {
     if (nudge) {
       iconData.style = iconData.style || {}
       // The `+ 1` is to compensate for current alignment issues
-      // with the Bootstrap Icons alpah release implementation
+      // with the Bootstrap Icons 1.0.0-alpha release implementation
       iconData.style.verticalAlign = `-${(nudge + 1) / 8}em`
     }
     return h(
