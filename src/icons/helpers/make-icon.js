@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
-import { toNumber } from '../../utils/number'
+import { toFloat } from '../../utils/number'
 import { kebabCase, pascalCase } from '../../utils/string'
 import { mergeData } from 'vue-functional-data-merge'
 
@@ -30,10 +30,9 @@ const BVIconBase = {
   render(h, { data, props }) {
     const iconData = {
       attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' },
-      domProps: { innerHTML: props.content || '' },
-      style: null
+      domProps: { innerHTML: props.content || '' }
     }
-    const nudge = toNumber(props.nudge) || 0
+    const nudge = toFloat(props.nudge) || false
     if (nudge) {
       iconData.style = iconData.style || {}
       iconData.style.verticalAlign = `calc(-${nudge} * (1em / 16))`
@@ -44,7 +43,6 @@ const BVIconBase = {
         {
           staticClass: 'bi',
           class: { [`text-${props.variant}`]: !!props.variant },
-          style: iconStyle,
           attrs: {
             width: '1em',
             height: '1em',
@@ -56,10 +54,7 @@ const BVIconBase = {
         },
         data,
         // These cannot be overridden by users
-        {
-          attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' },
-          domProps: { innerHTML: props.content || '' }
-        }
+        iconData
       )
     )
   }
