@@ -227,6 +227,37 @@ styling compensation due to current issues with Bootstrap Icons `<svg>` alignmen
 and for additional aesthetic sclaing (icons placed in the components listed below will be scaled
 by 150%).
 
+### Buttons
+
+```html
+<template>
+  <div>
+    <b-button size="sm" class="mb-2">
+      <b-icon icon="gear-fill" class="mr-1"></b-icon> Settings
+    </b-button>
+    <br>
+    <b-button variant="primary" class="mb-2">
+      Pay now <b-icon icon="credit-card" class="ml-1"></b-icon>
+    </b-button>
+    <br>
+    <b-button variant="outline-info" class="mb-2">
+      <b-icon icon="power" class="mr-1"></b-icon> Logout
+    </b-button>
+    <br>
+    <b-button size="lg" variant="primary" class="mb-2">
+      <b-icon icon="question-fill" aria-hidden="true"></b-icon>
+      <span class="sr-only">Help</span>
+    </b-button>
+  </div>
+</template>
+
+<!-- icons-buttons.vue -->
+```
+
+### Button groups and toolbars
+
+TBD
+
 ### Input groups
 
 ```html
@@ -256,28 +287,6 @@ by 150%).
 <!-- icons-input-groups.vue -->
 ```
 
-### Buttons
-
-```html
-<template>
-  <div>
-    <b-button class="mb-2" size="sm">
-      <b-icon icon="gear-fill" class="mr-1"></b-icon> Settings
-    </b-button>
-    <br>
-    <b-button class="mb-2" variant="primary">
-      Pay now <b-icon icon="credit-card" class="ml-1"></b-icon>
-    </b-button>
-    <br>
-    <b-button size="lg" variant="outline-info">
-      <b-icon icon="power" class="mr-1"></b-icon> Logout
-    </b-button>
-  </div>
-</template>
-
-<!-- icons-buttons.vue -->
-```
-
 ### Dropdowns
 
 ```html
@@ -285,25 +294,25 @@ by 150%).
   <div>
     <b-dropdown variant="primary">
       <template v-slot:button-content>
-        <b-icon icon="gear-fill" class="mr-1"></b-icon> Settings
+        <b-icon icon="gear-fill" class="mr-1" aria-hidden="true"></b-icon> Settings
       </template>
       <b-dropdown-item-button>
-         <b-icon icon="lock-fill" class="mr-1"></b-icon>
+         <b-icon icon="lock-fill" class="mr-1" aria-hidden="true"></b-icon>
          Locked <span class="sr-only">(Click to unlock)</span>
       </b-dropdown-item-button>
       <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-group header="Choose options" class="small">
         <b-dropdown-item-button>
-           <b-icon icon="blank" class="mr-1"></b-icon>
-           Option A
+           <b-icon icon="blank" class="mr-1"aria-hidden="true"></b-icon>
+           Option A <span class="sr-only">(Not selected)</span>
         </b-dropdown-item-button>
         <b-dropdown-item-button>
-           <b-icon icon="check" class="mr-1"></b-icon>
+           <b-icon icon="check" class="mr-1" aria-hidden="true"></b-icon>
            Option B <span class="sr-only">(Selected)</span>
         </b-dropdown-item-button>
          <b-dropdown-item-button>
-           <b-icon icon="blank" class="mr-1"></b-icon>
-           Option C
+           <b-icon icon="blank" class="mr-1" aria-hidden="true"></b-icon>
+           Option C <span class="sr-only">(Not selected)</span>
         </b-dropdown-item-button>
       </b-dropdown-group>
       <b-dropdown-divider></b-dropdown-divider>
@@ -311,7 +320,7 @@ by 150%).
       <b-dropdown-item-button>Some other action</b-dropdown-item-button>
       <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-item-button variant="danger">
-        <b-icon icon="circle-slash" class="mr-1"></b-icon>
+        <b-icon icon="circle-slash" class="mr-1" aria-hidden="true"></b-icon>
         Delete
       </b-dropdown-item-button>
     </b-dropdown>
@@ -326,9 +335,10 @@ by 150%).
 SVGs are awesome to work with, but they do have some known quirks to work around.
 
 - **Focus handling is broken in Internet Explorer and Edge.** We have added the attribute
-  `focusable="false"` to the `<svg>` element. You can override this attribute.
+  `focusable="false"` to the `<svg>` element. You can override this by setting the attribute
+  `focusable="false"` on the icon component.
 - **Browsers inconsistently announce SVGs as `<img>` tags with voice assistance.** Hence, we have
   added added the attributes `role="img"` and `alt="icon"`. You can override these attributes if
   needed.
-- **Safari skips `aria-label` when used on non-focusable SVGs.** As such, use `aria-hidden="true"`
-  when using the icon and use CSS to visually hide an equivalent label.
+- **Safari skips `aria-label` when used on non-focusable SVGs.** As such, use the attribute
+  `aria-hidden="true"` when using the icon and use CSS to visually hide the equivalent label.
