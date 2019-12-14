@@ -22,7 +22,7 @@
           },
           {
             "prop": "nudge",
-            "description": "Positive values shift the incon upwards, while negative values will shift the icon down. Units are 1/16 of an 'em'"
+            "description": "Positive values shift the icon upwards, while negative values will shift the icon down. Decimal values are supported. Units are 1/16 of an 'em'"
           }
         ]
       }
