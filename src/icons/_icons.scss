@@ -6,7 +6,7 @@
   // issues with the Bootstrap Icons alpha implememntation
   // Perhaps these values should be SASS variables?
   vertical-align: -0.125em;
-  margin-bottom: -0.0625em;
+  margin-bottom: calc(-0.125em / 2);
 }
 
 // Make icons slightly larger in input group prepend/append
