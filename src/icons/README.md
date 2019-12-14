@@ -214,6 +214,40 @@ With the use of Bootstrap's border and background
 <!-- icons-styling.vue -->
 ```
 
+## Using in components
+
+Easily place icons as content in other components.
+
+### Input groups
+
+```html
+<template>
+  <div>
+    <b-input-group class="mb-2">
+      <b-input-group-prepend is-text>
+        <b-icon icon="person-fill"></b-icon>
+      </b-input-group-prepend>
+      <b-form-input type="text"></b-form-input>
+    </b-input-group>
+    <b-input-group>
+      <b-input-group-prepend is-text>
+        <b-icon icon="envelope"></b-icon>
+      </b-input-group-prepend>
+      <b-form-input type="email"></b-form-input>
+    </b-input-group>
+  </div>
+</template>
+
+<!-- icons-input-group.vue -->
+```
+
+### Buttons
+
+TBD
+
+### Dropdowns
+
+TBD
 
 ## Working with SVGs
 
