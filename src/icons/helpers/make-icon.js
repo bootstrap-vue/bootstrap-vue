@@ -37,7 +37,7 @@ const BVIconBase = {
       iconData.style = iconData.style || {}
       // The `+ 1` is to compensate for current alignment issues
       // with the Bootstrap Icons alpah release implementation
-      iconData.style.verticalAlign = `-${(nudge + 1)/8}em`
+      iconData.style.verticalAlign = `-${(nudge + 1) / 8}em`
     }
     return h(
       'svg',
