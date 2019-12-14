@@ -4,7 +4,9 @@
   overflow: hidden;
   // Thee following is required to compenstate for alignment
   // issues with the Bootstrap Icons alpha implememntation
+  // Perhaps these values should be SASS variables?
   vertical-align: -0.125em;
+  margin-bottom: -0.0625em;
 }
 
 // Make icons slightly larger in input group prepend/append
