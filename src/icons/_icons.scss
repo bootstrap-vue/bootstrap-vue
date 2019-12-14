@@ -13,8 +13,8 @@
 .input-group {
   .input-group-text {
      .bi {
-      // Perhaps this should be an SCSS variable
-      transform: scale(1.5);
+       // Perhaps this should be an SCSS variable
+       transform: scale(1.5);
     }
   }
 }
@@ -22,7 +22,7 @@
 // Make icons slightly larger in buttons and dropdowns
 .btn,
 .dropdown {
-   .bi {
+  .bi {
     // Perhaps this should be an SCSS variable
     transform: scale(1.5);
     margin-bottom: 0;
