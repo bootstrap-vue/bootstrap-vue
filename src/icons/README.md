@@ -271,7 +271,38 @@ will be scaled by 150%).
 
 ### Dropdowns
 
-TBD
+```html
+<template>
+  <div>
+    <b-dropdown variant="primary">
+      <template v-slot:button-content>
+        <b-icon icon="gear-fill"></b-icon> Settings
+      </template>
+      <b-dropdown-item-button>
+         <b-icon icon="lock-fill"></b-icon>
+         Locked <span class="sr-only">(Click to unlock)</span>
+      </b-dropdown-item-button>
+      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-group title="Options">
+        <b-dropdown-item-button>
+           <b-icon icon=blank"></b-icon>
+           Option A
+        </b-dropdown-item-button>
+        <b-dropdown-item-button>
+           <b-icon icon="check"></b-icon>
+           Option B <span class="sr-only">(Selected)</span>
+        </b-dropdown-item-button>
+         <b-dropdown-item-button>
+           <b-icon icon=blank"></b-icon>
+           Option C
+        </b-dropdown-item-button>
+     </b-dropdown-group>
+    </b-dropdown>
+  </div>
+</template>
+
+<!-- icons-dropdowns.vue -->
+```
 
 ## Working with SVGs
 
