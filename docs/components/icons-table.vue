@@ -42,8 +42,8 @@
         </b-col>
         <b-col key="__infinite_scroll__" v-b-visible.2500="onInfinite" tag="li" class="text-center">
           <template v-if="currentPageSize < filteredIcons.length">
-            <b-button block variant"outline-secondary" class="mt-3">
-               Load more icons
+            <b-button block variant="outline-secondary" class="mt-3">
+              Load more icons
             </b-button>
           </template>
         </b-col>
