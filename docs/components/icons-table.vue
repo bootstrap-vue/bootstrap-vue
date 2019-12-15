@@ -28,7 +28,7 @@
         class="row-cols-3 row-cols-sm-4 row-cols-lg-6 list-unstyled mb-n3 position-relative"
       >
         <b-col
-          v-for="icon in filteredIcons.slice(0, currentPageSize)"
+          v-for="icon in filteredIcons"
           :key="`_icon_${icon.name}`"
           tag="li"
           class="flip-icon-list-icon d-inline-flex flex-column mb-3 text-center"
@@ -39,22 +39,6 @@
             </b-card-body>
           </b-card>
           <b-form-text class="mt-1 text-break" :title="icon.name">{{ icon.name }}</b-form-text>
-        </b-col>
-        <b-col
-          key="__infinite_scroll__"
-          v-b-visible.360="onInfinite"
-          v-show="currentPageSize < filteredIcons.length"
-          tag="li"
-          class="d-inline-flex flex-column mb-3"
-        >
-          <b-button
-            block
-            variant="outline-secondary"
-            class="my-4"
-            @click="onInfinite(true)"
-          >
-            Load more icons
-          </b-button>
         </b-col>
       </transition-group>
       <div aria-live="polite" aria-atomic="true">
@@ -108,22 +92,23 @@
   transition: transform 0.3s;
 }
 
-.flip-icon-list-leave-active {
-  position: absolute;
-}
-
 .flip-icon-list-enter,
 .flip-icon-list-leave-to {
   opacity: 0;
-  transform: scale(0.5);
+  transform: scale(0.75);
+}
+
+.flip-icon-list-enter-active {
+  transition-delay: 0.3s
+}
+
+.flip-icon-list-leave-active {
+  position: absolute;
 }
 </style>
 
 <script>
 import { iconNames } from '~/../src/index'
-
-const INITIAL_SIZE = 50
-const INFINITE_INCREMENT = 24
 
 const icons = iconNames
   .filter(name => name !== 'BIcon')
@@ -143,9 +128,7 @@ export default {
   data() {
     return {
       iconFilter: '',
-      totalIcons: icons.length,
-      currentPageSize: INITIAL_SIZE,
-      noIntersectionObserver: false
+      totalIcons: icons.length
     }
   },
   computed: {
@@ -158,25 +141,6 @@ export default {
         return icons.slice()
       }
       return icons.filter(icon => terms.every(term => icon.name.indexOf(term) !== -1))
-    }
-  },
-  watch: {
-    iconFilter(newVal, oldVal) {
-      // Reset the page size to the initial value
-      this.currentPageSize = INITIAL_SIZE
-    }
-  },
-  methods: {
-    onInfinite(visible) {
-      if (visible === null) {
-        // Intersection observer not supported
-        this.currentPageSize = this.totalIcons
-        this.noIntersectionObserver = true
-        return
-      }
-      if (visible) {
-        this.currentPageSize = Math.min(this.currentPageSize + INFINITE_INCREMENT, this.totalIcons)
-      }
     }
   }
 }
