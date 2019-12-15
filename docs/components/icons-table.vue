@@ -47,6 +47,7 @@
           :role="null"
           :aria-live="null"
           :aria-atomic="null"
+          fade
           variant="light"
           class="text-center mt-4 d-flex align-items-center justify-content-center"
         >
@@ -59,6 +60,10 @@
 </template>
 
 <style lang="scss" scoped>
+.bv-icons-table {
+  position: relative;
+}
+
 .bv-icons-table /deep/ .bi {
   font-size: 2rem;
 }
