@@ -16,7 +16,7 @@
           key="_bv-icons-table-search_"
           v-model="iconFilter"
           type="search"
-          debounce="500"
+          debounce="250"
           aria-controls="bv-icons-table-result"
         ></b-form-input>
       </b-form-group>
