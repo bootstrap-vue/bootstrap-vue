@@ -56,10 +56,10 @@ export { BVToastPlugin } from './components/toast/helpers/bv-toast'
 //
 // Export Icon components and IconPlugin
 //
-export { IconsPlugin } from './icons'
+export { IconsPlugin, iconNames } from './icons'
 export { BIcon } from './icons/icon'
-// This re-export is only a single level deep, which Webpack 4
-// handles correctly
+// This re-export is only a single level deep,
+// which Webpack 4 handles correctly
 export * from './icons/icons'
 
 //
