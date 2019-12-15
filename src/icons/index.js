@@ -2,7 +2,7 @@ import Vue from '../utils/vue'
 import { keys } from '../tils/object'
 import { pluginFactory } from '../utils/plugins'
 import { BIcon } from './icon'
-import { * as iconComponents } from './icons'
+import * as iconComponents from './icons'
 
 // This re-export is not currently used, as Webpack 4 has
 // issues with tree shaking re-exports of re-exports
