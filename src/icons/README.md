@@ -400,7 +400,7 @@ by 150%).
       <b-dropdown-item-button>Some other action</b-dropdown-item-button>
       <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-item-button variant="danger">
-        <b-icon icon="circle-slash" class="mr-1" aria-hidden="true"></b-icon>
+        <b-icon icon="trash-fill" class="mr-1" aria-hidden="true"></b-icon>
         Delete
       </b-dropdown-item-button>
     </b-dropdown>
