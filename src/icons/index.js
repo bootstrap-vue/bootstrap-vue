@@ -1,4 +1,3 @@
-import Vue from '../utils/vue'
 import { keys } from '../tils/object'
 import { pluginFactory } from '../utils/plugins'
 import { BIcon } from './icon'
