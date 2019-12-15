@@ -924,11 +924,23 @@ export const BIconOption = /*#__PURE__*/ makeIcon(
 )
 iconComponents.BIconOption = BIconOption
 
+export const BIconOutlet = /*#__PURE__*/ makeIcon(
+  'Outlet',
+  '<path fill-rule="evenodd" d="M5.34 4.994c.275-.338.68-.494 1.074-.494h7.172c.393 0 .798.156 1.074.494.578.708 1.84 2.534 1.84 5.006 0 2.472-1.262 4.297-1.84 5.006-.276.338-.68.494-1.074.494H6.414c-.394 0-.799-.156-1.074-.494C4.762 14.297 3.5 12.472 3.5 10c0-2.472 1.262-4.298 1.84-5.006zm1.074.506a.376.376 0 00-.299.126C5.599 6.259 4.5 7.863 4.5 10c0 2.137 1.099 3.74 1.615 4.374.06.073.163.126.3.126h7.17c.137 0 .24-.053.3-.126.516-.633 1.615-2.237 1.615-4.374 0-2.137-1.099-3.74-1.615-4.374a.376.376 0 00-.3-.126h-7.17z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M8 7.5a.5.5 0 01.5.5v1.5a.5.5 0 01-1 0V8a.5.5 0 01.5-.5zm4 0a.5.5 0 01.5.5v1.5a.5.5 0 01-1 0V8a.5.5 0 01.5-.5z" clip-rule="evenodd"/><path d="M9 12v1h2v-1a1 1 0 10-2 0z"/>'
+)
+iconComponents.BIconOutlet = BIconOutlet
+
 export const BIconPause = /*#__PURE__*/ makeIcon(
   'Pause',
   '<path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v8a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm4 0a.5.5 0 01.5.5v8a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>'
 )
 iconComponents.BIconPause = BIconPause
+
+export const BIconPauseFill = /*#__PURE__*/ makeIcon(
+  'PauseFill',
+  '<path d="M7.5 5.5A1.5 1.5 0 019 7v6a1.5 1.5 0 01-3 0V7a1.5 1.5 0 011.5-1.5zm5 0A1.5 1.5 0 0114 7v6a1.5 1.5 0 01-3 0V7a1.5 1.5 0 011.5-1.5z"/>'
+)
+iconComponents.BIconPauseFill = BIconPauseFill
 
 export const BIconPeople = /*#__PURE__*/ makeIcon(
   'People',
@@ -977,6 +989,12 @@ export const BIconPlayFill = /*#__PURE__*/ makeIcon(
   '<path d="M13.596 10.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V6.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 010 1.393z"/>'
 )
 iconComponents.BIconPlayFill = BIconPlayFill
+
+export const BIconPlug = /*#__PURE__*/ makeIcon(
+  'Plug',
+  '<path d="M6 7h8v3a4 4 0 01-8 0V7z"/><path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v3a.5.5 0 01-1 0V4a.5.5 0 01.5-.5zm4 0a.5.5 0 01.5.5v3a.5.5 0 01-1 0V4a.5.5 0 01.5-.5zM9.115 15.651c.256-.511.385-1.408.385-2.651h1c0 1.257-.121 2.36-.49 3.099-.191.381-.47.707-.87.877-.401.17-.845.15-1.298-.002-.961-.32-1.534-.175-1.851.046-.33.23-.491.615-.491.98h-1c0-.635.278-1.353.918-1.8.653-.456 1.58-.561 2.74-.174.297.099.478.078.592.03.115-.05.244-.161.365-.405z" clip-rule="evenodd"/>'
+)
+iconComponents.BIconPlug = BIconPlug
 
 export const BIconPlus = /*#__PURE__*/ makeIcon(
   'Plus',
