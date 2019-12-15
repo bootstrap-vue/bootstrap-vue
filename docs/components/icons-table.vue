@@ -25,7 +25,7 @@
       <transition-group
         tag="ul"
         name="flip-icon-list"
-        class="row-cols-3 row-cols-sm-4 row-cols-lg-6 list-unstyled mb-n3"
+        class="row-cols-3 row-cols-sm-4 row-cols-lg-6 list-unstyled mb-n3 position-relative"
       >
         <b-col
           v-for="icon in filteredIcons"
@@ -99,7 +99,7 @@
 .flip-icon-list-enter,
 .flip-icon-list-leave-to {
   opacity: 0;
-  transform: scale(0.25);
+  transform: scale(0.5);
 }
 </style>
 
