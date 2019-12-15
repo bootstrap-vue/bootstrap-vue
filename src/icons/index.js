@@ -15,4 +15,4 @@ import * as iconComponents from './icons'
 export const IconsPlugin = /*#__PURE__*/ pluginFactory({ components: { BIcon, ...iconComponents } })
 
 // Array of icon names (for use by the docs)
-eport const iconNames = /*#__PURE__*/ keys(iconComponents)
+export const iconNames = /*#__PURE__*/ keys(iconComponents)
