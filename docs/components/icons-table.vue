@@ -112,7 +112,7 @@
 </style>
 
 <script>
-import { iconNames } from '~/../src/index'
+import { iconNames } from '~/../src/icons'
 
 const icons = iconNames
   .filter(name => name !== 'BIcon')
