@@ -56,7 +56,11 @@ export { BVToastPlugin } from './components/toast/helpers/bv-toast'
 //
 // Export Icon components and IconPlugin
 //
-export * from './icons'
+export { IconsPlugin } from './icons'
+export { BIcon } from './icons/icon'
+// This re-export is only a single level deep, which Webpack 4
+// handles correctly
+export * from './icons/icons'
 
 //
 // Export all individual components and component group plugins as named exports.
