@@ -40,10 +40,14 @@
           </b-card>
           <b-form-text class="mt-1 text-break" :title="icon.name">{{ icon.name }}</b-form-text>
         </b-col>
+        <b-col key="__infinite_scroll__" v-b-visible.2500="onInfinite" tag="li" class="text-center">
+          <template v-if="currentPageSize < filteredIcons.length">
+            <b-button block variant"outline-secondary" class="mt-3">
+               Load more icons
+            </b-button>
+          </template>
+        </b-col>
       </transition-group>
-      <div v-b-visible.100="onInfinite" class="bvd-infinite-scroll" aria-hidden="true">
-        <!-- used for infinite scroll detection -->
-      </div>
       <div aria-live="polite" aria-atomic="true">
         <b-alert
           :show="filteredIcons.length === 0"
@@ -62,12 +66,8 @@
 </template>
 
 <style lang="scss" scoped>
-.bv-icons-table .bvd-infinite-scroll {
-  height: 1px;
-  overflow: hidden;
-}
 .bv-icons-table /deep/ .bi {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 .form-group /deep/ .form-text {
@@ -166,7 +166,7 @@ export default {
         return
       }
       if (visible) {
-        this.curentPageSize = Math.max(this.curentPageSize + INFINITE_INCREMENT, this.totalIcons)
+        this.curentPageSize = Math.min(this.curentPageSize + INFINITE_INCREMENT, this.totalIcons)
       }
     }
   }
