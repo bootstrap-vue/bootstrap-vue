@@ -1,8 +1,6 @@
 import Vue from '../../utils/vue'
-import identity from '../../utils/identity'
-import { concat } from '../../utils/array'
-import { kebabCase, pascalCase } from '../../utils/string'
 import { mergeData } from 'vue-functional-data-merge'
+import { kebabCase, pascalCase, trim } from '../../utils/string'
 
 // Common icon props
 export const commonIconProps = {
@@ -33,11 +31,12 @@ const BVIconBase = {
             width: '1em',
             height: '1em',
             viewBox: '0 0 20 20',
+            focusable: 'false',
             role: 'img',
-            alt: 'icon',
-            focusable: 'false'
+            alt: 'icon'
           }
         },
+        // Merge in user supplied data
         data,
         // These cannot be overridden by users
         {
@@ -53,36 +52,26 @@ const BVIconBase = {
  * Icon component generator function
  *
  * @param {string} icon name (minus the leading `BIcon`)
- * @param {string|string[]} raw innerHTML for SVG
+ * @param {string} raw innerHTML for SVG
  * @return {VueComponent}
  */
 export const makeIcon = (name, content) => {
-  // Pre-compute some values, so they are not computed on
-  // each instantiation of the icon component
+  // For performance reason we pre-compute some values, so that
+  // they are not computed on each render of the icon component
   const iconName = `BIcon${pascalCase(name)}`
   const iconNameClass = `bi-${kebabCase(name)}`
-  // The following could be simplified if the content is
-  // guaranteed to be a single pre-trimmed string
-  const svgContent = concat(content)
-    .filter(identity)
-    .join('')
-    .trim()
-  // Return the icon component
+  const svgContent = trim(content || '')
+  // Return the icon component definition
   return Vue.extend({
     name: iconName,
     functional: true,
-    props: {
-      variant: {
-        type: String,
-        value: null
-      }
-    },
+    props: { ...commonIconProps },
     render(h, { data, props }) {
       return h(
         BVIconBase,
         mergeData(data, {
           staticClass: iconNameClass,
-          props: { content: svgContent, variant: props.variant }
+          props: { ...props, content: svgContent }
         })
       )
     }
