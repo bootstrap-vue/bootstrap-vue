@@ -10,5 +10,5 @@ export declare const IconsPlugin: BvPlugin
 // Component: b-icon
 export declare class BIcon extends BvComponent {}
 
-// TODO:
-//   Add all individual BIcon{IConName} components
+// Components: b-icon-{icon-name}
+export * from './icons'
