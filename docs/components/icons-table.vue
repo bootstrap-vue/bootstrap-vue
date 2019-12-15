@@ -33,11 +33,9 @@
           tag="li"
           class="flip-icon-list-icon d-inline-flex flex-column mb-3 text-center"
         >
-          <b-card bg-variant="light" no-body>
-            <b-card-body body-class="py-3">
-              <b-icon :icon="icon.name" :title="icon.name"></b-icon>
-            </b-card-body>
-          </b-card>
+          <div class="card bg-light p-3" :title="icon.name">
+            <b-icon :icon="icon.name"></b-icon>
+          </div>
           <b-form-text class="mt-1 text-break" :title="icon.name">{{ icon.name }}</b-form-text>
         </b-col>
       </transition-group>
