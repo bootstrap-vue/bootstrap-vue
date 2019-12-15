@@ -42,14 +42,15 @@
         </b-col>
         <b-col
           key="__infinite_scroll__"
-          v-b-visible.250="onInfinite"
+          v-b-visible.360="onInfinite"
           v-show="currentPageSize < filteredIcons.length"
           tag="li"
+          class="d-inline-flex flex-column mb-3"
         >
           <b-button
             block
             variant="outline-secondary"
-            class="mt-3"
+            class="my-4"
             @click="onInfinite(true)"
           >
             Load more icons
