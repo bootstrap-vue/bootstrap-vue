@@ -1,4 +1,4 @@
-import { keys } from '../tils/object'
+import { keys } from '../utils/object'
 import { pluginFactory } from '../utils/plugins'
 import { BIcon } from './icon'
 import * as iconComponents from './icons'
