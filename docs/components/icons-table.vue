@@ -85,11 +85,12 @@
 
 // Transion group classes
 .flip-icon-list-icon {
-  transition: all 0.3s;
+  transition: all 0.15s;
 }
 
 .flip-icon-list-move {
   transition: transform 0.3s;
+  transition-delay: 0.3s;
 }
 
 .flip-icon-list-enter,
