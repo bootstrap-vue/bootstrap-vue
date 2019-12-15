@@ -28,7 +28,7 @@
         class="row-cols-3 row-cols-sm-4 row-cols-lg-6 list-unstyled mb-n3 position-relative"
       >
         <b-col
-          v-for="icon in filteredIcons.slice(0, curentPageSize)"
+          v-for="icon in filteredIcons.slice(0, currentPageSize)"
           :key="`_icon_${icon.name}`"
           tag="li"
           class="flip-icon-list-icon d-inline-flex flex-column mb-3 text-center"
@@ -144,7 +144,7 @@ export default {
     return {
       iconFilter: '',
       totalIcons: icons.length,
-      curentPageSize: INITIAL_SIZE,
+      currentPageSize: INITIAL_SIZE,
       noIntersectionObserver: false
     }
   },
@@ -163,19 +163,19 @@ export default {
   watch: {
     iconFilter(newVal, oldVal) {
       // Reset the page size to the initial value
-      this.curentPageSize = INITIAL_SIZE
+      this.currentPageSize = INITIAL_SIZE
     }
   },
   methods: {
     onInfinite(visible) {
       if (visible === null) {
         // Intersection observer not supported
-        this.curentPageSize = this.totalIcons
+        this.currentPageSize = this.totalIcons
         this.noIntersectionObserver = true
         return
       }
       if (visible) {
-        this.curentPageSize = Math.min(this.curentPageSize + INFINITE_INCREMENT, this.totalIcons)
+        this.currentPageSize = Math.min(this.currentPageSize + INFINITE_INCREMENT, this.totalIcons)
       }
     }
   }
