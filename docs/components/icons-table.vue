@@ -28,7 +28,7 @@
         class="row-cols-3 row-cols-sm-4 row-cols-lg-6 list-unstyled mb-n3 position-relative"
       >
         <b-col
-          v-for="icon in filteredIcons"
+          v-for="icon in filteredIcons.slice(0, curentPageSize)"
           :key="`_icon_${icon.name}`"
           tag="li"
           class="flip-icon-list-icon d-inline-flex flex-column mb-3 text-center"
@@ -41,6 +41,9 @@
           <b-form-text class="mt-1 text-break" :title="icon.name">{{ icon.name }}</b-form-text>
         </b-col>
       </transition-group>
+      <div v-b-visible.100="onInfinite" class="bvd-infinite-scroll" aria-hidden="true">
+        <!-- used for infinite scroll detection -->
+      </div>
       <div aria-live="polite" aria-atomic="true">
         <b-alert
           :show="filteredIcons.length === 0"
@@ -59,8 +62,12 @@
 </template>
 
 <style lang="scss" scoped>
+.bv-icons-table .bvd-infinite-scroll {
+  height: 1px;
+  overflow: hidden;
+}
 .bv-icons-table /deep/ .bi {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .form-group /deep/ .form-text {
@@ -106,6 +113,9 @@
 <script>
 import { iconNames } from '~/../src/index'
 
+const INITIAL_SIZE = 50
+const INFINITE_INCREMENT = 24
+
 const icons = iconNames
   .filter(name => name !== 'BIcon')
   .sort()
@@ -124,7 +134,9 @@ export default {
   data() {
     return {
       iconFilter: '',
-      totalIcons: icons.length
+      totalIcons: icons.length,
+      curentPageSize: INITIAL_SIZE,
+      noIntersectionObserver: false
     }
   },
   computed: {
@@ -137,6 +149,25 @@ export default {
         return icons.slice()
       }
       return icons.filter(icon => terms.every(term => icon.name.indexOf(term) !== -1))
+    }
+  },
+  watch: {
+    iconFilter(newVal, oldVal) {
+      // Reset the page size to the initial value
+      this.curentPageSize = INITIAL_SIZE
+    }
+  },
+  methods: {
+    onInfinite(visible) {
+      if (visible === null) {
+        // Intersection observer not supported
+        this.curentPageSize = this.totalIcons
+        this.noIntersectionObserver = true
+        return
+      }
+      if (visible) {
+        this.curentPageSize = Math.max(this.curentPageSize + INFINITE_INCREMENT, this.totalIcons)
+      }
     }
   }
 }
