@@ -40,12 +40,20 @@
           </b-card>
           <b-form-text class="mt-1 text-break" :title="icon.name">{{ icon.name }}</b-form-text>
         </b-col>
-        <b-col key="__infinite_scroll__" v-b-visible.2500="onInfinite" tag="li" class="text-center">
-          <template v-if="currentPageSize < filteredIcons.length">
-            <b-button block variant="outline-secondary" class="mt-3">
-              Load more icons
-            </b-button>
-          </template>
+        <b-col
+          key="__infinite_scroll__"
+          v-b-visible.250="onInfinite"
+          v-show="currentPageSize < filteredIcons.length"
+          tag="li"
+        >
+          <b-button
+            block
+            variant="outline-secondary"
+            class="mt-3"
+            @click="onInfinite(true)"
+          >
+            Load more icons
+          </b-button>
         </b-col>
       </transition-group>
       <div aria-live="polite" aria-atomic="true">
