@@ -99,7 +99,7 @@
 }
 
 .flip-icon-list-enter-active {
-  transition-delay: 0.3s
+  transition-delay: 0.3s;
 }
 
 .flip-icon-list-leave-active {
