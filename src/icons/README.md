@@ -19,7 +19,7 @@ installed by default (except in the [browser build](/docs#build-variants)).
 
 ## Icons
 
-The library includes over 210 icons.  Use the explorer below to browse the available icons:
+The library includes over 300 icons.  Use the explorer below to browse the available icons:
 
 <section class="bd-example py-3 px-2 notranslate" aria-labelledby="bv-icon-explorer-title">
   <div class="sr-only" id="bv-icon-explorer-title">Bootstrap icon explorer</div>
@@ -256,7 +256,76 @@ by 150%).
 
 ### Button groups and toolbars
 
-TBD
+#### Button Group
+
+```html
+<template>
+  <div>
+    <b-button-group>
+      <b-button variant="outline-primary">
+        <b-icon icon="tools" class="mr-1"></b-icon> Settings
+      </b-button>
+      <b-button variant="outline-primary">
+        <b-icon icon="person-fill" class="ml-1"></b-icon> Account
+      </b-button>
+      <b-button variant="outline-primary">
+        <b-icon icon="inbox-fill" class="ml-1"></b-icon> Messages
+      </b-button>
+    </b-button-group>
+  </div>
+</template>
+        
+<!-- icons-button-group.vue -->
+```
+
+#### Button Toolbar
+
+```html
+<template>
+  <div>
+    <b-button-toolbar>
+      <b-button-group class="mr-1">
+        <b-button title="Save file">
+          <b-icon icon="cloud-upload" aria-hidden="true">
+        </b-button>
+        <b-button title="Load file">
+          <b-icon icon="cloud-download" aria-hidden="true">
+        </b-button>
+        <b-button title="New document">
+          <b-icon icon="document" aria-hidden="true">
+        </b-button>
+      </b-button-group>
+      <b-button-group class="mr-1">
+        <b-button title="Align left">
+          <b-icon icon="text-left" aria-hidden="true">
+        </b-button>
+        <b-button title="Align center">
+          <b-icon icon="text-center" aria-hidden="true">
+        </b-button>
+        <b-button title="Align right">
+          <b-icon icon="text-right" aria-hidden="true">
+        </b-button>
+      </b-button-group>
+      <b-button-group>
+        <b-button title="Bold">
+          <b-icon icon="type-bold" aria-hidden="true">
+        </b-button>
+        <b-button title="Italic">
+          <b-icon icon="type-italic" aria-hidden="true">
+        </b-button>
+        <b-button title="Underline">
+          <b-icon icon="type-underline" aria-hidden="true">
+        </b-button>
+        <b-button title="Strikethrough">
+          <b-icon icon="type-strikethrough" aria-hidden="true">
+        </b-button>
+      </b-button-group>
+    </b-button-toolbar>
+  </div>
+</template>
+        
+<!-- icons-button-toolbar.vue -->
+```
 
 ### Input groups
 
@@ -268,6 +337,17 @@ TBD
         <b-icon icon="search"></b-icon>
       </b-input-group-prepend>
       <b-form-input type="search" placeholder="Serch terms"></b-form-input>
+    </b-input-group>
+    <b-input-group class="mb-2">
+      <b-input-group-prepend is-text>
+        <b-icon icon="tag-fill"></b-icon>
+      </b-input-group-prepend>
+      <b-form-tags
+        separator=" ,;"
+        tag-variant="primary"
+        placeholder="Enter new tags separated by space, comma or semicolon"
+        no-add-on-enter
+      ></b-form-tags>
     </b-input-group>
     <b-input-group class="mb-2">
       <b-input-group-prepend is-text>
