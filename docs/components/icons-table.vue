@@ -100,12 +100,11 @@
 }
 
 .flip-icon-list-enter-active {
-  transition-delay: 0.15s;
+  transition-delay: 0.3s;
 }
 
 .flip-icon-list-leave-active {
   position: absolute;
-  transition-delay: 0s;
 }
 </style>
 
