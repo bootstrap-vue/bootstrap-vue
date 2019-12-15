@@ -38,6 +38,8 @@ export const nav = [
   {
     title: 'Icons',
     base: 'icons',
+    new: true,
+    version: '2.3.0'.
     description: 'BootstrapVue icons'
   },
   {
