@@ -6,12 +6,12 @@
     aria-labeledby="bv-icons-table-title"
   >
     <b-row align-v="center">
-      <b-col md="6">
-        <div class="h3 text-muted" id="bv-icons-table-title">
+      <b-col md="5" lg="6">
+        <div id="bv-icons-table-title" class="h3 text-muted mb-3 mb-md-0">
           Icons explorer
         </div>
       </b-col>
-      <b-col md="6">
+      <b-col md="7" lg="6">
         <b-form @submit.prevent>
           <b-form-group
             label="Search icons"
@@ -20,14 +20,19 @@
             label-align-sm="right"
             :description="`Showing ${filteredIcons.length} of ${totalIcons} icons`"
           >
-            <b-form-input
-              id="bv-icons-table-search"
-              key="_bv-icons-table-search_"
-              v-model="iconFilter"
-              type="search"
-              debounce="250"
-              aria-controls="bv-icons-table-result"
-            ></b-form-input>
+            <b-input-group>
+              <b-form-input
+                id="bv-icons-table-search"
+                key="_bv-icons-table-search_"
+                v-model="iconFilter"
+                type="search"
+                debounce="250"
+                aria-controls="bv-icons-table-result"
+              ></b-form-input>
+              <b-input-group-append is-text>
+                <b-icon icon="search"></b-icon>
+              </b-input-group-append>
+            </b-input-group>
           </b-form-group>
         </b-form>
       </b-col>
