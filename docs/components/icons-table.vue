@@ -78,7 +78,7 @@
   position: relative;
 }
 
-.bv-icons-table-result /deep/ .bi {
+#bv-icons-table-result /deep/ .bi {
   font-size: 2rem;
 }
 
