@@ -5,6 +5,13 @@ import { BIcon } from './icon'
 describe('icons', () => {
   const localVue = new CreateLocalVue()
 
+  const parentComponent = localVue.extend({
+    name: 'ParentComponent',
+    render(h) {
+      return h(this.$slots.default)
+    }
+  })
+
   beforeAll(() => {
     // We install all icon components so that BIcon will work
     localVue.use(IconsPlugin)
@@ -13,6 +20,7 @@ describe('icons', () => {
   it('b-icon has expected structure', async () => {
     const wrapper = mount(BIcon, {
       localVue: localVue,
+      parentComponent: parentComponent,
       propsData: {
         icon: 'alert-circle-fill'
       }
@@ -38,7 +46,8 @@ describe('icons', () => {
     // This test assumes Vue doesn't puke on unknown component names
     // As we currently do not check the validity of icon names
     const wrapper = mount(BIcon, {
-      localVue: localVue
+      localVue: localVue,
+      parentComponent: parentComponent
     })
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.text()).toBe('')
@@ -49,6 +58,7 @@ describe('icons', () => {
   it('b-icon variant works', async () => {
     const wrapper = mount(BIcon, {
       localVue: localVue,
+      parentComponent: parentComponent,
       propsData: {
         icon: 'alert-circle-fill',
         variant: 'danger'
