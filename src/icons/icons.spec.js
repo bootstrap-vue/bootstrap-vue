@@ -10,7 +10,7 @@ describe('icons', () => {
     name: 'ParentComponent',
     components: {
       // For testing user defined Icons
-      BIconFakeIconTest: makeIcon('FakeIconTest, '')
+      BIconFakeIconTest: makeIcon('FakeIconTest', '')
     },
     render(h) {
       return h(this.$slots.default)
