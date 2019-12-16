@@ -21,6 +21,9 @@
             :description="`Showing ${filteredIcons.length} of ${totalIcons} icons`"
           >
             <b-input-group>
+              <b-input-group-prepend is-text>
+                <b-icon icon="search"></b-icon>
+              </b-input-group-prepend>
               <b-form-input
                 id="bv-icons-table-search"
                 key="_bv-icons-table-search_"
@@ -29,9 +32,6 @@
                 debounce="250"
                 aria-controls="bv-icons-table-result"
               ></b-form-input>
-              <b-input-group-append is-text>
-                <b-icon icon="search"></b-icon>
-              </b-input-group-append>
             </b-input-group>
           </b-form-group>
         </b-form>
