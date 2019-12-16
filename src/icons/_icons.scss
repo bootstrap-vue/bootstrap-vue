@@ -12,9 +12,9 @@
 // Make icons slightly larger in input group prepend/append
 .input-group {
   .input-group-text {
-     .bi {
-       // Perhaps this should be an SCSS variable
-       transform: scale(1.5);
+    .bi {
+      // Perhaps this should be an SCSS variable
+      transform: scale(1.5);
     }
   }
 }

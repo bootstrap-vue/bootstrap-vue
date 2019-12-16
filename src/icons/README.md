@@ -20,7 +20,7 @@ installed by default (except in the [browser build](/docs#build-variants)).
 
 ## Icons
 
-The library includes over 300 icons.  Use the explorer below to browse the available icons:
+The library includes over 300 icons. Use the explorer below to browse the available icons:
 
 <section class="bd-example py-3 px-2 notranslate" aria-labelledby="bv-icon-explorer-title">
   <div class="sr-only" id="bv-icon-explorer-title">Bootstrap icon explorer</div>
@@ -38,8 +38,8 @@ Icons inherit the current font color and font size from their parent container e
 the color of the icon, refer to the [Variants](#variants) section, and to change the size of the
 icon refer to the [Sizing](#sizing) section.
 
-All icons are exported with the name in <samp>PascalCase</samp>, prefixed with <samp>BIcon</samp>. i.e
-`alert-circle-fill` is exported as `BIconAlertCircleFill`, `x` is exported as `BIconX`, and
+All icons are exported with the name in <samp>PascalCase</samp>, prefixed with <samp>BIcon</samp>.
+i.e `alert-circle-fill` is exported as `BIconAlertCircleFill`, `x` is exported as `BIconX`, and
 `x-square-fill` is exported as `BIconXSquareFill`.
 
 ### Importing into your project
@@ -224,9 +224,9 @@ With the use of Bootstrap's border and background
 Easily place icons as content in other components.
 
 Note that icons placed in BootstrapVue components use BootstrapVue's custom CSS for additional
-styling compensation due to current issues with Bootstrap Icons `<svg>` alignment implementaton,
-and for additional aesthetic sclaing (icons placed in the components listed below will be scaled
-by 150%).
+styling compensation due to current issues with Bootstrap Icons `<svg>` alignment implementation,
+and for additional aesthetic scaling (icons placed in the components listed below will be scaled by
+150%).
 
 ### Buttons
 
@@ -275,7 +275,7 @@ by 150%).
     </b-button-group>
   </div>
 </template>
-        
+
 <!-- icons-button-group.vue -->
 ```
 
@@ -324,7 +324,7 @@ by 150%).
     </b-button-toolbar>
   </div>
 </template>
-        
+
 <!-- icons-button-toolbar.vue -->
 ```
 
@@ -337,7 +337,7 @@ by 150%).
       <b-input-group-prepend is-text>
         <b-icon icon="search"></b-icon>
       </b-input-group-prepend>
-      <b-form-input type="search" placeholder="Serch terms"></b-form-input>
+      <b-form-input type="search" placeholder="Search terms"></b-form-input>
     </b-input-group>
     <b-input-group class="mb-2">
       <b-input-group-prepend is-text>

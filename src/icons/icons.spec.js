@@ -50,7 +50,7 @@ describe('icons', () => {
   it('b-icon with empty icon name renders BIconBlank', async () => {
     // This test assumes Vue doesn't puke on unknown component names
     // As we don't specify a parent instance (which has all the registered
-    // cmponents for the icons)
+    // components for the icons)
     const wrapper = mount(BIcon, {
       localVue: localVue,
       propsData: {

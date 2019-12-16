@@ -428,7 +428,7 @@ export declare class BIconPauseFill extends BvComponent {}
 
 export declare class BIconPen extends BvComponent {}
 
-export declare class BIconPenil extends BvComponent {}
+export declare class BIconPencil extends BvComponent {}
 
 export declare class BIconPeople extends BvComponent {}
 
