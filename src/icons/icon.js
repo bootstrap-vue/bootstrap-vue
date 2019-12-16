@@ -23,13 +23,10 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
     const iconName = `BIcon${icon}`
     // If parent context exists, we check to see if the icon has been registered
     // Eitehr locally in the parent component, or globally at the $root level
+    // And if not registered, we render a blank icon
     const components = ((parent || {}).$options || {}).components
     const componentRefOrName =
-      icon && components
-        ? components[iconName] || BIconBlank
-        : icon
-          ? iconName
-          : BIconBlank
+      icon && components ? components[iconName] || BIconBlank : icon ? iconName : BIconBlank
     return h(componentRefOrName, mergeData(data, { props: { ...props, icon: null } }))
   }
 })
