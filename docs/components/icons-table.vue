@@ -5,7 +5,7 @@
     role="group"
     aria-labeledby="bv-icons-table-title"
   >
-    <b-row align-v="center">
+    <b-row align-v="start">
       <b-col md="5" lg="6">
         <div id="bv-icons-table-title" class="h3 text-muted mb-3 mb-md-0">
           Icons explorer
