@@ -8,6 +8,8 @@ BootstrapVue icon components are based on [`bootstrap-icons`](https://icons.getb
 Icons are opt-in, meaning that they explicitly need to be imported in order to be used. They are not
 installed by default (except in the [browser build](/docs#build-variants)).
 
+<span class="badge badge-info small">New in v2.3.0</span>
+
 <div class="alert alert-info small">
   <p class="mb-0">
     <strong>Note:</strong>
