@@ -1,6 +1,7 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { IconsPlugin } from './index'
 import { BIcon } from './icon'
+import { makeIcon } from './helpers/make-icon'
 
 describe('icons', () => {
   const localVue = new CreateLocalVue()
@@ -9,10 +10,7 @@ describe('icons', () => {
     name: 'ParentComponent',
     components: {
       // For testing user defined Icons
-      BIconFakeIconTest: {
-        template:
-          '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" class="bi bi-fake-icon-test"></svg>'
-      }
+      BIconFakeIconTest: makeIcon('FakeIconTest, '')
     },
     render(h) {
       return h(this.$slots.default)
@@ -125,6 +123,7 @@ describe('icons', () => {
   it('b-icon with custom icon works', async () => {
     const wrapper = mount(BIcon, {
       localVue: localVue,
+      // Parent component has a custom icon registered
       parentComponent: parentComponent,
       propsData: {
         icon: 'fake-icon-test'
