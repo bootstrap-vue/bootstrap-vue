@@ -1,26 +1,37 @@
 <template>
-  <div key="_bv-icons-table_" class="bv-icons-table notranslate" role="group">
-    <b-form @submit.prevent>
-      <b-form-group
-        label="Search icons"
-        label-for="bv-icons-table-search"
-        label-cols-sm="4"
-        label-cols-md="6"
-        label-cols-lg="7"
-        label-cols-xl="8"
-        label-align-sm="right"
-        :description="`Showing ${filteredIcons.length} of ${totalIcons} icons`"
-      >
-        <b-form-input
-          id="bv-icons-table-search"
-          key="_bv-icons-table-search_"
-          v-model="iconFilter"
-          type="search"
-          debounce="250"
-          aria-controls="bv-icons-table-result"
-        ></b-form-input>
-      </b-form-group>
-    </b-form>
+  <div
+    key="_bv-icons-table_"
+    class="bv-icons-table notranslate"
+    role="group"
+    aria-labeledby="bv-icons-table-title">
+  >
+    <b-row>
+      <b-col md="6">
+        <div class="h3" id="bv-icons-table-title">
+          Icons explorer
+        </div>
+      </b-col>
+      <b-col md="6">
+        <b-form @submit.prevent>
+          <b-form-group
+            label="Search icons"
+            label-for="bv-icons-table-search"
+            label-cols-sm="auto"
+            label-align-sm="right"
+            :description="`Showing ${filteredIcons.length} of ${totalIcons} icons`"
+          >
+            <b-form-input
+              id="bv-icons-table-search"
+              key="_bv-icons-table-search_"
+              v-model="iconFilter"
+              type="search"
+              debounce="250"
+              aria-controls="bv-icons-table-result"
+            ></b-form-input>
+          </b-form-group>
+        </b-form>
+      </b-col>
+    </b-row>
     <div id="bv-icons-table-result" class="py-3 border">
       <transition-group
         tag="ul"
