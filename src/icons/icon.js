@@ -20,10 +20,13 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
   },
   render(h, { data, props, parent }) {
     const icon = pascalCase(trim(props.icon || '')).replace(RX_ICON_PREFIX, '')
-    const iconName = `BIcon${icon || 'Blank'}`
-    // Get the icon component reference if it is installed
-    // Fall back to the blank icon if it is not found.
-    const componentRef = parent.$options.components[iconName] || BIconBlank
-    return h(componentRef, mergeData(data, { props: { ...props, icon: null } }))
+    const iconName = `BIcon${icon}`
+    const components = ((parent || {}).$options || {}).components
+    const componentRefOrName = icon && components
+      ? components[iconName] || BIconBlank
+      : icon
+        ? iconName
+        : BIconBlank
+    return h(componentRefOrName, mergeData(data, { props: { ...props, icon: null } }))
   }
 })
