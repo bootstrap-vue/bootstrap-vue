@@ -21,12 +21,15 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
   render(h, { data, props, parent }) {
     const icon = pascalCase(trim(props.icon || '')).replace(RX_ICON_PREFIX, '')
     const iconName = `BIcon${icon}`
+    // If parent context exists, we check to see if the icon has been registered
+    // Eitehr locally in the parent component, or globally at the $root level
     const components = ((parent || {}).$options || {}).components
-    const componentRefOrName = icon && components
-      ? components[iconName] || BIconBlank
-      : icon
-        ? iconName
-        : BIconBlank
+    const componentRefOrName =
+      icon && components
+        ? components[iconName] || BIconBlank
+        : icon
+          ? iconName
+          : BIconBlank
     return h(componentRefOrName, mergeData(data, { props: { ...props, icon: null } }))
   }
 })
