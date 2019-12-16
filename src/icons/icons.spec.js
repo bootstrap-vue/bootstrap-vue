@@ -1,5 +1,6 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { IconsPlugin, BIcon } from './index'
+import { IconsPlugin } from './index'
+import { BIcon } from './icon'
 
 describe('icons', () => {
   const localVue = new CreateLocalVue()
