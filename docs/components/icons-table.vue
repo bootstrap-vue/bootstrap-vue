@@ -32,7 +32,7 @@
         </b-form>
       </b-col>
     </b-row>
-    <div id="bv-icons-table-result" class="py-3 border">
+    <div id="bv-icons-table-result">
       <transition-group
         tag="ul"
         name="flip-icon-list"
@@ -79,11 +79,6 @@
 
 .form-group /deep/ .form-text {
   text-align: right;
-}
-
-#bv-icons-table-result {
-  height: calc(100vh - 12rem);
-  overflow-y: scroll;
 }
 
 // Icon zoom on hover
