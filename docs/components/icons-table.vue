@@ -34,7 +34,7 @@
           class="flip-icon-list-icon d-inline-flex flex-column mb-3 text-center"
         >
           <div class="card bg-light p-3" :title="icon.name">
-            <b-icon :icon="icon.name"></b-icon>
+            <b-icon :icon="icon.name" class="mx-auto"></b-icon>
           </div>
           <b-form-text class="mt-1 text-break" :title="icon.name">{{ icon.name }}</b-form-text>
         </b-col>
