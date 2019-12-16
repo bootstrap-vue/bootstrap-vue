@@ -7,6 +7,13 @@ describe('icons', () => {
 
   const parentComponent = {
     name: 'ParentComponent',
+    components: {
+      // For testing user defined Icons
+      BIconFakeIconTest: {
+        template:
+          '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" class="bi bi-fake-icon-test"></svg>'
+      }
+    },
     render(h) {
       return h(this.$slots.default)
     }
@@ -42,16 +49,54 @@ describe('icons', () => {
     expect(wrapper.find('path').exists()).toBe(true)
   })
 
-  it('b-icon without icon name renders empty SVG element', async () => {
+  it('b-icon with empty icon name renders BIconBlank', async () => {
     // This test assumes Vue doesn't puke on unknown component names
-    // As we currently do not check the validity of icon names
+    // As we don't specify a parent instance (which has all the registered
+    // cmponents for the icons)
     const wrapper = mount(BIcon, {
       localVue: localVue,
-      parentComponent: parentComponent
+      propsData: {
+        icon: ''
+      }
     })
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.text()).toBe('')
     expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-blank')
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.find('svg').isEmpty()).toBe(true)
+  })
+
+  it('b-icon without icon name renders BIconBlank', async () => {
+    // This test assumes Vue doesn't puke on unknown component names
+    // As we currently do not check the validity of icon names
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: undefined
+      }
+    })
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.text()).toBe('')
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.find('svg').isEmpty()).toBe(true)
+  })
+
+  it('b-icon with unknown icon name renders BIconBlank', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'unknown-icon-name'
+      }
+    })
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-blank')
+    expect(wrapper.classes().length).toBe(2)
     expect(wrapper.find('svg').isEmpty()).toBe(true)
   })
 
@@ -77,7 +122,18 @@ describe('icons', () => {
     expect(wrapper.find('path').exists()).toBe(true)
   })
 
-  // TODO:
-  //   Test for invalid icon name
-  //   Test a few individual icon components
+  it('b-icon with custom icon works', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'fake-icon-test'
+      }
+    })
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-fake-icon-test')
+    expect(wrapper.classes().length).toBe(2)
+  })
 })
