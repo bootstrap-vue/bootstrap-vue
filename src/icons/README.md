@@ -22,12 +22,11 @@ installed by default (except in the [browser build](/docs#build-variants)).
 
 The library includes over 300 icons. Use the explorer below to browse the available icons:
 
-<section class="bd-example py-3 px-2 notranslate" aria-labelledby="bv-icon-explorer-title">
-  <div class="sr-only" id="bv-icon-explorer-title">Bootstrap icon explorer</div>
+<div>
   <!-- Component rendered by docs/pages/docs/icons.index.js -->
   <!-- We use a `<div is="...">` to prevent marked loader from mangling the unknown tag-->
   <div is="IconsTable"></div>
-</section>
+</div>
 
 ## Usage
 
