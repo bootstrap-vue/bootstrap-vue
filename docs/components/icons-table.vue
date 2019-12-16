@@ -41,7 +41,7 @@
       <transition-group
         tag="ul"
         name="flip-icon-list"
-        class="row-cols-3 row-cols-sm-4 row-cols-lg-6 list-unstyled mb-n3 position-relative"
+        class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 list-unstyled mb-n3 position-relative"
       >
         <b-col
           v-for="icon in filteredIcons"
@@ -78,7 +78,7 @@
   position: relative;
 }
 
-.bv-icons-table /deep/ .bi {
+.bv-icons-table-result /deep/ .bi {
   font-size: 2rem;
 }
 
