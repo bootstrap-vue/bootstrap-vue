@@ -3,11 +3,11 @@
     key="_bv-icons-table_"
     class="bv-icons-table notranslate"
     role="group"
-    aria-labeledby="bv-icons-table-title">
+    aria-labeledby="bv-icons-table-title"
   >
-    <b-row>
+    <b-row align-v="center">
       <b-col md="6">
-        <div class="h3" id="bv-icons-table-title">
+        <div class="h3 text-muted" id="bv-icons-table-title">
           Icons explorer
         </div>
       </b-col>
