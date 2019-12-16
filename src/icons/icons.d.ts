@@ -514,19 +514,19 @@ export declare class BIconSquareFill extends BvComponent {}
 
 export declare class BIconSquareHalf extends BvComponent {}
 
-export declare class BIclassar extends BvComponent {}
+export declare class BIconStar extends BvComponent {}
 
-export declare class BIclassarFill extends BvComponent {}
+export declare class BIconStarFill extends BvComponent {}
 
-export declare class BIclassarHalf extends BvComponent {}
+export declare class BIIconStarHalf extends BvComponent {}
 
-export declare class BIclassop extends BvComponent {}
+export declare class BIconStop extends BvComponent {}
 
-export declare class BIclassopFill extends BvComponent {}
+export declare class BIconStopFill extends BvComponent {}
 
-export declare class BIclassopwatch extends BvComponent {}
+export declare class BIconStopwatch extends BvComponent {}
 
-export declare class BIclassopwatchFill extends BvComponent {}
+export declare class BIconStopwatchFill extends BvComponent {}
 
 export declare class BIconSun extends BvComponent {}
 
