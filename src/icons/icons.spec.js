@@ -5,12 +5,12 @@ import { BIcon } from './icon'
 describe('icons', () => {
   const localVue = new CreateLocalVue()
 
-  const parentComponent = localVue.extend({
+  const parentComponent = {
     name: 'ParentComponent',
     render(h) {
       return h(this.$slots.default)
     }
-  })
+  }
 
   beforeAll(() => {
     // We install all icon components so that BIcon will work
