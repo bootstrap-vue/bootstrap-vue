@@ -4,11 +4,12 @@
 > Bootstrap Icons are SVGs, so they scale quickly and easily and can be styled with CSS. While they
 > are built for Bootstrap, they will work in any project.
 
-BootstrapVue icon components are based on [`bootstrap-icons`](https://icons.getbootstrap.com/).
-Icons are opt-in, meaning that they explicitly need to be imported in order to be used. They are not
-installed by default (except in the [browser build](/docs#build-variants)).
+BootstrapVue icon components are based on
+[`bootstrap-icons` v{{ bootstrapIconsVersion }}](https://icons.getbootstrap.com/). Icons are opt-in,
+meaning that they explicitly need to be imported in order to be used. They are not installed by
+default (except in the [browser build](/docs#build-variants)).
 
-Icon components were added in release v2.3.0
+Icon components were added in BootstrapVue release v2.3.0.
 
 <div class="alert alert-info small">
   <p class="mb-0">
