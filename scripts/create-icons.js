@@ -117,45 +117,47 @@ const pascalCase = str => {
 }
 
 // Parses a single SVG File
-const processFile = (file, data) => new Promise((resolve, reject) => {
-  file = path.join(bootstrapIconsDir, file)
-  if (path.extname(file) !== '.svg') {
-    resolve()
-    return
-  }
-  const name = pascalCase(path.basename(file, '.svg'))
-  const componentName = `BIcon${name}`
-
-  fs.readFile(file, 'utf8')
-    .then(svg => {
-      const content = svg
-        // Remove <svg ...> and </svg>
-        .replace(/<svg[^>]+>/i,'')
-        .replace(/<\/svg>/i, '')
-        // Remove whitespace between elements
-        .replace(/>\s+</g, '><')
-        // Fix broken stroke colors in some components
-        // Might be fixed in 1.0.0-alpha3 release
-        .replace(' stroke="#000"', ' stroke="currentColor"')
-        // Remove leading/trailing whitespace
-        .trim()
-      // Add to the iconsData object
-      data.icons[componentName] = { name: name, content: content }
-      data.componentNames.push(componentName)
-      // Resolve
+const processFile = (file, data) =>
+    new Promise((resolve, reject) => {
+    file = path.join(bootstrapIconsDir, file)
+    if (path.extname(file) !== '.svg') {
       resolve()
-    })
-    .catch(error => reject(error))
-})
+      return
+    }
+    const name = pascalCase(path.basename(file, '.svg'))
+    const componentName = `BIcon${name}`
+
+    fs.readFile(file, 'utf8')
+      .then(svg => {
+        const content = svg
+          // Remove <svg ...> and </svg>
+          .replace(/<svg[^>]+>/i,'')
+          .replace(/<\/svg>/i, '')
+          // Remove whitespace between elements
+          .replace(/>\s+</g, '><')
+          // Fix broken stroke colors in some components
+          // Might be fixed in 1.0.0-alpha3 release
+          .replace(' stroke="#000"', ' stroke="currentColor"')
+          // Remove leading/trailing whitespace
+          .trim()
+        // Add to the iconsData object
+        data.icons[componentName] = { name: name, content: content }
+        data.componentNames.push(componentName)
+        // Resolve
+        resolve()
+      })
+      .catch(error => reject(error))
+  })
 
 // Main process
 const main = async () => {
   // Information needed in the templates
+  const today = new Date()
   const data = {
     version: bsIconsPkg.version,
     license: bsIconsPkg.license,
     homepage: bsIconsPkg.homepage,
-    created: (new Date()).toISOString(),
+    created: today.toISOString(),
     componentNames: [],
     icons: {}
   }
