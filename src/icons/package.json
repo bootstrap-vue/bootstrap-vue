@@ -19,10 +19,16 @@
           {
             "prop": "variant",
             "description": "Contextual color variant. By default the icon inherits the current text color"
-          },
+          }
+        ]
+      },
+      {
+        "component": "BIconBlank",
+        "version": "2.3.0",
+        "props": [
           {
-            "prop": "nudge",
-            "description": "Positive values shift the icon upwards, while negative values will shift the icon down. Decimal values are supported. Units are 1/8 of an 'em'"
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
           }
         ]
       }
