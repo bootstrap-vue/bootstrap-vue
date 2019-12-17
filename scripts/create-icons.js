@@ -63,10 +63,13 @@ const pluginTemplateFn = _template(`// --- BEGIN AUTO-GENERATED FILE ---
 
 import { pluginFactory } from '../utils/plugins'
 
+// Icon helper component
 import { BIcon } from './icon'
 
 import {
+  // BootstrapVue custom icons
   BIconBlank,
+  // Bootsttap icons
   <%= componentNames.join(',\\n  ') %>
 } from './icons'
 
@@ -77,8 +80,24 @@ export const iconComponents = {
   <%= componentNames.join(',\\n  ') %>
 }
 
+export const iconComponentNames = [
+  // BootstrapVue custom icons
+  'BIconBlank',
+  // Bootsttap icons
+  <%= componentNames.map(n => ("'" + n + "'")).join(',\\n  ') %>
+]
+
 // Export the icons plugin
-export const IconsPlugin = /*#__PURE__*/ pluginFactory({ components: iconComponents })
+export const IconsPlugin = /*#__PURE__*/ pluginFactory({
+  components: {
+    // Icon helper component
+    BIcon,
+    // BootstrapVue custom icons
+    BIconBlank,
+    // Bootsttap icons
+    <%= componentNames.join(',\\n    ') %>
+  }
+})
 
 // --- END AUTO-GENERATED FILE ---
 `)
