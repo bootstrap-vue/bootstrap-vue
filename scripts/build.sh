@@ -7,6 +7,11 @@ BV_BANNER=$(node -p "require('./scripts/banner')")
 echo "Building BootstrapVue ${BV_VERSION}"
 echo ''
 
+echo 'Generating icon source files...'
+node -r esm scripts/create-icons.js || exit 1
+echo 'done.'
+echo ''
+
 echo 'Checking plugin metadata...'
 node -r esm scripts/check-plugin-meta.js || exit 1
 echo 'Done.'
