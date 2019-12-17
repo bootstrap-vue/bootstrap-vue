@@ -62,7 +62,7 @@ export default {
       // icon component which we modify the icon name to be `BIcon{IconName}`
       // We sort the array to ensure `BIcon` appears first
       const components = this.meta.components
-        .sort((a, b) => a < b ? -1 : a > b ? 1 : 0)
+        .sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
         .slice(0, 2)
         .map(c => ({ ...c }))
       // Change the name of the example icon component
