@@ -6,7 +6,7 @@
 
 import { pluginFactory } from '../utils/plugins'
 
-import BIcon from './icon'
+import { BIcon } from './icon'
 
 import {
   BIconBlank,
