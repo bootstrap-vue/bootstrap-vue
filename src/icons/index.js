@@ -1,7 +1,5 @@
 import { keys } from '../utils/object'
-import { pluginFactory } from '../utils/plugins'
-import { BIcon } from './icon'
-import * as iconComponents from './icons'
+import { iconComponents } from './plugin'
 
 // These re-exports are not currently used, as Webpack 4 has
 // issues with tree shaking re-exports of re-exports
@@ -11,7 +9,7 @@ import * as iconComponents from './icons'
 // export { BIcon }
 
 // Plugin
-export const IconsPlugin = /*#__PURE__*/ pluginFactory({ components: { BIcon, ...iconComponents } })
+export { IconsPlugin } from './plugin'
 
-// Array of icon names (for use by the docs)
-export const iconNames = /*#__PURE__*/ keys(iconComponents)
+// Array of icon names (for use by the docs excluding helper BIcon component)
+export const iconNames = /*#__PURE__*/ keys(iconComponents).filter(i => i !== 'BIcon')
