@@ -66,7 +66,7 @@ export default {
         .slice(0, 2)
         .map(c => ({ ...c }))
       // Change the name of the example icon component
-      components[1].component = 'BIcon{IconName}`
+      components[1].component = 'BIcon{IconName}'
       // Return the shortend list of components
       return components
     },
