@@ -16,7 +16,13 @@
         </b-badge>
       </b-col>
       <b-col sm="3" class="text-sm-right">
-        <b-btn variant="outline-secondary" size="sm" :href="githubURL" target="_blank">
+        <b-btn
+          v-if="githubURL"
+          variant="outline-secondary"
+          size="sm"
+          :href="githubURL"
+          target="_blank"
+        >
           View source
         </b-btn>
       </b-col>
@@ -311,10 +317,11 @@ ul.component-ref-mini-toc:empty {
 
 <script>
 import Vue from 'vue'
-import kebabCase from 'lodash/kebabCase'
 import AnchoredHeading from './anchored-heading'
 // Fallback descriptions for common props (mainly router-link props)
 import commonProps from '../common-props.json'
+
+const const kebabCase = str => str.replace(/\B([A-Z])/g, '-$1').toLowerCase()
 
 export default {
   name: 'BDVComponentdoc',
@@ -492,15 +499,19 @@ export default {
       return this.slots ? this.slots.map(s => ({ ...s })) : []
     },
     componentName() {
-      return kebabCase(this.component)
+      return kebabCase(this.component).replace('{', '-{')
     },
     tag() {
       return `<${this.componentName}>`
     },
     githubURL() {
+      const name = this.componentName.replace(/^b-/, '')
+      if (name.indexOf('{') !== -1)
+        // Example compoent (most likely an auto generated component)
+        return ''
+      }
       const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/src/components'
       const slug = this.$route.params.slug
-      const name = kebabCase(this.component).replace(/^b-/, '')
       // Always point to the .js file (which may import a .vue file)
       return `${base}/${slug}/${name}.js`
     }
