@@ -118,7 +118,7 @@ const pascalCase = str => {
 
 // Parses a single SVG File
 const processFile = (file, data) =>
-    new Promise((resolve, reject) => {
+  new Promise((resolve, reject) => {
     file = path.join(bootstrapIconsDir, file)
     if (path.extname(file) !== '.svg') {
       resolve()
@@ -131,7 +131,7 @@ const processFile = (file, data) =>
       .then(svg => {
         const content = svg
           // Remove <svg ...> and </svg>
-          .replace(/<svg[^>]+>/i,'')
+          .replace(/<svg[^>]+>/i, '')
           .replace(/<\/svg>/i, '')
           // Remove whitespace between elements
           .replace(/>\s+</g, '><')
