@@ -73,13 +73,7 @@ import {
   <%= componentNames.join(',\\n  ') %>
 } from './icons'
 
-// All icons in an object
-export const iconComponents = {
-  BIcon,
-  BIconBlank,
-  <%= componentNames.join(',\\n  ') %>
-}
-
+// Icon names for used in the docs
 export const iconNames = [
   // BootstrapVue custom icons
   'BIconBlank',
