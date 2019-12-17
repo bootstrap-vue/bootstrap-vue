@@ -321,7 +321,7 @@ import AnchoredHeading from './anchored-heading'
 // Fallback descriptions for common props (mainly router-link props)
 import commonProps from '../common-props.json'
 
-const const kebabCase = str => str.replace(/\B([A-Z])/g, '-$1').toLowerCase()
+const kebabCase = str => str.replace(/\B([A-Z])/g, '-$1').toLowerCase()
 
 export default {
   name: 'BDVComponentdoc',
