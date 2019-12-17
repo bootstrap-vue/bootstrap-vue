@@ -17,7 +17,7 @@ export default {
       <Section play>${readme}</Section>
       <Section class="bd-component-reference">
         <AnchoredHeading id="component-reference">Component reference</AnchoredHeading>
-        <template v-for="c in meta.components">
+        <template v-for="c in componentMeta">
           <Componentdoc
             :key="c.component"
             :component="c.component"
@@ -57,11 +57,21 @@ export default {
     }
   },
   computed: {
+    componentMeta() {
+      // We only return the first BIcon component, plus one extra example
+      // icon component which we modify the icon name to be `BIcon{IconName}`
+      // We sort the array to ensure `BIcon` appears first
+      const components = this.meta.components
+        .sort((a, b) => a < b ? -1 : a > b ? 1 : 0)
+        .slice(0, 2)
+        .map(c => ({ ...c }))
+      // Change the name of the example icon component
+      components[1].component = 'BIcon{IconName}`
+      // Return the shortend list of components
+      return components
+    },
     importMeta() {
-      const meta = { ...this.meta, slug: 'icons' }
-      // We add in our "catch all" component
-      meta.components = [...meta.components, { component: 'BIcon{IconName}' }]
-      return meta
+      return { ...this.meta, slug: 'icons', components: this.componentMeta }
     }
   }
 }
