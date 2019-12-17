@@ -1,34 +1,36 @@
-// --- START OF AUTO GENERATED FILE ---
+// --- BEGIN AUTO-GENERATED FILE ---
 //
-
+// @IconsVersion: 1.0.0-alpha2
+// @Generated: 2019-12-17T02:02:11.299Z
+//
 import Vue from 'vue'
 import { BvComponent } from '../'
 
-// --- BootstrapVue custom Icon components ---
+// --- BootstrapVue custom icons ---
 
 export declare class BIconBlank extends BvComponent {}
 
-// --- Individual Icon components ---
+// --- Bootstrap Icons ---
 
 export declare class BIconAlarm extends BvComponent {}
 
 export declare class BIconAlarmFill extends BvComponent {}
 
-export declare class BIconAlertCircleFill extends BvComponent {}
-
 export declare class BIconAlertCircle extends BvComponent {}
 
-export declare class BIconAlertOctagonFill extends BvComponent {}
+export declare class BIconAlertCircleFill extends BvComponent {}
 
 export declare class BIconAlertOctagon extends BvComponent {}
 
-export declare class BIconAlertSquareFill extends BvComponent {}
+export declare class BIconAlertOctagonFill extends BvComponent {}
 
 export declare class BIconAlertSquare extends BvComponent {}
 
-export declare class BIconAlertTriangleFill extends BvComponent {}
+export declare class BIconAlertSquareFill extends BvComponent {}
 
 export declare class BIconAlertTriangle extends BvComponent {}
+
+export declare class BIconAlertTriangleFill extends BvComponent {}
 
 export declare class BIconArchive extends BvComponent {}
 
@@ -46,17 +48,17 @@ export declare class BIconArrowClockwise extends BvComponent {}
 
 export declare class BIconArrowCounterclockwise extends BvComponent {}
 
+export declare class BIconArrowDown extends BvComponent {}
+
 export declare class BIconArrowDownLeft extends BvComponent {}
 
 export declare class BIconArrowDownRight extends BvComponent {}
 
-export declare class BIconArrowDown extends BvComponent {}
-
 export declare class BIconArrowDownShort extends BvComponent {}
 
-export declare class BIconArrowLeftRight extends BvComponent {}
-
 export declare class BIconArrowLeft extends BvComponent {}
+
+export declare class BIconArrowLeftRight extends BvComponent {}
 
 export declare class BIconArrowLeftShort extends BvComponent {}
 
@@ -66,13 +68,13 @@ export declare class BIconArrowRight extends BvComponent {}
 
 export declare class BIconArrowRightShort extends BvComponent {}
 
+export declare class BIconArrowUp extends BvComponent {}
+
 export declare class BIconArrowUpDown extends BvComponent {}
 
 export declare class BIconArrowUpLeft extends BvComponent {}
 
 export declare class BIconArrowUpRight extends BvComponent {}
-
-export declare class BIconArrowUp extends BvComponent {}
 
 export declare class BIconArrowUpShort extends BvComponent {}
 
@@ -98,9 +100,9 @@ export declare class BIconBackspaceReverse extends BvComponent {}
 
 export declare class BIconBackspaceReverseFill extends BvComponent {}
 
-export declare class BIconBarChartFill extends BvComponent {}
-
 export declare class BIconBarChart extends BvComponent {}
+
+export declare class BIconBarChartFill extends BvComponent {}
 
 export declare class BIconBattery extends BvComponent {}
 
@@ -120,15 +122,15 @@ export declare class BIconBook extends BvComponent {}
 
 export declare class BIconBookHalfFill extends BvComponent {}
 
+export declare class BIconBookmark extends BvComponent {}
+
 export declare class BIconBookmarkFill extends BvComponent {}
 
-export declare class BIconBookmark extends BvComponent {}
+export declare class BIconBootstrap extends BvComponent {}
 
 export declare class BIconBootstrapFill extends BvComponent {}
 
 export declare class BIconBootstrapReboot extends BvComponent {}
-
-export declare class BIconBootstrap extends BvComponent {}
 
 export declare class BIconBoxArrowBottomLeft extends BvComponent {}
 
@@ -140,11 +142,11 @@ export declare class BIconBoxArrowLeft extends BvComponent {}
 
 export declare class BIconBoxArrowRight extends BvComponent {}
 
+export declare class BIconBoxArrowUp extends BvComponent {}
+
 export declare class BIconBoxArrowUpLeft extends BvComponent {}
 
 export declare class BIconBoxArrowUpRight extends BvComponent {}
-
-export declare class BIconBoxArrowUp extends BvComponent {}
 
 export declare class BIconBraces extends BvComponent {}
 
@@ -208,9 +210,9 @@ export declare class BIconChevronUp extends BvComponent {}
 
 export declare class BIconCircle extends BvComponent {}
 
-export declare class BIconCircleHalf extends BvComponent {}
-
 export declare class BIconCircleFill extends BvComponent {}
+
+export declare class BIconCircleHalf extends BvComponent {}
 
 export declare class BIconCircleSlash extends BvComponent {}
 
@@ -220,9 +222,9 @@ export declare class BIconClockFill extends BvComponent {}
 
 export declare class BIconCloud extends BvComponent {}
 
-export declare class BIconCloudFill extends BvComponent {}
-
 export declare class BIconCloudDownload extends BvComponent {}
+
+export declare class BIconCloudFill extends BvComponent {}
 
 export declare class BIconCloudUpload extends BvComponent {}
 
@@ -466,11 +468,11 @@ export declare class BIconQuestionSquareFill extends BvComponent {}
 
 export declare class BIconReply extends BvComponent {}
 
-export declare class BIconReplyFill extends BvComponent {}
-
 export declare class BIconReplyAll extends BvComponent {}
 
 export declare class BIconReplyAllFill extends BvComponent {}
+
+export declare class BIconReplyFill extends BvComponent {}
 
 export declare class BIconScrewdriver extends BvComponent {}
 
@@ -518,7 +520,7 @@ export declare class BIconStar extends BvComponent {}
 
 export declare class BIconStarFill extends BvComponent {}
 
-export declare class BIIconStarHalf extends BvComponent {}
+export declare class BIconStarHalf extends BvComponent {}
 
 export declare class BIconStop extends BvComponent {}
 
@@ -558,9 +560,9 @@ export declare class BIconThreeDots extends BvComponent {}
 
 export declare class BIconThreeDotsVertical extends BvComponent {}
 
-export declare class BIconToggleOn extends BvComponent {}
-
 export declare class BIconToggleOff extends BvComponent {}
+
+export declare class BIconToggleOn extends BvComponent {}
 
 export declare class BIconToggles extends BvComponent {}
 
@@ -598,9 +600,9 @@ export declare class BIconTypeStrikethrough extends BvComponent {}
 
 export declare class BIconTypeUnderline extends BvComponent {}
 
-export declare class BIconUnlockFill extends BvComponent {}
-
 export declare class BIconUnlock extends BvComponent {}
+
+export declare class BIconUnlockFill extends BvComponent {}
 
 export declare class BIconUpload extends BvComponent {}
 
@@ -640,4 +642,4 @@ export declare class BIconXSquare extends BvComponent {}
 
 export declare class BIconXSquareFill extends BvComponent {}
 
-// --- END OF AUTO GENERATED FILE ---
+// --- END AUTO-GENERATED FILE ---
