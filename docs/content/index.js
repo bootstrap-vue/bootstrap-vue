@@ -60,6 +60,7 @@ export const bootstrapVersion = parseVersion(dependencies.bootstrap)
 export const nuxtVersion = parseVersion(devDependencies.nuxt)
 export const portalVueVersion = parseVersion(dependencies['portal-vue'])
 export const vueVersion = parseVersion(devDependencies.vue)
+export const bootstrapIconsVersion = parseVersion(dependencies['bootstrap-icons'])
 export const defaultConfig = DEFAULT_CONFIG
 export const bvDescription = description
 
