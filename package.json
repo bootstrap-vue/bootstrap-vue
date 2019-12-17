@@ -63,9 +63,6 @@
     "./docs",
     "./types"
   ],
-  "engines": {
-    "node": ">=10"
-  },
   "scripts": {
     "build": "scripts/build.sh",
     "watch": "rollup -c scripts/rollup.config.js --watch",
