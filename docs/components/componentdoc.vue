@@ -506,8 +506,8 @@ export default {
     },
     githubURL() {
       const name = this.componentName.replace(/^b-/, '')
-      if (name.indexOf('{') !== -1)
-        // Example compoent (most likely an auto generated component)
+      if (name.indexOf('{') !== -1) {
+        // Example component (most likely an auto generated component)
         return ''
       }
       const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/src/components'
