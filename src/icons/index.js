@@ -8,8 +8,5 @@ import { iconComponents } from './plugin'
 //
 // export { BIcon }
 
-// Plugin
-export { IconsPlugin } from './plugin'
-
-// Array of icon names (for use by the docs excluding helper BIcon component)
-export const iconNames = /*#__PURE__*/ keys(iconComponents).filter(i => i !== 'BIcon')
+// Plugin (an iconNames for docs)
+export { IconsPlugin, iconNames } from './plugin'
