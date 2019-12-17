@@ -4,6 +4,7 @@
 //   src/icons/icons.d.ts
 //
 // Source is bootstrap-icons/icons
+// https://github.com/twbs/icons
 
 'use strict'
 
