@@ -80,7 +80,7 @@ export const iconComponents = {
   <%= componentNames.join(',\\n  ') %>
 }
 
-export const iconComponentNames = [
+export const iconNames = [
   // BootstrapVue custom icons
   'BIconBlank',
   // Bootsttap icons
