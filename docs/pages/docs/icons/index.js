@@ -5,7 +5,7 @@ import Importdoc from '~/components/importdoc'
 import Main from '~/components/main'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
-import { icons as iconsMeta } from '~/content'
+import { icons as iconsMeta, bootstrapIconsVersion } from '~/content'
 import readme from '~/../src/icons/README.md'
 
 export default {
@@ -52,7 +52,8 @@ export default {
     return {
       readme: readme,
       // key for icons meta is '' (empty slug)
-      meta: iconsMeta['']
+      meta: iconsMeta[''],
+      bootstrapIconsVersion
     }
   },
   computed: {
