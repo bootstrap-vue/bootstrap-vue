@@ -13,7 +13,7 @@ const icons = importAll(iconsContext) || {}
 // Since there are over 300 icons, we only return the first BIcon component, plus one
 // extra example icon component which we modify the icon name to be `BIcon{IconName}`
 // We sort the array to ensure `BIcon` appears first
-icons.components = icons.components
+icons[''].components = icons[''].components
   .sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
   .slice(0, 2)
   .map(c => ({ ...c }))
