@@ -9,7 +9,7 @@ BootstrapVue icon components are based on
 meaning that they explicitly need to be imported in order to be used. They are not installed by
 default (except in the [browser build](/docs#build-variants)).
 
-Icon components were added in BootstrapVue release v2.3.0.
+Icon components were added in BootstrapVue release v2.2.0.
 
 <div class="alert alert-info small">
   <p class="mb-0">
