@@ -58,7 +58,7 @@ export default {
     componentMeta() {
       // docs/content/index.js massages the list of icon components
       // to include only BIcon and an example component
-      return = this.meta.components
+      return this.meta.components
     },
     importMeta() {
       return { ...this.meta, slug: 'icons', components: this.componentMeta }
