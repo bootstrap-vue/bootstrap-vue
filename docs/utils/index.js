@@ -1,4 +1,4 @@
-conet RX_HYPHENATE = /\B([A-Z])/g
+const RX_HYPHENATE = /\B([A-Z])/g
 const kebabCase = str => str.replace(RX_HYPHENATE, '-$1').toLowerCase()
 
 // Parse a fully qualified version from a string
