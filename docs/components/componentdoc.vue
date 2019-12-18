@@ -328,7 +328,11 @@ export default {
   components: { AnchoredHeading },
   props: {
     component: {},
-    srcComponent: {},
+    srcComponent: {
+      // This prop is used only when the above `component` is a
+      // "fake" component. This prop specifies a "real" component
+      // to use when grabbing the component definition options
+    },
     propsMeta: {
       // For getting prop descriptions
       type: Array,
