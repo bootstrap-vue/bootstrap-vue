@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { kebabCase, pascalCase, trim } from '../../utils/string'
-import { parseFloat } from '../../utils/number'
+import { toFloat } from '../../utils/number'
 
 // Common icon props
 export const commonIconProps = {
@@ -34,7 +34,7 @@ const BVIconBase = {
     ...commonIconProps
   },
   render(h, { data, props }) {
-    const scale = parseFloat(props.scale) || 1
+    const scale = toFloat(props.scale) || 1
     const scaleData = scale === 1 ? {} : { style: { fontSize: scale } }
     return h(
       'svg',
