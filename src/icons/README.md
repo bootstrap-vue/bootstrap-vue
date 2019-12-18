@@ -41,8 +41,8 @@ the color of the icon, refer to the [Variants](#variants) section, and to change
 icon refer to the [Sizing](#sizing) section.
 
 All icons are exported with the name in <samp>PascalCase</samp>, prefixed with <samp>BIcon</samp>.
-i.e `alert-circle-fill` is exported as `BIconAlertCircleFill`, `x` is exported as `BIconX`, and
-`x-square-fill` is exported as `BIconXSquareFill`.
+i.e icon `alert-circle-fill` is exported as `BIconAlertCircleFill`, icon `x` is exported as `BIconX`,
+and icon `x-square-fill` is exported as `BIconXSquareFill`.
 
 ### Importing into your project
 
@@ -90,7 +90,7 @@ export default {
 
 ### Icon components
 
-You can either uses individual icon components, or use a the icon helper component `<b-icon>`, to
+You can either uses individual icon components, or use the icon helper component `<b-icon>`, to
 place icons in your project templates.
 
 All individual icon components are prefixed with the name `<b-icon-{name}>`, where `{name}` is one
