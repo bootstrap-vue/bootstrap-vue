@@ -48,7 +48,8 @@ const importAll = r => {
     .map(r)
     .map(m => m.meta || m)
     .map(m => ({
-      slug: typeof m.slug !== 'undefined' ? m.slug : (m.title || '').replace(' ', '-').toLowerCase(),
+      slug:
+        typeof m.slug !== 'undefined' ? m.slug : (m.title || '').replace(' ', '-').toLowerCase(),
       ...m
     }))
     .sort((a, b) => {
