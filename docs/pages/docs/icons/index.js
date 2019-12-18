@@ -21,6 +21,7 @@ export default {
           <Componentdoc
             :key="c.component"
             :component="c.component"
+            :src-component="c.srcComponent"
             :events="c.events"
             :root-event-listeners="c.rootEventListeners"
             :slots="c.slots"
@@ -58,7 +59,11 @@ export default {
     componentMeta() {
       // docs/content/index.js massages the list of icon components
       // to include only BIcon and an example component
-      return this.meta.components
+      const components = this.meta.components
+      // Add in a special property or grabbing the component props
+      // as BIcon{IconName} doesn't exist
+      components[1].srcComponent = 'BIconBlank'
+      return components
     },
     importMeta() {
       return { ...this.meta, slug: 'icons', components: this.componentMeta }
