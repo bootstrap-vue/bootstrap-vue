@@ -48,7 +48,7 @@ const importAll = r => {
     .map(r)
     .map(m => m.meta || m)
     .map(m => ({
-      slug: m.slug || (m.title || '').replace(' ', '-').toLowerCase(),
+      slug: typeof m.slug !== 'undefined' ? m.slug : (m.title || '').replace(' ', '-').toLowerCase(),
       ...m
     }))
     .sort((a, b) => {
@@ -355,10 +355,10 @@ const processComponentGroup = groupSlug => {
   const directivesMeta = groupMeta.directives || []
 
   // The URL to the components docs
-  const docUrl = `${baseDocs}/docs/components/${groupSlug}/`
+  const docUrl = `${baseDocs}/docs/components/${groupSlug}/`.replace('//', '/')
 
   // We import the component from the transpiled `esm/` dir
-  const groupRef = require(path.resolve(baseDir, 'esm/components/' + groupSlug))
+  const groupRef = require(path.resolve(baseDir, 'esm/components/' + (groupSlug || '')))
 
   // Process each component
   componentsMeta.forEach(meta => {

@@ -20,9 +20,13 @@ const bvIconsBase = path.join(bvBase, 'src', 'icons')
 const iconsFile = path.resolve(bvIconsBase, 'icons.js')
 const pluginFile = path.resolve(bvIconsBase, 'plugin.js')
 const typesFile = path.resolve(bvIconsBase, 'icons.d.ts')
+const bvIconsPkgFile = path.resolve(bvIconsBase, 'package.json')
 
-// Version of Bootstrap Icons
+// Bootstrap Icons package.json
 const bsIconsPkg = require(bsIconsMetaFile)
+
+// BootstrapVue icons package.json
+const bvIconsPkg = require(bvIconsPkgFile)
 
 // Template for src/icons/icons.js
 const iconsTemplateFn = _template(`// --- BEGIN AUTO-GENERATED FILE ---
@@ -162,6 +166,30 @@ const processFile = (file, data) =>
       .catch(error => reject(error))
   })
 
+// Method to generate the udated package.json content
+const updatePkgMeta = data => {
+  // Grab current package.json component entries array
+  // and filter out auto generated entries
+  const metaComponents = bvIconsPkg.meta.components.filter(c => !c['auto-gen'])
+  // Grab the props definition array from `BIcon` and filter out `icon` prop
+  const iconProps = metaComponents
+    .find(m => m.component === 'BIcon')
+    .props.filter(p => p.prop !== 'icon')
+  // Build the icon component entries
+  const iconMeta = data.componentNames.map(name => {
+    return {
+      component: name,
+      'auto-gen': `bootstrap-icons ${data.version})`,
+      props: iconProps
+    }
+  })
+  // Create a semi-deep clone of the pakage.json
+  const newPkg = { ...bvIconsPkg, meta: { ...bvIconsPkg.meta } }
+  // Update the package components meta info
+  newPkg.meta.components = [...metaComponents, ...iconMeta]
+  return JSON.stringify(newPkg, null, 2)
+}
+
 // Main process
 const main = async () => {
   // Information needed in the templates
@@ -198,6 +226,9 @@ const main = async () => {
   console.log('  Creating type declarations...')
   await fs.writeFile(typesFile, typesTemplateFn(data), 'utf8')
   console.log(`  Wrote to ${typesFile}`)
+  console.log('  Updating icons meta info...')
+  await fs.writeFile(bvIconsPkgFile, updatePkgMeta(data), 'utf8')
+  console.log(`  Wrote to ${bvIconsPkgFile}`)
 }
 
 main()
