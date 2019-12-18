@@ -1,12 +1,25 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { kebabCase, pascalCase, trim } from '../../utils/string'
+import { parseFloat } from '../../utils/string'
 
 // Common icon props
 export const commonIconProps = {
   variant: {
     type: String
+  },
+  scale: {
+    type: [Number, String]
   }
+}
+
+const baseAttrs = {
+  width: '1em',
+  height: '1em',
+  viewBox: '0 0 20 20',
+  focusable: 'false',
+  role: 'img',
+  alt: 'icon'
 }
 
 // Shared base component to reduce bundle size
@@ -21,21 +34,17 @@ const BVIconBase = {
     ...commonIconProps
   },
   render(h, { data, props }) {
+    const scale = parseFloat(props.scale) || 1
+    const scaleData = scale === 1 ? {} : { style: { fontSize: scale } }
     return h(
       'svg',
       mergeData(
         {
           staticClass: 'bi',
           class: { [`text-${props.variant}`]: !!props.variant },
-          attrs: {
-            width: '1em',
-            height: '1em',
-            viewBox: '0 0 20 20',
-            focusable: 'false',
-            role: 'img',
-            alt: 'icon'
-          }
+          attrs: baseAttrs
         },
+        scaleData,
         // Merge in user supplied data
         data,
         // These cannot be overridden by users
