@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { kebabCase, pascalCase, trim } from '../../utils/string'
-import { parseFloat } from '../../utils/string'
+import { parseFloat } from '../../utils/number'
 
 // Common icon props
 export const commonIconProps = {
