@@ -328,6 +328,7 @@ export default {
   components: { AnchoredHeading },
   props: {
     component: {},
+    srcComponent: {},
     propsMeta: {
       // For getting prop descriptions
       type: Array,
@@ -356,7 +357,7 @@ export default {
   },
   computed: {
     componentOptions() {
-      const component = Vue.options.components[this.component]
+      const component = Vue.options.components[this.srcComponent || this.component]
       if (!component) {
         return {}
       }
