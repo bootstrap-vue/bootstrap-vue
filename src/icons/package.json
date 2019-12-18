@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "meta": {
     "title": "Bootstrap Icons",
-    "version": "2.3.0",
+    "version": "2.2.0",
     "new": true,
     "slug": "",
     "description": "Bootstrap Icons are designed to work with Bootstrap components, from form controls to navigation. Bootstrap Icons are SVGs, so they scale quickly and easily and can be styled with CSS.",
     "components": [
       {
         "component": "BIcon",
-        "version": "2.3.0",
+        "version": "2.2.0",
         "props": [
           {
             "prop": "icon",
@@ -24,7 +24,7 @@
       },
       {
         "component": "BIconBlank",
-        "version": "2.3.0",
+        "version": "2.2.0",
         "props": [
           {
             "prop": "variant",
