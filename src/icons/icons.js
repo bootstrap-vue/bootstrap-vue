@@ -1,13 +1,13 @@
 // --- BEGIN AUTO-GENERATED FILE ---
 //
 // @IconsVersion: 1.0.0-alpha2
-// @Generated: 2019-12-17T02:02:11.299Z
+// @Generated: 2019-12-18T01:20:21.537Z
 //
 /*!
- * BootstrapVue Icons, based on BoostrapIcons 1.0.0-alpha2
+ * BootstrapVue Icons, generated from Boostrap Icons 1.0.0-alpha2
  *
- * @link https: https://icons.getbootstrap.com/
- * @source https://github.com/twbs/icons
+ * @link https://icons.getbootstrap.com/
+ * @license MIT
  * https://github.com/twbs/icons/blob/master/LICENSE.md
  */
 

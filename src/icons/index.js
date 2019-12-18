@@ -3,10 +3,10 @@
 // These re-exports are not currently used, as Webpack 4 has
 // issues with tree shaking re-exports of re-exports
 // `/src/index.js` does a single level re-export `* from './icons/icons/icons'`
-// All icons
+// Export all icons
 export * from './icons'
 
-// BIcon helper component
+// Export helper component
 export { BIcon } from './icon'
 
 // Plugin (an iconNames for docs)

@@ -31,6 +31,3156 @@
             "description": "Contextual color variant. By default the icon inherits the current text color"
           }
         ]
+      },
+      {
+        "component": "BIconAlarm",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconAlarmFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconAlertCircle",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconAlertCircleFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconAlertOctagon",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconAlertOctagonFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconAlertSquare",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconAlertSquareFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconAlertTriangle",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconAlertTriangleFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArchive",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArchiveFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowBarBottom",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowBarLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowBarRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowBarUp",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowClockwise",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowCounterclockwise",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowDown",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowDownLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowDownRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowDownShort",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowLeftRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowLeftShort",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowRepeat",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowRightShort",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowUp",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowUpDown",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowUpLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowUpRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowUpShort",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowsAngleContract",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowsAngleExpand",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowsCollapse",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowsExpand",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconArrowsFullscreen",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconAt",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconAward",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBackspace",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBackspaceFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBackspaceReverse",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBackspaceReverseFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBarChart",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBarChartFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBattery",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBatteryCharging",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBatteryFull",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBell",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBellFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBlockquoteLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBlockquoteRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBook",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBookHalfFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBookmark",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBookmarkFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBootstrap",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBootstrapFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBootstrapReboot",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBoxArrowBottomLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBoxArrowBottomRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBoxArrowDown",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBoxArrowLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBoxArrowRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBoxArrowUp",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBoxArrowUpLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBoxArrowUpRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBraces",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBrightnessFillHigh",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBrightnessFillLow",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBrightnessHigh",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBrightnessLow",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBrush",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBucket",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBucketFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBuilding",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconBullseye",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCalendar",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCalendarFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCamera",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCameraVideo",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCameraVideoFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCapslock",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCapslockFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconChat",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconChatFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCheck",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCheckBox",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCheckCircle",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconChevronCompactDown",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconChevronCompactLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconChevronCompactRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconChevronCompactUp",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconChevronDown",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconChevronLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconChevronRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconChevronUp",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCircle",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCircleFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCircleHalf",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCircleSlash",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconClock",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconClockFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCloud",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCloudDownload",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCloudFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCloudUpload",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCode",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCodeSlash",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconColumns",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconColumnsGutters",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCommand",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCompass",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCone",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconConeStriped",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconController",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCreditCard",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCursor",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconCursorFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDash",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDiamond",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDiamondHalf",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDisplay",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDisplayFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDocument",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDocumentCode",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDocumentDiff",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDocumentRichtext",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDocumentSpreadsheet",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDocumentText",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDocuments",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDocumentsAlt",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDot",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconDownload",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconEggFried",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconEject",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconEjectFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconEnvelope",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconEnvelopeFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconEnvelopeOpen",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconEnvelopeOpenFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconEye",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconEyeFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconEyeSlash",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconEyeSlashFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconFilter",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconFlag",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconFlagFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconFolder",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconFolderFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconFolderSymlink",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconFolderSymlinkFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconFonts",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconForward",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconForwardFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconGear",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconGearFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconGearWide",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconGearWideConnected",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconGeo",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconGraphDown",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconGraphUp",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconGrid",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconGridFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconHammer",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconHash",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconHeart",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconHeartFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconHouse",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconHouseFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconImage",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconImageAlt",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconImageFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconImages",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconInbox",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconInboxFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconInboxes",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconInboxesFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconInfo",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconInfoFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconInfoSquare",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconInfoSquareFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconJustify",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconJustifyLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconJustifyRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconKanban",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconKanbanFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconLaptop",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconLayoutSidebar",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconLayoutSidebarReverse",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconLayoutSplit",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconList",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconListCheck",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconListOl",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconListTask",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconListUl",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconLock",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconLockFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconMap",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconMic",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconMoon",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconMusicPlayer",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconMusicPlayerFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconOption",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconOutlet",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPause",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPauseFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPen",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPencil",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPeople",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPeopleFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPerson",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPersonFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPhone",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPhoneLandscape",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPieChart",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPieChartFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPlay",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPlayFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPlug",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPlus",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconPower",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconQuestion",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconQuestionFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconQuestionSquare",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconQuestionSquareFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconReply",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconReplyAll",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconReplyAllFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconReplyFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconScrewdriver",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSearch",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconShield",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconShieldFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconShieldLock",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconShieldLockFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconShieldShaded",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconShift",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconShiftFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSkipBackward",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSkipBackwardFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSkipEnd",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSkipEndFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSkipForward",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSkipForwardFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSkipStart",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSkipStartFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSpeaker",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSquare",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSquareFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSquareHalf",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconStar",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconStarFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconStarHalf",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconStop",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconStopFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconStopwatch",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconStopwatchFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconSun",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTable",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTablet",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTabletLandscape",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTag",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTagFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTerminal",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTerminalFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTextCenter",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTextIndentLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTextIndentRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTextLeft",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTextRight",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconThreeDots",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconThreeDotsVertical",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconToggleOff",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconToggleOn",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconToggles",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTools",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTrash",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTrashFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTriangle",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTriangleFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTriangleHalf",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTrophy",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTv",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTvFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconType",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTypeBold",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTypeH1",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTypeH2",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTypeH3",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTypeItalic",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTypeStrikethrough",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconTypeUnderline",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconUnlock",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconUnlockFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconUpload",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconVolumeDown",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconVolumeDownFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconVolumeMute",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconVolumeMuteFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconVolumeUp",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconVolumeUpFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconWallet",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconWatch",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconWifi",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconWindow",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconWrench",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconX",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconXCircle",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconXCircleFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconXOctagon",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconXOctagonFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconXSquare",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
+      },
+      {
+        "component": "BIconXSquareFill",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          }
+        ]
       }
     ]
   }

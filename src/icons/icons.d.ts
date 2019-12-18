@@ -1,7 +1,7 @@
 // --- BEGIN AUTO-GENERATED FILE ---
 //
 // @IconsVersion: 1.0.0-alpha2
-// @Generated: 2019-12-17T02:02:11.299Z
+// @Generated: 2019-12-18T01:20:21.537Z
 //
 import Vue from 'vue'
 import { BvComponent } from '../'
