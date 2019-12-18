@@ -9,7 +9,7 @@ export const parseVersion = version => {
 
 // Parse a fully qualified version from a string (including alpha/beta/etc
 export const parseFullVersion = version => {
-  const matches = version.match(/([0-9]+\.[0-9]+\.[0-9]+(?:-[a-z]+-?[0-9]+))/)
+  const matches = version.match(/([0-9]+\.[0-9]+\.[0-9]+(?:-[a-z]+[.-]?[0-9]+))/)
   const matchesCount = matches.length
   return matchesCount > 0 ? matches[matchesCount - 1] : ''
 }
