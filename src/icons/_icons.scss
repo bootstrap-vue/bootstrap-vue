@@ -15,7 +15,8 @@
   .input-group-text {
     .bi {
       // Perhaps this should be an SCSS variable
-      font-size: 1.25em;
+      transform: scale(1.25);
+      margin-bottom: 0;
     }
   }
 }
@@ -25,6 +26,6 @@
 .dropdown {
   .bi {
     // Perhaps this should be an SCSS variable
-    font-size: 1.25em;
+    transform: scale(1.25);
   }
 }
