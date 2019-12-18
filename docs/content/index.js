@@ -9,7 +9,14 @@ const directivesContext = require.context('~/../src/directives/', true, /package
 export const directives = importAll(directivesContext)
 
 const iconsContext = require.context('~/../src/icons', false, /package.json/)
-export const icons = importAll(iconsContext) || {}
+const icons = importAll(iconsContext) || {}
+// Massage the icons components to only show BIcon and one ex ample `BIcon{IconName}`
+icons.components = icons.components
+  .sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
+  .slice(0, 2)
+  .map(c => ({ ...c }))
+icons.components[1].component = 'BIcon{IconName}'
+export { icons }
 
 const referenceContext = require.context('~/markdown/reference', true, /meta.json/)
 export const reference = importAll(referenceContext)
