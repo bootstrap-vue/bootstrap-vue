@@ -17,7 +17,7 @@ icons[''].components = icons[''].components
   .sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
   .slice(0, 2)
   .map(c => ({ ...c }))
-icons.components[1].component = 'BIcon{IconName}'
+icons[''].components[1].component = 'BIcon{IconName}'
 export { icons }
 
 const referenceContext = require.context('~/markdown/reference', true, /meta.json/)
