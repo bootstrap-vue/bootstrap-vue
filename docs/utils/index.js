@@ -1,4 +1,5 @@
-import kebabCase from 'lodash/kebabCase'
+conet RX_HYPHENATE = /\B([A-Z])/g
+const kebabCase = str => str.replace(RX_HYPHENATE, '-$1').toLowerCase()
 
 // Parse a fully qualified version from a string
 export const parseVersion = version => {
@@ -135,8 +136,9 @@ export const makeTOC = (readme, meta = null) => {
         componentToc.push(
           // Add component sub-headings
           ...meta.components.map(({ component }) => {
-            const tag = kebabCase(component)
-            return { label: `&lt;${tag}&gt;`, href: `#comp-ref-${tag}` }
+            const tag = kebabCase(component).replace('{', '-{')
+            const hash = `#comp-ref-${tag}`.replace('{','').replace('}','')
+            return { label: `&lt;${tag}&gt;`, href: hash }
           }),
           // Add component import sub-heading
           {
