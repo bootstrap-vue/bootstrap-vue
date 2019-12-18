@@ -137,7 +137,7 @@ export const makeTOC = (readme, meta = null) => {
           // Add component sub-headings
           ...meta.components.map(({ component }) => {
             const tag = kebabCase(component).replace('{', '-{')
-            const hash = `#comp-ref-${tag}`.replace('{','').replace('}','')
+            const hash = `#comp-ref-${tag}`.replace('{', '').replace('}', '')
             return { label: `&lt;${tag}&gt;`, href: hash }
           }),
           // Add component import sub-heading
