@@ -10,9 +10,8 @@ export const directives = importAll(directivesContext)
 
 const iconsContext = require.context('~/../src/icons', false, /package.json/)
 const icons = importAll(iconsContext) || {}
-// Massage the icons components to only show BIcon and one ex ample `BIcon{IconName}`
-// We only return the first BIcon component, plus one extra example
-// icon component which we modify the icon name to be `BIcon{IconName}`
+// Since there are over 300 icons, we only return the first BIcon component, plus one
+// extra example icon component which we modify the icon name to be `BIcon{IconName}`
 // We sort the array to ensure `BIcon` appears first
 icons.components = icons.components
   .sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
