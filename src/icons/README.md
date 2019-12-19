@@ -243,10 +243,10 @@ Flip the icon horizontally and/or vertically via the `flip-h` and `flip-v` props
 ```html
 <template>
   <div style="font-size: 4rem;">
-    <b-icon icon="camera"></b-icon>
-    <b-icon icon="camera" flip-h></b-icon>
-    <b-icon icon="camera" flip-v></b-icon>
-    <b-icon icon="camera" flip-h flip-v></b-icon>
+    <b-icon icon="bar-chart-fill"></b-icon>
+    <b-icon icon="bar-chart-fill" flip-h></b-icon>
+    <b-icon icon="bar-chart-fill" flip-v></b-icon>
+    <b-icon icon="bar-chart-fill" flip-h flip-v></b-icon>
   </div>
 </template>
 
@@ -265,6 +265,7 @@ the icon clockwise, while negative values will rotate the icon counterclockwise.
     <b-icon icon="camera" rotate="45"></b-icon>
     <b-icon icon="camera" rotate="90"></b-icon>
     <b-icon icon="camera" rotate="180"></b-icon>
+    <b-icon icon="camera" rotate="270"></b-icon>
     <b-icon icon="camera" rotate="-45"></b-icon>
   </div>
 </template>
