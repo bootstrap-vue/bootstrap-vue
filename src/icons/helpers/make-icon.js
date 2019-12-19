@@ -4,7 +4,7 @@ import identity from '../../utils/identity'
 import { kebabCase, pascalCase, trim } from '../../utils/string'
 import { toFloat } from '../../utils/number'
 
-// Common icon props
+// Common icon props (should be cloned/spread before using)
 export const commonIconProps = {
   variant: {
     type: String,
@@ -40,6 +40,7 @@ export const commonIconProps = {
   }
 }
 
+// Base attributes needed on all icons
 const baseAttrs = {
   width: '1em',
   height: '1em',
@@ -49,7 +50,7 @@ const baseAttrs = {
   alt: 'icon'
 }
 
-// Shared base component to reduce bundle size
+// Shared private base component to reduce bundle/runtime size
 // @vue/component
 const BVIconBase = {
   name: 'BVIconBase',
@@ -132,7 +133,7 @@ export const makeIcon = (name, content) => {
     render(h, { data, props }) {
       return h(
         BVIconBase,
-        mergeData({ staticClass: iconNameClass, props: { ...props, content: svgContent } }, data)
+        mergeData(data, { staticClass: iconNameClass, props: { ...props, content: svgContent } })
       )
     }
   })
