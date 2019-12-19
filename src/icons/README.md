@@ -88,6 +88,14 @@ export default {
 }
 ```
 
+If you are only using the BootstrapVue icons or `IconsPlugin` in your project, you can also just
+import the required icons CSS:
+
+
+```js
+import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css`
+```
+
 ### Icon components
 
 You can either uses individual icon components, or use the icon helper component `<b-icon>`, to
