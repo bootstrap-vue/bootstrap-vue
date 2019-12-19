@@ -38,10 +38,10 @@ const BVIconBase = {
     ...commonIconProps
   },
   render(h, { data, props }) {
-    const fontScale = (toFloat(props.fontScale) || 1)
+    const fontScale = toFloat(props.fontScale) || 1
     const angle = toFloat(props.scale) || 0
     const transforms = [
-      props.flipH || props.flipV ? `scale(${props.flipH ? -1 : 1}, ${ props.flipV ? -1 : 1})` : null,
+      props.flipH || props.flipV ? `scale(${props.flipH ? -1 : 1}, ${props.flipV ? -1 : 1})` : null,
       angle ? `rotate(${angle}, 0, 0)` : null
     ]
     return h(
@@ -59,8 +59,8 @@ const BVIconBase = {
             alt: 'icon'
           },
           style: {
-            fontSize: fontScale === 1 ? null : scale * 100,
-            transform: transforms.filter(identity).join(' '),
+            fontSize: fontScale === 1 ? null : fontScale * 100,
+            transform: transforms.filter(identity).join(' ') || null,
           }
         },
         // Merge in user supplied data
