@@ -269,11 +269,11 @@ the icon clockwise, while negative values will rotate the icon counterclockwise.
 ```html
 <template>
   <div style="font-size: 4rem;">
-    <b-icon icon="arrow-right"></b-icon>
-    <b-icon icon="arrow-right" rotate="45"></b-icon>
-    <b-icon icon="arrow-right" rotate="90"></b-icon>
-    <b-icon icon="arrow-right" rotate="180"></b-icon>
-    <b-icon icon="arrow-right" rotate="-90"></b-icon>
+    <b-icon icon="camera"></b-icon>
+    <b-icon icon="camera" rotate="45"></b-icon>
+    <b-icon icon="camera" rotate="90"></b-icon>
+    <b-icon icon="camera" rotate="180"></b-icon>
+    <b-icon icon="camera" rotate="-45"></b-icon>
   </div>
 </template>
 
@@ -283,20 +283,32 @@ the icon clockwise, while negative values will rotate the icon counterclockwise.
 ### Scale
 
 Scale the icon by any positive factor via the `scale` prop. Note this changes the icon's visual
-size but not it's physical font size.
+size but not it's physical font size. To illustrate this we have added a background color to the
+icons.
 
 ```html
 <template>
-  <div style="font-size: 4rem;">
-    <b-icon icon="alarm" scale="0.5"></b-icon>
-    <b-icon icon="alarm" scale="1"></b-icon>
-    <b-icon icon="alarm" scale="1.5"></b-icon>
-    <b-icon icon="alarm" scale="2"></b-icon>
-  </div>
+  <b-row cols="2" cols-sm="4" class="text-center" style="font-size: 4rem;">
+    <b-col class="mb-2">
+      <b-icon icon="alert-circle" scale="0.5" class="bg-secondary"></b-icon>
+    </b-col>
+    <b-col class="mb-2">
+      <b-icon icon="alert-circle" class="bg-secondary"></b-icon>
+    </b-col>
+    <b-col class="mb-2">
+      <b-icon icon="alert-circle" scale="1.5" class="bg-secondary"></b-icon>
+    </b-col>
+    <b-col class="mb-2">
+      <b-icon icon="alert-circle" scale="2" class="bg-secondary"></b-icon>
+    </b-col>
+  </b-row>
 </template>
 
 <!-- icons-transform-scale.vue -->
 ```
+
+If you need to have the background and/or border scale with the icon, use the `font-scale`
+prop instead.
 
 ## Using in components
 
