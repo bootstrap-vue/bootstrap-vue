@@ -20,8 +20,10 @@ If you are migrating from a previous `v2.0.0-rc.##` release, please see the
 
 The online documentation is comprised of the following sections:
 
-- [Components](/docs/components) - Components and plugin documentation
-- [Directives](/docs/directives) - Directives and plugin documentation
+- [Components](/docs/components) - Components and component plugin documentation
+- [Directives](/docs/directives) - Directives and directive plugin documentation
+- [Icons](/docs/icons) - Icons and icon plugin documentation
+  <b-badge variant="success">New in v2.2.0</b-badge>
 - [Reference](/docs/reference) - Reference information and documentation
 - [Miscellaneous](/docs/misc) - Miscellaneous information
 - [Playground](/play) - Online playground
@@ -708,8 +710,8 @@ our functional components). These three dependencies are included in the `UMD` b
 
 ## Migrating a project already using Bootstrap
 
-If you've already been using Bootstrap v4, there are a couple adjustments you may need to make to
-your project:
+If you've already been using Bootstrap vv{{bootstrapVersionMajor}}, there are a couple adjustments
+you may need to make to your project:
 
 - Remove the `bootstrap.js` file from your page scripts or build pipeline
 - If Bootstrap is the only thing relying on `jQuery`, you can safely remove it — BootstrapVue **does
@@ -721,9 +723,13 @@ your project:
 
 ### CSS
 
-BootstrapVue is to be used with Bootstrap v4.3 CSS/SCSS. Please see
-[Browsers and devices](https://getbootstrap.com/docs/4.3/getting-started/browsers-devices) for more
-information about browsers currently supported by Bootstrap v4.
+BootstrapVue is to be used with Bootstrap v{{bootstrapVersionMinor}} CSS/SCSS. Please see
+<a
+  :href="`https://getbootstrap.com/docs/${bootstrapVersionMinor}/getting-started/browsers-devices`"
+  target="_blank"
+  rel="noopener"
+>Browsers and devices</a> for more information about browsers currently supported by Bootstrap
+v{{bootstrapVersionMajor}}.
 
 ### JS
 
