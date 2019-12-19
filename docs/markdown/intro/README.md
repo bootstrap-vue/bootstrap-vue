@@ -724,11 +724,8 @@ you may need to make to your project:
 ### CSS
 
 BootstrapVue is to be used with Bootstrap v{{bootstrapVersionMinor}} CSS/SCSS. Please see
-<b-link
-  :href="`https://getbootstrap.com/docs/${bootstrapVersionMinor}/getting-started/browsers-devices`"
-  target="_blank"
->Browsers and devices</b-link> for more information about browsers currently supported by Bootstrap
-v{{bootstrapVersionMajor}}.
+<b-link :href="hrefBootstrapBrowserDevices" target="_blank">Browsers and devices</b-link> for
+more information about browsers currently supported by Bootstrap  v{{bootstrapVersionMajor}}.
 
 ### JS
 
