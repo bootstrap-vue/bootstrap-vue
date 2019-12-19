@@ -313,15 +313,15 @@ and for additional aesthetic scaling (icons placed in the components listed belo
 <template>
   <div>
     <b-button size="sm" class="mb-2">
-      <b-icon icon="gear-fill" class="mr-1"></b-icon> Settings
+      <b-icon icon="gear-fill"></b-icon> Settings
     </b-button>
     <br>
     <b-button variant="primary" class="mb-2">
-      Pay now <b-icon icon="credit-card" class="ml-1"></b-icon>
+      Pay now <b-icon icon="credit-card"></b-icon>
     </b-button>
     <br>
     <b-button variant="outline-info" class="mb-2">
-      <b-icon icon="power" class="mr-1"></b-icon> Logout
+      <b-icon icon="power"></b-icon> Logout
     </b-button>
     <br>
     <b-button size="lg" variant="primary" class="mb-2">
@@ -343,13 +343,13 @@ and for additional aesthetic scaling (icons placed in the components listed belo
   <div>
     <b-button-group>
       <b-button variant="outline-primary">
-        <b-icon icon="tools" class="mr-1"></b-icon> Settings
+        <b-icon icon="tools"></b-icon> Settings
       </b-button>
       <b-button variant="outline-primary">
-        <b-icon icon="person-fill" class="ml-1"></b-icon> Account
+        <b-icon icon="person-fill"></b-icon> Account
       </b-button>
       <b-button variant="outline-primary">
-        <b-icon icon="inbox-fill" class="ml-1"></b-icon> Messages
+        <b-icon icon="inbox-fill"></b-icon> Messages
       </b-button>
     </b-button-group>
   </div>
@@ -454,24 +454,24 @@ and for additional aesthetic scaling (icons placed in the components listed belo
   <div>
     <b-dropdown variant="primary">
       <template v-slot:button-content>
-        <b-icon icon="gear-fill" class="mr-1" aria-hidden="true"></b-icon> Settings
+        <b-icon icon="gear-fill" aria-hidden="true"></b-icon> Settings
       </template>
       <b-dropdown-item-button>
-         <b-icon icon="lock-fill" class="mr-1" aria-hidden="true"></b-icon>
+         <b-icon icon="lock-fill" aria-hidden="true"></b-icon>
          Locked <span class="sr-only">(Click to unlock)</span>
       </b-dropdown-item-button>
       <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-group header="Choose options" class="small">
         <b-dropdown-item-button>
-           <b-icon icon="blank" class="mr-1"aria-hidden="true"></b-icon>
+           <b-icon icon="blank" aria-hidden="true"></b-icon>
            Option A <span class="sr-only">(Not selected)</span>
         </b-dropdown-item-button>
         <b-dropdown-item-button>
-           <b-icon icon="check" class="mr-1" aria-hidden="true"></b-icon>
+           <b-icon icon="check" aria-hidden="true"></b-icon>
            Option B <span class="sr-only">(Selected)</span>
         </b-dropdown-item-button>
          <b-dropdown-item-button>
-           <b-icon icon="blank" class="mr-1" aria-hidden="true"></b-icon>
+           <b-icon icon="blank" aria-hidden="true"></b-icon>
            Option C <span class="sr-only">(Not selected)</span>
         </b-dropdown-item-button>
       </b-dropdown-group>
@@ -480,7 +480,7 @@ and for additional aesthetic scaling (icons placed in the components listed belo
       <b-dropdown-item-button>Some other action</b-dropdown-item-button>
       <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-item-button variant="danger">
-        <b-icon icon="trash-fill" class="mr-1" aria-hidden="true"></b-icon>
+        <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
         Delete
       </b-dropdown-item-button>
     </b-dropdown>
