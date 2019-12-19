@@ -60,7 +60,7 @@ const BVIconBase = {
           },
           style: {
             fontSize: fontScale === 1 ? null : fontScale * 100,
-            transform: transforms.filter(identity).join(' ') || null,
+            transform: transforms.filter(identity).join(' ') || null
           }
         },
         // Merge in user supplied data
