@@ -203,6 +203,24 @@ Alternatively, you can override the `<svg>` `width` and `height` attributes to s
 <!-- icons-size-attrs.vue -->
 ```
 
+You can also use the prop `font-scale` to scale the icon's curren font size by the specified factor:
+
+```html
+<template>
+  <div>
+    <b-icon icon="camera" font-scale="0.5"></b-icon>
+    <b-icon icon="camera" font-scale="1"></b-icon>
+    <b-icon icon="camera" font-scale="2"></b-icon>
+    <b-icon icon="camera" font-scale="3"></b-icon>
+    <b-icon icon="camera" font-scale="4"></b-icon>
+    <b-icon icon="camera" font-scale="5"></b-icon>
+    <b-icon icon="camera" font-scale="7.5"></b-icon>
+  </div>
+</template>
+
+<!-- icons-size-font-size-prop.vue -->
+```
+
 ## Styling
 
 With the use of Bootstrap's border and background
@@ -219,6 +237,65 @@ With the use of Bootstrap's border and background
 </template>
 
 <!-- icons-styling.vue -->
+```
+
+## Transforms
+
+BootstraVue icons provide several props for applying basic CSS transforms to the SVG. All
+transforms can be combined for added effect.
+
+### Flipping
+
+Flip the icon horizontally and/or vertically via the `flip-h` and `flip-v` props.
+
+```html
+<template>
+  <div style="font-size: 4rem;">
+    <b-icon icon="camera"></b-icon>
+    <b-icon icon="camera" flip-h></b-icon>
+    <b-icon icon="camera" flip-v></b-icon>
+    <b-icon icon="camera" flip-h flip-v></b-icon>
+  </div>
+</template>
+
+<!-- icons-transform-flip.vue -->
+```
+
+### Rotate
+
+Rotate the icon by a specified number of degrees via the `rotate` prop. Poitive values will rotate
+the icon clockwise, while negative values will rotate the icon counterclockwise.
+
+```html
+<template>
+  <div style="font-size: 4rem;">
+    <b-icon icon="arrow-right"></b-icon>
+    <b-icon icon="arrow-right" rotate="45"></b-icon>
+    <b-icon icon="arrow-right" rotate="90"></b-icon>
+    <b-icon icon="arrow-right" rotate="180"></b-icon>
+    <b-icon icon="arrow-right" rotate="-90"></b-icon>
+  </div>
+</template>
+
+<!-- icons-transform-rotate.vue -->
+```
+
+### Scale
+
+Scale the icon by any positive factor via the `scale` prop. Note this changes the icon's visual
+size but not it's physical font size.
+
+```html
+<template>
+  <div style="font-size: 4rem;">
+    <b-icon icon="alarm" scale="0.5"></b-icon>
+    <b-icon icon="alarm" scale="1"></b-icon>
+    <b-icon icon="alarm" scale="1.5"></b-icon>
+    <b-icon icon="alarm" scale="2"></b-icon>
+  </div>
+</template>
+
+<!-- icons-transform-scale.vue -->
 ```
 
 ## Using in components
