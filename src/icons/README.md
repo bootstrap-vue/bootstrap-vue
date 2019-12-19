@@ -88,9 +88,8 @@ export default {
 }
 ```
 
-If you are only using the BootstrapVue icons or `IconsPlugin` in your project, you can also just
-import the required icons CSS:
-
+If you are using _only_ the BootstrapVue icons or `IconsPlugin` in your project, you can also just
+import the required icons CSS, rather than the full Bootstrap and BootstrapVue SCSS/CSS.
 
 ```js
 import { IconsPlugin } from 'bootstrap-vue'
@@ -98,6 +97,19 @@ import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
 
 Vue.use(IconsPlugin)
 ```
+
+Or if using the icons SCSS source:
+
+```js
+import { IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap-vue/icons.scss'
+
+Vue.use(IconsPlugin)
+```
+
+BootstrapVue icons SCSS/CSS does not depend on any Bootstrap SASS variables, mixins, functions or
+CSS classes. Please note that the icons CSS is _also_ included in the main BootstrapVue SCSS/CSS
+files.
 
 ### Icon components
 
@@ -519,6 +531,33 @@ font scaled by 125%).
 </template>
 
 <!-- icons-input-groups.vue -->
+```
+
+### List groups
+
+```html
+<template>
+  <b-list-group>
+    <b-list-group-item class="d-flex justify-content-between align-items-center">
+      <b-icon icon="x-circle" scale="2" variant="danger"></b-icon>
+      Cras justo odio
+    </b-list-group-item>
+    <b-list-group-item class="d-flex justify-content-between align-items-center">
+      <b-icon icon="alert-triangle-fill" scale="2" variant="warning"></b-icon>
+      Dapibus ac facilisis in
+    </b-list-group-item>
+    <b-list-group-item class="d-flex justify-content-between align-items-center">
+      <b-icon icon="info-fill" scale="2" variant="info"></b-icon>
+      Morbi leo risus
+    </b-list-group-item>
+    <b-list-group-item class="d-flex justify-content-between align-items-center">
+      <b-icon icon="check-box" scale="2" variant="success"></b-icon>
+      Incididunt veniam velit
+    </b-list-group-item>
+  </b-list-group>
+</template>
+
+<!-- icons-list-groups.vue -->
 ```
 
 ### Dropdowns
