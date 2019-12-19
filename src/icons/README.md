@@ -4,12 +4,12 @@
 > Bootstrap Icons are SVGs, so they scale quickly and easily and can be styled with CSS. While they
 > are built for Bootstrap, they will work in any project.
 
-BootstrapVue icon components are based on
-[`bootstrap-icons` v{{ bootstrapIconsVersion }}](https://icons.getbootstrap.com/). Icons are opt-in,
-meaning that they explicitly need to be imported in order to be used. They are not installed by
-default (except in the [browser build](/docs#build-variants)).
+BootstrapVue icon components are built from
+[`bootstrap-icons` v{{ bootstrapIconsVersion }}](https://icons.getbootstrap.com/) source SVGs. Icons
+are opt-in, meaning that they explicitly need to be imported in order to be used. They are not
+installed by default (except in the [browser build](/docs#build-variants)).
 
-Icon components were added in BootstrapVue release v2.2.0.
+Icon components were added in BootstrapVue release `v2.2.0`.
 
 <div class="alert alert-info small">
   <p class="mb-0">
@@ -191,7 +191,8 @@ classes:
 <!-- icons-size-css.vue -->
 ```
 
-You can also use the prop `font-scale` to scale the icon's current font size by the specified factor:
+You can also use the prop `font-scale` to scale the icon's current font size by the specified
+factor:
 
 ```html
 <template>
@@ -231,8 +232,9 @@ With the use of Bootstrap's border and background
 
 ## Transforms
 
-BootstraVue icons provide several props for applying basic CSS transforms to the SVG. All
-transforms can be combined for added effect.
+BootstraVue icons provide several props for applying basic CSS transforms to the `<svg>`. All
+transforms can be combined for added effect. Note that the transforms are applied to the `<svg>`
+content, and not the `<svg>` bounding box.
 
 ### Flipping
 
@@ -274,9 +276,8 @@ Note that any [flipping](#fliping) is performed before the rotation is applied.
 
 ### Scale
 
-Scale the icon by any positive factor via the `scale` prop. Note this changes the icon's visual
-size but not it's physical font size. To illustrate this we have added a background color to the
-icons.
+Scale the icon by any positive factor via the `scale` prop. Note this changes the icon's visual size
+but not it's physical font size. To illustrate this we have added a background color to the icons.
 
 ```html
 <template>
@@ -299,8 +300,8 @@ icons.
 <!-- icons-transform-scale.vue -->
 ```
 
-If you need to have the background and/or border scale with the icon, use the `font-scale`
-prop instead.
+If you need to have the background and/or border scale with the icon, use the `font-scale` prop
+instead.
 
 ### Shifting
 
@@ -308,10 +309,10 @@ Shifting affects icon location without changing or moving the svg container. To 
 horizontal and/or vertical axis, use the `shift-h` and `shift-v` props with any arbitrary numeric
 value, including decimals.
 
-For `shift-v`, positive values will move the icon upwards, while negative values will move the
-icon downwards. For `shift-h`, positive values will move the icon to the right, while negative
-values will move it left. Both props accept values that are in units of 1/16em (relative to the
-icon's current size).
+For `shift-v`, positive values will move the icon upwards, while negative values will move the icon
+downwards. For `shift-h`, positive values will move the icon to the right, while negative values
+will move it left. Both props accept values that are in units of 1/16em (relative to the icon's
+current _font size_).
 
 For clarity in the example, we’ve added a background color on the icon so you can see the effect.
 
@@ -355,9 +356,9 @@ For clarity in the example, we’ve added a background color on the icon so you 
 <!-- icons-transform-shift.vue -->
 ```
 
-Sifting is applied after any scaling and rotation transforms. As with scaling, backgrounds and
-borders are not affected. If you need to shift the border/background with the icon, use Bootstrap's
-margin [spacing utility classes](/docs/reference/utility-classes).
+Shifting is applied after any rotation transforms. As with scaling, backgrounds and borders are
+not affected. If you need to shift the border/background with the icon, use Bootstrap's margin
+[spacing utility classes](/docs/reference/utility-classes).
 
 ## Using in components
 
@@ -365,8 +366,8 @@ Easily place icons as content in other components.
 
 Note that icons placed in BootstrapVue components use BootstrapVue's custom CSS for additional
 styling compensation due to current issues with Bootstrap Icons `<svg>` alignment implementation,
-and for additional aesthetic scaling (icons placed in the components listed below will be scaled by
-150%).
+and for additional aesthetic scaling (icons placed in the components listed below will have their
+font scaled by 125%).
 
 ### Buttons
 
