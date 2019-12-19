@@ -2,7 +2,7 @@
   <section v-if="component" class="bd-content">
     <b-row tag="header" align-v="center">
       <b-col sm="9">
-        <anchored-heading :id="`comp-ref-${componentName}`" level="3">
+        <anchored-heading :id="`comp-ref-${componentNameClean}`" level="3">
           <code class="notranslate bigger" translate="no">{{ tag }}</code>
         </anchored-heading>
         <b-badge v-if="version" variant="success">v{{ version }}+</b-badge>
@@ -505,6 +505,9 @@ export default {
     },
     componentName() {
       return kebabCase(this.component).replace('{', '-{')
+    },
+    componentNameClean() {
+      return this.componentName.replace('{', '').replace('}', '')
     },
     tag() {
       return `<${this.componentName}>`
