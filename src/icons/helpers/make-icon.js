@@ -42,7 +42,7 @@ const BVIconBase = {
     const angle = toFloat(props.scale) || 0
     const transforms = [
       props.flipH || props.flipV ? `scale(${props.flipH ? -1 : 1}, ${props.flipV ? -1 : 1})` : null,
-      angle ? `rotate(${angle}, 0, 0)` : null
+      angle ? `rotate(${angle}deg)` : null
     ]
     return h(
       'svg',
