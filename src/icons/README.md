@@ -209,6 +209,8 @@ You can also use the prop `font-scale` to scale the icon's current font size by 
 <!-- icons-size-font-size-prop.vue -->
 ```
 
+Also see the [scaling transforms](#scale) section below for additional sizing options.
+
 ## Styling
 
 With the use of Bootstrap's border and background
@@ -280,16 +282,16 @@ icons.
 <template>
   <b-row cols="2" cols-sm="4" class="text-center" style="font-size: 4rem;">
     <b-col class="mb-2">
-      <b-icon icon="alert-circle" scale="0.5" class="bg-secondary"></b-icon>
+      <b-icon icon="alert-circle" scale="0.5" class="bg-info"></b-icon>
     </b-col>
     <b-col class="mb-2">
-      <b-icon icon="alert-circle" class="bg-secondary"></b-icon>
+      <b-icon icon="alert-circle" class="bg-info"></b-icon>
     </b-col>
     <b-col class="mb-2">
-      <b-icon icon="alert-circle" scale="1.5" class="bg-secondary"></b-icon>
+      <b-icon icon="alert-circle" scale="1.5" class="bg-info"></b-icon>
     </b-col>
     <b-col class="mb-2">
-      <b-icon icon="alert-circle" scale="2" class="bg-secondary"></b-icon>
+      <b-icon icon="alert-circle" scale="2" class="bg-info"></b-icon>
     </b-col>
   </b-row>
 </template>
@@ -299,6 +301,63 @@ icons.
 
 If you need to have the background and/or border scale with the icon, use the `font-scale`
 prop instead.
+
+### Shifting
+
+Shifting affects icon location without changing or moving the svg container. To move icons on the
+horizontal and/or vertical axis, use the `shift-h` and `shift-v` props with any arbitrary numeric
+value, including decimals.
+
+For `shift-v`, positive values will move the icon upwards, while negative values will move the
+icon downwards. For `shift-h`, positive values will move the icon to the right, while negative
+values will move it left. Both props accept values that are in units of 1/16em (relative to the
+icon's current size).
+
+For clarity in the example, we’ve added a background color on the icon so you can see the effect.
+
+```html
+<template>
+  <b-row cols="2" cols-sm="4" class="text-center" style="font-size: 4rem;">
+    <b-col class="py-4 mb-2">
+      <b-icon icon="alert-circle" class="bg-info"></b-icon>
+    </b-col>
+    <b-col class="py-4 mb-2">
+      <b-icon icon="alert-circle" shift-v="8" class="bg-info"></b-icon>
+    </b-col>
+    <b-col class="py-4 mb-2">
+      <b-icon icon="alert-circle" shift-v="-8" class="bg-info"></b-icon>
+    </b-col>
+    <b-col class="py-4 mb-2">
+      <b-icon icon="alert-circle" shift-h="8" class="bg-info"></b-icon>
+    </b-col>
+    <b-col class="py-4 mb-2">
+      <b-icon icon="alert-circle" shift-h="-8" class="bg-info"></b-icon>
+    </b-col>
+    <b-col class="py-4 mb-2">
+      <b-icon icon="alert-circle" shift-v="16" class="bg-info"></b-icon>
+    </b-col>
+    <b-col class="py-4 mb-2">
+      <b-icon icon="alert-circle" shift-h="-8" shift-v="-8" class="bg-info"></b-icon>
+    </b-col>
+    <b-col class="py-4 mb-2">
+      <b-icon
+        icon="alert-circle"
+        scale="0.5"
+        rotate="45"
+        shift-h="-4"
+        shift-v="4"
+        class="bg-info"
+      ></b-icon>
+    </b-col>
+  </b-row>
+</template>
+
+<!-- icons-transform-shift.vue -->
+```
+
+Sifting is applied after any scaling and rotation transforms. As with scaling, backgrounds and
+borders are not affected. If you need to shift the border/background with the icon, use Bootstrap's
+margin [spacing utility classes](/docs/reference/utility-classes).
 
 ## Using in components
 
