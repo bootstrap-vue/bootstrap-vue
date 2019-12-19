@@ -32,6 +32,15 @@ export const commonIconProps = {
   }
 }
 
+const baseAttrs = {
+  width: '1em',
+  height: '1em',
+  viewBox: '0 0 20 20',
+  focusable: 'false',
+  role: 'img',
+  alt: 'icon'
+}
+
 // Shared base component to reduce bundle size
 // @vue/component
 const BVIconBase = {
@@ -54,34 +63,32 @@ const BVIconBase = {
         ? `scale(${(flipH ? -1 : 1) * scale}, ${(flipV ? -1 : 1) * scale})`
         : null,
       rotate ? `rotate(${rotate}deg)` : null
-    ]
+    ].filter(identity)
+
+    // We wrap the content in a `<g>` for handling transforms
+    const $inner = h('g', {
+      style: {
+        transform: transforms.join(' ') || null,
+        transformOrigin: transforms.length > 0 ? '50% 50%' : null
+      },
+      domProps: { innerHTML: props.content || '' }
+    })
+
     return h(
       'svg',
       mergeData(
         {
           staticClass: 'bi',
           class: { [`text-${props.variant}`]: !!props.variant },
-          attrs: {
-            width: '1em',
-            height: '1em',
-            viewBox: '0 0 20 20',
-            focusable: 'false',
-            role: 'img',
-            alt: 'icon'
-          },
-          style: {
-            fontSize: fontScale === 1 ? null : `${fontScale * 100}%`,
-            transform: transforms.filter(identity).join(' ') || null
-          }
+          attrs: baseAttrs,
+          style: { fontSize: fontScale === 1 ? null : `${fontScale * 100}%` }
         },
         // Merge in user supplied data
         data,
         // These cannot be overridden by users
-        {
-          attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' },
-          domProps: { innerHTML: props.content || '' }
-        }
-      )
+        { attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' } }
+      ),
+      [$inner]
     )
   }
 }
