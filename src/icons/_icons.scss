@@ -1,5 +1,5 @@
 // Base icon styling
-.b-icon
+.b-icon {
   &.bi {
     display: inline-block;
     overflow: visible;
@@ -18,7 +18,7 @@
 .dropdown-item,
 .input-group-text {
   .b-icon {
-    .bi {
+    &.bi {
       font-size: 125%;
       vertical-align: text-bottom;
     }
