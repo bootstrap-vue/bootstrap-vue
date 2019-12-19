@@ -1,7 +1,7 @@
 # Getting Started
 
-> Get started with BootstrapVue, based on the world's most popular framework - Bootstrap v4, for
-> building responsive, mobile-first sites using Vue.js.
+> Get started with BootstrapVue, based on the world's most popular framework - Bootstrap
+> v{{ bootstrapVersionMajor }}, for building responsive, mobile-first sites using Vue.js.
 
 - [Vue.js](https://vuejs.org/) `v{{ vueVersionMinor }}` is required, `v{{ vueVersion }}` is
   recommended
@@ -31,8 +31,8 @@ The online documentation is comprised of the following sections:
 ## Prerequisites
 
 Before getting started with BootstrapVue, you should have general familiarity with Vue functionality
-and Bootstrap v4.3 CSS. If you are unfamiliar with Vue and/or Bootstrap, some good starting points
-would be:
+and Bootstrap v{{ bootstrapVersionMajor }} CSS. If you are unfamiliar with Vue and/or Bootstrap, some
+good starting points would be:
 
 - [Vue Guide](https://vuejs.org/v2/guide/)
 - [Vue API](https://vuejs.org/v2/api/)
@@ -724,11 +724,10 @@ you may need to make to your project:
 ### CSS
 
 BootstrapVue is to be used with Bootstrap v{{bootstrapVersionMinor}} CSS/SCSS. Please see
-<a
+<b-link
   :href="`https://getbootstrap.com/docs/${bootstrapVersionMinor}/getting-started/browsers-devices`"
   target="_blank"
-  rel="noopener"
->Browsers and devices</a> for more information about browsers currently supported by Bootstrap
+>Browsers and devices</b-link> for more information about browsers currently supported by Bootstrap
 v{{bootstrapVersionMajor}}.
 
 ### JS
