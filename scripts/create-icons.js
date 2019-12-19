@@ -30,7 +30,8 @@ const bvIconsPkg = require(bvIconsPkgFile)
 
 if (bvIconsPkg.meta['bootstrap-icons-version'] === bsIconsPkg.version) {
   // Exit early of no changes in bootstrap-icons version
-  console.log('  No changes detected in bootstrap-icons version')
+  // Should also test if src/icons/helper/make-icons.js has changed (i.e. new props)
+  // console.log('  No changes detected in bootstrap-icons version')
   // Commented out until this build process is stablized
   // exit 0
 }
