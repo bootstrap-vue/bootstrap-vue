@@ -10,7 +10,16 @@ export const commonIconProps = {
     type: String
   },
   fontScale: {
+    type: [Number, String],
+    default: 1
+  },
+  scale: {
     type: [Number, String]
+    default: 1
+  },
+  rotate: {
+    type: [Number, String],
+    default: 0
   },
   flipH: {
     type: Boolean,
@@ -19,10 +28,6 @@ export const commonIconProps = {
   flipV: {
     type: Boolean,
     default: false
-  },
-  rotate: {
-    type: [Number, String],
-    default: 0
   }
 }
 
@@ -39,9 +44,14 @@ const BVIconBase = {
   },
   render(h, { data, props }) {
     const fontScale = toFloat(props.fontScale) || 1
+    const scale = toFloat(props.scale) || 1
     const angle = toFloat(props.scale) || 0
+    const flipH = props.flipH
+    const flipV = props.flipV
     const transforms = [
-      props.flipH || props.flipV ? `scale(${props.flipH ? -1 : 1}, ${props.flipV ? -1 : 1})` : null,
+      flipH || flipV || scale !== 1
+        ? `scale(${(flipH ? -1 : 1) * scale}, ${(flipV ? -1 : 1) * scale})`
+        : null,
       angle ? `rotate(${angle}deg)` : null
     ]
     return h(
