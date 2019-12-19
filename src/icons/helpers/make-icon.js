@@ -66,7 +66,13 @@ const BVIconBase = {
     ].filter(identity)
 
     // We wrap the content in a `<g>` for handling transforms
-    const $inner = h('g', { domProps: { innerHTML: props.content || '' } })
+    const $inner = h('g', {
+      style: {
+        transform: transforms.join(' ') || null,
+        transformOrigin: transforms.length > 0 ? '50% 50%' : null
+      },
+      domProps: { innerHTML: props.content || '' }
+    })
 
     return h(
       'svg',
@@ -75,11 +81,7 @@ const BVIconBase = {
           staticClass: 'bi',
           class: { [`text-${props.variant}`]: !!props.variant },
           attrs: baseAttrs,
-          style: {
-            fontSize: fontScale === 1 ? null : `${fontScale * 100}%`,
-            transform: transforms.join(' ') || null,
-            transformOrigin: transforms.length > 0 ? '50% 50%' : null
-          }
+          style: { fontSize: fontScale === 1 ? null : `${fontScale * 100}%` }
         },
         // Merge in user supplied data
         data,
@@ -112,10 +114,7 @@ export const makeIcon = (name, content) => {
     render(h, { data, props }) {
       return h(
         BVIconBase,
-        mergeData(data, {
-          staticClass: iconNameClass,
-          props: { ...props, content: svgContent }
-        })
+        mergeData({ staticClass: iconNameClass, props: { ...props, content: svgContent } }, data)
       )
     }
   })
