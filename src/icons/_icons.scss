@@ -1,12 +1,14 @@
 // Base icon styling
-.bi {
-  display: inline-block;
-  overflow: visible;
-  // The following is required to compenstate for alignment
-  // issues with the Bootstrap Icons alpha implememntation
-  // And maight be able to remove in future version of bootstrap-icons
-  // Perhaps this values should be SASS variables?
-  vertical-align: -0.125em;
+.b-icon
+  &.bi {
+    display: inline-block;
+    overflow: visible;
+    // The following is required to compenstate for alignment
+    // issues with the Bootstrap Icons alpha implememntation
+    // And maight be able to remove in future version of bootstrap-icons
+    // Perhaps this values should be SASS variables?
+    vertical-align: -0.125em;
+  }
 }
 
 // Make icons slightly larger in buttons, nav-links, dropdowns, and input-group-text
@@ -15,8 +17,10 @@
 .dropdown-toggle,
 .dropdown-item,
 .input-group-text {
-  .bi {
-    font-size: 125%;
-    vertical-align: text-bottom;
+  .b-icon {
+    .bi {
+      font-size: 125%;
+      vertical-align: text-bottom;
+    }
   }
 }
