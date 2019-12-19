@@ -47,7 +47,8 @@ export default {
   },
   computed: {
     hrefBootstrapBrowserDevices() {
-      return `//getbootstrap.com/docs/${this.bootstrapVersionMinor}/getting-started/browsers-devices`
+      const minorVersion = this.bootstrapVersionMinor
+      return `//getbootstrap.com/docs/${minorVersion}/getting-started/browsers-devices`
     },
     // TODO: pull this from the meta.json file
     meta() {
