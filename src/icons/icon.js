@@ -12,11 +12,11 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
   name: 'BIcon',
   functional: true,
   props: {
-    ...commonIconProps,
     icon: {
       type: String,
       default: null
-    }
+    },
+    ...commonIconProps
   },
   render(h, { data, props, parent }) {
     const icon = pascalCase(trim(props.icon || '')).replace(RX_ICON_PREFIX, '')
