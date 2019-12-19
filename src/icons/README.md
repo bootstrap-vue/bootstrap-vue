@@ -93,7 +93,10 @@ import the required icons CSS:
 
 
 ```js
-import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css`
+import { IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
+
+Vue.use(IconsPlugin)
 ```
 
 ### Icon components
