@@ -7,14 +7,15 @@ import { toFloat } from '../../utils/number'
 // Common icon props
 export const commonIconProps = {
   variant: {
-    type: String
+    type: String,
+    default: null
   },
   fontScale: {
     type: [Number, String],
     default: 1
   },
   scale: {
-    type: [Number, String]
+    type: [Number, String],
     default: 1
   },
   rotate: {
