@@ -59,7 +59,7 @@ const BVIconBase = {
             alt: 'icon'
           },
           style: {
-            fontSize: scale === 1 ? null : scale * 100,
+            fontSize: fontScale === 1 ? null : scale * 100,
             transform: transforms.filter(identity).join(' '),
           }
         },
