@@ -179,7 +179,7 @@ const updatePkgMeta = data => {
   const iconMeta = data.componentNames.map(name => {
     return {
       component: name,
-      'auto-gen': `bootstrap-icons ${data.version})`,
+      'auto-gen': `bootstrap-icons ${data.version}`,
       props: iconProps
     }
   })
