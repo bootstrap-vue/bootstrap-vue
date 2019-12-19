@@ -10,7 +10,7 @@ describe('icons', () => {
     name: 'ParentComponent',
     components: {
       // For testing user defined Icons
-      BIconFakeIconTest: makeIcon('FakeIconTest', '')
+      BIconFakeIconTest: makeIcon('FakeIconTest', '<path class="fake-path" />')
     },
     render(h) {
       return h(this.$slots.default)
@@ -63,7 +63,7 @@ describe('icons', () => {
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-blank')
     expect(wrapper.classes().length).toBe(2)
-    expect(wrapper.find('svg').isEmpty()).toBe(true)
+    expect(wrapper.find('svg > g').isEmpty()).toBe(true)
   })
 
   it('b-icon without icon name renders BIconBlank', async () => {
@@ -79,7 +79,7 @@ describe('icons', () => {
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.text()).toBe('')
     expect(wrapper.is('svg')).toBe(true)
-    expect(wrapper.find('svg').isEmpty()).toBe(true)
+    expect(wrapper.find('svg > g').isEmpty()).toBe(true)
   })
 
   it('b-icon with unknown icon name renders BIconBlank', async () => {
@@ -95,7 +95,7 @@ describe('icons', () => {
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-blank')
     expect(wrapper.classes().length).toBe(2)
-    expect(wrapper.find('svg').isEmpty()).toBe(true)
+    expect(wrapper.find('svg > g').isEmpty()).toBe(true)
   })
 
   it('b-icon variant works', async () => {
@@ -134,5 +134,7 @@ describe('icons', () => {
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-fake-icon-test')
     expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.find('svg > g').exists()).toBe(true)
+    expect(wrapper.find('svg > g > path.fake-path').exists()).toBe(true)
   })
 })
