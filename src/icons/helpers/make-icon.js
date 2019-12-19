@@ -94,7 +94,6 @@ const BVIconBase = {
       'svg',
       mergeData(
         {
-          staticClass: 'bi',
           class: { [`text-${props.variant}`]: !!props.variant },
           attrs: baseAttrs,
           style: { fontSize: fontScale === 1 ? null : `${fontScale * 100}%` }
@@ -102,7 +101,10 @@ const BVIconBase = {
         // Merge in user supplied data
         data,
         // These cannot be overridden by users
-        { attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' } }
+        {
+          staticClass: 'b-icon bi',
+          attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' }
+        }
       ),
       [$inner]
     )
