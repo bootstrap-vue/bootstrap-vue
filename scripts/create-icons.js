@@ -182,7 +182,9 @@ const processFile = (file, data) =>
 
 // Method to generate the udated package.json content
 const updatePkgMeta = data => {
-  // Grab current package.json component entries array
+  // Create a semi-deep clone of the current pakage.json
+  const newPkg = { ...bvIconsPkg, meta: { ...bvIconsPkg.meta } }
+  // Grab current component entries array
   // and filter out auto generated entries
   const metaComponents = bvIconsPkg.meta.components.filter(c => !c['auto-gen'])
   // Grab the props definition array from `BIcon` and filter out `icon` prop
@@ -197,32 +199,11 @@ const updatePkgMeta = data => {
       props: iconProps
     }
   })
-  // Create a semi-deep clone of the pakage.json
-  const newPkg = { ...bvIconsPkg, meta: { ...bvIconsPkg.meta } }
-  // Update the package components meta info
-  newPkg.meta.components = [...metaComponents, ...iconMeta]
-  // Grab current package.json component entries array
-  // and filter out auto generated entries
-  const metaComponents = bvIconsPkg.meta.components.filter(c => !c['auto-gen'])
-  // Grab the props definition array from `BIcon` and filter out `icon` prop
-  const iconProps = metaComponents
-    .find(m => m.component === 'BIcon')
-    .props.filter(p => p.prop !== 'icon')
-  // Build the icon component entries
-  const iconMeta = data.componentNames.map(name => {
-    return {
-      component: name,
-      'auto-gen': `bootstrap-icons ${data.version}`,
-      props: iconProps
-    }
-  })
-  // Create a semi-deep clone of the pakage.json
-  const newPkg = { ...bvIconsPkg, meta: { ...bvIconsPkg.meta } }
   // Update the package components meta info
   newPkg.meta.components = [...metaComponents, ...iconMeta]
   // Update the bootstrap-icons-version reference
   newPkg.meta['bootstrap-icons-version'] = data.version
-  // Return the package.json as a json string
+  // Return the updated package.json as a json string
   return JSON.stringify(newPkg, null, 2)
 }
 
