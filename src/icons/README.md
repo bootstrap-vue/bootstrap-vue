@@ -191,19 +191,7 @@ classes:
 <!-- icons-size-css.vue -->
 ```
 
-Alternatively, you can override the `<svg>` `width` and `height` attributes to set an explicit size:
-
-```html
-<template>
-  <div>
-    <b-icon icon="bell-fill" width="120px" height="120px"></b-icon>
-  </div>
-</template>
-
-<!-- icons-size-attrs.vue -->
-```
-
-You can also use the prop `font-scale` to scale the icon's curren font size by the specified factor:
+You can also use the prop `font-scale` to scale the icon's current font size by the specified factor:
 
 ```html
 <template>
@@ -279,6 +267,8 @@ the icon clockwise, while negative values will rotate the icon counterclockwise.
 
 <!-- icons-transform-rotate.vue -->
 ```
+
+Note that any [flipping](#fliping) is performed before the rotation is applied.
 
 ### Scale
 
