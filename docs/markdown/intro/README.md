@@ -22,8 +22,7 @@ The online documentation is comprised of the following sections:
 
 - [Components](/docs/components) - Components and component plugin documentation
 - [Directives](/docs/directives) - Directives and directive plugin documentation
-- [Icons](/docs/icons) - Icons and icon plugin documentation
-  <b-badge variant="success">New in v2.2.0</b-badge>
+- [Icons](/docs/icons) - Icons and icon plugin documentation <b-badge>v2.2.0+</b-badge>
 - [Reference](/docs/reference) - Reference information and documentation
 - [Miscellaneous](/docs/misc) - Miscellaneous information
 - [Playground](/play) - Online playground
@@ -127,9 +126,12 @@ Then, register BootstrapVue in your app entry point:
 ```js
 // app.js
 import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
+// Install BootstrapVue
 Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
 ```
 
 And import Bootstrap and BootstrapVue `css` files:
@@ -234,7 +236,7 @@ Guide for full details on setting up aliases for [webpack](https://webpack.js.or
 ## Tree shaking with module bundlers
 
 When using a module bundler you can optionally import only specific components groups (plugins),
-components and/or directives. Note tree shaking only applies to the JavaScript code and not
+components and/or directives. Note that tree shaking only applies to the JavaScript code and not
 CSS/SCSS.
 
 <div class="alert alert-info">
@@ -550,8 +552,8 @@ module config, and then import additional components or plugins in the pages whe
 
 ### Icons
 
-The icons plugin is **not** automatically installed when using the Nuxt.js module. You must
-either explicity enable the IconsPlugin, or specify which icon components you wish to import.
+The [icons plugin](/docs/icons) is **not** automatically installed when using the Nuxt.js module.
+You must either explicity enable the `IconsPlugin`, or specify which icon components you wish to import.
 
 All Icons:
 
@@ -572,6 +574,18 @@ module.exports = {
   bootstrapVue: {
     // Add the desired icon components to the `components` array
     components: ['BIcon', 'BIconAlertFill', 'BIconCalendar', 'BIconGears']
+  }
+}
+```
+
+Icons plugin:
+
+```js
+module.exports = {
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    // Add the icon plugin to the `componentsPlugins` array
+    componentPlugins: ['IconsPlugin']
   }
 }
 ```
