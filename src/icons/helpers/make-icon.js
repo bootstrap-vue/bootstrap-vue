@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import identity from '../../utils/identity'
 import { kebabCase, pascalCase, trim } from '../../utils/string'
 import { toFloat } from '../../utils/number'
 
@@ -8,18 +9,21 @@ export const commonIconProps = {
   variant: {
     type: String
   },
-  scale: {
+  fontScale: {
     type: [Number, String]
+  },
+  flipH: {
+    type: Boolean,
+    default: false
+  },
+  flipV: {
+    type: Boolean,
+    default: false
+  },
+  rotate: {
+    type: [Number, String],
+    default: 0
   }
-}
-
-const baseAttrs = {
-  width: '1em',
-  height: '1em',
-  viewBox: '0 0 20 20',
-  focusable: 'false',
-  role: 'img',
-  alt: 'icon'
 }
 
 // Shared base component to reduce bundle size
@@ -34,17 +38,31 @@ const BVIconBase = {
     ...commonIconProps
   },
   render(h, { data, props }) {
-    const scale = toFloat(props.scale) || 1
-    const scaleData = scale === 1 ? {} : { style: { fontSize: scale } }
+    const fontScale = (toFloat(props.fontScale) || 1)
+    const angle = toFloat(props.scale) || 0
+    const transforms = [
+      props.flipH || props.flipV ? `scale(${props.flipH ? -1 : 1}, ${ props.flipV ? -1 : 1})` : null,
+      angle ? `rotate(${angle}, 0, 0)` : null
+    ]
     return h(
       'svg',
       mergeData(
         {
           staticClass: 'bi',
           class: { [`text-${props.variant}`]: !!props.variant },
-          attrs: baseAttrs
+          attrs: {
+            width: '1em',
+            height: '1em',
+            viewBox: '0 0 20 20',
+            focusable: 'false',
+            role: 'img',
+            alt: 'icon'
+          },
+          style: {
+            fontSize: scale === 1 ? null : scale * 100,
+            transform: transforms.filter(identity).join(' '),
+          }
         },
-        scaleData,
         // Merge in user supplied data
         data,
         // These cannot be overridden by users
