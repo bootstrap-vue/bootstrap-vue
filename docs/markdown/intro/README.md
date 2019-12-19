@@ -421,6 +421,9 @@ module.exports = {
 }
 ```
 
+Note that this will **not** install the Icons components. To see how to include icons via the
+Nuxt.js module, refer to the [Icons section](#icons) below.
+
 ### Using custom Bootstrap SCSS
 
 If you are using custom Bootstrap SCSS, you can disable automatic inclusion of Bootstrap and
@@ -536,10 +539,40 @@ Note that when importing individual components, any component aliases will **not
   </p>
 </div>
 
-Do not use the Nuxt module If you want to import individual BootstrapVue components into _specific_
-pages and/or components of your Nuxt app. Instead follow the
-[module bundlers](#using-module-bundlers) section above as well as the
-[Tree shaking with module bundlers](#tree-shaking-with-module-bundlers) section above.
+If you want to import individual BootstrapVue components into _specific_ pages and/or components of
+your Nuxt app, you may want to bypass the Nuxt.js module and, instead, follow the
+[module bundlers](#using-module-bundlers) and
+[Tree shaking with module bundlers](#tree-shaking-with-module-bundlers) sections above.
+Alternatively you may want to to just import a few plugins (such as `LayoutPlugin`) in your Nuxt.js
+module config, and then import additional components or plugins in the pages where needed.
+
+### Icons
+
+The icons plugin is **not** automatically installed when using the Nuxt.js module. You must
+either explicity enable the IconsPlugin, or specify which icon components you wish to import.
+
+All Icons:
+
+```js
+module.exports = {
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    icons: true // Install the IconsPlugin (in addition to BootStrapVue plugin
+  }
+}
+```
+
+Specific icons:
+
+```js
+module.exports = {
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    // Add the desired icon components to the `components` array
+    components: ['BIcon', 'BIconAlertFill', 'BIconCalendar', 'BIconGears']
+  }
+}
+```
 
 ### Passing custom BootstrapVue config with Nuxt.js
 
