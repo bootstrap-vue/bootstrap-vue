@@ -46,14 +46,14 @@ const BVIconBase = {
   render(h, { data, props }) {
     const fontScale = toFloat(props.fontScale) || 1
     const scale = toFloat(props.scale) || 1
-    const angle = toFloat(props.scale) || 0
+    const rotate = toFloat(props.rotate) || 0
     const flipH = props.flipH
     const flipV = props.flipV
     const transforms = [
       flipH || flipV || scale !== 1
         ? `scale(${(flipH ? -1 : 1) * scale}, ${(flipV ? -1 : 1) * scale})`
         : null,
-      angle ? `rotate(${angle}deg)` : null
+      rotate ? `rotate(${rotate}deg)` : null
     ]
     return h(
       'svg',
