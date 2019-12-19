@@ -73,8 +73,8 @@ const BVIconBase = {
     // and we want flipping to occur before rotation, and
     // shifting is applied last
     const transforms = [
-      shiftH ? `translateX(${(-1 * shiftH) / 16}%)` : null,
-      shiftV ? `translateY(${(-1 * shiftV) / 16}%)` : null,
+      shiftH ? `translateX(${(-100 * shiftH) / 16}%)` : null,
+      shiftV ? `translateY(${(-100 * shiftV) / 16}%)` : null,
       rotate ? `rotate(${rotate}deg)` : null,
       flipH || flipV || scale !== 1
         ? `scale(${(flipH ? -1 : 1) * scale}, ${(flipV ? -1 : 1) * scale})`
