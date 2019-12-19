@@ -44,11 +44,11 @@
           },
           {
             "prop": "shiftH",
-            "description": "Moves the icon horizontally. Positive numbers will shift the icon right, negative left. Value is in 1/16% units"
+            "description": "Moves the icon horizontally. Positive numbers will shift the icon right, negative left. Value is in 1/16em units"
           },
           {
             "prop": "shiftV",
-            "description": "Moves the icon vertically. Positive numbers will shift the icon up, negative down. Value is in 1/16% units"
+            "description": "Moves the icon vertically. Positive numbers will shift the icon up, negative down. Value is in 1/16em units"
           }
         ]
       },
@@ -82,11 +82,11 @@
           },
           {
             "prop": "shiftH",
-            "description": "Moves the icon horizontally. Positive numbers will shift the icon right, negative left. Value is in 1/16% units"
+            "description": "Moves the icon horizontally. Positive numbers will shift the icon right, negative left. Value is in 1/16em units"
           },
           {
             "prop": "shiftV",
-            "description": "Moves the icon vertically. Positive numbers will shift the icon up, negative down. Value is in 1/16% units"
+            "description": "Moves the icon vertically. Positive numbers will shift the icon up, negative down. Value is in 1/16em units"
           }
         ]
       },
