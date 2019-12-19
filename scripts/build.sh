@@ -26,8 +26,7 @@ echo 'Done.'
 echo ''
 
 echo 'Compiling ESM modular build...'
-NODE_ENV=esm babel src --out-dir esm --ignore 'src/**/*.spec.js'
-rm -f esm/browser.js
+NODE_ENV=esm babel src --out-dir esm --ignore 'src/**/*.spec.js' --ignore 'src/browser.js'
 echo "${BV_BANNER}" | cat - esm/index.js > esm/tmp.js && mv -f esm/tmp.js esm/index.js
 echo 'Done.'
 echo ''
@@ -53,6 +52,7 @@ echo 'Done.'
 echo ''
 
 echo 'Compile SCSS...'
+# Complete BootstrapVue CSS
 node-sass --output-style expanded \
           --source-map true \
           --source-map-contents true \
@@ -61,16 +61,33 @@ node-sass --output-style expanded \
           dist/bootstrap-vue.css
 postcss --config scripts/postcss.config.js \
         --replace dist/bootstrap-vue.css
+# Icons only CSS
+node-sass --output-style expanded \
+          --source-map true \
+          --source-map-contents true \
+          --precision 6 \
+          src/icons/index.scss \
+          dist/bootstrap-vue-icons.css
+postcss --config scripts/postcss.config.js \
+        --replace dist/bootstrap-vue-icons.css
 echo 'Done.'
 echo ''
 
 echo 'Minify CSS...'
+# Complete BootstrapVue CSS
 cleancss --level 1 \
          --format breaksWith=lf \
          --source-map \
          --source-map-inline-sources \
          --output dist/bootstrap-vue.min.css \
          dist/bootstrap-vue.css
+# Icons only CSS
+cleancss --level 1 \
+         --format breaksWith=lf \
+         --source-map \
+         --source-map-inline-sources \
+         --output dist/bootstrap-vue-icons.min.css \
+         dist/bootstrap-vue-icons.css
 echo 'Done.'
 echo ''
 
