@@ -58,14 +58,19 @@ const BVIconBase = {
     const rotate = toFloat(props.rotate) || 0
     const flipH = props.flipH
     const flipV = props.flipV
+    // Compute the transforms. Note that order is important.
+    // CSS transforms are applied in order from right to left
+    // and we want flipping to occur before rotation
+    // TODO:
+    //   If we add x/y "shifting", it would be listed first here (applied last)
     const transforms = [
+      rotate ? `rotate(${rotate}deg)` : null,
       flipH || flipV || scale !== 1
         ? `scale(${(flipH ? -1 : 1) * scale}, ${(flipV ? -1 : 1) * scale})`
-        : null,
-      rotate ? `rotate(${rotate}deg)` : null
+        : null
     ].filter(identity)
 
-    // We wrap the content in a `<g>` for handling transforms
+    // We wrap the content in a `<g>` for handling the transforms
     const $inner = h('g', {
       style: {
         transform: transforms.join(' ') || null,
