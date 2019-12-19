@@ -19,6 +19,26 @@
           {
             "prop": "variant",
             "description": "Contextual color variant. By default the icon inherits the current text color"
+          },
+          {
+            "prop": "fontScale",
+            "description": "Scale the icons current font size"
+          },
+          {
+            "prop": "scale",
+            "description": "Scales the icon's SVG, without increasing the font size"
+          },
+          {
+            "prop": "rotate",
+            "description": "Rotates the icon by the specified number of degrees. Positive values rotate clockwise, while negative values rotate counterclockwise"
+          },
+          {
+            "prop": "flipH",
+            "description": "Flips the icon horizontally"
+          },
+          {
+            "prop": "flipV",
+            "description": "Flips the icon vertically"
           }
         ]
       },
@@ -29,12 +49,32 @@
           {
             "prop": "variant",
             "description": "Contextual color variant. By default the icon inherits the current text color"
+          },
+          {
+            "prop": "fontScale",
+            "description": "Scale the icons current font size"
+          },
+          {
+            "prop": "scale",
+            "description": "Scales the icon's SVG, without increasing the font size"
+          },
+          {
+            "prop": "rotate",
+            "description": "Rotates the icon by the specified number of degrees. Positive values rotate clockwise, while negative values rotate counterclockwise"
+          },
+          {
+            "prop": "flipH",
+            "description": "Flips the icon horizontally"
+          },
+          {
+            "prop": "flipV",
+            "description": "Flips the icon vertically"
           }
         ]
       },
       {
         "component": "BIconAlarm",
-        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2",
         "props": [
           {
             "prop": "variant",
@@ -44,7 +84,7 @@
       },
       {
         "component": "BIconAlarmFill",
-        "auto-gen": "bootstrap-icons 1.0.0-alpha2)",
+        "auto-gen": "bootstrap-icons 1.0.0-alpha2",
         "props": [
           {
             "prop": "variant",
