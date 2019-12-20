@@ -61,10 +61,10 @@ export { BVToastPlugin } from './components/toast/helpers/bv-toast'
 // See: https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
 
 //
-// Export Icon components and IconPlugin
+// Export Icon components and IconPlugin/BootstrapVueIcons
 //
 // export * from './icons'
-export { IconsPlugin } from './icons'
+export { IconsPlugin, BootstrapVueIcons } from './icons'
 export { BIcon } from './icons/icon'
 // This re-export is only a single level deep, which
 // Webpack 4 handles correctly when tree shaking
