@@ -8,6 +8,8 @@ import { name, dependencies } from '../package.json'
 
 const bannerComment = require('./banner')
 
+const bannerIconsComment = bannerComment.replace('* BoostrapVue', '* BoostrapVueIcons')
+
 const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
 const dist = path.resolve(base, 'dist')
@@ -44,6 +46,24 @@ export default [
       name: camelCase(name),
       file: path.resolve(dist, `${name}.js`),
       banner: bannerComment,
+      sourcemap: true,
+      globals: {
+        vue: 'Vue'
+      }
+    }
+  },
+
+  // UMD Icons only Browser Build
+  {
+    ...baseConfig,
+    // We use a specific input for the browser build
+    input: path.resolve(src, 'browser-icons.js'),
+    external: externals.filter(dep => !externalExcludes.includes(dep)),
+    output: {
+      format: 'umd',
+      name: camelCase(`${name}-icons`),
+      file: path.resolve(dist, `${name}-icons.js`),
+      banner: bannerIconsComment,
       sourcemap: true,
       globals: {
         vue: 'Vue'
