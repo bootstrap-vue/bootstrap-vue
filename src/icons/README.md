@@ -7,7 +7,7 @@
 BootstrapVue icon components are built from
 [`bootstrap-icons` v{{ bootstrapIconsVersion }}](https://icons.getbootstrap.com/) source SVGs. Icons
 are opt-in, meaning that they explicitly need to be imported in order to be used. They are not
-installed by default (except in the [browser build](/docs#build-variants)).
+installed by default.
 
 Icon components were added in BootstrapVue release `v2.2.0`.
 
@@ -110,6 +110,22 @@ Vue.use(IconsPlugin)
 BootstrapVue icons SCSS/CSS does not depend on any Bootstrap SASS variables, mixins, functions or
 CSS classes. Please note that the icons CSS is _also_ included in the main BootstrapVue SCSS/CSS
 files.
+
+### Browser
+
+Icons are not installed by default in the browser build, so you must excpliity include the icons
+library:
+
+```html
+<head>
+  <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+  <!-- Load Vue followed by BootstrapVue, and BootstrapVueIcons -->
+  <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+  <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+  <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+</head>
+```
 
 ### Icon components
 
