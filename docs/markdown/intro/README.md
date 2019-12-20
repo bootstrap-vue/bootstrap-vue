@@ -638,7 +638,7 @@ instructions.
 
 ```js
 import Vue from 'vue'
-import { BootstrapVue, BootstrapVueIcons }  from 'bootstrap-vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -715,7 +715,7 @@ Icons only modules:
 | Variant        | Environments           | Package path                                                                 |
 | -------------- | ---------------------- | ---------------------------------------------------------------------------- |
 | ESM bundle     | webpack 2+ / rollup.js | `dist/bootstrap-vue-icons.esm.js`                                            |
-| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue-icons.common.js` _or_ `dist/bootstrap-vue.common.min.js` |fter
+| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue-icons.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser                | `dist/bootstrap-vue-icons.js` _or_ `dist/bootstrap-vue-icons.min.js`         |
 
 All of the build variants listed above have been pre-transpiled targeting the
