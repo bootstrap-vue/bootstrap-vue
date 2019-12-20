@@ -1,15 +1,18 @@
 // Icons only build
 import { BootstrapVueIcons, IconsPlugin } from './icons'
 
+const install = BootstrapVueIcons.install
+const NAME = BootstrapVueIcons.NAME
+
 export {
-  // Installer exported in case the consumer does not import `default`
+  // Installer exported just in case the consumer does not import `default`
   // as the plugin in CommonJS build (or does not have interop enabled
   // for CommonJS). Both the following will work:
   //   BootstrapVueIcons = require('bootstrap-vue/dist/bootstrap-vue-icons.common')
   //   BootstrapVueIcons = require('bootstrap-vue/dist/bootstrap-vue-icons.common').default
   //   Vue.use(BootstrapVueIcons)
-  BootstrapVueIcons.install as intall,
-  BootstrapVueIcons.NAME as NAME,
+  install,
+  NAME,
   // Main BootstrapVueIcons Plugin
   BootstrapVueIcons,
   IconsPlugin
