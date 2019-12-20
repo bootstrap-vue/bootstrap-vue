@@ -667,6 +667,8 @@ This will create a new app with basic BootstrapVue settings to get your project 
 
 In the future this plugin will provide options for more advanced configurations and templates.
 
+For Icons support, you may need to edit the resultant config file.
+
 ## Browser
 
 If not using a module bundler or compile process, you can instead add the Boostrap and BootstrapVue
