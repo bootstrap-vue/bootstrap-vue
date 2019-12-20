@@ -1,10 +1,10 @@
 // Main entry point for the browser build
 import { vueUse } from './utils/plugins'
 
-import { BootstrapVue, IconsPlugin } from './index'
+import { BootstrapVue, BootstrapVueIcons } from './index'
 
 // Auto installation only occurs if window.Vue exists
 vueUse(BootstrapVue)
-vueUse(IconsPlugin)
+vueUse(BootstrapVueIcons)
 
 export default BootstrapVue
