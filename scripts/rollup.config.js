@@ -86,12 +86,40 @@ export default [
     }
   },
 
-  // ESM Module Build
+  // COMMONJS Icons only Module Build
+  {
+    ...baseConfig,
+    input: path.resolve(src, 'icons-only.js'),
+    output: {
+      format: 'cjs',
+      name: camelCase(`${name}-icons`),
+      file: path.resolve(dist, `${name}-icons.common.js`),
+      banner: bannerComment,
+      sourcemap: true,
+      // Disable warning about mixed named/default exports
+      // We we have handled this in the index file
+      exports: 'named'
+    }
+  },
+
+  // ESM Icons only Module Bundle Build
   {
     ...baseConfig,
     output: {
       format: 'es',
       file: path.resolve(dist, `${name}.esm.js`),
+      banner: bannerComment,
+      sourcemap: true
+    }
+  },
+
+  // ESM Module Bundle Build
+  {
+    ...baseConfig,
+    input: path.resolve(src, 'icons-only.js'),
+    output: {
+      format: 'es',
+      file: path.resolve(dist, `${name}-icons.esm.js`),
       banner: bannerComment,
       sourcemap: true
     }
