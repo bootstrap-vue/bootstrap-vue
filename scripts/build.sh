@@ -30,7 +30,7 @@ NODE_ENV=esm babel src \
       --out-dir esm \
       --ignore 'src/**/*.spec.js' \
       --ignore 'src/browser*.js' \
-      --ignore 'src/index-icons.js'
+      --ignore 'src/icons-only.js'
 echo "${BV_BANNER}" | cat - esm/index.js > esm/tmp.js && mv -f esm/tmp.js esm/index.js
 echo 'Done.'
 echo ''
