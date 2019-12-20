@@ -37,6 +37,11 @@ terser dist/bootstrap-vue.js \
        --mangle --comments "/^!/" \
        --source-map "content=dist/bootstrap-vue.js.map,includeSources,url=bootstrap-vue.min.js.map" \
        --output dist/bootstrap-vue.min.js
+terser dist/bootstrap-vue-icons.js \
+       --compress typeofs=false \
+       --mangle --comments "/^!/" \
+       --source-map "content=dist/bootstrap-vue-icons.js.map,includeSources,url=bootstrap-vue-icons.min.js.map" \
+       --output dist/bootstrap-vue-icons.min.js
 terser dist/bootstrap-vue.common.js \
        --compress typeofs=false \
        --mangle --comments "/^!/" \
