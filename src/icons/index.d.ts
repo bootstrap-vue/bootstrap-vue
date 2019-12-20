@@ -7,6 +7,8 @@ import { BvPlugin, BvComponent } from '../'
 // Plugin
 export declare const IconsPlugin: BvPlugin
 
+export declare const BootstrapVueIcons: BvPlugin
+
 // Component: b-icon
 export declare class BIcon extends BvComponent {}
 
