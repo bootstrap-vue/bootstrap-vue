@@ -50,6 +50,16 @@ and icon `x-square-fill` is exported as `BIconXSquareFill`.
 
 ```js
 import Vue from 'vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+
+Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
+```
+
+Or
+
+```js
+import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
@@ -92,19 +102,19 @@ If you are using _only_ the BootstrapVue icons or `IconsPlugin` in your project,
 import the required icons CSS, rather than the full Bootstrap and BootstrapVue SCSS/CSS.
 
 ```js
-import { IconsPlugin } from 'bootstrap-vue'
+import { BootstrapVueIcons } from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
 
-Vue.use(IconsPlugin)
+Vue.use(BootstrapVueIcons)
 ```
 
 Or if using the icons SCSS source:
 
 ```js
-import { IconsPlugin } from 'bootstrap-vue'
-import 'bootstrap-vue/icons.scss'
+import { BootstrapVueIcons } from 'bootstrap-vue'
+import 'bootstrap-vue/src/icons.scss'
 
-Vue.use(IconsPlugin)
+Vue.use(BootstrapVueIcons)
 ```
 
 BootstrapVue icons SCSS/CSS does not depend on any Bootstrap SASS variables, mixins, functions or
@@ -113,7 +123,7 @@ files.
 
 ### Browser
 
-Icons are not installed by default in the browser build, so you must excpliity include the icons
+Icons are **not** installed by default in the browser build, so you must excpliity include the icons
 library:
 
 ```html
