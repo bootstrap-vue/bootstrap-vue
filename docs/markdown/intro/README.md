@@ -692,7 +692,7 @@ JavaScript files.
 <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
-<!-- Load Vue following for BootstrapVueIcons -->
+<!-- Load the following for BootstrapVueIcons suppot -->
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
 ```
 
@@ -715,7 +715,7 @@ Icons only modules:
 | Variant        | Environments           | Package path                                                                 |
 | -------------- | ---------------------- | ---------------------------------------------------------------------------- |
 | ESM bundle     | webpack 2+ / rollup.js | `dist/bootstrap-vue-icons.esm.js`                                            |
-| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue-icons.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
+| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue-icons.common.js` _or_ `dist/bootstrap-vue.common.min.js` |fter
 | UMD            | Browser                | `dist/bootstrap-vue-icons.js` _or_ `dist/bootstrap-vue-icons.min.js`         |
 
 All of the build variants listed above have been pre-transpiled targeting the
