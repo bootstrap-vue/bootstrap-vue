@@ -109,6 +109,13 @@ export const IconsPlugin = /*#__PURE__*/ pluginFactoryNoConfig({
   }
 })
 
+// Export the BootstrapVueIcons plugin installer
+// Mainly for the stand-alone bootstrap-vue-icons.xxx.js builds
+export const BootstrapVueIcons = /*#__PURE__*/ pluginFactoryNoConfig(
+  { plugins: { IconsPlugin } },
+  { NAME: 'BootstrapVueIcons'}
+)
+
 // --- END AUTO-GENERATED FILE ---
 `)
 
