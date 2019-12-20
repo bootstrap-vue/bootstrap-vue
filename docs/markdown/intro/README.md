@@ -708,13 +708,13 @@ bundler supports esm modules, it will automatically prefer it over commonjs.
 | commonjs2      | webpack 1 / ...        | No         | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser                | No         | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
-The UMD variant **does not* include icons support by default.
+The UMD variant **does not** include icons support by default.
 
 Icons only modules:
 
 | Variant        | Environments           | Tree Shake | Package path                                                                       |
 | -------------- | ---------------------- | ---------- | ---------------------------------------------------------------------------------- |
-| ESM bundle     | webpack 2+ / rollup.js | Yes        | `dist/bootstrap-vue-icons.esm.js`                                                  |
+| **ESM bundle** | webpack 2+ / rollup.js | Yes        | `dist/bootstrap-vue-icons.esm.js`                                                  |
 | commonjs2      | webpack 1 / ...        | No         | `dist/bootstrap-vue-icons.common.js` _or_ `dist/bootstrap-vue-icons.common.min.js` |
 | UMD            | Browser                | No         | `dist/bootstrap-vue-icons.js` _or_ `dist/bootstrap-vue-icons.min.js`               |
 
