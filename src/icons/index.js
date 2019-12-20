@@ -10,4 +10,4 @@ export * from './icons'
 export { BIcon } from './icon'
 
 // Plugin (an iconNames for docs)
-export { IconsPlugin, iconNames } from './plugin'
+export { IconsPlugin, BootstrapVueIcons, iconNames } from './plugin'
