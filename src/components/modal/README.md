@@ -20,7 +20,7 @@
 
 `<b-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. These buttons can be
 customized by setting various props on the component. You can customize the size of the buttons,
-disable buttons, hide the **Cancel** button (i.e. OK Only), choose a variant (e.g. `danger` for a
+disable buttons, hide the **Cancel** button (i.e. `ok-only`), choose a variant (e.g. `danger` for a
 red OK button) using the `ok-variant` and `cancel-variant` props, and provide custom button content
 using the `ok-title` and `cancel-title` props, or using the named slots `modal-ok` and
 `modal-cancel`.
