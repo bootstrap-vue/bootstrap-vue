@@ -702,6 +702,16 @@ bundler supports esm modules, it will automatically prefer it over commonjs.
 | commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
+The UMD variant does not include icons support by default.
+
+Icons only modules:
+
+| Variant        | Environments           | Package path                                                                 |
+| -------------- | ---------------------- | ---------------------------------------------------------------------------- |
+| ESM bundle     | webpack 2+ / rollup.js | `dist/bootstrap-vue-icons.esm.js`                                            |
+| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue-icons.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
+| UMD            | Browser                | `dist/bootstrap-vue-icons.js` _or_ `dist/bootstrap-vue-icons.min.js`         |
+
 All of the build variants listed above have been pre-transpiled targeting the
 [browsers](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/.browserslistrc) supported by
 BootstrapVue. However, if you are targeting only modern browsers, you may want to import
@@ -711,7 +721,7 @@ reduce final project bundle sizes. See the
 [Using BootstrapVue source code for smaller bundles](#using-bootstrapvue-source-code-for-smaller-bundles)
 section above for more details.
 
-Both the `ESM` module and `ESM` bundle (single file) are
+Both the `ESM` module and `ESM` bundles (single file) are
 [tree-shakeable](#tree-shaking-with-module-bundlers), but you will experience smaller final bundle
 sizes when using the `ESM` module _vs._ the `ESM` bundle.
 
