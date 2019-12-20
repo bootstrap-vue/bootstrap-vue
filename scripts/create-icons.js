@@ -89,11 +89,11 @@ import {
   <%= componentNames.join(',\\n  ') %>
 } from './icons'
 
-// Icon names for used in the docs
+// Icon component names for used in the docs
 export const iconNames = [
-  // BootstrapVue custom icons
+  // BootstrapVue custom icon component names
   'BIconBlank',
-  // Bootsttap icons
+  // Bootstrap icon component names
   <%= componentNames.map(n => ("'" + n + "'")).join(',\\n  ') %>
 ]
 
@@ -102,9 +102,9 @@ export const IconsPlugin = /*#__PURE__*/ pluginFactoryNoConfig({
   components: {
     // Icon helper component
     BIcon,
-    // BootstrapVue custom icons
+    // BootstrapVue custom icon components
     BIconBlank,
-    // Bootsttap icons
+    // Bootstrap icon components
     <%= componentNames.join(',\\n    ') %>
   }
 })
