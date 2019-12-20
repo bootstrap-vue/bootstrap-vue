@@ -2,10 +2,10 @@ import Vue from 'vue';
 
 <% if (!options.treeShake) { %>
 <%   if (options.icons) { %>
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 
 Vue.use(BootstrapVue, <%= JSON.stringify(options.config || {}, undefined, 2) %>);
-Vue.use(IconsPlugin);
+Vue.use(BootstrapVueIcons);
 <%   } else { %>
 import { BootstrapVue } from 'bootstrap-vue';
 
