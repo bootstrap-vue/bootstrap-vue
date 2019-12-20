@@ -7,7 +7,7 @@
 BootstrapVue icon components are built from
 [`bootstrap-icons` v{{ bootstrapIconsVersion }}](https://icons.getbootstrap.com/) source SVGs. Icons
 are opt-in, meaning that they explicitly need to be imported in order to be used. They are not
-installed by default.
+installed by default. You do not need `bootstrap-icons` as a dependency.
 
 Icon components were added in BootstrapVue release `v2.2.0`.
 
