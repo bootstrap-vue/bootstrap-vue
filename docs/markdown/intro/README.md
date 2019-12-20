@@ -638,12 +638,13 @@ instructions.
 
 ```js
 import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue, BootstrapVue}  from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 ```
 
 For additional configuration for Vue CLI 3 for using project relative paths for image src props on
@@ -688,6 +689,9 @@ JavaScript files.
 <!-- Load Vue followed by BootstrapVue -->
 <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+<!-- Load Vue following for BootstrapVueIcons -->
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
 ```
 
 ## Build variants
@@ -702,7 +706,7 @@ bundler supports esm modules, it will automatically prefer it over commonjs.
 | commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
-The UMD variant does not include icons support by default.
+The UMD variant **does not* include icons support by default.
 
 Icons only modules:
 
