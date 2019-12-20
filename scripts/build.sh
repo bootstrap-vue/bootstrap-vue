@@ -51,12 +51,23 @@ terser dist/bootstrap-vue.common.js \
        --mangle --comments "/^!/" \
        --source-map "content=dist/bootstrap-vue.common.js.map,includeSources,url=bootstrap-vue.common.min.js.map" \
        --output dist/bootstrap-vue.common.min.js
+terser dist/bootstrap-vue-icons.common.js \
+       --compress typeofs=false \
+       --mangle --comments "/^!/" \
+       --source-map "content=dist/bootstrap-vue-icons.common.js.map,includeSources,url=bootstrap-vue-icons.common.min.js.map" \
+       --output dist/bootstrap-vue-icons.common.min.js
 terser dist/bootstrap-vue.esm.js \
        --compress typeofs=false \
        --mangle \
        --comments "/^!/" \
        --source-map "content=dist/bootstrap-vue.esm.js.map,includeSources,url=bootstrap-vue.esm.min.js.map" \
        --output dist/bootstrap-vue.esm.min.js
+terser dist/bootstrap-vue-icons.esm.js \
+       --compress typeofs=false \
+       --mangle \
+       --comments "/^!/" \
+       --source-map "content=dist/bootstrap-vue-icons.esm.js.map,includeSources,url=bootstrap-vue-icons.esm.min.js.map" \
+       --output dist/bootstrap-vue-icons.esm.min.js
 echo 'Done.'
 echo ''
 
