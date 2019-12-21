@@ -118,13 +118,12 @@
 </template>
 
 <script>
-import hljs from '../utils/hljs'
 import startCase from 'lodash/startCase'
+import hljs from '../utils/hljs'
+import { kebabCase } from '../utils'
 import AnchoredHeading from './anchored-heading'
 
 const importPath = 'bootstrap-vue'
-
-const kebabCase = str => str.replace(/\B([A-Z])/g, '-$1').toLowerCase()
 
 export default {
   name: 'BDVImportdoc',

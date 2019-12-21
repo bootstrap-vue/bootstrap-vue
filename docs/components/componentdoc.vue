@@ -317,11 +317,10 @@ ul.component-ref-mini-toc:empty {
 
 <script>
 import Vue from 'vue'
-import AnchoredHeading from './anchored-heading'
 // Fallback descriptions for common props (mainly router-link props)
 import commonProps from '../common-props.json'
-
-const kebabCase = str => str.replace(/\B([A-Z])/g, '-$1').toLowerCase()
+import { kebabCase } from '../utils'
+import AnchoredHeading from './anchored-heading'
 
 export default {
   name: 'BDVComponentdoc',
