@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { BootstrapVue, IconsPlugin } from '../../src'
+import { BootstrapVue, BootstrapVueIcons } from '../../src'
 
 Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
+Vue.use(BootstrapVueIcons)
