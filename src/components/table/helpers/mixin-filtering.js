@@ -4,7 +4,7 @@ import looseEqual from '../../../utils/loose-equal'
 import { concat } from '../../../utils/array'
 import { isFunction, isRegExp, isString } from '../../../utils/inspect'
 import { toInteger } from '../../../utils/number'
-import { escapeRegExp } from '../../../utils/string'
+import { escapeRegExp, trim } from '../../../utils/string'
 import { warn } from '../../../utils/warn'
 import stringifyRecordValues from './stringify-record-values'
 
