@@ -30,8 +30,8 @@ The online documentation is comprised of the following sections:
 ## Prerequisites
 
 Before getting started with BootstrapVue, you should have general familiarity with Vue functionality
-and Bootstrap v{{ bootstrapVersionMajor }} CSS. If you are unfamiliar with Vue and/or Bootstrap, some
-good starting points would be:
+and Bootstrap v{{ bootstrapVersionMajor }} CSS. If you are unfamiliar with Vue and/or Bootstrap,
+some good starting points would be:
 
 - [Vue Guide](https://vuejs.org/v2/guide/)
 - [Vue API](https://vuejs.org/v2/api/)
@@ -553,7 +553,8 @@ module config, and then import additional components or plugins in the pages whe
 ### Icons
 
 The [icons plugin](/docs/icons) is **not** automatically installed when using the Nuxt.js module.
-You must either explicity enable the `IconsPlugin`, or specify which icon components you wish to import.
+You must either explicitly enable the `IconsPlugin`, or specify which icon components you wish to
+import.
 
 All Icons:
 
@@ -710,7 +711,7 @@ bundler supports esm modules, it will automatically prefer it over commonjs.
 
 Note the UMD (browser) variant **does not** include BootstrapVue [icons](/docs/icons) support. All
 other variants listed above _do include_ the `BootstrapVueIcons` (`IconsPlugin`) plugin (note the
-icons plugin is not automatically installed, and must explicity installed via `Vue.use()`. See the
+icons plugin is not automatically installed, and must explicitly installed via `Vue.use()`. See the
 [Icons usage](/docs/icons#usage) section for more details.
 
 Icons only modules:
@@ -758,8 +759,8 @@ you may need to make to your project:
 ### CSS
 
 BootstrapVue is to be used with Bootstrap v{{bootstrapVersionMinor}} CSS/SCSS. Please see
-<b-link :href="hrefBootstrapBrowserDevices" target="_blank">Browsers and devices</b-link> for
-more information about browsers currently supported by Bootstrap  v{{bootstrapVersionMajor}}.
+<b-link :href="hrefBootstrapBrowserDevices" target="_blank">Browsers and devices</b-link> for more
+information about browsers currently supported by Bootstrap v{{bootstrapVersionMajor}}.
 
 ### JS
 
