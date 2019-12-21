@@ -22,6 +22,11 @@ const pluginFile = path.resolve(bvIconsBase, 'plugin.js')
 const typesFile = path.resolve(bvIconsBase, 'icons.d.ts')
 const bvIconsPkgFile = path.resolve(bvIconsBase, 'package.json')
 
+// --- Constants ---
+
+const RX_UN_KEBAB = /-(\w)/g
+const RX_HYPHENATE = /\B([A-Z])/g
+
 // Bootstrap Icons package.json
 const bsIconsPkg = require(bsIconsMetaFile)
 
@@ -30,13 +35,13 @@ const bvIconsPkg = require(bvIconsPkgFile)
 
 if (bvIconsPkg.meta['bootstrap-icons-version'] === bsIconsPkg.version) {
   // Exit early of no changes in bootstrap-icons version
-  // Should also test if src/icons/helper/make-icons.js has changed (i.e. new props)
+  // Should also test if `src/icons/helper/make-icons.js` has changed (i.e. new props)
   // console.log('  No changes detected in bootstrap-icons version')
-  // Commented out until this build process is stablized
+  // Commented out until this build process is stabilized
   // exit 0
 }
 
-// Template for src/icons/icons.js
+// Template for `src/icons/icons.js`
 const iconsTemplateFn = _template(`// --- BEGIN AUTO-GENERATED FILE ---
 //
 // @IconsVersion: <%= version %>
@@ -68,7 +73,7 @@ export const <%= component %> = /*#__PURE__*/ makeIcon(
 // --- END AUTO-GENERATED FILE ---
 `)
 
-// Template for src/icons/plugin.js
+// Template for `src/icons/plugin.js`
 const pluginTemplateFn = _template(`// --- BEGIN AUTO-GENERATED FILE ---
 //
 // @IconsVersion: <%= version %>
@@ -85,7 +90,7 @@ import { BIcon } from './icon'
 import {
   // BootstrapVue custom icons
   BIconBlank,
-  // Bootsttap icons
+  // Bootstrap icons
   <%= componentNames.join(',\\n  ') %>
 } from './icons'
 
@@ -119,7 +124,7 @@ export const BootstrapVueIcons = /*#__PURE__*/ pluginFactoryNoConfig(
 // --- END AUTO-GENERATED FILE ---
 `)
 
-// Template for src/icons/icons.d.ts
+// Template for `src/icons/icons.d.ts`
 const typesTemplateFn = _template(`// --- BEGIN AUTO-GENERATED FILE ---
 //
 // @IconsVersion: <%= version %>
@@ -142,16 +147,16 @@ export declare class <%= component %> extends BvComponent {}
 // --- END AUTO-GENERATED FILE ---
 `)
 
-// Utility functions
+// --- Utility methods ---
 
-const RX_HYPHENATE = /\B([A-Z])/g
-const kebabCase = str => {
+// Converts PascalCase or camelCase to kebab-case
+export const kebabCase = str => {
   return str.replace(RX_HYPHENATE, '-$1').toLowerCase()
 }
 
-const RX_UNKEBAB = /-(\w)/g
-const pascalCase = str => {
-  str = kebabCase(str).replace(RX_UNKEBAB, (_, c) => (c ? c.toUpperCase() : ''))
+// Converts a kebab-case or camelCase string to PascalCase
+export const pascalCase = str => {
+  str = kebabCase(str).replace(RX_UN_KEBAB, (_, c) => (c ? c.toUpperCase() : ''))
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
@@ -188,12 +193,11 @@ const processFile = (file, data) =>
       .catch(error => reject(error))
   })
 
-// Method to generate the udated package.json content
+// Method to generate the updated `package.json` content
 const updatePkgMeta = data => {
-  // Create a semi-deep clone of the current pakage.json
+  // Create a semi-deep clone of the current `package.json`
   const newPkg = { ...bvIconsPkg, meta: { ...bvIconsPkg.meta } }
-  // Grab current component entries array
-  // and filter out auto generated entries
+  // Grab current component entries array and filter out auto-generated entries
   const metaComponents = bvIconsPkg.meta.components.filter(c => !c['auto-gen'])
   // Grab the props definition array from `BIcon` and filter out `icon` prop
   const iconProps = metaComponents
@@ -211,11 +215,11 @@ const updatePkgMeta = data => {
   newPkg.meta.components = [...metaComponents, ...iconMeta]
   // Update the bootstrap-icons-version reference
   newPkg.meta['bootstrap-icons-version'] = data.version
-  // Return the updated package.json as a json string
+  // Return the updated `package.json` as a json string
   return JSON.stringify(newPkg, null, 2)
 }
 
-// Main process
+// --- Main process ---
 const main = async () => {
   // Information needed in the templates
   const today = new Date()
