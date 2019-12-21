@@ -1,4 +1,5 @@
 import cloneDeep from '../../../utils/clone-deep'
+import identity from '../../../utils/identity'
 import looseEqual from '../../../utils/loose-equal'
 import { concat } from '../../../utils/array'
 import { isFunction, isString, isRegExp } from '../../../utils/inspect'
@@ -48,10 +49,10 @@ export default {
   },
   computed: {
     computedFilterIgnored() {
-      return this.filterIgnoredFields ? concat(this.filterIgnoredFields).filter(Boolean) : null
+      return this.filterIgnoredFields ? concat(this.filterIgnoredFields).filter(identity) : null
     },
     computedFilterIncluded() {
-      return this.filterIncludedFields ? concat(this.filterIncludedFields).filter(Boolean) : null
+      return this.filterIncludedFields ? concat(this.filterIncludedFields).filter(identity) : null
     },
     computedFilterDebounce() {
       const ms = toInteger(this.filterDebounce) || 0
