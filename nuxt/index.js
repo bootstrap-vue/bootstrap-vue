@@ -1,6 +1,25 @@
 const { resolve } = require('path')
 
+// --- Constants ---
+
+const RX_UN_KEBAB = /-(\w)/g
+const RX_HYPHENATE = /\B([A-Z])/g
+
+// Path to index file when using bootstrap-vue source code
+const srcIndex = 'bootstrap-vue/src/index.js'
+
 // --- Utility methods ---
+
+// Converts PascalCase or camelCase to kebab-case
+export const kebabCase = str => {
+  return str.replace(RX_HYPHENATE, '-$1').toLowerCase()
+}
+
+// Converts a kebab-case or camelCase string to PascalCase
+export const pascalCase = str => {
+  str = kebabCase(str).replace(RX_UN_KEBAB, (_, c) => (c ? c.toUpperCase() : ''))
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
 
 const pickFirst = (...args) => {
   for (const arg of args) {
@@ -10,19 +29,7 @@ const pickFirst = (...args) => {
   }
 }
 
-// Converts a kebab-case or camelCase string to PascalCase
-const unKebabRE = /-(\w)/g
-const pascalCase = str => {
-  str = str.replace(unKebabRE, (_, c) => (c ? c.toUpperCase() : ''))
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
-
-// --- Constants ---
-
-// Path to index file when using bootstrap-vue source code
-const srcIndex = 'bootstrap-vue/src/index.js'
-
-// --- Main Nuxt module ---
+// --- Main Nuxt.js module ---
 module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
   this.nuxt.hook('build:before', () => {
     // Merge moduleOptions with default
@@ -77,14 +84,14 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       ...this.options.build.loaders.vue.transformAssetUrls
     }
 
-    // Enable transpilation of src/ directory
+    // Enable transpilation of `src/` directory
     this.options.build.transpile.push('bootstrap-vue/src')
 
-    // Use pre-tranpiled or src/
+    // Use pre-transpiled or `src/`
     const usePretranspiled = pickFirst(options.usePretranspiled, this.options.dev, false)
     if (!usePretranspiled) {
       // Use bootstrap-vue source code for smaller prod builds
-      // by aliasing 'bootstrap-vue' to the source files.
+      // by aliasing 'bootstrap-vue' to the source files
       this.extendBuild((config, { isServer }) => {
         if (!config.resolve.alias) {
           config.resolve.alias = {}
@@ -114,7 +121,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
 
       templateOptions[type] = bvPlugins
         // Normalize plugin name to `${Name}Plugin` (component) or `VB${Name}Plugin` (directive)
-        // Required for backwards compatability with old plugin import names
+        // Required for backwards compatibility with old plugin import names
         .map(plugin => {
           // Ensure PascalCase name
           plugin = pascalCase(plugin)
@@ -149,7 +156,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       }
     }
 
-    // If tree shaking, and icons requesed, add in
+    // If tree shaking, and icons requested, add in
     // the IconsPlugin if not already specified
     if (
       templateOptions.treeShake &&
