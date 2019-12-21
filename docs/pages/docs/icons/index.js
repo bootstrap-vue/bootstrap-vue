@@ -36,6 +36,9 @@ export default {
           </p>
         </div>
         <Importdoc :meta="importMeta"></ImportDoc>
+        <p>
+          <code>IconsPlugin</code> is also exported as <code>BootstrapVueIcons</code>.
+        </p>
       </Section>
     </Main>`,
   components: {
