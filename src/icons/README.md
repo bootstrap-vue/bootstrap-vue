@@ -42,10 +42,10 @@ the color of the icon, refer to the [Variants](#variants) section, and to change
 icon refer to the [Sizing](#sizing) section.
 
 All icons are exported with the name in <samp>PascalCase</samp>, prefixed with <samp>BIcon</samp>.
-i.e icon `alert-circle-fill` is exported as `BIconAlertCircleFill`, icon `x` is exported as
-`BIconX`, and icon `x-square-fill` is exported as `BIconXSquareFill`.
+i.e icon `'alert-circle-fill'` is exported as `BIconAlertCircleFill`, icon `'x'` is exported as
+`BIconX`, and icon `'x-square-fill'` is exported as `BIconXSquareFill`.
 
-### Importing into your project
+### Module bundlers
 
 **Importing all icons:**
 
@@ -99,7 +99,7 @@ export default {
 }
 ```
 
-If you are using _only_ the BootstrapVue icons or `IconsPlugin` in your project, you can also just
+If you are using _only_ `BootstrapVueIcons` or `IconsPlugin` in your project, you can also just
 import the required icons CSS, rather than the full Bootstrap and BootstrapVue SCSS/CSS.
 
 ```js
@@ -124,7 +124,7 @@ files.
 
 ### Browser
 
-Icons are **not** installed by default in the browser build, so you must explicitly include the
+Icons are **not** installed by default in the UMD browser build, so you must explicitly include the
 icons library:
 
 ```html
@@ -185,11 +185,11 @@ of the icon names listed in the [Icons](#icons) section above.
 ```
 
 **Note:** when using `<b-icon>`, you **must** also import the required individual icon components,
-unless you are using the `IconsPlugin`.
+unless you are using the `IconsPlugin` or `BootstrapVueIcons` plugin.
 
 ## Variants
 
-By default, icons inherit the current font color of their parent element. All icon components
+By default, icons inherit the current text color of their parent element. All icon components
 provide a `variant` prop to apply one of the bootstrap contextual text variant colors:
 
 ```html
@@ -220,6 +220,9 @@ custom classes:
 
 <!-- icons-color-css.vue -->
 ```
+
+The `variant` prop places the [color utility class](/docs/reference/color-variants) `text-{variant}`
+on the icon's root element.
 
 ## Sizing
 
