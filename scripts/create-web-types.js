@@ -2,12 +2,13 @@
 const path = require('path')
 const fs = require('fs')
 const requireContext = require('require-context')
+const { kebabCase } = require('../src/utils/string')
 
 const baseDir = path.resolve(__dirname, '..')
 const distDir = path.resolve(baseDir, 'dist')
 const docsDir = path.resolve(baseDir, 'docs')
 
-// Import project package.json
+// Import project `package.json`
 const pkg = require(path.resolve(baseDir, 'package.json'))
 
 const libraryName = pkg.name
@@ -41,7 +42,7 @@ const webTypes = {
   }
 }
 
-// Import metadata from a directory glob package.json files
+// Import metadata from a directory glob `package.json` files
 const importAll = r => {
   const obj = {}
   r.keys()
@@ -64,19 +65,13 @@ const importAll = r => {
       }
       if (m.directives) {
         // Normalize `meta.directives` to array of objects form
-        // Applicable to component group package.json
+        // Applicable to component group `package.json`
         m.directives = m.directives.map(d => (typeof d === 'string' ? { directive: d } : d))
       }
       obj[m.slug] = m
     })
 
   return obj
-}
-
-// Util to kebab-case a PascalCase or camelCase string
-const kebabRE = /\B([A-Z])/g
-const kebabCase = str => {
-  return str.replace(kebabRE, '-$1').toLowerCase()
 }
 
 // Compute the web-type "type" from the a prop type
@@ -185,7 +180,7 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
         prop.type = 'boolean'
       }
       // If we have a description, add it to the prop
-      // TODO: this doesn't exist in the component meta yet
+      // TODO: This doesn't exist in the component meta yet
       prop.description =
         typeof $propExtra.description === 'undefined'
           ? $propFallbackExtra.description
@@ -194,7 +189,7 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
         // JSON stringification will remove properties with an undefined value
         prop.description = undefined
       }
-      // TODO: this doesn't exist in the component meta yet
+      // TODO: This doesn't exist in the component meta yet
       if ($propExtra.href) {
         // If the prop has a document ID link, add it on here
         // The `href` property is an ID in the docs page
@@ -367,7 +362,7 @@ const processComponentGroup = groupSlug => {
   })
 
   // Process any directives provided in the meta
-  // These directives do not have their own package.json files
+  // These directives do not have their own `package.json` files
   directivesMeta.forEach(directiveMeta => {
     processDirectiveMeta(directiveMeta, groupMeta.description, docUrl)
   })
@@ -403,7 +398,7 @@ const processDirectiveGroup = groupSlug => {
 
 // Wrapped in a try/catch to handle any errors
 try {
-  // Grab the component meta data (from the source dir component's package.json)
+  // Grab the component meta data (from the source dir component's `package.json`)
   const componentsContext = requireContext(
     path.resolve(baseDir, 'src/components'),
     true,
