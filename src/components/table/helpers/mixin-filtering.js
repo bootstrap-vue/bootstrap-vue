@@ -2,7 +2,7 @@ import cloneDeep from '../../../utils/clone-deep'
 import identity from '../../../utils/identity'
 import looseEqual from '../../../utils/loose-equal'
 import { concat } from '../../../utils/array'
-import { isFunction, isString, isRegExp } from '../../../utils/inspect'
+import { isFunction, isRegExp, isString } from '../../../utils/inspect'
 import { toInteger } from '../../../utils/number'
 import { escapeRegExp } from '../../../utils/string'
 import { warn } from '../../../utils/warn'
@@ -199,6 +199,7 @@ export default {
       if (
         !filterFn ||
         !isFunction(filterFn) ||
+        !(isString(criteria) && trim(criteria) === '') ||
         !criteria ||
         looseEqual(criteria, []) ||
         looseEqual(criteria, {})
