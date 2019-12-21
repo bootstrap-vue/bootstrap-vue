@@ -69,7 +69,7 @@ const BVIconBase = {
     const shiftV = toFloat(props.shiftV) || 0
     const flipH = props.flipH
     const flipV = props.flipV
-    // Compute the transforms. Note that order is important.
+    // Compute the transforms. Note that order is important
     // CSS transforms are applied in order from right to left
     // and we want flipping to occur before rotation, and
     // shifting is applied last
