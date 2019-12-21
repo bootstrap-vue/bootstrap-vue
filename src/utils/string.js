@@ -6,7 +6,7 @@ import { isArray, isPlainObject, isString, isUndefinedOrNull } from './inspect'
 const RX_TRIM_LEFT = /^\s+/
 const RX_TRIM_RIGHT = /\s+$/
 const RX_REGEXP_REPLACE = /[-/\\^$*+?.()|[\]{}]/g
-const RX_UNKEBAB = /-(\w)/g
+const RX_UN_KEBAB = /-(\w)/g
 const RX_HYPHENATE = /\B([A-Z])/g
 
 // --- Utilities ---
@@ -18,7 +18,7 @@ export const kebabCase = str => {
 
 // Converts a kebab-case or camelCase string to PascalCase
 export const pascalCase = str => {
-  str = kebabCase(str).replace(RX_UNKEBAB, (_, c) => (c ? c.toUpperCase() : ''))
+  str = kebabCase(str).replace(RX_UN_KEBAB, (_, c) => (c ? c.toUpperCase() : ''))
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
