@@ -417,7 +417,7 @@ yarn add bootstrap-vue
 
 Add `bootstrap-vue/nuxt` to modules section of your **`nuxt.config.js`** file.
 
-This will include both `boostrap.css` and `bootstrap-vue.css` default pre-compiled CSS.
+This will include both `bootstrap.css` and `bootstrap-vue.css` default pre-compiled CSS.
 
 ```js
 module.exports = {
@@ -672,11 +672,11 @@ For Icons support, you may need to edit the resultant config file.
 
 ## Browser
 
-If not using a module bundler or compile process, you can instead add the Boostrap and BootstrapVue
+If not using a module bundler or compile process, you can instead add the Bootstrap and BootstrapVue
 CSS URLs in your HTML `<head>` section, followed by the required JavaScript files.
 
 When supporting older browsers (see [Browser Support](#browser-support) below), you will need to
-include a polyfill for handling modern JavaScript features before loading Vue and BoostrapVue
+include a polyfill for handling modern JavaScript features before loading Vue and BootstrapVue
 JavaScript files.
 
 ```html

@@ -74,7 +74,7 @@ See the [Accessibility](#accessibility) section below for details.
 
 ### Using `this.$bvModal.show()` and `this.$bvModal.hide()` instance methods
 
-When BootstrapVue is installed as a plugin, or the `ModalPlugin` plugin is used, BoostrapVue will
+When BootstrapVue is installed as a plugin, or the `ModalPlugin` plugin is used, BootstrapVue will
 inject a `$bvModal` object into every Vue instance (components, apps). `this.$bvModal` exposes
 several methods, of which two are for showing and hiding modals:
 

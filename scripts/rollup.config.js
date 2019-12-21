@@ -8,7 +8,7 @@ import { name, dependencies } from '../package.json'
 
 const bannerComment = require('./banner')
 
-const bannerIconsComment = bannerComment.replace('* BoostrapVue', '* BoostrapVueIcons')
+const bannerIconsComment = bannerComment.replace('* BootstrapVue', '* BootstrapVueIcons')
 
 const base = path.resolve(__dirname, '..')
 const src = path.resolve(base, 'src')
