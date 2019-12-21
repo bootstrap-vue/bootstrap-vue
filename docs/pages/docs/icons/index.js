@@ -50,18 +50,18 @@ export default {
   data() {
     return {
       readme: readme,
-      // key for icons meta is '' (empty slug)
+      // Key for icons meta is '' (empty slug)
       meta: iconsMeta[''],
       bootstrapIconsVersion
     }
   },
   computed: {
     componentMeta() {
-      // docs/content/index.js massages the list of icon components
-      // to include only BIcon and an example component
+      // `docs/content/index.js` massages the list of icon components
+      // to include only `BIcon` and an example component
       const components = this.meta.components
       // Add in a special property or grabbing the component props
-      // as BIcon{IconName} doesn't exist
+      // as `BIcon{IconName}` doesn't exist
       components[1].srcComponent = 'BIconBlank'
       return components
     },
