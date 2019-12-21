@@ -692,7 +692,7 @@ JavaScript files.
 <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
-<!-- Load the following for BootstrapVueIcons suppot -->
+<!-- Load the following for BootstrapVueIcons support -->
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
 ```
 
@@ -708,7 +708,10 @@ bundler supports esm modules, it will automatically prefer it over commonjs.
 | commonjs2      | webpack 1 / ...        | No         | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser                | No         | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
-The UMD variant **does not** include icons support by default.
+Note the UMD (browser) variant **does not** include BootstrapVue [icons](/docs/icons) support. All
+other variants listed above _do include_ the `BootstrapVueIcons` (`IconsPlugin`) plugin (note the
+icons plugin is not automatically installed, and must explicity installed via `Vue.use()`. See the
+[Icons usage](/docs/icons#usage) section for more details.
 
 Icons only modules:
 
@@ -718,7 +721,7 @@ Icons only modules:
 | commonjs2      | webpack 1 / ...        | No         | `dist/bootstrap-vue-icons.common.js` _or_ `dist/bootstrap-vue-icons.common.min.js` |
 | UMD            | Browser                | No         | `dist/bootstrap-vue-icons.js` _or_ `dist/bootstrap-vue-icons.min.js`               |
 
-Both the `ESM` module and `ESM` bundles (single file) are
+The `ESM` module build and the `ESM` bundles (single file) are
 [tree-shakeable](#tree-shaking-with-module-bundlers), but you will experience smaller final bundle
 sizes when using the `ESM` module _vs._ the `ESM` bundle.
 
@@ -736,7 +739,8 @@ section above for more details.
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
 (for toasts) and
 [`vue-functional-data-merge`](https://github.com/alexsasharegan/vue-functional-data-merge) (used by
-our functional components). These three dependencies are included in the `UMD` bundle.
+our functional components). These three dependencies are included in the BootstrapVue `UMD` bundle,
+while the UMD (browser) icons only bundle includes `vue-functional-data-merge`.
 
 ## Migrating a project already using Bootstrap
 
