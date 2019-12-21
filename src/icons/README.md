@@ -23,7 +23,8 @@ Icon components were added in BootstrapVue release `v2.2.0`.
 
 ## Icons
 
-The library includes over 300 icons. Use the explorer below to search and browse the available icons.
+The library includes over 300 icons. Use the explorer below to search and browse the available
+icons.
 
 <div>
   <!-- Component rendered by docs/pages/docs/icons.index.js -->
@@ -41,8 +42,8 @@ the color of the icon, refer to the [Variants](#variants) section, and to change
 icon refer to the [Sizing](#sizing) section.
 
 All icons are exported with the name in <samp>PascalCase</samp>, prefixed with <samp>BIcon</samp>.
-i.e icon `alert-circle-fill` is exported as `BIconAlertCircleFill`, icon `x` is exported as `BIconX`,
-and icon `x-square-fill` is exported as `BIconXSquareFill`.
+i.e icon `alert-circle-fill` is exported as `BIconAlertCircleFill`, icon `x` is exported as
+`BIconX`, and icon `x-square-fill` is exported as `BIconXSquareFill`.
 
 ### Importing into your project
 
@@ -123,8 +124,8 @@ files.
 
 ### Browser
 
-Icons are **not** installed by default in the browser build, so you must excpliity include the icons
-library:
+Icons are **not** installed by default in the browser build, so you must explicitly include the
+icons library:
 
 ```html
 <head>
@@ -293,7 +294,7 @@ With the use of Bootstrap's border and background
 
 ## Transforms
 
-BootstraVue icons provide several props for applying basic CSS transforms to the `<svg>`. All
+BootstrapVue icons provide several props for applying basic CSS transforms to the `<svg>`. All
 transforms can be combined for added effect. Note that the transforms are applied to the `<svg>`
 content, and not the `<svg>` bounding box.
 
@@ -316,7 +317,7 @@ Flip the icon horizontally and/or vertically via the `flip-h` and `flip-v` props
 
 ### Rotate
 
-Rotate the icon by a specified number of degrees via the `rotate` prop. Poitive values will rotate
+Rotate the icon by a specified number of degrees via the `rotate` prop. Positive values will rotate
 the icon clockwise, while negative values will rotate the icon counterclockwise.
 
 ```html
@@ -334,7 +335,7 @@ the icon clockwise, while negative values will rotate the icon counterclockwise.
 <!-- icons-transform-rotate.vue -->
 ```
 
-Note that any [flipping](#fliping) is performed before the rotation is applied.
+Note that any [flipping](#flipping) is performed before the rotation is applied.
 
 ### Scale
 
@@ -418,8 +419,8 @@ For clarity in the example, we’ve added a background color on the icon so you 
 <!-- icons-transform-shift.vue -->
 ```
 
-Shifting is applied after any rotation transforms. As with scaling, backgrounds and borders are
-not affected. If you need to shift the border/background with the icon, use Bootstrap's margin
+Shifting is applied after any rotation transforms. As with scaling, backgrounds and borders are not
+affected. If you need to shift the border/background with the icon, use Bootstrap's margin
 [spacing utility classes](/docs/reference/utility-classes).
 
 ## Using in components
