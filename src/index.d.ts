@@ -50,10 +50,13 @@ import './vue-injections'
 // BvConfig Plugin
 export * from './bv-config'
 
-// Components/Plugins
+// Components & Plugins
 export * from './components'
 
-// Directives/Plugins
+// Icons & Plugin
+export * from './icons'
+
+// Directives & Plugins
 export * from './directives'
 
 declare const BootstrapVue: BootstrapVuePlugin

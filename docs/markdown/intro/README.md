@@ -1,7 +1,7 @@
 # Getting Started
 
-> Get started with BootstrapVue, based on the world's most popular framework - Bootstrap v4, for
-> building responsive, mobile-first sites using Vue.js.
+> Get started with BootstrapVue, based on the world's most popular framework - Bootstrap
+> v{{ bootstrapVersionMajor }}, for building responsive, mobile-first sites using Vue.js.
 
 - [Vue.js](https://vuejs.org/) `v{{ vueVersionMinor }}` is required, `v{{ vueVersion }}` is
   recommended
@@ -20,8 +20,9 @@ If you are migrating from a previous `v2.0.0-rc.##` release, please see the
 
 The online documentation is comprised of the following sections:
 
-- [Components](/docs/components) - Components and plugin documentation
-- [Directives](/docs/directives) - Directives and plugin documentation
+- [Components](/docs/components) - Components and component plugin documentation
+- [Directives](/docs/directives) - Directives and directive plugin documentation
+- [Icons](/docs/icons) - Icons and icon plugin documentation <b-badge>v2.2.0+</b-badge>
 - [Reference](/docs/reference) - Reference information and documentation
 - [Miscellaneous](/docs/misc) - Miscellaneous information
 - [Playground](/play) - Online playground
@@ -29,8 +30,8 @@ The online documentation is comprised of the following sections:
 ## Prerequisites
 
 Before getting started with BootstrapVue, you should have general familiarity with Vue functionality
-and Bootstrap v4.3 CSS. If you are unfamiliar with Vue and/or Bootstrap, some good starting points
-would be:
+and Bootstrap v{{ bootstrapVersionMajor }} CSS. If you are unfamiliar with Vue and/or Bootstrap,
+some good starting points would be:
 
 - [Vue Guide](https://vuejs.org/v2/guide/)
 - [Vue API](https://vuejs.org/v2/api/)
@@ -125,9 +126,12 @@ Then, register BootstrapVue in your app entry point:
 ```js
 // app.js
 import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
+// Install BootstrapVue
 Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
 ```
 
 And import Bootstrap and BootstrapVue `css` files:
@@ -232,7 +236,7 @@ Guide for full details on setting up aliases for [webpack](https://webpack.js.or
 ## Tree shaking with module bundlers
 
 When using a module bundler you can optionally import only specific components groups (plugins),
-components and/or directives. Note tree shaking only applies to the JavaScript code and not
+components and/or directives. Note that tree shaking only applies to the JavaScript code and not
 CSS/SCSS.
 
 <div class="alert alert-info">
@@ -413,13 +417,16 @@ yarn add bootstrap-vue
 
 Add `bootstrap-vue/nuxt` to modules section of your **`nuxt.config.js`** file.
 
-This will include both `boostrap.css` and `bootstrap-vue.css` default pre-compiled CSS.
+This will include both `bootstrap.css` and `bootstrap-vue.css` default pre-compiled CSS.
 
 ```js
 module.exports = {
   modules: ['bootstrap-vue/nuxt']
 }
 ```
+
+Note that this will **not** install the Icons components. To see how to include icons via the
+Nuxt.js module, refer to the [Icons section](#icons) below.
 
 ### Using custom Bootstrap SCSS
 
@@ -536,10 +543,53 @@ Note that when importing individual components, any component aliases will **not
   </p>
 </div>
 
-Do not use the Nuxt module If you want to import individual BootstrapVue components into _specific_
-pages and/or components of your Nuxt app. Instead follow the
-[module bundlers](#using-module-bundlers) section above as well as the
-[Tree shaking with module bundlers](#tree-shaking-with-module-bundlers) section above.
+If you want to import individual BootstrapVue components into _specific_ pages and/or components of
+your Nuxt app, you may want to bypass the Nuxt.js module and, instead, follow the
+[module bundlers](#using-module-bundlers) and
+[Tree shaking with module bundlers](#tree-shaking-with-module-bundlers) sections above.
+Alternatively you may want to to just import a few plugins (such as `LayoutPlugin`) in your Nuxt.js
+module config, and then import additional components or plugins in the pages where needed.
+
+### Icons
+
+The [icons plugin](/docs/icons) is **not** automatically installed when using the Nuxt.js module.
+You must either explicitly enable the `IconsPlugin`, or specify which icon components you wish to
+import.
+
+All Icons:
+
+```js
+module.exports = {
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    icons: true // Install the IconsPlugin (in addition to BootStrapVue plugin
+  }
+}
+```
+
+Specific icons:
+
+```js
+module.exports = {
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    // Add the desired icon components to the `components` array
+    components: ['BIcon', 'BIconAlertFill', 'BIconCalendar', 'BIconGears']
+  }
+}
+```
+
+Icons plugin:
+
+```js
+module.exports = {
+  modules: ['bootstrap-vue/nuxt'],
+  bootstrapVue: {
+    // Add the icon plugin to the `componentsPlugins` array
+    componentPlugins: ['IconsPlugin']
+  }
+}
+```
 
 ### Passing custom BootstrapVue config with Nuxt.js
 
@@ -589,12 +639,13 @@ instructions.
 
 ```js
 import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 ```
 
 For additional configuration for Vue CLI 3 for using project relative paths for image src props on
@@ -617,13 +668,15 @@ This will create a new app with basic BootstrapVue settings to get your project 
 
 In the future this plugin will provide options for more advanced configurations and templates.
 
+For Icons support, you may need to edit the resultant config file.
+
 ## Browser
 
-If not using a module bundler or compile process, you can instead add the Boostrap and BootstrapVue
+If not using a module bundler or compile process, you can instead add the Bootstrap and BootstrapVue
 CSS URLs in your HTML `<head>` section, followed by the required JavaScript files.
 
 When supporting older browsers (see [Browser Support](#browser-support) below), you will need to
-include a polyfill for handling modern JavaScript features before loading Vue and BoostrapVue
+include a polyfill for handling modern JavaScript features before loading Vue and BootstrapVue
 JavaScript files.
 
 ```html
@@ -639,6 +692,9 @@ JavaScript files.
 <!-- Load Vue followed by BootstrapVue -->
 <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+<!-- Load the following for BootstrapVueIcons support -->
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
 ```
 
 ## Build variants
@@ -646,12 +702,29 @@ JavaScript files.
 Choosing the best variant for your build environment / packager helps reduce bundle sizes. If your
 bundler supports esm modules, it will automatically prefer it over commonjs.
 
-| Variant        | Environments           | Package path                                                           |
-| -------------- | ---------------------- | ---------------------------------------------------------------------- |
-| **ESM module** | webpack 2+ / rollup.js | `esm/index.js`                                                         |
-| ESM bundle     | webpack 2+ / rollup.js | `dist/bootstrap-vue.esm.js`                                            |
-| commonjs2      | webpack 1 / ...        | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
-| UMD            | Browser                | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
+| Variant        | Environments           | Tree Shake | Package path                                                           |
+| -------------- | ---------------------- | ---------- | ---------------------------------------------------------------------- |
+| **ESM module** | webpack 2+ / rollup.js | Yes        | `esm/index.js`                                                         |
+| ESM bundle     | webpack 2+ / rollup.js | Yes        | `dist/bootstrap-vue.esm.js`                                            |
+| commonjs2      | webpack 1 / ...        | No         | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
+| UMD            | Browser                | No         | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
+
+Note the UMD (browser) variant **does not** include BootstrapVue [icons](/docs/icons) support. All
+other variants listed above _do include_ the `BootstrapVueIcons` (`IconsPlugin`) plugin (note the
+icons plugin is not automatically installed, and must explicitly installed via `Vue.use()`. See the
+[Icons usage](/docs/icons#usage) section for more details.
+
+Icons only modules:
+
+| Variant        | Environments           | Tree Shake | Package path                                                                       |
+| -------------- | ---------------------- | ---------- | ---------------------------------------------------------------------------------- |
+| **ESM bundle** | webpack 2+ / rollup.js | Yes        | `dist/bootstrap-vue-icons.esm.js`                                                  |
+| commonjs2      | webpack 1 / ...        | No         | `dist/bootstrap-vue-icons.common.js` _or_ `dist/bootstrap-vue-icons.common.min.js` |
+| UMD            | Browser                | No         | `dist/bootstrap-vue-icons.js` _or_ `dist/bootstrap-vue-icons.min.js`               |
+
+The `ESM` module build and the `ESM` bundles (single file) are
+[tree-shakeable](#tree-shaking-with-module-bundlers), but you will experience smaller final bundle
+sizes when using the `ESM` module _vs._ the `ESM` bundle.
 
 All of the build variants listed above have been pre-transpiled targeting the
 [browsers](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/.browserslistrc) supported by
@@ -662,21 +735,18 @@ reduce final project bundle sizes. See the
 [Using BootstrapVue source code for smaller bundles](#using-bootstrapvue-source-code-for-smaller-bundles)
 section above for more details.
 
-Both the `ESM` module and `ESM` bundle (single file) are
-[tree-shakeable](#tree-shaking-with-module-bundlers), but you will experience smaller final bundle
-sizes when using the `ESM` module _vs._ the `ESM` bundle.
-
 ### Dependencies
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
 (for toasts) and
 [`vue-functional-data-merge`](https://github.com/alexsasharegan/vue-functional-data-merge) (used by
-our functional components). These three dependencies are included in the `UMD` bundle.
+our functional components). These three dependencies are included in the BootstrapVue `UMD` bundle,
+while the UMD (browser) icons only bundle includes `vue-functional-data-merge`.
 
 ## Migrating a project already using Bootstrap
 
-If you've already been using Bootstrap v4, there are a couple adjustments you may need to make to
-your project:
+If you've already been using Bootstrap vv{{bootstrapVersionMajor}}, there are a couple adjustments
+you may need to make to your project:
 
 - Remove the `bootstrap.js` file from your page scripts or build pipeline
 - If Bootstrap is the only thing relying on `jQuery`, you can safely remove it — BootstrapVue **does
@@ -688,9 +758,9 @@ your project:
 
 ### CSS
 
-BootstrapVue is to be used with Bootstrap v4.3 CSS/SCSS. Please see
-[Browsers and devices](https://getbootstrap.com/docs/4.3/getting-started/browsers-devices) for more
-information about browsers currently supported by Bootstrap v4.
+BootstrapVue is to be used with Bootstrap v{{bootstrapVersionMinor}} CSS/SCSS. Please see
+<b-link :href="hrefBootstrapBrowserDevices" target="_blank">Browsers and devices</b-link> for more
+information about browsers currently supported by Bootstrap v{{bootstrapVersionMajor}}.
 
 ### JS
 

@@ -9,7 +9,7 @@ export default {
     show() {
       const name = this.$route.name
       const slug = this.$route.params.slug
-      return slug || name === 'docs'
+      return slug || name === 'docs' || name === 'docs-icons'
     },
     reportIssueUrl() {
       // Add appreciate query params for proper issue title
@@ -18,22 +18,24 @@ export default {
     editPageUrl() {
       const name = this.$route.name
       const slug = this.$route.params.slug
-      let path = '/'
+      let path = ''
       if (name === 'docs') {
-        path = `/docs/markdown/intro/README.md`
+        path = `docs/markdown/intro/README.md`
       } else if (name === 'docs-components-slug') {
-        path = `/src/components/${slug}/README.md`
+        path = `src/components/${slug}/README.md`
+      } else if (name === 'docs-icons') {
+        path = `src/icons/README.md`
       } else if (name === 'docs-directives-slug') {
-        path = `/src/directives/${slug}/README.md`
+        path = `src/directives/${slug}/README.md`
       } else if (name === 'docs-reference-slug') {
-        path = `/docs/markdown/reference/${slug}/README.md`
+        path = `docs/markdown/reference/${slug}/README.md`
       } else if (name === 'docs-misc-slug') {
         if (slug === 'changelog') {
-          path = '/CHANGELOG.md'
+          path = 'CHANGELOG.md'
         } else if (slug === 'contributing') {
-          path = '/CONTRIBUTING.md'
+          path = 'CONTRIBUTING.md'
         } else if (slug === 'settings') {
-          path = '/docs/markdown/misc/settings/README.md'
+          path = 'docs/markdown/misc/settings/README.md'
         }
       }
       return `${this.baseUrl}/tree/dev/${path}`

@@ -33,6 +33,7 @@
         <b-nav-item to="/docs" active-class="active" exact>Docs</b-nav-item>
         <b-nav-item to="/docs/components" active-class="active">Components</b-nav-item>
         <b-nav-item to="/docs/directives" active-class="active">Directives</b-nav-item>
+        <b-nav-item to="/docs/icons" active-class="active">Icons</b-nav-item>
         <b-nav-item to="/docs/reference" active-class="active">Reference</b-nav-item>
         <b-nav-item to="/docs/misc" active-class="active">Misc</b-nav-item>
         <b-nav-item to="/play" active-class="active">Play</b-nav-item>
