@@ -53,16 +53,26 @@ export {
 export { BVModalPlugin } from './components/modal/helpers/bv-modal'
 export { BVToastPlugin } from './components/toast/helpers/bv-toast'
 
-//
-// Export all individual components and component group plugins as named exports.
-//
-
 // Webpack 4 has optimization difficulties with re-export of re-exports,
 // so we import the components individually here for better tree shaking
 //
 // Webpack v5 fixes the optimizations with re-export of re-exports so this
 // can be reverted back to `export * from './table'` when Webpack v5 is released
 // See: https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
+
+//
+// Export Icon components and IconPlugin/BootstrapVueIcons
+//
+// export * from './icons'
+export { IconsPlugin, BootstrapVueIcons } from './icons'
+export { BIcon } from './icons/icon'
+// This re-export is only a single level deep, which
+// Webpack 4 handles correctly when tree shaking
+export * from './icons/icons'
+
+//
+// Export all individual components and component group plugins as named exports.
+//
 
 // export * from './components/alert'
 export { AlertPlugin } from './components/alert'

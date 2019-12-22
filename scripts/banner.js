@@ -2,7 +2,7 @@ const pkg = require('../package.json')
 const year = new Date().getFullYear()
 
 const banner = `/*!
- * BoostrapVue ${pkg.version}
+ * BootstrapVue ${pkg.version}
  *
  * @link ${pkg.homepage}
  * @source https://github.com/bootstrap-vue/bootstrap-vue
