@@ -11,6 +11,7 @@ describe('utils/boolean', () => {
     expect(toBoolean(null)).toBe(false)
     expect(toBoolean(undefined)).toBe(false)
     expect(toBoolean(NaN)).toBe(false)
+    // eslint-disable-next-line no-void
     expect(toBoolean(void 0)).toBe(false)
     expect(toBoolean('0')).toBe(true)
     expect(toBoolean([])).toBe(true)
