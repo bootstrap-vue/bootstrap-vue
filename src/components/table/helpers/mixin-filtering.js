@@ -200,8 +200,7 @@ export default {
     this.$nextTick(() => {
       const localFilter = this.localFilter
       this.isFiltered = toBoolean(
-        localFilter &&
-        !(looseEqual(localFilter, []) || looseEqual(localFilter, {}))
+        localFilter && !(looseEqual(localFilter, []) || looseEqual(localFilter, {}))
       )
       // Trigger a `filtered` event if needed
       this.isMountedFiltering = true
