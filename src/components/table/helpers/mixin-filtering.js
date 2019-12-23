@@ -241,7 +241,6 @@ export default {
       if (
         !filterFn ||
         !isFunction(filterFn) ||
-        !(isString(criteria) && trim(criteria) === '') ||
         !criteria ||
         looseEqual(criteria, []) ||
         looseEqual(criteria, {})
