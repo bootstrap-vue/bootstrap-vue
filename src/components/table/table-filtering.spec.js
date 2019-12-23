@@ -158,12 +158,17 @@ describe('table > filtering', () => {
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
     expect(wrapper.emitted('filtered')).not.toBeDefined()
+    expect(wrapper.vm.computedFilterFn).toEqual(null)
+    expect(wrapper.vm.computedFilterFn).not.toEqual(false)
 
     wrapper.setProps({
       filter: /z/
     })
     await waitNT(wrapper.vm)
 
+    expect(wrapper.vm.computedFilterFn).not.toEqual(null)
+    expect(wrapper.vm.computedFilterFn).not.toEqual(false)
+    expect(typeof wrapper.vm.computedFilterFn).toEqual('function')
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
 
@@ -173,11 +178,15 @@ describe('table > filtering', () => {
     expect(wrapper.emitted('filtered')[0][0]).toEqual([testItems[2]])
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[0][1]).toEqual(1)
+    // Filtering state (isFiltered)
+    expect(wrapper.emitted('filtered')[0][2]).toEqual(true)
 
     wrapper.setProps({
       filter: []
     })
     await waitNT(wrapper.vm)
+    expect(wrapper.vm.computedFilterFn).toEqual(null)
+    expect(wrapper.vm.computedFilterFn).not.toEqual(false)
 
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
@@ -187,11 +196,13 @@ describe('table > filtering', () => {
     expect(wrapper.emitted('filtered')[1][0]).toEqual(testItems)
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[1][1]).toEqual(3)
+    // Filtering state (isFiltered)
+    expect(wrapper.emitted('filtered')[0][2]).toEqual(false)
 
     wrapper.destroy()
   })
 
-  it('should be filtered with no rows when no matches', async () => {
+  it('should be filtered with no rows when no matches and filter set on mount', async () => {
     const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
@@ -203,6 +214,12 @@ describe('table > filtering', () => {
     await waitNT(wrapper.vm)
 
     expect(wrapper.findAll('tbody > tr').length).toBe(0)
+
+    expect(wrapper.emitted('filtered')).toBeDefined()
+    expect(wrapper.emitted('filtered').length).toBe(1)
+    expect(wrapper.emitted('filtered')[0][0]).toEqual([])
+    expect(wrapper.emitted('filtered')[0][1]).toEqual(0)
+    expect(wrapper.emitted('filtered')[0][2]).toEqual(true)
 
     wrapper.destroy()
   })
