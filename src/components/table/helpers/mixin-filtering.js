@@ -81,7 +81,7 @@ export default {
       // Resolve the filtering function, when requested. We prefer the provided
       // filtering function and fallback to the internal one. When no filtering
       // criteria is specified the filtering factories will return `null`. We
-      // return `false` if not localFiltering
+      // return `false` if not local filtering
       return this.localFiltering
         ? localFilterFn
           ? this.filterFnFactory(localFilterFn, criteria)
@@ -147,6 +147,39 @@ export default {
     },
     // Watch for changes to the filter criteria and filtered items vs `localItems`
     // Set visual state and emit events as required
+    filteredItems: {
+      immediate: true,
+      handler(newFilteredItems, oldFilteredItems = this.localItems) {
+        // Determine if the dataset is filtered or not
+        // This may not be the greatest appproach, but we can't compare previous
+        // filtered items to current, because it is possible the user has changed
+        // one of the field's values (i.e. _showdetails, etc)  which would trigger a
+        // false filtered event. We also have to handle when server filtering is
+        // employed, in which case `localItems` is always equal to `filteredItems`
+        if (newFilteredItems === oldFilteredItems) {
+          // Same array ref, so definitely no filtering has occured.
+          // The filtered items array will only change if localItems has
+          // changed or filter criteria has changed (anything that triggers
+          // localItems filteredItems computed prop to change)
+          return
+        }
+        // Filter function will be `false` is not local filtering
+        // and will be null when no criteria with localFiltering
+        const filterFn = this.computedFilterFn
+        const criteria = this.localFilter
+        let isFiltered = false
+        if (filterFn === false) {
+          // Not performing local filtering
+          isFiltered = criteria && !(looseEqual(localFilter, []) || looseEqual(localFilter, {}))
+        } else {
+          // Local filtering is occuring
+          isFiltered = filterFn
+        }
+        isFiltered = toBoolean(isFiltered)
+        this.isFiltered = isFiltered
+        this.$emit('filtered', filteredItems, filteredItems.length, isFiltered)
+      }
+    },
     filteredCheck(
       { filteredItems, localFilter, computedFilterFn, localItems },
       { localFilter: oldLocalFilter, computedFilterFn: oldcomputedFilterFn } = {}
@@ -173,12 +206,12 @@ export default {
       }
       // We convert to an actual Boolean value (true/false)
       // rather than a truthy or falsey value
-      isFiltered = toBoolean(isFiltered)
-      this.isFiltered = isFiltered
-      if (filterChanged) {
-        const items = isFiltered ? filteredItems : localItems
-        this.$emit('filtered', items, items.length, isFiltered)
-      }
+      // isFiltered = toBoolean(isFiltered)
+      // this.isFiltered = isFiltered
+      // if (filterChanged) {
+      //   const items = isFiltered ? filteredItems : localItems
+      //   this.$emit('filtered', items, items.length, isFiltered)
+      // }
     },
     isFiltered(newVal, oldVal) {
       // if (newVal === false && oldVal === true) {
