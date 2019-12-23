@@ -118,17 +118,19 @@ export default {
       // an object when using `filter-function`
       deep: true,
       handler(newCriteria, oldCriteria) {
-        const timeout = this.computedFilterDebounce
-        clearTimeout(this.$_filterTimer)
-        this.$_filterTimer = null
-        if (timeout && timeout > 0) {
-          // If we have a debounce time, delay the update of `localFilter`
-          this.$_filterTimer = setTimeout(() => {
+        if (!looseEqual(newCriteria, oldCriteria)) {
+          const timeout = this.computedFilterDebounce
+          clearTimeout(this.$_filterTimer)
+          this.$_filterTimer = null
+          if (timeout && timeout > 0) {
+            // If we have a debounce time, delay the update of `localFilter`
+            this.$_filterTimer = setTimeout(() => {
+              this.localFilter = this.filterSanitize(newCriteria)
+            }, timeout)
+          } else {
+            // Otherwise, immediately update `localFilter` with `newFilter` value
             this.localFilter = this.filterSanitize(newCriteria)
-          }, timeout)
-        } else {
-          // Otherwise, immediately update `localFilter` with `newFilter` value
-          this.localFilter = this.filterSanitize(newCriteria)
+          }
         }
       }
     },
