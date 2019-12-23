@@ -1,3 +1,4 @@
+import { toBoolean } from '../../../utils/boolean'
 import { toInteger } from '../../../utils/number'
 
 export default {
@@ -26,7 +27,7 @@ export default {
       const currentPage = this.computedCurrentPage
       const perPage = this.computedPerPage
       // Apply local pagination
-      if (this.localPaging && perPage) {
+      if (this.localPaging && toBoolean(perPage)) {
         // Grab the current page of data (which may be past filtered items limit)
         items = items.slice((currentPage - 1) * perPage, currentPage * perPage)
       }
