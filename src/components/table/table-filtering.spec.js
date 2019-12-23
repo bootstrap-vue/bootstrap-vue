@@ -119,7 +119,7 @@ describe('table > filtering', () => {
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[1][1]).toEqual(3)
     // Filtered state (isFiltered === false)
-    expect(wrapper.emitted('filtered')[0][2]).toBe(false)
+    expect(wrapper.emitted('filtered')[1][2]).toBe(false)
 
     wrapper.setProps({
       filter: '3'
@@ -135,7 +135,7 @@ describe('table > filtering', () => {
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[2][1]).toEqual(1)
     // Filtered state (isFiltered === true)
-    expect(wrapper.emitted('filtered')[0][2]).toBe(true)
+    expect(wrapper.emitted('filtered')[2][2]).toBe(true)
 
     wrapper.setProps({
       // Setting to null will also clear the filter
@@ -152,7 +152,7 @@ describe('table > filtering', () => {
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[3][1]).toEqual(3)
     // Filtered state (isFiltered === true)
-    expect(wrapper.emitted('filtered')[0][2]).toBe(false)
+    expect(wrapper.emitted('filtered')[3][2]).toBe(false)
 
     wrapper.destroy()
   })
