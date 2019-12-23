@@ -457,9 +457,9 @@ describe('table > provider functions', () => {
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
-    expect(wrapper.vm.filter).toEqual({ a: '456' })
-    expect($table.vm.filter).toEqual({ a: '456' })
-    expect($table.vm.localFilter).toEqual({ a: '456' })
+    expect(wrapper.vm.filter).toEqual({ a: '123' })
+    expect($table.vm.filter).toEqual({ a: '123' })
+    expect($table.vm.localFilter).toEqual({ a: '123' })
 
     expect(lastProviderContext.filter).toEqual({
       a: '123'
