@@ -20,7 +20,7 @@ describe('table/helpers/sanitize-row', () => {
     expect(sanitizeRow(row, ['a'])).toEqual({ b: { c: 2 }, d: '3' })
     expect(sanitizeRow(row, ['a', 'd'], [])).toEqual({ b: { c: 2 } })
     expect(sanitizeRow(row, [], ['a'])).toEqual({ a: 1 })
-    expect(sanitizeRow(row, [], ['a', 'd'])).toEqual({ a: 1, , d: '3' })
+    expect(sanitizeRow(row, [], ['a', 'd'])).toEqual({ a: 1, d: '3' })
     expect(sanitizeRow(row, ['a'], ['a', 'd'])).toEqual({ d: '3' })
     expect(sanitizeRow(row, [], [], fieldsObj1)).toEqual({ a: 1, b: { c: '2' }, d: '3' })
     expect(sanitizeRow(row, [], [], fieldsObj2)).toEqual({ a: 1, b: { c: '2z' }, d: 3 })
