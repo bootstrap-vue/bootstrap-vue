@@ -504,6 +504,17 @@
                 "arg": "filteredItems",
                 "type": "Array",
                 "description": "Array of items after filtering (before local pagination occurs)."
+              },
+              {
+                "arg": "filteredItemsLength",
+                "type": "Number",
+                "description": "Number of items in filteredItems array."
+              },
+              {
+                "arg": "isFiltered",
+                "type": "Boolean",
+                "version": "2.2.0",
+                "description": "True if the filteredItems array is considered filtered."
               }
             ]
           },
