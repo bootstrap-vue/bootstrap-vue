@@ -121,7 +121,7 @@ export default {
       // an object when using `filter-function`
       deep: true,
       handler(newCriteria, oldCriteria) {
-        if (newCriteria !== oldCriteria) {
+        if (!looseEqual(this.filterSanitize(newCriteria), this.filterSanitize(oldCriteria))) {
           const timeout = this.computedFilterDebounce
           clearTimeout(this.$_filterTimer)
           this.$_filterTimer = null
