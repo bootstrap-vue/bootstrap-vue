@@ -340,6 +340,8 @@ describe('table > provider functions', () => {
     await waitNT(wrapper.vm)
 
     expect(providerCallCount).toBe(1)
+    expect(wrapper.emitted('filtered')).toBeDefined()
+    expect(wrapper.emitted('filtered').length).toBe(1)
 
     wrapper.destroy()
   })
