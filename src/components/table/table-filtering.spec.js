@@ -18,6 +18,7 @@ describe('table > filtering', () => {
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
     await waitNT(wrapper.vm)
+    expect(wrapper.emitted('filtered')).not.toBeDefined()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(testItems)
@@ -60,6 +61,15 @@ describe('table > filtering', () => {
     expect($tds.at(1).text()).toBe('a')
     expect($tds.at(2).text()).toBe('z')
 
+    expect(wrapper.emitted('filtered')).toBeDefined()
+    expect(wrapper.emitted('filtered').length).toBe(1)
+    // Third row
+    expect(wrapper.emitted('filtered')[0][0]).toEqual([testItems[2]])
+    // Length of filtered items
+    expect(wrapper.emitted('filtered')[0][1]).toEqual(1)
+    // Filtered state (isFiltered === true)
+    expect(wrapper.emitted('filtered')[0][2]).toBe(true)
+
     wrapper.destroy()
   })
 
@@ -92,6 +102,8 @@ describe('table > filtering', () => {
     expect(wrapper.emitted('filtered')[0][0]).toEqual([testItems[2]])
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[0][1]).toEqual(1)
+    // Filtered state (isFiltered === true)
+    expect(wrapper.emitted('filtered')[0][2]).toBe(true)
 
     wrapper.setProps({
       filter: ''
@@ -106,6 +118,8 @@ describe('table > filtering', () => {
     expect(wrapper.emitted('filtered')[1][0]).toEqual(testItems)
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[1][1]).toEqual(3)
+    // Filtered state (isFiltered === false)
+    expect(wrapper.emitted('filtered')[0][2]).toBe(false)
 
     wrapper.setProps({
       filter: '3'
@@ -120,6 +134,8 @@ describe('table > filtering', () => {
     expect(wrapper.emitted('filtered')[2][0]).toEqual([testItems[0]])
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[2][1]).toEqual(1)
+    // Filtered state (isFiltered === true)
+    expect(wrapper.emitted('filtered')[0][2]).toBe(true)
 
     wrapper.setProps({
       // Setting to null will also clear the filter
@@ -135,6 +151,8 @@ describe('table > filtering', () => {
     expect(wrapper.emitted('filtered')[3][0]).toEqual(testItems)
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[3][1]).toEqual(3)
+    // Filtered state (isFiltered === true)
+    expect(wrapper.emitted('filtered')[0][2]).toBe(false)
 
     wrapper.destroy()
   })
