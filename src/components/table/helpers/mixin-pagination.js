@@ -16,10 +16,10 @@ export default {
       return this.hasProvider ? !!this.noProviderPaging : true
     },
     computedCurrentPage() {
-      return Math.max(toInteger(this.currentPage, 10) || 1, 1)
+      return Math.max(toInteger(this.currentPage) || 1, 1)
     },
     computedPerPage() {
-      Math.max(toInteger(this.perPage, 10) || 0, 0)
+      Math.max(toInteger(this.perPage) || 0, 0)
     },
     paginatedItems() {
       let items = this.sortedItems || this.filteredItems || this.localItems || []
