@@ -249,6 +249,7 @@
                 <code class="notranslate" translate="no">{{ arg.arg }}</code> -
               </template>
               <span v-if="arg.description">{{ arg.description }}</span>
+              <b-badge v-if="arg.version" variant="secondary">{{ arg.version }}+</b-badge>
             </li>
           </ol>
         </template>
