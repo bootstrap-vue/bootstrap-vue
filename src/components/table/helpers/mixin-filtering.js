@@ -121,23 +121,21 @@ export default {
       // an object when using `filter-function`
       deep: true,
       handler(newCriteria, oldCriteria) {
-        if (!looseEqual(this.filterSanitize(newCriteria), this.filterSanitize(oldCriteria))) {
-          const timeout = this.computedFilterDebounce
-          clearTimeout(this.$_filterTimer)
-          this.$_filterTimer = null
-          if (timeout && timeout > 0) {
-            // If we have a debounce time, delay the update of `localFilter`
-            this.$_filterTimer = setTimeout(() => {
-              this.localFilter = this.filterSanitize(newCriteria)
-            }, timeout)
-          } else {
-            // Otherwise, immediately update `localFilter` with `newFilter` value
+        const timeout = this.computedFilterDebounce
+        clearTimeout(this.$_filterTimer)
+        this.$_filterTimer = null
+        if (timeout && timeout > 0) {
+          // If we have a debounce time, delay the update of `localFilter`
+          this.$_filterTimer = setTimeout(() => {
             this.localFilter = this.filterSanitize(newCriteria)
-          }
+          }, timeout)
+        } else {
+          // Otherwise, immediately update `localFilter` with `newFilter` value
+          this.localFilter = this.filterSanitize(newCriteria)
         }
       }
     },
-    // Watch for changes to the filter criteria and filtered items vs `localItems`
+    // Watch for changes to the filter criteria and filtered items
     // Set visual state and emit events as required
     filteredItems: {
       immediate: true,
@@ -163,6 +161,7 @@ export default {
         if (filterFn === false) {
           // Not performing local filtering
           // Check to see if the criteria is truthy
+          // We consider an empty array/object as falsey
           isFiltered = criteria && !(looseEqual(criteria, []) || looseEqual(criteria, {}))
         } else {
           // Local filtering is occuring
