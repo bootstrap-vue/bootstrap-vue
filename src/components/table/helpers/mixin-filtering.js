@@ -47,8 +47,7 @@ export default {
       isMountedFiltering: false,
       // Where we store the copy of the filter criteria
       // after sanitization and debouncing
-      // Perhaps this should be set in a `nextTick` on `created()`
-      localFilter: ''
+      localFilter: isFunction(this.items) ? this.filterSanitize(this.filter) : ''
     }
   },
   computed: {
