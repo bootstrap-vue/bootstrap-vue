@@ -170,14 +170,14 @@ export default {
         let isFiltered = false
         if (filterFn === false) {
           // Not performing local filtering
-          isFiltered = criteria && !(looseEqual(localFilter, []) || looseEqual(localFilter, {}))
+          isFiltered = criteria && !(looseEqual(criteria, []) || looseEqual(criteria, {}))
         } else {
           // Local filtering is occuring
           isFiltered = filterFn
         }
         isFiltered = toBoolean(isFiltered)
         this.isFiltered = isFiltered
-        this.$emit('filtered', filteredItems, filteredItems.length, isFiltered)
+        this.$emit('filtered', newFilteredItems, newFilteredItems.length, isFiltered)
       }
     },
     filteredCheck(
@@ -190,20 +190,20 @@ export default {
       // one of the field's values (i.e. _showdetails, etc)  which would trigger a
       // false filtered event. We also have to handle when server filtering is
       // employed, in which case `localItems` is always equal to `filteredItems`
-      let isFiltered = false
-      let filterChanged = false
-      if (computedFilterFn !== false) {
-        // Local filtering. `computedFilterFn` will be `false` if not local filtering.
-        // A new filter function is returned whenever the criteria changes, or will
-        // be `null` is no filter criteria.
-        isFiltered = computedFilterFn
-        filterChanged = computedFilterFn !== oldcomputedFilterFn
-      } else {
-        // Provier filtering
-        // Note: We consider an empty array/object as not being filtered
-        isFiltered = localFilter && !(looseEqual(localFilter, []) || looseEqual(localFilter, {}))
-        filterChanged = !looseEqual(localFilter, oldLocalFilter)
-      }
+      // let isFiltered = false
+      // let filterChanged = false
+      // if (computedFilterFn !== false) {
+      //   // Local filtering. `computedFilterFn` will be `false` if not local filtering.
+      //   // A new filter function is returned whenever the criteria changes, or will
+      //   // be `null` is no filter criteria.
+      //   isFiltered = computedFilterFn
+      //   filterChanged = computedFilterFn !== oldcomputedFilterFn
+      // } else {
+      //   // Provier filtering
+      //   // Note: We consider an empty array/object as not being filtered
+      //   isFiltered = localFilter && !(looseEqual(localFilter, []) || looseEqual(localFilter, {}))
+      //   filterChanged = !looseEqual(localFilter, oldLocalFilter)
+      // }
       // We convert to an actual Boolean value (true/false)
       // rather than a truthy or falsey value
       // isFiltered = toBoolean(isFiltered)
