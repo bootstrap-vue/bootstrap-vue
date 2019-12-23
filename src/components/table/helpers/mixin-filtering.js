@@ -2,6 +2,7 @@ import cloneDeep from '../../../utils/clone-deep'
 import identity from '../../../utils/identity'
 import looseEqual from '../../../utils/loose-equal'
 import { concat } from '../../../utils/array'
+import { toBoolean } from '../../../utils/boolean'
 import { isFunction, isRegExp, isString } from '../../../utils/inspect'
 import { toInteger } from '../../../utils/number'
 import { escapeRegExp, trim } from '../../../utils/string'
@@ -40,10 +41,13 @@ export default {
   },
   data() {
     return {
-      // Flag for displaying which empty slot to show and some event triggering
+      // Flag for displaying which empty slot to show and `filtered` event triggering
       isFiltered: false,
-      // Where we store the copy of the filter criteria after debouncing
-      // We pre-set it with the sanitized filter value
+      // Flag to trigger the filter check on mount
+      isMountedFiltering: false,
+      // Where we store the copy of the filter criteria
+      // after sanitization and debouncing
+      // Perhaps this should be set in a `nextTick` on `created()`
       localFilter: this.filterSanitize(this.filter)
     }
   },
@@ -63,38 +67,54 @@ export default {
       return ms
     },
     localFiltering() {
-      return this.hasProvider ? !!this.noProviderFiltering : true
-    },
-    // For watching changes to `filteredItems` vs `localItems`
-    filteredCheck() {
-      return {
-        filteredItems: this.filteredItems,
-        localItems: this.localItems,
-        localFilter: this.localFilter
-      }
+      return this.hasProvider ? toBoolean(this.noProviderFiltering) : true
     },
     // Sanitized/normalize filter-function prop
     localFilterFn() {
       // Return `null` to signal to use internal filter function
       return isFunction(this.filterFunction) ? this.filterFunction : null
     },
+    // Returns the filter function to be used when filtering the items
+    // A new function is returned whenever the criteria is changed
+    computedFilterFn() {
+      const criteria = this.localFilter
+      const localFilterFn = this.localFilterFn
+      // Resolve the filtering function, when requested. We prefer the provided
+      // filtering function and fallback to the internal one. When no filtering
+      // criteria is specified the filtering factories will return `null`. We
+      // return `false` if not localFiltering
+      return this.localFiltering
+        ? localFilterFn
+          ? this.filterFnFactory(localFilterFn, criteria)
+          : this.defaultFilterFnFactory(criteria)
+        : false
+    },
     // Returns the records in `localItems` that match the filter criteria
     // Returns the original `localItems` array if not sorting
     filteredItems() {
       const items = this.localItems || []
-      // Note the criteria is debounced and sanitized
-      const criteria = this.localFilter
 
-      // Resolve the filtering function, when requested
-      // We prefer the provided filtering function and fallback to the internal one
-      // When no filtering criteria is specified the filtering factories will return `null`
-      const filterFn = this.localFiltering
-        ? this.filterFnFactory(this.localFilterFn, criteria) ||
-          this.defaultFilterFnFactory(criteria)
-        : null
+      // Resolve the filtering function, when requested. Will be
+      // be `null` if no criteria and not using local filtering,
+      // will we `false` is not using local filtering (i.e. provider filtering)
+      const filterFn = this.computedFilterFn
 
-      // We only do local filtering when requested and there are records to filter
+      // We only do local filtering when requested and there are records to filter.
+      // If not local filtering or no items, we return the original local items array
       return filterFn && items.length > 0 ? items.filter(filterFn) : items
+    },
+    // For watching changes to `filteredItems` to trigger `filtered` events
+    filteredCheck() {
+      return {
+        filteredItems: this.filteredItems,
+        localFilter: this.localFilter,
+        computedFilterFn: this.computedFilterFn,
+        // We include this flag to trigger a filter check once the table is mounted
+        isMountedFiltering: this.isMountedFiltering,
+        // We include `localItems` here so that new items
+        // can/will trigger a `filtered` event
+        localItems: this.localItems,
+      }
     }
   },
   watch: {
@@ -128,30 +148,45 @@ export default {
     },
     // Watch for changes to the filter criteria and filtered items vs `localItems`
     // Set visual state and emit events as required
-    filteredCheck({ filteredItems, localItems, localFilter }) {
+    filteredCheck(
+      { filteredItems, localFilter, computedFilterFn, localItems },
+      { localFilter: oldLocalFilter, computedFilterFn: oldcomputedFilterFn } = {}
+    ) {
       // Determine if the dataset is filtered or not
+      // This may not be the greatest appproach, but we can't compare previous
+      // filtered items to current, because it is possible the user has changed
+      // one of the field's values (i.e. _showdetails, etc)  which would trigger a
+      // false filtered event. We also have to handle when server filtering is
+      // employed, in which case `localItems` is always equal to `filteredItems`
       let isFiltered = false
-      if (!localFilter) {
-        // If filter criteria is falsey
-        isFiltered = false
-      } else if (looseEqual(localFilter, []) || looseEqual(localFilter, {})) {
-        // If filter criteria is an empty array or object
-        isFiltered = false
-      } else if (localFilter) {
-        // If filter criteria is truthy
-        isFiltered = true
+      let filterChanged = false
+      if (computedFilterFn !== false) {
+        // Local filtering. `computedFilterFn` will be `false` if not local filtering.
+        // A new filter function is returned whenever the criteria changes, or will
+        // be `null` is no filter criteria.
+        isFiltered = computedFilterFn
+        filterChanged = computedFilterFn !== oldcomputedFilterFn
+      } else {
+        // Provier filtering
+        // Note: We consider an empty array/object as not being filtered
+        isFiltered = localFilter && !(looseEqual(localFilter, []) || looseEqual(localFilter, {}))
+        filterChanged = !looseEqual(localFilter, oldLocalFilter)
       }
-      if (isFiltered) {
-        this.$emit('filtered', filteredItems, filteredItems.length)
-      }
+      // We convert to an actual Boolean value (true/false)
+      // rather than a truthy or falsey value
+      isFiltered = toBoolean(isFiltered)
       this.isFiltered = isFiltered
+      if (filterChanged) {
+        const items = isFiltered ? filteredItems : localItems
+        this.$emit('filtered', items, items.length, isFiltered)
+      }
     },
     isFiltered(newVal, oldVal) {
-      if (newVal === false && oldVal === true) {
-        // We need to emit a filtered event if isFiltered transitions from true to
-        // false so that users can update their pagination controls.
-        this.$emit('filtered', this.localItems, this.localItems.length)
-      }
+      // if (newVal === false && oldVal === true) {
+      //   // We need to emit a filtered event if isFiltered transitions from true to
+      //   // false so that users can update their pagination controls.
+      //   this.$emit('filtered', this.localItems, this.localItems.length)
+      // }
     }
   },
   created() {
@@ -161,9 +196,13 @@ export default {
     // This will trigger any watchers/dependents
     // this.localFilter = this.filterSanitize(this.filter)
     // Set the initial filtered state in a `$nextTick()` so that
-    // we trigger a filtered event if needed
+    // we show the `empty-filtered` slot instead of the `empty` slot
     this.$nextTick(() => {
-      this.isFiltered = Boolean(this.localFilter)
+      const localFilter = this.localFilter
+      this.isFiltered =
+        toBoolean(localFilter && !(looseEqual(localFilter, []) || looseEqual(localFilter, {})))
+      // Trigger a `filtered` event if needed
+      this.isMountedFiltering = true
     })
   },
   beforeDestroy() /* istanbul ignore next */ {
@@ -173,13 +212,15 @@ export default {
   methods: {
     filterSanitize(criteria) {
       // Sanitizes filter criteria based on internal or external filtering
-      if (
-        this.localFiltering &&
-        !this.localFilterFn &&
-        !(isString(criteria) || isRegExp(criteria))
-      ) {
-        // If using internal filter function, which only accepts string or RegExp,
-        // return '' to signify no filter
+      if (this.localFiltering && !this.localFilterFn) {
+        if (!(isString(criteria) || isRegExp(criteria))) {
+          // If using internal filter function, which only accepts string or RegExp,
+          // return '' to signify no filter
+          return ''
+        }
+      }
+      if (isString(criteria) && trim(criteria) === '') {
+        // Ignore criteria that is just whitespace
         return ''
       }
 
@@ -225,7 +266,8 @@ export default {
         return null
       }
 
-      // Build the RegExp needed for filtering
+      // Build the RegExp needed for filtering. We do this outside of
+      // the returned function for performance reasons
       let regExp = criteria
       if (isString(regExp)) {
         // Escape special RegExp characters in the string and convert contiguous
