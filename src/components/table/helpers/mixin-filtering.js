@@ -113,7 +113,7 @@ export default {
         isMountedFiltering: this.isMountedFiltering,
         // We include `localItems` here so that new items
         // can/will trigger a `filtered` event
-        localItems: this.localItems,
+        localItems: this.localItems
       }
     }
   },
@@ -199,8 +199,10 @@ export default {
     // we show the `empty-filtered` slot instead of the `empty` slot
     this.$nextTick(() => {
       const localFilter = this.localFilter
-      this.isFiltered =
-        toBoolean(localFilter && !(looseEqual(localFilter, []) || looseEqual(localFilter, {})))
+      this.isFiltered = toBoolean(
+        localFilter &&
+        !(looseEqual(localFilter, []) || looseEqual(localFilter, {}))
+      )
       // Trigger a `filtered` event if needed
       this.isMountedFiltering = true
     })
