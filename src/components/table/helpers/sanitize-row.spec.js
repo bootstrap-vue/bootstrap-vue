@@ -4,13 +4,13 @@ describe('table/helpers/sanitize-row', () => {
   it('it works', async () => {
     const row = { a: 1, b: { c: 2 }, 'd': '3' }
     const fieldsObj1 = {
-      a: { key: 'a' }
-      b: { key: 'b', formatter: (val, key, row) => String(val.c), filterByFormatted: true }
+      a: { key: 'a' },
+      b: { key: 'b', formatter: (val, key, row) => String(val.c), filterByFormatted: true },
       d: { key: 'd' }
     }
     const fieldsObj2 = {
-      a: { key: 'a' }
-      b: { key: 'b', filterByFormatted: (val, key, row) => String(val.c) + 'z' }
+      a: { key: 'a' },
+      b: { key: 'b', filterByFormatted: (val, key, row) => String(val.c) + 'z' },
       d: { key: 'd' }
     }
 
