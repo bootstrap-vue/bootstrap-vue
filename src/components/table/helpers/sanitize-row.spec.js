@@ -29,7 +29,9 @@ describe('table/helpers/sanitize-row', () => {
     expect(sanitizeRow(row, ['b'], [], fieldsObj1)).toEqual({ a: 1, d: '3' })
     expect(sanitizeRow(row, ['b'], [], fieldsObj2)).toEqual({ a: 1, d: 3 })
     expect(sanitizeRow(row, ['z'], [])).toEqual({ a: 1, b: { c: 2 }, d: '3' })
-    expect(sanitizeRow(row, [], ['z'])).toEqual({})
+    expect(sanitizeRow(row, ['z'], [], fieldsObj1)).toEqual({ a: 1, b: '2', d: '3' })
+    expect(sanitizeRow(row, ['z'], [], fieldsObj2)).toEqual({ a: 1, b: '2x', d: 3 })
+   expect(sanitizeRow(row, [], ['z'])).toEqual({})
 
     // Sanity check to make sure original row object has not been mutated
     expect(row).toEqual({ a: 1, b: { c: 2 }, d: '3' })
