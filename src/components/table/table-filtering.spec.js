@@ -197,7 +197,7 @@ describe('table > filtering', () => {
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[1][1]).toEqual(3)
     // Filtering state (isFiltered)
-    expect(wrapper.emitted('filtered')[0][2]).toEqual(false)
+    expect(wrapper.emitted('filtered')[1][2]).toEqual(false)
 
     wrapper.destroy()
   })
@@ -215,6 +215,7 @@ describe('table > filtering', () => {
 
     expect(wrapper.findAll('tbody > tr').length).toBe(0)
 
+    // Should initially emit a filtered event
     expect(wrapper.emitted('filtered')).toBeDefined()
     expect(wrapper.emitted('filtered').length).toBe(1)
     expect(wrapper.emitted('filtered')[0][0]).toEqual([])
