@@ -11,8 +11,8 @@ const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) =>
     // Include only fields in the `includeFields` array
     if (
       !IGNORED_FIELD_KEYS[key] &&
-      !(isArray(ignoreFields) && ignoreFields.length > 0 && arrayIncludes(ignoreFields, key)) &&
-      !(isArray(includeFields) && includeFields.length > 0 && !arrayIncludes(includeFields, key))
+      !(isArray(ignoreFields) && arrayIncludes(ignoreFields, key)) &&
+      !(isArray(includeFields) && !arrayIncludes(includeFields, key))
     ) {
       const f = fieldsObj[key] || {}
       const val = row[key]
