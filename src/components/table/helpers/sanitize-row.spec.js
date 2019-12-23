@@ -32,6 +32,6 @@ describe('table/helpers/sanitize-row', () => {
     expect(sanitizeRow(row, [], ['z'])).toEqual({})
 
     // Sanity check to make sure original row object has not been mutated
-    expect(row).toEqual({ a: 1, b: { c: 2 }, 'd': '3' })
+    expect(row).toEqual({ a: 1, b: { c: 2 }, d: '3' })
   })
 })
