@@ -196,8 +196,8 @@ export default {
     // this.localFilter = this.filterSanitize(this.filter)
     // Set the initial filtered state in a `$nextTick()` so that
     // we show the `empty-filtered` slot instead of the `empty` slot
-    const localFilter = this.filterSanitize(this.filter)
     this.$nextTick(() => {
+      const localFilter = this.filterSanitize(this.filter)
       this.localFilter = localFilter
       this.isFiltered = toBoolean(
         localFilter && !(looseEqual(localFilter, []) || looseEqual(localFilter, {}))
