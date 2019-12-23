@@ -346,6 +346,71 @@ describe('table > provider functions', () => {
     wrapper.destroy()
   })
 
+  it('calls emits filtered event once provider returns value', async () => {
+    let callback = null
+    let providerCallCount = 0
+    const provider = (ctx, cb) => {
+      providerCallCount++
+      callback = cb
+    }
+
+    const wrapper = mount(BTable, {
+      propsData: {
+        filter: { a: '123' },
+        fields: testFields.slice(),
+        items: provider
+      }
+    })
+
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+
+    expect(providerCallCount).toBe(1)
+    expect(wrapper.emitted('filtered')).not.toBeDefined()
+    expect(callback).not.toBe(null)
+    expect(typeof callback).toBe('function')
+
+    callback([testItems[0]])
+
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+
+    expect(providerCallCount).toBe(1)
+    expect(wrapper.emitted('filtered')).toBeDefined()
+    expect(wrapper.emitted('filtered').length).toBe(1)
+    expect(wrapper.emitted('filtered')[0][0]).toEqual([testItems[0]])
+    expect(wrapper.emitted('filtered')[0][1]).toBe(1)
+    expect(wrapper.emitted('filtered')[0][2]).toBe(true)
+
+    wrapper.setProps({
+      filter: {}
+    })
+
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+
+    expect(providerCallCount).toBe(2)
+    expect(wrapper.emitted('filtered').length).toBe(1)
+    expect(typeof callback).toBe('function')
+
+    callback(testItems.slice())
+
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+
+    expect(providerCallCount).toBe(2)
+    expect(wrapper.emitted('filtered').length).toBe(2)
+    expect(wrapper.emitted('filtered')[1][0]).toEqual(testItems)
+    expect(wrapper.emitted('filtered')[1][1]).toBe(testItems.length)
+    expect(wrapper.emitted('filtered')[1][2]).toBe(false)
+
+    wrapper.destroy()
+  })
+
   it('provider is called when filter object child property is changed', async () => {
     let lastProviderContext = {}
 
