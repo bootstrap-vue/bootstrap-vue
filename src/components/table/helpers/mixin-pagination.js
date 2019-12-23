@@ -1,3 +1,5 @@
+import { toInteger } from '../../../utils/number'
+
 export default {
   props: {
     perPage: {
@@ -13,12 +15,18 @@ export default {
     localPaging() {
       return this.hasProvider ? !!this.noProviderPaging : true
     },
+    computedCurrentPage() {
+      return Math.max(toInteger(this.currentPage, 10) || 1, 1)
+    },
+    computedPerPage() {
+      Math.max(toInteger(this.perPage, 10) || 0, 0)
+    },
     paginatedItems() {
       let items = this.sortedItems || this.filteredItems || this.localItems || []
-      const currentPage = Math.max(parseInt(this.currentPage, 10) || 1, 1)
-      const perPage = Math.max(parseInt(this.perPage, 10) || 0, 0)
+      const currentPage =this.computedCurrentPage
+      const perPage = this.computedPerPage
       // Apply local pagination
-      if (this.localPaging && !!perPage) {
+      if (this.localPaging && perPage) {
         // Grab the current page of data (which may be past filtered items limit)
         items = items.slice((currentPage - 1) * perPage, currentPage * perPage)
       }
