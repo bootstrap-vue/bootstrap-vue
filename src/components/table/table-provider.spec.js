@@ -371,7 +371,7 @@ describe('table > provider functions', () => {
     expect(callback).not.toBe(null)
     expect(typeof callback).toBe('function')
 
-    callback([testItems[0]])
+    callback(testItems.slice(0, 1))
 
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
