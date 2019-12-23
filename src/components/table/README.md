@@ -2127,11 +2127,13 @@ The display of the `empty-filter-text` relies on the truthiness of the `filter` 
 ### Filter events
 
 When local filtering is applied, and the resultant number of items change, `<b-table>` will emit the
-`filtered` event with a two arguments:
+`filtered` event with the following three arguments:
 
 - an array reference which is the complete list of items passing the filter routine. **Treat this
   argument as read-only.**
 - the number of records that passed the filter test (the length of the first argument)
+- a boolean indicating if the array of filtered items (the first argument) is filtered or not.
+  <span class="badge badge-secondary">v2.2.0+</span>
 
 Setting the prop `filter` to null or an empty string will clear local items filtering.
 
