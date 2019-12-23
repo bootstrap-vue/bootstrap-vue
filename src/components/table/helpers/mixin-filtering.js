@@ -101,19 +101,6 @@ export default {
       // We only do local filtering when requested and there are records to filter.
       // If not local filtering or no items, we return the original local items array
       return filterFn && items.length > 0 ? items.filter(filterFn) : items
-    },
-    // For watching changes to `filteredItems` to trigger `filtered` events
-    filteredCheck() {
-      return {
-        filteredItems: this.filteredItems,
-        localFilter: this.localFilter,
-        computedFilterFn: this.computedFilterFn,
-        // We include this flag to trigger a filter check once the table is mounted
-        isMountedFiltering: this.isMountedFiltering,
-        // We include `localItems` here so that new items
-        // can/will trigger a `filtered` event
-        localItems: this.localItems
-      }
     }
   },
   watch: {
@@ -163,62 +150,24 @@ export default {
           // localItems filteredItems computed prop to change)
           return
         }
-        // Filter function will be `false` is not local filtering
-        // and will be null when no criteria with localFiltering
+        // Filter function will be `false` if not local filtering
+        // and will be `null` when no criteria with localFiltering
         const filterFn = this.computedFilterFn
         const criteria = this.localFilter
         let isFiltered = false
         if (filterFn === false) {
           // Not performing local filtering
+          // Check to see if the criteria is truthy
           isFiltered = criteria && !(looseEqual(criteria, []) || looseEqual(criteria, {}))
         } else {
           // Local filtering is occuring
+          // Check to see if computedFilterFn is truthy
           isFiltered = filterFn
         }
         isFiltered = toBoolean(isFiltered)
         this.isFiltered = isFiltered
         this.$emit('filtered', newFilteredItems, newFilteredItems.length, isFiltered)
       }
-    },
-    filteredCheck(
-      { filteredItems, localFilter, computedFilterFn, localItems },
-      { localFilter: oldLocalFilter, computedFilterFn: oldcomputedFilterFn } = {}
-    ) {
-      // Determine if the dataset is filtered or not
-      // This may not be the greatest appproach, but we can't compare previous
-      // filtered items to current, because it is possible the user has changed
-      // one of the field's values (i.e. _showdetails, etc)  which would trigger a
-      // false filtered event. We also have to handle when server filtering is
-      // employed, in which case `localItems` is always equal to `filteredItems`
-      // let isFiltered = false
-      // let filterChanged = false
-      // if (computedFilterFn !== false) {
-      //   // Local filtering. `computedFilterFn` will be `false` if not local filtering.
-      //   // A new filter function is returned whenever the criteria changes, or will
-      //   // be `null` is no filter criteria.
-      //   isFiltered = computedFilterFn
-      //   filterChanged = computedFilterFn !== oldcomputedFilterFn
-      // } else {
-      //   // Provier filtering
-      //   // Note: We consider an empty array/object as not being filtered
-      //   isFiltered = localFilter && !(looseEqual(localFilter, []) || looseEqual(localFilter, {}))
-      //   filterChanged = !looseEqual(localFilter, oldLocalFilter)
-      // }
-      // We convert to an actual Boolean value (true/false)
-      // rather than a truthy or falsey value
-      // isFiltered = toBoolean(isFiltered)
-      // this.isFiltered = isFiltered
-      // if (filterChanged) {
-      //   const items = isFiltered ? filteredItems : localItems
-      //   this.$emit('filtered', items, items.length, isFiltered)
-      // }
-    },
-    isFiltered(newVal, oldVal) {
-      // if (newVal === false && oldVal === true) {
-      //   // We need to emit a filtered event if isFiltered transitions from true to
-      //   // false so that users can update their pagination controls.
-      //   this.$emit('filtered', this.localItems, this.localItems.length)
-      // }
     }
   },
   created() {
