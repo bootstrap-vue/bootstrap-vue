@@ -48,7 +48,7 @@ export default {
       // Where we store the copy of the filter criteria
       // after sanitization and debouncing
       // Perhaps this should be set in a `nextTick` on `created()`
-      localFilter: this.filterSanitize(this.filter)
+      localFilter: ''
     }
   },
   computed: {
@@ -198,7 +198,8 @@ export default {
     // Set the initial filtered state in a `$nextTick()` so that
     // we show the `empty-filtered` slot instead of the `empty` slot
     this.$nextTick(() => {
-      const localFilter = this.localFilter
+      const localFilter = this.filterSanitize(this.filter)
+      this.localFilter = localFilter
       this.isFiltered = toBoolean(
         localFilter && !(looseEqual(localFilter, []) || looseEqual(localFilter, {}))
       )
