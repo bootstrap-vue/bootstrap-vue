@@ -106,10 +106,13 @@ export default {
   watch: {
     // Watch for debounce being set to 0
     computedFilterDebounce(newVal, oldVal) {
-      if (!newVal && this.$_filterTimer) {
+      if (newVal !== oldVal && !newVal && this.$_filterTimer) {
         clearTimeout(this.$_filterTimer)
         this.$_filterTimer = null
-        this.localFilter = this.filterSanitize(this.filter)
+        const criteria = this.filterSanitize(this.filter)
+        if (this.localFilter !== criteria) {
+          this.localFilter = criteria
+        }
       }
     },
     // Watch for changes to the filter criteria, and debounce if necessary
@@ -118,17 +121,19 @@ export default {
       // an object when using `filter-function`
       deep: true,
       handler(newCriteria, oldCriteria) {
-        const timeout = this.computedFilterDebounce
-        clearTimeout(this.$_filterTimer)
-        this.$_filterTimer = null
-        if (timeout && timeout > 0) {
-          // If we have a debounce time, delay the update of `localFilter`
-          this.$_filterTimer = setTimeout(() => {
+        if (newCriteria !== oldCriteria) {
+          const timeout = this.computedFilterDebounce
+          clearTimeout(this.$_filterTimer)
+          this.$_filterTimer = null
+          if (timeout && timeout > 0) {
+            // If we have a debounce time, delay the update of `localFilter`
+            this.$_filterTimer = setTimeout(() => {
+              this.localFilter = this.filterSanitize(newCriteria)
+            }, timeout)
+          } else {
+            // Otherwise, immediately update `localFilter` with `newFilter` value
             this.localFilter = this.filterSanitize(newCriteria)
-          }, timeout)
-        } else {
-          // Otherwise, immediately update `localFilter` with `newFilter` value
-          this.localFilter = this.filterSanitize(newCriteria)
+          }
         }
       }
     },
