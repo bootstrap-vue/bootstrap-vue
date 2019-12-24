@@ -257,8 +257,14 @@ export default {
     defaultFilterFnFactory(criteria) {
       // Generates the default filter function, using the given filter criteria
       // Returns `null` if no criteria or criteria format not supported
+
+      // Grab some values ahead of time (to trigger reactive changes)
+      const filterIgnored = this.computedFilterIgnored
+      const filterIncluded = this.computedFilterIncluded
+      const fieldsObj = this.computedFieldsObj
+
+      // Built in filter can only support strings or RegExp criteria (at the moment)
       if (!criteria || !(isString(criteria) || isRegExp(criteria))) {
-        // Built in filter can only support strings or RegExp criteria (at the moment)
         return null
       }
 
@@ -273,11 +279,6 @@ export default {
         // to find the value once in the string)
         regExp = new RegExp(`.*${pattern}.*`, 'i')
       }
-
-      // Grab some values ahead of time
-      const filterIgnored = this.computedFilterIgnored
-      const filterIncluded = this.computedFilterIncluded
-      const fieldsObj = this.computedFieldsObj
 
       // Generate the wrapped filter test function to use
       const fn = item => {
@@ -295,14 +296,7 @@ export default {
         //
         // We set `lastIndex = 0` on the `RegExp` in case someone specifies the `/g` global flag
         regExp.lastIndex = 0
-        return regExp.test(
-          stringifyRecordValues(
-            item,
-            filterIgnored,
-            filterIncluded,
-            fieldsObj
-          )
-        )
+        return regExp.test(stringifyRecordValues(item, filterIgnored, filterIncluded, fieldsObj))
       }
 
       // Return the generated function
