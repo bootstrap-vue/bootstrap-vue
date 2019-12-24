@@ -23,7 +23,7 @@ export default {
       return Math.max(toInteger(this.perPage) || 0, 0)
     },
     paginatedItems() {
-      let items = this.sortedItems || []
+      let items = this.sortedItems || this.filteredItems || this.localItems || []
       const currentPage = this.computedCurrentPage
       const perPage = this.computedPerPage
       // Apply local pagination
