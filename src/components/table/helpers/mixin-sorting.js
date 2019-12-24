@@ -94,8 +94,9 @@ export default {
       return this.computedFields.some(f => f.sortable)
     },
     sortedItems() {
-      // Sorts the filtered items and returns a new array of the sorted items
-      const items = (this.filteredItems || []).slice()
+      // Sorts the filtered items and returns a new array of
+      // the sorted items, or the original array if not sorted
+      const items = this.filteredItems || this.localItems || []
       const sortBy = this.localSortBy
       const sortDesc = this.localSortDesc
       const sortCompare = this.sortCompare
@@ -103,8 +104,9 @@ export default {
       const sortOptions = { ...this.sortCompareOptions, usage: 'sort' }
       const sortLocale = this.sortCompareLocale || undefined
       const nullLast = this.sortNullLast
+      const fieldsObj = this.computedFieldsObj
       if (sortBy && localSorting) {
-        const field = this.computedFieldsObj[sortBy] || {}
+        const field = fieldsObj[sortBy] || {}
         const sortByFormatted = field.sortByFormatted
         const formatter = isFunction(sortByFormatted)
           ? sortByFormatted
@@ -136,6 +138,7 @@ export default {
           return (result || 0) * (sortDesc ? -1 : 1)
         })
       }
+      // Else, return the original array
       return items
     }
   },
