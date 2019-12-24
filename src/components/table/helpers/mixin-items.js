@@ -84,11 +84,15 @@ export default {
       return {
         // We return a deep clone of localFilter, in case it is an
         // object, as we want to prevent possible mutations by users
+        // From filter mixin (if present)
         filter: cloneDeep(this.localFilter),
+        // From sorting mixin (if present)
         sortBy: this.localSortBy,
         sortDesc: this.localSortDesc,
-        perPage: toInteger(this.perPage) || 0,
-        currentPage: toInteger(this.currentPage) || 1,
+        // From pagination mixin (if present)
+        perPage: this.computedPerPage || 0,
+        currentPage: this.computedCurrentPage || 1,
+        // Pass through prop
         apiUrl: this.apiUrl
       }
     }
