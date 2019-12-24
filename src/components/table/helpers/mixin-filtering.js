@@ -122,18 +122,22 @@ export default {
       deep: true,
       handler(newCriteria, oldCriteria) {
         newCriteria = this.filterSanitize(newCriteria)
-        oldCriteria = this.filterSanitize(oldCriteria)
-        const timeout = this.computedFilterDebounce
-        clearTimeout(this.$_filterTimer)
-        this.$_filterTimer = null
-        if (timeout && timeout > 0) {
-          // If we have a debounce time, delay the update of `localFilter`
-          this.$_filterTimer = setTimeout(() => {
+        // We can't compare newCriteria and oldCriteria, as they
+        // could point to the same object reference. But `localFilter`
+        // will be a deep clone if the filter is an object.
+        if (newCriteria !== this.localFilter) {
+          const timeout = this.computedFilterDebounce
+          clearTimeout(this.$_filterTimer)
+          this.$_filterTimer = null
+          if (timeout && timeout > 0) {
+            // If we have a debounce time, delay the update of `localFilter`
+            this.$_filterTimer = setTimeout(() => {
+              this.localFilter = newCriteria
+            }, timeout)
+          } else {
+            // Otherwise, immediately update `localFilter` with `newFilter` value
             this.localFilter = newCriteria
-          }, timeout)
-        } else {
-          // Otherwise, immediately update `localFilter` with `newFilter` value
-          this.localFilter = newCriteria
+          }
         }
       }
     },
