@@ -1,5 +1,7 @@
+import cloneDeep from '../../../utils/clone-deep'
 import looseEqual from '../../../utils/loose-equal'
 import { isArray, isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
+import { toInteger } from '../../../utils/number'
 import { clone } from '../../../utils/object'
 import normalizeFields from './normalize-fields'
 
@@ -80,11 +82,13 @@ export default {
     context() {
       // Current state of sorting, filtering and pagination props/values
       return {
-        filter: this.localFilter,
+        // We return a deep clone of localFilter, in case it is an
+        // object, as we want to prevent possible mutations by users
+        filter: cloneDeep(this.localFilter),
         sortBy: this.localSortBy,
         sortDesc: this.localSortDesc,
-        perPage: parseInt(this.perPage, 10) || 0,
-        currentPage: parseInt(this.currentPage, 10) || 1,
+        perPage: toInteger(this.perPage) || 0,
+        currentPage: toInteger(this.currentPage) || 1,
         apiUrl: this.apiUrl
       }
     }
