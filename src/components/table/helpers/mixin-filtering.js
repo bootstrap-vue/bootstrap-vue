@@ -131,8 +131,8 @@ export default {
         // will be a deep clone if the filter is an object.
         if (!looseEqual(newCriteria, this.localFilter)) {
           const timeout = this.computedFilterDebounce
-          // clearTimeout(this.$_filterTimer)
-          // this.$_filterTimer = null
+          clearTimeout(this.$_filterTimer)
+          this.$_filterTimer = null
           if (timeout && timeout > 0) {
             // If we have a debounce time, delay the update of `localFilter`
             this.$_filterTimer = setTimeout(() => {
@@ -274,6 +274,11 @@ export default {
         regExp = new RegExp(`.*${pattern}.*`, 'i')
       }
 
+      // Grab some values ahead of time
+      const filterIgnored = this.computedFilterIgnored
+      const filterIncluded = this.computedFilterIncluded
+      const fieldsObj = this.computedFieldsObj
+
       // Generate the wrapped filter test function to use
       const fn = item => {
         // This searches all row values (and sub property values) in the entire (excluding
@@ -293,9 +298,9 @@ export default {
         return regExp.test(
           stringifyRecordValues(
             item,
-            this.computedFilterIgnored,
-            this.computedFilterIncluded,
-            this.computedFieldsObj
+            filterIgnored,
+            filterIncluded,
+            fieldsObj
           )
         )
       }
