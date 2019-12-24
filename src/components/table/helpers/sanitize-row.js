@@ -9,13 +9,17 @@ const IGNORED = keys(IGNORED_FIELD_KEYS)
 
 // Return a copy of a row after all reserved fields have been filtered out
 const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) => {
+  includeFields = concat(includeFields).filter(identity)
   const ignore = concat(IGNORED, ignoreFields).filter(identity)
-  const include = isArray(includeFields) && includeFields.length > 0 ? includeFields : null
+  const allowedKeys = keys(row)
+    .filter(k => !arrayIncludes(ignore, k))
+    .filter(k => arrayIncludes(includeFields, k))
   return keys(row).reduce((obj, key) => {
+    // Filter top level keys in the row
     // Ignore special fields that start with `_`
     // Ignore fields in the `ignoreFields` array
     // Include only fields in the `includeFields` array (if present)
-    if (!arrayIncludes(ignore, key) && !(include && !arrayIncludes(include, key))) {
+    if (arrayIncludes(allowedKeys, key)) {
       const f = fieldsObj[key] || {}
       const val = row[key]
       // `f.filterByFormatted` will either be a function or boolean
