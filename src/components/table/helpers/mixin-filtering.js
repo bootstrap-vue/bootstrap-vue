@@ -78,6 +78,10 @@ export default {
     computedFilterFn() {
       const criteria = this.localFilter
       const localFilterFn = this.localFilterFn
+      // Grab some values ahead of time (to trigger reactive changes)
+      const filterIgnored = this.computedFilterIgnored
+      const filterIncluded = this.computedFilterIncluded
+      const fieldsObj = this.computedFieldsObj
       // Resolve the filtering function, when requested. We prefer the provided
       // filtering function and fallback to the internal one. When no filtering
       // criteria is specified the filtering factories will return `null`. We
@@ -85,7 +89,7 @@ export default {
       return this.localFiltering
         ? localFilterFn
           ? this.filterFnFactory(localFilterFn, criteria)
-          : this.defaultFilterFnFactory(criteria)
+          : this.defaultFilterFnFactory(criteria, filterIgnored, filterIncluded, fieldsObj)
         : false
     },
     // Returns the records in `localItems` that match the filter criteria
@@ -254,14 +258,9 @@ export default {
       // Return the wrapped function
       return fn
     },
-    defaultFilterFnFactory(criteria) {
+    defaultFilterFnFactory(criteria, filterIgnored, filterIncluded, fieldsObj) {
       // Generates the default filter function, using the given filter criteria
       // Returns `null` if no criteria or criteria format not supported
-
-      // Grab some values ahead of time (to trigger reactive changes)
-      const filterIgnored = this.computedFilterIgnored
-      const filterIncluded = this.computedFilterIncluded
-      const fieldsObj = this.computedFieldsObj
 
       // Built in filter can only support strings or RegExp criteria (at the moment)
       if (!criteria || !(isString(criteria) || isRegExp(criteria))) {
