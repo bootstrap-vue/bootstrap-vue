@@ -99,8 +99,12 @@ export default {
       const filterFn = this.computedFilterFn
 
       // We only do local filtering when requested and there are records to filter.
-      // If not local filtering or no items, we return the original local items array
-      return filterFn && items.length > 0 ? items.slice().filter(filterFn) : items
+      // If not local filtering, we return the original local items array
+      // NOTE:
+      //   For some reason, Vue is not chaching this result when neither items or filterFn
+      //   changes. It is always returning a new array reference (when filtered), which
+      //   is causing filtered events to be emitted when pagination occurs
+      return filterFn ? items.filter(filterFn) : items
     }
   },
   watch: {
@@ -127,8 +131,8 @@ export default {
         // will be a deep clone if the filter is an object.
         if (!looseEqual(newCriteria, this.localFilter)) {
           const timeout = this.computedFilterDebounce
-          clearTimeout(this.$_filterTimer)
-          this.$_filterTimer = null
+          // clearTimeout(this.$_filterTimer)
+          // this.$_filterTimer = null
           if (timeout && timeout > 0) {
             // If we have a debounce time, delay the update of `localFilter`
             this.$_filterTimer = setTimeout(() => {
