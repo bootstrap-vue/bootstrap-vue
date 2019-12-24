@@ -238,13 +238,7 @@ export default {
       // Rather than directly grabbing `this.computedLocalFilterFn` or `this.filterFunction`
       // we have it passed, so that the caller computed prop will be reactive to changes
       // in the original filter-function (as this routine is a method)
-      if (
-        !filterFn ||
-        !isFunction(filterFn) ||
-        !criteria ||
-        looseEqual(criteria, []) ||
-        looseEqual(criteria, {})
-      ) {
+      if (!isFunction(filterFn) || !criteria || looseEqual(criteria, []) || looseEqual(criteria, {})) {
         return null
       }
 
