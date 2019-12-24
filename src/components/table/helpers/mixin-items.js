@@ -1,7 +1,6 @@
 import cloneDeep from '../../../utils/clone-deep'
 import looseEqual from '../../../utils/loose-equal'
 import { isArray, isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
-import { toInteger } from '../../../utils/number'
 import { clone } from '../../../utils/object'
 import normalizeFields from './normalize-fields'
 
