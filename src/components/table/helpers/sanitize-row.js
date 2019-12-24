@@ -1,11 +1,7 @@
-import identity from '../../../utils/identity'
 import { keys } from '../../../utils/object'
-import { arrayIncludes, concat } from '../../../utils/array'
+import { arrayIncludes } from '../../../utils/array'
 import { isArray, isFunction } from '../../../utils/inspect'
 import { IGNORED_FIELD_KEYS } from './constants'
-
-// Convert object to array of ignored keys
-const IGNORED = keys(IGNORED_FIELD_KEYS)
 
 // Return a copy of a row after all reserved fields have been filtered out
 const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) => {
