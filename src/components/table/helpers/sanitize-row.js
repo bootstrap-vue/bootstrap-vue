@@ -11,6 +11,8 @@ const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) => {
     .filter(k => !IGNORED_FIELD_KEYS[k])
     .filter(k => !ignore || !arrayIncludes(ignore, k))
     .filter(k => !include || arrayIncludes(include, k))
+  // TODO:
+  //   format the row first, and map "deep" keys to top-level keys, then stringify/filter the results
   return keys(row).reduce((obj, key) => {
     // Filter top level keys in the row
     // Ignore special fields that start with `_`
