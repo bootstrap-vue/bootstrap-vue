@@ -125,7 +125,7 @@ export default {
         // We can't compare newCriteria and oldCriteria, as they
         // could point to the same object reference. But `localFilter`
         // will be a deep clone if the filter is an object.
-        if (newCriteria !== this.localFilter) {
+        if (!looseEqual(newCriteria, this.localFilter)) {
           const timeout = this.computedFilterDebounce
           clearTimeout(this.$_filterTimer)
           this.$_filterTimer = null
