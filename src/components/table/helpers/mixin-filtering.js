@@ -100,7 +100,7 @@ export default {
 
       // We only do local filtering when requested and there are records to filter.
       // If not local filtering or no items, we return the original local items array
-      return filterFn && items.length > 0 ? items.filter(filterFn) : items
+      return filterFn && items.length > 0 ? items.slice().filter(filterFn) : items
     }
   },
   watch: {
