@@ -44,6 +44,10 @@ describe('cloneDeep()', () => {
   it('should return primitives', () => {
     expect(cloneDeep(0)).toEqual(0)
     expect(cloneDeep('foo')).toEqual('foo')
+    expect(cloneDeep(true)).toEqual(true)
+    expect(cloneDeep(false)).toEqual(false)
+    expect(cloneDeep(null)).toEqual(null)
+    expect(cloneDeep(undefined)).toEqual(undefined)
   })
 
   it('should clone a regex', () => {
