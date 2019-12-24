@@ -123,19 +123,17 @@ export default {
       handler(newCriteria, oldCriteria) {
         newCriteria = this.filterSanitize(newCriteria)
         oldCriteria = this.filterSanitize(oldCriteria)
-        if (!looseEqual(newCriteria, oldCriteria)) {
-          const timeout = this.computedFilterDebounce
-          clearTimeout(this.$_filterTimer)
-          this.$_filterTimer = null
-          if (timeout && timeout > 0) {
-            // If we have a debounce time, delay the update of `localFilter`
-            this.$_filterTimer = setTimeout(() => {
-              this.localFilter = newCriteria
-            }, timeout)
-          } else {
-            // Otherwise, immediately update `localFilter` with `newFilter` value
+        const timeout = this.computedFilterDebounce
+        clearTimeout(this.$_filterTimer)
+        this.$_filterTimer = null
+        if (timeout && timeout > 0) {
+          // If we have a debounce time, delay the update of `localFilter`
+          this.$_filterTimer = setTimeout(() => {
             this.localFilter = newCriteria
-          }
+          }, timeout)
+        } else {
+          // Otherwise, immediately update `localFilter` with `newFilter` value
+          this.localFilter = newCriteria
         }
       }
     },
