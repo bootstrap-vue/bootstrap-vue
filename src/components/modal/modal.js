@@ -706,6 +706,15 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         document !== target &&
         !contains(content, target)
       ) {
+        /* istanbul ignore if */
+        if (closest('.tox-tinymce-aux, .moxman-window, .tam-assetmanager-root', target, true)) {
+          // Ignore when focus moves into a tinyMCE editor
+          // https://github.com/bootstrap-vue/bootstrap-vue/issues/4537
+          // https://github.com/tinymce/tinymce-vue/issues/116
+          // https://www.tiny.cloud/docs/integrations/bootstrap/#usingtinymceinabootstrapdialog
+          // evt.stopImmediatePropagation()
+          return
+        }
         const tabables = this.getTabables()
         if (this.$refs.bottomTrap && target === this.$refs.bottomTrap) {
           // If user pressed TAB out of modal into our bottom trab trap element
