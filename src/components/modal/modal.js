@@ -5,6 +5,7 @@ import observeDom from '../../utils/observe-dom'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import {
+  closest,
   contains,
   eventOff,
   eventOn,
