@@ -72,7 +72,7 @@ the content of each item:
 <template>
   <b-breadcrumb>
     <b-breadcrumb-item href="#home">
-      <b-icon icon="house-fill" scale="1.25" shift-v="1.5" aria-hidden="true"></b-icon>
+      <b-icon icon="house-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>
       Home
     </b-breadcrumb-item>
     <b-breadcrumb-item href="#foo">Foo</b-breadcrumb-item>
