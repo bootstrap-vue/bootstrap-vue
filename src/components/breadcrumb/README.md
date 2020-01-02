@@ -65,8 +65,8 @@ props.
 ## Manually placed items
 
 You may also manually place individual `<b-breadcrumb-item>` child components in the default slot of
-the `<b-breadcrumb>` component, as an alternative to using the `items` prop, for greater control over
-the content of each item:
+the `<b-breadcrumb>` component, as an alternative to using the `items` prop, for greater control
+over the content of each item:
 
 ```html
 <template>
