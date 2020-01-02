@@ -13,7 +13,7 @@ describe('table/helpers/default-sort-compare', () => {
   })
 
   it('sorts dates correctly', async () => {
-    const date1 = { a: new Date(2019, 1, 1) }
+    const date1 = { a: new Date(2020, 1, 1) }
     const date2 = { a: new Date(1999, 11, 31) }
     const date3 = { a: new Date(1999, 1, 1) }
     const date4 = { a: new Date(1999, 1, 1, 12, 12, 12, 12) }

@@ -35,9 +35,9 @@ describe('utils/looseEqual', () => {
   })
 
   it('compares dates correctly', () => {
-    const date1 = new Date(2019, 1, 2, 3, 4, 5, 6)
-    const date2 = new Date(2019, 1, 2, 3, 4, 5, 6)
-    const date3 = new Date(2019, 1, 2, 3, 4, 5, 7)
+    const date1 = new Date(2020, 1, 2, 3, 4, 5, 6)
+    const date2 = new Date(2020, 1, 2, 3, 4, 5, 6)
+    const date3 = new Date(2020, 1, 2, 3, 4, 5, 7)
     const date4 = new Date(2219, 1, 2, 3, 4, 5, 6)
 
     // Identical date object references
@@ -51,8 +51,8 @@ describe('utils/looseEqual', () => {
   })
 
   it('compares files correctly', () => {
-    const date1 = new Date(2019, 1, 2, 3, 4, 5, 6)
-    const date2 = new Date(2019, 1, 2, 3, 4, 5, 7)
+    const date1 = new Date(2020, 1, 2, 3, 4, 5, 6)
+    const date2 = new Date(2020, 1, 2, 3, 4, 5, 7)
     const file1 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date1 })
     const file2 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date1 })
     const file3 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date2 })
@@ -143,7 +143,7 @@ describe('utils/looseEqual', () => {
     const arr1 = []
     const arr2 = [1]
     const arr3 = [0, 1, 2]
-    const date1 = new Date(2019, 1, 2, 3, 4, 5, 6)
+    const date1 = new Date(2020, 1, 2, 3, 4, 5, 6)
     const file1 = new File([''], 'filename.txt', { type: 'text/plain', lastModified: date1 })
 
     expect(looseEqual(123, '123')).toBe(true)
