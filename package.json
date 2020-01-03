@@ -76,6 +76,18 @@
     "release": "npm run prettify && npm run test && npm run build && standard-version",
     "postinstall": "opencollective || exit 0"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*{.js,.md,.vue}": "eslint --ext",
+    "**/*.{js,json,md,scss,ts,vue}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "@nuxt/opencollective": "^0.3.0",
     "bootstrap": ">=4.4.1 <5.0.0",
