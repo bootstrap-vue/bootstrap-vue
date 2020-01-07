@@ -378,23 +378,27 @@ v-b-tooltip.bottom
 v-b-tooltip.right
 ```
 
+**Variant examples:**
+
+```
+v-b-tooltip.v-primary => `primary` variant
+v-b-tooltip.v-danger => `danger` variant
+```
+
 **Trigger examples:**
 
 ```
 v-b-tooltip.hover => Hover only
 v-b-tooltip.click => Click only
 v-b-tooltip.hover.focus => Both hover and focus
+```
 
+**Combo:**
+
+```
 v-b-tooltip.hover.bottom => Show on hover and place at bottom
 v-b-tooltip.bottom.hover => Same as above
 v-b-tooltip.bottom.hover.v-danger => Same as above, but with variant
-```
-
-**Variant examples:**
-
-```
-v-b-tooltip.v-primary => `primary` variant
-v-b-tooltip.v-danger => `danger` variant
 ```
 
 **Object:**
