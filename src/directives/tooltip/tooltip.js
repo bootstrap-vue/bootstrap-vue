@@ -32,6 +32,7 @@ const validTriggers = {
 
 // Directive modifier test regular expressions. Pre-compile for performance
 const htmlRE = /^html$/i
+const interactiveRE = /^interactive$/i
 const noFadeRE = /^nofade$/i
 const placementRE = /^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/i
 const boundaryRE = /^(window|viewport|scrollParent)$/i
@@ -58,6 +59,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     offset: 0,
     id: null,
     html: false,
+    interactive: false,
     disabled: false,
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
@@ -105,6 +107,9 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     if (htmlRE.test(mod)) {
       // Title allows HTML
       config.html = true
+    } else if (interactiveRE.test(mod)) {
+      // Interactive
+      config.interactive = true
     } else if (noFadeRE.test(mod)) {
       // No animation
       config.animation = false
@@ -213,6 +218,7 @@ const applyTooltip = (el, bindings, vnode) => {
     offset: config.offset,
     noFade: !config.animation,
     id: config.id,
+    interactive: config.interactive,
     disabled: config.disabled,
     html: config.html
   }

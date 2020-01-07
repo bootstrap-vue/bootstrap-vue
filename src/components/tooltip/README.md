@@ -181,9 +181,31 @@ override the `pointer-events` on the disabled element.
 | `container`          | `null`           | Element string ID to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default)                                                                               | Any valid in-document unique element ID.                                                                                                         |
 | `boundary`           | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
 | `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
+| `interactive`        | `false`          | Wether the tooltip should be user-interactive                                                                                                                                                              | `true` or `false`                                                                                                                                |
 | `variant`            | `null`           | Contextual color variant for the tooltip                                                                                                                                                                   | Any contextual theme color variant name                                                                                                          |
 | `custom-class`       | `null`           | A custom classname to apply to the tooltip outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
 | `id`                 | `null`           | An ID to use on the tooltip root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page.                    | A valid unique element ID string                                                                                                                 |
+
+### Interactive tooltips
+
+BootstrapVue's tooltips can be made user-interactive by setting the `interactive` prop to `true`.
+This option is disabled by default to match Bootstraps default behavior:
+
+```html
+<div class="text-center">
+  <div>
+    <b-button id="tooltip-button-interactive">My tooltip is interactive</b-button>
+    <b-tooltip target="tooltip-button-interactive" interactive>I will stay open</b-tooltip>
+  </div>
+
+  <div class="mt-3">
+    <b-button id="tooltip-button-not-interactive">Mine is not...</b-button>
+    <b-tooltip target="tooltip-button-not-interactive">Catch me if you can!</b-tooltip>
+  </div>
+</div>
+
+<!-- b-tooltip-interactive.vue -->
+```
 
 ### Variants and custom class
 

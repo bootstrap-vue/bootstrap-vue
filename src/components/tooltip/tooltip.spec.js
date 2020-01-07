@@ -9,6 +9,7 @@ const appDef = {
   props: [
     'triggers',
     'show',
+    'interactive',
     'disabled',
     'noFade',
     'title',
@@ -23,6 +24,7 @@ const appDef = {
       target: 'foo',
       triggers: this.triggers,
       show: this.show,
+      interactive: this.interactive,
       disabled: this.disabled,
       noFade: this.noFade || false,
       title: this.title || null,
@@ -173,6 +175,7 @@ describe('b-tooltip', () => {
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
     expect(tip.classList.contains('b-tooltip')).toBe(true)
+    expect(tip.classList.contains('interactive')).toBe(false)
 
     // Hide the tooltip
     wrapper.setProps({
@@ -694,9 +697,9 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     // Hide the tooltip by emitting event on instance
-    const btooltip = wrapper.find(BTooltip)
-    expect(btooltip.exists()).toBe(true)
-    btooltip.vm.$emit('close')
+    const bTooltip = wrapper.find(BTooltip)
+    expect(bTooltip.exists()).toBe(true)
+    bTooltip.vm.$emit('close')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -712,7 +715,7 @@ describe('b-tooltip', () => {
     expect(document.getElementById(adb)).toBe(null)
 
     // Show the tooltip by emitting event on instance
-    btooltip.vm.$emit('open')
+    bTooltip.vm.$emit('open')
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -1068,7 +1071,67 @@ describe('b-tooltip', () => {
     wrapper.destroy()
   })
 
-  it('Applies variant class', async () => {
+  it('applies interactive class based on interactive prop', async () => {
+    jest.useFakeTimers()
+    const App = localVue.extend(appDef)
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      propsData: {
+        show: true,
+        interactive: true
+      },
+      slots: {
+        default: 'title'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+    expect(adb).toBeDefined()
+    expect(adb).not.toBe('')
+    expect(adb).not.toBe(null)
+
+    // Find the tooltip element in the document
+    const tip = document.getElementById(adb)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
+    expect(tip.classList.contains('interactive')).toBe(true)
+
+    // Disable interactive. Should be reactive
+    wrapper.setProps({
+      interactive: false
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
+    expect(tip.classList.contains('interactive')).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('applies variant class', async () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
@@ -1125,7 +1188,7 @@ describe('b-tooltip', () => {
     wrapper.destroy()
   })
 
-  it('Applies custom class', async () => {
+  it('applies custom class', async () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {

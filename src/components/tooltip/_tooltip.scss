@@ -10,6 +10,12 @@
   &.show {
     opacity: $tooltip-opacity;
   }
+
+  // Disabled pointer events when not in 'interactive' mode to hide
+  // the tooltip when the user hovers over its content
+  &:not(.interactive) {
+    pointer-events: none;
+  }
 }
 
 // Create custom variants for tooltips

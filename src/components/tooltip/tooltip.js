@@ -88,6 +88,10 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    interactive: {
+      type: Boolean,
+      default: false
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -126,6 +130,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         delay: this.delay,
         offset: this.offset,
         noFade: this.noFade,
+        interactive: this.interactive,
         disabled: this.disabled,
         id: this.id
       }

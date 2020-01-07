@@ -58,6 +58,10 @@
           {
             "prop": "show",
             "description": "When set will show the tooltip"
+          },
+          {
+            "prop": "interactive",
+            "description": "Wether the tooltip should be user-interactive"
           }
         ],
         "events": [
