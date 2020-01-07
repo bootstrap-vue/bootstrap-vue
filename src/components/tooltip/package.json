@@ -61,6 +61,7 @@
           },
           {
             "prop": "interactive",
+            "version": "2.2.0",
             "description": "Wether the tooltip should be user-interactive"
           }
         ],
