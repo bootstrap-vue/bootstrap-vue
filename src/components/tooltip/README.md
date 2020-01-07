@@ -195,7 +195,7 @@ Bootstraps default behavior apply the `noninteractive` prop:
 <div class="text-center">
   <div>
     <b-button id="tooltip-button-interactive">My tooltip is interactive</b-button>
-    <b-tooltip target="tooltip-button-interactive">I will stay open</b-tooltip>
+    <b-tooltip target="tooltip-button-interactive">I will stay open when hovered</b-tooltip>
   </div>
 
   <div class="mt-3">
