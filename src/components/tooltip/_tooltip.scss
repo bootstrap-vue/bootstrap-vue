@@ -11,9 +11,9 @@
     opacity: $tooltip-opacity;
   }
 
-  // Disabled pointer events when not in 'interactive' mode to hide
+  // Disabled pointer events when in 'noninteractive' mode to hide
   // the tooltip when the user hovers over its content
-  &:not(.interactive) {
+  .noninteractive {
     pointer-events: none;
   }
 }

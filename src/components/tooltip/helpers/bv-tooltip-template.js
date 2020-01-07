@@ -30,7 +30,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       content: '',
       variant: null,
       customClass: null,
-      interactive: false
+      interactive: true
     }
   },
   computed: {
@@ -42,7 +42,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
         {
           // Disables pointer events to hide the tooltip when the user
           // hovers over its content
-          interactive: this.interactive,
+          noninteractive: !this.interactive,
           [`b-${this.templateType}-${this.variant}`]: this.variant,
           // `attachment` will come from BVToolpop
           [`bs-${this.templateType}-${this.attachment}`]: this.attachment

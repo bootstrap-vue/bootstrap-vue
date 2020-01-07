@@ -89,7 +89,7 @@ const templateData = {
   // the edge of tooltip/popover edge by this many pixels
   arrowPadding: 6,
   // Interactive state (Boolean)
-  interactive: false,
+  interactive: true,
   // Disabled state (Boolean)
   disabled: false,
   // ID to use for tooltip/popover

@@ -9,7 +9,7 @@ const appDef = {
   props: [
     'triggers',
     'show',
-    'interactive',
+    'noninteractive',
     'disabled',
     'noFade',
     'title',
@@ -24,7 +24,7 @@ const appDef = {
       target: 'foo',
       triggers: this.triggers,
       show: this.show,
-      interactive: this.interactive,
+      noninteractive: this.noninteractive || false,
       disabled: this.disabled,
       noFade: this.noFade || false,
       title: this.title || null,
@@ -1071,15 +1071,14 @@ describe('b-tooltip', () => {
     wrapper.destroy()
   })
 
-  it('applies interactive class based on interactive prop', async () => {
+  it('applies noninteractive class based on noninteractive prop', async () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachToDocument: true,
       localVue: localVue,
       propsData: {
-        show: true,
-        interactive: true
+        show: true
       },
       slots: {
         default: 'title'
@@ -1116,17 +1115,17 @@ describe('b-tooltip', () => {
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
     expect(tip.classList.contains('b-tooltip')).toBe(true)
-    expect(tip.classList.contains('interactive')).toBe(true)
+    expect(tip.classList.contains('noninteractive')).toBe(false)
 
-    // Disable interactive. Should be reactive
+    // Enable 'noninteractive'. Should be reactive
     wrapper.setProps({
-      interactive: false
+      noninteractive: true
     })
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(tip.classList.contains('tooltip')).toBe(true)
     expect(tip.classList.contains('b-tooltip')).toBe(true)
-    expect(tip.classList.contains('interactive')).toBe(false)
+    expect(tip.classList.contains('noninteractive')).toBe(true)
 
     wrapper.destroy()
   })
