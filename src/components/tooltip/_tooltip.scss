@@ -13,7 +13,7 @@
 
   // Disabled pointer events when in 'noninteractive' mode to hide
   // the tooltip when the user hovers over its content
-  .noninteractive {
+  &.noninteractive {
     pointer-events: none;
   }
 }
