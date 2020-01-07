@@ -61,7 +61,7 @@
           },
           {
             "prop": "noninteractive",
-            "version": "2.3.0",
+            "version": "2.2.0",
             "description": "Wether the tooltip should not be user-interactive"
           }
         ],
