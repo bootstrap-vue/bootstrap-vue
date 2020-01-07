@@ -30,6 +30,7 @@
                 v-model="iconFilter"
                 type="search"
                 debounce="250"
+                autocomplete="off"
                 aria-controls="bv-icons-table-result"
               ></b-form-input>
             </b-input-group>
