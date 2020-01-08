@@ -205,7 +205,13 @@
 
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
             <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
-              <b-icon icon="eye-slash" width="2.5em" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
+              <b-icon
+                icon="eye-slash"
+                width="2.5em"
+                height="2.5em"
+                scale="1.2"
+                class="mx-auto d-block mb-3"
+              ></b-icon>
               <span>Accessible</span>
             </b-card-text>
             <b-card-text class="text-center">
