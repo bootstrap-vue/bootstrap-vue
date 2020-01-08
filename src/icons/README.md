@@ -15,9 +15,10 @@ Icon components were added in BootstrapVue release `v2.2.0`.
   <p class="mb-0">
     <strong>Note:</strong>
     <a href="https://icons.getbootstrap.com/" target="_blank" rel="noopener">Bootstrap's Icon</a> SVGs
-    are currently in the alpha release stage, and may be subject to change. Icons use BootstrapVue's
-    custom CSS for additional styling compensation due to Bootstrap Icons' <code>&lt;svg&gt;</code>
-    current vertical alignment issues. This may change in future releases of BootstrapVue.
+    are currently in the <b>alpha release stage</b>, and may be subject to sweeping changes. Icons use
+    BootstrapVue's custom CSS for additional styling compensation due to Bootstrap Icons'
+    <code>&lt;svg&gt;</code> current vertical alignment issues. This may change in future releases of
+    BootstrapVue.
   </p>
 </div>
 
