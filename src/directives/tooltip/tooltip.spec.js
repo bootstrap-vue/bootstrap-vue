@@ -136,7 +136,7 @@ describe('v-b-tooltip directive', () => {
     wrapper.destroy()
   })
 
-  it('should nowshow tooltip when title is empty', async () => {
+  it('should not show tooltip when title is empty', async () => {
     jest.useFakeTimers()
     const localVue = new CreateLocalVue()
 
