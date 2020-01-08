@@ -75,18 +75,13 @@
 
             <b-media no-body class="my-3">
               <b-media-aside vertical-align="center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 612 612"
+                <b-icon
+                  icon="bootstrap-fill"
                   width="30px"
                   height="30px"
-                  focusable="false"
-                  role="img"
-                >
-                  <title>Bootstrap logo</title>
-                  <path fill="#563D7C" d="M612 510c0 56.1-45.9 102-102 102H102C45.9 612 0 566.1 0 510V102C0 45.9 45.9 0 102 0h408c56.1 0 102 45.9 102 102v408z" />
-                  <path fill="#FFF" d="M166.3 133h173.5c32 0 57.7 7.3 77 22s29 36.8 29 66.5c0 18-4.4 33.4-13.2 46.2-8.8 12.8-21.4 22.8-37.8 29.8v1c22 4.7 38.7 15.1 50 31.2 11.3 16.2 17 36.4 17 60.8 0 14-2.5 27.1-7.5 39.2-5 12.2-12.8 22.7-23.5 31.5s-24.3 15.8-41 21-36.5 7.8-59.5 7.8h-164V133zm62.5 149.5h102c15 0 27.5-4.2 37.5-12.8s15-20.8 15-36.8c0-18-4.5-30.7-13.5-38s-22-11-39-11h-102v98.6zm0 156.5h110.5c19 0 33.8-4.9 44.2-14.8 10.5-9.8 15.8-23.8 15.8-41.8 0-17.7-5.2-31.2-15.8-40.8s-25.2-14.2-44.2-14.2H228.8V439z" />
-                </svg>
+                  style="color: #563D7C;"
+                  alt="Bootstrap logo"
+                ></b-icon>
               </b-media-aside>
               <b-media-body class="ml-3 text-muted align-self-center">
                 <a href="https://getbootstrap.com/docs/4.3" target="_blank">Bootstrap v4</a> is the
@@ -190,7 +185,7 @@
         <b-card-group deck class="mb-sm-4">
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
             <b-card-text text-tag="h3" class="h5 text-center mb-2 bd-text-purple-bright">
-              <b-icon icon="phone" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
+              <b-icon icon="phone" width="2.5em" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
               <span>Responsive</span>
             </b-card-text>
             <b-card-text class="text-center">
@@ -200,7 +195,7 @@
 
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
             <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
-              <b-icon icon="columns-gutters" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
+              <b-icon icon="columns-gutters" width="2.5em" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
               <span>Modular</span>
             </b-card-text>
             <b-card-text class="text-center">
@@ -210,7 +205,7 @@
 
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
             <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
-              <b-icon icon="eye-slash" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
+              <b-icon icon="eye-slash" width="2.5em" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
               <span>Accessible</span>
             </b-card-text>
             <b-card-text class="text-center">
@@ -246,7 +241,7 @@
 
           <b-card tag="article" body-text-variant="muted" body-class="px-2" class="rounded-0 border-0">
             <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
-              <b-icon icon="tools" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
+              <b-icon icon="tools" width="2.5em" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
               <span>Configurable</span>
             </b-card-text>
             <b-card-text class="text-center">
