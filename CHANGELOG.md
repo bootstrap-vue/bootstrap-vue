@@ -10,6 +10,12 @@
 
 Released: 2020-01-08
 
+### Overview v2.2.0
+
+- New optional icon components based on `BootstrapIcons v1.0.0-alpha2`
+- New tagged input component `<b-form-tags>`
+- Support for `Bootstrap v4.4.1` CSS/SCSS
+
 ### Features v2.2.0
 
 - **icons:** new optional icon components
