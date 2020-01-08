@@ -252,7 +252,7 @@
 
           <b-card tag="article" body-text-variant="muted" body-class="px-2" class="rounded-0 border-0">
             <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
-              <b-icon icon="gear-fill" width="2.5em" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
+              <b-icon icon="gear" width="2.5em" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
               <span>Configurable</span>
             </b-card-text>
             <b-card-text class="text-center">
