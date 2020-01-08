@@ -119,7 +119,8 @@ Vue.use(BootstrapVueIcons)
 ```
 
 BootstrapVue icons SCSS/CSS does not depend on any Bootstrap SASS variables, mixins, functions or
-CSS classes. Please note that the icons CSS is _also_ included in the main BootstrapVue SCSS/CSS
+CSS classes (other than the Bootstrap `text-{variant}` variant utility classes, if using the
+`variant` prop). Please note that the icons CSS is _also_ included in the main BootstrapVue SCSS/CSS
 files.
 
 ### Browser
