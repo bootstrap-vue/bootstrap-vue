@@ -18,87 +18,17 @@ This is a verbose example designed to show how BootstrapVue and Vuelidate intera
 applications, you'd likely want to abstract some of the functionality, such as creating a standard
 error message component.
 
-```html
-<template>
-  <div>
-    <b-form @submit.stop.prevent="onSubmit">
-      <b-form-group id="example-input-group-1" label="Name" label-for="example-input-1">
-        <b-form-input
-          id="example-input-1"
-          name="example-input-1"
-          v-model="$v.form.name.$model"
-          :state="$v.form.name.$dirty ? !$v.form.name.$error : null"
-          aria-describedby="input-1-live-feedback"
-        ></b-form-input>
+<iframe
+  src="https://codesandbox.io/embed/inspiring-haslett-lzq6p?fontsize=14&hidenavigation=1&module=%2FApp.vue&theme=dark"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="BootstrapVue Vuelidate example"
+  allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+></iframe>
 
-        <b-form-invalid-feedback id="input-1-live-feedback">
-          This is a required field and must be at least 3 characters.
-        </b-form-invalid-feedback>
-      </b-form-group>
+## VeeValidate v2
 
-      <b-form-group id="example-input-group-2" label="Food" label-for="example-input-2">
-        <b-form-select
-          id="example-input-2"
-          name="example-input-2"
-          v-model="$v.form.food.$model"
-          :options="foods"
-          :state="$v.form.food.$dirty ? !$v.form.food.$error : null"
-          aria-describedby="input-2-live-feedback"
-        ></b-form-select>
-
-        <b-form-invalid-feedback id="input-2-live-feedback">
-          This is a required field.
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-      <b-button type="submit" variant="primary" :disabled="$v.form.$invalid">Submit</b-button>
-    </b-form>
-  </div>
-</template>
-
-<script>
-  import { validationMixin } from 'vuelidate'
-  import { required, minLength } from 'vuelidate/lib/validators'
-
-  export default {
-    mixins: [validationMixin],
-    data() {
-      return {
-        foods: ['apple', 'orange'],
-        form: {
-          name: null,
-          food: null
-        }
-      }
-    },
-    validations: {
-      form: {
-        food: {
-          required
-        },
-        name: {
-          required,
-          minLength: minLength(3)
-        }
-      }
-    },
-    methods: {
-      onSubmit() {
-        this.$v.form.$touch()
-        if (this.$v.form.$anyError) {
-          return
-        }
-
-        // Form submit logic
-      }
-    }
-  }
-</script>
-```
-
-## VeeValidate
-
-[VeeValidate](https://logaretm.github.io/vee-validate/) is a plugin for Vue.js that allows you to
+[VeeValidate](http://vee-validate.logaretm.com/v2/) is a plugin for Vue.js that allows you to
 validate input fields and display errors. It has full support for
 [Vue I18n](https://kazupon.github.io/vue-i18n/) and provides fairly good out of the box error
 messages.
@@ -122,81 +52,29 @@ Vue.use(VeeValidate, {
 })
 ```
 
-### VeeValidate example
+### VeeValidate v2 example
 
-Same example as above, just modified for VeeValidate:
+<iframe
+  src="https://codesandbox.io/embed/vigilant-kirch-8lpns?fontsize=14&hidenavigation=1&module=%2FApp.vue"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="BoostrapVue VeeValidate v2 example"
+  allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+></iframe>
 
-```html
-<template>
-  <div>
-    <b-form @submit.stop.prevent="onSubmit">
-      <b-form-group id="example-input-group-1" label="Name" label-for="example-input-1">
-        <b-form-input
-          id="example-input-1"
-          name="example-input-1"
-          v-model="form.name"
-          v-validate="{ required: true, min: 3 }"
-          :state="validateState('example-input-1')"
-          aria-describedby="input-1-live-feedback"
-        ></b-form-input>
+## VeeValidate v3
 
-        <b-form-invalid-feedback id="input-1-live-feedback">
-          This is a required field and must be at least 3 characters.
-        </b-form-invalid-feedback>
-      </b-form-group>
+[VeeValidate](http://vee-validate.logaretm.com/) is a plugin for Vue.js that allows you to validate
+input fields and display errors. It has full support for
+[Vue I18n](https://kazupon.github.io/vue-i18n/) and provides fairly good out of the box error
+messages.
 
-      <b-form-group id="example-input-group-2" label="Food" label-for="example-input-2">
-        <b-form-select
-          id="example-input-2"
-          name="example-input-2"
-          v-model="form.food"
-          v-validate="{ required: true }"
-          :options="foods"
-          :state="validateState('example-input-2')"
-          aria-describedby="input-2-live-feedback"
-        ></b-form-select>
+### VeeValidate v3 example
 
-        <b-form-invalid-feedback id="input-2-live-feedback">
-          This is a required field.
-        </b-form-invalid-feedback>
-      </b-form-group>
-
-      <b-button type="submit" variant="primary" :disabled="veeErrors.any()">Submit</b-button>
-    </b-form>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        foods: ['apple', 'orange'],
-        form: {
-          name: null,
-          food: null
-        }
-      }
-    },
-    methods: {
-      validateState(ref) {
-        if (
-          this.veeFields[ref] &&
-          (this.veeFields[ref].dirty || this.veeFields[ref].validated)
-        ) {
-          return !this.veeErrors.has(ref)
-        }
-        return null
-      },
-      onSubmit() {
-        this.$validator.validateAll().then((result) => {
-          if (!result) {
-            return
-          }
-
-          // Form submit logic
-        })
-      }
-    }
-  }
-</script>
-```
+<iframe
+  src="https://codesandbox.io/embed/boostrapvue-veevalidate-v3-example-xm3et?fontsize=14&hidenavigation=1&module=%2FApp.vue&theme=dark"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="BoostrapVue VeeValidate v3 example"
+  allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+></iframe>
