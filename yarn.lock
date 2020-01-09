@@ -9399,10 +9399,10 @@ postcss-calc@^7.0.1:
     postcss-selector-parser "^5.0.0-rc.4"
     postcss-value-parser "^3.3.1"
 
-postcss-cli@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-cli/-/postcss-cli-7.0.0.tgz#00edbbc68f7510cd57028f3e53ddecb787934572"
-  integrity sha512-dxn73RcKOennwaijmo2DjTOM3f2bcl/GSSUEqpguiHfRSfRLY3sUvbEy2vvuJ1RasuXCcJ0KvoGe9nSSA7mHQw==
+postcss-cli@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-cli/-/postcss-cli-7.1.0.tgz#769b07b8865aaa3e98c7c63a3d256b4f51e3e237"
+  integrity sha512-tCGK0GO2reu644dUHxks8U2SAtKnzftQTAXN1dwzFPoKXZr0b7VX4vTkQ2Pl2Lunas6+o8uHR56hlcYBm1srZg==
   dependencies:
     chalk "^3.0.0"
     chokidar "^3.3.0"
