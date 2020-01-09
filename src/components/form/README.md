@@ -349,9 +349,11 @@ for details on the new Bootstrap v4 validation states.
 
 ### Validation mechanisms
 
-Documentation and examples (hopefully) coming soon.
+Using 3<sup>rd</sup> party Vue-based validation libraries with BootstrapVue:
 
-Please see the following references:
+- BootstrapVue [Form validation reference section](/docs/reference/validation)
+
+Additional resources:
 
 - [Bootstrap v4: Form Validation Documentation](https://getbootstrap.com/docs/4.4/components/forms/#validation)
 - [MDN: Learn Form Validation - Using JavaScript API](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Validating_forms_using_JavaScript)
