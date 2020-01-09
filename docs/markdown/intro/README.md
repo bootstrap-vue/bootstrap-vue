@@ -36,6 +36,8 @@ some good starting points would be:
 - [Vue Guide](https://vuejs.org/v2/guide/)
 - [Vue API](https://vuejs.org/v2/api/)
 - [Bootstrap v{{bootstrapVersionMinor}} documentation](https://getbootstrap.com/)
+- [Vue loader scoped CSS](https://vue-loader.vuejs.org/guide/scoped-css.html), if using scoped styles
+  in SFC (Single File Component) `.vue` files
 
 ## Documentation information
 
@@ -46,7 +48,8 @@ and more. You can find information on these classes in the
 [Utility Classes](/docs/reference/utility-classes) reference section.
 
 Many of the examples in this documentation are _live_ and can be edited in-place for an enhanced
-learning experience.
+learning experience (note some examples may not work in IE11 due to use of ES6 JavaScript code in
+the `<template>` sections).
 
 BootstrapVue also provides an [interactive playground](/play) where you can experiment with the
 various components and export your results to JSFiddle, CodePen, and/or CodeSandbox.
