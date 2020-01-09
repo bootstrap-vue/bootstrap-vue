@@ -532,13 +532,13 @@ of tags:
   export default {
     data() {
       return {
-        allOptions: ['Apple', 'Orange', 'Banana', 'Lime', 'Peach', 'Chocolate', 'Strawberry'],
+        options: ['Apple', 'Orange', 'Banana', 'Lime', 'Peach', 'Chocolate', 'Strawberry'],
         value: []
       }
     },
     computed: {
       availableOptions() {
-        return this.allOptions.filter(opt => this.value.indexOf(opt) === -1)
+        return this.options.filter(opt => this.value.indexOf(opt) === -1)
       }
     }
   }
@@ -676,11 +676,12 @@ pre-defined set of tags:
               >{{ tag }}</b-form-tag>
             </li>
           </ul>
+
           <b-dropdown size="sm" variant="outline-secondary" block menu-class="w-100">
             <template v-slot:button-content>
-               <b-icon icon="tag-fill"></b-icon> Choose tags
+              <b-icon icon="tag-fill"></b-icon> Choose tags
             </template>
-            <b-dropdown-form @submit.prevent>
+            <b-dropdown-form @submit.stop.prevent="() => {}">
               <b-form-group
                 label-for="tag-search-input"
                 label="Search tags"
@@ -701,13 +702,13 @@ pre-defined set of tags:
             </b-dropdown-form>
             <b-dropdown-divider></b-dropdown-divider>
             <b-dropdown-item-button
-              v-for="opt in searchResults"
-              :key="opt"
-              @click="addTag(opt); search = ''"
+              v-for="option in availableOptions"
+              :key="option"
+              @click="onOptionClick({ option, addTag })"
             >
-              {{ opt }}
+              {{ option }}
             </b-dropdown-item-button>
-            <b-dropdown-text v-if="searchResults.length == 0">
+            <b-dropdown-text v-if="availableOptions.length === 0">
               There are no tags available to select
             </b-dropdown-text>
           </b-dropdown>
@@ -721,7 +722,7 @@ pre-defined set of tags:
   export default {
     data() {
       return {
-        allOptions: ['Apple', 'Orange', 'Banana', 'Lime', 'Peach', 'Chocolate', 'Strawberry'],
+        options: ['Apple', 'Orange', 'Banana', 'Lime', 'Peach', 'Chocolate', 'Strawberry'],
         search: '',
         value: []
       }
@@ -731,24 +732,28 @@ pre-defined set of tags:
         // Compute the search criteria
         return this.search.trim().toLowerCase()
       },
-      searchResults() {
+      availableOptions() {
         const criteria = this.criteria
         // Filter out already selected options
-        const options = this.allOptions.filter(opt => this.value.indexOf(opt) === -1)
+        const options = this.options.filter(opt => this.value.indexOf(opt) === -1)
         if (criteria) {
           // Show only options that match criteria
           return options.filter(opt => opt.toLowerCase().indexOf(criteria) > -1);
-        } else {
-          // Show all options available
-          return options
         }
+        // Show all options available
+        return options
       },
       searchDesc() {
-        if (this.criteria && this.searchResults.length === 0) {
-          return 'There are no tags matching your search criteria' 
-        } else {
-          return ''
+        if (this.criteria && this.availableOptions.length === 0) {
+          return 'There are no tags matching your search criteria'
         }
+        return ''
+      }
+    },
+    methods: {
+      onOptionClick({ option, addTag }) {
+        addTag(option)
+        this.search = ''
       }
     }
   }
