@@ -12,9 +12,16 @@ exemptLabels:
   - "PR: Major"
   - "PR: Minor"
   - "PR: Patch"
+  - "Status: Coming Soon"
+  - "Status: In Progress"
+  - "Status: Intend To Implement"
+  - "Status: On Hold"
+  - "Status: On Roadmap"
+  - "Status: Review Needed"
+  - "Status: WIP"
   - "Type: Bug"
-  - "Type: Security"
   - "Type: Nice 1st Contribution"
+  - "Type: Security"
 # Label to use when marking an issue as stale
 staleLabel: "Status: Stale"
 issues:
