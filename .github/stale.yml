@@ -21,6 +21,7 @@ exemptLabels:
   - "Status: WIP"
   - "Type: Bug"
   - "Type: Nice 1st Contribution"
+  - "Type: RFC"
   - "Type: Security"
 # Label to use when marking an issue as stale
 staleLabel: "Status: Stale"
