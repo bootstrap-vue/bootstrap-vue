@@ -2,9 +2,10 @@
   <section v-if="component" class="bd-content">
     <b-row tag="header" align-v="center">
       <b-col sm="9">
-        <anchored-heading :id="`comp-ref-${componentName}`" level="3">
+        <anchored-heading :id="`comp-ref-${componentNameClean}`" level="3">
           <code class="notranslate bigger" translate="no">{{ tag }}</code>
         </anchored-heading>
+        <b-badge v-if="version" variant="success">v{{ version }}+</b-badge>
         <b-badge
           v-if="componentFunctional"
           variant="secondary"
@@ -15,7 +16,13 @@
         </b-badge>
       </b-col>
       <b-col sm="3" class="text-sm-right">
-        <b-btn variant="outline-secondary" size="sm" :href="githubURL" target="_blank">
+        <b-btn
+          v-if="githubURL"
+          variant="outline-secondary"
+          size="sm"
+          :href="githubURL"
+          target="_blank"
+        >
           View source
         </b-btn>
       </b-col>
@@ -120,7 +127,7 @@
       <div v-if="hasHtmlProps" class="alert alert-warning">
         <p class="mb-0 small">
           <strong>Caution:</strong> Props that support HTML strings
-          (<code class="notranslate" translate="no">*-html</code>) can be vulerable to
+          (<code class="notranslate" translate="no">*-html</code>) can be vulnerable to
           <b-link href="https://en.wikipedia.org/wiki/Cross-site_scripting" class="alert-link" target="_blank">
             Cross Site Scripting (XSS) attacks
           </b-link>
@@ -310,18 +317,23 @@ ul.component-ref-mini-toc:empty {
 
 <script>
 import Vue from 'vue'
-import kebabCase from 'lodash/kebabCase'
-import AnchoredHeading from './anchored-heading'
 // Fallback descriptions for common props (mainly router-link props)
 import commonProps from '../common-props.json'
+import { kebabCase } from '../utils'
+import AnchoredHeading from './anchored-heading'
 
 export default {
   name: 'BDVComponentdoc',
   components: { AnchoredHeading },
   props: {
     component: {},
+    srcComponent: {
+      // This prop is used only when the above `component` is a
+      // "fake" component. This prop specifies a "real" component
+      // to use when grabbing the component definition options
+    },
     propsMeta: {
-      // For getting pro descriptions
+      // For getting prop descriptions
       type: Array,
       default: () => []
     },
@@ -340,11 +352,15 @@ export default {
     aliases: {
       type: Array,
       default: () => []
+    },
+    version: {
+      type: String,
+      default: null
     }
   },
   computed: {
     componentOptions() {
-      const component = Vue.options.components[this.component]
+      const component = Vue.options.components[this.srcComponent || this.component]
       if (!component) {
         return {}
       }
@@ -487,15 +503,22 @@ export default {
       return this.slots ? this.slots.map(s => ({ ...s })) : []
     },
     componentName() {
-      return kebabCase(this.component)
+      return kebabCase(this.component).replace('{', '-{')
+    },
+    componentNameClean() {
+      return this.componentName.replace('{', '').replace('}', '')
     },
     tag() {
       return `<${this.componentName}>`
     },
     githubURL() {
+      const name = this.componentName.replace(/^b-/, '')
+      if (name.indexOf('{') !== -1) {
+        // Example component (most likely an auto generated component)
+        return ''
+      }
       const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/src/components'
       const slug = this.$route.params.slug
-      const name = kebabCase(this.component).replace(/^b-/, '')
       // Always point to the .js file (which may import a .vue file)
       return `${base}/${slug}/${name}.js`
     }

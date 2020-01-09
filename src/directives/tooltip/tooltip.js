@@ -1,4 +1,5 @@
 import getScopId from '../../utils/get-scope-id'
+import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -31,6 +32,7 @@ const validTriggers = {
 
 // Directive modifier test regular expressions. Pre-compile for performance
 const htmlRE = /^html$/i
+const noninteractiveRE = /^noninteractive$/i
 const noFadeRE = /^nofade$/i
 const placementRE = /^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/i
 const boundaryRE = /^(window|viewport|scrollParent)$/i
@@ -39,6 +41,7 @@ const delayShowRE = /^ds\d+$/i
 const delayHideRE = /^dh\d+$/i
 const offsetRE = /^o-?\d+$/i
 const variantRE = /^v-.+$/i
+const spacesRE = /\s+/
 
 // Build a Tooltip config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
@@ -56,6 +59,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     offset: 0,
     id: null,
     html: false,
+    interactive: true,
     disabled: false,
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
@@ -103,6 +107,9 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     if (htmlRE.test(mod)) {
       // Title allows HTML
       config.html = true
+    } else if (noninteractiveRE.test(mod)) {
+      // Noninteractive
+      config.interactive = false
     } else if (noFadeRE.test(mod)) {
       // No animation
       config.animation = false
@@ -139,11 +146,11 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
 
   // Parse current config object trigger
   concat(config.trigger || '')
-    .filter(Boolean)
+    .filter(identity)
     .join(' ')
     .trim()
     .toLowerCase()
-    .split(/\s+/)
+    .split(spacesRE)
     .forEach(trigger => {
       if (validTriggers[trigger]) {
         selectedTriggers[trigger] = true
@@ -211,6 +218,7 @@ const applyTooltip = (el, bindings, vnode) => {
     offset: config.offset,
     noFade: !config.animation,
     id: config.id,
+    interactive: config.interactive,
     disabled: config.disabled,
     html: config.html
   }

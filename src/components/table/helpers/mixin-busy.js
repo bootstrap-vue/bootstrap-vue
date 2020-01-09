@@ -55,7 +55,10 @@ export default {
               isFunction(this.tbodyTrClass)
                 ? this.tbodyTrClass(null, busySlotName)
                 : this.tbodyTrClass
-            ]
+            ],
+            attrs: isFunction(this.tbodyTrAttr)
+              ? this.tbodyTrAttr(null, busySlotName)
+              : this.tbodyTrAttr
           },
           [
             h(BTd, { props: { colspan: this.computedFields.length || null } }, [

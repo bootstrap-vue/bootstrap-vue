@@ -37,6 +37,7 @@ export declare class BTable extends BvComponent {
   filterIncludedFields?: Array<string>
   busy?: boolean
   tbodyTrClass?: string | Array<any> | object | BvTableTbodyTrClassCallback
+  tbodyTrAttr?: object | BvTableTbodyTrAttrCallback
   tabelVariant?: BvTableVariant | string
   headVariant?: BvTableHeadFootVariant | string
   footVariant?: BvTableHeadFootVariant | string
@@ -55,6 +56,7 @@ export declare class BTableLite extends BvComponent {
   fields?: BvTableFieldArray
   primaryKey?: string
   tbodyTrClass?: string | Array<any> | object | BvTableTbodyTrClassCallback
+  tbodyTrAttr?: object | BvTableTbodyTrAttrCallback
   tableClass?: string
   tableVariant?: BvTableVariant | string
   headVariant?: BvTableHeadFootVariant | string
@@ -132,6 +134,8 @@ export type BvTableHeadFootVariant = 'light' | 'dark'
 export type BvTableSortDirection = 'asc' | 'desc' | 'last'
 
 export type BvTableFormatterCallback = ((value: any, key: string, item: any) => any)
+
+export type BvTableTbodyTrAttrCallback = ((item: any, type: string) => object)
 
 export type BvTableTbodyTrClassCallback = ((item: any, type: string) => any)
 

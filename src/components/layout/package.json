@@ -11,7 +11,7 @@
         "props": [
           {
             "prop": "fluid",
-            "description": "When set, makes the row 100% wide all the time"
+            "description": "When set to true, makes the row 100% wide all the time, or set to one of the Bootstrap breakpoint names for 100% width up to the breakpoint (requires Bootstrap v4.4+ CSS for breakpoint specific value)"
           }
         ]
       },
@@ -33,6 +33,31 @@
           {
             "prop": "alignContent",
             "description": "Align columns items together on the cross axis: 'start', 'center', 'end', 'around', 'between' or 'stretch'. Has no effect on single rows of items"
+          },
+          {
+            "prop": "cols",
+            "version": "2.2.0",
+            "description": "The number row columns to create at the 'xs' breakpoint. Requires Bootstrap v4.4 CSS"
+          },
+          {
+            "prop": "colsSm",
+            "version": "2.2.0",
+            "description": "The number row columns to create at the 'sm' breakpoint. Requires Bootstrap v4.4 CSS"
+          },
+          {
+            "prop": "colsMd",
+            "version": "2.2.0",
+            "description": "The number row columns to create at the 'md' breakpoint. Requires Bootstrap v4.4 CSS"
+          },
+          {
+            "prop": "colsLg",
+            "version": "2.2.0",
+            "description": "The number row columns to create at the 'lg' breakpoint. Requires Bootstrap v4.4 CSS"
+          },
+          {
+            "prop": "colsXl",
+            "version": "2.2.0",
+            "description": "The number row columns to create at the 'xl' breakpoint. Requires Bootstrap v4.4 CSS"
           }
         ]
       },

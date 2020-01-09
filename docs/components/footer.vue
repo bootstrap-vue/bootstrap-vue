@@ -19,6 +19,7 @@
             <li><b-link to="/docs" exact>Getting started</b-link></li>
             <li><b-link to="/docs/components" exact>Components</b-link></li>
             <li><b-link to="/docs/directives" exact>Directives</b-link></li>
+            <li><b-link to="/docs/icons" exact>Icons</b-link></li>
             <li><b-link to="/docs/reference" exact>Reference</b-link></li>
             <li><b-link to="/docs/misc" exact>Miscellaneous</b-link></li>
             <li><b-link to="/play" exact>Playground</b-link></li>

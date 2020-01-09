@@ -24,7 +24,7 @@ describe('form-datalist', () => {
     wrapper.destroy()
   })
 
-  it('has no oprion elements by default', async () => {
+  it('has no option elements by default', async () => {
     const wrapper = mount(BFormDatalist, {
       propsData: {
         id: 'test-list'

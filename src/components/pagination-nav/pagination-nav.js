@@ -1,19 +1,20 @@
 import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
-import toString from '../../utils/to-string'
-import warn from '../../utils/warn'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isArray, isUndefined, isFunction, isObject } from '../../utils/inspect'
+import { toInteger } from '../../utils/number'
 import { computeHref, parseQuery } from '../../utils/router'
+import { toString } from '../../utils/string'
+import { warn } from '../../utils/warn'
 import paginationMixin from '../../mixins/pagination'
 
 const NAME = 'BPaginationNav'
 
 // Sanitize the provided number of pages (converting to a number)
 export const sanitizeNumberOfPages = value => {
-  const numberOfPages = parseInt(value, 10) || 1
+  const numberOfPages = toInteger(value) || 1
   return numberOfPages < 1 ? 1 : numberOfPages
 }
 
@@ -26,9 +27,9 @@ const props = {
     type: [Number, String],
     default: 1,
     validator(value) /* istanbul ignore next */ {
-      const num = parseInt(value, 10)
+      const num = toInteger(value)
       if (isNaN(num) || num < 1) {
-        warn('b-pagination: prop "number-of-pages" must be a number greater than 0')
+        warn('Prop "number-of-pages" must be a number greater than "0"', NAME)
         return false
       }
       return true
@@ -93,7 +94,7 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
     },
     computedValue() {
       // Returns the value prop as a number or `null` if undefined or < 1
-      const val = parseInt(this.value, 10)
+      const val = toInteger(this.value)
       return isNaN(val) || val < 1 ? null : val
     }
   },

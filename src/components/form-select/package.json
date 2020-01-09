@@ -31,7 +31,7 @@
         "slots": [
           {
             "name": "first",
-            "description": "Slot to place option tags above options provided via options prop"
+            "description": "Slot to place options or option groups above options provided via the 'options' prop"
           }
         ],
         "events": [
@@ -66,6 +66,32 @@
                 "description": "current selected value(s) of the select."
               }
             ]
+          }
+        ]
+      },
+      {
+        "component": "BFormSelectOption",
+        "version": "2.2.0",
+        "aliases": [
+          "BSelectOption"
+        ],
+        "props": [
+          {
+            "prop": "value",
+            "description": "The value of the option"
+          }
+        ]
+      },
+      {
+        "component": "BFormSelectOptionGroup",
+        "version": "2.2.0",
+        "aliases": [
+          "BSelectOptionGroup"
+        ],
+        "slots": [
+          {
+            "name": "first",
+            "description": "Slot to place options above options provided via the 'options' prop"
           }
         ]
       }

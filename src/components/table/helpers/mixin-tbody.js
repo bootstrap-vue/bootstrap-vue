@@ -24,13 +24,12 @@ export default {
       // `this.$refs.itemRows` is an array of item TR components/elements
       // Rows should all be B-TR components, but we map to TR elements
       // Also note that `this.$refs.itemRows` may not always be in document order
-      const tbody = this.$refs.tbody.$el || this.$refs.tbody
-      const trs = (this.$refs.itemRows || []).map(tr => tr.$el || tr)
-      // TODO: This may take time for tables many rows, so we may want to cache
-      //       the result of this during each render cycle on a non-reactive
-      //       property. We clear out the cache as each render starts, and
-      //       populate it on first access of this method if null
-      return arrayFrom(tbody.children).filter(tr => arrayIncludes(trs, tr))
+      const refs = this.$refs || {}
+      const tbody = refs.tbody ? refs.tbody.$el || refs.tbody : null
+      const trs = (refs.itemRows || []).map(tr => tr.$el || tr)
+      return tbody && tbody.children && tbody.children.length > 0 && trs && trs.length > 0
+        ? arrayFrom(tbody.children).filter(tr => arrayIncludes(trs, tr))
+        : []
     },
     getTbodyTrIndex(el) {
       // Returns index of a particular TBODY item TR
@@ -44,7 +43,7 @@ export default {
     },
     emitTbodyRowEvent(type, evt) {
       // Emits a row event, with the item object, row index and original event
-      if (type && evt && evt.target) {
+      if (type && this.hasListener(type) && evt && evt.target) {
         const rowIndex = this.getTbodyTrIndex(evt.target)
         if (rowIndex > -1) {
           // The array of TRs correlate to the `computedItems` array
@@ -136,7 +135,7 @@ export default {
       const items = this.computedItems
       // Shortcut to `createElement` (could use `this._c()` instead)
       const h = this.$createElement
-      const hasRowClickHandler = this.$listeners['row-clicked'] || this.hasSelectableRowClick
+      const hasRowClickHandler = this.hasListener('row-clicked') || this.hasSelectableRowClick
 
       // Prepare the tbody rows
       const $rows = []
@@ -187,22 +186,24 @@ export default {
         $rows.push(this.renderBottomRow ? this.renderBottomRow() : h())
       }
 
+      // Note: these events will only emit if a listener is registered
       const handlers = {
-        // TODO: We may want to to only instantiate these handlers
-        //       if there is an event listener registered
         auxclick: this.onTbodyRowMiddleMouseRowClicked,
-        // TODO: Perhaps we do want to automatically prevent the
-        //       default context menu from showing if there is
-        //       a `row-contextmenu` listener registered.
+        // TODO:
+        //   Perhaps we do want to automatically prevent the
+        //   default context menu from showing if there is a
+        //   `row-contextmenu` listener registered
         contextmenu: this.onTbodyRowContextmenu,
         // The following event(s) is not considered A11Y friendly
         dblclick: this.onTbodyRowDblClicked
-        // hover events (mouseenter/mouseleave) ad handled by tbody-row mixin
+        // Hover events (`mouseenter`/`mouseleave`) are handled by `tbody-row` mixin
       }
+      // Add in click/keydown listeners if needed
       if (hasRowClickHandler) {
         handlers.click = this.onTBodyRowClicked
         handlers.keydown = this.onTbodyRowKeydown
       }
+
       // Assemble rows into the tbody
       const $tbody = h(
         BTbody,

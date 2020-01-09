@@ -1,3 +1,4 @@
+import idendity from './identity'
 import { concat } from './array'
 import { isFunction } from './inspect'
 
@@ -16,7 +17,7 @@ import { isFunction } from './inspect'
  */
 const hasNormalizedSlot = (names, $scopedSlots = {}, $slots = {}) => {
   // Ensure names is an array
-  names = concat(names).filter(Boolean)
+  names = concat(names).filter(idendity)
   // Returns true if the either a $scopedSlot or $slot exists with the specified name
   return names.some(name => $scopedSlots[name] || $slots[name])
 }
@@ -32,7 +33,7 @@ const hasNormalizedSlot = (names, $scopedSlots = {}, $slots = {}) => {
  */
 const normalizeSlot = (names, scope = {}, $scopedSlots = {}, $slots = {}) => {
   // Ensure names is an array
-  names = concat(names).filter(Boolean)
+  names = concat(names).filter(idendity)
   let slot
   for (let i = 0; i < names.length && !slot; i++) {
     const name = names[i]

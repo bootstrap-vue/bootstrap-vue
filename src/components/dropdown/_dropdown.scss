@@ -25,6 +25,13 @@ $bv-dropdown-defined: false !default;
       }
     }
 
+    // Hide the focus ring introduced by Bootstratp v4.4 reboot
+    // on items with tabindex="-1", as we know how users feel
+    // about blue rings where they don't expect them.
+    .dropdown-menu:focus {
+      outline: none;
+    }
+
     // Prevent dropdown background overflow if there's no padding
     // See https://github.com/twbs/bootstrap/pull/27703
     // Added here to address <li> wrapping of items

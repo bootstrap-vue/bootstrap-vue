@@ -88,4 +88,51 @@ describe('layout > row', () => {
     expect(wrapper.classes()).toContain('align-content-stretch')
     expect(wrapper.classes().length).toBe(2)
   })
+
+  it('has class row-cols-6 when prop cols is set to 6', async () => {
+    const wrapper = mount(BRow, {
+      propsData: {
+        cols: 6
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('row')
+    expect(wrapper.classes()).toContain('row-cols-6')
+    expect(wrapper.classes().length).toBe(2)
+  })
+
+  it('has class row-cols-md-3 when prop cols-md is set to 3', async () => {
+    const wrapper = mount(BRow, {
+      propsData: {
+        colsMd: '3'
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('row')
+    expect(wrapper.classes()).toContain('row-cols-md-3')
+    expect(wrapper.classes().length).toBe(2)
+  })
+
+  it('all cols-* props work', async () => {
+    const wrapper = mount(BRow, {
+      propsData: {
+        cols: 1,
+        colsSm: 2,
+        colsMd: 3,
+        colsLg: 4,
+        colsXl: 5
+      }
+    })
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('row')
+    expect(wrapper.classes()).toContain('row-cols-1')
+    expect(wrapper.classes()).toContain('row-cols-sm-2')
+    expect(wrapper.classes()).toContain('row-cols-md-3')
+    expect(wrapper.classes()).toContain('row-cols-lg-4')
+    expect(wrapper.classes()).toContain('row-cols-xl-5')
+    expect(wrapper.classes().length).toBe(6)
+  })
 })

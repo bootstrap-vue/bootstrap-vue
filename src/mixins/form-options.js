@@ -1,15 +1,18 @@
+import get from '../utils/get'
 import { stripTags } from '../utils/html'
 import { isArray, isPlainObject, isUndefined } from '../utils/inspect'
 import { keys } from '../utils/object'
+import { warn } from '../utils/warn'
+
+const OPTIONS_OBJECT_DEPRECATED_MSG =
+  'Setting prop "options" to an object is deprecated. Use the array format instead.'
 
 // @vue/component
 export default {
   props: {
     options: {
       type: [Array, Object],
-      default() {
-        return []
-      }
+      default: () => []
     },
     valueField: {
       type: String,
@@ -31,51 +34,34 @@ export default {
   computed: {
     formOptions() {
       const options = this.options
-      const valueField = this.valueField
-      const textField = this.textField
-      const htmlField = this.htmlField
-      const disabledField = this.disabledField
-
+      // Normalize the given options array
       if (isArray(options)) {
-        // Normalize flat-ish arrays to Array of Objects
-        return options.map(option => {
-          if (isPlainObject(option)) {
-            const value = option[valueField]
-            const text = String(option[textField])
-            return {
-              value: isUndefined(value) ? text : value,
-              text: stripTags(text),
-              html: option[htmlField],
-              disabled: Boolean(option[disabledField])
-            }
-          }
-          return {
-            value: option,
-            text: stripTags(String(option)),
-            disabled: false
-          }
-        })
-      } else {
-        // options is Object
-        // Normalize Objects to Array of Objects
-        return keys(options).map(key => {
-          const option = options[key] || {}
-          if (isPlainObject(option)) {
-            const value = option[valueField]
-            const text = option[textField]
-            return {
-              value: isUndefined(value) ? key : value,
-              text: isUndefined(text) ? stripTags(String(key)) : stripTags(String(text)),
-              html: option[htmlField],
-              disabled: Boolean(option[disabledField])
-            }
-          }
-          return {
-            value: key,
-            text: stripTags(String(option)),
-            disabled: false
-          }
-        })
+        return options.map(option => this.normalizeOption(option))
+      }
+      // Deprecate the object options format
+      warn(OPTIONS_OBJECT_DEPRECATED_MSG, this.$options.name)
+      // Normalize a `options` object to an array of options
+      return keys(options).map(key => this.normalizeOption(options[key] || {}, key))
+    }
+  },
+  methods: {
+    normalizeOption(option, key = null) {
+      // When the option is an object, normalize it
+      if (isPlainObject(option)) {
+        const value = get(option, this.valueField)
+        const text = get(option, this.textField)
+        return {
+          value: isUndefined(value) ? key || text : value,
+          text: stripTags(String(isUndefined(text) ? key : text)),
+          html: get(option, this.htmlField),
+          disabled: Boolean(get(option, this.disabledField))
+        }
+      }
+      // Otherwise create an `<option>` object from the given value
+      return {
+        value: key || option,
+        text: stripTags(String(option)),
+        disabled: false
       }
     }
   }

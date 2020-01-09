@@ -1,3 +1,4 @@
+import identity from '../../../utils/identity'
 import KeyCodes from '../../../utils/key-codes'
 import startCase from '../../../utils/startcase'
 import { getComponentConfig } from '../../../utils/config'
@@ -73,7 +74,7 @@ export default {
           /* istanbul ignore next */
           ariaLabel = startCase(field.key)
         }
-        const hasHeadClickListener = this.$listeners['head-clicked'] || this.isSortable
+        const hasHeadClickListener = this.hasListener('head-clicked') || this.isSortable
         const handlers = {}
         if (hasHeadClickListener) {
           handlers.click = evt => {
@@ -88,6 +89,7 @@ export default {
         }
         const sortAttrs = this.isSortable ? this.sortTheadThAttrs(field.key, field, isFoot) : {}
         const sortClass = this.isSortable ? this.sortTheadThClasses(field.key, field, isFoot) : null
+        const sortLabel = this.isSortable ? this.sortTheadThLabel(field.key, field, isFoot) : null
         const data = {
           key: field.key,
           class: [this.fieldClasses(field), sortClass],
@@ -101,7 +103,7 @@ export default {
             tabindex: hasHeadClickListener ? '0' : null,
             abbr: field.headerAbbr || null,
             title: field.headerTitle || null,
-            'aria-colindex': String(colIndex + 1),
+            'aria-colindex': colIndex + 1,
             'aria-label': ariaLabel,
             ...this.getThValues(null, field.key, field.thAttr, isFoot ? 'foot' : 'head', {}),
             ...sortAttrs
@@ -123,26 +125,25 @@ export default {
             ...slotNames
           ]
         }
-        const hasSlot = this.hasNormalizedSlot(slotNames)
-        let slot = field.label
-        if (hasSlot) {
-          slot = this.normalizeSlot(slotNames, {
-            label: field.label,
-            column: field.key,
-            field,
-            isFoot,
-            // Add in row select methods
-            selectAllRows,
-            clearSelected
-          })
-        } else {
-          data.domProps = htmlOrText(field.labelHtml)
+        const scope = {
+          label: field.label,
+          column: field.key,
+          field,
+          isFoot,
+          // Add in row select methods
+          selectAllRows,
+          clearSelected
         }
-        return h(BTh, data, slot)
+        const content =
+          this.normalizeSlot(slotNames, scope) ||
+          (field.labelHtml ? h('div', { domProps: htmlOrText(field.labelHtml) }) : field.label)
+        const srLabel = sortLabel ? h('span', { staticClass: 'sr-only' }, ` (${sortLabel})`) : null
+        // Return the header cell
+        return h(BTh, data, [content, srLabel].filter(identity))
       }
 
       // Generate the array of <th> cells
-      const $cells = fields.map(makeCell).filter(th => th)
+      const $cells = fields.map(makeCell).filter(identity)
 
       // Genrate the row(s)
       const $trs = []

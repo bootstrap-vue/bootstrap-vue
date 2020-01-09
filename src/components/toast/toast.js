@@ -4,6 +4,7 @@ import BVTransition from '../../utils/bv-transition'
 import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF, eventOn, eventOff } from '../../utils/dom'
+import { toInteger } from '../../utils/number'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -144,7 +145,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     computedDuration() {
       // Minimum supported duration is 1 second
-      return Math.max(parseInt(this.autoHideDelay, 10) || 0, MIN_DURATION)
+      return Math.max(toInteger(this.autoHideDelay) || 0, MIN_DURATION)
     },
     computedToaster() {
       return String(this.toaster)
@@ -169,7 +170,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     toaster(newVal) /* istanbul ignore next */ {
       // If toaster target changed, make sure toaster exists
-      this.$nextTick(() => this.ensureToaster)
+      this.$nextTick(this.ensureToaster)
     },
     static(newVal) /* istanbul ignore next */ {
       // If static changes to true, and the toast is showing,

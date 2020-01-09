@@ -1,7 +1,8 @@
-import warn from './warn'
+import { warn } from './warn'
 
 describe('utils/warn', () => {
-  const dummyWarning = 'A Rush Of Blood To The Head'
+  const dummyWarning = 'This is a dummy warning.'
+  const dummySource = 'DummyComponent'
 
   let originalProcess
 
@@ -15,7 +16,7 @@ describe('utils/warn', () => {
     global.process = originalProcess
   })
 
-  describe('with BOOTSTRAP_VUE_NO_WARN environment variable set', () => {
+  describe('with "BOOTSTRAP_VUE_NO_WARN" environment variable set', () => {
     beforeEach(() => {
       global.process = {
         env: {
@@ -24,7 +25,7 @@ describe('utils/warn', () => {
       }
     })
 
-    it('does not call console.warn()', () => {
+    it('does not call "console.warn()"', () => {
       warn(dummyWarning)
 
       expect(console.warn).not.toHaveBeenCalled()
@@ -36,10 +37,18 @@ describe('utils/warn', () => {
       delete global.process
     })
 
-    it('calls console.warn()', () => {
+    it('calls "console.warn()" with warning', () => {
       warn(dummyWarning)
 
       expect(console.warn).toHaveBeenCalledWith(`[BootstrapVue warn]: ${dummyWarning}`)
+    })
+
+    it('calls "console.warn()" with warning and source', () => {
+      warn(dummyWarning, dummySource)
+
+      expect(console.warn).toHaveBeenCalledWith(
+        `[BootstrapVue warn]: ${dummySource} - ${dummyWarning}`
+      )
     })
   })
 })

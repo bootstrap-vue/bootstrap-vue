@@ -1,8 +1,20 @@
-import kebabCase from 'lodash/kebabCase'
+const RX_HYPHENATE = /\B([A-Z])/g
+
+// Converts PascalCase or camelCase to kebab-case
+export const kebabCase = str => {
+  return str.replace(RX_HYPHENATE, '-$1').toLowerCase()
+}
 
 // Parse a fully qualified version from a string
 export const parseVersion = version => {
   const matches = version.match(/([0-9]+\.[0-9]+\.[0-9]+)/)
+  const matchesCount = matches.length
+  return matchesCount > 0 ? matches[matchesCount - 1] : ''
+}
+
+// Parse a fully qualified version from a string (including alpha/beta/etc
+export const parseFullVersion = version => {
+  const matches = version.match(/([0-9]+\.[0-9]+\.[0-9]+(?:-[a-z]+[.-]?[0-9]+))/)
   const matchesCount = matches.length
   return matchesCount > 0 ? matches[matchesCount - 1] : ''
 }
@@ -85,19 +97,19 @@ export const makeTOC = (readme, meta = null) => {
   let parentIdx = 0
 
   // Get the first <h1> tag with ID
-  const h1 = readme.match(/<h1 id=([^> ]+)>(.+?)<\/h1>/) || []
+  const h1 = readme.match(/<h1 id=([^> ]+)[^>]*>(.+?)<\/h1>/) || []
   if (h1) {
     top = `#${stripQuotes(h1[1])}`
     title = stripHTML(h1[2])
   }
 
   // Get all the <h2> and <h3> headings with ID's
-  const headings = readme.match(/<h([23]) id=[^> ]+>.+?<\/h\1>/g) || []
+  const headings = readme.match(/<h([23]) id=[^> ]+[^>]*>.+?<\/h\1>/g) || []
 
   // Process the <h2> and <h3> headings into a TOC structure
   headings
     // Create a match `[value, tag, id, content]`
-    .map(heading => heading.match(/^<(h[23]) id=([^> ]+)>(.+?)<\/\1>$/))
+    .map(heading => heading.match(/^<(h[23]) id=([^> ]+)[^>]*>(.+?)<\/\1>$/))
     // Filter out un-matched values
     .filter(v => Array.isArray(v))
     // Create TOC structure
@@ -128,8 +140,9 @@ export const makeTOC = (readme, meta = null) => {
         componentToc.push(
           // Add component sub-headings
           ...meta.components.map(({ component }) => {
-            const tag = kebabCase(component)
-            return { label: `&lt;${tag}&gt;`, href: `#comp-ref-${tag}` }
+            const tag = kebabCase(component).replace('{', '-{')
+            const hash = `#comp-ref-${tag}`.replace('{', '').replace('}', '')
+            return { label: `&lt;${tag}&gt;`, href: hash }
           }),
           // Add component import sub-heading
           {
@@ -187,7 +200,8 @@ export const importAll = r => {
     .map(r)
     .map(m => m.meta || m)
     .map(m => ({
-      slug: m.slug || (m.title || '').replace(' ', '-').toLowerCase(),
+      slug:
+        typeof m.slug === 'undefined' ? (m.title || '').replace(' ', '-').toLowerCase() : m.slug,
       ...m
     }))
     .sort((a, b) => {

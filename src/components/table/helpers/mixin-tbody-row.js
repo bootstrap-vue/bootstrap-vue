@@ -1,6 +1,6 @@
 import get from '../../../utils/get'
-import toString from '../../../utils/to-string'
 import { isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
+import { toString } from '../../../utils/string'
 import { BTr } from '../tr'
 import { BTd } from '../td'
 import { BTh } from '../th'
@@ -11,6 +11,10 @@ export default {
   props: {
     tbodyTrClass: {
       type: [String, Array, Object, Function],
+      default: null
+    },
+    tbodyTrAttr: {
+      type: [Object, Function],
       default: null
     },
     detailsTdClass: {
@@ -178,7 +182,7 @@ export default {
       const fields = this.computedFields
       const tableStriped = this.striped
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
-      const rowShowDetails = Boolean(item._showDetails && hasDetailsSlot)
+      const rowShowDetails = item._showDetails && hasDetailsSlot
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.hasSelectableRowClick
 
       // We can return more than one TR if rowDetails enabled
@@ -206,7 +210,7 @@ export default {
       // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
       const primaryKey = this.primaryKey
       const primaryKeyValue = toString(get(item, primaryKey)) || null
-      const rowKey = primaryKeyValue || String(rowIndex)
+      const rowKey = primaryKeyValue || toString(rowIndex)
 
       // If primary key is provided, use it to generate a unique ID on each tbody > tr
       // In the format of '{tableId}__row_{primaryKeyValue}'
@@ -216,6 +220,14 @@ export default {
       const selectableClasses = this.selectableRowClasses ? this.selectableRowClasses(rowIndex) : {}
       const selectableAttrs = this.selectableRowAttrs ? this.selectableRowAttrs(rowIndex) : {}
 
+      // Additional classes and attributes
+      const userTrClasses = isFunction(this.tbodyTrClass)
+        ? this.tbodyTrClass(item, 'row')
+        : this.tbodyTrClass
+      const userTrAttrs = isFunction(this.tbodyTrAttr)
+        ? this.tbodyTrAttr(item, 'row')
+        : this.tbodyTrAttr
+
       // Add the item row
       $rows.push(
         h(
@@ -224,14 +236,12 @@ export default {
             key: `__b-table-row-${rowKey}__`,
             ref: 'itemRows',
             refInFor: true,
-            class: [
-              isFunction(this.tbodyTrClass) ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass,
-              selectableClasses,
-              rowShowDetails ? 'b-table-has-details' : ''
-            ],
+            class: [userTrClasses, selectableClasses, rowShowDetails ? 'b-table-has-details' : ''],
             props: { variant: item._rowVariant || null },
             attrs: {
               id: rowId,
+              ...userTrAttrs,
+              // Users cannot override the following attributes
               tabindex: hasRowClickHandler ? '0' : null,
               'data-pk': primaryKeyValue || null,
               'aria-details': detailsId,
@@ -284,19 +294,26 @@ export default {
         }
 
         // Add the actual details row
+        const userDetailsTrClasses = isFunction(this.tbodyTrClass)
+          ? this.tbodyTrClass(item, detailsSlotName)
+          : this.tbodyTrClass
+        const userDetailsTrAttrs = isFunction(this.tbodyTrAttr)
+          ? this.tbodyTrAttr(item, detailsSlotName)
+          : this.tbodyTrAttr
         $rows.push(
           h(
             BTr,
             {
               key: `__b-table-details__${rowKey}`,
               staticClass: 'b-table-details',
-              class: [
-                isFunction(this.tbodyTrClass)
-                  ? this.tbodyTrClass(item, detailsSlotName)
-                  : this.tbodyTrClass
-              ],
+              class: [userDetailsTrClasses],
               props: { variant: item._rowVariant || null },
-              attrs: { id: detailsId, tabindex: '-1' }
+              attrs: {
+                ...userDetailsTrAttrs,
+                // Users cannot override the following attributes
+                id: detailsId,
+                tabindex: '-1'
+              }
             },
             [$details]
           )

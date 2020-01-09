@@ -1,12 +1,12 @@
 // Utils
 import memoize from '../../utils/memoize'
-import upperFirst from '../../utils/upper-first'
 import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
 import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isBoolean } from '../../utils/inspect'
 import { keys, create } from '../../utils/object'
+import { upperFirst } from '../../utils/string'
 // Mixins
 import formStateMixin from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
@@ -126,6 +126,8 @@ const renderLabel = (h, ctx) => {
           tabindex: isLegend ? '-1' : null
         },
         class: [
+          // Hide the focus ring on the legend
+          isLegend ? 'bv-no-focus-ring' : '',
           // When horizontal or if a legend is rendered, add col-form-label
           // for correct sizing as Bootstrap has inconsistent font styling
           // for legend in non-horizontal form-groups.
@@ -362,7 +364,9 @@ export const BFormGroup = {
       const inputs = selectAll(SELECTOR, this.$refs.content).filter(isVisible)
       if (inputs && inputs.length === 1 && inputs[0].focus) {
         // if only a single input, focus it, emulating label behaviour
-        inputs[0].focus()
+        try {
+          inputs[0].focus()
+        } catch {}
       }
     },
     setInputDescribedBy(add, remove) {
@@ -405,6 +409,8 @@ export const BFormGroup = {
       isHorizontal ? BCol : 'div',
       {
         ref: 'content',
+        // Hide focus ring
+        staticClass: 'bv-no-focus-ring',
         attrs: {
           tabindex: isFieldset ? '-1' : null,
           role: isFieldset ? 'group' : null

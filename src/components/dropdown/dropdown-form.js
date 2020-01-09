@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { BForm, props as formProps } from '../form/form'
 
+// @vue/component
 export const BDropdownForm = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownForm',
   functional: true,
@@ -10,6 +11,10 @@ export const BDropdownForm = /*#__PURE__*/ Vue.extend({
     disabled: {
       type: Boolean,
       default: false
+    },
+    formClass: {
+      type: [String, Object, Array],
+      default: null
     }
   },
   render(h, { props, data, children }) {
@@ -23,7 +28,7 @@ export const BDropdownForm = /*#__PURE__*/ Vue.extend({
         {
           ref: 'form',
           staticClass: 'b-dropdown-form',
-          class: { disabled: props.disabled },
+          class: [props.formClass, { disabled: props.disabled }],
           props,
           attrs: {
             ...$attrs,

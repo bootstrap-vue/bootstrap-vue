@@ -1,7 +1,7 @@
 import OurVue from './vue'
-import warn from './warn'
 import { setConfig } from './config-set'
 import { hasWindowSupport, isJSDOM } from './env'
+import { warn } from './warn'
 
 /**
  * Checks if there are multiple instances of Vue, and warns (once) about possible issues.
@@ -50,6 +50,29 @@ export const installFactory = ({ components, directives, plugins } = {}) => {
 }
 
 /**
+ * Plugin install factory function (no plugin config option).
+ * @param {object} { components, directives }
+ * @returns {function} plugin install function
+ */
+export const installFactoryNoConfig = ({ components, directives, plugins } = {}) => {
+  const install = (Vue, config = {}) => {
+    if (install.installed) {
+      /* istanbul ignore next */
+      return
+    }
+    install.installed = true
+    checkMultipleVue(Vue)
+    registerComponents(Vue, components)
+    registerDirectives(Vue, directives)
+    registerPlugins(Vue, plugins)
+  }
+
+  install.installed = false
+
+  return install
+}
+
+/**
  * Plugin object factory function.
  * @param {object} { components, directives, plugins }
  * @returns {object} plugin install object
@@ -57,6 +80,16 @@ export const installFactory = ({ components, directives, plugins } = {}) => {
 export const pluginFactory = (opts = {}, extend = {}) => ({
   ...extend,
   install: installFactory(opts)
+})
+
+/**
+ * Plugin object factory function (no config option).
+ * @param {object} { components, directives, plugins }
+ * @returns {object} plugin install object
+ */
+export const pluginFactoryNoConfig = (opts = {}, extend = {}) => ({
+  ...extend,
+  install: installFactoryNoConfig(opts)
 })
 
 /**

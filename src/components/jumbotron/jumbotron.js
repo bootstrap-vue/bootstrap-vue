@@ -13,7 +13,7 @@ export const props = {
     default: false
   },
   containerFluid: {
-    type: Boolean,
+    type: [Boolean, String],
     default: false
   },
   header: {
@@ -81,7 +81,7 @@ export const BJumbotron = /*#__PURE__*/ Vue.extend({
           props.headerTag,
           {
             class: {
-              [`display-${props.headerLevel}`]: Boolean(props.headerLevel)
+              [`display-${props.headerLevel}`]: props.headerLevel
             }
           },
           normalizeSlot('header', {}, $scopedSlots, $slots) ||
@@ -119,10 +119,10 @@ export const BJumbotron = /*#__PURE__*/ Vue.extend({
         staticClass: 'jumbotron',
         class: {
           'jumbotron-fluid': props.fluid,
-          [`text-${props.textVariant}`]: Boolean(props.textVariant),
-          [`bg-${props.bgVariant}`]: Boolean(props.bgVariant),
-          [`border-${props.borderVariant}`]: Boolean(props.borderVariant),
-          border: Boolean(props.borderVariant)
+          [`text-${props.textVariant}`]: props.textVariant,
+          [`bg-${props.bgVariant}`]: props.bgVariant,
+          [`border-${props.borderVariant}`]: props.borderVariant,
+          border: props.borderVariant
         }
       }),
       childNodes

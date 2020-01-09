@@ -1,7 +1,7 @@
 import looseEqual from '../../../utils/loose-equal'
-import warn from '../../../utils/warn'
 import { isArray, isFunction, isPromise } from '../../../utils/inspect'
 import { clone } from '../../../utils/object'
+import { warn } from '../../../utils/warn'
 import listenOnRootMixin from '../../../mixins/listen-on-root'
 
 export default {
@@ -162,7 +162,8 @@ export default {
               // busy state as most likely there was an error in the provider function
               /* istanbul ignore next */
               warn(
-                "b-table provider function didn't request callback and did not return a promise or data"
+                "Provider function didn't request callback and did not return a promise or data.",
+                'BTable'
               )
               this.localBusy = false
             }
@@ -170,7 +171,7 @@ export default {
         } catch (e) /* istanbul ignore next */ {
           // Provider function borked on us, so we spew out a warning
           // and clear the busy state
-          warn(`b-table provider function error [${e.name}] ${e.message}`)
+          warn(`Provider function error [${e.name}] ${e.message}.`, 'BTable')
           this.localBusy = false
           this.$off('refreshed', this.refresh)
         }

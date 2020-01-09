@@ -47,7 +47,7 @@ The default position is `top`. Positioning is relative to the trigger element.
 
 <div class="bd-example bd-example-tooltip-static">
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
-    <div class="arrow" style="left: 6px"></div>
+    <div class="arrow" style="left: calc(50% - 6px)"></div>
     <div class="tooltip-inner">Tooltip on the top</div>
   </div>
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
@@ -59,7 +59,7 @@ The default position is `top`. Positioning is relative to the trigger element.
     <div class="tooltip-inner">Tooltip on the topright</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
-    <div class="arrow" style="top: 4px"></div>
+    <div class="arrow" style="top: calc(50% - 5px)"></div>
     <div class="tooltip-inner">Tooltip on the right</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
@@ -71,7 +71,7 @@ The default position is `top`. Positioning is relative to the trigger element.
     <div class="tooltip-inner">Tooltip on the rightbottom</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
-    <div class="arrow" style="left: 6px"></div>
+    <div class="arrow" style="left: calc(50% - 6px)"></div>
     <div class="tooltip-inner">Tooltip on the bottom</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
@@ -83,7 +83,7 @@ The default position is `top`. Positioning is relative to the trigger element.
     <div class="tooltip-inner">Tooltip on the bottomright</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
-    <div class="arrow" style="top: 4px"></div>
+    <div class="arrow" style="top: calc(50% - 5px)"></div>
     <div class="tooltip-inner">Tooltip on the left</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
@@ -170,20 +170,42 @@ override the `pointer-events` on the disabled element.
 
 | Prop                 | Default          | Description                                                                                                                                                                                                | Supported values                                                                                                                                 |
 | -------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `target`             | `null`           | Element String ID, or a reference to an element or component, or a function returning either of them, that you want to trigger the tooltip. **Required**                                                   | Any valid, in-document unique element ID, element reference or component reference or a function returning any such ID / reference               |
+| `target`             | `null`           | Element String ID, or a reference to an element or component, or a function returning either of them, that you want to trigger the tooltip **Required**                                                    | Any valid, in-document unique element ID, element reference or component reference or a function returning any such ID / reference               |
 | `title`              | `null`           | Tooltip content (text only, no HTML). if HTML is required, place it in the default slot                                                                                                                    | Plain text                                                                                                                                       |
-| `placement`          | `'top'`          | Tooltip position, relative to the trigger element.                                                                                                                                                         | `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom` |
-| `fallback-placement` | `'flip'`         | Auto-flip placement behaviour of the tooltip, relative to the trigger element.                                                                                                                             | `flip`, `clockwise`, `counterclockwise`, or an array of valid placements evaluated from left to right                                            |
+| `placement`          | `'top'`          | Tooltip position, relative to the trigger element                                                                                                                                                          | `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom` |
+| `fallback-placement` | `'flip'`         | Auto-flip placement behaviour of the tooltip, relative to the trigger element                                                                                                                              | `flip`, `clockwise`, `counterclockwise`, or an array of valid placements evaluated from left to right                                            |
 | `triggers`           | `'hover focus'`  | Space separated list of event(s), which will trigger open/close of tooltip                                                                                                                                 | `hover`, `focus`, `click`. Note `blur` is a special use case to close tooltip on next click, usually used in conjunction with `click`.           |
 | `no-fade`            | `false`          | Disable fade animation when set to `true`                                                                                                                                                                  | `true` or `false`                                                                                                                                |
 | `delay`              | `50`             | Delay showing and hiding of tooltip by specified number of milliseconds. Can also be specified as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays              | `0` and up, integers only.                                                                                                                       |
 | `offset`             | `0`              | Shift the center of the tooltip by specified number of pixels                                                                                                                                              | Any negative or positive integer                                                                                                                 |
 | `container`          | `null`           | Element string ID to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default)                                                                               | Any valid in-document unique element ID.                                                                                                         |
 | `boundary`           | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
-| `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container.                      | Any positive number                                                                                                                              |
+| `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container                       | Any positive number                                                                                                                              |
+| `noninteractive`     | `false`          | Wether the tooltip should not be user-interactive                                                                                                                                                          | `true` or `false`                                                                                                                                |
 | `variant`            | `null`           | Contextual color variant for the tooltip                                                                                                                                                                   | Any contextual theme color variant name                                                                                                          |
 | `custom-class`       | `null`           | A custom classname to apply to the tooltip outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
-| `id`                 | `null`           | An ID to use on the tooltip root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page.                    | A valid unique element ID string                                                                                                                 |
+| `id`                 | `null`           | An ID to use on the tooltip root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page                     | A valid unique element ID string                                                                                                                 |
+
+### Noninteractive tooltips
+
+BootstrapVue's tooltips are user-interactive by default for accessability reasons. To restore
+Bootstraps default behavior apply the `noninteractive` prop:
+
+```html
+<div class="text-center">
+  <div>
+    <b-button id="tooltip-button-interactive">My tooltip is interactive</b-button>
+    <b-tooltip target="tooltip-button-interactive">I will stay open when hovered</b-tooltip>
+  </div>
+
+  <div class="mt-3">
+    <b-button id="tooltip-button-not-interactive">Mine is not...</b-button>
+    <b-tooltip target="tooltip-button-not-interactive" noninteractive>Catch me if you can!</b-tooltip>
+  </div>
+</div>
+
+<!-- b-tooltip-interactive.vue -->
+```
 
 ### Variants and custom class
 

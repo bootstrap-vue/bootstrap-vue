@@ -2,6 +2,8 @@
 .tooltip.b-tooltip {
   display: block;
   opacity: $tooltip-opacity;
+  // Needed due to Bootstrap v4.4 reboot.css changes
+  outline: 0;
 
   &.fade:not(.show) {
     opacity: 0;
@@ -9,6 +11,12 @@
 
   &.show {
     opacity: $tooltip-opacity;
+  }
+
+  // Disabled pointer events when in 'noninteractive' mode to hide
+  // the tooltip when the user hovers over its content
+  &.noninteractive {
+    pointer-events: none;
   }
 }
 

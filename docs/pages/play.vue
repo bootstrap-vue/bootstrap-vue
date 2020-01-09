@@ -685,7 +685,6 @@ export default {
       } else {
         delete options.template
       }
-
       // Vue's `errorCapture` doesn't always handle errors in methods (although it
       // does if the method is used as a `v-on`/`@` handler), so we wrap any methods
       // with a try/catch handler so we can show the error in our GUI log console.
@@ -709,15 +708,15 @@ export default {
         })
       }
 
-      // Try and buld the user app
+      // Try and build the user app
       try {
         const holder = document.createElement('div')
         this.$refs.result.appendChild(holder)
         this.playVM = new Vue({
           ...options,
           el: holder,
-          // Router needed for tooltips/popovers so they hide when
-          // docs route changes
+          // Router needed for tooltips/popovers/toasts so
+          // that they hide when docs route changes
           router: this.$router,
           // We set a fake parent so we can capture most runtime and
           // render errors (this is an error boundary component)
@@ -751,7 +750,7 @@ export default {
         this.compiledJs = null
         return
       }
-      const js = this.js.trim() || '{}'
+      const js = (this.js || '').trim() || '{}'
       this.compiling = true
       let compiled = null
       this.$nextTick(() => {
@@ -759,7 +758,7 @@ export default {
           try {
             // The app build process expects the app options to
             // be assigned to the `options` variable
-            compiled = this.compiler(`;options = ${js};`)
+            compiled = this.compiler(';options = ' + js + ';')
           } catch (err) {
             this.errHandler(err, 'javascript')
             window.console.error('Error in javascript', err)
