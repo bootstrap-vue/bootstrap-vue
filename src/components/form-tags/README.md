@@ -664,7 +664,7 @@ pre-defined set of tags:
 <template>
   <div>
     <b-form-group label="Tagged input using dropdown">
-      <b-form-tags v-model="value" size="lg" no-outer-focus class="mb-2">
+      <b-form-tags v-model="value" no-outer-focus class="mb-2">
         <template v-slot="{ tags, disabled, addTag, removeTag }">
           <ul v-if="tags.length > 0" class="list-inline d-inline-block mb-2">
             <li v-for="tag in tags" :key="tag" class="list-inline-item">
@@ -687,6 +687,7 @@ pre-defined set of tags:
                 label-cols-md="auto"
                 class="mb-0"
                 label-size="sm"
+                :description="searchDesc"
                 :disabled="disabled"
               >
                 <b-form-input
@@ -706,6 +707,9 @@ pre-defined set of tags:
             >
               {{ opt }}
             </b-dropdown-item-button>
+            <b-dropdown-text v-if="searchResults.length == 0">
+              There are no tags available to select
+            </b-dropdown-text>
           </b-dropdown>
         </template>
       </b-form-tags>
@@ -723,9 +727,12 @@ pre-defined set of tags:
       }
     },
     computed: {
-      searchResults() {
+      criteria() {
         // Compute the search criteria
-        const criteria = this.search.trim().toLowerCase()
+        return this.search.trim().toLowerCase()
+      },
+      searchResults() {
+        const criteria = this.criteria
         // Filter out already selected options
         const options = this.allOptions.filter(opt => this.value.indexOf(opt) === -1)
         if (criteria) {
@@ -735,12 +742,19 @@ pre-defined set of tags:
           // Show all options available
           return options
         }
+      },
+      searchDesc() {
+        if (this.criteria && this.searchResults.length === 0) {
+          return 'There are no tags matching your search criteria' 
+        } else {
+          return ''
+        }
       }
     }
   }
 </script>
 
-<!-- b-form-tags-components-dropdown.vue -->
+<!-- b-form-tags-dropdown-example.vue -->
 ```
 
 ### Creating wrapper components
