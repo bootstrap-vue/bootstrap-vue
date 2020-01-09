@@ -33,6 +33,8 @@ fully WAI-ARIA compliant, nor accessible to keyboard-only and/or screen-reader u
 
 ### Icons
 
+Alternatives to BootstrapVue's [`b-icon-*`](/docs/icons) components:
+
 - [Vue Font Awesome](https://fontawesome.com/how-to-use/on-the-web/using-with/vuejs)
 - [Vue Icon](https://github.com/qinshenxue/vue-icon)
 - [Vue Ionicons](https://mazipan.github.io/vue-ionicons/)
@@ -51,5 +53,5 @@ fully WAI-ARIA compliant, nor accessible to keyboard-only and/or screen-reader u
 
 ## Site generation
 
-- [NuxtJS](https://nuxtjs.org) - Static + SPA+ PWA + SSR
+- [NuxtJS](https://nuxtjs.org) - Static + SPA + PWA + SSR
 - [Gridsome](https://gridsome.org) - Static + SPA + PWA
