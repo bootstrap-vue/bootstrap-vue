@@ -677,7 +677,9 @@ export default {
     version: () => version,
     bootstrapVersionMinor: () => bootstrapVersion.replace(/\.\d+$/, ''),
     vueVersionMinor: () => vueVersion.replace(/\.\d+$/, ''),
-    bootstrapUrl() => `https://getbootstrap.com/docs/${this.bootstrapVersionMinor}`
+    bootstrapUrl() {
+      return `https://getbootstrap.com/docs/${this.bootstrapVersionMinor}`
+    }
   },
   mounted() {
     this.$nextTick(() => {
