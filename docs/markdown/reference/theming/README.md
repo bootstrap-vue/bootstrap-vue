@@ -41,7 +41,7 @@ $body-color: #111;
 
 ## Default theme colors
 
-The default them colors defined in the Bootstrap v4.3 SCSS are as follows:
+The default them colors defined in the Bootstrap v4.4 SCSS are as follows:
 
 <div class="row">
   <div class="col-md-4">
@@ -92,7 +92,7 @@ Some commonly used Bootstrap v4 variables are:
 | `$enable-shadows`               | Boolean | `false` | Enables predefined `box-shadow` styles on various components                                                 |
 | `$enable-gradients`             | Boolean | `false` | Enables predefined gradients via `background-image` styles on various components                             |
 | `$enable-transitions`           | Boolean | `true`  | Enables predefined `transition`s on various components                                                       |
-| `$enable-responsive-font-sizes` | Boolean | `false` | Enables [responsive font sizes](https://getbootstrap.com/docs/4.3/content/typography/#responsive-font-sizes) |
+| `$enable-responsive-font-sizes` | Boolean | `false` | Enables [responsive font sizes](https://getbootstrap.com/docs/4.4/content/typography/#responsive-font-sizes) |
 | `$enable-validation-icons`      | Boolean | `true`  | Enables `background-image` icons within textual inputs and some custom forms for validation states           |
 
 Refer to [Bootstrap's theming](https://getbootstrap.com/docs/4.4/getting-started/theming/) docs for
