@@ -89,8 +89,8 @@
                 </svg>
               </b-media-aside>
               <b-media-body class="ml-3 text-muted align-self-center">
-                <a href="https://getbootstrap.com/docs/4.3" target="_blank">Bootstrap v4</a> is the
-                world's most popular framework for building responsive, mobile-first sites.
+                <a :href="bootstrapUrl" target="_blank">Bootstrap v4</a> is the world's most popular
+                framework for building responsive, mobile-first sites.
               </b-media-body>
             </b-media>
 
@@ -676,7 +676,10 @@ export default {
   computed: {
     version: () => version,
     bootstrapVersionMinor: () => bootstrapVersion.replace(/\.\d+$/, ''),
-    vueVersionMinor: () => vueVersion.replace(/\.\d+$/, '')
+    vueVersionMinor: () => vueVersion.replace(/\.\d+$/, ''),
+    bootstrapUrl() {
+      return `https://getbootstrap.com/docs/${this.bootstrapVersionMinor}`
+    }
   },
   mounted() {
     this.$nextTick(() => {

@@ -59,8 +59,9 @@ export * from './icons'
 // Directives & Plugins
 export * from './directives'
 
-declare const BootstrapVue: BootstrapVuePlugin
-export default BootstrapVue
+// BootstrapVue plugin
 export interface BootstrapVuePlugin extends BvPlugin {
   setConfig: (config: BvConfigOptions) => void
 }
+export declare const BootstrapVue: BootstrapVuePlugin
+export default BootstrapVue
