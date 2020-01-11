@@ -402,6 +402,8 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -424,7 +426,6 @@ describe('modal', () => {
       // Try and close modal (but we prevent it)
       $close.trigger('click')
       await waitNT(wrapper.vm)
-      await waitRAF()
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
@@ -439,6 +440,7 @@ describe('modal', () => {
       trigger = null
       evt = null
       $close.trigger('click')
+      await waitNT(wrapper.vm)
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
@@ -478,6 +480,8 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -501,7 +505,6 @@ describe('modal', () => {
       // Try and close modal (but we prevent it)
       $ok.trigger('click')
       await waitNT(wrapper.vm)
-      await waitRAF()
       expect(trigger).toEqual('ok')
 
       await waitNT(wrapper.vm)
@@ -514,6 +517,7 @@ describe('modal', () => {
       cancelHide = false
       trigger = null
       $cancel.trigger('click')
+      await waitNT(wrapper.vm)
       expect(trigger).toEqual('cancel')
 
       await waitNT(wrapper.vm)
@@ -554,6 +558,8 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -611,6 +617,8 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -666,6 +674,8 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
