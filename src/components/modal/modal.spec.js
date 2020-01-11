@@ -86,6 +86,7 @@ describe('modal', () => {
       })
 
       expect(wrapper.isVueInstance()).toBe(true)
+
       await waitNT(wrapper.vm)
 
       expect(wrapper.isEmpty()).toBe(true)
@@ -103,6 +104,7 @@ describe('modal', () => {
       })
 
       expect(wrapper.isVueInstance()).toBe(true)
+
       await waitNT(wrapper.vm)
 
       expect(wrapper.isEmpty()).toBe(true)
@@ -183,11 +185,6 @@ describe('modal', () => {
       })
 
       expect(wrapper.isVueInstance()).toBe(true)
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
 
       expect(wrapper.isEmpty()).toBe(true)
@@ -205,10 +202,6 @@ describe('modal', () => {
       // Destroy modal
       wrapper.destroy()
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -232,11 +225,6 @@ describe('modal', () => {
       })
 
       expect(wrapper.isVueInstance()).toBe(true)
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
 
       // Main outer wrapper (has z-index, etc)... The stacker <div>
@@ -263,10 +251,6 @@ describe('modal', () => {
       })
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
@@ -290,7 +274,6 @@ describe('modal', () => {
       })
 
       expect(wrapper.isVueInstance()).toBe(true)
-      await waitNT(wrapper.vm)
 
       // Modal title
       const $title = wrapper.find('.modal-title')
@@ -413,9 +396,6 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
 
       const $modal = wrapper.find('div.modal')
@@ -443,8 +423,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       // Modal should still be open
       expect($modal.element.style.display).toEqual('block')
@@ -457,8 +435,6 @@ describe('modal', () => {
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -495,8 +471,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -523,8 +497,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       // Modal should still be open
       expect($modal.element.style.display).toEqual('block')
@@ -535,8 +507,6 @@ describe('modal', () => {
       $cancel.trigger('click')
       expect(trigger).toEqual('cancel')
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -575,9 +545,6 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
 
       const $modal = wrapper.find('div.modal')
@@ -592,8 +559,6 @@ describe('modal', () => {
       $modal.trigger('keydown.esc')
       expect(trigger).toEqual('esc')
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -633,9 +598,6 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
 
       const $modal = wrapper.find('div.modal')
@@ -650,8 +612,6 @@ describe('modal', () => {
       $modal.trigger('click')
       expect(trigger).toEqual('backdrop')
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -693,9 +653,6 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
 
       const $modal = wrapper.find('div.modal')
@@ -720,8 +677,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       expect(called).toEqual(false)
       expect(trigger).toEqual(null)
@@ -737,8 +692,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       expect(called).toEqual(false)
       expect(trigger).toEqual(null)
@@ -749,8 +702,6 @@ describe('modal', () => {
       // Try and close modal via click out
       $modal.trigger('click')
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -778,11 +729,6 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
@@ -793,8 +739,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -802,8 +746,6 @@ describe('modal', () => {
       // Try and close modal via `bv::hide::modal`
       wrapper.vm.$root.$emit('bv::hide::modal', 'test')
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -828,11 +770,6 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
@@ -841,8 +778,6 @@ describe('modal', () => {
       // Try and open modal via `bv::toggle::modal`
       wrapper.vm.$root.$emit('bv::toggle::modal', 'test')
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -854,8 +789,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -863,8 +796,6 @@ describe('modal', () => {
       // Try and open modal via `bv::toggle::modal` with wrong ID
       wrapper.vm.$root.$emit('bv::toggle::modal', 'not-test')
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -893,8 +824,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -913,15 +842,11 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       // Modal should not open
       expect(called).toBe(true)
       expect($modal.element.style.display).toEqual('none')
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -932,8 +857,6 @@ describe('modal', () => {
       // Try and open modal via `bv::show::modal`
       wrapper.vm.$root.$emit('bv::show::modal', 'test')
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -959,11 +882,6 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
@@ -974,8 +892,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -983,8 +899,6 @@ describe('modal', () => {
       // Try and close modal via `.toggle()` method
       wrapper.vm.toggle()
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -1019,10 +933,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitNT(wrapper.vm)
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
@@ -1043,12 +953,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -1059,12 +963,6 @@ describe('modal', () => {
       // Try and close modal via `.toggle()` method
       wrapper.find(BModal).vm.toggle()
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -1101,12 +999,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
@@ -1131,12 +1023,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -1148,12 +1034,6 @@ describe('modal', () => {
       // Try and close modal via `.toggle()` method
       wrapper.find(BModal).vm.toggle()
 
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -1185,12 +1065,6 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
-      await waitRAF()
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
@@ -1208,13 +1082,11 @@ describe('modal', () => {
       // Try and set focusin on external button
       $button.trigger('focusin')
       await waitNT(wrapper.vm)
-      await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($button.element)
       expect(document.activeElement).toBe($content.element)
 
       // Try and set focusin on external button
       $button.trigger('focus')
-      await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($button.element)
       expect(document.activeElement).toBe($content.element)
@@ -1231,7 +1103,6 @@ describe('modal', () => {
       // focus the tab trap
       $bottomTrap.trigger('focusin')
       $bottomTrap.trigger('focus')
-      await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($bottomTrap.element)
       expect(document.activeElement).not.toBe($content.element)
@@ -1250,7 +1121,6 @@ describe('modal', () => {
       // focus the tab trap
       $topTrap.trigger('focusin')
       $topTrap.trigger('focus')
-      await waitNT(wrapper.vm)
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($topTrap.element)
       expect(document.activeElement).not.toBe($bottomTrap.element)
