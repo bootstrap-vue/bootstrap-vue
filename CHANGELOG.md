@@ -4,6 +4,86 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.2.0"></a>
+
+## [v2.2.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.1.0...v2.2.0)
+
+Released: 2020-01-08
+
+### Overview v2.2.0
+
+- New optional icon components based on `BootstrapIcons v1.0.0-alpha2`
+- New tagged input component `<b-form-tags>`
+- Support for `Bootstrap v4.4.1` CSS/SCSS
+
+### Features v2.2.0
+
+- **icons:** new optional icon components
+  ([#4489](https://github.com/bootstrap-vue/bootstrap-vue/issues/4489))
+  ([d2bef17](https://github.com/bootstrap-vue/bootstrap-vue/commit/d2bef1715636fcb83de6d51808683e6feda671d0))
+- **b-collapse:** add new prop `appear` to animate an initially visible collapse
+  ([#4317](https://github.com/bootstrap-vue/bootstrap-vue/issues/4317))
+  ([136a72b](https://github.com/bootstrap-vue/bootstrap-vue/commit/136a72b0352d4bb1339ab31f791087cbcda42fa5))
+- **b-collapse:** add optional scoping to default slot
+  ([#4405](https://github.com/bootstrap-vue/bootstrap-vue/issues/4405))
+  ([8e95bac](https://github.com/bootstrap-vue/bootstrap-vue/commit/8e95bacf9d00562f2676689d067ae0db009cbbb6))
+- **b-container:** add support for bootstrap v4.4.x new responsive containers
+  ([0e318f4](https://github.com/bootstrap-vue/bootstrap-vue/commit/0e318f4755e65eb569dcc579938d0d72c02abd62))
+- **b-dropdown:** add splitClass property to dropdown component
+  ([#4394](https://github.com/bootstrap-vue/bootstrap-vue/issues/4394))
+  ([a5f342e](https://github.com/bootstrap-vue/bootstrap-vue/commit/a5f342e0e4de2186259e36e42cecda8c20e1c8ab))
+- **b-dropdown-form:** new `form-class` prop for adding classes to the form element (closes
+  [#4474](https://github.com/bootstrap-vue/bootstrap-vue/issues/4474))
+  ([#4475](https://github.com/bootstrap-vue/bootstrap-vue/issues/4475))
+  ([eef4200](https://github.com/bootstrap-vue/bootstrap-vue/commit/eef4200976f7921b1bb03f50c0ece8ee7c41ed0e))
+- **b-form-select:** add group/tree support and dedicated option and option-group components (closes
+  [#3222](https://github.com/bootstrap-vue/bootstrap-vue/issues/3222))
+  ([#4267](https://github.com/bootstrap-vue/bootstrap-vue/issues/4267))
+  ([f1ed017](https://github.com/bootstrap-vue/bootstrap-vue/commit/f1ed0177c20f9d7e7e340a8815d1b6bc66f7cb76))
+- **b-form-select:** support paths for `valueField`, `textField`, `htmlField` and `disabledField`
+  props ([#4386](https://github.com/bootstrap-vue/bootstrap-vue/issues/4386))
+  ([ed3b736](https://github.com/bootstrap-vue/bootstrap-vue/commit/ed3b7360af415dc3cc56f0b6662c9d48cc165781))
+- **b-form-tags:** new tagged input component
+  ([#4409](https://github.com/bootstrap-vue/bootstrap-vue/issues/4409))
+  ([00eb9d9](https://github.com/bootstrap-vue/bootstrap-vue/commit/00eb9d9fd460adca8227b3b344284b5cc49a734f))
+- **b-row:** add Bootstrap v4.4 row columns support
+  ([#4439](https://github.com/bootstrap-vue/bootstrap-vue/issues/4439))
+  ([833b028](https://github.com/bootstrap-vue/bootstrap-vue/commit/833b028a2d6101d01b7012a7378359db1c801695))
+- **b-table:** better sort labeling for screen readers (closes
+  [#4487](https://github.com/bootstrap-vue/bootstrap-vue/issues/4487))
+  ([#4488](https://github.com/bootstrap-vue/bootstrap-vue/issues/4488))
+  ([d4e66fa](https://github.com/bootstrap-vue/bootstrap-vue/commit/d4e66fa48fdd1cd7fd4b93907fe999de3fc577f8))
+- **b-table, b-table-lite:** new `tbody-tr-attr` prop for arbitrary row attributes (closes
+  [#1864](https://github.com/bootstrap-vue/bootstrap-vue/issues/1864))
+  ([#4481](https://github.com/bootstrap-vue/bootstrap-vue/issues/4481))
+  ([4acf6ed](https://github.com/bootstrap-vue/bootstrap-vue/commit/4acf6ed863dd5edd85897a01b099c42322097d1b))
+- **b-tooltip:** add `noninteractive` prop (closes
+  [#4556](https://github.com/bootstrap-vue/bootstrap-vue/issues/4556))
+  ([#4563](https://github.com/bootstrap-vue/bootstrap-vue/issues/4563))
+  ([b3ad726](https://github.com/bootstrap-vue/bootstrap-vue/commit/b3ad7264d9b10fb1b8dfba70c62eed11a56519d6))
+- **build:** configure pre-commit hook (closes
+  [#4532](https://github.com/bootstrap-vue/bootstrap-vue/issues/4532))
+  ([#4552](https://github.com/bootstrap-vue/bootstrap-vue/issues/4552))
+  ([1bf9e59](https://github.com/bootstrap-vue/bootstrap-vue/commit/1bf9e59e8888a7a2cd6f135665103419f603a32d))
+
+### Bug Fixes v2.2.0
+
+- **b-table, b-table-lite:** handle edge case with row events when table is removed from dom.
+  instantiate row event handlers only when listeners are registered (fixes
+  [#4384](https://github.com/bootstrap-vue/bootstrap-vue/issues/4384))
+  ([#4388](https://github.com/bootstrap-vue/bootstrap-vue/issues/4388))
+  ([9a81cd4](https://github.com/bootstrap-vue/bootstrap-vue/commit/9a81cd414a2c534b96de0d82c3d00d94651e5a7b))
+- **b-toast:** fix interal `ensureToaster` method call when toaster name changes
+  ([#4468](https://github.com/bootstrap-vue/bootstrap-vue/issues/4468))
+  ([744bb7a](https://github.com/bootstrap-vue/bootstrap-vue/commit/744bb7a77092a04184af31bf285e432110e1ab44))
+- **tooltips, popovers:** fix memory leak (closes
+  [#4400](https://github.com/bootstrap-vue/bootstrap-vue/issues/4400))
+  ([#4401](https://github.com/bootstrap-vue/bootstrap-vue/issues/4401))
+  ([c71352d](https://github.com/bootstrap-vue/bootstrap-vue/commit/c71352d674347e5e2d72fe8b82334fc87a4ffd8c))
+- **docs:** handle undocumented breaking changes in babel-standalone for IE11
+  ([#4484](https://github.com/bootstrap-vue/bootstrap-vue/issues/4484))
+  ([56f8bb5](https://github.com/bootstrap-vue/bootstrap-vue/commit/56f8bb5af7fb7188da035210e8be28d7ae1c7bc1))
+
 <a name="2.1.0"></a>
 
 ## [v2.1.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.4...v2.1.0)

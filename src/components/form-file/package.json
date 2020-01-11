@@ -60,7 +60,7 @@
               {
                 "prop": "files",
                 "type": "Array",
-                "description": "Array if File objects"
+                "description": "Array of File objects"
               },
               {
                 "prop": "names",

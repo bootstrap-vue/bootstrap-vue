@@ -44,16 +44,14 @@ transparency only.
 
 - Toasts can be generated on demand via the injection `this.$bvToast` object, or manually created
   using the `<b-toast>` component.
-- Toasts will auto hide after a default of 5 seconds (5000ms). The duration can be changed via the
-  `auto-hide-delay` prop (value is specified in milliseconds), and disabled with the `no-auto-hide`
-  prop.
-- When auto-hide is enabled, and you hover over the toast, the auto-hide countdown will be paused
-  until you un-hover the toast. You can disabled this feature by setting the `no-hover-pause` prop
-  to `true`.
-- Toasts include a close button on their top right to allow users to manually dismiss them. The
-  close button can be removed via the `no-close-button` prop.
 - Titles are optional, but should be included, titles are rendered inside a `<strong>` element,
   unless using the `toast-title` slot.
+- The close button at the top right of the toast can be removed via the `no-close-button` prop.
+- A title bar is shown, unless you give no title and set the `no-close-button` prop.
+- Auto-hiding occurs after 5000 ms, which can be changed via the `auto-hide-delay` prop, or disabled
+  with the `no-auto-hide` prop.
+- When auto-hide is enabled, while you hover over the toast, the auto-hide countdown will pause. You
+  can disable this feature by setting the `no-hover-pause` prop to `true`.
 - If you disable the auto-hide feature, avoid hiding the close button, or if you hide the close
   button be sure to allow the toast to auto-dismiss. Please refer to the
   [Accessibility tips](#accessibility-tips) section below for **important** usage information.

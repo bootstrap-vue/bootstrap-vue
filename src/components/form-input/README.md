@@ -75,7 +75,7 @@ rendered and a console warning will be issued.
 **Caveats with input types:**
 
 - Not all browsers support all input types, nor do some types render in the same format across
-  browser types/versions.
+  browser types/versions. Refer to [caniuse.com](https://caniuse.com/#search=input).
 - Browsers that do not support a particular type will fall back to a `text` input type (even though
   the rendered `type` attribute markup shows the requested type).
 - No testing is performed to see if the requested input type is supported by the browser.

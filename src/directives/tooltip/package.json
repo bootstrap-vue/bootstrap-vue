@@ -73,6 +73,10 @@
         "description": "Enables basic HTML in the title (use with caution)"
       },
       {
+        "name": "interactive",
+        "description": "Wether the tooltip should be user-interactive"
+      },
+      {
         "name": "viewport",
         "description": "Sets the boundary constraint to the viewport"
       },

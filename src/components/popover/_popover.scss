@@ -2,6 +2,8 @@
 .popover.b-popover {
   display: block;
   opacity: 1;
+  // Needed due to Bootstrap v4.4 reboot.css changes
+  outline: 0;
 
   &.fade:not(.show) {
     opacity: 0;
