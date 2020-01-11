@@ -253,6 +253,8 @@ describe('modal', () => {
       })
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
@@ -422,6 +424,7 @@ describe('modal', () => {
       // Try and close modal (but we prevent it)
       $close.trigger('click')
       await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
@@ -498,6 +501,7 @@ describe('modal', () => {
       // Try and close modal (but we prevent it)
       $ok.trigger('click')
       await waitNT(wrapper.vm)
+      await waitRAF()
       expect(trigger).toEqual('ok')
 
       await waitNT(wrapper.vm)
