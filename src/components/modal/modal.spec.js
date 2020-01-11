@@ -225,6 +225,8 @@ describe('modal', () => {
       })
 
       expect(wrapper.isVueInstance()).toBe(true)
+
+      await waitNT(wrapper.vm)
       await waitRAF()
 
       // Main outer wrapper (has z-index, etc)... The stacker <div>
@@ -396,6 +398,7 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
+      await waitNT(wrapper.vm)
       await waitRAF()
 
       const $modal = wrapper.find('div.modal')
@@ -418,6 +421,7 @@ describe('modal', () => {
 
       // Try and close modal (but we prevent it)
       $close.trigger('click')
+      await waitNT(wrapper.vm)
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
@@ -493,6 +497,7 @@ describe('modal', () => {
 
       // Try and close modal (but we prevent it)
       $ok.trigger('click')
+      await waitNT(wrapper.vm)
       expect(trigger).toEqual('ok')
 
       await waitNT(wrapper.vm)
@@ -545,6 +550,7 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
+      await waitNT(wrapper.vm)
       await waitRAF()
 
       const $modal = wrapper.find('div.modal')
@@ -557,6 +563,7 @@ describe('modal', () => {
 
       // Try and close modal via ESC
       $modal.trigger('keydown.esc')
+      await waitNT(wrapper.vm)
       expect(trigger).toEqual('esc')
 
       await waitNT(wrapper.vm)
@@ -598,6 +605,7 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
+      await waitNT(wrapper.vm)
       await waitRAF()
 
       const $modal = wrapper.find('div.modal')
@@ -610,6 +618,7 @@ describe('modal', () => {
 
       // Try and close modal via click out
       $modal.trigger('click')
+      await waitNT(wrapper.vm)
       expect(trigger).toEqual('backdrop')
 
       await waitNT(wrapper.vm)
@@ -653,6 +662,7 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
+      await waitNT(wrapper.vm)
       await waitRAF()
 
       const $modal = wrapper.find('div.modal')
