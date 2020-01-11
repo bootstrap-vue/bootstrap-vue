@@ -127,9 +127,6 @@ describe('modal', () => {
       })
 
       expect(wrapper.isVueInstance()).toBe(true)
-      await waitNT(wrapper.vm)
-      await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
 
       // Main outer wrapper (has z-index, etc)... The stacker <div>
