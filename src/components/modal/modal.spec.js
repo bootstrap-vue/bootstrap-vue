@@ -513,6 +513,8 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should still be open
       expect($modal.element.style.display).toEqual('block')
