@@ -4,6 +4,38 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.2.1"></a>
+
+## [v2.2.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.2.0...v2.2.1)
+
+Released: 2020-01-12
+
+### Bug Fixes v2.2.1
+
+- **icons:** make icon transform props work with IE11 (closes
+  [#4607](https://github.com/bootstrap-vue/bootstrap-vue/issues/4607))
+  ([#4608](https://github.com/bootstrap-vue/bootstrap-vue/issues/4608))
+  ([899779f](https://github.com/bootstrap-vue/bootstrap-vue/commit/899779f20015f719198a763136137eea01aa11ea))
+- **types:** add missing declarations for `b-form-select-option` & `b-form-select-option-group`
+  ([#4595](https://github.com/bootstrap-vue/bootstrap-vue/issues/4595))
+  ([8d60832](https://github.com/bootstrap-vue/bootstrap-vue/commit/8d60832d38e74231a4bda15aa045b84aae97d2ed))
+- **types:** include named export BootstrapVue in declaration file
+  ([#4590](https://github.com/bootstrap-vue/bootstrap-vue/issues/4590))
+  ([603307a](https://github.com/bootstrap-vue/bootstrap-vue/commit/603307aeccf6141b94eff2186baee4ec43439033))
+- **utils:** correct `identity` spelling error
+  ([#4579](https://github.com/bootstrap-vue/bootstrap-vue/issues/4579))
+  ([7fed191](https://github.com/bootstrap-vue/bootstrap-vue/commit/7fed1911d6d9f7eae81526010483c71e1679e770))
+
+### Docs v2.2.1
+
+- add live validation examples in validation reference section
+  ([#4584](https://github.com/bootstrap-vue/bootstrap-vue/issues/4584))
+  ([aca4a5c](https://github.com/bootstrap-vue/bootstrap-vue/commit/aca4a5c8f9a9ed0d7526de396ff072f0c1f4ebdf))
+
+### Other v2.2.1
+
+- dev dependencies updates
+
 <a name="2.2.0"></a>
 
 ## [v2.2.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.1.0...v2.2.0)
