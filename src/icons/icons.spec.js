@@ -182,7 +182,7 @@ describe('icons', () => {
       parentComponent: parentComponent,
       propsData: {
         icon: 'alert-circle-fill',
-        scale: '1.5',
+        scale: '1.5'
       }
     })
 
