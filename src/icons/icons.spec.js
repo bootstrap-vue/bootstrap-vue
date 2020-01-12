@@ -170,7 +170,9 @@ describe('icons', () => {
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
-    expect(wrapper.find('svg > g').attributes('transform')).toEqual('translate(10 10) rotate(45) translate(-10 -10)')
+    expect(wrapper.find('svg > g').attributes('transform')).toEqual(
+      'translate(10 10) rotate(45) translate(-10 -10)'
+    )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
   })
 
@@ -192,7 +194,9 @@ describe('icons', () => {
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
-    expect(wrapper.find('svg > g').attributes('transform')).toEqual('translate(10 10) scale(-1 1) translate(-10 -10)')
+    expect(wrapper.find('svg > g').attributes('transform')).toEqual(
+      'translate(10 10) scale(-1 1) translate(-10 -10)'
+    )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
   })
 
@@ -214,7 +218,9 @@ describe('icons', () => {
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
-    expect(wrapper.find('svg > g').attributes('transform')).toEqual('translate(10 10) scale(1 -1) translate(-10 -10)')
+    expect(wrapper.find('svg > g').attributes('transform')).toEqual(
+      'translate(10 10) scale(1 -1) translate(-10 -10)'
+    )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
   })
 
@@ -237,7 +243,9 @@ describe('icons', () => {
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
-    expect(wrapper.find('svg > g').attributes('transform')).toEqual('translate(10 10) scale(-1 -1) translate(-10 -10)')
+    expect(wrapper.find('svg > g').attributes('transform')).toEqual(
+      'translate(10 10) scale(-1 -1) translate(-10 -10)'
+    )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
   })
 })
