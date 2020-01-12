@@ -78,9 +78,7 @@ const BVIconBase = {
         ? `scale(${(flipH ? -1 : 1) * scale} ${(flipV ? -1 : 1) * scale})`
         : null,
       rotate ? `rotate(${rotate})` : null,
-      shiftH || shiftV
-        ? `translate(${(100 * shiftH) / 16} ${(-100 * shiftV) / 16})`
-        : null
+      shiftH || shiftV ? `translate(${(100 * shiftH) / 16} ${(-100 * shiftV) / 16})` : null
     ].filter(identity)
 
     // If we have transforms, then shift the origin to the center and
