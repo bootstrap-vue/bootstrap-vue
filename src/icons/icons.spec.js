@@ -176,6 +176,30 @@ describe('icons', () => {
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
   })
 
+  it('b-icon scale prop works', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'alert-circle-fill',
+        scale: '1.5',
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.find('svg > g').exists()).toBe(true)
+    expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toEqual(
+      'translate(10 10) scale(1.5 1.5) translate(-10 -10)'
+    )
+    expect(wrapper.find('svg > g > path').exists()).toBe(true)
+  })
+
   it('b-icon flip-h prop works', async () => {
     const wrapper = mount(BIcon, {
       localVue: localVue,
@@ -247,5 +271,135 @@ describe('icons', () => {
       'translate(10 10) scale(-1 -1) translate(-10 -10)'
     )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
+  })
+
+  it('b-icon scale prop works with flip-h prop', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'alert-circle-fill',
+        scale: '1.5',
+        flipH: true
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.find('svg > g').exists()).toBe(true)
+    expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toEqual(
+      'translate(10 10) scale(-1.5 1.5) translate(-10 -10)'
+    )
+    expect(wrapper.find('svg > g > path').exists()).toBe(true)
+  })
+
+  it('b-icon scale prop works with flip-v prop', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'alert-circle-fill',
+        scale: '1.5',
+        flipV: true
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.find('svg > g').exists()).toBe(true)
+    expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toEqual(
+      'translate(10 10) scale(1.5 -1.5) translate(-10 -10)'
+    )
+    expect(wrapper.find('svg > g > path').exists()).toBe(true)
+  })
+
+  it('b-icon scale prop works with flip-h and flip-v prop', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'alert-circle-fill',
+        scale: '1.5',
+        flipH: true,
+        flipV: true
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.find('svg > g').exists()).toBe(true)
+    expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toEqual(
+      'translate(10 10) scale(-1.5 -1.5) translate(-10 -10)'
+    )
+    expect(wrapper.find('svg > g > path').exists()).toBe(true)
+  })
+
+  it('b-icon shift-h and shift-v props work', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'alert-circle-fill',
+        shiftH: 8,
+        shiftV: 16
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.find('svg > g').exists()).toBe(true)
+    expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toEqual('translate(10 -20)')
+    expect(wrapper.find('svg > g > g').exists()).toBe(true)
+    expect(wrapper.find('svg > g > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g > g > path').exists()).toBe(true)
+  })
+
+  it('b-icon shift-h and shift-v props work with rotate prop', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'alert-circle-fill',
+        rotate: 45,
+        shiftH: 8,
+        shiftV: 16
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.find('svg > g').exists()).toBe(true)
+    expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toEqual('translate(10 -20)')
+    expect(wrapper.find('svg > g > g').exists()).toBe(true)
+    expect(wrapper.find('svg > g > g').attributes('transform')).toBeDefined()
+    expect(wrapper.find('svg > g > g').attributes('transform')).toEqual(
+      'translate(10 10) rotate(45) translate(-10 -10)'
+    )
+    expect(wrapper.find('svg > g > g > path').exists()).toBe(true)
   })
 })
