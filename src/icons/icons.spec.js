@@ -45,6 +45,8 @@ describe('icons', () => {
     expect(wrapper.attributes('height')).toBe('1em')
     expect(wrapper.attributes('viewBox')).toBe('0 0 20 20')
     expect(wrapper.attributes('fill')).toBe('currentColor')
+    expect(wrapper.attributes('style')).not.toBeDefined()
+    expect(wrapper.element.style.fontSize).toEqual('')
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
@@ -127,6 +129,33 @@ describe('icons', () => {
     expect(wrapper.attributes('role')).toBe('img')
     expect(wrapper.attributes('alt')).toBe('icon')
     expect(wrapper.attributes('focusable')).toBe('false')
+    expect(wrapper.find('svg > g').exists()).toBe(true)
+    expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('path').exists()).toBe(true)
+  })
+
+  it('b-icon font-scale prop works', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'alert-circle-fill',
+        fontScale: '1.25'
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('text-danger')
+    expect(wrapper.classes().length).toBe(4)
+    expect(wrapper.attributes('role')).toBe('img')
+    expect(wrapper.attributes('alt')).toBe('icon')
+    expect(wrapper.attributes('focusable')).toBe('false')
+    expect(wrapper.attributes('style')).toBeDefined()
+    expect(wrapper.element.style.fontSize).toEqual('125%')
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
     expect(wrapper.find('path').exists()).toBe(true)
