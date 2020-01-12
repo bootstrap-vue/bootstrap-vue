@@ -528,6 +528,8 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -582,6 +584,8 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       expect(trigger).toEqual('esc')
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -639,6 +643,8 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       expect(trigger).toEqual('backdrop')
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
@@ -707,6 +713,8 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       expect(called).toEqual(false)
       expect(trigger).toEqual(null)
@@ -722,6 +730,8 @@ describe('modal', () => {
 
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       expect(called).toEqual(false)
       expect(trigger).toEqual(null)
@@ -732,6 +742,8 @@ describe('modal', () => {
       // Try and close modal via click out
       $modal.trigger('click')
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
 
