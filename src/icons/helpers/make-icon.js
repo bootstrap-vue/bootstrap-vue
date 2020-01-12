@@ -71,29 +71,32 @@ const BVIconBase = {
     const flipV = props.flipV
     // Compute the transforms. Note that order is important
     // SVG transforms are applied in order from left to right
-    // and we want flipping to occur before rotation, and
-    // shifting is applied last
+    // and we want flipping/scale to occur before rotation.
+    // Note shifting is applied separately
+    const hasScale = flipH || flipV || scale !== 1
+    const hasTransforms = hasScale || rotate
+    const hasShift = shiftH || shiftV
     const transforms = [
-      flipH || flipV || scale !== 1
-        ? `scale(${(flipH ? -1 : 1) * scale} ${(flipV ? -1 : 1) * scale})`
-        : null,
+      hasTransforms ? 'translate(10 10)' : null,
+      hasScale ? `scale(${(flipH ? -1 : 1) * scale} ${(flipV ? -1 : 1) * scale})` : null,
       rotate ? `rotate(${rotate})` : null,
-      shiftH || shiftV ? `translate(${(20 * shiftH) / 16} ${(-20 * shiftV) / 16})` : null
+      hasTransforms ? 'translate(-10 -10)' : null
     ].filter(identity)
 
-    // If we have transforms, then shift the origin to the center and
-    // back to ensure the origin is in the center of the icon
-    // (assumes viewbox of '0 0 20 20', where 10, 10 is the center)
-    if (transforms.length > 0) {
-      transforms.unshift('translate(10 10)')
-      transforms.push('translate(-10 -10)')
-    }
-
-    // We wrap the content in a `<g>` for handling the transforms
-    const $inner = h('g', {
+    // We wrap the content in a `<g>` for handling the transforms (except shift)
+    let $inner = h('g', {
       attrs: { transform: transforms.join(' ') || null },
       domProps: { innerHTML: props.content || '' }
     })
+
+    // We wrap in an additional `<g>` in order to handle the shifting
+    if (hasShift) {
+      $inner = h(
+        'g',
+        { attrs: { transform: `translate(${(20 * shiftH) / 16} ${(-20 * shiftV) / 16})` } },
+        [$inner]
+      )
+    }
 
     return h(
       'svg',
