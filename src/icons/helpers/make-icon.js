@@ -62,17 +62,18 @@ const BVIconBase = {
     ...commonIconProps
   },
   render(h, { data, props }) {
-    const fontScale = toFloat(props.fontScale) || 1
-    const scale = toFloat(props.scale) || 1
+    const fontScale = Math.max(toFloat(props.fontScale) || 1, 0)
+    const scale = Math.max(toFloat(props.scale) || 1, 0)
     const rotate = toFloat(props.rotate) || 0
     const shiftH = toFloat(props.shiftH) || 0
     const shiftV = toFloat(props.shiftV) || 0
     const flipH = props.flipH
     const flipV = props.flipV
-    // Compute the transforms. Note that order is important
+    // Compute the transforms. Note that order is important as
     // SVG transforms are applied in order from left to right
     // and we want flipping/scale to occur before rotation.
-    // Note shifting is applied separately
+    // Note shifting is applied separately. Assumes that the
+    // viewbox is `0 0 20 20` (`10 10` is the center)
     const hasScale = flipH || flipV || scale !== 1
     const hasTransforms = hasScale || rotate
     const hasShift = shiftH || shiftV
@@ -89,7 +90,7 @@ const BVIconBase = {
       domProps: { innerHTML: props.content || '' }
     })
 
-    // We wrap in an additional `<g>` in order to handle the shifting
+    // If needed, we wrap in an additional `<g>` in order to handle the shifting
     if (hasShift) {
       $inner = h(
         'g',
