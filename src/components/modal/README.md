@@ -285,7 +285,7 @@ To prevent `<b-modal>` from closing (for example when validation fails). you can
     methods: {
       checkFormValidity() {
         const valid = this.$refs.form.checkValidity()
-        this.nameState = valid ? 'valid' : 'invalid'
+        this.nameState = valid
         return valid
       },
       resetModal() {
@@ -307,7 +307,7 @@ To prevent `<b-modal>` from closing (for example when validation fails). you can
         this.submittedNames.push(this.name)
         // Hide the modal manually
         this.$nextTick(() => {
-          this.$refs.modal.hide()
+          this.$bvModal.hide('modal-prevent-closing')
         })
       }
     }
