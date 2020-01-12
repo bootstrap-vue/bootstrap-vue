@@ -1014,6 +1014,8 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitNT(wrapper.vm)
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
@@ -1036,6 +1038,10 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -1046,6 +1052,10 @@ describe('modal', () => {
       // Try and close modal via `.toggle()` method
       wrapper.find(BModal).vm.toggle()
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
@@ -1086,6 +1096,10 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
@@ -1112,6 +1126,10 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
 
       // Modal should now be open
       expect($modal.element.style.display).toEqual('block')
@@ -1123,6 +1141,10 @@ describe('modal', () => {
       // Try and close modal via `.toggle()` method
       wrapper.find(BModal).vm.toggle()
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
@@ -1154,6 +1176,10 @@ describe('modal', () => {
 
       expect(wrapper.isVueInstance()).toBe(true)
 
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
       await waitNT(wrapper.vm)
