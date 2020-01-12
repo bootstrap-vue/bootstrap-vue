@@ -62,34 +62,42 @@ const BVIconBase = {
     ...commonIconProps
   },
   render(h, { data, props }) {
-    const fontScale = toFloat(props.fontScale) || 1
-    const scale = toFloat(props.scale) || 1
+    const fontScale = Math.max(toFloat(props.fontScale) || 1, 0) || 1
+    const scale = Math.max(toFloat(props.scale) || 1, 0) || 1
     const rotate = toFloat(props.rotate) || 0
     const shiftH = toFloat(props.shiftH) || 0
     const shiftV = toFloat(props.shiftV) || 0
     const flipH = props.flipH
     const flipV = props.flipV
-    // Compute the transforms. Note that order is important
-    // CSS transforms are applied in order from right to left
-    // and we want flipping to occur before rotation, and
-    // shifting is applied last
+    // Compute the transforms. Note that order is important as
+    // SVG transforms are applied in order from left to right
+    // and we want flipping/scale to occur before rotation.
+    // Note shifting is applied separately. Assumes that the
+    // viewbox is `0 0 20 20` (`10 10` is the center)
+    const hasScale = flipH || flipV || scale !== 1
+    const hasTransforms = hasScale || rotate
+    const hasShift = shiftH || shiftV
     const transforms = [
-      shiftH ? `translateX(${(100 * shiftH) / 16}%)` : null,
-      shiftV ? `translateY(${(-100 * shiftV) / 16}%)` : null,
-      rotate ? `rotate(${rotate}deg)` : null,
-      flipH || flipV || scale !== 1
-        ? `scale(${(flipH ? -1 : 1) * scale}, ${(flipV ? -1 : 1) * scale})`
-        : null
+      hasTransforms ? 'translate(10 10)' : null,
+      hasScale ? `scale(${(flipH ? -1 : 1) * scale} ${(flipV ? -1 : 1) * scale})` : null,
+      rotate ? `rotate(${rotate})` : null,
+      hasTransforms ? 'translate(-10 -10)' : null
     ].filter(identity)
 
-    // We wrap the content in a `<g>` for handling the transforms
-    const $inner = h('g', {
-      style: {
-        transform: transforms.join(' ') || null,
-        transformOrigin: transforms.length > 0 ? 'center' : null
-      },
+    // We wrap the content in a `<g>` for handling the transforms (except shift)
+    let $inner = h('g', {
+      attrs: { transform: transforms.join(' ') || null },
       domProps: { innerHTML: props.content || '' }
     })
+
+    // If needed, we wrap in an additional `<g>` in order to handle the shifting
+    if (hasShift) {
+      $inner = h(
+        'g',
+        { attrs: { transform: `translate(${(20 * shiftH) / 16} ${(-20 * shiftV) / 16})` } },
+        [$inner]
+      )
+    }
 
     return h(
       'svg',
