@@ -151,7 +151,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "sass-loader": "^8.0.2",
     "standard-version": "^7.0.1",
-    "terser": "^4.6.2",
+    "terser": "^4.6.3",
     "vue": "^2.6.11",
     "vue-jest": "^3.0.5",
     "vue-router": "^3.1.3",
