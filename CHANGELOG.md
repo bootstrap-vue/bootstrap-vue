@@ -22,6 +22,10 @@ Released: 2020-01-13
 - **types:** include named export BootstrapVue in declaration file
   ([#4590](https://github.com/bootstrap-vue/bootstrap-vue/issues/4590))
   ([603307a](https://github.com/bootstrap-vue/bootstrap-vue/commit/603307aeccf6141b94eff2186baee4ec43439033))
+- **modal, tooltips, popovers**: remove `nextTick` delay when updating content in transporter portal
+  (closes [#4589](https://github.com/bootstrap-vue/bootstrap-vue/issues/4589))
+  ([#4604](https://github.com/bootstrap-vue/bootstrap-vue/issues/4604))
+  ([0e3e7e0](https://github.com/bootstrap-vue/bootstrap-vue/commit/0e3e7e03370685367ac69949e596c9fff5c68163))
 - **utils:** correct `identity` spelling error
   ([#4579](https://github.com/bootstrap-vue/bootstrap-vue/issues/4579))
   ([7fed191](https://github.com/bootstrap-vue/bootstrap-vue/commit/7fed1911d6d9f7eae81526010483c71e1679e770))
