@@ -1343,10 +1343,10 @@
     js-levenshtein "^1.1.3"
     semver "^5.5.0"
 
-"@babel/preset-env@^7.8.0":
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.8.0.tgz#f0a0a353091cb2135e9aea21ed9c4563c51bd31f"
-  integrity sha512-g3wnth3Ct+ZvnaHcvb5PQyojqNj0whXTkO7hatXgz+lQ2FphOoXrG1JMIfeaHgDakGzx3LiNe0KsWO69xSVFDA==
+"@babel/preset-env@^7.8.2":
+  version "7.8.2"
+  resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.8.2.tgz#dd55bd61f5d0bb1237915173c0e94aa350de3089"
+  integrity sha512-AF2YUl2bGsLWTtFL68upTTB7nDo05aEcKjHmXJE+aXRvsx5K+9yRsHQP3MjnTrLOWe/eFyUr93dfILROsKC4eg==
   dependencies:
     "@babel/compat-data" "^7.8.0"
     "@babel/helper-compilation-targets" "^7.8.0"
@@ -1420,10 +1420,10 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@babel/standalone@^7.8.1":
-  version "7.8.1"
-  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.8.1.tgz#5b059a2c90b16f980b057da61088c152a2e35307"
-  integrity sha512-hYRZ4bo9+Rgrxz5kDw2FnLkuj0OJgLqohs0v0Gg6NGZr/XazSh94mUxePu1ZU42ehA3CPc429pNo01yjo2rF3Q==
+"@babel/standalone@^7.8.2":
+  version "7.8.2"
+  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.8.2.tgz#37fde438588fc5b25e3a7badd156e0b29d8310ea"
+  integrity sha512-GGbckLYYpF9QtNCy3m+e6Co5ib9hyrtEUn7yxYq+Kwxo8qqRlz8+/RIMl8Ot1kDa6/9k41mvPJsJ7wJfv6GTIQ==
 
 "@babel/template@^7.4.0", "@babel/template@^7.7.4":
   version "7.7.4"
