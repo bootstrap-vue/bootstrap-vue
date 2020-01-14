@@ -161,7 +161,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     if (
       templateOptions.treeShake &&
       templateOptions.icons &&
-      templateOptions.componentPlugins.indexOf('IconsPlugin') === -1 && 
+      templateOptions.componentPlugins.indexOf('IconsPlugin') === -1 &&
       templateOptions.componentPlugins.indexOf('BootstrapVueIcons') === -1
     ) {
       templateOptions.componentPlugins.push('IconsPlugin')
