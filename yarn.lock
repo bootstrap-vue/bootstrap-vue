@@ -6897,10 +6897,10 @@ humps@^2.0.1:
   resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
   integrity sha1-3QLqYIG9BWjcXQcxhEY5V7qe+ao=
 
-husky@^4.0.8:
-  version "4.0.8"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-4.0.8.tgz#fff98dc0a1fcacdd2efb2c973d6e0b3e836c3607"
-  integrity sha512-WH4cem0fl5LYWCWCnYdMjRXocGKAX7fedAEhWbD7NN7Ews8BqoekuboWkupPjnPNwev8wPb6Iqnbmq84KRBowA==
+husky@^4.0.9:
+  version "4.0.9"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-4.0.9.tgz#ded9e4f957dd8358649330da84906b6bf2e367e9"
+  integrity sha512-zaH0INH9MZBH8smr6nPdzv7pjchOZPN/AKdhkuV4zut9SyF0+pUy1ZCBzhz2uPe7Cp75YzD92ewU2ytIZ0GjUQ==
   dependencies:
     chalk "^3.0.0"
     ci-info "^2.0.0"
