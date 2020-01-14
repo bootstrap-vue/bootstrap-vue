@@ -39,7 +39,7 @@ describe('utils/transporter component', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
+
     await waitNT(wrapper.vm)
 
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
@@ -54,7 +54,7 @@ describe('utils/transporter component', () => {
     expect(target.parentElement).toBe(document.body)
 
     wrapper.destroy()
-    await waitNT(wrapper.vm)
+
     await waitNT(wrapper.vm)
 
     expect(target.parentElement).toEqual(null)

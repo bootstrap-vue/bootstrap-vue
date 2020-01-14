@@ -120,7 +120,7 @@ Vue.use(BootstrapVueIcons)
 ```
 
 BootstrapVue icons SCSS/CSS does not depend on any Bootstrap SASS variables, mixins, functions or
-CSS classes (other than the Bootstrap `text-{variant}` variant utility classes, if using the
+CSS classes (other than the Bootstrap `text-{variant}` text color utility classes, if using the
 `variant` prop). Please note that the icons CSS is _also_ included in the main BootstrapVue SCSS/CSS
 files.
 
@@ -299,9 +299,9 @@ With the use of Bootstrap's border and background
 
 ## Transforms
 
-BootstrapVue icons provide several props for applying basic CSS transforms to the `<svg>`. All
+BootstrapVue icons provide several props for applying basic SVG transforms to the `<svg>`. All
 transforms can be combined for added effect. Note that the transforms are applied to the `<svg>`
-content, and not the `<svg>` bounding box.
+_content_ and not the `<svg>` bounding box.
 
 ### Flipping
 

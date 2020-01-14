@@ -272,7 +272,7 @@
           },
           {
             "prop": "emptyHtml",
-            "description": "HTML string to show when the table has no items to show. Usw with caution"
+            "description": "HTML string to show when the table has no items to show. Use with caution"
           },
           {
             "prop": "emptyFilteredText",
