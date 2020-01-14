@@ -118,9 +118,9 @@
 </template>
 
 <script>
-import hljs from '../utils/hljs'
-import kebabCase from 'lodash/kebabCase'
 import startCase from 'lodash/startCase'
+import hljs from '../utils/hljs'
+import { kebabCase } from '../utils'
 import AnchoredHeading from './anchored-heading'
 
 const importPath = 'bootstrap-vue'
@@ -136,10 +136,11 @@ export default {
       return 'bootstrap-vue'
     },
     isComponentRoute() {
-      return this.$route.name === 'docs-components-slug'
+      const name = this.$route.name
+      return name === 'docs-components-slug' || name === 'docs-icons'
     },
     pluginDir() {
-      return this.$route.params.slug
+      return this.$route.params.slug || this.meta.slug
     },
     pluginName() {
       // Directive plugin names are prefixed with `VB`
@@ -218,7 +219,7 @@ export default {
   },
   methods: {
     componentName(component) {
-      return kebabCase(component)
+      return kebabCase(component).replace('{', '-{')
     },
     componentTag(component) {
       return `<${this.componentName(component)}>`

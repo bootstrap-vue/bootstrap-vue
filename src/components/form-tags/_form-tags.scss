@@ -34,9 +34,9 @@
   line-height: $input-line-height;
 
   &.disabled {
-    opacity: .75;
+    opacity: 0.75;
   }
-  
+
   // Override default close button settings
   > button.b-form-tag-remove {
     color: inherit;

@@ -267,10 +267,10 @@ this.$root.$emit('bv::toggle::collapse', 'my-collapse-id')
 
 The default slot can be optionally scoped. The following scope properties are available:
 
-| Property   | Type     | Description                          |
-| ---------- | -------- | ------------------------------------ |
-| `visible`  | Boolean  | Visible state of the collapse        |
-| `close`    | Function | When called, will close the collapse |
+| Property  | Type     | Description                          |
+| --------- | -------- | ------------------------------------ |
+| `visible` | Boolean  | Visible state of the collapse        |
+| `close`   | Function | When called, will close the collapse |
 
 ## Accessibility
 

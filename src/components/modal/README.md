@@ -20,7 +20,7 @@
 
 `<b-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. These buttons can be
 customized by setting various props on the component. You can customize the size of the buttons,
-disable buttons, hide the **Cancel** button (i.e. OK Only), choose a variant (e.g. `danger` for a
+disable buttons, hide the **Cancel** button (i.e. `ok-only`), choose a variant (e.g. `danger` for a
 red OK button) using the `ok-variant` and `cancel-variant` props, and provide custom button content
 using the `ok-title` and `cancel-title` props, or using the named slots `modal-ok` and
 `modal-cancel`.
@@ -74,7 +74,7 @@ See the [Accessibility](#accessibility) section below for details.
 
 ### Using `this.$bvModal.show()` and `this.$bvModal.hide()` instance methods
 
-When BootstrapVue is installed as a plugin, or the `ModalPlugin` plugin is used, BoostrapVue will
+When BootstrapVue is installed as a plugin, or the `ModalPlugin` plugin is used, BootstrapVue will
 inject a `$bvModal` object into every Vue instance (components, apps). `this.$bvModal` exposes
 several methods, of which two are for showing and hiding modals:
 
@@ -285,7 +285,7 @@ To prevent `<b-modal>` from closing (for example when validation fails). you can
     methods: {
       checkFormValidity() {
         const valid = this.$refs.form.checkValidity()
-        this.nameState = valid ? 'valid' : 'invalid'
+        this.nameState = valid
         return valid
       },
       resetModal() {
@@ -307,7 +307,7 @@ To prevent `<b-modal>` from closing (for example when validation fails). you can
         this.submittedNames.push(this.name)
         // Hide the modal manually
         this.$nextTick(() => {
-          this.$refs.modal.hide()
+          this.$bvModal.hide('modal-prevent-closing')
         })
       }
     }

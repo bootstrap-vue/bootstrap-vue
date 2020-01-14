@@ -2,12 +2,13 @@
 const path = require('path')
 const fs = require('fs')
 const requireContext = require('require-context')
+const { kebabCase } = require('../src/utils/string')
 
 const baseDir = path.resolve(__dirname, '..')
 const distDir = path.resolve(baseDir, 'dist')
 const docsDir = path.resolve(baseDir, 'docs')
 
-// Import project package.json
+// Import project `package.json`
 const pkg = require(path.resolve(baseDir, 'package.json'))
 
 const libraryName = pkg.name
@@ -20,6 +21,7 @@ const commonPropsMeta = require(path.resolve(docsDir, 'common-props.json'))
 
 // Placeholder arrays
 let componentGroups = {}
+let iconGroups = {}
 let directiveGroups = {}
 
 // Base web-types object
@@ -40,14 +42,15 @@ const webTypes = {
   }
 }
 
-// Import metadata from a directory glob package.json files
+// Import metadata from a directory glob `package.json` files
 const importAll = r => {
   const obj = {}
   r.keys()
     .map(r)
     .map(m => m.meta || m)
     .map(m => ({
-      slug: m.slug || (m.title || '').replace(' ', '-').toLowerCase(),
+      slug:
+        typeof m.slug !== 'undefined' ? m.slug : (m.title || '').replace(' ', '-').toLowerCase(),
       ...m
     }))
     .sort((a, b) => {
@@ -62,19 +65,13 @@ const importAll = r => {
       }
       if (m.directives) {
         // Normalize `meta.directives` to array of objects form
-        // Applicable to component group package.json
+        // Applicable to component group `package.json`
         m.directives = m.directives.map(d => (typeof d === 'string' ? { directive: d } : d))
       }
       obj[m.slug] = m
     })
 
   return obj
-}
-
-// Util to kebab-case a PascalCase or camelCase string
-const kebabRE = /\B([A-Z])/g
-const kebabCase = str => {
-  return str.replace(kebabRE, '-$1').toLowerCase()
 }
 
 // Compute the web-type "type" from the a prop type
@@ -183,7 +180,7 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
         prop.type = 'boolean'
       }
       // If we have a description, add it to the prop
-      // TODO: this doesn't exist in the component meta yet
+      // TODO: This doesn't exist in the component meta yet
       prop.description =
         typeof $propExtra.description === 'undefined'
           ? $propFallbackExtra.description
@@ -192,7 +189,7 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
         // JSON stringification will remove properties with an undefined value
         prop.description = undefined
       }
-      // TODO: this doesn't exist in the component meta yet
+      // TODO: This doesn't exist in the component meta yet
       if ($propExtra.href) {
         // If the prop has a document ID link, add it on here
         // The `href` property is an ID in the docs page
@@ -354,10 +351,10 @@ const processComponentGroup = groupSlug => {
   const directivesMeta = groupMeta.directives || []
 
   // The URL to the components docs
-  const docUrl = `${baseDocs}/docs/components/${groupSlug}/`
+  const docUrl = `${baseDocs}/docs/components/${groupSlug}/`.replace('//', '/')
 
   // We import the component from the transpiled `esm/` dir
-  const groupRef = require(path.resolve(baseDir, 'esm/components/' + groupSlug))
+  const groupRef = require(path.resolve(baseDir, 'esm/components/' + (groupSlug || '')))
 
   // Process each component
   componentsMeta.forEach(meta => {
@@ -365,9 +362,27 @@ const processComponentGroup = groupSlug => {
   })
 
   // Process any directives provided in the meta
-  // These directives do not have their own package.json files
+  // These directives do not have their own `package.json` files
   directivesMeta.forEach(directiveMeta => {
     processDirectiveMeta(directiveMeta, groupMeta.description, docUrl)
+  })
+}
+
+// Create tag entries for each component in a component group
+const processIconGroup = groupSlug => {
+  // Array of components in the group
+  const groupMeta = iconGroups[groupSlug] || {}
+  const iconsMeta = groupMeta.components || []
+
+  // The URL to the components docs
+  const docUrl = `${baseDocs}/docs/icons/`
+
+  // We import the component from the transpiled `esm/` dir
+  const groupRef = require(path.resolve(baseDir, 'esm/icons'))
+
+  // Process each icon component
+  iconsMeta.forEach(meta => {
+    processComponentMeta(meta, groupRef, groupMeta.description, docUrl)
   })
 }
 
@@ -383,13 +398,17 @@ const processDirectiveGroup = groupSlug => {
 
 // Wrapped in a try/catch to handle any errors
 try {
-  // Grab the component meta data (from the source dir component's package.json)
+  // Grab the component meta data (from the source dir component's `package.json`)
   const componentsContext = requireContext(
     path.resolve(baseDir, 'src/components'),
     true,
     /package.json/
   )
   componentGroups = importAll(componentsContext)
+
+  // Grab the icons meta data
+  const iconsContext = requireContext(path.resolve(baseDir, 'src/icons'), false, /package.json/)
+  iconGroups = importAll(iconsContext)
 
   // Grab the directive meta data
   const directivesContext = requireContext(
@@ -401,6 +420,9 @@ try {
 
   // Process all components into webTypes
   Object.keys(componentGroups).forEach(processComponentGroup)
+
+  // Process all icons into webTypes (note there is only one group)
+  Object.keys(iconGroups).forEach(processIconGroup)
 
   // Process all directives into webTypes
   Object.keys(directiveGroups).forEach(processDirectiveGroup)

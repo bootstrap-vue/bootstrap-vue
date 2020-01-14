@@ -23,7 +23,8 @@ export default {
           staticClass: 'b-table-top-row',
           class: [
             isFunction(this.tbodyTrClass) ? this.tbodyTrClass(null, 'row-top') : this.tbodyTrClass
-          ]
+          ],
+          attrs: isFunction(this.tbodyTrAttr) ? this.tbodyTrAttr(null, 'row-top') : this.tbodyTrAttr
         },
         [this.normalizeSlot(slotName, { columns: fields.length, fields: fields })]
       )

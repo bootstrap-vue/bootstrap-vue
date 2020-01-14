@@ -136,6 +136,11 @@
             "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
           },
           {
+            "prop": "tbodyTrAttr",
+            "version": "2.2.0",
+            "description": "Attributes to be added to each tr in the tbody, or a function returning such attributes (see docs for details)"
+          },
+          {
             "prop": "detailsTdClass",
             "version": "2.1.0",
             "description": "CSS class (or classes) to apply to the td element in the details row"
@@ -230,15 +235,15 @@
           },
           {
             "prop": "labelSortAsc",
-            "description": "String to place in the header cell's 'aria-label' when clicking the cell will change the sort direction to ascending"
+            "description": "Hidden string to place in the header cell when clicking the cell will change the sort direction to ascending"
           },
           {
             "prop": "labelSortDesc",
-            "description": "String to place in the header cell's 'aria-label' when clicking the cell will change the sort direction to descending"
+            "description": "Hidden string to place in the header cell when clicking the cell will change the sort direction to descending"
           },
           {
             "prop": "labelSortClear",
-            "description": "String to place in the header cell's 'aria-label' when clicking the cell will clear the current sorting direction"
+            "description": "Hidden string to place in the header cell when clicking the cell will clear the current sorting direction"
           },
           {
             "prop": "selectable",
@@ -267,7 +272,7 @@
           },
           {
             "prop": "emptyHtml",
-            "description": "HTML string to show when the table has no items to show. Usw with caution"
+            "description": "HTML string to show when the table has no items to show. Use with caution"
           },
           {
             "prop": "emptyFilteredText",
@@ -1116,6 +1121,11 @@
           {
             "prop": "tbodyTrClass",
             "description": "CSS class (or classes) to apply to the tr element in the tbody. Can be a function that returns a class (see docs for details)"
+          },
+          {
+            "prop": "tbodyTrAttr",
+            "version": "2.2.0",
+            "description": "Attributes to be added to each tr in the tbody, or a function returning such attributes (see docs for details)"
           },
           {
             "prop": "detailsTdClass",
