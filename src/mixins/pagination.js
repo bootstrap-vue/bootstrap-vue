@@ -55,9 +55,9 @@ export const props = {
     type: [Number, String],
     default: null,
     validator(value) /* istanbul ignore next */ {
-      const num = toInteger(value)
-      if (!isNull(value) && (isNaN(num) || num < 1)) {
-        warn('pagination: v-model value must be a number greater than 0')
+      const number = toInteger(value)
+      if (!isNull(value) && (isNaN(number) || number < 1)) {
+        warn('"v-model" value must be a number greater than "0"', 'BPagination')
         return false
       }
       return true
@@ -67,9 +67,9 @@ export const props = {
     type: [Number, String],
     default: DEFAULT_LIMIT,
     validator(value) /* istanbul ignore next */ {
-      const num = toInteger(value)
-      if (isNaN(num) || num < 1) {
-        warn('pagination: prop "limit" must be a number greater than 0')
+      const number = toInteger(value)
+      if (isNaN(number) || number < 1) {
+        warn('Prop "limit" must be a number greater than "0"', 'BPagination')
         return false
       }
       return true
@@ -99,6 +99,14 @@ export const props = {
     type: String,
     default: '\u00AB' // '«'
   },
+  firstNumber: {
+    type: Boolean,
+    default: false
+  },
+  firstClass: {
+    type: [String, Array, Object],
+    default: null
+  },
   labelPrevPage: {
     type: String,
     default: 'Go to previous page'
@@ -106,6 +114,10 @@ export const props = {
   prevText: {
     type: String,
     default: '\u2039' // '‹'
+  },
+  prevClass: {
+    type: [String, Array, Object],
+    default: null
   },
   labelNextPage: {
     type: String,
@@ -115,6 +127,10 @@ export const props = {
     type: String,
     default: '\u203A' // '›'
   },
+  nextClass: {
+    type: [String, Array, Object],
+    default: null
+  },
   labelLastPage: {
     type: String,
     default: 'Go to last page'
@@ -123,9 +139,21 @@ export const props = {
     type: String,
     default: '\u00BB' // '»'
   },
+  lastNumber: {
+    type: Boolean,
+    default: false
+  },
+  lastClass: {
+    type: [String, Array, Object],
+    default: null
+  },
   labelPage: {
     type: [String, Function],
     default: 'Go to page'
+  },
+  pageClass: {
+    type: [String, Array, Object],
+    default: null
   },
   hideEllipsis: {
     type: Boolean,
@@ -134,6 +162,10 @@ export const props = {
   ellipsisText: {
     type: String,
     default: '\u2026' // '…'
+  },
+  ellipsisClass: {
+    type: [String, Array, Object],
+    default: null
   }
 }
 
@@ -165,8 +197,8 @@ export default {
       } else if (align === 'end' || align === 'right') {
         return 'justify-content-end'
       } else if (align === 'fill') {
-        // The page-items will also have 'flex-fill' added.
-        // We ad text centering to make the button appearance better in fill mode.
+        // The page-items will also have 'flex-fill' added
+        // We add text centering to make the button appearance better in fill mode
         return 'text-center'
       }
       return ''
@@ -289,14 +321,13 @@ export default {
   },
   methods: {
     handleKeyNav(evt) {
-      const keyCode = evt.keyCode
-      const shift = evt.shiftKey
+      const { keyCode, shiftKey } = evt
       if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
         evt.preventDefault()
-        shift ? this.focusFirst() : this.focusPrev()
+        shiftKey ? this.focusFirst() : this.focusPrev()
       } else if (keyCode === KeyCodes.RIGHT || keyCode === KeyCodes.DOWN) {
         evt.preventDefault()
-        shift ? this.focusLast() : this.focusNext()
+        shiftKey ? this.focusLast() : this.focusNext()
       }
     },
     getButtons() {
@@ -307,7 +338,7 @@ export default {
       btn.focus()
     },
     focusCurrent() {
-      // We do this in next tick to ensure buttons have finished rendering
+      // We do this in `$nextTick()` to ensure buttons have finished rendering
       this.$nextTick(() => {
         const btn = this.getButtons().find(
           el => toInteger(getAttr(el, 'aria-posinset')) === this.computedCurrentPage
@@ -321,7 +352,7 @@ export default {
       })
     },
     focusFirst() {
-      // We do this in next tick to ensure buttons have finished rendering
+      // We do this in `$nextTick()` to ensure buttons have finished rendering
       this.$nextTick(() => {
         const btn = this.getButtons().find(el => !isDisabled(el))
         if (btn && btn.focus && btn !== document.activeElement) {
@@ -330,7 +361,7 @@ export default {
       })
     },
     focusLast() {
-      // We do this in next tick to ensure buttons have finished rendering
+      // We do this in `$nextTick()` to ensure buttons have finished rendering
       this.$nextTick(() => {
         const btn = this.getButtons()
           .reverse()
@@ -341,7 +372,7 @@ export default {
       })
     },
     focusPrev() {
-      // We do this in next tick to ensure buttons have finished rendering
+      // We do this in `$nextTick()` to ensure buttons have finished rendering
       this.$nextTick(() => {
         const buttons = this.getButtons()
         const idx = buttons.indexOf(document.activeElement)
@@ -351,7 +382,7 @@ export default {
       })
     },
     focusNext() {
-      // We do this in next tick to ensure buttons have finished rendering
+      // We do this in `$nextTick()` to ensure buttons have finished rendering
       this.$nextTick(() => {
         const buttons = this.getButtons()
         const idx = buttons.indexOf(document.activeElement)
@@ -365,6 +396,7 @@ export default {
   render(h) {
     const buttons = []
     const numberOfPages = this.localNumberOfPages
+    const pageNumbers = this.pageList.map(p => p.number)
     const disabled = this.disabled
     const { showFirstDots, showLastDots } = this.paginationParams
     const currentPage = this.computedCurrentPage
@@ -372,12 +404,12 @@ export default {
 
     // Helper function and flag
     const isActivePage = pageNum => pageNum === currentPage
-    const noCurrPage = this.currentPage < 1
+    const noCurrentPage = this.currentPage < 1
 
     // Factory function for prev/next/first/last buttons
-    const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, pageTest, key) => {
+    const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, btnClass, pageTest, key) => {
       const isDisabled =
-        disabled || isActivePage(pageTest) || noCurrPage || linkTo < 1 || linkTo > numberOfPages
+        disabled || isActivePage(pageTest) || noCurrentPage || linkTo < 1 || linkTo > numberOfPages
       const pageNum = linkTo < 1 ? 1 : linkTo > numberOfPages ? numberOfPages : linkTo
       const scope = { disabled: isDisabled, page: pageNum, index: pageNum - 1 }
       const btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h()
@@ -409,7 +441,7 @@ export default {
         {
           key,
           staticClass: 'page-item',
-          class: { disabled: isDisabled, 'flex-fill': fill },
+          class: [{ disabled: isDisabled, 'flex-fill': fill }, btnClass],
           attrs: {
             role: 'presentation',
             'aria-hidden': isDisabled ? 'true' : null
@@ -426,7 +458,7 @@ export default {
         {
           key: `ellipsis-${isLast ? 'last' : 'first'}`,
           staticClass: 'page-item',
-          class: ['disabled', 'bv-d-xs-down-none', fill ? 'flex-fill' : ''],
+          class: ['disabled', 'bv-d-xs-down-none', fill ? 'flex-fill' : '', this.ellipsisClass],
           attrs: { role: 'separator' }
         },
         [
@@ -437,33 +469,47 @@ export default {
       )
     }
 
-    // Goto First Page button bookend
-    buttons.push(
-      this.hideGotoEndButtons
+    // Goto first page button bookend
+    // Don't render button when `hideGotoEndButtons` is set or when
+    // `firstNumber` is enabled and the first page is in the page list
+    const $firstPageBtn =
+      this.hideGotoEndButtons || (this.firstNumber && pageNumbers.indexOf(1) !== -1)
         ? h()
-        : makeEndBtn(1, this.labelFirstPage, 'first-text', this.firstText, 1, 'bookend-goto-first')
+        : makeEndBtn(
+            1,
+            this.labelFirstPage,
+            'first-text',
+            this.firstNumber ? '1' : this.firstText,
+            this.firstClass,
+            1,
+            'bookend-goto-first'
+          )
+
+    // Goto previous page button bookend
+    const $prevPageBtn = makeEndBtn(
+      currentPage - 1,
+      this.labelPrevPage,
+      'prev-text',
+      this.prevText,
+      this.prevClass,
+      1,
+      'bookend-goto-prev'
     )
 
-    // Goto Previous page button bookend
+    // When `firstNumber` prop is set we move the previous page button
+    // before the first page button
     buttons.push(
-      makeEndBtn(
-        currentPage - 1,
-        this.labelPrevPage,
-        'prev-text',
-        this.prevText,
-        1,
-        'bookend-goto-prev'
-      )
+      ...(this.firstNumber ? [$prevPageBtn, $firstPageBtn] : [$firstPageBtn, $prevPageBtn])
     )
 
     // First Ellipsis Bookend
     buttons.push(showFirstDots ? makeEllipsis(false) : h())
 
-    // Individual Page links
+    // Individual page links
     this.pageList.forEach((page, idx) => {
-      const active = isActivePage(page.number) && !noCurrPage
+      const active = isActivePage(page.number) && !noCurrentPage
       // Active page will have tabindex of 0, or if no current page and first page button
-      const tabIndex = disabled ? null : active || (noCurrPage && idx === 0) ? '0' : '-1'
+      const tabIndex = disabled ? null : active || (noCurrentPage && idx === 0) ? '0' : '-1'
       const attrs = {
         role: 'menuitemradio',
         'aria-disabled': disabled ? 'true' : null,
@@ -508,7 +554,7 @@ export default {
           {
             key: `page-${page.number}`,
             staticClass: 'page-item',
-            class: [{ disabled, active, 'flex-fill': fill }, page.classes],
+            class: [{ disabled, active, 'flex-fill': fill }, page.classes, this.pageClass],
             attrs: { role: 'presentation' }
           },
           [inner]
@@ -516,34 +562,39 @@ export default {
       )
     })
 
-    // Last Ellipsis Bookend
+    // Last ellipsis bookend
     buttons.push(showLastDots ? makeEllipsis(true) : h())
 
-    // Goto Next page button bookend
-    buttons.push(
-      makeEndBtn(
-        currentPage + 1,
-        this.labelNextPage,
-        'next-text',
-        this.nextText,
-        numberOfPages,
-        'bookend-goto-next'
-      )
+    // Goto next page button bookend
+    const $nextPageBtn = makeEndBtn(
+      currentPage + 1,
+      this.labelNextPage,
+      'next-text',
+      this.nextText,
+      this.nextClass,
+      numberOfPages,
+      'bookend-goto-next'
     )
 
-    // Goto Last Page button bookend
-    buttons.push(
-      this.hideGotoEndButtons
+    // Goto last page button bookend
+    // Don't render button when `hideGotoEndButtons` is set or when
+    // `lastNumber` is enabled and the last page is in the page list
+    const $lastPageBtn =
+      this.hideGotoEndButtons || (this.lastNumber && pageNumbers.indexOf(numberOfPages) !== -1)
         ? h()
         : makeEndBtn(
             numberOfPages,
             this.labelLastPage,
             'last-text',
-            this.lastText,
+            this.lastNumber ? toString(numberOfPages) : this.lastText,
+            this.lastClass,
             numberOfPages,
             'bookend-goto-last'
           )
-    )
+
+    // When `lastNumber` prop is set we move the next page button
+    // after the last page button
+    buttons.push(...(this.lastNumber ? [$lastPageBtn, $nextPageBtn] : [$nextPageBtn, $lastPageBtn]))
 
     // Assemble the pagination buttons
     const pagination = h(
