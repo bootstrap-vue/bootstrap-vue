@@ -10,7 +10,7 @@
 - `secondary` - <span class="text-secondary">Secondary</span>
 - `success` - <span class="text-success">Success</span>
 - `warning` - <span class="text-warning">Warning</span>
-- `danger` - <span class="text-danger">danger</span>
+- `danger` - <span class="text-danger">Danger</span>
 - `info` - <span class="text-info">Info</span>
 - `light` - <span class="text-light">Light</span>
 - `dark` - <span class="text-dark">Dark</span>
