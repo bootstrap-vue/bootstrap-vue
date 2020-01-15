@@ -62,6 +62,10 @@
             "description": "Do not show ellipsis buttons"
           },
           {
+            "prop": "ellipsisText",
+            "description": "Content to place in the ellipsis placeholder"
+          },
+          {
             "prop": "size",
             "description": "Size of the rendered buttons: 'sm', 'md' (default), or 'lg'"
           },
