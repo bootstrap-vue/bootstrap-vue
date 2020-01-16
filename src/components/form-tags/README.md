@@ -239,7 +239,7 @@ not validated.
 
 ### Detecting new, invalid, and duplicate tags
 
-The event `new-tags` will be emitted whenever new tags are entered into the new tag input element,
+The event `tag-state` will be emitted whenever new tags are entered into the new tag input element,
 tags that do not pass validation, or duplicate tags are detected. The event handler will receive
 three arrays as it's arguments:
 
@@ -252,10 +252,10 @@ considered part of a tag), or when the user attempts to add a tag (i.e. via <kbd
 clicking the **Add** button, or entering a separator). The three arrays will be empty when the user
 clears the new tag input element (or contains just spaces).
 
-If you are providing your own feedback for duplicate and invalid tags (via the use of the `new-tags`
-event) outside of the `<b-form-tags>` component, you can disable the built in duplicate and invalid
-messages by setting the props `duplicate-tag-text` and `invalid-tag-text` (respectively) to either
-an empty string (`''`) or `null`.
+If you are providing your own feedback for duplicate and invalid tags (via the use of the
+`tag-state` event) outside of the `<b-form-tags>` component, you can disable the built in duplicate
+and invalid messages by setting the props `duplicate-tag-text` and `invalid-tag-text` (respectively)
+to either an empty string (`''`) or `null`.
 
 ```html
 <template>
