@@ -4,6 +4,23 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.2.2"></a>
+
+## [v2.2.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.2.1...v2.2.2)
+
+Released: 2020-01-15
+
+### Bug Fixes v2.2.2
+
+- **nuxt module:** remove unnecessary export statements
+  ([#4624](https://github.com/bootstrap-vue/bootstrap-vue/issues/4624))
+  ([27f066c](https://github.com/bootstrap-vue/bootstrap-vue/commit/27f066cfa07ee311fe1e312d9a9ebd0eb76750c7))
+
+### Other v2.2.2
+
+- dev dependencies updates
+- minor docs updates
+
 <a name="2.2.1"></a>
 
 ## [v2.2.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.2.0...v2.2.1)
