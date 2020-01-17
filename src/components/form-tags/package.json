@@ -124,7 +124,7 @@
                 "prop": "inputType",
                 "version": "2.3.0",
                 "description": "The type of input to use: 'input', 'email', 'tel', 'url', or 'number'. Default is 'text'. Normalized value of the 'input-type' prop"
-              }
+              },
               {
                 "prop": "inputId",
                 "type": "String",
