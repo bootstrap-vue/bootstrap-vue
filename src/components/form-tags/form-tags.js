@@ -18,6 +18,10 @@ import { BButton } from '../button/button'
 
 const NAME = 'BFormTags'
 
+// Supported input types (for built in input)
+
+const TYPES = ['input', 'email', 'tel', 'url', 'number']
+
 // --- Pre-compiled regular expressions for performance reasons ---
 
 const RX_SPACES = /[\s\uFEFF\xA0]+/g
@@ -89,6 +93,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     size: {
       type: String,
       default: null
+    },
+    inputType: {
+      type: String,
+      default: 'text',
+      validator: type => arrayIncludes(TYPES, type)
     },
     inputClass: {
       type: [String, Array, Object],
@@ -180,6 +189,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   computed: {
     computedInputId() {
       return this.inputId || this.safeId('__input__')
+    },
+    localType() {
+      // We only allow certain types
+      return arrayIncludes(TYPES, this.type) ? this.type : 'text'
     },
     computedInputAttrs() {
       return {
@@ -469,6 +482,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       tags,
       addTag,
       removeTag,
+      inputType,
       inputAttrs,
       inputHandlers,
       inputClass,
@@ -541,7 +555,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         attrs: {
           ...inputAttrs,
           'aria-describedby': ariaDescribedby || null,
-          type: 'text',
+          type: inputType,
           placeholder: placeholder || null
         },
         domProps: { value: inputAttrs.value },
@@ -660,6 +674,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Methods
       removeTag: this.removeTag,
       addTag: this.addTag,
+      // We don't inncude this in the attrs, as users may want to override this
+      inputType: this.localType,
       // <input> v-bind:inputAttrs
       inputAttrs: this.computedInputAttrs,
       // <input> v-on:inputHandlers
