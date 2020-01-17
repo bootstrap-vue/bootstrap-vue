@@ -37,7 +37,7 @@
           {
             "prop": "inputType",
             "version": "2.3.0",
-            "description": "Specifies the type of input to use: 'input', 'email', 'tel', 'url', or 'number'. Default is 'text'"
+            "description": "Specifies the type of input to use: 'text', 'email', 'tel', 'url', or 'number'. Default is 'text'"
           },
           {
             "prop": "addButtonText",
@@ -123,7 +123,7 @@
               {
                 "prop": "inputType",
                 "version": "2.3.0",
-                "description": "The type of input to use: 'input', 'email', 'tel', 'url', or 'number'. Default is 'text'. Normalized value of the 'input-type' prop"
+                "description": "The type of input to use: 'type', 'email', 'tel', 'url', or 'number'. Default is 'text'. Normalized value of the 'input-type' prop"
               },
               {
                 "prop": "inputId",
