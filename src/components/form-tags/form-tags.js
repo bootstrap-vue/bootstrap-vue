@@ -20,7 +20,7 @@ const NAME = 'BFormTags'
 
 // Supported input types (for built in input)
 
-const TYPES = ['input', 'email', 'tel', 'url', 'number']
+const TYPES = ['text', 'email', 'tel', 'url', 'number']
 
 // --- Pre-compiled regular expressions for performance reasons ---
 
@@ -190,7 +190,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     computedInputId() {
       return this.inputId || this.safeId('__input__')
     },
-    localType() {
+    computedInputType() {
       // We only allow certain types
       return arrayIncludes(TYPES, this.type) ? this.type : 'text'
     },
@@ -675,7 +675,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       removeTag: this.removeTag,
       addTag: this.addTag,
       // We don't inncude this in the attrs, as users may want to override this
-      inputType: this.localType,
+      inputType: this.computedInputType,
       // <input> v-bind:inputAttrs
       inputAttrs: this.computedInputAttrs,
       // <input> v-on:inputHandlers
