@@ -192,7 +192,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedInputType() {
       // We only allow certain types
-      return arrayIncludes(TYPES, this.type) ? this.type : 'text'
+      return arrayIncludes(TYPES, this.inputType) ? this.inputType : 'text'
     },
     computedInputAttrs() {
       return {
