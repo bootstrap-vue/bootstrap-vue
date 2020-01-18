@@ -119,7 +119,7 @@ export const select = (selector, root) =>
   (isElement(root) ? root : d).querySelector(selector) || null
 
 // Determine if an element matches a selector
-export const matches = (el, selector) => isElement(el) ? matchesEl.call(el, selector) ? false
+export const matches = (el, selector) => isElement(el) ? matchesEl.call(el, selector) : false
 
 // Finds closest element matching selector. Returns `null` if not found
 export const closest = (selector, root, includeRoot = false) => {
