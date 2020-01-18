@@ -119,7 +119,7 @@ export const select = (selector, root) =>
   (isElement(root) ? root : d).querySelector(selector) || null
 
 // Determine if an element matches a selector
-export const matches = (el, selector) => isElement(el) ? matchesEl.call(el, selector) : false
+export const matches = (el, selector) => (isElement(el) ? matchesEl.call(el, selector) : false)
 
 // Finds closest element matching selector. Returns `null` if not found
 export const closest = (selector, root, includeRoot = false) => {
@@ -136,7 +136,7 @@ export const closest = (selector, root, includeRoot = false) => {
 
 // Returns true if the parent element contains the child element
 export const contains = (parent, child) =>
-  (parent && isFunction(parent.contains) ? parent.contains(child) : false)
+  parent && isFunction(parent.contains) ? parent.contains(child) : false
 
 // Get an element given an ID
 export const getById = id => d.getElementById(/^#/.test(id) ? id.slice(1) : id) || null
