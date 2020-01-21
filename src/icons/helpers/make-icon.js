@@ -124,7 +124,7 @@ const BVIconBase = {
         // Merge in user supplied data
         data,
         // If icon is stacked, null out some attrs
-        isStacked ? { attrs: { width: null, height: null, role: null, alt: null} } : {},
+        isStacked ? { attrs: { width: null, height: null, role: null, alt: null } } : {},
         // These cannot be overridden by users
         { attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' } }
       ),
