@@ -1,9 +1,9 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { BIconstack } from './iconstack'
 
 describe('icons > b-iconstack', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(BIconStack, {})
+    const wrapper = mount(BIconstack, {})
 
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.is('svg')).toBe(true)
@@ -25,7 +25,7 @@ describe('icons > b-iconstack', () => {
   })
 
   it('has renders default slot', async () => {
-    const wrapper = mount(BIconStack, {
+    const wrapper = mount(BIconstack, {
       slots: {
         default: '<svg class="foo"></svg>'
       }
