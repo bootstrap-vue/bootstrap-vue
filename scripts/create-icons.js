@@ -85,6 +85,9 @@ import { pluginFactoryNoConfig } from '../utils/plugins'
 // Icon helper component
 import { BIcon } from './icon'
 
+// Icon stacking component
+import { BIconstack } from './iconstack'
+
 import {
   // BootstrapVue custom icons
   BIconBlank,
@@ -105,6 +108,8 @@ export const IconsPlugin = /*#__PURE__*/ pluginFactoryNoConfig({
   components: {
     // Icon helper component
     BIcon,
+    // Icon stacking component
+    BIconstack,
     // BootstrapVue custom icon components
     BIconBlank,
     // Bootstrap icon components
