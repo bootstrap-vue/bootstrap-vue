@@ -96,8 +96,7 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
-    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.classes().length).toBe(2)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
     expect(wrapper.find('svg > g').attributes('transform')).toEqual(
