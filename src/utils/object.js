@@ -2,18 +2,18 @@ import { isArray } from './array'
 
 // --- Static ---
 
-export const assign = Object.assign
-export const getOwnPropertyNames = Object.getOwnPropertyNames
-export const keys = Object.keys
-export const defineProperties = Object.defineProperties
-export const defineProperty = Object.defineProperty
-export const freeze = Object.freeze
-export const getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
-export const getOwnPropertySymbols = Object.getOwnPropertySymbols
-export const getPrototypeOf = Object.getPrototypeOf
-export const create = Object.create
-export const isFrozen = Object.isFrozen
-export const is = Object.is
+export const assign = (...args) => Object.assign(...args)
+export const create = (proto, optionalProps) => Object.create(proto, optionalProps)
+export const defineProperties = (obj, props) => Object.defineProperties(obj, props)
+export const defineProperty = (obj, prop, descr) => Object.defineProperty(obj, prop, descr)
+export const freeze = obj => Object.freeze(obj)
+export const getOwnPropertyNames = obj => Object.getOwnPropertyNames(obj)
+export const getOwnPropertyDescriptor = (obj, prop) => Object.getOwnPropertyDescriptor(obj, prop)
+export const getOwnPropertySymbols = obj => Object.getOwnPropertySymbols(obj)
+export const getPrototypeOf = obj => Object.getPrototypeOf(obj)
+export const is = (value1, value2) => Object.is(value1, value2)
+export const isFrozen = obj => Object.isFrozen(obj)
+export const keys = obj => Object.keys(obj)
 
 // --- "Instance" ---
 
