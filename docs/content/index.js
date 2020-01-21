@@ -10,14 +10,21 @@ export const directives = importAll(directivesContext)
 
 const iconsContext = require.context('~/../src/icons', false, /package.json/)
 const icons = importAll(iconsContext) || {}
-// Since there are over 300 icons, we only return the first BIcon component, plus one
-// extra example icon component which we modify the icon name to be `BIcon{IconName}`
+// Since there are over 300 icons, we only return BIcon and BIconstack component, plus
+// one extra example icon component which we modify the icon name to be `BIcon{IconName}`
 // We sort the array to ensure `BIcon` appears first
 icons[''].components = icons[''].components
-  .sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
-  .slice(0, 2)
-  .map(c => ({ ...c }))
-icons[''].components[1].component = 'BIcon{IconName}'
+  .filter(c => c.component === 'BIconBlank' || !/^BIcon[A-Z]/.test(c.component))
+  .sort((a, b) => (a.component < b.component ? -1 : a.component > b.component ? 1 : 0))
+  .map(c => {
+    c = { ...c }
+    if (c.component === 'BIconBlank') {
+      c.component = 'BIcon{IconName}'
+      // We add a special srcComponent to grab the prop $options data from
+      c.srcComponent = 'BIconBlank'
+    }
+    return c
+  })
 export { icons }
 
 const referenceContext = require.context('~/markdown/reference', true, /meta.json/)
