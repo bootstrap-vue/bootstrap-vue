@@ -66,8 +66,9 @@ export { BVToastPlugin } from './components/toast/helpers/bv-toast'
 // export * from './icons'
 export { IconsPlugin, BootstrapVueIcons } from './icons'
 export { BIcon } from './icons/icon'
+export { BIconstack } from './icons/iconstack'
 // This re-export is only a single level deep, which
-// Webpack 4 handles correctly when tree shaking
+// Webpack 4 (usually) handles correctly when tree shaking
 export * from './icons/icons'
 
 //
