@@ -130,6 +130,11 @@
           {
             "prop": "shiftV",
             "description": "Moves the icon vertically. Positive numbers will shift the icon up, negative down. Value is in 1/16em units"
+          },
+          {
+            "prop": "stacked",
+            "version": "2.3.0",
+            "description": "Set this prop to true when placing inside a BIconstack component"
           }
         ]
       },
