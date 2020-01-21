@@ -428,6 +428,48 @@ Shifting is applied after any rotation transforms. As with scaling, backgrounds 
 affected. If you need to shift the border/background with the icon, use Bootstrap's margin
 [spacing utility classes](/docs/reference/utility-classes).
 
+## Stacking icons
+
+Combine icons together via the use of the component `<b-iconstack>` and the `stacked` prop on
+individual icons to create complex icons:
+
+```html
+<template>
+  <div>
+    <b-iconstack font-scale="5">
+      <b-icon stacked icon="camera" variant="info" scale="0.75" shift-v="-0.25"></b-icon>
+      <b-icon stacked icon="circle-slash" variant="danger"></b-icon>
+    </b-iconstack>
+
+    <b-iconstack font-scale="5" variant="primary">
+      <b-icon stacked icon="chevron-right" shift-h="-2"></b-icon>
+      <b-icon stacked icon="chevron-right" shift-h="2"></b-icon>
+    </b-iconstack>
+
+    <b-iconstack font-scale="5">
+      <b-icon stacked icon="circle-fill" variant="info"></b-icon>
+      <b-icon stacked icon="bell-fill" scale="0.5" variant="white"></b-icon>
+      <b-icon stacked icon="circle" variant="danger"></b-icon>
+    </b-iconstack>
+
+    <b-iconstack font-scale="5" variant="white">
+      <b-icon stacked icon="square-fill" variant="dark"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="2.5" shift-h="-2.5"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="2.5" shift-h="2.5" rotate="90"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-2.5" shift-h="2.5" rotate="180"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-2.5" shift-h="-2.5" rotate="270"></b-icon>
+    </b-iconstack>
+  </div>
+</template>
+
+<!-- icons-stacking.vue -->
+```
+
+Notes:
+
+- Remember to set the `stacked` prop on the inner icon components.
+- Stacked icons **cannot** be stacked inside another `<b-iconstack>`
+
 ## Using in components
 
 Easily place icons as content in other components.
