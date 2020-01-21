@@ -133,7 +133,7 @@
     "gh-pages": "^2.2.0",
     "highlight.js": "^9.18.0",
     "html-loader": "^0.5.5",
-    "husky": "^4.0.10",
+    "husky": "^4.1.0",
     "jest": "^24.9.0",
     "jest-environment-jsdom-fourteen": "^1.0.1",
     "lint-staged": "^10.0.1",
