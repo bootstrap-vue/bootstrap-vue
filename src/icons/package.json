@@ -49,6 +49,49 @@
           {
             "prop": "shiftV",
             "description": "Moves the icon vertically. Positive numbers will shift the icon up, negative down. Value is in 1/16em units"
+          },
+          {
+            "prop": "stacked",
+            "version": "2.3.0",
+            "description": "Set this prop to true when placing inside a BIconstack component"
+          }
+        ]
+      },
+      {
+        "component": "BIconstack",
+        "version": "2.3.0",
+        "props": [
+          {
+            "prop": "variant",
+            "description": "Contextual color variant. By default the icon inherits the current text color"
+          },
+          {
+            "prop": "fontScale",
+            "description": "Scale the icons current font size"
+          },
+          {
+            "prop": "scale",
+            "description": "Scales the icon's SVG, without increasing the font size"
+          },
+          {
+            "prop": "rotate",
+            "description": "Rotates the icon by the specified number of degrees. Positive values rotate clockwise, while negative values rotate counterclockwise"
+          },
+          {
+            "prop": "flipH",
+            "description": "Flips the icon horizontally"
+          },
+          {
+            "prop": "flipV",
+            "description": "Flips the icon vertically"
+          },
+          {
+            "prop": "shiftH",
+            "description": "Moves the icon horizontally. Positive numbers will shift the icon right, negative left. Value is in 1/16em units"
+          },
+          {
+            "prop": "shiftV",
+            "description": "Moves the icon vertically. Positive numbers will shift the icon up, negative down. Value is in 1/16em units"
           }
         ]
       },
