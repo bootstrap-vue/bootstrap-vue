@@ -53,7 +53,7 @@ const baseAttrs = {
 
 // Shared private base component to reduce bundle/runtime size
 // @vue/component
-const BVIconBase = {
+export const BVIconBase = /*#__PURE__*/ Vue.extend({
   name: 'BVIconBase',
   functional: true,
   props: {
@@ -131,7 +131,7 @@ const BVIconBase = {
       [$inner]
     )
   }
-}
+})
 
 /**
  * Icon component generator function
