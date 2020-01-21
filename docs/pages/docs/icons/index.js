@@ -61,12 +61,10 @@ export default {
   computed: {
     componentMeta() {
       // `docs/content/index.js` massages the list of icon components
-      // to include only `BIcon` and an example component
-      const components = this.meta.components
-      // Add in a special property or grabbing the component props
-      // as `BIcon{IconName}` doesn't exist
-      components[1].srcComponent = 'BIconBlank'
-      return components
+      // to include only `BIcon`, `BIconstack` and an example component
+      // The example Icon has a special srcComponent property that lists
+      // `BIconBlank` asthe component to grab the $options.props from
+      return this.meta.components
     },
     importMeta() {
       return { ...this.meta, slug: 'icons', components: this.componentMeta }
