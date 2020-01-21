@@ -1,6 +1,6 @@
 import Vue from '../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import { commonIconProps } from './helpers/make-icon'
+import { commonIconProps, BVIconBase } from './helpers/make-icon'
 
 // @vue/component
 export const BIconstack = /*#__PURE__*/ Vue.extend({
@@ -8,10 +8,6 @@ export const BIconstack = /*#__PURE__*/ Vue.extend({
   functional: true,
   props: { ...commonIconProps },
   render(h, { data, props, children }) {
-    return h(
-      BVIconBase,
-      mergeData(data, { props: { ...props, stacked: false } }),
-      children
-    )
+    return h(BVIconBase, mergeData(data, { props: { ...props, stacked: false } }), children)
   }
 })
