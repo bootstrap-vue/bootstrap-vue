@@ -74,7 +74,7 @@ breakpoints). To change this to a fluid container, set the `container-fluid` pro
 
 ## Component tag
 
-By default, `<b-jumbotron>` will render it's root element as a `div`. Change the element tag to any
+By default, `<b-jumbotron>` will render its root element as a `div`. Change the element tag to any
 other appropriate element by setting the `tag` prop to the desired element tag name.
 
 ## Variants

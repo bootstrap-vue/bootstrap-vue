@@ -6,8 +6,8 @@
 ## Vuelidate
 
 [Vuelidate](https://github.com/vuelidate/vuelidate/) provides "Simple, lightweight model-based
-validation for Vue.js". Installation instructions and other documentation can be found at
-https://vuelidate.netlify.com/.
+validation for Vue.js". Installation instructions and other documentation can be found at their
+[website](https://vuelidate.js.org/).
 
 ### Vuelidate example
 

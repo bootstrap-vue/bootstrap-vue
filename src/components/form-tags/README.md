@@ -241,7 +241,7 @@ not validated.
 
 The event `tag-state` will be emitted whenever new tags are entered into the new tag input element,
 tags that do not pass validation, or duplicate tags are detected. The event handler will receive
-three arrays as it's arguments:
+three arrays as its arguments:
 
 - `validTags` (tags that pass validation)
 - `invalidTags` (tags that do not pass validation)

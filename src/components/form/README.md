@@ -244,8 +244,8 @@ feedback helper, or set the `was-validated` class on a parent element (such as a
 Use the optional Boolean prop `tooltip` to change the display from a block to a static tooltip
 style. The feedback will typically appear below the form control. When this mode is enabled, it is
 important that the parent container have a `position: relative:` css style (or `position-relative`
-class). Note that tooltip style feedback may, since it's positioning is static, obscure other
-inputs, labels, etc.
+class). Note that tooltip style feedback may, since its positioning is static, obscure other inputs,
+labels, etc.
 
 **Note:** Some form controls, such as
 [`<b-form-radio>`](/docs/components/form-radio#contextual-states),

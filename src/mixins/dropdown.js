@@ -396,7 +396,7 @@ export default {
         }
         // When we are in a navbar (which has been responsively stacked), we
         // delay the dropdown's closing so that the next element has a chance
-        // to have it's click handler fired (in case it's position moves on
+        // to have its click handler fired (in case its position moves on
         // the screen do to a navbar menu above it collapsing)
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
         this.clearHideTimeout()
