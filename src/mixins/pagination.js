@@ -397,7 +397,6 @@ export default {
   render(h) {
     const buttons = []
     const numberOfPages = this.localNumberOfPages
-    const pageNumbers = this.pageList.map(p => p.number)
     const disabled = this.disabled
     const { showFirstDots, showLastDots } = this.paginationParams
     const currentPage = this.computedCurrentPage
@@ -542,15 +541,17 @@ export default {
     buttons.push($firstPageBtn)
 
     // Goto previous page button bookend
-    buttons.push(makeEndBtn(
-      currentPage - 1,
-      this.labelPrevPage,
-      'prev-text',
-      this.prevText,
-      this.prevClass,
-      1,
-      'bookend-goto-prev'
-    ))
+    buttons.push(
+      makeEndBtn(
+        currentPage - 1,
+        this.labelPrevPage,
+        'prev-text',
+        this.prevText,
+        this.prevClass,
+        1,
+        'bookend-goto-prev'
+      )
+    )
 
     // Show first (1) button?
     buttons.push(this.firstNumber ? makePageButton({ number: 1, classes: '' }, 0) : h())
@@ -570,15 +571,17 @@ export default {
     buttons.push(this.lastNumber ? makePageButton({ number: numberOfPages, classes: '' }, -1) : h())
 
     // Goto next page button bookend
-    buttons.push(makeEndBtn(
-      currentPage + 1,
-      this.labelNextPage,
-      'next-text',
-      this.nextText,
-      this.nextClass,
-      numberOfPages,
-      'bookend-goto-next'
-    ))
+    buttons.push(
+      makeEndBtn(
+        currentPage + 1,
+        this.labelNextPage,
+        'next-text',
+        this.nextText,
+        this.nextClass,
+        numberOfPages,
+        'bookend-goto-next'
+      )
+    )
 
     // Goto last page button bookend
     // Don't render button when `hideGotoEndButtons` or `lastNumber` is set
