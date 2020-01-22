@@ -255,12 +255,12 @@ export default {
       }
       if (showFirstDots && this.firstNumber && startNumber === 2) {
         showFirstDots = false
-        numberOfLinks = numberOfLinks + 2
+        numberOfLinks = numberOfLinks + 3
         startNumber = 1
       }
       if (showLastDots && this.lastNumber && (startNumber + numberOfLinks - 1) === numberOfPages - 2) {
         showLastDots = false
-        numberOfLinks = numberOfLinks + 2
+        numberOfLinks = numberOfLinks + 3
       }
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
