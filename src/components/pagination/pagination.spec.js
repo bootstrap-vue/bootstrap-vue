@@ -814,6 +814,49 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
+  it('fist-number and last-number props work (TBD)', async() => {
+    const wrapper = mount(BPagination, {
+      propsData: {
+        totalRows: 10,
+        perPage: 1,
+        value: 1,
+        limit: 5
+      }
+    })
+
+    wrapper.setProps({
+      perPage: 2
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      perPage: 3
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      perPage: 5
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      perPage: 8
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      perPage: 9
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      perPage: 10
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.destroy()
+  })
+
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
   describe('pagination keyboard navigation', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
