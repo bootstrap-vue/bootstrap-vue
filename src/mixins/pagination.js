@@ -260,7 +260,7 @@ export default {
       }
       if (showLastDots && this.lastNumber && numberOfLinks < numberOfPages - startNumber - 3) {
         showLastDots = false
-        numberOfLinks = numberOfLinks + (numberOfPages - (numberOfLinks + startNumber + 1))
+        numberOfLinks = numberOfLinks + (numberOfPages - (numberOfLinks + startNumber))
       }
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
