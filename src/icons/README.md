@@ -443,7 +443,7 @@ individual icons to create complex icons:
       <b-icon stacked icon="circle-slash" variant="danger"></b-icon>
     </b-iconstack>
 
-    <b-iconstack font-scale="5">
+    <b-iconstack font-scale="5" rotate="90">
       <b-icon stacked icon="chevron-right" shift-h="-3" variant="danger"></b-icon>
       <b-icon stacked icon="chevron-right" shift-h="0" variant="success"></b-icon>
       <b-icon stacked icon="chevron-right" shift-h="3" variant="primary"></b-icon>
