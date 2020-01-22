@@ -256,14 +256,14 @@ export default {
       } else if (startNumber > numberOfPages - numberOfLinks) {
         startNumber = numberOfPages - numberOfLinks + 1
       }
-      if (showFirstDots && this.firstNumber && startNumber === 2) {
+      if (showFirstDots && this.firstNumber && startNumber > 1 && startNumber < 4) {
         showFirstDots = false
+        numberOfLinks = numberOfLinks + startNumber
         startNumber = 1
-        numberOfLinks = numberOfLinks + 2
       }
-      if (showLastDots && this.lastNumber && numberOfPages === startNumber + numberOfLinks - 2) {
+      if (showLastDots && this.lastNumber && numberOfPages > startNumber + numberOfLinks - 3) {
         showLastDots = false
-        numberOfLinks = numberOfLinks + 2
+        numberOfLinks = numberOfLinks + (numberOfPages - (numberOfLinks + startNumber))
       }
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
