@@ -258,9 +258,10 @@ export default {
         numberOfLinks = numberOfLinks + startNumber - 1
         startNumber = 1
       }
-      if (showLastDots && this.lastNumber && numberOfLinks < numberOfPages - startNumber - 3) {
+      const lastPageNumber = startNumber + numberOfPages - 1
+      if (showLastDots && this.lastNumber && lastPageNumber > numberOfPages - 3 ) {
         showLastDots = false
-        numberOfLinks = numberOfLinks + (numberOfPages - (numberOfLinks + startNumber))
+        numberOfLinks = numberOfLinks + (numberOfPages - lastPageNumber)
       }
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
