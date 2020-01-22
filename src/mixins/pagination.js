@@ -261,7 +261,7 @@ export default {
         startNumber = 1
         numberOfLinks++
       }
-      if (showLastDots && this.lastNumber && startNumber + numberOfLinks - 2 === numberOfPages) {
+      if (showLastDots && this.lastNumber && numberOfPages === startNumber + numberOfLinks - 2) {
         showLastDots = false
         numberOfLinks++
       }
