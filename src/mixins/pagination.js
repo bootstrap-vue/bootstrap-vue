@@ -225,22 +225,23 @@ export default {
         numberOfLinks = numberOfPages
       } else if (currentPage < limit - 1 && limit > ELLIPSIS_THRESHOLD) {
         // We are near the beginning of the page list
-        if (!hideEllipsis) {
+        if (!hideEllipsis || this.lastNumber) {
           showLastDots = true
           numberOfLinks = limit - 1
         }
       } else if (numberOfPages - currentPage + 2 < limit && limit > ELLIPSIS_THRESHOLD) {
         // We are near the end of the list
-        if (!hideEllipsis) {
+        if (!hideEllipsis || this.firstNumber) {
           numberOfLinks = limit - 1
           showFirstDots = true
         }
         startNumber = numberOfPages - numberOfLinks + 1
       } else {
         // We are somewhere in the middle of the page list
-        if (limit > ELLIPSIS_THRESHOLD && !hideEllipsis) {
+        if (limit > ELLIPSIS_THRESHOLD) {
           numberOfLinks = limit - 2
-          showFirstDots = showLastDots = true
+          showFirstDots = !!(!hideEllipsis || this.firstNumber)
+          showLastDots = !!(!hideEllipsis || this.lastNumber)
         }
         startNumber = currentPage - Math.floor(numberOfLinks / 2)
       }
@@ -469,44 +470,8 @@ export default {
       )
     }
 
-    // Goto first page button bookend
-    // Don't render button when `hideGotoEndButtons` is set or when
-    // `firstNumber` is enabled and the first page is in the page list
-    const $firstPageBtn =
-      this.hideGotoEndButtons || (this.firstNumber && pageNumbers.indexOf(1) !== -1)
-        ? h()
-        : makeEndBtn(
-            1,
-            this.labelFirstPage,
-            'first-text',
-            this.firstNumber ? '1' : this.firstText,
-            this.firstClass,
-            1,
-            'bookend-goto-first'
-          )
-
-    // Goto previous page button bookend
-    const $prevPageBtn = makeEndBtn(
-      currentPage - 1,
-      this.labelPrevPage,
-      'prev-text',
-      this.prevText,
-      this.prevClass,
-      1,
-      'bookend-goto-prev'
-    )
-
-    // When `firstNumber` prop is set we move the previous page button
-    // before the first page button
-    buttons.push(
-      ...(this.firstNumber ? [$prevPageBtn, $firstPageBtn] : [$firstPageBtn, $prevPageBtn])
-    )
-
-    // First Ellipsis Bookend
-    buttons.push(showFirstDots ? makeEllipsis(false) : h())
-
-    // Individual page links
-    this.pageList.forEach((page, idx) => {
+    // Page button factory
+    const makePageButton = (page, idx) => {
       const active = isActivePage(page.number) && !noCurrentPage
       // Active page will have tabindex of 0, or if no current page and first page button
       const tabIndex = disabled ? null : active || (noCurrentPage && idx === 0) ? '0' : '-1'
@@ -548,22 +513,71 @@ export default {
         },
         [this.normalizeSlot('page', scope) || btnContent]
       )
-      buttons.push(
-        h(
-          'li',
-          {
-            key: `page-${page.number}`,
-            staticClass: 'page-item',
-            class: [{ disabled, active, 'flex-fill': fill }, page.classes, this.pageClass],
-            attrs: { role: 'presentation' }
-          },
-          [inner]
-        )
+      return h(
+        'li',
+        {
+          key: `page-${page.number}`,
+          staticClass: 'page-item',
+          class: [{ disabled, active, 'flex-fill': fill }, page.classes, this.pageClass],
+          attrs: { role: 'presentation' }
+        },
+        [inner]
       )
+    }
+
+    // Goto first page button bookend
+    // Don't render button when `hideGotoEndButtons` is set or when
+    // `firstNumber` is enabled and the first page is in the page list
+    let $firstPageBtn = h()
+    if (!this.firstNumber && !this.hideGotoEndButtons) {
+      $firstPageBtn = makeEndBtn(
+        1,
+        this.labelFirstPage,
+        'first-text',
+        this.firstText,
+        this.firstClass,
+        1,
+        'bookend-goto-first'
+      )
+    }
+    buttons.push($firstPageBtn)
+
+    // Goto previous page button bookend
+    const $prevPageBtn = makeEndBtn(
+      currentPage - 1,
+      this.labelPrevPage,
+      'prev-text',
+      this.prevText,
+      this.prevClass,
+      1,
+      'bookend-goto-prev'
+    )
+    buttons.push($prevPageBtn)
+
+    // Page 1 button if this.firstNumber and ellipsis showing
+    if (this.firstNumber && showFirstDots) {
+      buttons.push(makePageButton({ number: 1, classes: '' }, 0))
+    } else {
+      buttons.push(h())
+    }
+
+    // First Ellipsis Bookend
+    buttons.push(showFirstDots ? makeEllipsis(false) : h())
+
+    // Individual page links
+    this.pageList.forEach((page, idx) => {
+      buttons.push(makePageButton(page, idx + (showFirstDots && this.firstNumber ? 1 : 0)))
     })
 
     // Last ellipsis bookend
     buttons.push(showLastDots ? makeEllipsis(true) : h())
+
+    // Page N button if this.lastNumber and ellipsis showing
+    if (this.lastNumber && showLastDots) {
+      buttons.push(makePageButton({ number: numberOfPages, classes: '' }, -1))
+    } else {
+      buttons.push(h())
+    }
 
     // Goto next page button bookend
     const $nextPageBtn = makeEndBtn(
@@ -575,26 +589,24 @@ export default {
       numberOfPages,
       'bookend-goto-next'
     )
+    buttons.push($nextPageBtn)
 
     // Goto last page button bookend
     // Don't render button when `hideGotoEndButtons` is set or when
     // `lastNumber` is enabled and the last page is in the page list
-    const $lastPageBtn =
-      this.hideGotoEndButtons || (this.lastNumber && pageNumbers.indexOf(numberOfPages) !== -1)
-        ? h()
-        : makeEndBtn(
-            numberOfPages,
-            this.labelLastPage,
-            'last-text',
-            this.lastNumber ? toString(numberOfPages) : this.lastText,
-            this.lastClass,
-            numberOfPages,
-            'bookend-goto-last'
-          )
-
-    // When `lastNumber` prop is set we move the next page button
-    // after the last page button
-    buttons.push(...(this.lastNumber ? [$lastPageBtn, $nextPageBtn] : [$nextPageBtn, $lastPageBtn]))
+    let $lastPageBtn = h()
+    if (!this.lastNumber && !this.hideGotoEndButtons) {
+      $lastPageBtn = makeEndBtn(
+        numberOfPages,
+        this.labelLastPage,
+        'last-text',
+        this.lastText,
+        this.lastClass,
+        numberOfPages,
+        'bookend-goto-last'
+      )
+    }
+    buttons.push($lastPageBtn)
 
     // Assemble the pagination buttons
     const pagination = h(
