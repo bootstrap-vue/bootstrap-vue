@@ -59,6 +59,7 @@ export default deepFreeze({
     variant: 'secondary'
   },
   BButtonClose: {
+    content: '&times;',
     // `textVariant` is `null` to inherit the current text color
     textVariant: null,
     ariaLabel: 'Close'
@@ -134,6 +135,7 @@ export default deepFreeze({
     cancelVariant: 'secondary',
     okTitle: 'OK',
     okVariant: 'primary',
+    headerCloseContent: '&times;',
     headerCloseLabel: 'Close'
   },
   BNavbar: {

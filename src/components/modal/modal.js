@@ -231,6 +231,10 @@ export const props = {
     type: [HTMLElement, String, Object],
     default: null
   },
+  headerCloseContent: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'headerCloseContent')
+  },
   headerCloseLabel: {
     type: String,
     default: () => getComponentConfig(NAME, 'headerCloseLabel')
@@ -827,6 +831,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               {
                 ref: 'close-button',
                 props: {
+                  content: this.headerCloseContent,
                   disabled: this.isTransitioning,
                   ariaLabel: this.headerCloseLabel,
                   textVariant: this.headerCloseVariant || this.headerTextVariant

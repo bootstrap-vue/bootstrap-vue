@@ -7,23 +7,23 @@ describe('button-close', () => {
     expect(wrapper.is('button')).toBe(true)
   })
 
-  it('has class close', async () => {
+  it('has class "close"', async () => {
     const wrapper = mount(BButtonClose)
     expect(wrapper.classes()).toContain('close')
     expect(wrapper.classes().length).toBe(1)
   })
 
-  it('has attribute type=button', async () => {
+  it('has attribute type="button"', async () => {
     const wrapper = mount(BButtonClose)
     expect(wrapper.attributes('type')).toBe('button')
   })
 
-  it('does not have attribute disabled by default', async () => {
+  it('does not have attribute "disabled" by default', async () => {
     const wrapper = mount(BButtonClose)
     expect(wrapper.attributes('disabled')).not.toBeDefined()
   })
 
-  it('has attribute disabled when prop disabled is set', async () => {
+  it('has attribute "disabled" when prop "disabled" is set', async () => {
     const wrapper = mount(BButtonClose, {
       context: {
         props: { disabled: true }
@@ -32,12 +32,12 @@ describe('button-close', () => {
     expect(wrapper.attributes('disabled')).toBeDefined()
   })
 
-  it('has attribute aria-label=Close by default', async () => {
+  it('has attribute aria-label="Close" by default', async () => {
     const wrapper = mount(BButtonClose)
     expect(wrapper.attributes('aria-label')).toBe('Close')
   })
 
-  it('has custom attribute aria-label=Close when prop aria-label set', async () => {
+  it('has custom attribute "aria-label" when prop "aria-label" set', async () => {
     const wrapper = mount(BButtonClose, {
       context: {
         props: { ariaLabel: 'foobar' }
@@ -46,7 +46,7 @@ describe('button-close', () => {
     expect(wrapper.attributes('aria-label')).toBe('foobar')
   })
 
-  it('has variant class when variant prop set', async () => {
+  it('has text variant class when "variant" prop set', async () => {
     const wrapper = mount(BButtonClose, {
       context: {
         props: { textVariant: 'primary' }
@@ -61,6 +61,15 @@ describe('button-close', () => {
     const wrapper = mount(BButtonClose)
     // '&times;' gets converted to '×'
     expect(wrapper.text()).toContain('×')
+  })
+
+  it('should have custom content from "content" prop', async () => {
+    const wrapper = mount(BButtonClose, {
+      context: {
+        props: { content: 'Close' }
+      }
+    })
+    expect(wrapper.text()).toContain('Close')
   })
 
   it('should have custom content from default slot', async () => {

@@ -51,6 +51,13 @@
         "aliases": [
           "BBtnClose"
         ],
+        "props": [
+          {
+            "prop": "content",
+            "version": "2.3.0",
+            "description": "The content of the close button"
+          }
+        ],
         "events": [
           {
             "event": "click",
