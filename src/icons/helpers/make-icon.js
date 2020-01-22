@@ -126,7 +126,12 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
         // If icon is stacked, null out some attrs
         isStacked ? { attrs: { width: null, height: null, role: null, alt: null } } : {},
         // These cannot be overridden by users
-        { attrs: { xmlns: 'http://www.w3.org/2000/svg', fill: 'currentColor' } }
+        {
+          attrs: {
+            xmlns: isStacked ? null : 'http://www.w3.org/2000/svg',
+            fill: 'currentColor'
+          }
+        }
       ),
       [$inner]
     )
