@@ -74,11 +74,11 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
     const shiftV = toFloat(props.shiftV) || 0
     const flipH = props.flipH
     const flipV = props.flipV
-    // Compute the transforms. Note that order is important as
-    // SVG transforms are applied in order from left to right
-    // and we want flipping/scale to occur before rotation.
-    // Note shifting is applied separately. Assumes that the
-    // viewbox is `0 0 20 20` (`10 10` is the center)
+    // Compute the transforms
+    // Note that order is important as SVG transforms are applied in order from
+    // left to right and we want flipping/scale to occur before rotation
+    // Note shifting is applied separately
+    // Assumes that the viewbox is `0 0 20 20` (`10 10` is the center)
     const hasScale = flipH || flipV || scale !== 1
     const hasTransforms = hasScale || rotate
     const hasShift = shiftH || shiftV
@@ -142,7 +142,7 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
  * Icon component generator function
  *
  * @param {string} icon name (minus the leading `BIcon`)
- * @param {string} raw innerHTML for SVG
+ * @param {string} raw `innerHTML` for SVG
  * @return {VueComponent}
  */
 export const makeIcon = (name, content) => {
