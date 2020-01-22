@@ -817,7 +817,7 @@ describe('pagination', () => {
   it('fist-number and last-number props work (TBD)', async () => {
     const wrapper = mount(BPagination, {
       propsData: {
-        currentPage: 1,
+        value: 1,
         totalRows: 10,
         perPage: 1,
         value: 1,
@@ -828,32 +828,32 @@ describe('pagination', () => {
     })
 
     wrapper.setProps({
-      currentPage: 2
+      value: 2
     })
     await waitNT(wrapper.vm)
 
     wrapper.setProps({
-      currentPage: 3
+      value: 3
     })
     await waitNT(wrapper.vm)
 
     wrapper.setProps({
-      currentPage: 5
+      value: 5
     })
     await waitNT(wrapper.vm)
 
     wrapper.setProps({
-      currentPage: 8
+      value: 8
     })
     await waitNT(wrapper.vm)
 
     wrapper.setProps({
-      currentPage: 9
+      value: 9
     })
     await waitNT(wrapper.vm)
 
     wrapper.setProps({
-      currentPage: 10
+      value: 10
     })
     await waitNT(wrapper.vm)
 
