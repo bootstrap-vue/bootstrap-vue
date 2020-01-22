@@ -10,7 +10,7 @@ export const directives = importAll(directivesContext)
 
 const iconsContext = require.context('~/../src/icons', false, /package.json/)
 const icons = importAll(iconsContext) || {}
-// Since there are over 300 icons, we only return BIcon and BIconstack component, plus
+// Since there are over 300 icons, we only return `BIcon` and `BIconstack` component, plus
 // one extra example icon component which we modify the icon name to be `BIcon{IconName}`
 // We sort the array to ensure `BIcon` appears first
 icons[''].components = icons[''].components
@@ -20,7 +20,7 @@ icons[''].components = icons[''].components
     c = { ...c }
     if (c.component === 'BIconBlank') {
       c.component = 'BIcon{IconName}'
-      // We add a special srcComponent to grab the prop $options data from
+      // We add a special `srcComponent` to grab the prop `$options` data from
       c.srcComponent = 'BIconBlank'
     }
     return c
