@@ -462,6 +462,21 @@ individual icons (`<b-icon>` or `<b-icon-{icon-name}>`) to create complex icons:
       <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-2.5" shift-h="2.5" rotate="180"></b-icon>
       <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-2.5" shift-h="-2.5" rotate="270"></b-icon>
     </b-iconstack>
+
+    <b-iconstack font-scale="5">
+      <b-icon stacked icon="square"></b-icon>
+      <b-icon stacked icon="check"></b-icon>
+    </b-iconstack>
+
+    <b-iconstack font-scale="5">
+      <b-icon stacked icon="square"></b-icon>
+      <b-icon stacked icon="dot" shift-h="-2.25" shift-v="3"></b-icon>
+      <b-icon stacked icon="dot" shift-h="-2.25"></b-icon>
+      <b-icon stacked icon="dot" shift-h="-2.25" shift-v="-3"></b-icon>
+      <b-icon stacked icon="dot" shift-h="2.25" shift-v="3"></b-icon>
+      <b-icon stacked icon="dot" shift-h="2.25"></b-icon>
+      <b-icon stacked icon="dot" shift-h="2.25" shift-v="-3"></b-icon>
+    </b-iconstack>
   </div>
 </template>
 
