@@ -399,7 +399,7 @@ export default {
   render(h) {
     const buttons = []
     const numberOfPages = this.localNumberOfPages
-    const pageNumbers = this.pageLinks.map(p => p.number)
+    const pageNumbers = this.pageList.map(p => p.number)
     const disabled = this.disabled
     const { showFirstDots, showLastDots } = this.paginationParams
     const currentPage = this.computedCurrentPage
@@ -558,9 +558,7 @@ export default {
 
     // Show first (1) button?
     buttons.push(
-      this.firstNumber && pageNumbers[0] !== 1
-        ? makePageButton({ number: 1, classes: '' }, 0)
-        : h()
+      this.firstNumber && pageNumbers[0] !== 1 ? makePageButton({ number: 1, classes: '' }, 0) : h()
     )
 
     // First Ellipsis Bookend
