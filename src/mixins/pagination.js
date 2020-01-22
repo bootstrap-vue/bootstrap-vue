@@ -258,7 +258,7 @@ export default {
         numberOfLinks = numberOfLinks + startNumber - 1
         startNumber = 1
       }
-      const lastPageNumber = startNumber + numberOfPages - 1
+      const lastPageNumber = startNumber + numberOfLinks - 1
       if (showLastDots && this.lastNumber && lastPageNumber > numberOfPages - 3) {
         showLastDots = false
         numberOfLinks = numberOfLinks + (numberOfPages - lastPageNumber)
