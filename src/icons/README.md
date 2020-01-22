@@ -433,7 +433,7 @@ affected. If you need to shift the border/background with the icon, use Bootstra
 <span class="badge badge-info small">v2.3.0+</span>
 
 Combine icons together via the use of the component `<b-iconstack>` and the `stacked` prop on
-individual icons to create complex icons:
+individual icons (`<b-icon>` or `<b-icon-{icon-name}>`) to create complex icons:
 
 ```html
 <template>
@@ -467,6 +467,9 @@ individual icons to create complex icons:
 
 <!-- icons-stacking.vue -->
 ```
+
+`<b-iconstack>` supports the same `variant`, `font-size`, and transformation props availble on
+idividual icons.
 
 Stacked icon notes:
 
