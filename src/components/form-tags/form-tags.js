@@ -16,14 +16,14 @@ import { BFormInvalidFeedback } from '../form/form-invalid-feedback'
 import { BFormText } from '../form/form-text'
 import { BButton } from '../button/button'
 
+// --- Constants ---
+
 const NAME = 'BFormTags'
 
 // Supported input types (for built in input)
-
 const TYPES = ['text', 'email', 'tel', 'url', 'number']
 
-// --- Pre-compiled regular expressions for performance reasons ---
-
+// Pre-compiled regular expressions for performance reasons
 const RX_SPACES = /[\s\uFEFF\xA0]+/g
 
 // --- Utility methods ---
