@@ -35,6 +35,11 @@
             "description": "Additional attributes to apply to the new tag input element"
           },
           {
+            "prop": "inputType",
+            "version": "2.3.0",
+            "description": "Specifies the type of input to use: 'text', 'email', 'tel', 'url', or 'number'. Default is 'text'"
+          },
+          {
             "prop": "addButtonText",
             "description": "Text for the built in 'Add' button. Slot `add-button-text' takes precedence"
           },
@@ -114,6 +119,11 @@
                 "prop": "inputHandlers",
                 "type": "Object",
                 "description": "Object of event handlers to apply to native input elements via 'v-on=\"inputHandlers\"'"
+              },
+              {
+                "prop": "inputType",
+                "version": "2.3.0",
+                "description": "The type of input to use: 'type', 'email', 'tel', 'url', or 'number'. Default is 'text'. Normalized value of the 'input-type' prop"
               },
               {
                 "prop": "inputId",

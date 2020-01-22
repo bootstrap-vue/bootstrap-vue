@@ -231,6 +231,10 @@ export const props = {
     type: [HTMLElement, String, Object],
     default: null
   },
+  headerCloseContent: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'headerCloseContent')
+  },
   headerCloseLabel: {
     type: String,
     default: () => getComponentConfig(NAME, 'headerCloseLabel')
@@ -644,7 +648,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     emitEvent(bvModalEvt) {
       const type = bvModalEvt.type
       // We emit on root first incase a global listener wants to cancel
-      // the event first before the instance emits it's event
+      // the event first before the instance emits its event
       this.emitOnRoot(`bv::modal::${type}`, bvModalEvt, bvModalEvt.componentId)
       this.$emit(type, bvModalEvt)
     },
@@ -827,6 +831,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               {
                 ref: 'close-button',
                 props: {
+                  content: this.headerCloseContent,
                   disabled: this.isTransitioning,
                   ariaLabel: this.headerCloseLabel,
                   textVariant: this.headerCloseVariant || this.headerTextVariant

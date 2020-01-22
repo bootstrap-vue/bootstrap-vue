@@ -103,7 +103,7 @@ export const isVisible = el => {
 export const isDisabled = el =>
   !isElement(el) || el.disabled || hasAttr(el, 'disabled') || hasClass(el, 'disabled')
 
-// Cause/wait-for an element to reflow it's content (adjusting it's height/width)
+// Cause/wait-for an element to reflow its content (adjusting its height/width)
 export const reflow = el => {
   // Requesting an elements offsetHight will trigger a reflow of the element content
   /* istanbul ignore next: reflow doesn't happen in JSDOM */
@@ -224,7 +224,7 @@ export const offset = el => /* istanbul ignore next: getBoundingClientRect(), ge
   return _offset
 }
 
-// Return an element's offset with respect to to it's offsetParent
+// Return an element's offset with respect to to its offsetParent
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.position
 export const position = el => /* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */ {
   let _offset = { top: 0, left: 0 }

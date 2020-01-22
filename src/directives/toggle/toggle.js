@@ -64,7 +64,7 @@ const handleUpdate = (el, binding, vnode) => {
 
   // Ensure the collapse class and aria-* attributes persist
   // after element is updated (either by parent re-rendering
-  // or changes to this element or it's contents
+  // or changes to this element or its contents
   if (el[BV_TOGGLE_STATE] === true) {
     addClass(el, 'collapsed')
     setAttr(el, 'aria-expanded', 'true')

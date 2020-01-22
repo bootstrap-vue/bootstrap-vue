@@ -9,5 +9,8 @@ export * from './icons'
 // Export helper component
 export { BIcon } from './icon'
 
+// Export stacking component
+export { BIconstack } from './iconstack'
+
 // Plugin (an iconNames for docs)
 export { IconsPlugin, BootstrapVueIcons, iconNames } from './plugin'

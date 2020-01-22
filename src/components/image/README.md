@@ -34,7 +34,7 @@ the maximum native width of the image.
 <!-- b-img-fluid.vue -->
 ```
 
-To make a fluid image that will grow to fill the width of it's container, use the `fluid-grow` prop.
+To make a fluid image that will grow to fill the width of its container, use the `fluid-grow` prop.
 Note this may cause blurring on small bitmap images.
 
 ```html
