@@ -430,6 +430,8 @@ affected. If you need to shift the border/background with the icon, use Bootstra
 
 ## Stacking icons
 
+<span class="badge badge-info small">v2.3.0+</span>
+
 Combine icons together via the use of the component `<b-iconstack>` and the `stacked` prop on
 individual icons to create complex icons:
 
