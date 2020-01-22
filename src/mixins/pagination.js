@@ -526,8 +526,7 @@ export default {
     }
 
     // Goto first page button bookend
-    // Don't render button when `hideGotoEndButtons` is set or when
-    // `firstNumber` is enabled and the first page is in the page list
+    // Don't render button when `hideGotoEndButtons` or `firstNumber` is set
     let $firstPageBtn = h()
     if (!this.firstNumber && !this.hideGotoEndButtons) {
       $firstPageBtn = makeEndBtn(
@@ -543,7 +542,7 @@ export default {
     buttons.push($firstPageBtn)
 
     // Goto previous page button bookend
-    const $prevPageBtn = makeEndBtn(
+    buttons.push(makeEndBtn(
       currentPage - 1,
       this.labelPrevPage,
       'prev-text',
@@ -551,26 +550,13 @@ export default {
       this.prevClass,
       1,
       'bookend-goto-prev'
-    )
-    buttons.push($prevPageBtn)
+    ))
 
-    // Page 1 button if this.firstNumber and ellipsis showing
-    if (this.firstNumber && showFirstDots) {
-      buttons.push(makePageButton({ number: 1, classes: '' }, 0))
-    } else {
-      buttons.push(h())
-    }
+    // Show first (1) button?
+    buttons.push(this.firstNumber ? makePageButton({ number: 1, classes: '' }, 0) : h())
 
     // First Ellipsis Bookend
-    if (showFirstDots) {
-      if (this.firstNumber && pageNumbers[0] === 3) {
-        // Replace ellipsis with page 2
-        const classes = this.pageList[0].classes
-        buttons.push(makePageButton({ number: 2, classes }, -1))
-      } else {
-        buttons.push(showFirstDots ? makeEllipsis(false) : h())
-      }
-    }
+    buttons.push(showFirstDots ? makeEllipsis(false) : h())
 
     // Individual page links
     this.pageList.forEach((page, idx) => {
@@ -578,25 +564,13 @@ export default {
     })
 
     // Last ellipsis bookend
-    if (showLastDots) {
-      if (this.lastNumber && pageNumbers[pageNumbers.length - 1] === numberOfPages - 2) {
-        // Replace ellipsis with page N - 1
-        const classes = this.pageList[pageNumbers.length - 1].classes
-        buttons.push(makePageButton({ number: numberOfPages - 1, classes }, -1))
-      } else {
-        buttons.push(showLastDots ? makeEllipsis(true) : h())
-      }
-    }
+    buttons.push(showLastDots ? makeEllipsis(true) : h())
 
-    // Page N button if this.lastNumber and ellipsis showing
-    if (this.lastNumber && showLastDots) {
-      buttons.push(makePageButton({ number: numberOfPages, classes: '' }, -1))
-    } else {
-      buttons.push(h())
-    }
+    // Show last page button?
+    buttons.push(this.lastNumber ? makePageButton({ number: numberOfPages, classes: '' }, -1) : h())
 
     // Goto next page button bookend
-    const $nextPageBtn = makeEndBtn(
+    buttons.push(makeEndBtn(
       currentPage + 1,
       this.labelNextPage,
       'next-text',
@@ -604,12 +578,10 @@ export default {
       this.nextClass,
       numberOfPages,
       'bookend-goto-next'
-    )
-    buttons.push($nextPageBtn)
+    ))
 
     // Goto last page button bookend
-    // Don't render button when `hideGotoEndButtons` is set or when
-    // `lastNumber` is enabled and the last page is in the page list
+    // Don't render button when `hideGotoEndButtons` or `lastNumber` is set
     let $lastPageBtn = h()
     if (!this.lastNumber && !this.hideGotoEndButtons) {
       $lastPageBtn = makeEndBtn(
