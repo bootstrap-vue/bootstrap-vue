@@ -5,9 +5,7 @@ import { BVConfigPlugin } from './bv-config'
 
 const NAME = 'BootstrapVue'
 
-//
-// BootstrapVue installer
-//
+// --- BootstrapVue installer ---
 const install = /*#__PURE__*/ installFactory({
   plugins: {
     componentsPlugin,
@@ -15,38 +13,32 @@ const install = /*#__PURE__*/ installFactory({
   }
 })
 
-//
-// BootstrapVue plugin
-//
+// --- BootstrapVue plugin ---
 const BootstrapVue = /*#__PURE__*/ {
   install,
   NAME
 }
 
-//
-// Named exports for BvConfigPlugin
-//
+// --- Named exports for BvConfigPlugin ---
 export {
   // Installer exported in case the consumer does not import `default`
-  // as the plugin in CommonJS build (or does not have interop enabled
-  // for CommonJS). Both the following will work:
+  // as the plugin in CommonJS build (or does not have interop enabled for CommonJS)
+  // Both the following will work:
   //   BootstrapVue = require('bootstrap-vue')
   //   BootstrapVue = require('bootstrap-vue').default
   //   Vue.use(BootstrapVue)
   install,
   NAME,
-  // BV Config Plugin
+  // BootstrapVue config plugin
   BVConfigPlugin,
-  // BVConfigPlugin has been documented as BVConfig as well,
+  // `BVConfigPlugin` has been documented as `BVConfig` as well,
   // so we add an alias to the shorter name for backwards compat
   BVConfigPlugin as BVConfig,
-  // Main BootstrapVue Plugin
+  // Main BootstrapVue plugin
   BootstrapVue
 }
 
-//
-// Export named injection plugins
-//
+// --- Export named injection plugins ---
 // TODO:
 //   We should probably move injections into their own
 //   parent directory (i.e. `/src/injections`)
@@ -60,9 +52,7 @@ export { BVToastPlugin } from './components/toast/helpers/bv-toast'
 // can be reverted back to `export * from './table'` when Webpack v5 is released
 // See: https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
 
-//
-// Export Icon components and IconPlugin/BootstrapVueIcons
-//
+// -- Export Icon components and IconPlugin/BootstrapVueIcons ---
 // export * from './icons'
 export { IconsPlugin, BootstrapVueIcons } from './icons'
 export { BIcon } from './icons/icon'
@@ -71,9 +61,7 @@ export { BIconstack } from './icons/iconstack'
 // Webpack 4 (usually) handles correctly when tree shaking
 export * from './icons/icons'
 
-//
-// Export all individual components and component group plugins as named exports.
-//
+// --- Export all individual components and component group plugins as named exports ---
 
 // export * from './components/alert'
 export { AlertPlugin } from './components/alert'
@@ -288,9 +276,7 @@ export { BToaster } from './components/toast/toaster'
 export { TooltipPlugin } from './components/tooltip'
 export { BTooltip } from './components/tooltip/tooltip'
 
-//
-// Named exports of all directives (VB<Name>) and Plugins (VB<name>Plugin)
-//
+// --- Named exports of all directives (VB<Name>) and plugins (VB<Name>Plugin) ---
 
 // Webpack 4 has optimization difficulties with re-export of re-exports,
 // so we import the directives individually here for better tree shaking
