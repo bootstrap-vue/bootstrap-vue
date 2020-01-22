@@ -17,7 +17,7 @@ $bv-dropdown-form-defined: false !default;
       // From https://github.com/twbs/bootstrap/blob/master/scss/_reboot.scss
       // mimicking button:focus styling.
       // We add important here as anything with tabindex `-1` and focused will not
-      // have a focus ring due to reboot.scss and it's `!important` override.
+      // have a focus ring due to reboot.scss and its `!important` override.
       // Needed for keyboard navigation high-lighting
       outline: 1px dotted !important;
       outline: 5px auto -webkit-focus-ring-color !important;

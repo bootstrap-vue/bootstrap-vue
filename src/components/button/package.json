@@ -13,7 +13,7 @@
         "props": [
           {
             "prop": "block",
-            "description": "Renders a 100% width button (expands to the width of it's parent container)"
+            "description": "Renders a 100% width button (expands to the width of its parent container)"
           },
           {
             "prop": "type",

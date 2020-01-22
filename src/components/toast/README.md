@@ -539,7 +539,7 @@ corners. We also set the `z-index` to a large value to ensure the alert appears 
 content on the page (the default for `fixed-top` and `fixed-bottom` is `1030`). You may need to
 adjust the `z-index` for your specific layout.
 
-Since the alert markup remains in the DOM where you placed the `<b-alert>` component, it's tab
+Since the alert markup remains in the DOM where you placed the `<b-alert>` component, its tab
 sequence (for accessing the dismiss button) is easily accessible to screen reader and keyboard-only
 users.
 

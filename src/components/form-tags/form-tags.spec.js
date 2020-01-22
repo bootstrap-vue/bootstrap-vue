@@ -132,6 +132,7 @@ describe('form-tags', () => {
 
     expect($input.exists()).toBe(true)
     expect($input.element.value).toBe('')
+    expect($input.element.type).toBe('text')
 
     $input.element.value = 'pear'
     $input.trigger('input')

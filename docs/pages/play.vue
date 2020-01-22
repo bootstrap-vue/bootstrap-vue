@@ -340,7 +340,7 @@ const STORAGE_MAX_RETENTION = 7 * 24 * 60 * 60 * 1000 // 7 days
 
 // --- Helper functions ---
 
-// Remove a node from it's parent's children
+// Remove a node from its parent's children
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
 // Indent a value by the given count

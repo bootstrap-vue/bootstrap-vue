@@ -22,7 +22,7 @@
           },
           {
             "prop": "fluidGrow",
-            "description": "Similar to the 'fluid' prop, but allows the image to scale up past it's native width"
+            "description": "Similar to the 'fluid' prop, but allows the image to scale up past its native width"
           },
           {
             "prop": "thumbnail",
@@ -89,7 +89,7 @@
           },
           {
             "prop": "fluidGrow",
-            "description": "Similar to the 'fluid' prop, but allows the image to scale up past it's native width"
+            "description": "Similar to the 'fluid' prop, but allows the image to scale up past its native width"
           },
           {
             "prop": "thumbnail",
