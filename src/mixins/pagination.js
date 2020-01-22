@@ -206,12 +206,15 @@ export default {
     styleClass() {
       return this.pills ? 'b-pagination-pills' : ''
     },
+    computedLimit() {
+      return Math.max(toInteger(this.limit) || DEFAULT_LIMIT, 1)
+    },
     computedCurrentPage() {
       return sanitizeCurrentPage(this.currentPage, this.localNumberOfPages)
     },
     paginationParams() {
       // Determine if we should show the the ellipsis
-      const limit = this.limit
+      const limit = this.computedLimit
       const numberOfPages = this.localNumberOfPages
       const currentPage = this.computedCurrentPage
       const hideEllipsis = this.hideEllipsis
@@ -229,14 +232,12 @@ export default {
           showLastDots = true
           numberOfLinks = limit - 1
         }
-        startNumber = this.firstNumber ? 2 : 1
       } else if (numberOfPages - currentPage + 2 < limit && limit > ELLIPSIS_THRESHOLD) {
         // We are near the end of the list
         if (!hideEllipsis || this.firstNumber) {
-          numberOfLinks = limit - 1
           showFirstDots = true
+          numberOfLinks = limit - 1
         }
-        startNumber = numberOfPages - numberOfLinks + (this.lastNumber ? 0 : 1)
       } else {
         // We are somewhere in the middle of the page list
         if (limit > ELLIPSIS_THRESHOLD) {
@@ -398,6 +399,7 @@ export default {
   render(h) {
     const buttons = []
     const numberOfPages = this.localNumberOfPages
+    const pageNumbers = this.pageLinks.map(p => p.number)
     const disabled = this.disabled
     const { showFirstDots, showLastDots } = this.paginationParams
     const currentPage = this.computedCurrentPage
@@ -555,21 +557,30 @@ export default {
     )
 
     // Show first (1) button?
-    buttons.push(this.firstNumber ? makePageButton({ number: 1, classes: '' }, 0) : h())
+    buttons.push(
+      this.firstNumber && pageNumbers[0] !== 1
+        ? makePageButton({ number: 1, classes: '' }, 0)
+        : h()
+    )
 
     // First Ellipsis Bookend
     buttons.push(showFirstDots ? makeEllipsis(false) : h())
 
     // Individual page links
     this.pageList.forEach((page, idx) => {
-      buttons.push(makePageButton(page, idx + (showFirstDots && this.firstNumber ? 1 : 0)))
+      const offset = showFirstDots && this.firstNumber && pageNumbers[0] !== 1 ? 1 : 0
+      buttons.push(makePageButton(page, idx + offset))
     })
 
     // Last ellipsis bookend
     buttons.push(showLastDots ? makeEllipsis(true) : h())
 
     // Show last page button?
-    buttons.push(this.lastNumber ? makePageButton({ number: numberOfPages, classes: '' }, -1) : h())
+    buttons.push(
+      this.lastNumber && pageNumbers[pageNumbers.length - 1] !== numberOfPages
+        ? makePageButton({ number: numberOfPages, classes: '' }, -1)
+        : h()
+    )
 
     // Goto next page button bookend
     buttons.push(
