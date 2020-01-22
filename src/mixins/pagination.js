@@ -586,6 +586,7 @@ export default {
       } else {
         buttons.push(showLastDots ? makeEllipsis(true) : h())
       }
+    }
 
     // Page N button if this.lastNumber and ellipsis showing
     if (this.lastNumber && showLastDots) {
