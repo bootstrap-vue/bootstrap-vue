@@ -238,6 +238,7 @@ export default {
           showFirstDots = true
           numberOfLinks = limit - 1
         }
+        startNumber = numberOfPages - numberOfLinks + 1
       } else {
         // We are somewhere in the middle of the page list
         if (limit > ELLIPSIS_THRESHOLD) {
