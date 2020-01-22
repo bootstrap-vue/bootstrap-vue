@@ -239,7 +239,7 @@ export default {
       } else {
         // We are somewhere in the middle of the page list
         if (limit > ELLIPSIS_THRESHOLD) {
-          numberOfLinks = limit - (this.firstNumber || this.lastNumber ? 3 : 2)
+          numberOfLinks = limit - 2
           showFirstDots = !!(!hideEllipsis || this.firstNumber)
           showLastDots = !!(!hideEllipsis || this.lastNumber)
         }
