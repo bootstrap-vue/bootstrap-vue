@@ -814,7 +814,7 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
-  it('fist-number and last-number props work (TBD)', async() => {
+  it('fist-number and last-number props work (TBD)', async () => {
     const wrapper = mount(BPagination, {
       propsData: {
         totalRows: 10,
