@@ -29,7 +29,7 @@ icons.
 
 <div>
   <!-- Component rendered by docs/pages/docs/icons.index.js -->
-  <!-- We use a `<div is="...">` to prevent marked loader from mangling the unknown tag-->
+  <!-- We use a `<div is="...">` to prevent marked loader from mangling the unknown tag -->
   <div is="IconsTable"></div>
 </div>
 
@@ -483,8 +483,8 @@ individual icons (`<b-icon>` or `<b-icon-{icon-name}>`) to create complex icons:
 <!-- icons-stacking.vue -->
 ```
 
-`<b-iconstack>` supports the same `variant`, `font-size`, and transformation props availble on
-idividual icons.
+`<b-iconstack>` supports the same `variant`, `font-size`, and transformation props available on
+individual icons.
 
 Stacked icon notes:
 
