@@ -345,7 +345,7 @@ Note that any [flipping](#flipping) is performed before the rotation is applied.
 ### Scale
 
 Scale the icon by any positive factor via the `scale` prop. Note this changes the icon's visual size
-but not it's physical font size. To illustrate this we have added a background color to the icons.
+but not its physical font size. To illustrate this we have added a background color to the icons.
 
 ```html
 <template>

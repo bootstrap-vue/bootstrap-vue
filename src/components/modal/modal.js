@@ -648,7 +648,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     emitEvent(bvModalEvt) {
       const type = bvModalEvt.type
       // We emit on root first incase a global listener wants to cancel
-      // the event first before the instance emits it's event
+      // the event first before the instance emits its event
       this.emitOnRoot(`bv::modal::${type}`, bvModalEvt, bvModalEvt.componentId)
       this.$emit(type, bvModalEvt)
     },

@@ -91,7 +91,7 @@ The title is rendered using the sub-component `<b-card-title>` while the Sub Tit
 the sub-component `<b-card-sub-title>`.
 
 With sub-component `<b-card-text>`, paragraph text can be added to the card. The last
-`<b-card-text>` in the card body will have it's bottom margin automatically removed (via CSS). Text
+`<b-card-text>` in the card body will have its bottom margin automatically removed (via CSS). Text
 within `<b-card-text>` can also be styled with the standard HTML tags.
 
 Links can be added and placed next to each other by adding the `.card-link` class to a `<a>` tag (or
@@ -119,7 +119,7 @@ Links can be added and placed next to each other by adding the `.card-link` clas
 
 The `<b-card>` prop `img-src` places an image on the top of the card, and use the `img-alt` prop to
 specify a string to be placed in the image's `alt` attribute. The image specified by the `img-src`
-prop will be responsive and will adjust it's width when the width of the card is changed.
+prop will be responsive and will adjust its width when the width of the card is changed.
 
 Alternatively you can manually place images inside `<b-card>` using the sub-component
 `<b-card-img>`. See the kitchen sink example below for usage.

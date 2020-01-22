@@ -338,7 +338,7 @@ The `label-page` will optionally accept a function to generate the aria-label. T
 passed a single argument which is the page number (indexed from 1 to number of pages).
 
 You can remove any label by setting the prop to an empty string (`''`), although this is not
-recommended unless the content of the button textually conveys it's purpose.
+recommended unless the content of the button textually conveys its purpose.
 
 ### Keyboard navigation support
 

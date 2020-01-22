@@ -860,7 +860,7 @@ describe('b-tooltip', () => {
     expect(tip.tagName).toEqual('DIV')
     expect(tip.classList.contains('tooltip')).toBe(true)
 
-    // Tooltip should ignore when ID is not it's own
+    // Tooltip should ignore when ID is not its own
     wrapper.vm.$root.$emit('bv::hide::tooltip', 'wrong-id')
     await waitNT(wrapper.vm)
     await waitRAF()
