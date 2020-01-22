@@ -253,9 +253,9 @@ export default {
       } else if (startNumber > numberOfPages - numberOfLinks) {
         startNumber = numberOfPages - numberOfLinks + 1
       }
-      if (showFirstDots && this.firstNumber && startNumber > 1 && startNumber < 4) {
+      if (showFirstDots && this.firstNumber && startNumber < 4) {
         showFirstDots = false
-        numberOfLinks = numberOfLinks + startNumber
+        numberOfLinks = numberOfLinks + startNumber - 1
         startNumber = 1
       }
       if (showLastDots && this.lastNumber && numberOfLinks < numberOfPages - startNumber - 3) {
