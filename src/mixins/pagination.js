@@ -227,15 +227,16 @@ export default {
         // We are near the beginning of the page list
         if (!hideEllipsis || this.lastNumber) {
           showLastDots = true
-          numberOfLinks = limit - (this.lastNumber ? 0 : 1)
+          numberOfLinks = limit - 1
         }
+        startNumber = this.lastNumber ? 2 : 1
       } else if (numberOfPages - currentPage + 2 < limit && limit > ELLIPSIS_THRESHOLD) {
         // We are near the end of the list
         if (!hideEllipsis || this.firstNumber) {
-          numberOfLinks = limit - (this.firstNumber ? 0 : 1)
+          numberOfLinks = limit - 1
           showFirstDots = true
         }
-        startNumber = numberOfPages - numberOfLinks + 1
+        startNumber = numberOfPages - numberOfLinks + (this.firstNumber ? 0 : 1)
       } else {
         // We are somewhere in the middle of the page list
         if (limit > ELLIPSIS_THRESHOLD) {
