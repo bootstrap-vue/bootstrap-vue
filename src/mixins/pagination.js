@@ -206,15 +206,12 @@ export default {
     styleClass() {
       return this.pills ? 'b-pagination-pills' : ''
     },
-    computedLimit() {
-      return Math.max(toInteger(this.limit) || DEFAULT_LIMIT, 1)
-    },
     computedCurrentPage() {
       return sanitizeCurrentPage(this.currentPage, this.localNumberOfPages)
     },
     paginationParams() {
       // Determine if we should show the the ellipsis
-      const limit = this.computedLimit
+      const limit = this.localLimit
       const numberOfPages = this.localNumberOfPages
       const currentPage = this.computedCurrentPage
       const hideEllipsis = this.hideEllipsis
@@ -263,7 +260,7 @@ export default {
       }
       if (showLastDots && this.lastNumber && numberOfLinks < numberOfPages - startNumber - 3) {
         showLastDots = false
-        numberOfLinks = numberOfLinks + (numberOfPages - (numberOfLinks + startNumber))
+        numberOfLinks = numberOfLinks + (numberOfPages - (numberOfLinks + startNumber + 1))
       }
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
