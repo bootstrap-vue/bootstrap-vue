@@ -397,7 +397,6 @@ export default {
   render(h) {
     const buttons = []
     const numberOfPages = this.localNumberOfPages
-    const pageNumbers = this.pageList.map(p => p.number)
     const disabled = this.disabled
     const { showFirstDots, showLastDots } = this.paginationParams
     const currentPage = this.computedCurrentPage
