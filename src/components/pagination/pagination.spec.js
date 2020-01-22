@@ -837,7 +837,22 @@ describe('pagination', () => {
     await waitNT(wrapper.vm)
 
     wrapper.setProps({
+      value: 4
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
       value: 5
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 6
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 7
     })
     await waitNT(wrapper.vm)
 
