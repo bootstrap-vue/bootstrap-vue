@@ -2,7 +2,7 @@ import Vue from '../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { pascalCase, trim } from '../utils/string'
 import { BIconBlank } from './icons'
-import { commonIconProps } from './helpers/make-icon'
+import { commonIconProps } from './helpers/icon-base'
 
 const RX_ICON_PREFIX = /^BIcon/
 

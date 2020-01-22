@@ -1,6 +1,6 @@
 import Vue from '../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import { commonIconProps, BVIconBase } from './helpers/make-icon'
+import { commonIconProps, BVIconBase } from './helpers/icon-base'
 
 // @vue/component
 export const BIconstack = /*#__PURE__*/ Vue.extend({

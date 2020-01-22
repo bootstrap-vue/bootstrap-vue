@@ -54,7 +54,7 @@ export { BVToastPlugin } from './components/toast/helpers/bv-toast'
 
 // -- Export Icon components and IconPlugin/BootstrapVueIcons ---
 // export * from './icons'
-export { IconsPlugin, BootstrapVueIcons } from './icons'
+export { IconsPlugin, BootstrapVueIcons } from './icons/plugin'
 export { BIcon } from './icons/icon'
 export { BIconstack } from './icons/iconstack'
 // This re-export is only a single level deep, which
