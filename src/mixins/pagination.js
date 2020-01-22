@@ -252,8 +252,18 @@ export default {
       if (startNumber < 1) {
         /* istanbul ignore next */
         startNumber = 1
+        showFirstDots = false
       } else if (startNumber > numberOfPages - numberOfLinks) {
         startNumber = numberOfPages - numberOfLinks + 1
+      }
+      if (showFirstDots && this.firstNumber && startNumber === 2) {
+        showFirstDots = false
+        startNumber = 1
+        numberOfLinks++
+      }
+      if (showLastDots && this.lastNumber && startNumber + numberOfLinks - 2 === numberOfPages) {
+        showLastDots = false
+        numberOfLinks++
       }
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
