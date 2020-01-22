@@ -8,6 +8,10 @@ export const BIconstack = /*#__PURE__*/ Vue.extend({
   functional: true,
   props: { ...commonIconProps },
   render(h, { data, props, children }) {
-    return h(BVIconBase, mergeData(data, { props: { ...props, stacked: false } }), children)
+    return h(
+      BVIconBase,
+      mergeData(data, staticClass: 'b-iconstack', { props: { ...props, stacked: false } }),
+      children
+    )
   }
 })
