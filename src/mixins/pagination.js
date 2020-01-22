@@ -569,7 +569,7 @@ export default {
 
     // Show first (1) button?
     buttons.push(
-      this.firstNumber && pageNumbers[0] !== 1 ? makePageButton({ number: 1, classes: '' }, 0) : h()
+      this.firstNumber && showFirstDots ? makePageButton({ number: 1, classes: '' }, 0) : h()
     )
 
     // First Ellipsis Bookend
@@ -586,7 +586,7 @@ export default {
 
     // Show last page button?
     buttons.push(
-      this.lastNumber && pageNumbers[pageNumbers.length - 1] !== numberOfPages
+      this.lastNumber && showLastDots
         ? makePageButton({ number: numberOfPages, classes: '' }, -1)
         : h()
     )
