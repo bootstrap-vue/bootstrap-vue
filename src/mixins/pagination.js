@@ -397,6 +397,7 @@ export default {
   render(h) {
     const buttons = []
     const numberOfPages = this.localNumberOfPages
+    const pageNumbers = this.pageList.map(p => p.number)
     const disabled = this.disabled
     const { showFirstDots, showLastDots } = this.paginationParams
     const currentPage = this.computedCurrentPage
@@ -561,7 +562,15 @@ export default {
     }
 
     // First Ellipsis Bookend
-    buttons.push(showFirstDots ? makeEllipsis(false) : h())
+    if (showFirstDots) {
+      if (this.firstNumber && pageNumbers[0] === 3) {
+        // Replace ellipsis with page 2
+        const classes = this.pageList[0].classes
+        buttons.push(makePageButton({ number: 2, classes }, -1))
+      } else {
+        buttons.push(showFirstDots ? makeEllipsis(false) : h())
+      }
+    }
 
     // Individual page links
     this.pageList.forEach((page, idx) => {
@@ -569,7 +578,14 @@ export default {
     })
 
     // Last ellipsis bookend
-    buttons.push(showLastDots ? makeEllipsis(true) : h())
+    if (showLastDots) {
+      if (this.lastNumber && pageNumbers[pageNumbers.length - 1] === numberOfPages - 2) {
+        // Replace ellipsis with page N - 1
+        const classes = this.pageList[pageNumbers.length - 1].classes
+        buttons.push(makePageButton({ number: numberOfPages - 1, classes }, -1))
+      } else {
+        buttons.push(showLastDots ? makeEllipsis(true) : h())
+      }
 
     // Page N button if this.lastNumber and ellipsis showing
     if (this.lastNumber && showLastDots) {
