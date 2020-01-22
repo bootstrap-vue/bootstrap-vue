@@ -468,9 +468,11 @@ individual icons to create complex icons:
 <!-- icons-stacking.vue -->
 ```
 
-Notes:
+Stacked icon notes:
 
-- Remember to set the `stacked` prop on the inner icon components.
+- Remember to set the `stacked` prop on the inner icon components
+- The `font-scale` prop cannot be used on the inner icon components
+- The `width` and `height` attributes cannot be applied to the inner icon components
 - Stacked icons **cannot** be stacked inside another `<b-iconstack>`
 
 ## Using in components
