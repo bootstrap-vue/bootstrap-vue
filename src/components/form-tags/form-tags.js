@@ -674,7 +674,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Methods
       removeTag: this.removeTag,
       addTag: this.addTag,
-      // We don't inncude this in the attrs, as users may want to override this
+      // We don't include this in the attrs, as users may want to override this
       inputType: this.computedInputType,
       // <input> v-bind:inputAttrs
       inputAttrs: this.computedInputAttrs,
