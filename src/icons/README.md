@@ -29,7 +29,7 @@ icons.
 
 <div>
   <!-- Component rendered by docs/pages/docs/icons.index.js -->
-  <!-- We use a `<div is="...">` to prevent marked loader from mangling the unknown tag-->
+  <!-- We use a `<div is="...">` to prevent marked loader from mangling the unknown tag -->
   <div is="IconsTable"></div>
 </div>
 
@@ -345,7 +345,7 @@ Note that any [flipping](#flipping) is performed before the rotation is applied.
 ### Scale
 
 Scale the icon by any positive factor via the `scale` prop. Note this changes the icon's visual size
-but not it's physical font size. To illustrate this we have added a background color to the icons.
+but not its physical font size. To illustrate this we have added a background color to the icons.
 
 ```html
 <template>
@@ -427,6 +427,71 @@ For clarity in the example, we’ve added a background color on the icon so you 
 Shifting is applied after any rotation transforms. As with scaling, backgrounds and borders are not
 affected. If you need to shift the border/background with the icon, use Bootstrap's margin
 [spacing utility classes](/docs/reference/utility-classes).
+
+## Stacking icons
+
+<span class="badge badge-info small">v2.3.0+</span>
+
+Combine icons together via the use of the component `<b-iconstack>` and the `stacked` prop on
+individual icons (`<b-icon>` or `<b-icon-{icon-name}>`) to create complex icons:
+
+```html
+<template>
+  <div>
+    <b-iconstack font-scale="5">
+      <b-icon stacked icon="camera" variant="info" scale="0.75" shift-v="-0.25"></b-icon>
+      <b-icon stacked icon="circle-slash" variant="danger"></b-icon>
+    </b-iconstack>
+
+    <b-iconstack font-scale="5" rotate="90">
+      <b-icon stacked icon="chevron-right" shift-h="-3" variant="danger"></b-icon>
+      <b-icon stacked icon="chevron-right" shift-h="0" variant="success"></b-icon>
+      <b-icon stacked icon="chevron-right" shift-h="3" variant="primary"></b-icon>
+    </b-iconstack>
+
+    <b-iconstack font-scale="5">
+      <b-icon stacked icon="circle-fill" variant="info"></b-icon>
+      <b-icon stacked icon="bell-fill" scale="0.5" variant="white"></b-icon>
+      <b-icon stacked icon="circle" variant="danger"></b-icon>
+    </b-iconstack>
+
+    <b-iconstack font-scale="5" variant="white">
+      <b-icon stacked icon="square-fill" variant="dark"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="2.5" shift-h="-2.5"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="2.5" shift-h="2.5" rotate="90"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-2.5" shift-h="2.5" rotate="180"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-2.5" shift-h="-2.5" rotate="270"></b-icon>
+    </b-iconstack>
+
+    <b-iconstack font-scale="5">
+      <b-icon stacked icon="square"></b-icon>
+      <b-icon stacked icon="check"></b-icon>
+    </b-iconstack>
+
+    <b-iconstack font-scale="5">
+      <b-icon stacked icon="square"></b-icon>
+      <b-icon stacked icon="dot" shift-h="-2.25" shift-v="3"></b-icon>
+      <b-icon stacked icon="dot" shift-h="-2.25"></b-icon>
+      <b-icon stacked icon="dot" shift-h="-2.25" shift-v="-3"></b-icon>
+      <b-icon stacked icon="dot" shift-h="2.25" shift-v="3"></b-icon>
+      <b-icon stacked icon="dot" shift-h="2.25"></b-icon>
+      <b-icon stacked icon="dot" shift-h="2.25" shift-v="-3"></b-icon>
+    </b-iconstack>
+  </div>
+</template>
+
+<!-- icons-stacking.vue -->
+```
+
+`<b-iconstack>` supports the same `variant`, `font-size`, and transformation props available on
+individual icons.
+
+Stacked icon notes:
+
+- Remember to set the `stacked` prop on the inner icon components
+- The `font-scale` prop cannot be used on the inner icon components
+- The `width` and `height` attributes cannot be applied to the inner icon components
+- Stacked icons **cannot** be stacked inside another `<b-iconstack>`
 
 ## Using in components
 

@@ -486,7 +486,7 @@ constrain/set the menu width.
 ```
 
 `<b-dropdown-text>` has the BootstrapVue custom class `.b-dropdown-text` applied to it which sets
-some basic styles which are suitable in most situations. By default it's width will be the same as
+some basic styles which are suitable in most situations. By default its width will be the same as
 the widest `<b-dropdown-item>` content. You may need to place additional styles or helper classes on
 the component.
 
@@ -547,7 +547,7 @@ regular form.
 ```
 
 `<b-dropdown-form>` has the BootstrapVue custom class `.b-dropdown-form` applied to it which sets
-some basic styles which are suitable in most situations. By default it's width will be the same as
+some basic styles which are suitable in most situations. By default its width will be the same as
 the widest `<b-dropdown-item>` content. You may need to place additional styles or helper classes on
 the component.
 
