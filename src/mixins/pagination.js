@@ -253,15 +253,14 @@ export default {
       } else if (startNumber > numberOfPages - numberOfLinks) {
         startNumber = numberOfPages - numberOfLinks + 1
       }
-      if (showFirstDots && this.firstNumber && startNumber < 4) {
+      if (showFirstDots && this.firstNumber && startNumber === 2) {
         showFirstDots = false
-        numberOfLinks = numberOfLinks + startNumber - 1
+        numberOfLinks = numberOfLinks + 2
         startNumber = 1
       }
-      const lastPageNumber = startNumber + numberOfLinks - 1
-      if (showLastDots && this.lastNumber && lastPageNumber > numberOfPages - 3) {
+      if (showLastDots && this.lastNumber && (startNumber + numberOfLinks - 1) === numberOfPages - 2) {
         showLastDots = false
-        numberOfLinks = numberOfLinks + (numberOfPages - lastPageNumber)
+        numberOfLinks = numberOfLinks + 2
       }
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
