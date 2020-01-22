@@ -232,7 +232,7 @@ export default {
       } else if (numberOfPages - currentPage + 2 < limit && limit > ELLIPSIS_THRESHOLD) {
         // We are near the end of the list
         if (!hideEllipsis || this.firstNumber) {
-          numberOfLinks = limit - (this.firstNumber ? 2 : 1)
+          numberOfLinks = limit - (this.firstNumber ? 0 : 1)
           showFirstDots = true
         }
         startNumber = numberOfPages - numberOfLinks + 1
