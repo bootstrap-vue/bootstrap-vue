@@ -820,7 +820,6 @@ describe('pagination', () => {
         value: 1,
         totalRows: 10,
         perPage: 1,
-        value: 1,
         limit: 5,
         firstNumber: true,
         lastNumber: true
