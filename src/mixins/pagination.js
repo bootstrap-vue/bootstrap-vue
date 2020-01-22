@@ -259,11 +259,11 @@ export default {
       if (showFirstDots && this.firstNumber && startNumber === 2) {
         showFirstDots = false
         startNumber = 1
-        numberOfLinks++
+        numberOfLinks = numberOfLinks + 2
       }
       if (showLastDots && this.lastNumber && numberOfPages === startNumber + numberOfLinks - 2) {
         showLastDots = false
-        numberOfLinks++
+        numberOfLinks = numberOfLinks + 2
       }
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
