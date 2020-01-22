@@ -246,8 +246,8 @@ export default {
         startNumber = currentPage - Math.floor(numberOfLinks / 2)
       }
       // Sanity checks
+      /* istanbul ignore if */
       if (startNumber < 1) {
-        /* istanbul ignore next */
         startNumber = 1
         showFirstDots = false
       } else if (startNumber > numberOfPages - numberOfLinks) {
