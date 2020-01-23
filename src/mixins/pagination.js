@@ -245,11 +245,6 @@ export default {
         startNumber = currentPage - Math.floor(numberOfLinks / 2)
       }
       // Sanity checks
-      // TODO:
-      //   Need to handle case where numberOfPages > limit and limit < 4
-      //   to make sure array is Math.min(limit + 2, numberOfPages)
-      //   and ensure we are correctly centered about the currnetPage
-      //
       /* istanbul ignore if */
       if (startNumber < 1) {
         startNumber = 1
@@ -271,10 +266,10 @@ export default {
       // Special handling for lower limits (where ellipsis are never shown)
       if (limit <= ELLIPSIS_THRESHOLD) {
         if (this.firstNumber && startNumber === 1) {
-          numberOfLinks = Math.min(numberOfLinks + 1, numberOfPages, limit)
+          numberOfLinks = Math.min(numberOfLinks + 1, numberOfPages, limit + 1)
         } else if (this.lastNumber && numberOfPages === startNumber + numberOfLinks - 1) {
           startNumber = Math.max(startNumber - 1, 1)
-          numberOfLinks = Math.min(numberOfPages - startNumber + 1, numberOfPages, limit)
+          numberOfLinks = Math.min(numberOfPages - startNumber + 1, numberOfPages, limit + 1)
         }
       }
       numberOfLinks = Math.min(numberOfLinks, numberOfPages - startNumber + 1)
