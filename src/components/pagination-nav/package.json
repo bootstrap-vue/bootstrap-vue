@@ -112,32 +112,32 @@
           {
             "prop": "firstClass",
             "version": "2.3.0",
-            "description": "Class(es) to appply to the 'Go to first page' button"
+            "description": "Class(es) to apply to the 'Go to first page' button"
           },
           {
             "prop": "prevClass",
             "version": "2.3.0",
-            "description": "Class(es) to appply to the 'Go to previous page' button"
+            "description": "Class(es) to apply to the 'Go to previous page' button"
           },
           {
             "prop": "pageClass",
             "version": "2.3.0",
-            "description": "Class(es) to appply to the 'Go to page #' buttons"
+            "description": "Class(es) to apply to the 'Go to page #' buttons"
           },
           {
             "prop": "nextClass",
             "version": "2.3.0",
-            "description": "Class(es) to appply to the 'Go to next page' button"
+            "description": "Class(es) to apply to the 'Go to next page' button"
           },
           {
             "prop": "lastClass",
             "version": "2.3.0",
-            "description": "Class(es) to appply to the 'Go to last page' button"
+            "description": "Class(es) to apply to the 'Go to last page' button"
           },
           {
             "prop": "ellipsisClass",
             "version": "2.3.0",
-            "description": "Class(es) to appply to the 'ellipsis' placeholders"
+            "description": "Class(es) to apply to the 'ellipsis' placeholders"
           },
           {
             "prop": "firstNumber",
