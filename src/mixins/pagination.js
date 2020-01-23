@@ -268,6 +268,15 @@ export default {
         numberOfLinks = numberOfLinks + (lastPageNumber === numberOfPages - 2 ? 2 : 3)
         showLastDots = false
       }
+      // Special handling for lower limits (where ellipsis are never shown)
+      if (limit <= ELLIPSIS_THRESHOLD) {
+        if (this.firstNumber && startNumber === 1) {
+          numberOfLinks = Math.min(numberOfLinks + 1, numberOfPages, limit)
+        } else if (this.lastNumber && numberOfPages === startNumber + numberOfLinks - 1) {
+          startNumber = Math.max(startNumber - 1, 1)
+          numberOfLinks = Math.min(numberOfPages - startNumber + 1, numberOfPages, limit)
+        }
+      }
       numberOfLinks = Math.min(numberOfLinks, numberOfPages - startNumber + 1)
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
