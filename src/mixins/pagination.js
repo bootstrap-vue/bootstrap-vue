@@ -243,7 +243,7 @@ export default {
           }
           startNumber = numberOfPages - numberOfLinks + 1
         } else if (this.lastNumber) {
-          numberOfLinks =  Math.min(numberOfPages, limit + 1)
+          numberOfLinks =  Math.min(numberOfPages, limit + 2)
           startNumber = Math.max(numberOfPages - numberOfLinks + 1, 1)
         }
       } else {
