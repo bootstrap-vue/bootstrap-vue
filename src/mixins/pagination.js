@@ -276,14 +276,15 @@ export default {
         numberOfLinks = numberOfLinks + (lastPageNumber === numberOfPages - 2 ? 2 : 3)
         showLastDots = false
       }
-      if (limit <= ELLIPSIS_THRESHOLD && (this.firstNumber || this.lastNumber)) {
-        // Special case handling for low limit size and first/last number
-        if (firstGap && startNumber > 1) {
-          startNumber = startNumber - 1
-        }
-        numberOfLinks =
-          numberOfLinks + (firstGap && this.firstNumber ? 1 : 0) + (lastGap && this.lastNumber ? 1 : 0)
-      }
+      // if (limit <= ELLIPSIS_THRESHOLD && (this.firstNumber || this.lastNumber)) {
+      //   // Special case handling for low limit size and first/last number
+      //   // may need to move this up to the initial ELLIPSIS_THRESHOLD test area
+      //   if (firstGap && startNumber > 1) {
+      //     startNumber = startNumber - 1
+      //   }
+      //   numberOfLinks =
+      //     numberOfLinks + (firstGap && this.firstNumber ? 1 : 0) + (lastGap && this.lastNumber ? 1 : 0)
+      // }
       numberOfLinks = Math.min(numberOfLinks, numberOfPages - startNumber)
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
