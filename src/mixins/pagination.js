@@ -223,7 +223,7 @@ export default {
       if (numberOfPages <= limit) {
         // Special Case: Less pages available than the limit of displayed pages
         numberOfLinks = numberOfPages
-      } else if (currentPage < limit - 1) {
+      } else if (currentPage < limit) {
         // We are near the beginning of the page list
         if (limit > ELLIPSIS_THRESHOLD) {
           if (!hideEllipsis || this.lastNumber) {
