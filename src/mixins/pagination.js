@@ -253,7 +253,7 @@ export default {
       } else if (startNumber > numberOfPages - numberOfLinks) {
         startNumber = numberOfPages - numberOfLinks + 1
       }
-      if (showFirstDots && this.firstNumber && (startNumber === 2 || startNumber = 3)) {
+      if (showFirstDots && this.firstNumber && (startNumber === 2 || startNumber === 3)) {
         showFirstDots = false
         numberOfLinks = numberOfLinks + startNumber
         startNumber = 1
