@@ -122,6 +122,16 @@
             "prop": "ellipsisClass",
             "version": "2.3.0",
             "description": "Class(es) to appply to the 'ellipsis' placeholders"
+          },
+          {
+            "prop": "firstNumber",
+            "version": "2.3.0",
+            "description": "Display first page number instead of Goto First button"
+          },
+          {
+            "prop": "lastNumber",
+            "version": "2.3.0",
+            "description": "Display last page number instead of Goto Last button"
           }
         ],
         "events": [
