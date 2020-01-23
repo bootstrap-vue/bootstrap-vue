@@ -227,13 +227,13 @@ export default {
         // We are near the beginning of the page list
         if (!hideEllipsis || this.lastNumber) {
           showLastDots = true
-          numberOfLinks = limit - 1
+          numberOfLinks = limit - (this.firstNumber ? 0 : 1)
         }
       } else if (numberOfPages - currentPage + 2 < limit && limit > ELLIPSIS_THRESHOLD) {
         // We are near the end of the list
         if (!hideEllipsis || this.firstNumber) {
           showFirstDots = true
-          numberOfLinks = limit - 1
+          numberOfLinks = limit - (this.lastNumber ? 0 : 1)
         }
         startNumber = numberOfPages - numberOfLinks + 1
       } else {
@@ -568,7 +568,7 @@ export default {
 
     // Show first (1) button?
     buttons.push(
-      this.firstNumber && showFirstDots ? makePageButton({ number: 1, classes: 'foobar' }, 0) : h()
+      this.firstNumber && showFirstDots ? makePageButton({ number: 1 }, 0) : h()
     )
 
     // First Ellipsis Bookend
@@ -585,9 +585,7 @@ export default {
 
     // Show last page button?
     buttons.push(
-      this.lastNumber && showLastDots
-        ? makePageButton({ number: numberOfPages, classes: 'foobar' }, -1)
-        : h()
+      this.lastNumber && showLastDots ? makePageButton({ number: numberOfPages }, -1) : h()
     )
 
     // Goto next page button bookend
