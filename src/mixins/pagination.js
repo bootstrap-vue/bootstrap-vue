@@ -255,14 +255,14 @@ export default {
         showLastDots = false
       }
       if (showFirstDots && this.firstNumber && startNumber < 4) {
-        showFirstDots = false
         numberOfLinks = numberOfLinks + 2
         startNumber = 1
+        showFirstDots = false
       }
       const lastPageNumber = startNumber + numberOfLinks - 1
       if (showLastDots && this.lastNumber && lastPageNumber > numberOfPages - 3) {
-        showLastDots = false
         numberOfLinks = numberOfLinks + (lastPageNumber === numberOfPages - 2 ? 2 : 3)
+        showLastDots = false
       }
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
@@ -568,7 +568,7 @@ export default {
 
     // Show first (1) button?
     buttons.push(
-      this.firstNumber && showFirstDots ? makePageButton({ number: 1, classes: '' }, 0) : h()
+      this.firstNumber && showFirstDots ? makePageButton({ number: 1, classes: 'foobar' }, 0) : h()
     )
 
     // First Ellipsis Bookend
@@ -586,7 +586,7 @@ export default {
     // Show last page button?
     buttons.push(
       this.lastNumber && showLastDots
-        ? makePageButton({ number: numberOfPages, classes: '' }, -1)
+        ? makePageButton({ number: numberOfPages, classes: 'foobar' }, -1)
         : h()
     )
 
