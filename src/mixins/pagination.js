@@ -216,8 +216,6 @@ export default {
       const currentPage = this.computedCurrentPage
       const hideEllipsis = this.hideEllipsis
       let showFirstDots = false
-      let firstGap = false
-      let lastGap = false
       let showLastDots = false
       let numberOfLinks = limit
       let startNumber = 1
@@ -225,30 +223,35 @@ export default {
       if (numberOfPages <= limit) {
         // Special Case: Less pages available than the limit of displayed pages
         numberOfLinks = numberOfPages
-      } else if (currentPage < limit - 1 && limit > ELLIPSIS_THRESHOLD) {
+      } else if (currentPage < limit - 1) {
         // We are near the beginning of the page list
-        if (!hideEllipsis || this.lastNumber) {
-          showLastDots = true
-          firstGap = true
-          numberOfLinks = limit - (this.firstNumber ? 0 : 1)
+        if (limit > ELLIPSIS_THRESHOLD) {
+          if (!hideEllipsis || this.lastNumber) {
+            showLastDots = true
+            numberOfLinks = limit - (this.firstNumber ? 0 : 1)
+          }
+          numberOfLinks = Math.min(numberOfLinks, limit)
+        } else if (this.firstNumber) {
+          numberOfLinks = Math.min(numberOfPages, limit + 1)
         }
-        numberOfLinks = Math.min(numberOfLinks, limit)
-      } else if (numberOfPages - currentPage + 2 < limit && limit > ELLIPSIS_THRESHOLD) {
+      } else if (numberOfPages - currentPage + 2 < limit) {
         // We are near the end of the list
-        if (!hideEllipsis || this.firstNumber) {
-          showFirstDots = true
-          lastGap = true
-          numberOfLinks = limit - (this.lastNumber ? 0 : 1)
+        if (limit > ELLIPSIS_THRESHOLD) {
+          if (!hideEllipsis || this.firstNumber) {
+            showFirstDots = true
+            numberOfLinks = limit - (this.lastNumber ? 0 : 1)
+          }
+          startNumber = numberOfPages - numberOfLinks + 1
+        } else if (this.lastNumber) {
+          numberOfLinks = limit + 1
+          startNumber = Math.max(numberOfPages - numberOfLinks + 1, 1)
         }
-        startNumber = numberOfPages - numberOfLinks + 1
       } else {
         // We are somewhere in the middle of the page list
         if (limit > ELLIPSIS_THRESHOLD) {
           numberOfLinks = limit - 2
           showFirstDots = !!(!hideEllipsis || this.firstNumber)
-          firstGap = true
           showLastDots = !!(!hideEllipsis || this.lastNumber)
-          lastGap = true
         }
         startNumber = currentPage - Math.floor(numberOfLinks / 2)
       }
@@ -275,15 +278,6 @@ export default {
       if (showLastDots && this.lastNumber && lastPageNumber > numberOfPages - 3) {
         numberOfLinks = numberOfLinks + (lastPageNumber === numberOfPages - 2 ? 2 : 3)
         showLastDots = false
-      }
-      if (limit <= ELLIPSIS_THRESHOLD && (this.firstNumber || this.lastNumber)) {
-        // Special case handling for low limit size and first/last number
-        // may need to move this up to the initial ELLIPSIS_THRESHOLD test area
-        if (firstGap && startNumber > 1) {
-          startNumber = startNumber - 1
-        }
-        numberOfLinks =
-          numberOfLinks + (firstGap && this.firstNumber ? 1 : 0) + (lastGap && this.lastNumber ? 1 : 0)
       }
       numberOfLinks = Math.min(numberOfLinks, numberOfPages - startNumber + 1)
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
