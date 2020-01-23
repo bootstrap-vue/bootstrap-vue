@@ -253,7 +253,7 @@ export default {
         startNumber = currentPage - Math.floor(numberOfLinks / 2)
       }
       // Sanity checks
-      // TODO: 
+      // TODO:
       //   Need to handle case where numberOfPages > limit and limit < 4
       //   to make sure array is Math.min(limit + 2, numberOfPages)
       //   and ensure we are correctly centered about the currnetPage
@@ -276,15 +276,15 @@ export default {
         numberOfLinks = numberOfLinks + (lastPageNumber === numberOfPages - 2 ? 2 : 3)
         showLastDots = false
       }
-      // if (limit <= ELLIPSIS_THRESHOLD && (this.firstNumber || this.lastNumber)) {
-      //   // Special case handling for low limit size and first/last number
-      //   // may need to move this up to the initial ELLIPSIS_THRESHOLD test area
-      //   if (firstGap && startNumber > 1) {
-      //     startNumber = startNumber - 1
-      //   }
-      //   numberOfLinks =
-      //     numberOfLinks + (firstGap && this.firstNumber ? 1 : 0) + (lastGap && this.lastNumber ? 1 : 0)
-      // }
+      if (limit <= ELLIPSIS_THRESHOLD && (this.firstNumber || this.lastNumber)) {
+        // Special case handling for low limit size and first/last number
+        // may need to move this up to the initial ELLIPSIS_THRESHOLD test area
+        if (firstGap && startNumber > 1) {
+          startNumber = startNumber - 1
+        }
+        numberOfLinks =
+          numberOfLinks + (firstGap && this.firstNumber ? 1 : 0) + (lastGap && this.lastNumber ? 1 : 0)
+      }
       numberOfLinks = Math.min(numberOfLinks, numberOfPages - startNumber + 1)
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
