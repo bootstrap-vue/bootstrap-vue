@@ -814,7 +814,9 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
-  it('fist-number and last-number props work (TBD)', async () => {
+  it('fist-number and last-number props work', async () => {
+    // To be added...
+
     const wrapper = mount(BPagination, {
       propsData: {
         value: 1,
@@ -874,7 +876,9 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
-  it('fist-number and last-number props work  with limit <=3 (TBD)', async () => {
+  it('fist-number and last-number props work with limit <=3', async () => {
+    // To be added...
+
     const wrapper = mount(BPagination, {
       propsData: {
         value: 1,
