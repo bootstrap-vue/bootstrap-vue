@@ -285,7 +285,7 @@ export default {
       //   numberOfLinks =
       //     numberOfLinks + (firstGap && this.firstNumber ? 1 : 0) + (lastGap && this.lastNumber ? 1 : 0)
       // }
-      numberOfLinks = Math.min(numberOfLinks, numberOfPages - startNumber)
+      numberOfLinks = Math.min(numberOfLinks, numberOfPages - startNumber + 1)
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
     pageList() {
