@@ -256,7 +256,7 @@ export default {
       }
       if (showFirstDots && this.firstNumber && (startNumber === 2 || startNumber === 3)) {
         showFirstDots = false
-        numberOfLinks = numberOfLinks + (startNumber === 2 ? 1 : 2)
+        numberOfLinks = numberOfLinks + (startNumber === 2 ? 2 : 3)
         startNumber = 1
       }
       const lastPageNumber = startNumber + numberOfLinks - 1
@@ -267,7 +267,7 @@ export default {
       ) {
         showLastDots = false
         numberOfLinks =
-          numberOfLinks + numberOfPages - (lastPageNumber === numberOfPages - 1 ? 1 : 2)
+          numberOfLinks + numberOfPages - startNumber - (lastPageNumber === numberOfPages - 1 ? 1 : 2)
       }
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
