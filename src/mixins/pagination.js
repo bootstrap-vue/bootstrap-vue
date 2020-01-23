@@ -568,9 +568,7 @@ export default {
     )
 
     // Show first (1) button?
-    buttons.push(
-      this.firstNumber && pageNumbers[0] !== 1 ? makePageButton({ number: 1 }, 0) : h()
-    )
+    buttons.push(this.firstNumber && pageNumbers[0] !== 1 ? makePageButton({ number: 1 }, 0) : h())
 
     // First Ellipsis Bookend
     buttons.push(showFirstDots ? makeEllipsis(false) : h())
