@@ -814,6 +814,130 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
+  it('fist-number and last-number props work', async () => {
+    // To be added...
+
+    const wrapper = mount(BPagination, {
+      propsData: {
+        value: 1,
+        totalRows: 10,
+        perPage: 1,
+        limit: 5,
+        firstNumber: true,
+        lastNumber: true
+      }
+    })
+
+    wrapper.setProps({
+      value: 2
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 3
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 4
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 5
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 6
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 7
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 8
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 9
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 10
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.destroy()
+  })
+
+  it('fist-number and last-number props work with limit <=3', async () => {
+    // To be added...
+
+    const wrapper = mount(BPagination, {
+      propsData: {
+        value: 1,
+        totalRows: 10,
+        perPage: 1,
+        limit: 3,
+        firstNumber: true,
+        lastNumber: true
+      }
+    })
+
+    wrapper.setProps({
+      value: 2
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 3
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 4
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 5
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 6
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 7
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 8
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 9
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.setProps({
+      value: 10
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.destroy()
+  })
+
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
   describe('pagination keyboard navigation', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect

@@ -9,13 +9,17 @@ import normalizeSlotMixin from '../mixins/normalize-slot'
 import { BLink } from '../components/link/link'
 
 // Common props, computed, data, render function, and methods
-// for <b-pagination> and <b-pagination-nav>
+// for `<b-pagination>` and `<b-pagination-nav>`
+
+// --- Constants ---
 
 // Threshold of limit size when we start/stop showing ellipsis
 const ELLIPSIS_THRESHOLD = 3
 
 // Default # of buttons limit
 const DEFAULT_LIMIT = 5
+
+// --- Helper methods ---
 
 // Make an array of N to N+X
 const makePageArray = (startNumber, numberOfPages) =>
@@ -46,6 +50,7 @@ const onSpaceKey = evt => {
   }
 }
 
+// --- Props ---
 export const props = {
   disabled: {
     type: Boolean,
@@ -211,46 +216,70 @@ export default {
     },
     paginationParams() {
       // Determine if we should show the the ellipsis
-      const limit = this.limit
+      const limit = this.localLimit
       const numberOfPages = this.localNumberOfPages
       const currentPage = this.computedCurrentPage
       const hideEllipsis = this.hideEllipsis
+      const firstNumber = this.firstNumber
+      const lastNumber = this.lastNumber
       let showFirstDots = false
       let showLastDots = false
       let numberOfLinks = limit
       let startNumber = 1
 
       if (numberOfPages <= limit) {
-        // Special Case: Less pages available than the limit of displayed pages
+        // Special case: Less pages available than the limit of displayed pages
         numberOfLinks = numberOfPages
       } else if (currentPage < limit - 1 && limit > ELLIPSIS_THRESHOLD) {
-        // We are near the beginning of the page list
-        if (!hideEllipsis) {
+        if (!hideEllipsis || lastNumber) {
           showLastDots = true
-          numberOfLinks = limit - 1
+          numberOfLinks = limit - (firstNumber ? 0 : 1)
         }
+        numberOfLinks = Math.min(numberOfLinks, limit)
       } else if (numberOfPages - currentPage + 2 < limit && limit > ELLIPSIS_THRESHOLD) {
-        // We are near the end of the list
-        if (!hideEllipsis) {
-          numberOfLinks = limit - 1
+        if (!hideEllipsis || firstNumber) {
           showFirstDots = true
+          numberOfLinks = limit - (lastNumber ? 0 : 1)
         }
         startNumber = numberOfPages - numberOfLinks + 1
       } else {
         // We are somewhere in the middle of the page list
-        if (limit > ELLIPSIS_THRESHOLD && !hideEllipsis) {
+        if (limit > ELLIPSIS_THRESHOLD) {
           numberOfLinks = limit - 2
-          showFirstDots = showLastDots = true
+          showFirstDots = !!(!hideEllipsis || firstNumber)
+          showLastDots = !!(!hideEllipsis || lastNumber)
         }
         startNumber = currentPage - Math.floor(numberOfLinks / 2)
       }
       // Sanity checks
+      /* istanbul ignore if */
       if (startNumber < 1) {
-        /* istanbul ignore next */
         startNumber = 1
+        showFirstDots = false
       } else if (startNumber > numberOfPages - numberOfLinks) {
         startNumber = numberOfPages - numberOfLinks + 1
+        showLastDots = false
       }
+      if (showFirstDots && firstNumber && startNumber < 4) {
+        numberOfLinks = numberOfLinks + 2
+        startNumber = 1
+        showFirstDots = false
+      }
+      const lastPageNumber = startNumber + numberOfLinks - 1
+      if (showLastDots && lastNumber && lastPageNumber > numberOfPages - 3) {
+        numberOfLinks = numberOfLinks + (lastPageNumber === numberOfPages - 2 ? 2 : 3)
+        showLastDots = false
+      }
+      // Special handling for lower limits (where ellipsis are never shown)
+      if (limit <= ELLIPSIS_THRESHOLD) {
+        if (firstNumber && startNumber === 1) {
+          numberOfLinks = Math.min(numberOfLinks + 1, numberOfPages, limit + 1)
+        } else if (lastNumber && numberOfPages === startNumber + numberOfLinks - 1) {
+          startNumber = Math.max(startNumber - 1, 1)
+          numberOfLinks = Math.min(numberOfPages - startNumber + 1, numberOfPages, limit + 1)
+        }
+      }
+      numberOfLinks = Math.min(numberOfLinks, numberOfPages - startNumber + 1)
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
     pageList() {
@@ -469,44 +498,8 @@ export default {
       )
     }
 
-    // Goto first page button bookend
-    // Don't render button when `hideGotoEndButtons` is set or when
-    // `firstNumber` is enabled and the first page is in the page list
-    const $firstPageBtn =
-      this.hideGotoEndButtons || (this.firstNumber && pageNumbers.indexOf(1) !== -1)
-        ? h()
-        : makeEndBtn(
-            1,
-            this.labelFirstPage,
-            'first-text',
-            this.firstNumber ? '1' : this.firstText,
-            this.firstClass,
-            1,
-            'bookend-goto-first'
-          )
-
-    // Goto previous page button bookend
-    const $prevPageBtn = makeEndBtn(
-      currentPage - 1,
-      this.labelPrevPage,
-      'prev-text',
-      this.prevText,
-      this.prevClass,
-      1,
-      'bookend-goto-prev'
-    )
-
-    // When `firstNumber` prop is set we move the previous page button
-    // before the first page button
-    buttons.push(
-      ...(this.firstNumber ? [$prevPageBtn, $firstPageBtn] : [$firstPageBtn, $prevPageBtn])
-    )
-
-    // First Ellipsis Bookend
-    buttons.push(showFirstDots ? makeEllipsis(false) : h())
-
-    // Individual page links
-    this.pageList.forEach((page, idx) => {
+    // Page button factory
+    const makePageButton = (page, idx) => {
       const active = isActivePage(page.number) && !noCurrentPage
       // Active page will have tabindex of 0, or if no current page and first page button
       const tabIndex = disabled ? null : active || (noCurrentPage && idx === 0) ? '0' : '-1'
@@ -548,56 +541,100 @@ export default {
         },
         [this.normalizeSlot('page', scope) || btnContent]
       )
-      buttons.push(
-        h(
-          'li',
-          {
-            key: `page-${page.number}`,
-            staticClass: 'page-item',
-            class: [{ disabled, active, 'flex-fill': fill }, page.classes, this.pageClass],
-            attrs: { role: 'presentation' }
-          },
-          [inner]
-        )
+      return h(
+        'li',
+        {
+          key: `page-${page.number}`,
+          staticClass: 'page-item',
+          class: [{ disabled, active, 'flex-fill': fill }, page.classes, this.pageClass],
+          attrs: { role: 'presentation' }
+        },
+        [inner]
       )
-    })
+    }
 
-    // Last ellipsis bookend
-    buttons.push(showLastDots ? makeEllipsis(true) : h())
+    // Goto first page button
+    // Don't render button when `hideGotoEndButtons` or `firstNumber` is set
+    let $firstPageBtn = h()
+    if (!this.firstNumber && !this.hideGotoEndButtons) {
+      $firstPageBtn = makeEndBtn(
+        1,
+        this.labelFirstPage,
+        'first-text',
+        this.firstText,
+        this.firstClass,
+        1,
+        'pagination-goto-first'
+      )
+    }
+    buttons.push($firstPageBtn)
 
-    // Goto next page button bookend
-    const $nextPageBtn = makeEndBtn(
-      currentPage + 1,
-      this.labelNextPage,
-      'next-text',
-      this.nextText,
-      this.nextClass,
-      numberOfPages,
-      'bookend-goto-next'
+    // Goto previous page button
+    buttons.push(
+      makeEndBtn(
+        currentPage - 1,
+        this.labelPrevPage,
+        'prev-text',
+        this.prevText,
+        this.prevClass,
+        1,
+        'pagination-goto-prev'
+      )
     )
 
-    // Goto last page button bookend
-    // Don't render button when `hideGotoEndButtons` is set or when
-    // `lastNumber` is enabled and the last page is in the page list
-    const $lastPageBtn =
-      this.hideGotoEndButtons || (this.lastNumber && pageNumbers.indexOf(numberOfPages) !== -1)
-        ? h()
-        : makeEndBtn(
-            numberOfPages,
-            this.labelLastPage,
-            'last-text',
-            this.lastNumber ? toString(numberOfPages) : this.lastText,
-            this.lastClass,
-            numberOfPages,
-            'bookend-goto-last'
-          )
+    // Show first (1) button?
+    buttons.push(this.firstNumber && pageNumbers[0] !== 1 ? makePageButton({ number: 1 }, 0) : h())
 
-    // When `lastNumber` prop is set we move the next page button
-    // after the last page button
-    buttons.push(...(this.lastNumber ? [$lastPageBtn, $nextPageBtn] : [$nextPageBtn, $lastPageBtn]))
+    // First ellipsis
+    buttons.push(showFirstDots ? makeEllipsis(false) : h())
+
+    // Individual page links
+    this.pageList.forEach((page, idx) => {
+      const offset = showFirstDots && this.firstNumber && pageNumbers[0] !== 1 ? 1 : 0
+      buttons.push(makePageButton(page, idx + offset))
+    })
+
+    // Last ellipsis
+    buttons.push(showLastDots ? makeEllipsis(true) : h())
+
+    // Show last page button?
+    buttons.push(
+      this.lastNumber && pageNumbers[pageNumbers.length - 1] !== numberOfPages
+        ? makePageButton({ number: numberOfPages }, -1)
+        : h()
+    )
+
+    // Goto next page button
+    buttons.push(
+      makeEndBtn(
+        currentPage + 1,
+        this.labelNextPage,
+        'next-text',
+        this.nextText,
+        this.nextClass,
+        numberOfPages,
+        'pagination-goto-next'
+      )
+    )
+
+    // Goto last page button
+    // Don't render button when `hideGotoEndButtons` or `lastNumber` is set
+    let $lastPageBtn = h()
+    if (!this.lastNumber && !this.hideGotoEndButtons) {
+      $lastPageBtn = makeEndBtn(
+        numberOfPages,
+        this.labelLastPage,
+        'last-text',
+        this.lastText,
+        this.lastClass,
+        numberOfPages,
+        'pagination-goto-last'
+      )
+    }
+    buttons.push($lastPageBtn)
 
     // Assemble the pagination buttons
-    const pagination = h(
+    const $pagination = h(
       'ul',
       {
         ref: 'ul',
@@ -613,7 +650,7 @@ export default {
       buttons
     )
 
-    // if we are pagination-nav, wrap in '<nav>' wrapper
+    // If we are `<b-pagination-nav>`, wrap in `<nav>` wrapper
     if (this.isNav) {
       return h(
         'nav',
@@ -623,10 +660,10 @@ export default {
             'aria-hidden': disabled ? 'true' : 'false'
           }
         },
-        [pagination]
+        [$pagination]
       )
-    } else {
-      return pagination
     }
+
+    return $pagination
   }
 }
