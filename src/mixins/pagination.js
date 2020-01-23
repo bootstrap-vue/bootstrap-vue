@@ -264,6 +264,7 @@ export default {
         numberOfLinks = numberOfLinks + (lastPageNumber === numberOfPages - 2 ? 2 : 3)
         showLastDots = false
       }
+      numberOfLinks = Math.min(numberOfLinks, numberOfPages)
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
     pageList() {
