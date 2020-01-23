@@ -216,6 +216,8 @@ export default {
       const currentPage = this.computedCurrentPage
       const hideEllipsis = this.hideEllipsis
       let showFirstDots = false
+      let firstGap = false
+      let lastGap = false
       let showLastDots = false
       let numberOfLinks = limit
       let startNumber = 1
@@ -227,12 +229,15 @@ export default {
         // We are near the beginning of the page list
         if (!hideEllipsis || this.lastNumber) {
           showLastDots = true
+          firstGap = true
           numberOfLinks = limit - (this.firstNumber ? 0 : 1)
         }
+        numberOfLinks = Math.min(numberOfLinks, limit)
       } else if (numberOfPages - currentPage + 2 < limit && limit > ELLIPSIS_THRESHOLD) {
         // We are near the end of the list
         if (!hideEllipsis || this.firstNumber) {
           showFirstDots = true
+          lastGap = true
           numberOfLinks = limit - (this.lastNumber ? 0 : 1)
         }
         startNumber = numberOfPages - numberOfLinks + 1
@@ -241,11 +246,18 @@ export default {
         if (limit > ELLIPSIS_THRESHOLD) {
           numberOfLinks = limit - 2
           showFirstDots = !!(!hideEllipsis || this.firstNumber)
+          firstGap = true
           showLastDots = !!(!hideEllipsis || this.lastNumber)
+          lastGap = true
         }
         startNumber = currentPage - Math.floor(numberOfLinks / 2)
       }
       // Sanity checks
+      // TODO: 
+      //   Need to handle case where numberOfPages > limit and limit < 4
+      //   to make sure array is Math.min(limit + 2, numberOfPages)
+      //   and ensure we are correctly centered about the currnetPage
+      //
       /* istanbul ignore if */
       if (startNumber < 1) {
         startNumber = 1
@@ -264,7 +276,15 @@ export default {
         numberOfLinks = numberOfLinks + (lastPageNumber === numberOfPages - 2 ? 2 : 3)
         showLastDots = false
       }
-      numberOfLinks = Math.min(numberOfLinks, numberOfPages)
+      if (limit <= ELLIPSIS_THRESHOLD && (this.firstNumber || this.lastNumber)) {
+        // Special case handling for low limit size and first/last number
+        if (firstGap && startNumber > 1) {
+          startNumber = startNumber - 1
+        }
+        numberOfLinks =
+          numberOfLinks + (firstGap && this.firstNumber ? 1 : 0) + (lastGap && this.lastNumber ? 1 : 0)
+      }
+      numberOfLinks = Math.min(numberOfLinks, numberOfPages - startNumber)
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
     pageList() {
