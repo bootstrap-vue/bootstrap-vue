@@ -252,20 +252,22 @@ export default {
         showFirstDots = false
       } else if (startNumber > numberOfPages - numberOfLinks) {
         startNumber = numberOfPages - numberOfLinks + 1
+        showLastDots = false
       }
       if (showFirstDots && this.firstNumber && (startNumber === 2 || startNumber === 3)) {
         showFirstDots = false
-        numberOfLinks = numberOfLinks + startNumber
+        numberOfLinks = numberOfLinks + (startNumber === 2 ? 1 : 2)
         startNumber = 1
       }
       const lastPageNumber = startNumber + numberOfLinks - 1
       if (
         showLastDots &&
         this.lastNumber &&
-        (lastPageNumber === numberOfPages - 2 || lastPageNumber === numberOfPages - 3)
+        (lastPageNumber === numberOfPages - 1 || lastPageNumber === numberOfPages - 2)
       ) {
         showLastDots = false
-        numberOfLinks = numberOfLinks + numberOfPages - lastPageNumber
+        numberOfLinks =
+          numberOfLinks + numberOfPages - (lastPageNumber === numberOfPages - 1 ? 1 : 2)
       }
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
