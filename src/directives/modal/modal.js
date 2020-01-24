@@ -79,8 +79,8 @@ const bind = (el, binding, vnode) => {
 
 const unbind = el => {
   const oldProp = el[PROPERTY] || {}
-  const trigger = oldProp[PROPERTY].trigger
-  const handler = oldProp[PROPERTY].handler
+  const trigger = oldProp.trigger
+  const handler = oldProp.handler
   if (trigger && handler) {
     eventOff(trigger, 'click', handler, EVENT_OPTS)
     eventOff(trigger, 'keydown', handler, EVENT_OPTS)
