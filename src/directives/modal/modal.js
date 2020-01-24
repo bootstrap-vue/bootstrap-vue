@@ -78,11 +78,14 @@ const bind = (el, binding, vnode) => {
 }
 
 const unbind = el => {
-  const trigger = getTriggerElement(el)
-  const handler = el && el[PROPERTY] ? el[PROPERTY].handler : null
+  const oldProp = el[PROPERTY] || {}
+  const trigger = oldProp[PROPERTY].trigger
+  const handler = oldProp[PROPERTY].handler
   if (trigger && handler) {
     eventOff(trigger, 'click', handler, EVENT_OPTS)
     eventOff(trigger, 'keydown', handler, EVENT_OPTS)
+    eventOff(el, 'click', handler, EVENT_OPTS)
+    eventOff(el, 'keydown', handler, EVENT_OPTS)
   }
   delete el[PROPERTY]
 }
