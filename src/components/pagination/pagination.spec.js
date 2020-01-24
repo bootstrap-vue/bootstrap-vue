@@ -3,6 +3,14 @@ import { waitNT } from '../../../tests/utils'
 import { isVisible, getBCR, contains } from '../../utils/dom'
 import { BPagination } from './pagination'
 
+const wrapperArrayToArray = wrapperArray => {
+  const array = []
+  for (let i = 0; i < wrapperArray.length; i++) {
+    array.push(wrapperArray.at(i))
+  }
+  return array
+}
+
 describe('pagination', () => {
   it('renders with correct basic structure for root element', async () => {
     const wrapper = mount(BPagination, {
@@ -810,6 +818,180 @@ describe('pagination', () => {
     expect(wrapper.vm.currentPage).toBe(1)
     expect(wrapper.emitted('input').length).toBe(3)
     expect(wrapper.emitted('input')[2][0]).toBe(1)
+
+    wrapper.destroy()
+  })
+
+  it('fist-number and last-number props work', async () => {
+    const selector = '.page-item .page-link'
+    let items = []
+
+    const wrapper = mount(BPagination, {
+      propsData: {
+        value: 1,
+        totalRows: 10,
+        perPage: 1,
+        limit: 5,
+        firstNumber: true,
+        lastNumber: true
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    expect(wrapper.findAll(selector).length).toBe(9)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '2', '3', '4', '5', '…', '10', '›'])
+
+    wrapper.setProps({
+      value: 2
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '2', '3', '4', '5', '…', '10', '›'])
+
+    wrapper.setProps({
+      value: 3
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '2', '3', '4', '5', '…', '10', '›'])
+
+    wrapper.setProps({
+      value: 4
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '2', '3', '4', '5', '…', '10', '›'])
+
+    wrapper.setProps({
+      value: 5
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '…', '4', '5', '6', '…', '10', '›'])
+
+    wrapper.setProps({
+      value: 6
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '…', '5', '6', '7', '…', '10', '›'])
+
+    wrapper.setProps({
+      value: 7
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '…', '6', '7', '8', '9', '10', '›'])
+
+    wrapper.setProps({
+      value: 8
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '…', '6', '7', '8', '9', '10', '›'])
+
+    wrapper.setProps({
+      value: 9
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '…', '6', '7', '8', '9', '10', '›'])
+
+    wrapper.setProps({
+      value: 10
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '…', '6', '7', '8', '9', '10', '›'])
+
+    wrapper.destroy()
+  })
+
+  it('fist-number and last-number props work with limit <=3', async () => {
+    const selector = '.page-item .page-link'
+    let items = []
+
+    const wrapper = mount(BPagination, {
+      propsData: {
+        value: 1,
+        totalRows: 10,
+        perPage: 1,
+        limit: 3,
+        firstNumber: true,
+        lastNumber: true
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    expect(wrapper.findAll(selector).length).toBe(7)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '2', '3', '4', '10', '›'])
+
+    wrapper.setProps({
+      value: 2
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '2', '3', '4', '10', '›'])
+
+    wrapper.setProps({
+      value: 3
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '2', '3', '4', '10', '›'])
+
+    wrapper.setProps({
+      value: 4
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '3', '4', '5', '10', '›'])
+
+    wrapper.setProps({
+      value: 5
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '4', '5', '6', '10', '›'])
+
+    wrapper.setProps({
+      value: 6
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '5', '6', '7', '10', '›'])
+
+    wrapper.setProps({
+      value: 7
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '6', '7', '8', '10', '›'])
+
+    wrapper.setProps({
+      value: 8
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '7', '8', '9', '10', '›'])
+
+    wrapper.setProps({
+      value: 9
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '7', '8', '9', '10', '›'])
+
+    wrapper.setProps({
+      value: 10
+    })
+    await waitNT(wrapper.vm)
+    items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
+    expect(items).toEqual(['‹', '1', '7', '8', '9', '10', '›'])
 
     wrapper.destroy()
   })

@@ -930,8 +930,8 @@ Example Confirm Message boxes
   by default. You can enable the header close button by setting `hideHeaderClose: false` in the
   options.
 - Message Boxes will throw an error (promise rejection) if they are closed/destroyed before they are
-  hidden. Always include a `.catch(errHandler)` reject handler, event if using
-  the async `await` style code.
+  hidden. Always include a `.catch(errHandler)` reject handler, event if using the async `await`
+  style code.
 - When using Vue Router (or similar), Message Boxes will close and reject if the route changes
   before the modal hides. If you wish for the message box to remain open when the route changes, use
   `this.$root.$bvModal` instead of `this.$bvModal`.

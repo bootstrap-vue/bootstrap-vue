@@ -29,7 +29,7 @@ export const props = {
     default: false
   },
   menuClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   toggleTag: {
@@ -37,7 +37,7 @@ export const props = {
     default: 'button'
   },
   toggleClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   noCaret: {
@@ -61,7 +61,7 @@ export const props = {
     default: () => getComponentConfig(NAME, 'splitVariant')
   },
   splitClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   splitButtonType: {
