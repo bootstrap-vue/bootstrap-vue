@@ -130,6 +130,11 @@
             "description": "Places the default footer Cancel button in the disabled state"
           },
           {
+            "prop": "headerCloseContent",
+            "version": "2.3.0",
+            "description": "Content of the header close button"
+          },
+          {
             "prop": "headerCloseLabel",
             "description": "Value of the 'aria-label' on the header close button"
           },
@@ -358,7 +363,7 @@
           },
           {
             "event": "bv::toggle::modal",
-            "description": "Toggle a modal's visibility given it's ID",
+            "description": "Toggle a modal's visibility given its ID",
             "args": [
               {
                 "arg": "modalId",

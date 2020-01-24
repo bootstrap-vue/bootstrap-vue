@@ -112,13 +112,13 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         // Stop event from bubbling up
         evt.stopPropagation()
         // Kill the event loop attached to this specific `EventTarget`
-        // Needed to prevent `vue-router` for doing it's thing
+        // Needed to prevent `vue-router` for doing its thing
         evt.stopImmediatePropagation()
       } else {
         /* istanbul ignore next: difficult to test, but we know it works */
         if (isRouterLink && evt.currentTarget.__vue__) {
           // Router links do not emit instance `click` events, so we
-          // add in an $emit('click', evt) on it's vue instance
+          // add in an `$emit('click', evt)` on its Vue instance
           evt.currentTarget.__vue__.$emit('click', evt)
         }
         // Call the suppliedHandler(s), if any provided
@@ -127,7 +127,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
           .forEach(handler => {
             handler(...arguments)
           })
-        // Emit the global $root click event
+        // Emit the global `$root` click event
         this.$root.$emit('clicked::link', evt)
       }
       // Stop scroll-to-top behavior or navigation on

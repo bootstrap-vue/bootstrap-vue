@@ -97,7 +97,7 @@ input[type="color"].form-control:disabled {
     @include transition($input-transition);
     // Bootstrap v4.3.2 has deprecated this mixin
     // @include form-control-focus();
-    // So we manually add it's content here
+    // So we manually add its content here
     &:focus {
       color: $input-focus-color; // only needed for fallback to text input
       background-color: $input-focus-bg;

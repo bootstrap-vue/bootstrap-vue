@@ -62,6 +62,10 @@
             "description": "Do not show ellipsis buttons"
           },
           {
+            "prop": "ellipsisText",
+            "description": "Content to place in the ellipsis placeholder"
+          },
+          {
             "prop": "size",
             "description": "Size of the rendered buttons: 'sm', 'md' (default), or 'lg'"
           },
@@ -104,6 +108,46 @@
           {
             "prop": "lastText",
             "description": "Content to place in the goto last page button"
+          },
+          {
+            "prop": "firstClass",
+            "version": "2.3.0",
+            "description": "Class(es) to apply to the 'Go to first page' button"
+          },
+          {
+            "prop": "prevClass",
+            "version": "2.3.0",
+            "description": "Class(es) to apply to the 'Go to previous page' button"
+          },
+          {
+            "prop": "pageClass",
+            "version": "2.3.0",
+            "description": "Class(es) to apply to the 'Go to page #' buttons"
+          },
+          {
+            "prop": "nextClass",
+            "version": "2.3.0",
+            "description": "Class(es) to apply to the 'Go to next page' button"
+          },
+          {
+            "prop": "lastClass",
+            "version": "2.3.0",
+            "description": "Class(es) to apply to the 'Go to last page' button"
+          },
+          {
+            "prop": "ellipsisClass",
+            "version": "2.3.0",
+            "description": "Class(es) to apply to the 'ellipsis' placeholders"
+          },
+          {
+            "prop": "firstNumber",
+            "version": "2.3.0",
+            "description": "Display first page number instead of Goto First button"
+          },
+          {
+            "prop": "lastNumber",
+            "version": "2.3.0",
+            "description": "Display last page number instead of Goto Last button"
           }
         ],
         "events": [

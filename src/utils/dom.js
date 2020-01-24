@@ -78,11 +78,13 @@ export const eventOff = (el, evtName, handler, options) => {
 export const removeNode = el => el && el.parentNode && el.parentNode.removeChild(el)
 
 // Determine if an element is an HTML element
-export const isElement = el => Boolean(el && el.nodeType === Node.ELEMENT_NODE)
+export const isElement = el => !!(el && el.nodeType === Node.ELEMENT_NODE)
 
 // Determine if an HTML element is visible - Faster than CSS check
 export const isVisible = el => {
-  if (!isElement(el) || !contains(d.body, el)) {
+  if (!isElement(el) || !el.parentNode || !contains(d.body, el)) {
+    // Note this can fail for shadow dom elements since they
+    // are not a direct descendant of document.body
     return false
   }
   if (el.style.display === 'none') {
@@ -94,14 +96,14 @@ export const isVisible = el => {
   // So any tests that need isVisible will fail in JSDOM
   // Except when we override the getBCR prototype in some tests
   const bcr = getBCR(el)
-  return Boolean(bcr && bcr.height > 0 && bcr.width > 0)
+  return !!(bcr && bcr.height > 0 && bcr.width > 0)
 }
 
 // Determine if an element is disabled
 export const isDisabled = el =>
   !isElement(el) || el.disabled || hasAttr(el, 'disabled') || hasClass(el, 'disabled')
 
-// Cause/wait-for an element to reflow it's content (adjusting it's height/width)
+// Cause/wait-for an element to reflow its content (adjusting its height/width)
 export const reflow = el => {
   // Requesting an elements offsetHight will trigger a reflow of the element content
   /* istanbul ignore next: reflow doesn't happen in JSDOM */
@@ -117,12 +119,7 @@ export const select = (selector, root) =>
   (isElement(root) ? root : d).querySelector(selector) || null
 
 // Determine if an element matches a selector
-export const matches = (el, selector) => {
-  if (!isElement(el)) {
-    return false
-  }
-  return matchesEl.call(el, selector)
-}
+export const matches = (el, selector) => (isElement(el) ? matchesEl.call(el, selector) : false)
 
 // Finds closest element matching selector. Returns `null` if not found
 export const closest = (selector, root, includeRoot = false) => {
@@ -138,12 +135,8 @@ export const closest = (selector, root, includeRoot = false) => {
 }
 
 // Returns true if the parent element contains the child element
-export const contains = (parent, child) => {
-  if (!parent || !isFunction(parent.contains)) {
-    return false
-  }
-  return parent.contains(child)
-}
+export const contains = (parent, child) =>
+  parent && isFunction(parent.contains) ? parent.contains(child) : false
 
 // Get an element given an ID
 export const getById = id => d.getElementById(/^#/.test(id) ? id.slice(1) : id) || null
@@ -231,7 +224,7 @@ export const offset = el => /* istanbul ignore next: getBoundingClientRect(), ge
   return _offset
 }
 
-// Return an element's offset with respect to to it's offsetParent
+// Return an element's offset with respect to to its offsetParent
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.position
 export const position = el => /* istanbul ignore next: getBoundingClientRect() doesn't work in JSDOM */ {
   let _offset = { top: 0, left: 0 }

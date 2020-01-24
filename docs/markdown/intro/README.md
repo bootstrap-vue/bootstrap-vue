@@ -36,8 +36,8 @@ some good starting points would be:
 - [Vue Guide](https://vuejs.org/v2/guide/)
 - [Vue API](https://vuejs.org/v2/api/)
 - [Bootstrap v{{bootstrapVersionMinor}} documentation](https://getbootstrap.com/)
-- [Vue loader scoped CSS](https://vue-loader.vuejs.org/guide/scoped-css.html), if using scoped styles
-  in SFC (Single File Component) `.vue` files
+- [Vue loader scoped CSS](https://vue-loader.vuejs.org/guide/scoped-css.html), if using scoped
+  styles in SFC (Single File Component) `.vue` files
 
 ## Documentation information
 

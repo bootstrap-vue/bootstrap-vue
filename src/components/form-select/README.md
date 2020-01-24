@@ -403,7 +403,7 @@ Note that not all mobile browsers will show the select as a list-box.
 
 Enable multiple select mode by setting the prop `multiple`, and control how many rows are displayed
 in the multiple select list-box by setting `select-size` to the number of rows to display. The
-default is to let the browser use it's default (typically 4).
+default is to let the browser use its default (typically 4).
 
 ### Value in multiple mode
 

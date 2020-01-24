@@ -8,6 +8,7 @@ import DEFAULTS from './config-defaults'
 
 // --- Constants ---
 
+const NAME = 'BvConfig'
 const PROP_NAME = '$bvConfig'
 
 // Config manager class
@@ -42,7 +43,7 @@ class BvConfig {
     configKeys.forEach(cmpName => {
       /* istanbul ignore next */
       if (!hasOwnProperty(DEFAULTS, cmpName)) {
-        warn(`config: unknown config property "${cmpName}"`)
+        warn(`Unknown config property "${cmpName}"`, NAME)
         return
       }
       const cmpConfig = config[cmpName]
@@ -55,7 +56,7 @@ class BvConfig {
           breakpoints.length < 2 ||
           breakpoints.some(b => !isString(b) || b.length === 0)
         ) {
-          warn('config: "breakpoints" must be an array of at least 2 breakpoint names')
+          warn('"breakpoints" must be an array of at least 2 breakpoint names', NAME)
         } else {
           this.$_config.breakpoints = cloneDeep(breakpoints)
         }
@@ -65,7 +66,7 @@ class BvConfig {
         props.forEach(prop => {
           /* istanbul ignore if */
           if (!hasOwnProperty(DEFAULTS[cmpName], prop)) {
-            warn(`config: unknown config property "${cmpName}.${prop}"`)
+            warn(`Unknown config property "${cmpName}.${prop}"`, NAME)
           } else {
             // TODO: If we pre-populate the config with defaults, we can skip this line
             this.$_config[cmpName] = this.$_config[cmpName] || {}

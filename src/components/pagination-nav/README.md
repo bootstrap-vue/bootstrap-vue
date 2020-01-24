@@ -322,6 +322,61 @@ The slot `page` is always scoped, while the slots `first-text`, `prev-text`, `ne
 | `index`    | Number  | Page number (indexed from `0` to `numberOfPages -1`) |
 | `disabled` | Boolean | If the page button is disabled                       |
 
+### Goto first/last button type
+
+If you prefer to have buttons with the first and last page number to go to the corresponding page,
+use the `first-number` and `last-number` props.
+
+```html
+<template>
+  <div class="overflow-auto">
+    <div>
+      <h6>Goto first button number</h6>
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pages"
+        base-url="#"
+        first-number
+      ></b-pagination-nav>
+    </div>
+
+    <div class="mt-3">
+      <h6>Goto last button number</h6>
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pages"
+        base-url="#"
+        last-number
+      ></b-pagination-nav>
+    </div>
+
+    <div class="mt-3">
+      <h6>Goto first and last button number</h6>
+      <b-pagination-nav
+        v-model="currentPage"
+        :number-of-pages="pages"
+        base-url="#"
+        first-number
+        last-number
+      ></b-pagination-nav>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        pages: 100,
+        currentPage: 5
+      }
+    }
+  }
+</script>
+
+<!-- b-pagination-nav-goto-first-last-number.vue -->
+```
+
 ### Button size
 
 Optionally change from the default button size by setting the `size` prop to either `'sm'` for
@@ -456,7 +511,7 @@ The `label-page` will optionally accept a function to generate the aria-label. T
 passed a single argument which is the page number (indexed from 1 to number of pages).
 
 You can remove any label by setting the prop to an empty string (`''`), although this is not
-recommended unless the content of the button textually conveys it's purpose.
+recommended unless the content of the button textually conveys its purpose.
 
 ### Keyboard navigation
 

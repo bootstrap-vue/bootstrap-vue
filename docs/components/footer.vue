@@ -50,6 +50,7 @@
         Currently v{{ version }}. Code licensed
         <a href="https://github.com/bootstrap-vue/bootstrap-vue/blob/master/LICENSE" target="_blank">MIT</a>.
         Docs generated with <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a>
+        <template v-if="isNetlify"> and proudly hosted on <a href="https://www.netlify.com" target="_blank">Netlify</a></template>
       </p>
     </b-container>
   </footer>
@@ -80,6 +81,11 @@ export default {
   },
   data() {
     return { version }
+  },
+  computed: {
+    isNetlify() {
+      return Boolean(process.env.NETLIFY)
+    }
   }
 }
 </script>

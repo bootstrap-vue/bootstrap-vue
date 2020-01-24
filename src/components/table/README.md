@@ -1397,7 +1397,7 @@ If you would optionally like to display additional record information (such as c
 in the fields definition array), you can use the scoped slot `row-details`, in combination with the
 special item record Boolean property `_showDetails`.
 
-If the record has it's `_showDetails` property set to `true`, **and** a `row-details` scoped slot
+If the record has its `_showDetails` property set to `true`, **and** a `row-details` scoped slot
 exists, a new row will be shown just below the item, with the rendered contents of the `row-details`
 scoped slot.
 
@@ -1407,7 +1407,7 @@ scoped fields slot variable `detailsShowing` to determine the visibility of the 
 
 **Note:** If manipulating the `_showDetails` property directly on the item data (i.e. not via the
 `toggleDetails` function reference), the `_showDetails` properly **must** exist in the items data
-for proper reactive detection of changes to it's value. Read more about
+for proper reactive detection of changes to its value. Read more about
 [Vue's reactivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats).
 
 **Available `row-details` scoped variable properties:**
@@ -2260,12 +2260,12 @@ function myProvider(ctx) {
 
 ### Automated table busy state
 
-`<b-table>` automatically tracks/controls it's `busy` state when items provider functions are used,
+`<b-table>` automatically tracks/controls its `busy` state when items provider functions are used,
 however it also provides a `busy` prop that can be used either to override the inner `busy` state,
 or to monitor `<b-pagination>`'s current busy state in your application using the 2-way `.sync`
 modifier.
 
-**Note:** in order to allow `<b-table>` fully track it's `busy` state, the custom items provider
+**Note:** in order to allow `<b-table>` fully track its `busy` state, the custom items provider
 function should handle errors from data sources and return an empty array to `<b-table>`.
 
 **Example: usage of busy state**
