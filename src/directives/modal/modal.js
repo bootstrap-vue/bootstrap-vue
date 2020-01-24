@@ -16,7 +16,7 @@ import { keys } from '../../utils/object'
 const EVENT_SHOW = 'bv::show::modal'
 
 // Prop name we use to store info on root element
-const HANDLER = '__bv_modal_directive__'
+const PROPERTY = '__bv_modal_directive__'
 
 const EVENT_OPTS = { passive: true }
 
@@ -64,7 +64,7 @@ const bind = (el, binding, vnode) => {
         }
       }
     }
-    el[HANDLER] = handler
+    el[PROPERTY] = { handler, target, trigger }
     // If element is not a button, we add `role="button"` for accessibility
     setRole(trigger)
     // Listen for click events
@@ -78,19 +78,30 @@ const bind = (el, binding, vnode) => {
 }
 
 const unbind = el => {
-  const trigger = getTriggerElement(el)
-  const handler = el ? el[HANDLER] : null
+  const oldProp = el[PROPERTY] || {}
+  const trigger = oldProp.trigger
+  const handler = oldProp.handler
   if (trigger && handler) {
     eventOff(trigger, 'click', handler, EVENT_OPTS)
     eventOff(trigger, 'keydown', handler, EVENT_OPTS)
+    eventOff(el, 'click', handler, EVENT_OPTS)
+    eventOff(el, 'keydown', handler, EVENT_OPTS)
   }
-  delete el[HANDLER]
+  delete el[PROPERTY]
 }
 
 const componentUpdated = (el, binding, vnode) => {
-  // We bind and rebind just in case target changes
-  unbind(el, binding, vnode)
-  bind(el, binding, vnode)
+  const oldProp = el[PROPERTY] || {}
+  const target = getTarget(binding)
+  const trigger = getTriggerElement(el)
+  if (target !== oldProp.target || trigger !== oldProp.trigger) {
+    // We bind and rebind if the target or trigger changes
+    unbind(el, binding, vnode)
+    bind(el, binding, vnode)
+  }
+  // If trigger element is not a button, ensure `role="button"`
+  // is still set for accessibility
+  setRole(trigger)
 }
 
 const updated = () => {}
