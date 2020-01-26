@@ -578,9 +578,16 @@ values: `sm`, `md`, `lg`, or `xl`.
 - Using props `responsive` and `fixed` together will **not** work as expected. Fixed table layout
   uses the first row (table header in this case) to compute the width required by each column (and
   the overall table width) to fit within the width of the parent container. To get around this
-  limitation, you would need to specify widths for the columns (or certain columns) via `<col>`
-  elements within the [`table-colgroup` slot](#table-colgroup), or wrap cells in `<div>` elements
-  that have a minimum width set on them [via custom data rendering](#custom-data-rendering).
+  limitation, you would need to specify widths for the columns (or certain columns) via:
+  - `<col>` elements within the [`table-colgroup` slot](#table-colgroup) (e.g.
+    `<col style="width: 20rem">`), or
+  - Wrap header cells in `<div>` elements that have a minimum width set on them
+    [via custom header rendering](#header-and-footer-custom-rendering-via-scoped-slots), or
+  - Use the `thStyle` property of the [field definition object](#field-definition-reference) to
+    set a width for the columns, or
+  - Use custom CSS to define classes to apply to the columns to set widths via the `thClass` or
+    `class` properties of the [field definition object](#field-definition-reference) to set a width
+    for the columns.
 
 ### Stacked tables
 
