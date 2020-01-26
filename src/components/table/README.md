@@ -576,6 +576,8 @@ values: `sm`, `md`, `lg`, or `xl`.
   clips off any content that goes beyond the bottom or top edges of the table. In particular, this
   may clip off dropdown menus and other third-party widgets.
 
+- Sometime Responsive will not work!. We can add table-class="table-responsive text-nowrap" in < b-table >.
+
 ### Stacked tables
 
 An alternative to responsive tables, BootstrapVue includes the stacked table option (using custom
