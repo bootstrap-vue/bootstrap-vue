@@ -577,9 +577,10 @@ values: `sm`, `md`, `lg`, or `xl`.
   may clip off dropdown menus and other third-party widgets.
 - Using props `responsive` and `fixed` together will **not** work as expected. Fixed table layout
   uses the first row (table header in this case) to compute the width required by each column (and
-  the overall table width) to fit within the width of the parent container. To get around this
-  limitation, you would need to specify widths for the columns (or certain columns) via one of the
-  following methods:
+  the overall table width) to fit within the width of the parent container &mdash; without taking
+  cells in the `<tbody>` into consideration &mdash; resulting in table that may not be resposive. To
+  get around this limitation, you would need to specify widths for the columns (or certain columns)
+  via one of the following methods:
   - Use `<col>` elements within the [`table-colgroup` slot](#table-colgroup) that have widths set
     (e.g. `<col style="width: 20rem">`), or
   - Wrap header cells in `<div>` elements, via the use of
