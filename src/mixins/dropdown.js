@@ -108,6 +108,12 @@ export default {
     popperOpts: {
       // type: Object,
       default: () => {}
+    },
+    boundary: {
+      // String: `scrollParent`, `window` or `viewport`
+      // HTMLElement: HTML Element reference
+      type: [String, HTMLElement],
+      default: 'scrollParent'
     }
   },
   data() {
