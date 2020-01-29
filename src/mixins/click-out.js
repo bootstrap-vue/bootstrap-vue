@@ -29,7 +29,7 @@ export default {
       this.clickOutElement = document
     }
     if (!this.clickOutEventName) {
-      this.clickOutEventName = 'ontouchstart' in document.documentElement ? 'touchstart' : 'click'
+      this.clickOutEventName = 'click'
     }
     if (this.listenForClickOut) {
       eventOn(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, eventOptions)
