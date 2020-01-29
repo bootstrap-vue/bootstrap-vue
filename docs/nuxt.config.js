@@ -112,6 +112,10 @@ module.exports = {
 
   modern: 'client',
 
+  env: {
+    NETLIFY: process.env.NETLIFY
+  },
+
   build: {
     extractCSS: true,
     cssSourceMap: true,

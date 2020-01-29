@@ -2,7 +2,7 @@ import Vue from '../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { pascalCase, trim } from '../utils/string'
 import { BIconBlank } from './icons'
-import { commonIconProps } from './helpers/make-icon'
+import { commonIconProps } from './helpers/icon-base'
 
 const RX_ICON_PREFIX = /^BIcon/
 
@@ -16,7 +16,11 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
       type: String,
       default: null
     },
-    ...commonIconProps
+    ...commonIconProps,
+    stacked: {
+      type: Boolean,
+      default: false
+    }
   },
   render(h, { data, props, parent }) {
     const icon = pascalCase(trim(props.icon || '')).replace(RX_ICON_PREFIX, '')

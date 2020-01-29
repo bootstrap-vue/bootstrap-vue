@@ -138,7 +138,7 @@ Precedence order for label methods (top-most has precedence):
 
 ## Width and height
 
-`<b-progress>` will always expand to the maximum with of it's parent container. To change the width,
+`<b-progress>` will always expand to the maximum with of its parent container. To change the width,
 place `<b-progress>` in a standard Bootstrap column or apply one of the standard Bootstrap width
 classes.
 

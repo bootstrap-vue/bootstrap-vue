@@ -4,6 +4,7 @@ import { BvEvent } from '../utils/bv-event.class'
 import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
 import { hasTouchSupport } from '../utils/env'
 import { isNull } from '../utils/inspect'
+import { HTMLElement } from '../utils/safe-types'
 import { warn } from '../utils/warn'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
@@ -109,6 +110,12 @@ export default {
     popperOpts: {
       // type: Object,
       default: () => {}
+    },
+    boundary: {
+      // String: `scrollParent`, `window` or `viewport`
+      // HTMLElement: HTML Element reference
+      type: [String, HTMLElement],
+      default: 'scrollParent'
     }
   },
   data() {
@@ -214,7 +221,7 @@ export default {
       if (!this.inNavbar) {
         if (typeof Popper === 'undefined') {
           /* istanbul ignore next */
-          warn('b-dropdown: Popper.js not found. Falling back to CSS positioning.')
+          warn('Popper.js not found. Falling back to CSS positioning', 'BDropdown')
         } else {
           // for dropup with alignment we use the parent element as popper container
           let element = (this.dropup && this.right) || this.split ? this.$el : this.$refs.toggle
@@ -394,7 +401,7 @@ export default {
         this.clearHideTimeout()
         // When we are in a navbar (which has been responsively stacked), we
         // delay the dropdown's closing so that the next element has a chance
-        // to have it's click handler fired (in case it's position moves on
+        // to have its click handler fired (in case its position moves on
         // the screen do to a navbar menu above it collapsing)
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
         if (this.inNavbar) {

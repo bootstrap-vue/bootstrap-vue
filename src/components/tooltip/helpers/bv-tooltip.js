@@ -734,7 +734,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       if (!target || !this.$root || !this.isDropdown) {
         return
       }
-      // We can listen for dropdown shown events on it's instance
+      // We can listen for dropdown shown events on its instance
       // TODO:
       //   We could grab the ID from the dropdown, and listen for
       //   $root events for that particular dropdown id

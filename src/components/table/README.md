@@ -575,6 +575,21 @@ values: `sm`, `md`, `lg`, or `xl`.
 - _Possible vertical clipping/truncation_. Responsive tables make use of `overflow-y: hidden`, which
   clips off any content that goes beyond the bottom or top edges of the table. In particular, this
   may clip off dropdown menus and other third-party widgets.
+- Using props `responsive` and `fixed` together will **not** work as expected. Fixed table layout
+  uses the first row (table header in this case) to compute the width required by each column (and
+  the overall table width) to fit within the width of the parent container &mdash; without taking
+  cells in the `<tbody>` into consideration &mdash; resulting in table that may not be resposive. To
+  get around this limitation, you would need to specify widths for the columns (or certain columns)
+  via one of the following methods:
+  - Use `<col>` elements within the [`table-colgroup` slot](#table-colgroup) that have widths set
+    (e.g. `<col style="width: 20rem">`), or
+  - Wrap header cells in `<div>` elements, via the use of
+    [custom header rendering](#header-and-footer-custom-rendering-via-scoped-slots), which have a
+    minimum width set on them, or
+  - Use the `thStyle` property of the [field definition object](#field-definition-reference) to
+    set a width for the column(s), or
+  - Use custom CSS to define classes to apply to the columns to set widths, via the `thClass` or
+    `class` properties of the [field definition object](#field-definition-reference).
 
 ### Stacked tables
 
@@ -1397,7 +1412,7 @@ If you would optionally like to display additional record information (such as c
 in the fields definition array), you can use the scoped slot `row-details`, in combination with the
 special item record Boolean property `_showDetails`.
 
-If the record has it's `_showDetails` property set to `true`, **and** a `row-details` scoped slot
+If the record has its `_showDetails` property set to `true`, **and** a `row-details` scoped slot
 exists, a new row will be shown just below the item, with the rendered contents of the `row-details`
 scoped slot.
 
@@ -1407,7 +1422,7 @@ scoped fields slot variable `detailsShowing` to determine the visibility of the 
 
 **Note:** If manipulating the `_showDetails` property directly on the item data (i.e. not via the
 `toggleDetails` function reference), the `_showDetails` properly **must** exist in the items data
-for proper reactive detection of changes to it's value. Read more about
+for proper reactive detection of changes to its value. Read more about
 [Vue's reactivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats).
 
 **Available `row-details` scoped variable properties:**
@@ -2260,12 +2275,12 @@ function myProvider(ctx) {
 
 ### Automated table busy state
 
-`<b-table>` automatically tracks/controls it's `busy` state when items provider functions are used,
+`<b-table>` automatically tracks/controls its `busy` state when items provider functions are used,
 however it also provides a `busy` prop that can be used either to override the inner `busy` state,
 or to monitor `<b-pagination>`'s current busy state in your application using the 2-way `.sync`
 modifier.
 
-**Note:** in order to allow `<b-table>` fully track it's `busy` state, the custom items provider
+**Note:** in order to allow `<b-table>` fully track its `busy` state, the custom items provider
 function should handle errors from data sources and return an empty array to `<b-table>`.
 
 **Example: usage of busy state**

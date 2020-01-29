@@ -7,6 +7,10 @@ import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 const NAME = 'BButtonClose'
 
 const props = {
+  content: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'content')
+  },
   disabled: {
     type: Boolean,
     default: false
@@ -53,7 +57,7 @@ export const BButtonClose = /*#__PURE__*/ Vue.extend({
     }
     // Careful not to override the default slot with innerHTML
     if (!hasNormalizedSlot('default', $scopedSlots, $slots)) {
-      componentData.domProps = { innerHTML: '&times;' }
+      componentData.domProps = { innerHTML: props.content }
     }
     return h(
       'button',

@@ -11,12 +11,12 @@ const srcIndex = 'bootstrap-vue/src/index.js'
 // --- Utility methods ---
 
 // Converts PascalCase or camelCase to kebab-case
-export const kebabCase = str => {
+const kebabCase = str => {
   return str.replace(RX_HYPHENATE, '-$1').toLowerCase()
 }
 
 // Converts a kebab-case or camelCase string to PascalCase
-export const pascalCase = str => {
+const pascalCase = str => {
   str = kebabCase(str).replace(RX_UN_KEBAB, (_, c) => (c ? c.toUpperCase() : ''))
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
@@ -161,7 +161,8 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     if (
       templateOptions.treeShake &&
       templateOptions.icons &&
-      templateOptions.componentPlugins.indexOf('IconsPlugin') === -1
+      templateOptions.componentPlugins.indexOf('IconsPlugin') === -1 &&
+      templateOptions.componentPlugins.indexOf('BootstrapVueIcons') === -1
     ) {
       templateOptions.componentPlugins.push('IconsPlugin')
     }

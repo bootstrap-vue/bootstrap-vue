@@ -3,7 +3,7 @@
 > Lightweight custom tagged input form control, with options for customized interface rendering,
 > duplicate tag detection and optional tag validation.
 
-Tags are arrays of short strings, used in various ways such as assinging categories. Use the default
+Tags are arrays of short strings, used in various ways such as assigning categories. Use the default
 user interface, or create your own custom interface via the use of the default scoped slot.
 
 The tagged input was added in BootstrapVue release `v2.2.0`.
@@ -239,9 +239,9 @@ not validated.
 
 ### Detecting new, invalid, and duplicate tags
 
-The event `new-tags` will be emitted whenever new tags are entered into the new tag input element,
+The event `tag-state` will be emitted whenever new tags are entered into the new tag input element,
 tags that do not pass validation, or duplicate tags are detected. The event handler will receive
-three arrays as it's arguments:
+three arrays as its arguments:
 
 - `validTags` (tags that pass validation)
 - `invalidTags` (tags that do not pass validation)
@@ -252,10 +252,10 @@ considered part of a tag), or when the user attempts to add a tag (i.e. via <kbd
 clicking the **Add** button, or entering a separator). The three arrays will be empty when the user
 clears the new tag input element (or contains just spaces).
 
-If you are providing your own feedback for duplicate and invalid tags (via the use of the `new-tags`
-event) outside of the `<b-form-tags>` component, you can disable the built in duplicate and invalid
-messages by setting the props `duplicate-tag-text` and `invalid-tag-text` (respectively) to either
-an empty string (`''`) or `null`.
+If you are providing your own feedback for duplicate and invalid tags (via the use of the
+`tag-state` event) outside of the `<b-form-tags>` component, you can disable the built in duplicate
+and invalid messages by setting the props `duplicate-tag-text` and `invalid-tag-text` (respectively)
+to either an empty string (`''`) or `null`.
 
 ```html
 <template>
@@ -320,6 +320,7 @@ The default slot scope properties are as follows:
 | ------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `tags`             | Array                    | Array of current tag strings                                                                                                                           |
 | `inputAttrs`       | Object                   | Object of attributes to apply to the new tag input element via `v-bind="inputAttrs"`. See below for details                                            |
+| `inputType`        | String                   | <span class="badge badge-secondary">v2.3.0+</span> Type of input to render (normalized version of prop `input-type`)                                   |
 | `inputHandlers`    | Object                   | Object of event handlers to apply to the new tag input element via `v-on="inputHandlers"`. See below for details                                       |
 | `removeTag`        | Function                 | Method to remove a tag. Accepts one argument which is the tag value to remove                                                                          |
 | `addTag`           | Function                 | Method to add a new tag. Assumes the tag is the value of the input, but optionally accepts one argument which is the tag value to be added             |

@@ -2,7 +2,6 @@ import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { stripTags } from '../../utils/html'
 import { getComponentConfig } from '../../utils/config'
-import { HTMLElement } from '../../utils/safe-types'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -29,7 +28,7 @@ export const props = {
     default: false
   },
   menuClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   toggleTag: {
@@ -37,7 +36,7 @@ export const props = {
     default: 'button'
   },
   toggleClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   noCaret: {
@@ -61,7 +60,7 @@ export const props = {
     default: () => getComponentConfig(NAME, 'splitVariant')
   },
   splitClass: {
-    type: [String, Array],
+    type: [String, Array, Object],
     default: null
   },
   splitButtonType: {
@@ -72,12 +71,6 @@ export const props = {
   role: {
     type: String,
     default: 'menu'
-  },
-  boundary: {
-    // String: `scrollParent`, `window` or `viewport`
-    // HTMLElement: HTML Element reference
-    type: [String, HTMLElement],
-    default: 'scrollParent'
   }
 }
 

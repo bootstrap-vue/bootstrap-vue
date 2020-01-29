@@ -4,6 +4,57 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.3.0"></a>
+
+## [v2.3.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.2.2...v2.3.0)
+
+Released: 2020-01-24
+
+### Features v2.3.0
+
+- **b-button-close:** add `content` prop
+  ([#4574](https://github.com/bootstrap-vue/bootstrap-vue/issues/4574))
+  ([7379c6d](https://github.com/bootstrap-vue/bootstrap-vue/commit/7379c6dd0bac76307720645080741b3b0ed7ed99))
+- **b-form-tags:** new option to specify input type (closes
+  [#4644](https://github.com/bootstrap-vue/bootstrap-vue/issues/4644))
+  ([#4645](https://github.com/bootstrap-vue/bootstrap-vue/issues/4645))
+  ([b899fac](https://github.com/bootstrap-vue/bootstrap-vue/commit/b899faceb4c1fd8562454fa93432e70d7113401b))
+- **b-pagination, b-pagination-nav:** add page button class props and option to show first/last page
+  numbers (closes [#4597](https://github.com/bootstrap-vue/bootstrap-vue/issues/4597),
+  [#4533](https://github.com/bootstrap-vue/bootstrap-vue/issues/4533))
+  ([#4622](https://github.com/bootstrap-vue/bootstrap-vue/issues/4622))
+  ([3a3ee1d](https://github.com/bootstrap-vue/bootstrap-vue/commit/3a3ee1dc9312a1a8c530a5ea42d1d239d5a24351))
+- **icons:** add stacking support
+  ([#4658](https://github.com/bootstrap-vue/bootstrap-vue/issues/4658))
+  ([b185cdb](https://github.com/bootstrap-vue/bootstrap-vue/commit/b185cdb686ddddcde1b98585b1fbc48859fc541a))
+
+### Bug Fixes v2.3.0
+
+- **v-b-modal:** only unbind/rebind during componentUpdated hook if trigger element or modal ID
+  changes (closes [#4669](https://github.com/bootstrap-vue/bootstrap-vue/issues/4669))
+  ([#4672](https://github.com/bootstrap-vue/bootstrap-vue/issues/4672))
+  ([e53a05d](https://github.com/bootstrap-vue/bootstrap-vue/commit/e53a05d960a9de0ca9636ee31e0197e7e554ddbc))
+- **utils:** pass all Array/Object util shortcuts as functions, for handling late loaded polyfills
+  ([#4647](https://github.com/bootstrap-vue/bootstrap-vue/issues/4647))
+  ([f584425](https://github.com/bootstrap-vue/bootstrap-vue/commit/f5844256a03d2f4b8006900419acfa2c5e3803c3))
+
+<a name="2.2.2"></a>
+
+## [v2.2.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.2.1...v2.2.2)
+
+Released: 2020-01-15
+
+### Bug Fixes v2.2.2
+
+- **nuxt module:** remove unnecessary export statements
+  ([#4624](https://github.com/bootstrap-vue/bootstrap-vue/issues/4624))
+  ([27f066c](https://github.com/bootstrap-vue/bootstrap-vue/commit/27f066cfa07ee311fe1e312d9a9ebd0eb76750c7))
+
+### Other v2.2.2
+
+- dev dependencies updates
+- minor docs updates
+
 <a name="2.2.1"></a>
 
 ## [v2.2.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.2.0...v2.2.1)

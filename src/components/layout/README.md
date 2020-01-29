@@ -71,9 +71,10 @@ like the
 ## Containers `<b-container>`
 
 Containers (`<b-container>`) are the most basic layout element in Bootstrap. Choose from a
-responsive, fixed-width container (meaning its max-width changes at each breakpoint) by default, or
-fluid-width (meaning it's 100% wide all the time) by setting 'fluid' prop, or responsive containers
-where the container is fluid up until a specific breakpoint (requires Bootstrap CSS `v4.4+`).
+responsive, fixed-width container (meaning its `max-width` changes at each breakpoint) by default,
+or fluid-width (meaning it's 100% wide all the time) by setting 'fluid' prop, or responsive
+containers where the container is fluid up until a specific breakpoint (requires Bootstrap CSS
+`v4.4+`).
 
 While containers can be nested, most layouts do not require a nested container.
 
