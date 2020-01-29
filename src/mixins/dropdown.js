@@ -49,9 +49,10 @@ const AttachmentMap = {
 export default {
   mixins: [idMixin, clickOutMixin, focusInMixin],
   provide() {
-    return {
-      bvDropdown: this
-    }
+    return { bvDropdown: this }
+  },
+  inject: {
+    bvNavbar: { default: null }
   },
   props: {
     disabled: {
@@ -116,11 +117,13 @@ export default {
   data() {
     return {
       visible: false,
-      inNavbar: null,
       visibleChangePrevented: false
     }
   },
   computed: {
+    inNavbar() {
+      return !isNull(this.bvNavbar)
+    },
     toggler() {
       const toggle = this.$refs.toggle
       return toggle ? toggle.$el || toggle : null
@@ -202,25 +205,19 @@ export default {
         /* istanbul ignore next */
         return
       }
-      // Are we in a navbar?
-      if (isNull(this.inNavbar) && this.isNav) {
-        // We should use an injection for this
-        /* istanbul ignore next */
-        this.inNavbar = Boolean(closest('.navbar', this.$el))
-      }
 
-      // Disable totally Popper.js for Dropdown in Navbar
+      // Only instantiate Popper.js when dropdown is not in `<b-navbar>`
       if (!this.inNavbar) {
         if (typeof Popper === 'undefined') {
           /* istanbul ignore next */
           warn('Popper.js not found. Falling back to CSS positioning', 'BDropdown')
         } else {
-          // for dropup with alignment we use the parent element as popper container
-          let element = (this.dropup && this.right) || this.split ? this.$el : this.$refs.toggle
+          // For dropup with alignment we use the parent element as popper container
+          let el = (this.dropup && this.right) || this.split ? this.$el : this.$refs.toggle
           // Make sure we have a reference to an element, not a component!
-          element = element.$el || element
-          // Instantiate popper.js
-          this.createPopper(element)
+          el = el.$el || el
+          // Instantiate Popper.js
+          this.createPopper(el)
         }
       }
 
