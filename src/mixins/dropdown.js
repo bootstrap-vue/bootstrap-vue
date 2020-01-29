@@ -193,7 +193,7 @@ export default {
   methods: {
     // Event emitter
     emitEvent(bvEvt) {
-      const type = bvEvt.type
+      const { type } = bvEvt
       this.$emit(type, bvEvt)
       this.$root.$emit(`${ROOT_DROPDOWN_PREFIX}${type}`, bvEvt)
     },
@@ -202,7 +202,7 @@ export default {
         /* istanbul ignore next */
         return
       }
-      // Are we in a navbar ?
+      // Are we in a navbar?
       if (isNull(this.inNavbar) && this.isNav) {
         // We should use an injection for this
         /* istanbul ignore next */
@@ -227,9 +227,10 @@ export default {
       // Ensure other menus are closed
       this.$root.$emit(ROOT_DROPDOWN_SHOWN, this)
 
+      // Enable listeners
       this.whileOpenListen(true)
 
-      // Wrap in nextTick to ensure menu is fully rendered/shown
+      // Wrap in `$nextTick()` to ensure menu is fully rendered/shown
       this.$nextTick(() => {
         // Focus on the menu container on show
         this.focusMenu()
@@ -248,8 +249,8 @@ export default {
       this.$_popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
     destroyPopper() {
+      // Ensure popper event listeners are removed cleanly
       if (this.$_popper) {
-        // Ensure popper event listeners are removed cleanly
         this.$_popper.destroy()
       }
       this.$_popper = null
@@ -297,7 +298,7 @@ export default {
       if (this.disabled) {
         return
       }
-      // Wrap in a requestAnimationFrame to allow any previous
+      // Wrap in a `requestAF()` to allow any previous
       // click handling to occur first
       requestAF(() => {
         this.visible = true
@@ -370,7 +371,7 @@ export default {
         this.focusNext(evt, true)
       }
     },
-    // If uses presses ESC to close menu
+    // If user presses ESC, close the menu
     onEsc(evt) {
       if (this.visible) {
         this.visible = false
