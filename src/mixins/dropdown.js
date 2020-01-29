@@ -198,6 +198,7 @@ export default {
       this.$root.$emit(`${ROOT_DROPDOWN_PREFIX}${type}`, bvEvt)
     },
     showMenu() {
+      console.log('showMenu')
       if (this.disabled) {
         /* istanbul ignore next */
         return
@@ -305,6 +306,7 @@ export default {
       })
     },
     hide(refocus = false) {
+      console.log('hide')
       // Public method to hide dropdown
       if (this.disabled) {
         /* istanbul ignore next */
@@ -355,6 +357,7 @@ export default {
       // relates to the toggle click
       // The 'click' event will still be fired and we handle closing
       // other dropdowns there too
+      console.log('onMousedown')
       evt.preventDefault()
     },
     // Called from dropdown menu context
@@ -393,16 +396,23 @@ export default {
     // Shared hide handler between click-out and focus-in events
     hideHandler(evt) {
       const { target } = evt
+      console.log('hideHandler', {
+        target,
+        isMenu: contains(this.$refs.menu, target),
+        isToggler: contains(this.toggler, target)
+      })
       if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
         this.hide()
       }
     },
     // Document click-out listener
     clickOutHandler(evt) {
+      console.log('click-out')
       this.hideHandler(evt)
     },
     // Document focus-in listener
     focusInHandler(evt) {
+      console.log('focus-in')
       this.hideHandler(evt)
     },
     // Keyboard nav
