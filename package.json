@@ -136,7 +136,7 @@
     "husky": "^4.2.1",
     "jest": "^25.1.0",
     "jest-environment-jsdom-fourteen": "^1.0.1",
-    "lint-staged": "^10.0.3",
+    "lint-staged": "^10.0.4",
     "loader-utils": "^1.2.3",
     "lodash": "^4.17.15",
     "marked": "^0.8.0",
