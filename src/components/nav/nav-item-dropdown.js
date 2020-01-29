@@ -55,7 +55,6 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         },
         on: {
           mousedown: this.onMousedown,
-          touchstart: this.onMousedown,
           click: this.toggle,
           keydown: this.toggle // Handle ENTER, SPACE and DOWN
         }

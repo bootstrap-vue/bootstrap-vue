@@ -346,10 +346,10 @@ export default {
         this.show()
       }
     },
-    // Mousedown/Touchstart handler for the toggle
+    // Mousedown handler for the toggle
     onMousedown(evt) {
-      // We prevent the 'mousedown'/'touchstart' event for the toggle
-      // to stop the 'focusin' event from being fired
+      // We prevent the 'mousedown' event for the toggle to stop the
+      // 'focusin' event from being fired
       // The event would otherwise be picked up by the global 'focusin'
       // listener and there is no cross-browser solution to detect it
       // relates to the toggle click
