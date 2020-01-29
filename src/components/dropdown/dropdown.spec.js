@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { wait, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BDropdown } from './dropdown'
 import { BDropdownItem } from './dropdown-item'
 
@@ -522,7 +522,6 @@ describe('dropdown', () => {
 
     // Close menu by moving focus away from menu
     $input.trigger('focusin')
-    await wait(150)
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')

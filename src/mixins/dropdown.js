@@ -2,7 +2,6 @@ import Popper from 'popper.js'
 import KeyCodes from '../utils/key-codes'
 import { BvEvent } from '../utils/bv-event.class'
 import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
-import { hasTouchSupport } from '../utils/env'
 import { isNull } from '../utils/inspect'
 import { HTMLElement } from '../utils/safe-types'
 import { warn } from '../utils/warn'
@@ -17,10 +16,6 @@ const filterVisibles = els => (els || []).filter(isVisible)
 const ROOT_DROPDOWN_PREFIX = 'bv::dropdown::'
 const ROOT_DROPDOWN_SHOWN = `${ROOT_DROPDOWN_PREFIX}shown`
 const ROOT_DROPDOWN_HIDDEN = `${ROOT_DROPDOWN_PREFIX}hidden`
-
-// Delays for gaining/loosing focus before closing menu (in ms)
-const FOCUSIN_DELAY = 150
-const FOCUSOUT_DELAY = hasTouchSupport ? 450 : 150
 
 // Dropdown item CSS selectors
 const Selector = {
@@ -183,7 +178,6 @@ export default {
   created() {
     // Create non-reactive property
     this.$_popper = null
-    this.$_hideTimeout = null
     this.$_noop = () => {}
   },
   deactivated() /* istanbul ignore next: not easy to test */ {
@@ -196,7 +190,6 @@ export default {
     this.visible = false
     this.whileOpenListen(false)
     this.destroyPopper()
-    this.clearHideTimeout()
   },
   methods: {
     // Event emitter
@@ -262,13 +255,6 @@ export default {
       }
       this.$_popper = null
     },
-    clearHideTimeout() {
-      /* istanbul ignore next */
-      if (this.$_hideTimeout) {
-        clearTimeout(this.$_hideTimeout)
-        this.$_hideTimeout = null
-      }
-    },
     getPopperConfig() {
       let placement = AttachmentMap.BOTTOM
       if (this.dropup) {
@@ -333,16 +319,15 @@ export default {
     // Called only by a button that toggles the menu
     toggle(evt) {
       evt = evt || {}
-      const type = evt.type
-      const key = evt.keyCode
+      // Early exit when not a click event or ENTER, SPACE or DOWN were pressed
+      const { type, keyCode } = evt
       if (
         type !== 'click' &&
         !(
           type === 'keydown' &&
-          (key === KeyCodes.ENTER || key === KeyCodes.SPACE || key === KeyCodes.DOWN)
+          [KeyCodes.ENTER, KeyCodes.SPACE, KeyCodes.DOWN].indexOf(keyCode) !== -1
         )
       ) {
-        // We only toggle on Click, Enter, Space, and Arrow Down
         /* istanbul ignore next */
         return
       }
@@ -361,25 +346,27 @@ export default {
         this.show()
       }
     },
-    // Called only in split button mode, for the split button
-    click(evt) {
-      /* istanbul ignore next */
-      if (this.disabled) {
-        this.visible = false
-        return
-      }
-      this.$emit('click', evt)
+    // Mousedown handler for the toggle
+    onMousedown(evt) {
+      // We prevent the 'mousedown' event for the toggle to stop the
+      // 'focusin' event from being fired
+      // The event would otherwise be picked up by the global 'focusin'
+      // listener and there is no cross-browser solution to detect it
+      // relates to the toggle click
+      // The 'click' event will still be fired and we handle closing
+      // other dropdowns there too
+      evt.preventDefault()
     },
     // Called from dropdown menu context
     onKeydown(evt) {
-      const key = evt.keyCode
-      if (key === KeyCodes.ESC) {
+      const { keyCode } = evt
+      if (keyCode === KeyCodes.ESC) {
         // Close on ESC
         this.onEsc(evt)
-      } else if (key === KeyCodes.DOWN) {
+      } else if (keyCode === KeyCodes.DOWN) {
         // Down Arrow
         this.focusNext(evt, false)
-      } else if (key === KeyCodes.UP) {
+      } else if (keyCode === KeyCodes.UP) {
         // Up Arrow
         this.focusNext(evt, true)
       }
@@ -394,24 +381,20 @@ export default {
         this.$once('hidden', this.focusToggler)
       }
     },
+    // Called only in split button mode, for the split button
+    onSplitClick(evt) {
+      /* istanbul ignore next */
+      if (this.disabled) {
+        this.visible = false
+        return
+      }
+      this.$emit('click', evt)
+    },
     // Shared hide handler between click-out and focus-in events
     hideHandler(evt) {
-      const target = evt.target
+      const { target } = evt
       if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
-        this.clearHideTimeout()
-        // When we are in a navbar (which has been responsively stacked), we
-        // delay the dropdown's closing so that the next element has a chance
-        // to have its click handler fired (in case its position moves on
-        // the screen do to a navbar menu above it collapsing)
-        // https://github.com/bootstrap-vue/bootstrap-vue/issues/4113
-        if (this.inNavbar) {
-          this.$_hideTimeout = setTimeout(() => {
-            this.clearHideTimeout()
-            this.hide()
-          }, FOCUSOUT_DELAY)
-        } else {
-          this.hide()
-        }
+        this.hide()
       }
     },
     // Document click-out listener
@@ -420,13 +403,7 @@ export default {
     },
     // Document focus-in listener
     focusInHandler(evt) {
-      this.clearHideTimeout()
-      // We need to delay the hide handling on focus-in to give
-      // click handlers (like `toggle()`) time to be executed first
-      this.$_hideTimeout = setTimeout(() => {
-        this.clearHideTimeout()
-        this.hideHandler(evt)
-      }, FOCUSIN_DELAY)
+      this.hideHandler(evt)
     },
     // Keyboard nav
     focusNext(evt, up) {
