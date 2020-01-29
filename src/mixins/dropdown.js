@@ -4,6 +4,7 @@ import { BvEvent } from '../utils/bv-event.class'
 import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
 import { hasTouchSupport } from '../utils/env'
 import { isNull } from '../utils/inspect'
+import { HTMLElement } from '../utils/safe-types'
 import { warn } from '../utils/warn'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
@@ -108,6 +109,12 @@ export default {
     popperOpts: {
       // type: Object,
       default: () => {}
+    },
+    boundary: {
+      // String: `scrollParent`, `window` or `viewport`
+      // HTMLElement: HTML Element reference
+      type: [String, HTMLElement],
+      default: 'scrollParent'
     }
   },
   data() {
