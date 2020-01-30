@@ -354,7 +354,7 @@ Formatting does not occur if a `formatter` is not provided.
         id="input-formatter"
         v-model="text1"
         placeholder="Enter your name"
-        :formatter="format"
+        :formatter="formatter"
       ></b-form-input>
     </b-form-group>
     <p><b>Value:</b> {{ text1 }}</p>
@@ -370,7 +370,7 @@ Formatting does not occur if a `formatter` is not provided.
         v-model="text2"
         placeholder="Enter your name"
         lazy-formatter
-        :formatter="format"
+        :formatter="formatter"
       ></b-form-input>
     </b-form-group>
     <p class="mb-0"><b>Value:</b> {{ text2 }}</p>
@@ -386,7 +386,7 @@ Formatting does not occur if a `formatter` is not provided.
       }
     },
     methods: {
-      format(value, event) {
+      formatter(value) {
         return value.toLowerCase()
       }
     }
