@@ -182,6 +182,7 @@ export default {
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/3498
         /* istanbul ignore next: hard to test */
         const $input = this.$refs.input
+        /* istanbul ignore if: hard to test outof sync value */
         if ($input && value !== $input.value) {
           $input.value = value
         }
