@@ -708,13 +708,6 @@ The `.dropdown-menu` is the `<ul>` element, while dropdown items (items, buttons
 headers, and dividers) are wrapped in an `<li>` element. If creating custom items to place inside
 the dropdown menu, ensure they are wrapped with a plain `<li>`.
 
-On touch-enabled devices, opening a `<b-dropdown>` adds empty (noop) `mouseover` handlers to the
-immediate children of the `<body>` element. This admittedly ugly hack is necessary to work around a
-[quirk in iOS' event delegation](https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html),
-which would otherwise prevent a tap anywhere outside of the dropdown from triggering the code that
-closes the dropdown. Once the dropdown is closed, these additional empty `mouseover` handlers are
-removed.
-
 ## See also
 
 - [`<b-nav-item-dropdown>`](/docs/components/nav#dropdown-support) for dropdown support inside

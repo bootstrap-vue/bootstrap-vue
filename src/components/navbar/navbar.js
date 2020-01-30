@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig, getBreakpoints } from '../../utils/config'
 import { isString } from '../../utils/inspect'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BNavbar'
 
@@ -38,33 +38,45 @@ export const props = {
 // @vue/component
 export const BNavbar = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  functional: true,
+  mixins: [normalizeSlotMixin],
   props,
-  render(h, { props, data, children }) {
-    let breakpoint = ''
-    const xs = getBreakpoints()[0]
-    if (props.toggleable && isString(props.toggleable) && props.toggleable !== xs) {
-      breakpoint = `navbar-expand-${props.toggleable}`
-    } else if (props.toggleable === false) {
-      breakpoint = 'navbar-expand'
+  provide() {
+    return { bvNavbar: this }
+  },
+  computed: {
+    breakpointClass() {
+      let breakpoint = null
+      const xs = getBreakpoints()[0]
+      const toggleable = this.toggleable
+      if (toggleable && isString(toggleable) && toggleable !== xs) {
+        breakpoint = `navbar-expand-${toggleable}`
+      } else if (toggleable === false) {
+        breakpoint = 'navbar-expand'
+      }
+
+      return breakpoint
     }
+  },
+  render(h) {
     return h(
-      props.tag,
-      mergeData(data, {
+      this.tag,
+      {
         staticClass: 'navbar',
-        class: {
-          'd-print': props.print,
-          'sticky-top': props.sticky,
-          [`navbar-${props.type}`]: props.type,
-          [`bg-${props.variant}`]: props.variant,
-          [`fixed-${props.fixed}`]: props.fixed,
-          [`${breakpoint}`]: breakpoint
-        },
+        class: [
+          {
+            'd-print': this.print,
+            'sticky-top': this.sticky,
+            [`navbar-${this.type}`]: this.type,
+            [`bg-${this.variant}`]: this.variant,
+            [`fixed-${this.fixed}`]: this.fixed
+          },
+          this.breakpointClass
+        ],
         attrs: {
-          role: props.tag === 'nav' ? null : 'navigation'
+          role: this.tag === 'nav' ? null : 'navigation'
         }
-      }),
-      children
+      },
+      [this.normalizeSlot('default')]
     )
   }
 })
