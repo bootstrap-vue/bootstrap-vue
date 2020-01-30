@@ -344,7 +344,7 @@ export default {
       }
     },
     // Mousedown handler for the toggle
-    onMousedown(evt) {
+    onMousedown(evt) /* istanbul ignore next */ {
       // We prevent the 'mousedown' event for the toggle to stop the
       // 'focusin' event from being fired
       // The event would otherwise be picked up by the global 'focusin'
