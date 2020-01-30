@@ -404,7 +404,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     ignoreEnforceFocusSelectors() {
       const selector = this.ignoreEnforceFocusSelector
-      return isArray(selector) ? selector : [selector]
+      const selectors = isArray(selector) ? selector : [selector]
+      return selectors.filter(s => !!s)
     }
   },
   watch: {
