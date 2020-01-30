@@ -168,7 +168,6 @@ export default {
         // Only debounce the value update when a value greater than `0`
         // is set and we are not in lazy mode or this is a forced update
         if (debounce > 0 && !lazy && !force) {
-          // Change/Blur/Force will not be debounced
           this.$_inputDebounceTimer = setTimeout(doUpdate, debounce)
         } else {
           // Immediately update the v-model
