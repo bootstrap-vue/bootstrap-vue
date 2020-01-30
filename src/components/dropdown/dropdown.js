@@ -146,7 +146,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
             id: this.safeId('_BV_button_')
           },
           on: {
-            click: this.click
+            click: this.onSplitClick
           }
         },
         [buttonContent]
@@ -171,8 +171,9 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
           'aria-expanded': this.visible ? 'true' : 'false'
         },
         on: {
-          click: this.toggle, // click
-          keydown: this.toggle // enter, space, down
+          mousedown: this.onMousedown,
+          click: this.toggle,
+          keydown: this.toggle // Handle ENTER, SPACE and DOWN
         }
       },
       [this.split ? h('span', { class: ['sr-only'] }, [this.toggleText]) : buttonContent]
@@ -189,7 +190,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
           'aria-labelledby': this.safeId(this.split ? '_BV_button_' : '_BV_toggle_')
         },
         on: {
-          keydown: this.onKeydown // up, down, esc
+          keydown: this.onKeydown // Handle UP, DOWN and ESC
         }
       },
       !this.lazy || this.visible ? this.normalizeSlot('default', { hide: this.hide }) : [h()]

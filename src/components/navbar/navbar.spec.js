@@ -19,9 +19,7 @@ describe('navbar', () => {
 
   it('accepts custom tag', async () => {
     const wrapper = mount(BNavbar, {
-      context: {
-        props: { tag: 'div' }
-      }
+      propsData: { tag: 'div' }
     })
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('role')).toBeDefined()
@@ -30,9 +28,7 @@ describe('navbar', () => {
 
   it('accepts breakpoint via toggleable prop', async () => {
     const wrapper = mount(BNavbar, {
-      context: {
-        props: { toggleable: 'lg' }
-      }
+      propsData: { toggleable: 'lg' }
     })
     expect(wrapper.classes()).toContain('navbar')
     expect(wrapper.classes()).toContain('navbar-expand-lg')
@@ -42,9 +38,7 @@ describe('navbar', () => {
 
   it('toggleable=true has expected classes', async () => {
     const wrapper = mount(BNavbar, {
-      context: {
-        props: { toggleable: true }
-      }
+      propsData: { toggleable: true }
     })
     expect(wrapper.classes()).toContain('navbar')
     expect(wrapper.classes()).toContain('navbar-light')
@@ -53,9 +47,7 @@ describe('navbar', () => {
 
   it('toggleable=xs has expected classes', async () => {
     const wrapper = mount(BNavbar, {
-      context: {
-        props: { toggleable: 'xs' }
-      }
+      propsData: { toggleable: 'xs' }
     })
     expect(wrapper.classes()).toContain('navbar')
     expect(wrapper.classes()).toContain('navbar-light')
@@ -64,9 +56,7 @@ describe('navbar', () => {
 
   it('has class "fixed-top" when fixed="top"', async () => {
     const wrapper = mount(BNavbar, {
-      context: {
-        props: { fixed: 'top' }
-      }
+      propsData: { fixed: 'top' }
     })
     expect(wrapper.classes()).toContain('fixed-top')
     expect(wrapper.classes()).toContain('navbar')
@@ -77,9 +67,7 @@ describe('navbar', () => {
 
   it('has class "fixed-top" when fixed="top"', async () => {
     const wrapper = mount(BNavbar, {
-      context: {
-        props: { fixed: 'top' }
-      }
+      propsData: { fixed: 'top' }
     })
     expect(wrapper.classes()).toContain('fixed-top')
     expect(wrapper.classes()).toContain('navbar')
@@ -90,9 +78,7 @@ describe('navbar', () => {
 
   it('has class "sticky-top" when sticky=true', async () => {
     const wrapper = mount(BNavbar, {
-      context: {
-        props: { sticky: true }
-      }
+      propsData: { sticky: true }
     })
     expect(wrapper.classes()).toContain('sticky-top')
     expect(wrapper.classes()).toContain('navbar')
@@ -103,9 +89,7 @@ describe('navbar', () => {
 
   it('accepts variant prop', async () => {
     const wrapper = mount(BNavbar, {
-      context: {
-        props: { variant: 'primary' }
-      }
+      propsData: { variant: 'primary' }
     })
     expect(wrapper.classes()).toContain('bg-primary')
     expect(wrapper.classes()).toContain('navbar')
