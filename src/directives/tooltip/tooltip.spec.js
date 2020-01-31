@@ -7,22 +7,9 @@ import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
 const BV_TOOLTIP = '__BV_Tooltip__'
 
 describe('v-b-tooltip directive', () => {
-  const originalCreateRange = document.createRange
   const origGetBCR = Element.prototype.getBoundingClientRect
 
   beforeEach(() => {
-    // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
-    // Hack to make Popper not bork out during tests.
-    // Note popper still does not do any positioning calculation in JSDOM though.
-    // So we cannot test actual positioning... just detect when it is open.
-    document.createRange = () => ({
-      setStart: () => {},
-      setEnd: () => {},
-      commonAncestorContainer: {
-        nodeName: 'BODY',
-        ownerDocument: document
-      }
-    })
     // Mock getBCR so that the isVisible(el) test returns true
     // Needed for visibility checks of trigger element, etc.
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
@@ -37,7 +24,6 @@ describe('v-b-tooltip directive', () => {
 
   afterEach(() => {
     // Reset overrides
-    document.createRange = originalCreateRange
     Element.prototype.getBoundingClientRect = origGetBCR
   })
 

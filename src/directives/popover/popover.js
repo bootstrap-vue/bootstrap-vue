@@ -52,7 +52,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     content: undefined,
     trigger: '', // Default set below if needed
     placement: 'right',
-    fallbackPlacement: 'flip',
+    fallbackPlacements: undefined,
     container: false, // Default of body
     animation: true,
     offset: 0,
@@ -210,7 +210,7 @@ const applyPopover = (el, bindings, vnode) => {
     content: config.content,
     triggers: config.trigger,
     placement: config.placement,
-    fallbackPlacement: config.fallbackPlacement,
+    fallbackPlacements: config.fallbackPlacements,
     variant: config.variant,
     customClass: config.customClass,
     container: config.container,

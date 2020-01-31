@@ -7,22 +7,9 @@ import { BVPopover } from '../../components/popover/helpers/bv-popover'
 const BV_POPOVER = '__BV_Popover__'
 
 describe('v-b-popover directive', () => {
-  const originalCreateRange = document.createRange
   const origGetBCR = Element.prototype.getBoundingClientRect
 
   beforeEach(() => {
-    // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
-    // Hack to make Popper not bork out during tests.
-    // Note popper still does not do any positioning calculation in JSDOM though.
-    // So we cannot test actual positioning... just detect when it is open.
-    document.createRange = () => ({
-      setStart: () => {},
-      setEnd: () => {},
-      commonAncestorContainer: {
-        nodeName: 'BODY',
-        ownerDocument: document
-      }
-    })
     // Mock getBCR so that the isVisible(el) test returns true
     // Needed for visibility checks of trigger element, etc.
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
@@ -37,7 +24,6 @@ describe('v-b-popover directive', () => {
 
   afterEach(() => {
     // Reset overrides
-    document.createRange = originalCreateRange
     Element.prototype.getBoundingClientRect = origGetBCR
   })
 

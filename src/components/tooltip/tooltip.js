@@ -1,8 +1,7 @@
 import Vue from '../../utils/vue'
 import getScopId from '../../utils/get-scope-id'
-import { isArray, arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { isString, isUndefinedOrNull } from '../../utils/inspect'
+import { isUndefinedOrNull } from '../../utils/inspect'
 import { HTMLElement, SVGElement } from '../../utils/safe-types'
 import { BVTooltip } from './helpers/bv-tooltip'
 
@@ -36,15 +35,9 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       type: String,
       default: 'top'
     },
-    fallbackPlacement: {
-      type: [String, Array],
-      default: 'flip',
-      validator(value) {
-        return (
-          (isArray(value) && value.every(v => isString(v))) ||
-          arrayIncludes(['flip', 'clockwise', 'counterclockwise'], value)
-        )
-      }
+    fallbackPlacements: {
+      type: Array,
+      default: undefined
     },
     variant: {
       type: String,
@@ -121,7 +114,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         target: this.target,
         triggers: this.triggers,
         placement: this.placement,
-        fallbackPlacement: this.fallbackPlacement,
+        fallbackPlacements: this.fallbackPlacements,
         variant: this.variant,
         customClass: this.customClass,
         container: this.container,

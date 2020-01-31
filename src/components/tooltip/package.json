@@ -28,8 +28,8 @@
             "description": "Placement of the tooltip: One of 'top', 'bottom', 'right', 'left', 'top-left', 'top-right', 'bottom-left', 'bottom-right', 'left-top', 'left-bottom', 'right-top', 'right-bottom'"
           },
           {
-            "prop": "fallbackPlacement",
-            "description": "placement to use when the tooltip would be out of boundaries. Refer to the docs for more details"
+            "prop": "fallbackPlacements",
+            "description": "Placements to use when the tooltip would be out of boundaries. Refer to the docs for more details"
           },
           {
             "prop": "customClass",

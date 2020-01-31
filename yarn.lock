@@ -2093,6 +2093,11 @@
     mustache "^2.3.0"
     stack-trace "0.0.10"
 
+"@popperjs/core@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.0.4.tgz#50fb4d10c712a7da4b64dc0add8d8ecaefa13bfa"
+  integrity sha512-uFsFsZjz/FyNpAW4pnbKBT50Jwe+5YwM0bYUfbArM1myDr7LtMrNScOFTxiwgf1TBNA2wFXW7/RRRlwjS+ILyQ==
+
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
@@ -10218,11 +10223,6 @@ pn@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
-
-popper.js@^1.16.1:
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
-  integrity sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
 
 portal-vue@^2.1.7:
   version "2.1.7"

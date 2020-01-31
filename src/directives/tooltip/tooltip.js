@@ -53,7 +53,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     title: undefined,
     trigger: '', // Default set below if needed
     placement: 'top',
-    fallbackPlacement: 'flip',
+    fallbackPlacements: undefined,
     container: false, // Default of body
     animation: true,
     offset: 0,
@@ -209,7 +209,7 @@ const applyTooltip = (el, bindings, vnode) => {
     title: config.title,
     triggers: config.trigger,
     placement: config.placement,
-    fallbackPlacement: config.fallbackPlacement,
+    fallbackPlacements: config.fallbackPlacements,
     variant: config.variant,
     customClass: config.customClass,
     container: config.container,

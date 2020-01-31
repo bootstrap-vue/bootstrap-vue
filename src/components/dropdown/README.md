@@ -132,12 +132,9 @@ viewport. To disable this auto-flip feature, set the `no-flip` prop.
 Like to move your menu away from the toggle buttons a bit? Then use the `offset` prop to specify the
 number of pixels to push right (or left when negative) from the toggle button:
 
-- Specified as a number of pixels: positive for right shift, negative for left shift.
-- Specify the distance in CSS units (i.e. `0.3rem`, `4px`, `1.2em`, etc) passed as a string.
-
 ```html
 <div>
-  <b-dropdown id="dropdown-offset" offset="25" text="Offset Dropdown" class="m-2">
+  <b-dropdown id="dropdown-offset" :offset="25" text="Offset Dropdown" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>

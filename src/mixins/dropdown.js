@@ -1,4 +1,4 @@
-import Popper from 'popper.js'
+import * as Popper from '@popperjs/core'
 import KeyCodes from '../utils/key-codes'
 import { BvEvent } from '../utils/bv-event.class'
 import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
@@ -89,9 +89,9 @@ export default {
       default: false
     },
     offset: {
-      // Number of pixels to offset menu, or a CSS unit value (i.e. 1px, 1rem, etc)
-      type: [Number, String],
-      default: 0
+      // Number of pixels to offset menu
+      type: Number,
+      default: 5
     },
     noFlip: {
       // Disable auto-flipping of menu from bottom<=>top
@@ -216,7 +216,7 @@ export default {
           let el = (this.dropup && this.right) || this.split ? this.$el : this.$refs.toggle
           // Make sure we have a reference to an element, not a component!
           el = el.$el || el
-          // Instantiate Popper.js
+          // Instantiate Popper
           this.createPopper(el)
         }
       }
@@ -243,7 +243,7 @@ export default {
     },
     createPopper(element) {
       this.destroyPopper()
-      this.$_popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
+      this.$_popper = Popper.createPopper(element, this.$refs.menu, this.getPopperConfig())
     },
     destroyPopper() {
       // Ensure popper event listeners are removed cleanly
@@ -263,17 +263,27 @@ export default {
       } else if (this.right) {
         placement = AttachmentMap.BOTTOMEND
       }
-      const popperConfig = {
-        placement,
-        modifiers: {
-          offset: { offset: this.offset || 0 },
-          flip: { enabled: !this.noFlip }
+      const modifiers = [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, this.offset || 0]
+          }
+        },
+        {
+          name: 'flip',
+          enabled: !this.noFlip
         }
-      }
+      ]
       if (this.boundary) {
-        popperConfig.modifiers.preventOverflow = { boundariesElement: this.boundary }
+        modifiers.push({
+          name: 'preventOverflow',
+          options: {
+            rootBoundary: this.boundary
+          }
+        })
       }
-      return { ...popperConfig, ...(this.popperOpts || {}) }
+      return { placement, modifiers, ...(this.popperOpts || {}) }
     },
     // Turn listeners on/off while open
     whileOpenListen(isOpen) {

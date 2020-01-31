@@ -4,22 +4,9 @@ import { BDropdown } from './dropdown'
 import { BDropdownItem } from './dropdown-item'
 
 describe('dropdown', () => {
-  const originalCreateRange = document.createRange
   const origGetBCR = Element.prototype.getBoundingClientRect
 
   beforeEach(() => {
-    // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
-    // Hack to make Popper not bork out during tests
-    // Note popper still does not do any positioning calculation in JSDOM though
-    // So we cannot test actual positioning of the menu, just detect when it is open
-    document.createRange = () => ({
-      setStart: () => {},
-      setEnd: () => {},
-      commonAncestorContainer: {
-        nodeName: 'BODY',
-        ownerDocument: document
-      }
-    })
     // Mock getBCR so that the isVisible(el) test returns true
     // Needed for keyboard navigation testing
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
@@ -34,7 +21,6 @@ describe('dropdown', () => {
 
   afterEach(() => {
     // Reset overrides
-    document.createRange = originalCreateRange
     Element.prototype.getBoundingClientRect = origGetBCR
   })
 

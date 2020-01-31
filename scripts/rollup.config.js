@@ -20,7 +20,7 @@ const externals = ['vue', ...Object.keys(dependencies)]
 // are expected to be provided later.
 // In some cases (i.e. browser UMD build), we want to include some of
 // them in the build, so we exclude the external here.
-const externalExcludes = ['popper.js', 'portal-vue', 'vue-functional-data-merge']
+const externalExcludes = ['@popperjs/core', 'portal-vue', 'vue-functional-data-merge']
 
 // The base rollup configuration
 const baseConfig = {

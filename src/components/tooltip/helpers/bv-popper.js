@@ -6,7 +6,7 @@
 //
 
 import Vue from '../../../utils/vue'
-import Popper from 'popper.js'
+import * as Popper from '@popperjs/core'
 import { getCS, select } from '../../../utils/dom'
 import { HTMLElement, SVGElement } from '../../../utils/safe-types'
 import { BVTransition } from '../../../utils/bv-transition'
@@ -58,9 +58,9 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       type: String,
       default: 'top'
     },
-    fallbackPlacement: {
-      type: [String, Array],
-      default: 'flip'
+    fallbackPlacements: {
+      type: Array,
+      default: undefined
     },
     offset: {
       type: Number,
@@ -100,29 +100,54 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     },
     popperConfig() {
       const placement = this.placement
+      console.log(this.getOffset(placement))
+      const updateHandler = {
+        name: 'updateHandler',
+        enabled: true,
+        phase: 'afterWrite',
+        fn: data => {
+          // Handle flipping arrow classes
+          this.popperPlacementChange(data)
+        }
+      }
       return {
         placement: this.getAttachment(placement),
-        modifiers: {
-          offset: { offset: this.getOffset(placement) },
-          flip: { behavior: this.fallbackPlacement },
-          // `arrow.element` can also be a reference to an HTML Element
-          // maybe we should make this a `$ref` in the templates?
-          arrow: { element: '.arrow' },
-          preventOverflow: {
-            padding: this.boundaryPadding,
-            boundariesElement: this.boundary
-          }
-        },
-        onCreate: data => {
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [this.getOffset(placement), 0]
+            }
+          },
+          {
+            name: 'flip',
+            options: {
+              fallbackPlacements: this.fallbackPlacements
+            }
+          },
+          {
+            name: 'arrow',
+            options: {
+              // `element` can also be a reference to an HTML Element
+              // Maybe we should make this a `$ref` in the templates
+              element: '.arrow'
+            }
+          },
+          {
+            name: 'preventOverflow',
+            options: {
+              padding: this.boundaryPadding,
+              rootBoundary: this.boundary
+            }
+          },
+          updateHandler
+        ],
+        onFirstUpdate: data => {
           // Handle flipping arrow classes
           if (data.originalPlacement !== data.placement) {
             /* istanbul ignore next: can't test in JSDOM */
             this.popperPlacementChange(data)
           }
-        },
-        onUpdate: data => {
-          // Handle flipping arrow classes
-          this.popperPlacementChange(data)
         }
       }
     }
@@ -175,7 +200,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       return AttachmentMap[String(placement).toUpperCase()] || 'auto'
     },
     getOffset(placement) {
-      if (!this.offset) {
+      if (this.offset === 0) {
         // Could set a ref for the arrow element
         const arrow = this.$refs.arrow || select('.arrow', this.$el)
         const arrowOffset =
@@ -198,17 +223,17 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       this.popperDestroy()
       // We use `el` rather than `this.$el` just in case the original
       // mountpoint root element type was changed by the template
-      this.$_popper = new Popper(this.target, el, this.popperConfig)
+      this.$_popper = Popper.createPopper(this.target, el, this.popperConfig)
     },
     popperDestroy() {
       this.$_popper && this.$_popper.destroy()
       this.$_popper = null
     },
     popperUpdate() {
-      this.$_popper && this.$_popper.scheduleUpdate()
+      this.$_popper && this.$_popper.update()
     },
     popperPlacementChange(data) {
-      // Callback used by popper to adjust the arrow placement
+      // Callback used by Popper to adjust the arrow placement
       this.attachment = this.getAttachment(data.placement)
     },
     renderTemplate(h) /* istanbul ignore next */ {

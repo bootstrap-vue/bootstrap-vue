@@ -6,8 +6,7 @@
 import Vue from '../../../utils/vue'
 import getScopId from '../../../utils/get-scope-id'
 import looseEqual from '../../../utils/loose-equal'
-import noop from '../../../utils/noop'
-import { arrayIncludes, concat, from as arrayFrom } from '../../../utils/array'
+import { arrayIncludes, concat } from '../../../utils/array'
 import {
   isElement,
   isDisabled,
@@ -66,8 +65,8 @@ const templateData = {
   triggers: '',
   // String (overwritten by BVPopper)
   placement: 'auto',
-  // String or array of strings
-  fallbackPlacement: 'flip',
+  // Array of strings
+  fallbackPlacements: undefined,
   // Element or Component reference (or function that returns element) of
   // the element that will have the trigger events bound, and is also
   // default element for positioning
@@ -206,7 +205,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.$_hoverState = ''
     this.$_visibleInterval = null
     this.$_enabled = !this.disabled
-    this.$_noop = noop.bind(this)
 
     // Destroy ourselves when the parent is destroyed
     if (this.$parent) {
@@ -693,8 +691,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Periodic $element visibility check
       // For handling when tip target is in <keepalive>, tabs, carousel, etc
       this.visibleCheck(on)
-      // On-touch start listeners
-      this.setOnTouchStartListener(on)
     },
     // Handler for periodic visibility check
     visibleCheck(on) {
@@ -715,18 +711,6 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       if (this.isInModal()) {
         // We can listen for modal hidden events on `$root`
         this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.forceHide)
-      }
-    },
-    setOnTouchStartListener(on) /* istanbul ignore next: JSDOM doesn't support `ontouchstart` */ {
-      // If this is a touch-enabled device we add extra empty
-      // `mouseover` listeners to the body's immediate children
-      // Only needed because of broken event delegation on iOS
-      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
-      if ('ontouchstart' in document.documentElement) {
-        const method = on ? eventOn : eventOff
-        arrayFrom(document.body.children).forEach(el => {
-          method(el, 'mouseover', this.$_noop)
-        })
       }
     },
     setDropdownListener(on) {
