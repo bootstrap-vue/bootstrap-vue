@@ -94,6 +94,10 @@
             "description": "Disables the enforce focus routine which maintains focus inside the modal"
           },
           {
+            "prop": "ignoreEnforceFocusSelector",
+            "description": "Ignore certain elements from the enforce focus routine"
+          },
+          {
             "prop": "titleSrOnly",
             "description": "Wraps the title in an '.sr-only' wrapper"
           },
