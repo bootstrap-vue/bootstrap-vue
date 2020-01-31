@@ -1,8 +1,9 @@
 import Vue from '../../utils/vue'
 import BVTransition from '../../utils/bv-transition'
 import KeyCodes from '../../utils/key-codes'
+import identity from '../../utils/identity'
 import observeDom from '../../utils/observe-dom'
-import { arrayIncludes } from '../../utils/array'
+import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import {
   closest,
@@ -16,7 +17,7 @@ import {
 } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { stripTags } from '../../utils/html'
-import { isArray, isString, isUndefinedOrNull } from '../../utils/inspect'
+import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { HTMLElement } from '../../utils/safe-types'
 import { BTransporterSingle } from '../../utils/transporter'
 import idMixin from '../../mixins/id'
@@ -403,9 +404,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
     },
     ignoreEnforceFocusSelectors() {
-      const selector = this.ignoreEnforceFocusSelector
-      const selectors = isArray(selector) ? selector : [selector]
-      return selectors.filter(s => !!s)
+      // Normalize to an array of selectors
+      // Make sure to filter out empty values
+      return concat(this.ignoreEnforceFocusSelector).filter(identity)
     }
   },
   watch: {
@@ -719,7 +720,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         !content ||
         document === target ||
         contains(content, target) ||
-        this.ignoreEnforceFocusSelectors.some(selector => closest(selector, target, true))
+        this.ignoreEnforceFocusSelectors.some(selector => !!closest(selector, target, true))
       ) {
         return
       }
