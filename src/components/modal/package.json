@@ -95,7 +95,7 @@
           },
           {
             "prop": "ignoreEnforceFocusSelector",
-            "description": "Ignore certain elements from the enforce focus routine"
+            "description": "Ignore certain elements from the enforce focus routine, specified by css selector(s)"
           },
           {
             "prop": "titleSrOnly",
