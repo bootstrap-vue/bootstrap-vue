@@ -1,10 +1,12 @@
 import Vue from '../../utils/vue'
 import BVTransition from '../../utils/bv-transition'
 import KeyCodes from '../../utils/key-codes'
+import identity from '../../utils/identity'
 import observeDom from '../../utils/observe-dom'
-import { arrayIncludes } from '../../utils/array'
+import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import {
+  closest,
   contains,
   eventOff,
   eventOn,
@@ -110,6 +112,10 @@ export const props = {
   noEnforceFocus: {
     type: Boolean,
     default: false
+  },
+  ignoreEnforceFocusSelector: {
+    type: [Array, String],
+    default: ''
   },
   title: {
     type: String,
@@ -396,6 +402,13 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         hide: this.hide,
         visible: this.isVisible
       }
+    },
+    computeIgnoreEnforceFocusSelector() {
+      // Normalize to an single selector with selectors separated by `,`
+      return concat(this.ignoreEnforceFocusSelector)
+        .filter(identity)
+        .join(',')
+        .trim()
     }
   },
   watch: {
@@ -701,34 +714,38 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     focusHandler(evt) {
       // If focus leaves modal content, bring it back
       const content = this.$refs.content
-      const target = evt.target
+      const { target } = evt
       if (
-        !this.noEnforceFocus &&
-        this.isTop &&
-        this.isVisible &&
-        content &&
-        document !== target &&
-        !contains(content, target)
+        this.noEnforceFocus ||
+        !this.isTop ||
+        !this.isVisible ||
+        !content ||
+        document === target ||
+        contains(content, target) ||
+        (this.computeIgnoreEnforceFocusSelector &&
+          closest(this.computeIgnoreEnforceFocusSelector, target, true))
       ) {
-        const tabables = this.getTabables()
-        if (this.$refs.bottomTrap && target === this.$refs.bottomTrap) {
-          // If user pressed TAB out of modal into our bottom trab trap element
-          // Find the first tabable element in the modal content and focus it
-          if (attemptFocus(tabables[0])) {
-            // Focus was successful
-            return
-          }
-        } else if (this.$refs.topTrap && target === this.$refs.topTrap) {
-          // If user pressed CTRL-TAB out of modal and into our top tab trap element
-          // Find the last tabable element in the modal content and focus it
-          if (attemptFocus(tabables[tabables.length - 1])) {
-            // Focus was successful
-            return
-          }
-        }
-        // Otherwise focus the modal content container
-        content.focus({ preventScroll: true })
+        return
       }
+      const tabables = this.getTabables()
+      const { bottomTrap, topTrap } = this.$refs
+      if (bottomTrap && target === bottomTrap) {
+        // If user pressed TAB out of modal into our bottom trab trap element
+        // Find the first tabable element in the modal content and focus it
+        if (attemptFocus(tabables[0])) {
+          // Focus was successful
+          return
+        }
+      } else if (topTrap && target === topTrap) {
+        // If user pressed CTRL-TAB out of modal and into our top tab trap element
+        // Find the last tabable element in the modal content and focus it
+        if (attemptFocus(tabables[tabables.length - 1])) {
+          // Focus was successful
+          return
+        }
+      }
+      // Otherwise focus the modal content container
+      content.focus({ preventScroll: true })
     },
     // Turn on/off focusin listener
     setEnforceFocus(on) {

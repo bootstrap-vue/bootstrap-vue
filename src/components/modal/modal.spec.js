@@ -179,7 +179,7 @@ describe('modal', () => {
         },
         propsData: {
           static: false,
-          id: 'testtarget',
+          id: 'test-target',
           visible: true
         }
       })
@@ -190,7 +190,7 @@ describe('modal', () => {
       expect(wrapper.isEmpty()).toBe(true)
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
-      const outer = document.getElementById('testtarget___BV_modal_outer_')
+      const outer = document.getElementById('test-target___BV_modal_outer_')
       expect(outer).toBeDefined()
       expect(outer).not.toBe(null)
 
@@ -205,7 +205,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      // Should no longer be in document.
+      // Should no longer be in document
       expect(outer.parentElement).toEqual(null)
     })
 
@@ -358,14 +358,14 @@ describe('modal', () => {
       const $cancel = $buttons.at(0)
       expect($cancel.attributes('type')).toBe('button')
       expect($cancel.text()).toContain('cancel')
-      // v-html is applied to a span
+      // `v-html` is applied to a span
       expect($cancel.html()).toContain('<span><em>cancel</em></span>')
 
       // OK button (right-most button)
       const $ok = $buttons.at(1)
       expect($ok.attributes('type')).toBe('button')
       expect($ok.text()).toContain('ok')
-      // v-html is applied to a span
+      // `v-html` is applied to a span
       expect($ok.html()).toContain('<span><em>ok</em></span>')
 
       wrapper.destroy()
@@ -1161,8 +1161,8 @@ describe('modal', () => {
       const App = localVue.extend({
         render(h) {
           return h('div', {}, [
-            h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
-            h(BModal, { props: { static: true, id: 'test', visible: true } }, 'modal content')
+            h('button', { attrs: { id: 'button', type: 'button' } }, 'Button'),
+            h(BModal, { props: { static: true, id: 'test', visible: true } }, 'Modal content')
           ])
         }
       })
@@ -1185,7 +1185,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      const $button = wrapper.find('button.trigger')
+      const $button = wrapper.find('#button')
       expect($button.exists()).toBe(true)
       expect($button.is('button')).toBe(true)
 
@@ -1198,54 +1198,196 @@ describe('modal', () => {
       expect(document.activeElement).not.toBe(document.body)
       expect(document.activeElement).toBe($content.element)
 
-      // Try and set focusin on external button
+      // Try and focus the external button
+      $button.element.focus()
       $button.trigger('focusin')
-      await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($button.element)
       expect(document.activeElement).toBe($content.element)
 
-      // Try and set focusin on external button
-      $button.trigger('focus')
-      await waitNT(wrapper.vm)
-      expect(document.activeElement).not.toBe($button.element)
-      expect(document.activeElement).toBe($content.element)
-
-      // Emulate TAB by focusing the `bottomTrap` span element.
+      // Emulate TAB by focusing the `bottomTrap` span element
       // Should focus first button in modal (in the header)
       const $bottomTrap = wrapper.find(BModal).find({ ref: 'bottomTrap' })
       expect($bottomTrap.exists()).toBe(true)
       expect($bottomTrap.is('span')).toBe(true)
-      // Find the close (x) button (it is the only one with the .close class)
+      // Find the close (x) button (it is the only one with the `.close` class)
       const $closeButton = $modal.find('button.close')
       expect($closeButton.exists()).toBe(true)
       expect($closeButton.is('button')).toBe(true)
-      // focus the tab trap
+      // Focus the tab trap
+      $bottomTrap.element.focus()
       $bottomTrap.trigger('focusin')
-      $bottomTrap.trigger('focus')
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($bottomTrap.element)
       expect(document.activeElement).not.toBe($content.element)
       // The close (x) button (first tabable in modal) should be focused
       expect(document.activeElement).toBe($closeButton.element)
 
-      // Emulate CTRL-TAB by focusing the `topTrap` div element.
+      // Emulate CTRL-TAB by focusing the `topTrap` div element
       // Should focus last button in modal (in the footer)
       const $topTrap = wrapper.find(BModal).find({ ref: 'topTrap' })
       expect($topTrap.exists()).toBe(true)
       expect($topTrap.is('span')).toBe(true)
-      // Find the OK button (it is the only one with .btn-primary class)
+      // Find the OK button (it is the only one with `.btn-primary` class)
       const $okButton = $modal.find('button.btn.btn-primary')
       expect($okButton.exists()).toBe(true)
       expect($okButton.is('button')).toBe(true)
-      // focus the tab trap
+      // Focus the tab trap
+      $topTrap.element.focus()
       $topTrap.trigger('focusin')
-      $topTrap.trigger('focus')
       await waitNT(wrapper.vm)
       expect(document.activeElement).not.toBe($topTrap.element)
       expect(document.activeElement).not.toBe($bottomTrap.element)
       expect(document.activeElement).not.toBe($content.element)
       // The OK button (last tabbable in modal) should be focused
       expect(document.activeElement).toBe($okButton.element)
+
+      wrapper.destroy()
+    })
+
+    it('it allows focus for elements when "no-enforce-focus" enabled', async () => {
+      const App = localVue.extend({
+        render(h) {
+          return h('div', {}, [
+            h('button', { attrs: { id: 'button1', type: 'button' } }, 'Button 1'),
+            h('button', { attrs: { id: 'button2', type: 'button' } }, 'Button 2'),
+            h(
+              BModal,
+              {
+                props: {
+                  static: true,
+                  id: 'test',
+                  visible: true,
+                  noEnforceFocus: true
+                }
+              },
+              'Modal content'
+            )
+          ])
+        }
+      })
+      const wrapper = mount(App, {
+        attachToDocument: true,
+        localVue: localVue,
+        stubs: {
+          transition: false
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      const $button1 = wrapper.find('#button1')
+      expect($button1.exists()).toBe(true)
+      expect($button1.is('button')).toBe(true)
+
+      const $button2 = wrapper.find('#button2')
+      expect($button2.exists()).toBe(true)
+      expect($button2.is('button')).toBe(true)
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+      const $content = $modal.find('div.modal-content')
+      expect($content.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('block')
+      expect(document.activeElement).not.toBe(document.body)
+      expect(document.activeElement).toBe($content.element)
+
+      // Try to focus button1
+      $button1.element.focus()
+      $button1.trigger('focusin')
+      await waitNT(wrapper.vm)
+      expect(document.activeElement).toBe($button1.element)
+      expect(document.activeElement).not.toBe($content.element)
+
+      // Try to focus button2
+      $button2.element.focus()
+      $button2.trigger('focusin')
+      await waitNT(wrapper.vm)
+      expect(document.activeElement).toBe($button2.element)
+      expect(document.activeElement).not.toBe($content.element)
+
+      wrapper.destroy()
+    })
+
+    it('it allows focus for elements in "ignore-enforce-focus-selector" prop', async () => {
+      const App = localVue.extend({
+        render(h) {
+          return h('div', {}, [
+            h('button', { attrs: { id: 'button1', type: 'button' } }, 'Button 1'),
+            h('button', { attrs: { id: 'button2', type: 'button' } }, 'Button 2'),
+            h(
+              BModal,
+              {
+                props: {
+                  static: true,
+                  id: 'test',
+                  visible: true,
+                  ignoreEnforceFocusSelector: '#button1'
+                }
+              },
+              'Modal content'
+            )
+          ])
+        }
+      })
+      const wrapper = mount(App, {
+        attachToDocument: true,
+        localVue: localVue,
+        stubs: {
+          transition: false
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      const $button1 = wrapper.find('#button1')
+      expect($button1.exists()).toBe(true)
+      expect($button1.is('button')).toBe(true)
+
+      const $button2 = wrapper.find('#button2')
+      expect($button2.exists()).toBe(true)
+      expect($button2.is('button')).toBe(true)
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+      const $content = $modal.find('div.modal-content')
+      expect($content.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('block')
+      expect(document.activeElement).not.toBe(document.body)
+      expect(document.activeElement).toBe($content.element)
+
+      // Try to focus button1
+      $button1.element.focus()
+      $button1.trigger('focusin')
+      await waitNT(wrapper.vm)
+      expect(document.activeElement).toBe($button1.element)
+      expect(document.activeElement).not.toBe($content.element)
+
+      // Try to focus button2
+      $button2.element.focus()
+      $button2.trigger('focusin')
+      await waitNT(wrapper.vm)
+      expect(document.activeElement).not.toBe($button2.element)
+      expect(document.activeElement).toBe($content.element)
 
       wrapper.destroy()
     })
