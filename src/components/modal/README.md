@@ -1158,7 +1158,7 @@ content and can make some of your elements unreachable via keyboard navigation.
 
 If some elements outside the modal need to be focusable (i.e. for TinyMCE), you can add them as CSS
 selectors to the `ignore-enforce-focus-selector` prop
-(<span class="badge badge-secondary">2.4.0+</span>), e.g.:
+<span class="badge badge-secondary">2.4.0+</span>, e.g.:
 
 ```html
 <b-modal
