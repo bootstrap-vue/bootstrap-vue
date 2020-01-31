@@ -403,10 +403,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         visible: this.isVisible
       }
     },
-    ignoreEnforceFocusSelectors() {
-      // Normalize to an array of selectors
-      // Make sure to filter out empty values
-      return concat(this.ignoreEnforceFocusSelector).filter(identity)
+    computeIgnoreEnforceFocusSelector() {
+      // Normalize to an single selector with selectors separated by `,`
+      return concat(this.ignoreEnforceFocusSelector)
+        .filter(identity)
+        .join(',')
+        .trim()
     }
   },
   watch: {
@@ -720,7 +722,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         !content ||
         document === target ||
         contains(content, target) ||
-        this.ignoreEnforceFocusSelectors.some(selector => !!closest(selector, target, true))
+        (this.computeIgnoreEnforceFocusSelector &&
+          closest(this.computeIgnoreEnforceFocusSelector, target, true))
       ) {
         return
       }
