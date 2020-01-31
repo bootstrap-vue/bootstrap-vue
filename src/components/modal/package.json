@@ -95,6 +95,7 @@
           },
           {
             "prop": "ignoreEnforceFocusSelector",
+            "version": "2.4.0",
             "description": "Ignore certain elements from the enforce focus routine, specified by css selector(s)"
           },
           {
