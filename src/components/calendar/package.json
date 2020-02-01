@@ -17,7 +17,7 @@
           },
           {
             "prop": "valueAsDate",
-            "description": "returns a date object for the v-model instead of a YYYY-MM-DD string"
+            "description": "Returns a date object for the v-model instead of a YYYY-MM-DD string"
           }
         ]
       }
