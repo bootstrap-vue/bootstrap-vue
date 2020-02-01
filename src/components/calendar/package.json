@@ -18,6 +18,18 @@
           {
             "prop": "valueAsDate",
             "description": "Returns a date object for the v-model instead of a YYYY-MM-DD string"
+          },
+          {
+            "prop": "disabled",
+            "description": "places the calendar in a disabled state"
+          },
+          {
+            "prop": "readonly",
+            "description": "places the calendar in a readonly state. Disables updating the v-model, while still allowing date navigation"
+          },
+          {
+            "prop": "variant",
+            "description": "Theme color variant to use for the selected date button"
           }
         ],
         "events": [
