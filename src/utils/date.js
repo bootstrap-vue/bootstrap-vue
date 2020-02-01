@@ -1,5 +1,5 @@
 // Date utility functions
-import indentity from './identity'
+import identity from './identity'
 import { concat } from './array'
 import { isDate, isString } from './inspect'
 import { toInteger } from './number'
@@ -37,7 +37,7 @@ export const formatYMD = date => {
 export const resolveLocale = (locales, calendar = 'gregory') => {
   locales = concat(locales).filter(identity)
   const fmt = new Intl.DateTimeFormat(locales, { calendar: calendar })
-  return fmt.resolvedOptions().locale 
+  return fmt.resolvedOptions().locale
 }
 
 // Create a Intl.DateTimeFormat formatter function
