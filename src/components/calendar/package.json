@@ -4,6 +4,7 @@
   "meta": {
     "title": "Calendar",
     "version": "2.5.0",
+    "new": true,
     "description": "Calendar widget for selecting dates.",
     "components": [
       {
