@@ -3,14 +3,17 @@ import { arrayIncludes } from '../../utils/array'
 import {
   createDate,
   createDateFormatter,
+  datesEqual,
   formatYMD,
   parseYMD,
   resolveLocale
 } from '../../utils/date'
 import { requestAF } from '../../utils/dom'
+import { isFunction } from '../../utils/inpsect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
+// import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import { BIconChevronLeft, BIconCircleFill } from '../../icons/icons'
 import { BIconstack } from '../../icons/iconstack'
@@ -33,6 +36,89 @@ const RTL_LANGS = [
   'ur',
   'yi'
 ]
+
+// Helper meathods
+
+const lastDateOfMonth = date => {
+  date = createDate(date)
+  date.setMonth(date.getMonth() + 1)
+  date.setDate(0)
+  return date
+}
+
+const firstDateOfMonth = date => {
+  date = createDate(date)
+  date.setDate(1)
+  return date
+}
+
+const oneYearAgo = date => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setMonth(month - 12)
+  if (date.getMonth() !== month) {
+    date.setDate(0)
+  }
+  return date
+}
+
+const oneYearAhead = date => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setMonth(month + 12)
+  if (date.getMonth() !== month) {
+    date.setDate(0)
+  }
+  return date
+}
+
+const oneMonthAgo = date => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setMonth(month - 1)
+  if (date.getMonth() === month) {
+    date.setDate(0)
+  }
+  return date
+}
+
+const oneMothAhead = date => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setMonth(month + 1)
+  if (date.getMonth() === month) {
+    date.setDate(0)
+  }
+  return date
+}
+
+const oneWeekAgo = date => {
+  date = createDate(date)
+  const day = date.getDay()
+  date.setDate(day - 7)
+  return date
+}
+
+const oneWeekAhead = date => {
+  date = createDate(date)
+  const day = date.getDay()
+  date.setDate(day + 7)
+  return date
+}
+
+const oneDayAgo = date => {
+  date = createDate(date)
+  const day = date.getDay()
+  date.setDate(day - 1)
+  return date
+}
+
+const oneDayAhead = date => {
+  date = createDate(date)
+  const day = date.getDay()
+  date.setDate(day + 1)
+  return date
+}
 
 // @vue/component
 export const BCalendar = Vue.extend({
@@ -69,6 +155,10 @@ export const BCalendar = Vue.extend({
     },
     max: {
       type: [String, Date],
+      default: null
+    },
+    allowedDates: {
+      type: Function,
       default: null
     },
     startWeekday: {
@@ -214,6 +304,21 @@ export const BCalendar = Vue.extend({
       }
       return locale
     },
+    calendarYear() {
+      return this.activeDate.getFullYear()
+    },
+    calendarMonth() {
+      return this.activeDate.getMonth()
+    },
+    calendarFirstDay() {
+      return createDate(this.calendarYear, this.calendarMonth, 1)
+    },
+    calendarDaysInMonth() {
+      // We create a new date as to not mutate the original
+      const date = createDate(this.calendarFirstDay)
+      date.setMonth(date.getMonth() + 1, 0)
+      return date.getDate()
+    },
     isRTL() {
       // `true` if the language requested is RTL
       if (toString(this.direction).toLowerCase() === 'rtl') {
@@ -226,6 +331,36 @@ export const BCalendar = Vue.extend({
       const locale1 = parts.slice(0, 2).join('-')
       const locale2 = parts[0]
       return arrayIncludes(RTL_LANGS, locale1) || arrayIncludes(RTL_LANGS, locale2)
+    },
+    // Computed props that return a function reference
+    dateOutOfRange() {
+      // Check weather a date is within the min/max range
+      // returns a new function ref if the pops change
+      // We do this as we need to trigger the calendar computed prop
+      // to update
+      const min = this.computedMin
+      const max = this.computedMax
+      return date => {
+        date = parseYMD(date)
+        return (min && date < min) || (max && date > max)
+      }
+    },
+    dateDisabled() {
+      // Returns a function for validating if a date is within range
+      // We grab thes variables first to ensure a new
+      // function ref is gnerated when the props change
+      // We do this as we need to trigger the calendar computed prop
+      // to update
+      const min = this.computedMin
+      const max = this.computedMax
+      const rangeFn = this.dateOutOfRange
+      const userFn = isFunction(this.allowedDates) ? this.allowedDates : () => true
+      // return the function ref
+      return date => {
+        date = parseYMD(date)
+        const ymd = formatYMD(date)
+        return rangeFn(date) || !userFn(ymd)
+      }
     },
     // Computed props that return date formatter functions
     formatDateString() {
@@ -245,7 +380,110 @@ export const BCalendar = Vue.extend({
         month: 'long',
         calendar: 'gregory'
       })
+    },
+    formatWeekdayName() {
+      return createDateFormatter(this.calendarLocale, { weekday: 'long', calendar: 'gregory' })
+    },
+    formatWeekdayNameShort() {
+      // used as the header cells
+      return createDateFormatter(this.computedLocale, { weekday: 'short', calendar: 'gregory' })
+    },
+    formatDay() {
+      return createDateFormatter(this.computedLocale, { day: 'numeric', calendar: 'gregory' })
+    },
+    // disabled states for the nav buttons
+    prevYearDisabled() {
+      const min = this.computedMin
+      return this.disabled
+        ? true
+        : min
+          ? lastDateOfMonth(oneYearAgo(this.activeDate)) < min
+          : false
+    },
+    prevMonthDisabled() {
+      const min = this.computedMin
+      return this.disabled
+        ? true
+        : min
+          ? lastDateOfMonth(oneMonthAgo(this.activeDate)) < min
+          : false
+    },
+    nextMonthDisabled() {
+      const max = this.computedMax
+      return this.disabled
+        ? true
+        : max
+          ? firstDateOfMonth(oneMonthAhead(this.activeDate)) > max
+          : false
+    },
+    nextYearDisabled() {
+      const max = this.computedMax
+      return this.disabled
+        ? true
+        : max
+          ? firstDateOfMonth(oneYearAhead(this.activeDate)) > max
+          : false
+    },
+    // Calendar generation
+    calendar() {
+      const matrix = []
+      const calendarYear = this.calendarYear
+      const calendarMonth = this.calendarMonth
+      const firstDay = this.calendarFirstDay
+      const prevMonth = createDate(calendarYear, calendarMonth, 0).getMonth()
+      const nextMonth = createDate(calendarYear, calendarMonth + 1, 1).getMonth()
+      const daysInMonth =  this.calendarDaysInMonth
+      const startIndex = firstDay.getDay() // 0..6
+      const weekOffset = (this.computedWeekStarts > startIndex ? 7 : 0) - this.computedWeekStarts
+      // Build the clendar matrix
+      let currentDay = 0 - weekOffset - startIndex
+	  	for (let week = 0; week < 6 && currentDay < daysInMonth; week++) {
+	    	// for each week
+	    	matrix[week] = []
+				// The following could be a map funtion
+				for (let j = 0; j < 7; j++) {
+          // for each day in week
+          currentDay++
+          const date = createDate(calendarYear, calendarMonth, currentDay)
+          const month = date.getMonth()
+          matrix[week].push({
+            dateObj: date,
+            // used by render function for quick equality comparisons
+            ymd: formatYMD(date),
+            // Cell content
+            day: this.formatDay(date),
+            label: this.formatDateString(date),
+            // Flags for styling
+            isThisMonth: month === calendarMonth,
+            isDisabled: this.dateDisabled(date),
+          })
+        }
+	  	}
+      return matrix
+    },
+    calendarHeadings() {
+      return this.calendar[0].map(d => {
+        return {
+          text: this.formatWeekdayNameShort(d.dateObj),
+          label: this.formatrWeekdayName(d.dateObj)
+        }
+      })
     }
+  },
+  watch: {
+    value(newVal, oldVal) {
+      const selected = parseYMD(newVal)
+      const old = parseYMD(newVal)
+      if (!datesEqual(selected, old)) {
+        this.selectedDate = selected
+        // if (selected) {
+        //   this.focusDate(selected)
+        // }
+      }
+    },
+    selectedYMD(newYMD, oldYMD) {
+      this.$emit('input', this.valueAsDate ? parseYMD(newYMD) : newYMD)
+    },
   },
   mounted() {
     this.$nextTick(() => {
@@ -270,17 +508,18 @@ export const BCalendar = Vue.extend({
       // TBD
     },
     onClickDay(day) {
-      // TBD
+      if (!day.isDisabled && !this.disabled) {
+        this.selectedDay = createDate(day.dateObj)
+      }
     }
   },
   render(h) {
     const isRTL = this.isRTL
-    // const calendar = this.calendar
-    // const today = this.getToday()
-    // const todayYMD = formatYMD(today)
-    // const selectedYMD = this.selectedYMD
+    const todayYMD = formatYMD(this.getToday())
+    const selectedYMD = this.selectedYMD
     const activeYMD = this.activeYMD
 
+    /* istanbul ignore if */
     if (this.hidden) {
       return h()
     }
@@ -405,8 +644,94 @@ export const BCalendar = Vue.extend({
       this.formatYearMonth(this.calendarFirstDay)
     )
 
-    const $gridWeekDays = h()
-    const $gridBody = h()
+    // Calendar weekday headings
+    const $gridWeekDays = h(
+      'div',
+      { staticClass: 'row no-gutters border-bottom', attrs: { 'aria-hidden': 'true' } },
+      this.calendarHeadings.map((d, idx) => {
+        return h('small', { key: idx, staticClass: 'col', attrs: { title: d.label } }, d.text)
+      })
+    )
+
+    // Calendar day grid
+    let $gridBody = this.calendar.map((week, wIndex) => {
+      const $cells = week.map((day, dIndex) => {
+        const isSelected = day.ymd === selectedYMD
+        const isActive = day.ymd === activeYMD
+        const isToday = day.ymd === todayYMD
+        // "fake" button
+        const $btn = h(
+          'span',
+          {
+            staticClass: 'btn btn-sm border-0 rounded-circle text-nowrap px-0',
+            // Should we add some classes to signify if today/selected/etc?
+            class: {
+              // Give the fake button a focus ring
+              focus: isActive && this.gridHasFocus,
+              // Styling
+              disabled: day.isDisabled,
+              active: isSelected, // makes the button look "pressed"
+              // Selected date style (need to computed from variant)
+              'btn-primary': isSelected,
+              // Today day style (if not selected), same variant color as selected date
+              'btn-outline-primary': isToday && !isSelected && !isActive,
+              // Non selected/today styling
+              'btn-outline-light':  !isToday && !isSelected && !isActive,
+              // Text styling
+              'text-muted': !day.isThisMonth && !isSelected,
+              'text-dark': !isToday && !isActive && day.isThisMonth && !day.isDisabled,
+              'font-weight-bold': (isSelected || day.isThisMonth) && !day.isDisabled
+            },
+            style: {
+              // We hardcode values here to maintain correct sizing for mobile
+              // This could be a custom class???
+              width: '32px',
+              height: '32px',
+              fonstSize: '14px',
+              lineHeight: 1,
+              margin: '3px auto'
+            }
+          },
+          day.day
+        )
+        return h(
+          'div', // cell
+          {
+            key: dIndex,
+            staticClass: 'col p-0',
+            // Need to compute if day is within range (min/max) or if day is not allowed
+            // This is done in the calendar generator computed prop
+            class: { 'bg-light': day.isDisabled },
+            attrs: {
+              id: this.safeId(`_cell-${day.ymd}_`),
+              role: 'button',
+              // Only days in the month are presented as buttons to screen readers
+              'aria-hidden': day.isThisMonth ? null : 'true',
+              'aria-disabled': day.isDisabled || this.disabled ? 'true' : null,
+              'aria-label': [
+                day.label,
+                isSelected ? `(${this.labelSelected})` : null,
+                isToday ? `(${this.labelToday})` : null
+              ].filter(identity).join(' ')
+              // NVDA doesn't convey aria-selected, but does aria-current,
+              // Chromevox doesn't convey aria-current, but does aria-selected,
+              // so we set both attribues for robustness
+              'aria-selected': isSelected ? 'true' : null,
+              'aria-current': isActive ? 'date' : null
+            },
+            // The enter/space click handler on grid needs to check if the day is disabled also
+            on: {
+              click: () => {
+                this.onDayClick(day)
+              }
+            }
+          },
+          [$btn]
+        )
+      })
+      return h('div', { key: wIndex }, staticClass: 'row no-gutters' }, $cells)
+    })
+    $gridBody = h('div', {}, $gridBody)
 
     const $gridHelp = h(
       'footer',
@@ -431,7 +756,7 @@ export const BCalendar = Vue.extend({
           'aria-describedby': this.safeId('_calendar-help_'),
           'aria-readonly': this.readonly && !this.disabled ? 'true' : null,
           'aria-disabled': this.disabled ? 'true' : null,
-          'aria-activedescendant': this.safeId(`cell-${activeYMD}`)
+          'aria-activedescendant': this.safeId(`_cell-${activeYMD}_`)
         },
         on: {
           keydown: this.onKeydownGrid,
@@ -471,7 +796,9 @@ export const BCalendar = Vue.extend({
             .filter(identity)
             .join(' ')
         },
-        on: {}
+        on: {
+          keydown: this.onKeydownWrapper
+        }
       },
       [$header, $nav, $grid, $slot]
     )
