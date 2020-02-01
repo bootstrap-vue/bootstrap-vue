@@ -14,7 +14,7 @@ export const BCalendar = Vue.extend({
       // Always return the v-model value as a date object
       type: Boolean,
       default: false
-    },
+    }
   },
   data() {
     const selected = parseYMD(this.value) || null
