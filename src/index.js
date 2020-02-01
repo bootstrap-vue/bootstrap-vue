@@ -89,6 +89,10 @@ export { BButtonGroup } from './components/button-group/button-group'
 export { ButtonToolbarPlugin } from './components/button-toolbar'
 export { BButtonToolbar } from './components/button-toolbar/button-toolbar'
 
+// export * from './components/calendar'
+export { CalendarPlugin } from './components/calendar'
+export { BCalendar } from './components/calendar/calendar'
+
 // export * from './components/card'
 export { CardPlugin } from './components/card'
 export { BCard } from './components/card/card'
