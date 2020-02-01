@@ -19,6 +19,35 @@
             "prop": "valueAsDate",
             "description": "Returns a date object for the v-model instead of a YYYY-MM-DD string"
           }
+        ],
+        "events": [
+          {
+            "event": "input",
+            "description": "Emitted to when updating the v-model",
+            "args": [
+              {
+                "arg": "date",
+                "description": "either a string in the format of YYYY-MM-DD or a date object (if 'value-as-date' prop is true)",
+                "type": [
+                  "String",
+                  "Date"
+                ]
+              }
+            ]
+          },
+          {
+            "event": "context",
+            "description": "Emitted to when when the user changes the active date via date navigation buttons or cursor control",
+            "args": [
+              {
+                "arg": "context",
+                "description": "the context object. See documentaion for details",
+                "type": [
+                  "Object"
+                ]
+              }
+            ]
+          }
         ]
       }
     ]
