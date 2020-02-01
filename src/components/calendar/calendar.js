@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { createDate, parseYMD } from '../../utils/date'
+import identity from '../../utils/idendity'
 import idMixin from '../../mixins/id'
 
 const NAME = 'BFormCalendar'
@@ -138,6 +139,7 @@ export const BCalendar = Vue.extend({
     }
   },
   render(h) {
+    const isRTL = this.isRTL
     const $header = h()
     const $nav = h()
     const $grid = h()
@@ -164,11 +166,13 @@ export const BCalendar = Vue.extend({
             this.$attrs['aria-describedby'],
             this.safeId('current-value'),
             this.safeId('calendar-help')
-          ].filter(identity).join(' '),
+          ]
+            .filter(identity)
+            .join(' '),
           'aria-disabled': this.disabled ? 'true' : null
         },
         on: {}
-      }
+      },
       [$header, $nav, $grid]
     )
   }
