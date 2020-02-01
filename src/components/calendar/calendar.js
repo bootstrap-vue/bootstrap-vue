@@ -27,11 +27,11 @@ export const BCalendar = Vue.extend({
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     readonly: {
       type: Boolean,
-      default: false,
+      default: false
     },
     min: {
       type: [String, Date],
@@ -86,31 +86,31 @@ export const BCalendar = Vue.extend({
     // Labels for buttons and keybord shortcuts
     labelPrevYear: {
       type: String,
-      default: 'Previous year',
+      default: 'Previous year'
     },
     labelPrevMonth: {
       type: String,
-      default: 'Previous month',
+      default: 'Previous month'
     },
     labelThisMonth: {
       type: String,
-      default: 'This month',
+      default: 'This month'
     },
     labelNextMonth: {
       type: String,
-      default: 'Next month',
+      default: 'Next month'
     },
     labelNextYear: {
       type: String,
-      default: 'Next year',
+      default: 'Next year'
     },
     labelToday: {
       type: String,
-      default: 'Today',
+      default: 'Today'
     },
     labelSelected: {
       type: String,
-      default: 'Selected date',
+      default: 'Selected date'
     },
     labelHelp: {
       type: String,
