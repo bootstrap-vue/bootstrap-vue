@@ -41,7 +41,7 @@ export const resolveLocale = (locales, calendar = 'gregory') => /* istanbul igno
 }
 
 // Create a Intl.DateTimeFormat formatter function
-export const createDateFormatter = (locale, options) => {
+export const createDateFormatter = (locale, options) => /* istanbul ignore next */ {
   const dtf = new Intl.DateTimeFormat(locale, options)
   return dtf.format
 }
