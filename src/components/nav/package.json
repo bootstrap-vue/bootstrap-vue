@@ -143,6 +143,11 @@
           {
             "prop": "noCaret",
             "description": "Hide the caret indicator on the toggle button"
+          },
+          {
+            "prop": "boundary",
+            "version": "2.4.0",
+            "description": "The boundary constraint of the menu: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement. Has no effect when dropdown is inside a b-navbar"
           }
         ],
         "slots": [

@@ -1156,8 +1156,23 @@ Avoid setting `tabindex` on elements within the modal to any value other than `0
 will make it difficult for people who rely on assistive technology to navigate and operate page
 content and can make some of your elements unreachable via keyboard navigation.
 
-In some circumstances, you may need to disable the enforce focus feature. You can do this by setting
-the prop `no-enforce-focus`, although this is highly discouraged.
+If some elements outside the modal need to be focusable (i.e. for TinyMCE), you can add them as CSS
+selectors to the `ignore-enforce-focus-selector` prop
+<span class="badge badge-secondary">2.4.0+</span>, e.g.:
+
+```html
+<b-modal
+  id="some-modal-id"
+  title="Modal with TinyMCE Editor"
+  ignore-enforce-focus-selector=".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root"
+>
+  <!-- Modal content with TinyMCE editor here -->
+</b-modal>
+```
+
+In some circumstances, you may need to disable the enforce focus feature completely. You can do this
+by setting the prop `no-enforce-focus`, although this is _highly discouraged_ for accessibility
+reasons.
 
 ### `v-b-modal` directive accessibility
 
