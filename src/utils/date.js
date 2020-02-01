@@ -50,5 +50,5 @@ export const createDateFormatter = (locale, options) => {
 export const datesEqual = (date1, date2) => {
   // Returns true of the date portion of two date objects are equal
   // (we don't compare the time portion)
-  return parseYMD(date1) === parseYMD(date2)
+  return formatYMD(date1) === formatYMD(date2)
 }
