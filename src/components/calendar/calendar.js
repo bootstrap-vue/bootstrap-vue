@@ -3,8 +3,16 @@ import { createDate, parseYMD } from '../../utils/date'
 
 const NAME = 'BFormCalendar'
 
+// @vue/component
 export const BCalendar = Vue.extend({
   name: NAME,
+  model: {
+    // Even though this is the default that Vue assumes, we need
+    // to add it for the docs to reflect that this is the model
+    // And also for some validation libraries to work
+    prop: 'value',
+    event: 'input'
+  },
   props: {
     value: {
       type: [String, Date],
