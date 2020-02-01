@@ -1,0 +1,21 @@
+{
+  "name": "@bootstrap-vue/caendar",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Calendar",
+    "version": "2.5.0",
+    "description": "Calendar widget for selecting dates.",
+    "components": [
+      {
+        "component": "BCalendar",
+        "version": "2.5.0",
+        "props": [
+          {
+            "prop": "value",
+            "description": "TBD"
+          }
+        ]
+      }
+    ]
+  }
+}
