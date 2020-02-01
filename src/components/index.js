@@ -7,6 +7,7 @@ import { BreadcrumbPlugin } from './breadcrumb'
 import { ButtonPlugin } from './button'
 import { ButtonGroupPlugin } from './button-group'
 import { ButtonToolbarPlugin } from './button-toolbar'
+import { CalendarPlugin } from './calendar'
 import { CardPlugin } from './card'
 import { CarouselPlugin } from './carousel'
 import { CollapsePlugin } from './collapse'
@@ -51,6 +52,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     ButtonPlugin,
     ButtonGroupPlugin,
     ButtonToolbarPlugin,
+    CalendarPlugin,
     CardPlugin,
     CarouselPlugin,
     CollapsePlugin,
