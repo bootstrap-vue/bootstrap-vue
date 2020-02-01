@@ -22,6 +22,77 @@ export const BCalendar = Vue.extend({
       // Always return the v-model value as a date object
       type: Boolean,
       default: false
+    },
+    min: {
+      type: [String, Date],
+      default: null
+    },
+    max: {
+      type: [String, Date],
+      default: null
+    },
+    startWeekday: {
+      // 0 (Sunday), 1 (Monday), ... 6 (Saturday)
+      // Day of week to start calendar on
+      type: [Number, String],
+      default: 0
+    },
+    locale: {
+      // Locale(s) to use. default is to use page/browser setting
+      type: [String, Array],
+      default: null
+    },
+    direction: {
+      // 'ltr', 'rtl', or null (for auto detect)
+      type: String,
+      default: null
+    },
+    variant: {
+      // Variant color to use for the selected date
+      type: String,
+      default: 'primary'
+    },
+    width: {
+      type: String,
+      default: '266px'
+    },
+    // noHighlightToday: {
+    //   // Disable highlighting today's date
+    //   type: Boolean,
+    //   default: false
+    // },
+    // Labels for buttons and keybord shortcuts
+    labelPrevYear: {
+      type: String,
+      default: 'Previous year',
+    },
+    labelPrevMonth: {
+      type: String,
+      default: 'Previous month',
+    },
+    labelThisMonth: {
+      type: String,
+      default: 'This month',
+    },
+    labelNextMonth: {
+      type: String,
+      default: 'Next month',
+    },
+    labelNextYear: {
+      type: String,
+      default: 'Next year',
+    },
+    labelToday: {
+      type: String,
+      default: 'Today',
+    },
+    labelSelected: {
+      type: String,
+      default: 'Selected date',
+    },
+    labelHelp: {
+      type: String,
+      default: 'Use cursor keys to navigate calendar dates'
     }
   },
   data() {
