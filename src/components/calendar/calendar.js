@@ -1,6 +1,6 @@
 import Vue from '../../utils/vue'
 import { createDate, parseYMD } from '../../utils/date'
-import identity from '../../utils/idendity'
+import identity from '../../utils/identity'
 import idMixin from '../../mixins/id'
 
 const NAME = 'BFormCalendar'
