@@ -125,8 +125,11 @@
   "placeholder": {
     "description": "Sets the 'placeholder' attribute value on the form control"
   },
+  "disabled": {
+    "description": "When set to 'true', disables the component's functionality and places it in a disabled state"
+  },
   "readonly": {
-    "description": "Sets the 'readonly' attribute on hte form control"
+    "description": "Sets the 'readonly' attribute on the form control"
   },
   "plaintext": {
     "description": "Set the form control as readonly and renders the control to look like plain text (no borders)"
@@ -190,9 +193,6 @@
   },
   "noFade": {
     "description": "When set to 'true', disables the fade animation/transition on the component"
-  },
-  "disabled": {
-    "description": "When set to 'true', disables the component's functionality and places it in a disabled state"
   },
   "active": {
     "description": "When set to 'true', places the component in the active state with active styling"
