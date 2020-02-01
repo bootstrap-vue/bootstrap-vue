@@ -263,12 +263,11 @@ export const BCalendar = Vue.extend({
   },
   render(h) {
     const isRTL = this.isRTL
-    const calendar = this.calendar
-    const today = this.getToday()
-    const todayYMD = formatYMD(today)
+    // const calendar = this.calendar
+    // const today = this.getToday()
+    // const todayYMD = formatYMD(today)
     const selectedYMD = this.selectedYMD
     const activeYMD = this.activeYMD
-    const disabled = this.disabled
 
     if (this.hidden) {
       return h()
@@ -305,7 +304,7 @@ export const BCalendar = Vue.extend({
     ])
     const $prevMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $thisMonthIcon = h(BIconCircleFill, { props: { shiftV: 0.5 } })
-    const $nextMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5 flipH: !isRTL } })
+    const $nextMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
     const $nextYearIcon = h(BIconstack, { props: { shiftV: 0.5, flipH: !isRTL } }, [
       h(BIconChevronLeft, { props: { shiftH: -2 } }),
       h(BIconChevronLeft, { props: { shiftH: 2 } })
