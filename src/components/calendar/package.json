@@ -21,11 +21,11 @@
           },
           {
             "prop": "disabled",
-            "description": "places the calendar in a disabled state"
+            "description": "Places the calendar in a disabled state"
           },
           {
             "prop": "readonly",
-            "description": "places the calendar in a readonly state. Disables updating the v-model, while still allowing date navigation"
+            "description": "Places the calendar in a readonly state. Disables updating the v-model, while still allowing date navigation"
           },
           {
             "prop": "variant",
