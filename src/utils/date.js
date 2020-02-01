@@ -6,7 +6,7 @@ import { toInteger } from './number'
 export const createDate = (...args) => new Date(...args)
 
 // Parse a date sting, or date object, into a date object (with no time information)
-export const parseYMD(date) {
+export const parseYMD = date => {
   if (isString(date) && /^\d+-\d+-\d+$/.test(date.trim()) {
     const [year, month, day] = date.split('-')
     return createDate(toInteger(year), toInteger(month) - 1, toInteger(day))
@@ -20,7 +20,7 @@ export const parseYMD(date) {
 }
 
 // Format a date object as YYYY-MM-DD format
-export const formatYMD(date) {
+export const formatYMD = date => {
   date = parseYMD(date)
   if (date) {
     const year = date.getFullYear()
@@ -37,7 +37,7 @@ export const createDateFormatter = (locale, options) => {
   return dtf.format
 }
 
-// Determine if two dates are the same (ignoring time portion)
+// Determine if two date objects are the same date (ignoring time portion)
 export const datesEqual = (date1, date2) => {
   // Returns true of the date portion of two date objects are equal
   // (we don't compare the time portion)
