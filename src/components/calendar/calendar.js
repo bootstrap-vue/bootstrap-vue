@@ -113,6 +113,10 @@ export const BCalendar = Vue.extend({
       type: String,
       default: 'Selected date'
     },
+    labelCalendar: {
+      type: String,
+      default: 'Calendar'
+    },
     labelHelp: {
       type: String,
       default: 'Use cursor keys to navigate calendar dates'
