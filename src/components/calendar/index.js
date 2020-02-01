@@ -5,4 +5,4 @@ const CalendarPlugin = /*#__PURE__*/ pluginFactory({
   components: { BCalendar }
 })
 
-export { calendarPlugin, BCalendar }
+export { CalendarPlugin, BCalendar }
