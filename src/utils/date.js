@@ -2,12 +2,12 @@
 import { isDate, isString } from './inspect'
 import { toInteger } from './number'
 
-// Create or clone a date
+// Create or clone a date (new date(...) shortcut)
 export const createDate = (...args) => new Date(...args)
 
 // Parse a date sting, or date object, into a date object (with no time information)
 export const parseYMD = date => {
-  if (isString(date) && /^\d+-\d+-\d+$/.test(date.trim()) {
+  if (isString(date) && /^\d+-\d+-\d+$/.test(date.trim())) {
     const [year, month, day] = date.split('-')
     return createDate(toInteger(year), toInteger(month) - 1, toInteger(day))
   } else if (isDate(date)) {
