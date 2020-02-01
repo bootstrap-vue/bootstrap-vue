@@ -4,6 +4,34 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.4.0"></a>
+
+## [v2.4.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.3.0...v2.4.0)
+
+Released: 2020-02-01
+
+### Features v2.4.0
+
+- **b-modal:** add `ignore-enforce-focus-selector` prop (closes
+  [#4537](https://github.com/bootstrap-vue/bootstrap-vue/issues/4537))
+  ([#4702](https://github.com/bootstrap-vue/bootstrap-vue/issues/4702))
+  ([c3ac992](https://github.com/bootstrap-vue/bootstrap-vue/commit/c3ac99283927b5261d1df05d3c479c534011d7c5))
+- **b-nav-item-dropdown:** add `boundary` prop, applicable when not in `b-navbar` (closes
+  [#4684](https://github.com/bootstrap-vue/bootstrap-vue/issues/4684))
+  ([#4691](https://github.com/bootstrap-vue/bootstrap-vue/issues/4691))
+  ([3a50ad8](https://github.com/bootstrap-vue/bootstrap-vue/commit/3a50ad85e85e1c6dc55a36665062180687078708))
+
+### Bug Fixes v2.4.0
+
+- **b-dropdown:** focus-in handling for Safari and Firefox on macOS/iOS (closes
+  [#4328](https://github.com/bootstrap-vue/bootstrap-vue/issues/4328))
+  ([#4426](https://github.com/bootstrap-vue/bootstrap-vue/issues/4426))
+  ([2eab55b](https://github.com/bootstrap-vue/bootstrap-vue/commit/2eab55b4672a35a487b30f0f64c63b887b361473))
+- **b-form-input, b-form-textarea:** properly handle out-of-sync values (closes
+  [#4695](https://github.com/bootstrap-vue/bootstrap-vue/issues/4695))
+  ([#4701](https://github.com/bootstrap-vue/bootstrap-vue/issues/4701))
+  ([954176d](https://github.com/bootstrap-vue/bootstrap-vue/commit/954176d733dccdd074f5b6cb31c4041081a3b206))
+
 <a name="2.3.0"></a>
 
 ## [v2.3.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.2.2...v2.3.0)
