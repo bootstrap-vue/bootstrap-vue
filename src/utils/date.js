@@ -1,4 +1,5 @@
 // Date utility functions
+import indentity from './identity'
 import { isDate, isString } from './inspect'
 import { toInteger } from './number'
 
@@ -29,6 +30,13 @@ export const formatYMD = date => {
     return `${year}-${month}-${day}`
   }
   return null
+}
+
+// Given a locale (or locales), resolve the browser available locale
+export const resolveLocale = (locales, calendar = 'gregory') => {
+  const locales = concat(locale).filter(identity)
+  const fmt = new Intl.DateTimeFormat(locales, { calendar: calendar })
+  return = fmt.resolvedOptions().locale 
 }
 
 // Create a Intl.DateTimeFormat formatter function
