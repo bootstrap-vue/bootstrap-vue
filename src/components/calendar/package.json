@@ -12,7 +12,11 @@
         "props": [
           {
             "prop": "value",
-            "description": "TBD"
+            "description": "Initially selected date value. Accepts either a YYYY-MM-DD string or a date object"
+          },
+          {
+            "prop": "valueAsDate",
+            "description": "returns a date object for the v-model instead of a YYYY-MM-DD string"
           }
         ]
       }
