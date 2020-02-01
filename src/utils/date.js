@@ -1,5 +1,6 @@
 // Date utility functions
 import indentity from './identity'
+import { concat } from './array'
 import { isDate, isString } from './inspect'
 import { toInteger } from './number'
 
@@ -36,7 +37,7 @@ export const formatYMD = date => {
 export const resolveLocale = (locales, calendar = 'gregory') => {
   locales = concat(locales).filter(identity)
   const fmt = new Intl.DateTimeFormat(locales, { calendar: calendar })
-  return = fmt.resolvedOptions().locale 
+  return fmt.resolvedOptions().locale 
 }
 
 // Create a Intl.DateTimeFormat formatter function
@@ -45,13 +46,9 @@ export const createDateFormatter = (locale, options) => {
   return dtf.format
 }
 
-// Determine if two date objects are the same date (ignoring time portion)
+// Determine if two dates are the same date (ignoring time portion)
 export const datesEqual = (date1, date2) => {
   // Returns true of the date portion of two date objects are equal
   // (we don't compare the time portion)
-  return (
-    date1.getFullYear() === date2.getFullYear() &&
-    date1.getMonth() === date2.getMonth() &&
-    date1.getDate() === date2.getDate()
-  )
+  return parseYMD(date1) === parseYMD(date2)
 }
