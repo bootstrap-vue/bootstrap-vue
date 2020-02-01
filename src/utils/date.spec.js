@@ -6,7 +6,7 @@ describe('utils/date', () => {
     const date2 = new Date(2020, 0, 15)
 
     expect(date1.toISOString()).toEqual(date2.toISOString())
-    expect(parseYMD('yyyy-mm-dd')).toequal(null)
+    expect(parseYMD('yyyy-mm-dd')).toEqual(null)
   })
 
   it('formatYMD works', async () => {
