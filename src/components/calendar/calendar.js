@@ -1,4 +1,4 @@
-import Vue from '../utils/vue'
+import Vue from '../../utils/vue'
 import { createDate, parseYMD } from '../../utils/date'
 
 const NAME = 'BFormCalendar'
