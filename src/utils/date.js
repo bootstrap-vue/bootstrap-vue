@@ -34,7 +34,7 @@ export const formatYMD = date => {
 
 // Given a locale (or locales), resolve the browser available locale
 export const resolveLocale = (locales, calendar = 'gregory') => {
-  const locales = concat(locale).filter(identity)
+  locales = concat(locales).filter(identity)
   const fmt = new Intl.DateTimeFormat(locales, { calendar: calendar })
   return = fmt.resolvedOptions().locale 
 }
