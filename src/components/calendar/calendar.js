@@ -1,11 +1,13 @@
 import Vue from '../../utils/vue'
 import { createDate, parseYMD } from '../../utils/date'
+import idMixin from '../../mixins/id'
 
 const NAME = 'BFormCalendar'
 
 // @vue/component
 export const BCalendar = Vue.extend({
   name: NAME,
+  mixins: [idMixin],
   model: {
     // Even though this is the default that Vue assumes, we need
     // to add it for the docs to reflect that this is the model
@@ -22,6 +24,14 @@ export const BCalendar = Vue.extend({
       // Always return the v-model value as a date object
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    readonly: {
+      type: Boolean,
+      default: false,
     },
     min: {
       type: [String, Date],
@@ -55,6 +65,18 @@ export const BCalendar = Vue.extend({
     width: {
       type: String,
       default: '266px'
+    },
+    block: {
+      type: Boolean,
+      default: false
+    },
+    ariaControls: {
+      type: String,
+      default: null
+    },
+    roleDescription: {
+      type: String,
+      default: null
     },
     // noHighlightToday: {
     //   // Disable highlighting today's date
@@ -116,6 +138,38 @@ export const BCalendar = Vue.extend({
     }
   },
   render(h) {
-    return h('div', {})
+    const $header = h()
+    const $nav = h()
+    const $grid = h()
+    return h(
+      'div',
+      {
+        staticClass: 'b-calendar',
+        class: this.block ? 'd-block' : 'd-inline-block',
+        style: this.block ? {} : { width: this.width },
+        attrs: {
+          id: this.safeId(),
+          dir: isRTL ? 'rtl' : 'ltr',
+          lang: this.computedLocale || null,
+          role: 'group',
+          // If datepicker controls an input, this will
+          // specify the ID of the input
+          // Alternatively, the input can also use aria-owns/haspopup/etc
+          'aria-controls': this.ariaControls || null,
+          // This should be a prop (so it can be changed to Date picker, etc, localized
+          'aria-roledescription': this.roleDescription || null,
+          'aria-describedby': [
+            // Should the attr (if present) go last?
+            // or should this attr be a prop?
+            this.$attrs['aria-describedby'],
+            this.safeId('current-value'),
+            this.safeId('calendar-help')
+          ].filter(identity).join(' '),
+          'aria-disabled': this.disabled ? 'true' : null
+        },
+        on: {}
+      }
+      [$header, $nav, $grid]
+    )
   }
 })
