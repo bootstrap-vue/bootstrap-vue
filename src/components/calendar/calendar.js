@@ -1,6 +1,12 @@
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
-import { createDate, createDateFormatter, formatYMD, parseYMD, resolveLocale } from '../../utils/date'
+import {
+  createDate,
+  createDateFormatter,
+  formatYMD,
+  parseYMD,
+  resolveLocale
+} from '../../utils/date'
 import { requestAF } from '../../utils/dom'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
@@ -213,10 +219,13 @@ export const BCalendar = Vue.extend({
       if (toString(this.direction).toLowerCase() === 'rtl') {
         return true
       }
-      const parts = this.computedLocale.toLowerCase().replace(/-u-.+/, '').split('-')
-      const locale_1 = parts.slice(0,2).join('-')
-      const locale_2 = parts[0]
-      return arrayIncludes(RTL_LANGS, locale_1) || arrayIncludes(RTL_LANGS, locale_2)
+      const parts = this.computedLocale
+        .toLowerCase()
+        .replace(/-u-.+/, '')
+        .split('-')
+      const locale1 = parts.slice(0, 2).join('-')
+      const locale2 = parts[0]
+      return arrayIncludes(RTL_LANGS, locale1) || arrayIncludes(RTL_LANGS, locale2)
     },
     // Computed props that return date formatter functions
     formatDateString() {
@@ -236,7 +245,7 @@ export const BCalendar = Vue.extend({
         month: 'long',
         calendar: 'gregory'
       })
-    },
+    }
   },
   mounted() {
     this.$nextTick(() => {
@@ -255,10 +264,13 @@ export const BCalendar = Vue.extend({
       // this.gridHasFocus = !this.disabled && evt.type === 'focus'
     },
     onKeydownWrapper(evt) {
+      // TBD
     },
     onKeydownGrid(evt) {
+      // TBD
     },
     onClickDay(day) {
+      // TBD
     }
   },
   render(h) {
@@ -266,7 +278,7 @@ export const BCalendar = Vue.extend({
     // const calendar = this.calendar
     // const today = this.getToday()
     // const todayYMD = formatYMD(today)
-    const selectedYMD = this.selectedYMD
+    // const selectedYMD = this.selectedYMD
     const activeYMD = this.activeYMD
 
     if (this.hidden) {
@@ -290,11 +302,9 @@ export const BCalendar = Vue.extend({
       },
       this.selectedDate ? this.formatDateString(this.selectedDate) : '\u00a0'
     )
-    $header = h(
-      'header',
-      { staticClass: 'mb-1', class: this.hideHeader ? 'sr-only' : null },
-      [$header]
-    )
+    $header = h('header', { staticClass: 'mb-1', class: this.hideHeader ? 'sr-only' : null }, [
+      $header
+    ])
 
     // Content for the date navigaation  buttons
     // TODO: Future allow for custom icons/content?
@@ -337,9 +347,9 @@ export const BCalendar = Vue.extend({
         staticClass: 'd-flex p-0 mx-n1 my-0',
         attrs: {
           role: 'group',
-          'aria-label': this.labelNav || null, 
+          'aria-label': this.labelNav || null,
           'aria-controls': this.safeId('_calendar-grid_')
-        },
+        }
       },
       [
         makeNavBtn(
@@ -397,7 +407,7 @@ export const BCalendar = Vue.extend({
 
     const $gridWeekDays = h()
     const $gridBody = h()
-    
+
     const $gridHelp = h(
       'footer',
       {
