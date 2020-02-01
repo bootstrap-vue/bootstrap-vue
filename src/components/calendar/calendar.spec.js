@@ -5,7 +5,7 @@ describe('calendar', () => {
   it('works', async () => {
     const wrapper = mount(BCalendar)
 
-    expect (wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
 
     wrapper.destroy()
   })
