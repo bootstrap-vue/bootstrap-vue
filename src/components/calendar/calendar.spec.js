@@ -63,6 +63,33 @@ describe('calendar', () => {
     wrapper.destroy()
   })
 
+  it('clicking a date selects date', async () => {
+    const wrapper = mount(BCalendar, {
+      attachToDocument: true,
+      propsData: {
+        value: '2020-01-01' // Leap year
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    // TBD
+
+    const $btn = wrapper.find('[data-date="2020-01-25"]')
+    expect($btn.exist()).toBe(true)
+
+    $btn.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($btn.attributes('aria-selected')).toBeDefined()
+    expect($btn.attributes('aria-selected')).toEqual('true')
+
+    wrapper.destroy()
+  })
+
   it('date navigation buttons work', async () => {
     const wrapper = mount(BCalendar, {
       attachToDocument: true,
