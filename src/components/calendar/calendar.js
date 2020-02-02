@@ -608,7 +608,7 @@ export const BCalendar = Vue.extend({
           for: idGrid,
           role: 'status',
           // Mainly for testing purposes
-          'date-selected': toString(selectedYMD),
+          'dats-selected': toString(selectedYMD),
           // We wait until after mount to enable aria-live
           // to prevent initial announcement on page render
           'aria-live': isLive ? 'polite' : 'off',
