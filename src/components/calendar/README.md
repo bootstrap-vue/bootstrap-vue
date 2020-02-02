@@ -51,6 +51,10 @@ TBD
 
 TBD
 
+### Hiding the top selected date header
+
+TBD
+
 ## `v-model`
 
 By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD`. You can have
