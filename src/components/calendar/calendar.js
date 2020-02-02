@@ -508,29 +508,37 @@ export const BCalendar = Vue.extend({
     }
   },
   render(h) {
-    const isRTL = this.isRTL
-    const todayYMD = formatYMD(this.getToday())
-    const selectedYMD = this.selectedYMD
-    const activeYMD = this.activeYMD
-    const safeId = this.safeId
-
     /* istanbul ignore if */
     if (this.hidden) {
       return h()
     }
 
+    const isRTL = this.isRTL
+    const todayYMD = formatYMD(this.getToday())
+    const selectedYMD = this.selectedYMD
+    const activeYMD = this.activeYMD
+    const safeId = this.safeId
+    // Pre-compute some IDs
+    const id = safeId()
+    const idValue = safeId('_calendar-value_')
+    const idNav = safeId('_calendar-nav_')
+    const idGrid = safeId('_calendar-grid_')
+    const idGridCaption = safeId('_calendar-grid-caption_')
+    const idGridHelp = safeId('_calendar-grid-help_')
+    const idActive = safeId(`_cell-${activeYMD}_`)
+
     // Header showing current selected date
     let $header = h(
-      'div',
+      'output',
       {
         staticClass: 'd-block text-center rounded border p-1 mb-1',
         attrs: {
-          id: safeId('current-value'),
-          for: safeId('calendar-grid'),
+          id: idValue,
+          for: idGrid,
           role: 'status',
           // We wait until after mount to enable aria-live
           // to prevent initial announcement on page render
-          'aria-live': this.mounted ? 'polite' : null,
+          'aria-live': this.mounted ? 'polite' : 'off',
           'aria-atomic': this.mounted ? 'true' : null
         }
       },
@@ -580,10 +588,10 @@ export const BCalendar = Vue.extend({
       {
         staticClass: 'd-flex mx-n1 mb-1',
         attrs: {
-          id: safeId('_calendar-nav_'),
+          id: idNav,
           role: 'group',
           'aria-label': this.labelNav || null,
-          'aria-controls': safeId('_calendar-grid_')
+          'aria-controls': idGrid
         }
       },
       [
@@ -632,7 +640,7 @@ export const BCalendar = Vue.extend({
         key: 'grid-caption',
         staticClass: 'text-center font-weight-bold p-0 m-0',
         attrs: {
-          id: safeId('_calendar-grid-caption_'),
+          id: idGridCaption,
           'aria-live': this.mounted ? 'polite' : null,
           'aria-atomic': this.mounted ? 'true' : null
         }
@@ -655,6 +663,7 @@ export const BCalendar = Vue.extend({
         const isSelected = day.ymd === selectedYMD
         const isActive = day.ymd === activeYMD
         const isToday = day.ymd === todayYMD
+        const idCell = safeId(`_cell-${day.ymd}_`)
         // "fake" button
         const $btn = h(
           'span',
@@ -706,7 +715,7 @@ export const BCalendar = Vue.extend({
             // This is done in the calendar generator computed prop
             class: { 'bg-light': day.isDisabled },
             attrs: {
-              id: safeId(`_cell-${day.ymd}_`),
+              id: idCell,
               role: 'button',
               'data-date': day.ymd, // primarily for testing purposes
               // Only days in the month are presented as buttons to screen readers
@@ -738,7 +747,7 @@ export const BCalendar = Vue.extend({
       'footer',
       {
         staticClass: 'border-top small text-muted text-center bg-light',
-        attrs: { id: safeId('_calendar-help_') }
+        attrs: { id: idGridHelp }
       },
       [h('div', { staticClass: 'small' }, this.labelHelp)]
     )
@@ -748,15 +757,16 @@ export const BCalendar = Vue.extend({
       {
         staticClass: 'form-control h-auto text-center p-0 mb-1',
         attrs: {
-          id: safeId('_calendar-grid_'),
+          id: idGrid,
           role: 'application',
-          tabindex: this.disabled ? null : '0',
+          tabindex: '0',
+          // tabindex: this.disabled ? null : '0',
           'aria-roledescription': this.labelCalendar || null,
-          'aria-labelledby': safeId('_calendar-grid-caption_'),
-          'aria-describedby': safeId('_calendar-help_'),
+          'aria-labelledby': idGridCaption,
+          'aria-describedby': idGridHelp,
           'aria-readonly': this.readonly && !this.disabled ? 'true' : null,
           'aria-disabled': this.disabled ? 'true' : null,
-          'aria-activedescendant': safeId(`_cell-${activeYMD}_`)
+          'aria-activedescendant': idActive
         },
         on: {
           keydown: this.onKeydownGrid,
@@ -776,7 +786,7 @@ export const BCalendar = Vue.extend({
         class: this.block ? 'd-block' : 'd-inline-block',
         style: this.block ? {} : { width: this.width },
         attrs: {
-          id: safeId(),
+          id: id,
           dir: isRTL ? 'rtl' : 'ltr',
           lang: this.computedLocale || null,
           role: 'group',
@@ -790,8 +800,8 @@ export const BCalendar = Vue.extend({
             // Should the attr (if present) go last?
             // or should this attr be a prop?
             this.$attrs['aria-describedby'],
-            safeId('_current-value_'),
-            safeId('_calendar-help_')
+            idValue,
+            idGridHelp
           ]
             .filter(identity)
             .join(' ')
