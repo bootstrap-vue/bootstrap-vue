@@ -70,7 +70,7 @@ describe('utils/date', () => {
     expect(formatYMD(oneMonthAhead(parseYMD('2020-02-29')))).toEqual('2020-03-29')
     expect(formatYMD(oneMonthAhead(parseYMD('2020-03-28')))).toEqual('2020-04-28')
     expect(formatYMD(oneMonthAhead(parseYMD('2020-03-31')))).toEqual('2020-04-30')
-    expect(formatYMD(oneMonthAhead(parseYMD('2020-10-31')))).toEqual('2021-11-30')
+    expect(formatYMD(oneMonthAhead(parseYMD('2020-10-31')))).toEqual('2020-11-30')
     expect(formatYMD(oneMonthAhead(parseYMD('2020-12-30')))).toEqual('2021-01-30')
     expect(formatYMD(oneMonthAhead(parseYMD('2020-12-31')))).toEqual('2021-01-31')
   })
