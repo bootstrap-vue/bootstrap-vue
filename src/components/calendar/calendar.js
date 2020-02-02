@@ -355,11 +355,11 @@ export const BCalendar = Vue.extend({
     // Disabled states for the nav buttons
     prevYearDisabled() {
       const min = this.computedMin
-      return this.disabled ? true : min && lastDateOfMonth(oneYearAgo(this.activeDate)) < min
+      return this.disabled || (min && lastDateOfMonth(oneYearAgo(this.activeDate)) < min)
     },
     prevMonthDisabled() {
       const min = this.computedMin
-      return this.disabled ? true : min && lastDateOfMonth(oneMonthAgo(this.activeDate)) < min
+      return this.disabled || (min && lastDateOfMonth(oneMonthAgo(this.activeDate)) < min)
     },
     thisMonthDisabled() {
       // We could/should check if today is out of range
@@ -367,11 +367,11 @@ export const BCalendar = Vue.extend({
     },
     nextMonthDisabled() {
       const max = this.computedMax
-      return this.disabled ? true : max && firstDateOfMonth(oneMonthAhead(this.activeDate)) > max
+      return this.disabled || (max && firstDateOfMonth(oneMonthAhead(this.activeDate)) > max)
     },
     nextYearDisabled() {
       const max = this.computedMax
-      return this.disabled ? true : max && firstDateOfMonth(oneYearAhead(this.activeDate)) > max
+      return this.disabled || (max && firstDateOfMonth(oneYearAhead(this.activeDate)) > max)
     },
     // Calendar generation
     calendar() {
@@ -475,6 +475,14 @@ export const BCalendar = Vue.extend({
         } catch {}
       }
     },
+    constrainDate(date) {
+      // Constrains a date between min and max
+      // returns a new date instance
+      date = parseYMD(date)
+      const min = this.computedMin || date
+      const max = this.computedMax || date
+      return createDate(date < min ? min : date > max ? max : date)
+    },
     // Event handlers
     setGridFocusFlag(evt) {
       // Sets the gridHasFocus flag to make date "button" look focused
@@ -553,6 +561,7 @@ export const BCalendar = Vue.extend({
     },
     onClickDay(day) {
       // Clicking on a date "button" to select it
+      // TODO: change to lookup the `data-data` attribute
       const selectedDate = this.selectedDate
       const activeDate = this.activeDate
       const clickedDate = createDate(day.dateObj)
@@ -563,19 +572,19 @@ export const BCalendar = Vue.extend({
       }
     },
     gotoPrevYear(evt) /* istanbul ignore next: until tests are ready */ {
-      this.activeDate = oneYearAgo(this.activeDate)
+      this.activeDate = this.constrainDate(oneYearAgo(this.activeDate))
     },
     gotoPrevMonth(evt) /* istanbul ignore next: until tests are ready */ {
-      this.activeDate = oneMonthAgo(this.activeDate)
+      this.activeDate = this.constrainDate(oneMonthAgo(this.activeDate))
     },
     gotoCurrentMonth(evt) /* istanbul ignore next: until tests are ready */ {
       this.activeDate = this.getToday()
     },
     gotoNextMonth(evt) /* istanbul ignore next: until tests are ready */ {
-      this.activeDate = oneMonthAhead(this.activeDate)
+      this.activeDate = this.constrainDate(oneMonthAhead(this.activeDate))
     },
     gotoNextYear(evt) /* istanbul ignore next: until tests are ready */ {
-      this.activeDate = oneYearAhead(this.activeDate)
+      this.activeDate = this.constrainDate(oneYearAhead(this.activeDate))
     }
   },
   render(h) {
@@ -655,6 +664,8 @@ export const BCalendar = Vue.extend({
         {
           staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill p-1 mx-1',
           class: { disabled: btnDisabled },
+          // Style to get around Bootstrap v4.4 bug with hand cursor on disabled buttons
+          style: btnDisabled ? { pointerEvents: 'none' } : {},
           attrs: {
             title: label || null,
             'aria-label': label || null,
@@ -778,8 +789,7 @@ export const BCalendar = Vue.extend({
               'btn-light': !isToday && !isSelected && isActive,
               // Text styling
               'text-muted': !day.isThisMonth && !isSelected,
-              'text-dark':
-                !isToday && !isSelected && !isActive && day.isThisMonth && !day.isDisabled,
+              'text-dark': !isToday && !isSelected && !isActive && day.isThisMonth,
               'font-weight-bold': (isSelected || day.isThisMonth) && !day.isDisabled
             },
             style: {
