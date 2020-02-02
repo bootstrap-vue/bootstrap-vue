@@ -5,6 +5,12 @@ import {
   createDateFormatter,
   datesEqual,
   formatYMD,
+  firstDateOfMonth,
+  lastDateOfMonth,
+  oneYearAgo,
+  oneYearAhead,
+  oneMonthAgo,
+  oneMonthAhead,
   parseYMD,
   resolveLocale
 } from '../../utils/date'
@@ -39,61 +45,6 @@ const RTL_LANGS = [
 
 // Key Codes
 const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
-
-// Helper methods
-
-const lastDateOfMonth = date => {
-  date = createDate(date)
-  date.setMonth(date.getMonth() + 1)
-  date.setDate(0)
-  return date
-}
-
-const firstDateOfMonth = date => {
-  date = createDate(date)
-  date.setDate(1)
-  return date
-}
-
-const oneYearAgo = date => {
-  date = createDate(date)
-  const month = date.getMonth()
-  date.setMonth(month - 12)
-  if (date.getMonth() !== month) {
-    date.setDate(0)
-  }
-  return date
-}
-
-const oneYearAhead = date => {
-  date = createDate(date)
-  const month = date.getMonth()
-  date.setMonth(month + 12)
-  if (date.getMonth() !== month) {
-    date.setDate(0)
-  }
-  return date
-}
-
-const oneMonthAgo = date => {
-  date = createDate(date)
-  const month = date.getMonth()
-  date.setMonth(month - 1)
-  if (date.getMonth() === month) {
-    date.setDate(0)
-  }
-  return date
-}
-
-const oneMonthAhead = date => {
-  date = createDate(date)
-  const month = date.getMonth()
-  date.setMonth(month + 1)
-  if (date.getMonth() === month) {
-    date.setDate(0)
-  }
-  return date
-}
 
 // @vue/component
 export const BCalendar = Vue.extend({
@@ -270,6 +221,7 @@ export const BCalendar = Vue.extend({
       let fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: 'gregory' })
       const calendar = fmt.resolvedOptions().calendar
       let locale = fmt.resolvedOptions().locale.toLowerCase()
+      /* istanbul ignore if: mainly for IE11, hard to test in JSDOM */
       if (calendar !== 'gregory') {
         // Ensure the locale requests the gregorian calendar
         // Mainly for IE 11
@@ -296,16 +248,14 @@ export const BCalendar = Vue.extend({
     },
     isRTL() {
       // `true` if the language requested is RTL
-      if (toString(this.direction).toLowerCase() === 'rtl') {
-        return true
-      }
+      const dir = toString(this.direction).toLowerCase()
       const parts = this.computedLocale
         .toLowerCase()
         .replace(/-u-.+/, '')
         .split('-')
       const locale1 = parts.slice(0, 2).join('-')
       const locale2 = parts[0]
-      return arrayIncludes(RTL_LANGS, locale1) || arrayIncludes(RTL_LANGS, locale2)
+      return dir === 'rtl' || arrayIncludes(RTL_LANGS, locale1) || arrayIncludes(RTL_LANGS, locale2)
     },
     // Computed props that return a function reference
     dateOutOfRange() {
