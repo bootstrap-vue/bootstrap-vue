@@ -82,7 +82,7 @@ export const oneMonthAhead = date => {
   date = createDate(date)
   const month = date.getMonth()
   date.setMonth(month + 1)
-  if (date.getMonth() === (month + 1) % 12) {
+  if (date.getMonth() === (month + 2) % 12) {
     date.setDate(0)
   }
   return date
