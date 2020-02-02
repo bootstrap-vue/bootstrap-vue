@@ -402,7 +402,7 @@ export const BCalendar = Vue.extend({
   watch: {
     value(newVal, oldVal) {
       const selected = parseYMD(newVal)
-      const old = parseYMD(newVal)
+      const old = parseYMD(oldVal)
       if (!datesEqual(selected, old)) {
         this.selectedDate = selected
         this.activeDate = createDate(selected)
