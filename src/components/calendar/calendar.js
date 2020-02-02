@@ -329,6 +329,10 @@ export const BCalendar = Vue.extend({
       const min = this.computedMin
       return this.disabled ? true : min && lastDateOfMonth(oneMonthAgo(this.activeDate)) < min
     },
+    thisMonthDisabled() {
+      // We could/should check if today is out of range
+      return this.disabled
+    },
     nextMonthDisabled() {
       const max = this.computedMax
       return this.disabled ? true : max && firstDateOfMonth(oneMonthAhead(this.activeDate)) > max
@@ -511,17 +515,31 @@ export const BCalendar = Vue.extend({
     },
     onClickDay(day) /* istanbul ignore next: until tests are ready */ {
       // Clicking on a date "button" to select it
-      const date = createDate(day.dateObj)
       if (
         !this.disabled &&
         !day.isDisabled &&
-        !this.dateDisabled(date) &&
-        !datesEqual(date, this.selectedDate)
+        !this.dateDisabled(day.dateObj) &&
+        !datesEqual(day.dateObj, this.selectedDate)
       ) {
         this.selectedDate = createDate(day.dateObj)
         this.focusGrid()
       }
-    }
+    },
+    gotoPrevYear(evt) /* istanbul ignore next: until tests are ready */ {
+      this.activeDate = oneYearAgo(this.activeDate)
+    },
+    gotoPrevMonth(evt) /* istanbul ignore next: until tests are ready */ {
+      this.activeDate = oneMonthAgo(this.activeDate)
+    },
+    gotoThisMonth(evt) /* istanbul ignore next: until tests are ready */ {
+      this.activeDate = this.getToday()
+    },
+    gotoNextMonth(evt) /* istanbul ignore next: until tests are ready */ {
+      this.activeDate = oneMonthAhead(this.activeDate)
+    },
+    gotoNextYear(evt) /* istanbul ignore next: until tests are ready */ {
+      this.activeDate = oneYearAhead(this.activeDate)
+    },
   },
   render(h) {
     /* istanbul ignore if */
@@ -594,7 +612,7 @@ export const BCalendar = Vue.extend({
             'aria-disabled': btnDisabled ? 'true' : null,
             'aria-shortcutkeys': shortcut || null
           },
-          on: { click: handler }
+          on: btnDisabled ? {} : { click: handler }
         },
         [h('div', { attrs: { 'aria-hidden': 'true' } }, [content])]
       )
@@ -658,7 +676,7 @@ export const BCalendar = Vue.extend({
         key: 'grid-caption',
         staticClass: 'text-center font-weight-bold p-0 m-0',
         attrs: {
-          // id: idGridCaption,
+          id: idGridCaption,
           'aria-live': isLive ? 'polite' : null,
           'aria-atomic': isLive ? 'true' : null
         }
@@ -777,7 +795,7 @@ export const BCalendar = Vue.extend({
       {
         staticClass: 'border-top small text-muted text-center bg-light',
         attrs: {
-          // id: idGridHelp
+          id: idGridHelp
         }
       },
       [h('div', { staticClass: 'small' }, this.labelHelp)]
@@ -786,6 +804,7 @@ export const BCalendar = Vue.extend({
     const $grid = h(
       'div',
       {
+        ref: 'grid',
         staticClass: 'form-control h-auto text-center p-0 mb-1',
         attrs: {
           id: idGrid,
