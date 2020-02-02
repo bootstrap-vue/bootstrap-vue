@@ -90,7 +90,37 @@ TBD
 
 ## Events
 
-TBD
+### `input`
+
+The `'input'` event is emitted when updating the `v-model`. The event has a single argument which is
+the selected date. By default the value is a string in the format of `YYYY-MM-DD` (or an empty string
+if no date is selected). If the prop `value-as-date` is set, then the first argument will instead be a
+`Date` object (or `null` if no date selected).
+
+If the `disabled` or `readonly` props are set, the `'input'` event will **not** be emitted.
+
+### `context`
+
+The `'context'` event is emited whenever a user selects a date, or the user navigates the calendar
+(either via the cursor keys, page up/down keys, home or end keys, or uses the calendar navigation
+buttons). It will also be emitted when the component is created (before insertion into the DOM).
+
+When the `readonly` prop is set, it will still be emitted when the user navigates the calendar.
+It will not be emitted when the `disabled` prop is set (except for the initial emit when the calendar
+is created).
+
+The `'context'` event is passed a contet object as it's only argument, with the following properties:
+
+- `selectedYMD` the selected date value (`YYYY-MM-DD` format) or an empty string is no date selected
+- `selectedFormatted` the selected date formatted in the current locale
+- `activeYMD` the current date of the calendar day button that can receive focus (`YYYY-MM-DD` format)
+- `activeFormated` set active date formatted in hte current locale
+- `locale` the resolved locale used by the calendar (may not be the same as the requested locale)
+- `calendarLocale` the resolved locale used by the calendar, including the calendar type (i.e.
+  'gregory'). Usually this will be the same as `locale`, but may include the calendar type used,
+  such as `fa-u-ca-gregory` when selecting the Persian locale (`'fa').
+- `isRTL` will be `true` if the calendar is in a RTL (Right-To-Left) orientation. It will be `false`
+  if LTR (Left-To-Right).
 
 ## Internationalization
 
