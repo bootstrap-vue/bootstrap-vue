@@ -93,5 +93,5 @@ describe('utils/date', () => {
     expect(formatYMD(oneYearAhead(parseYMD('2020-11-01')))).toEqual('2021-11-01')
     expect(formatYMD(oneYearAhead(parseYMD('2020-11-30')))).toEqual('2021-11-30')
     expect(formatYMD(oneYearAhead(parseYMD('2020-12-31')))).toEqual('2021-12-31')
- })
+  })
 })
