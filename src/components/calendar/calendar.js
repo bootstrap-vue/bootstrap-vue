@@ -265,10 +265,10 @@ export const BCalendar = Vue.extend({
       date.setMonth(date.getMonth() + 1, 0)
       return date.getDate()
     },
-    selectedVariant() {
+    computedVariant() {
       return `btn-${this.variant || 'primary'}`
     },
-    todayVariant() {
+    computedTodayVariant() {
       return `btn-outline-${this.todayVariant || this.variant || 'primary'}`
     },
     isRTL() {
@@ -768,9 +768,9 @@ export const BCalendar = Vue.extend({
               disabled: day.isDisabled || this.disabled,
               active: isSelected, // makes the button look "pressed"
               // Selected date style (need to computed from variant)
-              [this.selectedVariant]: isSelected,
+              [this.computedVariant]: isSelected,
               // Today day style (if not selected), same variant color as selected date
-              [this.todayVariant]: isToday && !isSelected && day.isThisMonth, // && !isActive,
+              [this.computedTodayVariant]: isToday && !isSelected && day.isThisMonth, // && !isActive,
               // Non selected/today styling
               'btn-outline-light': !isToday && !isSelected && !isActive,
               // Text styling
@@ -828,7 +828,7 @@ export const BCalendar = Vue.extend({
       // Return the week row
       return h('div', { key: wIndex, staticClass: 'row no-gutters' }, $cells)
     })
-    $gridBody = h('div', { style: this.disabled ? {} : { pointerEvents: 'none' } }, $gridBody)
+    $gridBody = h('div', { style: this.disabled ? { pointerEvents: 'none' } : {} }, $gridBody)
 
     const $gridHelp = h(
       'footer',
