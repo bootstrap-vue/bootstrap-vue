@@ -78,7 +78,7 @@ describe('calendar', () => {
     // TBD
 
     const $btn = wrapper.find('[data-date="2020-01-25"]')
-    expect($btn.exist()).toBe(true)
+    expect($btn.exists()).toBe(true)
 
     $btn.trigger('click')
     await waitNT(wrapper.vm)
