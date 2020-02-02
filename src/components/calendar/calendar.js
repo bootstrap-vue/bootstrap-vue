@@ -788,12 +788,12 @@ export const BCalendar = Vue.extend({
               [this.computedTodayVariant]:
                 isToday && highlightToday && !isSelected && day.isThisMonth,
               // Non selected/today styling
-              'btn-outline-light': !isToday && !highlightToday && !isSelected && !isActive,
-              'btn-light': !isToday && !highlightToday && !isSelected && isActive,
+              'btn-outline-light': !(isToday && highlightToday) && !isSelected && !isActive,
+              'btn-light': !(isToday && highlightToday) && !isSelected && isActive,
               // Text styling
               'text-muted': !day.isThisMonth && !isSelected,
               'text-dark':
-                !isToday && !highlightToday && !isSelected && !isActive && day.isThisMonth,
+                !(isToday && highlightToday) && !isSelected && !isActive && day.isThisMonth,
               'font-weight-bold': (isSelected || day.isThisMonth) && !day.isDisabled
             },
             style: {
