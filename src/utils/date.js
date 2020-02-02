@@ -68,26 +68,6 @@ export const lastDateOfMonth = date => {
   return date
 }
 
-export const oneYearAgo = date => {
-  date = createDate(date)
-  const month = date.getMonth()
-  date.setMonth(month - 12)
-  if (date.getMonth() !== month) {
-    date.setDate(0)
-  }
-  return date
-}
-
-export const oneYearAhead = date => {
-  date = createDate(date)
-  const month = date.getMonth()
-  date.setMonth(month + 12)
-  if (date.getMonth() !== month) {
-    date.setDate(0)
-  }
-  return date
-}
-
 export const oneMonthAgo = date => {
   date = createDate(date)
   const month = date.getMonth()
@@ -103,6 +83,26 @@ export const oneMonthAhead = date => {
   const month = date.getMonth()
   date.setMonth(month + 1)
   if (date.getMonth() === month) {
+    date.setDate(0)
+  }
+  return date
+}
+
+export const oneYearAgo = date => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setMonth(month - 12)
+  if (date.getMonth() !== month) {
+    date.setDate(0)
+  }
+  return date
+}
+
+export const oneYearAhead = date => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setMonth(month + 12)
+  if (date.getMonth() !== month) {
     date.setDate(0)
   }
   return date
