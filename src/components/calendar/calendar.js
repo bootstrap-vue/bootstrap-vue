@@ -672,7 +672,8 @@ export const BCalendar = Vue.extend({
       { staticClass: 'row no-gutters border-bottom', attrs: { 'aria-hidden': 'true' } },
       this.calendarHeadings.map((d, idx) => {
         return h(
-          'small', {
+          'small',
+          {
             key: idx,
             staticClass: 'col',
             attrs: {
@@ -691,7 +692,7 @@ export const BCalendar = Vue.extend({
         const isSelected = day.ymd === selectedYMD
         const isActive = day.ymd === activeYMD
         const isToday = day.ymd === todayYMD
-        const idCell = safeId(`_cell-${day.ymd}_`)
+        // const idCell = safeId(`_cell-${day.ymd}_`)
         // "fake" button
         const $btn = h(
           'span',
