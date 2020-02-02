@@ -13,7 +13,8 @@
     </b-col>
     <b-col>
       <p>Value: <b>{{ value }}</b></p>
-      <pre>{{ context }}</pre>
+      <p class="mb-0">Context:</p>
+      <pre class="small">{{ context }}</pre>
     </b-col>
   </b-row>
 </template>
