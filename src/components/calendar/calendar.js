@@ -769,7 +769,7 @@ export const BCalendar = Vue.extend({
               'btn-outline-light': !isToday && !isSelected && !isActive,
               // Text styling
               'text-muted': !day.isThisMonth && !isSelected,
-              'text-dark': !isToday && !isActive && day.isThisMonth && !day.isDisabled,
+              'text-dark': !isToday && !isSelected && !isActive && day.isThisMonth && !day.isDisabled,
               'font-weight-bold': (isSelected || day.isThisMonth) && !day.isDisabled
             },
             style: {
