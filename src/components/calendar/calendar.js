@@ -13,7 +13,7 @@ import { isFunction } from '../../utils/inpsect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
-// import KeyCodes from '../../utils/key-codes'
+import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import { BIconChevronLeft, BIconCircleFill } from '../../icons/icons'
 import { BIconstack } from '../../icons/iconstack'
@@ -92,34 +92,6 @@ const oneMonthAhead = date => {
   if (date.getMonth() === month) {
     date.setDate(0)
   }
-  return date
-}
-
-const oneWeekAgo = date => {
-  date = createDate(date)
-  const day = date.getDay()
-  date.setDate(day - 7)
-  return date
-}
-
-const oneWeekAhead = date => {
-  date = createDate(date)
-  const day = date.getDay()
-  date.setDate(day + 7)
-  return date
-}
-
-const oneDayAgo = date => {
-  date = createDate(date)
-  const day = date.getDay()
-  date.setDate(day - 1)
-  return date
-}
-
-const oneDayAhead = date => {
-  date = createDate(date)
-  const day = date.getDay()
-  date.setDate(day + 1)
   return date
 }
 
@@ -397,43 +369,21 @@ export const BCalendar = Vue.extend({
     // disabled states for the nav buttons
     prevYearDisabled() {
       const min = this.computedMin
-      return (
-        this.disabled
-          ? true
-          : min
-            ? lastDateOfMonth(oneYearAgo(this.activeDate)) < min
-            : false
-      )
+      return this.disabled ? true : min && lastDateOfMonth(oneYearAgo(this.activeDate)) < min
     },
     prevMonthDisabled() {
       const min = this.computedMin
-      return (
-        this.disabled
-          ? true
-          : min
-            ? lastDateOfMonth(oneMonthAgo(this.activeDate)) < min
-            : false
+      return this.disabled ? true : min && lastDateOfMonth(oneMonthAgo(this.activeDate)) < min
       )
     },
     nextMonthDisabled() {
       const max = this.computedMax
-      return (
-        this.disabled
-          ? true
-          : max
-            ? firstDateOfMonth(oneMonthAhead(this.activeDate)) > max
-            : false
+      return this.disabled ? true : max && firstDateOfMonth(oneMonthAhead(this.activeDate)) > max
       )
     },
     nextYearDisabled() {
       const max = this.computedMax
-      return (
-        this.disabled
-          ? true
-          : max
-            ? firstDateOfMonth(oneYearAhead(this.activeDate)) > max
-            : false
-      )
+      return this.disabled ? true : max && firstDateOfMonth(oneYearAhead(this.activeDate)) > max
     },
     // Calendar generation
     calendar() {
@@ -587,10 +537,7 @@ export const BCalendar = Vue.extend({
       // Pressing enter/space on date to select it
       const keyCode = evt.keyCode
       const activeDate = this.activeDate
-      if (
-        (keyCode === ENTER || keyCode === SPACE) &&
-        !this.dateDisabled(activeDate)
-      ) {
+      if ((keyCode === ENTER || keyCode === SPACE) && !this.dateDisabled(activeDate)) {
         evt.preventDefault()
         evt.stopPropagation()
         this.selectedDate = createDate(activeDate)
