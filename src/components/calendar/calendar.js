@@ -760,7 +760,7 @@ export const BCalendar = Vue.extend({
               // Give the fake button a focus ring
               focus: isActive && this.gridHasFocus,
               // Styling
-              disabled: day.isDisabled,
+              disabled: day.isDisabled || this.disabled,
               active: isSelected, // makes the button look "pressed"
               // Selected date style (need to computed from variant)
               [this.selectedVariant]: isSelected,
@@ -823,7 +823,7 @@ export const BCalendar = Vue.extend({
       // Return the week row
       return h('div', { key: wIndex, staticClass: 'row no-gutters' }, $cells)
     })
-    $gridBody = h('div', {}, $gridBody)
+    $gridBody = h('div', { style: this.disabled ? {} : { pointerEvents: 'none' } }, $gridBody)
 
     const $gridHelp = h(
       'footer',
