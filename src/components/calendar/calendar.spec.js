@@ -9,6 +9,7 @@ describe('calendar', () => {
     const wrapper = mount(BCalendar)
 
     expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
 
