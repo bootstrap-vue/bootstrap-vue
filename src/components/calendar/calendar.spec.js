@@ -102,7 +102,7 @@ describe('calendar', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // expect(document.activeElement).toBe($grid.element)
+    expect(document.activeElement).toBe($grid.element)
 
     wrapper.destroy()
   })
