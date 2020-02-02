@@ -48,7 +48,7 @@ describe('utils/date', () => {
     expect(formatYMD(lastDateOfMonth(createDate(2020, 11, 3)))).toEqual('2020-12-31')
   })
 
-  if('oneMonthAgo works', async () => {
+  it('oneMonthAgo works', async () => {
     expect(formatYMD(oneMonthAgo(createDate(2020, 1, 3)))).toEqual('2020-01-03')
     expect(formatYMD(oneMonthAgo(createDate(2020, 2, 28)))).toEqual('2020-02-28')
     expect(formatYMD(oneMonthAgo(createDate(2020, 2, 31)))).toEqual('2020-02-29')
@@ -56,7 +56,7 @@ describe('utils/date', () => {
     expect(formatYMD(oneMonthAgo(createDate(2020, 11, 31)))).toEqual('2020-11-30')
   })
 
-  if('oneMonthAhead works', async () => {
+  it('oneMonthAhead works', async () => {
     expect(formatYMD(oneMonthAhead(createDate(2020, 1, 3)))).toEqual('2020-03-03')
     expect(formatYMD(oneMonthAhead(createDate(2020, 2, 28)))).toEqual('2020-04-28')
     expect(formatYMD(oneMonthAhead(createDate(2020, 2, 31)))).toEqual('2020-04-30')
