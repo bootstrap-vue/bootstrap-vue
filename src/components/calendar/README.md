@@ -43,6 +43,10 @@
 
 TBD
 
+### Disable higlighting of today
+
+TBD
+
 ### Disabled and readonly
 
 TBD
