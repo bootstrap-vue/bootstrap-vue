@@ -75,7 +75,8 @@ By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD
 `<b-calendar>` return the `v-model` value as a date object (with no time portion) by setting the prop
 `value-as-date`.
 
-If no date is selected, `<b-calendar>` _always_ returns `null`.
+If no date is selected, `<b-calendar>` returns an empty string `''`, or returns `null` if the
+`value-as-date` prop is set.
 
 ## Constraints
 
