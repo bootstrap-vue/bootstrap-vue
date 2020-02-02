@@ -407,9 +407,7 @@ export const BCalendar = Vue.extend({
       const old = parseYMD(newVal)
       if (!datesEqual(selected, old)) {
         this.selectedDate = selected
-        // if (selected) {
-        //   this.focusDate(selected)
-        // }
+        this.activeDate = createDate(selected)
       }
     },
     selectedYMD(newYMD, oldYMD) {
