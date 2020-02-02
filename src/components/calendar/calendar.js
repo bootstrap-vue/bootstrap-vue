@@ -444,7 +444,7 @@ export const BCalendar = Vue.extend({
     getToday() {
       return parseYMD(createDate())
     },
-    focusGrid() /* istanbul ignore next: until tests are ready */ {
+    focusGrid() {
       if (!this.disabled) {
         try {
           this.$refs.grid.focus()
@@ -452,7 +452,7 @@ export const BCalendar = Vue.extend({
       }
     },
     // Event handlers
-    setGridFocusFlag(evt) /* istanbul ignore next: until tests are ready */ {
+    setGridFocusFlag(evt) {
       // Sets the gridHasFocus flag to make date "button" look focused
       this.gridHasFocus = !this.disabled && evt.type === 'focus'
     },
@@ -623,6 +623,7 @@ export const BCalendar = Vue.extend({
           staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill p-1 mx-1',
           class: { disabled: btnDisabled },
           attrs: {
+            title: label || null,
             'aria-label': label || null,
             'aria-disabled': btnDisabled ? 'true' : null,
             'aria-shortcutkeys': shortcut || null
