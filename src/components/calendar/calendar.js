@@ -549,11 +549,14 @@ export const BCalendar = Vue.extend({
       if (
         !this.disabled &&
         !day.isDisabled &&
-        !this.dateDisabled(day.dateObj) &&
-        !datesEqual(day.dateObj, this.selectedDate)
+        !this.dateDisabled(day.dateObj)
       ) {
-        this.selectedDate = createDate(day.dateObj)
-        this.activeDate = createDate(this.selectedDate)
+        if (!datesEqual(day.dateObj, this.selectedDate)) {
+          this.selectedDate = createDate(day.dateObj)
+        }
+        if (!datesEqual(day.dateObj, this.activeDate)) {
+          this.activeDate = createDate(day.dateObj)
+        }
         this.focusGrid()
       }
     },
@@ -769,7 +772,8 @@ export const BCalendar = Vue.extend({
               'btn-outline-light': !isToday && !isSelected && !isActive,
               // Text styling
               'text-muted': !day.isThisMonth && !isSelected,
-              'text-dark': !isToday && !isSelected && !isActive && day.isThisMonth && !day.isDisabled,
+              'text-dark':
+                !isToday && !isSelected && !isActive && day.isThisMonth && !day.isDisabled,
               'font-weight-bold': (isSelected || day.isThisMonth) && !day.isDisabled
             },
             style: {
