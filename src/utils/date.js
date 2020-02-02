@@ -52,3 +52,58 @@ export const datesEqual = (date1, date2) => {
   // (we don't compare the time portion)
   return formatYMD(date1) === formatYMD(date2)
 }
+
+// --- Date "math" for calendar component mainly ---
+
+export const lastDateOfMonth = date => {
+  date = createDate(date)
+  date.setMonth(date.getMonth() + 1)
+  date.setDate(0)
+  return date
+}
+
+export const firstDateOfMonth = date => {
+  date = createDate(date)
+  date.setDate(1)
+  return date
+}
+
+export const oneYearAgo = date => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setMonth(month - 12)
+  if (date.getMonth() !== month) {
+    date.setDate(0)
+  }
+  return date
+}
+
+export const oneYearAhead = date => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setMonth(month + 12)
+  if (date.getMonth() !== month) {
+    date.setDate(0)
+  }
+  return date
+}
+
+export const oneMonthAgo = date => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setMonth(month - 1)
+  if (date.getMonth() === month) {
+    date.setDate(0)
+  }
+  return date
+}
+
+export const oneMonthAhead = date => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setMonth(month + 1)
+  if (date.getMonth() === month) {
+    date.setDate(0)
+  }
+  return date
+}
