@@ -525,7 +525,7 @@ export const BCalendar = Vue.extend({
         this.focusGrid()
       }
     },
-    onClickDay(day) /* istanbul ignore next: until tests are ready */ {
+    onClickDay(day) {
       // Clicking on a date "button" to select it
       if (
         !this.disabled &&
