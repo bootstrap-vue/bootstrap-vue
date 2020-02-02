@@ -554,18 +554,16 @@ export const BCalendar = Vue.extend({
       return h(
         'button',
         {
-          staticClass: 'btn btn-sm btn-outline-secondary border-0 p-1 mx-1',
+          staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill p-1 mx-1',
           class: { disabled: btnDisabled },
           attrs: {
             'aria-label': label || null,
             'aria-disabled': btnDisabled ? 'true' : null,
             'aria-shortcutkeys': shortcut || null
           },
-          // Should the handler handle detecting if disabled or not
-          // as we need to check disabled dates in keyboard handlers
-          on: btnDisabled ? {} : { click: handler }
+          on: { click: handler }
         },
-        [h('div', { attrs: { 'aria-hidden': 'true' } }, content)]
+        [h('div', { attrs: { 'aria-hidden': 'true' } }, [content])]
       )
     }
 
@@ -573,7 +571,7 @@ export const BCalendar = Vue.extend({
     const $nav = h(
       'div',
       {
-        staticClass: 'd-flex p-0 mx-n1 my-0',
+        staticClass: 'd-flex mx-n1 mb-1',
         attrs: {
           role: 'group',
           'aria-label': this.labelNav || null,
@@ -738,7 +736,7 @@ export const BCalendar = Vue.extend({
     const $grid = h(
       'div',
       {
-        staticClass: 'form-control text-center p-0 mb-1',
+        staticClass: 'form-control h-auto text-center p-0 mb-1',
         attrs: {
           id: this.safeId('_calendar-grid_'),
           role: 'application',
