@@ -6,7 +6,9 @@ import {
   firstDateOfMonth,
   lastDateOfMonth,
   oneMonthAgo,
-  oneMonthAhead
+  oneMonthAhead,
+  oneYearAgo,
+  oneYearAhead
 } from './date'
 
 describe('utils/date', () => {
@@ -36,33 +38,61 @@ describe('utils/date', () => {
   })
 
   it('firstDateOfMonth works', async () => {
-    expect(formatYMD(firstDateOfMonth(createDate(2020, 1, 3)))).toEqual('2020-02-01')
-    expect(formatYMD(firstDateOfMonth(createDate(2020, 0, 3)))).toEqual('2020-01-01')
-    expect(formatYMD(firstDateOfMonth(createDate(2020, 10, 3)))).toEqual('2020-11-01')
-    expect(formatYMD(firstDateOfMonth(createDate(2020, 11, 3)))).toEqual('2020-12-01')
+    // February 2020 was a leap year
+    expect(formatYMD(firstDateOfMonth(parseYMD('2020-02-03')))).toEqual('2020-02-01')
+    expect(formatYMD(firstDateOfMonth(parseYMD('2020-02-29')))).toEqual('2020-02-01')
+    expect(formatYMD(firstDateOfMonth(parseYMD('2020-01-03')))).toEqual('2020-01-01')
+    expect(formatYMD(firstDateOfMonth(parseYMD('2020-11-03')))).toEqual('2020-11-01')
+    expect(formatYMD(firstDateOfMonth(parseYMD('2020-12-03')))).toEqual('2020-12-01')
   })
 
   it('lastDateOfMonth works', async () => {
-    expect(formatYMD(lastDateOfMonth(createDate(2020, 1, 3)))).toEqual('2020-02-29')
-    expect(formatYMD(lastDateOfMonth(createDate(2020, 0, 3)))).toEqual('2020-01-31')
-    expect(formatYMD(lastDateOfMonth(createDate(2020, 10, 3)))).toEqual('2020-11-30')
-    expect(formatYMD(lastDateOfMonth(createDate(2020, 11, 3)))).toEqual('2020-12-31')
+    // February 2020 was a leap year
+    expect(formatYMD(lastDateOfMonth(parseYMD('2020-02-03')))).toEqual('2020-02-29')
+    expect(formatYMD(lastDateOfMonth(parseYMD('2019-02-03')))).toEqual('2019-02-28')
+    expect(formatYMD(lastDateOfMonth(parseYMD('2020-01-03')))).toEqual('2020-01-31')
+    expect(formatYMD(lastDateOfMonth(parseYMD('2020-11-03')))).toEqual('2020-11-30')
+    expect(formatYMD(lastDateOfMonth(parseYMD('2020-12-03')))).toEqual('2020-12-31')
   })
 
   it('oneMonthAgo works', async () => {
-    expect(formatYMD(oneMonthAgo(createDate(2020, 1, 3)))).toEqual('2020-01-03')
-    expect(formatYMD(oneMonthAgo(createDate(2020, 2, 28)))).toEqual('2020-02-28')
-    expect(formatYMD(oneMonthAgo(createDate(2020, 2, 31)))).toEqual('2020-02-29')
-    expect(formatYMD(oneMonthAgo(createDate(2020, 11, 30)))).toEqual('2020-11-30')
-    expect(formatYMD(oneMonthAgo(createDate(2020, 11, 31)))).toEqual('2020-11-30')
+    // February 2020 was a leap year
+    expect(formatYMD(oneMonthAgo(parseYMD('2020-02-03')))).toEqual('2020-01-03')
+    expect(formatYMD(oneMonthAgo(parseYMD('2020-03-28')))).toEqual('2020-02-28')
+    expect(formatYMD(oneMonthAgo(parseYMD('2020-03-31')))).toEqual('2020-02-29')
+    expect(formatYMD(oneMonthAgo(parseYMD('2020-12-30')))).toEqual('2020-11-30')
+    expect(formatYMD(oneMonthAgo(parseYMD('2020-12-31')))).toEqual('2020-11-30')
   })
 
   it('oneMonthAhead works', async () => {
-    expect(formatYMD(oneMonthAhead(createDate(2020, 1, 3)))).toEqual('2020-03-03')
-    expect(formatYMD(oneMonthAhead(createDate(2020, 2, 28)))).toEqual('2020-04-28')
-    expect(formatYMD(oneMonthAhead(createDate(2020, 2, 31)))).toEqual('2020-04-30')
-    expect(formatYMD(oneMonthAhead(createDate(2020, 9, 31)))).toEqual('2021-11-30')
-    expect(formatYMD(oneMonthAhead(createDate(2020, 11, 30)))).toEqual('2021-01-30')
-    expect(formatYMD(oneMonthAhead(createDate(2020, 11, 31)))).toEqual('2021-01-31')
+    // February 2020 was a leap year
+    expect(formatYMD(oneMonthAhead(parseYMD('2020-02-03')))).toEqual('2020-03-03')
+    expect(formatYMD(oneMonthAhead(parseYMD('2020-01-31')))).toEqual('2020-02-29')
+    expect(formatYMD(oneMonthAhead(parseYMD('2020-02-29')))).toEqual('2020-03-29')
+    expect(formatYMD(oneMonthAhead(parseYMD('2020-03-28')))).toEqual('2020-04-28')
+    expect(formatYMD(oneMonthAhead(parseYMD('2020-03-31')))).toEqual('2020-04-30')
+    expect(formatYMD(oneMonthAhead(parseYMD('2020-10-31')))).toEqual('2021-11-30')
+    expect(formatYMD(oneMonthAhead(parseYMD('2020-12-30')))).toEqual('2021-01-30')
+    expect(formatYMD(oneMonthAhead(parseYMD('2020-12-31')))).toEqual('2021-01-31')
   })
+
+  it('oneYearAgo works', async () => {
+    // February 2020 was a leap year
+    expect(formatYMD(oneYearAgo(parseYMD('2020-02-29')))).toEqual('2019-02-28')
+    expect(formatYMD(oneYearAgo(parseYMD('2020-02-28')))).toEqual('2019-02-28')
+    expect(formatYMD(oneYearAgo(parseYMD('2020-01-31')))).toEqual('2019-01-31')
+    expect(formatYMD(oneYearAgo(parseYMD('2020-11-01')))).toEqual('2019-11-01')
+    expect(formatYMD(oneYearAgo(parseYMD('2020-11-30')))).toEqual('2019-11-30')
+    expect(formatYMD(oneYearAgo(parseYMD('2020-12-31')))).toEqual('2019-12-31')
+  })
+
+  it('oneYearAhead works', async () => {
+    // February 2020 was a leap year
+    expect(formatYMD(oneYearAhead(parseYMD('2020-02-29')))).toEqual('2021-02-28')
+    expect(formatYMD(oneYearAhead(parseYMD('2020-02-28')))).toEqual('2021-02-28')
+    expect(formatYMD(oneYearAhead(parseYMD('2020-01-31')))).toEqual('2021-01-31')
+    expect(formatYMD(oneYearAhead(parseYMD('2020-11-01')))).toEqual('2021-11-01')
+    expect(formatYMD(oneYearAhead(parseYMD('2020-11-30')))).toEqual('2021-11-30')
+    expect(formatYMD(oneYearAhead(parseYMD('2020-12-31')))).toEqual('2021-12-31')
+ })
 })
