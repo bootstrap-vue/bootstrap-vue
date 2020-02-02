@@ -23,7 +23,6 @@ describe('calendar', () => {
 
     wrapper.destroy()
   })
-  */
 
   it('has expected struture when value is set', async () => {
     const wrapper = mount(BCalendar, {
@@ -102,4 +101,5 @@ describe('calendar', () => {
 
     wrapper.destroy()
   })
+  */
 })
