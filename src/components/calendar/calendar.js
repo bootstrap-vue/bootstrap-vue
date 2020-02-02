@@ -549,11 +549,7 @@ export const BCalendar = Vue.extend({
       const selectedDate = this.selectedDate
       const activeDate = this.activeDate
       const clickedDate = createDate(day.dateObj)
-      if (
-        !this.disabled &&
-        !day.isDisabled &&
-        !this.dateDisabled(day.dateObj)
-      ) {
+      if (!this.disabled && !day.isDisabled && !this.dateDisabled(clickedDate)) {
         this.selectedDate = datesEqual(clickedDate, selectedDate) ? selectedDate : clickedDate
         this.activeDate = datesEqual(clickedDate, activeDate) ? activeDate : createDate(clickedDate)
         this.focusGrid()
