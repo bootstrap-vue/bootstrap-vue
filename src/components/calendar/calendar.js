@@ -742,7 +742,6 @@ export const BCalendar = Vue.extend({
               margin: '3px auto',
               padding: '9px 0'
             },
-            attrs: { tabindex: '-1' },
             on: {
               click: () => {
                 this.onClickDay(day)
