@@ -44,6 +44,10 @@ TBD
 
 TBD
 
+### Width
+
+TBD
+
 ## Constraints
 
 ### Minimum and maximum dates
