@@ -54,6 +54,8 @@ By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD
 `<b-calendar>` return the `v-model` value as a date object (with no time portion) by setting the prop
 `value-as-date`.
 
+If no date is selected, `<b-calendar>` _always_ returns `null`.
+
 ## Constraints
 
 ### Minimum and maximum dates
