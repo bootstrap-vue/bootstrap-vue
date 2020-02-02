@@ -658,7 +658,7 @@ export const BCalendar = Vue.extend({
         key: 'grid-caption',
         staticClass: 'text-center font-weight-bold p-0 m-0',
         attrs: {
-          id: idGridCaption,
+          // id: idGridCaption,
           'aria-live': isLive ? 'polite' : null,
           'aria-atomic': isLive ? 'true' : null
         }
@@ -671,7 +671,17 @@ export const BCalendar = Vue.extend({
       'div',
       { staticClass: 'row no-gutters border-bottom', attrs: { 'aria-hidden': 'true' } },
       this.calendarHeadings.map((d, idx) => {
-        return h('small', { key: idx, staticClass: 'col', attrs: { title: d.label } }, d.text)
+        return h(
+          'small', {
+            key: idx,
+            staticClass: 'col',
+            attrs: {
+              // id: 'foobar'
+              title: d.label
+            }
+          },
+          d.text
+        )
       })
     )
 
@@ -733,7 +743,7 @@ export const BCalendar = Vue.extend({
             // This is done in the calendar generator computed prop
             class: { 'bg-light': day.isDisabled },
             attrs: {
-              id: idCell,
+              // id: idCell,
               role: 'button',
               'data-date': day.ymd, // primarily for testing purposes
               // Only days in the month are presented as buttons to screen readers
@@ -765,7 +775,9 @@ export const BCalendar = Vue.extend({
       'footer',
       {
         staticClass: 'border-top small text-muted text-center bg-light',
-        attrs: { id: idGridHelp }
+        attrs: {
+          // id: idGridHelp
+        }
       },
       [h('div', { staticClass: 'small' }, this.labelHelp)]
     )
