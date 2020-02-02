@@ -1,15 +1,18 @@
 # Calendar
 
-> BootstrapVue's custom `<b-calendar>` component generates a calendar style date selection widget
-> which can be used to control other components, or can be used to create custom date picker inputs.
-> `<b-calendar>` is WAI-ARIA accessibility compliant, optimized for keyboard control (arrow, page
-> up/down, and home keys).
+> BootstrapVue's custom `<b-calendar>` component generates a WAI-ARIA compliant calendar style date
+> selection widget, which can be used to control other components, or can be used to create customized
+> date picker inputs.
+
+`<b-calendar>` is WAI-ARIA accessibility compliant, optimized for keyboard control (arrow, page
+up/down, and home keys). Internationalization is also supported, and default's to the browser's or
+page's locale, if no locale(s) are specified.
 
 ```html
 <template>
   <b-row>
     <b-col md="auto">
-      <b-calendar v-model="value" @context="onContext"></b-calendar>
+      <b-calendar v-model="value" @context="onContext" locale="en-US"></b-calendar>
     </b-col>
     <b-col>
       <p>Value: <b>{{ value }}</b></p>
@@ -23,7 +26,7 @@
   export default {
     data() {
       return {
-        value: null,
+        value: '',
         context: null
       }
     },
