@@ -612,7 +612,7 @@ export const BCalendar = Vue.extend({
       },
       this.selectedDate
         ? [
-            h('bdi', { staticClass: 'sr-nly' }, `(${toString(this.labelSelectedDate)}) `),
+            h('bdi', { staticClass: 'sr-only' }, `(${toString(this.labelSelected)}) `),
             h('bdi', {}, this.formatDateString(this.selectedDate))
           ]
         : this.labelNoDateSelected || '\u00a0' // '&nbsp;'
