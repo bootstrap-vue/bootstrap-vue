@@ -1,9 +1,10 @@
 import {
+  createDate,
   parseYMD,
   formatYMD,
   datesEqual,
   firstDateOfMonth,
-  lastDayOfMonth,
+  lastDateOfMonth,
   oneMonthAgo,
   oneMonthAhead
 } from './date'
