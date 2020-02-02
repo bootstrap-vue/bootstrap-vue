@@ -816,6 +816,7 @@ export const BCalendar = Vue.extend({
             // Need to compute if day is within range (min/max) or if day is not allowed
             // This is done in the calendar generator computed prop
             class: { 'bg-light': day.isDisabled },
+            style: day.isDisabled ? { pointerEvents: 'none' } : {},
             attrs: {
               id: idCell,
               role: 'button',
