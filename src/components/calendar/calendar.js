@@ -234,16 +234,14 @@ export const BCalendar = Vue.extend({
       // This locale enforces the gregorian calendar (for use in formatter functions)
       // Needed because IE11 resolves ar-IR as islamic-civil calendar
       // and IE11 (and some other browsers) do not support the `calendar` option
-      let fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: 'gregory' })
+      const fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: 'gregory' })
       const calendar = fmt.resolvedOptions().calendar
       let locale = fmt.resolvedOptions().locale.toLowerCase()
       /* istanbul ignore if: mainly for IE11, hard to test in JSDOM */
       if (calendar !== 'gregory') {
         // Ensure the locale requests the gregorian calendar
-        // Mainly for IE 11
+        // Mainly for IE 11, and currently we can't handle non-gregorian calendars
         locale = locale.replace(/-u-.+$/, '').concat('-u-ca-gregory')
-        // fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: 'gregory' })
-        // locale = fmt.resolvedOptions().locale.toLowerCase()
       }
       return locale
     },
