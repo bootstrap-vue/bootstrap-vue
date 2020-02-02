@@ -75,17 +75,26 @@ describe('calendar', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
 
-    const $btn = wrapper.find('[data-date="2020-01-25"]')
+    const $cell = wrapper.find('[data-date="2020-01-25"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('aria-selected')).not.toBeDefined()
+    expect($cell.attributes('id')).toBeDefined()
+    const $btn = $cell.find('.btn')
     expect($btn.exists()).toBe(true)
+    expect($cell.attributes('id')).toBeDefined()
+    expect($grid.attributes('aria-activedescendant')).toBeDefined()
+    expect($grid.attributes('aria-activedescendant')).not.toEqual($cell.attributes('id'))
 
     $btn.trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($btn.attributes('aria-selected')).toBeDefined()
-    expect($btn.attributes('aria-selected')).toEqual('true')
+    expect($cell.attributes('aria-selected')).toBeDefined()
+    expect($cell.attributes('aria-selected')).toEqual('true')
+    expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
 
     wrapper.destroy()
   })
