@@ -252,6 +252,12 @@ export const BCalendar = Vue.extend({
       date.setMonth(date.getMonth() + 1, 0)
       return date.getDate()
     },
+    selectedVariant() {
+      return `btn-${this.variant || 'primary'}`
+    },
+    todayVariant() {
+      return `btn-outline-${this.variant || 'primary'}`
+    },
     isRTL() {
       // `true` if the language requested is RTL
       const dir = toString(this.direction).toLowerCase()
@@ -722,9 +728,9 @@ export const BCalendar = Vue.extend({
               disabled: day.isDisabled,
               active: isSelected, // makes the button look "pressed"
               // Selected date style (need to computed from variant)
-              'btn-primary': isSelected,
+              [this.selectedVariant]: isSelected,
               // Today day style (if not selected), same variant color as selected date
-              'btn-outline-primary': isToday && !isSelected && !isActive,
+              [this.todayVariant]: isToday && !isSelected && !isActive,
               // Non selected/today styling
               'btn-outline-light': !isToday && !isSelected && !isActive,
               // Text styling
