@@ -280,9 +280,9 @@ export const BCalendar = Vue.extend({
     context() {
       return {
         activeYMD: this.activeYMD,
-        activeFormatted: this.formatDateString(pareseYMD(this.activeYMD)),
+        activeFormatted: this.formatDateString(parseYMD(this.activeYMD)),
         selectedYMD: this.selectedYMD,
-        selectedFormatted: this.formatDateString(pareseYMD(this.selectedYMD)),
+        selectedFormatted: this.formatDateString(parseYMD(this.selectedYMD)),
         locale: this.computedLocale,
         calendarLocale: this.calendarLocale,
         rtl: this.isRTL
