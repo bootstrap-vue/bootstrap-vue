@@ -420,7 +420,7 @@ export const BCalendar = Vue.extend({
       return this.calendar[0].map(d => {
         return {
           text: this.formatWeekdayNameShort(d.dateObj),
-          label: this.formatrWeekdayName(d.dateObj)
+          label: this.formatWeekdayName(d.dateObj)
         }
       })
     }
@@ -482,7 +482,6 @@ export const BCalendar = Vue.extend({
       let activeDate = createDate(this.activeDate)
       let checkDate = createDate(this.activeDate)
       const day = activeDate.getDate()
-      const month = activeDate.getMonth()
       const isRTL = this.isRTL
       if (keyCode === PAGEUP) {
         // page up (previous month/year)
