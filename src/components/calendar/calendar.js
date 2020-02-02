@@ -111,7 +111,7 @@ export const BCalendar = Vue.extend({
     width: {
       // Has no effect if prop `block` is set
       type: String,
-      default: '260px'
+      default: '280px'
     },
     block: {
       // Makes calendar the full width of its parent container
