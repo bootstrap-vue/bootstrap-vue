@@ -428,7 +428,7 @@ export const BCalendar = Vue.extend({
       }
     },
     selectedYMD(newYMD, oldYMD) {
-      this.$emit('input', this.valueAsDate ? parseYMD(newYMD) : newYMD)
+      this.$emit('input', this.valueAsDate ? parseYMD(newYMD) || null : newYMD || '')
     },
     context(newVal) {
       this.$emit('context', newVal)
