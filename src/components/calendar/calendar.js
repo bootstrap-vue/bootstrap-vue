@@ -731,7 +731,7 @@ export const BCalendar = Vue.extend({
           [$btn]
         )
       })
-      return h('div', { key: wIndex }, staticClass: 'row no-gutters' } }, $cells)
+      return h('div', { key: wIndex , staticClass: 'row no-gutters' }, $cells)
     })
     $gridBody = h('div', {}, $gridBody)
 
