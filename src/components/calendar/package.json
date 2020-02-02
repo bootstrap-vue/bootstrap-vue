@@ -5,7 +5,7 @@
     "title": "Calendar",
     "version": "2.5.0",
     "new": true,
-    "description": "Calendar widget for selecting dates.",
+    "description": "Calendar widget for selecting dates and controling other components.",
     "components": [
       {
         "component": "BCalendar",
