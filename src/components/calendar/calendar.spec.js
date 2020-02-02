@@ -6,10 +6,17 @@ import { BCalendar } from './calendar'
 
 describe('calendar', () => {
   it('has expected base structure', async () => {
-    const wrapper = mount(BCalendar)
+    const wrapper = mount(BCalendar, {
+      attachToDocument: true,
+    })
 
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('div')).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    // TBD
+
     await waitNT(wrapper.vm)
     await waitRAF()
 
