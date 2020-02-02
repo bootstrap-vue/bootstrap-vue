@@ -189,13 +189,15 @@ export const BCalendar = Vue.extend({
     const active = selected || this.getToday()
     return {
       // Selected date as a date object
+      // TODO: change to YYYY-MM-DD format
       selectedDate: selected,
       // Date in calendar grid that has tabindex of 0
+      // TODO: change to YYYY-MM-DD format
       activeDate: active,
-      // Will be true if the calendar grid has focus
+      // Will be true if the calendar grid has/contains focus
       gridHasFocus: false,
       // Flag to enable the aria-live region(s) after mount
-      // to prevent screen reader outbursts when mounting
+      // to prevent screen reader "outbursts" when mounting
       isLive: false
     }
   },
@@ -206,6 +208,12 @@ export const BCalendar = Vue.extend({
     activeYMD() {
       return formatYMD(this.activeDate)
     },
+    // selectedDate() {
+    //   return parseYMD(this.selectedYMD)
+    // },
+    // activeDate() {
+    //   return parseYMD(this.activeYMD)
+    // },
     computedMin() {
       return parseYMD(this.min)
     },
@@ -405,7 +413,7 @@ export const BCalendar = Vue.extend({
     selectedYMD(newYMD, oldYMD) {
       this.$emit('input', this.valueAsDate ? parseYMD(newYMD) : newYMD)
     },
-    hidden(newVal, oldVal) {
+    hidden(newVal, oldVal) /* istanbul ignore next: might remove this prop */ {
       if (!newVal) {
         this.isLive = false
       } else {
@@ -748,11 +756,7 @@ export const BCalendar = Vue.extend({
               margin: '3px auto',
               padding: '9px 0'
             },
-            on: {
-              click: () => {
-                this.onClickDay(day)
-              }
-            }
+            on: { click: () => this.onClickDay(day) }
           },
           day.day
         )
