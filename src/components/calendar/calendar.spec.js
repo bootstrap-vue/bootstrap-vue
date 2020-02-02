@@ -15,7 +15,7 @@ describe('calendar', () => {
     wrapper.destroy()
   })
 
-  it('has expected struture when value is set', async() => {
+  it('has expected struture when value is set', async () => {
     const wrapper = mount(BCalendar, {
       propsData: {
         value: '2020-02-15' // Leap year
@@ -31,7 +31,7 @@ describe('calendar', () => {
     wrapper.destroy()
   })
 
-  it('date navigation buttons work', async() => {
+  it('date navigation buttons work', async () => {
     const wrapper = mount(BCalendar, {
       attachToDocument: true,
       propsData: {
@@ -48,7 +48,7 @@ describe('calendar', () => {
     wrapper.destroy()
   })
 
-  it('focus method works', async() => {
+  it('focus method works', async () => {
     const wrapper = mount(BCalendar, {
       attachToDocument: true,
       propsData: {
@@ -71,11 +71,11 @@ describe('calendar', () => {
     await waitRAF()
 
     expect(document.activeElement).toBe($grid.element)
-    
+
     wrapper.destroy()
   })
 
-  it('keyboard navigation works', async() => {
+  it('keyboard navigation works', async () => {
     const wrapper = mount(BCalendar, {
       attachToDocument: true,
       propsData: {
