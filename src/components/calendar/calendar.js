@@ -684,7 +684,7 @@ export const BCalendar = Vue.extend({
               fonstSize: '14px',
               lineHeight: 1,
               margin: '3px auto',
-              padding: '9px 0;
+              padding: '9px 0'
             },
             attrs: { tabindex: '-1' },
             on: {
@@ -706,6 +706,7 @@ export const BCalendar = Vue.extend({
             attrs: {
               id: this.safeId(`_cell-${day.ymd}_`),
               role: 'button',
+              'data-date': day.ymd, // primarily for testing purposes
               // Only days in the month are presented as buttons to screen readers
               'aria-hidden': day.isThisMonth ? null : 'true',
               'aria-disabled': day.isDisabled || this.disabled ? 'true' : null,
