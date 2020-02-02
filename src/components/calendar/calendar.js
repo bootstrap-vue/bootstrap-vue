@@ -592,12 +592,20 @@ export const BCalendar = Vue.extend({
         }
       },
       this.selectedDate
-        ? this.formatDateString(this.selectedDate)
+        ? [
+            h('bdi', { staticClass: 'sr-nly' }, `(${toString(this.labelSelectedDate)}) `),
+            h('bdi', {}, this.formatDateString(this.selectedDate))
+          ]
         : this.labelNoDateSelected || '\u00a0' // '&nbsp;'
     )
-    $header = h('header', { staticClass: 'mb-1', class: this.hideHeader ? 'sr-only' : null }, [
-      $header
-    ])
+    $header = h(
+      'header',
+      {
+        class: this.hideHeader ? 'sr-only' : 'mb-1',
+        attrs: { title: this.selectedDate ? this.labelSelectedDate || null : null }
+      },
+      [$header]
+    )
 
     // Content for the date navigaation  buttons
     // TODO: Future allow for custom icons/content?
@@ -816,6 +824,7 @@ export const BCalendar = Vue.extend({
           id: idGrid,
           role: 'application',
           tabindex: '0',
+          'data-month': activeYMD.slice(0, -3), // YYYY-MM, mainly for testing
           // tabindex: this.disabled ? null : '0',
           'aria-roledescription': this.labelCalendar || null,
           'aria-labelledby': idGridCaption,
