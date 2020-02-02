@@ -59,6 +59,13 @@ TBD
 
 TBD
 
+### Default scoped slot
+
+Provide optional content at the bottom of the calendar inteface vis the use of hte optionally
+scoped default slot.
+
+TBD
+
 ## `v-model`
 
 By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD`. You can have
