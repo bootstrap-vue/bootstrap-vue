@@ -539,7 +539,7 @@ export const BCalendar = Vue.extend({
     },
     gotoNextYear(evt) /* istanbul ignore next: until tests are ready */ {
       this.activeDate = oneYearAhead(this.activeDate)
-    },
+    }
   },
   render(h) {
     /* istanbul ignore if */
