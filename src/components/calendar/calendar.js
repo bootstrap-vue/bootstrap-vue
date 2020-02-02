@@ -534,12 +534,12 @@ export const BCalendar = Vue.extend({
         activeDate.setDate(day + 7)
         checkDate = activeDate
       } else if (keyCode === HOME) {
-        // Home (today)
-        activeDate = this.getToday()
+        // Home (selected date or today if no selected date)
+        activeDate = parseYMD(this.selectedDate) || this.getToday()
         checkDate = activeDate
       } else if (keyCode === END) {
-        // End (selected date or today)
-        activeDate = createDate(this.selectedDate || this.getToday())
+        // End (today)
+        activeDate = this.getToday()
         checkDate = activeDate
       }
       if (!this.dateOutOfRange(checkDate) && !datesEqual(activeDate, this.activeDate)) {
@@ -579,7 +579,7 @@ export const BCalendar = Vue.extend({
       this.activeDate = this.constrainDate(oneMonthAgo(this.activeDate))
     },
     gotoCurrentMonth(evt) /* istanbul ignore next: until tests are ready */ {
-      this.activeDate = this.getToday()
+      this.activeDate = parseYMD(this.selectedDate) || this.getToday()
     },
     gotoNextMonth(evt) /* istanbul ignore next: until tests are ready */ {
       this.activeDate = this.constrainDate(oneMonthAhead(this.activeDate))
