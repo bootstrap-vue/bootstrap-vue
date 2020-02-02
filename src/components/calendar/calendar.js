@@ -329,10 +329,10 @@ export const BCalendar = Vue.extend({
     },
     formatWeekdayNameShort() {
       // used as the header cells
-      return createDateFormatter(this.computedLocale, { weekday: 'short', calendar: 'gregory' })
+      return createDateFormatter(this.calendarLocale, { weekday: 'short', calendar: 'gregory' })
     },
     formatDay() {
-      return createDateFormatter(this.computedLocale, { day: 'numeric', calendar: 'gregory' })
+      return createDateFormatter(this.calendarLocale, { day: 'numeric', calendar: 'gregory' })
     },
     // Disabled states for the nav buttons
     prevYearDisabled() {
