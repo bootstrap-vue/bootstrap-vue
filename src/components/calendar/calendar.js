@@ -277,6 +277,17 @@ export const BCalendar = Vue.extend({
       const locale2 = parts[0]
       return dir === 'rtl' || arrayIncludes(RTL_LANGS, locale1) || arrayIncludes(RTL_LANGS, locale2)
     },
+    context() {
+      return {
+        activeYMD: this.activeYMD,
+        activeFormatted: this.formatDateString(pareseYMD(this.activeYMD)),
+        selectedYMD: this.selectedYMD,
+        selectedFormatted: this.formatDateString(pareseYMD(this.selectedYMD)),
+        locale: this.computedLocale,
+        calendarLocale: this.calendarLocale,
+        rtl: this.isRTL
+      }
+    },
     // Computed props that return a function reference
     dateOutOfRange() {
       // Check weather a date is within the min/max range
@@ -411,6 +422,9 @@ export const BCalendar = Vue.extend({
     selectedYMD(newYMD, oldYMD) {
       this.$emit('input', this.valueAsDate ? parseYMD(newYMD) : newYMD)
     },
+    context(newVal) {
+      this.$emit('context', newVal)
+    },
     hidden(newVal, oldVal) /* istanbul ignore next: might remove this prop */ {
       if (!newVal) {
         this.isLive = false
@@ -422,6 +436,11 @@ export const BCalendar = Vue.extend({
         })
       }
     }
+  },
+  created() {
+    this.$nextTick(() => {
+      this.$emit('context', this.context)
+    })
   },
   mounted() {
     this.$nextTick(() => {
