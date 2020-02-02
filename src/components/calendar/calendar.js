@@ -716,7 +716,7 @@ export const BCalendar = Vue.extend({
       'header',
       {
         key: 'grid-caption',
-        staticClass: 'text-center font-weight-bold p-0 m-0',
+        staticClass: 'text-center font-weight-bold p-1 m-0',
         attrs: {
           id: idGridCaption,
           'aria-live': isLive ? 'polite' : null,
