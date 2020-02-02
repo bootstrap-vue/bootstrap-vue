@@ -132,7 +132,8 @@ export const BCalendar = Vue.extend({
       // When true, renders a comment node, but
       // keeps the component instance active
       // Mainly for b-form-date, so that we can get the component's value
-      // We may not need this....
+      // But we might just use separate date formatters, using the resolved locale
+      // (adjusted for the gregorian calendar)
       type: Boolean,
       default: false
     },
@@ -144,11 +145,11 @@ export const BCalendar = Vue.extend({
       type: String,
       default: null
     },
-    // noHighlightToday: {
-    //   // Disable highlighting today's date
-    //   type: Boolean,
-    //   default: false
-    // },
+    noHighlightToday: {
+      // Disable highlighting today's date
+      type: Boolean,
+      default: false
+    },
     // Labels for buttons and keybord shortcuts
     labelPrevYear: {
       type: String,
@@ -597,6 +598,7 @@ export const BCalendar = Vue.extend({
     const todayYMD = formatYMD(this.getToday())
     const selectedYMD = this.selectedYMD
     const activeYMD = this.activeYMD
+    const highlightToday = !this.noHighlightToday
     const safeId = this.safeId
     // Flag for making hte aria-live reagions live
     const isLive = this.isLive
@@ -783,13 +785,13 @@ export const BCalendar = Vue.extend({
               // Selected date style (need to computed from variant)
               [this.computedVariant]: isSelected,
               // Today day style (if not selected), same variant color as selected date
-              [this.computedTodayVariant]: isToday && !isSelected && day.isThisMonth, // && !isActive,
+              [this.computedTodayVariant]: isToday && highlightToday && !isSelected && day.isThisMonth,
               // Non selected/today styling
-              'btn-outline-light': !isToday && !isSelected && !isActive,
-              'btn-light': !isToday && !isSelected && isActive,
+              'btn-outline-light': !isToday && !highlightToday && !isSelected && !isActive,
+              'btn-light': !isToday && !highlightToday && !isSelected && isActive,
               // Text styling
               'text-muted': !day.isThisMonth && !isSelected,
-              'text-dark': !isToday && !isSelected && !isActive && day.isThisMonth,
+              'text-dark': !isToday && !highlightToday && !isSelected && !isActive && day.isThisMonth,
               'font-weight-bold': (isSelected || day.isThisMonth) && !day.isDisabled
             },
             style: {
