@@ -495,7 +495,7 @@ export const BCalendar = Vue.extend({
         activeDate = createDate(this.selectedDate || this.getToday())
         checkDate = activeDate
       }
-      if (this.dateInRange(checkDate) && !datesEqual(activeDate, this.activeDate)) {
+      if (!this.dateOutOfRange(checkDate) && !datesEqual(activeDate, this.activeDate)) {
         // We only jump to date if within min/max
         // We don't check for individual disabled dates though (via user function)
         this.activeDate = activeDate
@@ -522,6 +522,7 @@ export const BCalendar = Vue.extend({
         !datesEqual(day.dateObj, this.selectedDate)
       ) {
         this.selectedDate = createDate(day.dateObj)
+        this.activeDate = createDate(this.selectedDate)
         this.focusGrid()
       }
     },
@@ -555,7 +556,7 @@ export const BCalendar = Vue.extend({
     // Flag for making hte aria-live reagions live
     const isLive = this.isLive
     // Pre-compute some IDs
-    const id = safeId()
+    const idWidget = safeId()
     const idValue = safeId('_calendar-value_')
     const idNav = safeId('_calendar-nav_')
     const idGrid = safeId('_calendar-grid_')
@@ -567,7 +568,7 @@ export const BCalendar = Vue.extend({
     let $header = h(
       'output',
       {
-        staticClass: 'd-block text-center rounded border p-1 mb-1',
+        staticClass: 'd-block text-center rounded border small p-1 mb-1',
         attrs: {
           id: idValue,
           for: idGrid,
@@ -694,10 +695,7 @@ export const BCalendar = Vue.extend({
           {
             key: idx,
             staticClass: 'col',
-            attrs: {
-              // id: 'foobar'
-              title: d.label
-            }
+            attrs: { 'aria-label': d.label }
           },
           d.text
         )
@@ -710,7 +708,7 @@ export const BCalendar = Vue.extend({
         const isSelected = day.ymd === selectedYMD
         const isActive = day.ymd === activeYMD
         const isToday = day.ymd === todayYMD
-        // const idCell = safeId(`_cell-${day.ymd}_`)
+        const idCell = safeId(`_cell-${day.ymd}_`)
         // "fake" button
         const $btn = h(
           'span',
@@ -762,7 +760,7 @@ export const BCalendar = Vue.extend({
             // This is done in the calendar generator computed prop
             class: { 'bg-light': day.isDisabled },
             attrs: {
-              // id: idCell,
+              id: idCell,
               role: 'button',
               'data-date': day.ymd, // primarily for testing purposes
               // Only days in the month are presented as buttons to screen readers
@@ -836,7 +834,7 @@ export const BCalendar = Vue.extend({
         class: this.block ? 'd-block' : 'd-inline-block',
         style: this.block ? {} : { width: this.width },
         attrs: {
-          id: id,
+          id: idWidget,
           dir: isRTL ? 'rtl' : 'ltr',
           lang: this.computedLocale || null,
           role: 'group',
