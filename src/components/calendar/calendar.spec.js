@@ -61,7 +61,7 @@ describe('calendar', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    const $grid = wrapper.find('[role="grid"]')
+    const $grid = wrapper.find('[role="application"]')
     expect($grid.exists()).toBe(true)
     expect($grid.is('div')).toBe(true)
 
