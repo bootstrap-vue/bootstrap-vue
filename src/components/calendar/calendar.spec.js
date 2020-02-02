@@ -40,7 +40,6 @@ describe('calendar', () => {
     wrapper.destroy()
   })
 
-
   it('reacts to changes in value', async () => {
     const wrapper = mount(BCalendar, {
       attachToDocument: true,
@@ -63,6 +62,7 @@ describe('calendar', () => {
 
     wrapper.destroy()
   })
+
   it('date navigation buttons work', async () => {
     const wrapper = mount(BCalendar, {
       attachToDocument: true,
