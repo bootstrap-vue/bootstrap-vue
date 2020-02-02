@@ -9,7 +9,7 @@ import {
   resolveLocale
 } from '../../utils/date'
 import { requestAF } from '../../utils/dom'
-import { isFunction } from '../../utils/inpsect'
+import { isFunction } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
@@ -773,7 +773,7 @@ export const BCalendar = Vue.extend({
         )
       })
       // Return the week row
-      return h('div', { key: wIndex , staticClass: 'row no-gutters' }, $cells)
+      return h('div', { key: wIndex, staticClass: 'row no-gutters' }, $cells)
     })
     $gridBody = h('div', {}, $gridBody)
 
