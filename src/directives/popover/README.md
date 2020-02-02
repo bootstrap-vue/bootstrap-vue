@@ -49,7 +49,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-top bs-popover-top-docs">
     <div class="arrow" style="right: 6px"></div>
-    <h3 class="popover-header">Popover topleft</h3>
+    <h3 class="popover-header">Popover top-start</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -57,7 +57,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-top bs-popover-top-docs">
     <div class="arrow" style="left: 6px"></div>
-    <h3 class="popover-header">Popover topright</h3>
+    <h3 class="popover-header">Popover top-end</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -74,7 +74,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-right bs-popover-right-docs">
     <div class="arrow" style="bottom: 4px"></div>
-    <h3 class="popover-header">Popover righttop</h3>
+    <h3 class="popover-header">Popover right-start</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -82,7 +82,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-right bs-popover-right-docs">
     <div class="arrow" style="top: 4px"></div>
-    <h3 class="popover-header">Popover rightbottom</h3>
+    <h3 class="popover-header">Popover right-end</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -99,7 +99,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-bottom bs-popover-bottom-docs">
     <div class="arrow" style="right: 6px"></div>
-    <h3 class="popover-header">Popover bottomleft</h3>
+    <h3 class="popover-header">Popover bottom-start</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -107,7 +107,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-bottom bs-popover-bottom-docs">
     <div class="arrow" style="left: 6px"></div>
-    <h3 class="popover-header">Popover bottomright</h3>
+    <h3 class="popover-header">Popover bottom-end</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -124,7 +124,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-left bs-popover-left-docs">
     <div class="arrow" style="bottom: 4px"></div>
-    <h3 class="popover-header">Popover lefttop</h3>
+    <h3 class="popover-header">Popover left-start</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -132,7 +132,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-left bs-popover-left-docs">
     <div class="arrow" style="top: 4px"></div>
-    <h3 class="popover-header">Popover leftbottom</h3>
+    <h3 class="popover-header">Popover left-end</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -300,7 +300,7 @@ function reference whenever the content changes.
       </b-col>
       <b-col md="3" class="py-3">
         <b-button
-          v-b-popover.hover="{title:'Popover', content:'This is the content of popover'}"
+          v-b-popover.hover="{ title:'Popover', content:'This is the content of popover' }"
           variant="success"
         >
           Config Object
@@ -338,20 +338,16 @@ function reference whenever the content changes.
         // and will be called the each time the popover is opened
         return {
           html: true,
-          title: () => {
-            // Note this is called only when the popover is opened
-            return 'Hello <b>Popover:</b> ' + ++this.counter
-          },
-          content: () => {
-            // Note this is called only when the popover is opened
-            return 'The date is:<br><em>' + new Date() + '</em>'
-          }
+          // Note this is called only when the popover is opened
+          title: () => `Hello <b>Popover:</b> ${this.counter++}`,
+          // Note this is called only when the popover is opened
+          content: () => `The date is:<br><em>${new Date()}</em>`
         }
       },
       popoverData() {
         return {
           title: 'Popover Title',
-          content: 'The date is ' + this.date
+          content: `The date is ${this.date}`
         }
       }
     },
@@ -367,7 +363,7 @@ function reference whenever the content changes.
       popoverMethod() {
         // Returns the content as a string
         // Will be called each time the popover is opened
-        return '<strong>' + new Date() + '</strong>'
+        return `<strong>${new Date()}</strong>`
       }
     }
   }

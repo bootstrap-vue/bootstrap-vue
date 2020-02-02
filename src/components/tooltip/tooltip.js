@@ -59,11 +59,11 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME, 'boundary')
     },
     boundaryPadding: {
-      type: [Number, String],
+      type: Number,
       default: () => getComponentConfig(NAME, 'boundaryPadding')
     },
     offset: {
-      type: [Number, String],
+      type: Number,
       default: 0
     },
     noFade: {

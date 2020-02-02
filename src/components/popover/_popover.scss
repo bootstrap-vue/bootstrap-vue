@@ -1,8 +1,7 @@
 // Some overrides to make popover transitions work with Vue `<transition>`
 .popover.b-popover {
-  display: block;
   opacity: 1;
-  // Needed due to Bootstrap v4.4 reboot.css changes
+  // Needed due to Bootstrap v4.4 `reboot.css` changes
   outline: 0;
 
   &.fade:not(.show) {
@@ -11,6 +10,21 @@
 
   &.show {
     opacity: 1;
+  }
+
+  &.bs-popover-auto {
+    &[data-popper-placement^="top"] {
+      @extend .bs-popover-top;
+    }
+    &[data-popper-placement^="right"] {
+      @extend .bs-popover-right;
+    }
+    &[data-popper-placement^="bottom"] {
+      @extend .bs-popover-bottom;
+    }
+    &[data-popper-placement^="left"] {
+      @extend .bs-popover-left;
+    }
   }
 }
 
@@ -81,21 +95,6 @@
           &::after {
             border-left-color: $po-arrow-color;
           }
-        }
-      }
-
-      &.bs-popover-auto {
-        &[x-placement^="top"] {
-          @extend .bs-popover-top;
-        }
-        &[x-placement^="right"] {
-          @extend .bs-popover-right;
-        }
-        &[x-placement^="bottom"] {
-          @extend .bs-popover-bottom;
-        }
-        &[x-placement^="left"] {
-          @extend .bs-popover-left;
         }
       }
 

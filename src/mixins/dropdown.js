@@ -267,7 +267,7 @@ export default {
         {
           name: 'offset',
           options: {
-            offset: [0, this.offset || 0]
+            offset: [0, this.offset]
           }
         },
         {

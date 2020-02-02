@@ -16,14 +16,22 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     renderTemplate(h) {
-      // Title and content could be a scoped slot function
-      const $title = isFunction(this.title) ? this.title({}) : this.title
-      const $content = isFunction(this.content) ? this.content({}) : this.content
+      const $arrow = h('div', { ref: 'arrow', staticClass: 'arrow' })
 
-      // Directive usage only
+      const $title = isFunction(this.title) ? this.title({}) : this.title
       const titleDomProps = this.html && !isFunction(this.title) ? { innerHTML: this.title } : {}
+      const $header =
+        isUndefinedOrNull($title) || $title === ''
+          ? h()
+          : h('h3', { staticClass: 'popover-header', domProps: titleDomProps }, [$title])
+
+      const $content = isFunction(this.content) ? this.content({}) : this.content
       const contentDomProps =
         this.html && !isFunction(this.content) ? { innerHTML: this.content } : {}
+      const $body =
+        isUndefinedOrNull($content) || $content === ''
+          ? h()
+          : h('div', { staticClass: 'popover-body', domProps: contentDomProps }, [$content])
 
       return h(
         'div',
@@ -33,15 +41,7 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
           attrs: this.templateAttributes,
           on: this.templateListeners
         },
-        [
-          h('div', { ref: 'arrow', staticClass: 'arrow' }),
-          isUndefinedOrNull($title) || $title === ''
-            ? h()
-            : h('h3', { staticClass: 'popover-header', domProps: titleDomProps }, [$title]),
-          isUndefinedOrNull($content) || $content === ''
-            ? h()
-            : h('div', { staticClass: 'popover-body', domProps: contentDomProps }, [$content])
-        ]
+        [$arrow, $header, $body]
       )
     }
   }

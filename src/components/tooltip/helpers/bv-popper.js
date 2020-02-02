@@ -7,42 +7,46 @@
 
 import Vue from '../../../utils/vue'
 import * as Popper from '@popperjs/core'
-import { getCS, select } from '../../../utils/dom'
+import { getCS, select, removeNode } from '../../../utils/dom'
 import { HTMLElement, SVGElement } from '../../../utils/safe-types'
 import { BVTransition } from '../../../utils/bv-transition'
 
 const NAME = 'BVPopper'
 
 const AttachmentMap = {
-  AUTO: 'auto',
-  TOP: 'top',
-  RIGHT: 'right',
-  BOTTOM: 'bottom',
-  LEFT: 'left',
-  TOPLEFT: 'top',
-  TOPRIGHT: 'top',
-  RIGHTTOP: 'right',
-  RIGHTBOTTOM: 'right',
-  BOTTOMLEFT: 'bottom',
-  BOTTOMRIGHT: 'bottom',
-  LEFTTOP: 'left',
-  LEFTBOTTOM: 'left'
+  auto: 'auto',
+  'auto-start': 'auto',
+  'auto-end': 'auto',
+  top: 'top',
+  'top-start': 'top',
+  'top-end': 'top',
+  bottom: 'bottom',
+  'bottom-start': 'bottom',
+  'bottom-end': 'bottom',
+  right: 'right',
+  'right-start': 'right',
+  'right-end': 'right',
+  left: 'left',
+  'left-start': 'left',
+  'left-end': 'left'
 }
 
 const OffsetMap = {
-  AUTO: 0,
-  TOPLEFT: -1,
-  TOP: 0,
-  TOPRIGHT: +1,
-  RIGHTTOP: -1,
-  RIGHT: 0,
-  RIGHTBOTTOM: +1,
-  BOTTOMLEFT: -1,
-  BOTTOM: 0,
-  BOTTOMRIGHT: +1,
-  LEFTTOP: -1,
-  LEFT: 0,
-  LEFTBOTTOM: +1
+  auto: 0,
+  'auto-start': -1,
+  'auto-end': 1,
+  top: 0,
+  'top-start': -1,
+  'top-end': 1,
+  bottom: 0,
+  'bottom-start': -1,
+  'bottom-end': 1,
+  right: 0,
+  'right-start': -1,
+  'right-end': 1,
+  left: 0,
+  'left-start': -1,
+  'left-end': 1
 }
 
 // @vue/component
@@ -100,14 +104,13 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     },
     popperConfig() {
       const placement = this.placement
-      console.log(this.getOffset(placement))
       const updateHandler = {
         name: 'updateHandler',
         enabled: true,
         phase: 'afterWrite',
-        fn: data => {
+        fn: ({ state }) => {
           // Handle flipping arrow classes
-          this.popperPlacementChange(data)
+          this.popperPlacementChange(state)
         }
       }
       return {
@@ -116,7 +119,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
           {
             name: 'offset',
             options: {
-              offset: [this.getOffset(placement), 0]
+              offset: this.calculateOffset
             }
           },
           {
@@ -128,9 +131,8 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
           {
             name: 'arrow',
             options: {
-              // `element` can also be a reference to an HTML Element
-              // Maybe we should make this a `$ref` in the templates
-              element: '.arrow'
+              element: this.getArrow(),
+              padding: this.arrowPadding
             }
           },
           {
@@ -138,6 +140,13 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
             options: {
               padding: this.boundaryPadding,
               rootBoundary: this.boundary
+            }
+          },
+          {
+            name: 'computeStyles',
+            options: {
+              // Needs to be disabled when using transitions
+              adaptive: false
             }
           },
           updateHandler
@@ -174,9 +183,6 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     // as our propsData is added after `new Template({...})`
     this.attachment = this.getAttachment(this.placement)
   },
-  mounted() {
-    // TBD
-  },
   updated() {
     // Update popper if needed
     // TODO: Should this be a watcher on `this.popperConfig` instead?
@@ -187,8 +193,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
   },
   destroyed() {
     // Make sure template is removed from DOM
-    const el = this.$el
-    el && el.parentNode && el.parentNode.removeChild(el)
+    removeNode(this.$el)
   },
   methods: {
     // "Public" method to trigger hide template
@@ -197,27 +202,29 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     },
     // Private
     getAttachment(placement) {
-      return AttachmentMap[String(placement).toUpperCase()] || 'auto'
+      return AttachmentMap[placement] || 'auto'
     },
-    getOffset(placement) {
-      if (this.offset === 0) {
-        // Could set a ref for the arrow element
-        const arrow = this.$refs.arrow || select('.arrow', this.$el)
-        const arrowOffset =
-          (parseFloat(getCS(arrow).width) || 0) + (parseFloat(this.arrowPadding) || 0)
-        switch (OffsetMap[String(placement).toUpperCase()] || 0) {
-          case +1:
-            /* istanbul ignore next: can't test in JSDOM */
-            return `+50%p - ${arrowOffset}px`
-          case -1:
-            /* istanbul ignore next: can't test in JSDOM */
-            return `-50%p + ${arrowOffset}px`
-          default:
-            return 0
-        }
+    getArrow() {
+      return this.$refs.arrow || select('.arrow', this.$el)
+    },
+    calculateOffset({ placement, reference }) {
+      const $arrow = this.getArrow()
+      const arrowStyles = getCS($arrow)
+      const arrowWidth = parseFloat(arrowStyles.width) || 0
+      const arrowHeight = parseFloat(arrowStyles.height) || 0
+      const arrowOffset = arrowWidth + this.arrowPadding
+
+      let skidding = 0
+      const offsetType = OffsetMap[placement] || 0
+      if (offsetType === 1) {
+        skidding = -(reference.width / 2) - arrowOffset
+      } else if (offsetType === -1) {
+        skidding = reference.width / 2 + arrowOffset
       }
-      /* istanbul ignore next */
-      return this.offset
+
+      const distance = this.offset + arrowHeight
+
+      return [skidding, distance]
     },
     popperCreate(el) {
       this.popperDestroy()
@@ -226,19 +233,23 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       this.$_popper = Popper.createPopper(this.target, el, this.popperConfig)
     },
     popperDestroy() {
-      this.$_popper && this.$_popper.destroy()
+      if (this.$_popper) {
+        this.$_popper.destroy()
+      }
       this.$_popper = null
     },
     popperUpdate() {
-      this.$_popper && this.$_popper.update()
+      if (this.$_popper) {
+        this.$_popper.update()
+      }
     },
-    popperPlacementChange(data) {
-      // Callback used by Popper to adjust the arrow placement
-      this.attachment = this.getAttachment(data.placement)
+    // Callback used by Popper to adjust the arrow placement
+    popperPlacementChange({ placement }) {
+      this.attachment = this.getAttachment(placement)
     },
     renderTemplate(h) /* istanbul ignore next */ {
       // Will be overridden by templates
-      return h('div')
+      return h()
     }
   },
   render(h) {

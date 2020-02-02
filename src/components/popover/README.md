@@ -57,7 +57,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-top bs-popover-top-docs">
     <div class="arrow" style="right: 6px"></div>
-    <h3 class="popover-header">Popover topleft</h3>
+    <h3 class="popover-header">Popover top-start</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -65,7 +65,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-top bs-popover-top-docs">
     <div class="arrow" style="left: 6px"></div>
-    <h3 class="popover-header">Popover topright</h3>
+    <h3 class="popover-header">Popover top-end</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -82,7 +82,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-right bs-popover-right-docs">
     <div class="arrow" style="bottom: 4px"></div>
-    <h3 class="popover-header">Popover righttop</h3>
+    <h3 class="popover-header">Popover right-start</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -90,7 +90,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-right bs-popover-right-docs">
     <div class="arrow" style="top: 4px"></div>
-    <h3 class="popover-header">Popover rightbottom</h3>
+    <h3 class="popover-header">Popover right-end</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -107,7 +107,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-bottom bs-popover-bottom-docs">
     <div class="arrow" style="right: 6px"></div>
-    <h3 class="popover-header">Popover bottomleft</h3>
+    <h3 class="popover-header">Popover bottom-start</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -115,7 +115,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-bottom bs-popover-bottom-docs">
     <div class="arrow" style="left: 6px"></div>
-    <h3 class="popover-header">Popover bottomright</h3>
+    <h3 class="popover-header">Popover bottom-end</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -132,7 +132,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-left bs-popover-left-docs">
     <div class="arrow" style="bottom: 4px"></div>
-    <h3 class="popover-header">Popover lefttop</h3>
+    <h3 class="popover-header">Popover left-start</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -140,7 +140,7 @@ Positioning is relative to the trigger element.
   </div>
   <div class="popover bs-popover-left bs-popover-left-docs">
     <div class="arrow" style="top: 4px"></div>
-    <h3 class="popover-header">Popover leftbottom</h3>
+    <h3 class="popover-header">Popover left-end</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
       quam venenatis vestibulum.
@@ -225,18 +225,18 @@ The special `blur` trigger **must** be used in combination with the `click` trig
     data() {
       return {
         placements: [
-          'topright',
           'top',
-          'topleft',
-          'bottomright',
+          'top-start',
+          'top-end',
           'bottom',
-          'bottomleft',
-          'righttop',
+          'bottom-start',
+          'bottom-end',
           'right',
-          'lefttop',
-          'rightbottom',
+          'right-start',
+          'right-end',
           'left',
-          'leftbottom'
+          'left-start',
+          'left-end'
         ]
       }
     }

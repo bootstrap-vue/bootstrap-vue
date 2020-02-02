@@ -52,16 +52,16 @@
       }
 
       &.bs-tooltip-auto {
-        &[x-placement^="top"] {
+        &[data-popper-placement^="top"] {
           @extend .bs-tooltip-top;
         }
-        &[x-placement^="right"] {
+        &[data-popper-placement^="right"] {
           @extend .bs-tooltip-right;
         }
-        &[x-placement^="bottom"] {
+        &[data-popper-placement^="bottom"] {
           @extend .bs-tooltip-bottom;
         }
-        &[x-placement^="left"] {
+        &[data-popper-placement^="left"] {
           @extend .bs-tooltip-left;
         }
       }
