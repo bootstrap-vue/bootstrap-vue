@@ -602,6 +602,8 @@ export const BCalendar = Vue.extend({
           id: idValue,
           for: idGrid,
           role: 'status',
+          // Mainly for testing purposes
+          'date-selected': toString(selectedYMD),
           // We wait until after mount to enable aria-live
           // to prevent initial announcement on page render
           'aria-live': isLive ? 'polite' : 'off',
@@ -610,6 +612,7 @@ export const BCalendar = Vue.extend({
       },
       this.selectedDate
         ? [
+            // We use `bdi` elements here in case the label doesn't match the locale
             h('bdi', { staticClass: 'sr-only' }, `(${toString(this.labelSelected)}) `),
             h('bdi', {}, this.formatDateString(this.selectedDate))
           ]
