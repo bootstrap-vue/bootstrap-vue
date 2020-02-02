@@ -37,7 +37,10 @@ const RTL_LANGS = [
   'yi'
 ]
 
-// Helper meathods
+// Key Codes
+const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
+
+// Helper methods
 
 const lastDateOfMonth = date => {
   date = createDate(date)
@@ -82,7 +85,7 @@ const oneMonthAgo = date => {
   return date
 }
 
-const oneMothAhead = date => {
+const oneMonthAhead = date => {
   date = createDate(date)
   const month = date.getMonth()
   date.setMonth(month + 1)
@@ -394,35 +397,43 @@ export const BCalendar = Vue.extend({
     // disabled states for the nav buttons
     prevYearDisabled() {
       const min = this.computedMin
-      return this.disabled
-        ? true
-        : min
-          ? lastDateOfMonth(oneYearAgo(this.activeDate)) < min
-          : false
+      return (
+        this.disabled
+          ? true
+          : min
+            ? lastDateOfMonth(oneYearAgo(this.activeDate)) < min
+            : false
+      )
     },
     prevMonthDisabled() {
       const min = this.computedMin
-      return this.disabled
-        ? true
-        : min
-          ? lastDateOfMonth(oneMonthAgo(this.activeDate)) < min
-          : false
+      return (
+        this.disabled
+          ? true
+          : min
+            ? lastDateOfMonth(oneMonthAgo(this.activeDate)) < min
+            : false
+      )
     },
     nextMonthDisabled() {
       const max = this.computedMax
-      return this.disabled
-        ? true
-        : max
-          ? firstDateOfMonth(oneMonthAhead(this.activeDate)) > max
-          : false
+      return (
+        this.disabled
+          ? true
+          : max
+            ? firstDateOfMonth(oneMonthAhead(this.activeDate)) > max
+            : false
+      )
     },
     nextYearDisabled() {
       const max = this.computedMax
-      return this.disabled
-        ? true
-        : max
-          ? firstDateOfMonth(oneYearAhead(this.activeDate)) > max
-          : false
+      return (
+        this.disabled
+          ? true
+          : max
+            ? firstDateOfMonth(oneYearAhead(this.activeDate)) > max
+            : false
+      )
     },
     // Calendar generation
     calendar() {
@@ -430,18 +441,16 @@ export const BCalendar = Vue.extend({
       const calendarYear = this.calendarYear
       const calendarMonth = this.calendarMonth
       const firstDay = this.calendarFirstDay
-      const prevMonth = createDate(calendarYear, calendarMonth, 0).getMonth()
-      const nextMonth = createDate(calendarYear, calendarMonth + 1, 1).getMonth()
-      const daysInMonth =  this.calendarDaysInMonth
+      const daysInMonth = this.calendarDaysInMonth
       const startIndex = firstDay.getDay() // 0..6
       const weekOffset = (this.computedWeekStarts > startIndex ? 7 : 0) - this.computedWeekStarts
       // Build the clendar matrix
       let currentDay = 0 - weekOffset - startIndex
-	  	for (let week = 0; week < 6 && currentDay < daysInMonth; week++) {
-	    	// for each week
-	    	matrix[week] = []
-				// The following could be a map funtion
-				for (let j = 0; j < 7; j++) {
+      for (let week = 0; week < 6 && currentDay < daysInMonth; week++) {
+        // for each week
+        matrix[week] = []
+        // The following could be a map funtion
+        for (let j = 0; j < 7; j++) {
           // for each day in week
           currentDay++
           const date = createDate(calendarYear, calendarMonth, currentDay)
@@ -455,10 +464,10 @@ export const BCalendar = Vue.extend({
             label: this.formatDateString(date),
             // Flags for styling
             isThisMonth: month === calendarMonth,
-            isDisabled: this.dateDisabled(date),
+            isDisabled: this.dateDisabled(date)
           })
         }
-	  	}
+      }
       return matrix
     },
     calendarHeadings() {
@@ -483,7 +492,7 @@ export const BCalendar = Vue.extend({
     },
     selectedYMD(newYMD, oldYMD) {
       this.$emit('input', this.valueAsDate ? parseYMD(newYMD) : newYMD)
-    },
+    }
   },
   mounted() {
     this.$nextTick(() => {
@@ -493,23 +502,112 @@ export const BCalendar = Vue.extend({
     })
   },
   methods: {
+    // Public method(s)
+    focus() {
+      this.focusGrid()
+    },
+    // Private methods
     getToday() {
       return parseYMD(createDate())
+    },
+    focusGrid() {
+      if (!this.disabled) {
+        try {
+          this.$refs.grid.focus()
+        } catch {}
+      }
     },
     // Event handlers
     setGridFocusFlag(evt) {
       // Sets the gridHasFocus flag to make date "button" look focused
-      // this.gridHasFocus = !this.disabled && evt.type === 'focus'
+      this.gridHasFocus = !this.disabled && evt.type === 'focus'
     },
     onKeydownWrapper(evt) {
-      // TBD
+      // Calendar keyboard navigation
+      // Handles PgUp/PgDown/Home/End/Up/Down/Left/Right
+      // Focuses grid after updating
+      const keyCode = evt.keyCode
+      const altKey = evt.altKey
+      if (!arrayIncludes([PAGEUP, PAGEDOWN, END, HOME, LEFT, UP, RIGHT, DOWN], keyCode)) {
+        return
+      }
+      evt.preventDefault()
+      evt.stopPropagation()
+      let activeDate = createDate(this.activeDate)
+      let checkDate = createDate(this.activeDate)
+      const day = activeDate.getDate()
+      const month = activeDate.getMonth()
+      const isRTL = this.isRTL
+      if (keyCode === PAGEUP) {
+        // page up (previous month/year)
+        activeDate = (altKey ? oneYearAgo : oneMonthAgo)(activeDate)
+        // We check the first day of month to be in rage
+        checkDate = createDate(activeDate)
+        checkDate.setDate(1)
+      } else if (keyCode === PAGEDOWN) {
+        // page down (next month/year)
+        activeDate = (altKey ? oneYearAgo : oneMonthAhead)(activeDate)
+        // We check the last day of month to be in rage
+        checkDate = createDate(activeDate)
+        checkDate.setMonth(checkDate.getMonth() + 1)
+        checkDate.setDate(0)
+      } else if (keyCode === LEFT) {
+        // left (previous day - or next day for RTL)
+        activeDate.setDate(day + (isRTL ? 1 : -1))
+        checkDate = activeDate
+      } else if (keyCode === RIGHT) {
+        // right (next day - or previous day for RTL)
+        activeDate.setDate(day + (isRTL ? -1 : 1))
+        checkDate = activeDate
+      } else if (keyCode === UP) {
+        // Up (previous week)
+        activeDate.setDate(day - 7)
+        checkDate = activeDate
+      } else if (keyCode === DOWN) {
+        // Down (next week)
+        activeDate.setDate(day + 7)
+        checkDate = activeDate
+      } else if (keyCode === HOME) {
+        // Home (today)
+        activeDate = this.getToday()
+        checkDate = activeDate
+      } else if (keyCode === END) {
+        // End (selected date or today)
+        activeDate = createDate(this.selectedDate || this.getToday())
+        checkDate = activeDate
+      }
+      if (this.dateInRange(checkDate) && !datesEqual(activeDate, this.activeDate) {
+        // We only jump to date if within min/max
+        // We don't check for individual disabled dates though (via user function)
+        this.activeDate = activeDate
+      }
+      this.focusGrid()
     },
     onKeydownGrid(evt) {
-      // TBD
+      // Pressing enter/space on date to select it
+      const keyCode = evt.keyCode
+      const activeDate = this.activeDate
+      if (
+        (keyCode === ENTER || keyCode === SPACE) &&
+        !this.dateDisabled(activeDate)
+      ) {
+        evt.preventDefault()
+        evt.stopPropagation()
+        this.selectedDate = createDate(activeDate)
+        this.focusGrid()
+      }
     },
     onClickDay(day) {
-      if (!day.isDisabled && !this.disabled) {
-        this.selectedDay = createDate(day.dateObj)
+      // Clicking on a date "button" to select it
+      const date = createDate(day.dateObj)
+      if (
+        !this.disabled &&
+        !day.isDisabled &&
+        !this.dateDisabled(date) &&
+        !datesEqual(date, this.selectedDate)
+      ) {
+        this.selectedDate = createDate(day.dateObj)
+        this.focusGrid()
       }
     }
   },
@@ -676,7 +774,7 @@ export const BCalendar = Vue.extend({
               // Today day style (if not selected), same variant color as selected date
               'btn-outline-primary': isToday && !isSelected && !isActive,
               // Non selected/today styling
-              'btn-outline-light':  !isToday && !isSelected && !isActive,
+              'btn-outline-light': !isToday && !isSelected && !isActive,
               // Text styling
               'text-muted': !day.isThisMonth && !isSelected,
               'text-dark': !isToday && !isActive && day.isThisMonth && !day.isDisabled,
@@ -690,6 +788,11 @@ export const BCalendar = Vue.extend({
               fonstSize: '14px',
               lineHeight: 1,
               margin: '3px auto'
+            },
+            on: {
+              click: () => {
+                this.onClickDay(day)
+              }
             }
           },
           day.day
@@ -720,17 +823,11 @@ export const BCalendar = Vue.extend({
               // so we set both attribues for robustness
               'aria-selected': isSelected ? 'true' : null,
               'aria-current': isActive ? 'date' : null
-            },
-            // The enter/space click handler on grid needs to check if the day is disabled also
-            on: {
-              click: () => {
-                this.onDayClick(day)
-              }
             }
           },
           [$btn]
         )
-      })
+      }),
       return h('div', { key: wIndex , staticClass: 'row no-gutters' }, $cells)
     })
     $gridBody = h('div', {}, $gridBody)
