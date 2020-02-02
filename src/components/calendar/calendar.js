@@ -242,8 +242,8 @@ export const BCalendar = Vue.extend({
         // Ensure the locale requests the gregorian calendar
         // Mainly for IE 11
         locale = locale.replace(/-u-.+$/, '').concat('-u-ca-gregory')
-        fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: 'gregory' })
-        locale = fmt.resolvedOptions().locale.toLowerCase()
+        // fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: 'gregory' })
+        // locale = fmt.resolvedOptions().locale.toLowerCase()
       }
       return locale
     },
