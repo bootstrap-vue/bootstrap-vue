@@ -576,7 +576,7 @@ export const BCalendar = Vue.extend({
         activeDate = createDate(this.selectedDate || this.getToday())
         checkDate = activeDate
       }
-      if (this.dateInRange(checkDate) && !datesEqual(activeDate, this.activeDate) {
+      if (this.dateInRange(checkDate) && !datesEqual(activeDate, this.activeDate)) {
         // We only jump to date if within min/max
         // We don't check for individual disabled dates though (via user function)
         this.activeDate = activeDate
