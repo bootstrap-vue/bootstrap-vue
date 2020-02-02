@@ -312,7 +312,7 @@ export const BCalendar = Vue.extend({
       // Check weather a date is within the min/max range
       // returns a new function ref if the pops change
       // We do this as we need to trigger the calendar computed prop
-      // to update
+      // to update when these props update
       const min = this.computedMin
       const max = this.computedMax
       return date => {
@@ -325,9 +325,7 @@ export const BCalendar = Vue.extend({
       // We grab thes variables first to ensure a new
       // function ref is gnerated when the props change
       // We do this as we need to trigger the calendar computed prop
-      // to update
-      const min = this.computedMin
-      const max = this.computedMax
+      // to update when these props update
       const rangeFn = this.dateOutOfRange
       const userFn = isFunction(this.allowedDates) ? this.allowedDates : () => true
       // return the function ref
@@ -366,7 +364,7 @@ export const BCalendar = Vue.extend({
     formatDay() {
       return createDateFormatter(this.computedLocale, { day: 'numeric', calendar: 'gregory' })
     },
-    // disabled states for the nav buttons
+    // Disabled states for the nav buttons
     prevYearDisabled() {
       const min = this.computedMin
       return this.disabled ? true : min && lastDateOfMonth(oneYearAgo(this.activeDate)) < min
@@ -374,12 +372,10 @@ export const BCalendar = Vue.extend({
     prevMonthDisabled() {
       const min = this.computedMin
       return this.disabled ? true : min && lastDateOfMonth(oneMonthAgo(this.activeDate)) < min
-      )
     },
     nextMonthDisabled() {
       const max = this.computedMax
       return this.disabled ? true : max && firstDateOfMonth(oneMonthAhead(this.activeDate)) > max
-      )
     },
     nextYearDisabled() {
       const max = this.computedMax
