@@ -762,7 +762,7 @@ export const BCalendar = Vue.extend({
               // Selected date style (need to computed from variant)
               [this.selectedVariant]: isSelected,
               // Today day style (if not selected), same variant color as selected date
-              [this.todayVariant]: isToday && !isSelected && !isActive,
+              [this.todayVariant]: isToday && !isSelected && day.isThisMonth, // && !isActive,
               // Non selected/today styling
               'btn-outline-light': !isToday && !isSelected && !isActive,
               // Text styling
