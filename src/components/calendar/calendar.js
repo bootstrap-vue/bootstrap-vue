@@ -108,6 +108,11 @@ export const BCalendar = Vue.extend({
       type: String,
       default: 'primary'
     },
+    todayVariant: {
+      // Variant color to use for today's date (defaults to `vairant`)
+      type: String,
+      default: null
+    },
     width: {
       // Has no effect if prop `block` is set
       type: String,
@@ -264,7 +269,7 @@ export const BCalendar = Vue.extend({
       return `btn-${this.variant || 'primary'}`
     },
     todayVariant() {
-      return `btn-outline-${this.variant || 'primary'}`
+      return `btn-outline-${this.todayVariant || this.variant || 'primary'}`
     },
     isRTL() {
       // `true` if the language requested is RTL
