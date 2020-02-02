@@ -5,7 +5,7 @@
 > date picker inputs.
 
 `<b-calendar>` is WAI-ARIA accessibility compliant, optimized for keyboard control (arrow, page
-up/down, and home keys). Internationalization is also supported, and default's to the browser's or
+up/down, home, and end keys). Internationalization is also supported, and default's to the browser's or
 page's locale, if no locale(s) are specified.
 
 ```html
