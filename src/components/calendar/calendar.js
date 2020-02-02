@@ -476,7 +476,7 @@ export const BCalendar = Vue.extend({
         } catch {}
       }
     },
-    constrainDate(date) {
+    constrainDate(date) /* istanbul ignore next: until tests are ready */ {
       // Constrains a date between min and max
       // returns a new date instance
       date = parseYMD(date)
