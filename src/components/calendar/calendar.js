@@ -153,9 +153,9 @@ export const BCalendar = Vue.extend({
       type: String,
       default: 'Previous month'
     },
-    labelThisMonth: {
+    labelCurrentMonth: {
       type: String,
-      default: 'This month'
+      default: 'Current month'
     },
     labelNextMonth: {
       type: String,
@@ -563,7 +563,7 @@ export const BCalendar = Vue.extend({
     gotoPrevMonth(evt) /* istanbul ignore next: until tests are ready */ {
       this.activeDate = oneMonthAgo(this.activeDate)
     },
-    gotoThisMonth(evt) /* istanbul ignore next: until tests are ready */ {
+    gotoCurrentMonth(evt) /* istanbul ignore next: until tests are ready */ {
       this.activeDate = this.getToday()
     },
     gotoNextMonth(evt) /* istanbul ignore next: until tests are ready */ {
@@ -688,8 +688,8 @@ export const BCalendar = Vue.extend({
         ),
         makeNavBtn(
           $thisMonthIcon,
-          this.labelThisMonth,
-          this.gotoThisMonth,
+          this.labelCurrentMonth,
+          this.gotoCurrentMonth,
           this.thisMonthDisabled,
           'Home'
         ),
