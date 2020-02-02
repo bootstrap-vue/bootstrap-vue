@@ -6,10 +6,10 @@
 ```html
 <template>
   <b-row>
-    <b-col md="6">
+    <b-col md="auto">
       <b-calendar v-model="value" @context="onContext"></b-calendar>
     </b-col>
-    <b-col md="6">
+    <b-col>
       <p>Value: <b>{{ value }}</b></p>
       <pre>{{ context }}</pre>
     </b-col>
