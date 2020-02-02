@@ -749,7 +749,7 @@ export const BCalendar = Vue.extend({
     )
 
     // Calendar day grid
-    let $gridBody = this.calendar.map((week, wIndex) => {
+    let $gridBody = this.calendar.map(week => {
       const $cells = week.map((day, dIndex) => {
         const isSelected = day.ymd === selectedYMD
         const isActive = day.ymd === activeYMD
@@ -825,8 +825,10 @@ export const BCalendar = Vue.extend({
           [$btn]
         )
       })
-      // Return the week row
-      return h('div', { key: wIndex, staticClass: 'row no-gutters' }, $cells)
+      // Return the week "row"
+      // We use the first day of hte weeks YMD value as a
+      // key for efficienct DOM patching / element re-use
+      return h('div', { key: week[0].ymd, staticClass: 'row no-gutters' }, $cells)
     })
     $gridBody = h('div', { style: this.disabled ? { pointerEvents: 'none' } : {} }, $gridBody)
 
