@@ -789,6 +789,7 @@ export const BCalendar = Vue.extend({
               lineHeight: 1,
               margin: '3px auto'
             },
+            attrs: { tabindex: '-1' },
             on: {
               click: () => {
                 this.onClickDay(day)
@@ -798,7 +799,7 @@ export const BCalendar = Vue.extend({
           day.day
         )
         return h(
-          'div', // cell
+          'div', // cell with button
           {
             key: dIndex,
             staticClass: 'col p-0',
@@ -827,7 +828,8 @@ export const BCalendar = Vue.extend({
           },
           [$btn]
         )
-      }),
+      })
+      // Return the week row
       return h('div', { key: wIndex , staticClass: 'row no-gutters' }, $cells)
     })
     $gridBody = h('div', {}, $gridBody)
