@@ -512,6 +512,7 @@ export const BCalendar = Vue.extend({
     const todayYMD = formatYMD(this.getToday())
     const selectedYMD = this.selectedYMD
     const activeYMD = this.activeYMD
+    const safeId = this.safeId
 
     /* istanbul ignore if */
     if (this.hidden) {
@@ -524,8 +525,8 @@ export const BCalendar = Vue.extend({
       {
         staticClass: 'd-block text-center rounded border p-1 mb-1',
         attrs: {
-          id: this.safeId('current-value'),
-          for: this.safeId('calendar-grid'),
+          id: safeId('current-value'),
+          for: safeId('calendar-grid'),
           role: 'status',
           // We wait until after mount to enable aria-live
           // to prevent initial announcement on page render
@@ -579,9 +580,10 @@ export const BCalendar = Vue.extend({
       {
         staticClass: 'd-flex mx-n1 mb-1',
         attrs: {
+          id: safeId('_calendar-nav_'),
           role: 'group',
           'aria-label': this.labelNav || null,
-          'aria-controls': this.safeId('_calendar-grid_')
+          'aria-controls': safeId('_calendar-grid_')
         }
       },
       [
@@ -630,7 +632,7 @@ export const BCalendar = Vue.extend({
         key: 'grid-caption',
         staticClass: 'text-center font-weight-bold p-0 m-0',
         attrs: {
-          id: this.safeId('_calendar-grid-caption_'),
+          id: safeId('_calendar-grid-caption_'),
           'aria-live': this.mounted ? 'polite' : null,
           'aria-atomic': this.mounted ? 'true' : null
         }
@@ -704,7 +706,7 @@ export const BCalendar = Vue.extend({
             // This is done in the calendar generator computed prop
             class: { 'bg-light': day.isDisabled },
             attrs: {
-              id: this.safeId(`_cell-${day.ymd}_`),
+              id: safeId(`_cell-${day.ymd}_`),
               role: 'button',
               'data-date': day.ymd, // primarily for testing purposes
               // Only days in the month are presented as buttons to screen readers
@@ -736,7 +738,7 @@ export const BCalendar = Vue.extend({
       'footer',
       {
         staticClass: 'border-top small text-muted text-center bg-light',
-        attrs: { id: this.safeId('_calendar-help_') }
+        attrs: { id: safeId('_calendar-help_') }
       },
       [h('div', { staticClass: 'small' }, this.labelHelp)]
     )
@@ -746,15 +748,15 @@ export const BCalendar = Vue.extend({
       {
         staticClass: 'form-control h-auto text-center p-0 mb-1',
         attrs: {
-          id: this.safeId('_calendar-grid_'),
+          id: safeId('_calendar-grid_'),
           role: 'application',
           tabindex: this.disabled ? null : '0',
           'aria-roledescription': this.labelCalendar || null,
-          'aria-labelledby': this.safeId('_calendar-grid-caption_'),
-          'aria-describedby': this.safeId('_calendar-help_'),
+          'aria-labelledby': safeId('_calendar-grid-caption_'),
+          'aria-describedby': safeId('_calendar-help_'),
           'aria-readonly': this.readonly && !this.disabled ? 'true' : null,
           'aria-disabled': this.disabled ? 'true' : null,
-          'aria-activedescendant': this.safeId(`_cell-${activeYMD}_`)
+          'aria-activedescendant': safeId(`_cell-${activeYMD}_`)
         },
         on: {
           keydown: this.onKeydownGrid,
@@ -774,7 +776,7 @@ export const BCalendar = Vue.extend({
         class: this.block ? 'd-block' : 'd-inline-block',
         style: this.block ? {} : { width: this.width },
         attrs: {
-          id: this.safeId(),
+          id: safeId(),
           dir: isRTL ? 'rtl' : 'ltr',
           lang: this.computedLocale || null,
           role: 'group',
@@ -788,8 +790,8 @@ export const BCalendar = Vue.extend({
             // Should the attr (if present) go last?
             // or should this attr be a prop?
             this.$attrs['aria-describedby'],
-            this.safeId('_current-value_'),
-            this.safeId('_calendar-help_')
+            safeId('_current-value_'),
+            safeId('_calendar-help_')
           ]
             .filter(identity)
             .join(' ')
