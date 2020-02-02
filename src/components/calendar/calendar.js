@@ -712,7 +712,9 @@ export const BCalendar = Vue.extend({
                 day.label,
                 isSelected ? `(${this.labelSelected})` : null,
                 isToday ? `(${this.labelToday})` : null
-              ].filter(identity).join(' ')
+              ]
+                .filter(identity)
+                .join(' '),
               // NVDA doesn't convey aria-selected, but does aria-current,
               // Chromevox doesn't convey aria-current, but does aria-selected,
               // so we set both attribues for robustness
@@ -750,8 +752,7 @@ export const BCalendar = Vue.extend({
           id: this.safeId('_calendar-grid_'),
           role: 'application',
           tabindex: this.disabled ? null : '0',
-          // This should be a translatable prop
-          'aria-roledescription': 'Calendar',
+          'aria-roledescription': this.labelCalendar || null,
           'aria-labelledby': this.safeId('_calendar-grid-caption_'),
           'aria-describedby': this.safeId('_calendar-help_'),
           'aria-readonly': this.readonly && !this.disabled ? 'true' : null,
