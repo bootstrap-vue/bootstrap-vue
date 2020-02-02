@@ -2,6 +2,9 @@
 
 > BootstrapVue's custom `<b-calendar>` component generates a calendar style date selection widget
 > which can be used to control other components, or can be used to create custom date picker inputs.
+> `<b-calendar>` is WAI-ARIA accessibility compliant.
+
+The calendar is optimized for keyboard control (arrow, page up/down, and home keys).
 
 ```html
 <template>
@@ -70,7 +73,11 @@ TBD
 
 TBD
 
-## Internationalization (i18n)
+## Internationalization
+
+TBD
+
+## Accessibility
 
 TBD
 
