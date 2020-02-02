@@ -124,6 +124,8 @@ export const BCalendar = Vue.extend({
     hidden: {
       // When true, renders a comment node, but
       // keeps the component instance active
+      // Mainly for b-form-date, so that we can get the component's value
+      // We may not need this....
       type: Boolean,
       default: false
     },
@@ -194,7 +196,7 @@ export const BCalendar = Vue.extend({
       gridHasFocus: false,
       // Flag to enable the aria-live region(s) after mount
       // to prevent screen reader outbursts when mounting
-      mounted: false
+      isLive: false
     }
   },
   computed: {
@@ -392,14 +394,28 @@ export const BCalendar = Vue.extend({
     },
     selectedYMD(newYMD, oldYMD) {
       this.$emit('input', this.valueAsDate ? parseYMD(newYMD) : newYMD)
+    },
+    hidden(newVal, oldVal) {
+      if (!newVal) {
+        this.isLive = false
+      } else {
+        this.$nextTick(() => {
+          requestAF(() => {
+            this.isLive = true
+          })
+        })
+      }
     }
   },
   mounted() {
     this.$nextTick(() => {
       requestAF(() => {
-        this.mounted = true
+        this.isLive = true
       })
     })
+  },
+  beforeDetroy() {
+    this.isLive = false
   },
   methods: {
     // Public method(s)
@@ -518,6 +534,8 @@ export const BCalendar = Vue.extend({
     const selectedYMD = this.selectedYMD
     const activeYMD = this.activeYMD
     const safeId = this.safeId
+    // Flag for making hte aria-live reagions live
+    const isLive = this.isLive
     // Pre-compute some IDs
     const id = safeId()
     const idValue = safeId('_calendar-value_')
@@ -525,7 +543,7 @@ export const BCalendar = Vue.extend({
     const idGrid = safeId('_calendar-grid_')
     const idGridCaption = safeId('_calendar-grid-caption_')
     const idGridHelp = safeId('_calendar-grid-help_')
-    const idActive = safeId(`_cell-${activeYMD}_`)
+    const idActive = activeYMD ? safeId(`_cell-${activeYMD}_`) : null
 
     // Header showing current selected date
     let $header = h(
@@ -538,8 +556,8 @@ export const BCalendar = Vue.extend({
           role: 'status',
           // We wait until after mount to enable aria-live
           // to prevent initial announcement on page render
-          'aria-live': this.mounted ? 'polite' : 'off',
-          'aria-atomic': this.mounted ? 'true' : null
+          'aria-live': isLive ? 'polite' : 'off',
+          'aria-atomic': isLive ? 'true' : null
         }
       },
       this.selectedDate
@@ -641,8 +659,8 @@ export const BCalendar = Vue.extend({
         staticClass: 'text-center font-weight-bold p-0 m-0',
         attrs: {
           id: idGridCaption,
-          'aria-live': this.mounted ? 'polite' : null,
-          'aria-atomic': this.mounted ? 'true' : null
+          'aria-live': isLive ? 'polite' : null,
+          'aria-atomic': isLive ? 'true' : null
         }
       },
       this.formatYearMonth(this.calendarFirstDay)
