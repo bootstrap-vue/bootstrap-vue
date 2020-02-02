@@ -169,6 +169,10 @@ export const BCalendar = Vue.extend({
       type: String,
       default: 'Selected date'
     },
+    labelNoDateSelected: {
+      type: String,
+      default: 'No date selected'
+    },
     labelCalendar: {
       type: String,
       default: 'Calendar'
@@ -529,7 +533,9 @@ export const BCalendar = Vue.extend({
           'aria-atomic': this.mounted ? 'true' : null
         }
       },
-      this.selectedDate ? this.formatDateString(this.selectedDate) : '\u00a0'
+      this.selectedDate
+        ? this.formatDateString(this.selectedDate)
+        : this.labelNoDateSelected || '\u00a0' // '&nbsp;'
     )
     $header = h('header', { staticClass: 'mb-1', class: this.hideHeader ? 'sr-only' : null }, [
       $header
@@ -677,7 +683,8 @@ export const BCalendar = Vue.extend({
               height: '32px',
               fonstSize: '14px',
               lineHeight: 1,
-              margin: '3px auto'
+              margin: '3px auto',
+              padding: '9px 0;
             },
             attrs: { tabindex: '-1' },
             on: {
