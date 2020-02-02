@@ -55,16 +55,16 @@ export const datesEqual = (date1, date2) => {
 
 // --- Date "math" for calendar component mainly ---
 
+export const firstDateOfMonth = date => {
+  date = createDate(date)
+  date.setDate(1)
+  return date
+}
+
 export const lastDateOfMonth = date => {
   date = createDate(date)
   date.setMonth(date.getMonth() + 1)
   date.setDate(0)
-  return date
-}
-
-export const firstDateOfMonth = date => {
-  date = createDate(date)
-  date.setDate(1)
   return date
 }
 
