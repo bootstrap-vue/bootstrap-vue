@@ -181,19 +181,22 @@ format of `YYYY-MM-DD` or a `Date` object.
 ```html
 <template>
   <div>
-    <b-calendar v-model="value" :min="min" : max="max" locale="en"></b-calendar>
+    <b-calendar v-model="value" :min="min" :max="max" locale="en"></b-calendar>
   </div>
 </template>
 
 <script>
   export default {
-    const now = new Date()
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    const minDate = new Date(today)
-    minDate.setMonth(min.getMonth() - 2)
-    const maxDate = new Date(today)
-    maxDate.setMonth(min.getMonth() + 2)
     data() {
+      const now = new Date()
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      const minDate = new Date(today)
+      minDate.setMonth(minDate.getMonth() - 2)
+      minDate.setDate(15)
+      const maxDate = new Date(today)
+      maxDate.setMonth(maxDate.getMonth() + 2)
+      maxDate.setDate(15)
+  
       return {
         value: '',
         min: minDate,
