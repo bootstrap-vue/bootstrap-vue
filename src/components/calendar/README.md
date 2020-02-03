@@ -506,7 +506,7 @@ Keyboard navigation:
 - <kbd>ArrowUp</kbd> moves to the same day in the previous week
 - <kbd>ArrowDown</kbd> moves to the same day in the next week
 - <kbd>PageUp</kbd> moves to the same day in the previous month
-- <kbd>PageDwn</kbd> moves to the same day in the next month
+- <kbd>PageDown</kbd> moves to the same day in the next month
 - <kbd>Alt</kbd>+<kbd>PageUp</kbd> moves to the same day and month in the previous year
 - <kbd>Alt</kbd>+<kbd>PageDown</kbd> moves to the same day and month in the next year
 - <kbd>Home</kbd> moves to the current selected date, or today if no selected date
