@@ -308,7 +308,29 @@ the same locale as requested, depending on the supported locales of `Intl`).
 
 ## Accessibility
 
-TBD
+`<b-calendar>` provides many accessibility features, such as `aria-live` regions, labeling, and
+full keyboard navigation.
+
+Keyboard navigation:
+
+- <kbd>ArrowLeft</kbd> moves to the previous day (or next day in RTL mode)
+- <kbd>ArrowRight</kbd> moves to the next day (or previous day in RTL mode)
+- <kbd>ArrowUp</kbd> moves to the same day in the previous week
+- <kbd>ArrowDown</kbd> moves to the same day in the next week
+- <kbd>PageUp</kbd> moves to the same day in the previous month
+- <kbd>PageDwn</kbd> moves to the same day in the next month
+- <kbd>Alt</kbd>+<kbd>PageUp</kbd> moves to the same day and month in the previous year
+- <kbd>Alt</kbd>+<kbd>PageDown</kbd> moves to the same day and month in the next year
+- <kbd>Home</kbd> moves to the current selected date, or today if no selected date
+- <kbd>End</kbd> moves to today
+- <kbd>Enter</kbd> or <kbd>Space</kbd> Selectes the currently highligted (focused) day
+
+When internationalizing the datepicker, it is important to also update the `label-*` props with
+apropriate translated strings, so that international screen reader users will hear the correct
+prompts.
+
+The features and styling of `<b-calendar>` are intentianally kept minimalistic in order to provide
+the best possible accessibility to _all_ users.
 
 ## See also
 
