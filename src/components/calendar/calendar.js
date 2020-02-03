@@ -25,8 +25,14 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIconChevronLeft, BIconCircleFill } from '../../icons/icons'
 import { BIconstack } from '../../icons/iconstack'
 
+// --- Constants ---
+
 const NAME = 'BFormCalendar'
 
+// Key Codes
+const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
+
+// Languages that are RTL
 const RTL_LANGS = [
   'ar',
   'az',
@@ -42,10 +48,22 @@ const RTL_LANGS = [
   'ug',
   'ur',
   'yi'
-]
+].map(locale => locale.toLowerCase())
 
-// Key Codes
-const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
+// --- Helper utiltiies ---
+
+export const isLocaleRTL = locale => {
+  // Determines if the locale is RTL (only single locale supported)
+  const parts = toString(locale)
+    .toLowerCase()
+    .replace(/-u-.+/, '')
+    .split('-')
+  const locale1 = parts.slice(0, 2).join('-')
+  const locale2 = parts[0]
+  return arrayIncludes(RTL_LANGS, locale1) || arrayIncludes(RTL_LANGS, locale2)
+}
+
+// --- BCalendar component ---
 
 // @vue/component
 export const BCalendar = Vue.extend({
@@ -202,7 +220,9 @@ export const BCalendar = Vue.extend({
     const active = selected || this.getToday()
     return {
       // Selected date as a date object
-      // TODO: change to YYYY-MM-DD format
+      // TODO:
+      //   Change to YYYY-MM-DD format so that updating the
+      //   values with the same date will not trigger a re-render
       selectedDate: selected,
       // Date in calendar grid that has tabindex of 0
       // TODO: change to YYYY-MM-DD format
@@ -215,6 +235,7 @@ export const BCalendar = Vue.extend({
     }
   },
   computed: {
+    // TODO: use computed props to convert YYYY-MM-DD to Date object
     selectedYMD() {
       return formatYMD(this.selectedDate)
     },
@@ -287,13 +308,7 @@ export const BCalendar = Vue.extend({
         /* istanbul ignore next */
         return false
       }
-      const parts = this.computedLocale
-        .toLowerCase()
-        .replace(/-u-.+/, '')
-        .split('-')
-      const locale1 = parts.slice(0, 2).join('-')
-      const locale2 = parts[0]
-      return arrayIncludes(RTL_LANGS, locale1) || arrayIncludes(RTL_LANGS, locale2)
+      return isLocaleRTL(this.computedLocale)
     },
     context() {
       return {
