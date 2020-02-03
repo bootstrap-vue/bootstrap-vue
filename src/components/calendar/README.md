@@ -174,13 +174,13 @@ format of `YYYY-MM-DD` or a date object.
 
 ### Disabled dates
 
-IF you need to disabled specific dates within the calendar, specify a function reference to the
+If you need to disabled specific dates within the calendar, specify a function reference to the
 `allowed-dates` prop.  The function is passed two arguments:
 
 - `ymd` The date as a `YYYY-MM-DD` string
 - `date` The date as a date object
 
-the function should either return `true` if the date is selectable (enabled), or `false` if the date
+The function should either return `true` if the date is selectable (enabled), or `false` if the date
 cannot be selected (disabled). Note that the function **cannot** be asynchronous, and should return a
 value as quickly as possible.
 
@@ -197,10 +197,10 @@ If the `disabled` or `readonly` props are set, the `'input'` event will **not** 
 
 ### `context` event
 
-The `'context'` event is emited whenever a user selects a date, or the user navigates the calendar
+The `'context'` event is emitted whenever a user selects a date, or the user navigates the calendar
 (either via cursor keys, page up/down keys, home or end keys, or uses the calendar navigation
 buttons). It will also be emitted when the component is created (just before insertion into the DOM),
-or when the resolved locale is changed.
+or when the resolved locale has changed.
 
 When the `readonly` prop is set, the event will still be emitted when the user navigates the calendar.
 It will not be emitted when the `disabled` prop is set (except for the initial emit when the calendar
