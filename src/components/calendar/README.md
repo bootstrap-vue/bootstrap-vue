@@ -174,8 +174,9 @@ arguments:
 The function can return a string, or an array of strings. If setting no classes, you can return an
 empty string (`''`), empty array (`[]`), or `null`.
 
-In this example we are using the `table-{variant}` classes to set a background color on the date
-cell.
+In this example we are using the `table-{variant}` color classes to set a background color on the
+date cell. The `table-{variant}` color classes work well as they are muted versions of the theme
+colors.
 
 ```html
 <template>
