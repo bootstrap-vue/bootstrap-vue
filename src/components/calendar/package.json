@@ -6,6 +6,7 @@
     "slug": "calendar",
     "version": "2.5.0",
     "new": true,
+    "beta": true,
     "description": "Calendar widget for selecting dates and controlling other components.",
     "components": [
       {
