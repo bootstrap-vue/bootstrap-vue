@@ -60,7 +60,7 @@ TBD
 Refer to the [`<b-calendar>`](/docs/components/calendar#internationalization) documentation for
 additional details.
 
-## Accesibility
+## Accessibility
 
 TBD
 
