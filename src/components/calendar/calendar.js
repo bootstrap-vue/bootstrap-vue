@@ -21,6 +21,7 @@ import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
 import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIconChevronLeft, BIconCircleFill } from '../../icons/icons'
 import { BIconstack } from '../../icons/iconstack'
 
@@ -49,7 +50,7 @@ const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = Key
 // @vue/component
 export const BCalendar = Vue.extend({
   name: NAME,
-  mixins: [idMixin],
+  mixins: [idMixin, normalizeSlotMixin],
   model: {
     // Even though this is the default that Vue assumes, we need
     // to add it for the docs to reflect that this is the model
@@ -895,7 +896,9 @@ export const BCalendar = Vue.extend({
       [$gridCaption, $gridWeekDays, $gridBody, $gridHelp]
     )
 
-    const $slot = h()
+    // Optional bottom slot
+    let $slot = this.normalizeSlot('default')
+    $slot = $slot ? h('div', { staticClass: 'mb-1' }, $slot) : h()
 
     return h(
       'div',
