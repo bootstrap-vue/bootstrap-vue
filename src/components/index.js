@@ -14,13 +14,14 @@ import { CollapsePlugin } from './collapse'
 import { DropdownPlugin } from './dropdown'
 import { EmbedPlugin } from './embed'
 import { FormPlugin } from './form'
-import { FormGroupPlugin } from './form-group'
 import { FormCheckboxPlugin } from './form-checkbox'
+import { FormDatePlugin } from './form-date'
+import { FormFilePlugin } from './form-file'
+import { FormInputPlugin } from './form-input'
+import { FormGroupPlugin } from './form-group'
 import { FormRadioPlugin } from './form-radio'
 import { FormTagsPlugin } from './form-tags'
-import { FormInputPlugin } from './form-input'
 import { FormTextareaPlugin } from './form-textarea'
-import { FormFilePlugin } from './form-file'
 import { FormSelectPlugin } from './form-select'
 import { ImagePlugin } from './image'
 import { InputGroupPlugin } from './input-group'
@@ -59,13 +60,14 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     DropdownPlugin,
     EmbedPlugin,
     FormPlugin,
-    FormGroupPlugin,
+    FormDatePlugin,
     FormCheckboxPlugin,
-    FormRadioPlugin,
+    FormFilePlugin,
+    FormGroupPlugin,
     FormInputPlugin,
+    FormRadioPlugin,
     FormTagsPlugin,
     FormTextareaPlugin,
-    FormFilePlugin,
     FormSelectPlugin,
     ImagePlugin,
     InputGroupPlugin,
