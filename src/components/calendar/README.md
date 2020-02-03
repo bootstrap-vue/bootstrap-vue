@@ -205,6 +205,15 @@ cell.
 
 Note the function will _not_ be called for [disabled dates](#date-constraints).
 
+**Accessibility note:**
+
+When using classes to convey specific meaning to a date, you should include additional context
+outside of the calendar (or via the default slot) as to the dates being highligted (such as in an
+`aria-live` region), specifically for screen reader users.
+
+BootstrapVue may, in the future, add in a feature to add in screen-reader friendly text note on
+the highligted date.
+
 ## `v-model` return value
 
 By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD`. You can have
