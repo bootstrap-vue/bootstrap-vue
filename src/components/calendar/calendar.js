@@ -247,12 +247,12 @@ export const BCalendar = Vue.extend({
       // and IE11 (and some other browsers) do not support the `calendar` option
       const fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: 'gregory' })
       const calendar = fmt.resolvedOptions().calendar
-      let locale = fmt.resolvedOptions().locale.toLowerCase()
+      let locale = fmt.resolvedOptions().locale
       /* istanbul ignore if: mainly for IE11, hard to test in JSDOM */
       if (calendar !== 'gregory') {
         // Ensure the locale requests the gregorian calendar
         // Mainly for IE 11, and currently we can't handle non-gregorian calendars
-        locale = locale.replace(/-u-.+$/, '').concat('-u-ca-gregory')
+        locale = locale.replace(/-u-.+$/i, '').concat('-u-ca-gregory')
       }
       return locale
     },
