@@ -365,6 +365,11 @@ prompts.
 The features and styling of `<b-calendar>` are intentianally kept minimalistic in order to provide
 the best possible accessibility to _all_ users.
 
+## Implementation notes
+
+`<b-calendar>` uses Bootstrap's margin, padding, and flex utility classes, along with button
+(`btn-*`) classes and the `form-control` class.
+
 ## See also
 
 - `<b-form-date>` date picker custom form input
