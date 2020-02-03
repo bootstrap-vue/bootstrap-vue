@@ -46,15 +46,22 @@ Use `<b-form-date>` if you need a date picker as a custom form control input.
 
 ### Variants
 
-TBD
+The selected date button (background color) defaults to the 'primary' theme variant. You can change
+this to any of the Bootstrap v4 theme variant colors: 'secondary', 'success', 'danger', 'warning',
+'info', etc.
 
-### Disable higlighting of today
+Today's date will also be highligted (text color) using the same variant as the selected date by
+default. To speficy a differet theme color to use for today's date, use the `today-variant` prop.
 
-TBD
+To disable highligting of today's date altogether, set the `no-hightlight-today` prop.
 
 ### Disabled and readonly
 
-TBD
+Setting the `disabled` prop will remove all interactivity of the `<b-calendar>` component, and will
+hide the date navigation buttons.
+
+Setting the `redonly` prop will disable selecting a date, but will keep the component interactive,
+allowing for date navigation.
 
 ### Width
 
@@ -62,7 +69,11 @@ TBD
 
 ### Hiding the top selected date header
 
-TBD
+By default, the current selected date will be displayed at the top of the calendar component,
+formatted in the locale's language.
+
+You can hide this header via the `hide-header` prop.  Note this only visually hides the selected
+date, while keeping it available to screen reader users as an aria live region.
 
 ### Default scoped slot
 
@@ -84,11 +95,20 @@ If no date is selected, `<b-calendar>` returns an empty string `''`, or returns 
 
 ### Minimum and maximum dates
 
-TBD
+Restrict the calendar range via the `min` and `max` props.  The props accept a date string in the
+format of `YYYY-MM-DD` or a date object.
 
 ### Disabled dates
 
-TBD
+IF you need to disabled specific dates within the calendar, specify a function reference to the
+`allowed-dates` prop.  The function is passed two arguments:
+
+- `ymd` The date as a `YYYY-MM-DD` string
+- `date` The date as a date object
+
+the function should eitehr return `true` if the date is selectable (enabled), or `false` if the date
+cannot be selected (disabled). Note that the function **cannot** be asynchronous, and should return a
+value as quickly as possible.
 
 ## Events
 
