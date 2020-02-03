@@ -355,8 +355,8 @@ supports `Intl` and the locales you will be using. Refer to the
 
 ## Accessibility
 
-`<b-calendar>` provides many accessibility features, such as `aria-live` regions, labeling, and
-full keyboard navigation.
+`<b-calendar>` provides many accessibility features, such as `aria-live` regions, roles, aria
+labeling, shortcut keys and full keyboard navigation to work with most screen readers.
 
 Keyboard navigation:
 
@@ -374,7 +374,7 @@ Keyboard navigation:
 
 When internationalizing the datepicker, it is important to also update the `label-*` props with
 apropriate translated strings, so that international screen reader users will hear the correct
-prompts.
+prompts and descriptions.
 
 The features and styling of `<b-calendar>` are intentianally kept minimalistic in order to provide
 the best possible accessibility to _all_ users.
