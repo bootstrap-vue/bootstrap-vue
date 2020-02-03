@@ -81,6 +81,9 @@ fit the width of the parent element. The `width` prop has no effect when `block`
 <!-- b-calendar-block.vue -->
 ```
 
+Note it is _not recommended_ to set a width below `260px`, otherwise truncation and layout issues with
+the component may occur.
+
 ### Hiding the top selected date header
 
 By default, the current selected date will be displayed at the top of the calendar component,
