@@ -133,7 +133,7 @@ Fancy a calendar with a border with padding? Use Bootstrap's
 
 ```html
 <template>
-  <b-calendar class="border rounded p-1" locale="en"></b-calendar>
+  <b-calendar class="border rounded p-2" locale="en"></b-calendar>
 </template>
 
 <!-- b-calendar-border-padding.vue -->
