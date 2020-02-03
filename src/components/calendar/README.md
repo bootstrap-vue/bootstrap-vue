@@ -209,10 +209,10 @@ format of `YYYY-MM-DD` or a `Date` object.
 <!-- b-calendar-min-max.vue -->
 ```
 
-### Disabled dates
+### Enabled and disabled dates
 
 If you need to disabled specific dates within the calendar, specify a function reference to the
-`allowed-dates` prop.  The function is passed two arguments:
+`date-enabled-fn` prop.  The function is passed two arguments:
 
 - `ymd` The date as a `YYYY-MM-DD` string
 - `date` The date as a date object
@@ -224,7 +224,7 @@ value as quickly as possible.
 ```html
 <template>
   <div>
-    <b-calendar v-model="value" :allowed-dates="allowedDates" locale="en"></b-calendar>
+    <b-calendar v-model="value" :date-enabled-fn="allowedDates" locale="en"></b-calendar>
   </div>
 </template>
 
@@ -249,7 +249,7 @@ value as quickly as possible.
 <!-- b-calendar-allowed-dates.vue -->
 ```
 
-Note the `min` and `max` date constraints are evaluated first,  before `allowed-dates`.
+Note the `min` and `max` date constraints are evaluated first,  before `date-enabled-fn`.
 
 ## Events
 
