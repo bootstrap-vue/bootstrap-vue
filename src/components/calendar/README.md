@@ -169,7 +169,7 @@ function that returns a CSS class (or classes) to apply to the date's cell. The 
 arguments:
 
 - `ymd` The date as a `YYYY-MM-DD` string
-- `date` The date as a date object
+- `date` The date as a `Date` object
 
 The function can return a string, or an array of strings. If setting no classes, you can return an
 empty string (`''`), empty array (`[]`), or `null`.
@@ -261,7 +261,7 @@ If you need to disabled specific dates within the calendar, specify a function r
 `date-disabled-fn` prop. The function is passed two arguments:
 
 - `ymd` The date as a `YYYY-MM-DD` string
-- `date` The date as a date object
+- `date` The date as a `Date` object
 
 The function should either return `true` if the date _cannot_ be selected (disabled), or `false` if
 the date _can_ be selected (enabled). Note that the function **cannot** be asynchronous, and should
@@ -309,6 +309,19 @@ string if no date is selected). If the prop `value-as-date` is set, then the fir
 instead be a `Date` object (or `null` if no date selected).
 
 If the `disabled` or `readonly` props are set, the `'input'` event will **not** be emitted.
+
+### `selected` event
+
+The `'selected'` event is emitted when the user clicks a non-disabled date. The event passes two
+arguments:
+
+- `ymd` The selected date as a `YYYY-MM-DD` string
+- `date` The selected date as a `Date` object
+
+If the user clicks the already selected date, the `selected` event will still be emitted, contrary
+to the `'input'` event which will _not_ re-emit the already selected date.
+
+If the `disabled` or `readonly` props are set, the `'selected'` event will **not** be emitted.
 
 ### `context` event
 
