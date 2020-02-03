@@ -114,6 +114,11 @@ export const BCalendar = Vue.extend({
       type: String,
       default: null
     },
+    noHighlightToday: {
+      // Disable highlighting today's date
+      type: Boolean,
+      default: false
+    },
     width: {
       // Has no effect if prop `block` is set
       type: String,
@@ -132,7 +137,7 @@ export const BCalendar = Vue.extend({
     hidden: {
       // When true, renders a comment node, but
       // keeps the component instance active
-      // Mainly for b-form-date, so that we can get the component's value
+      // Mainly for b-form-date, so that we can get the component's value and locale
       // But we might just use separate date formatters, using the resolved locale
       // (adjusted for the gregorian calendar)
       type: Boolean,
@@ -145,11 +150,6 @@ export const BCalendar = Vue.extend({
     roleDescription: {
       type: String,
       default: null
-    },
-    noHighlightToday: {
-      // Disable highlighting today's date
-      type: Boolean,
-      default: false
     },
     // Labels for buttons and keybord shortcuts
     labelPrevYear: {
