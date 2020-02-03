@@ -188,7 +188,7 @@ Released: 2020-01-08
   [#4384](https://github.com/bootstrap-vue/bootstrap-vue/issues/4384))
   ([#4388](https://github.com/bootstrap-vue/bootstrap-vue/issues/4388))
   ([9a81cd4](https://github.com/bootstrap-vue/bootstrap-vue/commit/9a81cd414a2c534b96de0d82c3d00d94651e5a7b))
-- **b-toast:** fix interal `ensureToaster` method call when toaster name changes
+- **b-toast:** fix internal `ensureToaster` method call when toaster name changes
   ([#4468](https://github.com/bootstrap-vue/bootstrap-vue/issues/4468))
   ([744bb7a](https://github.com/bootstrap-vue/bootstrap-vue/commit/744bb7a77092a04184af31bf285e432110e1ab44))
 - **tooltips, popovers:** fix memory leak (closes
