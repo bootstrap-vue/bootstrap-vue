@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-// import { waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormDate } from './form-date'
 
 //  Note that JSDOM only supports `en-US` (`en`) locale for Intl
