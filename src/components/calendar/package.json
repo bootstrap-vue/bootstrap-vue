@@ -13,19 +13,19 @@
         "props": [
           {
             "prop": "value",
-            "description": "Initially selected date value. Accepts either a YYYY-MM-DD string or a date object"
+            "description": "Initially selected date value. Accepts either a YYYY-MM-DD string or a Date object"
           },
           {
             "prop": "valueAsDate",
-            "description": "Returns a date object for the v-model instead of a YYYY-MM-DD string"
+            "description": "Returns a Date object for the v-model instead of a YYYY-MM-DD string"
           },
           {
             "prop": "disabled",
-            "description": "Places the calendar in a disabled state"
+            "description": "Places the calendar in a non-interactive disabled state"
           },
           {
             "prop": "readonly",
-            "description": "Places the calendar in a readonly state. Disables updating the v-model, while still allowing date navigation"
+            "description": "Places the calendar in an interactive readonly state. Disables updating the v-model, while still allowing date navigation"
           },
           {
             "prop": "variant",
