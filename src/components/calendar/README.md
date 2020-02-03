@@ -192,13 +192,20 @@ The `'context'` event is passed a context object as it's only argument, with the
 
 | Property            | description                                                                                                                                                                                                                                                |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `selectedYMD`       | The selected date value (`YYYY-MM-DD` format) or an empty string is no date selected                                                                                                                                                                       |
+| `selectedYMD`       | The selected date value (`YYYY-MM-DD` format) or an empty string if no date selected                                                                                                                                                                       |
+| `selectedDate`      | The selected date value as a Date object or `null` if no date selected                                                                                                                                                                                     |
 | `selectedFormatted` | The selected date formatted in the current locale                                                                                                                                                                                                          |
-| `activeYMD`         | The current date of the calendar day button that can receive focus (`YYYY-MM-DD` format)                                                                                                                                                                   |
+| `activeYMD`         | The current date of the calendar day button that can receive focus as a string (`YYYY-MM-DD` format)                                                                                                                                                       |
+| `activedate`        | The current date of the calendar day button that can receive focus as a Date object                                                                                                                                                                        |
 | `activeFormated`    | The active date formatted in the current locale                                                                                                                                                                                                            |
 | `locale`            | The resolved locale (may not be the same as the requested locale)                                                                                                                                                                                          |
 | `calendarLocale`    | The resolved locale used by the calendar, optionally including the calendar type (i.e. 'gregory'). Usually this will be the same as `locale`, but may include the calendar type used, such as `fa-u-ca-gregory` when selecting the Persian locale (`'fa'`) |
 | `isRTL`             | Will be `true` if the calendar is in a RTL (Right-To-Left) orientation. It will be `false` if LTR (Left-To-Right).                                                                                                                                         |
+
+If formatting dates manually via `Intl.DateTimeFormat`, use the `calendarLocale` property value
+instead of the `locale` property value to ensure you are using the same calendaring convention that
+`<b-calendar>` uses. This is especially true for the IE11 browser which does not fully implement
+all features of `Intl.DateTimeFormat`.
 
 ## Internationalization
 
