@@ -65,7 +65,7 @@ Setting the `disabled` prop will remove all interactivity of the `<b-calendar>` 
 Setting the `readonly` prop will disable selecting a date, but will keep the component interactive,
 allowing for date navigation.
 
-For disabling specific dates or setting minimum and maximum date limits, refer to the
+For disabling specific dates or setting mininum and maximum date limits, refer to the
 [Date constraints](#date-constraints) section below.
 
 ### Width
@@ -164,15 +164,15 @@ slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 
 ### Adding CSS classes to specific dates
 
-If you need to highlight a specific date or dates, set the `date-class-fn` prop to a reference to a
-function that returns a CSS class (or classes) to apply to the date's cell. The function is passed
-two arguments:
+If you need to hightligt a specific date or dates, set the `date-class-fn` prop to a reference to a
+function that returns a CSS class (or classes) to apply to the date's cell. The function is passed two
+arguments:
 
 - `ymd` The date as a `YYYY-MM-DD` string
 - `date` The date as a date object
 
-The function can return a string, or an array of strings. If setting no classes, you can return an
-empty string (`''`), empty array (`[]`), or `null`.
+The function can return a string, or an array of strings. If setting no classes, you can return
+an empty string (`''`), empty array (`[]`), or `null`.
 
 In this example we are using the `table-{variant}` classes to set a background color on the date
 cell.
@@ -203,7 +203,7 @@ cell.
 <!-- b-calendar-date-classes.vue -->
 ```
 
-Note the function will _not_ be called for [disabled dates](#date-constraints).
+Note the function will _not_ be called for [disabed dates](#date-constraints).
 
 ## `v-model` return value
 
@@ -263,8 +263,8 @@ If you need to disabled specific dates within the calendar, specify a function r
 - `ymd` The date as a `YYYY-MM-DD` string
 - `date` The date as a date object
 
-The function should either return `true` if the date cannot be selected (disabled), or `false` if
-the date can be selected (enabled). Note that the function **cannot** be asynchronous, and should
+The function should either return `true` if the date _cannot_ be selected (disabled), or `false` if
+the date _can_ be selected (enabled). Note that the function **cannot** be asynchronous, and should
 return a value as quickly as possible.
 
 ```html
@@ -283,7 +283,7 @@ return a value as quickly as possible.
     },
     methods: {
       dateDisabled(ymd, date) {
-        // Disable weekends (Sunday = `0`, Saturday = `6`) and
+        // Disable weekends (Sunday = 0, Saturday = 6) and
         // disable days that fall on the 13th of the month
         const weekday = date.getDay()
         const day = date.getDate()
