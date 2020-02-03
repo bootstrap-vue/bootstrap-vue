@@ -57,7 +57,7 @@
           },
           {
             "prop": "allowedDates",
-            "description": "Set to a function reference which returns `true` if hte date is enabled, or `false` if the date should be disabled"
+            "description": "Set to a function reference which returns `true` if the date is enabled, or `false` if the date should be disabled"
           },
           {
             "prop": "width",
@@ -69,7 +69,7 @@
           },
           {
             "prop": "ariaControls",
-            "description": "If the calendar controls another component/element, set this prop to the ID of hte element the calendar controls"
+            "description": "If the calendar controls another component/element, set this prop to the ID of the element the calendar controls"
           }
         ],
         "events": [
