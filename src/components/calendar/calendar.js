@@ -328,7 +328,7 @@ export const BCalendar = Vue.extend({
       return date => {
         date = parseYMD(date)
         const ymd = formatYMD(date)
-        return rangeFn(date) || !userFn(ymd)
+        return rangeFn(date) || !userFn(ymd, date)
       }
     },
     // Computed props that return date formatter functions
