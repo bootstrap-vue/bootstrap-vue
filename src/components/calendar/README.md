@@ -65,7 +65,22 @@ allowing for date navigation.
 
 ### Width
 
-TBD
+The `<b-calendar>` renders as an inline-block element with a default width of `270px` (excluding
+any padding or border that may be added to it). This width is optimized to fit the width of smaller
+mobile devices.
+
+To change the width, set the `width` prop to any valid CSS width (including units).
+
+Optionally, make the calendar full width by setting the prop `block`, which will make it expand to
+fit the width of the parent element. The `width` prop has no effect when `block` is set.
+
+```html
+<template>
+  <b-calendar block></b-calendar>
+</template>
+
+<!-- b-calendar-block.vue -->
+```
 
 ### Hiding the top selected date header
 
@@ -112,6 +127,19 @@ the slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 <!-- b-calendar-default-slot.vue -->
 ```
 
+### Border and padding
+
+Fancy a calendar with a border with padding? Use Bootstrap's
+[border and padding untility classes](/docs/reference/utility-classes) to add borders and padding:
+
+```html
+<template>
+  <b-calendar class="border rounded p-1"></b-calendar>
+</template>
+
+<!-- b-calendar-border-padding.vue -->
+```
+
 ## `v-model`
 
 By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD`. You can have
@@ -136,7 +164,7 @@ IF you need to disabled specific dates within the calendar, specify a function r
 - `ymd` The date as a `YYYY-MM-DD` string
 - `date` The date as a date object
 
-the function should eitehr return `true` if the date is selectable (enabled), or `false` if the date
+the function should either return `true` if the date is selectable (enabled), or `false` if the date
 cannot be selected (disabled). Note that the function **cannot** be asynchronous, and should return a
 value as quickly as possible.
 
