@@ -384,6 +384,9 @@ the best possible accessibility to _all_ users.
 `<b-calendar>` uses Bootstrap's margin, padding, border, and flex utility classes, along with button
 (`btn-*`) classes and the `form-control` class.
 
+Accessbility-wise, we chose not to use the ARIA `grid` role for the calendar to minimize verbosity
+and to provide consistency across various screen readers.
+
 ## See also
 
 - `<b-form-date>` date picker custom form input
