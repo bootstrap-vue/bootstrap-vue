@@ -1,4 +1,4 @@
-// --- Form Tags ---
+// --- Calendar ---
 import Vue from 'vue'
 import { BvPlugin, BvComponent } from '../../'
 
