@@ -29,7 +29,7 @@
             "description": "Places the calendar in an interactive readonly state. Disables updating the v-model, while still allowing date navigation"
           },
           {
-            "prop": "variant",
+            "prop": "selectedVariant",
             "description": "Theme color variant to use for the selected date button"
           },
           {
