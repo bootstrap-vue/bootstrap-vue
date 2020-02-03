@@ -148,6 +148,9 @@ By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD
 If no date is selected, `<b-calendar>` returns an empty string `''`, or returns `null` if the
 `value-as-date` prop is set.
 
+Note that when `value-as-date` prop is set, the returned Date objects will be in the browser's
+default timezone.
+
 ## Constraints
 
 ### Minimum and maximum dates
@@ -330,6 +333,10 @@ Currently `<b-calendar>` only supports the Gergorian (`'gregory'`) calendar.
 By default, `<b-calendar>` automatically detects RTL vs LTR via the resolved locale. You can
 force the calendar to render right-to-left by setting the `direction` prop to the string `rtl`, or
 set the `direction` prop to `'ltr'` to always render left-to-right.
+
+For server side rendering (SSR) when using Node.js, ensure that the Node.js runtime you are using
+supports `Intl` and the locales you will be using. Refer to the
+[Node `Intl` support documentation](https://nodejs.org/api/intl.html) for details.
 
 ## Accessibility
 
