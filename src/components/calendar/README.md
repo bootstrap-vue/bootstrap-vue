@@ -8,6 +8,8 @@
 up/down, home, and end keys). Internationalization is also supported, and default's to the browser's or
 page's locale, if no locale(s) are specified.
 
+Use `<b-form-date>` if you need a date picker as a custom form control input.
+
 ```html
 <template>
   <b-row>
