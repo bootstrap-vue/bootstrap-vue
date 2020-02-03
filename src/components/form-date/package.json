@@ -1,0 +1,11 @@
+{
+  "name": "@bootstrap-vue/form-date",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Date picker",
+    "version": "2.5.0",
+    "new": true,
+    "description": "Custom date picker form control",
+    "components": []
+  }
+}
