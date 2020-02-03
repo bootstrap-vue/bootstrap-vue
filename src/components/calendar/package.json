@@ -61,8 +61,12 @@
             "description": "The maximum date the caelndar will show"
           },
           {
-            "prop": "allowedDates",
-            "description": "Set to a function reference which returns `true` if the date is enabled, or `false` if the date should be disabled"
+            "prop": "dateEnabledFn",
+            "description": "Set to a function reference which returns `true` if the date is enabled, or `false` if the date should be disabled. See documentation for details"
+          },
+          {
+            "prop": "dateClassFn",
+            "description": "Set to a function reference which returns a class (or classes) to apply to the date cell. See documentation for details"
           },
           {
             "prop": "width",
