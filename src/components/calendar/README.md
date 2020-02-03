@@ -209,11 +209,12 @@ The `'context'` event is passed a context object as it's only argument, with the
 If formatting dates manually via `Intl.DateTimeFormat`, use the `calendarLocale` property value
 instead of the `locale` property value to ensure you are using the same calendaring convention that
 `<b-calendar>` uses. This is especially true for the IE11 browser which does not fully implement
-all features of `Intl.DateTimeFormat`.
+all features of `Intl.DateTimeFormat`. Refer to the
+[Internaltionaliation section](#internationalization) section below for additional details.
 
 ## Internationalization
 
-Internationalization of hte calendar is provided via
+Internationalization of the calendar is provided via
 [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat),
 except for labels applied to elements of the calendar control (aria-labels, selected status, and
 help text). You must provide your own translations for these labels. The available locales will be
