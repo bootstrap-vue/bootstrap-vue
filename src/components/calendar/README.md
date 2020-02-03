@@ -439,7 +439,7 @@ Keyboard navigation:
 - <kbd>Alt</kbd>+<kbd>PageDown</kbd> moves to the same day and month in the next year
 - <kbd>Home</kbd> moves to the current selected date, or today if no selected date
 - <kbd>End</kbd> moves to today
-- <kbd>Enter</kbd> or <kbd>Space</kbd> Selectes the currently highligted (focused) day
+- <kbd>Enter</kbd> or <kbd>Space</kbd> Selects the currently highligted (focused) day
 
 When internationalizing the datepicker, it is important to also update the `label-*` props with
 apropriate translated strings, so that international screen reader users will hear the correct
@@ -453,8 +453,9 @@ the best possible accessibility to _all_ users.
 `<b-calendar>` uses Bootstrap's margin, padding, border, and flex utility classes, along with button
 (`btn-*`) classes and the `form-control` class.
 
-Accessbility-wise, we chose not to use the ARIA `grid` role for the calendar to minimize verbosity
-and to provide consistency across various screen readers.
+Accessbility-wise, we chose _not_ to use the ARIA role `grid` for the calendar to minimize verbosity
+and to provide consistency across various screen readers (NVDA, when encountering role `grid`, reads 
+the focused cell as being "selected" which can be misleading to the user).
 
 ## See also
 
