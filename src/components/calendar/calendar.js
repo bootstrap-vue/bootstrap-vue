@@ -297,14 +297,16 @@ export const BCalendar = Vue.extend({
     },
     context() {
       return {
-        // Which date cell is considered active due to navigation
-        activeYMD: this.activeYMD || '',
-        activeFormatted: this.activeYMD ? this.formatDateString(parseYMD(this.activeYMD)) : '',
         // The current value of the v-model
         selectedYMD: this.selectedYMD || '',
+        selectedDate: createDate(this.selectedDate),
         selectedFormatted: this.selectedYMD
           ? this.formatDateString(parseYMD(this.selectedYMD))
           : '',
+        // Which date cell is considered active due to navigation
+        activeYMD: this.activeYMD || '',
+        activeDate: createDate(this.activeDate),
+        activeFormatted: this.activeYMD ? this.formatDateString(parseYMD(this.activeYMD)) : '',
         // Locales used in formatting dates
         locale: this.computedLocale,
         calendarLocale: this.calendarLocale,
