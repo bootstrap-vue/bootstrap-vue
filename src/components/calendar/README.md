@@ -8,7 +8,8 @@
 up/down, home, and end keys). Internationalization is also supported, and default's to the browser's or
 page's locale, if no locale(s) are specified.
 
-If you need a date picker as a custom form control input, use the `<b-form-date>` component instead.
+If you need a date picker as a custom form control input, use the
+[`<b-form-date>`](/docs/components/form-date) component instead.
 
 `<b-calendar>` was introduced in BootstrapVue `v2.5.0`.
 
@@ -394,5 +395,5 @@ and to provide consistency across various screen readers.
 
 ## See also
 
-- `<b-form-date>` date picker custom form input
+- [`<b-form-date>`](/docs/components/form-date) date picker custom form input
 
