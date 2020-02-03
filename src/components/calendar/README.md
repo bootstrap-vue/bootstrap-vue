@@ -307,7 +307,8 @@ the same locale as requested, depending on the supported locales of `Intl`).
 Currently `<b-calendar>` only supports the Gergorian (`'gregory'`) calendar.
 
 By default, `<b-calendar>` automatically detects RTL vs LTR via the resolved locale. You can
-force the calendar to render right-to-left by setting the `direction` prop to the string `rtl`.
+force the calendar to render right-to-left by setting the `direction` prop to the string `rtl`, or
+set the `direction` prop to `'ltr'` to always render left-to-right.
 
 ## Accessibility
 
