@@ -219,13 +219,17 @@ the same locale as requested, depending on the supported locales of `Intl`).
 <template>
   <b-row>
     <b-col cols="12" class="mb-3">
-      <b-form-select v-model="locale" :options="locales"></b-form-select>
+      <label for="example-locales">Locale:</label>
+      <b-form-select id="example-locales" v-model="locale" :options="locales"></b-form-select>
+      <label for="example-weekdays">Start weekday:</label>
+      <b-form-select id="example-weekdays" v-model="weekday" :options="weekdays"></b-form-select>
     </b-col>
     <b-col md="auto">
       <b-calendar
         v-model="value"
         v-bind="labels[locale] || {}"
         :locale="locale"
+        :start-weekday="weekday"
         @context="onContext"
       ></b-calendar>
     </b-col>
@@ -249,6 +253,12 @@ the same locale as requested, depending on the supported locales of `Intl`).
           { value: 'de', text: 'German (de)' },
           { value: 'ar-EG', text: 'Arabic Egyptian (ar-EG)' },
           { value: 'zh', text: 'Chinese (zh)' }
+        ],
+        startweekDay: 0,
+        weekdays: [
+          { value: 0, text 'Sunday' },
+          { value: 1, text 'Monday' },
+          { value: 6, text 'Saturday' }
         ],
         labels: {
           de: {
