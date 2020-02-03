@@ -534,7 +534,7 @@ export const BCalendar = Vue.extend({
     emitSelected(date) {
       // Performed in a nextTick to ensure input event has emitted first
       this.$nextTick(() => {
-        this.$emit('selected', this.valueAsDate ? parseYMD(date) || null : formatYMD(date) || '')
+        this.$emit('selected', formatYMD(date) || '', parseYMD(date) || null )
       })
     },
     // Event handlers
