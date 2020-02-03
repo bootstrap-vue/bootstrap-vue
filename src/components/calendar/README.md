@@ -190,6 +190,33 @@ The function should either return `true` if the date is selectable (enabled), or
 cannot be selected (disabled). Note that the function **cannot** be asynchronous, and should return a
 value as quickly as possible.
 
+```html
+<template>
+  <div>
+    <b-calendar v-model="value" :allowed-dates="allowedDates" locale="en-US"></b-calendar>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    },
+    methods: {
+      allowedDates(ymd, date) {
+        // Allow only dates that are even
+        const day = date.getDate()
+        return (day % 2) === 0
+      }
+    }
+  }
+</script>
+
+<!-- b-calendar-allowed-dates.vue -->
+```
+
 ## Events
 
 ### `input` event
