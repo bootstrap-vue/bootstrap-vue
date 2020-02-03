@@ -45,6 +45,18 @@ If you need a date picker as a custom form control input, use the
 <!-- b-calendar.vue -->
 ```
 
+## `v-model` return value
+
+By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD`. You can have
+`<b-calendar>` return the `v-model` value as a date object (with no time portion) by setting the
+prop `value-as-date`.
+
+If no date is selected, `<b-calendar>` returns an empty string `''`, or returns `null` if the
+`value-as-date` prop is set.
+
+Note that when `value-as-date` prop is set, the returned `Date` object will be in the browser's
+default timezone.
+
 ## Styling
 
 ### Variants
@@ -214,18 +226,6 @@ outside of the calendar (or via the default slot) as to the dates being highligt
 
 BootstrapVue may, in the future, add in a feature to add in screen-reader friendly text note on
 the highligted date.
-
-## `v-model` return value
-
-By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD`. You can have
-`<b-calendar>` return the `v-model` value as a date object (with no time portion) by setting the
-prop `value-as-date`.
-
-If no date is selected, `<b-calendar>` returns an empty string `''`, or returns `null` if the
-`value-as-date` prop is set.
-
-Note that when `value-as-date` prop is set, the returned `Date` object will be in the browser's
-default timezone.
 
 ## Date constraints
 
