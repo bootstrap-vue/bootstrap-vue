@@ -50,8 +50,8 @@ If you need a date picker as a custom form control input, use the
 ### Variants
 
 The selected date button (background color) defaults to the 'primary' theme variant. You can change
-this to any of the Bootstrap v4 theme variant colors: 'secondary', 'success', 'danger', 'warning',
-'info', etc, via the `selected-variant` prop.
+this to any of the Bootstrap v4 theme variant colors: `'secondary'`, `'success'`, `'danger'`,
+`'warning'`, `'info'`, etc, via the `selected-variant` prop.
 
 Today's date will also be highligted (text color) using the same variant as the selected date by
 default. To speficy a differet theme color to use for today's date, use the `today-variant` prop.
@@ -178,6 +178,34 @@ default timezone.
 Restrict the calendar range via the `min` and `max` props.  The props accept a date string in the
 format of `YYYY-MM-DD` or a date object.
 
+```html
+<template>
+  <div>
+    <b-calendar v-model="value" :min="min" : max="max" locale="en"></b-calendar>
+  </div>
+</template>
+
+<script>
+  export default {
+    const now = new Date()
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    const minDate = new Date(today)
+    minDate.setMonth(min.getMonth() - 2)
+    const maxDate = new Date(today)
+    maxDate.setMonth(min.getMonth() + 2)
+    data() {
+      return {
+        value: '',
+        min: minDate,
+        max: maxDate
+      }
+    }
+  }
+</script>
+
+<!-- b-calendar-min-max.vue -->
+```
+
 ### Disabled dates
 
 If you need to disabled specific dates within the calendar, specify a function reference to the
@@ -193,7 +221,7 @@ value as quickly as possible.
 ```html
 <template>
   <div>
-    <b-calendar v-model="value" :allowed-dates="allowedDates" locale="en-US"></b-calendar>
+    <b-calendar v-model="value" :allowed-dates="allowedDates" locale="en"></b-calendar>
   </div>
 </template>
 
