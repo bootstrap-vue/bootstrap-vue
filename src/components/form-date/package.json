@@ -6,6 +6,12 @@
     "version": "2.5.0",
     "new": true,
     "description": "Custom date picker form control",
-    "components": []
+    "components": [
+      {
+        "component": "BFormDate",
+        "version": "2.5.0",
+        "description": "Cusstom date picker form control"
+      }
+    ]
   }
 }
