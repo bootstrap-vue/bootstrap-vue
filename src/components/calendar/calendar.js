@@ -697,7 +697,7 @@ export const BCalendar = Vue.extend({
         attrs: {
           id: idNav,
           role: 'group',
-          'aria-hidden': this.disabled: 'true' : null,
+          'aria-hidden': this.disabled ? 'true' : null,
           'aria-label': this.labelNav || null,
           'aria-controls': idGrid
         }
@@ -902,10 +902,9 @@ export const BCalendar = Vue.extend({
     let $slot = this.normalizeSlot('default')
     $slot = $slot ? h('div', { staticClass: 'mt-2' }, $slot) : h()
 
-    return h(
+    const $widget = h(
       'div',
       {
-        staticClass: 'b-calendar',
         class: this.block ? 'd-block' : 'd-inline-block',
         style: this.block ? {} : { width: this.width },
         attrs: {
@@ -934,6 +933,18 @@ export const BCalendar = Vue.extend({
         }
       },
       [$header, $nav, $grid, $slot]
+    )
+
+    // Wrap in an outer div that can be styled
+    return h(
+      'div',
+      {
+        staticClass: 'b-calendar',
+        // We use a style here rather than class `d-inline-block` so that users can
+        // override the display value (`d-*` classes use the `!important` flag)
+        style: this.block ? {} : { display: 'inline-block' }
+      },
+      [$widget]
     )
   }
 })
