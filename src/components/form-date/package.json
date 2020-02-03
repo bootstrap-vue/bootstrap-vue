@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/form-date",
   "version": "1.0.0",
   "meta": {
-    "title": "Date picker",
+    "title": "Form date",
     "slug": "form-date",
     "version": "2.5.0",
     "new": true,
