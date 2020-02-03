@@ -51,7 +51,7 @@ If you need a date picker as a custom form control input, use the
 
 The selected date button (background color) defaults to the 'primary' theme variant. You can change
 this to any of the Bootstrap v4 theme variant colors: 'secondary', 'success', 'danger', 'warning',
-'info', etc.
+'info', etc, via the `selected-variant` prop.
 
 Today's date will also be highligted (text color) using the same variant as the selected date by
 default. To speficy a differet theme color to use for today's date, use the `today-variant` prop.
