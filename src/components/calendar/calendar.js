@@ -479,8 +479,13 @@ export const BCalendar = Vue.extend({
   },
   methods: {
     // Public method(s)
-    focus() /* istanbul ignore next: until tests are ready */ {
+    focus() {
       this.focusGrid()
+    },
+    blur() /* istanbul ignore next: until tests are ready */ {
+      try {
+        this.$refs.grid.blur()
+      } catch {}
     },
     // Private methods
     getToday() {
