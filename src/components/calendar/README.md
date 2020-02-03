@@ -153,7 +153,7 @@ Fancy a calendar with a border with padding? Use Bootstrap's
 <!-- b-calendar-border-padding.vue -->
 ```
 
-## `v-model`
+## `v-model` return value
 
 By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD`. You can have
 `<b-calendar>` return the `v-model` value as a date object (with no time portion) by setting the prop
@@ -162,10 +162,10 @@ By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD
 If no date is selected, `<b-calendar>` returns an empty string `''`, or returns `null` if the
 `value-as-date` prop is set.
 
-Note that when `value-as-date` prop is set, the returned Date objects will be in the browser's
+Note that when `value-as-date` prop is set, the returned `Date` object will be in the browser's
 default timezone.
 
-## Constraints
+## Date constraints
 
 ### Minimum and maximum dates
 
