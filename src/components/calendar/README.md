@@ -47,8 +47,8 @@ If you need a date picker as a custom form control input, use the
 
 ## `v-model` return value
 
-By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD`. You can have
-`<b-calendar>` return the `v-model` value as a date object (with no time portion) by setting the
+By default, `<b-calendar>` returns dates as a string in the format of `YYYY-MM-DD`. You can have
+`<b-calendar>` return the `v-model` value as a `Date` object (with no time portion) by setting the
 prop `value-as-date`.
 
 If no date is selected, `<b-calendar>` returns an empty string `''`, or returns `null` if the
