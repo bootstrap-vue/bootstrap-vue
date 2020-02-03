@@ -104,7 +104,7 @@ export const BCalendar = Vue.extend({
       type: String,
       default: null
     },
-    variant: {
+    selectedVariant: {
       // Variant color to use for the selected date
       type: String,
       default: 'primary'
@@ -272,10 +272,10 @@ export const BCalendar = Vue.extend({
       return date.getDate()
     },
     computedVariant() {
-      return `btn-${this.variant || 'primary'}`
+      return `btn-${this.selectedVariant || 'primary'}`
     },
     computedTodayVariant() {
-      return `btn-outline-${this.todayVariant || this.variant || 'primary'}`
+      return `btn-outline-${this.todayVariant || this.selectedVariant || 'primary'}`
     },
     isRTL() {
       // `true` if the language requested is RTL
