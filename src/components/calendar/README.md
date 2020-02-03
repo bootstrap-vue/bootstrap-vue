@@ -196,7 +196,7 @@ the same locale as requested, depending on the supported locales of `Intl`).
         ],
         labels: {
           de: {
-            labelPrevYear: 'vorjahr',
+            labelPrevYear: 'vorheriges Jahr',
             labelPrevMonth: 'vorheriger Monat',
             labelCurrentMonth: 'aktueller Monat',
             labelNextMonth: 'nächster Monat',
