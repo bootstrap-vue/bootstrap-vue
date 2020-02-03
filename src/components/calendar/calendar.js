@@ -575,10 +575,12 @@ export const BCalendar = Vue.extend({
       // Pressing enter/space on date to select it
       const keyCode = evt.keyCode
       const activeDate = this.activeDate
-      if ((keyCode === ENTER || keyCode === SPACE) && !this.dateDisabled(activeDate)) {
+      if (keyCode === ENTER || keyCode === SPACE) {
         evt.preventDefault()
         evt.stopPropagation()
-        this.selectedDate = createDate(activeDate)
+        if (!this.disabled && !this.readonly && !this.dateDisabled(activeDate)) {
+          this.selectedDate = createDate(activeDate)
+        }
         this.focusGrid()
       }
     },
@@ -589,7 +591,10 @@ export const BCalendar = Vue.extend({
       const activeDate = this.activeDate
       const clickedDate = createDate(day.dateObj)
       if (!this.disabled && !day.isDisabled && !this.dateDisabled(clickedDate)) {
-        this.selectedDate = datesEqual(clickedDate, selectedDate) ? selectedDate : clickedDate
+        if (!this.readonly) {
+          // If readonly mode, we don't set the selected date, just the active date
+          this.selectedDate = datesEqual(clickedDate, selectedDate) ? selectedDate : clickedDate
+        }
         this.activeDate = datesEqual(clickedDate, activeDate) ? activeDate : createDate(clickedDate)
         this.focusGrid()
       }
