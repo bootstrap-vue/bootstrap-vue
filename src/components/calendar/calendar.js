@@ -299,13 +299,13 @@ export const BCalendar = Vue.extend({
       return {
         // The current value of the v-model
         selectedYMD: this.selectedYMD || '',
-        selectedDate: createDate(this.selectedDate),
+        selectedDate: this.selectedDate ? createDate(this.selectedDate) : null,
         selectedFormatted: this.selectedYMD
           ? this.formatDateString(parseYMD(this.selectedYMD))
           : '',
         // Which date cell is considered active due to navigation
         activeYMD: this.activeYMD || '',
-        activeDate: createDate(this.activeDate),
+        activeDate: this.activeDate ? createDate(this.activeDate) : null,
         activeFormatted: this.activeYMD ? this.formatDateString(parseYMD(this.activeYMD)) : '',
         // Locales used in formatting dates
         locale: this.computedLocale,
