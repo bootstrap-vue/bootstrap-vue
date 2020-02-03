@@ -209,22 +209,22 @@ format of `YYYY-MM-DD` or a `Date` object.
 <!-- b-calendar-min-max.vue -->
 ```
 
-### Enabled and disabled dates
+### Disabling dates
 
 If you need to disabled specific dates within the calendar, specify a function reference to the
-`date-enabled-fn` prop.  The function is passed two arguments:
+`date-disabled-fn` prop.  The function is passed two arguments:
 
 - `ymd` The date as a `YYYY-MM-DD` string
 - `date` The date as a date object
 
-The function should either return `true` if the date is selectable (enabled), or `false` if the date
-cannot be selected (disabled). Note that the function **cannot** be asynchronous, and should return a
-value as quickly as possible.
+The function should either return `true` if the date cannot be selected (disabled), or `false` if
+the date can be selected (enabled). Note that the function **cannot** be asynchronous, and should
+return a value as quickly as possible.
 
 ```html
 <template>
   <div>
-    <b-calendar v-model="value" :date-enabled-fn="allowedDates" locale="en"></b-calendar>
+    <b-calendar v-model="value" :date-disabled-fn="dateDisabled" locale="en"></b-calendar>
   </div>
 </template>
 
@@ -236,20 +236,22 @@ value as quickly as possible.
       }
     },
     methods: {
-      allowedDates(ymd, date) {
-        // Disable weekends or if the date is the 13th
+      dateDisabled(ymd, date) {
+        // Disable weekends (Sunday = 0, Saturday = 6) and
+        // disable days that fall on the 13th of the month
         const weekday = date.getDay()
         const day = date.getDate()
-        return weekday !== 0 && weekday !== 6 && day !== 13
+        // return `true` if the date should be disabled
+        return weekday === 0 || weekday === 6 || day === 13
       }
     }
   }
 </script>
 
-<!-- b-calendar-allowed-dates.vue -->
+<!-- b-calendar-disabled-dates.vue -->
 ```
 
-Note the `min` and `max` date constraints are evaluated first,  before `date-enabled-fn`.
+Note the `min` and `max` date constraints are evaluated first, before `date-disabled-fn`.
 
 ## Events
 
