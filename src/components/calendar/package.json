@@ -83,7 +83,7 @@
             "args": [
               {
                 "arg": "date",
-                "description": "either a string in the format of YYYY-MM-DD or a date object (if 'value-as-date' prop is true)",
+                "description": "Either a string in the format of 'YYYY-MM-DD' or a Date object (if 'value-as-date' prop is true)",
                 "type": [
                   "String",
                   "Date"
@@ -97,12 +97,18 @@
             "args": [
               {
                 "arg": "context",
-                "description": "the context object. See documentaion for details",
+                "description": "The context object. See documentaion for details",
                 "type": [
                   "Object"
                 ]
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Used to place custom controls at the bottom of the calendar component"
           }
         ]
       }
