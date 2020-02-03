@@ -110,15 +110,17 @@
           },
           {
             "event": "selected",
-            "description": "Emitted to when user has selected (clicked) a date",
+            "description": "Emitted to when user has selected (clicked) a date. Note this event will also be emitted if the user clicks on the currently selected date",
             "args": [
               {
+                "arg": "ymd",
+                "description": "The selected date as a string in the format of 'YYYY-MM-DD'",
+                "type": "String"
+              },
+              {
                 "arg": "date",
-                "description": "Either a string in the format of 'YYYY-MM-DD' or a Date object (if 'value-as-date' prop is true). Note this event will also be emitted if the user clicks on the currently selected date",
-                "type": [
-                  "String",
-                  "Date"
-                ]
+                "description": "The selected date as a Date object",
+                "type": "Date"
               }
             ]
           },
