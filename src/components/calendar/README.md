@@ -57,8 +57,7 @@ To disable highligting of today's date altogether, set the `no-hightlight-today`
 
 ### Disabled and readonly
 
-Setting the `disabled` prop will remove all interactivity of the `<b-calendar>` component, and will
-hide the date navigation buttons.
+Setting the `disabled` prop will remove all interactivity of the `<b-calendar>` component.
 
 Setting the `redonly` prop will disable selecting a date, but will keep the component interactive,
 allowing for date navigation.
