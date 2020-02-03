@@ -327,6 +327,8 @@ export const BCalendar = Vue.extend({
         activeYMD: this.activeYMD || '',
         activeDate: this.activeDate ? createDate(this.activeDate) : null,
         activeFormatted: this.activeYMD ? this.formatDateString(parseYMD(this.activeYMD)) : '',
+        // `true` if the date is disabled (when using keyboard navigation)
+        disabled: this.dateDisabled(this.activeDate),
         // Locales used in formatting dates
         locale: this.computedLocale,
         calendarLocale: this.calendarLocale,
@@ -358,7 +360,7 @@ export const BCalendar = Vue.extend({
       return date => {
         date = parseYMD(date)
         const ymd = formatYMD(date)
-        return rangeFn(date) || disabledFn(ymd, date)
+        return !!(rangeFn(date) || disabledFn(ymd, date))
       }
     },
     // Computed props that return date formatter functions
