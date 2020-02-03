@@ -176,7 +176,7 @@ default timezone.
 ### Minimum and maximum dates
 
 Restrict the calendar range via the `min` and `max` props.  The props accept a date string in the
-format of `YYYY-MM-DD` or a date object.
+format of `YYYY-MM-DD` or a `Date` object.
 
 ```html
 <template>
@@ -234,9 +234,9 @@ value as quickly as possible.
     },
     methods: {
       allowedDates(ymd, date) {
-        // Allow only dates that are even
-        const day = date.getDate()
-        return (day % 2) === 0
+        // Disable weekends: Sunday (0) and Saturday (6)
+        const weekday = date.getDay()
+        return weekday !== 0 && weekday !== 6 
       }
     }
   }
@@ -244,6 +244,8 @@ value as quickly as possible.
 
 <!-- b-calendar-allowed-dates.vue -->
 ```
+
+Note the `min` and `max` date constraints are evaluated first,  before `allowed-dates`.
 
 ## Events
 
