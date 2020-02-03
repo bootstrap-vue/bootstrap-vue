@@ -97,9 +97,23 @@ the slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 ```html
 <template>
   <b-calendar v-model="value" value-as-date locale="en">
-    <div class="d-flex justify-content-between">
-      <b-button size="sm" variant="outline-danger" @click="reset">Clear date</b-button>
-      <b-button size="sm" variant="outline-primary" @click="setToday">Set Today</b-button>
+    <div class="d-flex" dir="ltr">
+      <b-button
+        size="sm"
+        variant="outline-danger"
+        v-if="value"
+        @click="reset"
+      >
+        Clear date
+      </b-button>
+      <b-button
+        size="sm"
+        variant="outline-primary"
+        class="ml-auto"
+        @click="setToday"
+      >
+        Set Today
+      </b-button>
     </div>
   </b-calendar>
 </template>
