@@ -102,7 +102,7 @@ export const BCalendar = Vue.extend({
       type: [String, Date],
       default: null
     },
-    allowedDates: {
+    allowedDatesFn: {
       type: Function,
       default: null
     },
@@ -136,6 +136,11 @@ export const BCalendar = Vue.extend({
       // Disable highlighting today's date
       type: Boolean,
       default: false
+    },
+    dateClassFn: {
+      // Function to set a class of (classes) on the date cell
+      type: Function,
+      default: null
     },
     width: {
       // Has no effect if prop `block` is set
@@ -344,16 +349,16 @@ export const BCalendar = Vue.extend({
     dateDisabled() {
       // Returns a function for validating if a date is within range
       // We grab thes variables first to ensure a new
-      // function ref is gnerated when the props change
+      // function ref is generated when the props value changes
       // We do this as we need to trigger the calendar computed prop
       // to update when these props update
       const rangeFn = this.dateOutOfRange
-      const userFn = isFunction(this.allowedDates) ? this.allowedDates : () => true
+      const allowedFn = isFunction(this.allowedDatesFn) ? this.allowedDatesFn : () => true
       // return the function ref
       return date => {
         date = parseYMD(date)
         const ymd = formatYMD(date)
-        return rangeFn(date) || !userFn(ymd, date)
+        return rangeFn(date) || !allowedFn(ymd, date)
       }
     },
     // Computed props that return date formatter functions
@@ -415,6 +420,7 @@ export const BCalendar = Vue.extend({
       const daysInMonth = this.calendarDaysInMonth
       const startIndex = firstDay.getDay() // 0..6
       const weekOffset = (this.computedWeekStarts > startIndex ? 7 : 0) - this.computedWeekStarts
+      const dateClassFn = isFunction(this.dateClassFn) ? this.dateClassFn : () => ({})
       // Build the clendar matrix
       let currentDay = 0 - weekOffset - startIndex
       for (let week = 0; week < 6 && currentDay < daysInMonth; week++) {
@@ -426,16 +432,20 @@ export const BCalendar = Vue.extend({
           currentDay++
           const date = createDate(calendarYear, calendarMonth, currentDay)
           const month = date.getMonth()
+          const dayYMD = formatYMD(date)
+          const dayDisabled = this.dateDisabled(date)
           matrix[week].push({
             dateObj: date,
             // used by render function for quick equality comparisons
-            ymd: formatYMD(date),
+            ymd: dayYMD,
             // Cell content
             day: this.formatDay(date),
             label: this.formatDateString(date),
+            // User supplied classes (for non disabled dates)
+            classes: dayDisabled ? {} : dateClassFn(dayYMD, parseYMD(dayYMD)),
             // Flags for styling
             isThisMonth: month === calendarMonth,
-            isDisabled: this.dateDisabled(date)
+            isDisabled: dayDisabled
           })
         }
       }
@@ -868,9 +878,7 @@ export const BCalendar = Vue.extend({
           {
             key: dIndex,
             staticClass: 'col p-0',
-            // Need to compute if day is within range (min/max) or if day is not allowed
-            // This is done in the calendar generator computed prop
-            class: { 'bg-light': day.isDisabled },
+            class: [{ 'bg-light': day.isDisabled }, day.classes],
             style: day.isDisabled ? { pointerEvents: 'none' } : {},
             attrs: {
               id: idCell,
