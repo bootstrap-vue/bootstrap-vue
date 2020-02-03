@@ -102,7 +102,7 @@ export const BCalendar = Vue.extend({
       type: [String, Date],
       default: null
     },
-    allowedDatesFn: {
+    dateEnabledFn: {
       type: Function,
       default: null
     },
@@ -353,12 +353,12 @@ export const BCalendar = Vue.extend({
       // We do this as we need to trigger the calendar computed prop
       // to update when these props update
       const rangeFn = this.dateOutOfRange
-      const allowedFn = isFunction(this.allowedDatesFn) ? this.allowedDatesFn : () => true
+      const enabledFn = isFunction(this.dateEnabledFn) ? this.dateEnabledFn : () => true
       // return the function ref
       return date => {
         date = parseYMD(date)
         const ymd = formatYMD(date)
-        return rangeFn(date) || !allowedFn(ymd, date)
+        return rangeFn(date) || !enabledFn(ymd, date)
       }
     },
     // Computed props that return date formatter functions
