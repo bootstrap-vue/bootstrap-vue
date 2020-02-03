@@ -697,6 +697,7 @@ export const BCalendar = Vue.extend({
         attrs: {
           id: idNav,
           role: 'group',
+          'aria-hidden': this.disabled: 'true' : null,
           'aria-label': this.labelNav || null,
           'aria-controls': idGrid
         }
@@ -874,11 +875,11 @@ export const BCalendar = Vue.extend({
       'div',
       {
         ref: 'grid',
-        staticClass: 'form-control h-auto text-center p-0 mb-1',
+        staticClass: 'form-control h-auto text-center p-0 mb-0',
         attrs: {
           id: idGrid,
           role: 'application',
-          tabindex: '0',
+          tabindex: this.disabled ? null : '0',
           'data-month': activeYMD.slice(0, -3), // YYYY-MM, mainly for testing
           // tabindex: this.disabled ? null : '0',
           'aria-roledescription': this.labelCalendar || null,
@@ -899,7 +900,7 @@ export const BCalendar = Vue.extend({
 
     // Optional bottom slot
     let $slot = this.normalizeSlot('default')
-    $slot = $slot ? h('div', { staticClass: 'mb-1' }, $slot) : h()
+    $slot = $slot ? h('div', { staticClass: 'mt-2' }, $slot) : h()
 
     return h(
       'div',
