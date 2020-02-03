@@ -30,6 +30,46 @@
           {
             "prop": "variant",
             "description": "Theme color variant to use for the selected date button"
+          },
+          {
+            "prop": "todayVariant",
+            "description": "Theme color variant to use for hightlighting todays date button. Defaults to the `variant` prop"
+          },
+          {
+            "prop": "noHighlightToday",
+            "description": "Disabled the higlighting of todays date in the calendar"
+          },
+          {
+            "prop": "startWeekday",
+            "description": "Day of week to start the calendar. 0 for Sunday, 1 for Monday, 6 for Satuday, etc."
+          },
+          {
+            "prop": "locale",
+            "description": "Locale (or locales) for the calendar to use. When passing an array of locales, the order of the locales is from most preferred to least prefered"
+          },
+          {
+            "prop": "min",
+            "description": "The minimum date the calendar will show"
+          },
+          {
+            "prop": "max",
+            "description": "The maximum date the caelndar will show"
+          },
+          {
+            "prop": "allowedDates",
+            "description": "Set to a function reference which returns `true` if hte date is enabled, or `false` if the date should be disabled"
+          },
+          {
+            "prop": "width",
+            "description": "The width of the calendar. Has no effect if prop `block` is set"
+          },
+          {
+            "prop": "block",
+            "description": "Makes the calendar full width"
+          },
+          {
+            "prop": "ariaControls",
+            "description": "If the calendar controls another component/element, set this prop to the ID of hte element the calendar controls"
           }
         ],
         "events": [
