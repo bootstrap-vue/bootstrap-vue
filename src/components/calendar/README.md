@@ -212,6 +212,9 @@ By default `<b-calendar>` will use the browser's default locale, but you can spe
 locales) to use via the `locale` prop. The prop accepts either a single locale string, or an array of
 locale strings (listed in order of prefered locale).
 
+The calendar starts the week on Sunday. This can be changed by setting the `start-weekday` prop to a
+number in the range of `0` to `6` where `0` represents Sunday, `1` for Monday, up to `6` for Saturday.
+
 The emitted `context` event will include which locale the calendar has resolved to (which may not be
 the same locale as requested, depending on the supported locales of `Intl`).
 
@@ -254,11 +257,11 @@ the same locale as requested, depending on the supported locales of `Intl`).
           { value: 'ar-EG', text: 'Arabic Egyptian (ar-EG)' },
           { value: 'zh', text: 'Chinese (zh)' }
         ],
-        startweekDay: 0,
+        weekday: 0,
         weekdays: [
-          { value: 0, text 'Sunday' },
-          { value: 1, text 'Monday' },
-          { value: 6, text 'Saturday' }
+          { value: 0, text: 'Sunday' },
+          { value: 1, text: 'Monday' },
+          { value: 6, text: 'Saturday' }
         ],
         labels: {
           de: {
