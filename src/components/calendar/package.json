@@ -74,6 +74,18 @@
           {
             "prop": "ariaControls",
             "description": "If the calendar controls another component/element, set this prop to the ID of the element the calendar controls"
+          },
+          {
+            "prop": "hideHeader",
+            "description": "When set, visually hides the selected date header"
+          },
+          {
+            "prop": "roleDescription",
+            "description": "Sets a value for the `role-description` attribute on hte component"
+          },
+          {
+            "prop": "hidden",
+            "description": "When set, renders a comment node instead of the calendar widget while keeping the Vue instance active. Mainly used when implementing a custom date picker"
           }
         ],
         "events": [
