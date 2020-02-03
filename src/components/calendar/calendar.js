@@ -532,9 +532,9 @@ export const BCalendar = Vue.extend({
       return createDate(date < min ? min : date > max ? max : date)
     },
     emitSelected(date) {
-      // Performed in a nextTick to ensure input event has emitted first
+      // Performed in a nextTick to (probably) ensure the input event has emitted first
       this.$nextTick(() => {
-        this.$emit('selected', formatYMD(date) || '', parseYMD(date) || null )
+        this.$emit('selected', formatYMD(date) || '', parseYMD(date) || null)
       })
     },
     // Event handlers
