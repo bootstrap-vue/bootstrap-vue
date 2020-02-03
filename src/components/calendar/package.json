@@ -48,6 +48,10 @@
             "description": "Locale (or locales) for the calendar to use. When passing an array of locales, the order of the locales is from most preferred to least prefered"
           },
           {
+            "prop": "direction",
+            "description": "Set to the string 'rtl' or 'ltr' to explictly force the calendar to render in right-to-left or left-ro-right (respectively) mode. Defaults to the resolved locale's directionality"
+          },
+          {
             "prop": "min",
             "description": "The minimum date the calendar will show"
           },
