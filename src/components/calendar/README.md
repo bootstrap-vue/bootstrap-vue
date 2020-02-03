@@ -126,7 +126,107 @@ The `'context'` event is passed a contet object as it's only argument, with the 
 
 ## Internationalization
 
-TBD
+Internationalization of hte calendar is provided via
+[`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat),
+except for labels applied to elements of the calendar control (aria-labels, selected status, and
+help text). You must provide your own translations for these labels. The available locales will be
+browser dependant (not all browsers support all locales)
+
+By default `<b-calendar>` will use the browser's default locale, but you can specify the locale (or
+locales) to use via the `locale` prop. The prop accepts either a single locale string, or an array of
+locale strings (listed in order of prefered locale).
+
+The emitted `context` event will include which locale the calendar has resolved to (which may not be
+the same locale as requested, depending on the supported locales of `Intl`).
+
+```html
+<template>
+  <b-row>
+    <b-col cols="12" class="mb-3">
+      <b-form-select v-model="locale" :options="locales"></b-form-select>
+    </b-col>
+    <b-col md="auto">
+      <b-calendar
+        v-model="value"
+        v-bind="labels[locale] || {}"
+        :locale="locale"
+        @context="onContext"
+      ></b-calendar>
+    </b-col>
+    <b-col>
+      <p>Value: <b>'{{ value }}'</b></p>
+      <p class="mb-0">Context:</p>
+      <pre class="small">{{ context }}</pre>
+   </b-col>
+  </b-row>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: '',
+        context: null,
+        locale: 'en-US',
+        locales: [
+          { value: 'en-US', text: 'English US (en-US)' },
+          { value: 'de', text: 'German (de)' },
+          { value: 'ar-EG', text: 'Arabic Egyptian (ar-EG)' },
+          { value: 'zh', text: 'Chinese (zh)' }
+        ],
+        labels: {
+          de: {
+            labelPrevYear: 'vorjahr',
+            labelPrevMonth: 'vorheriger Monat',
+            labelCurrentMonth: 'aktueller Monat',
+            labelNextMonth: 'nächster Monat',
+            labelNextYear: 'nächstes Jahr',
+            labelToday: 'heute',
+            labelSelected: 'ausgewähltes Datum',
+            labelNoDateSelected: 'Kein Datum gewählt',
+            labelCalendar: 'Kalender',
+            labelNav: 'Kalendernavigation'
+            labelHelp: 'Mit den Cursortasten durch die Daten navigieren'
+          },
+          'ar-EG': {
+            labelPrevYear: 'العام السابق',
+            labelPrevMonth: 'الشهر السابق',
+            labelCurrentMonth: 'الشهر الحالي',
+            labelNextMonth: 'الشهر المقبل',
+            labelNextYear: 'العام المقبل',
+            labelToday: 'اليوم',
+            labelSelected: 'التاريخ المحدد',
+            labelNoDateSelected: 'لم يتم اختيار تاريخ',
+            labelCalendar: 'التقويم',
+            labelNav: 'الملاحة التقويم'
+            labelHelp: 'استخدم مفاتيح المؤشر للتنقل في التواريخ'
+          },
+          zh: {
+            labelPrevYear: '上一年',
+            labelPrevMonth: '上个月',
+            labelCurrentMonth: '当前月份',
+            labelNextMonth: '下个月',
+            labelNextYear: '明年',
+            labelToday: '今天',
+            labelSelected: '选定日期',
+            labelNoDateSelected: '未选择日期',
+            labelCalendar: '日历',
+            labelNav: '日历导航'
+            labelHelp: '使用光标键浏览日期'
+          }
+        }
+      }
+    },
+    methods: {
+      onContext(ctx) {
+        this.context = ctx
+      }
+    }
+  }
+</script>
+
+<!-- b-calendar-i18n.vue -->
+```
 
 ## Accessibility
 
