@@ -280,13 +280,20 @@ export const BCalendar = Vue.extend({
     isRTL() {
       // `true` if the language requested is RTL
       const dir = toString(this.direction).toLowerCase()
+      if (dir === 'rtl') {
+        /* istanbul ignore next */
+        return true
+      } else if (dir === 'ltr') {
+        /* istanbul ignore next */
+        return false
+      }
       const parts = this.computedLocale
         .toLowerCase()
         .replace(/-u-.+/, '')
         .split('-')
       const locale1 = parts.slice(0, 2).join('-')
       const locale2 = parts[0]
-      return dir === 'rtl' || arrayIncludes(RTL_LANGS, locale1) || arrayIncludes(RTL_LANGS, locale2)
+      return arrayIncludes(RTL_LANGS, locale1) || arrayIncludes(RTL_LANGS, locale2)
     },
     context() {
       return {
