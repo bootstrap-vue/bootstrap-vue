@@ -75,12 +75,42 @@ formatted in the locale's language.
 You can hide this header via the `hide-header` prop.  Note this only visually hides the selected
 date, while keeping it available to screen reader users as an aria live region.
 
-### Default scoped slot
+### Default slot
 
-Provide optional content at the bottom of the calendar inteface vis the use of hte optionally
-scoped default slot.
+Provide optional content at the bottom of the calendar interface vis the use of default slot.
+the slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 
-TBD
+```html
+<template>
+  <b-calendar v-model="value" value-as-date>
+    <div class="d-flex justify-content-between">
+      <b-button size="sm" variant="outline-danger" @click="reset">Reset</b-button>
+      <b-button size="sm" variant="outline-primary" @click="setToday">Set Today</b-button>
+    </div>
+  </b-calendar>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: null
+      }
+    },
+    methods: {
+      setToday() {
+        const now = new Date()
+        this.value = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      },
+      reset() {
+        this.value = null
+      }
+    }
+  }
+</script>
+
+<!-- b-calendar-default-slot.vue -->
+```
 
 ## `v-model`
 
@@ -255,4 +285,4 @@ TBD
 ## See also
 
 - `<b-form-date>` date picker custom form input
-- `<b-form-time>` time picker custom form input
+
