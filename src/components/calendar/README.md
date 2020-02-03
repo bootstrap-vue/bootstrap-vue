@@ -57,6 +57,98 @@ If no date is selected, `<b-calendar>` returns an empty string `''`, or returns 
 Note that when `value-as-date` prop is set, the returned `Date` object will be in the browser's
 default timezone.
 
+## Disabled and readonly states
+
+Setting the `disabled` prop will remove all interactivity of the `<b-calendar>` component.
+
+Setting the `readonly` prop will disable selecting a date, but will keep the component interactive,
+allowing for date navigation. The `v-model` will not be updated in the readonly state.
+
+For disabling specific dates or setting minimum and maximum date limits, refer to the
+[Date constraints](#date-constraints) section.
+
+## Date constraints
+
+### Minimum and maximum dates
+
+Restrict the calendar range via the `min` and `max` props. The props accept a date string in the
+format of `YYYY-MM-DD` or a `Date` object.
+
+```html
+<template>
+  <div>
+    <b-calendar v-model="value" :min="min" :max="max" locale="en"></b-calendar>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      const now = new Date()
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      const minDate = new Date(today)
+      minDate.setMonth(minDate.getMonth() - 2)
+      minDate.setDate(15)
+      const maxDate = new Date(today)
+      maxDate.setMonth(maxDate.getMonth() + 2)
+      maxDate.setDate(15)
+
+      return {
+        value: '',
+        min: minDate,
+        max: maxDate
+      }
+    }
+  }
+</script>
+
+<!-- b-calendar-min-max.vue -->
+```
+
+### Disabling dates
+
+If you need to disabled specific dates within the calendar, specify a function reference to the
+`date-disabled-fn` prop. The function is passed two arguments:
+
+- `ymd` The date as a `YYYY-MM-DD` string
+- `date` The date as a `Date` object
+
+The function should either return `true` if the date _cannot_ be selected (disabled), or `false` if
+the date _can_ be selected (enabled). Note that the function **cannot** be asynchronous, and should
+return a value as quickly as possible.
+
+```html
+<template>
+  <div>
+    <b-calendar v-model="value" :date-disabled-fn="dateDisabled" locale="en"></b-calendar>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    },
+    methods: {
+      dateDisabled(ymd, date) {
+        // Disable weekends (Sunday = `0`, Saturday = `6`) and
+        // disable days that fall on the 13th of the month
+        const weekday = date.getDay()
+        const day = date.getDate()
+        // return `true` if the date should be disabled
+        return weekday === 0 || weekday === 6 || day === 13
+      }
+    }
+  }
+</script>
+
+<!-- b-calendar-disabled-dates.vue -->
+```
+
+Note the `min` and `max` date constraints are evaluated first, before `date-disabled-fn`.
+
 ## Styling
 
 ### Variants
@@ -69,16 +161,6 @@ Today's date will also be highlighted (text color) using the same variant as the
 default. To specify a different theme color to use for today's date, use the `today-variant` prop.
 
 To disable highlighting of today's date altogether, set the `no-highlight-today` prop.
-
-### Disabled and readonly
-
-Setting the `disabled` prop will remove all interactivity of the `<b-calendar>` component.
-
-Setting the `readonly` prop will disable selecting a date, but will keep the component interactive,
-allowing for date navigation.
-
-For disabling specific dates or setting minimum and maximum date limits, refer to the
-[Date constraints](#date-constraints) section below.
 
 ### Width
 
@@ -226,88 +308,6 @@ outside of the calendar (or via the default slot) as to the dates being highligt
 
 BootstrapVue may, in the future, add in a feature to add in screen-reader friendly text note on
 the highligted date.
-
-## Date constraints
-
-### Minimum and maximum dates
-
-Restrict the calendar range via the `min` and `max` props. The props accept a date string in the
-format of `YYYY-MM-DD` or a `Date` object.
-
-```html
-<template>
-  <div>
-    <b-calendar v-model="value" :min="min" :max="max" locale="en"></b-calendar>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      const now = new Date()
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-      const minDate = new Date(today)
-      minDate.setMonth(minDate.getMonth() - 2)
-      minDate.setDate(15)
-      const maxDate = new Date(today)
-      maxDate.setMonth(maxDate.getMonth() + 2)
-      maxDate.setDate(15)
-
-      return {
-        value: '',
-        min: minDate,
-        max: maxDate
-      }
-    }
-  }
-</script>
-
-<!-- b-calendar-min-max.vue -->
-```
-
-### Disabling dates
-
-If you need to disabled specific dates within the calendar, specify a function reference to the
-`date-disabled-fn` prop. The function is passed two arguments:
-
-- `ymd` The date as a `YYYY-MM-DD` string
-- `date` The date as a `Date` object
-
-The function should either return `true` if the date _cannot_ be selected (disabled), or `false` if
-the date _can_ be selected (enabled). Note that the function **cannot** be asynchronous, and should
-return a value as quickly as possible.
-
-```html
-<template>
-  <div>
-    <b-calendar v-model="value" :date-disabled-fn="dateDisabled" locale="en"></b-calendar>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        value: ''
-      }
-    },
-    methods: {
-      dateDisabled(ymd, date) {
-        // Disable weekends (Sunday = `0`, Saturday = `6`) and
-        // disable days that fall on the 13th of the month
-        const weekday = date.getDay()
-        const day = date.getDate()
-        // return `true` if the date should be disabled
-        return weekday === 0 || weekday === 6 || day === 13
-      }
-    }
-  }
-</script>
-
-<!-- b-calendar-disabled-dates.vue -->
-```
-
-Note the `min` and `max` date constraints are evaluated first, before `date-disabled-fn`.
 
 ## Events
 
