@@ -10,6 +10,8 @@ page's locale, if no locale(s) are specified.
 
 If you need a date picker as a custom form control input, use the `<b-form-date>` component instead.
 
+`<b-calendar>` was introduced in BootstrapVue `v2.5.0`.
+
 ```html
 <template>
   <b-row>
