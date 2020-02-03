@@ -234,9 +234,10 @@ value as quickly as possible.
     },
     methods: {
       allowedDates(ymd, date) {
-        // Disable weekends: Sunday (0) and Saturday (6)
+        // Disable weekends or if the date is the 13th
         const weekday = date.getDay()
-        return weekday !== 0 && weekday !== 6 
+        const day = date.getDate()
+        return weekday !== 0 && weekday !== 6 && day !== 13
       }
     }
   }
