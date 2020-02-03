@@ -2,11 +2,11 @@
   "name": "@bootstrap-vue/form-date",
   "version": "1.0.0",
   "meta": {
-    "title": "Form date",
+    "title": "Form Date",
     "slug": "form-date",
     "version": "2.5.0",
     "new": true,
-    "description": "Custom date picker form control",
+    "description": "BootstrapVue custom date picker input form control, which provides full WAI-ARIA compliance and supports internationaliation",
     "components": [
       {
         "component": "BFormDate",
