@@ -37,8 +37,8 @@
                 </filter>
               </defs>
               <!--
-                IE11 has issues with the same filter being applied to multiple elements,
-                So we only apply it to the outer `g` for IE (as IE11 also doesn't support
+                IE 11 has issues with the same filter being applied to multiple elements,
+                So we only apply it to the outer `g` for IE (as IE 11 also doesn't support
                 animating SVG child elements)
               -->
               <g :filter="isIE ? 'url(#logo-shadow)' : null">

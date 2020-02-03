@@ -6,7 +6,7 @@
     "slug": "calendar",
     "version": "2.5.0",
     "new": true,
-    "description": "Calendar widget for selecting dates and controling other components.",
+    "description": "Calendar widget for selecting dates and controlling other components.",
     "components": [
       {
         "component": "BCalendar",
@@ -34,23 +34,23 @@
           },
           {
             "prop": "todayVariant",
-            "description": "Theme color variant to use for hightlighting todays date button. Defaults to the `variant` prop"
+            "description": "Theme color variant to use for highlighting todays date button. Defaults to the `variant` prop"
           },
           {
             "prop": "noHighlightToday",
-            "description": "Disabled the higlighting of todays date in the calendar"
+            "description": "Disabled the highlighting of todays date in the calendar"
           },
           {
             "prop": "startWeekday",
-            "description": "Day of week to start the calendar. 0 for Sunday, 1 for Monday, 6 for Satuday, etc."
+            "description": "Day of week to start the calendar. 0 for Sunday, 1 for Monday, 6 for Saturday, etc."
           },
           {
             "prop": "locale",
-            "description": "Locale (or locales) for the calendar to use. When passing an array of locales, the order of the locales is from most preferred to least prefered"
+            "description": "Locale (or locales) for the calendar to use. When passing an array of locales, the order of the locales is from most preferred to least preferred"
           },
           {
             "prop": "direction",
-            "description": "Set to the string 'rtl' or 'ltr' to explictly force the calendar to render in right-to-left or left-ro-right (respectively) mode. Defaults to the resolved locale's directionality"
+            "description": "Set to the string 'rtl' or 'ltr' to explicitly force the calendar to render in right-to-left or left-ro-right (respectively) mode. Defaults to the resolved locale's directionality"
           },
           {
             "prop": "min",
@@ -58,7 +58,7 @@
           },
           {
             "prop": "max",
-            "description": "The maximum date the caelndar will show"
+            "description": "The maximum date the calendar will show"
           },
           {
             "prop": "dateEnabledFn",
@@ -86,7 +86,7 @@
           },
           {
             "prop": "roleDescription",
-            "description": "Sets a value for the `role-description` attribute on hte component"
+            "description": "Sets a value for the `role-description` attribute on the component"
           },
           {
             "prop": "hidden",

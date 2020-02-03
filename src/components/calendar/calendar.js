@@ -1,16 +1,18 @@
 import Vue from '../../utils/vue'
+import KeyCodes from '../../utils/key-codes'
+import identity from '../../utils/identity'
 import { arrayIncludes } from '../../utils/array'
 import {
   createDate,
   createDateFormatter,
   datesEqual,
-  formatYMD,
   firstDateOfMonth,
+  formatYMD,
   lastDateOfMonth,
-  oneYearAgo,
-  oneYearAhead,
   oneMonthAgo,
   oneMonthAhead,
+  oneYearAgo,
+  oneYearAhead,
   parseYMD,
   resolveLocale
 } from '../../utils/date'
@@ -18,8 +20,6 @@ import { requestAF } from '../../utils/dom'
 import { isFunction } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
-import identity from '../../utils/identity'
-import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIconChevronLeft, BIconCircleFill } from '../../icons/icons'
@@ -50,7 +50,7 @@ const RTL_LANGS = [
   'yi'
 ].map(locale => locale.toLowerCase())
 
-// --- Helper utiltiies ---
+// --- Helper utilities ---
 
 export const isLocaleRTL = locale => {
   // Determines if the locale is RTL (only single locale supported)
@@ -107,18 +107,19 @@ export const BCalendar = Vue.extend({
       default: null
     },
     startWeekday: {
-      // 0 (Sunday), 1 (Monday), ... 6 (Saturday)
+      // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
       // Day of week to start calendar on
       type: [Number, String],
       default: 0
     },
     locale: {
-      // Locale(s) to use. default is to use page/browser default setting
+      // Locale(s) to use
+      // Default is to use page/browser default setting
       type: [String, Array],
       default: null
     },
     direction: {
-      // 'ltr', 'rtl', or null (for auto detect)
+      // 'ltr', 'rtl', or `null` (for auto detect)
       type: String,
       default: null
     },
@@ -128,7 +129,7 @@ export const BCalendar = Vue.extend({
       default: 'primary'
     },
     todayVariant: {
-      // Variant color to use for today's date (defaults to `vairant`)
+      // Variant color to use for today's date (defaults to `variant`)
       type: String,
       default: null
     },
@@ -158,9 +159,8 @@ export const BCalendar = Vue.extend({
       default: false
     },
     hidden: {
-      // When true, renders a comment node, but
-      // keeps the component instance active
-      // Mainly for b-form-date, so that we can get the component's value and locale
+      // When `true`, renders a comment node, but keeps the component instance active
+      // Mainly for <b-form-date>, so that we can get the component's value and locale
       // But we might just use separate date formatters, using the resolved locale
       // (adjusted for the gregorian calendar)
       type: Boolean,
@@ -174,7 +174,7 @@ export const BCalendar = Vue.extend({
       type: String,
       default: null
     },
-    // Labels for buttons and keybord shortcuts
+    // Labels for buttons and keyboard shortcuts
     labelPrevYear: {
       type: String,
       default: 'Previous year'
@@ -226,11 +226,11 @@ export const BCalendar = Vue.extend({
     return {
       // Selected date as a date object
       // TODO:
-      //   Change to YYYY-MM-DD format so that updating the
+      //   Change to `YYYY-MM-DD` format so that updating the
       //   values with the same date will not trigger a re-render
       selectedDate: selected,
-      // Date in calendar grid that has tabindex of 0
-      // TODO: change to YYYY-MM-DD format
+      // Date in calendar grid that has tabindex of `0`
+      // TODO: change to `YYYY-MM-DD` format
       activeDate: active,
       // Will be true if the calendar grid has/contains focus
       gridHasFocus: false,
@@ -240,7 +240,7 @@ export const BCalendar = Vue.extend({
     }
   },
   computed: {
-    // TODO: use computed props to convert YYYY-MM-DD to Date object
+    // TODO: use computed props to convert `YYYY-MM-DD` to Date object
     selectedYMD() {
       return formatYMD(this.selectedDate)
     },
@@ -260,21 +260,21 @@ export const BCalendar = Vue.extend({
       return parseYMD(this.max)
     },
     computedWeekStarts() {
-      // startWeekday is a prop (constrained to 0 through 6)
+      // `startWeekday` is a prop (constrained to `0` through `6`)
       return Math.max(toInteger(this.startWeekday) || 0, 0) % 7
     },
     computedLocale() {
-      // Returns the resovled locale used by the calendar
+      // Returns the resolved locale used by the calendar
       return resolveLocale(this.locale, 'gregory')
     },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)
-      // Needed because IE11 resolves ar-IR as islamic-civil calendar
-      // and IE11 (and some other browsers) do not support the `calendar` option
+      // Needed because IE 11 resolves `ar-IR` as islamic-civil calendar
+      // and IE 11 (and some other browsers) do not support the `calendar` option
       const fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: 'gregory' })
       const calendar = fmt.resolvedOptions().calendar
       let locale = fmt.resolvedOptions().locale
-      /* istanbul ignore if: mainly for IE11, hard to test in JSDOM */
+      /* istanbul ignore if: mainly for IE 11, hard to test in JSDOM */
       if (calendar !== 'gregory') {
         // Ensure the locale requests the gregorian calendar
         // Mainly for IE 11, and currently we can't handle non-gregorian calendars
@@ -317,7 +317,7 @@ export const BCalendar = Vue.extend({
     },
     context() {
       return {
-        // The current value of the v-model
+        // The current value of the `v-model`
         selectedYMD: this.selectedYMD || '',
         selectedDate: this.selectedDate ? createDate(this.selectedDate) : null,
         selectedFormatted: this.selectedYMD
@@ -348,7 +348,7 @@ export const BCalendar = Vue.extend({
     },
     dateDisabled() {
       // Returns a function for validating if a date is within range
-      // We grab thes variables first to ensure a new
+      // We grab this variables first to ensure a new
       // function ref is generated when the props value changes
       // We do this as we need to trigger the calendar computed prop
       // to update when these props update
@@ -363,7 +363,7 @@ export const BCalendar = Vue.extend({
     },
     // Computed props that return date formatter functions
     formatDateString() {
-      // returns a date formatter function
+      // Returns a date formatter function
       return createDateFormatter(this.calendarLocale, {
         year: 'numeric',
         month: 'long',
@@ -373,7 +373,7 @@ export const BCalendar = Vue.extend({
       })
     },
     formatYearMonth() {
-      // returns a date formatter function
+      // Returns a date formatter function
       return createDateFormatter(this.calendarLocale, {
         year: 'numeric',
         month: 'long',
@@ -384,7 +384,7 @@ export const BCalendar = Vue.extend({
       return createDateFormatter(this.calendarLocale, { weekday: 'long', calendar: 'gregory' })
     },
     formatWeekdayNameShort() {
-      // used as the header cells
+      // Used as the header cells
       return createDateFormatter(this.calendarLocale, { weekday: 'short', calendar: 'gregory' })
     },
     formatDay() {
@@ -418,17 +418,17 @@ export const BCalendar = Vue.extend({
       const calendarMonth = this.calendarMonth
       const firstDay = this.calendarFirstDay
       const daysInMonth = this.calendarDaysInMonth
-      const startIndex = firstDay.getDay() // 0..6
+      const startIndex = firstDay.getDay() // `0`..`6`
       const weekOffset = (this.computedWeekStarts > startIndex ? 7 : 0) - this.computedWeekStarts
       const dateClassFn = isFunction(this.dateClassFn) ? this.dateClassFn : () => ({})
-      // Build the clendar matrix
+      // Build the calendar matrix
       let currentDay = 0 - weekOffset - startIndex
       for (let week = 0; week < 6 && currentDay < daysInMonth; week++) {
-        // for each week
+        // For each week
         matrix[week] = []
-        // The following could be a map funtion
+        // The following could be a map function
         for (let j = 0; j < 7; j++) {
-          // for each day in week
+          // For each day in week
           currentDay++
           const date = createDate(calendarYear, calendarMonth, currentDay)
           const month = date.getMonth()
@@ -436,7 +436,7 @@ export const BCalendar = Vue.extend({
           const dayDisabled = this.dateDisabled(date)
           matrix[week].push({
             dateObj: date,
-            // used by render function for quick equality comparisons
+            // Used by render function for quick equality comparisons
             ymd: dayYMD,
             // Cell content
             day: this.formatDay(date),
@@ -544,7 +544,7 @@ export const BCalendar = Vue.extend({
     },
     onKeydownWrapper(evt) /* istanbul ignore next: until tests are ready */ {
       // Calendar keyboard navigation
-      // Handles PgUp/PgDown/Home/End/Up/Down/Left/Right
+      // Handles PAGEUP/PAGEDOWN/END/HOME/LEFT/UP/RIGHT/DOWN
       // Focuses grid after updating
       const keyCode = evt.keyCode
       const altKey = evt.altKey
@@ -558,40 +558,40 @@ export const BCalendar = Vue.extend({
       const day = activeDate.getDate()
       const isRTL = this.isRTL
       if (keyCode === PAGEUP) {
-        // page up (previous month/year)
+        // PAGEUP - Previous month/year
         activeDate = (altKey ? oneYearAgo : oneMonthAgo)(activeDate)
         // We check the first day of month to be in rage
         checkDate = createDate(activeDate)
         checkDate.setDate(1)
       } else if (keyCode === PAGEDOWN) {
-        // page down (next month/year)
+        // PAGEDOWN - Next month/year
         activeDate = (altKey ? oneYearAgo : oneMonthAhead)(activeDate)
         // We check the last day of month to be in rage
         checkDate = createDate(activeDate)
         checkDate.setMonth(checkDate.getMonth() + 1)
         checkDate.setDate(0)
       } else if (keyCode === LEFT) {
-        // left (previous day - or next day for RTL)
+        // LEFT - Previous day (or next day for RTL)
         activeDate.setDate(day + (isRTL ? 1 : -1))
         checkDate = activeDate
       } else if (keyCode === RIGHT) {
-        // right (next day - or previous day for RTL)
+        // RIGHT - Next day (or previous day for RTL)
         activeDate.setDate(day + (isRTL ? -1 : 1))
         checkDate = activeDate
       } else if (keyCode === UP) {
-        // Up (previous week)
+        // UP - Previous week
         activeDate.setDate(day - 7)
         checkDate = activeDate
       } else if (keyCode === DOWN) {
-        // Down (next week)
+        // DOWN - Next week
         activeDate.setDate(day + 7)
         checkDate = activeDate
       } else if (keyCode === HOME) {
-        // Home (selected date or today if no selected date)
+        // HOME - Selected date (or today if no selected date)
         activeDate = parseYMD(this.selectedDate) || this.getToday()
         checkDate = activeDate
       } else if (keyCode === END) {
-        // End (today)
+        // END - Today
         activeDate = this.getToday()
         checkDate = activeDate
       }
@@ -618,14 +618,14 @@ export const BCalendar = Vue.extend({
     },
     onClickDay(day) {
       // Clicking on a date "button" to select it
-      // TODO: change to lookup the `data-data` attribute
+      // TODO: Change to lookup the `data-data` attribute
       const selectedDate = this.selectedDate
       const activeDate = this.activeDate
       const clickedDate = createDate(day.dateObj)
       if (!this.disabled && !day.isDisabled && !this.dateDisabled(clickedDate)) {
         if (!this.readonly) {
           // If readonly mode, we don't set the selected date, just the active date
-          // If the clicked date is equal to the alread selected date, we don't update the model
+          // If the clicked date is equal to the already selected date, we don't update the model
           this.selectedDate = datesEqual(clickedDate, selectedDate) ? selectedDate : clickedDate
           this.emitSelected(clickedDate)
         }
@@ -661,7 +661,7 @@ export const BCalendar = Vue.extend({
     const activeYMD = this.activeYMD
     const highlightToday = !this.noHighlightToday
     const safeId = this.safeId
-    // Flag for making hte aria-live reagions live
+    // Flag for making the aria-live regions live
     const isLive = this.isLive
     // Pre-compute some IDs
     const idWidget = safeId()
@@ -706,7 +706,7 @@ export const BCalendar = Vue.extend({
       [$header]
     )
 
-    // Content for the date navigaation  buttons
+    // Content for the date navigation buttons
     // TODO: Future allow for custom icons/content?
     const $prevYearIcon = h(BIconstack, { props: { shiftV: 0.5, flipH: isRTL } }, [
       h(BIconChevronLeft, { props: { shiftH: -2 } }),
@@ -720,7 +720,7 @@ export const BCalendar = Vue.extend({
       h(BIconChevronLeft, { props: { shiftH: 2 } })
     ])
 
-    // Utiltiy to create the date navigation buttons
+    // Utility to create the date navigation buttons
     const makeNavBtn = (content, label, handler, btnDisabled, shortcut) => {
       return h(
         'button',
@@ -864,7 +864,7 @@ export const BCalendar = Vue.extend({
               // This could be a custom class???
               width: '32px',
               height: '32px',
-              fonstSize: '14px',
+              fontSize: '14px',
               lineHeight: 1,
               margin: '3px auto',
               padding: '9px 0'
@@ -874,7 +874,7 @@ export const BCalendar = Vue.extend({
           day.day
         )
         return h(
-          'div', // cell with button
+          'div', // Cell with button
           {
             key: dIndex,
             staticClass: 'col p-0',
@@ -883,7 +883,7 @@ export const BCalendar = Vue.extend({
             attrs: {
               id: idCell,
               role: 'button',
-              'data-date': day.ymd, // primarily for testing purposes
+              'data-date': day.ymd, // Primarily for testing purposes
               // Only days in the month are presented as buttons to screen readers
               'aria-hidden': day.isThisMonth ? null : 'true',
               'aria-disabled': day.isDisabled || this.disabled ? 'true' : null,
@@ -894,9 +894,9 @@ export const BCalendar = Vue.extend({
               ]
                 .filter(identity)
                 .join(' '),
-              // NVDA doesn't convey aria-selected, but does aria-current,
-              // Chromevox doesn't convey aria-current, but does aria-selected,
-              // so we set both attribues for robustness
+              // NVDA doesn't convey `aria-selected`, but does `aria-current`,
+              // ChromeVox doesn't convey `aria-current`, but does `aria-selected`,
+              // so we set both attributes for robustness
               'aria-selected': isSelected ? 'true' : null,
               'aria-current': isActive ? 'date' : null
             }
@@ -905,8 +905,8 @@ export const BCalendar = Vue.extend({
         )
       })
       // Return the week "row"
-      // We use the first day of hte weeks YMD value as a
-      // key for efficienct DOM patching / element re-use
+      // We use the first day of the weeks YMD value as a
+      // key for efficient DOM patching / element re-use
       return h('div', { key: week[0].ymd, staticClass: 'row no-gutters' }, $cells)
     })
     $gridBody = h('div', { style: this.disabled ? { pointerEvents: 'none' } : {} }, $gridBody)
@@ -931,7 +931,7 @@ export const BCalendar = Vue.extend({
           id: idGrid,
           role: 'application',
           tabindex: this.disabled ? null : '0',
-          'data-month': activeYMD.slice(0, -3), // YYYY-MM, mainly for testing
+          'data-month': activeYMD.slice(0, -3), // `YYYY-MM`, mainly for testing
           // tabindex: this.disabled ? null : '0',
           'aria-roledescription': this.labelCalendar || null,
           'aria-labelledby': idGridCaption,
@@ -971,7 +971,7 @@ export const BCalendar = Vue.extend({
           'aria-roledescription': this.roleDescription || null,
           'aria-describedby': [
             // Should the attr (if present) go last?
-            // or should this attr be a prop?
+            // Or should this attr be a prop?
             this.$attrs['aria-describedby'],
             idValue,
             idGridHelp

@@ -1,12 +1,12 @@
 # Calendar
 
 > BootstrapVue's custom `<b-calendar>` component generates a WAI-ARIA compliant calendar style date
-> selection widget, which can be used to control other components, or can be used to create customized
-> date picker inputs.
+> selection widget, which can be used to control other components, or can be used to create
+> customized date picker inputs.
 
 `<b-calendar>` is WAI-ARIA accessibility compliant, optimized for keyboard control (arrow, page
-up/down, home, and end keys). Internationalization is also supported, and default's to the browser's or
-page's locale, if no locale(s) are specified.
+up/down, home, and end keys). Internationalization is also supported, and default's to the browser's
+or page's locale, if no locale(s) are specified.
 
 If you need a date picker as a custom form control input, use the
 [`<b-form-date>`](/docs/components/form-date) component instead.
@@ -53,22 +53,22 @@ The selected date button (background color) defaults to the 'primary' theme vari
 this to any of the Bootstrap v4 theme variant colors: `'secondary'`, `'success'`, `'danger'`,
 `'warning'`, `'info'`, etc, via the `selected-variant` prop.
 
-Today's date will also be highligted (text color) using the same variant as the selected date by
-default. To speficy a differet theme color to use for today's date, use the `today-variant` prop.
+Today's date will also be highlighted (text color) using the same variant as the selected date by
+default. To specify a different theme color to use for today's date, use the `today-variant` prop.
 
-To disable highligting of today's date altogether, set the `no-hightlight-today` prop.
+To disable highlighting of today's date altogether, set the `no-highlight-today` prop.
 
 ### Disabled and readonly
 
 Setting the `disabled` prop will remove all interactivity of the `<b-calendar>` component.
 
-Setting the `redonly` prop will disable selecting a date, but will keep the component interactive,
+Setting the `readonly` prop will disable selecting a date, but will keep the component interactive,
 allowing for date navigation.
 
 ### Width
 
-The `<b-calendar>` renders as an inline-block element with a default width of `270px` (excluding
-any padding or border that may be added to it). This width is optimized to fit the width of smaller
+The `<b-calendar>` renders as an inline-block element with a default width of `270px` (excluding any
+padding or border that may be added to it). This width is optimized to fit the width of smaller
 mobile devices.
 
 To change the width, set the `width` prop to any valid CSS width (including units).
@@ -84,15 +84,15 @@ fit the width of the parent element. The `width` prop has no effect when `block`
 <!-- b-calendar-block.vue -->
 ```
 
-Note it is _not recommended_ to set a width below `260px`, otherwise truncation and layout issues with
-the component may occur.
+Note it is _not recommended_ to set a width below `260px`, otherwise truncation and layout issues
+with the component may occur.
 
 ### Hiding the top selected date header
 
 By default, the current selected date will be displayed at the top of the calendar component,
 formatted in the locale's language.
 
-You can hide this header via the `hide-header` prop.  Note this only visually hides the selected
+You can hide this header via the `hide-header` prop. Note this only visually hides the selected
 date, while keeping it available to screen reader users as an aria live region.
 
 ### Border and padding
@@ -110,8 +110,8 @@ Fancy a calendar with a border with padding? Use Bootstrap's
 
 ### Default slot
 
-Provide optional content at the bottom of the calendar interface vis the use of default slot.
-the slot can be used to add buttons such as `Select Today` or `Reset`, etc.
+Provide optional content at the bottom of the calendar interface vis the use of default slot. the
+slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 
 ```html
 <template>
@@ -162,8 +162,8 @@ the slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 ## `v-model` return value
 
 By default, `<b-calendar>`returns dates as a string in the format of `YYYY-MM-DD`. You can have
-`<b-calendar>` return the `v-model` value as a date object (with no time portion) by setting the prop
-`value-as-date`.
+`<b-calendar>` return the `v-model` value as a date object (with no time portion) by setting the
+prop `value-as-date`.
 
 If no date is selected, `<b-calendar>` returns an empty string `''`, or returns `null` if the
 `value-as-date` prop is set.
@@ -175,7 +175,7 @@ default timezone.
 
 ### Minimum and maximum dates
 
-Restrict the calendar range via the `min` and `max` props.  The props accept a date string in the
+Restrict the calendar range via the `min` and `max` props. The props accept a date string in the
 format of `YYYY-MM-DD` or a `Date` object.
 
 ```html
@@ -196,7 +196,7 @@ format of `YYYY-MM-DD` or a `Date` object.
       const maxDate = new Date(today)
       maxDate.setMonth(maxDate.getMonth() + 2)
       maxDate.setDate(15)
-  
+
       return {
         value: '',
         min: minDate,
@@ -212,14 +212,14 @@ format of `YYYY-MM-DD` or a `Date` object.
 ### Enabled and disabled dates
 
 If you need to disabled specific dates within the calendar, specify a function reference to the
-`date-enabled-fn` prop.  The function is passed two arguments:
+`date-enabled-fn` prop. The function is passed two arguments:
 
 - `ymd` The date as a `YYYY-MM-DD` string
 - `date` The date as a date object
 
 The function should either return `true` if the date is selectable (enabled), or `false` if the date
-cannot be selected (disabled). Note that the function **cannot** be asynchronous, and should return a
-value as quickly as possible.
+cannot be selected (disabled). Note that the function **cannot** be asynchronous, and should return
+a value as quickly as possible.
 
 ```html
 <template>
@@ -249,16 +249,16 @@ value as quickly as possible.
 <!-- b-calendar-allowed-dates.vue -->
 ```
 
-Note the `min` and `max` date constraints are evaluated first,  before `date-enabled-fn`.
+Note the `min` and `max` date constraints are evaluated first, before `date-enabled-fn`.
 
 ## Events
 
 ### `input` event
 
 The `'input'` event is emitted when updating the `v-model`. The event has a single argument which is
-the selected date. By default the value is a string in the format of `YYYY-MM-DD` (or an empty string
-if no date is selected). If the prop `value-as-date` is set, then the first argument will instead be a
-`Date` object (or `null` if no date selected).
+the selected date. By default the value is a string in the format of `YYYY-MM-DD` (or an empty
+string if no date is selected). If the prop `value-as-date` is set, then the first argument will
+instead be a `Date` object (or `null` if no date selected).
 
 If the `disabled` or `readonly` props are set, the `'input'` event will **not** be emitted.
 
@@ -266,14 +266,15 @@ If the `disabled` or `readonly` props are set, the `'input'` event will **not** 
 
 The `'context'` event is emitted whenever a user selects a date, or the user navigates the calendar
 (either via cursor keys, page up/down keys, home or end keys, or uses the calendar navigation
-buttons). It will also be emitted when the component is created (just before insertion into the DOM),
-or when the resolved locale has changed.
+buttons). It will also be emitted when the component is created (just before insertion into the
+DOM), or when the resolved locale has changed.
 
-When the `readonly` prop is set, the event will still be emitted when the user navigates the calendar.
-It will not be emitted when the `disabled` prop is set (except for the initial emit when the calendar
-is created).
+When the `readonly` prop is set, the event will still be emitted when the user navigates the
+calendar. It will not be emitted when the `disabled` prop is set (except for the initial emit when
+the calendar is created).
 
-The `'context'` event is passed a context object as it's only argument, with the following properties:
+The `'context'` event is passed a context object as it's only argument, with the following
+properties:
 
 | Property            | description                                                                                                                                                                                                                                                |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -289,9 +290,9 @@ The `'context'` event is passed a context object as it's only argument, with the
 
 If formatting dates manually via `Intl.DateTimeFormat`, use the `calendarLocale` property value
 instead of the `locale` property value to ensure you are using the same calendaring convention that
-`<b-calendar>` uses. This is especially true for the IE11 browser which does not fully implement
+`<b-calendar>` uses. This is especially true for the IE 11 browser which does not fully implement
 all features of `Intl.DateTimeFormat`. Refer to the
-[Internaltionaliation section](#internationalization) section below for additional details.
+[Internationalization section](#internationalization) section below for additional details.
 
 ## Internationalization
 
@@ -302,11 +303,12 @@ help text). You must provide your own translations for these labels. The availab
 browser dependant (not all browsers support all locales)
 
 By default `<b-calendar>` will use the browser's default locale, but you can specify the locale (or
-locales) to use via the `locale` prop. The prop accepts either a single locale string, or an array of
-locale strings (listed in order of prefered locale).
+locales) to use via the `locale` prop. The prop accepts either a single locale string, or an array
+of locale strings (listed in order of preferred locale).
 
 The calendar starts the week on Sunday. This can be changed by setting the `start-weekday` prop to a
-number in the range of `0` to `6` where `0` represents Sunday, `1` for Monday, up to `6` for Saturday.
+number in the range of `0` to `6` where `0` represents Sunday, `1` for Monday, up to `6` for
+Saturday.
 
 The emitted `context` event will include which locale the calendar has resolved to (which may not be
 the same locale as requested, depending on the supported locales of `Intl`).
@@ -410,11 +412,11 @@ the same locale as requested, depending on the supported locales of `Intl`).
 <!-- b-calendar-i18n.vue -->
 ```
 
-Currently `<b-calendar>` only supports the Gergorian (`'gregory'`) calendar.
+Currently `<b-calendar>` only supports the Gregorian (`'gregory'`) calendar.
 
-By default, `<b-calendar>` automatically detects RTL vs LTR via the resolved locale. You can
-force the calendar to render right-to-left by setting the `direction` prop to the string `rtl`, or
-set the `direction` prop to `'ltr'` to always render left-to-right.
+By default, `<b-calendar>` automatically detects RTL vs LTR via the resolved locale. You can force
+the calendar to render right-to-left by setting the `direction` prop to the string `rtl`, or set the
+`direction` prop to `'ltr'` to always render left-to-right.
 
 For server side rendering (SSR) when using Node.js, ensure that the Node.js runtime you are using
 supports `Intl` and the locales you will be using. Refer to the
@@ -437,13 +439,13 @@ Keyboard navigation:
 - <kbd>Alt</kbd>+<kbd>PageDown</kbd> moves to the same day and month in the next year
 - <kbd>Home</kbd> moves to the current selected date, or today if no selected date
 - <kbd>End</kbd> moves to today
-- <kbd>Enter</kbd> or <kbd>Space</kbd> Selectes the currently highligted (focused) day
+- <kbd>Enter</kbd> or <kbd>Space</kbd> selects the currently highlighted (focused) day
 
 When internationalizing the datepicker, it is important to also update the `label-*` props with
-apropriate translated strings, so that international screen reader users will hear the correct
+appropriate translated strings, so that international screen reader users will hear the correct
 prompts and descriptions.
 
-The features and styling of `<b-calendar>` are intentianally kept minimalistic in order to provide
+The features and styling of `<b-calendar>` are intentionally kept minimalistic in order to provide
 the best possible accessibility to _all_ users.
 
 ## Implementation notes
@@ -451,10 +453,9 @@ the best possible accessibility to _all_ users.
 `<b-calendar>` uses Bootstrap's margin, padding, border, and flex utility classes, along with button
 (`btn-*`) classes and the `form-control` class.
 
-Accessbility-wise, we chose not to use the ARIA `grid` role for the calendar to minimize verbosity
+Accessibility-wise, we chose not to use the ARIA `grid` role for the calendar to minimize verbosity
 and to provide consistency across various screen readers.
 
 ## See also
 
 - [`<b-form-date>`](/docs/components/form-date) date picker custom form input
-

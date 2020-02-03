@@ -6,12 +6,12 @@
     "slug": "form-date",
     "version": "2.5.0",
     "new": true,
-    "description": "BootstrapVue custom date picker input form control, which provides full WAI-ARIA compliance and supports internationaliation",
+    "description": "BootstrapVue custom date picker input form control, which provides full WAI-ARIA compliance and supports internationalization",
     "components": [
       {
         "component": "BFormDate",
         "version": "2.5.0",
-        "description": "Cusstom date picker form control"
+        "description": "Custom date picker form control"
       }
     ]
   }

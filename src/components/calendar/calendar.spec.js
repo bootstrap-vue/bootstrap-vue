@@ -23,7 +23,7 @@ describe('calendar', () => {
     wrapper.destroy()
   })
 
-  it('has expected struture when value is set', async () => {
+  it('has expected structure when value is set', async () => {
     const wrapper = mount(BCalendar, {
       attachToDocument: true,
       propsData: {

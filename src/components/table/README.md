@@ -586,8 +586,8 @@ values: `sm`, `md`, `lg`, or `xl`.
   - Wrap header cells in `<div>` elements, via the use of
     [custom header rendering](#header-and-footer-custom-rendering-via-scoped-slots), which have a
     minimum width set on them, or
-  - Use the `thStyle` property of the [field definition object](#field-definition-reference) to
-    set a width for the column(s), or
+  - Use the `thStyle` property of the [field definition object](#field-definition-reference) to set
+    a width for the column(s), or
   - Use custom CSS to define classes to apply to the columns to set widths, via the `thClass` or
     `class` properties of the [field definition object](#field-definition-reference).
 
@@ -1307,7 +1307,7 @@ available horizontal space.
   the body scrolls. To get around this issue, set the prop `no-border-collapse` on the table (note
   that this may cause double width borders when using features such as `bordered`, etc).
 - The sticky header feature uses CSS style `position: sticky` to position the headings. Internet
-  Explorer does not support `position: sticky`, hence for IE11 the table headings will scroll with
+  Explorer does not support `position: sticky`, hence for IE 11 the table headings will scroll with
   the table body.
 
 ### Sticky columns
@@ -1403,7 +1403,7 @@ set.
   (note that this may cause double width borders when using features such as `bordered`, etc).
 - BootstrapVue's custom CSS is required in order to support sticky columns.
 - The sticky column feature uses CSS style `position: sticky` to position the column cells. Internet
-  Explorer does not support `position: sticky`, hence for IE11 the sticky column will scroll with
+  Explorer does not support `position: sticky`, hence for IE 11 the sticky column will scroll with
   the table body.
 
 ### Row details support

@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormDate } from './form-date'
 
-//  Note that JSDOM only supports `en-US` (`en`) locale for Intl
+// Note that JSDOM only supports `en-US` (`en`) locale for `Intl`
 
 describe('form-date', () => {
   it('has expected base structure', async () => {

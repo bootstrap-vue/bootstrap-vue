@@ -556,7 +556,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     getActiveElement() {
       if (isBrowser) {
         const activeElement = document.activeElement
-        // Note: On IE11, `document.activeElement` may be null.
+        // Note: On IE 11, `document.activeElement` may be null.
         // So we test it for truthiness first.
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
         // Returning focus to document.body may cause unwanted scrolls, so we
