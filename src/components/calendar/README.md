@@ -182,7 +182,8 @@ If the `disabled` or `readonly` props are set, the `'input'` event will **not** 
 
 The `'context'` event is emited whenever a user selects a date, or the user navigates the calendar
 (either via cursor keys, page up/down keys, home or end keys, or uses the calendar navigation
-buttons). It will also be emitted when the component is created (just before insertion into the DOM).
+buttons). It will also be emitted when the component is created (just before insertion into the DOM),
+or when the resolved locale is changed.
 
 When the `readonly` prop is set, the event will still be emitted when the user navigates the calendar.
 It will not be emitted when the `disabled` prop is set (except for the initial emit when the calendar
