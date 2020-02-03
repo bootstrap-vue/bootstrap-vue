@@ -381,7 +381,7 @@ the best possible accessibility to _all_ users.
 
 ## Implementation notes
 
-`<b-calendar>` uses Bootstrap's margin, padding, and flex utility classes, along with button
+`<b-calendar>` uses Bootstrap's margin, padding, border, and flex utility classes, along with button
 (`btn-*`) classes and the `form-control` class.
 
 ## See also
