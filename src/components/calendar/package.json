@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Calendar",
+    "slug": "calendar",
     "version": "2.5.0",
     "new": true,
     "description": "Calendar widget for selecting dates and controling other components.",
