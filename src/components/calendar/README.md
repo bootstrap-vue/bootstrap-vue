@@ -185,7 +185,7 @@ the same locale as requested, depending on the supported locales of `Intl`).
             labelSelected: 'ausgewähltes Datum',
             labelNoDateSelected: 'Kein Datum gewählt',
             labelCalendar: 'Kalender',
-            labelNav: 'Kalendernavigation'
+            labelNav: 'Kalendernavigation',
             labelHelp: 'Mit den Cursortasten durch die Daten navigieren'
           },
           'ar-EG': {
@@ -198,7 +198,7 @@ the same locale as requested, depending on the supported locales of `Intl`).
             labelSelected: 'التاريخ المحدد',
             labelNoDateSelected: 'لم يتم اختيار تاريخ',
             labelCalendar: 'التقويم',
-            labelNav: 'الملاحة التقويم'
+            labelNav: 'الملاحة التقويم',
             labelHelp: 'استخدم مفاتيح المؤشر للتنقل في التواريخ'
           },
           zh: {
@@ -211,7 +211,7 @@ the same locale as requested, depending on the supported locales of `Intl`).
             labelSelected: '选定日期',
             labelNoDateSelected: '未选择日期',
             labelCalendar: '日历',
-            labelNav: '日历导航'
+            labelNav: '日历导航',
             labelHelp: '使用光标键浏览日期'
           }
         }
