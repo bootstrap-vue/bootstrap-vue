@@ -8,7 +8,7 @@
 up/down, home, and end keys). Internationalization is also supported, and default's to the browser's or
 page's locale, if no locale(s) are specified.
 
-Use `<b-form-date>` if you need a date picker as a custom form control input.
+If you need a date picker as a custom form control input, use the `<b-form-date>` component instead.
 
 ```html
 <template>
@@ -76,7 +76,7 @@ fit the width of the parent element. The `width` prop has no effect when `block`
 
 ```html
 <template>
-  <b-calendar block></b-calendar>
+  <b-calendar block local="en-US"></b-calendar>
 </template>
 
 <!-- b-calendar-block.vue -->
@@ -97,9 +97,9 @@ the slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 
 ```html
 <template>
-  <b-calendar v-model="value" value-as-date>
+  <b-calendar v-model="value" value-as-date locale="en">
     <div class="d-flex justify-content-between">
-      <b-button size="sm" variant="outline-danger" @click="reset">Reset</b-button>
+      <b-button size="sm" variant="outline-danger" @click="reset">Clear date</b-button>
       <b-button size="sm" variant="outline-primary" @click="setToday">Set Today</b-button>
     </div>
   </b-calendar>
@@ -134,7 +134,7 @@ Fancy a calendar with a border with padding? Use Bootstrap's
 
 ```html
 <template>
-  <b-calendar class="border rounded p-1"></b-calendar>
+  <b-calendar class="border rounded p-1" locale="en"></b-calendar>
 </template>
 
 <!-- b-calendar-border-padding.vue -->
