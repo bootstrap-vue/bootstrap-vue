@@ -65,6 +65,9 @@ Setting the `disabled` prop will remove all interactivity of the `<b-calendar>` 
 Setting the `readonly` prop will disable selecting a date, but will keep the component interactive,
 allowing for date navigation.
 
+For disabling specific dates or setting mininum and maximum date limits, refer to the
+[Date constraints](#date-constraints) section below.
+
 ### Width
 
 The `<b-calendar>` renders as an inline-block element with a default width of `270px` (excluding any
@@ -158,6 +161,49 @@ slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 
 <!-- b-calendar-default-slot.vue -->
 ```
+
+### Adding CSS classes to specific dates
+
+If you need to hightligt a specific date or dates, set the `date-class-fn` prop to a reference to a
+function that returns a CSS class (or classes) to apply to the date's cell. The function is passed two
+arguments:
+
+- `ymd` The date as a `YYYY-MM-DD` string
+- `date` The date as a date object
+
+The function can return a string, or an array of strings. If setting no classes, you can return
+an empty string (`''`), empty array (`[]`), or `null`.
+
+In this example we are using the `table-{variant}` classes to set a background color on the date
+cell.
+
+```html
+<template>
+  <div>
+    <b-calendar v-model="value" :date-class-fn="dateClass" locale="en"></b-calendar>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    },
+    methods: {
+      dateClass(ymd, date) {
+        const day = date.getDate()
+        return day >= 10 && day <= 20 ? 'table-info' : ''
+      }
+    }
+  }
+</script>
+
+<!-- b-calendar-date-classes.vue -->
+```
+
+Note the function will _not_ be called for [disabed dates](#date-constraints).
 
 ## `v-model` return value
 
