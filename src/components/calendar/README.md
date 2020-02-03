@@ -95,6 +95,19 @@ formatted in the locale's language.
 You can hide this header via the `hide-header` prop.  Note this only visually hides the selected
 date, while keeping it available to screen reader users as an aria live region.
 
+### Border and padding
+
+Fancy a calendar with a border with padding? Use Bootstrap's
+[border and padding utility classes](/docs/reference/utility-classes) to add borders and padding:
+
+```html
+<template>
+  <b-calendar class="border rounded p-2" locale="en"></b-calendar>
+</template>
+
+<!-- b-calendar-border-padding.vue -->
+```
+
 ### Default slot
 
 Provide optional content at the bottom of the calendar interface vis the use of default slot.
@@ -144,19 +157,6 @@ the slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 </script>
 
 <!-- b-calendar-default-slot.vue -->
-```
-
-### Border and padding
-
-Fancy a calendar with a border with padding? Use Bootstrap's
-[border and padding untility classes](/docs/reference/utility-classes) to add borders and padding:
-
-```html
-<template>
-  <b-calendar class="border rounded p-2" locale="en"></b-calendar>
-</template>
-
-<!-- b-calendar-border-padding.vue -->
 ```
 
 ## `v-model` return value
