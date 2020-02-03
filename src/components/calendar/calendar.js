@@ -506,6 +506,12 @@ export const BCalendar = Vue.extend({
       const max = this.computedMax || date
       return createDate(date < min ? min : date > max ? max : date)
     },
+    emitSelected(date) {
+      // Performed in a nextTick to ensure input event has emitted first
+      this.$nextTick(() => {
+        this.$emit('selected', this.valueAsDate ? parseYMD(date) || null : formatYMD(date) || '')
+      })
+    },
     // Event handlers
     setGridFocusFlag(evt) {
       // Sets the gridHasFocus flag to make date "button" look focused
@@ -580,6 +586,7 @@ export const BCalendar = Vue.extend({
         evt.stopPropagation()
         if (!this.disabled && !this.readonly && !this.dateDisabled(activeDate)) {
           this.selectedDate = createDate(activeDate)
+          this.emitSelected(activeDate)
         }
         this.focusGrid()
       }
@@ -593,7 +600,9 @@ export const BCalendar = Vue.extend({
       if (!this.disabled && !day.isDisabled && !this.dateDisabled(clickedDate)) {
         if (!this.readonly) {
           // If readonly mode, we don't set the selected date, just the active date
+          // If the clicked date is equal to the alread selected date, we don't update the model
           this.selectedDate = datesEqual(clickedDate, selectedDate) ? selectedDate : clickedDate
+          this.emitSelected(clickedDate)
         }
         this.activeDate = datesEqual(clickedDate, activeDate) ? activeDate : createDate(clickedDate)
         this.focusGrid()
