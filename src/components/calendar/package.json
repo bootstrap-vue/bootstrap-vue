@@ -105,6 +105,20 @@
             ]
           },
           {
+            "event": "selected",
+            "description": "Emitted to when user has selected (clicked) a date",
+            "args": [
+              {
+                "arg": "date",
+                "description": "Either a string in the format of 'YYYY-MM-DD' or a Date object (if 'value-as-date' prop is true). Note this event will also be emitted if the user clicks on the currently selected date",
+                "type": [
+                  "String",
+                  "Date"
+                ]
+              }
+            ]
+          },
+          {
             "event": "context",
             "description": "Emitted to when when the user changes the active date via date navigation buttons or cursor control",
             "args": [
