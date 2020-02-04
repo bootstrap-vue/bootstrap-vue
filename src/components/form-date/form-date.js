@@ -318,7 +318,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       'div',
       {
         ref: 'menu',
-        staticClass: 'dropdown-menu',
+        staticClass: 'dropdown-menu p-0',
         class: {
           show: this.visible,
           'dropdown-menu-right': this.right
