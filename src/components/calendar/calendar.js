@@ -323,7 +323,7 @@ export const BCalendar = Vue.extend({
         selectedDate: parseYMD(this.selectedYMD) || null,
         selectedFormatted: this.selectedYMD
           ? this.formatDateString(parseYMD(this.selectedYMD))
-          : '',
+          : this.labelNoDateSelected,
         // Which date cell is considered active due to navigation
         activeYMD: this.activeYMD || '',
         activeDate: parseYMD(this.activeYMD) || null,
