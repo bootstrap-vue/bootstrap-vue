@@ -369,7 +369,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idMenu,
           role: 'dialog',
-          'aria-modal': 'false'
+          'aria-modal': 'false',
+          'aria-labelledby': idLabel
         },
         on: {
           // We should set up our own onMenuKeydown handler
