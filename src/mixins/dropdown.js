@@ -238,6 +238,13 @@ export default {
       }
       this.$_popper = null
     },
+    updatePopper() {
+      // Re-computes the dropdown positioning
+      // usefull if the content changes size
+      try {
+        this.$_popper.scheduleUpdate()
+      } catch {}
+    },
     getPopperConfig() {
       let placement = AttachmentMap.BOTTOM
       if (this.dropup) {
