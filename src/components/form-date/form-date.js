@@ -3,7 +3,6 @@ import { formatYMD } from '../../utils/date'
 import { isBoolean } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
-import formMixin from '../../mixins/form'
 // import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar } from '../../icons/icons'
 
@@ -28,6 +27,10 @@ const propsMixin = {
       // Defaults to `labelNoDateSelected`
       default: null
     },
+    size: {
+      type: String,
+      default: null
+    },
     min: {
       type: [String, Date],
       default: null
@@ -36,7 +39,19 @@ const propsMixin = {
       type: [String, Date],
       default: null
     },
-    size: {
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    name: {
+      type: String,
+      default: null
+    },
+    form: {
       type: String,
       default: null
     },
