@@ -283,6 +283,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           min: this.min,
           max: this.max,
           readonly: this.readonly,
+          disabled: this.disabled,
           locale: this.locale,
           startWeekday: this.startWeekday,
           direction: this.direction,
@@ -296,7 +297,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           selected: (ymd, date) => /* istanbul ignore next: until tests are written */ {
             this.$nextTick(() => {
               if (!this.noCloseOnSelect) {
-                this.hide(true))
+                this.hide(true)
               }
             })
           },
