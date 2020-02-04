@@ -185,11 +185,10 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const idLabel = this.safeId('_value_')
     const idMenu = this.safeId('_dialog_')
 
-    const $buttonContent = h('div', { attrs: { 'aria-hidden': 'true' } }, [
+    let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
       h(BIconCalendar, { props: { scale: 1.25 } })
     ])
-
-    const $button = h(
+    $button = h(
       'button',
       {
         ref: 'toggle',
@@ -208,8 +207,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           'aria-expanded': 'false'
         }
       },
-      [$buttonContent]
+      [$button]
     )
+    $button = h('div', { staticClass: 'input-grouo-prepend' }, [$button])
 
     // Fake input
     const $input = h(
