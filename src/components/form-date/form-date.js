@@ -194,7 +194,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   mounted() {
     this.$on('shown', () => /* istanbul ignore next: until tests are written */ {
       // May want to make an option to focus entire calendar or just the date
-      this.focusGrid()
+      try {
+        this.$refs.calendar.focus()
+      } catch {}
     })
   },
   methods: {
