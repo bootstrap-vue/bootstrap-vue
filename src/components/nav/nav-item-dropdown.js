@@ -10,7 +10,8 @@ import { BLink } from '../link/link'
 // -- Constants --
 
 export const props = pluckProps(
-  ['text', 'html', 'menuClass', 'toggleClass', 'noCaret', 'role', 'lazy'], BDropdownProps
+  ['text', 'html', 'menuClass', 'toggleClass', 'noCaret', 'role', 'lazy'],
+  BDropdownProps
 )
 
 // @vue/component
