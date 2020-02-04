@@ -145,17 +145,17 @@ Note the `min` and `max` date constraints are evaluated first, before `date-disa
 
 ## Validation states
 
-`<b-for-date>` supports invalid and valid styling via the boolean `state` prop.  Setting `state`
+`<b-form-date>` supports invalid and valid styling via the boolean `state` prop.  Setting `state`
 to boolean `false` will style the input as invalid, while setting it to boolean `true` will style
-it as valid. Setting `state` to `null` will no show any validation state styling (the default).
+it as valid. Setting `state` to `null` will not show any validation state styling (the default).
 
 ```html
 <template>
   <div>
-    <label for="example-datepicker">Choose a date (invalid style)</label>
-    <b-form-date id="example-datepicker" :state="false" class="mb-2"></b-form-date>
-    <label for="example-datepicker">Choose a date (valid style)</label>
-    <b-form-date id="example-datepicker" :state="true"></b-form-date>
+    <label for="datepicker-invalid">Choose a date (invalid style)</label>
+    <b-form-date id="datepicker-invalid" :state="false" class="mb-2"></b-form-date>
+    <label for="datepicker-valid">Choose a date (valid style)</label>
+    <b-form-date id="datepicker-valid" :state="true"></b-form-date>
   </div>
 </template>
 
@@ -181,15 +181,7 @@ To disable highlighting of today's date altogether, set the `no-highlight-today`
 
 TBD
 
-### Dark mode
-
-TBD
-
-### Dropdown placement
-
-TBD
-
-## Optional controls
+### Optional controls
 
 TBD
 
@@ -197,6 +189,14 @@ Optional "Today", "Close", and "Reset" buttons.
 
 By default, when a day is slected, the popup will automatically close. You can disable this
 behaviour by setting the the `no-close-on-select` prop.
+
+### Dropdown placement
+
+TBD
+
+### Dark mode
+
+TBD
 
 ## Internationalization
 
