@@ -10,7 +10,8 @@ The `<b-form-date>` component was introduced in BootstrapVue `v2.5.0`
 
 ```html
 <template>
-  <b-form-date v-model="value"></b-form-date>
+  <label for="example-datepicker">Choose a date</label>
+  <b-form-date id="example-datepicker" v-model="value"></b-form-date>
 </template>
 
 <script>
@@ -25,6 +26,9 @@ The `<b-form-date>` component was introduced in BootstrapVue `v2.5.0`
 
 <!-- b-form-date.vue -->
 ```
+
+`<b-form-date>` supports many of the props available on [`<b-calendar>`](/docs/components/calendar)
+as well as some of the props available on [`<b-dropdown>`](/docs/components/dropdown).
 
 ## `v-model` return value
 
