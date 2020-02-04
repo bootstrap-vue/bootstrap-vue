@@ -429,7 +429,9 @@ export default {
       return filterVisibles(selectAll(Selector.ITEM_SELECTOR, this.$refs.menu))
     },
     focusMenu() {
-      this.$refs.menu.focus && this.$refs.menu.focus()
+      try {
+        this.$refs.menu.focus()
+      } catch {}
     },
     focusToggler() {
       this.$nextTick(() => {
