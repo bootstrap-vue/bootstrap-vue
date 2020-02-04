@@ -136,8 +136,8 @@ const propsMixin = {
       // Default: BCalendar value
     },
     labelToday: {
-      type: String
-      // Default: BCalendar value
+      type: String,
+      default: 'Today'
     },
     labelSelected: {
       type: String
@@ -158,6 +158,20 @@ const propsMixin = {
     labelHelp: {
       type: String
       // Default: BCalendar value
+    },
+    // Form date optional labels
+    labelCloseButton: {
+      type: String,
+      default: 'Close'
+    },
+    labelResetButton: {
+      type: String,
+      default: 'Reset'
+    },
+    labelTodayButton: {
+      type: String,
+      // Falls back to the labelToday prop value
+      // default: 'Today'
     },
     // Dark mode
     dark: {
