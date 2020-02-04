@@ -181,6 +181,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   },
   computed: {
     calendarProps() {
+      // TODO make the ID's computed props
+      const idLabel = this.safeId('_value_')
+      const idWrapper = this.safeId('_b-form-date_')
       return {
         // id: this.safeId('_picker_'),
         ariaControls: [idLabel, idWrapper].filter(identity).join(' ') || null,
@@ -250,6 +253,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const size = this.size
     const state = this.state
     const idButton = this.safeId()
+    // TODO make the IDs computed props
     const idLabel = this.safeId('_value_')
     const idMenu = this.safeId('_dialog_')
     const idWrapper = this.safeId('_b-form-date_')
