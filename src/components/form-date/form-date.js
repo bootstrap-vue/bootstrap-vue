@@ -81,7 +81,7 @@ const propsMixin = {
       type: Boolean,
       default: false
     },
-    dark: {
+    hideHeader: {
       type: Boolean,
       default: false
     },
@@ -158,6 +158,11 @@ const propsMixin = {
     labelHelp: {
       type: String
       // Default: BCalendar value
+    },
+    // dark mode
+    dark: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -208,8 +213,19 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         direction: this.direction,
         dateDisabledFn: this.dateDisabledFn,
         selectedVariant: this.selectedVariant,
-        todayVariant: this.todayVariant
-        // TODO: Add all label passthrough props
+        todayVariant: this.todayVariant,
+        hideHeader: this.hideHeader,
+        labelPrevYear: this.labelPrevYear,
+        labelPrevMonth: this.labelPrevMonth,
+        labelCurrentMonth: this.labelCurrentMonth,
+        labelNextMonth: this.labelNextMonth,
+        labelNextYear: this.labelNextYear,
+        labelToday: this.labelToday,
+        labelSelected: this.labelSelected,
+        labelNoDateSelected: this.labelNoDateSelected,
+        labelCalendar: this.labelCalendar,
+        labelNav: this.labelNav,
+        labelHelp: this.labelHelp
       }
     }
   },
@@ -331,9 +347,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           }
         }
       },
-      // We should possibly pass back `No date selected` as the formatted
-      // value when no date is selected
-      this.formattedValue || this.placehodler || 'Select a date'
+      // If a date is selected, show the formated value, otherwise show
+      // placeholder text (or labelNoDateSelected returned via context)
+      this.localYMD ? this.formattedValue : this.placehodler || this.formattedValue
     )
 
     // TODO: add in the optional buttons
