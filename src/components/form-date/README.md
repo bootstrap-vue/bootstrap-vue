@@ -332,6 +332,8 @@ details.
 `<b-form-date>` uses Bootstrap's margin, padding, border, and flex utility classes, along with
 button (`btn-*`) classes, `input-group*` classes, and the `form-control` (plus validation) class.
 
+Custom SCSS is also employed to handle disabled and readonly styling.
+
 ## See also
 
 - `<b-calendar>` Calendar date selection widget
