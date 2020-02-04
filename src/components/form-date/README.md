@@ -10,9 +10,11 @@ The `<b-form-date>` component was introduced in BootstrapVue `v2.5.0`
 
 ```html
 <template>
-  <label for="example-datepicker">Choose a date</label>
-  <b-form-date id="example-datepicker" v-model="value" class="mb-2"></b-form-date>
-  <p>Value: '{{ value }}'</p>
+  <div>
+    <label for="example-datepicker">Choose a date</label>
+    <b-form-date id="example-datepicker" v-model="value" class="mb-2"></b-form-date>
+    <p>Value: '{{ value }}'</p>
+  </div>
 </template>
 
 <script>
@@ -42,6 +44,11 @@ If no date is selected, `<b-form-date>` returns an empty string `''`, or returns
 
 Note that when `value-as-date` prop is set, the returned `Date` object will be in the browser's
 default timezone.
+
+If `<b-form-date>` has a value set for the `name` prop, a hidden input will be created which will have
+its `name` attribute set to the value of the `name` prop, and the value attribute wil be set to the
+selected date in `YYYY-MM-DD` format. This will allow the `<b-form-date>` selected value to be
+submitted via native broswer form submission.
 
 ## Date constraints
 
