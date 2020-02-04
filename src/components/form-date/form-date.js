@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { formatYMD } from '../../utils/date'
 import { isBoolean } from '../../utils/inspect'
+import identity from '../../utils/identity'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import { BCalendar } from '../calendar/calendar'
@@ -205,7 +206,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const idButton = this.safeId()
     const idLabel = this.safeId('_value_')
     const idMenu = this.safeId('_dialog_')
-    const idWrapper = id: this.safeId('_b-form-date_')
+    const idWrapper = this.safeId('_b-form-date_')
 
     let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
       h(BIconCalendar, { props: { scale: 1.25 } })
@@ -276,7 +277,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         props: {
           // TODO: use a computed prop
           // id: this.safeId('_picker_'),
-          ariaControls: idLabel,
+          ariaControls: [idLabel, idWrapper].filter(identity).join(' ') || null,
           value: this.localValue,
           hidden: !this.visible,
           min: this.min,
