@@ -1,13 +1,13 @@
 import Vue from '../../utils/vue'
+import identity from '../../utils/identity'
 import { formatYMD, parseYMD } from '../../utils/date'
 import { isBoolean } from '../../utils/inspect'
-import identity from '../../utils/identity'
-import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
+import idMixin from '../../mixins/id'
 import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar } from '../../icons/icons'
 
-// we create our props as a mixin so that we can control
+// We create our props as a mixin so that we can control
 // where they appear in the props listing reference section
 const propsMixin = {
   props: {
@@ -159,7 +159,7 @@ const propsMixin = {
       type: String
       // Default: BCalendar value
     },
-    // dark mode
+    // Dark mode
     dark: {
       type: Boolean,
       default: false
@@ -180,7 +180,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      // We always use YYYY-MM-DD value internally
+      // We always use `YYYY-MM-DD` value internally
       localYMD: formatYMD(this.value) || '',
       // Context data from BCalendar
       localLocale: null,
@@ -192,11 +192,11 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   computed: {
     calendarYM() {
       // Returns the calendar year/month
-      // Returns the YYYY-MM portion of the active cqalendar date
+      // Returns the `YYYY-MM` portion of the active calendar date
       return this.activeYMD.slice(0, -3)
     },
     calendarProps() {
-      // TODO make the ID's computed props
+      // TODO: Make the ID's computed props
       const idLabel = this.safeId('_value_')
       const idWrapper = this.safeId('_b-form-date_')
       return {
@@ -237,9 +237,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
     },
     calendarYM(newVal, oldVal) /* istanbul ignore next */ {
-      // displayed calendar month has changed
-      // So possibly hte calendar height has changed... we need to
-      // update popper computed position
+      // Displayed calendar month has changed
+      // So possibly the calendar height has changed...
+      // We need to update popper computed position
       if (newVal !== oldVal && oldVal) {
         this.updatePopper()
       }
@@ -248,7 +248,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   },
   mounted() {
     this.$on('shown', () => /* istanbul ignore next: until tests are written */ {
-      // May want to make an option to focus entire calendar or just the date
+      // May want to make an option to focus
+      // the entire calendar or just the date
       try {
         this.$refs.calendar.focus()
       } catch {}
@@ -290,7 +291,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const size = this.size
     const state = this.state
     const idButton = this.safeId()
-    // TODO make the IDs computed props
+    // TODO: Make the ID's computed props
     const idLabel = this.safeId('_value_')
     const idMenu = this.safeId('_dialog_')
     const idWrapper = this.safeId('_b-form-date_')
@@ -348,13 +349,13 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         }
       },
       // If a date is selected, show the formated value, otherwise show
-      // placeholder text (or labelNoDateSelected returned via context)
+      // placeholder text (or `labelNoDateSelected` returned via context)
       this.localYMD
         ? this.formattedValue
         : [h('span', { staticClass: 'text-muted' }, this.placeholder || this.formattedValue)]
     )
 
-    // TODO: add in the optional buttons
+    // TODO: Add in the optional buttons
     // This should be an empty array or null
     // when no footer buttons
     const $controls = []
@@ -391,7 +392,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           'aria-labelledby': idLabel
         },
         on: {
-          // We should set up our own onMenuKeydown handler
+          // We should set up our own `onMenuKeydown()` handler
           // for handling ESC
           keydown: this.onKeydown // Handle and ESC
         }
@@ -420,7 +421,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           {
             show: this.visible,
             [`form-control-${size}`]: !!size,
-            [`input-grpup-${size}`]: !!size,
+            [`input-group-${size}`]: !!size,
             'is-invalid': state === false,
             'is-valid': state === true
           }
@@ -430,7 +431,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           role: 'group',
           'aria-disabled': this.disabled,
           'aria-readonly': this.readonly && !this.disabled,
-          'aria-labeledby': idLabel,
+          'aria-labelledby': idLabel,
           // We don't want the flex order to change here
           // So we always use 'ltr'
           dir: 'ltr'
