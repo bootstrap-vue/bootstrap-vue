@@ -1,0 +1,28 @@
+// Custom CSS for b-form-date
+
+.b-form-date {
+  // Disabled and read-only styling
+  &[aria-disabled="true"],
+  &[aria-readonly="true"] {
+    .input-group-prepend,
+    label.form-control {
+      background-color: $input-disabled-bg;
+      opacity: 1;
+    }
+  }
+
+  &[aria-disabled="true"] {
+    label.form-control {
+      cursor: default;
+    }
+  }
+
+  // Give label a cursor like buttons have
+  &:not([aria-disabled="true"]) {
+    label.form-control {
+      @if $enable-pointer-cursor-for-buttons {
+        cursor: pointer;
+      }
+    }
+  }
+}
