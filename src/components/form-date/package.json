@@ -124,7 +124,19 @@
           },
           {
             "prop": "dark",
-            "description": "when set, gives the popup calendar dialog a dark background"
+            "description": "When set, gives the popup calendar dialog a dark background"
+          },
+          {
+            "prop": "labelTodayButton",
+            "description": "Content for the optional `today` button. Defaults to the value specified via the `label-today` prop"
+          },
+          {
+            "prop": "labelResetButton",
+            "description": "Content for the optional `reset` button"
+          },
+          {
+            "prop": "labelCloseButton",
+            "description": "Content for the optional `close` button"
           }
         ],
         "events": [
