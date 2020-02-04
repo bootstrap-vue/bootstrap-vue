@@ -1,10 +1,11 @@
 # Form Date
 
 > `<b-form-date>` is a BootstrapVue custom date picker input form control, which provides full
-> WAI-ARIA compliance and also supports internationaliation.
+> WAI-ARIA compliance and also supports internationalization.
 
-`<b-form-date>` is a form control wrapper component for the [`<b-calendar>`](/docs/components/calendar)
-component, and provides additional validation state presentation.
+`<b-form-date>` is a form control wrapper component for the
+[`<b-calendar>`](/docs/components/calendar) component, and provides additional validation state
+presentation.
 
 The `<b-form-date>` component was introduced in BootstrapVue `v2.5.0`
 
@@ -45,29 +46,29 @@ If no date is selected, `<b-form-date>` returns an empty string `''`, or returns
 Note that when `value-as-date` prop is set, the returned `Date` object will be in the browser's
 default timezone.
 
-If `<b-form-date>` has a value set for the `name` prop, a hidden input will be created which will have
-its `name` attribute set to the value of the `name` prop, and the value attribute wil be set to the
-selected date in `YYYY-MM-DD` format. This will allow the `<b-form-date>` selected value to be
-submitted via native broswer form submission.
+If `<b-form-date>` has a value set for the `name` prop, a hidden input will be created which will
+have its `name` attribute set to the value of the `name` prop, and the value attribute wil be set to
+the selected date in `YYYY-MM-DD` format. This will allow the `<b-form-date>` selected value to be
+submitted via native browser form submission.
 
 ## Date constraints
 
 ### Minimum and maximum dates
 
-Restrict the calendar range via the `min` and `max` props.  The props accept a date string in the
+Restrict the calendar range via the `min` and `max` props. The props accept a date string in the
 format of `YYYY-MM-DD` or a date object.
 
 ### Disabled dates
 
 If you need to disabled specific dates within the calendar, specify a function reference to the
-`allowed-dates` prop.  The function is passed two arguments:
+`allowed-dates` prop. The function is passed two arguments:
 
 - `ymd` The date as a `YYYY-MM-DD` string
 - `date` The date as a date object
 
 The function should either return `true` if the date is selectable (enabled), or `false` if the date
-cannot be selected (disabled). Note that the function **cannot** be asynchronous, and should return a
-value as quickly as possible.
+cannot be selected (disabled). Note that the function **cannot** be asynchronous, and should return
+a value as quickly as possible.
 
 ## Validation states
 
