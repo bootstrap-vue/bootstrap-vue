@@ -281,7 +281,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           // id: this.safeId('_picker_'),
           ariaControls: [idLabel, idWrapper].filter(identity).join(' ') || null,
           value: this.localValue,
-          hidden: !this.visible,
+          // hidden: !this.visible,
           min: this.min,
           max: this.max,
           readonly: this.readonly,
