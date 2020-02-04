@@ -294,6 +294,12 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           todayVariant: this.todayVariant
           // TODO: Add all label passthrough props
         },
+        nativeOn: {
+          click: evt => /* istanbul ignore next: until tests are written */ {
+            // Stop native click events from reacing the dropdown handlers
+            evt.stopPropagation()
+          }
+        },
         on: {
           // TODO: Make event handlers methods
           selected: (ymd, date) => /* istanbul ignore next: until tests are written */ {
@@ -329,6 +335,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           'aria-modal': 'false'
         },
         on: {
+          // We should set up our own onMenuKeydown handler
+          // for handling ESC
           keydown: this.onKeydown // Handle and ESC
         }
       },
