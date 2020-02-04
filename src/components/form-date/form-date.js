@@ -183,10 +183,10 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     // TBD
   },
   watch: {
-    value(newVal, oldVal) {
+    value(newVal, oldVal) /* istanbul ignore next: until tests are written */ {
       this.localValue = formatYMD(newVal) || ''
     },
-    localValue(oldVal, newVal) {
+    localValue(oldVal, newVal) /* istanbul ignore next: until tests are written */ {
       this.$emit('input', this.valueAsDate ? parseYMD(oldVal) || null : newVal || '')
     }
     // TBD
