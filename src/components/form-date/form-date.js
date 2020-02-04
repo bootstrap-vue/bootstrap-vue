@@ -25,7 +25,7 @@ const propsMixin = {
     },
     placeholder: {
       type: String,
-      // Defaults to `labelNoDateSelected`
+      // Defaults to `labelNoDateSelected` from calendar context
       default: null
     },
     size: {
@@ -349,7 +349,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       },
       // If a date is selected, show the formated value, otherwise show
       // placeholder text (or labelNoDateSelected returned via context)
-      this.localYMD ? this.formattedValue : this.placehodler || this.formattedValue
+      this.localYMD
+        ? this.formattedValue
+        : [h('span', { staticClass: 'text-muted' }, this.placeholder || this.formattedValue)]
     )
 
     // TODO: add in the optional buttons
