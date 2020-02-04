@@ -233,8 +233,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         },
         on: {
           mousedown: this.onMousedown,
-          click: this.toggle,
-          keydown: this.toggle // Handle ENTER, SPACE and DOWN
+          click: this.toggle
         }
       },
       [$button]
@@ -311,12 +310,15 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
               }
             })
           },
+          input: ymd => /* istanbul ignore next: until tests are written */ {
+            this.localValue = ctx.selectedYMD
+          },
           context: ctx => {
             // Performed in a nextTick to prevent endless update loops
             this.$nextTick(() => {
+              // this.localValue = ctx.selectedYMD
               this.isRTL = ctx.isRTL
               this.localLocale = ctx.locale
-              this.localValue = ctx.selectedYMD
               this.formattedValue = ctx.selectedFormatted
             })
           }
