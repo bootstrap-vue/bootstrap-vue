@@ -12,7 +12,40 @@
       {
         "component": "BFormDate",
         "version": "2.5.0",
-        "description": "Custom date picker form control"
+        "description": "Custom date picker form control, supporting I18N",
+        "props": [
+          {
+            "prop": "dark",
+            "description": "when set, gives the popup calendar dialog a dark background"
+          }
+        ],
+        "events": [
+          {
+            "event": "input",
+            "description": "Emitted when updating the v-model",
+            "args": [
+              {
+                "arg": "date",
+                "description": "Either a string in the format of 'YYYY-MM-DD' or a Date object (if 'value-as-date' prop is true)",
+                "type": [
+                  "String",
+                  "Date"
+                ]
+              }
+            ]
+          },
+          {
+            "event": "context",
+            "description": "Emitted to when when the user changes the active date via date navigation buttons or cursor control",
+            "args": [
+              {
+                "arg": "context",
+                "description": "The context object. See documentaion for details",
+                "type": "Object"
+              }
+            ]
+          }
+        ]
       }
     ]
   }
