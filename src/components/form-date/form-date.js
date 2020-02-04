@@ -176,10 +176,16 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       // Context data from BCalendar
       localLocale: null,
       isRTL: false,
-      formatedValue: ''
+      formatedValue: '',
+      activeYMD: ''
     }
   },
   computed: {
+    activeYM() {
+      // Returns the calendar month visible
+      // Returns the YYYY-MM portion of the active cqalendar date
+      return this.activeYMD.slice(0, -3)
+    },
     calendarProps() {
       // TODO make the ID's computed props
       const idLabel = this.safeId('_value_')
@@ -209,6 +215,14 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     },
     localYMD(newVal, oldVal) /* istanbul ignore next: until tests are written */ {
       this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
+    },
+    activeYM(newVal, oldVal) /* istanbul ignore next */ {
+      // displayed calendar month has changed
+      // So possibly hte calendar height has changed... we need to
+      // update popper computed position
+      if (newVal !== oldVal && oldVal) {
+        this.updatePopper()
+      }
     }
     // TBD
   },
