@@ -3,7 +3,7 @@ import { formatYMD } from '../../utils/date'
 import { isBoolean } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
-// import { BCalendar } from '../calendar/calendar'
+import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar } from '../../icons/icons'
 
 // we create our props as a mixin so that we can control
@@ -172,11 +172,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     return {
       // We always use YYYY-MM-DD value internally
       localValue: formatYMD(this.value) || '',
-      // Context object from BCalendar
-      // may choose to store only relevant parts of context event
-      // to prevent unneccessary re-renders
-      context: {},
-      locale: null,
+      // Context data from BCalendar
+      localLocale: null,
       isRTL: false,
       formatedValue: ''
     }
@@ -185,10 +182,19 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     // TBD
   },
   watch: {
+    value(newVal, oldVal) {
+      this.localValue = formatYMD(newVal) || ''
+    },
+    localValue(oldVal, newVal) {
+      this.$emit('input', this.valueAsDate ? parseYMD(oldVal) || null : newVal || '')
+    }
     // TBD
   },
   mounted() {
-    // TBD
+    this.$on('shown', () => /* istanbul ignore next: until tests are written */ {
+      // May want to make an option to focus entire calendar or just the date
+      this.focusGrid()
+    })
   },
   methods: {
     // TBD
@@ -199,6 +205,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const idButton = this.safeId()
     const idLabel = this.safeId('_value_')
     const idMenu = this.safeId('_dialog_')
+    const idWrapper = id: this.safeId('_b-form-date_')
 
     let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
       h(BIconCalendar, { props: { scale: 1.25 } })
@@ -219,7 +226,12 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           disabled: this.disabled,
           'aria-readonly': this.readonly && !this.disabled,
           'aria-haspopup': 'dialog',
-          'aria-expanded': 'false'
+          'aria-expanded': this.visible ? 'true' : 'false'
+        },
+        on: {
+          mousedown: this.onMousedown,
+          click: this.toggle,
+          keydown: this.toggle // Handle ENTER, SPACE and DOWN
         }
       },
       [$button]
@@ -235,16 +247,67 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idLabel,
           for: idButton,
+          dir: this.isRTL ? 'rtl' : 'ltr',
+          lang: this.localLocale || null,
           'is-invalid': state === false,
           'is-valid': state === true
         },
         on: {
           // Disable bubbling of the click event to
           // prevent menu from closing and re-opening
-          // click: evt => evt.stopPropagation()
+          click: evt => /* istanbul ignore next */ {
+            evt.stopPropagation()
+          }
         }
       },
-      'TBD'
+      // We should possibly pass back `No date selected` as the formatted
+      // value when no date is selected
+      this.formattedValue || this.placehodler || 'Select a date'
+    )
+
+    // TODO: add in the optional buttons
+    const $controls = []
+
+    const $calendar = h(
+      BCalendar,
+      {
+        ref: 'calendar',
+        staticClass: 'p-2',
+        props: {
+          // TODO: use a computed prop
+          // id: this.safeId('_picker_'),
+          ariaControls: idLabel,
+          value: this.localValue,
+          hidden: !this.visible,
+          min: this.min,
+          max: this.max,
+          readonly: this.readonly,
+          locale: this.locale,
+          startWeekday: this.startWeekday,
+          direction: this.direction,
+          dateDisabledFn: this.dateDisabledFn,
+          selectedVariant: this.selectedVariant,
+          todayVariant: this.todayVariant
+          // TODO: Add all label passthrough props
+        },
+        on: {
+          // TODO: Make event handlers methods
+          selected: (ymd, date) => /* istanbul ignore next: until tests are written */ {
+            this.$nextTick(() => {
+              if (!this.noCloseOnSelect) {
+                this.hide(true))
+              }
+            })
+          },
+          context: ctx => {
+            this.isRTL = ctx.isRTL,
+            this.localLocale = ctx.locale
+            this.localValue = ctx.selectedYMD
+            this.formattedValue = ctx.selectedFormatted
+          }
+        }
+      },
+      $controls
     )
 
     const $menu = h(
@@ -252,15 +315,20 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       {
         ref: 'menu',
         staticClass: 'dropdown-menu',
-        class: {},
+        class: {
+          show: this.visible,
+          'dropdown-menu-right': this.right
+        },
         attrs: {
           id: idMenu,
           role: 'dialog',
           'aria-modal': 'false'
         },
-        on: {}
+        on: {
+          keydown: this.onKeydown // Handle and ESC
+        }
       },
-      'TBD'
+      [$calendar]
     )
 
     let $hidden = h()
@@ -279,13 +347,18 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'b-form-date form-control input-group dropdown h-auto p-0',
-        class: {
-          [`form-control-${size}`]: !!size,
-          [`input-grpup-${size}`]: !!size,
-          'is-invalid': state === false,
-          'is-valid': state === true
-        },
+        class: [
+          this.directionClass,
+          {
+            show: this.visible,
+            [`form-control-${size}`]: !!size,
+            [`input-grpup-${size}`]: !!size,
+            'is-invalid': state === false,
+            'is-valid': state === true
+          }
+        ],
         attrs: {
+          id: idWrapper,
           role: 'group',
           'aria-disabled': this.disabled,
           'aria-readonly': this.readonly && !this.disabled,
