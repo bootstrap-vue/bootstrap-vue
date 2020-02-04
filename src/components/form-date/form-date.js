@@ -4,8 +4,8 @@ import { isBoolean } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import formMixin from '../../mixins/form'
-// import BCalendar from '../calendar/calendar'
-import BIconCalendar from '../../icons/icons'
+// import { BCalendar } from '../calendar/calendar'
+import { BIconCalendar } from '../../icons/icons'
 
 // we create our props as a mixin so that we can control
 // where they appear in the props listing reference section
