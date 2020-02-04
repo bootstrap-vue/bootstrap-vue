@@ -15,6 +15,62 @@
         "description": "Custom date picker form control, supporting I18N",
         "props": [
           {
+            "prop": "value",
+            "description": "Initially selected date value. Accepts either a YYYY-MM-DD string or a Date object"
+          },
+          {
+            "prop": "valueAsDate",
+            "description": "Returns a Date object for the v-model instead of a YYYY-MM-DD string"
+          },
+          {
+            "prop": "disabled",
+            "description": "Places the calendar in a non-interactive disabled state"
+          },
+          {
+            "prop": "readonly",
+            "description": "Places the calendar in an interactive readonly state. Disables updating the v-model, while still allowing date navigation"
+          },
+          {
+            "prop": "selectedVariant",
+            "description": "Theme color variant to use for the selected date button"
+          },
+          {
+            "prop": "todayVariant",
+            "description": "Theme color variant to use for highlighting todays date button. Defaults to the `variant` prop"
+          },
+          {
+            "prop": "noHighlightToday",
+            "description": "Disabled the highlighting of todays date in the calendar"
+          },
+          {
+            "prop": "startWeekday",
+            "description": "Day of week to start the calendar. 0 for Sunday, 1 for Monday, 6 for Saturday, etc."
+          },
+          {
+            "prop": "locale",
+            "description": "Locale (or locales) for the calendar to use. When passing an array of locales, the order of the locales is from most preferred to least preferred"
+          },
+          {
+            "prop": "direction",
+            "description": "Set to the string 'rtl' or 'ltr' to explicitly force the calendar to render in right-to-left or left-ro-right (respectively) mode. Defaults to the resolved locale's directionality"
+          },
+          {
+            "prop": "min",
+            "description": "The minimum date the calendar will show"
+          },
+          {
+            "prop": "max",
+            "description": "The maximum date the calendar will show"
+          },
+          {
+            "prop": "dateDisabledFn",
+            "description": "Set to a function reference which returns `true` if the date is disabled, or `false` if the date should be enabled. See documentation for details"
+          },
+          {
+            "prop": "hideHeader",
+            "description": "When set, visually hides the selected date header"
+          },
+          {
             "prop": "dark",
             "description": "when set, gives the popup calendar dialog a dark background"
           }
