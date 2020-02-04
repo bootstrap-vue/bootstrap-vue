@@ -145,19 +145,157 @@ Note the `min` and `max` date constraints are evaluated first, before `date-disa
 
 ## Validation states
 
-TBD
+`<b-for-date>` supports invalid and valid styling via the boolean `state` prop.  Setting `state`
+to boolean `false` will style the input as invalid, while setting it to boolean `true` will style
+it as valid:
+
+```html
+<template>
+  <div>
+    <label for="example-datepicker">Choose a date (invalid style)</label>
+    <b-form-date id="example-datepicker" :state="false" class="mb-2"></b-form-date>
+    <label for="example-datepicker">Choose a date (valid style)</label>
+    <b-form-date id="example-datepicker" :state="true"></b-form-date>
+  </div>
+</template>
+
+<!-- b-form-date-invalid-valid.vue -->
+```
+
+Note that native browser validation is _not_ available with `<b-form-date>`.
 
 ## Styling
 
+### Variants
+
+The selected date button (background color) defaults to the 'primary' theme variant. You can change
+this to any of the Bootstrap v4 theme variant colors: `'secondary'`, `'success'`, `'danger'`,
+`'warning'`, `'info'`, etc, via the `selected-variant` prop.
+
+Today's date will also be highlighted (text color) using the same variant as the selected date by
+default. To specify a different theme color to use for today's date, use the `today-variant` prop.
+
+To disable highlighting of today's date altogether, set the `no-highlight-today` prop.
+
+### Placeholder
+
 TBD
 
-## Events
+### Dark mode
+
+TBD
+
+### Dropdown placement
 
 TBD
 
 ## Internationalization
 
-TBD
+Internationalization of the date picker's calendar is provided via
+[`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat),
+except for labels applied to elements of the calendar control (aria-labels, selected status, and
+help text). You must provide your own translations for these labels. The available locales will be
+browser dependant (not all browsers support all locales)
+
+By default `<b-form-date>` will use the browser's default locale, but you can specify the locale (or
+locales) to use via the `locale` prop. The prop accepts either a single locale string, or an array
+of locale strings (listed in order of preferred locale).
+
+The calendar starts the week on Sunday. This can be changed by setting the `start-weekday` prop to a
+number in the range of `0` to `6` where `0` represents Sunday, `1` for Monday, up to `6` for
+Saturday.
+
+```html
+<template>
+  <div>
+    <label for="example-locales">Locale:</label>
+    <b-form-select id="example-locales" v-model="locale" :options="locales" class="mb-2"></b-form-select>
+
+    <label for="example-weekdays">Start weekday:</label>
+    <b-form-select id="example-weekdays" v-model="weekday" :options="weekdays" class="mb-2"></b-form-select>
+
+    <label for="example-i18n-picker">Date picker:</label>
+    <b-form-date
+        id="example-i18n-picker"
+        v-model="value"
+        v-bind="labels[locale] || {}"
+        :locale="locale"
+        :start-weekday="weekday"
+       ></b-form-date>
+      <p>Value: <b>'{{ value }}'</b></p>
+
+      <p class="mb-0">Context:</p>
+      <pre class="small">{{ context }}</pre>
+   </b-col>
+  </b-row>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: '',
+        locale: 'en-US',
+        locales: [
+          { value: 'en-US', text: 'English US (en-US)' },
+          { value: 'de', text: 'German (de)' },
+          { value: 'ar-EG', text: 'Arabic Egyptian (ar-EG)' },
+          { value: 'zh', text: 'Chinese (zh)' }
+        ],
+        weekday: 0,
+        weekdays: [
+          { value: 0, text: 'Sunday' },
+          { value: 1, text: 'Monday' },
+          { value: 6, text: 'Saturday' }
+        ],
+        labels: {
+          de: {
+            labelPrevYear: 'vorheriges Jahr',
+            labelPrevMonth: 'vorheriger Monat',
+            labelCurrentMonth: 'aktueller Monat',
+            labelNextMonth: 'nächster Monat',
+            labelNextYear: 'nächstes Jahr',
+            labelToday: 'heute',
+            labelSelected: 'ausgewähltes Datum',
+            labelNoDateSelected: 'Kein Datum gewählt',
+            labelCalendar: 'Kalender',
+            labelNav: 'Kalendernavigation',
+            labelHelp: 'Mit den Cursortasten durch die Daten navigieren'
+          },
+          'ar-EG': {
+            labelPrevYear: 'العام السابق',
+            labelPrevMonth: 'الشهر السابق',
+            labelCurrentMonth: 'الشهر الحالي',
+            labelNextMonth: 'الشهر المقبل',
+            labelNextYear: 'العام المقبل',
+            labelToday: 'اليوم',
+            labelSelected: 'التاريخ المحدد',
+            labelNoDateSelected: 'لم يتم اختيار تاريخ',
+            labelCalendar: 'التقويم',
+            labelNav: 'الملاحة التقويم',
+            labelHelp: 'استخدم مفاتيح المؤشر للتنقل في التواريخ'
+          },
+          zh: {
+            labelPrevYear: '上一年',
+            labelPrevMonth: '上个月',
+            labelCurrentMonth: '当前月份',
+            labelNextMonth: '下个月',
+            labelNextYear: '明年',
+            labelToday: '今天',
+            labelSelected: '选定日期',
+            labelNoDateSelected: '未选择日期',
+            labelCalendar: '日历',
+            labelNav: '日历导航',
+            labelHelp: '使用光标键浏览日期'
+          }
+        }
+      }
+    }
+  }
+</script>
+
+<!-- b-form-date-i18n.vue -->
+```
 
 Refer to the [`<b-calendar>`](/docs/components/calendar#internationalization) documentation for
 additional details.
