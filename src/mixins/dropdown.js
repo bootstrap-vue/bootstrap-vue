@@ -59,15 +59,6 @@ export default {
       type: Boolean,
       default: false
     },
-    text: {
-      // Button label
-      type: String,
-      default: ''
-    },
-    html: {
-      // Button label
-      type: String
-    },
     dropup: {
       // place on top if possible
       type: Boolean,
@@ -95,11 +86,6 @@ export default {
     },
     noFlip: {
       // Disable auto-flipping of menu from bottom<=>top
-      type: Boolean,
-      default: false
-    },
-    lazy: {
-      // If true, only render menu contents when open
       type: Boolean,
       default: false
     },
