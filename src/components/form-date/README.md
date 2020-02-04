@@ -8,11 +8,23 @@ component, and provides additional validation state presentation.
 
 The `<b-form-date>` component was introduced in BootstrapVue `v2.5.0`
 
-TBD
+```html
+<template>
+  <b-form-date v-model="value"></b-form-date>
+</template>
 
-## Styling
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    }
+  }
+</script>
 
-TBD
+<!-- b-form-date.vue -->
+```
 
 ## `v-model` return value
 
@@ -46,6 +58,10 @@ cannot be selected (disabled). Note that the function **cannot** be asynchronous
 value as quickly as possible.
 
 ## Validation states
+
+TBD
+
+## Styling
 
 TBD
 
