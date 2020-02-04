@@ -215,7 +215,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const $input = h(
       'label',
       {
-        staticClass: 'form-control text-center text-break text-wrap border-0 h-auto',
+        staticClass: 'form-control text-break text-wrap border-0 h-auto',
         class: {},
         attrs: {
           id: idLabel,
