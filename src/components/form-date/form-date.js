@@ -249,7 +249,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   mounted() {
     this.$on('shown', () => /* istanbul ignore next: until tests are written */ {
       // May want to make an option to focus
-      // the entire calendar or just the date
+      // the entire calendar (dropdown-menu) or just the date
       try {
         this.$refs.calendar.focus()
       } catch {}
@@ -257,8 +257,6 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     onSelected(ymd, date) /* istanbul ignore next: until tests are written */ {
-      // DEBUG
-      console.log('selected event', Date.now())
       this.$nextTick(() => {
         if (this.localYMD !== ymd) {
           this.localYMD = ymd
@@ -271,21 +269,20 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       })
     },
     onInput(ymd) /* istanbul ignore next: until tests are written */ {
-      // DEBUG
-      console.log('input event', Date.now())
       if (this.localYMD !== ymd) {
         this.localYMD = ymd
       }
     },
-    onContext({ activeYMD, isRTL, locale, selectedYMD, selectedFormatted }) {
-      // DEBUG
+    onContext(ctx) {
+      const { activeYMD, isRTL, locale, selectedYMD, selectedFormatted } = ctx
       this.isRTL = isRTL
       this.localLocale = locale
       this.formattedValue = selectedFormatted
       this.localYMD = selectedYMD
       this.activeYMD = activeYMD
+      // Re-emit the context event
+      this.$emit('context', ctx)
     }
-    // TBD
   },
   render(h) {
     const size = this.size
@@ -313,7 +310,6 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           id: idButton,
           type: 'button',
           disabled: this.disabled,
-          'aria-readonly': this.readonly && !this.disabled,
           'aria-haspopup': 'dialog',
           'aria-expanded': this.visible ? 'true' : 'false'
         },
@@ -394,7 +390,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         },
         on: {
           // We should set up our own `onMenuKeydown()` handler
-          // for handling ESC
+          // for handling ESC???
           keydown: this.onKeydown // Handle and ESC
         }
       },
@@ -406,6 +402,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     if (this.name) {
       $hidden = h('input', {
         attrs: {
+          type: 'hidden',
           name: this.name,
           form: this.form,
           value: this.localYMD || ''
