@@ -177,6 +177,10 @@ default. To specify a different theme color to use for today's date, use the `to
 
 To disable highlighting of today's date altogether, set the `no-highlight-today` prop.
 
+### Control sizing
+
+TBD
+
 ### Placeholder
 
 TBD
@@ -313,12 +317,20 @@ The popup calendar suppprts the same keyboard control as
 
 - <kbd>ESC</kbd> will close the popup calendar without selecting a date
 
+When internationalizing the datepicker, it is important to also update the `label-*` props with
+appropriate translated strings, so that international screen reader users will hear the correct
+prompts and descriptions.
+
 Refer to the [`<b-calendar>`](/docs/components/calendar#accessibility) documentation for additional
 details.
 
 ## Implementation notes
 
-`<b-form-date>` is based upon `<b-calendar>` and `<b-dropdown>`.
+`<b-form-date>` is based upon [`<b-calendar>`](/docs/components/calendar) and
+[`<b-dropdown>`](/docs/components/dropdown).
+
+`<b-form-date>` uses Bootstrap's margin, padding, border, and flex utility classes, along with
+button (`btn-*`) classes, `input-group*` classes, and the `form-control` (plus validation) class.
 
 ## See also
 
