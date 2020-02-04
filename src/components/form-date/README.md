@@ -147,7 +147,7 @@ Note the `min` and `max` date constraints are evaluated first, before `date-disa
 
 `<b-for-date>` supports invalid and valid styling via the boolean `state` prop.  Setting `state`
 to boolean `false` will style the input as invalid, while setting it to boolean `true` will style
-it as valid:
+it as valid. Setting `state` to `null` will no show any validation state styling (the default).
 
 ```html
 <template>
@@ -188,6 +188,15 @@ TBD
 ### Dropdown placement
 
 TBD
+
+## Optional controls
+
+TBD
+
+Optional "Today", "Close", and "Reset" buttons.
+
+By default, when a day is slected, the popup will automatically close. You can disable this
+behaviour by setting the the `no-close-on-select` prop.
 
 ## Internationalization
 
@@ -299,7 +308,10 @@ additional details.
 
 ## Accessibility
 
-TBD
+The popup calendar suppprts the same keyboard control as
+[`<b-calendar>`](/docs/components/calendar#accessibility), along with the following:
+
+- <kbd>ESC</kbd> will close the popup calendar without selecting a date
 
 Refer to the [`<b-calendar>`](/docs/components/calendar#accessibility) documentation for additional
 details.
