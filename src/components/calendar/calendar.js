@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
 import identity from '../../utils/identity'
+import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes } from '../../utils/array'
 import {
   createDate,
@@ -472,10 +473,14 @@ export const BCalendar = Vue.extend({
       }
     },
     selectedYMD(newYMD, oldYMD) {
-      this.$emit('input', this.valueAsDate ? parseYMD(newYMD) || null : newYMD || '')
+      if (newYMD !== oldYMD) {
+        this.$emit('input', this.valueAsDate ? parseYMD(newYMD) || null : newYMD || '')
+      }
     },
-    context(newVal) {
-      this.$emit('context', newVal)
+    context(newVal, oldVal) {
+      if (!looseEqual(newVal, oldVal)) {
+        this.$emit('context', newVal)
+      }
     },
     hidden(newVal, oldVal) /* istanbul ignore next: might remove this prop */ {
       if (!newVal) {
