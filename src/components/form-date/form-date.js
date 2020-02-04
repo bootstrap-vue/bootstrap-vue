@@ -315,7 +315,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         },
         on: {
           mousedown: this.onMousedown,
-          click: this.toggle
+          click: this.toggle,
+          keydown: this.toggle // Handle ENTER, SPACE and DOWN
         }
       },
       [$button]
