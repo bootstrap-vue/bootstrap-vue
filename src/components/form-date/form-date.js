@@ -195,7 +195,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         ref: 'toggle',
         staticClass: 'btn border-0 h-auto',
         class: {
-          'btn-ouline-dark': !isBoolean(state),
+          'btn-outline-dark': !isBoolean(state),
           'btn-outline-danger': state === false,
           'btn-outline-success': state === true
         },
@@ -226,7 +226,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         on: {
           // Disable bubbling of the click event to
           // prevent menu from closing and re-opening
-          click: evt => evt.stopPropagation()
+          // click: evt => evt.stopPropagation()
         }
       },
       'TBD'
@@ -249,6 +249,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     )
 
     let $hidden = h()
+    /* istanbul ignore if: until tests are written */
     if (this.name) {
       $hidden = h('input', {
         attrs: {
