@@ -181,7 +181,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   render(h) {
     const size = this.size
     const state = this.state
-    const idButton = ths.safeId()
+    const idButton = this.safeId()
     const idLabel = this.safeId('_value_')
     const idMenu = this.safeId('_dialog_')
 
@@ -221,7 +221,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           id: idLabel,
           for: idButton,
           'is-invalid': state === false,
-          'is-valid': state === true,
+          'is-valid': state === true
         },
         on: {
           // Disable bubbling of the click event to
@@ -250,16 +250,13 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
 
     let $hidden = h()
     if (this.name) {
-      $hidden = h(
-        'input',
-        {
-          attrs: {
-            name: this.name,
-            form: this.form,
-            value: this.localValue || ''
-          }
+      $hidden = h('input', {
+        attrs: {
+          name: this.name,
+          form: this.form,
+          value: this.localValue || ''
         }
-      )
+      })
     }
 
     return h(
@@ -270,7 +267,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           [`form-control-${size}`]: !!size,
           [`input-grpup-${size}`]: !!size,
           'is-invalid': state === false,
-          'is-valid': state === true,
+          'is-valid': state === true
         },
         attrs: {
           role: 'group',
