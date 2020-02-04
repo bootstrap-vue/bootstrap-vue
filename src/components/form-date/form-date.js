@@ -172,7 +172,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   data() {
     return {
       // We always use YYYY-MM-DD value internally
-      localValue: formatYMD(this.value) || '',
+      localYMD: formatYMD(this.value) || '',
       // Context data from BCalendar
       localLocale: null,
       isRTL: false,
@@ -180,13 +180,31 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
-    // TBD
+    calendarProps() {
+      return {
+        // id: this.safeId('_picker_'),
+        ariaControls: [idLabel, idWrapper].filter(identity).join(' ') || null,
+        value: this.localYMD,
+        hidden: !this.visible,
+        min: this.min,
+        max: this.max,
+        readonly: this.readonly,
+        disabled: this.disabled,
+        locale: this.locale,
+        startWeekday: this.startWeekday,
+        direction: this.direction,
+        dateDisabledFn: this.dateDisabledFn,
+        selectedVariant: this.selectedVariant,
+        todayVariant: this.todayVariant
+        // TODO: Add all label passthrough props
+      }
+    }
   },
   watch: {
     value(newVal, oldVal) /* istanbul ignore next: until tests are written */ {
-      this.localValue = formatYMD(newVal) || ''
+      this.localYMD = formatYMD(newVal) || ''
     },
-    localValue(oldVal, newVal) /* istanbul ignore next: until tests are written */ {
+    localYMD(oldVal, newVal) /* istanbul ignore next: until tests are written */ {
       this.$emit('input', this.valueAsDate ? parseYMD(oldVal) || null : newVal || '')
     }
     // TBD
@@ -200,6 +218,32 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     })
   },
   methods: {
+    onSelected(ymd, date) /* istanbul ignore next: until tests are written */ {
+      this.$nextTick(() => {
+        if (this.localYMD !== ymd) {
+          this.localYMD = ymd
+        }
+        if (!this.noCloseOnSelect) {
+          this.$nextTick(() => {
+            this.hide(true)
+          })
+        }
+      })
+    },
+    onInput(ymd) /* istanbul ignore next: until tests are written */ {
+      this.localYMD = ymd
+    },
+    onContext({ isRTL, locale, selectedFormatted }) {
+      if (this.isRTL !== isRTL) {
+        this.isRTL = isRTL
+      }
+      if (this.localLocale !== locale) {
+        this.localLocale = locale
+      }
+      if (this.formattedValue !== selectedFormatted) {
+        this.formattedValue = selectedFormatted
+      }
+    }
     // TBD
   },
   render(h) {
@@ -268,6 +312,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     )
 
     // TODO: add in the optional buttons
+    // This should be an empty array or null
+    // when no footer buttons
     const $controls = []
 
     const $calendar = h(
@@ -275,53 +321,11 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       {
         ref: 'calendar',
         staticClass: 'p-2',
-        props: {
-          // TODO: use a computed prop
-          // id: this.safeId('_picker_'),
-          ariaControls: [idLabel, idWrapper].filter(identity).join(' ') || null,
-          value: this.localValue,
-          // hidden: !this.visible,
-          min: this.min,
-          max: this.max,
-          readonly: this.readonly,
-          disabled: this.disabled,
-          locale: this.locale,
-          startWeekday: this.startWeekday,
-          direction: this.direction,
-          dateDisabledFn: this.dateDisabledFn,
-          selectedVariant: this.selectedVariant,
-          todayVariant: this.todayVariant
-          // TODO: Add all label passthrough props
-        },
-        nativeOn: {
-          click: evt => /* istanbul ignore next: until tests are written */ {
-            // Stop native click events from reacing the dropdown handlers
-            evt.stopPropagation()
-          }
-        },
+        props: this.calendarProps,
         on: {
-          // TODO: Make event handlers methods
-          selected: (ymd, date) => /* istanbul ignore next: until tests are written */ {
-            this.$nextTick(() => {
-              if (!this.noCloseOnSelect) {
-                this.$nextTick(() => {
-                  this.hide(true)
-                })
-              }
-            })
-          },
-          input: ymd => /* istanbul ignore next: until tests are written */ {
-            this.localValue = ymd
-          },
-          context: ctx => {
-            // Performed in a nextTick to prevent endless update loops
-            this.$nextTick(() => {
-              // this.localValue = ctx.selectedYMD
-              this.isRTL = ctx.isRTL
-              this.localLocale = ctx.locale
-              this.formattedValue = ctx.selectedFormatted
-            })
-          }
+          selected: this.onSelected,
+          input: this.onInput,
+          context: this.onContext
         }
       },
       $controls
@@ -344,7 +348,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         on: {
           // We should set up our own onMenuKeydown handler
           // for handling ESC
-          keydown: this.onKeydown // Handle and ESC
+          // keydown: this.onKeydown // Handle and ESC
         }
       },
       [$calendar]
@@ -357,7 +361,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         attrs: {
           name: this.name,
           form: this.form,
-          value: this.localValue || ''
+          value: this.localYMD || ''
         }
       })
     }
@@ -383,6 +387,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           'aria-readonly': this.readonly && !this.disabled,
           'aria-labeledby': idLabel,
           // We don't want the flex order to change here
+          // So we always use 'ltr'
           dir: 'ltr'
         }
       },
