@@ -127,6 +127,50 @@
             "description": "When set, gives the popup calendar dialog a dark background"
           },
           {
+            "prop": "placeholder",
+            "description": "Text so show in the form control when no date is selected. Defaults to the 'label-no-date-selected` prop value"
+          },
+          {
+            "prop": "labelPrevYear",
+            "description": "Value of the `aria-label` and `title` attributes on the `Previous Year` navigation button"
+          },
+          {
+            "prop": "labelPrevMonth",
+            "description": "Value of the `aria-label` and `title` attributes on the `Previous Month` navigation button"
+          },
+          {
+            "prop": "labelCurrentMonth",
+            "description": "Value of the `aria-label` and `title` attributes on the `Current Month` navigation button"
+          },
+          {
+            "prop": "labelNextMonth",
+            "description": "Value of the `aria-label` and `title` attributes on the `Next Month` navigation button"
+          },
+          {
+            "prop": "labelNextYear",
+            "description": "Value of the `aria-label` and `title` attributes on the `Next Year` navigation button"
+          },
+          {
+            "prop": "labelSelected",
+            "description": "Value of the `aria-label` attribute set on the calendar grid date button that is selected"
+          },
+          {
+            "prop": "labelToday",
+            "description": "Value of the `aria-label` attribute for the calendar grid date button to signify that the date is today's date"
+          },
+          {
+            "prop": "labelNoDateSelected",
+            "description": "Label to use when no date is currently selected"
+          },
+          {
+            "prop": "labelCalendar",
+            "description": "Value of the `aria-label` and `role-description` attributes applied to the calendar grid"
+          },
+          {
+            "prop": "labelNav",
+            "description": "Value of the `aria-label` attribute on to the calendar navigation button wrapper"
+          },
+          {
             "prop": "labelTodayButton",
             "description": "Content for the optional `today` button. Defaults to the value specified via the `label-today` prop"
           },
