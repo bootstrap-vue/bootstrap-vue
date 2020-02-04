@@ -181,8 +181,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
-    activeYM() {
-      // Returns the calendar month visible
+    calendarYM() {
+      // Returns the calendar year/month
       // Returns the YYYY-MM portion of the active cqalendar date
       return this.activeYMD.slice(0, -3)
     },
@@ -216,7 +216,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     localYMD(newVal, oldVal) /* istanbul ignore next: until tests are written */ {
       this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
     },
-    activeYM(newVal, oldVal) /* istanbul ignore next */ {
+    calendarYM(newVal, oldVal) /* istanbul ignore next */ {
       // displayed calendar month has changed
       // So possibly hte calendar height has changed... we need to
       // update popper computed position
@@ -256,18 +256,13 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         this.localYMD = ymd
       }
     },
-    onContext({ isRTL, locale, selectedFormatted }) {
+    onContext({ activeYMD, isRTL, locale, selectedYMD, selectedFormatted }) {
       // DEBUG
-      console.log('context event', Date.now())
-      if (this.isRTL !== isRTL) {
-        this.isRTL = isRTL
-      }
-      if (this.localLocale !== locale) {
-        this.localLocale = locale
-      }
-      if (this.formattedValue !== selectedFormatted) {
-        this.formattedValue = selectedFormatted
-      }
+      this.isRTL = isRTL
+      this.localLocale = locale
+      this.formattedValue = selectedFormatted
+      this.localYMD = selectedYMD
+      this.activeYMD = activeYMD
     }
     // TBD
   },
