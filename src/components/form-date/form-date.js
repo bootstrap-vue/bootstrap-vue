@@ -81,6 +81,10 @@ const propsMixin = {
       type: Boolean,
       default: false
     },
+    dark: {
+      type: Boolean,
+      default: false
+    },
     locale: {
       type: [String, Array],
       default: null
@@ -341,7 +345,6 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       BCalendar,
       {
         ref: 'calendar',
-        staticClass: 'p-2',
         props: this.calendarProps,
         on: {
           selected: this.onSelected,
@@ -356,10 +359,12 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       'div',
       {
         ref: 'menu',
-        staticClass: 'dropdown-menu p-0',
+        staticClass: 'dropdown-menu p-2',
         class: {
           show: this.visible,
-          'dropdown-menu-right': this.right
+          'dropdown-menu-right': this.right,
+          'bg-dark': this.dark,
+          'text-light': this.dark,
         },
         attrs: {
           id: idMenu,
@@ -369,7 +374,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         on: {
           // We should set up our own onMenuKeydown handler
           // for handling ESC
-          // keydown: this.onKeydown // Handle and ESC
+          keydown: this.onKeydown // Handle and ESC
         }
       },
       [$calendar]
