@@ -23,6 +23,10 @@
             "description": "Returns a Date object for the v-model instead of a YYYY-MM-DD string"
           },
           {
+            "prop": "resetValue",
+            "description": "when the optioanl `reset` button is clicked, the selected date will be set to this value. Default is to clear the selected value"
+          },
+          {
             "prop": "disabled",
             "description": "Places the calendar in a non-interactive disabled state"
           },
@@ -69,6 +73,54 @@
           {
             "prop": "hideHeader",
             "description": "When set, visually hides the selected date header"
+          },
+          {
+            "prop": "todayButton",
+            "description": "When set, shows the optional `select today` button"
+          },
+          {
+            "prop": "resetButton",
+            "description": "When set, shows the optional `reset` button"
+          },
+          {
+            "prop": "closeButton",
+            "description": "When set, shows the optional close button"
+          },
+          {
+            "prop": "noCloseOnSelect",
+            "description": "Disables closing the popup date picker when a date is clicked/selected"
+          },
+          {
+            "prop": "dropup",
+            "description": "When set, positions the menu on the top of the button"
+          },
+          {
+            "prop": "dropright",
+            "description": "When set, positions the menu to the right of the button"
+          },
+          {
+            "prop": "dropleft",
+            "description": "When set, positions the menu to the left of the button"
+          },
+          {
+            "prop": "right",
+            "description": "Align the right edge of the menu with the right of the button"
+          },
+          {
+            "prop": "noFlip",
+            "description": "Prevent the menu from auto flipping positions"
+          },
+          {
+            "prop": "offset",
+            "description": "Specify the number of pixels to shift the menu by. Negative values supported"
+          },
+          {
+            "prop": "popperOpts",
+            "description": "Additional configuration to pass to Popper.js"
+          },
+          {
+            "prop": "boundary",
+            "description": "The boundary constraint of the menu: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement"
           },
           {
             "prop": "dark",
