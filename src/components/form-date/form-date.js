@@ -163,7 +163,7 @@ const propsMixin = {
 export const BFormDate = /*#__PURE__*/ Vue.extend({
   name: 'BFormDate',
   // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, propsMixin, formMixin, dropdownMixin],
+  mixins: [idMixin, propsMixin, dropdownMixin],
   model: {
     prop: 'value',
     event: 'input'
