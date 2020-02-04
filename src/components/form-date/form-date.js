@@ -274,7 +274,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           role: 'group',
           'aria-disabled': this.disabled,
           'aria-readonly': this.readonly && !this.disabled,
-          'aria-labeledby': idLabel
+          'aria-labeledby': idLabel,
+          // We don't want the flex order to change here
+          dir: 'ltr'
         }
       },
       [$button, $hidden, $menu, $input]
