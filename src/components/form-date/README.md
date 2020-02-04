@@ -216,18 +216,15 @@ Saturday.
 
     <label for="example-i18n-picker">Date picker:</label>
     <b-form-date
-        id="example-i18n-picker"
-        v-model="value"
-        v-bind="labels[locale] || {}"
-        :locale="locale"
-        :start-weekday="weekday"
-       ></b-form-date>
-      <p>Value: <b>'{{ value }}'</b></p>
-
-      <p class="mb-0">Context:</p>
-      <pre class="small">{{ context }}</pre>
-   </b-col>
-  </b-row>
+      id="example-i18n-picker"
+      v-model="value"
+      v-bind="labels[locale] || {}"
+      :locale="locale"
+      :start-weekday="weekday"
+      class="mb-2"
+     ></b-form-date>
+     <p>Value: <b>'{{ value }}'</b></p>
+   </div>
 </template>
 
 <script>
