@@ -11,7 +11,8 @@ The `<b-form-date>` component was introduced in BootstrapVue `v2.5.0`
 ```html
 <template>
   <label for="example-datepicker">Choose a date</label>
-  <b-form-date id="example-datepicker" v-model="value"></b-form-date>
+  <b-form-date id="example-datepicker" v-model="value" class="mb-2"></b-form-date>
+  <p>Value: '{{ value }}'</p>
 </template>
 
 <script>
