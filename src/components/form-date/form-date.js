@@ -305,15 +305,20 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           selected: (ymd, date) => /* istanbul ignore next: until tests are written */ {
             this.$nextTick(() => {
               if (!this.noCloseOnSelect) {
-                this.hide(true)
+                this.$nextTick(() => {
+                  this.hide(true)
+                })
               }
             })
           },
           context: ctx => {
-            this.isRTL = ctx.isRTL
-            this.localLocale = ctx.locale
-            this.localValue = ctx.selectedYMD
-            this.formattedValue = ctx.selectedFormatted
+            // Performed in a nextTick to prevent endless update loops
+            this.$nextTick(() => {
+              this.isRTL = ctx.isRTL
+              this.localLocale = ctx.locale
+              this.localValue = ctx.selectedYMD
+              this.formattedValue = ctx.selectedFormatted
+            })
           }
         }
       },
