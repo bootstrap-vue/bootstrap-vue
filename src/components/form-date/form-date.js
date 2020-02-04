@@ -364,7 +364,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           show: this.visible,
           'dropdown-menu-right': this.right,
           'bg-dark': this.dark,
-          'text-light': this.dark,
+          'text-light': this.dark
         },
         attrs: {
           id: idMenu,
