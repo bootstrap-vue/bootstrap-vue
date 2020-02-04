@@ -171,6 +171,10 @@
             "description": "Value of the `aria-label` attribute on to the calendar navigation button wrapper"
           },
           {
+            "prop": "labelHelp",
+            "decription": "help text that appears at the bottom of the calendar grid"
+          },
+          {
             "prop": "labelTodayButton",
             "description": "Content for the optional `today` button. Defaults to the value specified via the `label-today` prop"
           },
