@@ -132,6 +132,10 @@
           {
             "prop": "labelNav",
             "description": "Value of the `aria-label` attribute on to the calendar navigation button wrapper"
+          },
+          {
+            "prop": "labelHelp",
+            "decription": "help text that appears at the bottom of the calendar grid"
           }
         ],
         "events": [
