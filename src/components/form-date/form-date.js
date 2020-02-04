@@ -222,6 +222,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     onSelected(ymd, date) /* istanbul ignore next: until tests are written */ {
+      // DEBUG
+      console.log('selected event')
       this.$nextTick(() => {
         if (this.localYMD !== ymd) {
           this.localYMD = ymd
@@ -234,9 +236,13 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       })
     },
     onInput(ymd) /* istanbul ignore next: until tests are written */ {
+      // DEBUG
+      console.log('input event')
       this.localYMD = ymd
     },
     onContext({ isRTL, locale, selectedFormatted }) {
+      // DEBUG
+      console.log('context event')
       if (this.isRTL !== isRTL) {
         this.isRTL = isRTL
       }
