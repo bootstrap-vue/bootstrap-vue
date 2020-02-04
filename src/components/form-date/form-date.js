@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import { formatYMD } from '../../utils/date'
+import { formatYMD, parseYMD } from '../../utils/date'
 import { isBoolean } from '../../utils/inspect'
 import identity from '../../utils/identity'
 import idMixin from '../../mixins/id'
@@ -302,7 +302,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
             })
           },
           context: ctx => {
-            this.isRTL = ctx.isRTL,
+            this.isRTL = ctx.isRTL
             this.localLocale = ctx.locale
             this.localValue = ctx.selectedYMD
             this.formattedValue = ctx.selectedFormatted
