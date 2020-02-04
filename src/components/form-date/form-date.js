@@ -169,7 +169,7 @@ const propsMixin = {
       default: 'Reset'
     },
     labelTodayButton: {
-      type: String,
+      type: String
       // Falls back to the labelToday prop value
       // default: 'Today'
     },
