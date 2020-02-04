@@ -209,7 +209,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       },
       [$button]
     )
-    $button = h('div', { staticClass: 'input-grouo-prepend' }, [$button])
+    $button = h('div', { staticClass: 'input-group-prepend' }, [$button])
 
     // Fake input
     const $input = h(
