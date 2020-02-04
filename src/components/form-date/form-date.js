@@ -330,14 +330,15 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       'label',
       {
         staticClass: 'form-control text-break text-wrap border-0 h-auto',
-        class: {},
+        class: {
+          'is-invalid': state === false,
+          'is-valid': state === true
+        },
         attrs: {
           id: idLabel,
           for: idButton,
           dir: this.isRTL ? 'rtl' : 'ltr',
-          lang: this.localLocale || null,
-          'is-invalid': state === false,
-          'is-valid': state === true
+          lang: this.localLocale || null
         },
         on: {
           // Disable bubbling of the click event to
