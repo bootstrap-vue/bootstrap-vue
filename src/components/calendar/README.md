@@ -259,8 +259,8 @@ slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 ### Adding CSS classes to specific dates
 
 If you need to highlight a specific date or dates, set the `date-class-fn` prop to a reference to a
-function that returns a CSS class (or classes) to apply to the date's cell. The function is passed two
-arguments:
+function that returns a CSS class (or classes) to apply to the date's cell. The function is passed
+two arguments:
 
 - `ymd` The date as a `YYYY-MM-DD` string
 - `date` The date as a `Date` object
@@ -303,11 +303,11 @@ Note the function will _not_ be called for [disabled dates](#date-constraints).
 **Accessibility note:**
 
 When using classes to convey specific meaning to a date, you should include additional context
-outside of the calendar (or via the default slot) as to the dates being highligted (such as in an
+outside of the calendar (or via the default slot) as to the dates being highlighted (such as in an
 `aria-live` region), specifically for screen reader users.
 
-BootstrapVue may, in the future, add in a feature to add in screen-reader friendly text note on
-the highligted date.
+BootstrapVue may, in the future, add in a feature to add in screen-reader friendly text note on the
+highlighted date.
 
 ## Events
 
