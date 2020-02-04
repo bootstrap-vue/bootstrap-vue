@@ -311,7 +311,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
             })
           },
           input: ymd => /* istanbul ignore next: until tests are written */ {
-            this.localValue = ctx.selectedYMD
+            this.localValue = ymd
           },
           context: ctx => {
             // Performed in a nextTick to prevent endless update loops
