@@ -821,7 +821,10 @@ export const BCalendar = Vue.extend({
           {
             key: idx,
             staticClass: 'col',
-            attrs: { 'aria-label': d.label }
+            attrs: {
+              title: d.label === d.text ? null : d.label,
+              'aria-label': d.label
+            }
           },
           d.text
         )
