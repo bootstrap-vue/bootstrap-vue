@@ -390,11 +390,11 @@ details.
 
 ## Implementation notes
 
-`<b-form-date>` is based upon [`<b-calendar>`](/docs/components/calendar) and
+`<b-form-date>` is based upon the components [`<b-calendar>`](/docs/components/calendar) and
 [`<b-dropdown>`](/docs/components/dropdown).
 
 `<b-form-date>` uses Bootstrap's margin, padding, border, and flex utility classes, along with
-button (`btn-*`) classes, `input-group*` classes, and the `form-control` (plus validation) class.
+button (`btn-*`) classes, `input-group*` classes, and the `form-control*` (plus validation) classes.
 
 Custom SCSS is also employed to handle disabled and readonly styling.
 
