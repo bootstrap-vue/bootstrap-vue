@@ -204,7 +204,7 @@ If a placeholder is not provided, the value of the `label-no-date-selected` prop
 ```html
 <template>
   <div>
-    <label for="datepicker-placeholder">Small date picker</label>
+    <label for="datepicker-placeholder">Date picker with placeholder</label>
     <b-form-date id="datepicker-placeholder" placeholder="Choose a date" local="en"></b-form-date>
   </div>
 </template>
