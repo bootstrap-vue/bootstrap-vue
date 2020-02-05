@@ -321,7 +321,6 @@ export default {
       // Limit to top 32 most recent donors
       this.donors = donors
         .reduce((results, donor) => {
-          console.log(donor.tier)
           if (results.map(d => d.slug).indexOf(donor.slug) === -1) {
             results.push(donor)
           }
