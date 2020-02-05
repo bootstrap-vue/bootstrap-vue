@@ -179,7 +179,7 @@ export const BCalendar = Vue.extend({
     // Labels for buttons and keyboard shortcuts
     labelPrevYear: {
       type: String,
-      default:  () => getComponentConfig(NAME, 'labelPrevYear')
+      default: () => getComponentConfig(NAME, 'labelPrevYear')
     },
     labelPrevMonth: {
       type: String,
