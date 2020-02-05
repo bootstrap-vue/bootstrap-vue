@@ -339,7 +339,8 @@ Saturday.
 <!-- b-form-date-i18n.vue -->
 ```
 
-You can listen to for the `context` event to determine the locale that the calendar has resolved to.
+You can listen to for the `context` event to determine the locale and directionality that the
+calendar has resolved to.
 
 Refer to the [`<b-calendar>`](/docs/components/calendar#internationalization) documentation for
 additional details.
