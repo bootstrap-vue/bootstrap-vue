@@ -29,7 +29,7 @@ import { BIconstack } from '../../icons/iconstack'
 
 // --- Constants ---
 
-const NAME = 'BFormCalendar'
+const NAME = 'BCalendar'
 
 // Key Codes
 const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
