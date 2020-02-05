@@ -599,8 +599,8 @@ export const BCalendar = Vue.extend({
         activeDate = this.getToday()
         checkDate = activeDate
       } else if (keyCode === END) {
-        // END - Selected date
-        activeDate = parseYMD(this.selectedDate)
+        // END - Selected date, or today if no selected date
+        activeDate = parseYMD(this.selectedDate) || this.getToday()
         checkDate = activeDate
       }
       if (!this.dateOutOfRange(checkDate) && !datesEqual(activeDate, this.activeDate)) {
