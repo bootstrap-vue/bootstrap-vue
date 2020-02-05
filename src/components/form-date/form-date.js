@@ -328,17 +328,20 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       // Re-emit the context event
       this.$emit('context', ctx)
     },
-    onToday() /* istanbul ignore next: until tests are written */ {
+    onTodayButton() /* istanbul ignore next: until tests are written */ {
       this.localYMD = formatYMD(new Date())
       if (!this.noCloseOnSelect) {
         this.$nextTick(() => this.hide(true))
       }
     },
-    onReset() /* istanbul ignore next: until tests are written */ {
+    onResetButton() /* istanbul ignore next: until tests are written */ {
       this.localYMD = formatYMD(this.resetValue) || ''
       if (!this.noCloseOnSelect) {
         this.$nextTick(() => this.hide(true))
       }
+    },
+    onCloseButton() /* istanbul ignore next: until tests are written */ {
+      this.hide(true)
     }
   },
   render(h) {
@@ -423,7 +426,6 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     // Optional footer buttons
     let $controls = []
 
-    /* istanbul ignore if: until tests are written */
     if (this.todayButton) {
       const label = this.labelTodayButton
       $controls.push(
@@ -432,14 +434,13 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           {
             props: { size: 'sm', disabled: disabled || readonly, variant: 'primary' },
             attrs: { 'aria-label': label || null },
-            on: { click: this.onToday }
+            on: { click: this.onTodayButton }
           },
           label
         )
       )
     }
 
-    /* istanbul ignore if: until tests are written */
     if (this.resetButton) {
       const label = this.labelResetButton
       $controls.push(
@@ -448,14 +449,13 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           {
             props: { size: 'sm', disabled: disabled || readonly, variant: 'danger' },
             attrs: { 'aria-label': label || null },
-            on: { click: this.onReset }
+            on: { click: this.onResetButton }
           },
           label
         )
       )
     }
 
-    /* istanbul ignore if: until tests are written */
     if (this.closeButton) {
       const label = this.labelCloseButton
       $controls.push(
@@ -464,14 +464,13 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           {
             props: { size: 'sm', disabled: this.disabled, variant: 'secondary' },
             attrs: { 'aria-label': label || null },
-            on: { click: () => this.hide(true) }
+            on: { click: this.onCloseButton }
           },
           label
         )
       )
     }
 
-    /* istanbul ignore if: until tests are written */
     if ($controls.length > 0) {
       $controls = [
         h(
