@@ -107,9 +107,8 @@ export default deepFreeze({
     labelCalendar: null,
     labelNav: null,
     labelHelp: null,
-    // This falls back to the `labelToday` value
-    labelTodayButton: null,
     // These props are specific to BFormDate
+    labelTodayButton: 'Select today',
     labelResetButton: 'Reset',
     labelCloseButton: 'Close'
   },
