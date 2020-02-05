@@ -411,12 +411,12 @@
           Donate
         </b-button>
 
-        <BackersDonors></BackersDonors>
+        <SponsorsBackersDonors></SponsorsBackersDonors>
       </b-container>
     </section>
 
     <div class="bv-section bv-gray bv-p-reset" aria-hidden="true">
-      <!-- to give footer on landing page angled top -->
+      <!-- To give footer on landing page angled top -->
     </div>
   </main>
 </template>
@@ -663,10 +663,10 @@ $bv-angle-padding-md: 6rem;
 
 <script>
 import { version, bootstrapVersion, vueVersion } from '~/content'
-import BackersDonors from '~/components/backers-donors'
+import SponsorsBackersDonors from '~/components/sponsors-backers-donors'
 
 export default {
-  components: { BackersDonors },
+  components: { SponsorsBackersDonors },
   data() {
     return {
       isIE: false,
