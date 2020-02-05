@@ -392,5 +392,5 @@ Custom SCSS is also employed to handle disabled and readonly styling.
 
 ## See also
 
-- `<b-calendar>` Calendar date selection widget
-- `<b-dropdown>` Dropdown component
+- [`<b-calendar>` Calendar date selection widget](/docs/components/calendar)
+- [`<b-dropdown>` Dropdown component](/docs/components/dropdown)
