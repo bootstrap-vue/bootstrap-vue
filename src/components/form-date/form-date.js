@@ -447,7 +447,19 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     /* istanbul ignore if: until tests are written */
     if ($controls.length > 0) {
       // TODO: May want to adjust layout based on number of buttons
-      $controls = [h('div', { staticClass: 'd-flex justify-content-between flex-wrap' }, $controls)]
+      $controls = [
+        h(
+          'div',
+          {
+            staticClass: 'd-flex flex-wrap',
+            class: {
+              'justify-content-between': $controls.length > 1,
+              'justify-content-end': $controls.length < 2
+            }
+          },
+          $controls
+        )
+      ]
     }
 
     const $calendar = h(
