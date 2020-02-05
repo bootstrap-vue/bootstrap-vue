@@ -920,7 +920,16 @@ export const BCalendar = Vue.extend({
       // key for efficient DOM patching / element re-use
       return h('div', { key: week[0].ymd, staticClass: 'row no-gutters' }, $cells)
     })
-    $gridBody = h('div', { style: this.disabled ? { pointerEvents: 'none' } : {} }, $gridBody)
+    $gridBody = h(
+      'div',
+      {
+        // A key is only required on the body if we add in transition support
+        // key: this.activeYMD.slice(0, -3),
+        staticClass: 'b-calendar-grid-body',
+        style: this.disabled ? { pointerEvents: 'none' } : {}
+      },
+      $gridBody
+    )
 
     const $gridHelp = h(
       'footer',
