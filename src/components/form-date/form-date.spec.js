@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormDate } from './form-date'
-import { formatYMD } from '../../utils/date'
+// import { formatYMD } from '../../utils/date'
 
 // Note that JSDOM only supports `en-US` (`en`) locale for `Intl`
 
@@ -117,6 +117,7 @@ describe('form-date', () => {
       attachToDocument: true,
       propsData: {
         value: ''
+        id: 'test-open'
       }
     })
 
@@ -125,7 +126,7 @@ describe('form-date', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    const $toggle = wrapper.find('button#test-focus-blur')
+    const $toggle = wrapper.find('button#test-open')
 
     expect($toggle.exists()).toBe(true)
     expect($toggle.is('button')).toBe(true)
@@ -142,6 +143,14 @@ describe('form-date', () => {
     await waitRAF()
 
     expect($menu.classes()).toContain('show')
+
+    $toggle.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($menu.classes()).not.toContain('show')
 
     wrapper.destroy()
   })
