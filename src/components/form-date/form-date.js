@@ -392,7 +392,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     // This should be an empty array or null
     // when no footer buttons
     let $controls = []
-    
+
     /* istanbul ignore if: until tests are written */
     if (this.todayButton) {
       $controls.push(
