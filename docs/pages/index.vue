@@ -384,15 +384,6 @@
           Support BootstrapVue on Open Collective
         </h2>
         <b-button
-          href="https://opencollective.com/bootstrap-vue#backer"
-          size="sm"
-          variant="outline-secondary"
-          target="_blank"
-          class="mb-2"
-        >
-          Become a backer
-        </b-button>
-        <b-button
           href="https://opencollective.com/bootstrap-vue#sponsor"
           size="sm"
           variant="outline-secondary"
@@ -400,6 +391,15 @@
           class="mb-2"
         >
           Become a sponsor
+        </b-button>
+        <b-button
+          href="https://opencollective.com/bootstrap-vue#backer"
+          size="sm"
+          variant="outline-secondary"
+          target="_blank"
+          class="mb-2"
+        >
+          Become a backer
         </b-button>
         <b-button
           href="https://opencollective.com/bootstrap-vue#donate"
