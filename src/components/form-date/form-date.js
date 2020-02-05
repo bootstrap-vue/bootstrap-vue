@@ -57,6 +57,11 @@ const propsMixin = {
       type: Boolean,
       default: false
     },
+    required: {
+      // If true adds the 'aria-required' attribute
+      type: Boolean,
+      default: false
+    },
     name: {
       type: String,
       default: null
@@ -366,7 +371,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           type: 'button',
           disabled: disabled,
           'aria-haspopup': 'dialog',
-          'aria-expanded': this.visible ? 'true' : 'false'
+          'aria-expanded': this.visible ? 'true' : 'false',
+          'aria-invalid': state === false ? 'true' : null,
+          'aria-required': this.required ? 'true' : null,
         },
         on: {
           mousedown: this.onMousedown,
@@ -394,7 +401,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           id: idLabel,
           for: idButton,
           dir: this.isRTL ? 'rtl' : 'ltr',
-          lang: this.localLocale || null
+          lang: this.localLocale || null,
+          'aria-invalid': state === false ? 'true' : null,
+          'aria-required': this.required ? 'true' : null,
         },
         on: {
           // Disable bubbling of the click event to
@@ -554,6 +563,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           'aria-disabled': this.disabled,
           'aria-readonly': this.readonly && !this.disabled,
           'aria-labelledby': idLabel,
+          'aria-invalid': state === false ? 'true' : null,
+          'aria-required': this.required ? 'true' : null,
           // We don't want the flex order to change here
           // So we always use 'ltr'
           dir: 'ltr'
