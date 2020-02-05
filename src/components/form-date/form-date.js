@@ -257,10 +257,10 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    value(newVal, oldVal) /* istanbul ignore next: until tests are written */ {
+    value(newVal, oldVal) {
       this.localYMD = formatYMD(newVal) || ''
     },
-    localYMD(newVal, oldVal) /* istanbul ignore next: until tests are written */ {
+    localYMD(newVal, oldVal) {
       this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
     },
     calendarYM(newVal, oldVal) /* istanbul ignore next */ {
@@ -271,7 +271,6 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         this.updatePopper()
       }
     }
-    // TBD
   },
   mounted() {
     this.$on('shown', () => /* istanbul ignore next: until tests are written */ {
@@ -284,7 +283,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     // Public methods
-    focus() /* istanbul ignore next: until tests are written */ {
+    focus() {
       if (!this.disabled) {
         try {
           // This assumes the toggle is an element and not a component
@@ -292,7 +291,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         } catch {}
       }
     },
-    blur() /* istanbul ignore next: until tests are written */ {
+    blur() {
       if (!this.disabled) {
         try {
           // This assumes the toggle is an element and not a component
@@ -300,7 +299,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         } catch {}
       }
     },
-    // Primate methods
+    // Private methods
     onSelected(ymd, date) /* istanbul ignore next: until tests are written */ {
       this.$nextTick(() => {
         if (this.localYMD !== ymd) {
