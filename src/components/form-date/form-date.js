@@ -279,6 +279,24 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     })
   },
   methods: {
+    // Public methods
+    focus() /* istanbul ignore next: until tests are written */ {
+      if (!this.disabled) {
+        try {
+          // this assumes the toggle is an element and not a component
+          this.$refs.toggle.focus()
+        } catch {}
+      }
+    },
+    blur() /* istanbul ignore next: until tests are written */ {
+      if (!this.disabled) {
+        try {
+          // this assumes the toggle is an element and not a component
+          this.$refs.toggle.blur()
+        } catch {}
+      }
+    },
+    // Primate methods
     onSelected(ymd, date) /* istanbul ignore next: until tests are written */ {
       this.$nextTick(() => {
         if (this.localYMD !== ymd) {
@@ -404,7 +422,6 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            staticClass: 'p-1',
             props: { size: 'sm', disabled: disabled || readonly, variant: 'primary' },
             attrs: { 'aria-label': label || null },
             on: { click: this.onToday }
@@ -421,7 +438,6 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            staticClass: 'p-1',
             props: { size: 'sm', disabled: disabled || readonly, variant: 'danger' },
             attrs: { 'aria-label': label || null },
             on: { click: this.onReset }
@@ -438,7 +454,6 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            staticClass: 'p-1',
             props: { size: 'sm', disabled: this.disabled, variant: 'secondary' },
             attrs: { 'aria-label': label || null },
             on: { click: () => this.hide(true) }
