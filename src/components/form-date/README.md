@@ -179,11 +179,38 @@ To disable highlighting of today's date altogether, set the `no-highlight-today`
 
 ### Control sizing
 
-TBD
+Fancy a smaller or larger `<b-form-date>` control? Set the `size` prop to `'sm'` for a smaller form
+control, or `'lg'` for a larger form form control. Note this does not affect the size of the popup
+calendar dialog.
+
+```html
+<template>
+  <div>
+    <label for="datepicker-sm">Small date picker</label>
+    <b-form-date id="datepicker-sm" size="sm" local="en" class="mb-2"></b-form-date>
+    <label for="datepicker-lg">Large date picker</label>
+    <b-form-date id="datepicker-lg" size="lg" local="en"></b-form-date>
+  </div>
+</template>
+
+<!-- b-form-date-sizes.vue -->
+```
 
 ### Placeholder
 
-TBD
+Add custom placeholder text to the control, when no date is selected, via the `placeholder` prop.
+If a placeholder is not provided, the value of the `label-no-date-selected` prop is used.
+
+```html
+<template>
+  <div>
+    <label for="datepicker-placeholder">Small date picker</label>
+    <b-form-date id="datepicker-placeholder" placeholder="Choose a date" local="en"></b-form-date>
+  </div>
+</template>
+
+<!-- b-form-date-placeholder.vue -->
+```
 
 ### Optional controls
 
@@ -196,11 +223,16 @@ behaviour by setting the the `no-close-on-select` prop.
 
 ### Dropdown placement
 
-TBD
+Use teh dropdown props `right`, `dropup`, `dropright`, `dropleft`, `no-flip`, and `offset` to
+control the positioning of the popup calendar.
+
+Refer to the [`<b-dropdown>` documentation](/docs/components/dropdown) for details on the effects
+and usage of these props.
 
 ### Dark mode
 
-TBD
+Fancy a pupup with a dark bacground instead of a light background? set the `dark` prop to true to
+enable the dark background.
 
 ## Internationalization
 
@@ -306,6 +338,8 @@ Saturday.
 
 <!-- b-form-date-i18n.vue -->
 ```
+
+You can listen to for the `context` event to determine the locale that the calendar has resolved to.
 
 Refer to the [`<b-calendar>`](/docs/components/calendar#internationalization) documentation for
 additional details.
