@@ -6,6 +6,28 @@ import { BFormDate } from './form-date'
 // Note that JSDOM only supports `en-US` (`en`) locale for `Intl`
 
 describe('form-date', () => {
+  const originalCreateRange = document.createRange
+
+  beforeEach(() => {
+    // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
+    // Hack to make Popper not bork out during tests
+    // Note popper still does not do any positioning calculation in JSDOM though
+    // So we cannot test actual positioning of the menu, just detect when it is open
+    document.createRange = () => ({
+      setStart: () => {},
+      setEnd: () => {},
+      commonAncestorContainer: {
+        nodeName: 'BODY',
+        ownerDocument: document
+      }
+    })
+  })
+
+  afterEach(() => {
+    // Reset overrides
+    document.createRange = originalCreateRange
+  })
+
   it('has expected base structure', async () => {
     const wrapper = mount(BFormDate, {
       attachToDocument: true
