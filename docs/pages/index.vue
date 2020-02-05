@@ -411,7 +411,7 @@
           Donate
         </b-button>
 
-        <SponsorsBackersDonors></SponsorsBackersDonors>
+        <BVDContributors></BVDContributors>
       </b-container>
     </section>
 
@@ -663,10 +663,10 @@ $bv-angle-padding-md: 6rem;
 
 <script>
 import { version, bootstrapVersion, vueVersion } from '~/content'
-import SponsorsBackersDonors from '~/components/sponsors-backers-donors'
+import BVDContributors from '~/components/contributors'
 
 export default {
-  components: { SponsorsBackersDonors },
+  components: { BVDContributors },
   data() {
     return {
       isIE: false,
