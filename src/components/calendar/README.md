@@ -513,9 +513,15 @@ Keyboard navigation:
 - <kbd>PageDown</kbd> moves to the same day in the next month
 - <kbd>Alt</kbd>+<kbd>PageUp</kbd> moves to the same day and month in the previous year
 - <kbd>Alt</kbd>+<kbd>PageDown</kbd> moves to the same day and month in the next year
-- <kbd>Home</kbd> moves to the current selected date, or today if no selected date
-- <kbd>End</kbd> moves to today
+- <kbd>Home</kbd> moves to today's date
+- <kbd>End</kbd> moves to the current selected date, or today if no selected date
 - <kbd>Enter</kbd> or <kbd>Space</kbd> selects the currently highlighted (focused) day
+
+Several of the `label-*` props are not visible on screen, but are used to label various elements
+within the calendar for screen reader users. e.g. the `label-today` prop is added to the cell that
+contains todays date: `'January 28, 2020 (Today)'`, whle the `label-selected` prop is added to the
+cell that contains the selected date `'January 28, 2020 (Selected date)'` as well as added to the
+selected date header as `sr-only` text.
 
 When internationalizing the datepicker, it is important to also update the `label-*` props with
 appropriate translated strings, so that international screen reader users will hear the correct
