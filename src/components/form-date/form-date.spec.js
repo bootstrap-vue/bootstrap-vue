@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormDate } from './form-date'
-import { formatYMD } from '../../utils/date'
+// import { formatYMD } from '../../utils/date'
 
 // Note that JSDOM only supports `en-US` (`en`) locale for `Intl`
 
@@ -59,16 +59,12 @@ describe('form-date', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
-
     wrapper.setProps({
       value: '2020-01-20'
     })
 
     await waitNT(wrapper.vm)
     await waitRAF()
-
-    expect(wrapper.emitted('input')).not.toBeDefined()
 
     // TBD
 
@@ -190,7 +186,7 @@ describe('form-date', () => {
     expect(wrapper.emitted('context')).toBeDefined()
     const lastIndex = wrapper.emitted('context').length - 1
     // activeYMD will be the date that caneldar has focused by default
-    const activeYMD = wrapper.emitted('context')[lastIndex][0]['activeYMD']
+    const activeYMD = wrapper.emitted('context')[lastIndex][0].activeYMD
 
     expect(activeYMD).not.toBe(null)
     expect(activeYMD).not.toBe('')
