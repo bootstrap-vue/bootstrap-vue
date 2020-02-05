@@ -1,13 +1,15 @@
 # Form Date
 
 > `<b-form-date>` is a BootstrapVue custom date picker input form control, which provides full
-> WAI-ARIA compliance and also supports internationalization.
+> WAI-ARIA compliance and internationalization support.
 
-`<b-form-date>` is a form control wrapper component for the
-[`<b-calendar>`](/docs/components/calendar) component, and provides additional validation state
-presentation.
+As a form control wrapper component for the [`<b-calendar>`](/docs/components/calendar) component, it
+provides additional validation state presentation and a compact interface. Native HTML5 date inputs
+vary in presentation, acessibility, and in some instances are not supported by all browsers.
+`<b-form-date>` provides a consistant and accessible interface across all browser platforms and
+devices.
 
-The `<b-form-date>` component was introduced in BootstrapVue `v2.5.0`
+The `<b-form-date>` component was introduced in BootstrapVue release `v2.5.0`
 
 ```html
 <template>
