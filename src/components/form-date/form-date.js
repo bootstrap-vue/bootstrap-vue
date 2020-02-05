@@ -184,7 +184,6 @@ const propsMixin = {
     },
     labelTodayButton: {
       type: String,
-      // Falls back to the labelToday prop value
       default: () => getComponentConfig(NAME, 'labelTodayButton')
     },
     // Dark mode
@@ -426,7 +425,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
 
     /* istanbul ignore if: until tests are written */
     if (this.todayButton) {
-      const label = this.labelTodayButton || this.labelToday
+      const label = this.labelTodayButton
       $controls.push(
         h(
           BButton,
