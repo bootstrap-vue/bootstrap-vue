@@ -116,7 +116,7 @@ describe('form-date', () => {
     const wrapper = mount(BFormDate, {
       attachToDocument: true,
       propsData: {
-        value: ''
+        value: '',
         id: 'test-open'
       }
     })
