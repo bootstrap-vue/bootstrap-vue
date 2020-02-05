@@ -325,11 +325,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const localYMD = this.localYMD
     const disabled = this.disabled
     const readonly = this.readonly
-    const formattedValue = this.formattedValue
-    const labelSelected = this.labeSelected
-    const placeholder = this.placeholder
     const idButton = this.safeId()
-    // TODO: Make the ID's computed props
     const idLabel = this.safeId('_value_')
     const idMenu = this.safeId('_dialog_')
     const idWrapper = this.safeId('_b-form-date_')
@@ -392,7 +388,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       },
       [
         // Add the formatted value or placeholder
-        localYMD ? formattedValue : placeholder || this.labelNoDateSelected,
+        localYMD ? this.formattedValue : this.placeholder || this.labelNoDateSelected,
         // Add an sr-only 'selected date' label if a date is selected
         localYMD ? h('span', { staticClass: 'sr-only' }, ` (${this.labelSelected}) `) : h()
       ]
