@@ -375,7 +375,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           'aria-haspopup': 'dialog',
           'aria-expanded': this.visible ? 'true' : 'false',
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null,
+          'aria-required': this.required ? 'true' : null
         },
         on: {
           mousedown: this.onMousedown,
@@ -405,7 +405,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           dir: this.isRTL ? 'rtl' : 'ltr',
           lang: this.localLocale || null,
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null,
+          'aria-required': this.required ? 'true' : null
         },
         on: {
           // Disable bubbling of the click event to
