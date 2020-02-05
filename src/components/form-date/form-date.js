@@ -322,6 +322,12 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   render(h) {
     const size = this.size
     const state = this.state
+    const localYMD = this.localYMD
+    const disabled = this.disabled
+    const readonly = this.readonly
+    const formattedValue = this.formattedValue
+    const labelSelected = this.labeSelected
+    const placeholder = this.placeholder
     const idButton = this.safeId()
     // TODO: Make the ID's computed props
     const idLabel = this.safeId('_value_')
@@ -344,7 +350,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idButton,
           type: 'button',
-          disabled: this.disabled,
+          disabled: disabled,
           'aria-haspopup': 'dialog',
           'aria-expanded': this.visible ? 'true' : 'false'
         },
@@ -365,7 +371,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         staticClass: 'form-control text-break text-wrap border-0 h-auto',
         class: {
           'is-invalid': state === false,
-          'is-valid': state === true
+          'is-valid': state === true,
+          // Mute the text if showing hte placeholder
+          'text-muted': !localYMD
         },
         attrs: {
           id: idLabel,
@@ -381,11 +389,12 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           }
         }
       },
-      // If a date is selected, show the formated value, otherwise show
-      // placeholder text (or `labelNoDateSelected` returned via context)
-      this.localYMD
-        ? this.formattedValue
-        : [h('span', { staticClass: 'text-muted' }, this.placeholder || this.formattedValue)]
+      [
+        // Add the formatted value or placeholder
+        localYMD ? formattedValue : placeholder || this.labelNoDateSelected,
+        // Add an sr-only 'selected date' label if a date is selected
+        localYMD ? h('span', { staticClass: 'sr-only' }, ` (${this.labelSelected}) `) : h()
+      ]
     )
 
     // TODO: Add in the optional buttons
@@ -401,8 +410,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           BButton,
           {
             staticClass: 'p-1',
-            props: { size: 'sm', disabled: this.disabled || this.readonly, variant: 'primary' },
-            attrs: { 'data-today': '', 'aria-label': label || null },
+            props: { size: 'sm', disabled: disabled || readonly, variant: 'primary' },
+            attrs: { 'aria-label': label || null },
             on: { click: this.onToday }
           },
           label
@@ -418,8 +427,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           BButton,
           {
             staticClass: 'p-1',
-            props: { size: 'sm', disabled: this.disabled || this.readonly, variant: 'danger' },
-            attrs: { 'data-reset': '', 'aria-label': label || null },
+            props: { size: 'sm', disabled: disabled || readonly, variant: 'danger' },
+            attrs: { 'aria-label': label || null },
             on: { click: this.onReset }
           },
           label
@@ -436,7 +445,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           {
             staticClass: 'p-1',
             props: { size: 'sm', disabled: this.disabled, variant: 'secondary' },
-            attrs: { 'data-close': '', 'aria-label': label || null },
+            attrs: { 'aria-label': label || null },
             on: { click: () => this.hide(true) }
           },
           label
@@ -446,12 +455,11 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
 
     /* istanbul ignore if: until tests are written */
     if ($controls.length > 0) {
-      // TODO: May want to adjust layout based on number of buttons
       $controls = [
         h(
           'div',
           {
-            staticClass: 'd-flex flex-wrap',
+            staticClass: 'b-form-date-controls d-flex flex-wrap',
             class: {
               'justify-content-between': $controls.length > 1,
               'justify-content-end': $controls.length < 2
@@ -466,6 +474,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       BCalendar,
       {
         ref: 'calendar',
+        staticClass: 'b-form-date-calendar',
         props: this.calendarProps,
         on: {
           selected: this.onSelected,
@@ -510,7 +519,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           type: 'hidden',
           name: this.name,
           form: this.form,
-          value: this.localYMD || ''
+          value: localYMD || ''
         }
       })
     }
