@@ -223,7 +223,7 @@ behaviour by setting the the `no-close-on-select` prop.
 
 ### Dropdown placement
 
-Use teh dropdown props `right`, `dropup`, `dropright`, `dropleft`, `no-flip`, and `offset` to
+Use the dropdown props `right`, `dropup`, `dropright`, `dropleft`, `no-flip`, and `offset` to
 control the positioning of the popup calendar.
 
 Refer to the [`<b-dropdown>` documentation](/docs/components/dropdown) for details on the effects
@@ -231,7 +231,7 @@ and usage of these props.
 
 ### Dark mode
 
-Fancy a pupup with a dark bacground instead of a light background? set the `dark` prop to true to
+Fancy a pupup with a dark background instead of a light background? set the `dark` prop to true to
 enable the dark background.
 
 ## Internationalization
