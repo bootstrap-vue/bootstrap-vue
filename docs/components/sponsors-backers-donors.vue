@@ -17,7 +17,7 @@
                 v-if="platinumSponsor.website"
                 :href="platinumSponsor.website"
                 target="_blank"
-                class="stretched-link text-reset"
+                class="stretched-link text-break text-reset"
               >
                 {{ platinumSponsor.name }}
               </b-link>
@@ -42,7 +42,7 @@
                 v-if="goldSponsor.website"
                 :href="goldSponsor.website"
                 target="_blank"
-                class="stretched-link text-reset"
+                class="stretched-link text-break text-reset"
               >
                 {{ goldSponsor.name }}
               </b-link>
@@ -67,7 +67,7 @@
                 v-if="silverSponsor.website"
                 :href="silverSponsor.website"
                 target="_blank"
-                class="stretched-link text-reset"
+                class="stretched-link text-break text-reset"
               >
                 {{ silverSponsor.name }}
               </b-link>
@@ -92,7 +92,7 @@
                 v-if="bronzeSponsor.website"
                 :href="bronzeSponsor.website"
                 target="_blank"
-                class="stretched-link text-reset"
+                class="stretched-link text-break text-reset"
               >
                 {{ bronzeSponsor.name }}
               </b-link>
@@ -118,7 +118,7 @@
               v-if="backer.website"
               :href="backer.website"
               target="_blank"
-              class="stretched-link text-reset"
+              class="stretched-link text-break text-reset"
             >
               {{ backer.name }}
             </b-link>
@@ -187,7 +187,7 @@
 
 <script>
 const OC_BASE_URL = 'https://rest.opencollective.com/v2/bootstrap-vue/orders/'
-const OC_DEFAULT_PARAMS = { type: null, tierSlug: null, limit: 100 }
+const OC_DEFAULT_PARAMS = { status: 'active', tierSlug: null, limit: 100 }
 
 const MAX_BACKERS = 16
 const MAX_DONORS = 32
@@ -215,27 +215,15 @@ export default {
   },
   mounted() {
     // Platinum sponors are people/organizations with a recurring (active) platinum sponorship
-    this.makeOcRequest(this.processPlatinumSponsors.bind(this), {
-      status: 'active',
-      tierSlug: 'platinum-sponsors'
-    })
+    this.makeOcRequest(this.processPlatinumSponsors.bind(this), { tierSlug: 'platinum-sponsors' })
     // Gold sponors are people/organizations with a recurring (active) gold sponorship
-    this.makeOcRequest(this.processGoldSponsors.bind(this), {
-      status: 'active',
-      tierSlug: 'gold-sponsors'
-    })
+    this.makeOcRequest(this.processGoldSponsors.bind(this), { tierSlug: 'gold-sponsors' })
     // Silver sponors are people/organizations with a recurring (active) silver sponorship
-    this.makeOcRequest(this.processSilverSponsors.bind(this), {
-      status: 'active',
-      tierSlug: 'silver-sponsors'
-    })
+    this.makeOcRequest(this.processSilverSponsors.bind(this), { tierSlug: 'silver-sponsors' })
     // Bronze sponors are people/organizations with a recurring (active) bronze sponorship
-    this.makeOcRequest(this.processBronzeSponsors.bind(this), {
-      status: 'active',
-      tierSlug: 'bronze-sponsors'
-    })
+    this.makeOcRequest(this.processBronzeSponsors.bind(this), { tierSlug: 'bronze-sponsors' })
     // Backers are people/organizations with recurring (active) donations
-    this.makeOcRequest(this.processBackers.bind(this), { status: 'active' })
+    this.makeOcRequest(this.processBackers.bind(this), { tierSlug: 'backers' })
     // Donors are people/organizations with one-time (paid) donations
     this.makeOcRequest(this.processDonors.bind(this), { status: 'paid' })
   },
@@ -290,7 +278,7 @@ export default {
           frequency: entry.frequency,
           // We now have sponsor tiers, but some appear as
           // `null` (they were made before the tiers were created)
-          tier: (entry.tier || {}).slug,
+          tier: (entry.tier || {}).slug || null,
           date: new Date(entry.createdAt)
         }
       })
@@ -328,16 +316,16 @@ export default {
     processDonors(donors = []) {
       // Donors are provided in reverse chronological order,
       // but donors can be listed more than once (for each individual donation),
-      // although the totalDonations is the same on each entry
+      // although the `totalDonations` is the same on each entry
       // We sort by larger amount first, then by date
       // Limit to top 32 most recent donors
       this.donors = donors
-        .filter(donor => donor.status === 'PAID')
-        .reduce((arr, donor) => {
-          if (arr.map(d => d.slug).indexOf(donor.slug) === -1) {
-            arr.push(donor)
+        .reduce((results, donor) => {
+          console.log(donor.tier)
+          if (results.map(d => d.slug).indexOf(donor.slug) === -1) {
+            results.push(donor)
           }
-          return arr
+          return results
         }, [])
         .sort(this.sortCompare)
         .slice(0, MAX_DONORS)
