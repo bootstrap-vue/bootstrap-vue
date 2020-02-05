@@ -245,6 +245,10 @@ prop `no-close-on-select` is set.
 <!-- b-form-date-buttons.vue -->
 ```
 
+The text for the optional buttons can be set via the `label-today-button`, `label-reset-button`, and
+the `label-close-button` props. Due to the limited width of the footer section, it is recommended to
+keep these labels short.
+
 ### Dropdown placement
 
 Use the dropdown props `right`, `dropup`, `dropright`, `dropleft`, `no-flip`, and `offset` to
