@@ -364,7 +364,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     )
     $button = h('div', { staticClass: 'input-group-prepend' }, [$button])
 
-    // Fake input
+    // Label as a "fake" input
+    // This label will be read by screen readers when the button is focused
     const $input = h(
       'label',
       {
