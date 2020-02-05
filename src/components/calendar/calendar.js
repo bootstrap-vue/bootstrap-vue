@@ -3,6 +3,7 @@ import KeyCodes from '../../utils/key-codes'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes } from '../../utils/array'
+import { getComponentConfig } from '../../utils/config'
 import {
   createDate,
   createDateFormatter,
@@ -178,47 +179,47 @@ export const BCalendar = Vue.extend({
     // Labels for buttons and keyboard shortcuts
     labelPrevYear: {
       type: String,
-      default: 'Previous year'
+      default:  () => getComponentConfig(NAME, 'labelPrevYear')
     },
     labelPrevMonth: {
       type: String,
-      default: 'Previous month'
+      default: () => getComponentConfig(NAME, 'labelPrevMonth')
     },
     labelCurrentMonth: {
       type: String,
-      default: 'Current month'
+      default: () => getComponentConfig(NAME, 'labelCurrentMonth')
     },
     labelNextMonth: {
       type: String,
-      default: 'Next month'
+      default: () => getComponentConfig(NAME, 'labelNextMonth')
     },
     labelNextYear: {
       type: String,
-      default: 'Next year'
+      default: () => getComponentConfig(NAME, 'labelNextYear')
     },
     labelToday: {
       type: String,
-      default: 'Today'
+      default: () => getComponentConfig(NAME, 'labelToday')
     },
     labelSelected: {
       type: String,
-      default: 'Selected date'
+      default: () => getComponentConfig(NAME, 'labelSelected')
     },
     labelNoDateSelected: {
       type: String,
-      default: 'No date selected'
+      default: () => getComponentConfig(NAME, 'labelNoDateSelected')
     },
     labelCalendar: {
       type: String,
-      default: 'Calendar'
+      default: () => getComponentConfig(NAME, 'labelCalendar')
     },
     labelNav: {
       type: String,
-      default: 'Calendar navigation'
+      default: () => getComponentConfig(NAME, 'labelNav')
     },
     labelHelp: {
       type: String,
-      default: 'Use cursor keys to navigate calendar dates'
+      default: () => getComponentConfig(NAME, 'labelHelp')
     }
   },
   data() {
