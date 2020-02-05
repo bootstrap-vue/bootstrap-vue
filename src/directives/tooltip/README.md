@@ -36,7 +36,7 @@ Twelve options are available for positioning: `top`, `topleft`, `topright`, `rig
 The default position is `top`. Positioning is relative to the trigger element.
 
 <div class="bd-example bd-example-tooltip-static">
-  <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
+  <div class="tooltip b-tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
     <div class="arrow" style="left: calc(50% - 6px)"></div>
     <div class="tooltip-inner">Tooltip on the top</div>
   </div>
@@ -48,8 +48,8 @@ The default position is `top`. Positioning is relative to the trigger element.
     <div class="arrow" style="left: 6px"></div>
     <div class="tooltip-inner">Tooltip on the top-end</div>
   </div>
-  <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
-    <div class="arrow" style="top: calc(50% - 5px)"></div>
+  <div class="tooltip b-tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
+    <div class="arrow" style="top: 5px"></div>
     <div class="tooltip-inner">Tooltip on the right</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
@@ -60,7 +60,7 @@ The default position is `top`. Positioning is relative to the trigger element.
     <div class="arrow" style="top: 4px"></div>
     <div class="tooltip-inner">Tooltip on the right-end</div>
   </div>
-  <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
+  <div class="tooltip b-tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
     <div class="arrow" style="left: calc(50% - 6px)"></div>
     <div class="tooltip-inner">Tooltip on the bottom</div>
   </div>
@@ -72,8 +72,8 @@ The default position is `top`. Positioning is relative to the trigger element.
     <div class="arrow" style="left: 6px"></div>
     <div class="tooltip-inner">Tooltip on the bottom-end</div>
   </div>
-  <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
-    <div class="arrow" style="top: calc(50% - 5px)"></div>
+  <div class="tooltip b-tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
+    <div class="arrow" style="top: 5px"></div>
     <div class="tooltip-inner">Tooltip on the left</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">

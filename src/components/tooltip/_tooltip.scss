@@ -18,6 +18,17 @@
   &.noninteractive {
     pointer-events: none;
   }
+
+  .arrow {
+    margin: 0 $tooltip-border-radius;
+  }
+
+  &.bs-tooltip-right,
+  &.bs-tooltip-left {
+    .arrow {
+      margin: $tooltip-border-radius 0;
+    }
+  }
 }
 
 // Create custom variants for tooltips

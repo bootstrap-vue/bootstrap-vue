@@ -47,8 +47,8 @@ Twelve options are available for positioning: `top`, `topleft`, `topright`, `rig
 Positioning is relative to the trigger element.
 
 <div class="bd-example bd-example-popover-static">
-  <div class="popover bs-popover-top bs-popover-top-docs">
-    <div class="arrow" style="left: calc(50% - 6px)"></div>
+  <div class="popover b-popover bs-popover-top bs-popover-top-docs">
+    <div class="arrow" style="left: calc(50% - 8px)"></div>
     <h3 class="popover-header">Popover top</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
@@ -72,8 +72,8 @@ Positioning is relative to the trigger element.
     </div>
   </div>
 
-  <div class="popover bs-popover-right bs-popover-right-docs">
-    <div class="arrow" style="top: calc(50% - 8px)"></div>
+  <div class="popover b-popover bs-popover-right bs-popover-right-docs">
+    <div class="arrow" style="top: calc(50% - 4px)"></div>
     <h3 class="popover-header">Popover right</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
@@ -97,8 +97,8 @@ Positioning is relative to the trigger element.
     </div>
   </div>
 
-  <div class="popover bs-popover-bottom bs-popover-bottom-docs">
-    <div class="arrow" style="left: calc(50% - 6px)"></div>
+  <div class="popover b-popover bs-popover-bottom bs-popover-bottom-docs">
+    <div class="arrow" style="left: calc(50% - 8px)"></div>
     <h3 class="popover-header">Popover bottom</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
@@ -122,8 +122,8 @@ Positioning is relative to the trigger element.
     </div>
   </div>
 
-  <div class="popover bs-popover-left bs-popover-left-docs">
-    <div class="arrow" style="top: calc(50% - 8px)"></div>
+  <div class="popover b-popover bs-popover-left bs-popover-left-docs">
+    <div class="arrow" style="top: calc(50% - 4px)"></div>
     <h3 class="popover-header">Popover left</h3>
     <div class="popover-body">
       Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
