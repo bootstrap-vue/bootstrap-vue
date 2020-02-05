@@ -135,7 +135,7 @@
           },
           {
             "prop": "labelHelp",
-            "decription": "help text that appears at the bottom of the calendar grid"
+            "description": "help text that appears at the bottom of the calendar grid"
           }
         ],
         "events": [
