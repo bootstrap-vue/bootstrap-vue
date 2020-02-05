@@ -214,12 +214,33 @@ If a placeholder is not provided, the value of the `label-no-date-selected` prop
 
 ### Optional controls
 
-TBD
+Add optional control buttons to the bottom of the calendar popup via the props `today-button`,
+`reset-button` and `close-button`.
 
-Optional "Today", "Close", and "Reset" buttons.
+- The today button selects today's date. 
+- The reset button either clears the selected date, or sets the date to the value of the prop
+  `reset-value` (if provided)
+- The close button closes the calendar popup
 
-By default, when a day is slected, the popup will automatically close. You can disable this
-behaviour by setting the the `no-close-on-select` prop.
+BY default clickg on the today or reset button will also close the calendar popup, unless the prop
+`no-close-on-select` is set.
+
+```html
+<template>
+  <div>
+    <label for="datepicker-buttons">Date picker with optional footer buttons</label>
+    <b-form-date
+      id="datepicker-buttons"
+      today-button
+      reset-button
+      close-button 
+      locale="en"
+    ></b-form-date>
+  </div>
+</template>
+
+<!-- b-form-date-buttons.vue -->
+```
 
 ### Dropdown placement
 
