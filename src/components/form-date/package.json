@@ -180,15 +180,15 @@
           },
           {
             "prop": "labelTodayButton",
-            "description": "Content for the optional `set today` button"
+            "description": "Content for the optional `Select today` button"
           },
           {
             "prop": "labelResetButton",
-            "description": "Content for the optional `reset` button"
+            "description": "Content for the optional `Reset` button"
           },
           {
             "prop": "labelCloseButton",
-            "description": "Content for the optional `close` button"
+            "description": "Content for the optional `Close` button"
           }
         ],
         "events": [
