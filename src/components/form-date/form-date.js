@@ -5,6 +5,7 @@ import { formatYMD, parseYMD } from '../../utils/date'
 import { isBoolean } from '../../utils/inspect'
 import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
+import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar } from '../../icons/icons'
 
@@ -304,6 +305,18 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       this.activeYMD = activeYMD
       // Re-emit the context event
       this.$emit('context', ctx)
+    },
+    onToday() {
+      this.localYMD = formatYMD(new Date())
+      if (!this.noCloseOnSelect) {
+        this.$nextTick(() => this.hide(true))
+      }
+    },
+    onReset() {
+      this.localYMD = formatYMD(this.resetValue) || ''
+      if (!this.noCloseOnSelect) {
+        this.$nextTick(() => this.hide(true))
+      }
     }
   },
   render(h) {
@@ -378,7 +391,48 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     // TODO: Add in the optional buttons
     // This should be an empty array or null
     // when no footer buttons
-    const $controls = []
+    let $controls = []
+    
+    if (this.todayButton) {
+      $controls.push(h(
+        BButton,
+        {
+          props: { size: 'sm', disabed: this.disabled || this.readonly, variant: 'primary' },
+          attrs: { 'aria-label': this.labelTodayButton || this.labelToday || null },
+          on: { click: this.onToday }
+        },
+        this.labelTodayButton || this.labelToday
+      ))
+    }
+
+    if (this.resetButton) {
+      $controls.push(h(
+        BButton,
+        {
+          props: { size: 'sm', disabed: this.disabled || this.readonly, variant: 'danger' },
+          attrs: { 'aria-label': this.labelResetButton || null },
+          on: { click: this.onReset }
+        },
+        this.labelResetButton
+      ))
+    }
+
+    if (this.closeButton) {
+      $controls.push(h(
+        BButton,
+        {
+          props: { size: 'sm', disabed: this.disabled, variant: 'secondary' },
+          attrs: { 'aria-label': this.labelCloseButton || null },
+          on: { click: () => this.hide(true) }
+        },
+        this.labelCloseButton
+      ))
+    }
+
+    if ($controls.length > 0) {
+      // TODO: May want to adjust layout based on number of buttons
+      $controls = h('div', { staticClass: 'd-flex justify-content-between flex-wrap' }, $controls)
+    }
 
     const $calendar = h(
       BCalendar,
