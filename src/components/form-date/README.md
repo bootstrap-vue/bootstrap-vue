@@ -371,7 +371,7 @@ additional details.
 
 ## Accessibility
 
-The popup calendar suppprts the same keyboard control as
+The popup calendar suppports the same keyboard controls as
 [`<b-calendar>`](/docs/components/calendar#accessibility), along with the following:
 
 - <kbd>ESC</kbd> will close the popup calendar without selecting a date
