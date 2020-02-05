@@ -595,12 +595,12 @@ export const BCalendar = Vue.extend({
         activeDate.setDate(day + 7)
         checkDate = activeDate
       } else if (keyCode === HOME) {
-        // HOME - Selected date (or today if no selected date)
-        activeDate = parseYMD(this.selectedDate) || this.getToday()
+        // HOME - Today
+        activeDate = this.getToday()
         checkDate = activeDate
       } else if (keyCode === END) {
-        // END - Today
-        activeDate = this.getToday()
+        // END - Selected date
+        activeDate = parseYMD(this.selectedDate)
         checkDate = activeDate
       }
       if (!this.dateOutOfRange(checkDate) && !datesEqual(activeDate, this.activeDate)) {
@@ -611,7 +611,7 @@ export const BCalendar = Vue.extend({
       this.focusGrid()
     },
     onKeydownGrid(evt) /* istanbul ignore next: until tests are ready */ {
-      // Pressing enter/space on date to select it
+      // Pressing enter/space on grid to select active date
       const keyCode = evt.keyCode
       const activeDate = this.activeDate
       if (keyCode === ENTER || keyCode === SPACE) {
@@ -648,7 +648,9 @@ export const BCalendar = Vue.extend({
       this.activeDate = this.constrainDate(oneMonthAgo(this.activeDate))
     },
     gotoCurrentMonth(evt) /* istanbul ignore next: until tests are ready */ {
-      this.activeDate = parseYMD(this.selectedDate) || this.getToday()
+      // TODO: Maybe this goto date should be configurable?
+      this.activeDate = this.getToday()
+      // this.activeDate = parseYMD(this.selectedDate) || this.getToday()
     },
     gotoNextMonth(evt) /* istanbul ignore next: until tests are ready */ {
       this.activeDate = this.constrainDate(oneMonthAhead(this.activeDate))
@@ -689,7 +691,8 @@ export const BCalendar = Vue.extend({
           id: idValue,
           for: idGrid,
           role: 'status',
-          // Mainly for testing purposes
+          // Mainly for testing purposes, as we do not know
+          // the exact format Intl will format the date string
           'data-selected': toString(selectedYMD),
           // We wait until after mount to enable aria-live
           // to prevent initial announcement on page render
