@@ -393,6 +393,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     // when no footer buttons
     let $controls = []
     
+    /* istanbul ignore if: until tests are written */
     if (this.todayButton) {
       $controls.push(h(
         BButton,
@@ -405,6 +406,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       ))
     }
 
+    /* istanbul ignore if: until tests are written */
     if (this.resetButton) {
       $controls.push(h(
         BButton,
@@ -417,6 +419,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       ))
     }
 
+    /* istanbul ignore if: until tests are written */
     if (this.closeButton) {
       $controls.push(h(
         BButton,
