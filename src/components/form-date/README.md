@@ -36,9 +36,10 @@ as well as some of the props available on [`<b-dropdown>`](/docs/components/drop
 
 ## `v-model` return value
 
-By default, `<b-form-date>` returns dates as a string in the format of `YYYY-MM-DD`. You can have
-`<b-form-date>` return the `v-model` value as a `Date` object (with no time portion) by setting the
-prop `value-as-date`.
+By default, `<b-form-date>` returns dates as a string in the format of `YYYY-MM-DD`, which is the
+same format returned by native browser `<input type="date">` controls. You can have `<b-form-date>`
+return the `v-model` value as a `Date` object (with no time portion) instead by setting the prop
+`value-as-date`.
 
 If no date is selected, `<b-form-date>` returns an empty string `''`, or returns `null` if the
 `value-as-date` prop is set.
