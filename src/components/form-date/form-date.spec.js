@@ -22,4 +22,27 @@ describe('form-date', () => {
 
     wrapper.destroy()
   })
+
+  it('renders optional footer buttons', async () => {
+    const wrapper = mount(BFormDate, {
+      attachToDocument: true,
+      propsData: {
+        todayButton: true,
+        resetButton: true,
+        closeButton: true
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    // TBD
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    wrapper.destroy()
+  })
 })
