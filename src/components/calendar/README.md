@@ -490,6 +490,9 @@ By default, `<b-calendar>` automatically detects RTL vs LTR via the resolved loc
 the calendar to render right-to-left by setting the `direction` prop to the string `rtl`, or set the
 `direction` prop to `'ltr'` to always render left-to-right.
 
+You can listen to for the `context` event to determine the locale and directionality that the
+calendar has resolved to.
+
 For server side rendering (SSR) when using Node.js, ensure that the Node.js runtime you are using
 supports `Intl` and the locales you will be using. Refer to the
 [Node `Intl` support documentation](https://nodejs.org/api/intl.html) for details.
