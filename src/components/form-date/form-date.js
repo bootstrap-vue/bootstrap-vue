@@ -11,7 +11,7 @@ import { BIconCalendar } from '../../icons/icons'
 
 const NAME = 'BFormDate'
 
-// falback to BCalendar prop if no value found
+// Fallback to BCalendar prop if no value found
 const getConfigFallback = prop => {
   return getComponentConfig(NAME, prop) || getComponentConfig('BCalendar', prop)
 }
@@ -283,7 +283,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     focus() /* istanbul ignore next: until tests are written */ {
       if (!this.disabled) {
         try {
-          // this assumes the toggle is an element and not a component
+          // This assumes the toggle is an element and not a component
           this.$refs.toggle.focus()
         } catch {}
       }
@@ -291,7 +291,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     blur() /* istanbul ignore next: until tests are written */ {
       if (!this.disabled) {
         try {
-          // this assumes the toggle is an element and not a component
+          // This assumes the toggle is an element and not a component
           this.$refs.toggle.blur()
         } catch {}
       }

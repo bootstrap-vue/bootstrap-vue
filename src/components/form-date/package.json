@@ -24,7 +24,7 @@
           },
           {
             "prop": "resetValue",
-            "description": "when the optioanl `reset` button is clicked, the selected date will be set to this value. Default is to clear the selected value"
+            "description": "when the optional `reset` button is clicked, the selected date will be set to this value. Default is to clear the selected value"
           },
           {
             "prop": "disabled",

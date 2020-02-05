@@ -3,10 +3,10 @@
 > `<b-form-date>` is a BootstrapVue custom date picker input form control, which provides full
 > WAI-ARIA compliance and internationalization support.
 
-As a form control wrapper component for the [`<b-calendar>`](/docs/components/calendar) component, it
-provides additional validation state presentation and a compact interface. Native HTML5 date inputs
-vary in presentation, acessibility, and in some instances are not supported by all browsers.
-`<b-form-date>` provides a consistant and accessible interface across all browser platforms and
+As a form control wrapper component for the [`<b-calendar>`](/docs/components/calendar) component,
+it provides additional validation state presentation and a compact interface. Native HTML5 date
+inputs vary in presentation, accessibility, and in some instances are not supported by all browsers.
+`<b-form-date>` provides a consistent and accessible interface across all browser platforms and
 devices.
 
 The `<b-form-date>` component was introduced in BootstrapVue release `v2.5.0`
@@ -51,8 +51,8 @@ default timezone.
 
 If `<b-form-date>` has a value set for the `name` prop, a hidden input will be created which will
 have its name attribute set to the value of the `name` prop, and the value attribute will be set to
-the selected date as a `YYYY-MM-DD` string. This will allow the `<b-form-date>` selected value to
-be submitted via native browser form submission.
+the selected date as a `YYYY-MM-DD` string. This will allow the `<b-form-date>` selected value to be
+submitted via native browser form submission.
 
 ## Disabled and readonly states
 
@@ -148,9 +148,9 @@ Note the `min` and `max` date constraints are evaluated first, before `date-disa
 
 ## Validation states
 
-`<b-form-date>` supports invalid and valid styling via the boolean `state` prop.  Setting `state`
-to boolean `false` will style the input as invalid, while setting it to boolean `true` will style
-it as valid. Setting `state` to `null` will not show any validation state styling (the default).
+`<b-form-date>` supports invalid and valid styling via the boolean `state` prop. Setting `state` to
+boolean `false` will style the input as invalid, while setting it to boolean `true` will style it as
+valid. Setting `state` to `null` will not show any validation state styling (the default).
 
 ```html
 <template>
@@ -201,8 +201,8 @@ calendar dialog.
 
 ### Placeholder
 
-Add custom placeholder text to the control, when no date is selected, via the `placeholder` prop.
-If a placeholder is not provided, the value of the `label-no-date-selected` prop is used.
+Add custom placeholder text to the control, when no date is selected, via the `placeholder` prop. If
+a placeholder is not provided, the value of the `label-no-date-selected` prop is used.
 
 ```html
 <template>
@@ -220,13 +220,13 @@ If a placeholder is not provided, the value of the `label-no-date-selected` prop
 Add optional control buttons to the bottom of the calendar popup via the props `today-button`,
 `reset-button` and `close-button`.
 
-- The today button selects today's date. 
+- The today button selects today's date.
 - The reset button either clears the selected date, or sets the date to the value of the prop
   `reset-value` (if provided)
 - The close button closes the calendar popup
 
-BY default clickg on the today or reset button will also close the calendar popup, unless the prop
-`no-close-on-select` is set.
+By default, clicking on the today or reset button will also close the calendar popup, unless the
+prop `no-close-on-select` is set.
 
 ```html
 <template>
@@ -236,7 +236,7 @@ BY default clickg on the today or reset button will also close the calendar popu
       id="datepicker-buttons"
       today-button
       reset-button
-      close-button 
+      close-button
       locale="en"
     ></b-form-date>
   </div>
@@ -255,8 +255,8 @@ and usage of these props.
 
 ### Dark mode
 
-Fancy a pupup with a dark background instead of a light background? set the `dark` prop to true to
-enable the dark background.
+Want a fancy popup with a dark background instead of a light background? Set the `dark` prop to
+`true` to enable the dark background.
 
 ## Internationalization
 
@@ -371,7 +371,7 @@ additional details.
 
 ## Accessibility
 
-The popup calendar suppports the same keyboard controls as
+The popup calendar supports the same keyboard controls as
 [`<b-calendar>`](/docs/components/calendar#accessibility), along with the following:
 
 - <kbd>ESC</kbd> will close the popup calendar without selecting a date
