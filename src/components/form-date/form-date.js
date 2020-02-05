@@ -400,7 +400,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabed: this.disabled || this.readonly, variant: 'primary' },
+            staticClass: 'p-1',
+            props: { size: 'sm', disabled: this.disabled || this.readonly, variant: 'primary' },
             attrs: { 'data-today': '', 'aria-label': label || null },
             on: { click: this.onToday }
           },
@@ -416,7 +417,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabed: this.disabled || this.readonly, variant: 'danger' },
+            staticClass: 'p-1',
+            props: { size: 'sm', disabled: this.disabled || this.readonly, variant: 'danger' },
             attrs: { 'data-reset': '', 'aria-label': label || null },
             on: { click: this.onReset }
           },
@@ -432,7 +434,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabed: this.disabled, variant: 'secondary' },
+            staticClass: 'p-1',
+            props: { size: 'sm', disabled: this.disabled, variant: 'secondary' },
             attrs: { 'data-close': '', 'aria-label': label || null },
             on: { click: () => this.hide(true) }
           },
