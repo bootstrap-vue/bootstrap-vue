@@ -306,13 +306,13 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       // Re-emit the context event
       this.$emit('context', ctx)
     },
-    onToday() {
+    onToday() /* istanbul ignore next: until tests are written */ {
       this.localYMD = formatYMD(new Date())
       if (!this.noCloseOnSelect) {
         this.$nextTick(() => this.hide(true))
       }
     },
-    onReset() {
+    onReset() /* istanbul ignore next: until tests are written */ {
       this.localYMD = formatYMD(this.resetValue) || ''
       if (!this.noCloseOnSelect) {
         this.$nextTick(() => this.hide(true))
@@ -395,45 +395,48 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
 
     /* istanbul ignore if: until tests are written */
     if (this.todayButton) {
+      const label = this.labelTodayButton || this.labelToday
       $controls.push(
         h(
           BButton,
           {
             props: { size: 'sm', disabed: this.disabled || this.readonly, variant: 'primary' },
-            attrs: { 'aria-label': this.labelTodayButton || this.labelToday || null },
+            attrs: { 'data-today': '', 'aria-label': label || null },
             on: { click: this.onToday }
           },
-          this.labelTodayButton || this.labelToday
+          label
         )
       )
     }
 
     /* istanbul ignore if: until tests are written */
     if (this.resetButton) {
+      const label = this.labelResetButton
       $controls.push(
         h(
           BButton,
           {
             props: { size: 'sm', disabed: this.disabled || this.readonly, variant: 'danger' },
-            attrs: { 'aria-label': this.labelResetButton || null },
+            attrs: { 'data-reset': '', 'aria-label': label || null },
             on: { click: this.onReset }
           },
-          this.labelResetButton
+          label
         )
       )
     }
 
     /* istanbul ignore if: until tests are written */
     if (this.closeButton) {
+      const label = this.labelCloseButton
       $controls.push(
         h(
           BButton,
           {
             props: { size: 'sm', disabed: this.disabled, variant: 'secondary' },
-            attrs: { 'aria-label': this.labelCloseButton || null },
+            attrs: { 'data-close': '', 'aria-label': label || null },
             on: { click: () => this.hide(true) }
           },
-          this.labelCloseButton
+          label
         )
       )
     }
