@@ -35,6 +35,10 @@
             "description": "Places the calendar in an interactive readonly state. Disables updating the v-model, while still allowing date navigation"
           },
           {
+            "prop": "required",
+            "description": "When set, adds the `aria-required=\"true\"` attribute on the component. Required validation needs to be handled by your application"
+          },
+          {
             "prop": "selectedVariant",
             "description": "Theme color variant to use for the selected date button"
           },
@@ -176,7 +180,7 @@
           },
           {
             "prop": "labelTodayButton",
-            "description": "Content for the optional `today` button. Defaults to the value specified via the `label-today` prop"
+            "description": "Content for the optional `set today` button"
           },
           {
             "prop": "labelResetButton",
