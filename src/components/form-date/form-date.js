@@ -1,11 +1,19 @@
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
+import { getComponentConfig } from '../../utils/config'
 import { formatYMD, parseYMD } from '../../utils/date'
 import { isBoolean } from '../../utils/inspect'
 import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
 import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar } from '../../icons/icons'
+
+const NAME = 'BFormDate'
+
+// falback to BCalendar prop if no value found
+const getConfigFallback = prop => {
+  return getComponentConfig(NAME, prop) || getComponentConfig('BCalendar', prop)
+}
 
 // We create our props as a mixin so that we can control
 // where they appear in the props listing reference section
@@ -116,62 +124,62 @@ const propsMixin = {
     },
     // Labels for buttons and keyboard shortcuts
     labelPrevYear: {
-      type: String
-      // Default: BCalendar value
+      type: String,
+      default: () => getConfigFallback('labelPrevYear')
     },
     labelPrevMonth: {
-      type: String
-      // Default: BCalendar value
+      type: String,
+      default: () => getConfigFallback('labelPrevMonth')
     },
     labelCurrentMonth: {
-      type: String
-      // Default: BCalendar value
+      type: String,
+      default: () => getConfigFallback('labelCurrentMonth')
     },
     labelNextMonth: {
-      type: String
-      // Default: BCalendar value
+      type: String,
+      default: () => getConfigFallback('labelNextMonth')
     },
     labelNextYear: {
-      type: String
-      // Default: BCalendar value
+      type: String,
+      default: () => getConfigFallback('labelNextYear')
     },
     labelToday: {
       type: String,
-      default: 'Today'
+      default: () => getConfigFallback('labelToday')
     },
     labelSelected: {
-      type: String
-      // Default: BCalendar value
+      type: String,
+      default: () => getConfigFallback('labelSelected')
     },
     labelNoDateSelected: {
-      type: String
-      // Default: BCalendar value
+      type: String,
+      default: () => getConfigFallback('labelNoDateSelected')
     },
     labelCalendar: {
-      type: String
-      // Default: BCalendar value
+      type: String,
+      default: () => getConfigFallback('labelCalendar')
     },
     labelNav: {
-      type: String
-      // Default: BCalendar value
+      type: String,
+      default: () => getConfigFallback('labelNav')
     },
     labelHelp: {
-      type: String
-      // Default: BCalendar value
+      type: String,
+      default: () => getConfigFallback('labelHelp')
     },
     // Form date optional labels
     labelCloseButton: {
       type: String,
-      default: 'Close'
+      default: () => getComponentConfig(NAME, 'labelCloseButton')
     },
     labelResetButton: {
       type: String,
-      default: 'Reset'
+      default: () => getComponentConfig(NAME, 'labelResetButton')
     },
     labelTodayButton: {
-      type: String
+      type: String,
       // Falls back to the labelToday prop value
-      // default: 'Today'
+      default: () => getComponentConfig(NAME, 'labelTodayButton')
     },
     // Dark mode
     dark: {
@@ -185,7 +193,7 @@ const propsMixin = {
 
 // @vue/component
 export const BFormDate = /*#__PURE__*/ Vue.extend({
-  name: 'BFormDate',
+  name: NAME,
   // The mixins order determines the order of appearance in the props reference section
   mixins: [idMixin, propsMixin, dropdownMixin],
   model: {
