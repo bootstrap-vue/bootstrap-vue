@@ -397,9 +397,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       ]
     )
 
-    // TODO: Add in the optional buttons
-    // This should be an empty array or null
-    // when no footer buttons
+    // Optional footer buttons
     let $controls = []
 
     /* istanbul ignore if: until tests are written */
