@@ -395,41 +395,47 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     
     /* istanbul ignore if: until tests are written */
     if (this.todayButton) {
-      $controls.push(h(
-        BButton,
-        {
-          props: { size: 'sm', disabed: this.disabled || this.readonly, variant: 'primary' },
-          attrs: { 'aria-label': this.labelTodayButton || this.labelToday || null },
-          on: { click: this.onToday }
-        },
-        this.labelTodayButton || this.labelToday
-      ))
+      $controls.push(
+        h(
+          BButton,
+          {
+            props: { size: 'sm', disabed: this.disabled || this.readonly, variant: 'primary' },
+            attrs: { 'aria-label': this.labelTodayButton || this.labelToday || null },
+            on: { click: this.onToday }
+          },
+          this.labelTodayButton || this.labelToday
+        )
+      )
     }
 
     /* istanbul ignore if: until tests are written */
     if (this.resetButton) {
-      $controls.push(h(
-        BButton,
-        {
-          props: { size: 'sm', disabed: this.disabled || this.readonly, variant: 'danger' },
-          attrs: { 'aria-label': this.labelResetButton || null },
-          on: { click: this.onReset }
-        },
-        this.labelResetButton
-      ))
+      $controls.push(
+        h(
+          BButton,
+          {
+            props: { size: 'sm', disabed: this.disabled || this.readonly, variant: 'danger' },
+            attrs: { 'aria-label': this.labelResetButton || null },
+            on: { click: this.onReset }
+          },
+          this.labelResetButton
+        )
+      )
     }
 
     /* istanbul ignore if: until tests are written */
     if (this.closeButton) {
-      $controls.push(h(
-        BButton,
-        {
-          props: { size: 'sm', disabed: this.disabled, variant: 'secondary' },
-          attrs: { 'aria-label': this.labelCloseButton || null },
-          on: { click: () => this.hide(true) }
-        },
-        this.labelCloseButton
-      ))
+      $controls.push(
+        h(
+          BButton,
+          {
+            props: { size: 'sm', disabed: this.disabled, variant: 'secondary' },
+            attrs: { 'aria-label': this.labelCloseButton || null },
+            on: { click: () => this.hide(true) }
+          },
+          this.labelCloseButton
+        )
+      )
     }
 
     if ($controls.length > 0) {
