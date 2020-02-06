@@ -758,7 +758,7 @@ export const BCalendar = Vue.extend({
     const $nav = h(
       'div',
       {
-        staticClass: 'd-flex mx-n1 mb-1',
+        staticClass: 'b-calendar-nav d-flex mx-n1 mb-1',
         attrs: {
           id: idNav,
           role: 'group',
