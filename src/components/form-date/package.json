@@ -86,12 +86,24 @@
             "description": "When set, shows the optional `select today` button"
           },
           {
+            "prop": "todayButtonVariant",
+            "description": "Button variant to use for the optional `select today` button"
+          },
+          {
             "prop": "resetButton",
             "description": "When set, shows the optional `reset` button"
           },
           {
+            "prop": "resetButtonVariant",
+            "description": "Button variant to use for the optional `reset` button"
+          },
+          {
             "prop": "closeButton",
             "description": "When set, shows the optional close button"
+          },
+          {
+            "prop": "closeButtonVariant",
+            "description": "Button variant to use for the optional `close` button"
           },
           {
             "prop": "noCloseOnSelect",
