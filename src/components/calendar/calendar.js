@@ -415,9 +415,9 @@ export const BCalendar = Vue.extend({
     // Calendar generation
     calendar() {
       const matrix = []
-      const calendarYear = this.calendarYear
-      const calendarMonth = this.calendarMonth
       const firstDay = this.calendarFirstDay
+      const calendarYear = firstDay.getFullYear()
+      const calendarMonth = firstDay.getMonth()
       const daysInMonth = this.calendarDaysInMonth
       const startIndex = firstDay.getDay() // `0`..`6`
       const weekOffset = (this.computedWeekStarts > startIndex ? 7 : 0) - this.computedWeekStarts
