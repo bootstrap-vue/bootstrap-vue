@@ -283,10 +283,10 @@ export const BCalendar = Vue.extend({
       return locale
     },
     calendarYear() {
-      return this.activeDate.getFullYear()
+      return parseYMD(this.activeYMD).getFullYear()
     },
     calendarMonth() {
-      return this.activeDate.getMonth()
+      return parseYMD(this.activeYMD).getMonth()
     },
     calendarFirstDay() {
       return createDate(this.calendarYear, this.calendarMonth, 1)
