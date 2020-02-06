@@ -41,3 +41,6 @@ A clear and concise description of what the pull request does.
 description above includes:**
 
 - [ ] A convincing reason for adding this feature (to avoid wasting your time, it's best to open a suggestion issue first and wait for approval before working on it)
+
+<!-- Love bootstrap-vue? Please consider supporting our collective:
+👉  https://opencollective.com/bootstrap-vue/donate -->
