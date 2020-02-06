@@ -13,6 +13,9 @@
         "component": "BFormDate",
         "version": "2.5.0",
         "description": "Custom date picker form control, supporting I18N",
+        "aliases": [
+          "BDate"
+        ],
         "props": [
           {
             "prop": "value",
