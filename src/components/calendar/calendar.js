@@ -474,6 +474,7 @@ export const BCalendar = Vue.extend({
       }
     },
     selectedYMD(newYMD, oldYMD) {
+      // TODO: should we compare to formatYMD(this.value) and emit only if they are different?
       if (newYMD !== oldYMD) {
         this.$emit('input', this.valueAsDate ? parseYMD(newYMD) || null : newYMD || '')
       }
@@ -483,7 +484,7 @@ export const BCalendar = Vue.extend({
         this.$emit('context', newVal)
       }
     },
-    hidden(newVal, oldVal) /* istanbul ignore next: might remove this prop */ {
+    hidden(newVal, oldVal) {
       if (!newVal) {
         this.isLive = false
       } else {
@@ -515,7 +516,7 @@ export const BCalendar = Vue.extend({
     focus() {
       this.focusGrid()
     },
-    blur() /* istanbul ignore next: until tests are ready */ {
+    blur() {
       try {
         this.$refs.grid.blur()
       } catch {}
@@ -531,7 +532,7 @@ export const BCalendar = Vue.extend({
         } catch {}
       }
     },
-    constrainDate(date) /* istanbul ignore next: until tests are ready */ {
+    constrainDate(date) {
       // Constrains a date between min and max
       // returns a new date instance
       date = parseYMD(date)
@@ -660,7 +661,7 @@ export const BCalendar = Vue.extend({
     }
   },
   render(h) {
-    /* istanbul ignore if */
+    // If hidden prop is set, render just a placeholder node
     if (this.hidden) {
       return h()
     }
@@ -703,6 +704,7 @@ export const BCalendar = Vue.extend({
       this.selectedDate
         ? [
             // We use `bdi` elements here in case the label doesn't match the locale
+            // Although IE 11 does not deal with <BDI> at all (equivalent to a span)
             h('bdi', { staticClass: 'sr-only' }, ` (${toString(this.labelSelected)}) `),
             h('bdi', {}, this.formatDateString(this.selectedDate))
           ]
@@ -718,7 +720,6 @@ export const BCalendar = Vue.extend({
     )
 
     // Content for the date navigation buttons
-    // TODO: Future allow for custom icons/content?
     const $prevYearIcon = h(BIconstack, { props: { shiftV: 0.5, flipH: isRTL } }, [
       h(BIconChevronLeft, { props: { shiftH: -2 } }),
       h(BIconChevronLeft, { props: { shiftH: 2 } })
@@ -875,7 +876,7 @@ export const BCalendar = Vue.extend({
             },
             style: {
               // We hardcode values here to maintain correct sizing for mobile
-              // This could be a custom class???
+              // TODO: This could be a custom class in custom CSS perhaps
               width: '32px',
               height: '32px',
               fontSize: '14px',
