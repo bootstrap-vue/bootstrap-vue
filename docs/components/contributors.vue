@@ -1,5 +1,5 @@
 <template>
-  <div v-b-visible.once.600="visibleHandler">
+  <div v-b-visible.once.1000="visibleHandler">
     <!-- SPONSORS -->
     <template v-if="sponsors.length > 0">
       <h3 class="h4 mx-auto mt-4 text-muted">Sponsors</h3>
@@ -247,7 +247,10 @@ export default {
         .sort(this.sortCompare)
         .slice(0, MAX_DONORS)
     },
-    visibleHandler() {
+    visibleHandler(visible) {
+      if (!visible) {
+        return
+      }
       // Platinum sponors are people/organizations with a recurring (active) platinum sponorship
       this.makeOcRequest(this.processPlatinumSponsors.bind(this), { tierSlug: 'platinum-sponsors' })
       // Gold sponors are people/organizations with a recurring (active) gold sponorship
