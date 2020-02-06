@@ -114,7 +114,7 @@ describe('calendar', () => {
 
     const $grid = wrapper.find('[role="application"]')
     expect($grid.exists()).toBe(true)
-    expect($grid.attribute('data-month')).toBe('2020-02')
+    expect($grid.attributes('data-month')).toBe('2020-02')
 
     const $navBtns = wrapper.findAll('.b-calendar-nav button')
     expect($navBtns.length).toBe(5)
@@ -123,25 +123,25 @@ describe('calendar', () => {
     $navBtns.at(1).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect($grid.attribute('data-month')).toBe('2020-01')
+    expect($grid.attributes('data-month')).toBe('2020-01')
 
     // Next Month
     $navBtns.at(3).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect($grid.attribute('data-month')).toBe('2020-02')
+    expect($grid.attributes('data-month')).toBe('2020-02')
 
     // Prev Year
     $navBtns.at(0).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect($grid.attribute('data-month')).toBe('2019-02')
+    expect($grid.attributes('data-month')).toBe('2019-02')
 
     // Next Year
     $navBtns.at(4).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect($grid.attribute('data-month')).toBe('2020-02')
+    expect($grid.attributes('data-month')).toBe('2020-02')
 
     // Current Month
     // Handle the rare case this test is run right at midnight where
@@ -151,13 +151,13 @@ describe('calendar', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     const thisMonth2 = formatYMD(new Date()).slice(0, -3)
-    const thisMonth = $grid.attribute('data-month')
+    const thisMonth = $grid.attributes('data-month')
     expect(thisMonth === thisMonth1 || thisMonth === thisMonth2).toBe(true)
 
     wrapper.destroy()
   })
 
-  it('focus snd blur methods work', async () => {
+  it('focus and blur methods work', async () => {
     const wrapper = mount(BCalendar, {
       attachToDocument: true,
       propsData: {
