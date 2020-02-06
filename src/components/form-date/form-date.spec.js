@@ -348,7 +348,7 @@ describe('form-date', () => {
     expect($menu.classes()).toContain('show')
 
     const $value = wrapper.find('input[type="hidden"]')
-    expect($value.exist()).toBe(true)
+    expect($value.exists()).toBe(true)
     expect($value.attributes('value')).toBe('1900-01-01')
 
     const $footer = wrapper.find('.b-form-date-controls')
