@@ -548,7 +548,7 @@ export const BCalendar = Vue.extend({
       // Sets the gridHasFocus flag to make date "button" look focused
       this.gridHasFocus = !this.disabled && evt.type === 'focus'
     },
-    onKeydownWrapper(evt) /* istanbul ignore next: until tests are ready */ {
+    onKeydownWrapper(evt) {
       // Calendar keyboard navigation
       // Handles PAGEUP/PAGEDOWN/END/HOME/LEFT/UP/RIGHT/DOWN
       // Focuses grid after updating
@@ -571,7 +571,7 @@ export const BCalendar = Vue.extend({
         checkDate.setDate(1)
       } else if (keyCode === PAGEDOWN) {
         // PAGEDOWN - Next month/year
-        activeDate = (altKey ? oneYearAgo : oneMonthAhead)(activeDate)
+        activeDate = (altKey ? oneYearAgo : oneYearAhead)(activeDate)
         // We check the last day of month to be in rage
         checkDate = createDate(activeDate)
         checkDate.setMonth(checkDate.getMonth() + 1)
@@ -609,7 +609,7 @@ export const BCalendar = Vue.extend({
       // Ensure grid is focused
       this.focus()
     },
-    onKeydownGrid(evt) /* istanbul ignore next: until tests are ready */ {
+    onKeydownGrid(evt) {
       // Pressing enter/space on grid to select active date
       const keyCode = evt.keyCode
       const activeDate = this.activeDate
