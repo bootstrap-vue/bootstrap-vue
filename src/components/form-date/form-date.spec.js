@@ -317,7 +317,6 @@ describe('form-date', () => {
       propsData: {
         id: 'test-footer',
         value: '1900-01-01',
-        resetValue: '',
         noCloseOnSelect: true,
         name: 'foobar',
         todayButton: true,
@@ -447,7 +446,6 @@ describe('form-date', () => {
     expect($btns.length).toBe(1)
 
     const $reset = $btns.at(0)
-    const $close = $btns.at(2)
 
     $reset.trigger('click')
     await waitNT(wrapper.vm)
