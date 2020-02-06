@@ -64,6 +64,41 @@ allowing for date navigation. The `v-model` will not be updated in the readonly 
 For disabling specific dates or setting minimum and maximum date limits, refer to the
 [Date constraints](#date-constraints) section.
 
+```html
+<template>
+  <div>
+    <b-form-group label="Select date picker interactive state">
+      <b-form-radio-group v-model="state" aria-controls="ex-disabled-readonly">
+        <b-form-radio value="disabled">Disabled</b-form-radio>
+        <b-form-radio value="readonly">Readonly</b-form-radio>
+        <b-form-radio value="normal">Normal</b-form-radio>
+      </b-form-radio-group>
+    </b-form-group>
+    <b-form-date id="ex-disabled-readonly" :disabled="disabled" :readonly="readonly"></b-form-date>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        state: 'disabled'
+      }
+    },
+    computed: {
+      disabled() {
+        return this.state === 'disabled'
+      },
+      readonly() {
+        return this.state === 'readonly'
+      }
+    }
+  }
+</script>
+
+<!-- b-form-date-disabled-readonly.vue -->
+```
+
 ## Date constraints
 
 ### Minimum and maximum dates
