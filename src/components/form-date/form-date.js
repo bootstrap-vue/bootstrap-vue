@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import { getComponentConfig } from '../../utils/config'
-import { formatYMD, parseYMD } from '../../utils/date'
+import { createDate, formatYMD, parseYMD } from '../../utils/date'
 import { isBoolean } from '../../utils/inspect'
 import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
@@ -333,10 +333,10 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       this.$emit('context', ctx)
     },
     onTodayButton() {
-      this.setAndClose(formatYMD(new Date()))
+      this.setAndClose(formatYMD(createDate()))
     },
     onResetButton() {
-      this.setAndClose(this.computedResetValue))
+      this.setAndClose(this.computedResetValue)
     },
     onCloseButton() {
       this.hide(true)
