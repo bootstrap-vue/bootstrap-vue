@@ -555,6 +555,7 @@ export const BCalendar = Vue.extend({
       const keyCode = evt.keyCode
       const altKey = evt.altKey
       if (!arrayIncludes([PAGEUP, PAGEDOWN, END, HOME, LEFT, UP, RIGHT, DOWN], keyCode)) {
+        /* istanbul ignore next */
         return
       }
       evt.preventDefault()
