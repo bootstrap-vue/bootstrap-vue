@@ -474,7 +474,7 @@ export const BCalendar = Vue.extend({
       const selected = formatYMD(newVal) || ''
       const old = formatYMD(oldVal) || ''
       if (!datesEqual(selected, old)) {
-        this.activeYMD = selected
+        this.activeYMD = selected || this.activeYMD
         this.selectedYMD = selected
       }
     },
