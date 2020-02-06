@@ -443,7 +443,7 @@ export const BCalendar = Vue.extend({
           let dateInfo = dateInfoFn(dayYMD, parseYMD(dayYMD))
           dateInfo = isString(dateInfo) || isArray(dateInfo)
             ? { class: dateInfo }
-            : isPlainObject(dateInfo) ? { ...dateInfo } : { class: '' }
+            : isPlainObject(dateInfo) ? { class: '', ...dateInfo } : { class: '' }
           matrix[week].push({
             ymd: dayYMD,
             // Cell content
