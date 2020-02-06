@@ -30,12 +30,14 @@
     &:disabled,
     &.disabled,
     &[aria-disabled="true"] {
+      cursor: default;
       pointer-events: none;
     }
   }
 
   [aria-disabled="true"] {
     .b-calendar-grid-body {
+       cursor: default;
        pointer-events: none;
     }
   }
