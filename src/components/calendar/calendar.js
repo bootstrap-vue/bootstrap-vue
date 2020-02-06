@@ -227,17 +227,13 @@ export const BCalendar = Vue.extend({
     }
   },
   data() {
-    const selected = formatYMD(this.value) || ''
-    const active = selected || formatYMD(this.getToday())
+    let selected = parseYMD(this.value) || ''
+    selected = selected ? formatYMD(selected) : ''
     return {
-      // Selected date as a date object
-      // TODO:
-      //   Change to `YYYY-MM-DD` format so that updating the
-      //   values with the same date will not trigger a re-render
+      // Selected date
       selectedYMD: selected,
       // Date in calendar grid that has tabindex of `0`
-      // TODO: change to `YYYY-MM-DD` format
-      activeYMD: active,
+      activeYMD: selected || formatYMD(this.getToday()),
       // Will be true if the calendar grid has/contains focus
       gridHasFocus: false,
       // Flag to enable the aria-live region(s) after mount
@@ -446,7 +442,7 @@ export const BCalendar = Vue.extend({
               ? { class: dateInfo }
               : isPlainObject(dateInfo)
                 ? { class: '', ...dateInfo }
-              : { class: '' }
+                : { class: '' }
           matrix[week].push({
             ymd: dayYMD,
             // Cell content
