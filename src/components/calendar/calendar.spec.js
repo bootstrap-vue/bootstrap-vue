@@ -202,7 +202,106 @@ describe('calendar', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+    expect($grid.attributes('aria-activedescendant')).toBeDefined()
+
+    let $cell = wrapper.find('[data-date="2020-02-15"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('id')).toBeDefined()
+    expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+    // Left
+    $grid.trigger('keydown.left')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    $cell = wrapper.find('[data-date="2020-02-14"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('id')).toBeDefined()
+    expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+    // Right
+    $grid.trigger('keydown.right')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    $cell = wrapper.find('[data-date="2020-02-15"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('id')).toBeDefined()
+    expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+    // Up
+    $grid.trigger('keydown.up')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    $cell = wrapper.find('[data-date="2020-02-08"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('id')).toBeDefined()
+    expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+    // Down
+    $grid.trigger('keydown.down')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    $cell = wrapper.find('[data-date="2020-02-15"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('id')).toBeDefined()
+    expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+    // PageUp
+    $grid.trigger('keydown.pageup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    $cell = wrapper.find('[data-date="2020-01-15"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('id')).toBeDefined()
+    expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+    // PageDown
+    $grid.trigger('keydown.pagedown')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    $cell = wrapper.find('[data-date="2020-02-15"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('id')).toBeDefined()
+    expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+    // Alt + PageUp
+    $grid.trigger('keydown.pageup', { altKey: true })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    $cell = wrapper.find('[data-date="2019-02-15"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('id')).toBeDefined()
+    expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+    // End (selected date)
+    $grid.trigger('keydown.end')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    $cell = wrapper.find('[data-date="2020-02-15"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('id')).toBeDefined()
+    expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+    // Alt + PageDown
+    $grid.trigger('keydown.pagedown', { altKey: true })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    $cell = wrapper.find('[data-date="2021-02-15"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('id')).toBeDefined()
+    expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+    // Home (today's date)
+    $grid.trigger('keydown.home')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    const todayID = $grid.attributes('aria-activedescendant')
+    expect(todayID).toBeDefined()
+    $cell = $grid.find(`#${todayID}`)
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('aria-label')).toBeDefined()
+    expect($cell.attributes('aria-label')).toContain('(Today)')
 
     wrapper.destroy()
   })
