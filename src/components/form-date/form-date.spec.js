@@ -315,6 +315,10 @@ describe('form-date', () => {
     const wrapper = mount(BFormDate, {
       attachToDocument: true,
       propsData: {
+        id: 'test-footer',
+        value: '1900-01-01',
+        noCloseOnSelect: true,
+        name: 'value',
         todayButton: true,
         resetButton: true,
         closeButton: true
@@ -326,10 +330,81 @@ describe('form-date', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    const $toggle = wrapper.find('button#test-footer')
+    const $menu = wrapper.find('.dropdown-menu')
 
+    expect($toggle.exists()).toBe(true)
+    expect($toggle.is('button')).toBe(true)
+    expect($menu.exists()).toBe(true)
+    expect($menu.classes()).not.toContain('show')
+    expect(wrapper.find('.b-calendar').exists()).toBe(false)
+
+    $toggle.trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($menu.classes()).toContain('show')
+
+    const $value = wrapper.find('input[type="hidden"')
+    expect($value.exist()).toBe(true)
+    expect($value.attributes('value')).toBe('1900-01-01')
+
+    const $footer = wrapper.find('.b-form-date-controls')
+    expect($footer.exist()).toBe(true)
+
+    const $btns = $footer.findAll('button')
+
+    expect($btns.length).toBe(3)
+
+    const $today = $btns.at(0)
+    const $reset = $btns.at(1)
+    const $close = $btns.at(2)
+
+    $today.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($menu.classes()).toContain('show')
+    expect($value.attributes('value')).not.toBe('1900-01-01')
+    expect($value.attributes('value')).not.toBe('')
+    expect(/^\d+-\d\d-\d\d$/.test($value.attributes('value')).toBe(true)
+
+    $reset.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($menu.classes()).toContain('show')
+    expect($value.attributes('value')).toBe('')
+
+    wrapper.setProps({
+      resetValue: '1999-01-01'
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    $reset.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($menu.classes()).toContain('show')
+    expect($value.attributes('value')).toBe('1999-01-01')
+
+    $close.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($menu.classes()).not.toContain('show')
+    expect($value.attributes('value')).toBe('1999-01-01')
 
     wrapper.destroy()
   })
