@@ -347,7 +347,7 @@ describe('form-date', () => {
 
     expect($menu.classes()).toContain('show')
 
-    const $value = wrapper.find('input[type="hidden"')
+    const $value = wrapper.find('input[type="hidden"]')
     expect($value.exist()).toBe(true)
     expect($value.attributes('value')).toBe('1900-01-01')
 
