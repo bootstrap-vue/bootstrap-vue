@@ -709,6 +709,7 @@ export const BCalendar = Vue.extend({
       'output',
       {
         staticClass: 'd-block text-center rounded border small p-1 mb-1',
+        class: { 'text-muted': this.disabled },
         attrs: {
           id: idValue,
           for: idGrid,
@@ -760,8 +761,6 @@ export const BCalendar = Vue.extend({
         {
           staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill p-1 mx-1',
           class: { disabled: btnDisabled },
-          // Style to get around Bootstrap v4.4 bug with hand cursor on disabled buttons
-          style: btnDisabled ? { pointerEvents: 'none' } : {},
           attrs: {
             title: label || null,
             type: 'button',
@@ -833,6 +832,7 @@ export const BCalendar = Vue.extend({
       {
         key: 'grid-caption',
         staticClass: 'text-center font-weight-bold p-1 m-0',
+        class: { 'text-muted': this.disabled },
         attrs: {
           id: idGridCaption,
           'aria-live': isLive ? 'polite' : null,
@@ -852,6 +852,7 @@ export const BCalendar = Vue.extend({
           {
             key: idx,
             staticClass: 'col',
+            class: { 'text-muted': this.disabled },
             attrs: {
               title: d.label === d.text ? null : d.label,
               'aria-label': d.label
@@ -905,7 +906,6 @@ export const BCalendar = Vue.extend({
             key: dIndex,
             staticClass: 'col p-0',
             class: day.isDisabled ? 'bg-light' : day.info.class || '',
-            style: day.isDisabled ? { pointerEvents: 'none' } : {},
             attrs: {
               id: idCell,
               role: 'button',
