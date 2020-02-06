@@ -111,7 +111,47 @@ describe('calendar', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+    expect($grid.attribute('data-month')).toBe('2020-02')
+
+    const $navBtns = wrapper.findAll('.b-calendar-nav button')
+    expect($navBtns.length).toBe(5)
+
+    // Prev Month
+    $navBtns.at(1).trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($grid.attribute('data-month')).toBe('2020-01')
+
+    // Next Month
+    $navBtns.at(3).trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($grid.attribute('data-month')).toBe('2020-02')
+
+    // Prev Year
+    $navBtns.at(0).trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($grid.attribute('data-month')).toBe('2019-02')
+
+    // Next Year
+    $navBtns.at(4).trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($grid.attribute('data-month')).toBe('2020-02')
+
+    // Current Month
+    // Handle the rare case this test is run right at midnight where
+    // the current month rolled over at midnight
+    const thisMonth1 = formatYMD(new date()).slice(0, -3)
+    $navBtns.at(2).trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    const thisMonth2 = formatYMD(new date()).slice(0, -3)
+    const thisMonth = $grid.attribute('data-month')
+    expect(thisMonth === thisMonth1 || thisMonth === thisMonth2).toBe(true)
 
     wrapper.destroy()
   })
