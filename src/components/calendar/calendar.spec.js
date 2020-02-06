@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BCalendar } from './calendar'
+import { formatYMD } from '../../utils/date'
 
 //  Note that JSDOM only supports `en-US` (`en`) locale for Intl
 
@@ -144,12 +145,12 @@ describe('calendar', () => {
 
     // Current Month
     // Handle the rare case this test is run right at midnight where
-    // the current month rolled over at midnight
-    const thisMonth1 = formatYMD(new date()).slice(0, -3)
+    // the current month rolled over at midnight when clicked
+    const thisMonth1 = formatYMD(new Date()).slice(0, -3)
     $navBtns.at(2).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
-    const thisMonth2 = formatYMD(new date()).slice(0, -3)
+    const thisMonth2 = formatYMD(new Date()).slice(0, -3)
     const thisMonth = $grid.attribute('data-month')
     expect(thisMonth === thisMonth1 || thisMonth === thisMonth2).toBe(true)
 
