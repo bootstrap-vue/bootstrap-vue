@@ -163,6 +163,14 @@ default. To specify a different theme color to use for today's date, use the `to
 
 To disable highlighting of today's date altogether, set the `no-highlight-today` prop.
 
+```html
+<template>
+  <b-calendar selected-variant="success" today-variant="info"></b-calendar>
+</template>
+
+<!-- b-calendar-variants.vue -->
+```
+
 ### Width
 
 The `<b-calendar>` renders as an inline-block element with a default width of `270px` (excluding any
@@ -191,7 +199,7 @@ By default, the current selected date will be displayed at the top of the calend
 formatted in the locale's language.
 
 You can hide this header via the `hide-header` prop. Note this only visually hides the selected
-date, while keeping it available to screen reader users as an aria live region.
+date, while keeping it available to screen reader users as an `aria-live` region.
 
 ### Border and padding
 
@@ -219,7 +227,7 @@ slot can be used to add buttons such as `Select Today` or `Reset`, etc.
         size="sm"
         variant="outline-danger"
         v-if="value"
-        @click="reset"
+        @click="clearDate"
       >
         Clear date
       </b-button>
@@ -247,8 +255,8 @@ slot can be used to add buttons such as `Select Today` or `Reset`, etc.
         const now = new Date()
         this.value = new Date(now.getFullYear(), now.getMonth(), now.getDate())
       },
-      reset() {
-        this.value = null
+      clearDate() {
+        this.value = ''
       }
     }
   }
