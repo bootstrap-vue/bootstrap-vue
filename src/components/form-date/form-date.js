@@ -273,7 +273,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     }
   },
   mounted() {
-    this.$on('shown', () => /* istanbul ignore next: until tests are written */ {
+    this.$on('shown', () => {
       // May want to make an option to focus
       // the entire calendar (dropdown-menu) or just the date
       try {
@@ -300,7 +300,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       }
     },
     // Private methods
-    onSelected(ymd, date) /* istanbul ignore next: until tests are written */ {
+    onSelected(ymd, date) {
       this.$nextTick(() => {
         if (this.localYMD !== ymd) {
           this.localYMD = ymd
@@ -312,7 +312,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         }
       })
     },
-    onInput(ymd) /* istanbul ignore next: until tests are written */ {
+    onInput(ymd) {
       if (this.localYMD !== ymd) {
         this.localYMD = ymd
       }
@@ -519,16 +519,13 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           'aria-labelledby': idLabel
         },
         on: {
-          // We should set up our own `onMenuKeydown()` handler
-          // for handling ESC???
-          keydown: this.onKeydown // Handle and ESC
+          keydown: this.onKeydown // Handle ESC
         }
       },
       [$calendar]
     )
 
     let $hidden = h()
-    /* istanbul ignore if: until tests are written */
     if (this.name) {
       $hidden = h('input', {
         attrs: {
