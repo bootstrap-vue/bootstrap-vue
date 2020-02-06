@@ -80,8 +80,8 @@ export const BCalendar = Vue.extend({
   },
   props: {
     value: {
-      type: [String, Date],
-      default: null
+      type: [String, Date]
+      // default: null
     },
     valueAsDate: {
       // Always return the v-model value as a date object
@@ -97,16 +97,16 @@ export const BCalendar = Vue.extend({
       default: false
     },
     min: {
-      type: [String, Date],
-      default: null
+      type: [String, Date]
+      // default: null
     },
     max: {
-      type: [String, Date],
-      default: null
+      type: [String, Date]
+      // default: null
     },
     dateDisabledFn: {
-      type: Function,
-      default: null
+      type: Function
+      // default: null
     },
     startWeekday: {
       // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
@@ -117,13 +117,13 @@ export const BCalendar = Vue.extend({
     locale: {
       // Locale(s) to use
       // Default is to use page/browser default setting
-      type: [String, Array],
-      default: null
+      type: [String, Array]
+      // default: null
     },
     direction: {
       // 'ltr', 'rtl', or `null` (for auto detect)
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     selectedVariant: {
       // Variant color to use for the selected date
@@ -132,8 +132,8 @@ export const BCalendar = Vue.extend({
     },
     todayVariant: {
       // Variant color to use for today's date (defaults to `variant`)
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     noHighlightToday: {
       // Disable highlighting today's date
@@ -144,10 +144,10 @@ export const BCalendar = Vue.extend({
       // Function to set a class of (classes) on the date cell
       // if passed a string or an array.
       // TODO:
-      //   If an object, look for class prop for classes, and
-      //   other props for handling events/details/descriptions
-      type: Function,
-      default: null
+      //   If the function returns an object, look for class prop for classes,
+      //   and other props for handling events/details/descriptions
+      type: Function
+      // default: null
     },
     width: {
       // Has no effect if prop `block` is set
@@ -173,12 +173,12 @@ export const BCalendar = Vue.extend({
       default: false
     },
     ariaControls: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     roleDescription: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     // Labels for buttons and keyboard shortcuts
     labelPrevYear: {
@@ -227,8 +227,7 @@ export const BCalendar = Vue.extend({
     }
   },
   data() {
-    let selected = parseYMD(this.value) || ''
-    selected = selected ? formatYMD(selected) : ''
+    const selected = formatYMD(this.value) || ''
     return {
       // Selected date
       selectedYMD: selected,
@@ -276,6 +275,7 @@ export const BCalendar = Vue.extend({
       if (calendar !== 'gregory') {
         // Ensure the locale requests the gregorian calendar
         // Mainly for IE 11, and currently we can't handle non-gregorian calendars
+        // TODO: Should we always return this value?
         locale = locale.replace(/-u-.+$/i, '').concat('-u-ca-gregory')
       }
       return locale
@@ -314,19 +314,23 @@ export const BCalendar = Vue.extend({
       return isLocaleRTL(this.computedLocale)
     },
     context() {
+      const selectedYMD = this.selectedYMD
+      const selectedDate = parseYMD(selectedYMD)
+      const activeYMD = this.activeYMD
+      const activeDate = parseYMD(activeYMD)
       return {
         // The current value of the `v-model`
-        selectedYMD: this.selectedYMD || '',
-        selectedDate: parseYMD(this.selectedYMD) || null,
-        selectedFormatted: this.selectedDate
-          ? this.formatDateString(this.selectedDate)
+        selectedYMD: selectedYMD,
+        selectedDate: selectedDate,
+        selectedFormatted: selectedDate
+          ? this.formatDateString(selectedDate)
           : this.labelNoDateSelected,
         // Which date cell is considered active due to navigation
-        activeYMD: this.activeYMD || '',
-        activeDate: parseYMD(this.activeYMD) || null,
-        activeFormatted: this.activeDate ? this.formatDateString(this.activeDate) : '',
+        activeYMD: activeYMD,
+        activeDate: activeDate,
+        activeFormatted: activeDate ? this.formatDateString(activeDate) : '',
         // `true` if the date is disabled (when using keyboard navigation)
-        disabled: this.dateDisabled(this.activeDate),
+        disabled: this.dateDisabled(activeDate),
         // Locales used in formatting dates
         locale: this.computedLocale,
         calendarLocale: this.calendarLocale,
