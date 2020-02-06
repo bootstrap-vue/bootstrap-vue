@@ -352,7 +352,7 @@ describe('form-date', () => {
     expect($value.attributes('value')).toBe('1900-01-01')
 
     const $footer = wrapper.find('.b-form-date-controls')
-    expect($footer.exist()).toBe(true)
+    expect($footer.exists()).toBe(true)
 
     const $btns = $footer.findAll('button')
 
