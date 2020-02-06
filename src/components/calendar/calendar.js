@@ -441,9 +441,12 @@ export const BCalendar = Vue.extend({
           const dayDisabled = this.dateDisabled(date)
           // TODO: this could be a normalier method
           let dateInfo = dateInfoFn(dayYMD, parseYMD(dayYMD))
-          dateInfo = isString(dateInfo) || isArray(dateInfo)
-            ? { class: dateInfo }
-            : isPlainObject(dateInfo) ? { class: '', ...dateInfo } : { class: '' }
+          dateInfo =
+            isString(dateInfo) || isArray(dateInfo)
+              ? { class: dateInfo }
+              : isPlainObject(dateInfo)
+                ? { class: '', ...dateInfo }
+              : { class: '' }
           matrix[week].push({
             ymd: dayYMD,
             // Cell content
@@ -906,7 +909,7 @@ export const BCalendar = Vue.extend({
           {
             key: dIndex,
             staticClass: 'col p-0',
-            class: day.isDisabled ? 'bg-light': day.info.class || '',
+            class: day.isDisabled ? 'bg-light' : day.info.class || '',
             style: day.isDisabled ? { pointerEvents: 'none' } : {},
             attrs: {
               id: idCell,
