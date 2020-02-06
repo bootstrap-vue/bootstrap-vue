@@ -333,7 +333,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       this.setAndClose(formatYMD(new Date()))
     },
     onResetButton() {
-      this.setAndClose(formatYMD(this.resetValue) || '')
+      this.setAndClose(formatYMD(parseYMD(this.resetValue)) || '')
     },
     onCloseButton() {
       this.hide(true)
