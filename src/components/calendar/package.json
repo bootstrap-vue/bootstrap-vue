@@ -66,8 +66,8 @@
             "description": "Set to a function reference which returns `true` if the date is disabled, or `false` if the date should be enabled. See documentation for details"
           },
           {
-            "prop": "dateClassFn",
-            "description": "Set to a function reference which returns a class (or classes) to apply to the date cell. See documentation for details"
+            "prop": "dateInfoFn",
+            "description": "Set to a function reference which returns a class (string), or classes (array of strings) to apply to the date cell. See documentation for details"
           },
           {
             "prop": "width",
