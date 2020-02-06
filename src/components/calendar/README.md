@@ -259,9 +259,9 @@ slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 
 ### Adding CSS classes to specific dates
 
-If you need to highlight a specific date or dates, set the `date-class-fn` prop to a reference to a
-function that returns a CSS class (or classes) to apply to the date's cell. The function is passed
-two arguments:
+If you need to highlight a specific date or dates, set the `date-info-fn` prop to a reference to a
+function that returns a CSS class string (or array of strings) to apply to the date's cell. The
+function is passed two arguments:
 
 - `ymd` The date as a `YYYY-MM-DD` string
 - `date` The date as a `Date` object
@@ -276,7 +276,7 @@ colors.
 ```html
 <template>
   <div>
-    <b-calendar v-model="value" :date-class-fn="dateClass" locale="en"></b-calendar>
+    <b-calendar v-model="value" :date-info-fn="dateClass" locale="en"></b-calendar>
   </div>
 </template>
 
@@ -308,7 +308,7 @@ outside of the calendar (or via the default slot) as to the dates being highligh
 `aria-live` region), specifically for screen reader users.
 
 BootstrapVue may, in the future, add in a feature to add in screen-reader friendly text note on the
-highlighted date.
+highlighted date via this function.
 
 ## Events
 
