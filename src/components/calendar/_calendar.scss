@@ -19,12 +19,18 @@
         padding: 9px 0;
 
       }
+    }
+  }
 
-      // Style to get around Bootstrap v4.4 bug
-      // with hand cursor on disabled buttons
-      &[aria-disabled="true"] {
-        pointer-events: none;
-      }
+  // Style to get around Bootstrap v4.4 bug
+  // with hand cursor on disabled buttons
+  // As well, when a button is still focusable, but is
+  // `aria-disabled` we want `pointer-events: none`
+  .btn {
+    &:disabled,
+    &.disabled,
+    &[aria-disabled="true"] {
+      pointer-events: none;
     }
   }
 
