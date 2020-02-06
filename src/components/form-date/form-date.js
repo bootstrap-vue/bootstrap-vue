@@ -300,16 +300,18 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       }
     },
     // Private methods
+    setAndClose(ymd) {
+      this.localYMD = ymd
+      // Close calendar popup, unless noCloseOnSelect
+      if (!this.noCloseOnSelect) {
+        this.$nextTick(() => {
+          this.hide(true)
+        })
+      }
+    },
     onSelected(ymd, date) {
       this.$nextTick(() => {
-        // Just in case the input event didn't set the value yet
-        this.localYMD = ymd
-        // Close calendar popup, unless noCloseOnSelect
-        if (!this.noCloseOnSelect) {
-          this.$nextTick(() => {
-            this.hide(true)
-          })
-        }
+        this.setAndClose(ymd)
       })
     },
     onInput(ymd) {
@@ -328,16 +330,10 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       this.$emit('context', ctx)
     },
     onTodayButton() /* istanbul ignore next: until tests are written */ {
-      this.localYMD = formatYMD(new Date())
-      if (!this.noCloseOnSelect) {
-        this.$nextTick(() => this.hide(true))
-      }
+      this.setAndClose(formatYMD(new Date()))
     },
     onResetButton() /* istanbul ignore next: until tests are written */ {
-      this.localYMD = formatYMD(this.resetValue) || ''
-      if (!this.noCloseOnSelect) {
-        this.$nextTick(() => this.hide(true))
-      }
+      this.setAndClose(formatYMD(this.resetValue) || '')
     },
     onCloseButton() /* istanbul ignore next: until tests are written */ {
       this.hide(true)
