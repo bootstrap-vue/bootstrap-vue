@@ -30,7 +30,10 @@ describe('form-date', () => {
 
   it('has expected base structure', async () => {
     const wrapper = mount(BFormDate, {
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        id: 'test-base'
+      }
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -40,8 +43,41 @@ describe('form-date', () => {
 
     // TBD
 
+    expect(wrapper.find('button#test-base').exists()).toBe(true)
+    expect(wrapper.find('.dropdown-menu').exists()).toBe(true)
+    expect(wrapper.find('label.form-control').exists()).toBe(true)
+    expect(wrapper.find('input[type="hidden"]').exists()).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('renders hidden input when name prop is set', async () => {
+    const wrapper = mount(BFormDate, {
+      attachToDocument: true,
+      propsData: {
+        value: '',
+        name: 'foobar'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
+
+    expect(wrapper.find('input[type="hidden"]').exists()).toBe(true)
+    expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
+    expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('')
+
+    wrapper.setProps({
+      value: '2020-01-20'
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.find('input[type="hidden"]').exists()).toBe(true)
+    expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
+    expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('2020-01-20')
 
     wrapper.destroy()
   })
