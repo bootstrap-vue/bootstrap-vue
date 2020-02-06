@@ -529,7 +529,7 @@ export const BCalendar = Vue.extend({
     getToday() {
       return parseYMD(createDate())
     },
-    constrainDate(date) /* istanbul ignore next: until tests are ready */ {
+    constrainDate(date) {
       // Constrains a date between min and max
       // returns a new date instance
       date = parseYMD(date)
@@ -642,21 +642,21 @@ export const BCalendar = Vue.extend({
         this.focus()
       }
     },
-    gotoPrevYear(evt) /* istanbul ignore next: until tests are ready */ {
+    gotoPrevYear(evt) {
       this.activeDate = this.constrainDate(oneYearAgo(this.activeDate))
     },
-    gotoPrevMonth(evt) /* istanbul ignore next: until tests are ready */ {
+    gotoPrevMonth(evt) {
       this.activeDate = this.constrainDate(oneMonthAgo(this.activeDate))
     },
-    gotoCurrentMonth(evt) /* istanbul ignore next: until tests are ready */ {
+    gotoCurrentMonth(evt) {
       // TODO: Maybe this goto date should be configurable?
       this.activeDate = this.getToday()
       // this.activeDate = parseYMD(this.selectedDate) || this.getToday()
     },
-    gotoNextMonth(evt) /* istanbul ignore next: until tests are ready */ {
+    gotoNextMonth(evt) {
       this.activeDate = this.constrainDate(oneMonthAhead(this.activeDate))
     },
-    gotoNextYear(evt) /* istanbul ignore next: until tests are ready */ {
+    gotoNextYear(evt) {
       this.activeDate = this.constrainDate(oneYearAhead(this.activeDate))
     }
   },
