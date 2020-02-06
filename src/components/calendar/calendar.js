@@ -873,7 +873,7 @@ export const BCalendar = Vue.extend({
         const $btn = h(
           'span',
           {
-            staticClass: 'btn border-0 rounded-circle text-nowrap px-0',
+            staticClass: 'btn border-0 rounded-circle text-nowrap',
             // Should we add some classes to signify if today/selected/etc?
             class: {
               // Give the fake button a focus ring
