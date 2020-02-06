@@ -895,16 +895,6 @@ export const BCalendar = Vue.extend({
                 !(isToday && highlightToday) && !isSelected && !isActive && day.isThisMonth,
               'font-weight-bold': (isSelected || day.isThisMonth) && !day.isDisabled
             },
-            style: {
-              // We hardcode values here to maintain correct sizing for mobile
-              // TODO: This could be a custom class in custom CSS perhaps
-              width: '32px',
-              height: '32px',
-              fontSize: '14px',
-              lineHeight: 1,
-              margin: '3px auto',
-              padding: '9px 0'
-            },
             on: { click: () => this.onClickDay(day) }
           },
           day.day
