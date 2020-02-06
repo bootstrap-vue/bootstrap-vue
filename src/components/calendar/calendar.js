@@ -451,8 +451,8 @@ export const BCalendar = Vue.extend({
             // Flags for styling
             isThisMonth: month === calendarMonth,
             isDisabled: dayDisabled,
-            info: dateInfo
             // TODO: handle other dateInfo properties such as notes/events
+            info: dateInfo
           })
         }
       }
