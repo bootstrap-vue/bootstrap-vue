@@ -1,16 +1,18 @@
 // BClanedar custom styles
 
 .b-calendar {
-  .col[data-date] {
-    // We hard code the sizes in `px` to fit
-    // correctly on small mobile device screens
-    .btn {
-      width: 32px;
-      height: 32px;
-      fontSize: 14px;
-      lineHeight: 1;
-      margin: 3px auto;
-      padding: 9px 0;
+  .b-calendar-grid-body {
+    .col[data-date] {
+      // We hard code the sizes in `px` to fit
+      // correctly on small mobile device screens
+      .btn {
+        width: 32px;
+        height: 32px;
+        fontSize: 14px;
+        lineHeight: 1;
+        margin: 3px auto;
+        padding: 9px 0;
+      }
     }
   }
 }
