@@ -244,10 +244,12 @@ export const BCalendar = Vue.extend({
   computed: {
     // TODO: use computed props to convert `YYYY-MM-DD` to Date object
     selectedDate() {
-      return parseYMD(this.selectedYMD) || null
+      // Selected as a Date object
+      return parseYMD(this.selectedYMD)
     },
     activeDate() {
-      return parseYMD(this.activeYMD) || null
+      // Active as a Date object
+      return parseYMD(this.activeYMD)
     },
     computedMin() {
       return parseYMD(this.min)
@@ -279,14 +281,13 @@ export const BCalendar = Vue.extend({
       return locale
     },
     calendarYear() {
-      return parseYMD(this.activeYMD).getFullYear()
+      return this.activeDate.getFullYear()
     },
     calendarMonth() {
-      return parseYMD(this.activeYMD).getMonth()
+      return this.activeDate.getMonth()
     },
     calendarFirstDay() {
-      const active = parseYMD(this.activeYMD)
-      return createDate(active.getFullYear(), active.getMonth(), 1)
+      return createDate(this.calendarYear, this.calendarMonth, 1)
     },
     calendarDaysInMonth() {
       // We create a new date as to not mutate the original
@@ -317,13 +318,13 @@ export const BCalendar = Vue.extend({
         // The current value of the `v-model`
         selectedYMD: this.selectedYMD || '',
         selectedDate: parseYMD(this.selectedYMD) || null,
-        selectedFormatted: this.selectedYMD
-          ? this.formatDateString(parseYMD(this.selectedDate))
+        selectedFormatted: this.selectedDate
+          ? this.formatDateString(this.selectedDate)
           : this.labelNoDateSelected,
         // Which date cell is considered active due to navigation
         activeYMD: this.activeYMD || '',
         activeDate: parseYMD(this.activeYMD) || null,
-        activeFormatted: this.activeYMD ? this.formatDateString(parseYMD(this.activeYMD)) : '',
+        activeFormatted: this.activeDate ? this.formatDateString(this.activeDate) : '',
         // `true` if the date is disabled (when using keyboard navigation)
         disabled: this.dateDisabled(this.activeDate),
         // Locales used in formatting dates
