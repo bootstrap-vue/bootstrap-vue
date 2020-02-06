@@ -120,6 +120,10 @@ const propsMixin = {
       type: Boolean,
       default: false
     },
+    labelTodayButton: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'labelTodayButton')
+    },
     todayButtonVariant: {
       type: String,
       default: 'outline-primary'
@@ -127,6 +131,10 @@ const propsMixin = {
     resetButton: {
       type: Boolean,
       default: false
+    },
+    labelResetButton: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'labelResetButton')
     },
     resetButtonVariant: {
       type: String,
@@ -136,11 +144,16 @@ const propsMixin = {
       type: Boolean,
       default: false
     },
+    labelCloseButton: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'labelCloseButton')
+    },
     closeButtonVariant: {
       type: String,
       default: 'outline-seondary'
     },
     // Labels for buttons and keyboard shortcuts
+    // These pick BCalendar global config if no BFormDate global config
     labelPrevYear: {
       type: String,
       default: () => getConfigFallback('labelPrevYear')
@@ -184,19 +197,6 @@ const propsMixin = {
     labelHelp: {
       type: String,
       default: () => getConfigFallback('labelHelp')
-    },
-    // Form date optional labels
-    labelCloseButton: {
-      type: String,
-      default: () => getComponentConfig(NAME, 'labelCloseButton')
-    },
-    labelResetButton: {
-      type: String,
-      default: () => getComponentConfig(NAME, 'labelResetButton')
-    },
-    labelTodayButton: {
-      type: String,
-      default: () => getComponentConfig(NAME, 'labelTodayButton')
     },
     // Dark mode
     dark: {
