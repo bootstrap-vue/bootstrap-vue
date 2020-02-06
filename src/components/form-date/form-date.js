@@ -302,9 +302,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     // Private methods
     onSelected(ymd, date) {
       this.$nextTick(() => {
-        if (this.localYMD !== ymd) {
-          this.localYMD = ymd
-        }
+        // Just in case the input event didn't set the value yet
+        this.localYMD = ymd
+        // Close calendar popup, unless noCloseOnSelect
         if (!this.noCloseOnSelect) {
           this.$nextTick(() => {
             this.hide(true)
