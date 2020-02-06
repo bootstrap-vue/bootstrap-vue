@@ -317,7 +317,7 @@ describe('form-date', () => {
       propsData: {
         id: 'test-footer',
         value: '1900-01-01',
-        resetValue: null,
+        resetValue: '',
         noCloseOnSelect: true,
         name: 'foobar',
         todayButton: true,
