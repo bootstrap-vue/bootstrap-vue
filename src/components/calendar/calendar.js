@@ -19,7 +19,7 @@ import {
   resolveLocale
 } from '../../utils/date'
 import { requestAF } from '../../utils/dom'
-import { isFunction } from '../../utils/inspect'
+import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
@@ -140,8 +140,12 @@ export const BCalendar = Vue.extend({
       type: Boolean,
       default: false
     },
-    dateClassFn: {
+    dateInfoFn: {
       // Function to set a class of (classes) on the date cell
+      // if passed a string or an array.
+      // TODO:
+      //   If an object, look for class prop for classes, and
+      //   other props for handling events/details/descriptions
       type: Function,
       default: null
     },
@@ -246,7 +250,7 @@ export const BCalendar = Vue.extend({
     selectedDate() {
       return parseYMD(this.selectedYMD) || null
     },
-    activeYMD() {
+    activeDate() {
       return parseYMD(this.activeYMD) || null
     },
     computedMin() {
@@ -420,8 +424,8 @@ export const BCalendar = Vue.extend({
       const daysInMonth = this.calendarDaysInMonth
       const startIndex = firstDay.getDay() // `0`..`6`
       const weekOffset = (this.computedWeekStarts > startIndex ? 7 : 0) - this.computedWeekStarts
-      // TODO: Change dateClassFn to dateInfoFn to handle events and notes as well as classes
-      const dateClassFn = isFunction(this.dateClassFn) ? this.dateClassFn : () => ({})
+      // TODO: Change  dateInfoFn to handle events and notes as well as classes
+      const dateInfoFn = isFunction(this.dateInfoFn) ? this.dateInfoFn : () => ({})
       // Build the calendar matrix
       let currentDay = 0 - weekOffset - startIndex
       for (let week = 0; week < 6 && currentDay < daysInMonth; week++) {
@@ -435,16 +439,21 @@ export const BCalendar = Vue.extend({
           const month = date.getMonth()
           const dayYMD = formatYMD(date)
           const dayDisabled = this.dateDisabled(date)
+          // TODO: this could be a normalier method
+          let dateInfo = dateInfoFn(dayYMD, parseYMD(dayYMD))
+          dateInfo = isString(dateInfo) || isArray(dateInfo)
+            ? { class: dateInfo }
+            : isPlainObject(dateInfo) ? { ...dateInfo } : { class: '' }
           matrix[week].push({
             ymd: dayYMD,
             // Cell content
             day: this.formatDay(date),
             label: this.formatDateString(date),
-            // User supplied classes (for non disabled dates)
-            classes: dayDisabled ? {} : dateClassFn(dayYMD, parseYMD(dayYMD)),
             // Flags for styling
             isThisMonth: month === calendarMonth,
-            isDisabled: dayDisabled
+            isDisabled: dayDisabled,
+            info: dateInfo
+            // TODO: handle other dateInfo properties such as notes/events
           })
         }
       }
@@ -635,12 +644,14 @@ export const BCalendar = Vue.extend({
         if (!this.readonly) {
           // If readonly mode, we don't set the selected date, just the active date
           // If the clicked date is equal to the already selected date, we don't update the model
-          this.selectedYMD =
-            formatYMD(datesEqual(clickedDate, selectedDate) ? selectedDate : clickedDate)
+          this.selectedYMD = formatYMD(
+            datesEqual(clickedDate, selectedDate) ? selectedDate : clickedDate
+          )
           this.emitSelected(clickedDate)
         }
-        this.activeYMD =
-          formatYMD(datesEqual(clickedDate, activeDate) ? activeDate : createDate(clickedDate))
+        this.activeYMD = formatYMD(
+          datesEqual(clickedDate, activeDate) ? activeDate : createDate(clickedDate)
+        )
         // Ensure grid is focused
         this.focus()
       }
@@ -895,7 +906,7 @@ export const BCalendar = Vue.extend({
           {
             key: dIndex,
             staticClass: 'col p-0',
-            class: [{ 'bg-light': day.isDisabled }, day.classes],
+            class: day.isDisabled ? 'bg-light': day.info.class || '',
             style: day.isDisabled ? { pointerEvents: 'none' } : {},
             attrs: {
               id: idCell,
