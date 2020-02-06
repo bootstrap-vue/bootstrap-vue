@@ -223,17 +223,17 @@ export const BCalendar = Vue.extend({
     }
   },
   data() {
-    const selected = parseYMD(this.value) || null
-    const active = selected || this.getToday()
+    const selected = formatYMD(this.value) || ''
+    const active = selected || formatYMD(this.getToday())
     return {
       // Selected date as a date object
       // TODO:
       //   Change to `YYYY-MM-DD` format so that updating the
       //   values with the same date will not trigger a re-render
-      selectedDate: selected,
+      selectedYMD: selected,
       // Date in calendar grid that has tabindex of `0`
       // TODO: change to `YYYY-MM-DD` format
-      activeDate: active,
+      activeYMD: active,
       // Will be true if the calendar grid has/contains focus
       gridHasFocus: false,
       // Flag to enable the aria-live region(s) after mount
@@ -243,18 +243,12 @@ export const BCalendar = Vue.extend({
   },
   computed: {
     // TODO: use computed props to convert `YYYY-MM-DD` to Date object
-    selectedYMD() {
-      return formatYMD(this.selectedDate)
+    selectedDate() {
+      return parseYMD(this.selectedYMD) || null
     },
     activeYMD() {
-      return formatYMD(this.activeDate)
+      return parseYMD(this.activeYMD) || null
     },
-    // selectedDate() {
-    //   return parseYMD(this.selectedYMD)
-    // },
-    // activeDate() {
-    //   return parseYMD(this.activeYMD)
-    // },
     computedMin() {
       return parseYMD(this.min)
     },
@@ -323,7 +317,7 @@ export const BCalendar = Vue.extend({
         selectedYMD: this.selectedYMD || '',
         selectedDate: parseYMD(this.selectedYMD) || null,
         selectedFormatted: this.selectedYMD
-          ? this.formatDateString(parseYMD(this.selectedYMD))
+          ? this.formatDateString(parseYMD(this.selectedDate))
           : this.labelNoDateSelected,
         // Which date cell is considered active due to navigation
         activeYMD: this.activeYMD || '',
@@ -346,6 +340,7 @@ export const BCalendar = Vue.extend({
       const min = this.computedMin
       const max = this.computedMax
       return date => {
+        // Handle both YYYY-MM-DD and Date objects
         date = parseYMD(date)
         return (min && date < min) || (max && date > max)
       }
@@ -360,6 +355,7 @@ export const BCalendar = Vue.extend({
       const disabledFn = isFunction(this.dateDisabledFn) ? this.dateDisabledFn : () => false
       // Return the function ref
       return date => {
+        // Handle both YYYY-MM-DD and Date objects
         date = parseYMD(date)
         const ymd = formatYMD(date)
         return !!(rangeFn(date) || disabledFn(ymd, date))
@@ -404,7 +400,7 @@ export const BCalendar = Vue.extend({
       return this.disabled || (min && lastDateOfMonth(oneMonthAgo(this.activeDate)) < min)
     },
     thisMonthDisabled() {
-      // We could/should check if today is out of range
+      // TODO: We could/should check if today is out of range
       return this.disabled
     },
     nextMonthDisabled() {
@@ -424,6 +420,7 @@ export const BCalendar = Vue.extend({
       const daysInMonth = this.calendarDaysInMonth
       const startIndex = firstDay.getDay() // `0`..`6`
       const weekOffset = (this.computedWeekStarts > startIndex ? 7 : 0) - this.computedWeekStarts
+      // TODO: Change dateClassFn to dateInfoFn to handle events and notes as well as classes
       const dateClassFn = isFunction(this.dateClassFn) ? this.dateClassFn : () => ({})
       // Build the calendar matrix
       let currentDay = 0 - weekOffset - startIndex
@@ -439,8 +436,6 @@ export const BCalendar = Vue.extend({
           const dayYMD = formatYMD(date)
           const dayDisabled = this.dateDisabled(date)
           matrix[week].push({
-            dateObj: date,
-            // Used by render function for quick equality comparisons
             ymd: dayYMD,
             // Cell content
             day: this.formatDay(date),
@@ -458,19 +453,19 @@ export const BCalendar = Vue.extend({
     calendarHeadings() {
       return this.calendar[0].map(d => {
         return {
-          text: this.formatWeekdayNameShort(d.dateObj),
-          label: this.formatWeekdayName(d.dateObj)
+          text: this.formatWeekdayNameShort(parseYMD(d.ymd)),
+          label: this.formatWeekdayName(parseYMD(d.ymd))
         }
       })
     }
   },
   watch: {
     value(newVal, oldVal) {
-      const selected = parseYMD(newVal)
-      const old = parseYMD(oldVal)
+      const selected = formatYMD(newVal) || ''
+      const old = formatYMD(oldVal) || ''
       if (!datesEqual(selected, old)) {
-        this.selectedDate = selected
-        this.activeDate = createDate(selected)
+        this.selectedYMD = selected
+        this.activeYMD = selected
       }
     },
     selectedYMD(newYMD, oldYMD) {
@@ -485,15 +480,7 @@ export const BCalendar = Vue.extend({
       }
     },
     hidden(newVal, oldVal) {
-      if (!newVal) {
-        this.isLive = false
-      } else {
-        this.$nextTick(() => {
-          requestAF(() => {
-            this.isLive = true
-          })
-        })
-      }
+      this.setLive(!newVal)
     }
   },
   created() {
@@ -502,14 +489,16 @@ export const BCalendar = Vue.extend({
     })
   },
   mounted() {
-    this.$nextTick(() => {
-      requestAF(() => {
-        this.isLive = true
-      })
-    })
+    this.setLive(true)
+  },
+  activated() /* istanbul ignore next */ {
+    this.setLive(true)
+  },
+  deactivated() /* istanbul ignore next */ {
+    this.setLive(false)
   },
   beforeDestroy() {
-    this.isLive = false
+    this.setLive(false)
   },
   methods: {
     // Public method(s)
@@ -526,12 +515,23 @@ export const BCalendar = Vue.extend({
       } catch {}
     },
     // Private methods
+    setLive(on) {
+      if (on) {
+        this.$nextTick(() => {
+          requestAF(() => {
+            this.isLive = true
+          })
+        })
+      } else {
+        this.isLive = false
+      }
+    },
     getToday() {
       return parseYMD(createDate())
     },
     constrainDate(date) {
       // Constrains a date between min and max
-      // returns a new date instance
+      // returns a new Date object instance
       date = parseYMD(date)
       const min = this.computedMin || date
       const max = this.computedMax || date
@@ -605,7 +605,7 @@ export const BCalendar = Vue.extend({
       if (!this.dateOutOfRange(checkDate) && !datesEqual(activeDate, this.activeDate)) {
         // We only jump to date if within min/max
         // We don't check for individual disabled dates though (via user function)
-        this.activeDate = activeDate
+        this.activeYMD = formatYMD(activeDate)
       }
       // Ensure grid is focused
       this.focus()
@@ -618,7 +618,7 @@ export const BCalendar = Vue.extend({
         evt.preventDefault()
         evt.stopPropagation()
         if (!this.disabled && !this.readonly && !this.dateDisabled(activeDate)) {
-          this.selectedDate = createDate(activeDate)
+          this.selectedYMD = formatYMD(activeDate)
           this.emitSelected(activeDate)
         }
         // Ensure grid is focused
@@ -630,35 +630,36 @@ export const BCalendar = Vue.extend({
       // TODO: Change to lookup the `data-data` attribute
       const selectedDate = this.selectedDate
       const activeDate = this.activeDate
-      const clickedDate = createDate(day.dateObj)
+      const clickedDate = parseYMD(day.ymd)
       if (!this.disabled && !day.isDisabled && !this.dateDisabled(clickedDate)) {
         if (!this.readonly) {
           // If readonly mode, we don't set the selected date, just the active date
           // If the clicked date is equal to the already selected date, we don't update the model
-          this.selectedDate = datesEqual(clickedDate, selectedDate) ? selectedDate : clickedDate
+          this.selectedYMD =
+            formatYMD(datesEqual(clickedDate, selectedDate) ? selectedDate : clickedDate)
           this.emitSelected(clickedDate)
         }
-        this.activeDate = datesEqual(clickedDate, activeDate) ? activeDate : createDate(clickedDate)
+        this.activeYMD =
+          formatYMD(datesEqual(clickedDate, activeDate) ? activeDate : createDate(clickedDate))
         // Ensure grid is focused
         this.focus()
       }
     },
     gotoPrevYear(evt) {
-      this.activeDate = this.constrainDate(oneYearAgo(this.activeDate))
+      this.activeYMD = formatYMD(this.constrainDate(oneYearAgo(this.activeDate)))
     },
     gotoPrevMonth(evt) {
-      this.activeDate = this.constrainDate(oneMonthAgo(this.activeDate))
+      this.activeYMD = formatYMD(this.constrainDate(oneMonthAgo(this.activeDate)))
     },
     gotoCurrentMonth(evt) {
       // TODO: Maybe this goto date should be configurable?
-      this.activeDate = this.getToday()
-      // this.activeDate = parseYMD(this.selectedDate) || this.getToday()
+      this.activeYMD = formatYMD(this.getToday())
     },
     gotoNextMonth(evt) {
-      this.activeDate = this.constrainDate(oneMonthAhead(this.activeDate))
+      this.activeYMD = formatYMD(this.constrainDate(oneMonthAhead(this.activeDate)))
     },
     gotoNextYear(evt) {
-      this.activeDate = this.constrainDate(oneYearAhead(this.activeDate))
+      this.activeYMD = formatYMD(this.constrainDate(oneYearAhead(this.activeDate)))
     }
   },
   render(h) {
