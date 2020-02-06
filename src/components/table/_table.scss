@@ -125,6 +125,7 @@
     // Positioning of sticky headers
     .b-table-sticky-header > .table.b-table > thead > tr > th {
       // Header cells need to be sticky on top
+      border-top: 0;
       position: sticky;
       top: 0;
       z-index: 2;
