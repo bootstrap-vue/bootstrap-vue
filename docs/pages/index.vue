@@ -384,15 +384,6 @@
           Support BootstrapVue on Open Collective
         </h2>
         <b-button
-          href="https://opencollective.com/bootstrap-vue#backer"
-          size="sm"
-          variant="outline-secondary"
-          target="_blank"
-          class="mb-2"
-        >
-          Become a backer
-        </b-button>
-        <b-button
           href="https://opencollective.com/bootstrap-vue#sponsor"
           size="sm"
           variant="outline-secondary"
@@ -400,6 +391,15 @@
           class="mb-2"
         >
           Become a sponsor
+        </b-button>
+        <b-button
+          href="https://opencollective.com/bootstrap-vue#backer"
+          size="sm"
+          variant="outline-secondary"
+          target="_blank"
+          class="mb-2"
+        >
+          Become a backer
         </b-button>
         <b-button
           href="https://opencollective.com/bootstrap-vue#donate"
@@ -411,12 +411,12 @@
           Donate
         </b-button>
 
-        <BackersDonors></BackersDonors>
+        <BVDContributors></BVDContributors>
       </b-container>
     </section>
 
     <div class="bv-section bv-gray bv-p-reset" aria-hidden="true">
-      <!-- to give footer on landing page angled top -->
+      <!-- To give footer on landing page angled top -->
     </div>
   </main>
 </template>
@@ -663,10 +663,10 @@ $bv-angle-padding-md: 6rem;
 
 <script>
 import { version, bootstrapVersion, vueVersion } from '~/content'
-import BackersDonors from '~/components/backers-donors'
+import BVDContributors from '~/components/contributors'
 
 export default {
-  components: { BackersDonors },
+  components: { BVDContributors },
   data() {
     return {
       isIE: false,
