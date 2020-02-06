@@ -285,7 +285,8 @@ export const BCalendar = Vue.extend({
       return parseYMD(this.activeYMD).getMonth()
     },
     calendarFirstDay() {
-      return createDate(this.calendarYear, this.calendarMonth, 1)
+      const active = parseYMD(this.activeYMD)
+      return createDate(active.getFullYear(), active.getMonth(), 1)
     },
     calendarDaysInMonth() {
       // We create a new date as to not mutate the original
