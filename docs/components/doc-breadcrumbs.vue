@@ -22,7 +22,7 @@ const navLookup = nav.reduce((obj, section) => {
 }, {})
 
 export default {
-  name: 'BDVBreadcrumbs',
+  name: 'BVDBreadcrumbs',
   computed: {
     items() {
       const items = [{ text: 'Home', to: '/' }, { text: 'Docs', to: '/docs' }]
