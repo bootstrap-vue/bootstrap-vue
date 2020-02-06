@@ -12,7 +12,17 @@
         line-height: 1;
         margin: 3px auto;
         padding: 9px 0;
+
+        &[aria-disabled="true"] {
+          pointer-events: none;
+        }
       }
+    }
+  }
+
+  [aria-disabled="true"] {
+    .b-calendar-grid-body {
+       pointer-events: none;
     }
   }
 }
