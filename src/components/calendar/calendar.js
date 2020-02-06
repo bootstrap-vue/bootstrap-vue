@@ -971,7 +971,9 @@ export const BCalendar = Vue.extend({
           'aria-roledescription': this.labelCalendar || null,
           'aria-labelledby': idGridCaption,
           'aria-describedby': idGridHelp,
-          'aria-readonly': this.readonly && !this.disabled ? 'true' : null,
+          // `aria-readonly` is not considered valid on `role="application"`
+          // https://www.w3.org/TR/wai-aria-1.1/#aria-readonly
+          // 'aria-readonly': this.readonly && !this.disabled ? 'true' : null,
           'aria-disabled': this.disabled ? 'true' : null,
           'aria-activedescendant': idActive
         },
