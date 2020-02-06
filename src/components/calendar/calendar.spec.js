@@ -116,7 +116,7 @@ describe('calendar', () => {
     wrapper.destroy()
   })
 
-  it('focus method works', async () => {
+  it('focus snd blur methods work', async () => {
     const wrapper = mount(BCalendar, {
       attachToDocument: true,
       propsData: {
@@ -139,6 +139,12 @@ describe('calendar', () => {
     await waitRAF()
 
     expect(document.activeElement).toBe($grid.element)
+
+    wrapper.vm.blur()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).not.toBe($grid.element)
 
     wrapper.destroy()
   })
