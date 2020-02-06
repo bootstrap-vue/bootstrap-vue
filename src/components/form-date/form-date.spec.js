@@ -317,8 +317,9 @@ describe('form-date', () => {
       propsData: {
         id: 'test-footer',
         value: '1900-01-01',
+        resetValue: null,
         noCloseOnSelect: true,
-        name: 'value',
+        name: 'foobar',
         todayButton: true,
         resetButton: true,
         closeButton: true
@@ -327,6 +328,8 @@ describe('form-date', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('div')).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -349,6 +352,7 @@ describe('form-date', () => {
 
     const $value = wrapper.find('input[type="hidden"]')
     expect($value.exists()).toBe(true)
+    expect($value.attributes('name')).toBe('foobar')
     expect($value.attributes('value')).toBe('1900-01-01')
 
     const $footer = wrapper.find('.b-form-date-controls')
@@ -385,6 +389,8 @@ describe('form-date', () => {
     wrapper.setProps({
       resetValue: '1999-01-01'
     })
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
