@@ -85,7 +85,7 @@ For disabling specific dates or setting minimum and maximum date limits, refer t
 <script>
   export default {
     data() {
-      return: {
+      return {
         state: 'disabled'
       }
     },
