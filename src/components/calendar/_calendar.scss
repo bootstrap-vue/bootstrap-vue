@@ -1,6 +1,11 @@
 // BClanedar custom styles
 
 .b-calendar {
+  output.readonly {
+    background-color: $input-disabled-bg;
+    opacity: 1;
+  }
+
   .b-calendar-grid-body {
     .col[data-date] {
       // We hard code the sizes in `px` to fit
