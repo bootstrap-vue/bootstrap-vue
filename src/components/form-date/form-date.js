@@ -79,18 +79,6 @@ const propsMixin = {
       type: Function,
       default: null
     },
-    todayButton: {
-      type: Boolean,
-      default: false
-    },
-    resetButton: {
-      type: Boolean,
-      default: false
-    },
-    closeButton: {
-      type: Boolean,
-      default: false
-    },
     noCloseOnSelect: {
       type: Boolean,
       default: false
@@ -127,6 +115,30 @@ const propsMixin = {
       // Disable highlighting today's date
       type: Boolean,
       default: false
+    },
+    todayButton: {
+      type: Boolean,
+      default: false
+    },
+    todayButtonVariant: {
+      type: String,
+      default: 'outline-primary'
+    },
+    resetButton: {
+      type: Boolean,
+      default: false
+    },
+    resetButtonVariant: {
+      type: String,
+      default: 'outline-danger'
+    },
+    closeButton: {
+      type: Boolean,
+      default: false
+    },
+    closeButtonVariant: {
+      type: String,
+      default: 'outline-seondary'
     },
     // Labels for buttons and keyboard shortcuts
     labelPrevYear: {
@@ -430,7 +442,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled: disabled || readonly, variant: 'primary' },
+            props: { size: 'sm', disabled: disabled || readonly, variant: this.todayButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onTodayButton }
           },
@@ -445,7 +457,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled: disabled || readonly, variant: 'danger' },
+            props: { size: 'sm', disabled: disabled || readonly, variant: this.resetButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onResetButton }
           },
@@ -460,7 +472,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled: this.disabled, variant: 'secondary' },
+            props: { size: 'sm', disabled: this.disabled, variant: this.closeButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onCloseButton }
           },
