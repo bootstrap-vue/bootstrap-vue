@@ -30,7 +30,7 @@ const propsMixin = {
     },
     resetValue: {
       type: [String, Date],
-      default: null
+      default: ''
     },
     placeholder: {
       type: String,
@@ -254,6 +254,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         labelNav: this.labelNav,
         labelHelp: this.labelHelp
       }
+    },
+    computedResetValue() {
+      return parseYMD(this.resetValue) || ''
     }
   },
   watch: {
@@ -333,7 +336,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       this.setAndClose(formatYMD(new Date()))
     },
     onResetButton() {
-      this.setAndClose(formatYMD(parseYMD(this.resetValue)) || '')
+      this.setAndClose(this.computedResetValue))
     },
     onCloseButton() {
       this.hide(true)
@@ -485,6 +488,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const $calendar = h(
       BCalendar,
       {
+        key: 'calendar',
         ref: 'calendar',
         staticClass: 'b-form-date-calendar',
         props: this.calendarProps,
