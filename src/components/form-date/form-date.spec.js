@@ -222,7 +222,7 @@ describe('form-date', () => {
 
     expect(wrapper.emitted('context')).toBeDefined()
     const lastIndex = wrapper.emitted('context').length - 1
-    // activeYMD will be the date that caneldar has focused by default
+    // `activeYMD` will be the date that calendar has focused by default
     const activeYMD = wrapper.emitted('context')[lastIndex][0].activeYMD
 
     expect(activeYMD).not.toBe(null)
@@ -232,7 +232,7 @@ describe('form-date', () => {
     const $grid = wrapper.find('[role="application"]')
     expect($grid.exists()).toBe(true)
 
-    // Simulate picking todays date on calendar by keydown.enter on grid
+    // Simulate picking todays date on calendar by `keydown.enter` on grid
     // The calendar has today's date as the default calendar day button
     $grid.trigger('keydown.enter')
     await waitNT(wrapper.vm)
@@ -283,7 +283,7 @@ describe('form-date', () => {
 
     expect(wrapper.emitted('context')).toBeDefined()
     const lastIndex = wrapper.emitted('context').length - 1
-    // activeYMD will be the date that caneldar has focused by default
+    // `activeYMD` will be the date that calendar has focused by default
     const activeYMD = wrapper.emitted('context')[lastIndex][0].activeYMD
 
     expect(activeYMD).not.toBe(null)
@@ -293,7 +293,7 @@ describe('form-date', () => {
     const $grid = wrapper.find('[role="application"]')
     expect($grid.exists()).toBe(true)
 
-    // Simulate picking todays date on calendar by keydown.enter on grid
+    // Simulate picking todays date on calendar by `keydown.enter` on grid
     // The calendar has today's date as the default calendar day button
     $grid.trigger('keydown.enter')
     await waitNT(wrapper.vm)

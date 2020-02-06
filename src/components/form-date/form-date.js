@@ -58,7 +58,7 @@ const propsMixin = {
       default: false
     },
     required: {
-      // If true adds the 'aria-required' attribute
+      // If true adds the `aria-required` attribute
       type: Boolean,
       default: false
     },
@@ -305,7 +305,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     // Private methods
     setAndClose(ymd) {
       this.localYMD = ymd
-      // Close calendar popup, unless noCloseOnSelect
+      // Close calendar popup, unless `noCloseOnSelect`
       if (!this.noCloseOnSelect) {
         this.$nextTick(() => {
           this.hide(true)

@@ -84,7 +84,7 @@ export const BCalendar = Vue.extend({
       // default: null
     },
     valueAsDate: {
-      // Always return the v-model value as a date object
+      // Always return the `v-model` value as a date object
       type: Boolean,
       default: false
     },
@@ -142,7 +142,7 @@ export const BCalendar = Vue.extend({
     },
     dateInfoFn: {
       // Function to set a class of (classes) on the date cell
-      // if passed a string or an array.
+      // if passed a string or an array
       // TODO:
       //   If the function returns an object, look for class prop for classes,
       //   and other props for handling events/details/descriptions
@@ -231,23 +231,23 @@ export const BCalendar = Vue.extend({
     return {
       // Selected date
       selectedYMD: selected,
-      // Date in calendar grid that has tabindex of `0`
+      // Date in calendar grid that has `tabindex` of `0`
       activeYMD: selected || formatYMD(this.getToday()),
       // Will be true if the calendar grid has/contains focus
       gridHasFocus: false,
-      // Flag to enable the aria-live region(s) after mount
+      // Flag to enable the `aria-live` region(s) after mount
       // to prevent screen reader "outbursts" when mounting
       isLive: false
     }
   },
   computed: {
-    // TODO: use computed props to convert `YYYY-MM-DD` to Date object
+    // TODO: Use computed props to convert `YYYY-MM-DD` to `Date` object
     selectedDate() {
-      // Selected as a Date object
+      // Selected as a `Date` object
       return parseYMD(this.selectedYMD)
     },
     activeDate() {
-      // Active as a Date object
+      // Active as a `Date` object
       return parseYMD(this.activeYMD)
     },
     computedMin() {
@@ -339,29 +339,29 @@ export const BCalendar = Vue.extend({
     },
     // Computed props that return a function reference
     dateOutOfRange() {
-      // Check weather a date is within the min/max range
+      // Check wether a date is within the min/max range
       // returns a new function ref if the pops change
       // We do this as we need to trigger the calendar computed prop
       // to update when these props update
       const min = this.computedMin
       const max = this.computedMax
       return date => {
-        // Handle both YYYY-MM-DD and Date objects
+        // Handle both `YYYY-MM-DD` and `Date` objects
         date = parseYMD(date)
         return (min && date < min) || (max && date > max)
       }
     },
     dateDisabled() {
       // Returns a function for validating if a date is within range
-      // We grab this variables first to ensure a new
-      // function ref is generated when the props value changes
+      // We grab this variables first to ensure a new function ref
+      // is generated when the props value changes
       // We do this as we need to trigger the calendar computed prop
       // to update when these props update
       const rangeFn = this.dateOutOfRange
       const disabledFn = isFunction(this.dateDisabledFn) ? this.dateDisabledFn : () => false
       // Return the function ref
       return date => {
-        // Handle both YYYY-MM-DD and Date objects
+        // Handle both `YYYY-MM-DD` and `Date` objects
         date = parseYMD(date)
         const ymd = formatYMD(date)
         return !!(rangeFn(date) || disabledFn(ymd, date))
@@ -426,7 +426,7 @@ export const BCalendar = Vue.extend({
       const daysInMonth = this.calendarDaysInMonth
       const startIndex = firstDay.getDay() // `0`..`6`
       const weekOffset = (this.computedWeekStarts > startIndex ? 7 : 0) - this.computedWeekStarts
-      // TODO: Change  dateInfoFn to handle events and notes as well as classes
+      // TODO: Change `dateInfoFn` to handle events and notes as well as classes
       const dateInfoFn = isFunction(this.dateInfoFn) ? this.dateInfoFn : () => ({})
       // Build the calendar matrix
       let currentDay = 0 - weekOffset - startIndex
@@ -441,7 +441,7 @@ export const BCalendar = Vue.extend({
           const month = date.getMonth()
           const dayYMD = formatYMD(date)
           const dayDisabled = this.dateDisabled(date)
-          // TODO: this could be a normalier method
+          // TODO: This could be a normalizer method
           let dateInfo = dateInfoFn(dayYMD, parseYMD(dayYMD))
           dateInfo =
             isString(dateInfo) || isArray(dateInfo)
@@ -457,7 +457,7 @@ export const BCalendar = Vue.extend({
             // Flags for styling
             isThisMonth: month === calendarMonth,
             isDisabled: dayDisabled,
-            // TODO: handle other dateInfo properties such as notes/events
+            // TODO: Handle other dateInfo properties such as notes/events
             info: dateInfo
           })
         }
@@ -483,7 +483,9 @@ export const BCalendar = Vue.extend({
       }
     },
     selectedYMD(newYMD, oldYMD) {
-      // TODO: should we compare to formatYMD(this.value) and emit only if they are different?
+      // TODO:
+      //   Should we compare to `formatYMD(this.value)` and emit
+      //   only if they are different?
       if (newYMD !== oldYMD) {
         this.$emit('input', this.valueAsDate ? parseYMD(newYMD) || null : newYMD || '')
       }
@@ -545,14 +547,15 @@ export const BCalendar = Vue.extend({
     },
     constrainDate(date) {
       // Constrains a date between min and max
-      // returns a new Date object instance
+      // returns a new `Date` object instance
       date = parseYMD(date)
       const min = this.computedMin || date
       const max = this.computedMax || date
       return createDate(date < min ? min : date > max ? max : date)
     },
     emitSelected(date) {
-      // Performed in a nextTick to (probably) ensure the input event has emitted first
+      // Performed in a `$nextTick()` to (probably) ensure
+      // the input event has emitted first
       this.$nextTick(() => {
         this.$emit('selected', formatYMD(date) || '', parseYMD(date) || null)
       })
@@ -690,7 +693,7 @@ export const BCalendar = Vue.extend({
     const activeYMD = this.activeYMD
     const highlightToday = !this.noHighlightToday
     const safeId = this.safeId
-    // Flag for making the aria-live regions live
+    // Flag for making the `aria-live` regions live
     const isLive = this.isLive
     // Pre-compute some IDs
     const idWidget = safeId()
@@ -711,9 +714,9 @@ export const BCalendar = Vue.extend({
           for: idGrid,
           role: 'status',
           // Mainly for testing purposes, as we do not know
-          // the exact format Intl will format the date string
+          // the exact format `Intl` will format the date string
           'data-selected': toString(selectedYMD),
-          // We wait until after mount to enable aria-live
+          // We wait until after mount to enable `aria-live`
           // to prevent initial announcement on page render
           'aria-live': isLive ? 'polite' : 'off',
           'aria-atomic': isLive ? 'true' : null
@@ -1006,8 +1009,7 @@ export const BCalendar = Vue.extend({
           lang: this.computedLocale || null,
           role: 'group',
           'aria-disabled': this.disabled ? 'true' : null,
-          // If datepicker controls an input, this will
-          // specify the ID of the input
+          // If datepicker controls an input, this will specify the ID of the input
           'aria-controls': this.ariaControls || null,
           // This should be a prop (so it can be changed to Date picker, etc, localized
           'aria-roledescription': this.roleDescription || null,

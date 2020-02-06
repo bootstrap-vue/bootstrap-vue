@@ -519,7 +519,7 @@ Keyboard navigation:
 
 Several of the `label-*` props are not visible on screen, but are used to label various elements
 within the calendar for screen reader users. e.g. the `label-today` prop is added to the cell that
-contains todays date: `'January 28, 2020 (Today)'`, whle the `label-selected` prop is added to the
+contains todays date: `'January 28, 2020 (Today)'`, while the `label-selected` prop is added to the
 cell that contains the selected date `'January 28, 2020 (Selected date)'` as well as added to the
 selected date header as `sr-only` text.
 
