@@ -329,13 +329,13 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       // Re-emit the context event
       this.$emit('context', ctx)
     },
-    onTodayButton() /* istanbul ignore next: until tests are written */ {
+    onTodayButton() {
       this.setAndClose(formatYMD(new Date()))
     },
-    onResetButton() /* istanbul ignore next: until tests are written */ {
+    onResetButton() {
       this.setAndClose(formatYMD(this.resetValue) || '')
     },
-    onCloseButton() /* istanbul ignore next: until tests are written */ {
+    onCloseButton() {
       this.hide(true)
     }
   },
