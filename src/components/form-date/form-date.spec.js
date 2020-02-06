@@ -371,7 +371,7 @@ describe('form-date', () => {
     expect($menu.classes()).toContain('show')
     expect($value.attributes('value')).not.toBe('1900-01-01')
     expect($value.attributes('value')).not.toBe('')
-    expect(/^\d+-\d\d-\d\d$/.test($value.attributes('value')).toBe(true)
+    expect(/^\d+-\d\d-\d\d$/.test($value.attributes('value'))).toBe(true)
 
     $reset.trigger('click')
     await waitNT(wrapper.vm)
