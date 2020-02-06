@@ -571,7 +571,7 @@ export const BCalendar = Vue.extend({
         checkDate.setDate(1)
       } else if (keyCode === PAGEDOWN) {
         // PAGEDOWN - Next month/year
-        activeDate = (altKey ? oneYearAgo : oneYearAhead)(activeDate)
+        activeDate = (altKey ? oneYearAhead : oneMonthAhead)(activeDate)
         // We check the last day of month to be in rage
         checkDate = createDate(activeDate)
         checkDate.setMonth(checkDate.getMonth() + 1)
