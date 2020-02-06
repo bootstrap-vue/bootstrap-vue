@@ -514,7 +514,11 @@ export const BCalendar = Vue.extend({
   methods: {
     // Public method(s)
     focus() {
-      this.focusGrid()
+      if (!this.disabled) {
+        try {
+          this.$refs.grid.focus()
+        } catch {}
+      }
     },
     blur() {
       try {
@@ -525,14 +529,7 @@ export const BCalendar = Vue.extend({
     getToday() {
       return parseYMD(createDate())
     },
-    focusGrid() {
-      if (!this.disabled) {
-        try {
-          this.$refs.grid.focus()
-        } catch {}
-      }
-    },
-    constrainDate(date) {
+    constrainDate(date) /* istanbul ignore next: until tests are ready */ {
       // Constrains a date between min and max
       // returns a new date instance
       date = parseYMD(date)
@@ -609,7 +606,8 @@ export const BCalendar = Vue.extend({
         // We don't check for individual disabled dates though (via user function)
         this.activeDate = activeDate
       }
-      this.focusGrid()
+      // Ensure grid is focused
+      this.focus()
     },
     onKeydownGrid(evt) /* istanbul ignore next: until tests are ready */ {
       // Pressing enter/space on grid to select active date
@@ -622,7 +620,8 @@ export const BCalendar = Vue.extend({
           this.selectedDate = createDate(activeDate)
           this.emitSelected(activeDate)
         }
-        this.focusGrid()
+        // Ensure grid is focused
+        this.focus()
       }
     },
     onClickDay(day) {
@@ -639,7 +638,8 @@ export const BCalendar = Vue.extend({
           this.emitSelected(clickedDate)
         }
         this.activeDate = datesEqual(clickedDate, activeDate) ? activeDate : createDate(clickedDate)
-        this.focusGrid()
+        // Ensure grid is focused
+        this.focus()
       }
     },
     gotoPrevYear(evt) /* istanbul ignore next: until tests are ready */ {
@@ -913,7 +913,7 @@ export const BCalendar = Vue.extend({
               // ChromeVox doesn't convey `aria-current`, but does `aria-selected`,
               // so we set both attributes for robustness
               'aria-selected': isSelected ? 'true' : null,
-              'aria-current': isActive ? 'date' : null
+              'aria-current': isSelected ? 'date' : null
             }
           },
           [$btn]
