@@ -13,11 +13,12 @@
         margin: 3px auto;
         padding: 9px 0;
 
-        // Style to get around Bootstrap v4.4 bug
-        // with hand cursor on disabled buttons
-        &[aria-disabled="true"] {
-          pointer-events: none;
-        }
+      }
+
+      // Style to get around Bootstrap v4.4 bug
+      // with hand cursor on disabled buttons
+      &[aria-disabled="true"] {
+        pointer-events: none;
       }
     }
   }
