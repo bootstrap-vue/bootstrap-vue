@@ -53,7 +53,7 @@ describe('calendar', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.vm.selectedYMD).ToBe('2020-01-01')
+    expect(wrapper.vm.selectedYMD).toBe('2020-01-01')
 
     wrapper.setProps({
       value: '2020-01-15'
@@ -62,7 +62,7 @@ describe('calendar', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.vm.selectedYMD).ToBe('2020-01-15')
+    expect(wrapper.vm.selectedYMD).toBe('2020-01-15')
 
     wrapper.destroy()
   })
