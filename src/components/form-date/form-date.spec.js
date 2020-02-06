@@ -386,23 +386,6 @@ describe('form-date', () => {
     expect($menu.classes()).toContain('show')
     expect($value.attributes('value')).toBe('')
 
-    wrapper.setProps({
-      resetValue: '1999-01-01'
-    })
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
-    $reset.trigger('click')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
-    expect($menu.classes()).toContain('show')
-    expect($value.attributes('value')).toBe('1999-01-01')
-
     $close.trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -410,7 +393,70 @@ describe('form-date', () => {
     await waitRAF()
 
     expect($menu.classes()).not.toContain('show')
-    expect($value.attributes('value')).toBe('1999-01-01')
+    expect($value.attributes('value')).toBe('')
+
+    wrapper.destroy()
+  })
+
+  it('prop reset-value works', async () => {
+    const wrapper = mount(BFormDate, {
+      attachToDocument: true,
+      propsData: {
+        id: 'test-reset',
+        value: '2020-01-15',
+        resetValue: '1900-01-01',
+        name: 'foobar',
+        resetButton: true
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $toggle = wrapper.find('button#test-reset')
+    const $menu = wrapper.find('.dropdown-menu')
+
+    expect($toggle.exists()).toBe(true)
+    expect($toggle.is('button')).toBe(true)
+    expect($menu.exists()).toBe(true)
+    expect($menu.classes()).not.toContain('show')
+    expect(wrapper.find('.b-calendar').exists()).toBe(false)
+
+    $toggle.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($menu.classes()).toContain('show')
+
+    const $value = wrapper.find('input[type="hidden"]')
+    expect($value.exists()).toBe(true)
+    expect($value.attributes('name')).toBe('foobar')
+    expect($value.attributes('value')).toBe('2020-01-15')
+
+    const $footer = wrapper.find('.b-form-date-controls')
+    expect($footer.exists()).toBe(true)
+
+    const $btns = $footer.findAll('button')
+
+    expect($btns.length).toBe(1)
+
+    const $reset = $btns.at(0)
+    const $close = $btns.at(2)
+
+    $reset.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($menu.classes()).not.toContain('show')
+    expect($value.attributes('value')).toBe('1900-01-01')
 
     wrapper.destroy()
   })
