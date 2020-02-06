@@ -126,7 +126,7 @@ import AnchoredHeading from './anchored-heading'
 const importPath = 'bootstrap-vue'
 
 export default {
-  name: 'BDVImportdoc',
+  name: 'BVDImportdoc',
   components: { AnchoredHeading },
   props: {
     meta: {}
