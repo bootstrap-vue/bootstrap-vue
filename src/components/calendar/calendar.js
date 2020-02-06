@@ -709,7 +709,7 @@ export const BCalendar = Vue.extend({
       'output',
       {
         staticClass: 'd-block text-center rounded border small p-1 mb-1',
-        class: { 'text-muted': this.disabled },
+        class: { 'text-muted': this.disabled, readonly: this.readonly },
         attrs: {
           id: idValue,
           for: idGrid,
