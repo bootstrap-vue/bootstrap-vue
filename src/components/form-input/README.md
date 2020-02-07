@@ -96,11 +96,11 @@ rendered and a console warning will be issued.
   `url`, etc) will silently ignore these values (although they will still be rendered on the input
   markup) if values are provided.
 
-**Caveats with mobile keyboards and text-like inputs:**
+**Caveats with predictive text entry and IME composition entry:**
 
 - When using predictive text auto-suggested words, the `v-model` will not update until the
   auto-suggested word is selected (or a space is typed). If an auto suggested word is not selected,
-  the v-model will update with the current displayed text of the input when the input is blurred.
+  the v-model will update with the current _displayed text_ of the input when the input is blurred.
 - When using IME composition (ie. Chinese, Japanese, etc), the `v-model` will not update until the
   IME composition is completed.
 
