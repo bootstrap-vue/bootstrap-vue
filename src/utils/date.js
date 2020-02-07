@@ -4,10 +4,10 @@ import { concat } from './array'
 import { isDate, isString } from './inspect'
 import { toInteger } from './number'
 
-// Create or clone a date (new date(...) shortcut)
+// Create or clone a date (`new Date(...)` shortcut)
 export const createDate = (...args) => new Date(...args)
 
-// Parse a date sting, or date object, into a date object (with no time information)
+// Parse a date sting, or Date object, into a Date object (with no time information)
 export const parseYMD = date => {
   if (isString(date) && /^\d+-\d+-\d+$/.test(date.trim())) {
     const [year, month, day] = date.split('-')
@@ -21,7 +21,7 @@ export const parseYMD = date => {
   return null
 }
 
-// Format a date object as YYYY-MM-DD format
+// Format a date object as `YYYY-MM-DD` format
 export const formatYMD = date => {
   date = parseYMD(date)
   if (date) {
@@ -40,7 +40,7 @@ export const resolveLocale = (locales, calendar = 'gregory') => /* istanbul igno
   return fmt.resolvedOptions().locale
 }
 
-// Create a Intl.DateTimeFormat formatter function
+// Create a `Intl.DateTimeFormat` formatter function
 export const createDateFormatter = (locale, options) => /* istanbul ignore next */ {
   const dtf = new Intl.DateTimeFormat(locale, options)
   return dtf.format
@@ -49,11 +49,11 @@ export const createDateFormatter = (locale, options) => /* istanbul ignore next 
 // Determine if two dates are the same date (ignoring time portion)
 export const datesEqual = (date1, date2) => {
   // Returns true of the date portion of two date objects are equal
-  // (we don't compare the time portion)
+  // We don't compare the time portion
   return formatYMD(date1) === formatYMD(date2)
 }
 
-// --- Date "math" for calendar component mainly ---
+// --- Date "math" (for BCalendar component mainly) ---
 
 export const firstDateOfMonth = date => {
   date = createDate(date)
