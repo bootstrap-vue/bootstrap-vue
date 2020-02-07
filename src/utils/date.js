@@ -8,7 +8,7 @@ import { toInteger } from './number'
 
 const RX_DATE = /^\d+-\d+-\d+$/
 
-// --- Date utility methods  ---
+// --- Date utility methods ---
 
 // Create or clone a date (`new Date(...)` shortcut)
 export const createDate = (...args) => new Date(...args)
@@ -16,13 +16,10 @@ export const createDate = (...args) => new Date(...args)
 // Parse a date sting, or Date object, into a Date object (with no time information)
 export const parseYMD = date => {
   if (isString(date) && RX_DATE.test(date.trim())) {
-    const [year, month, day] = date.split('-')
-    return createDate(toInteger(year), toInteger(month) - 1, toInteger(day))
+    const [year, month, day] = date.split('-').map(toInteger)
+    return createDate(year, month - 1, day)
   } else if (isDate(date)) {
-    const year = date.getFullYear()
-    const month = date.getMonth()
-    const day = date.getDate()
-    return createDate(year, month, day)
+    return createDate(date.getFullYear(), date.getMonth(), date.getDate())
   }
   return null
 }
