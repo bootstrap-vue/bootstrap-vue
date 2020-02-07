@@ -4,12 +4,18 @@ import { concat } from './array'
 import { isDate, isString } from './inspect'
 import { toInteger } from './number'
 
+// --- Constants ---
+
+const RX_DATE = /^\d+-\d+-\d+$/
+
+// --- Date utility methods  ---
+
 // Create or clone a date (`new Date(...)` shortcut)
 export const createDate = (...args) => new Date(...args)
 
 // Parse a date sting, or Date object, into a Date object (with no time information)
 export const parseYMD = date => {
-  if (isString(date) && /^\d+-\d+-\d+$/.test(date.trim())) {
+  if (isString(date) && RX_DATE.test(date.trim())) {
     const [year, month, day] = date.split('-')
     return createDate(toInteger(year), toInteger(month) - 1, toInteger(day))
   } else if (isDate(date)) {
@@ -53,7 +59,7 @@ export const datesEqual = (date1, date2) => {
   return formatYMD(date1) === formatYMD(date2)
 }
 
-// --- Date "math" (for BCalendar component mainly) ---
+// --- Date "math" utility methods (for BCalendar component mainly) ---
 
 export const firstDateOfMonth = date => {
   date = createDate(date)
