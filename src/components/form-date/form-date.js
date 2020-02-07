@@ -150,7 +150,7 @@ const propsMixin = {
     },
     closeButtonVariant: {
       type: String,
-      default: 'outline-seondary'
+      default: 'outline-secondary'
     },
     // Labels for buttons and keyboard shortcuts
     // These pick BCalendar global config if no BFormDate global config
