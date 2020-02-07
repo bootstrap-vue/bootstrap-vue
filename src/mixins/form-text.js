@@ -191,6 +191,8 @@ export default {
     onInput(evt) {
       // `evt.target.composing` is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
+      // TODO:
+      //   Is this neded now with the latest Vue??
       /* istanbul ignore if: hard to test composition events */
       if (evt.target.composing) {
         return
