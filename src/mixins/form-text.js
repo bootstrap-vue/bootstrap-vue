@@ -209,12 +209,6 @@ export default {
       this.$emit('input', formattedValue)
     },
     onChange(evt) {
-      // `evt.target.composing` is set by Vue
-      // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
-      /* istanbul ignore if: hard to test composition events */
-      if (evt.target.composing) {
-        return
-      }
       const value = evt.target.value
       const formattedValue = this.formatValue(value, evt)
       // Exit when the `formatter` function strictly returned `false`
