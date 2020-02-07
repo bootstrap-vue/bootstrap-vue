@@ -223,11 +223,11 @@
           },
           {
             "event": "context",
-            "description": "Emitted to when when the user changes the active date via date navigation buttons or cursor control",
+            "description": "`b-calendar` context event. emitted to when when the user changes the active date via date navigation buttons or cursor control",
             "args": [
               {
                 "arg": "context",
-                "description": "The context object. See documentaion for details",
+                "description": "The `b-calendar` context object. See the `b-calendar` documentaion for details",
                 "type": "Object"
               }
             ]
