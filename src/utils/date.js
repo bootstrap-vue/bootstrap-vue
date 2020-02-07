@@ -27,13 +27,13 @@ export const parseYMD = date => {
 // Format a date object as `YYYY-MM-DD` format
 export const formatYMD = date => {
   date = parseYMD(date)
-  if (date) {
-    const year = date.getFullYear()
-    const month = `0${date.getMonth() + 1}`.slice(-2)
-    const day = `0${date.getDate()}`.slice(-2)
-    return `${year}-${month}-${day}`
+  if (!date) {
+    return null
   }
-  return null
+  const year = date.getFullYear()
+  const month = `0${date.getMonth() + 1}`.slice(-2)
+  const day = `0${date.getDate()}`.slice(-2)
+  return `${year}-${month}-${day}`
 }
 
 // Given a locale (or locales), resolve the browser available locale
