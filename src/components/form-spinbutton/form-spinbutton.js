@@ -40,15 +40,15 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     min: {
       type: [Number, String],
-      default: 0
+      default: DEFAULT_MIN
     },
     max: {
       type: [Number, String],
-      default: 0
+      default: DEFAULT_MAX
     },
     step: {
       type: [Number, String],
-      default: 1
+      default: DEFAULT_STEP
     },
     wrap: {
       type: Boolean,
