@@ -251,14 +251,16 @@ If you want to customize the field property names (for example using `name` fiel
 
 ## Radio value and v-model
 
-`<b-form-radio>` and `<b-form-radio-group>` do not have a value by default. You must explicitly
-supply a value (to which the `v-model` is set to when the radio is checked) via the `value` prop.
+`<b-form-radio>` components do not have a value by default. You must explicitly supply a value via
+the `value` prop on `<b-form-radio>`. This value will be sent to the `v-model` when the radio is
+checked.
 
 The `v-model` of both `<b-form-radio>` and `<b-form-radio-group>` binds to the `checked` prop. To
-pre-check a radio, you must set the `v-model` value to the radio's value. Do not use the `checked`
-prop directly.
+pre-check a radio, you must set the `v-model` value to the one of the radio's value (i.e. must match
+the value of specified on one of the the radio's `value` prop). Do not use the `checked` prop
+directly. Each radio in a radio group _must_ have a unique value.
 
-Radio supports values of many types, such as a `string`, `boolean`, `number`, or an `object`.
+Radios support values of many types, such as a `string`, `boolean`, `number`, or a plain `object`.
 
 ## Inline or stacked radios
 
