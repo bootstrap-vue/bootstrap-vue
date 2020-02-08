@@ -1,5 +1,17 @@
-// This should be moved tp /src/utilities.scss
-.form-control {
+.b-form-spinbutton.form-control {
+  text-align: center;
+  padding: 0;
+  // Handle validation icon (i.e. hide it)
+  background-image: none;
+
+  output {
+    outline: none;
+  }
+
+  .btn {
+    line-height: 1;
+  }
+
   &.focus {
     color: $input-focus-color;
     background-color: $input-focus-bg;
@@ -18,21 +30,6 @@
     &.is-invalid {
       box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-invalid-color, 0.25);
     }
-  }
-}
-
-// Handle validation icon (i.e. hide it)
-.b-spinbutton.form-control {
-  text-align: center;
-  padding: 0;
-  background-image: none;
-
-  output {
-    outline: none;
-  }
-
-  .btn {
-    line-height: 1;
   }
 
   &,
