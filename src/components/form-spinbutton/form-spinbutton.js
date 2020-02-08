@@ -226,7 +226,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         BButton,
         {
           key: key || null,
-          staticClass: 'btn btn-sm border-0 mn-1',
+          staticClass: 'btn btn-sm border-0',
           class: { 'py-0': !isVertical },
           props: {
             variant: this.variant,
@@ -266,11 +266,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       'output',
       {
         key: 'output',
-        staticClass: 'border-0 p-0 w-100',
+        staticClass: 'border-0 px-1',
         class: {
           'flex-grow-1': !isVertical,
           'align-self-center': !isVertical,
-          'm-1': !isVertical
+          'py-1': isVertical
         },
         attrs: {
           id: idSpin,
@@ -301,11 +301,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         class: {
           disabled: isDisabled,
           readonly: isReadonly,
-          vertical: isVertical,
           focus: this.hasFocus,
           'd-inline-flex': isInline || isVertical,
           'd-flex': !isInline && !isVertical,
-          'w-auto': isInline || isVertical,
           'h-auto': isVertical,
           'align-items-stretch': !isVertical,
           'flex-column': isVertical,
