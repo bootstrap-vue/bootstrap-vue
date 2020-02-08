@@ -7,7 +7,10 @@
     "components": [
       {
         "component": "BFormSpinbutton",
-        "version": "2.5.0"
+        "version": "2.5.0",
+        "aliases": [
+           "BSpinbutton"
+        ]
       }
     ]
   }
