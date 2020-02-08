@@ -6,7 +6,7 @@
     "description": "Numerical spintbutton custom form input component",
     "components": [
       {
-        "component": "BFormDpinButton",
+        "component": "BFormSpinbutton",
         "version": "2.5.0"
       }
     ]
