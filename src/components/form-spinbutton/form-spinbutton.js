@@ -3,6 +3,7 @@ import Vue from '../../utils/vue'
 import { insNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import KeyCodes from '../utils/key-codes'
+import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BIconPlus, BIconDash } from '../../icons/icons'
 
@@ -28,6 +29,7 @@ const defaultNumber = (val, def) => {
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME,
   inheritAttrs: false,
+  mixins: [idMixin],
   props: {
     value: {
       // Should this really be String, to match native Number inputs?
@@ -268,8 +270,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'm-1': !isVertical
         },
         attrs: {
-          id: thisSafeId()
-          role: 'spinbutton'
+          id: thisSafeId(),
+          role: 'spinbutton',
           tabindex: '0',
           'aria-live': 'off',
           'aria-label': this.ariaLabel || null,
