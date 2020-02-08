@@ -1,4 +1,5 @@
 // b-form-spinbutton
+import Vue from '../../utils/vue'
 
 // --- Constants ---
 
@@ -17,7 +18,7 @@ const defaultNumber(val, def) {
 
 // --- BFormSpinbutton ---
 // @vue/cpmponent
-export default {
+export const BFormSpinbutton = /*#__PURE__*/ {
   name: NAME,
   inheritAttrs: false,
   props: {
