@@ -35,8 +35,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   props: {
     value: {
       // Should this really be String, to match native Number inputs?
-      type: Number
-      // default: null
+      type: Number,
+      default: null
     },
     min: {
       type: [Number, String],
@@ -57,10 +57,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     formatterFn: {
       type: Function
       // default: null
-    },
-    valueAsNumber: {
-      tyep: Boolean,
-      default: false
     },
     size: {
       type: String
@@ -126,16 +122,13 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     computedMax() {
       return defaultNumber(this.max, DEFAULT_MAX)
     },
-    compuedPrecision() {
+    computedPrecision() {
       // Quick and dirty way to get the number of decimals
       const step = this.computedStep
       return Math.floor(step) === step ? 0 : (step.toString().split('.')[1] || '').length
     },
     computedMult() {
       return Math.pow(10, this.computedPrecision || 0)
-    },
-    computedPlaceholder() {
-      return this.placeholder || '--'
     },
     formattedValue() {
       // Default formatting
@@ -146,12 +139,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     value(value) {
-      value = toFloat(value) // will be NaN if null
+      value = toFloat(value) // Will be NaN if null
       this.localValue = isNaN(value) ? null : value
     },
     localValue(value) {
-      value = toFloat(value) // will be NaN if null
-      value = this.valueAsNumber ? value : isNaN(value) ? '' : value.toFixed(this.computedPrecision)
       this.$emit('input', value)
     }
   },
@@ -261,6 +252,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       $hidden = h('input', {
         key: 'hidden',
         attrs: {
+          type: 'hidden',
           name: this.name,
           form: this.form || null,
           // TODO:
@@ -300,8 +292,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'aria-valuetext': hasValue ? formatter(value) : null
         }
       },
-      // formatter(value)
-      'TODO'
+      hasValue ? formatter(value) : this.placeholder
     )
 
     return h(
@@ -331,7 +322,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           '!blur': this.onFocusBlur
         }
       },
-      this.vertical
+      isVertical
         ? [$increment, $hidden, $spin, $decrement]
         : [$decrement, $hidden, $spin, $increment]
     )
