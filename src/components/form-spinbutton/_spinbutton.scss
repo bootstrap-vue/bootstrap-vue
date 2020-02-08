@@ -1,6 +1,6 @@
 .b-form-spinbutton.form-control {
   text-align: center;
-  // Handle validation icon (i.e. hide it)
+  // Hide validation icon
   background-image: none;
 
   output {
@@ -34,10 +34,10 @@
     }
   }
 
-  &,
-  output {
-    &.disabled
-    &.readonly {
+  &.disabled
+  &.readonly {
+    &,
+    output {
       background-color: $input-disabled-bg;
     }
   }
