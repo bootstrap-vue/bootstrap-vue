@@ -14,6 +14,9 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes()).toContain('b-form-spinbutton')
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
     wrapper.destroy()
   })
 })
