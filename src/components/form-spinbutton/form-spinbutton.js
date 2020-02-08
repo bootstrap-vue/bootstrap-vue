@@ -98,6 +98,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     vertical: {
       type: Boolean,
       default: false
+    },
+    labelIncrement: {
+      type: String,
+      default: 'Increment'
+    },
+    labelDecrement: {
+      type: String,
+      default: 'Decrement'
     }
   },
   data() {
@@ -213,13 +221,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const isDisabled = this.disabled
     const state = this.state
     const hasValue = !isNull(value)
-    const idWidget = this.safeId()
+    const idWidget = this.safeId() || null
     const formatter = isFunction(this.formatterFn) ? this.formatterFn : () => this.formattedValue
 
-    const makeButton = (handler, label, content) => {
+    const makeButton = (handler, label, content, key) => {
       return h(
         BButton,
         {
+          key: key || null,
           staticClass: 'btn btn-sm border-0 mn-1',
           class: { 'py-0': !isVertical },
           props: {
@@ -243,13 +252,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       attrs: { 'aria-hidden': 'true' }
     }
 
-    const $increment = makeButton(this.increment, this.labelIncrement, h(BIconPlus, iconData))
+    const $increment = makeButton(this.increment, this.labelIncrement, h(BIconPlus, iconData), 'inc')
 
-    const $decrement = makeButton(this.decrement, this.labelDecrement, h(BIconDash, iconData))
+    const $decrement = makeButton(this.decrement, this.labelDecrement, h(BIconDash, iconData), 'dec')
 
     let $hidden = h()
     if (this.name) {
       $hidden = h('input', {
+        key: 'hidden',
         attrs: {
           name: this.name,
           form: this.form || null,
@@ -264,6 +274,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       // we use 'output' element to amke thid accept label for
       'output',
       {
+        key: 'output',
         staticClass: 'border-0 p-0 w-100',
         class: {
           'flex-grow-1': !isVertical,
