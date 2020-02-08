@@ -59,7 +59,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     valueAsNumber: {
       tyep: Boolean,
-      default: false,
+      default: false
     },
     size: {
       type: String
@@ -152,12 +152,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         const min = this.computedMin
         const max = this.computedMax
         const wrap = this.wrap
-        this.localValue =
-          value > max
-            ? (wrap ? min : value)
-            : value < min
-              ? (wrap ? max : value)
-              : value
+        this.localValue = value > max ? (wrap ? min : value) : value < min ? (wrap ? max : value) : value
       }
     },
     onFocusBlur(evt) {
@@ -191,7 +186,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     onKeydown(evt) {
       const { keyCode, altKey, ctrlKey, metaKey } = evt
-      if (this.disabled || this.readonly ||  altKey || ctrlKey || metaKey) {
+      if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
         return
       }
       if (arrayIncludes([UP, DOWN, HOME, END], keyCode)) {
@@ -246,14 +241,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       props: { scale: this.hasFocus ? 1.25 : 0 },
       attrs: { 'aria-hidden': 'true' }
     }
-    
+
     const $increment = makeButton(this.increment, this.labelIncrement, h(BIconPlus, iconData))
 
     const $decrement = makeButton(this.decrement, this.labelDecrement, h(BIconDash, iconData))
 
     let $hidden = h()
     if (this.name) {
-      $hidden = h( 'input', {
+      $hidden = h('input', {
         attrs: {
           name: this.name,
           form: this.form || null,
