@@ -30,7 +30,7 @@ const defaultNumber = (val, def) => {
 // @vue/cpmponent
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  // mixins: [idMixin],
+  mixins: [idMixin],
   inheritAttrs: false,
   props: {
     value: {
