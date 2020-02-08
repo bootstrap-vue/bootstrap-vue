@@ -252,9 +252,19 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       attrs: { 'aria-hidden': 'true' }
     }
 
-    const $increment = makeButton(this.increment, this.labelIncrement, h(BIconPlus, iconData), 'inc')
+    const $increment = makeButton(
+      this.increment,
+      this.labelIncrement,
+      h(BIconPlus, iconData),
+      'inc'
+    )
 
-    const $decrement = makeButton(this.decrement, this.labelDecrement, h(BIconDash, iconData), 'dec')
+    const $decrement = makeButton(
+      this.decrement,
+      this.labelDecrement,
+      h(BIconDash, iconData),
+      'dec'
+    )
 
     let $hidden = h()
     if (this.name) {
