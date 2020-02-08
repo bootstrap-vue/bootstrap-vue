@@ -4,7 +4,7 @@ import { pluginFactory } from '../../utils/plugins'
 const FormSpinbuttonPlugin = /*#__PURE__*/ pluginFactory({
   components: {
     BFormSpinbutton,
-    BSpinbutton: BFormSpinbutton,
+    BSpinbutton: BFormSpinbutton
   }
 })
 
