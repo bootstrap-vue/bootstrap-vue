@@ -10,6 +10,8 @@ describe('form-spinbutton', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes()).toContain('b-form-spinbutton')
