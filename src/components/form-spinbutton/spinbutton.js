@@ -11,7 +11,7 @@ const DEFAULT_STEP = 1
 
 // -- Helper functions ---
 
-const defaultNumber(val, def) {
+const defaultNumber = (val, def) => {
   val = toFloat(val)
   return isNaN(val) ? def : val
 }
