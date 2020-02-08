@@ -65,6 +65,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     FormTagsPlugin,
     FormTextareaPlugin,
     FormFilePlugin,
+    FormSpinbuttonPlugin,
     FormSelectPlugin,
     ImagePlugin,
     InputGroupPlugin,
