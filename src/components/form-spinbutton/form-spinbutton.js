@@ -166,7 +166,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     increment() {
       const value = this.localValue
       if (isNull(value)) {
-        this.seltValue(this.computedMin)
+        this.localValue = this.computedMin
       } else {
         const step = this.computedStep
         const mult = this.computedMult
@@ -177,7 +177,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     decrement() {
       const value = this.localValue
       if (isNull(value)) {
-        this.seltValue(this.wrap ? this.computedMax : this.computedMin)
+        this.localValue = this.wrap ? this.computedMax : this.computedMin
       } else {
         const step = this.computedStep
         const mult = this.computedMult
