@@ -209,8 +209,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     // const idSpin = this.safeId()
     const idSpin = null
     const value = this.localValue
-    const isInline = this.inline && !this.vertical
     const isVertical = this.vertical
+    const isInline = this.inline && !isVertical
     const isDisabled = this.disabled
     const isReadonly = this.readonly && !isDisabled
     const isRequired = this.required && !isReadonly && !isDisabled
@@ -298,25 +298,27 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     return h(
       'div',
       {
-        staticClass: 'b-form-spinbutton form-control p-1',
+        staticClass: 'b-form-spinbutton form-control p-1 text-center',
         class: {
           disabled: isDisabled,
           readonly: isReadonly,
-          focus: this.hasFocus,
           vertical: isVertical,
+          focus: this.hasFocus,
           'd-inline-flex': isInline || isVertical,
-          'd-flex': !isInline,
+          'd-flex': !isInline && !isVertical,
+          'w-auto': isInline || isVertical,
+          'h-auto': isVertical,
+          'align-items-stretch': !isVertical
           'flex-column': isVertical,
           'is-valid': state === true,
           'is-invalid': state === false,
-          'align-items-stretch': !isVertical
         },
         attrs: {
           role: 'group',
           ...this.$attrs
         },
         on: {
-          keydown: this.onKeyDown,
+          keydown: this.onKeydown,
           // We use capture phase (`!` prefix) since focus/blur do not bubble
           '!focus': this.onFocusBlur,
           '!blur': this.onFocusBlur
