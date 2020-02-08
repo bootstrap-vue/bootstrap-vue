@@ -5,7 +5,7 @@ import { isFunction, isNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
 import KeyCodes from '../../utils/key-codes'
-// import idMixin from '../../mixins/id'
+import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BIconPlus, BIconDash } from '../../icons/icons'
 
@@ -206,8 +206,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    // const idSpin = this.safeId()
-    const idSpin = null
+    const idSpin = this.safeId()
     const value = this.localValue
     const isVertical = this.vertical
     const isInline = this.inline && !isVertical
