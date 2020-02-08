@@ -18,7 +18,7 @@ const defaultNumber(val, def) {
 
 // --- BFormSpinbutton ---
 // @vue/cpmponent
-export const BFormSpinbutton = /*#__PURE__*/ {
+export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME,
   inheritAttrs: false,
   props: {
@@ -313,4 +313,4 @@ export const BFormSpinbutton = /*#__PURE__*/ {
         : [$decrement, $hidden, $spin, $increment]
     )
   }
-}
+})
