@@ -3,6 +3,8 @@ import Vue from '../../utils/vue'
 import { insNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import KeyCodes from '../utils/key-codes'
+import { BButton } from '../button/button'
+import { BIconPlus, BIconDash } from '../../icons/icons'
 
 // --- Constants ---
 
@@ -183,7 +185,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       if (this.disabled || this.readonly ||  altKey || ctrlKey || metaKey) {
         return
       }
-      if (arrayIncludes([UP, DOWN, HOME, END], keyCode) {
+      if (arrayIncludes([UP, DOWN, HOME, END], keyCode)) {
         // https://w3c.github.io/aria-practices/#spinbutton
         evt.preventDefault()
         if (keyCode === UP) {
@@ -197,13 +199,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         }
       }
     }
-  }
+  },
   render(h) {
     const value = this.localValue
     const isInline = this.inline && !this.vertical
     const isVertical = this.vertical
     const isReadonly = this.readonly && !this.disabled
     const isDisabled = this.disabled
+    const state = this.state
     const hasValue = !isNull(value)
     const idWidget = this.safeId()
     const formatter = isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatterFn
@@ -298,8 +301,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'd-inline-flex': isInline || isVertical
           'd-flex': !isInline,
           'flex-column': isVertical,
-          'is-valid': this.state === true,
-          'is-invalid': this.state === false,
+          'is-valid': state === true,
+          'is-invalid': state === false,
           'align-items-stretch': !isVertial
         },
         attrs: {
