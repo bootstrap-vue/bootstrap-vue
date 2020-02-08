@@ -132,7 +132,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       // Default formatting
       const value = this.localValue
       const precision = this.computedPrecision
-      return isNul(value) ? '' : value.toFixed(precision)
+      return isNull(value) ? '' : value.toFixed(precision)
     }
   },
   watch: {
