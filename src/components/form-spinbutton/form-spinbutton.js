@@ -152,7 +152,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         const min = this.computedMin
         const max = this.computedMax
         const wrap = this.wrap
-        this.localValue = value > max ? (wrap ? min : value) : value < min ? (wrap ? max : value) : value
+        this.localValue =
+          value > max ? (wrap ? min : value) : value < min ? (wrap ? max : value) : value
       }
     },
     onFocusBlur(evt) {
