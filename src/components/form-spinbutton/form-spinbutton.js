@@ -159,7 +159,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     increment() {
       const value = this.localValue
-      if (isNull(value) {
+      if (isNull(value)) {
         this.seltValue(this.computedMin)
       } else {
         const step = this.computedStep
