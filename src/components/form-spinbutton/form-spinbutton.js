@@ -3,7 +3,7 @@ import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { isFunction, isNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
-import { toString } from '../../string'
+import { toString } from '../../utils/string'
 import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
@@ -223,7 +223,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const isRequired = this.required && !isReadonly && !isDisabled
     const state = this.state
     const hasValue = !isNull(value)
-    const formatter = isFunction(this.formatterFn) ? this.formatterFn : (() => this.formattedValue)
+    const formatter = isFunction(this.formatterFn) ? this.formatterFn : () => this.formattedValue
 
     const makeButton = (handler, label, content, key) => {
       return h(
