@@ -1,7 +1,6 @@
 // b-form-spinbutton
 
-
-// --- Cpnstants ---
+// --- Constants ---
 
 const NAME = 'BFormSpinbutton'
 
@@ -16,6 +15,7 @@ const defaultNumber(val, def) {
   return isNaN(val) ? def : val
 }
 
+// --- BFormSpinbutton ---
 // @vue/cpmponent
 export default {
   name: NAME,
