@@ -275,7 +275,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           tabindex: '0',
           'aria-live': 'off',
           'aria-label': this.ariaLabel || null,
-          'aria-controls': this.ariaControls || null
+          'aria-controls': this.ariaControls || null,
           // May want to check if the value is in range
           'aria-invalid': this.state === false || (!hasValue && this.required) ? 'true' : null,
           'aria-required': this.required ? 'true' : null,
