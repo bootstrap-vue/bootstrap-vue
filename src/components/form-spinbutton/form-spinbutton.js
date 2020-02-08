@@ -1,9 +1,14 @@
 // b-form-spinbutton
 import Vue from '../../utils/vue'
+import { insNull } from '../../utils/inspect'
+import { toFloat } from '../../utils/number'
+import KeyCodes from '../utils/key-codes'
 
 // --- Constants ---
 
 const NAME = 'BFormSpinbutton'
+
+const { UP, DOWN, HOME, END } = KeyCodes
 
 const DEFAULT_MIN = 1
 const DEFAULT_MAX = 100
@@ -164,7 +169,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       }
     },
     decrement() {
-      if (isNull(value) {
+      if (isNull(value)) {
         this.seltValue(this.wrap ? this.computedMax : this.computedMin)
       } else {
         const step = this.computedStep
