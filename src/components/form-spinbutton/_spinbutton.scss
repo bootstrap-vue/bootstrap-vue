@@ -1,16 +1,15 @@
 .b-form-spinbutton.form-control {
   text-align: center;
-  padding: 0;
   // Handle validation icon (i.e. hide it)
   background-image: none;
 
   output {
-    outline: none;
+    outline: 0;
   }
 
   .btn {
     line-height: 1;
-    box-shadow: none;
+    box-shadow: none !important;
   }
 
   &.focus {
