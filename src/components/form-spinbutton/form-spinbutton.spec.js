@@ -10,7 +10,7 @@ describe('form-spinbutton', () => {
     await waitRAF()
 
     expect(wrapper.classes()).toContain('form-control')
-    expect(wrapper.classes()).toContain('b-from-spinbutton')
+    expect(wrapper.classes()).toContain('b-form-spinbutton')
 
     wrapper.destroy()
   })
