@@ -214,7 +214,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const state = this.state
     const hasValue = !isNull(value)
     const idWidget = this.safeId()
-    const formatter = isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatterFn
+    const formatter = isFunction(this.formatterFn) ? this.formatterFn : () => this.formattedValue
 
     const makeButton = (handler, label, content) => {
       return h(
