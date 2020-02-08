@@ -96,6 +96,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    buttonVariant: {
+      type: String,
+      default: 'outline-secondary'
+    },
     labelIncrement: {
       type: String,
       default: 'Increment'
@@ -226,12 +230,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         BButton,
         {
           key: key || null,
-          staticClass: 'btn btn-sm border-0',
+          staticClass: 'btn btn-sm border-0 rounded-0',
           class: { 'py-0': !isVertical },
           props: {
-            variant: this.variant,
-            disabled: isDisabled || isReadonly,
-            block: isVertical
+            variant: this.buttonVariant,
+            disabled: isDisabled || isReadonly
           },
           attrs: {
             tabindex: '-1',
