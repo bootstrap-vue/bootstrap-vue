@@ -1,0 +1,14 @@
+{
+  "name": "@bootstrap-vue/form-spinbutton",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Form Spinbutton",
+    "description": "Numerical spintbutton custom form input component",
+    "components": [
+      {
+        "component": "BFormDpinButton",
+        "version": "2.5.0"
+      }
+    ]
+  }
+}
