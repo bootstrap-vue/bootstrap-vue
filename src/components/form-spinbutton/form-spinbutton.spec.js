@@ -5,7 +5,7 @@ import { BFormSpinbutton } from './form-spinbutton'
 describe('form-spinbutton', () => {
   it('has class form-control', async () => {
     const wrapper = mount(BFormSpinbutton)
-    expect(wrapper.isVueComponent()).tobe(true)
+    expect(wrapper.isVueInstance()).tobe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
 
