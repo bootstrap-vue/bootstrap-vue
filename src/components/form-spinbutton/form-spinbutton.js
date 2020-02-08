@@ -5,7 +5,7 @@ import { isFunction, isNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
 import KeyCodes from '../../utils/key-codes'
-import idMixin from '../../mixins/id'
+// import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BIconPlus, BIconDash } from '../../icons/icons'
 
@@ -30,7 +30,7 @@ const defaultNumber = (val, def) => {
 // @vue/cpmponent
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin],
+  // mixins: [idMixin],
   inheritAttrs: false,
   props: {
     value: {
@@ -215,6 +215,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    // const idSpin = this.safeId()
+    const idSpin = null
     const value = this.localValue
     const isInline = this.inline && !this.vertical
     const isVertical = this.vertical
@@ -243,7 +245,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           },
           attrs: {
             tabindex: '-1',
-            'aria-controls': this.safeId(),
+            'aria-controls': idSpin,
             'aria-label': label || null
           },
           on: { click: handler }
@@ -280,7 +282,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'm-1': !isVertical
         },
         attrs: {
-          id: this.safeId(),
+          id: idSpin,
           role: 'spinbutton',
           tabindex: isDisabled ? null : '0',
           'aria-live': 'off',
@@ -298,7 +300,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'aria-valuetext': hasValue ? formatter(value) : null
         }
       },
-      formatter(value)
+      // formatter(value)
+      'TODO'
     )
 
     return h(
