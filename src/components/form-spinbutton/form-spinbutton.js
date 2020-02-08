@@ -1,6 +1,7 @@
 // b-form-spinbutton
 import Vue from '../../utils/vue'
-import { insNull } from '../../utils/inspect'
+import { arrayIncludes } from '../../utils/array'
+import { isFunction, isNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import KeyCodes from '../utils/key-codes'
 import idMixin from '../../mixins/id'
@@ -28,8 +29,8 @@ const defaultNumber = (val, def) => {
 // @vue/cpmponent
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  inheritAttrs: false,
   mixins: [idMixin],
+  inheritAttrs: false,
   props: {
     value: {
       // Should this really be String, to match native Number inputs?
@@ -100,7 +101,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     }
   },
   data() {
-    let value = toFloat(this.value)
+    const value = toFloat(this.value)
     return {
       localValue: isNaN(value) ? null : value,
       hasFocus: false
@@ -119,13 +120,13 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     compuedPrecision() {
       // Quick and dirty way to get the number of decimals
       const step = this.computedStep
-      return Math.floor(step) === step ? 0 : (step.toString().split(".")[1] || '').length
+      return Math.floor(step) === step ? 0 : (step.toString().split('.')[1] || '').length
     },
     computedMult() {
-      Math.pow(10, this.computedPrecision || 0)
+      return Math.pow(10, this.computedPrecision || 0)
     },
     computedPlaceholder() {
-      return this.placeholder || '--'      
+      return this.placeholder || '--'
     },
     formattedValue() {
       // Default formatting
@@ -151,15 +152,20 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         const min = this.computedMin
         const max = this.computedMax
         const wrap = this.wrap
-        this.localValue = value > max
-          ? (wrap ? min : value)
-          : value < min
-            ? (wrap ? max : value)
-            : value
+        this.localValue =
+          value > max
+            ? (wrap ? min : value)
+            : value < min
+              ? (wrap ? max : value)
+              : value
       }
     },
     onFocusBlur(evt) {
-      this.hasFocus = evt.type === 'focus'
+      if (!this.disabled) {
+        this.hasFocus = evt.type === 'focus'
+      } else {
+        this.hasFocus = false
+      }
     },
     increment() {
       const value = this.localValue
@@ -169,17 +175,18 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         const step = this.computedStep
         const mult = this.computedMult
         // We ensure that precision is maintained
-        this.setValue(Math.floor((value * mult) + (step * mult)) / mult)
+        this.setValue(Math.floor(value * mult + step * mult) / mult)
       }
     },
     decrement() {
+      const value = this.localValue
       if (isNull(value)) {
         this.seltValue(this.wrap ? this.computedMax : this.computedMin)
       } else {
         const step = this.computedStep
         const mult = this.computedMult
         // We ensure that precision is maintained
-        this.setValue(Math.floor((value * mult) - (step * mult)) / mult)
+        this.setValue(Math.floor(value * mult - step * mult) / mult)
       }
     },
     onKeydown(evt) {
@@ -218,9 +225,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         BButton,
         {
           staticClass: 'btn btn-sm border-0 mn-1',
-          class: {
-            'py-0': !isVertical
-          },
+          class: { 'py-0': !isVertical },
           props: {
             variant: this.variant,
             disabled: this.disabled || this.readonly,
@@ -266,11 +271,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         staticClass: 'border-0 p-0 w-100',
         class: {
           'flex-grow-1': !isVertical,
-          'align-self-center': !isVertial,
+          'align-self-center': !isVertical,
           'm-1': !isVertical
         },
         attrs: {
-          id: thisSafeId(),
+          id: idWidget,
           role: 'spinbutton',
           tabindex: '0',
           'aria-live': 'off',
@@ -305,7 +310,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'flex-column': isVertical,
           'is-valid': state === true,
           'is-invalid': state === false,
-          'align-items-stretch': !isVertial
+          'align-items-stretch': !isVertical
         },
         attrs: {
           role: 'group',
@@ -314,8 +319,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         on: {
           keydown: this.onKeyDown,
           // We use capture phase (`!` prefix) since focus/blur do not bubble
-          '!focus': onFocusBlur,
-          '!blur': onFocusBlur
+          '!focus': this.onFocusBlur,
+          '!blur': this.onFocusBlur
         }
       },
       this.vertical
