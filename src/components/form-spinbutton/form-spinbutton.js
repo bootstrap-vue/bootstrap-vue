@@ -225,7 +225,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const hasValue = !isNull(value)
     const formatter = isFunction(this.formatterFn) ? this.formatterFn : () => this.formattedValue
 
-    const makeButton = (handler, label, content, key) => {
+    const makeButton = (handler, label, IconCmp, key) => {
+      const $icon = h(IconCmp, {
+        props: { scale: this.hasFocus ? 1.5 : 1.25 },
+        attrs: { 'aria-hidden': 'true' }
+      })
       return h(
         BButton,
         {
@@ -244,28 +248,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           },
           on: { click: handler }
         },
-        [content]
+        [$icon]
       )
     }
-
-    const iconData = {
-      props: { scale: this.hasFocus ? 1.5 : 1.25 },
-      attrs: { 'aria-hidden': 'true' }
-    }
-
-    const $increment = makeButton(
-      this.increment,
-      this.labelIncrement,
-      h(BIconPlus, { ...iconData }),
-      'inc'
-    )
-
-    const $decrement = makeButton(
-      this.decrement,
-      this.labelDecrement,
-      h(BIconDash, { ...iconData }),
-      'dec'
-    )
+    const $increment = makeButton(this.increment, this.labelIncrement, BIconPlus, 'inc')
+    const $decrement = makeButton(this.decrement, this.labelDecrement, BIconDash, 'dec')
 
     let $hidden = h()
     if (this.name) {
