@@ -307,7 +307,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'd-flex': !isInline && !isVertical,
           'w-auto': isInline || isVertical,
           'h-auto': isVertical,
-          'align-items-stretch': !isVertical
+          'align-items-stretch': !isVertical,
           'flex-column': isVertical,
           'is-valid': state === true,
           'is-invalid': state === false,
