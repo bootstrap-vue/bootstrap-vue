@@ -151,11 +151,20 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    setValue(value) {
-      if (!this.disabled) {
+    stepValue(direction) {
+      // Sets a new incremented or decremented value, supporting optional wrapping
+      // Direction is either +1 or -1
+      let value = this.localValue
+      if (!this.disabled && !isNull(value)) {
+        const step = this.computedStep * direction
         const min = this.computedMin
         const max = this.computedMax
+        const mult = this.computedMult
         const wrap = this.wrap
+        // We ensure that the value steps like a native input
+        value = Math.round((value - min) / step) * step + min + step)
+        // We ensure that precision is maintained (decimals)
+        value = Math.round(value * mult) / mult
         this.localValue =
           value > max ? (wrap ? min : max) : value < min ? (wrap ? max : min) : value
       }
@@ -172,10 +181,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       if (isNull(value)) {
         this.localValue = this.computedMin
       } else {
-        const step = this.computedStep
-        const mult = this.computedMult
-        // We ensure that precision is maintained
-        this.setValue(Math.floor(value * mult + step * mult) / mult)
+        this.stepValue(+1)
       }
     },
     decrement() {
@@ -183,10 +189,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       if (isNull(value)) {
         this.localValue = this.wrap ? this.computedMax : this.computedMin
       } else {
-        const step = this.computedStep
-        const mult = this.computedMult
-        // We ensure that precision is maintained
-        this.setValue(Math.floor(value * mult - step * mult) / mult)
+        this.stepValue(-1)
       }
     },
     onKeydown(evt) {
