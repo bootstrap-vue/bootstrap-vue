@@ -14,7 +14,12 @@
     font-size: inherit;
     outline: 0;
     border: 0;
-    min-width: 2.5em;
+
+    > div {
+      line-height: inherit;
+      min-width: 2.5em;
+      height: 1em;
+    }
   }
 
   &.d-inline-flex:not(.flex-column) {
