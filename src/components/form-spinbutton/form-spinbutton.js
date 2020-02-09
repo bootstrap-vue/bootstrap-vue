@@ -283,7 +283,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             count = count < 10 ? count + 1 : count
             // After 10 initial repeats, we speed up the incrementing amount
             // We do this to minimize screen reader annoucements of the value
-            stepper(count < 10 ? 1 : 5)
+            stepper(count < 10 ? 1 : 4)
           }, 100)
         }, 500)
       }
