@@ -429,6 +429,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         },
         on: {
           keydown: this.onKeydown,
+          keyup: this.onKeyup,
           // We use capture phase (`!` prefix) since focus and blur do not bubble
           '!focus': this.onFocusBlur,
           '!blur': this.onFocusBlur
