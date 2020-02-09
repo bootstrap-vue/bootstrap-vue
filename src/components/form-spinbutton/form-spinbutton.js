@@ -272,6 +272,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         //   evt.preventDefault()
         //   this.hasFocus = true
         // }
+        this.resetTimers()
         // Enable body mouseup event handler
         this.setMouseup(true)
         // Step the counter initially
