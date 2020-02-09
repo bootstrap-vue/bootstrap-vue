@@ -162,7 +162,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         const mult = this.computedMult
         const wrap = this.wrap
         // We ensure that the value steps like a native input
-        value = Math.round((value - min) / step) * step + min + step)
+        value = Math.round((value - min) / step) * step + min + step
         // We ensure that precision is maintained (decimals)
         value = Math.round(value * mult) / mult
         this.localValue =
