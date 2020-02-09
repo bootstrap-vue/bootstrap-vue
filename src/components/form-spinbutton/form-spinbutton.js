@@ -268,9 +268,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     handleMousedown(evt, stepper) /* istanbul ignore next: until tests are ready */ {
       if (!this.disabled && !this.readonly) {
-        if (evt.cancelable) {
-          evt.preventDefault()
-        }
+        // if (evt.cancelable) {
+        //   evt.preventDefault()
+        //   this.hasFocus = true
+        // }
         // Enable body mouseup event handler
         this.setMouseup(true)
         // Step the counter initially
@@ -282,8 +283,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             stepper()
             count++
             if (count > 10) {
+              // After 10 initial repeteats, we speed up the incrementing
               clearInterval(this.$_autoRepeatTimer)
-              this.$_autoRepeatTimer = setInterval(stepper, 50)
+              this.$_autoRepeatTimer = setInterval(stepper, 25)
             }
           }, 100)
         }, 500)
