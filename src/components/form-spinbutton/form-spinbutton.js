@@ -1,10 +1,10 @@
 // b-form-spinbutton
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
-import { select } from '../../utils/dom'
 import { isFunction, isNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
+import identity from '../../utils/identity'
 import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
@@ -118,8 +118,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const value = toFloat(this.value)
     return {
       localValue: isNaN(value) ? null : value,
-      hasFocus: false,
-      pageLocale: null
+      hasFocus: false
     }
   },
   computed: {
@@ -142,10 +141,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     valueAsFixed() {
       const value = this.localValue
-      return isNull(value) ? '' : value.toFixed(precision)
+      return isNull(value) ? '' : value.toFixed(this.computedPrecision)
     },
     computedLocale() {
-      const locales = concat(this.locale, this.pageLocale).filter(identity)
+      const locales = concat(this.locale).filter(identity)
       const nf = new Intl.NumberFormat(locales)
       return nf.resolvedOptions().locale
     },
@@ -172,10 +171,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     localValue(value) /* istanbul ignore next: until tests are ready */ {
       this.$emit('input', value)
     }
-  },
-  beforeMount() {
-    const html = select('html')
-    this.pageLocale = html ? html.lang || null : null
   },
   methods: {
     stepValue(direction) /* istanbul ignore next: until tests are ready */ {
