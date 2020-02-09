@@ -17,9 +17,19 @@ const NAME = 'BFormSpinbutton'
 
 const { UP, DOWN, HOME, END } = KeyCodes
 
+// Default for spin button range and step
 const DEFAULT_MIN = 1
 const DEFAULT_MAX = 100
 const DEFAULT_STEP = 1
+
+// Delay before auto-repeat in ms
+const DEFAULT_DELAY = 500
+// Repeat interval in ms
+const DEFAULT_REPEAT_INTERVAL = 100
+// Repeat rate increased after number of repeats
+const DEFAULT_REPEAT_COUNT = 10
+// Repeat speed multiplier (step multiplier, must be an integer)
+const DEFAULT_REPEAT_MULT = 4
 
 // -- Helper functions ---
 
@@ -280,22 +290,23 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.$_autoDelayTimer = setTimeout(() => {
           let count = 0
           this.$_autoRepeatTimer = setInterval(() => {
-            count = count < 10 ? count + 1 : count
-            // After 10 initial repeats, we speed up the incrementing amount
+            count = count < DEFAULT_REPEAT_COUNT ? count + 1 : count
+            // After 10 initial repeats, we increase the incrementing amount
             // We do this to minimize screen reader annoucements of the value
-            stepper(count < 10 ? 1 : 4)
-          }, 100)
-        }, 500)
+            stepper(count < DEFAULT_REPEAT_COUNT ? 1 : Math.floor(DEFAULT_REPEAT_MULT) || 1)
+          }, DEFAULT_REPEAT_INTERVAL)
+        }, DEFAULT_DELAY)
       }
     },
-    onBodyMouseup() /* istanbul ignore next: until tests are ready */ {
-      // body listener, only enabled when mousedown starts
+    onMouseup() /* istanbul ignore next: until tests are ready */ {
+      // `<body>` listener, only enabled when mousedown starts
       this.setMouseup(false)
       this.resetTimers()
       // Trigger the change event
       this.emitChange()
     },
     setMouseup(on) {
+      // Enable or disabled the body mouseup/touchend handlers
       const method = on ? eventOn : eventOff
       try {
         // Use try/catch to handle case when called server side
@@ -316,7 +327,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const hasValue = !isNull(value)
     const formatter = isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatter
 
-    const makeButton = (stepper, label, IconCmp, key) => {
+    const makeButton = (stepper, label, IconCmp, keyRef) => {
       const $icon = h(IconCmp, {
         props: { scale: this.hasFocus ? 1.5 : 1.25 },
         attrs: { 'aria-hidden': 'true' }
@@ -327,7 +338,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       return h(
         BButton,
         {
-          key: key || null,
+          key: keyRef || null,
+          ref: keyRef,
           staticClass: 'btn btn-sm border-0 rounded-0',
           class: { 'py-0': !isVertical },
           props: {
