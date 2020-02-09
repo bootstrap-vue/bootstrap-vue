@@ -107,6 +107,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     labelDecrement: {
       type: String,
       default: 'Decrement'
+    },
+    locale: {
+      type: [String, Array],
+      default: null
     }
   },
   data() {
@@ -134,11 +138,24 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     computedMult() {
       return Math.pow(10, this.computedPrecision || 0)
     },
-    formattedValue() {
-      // Default formatting
+    valueAsFixed() {
       const value = this.localValue
-      const precision = this.computedPrecision
       return isNull(value) ? '' : value.toFixed(precision)
+    },
+    defaultFormatter() {
+      // returns and Intl.NumberFormat formatter method reference
+      const locales = concat(this.locale).filter(identity)
+      const precision = this.computedPrecision
+      const nf = new Intl.NumberFormat(locales, {
+        style: 'decimal',
+        useGrouping: false,
+        minimumIntegerDigits: 1,
+        minimumFractionDigits: precision,
+        maximumFractionDigits: precision,
+        notation: 'standard'
+      })
+      // Return the format method reference
+      return nf.format
     }
   },
   watch: {
@@ -222,7 +239,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const isRequired = this.required && !isReadonly && !isDisabled
     const state = this.state
     const hasValue = !isNull(value)
-    const formatter = isFunction(this.formatterFn) ? this.formatterFn : () => this.formattedValue
+    const formatter = isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatter
 
     const makeButton = (handler, label, IconCmp, key) => {
       const $icon = h(IconCmp, {
@@ -260,15 +277,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           type: 'hidden',
           name: this.name,
           form: this.form || null,
-          // TODO:
-          //   Should this be set to '' if value is out of range?
-          value: hasValue ? value.toFixed(this.computedPrecision) : ''
+          // TODO: Should this be set to '' if value is out of range?
+          value: this.valueAsFixed
         }
       })
     }
 
     const $spin = h(
-      // we use 'output' element to make this accept a label for
+      // We use 'output' element to make this accept a `<label for="id">` (Except IE)
       'output',
       {
         key: 'output',
@@ -286,10 +302,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'aria-live': 'off',
           'aria-label': this.ariaLabel || null,
           'aria-controls': this.ariaControls || null,
-          // May want to check if the value is in range
+          // TODO: May want to check if the value is in range
           'aria-invalid': state === false || (!hasValue && isRequired) ? 'true' : null,
           'aria-required': isRequired ? 'true' : null,
-          // These attrs are required for type spinbutton
+          // These attrs are required for role spinbutton
           'aria-valuemin': toString(this.computedMin),
           'aria-valuemax': toString(this.computedMax),
           // These should be null if the value is out of range
