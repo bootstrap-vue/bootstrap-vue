@@ -18,7 +18,7 @@ import {
   parseYMD,
   resolveLocale
 } from '../../utils/date'
-import { requestAF, select } from '../../utils/dom'
+import { requestAF } from '../../utils/dom'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
@@ -237,9 +237,7 @@ export const BCalendar = Vue.extend({
       gridHasFocus: false,
       // Flag to enable the `aria-live` region(s) after mount
       // to prevent screen reader "outbursts" when mounting
-      isLive: false,
-      // Detected `lang` attribute on `<html>` element of page
-      pageLocale: null
+      isLive: false
     }
   },
   computed: {
@@ -264,7 +262,7 @@ export const BCalendar = Vue.extend({
     },
     computedLocale() {
       // Returns the resolved locale used by the calendar
-      return resolveLocale(concat(this.locale, this.pageLocale).filter(identity), 'gregory')
+      return resolveLocale(concat(this.locale).filter(identity), 'gregory')
     },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)
@@ -506,10 +504,6 @@ export const BCalendar = Vue.extend({
     this.$nextTick(() => {
       this.$emit('context', this.context)
     })
-  },
-  beforeMount() {
-    const html = select('html')
-    this.pageLocale = html && html.lang ? html.lang : null
   },
   mounted() {
     this.setLive(true)
