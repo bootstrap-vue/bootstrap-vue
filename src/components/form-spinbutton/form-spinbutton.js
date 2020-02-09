@@ -300,7 +300,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     return h(
       'div',
       {
-        staticClass: 'b-form-spinbutton form-control p-1',
+        staticClass: 'b-form-spinbutton form-control p-0',
         class: {
           disabled: isDisabled,
           readonly: isReadonly,
