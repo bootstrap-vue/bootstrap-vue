@@ -16,9 +16,8 @@
     border: 0;
 
     > div {
-      line-height: inherit;
       min-width: 2.5em;
-      height: 1em;
+      height: calc(1em * $input-line-height);
     }
   }
 
