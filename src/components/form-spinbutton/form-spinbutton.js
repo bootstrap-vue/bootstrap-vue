@@ -137,7 +137,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       const step = this.computedStep
       return Math.floor(step) === step ? 0 : (step.toString().split('.')[1] || '').length
     },
-    computedMult() {
+    computedMult() /* istanbul ignore next: until tests are ready */ {
       return Math.pow(10, this.computedPrecision || 0)
     },
     valueAsFixed() {
