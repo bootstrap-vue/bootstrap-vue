@@ -2,8 +2,9 @@ import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
-import { arrayIncludes } from '../../utils/array'
+import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
+import { select } from '../../utils/dom'
 import {
   createDate,
   createDateFormatter,
@@ -237,7 +238,9 @@ export const BCalendar = Vue.extend({
       gridHasFocus: false,
       // Flag to enable the `aria-live` region(s) after mount
       // to prevent screen reader "outbursts" when mounting
-      isLive: false
+      isLive: false,
+      // Detected `lang` attribute on `<html>` element of page
+      pageLocale: null
     }
   },
   computed: {
@@ -262,16 +265,17 @@ export const BCalendar = Vue.extend({
     },
     computedLocale() {
       // Returns the resolved locale used by the calendar
-      return resolveLocale(this.locale, 'gregory')
+      return resolveLocale(concat(this.locale, this.pageLocale).filter(identity), 'gregory')
     },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)
       // Needed because IE 11 resolves `ar-IR` as islamic-civil calendar
       // and IE 11 (and some other browsers) do not support the `calendar` option
+      // And we currently only support the gregorian calendar
       const fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: 'gregory' })
       const calendar = fmt.resolvedOptions().calendar
       let locale = fmt.resolvedOptions().locale
-      /* istanbul ignore if: mainly for IE 11, hard to test in JSDOM */
+      /* istanbul ignore if: mainly for IE 11 and a few other browsers, hard to test in JSDOM */
       if (calendar !== 'gregory') {
         // Ensure the locale requests the gregorian calendar
         // Mainly for IE 11, and currently we can't handle non-gregorian calendars
@@ -503,6 +507,10 @@ export const BCalendar = Vue.extend({
     this.$nextTick(() => {
       this.$emit('context', this.context)
     })
+  },
+  beforeMount() {
+    const html = select('html')
+    this.pageLocale = html && html.lang ? html.lang : null
   },
   mounted() {
     this.setLive(true)
