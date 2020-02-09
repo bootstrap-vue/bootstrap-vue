@@ -286,7 +286,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         // Enable body mouseup event handler
         this.setMouseup(true)
         // Step the counter initially
-        stepper()
+        stepper(1)
         // Initiate the delay/repeat interval
         this.$_autoDelayTimer = setTimeout(() => {
           let count = 0
