@@ -191,7 +191,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       clearTimeout(this.$_autoDelayTimer)
       clearInterval(this.$_autoRepeatTimer)
     },
-    emitChange() {
+    emitChange() /* istanbul ignore next: until tests are ready */ {
       this.$emit('change', this.localValue)
     },
     stepValue(direction) /* istanbul ignore next: until tests are ready */ {
