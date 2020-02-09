@@ -26,6 +26,10 @@
   .btn {
     line-height: 1;
     box-shadow: none !important;
+
+    &:hover > div {
+      transform: scale(1.25);
+    }
   }
 
   &.focus {
