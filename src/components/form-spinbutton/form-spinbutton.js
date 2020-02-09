@@ -345,7 +345,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             touchstart: handler
           }
         },
-        [h('div', {}, [$icon]]
+        [h('div', {}, [$icon])]
       )
     }
     const $increment = makeButton(this.stepUp, this.labelIncrement, BIconPlus, 'inc')
