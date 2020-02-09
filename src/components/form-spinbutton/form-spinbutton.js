@@ -295,7 +295,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'aria-valuetext': hasValue ? formatter(value) : null
         }
       },
-      hasValue ? formatter(value) : this.placeholder || '\u00a0' // '&nbsp;' 
+      hasValue ? formatter(value) : this.placeholder || '\u00a0' // '&nbsp;'
     )
 
     return h(
