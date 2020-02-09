@@ -27,7 +27,7 @@ const DEFAULT_DELAY = 500
 // Repeat interval in ms
 const DEFAULT_REPEAT_INTERVAL = 100
 // Repeat rate increased after number of repeats
-const DEFAULT_REPEAT_COUNT = 10
+const DEFAULT_REPEAT_THRESHOLD = 10
 // Repeat speed multiplier (step multiplier, must be an integer)
 const DEFAULT_REPEAT_MULT = 4
 
@@ -277,10 +277,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     handleMousedown(evt, stepper) /* istanbul ignore next: until tests are ready */ {
       if (!this.disabled && !this.readonly) {
-        // if (evt.cancelable) {
-        //   evt.preventDefault()
-        //   this.hasFocus = true
-        // }
+        if (evt.cancelable) {
+          evt.preventDefault()
+          // Trigger focus manually
+          evt.currentTarget.focus()
+        }
         this.resetTimers()
         // Enable body mouseup event handler
         this.setMouseup(true)
@@ -290,10 +291,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.$_autoDelayTimer = setTimeout(() => {
           let count = 0
           this.$_autoRepeatTimer = setInterval(() => {
-            count = count < DEFAULT_REPEAT_COUNT ? count + 1 : count
+            count = count < DEFAULT_REPEAT_THRESHOLD ? count + 1 : count
             // After 10 initial repeats, we increase the incrementing amount
             // We do this to minimize screen reader annoucements of the value
-            stepper(count < DEFAULT_REPEAT_COUNT ? 1 : Math.floor(DEFAULT_REPEAT_MULT) || 1)
+            stepper(count < DEFAULT_REPEAT_THRESHOLD ? 1 : DEFAULT_REPEAT_MULT)
           }, DEFAULT_REPEAT_INTERVAL)
         }, DEFAULT_DELAY)
       }
@@ -387,6 +388,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'flex-grow-1': !isVertical,
           'align-self-center': !isVertical,
           'py-1': isVertical,
+          'mx-1': isVertical,
           'border-top': isVertical,
           'border-bottom': isVertical,
           'border-left': !isVertical,
@@ -411,7 +413,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'aria-valuetext': hasValue ? formatter(value) : null
         }
       },
-      hasValue ? formatter(value) : this.placeholder || '\u00a0' // '&nbsp;'
+      [h('div', { staticClass: 'w-100' }, hasValue ? formatter(value) : this.placeholder || '')]
     )
 
     return h(
