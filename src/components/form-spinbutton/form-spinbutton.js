@@ -422,11 +422,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         attrs: {
           ...this.$attrs,
           role: 'group',
-          lang: this.computedLocale
+          lang: this.computedLocale,
+          // We want to keep the order of the buttons regardless
+          // of locale (flex wil re-order based on rtl/ltr)
+          dir: 'ltr'
         },
         on: {
           keydown: this.onKeydown,
-          // We use capture phase (`!` prefix) since focus/blur do not bubble
+          // We use capture phase (`!` prefix) since focus and blur do not bubble
           '!focus': this.onFocusBlur,
           '!blur': this.onFocusBlur
         }
