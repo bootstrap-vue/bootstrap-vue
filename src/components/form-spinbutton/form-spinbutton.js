@@ -1,6 +1,7 @@
 // b-form-spinbutton
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
+import { eventOff, eventOn } from '../../utils/dom'
 import { isFunction, isNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
@@ -172,7 +173,27 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       this.$emit('input', value)
     }
   },
+  created() {
+    // Create non reactive properties
+    this.$_autoDelayTimer = null
+    this.$_autoRepeatTimer = null
+  },
+  beforeDestroy() {
+    this.restTimers()
+    this.setMouseup(false)
+  },
+  deactivated() /* istanbul ignore next */ {
+    this.restTimers()
+    this.setMouseup(false)
+  },
   methods: {
+    resetTimers() {
+      clearTimeout(this.$_autoDelayTimer)
+      clearInterval(this.$_autoRepeatTimer)
+    },
+    emitChange() {
+      this.$emit('change', this.localValue)
+    },
     stepValue(direction) /* istanbul ignore next: until tests are ready */ {
       // Sets a new incremented or decremented value, supporting optional wrapping
       // Direction is either +1 or -1
@@ -198,7 +219,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.hasFocus = false
       }
     },
-    increment() /* istanbul ignore next: until tests are ready */ {
+    stepUp() /* istanbul ignore next: until tests are ready */ {
       const value = this.localValue
       if (isNull(value)) {
         this.localValue = this.computedMin
@@ -206,7 +227,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.stepValue(+1)
       }
     },
-    decrement() /* istanbul ignore next: until tests are ready */ {
+    stepDown() /* istanbul ignore next: until tests are ready */ {
       const value = this.localValue
       if (isNull(value)) {
         this.localValue = this.wrap ? this.computedMax : this.computedMin
@@ -223,15 +244,65 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         // https://w3c.github.io/aria-practices/#spinbutton
         evt.preventDefault()
         if (keyCode === UP) {
-          this.increment()
+          this.stepUp()
         } else if (keyCode === DOWN) {
-          this.decrement()
+          this.stepDown()
         } else if (keyCode === HOME) {
           this.localValue = this.computedMin
         } else if (keyCode === END) {
           this.localValue = this.computedMax
         }
       }
+    },
+    onKeyup(evt) /* istanbul ignore next: until tests are ready */ {
+      // Emit a change event when the keyup happens
+      const { keyCode, altKey, ctrlKey, metaKey } = evt
+      if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
+        return
+      }
+      if (arrayIncludes([UP, DOWN, HOME, END], keyCode)) {
+        // https://w3c.github.io/aria-practices/#spinbutton
+        evt.preventDefault()
+        this.emitChange()
+      }
+    },
+    handleMousedown(evt, stepper) /* istanbul ignore next: until tests are ready */ {
+      if (!this.disabled && !this.readonly) {
+        if (evt.cancelable) {
+          evt.preventDefault()
+        }
+        // Enable body mouseup event handler
+        this.setMouseup(true)
+        // Step the counter initially
+        stepper()
+        // Initiate the delay/repeat interval
+        this.$_autoDelayTimer = setTimeout(() => {
+          let count = 0
+          this.$_autoRepeatTimer = setInterval(() => {
+            stepper()
+            count++
+            if (count > 10) {
+              clearInterval(this.$_autoRepeatTimer)
+              this.$_autoRepeatTimer = setInterval(stepper, 50)
+            }
+          }, 100)
+        }, 500)
+      }
+    },
+    onBodyMouseup() /* istanbul ignore next: until tests are ready */ {
+      // body listener, only enabled when mousedown starts
+      this.setMouseup(false)
+      this.resetTimers()
+      // Trigger the change event
+      this.emitChange()
+    },
+    setMouseup(on) {
+      const method = on ? eventOn : eventOff
+      try {
+        // Use try/catch to handle case when called server side
+        method(document.body, 'mouseup', this.onBodyMouseup, { passive: true })
+        method(document.body, 'touchend', this.onBodyMouseup, { passive: true })
+      } catch {}
     }
   },
   render(h) {
@@ -246,11 +317,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const hasValue = !isNull(value)
     const formatter = isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatter
 
-    const makeButton = (handler, label, IconCmp, key) => {
+    const makeButton = (stepper, label, IconCmp, key) => {
       const $icon = h(IconCmp, {
         props: { scale: this.hasFocus ? 1.5 : 1.25 },
         attrs: { 'aria-hidden': 'true' }
       })
+      const handler = evt => /* istanbul ignore next: until tests written */ {
+        this.handleMousedown(evt, stepper)
+      }
       return h(
         BButton,
         {
@@ -266,13 +340,16 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             'aria-controls': idSpin,
             'aria-label': label || null
           },
-          on: { click: handler }
+          on: {
+            mousedown: handler,
+            touchstart: handler
+          }
         },
-        [$icon]
+        [h('div', {}, [$icon]]
       )
     }
-    const $increment = makeButton(this.increment, this.labelIncrement, BIconPlus, 'inc')
-    const $decrement = makeButton(this.decrement, this.labelDecrement, BIconDash, 'dec')
+    const $increment = makeButton(this.stepUp, this.labelIncrement, BIconPlus, 'inc')
+    const $decrement = makeButton(this.stepDown, this.labelDecrement, BIconDash, 'dec')
 
     let $hidden = h()
     if (this.name) {
@@ -298,7 +375,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'w-100': !isVertical && !isInline,
           'flex-grow-1': !isVertical,
           'align-self-center': !isVertical,
-          'py-1': isVertical
+          'py-1': isVertical,
+          'border-top': isVertical,
+          'border-bottom': isVertical,
+          'border-left': !isVertical,
+          'border-right': !isVertical
         },
         attrs: {
           id: idSpin,
