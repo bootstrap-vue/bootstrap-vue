@@ -271,6 +271,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         key: 'output',
         staticClass: 'border-0 px-1',
         class: {
+          'w-100': !isVertical && !isInline,
           'flex-grow-1': !isVertical,
           'align-self-center': !isVertical,
           'py-1': isVertical
