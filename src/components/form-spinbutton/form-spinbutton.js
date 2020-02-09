@@ -196,7 +196,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     stepValue(direction) /* istanbul ignore next: until tests are ready */ {
       // Sets a new incremented or decremented value, supporting optional wrapping
-      // Direction is either +1 or -1
+      // Direction is either +1 or -1 (or a multiple thereof)
       let value = this.localValue
       if (!this.disabled && !isNull(value)) {
         const step = this.computedStep * direction
@@ -219,20 +219,20 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.hasFocus = false
       }
     },
-    stepUp() /* istanbul ignore next: until tests are ready */ {
+    stepUp(mult = 1) /* istanbul ignore next: until tests are ready */ {
       const value = this.localValue
       if (isNull(value)) {
         this.localValue = this.computedMin
       } else {
-        this.stepValue(+1)
+        this.stepValue(+1 * mult)
       }
     },
-    stepDown() /* istanbul ignore next: until tests are ready */ {
+    stepDown(mult = 1) /* istanbul ignore next: until tests are ready */ {
       const value = this.localValue
       if (isNull(value)) {
         this.localValue = this.wrap ? this.computedMax : this.computedMin
       } else {
-        this.stepValue(-1)
+        this.stepValue(-1 * mult)
       }
     },
     onKeydown(evt) /* istanbul ignore next: until tests are ready */ {
@@ -261,7 +261,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         return
       }
       if (arrayIncludes([UP, DOWN, HOME, END], keyCode)) {
-        // https://w3c.github.io/aria-practices/#spinbutton
         evt.preventDefault()
         this.emitChange()
       }
@@ -281,13 +280,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.$_autoDelayTimer = setTimeout(() => {
           let count = 0
           this.$_autoRepeatTimer = setInterval(() => {
-            stepper()
-            count++
-            if (count > 10) {
-              // After 10 initial repeteats, we speed up the incrementing
-              clearInterval(this.$_autoRepeatTimer)
-              this.$_autoRepeatTimer = setInterval(stepper, 25)
-            }
+            count = count < 10 ? count + 1 : count
+            // After 10 initial repeats, we speed up the incrementing amount
+            // We do this to minimize screen reader annoucements of the value
+            stepper(count < 10 ? 1 : 5)
           }, 100)
         }, 500)
       }
@@ -373,7 +369,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       'output',
       {
         key: 'output',
-        staticClass: 'border-0 px-1',
+        staticClass: 'px-1',
         class: {
           'w-100': !isVertical && !isInline,
           'flex-grow-1': !isVertical,
