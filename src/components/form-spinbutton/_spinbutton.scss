@@ -5,21 +5,27 @@
   // Hide validation icon
   background-image: none;
 
+  &.flex-column {
+    height: auto;
+    width: auto;
+  }
+
   output {
     font-size: inherit;
     outline: 0;
     border: 0;
-    min-width: 3rem;
+    min-width: 2.5em;
+  }
+
+  &.d-inline-flex:not(.flex-column) {
+    output {
+      width: auto;
+    }
   }
 
   .btn {
     line-height: 1;
     box-shadow: none !important;
-  }
-
-  &.flex-column {
-    width: auto;
-    height: auto;
   }
 
   &.focus {
