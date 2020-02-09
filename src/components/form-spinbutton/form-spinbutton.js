@@ -1,6 +1,7 @@
 // b-form-spinbutton
 import Vue from '../../utils/vue'
-import { arrayIncludes } from '../../utils/array'
+import { arrayIncludes, concat } from '../../utils/array'
+import { select } from '../../utils/dom'
 import { isFunction, isNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
@@ -117,7 +118,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const value = toFloat(this.value)
     return {
       localValue: isNaN(value) ? null : value,
-      hasFocus: false
+      hasFocus: false,
+      pageLocale: null
     }
   },
   computed: {
@@ -166,6 +168,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     localValue(value) {
       this.$emit('input', value)
     }
+  },
+  beforeMount() {
+    const html = select('html')
+    this.pageLocale = html ? html.lang || null : null
   },
   methods: {
     stepValue(direction) {
