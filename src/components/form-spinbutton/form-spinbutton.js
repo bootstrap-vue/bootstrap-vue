@@ -197,10 +197,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     this.setMouseup(false)
   },
   methods: {
-    resetTimers() {
-      clearTimeout(this.$_autoDelayTimer)
-      clearInterval(this.$_autoRepeatTimer)
-    },
     emitChange() /* istanbul ignore next: until tests are ready */ {
       this.$emit('change', this.localValue)
     },
@@ -301,8 +297,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     onMouseup() /* istanbul ignore next: until tests are ready */ {
       // `<body>` listener, only enabled when mousedown starts
-      this.setMouseup(false)
       this.resetTimers()
+      this.setMouseup(false)
       // Trigger the change event
       this.emitChange()
     },
@@ -311,9 +307,13 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       const method = on ? eventOn : eventOff
       try {
         // Use try/catch to handle case when called server side
-        method(document.body, 'mouseup', this.onBodyMouseup, { passive: true })
-        method(document.body, 'touchend', this.onBodyMouseup, { passive: true })
+        method(document.body, 'mouseup', this.onMouseup, { passive: true })
+        method(document.body, 'touchend', this.onMouseup, { passive: true })
       } catch {}
+    },
+    resetTimers() {
+      clearTimeout(this.$_autoDelayTimer)
+      clearInterval(this.$_autoRepeatTimer)
     }
   },
   render(h) {
