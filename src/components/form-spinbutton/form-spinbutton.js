@@ -179,7 +179,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     this.$_autoRepeatTimer = null
   },
   beforeDestroy() {
-    this.restTimers()
+    this.resetTimers()
     this.setMouseup(false)
   },
   deactivated() /* istanbul ignore next */ {
