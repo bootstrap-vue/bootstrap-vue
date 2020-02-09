@@ -4,7 +4,6 @@ import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { select } from '../../utils/dom'
 import {
   createDate,
   createDateFormatter,
@@ -19,7 +18,7 @@ import {
   parseYMD,
   resolveLocale
 } from '../../utils/date'
-import { requestAF } from '../../utils/dom'
+import { requestAF, select } from '../../utils/dom'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
