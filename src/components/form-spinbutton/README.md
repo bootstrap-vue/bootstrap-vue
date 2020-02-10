@@ -232,9 +232,10 @@ to the user and does not affect the `v-model`.
     <b-form-spinbutton
       id="sb-days"
       v-model="value"
+      :formatter-fn="dayFormatter"
       min="0"
       max="6"
-      :formatter-fn="dayFormatter"
+      wrap
     ></b-form-spinbutton>
     <p>Value: {{ value }}</p>
   </div>
