@@ -153,9 +153,10 @@ TBD
 
 By default `<b-form-spinbutton>` will format the displayed number in the users browser default
 locale.  You can change the localized formatting by specifying a locale (or array of locales) via
-the `locale` prop. Number format localization is performed via `Intl.NumberFormat`. The locales
-available will be dependant on the browser implementation. Localization only controls the presentation
-of the value to the user, and does not affect the `v-model`.
+the `locale` prop. Number format localization is performed via
+[`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat).
+The locales available will be dependant on the browser implementation. Localization only controls the
+presentation of the value to the user, and does not affect the `v-model`.
 
 ```html
 <template>
@@ -196,11 +197,13 @@ of the value to the user, and does not affect the `v-model`.
 <!-- b-form-spinbotton-locale.vue -->
 ```
 
-Alternatively, you can provide your own number formatter function to format the value displayed.
-This is usefull for displaying text instead of a number. To provide a formatter function, set the
-prop `formatter-fn` to a method reference.  The formatter is passed a single argument which is
-the current value. Note the formatter only affects the value displayed to the user and does not
-affect the `v-model`.
+Alternatively, you can provide your own number formatter function to format the value displayed. This
+is usefull for displaying text instead of a number, or if you want to implementdifferent features of
+`Intl.NumberFormat`.
+
+To provide a formatter function, set the prop `formatter-fn` to a method reference. The formatter is
+passed a single argument which is the current value. Note the formatter only affects the value displayed
+to the user and does not affect the `v-model`.
 
 ```html
 <template>
