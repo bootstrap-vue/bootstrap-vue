@@ -346,7 +346,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const hasValue = !isNull(value)
     const formatter = isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatter
 
-    const makeButton = (stepper, label, IconCmp, keyRef) => {
+    const makeButton = (stepper, label, IconCmp, keyRef, shortcut) => {
       const $icon = h(IconCmp, {
         props: { scale: this.hasFocus ? 1.5 : 1.25 },
         attrs: { 'aria-hidden': 'true' }
@@ -368,7 +368,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             type: 'button',
             disabled: isDisabled || isReadonly,
             'aria-controls': idSpin,
-            'aria-label': label || null
+            'aria-label': label || null,
+            'aria-shortcutkeys': shortcut || null
           },
           on: {
             mousedown: handler,
@@ -378,8 +379,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         [h('div', {}, [$icon])]
       )
     }
-    const $increment = makeButton(this.stepUp, this.labelIncrement, BIconPlus, 'inc')
-    const $decrement = makeButton(this.stepDown, this.labelDecrement, BIconDash, 'dec')
+    const $increment = makeButton(this.stepUp, this.labelIncrement, BIconPlus, 'inc'. 'ArrowUp')
+    const $decrement = makeButton(this.stepDown, this.labelDecrement, BIconDash, 'dec', 'ArrowDown')
 
     let $hidden = h()
     if (this.name) {
