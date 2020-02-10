@@ -73,6 +73,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       type: String
       // default: null
     },
+    placeholder: {
+      type: String,
+      default: null
+    },
     disabled: {
       type: Boolean,
       default: false
