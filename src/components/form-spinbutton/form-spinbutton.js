@@ -8,7 +8,6 @@ import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
 import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
-import { BButton } from '../button/button'
 import { BIconPlus, BIconDash } from '../../icons/icons'
 
 // --- Constants ---
@@ -107,10 +106,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     vertical: {
       type: Boolean,
       default: false
-    },
-    buttonVariant: {
-      type: String,
-      default: 'outline-secondary'
     },
     labelIncrement: {
       type: String,
@@ -352,21 +347,21 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         attrs: { 'aria-hidden': 'true' }
       })
       const handler = evt => /* istanbul ignore next: until tests written */ {
-        this.handleStepRepeat(evt, stepper)
+        if (!isDisabled && !isReadonly) {
+          this.handleStepRepeat(evt, stepper)
+        }
       }
       return h(
-        BButton,
+        'button',
         {
           key: keyRef || null,
           ref: keyRef,
           staticClass: 'btn btn-sm border-0 rounded-0',
           class: { 'py-0': !isVertical },
-          props: {
-            variant: this.buttonVariant,
-            disabled: isDisabled || isReadonly
-          },
           attrs: {
             tabindex: '-1',
+            type: 'button',
+            disabled: isDisabled || isReadonly,
             'aria-controls': idSpin,
             'aria-label': label || null
           },
