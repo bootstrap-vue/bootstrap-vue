@@ -18,6 +18,7 @@
 
     > div {
       min-width: 2em;
+      // We set a height to ensure an empty value isn't collapsed
       height: 1em * $input-line-height;
     }
   }
