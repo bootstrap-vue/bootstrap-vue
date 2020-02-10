@@ -278,12 +278,12 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     onKeyup(evt) /* istanbul ignore next: until tests are ready */ {
       // Emit a change event when the keyup happens
       const { keyCode, altKey, ctrlKey, metaKey } = evt
-      this.resetTimers()
-      this.$_keyIsDown = false
       if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
         return
       }
       if (arrayIncludes([UP, DOWN, HOME, END], keyCode)) {
+        this.resetTimers()
+        this.$_keyIsDown = false
         evt.preventDefault()
         this.emitChange()
       }
