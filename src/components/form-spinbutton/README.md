@@ -4,11 +4,11 @@
 > or decrementing a numerical value within a range of a minimum and maximum number, with optional step
 > value.
 
-`<b-form-spinbutton>` is WAI_ARIA compliant, allowing for keyboard control, and support both horizontal
-(default) and vertical layout.
+`<b-form-spinbutton>` is [WAI-ARIA compliant](https://www.w3.org/TR/wai-aria-practices-1.2/#spinbutton),
+allowing for keyboard control, and supports both horizontal (default) and vertical layout.
 
-Similar to [range type inputs](/docs/components/form-input#range-type-input), spin buttons _do not_ allow
-the user to type in a value.
+Similar to [range type inputs](/docs/components/form-input#range-type-input), BootstrapVue's
+`<b-form-spinbutton>` _does not_ allow the user to type in a value.
 
 ```html
 <template>
