@@ -65,6 +65,14 @@
           {
             "prop": "vertical",
             "description": "When set, renders the component with a vertical layout"
+          },
+          {
+            "prop": "labelIncrement",
+            "description": "Text to be used for the `aria-label` attribute on the inrement button"
+          },
+          {
+            "prop": "labelDecrement",
+            "description": "Text to be used for the `aria-label` attribute on the decrement button"
           }
         ],
         "events": [
