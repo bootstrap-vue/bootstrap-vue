@@ -86,10 +86,10 @@ As with other form controls, `<b-form-spinbutton>` supports small and large sizi
     <label for="sb-small">Spin button - Small size</label>
     <b-form-spinbutton id="sb-small" size="sm" class="mb-2"></b-form-spinbutton>
 
-    <label for="db-default">Spin button - Default size</label>
+    <label for="sb-default">Spin button - Default size</label>
     <b-form-spinbutton id="sb-default" class="mb-2"></b-form-spinbutton>
 
-    <label for="db-large">Spin button - Large size</label>
+    <label for="sb-large">Spin button - Large size</label>
     <b-form-spinbutton id="sb-large" size="lg" class="mb-2"></b-form-spinbutton>
   </div>
 </template>
