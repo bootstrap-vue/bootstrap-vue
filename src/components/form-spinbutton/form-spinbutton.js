@@ -342,6 +342,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const isReadonly = this.readonly && !isDisabled
     const isRequired = this.required && !isReadonly && !isDisabled
     const state = this.state
+    const size = this.size
     const hasValue = !isNull(value)
     const formatter = isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatter
 
@@ -441,6 +442,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           disabled: isDisabled,
           readonly: isReadonly,
           focus: this.hasFocus,
+          [`form-control-${size}`]: !!size,
           'd-inline-flex': isInline || isVertical,
           'd-flex': !isInline && !isVertical,
           'h-auto': isVertical,
