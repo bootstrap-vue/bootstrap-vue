@@ -3,7 +3,7 @@ import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
 import { eventOff, eventOn } from '../../utils/dom'
 import { isFunction, isNull } from '../../utils/inspect'
-import { toFloat } from '../../utils/number'
+import { toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
 import KeyCodes from '../../utils/key-codes'
@@ -22,7 +22,7 @@ const DEFAULT_MAX = 100
 const DEFAULT_STEP = 1
 
 // Delay before auto-repeat in ms
-const DEFAULT_DELAY = 500
+const DEFAULT_REPEAT_DELAY = 500
 // Repeat interval in ms
 const DEFAULT_REPEAT_INTERVAL = 100
 // Repeat rate increased after number of repeats
@@ -35,6 +35,11 @@ const DEFAULT_REPEAT_MULT = 4
 const defaultNumber = (val, def) => {
   val = toFloat(val)
   return isNaN(val) ? def : val
+}
+
+const defaultInteger = (val, def) => {
+  val = toInteger(val)
+  return isNaN(val) ? Math.abs(def) : val
 }
 
 // --- BFormSpinbutton ---
@@ -122,6 +127,22 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     locale: {
       type: [String, Array],
       default: null
+    },
+    repeatDelay: {
+      type: [Number, String],
+      default: DEFAULT_REPEAT_DELAY
+    },
+    repeatInterval: {
+      type: [Number, String],
+      default: DEFAULT_REPEAT_INTERVAL
+    },
+    repeatThreshold: {
+      type: [Number, String],
+      default: DEFAULT_REPEAT_THRESHOLD
+    },
+    repeatStepMultiplier: {
+      type: [Number, String],
+      default: DEFAULT_REPEAT_MULT
     }
   },
   data() {
@@ -140,6 +161,18 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     computedMax() {
       return defaultNumber(this.max, DEFAULT_MAX)
+    },
+    computedDelay() /* istanbul ignore next: until tests are ready */ {
+      return defaultInteger(this.repeatDelay, DEFAULT_REPEAT_DELAY) || DEFAULT_REPEAT_DELAY
+    },
+    computedInterval() /* istanbul ignore next: until tests are ready */ {
+      return defaultInteger(this.repeatInterval, DEFAULT_REPEAT_INTERVAL) || DEFAULT_REPEAT_INTERVAL
+    },
+    computedThreshold() /* istanbul ignore next: until tests are ready */ {
+      return defaultInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD) || 1
+    },
+    computedStepMult() /* istanbul ignore next: until tests are ready */ {
+      return defaultInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULT) || 1
     },
     computedPrecision() {
       // Quick and dirty way to get the number of decimals
@@ -302,14 +335,18 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         stepper(1)
         // Initiate the delay/repeat interval
         this.$_autoDelayTimer = setTimeout(() => {
+          const threshold = this.computedThreshold
+          const multiplier = this.computedStepMult
           let count = 0
           this.$_autoRepeatTimer = setInterval(() => {
-            count = count < DEFAULT_REPEAT_THRESHOLD ? count + 1 : count
-            // After 10 initial repeats, we increase the incrementing amount
+            count = count < threshold ? count + 1 : count
+            // After N initial repeats, we increase the incrementing step amount
             // We do this to minimize screen reader annoucements of the value
-            stepper(count < DEFAULT_REPEAT_THRESHOLD ? 1 : DEFAULT_REPEAT_MULT)
-          }, DEFAULT_REPEAT_INTERVAL)
-        }, DEFAULT_DELAY)
+            // (values are announced every change, which can be chatty for SR users)
+            // Ad to make it easer to select a value when the range is large
+            stepper(count < threshold ? 1 : multiplier)
+          }, this.computedInterval)
+        }, this.computedDelay)
       }
     },
     onMouseup() /* istanbul ignore next: until tests are ready */ {
