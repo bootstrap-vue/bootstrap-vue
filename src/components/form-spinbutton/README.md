@@ -37,7 +37,7 @@ The <kbd>ArrowUp</kbd> and <kbd>ArrowDown</kbd> keys can be used to increment or
 value.
 
 To be submitted via native browser form submits, the spinbutton must have a name set via the `name`
-prop. This will create a hiddden input containing hte current value of the spinbutton. If the
+prop. This will create a hidden input containing the current value of the spinbutton. If the
 spinbutton does not have a value, the hidden input's value will be an empty string.
 
 ## `v-model` value
@@ -232,10 +232,6 @@ affect the `v-model`.
 
 <!-- b-form-spinbotton-formatter.vue -->
 ```
-
-### Using in input groups
-
-TBD
 
 ## Disabled and readonly states
 
