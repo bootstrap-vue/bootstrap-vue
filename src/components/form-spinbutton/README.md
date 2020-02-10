@@ -149,7 +149,7 @@ Spinbuttons can be oriented in vertical mode:
 <script>
   export default {
     data() {
-      return: {
+      return {
         value: 50
       }
     }
