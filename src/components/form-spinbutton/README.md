@@ -156,7 +156,7 @@ TBD
 ```
 
 The spin button will automatically adjust it's width to fit the displayed value. See the
-[Width section](#width) before for details on controling or setting the width.
+[Width section](#width) below for details on controling or setting the width.
 
 ### Vertical
 
@@ -183,21 +183,27 @@ Spinbuttons can be oriented in vertical mode:
 <!-- b-form-spinbotton-vertical.vue -->
 ```
 
-Vertical spin buttons can also be sized using the `size` prop.  When in vertical mode, the spin button
-is rendered as an inline element.
+Vertical spin buttons can also be sized using the [`size` prop](#size). When in vertical mode, the spin
+button is rendered as an inline element.
 
 The spin button will automatically adjust it's width to fit the displayed value. See the
-[Width section](#width) before for details on controling or setting the width.
+[Width section](#width) below for details on controling or setting the width.
 
 ### Width
+
+The control (when not `vertical` or `inline`) will expand to the maximum witdh of the parent container You
+can control width via utility classes such as `w-25`, `w-50`, `w-75`, or use styles to set the width.
+
+When either `vertical` or `inline` is set, the control will adjust its width based on the displayed value.
+You can use css style to control the overall width of the control (i.e. `style="width: 10rem;`).
 
 TBD
 
 ### Number formatting and locale
 
-By default `<b-form-spinbutton>` will format the displayed number in the users browser default
-locale.  You can change the localized formatting by specifying a locale (or array of locales) via
-the `locale` prop. Number format localization is performed via
+By default `<b-form-spinbutton>` will format the displayed number in the users browser default locale.
+You can change the localized formatting by specifying a locale (or array of locales) via the `locale`
+prop. Number format localization is performed via
 [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat).
 The locales available will be dependant on the browser implementation. Localization only controls the
 presentation of the value to the user, and does not affect the `v-model`.
@@ -321,15 +327,80 @@ spinbutton will be submitted (as long as a name has been set via the `name` prop
 
 ## Validation states
 
-TBD
+When you default to a `null` value, and the user has not selected a value, you can use the `state`
+prop to apply one of the contextual validation styles to the component
+
+- `true` applies the valid styling to the component
+- `false` applies the invalid styling to the component
+- `null` (the default) applies no contetual styling
+
+### Required prop
+
+Note that the required prop only generates the `aria-required="true"` attribute on the component,
+and does not perform any validation on form submit. You must validate the v-model in your
+application logic.
+
+Note that if the prop `required` is set, and the v-model is `null`, the attribute
+`aria-invalid="true"` will be rendered on the component.
 
 ## Events
 
-TBD
+The `input` event is used to update the `v-model` and is emitted any time the value changes.
+
+The `change` event is emitted once the user releases the mouse button (when pressing the
+inrement or decrement buttons) or when the user releases the <kbd>ArrowDown</kbd> or
+<kbd>ArrowUp</kbd> key. This can be handy when you need to debounce the input.
+
+The folowing example illustrates teh difference between the `input` and `change` events.
+Click and hold the increment or decrement button (or use the up/down arrow keys).
+
+```html
+<template>
+<template>
+  <b-row>
+    <b-col md="6">
+      <label for="sb-input">Spin button using input event</label>
+      <b-form-spinbutton id="sb-input" v-model="valueA" wrap></b-form-spinbutton>
+      <p>Value: {{ valueA }}</p>
+    </b-col>
+    <b-col md="6">
+      <label for="sb-change" class="">Spin button using change event</label>
+      <b-form-spinbutton id="sb-change" :value="valueB" @change="valueB = $event" wrap></b-form-spinbutton>
+      <p>Value: {{ valueB }}</p>
+    </b-col>
+  </b-row>
+</template>
+
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        valueA: 0,
+        valueB: 0
+      }
+    }
+  }
+</script>
+
+<!-- b-form-spinbutton-events.vue -->
+```
 
 ## Accessibility
 
-TBD
+The following keyboard controls are available when the spin button is focused:
+
+- <kbd>ArrowUp</kbd> Increases the value
+- <kbd>ArrowDown</kbd> Decreases the value
+
+Pressing an holding the key will auto-repeat the increment or decrement (after an initial delay).
+Holding the key for an extended period will increase the increment or decrement speed.
+
+## Implementation notes
+
+`<b-form-spinbutton>` usesa mixture of Bootstrap v4 utility classes (margin, padding, and flex),
+form-control and button classes, along with additional custom BootstrapVue SCSS/CSS.
 
 ## See also
 
