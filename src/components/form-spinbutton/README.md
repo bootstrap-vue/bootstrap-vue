@@ -45,6 +45,9 @@ spinbutton does not have a value, the hidden input's value will be an empty stri
 The `v-model` always returns the value as a number. The `v-model` can be `null` if no initial value
 is set.
 
+If the initial value is `null` no value will be displayed in the spinbutton. Use the `placeholder`
+prop to show a string when the spinbutton has no value (i.e. `placeholder="--"`).
+
 ## Min, max, and step
 
 Spinbuttons have a default range from `1` to `100`, which can be changed by setting the `min` and
@@ -66,7 +69,7 @@ set the `wrap` prop to `true`.
 <template>
   <div>
     <label for="sb-wrap">Wrapping value spin button</label>
-    <b-form-spinbutton id="sb-wrap" wrap min="1" max="25"></b-form-spinbutton>
+    <b-form-spinbutton id="sb-wrap" wrap min="1" max="25" placeholder="--"></b-form-spinbutton>
   </div>
 </template>
 
@@ -84,13 +87,13 @@ As with other form controls, `<b-form-spinbutton>` supports small and large sizi
 <template>
   <div>
     <label for="sb-small">Spin button - Small size</label>
-    <b-form-spinbutton id="sb-small" size="sm" class="mb-2"></b-form-spinbutton>
+    <b-form-spinbutton id="sb-small" size="sm" placeholder="--" class="mb-2"></b-form-spinbutton>
 
     <label for="sb-default">Spin button - Default size</label>
-    <b-form-spinbutton id="sb-default" class="mb-2"></b-form-spinbutton>
+    <b-form-spinbutton id="sb-default" placeholder="--" class="mb-2"></b-form-spinbutton>
 
     <label for="sb-large">Spin button - Large size</label>
-    <b-form-spinbutton id="sb-large" size="lg" class="mb-2"></b-form-spinbutton>
+    <b-form-spinbutton id="sb-large" size="lg" placeholder="--" class="mb-2"></b-form-spinbutton>
   </div>
 </template>
 
