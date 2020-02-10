@@ -162,6 +162,9 @@ Spinbuttons can be oriented in vertical mode:
 Vertical spin buttons can also be sized using hte `size` prop.  When in vertical mode, the
 spinbutton is rendered as an inline element.
 
+The spin button will automatically adjust it's width to fit the displayed value. See the
+[Width section](#width) before for details on controling or setting the width.
+
 ### Width
 
 TBD
