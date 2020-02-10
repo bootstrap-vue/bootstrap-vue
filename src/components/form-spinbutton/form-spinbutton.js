@@ -186,12 +186,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       if (disabled) {
         this.resetTimers()
         this.setMouseup(false)
+        this.$_keyIsDown = false
       }
     },
     readonly(readonly) /* istanbul ignore next */ {
       if (readonly) {
         this.resetTimers()
         this.setMouseup(false)
+        this.$_keyIsDown = false
       }
     }
   },
@@ -331,7 +333,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     resetTimers() {
       clearTimeout(this.$_autoDelayTimer)
       clearInterval(this.$_autoRepeatTimer)
-      this.$_keyIsDown = false
     }
   },
   render(h) {
