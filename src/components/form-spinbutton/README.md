@@ -351,26 +351,22 @@ The `change` event is emitted once the user releases the mouse button (when pres
 inrement or decrement buttons) or when the user releases the <kbd>ArrowDown</kbd> or
 <kbd>ArrowUp</kbd> key. This can be handy when you need to debounce the input.
 
-The folowing example illustrates teh difference between the `input` and `change` events.
+The folowing example illustrates the difference between the `input` and `change` events.
 Click and hold the increment or decrement button (or use the up/down arrow keys).
 
 ```html
 <template>
-<template>
-  <b-row>
-    <b-col md="6">
-      <label for="sb-input">Spin button - input event</label>
-      <b-form-spinbutton id="sb-input" v-model="valueA" wrap></b-form-spinbutton>
-      <p>Value: {{ valueA }}</p>
-    </b-col>
-    <b-col md="6">
-      <label for="sb-change" class="">Spin button - change event</label>
-      <b-form-spinbutton id="sb-change" :value="valueB" @change="valueB = $event" wrap></b-form-spinbutton>
-      <p>Value: {{ valueB }}</p>
-    </b-col>
+  <div>
+    <label for="sb-input">Spin button - input and change events</label>
+    <b-form-spinbutton
+      id="sb-input"
+      v-model="valueA"
+      @change="valueB = $event"
+      wrap
+    ></b-form-spinbutton>
+    <p>Input event: {{ valueA }}</p>
+    <p>Change event: {{ valueB }}</p>
   </b-row>
-</template>
-
 </template>
 
 <script>
