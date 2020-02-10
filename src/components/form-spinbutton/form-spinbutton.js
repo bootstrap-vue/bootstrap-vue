@@ -161,12 +161,13 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     defaultFormatter() {
       // returns and Intl.NumberFormat formatter method reference
+      const precision = this.computedPrecision
       const nf = new Intl.NumberFormat(this.computedLocale, {
         style: 'decimal',
         useGrouping: false,
         minimumIntegerDigits: 1,
-        minimumFractionDigits: 0,
-        maximumFractionDigits: this.computedPrecision,
+        minimumFractionDigits: precision,
+        maximumFractionDigits: precision,
         notation: 'standard'
       })
       // Return the format method reference
@@ -272,11 +273,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     handleMousedown(evt, stepper) /* istanbul ignore next: until tests are ready */ {
       if (!this.disabled && !this.readonly) {
-        if (evt.cancelable) {
-          evt.preventDefault()
-          // Trigger focus manually
-          evt.currentTarget.focus()
-        }
+        // if (evt.cancelable) {
+        //  evt.preventDefault()
+        //  // Trigger focus manually
+        //  evt.currentTarget.focus()
+        // }
         this.resetTimers()
         // Enable body mouseup event handler
         this.setMouseup(true)
