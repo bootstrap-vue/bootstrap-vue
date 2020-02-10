@@ -31,14 +31,27 @@
 
 ## Overview
 
-Spinbuttons have a default range from `1` to `100`, which can be changed by setting the `min` and
-`max` props.  The default step increment is `1`, which can be changed via the `step` prop (decimal
-values allowed).
-
-When `step` is set, the value will always be a multiple of the step size plus the minimum value.
+TBD
 
 The <kbd>ArrowUp</kbd> and <kbd>ArrowDown</kbd> keys can be used to increment or decrement the
 value.
+
+To be submitted via native browser form submits, the spinbutton must have a name set via the `name`
+prop. This will create a hiddden input containing hte current value of the spinbutton. If the
+spinbutton does not have a value, the hidden input's value will be an empty string.
+
+## `v-model` value
+
+The `v-model` always returns the value as a number. The `v-model` can be `null` if no initial value
+is set.
+
+## Min, max, and step
+
+Spinbuttons have a default range from `1` to `100`, which can be changed by setting the `min` and
+`max` props.  The default step increment is `1`, and can be changed via the `step` prop (decimal
+values allowed).
+
+When `step` is set, the value will always be a multiple of the step size plus the minimum value.
 
 ## Styling
 
@@ -70,7 +83,7 @@ TBD
 
 ### Vertical
 
-Spinbuttons can be oriented in vertical mode
+Spinbuttons can be oriented in vertical mode:
 
 ```html
 <template>
@@ -89,7 +102,23 @@ Vertical spinbuttons can also be sized.
 
 TBD
 
+### Number formatting and locale
+
+By default `<b-form-spinbutton>` will format the displayed number in the users browser default
+locale.  You can change the localized formatting by specifying a locale (or array of locales) via
+the `locale` prop.
+
+TBD
+
+Alternatively, you can provide your own number formatter function to format the value displayed.
+
+TBD
+
 ### Using in input groups
+
+TBD
+
+## Disabled and readonly states
 
 TBD
 
