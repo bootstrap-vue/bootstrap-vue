@@ -76,19 +76,19 @@
           },
           {
             "prop": "repeatDelay",
-            "description": "Delay in milliseconds after before auto repeat increment or decrement happens. Requires the user to click/keydown and hold"
+            "description": "Delay in milliseconds after before auto repeat increment or decrement happens. Must be a postive integer. Requires the user to click/keydown and hold"
           },
           {
             "prop": "repeatInterval",
-            "description": "Interval in milliseconds between increment or decrement repeats"
+            "description": "Interval in milliseconds between increment or decrement repeats. Must be a postive integer"
           },
           {
             "prop": "repeatThreshold",
-            "description": "Number of repeats to occur before increasing the step size by `repeat-step-multiplier`"
+            "description": "Number of repeats to occur before increasing the step size by `repeat-step-multiplier`. Must be a positive integer"
           },
           {
             "prop": "repeatStepMultiplier",
-            "description": "Number of steps to jump by once the `repeat-threshold` has been reached"
+            "description": "Number of steps to jump by once the `repeat-threshold` has been reached. Must be a positive integer"
           }
         ],
         "events": [
