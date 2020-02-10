@@ -63,7 +63,13 @@ When `step` is set, the value will always be a multiple of the step size plus th
 <template>
   <div>
     <label for="sb-step">Spin button with step of 0.25</label>
-    <b-form-spinbutton id="sb-step" min="0" max="10" step="0.25"></b-form-spinbutton>
+    <b-form-spinbutton
+      id="sb-step"
+      v-model="value"
+      min="0"
+      max="10"
+      step="0.25"
+    ></b-form-spinbutton>
   </div>
 </template>
 
@@ -136,14 +142,25 @@ Spinbuttons can be oriented in vertical mode:
 <template>
   <div>
     <label for="sb-vertical">Vertical spin button</label><br>
-    <b-form-spinbutton id="sb-vertical" vertical></b-form-spinbutton>
+    <b-form-spinbutton id="sb-vertical" v-model="value" vertical></b-form-spinbutton>
   </div>
 </template>
+
+<script>
+  export default {
+    data() {
+      return: {
+        value: 50
+      }
+    }
+  }
+</script>
 
 <!-- b-form-spinbotton-vertical.vue -->
 ```
 
-Vertical spinbuttons can also be sized.
+Vertical spin buttons can also be sized using hte `size` prop.  When in vertical mode, the
+spinbutton is rendered as an inline element.
 
 ### Width
 
