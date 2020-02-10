@@ -218,7 +218,7 @@ presentation of the value to the user, and does not affect the `v-model`.
 ```
 
 Alternatively, you can provide your own number formatter function to format the value displayed. This
-is usefull for displaying text instead of a number, or if you want to implementdifferent features of
+is usefull for displaying text instead of a number, or if you want to implement different features of
 `Intl.NumberFormat`.
 
 To provide a formatter function, set the prop `formatter-fn` to a method reference. The formatter is
