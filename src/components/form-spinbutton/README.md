@@ -359,12 +359,12 @@ Click and hold the increment or decrement button (or use the up/down arrow keys)
 <template>
   <b-row>
     <b-col md="6">
-      <label for="sb-input">Spin button using input event</label>
+      <label for="sb-input">Spin button - input event</label>
       <b-form-spinbutton id="sb-input" v-model="valueA" wrap></b-form-spinbutton>
       <p>Value: {{ valueA }}</p>
     </b-col>
     <b-col md="6">
-      <label for="sb-change" class="">Spin button using change event</label>
+      <label for="sb-change" class="">Spin button - change event</label>
       <b-form-spinbutton id="sb-change" :value="valueB" @change="valueB = $event" wrap></b-form-spinbutton>
       <p>Value: {{ valueB }}</p>
     </b-col>
