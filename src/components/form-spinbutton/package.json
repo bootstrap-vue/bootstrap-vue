@@ -21,6 +21,22 @@
           {
             "prop": "locale",
             "description": "Specify the local to use for formatting the number. Defaults to the browser locale. Only applicable when using the internal formatter"
+          },
+          {
+            "prop": "placeholder",
+            "description": "Value to show when the v-model is `null`"
+          },
+          {
+            "prop": "required",
+            "description": "Adds the `aria-required=\"true\"` attribute on the component. Note this will not prevent for submission when the value is `null`" 
+          },
+          {
+            "prop": "readonly",
+            "description": "Places the component in a readonly state"
+          },
+          {
+            "prop": "disabled",
+            "description": "Places the component in a disabled state"
           }
         ],
         "events": [
