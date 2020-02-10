@@ -14,8 +14,9 @@
     font-size: inherit;
     outline: 0;
     border: 0;
-    min-width: 2.5em;
+
     > div {
+      min-width: 2em;
       height: 1em * $input-line-height;
     }
   }
