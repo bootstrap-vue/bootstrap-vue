@@ -37,7 +37,7 @@ const defaultNumber = (val, def) => {
   return isNaN(val) ? def : val
 }
 
-const defaultInteger = (val, def) => {
+const defaultInteger = (val, def) => /* istanbul ignore next: until tests are ready */ {
   val = toInteger(val)
   return isNaN(val) ? Math.abs(def) : val
 }
