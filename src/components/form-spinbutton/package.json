@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Spinbutton",
+    "new": true,
+    "version": "2.5.0",
     "description": "Numerical spintbutton custom form input component",
     "components": [
       {
