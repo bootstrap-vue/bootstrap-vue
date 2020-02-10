@@ -258,12 +258,16 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     onKeydown(evt) /* istanbul ignore next: until tests are ready */ {
       const { keyCode, altKey, ctrlKey, metaKey } = evt
-      if (this.$_keyIsDown || this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
+      if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
         return
       }
       if (arrayIncludes([UP, DOWN, HOME, END], keyCode)) {
         // https://w3c.github.io/aria-practices/#spinbutton
         evt.preventDefault()
+        if (this.$_keyIsDown) {
+          // keypress already in progress
+          return
+        }
         this.resetTimers()
         this.$_keyIsDown = true
         if (keyCode === UP) {
@@ -292,11 +296,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     handleStepRepeat(evt, stepper) /* istanbul ignore next: until tests are ready */ {
       if (!this.disabled && !this.readonly) {
-        // if (evt.cancelable) {
-        //  evt.preventDefault()
-        //  // Trigger focus manually
-        //  evt.currentTarget.focus()
-        // }
         this.resetTimers()
         // Enable body mouseup event handler
         this.setMouseup(true)
