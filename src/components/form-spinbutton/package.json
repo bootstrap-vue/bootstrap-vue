@@ -19,12 +19,32 @@
             "description": "The value of the spinbutton. Bound to the v-model"
           },
           {
+            "prop": "min",
+            "description": "The minimum value that can be selected. Negative numbers are allowed"
+          },
+          {
+            "prop": "max",
+            "description": "The maximum value that can be selected. Must be greater than the `min` prop.. Negative numbers are allowed"
+          },
+          {
+            "prop": "step",
+            "description": "A positive number that specifies the granularity that the value must adhere to"
+          },
+          {
+            "prop": "wrap",
+            "descrition": "When set, allows the value to wrap around when reading hte minimum or maximum value"
+          },
+          {
             "prop": "locale",
             "description": "Specify the local to use for formatting the number. Defaults to the browser locale. Only applicable when using the internal formatter"
           },
           {
             "prop": "placeholder",
             "description": "Value to show when the v-model is `null`"
+          },
+          {
+            "prop": "formatterFn",
+            "description": "A reference to a method to format teh disaplayed value. It ss passed a single argument which is the current value
           },
           {
             "prop": "required",
@@ -37,6 +57,14 @@
           {
             "prop": "disabled",
             "description": "Places the component in a disabled state"
+          },
+          {
+            "prop": "inline",
+            "description": "When set, renders the component as an inline element"
+          },
+          {
+            "prop": "vertical",
+            "description": "When set, renders the component with a vertical layout"
           }
         ],
         "events": [
