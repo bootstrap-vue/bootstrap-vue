@@ -261,7 +261,36 @@ to the user and does not affect the `v-model`.
 
 ## Disabled and readonly states
 
-TBD
+Setting the prop `disabled` places the component in a disabled, non-interactive state. The `readonly`
+prop places the component in a readonly state (focusable, but the value cannot be changed by the user).
+
+```html
+<template>
+  <div>
+    <label for="sb-disabled">Disabled spin button</label>
+    <b-form-spinbutton id="sb-disabled" disabled></b-form-spinbutton>
+  </div>
+  <div>
+    <label for="sb-readonly" class="mb-2">Readonly spin button</label>
+    <b-form-spinbutton id="sb-readonly" readonly></b-form-spinbutton>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: 50
+      }
+    }
+  }
+</script>
+
+<!-- b-form-spinbotton-disabled-readonly.vue -->
+```
+
+Disabled spinbuttons will not be submited during native browser form submission, while a readonly
+spinbutton will be submitted (as long as a name has been set via the `name` prop).
 
 ## Validation states
 
