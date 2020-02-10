@@ -12,6 +12,40 @@
         "version": "2.5.0",
         "aliases": [
            "BSpinbutton"
+        ],
+        "props": [
+          {
+            "prop": "value",
+            "description": "The value of the spinbutton. Bound to the v-model"
+          },
+          {
+            "prop": "locale",
+            "description": "Specify the local to use for formatting the number. Defaults to the browser locale. Only applicable when using the internal formatter"
+          }
+        ],
+        "events": [
+          {
+            "event": "input",
+            "description": "Emitted to update the v-model on each value change",
+            "args": [
+              {
+                "arg": "value",
+                "type": "Number",
+                "description": "Current value of the spinbutton"
+              }
+            ]
+          },
+          {
+            "event": "change",
+            "description": "Emitted when the user releases the mouse buton or key",
+            "args": [
+              {
+                "arg": "value",
+                "type": "Number",
+                "description": "Current value of the spinbutton"
+              }
+            ]
+          }
         ]
       }
     ]
