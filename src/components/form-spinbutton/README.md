@@ -26,7 +26,7 @@
   }
 </script>
 
-<!-- b-spin-botton-demo.vue -->
+<!-- b-form-spinbotton-demo.vue -->
 ```
 
 ## Overview
@@ -53,6 +53,26 @@ values allowed).
 
 When `step` is set, the value will always be a multiple of the step size plus the minimum value.
 
+## Number wrapping
+
+By default, when the value is increased to the `max` value, it pressing the increment button will
+have no effect. Similarily when the value is as the `min` value, pressing the decrement button
+will ahve no effect.
+
+To allow the spin button to wrap from max to min when incrementing (or min to max when decremening),
+set the `wrap` prop to `true`.
+
+```html
+<template>
+  <div>
+    <label for="sb-wrap">Wrapping value spin button</label>
+    <b-form-spinbutton id="sb-wrap" wrap min="1" max="25"></b-form-spinbutton>
+  </div>
+</template>
+
+<!-- b-form-spinbotton-wrap.vue -->
+```
+
 ## Styling
 
 ### Size
@@ -74,7 +94,7 @@ As with other form controls, `<b-form-spinbutton>` supports small and large sizi
   </div>
 </template>
 
-<!-- b-spin-botton-size.vue -->
+<!-- b-form-spinbotton-size.vue -->
 ```
 
 ### Inline
@@ -93,7 +113,7 @@ Spinbuttons can be oriented in vertical mode:
   </div>
 </template>
 
-<!-- b-spin-botton-vertical.vue -->
+<!-- b-form-spinbotton-vertical.vue -->
 ```
 
 Vertical spinbuttons can also be sized.
