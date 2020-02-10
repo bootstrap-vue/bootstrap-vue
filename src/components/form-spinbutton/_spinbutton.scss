@@ -2,7 +2,7 @@
   text-align: center;
   // Quick way to get end buttons rounded on outside edges
   overflow: hidden;
-  // Hide validation icon
+  // Hide validation icon, as there is no room for it
   background-image: none;
 
   &.flex-column {
@@ -14,6 +14,7 @@
     font-size: inherit;
     outline: 0;
     border: 0;
+    background-color: transparent;
 
     > div {
       min-width: 2em;
@@ -30,6 +31,10 @@
   .btn {
     line-height: 1;
     box-shadow: none !important;
+
+    &:disabled {
+      pointer-events: none;
+    }
 
     &:hover:not(:disabled) > div {
       transform: scale(1.25);
@@ -58,11 +63,12 @@
     }
   }
 
-  &.disabled
+  &.disabled,
   &.readonly {
-    &,
-    output {
-      background-color: $input-disabled-bg;
-    }
+    background-color: $input-disabled-bg;
+  }
+
+  &.disabled {
+    pointer-events: none;
   }
 }
