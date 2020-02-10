@@ -1,11 +1,14 @@
 # Form Spinbutton
 
-> Spinbuttons are a BottstrapVue custom numerical range form control. Spin buttons allow for incrementing
+> Spin buttons are a BottstrapVue custom numerical range form control. Spin buttons allow for incrementing
 > or decrementing a numerical value within a range of a minimum and maximum number, with optional step
 > value.
 
 `<b-form-spinbutton>` is WAI_ARIA compliant, allowing for keyboard control, and support both horizontal
 (default) and vertical layout.
+
+Similar to [range type inputs](/docs/components/form-input#range-type-input), spin buttons _do not_ allow
+the user to type in a value.
 
 ```html
 <template>
@@ -248,3 +251,7 @@ TBD
 ## Accessibility
 
 TBD
+
+## See also
+
+- [Range type input](/docs/components/form-input#range-type-input)
