@@ -269,11 +269,11 @@ prop places the component in a readonly state (focusable, but the value cannot b
 <template>
   <div>
     <label for="sb-disabled">Disabled spin button</label>
-    <b-form-spinbutton id="sb-disabled" disabled></b-form-spinbutton>
+    <b-form-spinbutton id="sb-disabled" v-model="value" disabled></b-form-spinbutton>
   </div>
   <div>
-    <label for="sb-readonly" class="mb-2">Readonly spin button</label>
-    <b-form-spinbutton id="sb-readonly" readonly></b-form-spinbutton>
+    <label for="sb-readonly" class="mt-3">Readonly spin button</label>
+    <b-form-spinbutton id="sb-readonly" v-model="value" readonly></b-form-spinbutton>
   </div>
 </template>
 
