@@ -182,13 +182,13 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     localValue(value) /* istanbul ignore next: until tests are ready */ {
       this.$emit('input', value)
     },
-    disabled(disabled) {
+    disabled(disabled) /* istanbul ignore next */ {
       if (disabled) {
         this.resetTimers()
         this.setMouseup(false)
       }
     },
-    readonly(readonly) {
+    readonly(readonly) /* istanbul ignore next */ {
       if (readonly) {
         this.resetTimers()
         this.setMouseup(false)
@@ -261,13 +261,13 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       }
       if (arrayIncludes([UP, DOWN, HOME, END], keyCode)) {
         // https://w3c.github.io/aria-practices/#spinbutton
-        this.resetTimers()
         evt.preventDefault()
+        this.resetTimers()
         this.$_keyIsDown = true
         if (keyCode === UP) {
-          this.handleStepEvent(evt, this.stepUp)
+          this.handleStepRepeat(evt, this.stepUp)
         } else if (keyCode === DOWN) {
-          this.handleStepEvent(evt, this.stepDown)
+          this.handleStepRepeat(evt, this.stepDown)
         } else if (keyCode === HOME) {
           this.localValue = this.computedMin
         } else if (keyCode === END) {
@@ -288,7 +288,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.emitChange()
       }
     },
-    handleStepEvent(evt, stepper) /* istanbul ignore next: until tests are ready */ {
+    handleStepRepeat(evt, stepper) /* istanbul ignore next: until tests are ready */ {
       if (!this.disabled && !this.readonly) {
         // if (evt.cancelable) {
         //  evt.preventDefault()
@@ -352,7 +352,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         attrs: { 'aria-hidden': 'true' }
       })
       const handler = evt => /* istanbul ignore next: until tests written */ {
-        this.handleStepper(evt, stepper)
+        this.handleStepRepeat(evt, stepper)
       }
       return h(
         BButton,
