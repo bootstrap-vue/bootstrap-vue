@@ -32,7 +32,7 @@
           },
           {
             "prop": "wrap",
-            "descrition": "When set, allows the value to wrap around when reading the minimum or maximum value"
+            "description": "When set, allows the value to wrap around when reading the minimum or maximum value"
           },
           {
             "prop": "locale",
