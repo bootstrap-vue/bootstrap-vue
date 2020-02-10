@@ -134,6 +134,30 @@ As with other form controls, `<b-form-spinbutton>` supports small and large sizi
 
 TBD
 
+```html
+<template>
+  <div>
+    <label for="sb-inline">Inline spin button</label>
+    <b-form-spinbutton id="sb-inline" v-model="value" inline></b-form-spinbutton>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: 50
+      }
+    }
+  }
+</script>
+
+<!-- b-form-spinbotton-inline.vue -->
+```
+
+The spin button will automatically adjust it's width to fit the displayed value. See the
+[Width section](#width) before for details on controling or setting the width.
+
 ### Vertical
 
 Spinbuttons can be oriented in vertical mode:
@@ -159,8 +183,8 @@ Spinbuttons can be oriented in vertical mode:
 <!-- b-form-spinbotton-vertical.vue -->
 ```
 
-Vertical spin buttons can also be sized using hte `size` prop.  When in vertical mode, the
-spinbutton is rendered as an inline element.
+Vertical spin buttons can also be sized using the `size` prop.  When in vertical mode, the spin button
+is rendered as an inline element.
 
 The spin button will automatically adjust it's width to fit the displayed value. See the
 [Width section](#width) before for details on controling or setting the width.
@@ -267,14 +291,16 @@ prop places the component in a readonly state (focusable, but the value cannot b
 
 ```html
 <template>
-  <div>
-    <label for="sb-disabled">Disabled spin button</label>
-    <b-form-spinbutton id="sb-disabled" v-model="value" disabled></b-form-spinbutton>
-  </div>
-  <div>
-    <label for="sb-readonly" class="mt-3">Readonly spin button</label>
-    <b-form-spinbutton id="sb-readonly" v-model="value" readonly></b-form-spinbutton>
-  </div>
+  <b-row>
+    <b-col md="6" class="mb-2">
+      <label for="sb-disabled">Disabled spin button</label>
+      <b-form-spinbutton id="sb-disabled" v-model="value" disabled></b-form-spinbutton>
+    </b-col>
+    <b-col md="6" class="mb-2">
+      <label for="sb-readonly" class="">Readonly spin button</label>
+      <b-form-spinbutton id="sb-readonly" v-model="value" readonly></b-form-spinbutton>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
