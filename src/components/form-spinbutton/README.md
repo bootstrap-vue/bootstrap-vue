@@ -56,6 +56,27 @@ values allowed).
 
 When `step` is set, the value will always be a multiple of the step size plus the minimum value.
 
+```html
+<template>
+  <div>
+    <label for="sb-step">Spin button with step of 0.25</label>
+    <b-form-spinbutton id="sb-step" min="0" max="10" step="0.25"></b-form-spinbutton>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: 0
+      }
+    }
+  }
+</script>
+
+<!-- b-form-spinbotton-step.vue -->
+```
+
 ## Number wrapping
 
 By default, when the value is increased to the `max` value, it pressing the increment button will
@@ -129,13 +150,88 @@ TBD
 
 By default `<b-form-spinbutton>` will format the displayed number in the users browser default
 locale.  You can change the localized formatting by specifying a locale (or array of locales) via
-the `locale` prop.
+the `locale` prop. Number format localization is performed via `Intl.NumberFormat`. The locales
+available will be dependant on the browser implementation. Localization only controls the presentation
+of the value to the user, and does not affect the `v-model`.
 
-TBD
+```html
+<template>
+  <div>
+    <label for="sb-locales">Locale</label>
+    <b-form-select id="sb-locales" v-model="locale" :options="locales"></b-form-select>
+    <label for="sb-local" class="mt-2">Spin button with locale</label>
+    <b-form-spinbutton
+      id="sb-locale"
+      v-model="value"
+      :locale="locale"
+      min="0"
+      max="10"
+      step="0.125"
+    ></b-form-spinbutton>
+    <p>Value: {{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: 0,
+        locale: 'fr-CA',
+        locales: [
+          { value: 'en', text: 'English' },
+          { value: 'de', text: 'German' },
+          { value: 'fr-CA', text: 'French (Canadian)' },
+          { value: 'fa', text: 'Persian' },
+          { value: 'ar-EG', text: 'Arabic (Egyptian)' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-form-spinbotton-locale.vue -->
+```
 
 Alternatively, you can provide your own number formatter function to format the value displayed.
+This is usefull for displaying text instead of a number. To provide a formatter function, set the
+prop `formatter-fn` to a method reference.  The formatter is passed a single argument which is
+the current value. Note the formatter only affects the value displayed to the user and does not
+affect the `v-model`.
 
-TBD
+```html
+<template>
+  <div>
+    <label for="sb-days" class="mt-2">Spin button with formatter</label>
+    <b-form-spinbutton
+      id="sb-days"
+      v-model="value"
+      min="0"
+      max="6"
+      :formatter-fn="dayFormatter"
+    ></b-form-spinbutton>
+    <p>Value: {{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: 0,
+        days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+      }
+    },
+    methods: {
+      dayFormatter(value) {
+        return this.days[value]
+      }
+    }
+  }
+</script>
+
+<!-- b-form-spinbotton-formatter.vue -->
+```
 
 ### Using in input groups
 
