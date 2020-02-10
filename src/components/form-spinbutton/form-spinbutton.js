@@ -379,7 +379,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         [h('div', {}, [$icon])]
       )
     }
-    const $increment = makeButton(this.stepUp, this.labelIncrement, BIconPlus, 'inc'. 'ArrowUp')
+    const $increment = makeButton(this.stepUp, this.labelIncrement, BIconPlus, 'inc', 'ArrowUp')
     const $decrement = makeButton(this.stepDown, this.labelDecrement, BIconDash, 'dec', 'ArrowDown')
 
     let $hidden = h()
