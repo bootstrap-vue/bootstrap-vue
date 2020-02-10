@@ -161,13 +161,12 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     defaultFormatter() {
       // returns and Intl.NumberFormat formatter method reference
-      const precision = this.computedPrecision
       const nf = new Intl.NumberFormat(this.computedLocale, {
         style: 'decimal',
         useGrouping: false,
         minimumIntegerDigits: 1,
-        minimumFractionDigits: precision,
-        maximumFractionDigits: precision,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: this.computedPrecision,
         notation: 'standard'
       })
       // Return the format method reference
