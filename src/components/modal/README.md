@@ -47,6 +47,35 @@ You can revert to the behaviour of previous BootstrapVue versions via the use of
 
 There are several methods that you can employ to toggle the visibility of `<b-modal>`.
 
+### Using `v-model` property
+
+`v-model` property is always automatically synced with `<b-modal>` visible state and you can
+show/hide using `v-model`.
+
+```html
+<template>
+  <div>
+    <b-button @click="modalShow = !modalShow">Open Modal</b-button>
+
+    <b-modal v-model="modalShow">Hello From Modal!</b-modal>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        modalShow: false
+      }
+    }
+  }
+</script>
+
+<!-- b-modal-v-model.vue -->
+```
+
+When using the `v-model` prop, **do not** use the `visible` prop at the same time.
+
 ### Using `v-b-modal` directive
 
 Other elements can easily show modals using the `v-b-modal` directive.
@@ -152,35 +181,6 @@ modal to close. See section [Prevent Closing](#prevent-closing) below for detail
 
 **Note:** It is recommended to use the `this.$bvModal.show()` and `this.$bvModal.hide()` methods
 (mentioned in the previous section) instead of using `$ref` methods.
-
-### Using `v-model` property
-
-`v-model` property is always automatically synced with `<b-modal>` visible state and you can
-show/hide using `v-model`.
-
-```html
-<template>
-  <div>
-    <b-button @click="modalShow = !modalShow">Open Modal</b-button>
-
-    <b-modal v-model="modalShow">Hello From Modal!</b-modal>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        modalShow: false
-      }
-    }
-  }
-</script>
-
-<!-- b-modal-v-model.vue -->
-```
-
-When using the `v-model` prop, **do not** use the `visible` prop at the same time.
 
 ### Using scoped slot scope methods
 
