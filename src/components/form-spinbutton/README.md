@@ -5,7 +5,8 @@
 > value.
 
 `<b-form-spinbutton>` is [WAI-ARIA compliant](https://www.w3.org/TR/wai-aria-practices-1.2/#spinbutton),
-allowing for keyboard control, and supports both horizontal (default) and vertical layout.
+allowing for [keyboard control](#accessibility), and supports both horizontal (default) and vertical
+layout.
 
 Similar to [range type inputs](/docs/components/form-input#range-type-input), BootstrapVue's
 `<b-form-spinbutton>` _does not_ allow the user to type in a value.
