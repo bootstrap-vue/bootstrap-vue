@@ -538,7 +538,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     )
 
     let $hidden = h()
-    if (this.name) {
+    if (this.name && !disabled) {
       $hidden = h('input', {
         attrs: {
           type: 'hidden',
@@ -566,8 +566,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idWrapper,
           role: 'group',
-          'aria-disabled': this.disabled,
-          'aria-readonly': this.readonly && !this.disabled,
+          'aria-disabled': disabled,
+          'aria-readonly': readonly && !disabled,
           'aria-labelledby': idLabel,
           'aria-invalid': state === false ? 'true' : null,
           'aria-required': this.required ? 'true' : null,
