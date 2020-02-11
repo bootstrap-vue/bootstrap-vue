@@ -7,7 +7,7 @@
     "version": "2.5.0",
     "new": true,
     "beta": true,
-    "description": "Calendar widget for selecting dates and controlling other components.",
+    "description": "Calendar widget for selecting dates and controlling other components",
     "components": [
       {
         "component": "BCalendar",
@@ -15,11 +15,11 @@
         "props": [
           {
             "prop": "value",
-            "description": "Initially selected date value. Accepts either a YYYY-MM-DD string or a Date object"
+            "description": "Initially selected date value. Accepts either a `YYYY-MM-DD` string or a `Date` object"
           },
           {
             "prop": "valueAsDate",
-            "description": "Returns a Date object for the v-model instead of a YYYY-MM-DD string"
+            "description": "Returns a `Date` object for the v-model instead of a `YYYY-MM-DD` string"
           },
           {
             "prop": "disabled",
@@ -43,7 +43,7 @@
           },
           {
             "prop": "startWeekday",
-            "description": "Day of week to start the calendar. 0 for Sunday, 1 for Monday, 6 for Saturday, etc."
+            "description": "Day of week to start the calendar. `0` for Sunday, `1` for Monday, `6` for Saturday, etc."
           },
           {
             "prop": "locale",
@@ -135,7 +135,7 @@
           },
           {
             "prop": "labelHelp",
-            "description": "help text that appears at the bottom of the calendar grid"
+            "description": "Help text that appears at the bottom of the calendar grid"
           }
         ],
         "events": [
@@ -145,7 +145,7 @@
             "args": [
               {
                 "arg": "date",
-                "description": "Either a string in the format of 'YYYY-MM-DD' or a Date object (if 'value-as-date' prop is true)",
+                "description": "Either a string in the format of `YYYY-MM-DD` or a `Date` object (if `value-as-date` prop is `true`)",
                 "type": [
                   "String",
                   "Date"
@@ -159,12 +159,12 @@
             "args": [
               {
                 "arg": "ymd",
-                "description": "The selected date as a string in the format of 'YYYY-MM-DD'",
+                "description": "The selected date as a string in the format of `YYYY-MM-DD`",
                 "type": "String"
               },
               {
                 "arg": "date",
-                "description": "The selected date as a Date object",
+                "description": "The selected date as a `Date` object",
                 "type": "Date"
               }
             ]
