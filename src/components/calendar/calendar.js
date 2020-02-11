@@ -497,6 +497,9 @@ export const BCalendar = Vue.extend({
       }
     },
     hidden(newVal, oldVal) {
+      // Reset the active focused day when un-hidden
+      this.activeYMD = this.selectedYMD || formatYMD(this.value) || formatYMD(this.getToday())
+      // Enable/disabled teh live regions
       this.setLive(!newVal)
     }
   },
