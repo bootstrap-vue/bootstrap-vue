@@ -245,8 +245,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     // Public methods
-  methods: {
-    // Public methods
     focus() /* istanbul ignore next: until tests are ready */ {
       if (!this.disabled) {
         try {
