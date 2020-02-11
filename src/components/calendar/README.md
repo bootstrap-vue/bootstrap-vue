@@ -587,4 +587,4 @@ verbosity and to provide consistency across various screen readers (NVDA, when e
 
 ## See also
 
-- [`<b-form-date>`](/docs/components/form-date) date picker custom form input.
+- [`<b-form-date>` Date picker custom form input](/docs/components/form-date)
