@@ -47,10 +47,10 @@ If you need a date picker as a custom form control input, use the
 
 ## `v-model` return value
 
-By default, `<b-calendar>` returns dates as a string in the format of `YYYY-MM-DD`, which is the
-same format returned by native browser `<input type="date">` controls. You can have `<b-calendar>`
-return the `v-model` value as a `Date` object (with no time portion) instead by setting the prop
-`value-as-date`.
+By default, `<b-calendar>` returns dates as a string in the `YYYY-MM-DD` format, which is the same
+format returned by native browser `<input type="date">` controls. You can have `<b-calendar>` return
+a `Date` object (with no time portion) as the `v-model` value instead by setting the `value-as-date`
+prop.
 
 If no date is selected, `<b-calendar>` returns an empty string `''`, or returns `null` if the
 `value-as-date` prop is set.
@@ -122,9 +122,11 @@ format of `YYYY-MM-DD` or a `Date` object.
     data() {
       const now = new Date()
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      // 15th two months prior
       const minDate = new Date(today)
       minDate.setMonth(minDate.getMonth() - 2)
       minDate.setDate(15)
+      // 15th in two months
       const maxDate = new Date(today)
       maxDate.setMonth(maxDate.getMonth() + 2)
       maxDate.setDate(15)
@@ -143,7 +145,7 @@ format of `YYYY-MM-DD` or a `Date` object.
 
 ### Disabling dates
 
-If you need to disabled specific dates within the calendar, specify a function reference to the
+If you need to disable specific dates within the calendar, specify a function reference to the
 `date-disabled-fn` prop. The function is passed two arguments:
 
 - `ymd` The date as a `YYYY-MM-DD` string
@@ -173,7 +175,7 @@ return a value as quickly as possible.
         // disable days that fall on the 13th of the month
         const weekday = date.getDay()
         const day = date.getDate()
-        // return `true` if the date should be disabled
+        // Return `true` if the date should be disabled
         return weekday === 0 || weekday === 6 || day === 13
       }
     }
@@ -189,8 +191,8 @@ Note the `min` and `max` date constraints are evaluated first, before `date-disa
 
 ### Variants
 
-The selected date button (background color) defaults to the 'primary' theme variant. You can change
-this to any of the Bootstrap v4 theme variant colors: `'secondary'`, `'success'`, `'danger'`,
+The selected date button (background color) defaults to the `'primary'` theme variant. You can
+change this to any of the Bootstrap v4 theme variant colors: `'secondary'`, `'success'`, `'danger'`,
 `'warning'`, `'info'`, etc, via the `selected-variant` prop.
 
 Today's date will also be highlighted (text color) using the same variant as the selected date by
@@ -251,7 +253,7 @@ Fancy a calendar with a border with padding? Use Bootstrap's
 
 ### Default slot
 
-Provide optional content at the bottom of the calendar interface vis the use of default slot. the
+Provide optional content at the bottom of the calendar interface via the use of default slot. The
 slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 
 ```html
@@ -402,7 +404,7 @@ properties:
 | `disabled`          | Will be `true` if active date is disabled, `false` otherwise                                                                                                                                                                                               |
 | `locale`            | The resolved locale (may not be the same as the requested locale)                                                                                                                                                                                          |
 | `calendarLocale`    | The resolved locale used by the calendar, optionally including the calendar type (i.e. 'gregory'). Usually this will be the same as `locale`, but may include the calendar type used, such as `fa-u-ca-gregory` when selecting the Persian locale (`'fa'`) |
-| `isRTL`             | Will be `true` if the calendar is in a RTL (Right-To-Left) orientation. It will be `false` if LTR (Left-To-Right).                                                                                                                                         |
+| `isRTL`             | Will be `true` if the calendar is in a RTL (Right-To-Left) orientation. It will be `false` if LTR (Left-To-Right)                                                                                                                                          |
 
 If formatting dates manually via `Intl.DateTimeFormat`, use the `calendarLocale` property value
 instead of the `locale` property value to ensure you are using the same calendaring convention that
@@ -476,17 +478,17 @@ the same locale as requested, depending on the supported locales of `Intl`).
         ],
         labels: {
           de: {
-            labelPrevYear: 'vorheriges Jahr',
-            labelPrevMonth: 'vorheriger Monat',
-            labelCurrentMonth: 'aktueller Monat',
-            labelNextMonth: 'nächster Monat',
-            labelNextYear: 'nächstes Jahr',
-            labelToday: 'heute',
-            labelSelected: 'ausgewähltes Datum',
+            labelPrevYear: 'Vorheriges Jahr',
+            labelPrevMonth: 'Vorheriger Monat',
+            labelCurrentMonth: 'Aktueller Monat',
+            labelNextMonth: 'Nächster Monat',
+            labelNextYear: 'Nächstes Jahr',
+            labelToday: 'Heute',
+            labelSelected: 'Ausgewähltes Datum',
             labelNoDateSelected: 'Kein Datum gewählt',
             labelCalendar: 'Kalender',
             labelNav: 'Kalendernavigation',
-            labelHelp: 'Mit den Cursortasten durch die Daten navigieren'
+            labelHelp: 'Mit den Pfeiltasten durch den Kalender navigieren'
           },
           'ar-EG': {
             labelPrevYear: 'العام السابق',
@@ -534,8 +536,8 @@ By default, `<b-calendar>` automatically detects RTL vs LTR via the resolved loc
 the calendar to render right-to-left by setting the `direction` prop to the string `rtl`, or set the
 `direction` prop to `'ltr'` to always render left-to-right.
 
-You can listen to for the `context` event to determine the locale and directionality that the
-calendar has resolved to.
+You can listen to the `context` event to determine the locale and directionality that the calendar
+has resolved to.
 
 For server side rendering (SSR) when using Node.js, ensure that the Node.js runtime you are using
 supports `Intl` and the locales you will be using. Refer to the
@@ -585,4 +587,4 @@ verbosity and to provide consistency across various screen readers (NVDA, when e
 
 ## See also
 
-- [`<b-form-date>`](/docs/components/form-date) date picker custom form input
+- [`<b-form-date>`](/docs/components/form-date) date picker custom form input.
