@@ -19,15 +19,15 @@
         "props": [
           {
             "prop": "value",
-            "description": "Initially selected date value. Accepts either a YYYY-MM-DD string or a Date object"
+            "description": "Initially selected date value. Accepts either a `YYYY-MM-DD` string or a `Date` object"
           },
           {
             "prop": "valueAsDate",
-            "description": "Returns a Date object for the v-model instead of a YYYY-MM-DD string"
+            "description": "Returns a `Date` object for the v-model instead of a `YYYY-MM-DD` string"
           },
           {
             "prop": "resetValue",
-            "description": "when the optional `reset` button is clicked, the selected date will be set to this value. Default is to clear the selected value"
+            "description": "When the optional `reset` button is clicked, the selected date will be set to this value. Default is to clear the selected value"
           },
           {
             "prop": "disabled",
@@ -55,7 +55,7 @@
           },
           {
             "prop": "startWeekday",
-            "description": "Day of week to start the calendar. 0 for Sunday, 1 for Monday, 6 for Saturday, etc."
+            "description": "Day of week to start the calendar. `0` for Sunday, `1` for Monday, `6` for Saturday, etc."
           },
           {
             "prop": "locale",
@@ -139,7 +139,7 @@
           },
           {
             "prop": "boundary",
-            "description": "The boundary constraint of the menu: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement"
+            "description": "The boundary constraint of the menu: `'scrollParent'`, `'window'`, `'viewport'`, or a reference to an `HTMLElement`"
           },
           {
             "prop": "dark",
@@ -147,7 +147,7 @@
           },
           {
             "prop": "placeholder",
-            "description": "Text so show in the form control when no date is selected. Defaults to the 'label-no-date-selected` prop value"
+            "description": "Text so show in the form control when no date is selected. Defaults to the `label-no-date-selected` prop value"
           },
           {
             "prop": "labelPrevYear",
@@ -213,7 +213,7 @@
             "args": [
               {
                 "arg": "date",
-                "description": "Either a string in the format of 'YYYY-MM-DD' or a Date object (if 'value-as-date' prop is true)",
+                "description": "Either a string in the format of `YYYY-MM-DD` or a `Date` object (if `value-as-date` prop is `true`)",
                 "type": [
                   "String",
                   "Date"
@@ -223,7 +223,7 @@
           },
           {
             "event": "context",
-            "description": "`b-calendar` context event. emitted to when when the user changes the active date via date navigation buttons or cursor control",
+            "description": "`b-calendar` context event. Emitted when the user changes the active date via date navigation buttons or cursor control",
             "args": [
               {
                 "arg": "context",
