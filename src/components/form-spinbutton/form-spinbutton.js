@@ -261,7 +261,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         } catch {}
       }
     },
-    
     // Private methods
     emitChange() /* istanbul ignore next: until tests are ready */ {
       this.$emit('change', this.localValue)
@@ -358,12 +357,12 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           const multiplier = this.computedStepMult
           let count = 0
           this.$_autoRepeatTimer = setInterval(() => {
-            count = count < threshold ? count + 1 : count
             // After N initial repeats, we increase the incrementing step amount
             // We do this to minimize screen reader annoucements of the value
             // (values are announced every change, which can be chatty for SR users)
-            // Ad to make it easer to select a value when the range is large
+            // And to make it easer to select a value when the range is large
             stepper(count < threshold ? 1 : multiplier)
+            count++
           }, this.computedInterval)
         }, this.computedDelay)
       }
