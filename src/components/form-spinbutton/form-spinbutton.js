@@ -14,7 +14,7 @@ import { BIconPlus, BIconDash } from '../../icons/icons'
 
 const NAME = 'BFormSpinbutton'
 
-const { UP, DOWN, HOME, END } = KeyCodes
+const { UP, DOWN, HOME, END, PAGEUP, PAGEDOWN } = KeyCodes
 
 // Default for spin button range and step
 const DEFAULT_MIN = 1
@@ -277,6 +277,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         value = Math.round((value - min) / step) * step + min + step
         // We ensure that precision is maintained (decimals)
         value = Math.round(value * mult) / mult
+        // Handle if wrapping is enabled
         this.localValue =
           value > max ? (wrap ? min : max) : value < min ? (wrap ? max : min) : value
       }
@@ -309,7 +310,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
         return
       }
-      if (arrayIncludes([UP, DOWN, HOME, END], keyCode)) {
+      if (arrayIncludes([UP, DOWN, HOME, END, PAGEUP, PAGEDOWN], keyCode)) {
         // https://w3c.github.io/aria-practices/#spinbutton
         evt.preventDefault()
         if (this.$_keyIsDown) {
@@ -317,15 +318,25 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           return
         }
         this.resetTimers()
-        this.$_keyIsDown = true
-        if (keyCode === UP) {
-          this.handleStepRepeat(evt, this.stepUp)
-        } else if (keyCode === DOWN) {
-          this.handleStepRepeat(evt, this.stepDown)
-        } else if (keyCode === HOME) {
-          this.localValue = this.computedMin
-        } else if (keyCode === END) {
-          this.localValue = this.computedMax
+        if (arrayIncludes([UP, DOWN], keyCode)) {
+          // The following use the custom auto-repeat handling
+          this.$_keyIsDown = true
+          if (keyCode === UP) {
+            this.handleStepRepeat(evt, this.stepUp)
+          } else if (keyCode === DOWN) {
+            this.handleStepRepeat(evt, this.stepDown)
+          }
+        } else {
+          // These use native OS key repeating
+          if (keyCode === PAGEUP) {
+            this.stepUp(this.computedStepMult)
+          } else if (keyCode === PAGEDOWN) {
+            this.stepDown(this.computedStepMult)
+          } else if (keyCode === HOME) {
+            this.localValue = this.computedMin
+          } else if (keyCode === END) {
+            this.localValue = this.computedMax
+          }
         }
       }
     },
@@ -335,7 +346,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
         return
       }
-      if (arrayIncludes([UP, DOWN, HOME, END], keyCode)) {
+      if (arrayIncludes([UP, DOWN, HOME, END, PAGEUP, PAGEDOWN], keyCode)) {
         this.resetTimers()
         this.$_keyIsDown = false
         evt.preventDefault()
