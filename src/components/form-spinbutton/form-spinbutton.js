@@ -247,19 +247,17 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     // Public methods
   methods: {
     // Public methods
-    focus() {
+    focus() /* istanbul ignore next: until tests are ready */ {
       if (!this.disabled) {
         try {
-          // This assumes the toggle is an element and not a component
-          this.$refs.toggle.focus()
+          this.$refs.spinner.focus()
         } catch {}
       }
     },
-    blur() {
+    blur() /* istanbul ignore next: until tests are ready */ {
       if (!this.disabled) {
         try {
-          // This assumes the toggle is an element and not a component
-          this.$refs.toggle.blur()
+          this.$refs.spinner.blur()
         } catch {}
       }
     },
@@ -518,8 +516,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           ...this.$attrs,
           role: 'group',
           lang: this.computedLocale,
+          tabindex: isDisabled ? null : '-1',
           // We want to keep the order of the buttons regardless
-          // of locale (flex wil re-order based on rtl/ltr)
+          // of locale (flex will re-order based on rtl/ltr)
           dir: 'ltr'
         },
         on: {
