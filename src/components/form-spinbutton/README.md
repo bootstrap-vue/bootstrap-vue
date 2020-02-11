@@ -388,8 +388,8 @@ Click and hold the increment or decrement button (or use the up/down arrow keys)
 
 The following keyboard controls are available when the spin button is focused:
 
-- <kbd>Home</kbd> sets the value to the `min` value
-- <kbd>End</kbd> sets the value to the `max` value
+- <kbd>Home</kbd> Sets the value to the `min` value
+- <kbd>End</kbd> Sets the value to the `max` value
 - <kbd>ArrowUp</kbd> Increases the value by the step amount
 - <kbd>ArrowDown</kbd> Decreases the value by the step amount
 - <kbd>PageUp</kbd> Increases the value by the step amount times the `repeat-step-multiplier` amount
