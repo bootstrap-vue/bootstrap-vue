@@ -244,6 +244,27 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     this.setMouseup(false)
   },
   methods: {
+    // Public methods
+  methods: {
+    // Public methods
+    focus() {
+      if (!this.disabled) {
+        try {
+          // This assumes the toggle is an element and not a component
+          this.$refs.toggle.focus()
+        } catch {}
+      }
+    },
+    blur() {
+      if (!this.disabled) {
+        try {
+          // This assumes the toggle is an element and not a component
+          this.$refs.toggle.blur()
+        } catch {}
+      }
+    },
+    
+    // Private methods
     emitChange() /* istanbul ignore next: until tests are ready */ {
       this.$emit('change', this.localValue)
     },
@@ -439,6 +460,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       // We use 'output' element to make this accept a `<label for="id">` (Except IE)
       'output',
       {
+        ref: 'spinner',
         key: 'output',
         staticClass: 'flex-grow-1',
         class: {
