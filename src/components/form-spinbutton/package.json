@@ -88,7 +88,7 @@
           },
           {
             "prop": "repeatStepMultiplier",
-            "description": "Number of steps to jump by once the `repeat-threshold` has been reached. Must be a positive integer"
+            "description": "Number of steps to jump by once the `repeat-threshold` has been reached. Must be a positive integer. This value is also used for the page up and down keys"
           }
         ],
         "events": [
