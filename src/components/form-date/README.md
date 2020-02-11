@@ -9,7 +9,7 @@ inputs vary in presentation, accessibility, and in some instances are not suppor
 `<b-form-date>` provides a consistent and accessible interface across all browser platforms and
 devices.
 
-The `<b-form-date>` component was introduced in BootstrapVue release `v2.5.0`
+The `<b-form-date>` component was introduced in BootstrapVue release `v2.5.0`.
 
 ```html
 <template>
@@ -38,10 +38,10 @@ as well as some of the props available on [`<b-dropdown>`](/docs/components/drop
 
 ## `v-model` return value
 
-By default, `<b-form-date>` returns dates as a string in the format of `YYYY-MM-DD`, which is the
-same format returned by native browser `<input type="date">` controls. You can have `<b-form-date>`
-return the `v-model` value as a `Date` object (with no time portion) instead by setting the prop
-`value-as-date`.
+By default, `<b-form-calendar>` returns dates as a string in the `YYYY-MM-DD` format, which is the
+same format returned by native browser `<input type="date">` controls. You can have
+`<b-form-calendar>` return a `Date` object (with no time portion) as the `v-model` value instead by
+setting the `value-as-date` prop.
 
 If no date is selected, `<b-form-date>` returns an empty string `''`, or returns `null` if the
 `value-as-date` prop is set.
@@ -118,9 +118,11 @@ format of `YYYY-MM-DD` or a `Date` object.
     data() {
       const now = new Date()
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      // 15th two months prior
       const minDate = new Date(today)
       minDate.setMonth(minDate.getMonth() - 2)
       minDate.setDate(15)
+      // 15th in two months
       const maxDate = new Date(today)
       maxDate.setMonth(maxDate.getMonth() + 2)
       maxDate.setDate(15)
@@ -139,7 +141,7 @@ format of `YYYY-MM-DD` or a `Date` object.
 
 ### Disabling dates
 
-If you need to disabled specific dates within the date picker, specify a function reference to the
+If you need to disable specific dates within the date picker, specify a function reference to the
 `date-disabled-fn` prop. The function is passed two arguments:
 
 - `ymd` The date as a `YYYY-MM-DD` string
@@ -169,7 +171,7 @@ return a value as quickly as possible.
         // disable days that fall on the 13th of the month
         const weekday = date.getDay()
         const day = date.getDate()
-        // return `true` if the date should be disabled
+        // Return `true` if the date should be disabled
         return weekday === 0 || weekday === 6 || day === 13
       }
     }
@@ -206,8 +208,8 @@ Note that native browser validation is _not_ available with `<b-form-date>`.
 
 ### Variants
 
-The selected date button (background color) defaults to the 'primary' theme variant. You can change
-this to any of the Bootstrap v4 theme variant colors: `'secondary'`, `'success'`, `'danger'`,
+The selected date button (background color) defaults to the `'primary'` theme variant. You can
+change this to any of the Bootstrap v4 theme variant colors: `'secondary'`, `'success'`, `'danger'`,
 `'warning'`, `'info'`, etc, via the `selected-variant` prop.
 
 Today's date will also be highlighted (text color) using the same variant as the selected date by
@@ -255,7 +257,7 @@ a placeholder is not provided, the value of the `label-no-date-selected` prop is
 Add optional control buttons to the bottom of the calendar popup via the props `today-button`,
 `reset-button` and `close-button`.
 
-- The today button selects today's date.
+- The today button selects today's date
 - The reset button either clears the selected date, or sets the date to the value of the prop
   `reset-value` (if provided)
 - The close button closes the calendar popup
@@ -355,17 +357,17 @@ Saturday.
         ],
         labels: {
           de: {
-            labelPrevYear: 'vorheriges Jahr',
-            labelPrevMonth: 'vorheriger Monat',
-            labelCurrentMonth: 'aktueller Monat',
-            labelNextMonth: 'nächster Monat',
-            labelNextYear: 'nächstes Jahr',
-            labelToday: 'heute',
-            labelSelected: 'ausgewähltes Datum',
+            labelPrevYear: 'Vorheriges Jahr',
+            labelPrevMonth: 'Vorheriger Monat',
+            labelCurrentMonth: 'Aktueller Monat',
+            labelNextMonth: 'Nächster Monat',
+            labelNextYear: 'Nächstes Jahr',
+            labelToday: 'Heute',
+            labelSelected: 'Ausgewähltes Datum',
             labelNoDateSelected: 'Kein Datum gewählt',
             labelCalendar: 'Kalender',
             labelNav: 'Kalendernavigation',
-            labelHelp: 'Mit den Cursortasten durch die Daten navigieren'
+            labelHelp: 'Mit den Pfeiltasten durch den Kalender navigieren'
           },
           'ar-EG': {
             labelPrevYear: 'العام السابق',
