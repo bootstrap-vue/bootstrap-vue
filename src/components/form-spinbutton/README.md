@@ -387,11 +387,20 @@ Click and hold the increment or decrement button (or use the up/down arrow keys)
 
 The following keyboard controls are available when the spin button is focused:
 
-- <kbd>ArrowUp</kbd> Increases the value
-- <kbd>ArrowDown</kbd> Decreases the value
+- <kbd>Home</kbd> sets the value to the `min` value
+- <kbd>End</kbd> sets the value to the `max` value
+- <kbd>ArrowUp</kbd> Increases the value by the step amount
+- <kbd>ArrowDown</kbd> Decreases the value by the step amount
+- <kbd>PageUp</kbd> Increases the value by the step amount times the `repeat-step-multiplier` amount
+- <kbd>PageDown</kbd> Decreases the value by the step amount times the `repeat-step-multiplier` amount
 
-Pressing an holding the key will auto-repeat the increment or decrement (after an initial delay).
-Holding the key for an extended period will increase the increment or decrement speed.
+Pressing an holding the <kbd>ArrowUp</kbd>, <kbd>ArrowDown</kbd>, <kbd>PageUp</kbd>, or
+<kbd>PageDown</kbd> keys will auto-repeat the increment or decrement (after an initial delay).
+Holding down the <kbd>ArrowUp</kbd> or <kbd>ArrowDown</kbd> keys for an extended period will
+multiply the increment or decrement amount by the `repeat-step-multiplier` amount.
+
+Note the the `repeat-delay`, `repeat-threshold` and `repeat-interval` only applies to the
+<kbd>ArrowUp</kbd> or <kbd>ArrowDown</kbd> keys.
 
 ## Implementation notes
 
