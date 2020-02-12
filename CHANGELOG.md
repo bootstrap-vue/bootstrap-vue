@@ -4,6 +4,27 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.4.1"></a>
+
+## [v2.4.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.4.0...v2.4.1)
+
+Released: 2020-02-12
+
+### Bug Fixes v2.4.1
+
+- **b-form-input, b-form-textarea:** handle change event for all mobile device keyboards (closes
+  [#4724](https://github.com/bootstrap-vue/bootstrap-vue/issues/4724))
+  ([#4739](https://github.com/bootstrap-vue/bootstrap-vue/issues/4739))
+  ([166a932](https://github.com/bootstrap-vue/bootstrap-vue/commit/166a932fb11fa552714aba7df67992e1265b9047))
+- **b-tooltip:** fix arrow margin
+  ([#4727](https://github.com/bootstrap-vue/bootstrap-vue/issues/4727))
+  ([865a655](https://github.com/bootstrap-vue/bootstrap-vue/commit/865a6557fbf49115c05326f9a96c4f9fdf135e96))
+
+### Other v2.4.1
+
+- dev dependency updates
+- minor docs updates
+
 <a name="2.4.0"></a>
 
 ## [v2.4.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.3.0...v2.4.0)
