@@ -1,4 +1,3 @@
-// b-form-spinbutton
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
 import { eventOff, eventOn } from '../../utils/dom'
@@ -28,29 +27,32 @@ const DEFAULT_REPEAT_INTERVAL = 100
 // Repeat rate increased after number of repeats
 const DEFAULT_REPEAT_THRESHOLD = 10
 // Repeat speed multiplier (step multiplier, must be an integer)
-const DEFAULT_REPEAT_MULT = 4
+const DEFAULT_REPEAT_MULTIPLIER = 4
 
 // -- Helper functions ---
 
-const defaultNumber = (val, def) => {
-  val = toFloat(val)
-  return isNaN(val) ? def : val
+const defaultNumber = (value, defaultValue = null) => {
+  value = toFloat(value)
+  return isNaN(value) ? defaultValue : value
 }
 
-const defaultInteger = (val, def) => /* istanbul ignore next: until tests are ready */ {
-  val = toInteger(val)
-  return isNaN(val) ? Math.abs(def) : val
+const defaultInteger = (
+  value,
+  defaultValue = null
+) => /* istanbul ignore next: until tests are ready */ {
+  value = toInteger(value)
+  return isNaN(value) ? Math.abs(defaultValue) : value
 }
 
 // --- BFormSpinbutton ---
-// @vue/cpmponent
+// @vue/component
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin],
   inheritAttrs: false,
   props: {
     value: {
-      // Should this really be String, to match native Number inputs?
+      // Should this really be String, to match native number inputs?
       type: Number,
       default: null
     },
@@ -142,13 +144,12 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     repeatStepMultiplier: {
       type: [Number, String],
-      default: DEFAULT_REPEAT_MULT
+      default: DEFAULT_REPEAT_MULTIPLIER
     }
   },
   data() {
-    const value = toFloat(this.value)
     return {
-      localValue: isNaN(value) ? null : value,
+      localValue: defaultNumber(this.value),
       hasFocus: false
     }
   },
@@ -171,15 +172,15 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     computedThreshold() /* istanbul ignore next: until tests are ready */ {
       return defaultInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD) || 1
     },
-    computedStepMult() /* istanbul ignore next: until tests are ready */ {
-      return defaultInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULT) || 1
+    computedStepMultiplier() /* istanbul ignore next: until tests are ready */ {
+      return defaultInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULTIPLIER) || 1
     },
     computedPrecision() {
       // Quick and dirty way to get the number of decimals
       const step = this.computedStep
       return Math.floor(step) === step ? 0 : (step.toString().split('.')[1] || '').length
     },
-    computedMult() /* istanbul ignore next: until tests are ready */ {
+    computedMultiplier() /* istanbul ignore next: until tests are ready */ {
       return Math.pow(10, this.computedPrecision || 0)
     },
     valueAsFixed() {
@@ -271,12 +272,12 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         const step = this.computedStep * direction
         const min = this.computedMin
         const max = this.computedMax
-        const mult = this.computedMult
+        const multiplier = this.computedMultiplier
         const wrap = this.wrap
         // We ensure that the value steps like a native input
         value = Math.round((value - min) / step) * step + min + step
         // We ensure that precision is maintained (decimals)
-        value = Math.round(value * mult) / mult
+        value = Math.round(value * multiplier) / multiplier
         // Handle if wrapping is enabled
         this.localValue =
           value > max ? (wrap ? min : max) : value < min ? (wrap ? max : min) : value
@@ -289,20 +290,20 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.hasFocus = false
       }
     },
-    stepUp(mult = 1) /* istanbul ignore next: until tests are ready */ {
+    stepUp(multiplier = 1) /* istanbul ignore next: until tests are ready */ {
       const value = this.localValue
       if (isNull(value)) {
         this.localValue = this.computedMin
       } else {
-        this.stepValue(+1 * mult)
+        this.stepValue(+1 * multiplier)
       }
     },
-    stepDown(mult = 1) /* istanbul ignore next: until tests are ready */ {
+    stepDown(multiplier = 1) /* istanbul ignore next: until tests are ready */ {
       const value = this.localValue
       if (isNull(value)) {
         this.localValue = this.wrap ? this.computedMax : this.computedMin
       } else {
-        this.stepValue(-1 * mult)
+        this.stepValue(-1 * multiplier)
       }
     },
     onKeydown(evt) /* istanbul ignore next: until tests are ready */ {
@@ -329,9 +330,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         } else {
           // These use native OS key repeating
           if (keyCode === PAGEUP) {
-            this.stepUp(this.computedStepMult)
+            this.stepUp(this.computedStepMultiplier)
           } else if (keyCode === PAGEDOWN) {
-            this.stepDown(this.computedStepMult)
+            this.stepDown(this.computedStepMultiplier)
           } else if (keyCode === HOME) {
             this.localValue = this.computedMin
           } else if (keyCode === END) {
@@ -363,11 +364,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         // Initiate the delay/repeat interval
         this.$_autoDelayTimer = setTimeout(() => {
           const threshold = this.computedThreshold
-          const multiplier = this.computedStepMult
+          const multiplier = this.computedStepMultiplier
           let count = 0
           this.$_autoRepeatTimer = setInterval(() => {
             // After N initial repeats, we increase the incrementing step amount
-            // We do this to minimize screen reader annoucements of the value
+            // We do this to minimize screen reader announcements of the value
             // (values are announced every change, which can be chatty for SR users)
             // And to make it easer to select a value when the range is large
             stepper(count < threshold ? 1 : multiplier)
@@ -385,9 +386,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     setMouseup(on) {
       // Enable or disabled the body mouseup/touchend handlers
+      // Use try/catch to handle case when called server side
       const method = on ? eventOn : eventOff
       try {
-        // Use try/catch to handle case when called server side
         method(document.body, 'mouseup', this.onMouseup, { passive: true })
         method(document.body, 'touchend', this.onMouseup, { passive: true })
       } catch {}
