@@ -1,12 +1,12 @@
 # Form Spinbutton
 
-> Spin buttons are a BottstrapVue custom numerical range form control. Spin buttons allow for incrementing
-> or decrementing a numerical value within a range of a minimum and maximum number, with optional step
-> value.
+> Spin buttons are a BootstrapVue custom numerical range form control. Spin buttons allow for
+> incrementing or decrementing a numerical value within a range of a minimum and maximum number,
+> with optional step value.
 
-`<b-form-spinbutton>` is [WAI-ARIA compliant](https://www.w3.org/TR/wai-aria-practices-1.2/#spinbutton),
-allowing for [keyboard control](#accessibility), and supports both horizontal (default) and vertical
-layout.
+`<b-form-spinbutton>` is
+[WAI-ARIA compliant](https://www.w3.org/TR/wai-aria-practices-1.2/#spinbutton), allowing for
+[keyboard control](#accessibility), and supports both horizontal (default) and vertical layout.
 
 Similar to [range type inputs](/docs/components/form-input#range-type-input), BootstrapVue's
 `<b-form-spinbutton>` _does not_ allow the user to type in a value.
@@ -55,7 +55,7 @@ prop to show a string when the spinbutton has no value (i.e. `placeholder="--"`)
 ## Min, max, and step
 
 Spinbuttons have a default range from `1` to `100`, which can be changed by setting the `min` and
-`max` props.  The default step increment is `1`, and can be changed via the `step` prop (decimal
+`max` props. The default step increment is `1`, and can be changed via the `step` prop (decimal
 values allowed).
 
 When `step` is set, the value will always be a multiple of the step size plus the minimum value.
@@ -90,11 +90,11 @@ When `step` is set, the value will always be a multiple of the step size plus th
 ## Number wrapping
 
 By default, when the value is increased to the `max` value, it pressing the increment button will
-have no effect. Similarily when the value is as the `min` value, pressing the decrement button
-will ahve no effect.
+have no effect. Similarly when the value is as the `min` value, pressing the decrement button will
+have no effect.
 
-To allow the spin button to wrap from max to min when incrementing (or min to max when decremening),
-set the `wrap` prop to `true`.
+To allow the spin button to wrap from max to min when incrementing (or min to max when
+decrementing), set the `wrap` prop to `true`.
 
 ```html
 <template>
@@ -157,7 +157,7 @@ TBD
 ```
 
 The spin button will automatically adjust it's width to fit the displayed value. See the
-[Width section](#width) below for details on controling or setting the width.
+[Width section](#width) below for details on controlling or setting the width.
 
 ### Vertical
 
@@ -184,30 +184,32 @@ Spinbuttons can be oriented in vertical mode:
 <!-- b-form-spinbotton-vertical.vue -->
 ```
 
-Vertical spin buttons can also be sized using the [`size` prop](#size). When in vertical mode, the spin
-button is rendered as an inline element.
+Vertical spin buttons can also be sized using the [`size` prop](#size). When in vertical mode, the
+spin button is rendered as an inline element.
 
 The spin button will automatically adjust it's width to fit the displayed value. See the
-[Width section](#width) below for details on controling or setting the width.
+[Width section](#width) below for details on controlling or setting the width.
 
 ### Width
 
-The control (when not `vertical` or `inline`) will expand to the maximum witdh of the parent container You
-can control width via utility classes such as `w-25`, `w-50`, `w-75`, or use styles to set the width.
+The control (when not `vertical` or `inline`) will expand to the maximum width of the parent
+container You can control width via utility classes such as `w-25`, `w-50`, `w-75`, or use styles to
+set the width.
 
-When either `vertical` or `inline` is set, the control will adjust its width based on the displayed value.
-You can use css style to control the overall width of the control (i.e. `style="width: 10rem;`).
+When either `vertical` or `inline` is set, the control will adjust its width based on the displayed
+value. You can use css style to control the overall width of the control (i.e.
+`style="width: 10rem;`).
 
 TBD
 
 ### Number formatting and locale
 
-By default `<b-form-spinbutton>` will format the displayed number in the users browser default locale.
-You can change the localized formatting by specifying a locale (or array of locales) via the `locale`
-prop. Number format localization is performed via
+By default `<b-form-spinbutton>` will format the displayed number in the users browser default
+locale. You can change the localized formatting by specifying a locale (or array of locales) via the
+`locale` prop. Number format localization is performed via
 [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat).
-The locales available will be dependant on the browser implementation. Localization only controls the
-presentation of the value to the user, and does not affect the `v-model`.
+The locales available will be dependant on the browser implementation. Localization only controls
+the presentation of the value to the user, and does not affect the `v-model`.
 
 ```html
 <template>
@@ -248,13 +250,13 @@ presentation of the value to the user, and does not affect the `v-model`.
 <!-- b-form-spinbotton-locale.vue -->
 ```
 
-Alternatively, you can provide your own number formatter function to format the value displayed. This
-is usefull for displaying text instead of a number, or if you want to implement different features of
-`Intl.NumberFormat`.
+Alternatively, you can provide your own number formatter function to format the value displayed.
+This is useful for displaying text instead of a number, or if you want to implement different
+features of `Intl.NumberFormat`.
 
 To provide a formatter function, set the prop `formatter-fn` to a method reference. The formatter is
-passed a single argument which is the current value. Note the formatter only affects the value displayed
-to the user and does not affect the `v-model`.
+passed a single argument which is the current value. Note the formatter only affects the value
+displayed to the user and does not affect the `v-model`.
 
 ```html
 <template>
@@ -293,8 +295,9 @@ to the user and does not affect the `v-model`.
 
 ## Disabled and readonly states
 
-Setting the prop `disabled` places the component in a disabled, non-interactive state. The `readonly`
-prop places the component in a readonly state (focusable, but the value cannot be changed by the user).
+Setting the prop `disabled` places the component in a disabled, non-interactive state. The
+`readonly` prop places the component in a readonly state (focusable, but the value cannot be changed
+by the user).
 
 ```html
 <template>
@@ -323,7 +326,7 @@ prop places the component in a readonly state (focusable, but the value cannot b
 <!-- b-form-spinbotton-disabled-readonly.vue -->
 ```
 
-Disabled spinbuttons will not be submited during native browser form submission, while a readonly
+Disabled spinbuttons will not be submitted during native browser form submission, while a readonly
 spinbutton will be submitted (as long as a name has been set via the `name` prop).
 
 ## Validation states
@@ -333,7 +336,7 @@ prop to apply one of the contextual validation styles to the component
 
 - `true` applies the valid styling to the component
 - `false` applies the invalid styling to the component
-- `null` (the default) applies no contetual styling
+- `null` (the default) applies no contextual styling
 
 ### Required prop
 
@@ -348,12 +351,12 @@ Note that if the prop `required` is set, and the v-model is `null`, the attribut
 
 The `input` event is used to update the `v-model` and is emitted any time the value changes.
 
-The `change` event is emitted once the user releases the mouse button (when pressing the
-inrement or decrement buttons) or when the user releases the <kbd>ArrowDown</kbd> or
-<kbd>ArrowUp</kbd> key. This can be handy when you need to debounce the input.
+The `change` event is emitted once the user releases the mouse button (when pressing the increment
+or decrement buttons) or when the user releases the <kbd>ArrowDown</kbd> or <kbd>ArrowUp</kbd> key.
+This can be handy when you need to debounce the input.
 
-The folowing example illustrates the difference between the `input` and `change` events.
-Click and hold the increment or decrement button (or use the up/down arrow keys).
+The following example illustrates the difference between the `input` and `change` events. Click and
+hold the increment or decrement button (or use the up/down arrow keys).
 
 ```html
 <template>
@@ -361,12 +364,12 @@ Click and hold the increment or decrement button (or use the up/down arrow keys)
     <label for="sb-input">Spin button - input and change events</label>
     <b-form-spinbutton
       id="sb-input"
-      v-model="valueA"
-      @change="valueB = $event"
+      v-model="value1"
+      @change="value2 = $event"
       wrap
     ></b-form-spinbutton>
-    <p>Input event: {{ valueA }}</p>
-    <p>Change event: {{ valueB }}</p>
+    <p>Input event: {{ value1 }}</p>
+    <p>Change event: {{ value2 }}</p>
   </b-row>
 </template>
 
@@ -374,8 +377,8 @@ Click and hold the increment or decrement button (or use the up/down arrow keys)
   export default {
     data() {
       return {
-        valueA: 0,
-        valueB: 0
+        value1: 0,
+        value2: 0
       }
     }
   }
@@ -393,7 +396,8 @@ The following keyboard controls are available when the spin button is focused:
 - <kbd>ArrowUp</kbd> Increases the value by the step amount
 - <kbd>ArrowDown</kbd> Decreases the value by the step amount
 - <kbd>PageUp</kbd> Increases the value by the step amount times the `repeat-step-multiplier` amount
-- <kbd>PageDown</kbd> Decreases the value by the step amount times the `repeat-step-multiplier` amount
+- <kbd>PageDown</kbd> Decreases the value by the step amount times the `repeat-step-multiplier`
+  amount
 
 Pressing an holding the <kbd>ArrowUp</kbd>, <kbd>ArrowDown</kbd>, <kbd>PageUp</kbd>, or
 <kbd>PageDown</kbd> keys will auto-repeat the increment or decrement (after an initial delay).
@@ -405,7 +409,7 @@ Note the the `repeat-delay`, `repeat-threshold` and `repeat-interval` only appli
 
 ## Implementation notes
 
-`<b-form-spinbutton>` usesa mixture of Bootstrap v4 utility classes (margin, padding, and flex),
+`<b-form-spinbutton>` uses a mixture of Bootstrap v4 utility classes (margin, padding, and flex),
 form-control and button classes, along with additional custom BootstrapVue SCSS/CSS.
 
 ## See also
