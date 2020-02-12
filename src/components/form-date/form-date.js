@@ -405,7 +405,10 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         staticClass: 'form-control text-break text-wrap border-0 h-auto m-0',
         class: {
           // Mute the text if showing the placeholder
-          'text-muted': !localYMD
+          'text-muted': !localYMD,
+          [`form-control-${size}`]: !!size,
+          'is-invalid': state === false,
+          'is-valid': state === true
         },
         attrs: {
           id: idLabel,
