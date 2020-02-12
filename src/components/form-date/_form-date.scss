@@ -9,6 +9,10 @@
     font-size: inherit;
     box-shadow: none !important;
 
+    > div {
+      transition: transform .15s;
+    }
+
     &:disabled {
       pointer-events: none;
     }
@@ -17,7 +21,6 @@
     &:focus:not(:disabled) {
       > div {
         transform: scale(1.25);
-        transition: transform .15s
       }
     }
   }
