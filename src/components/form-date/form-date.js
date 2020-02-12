@@ -418,7 +418,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           // prevent menu from closing and re-opening
           click: evt => /* istanbul ignore next */ {
             evt.stopPropagation()
-          }
+          },
           '!focus': this.setFocus,
           '!blur': this.setFocus
         }
