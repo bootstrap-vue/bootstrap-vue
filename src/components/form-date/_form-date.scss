@@ -10,7 +10,7 @@
     box-shadow: none !important;
 
     > div {
-      transition: transform .15s;
+      transition: transform 0.15s;
     }
 
     &:disabled {
@@ -24,7 +24,7 @@
       }
     }
   }
-  
+
   &.is-valid > .btn {
     color: $form-feedback-valid-color;
   }
