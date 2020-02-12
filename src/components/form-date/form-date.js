@@ -389,7 +389,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         on: {
           mousedown: this.onMousedown,
           click: this.toggle,
-          keydown: this.toggle // Handle ENTER, SPACE and DOWN
+          keydown: this.toggle, // Handle ENTER, SPACE and DOWN
+          '!focus': this.setFocus,
+          '!blur': this.setFocus
         }
       },
       [$button]
@@ -418,9 +420,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           // prevent menu from closing and re-opening
           click: evt => /* istanbul ignore next */ {
             evt.stopPropagation()
-          },
-          '!focus': this.setFocus,
-          '!blur': this.setFocus
+          }
         }
       },
       [
