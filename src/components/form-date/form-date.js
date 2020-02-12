@@ -403,7 +403,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const $input = h(
       'label',
       {
-        staticClass: 'form-control text-break text-wrap border-0 h-auto pl-1 m-0',
+        staticClass: 'form-control text-break text-wrap border-0 bg-transparent h-auto pl-1 m-0',
         class: {
           // Mute the text if showing the placeholder
           'text-muted': !localYMD,
