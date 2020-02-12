@@ -13,9 +13,12 @@
       pointer-events: none;
     }
 
-    &:hover:not(:disabled) > div {
-      transform: scale(1.25);
-      transition: transform .15s
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+      > div {
+        transform: scale(1.25);
+        transition: transform .15s
+      }
     }
   }
   
