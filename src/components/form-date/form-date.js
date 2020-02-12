@@ -400,7 +400,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const $input = h(
       'label',
       {
-        staticClass: 'form-control text-break text-wrap border-0 h-auto',
+        staticClass: 'form-control text-break text-wrap border-0 h-auto m-0',
         class: {
           // Mute the text if showing the placeholder
           'text-muted': !localYMD
@@ -419,6 +419,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           click: evt => /* istanbul ignore next */ {
             evt.stopPropagation()
           }
+          '!focus': this.setFocus,
+          '!blur': this.setFocus
         }
       },
       [
@@ -570,10 +572,6 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           // We don't want the flex order to change here
           // So we always use 'ltr'
           dir: 'ltr'
-        },
-        on: {
-          '!focus': this.setFocus,
-          '!blur': this.setFocus
         }
       },
       [$button, $hidden, $menu, $input]
