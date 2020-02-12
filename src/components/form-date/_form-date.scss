@@ -47,27 +47,22 @@
     }
   }
 
+  label {
+    @if $enable-pointer-cursor-for-buttons {
+      cursor: pointer;
+    }
+  }
+
   // Disabled and read-only styling
   &[aria-disabled="true"],
   &[aria-readonly="true"] {
-    label.form-control {
-      background-color: $input-disabled-bg;
-      opacity: 1;
-    }
+    background-color: $input-disabled-bg;
+    opacity: 1;
   }
 
   &[aria-disabled="true"] {
-    > label {
+    label {
       cursor: default;
-    }
-  }
-
-  // Give label a cursor like buttons have
-  &:not([aria-disabled="true"]) {
-    > label {
-      @if $enable-pointer-cursor-for-buttons {
-        cursor: pointer;
-      }
     }
   }
 }
