@@ -225,7 +225,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       localLocale: null,
       isRTL: false,
       formatedValue: '',
-      activeYMD: ''
+      activeYMD: '',
+      // Flag tp add focus ring to outer wrapper
+      hasFocus: false
     }
   },
   computed: {
@@ -352,6 +354,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     },
     onCloseButton() {
       this.hide(true)
+    },
+    setFocus(evt) {
+      this.hasFocus = evt.type === 'focus'
     }
   },
   render(h) {
@@ -372,12 +377,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       'button',
       {
         ref: 'toggle',
-        staticClass: 'btn border-0 h-auto',
-        class: {
-          'btn-outline-dark': !isBoolean(state),
-          'btn-outline-danger': state === false,
-          'btn-outline-success': state === true
-        },
+        staticClass: 'btn border-0 h-auto py-0',
         attrs: {
           id: idButton,
           type: 'button',
@@ -395,7 +395,6 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       },
       [$button]
     )
-    $button = h('div', { staticClass: 'input-group-prepend' }, [$button])
 
     // Label as a "fake" input
     // This label will be read by screen readers when the button is focused
@@ -404,9 +403,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'form-control text-break text-wrap border-0 h-auto',
         class: {
-          'is-invalid': state === false,
-          'is-valid': state === true,
-          // Mute the text if showing hte placeholder
+          // Mute the text if showing the placeholder
           'text-muted': !localYMD
         },
         attrs: {
@@ -552,13 +549,13 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     return h(
       'div',
       {
-        staticClass: 'b-form-date form-control input-group dropdown h-auto p-0',
+        staticClass: 'b-form-date form-control dropdown h-auto p-0 d-flex',
         class: [
           this.directionClass,
           {
             show: this.visible,
+            focus: this.hasFocus,
             [`form-control-${size}`]: !!size,
-            [`input-group-${size}`]: !!size,
             'is-invalid': state === false,
             'is-valid': state === true
           }
@@ -574,6 +571,10 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           // We don't want the flex order to change here
           // So we always use 'ltr'
           dir: 'ltr'
+        },
+        on: {
+          '!focus': this.setFocus,
+          '!blur': this.setFocus
         }
       },
       [$button, $hidden, $menu, $input]
