@@ -16,7 +16,7 @@ Released: 2020-02-12
   [#4724](https://github.com/bootstrap-vue/bootstrap-vue/issues/4724))
   ([#4739](https://github.com/bootstrap-vue/bootstrap-vue/issues/4739))
   ([166a932](https://github.com/bootstrap-vue/bootstrap-vue/commit/166a932fb11fa552714aba7df67992e1265b9047))
-- **b-tooltip:** fix arrow margin
+- **b-tooltip, v-b-tooltip:** fix arrow margin
   ([#4727](https://github.com/bootstrap-vue/bootstrap-vue/issues/4727))
   ([865a655](https://github.com/bootstrap-vue/bootstrap-vue/commit/865a6557fbf49115c05326f9a96c4f9fdf135e96))
 
