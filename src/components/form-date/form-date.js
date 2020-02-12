@@ -225,7 +225,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       isRTL: false,
       formatedValue: '',
       activeYMD: '',
-      // Flag tp add focus ring to outer wrapper
+      // Flag to add focus ring to outer wrapper
       hasFocus: false
     }
   },
