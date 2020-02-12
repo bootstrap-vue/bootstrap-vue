@@ -378,7 +378,7 @@ hold the increment or decrement button (or use the up/down arrow keys).
     data() {
       return {
         value1: 0,
-        value2: 0
+        value2: null
       }
     }
   }
