@@ -69,6 +69,8 @@
   }
 
   &[aria-disabled="true"] {
+    pointer-events: none;
+
     > label {
       cursor: default;
     }
