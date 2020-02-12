@@ -15,6 +15,7 @@
 
     &:hover:not(:disabled) > div {
       transform: scale(1.25);
+      transition: transform .15s
     }
   }
   
