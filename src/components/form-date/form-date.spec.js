@@ -106,17 +106,19 @@ describe('form-date', () => {
     expect($btn.find('svg.bi-calendar-fill').exists()).toBe(false)
 
     // Hovering the label should trigger the button hover
-    const $label = wrapper.find('label')
+    const $label = wrapper.find('label.form-control')
     expect($label.exists()).toBe(true)
 
     $label.trigger('mouseenter')
     await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($btn.find('svg.bi-calendar').exists()).toBe(false)
     expect($btn.find('svg.bi-calendar-fill').exists()).toBe(true)
 
     $label.trigger('mouseleave')
     await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect($btn.find('svg.bi-calendar').exists()).toBe(true)
     expect($btn.find('svg.bi-calendar-fill').exists()).toBe(false)
