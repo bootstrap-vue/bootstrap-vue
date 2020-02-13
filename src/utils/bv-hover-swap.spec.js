@@ -29,4 +29,39 @@ describe('utils/bv-hoverswap', () => {
 
     wrapper.destroy()
   })
+
+  it('works when `parent` is true ', async () => {
+    const unhovered = () => h('span', {}, 'FOO')
+    const hovered = () => h('span', {}, 'BAR')
+    const app = {
+      render(h) {
+        const $content = h(BVHoverSwap, {
+          props: { parent: true },
+          scopedSlots: { default: unhovered, hovered: hovered }
+        })
+        return h('div', {}, [$content])
+      }
+    }
+    const wrapper = mount(app)
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.find('div > div').exists()).toBe(true)
+    expect(wrapper.find('div > div').is(BVHoverSwap)).toBe(true)
+    expect(wrapper.text()).toBe('FOO')
+
+    wrapper.trigger('mouseenter')
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.text()).toBe('BAR')
+
+    wrapper.trigger('mouseleave')
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.text()).toBe('FOO')
+
+    wrapper.destroy()
+  })
 })
