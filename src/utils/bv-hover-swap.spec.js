@@ -70,6 +70,21 @@ describe('utils/bv-hoverswap', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.text()).toBe('FOO')
 
+    wrapper.setProps({
+      parent: false
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.trigger('mouseenter')
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.text()).toBe('FOO')
+
+    wrapper.find('div > div').trigger('mouseenter')
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.text()).toBe('BAR')
+
     wrapper.destroy()
   })
 })
