@@ -45,8 +45,8 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
         this.listen(false)
         this.$_hoverEl = el
       }
-      eventOnOff(on, el, 'mouseenter', this.handleHover, EVENT_OPTIONS_PASSIVE)
-      eventOnOff(on, el, 'mouseleave', this.handleHover, EVENT_OPTIONS_PASSIVE)
+      eventOnOff(on, this.$_hoverEl, 'mouseenter', this.handleHover, EVENT_OPTIONS_PASSIVE)
+      eventOnOff(on, this.$_hoverEl, 'mouseleave', this.handleHover, EVENT_OPTIONS_PASSIVE)
     },
     handleHover(evt) {
       this.isHovered = evt.type === 'mouseenter'
