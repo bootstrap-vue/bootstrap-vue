@@ -1,6 +1,7 @@
 import Vue from './vue'
 import { eventOn, eventOff } from './dom'
 
+// @vue/component
 export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
   name: 'BVHoverSwap',
   props: {
