@@ -40,6 +40,7 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     listen(on) {
+      const el = this.parent ? this.$el.parentElement || this.$el : this.$el
       if (on && this.$_hoverEl !== el) {
         this.listen(false)
         this.$_hoverEl = el
