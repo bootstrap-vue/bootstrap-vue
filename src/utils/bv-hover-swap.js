@@ -24,7 +24,7 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    parent() /* istanbul ignore next */ {
+    parent() {
       this.listen(true)
     }
   },
