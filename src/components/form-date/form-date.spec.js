@@ -41,12 +41,27 @@ describe('form-date', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    expect(wrapper.classes()).toContain('b-form-date')
+    expect(wrapper.classes()).toContain('form-control')
+    expect(wrapper.classes()).toContain('dropdown')
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.attributes('role')).toEqual('group')
 
-    expect(wrapper.find('button#test-base').exists()).toBe(true)
     expect(wrapper.find('.dropdown-menu').exists()).toBe(true)
+    expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
+    expect(wrapper.find('.dropdown-menu').attributes('role')).toEqual('dialog')
+    expect(wrapper.find('.dropdown-menu').attributes('aria-modal')).toEqual('false')
+
     expect(wrapper.find('label.form-control').exists()).toBe(true)
+    expect(wrapper.find('label.form-control').attributes('for')).toEqual('test-base')
+
     expect(wrapper.find('input[type="hidden"]').exists()).toBe(false)
+
+    const $btn = wrapper.find('button#test-base')
+    expect($btn.exists()).toBe(true)
+    expect($btn.attributes('aria-haspopup')).toEqual('dialog')
+    expect($btn.attributes('aria-expanded')).toEqual('false')
+    expect($btn.find('svg.bi-calendar').exists()).toBe(true)
 
     wrapper.destroy()
   })
@@ -78,50 +93,6 @@ describe('form-date', () => {
     expect(wrapper.find('input[type="hidden"]').exists()).toBe(true)
     expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
     expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('2020-01-20')
-
-    wrapper.destroy()
-  })
-
-  it('calendar button hover works', async () => {
-    const wrapper = mount(BFormDate, {
-      attachToDocument: true
-    })
-
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $btn = wrapper.find('button')
-    expect($btn.exists()).toBe(true)
-    expect($btn.find('svg.bi-calendar').exists()).toBe(true)
-    expect($btn.find('svg.bi-calendar-fill').exists()).toBe(false)
-
-    $btn.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-
-    expect($btn.find('svg.bi-calendar').exists()).toBe(false)
-    expect($btn.find('svg.bi-calendar-fill').exists()).toBe(true)
-
-    $btn.trigger('mouseleave')
-    await waitNT(wrapper.vm)
-
-    expect($btn.find('svg.bi-calendar').exists()).toBe(true)
-    expect($btn.find('svg.bi-calendar-fill').exists()).toBe(false)
-
-    // Hovering the label should trigger the button hover
-    const $label = wrapper.find('label.form-control')
-    expect($label.exists()).toBe(true)
-
-    $label.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
-    expect($btn.find('svg.bi-calendar').exists()).toBe(false)
-    expect($btn.find('svg.bi-calendar-fill').exists()).toBe(true)
-
-    $label.trigger('mouseleave')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
-    expect($btn.find('svg.bi-calendar').exists()).toBe(true)
-    expect($btn.find('svg.bi-calendar-fill').exists()).toBe(false)
 
     wrapper.destroy()
   })
