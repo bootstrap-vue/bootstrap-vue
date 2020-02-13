@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { waitNT } from '../../tests/utils'
 import { BVHoverSwap } from './bv-hover-swap'
 
 describe('utils/bv-hoverswap', () => (
