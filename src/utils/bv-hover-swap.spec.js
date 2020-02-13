@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { waitNT } from '../../tests/utils'
 import { BVHoverSwap } from './bv-hover-swap'
 
-describe('utils/bv-hoverswap', () => {
+describe('utils/bv-hover-swap', () => {
   it('works', async () => {
     const wrapper = mount(BVHoverSwap, {
       slots: {
@@ -36,7 +36,7 @@ describe('utils/bv-hoverswap', () => {
       props: {
         parent: {
           type: Boolean,
-          defaut: false
+          default: false
         }
       },
       methods: {
