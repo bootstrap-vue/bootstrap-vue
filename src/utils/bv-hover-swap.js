@@ -20,7 +20,7 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const $scoped = this.$scopedSlots
-    const $default = $scoped.default || () => h()
+    const $default = $scoped.default || (() => h())
     const $hovered = $scoped.hovered || $default
     return h(
       tag,
