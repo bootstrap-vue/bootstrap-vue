@@ -6,6 +6,10 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
     tag: {
       type: String,
       default: 'div'
+    },
+    parent: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -13,7 +17,22 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
       isHovered: false
     }
   },
+  mounted() {
+    this.listen(true)
+  },
+  updated() /* istanbul ignore next */ {
+    this.$nextTick(() => this.listen(true))
+  },
+  beforeDestroy() {
+    this.listen(false)
+  },
   methods: {
+    listen(on) {
+      const method = on ? eventOn : eventOff
+      const el = this.parent ? this.$el.parentElement || this.$el : this.$el
+      method(el, 'mouseenter', this.handleHover, { passive: true })
+      method(el, 'mouseleave', this.handleHover, { passive: true })
+    },
     handleHover(evt) {
       this.isHovered = evt.type === 'mouseenter'
     }
@@ -22,8 +41,6 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
     const $scoped = this.$scopedSlots
     const $default = $scoped.default || (() => h())
     const $hovered = $scoped.hovered || $default
-    return h(this.tag, { on: { mouseenter: this.handleHover, mouseleave: this.handleHover } }, [
-      this.isHovered ? $hovered() : $default()
-    ])
+    return h(this.tag, {}, [this.isHovered ? $hovered() : $default()])
   }
 })
