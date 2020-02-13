@@ -32,10 +32,18 @@ describe('utils/bv-hoverswap', () => {
 
   it('works when `parent` is true ', async () => {
     const app = {
+      methods: {
+        foo() {
+          return this.$createElement('span', {}, 'FOO')
+        },
+        bar() {
+          return this.$createElement('span', {}, 'BAR')
+        }
+      },
       render(h) {
         const $content = h(BVHoverSwap, {
           props: { parent: true },
-          slots: { default: '<span>FOO</span>', hovered: '<span>BAR</span>' }
+          scopedSlots: { default: this.foo, hovered: this.bar }
         })
         return h('div', {}, [$content])
       }
