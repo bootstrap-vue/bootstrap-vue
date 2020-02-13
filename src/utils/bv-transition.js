@@ -24,6 +24,7 @@ const FADE_PROPS = {
   leaveActiveClass: 'fade'
 }
 
+// @vue/component
 export const BVTransition = /*#__PURE__*/ Vue.extend({
   name: 'BVTransition',
   functional: true,
