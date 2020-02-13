@@ -17,10 +17,10 @@ const getConfigFallback = prop => {
 }
 
 // Trigger an event on an element
-const trigger = (el, type) => {
+const trigger = (el, type, bubbles = true, cancelable = true) => {
   try {
-    const evt = document.createEvent('HTMLEvents')
-    evt.initEvent(type, true, true)
+    const evt = document.createEvent('Event')
+    evt.initEvent(type, bubbles, cancelable)
     el.dispatchEvent(evt)
   } catch {}
 }
@@ -441,10 +441,10 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
             evt.stopPropagation()
           },
           mouseenter: evt => /* istanbul ignore next */ {
-            trigger(this.$refs.toggle, evt.type)
+            trigger(this.$refs.toggle, evt.type, false)
           },
           mouseleave: evt => /* istanbul ignore next */ {
-            trigger(this.$refs.toggle, evt.type)
+            trigger(this.$refs.toggle, evt.type, false)
           }
         }
       },
