@@ -552,7 +552,7 @@ describe('form-input', () => {
     const wrapper = mount(BFormInput, {
       propsData: {
         value: 'abc',
-        formatter(value) {
+        formatter() {
           return false
         }
       },

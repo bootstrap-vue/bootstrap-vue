@@ -91,14 +91,14 @@ export default {
         this.clearSelected()
       }
     },
-    selectable(newVal, oldVal) {
+    selectable(newVal) {
       this.clearSelected()
       this.setSelectionHandlers(newVal)
     },
-    selectMode(newVal, oldVal) {
+    selectMode() {
       this.clearSelected()
     },
-    hasSelectableRowClick(newVal, oldVal) {
+    hasSelectableRowClick(newVal) {
       this.clearSelected()
       this.setSelectionHandlers(!newVal)
     },
@@ -151,7 +151,7 @@ export default {
       const length = this.computedItems.length
       if (this.isSelectable && length > 0) {
         this.selectedLastClicked = -1
-        this.selectedRows = this.selectableIsMultiSelect ? range(length).map(i => true) : [true]
+        this.selectedRows = this.selectableIsMultiSelect ? range(length).map(() => true) : [true]
       }
     },
     isRowSelected(index) {

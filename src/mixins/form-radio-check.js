@@ -143,7 +143,7 @@ export default {
     }
   },
   watch: {
-    checked(newVal, oldVal) {
+    checked(newVal) {
       this.computedLocalChecked = newVal
     }
   },

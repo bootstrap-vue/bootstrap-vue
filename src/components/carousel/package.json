@@ -36,7 +36,7 @@
           },
           {
             "prop": "noHoverPause",
-            "description": "When set, disables the pausing of hte slide show when the current slide is hovered"
+            "description": "When set, disables the pausing of the slide show when the current slide is hovered"
           },
           {
             "prop": "interval",
