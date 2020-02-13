@@ -1,7 +1,7 @@
 import { parseEventOptions } from './events'
 import { hasPassiveEventSupport } from './env'
 
-describe('utils/event', () => {
+describe('utils/events', () => {
   it('event options parsing works', async () => {
     // JSDOM probably does not support passive mode
     if (hasPassiveEventSupport) {
