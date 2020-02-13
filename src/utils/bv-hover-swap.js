@@ -22,10 +22,8 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
     const $scoped = this.$scopedSlots
     const $default = $scoped.default || (() => h())
     const $hovered = $scoped.hovered || $default
-    return h(
-      tag,
-      { on: { mouseenter: this.handleHover, mouseleave: this.handleHover } },
-      [isHovered ? $hovered() : $default()]
-    )
+    return h(this.tag, { on: { mouseenter: this.handleHover, mouseleave: this.handleHover } }, [
+      this.isHovered ? $hovered() : $default()
+    ])
   }
 })
