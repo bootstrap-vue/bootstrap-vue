@@ -82,7 +82,7 @@ describe('form-date', () => {
     wrapper.destroy()
   })
 
-  if('calendar button hover works', async () => {
+  it('calendar button hover works', async () => {
     const wrapper = mount(BFormDate, {
       attachToDocument: true
     })
