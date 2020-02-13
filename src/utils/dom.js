@@ -1,6 +1,6 @@
 import { from as arrayFrom } from './array'
-import { hasWindowSupport, hasDocumentSupport, hasPassiveEventSupport } from './env'
-import { isFunction, isNull, isObject } from '../utils/inspect'
+import { hasWindowSupport, hasDocumentSupport } from './env'
+import { isFunction, isNull } from '../utils/inspect'
 
 // --- Constants ---
 
@@ -47,32 +47,6 @@ export const MutationObs =
   w.MutationObserver || w.WebKitMutationObserver || w.MozMutationObserver || null
 
 // --- Utils ---
-
-// Normalize event options based on support of passive option
-// Exported only for testing purposes
-export const parseEventOptions = options => {
-  /* istanbul ignore else: can't test in JSDOM, as it supports passive */
-  if (hasPassiveEventSupport) {
-    return isObject(options) ? options : { useCapture: !!options || false }
-  } else {
-    // Need to translate to actual Boolean value
-    return !!(isObject(options) ? options.useCapture : options)
-  }
-}
-
-// Attach an event listener to an element
-export const eventOn = (el, evtName, handler, options) => {
-  if (el && el.addEventListener) {
-    el.addEventListener(evtName, handler, parseEventOptions(options))
-  }
-}
-
-// Remove an event listener from an element
-export const eventOff = (el, evtName, handler, options) => {
-  if (el && el.removeEventListener) {
-    el.removeEventListener(evtName, handler, parseEventOptions(options))
-  }
-}
 
 // Remove a node from DOM
 export const removeNode = el => el && el.parentNode && el.parentNode.removeChild(el)

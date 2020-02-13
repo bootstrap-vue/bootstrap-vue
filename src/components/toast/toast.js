@@ -3,7 +3,8 @@ import { Portal, Wormhole } from 'portal-vue'
 import BVTransition from '../../utils/bv-transition'
 import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
-import { requestAF, eventOn, eventOff } from '../../utils/dom'
+import { requestAF } from '../../utils/dom'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOnOff } from '../../utils/events'
 import { toInteger } from '../../utils/number'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -18,8 +19,6 @@ import { BLink } from '../link/link'
 const NAME = 'BToast'
 
 const MIN_DURATION = 1000
-
-const EVENT_OPTIONS = { passive: true, capture: false }
 
 // --- Props ---
 
@@ -290,10 +289,9 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       this.timer = null
     },
     setHoverHandler(on) {
-      const method = on ? eventOn : eventOff
       const el = this.$refs['b-toast']
-      method(el, 'mouseenter', this.onPause, EVENT_OPTIONS)
-      method(el, 'mouseleave', this.onUnPause, EVENT_OPTIONS)
+      eventOnOff(on, el, 'mouseenter', this.onPause, EVENT_OPTIONS_NO_CAPTURE)
+      eventOnOff(on, el, 'mouseleave', this.onUnPause, EVENT_OPTIONS_NO_CAPTURE)
     },
     onPause(evt) {
       // Determine time remaining, and then pause timer
