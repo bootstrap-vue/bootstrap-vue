@@ -182,7 +182,7 @@ export default {
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/3498
         /* istanbul ignore next: hard to test */
         const $input = this.$refs.input
-        /* istanbul ignore if: hard to test outof sync value */
+        /* istanbul ignore if: hard to test out of sync value */
         if ($input && value !== $input.value) {
           $input.value = value
         }
@@ -191,6 +191,7 @@ export default {
     onInput(evt) {
       // `evt.target.composing` is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
+      // TODO: Is this needed now with the latest Vue?
       /* istanbul ignore if: hard to test composition events */
       if (evt.target.composing) {
         return
@@ -209,12 +210,6 @@ export default {
       this.$emit('input', formattedValue)
     },
     onChange(evt) {
-      // `evt.target.composing` is set by Vue
-      // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
-      /* istanbul ignore if: hard to test composition events */
-      if (evt.target.composing) {
-        return
-      }
       const value = evt.target.value
       const formattedValue = this.formatValue(value, evt)
       // Exit when the `formatter` function strictly returned `false`
