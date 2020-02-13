@@ -67,10 +67,10 @@ export default {
     }
   },
   watch: {
-    checked(newVal, oldVal) {
+    checked(newVal) {
       this.localChecked = newVal
     },
-    localChecked(newVal, oldVal) {
+    localChecked(newVal) {
       this.$emit('input', newVal)
     }
   },

@@ -44,7 +44,7 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     // Radio Groups can only have a single value, so our watchers are simple
-    computedLocalChecked(newVal, oldVal) {
+    computedLocalChecked() {
       this.$emit('input', this.computedLocalChecked)
     }
   },

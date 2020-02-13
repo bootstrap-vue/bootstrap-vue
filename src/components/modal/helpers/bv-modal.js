@@ -29,7 +29,7 @@ const BASE_PROPS = [
 ]
 
 // Fallback event resolver (returns undefined)
-const defaultResolver = bvModalEvt => {}
+const defaultResolver = () => {}
 
 // Map prop names to modal slot names
 const propsToSlots = {
@@ -211,7 +211,7 @@ const plugin = Vue => {
         hideFooter: false,
         msgBoxContent: message
       }
-      return makeMsgBox(this._vm, message, props, bvModalEvt => {
+      return makeMsgBox(this._vm, message, props, () => {
         // Always resolve to true for OK
         return true
       })

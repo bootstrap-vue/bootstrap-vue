@@ -53,7 +53,7 @@ describe('table > row select', () => {
         items: testItems
       },
       listeners: {
-        'row-clicked': (item, index, evt) => {}
+        'row-clicked': () => {}
       }
     })
     expect(wrapper).toBeDefined()

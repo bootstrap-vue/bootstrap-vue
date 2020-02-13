@@ -55,7 +55,7 @@ export const installFactory = ({ components, directives, plugins } = {}) => {
  * @returns {function} plugin install function
  */
 export const installFactoryNoConfig = ({ components, directives, plugins } = {}) => {
-  const install = (Vue, config = {}) => {
+  const install = Vue => {
     if (install.installed) {
       /* istanbul ignore next */
       return
@@ -77,9 +77,9 @@ export const installFactoryNoConfig = ({ components, directives, plugins } = {})
  * @param {object} { components, directives, plugins }
  * @returns {object} plugin install object
  */
-export const pluginFactory = (opts = {}, extend = {}) => ({
+export const pluginFactory = (options = {}, extend = {}) => ({
   ...extend,
-  install: installFactory(opts)
+  install: installFactory(options)
 })
 
 /**
@@ -87,9 +87,9 @@ export const pluginFactory = (opts = {}, extend = {}) => ({
  * @param {object} { components, directives, plugins }
  * @returns {object} plugin install object
  */
-export const pluginFactoryNoConfig = (opts = {}, extend = {}) => ({
+export const pluginFactoryNoConfig = (options = {}, extend = {}) => ({
   ...extend,
-  install: installFactoryNoConfig(opts)
+  install: installFactoryNoConfig(options)
 })
 
 /**

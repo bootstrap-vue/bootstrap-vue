@@ -447,7 +447,7 @@ export const BFormGroup = {
     return h(
       isFieldset ? 'fieldset' : isHorizontal ? BFormRow : 'div',
       data,
-      isHorizontal && isFieldset ? [h(BFormRow, {}, [label, content])] : [label, content]
+      isHorizontal && isFieldset ? [h(BFormRow, [label, content])] : [label, content]
     )
   }
 }

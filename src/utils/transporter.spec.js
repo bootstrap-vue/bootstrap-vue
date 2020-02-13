@@ -8,7 +8,7 @@ describe('utils/transporter component', () => {
   it('renders in-pace when disabled=true', async () => {
     const App = localVue.extend({
       render(h) {
-        return h(BTransporterSingle, { props: { disabled: true } }, [h('div', {}, 'content')])
+        return h(BTransporterSingle, { props: { disabled: true } }, [h('div', 'content')])
       }
     })
 

@@ -30,7 +30,7 @@ export const BButtonClose = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
-  render(h, { props, data, listeners, slots, scopedSlots }) {
+  render(h, { props, data, slots, scopedSlots }) {
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}
 

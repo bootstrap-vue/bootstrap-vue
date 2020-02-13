@@ -86,7 +86,7 @@ const destroyVM = (name, vm) => {
   ;[...document.querySelectorAll(`.vue-example-${name}`)].forEach(removeNode)
 }
 
-const processExamples = (el, binding, vnode, oldVnode) => {
+const processExamples = (el, binding, vnode) => {
   if (vnode.context.$options.beforeDestroy) {
     vnode.context.$options.beforeDestroy = []
       .concat(vnode.context.$options.beforeDestroy)

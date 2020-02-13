@@ -92,7 +92,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     if (!usePretranspiled) {
       // Use bootstrap-vue source code for smaller prod builds
       // by aliasing 'bootstrap-vue' to the source files
-      this.extendBuild((config, { isServer }) => {
+      this.extendBuild(config => {
         if (!config.resolve.alias) {
           config.resolve.alias = {}
         }

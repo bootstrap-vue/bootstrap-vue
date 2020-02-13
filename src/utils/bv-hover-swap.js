@@ -1,9 +1,5 @@
 import Vue from './vue'
-import { eventOn, eventOff } from './dom'
-
-// --- Constants ---
-
-const EVENT_OPTIONS = { passive: true }
+import { EVENT_OPTIONS_PASSIVE, eventOnOff } from './events'
 
 // @vue/component
 export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
@@ -49,9 +45,8 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
         this.listen(false)
         this.$_hoverEl = el
       }
-      const method = on ? eventOn : eventOff
-      method(this.$_hoverEl, 'mouseenter', this.handleHover, EVENT_OPTIONS)
-      method(this.$_hoverEl, 'mouseleave', this.handleHover, EVENT_OPTIONS)
+      eventOnOff(on, this.$_hoverEl, 'mouseenter', this.handleHover, EVENT_OPTIONS_PASSIVE)
+      eventOnOff(on, this.$_hoverEl, 'mouseleave', this.handleHover, EVENT_OPTIONS_PASSIVE)
     },
     handleHover(evt) {
       this.isHovered = evt.type === 'mouseenter'

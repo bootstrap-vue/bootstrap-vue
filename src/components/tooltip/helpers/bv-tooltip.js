@@ -9,21 +9,20 @@ import looseEqual from '../../../utils/loose-equal'
 import noop from '../../../utils/noop'
 import { arrayIncludes, concat, from as arrayFrom } from '../../../utils/array'
 import {
-  isElement,
-  isDisabled,
-  isVisible,
   closest,
   contains,
-  select,
-  getById,
-  hasClass,
   getAttr,
+  getById,
   hasAttr,
-  setAttr,
+  hasClass,
+  isDisabled,
+  isElement,
+  isVisible,
   removeAttr,
-  eventOn,
-  eventOff
+  select,
+  setAttr
 } from '../../../utils/dom'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff, eventOnOff } from '../../../utils/events'
 import {
   isFunction,
   isNumber,
@@ -47,9 +46,6 @@ const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
 // For dropdown sniffing
 const DROPDOWN_CLASS = 'dropdown'
 const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.show'
-
-// Options for Native Event Listeners (since we never call preventDefault)
-const EvtOpts = { passive: true, capture: false }
 
 // Data specific to popper and template
 // We don't use props, as we need reactivity (we can't pass reactive props)
@@ -482,7 +478,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Destroy the template
       this.destroyTemplate()
       // Emit a non-cancelable BvEvent 'shown'
-      this.emitEvent(this.buildEvent('hidden', {}))
+      this.emitEvent(this.buildEvent('hidden'))
     },
     // --- Utility methods ---
     getTarget() {
@@ -610,7 +606,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       }
     },
     // --- BvEvent helpers ---
-    buildEvent(type, opts = {}) {
+    buildEvent(type, options = {}) {
       // Defaults to a non-cancellable event
       return new BvEvent(type, {
         cancelable: false,
@@ -619,7 +615,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         componentId: this.computedId,
         vueTarget: this,
         // Add in option overrides
-        ...opts
+        ...options
       })
     },
     emitEvent(bvEvt) {
@@ -645,17 +641,17 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Set up our listeners on the target trigger element
       this.computedTriggers.forEach(trigger => {
         if (trigger === 'click') {
-          eventOn(el, 'click', this.handleEvent, EvtOpts)
+          eventOn(el, 'click', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
         } else if (trigger === 'focus') {
-          eventOn(el, 'focusin', this.handleEvent, EvtOpts)
-          eventOn(el, 'focusout', this.handleEvent, EvtOpts)
+          eventOn(el, 'focusin', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
+          eventOn(el, 'focusout', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
         } else if (trigger === 'blur') {
           // Used to close $tip when element looses focus
           /* istanbul ignore next */
-          eventOn(el, 'focusout', this.handleEvent, EvtOpts)
+          eventOn(el, 'focusout', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
         } else if (trigger === 'hover') {
-          eventOn(el, 'mouseenter', this.handleEvent, EvtOpts)
-          eventOn(el, 'mouseleave', this.handleEvent, EvtOpts)
+          eventOn(el, 'mouseenter', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
+          eventOn(el, 'mouseleave', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
         }
       }, this)
     },
@@ -669,7 +665,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
       // Clear out any active target listeners
       events.forEach(evt => {
-        target && eventOff(target, evt, this.handleEvent, EvtOpts)
+        target && eventOff(target, evt, this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
       }, this)
     },
     setRootListener(on) {
@@ -723,9 +719,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Only needed because of broken event delegation on iOS
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
       if ('ontouchstart' in document.documentElement) {
-        const method = on ? eventOn : eventOff
         arrayFrom(document.body.children).forEach(el => {
-          method(el, 'mouseover', this.$_noop)
+          eventOnOff(on, el, 'mouseover', this.$_noop)
         })
       }
     },
@@ -827,7 +822,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.enable()
       }
     },
-    click(evt) {
+    click() {
       if (!this.$_enabled || this.dropdownOpen()) {
         /* istanbul ignore next */
         return

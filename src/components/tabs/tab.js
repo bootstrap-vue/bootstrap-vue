@@ -85,7 +85,7 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    localActive(newVal, oldVal) {
+    localActive(newVal) {
       // Make 'active' prop work with `.sync` modifier
       this.$emit('update:active', newVal)
     },

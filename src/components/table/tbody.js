@@ -90,7 +90,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
     return h(
       this.isTransitionGroup ? 'transition-group' : 'tbody',
       data,
-      this.normalizeSlot('default', {})
+      this.normalizeSlot('default')
     )
   }
 })
