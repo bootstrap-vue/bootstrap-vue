@@ -18,9 +18,9 @@ describe('calendar', () => {
 
     expect(wrapper.classes()).toContain('b-calendar')
     expect(wrapper.find('.b-calendar>div').exists()).toBe(true)
-    expect(wrapper.find('.b-calendar>div').attriubutes('role')).toEqual('group')
-    expect(wrapper.find('.b-calendar>div').attriubutes('dir')).toBeDefined()
-    expect(wrapper.find('.b-calendar>div').attriubutes('lang')).toBeDefined()
+    expect(wrapper.find('.b-calendar>div').attributes('role')).toEqual('group')
+    expect(wrapper.find('.b-calendar>div').attributes('dir')).toBeDefined()
+    expect(wrapper.find('.b-calendar>div').attributes('lang')).toBeDefined()
     const $header = wrapper.find('.b-calendar>div>header')
     expect($header.exists()).toBe(true)
     expect($header.find('output').exists()).toBe(true)
