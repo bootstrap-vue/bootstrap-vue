@@ -16,6 +16,15 @@ const getConfigFallback = prop => {
   return getComponentConfig(NAME, prop) || getComponentConfig('BCalendar', prop)
 }
 
+// Trigger an event on an element
+const trigger = (el, type) => {
+  try {
+    const evt = document.createEvent('HTMLEvents')
+    evt.initEvent(type, true, true)
+    el.dispatchEvent(evt)
+  } catch {}
+}
+
 // We create our props as a mixin so that we can control
 // where they appear in the props listing reference section
 const propsMixin = {
@@ -274,10 +283,10 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    value(newVal, oldVal) {
+    value(newVal) {
       this.localYMD = formatYMD(newVal) || ''
     },
-    localYMD(newVal, oldVal) {
+    localYMD(newVal) {
       this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
     },
     calendarYM(newVal, oldVal) /* istanbul ignore next */ {
@@ -326,7 +335,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
         })
       }
     },
-    onSelected(ymd, date) {
+    onSelected(ymd) {
       this.$nextTick(() => {
         this.setAndClose(ymd)
       })
@@ -432,14 +441,10 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
             evt.stopPropagation()
           },
           mouseenter: evt => /* istanbul ignore next */ {
-            try {
-              this.$refs.toggle.dispatchEvent(evt)
-            } catch {}
+            trigger(this.$refs.toggle, evt.type)
           },
           mouseleave: evt => /* istanbul ignore next */ {
-            try {
-              this.$refs.toggle.dispatchEvent(evt)
-            } catch {}
+            trigger(this.$refs.toggle, evt.type)
           }
         }
       },
