@@ -31,13 +31,11 @@ describe('utils/bv-hoverswap', () => {
   })
 
   it('works when `parent` is true ', async () => {
-    const unhovered = () => h('span', {}, 'FOO')
-    const hovered = () => h('span', {}, 'BAR')
     const app = {
       render(h) {
         const $content = h(BVHoverSwap, {
           props: { parent: true },
-          scopedSlots: { default: unhovered, hovered: hovered }
+          slots: { default: '<span>FOO</span>', hovered: '<span>BAR</span>' }
         })
         return h('div', {}, [$content])
       }
