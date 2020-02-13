@@ -82,6 +82,48 @@ describe('form-date', () => {
     wrapper.destroy()
   })
 
+  if('calendar button hover works', async () => {
+    const wrapper = mount(BFormDate, {
+      attachToDocument: true
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    const $btn = wrapper.find('button')
+    expect($btn.exists()).toBe(true)
+    expect($btn.find('svg.bi-calendar').exists()).toBe(true)
+    expect($btn.find('svg.bi-calendar-fill').exists()).toBe(false)
+
+    $btn.trigger('mouseenter')
+    await waitNT(wrapper.vm)
+
+    expect($btn.find('svg.bi-calendar').exists()).toBe(false)
+    expect($btn.find('svg.bi-calendar-fill').exists()).toBe(true)
+
+    $btn.trigger('mouseleave')
+    await waitNT(wrapper.vm)
+
+    expect($btn.find('svg.bi-calendar').exists()).toBe(true)
+    expect($btn.find('svg.bi-calendar-fill').exists()).toBe(false)
+
+    // Hovering the label should trigger the button hover
+    const $label = wrapper.find('label')
+    expect($label.exists()).toBe(true)
+
+    $label.trigger('mouseenter')
+    await waitNT(wrapper.vm)
+
+    expect($btn.find('svg.bi-calendar').exists()).toBe(false)
+    expect($btn.find('svg.bi-calendar-fill').exists()).toBe(true)
+
+    $label.trigger('mouseleave')
+    await waitNT(wrapper.vm)
+
+    expect($btn.find('svg.bi-calendar').exists()).toBe(true)
+    expect($btn.find('svg.bi-calendar-fill').exists()).toBe(false)
+
+    wrapper.destroy()
+  })
+
   it('reacts to changes in value', async () => {
     const wrapper = mount(BFormDate, {
       attachToDocument: true,
