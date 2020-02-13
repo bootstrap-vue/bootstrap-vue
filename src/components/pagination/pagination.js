@@ -131,7 +131,7 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
     makePage(pageNum) {
       return pageNum
     },
-    linkProps(pageNum) {
+    linkProps() {
       // Always '#' for pagination component
       return { href: '#' }
     }

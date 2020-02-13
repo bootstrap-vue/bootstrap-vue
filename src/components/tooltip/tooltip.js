@@ -154,18 +154,18 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         }
       }
     },
-    disabled(newVal, oldVal) {
+    disabled(newVal) {
       if (newVal) {
         this.doDisable()
       } else {
         this.doEnable()
       }
     },
-    localShow(show, oldVal) {
+    localShow(newVal) {
       // TODO: May need to be done in a `$nextTick()`
-      this.$emit('update:show', show)
+      this.$emit('update:show', newVal)
     },
-    templateData(newVal, oldVal) {
+    templateData() {
       this.$nextTick(() => {
         if (this.$_bv_toolpop) {
           this.$_bv_toolpop.updateData(this.templateData)
@@ -173,7 +173,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       })
     },
     // Watchers for title/content props (prop changes do not trigger the `updated()` hook)
-    templateTitleContent(newVal, oldVal) {
+    templateTitleContent() {
       this.$nextTick(this.updateContent)
     }
   },
@@ -313,7 +313,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     doClose() {
       this.localShow && this.$_bv_toolpop && this.$_bv_toolpop.hide()
     },
-    doDisable(evt) {
+    doDisable() {
       this.$_bv_toolpop && this.$_bv_toolpop.disable()
     },
     doEnable() {

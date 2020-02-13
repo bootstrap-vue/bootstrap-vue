@@ -165,7 +165,7 @@ export default {
     const $content = []
 
     if (this.isTableSimple) {
-      $content.push(this.normalizeSlot('default', {}))
+      $content.push(this.normalizeSlot('default'))
     } else {
       // Build the `<caption>` (from caption mixin)
       $content.push(this.renderCaption ? this.renderCaption() : null)

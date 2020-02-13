@@ -98,7 +98,7 @@ export default {
   },
   watch: {
     // Watch for debounce being set to 0
-    computedFilterDebounce(newVal, oldVal) {
+    computedFilterDebounce(newVal) {
       if (!newVal && this.$_filterTimer) {
         clearTimeout(this.$_filterTimer)
         this.$_filterTimer = null
@@ -110,7 +110,7 @@ export default {
       // We need a deep watcher in case the user passes
       // an object when using `filter-function`
       deep: true,
-      handler(newCriteria, oldCriteria) {
+      handler(newCriteria) {
         const timeout = this.computedFilterDebounce
         clearTimeout(this.$_filterTimer)
         this.$_filterTimer = null
@@ -127,7 +127,7 @@ export default {
     },
     // Watch for changes to the filter criteria and filtered items vs `localItems`
     // Set visual state and emit events as required
-    filteredCheck({ filteredItems, localItems, localFilter }) {
+    filteredCheck({ filteredItems, localFilter }) {
       // Determine if the dataset is filtered or not
       let isFiltered = false
       if (!localFilter) {

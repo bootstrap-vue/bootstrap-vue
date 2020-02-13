@@ -99,7 +99,7 @@ renderer.blockquote = function(text) {
 
 // Bootstrap v4 table support for markdown renderer
 const originalTable = renderer.table
-renderer.table = function(header, body) {
+renderer.table = function() {
   let table = originalTable.apply(this, arguments)
   table = table
     .replace('<table>', '<table class="b-table table table-bordered table-striped bv-docs-table">')

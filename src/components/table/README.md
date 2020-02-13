@@ -2221,7 +2221,7 @@ method.
 <!-- eslint-disable no-unused-vars, prefer-const -->
 
 ```js
-function myProvider(ctx) {
+function myProvider() {
   let items = []
 
   // Perform any items processing needed
@@ -2306,7 +2306,7 @@ function should handle errors from data sources and return an empty array to `<b
       }
     }
     methods: {
-      myProvider (ctx) {
+      myProvider () {
         // Here we don't set isBusy prop, so busy state will be
         // handled by table itself
         // this.isBusy = true
@@ -2405,6 +2405,8 @@ have changed.
 
 The `sort-changed` event provides a single argument of the table's current state context object.
 This context object has the same format as used by items provider functions.
+
+<!-- eslint-disable no-unused-vars -->
 
 ```js
 export default {

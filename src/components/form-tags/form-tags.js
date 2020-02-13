@@ -493,9 +493,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       invalidTagText,
       duplicateTagText,
       isInvalid,
-      invalidTags,
       isDuplicate,
-      duplicateTags,
       disabled,
       placeholder,
       addButtonText,
@@ -505,7 +503,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const h = this.$createElement
 
       // Make the list of tags
-      const $tags = tags.map((tag, idx) => {
+      const $tags = tags.map(tag => {
         tag = toString(tag)
         return h(
           BFormTag,

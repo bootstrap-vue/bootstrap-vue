@@ -97,7 +97,7 @@ In your `nuxt.config.js` file, add the following to your build section:
 ```js
 module.exports = {
   build: {
-    extend(config, ctx) {
+    extend(config) {
       const vueLoader = config.module.rules.find(rule => rule.loader === 'vue-loader')
       vueLoader.options.transformAssetUrls = {
         video: ['src', 'poster'],

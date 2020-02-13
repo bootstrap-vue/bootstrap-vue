@@ -208,7 +208,7 @@ describe('button', () => {
         disabled: true
       },
       listeners: {
-        click: e => {
+        click: () => {
           called++
         }
       }

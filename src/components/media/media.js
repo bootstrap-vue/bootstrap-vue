@@ -47,7 +47,7 @@ export const BMedia = /*#__PURE__*/ Vue.extend({
         )
       }
 
-      childNodes.push(h(BMediaBody, {}, $default))
+      childNodes.push(h(BMediaBody, $default))
 
       if ($aside && props.rightAlign) {
         childNodes.push(

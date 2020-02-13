@@ -50,7 +50,7 @@ describe('table > caption', () => {
       scopedSlots: {
         'table-caption': function(props) {
           scope = props
-          return this.$createElement('b', {}, 'foobar')
+          return this.$createElement('b', 'foobar')
         }
       }
     })

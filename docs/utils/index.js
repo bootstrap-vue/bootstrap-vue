@@ -113,7 +113,7 @@ export const makeTOC = (readme, meta = null) => {
     // Filter out un-matched values
     .filter(v => Array.isArray(v))
     // Create TOC structure
-    .forEach(([value, tag, id, content]) => {
+    .forEach(([, tag, id, content]) => {
       const href = `#${stripQuotes(id)}`
       const label = stripHTML(content)
       if (tag === 'h2') {

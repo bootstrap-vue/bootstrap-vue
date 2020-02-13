@@ -1,5 +1,5 @@
 import { keys } from './object'
-import { eventOn, eventOff } from './dom'
+import { eventOn, eventOff } from './events'
 
 const allListenTypes = { hover: true, click: true, focus: true }
 

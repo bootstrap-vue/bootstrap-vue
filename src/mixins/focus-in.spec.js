@@ -13,12 +13,12 @@ describe('utils/focus-in', () => {
         this.listenForFocusIn = true
       },
       methods: {
-        focusInHandler(evt) {
+        focusInHandler() {
           count++
         }
       },
       render(h) {
-        return h('div', {}, [h('button', {}, 'button')])
+        return h('div', [h('button', 'button')])
       }
     })
 
