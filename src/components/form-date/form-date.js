@@ -430,6 +430,16 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           // prevent menu from closing and re-opening
           click: evt => /* istanbul ignore next */ {
             evt.stopPropagation()
+          },
+          mouseenter: evt => /* istanbul ignore next */ {
+            try {
+              this.$refs.toggle.dispatchEvent(evt)
+            } catch {}
+          },
+          mouseleave: evt => /* istanbul ignore next */ {
+            try {
+              this.$refs.toggle.dispatchEvent(evt)
+            } catch {}
           }
         }
       },
