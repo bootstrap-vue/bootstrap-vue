@@ -262,7 +262,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     value(newVal, oldVal) {
       if (newVal !== oldVal) {
         newVal = parseInt(newVal, 10)
-        newVal = isNaN(newVal) ? -1 : oldVal
+        newVal = isNaN(newVal) ? -1 : newVal
         oldVal = parseInt(oldVal, 10) || 0
         const tabs = this.tabs
         if (tabs[newVal] && !tabs[newVal].disabled) {
