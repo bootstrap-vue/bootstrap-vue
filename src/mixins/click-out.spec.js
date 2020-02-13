@@ -18,7 +18,7 @@ describe('utils/click-out', () => {
         }
       },
       render(h) {
-        return h('div', {}, [h('button', {}, 'button')])
+        return h('div', [h('button', 'button')])
       }
     })
 

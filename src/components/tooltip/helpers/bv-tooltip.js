@@ -482,7 +482,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Destroy the template
       this.destroyTemplate()
       // Emit a non-cancelable BvEvent 'shown'
-      this.emitEvent(this.buildEvent('hidden', {}))
+      this.emitEvent(this.buildEvent('hidden'))
     },
     // --- Utility methods ---
     getTarget() {

@@ -1081,7 +1081,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     if (this.static) {
       return this.lazy && this.isHidden ? h() : this.makeModal(h)
     } else {
-      return this.isHidden ? h() : h(BTransporterSingle, {}, [this.makeModal(h)])
+      return this.isHidden ? h() : h(BTransporterSingle, [this.makeModal(h)])
     }
   }
 })

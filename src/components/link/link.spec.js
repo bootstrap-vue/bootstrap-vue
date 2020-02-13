@@ -282,7 +282,7 @@ describe('b-link', () => {
     it('should emit "clicked::link" on $root when clicked on', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [h(BLink, { props: { href: '/foo' } }, 'link')])
+          return h('div', [h(BLink, { props: { href: '/foo' } }, 'link')])
         }
       })
       const spy = jest.fn()
@@ -299,7 +299,7 @@ describe('b-link', () => {
     it('should NOT emit "clicked::link" on $root when clicked on when disabled', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [h(BLink, { props: { href: '/foo', disabled: true } }, 'link')])
+          return h('div', [h(BLink, { props: { href: '/foo', disabled: true } }, 'link')])
         }
       })
       const spy = jest.fn()
@@ -335,7 +335,7 @@ describe('b-link', () => {
         router,
         components: { BLink },
         render(h) {
-          return h('main', {}, [
+          return h('main', [
             // router-link
             h('b-link', { props: { to: '/a' } }, ['to-a']),
             // regular link

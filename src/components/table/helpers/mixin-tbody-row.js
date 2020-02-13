@@ -171,7 +171,7 @@ export default {
       let $childNodes = slotName ? this.normalizeSlot(slotName, slotScope) : toString(formatted)
       if (this.isStacked) {
         // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
-        $childNodes = [h('div', {}, [$childNodes])]
+        $childNodes = [h('div', [$childNodes])]
       }
       // Render either a td or th cell
       return h(cellTag, data, [$childNodes])

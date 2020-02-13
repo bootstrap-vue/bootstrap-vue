@@ -30,7 +30,7 @@ describe('mixins/listen-on-window', () => {
         }
       },
       render(h) {
-        return h('div', {}, this.$slots.default)
+        return h('div', this.$slots.default)
       }
     })
 
@@ -50,7 +50,7 @@ describe('mixins/listen-on-window', () => {
         const props = {
           offResizeOne: this.offResizeOne
         }
-        return h('div', {}, [this.destroy ? h() : h(TestComponent, { props }, 'test-component')])
+        return h('div', [this.destroy ? h() : h(TestComponent, { props }, 'test-component')])
       }
     })
 

@@ -84,7 +84,7 @@ export const BJumbotron = /*#__PURE__*/ Vue.extend({
               [`display-${props.headerLevel}`]: props.headerLevel
             }
           },
-          normalizeSlot('header', {}, $scopedSlots, $slots) ||
+          normalizeSlot('header', $scopedSlots, $slots) ||
             props.headerHtml ||
             stripTags(props.header)
         )
@@ -97,14 +97,14 @@ export const BJumbotron = /*#__PURE__*/ Vue.extend({
         h(
           props.leadTag,
           { staticClass: 'lead' },
-          normalizeSlot('lead', {}, $scopedSlots, $slots) || props.leadHtml || stripTags(props.lead)
+          normalizeSlot('lead', $scopedSlots, $slots) || props.leadHtml || stripTags(props.lead)
         )
       )
     }
 
     // Default slot
     if (hasNormalizedSlot('default', $scopedSlots, $slots)) {
-      childNodes.push(normalizeSlot('default', {}, $scopedSlots, $slots))
+      childNodes.push(normalizeSlot('default', $scopedSlots, $slots))
     }
 
     // If fluid, wrap content in a container/container-fluid

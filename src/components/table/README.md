@@ -586,8 +586,8 @@ values: `sm`, `md`, `lg`, or `xl`.
   - Wrap header cells in `<div>` elements, via the use of
     [custom header rendering](#header-and-footer-custom-rendering-via-scoped-slots), which have a
     minimum width set on them, or
-  - Use the `thStyle` property of the [field definition object](#field-definition-reference) to
-    set a width for the column(s), or
+  - Use the `thStyle` property of the [field definition object](#field-definition-reference) to set
+    a width for the column(s), or
   - Use custom CSS to define classes to apply to the columns to set widths, via the `thClass` or
     `class` properties of the [field definition object](#field-definition-reference).
 

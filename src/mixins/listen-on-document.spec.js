@@ -30,7 +30,7 @@ describe('mixins/listen-on-document', () => {
         }
       },
       render(h) {
-        return h('div', {}, this.$slots.default)
+        return h('div', this.$slots.default)
       }
     })
 
@@ -50,8 +50,8 @@ describe('mixins/listen-on-document', () => {
         const props = {
           offClickOne: this.offClickOne
         }
-        return h('div', {}, [
-          h('span', {}, ''),
+        return h('div', [
+          h('span', ''),
           h('input', { type: 'text' }),
           this.destroy ? h() : h(TestComponent, { props }, 'test-component')
         ])

@@ -74,7 +74,7 @@ describe('$bvToast', () => {
   it('$bvModal.toast() works', async () => {
     const App = localVue.extend({
       render(h) {
-        return h('div', {}, 'app')
+        return h('div', 'app')
       }
     })
     const wrapper = mount(App, {

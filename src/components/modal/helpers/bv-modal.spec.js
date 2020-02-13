@@ -60,7 +60,7 @@ describe('$bvModal', () => {
   it('$bvModal.msgBoxOk() works', async () => {
     const App = localVue.extend({
       render(h) {
-        return h('div', {}, 'app')
+        return h('div', 'app')
       }
     })
     const wrapper = mount(App, {
@@ -122,7 +122,7 @@ describe('$bvModal', () => {
   it('$bvModal.msgBoxConfirm() works', async () => {
     const App = localVue.extend({
       render(h) {
-        return h('div', {}, 'app')
+        return h('div', 'app')
       }
     })
     const wrapper = mount(App, {
