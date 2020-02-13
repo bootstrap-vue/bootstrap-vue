@@ -668,20 +668,20 @@ export const BCalendar = Vue.extend({
         this.focus()
       }
     },
-    gotoPrevYear(evt) {
+    gotoPrevYear() {
       this.activeYMD = formatYMD(this.constrainDate(oneYearAgo(this.activeDate)))
     },
-    gotoPrevMonth(evt) {
+    gotoPrevMonth() {
       this.activeYMD = formatYMD(this.constrainDate(oneMonthAgo(this.activeDate)))
     },
-    gotoCurrentMonth(evt) {
+    gotoCurrentMonth() {
       // TODO: Maybe this goto date should be configurable?
       this.activeYMD = formatYMD(this.getToday())
     },
-    gotoNextMonth(evt) {
+    gotoNextMonth() {
       this.activeYMD = formatYMD(this.constrainDate(oneMonthAhead(this.activeDate)))
     },
-    gotoNextYear(evt) {
+    gotoNextYear() {
       this.activeYMD = formatYMD(this.constrainDate(oneYearAhead(this.activeDate)))
     }
   },
