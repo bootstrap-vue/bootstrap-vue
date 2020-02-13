@@ -45,13 +45,13 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
   methods: {
     listen(on) {
       const el = this.parent ? this.$el.parentElement || this.$el : this.$el
-      if (on && this.$_hoverEl && this.$_hoverEl !== el) {
+      if (on && this.$_hoverEl !== el) {
         this.listen(false)
         this.$_hoverEl = el
       }
       const method = on ? eventOn : eventOff
-      method(el, 'mouseenter', this.handleHover, EVENT_OPTIONS)
-      method(el, 'mouseleave', this.handleHover, EVENT_OPTIONS)
+      method(this.$_hoverEl, 'mouseenter', this.handleHover, EVENT_OPTIONS)
+      method(this.$_hoverEl, 'mouseleave', this.handleHover, EVENT_OPTIONS)
     },
     handleHover(evt) {
       this.isHovered = evt.type === 'mouseenter'
