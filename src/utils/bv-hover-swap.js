@@ -24,7 +24,7 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    parent(newVal) /* istanbul ignore next */ {
+    parent() /* istanbul ignore next */ {
       this.listen(true)
     }
   },
@@ -61,6 +61,6 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
     const $scoped = this.$scopedSlots
     const $default = $scoped.default || (() => h())
     const $hovered = $scoped.hovered || $default
-    return h(this.tag, {}, [this.isHovered ? $hovered() : $default()])
+    return h(this.tag, [this.isHovered ? $hovered() : $default()])
   }
 })
