@@ -26,7 +26,7 @@ describe('calendar', () => {
     expect($header.find('output').exists()).toBe(true)
     expect($header.find('output').attributes('role')).toEqual('status')
     expect($header.find('output').attributes('for')).toBeDefined()
-    expect($header.find('output').attributes('data-selected')).not.toBeDefined()
+    expect($header.find('output').attributes('data-selected')).toEqual('')
     expect($header.find('output').attributes('aria-live')).toEqual('polite')
     expect($header.find('output').attributes('aria-atomic')).toEqual('true')
     expect(wrapper.find('.b-calendar>div>div.b-calendar-nav').exists()).toBe(true)
