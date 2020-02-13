@@ -12,6 +12,7 @@ describe('utils/bv-hoverswap', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.text()).toBe('FOO')
 
@@ -51,6 +52,7 @@ describe('utils/bv-hoverswap', () => {
     const wrapper = mount(app)
 
     expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.find('div > div').exists()).toBe(true)
     expect(wrapper.find('div > div').is(BVHoverSwap)).toBe(true)
