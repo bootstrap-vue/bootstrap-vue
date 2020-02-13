@@ -33,6 +33,12 @@ describe('utils/bv-hoverswap', () => {
 
   it('works when `parent` is true ', async () => {
     const app = {
+      props: {
+        parent: {
+          type: Boolean,
+          defaut: false
+        }
+      },
       methods: {
         foo() {
           return this.$createElement('span', {}, 'FOO')
@@ -43,13 +49,17 @@ describe('utils/bv-hoverswap', () => {
       },
       render(h) {
         const $content = h(BVHoverSwap, {
-          props: { parent: true },
+          props: { parent: this.parent },
           scopedSlots: { default: this.foo, hovered: this.bar }
         })
         return h('div', {}, [$content])
       }
     }
-    const wrapper = mount(app)
+    const wrapper = mount(app, {
+      propsData: {
+        parent: true
+      }
+    })
 
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
@@ -72,7 +82,6 @@ describe('utils/bv-hoverswap', () => {
     wrapper.setProps({
       parent: false
     })
-    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
     wrapper.trigger('mouseenter')
