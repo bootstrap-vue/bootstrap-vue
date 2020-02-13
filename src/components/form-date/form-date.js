@@ -1,12 +1,13 @@
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
+import { BVHoverSwap } from '../../utils/bv-hover-swap'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, formatYMD, parseYMD } from '../../utils/date'
 import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
-import { BIconCalendar } from '../../icons/icons'
+import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
 
 const NAME = 'BFormDate'
 
@@ -369,9 +370,14 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const idMenu = this.safeId('_dialog_')
     const idWrapper = this.safeId('_b-form-date_')
 
-    let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
-      h(BIconCalendar, { props: { scale: 1.25 } })
-    ])
+    let $button = h(BVHoverSwap, {
+      props: { parent: true, tag: 'div' },
+      attrs: { 'aria-hidden': 'true' },
+      scopedSlots: {
+        default: () => h(BIconCalendar, { props: { scale: 1.25 } }),
+        hovered: () => h(BIconCalendarFill, { props: { scale: 1.25 } })
+      }
+    })
     $button = h(
       'button',
       {
