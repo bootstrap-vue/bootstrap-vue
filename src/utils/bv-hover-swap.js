@@ -1,4 +1,5 @@
 import Vue from './vue'
+import { eventOn, eventOff } from './dom'
 
 export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
   name: 'BVHoverSwap',
