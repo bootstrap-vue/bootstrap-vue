@@ -23,19 +23,33 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
       isHovered: false
     }
   },
+  watch: {
+    parent(newVal) /* istanbul ignore next */ {
+      this.listen(true)
+    }
+  },
+  created() {
+    // Create non-reactive property
+    this.$_hoverEl = null
+  },
   mounted() {
-    this.listen(true)
+    this.$nextTick(() => this.listen(true))
   },
   updated() /* istanbul ignore next */ {
     this.$nextTick(() => this.listen(true))
   },
   beforeDestroy() {
     this.listen(false)
+    this.$_hoverEl = null
   },
   methods: {
     listen(on) {
-      const method = on ? eventOn : eventOff
       const el = this.parent ? this.$el.parentElement || this.$el : this.$el
+      if (on && this.$_hoverEl && this.$_hoverEl !== el) {
+        this.listen(false)
+        this.$_hoverEl = el
+      }
+      const method = on ? eventOn : eventOff
       method(el, 'mouseenter', this.handleHover, EVENT_OPTIONS)
       method(el, 'mouseleave', this.handleHover, EVENT_OPTIONS)
     },
