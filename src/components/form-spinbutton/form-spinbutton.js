@@ -1,6 +1,6 @@
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
-import { eventOff, eventOn } from '../../utils/dom'
+import { EVENT_OPTIONS_PASSIVE, eventOnOff } from '../../utils/events'
 import { isFunction, isNull } from '../../utils/inspect'
 import { toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
@@ -387,10 +387,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     setMouseup(on) {
       // Enable or disabled the body mouseup/touchend handlers
       // Use try/catch to handle case when called server side
-      const method = on ? eventOn : eventOff
       try {
-        method(document.body, 'mouseup', this.onMouseup, { passive: true })
-        method(document.body, 'touchend', this.onMouseup, { passive: true })
+        eventOnOff(on, document.body, 'mouseup', this.onMouseup, EVENT_OPTIONS_PASSIVE)
+        eventOnOff(on, document.body, 'touchend', this.onMouseup, EVENT_OPTIONS_PASSIVE)
       } catch {}
     },
     resetTimers() {
