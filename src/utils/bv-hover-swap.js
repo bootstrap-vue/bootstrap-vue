@@ -26,5 +26,6 @@ export const BVHoverSwap = /*#__PURE__*/ Vue.extend({
       tag,
       { on: { mouseenter: this.handleHover, mouseleave: this.handleHover } },
       [isHovered ? $hovered() : $default()]
+    )
   }
 })
