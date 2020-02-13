@@ -167,7 +167,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         this.$emit('change', newVal)
       }
     },
-    toaster(newVal) /* istanbul ignore next */ {
+    toaster() /* istanbul ignore next */ {
       // If toaster target changed, make sure toaster exists
       this.$nextTick(this.ensureToaster)
     },
@@ -293,7 +293,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       eventOnOff(on, el, 'mouseenter', this.onPause, EVENT_OPTIONS_NO_CAPTURE)
       eventOnOff(on, el, 'mouseleave', this.onUnPause, EVENT_OPTIONS_NO_CAPTURE)
     },
-    onPause(evt) {
+    onPause() {
       // Determine time remaining, and then pause timer
       if (this.noAutoHide || this.noHoverPause || !this.timer || this.resumeDismiss) {
         return
@@ -304,7 +304,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         this.resumeDismiss = Math.max(this.computedDuration - passed, MIN_DURATION)
       }
     },
-    onUnPause(evt) {
+    onUnPause() {
       // Restart timer with max of time remaining or 1 second
       if (this.noAutoHide || this.noHoverPause || !this.resumeDismiss) {
         this.resumeDismiss = this.dismissStarted = 0
@@ -357,7 +357,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           h(BButtonClose, {
             staticClass: 'ml-auto mb-1',
             on: {
-              click: evt => {
+              click: () => {
                 this.hide()
               }
             }

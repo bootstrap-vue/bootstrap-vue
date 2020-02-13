@@ -822,7 +822,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.enable()
       }
     },
-    click(evt) {
+    click() {
       if (!this.$_enabled || this.dropdownOpen()) {
         /* istanbul ignore next */
         return

@@ -13,7 +13,7 @@ describe('utils/click-out', () => {
         this.listenForClickOut = true
       },
       methods: {
-        clickOutHandler(evt) {
+        clickOutHandler() {
           count++
         }
       },

@@ -597,7 +597,7 @@ export default {
         // appData watcher
         this.contentUnWatch = this.$watch(
           'appData',
-          (newVal, oldVal) => {
+          () => {
             this.run()
           },
           { deep: true }
@@ -605,7 +605,7 @@ export default {
         // Javascript watcher
         this.jsUnWatch = this.$watch(
           () => this.js.trim(),
-          (newVal, oldVal) => {
+          () => {
             this.compileJs()
           },
           { immediate: true }

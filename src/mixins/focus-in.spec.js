@@ -13,7 +13,7 @@ describe('utils/focus-in', () => {
         this.listenForFocusIn = true
       },
       methods: {
-        focusInHandler(evt) {
+        focusInHandler() {
           count++
         }
       },

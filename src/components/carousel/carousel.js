@@ -299,7 +299,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       }
     },
     // Restart auto rotate slides when focus/hover leaves the carousel
-    restart(evt) /* istanbul ignore next: difficult to test */ {
+    restart() /* istanbul ignore next: difficult to test */ {
       if (!this.$el.contains(document.activeElement)) {
         this.start()
       }
@@ -341,7 +341,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         // Transition End handler
         let called = false
         /* istanbul ignore next: difficult to test */
-        const onceTransEnd = evt => {
+        const onceTransEnd = () => {
           if (called) {
             return
           }

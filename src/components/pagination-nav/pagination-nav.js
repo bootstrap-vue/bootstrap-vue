@@ -99,12 +99,12 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    numberOfPages(newVal, oldVal) {
+    numberOfPages() {
       this.$nextTick(() => {
         this.setNumberOfPages()
       })
     },
-    pages(newVal, oldVal) {
+    pages() {
       this.$nextTick(() => {
         this.setNumberOfPages()
       })
@@ -116,7 +116,7 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
   mounted() {
     if (this.$router) {
       // We only add the watcher if vue router is detected
-      this.$watch('$route', (to, from) => {
+      this.$watch('$route', () => {
         this.$nextTick(() => {
           requestAF(() => {
             this.guessCurrentPage()

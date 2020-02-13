@@ -23,7 +23,7 @@ describe('mixins/listen-on-window', () => {
         this.listenOnWindow('resize', spyResize2)
       },
       watch: {
-        offResizeOne(newVal, oldVal) {
+        offResizeOne(newVal) {
           if (newVal) {
             this.listenOffWindow('resize', spyResize1)
           }

@@ -1069,7 +1069,7 @@ already has focus within the `<b-modal>`.
 ```js
 export default {
   methods: {
-    focusMyElement(e) {
+    focusMyElement() {
       this.$refs.focusThis.focus()
     }
   }

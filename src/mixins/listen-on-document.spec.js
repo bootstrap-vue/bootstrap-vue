@@ -23,7 +23,7 @@ describe('mixins/listen-on-document', () => {
         this.listenOnDocument('click', spyClick2)
       },
       watch: {
-        offClickOne(newVal, oldVal) {
+        offClickOne(newVal) {
           if (newVal) {
             this.listenOffDocument('click', spyClick1)
           }

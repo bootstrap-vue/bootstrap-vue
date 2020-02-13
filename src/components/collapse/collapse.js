@@ -132,21 +132,21 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     toggle() {
       this.show = !this.show
     },
-    onEnter(el) {
+    onEnter() {
       this.transitioning = true
       // This should be moved out so we can add cancellable events
       this.$emit('show')
     },
-    onAfterEnter(el) {
+    onAfterEnter() {
       this.transitioning = false
       this.$emit('shown')
     },
-    onLeave(el) {
+    onLeave() {
       this.transitioning = true
       // This should be moved out so we can add cancellable events
       this.$emit('hide')
     },
-    onAfterLeave(el) {
+    onAfterLeave() {
       this.transitioning = false
       this.$emit('hidden')
     },

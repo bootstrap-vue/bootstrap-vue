@@ -55,7 +55,7 @@ export const installFactory = ({ components, directives, plugins } = {}) => {
  * @returns {function} plugin install function
  */
 export const installFactoryNoConfig = ({ components, directives, plugins } = {}) => {
-  const install = (Vue, config = {}) => {
+  const install = Vue => {
     if (install.installed) {
       /* istanbul ignore next */
       return
