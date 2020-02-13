@@ -7,7 +7,7 @@
 
 <p align="center">
   BootstrapVue, with over 40 available plugins, more than 80 custom components, and over 300 icons,
-  provides one of the most comprehensive implementations of the Bootstrap v4.3 component and grid
+  provides one of the most comprehensive implementations of the Bootstrap v4 component and grid
   system for Vue.js, complete with extensive and automated WAI-ARIA accessibility markup.
 </p>
 <br>
@@ -32,9 +32,12 @@
   <a href="https://codecov.io/gh/bootstrap-vue/bootstrap-vue">
     <img src="https://flat.badgen.net/codecov/c/github/bootstrap-vue/bootstrap-vue" alt="Coverage">
   </a>
+  <!-- packagequality.com appears to be down or dead -->
+  <!--
   <a href="http://packagequality.com/#?package=bootstrap-vue">
     <img src="https://npm.packagequality.com/shield/bootstrap-vue.svg?style=flat-square" alt="Package quality">
   </a>
+  -->
   <a href="https://www.npmjs.com/package/bootstrap-vue">
     <img src="https://flat.badgen.net/npm/dt/bootstrap-vue" alt="npm downloads">
   </a>

@@ -20,7 +20,7 @@ import { relativeUrl } from '../utils'
 let scriptsInjected = false
 
 export default {
-  name: 'BDVSearch',
+  name: 'BVDSearch',
   data() {
     return {
       docsearch: null

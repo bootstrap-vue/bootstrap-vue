@@ -1,5 +1,5 @@
 export default {
-  name: 'BDVFeedback',
+  name: 'BVDFeedback',
   data() {
     return {
       baseUrl: 'https://github.com/bootstrap-vue/bootstrap-vue'
