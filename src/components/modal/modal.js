@@ -447,7 +447,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
     },
     // Private method to create a BvModalEvent object
-    buildEvent(type, opts = {}) {
+    buildEvent(type, options = {}) {
       return new BvModalEvent(type, {
         // Default options
         cancelable: false,
@@ -455,7 +455,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         relatedTarget: null,
         trigger: null,
         // Supplied options
-        ...opts,
+        ...options,
         // Options that can't be overridden
         vueTarget: this,
         componentId: this.safeId()

@@ -245,12 +245,12 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         })
       }
     },
-    buildEvent(type, opts = {}) {
+    buildEvent(type, options = {}) {
       return new BvEvent(type, {
         cancelable: false,
         target: this.$el || null,
         relatedTarget: null,
-        ...opts,
+        ...options,
         vueTarget: this,
         componentId: this.safeId()
       })

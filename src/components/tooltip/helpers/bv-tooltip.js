@@ -606,7 +606,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       }
     },
     // --- BvEvent helpers ---
-    buildEvent(type, opts = {}) {
+    buildEvent(type, options = {}) {
       // Defaults to a non-cancellable event
       return new BvEvent(type, {
         cancelable: false,
@@ -615,7 +615,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         componentId: this.computedId,
         vueTarget: this,
         // Add in option overrides
-        ...opts
+        ...options
       })
     },
     emitEvent(bvEvt) {
