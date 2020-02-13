@@ -67,12 +67,12 @@ describe('utils/bv-hoverswap', () => {
     wrapper.trigger('mouseleave')
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('div')).toBe(true)
     expect(wrapper.text()).toBe('FOO')
 
     wrapper.setProps({
       parent: false
     })
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
     wrapper.trigger('mouseenter')
