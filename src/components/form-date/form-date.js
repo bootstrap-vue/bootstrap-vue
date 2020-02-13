@@ -1,28 +1,18 @@
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
-import { BVHoverSwap } from '../../utils/bv-hover-swap'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, formatYMD, parseYMD } from '../../utils/date'
 import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
-import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
+import { BIconCalendar } from '../../icons/icons'
 
 const NAME = 'BFormDate'
 
 // Fallback to BCalendar prop if no value found
 const getConfigFallback = prop => {
   return getComponentConfig(NAME, prop) || getComponentConfig('BCalendar', prop)
-}
-
-// Trigger an event on an element
-const trigger = (el, type, bubbles = true, cancelable = true) => {
-  try {
-    const evt = document.createEvent('Event')
-    evt.initEvent(type, bubbles, cancelable)
-    el.dispatchEvent(evt)
-  } catch {}
 }
 
 // We create our props as a mixin so that we can control
@@ -379,14 +369,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const idMenu = this.safeId('_dialog_')
     const idWrapper = this.safeId('_b-form-date_')
 
-    let $button = h(BVHoverSwap, {
-      props: { parent: true, tag: 'div' },
-      attrs: { 'aria-hidden': 'true' },
-      scopedSlots: {
-        default: () => h(BIconCalendar, { props: { scale: 1.25 } }),
-        hovered: () => h(BIconCalendarFill, { props: { scale: 1.25 } })
-      }
-    })
+    let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
+      h(BIconCalendar, { props: { scale: 1.25 } })
+    ])
     $button = h(
       'button',
       {
@@ -439,12 +424,6 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           // prevent menu from closing and re-opening
           click: evt => /* istanbul ignore next */ {
             evt.stopPropagation()
-          },
-          mouseenter: evt => /* istanbul ignore next */ {
-            trigger(this.$refs.toggle, evt.type, false)
-          },
-          mouseleave: evt => /* istanbul ignore next */ {
-            trigger(this.$refs.toggle, evt.type, false)
           }
         }
       },
