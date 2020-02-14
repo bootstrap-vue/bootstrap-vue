@@ -127,7 +127,7 @@ The following will generate an `<a>` that looks like a button:
 <b-button id="link-button" href="#" tabindex="0">
   Link button with tooltip component
 </b-button>
-<b-tooltip target="link-button" title="Popover title" triggers="focus">
+<b-tooltip target="link-button" title="Tooltip title" triggers="focus">
   Tooltip title
 </b-tooltip>
 ```
