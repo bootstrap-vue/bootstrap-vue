@@ -166,8 +166,7 @@ For proper cross-browser and cross-platform behavior with the `focus` trigger, y
 element that renders the `<a>` tag, not the `<button>` tag, and you also must include a
 `tabindex="0"` attribute.
 
-The following will generate an `<a>` that looks and behaves like a button (with the appropriate ARIA
-role and event listeners):
+The following will generate an `<a>` that looks like a button:
 
 ```html
 <b-button
