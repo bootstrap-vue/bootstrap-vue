@@ -187,7 +187,7 @@ The following will generate an `<a>` that looks like a button:
   v-b-tooltip.focus
   title="Tooltip title"
 >
-  Link button with ooltip directive
+  Link button with tooltip directive
 </b-button>
 ```
 
