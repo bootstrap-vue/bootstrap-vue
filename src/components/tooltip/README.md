@@ -106,6 +106,32 @@ If a tooltip has more than one trigger, then all triggers must be cleared before
 close. I.e. if a tooltip has the trigger `focus click`, and it was opened by `focus`, and the user
 then clicks the trigger element, they must click it again **and** move focus to close the tooltip.
 
+### Caveats with `focus` trigger on `<button>` elements
+
+For proper cross-browser and cross-platform behavior when using only the `focus` trigger, you must
+use an element that renders the `<a>` tag, not the `<button>` tag, and you also must include a
+`tabindex="0"` attribute.
+
+The following will generate an `<a>` that looks like a button:
+
+```html
+<b-button
+  href="#"
+  tabindex="0"
+  v-b-tooltip.focus
+  title="Tooltip title"
+>
+  Link button with tooltip directive
+</b-button>
+
+<b-button id="link-button" href="#" tabindex="0">
+  Link button with tooltip component
+</b-button>
+<b-tooltip target="link-button" title="Popover title" triggers="focus">
+  Tooltip title
+</b-tooltip>
+```
+
 ### Making tooltips work for keyboard and assistive technology users
 
 You should only add tooltips to HTML elements that are traditionally keyboard-focusable and
