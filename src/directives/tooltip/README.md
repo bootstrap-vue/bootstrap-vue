@@ -172,6 +172,25 @@ override the `pointer-events` on the disabled element.
 <!-- disabled-trigger-element.vue -->
 ```
 
+### Caveats with `focus` trigger on `<button>` elements
+
+For proper cross-browser and cross-platform behavior when using only the `focus` trigger, you must
+use an element that renders the `<a>` tag, not the `<button>` tag, and you also must include a
+`tabindex="0"` attribute.
+
+The following will generate an `<a>` that looks like a button:
+
+```html
+<b-button
+  href="#"
+  tabindex="0"
+  v-b-tooltip.focus
+  title="Tooltip title"
+>
+  Link button with tooltip directive
+</b-button>
+```
+
 ### Dismiss on next click
 
 Use both `click` and `blur` if you would like a tooltip that opens only on click of the element, but
