@@ -166,14 +166,14 @@ For proper cross-browser and cross-platform behavior with the `focus` trigger, y
 element that renders the `<a>` tag, not the `<button>` tag, and you also must include a
 `tabindex="0"` attribute.
 
-The following will generate an `<a>` that looks and behaves like a button (with the apropriate
-ARIA role and event listeners):
+The following will generate an `<a>` that looks and behaves like a button (with the appropriate ARIA
+role and event listeners):
 
 ```html
 <b-button
   href="#"
   tabindex="0"
-  v-b-popover.focus="'Popover content'" 
+  v-b-popover.focus="'Popover content'"
   title="Popover title"
 >
   Link button with popover directive
