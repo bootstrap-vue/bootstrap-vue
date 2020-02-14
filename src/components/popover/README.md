@@ -162,8 +162,8 @@ then clicks the trigger element, they must click it again **and** move focus to 
 
 ### Caveats with `focus` trigger on `<button>` elements
 
-For proper cross-browser and cross-platform behavior with the `focus` trigger, you must use an
-element that renders the `<a>` tag, not the `<button>` tag, and you also must include a
+For proper cross-browser and cross-platform behavior when using only the `focus` trigger, you must
+use an element that renders the `<a>` tag, not the `<button>` tag, and you also must include a
 `tabindex="0"` attribute.
 
 The following will generate an `<a>` that looks like a button:
