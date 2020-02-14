@@ -110,9 +110,10 @@ const computeAttrs = (props, data) => {
   const link = isLink(props)
   const toggle = isToggle(props)
   const nonStdTag = isNonStandardTag(props)
+  const hashLink = link && props.href === '#'
   const role = data.attrs && data.attrs.role ? data.attrs.role : null
   let tabindex = data.attrs ? data.attrs.tabindex : null
-  if (nonStdTag) {
+  if (nonStdTag || hashLink) {
     tabindex = '0'
   }
   return {
@@ -122,7 +123,8 @@ const computeAttrs = (props, data) => {
     disabled: button ? props.disabled : null,
     // We add a role of button when the tag is not a link or button for ARIA.
     // Don't bork any role provided in data.attrs when isLink or isButton
-    role: nonStdTag ? 'button' : role,
+    // Except when link has href of `#`
+    role: nonStdTag || hashLink ? 'button' : role,
     // We set the aria-disabled state for non-standard tags
     'aria-disabled': nonStdTag ? String(props.disabled) : null,
     // For toggles, we need to set the pressed state for ARIA
@@ -146,7 +148,23 @@ export const BButton = /*#__PURE__*/ Vue.extend({
   render(h, { props, data, listeners, children }) {
     const toggle = isToggle(props)
     const link = isLink(props)
+    const nonStdTag = isNonStandardTag(props)
+    const hashLink = link && props.href === '#'
     const on = {
+      keydown(evt) {
+        // When the link is a href="#" or a non std tag (has role button),
+        // we add a keydown handlers for SPACE/ENTER
+        /* istanbul ignore next */
+        if (props.disabled || !(nonStdTag || hashLink)) {
+          return
+        }
+        // Add SPACE handler for href="#" and ENTER handler for non standard tags
+        if (evt.keyCode === SPACE || (evt.keyCode === ENTER && nonStdTag)) {
+          const target = evt.currentTarget || evt.target
+          evt.preventDefault()
+          target.click()
+        }
+      },
       click(evt) {
         /* istanbul ignore if: blink/button disabled should handle this */
         if (props.disabled && isEvent(evt)) {
