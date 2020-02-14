@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
+import KeyCodes from '../../utils/key-codes'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { addClass, removeClass } from '../../utils/dom'
@@ -159,7 +160,7 @@ export const BButton = /*#__PURE__*/ Vue.extend({
           return
         }
         // Add SPACE handler for href="#" and ENTER handler for non standard tags
-        if (evt.keyCode === SPACE || (evt.keyCode === ENTER && nonStdTag)) {
+        if (evt.keyCode === KeyCodes.SPACE || (evt.keyCode === KeyCodes.ENTER && nonStdTag)) {
           const target = evt.currentTarget || evt.target
           evt.preventDefault()
           target.click()
