@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import pluckProps from '../../utils/pluck-props'
 import KeyCodes from '../../utils/key-codes'
+import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { addClass, removeClass } from '../../utils/dom'
@@ -48,8 +48,8 @@ const btnProps = {
     default: false
   },
   pressed: {
-    // tri-state prop: true, false or null
-    // => on, off, not a toggle
+    // Tri-state: `true`, `false` or `null`
+    // => On, off, not a toggle
     type: Boolean,
     default: null
   }
@@ -64,10 +64,11 @@ export const props = { ...linkProps, ...btnProps }
 
 // --- Helper methods ---
 
-// Returns true if a tag's name is name
+// Returns `true` if a tag's name equals `name`
 const tagIs = (tag, name) => toString(tag).toLowerCase() === toString(name).toLowerCase()
 
-// Focus handler for toggle buttons.  Needs class of 'focus' when focused.
+// Focus handler for toggle buttons
+// Needs class of 'focus' when focused
 const handleFocus = evt => {
   if (evt.type === 'focusin') {
     addClass(evt.target, 'focus')
@@ -77,7 +78,7 @@ const handleFocus = evt => {
 }
 
 // Is the requested button a link?
-// If tag prop is set to `a`, we use a b-link to get proper disabled handling
+// If tag prop is set to `a`, we use a <b-link> to get proper disabled handling
 const isLink = props => props.href || props.to || tagIs(props.tag, 'a')
 
 // Is the button to be a toggle button?
@@ -110,11 +111,11 @@ const computeAttrs = (props, data) => {
   const button = isButton(props)
   const link = isLink(props)
   const toggle = isToggle(props)
-  const nonStdTag = isNonStandardTag(props)
+  const nonStandardTag = isNonStandardTag(props)
   const hashLink = link && props.href === '#'
   const role = data.attrs && data.attrs.role ? data.attrs.role : null
   let tabindex = data.attrs ? data.attrs.tabindex : null
-  if (nonStdTag || hashLink) {
+  if (nonStandardTag || hashLink) {
     tabindex = '0'
   }
   return {
@@ -122,21 +123,21 @@ const computeAttrs = (props, data) => {
     type: button && !link ? props.type : null,
     // Disabled only set on "real" buttons
     disabled: button ? props.disabled : null,
-    // We add a role of button when the tag is not a link or button for ARIA.
-    // Don't bork any role provided in data.attrs when isLink or isButton
-    // Except when link has href of `#`
-    role: nonStdTag || hashLink ? 'button' : role,
-    // We set the aria-disabled state for non-standard tags
-    'aria-disabled': nonStdTag ? String(props.disabled) : null,
+    // We add a role of button when the tag is not a link or button for ARIA
+    // Don't bork any role provided in `data.attrs` when `isLink` or `isButton`
+    // Except when link has `href` of `#`
+    role: nonStandardTag || hashLink ? 'button' : role,
+    // We set the `aria-disabled` state for non-standard tags
+    'aria-disabled': nonStandardTag ? String(props.disabled) : null,
     // For toggles, we need to set the pressed state for ARIA
     'aria-pressed': toggle ? String(props.pressed) : null,
-    // autocomplete off is needed in toggle mode to prevent some browsers from
-    // remembering the previous setting when using the back button.
+    // `autocomplete="off"` is needed in toggle mode to prevent some browsers
+    // from remembering the previous setting when using the back button
     autocomplete: toggle ? 'off' : null,
-    // Tab index is used when the component is not a button.
+    // `tabindex` is used when the component is not a button
     // Links are tabbable, but don't allow disabled, while non buttons or links
     // are not tabbable, so we mimic that functionality by disabling tabbing
-    // when disabled, and adding a tabindex of '0' to non buttons or non links.
+    // when disabled, and adding a `tabindex="0"` to non buttons or non links
     tabindex: props.disabled && !button ? '-1' : tabindex
   }
 }
@@ -149,18 +150,19 @@ export const BButton = /*#__PURE__*/ Vue.extend({
   render(h, { props, data, listeners, children }) {
     const toggle = isToggle(props)
     const link = isLink(props)
-    const nonStdTag = isNonStandardTag(props)
+    const nonStandardTag = isNonStandardTag(props)
     const hashLink = link && props.href === '#'
     const on = {
       keydown(evt) {
-        // When the link is a href="#" or a non std tag (has role button),
+        // When the link is a `href="#"` or a non-standard tag (has `role="button"`),
         // we add a keydown handlers for SPACE/ENTER
         /* istanbul ignore next */
-        if (props.disabled || !(nonStdTag || hashLink)) {
+        if (props.disabled || !(nonStandardTag || hashLink)) {
           return
         }
-        // Add SPACE handler for href="#" and ENTER handler for non standard tags
-        if (evt.keyCode === KeyCodes.SPACE || (evt.keyCode === KeyCodes.ENTER && nonStdTag)) {
+        const { keyCode } = evt
+        // Add SPACE handler for `href="#"` and ENTER handler for non-standard tags
+        if (keyCode === KeyCodes.SPACE || (keyCode === KeyCodes.ENTER && nonStandardTag)) {
           const target = evt.currentTarget || evt.target
           evt.preventDefault()
           target.click()
@@ -172,9 +174,9 @@ export const BButton = /*#__PURE__*/ Vue.extend({
           evt.stopPropagation()
           evt.preventDefault()
         } else if (toggle && listeners && listeners['update:pressed']) {
-          // Send .sync updates to any "pressed" prop (if .sync listeners)
-          // Concat will normalize the value to an array
-          // without double wrapping an array value in an array.
+          // Send `.sync` updates to any "pressed" prop (if `.sync` listeners)
+          // `concat()` will normalize the value to an array without
+          // double wrapping an array value in an array
           concat(listeners['update:pressed']).forEach(fn => {
             if (isFunction(fn)) {
               fn(!props.pressed)
