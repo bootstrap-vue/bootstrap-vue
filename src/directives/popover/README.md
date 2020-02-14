@@ -215,6 +215,25 @@ assistive technologies currently do not announce the popover in this situation.
 Additionally, do not rely solely on `hover` as the trigger for your popover, as this will make your
 popovers _impossible to trigger for keyboard-only users_.
 
+### Caveats with `focus` trigger on `<button>` elements
+
+For proper cross-browser and cross-platform behavior when using only the `focus` trigger, you must
+use an element that renders the `<a>` tag, not the `<button>` tag, and you also must include a
+`tabindex="0"` attribute.
+
+The following will generate an `<a>` that looks like a button:
+
+```html
+<b-button
+  href="#"
+  tabindex="0"
+  v-b-popover.focus="'Popover content'"
+  title="Popover title"
+>
+  Link button with popover directive
+</b-button>
+```
+
 ### Dismiss on next click (self dismissing)
 
 Use the `focus` trigger by itself to dismiss popovers on the next click that the user makes. `focus`
