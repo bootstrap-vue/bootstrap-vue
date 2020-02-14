@@ -222,7 +222,7 @@ describe('button', () => {
     let evt = null
     const wrapper = mount(BButton, {
       propsData: {
-        href: '#',
+        href: '#'
       },
       listeners: {
         click: e => {
@@ -242,12 +242,12 @@ describe('button', () => {
     expect(evt).toEqual(null)
 
     // We add keydown.space to make links act like buttons
-    wrapper.find('button').trigger('keydown.space')
+    wrapper.find('.btn').trigger('keydown.space')
     expect(called).toBe(1)
     expect(evt).toBeInstanceOf(Event)
 
     // Links treat keydown.enter natively as a click
-    wrapper.find('button').trigger('keydown.enter')
+    wrapper.find('.btn').trigger('keydown.enter')
     expect(called).toBe(2)
   })
 
