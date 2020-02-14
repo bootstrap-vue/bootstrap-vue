@@ -247,8 +247,6 @@ describe('button', () => {
     expect(evt).toBeInstanceOf(Event)
 
     // Links treat keydown.enter natively as a click
-    wrapper.find('.btn').trigger('keydown.enter')
-    expect(called).toBe(2)
   })
 
   it('should not emit click event when clicked and disabled', async () => {
