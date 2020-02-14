@@ -180,7 +180,7 @@ describe('button', () => {
     expect(wrapper.attributes('aria-disabled')).toBeDefined()
     expect(wrapper.attributes('aria-disabled')).toBe('true')
     // Shouldnt have a role with href not `#`
-    expect(wrapper.attributes('role').not.toEqual('button')
+    expect(wrapper.attributes('role')).not.toEqual('button')
   })
 
   it('link with href="#" should have role="button"', async () => {
@@ -194,7 +194,7 @@ describe('button', () => {
     expect(wrapper.classes()).toContain('btn')
     expect(wrapper.classes()).toContain('btn-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
-    expect(wrapper.attributes('role').toEqual('button')
+    expect(wrapper.attributes('role')).toEqual('button')
   })
 
   it('should emit click event when clicked', async () => {
@@ -236,7 +236,7 @@ describe('button', () => {
     expect(wrapper.classes()).toContain('btn')
     expect(wrapper.classes()).toContain('btn-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
-    expect(wrapper.attributes('role').toEqual('button')
+    expect(wrapper.attributes('role')).toEqual('button')
 
     expect(called).toBe(0)
     expect(evt).toEqual(null)
