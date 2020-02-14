@@ -168,7 +168,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       },
       props: this.computedProps
     }
-    // Add the event handlers. We must use `navtiveOn` for
+    // Add the event handlers. We must use `nativeOn` for
     // `<router-link>`/`<nuxt-link>` instead of `on`
     componentData[isRouterLink ? 'nativeOn' : 'on'] = {
       // Transfer all listeners (native) to the root element
