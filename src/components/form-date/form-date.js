@@ -375,7 +375,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const idWrapper = this.safeId('_b-form-date_')
 
     let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
-      this.isHovered
+      this.isHovered || this.hasFocus
         ? h(BIconCalendarFill, { props: { scale: 1.25 } })
         : h(BIconCalendar, { props: { scale: 1.25 } })
     ])
@@ -585,8 +585,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           dir: 'ltr'
         },
         on: {
-          mouseenter: this.handleHover,
-          mouseleave: this.handleHover
+          mouseenter: this.setHover,
+          mouseleave: this.setHover
         }
       },
       [$button, $hidden, $menu, $input]
