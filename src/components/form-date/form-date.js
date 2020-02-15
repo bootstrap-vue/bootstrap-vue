@@ -6,7 +6,7 @@ import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
-import { BIconCalendar } from '../../icons/icons'
+import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
 
 const NAME = 'BFormDate'
 
@@ -226,7 +226,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
       formatedValue: '',
       activeYMD: '',
       // Flag to add focus ring to outer wrapper
-      hasFocus: false
+      hasFocus: false,
+      // If the control is hovered
+      isHovered: false
     }
   },
   computed: {
@@ -356,6 +358,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     },
     setFocus(evt) {
       this.hasFocus = evt.type === 'focus'
+    },
+    setHover(evt) {
+      this.isHovered = this.disabled ? false : evt.type === 'mouseenter'
     }
   },
   render(h) {
@@ -370,7 +375,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     const idWrapper = this.safeId('_b-form-date_')
 
     let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
-      h(BIconCalendar, { props: { scale: 1.25 } })
+      this.isHovered
+        ? h(BIconCalendarFill, { props: { scale: 1.25 } })
+        : h(BIconCalendar, { props: { scale: 1.25 } })
     ])
     $button = h(
       'button',
@@ -576,6 +583,10 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           // We don't want the flex order to change here
           // So we always use 'ltr'
           dir: 'ltr'
+        },
+        on: {
+          mouseenter: this.handleHover,
+          mouseleave: this.handleHover
         }
       },
       [$button, $hidden, $menu, $input]
