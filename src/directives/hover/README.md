@@ -3,6 +3,8 @@
 > `v-b-hover` is a lightweight directive that allows you to react when an element either becomes
 > hovered or unhovered.
 
+The `v-b-hover` directive can be used as an alternative to using custom CSS to handle hover states.
+
 The `v-b-hover` directive was added in version `2.5.0`.
 
 ## Overview
@@ -50,7 +52,7 @@ The directive has no modifiers.
 
 ## Live example
 
-In the following, we are swapping icons depending o the hover state of the element:
+In the following, we are swapping icons and tet color depending on the hover state of the element:
 
 ```html
 <template>
@@ -58,7 +60,7 @@ In the following, we are swapping icons depending o the hover state of the eleme
     <div v-b-hover="handleHover" class="border rounded py-3 px-4">
       <b-icon v-if="isHovered" icon="battery-full" scale="2"></b-icon>
       <b-icon v-else icon="battery" scale="2"></b-icon>
-      <span class="ml-2">Hover this area</span>
+      <span class="ml-2" :class="isHovered ? 'text-danger' : ''">Hover this area</span>
     </div>
   </div>
 </template>
