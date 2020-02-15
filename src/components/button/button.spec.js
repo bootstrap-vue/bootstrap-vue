@@ -179,6 +179,22 @@ describe('button', () => {
     // Actually returns 4, as disabled is there twice
     expect(wrapper.attributes('aria-disabled')).toBeDefined()
     expect(wrapper.attributes('aria-disabled')).toBe('true')
+    // Shouldnt have a role with href not `#`
+    expect(wrapper.attributes('role')).not.toEqual('button')
+  })
+
+  it('link with href="#" should have role="button"', async () => {
+    const wrapper = mount(BButton, {
+      propsData: {
+        href: '#'
+      }
+    })
+
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.classes()).toContain('btn')
+    expect(wrapper.classes()).toContain('btn-secondary')
+    expect(wrapper.classes()).not.toContain('disabled')
+    expect(wrapper.attributes('role')).toEqual('button')
   })
 
   it('should emit click event when clicked', async () => {
@@ -201,6 +217,38 @@ describe('button', () => {
     expect(evt).toBeInstanceOf(MouseEvent)
   })
 
+  it('link with href="#" should treat keydown.space as click', async () => {
+    let called = 0
+    let evt = null
+    const wrapper = mount(BButton, {
+      propsData: {
+        href: '#'
+      },
+      listeners: {
+        click: e => {
+          evt = e
+          called++
+        }
+      }
+    })
+
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.classes()).toContain('btn')
+    expect(wrapper.classes()).toContain('btn-secondary')
+    expect(wrapper.classes()).not.toContain('disabled')
+    expect(wrapper.attributes('role')).toEqual('button')
+
+    expect(called).toBe(0)
+    expect(evt).toEqual(null)
+
+    // We add keydown.space to make links act like buttons
+    wrapper.find('.btn').trigger('keydown.space')
+    expect(called).toBe(1)
+    expect(evt).toBeInstanceOf(Event)
+
+    // Links treat keydown.enter natively as a click
+  })
+
   it('should not emit click event when clicked and disabled', async () => {
     let called = 0
     const wrapper = mount(BButton, {
@@ -208,7 +256,7 @@ describe('button', () => {
         disabled: true
       },
       listeners: {
-        click: e => {
+        click: () => {
           called++
         }
       }

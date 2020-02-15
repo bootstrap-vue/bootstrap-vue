@@ -68,7 +68,7 @@ export default {
   },
   watch: {
     // Provider update triggering
-    items(newVal, oldVal) {
+    items(newVal) {
       // If a new provider has been specified, trigger an update
       if (this.hasProvider || isFunction(newVal)) {
         this.$nextTick(this._providerUpdate)

@@ -3,16 +3,9 @@ import KeyCodes from '../../utils/key-codes'
 import noop from '../../utils/noop'
 import observeDom from '../../utils/observe-dom'
 import { getComponentConfig } from '../../utils/config'
-import {
-  selectAll,
-  reflow,
-  addClass,
-  removeClass,
-  setAttr,
-  eventOn,
-  eventOff
-} from '../../utils/dom'
+import { selectAll, reflow, addClass, removeClass, setAttr } from '../../utils/dom'
 import { isBrowser, hasTouchSupport, hasPointerEventSupport } from '../../utils/env'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
 import { isUndefined } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import idMixin from '../../mixins/id'
@@ -54,8 +47,6 @@ const TransitionEndEvents = {
   OTransition: 'otransitionend oTransitionEnd',
   transition: 'transitionend'
 }
-
-const EventOptions = { passive: true, capture: false }
 
 // Return the browser specific transitionEnd event name
 const getTransitionEndEvent = el => {
@@ -308,7 +299,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       }
     },
     // Restart auto rotate slides when focus/hover leaves the carousel
-    restart(evt) /* istanbul ignore next: difficult to test */ {
+    restart() /* istanbul ignore next: difficult to test */ {
       if (!this.$el.contains(document.activeElement)) {
         this.start()
       }
@@ -350,7 +341,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         // Transition End handler
         let called = false
         /* istanbul ignore next: difficult to test */
-        const onceTransEnd = evt => {
+        const onceTransEnd = () => {
           if (called) {
             return
           }
@@ -358,7 +349,9 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
           /* istanbul ignore if: transition events cant be tested in JSDOM */
           if (this.transitionEndEvent) {
             const events = this.transitionEndEvent.split(/\s+/)
-            events.forEach(evt => eventOff(currentSlide, evt, onceTransEnd, EventOptions))
+            events.forEach(evt =>
+              eventOff(currentSlide, evt, onceTransEnd, EVENT_OPTIONS_NO_CAPTURE)
+            )
           }
           this._animationTimeout = null
           removeClass(nextSlide, dirClass)
@@ -380,7 +373,9 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         /* istanbul ignore if: transition events cant be tested in JSDOM */
         if (this.transitionEndEvent) {
           const events = this.transitionEndEvent.split(/\s+/)
-          events.forEach(event => eventOn(currentSlide, event, onceTransEnd, EventOptions))
+          events.forEach(event =>
+            eventOn(currentSlide, event, onceTransEnd, EVENT_OPTIONS_NO_CAPTURE)
+          )
         }
         // Fallback to setTimeout()
         this._animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION)

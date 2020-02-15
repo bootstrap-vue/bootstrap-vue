@@ -1,14 +1,6 @@
 import KeyCodes from '../../utils/key-codes'
-import {
-  eventOn,
-  eventOff,
-  getAttr,
-  hasAttr,
-  isDisabled,
-  matches,
-  select,
-  setAttr
-} from '../../utils/dom'
+import { getAttr, hasAttr, isDisabled, matches, select, setAttr } from '../../utils/dom'
+import { EVENT_OPTIONS_PASSIVE, eventOn, eventOff } from '../../utils/events'
 import { isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 
@@ -17,8 +9,6 @@ const EVENT_SHOW = 'bv::show::modal'
 
 // Prop name we use to store info on root element
 const PROPERTY = '__bv_modal_directive__'
-
-const EVENT_OPTS = { passive: true }
 
 const getTarget = ({ modifiers = {}, arg, value }) => {
   // Try value, then arg, otherwise pick last modifier
@@ -68,11 +58,11 @@ const bind = (el, binding, vnode) => {
     // If element is not a button, we add `role="button"` for accessibility
     setRole(trigger)
     // Listen for click events
-    eventOn(trigger, 'click', handler, EVENT_OPTS)
+    eventOn(trigger, 'click', handler, EVENT_OPTIONS_PASSIVE)
     if (trigger.tagName !== 'BUTTON' && getAttr(trigger, 'role') === 'button') {
       // If trigger isn't a button but has role button,
       // we also listen for `keydown.space` && `keydown.enter`
-      eventOn(trigger, 'keydown', handler, EVENT_OPTS)
+      eventOn(trigger, 'keydown', handler, EVENT_OPTIONS_PASSIVE)
     }
   }
 }
@@ -82,10 +72,10 @@ const unbind = el => {
   const trigger = oldProp.trigger
   const handler = oldProp.handler
   if (trigger && handler) {
-    eventOff(trigger, 'click', handler, EVENT_OPTS)
-    eventOff(trigger, 'keydown', handler, EVENT_OPTS)
-    eventOff(el, 'click', handler, EVENT_OPTS)
-    eventOff(el, 'keydown', handler, EVENT_OPTS)
+    eventOff(trigger, 'click', handler, EVENT_OPTIONS_PASSIVE)
+    eventOff(trigger, 'keydown', handler, EVENT_OPTIONS_PASSIVE)
+    eventOff(el, 'click', handler, EVENT_OPTIONS_PASSIVE)
+    eventOff(el, 'keydown', handler, EVENT_OPTIONS_PASSIVE)
   }
   delete el[PROPERTY]
 }

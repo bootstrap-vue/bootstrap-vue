@@ -96,7 +96,7 @@ describe('dropdown-item', () => {
       const App = localVue.extend({
         router,
         render(h) {
-          return h('ul', {}, [
+          return h('ul', [
             // router-link
             h(BDropdownItem, { props: { to: '/a' } }, ['to-a']),
             // regular link

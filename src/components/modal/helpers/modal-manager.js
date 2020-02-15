@@ -67,7 +67,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         setAttr(document.body, 'data-modal-open-count', String(newCount))
       }
     },
-    modals(newVal, oldVal) {
+    modals(newVal) {
       this.checkScrollbar()
       requestAF(() => {
         this.updateModals(newVal || [])

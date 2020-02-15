@@ -10,12 +10,10 @@ import {
   selectAll,
   hasAttr,
   getAttr,
-  hasClass,
-  parseEventOptions
+  hasClass
 } from './dom'
-import { hasPassiveEventSupport } from './env'
 
-const template1 = `
+const template = `
 <div id="a" class="foo">
   <div class="bar">
     <span class="barspan foobar"></span>
@@ -28,9 +26,7 @@ const template1 = `
 </div>
 `
 
-const App = Vue.extend({
-  template: template1
-})
+const App = Vue.extend({ template })
 
 describe('utils/dom', () => {
   it('isElement works', async () => {
@@ -73,7 +69,7 @@ describe('utils/dom', () => {
     expect($span.exists()).toBe(true)
     expect(hasClass($span.element, 'barspan')).toBe(true)
     expect(hasClass($span.element, 'foobar')).toBe(true)
-    expect(hasClass($span.element, 'fizzlerocks')).toBe(false)
+    expect(hasClass($span.element, 'fizzle-rocks')).toBe(false)
     expect(hasClass(null, 'foobar')).toBe(false)
 
     wrapper.destroy()
@@ -119,7 +115,7 @@ describe('utils/dom', () => {
     expect($baz.exists()).toBe(true)
     expect(closest('div.baz', $btns.at(0).element)).toBeDefined()
     expect(closest('div.baz', $btns.at(0).element)).toBe($baz.element)
-    expect(closest('div.nothere', $btns.at(0).element)).toBe(null)
+    expect(closest('div.not-here', $btns.at(0).element)).toBe(null)
     expect(closest('div.baz', $baz.element)).toBe(null)
     expect(closest('div.baz', $baz.element, true)).toBe($baz.element)
 
@@ -207,15 +203,15 @@ describe('utils/dom', () => {
     // With root element specified
     expect(select('button', wrapper.element)).toBe($btns.at(0).element)
     expect(select('button#button3', wrapper.element)).toBe($btns.at(2).element)
-    expect(select('span.nothere', wrapper.element)).toBe(null)
+    expect(select('span.not-here', wrapper.element)).toBe(null)
 
-    // Note: It appears that vue-test-utils is not detaching previous app instances
-    //       and elements once the test is complete!
+    // Note: It appears that `vue-test-utils` is not detaching previous
+    //       app instances and elements once the test is complete!
     expect(select('button')).not.toBe(null)
     expect(select('button')).toBe($btns.at(0).element)
     expect(select('button#button3')).not.toBe(null)
     expect(select('button#button3')).toBe($btns.at(2).element)
-    expect(select('span.nothere')).toBe(null)
+    expect(select('span.not-here')).toBe(null)
 
     wrapper.destroy()
   })
@@ -246,8 +242,8 @@ describe('utils/dom', () => {
     expect(selectAll('div.baz button', wrapper.element)[2]).toBe($btns.at(2).element)
 
     // Without root element specified (assumes document as root)
-    // Note: It appears that vue-test-utils is not detaching previous app instances
-    //       and elements once the test is complete!
+    // Note: It appears that `vue-test-utils` is not detaching previous
+    //       app instances and elements once the test is complete!
     expect(Array.isArray(selectAll('button'))).toBe(true)
     expect(selectAll('button')).not.toEqual([])
     expect(selectAll('button').length).toBe(3)
@@ -265,56 +261,5 @@ describe('utils/dom', () => {
     expect(selectAll('div.baz button')[2]).toBe($btns.at(2).element)
 
     wrapper.destroy()
-  })
-
-  it('event options parsing works', async () => {
-    // JSDOM probably does not support passive mode
-    if (hasPassiveEventSupport) {
-      // Converts boolean to object
-      expect(parseEventOptions(true)).toEqual({ useCapture: true })
-      expect(parseEventOptions(false)).toEqual({ useCapture: false })
-      expect(parseEventOptions()).toEqual({ useCapture: false })
-
-      // Parses object correctly (returns as-is)
-      expect(parseEventOptions({ useCapture: false })).toEqual({ useCapture: false })
-      expect(parseEventOptions({ useCapture: true })).toEqual({ useCapture: true })
-      expect(parseEventOptions({})).toEqual({})
-      expect(
-        parseEventOptions({
-          useCapture: false,
-          foobar: true
-        })
-      ).toEqual({ useCapture: false, foobar: true })
-      expect(
-        parseEventOptions({
-          useCapture: true,
-          foobar: false
-        })
-      ).toEqual({ useCapture: true, foobar: false })
-    } else {
-      // Converts non object to boolean
-      expect(parseEventOptions(true)).toEqual(true)
-      expect(parseEventOptions(false)).toEqual(false)
-      expect(parseEventOptions()).toEqual(false)
-      expect(parseEventOptions(null)).toEqual(false)
-      // Converts object to boolean
-      expect(parseEventOptions({ useCapture: false })).toEqual(false)
-      expect(parseEventOptions({ useCapture: true })).toEqual(true)
-      expect(parseEventOptions({})).toEqual(false)
-      expect(
-        parseEventOptions({
-          useCapture: false,
-          foobar: true
-        })
-      ).toEqual(false)
-      expect(
-        parseEventOptions({
-          useCapture: true,
-          foobar: true
-        })
-      ).toEqual(true)
-      expect(parseEventOptions({ foobar: true })).toEqual(false)
-      expect(parseEventOptions({ foobar: false })).toEqual(false)
-    }
   })
 })

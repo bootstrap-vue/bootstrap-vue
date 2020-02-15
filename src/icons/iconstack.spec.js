@@ -3,7 +3,7 @@ import { BIconstack } from './iconstack'
 
 describe('icons > b-iconstack', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(BIconstack, {})
+    const wrapper = mount(BIconstack)
 
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.is('svg')).toBe(true)

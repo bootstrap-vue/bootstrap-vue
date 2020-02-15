@@ -245,11 +245,11 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    currentTab(val, old) {
+    currentTab(newVal) {
       let index = -1
       // Ensure only one tab is active at most
       this.tabs.forEach((tab, idx) => {
-        if (val === idx && !tab.disabled) {
+        if (newVal === idx && !tab.disabled) {
           tab.localActive = true
           index = idx
         } else {
@@ -259,17 +259,17 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // Update the v-model
       this.$emit('input', index)
     },
-    value(val, old) {
-      if (val !== old) {
-        val = parseInt(val, 10)
-        val = isNaN(val) ? -1 : val
-        old = parseInt(old, 10) || 0
+    value(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        newVal = parseInt(newVal, 10)
+        newVal = isNaN(newVal) ? -1 : newVal
+        oldVal = parseInt(oldVal, 10) || 0
         const tabs = this.tabs
-        if (tabs[val] && !tabs[val].disabled) {
-          this.activateTab(tabs[val])
+        if (tabs[newVal] && !tabs[newVal].disabled) {
+          this.activateTab(tabs[newVal])
         } else {
           // Try next or prev tabs
-          if (val < old) {
+          if (newVal < oldVal) {
             this.previousTab()
           } else {
             this.nextTab()
@@ -277,7 +277,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         }
       }
     },
-    registeredTabs(newVal, oldVal) {
+    registeredTabs() {
       // Each b-tab will register/unregister itself.
       // We use this to detect when tabs are added/removed
       // to trigger the update of the tabs.
@@ -300,7 +300,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         })
       }
     },
-    isMounted(newVal, oldVal) {
+    isMounted(newVal) {
       // Trigger an update after mounted.  Needed for tabs inside lazy modals.
       if (newVal) {
         requestAF(() => {
@@ -453,7 +453,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
 
       // Set the current tab state to active
-      tabs.forEach((tab, idx) => {
+      tabs.forEach(tab => {
         // tab.localActive = idx === tabIndex && !tab.disabled
         tab.localActive = false
       })

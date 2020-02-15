@@ -411,7 +411,7 @@ describe('collapse', () => {
     const localVue = CreateLocalVue()
     const App = localVue.extend({
       render(h) {
-        return h('div', {}, [
+        return h('div', [
           // JSDOM supports getComputedStyle when using stylesheets (non responsive)
           // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030
           h('style', { attrs: { type: 'text/css' } }, '.collapse:not(.show) { display: none; }'),
@@ -471,7 +471,7 @@ describe('collapse', () => {
     const localVue = CreateLocalVue()
     const App = localVue.extend({
       render(h) {
-        return h('div', {}, [
+        return h('div', [
           // JSDOM supports getComputedStyle when using stylesheets (non responsive)
           // Although it appears to be picky about CSS definition ordering
           // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030

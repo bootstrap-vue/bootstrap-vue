@@ -452,7 +452,7 @@ for generating more complex toast content:
           [
             h('b-spinner', { props: { type: 'grow', small: true } }),
             ' Flashy ',
-            h('strong', {}, 'toast'),
+            h('strong', 'toast'),
             ` message #${this.count} `,
             h('b-spinner', { props: { type: 'grow', small: true } })
           ]

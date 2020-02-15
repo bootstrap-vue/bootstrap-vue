@@ -14,6 +14,14 @@ module.exports = {
     Vue: true
   },
   rules: {
+    'no-unused-vars': [
+      'error',
+      {
+        vars: 'all',
+        args: 'after-used',
+        ignoreRestSiblings: false
+      }
+    ],
     'spaced-comment': 'off', // needed to ignore `/*#__PURE__*/` comments
     'vue/html-self-closing': [
       'error',

@@ -24,6 +24,7 @@ const FADE_PROPS = {
   leaveActiveClass: 'fade'
 }
 
+// @vue/component
 export const BVTransition = /*#__PURE__*/ Vue.extend({
   name: 'BVTransition',
   functional: true,
@@ -50,7 +51,7 @@ export const BVTransition = /*#__PURE__*/ Vue.extend({
       default: null
     }
   },
-  render(h, { children, data, listeners, props }) {
+  render(h, { children, data, props }) {
     let transProps = props.transProps
     if (!isPlainObject(transProps)) {
       transProps = props.noFade ? NO_FADE_PROPS : FADE_PROPS

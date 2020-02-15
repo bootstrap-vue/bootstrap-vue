@@ -104,7 +104,7 @@ describe('tabs', () => {
   it('sets correct tab active when first tab is disabled', async () => {
     const App = Vue.extend({
       render(h) {
-        return h(BTabs, {}, [
+        return h(BTabs, [
           h(BTab, { props: { disabled: true } }, 'tab 0'),
           h(BTab, { props: {} }, 'tab 1'),
           h(BTab, { props: {} }, 'tab 2')
@@ -136,7 +136,7 @@ describe('tabs', () => {
   it('sets current index based on active prop of b-tab', async () => {
     const App = Vue.extend({
       render(h) {
-        return h(BTabs, {}, [
+        return h(BTabs, [
           h(BTab, { props: { active: false } }, 'tab 0'),
           h(BTab, { props: { active: true } }, 'tab 1'),
           h(BTab, { props: { active: false } }, 'tab 2')
@@ -168,7 +168,7 @@ describe('tabs', () => {
   it('selects first non-disabled tab when active tab disabled', async () => {
     const App = Vue.extend({
       render(h) {
-        return h(BTabs, {}, [
+        return h(BTabs, [
           h(BTab, { props: { active: false, disabled: true } }, 'tab 0'),
           h(BTab, { props: { active: true } }, 'tab 1'),
           h(BTab, { props: { active: false } }, 'tab 2')
@@ -694,7 +694,7 @@ describe('tabs', () => {
     expect(tabVm).toBeDefined()
 
     // Change title slot content
-    tabVm.$slots.title = [tabVm.$createElement('span', {}, 'foobar')]
+    tabVm.$slots.title = [tabVm.$createElement('span', 'foobar')]
     tabVm.$forceUpdate()
     await waitNT(wrapper.vm)
     await waitRAF()

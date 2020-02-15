@@ -90,7 +90,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    localValue(newVal, oldVal) {
+    localValue() {
       this.setHeight()
     }
   },

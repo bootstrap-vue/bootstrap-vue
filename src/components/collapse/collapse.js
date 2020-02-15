@@ -1,19 +1,11 @@
 import Vue from '../../utils/vue'
+import { isBrowser } from '../../utils/env'
+import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOnOff } from '../../utils/events'
+import { BVCollapse } from '../../utils/bv-collapse'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { isBrowser } from '../../utils/env'
-import { BVCollapse } from '../../utils/bv-collapse'
-import {
-  addClass,
-  hasClass,
-  removeClass,
-  closest,
-  matches,
-  getCS,
-  eventOn,
-  eventOff
-} from '../../utils/dom'
 
 // Events we emit on $root
 const EVENT_STATE = 'bv::collapse::state'
@@ -25,9 +17,6 @@ const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // Events we listen to on `$root`
 const EVENT_TOGGLE = 'bv::toggle::collapse'
 const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
-
-// Event listener options
-const EventOptions = { passive: true, capture: false }
 
 // @vue/component
 export const BCollapse = /*#__PURE__*/ Vue.extend({
@@ -137,28 +126,27 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     setWindowEvents(on) {
-      const method = on ? eventOn : eventOff
-      method(window, 'resize', this.handleResize, EventOptions)
-      method(window, 'orientationchange', this.handleResize, EventOptions)
+      eventOnOff(on, window, 'resize', this.handleResize, EVENT_OPTIONS_NO_CAPTURE)
+      eventOnOff(on, window, 'orientationchange', this.handleResize, EVENT_OPTIONS_NO_CAPTURE)
     },
     toggle() {
       this.show = !this.show
     },
-    onEnter(el) {
+    onEnter() {
       this.transitioning = true
       // This should be moved out so we can add cancellable events
       this.$emit('show')
     },
-    onAfterEnter(el) {
+    onAfterEnter() {
       this.transitioning = false
       this.$emit('shown')
     },
-    onLeave(el) {
+    onLeave() {
       this.transitioning = true
       // This should be moved out so we can add cancellable events
       this.$emit('hide')
     },
-    onAfterLeave(el) {
+    onAfterLeave() {
       this.transitioning = false
       this.$emit('hidden')
     },

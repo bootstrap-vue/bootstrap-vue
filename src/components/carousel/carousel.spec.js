@@ -32,10 +32,10 @@ const appDef = {
         }
       },
       [
-        h(BCarouselSlide, {}, 'slide 1'),
-        h(BCarouselSlide, {}, 'slide 2'),
-        h(BCarouselSlide, {}, 'slide 3'),
-        h(BCarouselSlide, {}, 'slide 4')
+        h(BCarouselSlide, 'slide 1'),
+        h(BCarouselSlide, 'slide 2'),
+        h(BCarouselSlide, 'slide 3'),
+        h(BCarouselSlide, 'slide 4')
       ]
     )
   }

@@ -75,7 +75,7 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
         // Pass down any native listeners
         on: this.$listeners
       },
-      this.normalizeSlot('default', {})
+      this.normalizeSlot('default')
     )
   }
 })
