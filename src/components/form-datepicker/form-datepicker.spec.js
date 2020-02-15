@@ -41,7 +41,7 @@ describe('form-date', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.classes()).toContain('b-form-date')
+    expect(wrapper.classes()).toContain('b-form-datepicker')
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).not.toContain('show')
