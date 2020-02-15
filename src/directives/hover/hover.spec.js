@@ -1,11 +1,11 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import { BVHover } from './hover'
+import { VBHover } from './hover'
 
 describe('v-b-hover directive', () => {
   it('works', async () => {
     const localVue = new CreateLocalVue()
-    const hovered = false
+    let hovered = false
     const App = localVue.extend({
       directives: {
         BHover: VBHover
