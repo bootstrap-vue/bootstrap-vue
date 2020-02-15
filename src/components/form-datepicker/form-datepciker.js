@@ -9,7 +9,7 @@ import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
 import { VBHover } from '../../directives/hover/hover'
 
-const NAME = 'BFormDate'
+const NAME = 'BFormDatepicker'
 
 // Fallback to BCalendar prop if no value found
 const getConfigFallback = prop => {
@@ -209,7 +209,7 @@ const propsMixin = {
 // --- BFormDate component ---
 
 // @vue/component
-export const BFormDate = /*#__PURE__*/ Vue.extend({
+export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   name: NAME,
   // The mixins order determines the order of appearance in the props reference section
   mixins: [idMixin, propsMixin, dropdownMixin],
