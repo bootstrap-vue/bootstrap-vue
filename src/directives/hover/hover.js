@@ -31,6 +31,6 @@ export const VBHover = {
   bind: directive,
   componentUpdated: directive,
   unbind(el) {
-    directive(el, { value: null }
+    directive(el, { value: null })
   }
 }
