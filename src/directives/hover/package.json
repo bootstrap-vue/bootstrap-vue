@@ -1,6 +1,6 @@
 {
   "name": "@bootstrap-vue/v-b-hover",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "meta": {
     "title": "Hover",
     "description": "The `v-b-hover` directive allows you to react when an element is hovered or not",
