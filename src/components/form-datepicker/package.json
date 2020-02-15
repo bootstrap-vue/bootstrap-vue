@@ -1,16 +1,16 @@
 {
-  "name": "@bootstrap-vue/form-date",
+  "name": "@bootstrap-vue/form-datepicker",
   "version": "1.0.0",
   "meta": {
-    "title": "Form Date",
-    "slug": "form-date",
+    "title": "Form Datepicker",
+    "slug": "form-datepicker",
     "version": "2.5.0",
     "new": true,
     "beta": true,
     "description": "BootstrapVue custom date picker input form control, which provides full WAI-ARIA compliance and supports internationalization",
     "components": [
       {
-        "component": "BFormDate",
+        "component": "BFormDatepicker",
         "version": "2.5.0",
         "description": "Custom date picker form control, supporting I18N",
         "aliases": [
