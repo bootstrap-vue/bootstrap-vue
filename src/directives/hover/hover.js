@@ -11,7 +11,7 @@ const MOUSELEAVE = 'mouseleave'
 
 // --- Directive bind/unbind/update handler ---
 
-const directive = (el, { value: callback }) {
+const directive = (el, { value: callback }) => {
   if (isBrowser && isFunction(el[PROP] && el[PROP] !== callback) {
     eventOff(el, MOUSEENTER, el[PROP], EVENT_OPTIONS_NO_CAPTURE)
     eventOff(el, MOUSELEAVE, el[PROP], EVENT_OPTIONS_NO_CAPTURE)
