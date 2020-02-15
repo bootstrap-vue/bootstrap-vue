@@ -158,6 +158,44 @@ describe('form-date', () => {
     wrapper.destroy()
   })
 
+  it('hover works to change icons', async () => {
+    const wrapper = mount(BFormDate, {
+      attachToDocument: true,
+      propsData: {
+        value: '',
+        id: 'test-hover'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $toggle = wrapper.find('button#test-hover')
+
+    expect($toggle.exists()).toBe(true)
+    expect($toggle.is('button')).toBe(true)
+    expect($toggle.find('svg.bi-caneldar').exists()).toBe(true)
+    expect($toggle.find('svg.bi-caneldar-fill').exists()).toBe(false)
+
+    wrapper.trigger('mouseenter')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($toggle.find('svg.bi-caneldar').exists()).toBe(false)
+    expect($toggle.find('svg.bi-caneldar-fill').exists()).toBe(true)
+
+    wrapper.trigger('mouseleave')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($toggle.find('svg.bi-caneldar').exists()).toBe(true)
+    expect($toggle.find('svg.bi-caneldar-fill').exists()).toBe(false)
+
+    wrapper.destroy()
+  })
+
   it('opens calendar when toggle button clicked', async () => {
     const wrapper = mount(BFormDate, {
       attachToDocument: true,
