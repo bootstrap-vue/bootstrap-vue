@@ -604,10 +604,13 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     onEnter() {
       this.isBlock = true
+      // We add show class 1 frame after
+      requestAF(() => {
+        this.isShow = true
+      })
     },
     onAfterEnter() {
       this.checkModalOverflow()
-      this.isShow = true
       this.isTransitioning = false
       // We use `requestAF()` to allow transition hooks to complete
       // before passing control over to the other handlers

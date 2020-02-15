@@ -4,6 +4,27 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.4.2"></a>
+
+## [v2.4.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.4.1...v2.4.2)
+
+Released: 2020-02-15
+
+### Bug Fixes v2.4.2
+
+- **b-button:** when `href` is "#" add `role=button` and appropriate keydown handlers for A11Y
+  ([#4768](https://github.com/bootstrap-vue/bootstrap-vue/issues/4768))
+  ([087a128](https://github.com/bootstrap-vue/bootstrap-vue/commit/087a1283977061c44d5b059c203f13d2326dabae))
+- **b-modal:** fix transition show enter timing (closes
+  [#4761](https://github.com/bootstrap-vue/bootstrap-vue/issues/4761))
+  ([#4766](https://github.com/bootstrap-vue/bootstrap-vue/issues/4766))
+  ([968c957](https://github.com/bootstrap-vue/bootstrap-vue/commit/968c95758e45610a8c002507790c79d87d8fe956))
+
+### Other v2.4.2
+
+- documentation updates
+- dev dependency updates
+
 <a name="2.4.1"></a>
 
 ## [v2.4.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.4.0...v2.4.1)
