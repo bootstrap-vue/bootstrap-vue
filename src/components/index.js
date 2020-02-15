@@ -60,7 +60,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     DropdownPlugin,
     EmbedPlugin,
     FormPlugin,
-    FormDatePlugin,
+    FormDatepickerPlugin,
     FormCheckboxPlugin,
     FormFilePlugin,
     FormGroupPlugin,
