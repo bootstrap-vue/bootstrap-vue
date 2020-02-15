@@ -1,11 +1,11 @@
-import { BFormDate } from './form-date'
+import { BFormDatepicker } from './form-datepicker'
 import { pluginFactory } from '../../utils/plugins'
 
-const FormDatePlugin = /*#__PURE__*/ pluginFactory({
+const FormDatepickerPlugin = /*#__PURE__*/ pluginFactory({
   components: {
-    BFormDate,
-    BDate: BFormDate
+    BFormDatepicker,
+    BDatepicker: BFormDatepicker
   }
 })
 
-export { FormDatePlugin, BFormDate }
+export { FormDatepickerPlugin, BFormDatepicker }
