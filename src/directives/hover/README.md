@@ -55,10 +55,10 @@ In the following, we are swaping icons depending o the hover state of the elemen
 ```html
 <template>
   <div>
-    <div v-b-hover="hoverHandler" class="border rounded p-5">
-      <b-icon v-if="ifHovered" icon="brightness-high-fill"></b-icon>
-      <b-icon v-else icon="brightness-high"></b-icon>
-      <span>Hover this area</span>
+    <div v-b-hover="handleHover" class="border rounded py-3 px-4">
+      <b-icon v-if="isHovered" icon="battery-full" scale="2"></b-icon>
+      <b-icon v-else icon="battery" scale="2"></b-icon>
+      <span class="ml-2">Hover this area</span>
     </div>
   </div>
 </template>
@@ -70,10 +70,10 @@ In the following, we are swaping icons depending o the hover state of the elemen
         isHovered: false
       }
     },
-  },
-  methods: {
-    handleHover(hovered) {
-      this.isHovered = hovered
+    methods: {
+      handleHover(hovered) {
+        this.isHovered = hovered
+      }
     }
   }
 </script>
