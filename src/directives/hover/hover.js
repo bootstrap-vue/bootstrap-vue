@@ -15,7 +15,7 @@ const wrapHandler = handler => evt => {
   handler(evt.type === MOUSEENTER, evt)
 }
 
-const updateListeners = (on, el, handler) => {
+const setListeners = (on, el, handler) => {
   eventOnOff(on, el, MOUSEENTER, handler, EVENT_OPTIONS_NO_CAPTURE)
   eventOnOff(on, el, MOUSELEAVE, handler, EVENT_OPTIONS_NO_CAPTURE)
 }
@@ -27,15 +27,14 @@ const directive = (el, { value: handler = null }) => {
   if (!isBrowser) {
     return
   }
-  const newHandler = handler ? wrapHandler(handler) : null
   const currentHandler = el[PROP] || null
   if (currentHandler !== handler) {
     if (isFunction(currentHandler)) {
-      updateListeners(false, el, currentHandler)
+      setListeners(false, el, currentHandler)
       delete el[PROP]
     }
-    if (isFunction(newHandler)) {
-      updateListeners(true, el, newHandler)
+    if (isFunction(handler)) {
+      setListeners(true, el, wrapHandler(handler))
       el[PROP] = handler
     }
   }
