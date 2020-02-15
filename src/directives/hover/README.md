@@ -50,7 +50,7 @@ The directive has no modifiers.
 
 ## Live example
 
-In the following, we are swaping icons depending o the hover state of the element:
+In the following, we are swaping icons and tet color depending on the hover state of the element:
 
 ```html
 <template>
@@ -58,7 +58,7 @@ In the following, we are swaping icons depending o the hover state of the elemen
     <div v-b-hover="handleHover" class="border rounded py-3 px-4">
       <b-icon v-if="isHovered" icon="battery-full" scale="2"></b-icon>
       <b-icon v-else icon="battery" scale="2"></b-icon>
-      <span class="ml-2">Hover this area</span>
+      <span class="ml-2" :class="isHovered ? 'text-danger' : ''">Hover this area</span>
     </div>
   </div>
 </template>
