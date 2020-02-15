@@ -29,7 +29,7 @@ const updateListeners = (on, el, listener) => {
 const directive = (el, { value: handler = null }) => {
   if (inBrowser) {
     const listener = el[PROP]
-    if (isFunction(listener) && listener.fn !== handler)) {
+    if (isFunction(listener) && listener.fn !== handler) {
       updateListeners(false, el, listener)
       delete el[PROP]
     }
