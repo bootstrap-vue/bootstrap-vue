@@ -176,22 +176,22 @@ describe('form-date', () => {
 
     expect($toggle.exists()).toBe(true)
     expect($toggle.is('button')).toBe(true)
-    expect($toggle.find('svg.bi-caneldar').exists()).toBe(true)
-    expect($toggle.find('svg.bi-caneldar-fill').exists()).toBe(false)
+    expect($toggle.find('svg.bi-calendar').exists()).toBe(true)
+    expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(false)
 
     wrapper.trigger('mouseenter')
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($toggle.find('svg.bi-caneldar').exists()).toBe(false)
-    expect($toggle.find('svg.bi-caneldar-fill').exists()).toBe(true)
+    expect($toggle.find('svg.bi-calendar').exists()).toBe(false)
+    expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(true)
 
     wrapper.trigger('mouseleave')
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($toggle.find('svg.bi-caneldar').exists()).toBe(true)
-    expect($toggle.find('svg.bi-caneldar-fill').exists()).toBe(false)
+    expect($toggle.find('svg.bi-calendar').exists()).toBe(true)
+    expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(false)
 
     wrapper.destroy()
   })
