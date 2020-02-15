@@ -10,6 +10,7 @@ describe('v-b-hover directive', () => {
     const App = localVue.extend({
       data() {
         return {
+          text: 'FOO',
           changeHandler: false
         }
       },
@@ -24,7 +25,7 @@ describe('v-b-hover directive', () => {
           hovered2 = isHovered
         }
       },
-      template: `<div v-b-hover="changeHandler ? handleHover2 : handleHover1"><span>FOOBAR</span></div>`
+      template: `<div v-b-hover="changeHandler ? handleHover2 : handleHover1"><span>{{ text }}</span></div>`
     })
     const wrapper = mount(App)
 
@@ -40,6 +41,13 @@ describe('v-b-hover directive', () => {
     await waitNT(wrapper.vm)
 
     expect(hovered1).toBe(false)
+
+    wrapper.setData({ text: 'BAR' })
+
+    wrapper.trigger('mouseenter')
+    await waitNT(wrapper.vm)
+
+    expect(hovered1).toBe(true)
 
     wrapper.setData({ changeHandler: true })
 
