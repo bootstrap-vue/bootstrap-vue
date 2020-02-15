@@ -50,7 +50,7 @@ The directive has no modifiers.
 
 ## Live example
 
-In the following, we are swaping icons depending o the hover state of the element:
+In the following, we are swapping icons depending o the hover state of the element:
 
 ```html
 <template>
@@ -84,4 +84,4 @@ In the following, we are swaping icons depending o the hover state of the elemen
 ## Accessibility concerns
 
 Hover state should not be used to convey special meaning, as screen reader users and keyboard only
-users typically connot typically trigger hover state on elements.
+users typically ac not typically trigger hover state on elements.
