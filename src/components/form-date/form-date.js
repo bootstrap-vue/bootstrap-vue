@@ -7,6 +7,7 @@ import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
+import { VBHover } from '../../directives/hover/hover'
 
 const NAME = 'BFormDate'
 
@@ -212,6 +213,9 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
   name: NAME,
   // The mixins order determines the order of appearance in the props reference section
   mixins: [idMixin, propsMixin, dropdownMixin],
+  directives: {
+    BHover: VBHover
+  },
   model: {
     prop: 'value',
     event: 'input'
@@ -359,8 +363,8 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
     setFocus(evt) {
       this.hasFocus = evt.type === 'focus'
     },
-    setHover(evt) {
-      this.isHovered = this.disabled ? false : evt.type === 'mouseenter'
+    handleHover(hovered) {
+      this.isHovered = hovered
     }
   },
   render(h) {
@@ -584,10 +588,7 @@ export const BFormDate = /*#__PURE__*/ Vue.extend({
           // So we always use 'ltr'
           dir: 'ltr'
         },
-        on: {
-          mouseenter: this.setHover,
-          mouseleave: this.setHover
-        }
+        directives: [{ name: 'b-hover', value: this.handleHover }]
       },
       [$button, $hidden, $menu, $input]
     )
