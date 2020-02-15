@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import { BFormDate } from './form-date'
+import { BFormDatepicker } from './form-datepicker'
 // import { formatYMD } from '../../utils/date'
 
 // Note that JSDOM only supports `en-US` (`en`) locale for `Intl`
@@ -29,7 +29,7 @@ describe('form-date', () => {
   })
 
   it('has expected base structure', async () => {
-    const wrapper = mount(BFormDate, {
+    const wrapper = mount(BFormDatepicker, {
       attachToDocument: true,
       propsData: {
         id: 'test-base'
@@ -67,7 +67,7 @@ describe('form-date', () => {
   })
 
   it('renders hidden input when name prop is set', async () => {
-    const wrapper = mount(BFormDate, {
+    const wrapper = mount(BFormDatepicker, {
       attachToDocument: true,
       propsData: {
         value: '',
@@ -98,7 +98,7 @@ describe('form-date', () => {
   })
 
   it('reacts to changes in value', async () => {
-    const wrapper = mount(BFormDate, {
+    const wrapper = mount(BFormDatepicker, {
       attachToDocument: true,
       propsData: {
         value: ''
@@ -123,7 +123,7 @@ describe('form-date', () => {
   })
 
   it('focus and blur methods work', async () => {
-    const wrapper = mount(BFormDate, {
+    const wrapper = mount(BFormDatepicker, {
       attachToDocument: true,
       propsData: {
         value: '',
@@ -159,7 +159,7 @@ describe('form-date', () => {
   })
 
   it('hover works to change icons', async () => {
-    const wrapper = mount(BFormDate, {
+    const wrapper = mount(BFormDatepicker, {
       attachToDocument: true,
       propsData: {
         value: '',
@@ -197,7 +197,7 @@ describe('form-date', () => {
   })
 
   it('opens calendar when toggle button clicked', async () => {
-    const wrapper = mount(BFormDate, {
+    const wrapper = mount(BFormDatepicker, {
       attachToDocument: true,
       propsData: {
         value: '',
@@ -240,7 +240,7 @@ describe('form-date', () => {
   })
 
   it('emits new value when date updated', async () => {
-    const wrapper = mount(BFormDate, {
+    const wrapper = mount(BFormDatepicker, {
       attachToDocument: true,
       propsData: {
         value: '',
@@ -302,7 +302,7 @@ describe('form-date', () => {
   })
 
   it('does not close popup when prop `no-close-on-select` is set', async () => {
-    const wrapper = mount(BFormDate, {
+    const wrapper = mount(BFormDatepicker, {
       attachToDocument: true,
       propsData: {
         value: '',
@@ -365,7 +365,7 @@ describe('form-date', () => {
   })
 
   it('renders optional footer buttons', async () => {
-    const wrapper = mount(BFormDate, {
+    const wrapper = mount(BFormDatepicker, {
       attachToDocument: true,
       propsData: {
         id: 'test-footer',
@@ -451,7 +451,7 @@ describe('form-date', () => {
   })
 
   it('prop reset-value works', async () => {
-    const wrapper = mount(BFormDate, {
+    const wrapper = mount(BFormDatepicker, {
       attachToDocument: true,
       propsData: {
         id: 'test-reset',
