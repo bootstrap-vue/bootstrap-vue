@@ -11,15 +11,14 @@ const MOUSELEAVE = 'mouseleave'
 
 // --- Directive bind/unbind/update handler ---
 
-const directive = (el, { value: callback }) => {
-  if (isBrowser && isFunction(el[PROP]) && el[PROP] !== callback) {
+const directive = (el, { value: handler }) => {
+  if (isBrowser && isFunction(el[PROP]) && el[PROP] !== handler) {
     eventOff(el, MOUSEENTER, el[PROP], EVENT_OPTIONS_NO_CAPTURE)
     eventOff(el, MOUSELEAVE, el[PROP], EVENT_OPTIONS_NO_CAPTURE)
   }
-  if (isBrowser && isFunction(callback) && isBrowser) {
+  if (isBrowser && isFunction(handler) && isBrowser) {
     el[PROP] = evt => {
-      // eslint-disable-next-line standard/no-callback-literal
-      callback(evt.type === 'mouseenter')
+      handler(evt.type === 'mouseenter')
     }
     eventOn(el, MOUSEENTER, el[PROP], EVENT_OPTIONS_NO_CAPTURE)
     eventOn(el, MOUSELEAVE, el[PROP], EVENT_OPTIONS_NO_CAPTURE)
