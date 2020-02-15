@@ -94,8 +94,8 @@ export default deepFreeze({
     variant: 'secondary',
     splitVariant: null
   },
-  BFormDate: {
-    // BFormDate will choose from BCalendar first if not provided in BFormDate section
+  BFormDatepicker: {
+    // BFormDatepicker will choose from BCalendar first if not provided in BFormDatepicker section
     labelPrevYear: null,
     labelPrevMonth: null,
     labelCurrentMonth: null,
@@ -107,7 +107,7 @@ export default deepFreeze({
     labelCalendar: null,
     labelNav: null,
     labelHelp: null,
-    // These props are specific to BFormDate
+    // These props are specific to BFormDatepicker
     labelTodayButton: 'Select today',
     labelResetButton: 'Reset',
     labelCloseButton: 'Close'
