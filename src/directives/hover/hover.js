@@ -5,39 +5,42 @@ import { isFunction } from '../../utils/inspect'
 
 // --- Constants ---
 
-const PROP = '__BV_hover_handler__'
+const HANDLER_PROP = '__BV_hover_handler__'
+const LISTENER_PROP = '__BV_hover_listener__'
 const MOUSEENTER = 'mouseenter'
 const MOUSELEAVE = 'mouseleave'
 
 // --- Utility methods ---
 
-const wrapHandler = handler => evt => {
+const createListener = handler => evt => {
   handler(evt.type === MOUSEENTER, evt)
 }
 
-const updateListeners = (on, el, handler) => {
-  eventOnOff(on, el, MOUSEENTER, handler, EVENT_OPTIONS_NO_CAPTURE)
-  eventOnOff(on, el, MOUSELEAVE, handler, EVENT_OPTIONS_NO_CAPTURE)
+const updateListeners = (on, el, listener) => {
+  eventOnOff(on, el, MOUSEENTER, listener, EVENT_OPTIONS_NO_CAPTURE)
+  eventOnOff(on, el, MOUSELEAVE, listener, EVENT_OPTIONS_NO_CAPTURE)
 }
 
 // --- Directive bind/unbind/update handler ---
 
 const directive = (el, { value: handler = null }) => {
-  /* istnabul ignore next */
+  /* istanbul ignore next */
   if (!isBrowser) {
     return
   }
-  handler = handler ? wrapHandler(handler) : null
-  const currentHandler = el[PROP] || null
-  if (currentHandler !== handler) {
-    if (isFunction(currentHandler)) {
-      updateListeners(false, el, currentHandler)
-      delete el[PROP]
-    }
-    if (isFunction(handler)) {
-      updateListeners(true, el, handler)
-      el[PROP] = handler
-    }
+  const currentHandler = el[HANDLER_PROP] || null
+  if (currentHandler === handler) {
+    return
+  }
+  if (isFunction(currentHandler)) {
+    updateListeners(false, el, el[LISTENER_PROP])
+    delete el[HANDLER_PROP]
+    delete el[LISTENER_PROP]
+  }
+  if (isFunction(handler)) {
+    el[HANDLER_PROP] = handler
+    el[LISTENER_PROP] = createListener(handler)
+    updateListeners(true, el, el[LISTENER_PROP])
   }
 }
 

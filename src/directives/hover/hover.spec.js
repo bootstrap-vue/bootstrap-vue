@@ -5,32 +5,48 @@ import { VBHover } from './hover'
 describe('v-b-hover directive', () => {
   it('works', async () => {
     const localVue = new CreateLocalVue()
-    let hovered = false
+    let hovered1 = false
+    let hovered2 = false
     const App = localVue.extend({
+      data() {
+        return {
+          changeHandler: false
+        }
+      },
       directives: {
         BHover: VBHover
       },
       methods: {
-        handleHover(isHovered) {
-          hovered = isHovered
+        handleHover1(isHovered) {
+          hovered1 = isHovered
+        },
+        handleHover2(isHovered) {
+          hovered2 = isHovered
         }
       },
-      template: `<div v-b-hover="handleHover"><span>FOOBAR</span></div>`
+      template: `<div v-b-hover="changeHandler ? handleHover2 : handleHover1"><span>FOOBAR</span></div>`
     })
     const wrapper = mount(App)
 
     expect(wrapper.isVueInstance()).toBe(true)
-    expect(hovered).toBe(false)
+    expect(hovered1).toBe(false)
 
     wrapper.trigger('mouseenter')
     await waitNT(wrapper.vm)
 
-    expect(hovered).toBe(true)
+    expect(hovered1).toBe(true)
 
     wrapper.trigger('mouseleave')
     await waitNT(wrapper.vm)
 
-    expect(hovered).toBe(false)
+    expect(hovered1).toBe(false)
+
+    wrapper.setData({ changeHandler: true })
+
+    wrapper.trigger('mouseenter')
+    await waitNT(wrapper.vm)
+
+    expect(hovered2).toBe(true)
 
     wrapper.destroy()
   })
