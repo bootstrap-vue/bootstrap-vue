@@ -18,7 +18,8 @@ const directive = (el, { value: callback }) => {
   }
   if (isBrowser && isFunction(callback) && isBrowser) {
     el[PROP] = evt => {
-      callback(evt.type === 'mouseenter')
+      const isHovered = evt.type === 'mouseenter'
+      callback(isHovered)
     }
     eventOn(el, MOUSEENTER, el[PROP], EVENT_OPTIONS_NO_CAPTURE)
     eventOn(el, MOUSELEAVE, el[PROP], EVENT_OPTIONS_NO_CAPTURE)
