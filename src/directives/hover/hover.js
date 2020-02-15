@@ -49,5 +49,7 @@ const directive = (el, { value: handler = null }) => {
 export const VBHover = {
   bind: directive,
   componentUpdated: directive,
-  unbind: directive
+  unbind(el) {
+    directive(el, { value: null })
+  }
 }
