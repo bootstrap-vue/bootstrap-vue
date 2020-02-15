@@ -18,8 +18,8 @@ const directive = (el, { value: callback }) => {
   }
   if (isBrowser && isFunction(callback) && isBrowser) {
     el[PROP] = evt => {
-      const isHovered = evt.type === 'mouseenter'
-      callback(isHovered)
+      // eslint-disable-next-line standard/no-callback-literal
+      callback(evt.type === 'mouseenter')
     }
     eventOn(el, MOUSEENTER, el[PROP], EVENT_OPTIONS_NO_CAPTURE)
     eventOn(el, MOUSELEAVE, el[PROP], EVENT_OPTIONS_NO_CAPTURE)
