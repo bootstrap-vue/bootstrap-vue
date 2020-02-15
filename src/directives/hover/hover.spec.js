@@ -25,12 +25,12 @@ describe('v-b-hover directive', () => {
     wrapper.trigger('mouseenter')
     await waitNT(wrapper.vm)
 
-    expect(hovered).tobe(true)
+    expect(hovered).toBe(true)
 
     wrapper.trigger('mouseleave')
     await waitNT(wrapper.vm)
 
-    expect(hovered).tobe(false)
+    expect(hovered).toBe(false)
 
     wrapper.destroy()
   })
