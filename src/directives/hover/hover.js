@@ -23,24 +23,21 @@ const updateListeners = (on, el, handler) => {
 // --- Directive bind/unbind/update handler ---
 
 const directive = (el, { value: handler = null }) => {
+  /* istnabul ignore next */
   if (!isBrowser) {
     return
   }
-  if (handler) {
-    handler = wrapHandler(handler)
-  }
+  handler = handler ? wrapHandler(handler) : null
   const currentHandler = el[PROP] || null
-  const handlerChanged = currentHandler !== handler
-  if (!handlerChanged) {
-    return
-  }
-  if (isFunction(currentHandler)) {
-    updateListeners(false, el, currentHandler)
-    delete el[PROP]
-  }
-  if (isFunction(handler)) {
-    updateListeners(true, el, handler)
-    el[PROP] = handler
+  if (currentHandler !== handler) {
+    if (isFunction(currentHandler)) {
+      updateListeners(false, el, currentHandler)
+      delete el[PROP]
+    }
+    if (isFunction(handler)) {
+      updateListeners(true, el, handler)
+      el[PROP] = handler
+    }
   }
 }
 
