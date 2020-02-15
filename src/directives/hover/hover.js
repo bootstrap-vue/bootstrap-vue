@@ -27,7 +27,7 @@ const updateListeners = (on, el, listener) => {
 // --- Directive bind/unbind/update handler ---
 
 const directive = (el, { value: handler = null }) => {
-  if (inBrowser) {
+  if (isBrowser) {
     const listener = el[PROP]
     if (isFunction(listener) && listener.fn !== handler) {
       updateListeners(false, el, listener)
