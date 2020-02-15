@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Hover",
-    "description": "The `v-b-hover` directive allows you to react when an element is hovered or not",
+    "description": "A lightweight directive that allows you to react when an element either becomes hovered or unhovered",
     "directive": "VBHover",
     "new": true,
     "version": "2.5.0",
