@@ -293,6 +293,10 @@ export { BTooltip } from './components/tooltip/tooltip'
 // can be reverted back to `export * from './scrollspy'` when Webpack v5 is released
 // https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
 
+// export * from './directives/hover'
+export { VBHoverPlugin } from './directives/hover'
+export { VBHover } from './directives/hover/hover'
+
 // export * from './directives/modal'
 export { VBModalPlugin } from './directives/modal'
 export { VBModal } from './directives/modal/modal'
