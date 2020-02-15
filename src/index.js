@@ -143,9 +143,9 @@ export { FormCheckboxPlugin } from './components/form-checkbox'
 export { BFormCheckbox } from './components/form-checkbox/form-checkbox'
 export { BFormCheckboxGroup } from './components/form-checkbox/form-checkbox-group'
 
-// export * from './components/form-date'
-export { FormDatePlugin } from './components/form-date'
-export { BFormDate } from './components/form-date/form-date'
+// export * from './components/form-datepicker'
+export { FormDatepickerPlugin } from './components/form-datepicker'
+export { BFormDatepicker } from './components/form-datepicker/form-datepicker'
 
 // export * from './components/form-file'
 export { FormFilePlugin } from './components/form-file'
