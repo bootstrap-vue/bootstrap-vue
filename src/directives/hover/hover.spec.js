@@ -19,7 +19,7 @@ describe('v-b-hover directive', () => {
     })
     const wrapper = mount(App)
 
-    expect(wrapper.isVueInstance()).toBe(false)
+    expect(wrapper.isVueInstance()).toBe(true)
     expect(hovered).toBe(false)
 
     wrapper.trigger('mouseenter')
