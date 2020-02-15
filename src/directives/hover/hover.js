@@ -29,11 +29,12 @@ const updateListeners = (on, el, listener) => {
 const directive = (el, { value: handler = null }) => {
   if (isBrowser) {
     const listener = el[PROP]
-    if (isFunction(listener) && listener.fn !== handler) {
+    const oldHandler = isFunction(listener) ? listener.fn : null
+    if (oldHandler !== handler) {
       updateListeners(false, el, listener)
       delete el[PROP]
     }
-    if (isFunction(handler)) {
+    if (isFunction(handler) && oldHandler !== handler ) {
       el[PROP] = createListener(handler)
       updateListeners(true, el, el[PROP])
     }
