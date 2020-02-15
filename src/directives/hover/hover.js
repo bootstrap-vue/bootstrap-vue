@@ -6,14 +6,15 @@ import { isFunction } from '../../utils/inspect'
 // --- Constants ---
 
 const HANDLER_PROP = '__BV_hover_handler__'
-const LISTENER_PROP = '__BV_hover_listener__'
 const MOUSEENTER = 'mouseenter'
 const MOUSELEAVE = 'mouseleave'
 
 // --- Utility methods ---
 
 const createListener = handler => evt => {
-  handler(evt.type === MOUSEENTER, evt)
+  const fn = evt => { handler(evt.type === MOUSEENTER, evt) }
+  fn.fn = handler
+  return fn
 }
 
 const updateListeners = (on, el, listener) => {
@@ -29,18 +30,16 @@ const directive = (el, { value: handler = null }) => {
     return
   }
   const currentHandler = el[HANDLER_PROP] || null
-  if (currentHandler === handler) {
+  if (currentHandler && currentHandler.fn === handler) {
     return
   }
   if (isFunction(currentHandler)) {
-    updateListeners(false, el, el[LISTENER_PROP])
+    updateListeners(false, el, el[HANDLER_PROP])
     delete el[HANDLER_PROP]
-    delete el[LISTENER_PROP]
   }
   if (isFunction(handler)) {
-    el[HANDLER_PROP] = handler
-    el[LISTENER_PROP] = createListener(handler)
-    updateListeners(true, el, el[LISTENER_PROP])
+    el[HANDLER_PROP] = createListener(handler)
+    updateListeners(true, el, el[HANDLER_PROP])
   }
 }
 
