@@ -1,21 +1,21 @@
-# Form Date
+# Form Datepicker
 
-> `<b-form-date>` is a BootstrapVue custom date picker input form control, which provides full
+> `<b-form-datepicker>` is a BootstrapVue custom date picker input form control, which provides full
 > WAI-ARIA compliance and internationalization support.
 
 As a form control wrapper component for the [`<b-calendar>`](/docs/components/calendar) component,
 it provides additional validation state presentation and a compact interface. Native HTML5 date
 inputs vary in presentation, accessibility, and in some instances are not supported by all browsers.
-`<b-form-date>` provides a consistent and accessible interface across all browser platforms and
+`<b-form-datepicker>` provides a consistent and accessible interface across all browser platforms and
 devices.
 
-The `<b-form-date>` component was introduced in BootstrapVue release `v2.5.0`.
+The `<b-form-datepicker>` component was introduced in BootstrapVue release `v2.5.0`.
 
 ```html
 <template>
   <div>
     <label for="example-datepicker">Choose a date</label>
-    <b-form-date id="example-datepicker" v-model="value" class="mb-2"></b-form-date>
+    <b-form-datepicker id="example-datepicker" v-model="value" class="mb-2"></b-form-datepicker>
     <p>Value: '{{ value }}'</p>
   </div>
 </template>
@@ -30,33 +30,34 @@ The `<b-form-date>` component was introduced in BootstrapVue release `v2.5.0`.
   }
 </script>
 
-<!-- b-form-date.vue -->
+<!-- b-form-datepicker.vue -->
 ```
 
-`<b-form-date>` supports many of the props available on [`<b-calendar>`](/docs/components/calendar)
-as well as some of the props available on [`<b-dropdown>`](/docs/components/dropdown).
+`<b-form-datepicker>` supports many of the props available on
+[`<b-calendar>`](/docs/components/calendar) as well as some of the props available on
+[`<b-dropdown>`](/docs/components/dropdown).
 
 ## `v-model` return value
 
-By default, `<b-form-calendar>` returns dates as a string in the `YYYY-MM-DD` format, which is the
+By default, `<b-form-datepicker>` returns dates as a string in the `YYYY-MM-DD` format, which is the
 same format returned by native browser `<input type="date">` controls. You can have
-`<b-form-calendar>` return a `Date` object (with no time portion) as the `v-model` value instead by
+`<b-form-datepicker>` return a `Date` object (with no time portion) as the `v-model` value instead by
 setting the `value-as-date` prop.
 
-If no date is selected, `<b-form-date>` returns an empty string `''`, or returns `null` if the
+If no date is selected, `<b-form-datepicker>` returns an empty string `''`, or returns `null` if the
 `value-as-date` prop is set.
 
 Note that when `value-as-date` prop is set, the returned `Date` object will be in the browser's
 default timezone.
 
-If `<b-form-date>` has a value set for the `name` prop, a hidden input will be created which will
-have its name attribute set to the value of the `name` prop, and the value attribute will be set to
-the selected date as a `YYYY-MM-DD` string. This will allow the `<b-form-date>` selected value to be
-submitted via native browser form submission.
+If `<b-form-datepicker>` has a value set for the `name` prop, a hidden input will be created which
+will have its name attribute set to the value of the `name` prop, and the value attribute will be set
+to the selected date as a `YYYY-MM-DD` string. This will allow the `<b-form-date>` selected value to
+be submitted via native browser form submission.
 
 ## Disabled and readonly states
 
-Setting the `disabled` prop will remove all interactivity of the `<b-form-date>` component.
+Setting the `disabled` prop will remove all interactivity of the `<b-form-datepicker>` component.
 
 Setting the `readonly` prop will disable selecting a date, but will keep the component interactive,
 allowing for date navigation. The `v-model` will not be updated in the readonly state.
@@ -74,7 +75,7 @@ For disabling specific dates or setting minimum and maximum date limits, refer t
         <b-form-radio value="normal">Normal</b-form-radio>
       </b-form-radio-group>
     </b-form-group>
-    <b-form-date id="ex-disabled-readonly" :disabled="disabled" :readonly="readonly"></b-form-date>
+    <b-form-datepicker id="ex-disabled-readonly" :disabled="disabled" :readonly="readonly"></b-form-datepicker>
   </div>
 </template>
 
@@ -96,7 +97,7 @@ For disabling specific dates or setting minimum and maximum date limits, refer t
   }
 </script>
 
-<!-- b-form-date-disabled-readonly.vue -->
+<!-- b-form-datepicker-disabled-readonly.vue -->
 ```
 
 ## Date constraints
@@ -109,7 +110,7 @@ format of `YYYY-MM-DD` or a `Date` object.
 ```html
 <template>
   <div>
-    <b-form-date v-model="value" :min="min" :max="max" locale="en"></b-form-date>
+    <b-form-datepicker v-model="value" :min="min" :max="max" locale="en"></b-form-datepicker>
   </div>
 </template>
 
@@ -136,7 +137,7 @@ format of `YYYY-MM-DD` or a `Date` object.
   }
 </script>
 
-<!-- b-form-date-min-max.vue -->
+<!-- b-form-datepicker-min-max.vue -->
 ```
 
 ### Disabling dates
@@ -154,7 +155,7 @@ return a value as quickly as possible.
 ```html
 <template>
   <div>
-    <b-form-date v-model="value" :date-disabled-fn="dateDisabled" locale="en"></b-form-date>
+    <b-form-datepicker v-model="value" :date-disabled-fn="dateDisabled" locale="en"></b-form-datepicker>
   </div>
 </template>
 
@@ -178,31 +179,31 @@ return a value as quickly as possible.
   }
 </script>
 
-<!-- b-form-date-disabled-dates.vue -->
+<!-- b-form-datepicker-disabled-dates.vue -->
 ```
 
 Note the `min` and `max` date constraints are evaluated first, before `date-disabled-fn`.
 
 ## Validation states
 
-`<b-form-date>` supports invalid and valid styling via the boolean `state` prop. Setting `state` to
-boolean `false` will style the input as invalid, while setting it to boolean `true` will style it as
-valid. Setting `state` to `null` will not show any validation state styling (the default).
+`<b-form-datepicker>` supports invalid and valid styling via the boolean `state` prop. Setting `state`
+to boolean `false` will style the input as invalid, while setting it to boolean `true` will style it
+as valid. Setting `state` to `null` will not show any validation state styling (the default).
 
 ```html
 <template>
   <div>
     <label for="datepicker-invalid">Choose a date (invalid style)</label>
-    <b-form-date id="datepicker-invalid" :state="false" class="mb-2"></b-form-date>
+    <b-form-datepicker id="datepicker-invalid" :state="false" class="mb-2"></b-form-datepicker>
     <label for="datepicker-valid">Choose a date (valid style)</label>
-    <b-form-date id="datepicker-valid" :state="true"></b-form-date>
+    <b-form-datepicker id="datepicker-valid" :state="true"></b-form-datepicker>
   </div>
 </template>
 
-<!-- b-form-date-invalid-valid.vue -->
+<!-- b-form-datepicker-invalid-valid.vue -->
 ```
 
-Note that native browser validation is _not_ available with `<b-form-date>`.
+Note that native browser validation is _not_ available with `<b-form-datepicker>`.
 
 ## Styling
 
@@ -219,21 +220,21 @@ To disable highlighting of today's date altogether, set the `no-highlight-today`
 
 ### Control sizing
 
-Fancy a smaller or larger `<b-form-date>` control? Set the `size` prop to `'sm'` for a smaller form
-control, or `'lg'` for a larger form form control. Note this does not affect the size of the popup
-calendar dialog.
+Fancy a smaller or larger `<b-form-datepicker>` control? Set the `size` prop to `'sm'` for a smaller
+form control, or `'lg'` for a larger form form control. Note this does not affect the size of the
+popup calendar dialog.
 
 ```html
 <template>
   <div>
     <label for="datepicker-sm">Small date picker</label>
-    <b-form-date id="datepicker-sm" size="sm" local="en" class="mb-2"></b-form-date>
+    <b-form-datepicker id="datepicker-sm" size="sm" local="en" class="mb-2"></b-form-datepicker>
     <label for="datepicker-lg">Large date picker</label>
-    <b-form-date id="datepicker-lg" size="lg" local="en"></b-form-date>
+    <b-form-datepicker id="datepicker-lg" size="lg" local="en"></b-form-datepicker>
   </div>
 </template>
 
-<!-- b-form-date-sizes.vue -->
+<!-- b-form-datepicker-sizes.vue -->
 ```
 
 ### Placeholder
@@ -245,11 +246,11 @@ a placeholder is not provided, the value of the `label-no-date-selected` prop is
 <template>
   <div>
     <label for="datepicker-placeholder">Date picker with placeholder</label>
-    <b-form-date id="datepicker-placeholder" placeholder="Choose a date" local="en"></b-form-date>
+    <b-form-datepicker id="datepicker-placeholder" placeholder="Choose a date" local="en"></b-form-datepicker>
   </div>
 </template>
 
-<!-- b-form-date-placeholder.vue -->
+<!-- b-form-datepicker-placeholder.vue -->
 ```
 
 ### Optional controls
@@ -269,17 +270,17 @@ prop `no-close-on-select` is set.
 <template>
   <div>
     <label for="datepicker-buttons">Date picker with optional footer buttons</label>
-    <b-form-date
+    <b-form-datepicker
       id="datepicker-buttons"
       today-button
       reset-button
       close-button
       locale="en"
-    ></b-form-date>
+    ></b-form-datepicker>
   </div>
 </template>
 
-<!-- b-form-date-buttons.vue -->
+<!-- b-form-datepicker-buttons.vue -->
 ```
 
 The text for the optional buttons can be set via the `label-today-button`, `label-reset-button`, and
@@ -307,8 +308,8 @@ except for labels applied to elements of the calendar control (aria-labels, sele
 help text). You must provide your own translations for these labels. The available locales will be
 browser dependant (not all browsers support all locales)
 
-By default `<b-form-date>` will use the browser's default locale, but you can specify the locale (or
-locales) to use via the `locale` prop. The prop accepts either a single locale string, or an array
+By default `<b-form-datepicker>` will use the browser's default locale, but you can specify the locale
+(or locales) to use via the `locale` prop. The prop accepts either a single locale string, or an array
 of locale strings (listed in order of preferred locale).
 
 The calendar starts the week on Sunday. This can be changed by setting the `start-weekday` prop to a
@@ -325,14 +326,14 @@ Saturday.
     <b-form-select id="example-weekdays" v-model="weekday" :options="weekdays" class="mb-2"></b-form-select>
 
     <label for="example-i18n-picker">Date picker:</label>
-    <b-form-date
+    <b-form-datepicker
       id="example-i18n-picker"
       v-model="value"
       v-bind="labels[locale] || {}"
       :locale="locale"
       :start-weekday="weekday"
       class="mb-2"
-     ></b-form-date>
+     ></b-form-datepicker>
      <p>Value: <b>'{{ value }}'</b></p>
    </div>
 </template>
@@ -401,7 +402,7 @@ Saturday.
   }
 </script>
 
-<!-- b-form-date-i18n.vue -->
+<!-- b-form-datepicker-i18n.vue -->
 ```
 
 You can listen to for the `context` event to determine the locale and directionality that the
@@ -427,11 +428,11 @@ details.
 
 ## Implementation notes
 
-`<b-form-date>` is based upon the components [`<b-calendar>`](/docs/components/calendar) and
+`<b-form-datepicker>` is based upon the components [`<b-calendar>`](/docs/components/calendar) and
 [`<b-dropdown>`](/docs/components/dropdown).
 
-`<b-form-date>` uses Bootstrap's margin, padding, border, and flex utility classes, along with
-button (`btn-*`) classes, and the `form-control*` (plus validation) classes.
+`<b-form-datepicker>` uses Bootstrap's margin, padding, border, and flex utility classes, along
+with button (`btn-*`) classes, and the `form-control*` (plus validation) classes.
 
 BootstrapVue's Custom SCSS/CSS is also required for proper styling of the date picker and calendar.
 
