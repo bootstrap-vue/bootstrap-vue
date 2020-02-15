@@ -565,7 +565,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     return h(
       'div',
       {
-        staticClass: 'b-form-date form-control dropdown h-auto p-0 d-flex',
+        staticClass: 'b-form-datepicker form-control dropdown h-auto p-0 d-flex',
         class: [
           this.directionClass,
           {
