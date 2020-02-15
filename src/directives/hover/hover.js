@@ -23,7 +23,7 @@ const updateListeners = (on, el, handler) => {
 // --- Directive bind/unbind/update handler ---
 
 const directive = (el, { value: handler = null }) => {
-  /* istnabul ignore next */
+  /* istanbul ignore next */
   if (!isBrowser) {
     return
   }
