@@ -41,7 +41,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
     onDelete(evt) {
       if (
         !this.disabled && 
-        (evt.type === 'click' || (evt.type === 'keydown' && evt.keyCode = KeyCode.DELETE))
+        (evt.type === 'click' || (evt.type === 'keydown' && evt.keyCode === KeyCode.DELETE))
       ) {
         this.$emit('remove')
       }
