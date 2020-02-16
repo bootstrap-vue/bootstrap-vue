@@ -64,6 +64,10 @@
             "description": "The value of the 'aria-label' attribute on the remove button in the tag"
           },
           {
+            "prop": "tagRemovedLabel",
+            "description": "Label for the aria-live region that announces removed tag(s) to screen reader users"
+          },
+          {
             "prop": "tagValidator",
             "description": "Optional tag validator method. Passed a single argument of tag being added. Should return 'true' if the tag passes validation, or 'false' if the tag cannot be added"
           },
