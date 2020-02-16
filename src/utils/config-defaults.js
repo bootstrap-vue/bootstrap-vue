@@ -129,6 +129,7 @@ export default deepFreeze({
     invalidTagText: 'Invalid tag(s)',
     placeholder: 'Add tag...',
     tagRemoveLabel: 'Remove tag',
+    tagRemovedLabel: 'Tag removed',
     tagVariant: 'secondary'
   },
   BFormText: {
