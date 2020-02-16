@@ -132,6 +132,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: String,
       default: () => getComponentConfig(NAME, 'tagRemoveLabel')
     },
+    tagRemovedLabel: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'tagRemovedLabel')
+    },
     tagValidator: {
       type: Function,
       default: null
@@ -182,6 +186,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       hasFocus: false,
       newTag: '',
       tags: [],
+      // Tags that were removed
+      removedTags: [],
       // Populated when tags are parsed
       tagsState: cleanTagsState()
     }
@@ -263,10 +269,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     value(newVal) {
       this.tags = cleanTags(newVal)
     },
-    tags(newVal) {
+    tags(newVal, oldVal) {
       // Update the `v-model` (if it differs from the value prop)
       if (!looseEqual(newVal, this.value)) {
         this.$emit('input', newVal)
+        newVal = concat(newVal).filter(idendity)
+        oldVal = concat(oldVal).filter(idendity)
+        this.removedTags = oldVal.filter(old => !arrayIncludes(newVal, old))
       }
     },
     tagsState(newVal, oldVal) {
@@ -336,11 +345,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       //   Or emit cancelable `BvEvent`
       this.tags = this.tags.filter(t => t !== tag)
       // Return focus to the input (if possible)
-      // Performed in a nextTick/requestAnimationFrame to allow
-      // time for screen readers to reach the changes
-      this.$nextTick(() => {
-        requestAF(this.focus)
-      })
+      this.focus()
     },
     // --- Input element event handlers ---
     onInputInput(evt) {
@@ -708,13 +713,32 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'sr-only',
         attrs: {
-          id: this.safeId('_selected_'),
+          id: this.safeId('_selected-tags_'),
+          role: 'status',
           'aria-live': 'polite',
-          'aria-atomic': 'false',
-          'aria-relevant': 'additions removals text'
+          'aria-atomic': 'false'
         }
       },
-      [this.tags.map(tag => h('span', `${tag} `))]
+      this.tags.map(tag => h('span', { key: tag, }, `${tag} `))
+    )
+
+    // Removed tag live region
+    const $removed = h(
+      'div',
+      {
+        staticClass: 'sr-only',
+        attrs: {
+          id: this.safeId('_removed-tags_'),
+          role: 'status',
+          'aria-live': 'assertive',
+          'aria-atomic': 'true'
+        }
+      },
+      concat(
+        this.tagRemovedLabel,
+        ': ',
+        this.removedTags.map(tag => h('span', { key: tag }, `${tag} `))
+      )
     )
 
     // Add hidden inputs for form submission
@@ -759,7 +783,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           click: this.onClick
         }
       },
-      concat($output, $content, $hidden)
+      concat($output, $removed, $content, $hidden)
     )
   }
 })
