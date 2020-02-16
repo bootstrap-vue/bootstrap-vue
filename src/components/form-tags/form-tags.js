@@ -273,9 +273,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Update the `v-model` (if it differs from the value prop)
       if (!looseEqual(newVal, this.value)) {
         this.$emit('input', newVal)
-        newVal = concat(newVal).filter(identity)
-        oldVal = concat(oldVal).filter(identity)
-        this.removedTags = oldVal.filter(old => !arrayIncludes(newVal, old))
+        this.$nextTick(() => {
+          // Performed in a next tick to allow screen readers
+          // time to trigger announcements
+          newVal = concat(newVal).filter(identity)
+          oldVal = concat(oldVal).filter(identity)
+          this.removedTags = oldVal.filter(old => !arrayIncludes(newVal, old))
+        })
       }
     },
     tagsState(newVal, oldVal) {
@@ -716,10 +720,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           id: this.safeId('_selected-tags_'),
           role: 'status',
           'aria-live': 'polite',
-          'aria-atomic': 'false'
+          'aria-atomic': 'false',
+          'aria-relevant': 'additions'
         }
       },
-      this.tags.join(', ') || ''
+      this.tags.map((tag, index) => {
+        const addComma = index !== this.lages.lenght - 1
+        return h('span', { key: tag }, `${tag}${addComma ? ', ' : ''}`)
+      })
     )
 
     // Removed tag live region
@@ -734,9 +742,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           'aria-atomic': 'true'
         }
       },
-      concat(
-        this.removedTags.length > 0 ? `(${this.tagRemovedLabel}) ` : '',
-        this.removedTags.join(', ') || ''
+      this.removedTags.length > 0
+        ? `(${this.tagRemovedLabel}) ${this.removedTags.join(', ')}`
+        : ''
       )
     )
 
