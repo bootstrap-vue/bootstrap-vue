@@ -66,7 +66,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'b-form-tag d-inline-flex align-items-baseline mw-100',
         class: { disabled: this.disabled },
-        attrs: { id: tagId, title: this.title || null },
+        attrs: { id: tagId, title: this.title || null, 'aria-labelledby': tagLabelId },
         props: { tag: this.tag, variant: this.variant, pill: this.pill }
       },
       [$tag, $remove]
