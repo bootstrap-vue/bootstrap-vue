@@ -607,7 +607,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             'aria-controls': tagListId
           }
         },
-        [h('div', { staticClass: 'd-inline-flex', attrs: { role: 'group' } }, [$input, $button])]
+        [h('div', { staticClass: 'd-flex', attrs: { role: 'group' } }, [$input, $button])]
       )
 
       // Wrap in an unordered list element (we use a list for accessibility)
