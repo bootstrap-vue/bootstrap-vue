@@ -607,16 +607,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         {
           key: '_tags_list_',
           staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center',
-          attrs: {
-            id: tagListId,
-            // Don't interrupt the user abruptly
-            // Although maybe this should be 'assertive'
-            // to provide immediate feedback of the tag added/removed
-            'aria-live': 'assertive',
-            // Only read elements that have been added or removed
-            'aria-atomic': 'false',
-            'aria-relevant': 'additions removals'
-          }
+          attrs: { id: tagListId }
         },
         // `concat()` is faster than array spread when args are known to be arrays
         concat($tags, $field)
@@ -711,6 +702,21 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     // Generate the user interface
     const $content = this.normalizeSlot('default', scope) || this.defaultRender(scope)
 
+    // Generate the `aria-live` region for hte current value(s)
+    const $value = h(
+      'output',
+      {
+        staticClass: 'sr-only',
+        attrs: {
+          id: this.safeId('_selected_'),
+          'aria-live': 'polite',
+          'aria-atomic': 'false',
+          'aria-relevant': 'additions removals text'
+        }
+      },
+      [this.tags.map(tag => h('span', `${tag} `))]
+    )
+
     // Add hidden inputs for form submission
     let $hidden = h()
     if (this.name && !this.disabled) {
@@ -744,7 +750,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: this.safeId(),
           role: 'group',
-          tabindex: this.disabled || this.noOuterFocus ? null : '-1'
+          tabindex: this.disabled || this.noOuterFocus ? null : '-1',
+          'aria-describedby': this.safeId('_selected_')
         },
         on: {
           focusin: this.onFocusin,
