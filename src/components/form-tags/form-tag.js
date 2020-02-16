@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import KeyCodes from '../../utils/key-codes'
 import { getComponentConfig } from '../../utils/config'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -37,8 +38,13 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    onClick() {
-      this.$emit('remove')
+    onDelete(evt) {
+      if (
+        !this.disabled && 
+        (evt.type === 'click' || (evt.type === 'keydown' && evt.keyCode = KeyCode.DELETE))
+      ) {
+        this.$emit('remove')
+      }
     }
   },
   render(h) {
@@ -49,8 +55,15 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
       $remove = h(BButtonClose, {
         staticClass: 'b-form-tag-remove ml-1',
         props: { ariaLabel: this.removeLabel },
-        attrs: { 'aria-controls': tagId, 'aria-describedby': tagLabelId },
-        on: { click: this.onClick }
+        attrs: {
+          'aria-controls': tagId,
+          'aria-describedby': tagLabelId
+          'aria-keyshortcuts': 'Delete'
+        },
+        on: {
+          click: this.onDelete,
+          keydown: this.onDelete
+        }
       })
     }
     const $tag = h(
