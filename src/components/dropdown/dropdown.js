@@ -10,10 +10,14 @@ import { BButton } from '../button/button'
 const NAME = 'BDropdown'
 
 export const props = {
-  toggleText: {
-    // This really should be toggleLabel
+  text: {
+    // Button label
     type: String,
-    default: () => getComponentConfig(NAME, 'toggleText')
+    default: ''
+  },
+  html: {
+    // Button label
+    type: String
   },
   size: {
     type: String,
@@ -34,6 +38,11 @@ export const props = {
   toggleTag: {
     type: String,
     default: 'button'
+  },
+  toggleText: {
+    // This really should be toggleLabel
+    type: String,
+    default: () => getComponentConfig(NAME, 'toggleText')
   },
   toggleClass: {
     type: [String, Array, Object],
@@ -67,6 +76,11 @@ export const props = {
     type: String,
     default: 'button',
     validator: value => arrayIncludes(['button', 'submit', 'reset'], value)
+  },
+  lazy: {
+    // If true, only render menu contents when open
+    type: Boolean,
+    default: false
   },
   role: {
     type: String,

@@ -9,7 +9,10 @@ import { BLink } from '../link/link'
 
 // -- Constants --
 
-export const props = pluckProps(['menuClass', 'toggleClass', 'noCaret', 'role'], BDropdownProps)
+export const props = pluckProps(
+  ['text', 'html', 'menuClass', 'toggleClass', 'noCaret', 'role', 'lazy'],
+  BDropdownProps
+)
 
 // @vue/component
 export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({

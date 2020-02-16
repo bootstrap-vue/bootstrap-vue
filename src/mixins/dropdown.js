@@ -59,15 +59,6 @@ export default {
       type: Boolean,
       default: false
     },
-    text: {
-      // Button label
-      type: String,
-      default: ''
-    },
-    html: {
-      // Button label
-      type: String
-    },
     dropup: {
       // place on top if possible
       type: Boolean,
@@ -95,11 +86,6 @@ export default {
     },
     noFlip: {
       // Disable auto-flipping of menu from bottom<=>top
-      type: Boolean,
-      default: false
-    },
-    lazy: {
-      // If true, only render menu contents when open
       type: Boolean,
       default: false
     },
@@ -251,6 +237,13 @@ export default {
         this.$_popper.destroy()
       }
       this.$_popper = null
+    },
+    updatePopper() /* istanbul ignore next: not easy to test */ {
+      // Instructs popper to re-computes the dropdown position
+      // usefull if the content changes size
+      try {
+        this.$_popper.scheduleUpdate()
+      } catch {}
     },
     getPopperConfig() {
       let placement = AttachmentMap.BOTTOM
@@ -443,7 +436,9 @@ export default {
       return filterVisibles(selectAll(Selector.ITEM_SELECTOR, this.$refs.menu))
     },
     focusMenu() {
-      this.$refs.menu.focus && this.$refs.menu.focus()
+      try {
+        this.$refs.menu.focus()
+      } catch {}
     },
     focusToggler() {
       this.$nextTick(() => {
