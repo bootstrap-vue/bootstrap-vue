@@ -52,8 +52,8 @@ default timezone.
 
 If `<b-form-datepicker>` has a value set for the `name` prop, a hidden input will be created which
 will have its name attribute set to the value of the `name` prop, and the value attribute will be set
-to the selected date as a `YYYY-MM-DD` string. This will allow the `<b-form-date>` selected value to
-be submitted via native browser form submission.
+to the selected date as a `YYYY-MM-DD` string. This will allow the `<b-form-datepicker>` selected
+value to be submitted via native browser form submission.
 
 ## Disabled and readonly states
 
