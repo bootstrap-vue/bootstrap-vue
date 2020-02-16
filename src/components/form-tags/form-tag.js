@@ -57,7 +57,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
         props: { ariaLabel: this.removeLabel },
         attrs: {
           'aria-controls': tagId,
-          'aria-describedby': tagLabelId
+          'aria-describedby': tagLabelId,
           'aria-keyshortcuts': 'Delete'
         },
         on: {
