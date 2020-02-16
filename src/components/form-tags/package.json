@@ -65,6 +65,7 @@
           },
           {
             "prop": "tagRemovedLabel",
+            "version": "2.5.0",
             "description": "Label for the aria-live region that announces removed tag(s) to screen reader users"
           },
           {
