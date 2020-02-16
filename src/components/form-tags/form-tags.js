@@ -273,8 +273,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Update the `v-model` (if it differs from the value prop)
       if (!looseEqual(newVal, this.value)) {
         this.$emit('input', newVal)
-        newVal = concat(newVal).filter(idendity)
-        oldVal = concat(oldVal).filter(idendity)
+        newVal = concat(newVal).filter(identity)
+        oldVal = concat(oldVal).filter(identity)
         this.removedTags = oldVal.filter(old => !arrayIncludes(newVal, old))
       }
     },
@@ -719,7 +719,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           'aria-atomic': 'false'
         }
       },
-      this.tags.map(tag => h('span', { key: tag, }, `${tag} `))
+      this.tags.join(', ') || ''
     )
 
     // Removed tag live region
@@ -735,9 +735,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         }
       },
       concat(
-        this.tagRemovedLabel,
-        ': ',
-        this.removedTags.map(tag => h('span', { key: tag }, `${tag} `))
+        this.removedTags.length > 0 ? `(${this.tagRemovedLabel}) ` : '',
+        this.removedTags.join(', ') || ''
       )
     )
 
