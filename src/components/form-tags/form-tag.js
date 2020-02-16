@@ -43,18 +43,22 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const tagId = this.safeId()
+    const tagLabelId = this.safeId('_taglabel_')
     let $remove = h()
     if (!this.disabled) {
       $remove = h(BButtonClose, {
         staticClass: 'b-form-tag-remove ml-1',
         props: { ariaLabel: this.removeLabel },
-        attrs: { 'aria-controls': tagId },
+        attrs: { 'aria-controls': tagId, 'aria-describedby': tagLabelId },
         on: { click: this.onClick }
       })
     }
     const $tag = h(
       'span',
-      { staticClass: 'b-form-tag-content flex-grow-1 text-truncate' },
+      {
+        staticClass: 'b-form-tag-content flex-grow-1 text-truncate',
+        attrs: { id: tagLabelId }
+      },
       this.normalizeSlot('default') || this.title || [h()]
     )
     return h(
