@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Datepicker",
-    "slug": "form-datepicker",
     "version": "2.5.0",
     "new": true,
     "beta": true,
@@ -14,7 +13,7 @@
         "version": "2.5.0",
         "description": "Custom date picker form control, supporting I18N",
         "aliases": [
-          "BDate"
+          "BDatepicker"
         ],
         "props": [
           {
