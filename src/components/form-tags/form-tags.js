@@ -600,14 +600,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         'li',
         {
           key: '__li-input__',
-          staticClass: 'd-inline-flex flex-grow-1 mt-1',
+          staticClass: 'flex-grow-1 mt-1',
           attrs: {
-            role: 'presentation',
+            role: 'none',
             'aria-live': 'off',
             'aria-controls': tagListId
           }
         },
-        [h('div', { attrs: { role: 'group' } }, [$input, $button])]
+        [h('div', { staticClass: 'd-inline-flex', attrs: { role: 'group' } }, [$input, $button])]
       )
 
       // Wrap in an unordered list element (we use a list for accessibility)
@@ -719,6 +719,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: this.safeId('_selected-tags_'),
           role: 'status',
+          for: this.computedInputId,
           'aria-live': this.hasFocus ? 'polite' : 'off',
           'aria-atomic': 'true',
           'aria-relevant': 'additions text'
