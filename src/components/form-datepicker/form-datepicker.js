@@ -211,11 +211,11 @@ const propsMixin = {
 // @vue/component
 export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, propsMixin, dropdownMixin],
   directives: {
     BHover: VBHover
   },
+  // The mixins order determines the order of appearance in the props reference section
+  mixins: [idMixin, propsMixin, dropdownMixin],
   model: {
     prop: 'value',
     event: 'input'
