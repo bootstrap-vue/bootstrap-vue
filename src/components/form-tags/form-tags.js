@@ -702,8 +702,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     // Generate the user interface
     const $content = this.normalizeSlot('default', scope) || this.defaultRender(scope)
 
-    // Generate the `aria-live` region for hte current value(s)
-    const $value = h(
+    // Generate the `aria-live` region for the current value(s)
+    const $output = h(
       'output',
       {
         staticClass: 'sr-only',
@@ -759,7 +759,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           click: this.onClick
         }
       },
-      concat($content, $hidden)
+      concat($output, $content, $hidden)
     )
   }
 })
