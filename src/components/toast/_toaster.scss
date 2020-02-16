@@ -43,7 +43,7 @@
     .b-toaster-slot {
       position: absolute;
       max-width: $toast-max-width;
-      width: 100%; /* IE11 fix */
+      width: 100%; /* IE 11 fix */
       left: 0;
       right: 0;
       padding: 0;

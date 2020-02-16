@@ -133,7 +133,7 @@ Released: 2020-01-13
 
 ### Bug Fixes v2.2.1
 
-- **icons:** make icon transform props work with IE11 (closes
+- **icons:** make icon transform props work with IE 11 (closes
   [#4607](https://github.com/bootstrap-vue/bootstrap-vue/issues/4607))
   ([#4608](https://github.com/bootstrap-vue/bootstrap-vue/issues/4608))
   ([899779f](https://github.com/bootstrap-vue/bootstrap-vue/commit/899779f20015f719198a763136137eea01aa11ea))
@@ -230,14 +230,14 @@ Released: 2020-01-08
   [#4384](https://github.com/bootstrap-vue/bootstrap-vue/issues/4384))
   ([#4388](https://github.com/bootstrap-vue/bootstrap-vue/issues/4388))
   ([9a81cd4](https://github.com/bootstrap-vue/bootstrap-vue/commit/9a81cd414a2c534b96de0d82c3d00d94651e5a7b))
-- **b-toast:** fix interal `ensureToaster` method call when toaster name changes
+- **b-toast:** fix internal `ensureToaster` method call when toaster name changes
   ([#4468](https://github.com/bootstrap-vue/bootstrap-vue/issues/4468))
   ([744bb7a](https://github.com/bootstrap-vue/bootstrap-vue/commit/744bb7a77092a04184af31bf285e432110e1ab44))
 - **tooltips, popovers:** fix memory leak (closes
   [#4400](https://github.com/bootstrap-vue/bootstrap-vue/issues/4400))
   ([#4401](https://github.com/bootstrap-vue/bootstrap-vue/issues/4401))
   ([c71352d](https://github.com/bootstrap-vue/bootstrap-vue/commit/c71352d674347e5e2d72fe8b82334fc87a4ffd8c))
-- **docs:** handle undocumented breaking changes in babel-standalone for IE11
+- **docs:** handle undocumented breaking changes in babel-standalone for IE 11
   ([#4484](https://github.com/bootstrap-vue/bootstrap-vue/issues/4484))
   ([56f8bb5](https://github.com/bootstrap-vue/bootstrap-vue/commit/56f8bb5af7fb7188da035210e8be28d7ae1c7bc1))
 
@@ -487,7 +487,7 @@ This patch release includes a few minor bug fixes and documentation updates.
 - **b-table:** remove extra slashes in mixins imports
   ([#4087](https://github.com/bootstrap-vue/bootstrap-vue/issues/4087))
   ([77f5be1](https://github.com/bootstrap-vue/bootstrap-vue/commit/77f5be1))
-- **tooltips, popovers:** check `document.body` instead of `document` for IE11 support (fixes
+- **tooltips, popovers:** check `document.body` instead of `document` for IE 11 support (fixes
   [#4074](https://github.com/bootstrap-vue/bootstrap-vue/issues/4074))
   ([#4075](https://github.com/bootstrap-vue/bootstrap-vue/issues/4075))
   ([1eda4fe](https://github.com/bootstrap-vue/bootstrap-vue/commit/1eda4fe))
@@ -562,7 +562,7 @@ Read the following migration guide for more details.
 - `b-img-lazy`, `b-card-img-lazy`: now rely only on `IntersectionObserver` support (native or via a
   polyfill) to determine when to show the image. If `IntersectionObserver` support is not detected,
   then the image will _always_ be shown. Use a polyfill if you need to support older browsers (e.g.
-  IE11)
+  IE 11)
 - `b-modal`: the deprecated `BvModalEvent` method `cancel()` has been removed. Use the method
   `preventDefault()` instead.
 - `b-modal`: the deprecated `BvModalEvent` property `modalId` has been removed. Use the property
@@ -876,7 +876,7 @@ Released: 2019-07-21
   [#3707](https://github.com/bootstrap-vue/bootstrap-vue/issues/3707))
   ([#3706](https://github.com/bootstrap-vue/bootstrap-vue/issues/3706))
   ([629951e](https://github.com/bootstrap-vue/bootstrap-vue/commit/629951e))
-- **b-table:** IE11 edge case where custom inputs were not clickable in clickable/sortable cells
+- **b-table:** IE 11 edge case where custom inputs were not clickable in clickable/sortable cells
   (fixes [#3693](https://github.com/bootstrap-vue/bootstrap-vue/issues/3693))
   ([#3697](https://github.com/bootstrap-vue/bootstrap-vue/issues/3697))
   ([fce8b5b](https://github.com/bootstrap-vue/bootstrap-vue/commit/fce8b5b))
@@ -1062,7 +1062,7 @@ Released 2019-06-13
 - **b-modal:** ensure `ignoreBackdropClick` flag is cleared in `clickOutHandler`
   ([#3488](https://github.com/bootstrap-vue/bootstrap-vue/issues/3488)
   [afb4680](https://github.com/bootstrap-vue/bootstrap-vue/commit/afb4680))
-- **b-modal:** fix IE11 issue with copy/paste from modal into MS Word (fixes
+- **b-modal:** fix IE 11 issue with copy/paste from modal into MS Word (fixes
   [#3457](https://github.com/bootstrap-vue/bootstrap-vue/issues/3457))
   ([#3489](https://github.com/bootstrap-vue/bootstrap-vue/issues/3489)
   [16dbdf1](https://github.com/bootstrap-vue/bootstrap-vue/commit/16dbdf1))
@@ -1215,7 +1215,7 @@ use version v2.0.0-rc.22 or newer.
 - **b-modal:** delay initially open modal via nextTick when using v-model or visible prop
   ([#3320](https://github.com/bootstrap-vue/bootstrap-vue/issues/3320)
   [6f3010a](https://github.com/bootstrap-vue/bootstrap-vue/commit/6f3010a))
-- **b-table:** don't use css `grid` for stacked table SCSS - for IE11 compatibility (closes
+- **b-table:** don't use css `grid` for stacked table SCSS - for IE 11 compatibility (closes
   [#3307](https://github.com/bootstrap-vue/bootstrap-vue/issues/3307))
   ([#3383](https://github.com/bootstrap-vue/bootstrap-vue/issues/3383)
   [ce19fc7](https://github.com/bootstrap-vue/bootstrap-vue/commit/ce19fc7))
@@ -1227,7 +1227,7 @@ use version v2.0.0-rc.22 or newer.
   [#3322](https://github.com/bootstrap-vue/bootstrap-vue/issues/3322))
   ([#3329](https://github.com/bootstrap-vue/bootstrap-vue/issues/3329)
   [d44fba5](https://github.com/bootstrap-vue/bootstrap-vue/commit/d44fba5))
-- **b-toaster:** CSS fix for IE11 support (fixes
+- **b-toaster:** CSS fix for IE 11 support (fixes
   [#3327](https://github.com/bootstrap-vue/bootstrap-vue/issues/3327))
   ([#3328](https://github.com/bootstrap-vue/bootstrap-vue/issues/3328)
   [88b1cfd](https://github.com/bootstrap-vue/bootstrap-vue/commit/88b1cfd))
@@ -1312,7 +1312,7 @@ Released 2019-05-12
 - **b-modal:** prevent duplicate key when sending to portal-target
   ([#3235](https://github.com/bootstrap-vue/bootstrap-vue/issues/3235))
   ([5204ad7](https://github.com/bootstrap-vue/bootstrap-vue/commit/5204ad7))
-- **b-modal:** return focus edge case bug in IE11 (fixes
+- **b-modal:** return focus edge case bug in IE 11 (fixes
   [#3206](https://github.com/bootstrap-vue/bootstrap-vue/issues/3206))
   ([#3207](https://github.com/bootstrap-vue/bootstrap-vue/issues/3207)
   [7ef36c2](https://github.com/bootstrap-vue/bootstrap-vue/commit/7ef36c2))
@@ -1390,7 +1390,7 @@ Released 2019-04-21
 - **b-modal:** ensure that v-model is updated when show or hide is canceled
   ([#3131](https://github.com/bootstrap-vue/bootstrap-vue/issues/3131)
   [6726a33](https://github.com/bootstrap-vue/bootstrap-vue/commit/6726a33))
-- **b-modal:** fix close on click-out for IE11
+- **b-modal:** fix close on click-out for IE 11
   ([#3117](https://github.com/bootstrap-vue/bootstrap-vue/issues/3117)
   [9b09e52](https://github.com/bootstrap-vue/bootstrap-vue/commit/9b09e52))
 - **b-modal:** handle HMR when defining property on Vue prototype

@@ -48,7 +48,7 @@ and more. You can find information on these classes in the
 [Utility Classes](/docs/reference/utility-classes) reference section.
 
 Many of the examples in this documentation are _live_ and can be edited in-place for an enhanced
-learning experience (note some examples may not work in IE11 due to use of ES6 JavaScript code in
+learning experience (note some examples may not work in IE 11 due to use of ES6 JavaScript code in
 the `<template>` sections).
 
 BootstrapVue also provides an [interactive playground](/play) where you can experiment with the

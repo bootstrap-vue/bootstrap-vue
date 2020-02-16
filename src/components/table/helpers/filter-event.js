@@ -22,7 +22,7 @@ const filterEvent = evt => {
   }
   const label = el.tagName === 'LABEL' ? el : closest('label', el)
   // If the label's form control is not disabled then we don't propagate event
-  // Modern browsers have `label.control` that references the associated input, but IE11
+  // Modern browsers have `label.control` that references the associated input, but IE 11
   // does not have this property on the label element, so we resort to DOM lookups
   if (label) {
     const labelFor = getAttr(label, 'for')
