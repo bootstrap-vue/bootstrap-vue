@@ -725,7 +725,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         }
       },
       this.tags.map((tag, index) => {
-        const addComma = index !== this.lages.lenght - 1
+        const addComma = index !== this.tags.length - 1
         return h('span', { key: tag }, `${tag}${addComma ? ', ' : ''}`)
       })
     )
@@ -742,9 +742,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           'aria-atomic': 'true'
         }
       },
-      this.removedTags.length > 0
-        ? `(${this.tagRemovedLabel}) ${this.removedTags.join(', ')}`
-        : ''
+      this.removedTags.length > 0 ? `(${this.tagRemovedLabel}) ${this.removedTags.join(', ')}` : ''
     )
 
     // Add hidden inputs for form submission
