@@ -745,7 +745,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       this.removedTags.length > 0
         ? `(${this.tagRemovedLabel}) ${this.removedTags.join(', ')}`
         : ''
-      )
     )
 
     // Add hidden inputs for form submission
