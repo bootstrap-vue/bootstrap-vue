@@ -336,7 +336,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       //   Or emit cancelable `BvEvent`
       this.tags = this.tags.filter(t => t !== tag)
       // Return focus to the input (if possible)
-      this.focus()
+      // Performed in a nextTick/requestAnimationFrame to allow
+      // time for screen readers to reach the changes
+      this.$nextTick(() => {
+        requestAF(this.focus)
+      })
     },
     // --- Input element event handlers ---
     onInputInput(evt) {
@@ -608,7 +612,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             // Don't interrupt the user abruptly
             // Although maybe this should be 'assertive'
             // to provide immediate feedback of the tag added/removed
-            'aria-live': 'polite',
+            'aria-live': 'assertive',
             // Only read elements that have been added or removed
             'aria-atomic': 'false',
             'aria-relevant': 'additions removals'
