@@ -261,10 +261,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       }
     },
     // Private methods
-    emitChange() /* istanbul ignore next: until tests are ready */ {
+    emitChange() {
       this.$emit('change', this.localValue)
     },
-    stepValue(direction) /* istanbul ignore next: until tests are ready */ {
+    stepValue(direction) {
       // Sets a new incremented or decremented value, supporting optional wrapping
       // Direction is either +1 or -1 (or a multiple thereof)
       let value = this.localValue
@@ -290,7 +290,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.hasFocus = false
       }
     },
-    stepUp(multiplier = 1) /* istanbul ignore next: until tests are ready */ {
+    stepUp(multiplier = 1) {
       const value = this.localValue
       if (isNull(value)) {
         this.localValue = this.computedMin
@@ -298,7 +298,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.stepValue(+1 * multiplier)
       }
     },
-    stepDown(multiplier = 1) /* istanbul ignore next: until tests are ready */ {
+    stepDown(multiplier = 1) {
       const value = this.localValue
       if (isNull(value)) {
         this.localValue = this.wrap ? this.computedMax : this.computedMin
@@ -306,7 +306,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.stepValue(-1 * multiplier)
       }
     },
-    onKeydown(evt) /* istanbul ignore next: until tests are ready */ {
+    onKeydown(evt) {
       const { keyCode, altKey, ctrlKey, metaKey } = evt
       if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
         return
@@ -341,7 +341,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         }
       }
     },
-    onKeyup(evt) /* istanbul ignore next: until tests are ready */ {
+    onKeyup(evt) {
       // Emit a change event when the keyup happens
       const { keyCode, altKey, ctrlKey, metaKey } = evt
       if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
