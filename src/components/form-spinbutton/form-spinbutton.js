@@ -237,14 +237,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     // Public methods
-    focus() /* istanbul ignore next: until tests are ready */ {
+    focus() {
       if (!this.disabled) {
         try {
           this.$refs.spinner.focus()
         } catch {}
       }
     },
-    blur() /* istanbul ignore next: until tests are ready */ {
+    blur() {
       if (!this.disabled) {
         try {
           this.$refs.spinner.blur()
@@ -274,7 +274,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           value > max ? (wrap ? min : max) : value < min ? (wrap ? max : min) : value
       }
     },
-    onFocusBlur(evt) /* istanbul ignore next: until tests are ready */ {
+    onFocusBlur(evt) {
       if (!this.disabled) {
         this.hasFocus = evt.type === 'focus'
       } else {
