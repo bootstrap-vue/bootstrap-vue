@@ -46,13 +46,13 @@ describe('form-spinbutton', () => {
     expect($output.element.hasAttribute('aria-valuenow')).toBe(false)
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
     expect($output.find('div').exists()).toBe(true)
-    expect($output.text()).tobe('')
+    expect($output.text()).toEqual('')
 
     wrapper.setProps({
       placeholder: 'foobar'
     })
     await waitNT(wrapper.vm)
-    expect($output.text()).tobe('foobar')
+    expect($output.text()).toEqual('foobar')
 
     wrapper.destroy()
   })
