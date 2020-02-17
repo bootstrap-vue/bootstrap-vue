@@ -604,9 +604,13 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     onEnter() {
       this.isBlock = true
-      // We add show class 1 frame after
+      // We add show class 1 frame after, requestAF runs the callback before
+      // the next repaint so we need two calls to guarantee the next frame has
+      // been rendered
       requestAF(() => {
-        this.isShow = true
+        requestAF(() => {
+          this.isShow = true
+        })
       })
     },
     onAfterEnter() {
