@@ -205,7 +205,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    value(value) /* istanbul ignore next: until tests are ready */ {
+    value(value) {
       value = toFloat(value) // Will be NaN if null
       this.localValue = isNaN(value) ? null : value
     },
