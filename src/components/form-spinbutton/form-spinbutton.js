@@ -434,7 +434,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             'aria-disabled': isDisabled || isReadonly || btnDisabled ? 'true' : null,
             'aria-controls': idSpin,
             'aria-label': label || null,
-            'aria-shortcutkeys': shortcut || null
+            'aria-keyshortcuts': shortcut || null
           },
           on: {
             mousedown: handler,
