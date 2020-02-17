@@ -19,7 +19,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.attributes('dir')).toEqual('ltr')
 
     // Should ahve 3 child elements (btn, output, btn)
-    expect(wrapper.findAll('.b-form-spin-button > *').length).toBe(3)
+    expect(wrapper.findAll('.b-form-spinbutton > *').length).toBe(3)
 
     const $decrement = wrapper.find('[aria-label="Decrement"]')
     expect($decrement.exists()).toBe(true)
