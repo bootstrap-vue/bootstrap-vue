@@ -212,18 +212,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     localValue(value) {
       this.$emit('input', value)
     },
-    disabled(disabled) /* istanbul ignore next */ {
+    disabled(disabled) {
       if (disabled) {
-        this.resetTimers()
-        this.setMouseup(false)
-        this.$_keyIsDown = false
+        this.clearRepeat()
       }
     },
-    readonly(readonly) /* istanbul ignore next */ {
+    readonly(readonly) {
       if (readonly) {
-        this.resetTimers()
-        this.setMouseup(false)
-        this.$_keyIsDown = false
+        this.clearRepeat()
       }
     }
   },
@@ -234,12 +230,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     this.$_keyIsDown = false
   },
   beforeDestroy() {
-    this.resetTimers()
-    this.setMouseup(false)
+    this.clearRepeat()
   },
   deactivated() /* istanbul ignore next */ {
-    this.restTimers()
-    this.setMouseup(false)
+    this.clearRepeat()
   },
   methods: {
     // Public methods
@@ -398,6 +392,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     resetTimers() {
       clearTimeout(this.$_autoDelayTimer)
       clearInterval(this.$_autoRepeatTimer)
+    },
+    clearRepeat() {
+      this.resetTimers()
+      this.setMouseup(false)
+      this.$_keyIsDown = false
     }
   },
   render(h) {
