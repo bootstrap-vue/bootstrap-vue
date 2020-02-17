@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
+import { getComponentConfig } from '../../utils/config'
 import { EVENT_OPTIONS_PASSIVE, eventOnOff } from '../../utils/events'
 import { isFunction, isNull } from '../../utils/inspect'
 import { toFloat, toInteger } from '../../utils/number'
@@ -115,13 +116,13 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
-    labelIncrement: {
-      type: String,
-      default: 'Increment'
-    },
     labelDecrement: {
       type: String,
-      default: 'Decrement'
+      default: () => getComponentConfig(NAME, 'labelDecrement')
+    },
+    labelIncrement: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'labelIncrement')
     },
     locale: {
       type: [String, Array],
