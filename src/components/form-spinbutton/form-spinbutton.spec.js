@@ -259,7 +259,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('1')
-    expect($output.attributes('aria-valuetet')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
 
     wrapper.trigger('keydown.up')
     wrapper.trigger('keyup.up')
@@ -269,7 +269,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('2')
-    expect($output.attributes('aria-valuetet')).toEqual('2')
+    expect($output.attributes('aria-valuetext')).toEqual('2')
 
     wrapper.trigger('keydown.end')
     wrapper.trigger('keyup.end')
@@ -279,7 +279,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('100')
-    expect($output.attributes('aria-valuetet')).toEqual('100')
+    expect($output.attributes('aria-valuetext')).toEqual('100')
 
     wrapper.trigger('keydown.up')
     wrapper.trigger('keyup.up')
@@ -290,7 +290,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // wrap is off so it should not change to 1
     expect($output.attributes('aria-valuenow')).toEqual('100')
-    expect($output.attributes('aria-valuetet')).toEqual('100')
+    expect($output.attributes('aria-valuetext')).toEqual('100')
 
     wrapper.trigger('keydown.down')
     wrapper.trigger('keyup.down')
@@ -300,7 +300,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('99')
-    expect($output.attributes('aria-valuetet')).toEqual('99')
+    expect($output.attributes('aria-valuetext')).toEqual('99')
 
     wrapper.trigger('keydown.down')
     wrapper.trigger('keyup.down')
@@ -310,7 +310,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('98')
-    expect($output.attributes('aria-valuetet')).toEqual('98')
+    expect($output.attributes('aria-valuetext')).toEqual('98')
 
     wrapper.trigger('keydown.home')
     wrapper.trigger('keyup.home')
@@ -320,7 +320,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('1')
-    expect($output.attributes('aria-valuetet')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
 
     wrapper.trigger('keydown.down')
     wrapper.trigger('keyup.down')
@@ -331,7 +331,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // wrap is off so it should not change to 1
     expect($output.attributes('aria-valuenow')).toEqual('1')
-    expect($output.attributes('aria-valuetet')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
 
     wrapper.trigger('keydown.pageup')
     wrapper.trigger('keyup.pageup')
@@ -342,7 +342,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // Default jump is 4
     expect($output.attributes('aria-valuenow')).toEqual('5')
-    expect($output.attributes('aria-valuetet')).toEqual('5')
+    expect($output.attributes('aria-valuetext')).toEqual('5')
 
     wrapper.trigger('keydown.pageup')
     wrapper.trigger('keyup.pageup')
@@ -353,7 +353,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // Default jump is 4
     expect($output.attributes('aria-valuenow')).toEqual('9')
-    expect($output.attributes('aria-valuetet')).toEqual('9')
+    expect($output.attributes('aria-valuetext')).toEqual('9')
 
     wrapper.trigger('keydown.pagedown')
     wrapper.trigger('keyup.pagedown')
@@ -364,7 +364,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // Default jump is 4
     expect($output.attributes('aria-valuenow')).toEqual('5')
-    expect($output.attributes('aria-valuetet')).toEqual('5')
+    expect($output.attributes('aria-valuetext')).toEqual('5')
 
     wrapper.destroy()
   })
