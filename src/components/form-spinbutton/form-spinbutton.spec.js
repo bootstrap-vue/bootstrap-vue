@@ -330,7 +330,7 @@ describe('form-spinbutton', () => {
 
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
-    // wrap is one so it should change to 100
+    // wrap is on so it should change to 100
     expect($output.attributes('aria-valuenow')).toEqual('100')
     expect($output.attributes('aria-valuetext')).toEqual('100')
 
@@ -341,10 +341,64 @@ describe('form-spinbutton', () => {
 
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
-    // wrap is one so it should change to 1
+    // wrap is on so it should change to 1
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
+    wrapper.setProps({
+      disabled: true
+    })
+    await waitNT(wrapper.vm)
+
+    $increment.trigger('mousedown')
+    $increment.trigger('mouseup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // Disabled so should not change
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
+
+    $decrement.trigger('mousedown')
+    $decrement.trigger('mouseup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // Disabled so should not change
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
+
+    wrapper.setProps({
+      disabled: false,
+      readonly: true
+    })
+    await waitNT(wrapper.vm)
+
+    $increment.trigger('mousedown')
+    $increment.trigger('mouseup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // Readonly so should not change
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
+
+    $decrement.trigger('mousedown')
+    $decrement.trigger('mouseup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // Readonly so should not change
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
     wrapper.destroy()
   })
 
