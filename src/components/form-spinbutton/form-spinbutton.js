@@ -212,7 +212,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       value = toFloat(value) // Will be NaN if null
       this.localValue = isNaN(value) ? null : value
     },
-    localValue(value) /* istanbul ignore next: until tests are ready */ {
+    localValue(value) {
       this.$emit('input', value)
     },
     disabled(disabled) /* istanbul ignore next */ {
@@ -308,12 +308,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     onKeydown(evt) {
       const { keyCode, altKey, ctrlKey, metaKey } = evt
+      /* istanbul ignore if */
       if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
         return
       }
       if (arrayIncludes([UP, DOWN, HOME, END, PAGEUP, PAGEDOWN], keyCode)) {
         // https://w3c.github.io/aria-practices/#spinbutton
         evt.preventDefault()
+        /* istanbul ignore if */
         if (this.$_keyIsDown) {
           // keypress already in progress
           return
@@ -344,6 +346,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     onKeyup(evt) {
       // Emit a change event when the keyup happens
       const { keyCode, altKey, ctrlKey, metaKey } = evt
+      /* istanbul ignore if */
       if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
         return
       }
