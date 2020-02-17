@@ -28,8 +28,8 @@ describe('form-spinbutton', () => {
     expect($decrement.attributes('aria-keyshortcuts')).toEqual('ArrowDown')
 
     const $increment = wrapper.find('[aria-label="Increment"]')
-    expect($increment).exists()).toBe(true)
-    expect($increment).is('button')).toBe(true)
+    expect($increment.exists()).toBe(true)
+    expect($increment.is('button')).toBe(true)
     expect($increment.attributes('tabindex')).toEqual('-1')
     expect($decrement.attributes('aria-keyshortcuts')).toEqual('ArrowUp')
 
