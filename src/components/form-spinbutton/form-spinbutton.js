@@ -30,7 +30,7 @@ const DEFAULT_REPEAT_THRESHOLD = 10
 // Repeat speed multiplier (step multiplier, must be an integer)
 const DEFAULT_REPEAT_MULTIPLIER = 4
 
-// -- Helper functions ---
+// --- Helper functions ---
 
 const defaultNumber = (value, defaultValue = null) => {
   value = toFloat(value)
@@ -104,7 +104,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       // default: null
     },
     state: {
-      // Tri-state prop: true, false, or null
+      // Tri-state prop: `true`, `false`, or `null`
       type: Boolean,
       default: null
     },
@@ -191,7 +191,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       return nf.resolvedOptions().locale
     },
     defaultFormatter() {
-      // returns and Intl.NumberFormat formatter method reference
+      // Returns and `Intl.NumberFormat` formatter method reference
       const precision = this.computedPrecision
       const nf = new Intl.NumberFormat(this.computedLocale, {
         style: 'decimal',
@@ -207,7 +207,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     value(value) {
-      value = toFloat(value) // Will be NaN if null
+      value = toFloat(value) // Will be `NaN` if `value` is `null`
       this.localValue = isNaN(value) ? null : value
     },
     localValue(value) {
@@ -237,7 +237,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     this.clearRepeat()
   },
   methods: {
-    // Public methods
+    // --- Public methods ---
     focus() {
       if (!this.disabled) {
         try {
@@ -252,7 +252,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         } catch {}
       }
     },
-    // Private methods
+    // --- Private methods ---
     emitChange() {
       this.$emit('change', this.localValue)
     },
@@ -309,7 +309,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         evt.preventDefault()
         /* istanbul ignore if */
         if (this.$_keyIsDown) {
-          // keypress already in progress
+          // Keypress is already in progress
           return
         }
         this.resetTimers()
@@ -400,7 +400,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const idSpin = this.safeId()
+    const spinId = this.safeId()
     const value = this.localValue
     const isVertical = this.vertical
     const isInline = this.inline && !isVertical
@@ -434,7 +434,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             type: 'button',
             disabled: isDisabled || isReadonly || btnDisabled,
             'aria-disabled': isDisabled || isReadonly || btnDisabled ? 'true' : null,
-            'aria-controls': idSpin,
+            'aria-controls': spinId,
             'aria-label': label || null,
             'aria-keyshortcuts': shortcut || null
           },
@@ -446,7 +446,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         [h('div', {}, [$icon])]
       )
     }
-    // TODO: add button disabled state when `wrap` is false and at value max/min
+    // TODO: Add button disabled state when `wrap` is `false` and at value max/min
     const $increment = makeButton(this.stepUp, this.labelIncrement, BIconPlus, 'inc', 'ArrowUp')
     const $decrement = makeButton(this.stepDown, this.labelDecrement, BIconDash, 'dec', 'ArrowDown')
 
@@ -485,7 +485,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'border-right': !isVertical
         },
         attrs: {
-          id: idSpin,
+          id: spinId,
           role: 'spinbutton',
           tabindex: isDisabled ? null : '0',
           'aria-live': 'off',
@@ -497,8 +497,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           // These attrs are required for role spinbutton
           'aria-valuemin': toString(this.computedMin),
           'aria-valuemax': toString(this.computedMax),
-          // These should be null if the value is out of range
-          // They must also be non-existent attrs if the value is out of range or null
+          // These should be `null` if the value is out of range
+          // They must also be non-existent attrs if the value is out of range or `null`
           'aria-valuenow': hasValue ? value : null,
           'aria-valuetext': hasValue ? formatter(value) : null
         }
