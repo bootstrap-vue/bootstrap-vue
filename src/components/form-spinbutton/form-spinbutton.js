@@ -36,10 +36,7 @@ const defaultNumber = (value, defaultValue = null) => {
   return isNaN(value) ? defaultValue : value
 }
 
-const defaultInteger = (
-  value,
-  defaultValue = null
-) => /* istanbul ignore next: until tests are ready */ {
+const defaultInteger = (value, defaultValue = null) => {
   value = toInteger(value)
   return isNaN(value) ? Math.abs(defaultValue) : value
 }
@@ -163,16 +160,16 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     computedMax() {
       return defaultNumber(this.max, DEFAULT_MAX)
     },
-    computedDelay() /* istanbul ignore next: until tests are ready */ {
+    computedDelay() {
       return defaultInteger(this.repeatDelay, DEFAULT_REPEAT_DELAY) || DEFAULT_REPEAT_DELAY
     },
-    computedInterval() /* istanbul ignore next: until tests are ready */ {
+    computedInterval() {
       return defaultInteger(this.repeatInterval, DEFAULT_REPEAT_INTERVAL) || DEFAULT_REPEAT_INTERVAL
     },
-    computedThreshold() /* istanbul ignore next: until tests are ready */ {
+    computedThreshold() {
       return defaultInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD) || 1
     },
-    computedStepMultiplier() /* istanbul ignore next: until tests are ready */ {
+    computedStepMultiplier() {
       return defaultInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULTIPLIER) || 1
     },
     computedPrecision() {
@@ -180,7 +177,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       const step = this.computedStep
       return Math.floor(step) === step ? 0 : (step.toString().split('.')[1] || '').length
     },
-    computedMultiplier() /* istanbul ignore next: until tests are ready */ {
+    computedMultiplier() {
       return Math.pow(10, this.computedPrecision || 0)
     },
     valueAsFixed() {
@@ -357,17 +354,20 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.emitChange()
       }
     },
-    handleStepRepeat(evt, stepper) /* istanbul ignore next: until tests are ready */ {
+    handleStepRepeat(evt, stepper) {
       if (!this.disabled && !this.readonly) {
         this.resetTimers()
         // Enable body mouseup event handler
         this.setMouseup(true)
         // Step the counter initially
         stepper(1)
+        const threshold = this.computedThreshold
+        const multiplier = this.computedStepMultiplier
+        const delay = this.computedDelay
+        const interval = this.computedInterval
         // Initiate the delay/repeat interval
+        /* istanbul ignore next: until tests are ready */
         this.$_autoDelayTimer = setTimeout(() => {
-          const threshold = this.computedThreshold
-          const multiplier = this.computedStepMultiplier
           let count = 0
           this.$_autoRepeatTimer = setInterval(() => {
             // After N initial repeats, we increase the incrementing step amount
@@ -376,8 +376,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             // And to make it easer to select a value when the range is large
             stepper(count < threshold ? 1 : multiplier)
             count++
-          }, this.computedInterval)
-        }, this.computedDelay)
+          }, interval)
+        }, delay)
       }
     },
     onMouseup() {
