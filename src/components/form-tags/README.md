@@ -197,9 +197,10 @@ not validated.
 ```html
 <template>
   <div>
-    <b-form-group :state="state" label="Tags validation example">
+    <b-form-group :state="state" label="Tags validation example" label-for="tags-validation">
       <b-form-tags
         input-id="tags-validation"
+        :input-attrs="{ 'aria-describedby': 'tags-validation-help' }"
         v-model="tags"
         :state="state"
         :tag-validator="tagValidator"
@@ -210,8 +211,10 @@ not validated.
         You must provide at least 3 tags and no more than 8
       </template>
       <template v-slot:description>
-        Tags must be 3 to 5 characters in length and all lower
-        case. Enter tags separated by spaces or press enter.
+        <div id="tags-validation-help">
+         Tags must be 3 to 5 characters in length and all lower
+         case. Enter tags separated by spaces or press enter.
+        </div>
       </template>
     </b-form-group>
   </div>
