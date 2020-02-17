@@ -258,8 +258,8 @@ describe('form-spinbutton', () => {
     const $decrement = wrapper.find('[aria-label="Decrement"]')
     expect($decrement.exists()).toBe(true)
 
-    $increment.trigger('mousedown')
-    $increment.trigger('mouseup')
+    $decrement.trigger('mousedown')
+    $decrement.trigger('mouseup')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -270,6 +270,26 @@ describe('form-spinbutton', () => {
 
     $increment.trigger('mousedown')
     $increment.trigger('mouseup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('2')
+    expect($output.attributes('aria-valuetext')).toEqual('2')
+
+    $increment.trigger('mousedown')
+    $increment.trigger('mouseup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('3')
+    expect($output.attributes('aria-valuetext')).toEqual('3')
+
+    $decrement.trigger('mousedown')
+    $decrement.trigger('mouseup')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -296,6 +316,32 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // wrap is off so it should not change to 1
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
+
+    wrapper.setProps({
+      wrap: true
+    })
+
+    $decrement.trigger('mousedown')
+    $decrement.trigger('mouseup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // wrap is one so it should change to 100
+    expect($output.attributes('aria-valuenow')).toEqual('100')
+    expect($output.attributes('aria-valuetext')).toEqual('100')
+
+    $increment.trigger('mousedown')
+    $increment.trigger('mouseup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // wrap is one so it should change to 1
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
