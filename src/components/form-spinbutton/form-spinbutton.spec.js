@@ -631,6 +631,28 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).not.toContain('focus')
     expect(document.activeElement).not.toBe($output.element)
 
+    wrapper.setProps({
+      disabled: true
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.vm.focus()
+    await waitNT(wrapper.vm)
+    expect(wrapper.classes()).not.toContain('focus')
+    expect(document.activeElement).not.toBe($output.element)
+
+    try {
+      $output.element.focus()
+    } catch {}
+    await waitNT(wrapper.vm)
+    expect(wrapper.classes()).not.toContain('focus')
+    expect(document.activeElement).not.toBe($output.element)
+
+    $output.trigger('focus')
+    await waitNT(wrapper.vm)
+    expect(wrapper.classes()).not.toContain('focus')
+    expect(document.activeElement).not.toBe($output.element)
+
     wrapper.destroy()
   })
 })
