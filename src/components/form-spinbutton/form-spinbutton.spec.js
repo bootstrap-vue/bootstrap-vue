@@ -699,22 +699,25 @@ describe('form-spinbutton', () => {
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect($output.attributes('aria-valuenow')).toEqual('16')
-    expect($output.attributes('aria-valuetext')).toEqual('16')
+    // Note even though step is 4, it jumps to 17 (not 16) as it rounds to the
+    // nearest multiple of step (relative to the min value, which is 1 in this test)
+    // If min was set to 0, then this would have been 16
+    expect($output.attributes('aria-valuenow')).toEqual('17')
+    expect($output.attributes('aria-valuetext')).toEqual('17')
 
     // Repeat #12
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect($output.attributes('aria-valuenow')).toEqual('20')
-    expect($output.attributes('aria-valuetext')).toEqual('20')
+    expect($output.attributes('aria-valuenow')).toEqual('21')
+    expect($output.attributes('aria-valuetext')).toEqual('21')
 
     // Un-press key
     wrapper.trigger('keyup.up')
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect($output.attributes('aria-valuenow')).toEqual('20')
-    expect($output.attributes('aria-valuetext')).toEqual('20')
+    expect($output.attributes('aria-valuenow')).toEqual('21')
+    expect($output.attributes('aria-valuetext')).toEqual('21')
 
     wrapper.destroy()
   })
