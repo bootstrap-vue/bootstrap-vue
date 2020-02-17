@@ -58,7 +58,7 @@ are typed:
 ```html
 <template>
   <div>
-    <label for="tags-separators">Enter tags separated by space comma or semicolon</label>
+    <label for="tags-separators">Enter tags separated by space, comma or semicolon</label>
     <b-form-tags
       input-id="tags-separators"
       v-model="value"
