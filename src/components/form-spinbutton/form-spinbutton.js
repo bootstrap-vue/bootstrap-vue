@@ -377,7 +377,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         }, this.computedDelay)
       }
     },
-    onMouseup() /* istanbul ignore next: until tests are ready */ {
+    onMouseup() {
       // `<body>` listener, only enabled when mousedown starts
       this.resetTimers()
       this.setMouseup(false)
