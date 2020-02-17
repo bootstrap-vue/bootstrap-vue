@@ -399,6 +399,34 @@ describe('form-spinbutton', () => {
     // Readonly so should not change
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
+
+    wrapper.setProps({
+      disabled: false,
+      readonly: false
+    })
+    await waitNT(wrapper.vm)
+
+    // Touch events shoul dwork as well
+    $increment.trigger('touchstart')
+    $increment.trigger('touchend')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('2')
+    expect($output.attributes('aria-valuetext')).toEqual('2')
+
+    $decrement.trigger('touchstart')
+    $decrement.trigger('touchend')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
+
     wrapper.destroy()
   })
 
