@@ -360,7 +360,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         const delay = this.computedDelay
         const interval = this.computedInterval
         // Initiate the delay/repeat interval
-        /* istanbul ignore next: until tests are ready */
         this.$_autoDelayTimer = setTimeout(() => {
           let count = 0
           this.$_autoRepeatTimer = setInterval(() => {
