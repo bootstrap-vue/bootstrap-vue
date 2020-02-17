@@ -732,7 +732,7 @@ describe('form-spinbutton', () => {
     // If min was set to 0, then this would have been 16
     expect($output.attributes('aria-valuenow')).toEqual('17')
     expect($output.attributes('aria-valuetext')).toEqual('17')
-    expect(wrapper.emitted('input').length).toBe(13)
+    expect(wrapper.emitted('input').length).toBe(12)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     // Repeat #12
@@ -741,7 +741,7 @@ describe('form-spinbutton', () => {
     await waitRAF()
     expect($output.attributes('aria-valuenow')).toEqual('21')
     expect($output.attributes('aria-valuetext')).toEqual('21')
-    expect(wrapper.emitted('input').length).toBe(14)
+    expect(wrapper.emitted('input').length).toBe(13)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     // Un-press key
@@ -750,7 +750,7 @@ describe('form-spinbutton', () => {
     await waitRAF()
     expect($output.attributes('aria-valuenow')).toEqual('21')
     expect($output.attributes('aria-valuetext')).toEqual('21')
-    expect(wrapper.emitted('input').length).toBe(14)
+    expect(wrapper.emitted('input').length).toBe(13)
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
 
