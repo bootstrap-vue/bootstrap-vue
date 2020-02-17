@@ -26,6 +26,9 @@ const TYPES = ['text', 'email', 'tel', 'url', 'number']
 // Pre-compiled regular expressions for performance reasons
 const RX_SPACES = /[\s\uFEFF\xA0]+/g
 
+// KeyCode constants
+const { ENTER, BACKSPACE, DELETE } = KeyCodes
+
 // --- Utility methods ---
 
 // Escape special chars in string and replace
@@ -273,6 +276,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Update the `v-model` (if it differs from the value prop)
       if (!looseEqual(newVal, this.value)) {
         this.$emit('input', newVal)
+      }
+      if (!looseEqual(newVal, oldVal)) {
         newVal = concat(newVal).filter(identity)
         oldVal = concat(oldVal).filter(identity)
         this.removedTags = oldVal.filter(old => !arrayIncludes(newVal, old))
@@ -394,14 +399,18 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const keyCode = evt.keyCode
       const value = evt.target.value || ''
       /* istanbul ignore else: testing to be added later */
-      if (!this.noAddOnEnter && keyCode === KeyCodes.ENTER) {
+      if (!this.noAddOnEnter && keyCode === ENTER) {
         // Attempt to add the tag when user presses enter
         evt.preventDefault()
         this.addTag()
-      } else if (this.removeOnDelete && keyCode === KeyCodes.BACKSPACE && value === '') {
-        // Remove the last tag if the user pressed backspace and the input is empty
+      } else if (
+        this.removeOnDelete &&
+        (keyCode === BACKSPACE || keyCode === DELETE)
+        && value === ''
+      ) {
+        // Remove the last tag if the user pressed backspace/delete and the input is empty
         evt.preventDefault()
-        this.tags.pop()
+        this.tags = this.tags.slice(0, -1)
       }
     },
     // --- Wrapper event handlers ---
