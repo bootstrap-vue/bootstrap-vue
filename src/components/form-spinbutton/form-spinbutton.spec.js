@@ -599,7 +599,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
-    
+
     const $output = wrapper.find('output')
     expect($output.exists()).toBe(true)
     expect($output.attributes('role')).toEqual('spinbutton')
