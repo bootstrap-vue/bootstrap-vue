@@ -17,7 +17,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).toContain('align-items-stretch')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('tabindex')).toEqual('-1')
-    // We always have LTR to ensire the flex order stays ltr
+    // We always have LTR to ensure the flex order stays ltr
     expect(wrapper.attributes('dir')).toEqual('ltr')
 
     // Should have 3 child elements (btn, output, btn)
@@ -77,7 +77,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).toContain('align-items-stretch')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('tabindex')).toEqual('-1')
-    // We always have LTR to ensire the flex order stays ltr
+    // We always have LTR to ensure the flex order stays ltr
     expect(wrapper.attributes('dir')).toEqual('ltr')
 
     // Should have 3 child elements (btn, output, btn)
@@ -136,7 +136,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).toContain('align-items-stretch')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('tabindex')).toEqual('-1')
-    // We always have LTR to ensire the flex order stays ltr
+    // We always have LTR to ensure the flex order stays ltr
     expect(wrapper.attributes('dir')).toEqual('ltr')
 
     // Should have 3 child elements (btn, output, btn)
@@ -187,7 +187,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).not.toContain('align-items-stretch')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('tabindex')).toEqual('-1')
-    // We always have LTR to ensire the flex order stays ltr
+    // We always have LTR to ensure the flex order stays ltr
     expect(wrapper.attributes('dir')).toEqual('ltr')
 
     // Should have 3 child elements (btn, output, btn)
@@ -332,7 +332,7 @@ describe('form-spinbutton', () => {
 
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
-    // wrap is off so it should not change to 1
+    // `wrap` is off so it should not change to `1`
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
@@ -423,7 +423,7 @@ describe('form-spinbutton', () => {
     })
     await waitNT(wrapper.vm)
 
-    // Touch events shoul dwork as well
+    // Touch events should work as well
     $increment.trigger('touchstart')
     $increment.trigger('touchend')
     await waitNT(wrapper.vm)
@@ -504,7 +504,7 @@ describe('form-spinbutton', () => {
 
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
-    // wrap is off so it should not change to 1
+    // `wrap` is off so it should not change to `1`
     expect($output.attributes('aria-valuenow')).toEqual('100')
     expect($output.attributes('aria-valuetext')).toEqual('100')
 
@@ -545,7 +545,7 @@ describe('form-spinbutton', () => {
 
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
-    // wrap is off so it should not change to 1
+    // `wrap` is off so it should not change to `1`
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
@@ -556,7 +556,7 @@ describe('form-spinbutton', () => {
 
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
-    // Default jump is 4
+    // Default jump is `4`
     expect($output.attributes('aria-valuenow')).toEqual('5')
     expect($output.attributes('aria-valuetext')).toEqual('5')
 
@@ -567,7 +567,7 @@ describe('form-spinbutton', () => {
 
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
-    // Default jump is 4
+    // Default jump is `4`
     expect($output.attributes('aria-valuenow')).toEqual('9')
     expect($output.attributes('aria-valuetext')).toEqual('9')
 
@@ -578,7 +578,7 @@ describe('form-spinbutton', () => {
 
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
-    // Default jump is 4
+    // Default jump is `4`
     expect($output.attributes('aria-valuenow')).toEqual('5')
     expect($output.attributes('aria-valuetext')).toEqual('5')
 
@@ -727,9 +727,9 @@ describe('form-spinbutton', () => {
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
-    // Note even though step is 4, it jumps to 17 (not 16) as it rounds to the
-    // nearest multiple of step (relative to the min value, which is 1 in this test)
-    // If min was set to 0, then this would have been 16
+    // Note even though step is `4`, it jumps to `17` (not `16`) as it rounds to the
+    // nearest multiple of step (relative to the min value, which is `1` in this test)
+    // If min was set to `0`, then this would have been `16`
     expect($output.attributes('aria-valuenow')).toEqual('17')
     expect($output.attributes('aria-valuetext')).toEqual('17')
     expect(wrapper.emitted('input').length).toBe(12)
@@ -774,7 +774,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).not.toContain('focus')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('tabindex')).toEqual('-1')
-    // We always have LTR to ensire the flex order stays ltr
+    // We always have LTR to ensure the flex order stays ltr
     expect(wrapper.attributes('dir')).toEqual('ltr')
 
     const $output = wrapper.find('output')
