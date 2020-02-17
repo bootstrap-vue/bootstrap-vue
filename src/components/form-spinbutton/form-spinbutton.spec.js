@@ -47,9 +47,6 @@ describe('form-spinbutton', () => {
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
     expect($output.find('div').exists()).toBe(true)
 
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
     wrapper.destroy()
   })
 
@@ -152,9 +149,6 @@ describe('form-spinbutton', () => {
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
     expect($output.find('div').exists()).toBe(true)
 
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
     wrapper.destroy()
   })
 
@@ -173,7 +167,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).toContain('d-inline-flex')
     expect(wrapper.classes()).not.toContain('d-flex')
     expect(wrapper.classes()).toContain('flex-column')
-    expect(wrapper.classes()).toContain('align-items-stretch')
+    expect(wrapper.classes()).not.toContain('align-items-stretch')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('tabindex')).toEqual('-1')
     // We always have LTR to ensire the flex order stays ltr
@@ -206,9 +200,6 @@ describe('form-spinbutton', () => {
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
     expect($output.find('div').exists()).toBe(true)
 
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
     wrapper.destroy()
   })
 
@@ -238,6 +229,142 @@ describe('form-spinbutton', () => {
     await waitRAF()
     expect($hidden.attributes('name')).toBe('foobar')
     expect($hidden.attributes('value')).toBe('50')
+
+    wrapper.destroy()
+  })
+
+  it('basic keyboard control works', async () => {
+    const wrapper = mount(BFormSpinbutton)
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $output = wrapper.find('output')
+    expect($output.exists()).toBe(true)
+    expect($output.attributes('role')).toEqual('spinbutton')
+    expect($output.attributes('tabindex')).toEqual('0')
+    expect($output.attributes('aria-live')).toEqual('off')
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // These two attribute should exist on the element
+    expect($output.element.hasAttribute('aria-valuenow')).toBe(false)
+    expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
+    expect($output.find('div').exists()).toBe(true)
+
+    wrapper.trigger('keydown.up')
+    wrapper.trigger('keyup.up')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetet')).toEqual('1')
+
+    wrapper.trigger('keydown.up')
+    wrapper.trigger('keyup.up')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('2')
+    expect($output.attributes('aria-valuetet')).toEqual('2')
+
+    wrapper.trigger('keydown.end')
+    wrapper.trigger('keyup.end')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('100')
+    expect($output.attributes('aria-valuetet')).toEqual('100')
+
+    wrapper.trigger('keydown.up')
+    wrapper.trigger('keyup.up')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // wrap is off so it should not change to 1
+    expect($output.attributes('aria-valuenow')).toEqual('100')
+    expect($output.attributes('aria-valuetet')).toEqual('100')
+
+    wrapper.trigger('keydown.down')
+    wrapper.trigger('keyup.down')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('99')
+    expect($output.attributes('aria-valuetet')).toEqual('99')
+
+    wrapper.trigger('keydown.down')
+    wrapper.trigger('keyup.down')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('98')
+    expect($output.attributes('aria-valuetet')).toEqual('98')
+
+    wrapper.trigger('keydown.home')
+    wrapper.trigger('keyup.home')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetet')).toEqual('1')
+
+    wrapper.trigger('keydown.down')
+    wrapper.trigger('keyup.down')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // wrap is off so it should not change to 1
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetet')).toEqual('1')
+
+    wrapper.trigger('keydown.pageup')
+    wrapper.trigger('keyup.pageup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // Default jump is 4
+    expect($output.attributes('aria-valuenow')).toEqual('5')
+    expect($output.attributes('aria-valuetet')).toEqual('5')
+
+    wrapper.trigger('keydown.pageup')
+    wrapper.trigger('keyup.pageup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // Default jump is 4
+    expect($output.attributes('aria-valuenow')).toEqual('9')
+    expect($output.attributes('aria-valuetet')).toEqual('9')
+
+    wrapper.trigger('keydown.pagedown')
+    wrapper.trigger('keyup.pagedown')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // Default jump is 4
+    expect($output.attributes('aria-valuenow')).toEqual('5')
+    expect($output.attributes('aria-valuetet')).toEqual('5')
 
     wrapper.destroy()
   })
