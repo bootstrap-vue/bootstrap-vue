@@ -98,6 +98,16 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuenow')).toEqual('5')
     expect($output.attributes('aria-valuetext')).toEqual('5')
 
+    wrapper.setProps({
+      value: 8
+    })
+    await waitNT(wrapper.vm)
+
+    expect($output.attributes('aria-valuemin')).toEqual('0')
+    expect($output.attributes('aria-valuemax')).toEqual('10')
+    expect($output.attributes('aria-valuenow')).toEqual('8')
+    expect($output.attributes('aria-valuetext')).toEqual('8')
+
     wrapper.destroy()
   })
 
