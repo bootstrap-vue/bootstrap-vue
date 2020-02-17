@@ -86,8 +86,8 @@ are typed:
 
 ## Last tag removal via backspace keypress
 
-When the prop `remove-on-delete` is set, and the user presses <kbd>BACKSPACE</kbd> (or <kbd>DEL</kbd>)
-_and_ the input  value is empty, the last tag in the tag list will be removed.
+When the prop `remove-on-delete` is set, and the user presses <kbd>BACKSPACE</kbd> (or
+<kbd>DEL</kbd>) _and_ the input value is empty, the last tag in the tag list will be removed.
 
 ```html
 <template>
