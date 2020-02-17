@@ -161,7 +161,7 @@ describe('form-spinbutton', () => {
   it('has expected structure when prop vertical set', async () => {
     const wrapper = mount(BFormSpinbutton, {
       propsData: {
-        inline: true
+        vertical: true
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
