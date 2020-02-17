@@ -233,6 +233,73 @@ describe('form-spinbutton', () => {
     wrapper.destroy()
   })
 
+  it('basic +/- buttons click', async () => {
+    const wrapper = mount(BFormSpinbutton)
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $output = wrapper.find('output')
+    expect($output.exists()).toBe(true)
+    expect($output.attributes('role')).toEqual('spinbutton')
+    expect($output.attributes('tabindex')).toEqual('0')
+    expect($output.attributes('aria-live')).toEqual('off')
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // These two attribute should exist on the element
+    expect($output.element.hasAttribute('aria-valuenow')).toBe(false)
+    expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
+    expect($output.find('div').exists()).toBe(true)
+
+    const $increment = wrapper.find('[aria-label="Increment"]')
+    expect($increment.exists()).toBe(true)
+    const $decrement = wrapper.find('[aria-label="Decrement"]')
+    expect($decrement.exists()).toBe(true)
+
+    $increment.trigger('mousedown')
+    $increment.trigger('mouseup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
+
+    $increment.trigger('mousedown')
+    $increment.trigger('mouseup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('2')
+    expect($output.attributes('aria-valuetext')).toEqual('2')
+
+    $decrement.trigger('mousedown')
+    $decrement.trigger('mouseup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
+
+    $decrement.trigger('mousedown')
+    $decrement.trigger('mouseup')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    // wrap is off so it should not change to 1
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
+
+    wrapper.destroy()
+  })
+
   it('basic keyboard control works', async () => {
     const wrapper = mount(BFormSpinbutton)
     expect(wrapper.isVueInstance()).toBe(true)
