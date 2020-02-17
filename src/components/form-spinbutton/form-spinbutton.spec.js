@@ -609,27 +609,27 @@ describe('form-spinbutton', () => {
     expect($output.element.hasAttribute('aria-valuenow')).toBe(false)
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
 
-    expect(document.eactiveElement).not.toBe($output.element)
+    expect(document.activeElement).not.toBe($output.element)
 
     $output.element.focus()
     await waitNT(wrapper.vm)
     expect(wrapper.classes()).toContain('focus')
-    expect(document.eactiveElement).toBe($output.element)
+    expect(document.activeElement).toBe($output.element)
 
     $output.element.blur()
     await waitNT(wrapper.vm)
     expect(wrapper.classes()).not.toContain('focus')
-    expect(document.eactiveElement).not.toBe($output.element)
+    expect(document.activeElement).not.toBe($output.element)
 
     wrapper.vm.focus()
     await waitNT(wrapper.vm)
     expect(wrapper.classes()).toContain('focus')
-    expect(document.eactiveElement).toBe($output.element)
+    expect(document.activeElement).toBe($output.element)
 
     wrapper.vm.blur()
     await waitNT(wrapper.vm)
     expect(wrapper.classes()).not.toContain('focus')
-    expect(document.eactiveElement).not.toBe($output.element)
+    expect(document.activeElement).not.toBe($output.element)
 
     wrapper.destroy()
   })
