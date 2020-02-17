@@ -30,12 +30,10 @@ Similar to [range type inputs](/docs/components/form-input#range-type-input), Bo
   }
 </script>
 
-<!-- b-form-spinbotton-demo.vue -->
+<!-- b-form-spinbutton-demo.vue -->
 ```
 
 ## Overview
-
-TBD
 
 The <kbd>ArrowUp</kbd> and <kbd>ArrowDown</kbd> keys can be used to increment or decrement the
 value.
@@ -84,7 +82,7 @@ When `step` is set, the value will always be a multiple of the step size plus th
   }
 </script>
 
-<!-- b-form-spinbotton-step.vue -->
+<!-- b-form-spinbutton-step.vue -->
 ```
 
 ## Number wrapping
@@ -104,7 +102,7 @@ decrementing), set the `wrap` prop to `true`.
   </div>
 </template>
 
-<!-- b-form-spinbotton-wrap.vue -->
+<!-- b-form-spinbutton-wrap.vue -->
 ```
 
 ## Styling
@@ -128,12 +126,10 @@ As with other form controls, `<b-form-spinbutton>` supports small and large sizi
   </div>
 </template>
 
-<!-- b-form-spinbotton-size.vue -->
+<!-- b-form-spinbutton-size.vue -->
 ```
 
 ### Inline
-
-TBD
 
 ```html
 <template>
@@ -153,7 +149,7 @@ TBD
   }
 </script>
 
-<!-- b-form-spinbotton-inline.vue -->
+<!-- b-form-spinbutton-inline.vue -->
 ```
 
 The spin button will automatically adjust it's width to fit the displayed value. See the
@@ -181,7 +177,7 @@ Spinbuttons can be oriented in vertical mode:
   }
 </script>
 
-<!-- b-form-spinbotton-vertical.vue -->
+<!-- b-form-spinbutton-vertical.vue -->
 ```
 
 Vertical spin buttons can also be sized using the [`size` prop](#size). When in vertical mode, the
@@ -199,8 +195,6 @@ set the width.
 When either `vertical` or `inline` is set, the control will adjust its width based on the displayed
 value. You can use css style to control the overall width of the control (i.e.
 `style="width: 10rem;`).
-
-TBD
 
 ### Number formatting and locale
 
@@ -247,7 +241,7 @@ the presentation of the value to the user, and does not affect the `v-model`.
   }
 </script>
 
-<!-- b-form-spinbotton-locale.vue -->
+<!-- b-form-spinbutton-locale.vue -->
 ```
 
 Alternatively, you can provide your own number formatter function to format the value displayed.
@@ -290,7 +284,7 @@ displayed to the user and does not affect the `v-model`.
   }
 </script>
 
-<!-- b-form-spinbotton-formatter.vue -->
+<!-- b-form-spinbutton-formatter.vue -->
 ```
 
 ## Disabled and readonly states
@@ -323,7 +317,7 @@ by the user).
   }
 </script>
 
-<!-- b-form-spinbotton-disabled-readonly.vue -->
+<!-- b-form-spinbutton-disabled-readonly.vue -->
 ```
 
 Disabled spinbuttons will not be submitted during native browser form submission, while a readonly
@@ -332,19 +326,19 @@ spinbutton will be submitted (as long as a name has been set via the `name` prop
 ## Validation states
 
 When you default to a `null` value, and the user has not selected a value, you can use the `state`
-prop to apply one of the contextual validation styles to the component
+prop to apply one of the contextual validation styles to the component.
 
 - `true` applies the valid styling to the component
 - `false` applies the invalid styling to the component
-- `null` (the default) applies no contextual styling
+- `null` applies no contextual styling (the default)
 
 ### Required prop
 
 Note that the required prop only generates the `aria-required="true"` attribute on the component,
-and does not perform any validation on form submit. You must validate the v-model in your
+and does not perform any validation on form submit. You must validate the `v-model` in your
 application logic.
 
-Note that if the prop `required` is set, and the v-model is `null`, the attribute
+Note that if the prop `required` is set, and the `v-model` is `null`, the attribute
 `aria-invalid="true"` will be rendered on the component.
 
 ## Events
