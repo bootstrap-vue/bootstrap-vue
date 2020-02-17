@@ -86,7 +86,7 @@
           },
           {
             "prop": "removeOnDelete",
-            "description": "When set, enables removal of last tag in tags when user presses delete and the input is empty"
+            "description": "When set, enables removal of last tag in tags when user presses delete or backspace and the input is empty"
           },
           {
             "prop": "addOnChange",
