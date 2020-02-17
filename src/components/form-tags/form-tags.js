@@ -405,8 +405,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         this.addTag()
       } else if (
         this.removeOnDelete &&
-        (keyCode === BACKSPACE || keyCode === DELETE)
-        && value === ''
+        (keyCode === BACKSPACE || keyCode === DELETE) &&
+        value === ''
       ) {
         // Remove the last tag if the user pressed backspace/delete and the input is empty
         evt.preventDefault()
