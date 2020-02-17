@@ -118,6 +118,10 @@ export default deepFreeze({
     placeholder: 'No file chosen',
     dropPlaceholder: 'Drop files here'
   },
+  BFormSpinbutton: {
+    labelDecrement: 'Decrement',
+    labelIncrement: 'Increment'
+  },
   BFormTag: {
     removeLabel: 'Remove tag',
     variant: 'secondary'

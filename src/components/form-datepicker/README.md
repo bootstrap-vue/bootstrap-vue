@@ -6,8 +6,8 @@
 As a form control wrapper component for the [`<b-calendar>`](/docs/components/calendar) component,
 it provides additional validation state presentation and a compact interface. Native HTML5 date
 inputs vary in presentation, accessibility, and in some instances are not supported by all browsers.
-`<b-form-datepicker>` provides a consistent and accessible interface across all browser platforms and
-devices.
+`<b-form-datepicker>` provides a consistent and accessible interface across all browser platforms
+and devices.
 
 The `<b-form-datepicker>` component was introduced in BootstrapVue release `v2.5.0`.
 
@@ -41,8 +41,8 @@ The `<b-form-datepicker>` component was introduced in BootstrapVue release `v2.5
 
 By default, `<b-form-datepicker>` returns dates as a string in the `YYYY-MM-DD` format, which is the
 same format returned by native browser `<input type="date">` controls. You can have
-`<b-form-datepicker>` return a `Date` object (with no time portion) as the `v-model` value instead by
-setting the `value-as-date` prop.
+`<b-form-datepicker>` return a `Date` object (with no time portion) as the `v-model` value instead
+by setting the `value-as-date` prop.
 
 If no date is selected, `<b-form-datepicker>` returns an empty string `''`, or returns `null` if the
 `value-as-date` prop is set.
@@ -51,9 +51,9 @@ Note that when `value-as-date` prop is set, the returned `Date` object will be i
 default timezone.
 
 If `<b-form-datepicker>` has a value set for the `name` prop, a hidden input will be created which
-will have its name attribute set to the value of the `name` prop, and the value attribute will be set
-to the selected date as a `YYYY-MM-DD` string. This will allow the `<b-form-datepicker>` selected
-value to be submitted via native browser form submission.
+will have its name attribute set to the value of the `name` prop, and the value attribute will be
+set to the selected date as a `YYYY-MM-DD` string. This will allow the `<b-form-datepicker>`
+selected value to be submitted via native browser form submission.
 
 ## Disabled and readonly states
 
@@ -186,9 +186,10 @@ Note the `min` and `max` date constraints are evaluated first, before `date-disa
 
 ## Validation states
 
-`<b-form-datepicker>` supports invalid and valid styling via the boolean `state` prop. Setting `state`
-to boolean `false` will style the input as invalid, while setting it to boolean `true` will style it
-as valid. Setting `state` to `null` will not show any validation state styling (the default).
+`<b-form-datepicker>` supports invalid and valid styling via the boolean `state` prop. Setting
+`state` to boolean `false` will style the input as invalid, while setting it to boolean `true` will
+style it as valid. Setting `state` to `null` will not show any validation state styling (the
+default).
 
 ```html
 <template>
@@ -308,9 +309,9 @@ except for labels applied to elements of the calendar control (aria-labels, sele
 help text). You must provide your own translations for these labels. The available locales will be
 browser dependant (not all browsers support all locales)
 
-By default `<b-form-datepicker>` will use the browser's default locale, but you can specify the locale
-(or locales) to use via the `locale` prop. The prop accepts either a single locale string, or an array
-of locale strings (listed in order of preferred locale).
+By default `<b-form-datepicker>` will use the browser's default locale, but you can specify the
+locale (or locales) to use via the `locale` prop. The prop accepts either a single locale string, or
+an array of locale strings (listed in order of preferred locale).
 
 The calendar starts the week on Sunday. This can be changed by setting the `start-weekday` prop to a
 number in the range of `0` to `6` where `0` represents Sunday, `1` for Monday, up to `6` for
@@ -431,8 +432,8 @@ details.
 `<b-form-datepicker>` is based upon the components [`<b-calendar>`](/docs/components/calendar) and
 [`<b-dropdown>`](/docs/components/dropdown).
 
-`<b-form-datepicker>` uses Bootstrap's margin, padding, border, and flex utility classes, along
-with button (`btn-*`) classes, and the `form-control*` (plus validation) classes.
+`<b-form-datepicker>` uses Bootstrap's margin, padding, border, and flex utility classes, along with
+button (`btn-*`) classes, and the `form-control*` (plus validation) classes.
 
 BootstrapVue's Custom SCSS/CSS is also required for proper styling of the date picker and calendar.
 

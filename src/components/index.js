@@ -17,12 +17,13 @@ import { FormPlugin } from './form'
 import { FormCheckboxPlugin } from './form-checkbox'
 import { FormDatepickerPlugin } from './form-datepicker'
 import { FormFilePlugin } from './form-file'
-import { FormInputPlugin } from './form-input'
 import { FormGroupPlugin } from './form-group'
+import { FormInputPlugin } from './form-input'
 import { FormRadioPlugin } from './form-radio'
+import { FormSelectPlugin } from './form-select'
+import { FormSpinbuttonPlugin } from './form-spinbutton'
 import { FormTagsPlugin } from './form-tags'
 import { FormTextareaPlugin } from './form-textarea'
-import { FormSelectPlugin } from './form-select'
 import { ImagePlugin } from './image'
 import { InputGroupPlugin } from './input-group'
 import { JumbotronPlugin } from './jumbotron'
@@ -60,15 +61,16 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     DropdownPlugin,
     EmbedPlugin,
     FormPlugin,
-    FormDatepickerPlugin,
     FormCheckboxPlugin,
+    FormDatepickerPlugin,
     FormFilePlugin,
     FormGroupPlugin,
     FormInputPlugin,
     FormRadioPlugin,
+    FormSelectPlugin,
+    FormSpinbuttonPlugin,
     FormTagsPlugin,
     FormTextareaPlugin,
-    FormSelectPlugin,
     ImagePlugin,
     InputGroupPlugin,
     JumbotronPlugin,
