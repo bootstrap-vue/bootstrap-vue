@@ -234,7 +234,9 @@ describe('form-spinbutton', () => {
   })
 
   it('basic +/- buttons click', async () => {
-    const wrapper = mount(BFormSpinbutton)
+    const wrapper = mount(BFormSpinbutton, {
+      attachToDocument: true
+    })
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -301,7 +303,9 @@ describe('form-spinbutton', () => {
   })
 
   it('basic keyboard control works', async () => {
-    const wrapper = mount(BFormSpinbutton)
+    const wrapper = mount(BFormSpinbutton, {
+      attachToDocument: true
+    })
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
