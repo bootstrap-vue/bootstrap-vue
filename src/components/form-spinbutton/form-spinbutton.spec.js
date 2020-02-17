@@ -585,6 +585,140 @@ describe('form-spinbutton', () => {
     wrapper.destroy()
   })
 
+  it('auto repeat works', async () => {
+    jest.useFakeTimers()
+    const wrapper = mount(BFormSpinbutton, {
+      attachToDocument: true,
+      propsData: {
+        min: 1,
+        max: 100,
+        step: 1,
+        value: 1
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    
+    const $output = wrapper.find('output')
+    expect($output.exists()).toBe(true)
+    expect($output.attributes('role')).toEqual('spinbutton')
+    expect($output.attributes('tabindex')).toEqual('0')
+    expect($output.attributes('aria-live')).toEqual('off')
+    expect($output.attributes('aria-valuemin')).toEqual('1')
+    expect($output.attributes('aria-valuemax')).toEqual('100')
+    expect($output.attributes('aria-valuenow')).toEqual('1')
+    expect($output.attributes('aria-valuetext')).toEqual('1')
+
+    wrapper.trigger('keydown.up')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('2')
+    expect($output.attributes('aria-valuetext')).toEqual('2')
+
+    // Advance past delay time
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    // Now we have to wait for interval to happen
+    expect($output.attributes('aria-valuenow')).toEqual('2')
+    expect($output.attributes('aria-valuetext')).toEqual('2')
+
+    // Advance past interval time
+    // Repeat #1
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('3')
+    expect($output.attributes('aria-valuetext')).toEqual('3')
+
+    // Repeat #2
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('4')
+    expect($output.attributes('aria-valuetext')).toEqual('4')
+
+    // Repeat #3
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('5')
+    expect($output.attributes('aria-valuetext')).toEqual('5')
+
+    // Repeat #4
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('6')
+    expect($output.attributes('aria-valuetext')).toEqual('6')
+
+    // Repeat #5
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('7')
+    expect($output.attributes('aria-valuetext')).toEqual('7')
+
+    // Repeat #6
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('8')
+    expect($output.attributes('aria-valuetext')).toEqual('8')
+
+    // Repeat #7
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('9')
+    expect($output.attributes('aria-valuetext')).toEqual('9')
+
+    // Repeat #8
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('10')
+    expect($output.attributes('aria-valuetext')).toEqual('10')
+
+    // Repeat #9
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('11')
+    expect($output.attributes('aria-valuetext')).toEqual('11')
+
+    // Repeat #10
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('12')
+    expect($output.attributes('aria-valuetext')).toEqual('12')
+
+    // Repeat #11 - Multiplier kicks in
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('16')
+    expect($output.attributes('aria-valuetext')).toEqual('16')
+
+    // Repeat #12
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('20')
+    expect($output.attributes('aria-valuetext')).toEqual('20')
+
+    // Un-press key
+    wrapper.trigger('keyup.up')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($output.attributes('aria-valuenow')).toEqual('20')
+    expect($output.attributes('aria-valuetext')).toEqual('20')
+
+    wrapper.destroy()
+  })
+
   it('focus and blur handling works', async () => {
     const wrapper = mount(BFormSpinbutton, {
       attachToDocument: true
