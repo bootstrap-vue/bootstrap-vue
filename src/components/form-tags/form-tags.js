@@ -345,7 +345,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       //   Or emit cancelable `BvEvent`
       this.tags = this.tags.filter(t => t !== tag)
       // Return focus to the input (if possible)
-      this.$nextTick(this.focus)
+      this.$nextTick(() => {
+        this.focus()
+      })
     },
     // --- Input element event handlers ---
     onInputInput(evt) {
@@ -405,7 +407,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     // --- Wrapper event handlers ---
     onClick(evt) {
       if (!this.disabled && isEvent(evt) && evt.target === evt.currentTarget) {
-        this.$nextTick(this.focus)
+        this.$nextTick(() => {
+          this.focus()
+        })
       }
     },
     onFocusin() {
@@ -521,7 +525,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             staticClass: 'mt-1 mr-1',
             class: tagClass,
             props: {
-              // 'BFormTag' will auto generate an ID
+              // `BFormTag` will auto generate an ID
               // so we do not need to set the ID prop
               tag: 'li',
               title: tag,
