@@ -770,7 +770,7 @@ export const BCalendar = Vue.extend({
             type: 'button',
             'aria-label': label || null,
             'aria-disabled': btnDisabled ? 'true' : null,
-            'aria-shortcutkeys': shortcut || null
+            'aria-keyshortcuts': shortcut || null
           },
           on: btnDisabled ? {} : { click: handler }
         },
