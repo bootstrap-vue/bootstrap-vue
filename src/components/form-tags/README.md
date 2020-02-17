@@ -84,10 +84,10 @@ are typed:
 <!-- form-tags-separator.vue -->
 ```
 
-## Last tag removal via delete keypress
+## Last tag removal via backspace keypress
 
-When the prop `remove-on-delete` is set, and the user presses <kbd>DEL</kbd> _and_ the input value
-is empty, the last tag in the tag list will be removed.
+When the prop `remove-on-delete` is set, and the user presses <kbd>BACKSPACE</kbd> (or <kbd>DEL</kbd>)
+_and_ the input  value is empty, the last tag in the tag list will be removed.
 
 ```html
 <template>
@@ -104,7 +104,7 @@ is empty, the last tag in the tag list will be removed.
       class="mb-2"
     ></b-form-tags>
     <b-form-text id="tags-remove-on-delete-help">
-      Press delete to remove last tag entered
+      Press <kbd>BACKSPACE</kbd> to remove the last tag entered
     </b-form-text>
     <p>Value: {{ value }}</p>
   </div>
