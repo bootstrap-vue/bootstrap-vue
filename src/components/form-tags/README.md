@@ -22,7 +22,8 @@ button will only appear when the user has entered a new tag value.
 ```html
 <template>
   <div>
-    <b-form-tags v-model="value" class="mb-2"></b-form-tags>
+    <label for="tags-basic">Type a new tag and press enter</label>
+    <b-form-tags input-id="tags-basic" v-model="value" class="mb-2"></b-form-tags>
     <p>Value: {{ value }}</p>
   </div>
 </template>
@@ -57,7 +58,9 @@ are typed:
 ```html
 <template>
   <div>
+    <label for="tags-separators">Enter tags separated by space comma or semicolon</label>
     <b-form-tags
+      input-id="tags-separators"
       v-model="value"
       separator=" ,;"
       placeholder="Enter new tags separated by space, comma or semicolon"
@@ -89,7 +92,10 @@ is empty, the last tag in the tag list will be removed.
 ```html
 <template>
   <div>
+    <label for="tags-remove-on-delete">Enter new tags separated by space</label>
     <b-form-tags
+      input-id="tags-remove-on-delete"
+      :input-attrs="{ 'aria-describedby': 'tags-remove-on-delete-help' }"
       v-model="value"
       separator=" "
       placeholder="Enter new tags separated by space"
@@ -97,6 +103,9 @@ is empty, the last tag in the tag list will be removed.
       no-add-on-enter
       class="mb-2"
     ></b-form-tags>
+    <b-form-text id="tags-remove-on-delete-help">
+      Press delete to remove last tag entered
+    </b-form-text>
     <p>Value: {{ value }}</p>
   </div>
 </template>
@@ -134,7 +143,9 @@ The focus and validation state styling of the component relies upon BootstrapVue
 ```html
 <template>
   <div>
+    <label for="tags-pills">Enter tags</label>
     <b-form-tags
+      input-id="tags-pills"
       v-model="value"
       tag-variant="primary"
       tag-pills
@@ -188,6 +199,7 @@ not validated.
   <div>
     <b-form-group :state="state" label="Tags validation example">
       <b-form-tags
+        input-id="tags-validation"
         v-model="tags"
         :state="state"
         :tag-validator="tagValidator"
@@ -260,7 +272,9 @@ to either an empty string (`''`) or `null`.
 ```html
 <template>
   <div>
+    <label for="tags-state-event">Enter tags</label>
     <b-form-tags
+      input-id="tags-state-event"
       v-model="tags"
       :tag-validator="validator"
       placeholder="Enter tags (3-5 characters) separated by space"
