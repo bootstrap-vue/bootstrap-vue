@@ -1,0 +1,10 @@
+// BTime custom SCSS
+
+.b-time {
+  &[aria-disabled="true"] output,
+  &[aria-readonly="true"] output,
+  output.disabled {
+    background-color: $input-disabled-bg;
+    opacity: 1;
+  }
+}
