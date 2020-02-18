@@ -185,6 +185,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       const numeric = 'numeric'
       const options = {
         hour12: this.is12Hour,
+        hourCycle: this.computedHourCycle,
         hour: numeric,
         minute: numeric,
         timeZone: 'UTC'
@@ -219,9 +220,6 @@ export const BTime = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     value(newVal, oldVal) {
-      if (newVal === oldVal) {
-        return
-      }
       if (newVal !== oldVal && !looseEqual(parseHMS(newVal), parseHMS(this.computedHMS))) {
         const { hours, minutes, seconds, ampm } = parseHMS(newVal)
         this.modelHours = hours
