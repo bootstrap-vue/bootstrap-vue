@@ -205,6 +205,16 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         notation: 'standard'
       })
       return nf.format
+    },
+    formattedTimeString() {
+      const hours = this.modelHours
+      const minutes = this.modelMinutes
+      const seconds = this.modelSeconds
+      if (!this.computedHMS) {
+        return this.labelNoTime || ' '
+      }
+      const date = new Date(Date.UTC(0, 0, 1, hours, minutes, seconds || 0))
+      return this.formatterTime(date)
     }
   },
   watch: {
@@ -242,17 +252,6 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    formatTimeString() {
-      const hours = this.modelHours
-      const minutes = this.modelMinutes
-      const seconds = this.modelSeconds
-      const hms = formatHMS({ hours, minutes, seconds }, this.showSeconds)
-      if (!hms) {
-        return this.labelNoTime || ' '
-      }
-      const date = new Date(Date.UTC(0, 0, 1, hours, minutes, seconds || 0))
-      return this.formatterTime(date)
-    },
     // Formatters for the spin buttons
     formatHours(hh) {
       const hourCycle = this.computedHourCycle
@@ -440,10 +439,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           focus: this.focus
         }
       },
-      // TODO:
-      //  need to have method convert HMS to local time string
-      //  this ignores timezone
-      'Fomratted time string'
+      this.formattedTimeString
     )
 
     return h(
