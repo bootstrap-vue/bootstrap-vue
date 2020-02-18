@@ -4,6 +4,7 @@ import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
+import { createDate, createDateFormatter } from '../../utils/date'
 import { contains } from '../../utils/dom'
 import { isBoolean, isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
@@ -145,7 +146,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         // Force 12 or 24 hour clock
         options.hour12 = this.hour12
       }
-      const dtf = new Intl(locale, options)
+      const dtf = new Intl.DateTimeFormat(locale, options)
       const resolved = dtf.resolvedOptions()
       return {
         locale: resolved.locale,
@@ -191,8 +192,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         options.seconds = 'numeric'
       }
       // Formats the time as a localized string
-      const dtf = new Intl.DateTimeFormat(this.computedLocale, options)
-      return dtf.format
+      return createDateFormatter(this.computedLocale, options)
     },
     numberFormatter() {
       // Returns a formatter function reference. The formatter
@@ -210,11 +210,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       const hours = this.modelHours
       const minutes = this.modelMinutes
       const seconds = this.modelSeconds
-      if (!this.computedHMS) {
-        return this.labelNoTime || ' '
+      if (this.computedHMS) {
+        return this.timeFormatter(createDate(Date.UTC(0, 0, 1, hours, minutes, seconds || 0)))
       }
-      const date = new Date(Date.UTC(0, 0, 1, hours, minutes, seconds || 0))
-      return this.formatterTime(date)
+      return this.labelNoTime || ' '
     }
   },
   watch: {
