@@ -476,7 +476,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'border rounded mb-2 p-1 small text-center',
         class: {
-          'disabled': this.disabled || this.readonly
+          disabled: this.disabled || this.readonly
         },
         attrs: {
           id: valueId,
