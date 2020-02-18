@@ -273,7 +273,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           if (newVal === 0 && hours > 12) {
             // Switched to AM
             this.modelHours = hours - 12
-          } else if (newVal === 1 && hours < 11) {
+          } else if (newVal === 1 && hours < 12) {
             // Switched to PM
             this.modelHours = hours + 12
           }
