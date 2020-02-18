@@ -2,7 +2,7 @@
 
 const NAME = 'BFormTimepicker'
 
-export conts BFormTimepicker = {
+export const BFormTimepicker = {
   name: NAME,
   render(h) {
     return h('div', 'TBD')
