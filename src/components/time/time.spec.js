@@ -169,19 +169,22 @@ describe('time', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    const $hours = wrapper.find('[aria-label="Hours"]')
+    expect($hours.exists()).tobe(true)
+
+    expect(document.activeElement).not.toBe($hours.element)
 
     wrapper.vm.focus()
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    expect(document.activeElement).toBe($hours.element)
 
     wrapper.vm.blur()
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    expect(document.activeElement).not.toBe($hours.element)
 
     wrapper.destroy()
   })
