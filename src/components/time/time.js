@@ -480,6 +480,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           'aria-labelledby': computedAriaLabelledby,
           // Prevent flex order from changing
           dir: 'ltr'
+        },
+        on: {
+          click: this.focus,
+          focus: this.focus
         }
       },
       $spinners
