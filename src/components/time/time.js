@@ -430,7 +430,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           role: 'status',
           tabindex: '-1',
           'aria-live': 'polite',
-          'aria-atomic': true'
+          'aria-atomic': 'true'
         },
         on: {
           // Transfer focus/click to focus hours spinner
