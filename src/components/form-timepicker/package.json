@@ -5,6 +5,12 @@
     "title": "Form timepiker",
     "description": "Custom time picker component",
     "new": true,
-    "version": "2.6.0"
+    "version": "2.6.0",
+    "components": [
+      {
+        "component": "BFormTimepicker",
+        "version": "2.6.0"
+      }
+    ]
   }
 }
