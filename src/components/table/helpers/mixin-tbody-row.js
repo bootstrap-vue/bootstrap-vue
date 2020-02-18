@@ -91,6 +91,9 @@ export default {
       // Renders a TD or TH for a row's field
       const h = this.$createElement
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
+      const detailsId = field.details
+        ? this.safeId('_col_details_'.concat(rowIndex, '_', colIndex, '_', field.key, '_'))
+        : null
       const formatted = this.getFormattedValue(item, field)
       const key = field.key
       const stickyColumn =
@@ -119,6 +122,12 @@ export default {
         props: {},
         attrs: {
           'aria-colindex': String(colIndex + 1),
+          ...(detailsId
+            ? {
+                'aria-owns': detailsId,
+                'aria-details': detailsId
+              }
+            : {}),
           ...(field.isRowHeader
             ? this.getThValues(item, key, field.thAttr, 'row', {})
             : this.getTdValues(item, key, field.tdAttr, {}))
@@ -276,9 +285,37 @@ export default {
         }
 
         // Render the details slot in a TD
-        const $details = h(BTd, { props: { colspan: fields.length }, class: this.detailsTdClass }, [
-          this.normalizeSlot(detailsSlotName, detailsScope)
-        ])
+        var $details = !detailsScope.fields.some(e => e.details)
+          ? h(
+              BTd,
+              {
+                // Details row
+                props: {
+                  colspan: fields.length
+                }
+              },
+              [this.normalizeSlot(detailsSlotName, detailsScope)]
+            ) // Detailed slots
+          : detailsScope.fields.map((e, idx) =>
+              h(
+                BTd,
+                {
+                  attrs: {
+                    ...(e.details && {
+                      id: this.safeId('_col_details_'.concat(rowIndex, '_').concat(idx, '_'))
+                    })
+                  }
+                },
+                e.details
+                  ? [
+                      this.normalizeSlot(
+                        e.details === true ? detailsSlotName : e.details,
+                        detailsScope
+                      )
+                    ]
+                  : null
+              )
+            )
 
         // Add a hidden row to keep table row striping consistent when details showing
         // Only added if the table is striped
