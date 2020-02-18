@@ -59,11 +59,20 @@ TBD
 
 ## Styling
 
-## Enabling of seconds input
+### Enabling of seconds input
+
+By default, the seconds spinbutton is not shown. To enable the section of seconds, set the `show-seconds`
+prop to `true` to enable the secondsselection spin button. When `show-seconds` is `false` (or not
+provided), the returned value will always have the secondsportion fo the time string set to `00`.
 
 TBD
 
 ### Forcing 12 or 24 hour interface
+
+12 hour version 24 hour input is determined by the client browsers default locale. To force a 12-hour
+user interface, set the prop `hour12` to `true`. To force a 24-hour user inteface, set the prop
+`hour12` to `false`. The default form prop `hour12` is `null` which uses the browser locale (or the
+`locale` prop) to determine which interface to use.
 
 TBD
 
