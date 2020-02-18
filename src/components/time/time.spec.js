@@ -91,7 +91,6 @@ describe('time', () => {
   })
 
   it('spin buttons work', async () => {
-    jest.useFaketimers()
     const wrapper = mount(BTime, {
       propsData: {
         showSeconds: true,
