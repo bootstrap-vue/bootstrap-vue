@@ -97,6 +97,14 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       type: [Number, String],
       default: 1
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
     labelNoTime: {
       type: String,
       default: 'No time selected'
@@ -468,7 +476,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'border rounded mb-2 p-1 small text-center',
         class: {
-          'text-muted': this.disabled
+          'disabled': this.disabled || this.readonly
         },
         attrs: {
           id: valueId,
@@ -498,7 +506,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         attrs: {
           role: 'group',
           tabindex: '-1',
-          'aria-labeledby': computedAriaLabelledby || null
+          'aria-labeledby': computedAriaLabelledby || null,
+          'aria-disabled': this.disabled ? 'true' : null,
+          'aria-readonly': this.readonly && !this.diabled ? 'true' : null
         }
       },
       [$value, $spinners]
