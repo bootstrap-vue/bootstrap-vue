@@ -182,14 +182,15 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     timeFormatter() {
       // Returns a formatter function reference. The formatter
       // converts the time to a localalized string
+      const numeric = 'numeric'
       const options = {
         hour12: this.is12Hour,
-        hour: 'mumeric',
-        minute: 'numeric',
+        hour: numeric,
+        minute: numeric,
         timeZone: 'UTC'
       }
       if (this.showSeconds) {
-        options.seconds = 'numeric'
+        options.seconds = numeric
       }
       // Formats the time as a localized string
       return createDateFormatter(this.computedLocale, options)
