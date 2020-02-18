@@ -4,6 +4,7 @@
   "meta": {
     "title": "Time",
     "version": "2.5.0",
+    "new": true,
     "beta": true,
     "description": "A custom time input widget that can be used to control other components.",
     "components": [
