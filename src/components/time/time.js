@@ -78,6 +78,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: null
     },
+    locale: {
+      type: [string, Array],
+      default: null
+    },
     ariaLabelledby: {
       // ID of label element
       type: String,
