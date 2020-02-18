@@ -463,7 +463,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           max: 1,
           formatterFn: this.formatAmpm,
           ariaLabel: this.labelAmpm,
-          // We set reuired as falses, since this always has a value
+          // We set reuired as false, since this always has a value
           required: false
         })
       )
