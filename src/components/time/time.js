@@ -469,7 +469,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'd-inline-flex align-items-center justify-content-center mx-auto',
         attrs: {
-          role: 'group',
+          role: 'application',
           'aria-labelledby': computedAriaLabelledby,
           // Prevent flex order from changing
           dir: 'ltr'
@@ -512,7 +512,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           minWidth: '150px'
         },
         attrs: {
-          role: 'application',
+          role: 'group',
           tabindex: '-1',
           'aria-labeledby': computedAriaLabelledby || null,
           'aria-disabled': this.disabled ? 'true' : null,
