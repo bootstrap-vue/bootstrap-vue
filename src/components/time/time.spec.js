@@ -105,7 +105,7 @@ describe('time', () => {
     await waitRAF()
 
     // TBD
-    
+
     wrapper.vm.blur()
     await waitNT(wrapper.vm)
     await waitRAF()
