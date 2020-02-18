@@ -13,7 +13,7 @@
         "props": [
           {
             "prop": "value",
-            "description": "Initially selected time value. Accepts a `HH:mm:ss` string"
+            "description": "Initially selected time value. Accepts a `HH:mm:ss` string. Valid value ranges from `00:00:00` to `23:59:59`"
           },
           {
             "prop": "showSeconds",
