@@ -34,6 +34,12 @@ Released: 2020-02-18
   ([#4777](https://github.com/bootstrap-vue/bootstrap-vue/issues/4777))
   ([1113c6f](https://github.com/bootstrap-vue/bootstrap-vue/commit/1113c6f951d86b7e6e6ba2161f935d2b6e0b5ce8))
 
+### Other v2.5.0
+
+- documentation updates
+- documentation accessibility improvements
+- dev dependency updates
+
 <a name="2.4.2"></a>
 
 ## [v2.4.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.4.1...v2.4.2)
