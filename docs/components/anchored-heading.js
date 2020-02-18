@@ -21,7 +21,7 @@ export default {
         props: { to: { hash: `#${props.id}` }},
         attrs: {
           'aria-labelledby': props.id || null,
-          'aria-label': props.id ? null || 'Anchor'
+          'aria-label': props.id ? null : 'Anchor'
         }
       },
       [h()]
