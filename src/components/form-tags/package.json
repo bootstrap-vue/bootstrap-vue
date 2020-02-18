@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Tags",
-    "new": true,
     "version": "2.2.0",
     "description": "Lightweight custom tagged input form control, with options for customized interface rendering, duplicate tag detection and optional tag validation",
     "components": [
@@ -64,6 +63,11 @@
             "description": "The value of the 'aria-label' attribute on the remove button in the tag"
           },
           {
+            "prop": "tagRemovedLabel",
+            "version": "2.5.0",
+            "description": "Label for the aria-live region that announces removed tag(s) to screen reader users"
+          },
+          {
             "prop": "tagValidator",
             "description": "Optional tag validator method. Passed a single argument of tag being added. Should return 'true' if the tag passes validation, or 'false' if the tag cannot be added"
           },
@@ -81,7 +85,7 @@
           },
           {
             "prop": "removeOnDelete",
-            "description": "When set, enables removal of last tag in tags when user presses delete and the input is empty"
+            "description": "When set, enables removal of last tag in tags when user presses delete or backspace and the input is empty"
           },
           {
             "prop": "addOnChange",

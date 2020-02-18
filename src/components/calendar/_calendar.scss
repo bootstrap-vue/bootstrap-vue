@@ -1,0 +1,36 @@
+// BCalendar custom styles
+
+.b-calendar {
+  output.readonly {
+    background-color: $input-disabled-bg;
+    opacity: 1;
+  }
+
+  .b-calendar-grid-body {
+    .col[data-date] {
+      // We hard code the sizes in `px` to fit
+      // correctly on small mobile device screens
+      .btn {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+        line-height: 1;
+        margin: 3px auto;
+        padding: 9px 0;
+      }
+    }
+  }
+
+  // Style to get around Bootstrap v4.4 bug
+  // with hand cursor on disabled buttons
+  // As well, when a button is still focusable, but is
+  // `aria-disabled` we want `pointer-events: none`
+  .btn {
+    &:disabled,
+    &.disabled,
+    &[aria-disabled="true"] {
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+}

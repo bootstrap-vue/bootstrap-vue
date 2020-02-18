@@ -1307,7 +1307,7 @@ available horizontal space.
   the body scrolls. To get around this issue, set the prop `no-border-collapse` on the table (note
   that this may cause double width borders when using features such as `bordered`, etc).
 - The sticky header feature uses CSS style `position: sticky` to position the headings. Internet
-  Explorer does not support `position: sticky`, hence for IE11 the table headings will scroll with
+  Explorer does not support `position: sticky`, hence for IE 11 the table headings will scroll with
   the table body.
 
 ### Sticky columns
@@ -1403,7 +1403,7 @@ set.
   (note that this may cause double width borders when using features such as `bordered`, etc).
 - BootstrapVue's custom CSS is required in order to support sticky columns.
 - The sticky column feature uses CSS style `position: sticky` to position the column cells. Internet
-  Explorer does not support `position: sticky`, hence for IE11 the sticky column will scroll with
+  Explorer does not support `position: sticky`, hence for IE 11 the sticky column will scroll with
   the table body.
 
 ### Row details support

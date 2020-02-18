@@ -1,0 +1,238 @@
+{
+  "name": "@bootstrap-vue/form-datepicker",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Form Datepicker",
+    "version": "2.5.0",
+    "slug": "form-datepicker",
+    "new": true,
+    "description": "BootstrapVue custom date picker input form control, which provides full WAI-ARIA compliance and supports internationalization",
+    "components": [
+      {
+        "component": "BFormDatepicker",
+        "version": "2.5.0",
+        "description": "Custom date picker form control, supporting I18N",
+        "aliases": [
+          "BDatepicker"
+        ],
+        "props": [
+          {
+            "prop": "value",
+            "description": "Initially selected date value. Accepts either a `YYYY-MM-DD` string or a `Date` object"
+          },
+          {
+            "prop": "valueAsDate",
+            "description": "Returns a `Date` object for the v-model instead of a `YYYY-MM-DD` string"
+          },
+          {
+            "prop": "resetValue",
+            "description": "When the optional `reset` button is clicked, the selected date will be set to this value. Default is to clear the selected value"
+          },
+          {
+            "prop": "disabled",
+            "description": "Places the calendar in a non-interactive disabled state"
+          },
+          {
+            "prop": "readonly",
+            "description": "Places the calendar in an interactive readonly state. Disables updating the v-model, while still allowing date navigation"
+          },
+          {
+            "prop": "required",
+            "description": "When set, adds the `aria-required=\"true\"` attribute on the component. Required validation needs to be handled by your application"
+          },
+          {
+            "prop": "selectedVariant",
+            "description": "Theme color variant to use for the selected date button"
+          },
+          {
+            "prop": "todayVariant",
+            "description": "Theme color variant to use for highlighting todays date button. Defaults to the `variant` prop"
+          },
+          {
+            "prop": "noHighlightToday",
+            "description": "Disabled the highlighting of todays date in the calendar"
+          },
+          {
+            "prop": "startWeekday",
+            "description": "Day of week to start the calendar. `0` for Sunday, `1` for Monday, `6` for Saturday, etc."
+          },
+          {
+            "prop": "locale",
+            "description": "Locale (or locales) for the calendar to use. When passing an array of locales, the order of the locales is from most preferred to least preferred"
+          },
+          {
+            "prop": "direction",
+            "description": "Set to the string 'rtl' or 'ltr' to explicitly force the calendar to render in right-to-left or left-ro-right (respectively) mode. Defaults to the resolved locale's directionality"
+          },
+          {
+            "prop": "min",
+            "description": "The minimum date the calendar will show"
+          },
+          {
+            "prop": "max",
+            "description": "The maximum date the calendar will show"
+          },
+          {
+            "prop": "dateDisabledFn",
+            "description": "Set to a function reference which returns `true` if the date is disabled, or `false` if the date should be enabled. See documentation for details"
+          },
+          {
+            "prop": "hideHeader",
+            "description": "When set, visually hides the selected date header"
+          },
+          {
+            "prop": "todayButton",
+            "description": "When set, shows the optional `select today` button"
+          },
+          {
+            "prop": "todayButtonVariant",
+            "description": "Button variant to use for the optional `select today` button"
+          },
+          {
+            "prop": "resetButton",
+            "description": "When set, shows the optional `reset` button"
+          },
+          {
+            "prop": "resetButtonVariant",
+            "description": "Button variant to use for the optional `reset` button"
+          },
+          {
+            "prop": "closeButton",
+            "description": "When set, shows the optional close button"
+          },
+          {
+            "prop": "closeButtonVariant",
+            "description": "Button variant to use for the optional `close` button"
+          },
+          {
+            "prop": "noCloseOnSelect",
+            "description": "Disables closing the popup date picker when a date is clicked/selected"
+          },
+          {
+            "prop": "dropup",
+            "description": "When set, positions the menu on the top of the button"
+          },
+          {
+            "prop": "dropright",
+            "description": "When set, positions the menu to the right of the button"
+          },
+          {
+            "prop": "dropleft",
+            "description": "When set, positions the menu to the left of the button"
+          },
+          {
+            "prop": "right",
+            "description": "Align the right edge of the menu with the right of the button"
+          },
+          {
+            "prop": "noFlip",
+            "description": "Prevent the menu from auto flipping positions"
+          },
+          {
+            "prop": "offset",
+            "description": "Specify the number of pixels to shift the menu by. Negative values supported"
+          },
+          {
+            "prop": "popperOpts",
+            "description": "Additional configuration to pass to Popper.js"
+          },
+          {
+            "prop": "boundary",
+            "description": "The boundary constraint of the menu: `'scrollParent'`, `'window'`, `'viewport'`, or a reference to an `HTMLElement`"
+          },
+          {
+            "prop": "dark",
+            "description": "When set, gives the popup calendar dialog a dark background"
+          },
+          {
+            "prop": "placeholder",
+            "description": "Text so show in the form control when no date is selected. Defaults to the `label-no-date-selected` prop value"
+          },
+          {
+            "prop": "labelPrevYear",
+            "description": "Value of the `aria-label` and `title` attributes on the `Previous Year` navigation button"
+          },
+          {
+            "prop": "labelPrevMonth",
+            "description": "Value of the `aria-label` and `title` attributes on the `Previous Month` navigation button"
+          },
+          {
+            "prop": "labelCurrentMonth",
+            "description": "Value of the `aria-label` and `title` attributes on the `Current Month` navigation button"
+          },
+          {
+            "prop": "labelNextMonth",
+            "description": "Value of the `aria-label` and `title` attributes on the `Next Month` navigation button"
+          },
+          {
+            "prop": "labelNextYear",
+            "description": "Value of the `aria-label` and `title` attributes on the `Next Year` navigation button"
+          },
+          {
+            "prop": "labelSelected",
+            "description": "Value of the `aria-label` attribute set on the calendar grid date button that is selected"
+          },
+          {
+            "prop": "labelToday",
+            "description": "Value of the `aria-label` attribute for the calendar grid date button to signify that the date is today's date"
+          },
+          {
+            "prop": "labelNoDateSelected",
+            "description": "Label to use when no date is currently selected"
+          },
+          {
+            "prop": "labelCalendar",
+            "description": "Value of the `aria-label` and `role-description` attributes applied to the calendar grid"
+          },
+          {
+            "prop": "labelNav",
+            "description": "Value of the `aria-label` attribute on to the calendar navigation button wrapper"
+          },
+          {
+            "prop": "labelHelp",
+            "description": "help text that appears at the bottom of the calendar grid"
+          },
+          {
+            "prop": "labelTodayButton",
+            "description": "Content for the optional `Select today` button"
+          },
+          {
+            "prop": "labelResetButton",
+            "description": "Content for the optional `Reset` button"
+          },
+          {
+            "prop": "labelCloseButton",
+            "description": "Content for the optional `Close` button"
+          }
+        ],
+        "events": [
+          {
+            "event": "input",
+            "description": "Emitted when updating the v-model",
+            "args": [
+              {
+                "arg": "date",
+                "description": "Either a string in the format of `YYYY-MM-DD` or a `Date` object (if `value-as-date` prop is `true`)",
+                "type": [
+                  "String",
+                  "Date"
+                ]
+              }
+            ]
+          },
+          {
+            "event": "context",
+            "description": "`b-calendar` context event. Emitted when the user changes the active date via date navigation buttons or cursor control",
+            "args": [
+              {
+                "arg": "context",
+                "description": "The `b-calendar` context object. See the `b-calendar` documentaion for details",
+                "type": "Object"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

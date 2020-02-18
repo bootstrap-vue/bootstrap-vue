@@ -1,0 +1,194 @@
+{
+  "name": "@bootstrap-vue/calendar",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Calendar",
+    "slug": "calendar",
+    "version": "2.5.0",
+    "new": true,
+    "description": "Calendar widget for selecting dates and controlling other components",
+    "components": [
+      {
+        "component": "BCalendar",
+        "version": "2.5.0",
+        "props": [
+          {
+            "prop": "value",
+            "description": "Initially selected date value. Accepts either a `YYYY-MM-DD` string or a `Date` object"
+          },
+          {
+            "prop": "valueAsDate",
+            "description": "Returns a `Date` object for the v-model instead of a `YYYY-MM-DD` string"
+          },
+          {
+            "prop": "disabled",
+            "description": "Places the calendar in a non-interactive disabled state"
+          },
+          {
+            "prop": "readonly",
+            "description": "Places the calendar in an interactive readonly state. Disables updating the v-model, while still allowing date navigation"
+          },
+          {
+            "prop": "selectedVariant",
+            "description": "Theme color variant to use for the selected date button"
+          },
+          {
+            "prop": "todayVariant",
+            "description": "Theme color variant to use for highlighting todays date button. Defaults to the `variant` prop"
+          },
+          {
+            "prop": "noHighlightToday",
+            "description": "Disabled the highlighting of todays date in the calendar"
+          },
+          {
+            "prop": "startWeekday",
+            "description": "Day of week to start the calendar. `0` for Sunday, `1` for Monday, `6` for Saturday, etc."
+          },
+          {
+            "prop": "locale",
+            "description": "Locale (or locales) for the calendar to use. When passing an array of locales, the order of the locales is from most preferred to least preferred"
+          },
+          {
+            "prop": "direction",
+            "description": "Set to the string 'rtl' or 'ltr' to explicitly force the calendar to render in right-to-left or left-ro-right (respectively) mode. Defaults to the resolved locale's directionality"
+          },
+          {
+            "prop": "min",
+            "description": "The minimum date the calendar will show"
+          },
+          {
+            "prop": "max",
+            "description": "The maximum date the calendar will show"
+          },
+          {
+            "prop": "dateDisabledFn",
+            "description": "Set to a function reference which returns `true` if the date is disabled, or `false` if the date should be enabled. See documentation for details"
+          },
+          {
+            "prop": "dateInfoFn",
+            "description": "Set to a function reference which returns a class (string), or classes (array of strings) to apply to the date cell. See documentation for details"
+          },
+          {
+            "prop": "width",
+            "description": "The width of the calendar. Has no effect if prop `block` is set"
+          },
+          {
+            "prop": "block",
+            "description": "Makes the calendar full width"
+          },
+          {
+            "prop": "ariaControls",
+            "description": "If the calendar controls another component/element, set this prop to the ID of the element the calendar controls"
+          },
+          {
+            "prop": "hideHeader",
+            "description": "When set, visually hides the selected date header"
+          },
+          {
+            "prop": "roleDescription",
+            "description": "Sets a value for the `role-description` attribute on the component"
+          },
+          {
+            "prop": "hidden",
+            "description": "When set, renders a comment node instead of the calendar widget while keeping the Vue instance active. Mainly used when implementing a custom date picker"
+          },
+          {
+            "prop": "labelPrevYear",
+            "description": "Value of the `aria-label` and `title` attributes on the `Previous Year` navigation button"
+          },
+          {
+            "prop": "labelPrevMonth",
+            "description": "Value of the `aria-label` and `title` attributes on the `Previous Month` navigation button"
+          },
+          {
+            "prop": "labelCurrentMonth",
+            "description": "Value of the `aria-label` and `title` attributes on the `Current Month` navigation button"
+          },
+          {
+            "prop": "labelNextMonth",
+            "description": "Value of the `aria-label` and `title` attributes on the `Next Month` navigation button"
+          },
+          {
+            "prop": "labelNextYear",
+            "description": "Value of the `aria-label` and `title` attributes on the `Next Year` navigation button"
+          },
+          {
+            "prop": "labelSelected",
+            "description": "Value of the `aria-label` attribute set on the calendar grid date button that is selected"
+          },
+          {
+            "prop": "labelToday",
+            "description": "Value of the `aria-label` attribute for the calendar grid date button to signify that the date is today's date"
+          },
+          {
+            "prop": "labelNoDateSelected",
+            "description": "Label to use when no date is currently selected"
+          },
+          {
+            "prop": "labelCalendar",
+            "description": "Value of the `aria-label` and `role-description` attributes applied to the calendar grid"
+          },
+          {
+            "prop": "labelNav",
+            "description": "Value of the `aria-label` attribute on to the calendar navigation button wrapper"
+          },
+          {
+            "prop": "labelHelp",
+            "description": "Help text that appears at the bottom of the calendar grid"
+          }
+        ],
+        "events": [
+          {
+            "event": "input",
+            "description": "Emitted to when updating the v-model",
+            "args": [
+              {
+                "arg": "date",
+                "description": "Either a string in the format of `YYYY-MM-DD` or a `Date` object (if `value-as-date` prop is `true`)",
+                "type": [
+                  "String",
+                  "Date"
+                ]
+              }
+            ]
+          },
+          {
+            "event": "selected",
+            "description": "Emitted to when user has selected (clicked) a date. Note this event will also be emitted if the user clicks on the currently selected date",
+            "args": [
+              {
+                "arg": "ymd",
+                "description": "The selected date as a string in the format of `YYYY-MM-DD`",
+                "type": "String"
+              },
+              {
+                "arg": "date",
+                "description": "The selected date as a `Date` object",
+                "type": "Date"
+              }
+            ]
+          },
+          {
+            "event": "context",
+            "description": "Emitted to when when the user changes the active date via date navigation buttons or cursor control",
+            "args": [
+              {
+                "arg": "context",
+                "description": "The context object. See documentaion for details",
+                "type": [
+                  "Object"
+                ]
+              }
+            ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Used to place custom controls at the bottom of the calendar component"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -7,20 +7,23 @@ import { BreadcrumbPlugin } from './breadcrumb'
 import { ButtonPlugin } from './button'
 import { ButtonGroupPlugin } from './button-group'
 import { ButtonToolbarPlugin } from './button-toolbar'
+import { CalendarPlugin } from './calendar'
 import { CardPlugin } from './card'
 import { CarouselPlugin } from './carousel'
 import { CollapsePlugin } from './collapse'
 import { DropdownPlugin } from './dropdown'
 import { EmbedPlugin } from './embed'
 import { FormPlugin } from './form'
-import { FormGroupPlugin } from './form-group'
 import { FormCheckboxPlugin } from './form-checkbox'
-import { FormRadioPlugin } from './form-radio'
-import { FormTagsPlugin } from './form-tags'
-import { FormInputPlugin } from './form-input'
-import { FormTextareaPlugin } from './form-textarea'
+import { FormDatepickerPlugin } from './form-datepicker'
 import { FormFilePlugin } from './form-file'
+import { FormGroupPlugin } from './form-group'
+import { FormInputPlugin } from './form-input'
+import { FormRadioPlugin } from './form-radio'
 import { FormSelectPlugin } from './form-select'
+import { FormSpinbuttonPlugin } from './form-spinbutton'
+import { FormTagsPlugin } from './form-tags'
+import { FormTextareaPlugin } from './form-textarea'
 import { ImagePlugin } from './image'
 import { InputGroupPlugin } from './input-group'
 import { JumbotronPlugin } from './jumbotron'
@@ -51,20 +54,23 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     ButtonPlugin,
     ButtonGroupPlugin,
     ButtonToolbarPlugin,
+    CalendarPlugin,
     CardPlugin,
     CarouselPlugin,
     CollapsePlugin,
     DropdownPlugin,
     EmbedPlugin,
     FormPlugin,
-    FormGroupPlugin,
     FormCheckboxPlugin,
-    FormRadioPlugin,
+    FormDatepickerPlugin,
+    FormFilePlugin,
+    FormGroupPlugin,
     FormInputPlugin,
+    FormRadioPlugin,
+    FormSelectPlugin,
+    FormSpinbuttonPlugin,
     FormTagsPlugin,
     FormTextareaPlugin,
-    FormFilePlugin,
-    FormSelectPlugin,
     ImagePlugin,
     InputGroupPlugin,
     JumbotronPlugin,
