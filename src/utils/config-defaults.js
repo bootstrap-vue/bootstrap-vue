@@ -210,6 +210,7 @@ export default deepFreeze({
   },
   BTime: {
     labelNoTime: 'No time selected',
+    labelSelected: 'Selected time',
     labelHours: 'Hours',
     labelMinutes: 'Minutes',
     labelSeconds: 'Seconds',
