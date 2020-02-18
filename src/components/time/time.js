@@ -476,6 +476,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         staticClass: 'd-inline-flex align-items-center justify-content-center mx-auto',
         attrs: {
           role: 'application',
+          tabindex: '-1',
           'aria-labelledby': computedAriaLabelledby,
           // Prevent flex order from changing
           dir: 'ltr'
