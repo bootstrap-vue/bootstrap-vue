@@ -447,7 +447,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-time d-inline-flex flex-column text-center',
         style: {
           // This will be moved to custom SCSS
-          minWidth: '150px';
+          minWidth: '150px'
         },
         attrs: {
           role: 'group',
