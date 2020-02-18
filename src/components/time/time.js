@@ -504,7 +504,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           focus: this.focus
         }
       },
-      [h('bdi', this.formattedTimeString), this.computedHMS ? ` (${this.labelSeleced}) ` :  '']
+      [h('bdi', this.formattedTimeString), this.computedHMS ? ` (${this.labelSeleced}) ` : '']
     )
 
     return h(
