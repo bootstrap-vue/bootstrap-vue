@@ -116,6 +116,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    ariaLabel: {
+      type: String,
+      default: null
+    },
+    ariaControls: {
+      type: String,
+      default: null
+    },
     labelDecrement: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelDecrement')
