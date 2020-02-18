@@ -4,6 +4,7 @@ import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
+import { getComponentConfig } from '../../utils/config'
 import { createDate, createDateFormatter } from '../../utils/date'
 import { contains } from '../../utils/dom'
 import { isBoolean, isNull, isUndefinedOrNull } from '../../utils/inspect'
@@ -25,6 +26,11 @@ const NUMERIC = 'numeric'
 const RE_TIME = /^([0-1]?[0-9]|2[0-3]):[0-5]?[0-9](:[0-5]?[0-9])?$/
 
 // --- Helpers ---
+
+// Fallback to BFormSpinbutton prop if no value found
+const getConfigFallback = prop => {
+  return getComponentConfig(NAME, prop) || getComponentConfig('BFormSpinbutton', prop)
+}
 
 const padLeftZeros = num => {
   return `00${num || ''}`.slice(-2)
@@ -107,40 +113,42 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     },
     labelNoTime: {
       type: String,
-      default: 'No time selected'
+      default: () => getComponentConfig(NAME, 'labelNoTime')
     },
     labelHours: {
       type: String,
-      default: 'Hours'
+      default: () => getComponentConfig(NAME, 'labelHours')
     },
     labelMinutes: {
       type: String,
-      default: 'Minutes'
+      default: () => getComponentConfig(NAME, 'labelMinutes')
     },
     labelSeconds: {
       type: String,
-      default: 'Seconds'
+      default: () => getComponentConfig(NAME, 'labelSeconds')
     },
     labelAmpm: {
       type: String,
-      default: 'AM/PM'
+      default: () => getComponentConfig(NAME, 'labelAmpm')
     },
     labelAm: {
       type: String,
-      default: 'AM'
+      default: () => getComponentConfig(NAME, 'labelAm')
     },
     labelPm: {
       type: String,
-      default: 'PM'
+      default: () => getComponentConfig(NAME, 'labelPm')
     },
     // Passed to the spin buttons
     labelIncrement: {
       type: String,
-      default: 'Increment'
+      // Falls back to BFormSpinbutton label
+      default: () => getConfigFallback(NAME, 'labelIncrement')
     },
     labelDecrement: {
       type: String,
-      default: 'Decrement'
+      // Falls back to BFormSpinbutton label
+      default: () => getConfigFallback(NAME, 'labelDecrement')
     }
   },
   data() {
