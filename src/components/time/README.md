@@ -98,7 +98,29 @@ TBD
 
 ## Accessibility
 
-TBD
+`<b-time>` provides many accessibility features, such as `aria-live` regions, roles, aria labeling,
+shortcut keys and full keyboard navigation to work with most screen readers.
+
+Keyboard navigation:
+
+- <kbd>ArrowUp</kbd> Increments the currently selected spinbutton value
+- <kbd>ArrowDown</kbd> Deccrements the currently selected spinbutton value
+- <kbd>Home</kbd> Sets the selected spinbutton to the minimum value
+- <kbd>End</kbd> Sets the selected spinbutton to the maximum value
+- <kbd>PageUp</kbd> Increases the selected spinbutton value by the spinbutton's step amount times the
+  `repeat-step-multiplier` amount
+- <kbd>PageDown</kbd> Decreases the selected spinbutton value by the spinbutton's step amount times
+  the `repeat-step-multiplier` amount
+- <kbd>ArrowRight</kbd> Moves focus to the next spin button in the component
+- <kbd>ArrowLeft</kbd> Moves focus to the previous spin button in the component
+
+Several of the `label-*` props are not visible on screen, but are used to label various
+elements within the calendar for screen reader users. e.g. the `label-selected` prop is added
+to the elemnt that disaplays the seleted value.
+
+When internationalizing the datepicker, it is important to also update the `label-*` props with
+appropriate translated strings, so that international screen reader users will hear the correct
+prompts and descriptions.
 
 ## Implementation notes
 
