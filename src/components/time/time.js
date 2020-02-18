@@ -512,7 +512,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           minWidth: '150px'
         },
         attrs: {
-          role: 'group',
+          role: 'application',
           tabindex: '-1',
           'aria-labeledby': computedAriaLabelledby || null,
           'aria-disabled': this.disabled ? 'true' : null,
