@@ -328,7 +328,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       if (!this.disabled) {
         try {
           // We focus the first spin button
-          this.refs.hours.focus()
+          this.$refs.hours.focus()
         } catch {}
       }
     },
