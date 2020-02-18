@@ -3,13 +3,15 @@ import Vue from '../../utils/vue'
 // Utilities
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
+import { concat } from '../../utils/array'
+import { contains } from '../../dom'
 import { isBoolean, isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 // Mixins
 import idMixin from '../../mixin/id'
 // Sub components used
-import { BFormSpinnbutton } from '../form-spinbutton/form-spinbutton'
+import { BFormSpinbutton } from '../form-spinbutton/form-spinbutton'
 import { BIconCircleFill } from '../../icons/icons'
 
 // --- Constants ---
@@ -29,7 +31,7 @@ const parseHMS = hms => {
   hms = toString(hms)
   let [hh, mm, ss] = [null, null, null]
   if (RE_TIME.test(hms)) {
-    [hh, mm, ss] = hms.split(':').map(toInteger).map(v => (isNaN(v) ? null : v))
+    ;[hh, mm, ss] = hms.split(':').map(toInteger).map(v => (isNaN(v) ? null : v))
   }
   return {
     hours: isUndefinedOrNull(hh) ? null : hh,
@@ -39,7 +41,7 @@ const parseHMS = hms => {
   }
 }
 
-const formatHMS = ({hours, minutes, seconds}, requireSeconds = false) => {
+const formatHMS = ({ hours, minutes, seconds }, requireSeconds = false) => {
   if (isNull(hours) || isNull(minutes) || (requireSeconds && isNull(seconds))) {
     return ''
   }
@@ -50,11 +52,11 @@ const formatHMS = ({hours, minutes, seconds}, requireSeconds = false) => {
 // @vue/component
 export const BTime = /*#__PURE__*/ Vue.extend({
   name: NAME,
+  mixins: [idMixin],
   model: {
     prop: 'value',
     event: 'input'
   },
-  mixins: [idMixin],
   props: {
     value: {
       type: String,
@@ -112,7 +114,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     }
   },
   data() {
-  const parsed = parseHMS(this.value || '')
+    const parsed = parseHMS(this.value || '')
     return {
       // Spin button models
       modelHours: parsed.hours,
@@ -140,8 +142,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         // Force 12 or 24 hour clock
         options.hour12 = this.hour12
       }
-      const dtf = new Intl(locales, options)
-      const resolved = dft.resolvedOptions()
+      const dtf = new Intl(locale, options)
+      const resolved = dtf.resolvedOptions()
       return {
         locale: resolved.locale,
         hour12: resolved.hour12,
@@ -168,7 +170,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       return !this.is24Hour
     },
     valueId() {
-      this.safeId() || null
+      return this.safeId() || null
     },
     computedAriaLabelledby() {
       return [this.ariaLabelledby, this.valueId].filter(identity).join(' ') || null
@@ -187,12 +189,12 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       }
       // Formats the time as a localized string
       const dtf = new Intl.DateTimeFormat(this.computedLocale, options)
-      return dft.format
+      return dtf.format
     },
     numberFormatter() {
       // Returns a formatter function reference. The formatter
       // always formats as 2 digits and is locallized
-      const nf = new Ints.NumberFormat(this.computedLocale, {
+      const nf = new Intl.NumberFormat(this.computedLocale, {
         style: 'decimal',
         minimumIntegerDigits: 2,
         minimumFractionDigits: 0,
@@ -221,7 +223,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       }
     },
     modelAmpm(newVal, oldVal) {
-      if (newValue !== oldValue) {
+      if (newVal !== oldVal) {
         // TBD: handle adjusting the hour value if AMPM changes
         // if (newVal === 0 && this.modelHours > 12) {
         //   this.modelHours = this.modelHours - 12
@@ -241,9 +243,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       const hours = this.modelHours
       const minutes = this.modelMinutes
       const seconds = this.modelSeconds
-      const hms = formatHMS({ hours, minutes, seconds}, this.showSeconds)
+      const hms = formatHMS({ hours, minutes, seconds }, this.showSeconds)
       if (!hms) {
-        return this.labelNoTime|| ' '
+        return this.labelNoTime || ' '
       }
       const date = new Date(Date.UTC(0, 0, 1, hours, minutes, seconds || 0))
       return this.formatterTime(date)
@@ -253,11 +255,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       const hourCycle = this.computedHourCycle
       // We always store 0-23, but format based on h11/h12/h23/h24 formats
       hh = this.is12Hour && hh > 12 ? hh - 12 : hh
-      hh = hh === 0 && hourCycle === 'h12'
-        ? 12
-        : hh === 0 && hourCycle === 'h24'
-          ? 24 
-          : hh
+      hh = hh === 0 && hourCycle === 'h12' ? 12: hh === 0 && hourCycle === 'h24' ? 24 : hh
       return this.numberFormatter(hh)
     },
     formatMinutes(mm) {
@@ -307,7 +305,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     const computedAriaLabelledby = this.computedAriaLabelledby
 
     // Helper method to render a spinbutton
-    const makeSpinner = (handler, refKey, classes, spinnerProps = {}) => {
+    const makeSpinbutton = (handler, refKey, classes, spinnerProps = {}) => {
       const { value, max, formatFn, step = 1, ariaLabel = null } = spinnerProps
       return h(BFormSpinbutton, {
         key: refKey,
@@ -325,7 +323,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           value,
           formatFn,
           ariaLabel,
-          ariaControls: valueId,
+          ariaControls: valueId
         },
         on: {
           // We use `change` event to minimize SR verbosity
@@ -356,7 +354,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
 
     // Hours
     $spinners.push(
-      makeSpinButton(this.setHours, 'hours', '', {
+      makeSpinbutton(this.setHours, 'hours', '', {
         value: this.hours,
         max: 23,
         formatFn: this.formatHours,
@@ -369,7 +367,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
 
     // Minutes
     $spinners.push(
-      makeSpinButton(this.setMinutes, 'minutes', '', {
+      makeSpinbutton(this.setMinutes, 'minutes', '', {
         value: this.minutes,
         max: 59,
         step: this.minutesStep || 1,
@@ -383,7 +381,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       $spinners.push(makeColon())
       // Seconds
       $spinners.push(
-        makeSpinButton(this.setSeconds, 'seconds', '', {
+        makeSpinbutton(this.setSeconds, 'seconds', '', {
           value: this.minutes,
           max: 59,
           step: this.secondsStep || 1,
@@ -396,7 +394,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     // AM/PM ?
     if (this.is12hour) {
       $spinners.push(
-        makeSpinButton(this.setAmPm, 'ampm', 'ml-2', {
+        makeSpinbutton(this.setAmPm, 'ampm', 'ml-2', {
           value: this.ampm,
           max: 1,
           formatFn: this.formatAmPm,
@@ -411,7 +409,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'd-inline-flex align-items-center',
         attrs: {
-          role: group,
+          role: 'group',
           'aria-labelledby': computedAriaLabelledby,
           // Prevent flex order from changing
           dir: 'ltr'
