@@ -270,10 +270,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       if (newVal !== oldVal) {
         const hours = isNull(this.modelHours) ? 0 : this.modelHours
         this.$nextTick(() => {
-          if (newVal === 0 && hours > 12) {
+          if (newVal === 0 && hours > 11) {
             // Switched to AM
             this.modelHours = hours - 12
-          } else if (newVal === 1 && hours < 13) {
+          } else if (newVal === 1 && hours < 12) {
             // Switched to PM
             this.modelHours = hours + 12
           }
