@@ -420,6 +420,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         'div',
         {
           staticClass: 'd-flex flex-column',
+          class: {
+            'text-muted': this.disabled || this.readonly
+          },
           attrs: { 'aria-hidden': 'true' }
         },
         [
