@@ -478,13 +478,14 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'd-inline-flex align-items-center justify-content-center mx-auto',
         attrs: {
-          role: 'application',
+          role: 'group',
           tabindex: this.disabled || this.readonly ? null : '-1',
           'aria-labelledby': computedAriaLabelledby,
           // Prevent flex order from changing
           dir: 'ltr'
         },
         on: {
+          // keydown: this.onLeftRight,
           click: this.focus,
           focus: this.focus
         }
