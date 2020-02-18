@@ -19,6 +19,8 @@ import { BIconCircleFill } from '../../icons/icons'
 
 const NAME = 'BTime'
 
+const NUMERIC = 'numeric'
+
 // Time string RegExpr (optional seconds)
 const RE_TIME = /^([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/
 
@@ -67,7 +69,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       default: ''
     },
     showSeconds: {
-      //
+      // If true, show the second spinbutton
       type: Boolean,
       default: false
     },
@@ -142,9 +144,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       // Resolved locale options
       const locale = concat(this.locale).filter(identity)
       const options = {
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric'
+        hour: NUMERIC,
+        minute: NUMERIC,
+        second: NUMERIC
       }
       if (isBoolean(this.hour12)) {
         // Force 12 or 24 hour clock
@@ -197,16 +199,15 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     timeFormatter() {
       // Returns a formatter function reference. The formatter
       // converts the time to a localalized string
-      const numeric = 'numeric'
       const options = {
         hour12: this.is12Hour,
         hourCycle: this.computedHourCycle,
-        hour: numeric,
-        minute: numeric,
+        hour: NUMERIC,
+        minute: NUMERIC,
         timeZone: 'UTC'
       }
       if (this.showSeconds) {
-        options.seconds = numeric
+        options.second = NUMERIC
       }
       // Formats the time as a localized string
       return createDateFormatter(this.computedLocale, options)
