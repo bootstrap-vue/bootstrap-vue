@@ -6,6 +6,8 @@ import looseEqual from '../../utils/loose-equal'
 import { isBoolean, isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
+// Mixins
+import idMixin from '../../mixin/id'
 // Sub components used
 import { BFormSpinnbutton } from '../form-spinbutton/form-spinbutton'
 import { BIconCircleFill } from '../../icons/icons'
@@ -52,6 +54,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     prop: 'value',
     event: 'input'
   },
+  mixins: [idMixin],
   props: {
     value: {
       type: String,
@@ -67,6 +70,11 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       // to use resolved locale for 12/24 hour display
       // Tri-state: `true` = 12, `false` = 24, `null` = auto
       type: Boolean,
+      default: null
+    },
+    ariaLabelledby: {
+      // ID of label element
+      type: String,
       default: null
     },
     secondsStep: {
@@ -158,6 +166,12 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     },
     is12Hour() {
       return !this.is24Hour
+    },
+    valueId() {
+      this.safeId()
+    },
+    computedAriaLabelledby() {
+      return [this.ariaLabelledby, this.valueId].filter(identity).join(' ')
     },
     timeFormatter() {
       // Returns a formatter function reference. The formatter
@@ -289,7 +303,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const valueId = this.safeId()
+    const valueId = this.valueId
+
     // Helper method to render a spinbutton
     const makeSpinner = (handler, refKey, classes, spinnerProps = {}) => {
       const { value, max, formatFn, step = 1, ariaLabel = null } = spinnerProps
@@ -327,7 +342,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         'div',
         {
           staticClass: 'd-flex flex-column',
-          attrs { 'aria-hidden': true }
+          attrs: { 'aria-hidden': 'true' }
         },
         [
           h(BIconCircleFill, { props: { shiftV: 4, scale: 0.5 } }),
