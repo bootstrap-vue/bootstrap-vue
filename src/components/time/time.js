@@ -256,13 +256,15 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     },
     modelAmpm(newVal, oldVal) {
       if (newVal !== oldVal) {
-        if (newVal === 0 && this.modelHours > 12) {
-          // Switched to AM
-          this.modelHours = this.modelHours - 12
-        } else if (newVal === 1 && this.modelHours < 11) {
-          // Switched to PM
-          this.modelHours = this.modelHours + 12
-        }
+        this.$nextTick(() => {
+          if (newVal === 0 && this.modelHours > 12) {
+            // Switched to AM
+            this.modelHours = this.modelHours - 12
+          } else if (newVal === 1 && this.modelHours < 11) {
+            // Switched to PM
+            this.modelHours = this.modelHours + 12
+          }
+        })
       }
     },
     modelHours(newHours, oldHours) {
@@ -465,7 +467,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           focus: this.focus
         }
       },
-      [h('div', this.formattedTimeString)]
+      [h('bdi', this.formattedTimeString)]
     )
 
     return h(
