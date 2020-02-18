@@ -9,7 +9,7 @@ import { isBoolean, isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 // Mixins
-import idMixin from '../../mixin/id'
+import idMixin from '../../mixins/id'
 // Sub components used
 import { BFormSpinbutton } from '../form-spinbutton/form-spinbutton'
 import { BIconCircleFill } from '../../icons/icons'
