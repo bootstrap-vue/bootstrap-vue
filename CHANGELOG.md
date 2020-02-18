@@ -4,6 +4,36 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.5.0"></a>
+
+## [v2.5.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.4.2...v2.5.0)
+
+Released: 2020-02-18
+
+### Features v2.5.0
+
+- **b-calendar, b-form-datepicker:** new components `b-calendar` and `b-form-datepicker` (closes
+  [#3676](https://github.com/bootstrap-vue/bootstrap-vue/issues/3676),
+  [#1428](https://github.com/bootstrap-vue/bootstrap-vue/issues/1428))
+  ([#4712](https://github.com/bootstrap-vue/bootstrap-vue/issues/4712))
+  ([af0ded0](https://github.com/bootstrap-vue/bootstrap-vue/commit/af0ded0a3bdc9d69653e9c55f874d550e4909662))
+- **b-form-spinbutton:** new form control component `b-form-spinbutton`
+  ([#4744](https://github.com/bootstrap-vue/bootstrap-vue/issues/4744))
+  ([da5e473](https://github.com/bootstrap-vue/bootstrap-vue/commit/da5e473bee8866f2940e027e5e7e87e3a2ff8f11))
+- **v-b-hover:** new directive for reacting to hover changes
+  ([#4771](https://github.com/bootstrap-vue/bootstrap-vue/issues/4771))
+  ([b7adc6d](https://github.com/bootstrap-vue/bootstrap-vue/commit/b7adc6dc726f75c0578b3de5208f112bef58b4ad))
+
+### Bug Fixes v2.5.0
+
+- **b-form-tags:** improve accessibility for screen reader users
+  ([#4775](https://github.com/bootstrap-vue/bootstrap-vue/issues/4775))
+  ([2328630](https://github.com/bootstrap-vue/bootstrap-vue/commit/2328630542defc395912165a964a95107f8a4ba9))
+- **b-modal:** additional fixes for show transition behaviour (closes
+  [#4761](https://github.com/bootstrap-vue/bootstrap-vue/issues/4761))
+  ([#4777](https://github.com/bootstrap-vue/bootstrap-vue/issues/4777))
+  ([1113c6f](https://github.com/bootstrap-vue/bootstrap-vue/commit/1113c6f951d86b7e6e6ba2161f935d2b6e0b5ce8))
+
 <a name="2.4.2"></a>
 
 ## [v2.4.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.4.1...v2.4.2)
