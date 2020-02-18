@@ -24,6 +24,7 @@ import { FormSelectPlugin } from './form-select'
 import { FormSpinbuttonPlugin } from './form-spinbutton'
 import { FormTagsPlugin } from './form-tags'
 import { FormTextareaPlugin } from './form-textarea'
+import { FormTimepickerPlugin } from './form-timepicker'
 import { ImagePlugin } from './image'
 import { InputGroupPlugin } from './input-group'
 import { JumbotronPlugin } from './jumbotron'
@@ -72,6 +73,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     FormSpinbuttonPlugin,
     FormTagsPlugin,
     FormTextareaPlugin,
+    FormTimepickerPlugin,
     ImagePlugin,
     InputGroupPlugin,
     JumbotronPlugin,
