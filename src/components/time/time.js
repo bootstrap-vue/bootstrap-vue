@@ -476,7 +476,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         staticClass: 'd-inline-flex align-items-center justify-content-center mx-auto',
         attrs: {
           role: 'application',
-          tabindex: '-1',
+          tabindex: this.disabled || this.readonly ? null : '-1',
           'aria-labelledby': computedAriaLabelledby,
           // Prevent flex order from changing
           dir: 'ltr'
@@ -496,7 +496,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: valueId,
           role: 'status',
-          tabindex: '-1',
+          tabindex: this.disabled || this.readonly ? null : '-1',
           dir: 'auto',
           'aria-live': 'polite',
           'aria-atomic': 'true'
@@ -518,12 +518,12 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'b-time d-inline-flex flex-column text-center',
         style: {
-          // This will be moved to custom SCSS
+          // This will be moved to custom SCSS and set as `em` width
           minWidth: '150px'
         },
         attrs: {
           role: 'group',
-          tabindex: '-1',
+          tabindex: this.disabled ? null : '-1',
           'aria-labeledby': computedAriaLabelledby || null,
           'aria-disabled': this.disabled ? 'true' : null,
           'aria-readonly': this.readonly && !this.diabled ? 'true' : null
