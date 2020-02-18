@@ -393,7 +393,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     $spinners = h(
       'div',
       {
-        staticClass: 'd-inline-flex align-items-stretch',
+        staticClass: 'd-inline-flex align-items-center',
         attrs: {
           role: group,
           'aria-labelledby': idValue,
