@@ -411,7 +411,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         staticClass: 'd-inline-flex align-items-center',
         attrs: {
           role: group,
-          'aria-labelledby': idValue,
+          'aria-labelledby': this.computedAriaLabelledby,
           // Prevent flex order from changing
           dir: 'ltr'
         }
@@ -451,7 +451,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         attrs: {
           role: 'group',
           tabindex: '-1',
-          `aria-labeledby': valueId
+          `aria-labeledby': this.computedAriaLabelledby || null
         }
       },
       [$value, $spinners]
