@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Tags",
-    "new": true,
     "version": "2.2.0",
     "description": "Lightweight custom tagged input form control, with options for customized interface rendering, duplicate tag detection and optional tag validation",
     "components": [
