@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
-import { BFormTimepciker } from './form-timepiker'
+import { BFormTimepicker } from './form-timepicker'
 
 //  Note that JSDOM only supports `en-US` (`en`) locale for Intl
 
