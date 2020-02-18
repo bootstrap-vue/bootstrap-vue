@@ -116,6 +116,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    ariaLabel: {
+      type: String,
+      default: null
+    },
+    ariaControls: {
+      type: String,
+      default: null
+    },
     labelDecrement: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelDecrement')
@@ -350,7 +358,13 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       }
     },
     handleStepRepeat(evt, stepper) {
+      const { type, button } = evt || {}
       if (!this.disabled && !this.readonly) {
+        /* istanbul ignore if */
+        if (type === 'mousedown' && button) {
+          // We only respond to left (main === 0) button clicks
+          return
+        }
         this.resetTimers()
         // Enable body mouseup event handler
         this.setMouseup(true)
@@ -374,8 +388,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         }, delay)
       }
     },
-    onMouseup() {
+    onMouseup(evt) {
       // `<body>` listener, only enabled when mousedown starts
+      const { type, button } = evt || {}
+      /* istanbul ignore if */
+      if (type === 'mouseup' && button) {
+        // we only care about left (main === 0) mouse button click
+        return
+      }
       this.resetTimers()
       this.setMouseup(false)
       // Trigger the change event
