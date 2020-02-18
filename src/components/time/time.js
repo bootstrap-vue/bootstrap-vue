@@ -113,6 +113,18 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       type: String,
       default: 'Seconds'
     },
+    labelAmpm: {
+      type: String,
+      default: 'AM/PM'
+    },
+    labelAm: {
+      type: String,
+      default: 'AM'
+    },
+    labelPm: {
+      type: String,
+      default: 'PM'
+    },
     // Passed to the spin buttons
     labelIncrement: {
       type: String,
@@ -296,7 +308,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     formatAmpm(ampm) {
       // These should come from label props???
       // `ampm` should always be a value of `0` or `1`
-      return ampm === 0 ? 'AM' : ampm === 1 ? 'PM' : ''
+      return ampm === 0 ? this.labelAm : ampm === 1 ? this.labelPm : ''
     },
     // Spinbutton on change handlers
     setHours(value) {
@@ -421,12 +433,15 @@ export const BTime = /*#__PURE__*/ Vue.extend({
 
     // AM/PM ?
     if (this.is12Hour) {
+      // TODO:
+      //   If locale is RTL, unshift this instead of push
+      //   and switch class `ml-2` to `mr-2`
       $spinners.push(
         makeSpinbutton(this.setAmPm, 'ampm', 'ml-2', {
           value: this.modelAmpm,
           max: 1,
           formatterFn: this.formatAmpm,
-          ariaLabel: 'AM/PM'
+          ariaLabel: this.labelAmpm
         })
       )
     }
