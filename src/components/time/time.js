@@ -38,7 +38,7 @@ const parseHMS = hms => {
 }
 
 const formatHMS = ({hours, minutes, seconds}, requireSeconds = false) => {
-  if (isNull(hours) || isNull(minutes) || (requireSeconds && isNull(seconds)) {
+  if (isNull(hours) || isNull(minutes) || (requireSeconds && isNull(seconds))) {
     return ''
   }
   const hms = [hours, minutes, requireSeconds ? seconds : 0]
