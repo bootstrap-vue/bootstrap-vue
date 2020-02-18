@@ -314,6 +314,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           placeholder: '--',
           vertical: true,
           required: true,
+          disabled: this.disabled || this.readonly,
           locale: this.computedLocale,
           labelIncrement: this.labelIncrement,
           labelDecrement: this.labelDecrement,
@@ -354,7 +355,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       makeSpinbutton(this.setHours, 'hours', '', {
         value: this.modelHours,
         max: 23,
-        ste: 1,
+        step: 1,
         formatterFn: this.formatHours,
         ariaLabel: this.labelHours
       })
@@ -405,7 +406,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     $spinners = h(
       'div',
       {
-        staticClass: 'd-inline-flex align-items-center',
+        staticClass: 'd-inline-flex align-items-center justify-content-center mx-auto',
         attrs: {
           role: 'group',
           'aria-labelledby': computedAriaLabelledby,
@@ -420,8 +421,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     const $value = h(
       'output',
       {
-        staticClass: 'border rounded mb-2',
-        class: {},
+        staticClass: 'border rounded mb-2 p-1 small text-center w-100',
+        class: {
+          'text-muted': this.disabled
+        },
         attrs: {
           id: valueId,
           role: 'status',
@@ -435,13 +438,13 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           focus: this.focus
         }
       },
-      this.formattedTimeString
+      [h('div', this.formattedTimeString)]
     )
 
     return h(
       'div',
       {
-        staticClass: 'b-time d-inline-flex flex-column',
+        staticClass: 'b-time d-inline-flex flex-column text-center',
         attrs: {
           role: 'group',
           tabindex: '-1',
