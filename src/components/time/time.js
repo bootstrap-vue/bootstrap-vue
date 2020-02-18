@@ -437,7 +437,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       //   If locale is RTL, unshift this instead of push
       //   and switch class `ml-2` to `mr-2`
       $spinners.push(
-        makeSpinbutton(this.setAmPm, 'ampm', 'ml-2', {
+        makeSpinbutton(this.setAmpm, 'ampm', 'ml-2', {
           value: this.modelAmpm,
           max: 1,
           formatterFn: this.formatAmpm,
