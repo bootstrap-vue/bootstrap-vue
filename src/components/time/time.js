@@ -48,6 +48,10 @@ const formatHMS = ({hours, minutes, seconds}, requireSeconds = false) => {
 // @vue/component
 export const BTime = /*#__PURE__*/ Vue.extend({
   name: NAME,
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
   props: {
     value: {
       type: String,
@@ -195,6 +199,11 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         this.modelMinutes = minutes
         this.modelSeconds = seconds
         this.modelAmpm = ampm
+      }
+    },
+    computedHMS(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$emit('input', newVal)
       }
     },
     modelAmpm(newVal, oldVal) {
