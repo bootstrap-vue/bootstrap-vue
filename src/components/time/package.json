@@ -36,6 +36,10 @@
             "description": "Step value for the minutes spinbutton. Should be a value evenly divided into 60"
           },
           {
+            "prop": "labelNoTime",
+            "description": "String to show when no time is selected"
+          },
+          {
             "prop": "labelIncrement",
             "description": "Value of the `aria-label` attribute on the spinbuttons `+` button"
           },
