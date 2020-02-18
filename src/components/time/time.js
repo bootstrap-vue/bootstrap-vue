@@ -423,7 +423,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       // Seconds
       $spinners.push(
         makeSpinbutton(this.setSeconds, 'seconds', '', {
-          value: this.modelMinutes,
+          value: this.modelSeconds,
           max: 59,
           step: this.secondsStep || 1,
           formatterFn: this.formatSeconds,
