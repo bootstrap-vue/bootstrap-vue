@@ -76,7 +76,8 @@ describe('time', () => {
   it('has expected structure when prop `show-seconds` is `true`', async () => {
     const wrapper = mount(BTime, {
       propsData: {
-        showSeconds: true
+        showSeconds: true,
+        value: '01:02:03'
       }
     })
 
