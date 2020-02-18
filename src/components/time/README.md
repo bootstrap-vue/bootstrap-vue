@@ -102,6 +102,8 @@ TBD
 
 ## Implementation notes
 
+The `<b-time>` component is based upon the custom BootstrapVue component `<b-form-spinbutton>`.
+
 TBD
 
 ## See also
