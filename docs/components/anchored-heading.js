@@ -18,7 +18,7 @@ export default {
       'b-link',
       {
         staticClass: 'anchorjs-link',
-        props: { to: { hash: `#${props.id}` }},
+        props: { to: { hash: `#${props.id}` } },
         attrs: {
           'aria-labelledby': props.id || null,
           'aria-label': props.id ? null : 'Anchor'
