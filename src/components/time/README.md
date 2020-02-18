@@ -59,6 +59,12 @@ TBD
 
 ## Styling
 
+## Enabling of seconds input
+
+TBD
+
+## Forcing 12 or 24 hour interface
+
 TBD
 
 ### Hiding the top selected date header
