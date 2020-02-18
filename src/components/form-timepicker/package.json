@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/form-timepicker",
   "version": "1.0.0",
   "meta": {
-    "title": "Form timepicker",
+    "title": "Form Timepicker",
     "description": "Custom time picker component",
     "new": true,
     "version": "2.6.0",
