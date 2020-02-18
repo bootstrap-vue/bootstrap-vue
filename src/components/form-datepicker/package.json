@@ -6,7 +6,6 @@
     "version": "2.5.0",
     "slug": "form-datepicker",
     "new": true,
-    "beta": true,
     "description": "BootstrapVue custom date picker input form control, which provides full WAI-ARIA compliance and supports internationalization",
     "components": [
       {
