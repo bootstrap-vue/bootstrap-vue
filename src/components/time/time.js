@@ -315,6 +315,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           vertical: true,
           required: true,
           locale: this.computedLocale,
+          labelIncrement: this.labelIncrement,
+          labelDecrement: this.labelDecrement,
           wrap: true,
           ariaControls: valueId,
           min: 0,
