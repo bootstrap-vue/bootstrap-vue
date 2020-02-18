@@ -4,7 +4,7 @@ import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
-import { contains } from '../../dom'
+import { contains } from '../../utls/dom'
 import { isBoolean, isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
@@ -31,7 +31,10 @@ const parseHMS = hms => {
   hms = toString(hms)
   let [hh, mm, ss] = [null, null, null]
   if (RE_TIME.test(hms)) {
-    ;[hh, mm, ss] = hms.split(':').map(toInteger).map(v => (isNaN(v) ? null : v))
+    ;[hh, mm, ss] = hms
+      .split(':')
+      .map(toInteger)
+      .map(v => (isNaN(v) ? null : v))
   }
   return {
     hours: isUndefinedOrNull(hh) ? null : hh,
@@ -255,7 +258,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       const hourCycle = this.computedHourCycle
       // We always store 0-23, but format based on h11/h12/h23/h24 formats
       hh = this.is12Hour && hh > 12 ? hh - 12 : hh
-      hh = hh === 0 && hourCycle === 'h12' ? 12: hh === 0 && hourCycle === 'h24' ? 24 : hh
+      hh = hh === 0 && hourCycle === 'h12' ? 12 : hh === 0 && hourCycle === 'h24' ? 24 : hh
       return this.numberFormatter(hh)
     },
     formatMinutes(mm) {
