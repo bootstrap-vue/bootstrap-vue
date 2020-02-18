@@ -41,7 +41,7 @@ describe('time', () => {
     wrapper.destroy()
   })
 
-  it('has expected structure when `hour12` is `true` supplied', async () => {
+  it('has expected structure when prop `hour12` is `true`', async () => {
     const wrapper = mount(BTime, {
       propsData: {
         hour12: true
@@ -57,7 +57,7 @@ describe('time', () => {
     wrapper.destroy()
   })
 
-  it('has expected structure when `hour12` is `false` supplied', async () => {
+  it('has expected structure when prop `hour12` is `false`', async () => {
     const wrapper = mount(BTime, {
       propsData: {
         hour12: false
@@ -65,6 +65,48 @@ describe('time', () => {
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    // TBD
+
+    wrapper.destroy()
+  })
+
+  it('has expected structure when prop `show-seconds` is `true`', async () => {
+    const wrapper = mount(BTime, {
+      propsData: {
+        showSeconds: true
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    // TBD
+
+    wrapper.destroy()
+  })
+
+  it('blur and focus methods work', async () => {
+    const wrapper = mount(BTime, {
+      attachToDocument: true
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    // TBD
+
+    wrapper.vm.focus()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    // TBD
+    
+    wrapper.vm.blur()
     await waitNT(wrapper.vm)
     await waitRAF()
 
