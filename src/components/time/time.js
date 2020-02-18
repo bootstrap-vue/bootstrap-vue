@@ -509,7 +509,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       },
       [
         h('bdi', this.formattedTimeString),
-        this.computedHMS ? h('span', { staticClass: 'sr-only' }, ` (${this.labelSeleced}) `) : ''
+        this.computedHMS ? h('span', { staticClass: 'sr-only' }, ` (${this.labelSelected}) `) : ''
       ]
     )
 
