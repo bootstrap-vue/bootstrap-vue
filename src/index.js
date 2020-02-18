@@ -279,6 +279,10 @@ export { TabsPlugin } from './components/tabs'
 export { BTabs } from './components/tabs/tabs'
 export { BTab } from './components/tabs/tab'
 
+// export * from './components/time'
+export { TimePlugin } from './components/time'
+export { BTime } from './components/time/time'
+
 // export * from './components/toast'
 export { ToastPlugin } from './components/toast'
 export { BToast } from './components/toast/toast'
