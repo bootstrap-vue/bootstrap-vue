@@ -155,7 +155,7 @@ describe('time', () => {
     await waitRAF()
 
     expect(wrapper.emitted('input').length).toBe(5)
-    expect(wrapper.emitted('input')[5][0]).toBe('01:01:01')
+    expect(wrapper.emitted('input')[4][0]).toBe('01:01:01')
 
     wrapper.destroy()
   })
