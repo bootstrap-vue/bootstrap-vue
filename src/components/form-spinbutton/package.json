@@ -67,6 +67,14 @@
             "description": "When set, renders the component with a vertical layout"
           },
           {
+            "prop": "ariaLabel",
+            "description": "Value to place in the `aria-label` attribute of the spinbutton"
+          },
+          {
+            "prop": "ariaControls",
+            "description": "If this component controls another component or element, set this to the ID of the controlled component or element"
+          },
+          {
             "prop": "labelIncrement",
             "description": "Text to be used for the `aria-label` attribute on the increment button"
           },
