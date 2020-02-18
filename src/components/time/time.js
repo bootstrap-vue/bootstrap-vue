@@ -305,8 +305,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     const computedAriaLabelledby = this.computedAriaLabelledby
 
     // Helper method to render a spinbutton
-    const makeSpinbutton = (handler, refKey, classes, spinnerProps = {}) => {
-      const { value, max, formatterFn, step = 1, ariaLabel = null } = spinnerProps
+    const makeSpinbutton = (handler, refKey, classes, spinbuttonProps = {}) => {
+      const { value, max, formatterFn, step = 1, ariaLabel = null } = spinbuttonProps
       return h(BFormSpinbutton, {
         key: refKey,
         ref: refKey,
@@ -385,7 +385,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           value: this.minutes,
           max: 59,
           step: this.secondsStep || 1,
-          formatterFn: this.formatHours,
+          formatterFn: this.formatSeconds,
           ariaLabel: this.labelSeconds
         })
       )
@@ -397,7 +397,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         makeSpinbutton(this.setAmPm, 'ampm', 'ml-2', {
           value: this.ampm,
           max: 1,
-          formatterFn: this.formatAmPm,
+          formatterFn: this.formatAmpm,
           ariaLabel: 'AM/PM'
         })
       )
