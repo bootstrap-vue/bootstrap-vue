@@ -474,6 +474,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           id: valueId,
           role: 'status',
           tabindex: '-1',
+          dir: 'auto',
           'aria-live': 'polite',
           'aria-atomic': 'true'
         },
