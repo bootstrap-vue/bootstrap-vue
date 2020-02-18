@@ -115,6 +115,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       type: String,
       default: () => getComponentConfig(NAME, 'labelNoTime')
     },
+    labelSelect: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'labelSelect')
+    },
     labelHours: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelHours')
@@ -500,7 +504,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           focus: this.focus
         }
       },
-      [h('bdi', this.formattedTimeString)]
+      [h('bdi', this.formattedTimeString), this.computedHMS ? ` (${this.labelSeleced}) ` :  '']
     )
 
     return h(
