@@ -306,7 +306,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
 
     // Helper method to render a spinbutton
     const makeSpinbutton = (handler, refKey, classes, spinnerProps = {}) => {
-      const { value, max, formatFn, step = 1, ariaLabel = null } = spinnerProps
+      const { value, max, formatterFn, step = 1, ariaLabel = null } = spinnerProps
       return h(BFormSpinbutton, {
         key: refKey,
         ref: refKey,
