@@ -183,6 +183,10 @@ export { BFormSpinbutton } from './components/form-spinbutton/form-spinbutton'
 export { FormTextareaPlugin } from './components/form-textarea'
 export { BFormTextarea } from './components/form-textarea/form-textarea'
 
+// export * from './components/form-timepicker'
+export { FormTimepickerPlugin } from './components/form-timepicker'
+export { BFormTimepicker } from './components/form-timepicker/form-timepicker'
+
 // export * from './components/image'
 export { ImagePlugin } from './components/image'
 export { BImg } from './components/image/img'
