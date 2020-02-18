@@ -48,7 +48,7 @@ The component `<b-time>` was introduced in BootstrapVue `v2.6.0`.
 
 ## `v-model` return value
 
-`<b-time>` always returns a string in hte format of `HH:mm:ss` which is the same format returned by
+`<b-time>` always returns a string in the format of `HH:mm:ss` which is the same format returned by
 native browser `<input type="time">` controls.
 
 If no time is selected, then `<b- time>` returns an empty string (`''`).
