@@ -184,7 +184,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         hour12: this.is12Hour,
         hours: this.modelHours,
         minutes: this.modelMinutes,
-        seconds: this.modelSeconds
+        seconds: this.modelSeconds,
+        value: this.computedHMS
       }
     },
     valueId() {
