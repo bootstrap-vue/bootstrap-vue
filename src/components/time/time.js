@@ -421,7 +421,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     const $value = h(
       'output',
       {
-        staticClass: 'border rounded mb-2 p-1 small text-center w-100',
+        staticClass: 'border rounded mb-2 p-1 small text-center',
         class: {
           'text-muted': this.disabled
         },
@@ -445,6 +445,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'b-time d-inline-flex flex-column text-center',
+        style: {
+          // This will be moved to custom SCSS
+          minWidth: '150px';
+        },
         attrs: {
           role: 'group',
           tabindex: '-1',
