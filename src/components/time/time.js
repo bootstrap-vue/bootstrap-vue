@@ -79,7 +79,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       default: null
     },
     locale: {
-      type: [string, Array],
+      type: [String, Array],
       default: null
     },
     ariaLabelledby: {
