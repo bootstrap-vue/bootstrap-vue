@@ -321,7 +321,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           max,
           step,
           value,
-          formatFn,
+          formatterFn,
           ariaLabel,
           ariaControls: valueId
         },
@@ -357,7 +357,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       makeSpinbutton(this.setHours, 'hours', '', {
         value: this.hours,
         max: 23,
-        formatFn: this.formatHours,
+        formatterFn: this.formatHours,
         ariaLabel: this.labelHours
       })
     )
@@ -371,7 +371,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         value: this.minutes,
         max: 59,
         step: this.minutesStep || 1,
-        formatFn: this.formatMinutes,
+        formatterFn: this.formatMinutes,
         ariaLabel: this.labelMinutes
       })
     )
@@ -385,7 +385,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           value: this.minutes,
           max: 59,
           step: this.secondsStep || 1,
-          formatFn: this.formatHours,
+          formatterFn: this.formatHours,
           ariaLabel: this.labelSeconds
         })
       )
@@ -397,7 +397,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         makeSpinbutton(this.setAmPm, 'ampm', 'ml-2', {
           value: this.ampm,
           max: 1,
-          formatFn: this.formatAmPm,
+          formatterFn: this.formatAmPm,
           ariaLabel: 'AM/PM'
         })
       )
