@@ -214,7 +214,7 @@ export default deepFreeze({
     labelHours: 'Hours',
     labelMinutes: 'Minutes',
     labelSeconds: 'Seconds',
-    labelAmpm: 'A.M./P.M.',
+    labelAmpm: 'AM/PM',
     labelAm: 'A.M.',
     labelPm: 'P.M.',
     // The following inherit from BFormSpinbutton if not provided
