@@ -2,7 +2,7 @@
 import Vue from '../../utils/vue'
 // Utilities
 import identity from '../../utils/identity'
-// import KeyCodes from '../../utils/key-codes'
+import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -23,7 +23,7 @@ const NAME = 'BTime'
 
 const NUMERIC = 'numeric'
 
-// const { LEFT, RIGHT } = KeyCodes
+const { LEFT, RIGHT } = KeyCodes
 
 // Time string RegExpr (optional seconds)
 const RE_TIME = /^([0-1]?[0-9]|2[0-3]):[0-5]?[0-9](:[0-5]?[0-9])?$/
@@ -347,11 +347,26 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     setAmpm(value) {
       this.modelAmpm = value
     },
+    onSpinLeftRight(evt = {}) {
+      const { type, keyCode } = evt
+      if (!this.disabled && type === 'keydown' && (keyCode === LEFT || keyCode === RIGHT)) {
+        evt.preventDefault()
+        evt.stopPropagation()
+        const spinners = this.$refs.spinners || []
+        let index = spinners.map(cmp => !!cmp.hasFocus).indexOf(true)
+        index = index + (keyCode === LEFT ? -1 : 1)
+        index = index >= spinners.length ? 0 : index < 0 ? spinners.length - 1 : index
+        try {
+          spinners[index].focus()
+        } catch {}
+      }
+    },
+    // Public methods
     focus() {
       if (!this.disabled) {
         try {
           // We focus the first spin button
-          this.$refs.hours.focus()
+          this.$refs.spinners[0].focus()
         } catch {}
       }
     },
@@ -370,10 +385,11 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     const computedAriaLabelledby = this.computedAriaLabelledby
 
     // Helper method to render a spinbutton
-    const makeSpinbutton = (handler, refKey, classes, spinbuttonProps = {}) => {
+    const makeSpinbutton = (handler, key, classes, spinbuttonProps = {}) => {
       return h(BFormSpinbutton, {
-        key: refKey,
-        ref: refKey,
+        key: key,
+        ref: 'spinners',
+        refInFor: true,
         class: classes,
         props: {
           placeholder: '--',
@@ -476,7 +492,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     $spinners = h(
       'div',
       {
-        staticClass: 'd-inline-flex align-items-center justify-content-center mx-auto',
+        staticClass: 'd-flex align-items-center justify-content-center mx-auto',
         attrs: {
           role: 'group',
           tabindex: this.disabled || this.readonly ? null : '-1',
@@ -485,7 +501,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           dir: 'ltr'
         },
         on: {
-          // keydown: this.onLeftRight,
+          keydown: this.onSpinLeftRight
         }
       },
       $spinners
@@ -530,6 +546,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         attrs: {
           role: 'group',
           tabindex: this.disabled ? null : '-1',
+          lang: this.comoutedLocale || null,
           'aria-labeledby': computedAriaLabelledby || null,
           'aria-disabled': this.disabled ? 'true' : null,
           'aria-readonly': this.readonly && !this.diabled ? 'true' : null
