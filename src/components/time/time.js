@@ -239,9 +239,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       const hourCycle = this.computedHourCycle
       // We always store 0-23, but format based on h11/h12/h23/h24 formats
       hh = this.is12Hour && hh > 12 ? hh - 12 : hh
-      hh = hh === 0 && hourCycle = 'h12'
+      hh = hh === 0 && hourCycle === 'h12'
         ? 12
-        : hh === 0 && hourCycle = 'h24'
+        : hh === 0 && hourCycle === 'h24'
           ? 24 
           : hh
       return this.numberFormatter(hh)
