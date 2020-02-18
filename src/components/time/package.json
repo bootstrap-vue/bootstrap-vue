@@ -21,7 +21,7 @@
           },
           {
             "prop": "hour12",
-            "description": "tri-state prop. If `true` forces the interface to 12 hour format. If `false` forces the interface into 24 hour format. If `null` the current locale will determine the 12 or 24 hour interface (default)"
+            "description": "Tri-state prop. If `true` forces the interface to 12 hour format. If `false` forces the interface into 24 hour format. If `null` the current locale will determine the 12 or 24 hour interface (default)"
           },
           {
             "prop": "locale",
