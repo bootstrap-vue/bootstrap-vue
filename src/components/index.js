@@ -42,6 +42,7 @@ import { SpinnerPlugin } from './spinner'
 // Table plugin includes TableLitePlugin and TableSimplePlugin
 import { TablePlugin } from './table'
 import { TabsPlugin } from './tabs'
+import { TimePlugin } from './time'
 import { ToastPlugin } from './toast'
 import { TooltipPlugin } from './tooltip'
 
@@ -88,6 +89,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     SpinnerPlugin,
     TablePlugin,
     TabsPlugin,
+    TimePlugin,
     ToastPlugin,
     TooltipPlugin
   }
