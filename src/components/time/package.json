@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "meta": {
     "title": "Time",
-    "version": "2.5.0",
+    "version": "2.6.0",
     "new": true,
     "description": "A custom time input widget that can be used to control other components.",
     "components": [
       {
         "component": "BTime",
-        "version": "2.5.0",
+        "version": "2.6.0",
         "props": [
           {
             "prop": "value",
