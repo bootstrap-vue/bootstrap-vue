@@ -73,16 +73,20 @@
             "event": "input",
             "description": "Event that updates the v-model",
             "args": [
-              "arg": "value",
-              "description": "The selected time as an `HH:mm:ss` string. Will be an empty string if no time selected"
+              {
+                "arg": "value",
+                "description": "The selected time as an `HH:mm:ss` string. Will be an empty string if no time selected"
+              }
             ]
           },
           {
             "event": "context",
             "description": "Emitted whenever the internal model state, or locale, updates. Also emitted when the compoent is initially created",
             "args": [
-              "arg": "context",
-              "description": "The contet object. Refer to the docs for details"
+              {
+                "arg": "context",
+                "description": "The contet object. Refer to the docs for details"
+              }
             ]
           }
         ]
