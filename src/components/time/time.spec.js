@@ -188,4 +188,77 @@ describe('time', () => {
 
     wrapper.destroy()
   })
+
+  it('arrow left/right moves focus', async () => {
+    const wrapper = mount(BTime, {
+      attachToDocument: true,
+      propsData: {
+        showSeconds: true,
+        value: '00:00:00',
+        // force to 12 hour mode
+        hour12: true
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $spinners = wrapper.findAll('[role="spinbutton"]')
+    expect($spinners.length).toBe(4)
+
+    const $hours = $spinners.at(0)
+    const $minutes = $spinners.at(1)
+    const $seconds = $spinners.at(2)
+    const $ampm = $spinners.at(3)
+
+    expect(document.activeElement).not.toBe($hours.element)
+    expect(document.activeElement).not.toBe($minutes.element)
+    expect(document.activeElement).not.toBe($seconds.element)
+    expect(document.activeElement).not.toBe($ampm.element)
+
+    wrapper.vm.focus()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).toBe($hours.element)
+
+    $hours.trigger('keydown.right')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).toBe($minutes.element)
+
+    $minutes.trigger('keydown.right')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).toBe($seconds.element)
+
+    $seconds.trigger('keydown.right')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).toBe($ampm.element)
+
+    $ampm.trigger('keydown.right')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).toBe($hours.element)
+
+    $hours.trigger('keydown.left')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).toBe($ampm.element)
+
+    $ampm.trigger('keydown.left')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).toBe($seconds.element)
+
+    wrapper.destroy()
+  })
 })
