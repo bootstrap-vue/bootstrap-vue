@@ -208,6 +208,18 @@ export default deepFreeze({
     headVariant: null,
     footVariant: null
   },
+  BTime: {
+    labelNoTime: 'No time selected',
+    labelHours: 'Hours',
+    labelMinutes: 'Minutes',
+    labelSeconds: 'Seconds',
+    labelAmpm: 'AM/PM',
+    labelAm: 'AM',
+    labelPm: 'PM',
+    // The following inherit from BFormSpinbutton if not provided
+    labelIncrement: null,
+    labelDecrement: null
+  },
   BToast: {
     toaster: 'b-toaster-top-right',
     autoHideDelay: 5000,
