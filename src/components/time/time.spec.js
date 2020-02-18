@@ -90,6 +90,76 @@ describe('time', () => {
     wrapper.destroy()
   })
 
+  it('spin buttons work', async () => {
+    const wrapper = mount(BTime, {
+      propsData: {
+        showSeconds: true,
+        value: '00:00:00',
+        // force to 12 hour mode
+        hour12: true
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.emitted('input')).not.toBeDefined()
+
+    const $spinners = wrapper.findAll('[role="spinbutton"]')
+    expect($spinners.length).toBe(4)
+
+    const $hours = $spinners.at(0)
+    const $minutes = $spinners.at(1)
+    const $seconds = $spinners.at(2)
+    const $ampm = $spinners.at(3)
+
+    $hours.trigger('keydown.up')
+    $hours.trigger('keyup.up')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toBe('01:00:00')
+
+    $minutes.trigger('keydown.up')
+    $minutes.trigger('keyup.up')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.emitted('input')[1][0]).toBe('01:01:00')
+
+    $seconds.trigger('keydown.up')
+    $seconds.trigger('keyup.up')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.emitted('input').length).toBe(3)
+    expect(wrapper.emitted('input')[2][0]).toBe('01:01:01')
+
+    $ampm.trigger('keydown.up')
+    $ampm.trigger('keyup.up')
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.emitted('input').length).toBe(4)
+    expect(wrapper.emitted('input')[3][0]).toBe('13:01:01')
+
+    $ampm.trigger('keydown.up')
+    $ampm.trigger('keyup.up')
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.emitted('input').length).toBe(5)
+    expect(wrapper.emitted('input')[5][0]).toBe('01:01:01')
+
+    wrapper.destroy()
+  })
+
   it('blur and focus methods work', async () => {
     const wrapper = mount(BTime, {
       attachToDocument: true
