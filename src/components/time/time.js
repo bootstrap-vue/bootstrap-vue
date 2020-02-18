@@ -168,10 +168,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       return !this.is24Hour
     },
     valueId() {
-      this.safeId()
+      this.safeId() || null
     },
     computedAriaLabelledby() {
-      return [this.ariaLabelledby, this.valueId].filter(identity).join(' ')
+      return [this.ariaLabelledby, this.valueId].filter(identity).join(' ') || null
     },
     timeFormatter() {
       // Returns a formatter function reference. The formatter
@@ -304,6 +304,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const valueId = this.valueId
+    const computedAriaLabelledby = this.computedAriaLabelledby
 
     // Helper method to render a spinbutton
     const makeSpinner = (handler, refKey, classes, spinnerProps = {}) => {
@@ -411,7 +412,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         staticClass: 'd-inline-flex align-items-center',
         attrs: {
           role: group,
-          'aria-labelledby': this.computedAriaLabelledby,
+          'aria-labelledby': computedAriaLabelledby,
           // Prevent flex order from changing
           dir: 'ltr'
         }
@@ -451,7 +452,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         attrs: {
           role: 'group',
           tabindex: '-1',
-          `aria-labeledby': this.computedAriaLabelledby || null
+          'aria-labeledby': computedAriaLabelledby || null
         }
       },
       [$value, $spinners]
