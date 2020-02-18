@@ -391,7 +391,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     }
 
     // AM/PM ?
-    if (this.is12hour) {
+    if (this.is12Hour) {
       $spinners.push(
         makeSpinbutton(this.setAmPm, 'ampm', 'ml-2', {
           value: this.modelAmpm,
