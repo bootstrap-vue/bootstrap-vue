@@ -86,7 +86,7 @@ renderer.heading = function(text, level, raw, slugger) {
 
   const anchor =
     ANCHOR_LINK_HEADING_LEVELS.indexOf(level) !== -1
-      ? `<a class="anchorjs-link" href="#${link}" aria-label="Anchor"></a>`
+      ? `<a class="anchorjs-link" href="#${link}" aria-labelledby="${link}"></a>`
       : ''
   const attrs = `id="${link}" class="bv-no-focus-ring"`
   return `<h${level} ${attrs}>${getTextMarkup(text + anchor)}</h${level}>\n`
