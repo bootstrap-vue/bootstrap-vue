@@ -254,9 +254,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     },
     formatAmpm(ampm) {
       // These should come from label props???
-      // ampm should always be a value of `0` or `1`
-      return ampm === 0 ? 'AM' : (ampm === 1 ? : 'PM') : ''
-    }
+      // `ampm` should always be a value of `0` or `1`
+      return ampm === 0 ? 'AM' : ampm === 1 ? 'PM' : ''
+    },
     // Spinbutton on change handlers
     setHours(value) {
       this.modelHours = value
