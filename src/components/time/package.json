@@ -40,6 +40,10 @@
             "description": "String to show when no time is selected"
           },
           {
+            "prop": "labelSelected",
+            "description": "Hidden sr-only string when a time is selected"
+          },
+          {
             "prop": "labelIncrement",
             "description": "Value of the `aria-label` attribute on the spinbuttons `+` button"
           },
