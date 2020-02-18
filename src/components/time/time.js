@@ -306,7 +306,6 @@ export const BTime = /*#__PURE__*/ Vue.extend({
 
     // Helper method to render a spinbutton
     const makeSpinbutton = (handler, refKey, classes, spinbuttonProps = {}) => {
-      const { value, max, formatterFn, step = 1, ariaLabel = null } = spinbuttonProps
       return h(BFormSpinbutton, {
         key: refKey,
         ref: refKey,
@@ -317,13 +316,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           required: true,
           locale: this.computedLocale,
           wrap: true,
+          ariaControls: valueId,
           min: 0,
-          max,
-          step,
-          value,
-          formatterFn,
-          ariaLabel,
-          ariaControls: valueId
+          ...spinbuttonProps
         },
         on: {
           // We use `change` event to minimize SR verbosity
@@ -355,8 +350,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     // Hours
     $spinners.push(
       makeSpinbutton(this.setHours, 'hours', '', {
-        value: this.hours,
+        value: this.modelHours,
         max: 23,
+        ste: 1,
         formatterFn: this.formatHours,
         ariaLabel: this.labelHours
       })
@@ -368,7 +364,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     // Minutes
     $spinners.push(
       makeSpinbutton(this.setMinutes, 'minutes', '', {
-        value: this.minutes,
+        value: this.modelMinutes,
         max: 59,
         step: this.minutesStep || 1,
         formatterFn: this.formatMinutes,
@@ -382,7 +378,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       // Seconds
       $spinners.push(
         makeSpinbutton(this.setSeconds, 'seconds', '', {
-          value: this.minutes,
+          value: this.modelMinutes,
           max: 59,
           step: this.secondsStep || 1,
           formatterFn: this.formatSeconds,
@@ -395,7 +391,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     if (this.is12hour) {
       $spinners.push(
         makeSpinbutton(this.setAmPm, 'ampm', 'ml-2', {
-          value: this.ampm,
+          value: this.modelAmpm,
           max: 1,
           formatterFn: this.formatAmpm,
           ariaLabel: 'AM/PM'
