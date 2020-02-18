@@ -177,6 +177,16 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     is12Hour() {
       return !this.is24Hour
     },
+    context() {
+      return {
+        locale: this.computedLocale,
+        hourCycle: this.computedHourCycle,
+        hour12: this.is12Hour,
+        hours: this.modelHours,
+        minutes: this.modelMinutes,
+        seconds: this.modelSeconds
+      }
+    },
     valueId() {
       return this.safeId() || null
     },
@@ -237,6 +247,11 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         this.$emit('input', newVal)
       }
     },
+    context(newVal, oldVal) {
+      if (!looseEqual(newVal, oldVal)) {
+        this.$emit('context', newVal)
+      }
+    },
     modelAmpm(newVal, oldVal) {
       if (newVal !== oldVal) {
         if (newVal === 0 && this.modelHours > 12) {
@@ -253,6 +268,11 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         this.modelAmpm = newHours > 11 ? 1 : 0
       }
     }
+  },
+  created() {
+    this.$nextTick(() => {
+      this.$emit('context', this.context)
+    })
   },
   methods: {
     // Formatters for the spin buttons
