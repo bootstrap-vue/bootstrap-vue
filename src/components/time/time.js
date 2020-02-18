@@ -486,8 +486,6 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         },
         on: {
           // keydown: this.onLeftRight,
-          click: this.focus,
-          focus: this.focus
         }
       },
       $spinners
