@@ -386,7 +386,6 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     // Footer buttons
     let $controls = []
 
-    /* istanbul ignore if: until tests written */
     if (this.nowButton) {
       const label = this.labelNowButton
       $controls.push(
@@ -402,7 +401,6 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       )
     }
 
-    /* istanbul ignore if: until tests written */
     if (this.resetButton) {
       const label = this.labelResetButton
       $controls.push(
