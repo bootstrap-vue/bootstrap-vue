@@ -48,10 +48,6 @@ const propsMixin = {
       type: Boolean,
       default: false
     },
-    showSeconds: {
-      type: Boolean,
-      default: false
-    },
     required: {
       // If true adds the `aria-required` attribute
       type: Boolean,
@@ -70,13 +66,30 @@ const propsMixin = {
       type: Boolean,
       default: null
     },
-    hideHeader: {
+    hour12: {
+      // Tri-state prop: `true` => 12 hour, `false` => 24 hour, `null` => auto
       type: Boolean,
-      default: false
+      default: null
     },
     locale: {
       type: [String, Array],
       default: null
+    },
+    showSeconds: {
+      type: Boolean,
+      default: false
+    },
+    hideHeader: {
+      type: Boolean,
+      default: false
+    },
+    secondsStep: {
+      type: [Number, String],
+      default: 1
+    },
+    minutesStep: {
+      type: [Number, String],
+      default: 1
     },
     nowButton: {
       type: Boolean,
@@ -108,13 +121,46 @@ const propsMixin = {
     },
     labelCloseButton: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelCloseButton') || 'Close'
+      default: () => getComponentConfig(NAME, 'labelCloseButton')
     },
     closeButtonVariant: {
       type: String,
       default: 'outline-secondary'
     },
     // Labels
+    // These fallback to BTime values
+    labelNoTime: {
+      type: String,
+      default: () => getConfigFallback('labelNoTime')
+    },
+    labelSelected: {
+      type: String,
+      default: () => getConfigFallback('labelSelected')
+    },
+    labelHours: {
+      type: String,
+      default: () => getConfigFallback('labelHours')
+    },
+    labelMinutes: {
+      type: String,
+      default: () => getConfigFallback('labelMinutes')
+    },
+    labelSeconds: {
+      type: String,
+      default: () => getConfigFallback('labelSeconds')
+    },
+    labelAmpm: {
+      type: String,
+      default: () => getConfigFallback('labelAmpm')
+    },
+    labelAm: {
+      type: String,
+      default: () => getConfigFallback('labelAm')
+    },
+    labelPm: {
+      type: String,
+      default: () => getConfigFallback('labelPm')
+    },
     // These pick BTime or BFormSpinbutton global config if no BFormTimepicker global config
     labelIncrement: {
       type: String,
@@ -123,13 +169,7 @@ const propsMixin = {
     labelDecrement: {
       type: String,
       default: () => getConfigFallback('labelDecrement')
-    },
-    // Thes only fallback to BTime values
-    labelNoTime: {
-      type: String,
-      default: () => getConfigFallback('labelNoTime')
     }
-    // TODO: add remaining props
   }
 }
 
@@ -168,18 +208,27 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       const idLabel = this.safeId('_value_')
       const idWrapper = this.safeId('_b-form-time_')
       return {
+        hidden: !this.visible,
         ariaControls: [idLabel, idWrapper].filter(identity).join(' ') || null,
         value: this.localHMS,
-        hidden: !this.visible,
         readonly: this.readonly,
         disabled: this.disabled,
         locale: this.locale,
+        hour12: this.hour12,
         hideHeader: this.hideHeader,
         showSeconds: this.showSeconds,
+        secondsStep: this.secondsStep,
+        minutesStep: this.minutesStep,
+        labelNoTime: this.labelNoTime,
+        labelSelected: this.labelSelected,
+        labelHours: this.labelHours,
+        labelMinutes: this.labelMinutes,
+        labelSeconds: this.labelSeconds,
+        labelAmpm: this.labelAmpm,
+        labelAm: this.labelAm,
+        labelPm: this.labelPm,
         labelIncrement: this.labelIncrement,
         labelDecrement: this.labelDecrement,
-        labelNoTime: this.labelNoTime
-        // TODO: Add remaining label props here
       }
     }
   },
