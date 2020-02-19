@@ -519,7 +519,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     const $value = h(
       'output',
       {
-        staticClass: 'border rounded p-1 small text-center',
+        staticClass: 'border rounded d-block p-1 small text-center',
         class: {
           disabled: this.disabled || this.readonly
         },
