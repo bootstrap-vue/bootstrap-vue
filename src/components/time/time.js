@@ -114,6 +114,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    hideHeader: {
+      type: Boolean,
+      default: false
+    },
     labelNoTime: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelNoTime')
@@ -514,7 +518,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     const $value = h(
       'output',
       {
-        staticClass: 'border rounded mb-2 p-1 small text-center',
+        staticClass: 'border rounded p-1 small text-center',
         class: {
           disabled: this.disabled || this.readonly
         },
@@ -537,6 +541,11 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         this.computedHMS ? h('span', { staticClass: 'sr-only' }, ` (${this.labelSelected}) `) : ''
       ]
     )
+    const $header = h(
+      'header',
+      { class: { 'sr-only': this.hideHeader, 'mb-2': !this.hideHeader } },
+      [$value]
+    )
 
     return h(
       'div',
@@ -548,14 +557,13 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         },
         attrs: {
           role: 'group',
-          tabindex: this.disabled ? null : '-1',
-          lang: this.comoutedLocale || null,
+          lang: this.computedLocale || null,
           'aria-labeledby': computedAriaLabelledby || null,
           'aria-disabled': this.disabled ? 'true' : null,
           'aria-readonly': this.readonly && !this.diabled ? 'true' : null
         }
       },
-      [$value, $spinners]
+      [$header, $spinners]
     )
   }
 })
