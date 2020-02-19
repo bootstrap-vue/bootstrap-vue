@@ -162,6 +162,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       type: String,
       // Falls back to BFormSpinbutton label
       default: () => getConfigFallback('labelDecrement')
+    },
+    hidden: {
+      type: Boolean,
+      defaut: false
     }
   },
   data() {
@@ -392,6 +396,12 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    /* istanbul ignore if */
+    if (this.hidden) {
+      // If hidden, we just render a placeholder comment
+      return h()
+    }
+
     const valueId = this.valueId
     const computedAriaLabelledby = this.computedAriaLabelledby
 
