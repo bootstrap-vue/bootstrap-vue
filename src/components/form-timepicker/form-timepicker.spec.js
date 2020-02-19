@@ -21,6 +21,7 @@ describe('form-timepicker', () => {
     const wrapper = mount(BFormTimepicker, {
       propsData: {
         showSeconds: true,
+        name: 'foobar',
         value: '01:02:03'
       }
     })
