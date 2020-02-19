@@ -163,7 +163,6 @@ describe('form-spinbutton', () => {
     // These two attribute should not exist on the element
     expect($output.element.hasAttribute('aria-valuenow')).toBe(false)
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
-    expect($output.find('div').exists()).toBe(true)
 
     wrapper.destroy()
   })
@@ -214,7 +213,6 @@ describe('form-spinbutton', () => {
     // These two attribute should not exist on the element
     expect($output.element.hasAttribute('aria-valuenow')).toBe(false)
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
-    expect($output.find('div').exists()).toBe(true)
 
     wrapper.destroy()
   })
