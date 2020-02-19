@@ -390,7 +390,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     }
     let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
       this.hasNormalizedSlot('button-content')
-        ? this.normalizeSlot('button-content')(btnScope)
+        ? this.normalizeSlot('button-content', btnScope)
         : defaultButtonFn(btnScope)
     ])
     $button = h(
