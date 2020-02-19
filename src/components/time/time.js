@@ -568,7 +568,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           'aria-readonly': this.readonly && !this.diabled ? 'true' : null
         }
       },
-      [$header, $spinners]
+      [$header, $spinners, $slot]
     )
   }
 })
