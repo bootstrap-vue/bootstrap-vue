@@ -410,32 +410,36 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       )
     }
 
-    const closeLabel = this.labelCloseButton
-    $controls.push(
-      h(
-        BButton,
-        {
-          props: { size: 'sm', disabled: this.disabled, variant: this.closeButtonVariant },
-          attrs: { 'aria-label': closeLabel || null },
-          on: { click: this.onCloseButton }
-        },
-        closeLabel
+    if (!this.noCloseButton) {
+      const closeLabel = this.labelCloseButton
+      $controls.push(
+        h(
+          BButton,
+          {
+            props: { size: 'sm', disabled: this.disabled, variant: this.closeButtonVariant },
+            attrs: { 'aria-label': closeLabel || null },
+            on: { click: this.onCloseButton }
+          },
+          closeLabel
+        )
       )
-    )
+    }
 
-    $controls = [
-      h(
-        'div',
-        {
-          staticClass: 'b-form-date-controls d-flex flex-wrap',
-          class: {
-            'justify-content-between': $controls.length > 1,
-            'justify-content-end': $controls.length < 2
-          }
-        },
-        $controls
-      )
-    ]
+    if ($controls.length > 0) {
+      $controls = [
+        h(
+          'div',
+          {
+            staticClass: 'b-form-date-controls d-flex flex-wrap',
+            class: {
+              'justify-content-between': $controls.length > 1,
+              'justify-content-end': $controls.length < 2
+            }
+          },
+          $controls
+        )
+      ]
+    }
 
     const $time = h(
       BTime,
