@@ -123,6 +123,11 @@ const propsMixin = {
     labelDecrement: {
       type: String,
       default: () => getConfigFallback('labelPrevMonth')
+    },
+    // Thes only fallback to BTime values
+    labelNoTime: {
+      type: String,
+      default: () => getConfigFallback('labelNoTime')
     }
     // TODO: add remaining props
   }
@@ -172,7 +177,8 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         hideHeader: this.hideHeader,
         showSeconds: this.showSeconds,
         labelIncrement: this.labelIncrement,
-        labelDecrement: this.labelDecrement
+        labelDecrement: this.labelDecrement,
+        labelNoTime: this.labelNoTime
         // TODO: Add remaining label props here
       }
     }
