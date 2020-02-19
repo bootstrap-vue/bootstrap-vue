@@ -20,6 +20,7 @@ import {
 } from '../../utils/date'
 import { requestAF } from '../../utils/dom'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
+import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
@@ -33,37 +34,6 @@ const NAME = 'BCalendar'
 
 // Key Codes
 const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
-
-// Languages that are RTL
-const RTL_LANGS = [
-  'ar',
-  'az',
-  'ckb',
-  'fa',
-  'he',
-  'ks',
-  'lrc',
-  'mzn',
-  'ps',
-  'sd',
-  'te',
-  'ug',
-  'ur',
-  'yi'
-].map(locale => locale.toLowerCase())
-
-// --- Helper utilities ---
-
-export const isLocaleRTL = locale => {
-  // Determines if the locale is RTL (only single locale supported)
-  const parts = toString(locale)
-    .toLowerCase()
-    .replace(/-u-.+/, '')
-    .split('-')
-  const locale1 = parts.slice(0, 2).join('-')
-  const locale2 = parts[0]
-  return arrayIncludes(RTL_LANGS, locale1) || arrayIncludes(RTL_LANGS, locale2)
-}
 
 // --- BCalendar component ---
 
