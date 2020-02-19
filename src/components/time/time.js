@@ -155,12 +155,12 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     labelIncrement: {
       type: String,
       // Falls back to BFormSpinbutton label
-      default: () => getConfigFallback(NAME, 'labelIncrement')
+      default: () => getConfigFallback('labelIncrement')
     },
     labelDecrement: {
       type: String,
       // Falls back to BFormSpinbutton label
-      default: () => getConfigFallback(NAME, 'labelDecrement')
+      default: () => getConfigFallback('labelDecrement')
     }
   },
   data() {
