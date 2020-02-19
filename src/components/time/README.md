@@ -55,28 +55,91 @@ If no time is selected, then `<b-time>` returns an empty string (`''`).
 
 ## Disabled and readonly states
 
-TBD
+Setting the `disabled` prop will remove all interactivity of the `<b-time>` component. Setting the
+`readonly` prop will disable selecting a time, but will keep the spinbuttons focusable.
+
+```html
+<template>
+  <div>
+    <b-form-group label="Select time interactive state">
+      <b-form-radio-group v-model="state" aria-controls="ex-disabled-readonly">
+        <b-form-radio value="disabled">Disabled</b-form-radio>
+        <b-form-radio value="readonly">Readonly</b-form-radio>
+        <b-form-radio value="normal">Normal</b-form-radio>
+      </b-form-radio-group>
+    </b-form-group>
+    <b-time id="ex-disabled-readonly" :disabled="disabled" :readonly="readonly"></b-time>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        state: 'disabled'
+      }
+    },
+    computed: {
+      disabled() {
+        return this.state === 'disabled'
+      },
+      readonly() {
+        return this.state === 'readonly'
+      }
+    }
+  }
+</script>
+
+<!-- b-time-disabled-readonly.vue -->
+```
 
 ## Styling
 
-### Enabling of seconds input
+### Enabling of seconds spinbutton
 
 By default, the seconds spinbutton is not shown. To enable the section of seconds, set the `show-seconds`
 prop to `true` to enable the seconds selection spinbutton. When `show-seconds` is `false` (or not
 provided), the returned value will always have the seconds portion of the time string set to `00`.
 
-TBD
+```html
+<template>
+  <b-time v-model="value" show-seconds locale="en-GB"></b-time>
+  <div class="mt-2">{{ value }}</div>
+</template>
 
-### Hiding the top selected date header
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    }
+  }
+</script>
 
-TBD
+<!-- b-time-show-seconds.vue -->
+```
+
+### Hiding the top selected time header
+
+By default, the current selected time will be displayed at the top of the time component, formatted in
+the locale's language.
+
+You can hide this header via the `hide-header` prop. Note this only visually hides the selected time,
+while keeping it available to screen reader users as an `aria-live` region.
 
 ### Border and padding
 
 Fancy a time control with a border with padding? Use Bootstrap's border and padding utility classes
 to add borders and padding:
 
-TBD
+```html
+<template>
+  <b-time class="border rounded p-2" locale="en"></b-time>
+</template>
+
+<!-- b-time-border-padding.vue -->
+```
 
 ### Default slot
 
@@ -144,8 +207,6 @@ To force a 24-hour user inteface, set the prop `hour12` to `false`. The default 
 `null` which uses the browser locale (or the locale resoved from the `locale` prop) to determine
 which interface to use.
 
-TBD
-
 ## Accessibility
 
 `<b-time>` provides many accessibility features, such as `aria-live` regions, roles, aria labeling,
@@ -157,10 +218,9 @@ Keyboard navigation:
 - <kbd>ArrowDown</kbd> Deccrements the currently selected spinbutton value
 - <kbd>Home</kbd> Sets the selected spinbutton to the minimum value
 - <kbd>End</kbd> Sets the selected spinbutton to the maximum value
-- <kbd>PageUp</kbd> Increases the selected spinbutton value by the spinbutton's step amount times the
-  `repeat-step-multiplier` amount
-- <kbd>PageDown</kbd> Decreases the selected spinbutton value by the spinbutton's step amount times
-  the `repeat-step-multiplier` amount
+- <kbd>PageUp</kbd> Increases the selected spinbutton value by the spinbutton's step by a larger value
+- <kbd>PageDown</kbd> Decreases the selected spinbutton value by the spinbutton's step by a larger
+  value
 - <kbd>ArrowRight</kbd> Moves focus to the next spin button in the component
 - <kbd>ArrowLeft</kbd> Moves focus to the previous spin button in the component
 
