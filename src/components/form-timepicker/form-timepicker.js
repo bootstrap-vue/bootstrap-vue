@@ -174,7 +174,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         labelIncrement: this.labelIncrement,
         labelDecrement: this.labelDecrement
         // TODO: Add remaining label props here
-      }      
+      }
     }
   },
   watch: {
@@ -183,7 +183,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     },
     localHMS(newVal) {
       this.$emit('input', newVal || '')
-    },
+    }
   },
   mounted() {
     this.$on('shown', () => {
@@ -402,7 +402,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         staticClass: 'dropdown-menu p-2',
         class: {
           show: this.visible,
-          'dropdown-menu-right': this.right,
+          'dropdown-menu-right': this.right
         },
         attrs: {
           id: idMenu,
