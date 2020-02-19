@@ -204,31 +204,34 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
   computed: {
     timeProps() {
       // Props we pass to BTime
+      // Use self for better minification, as `this` won't
+      // minimize and we reference it a lot below
+      const self = this
       // TODO: Make the ID's computed props
-      const idLabel = this.safeId('_value_')
-      const idWrapper = this.safeId('_b-form-time_')
+      const idLabel = self.safeId('_value_')
+      const idWrapper = self.safeId('_b-form-time_')
       return {
-        hidden: !this.visible,
+        hidden: !self.visible,
         ariaControls: [idLabel, idWrapper].filter(identity).join(' ') || null,
-        value: this.localHMS,
-        readonly: this.readonly,
-        disabled: this.disabled,
-        locale: this.locale,
-        hour12: this.hour12,
-        hideHeader: this.hideHeader,
-        showSeconds: this.showSeconds,
-        secondsStep: this.secondsStep,
-        minutesStep: this.minutesStep,
-        labelNoTime: this.labelNoTime,
-        labelSelected: this.labelSelected,
-        labelHours: this.labelHours,
-        labelMinutes: this.labelMinutes,
-        labelSeconds: this.labelSeconds,
-        labelAmpm: this.labelAmpm,
-        labelAm: this.labelAm,
-        labelPm: this.labelPm,
-        labelIncrement: this.labelIncrement,
-        labelDecrement: this.labelDecrement,
+        value: self.localHMS,
+        readonly: self.readonly,
+        disabled: self.disabled,
+        locale: self.locale,
+        hour12: self.hour12,
+        hideHeader: self.hideHeader,
+        showSeconds: self.showSeconds,
+        secondsStep: self.secondsStep,
+        minutesStep: self.minutesStep,
+        labelNoTime: self.labelNoTime,
+        labelSelected: self.labelSelected,
+        labelHours: self.labelHours,
+        labelMinutes: self.labelMinutes,
+        labelSeconds: self.labelSeconds,
+        labelAmpm: self.labelAmpm,
+        labelAm: self.labelAm,
+        labelPm: self.labelPm,
+        labelIncrement: self.labelIncrement,
+        labelDecrement: self.labelDecrement
       }
     }
   },
@@ -299,16 +302,21 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
   render(h) {
     const size = this.size
     const state = this.state
+    const visible = this.visible
     const localHMS = this.localHMS
     const disabled = this.disabled
     const readonly = this.readonly
+    const required = this.required
+    const hasFocus = this.hasFocus
+    const isHovered = this.isHovered
+    // These should be computed props?
     const idButton = this.safeId()
     const idLabel = this.safeId('_value_')
     const idMenu = this.safeId('_dialog_')
     const idWrapper = this.safeId('_b-form-time_')
 
     let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
-      this.isHovered || this.hasFocus
+      isHovered || hasFocus
         ? h(BIconClockFill, { props: { scale: 1.25 } })
         : h(BIconClock, { props: { scale: 1.25 } })
     ])
@@ -323,9 +331,9 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
           type: 'button',
           disabled: disabled,
           'aria-haspopup': 'dialog',
-          'aria-expanded': this.visible ? 'true' : 'false',
+          'aria-expanded': visible ? 'true' : 'false',
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null
+          'aria-required': required ? 'true' : null
         },
         on: {
           mousedown: this.onMousedown,
@@ -357,7 +365,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
           dir: this.isRTL ? 'rtl' : 'ltr',
           lang: this.localLocale || null,
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null
+          'aria-required': required ? 'true' : null
         },
         on: {
           // Disable bubbling of the click event to
@@ -369,7 +377,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       },
       [
         // Add the formatted value or placeholder
-        localHMS ? this.formattedValue : this.placeholder || this.labelNoTime,
+        localHMS ? this.formattedValue : this.placeholder || this.labelNoTime || '\u00A0',
         // Add an sr-only 'selected date' label if a date is selected
         localHMS ? h('span', { staticClass: 'sr-only' }, ` (${this.labelSelected}) `) : h()
       ]
@@ -416,7 +424,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled: this.disabled, variant: this.closeButtonVariant },
+            props: { size: 'sm', disabled: disabled, variant: this.closeButtonVariant },
             attrs: { 'aria-label': closeLabel || null },
             on: { click: this.onCloseButton }
           },
@@ -497,8 +505,8 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         class: [
           this.directionClass,
           {
-            show: this.visible,
-            focus: this.hasFocus,
+            show: visible,
+            focus: hasFocus,
             [`form-control-${size}`]: !!size,
             'is-invalid': state === false,
             'is-valid': state === true
