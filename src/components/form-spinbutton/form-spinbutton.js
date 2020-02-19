@@ -3,6 +3,7 @@ import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { EVENT_OPTIONS_PASSIVE, eventOnOff } from '../../utils/events'
 import { isFunction, isNull } from '../../utils/inspect'
+import { isLocaleRTL } from '../../utils/locale'
 import { toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
@@ -197,6 +198,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       const locales = concat(this.locale).filter(identity)
       const nf = new Intl.NumberFormat(locales)
       return nf.resolvedOptions().locale
+    },
+    computedRTL() {
+      return isLocaleRTL(this.computedLocale)
     },
     defaultFormatter() {
       // Returns and `Intl.NumberFormat` formatter method reference
@@ -505,6 +509,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'border-right': !isVertical
         },
         attrs: {
+          dir: this.computedRTL ? 'rtl' : 'ltr',
           ...this.$attrs,
           id: spinId,
           role: 'spinbutton',
