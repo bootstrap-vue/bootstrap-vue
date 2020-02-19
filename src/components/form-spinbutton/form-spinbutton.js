@@ -505,6 +505,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'border-right': !isVertical
         },
         attrs: {
+          ...this.$attrs,
           id: spinId,
           role: 'spinbutton',
           tabindex: isDisabled ? null : '0',
@@ -523,7 +524,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'aria-valuetext': hasValue ? formatter(value) : null
         }
       },
-      [h('div', { staticClass: 'w-100' }, hasValue ? formatter(value) : this.placeholder || '')]
+      [h('bdi', { staticClass: 'w-100' }, hasValue ? formatter(value) : this.placeholder || '')]
     )
 
     return h(
@@ -543,7 +544,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'is-invalid': state === false
         },
         attrs: {
-          ...this.$attrs,
           role: 'group',
           lang: this.computedLocale,
           tabindex: isDisabled ? null : '-1',
