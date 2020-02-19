@@ -4,6 +4,7 @@ import { getComponentConfig } from '../../utils/config'
 import { createDate, formatYMD, parseYMD } from '../../utils/date'
 import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalizeSlot'
 import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
@@ -215,7 +216,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     BHover: VBHover
   },
   // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, propsMixin, dropdownMixin],
+  mixins: [idMixin, normalizeSlotMixin, propsMixin, dropdownMixin],
   model: {
     prop: 'value',
     event: 'input'
@@ -370,20 +371,27 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   render(h) {
     const size = this.size
     const state = this.state
+    const visible = this.visible
+    const isHovered = this.isHovered
+    const hasFocus = this.hasFocus
     const localYMD = this.localYMD
     const disabled = this.disabled
     const readonly = this.readonly
+    const required = this.required
     const idButton = this.safeId()
     const idLabel = this.safeId('_value_')
     const idMenu = this.safeId('_dialog_')
     const idWrapper = this.safeId('_b-form-date_')
 
+    const btnScope = { isHovered, hasFocus, state, opened: visible }
+    const defaultButtonFn = scope => {
+      const data = { props: { scale: 1.25 }, attrs: { 'aria-hidden': 'true' } }
+      return scope.isHovered ? h(BIconCalendarFill, data) : h(BIconCalendar, data)
+    }
     let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
-      this.$scopedSlots['button-content']
-        ? this.$scopedSlots['button-content']({ isHovered: this.isHovered, hasFocus: this.hasFocus })
-        : this.isHovered || this.hasFocus
-        ? h(BIconCalendarFill, { props: { scale: 1.25 } })
-        : h(BIconCalendar, { props: { scale: 1.25 } })
+      this.hasNormalizedSlot('button-content')
+        ? this.normalizeSlot('button-content')(btnScope)
+        : defaultButtonFn(btnScope)
     ])
     $button = h(
       'button',
@@ -396,9 +404,9 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           type: 'button',
           disabled: disabled,
           'aria-haspopup': 'dialog',
-          'aria-expanded': this.visible ? 'true' : 'false',
+          'aria-expanded': visible ? 'true' : 'false',
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null
+          'aria-required': required ? 'true' : null
         },
         on: {
           mousedown: this.onMousedown,
@@ -430,7 +438,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           dir: this.isRTL ? 'rtl' : 'ltr',
           lang: this.localLocale || null,
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null
+          'aria-required': required ? 'true' : null
         },
         on: {
           // Disable bubbling of the click event to
@@ -442,7 +450,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       },
       [
         // Add the formatted value or placeholder
-        localYMD ? this.formattedValue : this.placeholder || this.labelNoDateSelected,
+        localYMD ? this.formattedValue : this.placeholder || this.labelNoDateSelected || '\u00A0',
         // Add an sr-only 'selected date' label if a date is selected
         localYMD ? h('span', { staticClass: 'sr-only' }, ` (${this.labelSelected}) `) : h()
       ]
@@ -487,7 +495,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled: this.disabled, variant: this.closeButtonVariant },
+            props: { size: 'sm', disabled: disabled, variant: this.closeButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onCloseButton }
           },
@@ -534,7 +542,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         ref: 'menu',
         staticClass: 'dropdown-menu p-2',
         class: {
-          show: this.visible,
+          show: visible,
           'dropdown-menu-right': this.right,
           'bg-dark': this.dark,
           'text-light': this.dark
@@ -571,8 +579,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         class: [
           this.directionClass,
           {
-            show: this.visible,
-            focus: this.hasFocus,
+            show: visible,
+            focus: hasFocus,
             [`form-control-${size}`]: !!size,
             'is-invalid': state === false,
             'is-valid': state === true
@@ -585,7 +593,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           'aria-readonly': readonly && !disabled,
           'aria-labelledby': idLabel,
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null,
+          'aria-required': required ? 'true' : null,
           // We don't want the flex order to change here
           // So we always use 'ltr'
           dir: 'ltr'
