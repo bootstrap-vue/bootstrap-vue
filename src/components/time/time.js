@@ -232,7 +232,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         hours: this.modelHours,
         minutes: this.modelMinutes,
         seconds: this.showSeconds ? this.modelSeconds : 0,
-        value: this.computedHMS
+        value: this.computedHMS,
+        formatted: this.formattedTimeString
       }
     },
     valueId() {
