@@ -108,7 +108,7 @@ const propsMixin = {
     },
     labelCloseButton: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelCloseButton')
+      default: () => getComponentConfig(NAME, 'labelCloseButton') || 'Close'
     },
     closeButtonVariant: {
       type: String,
@@ -122,7 +122,7 @@ const propsMixin = {
     },
     labelDecrement: {
       type: String,
-      default: () => getConfigFallback('labelPrevMonth')
+      default: () => getConfigFallback('labelDecrement')
     },
     // Thes only fallback to BTime values
     labelNoTime: {
