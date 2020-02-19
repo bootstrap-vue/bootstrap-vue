@@ -6,8 +6,11 @@
   &[aria-disabled="true"] output,
   &[aria-readonly="true"] output,
   output.disabled {
-    pointer-events: none;
     background-color: $input-disabled-bg;
     opacity: 1;
+  }
+
+  &[aria-disabled="true"] output,
+    pointer-events: none;
   }
 }
