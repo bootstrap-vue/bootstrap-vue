@@ -1,9 +1,12 @@
 // BTime custom SCSS
 
 .b-time {
+  min-width: 150px;
+
   &[aria-disabled="true"] output,
   &[aria-readonly="true"] output,
   output.disabled {
+    pointer-events: none;
     background-color: $input-disabled-bg;
     opacity: 1;
   }
