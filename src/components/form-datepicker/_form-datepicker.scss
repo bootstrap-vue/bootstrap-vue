@@ -1,5 +1,11 @@
 // Custom CSS for b-form-datepicker
 
+// TODO:
+//   Most of this SCSS is shared with b-form-timepicker,
+//   which also shares the same markup structure.
+//   So we ould create a new class (or a shared helper component)
+//   that can be used by both components
+
 .b-form-datepicker.form-control {
   // Remove background validation images from main wrapper
   background-image: none;
@@ -9,19 +15,8 @@
     font-size: inherit;
     box-shadow: none !important;
 
-    > div {
-      transition: transform 0.15s;
-    }
-
     &:disabled {
       pointer-events: none;
-    }
-
-    &:hover:not(:disabled),
-    &:focus:not(:disabled) {
-      > div {
-        transform: scale(1.125);
-      }
     }
   }
 
