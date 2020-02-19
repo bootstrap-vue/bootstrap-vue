@@ -16,7 +16,9 @@
     border: 0;
     background-color: transparent;
 
-    > div {
+    > div,
+    > bdi {
+      display: block;
       min-width: 2.25em;
       // We set a height to ensure an empty value isn't collapsed
       height: 1em * $input-line-height;
