@@ -10,7 +10,7 @@
     opacity: 1;
   }
 
-  &[aria-disabled="true"] output,
+  &[aria-disabled="true"] output {
     pointer-events: none;
   }
 }
