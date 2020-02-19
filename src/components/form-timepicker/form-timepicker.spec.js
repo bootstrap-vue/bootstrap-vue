@@ -43,4 +43,25 @@ describe('form-timepicker', () => {
 
     wrapper.destroy()
   })
+
+  it('control buttons work', async () => {
+    const wrapper = mount(BFormTimepicker, {
+      propsData: {
+        showSeconds: true,
+        name: 'foobar',
+        value: '01:02:03',
+        nowButton: true,
+        resetButton: true,
+        noCloseButton: false
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    // TBD
+
+    wrapper.destroy()
+  })
 })
