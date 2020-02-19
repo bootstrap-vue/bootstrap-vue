@@ -379,7 +379,9 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     const idWrapper = this.safeId('_b-form-date_')
 
     let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
-      this.isHovered || this.hasFocus
+      this.$scopedSlots['button-content']
+        ? this.$scopedSlots['button-content']({ isHovered: this.isHovered, hasFocus: this.hasFocus })
+        : this.isHovered || this.hasFocus
         ? h(BIconCalendarFill, { props: { scale: 1.25 } })
         : h(BIconCalendar, { props: { scale: 1.25 } })
     ])
