@@ -216,16 +216,17 @@ emit when the time component is created).
 
 The `'context'` event is passed a context object as it's only argument, with the following properties:
 
-| Property    | Description                                                                             |
-| ----------- | --------------------------------------------------------------------------------------- |
-| `value`     | The current value as an `HH:mm:ss` string or an empty string `''` if no time selected   |
-| `hours`     | The currently selected hour (always 24 hour format) as a number or `null` if no hour    |
-| `minutes`   | The currently selected minute value as a number or `null` if no minute                  |
-| `seconds`   | The currently selected seconds value as a number or `null` if no seconds                |
-| `locale`    | The locale resolved by the time picker, this may be different than the requested locale |
-| `isRTL`     | Will be `true` is the locale is RTL (right-to-left)                                     |
-| `hour12`    | Boolean value indicating if the interface is using 12 hour format                       |
-| `hourCycle` | A string representing the type of hour cycle used: `'h11'`, `'h12'`, `'h23'` or `'h24'` |
+| Property    | Description                                                                                      |
+| ----------- | ------------------------------------------------------------------------------------------------ |
+| `value`     | The current value as an `HH:mm:ss` string or an empty string `''` if no time selected            |
+| `formatted` | The current value formatted in the locale, or the `label-no-time` prop value if no time selected |
+| `hours`     | The currently selected hour (always 24 hour format) as a number or `null` if no hour             |
+| `minutes`   | The currently selected minute value as a number or `null` if no minute                           |
+| `seconds`   | The currently selected seconds value as a number or `null` if no seconds                         |
+| `locale`    | The locale resolved by the time picker, this may be different than the requested locale          |
+| `isRTL`     | Will be `true` is the locale is RTL (right-to-left)                                              |
+| `hour12`    | Boolean value indicating if the interface is using 12 hour format                                |
+| `hourCycle` | A string representing the type of hour cycle used: `'h11'`, `'h12'`, `'h23'` or `'h24'`          |
 
 ## Internationalization
 
