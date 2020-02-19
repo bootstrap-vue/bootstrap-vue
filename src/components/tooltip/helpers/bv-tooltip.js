@@ -21,7 +21,7 @@ import {
   select,
   setAttr
 } from '../../../utils/dom'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff, eventOnOff } from '../../../utils/events'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../../utils/events'
 import {
   isFunction,
   isNumber,
