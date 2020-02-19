@@ -15,10 +15,6 @@
     font-size: inherit;
     box-shadow: none !important;
 
-    > div {
-      transition: transform 0.15s;
-    }
-
     &:disabled {
       pointer-events: none;
     }
