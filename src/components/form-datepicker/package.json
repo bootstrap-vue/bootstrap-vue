@@ -231,6 +231,35 @@
               }
             ]
           }
+        ],
+        "slots": [
+          {
+            "name": "button-content",
+            "version": "2.6.0",
+            "description": "Content to place in the datepicker's icon button",
+            "scope": [
+              {
+                "prop": "isHovered",
+                "type": "Boolean",
+                "description": "`true` if the component is hovered"
+              },
+              {
+                "prop": "hasFocus",
+                "type": "Boolean",
+                "description": "`true` if the datepicker icon button has focus"
+              },
+              {
+                "prop": "state",
+                "type": "Boolean",
+                "description": "The value of the `state` prop. `true` (valid), `false` (invalid), or `null`"
+              },
+              {
+                "prop": "open",
+                "type": "Boolean",
+                "description": "The visibility state of the popup. `true` if the popup is visible and `false` if not"
+              }
+            ]
+          }
         ]
       }
     ]
