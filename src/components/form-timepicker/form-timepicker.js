@@ -5,7 +5,7 @@ import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BTime } from '../time/time'
-import { BIconClock, BIconCockFill } from '../../icons/icons'
+import { BIconClock, BIconClockFill } from '../../icons/icons'
 import { VBHover } from '../../directives/hover/hover'
 
 const NAME = 'BFormTimepicker'
