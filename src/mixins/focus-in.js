@@ -1,6 +1,4 @@
-import { eventOff, eventOn } from '../utils/dom'
-
-const eventOptions = { passive: true, capture: false }
+import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../utils/events'
 
 // @vue/component
 export default {
@@ -12,9 +10,9 @@ export default {
   watch: {
     listenForFocusIn(newValue, oldValue) {
       if (newValue !== oldValue) {
-        eventOff(this.focusInElement, 'focusin', this._focusInHandler, eventOptions)
+        eventOff(this.focusInElement, 'focusin', this._focusInHandler, EVENT_OPTIONS_NO_CAPTURE)
         if (newValue) {
-          eventOn(this.focusInElement, 'focusin', this._focusInHandler, eventOptions)
+          eventOn(this.focusInElement, 'focusin', this._focusInHandler, EVENT_OPTIONS_NO_CAPTURE)
         }
       }
     }
@@ -28,11 +26,11 @@ export default {
       this.focusInElement = document
     }
     if (this.listenForFocusIn) {
-      eventOn(this.focusInElement, 'focusin', this._focusInHandler, eventOptions)
+      eventOn(this.focusInElement, 'focusin', this._focusInHandler, EVENT_OPTIONS_NO_CAPTURE)
     }
   },
   beforeDestroy() /* istanbul ignore next */ {
-    eventOff(this.focusInElement, 'focusin', this._focusInHandler, eventOptions)
+    eventOff(this.focusInElement, 'focusin', this._focusInHandler, EVENT_OPTIONS_NO_CAPTURE)
   },
   methods: {
     _focusInHandler(evt) {

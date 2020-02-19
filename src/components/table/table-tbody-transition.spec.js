@@ -55,10 +55,10 @@ describe('table > tbody transition', () => {
         fields: testFields,
         items: testItems,
         tbodyTransitionHandlers: {
-          onBeforeEnter: el => {},
-          onAfterEnter: el => {},
-          onBeforeLeave: el => {},
-          onAfterLeave: el => {}
+          onBeforeEnter: () => {},
+          onAfterEnter: () => {},
+          onBeforeLeave: () => {},
+          onAfterLeave: () => {}
         }
       },
       stubs: {

@@ -68,13 +68,13 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    computedLocalChecked(newVal, oldVal) {
+    computedLocalChecked(newVal) {
       this.$emit('input', newVal)
       if (this.$refs && this.$refs.input) {
         this.$emit('update:indeterminate', this.$refs.input.indeterminate)
       }
     },
-    indeterminate(newVal, oldVal) {
+    indeterminate(newVal) {
       this.setIndeterminate(newVal)
     }
   },

@@ -74,10 +74,10 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    value(newVal, oldVal) {
+    value(newVal) {
       this.localValue = newVal
     },
-    localValue(newVal, oldVal) {
+    localValue() {
       this.$emit('input', this.localValue)
     }
   },

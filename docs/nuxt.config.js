@@ -86,7 +86,7 @@ renderer.heading = function(text, level, raw, slugger) {
 
   const anchor =
     ANCHOR_LINK_HEADING_LEVELS.indexOf(level) !== -1
-      ? `<a class="anchorjs-link" href="#${link}" aria-label="Anchor"></a>`
+      ? `<a class="anchorjs-link" href="#${link}" aria-labelledby="${link}"></a>`
       : ''
   const attrs = `id="${link}" class="bv-no-focus-ring"`
   return `<h${level} ${attrs}>${getTextMarkup(text + anchor)}</h${level}>\n`
@@ -99,7 +99,7 @@ renderer.blockquote = function(text) {
 
 // Bootstrap v4 table support for markdown renderer
 const originalTable = renderer.table
-renderer.table = function(header, body) {
+renderer.table = function() {
   let table = originalTable.apply(this, arguments)
   table = table
     .replace('<table>', '<table class="b-table table table-bordered table-striped bv-docs-table">')

@@ -46,7 +46,7 @@
           },
           {
             "prop": "noHoverPause",
-            "description": "When set, disables the pausing of hte auto hide delay when the mouse hovers the toast"
+            "description": "When set, disables the pausing of the auto hide delay when the mouse hovers the toast"
           },
           {
             "prop": "solid",

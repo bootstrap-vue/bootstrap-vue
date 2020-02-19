@@ -972,7 +972,7 @@ method to generate VNodes.
         const messageVNode = h('div', { class: ['foobar'] }, [
           h('p', { class: ['text-center'] }, [
             ' Flashy ',
-            h('strong', {}, 'msgBoxOk'),
+            h('strong', 'msgBoxOk'),
             ' message ',
           ]),
           h('p', { class: ['text-center'] }, [h('b-spinner')]),
@@ -1069,7 +1069,7 @@ already has focus within the `<b-modal>`.
 ```js
 export default {
   methods: {
-    focusMyElement(e) {
+    focusMyElement() {
       this.$refs.focusThis.focus()
     }
   }

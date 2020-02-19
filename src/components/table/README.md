@@ -578,16 +578,16 @@ values: `sm`, `md`, `lg`, or `xl`.
 - Using props `responsive` and `fixed` together will **not** work as expected. Fixed table layout
   uses the first row (table header in this case) to compute the width required by each column (and
   the overall table width) to fit within the width of the parent container &mdash; without taking
-  cells in the `<tbody>` into consideration &mdash; resulting in table that may not be resposive. To
-  get around this limitation, you would need to specify widths for the columns (or certain columns)
-  via one of the following methods:
+  cells in the `<tbody>` into consideration &mdash; resulting in table that may not be responsive.
+  To get around this limitation, you would need to specify widths for the columns (or certain
+  columns) via one of the following methods:
   - Use `<col>` elements within the [`table-colgroup` slot](#table-colgroup) that have widths set
     (e.g. `<col style="width: 20rem">`), or
   - Wrap header cells in `<div>` elements, via the use of
     [custom header rendering](#header-and-footer-custom-rendering-via-scoped-slots), which have a
     minimum width set on them, or
-  - Use the `thStyle` property of the [field definition object](#field-definition-reference) to
-    set a width for the column(s), or
+  - Use the `thStyle` property of the [field definition object](#field-definition-reference) to set
+    a width for the column(s), or
   - Use custom CSS to define classes to apply to the columns to set widths, via the `thClass` or
     `class` properties of the [field definition object](#field-definition-reference).
 
@@ -1307,7 +1307,7 @@ available horizontal space.
   the body scrolls. To get around this issue, set the prop `no-border-collapse` on the table (note
   that this may cause double width borders when using features such as `bordered`, etc).
 - The sticky header feature uses CSS style `position: sticky` to position the headings. Internet
-  Explorer does not support `position: sticky`, hence for IE11 the table headings will scroll with
+  Explorer does not support `position: sticky`, hence for IE 11 the table headings will scroll with
   the table body.
 
 ### Sticky columns
@@ -1403,7 +1403,7 @@ set.
   (note that this may cause double width borders when using features such as `bordered`, etc).
 - BootstrapVue's custom CSS is required in order to support sticky columns.
 - The sticky column feature uses CSS style `position: sticky` to position the column cells. Internet
-  Explorer does not support `position: sticky`, hence for IE11 the sticky column will scroll with
+  Explorer does not support `position: sticky`, hence for IE 11 the sticky column will scroll with
   the table body.
 
 ### Row details support
@@ -2221,7 +2221,7 @@ method.
 <!-- eslint-disable no-unused-vars, prefer-const -->
 
 ```js
-function myProvider(ctx) {
+function myProvider() {
   let items = []
 
   // Perform any items processing needed
@@ -2306,7 +2306,7 @@ function should handle errors from data sources and return an empty array to `<b
       }
     }
     methods: {
-      myProvider (ctx) {
+      myProvider () {
         // Here we don't set isBusy prop, so busy state will be
         // handled by table itself
         // this.isBusy = true
@@ -2405,6 +2405,8 @@ have changed.
 
 The `sort-changed` event provides a single argument of the table's current state context object.
 This context object has the same format as used by items provider functions.
+
+<!-- eslint-disable no-unused-vars -->
 
 ```js
 export default {

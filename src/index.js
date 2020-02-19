@@ -89,6 +89,10 @@ export { BButtonGroup } from './components/button-group/button-group'
 export { ButtonToolbarPlugin } from './components/button-toolbar'
 export { BButtonToolbar } from './components/button-toolbar/button-toolbar'
 
+// export * from './components/calendar'
+export { CalendarPlugin } from './components/calendar'
+export { BCalendar } from './components/calendar/calendar'
+
 // export * from './components/card'
 export { CardPlugin } from './components/card'
 export { BCard } from './components/card/card'
@@ -139,6 +143,10 @@ export { FormCheckboxPlugin } from './components/form-checkbox'
 export { BFormCheckbox } from './components/form-checkbox/form-checkbox'
 export { BFormCheckboxGroup } from './components/form-checkbox/form-checkbox-group'
 
+// export * from './components/form-datepicker'
+export { FormDatepickerPlugin } from './components/form-datepicker'
+export { BFormDatepicker } from './components/form-datepicker/form-datepicker'
+
 // export * from './components/form-file'
 export { FormFilePlugin } from './components/form-file'
 export { BFormFile } from './components/form-file/form-file'
@@ -166,6 +174,10 @@ export { FormSelectPlugin } from './components/form-select'
 export { BFormSelect } from './components/form-select/form-select'
 export { BFormSelectOption } from './components/form-select/form-select-option'
 export { BFormSelectOptionGroup } from './components/form-select/form-select-option-group'
+
+// export * from './components/form-spinbutton'
+export { FormSpinbuttonPlugin } from './components/form-spinbutton'
+export { BFormSpinbutton } from './components/form-spinbutton/form-spinbutton'
 
 // export * from './components/form-textarea'
 export { FormTextareaPlugin } from './components/form-textarea'
@@ -284,6 +296,10 @@ export { BTooltip } from './components/tooltip/tooltip'
 // Webpack v5 fixes the optimizations with re-export of re-exports so this
 // can be reverted back to `export * from './scrollspy'` when Webpack v5 is released
 // https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
+
+// export * from './directives/hover'
+export { VBHoverPlugin } from './directives/hover'
+export { VBHover } from './directives/hover/hover'
 
 // export * from './directives/modal'
 export { VBModalPlugin } from './directives/modal'

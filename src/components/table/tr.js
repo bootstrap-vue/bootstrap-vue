@@ -23,7 +23,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   },
   inject: {
     bvTableRowGroup: {
-      defaut() /* istanbul ignore next */ {
+      default() /* istanbul ignore next */ {
         return {}
       }
     }
@@ -100,7 +100,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
         // Pass native listeners to child
         on: this.$listeners
       },
-      this.normalizeSlot('default', {})
+      this.normalizeSlot('default')
     )
   }
 })

@@ -141,7 +141,7 @@ export default {
     }
   },
   watch: {
-    isSortable(newVal, oldVal) /* istanbul ignore next: pain in the butt to test */ {
+    isSortable(newVal) /* istanbul ignore next: pain in the butt to test */ {
       if (newVal) {
         if (this.isSortable) {
           this.$on('head-clicked', this.handleSort)
@@ -150,14 +150,14 @@ export default {
         this.$off('head-clicked', this.handleSort)
       }
     },
-    sortDesc(newVal, oldVal) {
+    sortDesc(newVal) {
       if (newVal === this.localSortDesc) {
         /* istanbul ignore next */
         return
       }
       this.localSortDesc = newVal || false
     },
-    sortBy(newVal, oldVal) {
+    sortBy(newVal) {
       if (newVal === this.localSortBy) {
         /* istanbul ignore next */
         return

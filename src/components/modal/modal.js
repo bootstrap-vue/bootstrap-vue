@@ -5,17 +5,9 @@ import identity from '../../utils/identity'
 import observeDom from '../../utils/observe-dom'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import {
-  closest,
-  contains,
-  eventOff,
-  eventOn,
-  isVisible,
-  requestAF,
-  select,
-  selectAll
-} from '../../utils/dom'
+import { closest, contains, isVisible, requestAF, select, selectAll } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
 import { stripTags } from '../../utils/html'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { HTMLElement } from '../../utils/safe-types'
@@ -44,9 +36,6 @@ const OBSERVER_CONFIG = {
   attributes: true,
   attributeFilter: ['style', 'class']
 }
-
-// Options for DOM event listeners
-const EVT_OPTIONS = { passive: true, capture: false }
 
 // Query selector to find all tabbable elements
 // (includes tabindex="-1", which we filter out after)
@@ -458,7 +447,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
     },
     // Private method to create a BvModalEvent object
-    buildEvent(type, opts = {}) {
+    buildEvent(type, options = {}) {
       return new BvModalEvent(type, {
         // Default options
         cancelable: false,
@@ -466,7 +455,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         relatedTarget: null,
         trigger: null,
         // Supplied options
-        ...opts,
+        ...options,
         // Options that can't be overridden
         vueTarget: this,
         componentId: this.safeId()
@@ -556,7 +545,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     getActiveElement() {
       if (isBrowser) {
         const activeElement = document.activeElement
-        // Note: On IE11, `document.activeElement` may be null.
+        // Note: On IE 11, `document.activeElement` may be null.
         // So we test it for truthiness first.
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
         // Returning focus to document.body may cause unwanted scrolls, so we
@@ -615,10 +604,17 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     onEnter() {
       this.isBlock = true
+      // We add the `show` class 1 frame later
+      // `requestAF()` runs the callback before the next repaint, so we need
+      // two calls to guarantee the next frame has been rendered
+      requestAF(() => {
+        requestAF(() => {
+          this.isShow = true
+        })
+      })
     },
     onAfterEnter() {
       this.checkModalOverflow()
-      this.isShow = true
       this.isTransitioning = false
       // We use `requestAF()` to allow transition hooks to complete
       // before passing control over to the other handlers
@@ -671,12 +667,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // And if it does, cancel the clickOut handler
       const modal = this.$refs.modal
       const onceModalMouseup = evt => {
-        eventOff(modal, 'mouseup', onceModalMouseup, EVT_OPTIONS)
+        eventOff(modal, 'mouseup', onceModalMouseup, EVENT_OPTIONS_NO_CAPTURE)
         if (evt.target === modal) {
           this.ignoreBackdropClick = true
         }
       }
-      eventOn(modal, 'mouseup', onceModalMouseup, EVT_OPTIONS)
+      eventOn(modal, 'mouseup', onceModalMouseup, EVENT_OPTIONS_NO_CAPTURE)
     },
     onClickOut(evt) {
       if (this.ignoreBackdropClick) {
@@ -1081,7 +1077,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     if (this.static) {
       return this.lazy && this.isHidden ? h() : this.makeModal(h)
     } else {
-      return this.isHidden ? h() : h(BTransporterSingle, {}, [this.makeModal(h)])
+      return this.isHidden ? h() : h(BTransporterSingle, [this.makeModal(h)])
     }
   }
 })

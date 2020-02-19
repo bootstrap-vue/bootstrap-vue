@@ -257,6 +257,16 @@ supported `<router-link>` related props.
 
 Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap-vue`.
 
+## Accessibility
+
+When the `href` prop is set to `'#'`, `<b-button>` will render a link (`<a>`) element with attribute
+`role="button"` set and appropriate keydown listeners (<kbd>Enter</kbd> and <kbd>Space</kbd>) so
+that the link acts like a native HTML `<button>` for screen reader and keyboard-only users. When
+disabled, the `aria-disabled="true"` attribute will be set on the `<a>` element.
+
+When the `href` is set to any other value (or the `to` prop is used), `role="button"` will not be
+added, nor will the keyboard event listeners be enabled.
+
 ## See also
 
 - [`<b-button-group>`](/docs/components/button-group)

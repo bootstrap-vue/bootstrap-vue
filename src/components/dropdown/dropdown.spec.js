@@ -419,7 +419,7 @@ describe('dropdown', () => {
     const App = localVue.extend({
       render(h) {
         return h('div', { attrs: { id: 'container' } }, [
-          h(BDropdown, { props: { id: 'test' } }, [h(BDropdownItem, {}, 'item')]),
+          h(BDropdown, { props: { id: 'test' } }, [h(BDropdownItem, 'item')]),
           h('input', { attrs: { id: 'input' } })
         ])
       }
@@ -652,7 +652,7 @@ describe('dropdown', () => {
     const localVue = new CreateLocalVue()
     const App = localVue.extend({
       render(h) {
-        return h('div', {}, [
+        return h('div', [
           h(BDropdown, { props: { id: 'test' } }, [
             h(BDropdownItem, { attrs: { id: 'item-1' } }, 'item'),
             h(BDropdownItem, { attrs: { id: 'item-2' } }, 'item'),

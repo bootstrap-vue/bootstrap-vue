@@ -1,0 +1,76 @@
+.b-form-spinbutton.form-control {
+  text-align: center;
+  // Quick way to get end buttons rounded on outside edges
+  overflow: hidden;
+  // Hide validation icon, as there is no room for it
+  background-image: none;
+
+  &.flex-column {
+    height: auto;
+    width: auto;
+  }
+
+  output {
+    font-size: inherit;
+    outline: 0;
+    border: 0;
+    background-color: transparent;
+
+    > div {
+      min-width: 2em;
+      // We set a height to ensure an empty value isn't collapsed
+      height: 1em * $input-line-height;
+    }
+  }
+
+  &.d-inline-flex:not(.flex-column) {
+    &,
+    output {
+      width: auto;
+    }
+  }
+
+  .btn {
+    line-height: 1;
+    box-shadow: none !important;
+
+    &:disabled {
+      pointer-events: none;
+    }
+
+    &:hover:not(:disabled) > div {
+      transform: scale(1.25);
+    }
+  }
+
+  &.focus {
+    color: $input-focus-color;
+    background-color: $input-focus-bg;
+    border-color: $input-focus-border-color;
+    outline: 0;
+    @if $enable-shadows {
+      box-shadow: $input-box-shadow, $input-focus-box-shadow;
+    } @else {
+      box-shadow: $input-focus-box-shadow;
+    }
+
+    &.is-valid {
+      border-color: $form-feedback-valid-color;
+      box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-valid-color, 0.25);
+    }
+
+    &.is-invalid {
+      border-color: $form-feedback-invalid-color;
+      box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-invalid-color, 0.25);
+    }
+  }
+
+  &.disabled,
+  &.readonly {
+    background-color: $input-disabled-bg;
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}

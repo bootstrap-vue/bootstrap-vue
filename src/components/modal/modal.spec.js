@@ -994,7 +994,7 @@ describe('modal', () => {
     it('returns focus to previous active element when return focus not set and not using v-b-toggle', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [
+          return h('div', [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
             h(BModal, { props: { static: true, id: 'test', visible: false } }, 'modal content')
           ])
@@ -1071,7 +1071,7 @@ describe('modal', () => {
     it('returns focus to element specified in toggle() method', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [
+          return h('div', [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
             h(
               'button',
@@ -1160,7 +1160,7 @@ describe('modal', () => {
     it('if focus leaves modal it returns to modal', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [
+          return h('div', [
             h('button', { attrs: { id: 'button', type: 'button' } }, 'Button'),
             h(BModal, { props: { static: true, id: 'test', visible: true } }, 'Modal content')
           ])
@@ -1247,7 +1247,7 @@ describe('modal', () => {
     it('it allows focus for elements when "no-enforce-focus" enabled', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [
+          return h('div', [
             h('button', { attrs: { id: 'button1', type: 'button' } }, 'Button 1'),
             h('button', { attrs: { id: 'button2', type: 'button' } }, 'Button 2'),
             h(
@@ -1321,7 +1321,7 @@ describe('modal', () => {
     it('it allows focus for elements in "ignore-enforce-focus-selector" prop', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [
+          return h('div', [
             h('button', { attrs: { id: 'button1', type: 'button' } }, 'Button 1'),
             h('button', { attrs: { id: 'button2', type: 'button' } }, 'Button 2'),
             h(

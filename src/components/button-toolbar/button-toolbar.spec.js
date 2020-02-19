@@ -85,12 +85,9 @@ describe('button-toolbar', () => {
     const App = Vue.extend({
       render(h) {
         return h(BButtonToolbar, { props: { keyNav: true } }, [
-          h(BButtonGroup, {}, [h(BButton, {}, 'a'), h(BButton, {}, 'b')]),
-          h(BButtonGroup, {}, [
-            h(BButton, { props: { disabled: true } }, 'c'),
-            h(BButton, {}, 'd')
-          ]),
-          h(BButtonGroup, {}, [h(BButton, {}, 'e'), h(BButton, {}, 'f')])
+          h(BButtonGroup, [h(BButton, 'a'), h(BButton, 'b')]),
+          h(BButtonGroup, [h(BButton, { props: { disabled: true } }, 'c'), h(BButton, 'd')]),
+          h(BButtonGroup, [h(BButton, 'e'), h(BButton, 'f')])
         ])
       }
     })

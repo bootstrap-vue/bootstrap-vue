@@ -18,7 +18,7 @@
           },
           {
             "prop": "headerLevel",
-            "description": "Scaling factor of hte header. Values range from 1 to 5"
+            "description": "Scaling factor of the header. Values range from 1 to 5"
           },
           {
             "prop": "lead",

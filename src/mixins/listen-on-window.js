@@ -1,10 +1,8 @@
 import { arrayIncludes } from '../utils/array'
-import { eventOff, eventOn } from '../utils/dom'
 import { isBrowser } from '../utils/env'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../utils/events'
 import { isString, isFunction } from '../utils/inspect'
 import { keys } from '../utils/object'
-
-const eventOptions = { passive: true, capture: false }
 
 const PROP = '$_bv_windowHandlers_'
 
@@ -26,7 +24,7 @@ export default {
       // Remove all registered event handlers
       keys(items).forEach(evtName => {
         const handlers = items[evtName] || []
-        handlers.forEach(handler => eventOff(window, evtName, handler, eventOptions))
+        handlers.forEach(handler => eventOff(window, evtName, handler, EVENT_OPTIONS_NO_CAPTURE))
       })
     }
   },
@@ -39,13 +37,13 @@ export default {
         this[PROP][evtName] = this[PROP][evtName] || []
         if (!arrayIncludes(this[PROP][evtName], handler)) {
           this[PROP][evtName].push(handler)
-          eventOn(window, evtName, handler, eventOptions)
+          eventOn(window, evtName, handler, EVENT_OPTIONS_NO_CAPTURE)
         }
       }
     },
     listenOffWindow(evtName, handler) {
       if (isBrowser && this[PROP] && isString(evtName) && isFunction(handler)) {
-        eventOff(window, evtName, handler, eventOptions)
+        eventOff(window, evtName, handler, EVENT_OPTIONS_NO_CAPTURE)
         this[PROP][evtName] = (this[PROP][evtName] || []).filter(h => h !== handler)
       }
     }
