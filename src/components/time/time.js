@@ -13,6 +13,7 @@ import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 // Mixins
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 // Sub components used
 import { BFormSpinbutton } from '../form-spinbutton/form-spinbutton'
 import { BIconCircleFill } from '../../icons/icons'
@@ -67,7 +68,7 @@ const formatHMS = ({ hours, minutes, seconds }, requireSeconds = false) => {
 // @vue/component
 export const BTime = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin],
+  mixins: [idMixin, normalizeSlotMixin],
   model: {
     prop: 'value',
     event: 'input'
@@ -546,6 +547,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       { class: { 'sr-only': this.hideHeader, 'mb-2': !this.hideHeader } },
       [$value]
     )
+
+    // Optional bottom slot
+    let $slot = this.normalizeSlot('default')
+    $slot = $slot ? h('footer', { staticClass: 'mt-2' }, $slot) : h()
 
     return h(
       'div',
