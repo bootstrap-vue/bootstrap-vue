@@ -336,14 +336,12 @@ supports `Intl` and the locales you will be using. Refer to the
 <!-- b-time-i18n.vue -->
 ```
 
-
 ### Forcing 12 or 24 hour interface
 
 12-hour versus 24-hour input is determined by the client browsers default locale (or the locale
 resolved from the `locale` prop). To force a 12-hour user interface, set the prop `hour12` to `true`.
 To force a 24-hour user inteface, set the prop `hour12` to `false`. The default for prop `hour12` is
-`null` which uses the browser locale (or the locale resoved from the `locale` prop) to determine
-which interface to use.
+`null` which uses the resoved locale to determine which interface to use.
 
 ## Accessibility
 
@@ -381,7 +379,7 @@ proper styling.
 
 ## See also
 
-- [`<b-form-timepicker>` Time picker custom input](/docs/comonents/form-timepicker)
+- [`<b-form-timepicker>` Time picker custom form input](/docs/comonents/form-timepicker)
 - [`<b-calendar>` Calendar date selection widget](/docs/components/calendar)
 - [`<b-form-datepicker>` Date picker custom form input](/docs/components/form-datepicker)
 
