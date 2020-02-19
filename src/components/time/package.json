@@ -36,6 +36,10 @@
             "description": "Step value for the minutes spinbutton. Should be a value evenly divided into 60"
           },
           {
+            "prop": "hideHeader",
+            "description": "When set, visually hides the selected time header"
+          },
+          {
             "prop": "labelNoTime",
             "description": "String to show when no time is selected"
           },
