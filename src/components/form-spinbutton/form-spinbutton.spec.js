@@ -45,7 +45,6 @@ describe('form-spinbutton', () => {
     // These two attribute should not exist on the element
     expect($output.element.hasAttribute('aria-valuenow')).toBe(false)
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
-    expect($output.find('div').exists()).toBe(true)
     expect($output.text()).toEqual('')
 
     wrapper.setProps({
@@ -268,7 +267,6 @@ describe('form-spinbutton', () => {
     // These two attribute should not exist on the element
     expect($output.element.hasAttribute('aria-valuenow')).toBe(false)
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
-    expect($output.find('div').exists()).toBe(true)
 
     const $increment = wrapper.find('[aria-label="Increment"]')
     expect($increment.exists()).toBe(true)
@@ -465,7 +463,6 @@ describe('form-spinbutton', () => {
     // These two attribute should not exist on the element
     expect($output.element.hasAttribute('aria-valuenow')).toBe(false)
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
-    expect($output.find('div').exists()).toBe(true)
 
     wrapper.trigger('keydown.up')
     wrapper.trigger('keyup.up')
