@@ -562,10 +562,6 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'b-time d-inline-flex flex-column text-center',
-        style: {
-          // This will be moved to custom SCSS and set as `em` width
-          minWidth: '150px'
-        },
         attrs: {
           role: 'group',
           lang: this.computedLocale || null,
