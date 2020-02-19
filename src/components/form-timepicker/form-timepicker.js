@@ -48,6 +48,10 @@ const propsMixin = {
       type: Boolean,
       default: false
     },
+    showSeconds: {
+      type: Boolean,
+      default: false
+    },
     required: {
       // If true adds the `aria-required` attribute
       type: Boolean,
@@ -166,6 +170,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         disabled: this.disabled,
         locale: this.locale,
         hideHeader: this.hideHeader,
+        showSeconds: this.showSeconds,
         labelIncrement: this.labelIncrement,
         labelDecrement: this.labelDecrement
         // TODO: Add remaining label props here
