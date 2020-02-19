@@ -101,6 +101,12 @@
               }
             ]
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Used to place custom controls at the bottom of the time component"
+          }
         ]
       }
     ]
