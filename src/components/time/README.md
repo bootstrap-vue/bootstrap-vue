@@ -103,7 +103,7 @@ provided), the returned value will always have the seconds portion of the time s
 
 ```html
 <template>
-  <b-time v-model="value" show-seconds locale="en-GB"></b-time>
+  <b-time v-model="value" show-seconds locale="en"></b-time>
   <div class="mt-2">{{ value }}</div>
 </template>
 
