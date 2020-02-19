@@ -9,6 +9,7 @@ import { getComponentConfig } from '../../utils/config'
 import { createDate, createDateFormatter } from '../../utils/date'
 import { contains } from '../../utils/dom'
 import { isBoolean, isNull, isUndefinedOrNull } from '../../utils/inspect'
+import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 // Mixins
@@ -203,6 +204,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     computedLocale() {
       return this.resolvedOptions.locale
     },
+    computedRTL() {
+      return isLocaleRTL(this.computedLocale)
+    },
     computedHourCycle() {
       // h11, h12, h23, or h24
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Locale/hourCycle
@@ -222,6 +226,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     context() {
       return {
         locale: this.computedLocale,
+        isRTL: this.computedRTL,
         hourCycle: this.computedHourCycle,
         hour12: this.is12Hour,
         hours: this.modelHours,
@@ -483,7 +488,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     // AM/PM ?
     if (this.is12Hour) {
       // TODO:
-      //   If locale is RTL, unshift this instead of push
+      //   If locale is RTL, unshift this instead of push??
       //   and switch class `ml-2` to `mr-2`
       $spinners.push(
         makeSpinbutton(this.setAmpm, 'ampm', 'ml-2', {
