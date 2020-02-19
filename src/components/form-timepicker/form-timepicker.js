@@ -245,9 +245,11 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
   },
   mounted() /* istanbul ignore next: until tests written */ {
     this.$on('shown', () => {
-      try {
-        this.$refs.time.focus()
-      } catch {}
+      this.$nextTick(() => {
+        try {
+          this.$refs.time.focus()
+        } catch {}
+      })
     })
   },
   methods: {
