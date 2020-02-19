@@ -271,6 +271,12 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       }
     },
     // Private methods
+    setAndClose(value) /* istanbul ignore next: until tests written */ {
+      this.localHMS = value
+      this.$nextTick(() => {
+        this.hide(true)
+      })
+    },
     onInput(hms) /* istanbul ignore next: until tests written */ {
       if (this.localHMS !== hms) {
         this.localHMS = hms
@@ -286,10 +292,15 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       this.$emit('context', ctx)
     },
     onNowButton() /* istanbul ignore next: until tests written */ {
-      // this.setAndClose(formatYMD(createDate()))
+      const now = new Date()
+      const hours = now.getHours()
+      const minutes = now.getMinutes()
+      const seconds = this.showSeconds ? now.getSeconds() : 0
+      const value = [hours, minutes, seconds].map(v => `00${v}`.slice(-2)).join(':')
+      this.setAndClose(value)
     },
     onResetButton() /* istanbul ignore next: until tests written */ {
-      // this.setAndClose(this.resetValue)
+      this.setAndClose(this.resetValue)
     },
     onCloseButton() /* istanbul ignore next: until tests written */ {
       this.hide(true)
