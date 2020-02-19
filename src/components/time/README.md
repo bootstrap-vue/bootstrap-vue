@@ -223,6 +223,7 @@ The `'context'` event is passed a context object as it's only argument, with the
 | `minutes`   | The currently selected minute value as a number or `null` if no minute                  |
 | `seconds`   | The currently selected seconds value as a number or `null` if no seconds                |
 | `locale`    | The locale resolved by the time picker, this may be different than the requested locale |
+| `isRTL`     | Will be `true` is the locale is RTL (right-to-left)                                     |
 | `hour12`    | Boolean value indicating if the interface is using 12 hour format                       |
 | `hourCycle` | A string representing the type of hour cycle used: `'h11'`, `'h12'`, `'h23'` or `'h24'` |
 
