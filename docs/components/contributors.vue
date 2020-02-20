@@ -73,6 +73,7 @@
 
   .contributor-name {
     font-size: 80%;
+    font-weight: 400;
   }
 
   .backers & {
