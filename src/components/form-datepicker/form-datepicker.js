@@ -383,7 +383,10 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     const idMenu = this.safeId('_dialog_')
     const idWrapper = this.safeId('_b-form-date_')
 
-    const $button = h(
+    let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
+      h(isHovered || hasFocus ? BIconCalendarFill : BIconCalendar, { props: { scale: 1.25 } })
+    ])
+    $button = h(
       'button',
       {
         ref: 'toggle',
