@@ -175,7 +175,7 @@ const propsMixin = {
     menuClass: {
       type: [String, Object, Array],
       default: null
-    },
+    }
   }
 }
 
@@ -319,13 +319,10 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     },
     // Render funtion helpers
     defaultButtonFn(scope) {
-      return this.$createElement(
-        scope.isHovered || scope.hasFocus ? BIconClockFill : BIconClock,
-        {
-          props: { scale: 1.25 },
-          attrs: { 'aria-hidden': 'true' }
-        }
-      )
+      return this.$createElement(scope.isHovered || scope.hasFocus ? BIconClockFill : BIconClock, {
+        props: { scale: 1.25 },
+        attrs: { 'aria-hidden': 'true' }
+      })
     }
   },
   render(h) {
