@@ -377,7 +377,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     const disabled = this.disabled
     const readonly = this.readonly
     const required = this.required
-    // These should move moved into computed props
+    // TODO: move these to computed props
     const idButton = this.safeId()
     const idLabel = this.safeId('_value_')
     const idMenu = this.safeId('_dialog_')
