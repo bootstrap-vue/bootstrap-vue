@@ -3,6 +3,7 @@ import identity from '../../utils/identity'
 import { getComponentConfig } from '../../utils/config'
 import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BTime } from '../time/time'
 import { BIconClock, BIconClockFill } from '../../icons/icons'
@@ -182,7 +183,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     BHover: VBHover
   },
   // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, propsMixin, dropdownMixin],
+  mixins: [idMixin, normalizeSlotMixin, propsMixin, dropdownMixin],
   model: {
     prop: 'value',
     event: 'input'
@@ -310,6 +311,16 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     },
     handleHover(hovered) /* istanbul ignore next: until tests written */ {
       this.isHovered = hovered
+    },
+    // Render funtion helpers
+    defaultButtonFn(scope) {
+      return this.$createElement(
+        scope.isHovered || scope.hasFocus ? BIconClockFill : BIconClock,
+        {
+          props: { scale: 1.25 },
+          attrs: { 'aria-hidden': 'true' }
+        }
+      )
     }
   },
   render(h) {
@@ -328,12 +339,8 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     const idMenu = this.safeId('_dialog_')
     const idWrapper = this.safeId('_b-form-time_')
 
-    let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
-      isHovered || hasFocus
-        ? h(BIconClockFill, { props: { scale: 1.25 } })
-        : h(BIconClock, { props: { scale: 1.25 } })
-    ])
-    $button = h(
+    const btnScope = { isHovered, hasFocus, state, opened: visible }
+    const $button = h(
       'button',
       {
         ref: 'toggle',
@@ -356,7 +363,11 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
           '!blur': this.setFocus
         }
       },
-      [$button]
+      [
+        this.hasNormalizedSlot('button-content')
+          ? this.normalizeSlot('button-content', btnScope)
+          : this.defaultButtonFn(btnScope)
+      ]
     )
 
     // Label as a "fake" input
