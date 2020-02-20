@@ -503,7 +503,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
           {
             show: this.visible,
             'dropdown-menu-right': this.right
-          },
+          }
         ],
         attrs: {
           id: idMenu,
