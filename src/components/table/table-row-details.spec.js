@@ -269,4 +269,38 @@ describe('table > row details', () => {
 
     wrapper.destroy()
   })
+
+  it('does show specific details in appropriate td slot', async () => {
+    const testItems = [
+      { a: 1, b: 2, c: 3, _showDetails: true },
+      { a: 5, b: 5, c: 6 },
+      { a: 7, b: 8, c: 9, _showDetails: false }
+    ]
+    const testFields = ['a', 'b', { key: 'c', fieldDetailsSlotName: 'td-slot-details' }]
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      slots: {
+        // Named slots get turned into scopedSlots in Vue 2.6.x
+        'td-slot-details': '<div>foobar</div>'
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.find('tbody').exists()).toBe(true)
+    const $trs = wrapper.findAll('tbody > tr')
+    const $tds = $trs.at(1).findAll('td')
+
+    expect($trs.length).toBe(4)
+    expect($trs.at(0).is('tr.b-table-details')).toBe(false)
+    expect($trs.at(1).is('tr.b-table-details')).toBe(true)
+    expect($trs.at(2).is('tr.b-table-details')).toBe(false)
+
+    expect($tds.length).toBe(3)
+    expect($tds.at(2).findAll('div').length).toBe(1)
+
+    wrapper.destroy()
+  })
 })
