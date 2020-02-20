@@ -13,4 +13,12 @@
   &[aria-disabled="true"] output {
     pointer-events: none;
   }
+  
+  @at-root {
+    // Prevent the spinbuttons from reversing order in RTL mode
+    // as time is always read LTR
+    [dir="rtl"]  & > .d-flex:not(.flex-column) {
+      flex-direction: row-reverse;
+    }
+  }
 }
