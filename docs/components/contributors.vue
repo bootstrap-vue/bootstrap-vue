@@ -69,10 +69,10 @@
   .contributor-thumbnail {
     width: 100%;
     height: 55px;
+  }
 
-    a &:hover {
-      background-color: #6c757d40;
-    }
+  a:hover .contributor-thumbnail {
+    background-color: #6c757d40;
   }
 
   .contributor-name {
