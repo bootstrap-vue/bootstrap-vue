@@ -216,10 +216,10 @@ export default {
           name: entry.fromAccount.name,
           type: entry.fromAccount.type,
           imageUrl: entry.fromAccount.imageUrl,
-          // We only link their website when the total amount is $10 or more
+          // We only link their website when the total amount is $25 or more
           // To prevent some questionable websites from abusing opencollective
           // as a means to improve thier Google page ranking
-          website: amount < 10 ? null : entry.fromAccount.website || null,
+          website: amount < 25 ? null : entry.fromAccount.website || null,
           status: entry.status,
           // For recurring donations, this is the installment amount
           // For one time donations, this is the donation amount (most recent)
