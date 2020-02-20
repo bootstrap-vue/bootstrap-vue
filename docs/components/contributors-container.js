@@ -63,7 +63,7 @@ export default {
             staticClass: `${CONTRIBUTOR_CLASS_NAME}-name`,
             class: ['small', 'mb-0 ', 'pt-2', 'text-break']
           },
-          [name]
+          [h(type === 'backers' ? 'small' : 'span', name)]
         )
       }
 
