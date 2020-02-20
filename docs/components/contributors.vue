@@ -72,10 +72,10 @@
   }
 
   .backers & {
-    width: 80px;
+    width: 72px;
 
     .contributor-thumbnail {
-      height: 80px;
+      height: 72px;
     }
   }
 
