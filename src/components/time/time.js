@@ -521,9 +521,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         attrs: {
           role: 'group',
           tabindex: this.disabled || this.readonly ? null : '-1',
-          'aria-labelledby': computedAriaLabelledby,
-          // Prevent flex order from changing
-          dir: 'ltr'
+          'aria-labelledby': computedAriaLabelledby
         },
         on: {
           keydown: this.onSpinLeftRight
@@ -544,7 +542,6 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           id: valueId,
           role: 'status',
           tabindex: this.disabled || this.readonly ? null : '-1',
-          dir: 'auto',
           'aria-live': 'polite',
           'aria-atomic': 'true'
         },
