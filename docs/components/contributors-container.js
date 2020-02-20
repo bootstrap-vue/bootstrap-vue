@@ -74,7 +74,7 @@ export default {
           'b-link',
           {
             class: ['text-reset'],
-            props: { href: website, target: '_blank' }
+            props: { href: website, target: '_blank', rel; 'noopener nofollow' }
           },
           [$content]
         )
