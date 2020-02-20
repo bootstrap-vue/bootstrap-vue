@@ -101,6 +101,11 @@
     .contributor-thumbnail {
       height: 100px;
     }
+
+    .contributor-name {
+      font-size: 90%;
+      font-weight: bold;
+    }
   }
 
   .gold-sponsors & {
@@ -109,6 +114,11 @@
     .contributor-thumbnail {
       height: 120px;
     }
+
+    .contributor-name {
+      font-size: 90%;
+      font-weight: bold;
+    }
   }
 
   .platinum-sponsors & {
@@ -116,6 +126,11 @@
 
     .contributor-thumbnail {
       height: 140px;
+    }
+
+    .contributor-name {
+      font-size: 100%;
+      font-weight: bold;
     }
   }
 }
