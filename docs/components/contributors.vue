@@ -117,10 +117,10 @@
 import BVDContributorsContainer from '~/components/contributors-container'
 
 const OC_BASE_URL = 'https://rest.opencollective.com/v2/bootstrap-vue/orders/'
-const OC_DEFAULT_PARAMS = { status: 'active', tierSlug: null, limit: 100 }
+const OC_DEFAULT_PARAMS = { status: 'active', tierSlug: null, limit: 200 }
 
-const MAX_BACKERS = 16
-const MAX_DONORS = 32
+const MAX_BACKERS = 32
+const MAX_DONORS = 64
 
 export default {
   name: 'BVDContributors',
@@ -228,7 +228,7 @@ export default {
     processBackers(backers = []) {
       // Backers are provided in reverse chronological order
       // so we sort by larger amount first, then by date
-      // Limit to top 16 backers
+      // Limit to top N backers
       this.backers = backers.sort(this.sortCompare).slice(0, MAX_BACKERS)
     },
     processDonors(donors = []) {
@@ -236,7 +236,7 @@ export default {
       // but donors can be listed more than once (for each individual donation),
       // although the `totalDonations` is the same on each entry
       // We sort by larger amount first, then by date
-      // Limit to top 32 most recent donors
+      // Limit to top N most recent donors
       this.donors = donors
         .reduce((results, donor) => {
           if (results.map(d => d.slug).indexOf(donor.slug) === -1) {
