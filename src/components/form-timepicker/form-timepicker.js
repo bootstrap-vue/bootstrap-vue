@@ -502,8 +502,6 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         class: [
           // User supplied classes
           this.menuClass,
-          // dropdown direction positioning class (from dropdown mixin)
-          this.directionClass,
           // Classes we add/override
           {
             show: this.visible,
