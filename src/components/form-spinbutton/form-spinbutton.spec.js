@@ -17,8 +17,6 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).toContain('align-items-stretch')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('tabindex')).toEqual('-1')
-    // We always have LTR to ensure the flex order stays ltr
-    expect(wrapper.attributes('dir')).toEqual('ltr')
 
     // Should have 3 child elements (btn, output, btn)
     expect(wrapper.findAll('.b-form-spinbutton > *').length).toBe(3)
@@ -76,8 +74,6 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).toContain('align-items-stretch')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('tabindex')).toEqual('-1')
-    // We always have LTR to ensure the flex order stays ltr
-    expect(wrapper.attributes('dir')).toEqual('ltr')
 
     // Should have 3 child elements (btn, output, btn)
     expect(wrapper.findAll('.b-form-spinbutton > *').length).toBe(3)
@@ -135,8 +131,6 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).toContain('align-items-stretch')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('tabindex')).toEqual('-1')
-    // We always have LTR to ensure the flex order stays ltr
-    expect(wrapper.attributes('dir')).toEqual('ltr')
 
     // Should have 3 child elements (btn, output, btn)
     expect(wrapper.findAll('.b-form-spinbutton > *').length).toBe(3)
@@ -185,8 +179,6 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).not.toContain('align-items-stretch')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('tabindex')).toEqual('-1')
-    // We always have LTR to ensure the flex order stays ltr
-    expect(wrapper.attributes('dir')).toEqual('ltr')
 
     // Should have 3 child elements (btn, output, btn)
     expect(wrapper.findAll('.b-form-spinbutton > *').length).toBe(3)
@@ -769,8 +761,6 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).not.toContain('focus')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('tabindex')).toEqual('-1')
-    // We always have LTR to ensure the flex order stays ltr
-    expect(wrapper.attributes('dir')).toEqual('ltr')
 
     const $output = wrapper.find('output')
     expect($output.exists()).toBe(true)

@@ -551,10 +551,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         attrs: {
           role: 'group',
           lang: this.computedLocale,
-          tabindex: isDisabled ? null : '-1',
-          // We want to keep the order of the buttons regardless
-          // of locale (flex will re-order based on rtl/ltr)
-          dir: 'ltr'
+          tabindex: isDisabled ? null : '-1'
         },
         on: {
           keydown: this.onKeydown,
