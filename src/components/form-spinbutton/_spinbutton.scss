@@ -9,6 +9,14 @@
     height: auto;
     width: auto;
   }
+  
+  @at-root {
+    // Prevent the buttons from reversing order on in horizontal RTL mode
+    [dir="rtl"] &:not(.flex-column),
+    &[dir="rtl"]:not(.flex-column) {
+      flex-direction: row-reverse;
+    }
+  }
 
   output {
     font-size: inherit;
