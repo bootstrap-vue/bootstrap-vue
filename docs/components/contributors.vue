@@ -179,19 +179,26 @@ export default {
     },
     processOcNodes(nodes = []) {
       return nodes.map(entry => {
+        // For recurring donations, this is the total amount donated
+        // For users that donate multiple times, this will be the total of all one time donations
+        const amount = entry.totalDonations.value
+        // Return the massaged result
         return {
           slug: entry.fromAccount.slug,
           name: entry.fromAccount.name,
           type: entry.fromAccount.type,
           imageUrl: entry.fromAccount.imageUrl,
-          website: entry.fromAccount.website,
+          // We only link their website when the total amount is $10 or more
+          // To prevent some questionable websites from using this
+          // as a means to improve thier Google page rank
+          website: amount < 10 ? null : entry.fromAccount.website,
           status: entry.status,
           // For recurring donations, this is the installment amount
           // For one time donations, this is the donation amount (most recent)
           amount: entry.amount.value,
           // For recurring donations, this is the total amount donated
           // For users that donate multiple times, this will be the total of all one time donations
-          totalAmount: entry.totalDonations.value,
+          totalAmount: amount,
           // For recurring donations, this is how often the donation is received
           frequency: entry.frequency,
           // We now have sponsor tiers, but some appear as
