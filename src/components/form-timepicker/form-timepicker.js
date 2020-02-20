@@ -170,7 +170,12 @@ const propsMixin = {
     labelDecrement: {
       type: String,
       default: () => getConfigFallback('labelDecrement')
-    }
+    },
+    // extra dropdown stuff
+    menuClass: {
+      type: [String, Object, Array],
+      default: null
+    },
   }
 }
 
@@ -494,10 +499,17 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       {
         ref: 'menu',
         staticClass: 'dropdown-menu p-2',
-        class: {
-          show: this.visible,
-          'dropdown-menu-right': this.right
-        },
+        class: [
+          // User supplied classes
+          this.menuClass,
+          // dropdown direction positioning class (from dropdown mixin)
+          this.directionClass,
+          // Classes we add/override
+          {
+            show: this.visible,
+            'dropdown-menu-right': this.right
+          },
+        ],
         attrs: {
           id: idMenu,
           role: 'dialog',
