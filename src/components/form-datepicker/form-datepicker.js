@@ -242,36 +242,38 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       return this.activeYMD.slice(0, -3)
     },
     calendarProps() {
+      // We alis `this` to `self` for better minification
+      const self = this
       // TODO: Make the ID's computed props
-      const idLabel = this.safeId('_value_')
-      const idWrapper = this.safeId('_b-form-date_')
+      const idLabel = self.safeId('_value_')
+      const idWrapper = self.safeId('_b-form-date_')
       return {
         // id: this.safeId('_picker_'),
         ariaControls: [idLabel, idWrapper].filter(identity).join(' ') || null,
-        value: this.localYMD,
-        hidden: !this.visible,
-        min: this.min,
-        max: this.max,
-        readonly: this.readonly,
-        disabled: this.disabled,
-        locale: this.locale,
-        startWeekday: this.startWeekday,
-        direction: this.direction,
-        dateDisabledFn: this.dateDisabledFn,
-        selectedVariant: this.selectedVariant,
-        todayVariant: this.todayVariant,
-        hideHeader: this.hideHeader,
-        labelPrevYear: this.labelPrevYear,
-        labelPrevMonth: this.labelPrevMonth,
-        labelCurrentMonth: this.labelCurrentMonth,
-        labelNextMonth: this.labelNextMonth,
-        labelNextYear: this.labelNextYear,
-        labelToday: this.labelToday,
-        labelSelected: this.labelSelected,
-        labelNoDateSelected: this.labelNoDateSelected,
-        labelCalendar: this.labelCalendar,
-        labelNav: this.labelNav,
-        labelHelp: this.labelHelp
+        value: self.localYMD,
+        hidden: !self.visible,
+        min: self.min,
+        max: self.max,
+        readonly: self.readonly,
+        disabled: self.disabled,
+        locale: self.locale,
+        startWeekday: self.startWeekday,
+        direction: self.direction,
+        dateDisabledFn: self.dateDisabledFn,
+        selectedVariant: self.selectedVariant,
+        todayVariant: self.todayVariant,
+        hideHeader: self.hideHeader,
+        labelPrevYear: self.labelPrevYear,
+        labelPrevMonth: self.labelPrevMonth,
+        labelCurrentMonth: self.labelCurrentMonth,
+        labelNextMonth: self.labelNextMonth,
+        labelNextYear: self.labelNextYear,
+        labelToday: self.labelToday,
+        labelSelected: self.labelSelected,
+        labelNoDateSelected: self.labelNoDateSelected,
+        labelCalendar: self.labelCalendar,
+        labelNav: self.labelNav,
+        labelHelp: self.labelHelp
       }
     },
     computedResetValue() {
@@ -296,8 +298,6 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   },
   mounted() {
     this.$on('shown', () => {
-      // May want to make an option to focus
-      // the entire calendar (dropdown-menu) or just the date
       try {
         this.$refs.calendar.focus()
       } catch {}
@@ -370,18 +370,21 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   render(h) {
     const size = this.size
     const state = this.state
+    const visible = this.visible
+    const isHovered = this.isHovered
+    const hasFocus = this.hasFocus
     const localYMD = this.localYMD
     const disabled = this.disabled
     const readonly = this.readonly
+    const required = this.required
+    // TODO: move these to computed props
     const idButton = this.safeId()
     const idLabel = this.safeId('_value_')
     const idMenu = this.safeId('_dialog_')
     const idWrapper = this.safeId('_b-form-date_')
 
     let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
-      this.isHovered || this.hasFocus
-        ? h(BIconCalendarFill, { props: { scale: 1.25 } })
-        : h(BIconCalendar, { props: { scale: 1.25 } })
+      h(isHovered || hasFocus ? BIconCalendarFill : BIconCalendar, { props: { scale: 1.25 } })
     ])
     $button = h(
       'button',
@@ -394,9 +397,9 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           type: 'button',
           disabled: disabled,
           'aria-haspopup': 'dialog',
-          'aria-expanded': this.visible ? 'true' : 'false',
+          'aria-expanded': visible ? 'true' : 'false',
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null
+          'aria-required': required ? 'true' : null
         },
         on: {
           mousedown: this.onMousedown,
@@ -428,7 +431,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           dir: this.isRTL ? 'rtl' : 'ltr',
           lang: this.localLocale || null,
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null
+          'aria-required': required ? 'true' : null
         },
         on: {
           // Disable bubbling of the click event to
@@ -440,7 +443,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       },
       [
         // Add the formatted value or placeholder
-        localYMD ? this.formattedValue : this.placeholder || this.labelNoDateSelected,
+        localYMD ? this.formattedValue : this.placeholder || this.labelNoDateSelected || '\u00A0',
         // Add an sr-only 'selected date' label if a date is selected
         localYMD ? h('span', { staticClass: 'sr-only' }, ` (${this.labelSelected}) `) : h()
       ]
@@ -485,7 +488,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled: this.disabled, variant: this.closeButtonVariant },
+            props: { size: 'sm', disabled: disabled, variant: this.closeButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onCloseButton }
           },
@@ -532,7 +535,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         ref: 'menu',
         staticClass: 'dropdown-menu p-2',
         class: {
-          show: this.visible,
+          show: visible,
           'dropdown-menu-right': this.right,
           'bg-dark': this.dark,
           'text-light': this.dark
@@ -569,8 +572,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         class: [
           this.directionClass,
           {
-            show: this.visible,
-            focus: this.hasFocus,
+            show: visible,
+            focus: hasFocus,
             [`form-control-${size}`]: !!size,
             'is-invalid': state === false,
             'is-valid': state === true
@@ -583,7 +586,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           'aria-readonly': readonly && !disabled,
           'aria-labelledby': idLabel,
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null,
+          'aria-required': required ? 'true' : null,
           // We don't want the flex order to change here
           // So we always use 'ltr'
           dir: 'ltr'
