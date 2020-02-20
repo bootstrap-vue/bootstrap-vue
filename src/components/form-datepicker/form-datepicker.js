@@ -242,36 +242,38 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       return this.activeYMD.slice(0, -3)
     },
     calendarProps() {
+      // We alis `this` to `self` for better minification
+      const self = this
       // TODO: Make the ID's computed props
-      const idLabel = this.safeId('_value_')
-      const idWrapper = this.safeId('_b-form-date_')
+      const idLabel = self.safeId('_value_')
+      const idWrapper = self.safeId('_b-form-date_')
       return {
         // id: this.safeId('_picker_'),
         ariaControls: [idLabel, idWrapper].filter(identity).join(' ') || null,
-        value: this.localYMD,
-        hidden: !this.visible,
-        min: this.min,
-        max: this.max,
-        readonly: this.readonly,
-        disabled: this.disabled,
-        locale: this.locale,
-        startWeekday: this.startWeekday,
-        direction: this.direction,
-        dateDisabledFn: this.dateDisabledFn,
-        selectedVariant: this.selectedVariant,
-        todayVariant: this.todayVariant,
-        hideHeader: this.hideHeader,
-        labelPrevYear: this.labelPrevYear,
-        labelPrevMonth: this.labelPrevMonth,
-        labelCurrentMonth: this.labelCurrentMonth,
-        labelNextMonth: this.labelNextMonth,
-        labelNextYear: this.labelNextYear,
-        labelToday: this.labelToday,
-        labelSelected: this.labelSelected,
-        labelNoDateSelected: this.labelNoDateSelected,
-        labelCalendar: this.labelCalendar,
-        labelNav: this.labelNav,
-        labelHelp: this.labelHelp
+        value: self.localYMD,
+        hidden: !self.visible,
+        min: self.min,
+        max: self.max,
+        readonly: self.readonly,
+        disabled: self.disabled,
+        locale: self.locale,
+        startWeekday: self.startWeekday,
+        direction: self.direction,
+        dateDisabledFn: self.dateDisabledFn,
+        selectedVariant: self.selectedVariant,
+        todayVariant: self.todayVariant,
+        hideHeader: self.hideHeader,
+        labelPrevYear: self.labelPrevYear,
+        labelPrevMonth: self.labelPrevMonth,
+        labelCurrentMonth: self.labelCurrentMonth,
+        labelNextMonth: self.labelNextMonth,
+        labelNextYear: self.labelNextYear,
+        labelToday: self.labelToday,
+        labelSelected: self.labelSelected,
+        labelNoDateSelected: self.labelNoDateSelected,
+        labelCalendar: self.labelCalendar,
+        labelNav: self.labelNav,
+        labelHelp: self.labelHelp
       }
     },
     computedResetValue() {
@@ -296,8 +298,6 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   },
   mounted() {
     this.$on('shown', () => {
-      // May want to make an option to focus
-      // the entire calendar (dropdown-menu) or just the date
       try {
         this.$refs.calendar.focus()
       } catch {}
