@@ -191,7 +191,9 @@ export default {
           // We only link their website when the total amount is $10 or more
           // To prevent some questionable websites from using this
           // as a means to improve thier Google page rank
-          website: amount < 10 ? null : entry.fromAccount.website,
+          website: amount < 10
+            ? `https://rest.opencollective.com/${entry.fromAccount.slug}`
+            : entry.fromAccount.website,
           status: entry.status,
           // For recurring donations, this is the installment amount
           // For one time donations, this is the donation amount (most recent)
