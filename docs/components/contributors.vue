@@ -71,11 +71,19 @@
     height: 55px;
   }
 
+  .contributor-name {
+    font-size: 80%;
+  }
+
   .backers & {
     width: 80px;
 
     .contributor-thumbnail {
       height: 80px;
+    }
+
+    .contributor-name {
+      font-size: 70%;
     }
   }
 
