@@ -262,7 +262,6 @@ export default {
       // Backers are provided in reverse chronological order
       // so we sort by larger amount first, then by date
       // Limit to top N backers
-      // this.backers = backers.sort(this.sortCompare).slice(0, MAX_BACKERS)
       this.backers = backers
         .filter(b => b.tier === null || b.tier === 'backers')
         .sort(this.sortCompare)
@@ -298,7 +297,6 @@ export default {
       this.makeOcRequest(this.processBronzeSponsors.bind(this), { tierSlug: 'bronze-sponsors' })
       // Backers are people/organizations with recurring (active) donations
       // Some backers are not tagged as "backers" slug (null slug), but have status "active"
-      // this.makeOcRequest(this.processBackers.bind(this), { tierSlug: 'backers' })
       this.makeOcRequest(this.processBackers.bind(this), { status: 'active' })
       // Donors are people/organizations with one-time (paid) donations
       this.makeOcRequest(this.processDonors.bind(this), { status: 'paid' })
