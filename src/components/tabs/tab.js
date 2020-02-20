@@ -39,6 +39,9 @@ export const BTab = /*#__PURE__*/ Vue.extend({
       type: [String, Array, Object],
       default: null
     },
+    titleLinkAttributes: {
+      type: Object
+    },
     disabled: {
       type: Boolean,
       default: false

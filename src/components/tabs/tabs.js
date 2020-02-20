@@ -99,6 +99,23 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    let linkAttrs = {
+      role: 'tab',
+      id: this.id,
+      // Roving tab index when keynav enabled
+      tabindex: this.tabIndex,
+      'aria-selected': this.tab.localActive && !this.tab.disabled ? 'true' : 'false',
+      'aria-setsize': this.setSize,
+      'aria-posinset': this.posInSet,
+      'aria-controls': this.controls
+    }
+
+    const { titleLinkAttributes } = this.tab
+
+    if (typeof titleLinkAttributes === 'object' && titleLinkAttributes !== null) {
+      linkAttrs = { ...this.tab.titleLinkAttributes, ...linkAttrs }
+    }
+
     const link = h(
       BLink,
       {
@@ -114,16 +131,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
           this.tab.localActive ? this.bvTabs.activeNavItemClass : null
         ],
         props: { disabled: this.tab.disabled },
-        attrs: {
-          role: 'tab',
-          id: this.id,
-          // Roving tab index when keynav enabled
-          tabindex: this.tabIndex,
-          'aria-selected': this.tab.localActive && !this.tab.disabled ? 'true' : 'false',
-          'aria-setsize': this.setSize,
-          'aria-posinset': this.posInSet,
-          'aria-controls': this.controls
-        },
+        attrs: linkAttrs,
         on: {
           click: this.handleEvt,
           keydown: this.handleEvt
