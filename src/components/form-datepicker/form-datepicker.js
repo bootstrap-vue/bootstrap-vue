@@ -409,12 +409,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           '!blur': this.setFocus
         }
       },
-      [
-        h(isHovered || hasFocus ? BIconCalendarFill : BIconCalendar, {
-          props: { scale: 1.25 },
-          attrs: { 'aria-hidden': 'true' }
-        })
-      ]
+      [$button]
     )
 
     // Label as a "fake" input
