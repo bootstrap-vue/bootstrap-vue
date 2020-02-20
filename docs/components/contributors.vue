@@ -239,7 +239,8 @@ export default {
       // this.backers = backers.sort(this.sortCompare).slice(0, MAX_BACKERS)
       this.backers = backers
         .filter(b => b.tier === null || b.tier === 'backers')
-        .sort(this.sortCompare).slice(0, MAX_BACKERS)
+        .sort(this.sortCompare)
+        .slice(0, MAX_BACKERS)
     },
     processDonors(donors = []) {
       // Donors are provided in reverse chronological order,
