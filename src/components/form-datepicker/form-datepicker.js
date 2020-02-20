@@ -370,20 +370,20 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   render(h) {
     const size = this.size
     const state = this.state
+    const visible = this.visible
+    const isHovered = this.isHovered
+    const hasFocus = this.hasFocus
     const localYMD = this.localYMD
     const disabled = this.disabled
     const readonly = this.readonly
+    const required: this.required
+    // These should move moved into computed props
     const idButton = this.safeId()
     const idLabel = this.safeId('_value_')
     const idMenu = this.safeId('_dialog_')
     const idWrapper = this.safeId('_b-form-date_')
 
-    let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
-      this.isHovered || this.hasFocus
-        ? h(BIconCalendarFill, { props: { scale: 1.25 } })
-        : h(BIconCalendar, { props: { scale: 1.25 } })
-    ])
-    $button = h(
+    const $button = h(
       'button',
       {
         ref: 'toggle',
@@ -394,9 +394,9 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           type: 'button',
           disabled: disabled,
           'aria-haspopup': 'dialog',
-          'aria-expanded': this.visible ? 'true' : 'false',
+          'aria-expanded': visible ? 'true' : 'false',
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null
+          'aria-required': required ? 'true' : null
         },
         on: {
           mousedown: this.onMousedown,
@@ -406,7 +406,12 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           '!blur': this.setFocus
         }
       },
-      [$button]
+      [
+        h(isHovered || hasFocus ? BIconCalendarFill : BIconCalendar, {
+          props: { scale: 1.25 },
+          attrs: { 'aria-hidden': 'true' }
+        })
+      ]
     )
 
     // Label as a "fake" input
@@ -428,7 +433,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           dir: this.isRTL ? 'rtl' : 'ltr',
           lang: this.localLocale || null,
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null
+          'aria-required': required ? 'true' : null
         },
         on: {
           // Disable bubbling of the click event to
@@ -440,7 +445,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       },
       [
         // Add the formatted value or placeholder
-        localYMD ? this.formattedValue : this.placeholder || this.labelNoDateSelected,
+        localYMD ? this.formattedValue : this.placeholder || this.labelNoDateSelected || '\u00A0',
         // Add an sr-only 'selected date' label if a date is selected
         localYMD ? h('span', { staticClass: 'sr-only' }, ` (${this.labelSelected}) `) : h()
       ]
@@ -485,7 +490,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled: this.disabled, variant: this.closeButtonVariant },
+            props: { size: 'sm', disabled: disabled, variant: this.closeButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onCloseButton }
           },
@@ -532,7 +537,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         ref: 'menu',
         staticClass: 'dropdown-menu p-2',
         class: {
-          show: this.visible,
+          show: visible,
           'dropdown-menu-right': this.right,
           'bg-dark': this.dark,
           'text-light': this.dark
@@ -569,8 +574,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         class: [
           this.directionClass,
           {
-            show: this.visible,
-            focus: this.hasFocus,
+            show: visible,
+            focus: hasFocus,
             [`form-control-${size}`]: !!size,
             'is-invalid': state === false,
             'is-valid': state === true
@@ -583,7 +588,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           'aria-readonly': readonly && !disabled,
           'aria-labelledby': idLabel,
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null,
+          'aria-required': required ? 'true' : null,
           // We don't want the flex order to change here
           // So we always use 'ltr'
           dir: 'ltr'
