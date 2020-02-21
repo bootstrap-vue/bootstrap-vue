@@ -222,10 +222,10 @@ export default {
         // For users that donate multiple times, this will be the total of all one time donations
         const totalAmount = entry.totalDonations.value
         const amount = entry.amount.value
-        // FallbackUrl
+        // Fallback URL
         const slug = entry.fromAccount.slug
         const fallbackUrl = slug ? `https://opencollective.com/${slug}` : null
-        // Return the massaged result
+        // Return the normalized result
         return {
           slug: slug,
           name: entry.fromAccount.name,
