@@ -209,24 +209,24 @@ export default {
       return nodes.map(entry => {
         // For recurring donations, this is the total amount donated
         // For users that donate multiple times, this will be the total of all one time donations
-        const amount = entry.totalDonations.value
+        const totalAmount = entry.totalDonations.value
         // Return the massaged result
         return {
           slug: entry.fromAccount.slug,
           name: entry.fromAccount.name,
           type: entry.fromAccount.type,
           imageUrl: entry.fromAccount.imageUrl,
-          // We only link their website when the total amount is $25 or more
+          // We only link their website when the total amount is $20 or more
           // To prevent some questionable websites from abusing opencollective
           // as a means to improve thier Google page ranking
-          website: amount < 25 ? null : entry.fromAccount.website || null,
+          website: amount < 20 ? null : entry.fromAccount.website || null,
           status: entry.status,
           // For recurring donations, this is the installment amount
           // For one time donations, this is the donation amount (most recent)
           amount: entry.amount.value,
           // For recurring donations, this is the total amount donated
           // For users that donate multiple times, this will be the total of all one time donations
-          totalAmount: amount,
+          totalAmount: totalAmount,
           // For recurring donations, this is how often the donation is received
           frequency: entry.frequency,
           // We now have sponsor tiers, but some appear as
