@@ -448,14 +448,16 @@ export default {
         disabled || isActivePage(pageTest) || noCurrentPage || linkTo < 1 || linkTo > numberOfPages
       const pageNum = linkTo < 1 ? 1 : linkTo > numberOfPages ? numberOfPages : linkTo
       const scope = { disabled: isDisabled, page: pageNum, index: pageNum - 1 }
-      const btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h()
-      const inner = h(
-        isDisabled ? 'span' : BLink,
+      const $btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h()
+      const $inner = h(
+        isDisabled ? 'span' : isNav ? BLink : 'button',
         {
           staticClass: 'page-link',
-          props: isDisabled ? {} : this.linkProps(linkTo),
+          props: isDisabled || !isNav ? {} : this.linkProps(linkTo),
           attrs: {
             role: isNav ? null : 'menuitem',
+            type: isNav ? null : 'button',
+            disabled: isDisabled && !isNav ? true : null,
             tabindex: isDisabled || isNav ? null : '-1',
             'aria-label': ariaLabel,
             'aria-controls': this.ariaControls || null,
@@ -464,13 +466,13 @@ export default {
           on: isDisabled
             ? {}
             : {
-                click: evt => {
+                '!click': evt => {
                   this.onClick(linkTo, evt)
                 },
                 keydown: onSpaceKey
               }
         },
-        [btnContent]
+        [$btnContent]
       )
       return h(
         'li',
@@ -483,7 +485,7 @@ export default {
             'aria-hidden': isDisabled ? 'true' : null
           }
         },
-        [inner]
+        [$inner]
       )
     }
 
@@ -512,6 +514,8 @@ export default {
       const tabIndex = disabled ? null : active || (noCurrentPage && idx === 0) ? '0' : '-1'
       const attrs = {
         role: isNav ? null : 'menuitemradio',
+        type: isNav ? null : 'button',
+        disabled: disabled && !isNav ? true : null,
         'aria-disabled': disabled ? 'true' : null,
         'aria-controls': this.ariaControls || null,
         'aria-label': isFunction(this.labelPage)
@@ -532,16 +536,16 @@ export default {
         active,
         disabled
       }
-      const inner = h(
-        disabled ? 'span' : BLink,
+      const $inner = h(
+        disabled ? 'span' : isNav ? BLink : 'button',
         {
-          props: disabled ? {} : this.linkProps(page.number),
+          props: disabled || !isNav ? {} : this.linkProps(page.number),
           staticClass: 'page-link',
           attrs,
           on: disabled
             ? {}
             : {
-                click: evt => {
+                '!click': evt => {
                   this.onClick(page.number, evt)
                 },
                 keydown: onSpaceKey
@@ -557,7 +561,7 @@ export default {
           class: [{ disabled, active, 'flex-fill': fill }, page.classes, this.pageClass],
           attrs: { role: isNav ? null : 'presentation' }
         },
-        [inner]
+        [$inner]
       )
     }
 
