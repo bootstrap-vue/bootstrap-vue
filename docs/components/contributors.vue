@@ -213,23 +213,26 @@ export default {
         const amount = entry.amount.value
         // FallbackUrl
         const slug = entry.fromAccount.slug
-        const fallbackUrl = slug ? `https://opencollective.com/${entry.fromAccount.slug}` : null
+        const fallbackUrl = slug ? `https://opencollective.com/${slug}` : null
         // Return the massaged result
         return {
           slug: slug,
           name: entry.fromAccount.name,
+          // type: 'ORGANIZATION', 'INDIVIDUAL'
           type: entry.fromAccount.type,
           imageUrl: entry.fromAccount.imageUrl,
           // We only link their website when the total amount is $20 or more
           // To prevent some questionable websites from abusing opencollective
-          // as a means to improve thier Google page ranking
-          website: Math.max(amount || 0, totalAmount || 0) < 20
-            ? null
-            : entry.fromAccount.website || fallbackUrl,
+          // as a means to improve thier Google page ranking via backlinks
+          website:
+            Math.max(amount || 0, totalAmount || 0) < 20
+              ? null
+              : entry.fromAccount.website || fallbackUrl,
+          // status: 'ACTIVE' = typically recurring, 'PAID' = typially one time donation
           status: entry.status,
           // For recurring donations, this is the installment amount
           // For one time donations, this is the donation amount (most recent)
-          amount: entry.amount.value,
+          amount: amount,
           // For recurring donations, this is the total amount donated
           // For users that donate multiple times, this will be the total of all one time donations
           totalAmount: totalAmount,
