@@ -219,7 +219,7 @@ export default {
           // We only link their website when the total amount is $20 or more
           // To prevent some questionable websites from abusing opencollective
           // as a means to improve thier Google page ranking
-          website: amount < 20 ? null : entry.fromAccount.website || null,
+          website: totalAmount < 20 ? null : entry.fromAccount.website || null,
           status: entry.status,
           // For recurring donations, this is the installment amount
           // For one time donations, this is the donation amount (most recent)
