@@ -513,8 +513,7 @@ export default {
       const tabIndex = disabled ? null : active || (noCurrentPage && idx === 0) ? '0' : '-1'
       const attrs = {
         role: isNav ? null : 'menuitemradio',
-        type: isNav ? null : 'button',
-        disabled: disabled && !isNav ? true : null,
+        type: isNav || disabled ? null : 'button',
         'aria-disabled': disabled ? 'true' : null,
         'aria-controls': this.ariaControls || null,
         'aria-label': isFunction(this.labelPage)
