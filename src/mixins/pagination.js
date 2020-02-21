@@ -351,11 +351,21 @@ export default {
   methods: {
     handleKeyNav(evt) {
       const { keyCode, shiftKey } = evt
+      const stopIfNav = () => /* istanbul ignore next */ {
+        // We stop proagation to allow keybard nav for screen
+        // reader users when rendered in b-pagination-nav
+        if (isNav) {
+          evt.stopPropagation()
+        }
+      }
+      const isNav = this.isNav
       if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
         evt.preventDefault()
+        stopIfNav()
         shiftKey ? this.focusFirst() : this.focusPrev()
       } else if (keyCode === KeyCodes.RIGHT || keyCode === KeyCodes.DOWN) {
         evt.preventDefault()
+        stopIfNav()
         shiftKey ? this.focusLast() : this.focusNext()
       }
     },
