@@ -351,13 +351,10 @@ export default {
   methods: {
     handleKeyNav(evt) {
       const { keyCode, shiftKey } = evt
-      const stopIfNav = () => /* istanbul ignore next */ {
-        // We stop propagation to allow keybard nav for screen
-        // reader users when rendered as b-pagination-nav
-        if (this.isNav) {
-          evt.stopImmediatePropagation()
-          evt.stopPropagation()
-        }
+      /* istanbul ignore if */
+      if (this.isNav) {
+        // We disable left/right keyboard navigation in pagination-nav
+        return
       }
       if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
         evt.preventDefault()
@@ -658,7 +655,8 @@ export default {
           'aria-disabled': disabled ? 'true' : 'false',
           'aria-label': isNav ? null : this.ariaLabel || null
         },
-        on: { keydown: this.handleKeyNav }
+        // We disable keyboard left/right nav when pagination-nav
+        on: isNav ? {} : { keydown: this.handleKeyNav }
       },
       buttons
     )
