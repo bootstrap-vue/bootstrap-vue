@@ -18,10 +18,14 @@ export default {
     showName: {
       type: Boolean,
       default: true
+    },
+    nofollow: {
+      type: Boolean,
+      default: true
     }
   },
   render(h, { props, data }) {
-    const { type, contributors, showName } = props
+    const { type, contributors, showName, nofollow } = props
 
     if (contributors.length === 0) {
       return h()
@@ -56,14 +60,14 @@ export default {
       )
 
       let $name = h()
-      if (showName) {
+      if (showName && name) {
         $name = h(
           'div',
           {
             staticClass: `${CONTRIBUTOR_CLASS_NAME}-name`,
-            class: ['small', 'mb-0 ', 'pt-2', 'text-break']
+            class: ['mb-0', 'pt-2', 'text-break']
           },
-          [name]
+          name
         )
       }
 
@@ -74,7 +78,12 @@ export default {
           'b-link',
           {
             class: ['text-reset'],
-            props: { href: website, target: '_blank' }
+            props: {
+              href: website,
+              target: '_blank',
+              // We exclude `nofollow` on sponsor website links
+              rel: nofollow ? 'noopener nofollow external' : 'noopener external'
+            }
           },
           [$content]
         )
