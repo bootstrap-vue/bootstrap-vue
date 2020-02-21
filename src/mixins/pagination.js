@@ -355,6 +355,7 @@ export default {
         // We stop propagation to allow keybard nav for screen
         // reader users when rendered as b-pagination-nav
         if (this.isNav) {
+          evt.stopImmediatePropagation()
           evt.stopPropagation()
         }
       }
