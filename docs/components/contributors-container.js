@@ -81,7 +81,7 @@ export default {
             props: {
               href: website,
               target: '_blank',
-              rel: nofollow ? 'noopener nofollow' : 'noopener'
+              rel: nofollow ? 'noopener nofollow external' : 'noopener external'
             }
           },
           [$content]
