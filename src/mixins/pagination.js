@@ -456,8 +456,7 @@ export default {
           props: isDisabled || !isNav ? {} : this.linkProps(linkTo),
           attrs: {
             role: isNav ? null : 'menuitem',
-            type: isNav ? null : 'button',
-            disabled: isDisabled && !isNav ? true : null,
+            type: isNav || isDisabled ? null : 'button',
             tabindex: isDisabled || isNav ? null : '-1',
             'aria-label': ariaLabel,
             'aria-controls': this.ariaControls || null,
