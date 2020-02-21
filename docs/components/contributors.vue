@@ -211,9 +211,12 @@ export default {
         // For users that donate multiple times, this will be the total of all one time donations
         const totalAmount = entry.totalDonations.value
         const amount = entry.amount.value
+        // FallbackUrl
+        const slug = entry.fromAccount.slug
+        const fallbackUrl = slug ? `https://opencollective.com/${entry.fromAccount.slug}` : null
         // Return the massaged result
         return {
-          slug: entry.fromAccount.slug,
+          slug: slug,
           name: entry.fromAccount.name,
           type: entry.fromAccount.type,
           imageUrl: entry.fromAccount.imageUrl,
@@ -222,7 +225,7 @@ export default {
           // as a means to improve thier Google page ranking
           website: Math.max(amount || 0, totalAmount || 0) < 20
             ? null
-            : entry.fromAccount.website || null,
+            : entry.fromAccount.website || fallbackUrl,
           status: entry.status,
           // For recurring donations, this is the installment amount
           // For one time donations, this is the donation amount (most recent)
