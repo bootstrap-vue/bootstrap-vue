@@ -353,8 +353,8 @@ export default {
       const { keyCode, shiftKey } = evt
       const stopIfNav = () => /* istanbul ignore next */ {
         // We stop proagation to allow keybard nav for screen
-        // reader users when rendered in b-pagination-nav
-        if (isNav) {
+        // reader users when rendered as b-pagination-nav
+        if (this.isNav) {
           evt.stopPropagation()
         }
       }
