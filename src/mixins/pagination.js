@@ -358,7 +358,6 @@ export default {
           evt.stopPropagation()
         }
       }
-      const isNav = this.isNav
       if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
         evt.preventDefault()
         stopIfNav()
