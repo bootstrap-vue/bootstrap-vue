@@ -10,6 +10,7 @@
         <BVDContributorsContainer
           type="platinum-sponsors"
           :contributors="platinumSponsors"
+          :nofollow="false"
         ></BVDContributorsContainer>
       </template>
 
@@ -19,6 +20,7 @@
         <BVDContributorsContainer
           type="gold-sponsors"
           :contributors="goldSponsors"
+          :nofollow="false"
         ></BVDContributorsContainer>
       </template>
 
@@ -28,6 +30,7 @@
         <BVDContributorsContainer
           type="silver-sponsors"
           :contributors="silverSponsors"
+          :nofollow="false"
         ></BVDContributorsContainer>
       </template>
 
@@ -37,6 +40,7 @@
         <BVDContributorsContainer
           type="bronze-sponsors"
           :contributors="bronzeSponsors"
+          :nofollow="false"
         ></BVDContributorsContainer>
       </template>
     </template>
