@@ -41,7 +41,7 @@ describe('pagination-nav', () => {
     expect($ul.classes()).not.toContain('justify-content-center')
     expect($ul.classes()).not.toContain('justify-content-end')
     // UL Attributes
-    expect($ul.attributes('role')).toBe('menubar')
+    expect($ul.attributes('role')).not.toBe('menubar')
     expect($ul.attributes('aria-disabled')).toBe('false')
     expect($ul.attributes('aria-label')).toBe('Pagination')
 
@@ -126,7 +126,7 @@ describe('pagination-nav', () => {
     expect($ul.classes()).toContain('b-pagination')
 
     // UL Attributes
-    expect($ul.attributes('role')).toBe('menubar')
+    expect($ul.attributes('role')).not.toBe('menubar')
     expect($ul.attributes('aria-disabled')).toBe('true')
 
     // LI classes
