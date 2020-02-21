@@ -358,11 +358,9 @@ export default {
       }
       if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
         evt.preventDefault()
-        stopIfNav()
         shiftKey ? this.focusFirst() : this.focusPrev()
       } else if (keyCode === KeyCodes.RIGHT || keyCode === KeyCodes.DOWN) {
         evt.preventDefault()
-        stopIfNav()
         shiftKey ? this.focusLast() : this.focusNext()
       }
     },
