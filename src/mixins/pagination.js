@@ -655,7 +655,7 @@ export default {
         attrs: {
           role: isNav ? null : 'menubar',
           'aria-disabled': disabled ? 'true' : 'false',
-          'aria-label': this.ariaLabel || null
+          'aria-label': isNav ? null : this.ariaLabel || null
         },
         on: { keydown: this.handleKeyNav }
       },
@@ -669,7 +669,8 @@ export default {
         {
           attrs: {
             'aria-disabled': disabled ? 'true' : null,
-            'aria-hidden': disabled ? 'true' : 'false'
+            'aria-hidden': disabled ? 'true' : 'false',
+            'aria-label': isNav ? this.ariaLabel || null : null
           }
         },
         [$pagination]
