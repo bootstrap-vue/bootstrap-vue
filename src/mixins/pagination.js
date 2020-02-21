@@ -430,6 +430,8 @@ export default {
     const { showFirstDots, showLastDots } = this.paginationParams
     const currentPage = this.computedCurrentPage
     const fill = this.align === 'fill'
+    // Used to control what type of aria attributes are rendered and wrapper
+    const isNav = this.isNav
 
     // Helper function and flag
     const isActivePage = pageNum => pageNum === currentPage
@@ -448,8 +450,8 @@ export default {
           staticClass: 'page-link',
           props: isDisabled ? {} : this.linkProps(linkTo),
           attrs: {
-            role: 'menuitem',
-            tabindex: isDisabled ? null : '-1',
+            role: isNav ? null : 'menuitem',
+            tabindex: isDisabled || isNav ? null : '-1',
             'aria-label': ariaLabel,
             'aria-controls': this.ariaControls || null,
             'aria-disabled': isDisabled ? 'true' : null
@@ -472,7 +474,7 @@ export default {
           staticClass: 'page-item',
           class: [{ disabled: isDisabled, 'flex-fill': fill }, btnClass],
           attrs: {
-            role: 'presentation',
+            role: isNav ? null : 'presentation',
             'aria-hidden': isDisabled ? 'true' : null
           }
         },
@@ -504,17 +506,18 @@ export default {
       // Active page will have tabindex of 0, or if no current page and first page button
       const tabIndex = disabled ? null : active || (noCurrentPage && idx === 0) ? '0' : '-1'
       const attrs = {
-        role: 'menuitemradio',
+        role: isNav ? null : 'menuitemradio',
         'aria-disabled': disabled ? 'true' : null,
         'aria-controls': this.ariaControls || null,
         'aria-label': isFunction(this.labelPage)
           ? this.labelPage(page.number)
           : `${this.labelPage} ${page.number}`,
-        'aria-checked': active ? 'true' : 'false',
+        'aria-checked': isNav ? null : active ? 'true' : 'false',
+        'aria-current': isNav && active ? 'page' : null,
         'aria-posinset': page.number,
         'aria-setsize': numberOfPages,
-        // ARIA "roving tabindex" method
-        tabindex: tabIndex
+        // ARIA "roving tabindex" method (except in isNav mode)
+        tabindex: isNav ? null : tabIndex
       }
       const btnContent = toString(this.makePage(page.number))
       const scope = {
@@ -547,7 +550,7 @@ export default {
           key: `page-${page.number}`,
           staticClass: 'page-item',
           class: [{ disabled, active, 'flex-fill': fill }, page.classes, this.pageClass],
-          attrs: { role: 'presentation' }
+          attrs: { role: isNav ? null : 'presentation' }
         },
         [inner]
       )
@@ -641,7 +644,7 @@ export default {
         staticClass: 'pagination',
         class: ['b-pagination', this.btnSize, this.alignment, this.styleClass],
         attrs: {
-          role: 'menubar',
+          role: isNav ? null : 'menubar',
           'aria-disabled': disabled ? 'true' : 'false',
           'aria-label': this.ariaLabel || null
         },
