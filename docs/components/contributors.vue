@@ -154,6 +154,13 @@ const OC_DEFAULT_PARAMS = { status: 'active', tierSlug: null, limit: 200 }
 const MAX_BACKERS = 32
 const MAX_DONORS = 64
 
+// This value needs to be less than or equal to our bronze tier amount
+// We may want to set two thresholds: a single donation amount and
+// a total dontation amount. This determine if we link to the donors
+// website or not. Used to help prevent abuse of opencollective via
+// small dontations to gain cheep backlinks for Google page rank
+const LINK_AMT_THRESHOLD = 20
+
 export default {
   name: 'BVDContributors',
   components: { BVDContributorsContainer },
@@ -225,11 +232,11 @@ export default {
           // type: 'ORGANIZATION', 'INDIVIDUAL'
           type: entry.fromAccount.type,
           imageUrl: entry.fromAccount.imageUrl,
-          // We only link their website when the total amount is $20 or more
-          // To prevent some questionable websites from abusing opencollective
+          // We only link their website when the total amount is at or above a certain
+          // threshold to prevent some questionable websites from abusing opencollective
           // as a means to improve thier Google page ranking via backlinks
           website:
-            Math.max(amount || 0, totalAmount || 0) < 20
+            Math.max(amount || 0, totalAmount || 0) < LINK_AMT_THRESHOLD
               ? null
               : entry.fromAccount.website || fallbackUrl,
           // status: 'ACTIVE' = typically recurring, 'PAID' = typially one time donation
@@ -276,6 +283,8 @@ export default {
     processBackers(backers = []) {
       // Backers are provided in reverse chronological order
       // so we sort by larger amount first, then by date
+      // Some backers have the tier level as `null`, which started
+      // backing before we started the tier levels
       // Limit to top N backers
       this.backers = backers
         .filter(b => b.tier === null || b.tier === 'backers')
@@ -285,8 +294,8 @@ export default {
     processDonors(donors = []) {
       // Donors are provided in reverse chronological order,
       // but donors can be listed more than once (for each individual donation),
-      // although the `totalDonations` is the same on each entry
-      // We sort by larger amount first, then by date
+      // although the `totalDonations` is the same on each entry. We filter out
+      // duplicate donors by slug, then sort by larger amount first, then by date
       // Limit to top N most recent donors
       this.donors = donors
         .reduce((results, donor) => {
@@ -311,7 +320,7 @@ export default {
       // Bronze sponors are people/organizations with a recurring (active) bronze sponorship
       this.makeOcRequest(this.processBronzeSponsors.bind(this), { tierSlug: 'bronze-sponsors' })
       // Backers are people/organizations with recurring (active) donations
-      // Some backers are not tagged as "backers" slug (null slug), but have status "active"
+      // Some backers are not tagged as "backers" slug (`null` slug), but have status "active"
       this.makeOcRequest(this.processBackers.bind(this), { status: 'active' })
       // Donors are people/organizations with one-time (paid) donations
       this.makeOcRequest(this.processDonors.bind(this), { status: 'paid' })
