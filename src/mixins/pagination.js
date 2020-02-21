@@ -453,6 +453,7 @@ export default {
         isDisabled ? 'span' : isNav ? BLink : 'button',
         {
           staticClass: 'page-link',
+          class: { 'flex-grow-1': !isNav && !isDisabled && fill },
           props: isDisabled || !isNav ? {} : this.linkProps(linkTo),
           attrs: {
             role: isNav ? null : 'menuitem',
@@ -478,7 +479,14 @@ export default {
         {
           key,
           staticClass: 'page-item',
-          class: [{ disabled: isDisabled, 'flex-fill': fill }, btnClass],
+          class: [
+            {
+              disabled: isDisabled,
+              'flex-fill': fill,
+              'd-flex': fill && !isNav && !isDisabled
+            },
+            btnClass
+          ],
           attrs: {
             role: isNav ? null : 'presentation',
             'aria-hidden': isDisabled ? 'true' : null
@@ -539,6 +547,7 @@ export default {
         {
           props: disabled || !isNav ? {} : this.linkProps(page.number),
           staticClass: 'page-link',
+          class: { 'flex-grow-1': !isNav && !disabled && fill },
           attrs,
           on: disabled
             ? {}
@@ -556,7 +565,16 @@ export default {
         {
           key: `page-${page.number}`,
           staticClass: 'page-item',
-          class: [{ disabled, active, 'flex-fill': fill }, page.classes, this.pageClass],
+          class: [
+            {
+              disabled,
+              active,
+              'flex-fill': fill,
+              'd-flex': fill && !isNav && !disabled
+            },
+            page.classes,
+            this.pageClass
+          ],
           attrs: { role: isNav ? null : 'presentation' }
         },
         [$inner]
