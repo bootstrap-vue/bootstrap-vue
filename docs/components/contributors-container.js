@@ -18,10 +18,14 @@ export default {
     showName: {
       type: Boolean,
       default: true
+    },
+    nofollow: {
+      type: Boolean,
+      default: true
     }
   },
   render(h, { props, data }) {
-    const { type, contributors, showName } = props
+    const { type, contributors, showName, nofollow } = props
 
     if (contributors.length === 0) {
       return h()
@@ -74,7 +78,11 @@ export default {
           'b-link',
           {
             class: ['text-reset'],
-            props: { href: website, target: '_blank', rel: 'noopener nofollow' }
+            props: {
+              href: website,
+              target: '_blank',
+              rel: nofollow ? 'noopener nofollow' : 'noopener'
+            }
           },
           [$content]
         )
