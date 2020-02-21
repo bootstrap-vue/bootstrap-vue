@@ -366,7 +366,7 @@ export default {
     },
     getButtons() {
       // Return only buttons that are visible
-      return selectAll('a.page-link', this.$el).filter(btn => isVisible(btn))
+      return selectAll('button.page-link, a.page-link', this.$el).filter(btn => isVisible(btn))
     },
     setBtnFocus(btn) {
       btn.focus()
