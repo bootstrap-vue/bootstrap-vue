@@ -654,7 +654,7 @@ export default {
     )
 
     // If we are `<b-pagination-nav>`, wrap in `<nav>` wrapper
-    if (this.isNav) {
+    if (isNav) {
       return h(
         'nav',
         {
