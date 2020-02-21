@@ -81,6 +81,7 @@ export default {
             props: {
               href: website,
               target: '_blank',
+              // We exclude `nofollow` on sponsor website links
               rel: nofollow ? 'noopener nofollow external' : 'noopener external'
             }
           },
