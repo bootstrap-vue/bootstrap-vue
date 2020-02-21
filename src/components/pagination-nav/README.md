@@ -515,17 +515,7 @@ recommended unless the content of the button textually conveys its purpose.
 
 ### Keyboard navigation
 
-`<b-pagination-nav>` supports keyboard navigation out of the box, as well as standard tabindex on
-each page link.
-
-- Tabbing into the pagination component will autofocus the current non-disabled page button
-- <kbd>LEFT</kbd> (or <kbd>UP</kbd>) and <kbd>RIGHT</kbd> (or <kbd>DOWN</kbd>) arrow keys will focus
-  the previous and next buttons, respectively, in the page list
-- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the currently focused page button
-- Pressing <kbd>TAB</kbd> will move to the next page link in the pagination component or to the next
-  tabbable control or link on the page, while pressing <kbd>SHIFT</kbd>+<kbd>TAB</kbd> will move to
-  the previous link in the pagination component or to the previous tabbable control or link on the
-  page.
+`<b-pagination-nav>` supports standard <kbd>TAB</kbd> key navigation.
 
 ## See also
 
