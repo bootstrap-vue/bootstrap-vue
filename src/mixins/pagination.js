@@ -353,7 +353,7 @@ export default {
       const { keyCode, shiftKey } = evt
       /* istanbul ignore if */
       if (this.isNav) {
-        // We disable left/right keyboard navigation in pagination-nav
+        // We disable left/right keyboard navigation in <b-pagination-nav>
         return
       }
       if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
@@ -439,15 +439,15 @@ export default {
     const isNav = this.isNav
 
     // Helper function and flag
-    const isActivePage = pageNum => pageNum === currentPage
+    const isActivePage = pageNumber => pageNumber === currentPage
     const noCurrentPage = this.currentPage < 1
 
     // Factory function for prev/next/first/last buttons
     const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, btnClass, pageTest, key) => {
       const isDisabled =
         disabled || isActivePage(pageTest) || noCurrentPage || linkTo < 1 || linkTo > numberOfPages
-      const pageNum = linkTo < 1 ? 1 : linkTo > numberOfPages ? numberOfPages : linkTo
-      const scope = { disabled: isDisabled, page: pageNum, index: pageNum - 1 }
+      const pageNumber = linkTo < 1 ? 1 : linkTo > numberOfPages ? numberOfPages : linkTo
+      const scope = { disabled: isDisabled, page: pageNumber, index: pageNumber - 1 }
       const $btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h()
       const $inner = h(
         isDisabled ? 'span' : isNav ? BLink : 'button',
