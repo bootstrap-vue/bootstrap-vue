@@ -353,7 +353,7 @@ export default {
       const { keyCode, shiftKey } = evt
       /* istanbul ignore if */
       if (this.isNav) {
-        // We disable left/right keyboard navigation in <b-pagination-nav>
+        // We disable left/right keyboard navigation in `<b-pagination-nav>`
         return
       }
       if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
@@ -673,7 +673,7 @@ export default {
           'aria-disabled': disabled ? 'true' : 'false',
           'aria-label': isNav ? null : this.ariaLabel || null
         },
-        // We disable keyboard left/right nav when pagination-nav
+        // We disable keyboard left/right nav when `<b-pagination-nav>`
         on: isNav ? {} : { keydown: this.handleKeyNav }
       },
       buttons
