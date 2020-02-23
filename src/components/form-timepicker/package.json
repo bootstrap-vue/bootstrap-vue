@@ -63,6 +63,10 @@
             "description": "When set, visually hides the selected date header"
           },
           {
+            "prop": "menuClass",
+            "description": "Class (or classes) to applyto to poup menu wraper"
+          },
+          {
             "prop": "nowButton",
             "description": "When set, shows the optional `select now` button"
           },
