@@ -351,6 +351,11 @@ export default {
   methods: {
     handleKeyNav(evt) {
       const { keyCode, shiftKey } = evt
+      /* istanbul ignore if */
+      if (this.isNav) {
+        // We disable left/right keyboard navigation in `<b-pagination-nav>`
+        return
+      }
       if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
         evt.preventDefault()
         shiftKey ? this.focusFirst() : this.focusPrev()
@@ -361,7 +366,7 @@ export default {
     },
     getButtons() {
       // Return only buttons that are visible
-      return selectAll('a.page-link', this.$el).filter(btn => isVisible(btn))
+      return selectAll('button.page-link, a.page-link', this.$el).filter(btn => isVisible(btn))
     },
     setBtnFocus(btn) {
       btn.focus()
@@ -430,26 +435,30 @@ export default {
     const { showFirstDots, showLastDots } = this.paginationParams
     const currentPage = this.computedCurrentPage
     const fill = this.align === 'fill'
+    // Used to control what type of aria attributes are rendered and wrapper
+    const isNav = this.isNav
 
     // Helper function and flag
-    const isActivePage = pageNum => pageNum === currentPage
+    const isActivePage = pageNumber => pageNumber === currentPage
     const noCurrentPage = this.currentPage < 1
 
     // Factory function for prev/next/first/last buttons
     const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, btnClass, pageTest, key) => {
       const isDisabled =
         disabled || isActivePage(pageTest) || noCurrentPage || linkTo < 1 || linkTo > numberOfPages
-      const pageNum = linkTo < 1 ? 1 : linkTo > numberOfPages ? numberOfPages : linkTo
-      const scope = { disabled: isDisabled, page: pageNum, index: pageNum - 1 }
-      const btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h()
-      const inner = h(
-        isDisabled ? 'span' : BLink,
+      const pageNumber = linkTo < 1 ? 1 : linkTo > numberOfPages ? numberOfPages : linkTo
+      const scope = { disabled: isDisabled, page: pageNumber, index: pageNumber - 1 }
+      const $btnContent = this.normalizeSlot(btnSlot, scope) || toString(btnText) || h()
+      const $inner = h(
+        isDisabled ? 'span' : isNav ? BLink : 'button',
         {
           staticClass: 'page-link',
-          props: isDisabled ? {} : this.linkProps(linkTo),
+          class: { 'flex-grow-1': !isNav && !isDisabled && fill },
+          props: isDisabled || !isNav ? {} : this.linkProps(linkTo),
           attrs: {
-            role: 'menuitem',
-            tabindex: isDisabled ? null : '-1',
+            role: isNav ? null : 'menuitem',
+            type: isNav || isDisabled ? null : 'button',
+            tabindex: isDisabled || isNav ? null : '-1',
             'aria-label': ariaLabel,
             'aria-controls': this.ariaControls || null,
             'aria-disabled': isDisabled ? 'true' : null
@@ -457,26 +466,33 @@ export default {
           on: isDisabled
             ? {}
             : {
-                click: evt => {
+                '!click': evt => {
                   this.onClick(linkTo, evt)
                 },
                 keydown: onSpaceKey
               }
         },
-        [btnContent]
+        [$btnContent]
       )
       return h(
         'li',
         {
           key,
           staticClass: 'page-item',
-          class: [{ disabled: isDisabled, 'flex-fill': fill }, btnClass],
+          class: [
+            {
+              disabled: isDisabled,
+              'flex-fill': fill,
+              'd-flex': fill && !isNav && !isDisabled
+            },
+            btnClass
+          ],
           attrs: {
-            role: 'presentation',
+            role: isNav ? null : 'presentation',
             'aria-hidden': isDisabled ? 'true' : null
           }
         },
-        [inner]
+        [$inner]
       )
     }
 
@@ -504,17 +520,19 @@ export default {
       // Active page will have tabindex of 0, or if no current page and first page button
       const tabIndex = disabled ? null : active || (noCurrentPage && idx === 0) ? '0' : '-1'
       const attrs = {
-        role: 'menuitemradio',
+        role: isNav ? null : 'menuitemradio',
+        type: isNav || disabled ? null : 'button',
         'aria-disabled': disabled ? 'true' : null,
         'aria-controls': this.ariaControls || null,
         'aria-label': isFunction(this.labelPage)
           ? this.labelPage(page.number)
           : `${this.labelPage} ${page.number}`,
-        'aria-checked': active ? 'true' : 'false',
+        'aria-checked': isNav ? null : active ? 'true' : 'false',
+        'aria-current': isNav && active ? 'page' : null,
         'aria-posinset': page.number,
         'aria-setsize': numberOfPages,
-        // ARIA "roving tabindex" method
-        tabindex: tabIndex
+        // ARIA "roving tabindex" method (except in isNav mode)
+        tabindex: isNav ? null : tabIndex
       }
       const btnContent = toString(this.makePage(page.number))
       const scope = {
@@ -524,16 +542,17 @@ export default {
         active,
         disabled
       }
-      const inner = h(
-        disabled ? 'span' : BLink,
+      const $inner = h(
+        disabled ? 'span' : isNav ? BLink : 'button',
         {
-          props: disabled ? {} : this.linkProps(page.number),
+          props: disabled || !isNav ? {} : this.linkProps(page.number),
           staticClass: 'page-link',
+          class: { 'flex-grow-1': !isNav && !disabled && fill },
           attrs,
           on: disabled
             ? {}
             : {
-                click: evt => {
+                '!click': evt => {
                   this.onClick(page.number, evt)
                 },
                 keydown: onSpaceKey
@@ -546,10 +565,19 @@ export default {
         {
           key: `page-${page.number}`,
           staticClass: 'page-item',
-          class: [{ disabled, active, 'flex-fill': fill }, page.classes, this.pageClass],
-          attrs: { role: 'presentation' }
+          class: [
+            {
+              disabled,
+              active,
+              'flex-fill': fill,
+              'd-flex': fill && !isNav && !disabled
+            },
+            page.classes,
+            this.pageClass
+          ],
+          attrs: { role: isNav ? null : 'presentation' }
         },
-        [inner]
+        [$inner]
       )
     }
 
@@ -641,23 +669,25 @@ export default {
         staticClass: 'pagination',
         class: ['b-pagination', this.btnSize, this.alignment, this.styleClass],
         attrs: {
-          role: 'menubar',
+          role: isNav ? null : 'menubar',
           'aria-disabled': disabled ? 'true' : 'false',
-          'aria-label': this.ariaLabel || null
+          'aria-label': isNav ? null : this.ariaLabel || null
         },
-        on: { keydown: this.handleKeyNav }
+        // We disable keyboard left/right nav when `<b-pagination-nav>`
+        on: isNav ? {} : { keydown: this.handleKeyNav }
       },
       buttons
     )
 
     // If we are `<b-pagination-nav>`, wrap in `<nav>` wrapper
-    if (this.isNav) {
+    if (isNav) {
       return h(
         'nav',
         {
           attrs: {
             'aria-disabled': disabled ? 'true' : null,
-            'aria-hidden': disabled ? 'true' : 'false'
+            'aria-hidden': disabled ? 'true' : 'false',
+            'aria-label': isNav ? this.ariaLabel || null : null
           }
         },
         [$pagination]
