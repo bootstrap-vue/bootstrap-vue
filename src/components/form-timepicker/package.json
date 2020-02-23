@@ -64,7 +64,7 @@
           },
           {
             "prop": "menuClass",
-            "description": "Class (or classes) to apply to to poup menu wraper"
+            "description": "Class (or classes) to apply to to popup menu wrapper"
           },
           {
             "prop": "nowButton",
