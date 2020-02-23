@@ -49,7 +49,8 @@ The component `<b-time>` was introduced in BootstrapVue `v2.6.0`.
 ## `v-model` return value
 
 `<b-time>` always returns a string in the format of `HH:mm:ss` which is the same format returned by
-native browser `<input type="time">` controls.
+native browser `<input type="time">` controls. The value will be in the range of `'00:00:00'` up to
+`'23:59:59'` (24-hour clock using the `'h23'` hour cycle syntax)
 
 If no time is selected, then `<b-time>` returns an empty string (`''`).
 
@@ -216,17 +217,37 @@ emit when the time component is created).
 
 The `'context'` event is passed a context object as it's only argument, with the following properties:
 
-| Property    | Description                                                                                      |
-| ----------- | ------------------------------------------------------------------------------------------------ |
-| `value`     | The current value as an `HH:mm:ss` string or an empty string `''` if no time selected            |
-| `formatted` | The current value formatted in the locale, or the `label-no-time` prop value if no time selected |
-| `hours`     | The currently selected hour (always 24 hour format) as a number or `null` if no hour             |
-| `minutes`   | The currently selected minute value as a number or `null` if no minute                           |
-| `seconds`   | The currently selected seconds value as a number or `null` if no seconds                         |
-| `locale`    | The locale resolved by the time picker, this may be different than the requested locale          |
-| `isRTL`     | Will be `true` is the locale is RTL (right-to-left)                                              |
-| `hour12`    | Boolean value indicating if the interface is using 12 hour format                                |
-| `hourCycle` | A string representing the type of hour cycle used: `'h11'`, `'h12'`, `'h23'` or `'h24'`          |
+| Property    | Description                                                                                                 |
+| ----------- | ----------------------------------------------------------------------------------------------------------- |
+| `value`     | The current value as an `HH:mm:ss` string or an empty string `''` if no time selected                       |
+| `formatted` | The current value formatted in the resolved locale, or the `label-no-time` prop value if no time selected   |
+| `hours`     | The currently selected hour (always 24 hour, `h23'` format) as a number or `null` if no hour                |
+| `minutes`   | The currently selected minute value as a number or `null` if no minute                                      |
+| `seconds`   | The currently selected seconds value as a number or `null` if no seconds                                    |
+| `locale`    | The locale resolved by the time picker, this _may_ be different than the requested locale                   |
+| `isRTL`     | Will be `true` is the locale is RTL (right-to-left)                                                         |
+| `hour12`    | Boolean value indicating if the interface is using 12 hour format                                           |
+| `hourCycle` | A string representing the type of hour cycle used for the spinbuttons: `'h11'`, `'h12'`, `'h23'` or `'h24'` |
+
+### Understanding the `hourCycle`
+
+There are 2 main types of time keeping conventions (clocks) used around the world: the 12-hour clock
+and the 24-hour clock. The `hourCycle` property allows you to access the clock type used by a
+particular locale. The hour cycle type can have several different values, which are listed in the
+table below. The `hourCycle` prop signals how the time `'00:00:00'` (the start of the day) should
+be presented/formatted to a user of a particular locale.
+
+| `hourCycle` | Description                                                                       |
+| ----------- | --------------------------------------------------------------------------------- |
+| `'h12'`     | Hour system using `1`–`12`. The 12 hour clock, with midnight starting at 12:00 am |
+| `'h23'`     | Hour system using `0`–`23`. The 24 hour clock, with midnight starting at 0:00     |
+| `'h11'`     | Hour system using `0`–`11`. The 12 hour clock, with midnight starting at 0:00 am  |
+| `'h24'`     | Hour system using `1`–`24`. The 24 hour clock, with midnight starting at 24:00    |
+
+Native HTML5 `<input type="date">` returns the time value in the `'h23'` format, and `<b-time>` also
+returns the v-model in the `'h23'` format. This value may differ from what is presented to the user
+via the GUI (spin buttons) of the `<b-time>` component, dependant upon the
+[locale selected](#internationalization).
 
 ## Internationalization
 
