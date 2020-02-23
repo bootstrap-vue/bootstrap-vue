@@ -588,3 +588,5 @@ verbosity and to provide consistency across various screen readers (NVDA, when e
 ## See also
 
 - [`<b-form-datepicker>` Date picker custom form input](/docs/components/form-datepicker)
+- [`<b-form-timepicker>` Time picker custom form input](/docs/comonents/form-timepicker)
+- [`<b-time>` Time date selection widget](/docs/components/calendar)
