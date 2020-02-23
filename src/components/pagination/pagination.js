@@ -132,8 +132,8 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
       return pageNum
     },
     linkProps() {
-      // Always '#' for pagination component
-      return { href: '#' }
+      // No props, since we render a plain button
+      return {}
     }
   }
 })
