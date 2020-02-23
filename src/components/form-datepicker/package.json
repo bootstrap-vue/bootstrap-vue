@@ -85,6 +85,11 @@
             "description": "When set, shows the optional `select today` button"
           },
           {
+            "prop": "menuClass",
+            "version": "2.6.0",
+            "description": "Class (or classes) to applyto to poup menu wraper"
+          },
+          {
             "prop": "todayButtonVariant",
             "description": "Button variant to use for the optional `select today` button"
           },
