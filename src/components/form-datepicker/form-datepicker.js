@@ -203,6 +203,11 @@ const propsMixin = {
     dark: {
       type: Boolean,
       default: false
+    },
+    // extra dropdown stuff
+    menuClass: {
+      type: [String, Object, Array],
+      default: null
     }
   }
 }
@@ -540,12 +545,15 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       {
         ref: 'menu',
         staticClass: 'dropdown-menu p-2',
-        class: {
-          show: visible,
-          'dropdown-menu-right': this.right,
-          'bg-dark': this.dark,
-          'text-light': this.dark
-        },
+        class: [
+          this.menuClass,
+          {
+            show: visible,
+            'dropdown-menu-right': this.right,
+            'bg-dark': this.dark,
+            'text-light': this.dark
+          }
+        ],
         attrs: {
           id: idMenu,
           role: 'dialog',
