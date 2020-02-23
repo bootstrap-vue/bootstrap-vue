@@ -439,5 +439,7 @@ BootstrapVue's Custom SCSS/CSS is also required for proper styling of the date p
 
 ## See also
 
+- [`<b-form-timepicker>` Time picker custom form input](/docs/components/form-timepicker)
 - [`<b-calendar>` Calendar date selection widget](/docs/components/calendar)
+- [`<b-time>` Time selection widget](/docs/components/time)
 - [`<b-dropdown>` Dropdown component](/docs/components/dropdown)
