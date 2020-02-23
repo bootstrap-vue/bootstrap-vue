@@ -169,7 +169,7 @@ describe('time', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    const $hours = wrapper.find('[aria-label="Hours"]')
+    const $hours = wrapper.find('[role="spinbutton"][aria-label="Hours"]')
     expect($hours.exists()).toBe(true)
 
     expect(document.activeElement).not.toBe($hours.element)
