@@ -59,6 +59,46 @@
             "description": "When set, visually hides the selected time header"
           },
           {
+            "prop": "hideHeader",
+            "description": "When set, visually hides the selected date header"
+          },
+          {
+            "prop": "nowButton",
+            "description": "When set, shows the optional `select now` button"
+          },
+          {
+            "prop": "nowButtonVariant",
+            "description": "Button variant to use for the optional `select today` button"
+          },
+          {
+            "prop": "labelNowButton",
+            "description": "Content for the optional `Select now` button"
+          },
+          {
+            "prop": "resetButton",
+            "description": "When set, shows the optional `reset` button"
+          },
+          {
+            "prop": "resetButtonVariant",
+            "description": "Button variant to use for the optional `reset` button"
+          },
+          {
+            "prop": "labelResetButton",
+            "description": "Content for the optional `Reset` button"
+          },
+          {
+            "prop": "noCloseButton",
+            "description": "When set, disabes showing the close button"
+          },
+          {
+            "prop": "closeButtonVariant",
+            "description": "Button variant to use for the optional `close` button"
+          },
+          {
+            "prop": "labelCloseButton",
+            "description": "Content for the `Close` button"
+          }
+          {
             "prop": "labelNoTime",
             "description": "String to show when no time is selected"
           },
