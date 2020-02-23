@@ -383,4 +383,3 @@ proper styling.
 - [`<b-form-timepicker>` Time picker custom form input](/docs/comonents/form-timepicker)
 - [`<b-calendar>` Calendar date selection widget](/docs/components/calendar)
 - [`<b-form-datepicker>` Date picker custom form input](/docs/components/form-datepicker)
-
