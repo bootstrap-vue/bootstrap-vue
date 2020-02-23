@@ -6,7 +6,7 @@ TBD
 ```html
 <template>
   <div>
-    <b-form-timepicker v-model="value" show-seconds locale="en"></b-form-timepicker>
+    <b-form-timepicker v-model="value" locale="en"></b-form-timepicker>
     <div class="mt-2">Value: '{{ value }}'</div>
   </div>
 </template>
@@ -41,6 +41,28 @@ TBD
 ### Enabling of seconds spinbutton
 
 TBD
+
+```html
+<template>
+  <div>
+    <b-form-timepicker v-model="value" show-seconds locale="en"></b-form-timepicker>
+    <div class="mt-2">Value: '{{ value }}'</div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    }
+  }
+</script>
+
+<!-- b-form-timepicker-show-seconds.vue -->
+```
+
 
 ### Control sizing
 
