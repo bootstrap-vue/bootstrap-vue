@@ -56,7 +56,7 @@ describe('pagination', () => {
       if (index === 2) {
         expect(li.classes()).toContain('active')
         expect(li.classes()).not.toContain('disabled')
-        expect(pageLink.is('a')).toBe(true)
+        expect(pageLink.is('button')).toBe(true)
       } else {
         expect(li.classes()).not.toContain('active')
         expect(li.classes()).toContain('disabled')
@@ -78,14 +78,13 @@ describe('pagination', () => {
     expect(last.find('.page-link').text()).toEqual('»')
 
     // Page button attrs
-    expect(page.find('.page-link').attributes('href')).toEqual('#')
+    expect(page.find('.page-link').attributes('type')).toEqual('button')
     expect(page.find('.page-link').attributes('role')).toEqual('menuitemradio')
     expect(page.find('.page-link').attributes('aria-checked')).toEqual('true')
     expect(page.find('.page-link').attributes('aria-posinset')).toEqual('1')
     expect(page.find('.page-link').attributes('aria-setsize')).toEqual('1')
     expect(page.find('.page-link').attributes('tabindex')).toEqual('0')
     expect(page.find('.page-link').attributes('aria-label')).toEqual('Go to page 1')
-    expect(page.find('.page-link').attributes('target')).toEqual('_self')
 
     wrapper.destroy()
   })
@@ -133,7 +132,7 @@ describe('pagination', () => {
       disabled: false
     })
 
-    const $links = wrapper.findAll('a.page-link')
+    const $links = wrapper.findAll('button.page-link')
     expect($links.length).toBe(5)
     expect($links.at(0).text()).toBe('Page 1')
     expect($links.at(1).text()).toBe('Page 2')
@@ -388,16 +387,16 @@ describe('pagination', () => {
     })
     expect(wrapper.is('ul')).toBe(true)
     expect(wrapper.findAll('li').length).toBe(5)
-    expect(wrapper.findAll('a.page-link').length).toBe(4)
-    expect(wrapper.findAll('a.page-link').is('[aria-controls="foo"]')).toBe(true)
+    expect(wrapper.findAll('button.page-link').length).toBe(4)
+    expect(wrapper.findAll('button.page-link').is('[aria-controls="foo"]')).toBe(true)
 
     wrapper.setProps({
       ariaControls: null
     })
     await waitNT(wrapper.vm)
     expect(wrapper.findAll('li').length).toBe(5)
-    expect(wrapper.findAll('a.page-link').length).toBe(4)
-    expect(wrapper.findAll('a.page-link').is('[aria-controls]')).toBe(false)
+    expect(wrapper.findAll('button.page-link').length).toBe(4)
+    expect(wrapper.findAll('button.page-link').is('[aria-controls]')).toBe(false)
 
     wrapper.destroy()
   })
@@ -414,28 +413,28 @@ describe('pagination', () => {
     })
     expect(wrapper.is('ul')).toBe(true)
     expect(wrapper.findAll('li').length).toBe(5)
-    expect(wrapper.findAll('a').length).toBe(4)
+    expect(wrapper.findAll('button').length).toBe(4)
     expect(
       wrapper
-        .findAll('a')
+        .findAll('button')
         .at(0)
         .attributes('aria-label')
     ).toBe('Go to page 1')
     expect(
       wrapper
-        .findAll('a')
+        .findAll('button')
         .at(1)
         .attributes('aria-label')
     ).toBe('Go to page 2')
     expect(
       wrapper
-        .findAll('a')
+        .findAll('button')
         .at(2)
         .attributes('aria-label')
     ).toBe('Go to page 3')
     expect(
       wrapper
-        .findAll('a')
+        .findAll('button')
         .at(3)
         .attributes('aria-label')
     ).toBe('Go to next page')
@@ -654,7 +653,7 @@ describe('pagination', () => {
     wrapper
       .findAll('li')
       .at(3)
-      .find('a')
+      .find('button')
       .trigger('click')
     await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(2)
@@ -667,7 +666,7 @@ describe('pagination', () => {
     wrapper
       .findAll('li')
       .at(6)
-      .find('a')
+      .find('button')
       .trigger('keydown.space') // Generates a click event
     await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(3)
@@ -678,7 +677,7 @@ describe('pagination', () => {
     wrapper
       .findAll('li')
       .at(1)
-      .find('a')
+      .find('button')
       .trigger('click')
     await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(2)
@@ -1031,7 +1030,7 @@ describe('pagination', () => {
       expect(wrapper.is('ul')).toBe(true)
       await waitNT(wrapper.vm)
       // Grab the button links (2 bookends + 3 pages + 2 bookends)
-      const links = wrapper.findAll('a.page-link')
+      const links = wrapper.findAll('button.page-link')
       expect(links.length).toBe(7)
 
       // Sanity check for getBCR override
@@ -1091,7 +1090,7 @@ describe('pagination', () => {
       await waitNT(wrapper.vm)
       expect(wrapper.is('ul')).toBe(true)
       // Grab the button links (2 bookends + 3 pages + 2 bookends)
-      const links = wrapper.findAll('a.page-link')
+      const links = wrapper.findAll('button.page-link')
       expect(links.length).toBe(7)
 
       // Focus the last button
@@ -1121,14 +1120,14 @@ describe('pagination', () => {
       await waitNT(wrapper.vm)
       expect(wrapper.is('ul')).toBe(true)
       // Grab the button links (2 disabled bookends + 4 pages + (-ellipsis) + 2 bookends)
-      links = wrapper.findAll('a.page-link')
+      links = wrapper.findAll('button.page-link')
       expect(links.length).toBe(6)
 
       // Click on the 4th button (page 4, index 3)
       links.at(3).element.click()
       await waitNT(wrapper.vm)
       // Links re-rendered with first bookends enabled and an ellipsis
-      links = wrapper.findAll('a.page-link')
+      links = wrapper.findAll('button.page-link')
       // The 4th link should be page 4, and retain focus
       expect(document.activeElement).toEqual(links.at(3).element)
 
