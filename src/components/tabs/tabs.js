@@ -115,6 +115,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
         ],
         props: { disabled: this.tab.disabled },
         attrs: {
+          ...this.tab.titleLinkAttributes,
           role: 'tab',
           id: this.id,
           // Roving tab index when keynav enabled
