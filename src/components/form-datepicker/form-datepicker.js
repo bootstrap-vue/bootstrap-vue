@@ -206,7 +206,7 @@ const propsMixin = {
     },
     // extra dropdown stuff
     menuClass: {
-      type: [String, Object, Array],
+      type: [String, Array, Object],
       default: null
     }
   }
