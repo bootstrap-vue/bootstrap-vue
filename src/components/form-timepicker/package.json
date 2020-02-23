@@ -97,7 +97,7 @@
           {
             "prop": "labelCloseButton",
             "description": "Content for the `Close` button"
-          }
+          },
           {
             "prop": "labelNoTime",
             "description": "String to show when no time is selected"
