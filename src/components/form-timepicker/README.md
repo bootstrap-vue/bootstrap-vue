@@ -40,7 +40,9 @@ TBD
 
 ### Enabling of seconds spinbutton
 
-TBD
+By default, the seconds spinbutton is not shown. To enable the section of seconds, set the `show-seconds`
+prop to `true` to enable the seconds selection spinbutton. When `show-seconds` is false (or not provided),
+the returned value will always have the seconds portion of the time string set to `00`.
 
 ```html
 <template>
