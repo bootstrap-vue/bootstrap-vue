@@ -5,7 +5,7 @@
     "title": "Form Spinbutton",
     "new": true,
     "version": "2.5.0",
-    "description": "Numerical spinbutton custom form input component",
+    "description": "BootstrapVue custom numerical spinbutton form input component, featuring WAI-ARIA accessibility (a11y) and internationalization (i18n)",
     "components": [
       {
         "component": "BFormSpinbutton",
