@@ -19,8 +19,24 @@
             "description": "Initially selected time value. Accepts a `HH:mm:ss` string. Valid value ranges from `00:00:00` to `23:59:59`"
           },
           {
+            "prop": "resetValue",
+            "description": "When the optional `reset` button is clicked, the selected time will be set to this value. Default is to clear the selected value"
+          },
+          {
+            "prop": "disabled",
+            "description": "Places the timepicker in a non-interactive disabled state"
+          },
+          {
+            "prop": "readonly",
+            "description": "Places the timepicker in an interactive readonly state. Disables updating the v-model, while still allowing focusing of spin buttons"
+          },
+          {
+            "prop": "required",
+            "description": "When set, adds the `aria-required=\"true\"` attribute on the component. Required validation needs to be handled by your application"
+          },
+          {
             "prop": "showSeconds",
-            "description": "When true, shows the seconds spinbutton. If `false` the seconds spinn button will not be shown and the seconds portion of hte time will always be `0`"
+            "description": "When true, shows the seconds spinbutton. If `false` the seconds spin button will not be shown and the seconds portion of hte time will always be `0`"
           },
           {
             "prop": "hour12",
