@@ -81,13 +81,13 @@
             "description": "When set, visually hides the selected date header"
           },
           {
-            "prop": "todayButton",
-            "description": "When set, shows the optional `select today` button"
-          },
-          {
             "prop": "menuClass",
             "version": "2.6.0",
-            "description": "Class (or classes) to applyto to poup menu wraper"
+            "description": "Class (or classes) to apply to to popup menu wrapper"
+          },
+          {
+            "prop": "todayButton",
+            "description": "When set, shows the optional `select today` button"
           },
           {
             "prop": "todayButtonVariant",
