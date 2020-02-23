@@ -552,8 +552,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           role: 'group',
           lang: this.computedLocale,
           tabindex: isDisabled ? null : '-1',
-          title: this.ariaLabel,
-          'aria-label': this.ariaLabel
+          title: this.ariaLabel
         },
         on: {
           keydown: this.onKeydown,
