@@ -511,4 +511,31 @@ describe('form-date', () => {
 
     wrapper.destroy()
   })
+
+  it('`button-content` static slot works', async () => {
+    const wrapper = mount(BFormDatepicker, {
+      attachToDocument: true,
+      propsData: {
+        id: 'test-button-slot',
+        value: '2020-01-15'
+      },
+      slots: {
+        'button-content': 'foobar'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $toggle = wrapper.find('button#test-button-slot')
+
+    expect($toggle.exists()).toBe(true)
+    expect($toggle.text()).toEqual('foobar')
+
+    wrapper.destroy()
+  })
 })
