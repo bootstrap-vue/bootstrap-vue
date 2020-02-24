@@ -34,11 +34,66 @@ If no time is selected, then `<b-form-timepicker>` returns an empty string ('').
 
 ## Disabled and readonly states
 
-TBD
+Setting the `disabled` prop will remove all interactivity of the `<b-form-timepicker>` component.
+
+Setting the `readonly` prop will disable selecting a time, but will keep the component interactive,
+allowing for tabbing between spinbuttons. The `v-model` will not be updated in the readonly state.
+
+```html
+<template>
+  <div>
+    <b-form-group label="Select time picker interactive state">
+      <b-form-radio-group v-model="state" aria-controls="ex-disabled-readonly">
+        <b-form-radio value="disabled">Disabled</b-form-radio>
+        <b-form-radio value="readonly">Readonly</b-form-radio>
+        <b-form-radio value="normal">Normal</b-form-radio>
+      </b-form-radio-group>
+    </b-form-group>
+    <b-form-timepicker id="ex-disabled-readonly" :disabled="disabled" :readonly="readonly"></b-form-timepicker>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        state: 'disabled'
+      }
+    },
+    computed: {
+      disabled() {
+        return this.state === 'disabled'
+      },
+      readonly() {
+        return this.state === 'readonly'
+      }
+    }
+  }
+</script>
+
+<!-- b-form-timepicker-disabled-readonly.vue -->
+```
 
 ## Validation states
 
-TBD
+`<b-form-timepicker>` supports invalid and valid styling via the boolean `state` prop. Setting `state`
+to boolean `false` will style the input as invalid, while setting it to boolean `true` will style it
+as valid. Setting state to `null` will not show any validation state styling (the default).
+
+```html
+<template>
+  <div>
+    <label for="timepicker-invalid">Choose a time (invalid style)</label>
+    <b-form-timepicker id="datepicker-invalid" :state="false" class="mb-2"></b-form-timepicker>
+    <label for="timepicker-valid">Choose a time (valid style)</label>
+    <b-form-timepicker id="datepicker-valid" :state="true"></b-form-timeepicker>
+  </div>
+</template>
+
+<!-- b-form-timepicker-validation.vue -->
+```
+
+Note that native browser validation is not available with `<b-form-timepicker>`.
 
 ## Styling
 
@@ -69,14 +124,40 @@ the returned value will always have the seconds portion of the time string set t
 <!-- b-form-timepicker-show-seconds.vue -->
 ```
 
-
 ### Control sizing
 
-TBD
+Fancy a smaller or larger `<b-form-timepicker>` control? Set the `size` prop to `'sm'` for a smaller
+form control, or `'lg'` for a larger form form control. Note this does not affect the size of the
+popup time selection dialog.
+
+```html
+<template>
+  <div>
+    <label for="timeepicker-sm">Small time picker</label>
+    <b-form-timepicker id="timeepicker-sm" size="sm" local="en" class="mb-2"></b-form-timeepicker>
+    <label for="timepicker-lg">Large time picker</label>
+    <b-form-timepicker id="timepicker-lg" size="lg" local="en"></b-form-timepicker>
+  </div>
+</template>
+
+<!-- b-form-timepicker-control-size.vue -->
+```
 
 ### Placeholder
 
-TBD
+Add custom placeholder text to the control, when no date is selected, via the `placeholder` prop.
+If a placeholder is not provided, the value of the `label-no-time-selected` prop is used.
+
+```html
+<template>
+  <div>
+    <label for="timepicker-placeholder">Time picker with placeholder</label>
+    <b-form-timepicker id="timepicker-placeholder" placeholder="Choose a time" local="en"></b-form-timepicker>
+  </div>
+</template>
+
+<!-- b-form-timepicker-placeholder.vue -->
+```
 
 ### Optional controls
 
