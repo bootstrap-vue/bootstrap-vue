@@ -855,7 +855,7 @@ export const BCalendar = Vue.extend({
           'small',
           {
             key: idx,
-            staticClass: 'col',
+            staticClass: 'col text-truncate',
             class: { 'text-muted': this.disabled },
             attrs: {
               title: d.label === d.text ? null : d.label,
