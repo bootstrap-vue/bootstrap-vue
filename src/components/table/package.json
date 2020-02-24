@@ -223,7 +223,7 @@
           },
           {
             "prop": "sortCompare",
-            "description": "A reference to a function for sort-comparing tow rows of data. Defaults to the internal sort compare routine. See docs for details"
+            "description": "A reference to a function for sort-comparing two rows of data. Defaults to the internal sort compare routine. See docs for details"
           },
           {
             "prop": "sortCompareOptions",
