@@ -136,7 +136,7 @@ popup time selection dialog.
 <template>
   <div>
     <label for="timeepicker-sm">Small time picker</label>
-    <b-form-timepicker id="timeepicker-sm" size="sm" local="en" class="mb-2"></b-form-timeepicker>
+    <b-form-timepicker id="timeepicker-sm" size="sm" local="en" class="mb-2"></b-form-timepicker>
     <label for="timepicker-lg">Large time picker</label>
     <b-form-timepicker id="timepicker-lg" size="lg" local="en"></b-form-timepicker>
   </div>
@@ -163,7 +163,33 @@ If a placeholder is not provided, the value of the `label-no-time-selected` prop
 
 ### Optional controls
 
-TBD
+Add optional control buttons to the bottom of the calendar popup via the props `now-button` or
+`reset-button`. The default close button can be removed via the `no-close-button` prop.
+
+- The now button selects the current time
+- The reset button either clears the selected time, or sets the time to the value of the prop
+  `reset-value` (if provided)
+- The close button closes the time popup
+
+```html
+<template>
+  <div>
+    <label for="timepicker-buttons">Time picker with optional footer buttons</label>
+    <b-form-timeepicker
+      id="timepicker-buttons"
+      now-button
+      reset-button
+      locale="en"
+    ></b-form-timepicker>
+  </div>
+</template>
+
+<!-- b-form-timepicker-footer-buttons.vue -->
+```
+
+The text for the optional buttons can be set via the `label-now-button`, `label-reset-button`, and
+the `label-close-button` props. Due to the limited width of the footer section, it is recommended
+to keep these labels short.
 
 ### Dropdown placement
 
@@ -183,11 +209,26 @@ TBD
 
 ## Accessibility
 
-TBD
+The popup time supports the same keyboard controls as
+[`<b-time>`](/docs/components/time#accessibility), along with the following:
+
+- <kbd>ESC</kbd> will close the popup time without selecting a time
+
+When internationalizing the timepicker, it is important to also update the `label-*` props with
+appropriate translated strings, so that international screen reader users will hear the correct
+prompts and descriptions.
+
+Refer to the [`<b-time>`](/docs/components/time#accessibility) documentation for additional details.
 
 ## Implementation notes
 
-TBD
+`<b-form-timepicker>` is based upon the components [`<b-time>`](/docs/components/time) and
+[`<b-dropdown>`](/docs/components/dropdown).
+
+`<b-form-timepicker>` uses Bootstrap's margin, padding, border, and flex utility classes, along with
+button (`btn-*`) classes, and the `form-control*` (plus validation) classes.
+
+BootstrapVue's Custom SCSS/CSS is also required for proper styling of the time picker and popup.
 
 ## See also
 
