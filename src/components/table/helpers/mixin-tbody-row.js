@@ -90,9 +90,13 @@ export default {
     renderTbodyRowCell(field, colIndex, item, rowIndex) {
       // Renders a TD or TH for a row's field
       const h = this.$createElement
-      const hasDetailsSlot =
-        this.hasNormalizedSlot(detailsSlotName) ||
-        this.computedFields.some(e => e.fieldDetailsSlotName)
+      const hasDetailsSlot = this.hasNormalizedSlot([
+        detailsSlotName,
+        ...this.computedFields.reduce(
+          (res, e) => (e.fieldDetails && [...res, `row-details-${e.key}`]) || res,
+          []
+        )
+      ])
       const detailsId = field.details
         ? this.safeId('_col_details_'.concat(rowIndex, '_', colIndex, '_', field.key, '_'))
         : null
@@ -192,9 +196,13 @@ export default {
       const h = this.$createElement
       const fields = this.computedFields
       const tableStriped = this.striped
-      const hasDetailsSlot =
-        this.hasNormalizedSlot(detailsSlotName) ||
-        this.computedFields.some(e => e.fieldDetailsSlotName)
+      const hasDetailsSlot = this.hasNormalizedSlot([
+        detailsSlotName,
+        ...this.computedFields.reduce(
+          (res, e) => (e.fieldDetails && [...res, `row-details-${e.key}`]) || res,
+          []
+        )
+      ])
       const rowShowDetails = item._showDetails && hasDetailsSlot
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.hasSelectableRowClick
 
@@ -289,7 +297,7 @@ export default {
         }
 
         // Render the details slot in a TD
-        var $details = !this.computedFields.some(e => e.fieldDetailsSlotName)
+        var $details = !this.computedFields.some(e => e.fieldDetails)
           ? h(
               BTd,
               {
@@ -306,15 +314,13 @@ export default {
                 BTd,
                 {
                   attrs: {
-                    ...(e.fieldDetailsSlotName && {
+                    ...(e.fieldDetails && {
                       id: this.safeId('_col_details_'.concat(rowIndex, '_').concat(idx, '_'))
                     })
                   },
                   class: this.detailsTdClass
                 },
-                e.fieldDetailsSlotName
-                  ? [this.normalizeSlot(e.fieldDetailsSlotName, detailsScope)]
-                  : null
+                e.fieldDetails ? [this.normalizeSlot(`row-details-${e.key}`, detailsScope)] : null
               )
             )
 
