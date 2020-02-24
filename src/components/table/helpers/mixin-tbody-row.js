@@ -93,7 +93,7 @@ export default {
       const hasDetailsSlot = this.hasNormalizedSlot([
         detailsSlotName,
         ...this.computedFields.reduce(
-          (res, e) => (e.fieldDetails && [...res, `row-details-${e.key}`]) || res,
+          (res, e) => (e.fieldDetails && [...res, `row-details(${e.key})`]) || res,
           []
         )
       ])
@@ -199,7 +199,7 @@ export default {
       const hasDetailsSlot = this.hasNormalizedSlot([
         detailsSlotName,
         ...this.computedFields.reduce(
-          (res, e) => (e.fieldDetails && [...res, `row-details-${e.key}`]) || res,
+          (res, e) => (e.fieldDetails && [...res, `row-details(${e.key})`]) || res,
           []
         )
       ])
@@ -320,7 +320,7 @@ export default {
                   },
                   class: this.detailsTdClass
                 },
-                e.fieldDetails ? [this.normalizeSlot(`row-details-${e.key}`, detailsScope)] : null
+                e.fieldDetails ? [this.normalizeSlot(`row-details(${e.key})`, detailsScope)] : null
               )
             )
 
