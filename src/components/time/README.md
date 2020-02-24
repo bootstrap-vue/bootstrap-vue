@@ -229,25 +229,8 @@ The `'context'` event is passed a context object as it's only argument, with the
 | `hour12`    | Boolean value indicating if the interface is using 12 hour format                                           |
 | `hourCycle` | A string representing the type of hour cycle used for the spinbuttons: `'h11'`, `'h12'`, `'h23'` or `'h24'` |
 
-### Understanding the `hourCycle`
-
-There are 2 main types of time keeping conventions (clocks) used around the world: the 12-hour clock
-and the 24-hour clock. The `hourCycle` property allows you to access the clock type used by a
-particular locale. The hour cycle type can have several different values, which are listed in the
-table below. The `hourCycle` prop signals how the time `'00:00:00'` (the start of the day) should
-be presented/formatted to a user of a particular locale.
-
-| `hourCycle` | Description                                                                       |
-| ----------- | --------------------------------------------------------------------------------- |
-| `'h12'`     | Hour system using `1`–`12`. The 12 hour clock, with midnight starting at 12:00 am |
-| `'h23'`     | Hour system using `0`–`23`. The 24 hour clock, with midnight starting at 0:00     |
-| `'h11'`     | Hour system using `0`–`11`. The 12 hour clock, with midnight starting at 0:00 am  |
-| `'h24'`     | Hour system using `1`–`24`. The 24 hour clock, with midnight starting at 24:00    |
-
-Native HTML5 `<input type="date">` returns the time value in the `'h23'` format, and `<b-time>` also
-returns the v-model in the `'h23'` format. This value may differ from what is presented to the user
-via the GUI (spin buttons) of the `<b-time>` component, dependant upon the
-[locale selected](#internationalization).
+Refer to the [Internationallization section](#internationalization) for information on the context
+properties `locale`, `hour12` and `hourCycle`.
 
 ## Internationalization
 
@@ -257,13 +240,13 @@ and
 [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat),
 except for the labels applied to elements of the time control (aria-labels, selected status, etc).
 You must provide your own translations for these labels. The available locales will be browser
-dependant (not all browsers support all locales)
+dependant (not all browsers support all locales).
 
 By default `<b-time>` will use the browser's default locale, but you can specify the locale (or
 locales) to use via the `locale` prop. The prop accepts either a single locale string, or an array
 of locale strings (listed in order of most preferred locale to least prefered).
 
-The emitted `context` event will include which locale the time control has resolved to (which may
+The emitted `'context'` event will include which locale the time control has resolved to (which may
 not be the same locale as requested, depending on the supported locales of `Intl`).
 
 For server side rendering (SSR) when using Node.js, ensure that the Node.js runtime you are using
@@ -358,12 +341,36 @@ supports `Intl` and the locales you will be using. Refer to the
 <!-- b-time-i18n.vue -->
 ```
 
+### Understanding the `hourCycle`
+
+There are 2 main types of time keeping conventions (clocks) used around the world: the 12-hour clock
+and the 24-hour clock. The `hourCycle` property allows you to access the clock type used by a
+particular locale. The hour cycle type can have several different values, which are listed in the
+table below. The `hourCycle` signals how the time `'00:00:00'` (the start of the day) should
+be presented/formatted to a user of a particular locale. The [`'context'` event](#context-event)
+includes the resolved `hourCycle` value.
+
+| `hourCycle` | Description                                                                       |
+| ----------- | --------------------------------------------------------------------------------- |
+| `'h12'`     | Hour system using `1`–`12`. The 12 hour clock, with midnight starting at 12:00 am |
+| `'h23'`     | Hour system using `0`–`23`. The 24 hour clock, with midnight starting at 0:00     |
+| `'h11'`     | Hour system using `0`–`11`. The 12 hour clock, with midnight starting at 0:00 am  |
+| `'h24'`     | Hour system using `1`–`24`. The 24 hour clock, with midnight starting at 24:00    |
+
+Native HTML5 `<input type="date">` returns the time value in the `'h23'` format, and `<b-time>` also
+returns the v-model in the `'h23'` format. This value may differ from what is presented to the user
+via the GUI (spin buttons) of the `<b-time>` component, dependant upon the
+[locale selected](#internationalization).
+
 ### Forcing 12 or 24 hour interface
 
 12-hour versus 24-hour input is determined by the client browsers default locale (or the locale
 resolved from the `locale` prop). To force a 12-hour user interface, set the prop `hour12` to `true`.
 To force a 24-hour user inteface, set the prop `hour12` to `false`. The default for prop `hour12` is
 `null` which uses the resoved locale to determine which interface to use.
+
+The setting of the `hour12` prop will affect which [`hourCycle`](#understanding-the-hourcycle) is
+resolved for formatting the hours spinbutton.
 
 ## Accessibility
 
