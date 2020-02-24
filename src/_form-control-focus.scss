@@ -6,7 +6,7 @@
   // Specifically when we are using non focusable elements, or when true focus
   // is within the `.form-control` element.
   // Mimics the `.form-control:focus` styling
-  .focus {
+  &.focus {
     color: $input-focus-color;
     background-color: $input-focus-bg;
     border-color: $input-focus-border-color;
