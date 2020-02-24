@@ -102,6 +102,11 @@ const propsMixin = {
       type: String,
       default: null
     },
+    calendarWidth: {
+      // Width of the calendar dropdown
+      type: String,
+      default: '270px'
+    },
     selectedVariant: {
       // Variant color to use for the selected date
       type: String,
@@ -260,6 +265,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         locale: self.locale,
         startWeekday: self.startWeekday,
         direction: self.direction,
+        width: self.calendarWidth,
         dateDisabledFn: self.dateDisabledFn,
         selectedVariant: self.selectedVariant,
         todayVariant: self.todayVariant,
