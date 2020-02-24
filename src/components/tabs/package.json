@@ -163,6 +163,11 @@
             "description": "CSS class (or classes) to apply to the tab's control button inner link element"
           },
           {
+            "prop": "titleLinkAttributes",
+            "version": "2.6.0",
+            "description": "Attributes to apply to the tab's control button inner link element"
+          },
+          {
             "prop": "noBody",
             "description": "When the parent b-tabs has the 'card' prop set, do not render a card-body wrapper"
           },

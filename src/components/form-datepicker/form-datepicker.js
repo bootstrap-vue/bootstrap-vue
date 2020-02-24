@@ -4,6 +4,7 @@ import { getComponentConfig } from '../../utils/config'
 import { createDate, formatYMD, parseYMD } from '../../utils/date'
 import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
@@ -215,7 +216,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     BHover: VBHover
   },
   // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, propsMixin, dropdownMixin],
+  mixins: [idMixin, normalizeSlotMixin, propsMixin, dropdownMixin],
   model: {
     prop: 'value',
     event: 'input'
@@ -383,8 +384,13 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     const idMenu = this.safeId('_dialog_')
     const idWrapper = this.safeId('_b-form-date_')
 
+    const btnScope = { isHovered, hasFocus, state, opened: visible }
+    const defaultButtonFn = scope => {
+      const data = { props: { scale: 1.25 }, attrs: { 'aria-hidden': 'true' } }
+      return h(scope.isHovered || scope.hasFocus ? BIconCalendarFill : BIconCalendar, data)
+    }
     let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
-      h(isHovered || hasFocus ? BIconCalendarFill : BIconCalendar, { props: { scale: 1.25 } })
+      this.normalizeSlot('button-content', btnScope) || defaultButtonFn(btnScope)
     ])
     $button = h(
       'button',
