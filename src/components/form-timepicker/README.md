@@ -32,7 +32,7 @@ TBD
 returned by native browser `<input type="time">` controls. The value will be in the range of
 `'00:00:00'` up to `'23:59:59'` (24-hour clock using the `'h23'` hour cycle syntax).
 
-If no time is selected, then `<b-form-timepicker>` returns an empty string ('').
+If no time is selected, then `<b-form-timepicker>` returns an empty string (`''`).
 
 ## Disabled and readonly states
 
