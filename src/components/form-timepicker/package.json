@@ -186,7 +186,7 @@
             "args": [
               {
                 "arg": "time",
-                "description": "A string in the format of `HH:mm:ss` (24 hour format). Used to update the v-model",
+                "description": "A string in the format of `HH:mm:ss` (24 hour format)",
                 "type": [
                   "String",
                   "Date"
@@ -196,7 +196,7 @@
           },
           {
             "event": "context",
-            "description": "`b-time` context event. Emitted when the user changes any spinbutton value via mouse or cursor control",
+            "description": "`b-time` context event. Emitted when the user changes any spinbutton value via mouse or cursor control. Also emitted when the component is first instantiated, or the locale is changed",
             "args": [
               {
                 "arg": "context",
