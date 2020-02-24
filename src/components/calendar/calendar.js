@@ -971,7 +971,6 @@ export const BCalendar = Vue.extend({
           role: 'application',
           tabindex: this.disabled ? null : '0',
           'data-month': activeYMD.slice(0, -3), // `YYYY-MM`, mainly for testing
-          // tabindex: this.disabled ? null : '0',
           'aria-roledescription': this.labelCalendar || null,
           'aria-labelledby': idGridCaption,
           'aria-describedby': idGridHelp,
@@ -1005,6 +1004,7 @@ export const BCalendar = Vue.extend({
           dir: isRTL ? 'rtl' : 'ltr',
           lang: this.computedLocale || null,
           role: 'group',
+          tabindex: this.disabled ? null : '-1',
           'aria-disabled': this.disabled ? 'true' : null,
           // If datepicker controls an input, this will specify the ID of the input
           'aria-controls': this.ariaControls || null,
