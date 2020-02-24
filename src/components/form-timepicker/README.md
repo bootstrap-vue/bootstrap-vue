@@ -26,7 +26,11 @@ TBD
 
 ## `v-model` return value
 
-TBD
+`<b-form-timepicker>` always returns a string in the format of `'HH:mm:ss'` which is the same format
+returned by native browser `<input type="time">` controls. The value will be in the range of
+`'00:00:00'` up to `'23:59:59'` (24-hour clock using the `'h23'` hour cycle syntax).
+
+If no time is selected, then `<b-form-timepicker>` returns an empty string ('').
 
 ## Disabled and readonly states
 
