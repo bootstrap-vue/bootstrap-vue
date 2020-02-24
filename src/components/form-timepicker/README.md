@@ -233,7 +233,7 @@ supports `Intl` and the locales you will be using. Refer to the
       <label for="example-locales">Locale:</label>
       <b-form-select id="example-locales" v-model="locale" :options="locales"></b-form-select>
     </b-col>
-    <b-col md="auto">
+    <b-col md="6">
       <b-form-timepicker
         v-model="value"
         v-bind="labels[locale] || {}"
