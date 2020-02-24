@@ -3,7 +3,13 @@
 > `<b-form-timepicker>` is a BootstrapVue custom time picker input form control, which provides full
 > WAI-ARIA compliance and internationalization support.
 
-TBD
+As a form control wrapper component for the [`<b-time>`](/docs/components/time) component, it
+provides additional validation state presentation and a compact interface. Native HTML5 time inputs
+vary in presentation, accessibility, and in some instances are not supported by all browsers.
+`<b-form-timepicker>` provides a consistent and accessible interface across all browser platforms
+and devices.
+
+The `<b-form-timepicker>` component was introduced in BootstrapVue release `v2.6.0`.
 
 ```html
 <template>
@@ -175,7 +181,7 @@ Add optional control buttons to the bottom of the calendar popup via the props `
 <template>
   <div>
     <label for="timepicker-buttons">Time picker with optional footer buttons</label>
-    <b-form-timeepicker
+    <b-form-timepicker
       id="timepicker-buttons"
       now-button
       reset-button
@@ -201,11 +207,148 @@ effects and usage of these props.
 
 ## Internationalization
 
-TBD
+Internationalization of the time interface is provided via
+[`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat)
+and
+[`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat),
+except for the labels applied to elements of the time control (aria-labels, selected status, etc).
+You must provide your own translations for these labels. The available locales will be browser
+dependant (not all browsers support all locales).
+
+By default `<b-form-timepicker>` will use the browser's default locale, but you can specify the
+locale (or locales) to use via the `locale` prop. The prop accepts either a single locale string, or
+an array of locale strings (listed in order of most preferred locale to least prefered).
+
+The emitted `'context'` event will include which locale the time control has resolved to (which may
+not be the same locale as requested, depending on the supported locales of `Intl`).
+
+For server side rendering (SSR) when using Node.js, ensure that the Node.js runtime you are using
+supports `Intl` and the locales you will be using. Refer to the
+[Node Intl support documentation](https://nodejs.org/api/intl.html) for details.
+
+```html
+<template>
+  <b-row>
+    <b-col cols="12" class="mb-3">
+      <label for="example-locales">Locale:</label>
+      <b-form-select id="example-locales" v-model="locale" :options="locales"></b-form-select>
+    </b-col>
+    <b-col md="auto">
+      <b-form-timepicker
+        v-model="value"
+        v-bind="labels[locale] || {}"
+        :locale="locale"
+        show-seconds
+        @context="onContext"
+      ></b-form-timepicker>
+    </b-col>
+    <b-col>
+      <p>Value: <b>'{{ value }}'</b></p>
+      <p class="mb-0">Context:</p>
+      <pre class="small">{{ context }}</pre>
+   </b-col>
+  </b-row>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: '',
+        context: null,
+        locale: 'en-US',
+        locales: [
+          { value: 'en-US', text: 'English US (en-US)' },
+          { value: 'de', text: 'German (de)' },
+          { value: 'ar-EG', text: 'Arabic Egyptian (ar-EG)' },
+          { value: 'zh', text: 'Chinese (zh)' }
+        ],
+        labels: {
+          de: {
+            labelHours: 'Stunden',
+            labelMinutes: 'Minuten',
+            labelSeconds: 'Sekunden',
+            labelAmpm: 'AM / PM',
+            labelAm: 'AM',
+            labelPm: 'PM',
+            labelIncrement: 'Zuwachs',
+            labelDecrement: 'Dekrement',
+            labelSelected: 'Ausgewählte Zeit',
+            labelNoTime: 'Keine Zeit ausgewählt',
+            labelCloseButton: 'Schließen'
+          },
+          'ar-EG': {
+            labelHours: 'ساعات',
+            labelMinutes: 'الدقائق',
+            labelSeconds: 'ثواني',
+            labelAmpm: 'صباحا مساء',
+            labelAm: 'ص',
+            labelPm: 'م',
+            labelIncrement: 'زيادة',
+            labelDecrement: 'إنقاص',
+            labelSelected: 'الوقت المحدد',
+            labelNoTime: 'لا وقت المختار',
+            labelCloseButton: 'قريب'
+          },
+          zh: {
+            labelHours: '小时',
+            labelMinutes: '分钟',
+            labelSeconds: '秒',
+            labelAmpm: '上午下午',
+            labelAm: '上午',
+            labelPm: '下午',
+            labelIncrement: '增量',
+            labelDecrement: '减量',
+            labelSelected: '选定时间',
+            labelNoTime: '没有选择时间',
+            labelCloseButton: '关'
+          }
+        }
+      }
+    },
+    methods: {
+      onContext(ctx) {
+        this.context = ctx
+      }
+    }
+  }
+</script>
+
+<!-- b-form-time-i18n.vue -->
+```
+
+
+
+### Understanding the `hourCycle`
+
+There are 2 main types of time keeping conventions (clocks) used around the world: the 12-hour clock
+and the 24-hour clock. The `hourCycle` property allows you to access the clock type used by a
+particular locale. The hour cycle type can have several different values, which are listed in the
+table below. The `hourCycle` signals how the time `'00:00:00'` (the start of the day) should
+be presented/formatted to a user of a particular locale. The `'context'` event includes the resolved
+`hourCycle` value.
+
+| `hourCycle` | Description                                                                       |
+| ----------- | --------------------------------------------------------------------------------- |
+| `'h12'`     | Hour system using `1`–`12`. The 12 hour clock, with midnight starting at 12:00 am |
+| `'h23'`     | Hour system using `0`–`23`. The 24 hour clock, with midnight starting at 0:00     |
+| `'h11'`     | Hour system using `0`–`11`. The 12 hour clock, with midnight starting at 0:00 am  |
+| `'h24'`     | Hour system using `1`–`24`. The 24 hour clock, with midnight starting at 24:00    |
+
+Native HTML5 `<input type="date">` returns the time value in the `'h23'` format, and
+`<b-form-timepicker>` also returns the v-model in the `'h23'` format. This value may differ from what
+is presented to the user via the GUI (spin buttons) of the `<b-form-timepicker>` component, dependant
+upon the [locale selected](#internationalization).
 
 ### Forcing 12 or 24 hour interface
 
-TBD
+12-hour versus 24-hour input is determined by the client browsers default locale (or the locale
+resolved from the `locale` prop). To force a 12-hour user interface, set the prop `hour12` to `true`.
+To force a 24-hour user inteface, set the prop `hour12` to `false`. The default for prop `hour12` is
+`null` which uses the resoved locale to determine which interface to use.
+
+The setting of the `hour12` prop will affect which `hourCycle` is resolved for formatting the hours
+spinbutton.
 
 ## Accessibility
 
