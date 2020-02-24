@@ -276,7 +276,7 @@ describe('table > row details', () => {
       { a: 5, b: 5, c: 6 },
       { a: 7, b: 8, c: 9, _showDetails: false }
     ]
-    const testFields = ['a', 'b', { key: 'c', fieldDetails: 'row-details-c' }]
+    const testFields = ['a', 'b', { key: 'c', fieldDetails: true }]
     const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
@@ -284,7 +284,7 @@ describe('table > row details', () => {
       },
       slots: {
         // Named slots get turned into scopedSlots in Vue 2.6.x
-        'row-details-c': '<div>foobar</div>'
+        'row-details(c)': '<div>foobar</div>'
       }
     })
 
