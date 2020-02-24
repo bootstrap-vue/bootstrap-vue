@@ -997,6 +997,7 @@ export const BCalendar = Vue.extend({
     const $widget = h(
       'div',
       {
+        staticClass: 'b-calendar-inner',
         class: this.block ? 'd-block' : 'd-inline-block',
         style: this.block ? {} : { width: this.width },
         attrs: {
