@@ -129,8 +129,8 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
           id: idButton,
           type: 'button',
           disabled: disabled,
-          'aria-haspopup': 'dialog'
-          'aria-expanded': visible ? 'true' : 'false'
+          'aria-haspopup': 'dialog',
+          'aria-expanded': visible ? 'true' : 'false',
           'aria-invalid': state === false ? 'true' : null,
           'aria-required': required ? 'true' : null,
         },
