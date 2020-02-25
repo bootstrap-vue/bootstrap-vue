@@ -32,11 +32,11 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     },
     name: {
       type: String
-      // default: null     
+      // default: null
     },
     form: {
       type: String
-      // default: null     
+      // default: null
     },
     disabled: {
       type: Boolean,
@@ -51,7 +51,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
       default: false
     },
     lang: {
-      type: String,
+      type: String
       // default: null
     },
     rtl: {
@@ -61,7 +61,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     },
     menuClass: {
       // Extra classes to apply to the `dropdown-menu` div
-      type: [String, Array, Object],
+      type: [String, Array, Object]
       // default: null
     }
   },
@@ -80,6 +80,9 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     },
     idMenu() {
       return this.safeId('_dialog_')
+    },
+    idWrapper() {
+      return this.safeId('_outer_')
     }
   },
   methods: {
@@ -108,13 +111,14 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     const idButton = this.idButton
     const idLabel = this.idLabel
     const idMenu = this.idMenu
+    const idWrapper = this.idWrapper
     const disabled = this.disabled
     const readonly = this.readonly
     const required = this.required
     const isHovered = this.isHovered
     const hasFocus = this.hasFocus
     const state = this.state
-    const visible= this.visible
+    const visible = this.visible
     const size = this.size
     const value = this.value
 
@@ -132,7 +136,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
           'aria-haspopup': 'dialog',
           'aria-expanded': visible ? 'true' : 'false',
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': required ? 'true' : null,
+          'aria-required': required ? 'true' : null
         },
         on: {
           mousedown: this.onMousedown,
@@ -225,7 +229,8 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     return h(
       'div',
       {
-        staticClass: 'b-form-btnlabel-control form-control d-flex h-auto dropdown align-items-stretch',
+        staticClass:
+          'b-form-btnlabel-control form-control d-flex h-auto dropdown align-items-stretch',
         class: [
           this.directionClass,
           {
@@ -233,7 +238,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
             focus: hasFocus,
             [`form-control-${size}`]: !!size,
             'is-valid': state === true,
-            'is-invalid': state === false,
+            'is-invalid': state === false
           }
         ],
         attrs: {
