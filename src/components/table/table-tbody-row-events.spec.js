@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
 import { BTable } from './table'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
@@ -17,10 +18,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    expect(wrapper.isVueInstance()).toBe(true)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
     $rows.at(1).trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-clicked')).toBeDefined()
     expect(wrapper.emitted('row-clicked').length).toBe(1)
     expect(wrapper.emitted('row-clicked')[0][0]).toEqual(testItems[1]) // Row item
@@ -48,6 +51,7 @@ describe('table > tbody row events', () => {
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
     $rows.at(1).trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
     wrapper.destroy()
@@ -72,6 +76,7 @@ describe('table > tbody row events', () => {
       localBusy: true
     })
     $rows.at(1).trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
     wrapper.destroy()
@@ -89,10 +94,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-dblclicked')).not.toBeDefined()
     $rows.at(1).trigger('dblclick')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-dblclicked')).toBeDefined()
     expect(wrapper.emitted('row-dblclicked').length).toBe(1)
     expect(wrapper.emitted('row-dblclicked')[0][0]).toEqual(testItems[1]) // Row item
@@ -115,10 +122,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-dblclicked')).not.toBeDefined()
     $rows.at(1).trigger('dblclick')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-dblclicked')).not.toBeDefined()
 
     wrapper.destroy()
@@ -136,10 +145,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-middle-clicked')).not.toBeDefined()
     $rows.at(1).trigger('auxclick', { which: 2 })
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-middle-clicked')).toBeDefined()
     expect(wrapper.emitted('row-middle-clicked').length).toBe(1)
     expect(wrapper.emitted('row-middle-clicked')[0][0]).toEqual(testItems[1]) // Row item
@@ -162,10 +173,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-middle-clicked')).not.toBeDefined()
     $rows.at(1).trigger('auxclick', { which: 2 })
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-middle-clicked')).not.toBeDefined()
 
     wrapper.destroy()
@@ -183,10 +196,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-contextmenu')).not.toBeDefined()
     $rows.at(1).trigger('contextmenu')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-contextmenu')).toBeDefined()
     expect(wrapper.emitted('row-contextmenu').length).toBe(1)
     expect(wrapper.emitted('row-contextmenu')[0][0]).toEqual(testItems[1]) // Row item
@@ -209,10 +224,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-contextmenu')).not.toBeDefined()
     $rows.at(1).trigger('contextmenu')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-contextmenu')).not.toBeDefined()
 
     wrapper.destroy()
@@ -230,10 +247,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-hovered')).not.toBeDefined()
     $rows.at(1).trigger('mouseenter')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-hovered')).toBeDefined()
     expect(wrapper.emitted('row-hovered').length).toBe(1)
     expect(wrapper.emitted('row-hovered')[0][0]).toEqual(testItems[1]) // Row item
@@ -251,10 +270,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-hovered')).not.toBeDefined()
     $rows.at(1).trigger('mouseenter')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-hovered')).not.toBeDefined()
 
     wrapper.destroy()
@@ -273,10 +294,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-hovered')).not.toBeDefined()
     $rows.at(1).trigger('mouseenter')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-hovered')).not.toBeDefined()
 
     wrapper.destroy()
@@ -294,10 +317,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-unhovered')).not.toBeDefined()
     $rows.at(1).trigger('mouseleave')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-unhovered')).toBeDefined()
     expect(wrapper.emitted('row-unhovered').length).toBe(1)
     expect(wrapper.emitted('row-unhovered')[0][0]).toEqual(testItems[1]) // Row item
@@ -315,10 +340,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-unhovered')).not.toBeDefined()
     $rows.at(1).trigger('mouseleave')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-unhovered')).not.toBeDefined()
 
     wrapper.destroy()
@@ -337,10 +364,12 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-unhovered')).not.toBeDefined()
     $rows.at(1).trigger('mouseleave')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-unhovered')).not.toBeDefined()
 
     wrapper.destroy()
@@ -358,11 +387,13 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
     $rows.at(1).element.focus() // Event only works when the tr is focused
     $rows.at(1).trigger('keydown.enter')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-clicked')).toBeDefined()
     expect(wrapper.emitted('row-clicked').length).toBe(1)
     expect(wrapper.emitted('row-clicked')[0][0]).toEqual(testItems[1]) // Row item
@@ -386,11 +417,13 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
     $rows.at(1).element.focus() /* event only works when the tr is focused */
     $rows.at(1).trigger('keydown.enter')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
     wrapper.destroy()
@@ -421,6 +454,7 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     expect(wrapper.is('table')).toBe(true)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(1)
@@ -429,31 +463,37 @@ describe('table > tbody row events', () => {
     const $btn = wrapper.find('button[id="a"]')
     expect($btn.exists()).toBe(true)
     $btn.trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
     const $input = wrapper.find('input[id="b"]')
     expect($input.exists()).toBe(true)
     $input.trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
     const $link = wrapper.find('a[id="c"]')
     expect($link.exists()).toBe(true)
     $link.trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
     const $dd = wrapper.find('div[id="d"]')
     expect($dd.exists()).toBe(true)
     $dd.trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
     const $label = wrapper.find('label[for="e"]')
     expect($label.exists()).toBe(true)
     $label.trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
     const $labelf = wrapper.find('label.f-label')
     expect($labelf.exists()).toBe(true)
     $labelf.trigger('click')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
     wrapper.destroy()
@@ -471,6 +511,7 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(document.activeElement).not.toBe($rows.at(0).element)
@@ -481,21 +522,27 @@ describe('table > tbody row events', () => {
     expect(document.activeElement).toBe($rows.at(0).element)
 
     $rows.at(0).trigger('keydown.end')
+    await waitNT(wrapper.vm)
     expect(document.activeElement).toBe($rows.at(2).element)
 
     $rows.at(2).trigger('keydown.home')
+    await waitNT(wrapper.vm)
     expect(document.activeElement).toBe($rows.at(0).element)
 
     $rows.at(0).trigger('keydown.down')
+    await waitNT(wrapper.vm)
     expect(document.activeElement).toBe($rows.at(1).element)
 
     $rows.at(1).trigger('keydown.up')
+    await waitNT(wrapper.vm)
     expect(document.activeElement).toBe($rows.at(0).element)
 
     $rows.at(0).trigger('keydown.down', { shiftKey: true })
+    await waitNT(wrapper.vm)
     expect(document.activeElement).toBe($rows.at(2).element)
 
     $rows.at(2).trigger('keydown.up', { shiftKey: true })
+    await waitNT(wrapper.vm)
     expect(document.activeElement).toBe($rows.at(0).element)
 
     // Should only move focus if TR was target
@@ -503,6 +550,7 @@ describe('table > tbody row events', () => {
       .at(0)
       .find('td')
       .trigger('keydown.down')
+    await waitNT(wrapper.vm)
     expect(document.activeElement).toBe($rows.at(0).element)
 
     wrapper.destroy()
