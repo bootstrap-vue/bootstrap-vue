@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { requestAF } from '../../utils/dom'
+import bindAttrsMixin from '../../mixins/bind-attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 
@@ -8,7 +9,7 @@ export const props = linkPropsFactory()
 // @vue/component
 export const BDropdownItem = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownItem',
-  mixins: [normalizeSlotMixin],
+  mixins: [bindAttrsMixin, normalizeSlotMixin],
   inheritAttrs: false,
   inject: {
     bvDropdown: {
@@ -46,7 +47,7 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
           class: {
             [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
           },
-          attrs: { ...this.$attrs, role: 'menuitem' },
+          attrs: { ...this.attrs$, role: 'menuitem' },
           on: { click: this.onClick },
           ref: 'item'
         },

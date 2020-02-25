@@ -9,7 +9,7 @@
     height: auto;
     width: auto;
   }
-  
+
   @at-root {
     // Prevent the buttons from reversing order on in horizontal RTL mode
     [dir="rtl"] &:not(.flex-column),

@@ -1,15 +1,16 @@
 import Vue from '../../utils/vue'
-import { VBVisible } from '../../directives/visible/visible'
-import idMixin from '../../mixins/id'
+import { getCS, isVisible, requestAF } from '../../utils/dom'
+import { isNull } from '../../utils/inspect'
+import bindAttrsMixin from '../../mixins/bind-attrs'
 import formMixin from '../../mixins/form'
+import formSelectionMixin from '../../mixins/form-selection'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import formTextMixin from '../../mixins/form-text'
-import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
+import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
-import { getCS, isVisible, requestAF } from '../../utils/dom'
-import { isNull } from '../../utils/inspect'
+import { VBVisible } from '../../directives/visible/visible'
 
 // @vue/component
 export const BFormTextarea = /*#__PURE__*/ Vue.extend({
@@ -19,6 +20,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   },
   mixins: [
     idMixin,
+    bindAttrsMixin,
     listenOnRootMixin,
     formMixin,
     formSizeMixin,
@@ -204,7 +206,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
         value: self.localValue
       },
       on: {
-        ...self.$listeners,
+        ...self.listeners$,
         input: self.onInput,
         change: self.onChange,
         blur: self.onBlur

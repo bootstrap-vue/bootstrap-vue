@@ -5,10 +5,11 @@ import { getComponentConfig } from '../../../utils/config'
 import { isUndefined, isFunction } from '../../../utils/inspect'
 import {
   assign,
+  defineProperties,
+  defineProperty,
+  hasOwnProperty,
   keys,
   omit,
-  defineProperty,
-  defineProperties,
   readonlyDescriptor
 } from '../../../utils/object'
 import { pluginFactory } from '../../../utils/plugins'
@@ -247,8 +248,7 @@ const plugin = Vue => {
 
   // Define our read-only `$bvModal` instance property
   // Placed in an if just in case in HMR mode
-  // eslint-disable-next-line no-prototype-builtins
-  if (!Vue.prototype.hasOwnProperty(PROP_NAME)) {
+  if (!hasOwnProperty(Vue.prototype, PROP_NAME)) {
     defineProperty(Vue.prototype, PROP_NAME, {
       get() {
         /* istanbul ignore next */

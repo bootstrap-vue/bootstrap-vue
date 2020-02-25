@@ -12,6 +12,7 @@ import { stripTags } from '../../utils/html'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { HTMLElement } from '../../utils/safe-types'
 import { BTransporterSingle } from '../../utils/transporter'
+import bindAttrsMixin from '../../mixins/bind-attrs'
 import idMixin from '../../mixins/id'
 import listenOnDocumentMixin from '../../mixins/listen-on-document'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -283,6 +284,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [
     idMixin,
+    bindAttrsMixin,
     listenOnDocumentMixin,
     listenOnRootMixin,
     listenOnWindowMixin,
@@ -1067,7 +1069,11 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         {
           key: `modal-outer-${this._uid}`,
           style: this.modalOuterStyle,
-          attrs: { ...scopedStyleAttrs, ...this.$attrs, id: this.safeId('__BV_modal_outer_') }
+          attrs: {
+            ...scopedStyleAttrs,
+            ...this.attrs$,
+            id: this.safeId('__BV_modal_outer_')
+          }
         },
         [modal, backdrop]
       )

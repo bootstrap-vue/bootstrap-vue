@@ -1,12 +1,13 @@
 import Vue from '../../utils/vue'
+import KeyCodes from '../../utils/key-codes'
+import identity from '../../utils/identity'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { EVENT_OPTIONS_PASSIVE, eventOnOff } from '../../utils/events'
 import { isFunction, isNull } from '../../utils/inspect'
 import { toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
-import identity from '../../utils/identity'
-import KeyCodes from '../../utils/key-codes'
+import bindAttrsMixin from '../../mixins/bind-attrs'
 import idMixin from '../../mixins/id'
 import { BIconPlus, BIconDash } from '../../icons/icons'
 
@@ -46,7 +47,7 @@ const defaultInteger = (value, defaultValue = null) => {
 // @vue/component
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin],
+  mixins: [idMixin, bindAttrsMixin],
   inheritAttrs: false,
   props: {
     value: {
@@ -543,7 +544,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'is-invalid': state === false
         },
         attrs: {
-          ...this.$attrs,
+          ...this.attrs$,
           role: 'group',
           lang: this.computedLocale,
           tabindex: isDisabled ? null : '-1'

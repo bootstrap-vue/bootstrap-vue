@@ -1,13 +1,14 @@
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { eventOn, eventOff, eventOnOff } from '../../utils/events'
-import idMixin from '../../mixins/id'
+import bindAttrsMixin from '../../mixins/bind-attrs'
 import formMixin from '../../mixins/form'
+import formSelectionMixin from '../../mixins/form-selection'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import formTextMixin from '../../mixins/form-text'
-import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
+import idMixin from '../../mixins/id'
 
 // Valid supported input types
 const TYPES = [
@@ -33,6 +34,7 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
   name: 'BFormInput',
   mixins: [
     idMixin,
+    bindAttrsMixin,
     formMixin,
     formSizeMixin,
     formStateMixin,
@@ -41,15 +43,15 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
     formValidityMixin
   ],
   props: {
-    // value prop defined in form-text mixin
-    // value: { },
+    // `value` prop is defined in form-text mixin
     type: {
       type: String,
       default: 'text',
       validator: type => arrayIncludes(TYPES, type)
     },
     noWheel: {
-      // Disable mousewheel to prevent wheel from changing values (i.e. number/date).
+      // Disable mousewheel to prevent wheel from
+      // changing values (i.e. number/date)
       type: Boolean,
       default: false
     },
@@ -153,7 +155,7 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
         value: self.localValue
       },
       on: {
-        ...self.$listeners,
+        ...self.listeners$,
         input: self.onInput,
         change: self.onChange,
         blur: self.onBlur

@@ -6,6 +6,7 @@ import { isFile, isFunction, isUndefinedOrNull } from '../../utils/inspect'
 import { File } from '../../utils/safe-types'
 import { toString } from '../../utils/string'
 import { warn } from '../../utils/warn'
+import bindAttrsMixin from '../../mixins/bind-attrs'
 import formCustomMixin from '../../mixins/form-custom'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
@@ -20,7 +21,7 @@ const VALUE_EMPTY_DEPRECATED_MSG =
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
+  mixins: [idMixin, bindAttrsMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
   inheritAttrs: false,
   model: {
     prop: 'value',
@@ -285,7 +286,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         this.stateClass
       ],
       attrs: {
-        ...this.$attrs,
+        ...this.attrs$,
         type: 'file',
         id: this.safeId(),
         name: this.name,

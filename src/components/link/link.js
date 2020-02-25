@@ -1,18 +1,18 @@
 import Vue from '../../utils/vue'
+import bindAttrsMixin from '../../mixins/bind-attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { concat } from '../../utils/array'
-import { isEvent, isFunction, isUndefined } from '../../utils/inspect'
+import { isEvent, isFunction } from '../../utils/inspect'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
 
 /**
- * The Link component is used in many other BV components.
- * As such, sharing its props makes supporting all its features easier.
- * However, some components need to modify the defaults for their own purpose.
+ * The Link component is used in many other BV components
+ * As such, sharing its props makes supporting all its features easier
+ * However, some components need to modify the defaults for their own purpose
  * Prefer sharing a fresh copy of the props to ensure mutations
- * do not affect other component references to the props.
+ * do not affect other component references to the props
  *
- * https://github.com/vuejs/vue-router/blob/dev/src/components/link.js
- * @return {{}}
+ * See: https://github.com/vuejs/vue-router/blob/dev/src/components/link.js
  */
 export const propsFactory = () => ({
   href: {
@@ -80,7 +80,7 @@ export const props = propsFactory()
 // @vue/component
 export const BLink = /*#__PURE__*/ Vue.extend({
   name: 'BLink',
-  mixins: [normalizeSlotMixin],
+  mixins: [bindAttrsMixin, normalizeSlotMixin],
   inheritAttrs: false,
   props: propsFactory(),
   computed: {
@@ -107,7 +107,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     onClick(evt) {
       const evtIsEvent = isEvent(evt)
       const isRouterLink = this.isRouterLink
-      const suppliedHandler = this.$listeners.click
+      const suppliedHandler = this.listeners$.click
       if (evtIsEvent && this.disabled) {
         // Stop event from bubbling up
         evt.stopPropagation()
@@ -148,6 +148,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const $attrs = this.attrs$
     const tag = this.computedTag
     const rel = this.computedRel
     const href = this.computedHref
@@ -156,14 +157,10 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     const componentData = {
       class: { active: this.active, disabled: this.disabled },
       attrs: {
-        ...this.$attrs,
+        ...$attrs,
         rel,
         target: this.target,
-        tabindex: this.disabled
-          ? '-1'
-          : isUndefined(this.$attrs.tabindex)
-            ? null
-            : this.$attrs.tabindex,
+        tabindex: this.disabled ? '-1' : $attrs.tabindex || null,
         'aria-disabled': this.disabled ? 'true' : null
       },
       props: this.computedProps
@@ -172,7 +169,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     // `<router-link>`/`<nuxt-link>` instead of `on`
     componentData[isRouterLink ? 'nativeOn' : 'on'] = {
       // Transfer all listeners (native) to the root element
-      ...this.$listeners,
+      ...this.listeners$,
       // We want to overwrite any click handler since our callback
       // will invoke the user supplied handler(s) if `!this.disabled`
       click: this.onClick

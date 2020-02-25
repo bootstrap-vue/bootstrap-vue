@@ -1,18 +1,25 @@
 import Vue from '../../utils/vue'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { toString } from '../../utils/string'
+import bindAttrsMixin from '../../mixins/bind-attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-const digitsRx = /^\d+$/
+// --- Constants ---
+
+const RX_DIGITS = /^\d+$/
+
+// --- Utility methods ---
 
 // Parse a rowspan or colspan into a digit (or null if < 1 or NaN)
 const parseSpan = val => {
   val = parseInt(val, 10)
-  return digitsRx.test(String(val)) && val > 0 ? val : null
+  return RX_DIGITS.test(String(val)) && val > 0 ? val : null
 }
 
 /* istanbul ignore next */
 const spanValidator = val => isUndefinedOrNull(val) || parseSpan(val) > 0
+
+// --- Props ---
 
 export const props = {
   variant: {
@@ -42,7 +49,7 @@ export const props = {
 // @vue/component
 export const BTd = /*#__PURE__*/ Vue.extend({
   name: 'BTableCell',
-  mixins: [normalizeSlotMixin],
+  mixins: [bindAttrsMixin, normalizeSlotMixin],
   inheritAttrs: false,
   inject: {
     bvTableTr: {
@@ -119,7 +126,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     cellClasses() {
       // We use computed props here for improved performance by caching
       // the results of the string interpolation
-      // TODO: need to add handling for footVariant
+      // TODO: We need to add handling for `footVariant`
       let variant = this.variant
       if (
         (!variant && this.isStickyHeader && !this.headVariant) ||
@@ -163,7 +170,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         role: role,
         scope: scope,
         // Allow users to override role/scope plus add other attributes
-        ...this.$attrs,
+        ...this.attrs$,
         // Add in the stacked cell label data-attribute if in
         // stacked mode (if a stacked heading label is provided)
         'data-label':
@@ -181,7 +188,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         class: this.cellClasses,
         attrs: this.cellAttrs,
         // Transfer any native listeners
-        on: this.$listeners
+        on: this.listeners$
       },
       [this.isStackedCell ? h('div', [content]) : content]
     )

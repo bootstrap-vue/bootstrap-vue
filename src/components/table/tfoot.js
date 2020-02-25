@@ -1,9 +1,10 @@
 import Vue from '../../utils/vue'
+import bindAttrsMixin from '../../mixins/bind-attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 export const props = {
   footVariant: {
-    type: String, // supported values: 'lite', 'dark', or null
+    type: String, // Supported values: 'lite', 'dark', or null
     default: null
   }
 }
@@ -11,7 +12,7 @@ export const props = {
 // @vue/component
 export const BTfoot = /*#__PURE__*/ Vue.extend({
   name: 'BTfoot',
-  mixins: [normalizeSlotMixin],
+  mixins: [bindAttrsMixin, normalizeSlotMixin],
   inheritAttrs: false,
   provide() {
     return {
@@ -63,7 +64,7 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
       return [this.footVariant ? `thead-${this.footVariant}` : null]
     },
     tfootAttrs() {
-      return { role: 'rowgroup', ...this.$attrs }
+      return { role: 'rowgroup', ...this.attrs$ }
     }
   },
   render(h) {
@@ -73,7 +74,7 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
         class: this.tfootClasses,
         attrs: this.tfootAttrs,
         // Pass down any native listeners
-        on: this.$listeners
+        on: this.listeners$
       },
       this.normalizeSlot('default')
     )

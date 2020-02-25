@@ -152,7 +152,7 @@ export default {
         // in case user has supplied their own
         'aria-rowcount': rowCount,
         // Merge in user supplied `$attrs` if any
-        ...this.$attrs,
+        ...this.attrs$,
         // Now we can override any `$attrs` here
         id: this.safeId(),
         role: 'table',
