@@ -9,16 +9,15 @@ const LISTENERS_ATTRIBUTE_NAME = 'listeners$'
 
 const makeWatcher = property => ({
   handler(newVal, oldVal) {
-    for (const attr in oldVal) {
-      if (!hasOwnProperty(newVal, attr)) {
-        this.$delete(this.$data[property], attr)
+    for (const prop in oldVal) {
+      if (!hasOwnProperty(newVal, prop)) {
+        this.$delete(this.$data[property], prop)
       }
     }
-    for (const attr in newVal) {
-      this.$set(this.$data[property], attr, newVal[attr])
+    for (const prop in newVal) {
+      this.$set(this.$data[property], prop, newVal[prop])
     }
-  },
-  immediate: true
+  }
 })
 
 // @vue/component
@@ -33,5 +32,9 @@ export default {
     // Work around unwanted re-renders: https://github.com/vuejs/vue/issues/10115
     $attrs: makeWatcher(ATTRS_ATTRIBUTE_NAME),
     $listeners: makeWatcher(LISTENERS_ATTRIBUTE_NAME)
+  },
+  created() {
+    this[ATTRS_ATTRIBUTE_NAME] = { ...this.$attrs }
+    this[LISTENERS_ATTRIBUTE_NAME] = { ...this.$listeners }
   }
 }
