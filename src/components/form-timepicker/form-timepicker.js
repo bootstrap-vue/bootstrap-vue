@@ -249,7 +249,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       this.$emit('input', newVal || '')
     }
   },
-  mounted() /* istanbul ignore next: until tests written */ {
+  mounted() {
     this.$on('shown', () => {
       this.$nextTick(() => {
         try {
@@ -260,7 +260,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     // Public methods
-    focus() /* istanbul ignore next: until tests written */ {
+    focus() {
       if (!this.disabled) {
         try {
           // This assumes the toggle is an element and not a component
@@ -268,7 +268,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         } catch {}
       }
     },
-    blur() /* istanbul ignore next: until tests written */ {
+    blur() {
       if (!this.disabled) {
         try {
           // This assumes the toggle is an element and not a component
@@ -277,13 +277,13 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       }
     },
     // Private methods
-    setAndClose(value) /* istanbul ignore next: until tests written */ {
+    setAndClose(value) {
       this.localHMS = value
       this.$nextTick(() => {
         this.hide(true)
       })
     },
-    onInput(hms) /* istanbul ignore next: until tests written */ {
+    onInput(hms) {
       if (this.localHMS !== hms) {
         this.localHMS = hms
       }
@@ -297,7 +297,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       // Re-emit the context event
       this.$emit('context', ctx)
     },
-    onNowButton() /* istanbul ignore next: until tests written */ {
+    onNowButton() {
       const now = new Date()
       const hours = now.getHours()
       const minutes = now.getMinutes()
@@ -305,16 +305,16 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       const value = [hours, minutes, seconds].map(v => `00${v}`.slice(-2)).join(':')
       this.setAndClose(value)
     },
-    onResetButton() /* istanbul ignore next: until tests written */ {
+    onResetButton() {
       this.setAndClose(this.resetValue)
     },
-    onCloseButton() /* istanbul ignore next: until tests written */ {
+    onCloseButton() {
       this.hide(true)
     },
-    setFocus(evt) /* istanbul ignore next: until tests written */ {
+    setFocus(evt) {
       this.hasFocus = evt.type === 'focus'
     },
-    handleHover(hovered) /* istanbul ignore next: until tests written */ {
+    handleHover(hovered) {
       this.isHovered = hovered
     },
     // Render funtion helpers
