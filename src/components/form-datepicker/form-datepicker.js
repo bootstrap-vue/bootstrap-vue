@@ -233,7 +233,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       // Context data from BCalendar
       localLocale: null,
       isRTL: false,
-      formatedValue: '',
+      formattedValue: '',
       activeYMD: '',
       // Flag to add focus ring to outer wrapper
       hasFocus: false,
@@ -555,6 +555,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idMenu,
           role: 'dialog',
+          tabindex: '-1',
           'aria-modal': 'false',
           'aria-labelledby': idLabel
         },
