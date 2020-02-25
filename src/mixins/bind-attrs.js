@@ -9,14 +9,16 @@ const LISTENERS_ATTRIBUTE_NAME = 'listeners$'
 
 const makeWatcher = property => ({
   handler(newVal, oldVal) {
-    for (const prop in oldVal) {
-      if (!hasOwnProperty(newVal, prop)) {
-        this.$delete(this.$data[property], prop)
+    this.$nextTick(() => {
+      for (const prop in oldVal) {
+        if (!hasOwnProperty(newVal, prop)) {
+          this.$delete(this.$data[property], prop)
+        }
       }
-    }
-    for (const prop in newVal) {
-      this.$set(this.$data[property], prop, newVal[prop])
-    }
+      for (const prop in newVal) {
+        this.$set(this.$data[property], prop, newVal[prop])
+      }
+    })
   }
 })
 
