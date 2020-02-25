@@ -200,7 +200,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       // Context data from BTime
       localLocale: null,
       isRTL: false,
-      formatedValue: '',
+      formattedValue: '',
       // Flag to add focus ring to outer wrapper
       hasFocus: false,
       // If the control is hovered
