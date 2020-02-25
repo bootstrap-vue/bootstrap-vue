@@ -92,7 +92,18 @@ describe('form-timepicker', () => {
 
     expect(wrapper.find('input[type="hidden"]').exists()).toBe(true)
     expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
-    expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('01:02:03')
+    expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('01:02:00')
+
+    wrapper.setProps({
+      showSeconds: true,
+      value: '01:02:33'
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.find('input[type="hidden"]').exists()).toBe(true)
+    expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
+    expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('01:02:33')
 
     wrapper.destroy()
   })
