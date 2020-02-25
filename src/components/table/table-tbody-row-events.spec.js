@@ -18,6 +18,7 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     expect(wrapper.isVueInstance()).toBe(true)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
