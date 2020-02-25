@@ -12,7 +12,28 @@ describe('time', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.attributes('role')).toEqual('group')
+    expect(wrapper.element.hasAttribute('lang')).toBe(true)
+    expect(wrapper.element.hasAttribute('aria-labeledby')).toBe(true)
+    expect(wrapper.classes()).toContain('b-time')
+    expect(wrapper.classes()).toContain('d-inline-flex')
+    expect(wrapper.classes()).toContain('flex-column')
+    expect(wrapper.classes()).toContain('text-center')
+
+    const $output = wrapper.find('.b-time > header > output')
+    expect($output.exists()).toBe(true)
+    expect($output.attributes('role')).toEqual('status')
+    expect($output.attributes('aria-live')).toEqual('polite')
+    expect($output.attributes('aria-atomic')).toEqual('true')
+    expect($output.attributes('id')).toEqual(wrapper.attributes('aria-labeledby'))
+
+    const $spinWrap = wrapper.find('.b-time > div[role="group"]')
+    expect($spinWrap.exists()).toBe(true)
+    expect($spinWrap.classes()).toContain('d-flex')
+    expect($spinWrap.classes()).toContain('align-items-center')
+    expect($spinWrap.classes()).toContain('justify-content-center')
+    expect($spinWrap.classes()).toContain('mx-auto')
 
     wrapper.destroy()
   })
@@ -20,6 +41,8 @@ describe('time', () => {
   it('has expected structure when `value` supplied', async () => {
     const wrapper = mount(BTime, {
       propsData: {
+        locale: 'en',
+        hour12: false,
         value: '13:14:15'
       }
     })
@@ -28,7 +51,11 @@ describe('time', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    const $spinners = wrapper.findAll('[role="spinbutton"]')
+    expect($spinners.length).toBe(3)
+    expect($spinners.at(0).text()).toEqual('13')
+    expect($spinners.at(1).text()).toEqual('14')
+    expect($spinners.at(2).text()).toEqual('15')
 
     wrapper.setProps({
       value: '01:02:03'
@@ -36,7 +63,9 @@ describe('time', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    expect($spinners.at(0).text()).toEqual('01')
+    expect($spinners.at(1).text()).toEqual('02')
+    expect($spinners.at(2).text()).toEqual('03')
 
     wrapper.destroy()
   })
@@ -44,7 +73,9 @@ describe('time', () => {
   it('has expected structure when prop `hour12` is `true`', async () => {
     const wrapper = mount(BTime, {
       propsData: {
-        hour12: true
+        locale: 'en',
+        hour12: true,
+        value: '01:02:00'
       }
     })
 
@@ -52,7 +83,21 @@ describe('time', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    const $spinners = wrapper.findAll('[role="spinbutton"]')
+    expect($spinners.length).toBe(3)
+    expect($spinners.at(0).text()).toEqual('01')
+    expect($spinners.at(1).text()).toEqual('02')
+    expect($spinners.at(2).text()).toEqual('AM')
+
+    wrapper.setProps({
+      value: '13:14:00'
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($spinners.at(0).text()).toEqual('01')
+    expect($spinners.at(1).text()).toEqual('14')
+    expect($spinners.at(2).text()).toEqual('PM')
 
     wrapper.destroy()
   })
@@ -60,7 +105,9 @@ describe('time', () => {
   it('has expected structure when prop `hour12` is `false`', async () => {
     const wrapper = mount(BTime, {
       propsData: {
-        hour12: false
+        locale: 'en',
+        hour12: false,
+        value: '01:02:00'
       }
     })
 
@@ -68,7 +115,19 @@ describe('time', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    const $spinners = wrapper.findAll('[role="spinbutton"]')
+    expect($spinners.length).toBe(2)
+    expect($spinners.at(0).text()).toEqual('01')
+    expect($spinners.at(1).text()).toEqual('02')
+
+    wrapper.setProps({
+      value: '13:14:00'
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($spinners.at(0).text()).toEqual('13')
+    expect($spinners.at(1).text()).toEqual('14')
 
     wrapper.destroy()
   })
@@ -76,6 +135,8 @@ describe('time', () => {
   it('has expected structure when prop `show-seconds` is `true`', async () => {
     const wrapper = mount(BTime, {
       propsData: {
+        locale: 'en',
+        hour12: false,
         showSeconds: true,
         value: '01:02:03'
       }
@@ -85,7 +146,12 @@ describe('time', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
+    const $spinners = wrapper.findAll('[role="spinbutton"]')
+    expect($spinners.length).toBe(3)
+
+    expect($spinners.at(0).text()).toEqual('01')
+    expect($spinners.at(1).text()).toEqual('02')
+    expect($spinners.at(1).text()).toEqual('03')
 
     wrapper.destroy()
   })
