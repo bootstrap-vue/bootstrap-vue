@@ -46,6 +46,10 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    required: {
+      type: Boolean,
+      default: false
+    },
     lang: {
       type: String,
       // default: null
@@ -67,7 +71,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
       hasFocus: false
     }
   },
-  computed {
+  computed: {
     idButton() {
       return this.safeId()
     },
@@ -106,6 +110,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     const idMenu = this.idMenu
     const disabled = this.disabled
     const readonly = this.readonly
+    const required = this.required
     const isHovered = this.isHovered
     const hasFocus = this.hasFocus
     const state = this.state
@@ -117,9 +122,9 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     const $button = h(
       'button',
       {
-        ref: toggle,
+        ref: 'toggle',
         staticClass: 'btn border-0 h-auto py-0',
-        class: { [`btn-${size}`]: !!size }
+        class: { [`btn-${size}`]: !!size },
         attrs: {
           id: idButton,
           type: 'button',
@@ -149,9 +154,9 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     if (this.name && !disabled) {
       $hidden = h('input', {
         attrs: {
-          type: 'hidden'
+          type: 'hidden',
           name: this.name || null,
-          form: this.form || null
+          form: this.form || null,
           value: toString(value) || ''
         }
       })
@@ -191,7 +196,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
         staticClass: 'form-control text-break text-wrap border-0 bg-transparent h-auto pl-1 m-0',
         class: {
           // Mute the text if showing the placeholder
-          'text-muted': !this.value,
+          'text-muted': !value,
           [`form-control-${size}`]: !!size,
           'is-invalid': state === false,
           'is-valid': state === true
