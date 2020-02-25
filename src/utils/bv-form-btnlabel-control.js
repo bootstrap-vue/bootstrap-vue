@@ -190,7 +190,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
           keydown: this.onKeydown // Handle ESC
         }
       },
-      [this.normalizeSlot('default', { visible })]
+      [this.normalizeSlot('default', { opened: visible })]
     )
 
     // Value label
