@@ -555,6 +555,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idMenu,
           role: 'dialog',
+          tabindex: '-1',
           'aria-modal': 'false',
           'aria-labelledby': idLabel
         },

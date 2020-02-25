@@ -1004,7 +1004,6 @@ export const BCalendar = Vue.extend({
           dir: isRTL ? 'rtl' : 'ltr',
           lang: this.computedLocale || null,
           role: 'group',
-          tabindex: this.disabled ? null : '-1',
           'aria-disabled': this.disabled ? 'true' : null,
           // If datepicker controls an input, this will specify the ID of the input
           'aria-controls': this.ariaControls || null,
