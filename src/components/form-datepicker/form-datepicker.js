@@ -208,6 +208,17 @@ const propsMixin = {
     dark: {
       type: Boolean,
       default: false
+    },
+    formatLong: {
+      // Intl.DateTimeFormat object
+      type: Object,
+      default: {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long',
+        calendar: 'gregory'
+      }
     }
   }
 }
@@ -248,7 +259,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       return this.activeYMD.slice(0, -3)
     },
     calendarProps() {
-      // We alis `this` to `self` for better minification
+      // We alias `this` to `self` for better minification
       const self = this
       // TODO: Make the ID's computed props
       const idLabel = self.safeId('_value_')
@@ -280,7 +291,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         labelNoDateSelected: self.labelNoDateSelected,
         labelCalendar: self.labelCalendar,
         labelNav: self.labelNav,
-        labelHelp: self.labelHelp
+        labelHelp: self.labelHelp,
+        formatLong: self.formatLong
       }
     },
     computedResetValue() {
