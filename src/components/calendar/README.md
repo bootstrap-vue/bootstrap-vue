@@ -243,12 +243,12 @@ the `dateFormatOptions` prop to an object containing the requested format proper
   <div>
     <p>Custom date format:</p>
     <b-calendar
-      :dateFormatOptions="{year: 'numeric', month: 'short', day: '2-digit', weekday: 'short'}"
+      :dateFormatOptions="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
       locale="en"
     ></b-calendar>
     <p class="mt-3">Short date format:</p>
     <b-calendar
-      :dateFormatOptions="{year: 'numeric', month: 'numeric', day: 'numeric'}"
+      :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
       locale="en"
     ></b-calendar>
   </div>

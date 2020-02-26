@@ -316,13 +316,13 @@ properties for the `Intl.DateTimeFormat` object (see also
     <label for="datepicker-dateformat1">Custom date format</label>
     <b-form-datepicker
       id="datepicker-dateformat1"
-      :dateFormatOptions="{year: 'numeric', month: 'short', day: '2-digit', weekday: 'short'}"
+      :dateFormatOptions="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
       locale="en"
     ></b-form-datepicker>
     <label for="datepicker-dateformat2">Short date format</label>
     <b-form-datepicker
       id="datepicker-dateformat2"
-      :dateFormatOptions="{year: 'numeric', month: 'numeric', day: 'numeric'}"
+      :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
       locale="en"
     ></b-form-datepicker>
   </div>
@@ -345,8 +345,8 @@ Notes:
 - leaving out certain options may affect the formatted text string, e.g. the `weekday`.
 - the formatted value will vary according to the resolved locale. Some locales may not support the
   `'narrow'` format and will fall back to `'short'` or `long'` (if `'short'` is not available)
-- `year`, `month` and `day` will always be shown. If you need to leave out a value, set the
-  property to `undefined`, although this is highly discouraged for accessibility reasons
+- `year`, `month` and `day` will always be shown. If you need to leave out a value, set the property
+  to `undefined`, although this is highly discouraged for accessibility reasons
 
 ## Internationalization
 

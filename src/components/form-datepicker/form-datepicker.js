@@ -210,16 +210,14 @@ const propsMixin = {
       default: false
     },
     dateFormatOptions: {
-      // Intl.DateTimeFormat object
+      // `Intl.DateTimeFormat` object
       type: Object,
-      default() {
-        return {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          weekday: 'long'
-        }
-      }
+      default: () => ({
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long'
+      })
     }
   }
 }

@@ -226,16 +226,14 @@ export const BCalendar = Vue.extend({
       default: () => getComponentConfig(NAME, 'labelHelp')
     },
     dateFormatOptions: {
-      // Intl.DateTimeFormat object
+      // `Intl.DateTimeFormat` object
       type: Object,
-      default() {
-        return {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          weekday: 'long'
-        }
-      }
+      default: () => ({
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long'
+      })
     }
   },
   data() {
