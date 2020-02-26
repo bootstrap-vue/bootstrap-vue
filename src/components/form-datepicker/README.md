@@ -305,17 +305,18 @@ Want a fancy popup with a dark background instead of a light background? Set the
 
 <span class="badge badge-info small">v2.6.0+</span>
 
-To change format options of the displayed date text inside the component, e.g. in the header or in
-the placeholder, adjust the `dateFormatOptions` prop according to the elements contained in the
-`Intl.DateTimeFormat` object (see also [Internationalization](#internationalization)).
+To change format options of the displayed date text inside the component, e.g. in the header or
+placeholder, set the `date-format-options` prop to an object containing the requested format
+properties for the `Intl.DateTimeFormat` object (see also
+[Internationalization](#internationalization)).
 
 ```html
 <template>
   <div>
-    <label for="datepicker-dateformat1">Long date format</label>
+    <label for="datepicker-dateformat1">Custom date format</label>
     <b-form-datepicker
       id="datepicker-dateformat1"
-      :dateFormatOptions="{year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long'}"
+      :dateFormatOptions="{year: 'numeric', month: 'short', day: '2-digit', weekday: 'short'}"
       locale="en"
     ></b-form-datepicker>
     <label for="datepicker-dateformat2">Short date format</label>
@@ -330,7 +331,7 @@ the placeholder, adjust the `dateFormatOptions` prop according to the elements c
 <!-- b-form-datepicker-dateformat.vue -->
 ```
 
-The following table sumarizes the valid options for each format property:
+The following table summarizes the valid options for each format property:
 
 | Property  | Possible values                                              |
 | --------- | ------------------------------------------------------------ |
