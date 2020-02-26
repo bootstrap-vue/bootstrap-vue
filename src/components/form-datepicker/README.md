@@ -343,7 +343,7 @@ The following table summarizes the valid options for each format property:
 Notes:
 
 - leaving out certain options may affect the formatted text string, e.g. the `weekday`.
-- the formatted value will vary acorrding to the resolved locale. Some locales may not support the
+- the formatted value will vary according to the resolved locale. Some locales may not support the
   `'narrow'` format and will fall back to `'short'` or `long'` (if `'short'` is not available)
 - `year`, `month` and `day` will always be shown. If you need to leave out a value, set the
   property to `undefined`, although this is highly discouraged for accessibility reasons
