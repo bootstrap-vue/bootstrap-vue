@@ -304,10 +304,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    visble(newVal) {
-      if (newVal) {
-        this.isHovered = false
-      }
+    visble() {
+      this.isHovered = false
     },
     value(newVal) {
       this.localYMD = formatYMD(newVal) || ''
