@@ -232,7 +232,11 @@ with the component may occur.
 
 ### Date string format
 
-To change format options of the displayed date text inside the component, e.g. in the header or in the placeholder, adjust the `dateFormatOptions` prop according to the elements contained in the `Intl.DateTimeFormat` object (see also [Internationalization](#internationalization)).
+<span class="badge badge-info small">v2.6.0+</span>
+
+To change format options of the displayed date text inside the component, e.g. in the header or in
+the placeholder, adjust the `dateFormatOptions` prop according to the elements contained in the
+`Intl.DateTimeFormat` object (see also [Internationalization](#internationalization)).
 
 ```html
 <template>
