@@ -137,8 +137,8 @@
             "description": "Help text that appears at the bottom of the calendar grid"
           },
           {
-            "prop": "formatLong",
-            "description": "Format object for displayed text string"
+            "prop": "dateFormatOptions",
+            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat`"
           }
         ],
         "events": [
