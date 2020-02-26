@@ -472,7 +472,7 @@ export default {
         if (typeof defaultVal === 'undefined' || defaultVal === null) {
           defaultVal = ''
         }
-        defaultVal = JSON.stringify(defaultVal).replace(/"/g, "'")
+        defaultVal = JSON.stringify(defaultVal, undefined, 1).replace(/"/g, "'")
         if (defaultVal === "''") {
           defaultVal = ''
         }
