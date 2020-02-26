@@ -385,8 +385,9 @@ export const BCalendar = Vue.extend({
     formatDateString() {
       // Returns a date formatter function
       return createDateFormatter(this.calendarLocale, {
-        ...this.dateFormatOptions, 
-        calendar: 'gregory'})
+        ...this.dateFormatOptions,
+        calendar: 'gregory'
+      })
     },
     formatYearMonth() {
       // Returns a date formatter function
