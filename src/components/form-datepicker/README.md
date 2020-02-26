@@ -330,7 +330,20 @@ the placeholder, adjust the `dateFormatOptions` prop according to the elements c
 <!-- b-form-datepicker-dateformat.vue -->
 ```
 
-Note that leaving out certain options may affect the shown text string, e.g. the `weekday`.
+The following table sumarizes the valid options for each format property:
+
+| Property  | Possible values                                              |
+| --------- | ------------------------------------------------------------ |
+| `year`    | `'numeric'`, or `'2-digit'`                                  |
+| `month`   | `'numeric'`, `'2-digit'`, `'long'`, `'short'`, or `'narrow'` |
+| `day`     | `'numeric'`, or `'2-digit'`                                  |
+| `weekday` | `'long'`, `'short'`, or `'narrow'`                           |
+
+Notes:
+
+- leaving out certain options may affect the formatted text string, e.g. the `weekday`.
+- `year`, `month` and `day` will always be shown. If you need to leave out a value, set the
+  property to `undefined`
 
 ## Internationalization
 
