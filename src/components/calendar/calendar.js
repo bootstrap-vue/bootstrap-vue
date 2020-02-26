@@ -228,12 +228,14 @@ export const BCalendar = Vue.extend({
     formatLong: {
       // Intl.DateTimeFormat object
       type: Object,
-      default: {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long',
-        calendar: 'gregory'
+      default() {
+        return {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          weekday: 'long',
+          calendar: 'gregory'
+        }
       }
     }
   },
