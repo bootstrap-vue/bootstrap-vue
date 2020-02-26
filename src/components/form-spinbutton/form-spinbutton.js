@@ -391,8 +391,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       // `<body>` listener, only enabled when mousedown starts
       const { type, button } = evt || {}
       /* istanbul ignore if */
-      if (type === 'mouseup' && button) {
-        // we only care about left (main === 0) mouse button click
+      if ((type === 'mouseup' && button) || !this.$_mouseIsDown) {
+        // Ignore non left button (main === 0) mouse button click, and if
+        // the mouse/finger is not down, ignore (to prevent duplicate change events)
         return
       }
       this.resetTimers()
