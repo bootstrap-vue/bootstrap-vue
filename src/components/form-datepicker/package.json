@@ -210,8 +210,8 @@
             "description": "Content for the optional `Close` button"
           },
           {
-            "prop": "formatLong",
-            "description": "Format object for displayed text string"
+            "prop": "dateFormatOptions",
+            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat`"
           }
         ],
         "events": [
