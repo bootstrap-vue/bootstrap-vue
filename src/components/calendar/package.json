@@ -135,6 +135,10 @@
           {
             "prop": "labelHelp",
             "description": "Help text that appears at the bottom of the calendar grid"
+          },
+          {
+            "prop": "formatLong",
+            "description": "Format object for displayed text string"
           }
         ],
         "events": [
