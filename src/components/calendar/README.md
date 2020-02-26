@@ -234,32 +234,30 @@ with the component may occur.
 
 <span class="badge badge-info small">v2.6.0+</span>
 
-To change format options of the displayed date text inside the component, e.g. in the header or in
-the placeholder, adjust the `dateFormatOptions` prop according to the elements contained in the
+To change format options of the displayed date text inside the component, e.g. in the header, set
+the `dateFormatOptions` prop to an object containing the requested format properties for the
 `Intl.DateTimeFormat` object (see also [Internationalization](#internationalization)).
 
 ```html
 <template>
   <div>
-    <label for="datepicker-dateformat1">Long date format</label>
-    <b-form-datepicker
-      id="datepicker-dateformat1"
-      :dateFormatOptions="{year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long'}"
+    <p>Custom date format:</p>
+    <b-calendar
+      :dateFormatOptions="{year: 'numeric', month: 'short', day: '2-digit', weekday: 'short'}"
       locale="en"
-    ></b-form-datepicker>
-    <label for="datepicker-dateformat2">Short date format</label>
-    <b-form-datepicker
-      id="datepicker-dateformat2"
+    ></b-calendar>
+    <p class="mt-3">Short date format:</p>
+    <b-calendar
       :dateFormatOptions="{year: 'numeric', month: 'numeric', day: 'numeric'}"
       locale="en"
-    ></b-form-datepicker>
+    ></b-calendar>
   </div>
 </template>
 
 <!-- b-calendar-dateformat.vue -->
 ```
 
-The following table sumarizes the valid options for each format property:
+The following table summarizes the valid options for each format property:
 
 | Property  | Possible values                                              |
 | --------- | ------------------------------------------------------------ |
