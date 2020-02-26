@@ -259,14 +259,27 @@ the placeholder, adjust the `dateFormatOptions` prop according to the elements c
 <!-- b-calendar-dateformat.vue -->
 ```
 
-Note that leaving out certain options may affect the shown text string, e.g. the `weekday`.
+The following table sumarizes the valid options for each format property:
+
+| Property  | Possible values                                              |
+| --------- | ------------------------------------------------------------ |
+| `year`    | `'numeric'`, or `'2-digit'`                                  |
+| `month`   | `'numeric'`, `'2-digit'`, `'long'`, `'short'`, or `'narrow'` |
+| `day`     | `'numeric'`, or `'2-digit'`                                  |
+| `weekday` | `'long'`, `'short'`, or `'narrow'`                           |
+
+Notes:
+
+- leaving out certain options may affect the formatted text string, e.g. the `weekday`.
+- `year`, `month` and `day` will always be shown. If you need to leave out a value, set the
+  property to `undefined`
 
 ### Hiding the top selected date header
 
 By default, the current selected date will be displayed at the top of the calendar component,
 formatted in the locale's language.
 
-You can hide this header via the `hide-header` prop. Note this only visually hides the selected
+You can hide this header via the `hide-header` prop. Note this only _visually hides_ the selected
 date, while keeping it available to screen reader users as an `aria-live` region.
 
 ### Border and padding
