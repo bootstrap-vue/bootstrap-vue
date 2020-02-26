@@ -304,6 +304,11 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
+    visble(newVal) {
+      if (newVal) {
+        this.isHovered = false
+      }
+    },
     value(newVal) {
       this.localYMD = formatYMD(newVal) || ''
     },
@@ -387,14 +392,14 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       this.hasFocus = evt.type === 'focus'
     },
     handleHover(hovered) {
-      this.isHovered = hovered
+      this.isHovered = hovered && !this.visible
     }
   },
   render(h) {
     const size = this.size
     const state = this.state
     const visible = this.visible
-    const isHovered = this.isHovered
+    const isHovered = this.isHovered && !visible
     const hasFocus = this.hasFocus
     const localYMD = this.localYMD
     const disabled = this.disabled
