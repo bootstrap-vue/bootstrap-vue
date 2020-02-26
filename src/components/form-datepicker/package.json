@@ -208,6 +208,10 @@
           {
             "prop": "labelCloseButton",
             "description": "Content for the optional `Close` button"
+          },
+          {
+            "prop": "formatLong",
+            "description": "Format object for displayed text string"
           }
         ],
         "events": [
