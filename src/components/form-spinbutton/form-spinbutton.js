@@ -237,7 +237,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     this.$_autoDelayTimer = null
     this.$_autoRepeatTimer = null
     this.$_keyIsDown = false
-    this.$_mouseIsDown = false
   },
   beforeDestroy() {
     this.clearRepeat()
@@ -391,11 +390,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       // `<body>` listener, only enabled when mousedown starts
       const { type, button } = evt || {}
       /* istanbul ignore if */
-      if ((type === 'mouseup' && button) || !this.$_mouseIsDown) {
-        // Ignore non left button (main === 0) mouse button click, and if
-        // the mouse/finger is not down, ignore (to prevent duplicate change events)
+      if ((type === 'mouseup' && button)) {
+        // Ignore non left button (main === 0) mouse button click
         return
       }
+      evt.preventDefault()
       this.resetTimers()
       this.setMouseup(false)
       // Trigger the change event
@@ -408,7 +407,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         eventOnOff(on, document.body, 'mouseup', this.onMouseup, EVENT_OPTIONS_PASSIVE)
         eventOnOff(on, document.body, 'touchend', this.onMouseup, EVENT_OPTIONS_PASSIVE)
       } catch {}
-      this.$_mouseIsDown = on
     },
     resetTimers() {
       clearTimeout(this.$_autoDelayTimer)
@@ -418,7 +416,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       this.resetTimers()
       this.setMouseup(false)
       this.$_keyIsDown = false
-      this.$_mouseIsDown = false
     }
   },
   render(h) {
@@ -440,8 +437,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         attrs: { 'aria-hidden': 'true' }
       })
       const handler = evt => {
-        if (!isDisabled && !isReadonly && !this.$_mouseIsDown) {
-          this.$_mouseIsDown = true
+        if (!isDisabled && !isReadonly) {
+          evt.preventDefault()
           this.setMouseup(true)
           this.handleStepRepeat(evt, stepper)
         }
