@@ -209,7 +209,7 @@ const propsMixin = {
       type: Boolean,
       default: false
     },
-    formatLong: {
+    dateFormatOptions: {
       // Intl.DateTimeFormat object
       type: Object,
       default() {
@@ -294,7 +294,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         labelCalendar: self.labelCalendar,
         labelNav: self.labelNav,
         labelHelp: self.labelHelp,
-        formatLong: self.formatLong
+        dateFormatOptions: self.dateFormatOptions
       }
     },
     computedResetValue() {
