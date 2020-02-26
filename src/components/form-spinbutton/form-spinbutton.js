@@ -370,8 +370,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           return
         }
         this.resetTimers()
-        // Enable body mouseup event handler
-        this.setMouseup(true)
         // Step the counter initially
         stepper(1)
         const threshold = this.computedThreshold
@@ -397,9 +395,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       const { type, button } = evt || {}
       /* istanbul ignore if */
       if (type === 'mouseup' && button) {
-        // we only care about left (main === 0) mouse button click
+        // Ignore non left button (main === 0) mouse button click
         return
       }
+      evt.preventDefault()
       this.resetTimers()
       this.setMouseup(false)
       // Trigger the change event
@@ -441,8 +440,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         props: { scale: this.hasFocus ? 1.5 : 1.25 },
         attrs: { 'aria-hidden': 'true' }
       })
-      const handler = evt => /* istanbul ignore next: until tests written */ {
+      const handler = evt => {
         if (!isDisabled && !isReadonly) {
+          evt.preventDefault()
+          this.setMouseup(true)
           this.handleStepRepeat(evt, stepper)
         }
       }

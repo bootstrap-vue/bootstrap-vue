@@ -135,6 +135,11 @@
           {
             "prop": "labelHelp",
             "description": "Help text that appears at the bottom of the calendar grid"
+          },
+          {
+            "prop": "dateFormatOptions",
+            "version": "2.6.0",
+            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat`"
           }
         ],
         "events": [
