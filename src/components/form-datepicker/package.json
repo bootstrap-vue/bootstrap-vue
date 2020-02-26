@@ -208,6 +208,11 @@
           {
             "prop": "labelCloseButton",
             "description": "Content for the optional `Close` button"
+          },
+          {
+            "prop": "dateFormatOptions",
+            "version": "2.6.0",
+            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat`"
           }
         ],
         "events": [

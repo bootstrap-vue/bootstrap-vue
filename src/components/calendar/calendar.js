@@ -224,6 +224,16 @@ export const BCalendar = Vue.extend({
     labelHelp: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelHelp')
+    },
+    dateFormatOptions: {
+      // `Intl.DateTimeFormat` object
+      type: Object,
+      default: () => ({
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long'
+      })
     }
   },
   data() {
@@ -372,10 +382,19 @@ export const BCalendar = Vue.extend({
     formatDateString() {
       // Returns a date formatter function
       return createDateFormatter(this.calendarLocale, {
+        // Ensure we have year, month, day shown for screen readers/ARIA
+        // If users really want to leave one of these out, they can
+        // pass `undefined` for the property value
         year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long',
+        month: '2-digit',
+        day: '2-digit',
+        // Merge in user supplied options
+        ...this.dateFormatOptions,
+        // Ensure hours/minutes/seconds are not shown
+        hour: undefined,
+        minute: undefined,
+        second: undefined,
+        // Ensure calendar is gregorian
         calendar: 'gregory'
       })
     },
