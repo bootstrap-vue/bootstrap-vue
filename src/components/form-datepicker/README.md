@@ -301,6 +301,33 @@ and usage of these props.
 Want a fancy popup with a dark background instead of a light background? Set the `dark` prop to
 `true` to enable the dark background.
 
+### Date string format
+
+To change format options of the displayed date text inside the component, e.g. in the header or in the placeholder, adjust the `dateFormatOptions` prop according to the elements contained in the `Intl.DateTimeFormat` object (see also [Internationalization](#internationalization)).
+
+```html
+<template>
+  <div>
+    <label for="datepicker-dateformat1">Long date format</label>
+    <b-form-datepicker
+      id="datepicker-dateformat1"
+      :dateFormatOptions="{year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long'}"
+      locale="en"
+    ></b-form-datepicker>
+    <label for="datepicker-dateformat2">Short date format</label>
+    <b-form-datepicker
+      id="datepicker-dateformat2"
+      :dateFormatOptions="{year: 'numeric', month: 'numeric', day: 'numeric'}"
+      locale="en"
+    ></b-form-datepicker>
+  </div>
+</template>
+
+<!-- b-form-datepicker-dateformat.vue -->
+```
+
+Note that leaving out certain options may affect the shown text string, e.g. the `weekday`.
+
 ## Internationalization
 
 Internationalization of the date picker's calendar is provided via
