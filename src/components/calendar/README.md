@@ -271,8 +271,8 @@ Notes:
 - leaving out certain options may affect the formatted text string, e.g. the `weekday`.
 - the formatted value will vary according to the resolved locale. Some locales may not support the
   `'narrow'` format and will fall back to `'short'` or `long'` (if `'short'` is not available)
-- `year`, `month` and `day` will always be shown. If you need to leave out a value, set the
-  property to `undefined`, although this is highly discouraged for accessibility reasons
+- `year`, `month` and `day` will always be shown. If you need to leave out a value, set the property
+  to `undefined`, although this is highly discouraged for accessibility reasons
 
 ### Hiding the top selected date header
 
@@ -444,7 +444,7 @@ properties:
 | `selectedFormatted` | The selected date formatted in the current locale. If no date is selected, this will be the value of the `label-no-date-selected` prop                                                                                                                     |
 | `activeYMD`         | The current date of the calendar day button that can receive focus as a string (`YYYY-MM-DD` format)                                                                                                                                                       |
 | `activeDate`        | The current date of the calendar day button that can receive focus as a `Date` object                                                                                                                                                                      |
-| `activeFormated`    | The active date formatted in the current locale                                                                                                                                                                                                            |
+| `activeFormatted`   | The active date formatted in the current locale                                                                                                                                                                                                            |
 | `disabled`          | Will be `true` if active date is disabled, `false` otherwise                                                                                                                                                                                               |
 | `locale`            | The resolved locale (may not be the same as the requested locale)                                                                                                                                                                                          |
 | `calendarLocale`    | The resolved locale used by the calendar, optionally including the calendar type (i.e. 'gregory'). Usually this will be the same as `locale`, but may include the calendar type used, such as `fa-u-ca-gregory` when selecting the Persian locale (`'fa'`) |
