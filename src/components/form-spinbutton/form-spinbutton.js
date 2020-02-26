@@ -390,7 +390,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       // `<body>` listener, only enabled when mousedown starts
       const { type, button } = evt || {}
       /* istanbul ignore if */
-      if ((type === 'mouseup' && button)) {
+      if (type === 'mouseup' && button) {
         // Ignore non left button (main === 0) mouse button click
         return
       }
