@@ -30,6 +30,10 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
       // Vue coerces `undefined` into Boolean `false`
       default: null
     },
+    size: {
+      type: String
+      // default: null
+    },
     name: {
       type: String
       // default: null
