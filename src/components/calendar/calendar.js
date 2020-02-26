@@ -224,6 +224,17 @@ export const BCalendar = Vue.extend({
     labelHelp: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelHelp')
+    },
+    formatLong: {
+      // Intl.DateTimeFormat object
+      type: Object,
+      default: {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long',
+        calendar: 'gregory'
+      }
     }
   },
   data() {
@@ -371,13 +382,7 @@ export const BCalendar = Vue.extend({
     // Computed props that return date formatter functions
     formatDateString() {
       // Returns a date formatter function
-      return createDateFormatter(this.calendarLocale, {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long',
-        calendar: 'gregory'
-      })
+      return createDateFormatter(this.calendarLocale, this.formatLong)
     },
     formatYearMonth() {
       // Returns a date formatter function
