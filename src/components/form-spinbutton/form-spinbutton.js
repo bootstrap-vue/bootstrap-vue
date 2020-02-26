@@ -237,6 +237,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     this.$_autoDelayTimer = null
     this.$_autoRepeatTimer = null
     this.$_keyIsDown = false
+    this.$_mouseIsDown = false
   },
   beforeDestroy() {
     this.clearRepeat()
@@ -366,8 +367,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           return
         }
         this.resetTimers()
-        // Enable body mouseup event handler
-        this.setMouseup(true)
         // Step the counter initially
         stepper(1)
         const threshold = this.computedThreshold
@@ -408,6 +407,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         eventOnOff(on, document.body, 'mouseup', this.onMouseup, EVENT_OPTIONS_PASSIVE)
         eventOnOff(on, document.body, 'touchend', this.onMouseup, EVENT_OPTIONS_PASSIVE)
       } catch {}
+      this.$_mouseIsDown = on
     },
     resetTimers() {
       clearTimeout(this.$_autoDelayTimer)
@@ -417,6 +417,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       this.resetTimers()
       this.setMouseup(false)
       this.$_keyIsDown = false
+      this.$_mouseIsDown = false
     }
   },
   render(h) {
@@ -437,8 +438,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         props: { scale: this.hasFocus ? 1.5 : 1.25 },
         attrs: { 'aria-hidden': 'true' }
       })
-      const handler = evt => /* istanbul ignore next: until tests written */ {
-        if (!isDisabled && !isReadonly) {
+      const handler = evt => {
+        if (!isDisabled && !isReadonly && !this.$_mouseIsDown) {
+          this.setMouseup(true)
           this.handleStepRepeat(evt, stepper)
         }
       }
