@@ -252,7 +252,7 @@ To change format options of the displayed date text inside the component, e.g. i
   </div>
 </template>
 
-<!-- b-form-datepicker-dateformat.vue -->
+<!-- b-calendar-dateformat.vue -->
 ```
 
 Note that leaving out certain options may affect the shown text string, e.g. the `weekday`.
