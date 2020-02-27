@@ -388,6 +388,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     },
     setFocus(evt) {
       this.hasFocus = evt.type === 'focus'
+      this.isHovered = evt.type === 'blur' ? false : this.isHovered
     },
     handleHover(hovered) {
       this.isHovered = hovered && !this.visible
