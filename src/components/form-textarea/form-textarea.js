@@ -19,8 +19,8 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     'b-visible': VBVisible
   },
   mixins: [
-    idMixin,
     bindAttrsMixin,
+    idMixin,
     listenOnRootMixin,
     formMixin,
     formSizeMixin,

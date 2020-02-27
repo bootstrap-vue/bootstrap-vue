@@ -47,7 +47,7 @@ const defaultInteger = (value, defaultValue = null) => {
 // @vue/component
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin, bindAttrsMixin],
+  mixins: [bindAttrsMixin, idMixin],
   inheritAttrs: false,
   props: {
     value: {

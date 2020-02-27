@@ -283,8 +283,8 @@ export const props = {
 export const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [
-    idMixin,
     bindAttrsMixin,
+    idMixin,
     listenOnDocumentMixin,
     listenOnRootMixin,
     listenOnWindowMixin,

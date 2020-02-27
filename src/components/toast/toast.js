@@ -109,7 +109,7 @@ export const props = {
 // @vue/component
 export const BToast = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin, bindAttrsMixin, listenOnRootMixin, normalizeSlotMixin, scopedStyleAttrsMixin],
+  mixins: [bindAttrsMixin, idMixin, listenOnRootMixin, normalizeSlotMixin, scopedStyleAttrsMixin],
   inheritAttrs: false,
   model: {
     prop: 'visible',

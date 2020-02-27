@@ -21,7 +21,7 @@ const VALUE_EMPTY_DEPRECATED_MSG =
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin, bindAttrsMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
+  mixins: [bindAttrsMixin, idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
   inheritAttrs: false,
   model: {
     prop: 'value',
