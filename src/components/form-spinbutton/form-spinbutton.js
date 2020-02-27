@@ -3,7 +3,7 @@ import KeyCodes from '../../utils/key-codes'
 import identity from '../../utils/identity'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { EVENT_OPTIONS_PASSIVE, eventOnOff } from '../../utils/events'
+import { eventOnOff } from '../../utils/events'
 import { isFunction, isNull } from '../../utils/inspect'
 import { toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
@@ -367,8 +367,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           return
         }
         this.resetTimers()
-        // Enable body mouseup event handler
-        this.setMouseup(true)
         // Step the counter initially
         stepper(1)
         const threshold = this.computedThreshold
@@ -394,9 +392,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       const { type, button } = evt || {}
       /* istanbul ignore if */
       if (type === 'mouseup' && button) {
-        // we only care about left (main === 0) mouse button click
+        // Ignore non left button (main === 0) mouse button click
         return
       }
+      evt.preventDefault()
       this.resetTimers()
       this.setMouseup(false)
       // Trigger the change event
@@ -406,8 +405,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       // Enable or disabled the body mouseup/touchend handlers
       // Use try/catch to handle case when called server side
       try {
-        eventOnOff(on, document.body, 'mouseup', this.onMouseup, EVENT_OPTIONS_PASSIVE)
-        eventOnOff(on, document.body, 'touchend', this.onMouseup, EVENT_OPTIONS_PASSIVE)
+        eventOnOff(on, document.body, 'mouseup', this.onMouseup, false)
+        eventOnOff(on, document.body, 'touchend', this.onMouseup, false)
       } catch {}
     },
     resetTimers() {
@@ -438,8 +437,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         props: { scale: this.hasFocus ? 1.5 : 1.25 },
         attrs: { 'aria-hidden': 'true' }
       })
-      const handler = evt => /* istanbul ignore next: until tests written */ {
+      const handler = evt => {
         if (!isDisabled && !isReadonly) {
+          evt.preventDefault()
+          this.setMouseup(true)
           this.handleStepRepeat(evt, stepper)
         }
       }
