@@ -10,6 +10,14 @@
   // Remove background validation images from main wrapper
   background-image: none;
 
+  @at-root {
+    // Prevent the button/label from reversing order on in horizontal RTL mode
+    [dir="rtl"] &,
+    &[dir="rtl"] {
+      flex-direction: row-reverse;
+    }
+  }
+
   > .btn {
     line-height: 1;
     font-size: inherit;
