@@ -532,7 +532,12 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           'aria-labelledby': computedAriaLabelledby
         },
         on: {
-          keydown: this.onSpinLeftRight
+          keydown: this.onSpinLeftRight,
+          click: evt => /* istanbul ignore next */ {
+            if (evt.target === evt.currentTarget) {
+              this.focus()
+            }
+          }
         }
       },
       $spinners
