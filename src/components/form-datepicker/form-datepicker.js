@@ -622,9 +622,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           'aria-labelledby': idLabel,
           'aria-invalid': state === false ? 'true' : null,
           'aria-required': required ? 'true' : null,
-          // We don't want the flex order to change here
-          // So we always use 'ltr'
-          dir: 'ltr'
+          dir: this.isRTL ? 'rtl' : 'ltr'
         }
       },
       [$button, $hidden, $menu, $input]
