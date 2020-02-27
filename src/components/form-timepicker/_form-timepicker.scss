@@ -15,6 +15,10 @@
     [dir="rtl"] &,
     &[dir="rtl"] {
       flex-direction: row-reverse;
+
+      > label {
+        text-align: right;
+      }
     }
   }
 
@@ -37,7 +41,8 @@
   }
 
   > label {
-    text-align: end;
+    // This is not supported by all browsers :(
+    // text-align: end;
 
     @if $enable-pointer-cursor-for-buttons {
       cursor: pointer;
