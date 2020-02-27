@@ -229,7 +229,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         locale: this.computedLocale,
         isRTL: this.computedRTL,
         hourCycle: this.computedHourCycle,
-        // hour12: this.is12Hour,
+        hour12: this.is12Hour,
         hours: this.modelHours,
         minutes: this.modelMinutes,
         seconds: this.showSeconds ? this.modelSeconds : 0,
@@ -247,7 +247,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       // Returns a formatter function reference. The formatter
       // converts the time to a localalized string
       const options = {
-        hour12: this.is12Hour,
+        // hour12: this.is12Hour,
         hourCycle: this.computedHourCycle,
         hour: NUMERIC,
         minute: NUMERIC,
