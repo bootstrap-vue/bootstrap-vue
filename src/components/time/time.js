@@ -335,7 +335,14 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       const hourCycle = this.computedHourCycle
       // We always store 0-23, but format based on h11/h12/h23/h24 formats
       hh = this.is12Hour && hh > 12 ? hh - 12 : hh
-      hh = hh === 0 && hourCycle === 'h12' ? 12 : hh === 0 && hourCycle === 'h24' ? 24 : hh
+      // Determine how 00:00 and 12:00 are shown
+      hh = hh === 0 && hourCycle === 'h12'
+        ? 12
+        : hh === 0 && hourCycle === 'h24'
+          ? 24
+          : hh === 12 && hourCycle === 'h11'
+            ? 0
+            : hh 
       return this.numberFormatter(hh)
     },
     formatMinutes(mm) {
