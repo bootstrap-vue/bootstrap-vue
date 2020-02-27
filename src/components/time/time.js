@@ -206,7 +206,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       }
     },
     computedLocale() {
-      return this.resolvedOptions.locale
+      return (this.resolvedOptions.locale || '').replace(/-u-.*$/, '')
     },
     computedRTL() {
       return isLocaleRTL(this.computedLocale)
