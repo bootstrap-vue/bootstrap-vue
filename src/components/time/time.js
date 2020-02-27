@@ -206,7 +206,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       }
     },
     computedLocale() {
-      return (this.resolvedOptions.locale || '').replace(/-u-.*$/, '')
+      return this.resolvedOptions.locale
+    },
+    computedLang() {
+      return (this.computedLocale || '').replace(/-u-.*$/, '')
     },
     computedRTL() {
       return isLocaleRTL(this.computedLocale)
@@ -247,7 +250,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       // Returns a formatter function reference. The formatter
       // converts the time to a localalized string
       const options = {
-        // hour12: this.is12Hour,
+        hour12: this.is12Hour,
         hourCycle: this.computedHourCycle,
         hour: NUMERIC,
         minute: NUMERIC,
@@ -577,7 +580,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-time d-inline-flex flex-column text-center',
         attrs: {
           role: 'group',
-          lang: this.computedLocale || null,
+          lang: this.computedLang || null,
           'aria-labeledby': computedAriaLabelledby || null,
           'aria-disabled': this.disabled ? 'true' : null,
           'aria-readonly': this.readonly && !this.diabled ? 'true' : null
