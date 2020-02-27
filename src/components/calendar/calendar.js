@@ -689,8 +689,9 @@ export const BCalendar = Vue.extend({
     // Flag for making the `aria-live` regions live
     const isLive = this.isLive
     // Pre-compute some IDs
-    const idWidget = safeId()
-    const idValue = safeId('_calendar-value_')
+    // Thes should be computed props
+    const idValue = safeId()
+    const idWidget = safeId('_calendar-wrapper_')
     const idNav = safeId('_calendar-nav_')
     const idGrid = safeId('_calendar-grid_')
     const idGridCaption = safeId('_calendar-grid-caption_')
@@ -707,6 +708,7 @@ export const BCalendar = Vue.extend({
           id: idValue,
           for: idGrid,
           role: 'status',
+          tabindex: this.disabled ? null : '-1',
           // Mainly for testing purposes, as we do not know
           // the exact format `Intl` will format the date string
           'data-selected': toString(selectedYMD),
@@ -714,6 +716,11 @@ export const BCalendar = Vue.extend({
           // to prevent initial announcement on page render
           'aria-live': isLive ? 'polite' : 'off',
           'aria-atomic': isLive ? 'true' : null
+        },
+        on: {
+          // Transfer focus/click to focus hours spinner
+          click: this.focus,
+          focus: this.focus
         }
       },
       this.selectedDate
