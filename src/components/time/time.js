@@ -221,18 +221,15 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       // For h12 or h24, we visually format 00 hours as 12
       return this.resolvedOptions.hourCycle
     },
-    is24Hour() {
-      return !this.resolvedOptions.hour12
-    },
     is12Hour() {
-      return !this.is24Hour
+      return !!this.resolvedOptions.hour12
     },
     context() {
       return {
         locale: this.computedLocale,
         isRTL: this.computedRTL,
         hourCycle: this.computedHourCycle,
-        hour12: this.is12Hour,
+        // hour12: this.is12Hour,
         hours: this.modelHours,
         minutes: this.modelMinutes,
         seconds: this.showSeconds ? this.modelSeconds : 0,
@@ -277,7 +274,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     formattedTimeString() {
       const hours = this.modelHours
       const minutes = this.modelMinutes
-      const seconds = this.modelSeconds
+      const seconds = this.showSeconds: this.modelSeconds : 0
       if (this.computedHMS) {
         return this.timeFormatter(createDate(Date.UTC(0, 0, 1, hours, minutes, seconds || 0)))
       }
