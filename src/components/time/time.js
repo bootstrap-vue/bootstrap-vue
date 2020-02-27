@@ -343,7 +343,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
             ? 24
             : hh === 12 && hourCycle === 'h11'
               ? 0
-              : hh 
+              : hh
       return this.numberFormatter(hh)
     },
     formatMinutes(mm) {
