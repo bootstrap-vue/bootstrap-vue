@@ -142,6 +142,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
           'aria-invalid': state === false ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
+        directives: [{ name: 'b-hover', value: this.handleHover }],
         on: {
           mousedown: this.onMousedown,
           click: this.toggle,
@@ -217,6 +218,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
           'aria-invalid': state === false ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
+        directives: [{ name: 'b-hover', value: this.handleHover }],
         on: {
           // Disable bubbling of the click event to
           // prevent menu from closing and re-opening
@@ -256,8 +258,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
           // The following is handled in CSS to prevent the button
           // from moving to the right end in rtl mode
           // dir: 'ltr'
-        },
-        directives: [{ name: 'b-hover', value: this.handleHover }]
+        }
       },
       [$button, $hidden, $menu, $label]
     )
