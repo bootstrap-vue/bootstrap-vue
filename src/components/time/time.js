@@ -8,7 +8,7 @@ import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, createDateFormatter } from '../../utils/date'
 import { contains } from '../../utils/dom'
-import { isBoolean, isNull, isUndefinedOrNull } from '../../utils/inspect'
+import { isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
@@ -193,9 +193,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         minute: NUMERIC,
         second: NUMERIC
       }
-      if (isBoolean(this.hour12)) {
+      if (!isUndefinedOrNull(this.hour12)) {
         // Force 12 or 24 hour clock
-        options.hour12 = this.hour12
+        options.hour12 = !!this.hour12
       }
       const dtf = new Intl.DateTimeFormat(locale, options)
       const resolved = dtf.resolvedOptions()
