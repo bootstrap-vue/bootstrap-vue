@@ -229,15 +229,20 @@ supports `Intl` and the locales you will be using. Refer to the
 ```html
 <template>
   <b-row>
-    <b-col cols="12" class="mb-3">
+    <b-col lg="6" class="mb-3">
       <label for="example-locales">Locale:</label>
       <b-form-select id="example-locales" v-model="locale" :options="locales"></b-form-select>
+    </b-col>
+    <b-col lg="6" class="mb-3">
+      <label for="example-clocks">Clock type:</label>
+      <b-form-select id="example-clocks" v-model="hour12" :options="clocks"></b-form-select>
     </b-col>
     <b-col md="6">
       <b-form-timepicker
         v-model="value"
         v-bind="labels[locale] || {}"
         :locale="locale"
+        :hour12="hour12"
         show-seconds
         @context="onContext"
       ></b-form-timepicker>
@@ -262,6 +267,12 @@ supports `Intl` and the locales you will be using. Refer to the
           { value: 'de', text: 'German (de)' },
           { value: 'ar-EG', text: 'Arabic Egyptian (ar-EG)' },
           { value: 'zh', text: 'Chinese (zh)' }
+        ],
+        hour12: null,
+        clocks: [
+          { value: null, text: 'Automatic' },
+          { value: true, text: '12-hour' },
+          { value: false, text: '24-hour' },
         ],
         labels: {
           de: {
@@ -316,8 +327,6 @@ supports `Intl` and the locales you will be using. Refer to the
 
 <!-- b-form-time-i18n.vue -->
 ```
-
-
 
 ### Understanding the `hourCycle`
 
