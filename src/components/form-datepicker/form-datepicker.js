@@ -304,9 +304,6 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    visble() {
-      this.isHovered = false
-    },
     value(newVal) {
       this.localYMD = formatYMD(newVal) || ''
     },
@@ -433,6 +430,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           'aria-invalid': state === false ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
+        directives: [{ name: 'b-hover', value: this.handleHover }],
         on: {
           mousedown: this.onMousedown,
           click: this.toggle,
@@ -465,6 +463,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           'aria-invalid': state === false ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
+        directives: [{ name: 'b-hover', value: this.handleHover }],
         on: {
           // Disable bubbling of the click event to
           // prevent menu from closing and re-opening
@@ -626,8 +625,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           // We don't want the flex order to change here
           // So we always use 'ltr'
           dir: 'ltr'
-        },
-        directives: [{ name: 'b-hover', value: this.handleHover }]
+        }
       },
       [$button, $hidden, $menu, $input]
     )
