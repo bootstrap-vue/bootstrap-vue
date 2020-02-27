@@ -173,20 +173,35 @@ describe('form-date', () => {
     await waitRAF()
 
     const $toggle = wrapper.find('button#test-hover')
+    const $label = wrapper.find('button#test-hover ~ label')
 
     expect($toggle.exists()).toBe(true)
     expect($toggle.is('button')).toBe(true)
     expect($toggle.find('svg.bi-calendar').exists()).toBe(true)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(false)
 
-    wrapper.trigger('mouseenter')
+    $toggle.trigger('mouseenter')
     await waitNT(wrapper.vm)
     await waitRAF()
 
     expect($toggle.find('svg.bi-calendar').exists()).toBe(false)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(true)
 
-    wrapper.trigger('mouseleave')
+    $toggle.trigger('mouseleave')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($toggle.find('svg.bi-calendar').exists()).toBe(true)
+    expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(false)
+
+    $label.trigger('mouseenter')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($toggle.find('svg.bi-calendar').exists()).toBe(false)
+    expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(true)
+
+    $label.trigger('mouseleave')
     await waitNT(wrapper.vm)
     await waitRAF()
 
