@@ -444,6 +444,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         if (!isDisabled && !isReadonly) {
           evt.preventDefault()
           this.setMouseup(true)
+          this.hasFoucus = true
           this.handleStepRepeat(evt, stepper)
         }
       }
