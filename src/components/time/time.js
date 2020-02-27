@@ -274,9 +274,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     formattedTimeString() {
       const hours = this.modelHours
       const minutes = this.modelMinutes
-      const seconds = this.showSeconds: this.modelSeconds : 0
+      const seconds = this.showSeconds ? this.modelSeconds || 0 : 0
       if (this.computedHMS) {
-        return this.timeFormatter(createDate(Date.UTC(0, 0, 1, hours, minutes, seconds || 0)))
+        return this.timeFormatter(createDate(Date.UTC(0, 0, 1, hours, minutes, seconds)))
       }
       return this.labelNoTime || ' '
     }
