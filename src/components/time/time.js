@@ -212,7 +212,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       return (this.computedLocale || '').replace(/-u-.*$/, '')
     },
     computedRTL() {
-      return isLocaleRTL(this.computedLocale)
+      return isLocaleRTL(this.computedLang)
     },
     computedHourCycle() {
       // h11, h12, h23, or h24
