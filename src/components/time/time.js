@@ -430,7 +430,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           // We use `change` event to minimize SR verbosity
           // As the spinbutton will announce each value change
           // and we don't want the formatted time to be announced
-          // on each value input
+          // on each value input if repeat is happening
           change: handler
         }
       })
@@ -541,7 +541,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: valueId,
           role: 'status',
-          tabindex: this.disabled || this.readonly ? null : '-1',
+          tabindex: this.disabled ? null : '-1',
           'aria-live': 'polite',
           'aria-atomic': 'true'
         },
