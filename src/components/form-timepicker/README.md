@@ -347,9 +347,10 @@ To force a 24-hour user inteface, set the prop `hour12` to `false`. The default 
 
 The setting of the `hour12` prop will affect which [`hourCycle`](#understanding-the-hourcycle) is
 resolved for formatting the hours spinbutton. Note that while this may affect the format of the hour
-spinbutton, the formated time string result _may_ show the `'h12` or `'h23'` format due to limitations
-in the client `Intl.DateTimeFormat` support for a particular locale. It is therefore **recommended to
-leave the `hour12` prop set to `null` (default)**, so show the locale default time/hour formatting.
+spinbutton, but the formated time string result _may_ show the `'h12` or `'h23'` format due to
+limitations in the client `Intl.DateTimeFormat` support for a particular locale. It is therefore
+**recommended to leave the `hour12` prop set to `null` (default)**, so show the locale default
+time/hour formatting.
 
 ## Accessibility
 
