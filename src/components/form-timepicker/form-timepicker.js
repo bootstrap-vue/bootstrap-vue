@@ -357,6 +357,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
           'aria-invalid': state === false ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
+        directives: [{ name: 'b-hover', value: this.handleHover }],
         on: {
           mousedown: this.onMousedown,
           click: this.toggle,
@@ -393,6 +394,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
           'aria-invalid': state === false ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
+        directives: [{ name: 'b-hover', value: this.handleHover }],
         on: {
           // Disable bubbling of the click event to
           // prevent menu from closing and re-opening
@@ -553,11 +555,8 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
           'aria-labelledby': idLabel,
           'aria-invalid': state === false ? 'true' : null,
           'aria-required': this.required ? 'true' : null,
-          // We don't want the flex order to change here
-          // So we always use 'ltr'
-          dir: 'ltr'
-        },
-        directives: [{ name: 'b-hover', value: this.handleHover }]
+          dir: this.isRTL ? 'rtl' : 'ltr'
+        }
       },
       [$button, $hidden, $menu, $input]
     )
