@@ -122,7 +122,8 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    var self = this
+    // We alias `this` to `self` for better minification
+    const self = this
     return h('input', {
       ref: 'input',
       class: self.computedClass,
