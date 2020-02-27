@@ -211,14 +211,10 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     timeProps() {
       // Props we pass to BTime
       // Use self for better minification, as `this` won't
-      // minimize and we reference it a lot below
+      // minimize and we reference it many times below
       const self = this
-      // TODO: Make the ID's computed props
-      const idLabel = self.safeId('_value_')
-      const idWrapper = self.safeId('_b-form-time_')
       return {
         hidden: !self.visible,
-        ariaControls: [idLabel, idWrapper].filter(identity).join(' ') || null,
         value: self.localHMS,
         readonly: self.readonly,
         disabled: self.disabled,
@@ -375,7 +371,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
 
     // Label as a "fake" input
     // This label will be read by screen readers when the button is focused
-    const $input = h(
+    const $value = h(
       'label',
       {
         staticClass: 'form-control text-break text-wrap border-0 bg-transparent h-auto pl-1 m-0',
@@ -389,8 +385,6 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idLabel,
           for: idButton,
-          dir: this.isRTL ? 'rtl' : 'ltr',
-          lang: this.localLocale || null,
           'aria-invalid': state === false ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
@@ -550,15 +544,16 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idWrapper,
           role: 'group',
+          lang: this.localLocale || null,
+          dir: this.isRTL ? 'rtl' : 'ltr',
           'aria-disabled': disabled,
           'aria-readonly': readonly && !disabled,
           'aria-labelledby': idLabel,
           'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null,
-          dir: this.isRTL ? 'rtl' : 'ltr'
+          'aria-required': this.required ? 'true' : null
         }
       },
-      [$button, $hidden, $menu, $input]
+      [$button, $hidden, $menu, $value]
     )
   }
 })
