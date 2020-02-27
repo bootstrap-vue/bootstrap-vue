@@ -37,6 +37,8 @@
   }
 
   > label {
+    text-align: end;
+
     @if $enable-pointer-cursor-for-buttons {
       cursor: pointer;
     }
