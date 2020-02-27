@@ -1,5 +1,4 @@
 import Vue from '../../utils/vue'
-import identity from '../../utils/identity'
 import { getComponentConfig } from '../../utils/config'
 import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
