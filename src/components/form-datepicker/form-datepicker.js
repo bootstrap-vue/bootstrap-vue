@@ -1,5 +1,4 @@
 import Vue from '../../utils/vue'
-import identity from '../../utils/identity'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, formatYMD, parseYMD } from '../../utils/date'
 import dropdownMixin from '../../mixins/dropdown'
