@@ -238,7 +238,6 @@ supports `Intl` and the locales you will be using. Refer to the
         v-model="value"
         v-bind="labels[locale] || {}"
         :locale="locale"
-        :hour12="hour12"
         show-seconds
         @context="onContext"
       ></b-form-timepicker>
