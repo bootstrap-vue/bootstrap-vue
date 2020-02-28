@@ -30,12 +30,12 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     },
     placeholder: {
       // This is the value placed on the hidden input when no value selected
-      type: String,
-      default: ''
+      type: String
+      // default: null
     },
     labelSelected: {
       // Value placed in sr-only span inside label when value is present
-      type: String,
+      type: String
       // default: null
     },
     state: {
