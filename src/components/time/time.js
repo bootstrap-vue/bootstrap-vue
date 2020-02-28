@@ -281,7 +281,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       if (this.computedHMS) {
         return this.timeFormatter(createDate(Date.UTC(0, 0, 1, hours, minutes, seconds)))
       }
-      return this.labelNoTime || ' '
+      return this.labelNoTimeSelected || ' '
     }
   },
   watch: {
