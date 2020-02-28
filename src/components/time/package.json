@@ -40,7 +40,7 @@
             "description": "When set, visually hides the selected time header"
           },
           {
-            "prop": "labelNoTime",
+            "prop": "labelNoTimeSelected",
             "description": "String to show when no time is selected"
           },
           {
