@@ -262,7 +262,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass:
-          'b-form-btnlabel-control form-control d-flex h-auto dropdown align-items-stretch',
+          'b-form-btnlabel-control form-control dropdown d-flex p-0 h-auto align-items-stretch',
         class: [
           this.directionClass,
           {
