@@ -120,9 +120,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
-    labelNoTime: {
+    labelNoTimeSelected: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNoTime')
+      default: () => getComponentConfig(NAME, 'labelNoTimeSelected')
     },
     labelSelected: {
       type: String,
