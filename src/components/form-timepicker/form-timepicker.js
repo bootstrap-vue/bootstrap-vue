@@ -131,9 +131,9 @@ const propsMixin = {
       type: String,
       default: () => getConfigFallback('labelSelected')
     },
-    labelNoTime: {
+    labelNoTimeSelected: {
       type: String,
-      default: () => getConfigFallback('labelNoTime')
+      default: () => getConfigFallback('labelNoTimeSelected')
     },
     labelHours: {
       type: String,
@@ -413,7 +413,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
           rtl: this.isRTL,
           lang: this.computedLang,
           value: localHMS || '',
-          formattedValue: localHMS ? this.formattedValue : ''
+          formattedValue: localHMS ? this.formattedValue : this.labelNoTimeSelected || ''
         },
         on: {
           show: this.onShow,
