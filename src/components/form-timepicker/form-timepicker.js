@@ -319,7 +319,6 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     const localHMS = this.localHMS
     const disabled = this.disabled
     const readonly = this.readonly
-    const isVisible = this.isVisible
 
     // Footer buttons
     let $footer = []
