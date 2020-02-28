@@ -5,7 +5,7 @@ import Vue from './vue'
 import { toString } from './string'
 import dropdownMixin from '../mixins/dropdown'
 import idMixin from '../mixins/id'
-import normalizeSlotMixin from '../mixins/normailize-slot'
+import normalizeSlotMixin from '../mixins/normalize-slot'
 import { VBHover } from '../directives/hover/hover'
 import { BIconChevronDown } from '../icons/icons'
 
