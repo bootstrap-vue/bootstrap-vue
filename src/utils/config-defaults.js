@@ -137,7 +137,7 @@ export default deepFreeze({
   },
   BFormTimepicker: {
     // Fallback to BTime
-    labelNoTime: null,
+    labelNoTimeSelected: null,
     labelSelected: null,
     labelHours: null,
     labelMinutes: null,
@@ -227,7 +227,7 @@ export default deepFreeze({
     footVariant: null
   },
   BTime: {
-    labelNoTime: 'No time selected',
+    labelNoTimeSelected: 'No time selected',
     labelSelected: 'Selected time',
     labelHours: 'Hours',
     labelMinutes: 'Minutes',
