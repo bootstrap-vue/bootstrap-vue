@@ -19,9 +19,24 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
   props: {
     value: {
       // This is the value placed on the hidden input
-      // The formatted value is provided via the `formatted-value` slot
       type: String,
       default: ''
+    },
+    formattedValue: {
+      // This is the value shown in the label
+      // Defaults back to `value`
+      type: String
+      // default: null
+    },
+    placeholder: {
+      // This is the value placed on the hidden input when no value selected
+      type: String,
+      default: ''
+    },
+    labelSelected: {
+      // Value placed in sr-only span inside label when value is present
+      type: String,
+      // default: null
     },
     state: {
       // Tri-state prop: `true`, `false`, or `null`
@@ -133,6 +148,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     const visible = this.visible
     const size = this.size
     const value = toString(this.value) || ''
+    const labelSelected = this.labelSelected
 
     const btnScope = { isHovered, hasFocus, state, opened: visible }
     const $button = h(
@@ -231,8 +247,11 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
           '!click': this.stopEvent
         }
       },
-      // If nothing to display, we render a `&nbsp;` to keep the correct height
-      [this.normalizeSlot('formatted-value') || value || '\u00A0']
+      [
+        // If nothing to display, we render a `&nbsp;` to keep the correct height
+        this.formattedValue || value || this.placeholder || '\u00A0',
+        value && labelSelected ? h('bdi', { staticClass: 'sr-only' }, labelSelected) : ''
+      ]
     )
 
     // Return the custom form control wrapper
