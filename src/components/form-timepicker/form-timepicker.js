@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import BVFormBtnlabelControl from '../../utils/bv-form-btnlabel-control'
+import { BVFormBtnlabelControl } from '../../utils/bv-form-btnlabel-control'
 import { getComponentConfig } from '../../utils/config'
 import idMixin from '../../mixins/id'
 import { commonProps as dropdownProps } from '../../mixins/dropdown'
