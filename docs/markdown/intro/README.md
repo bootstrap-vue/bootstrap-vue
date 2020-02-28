@@ -748,7 +748,7 @@ while the UMD (browser) icons only bundle includes `vue-functional-data-merge`.
 
 ## Migrating a project already using Bootstrap
 
-If you've already been using Bootstrap vv{{bootstrapVersionMajor}}, there are a couple adjustments
+If you've already been using Bootstrap v{{bootstrapVersionMajor}}, there are a couple adjustments
 you may need to make to your project:
 
 - Remove the `bootstrap.js` file from your page scripts or build pipeline
