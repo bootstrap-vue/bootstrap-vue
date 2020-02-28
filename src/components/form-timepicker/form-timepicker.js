@@ -1,12 +1,11 @@
 import Vue from '../../utils/vue'
+import BVFormBtnlabelControl from '../../utils/bv-form-btnlabel-control'
 import { getComponentConfig } from '../../utils/config'
-import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { commonProps as dropdownProps } from '../../mixins/dropdown'
 import { BButton } from '../button/button'
 import { BTime } from '../time/time'
 import { BIconClock, BIconClockFill } from '../../icons/icons'
-import { VBHover } from '../../directives/hover/hover'
 
 const NAME = 'BFormTimepicker'
 
@@ -129,13 +128,13 @@ const propsMixin = {
     },
     // Labels
     // These fallback to BTime values
-    labelNoTime: {
-      type: String,
-      default: () => getConfigFallback('labelNoTime')
-    },
     labelSelected: {
       type: String,
       default: () => getConfigFallback('labelSelected')
+    },
+    labelNoTime: {
+      type: String,
+      default: () => getConfigFallback('labelNoTime')
     },
     labelHours: {
       type: String,
@@ -174,7 +173,8 @@ const propsMixin = {
     menuClass: {
       type: [String, Array, Object],
       default: null
-    }
+    },
+    ...dropdownProps
   }
 }
 
@@ -183,11 +183,8 @@ const propsMixin = {
 // @vue/component
 export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  directives: {
-    BHover: VBHover
-  },
   // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, normalizeSlotMixin, propsMixin, dropdownMixin],
+  mixins: [idMixin, propsMixin],
   model: {
     prop: 'value',
     event: 'input'
@@ -200,21 +197,23 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       localLocale: null,
       isRTL: false,
       formattedValue: '',
-      // Flag to add focus ring to outer wrapper
-      hasFocus: false,
-      // If the control is hovered
-      isHovered: false
+      // If the menu is opened
+      isVisible: false
     }
   },
   computed: {
+    computedLang() {
+      return (this.localLocale || '').replace(/-u-.*$/i, '') || null
+    },
     timeProps() {
       // Props we pass to BTime
       // Use self for better minification, as `this` won't
       // minimize and we reference it many times below
       const self = this
       return {
-        hidden: !self.visible,
+        hidden: !self.isVisible,
         value: self.localHMS,
+        // Passthrough props
         readonly: self.readonly,
         disabled: self.disabled,
         locale: self.locale,
@@ -244,30 +243,19 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       this.$emit('input', newVal || '')
     }
   },
-  mounted() {
-    this.$on('shown', () => {
-      this.$nextTick(() => {
-        try {
-          this.$refs.time.focus()
-        } catch {}
-      })
-    })
-  },
   methods: {
     // Public methods
     focus() {
       if (!this.disabled) {
         try {
-          // This assumes the toggle is an element and not a component
-          this.$refs.toggle.focus()
+          this.$refs.control.focus()
         } catch {}
       }
     },
     blur() {
       if (!this.disabled) {
         try {
-          // This assumes the toggle is an element and not a component
-          this.$refs.toggle.blur()
+          this.$refs.control.blur()
         } catch {}
       }
     },
@@ -275,7 +263,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     setAndClose(value) {
       this.localHMS = value
       this.$nextTick(() => {
-        this.hide(true)
+        this.$refs.control.hide(true)
       })
     },
     onInput(hms) {
@@ -288,7 +276,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       this.isRTL = isRTL
       this.localLocale = locale
       this.formattedValue = formatted
-      this.localHMS = value
+      this.localHMS = value || ''
       // Re-emit the context event
       this.$emit('context', ctx)
     },
@@ -297,119 +285,48 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       const hours = now.getHours()
       const minutes = now.getMinutes()
       const seconds = this.showSeconds ? now.getSeconds() : 0
-      const value = [hours, minutes, seconds].map(v => `00${v}`.slice(-2)).join(':')
+      const value = [hours, minutes, seconds].map(v => `00${v || ''}`.slice(-2)).join(':')
       this.setAndClose(value)
     },
     onResetButton() {
       this.setAndClose(this.resetValue)
     },
     onCloseButton() {
-      this.hide(true)
+      this.$refs.control.hide(true)
     },
-    setFocus(evt) {
-      this.hasFocus = evt.type === 'focus'
+    onShow() {
+      this.isVisible = true
     },
-    handleHover(hovered) {
-      this.isHovered = hovered
+    onShown() {
+      this.$nextTick(() => {
+        try {
+          this.$refs.time.focus()
+        } catch {}
+      })
+    },
+    onHidden() {
+      this.isVisible = false
     },
     // Render funtion helpers
-    defaultButtonFn(scope) {
-      return this.$createElement(scope.isHovered || scope.hasFocus ? BIconClockFill : BIconClock, {
+    defaultButtonFn({ isHovered, hasFocus }) {
+      return this.$createElement(isHovered || hasFocus ? BIconClockFill : BIconClock, {
         props: { scale: 1.25 },
         attrs: { 'aria-hidden': 'true' }
       })
     }
   },
   render(h) {
-    const size = this.size
-    const state = this.state
-    const visible = this.visible
     const localHMS = this.localHMS
     const disabled = this.disabled
     const readonly = this.readonly
-    const required = this.required
-    const hasFocus = this.hasFocus
-    const isHovered = this.isHovered
-    // These should be computed props?
-    const idButton = this.safeId()
-    const idLabel = this.safeId('_value_')
-    const idMenu = this.safeId('_dialog_')
-    const idWrapper = this.safeId('_b-form-time_')
-
-    const btnScope = { isHovered, hasFocus, state, opened: visible }
-    const $button = h(
-      'button',
-      {
-        ref: 'toggle',
-        staticClass: 'btn border-0 h-auto py-0',
-        class: { [`btn-${size}`]: !!size },
-        attrs: {
-          id: idButton,
-          type: 'button',
-          disabled: disabled,
-          'aria-haspopup': 'dialog',
-          'aria-expanded': visible ? 'true' : 'false',
-          'aria-invalid': state === false ? 'true' : null,
-          'aria-required': required ? 'true' : null
-        },
-        directives: [{ name: 'b-hover', value: this.handleHover }],
-        on: {
-          mousedown: this.onMousedown,
-          click: this.toggle,
-          keydown: this.toggle, // Handle ENTER, SPACE and DOWN
-          '!focus': this.setFocus,
-          '!blur': this.setFocus
-        }
-      },
-      [
-        this.hasNormalizedSlot('button-content')
-          ? this.normalizeSlot('button-content', btnScope)
-          : this.defaultButtonFn(btnScope)
-      ]
-    )
-
-    // Label as a "fake" input
-    // This label will be read by screen readers when the button is focused
-    const $value = h(
-      'label',
-      {
-        staticClass: 'form-control text-break text-wrap border-0 bg-transparent h-auto pl-1 m-0',
-        class: {
-          // Mute the text if showing the placeholder
-          'text-muted': !localHMS,
-          [`form-control-${size}`]: !!size,
-          'is-invalid': state === false,
-          'is-valid': state === true
-        },
-        attrs: {
-          id: idLabel,
-          for: idButton,
-          'aria-invalid': state === false ? 'true' : null,
-          'aria-required': required ? 'true' : null
-        },
-        directives: [{ name: 'b-hover', value: this.handleHover }],
-        on: {
-          // Disable bubbling of the click event to
-          // prevent menu from closing and re-opening
-          click: evt => /* istanbul ignore next */ {
-            evt.stopPropagation()
-          }
-        }
-      },
-      [
-        // Add the formatted value or placeholder
-        localHMS ? this.formattedValue : this.placeholder || this.labelNoTime || '\u00A0',
-        // Add an sr-only 'selected date' label if a date is selected
-        localHMS ? h('span', { staticClass: 'sr-only' }, ` (${this.labelSelected}) `) : h()
-      ]
-    )
+    const isVisible = this.isVisible
 
     // Footer buttons
-    let $controls = []
+    let $footer = []
 
     if (this.nowButton) {
       const label = this.labelNowButton
-      $controls.push(
+      $footer.push(
         h(
           BButton,
           {
@@ -425,7 +342,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
 
     if (this.resetButton) {
       const label = this.labelResetButton
-      $controls.push(
+      $footer.push(
         h(
           BButton,
           {
@@ -440,33 +357,33 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     }
 
     if (!this.noCloseButton) {
-      const closeLabel = this.labelCloseButton
-      $controls.push(
+      const label = this.labelCloseButton
+      $footer.push(
         h(
           BButton,
           {
             staticClass: 'mx-1',
-            props: { size: 'sm', disabled: disabled, variant: this.closeButtonVariant },
-            attrs: { 'aria-label': closeLabel || null },
+            props: { size: 'sm', disabled, variant: this.closeButtonVariant },
+            attrs: { 'aria-label': label || null },
             on: { click: this.onCloseButton }
           },
-          closeLabel
+          label
         )
       )
     }
 
-    if ($controls.length > 0) {
-      $controls = [
+    if ($footer.length > 0) {
+      $footer = [
         h(
           'div',
           {
             staticClass: 'b-form-date-controls d-flex flex-wrap mx-n1',
             class: {
-              'justify-content-between': $controls.length > 1,
-              'justify-content-end': $controls.length < 2
+              'justify-content-between': $footer.length > 1,
+              'justify-content-end': $footer.length < 2
             }
           },
-          $controls
+          $footer
         )
       ]
     }
@@ -474,7 +391,6 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     const $time = h(
       BTime,
       {
-        key: 'time',
         ref: 'time',
         staticClass: 'b-form-time-control',
         props: this.timeProps,
@@ -483,76 +399,34 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
           context: this.onContext
         }
       },
-      $controls
+      $footer
     )
 
-    const $menu = h(
-      'div',
+    return h(
+      BVFormBtnlabelControl,
       {
-        ref: 'menu',
-        staticClass: 'dropdown-menu p-2',
-        class: [
-          // User supplied classes
-          this.menuClass,
-          // Classes we add/override
-          {
-            show: this.visible,
-            'dropdown-menu-right': this.right
-          }
-        ],
-        attrs: {
-          id: idMenu,
-          role: 'dialog',
-          tabindex: '-1',
-          'aria-modal': 'false',
-          'aria-labelledby': idLabel
+        ref: 'control',
+        staticClass: 'b-form-timepicker',
+        props: {
+          // This adds unneeded props, but reduces code size:
+          ...this.$props,
+          // Overridden / computed props
+          id: this.safeId(),
+          rtl: this.isRTL,
+          lang: this.computedLang,
+          value: localHMS || '',
+          formattedValue: localHMS ? this.formattedValue : ''
         },
         on: {
-          keydown: this.onKeydown // Handle ESC
+          show: this.onShow,
+          shown: this.onShown,
+          hidden: this.onHidden
+        },
+        scopedSlots: {
+          'button-content': this.$scopedSlots['button-content'] || this.defaultButtonFn
         }
       },
       [$time]
-    )
-
-    let $hidden = h()
-    if (this.name && !disabled) {
-      $hidden = h('input', {
-        attrs: {
-          type: 'hidden',
-          name: this.name,
-          form: this.form,
-          value: localHMS || ''
-        }
-      })
-    }
-
-    return h(
-      'div',
-      {
-        staticClass: 'b-form-timepicker form-control dropdown h-auto p-0 d-flex',
-        class: [
-          this.directionClass,
-          {
-            show: visible,
-            focus: hasFocus,
-            [`form-control-${size}`]: !!size,
-            'is-invalid': state === false,
-            'is-valid': state === true
-          }
-        ],
-        attrs: {
-          id: idWrapper,
-          role: 'group',
-          lang: this.localLocale || null,
-          dir: this.isRTL ? 'rtl' : 'ltr',
-          'aria-disabled': disabled,
-          'aria-readonly': readonly && !disabled,
-          'aria-labelledby': idLabel,
-          'aria-invalid': state === false ? 'true' : null,
-          'aria-required': this.required ? 'true' : null
-        }
-      },
-      [$button, $hidden, $menu, $value]
     )
   }
 })
