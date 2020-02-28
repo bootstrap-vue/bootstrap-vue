@@ -59,9 +59,11 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
       // default: null
     },
     rtl: {
-      // Applied to the value label
+      // Tri-state prop: `true`, `false` or `null`
       type: Boolean,
-      default: false
+      // We must explicitly default to `null` here otherwise
+      // Vue coerces `undefined` into Boolean `false`
+      default: null
     },
     menuClass: {
       // Extra classes to apply to the `dropdown-menu` div
@@ -87,6 +89,9 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     },
     idWrapper() {
       return this.safeId('_outer_')
+    },
+    computedDir() {
+      return this.rtl === true ? 'rtl' : this.rtl === false ? 'ltr' : null
     }
   },
   methods: {
@@ -109,6 +114,9 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     },
     handleHover(hovered) {
       this.isHovered = hovered
+    },
+    stopEvent(evt) /* istanbul ignore next */ {
+      evt.stopPropagation()
     }
   },
   render(h) {
@@ -124,7 +132,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
     const state = this.state
     const visible = this.visible
     const size = this.size
-    const value = this.value
+    const value = toString(this.value) || ''
 
     const btnScope = { isHovered, hasFocus, state, opened: visible }
     const $button = h(
@@ -139,7 +147,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
           disabled: disabled,
           'aria-haspopup': 'dialog',
           'aria-expanded': visible ? 'true' : 'false',
-          'aria-invalid': state === false ? 'true' : null,
+          'aria-invalid': state === false || (required && !value) ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
         directives: [{ name: 'b-hover', value: this.handleHover }],
@@ -166,7 +174,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
           type: 'hidden',
           name: this.name || null,
           form: this.form || null,
-          value: toString(value) || ''
+          value: value
         }
       })
     }
@@ -213,25 +221,21 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idLabel,
           for: idButton,
-          dir: this.rtl ? 'rtl' : 'ltr',
-          lang: this.lang || null,
-          'aria-invalid': state === false ? 'true' : null,
+          'aria-invalid': state === false || (required && !value) ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
         directives: [{ name: 'b-hover', value: this.handleHover }],
         on: {
           // Disable bubbling of the click event to
           // prevent menu from closing and re-opening
-          '!click': evt => /* istanbul ignore next */ {
-            evt.stopPropagation()
-          }
+          '!click': this.stopEvent
         }
       },
-      // If nothing to display, we render a `&nbps;` to keep the correct height
-      [this.normalizeSlot('formatted-value') || toString(value) || '\u00A0']
+      // If nothing to display, we render a `&nbsp;` to keep the correct height
+      [this.normalizeSlot('formatted-value') || value || '\u00A0']
     )
 
-    // Return teh custom form control wrapper
+    // Return the custom form control wrapper
     return h(
       'div',
       {
@@ -250,14 +254,13 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idWrapper,
           role: 'group',
+          lang: this.lang || null,
+          dir: this.computedDir,
           'aria-disabled': disabled,
           'aria-readonly': readonly && !disabled,
           'aria-labelledby': idLabel,
-          'aria-invalid': state === false ? 'true' : null,
+          'aria-invalid': state === false || (required && !value) ? 'true' : null,
           'aria-required': required ? 'true' : null
-          // The following is handled in CSS to prevent the button
-          // from moving to the right end in rtl mode
-          // dir: 'ltr'
         }
       },
       [$button, $hidden, $menu, $label]
