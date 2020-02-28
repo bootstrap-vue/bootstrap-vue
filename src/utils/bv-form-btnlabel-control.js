@@ -3,11 +3,14 @@
 //
 import Vue from './vue'
 import { toString } from './string'
-import dropdownMixin from '../mixins/dropdown'
+import dropdownMixin, { commonProps } from '../mixins/dropdown'
 import idMixin from '../mixins/id'
 import normalizeSlotMixin from '../mixins/normalize-slot'
 import { VBHover } from '../directives/hover/hover'
 import { BIconChevronDown } from '../icons/icons'
+
+// Re-export common dpropdown props used for convenience
+export const dropdownProps = commonProps
 
 // @vue/component
 export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
@@ -15,7 +18,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
   directives: {
     BHover: VBHover
   },
-  mixns: [idMixin, normalizeSlotMixin, dropdownMixin],
+  mixins: [idMixin, normalizeSlotMixin, dropdownMixin],
   props: {
     value: {
       // This is the value placed on the hidden input
