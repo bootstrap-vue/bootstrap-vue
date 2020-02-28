@@ -103,7 +103,7 @@
             "description": "Content for the `Close` button"
           },
           {
-            "prop": "labelNoTime",
+            "prop": "labelNoTimeSelected",
             "description": "String to show when no time is selected"
           },
           {
