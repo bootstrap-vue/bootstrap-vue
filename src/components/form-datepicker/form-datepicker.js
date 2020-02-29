@@ -335,7 +335,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       // Close calendar popup, unless `noCloseOnSelect`
       if (!this.noCloseOnSelect) {
         this.$nextTick(() => {
-          this.hide(true)
+          this.$refs.control.hide(true)
         })
       }
     },
@@ -366,7 +366,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       this.setAndClose(this.computedResetValue)
     },
     onCloseButton() {
-      this.hide(true)
+      this.$refs.control.hide(true)
     },
     // Menu handlers
     onShow() {
