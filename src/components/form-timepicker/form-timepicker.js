@@ -413,7 +413,8 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
           rtl: this.isRTL,
           lang: this.computedLang,
           value: localHMS || '',
-          formattedValue: localHMS ? this.formattedValue : this.labelNoTimeSelected || ''
+          formattedValue: localHMS ? this.formattedValue : '',
+          placeholder: this.placeholder || this.labelNoTimeSelected
         },
         on: {
           show: this.onShow,
