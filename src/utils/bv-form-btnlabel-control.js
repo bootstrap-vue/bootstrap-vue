@@ -252,7 +252,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
       },
       [
         // If nothing to display, we render a `&nbsp;` to keep the correct height
-        this.formattedValue || value || this.placeholder || '\u00A0',
+        value ? this.formattedValue || value : this.placeholder || '\u00A0',
         value && labelSelected ? h('bdi', { staticClass: 'sr-only' }, labelSelected) : ''
       ]
     )
