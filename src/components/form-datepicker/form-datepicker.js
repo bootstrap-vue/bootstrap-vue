@@ -384,7 +384,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     },
     // Render helpers
     defaultButtonFn({ isHovered, hasFocus }) {
-      return h(isHovered || hasFocus ? BIconCalendarFill : BIconCalendar, {
+      return this.$createElement(isHovered || hasFocus ? BIconCalendarFill : BIconCalendar, {
         props: { scale: 1.25 },
         attrs: { 'aria-hidden': 'true' }
       })
