@@ -53,6 +53,7 @@ describe('form-timepicker', () => {
 
     expect(wrapper.find('label.form-control').exists()).toBe(true)
     expect(wrapper.find('label.form-control').attributes('for')).toEqual('test-base')
+    expect(wrapper.find('label.form-control').text()).toContain('No time selected')
 
     expect(wrapper.find('input[type="hidden"]').exists()).toBe(false)
 
@@ -104,6 +105,47 @@ describe('form-timepicker', () => {
     expect(wrapper.find('input[type="hidden"]').exists()).toBe(true)
     expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
     expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('01:02:33')
+
+    wrapper.destroy()
+  })
+
+  it('renders placeholder text', async () => {
+    const wrapper = mount(BFormTimepicker, {
+      attachToDocument: true,
+      propsData: {
+        value: '',
+        hour12: false
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.find('label.form-control').exists()).toBe(true)
+    expect(wrapper.find('label.form-control').text()).toContain('No time selected')
+
+    wrapper.setProps({
+      placeholder: 'foobar'
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.find('label.form-control').exists()).toBe(true)
+    expect(wrapper.find('label.form-control').text()).not.toContain('No time selected')
+    expect(wrapper.find('label.form-control').text()).toContain('foobar')
+
+    wrapper.setProps({
+      value: '01:02:03'
+    })
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.find('label.form-control').exists()).toBe(true)
+    expect(wrapper.find('label.form-control').text()).not.toContain('No time selected')
+    expect(wrapper.find('label.form-control').text()).not.toContain('foobar')
 
     wrapper.destroy()
   })
