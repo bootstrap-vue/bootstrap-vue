@@ -1,13 +1,11 @@
 import Vue from '../../utils/vue'
+import { BVFormBtnlabelControl, dropdownProps } from '../../utils/bv-form-btnlabel-control'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, formatYMD, parseYMD } from '../../utils/date'
-import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
-import { VBHover } from '../../directives/hover/hover'
 
 const NAME = 'BFormDatepicker'
 
@@ -222,7 +220,8 @@ const propsMixin = {
     menuClass: {
       type: [String, Array, Object],
       default: null
-    }
+    },
+    ...dropdownProps
   }
 }
 
@@ -231,11 +230,8 @@ const propsMixin = {
 // @vue/component
 export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  directives: {
-    BHover: VBHover
-  },
   // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, normalizeSlotMixin, propsMixin, dropdownMixin],
+  mixins: [idMixin, propsMixin],
   model: {
     prop: 'value',
     event: 'input'
@@ -249,10 +245,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       isRTL: false,
       formattedValue: '',
       activeYMD: '',
-      // Flag to add focus ring to outer wrapper
-      hasFocus: false,
-      // If the control is hovered
-      isHovered: false
+      // If the popup is open
+      isVisible: false
     }
   },
   computed: {
@@ -266,7 +260,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       // minimize and we reference it many times below
       const self = this
       return {
-        hidden: !self.visible,
+        hidden: !self.isVisible,
         value: self.localYMD,
         min: self.min,
         max: self.max,
@@ -294,6 +288,9 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         dateFormatOptions: self.dateFormatOptions
       }
     },
+    computedLang() {
+      return (this.localLocale || '').replace(/-u-.*$/i, '') || null
+    },
     computedResetValue() {
       return parseYMD(this.resetValue) || ''
     }
@@ -310,32 +307,25 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       // So possibly the calendar height has changed...
       // We need to update popper computed position
       if (newVal !== oldVal && oldVal) {
-        this.updatePopper()
+        try {
+          this.$refs.control.updatePopper()
+        } catch {}
       }
     }
-  },
-  mounted() {
-    this.$on('shown', () => {
-      try {
-        this.$refs.calendar.focus()
-      } catch {}
-    })
   },
   methods: {
     // Public methods
     focus() {
       if (!this.disabled) {
         try {
-          // This assumes the toggle is an element and not a component
-          this.$refs.toggle.focus()
+          this.$refs.control.focus()
         } catch {}
       }
     },
     blur() {
       if (!this.disabled) {
         try {
-          // This assumes the toggle is an element and not a component
-          this.$refs.toggle.blur()
+          this.$refs.control.blur()
         } catch {}
       }
     },
@@ -378,107 +368,39 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     onCloseButton() {
       this.hide(true)
     },
-    setFocus(evt) {
-      this.hasFocus = evt.type === 'focus'
-      this.isHovered = evt.type === 'blur' ? false : this.isHovered
+    // Menu handlers
+    onShow() {
+      this.isVisible = true
     },
-    handleHover(hovered) {
-      this.isHovered = hovered && !this.visible
+    onShown() {
+      this.$nextTick(() => {
+        try {
+          this.$refs.calendar.focus()
+        } catch {}
+      })
+    },
+    onHidden() {
+      this.isVisible = false
+    },
+    // Render helpers
+    defaultButtonFn({ isHovered, hasFocus }) {
+      return h(isHovered || hasFocus ? BIconCalendarFill : BIconCalendar, {
+        props: { scale: 1.25 },
+        attrs: { 'aria-hidden': 'true' }
+      })
     }
   },
   render(h) {
-    const size = this.size
-    const state = this.state
-    const visible = this.visible
-    const isHovered = this.isHovered && !visible
-    const hasFocus = this.hasFocus
     const localYMD = this.localYMD
     const disabled = this.disabled
     const readonly = this.readonly
-    const required = this.required
-    // TODO: move these to computed props
-    const idButton = this.safeId()
-    const idLabel = this.safeId('_value_')
-    const idMenu = this.safeId('_dialog_')
-    const idWrapper = this.safeId('_b-form-date_')
-
-    const btnScope = { isHovered, hasFocus, state, opened: visible }
-    const defaultButtonFn = scope => {
-      const data = { props: { scale: 1.25 }, attrs: { 'aria-hidden': 'true' } }
-      return h(scope.isHovered || scope.hasFocus ? BIconCalendarFill : BIconCalendar, data)
-    }
-    let $button = h('div', { attrs: { 'aria-hidden': 'true' } }, [
-      this.normalizeSlot('button-content', btnScope) || defaultButtonFn(btnScope)
-    ])
-    $button = h(
-      'button',
-      {
-        ref: 'toggle',
-        staticClass: 'btn border-0 h-auto py-0',
-        class: { [`btn-${size}`]: !!size },
-        attrs: {
-          id: idButton,
-          type: 'button',
-          disabled: disabled,
-          'aria-haspopup': 'dialog',
-          'aria-expanded': visible ? 'true' : 'false',
-          'aria-invalid': state === false ? 'true' : null,
-          'aria-required': required ? 'true' : null
-        },
-        directives: [{ name: 'b-hover', value: this.handleHover }],
-        on: {
-          mousedown: this.onMousedown,
-          click: this.toggle,
-          keydown: this.toggle, // Handle ENTER, SPACE and DOWN
-          '!focus': this.setFocus,
-          '!blur': this.setFocus
-        }
-      },
-      [$button]
-    )
-
-    // Label as a "fake" input
-    // This label will be read by screen readers when the button is focused
-    const $value = h(
-      'label',
-      {
-        staticClass: 'form-control text-break text-wrap border-0 bg-transparent h-auto pl-1 m-0',
-        class: {
-          // Mute the text if showing the placeholder
-          'text-muted': !localYMD,
-          [`form-control-${size}`]: !!size,
-          'is-invalid': state === false,
-          'is-valid': state === true
-        },
-        attrs: {
-          id: idLabel,
-          for: idButton,
-          'aria-invalid': state === false ? 'true' : null,
-          'aria-required': required ? 'true' : null
-        },
-        directives: [{ name: 'b-hover', value: this.handleHover }],
-        on: {
-          // Disable bubbling of the click event to
-          // prevent menu from closing and re-opening
-          click: evt => /* istanbul ignore next */ {
-            evt.stopPropagation()
-          }
-        }
-      },
-      [
-        // Add the formatted value or placeholder
-        localYMD ? this.formattedValue : this.placeholder || this.labelNoDateSelected || '\u00A0',
-        // Add an sr-only 'selected date' label if a date is selected
-        localYMD ? h('span', { staticClass: 'sr-only' }, ` (${this.labelSelected}) `) : h()
-      ]
-    )
 
     // Optional footer buttons
-    let $controls = []
+    let $footer = []
 
     if (this.todayButton) {
       const label = this.labelTodayButton
-      $controls.push(
+      $footer.push(
         h(
           BButton,
           {
@@ -493,7 +415,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
 
     if (this.resetButton) {
       const label = this.labelResetButton
-      $controls.push(
+      $footer.push(
         h(
           BButton,
           {
@@ -508,11 +430,11 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
 
     if (this.closeButton) {
       const label = this.labelCloseButton
-      $controls.push(
+      $footer.push(
         h(
           BButton,
           {
-            props: { size: 'sm', disabled: disabled, variant: this.closeButtonVariant },
+            props: { size: 'sm', disabled, variant: this.closeButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onCloseButton }
           },
@@ -521,18 +443,18 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       )
     }
 
-    if ($controls.length > 0) {
-      $controls = [
+    if ($footer.length > 0) {
+      $footer = [
         h(
           'div',
           {
             staticClass: 'b-form-date-controls d-flex flex-wrap',
             class: {
-              'justify-content-between': $controls.length > 1,
-              'justify-content-end': $controls.length < 2
+              'justify-content-between': $footer.length > 1,
+              'justify-content-end': $footer.length < 2
             }
           },
-          $controls
+          $footer
         )
       ]
     }
@@ -550,76 +472,36 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           context: this.onContext
         }
       },
-      $controls
+      $footer
     )
 
-    const $menu = h(
-      'div',
+    return h(
+      BVFormBtnlabelControl,
       {
-        ref: 'menu',
-        staticClass: 'dropdown-menu p-2',
-        class: [
-          this.menuClass,
-          {
-            show: visible,
-            'dropdown-menu-right': this.right,
-            'bg-dark': this.dark,
-            'text-light': this.dark
-          }
-        ],
-        attrs: {
-          id: idMenu,
-          role: 'dialog',
-          tabindex: '-1',
-          'aria-modal': 'false',
-          'aria-labelledby': idLabel
+        ref: 'control',
+        staticClass: 'b-form-datepicker',
+        props: {
+          // This adds unneeded props, but reduces code size:
+          ...this.$props,
+          // Overridden / computed props
+          id: this.safeId(),
+          rtl: this.isRTL,
+          lang: this.computedLang,
+          value: localYMD || '',
+          formattedValue: localYMD ? this.formattedValue : '',
+          placeholder: this.placeholder || this.labelNoDateSelected,
+          menuClass: [{ 'bg-dark': !!this.dark, 'text-light': !!this.dark }, this.menuClass]
         },
         on: {
-          keydown: this.onKeydown // Handle ESC
+          show: this.onShow,
+          shown: this.onShown,
+          hidden: this.onHidden
+        },
+        scopedSlots: {
+          'button-content': this.$scopedSlots['button-content'] || this.defaultButtonFn
         }
       },
       [$calendar]
-    )
-
-    let $hidden = h()
-    if (this.name && !disabled) {
-      $hidden = h('input', {
-        attrs: {
-          type: 'hidden',
-          name: this.name,
-          form: this.form,
-          value: localYMD || ''
-        }
-      })
-    }
-
-    return h(
-      'div',
-      {
-        staticClass: 'b-form-datepicker form-control dropdown h-auto p-0 d-flex',
-        class: [
-          this.directionClass,
-          {
-            show: visible,
-            focus: hasFocus,
-            [`form-control-${size}`]: !!size,
-            'is-invalid': state === false,
-            'is-valid': state === true
-          }
-        ],
-        attrs: {
-          id: idWrapper,
-          role: 'group',
-          lang: this.localLocale || null,
-          dir: this.isRTL ? 'rtl' : 'ltr',
-          'aria-disabled': disabled,
-          'aria-readonly': readonly && !disabled,
-          'aria-labelledby': idLabel,
-          'aria-invalid': state === false ? 'true' : null,
-          'aria-required': required ? 'true' : null
-        }
-      },
-      [$button, $hidden, $menu, $value]
     )
   }
 })
