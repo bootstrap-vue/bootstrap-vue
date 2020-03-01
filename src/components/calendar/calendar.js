@@ -673,8 +673,10 @@ export const BCalendar = Vue.extend({
       this.activeYMD = formatYMD(this.constrainDate(oneYearAhead(this.activeDate)))
     },
     onHeaderClick() {
-      this.activeYMD = this.selectedYMD || formatYMD(this.getToday())
-      this.focus()
+      if (!this.disabled) {
+        this.activeYMD = this.selectedYMD || formatYMD(this.getToday())
+        this.focus()
+      }
     }
   },
   render(h) {
