@@ -1,6 +1,6 @@
 // Special styling for some BootstrapVue custom form controls that do
 // not have a native HTML input type root element (or tabindex)
-
+// Used by BFormSpinbutton, BFormDatepicker, BFormTimepicker, BTime, BCalendar
 .form-control {
   // Adds focus styling to the focom-control class (via the focus class)
   // Specifically when we are using non focusable elements, or when true focus
@@ -68,7 +68,7 @@
   > label {
     // Unfortunately this is not supported by all browsers :(
     // text-align: end;
-    outline: 0
+    outline: 0;
 
     @if $enable-pointer-cursor-for-buttons {
       cursor: pointer;
