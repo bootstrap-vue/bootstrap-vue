@@ -637,7 +637,6 @@ export const BCalendar = Vue.extend({
     },
     onClickDay(day) {
       // Clicking on a date "button" to select it
-      // TODO: Change to lookup the `data-data` attribute
       const selectedDate = this.selectedDate
       const activeDate = this.activeDate
       const clickedDate = parseYMD(day.ymd)
@@ -718,7 +717,7 @@ export const BCalendar = Vue.extend({
           'aria-atomic': isLive ? 'true' : null
         },
         on: {
-          // Transfer focus/click to focus hours spinner
+          // Transfer focus/click to focus grid
           click: this.focus,
           focus: this.focus
         }
