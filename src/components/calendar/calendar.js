@@ -671,6 +671,10 @@ export const BCalendar = Vue.extend({
     },
     gotoNextYear() {
       this.activeYMD = formatYMD(this.constrainDate(oneYearAhead(this.activeDate)))
+    },
+    onHeaderClick() {
+      this.activeYMD = this.activeYMD || formatYMD(this.getToday())
+      this.focus()
     }
   },
   render(h) {
@@ -718,8 +722,9 @@ export const BCalendar = Vue.extend({
         },
         on: {
           // Transfer focus/click to focus grid
-          click: this.focus,
-          focus: this.focus
+          // and focus active date (or today if no selection)
+          click: this.onHeaderClick,
+          focus: this.onHeaderClick
         }
       },
       this.selectedDate
