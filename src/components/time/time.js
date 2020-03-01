@@ -7,7 +7,7 @@ import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, createDateFormatter } from '../../utils/date'
-import { contains } from '../../utils/dom'
+import { contains, requestAF } from '../../utils/dom'
 import { isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
@@ -175,7 +175,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       modelHours: parsed.hours,
       modelMinutes: parsed.minutes,
       modelSeconds: parsed.seconds,
-      modelAmpm: parsed.ampm
+      modelAmpm: parsed.ampm,
+      // Internal flag to enable aria-live regions
+      isLive: false
     }
   },
   computed: {
@@ -329,7 +331,37 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       this.$emit('context', this.context)
     })
   },
+  mounted() {
+    this.setLive(true)
+  },
+  activated() /* istanbul ignore next */ {
+    this.setLive(true)
+  },
+  deactivated() /* istanbul ignore next */ {
+    this.setLive(false)
+  },
+  beforeDestroy() {
+    this.setLive(false)
+  },
   methods: {
+    // Public methods
+    focus() {
+      if (!this.disabled) {
+        try {
+          // We focus the first spin button
+          this.$refs.spinners[0].focus()
+        } catch {}
+      }
+    },
+    blur() {
+      if (!this.disabled) {
+        try {
+          if (contains(this.$el, document.activeElement)) {
+            document.activeElement.blur()
+          }
+        } catch {}
+      }
+    },
     // Formatters for the spin buttons
     formatHours(hh) {
       const hourCycle = this.computedHourCycle
@@ -384,22 +416,15 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         } catch {}
       }
     },
-    // Public methods
-    focus() {
-      if (!this.disabled) {
-        try {
-          // We focus the first spin button
-          this.$refs.spinners[0].focus()
-        } catch {}
-      }
-    },
-    blur() {
-      if (!this.disabled) {
-        try {
-          if (contains(this.$el, document.activeElement)) {
-            document.activeElement.blur()
-          }
-        } catch {}
+    setLive(on) {
+      if (on) {
+        this.$nextTick(() => {
+          requestAF(() => {
+            this.isLive = true
+          })
+        })
+      } else {
+        this.isLive = false
       }
     }
   },
@@ -412,15 +437,19 @@ export const BTime = /*#__PURE__*/ Vue.extend({
 
     const valueId = this.valueId
     const computedAriaLabelledby = this.computedAriaLabelledby
+    const spinIds = []
 
     // Helper method to render a spinbutton
     const makeSpinbutton = (handler, key, classes, spinbuttonProps = {}) => {
+      const id = this.safeId(`_spinbtn_${key}_`) || null
+      spinIds.push(id)
       return h(BFormSpinbutton, {
         key: key,
         ref: 'spinners',
         refInFor: true,
         class: classes,
         props: {
+          id: id,
           placeholder: '--',
           vertical: true,
           required: true,
@@ -509,6 +538,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       // TODO:
       //   If locale is RTL, unshift this instead of push??
       //   and switch class `ml-2` to `mr-2`
+      //   Note some LTR locales (i.e. zh) also place AM/PM to the left
       $spinners.push(
         makeSpinbutton(this.setAmpm, 'ampm', 'ml-2', {
           value: this.modelAmpm,
@@ -554,8 +584,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: valueId,
           role: 'status',
+          for: spinIds.filter(identity).join(' ') || null,
           tabindex: this.disabled ? null : '-1',
-          'aria-live': 'polite',
+          'aria-live': this.isLive ? 'polite' : 'off',
           'aria-atomic': 'true'
         },
         on: {
