@@ -5,7 +5,7 @@
     "title": "Time",
     "version": "2.6.0",
     "new": true,
-    "description": "A custom time input widget that can be used to control other components.",
+    "description": "A custom time input widget that can be used to control other components",
     "components": [
       {
         "component": "BTime",
@@ -17,7 +17,7 @@
           },
           {
             "prop": "showSeconds",
-            "description": "When true, shows the seconds spinbutton. If `false` the seconds spinn button will not be shown and the seconds portion of hte time will always be `0`"
+            "description": "When true, shows the seconds spinbutton. If `false` the seconds spin button will not be shown and the seconds portion of hte time will always be `0`"
           },
           {
             "prop": "hour12",
@@ -93,11 +93,11 @@
           },
           {
             "event": "context",
-            "description": "Emitted whenever the internal model state, or locale, updates. Also emitted when the compoent is initially created",
+            "description": "Emitted whenever the internal model state, or locale, updates. Also emitted when the component is initially created",
             "args": [
               {
                 "arg": "context",
-                "description": "The contet object. Refer to the docs for details"
+                "description": "The context object. Refer to the docs for details"
               }
             ]
           }

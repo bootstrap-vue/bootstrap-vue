@@ -84,17 +84,18 @@ allowing for tabbing between spinbuttons. The `v-model` will not be updated in t
 
 ## Validation states
 
-`<b-form-timepicker>` supports invalid and valid styling via the boolean `state` prop. Setting `state`
-to boolean `false` will style the input as invalid, while setting it to boolean `true` will style it
-as valid. Setting state to `null` will not show any validation state styling (the default).
+`<b-form-timepicker>` supports invalid and valid styling via the boolean `state` prop. Setting
+`state` to boolean `false` will style the input as invalid, while setting it to boolean `true` will
+style it as valid. Setting state to `null` will not show any validation state styling (the default).
 
 ```html
 <template>
   <div>
     <label for="timepicker-invalid">Choose a time (invalid style)</label>
     <b-form-timepicker id="datepicker-invalid" :state="false" class="mb-2"></b-form-timepicker>
+
     <label for="timepicker-valid">Choose a time (valid style)</label>
-    <b-form-timepicker id="datepicker-valid" :state="true"></b-form-timeepicker>
+    <b-form-timepicker id="datepicker-valid" :state="true"></b-form-timepicker>
   </div>
 </template>
 
@@ -107,9 +108,10 @@ Note that native browser validation is not available with `<b-form-timepicker>`.
 
 ### Enabling of seconds spinbutton
 
-By default, the seconds spinbutton is not shown. To enable the section of seconds, set the `show-seconds`
-prop to `true` to enable the seconds selection spinbutton. When `show-seconds` is false (or not provided),
-the returned value will always have the seconds portion of the time string set to `00`.
+By default, the seconds spinbutton is not shown. To enable the section of seconds, set the
+`show-seconds` prop to `true` to enable the seconds selection spinbutton. When `show-seconds` is
+false (or not provided), the returned value will always have the seconds portion of the time string
+set to `00`.
 
 ```html
 <template>
@@ -141,8 +143,9 @@ popup time selection dialog.
 ```html
 <template>
   <div>
-    <label for="timeepicker-sm">Small time picker</label>
-    <b-form-timepicker id="timeepicker-sm" size="sm" local="en" class="mb-2"></b-form-timepicker>
+    <label for="timepicker-sm">Small time picker</label>
+    <b-form-timepicker id="timepicker-sm" size="sm" local="en" class="mb-2"></b-form-timepicker>
+
     <label for="timepicker-lg">Large time picker</label>
     <b-form-timepicker id="timepicker-lg" size="lg" local="en"></b-form-timepicker>
   </div>
@@ -153,8 +156,8 @@ popup time selection dialog.
 
 ### Placeholder
 
-Add custom placeholder text to the control, when no date is selected, via the `placeholder` prop.
-If a placeholder is not provided, the value of the `label-no-time-selected` prop is used.
+Add custom placeholder text to the control, when no date is selected, via the `placeholder` prop. If
+a placeholder is not provided, the value of the `label-no-time-selected` prop is used.
 
 ```html
 <template>
@@ -194,16 +197,16 @@ Add optional control buttons to the bottom of the calendar popup via the props `
 ```
 
 The text for the optional buttons can be set via the `label-now-button`, `label-reset-button`, and
-the `label-close-button` props. Due to the limited width of the footer section, it is recommended
-to keep these labels short.
+the `label-close-button` props. Due to the limited width of the footer section, it is recommended to
+keep these labels short.
 
 ### Dropdown placement
 
 Use the dropdown props `right`, `dropup`, `dropright`, `dropleft`, `no-flip`, and `offset` to
 control the positioning of the popup calendar.
 
-Refer to the [`<b-dropdown>` documentation](/docs/components/dropdown) for details on the
-effects and usage of these props.
+Refer to the [`<b-dropdown>` documentation](/docs/components/dropdown) for details on the effects
+and usage of these props.
 
 ## Internationalization
 
@@ -268,13 +271,10 @@ supports `Intl` and the locales you will be using. Refer to the
             labelHours: 'Stunden',
             labelMinutes: 'Minuten',
             labelSeconds: 'Sekunden',
-            labelAmpm: 'AM / PM',
-            labelAm: 'AM',
-            labelPm: 'PM',
-            labelIncrement: 'Zuwachs',
-            labelDecrement: 'Dekrement',
+            labelIncrement: 'Erhöhen',
+            labelDecrement: 'Verringern',
             labelSelected: 'Ausgewählte Zeit',
-            labelNoTime: 'Keine Zeit ausgewählt',
+            labelNoTimeSelected: 'Keine Zeit ausgewählt',
             labelCloseButton: 'Schließen'
           },
           'ar-EG': {
@@ -287,7 +287,7 @@ supports `Intl` and the locales you will be using. Refer to the
             labelIncrement: 'زيادة',
             labelDecrement: 'إنقاص',
             labelSelected: 'الوقت المحدد',
-            labelNoTime: 'لا وقت المختار',
+            labelNoTimeSelected: 'لا وقت المختار',
             labelCloseButton: 'قريب'
           },
           zh: {
@@ -300,7 +300,7 @@ supports `Intl` and the locales you will be using. Refer to the
             labelIncrement: '增量',
             labelDecrement: '减量',
             labelSelected: '选定时间',
-            labelNoTime: '没有选择时间',
+            labelNoTimeSelected: '没有选择时间',
             labelCloseButton: '关'
           }
         }
@@ -322,8 +322,8 @@ supports `Intl` and the locales you will be using. Refer to the
 There are 2 main types of time keeping conventions (clocks) used around the world: the 12-hour clock
 and the 24-hour clock. The `hourCycle` property allows you to access the clock type used by a
 particular locale. The hour cycle type can have several different values, which are listed in the
-table below. The `hourCycle` signals how the time `'00:00:00'` (the start of the day) should
-be presented/formatted to a user of a particular locale. The `'context'` event includes the resolved
+table below. The `hourCycle` signals how the time `'00:00:00'` (the start of the day) should be
+presented/formatted to a user of a particular locale. The `'context'` event includes the resolved
 `hourCycle` value.
 
 | `hourCycle` | Description                                                                       |
@@ -334,20 +334,20 @@ be presented/formatted to a user of a particular locale. The `'context'` event i
 | `'h24'`     | Hour system using `1`–`24`. The 24 hour clock, with midnight starting at 24:00    |
 
 Native HTML5 `<input type="date">` returns the time value in the `'h23'` format, and
-`<b-form-timepicker>` also returns the v-model in the `'h23'` format. This value may differ from what
-is presented to the user via the GUI (spin buttons) of the `<b-form-timepicker>` component, dependant
-upon the [locale selected](#internationalization).
+`<b-form-timepicker>` also returns the v-model in the `'h23'` format. This value may differ from
+what is presented to the user via the GUI (spin buttons) of the `<b-form-timepicker>` component,
+dependant upon the [locale selected](#internationalization).
 
 ### Forcing 12 or 24 hour interface
 
 12-hour versus 24-hour input is determined by the client browsers default locale (or the locale
-resolved from the `locale` prop). To force a 12-hour user interface, set the prop `hour12` to `true`.
-To force a 24-hour user inteface, set the prop `hour12` to `false`. The default for prop `hour12` is
-`null` which uses the resoved locale to determine which interface to use.
+resolved from the `locale` prop). To force a 12-hour user interface, set the prop `hour12` to
+`true`. To force a 24-hour user interface, set the prop `hour12` to `false`. The default for prop
+`hour12` is `null` which uses the resolved locale to determine which interface to use.
 
 The setting of the `hour12` prop will affect which [`hourCycle`](#understanding-the-hourcycle) is
 resolved for formatting the hours spinbutton. Note that while this may affect the format of the hour
-spinbutton, but the formated time string result _may_ show the `'h12` or `'h23'` format due to
+spinbutton, but the formatted time string result _may_ show the `'h12` or `'h23'` format due to
 limitations in the client `Intl.DateTimeFormat` support for a particular locale. It is therefore
 **recommended to leave the `hour12` prop set to `null` (default)**, so show the locale default
 time/hour formatting.

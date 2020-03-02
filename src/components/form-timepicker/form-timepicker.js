@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import { BVFormBtnlabelControl, dropdownProps } from '../../utils/bv-form-btnlabel-control'
+import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
@@ -222,7 +222,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         showSeconds: self.showSeconds,
         secondsStep: self.secondsStep,
         minutesStep: self.minutesStep,
-        labelNoTime: self.labelNoTime,
+        labelNoTimeSelected: self.labelNoTimeSelected,
         labelSelected: self.labelSelected,
         labelHours: self.labelHours,
         labelMinutes: self.labelMinutes,
@@ -307,7 +307,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     onHidden() {
       this.isVisible = false
     },
-    // Render funtion helpers
+    // Render function helpers
     defaultButtonFn({ isHovered, hasFocus }) {
       return this.$createElement(isHovered || hasFocus ? BIconClockFill : BIconClock, {
         props: { scale: 1.25 },
@@ -405,7 +405,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     )
 
     return h(
-      BVFormBtnlabelControl,
+      BVFormBtnLabelControl,
       {
         ref: 'control',
         staticClass: 'b-form-timepicker',

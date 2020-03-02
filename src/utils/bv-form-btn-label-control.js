@@ -9,12 +9,12 @@ import normalizeSlotMixin from '../mixins/normalize-slot'
 import { VBHover } from '../directives/hover/hover'
 import { BIconChevronDown } from '../icons/icons'
 
-// Re-export common dpropdown props used for convenience
+// Re-export common dropdown props used for convenience
 export const dropdownProps = commonProps
 
 // @vue/component
-export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
-  name: 'BVFormBtnlabelControl',
+export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
+  name: 'BVFormBtnLabelControl',
   directives: {
     BHover: VBHover
   },
@@ -252,7 +252,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
       },
       [
         value ? this.formattedValue || value : this.placeholder || '',
-        // Add teh selected label for screen readers when a value is provided
+        // Add the selected label for screen readers when a value is provided
         value && labelSelected ? h('bdi', { staticClass: 'sr-only' }, labelSelected) : ''
       ]
     )
@@ -262,7 +262,7 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass:
-          'b-form-btnlabel-control form-control dropdown d-flex p-0 h-auto align-items-stretch',
+          'b-form-btn-label-control form-control dropdown d-flex p-0 h-auto align-items-stretch',
         class: [
           this.directionClass,
           {

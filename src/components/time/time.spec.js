@@ -15,7 +15,7 @@ describe('time', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.element.hasAttribute('lang')).toBe(true)
-    expect(wrapper.element.hasAttribute('aria-labeledby')).toBe(true)
+    expect(wrapper.element.hasAttribute('aria-labelledby')).toBe(true)
     expect(wrapper.classes()).toContain('b-time')
     expect(wrapper.classes()).toContain('d-inline-flex')
     expect(wrapper.classes()).toContain('flex-column')
@@ -26,7 +26,7 @@ describe('time', () => {
     expect($output.attributes('role')).toEqual('status')
     expect($output.attributes('aria-live')).toEqual('polite')
     expect($output.attributes('aria-atomic')).toEqual('true')
-    expect($output.attributes('id')).toEqual(wrapper.attributes('aria-labeledby'))
+    expect($output.attributes('id')).toEqual(wrapper.attributes('aria-labelledby'))
 
     const $spinWrap = wrapper.find('.b-time > div[role="group"]')
     expect($spinWrap.exists()).toBe(true)

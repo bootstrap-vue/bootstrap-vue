@@ -2,7 +2,7 @@
 // not have a native HTML input type root element (or tabindex)
 // Used by BFormSpinbutton, BFormDatepicker, BFormTimepicker, BTime, BCalendar
 .form-control {
-  // Adds focus styling to the focom-control class (via the focus class)
+  // Adds focus styling to the form-control class (via the focus class)
   // Specifically when we are using non focusable elements, or when true focus
   // is within the `.form-control` element.
   // Mimics the `.form-control:focus` styling
@@ -29,9 +29,9 @@
   }
 }
 
-// Shared BVFormButnlabelControl styling
+// Shared BVFormBtnLabelControl styling
 // Currently used by BFormTimepicker and BFormDatepicker
-.b-form-btnlabel-control {
+.b-form-btn-label-control {
   // Remove background validation images from main wrapper
   background-image: none;
 

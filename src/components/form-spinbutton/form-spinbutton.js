@@ -445,7 +445,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           evt.preventDefault()
           this.setMouseup(true)
           try {
-            // Since we preventDefault, we must maually focus the button
+            // Since we `preventDefault()`, we must manually focus the button
             evt.currentTarget.focus()
           } catch {}
           this.handleStepRepeat(evt, stepper)

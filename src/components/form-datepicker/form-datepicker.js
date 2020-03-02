@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import { BVFormBtnlabelControl, dropdownProps } from '../../utils/bv-form-btnlabel-control'
+import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, formatYMD, parseYMD } from '../../utils/date'
 import { isUndefinedOrNull } from '../../utils/inspect'
@@ -480,7 +480,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     )
 
     return h(
-      BVFormBtnlabelControl,
+      BVFormBtnLabelControl,
       {
         ref: 'control',
         staticClass: 'b-form-datepicker',

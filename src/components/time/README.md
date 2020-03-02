@@ -5,8 +5,8 @@
 > inputs.
 
 `<b-time>` is WAI-ARIA accessibility compliant, optimized for keyboard control (arrow, page up/down,
-home, and end keys). Internationalization is also supported, and default's to the browser's or page's
-locale, if no locale(s) are specified.
+home, and end keys). Internationalization is also supported, and default's to the browser's or
+page's locale, if no locale(s) are specified.
 
 If you need a time picker as a custom form control input, use the
 [`<b-form-timepicker>`](/docs/components/form-timepicker) component instead.
@@ -98,9 +98,10 @@ Setting the `disabled` prop will remove all interactivity of the `<b-time>` comp
 
 ### Enabling of seconds spinbutton
 
-By default, the seconds spinbutton is not shown. To enable the section of seconds, set the `show-seconds`
-prop to `true` to enable the seconds selection spinbutton. When `show-seconds` is `false` (or not
-provided), the returned value will always have the seconds portion of the time string set to `00`.
+By default, the seconds spinbutton is not shown. To enable the section of seconds, set the
+`show-seconds` prop to `true` to enable the seconds selection spinbutton. When `show-seconds` is
+`false` (or not provided), the returned value will always have the seconds portion of the time
+string set to `00`.
 
 ```html
 <template>
@@ -123,11 +124,11 @@ provided), the returned value will always have the seconds portion of the time s
 
 ### Hiding the top selected time header
 
-By default, the current selected time will be displayed at the top of the time component, formatted in
-the locale's language.
+By default, the current selected time will be displayed at the top of the time component, formatted
+in the locale's language.
 
-You can hide this header via the `hide-header` prop. Note this only visually hides the selected time,
-while keeping it available to screen reader users as an `aria-live` region.
+You can hide this header via the `hide-header` prop. Note this only visually hides the selected
+time, while keeping it available to screen reader users as an `aria-live` region.
 
 ### Border and padding
 
@@ -198,24 +199,25 @@ can be used to add buttons such as Now or Reset, etc.
 
 ### `input` event
 
-The `'input'` event is emitted when updating the `v-model`. The event has a single argument which
-is the selected time as a string. The value is a string in the format of `'HH:mm:ss'` (or an empty
+The `'input'` event is emitted when updating the `v-model`. The event has a single argument which is
+the selected time as a string. The value is a string in the format of `'HH:mm:ss'` (or an empty
 string if no time is selected). Valid values are in the range of `'00:00:00'` through `23:59:59'`.
 
-If fhe `show-seconds` prop is not set, the seconds portion of the time value will alwaus be `'00'`.
+If fhe `show-seconds` prop is not set, the seconds portion of the time value will always be `'00'`.
 
 If the `disabled` or `readonly` props are set, the `'input'` event will **not** be emitted.
 
 ### `context` event
 
 The `'context'` event is emitted whenever a user selects a time, or the user changes a value of one
-of the spinbuttons. It will also be emitted when the component is created (just before insertion into
-the DOM), or when the resolved locale has changed.
+of the spinbuttons. It will also be emitted when the component is created (just before insertion
+into the DOM), or when the resolved locale has changed.
 
-The event will not be emitted when the `disabled` or `readonly` props are set (except for the initial
-emit when the time component is created).
+The event will not be emitted when the `disabled` or `readonly` props are set (except for the
+initial emit when the time component is created).
 
-The `'context'` event is passed a context object as it's only argument, with the following properties:
+The `'context'` event is passed a context object as it's only argument, with the following
+properties:
 
 | Property    | Description                                                                                                 |
 | ----------- | ----------------------------------------------------------------------------------------------------------- |
@@ -229,7 +231,7 @@ The `'context'` event is passed a context object as it's only argument, with the
 | `hour12`    | Boolean value indicating if the interface is using 12 hour format                                           |
 | `hourCycle` | A string representing the type of hour cycle used for the spinbuttons: `'h11'`, `'h12'`, `'h23'` or `'h24'` |
 
-Refer to the [Internationallization section](#internationalization) for information on the context
+Refer to the [Internationalization section](#internationalization) for information on the context
 properties `locale`, `hour12` and `hourCycle`.
 
 ## Internationalization
@@ -295,13 +297,10 @@ supports `Intl` and the locales you will be using. Refer to the
             labelHours: 'Stunden',
             labelMinutes: 'Minuten',
             labelSeconds: 'Sekunden',
-            labelAmpm: 'AM / PM',
-            labelAm: 'AM',
-            labelPm: 'PM',
-            labelIncrement: 'Zuwachs',
-            labelDecrement: 'Dekrement',
+            labelIncrement: 'Erhöhen',
+            labelDecrement: 'Verringern',
             labelSelected: 'Ausgewählte Zeit',
-            labelNoTime: 'Keine Zeit ausgewählt'
+            labelNoTimeSelected: 'Keine Zeit ausgewählt'
           },
           'ar-EG': {
             labelHours: 'ساعات',
@@ -313,7 +312,7 @@ supports `Intl` and the locales you will be using. Refer to the
             labelIncrement: 'زيادة',
             labelDecrement: 'إنقاص',
             labelSelected: 'الوقت المحدد',
-            labelNoTime: 'لا وقت المختار'
+            labelNoTimeSelected: 'لا وقت المختار'
           },
           zh: {
             labelHours: '小时',
@@ -325,7 +324,7 @@ supports `Intl` and the locales you will be using. Refer to the
             labelIncrement: '增量',
             labelDecrement: '减量',
             labelSelected: '选定时间',
-            labelNoTime: '没有选择时间'
+            labelNoTimeSelected: '没有选择时间'
           }
         }
       }
@@ -346,8 +345,8 @@ supports `Intl` and the locales you will be using. Refer to the
 There are 2 main types of time keeping conventions (clocks) used around the world: the 12-hour clock
 and the 24-hour clock. The `hourCycle` property allows you to access the clock type used by a
 particular locale. The hour cycle type can have several different values, which are listed in the
-table below. The `hourCycle` signals how the time `'00:00:00'` (the start of the day) should
-be presented/formatted to a user of a particular locale. The [`'context'` event](#context-event)
+table below. The `hourCycle` signals how the time `'00:00:00'` (the start of the day) should be
+presented/formatted to a user of a particular locale. The [`'context'` event](#context-event)
 includes the resolved `hourCycle` value.
 
 | `hourCycle` | Description                                                                       |
@@ -365,13 +364,13 @@ via the GUI (spin buttons) of the `<b-time>` component, dependant upon the
 ### Forcing 12 or 24 hour interface
 
 12-hour versus 24-hour input is determined by the client browsers default locale (or the locale
-resolved from the `locale` prop). To force a 12-hour user interface, set the prop `hour12` to `true`.
-To force a 24-hour user inteface, set the prop `hour12` to `false`. The default for prop `hour12` is
-`null` which uses the resoved locale to determine which interface to use.
+resolved from the `locale` prop). To force a 12-hour user interface, set the prop `hour12` to
+`true`. To force a 24-hour user interface, set the prop `hour12` to `false`. The default for prop
+`hour12` is `null` which uses the resolved locale to determine which interface to use.
 
 The setting of the `hour12` prop will affect which [`hourCycle`](#understanding-the-hourcycle) is
 resolved for formatting the hours spinbutton. Note that while this may affect the format of the hour
-spinbutton, but the formated time string result _may_ show the `'h12` or `'h23'` format due to
+spinbutton, but the formatted time string result _may_ show the `'h12` or `'h23'` format due to
 limitations in the client `Intl.DateTimeFormat` support for a particular locale. It is therefore
 **recommended to leave the `hour12` prop set to `null` (default)**, so show the locale default
 time/hour formatting.
@@ -384,18 +383,19 @@ shortcut keys and full keyboard navigation to work with most screen readers.
 Keyboard navigation:
 
 - <kbd>ArrowUp</kbd> Increments the currently selected spinbutton value
-- <kbd>ArrowDown</kbd> Deccrements the currently selected spinbutton value
+- <kbd>ArrowDown</kbd> Decrements the currently selected spinbutton value
 - <kbd>Home</kbd> Sets the selected spinbutton to the minimum value
 - <kbd>End</kbd> Sets the selected spinbutton to the maximum value
-- <kbd>PageUp</kbd> Increases the selected spinbutton value by the spinbutton's step by a larger value
+- <kbd>PageUp</kbd> Increases the selected spinbutton value by the spinbutton's step by a larger
+  value
 - <kbd>PageDown</kbd> Decreases the selected spinbutton value by the spinbutton's step by a larger
   value
 - <kbd>ArrowRight</kbd> Moves focus to the next spin button in the component
 - <kbd>ArrowLeft</kbd> Moves focus to the previous spin button in the component
 
-Several of the `label-*` props are not visible on screen, but are used to label various
-elements within the calendar for screen reader users. e.g. the `label-selected` prop is added
-to the elemnt that disaplays the seleted value.
+Several of the `label-*` props are not visible on screen, but are used to label various elements
+within the calendar for screen reader users. e.g. the `label-selected` prop is added to the element
+that displays the selected value.
 
 When internationalizing the datepicker, it is important to also update the `label-*` props with
 appropriate translated strings, so that international screen reader users will hear the correct
@@ -412,6 +412,6 @@ proper styling.
 
 ## See also
 
-- [`<b-form-timepicker>` Time picker custom form input](/docs/comonents/form-timepicker)
+- [`<b-form-timepicker>` Time picker custom form input](/docs/components/form-timepicker)
 - [`<b-calendar>` Calendar date selection widget](/docs/components/calendar)
 - [`<b-form-datepicker>` Date picker custom form input](/docs/components/form-datepicker)

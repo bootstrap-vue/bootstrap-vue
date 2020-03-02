@@ -85,8 +85,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       default: false
     },
     hour12: {
-      // Explictly force 12 or 24 hour time. Default is
-      // to use resolved locale for 12/24 hour display
+      // Explicitly force 12 or 24 hour time
+      // Default is to use resolved locale for 12/24 hour display
       // Tri-state: `true` = 12, `false` = 24, `null` = auto
       type: Boolean,
       default: null
@@ -165,7 +165,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     },
     hidden: {
       type: Boolean,
-      defaut: false
+      default: false
     }
   },
   data() {
@@ -219,10 +219,10 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     computedHourCycle() {
       // h11, h12, h23, or h24
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Locale/hourCycle
-      // h12	Hour system using 1–12; corresponds to 'h' in patterns. The 12 hour clock, with midnight starting at 12:00 am.
-      // h23	Hour system using 0–23; corresponds to 'H' in patterns. The 24 hour clock, with midnight starting at 0:00.
-      // h11	Hour system using 0–11; corresponds to 'K' in patterns. The 12 hour clock, with midnight starting at 0:00 am.
-      // h24	Hour system using 1–24; corresponds to 'k' in pattern. The 24 hour clock, with midnight starting at 24:00.
+      // h12 - Hour system using 1–12. Corresponds to 'h' in patterns. The 12 hour clock, with midnight starting at 12:00 am
+      // h23 - Hour system using 0–23. Corresponds to 'H' in patterns. The 24 hour clock, with midnight starting at 0:00
+      // h11 - Hour system using 0–11. Corresponds to 'K' in patterns. The 12 hour clock, with midnight starting at 0:00 am
+      // h24 - Hour system using 1–24. Corresponds to 'k' in pattern. The 24 hour clock, with midnight starting at 24:00
       // For h12 or h24, we visually format 00 hours as 12
       return this.resolvedOptions.hourCycle
     },
@@ -249,8 +249,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       return [this.ariaLabelledby, this.valueId].filter(identity).join(' ') || null
     },
     timeFormatter() {
-      // Returns a formatter function reference. The formatter
-      // converts the time to a localalized string
+      // Returns a formatter function reference
+      // The formatter converts the time to a localized string
       const options = {
         hour12: this.is12Hour,
         hourCycle: this.computedHourCycle,
@@ -265,8 +265,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       return createDateFormatter(this.computedLocale, options)
     },
     numberFormatter() {
-      // Returns a formatter function reference. The formatter
-      // always formats as 2 digits and is locallized
+      // Returns a formatter function reference
+      // The formatter always formats as 2 digits and is localized
       const nf = new Intl.NumberFormat(this.computedLocale, {
         style: 'decimal',
         minimumIntegerDigits: 2,
@@ -441,7 +441,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
 
     // Helper method to render a spinbutton
     const makeSpinbutton = (handler, key, classes, spinbuttonProps = {}) => {
-      const id = this.safeId(`_spinbtn_${key}_`) || null
+      const id = this.safeId(`_spinbutton_${key}_`) || null
       spinIds.push(id)
       return h(BFormSpinbutton, {
         key: key,
@@ -473,7 +473,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       })
     }
 
-    // Helper method to return a "colon" spearator
+    // Helper method to return a "colon" separator
     const makeColon = () => {
       return h(
         'div',
@@ -536,8 +536,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     // AM/PM ?
     if (this.is12Hour) {
       // TODO:
-      //   If locale is RTL, unshift this instead of push??
-      //   and switch class `ml-2` to `mr-2`
+      //   If locale is RTL, unshift this instead of push?
+      //   And switch class `ml-2` to `mr-2`
       //   Note some LTR locales (i.e. zh) also place AM/PM to the left
       $spinners.push(
         makeSpinbutton(this.setAmpm, 'ampm', 'ml-2', {
@@ -545,7 +545,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           max: 1,
           formatterFn: this.formatAmpm,
           ariaLabel: this.labelAmpm,
-          // We set reuired as false, since this always has a value
+          // We set `required` as `false`, since this always has a value
           required: false
         })
       )
@@ -617,9 +617,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         attrs: {
           role: 'group',
           lang: this.computedLang || null,
-          'aria-labeledby': computedAriaLabelledby || null,
+          'aria-labelledby': computedAriaLabelledby || null,
           'aria-disabled': this.disabled ? 'true' : null,
-          'aria-readonly': this.readonly && !this.diabled ? 'true' : null
+          'aria-readonly': this.readonly && !this.disabled ? 'true' : null
         }
       },
       [$header, $spinners, $slot]
