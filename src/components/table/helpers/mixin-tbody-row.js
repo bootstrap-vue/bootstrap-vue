@@ -90,13 +90,7 @@ export default {
     renderTbodyRowCell(field, colIndex, item, rowIndex) {
       // Renders a TD or TH for a row's field
       const h = this.$createElement
-      const hasDetailsSlot = this.hasNormalizedSlot([
-        detailsSlotName,
-        ...this.computedFields.reduce(
-          (res, e) => (e.fieldDetails && [...res, `row-details(${e.key})`]) || res,
-          []
-        )
-      ])
+      const hasDetailsSlot = this.hasNormalizedSlot([detailsSlotName, ...this.getDetailedSlots])
       const detailsId = field.details
         ? this.safeId('_col_details_'.concat(rowIndex, '_', colIndex, '_', field.key, '_'))
         : null
@@ -196,13 +190,7 @@ export default {
       const h = this.$createElement
       const fields = this.computedFields
       const tableStriped = this.striped
-      const hasDetailsSlot = this.hasNormalizedSlot([
-        detailsSlotName,
-        ...this.computedFields.reduce(
-          (res, e) => (e.fieldDetails && [...res, `row-details(${e.key})`]) || res,
-          []
-        )
-      ])
+      const hasDetailsSlot = this.hasNormalizedSlot([detailsSlotName, ...this.getDetailedSlots])
       const rowShowDetails = item._showDetails && hasDetailsSlot
       const hasRowClickHandler = this.$listeners['row-clicked'] || this.hasSelectableRowClick
 
@@ -297,7 +285,7 @@ export default {
         }
 
         // Render the details slot in a TD
-        var $details = !this.computedFields.some(e => e.fieldDetails)
+        var $details = !this.getComputedFields
           ? h(
               BTd,
               {
@@ -373,6 +361,17 @@ export default {
 
       // Return the row(s)
       return $rows
+    }
+  },
+  computed: {
+    getComputedFields() {
+      return this.computedFields.some(e => e.fieldDetails)
+    },
+    getDetailedSlots() {
+      return this.computedFields.reduce(
+        (res, e) => (e.fieldDetails && [...res, `row-details(${e.key})`]) || res,
+        []
+      )
     }
   }
 }
