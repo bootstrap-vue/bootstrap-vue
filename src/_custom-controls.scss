@@ -69,14 +69,14 @@
     // Unfortunately this is not supported by all browsers :(
     // text-align: end;
     outline: 0;
-
     @if $enable-pointer-cursor-for-buttons {
       cursor: pointer;
     }
-
     // Set a minimum height, as we have height set to auto
     // (to allow the content to wrap if needed)
     // We subtract off the border, as we have border set to 0
+    min-height: calc(#{$input-height} - #{$input-height-border});
+
     &.form-control-sm {
       min-height: calc(#{$input-height-sm} - #{$input-height-border});
     }
