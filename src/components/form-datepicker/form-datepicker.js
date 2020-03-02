@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { BVFormBtnlabelControl, dropdownProps } from '../../utils/bv-form-btnlabel-control'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, formatYMD, parseYMD } from '../../utils/date'
+import { isUndefinedOrNull } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
@@ -394,6 +395,9 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     const localYMD = this.localYMD
     const disabled = this.disabled
     const readonly = this.readonly
+    const placeholder = isUndefinedOrNull(this.placeholder)
+      ? this.labelNoDateSelected
+      : this.placeholder
 
     // Optional footer buttons
     let $footer = []
@@ -489,7 +493,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           lang: this.computedLang,
           value: localYMD || '',
           formattedValue: localYMD ? this.formattedValue : '',
-          placeholder: this.placeholder || this.labelNoDateSelected,
+          placeholder: placeholder || '',
           menuClass: [{ 'bg-dark': !!this.dark, 'text-light': !!this.dark }, this.menuClass]
         },
         on: {
