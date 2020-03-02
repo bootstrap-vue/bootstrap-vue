@@ -27,8 +27,9 @@ Alternatives to BootstrapVue's [`b-icon-*`](/docs/icons) components:
 ### Date and Time Pickers
 
 Alternatives to BootstrapVue's [`<b-form-datepicker>`](/docs/components/form-datepicker),
-[`<b-calendar>`](/docs/components/calendar), [`<b-form-timepicker>`](/docs/components/form-timepicker),
-and [`<b-time>`](/docs/components/time) components:
+[`<b-calendar>`](/docs/components/calendar),
+[`<b-form-timepicker>`](/docs/components/form-timepicker), and [`<b-time>`](/docs/components/time)
+components:
 
 - [Vue AirBnB Style Datepicker](https://mikaeledebro.gitbooks.io/vue-airbnb-style-datepicker/)
 - [Vue Datepicker](https://livelybone.github.io/vue/vue-datepicker/) _Note: Not WAI-ARIA compliant_
