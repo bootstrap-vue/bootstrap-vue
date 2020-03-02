@@ -82,7 +82,7 @@
     }
 
     &.form-control-lg {
-      min-height: calc(#{$input-height-lg} - ${$input-height-border});
+      min-height: calc(#{$input-height-lg} - #{$input-height-border});
     }
   }
 
