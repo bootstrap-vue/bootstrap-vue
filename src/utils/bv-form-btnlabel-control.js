@@ -251,8 +251,8 @@ export const BVFormBtnlabelControl = /*#__PURE__*/ Vue.extend({
         }
       },
       [
-        // If nothing to display, we render a `&nbsp;` to keep the correct height
-        value ? this.formattedValue || value : this.placeholder || '\u00A0',
+        value ? this.formattedValue || value : this.placeholder || '',
+        // Add teh selected label for screen readers when a value is provided
         value && labelSelected ? h('bdi', { staticClass: 'sr-only' }, labelSelected) : ''
       ]
     )
