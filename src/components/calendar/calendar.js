@@ -224,6 +224,16 @@ export const BCalendar = Vue.extend({
     labelHelp: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelHelp')
+    },
+    dateFormatOptions: {
+      // `Intl.DateTimeFormat` object
+      type: Object,
+      default: () => ({
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long'
+      })
     }
   },
   data() {
@@ -372,10 +382,19 @@ export const BCalendar = Vue.extend({
     formatDateString() {
       // Returns a date formatter function
       return createDateFormatter(this.calendarLocale, {
+        // Ensure we have year, month, day shown for screen readers/ARIA
+        // If users really want to leave one of these out, they can
+        // pass `undefined` for the property value
         year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long',
+        month: '2-digit',
+        day: '2-digit',
+        // Merge in user supplied options
+        ...this.dateFormatOptions,
+        // Ensure hours/minutes/seconds are not shown
+        hour: undefined,
+        minute: undefined,
+        second: undefined,
+        // Ensure calendar is gregorian
         calendar: 'gregory'
       })
     },
@@ -855,7 +874,7 @@ export const BCalendar = Vue.extend({
           'small',
           {
             key: idx,
-            staticClass: 'col',
+            staticClass: 'col text-truncate',
             class: { 'text-muted': this.disabled },
             attrs: {
               title: d.label === d.text ? null : d.label,
@@ -971,7 +990,6 @@ export const BCalendar = Vue.extend({
           role: 'application',
           tabindex: this.disabled ? null : '0',
           'data-month': activeYMD.slice(0, -3), // `YYYY-MM`, mainly for testing
-          // tabindex: this.disabled ? null : '0',
           'aria-roledescription': this.labelCalendar || null,
           'aria-labelledby': idGridCaption,
           'aria-describedby': idGridHelp,
@@ -997,6 +1015,7 @@ export const BCalendar = Vue.extend({
     const $widget = h(
       'div',
       {
+        staticClass: 'b-calendar-inner',
         class: this.block ? 'd-block' : 'd-inline-block',
         style: this.block ? {} : { width: this.width },
         attrs: {

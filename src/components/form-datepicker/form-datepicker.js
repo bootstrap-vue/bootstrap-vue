@@ -102,6 +102,11 @@ const propsMixin = {
       type: String,
       default: null
     },
+    calendarWidth: {
+      // Width of the calendar dropdown
+      type: String,
+      default: '270px'
+    },
     selectedVariant: {
       // Variant color to use for the selected date
       type: String,
@@ -203,6 +208,16 @@ const propsMixin = {
     dark: {
       type: Boolean,
       default: false
+    },
+    dateFormatOptions: {
+      // `Intl.DateTimeFormat` object
+      type: Object,
+      default: () => ({
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long'
+      })
     }
   }
 }
@@ -228,7 +243,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       // Context data from BCalendar
       localLocale: null,
       isRTL: false,
-      formatedValue: '',
+      formattedValue: '',
       activeYMD: '',
       // Flag to add focus ring to outer wrapper
       hasFocus: false,
@@ -243,7 +258,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       return this.activeYMD.slice(0, -3)
     },
     calendarProps() {
-      // We alis `this` to `self` for better minification
+      // We alias `this` to `self` for better minification
       const self = this
       // TODO: Make the ID's computed props
       const idLabel = self.safeId('_value_')
@@ -260,6 +275,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         locale: self.locale,
         startWeekday: self.startWeekday,
         direction: self.direction,
+        width: self.calendarWidth,
         dateDisabledFn: self.dateDisabledFn,
         selectedVariant: self.selectedVariant,
         todayVariant: self.todayVariant,
@@ -274,7 +290,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         labelNoDateSelected: self.labelNoDateSelected,
         labelCalendar: self.labelCalendar,
         labelNav: self.labelNav,
-        labelHelp: self.labelHelp
+        labelHelp: self.labelHelp,
+        dateFormatOptions: self.dateFormatOptions
       }
     },
     computedResetValue() {
@@ -549,6 +566,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idMenu,
           role: 'dialog',
+          tabindex: '-1',
           'aria-modal': 'false',
           'aria-labelledby': idLabel
         },

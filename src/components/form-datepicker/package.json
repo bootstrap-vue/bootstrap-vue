@@ -65,6 +65,11 @@
             "description": "Set to the string 'rtl' or 'ltr' to explicitly force the calendar to render in right-to-left or left-ro-right (respectively) mode. Defaults to the resolved locale's directionality"
           },
           {
+            "prop": "calendarWidth",
+            "version": "2.6.0",
+            "description": "Sets the width of the calendar dropdown (see the `b-calendar` prop `width` for details)"
+          },
+          {
             "prop": "min",
             "description": "The minimum date the calendar will show"
           },
@@ -203,6 +208,11 @@
           {
             "prop": "labelCloseButton",
             "description": "Content for the optional `Close` button"
+          },
+          {
+            "prop": "dateFormatOptions",
+            "version": "2.6.0",
+            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat`"
           }
         ],
         "events": [
