@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { BVFormBtnlabelControl, dropdownProps } from '../../utils/bv-form-btnlabel-control'
 import { getComponentConfig } from '../../utils/config'
+import { isUndefinedOrNull } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BTime } from '../time/time'
@@ -318,6 +319,9 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     const localHMS = this.localHMS
     const disabled = this.disabled
     const readonly = this.readonly
+    const placeholder = isUndefinedOrNull(this.placeholder)
+      ? this.labelNoTimeSelected
+      : this.placeholder
 
     // Footer buttons
     let $footer = []
@@ -414,7 +418,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
           lang: this.computedLang,
           value: localHMS || '',
           formattedValue: localHMS ? this.formattedValue : '',
-          placeholder: this.placeholder || this.labelNoTimeSelected
+          placeholder: placeholder || ''
         },
         on: {
           show: this.onShow,
