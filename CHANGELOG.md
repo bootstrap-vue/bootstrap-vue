@@ -220,7 +220,7 @@ Released: 2020-01-08
 - **b-collapse:** add optional scoping to default slot
   ([#4405](https://github.com/bootstrap-vue/bootstrap-vue/issues/4405))
   ([8e95bac](https://github.com/bootstrap-vue/bootstrap-vue/commit/8e95bacf9d00562f2676689d067ae0db009cbbb6))
-- **b-container:** add support for bootstrap v4.4.x new responsive containers
+- **b-container:** add support for Bootstrap v4.4.x new responsive containers
   ([0e318f4](https://github.com/bootstrap-vue/bootstrap-vue/commit/0e318f4755e65eb569dcc579938d0d72c02abd62))
 - **b-dropdown:** add splitClass property to dropdown component
   ([#4394](https://github.com/bootstrap-vue/bootstrap-vue/issues/4394))
@@ -1880,7 +1880,7 @@ Released: 2019-02-18
   ([#2597](https://github.com/bootstrap-vue/bootstrap-vue/issues/2597))
   ([#2608](https://github.com/bootstrap-vue/bootstrap-vue/issues/2608))
   ([11c7524](https://github.com/bootstrap-vue/bootstrap-vue/commit/11c7524))
-- **nuxt plugin:** fix typo with bootstrap vue css import properties
+- **nuxt plugin:** fix typo with Bootstrap vue css import properties
   ([#2618](https://github.com/bootstrap-vue/bootstrap-vue/issues/2618))
   ([8581090](https://github.com/bootstrap-vue/bootstrap-vue/commit/8581090))
 - **utils/get:** handle case where passed object is undefined
@@ -1959,7 +1959,7 @@ Released: (2019-02-14)
 - **dependencies:** replace opencollective with opencollective-postinstall
   ([#2067](https://github.com/bootstrap-vue/bootstrap-vue/issues/2067))
   ([fa26882](https://github.com/bootstrap-vue/bootstrap-vue/commit/fa26882))
-- **docs:** Update links to bootstrap v4.3 docs
+- **docs:** Update links to Bootstrap v4.3 docs
   ([b5d5499](https://github.com/bootstrap-vue/bootstrap-vue/commit/b5d5499))
 - **docs:** Button - fix typo ([#1962](https://github.com/bootstrap-vue/bootstrap-vue/issues/1962))
   ([dcbfcf9](https://github.com/bootstrap-vue/bootstrap-vue/commit/dcbfcf9))
@@ -2056,7 +2056,7 @@ Released: (2019-02-14)
   [#1841](https://github.com/bootstrap-vue/bootstrap-vue/issues/1841)
   ([#2174](https://github.com/bootstrap-vue/bootstrap-vue/issues/2174))
   ([aacc7c0](https://github.com/bootstrap-vue/bootstrap-vue/commit/aacc7c0))
-- **form-control:** remove interim class fixes from bootstrap 4.0.x
+- **form-control:** remove interim class fixes from Bootstrap 4.0.x
   ([#1896](https://github.com/bootstrap-vue/bootstrap-vue/issues/1896))
   ([#2265](https://github.com/bootstrap-vue/bootstrap-vue/issues/2265))
   ([64bdf69](https://github.com/bootstrap-vue/bootstrap-vue/commit/64bdf69))

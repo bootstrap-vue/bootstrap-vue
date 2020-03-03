@@ -192,7 +192,7 @@ unless you are using the `IconsPlugin` or `BootstrapVueIcons` plugin.
 ## Variants
 
 By default, icons inherit the current text color of their parent element. All icon components
-provide a `variant` prop to apply one of the bootstrap contextual text variant colors:
+provide a `variant` prop to apply one of the Bootstrap contextual text variant colors:
 
 ```html
 <template>

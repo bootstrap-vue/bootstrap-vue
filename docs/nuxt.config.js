@@ -40,7 +40,7 @@ renderer.codespan = text => {
   return `<code translate="no" class="notranslate text-nowrap">${text}</code>`
 }
 
-// Custom link renderer, to update bootstrap docs version in href
+// Custom link renderer, to update Bootstrap docs version in href
 // Only applies to markdown links (not explicit `<a href="..">...</a>` tags
 renderer.link = (href, title, text) => {
   let target = ''
@@ -92,7 +92,7 @@ renderer.heading = function(text, level, raw, slugger) {
   return `<h${level} ${attrs}>${getTextMarkup(text + anchor)}</h${level}>\n`
 }
 
-// Convert lead-in blockquote paragraphs to true bootstrap docs leads
+// Convert lead-in blockquote paragraphs to true Bootstrap docs leads
 renderer.blockquote = function(text) {
   return text.replace('<p>', '<p class="bd-lead">')
 }
