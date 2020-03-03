@@ -34,10 +34,10 @@ renderer.code = (code, language) => {
   return `<pre class="hljs ${language} text-monospace p-2 notranslate" translate="no">${highlighted}</pre>`
 }
 
-// Instruct google translate not to translate `<code>` content, and
-// don't let browsers wrap the contents across lines
+// Instruct Google Translate not to translate `<code>` content
+// and don't let browsers wrap the contents across lines
 renderer.codespan = text => {
-  return `<code translate="no" class="notranslate text-nowrap">${text}</code>`
+  return `<code class="text-nowrap notranslate" translate="no">${text}</code>`
 }
 
 // Custom link renderer, to update Bootstrap docs version in href
