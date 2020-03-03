@@ -190,6 +190,7 @@ See also:
 - [`b-form-datepicker`](/docs/components/form-datepicker) Date picker input
 - [`b-form-spinbutton`](/docs/components/form-spinbutton) Numerical range spinbutton input
 - [`b-form-tags`](/docs/components/form-tags) Customizable tag input
+- [`<b-form-timepicker>`](/docs/components/form-timepicker) Time picker custom form input
 - [`<b-form-file>`](/docs/components/form-file) File Input
 - [`<b-button>`](/docs/components/button) Buttons
 - [`<b-form-group>`](/docs/components/form-group) Form input wrapper to generate form-groups that

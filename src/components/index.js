@@ -24,6 +24,7 @@ import { FormSelectPlugin } from './form-select'
 import { FormSpinbuttonPlugin } from './form-spinbutton'
 import { FormTagsPlugin } from './form-tags'
 import { FormTextareaPlugin } from './form-textarea'
+import { FormTimepickerPlugin } from './form-timepicker'
 import { ImagePlugin } from './image'
 import { InputGroupPlugin } from './input-group'
 import { JumbotronPlugin } from './jumbotron'
@@ -42,6 +43,7 @@ import { SpinnerPlugin } from './spinner'
 // Table plugin includes TableLitePlugin and TableSimplePlugin
 import { TablePlugin } from './table'
 import { TabsPlugin } from './tabs'
+import { TimePlugin } from './time'
 import { ToastPlugin } from './toast'
 import { TooltipPlugin } from './tooltip'
 
@@ -71,6 +73,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     FormSpinbuttonPlugin,
     FormTagsPlugin,
     FormTextareaPlugin,
+    FormTimepickerPlugin,
     ImagePlugin,
     InputGroupPlugin,
     JumbotronPlugin,
@@ -88,6 +91,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     SpinnerPlugin,
     TablePlugin,
     TabsPlugin,
+    TimePlugin,
     ToastPlugin,
     TooltipPlugin
   }
