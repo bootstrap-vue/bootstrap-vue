@@ -1,0 +1,103 @@
+// Special styling for some BootstrapVue custom form controls that do
+// not have a native HTML input type root element (or tabindex)
+// Used by BFormSpinbutton, BFormDatepicker, BFormTimepicker, BTime, BCalendar
+.form-control {
+  // Adds focus styling to the form-control class (via the focus class)
+  // Specifically when we are using non focusable elements, or when true focus
+  // is within the `.form-control` element.
+  // Mimics the `.form-control:focus` styling
+  &.focus {
+    color: $input-focus-color;
+    background-color: $input-focus-bg;
+    border-color: $input-focus-border-color;
+    outline: 0;
+    @if $enable-shadows {
+      box-shadow: $input-box-shadow, $input-focus-box-shadow;
+    } @else {
+      box-shadow: $input-focus-box-shadow;
+    }
+
+    &.is-valid {
+      border-color: $form-feedback-valid-color;
+      box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-valid-color, 0.25);
+    }
+
+    &.is-invalid {
+      border-color: $form-feedback-invalid-color;
+      box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-invalid-color, 0.25);
+    }
+  }
+}
+
+// Shared BVFormBtnLabelControl styling
+// Currently used by BFormTimepicker and BFormDatepicker
+.b-form-btn-label-control {
+  // Remove background validation images from main wrapper
+  background-image: none;
+
+  @at-root {
+    // Prevent the button/label from reversing order on in horizontal RTL mode
+    [dir="rtl"] &,
+    &[dir="rtl"] {
+      flex-direction: row-reverse;
+
+      > label {
+        text-align: right;
+      }
+    }
+  }
+
+  > .btn {
+    line-height: 1;
+    font-size: inherit;
+    box-shadow: none !important;
+
+    &:disabled {
+      pointer-events: none;
+    }
+  }
+
+  &.is-valid > .btn {
+    color: $form-feedback-valid-color;
+  }
+
+  &.is-invalid > .btn {
+    color: $form-feedback-invalid-color;
+  }
+
+  > label {
+    // Unfortunately this is not supported by all browsers :(
+    // text-align: end;
+    outline: 0;
+    @if $enable-pointer-cursor-for-buttons {
+      cursor: pointer;
+    }
+    // Set a minimum height, as we have height set to auto
+    // (to allow the content to wrap if needed)
+    // We subtract off the border, as we have border set to 0
+    min-height: calc(#{$input-height} - #{$input-height-border});
+
+    &.form-control-sm {
+      min-height: calc(#{$input-height-sm} - #{$input-height-border});
+    }
+
+    &.form-control-lg {
+      min-height: calc(#{$input-height-lg} - #{$input-height-border});
+    }
+  }
+
+  // Disabled and read-only styling
+  &[aria-disabled="true"],
+  &[aria-readonly="true"] {
+    background-color: $input-disabled-bg;
+    opacity: 1;
+  }
+
+  &[aria-disabled="true"] {
+    pointer-events: none;
+
+    > label {
+      cursor: default;
+    }
+  }
+}

@@ -3,6 +3,7 @@ import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { eventOnOff } from '../../utils/events'
 import { isFunction, isNull } from '../../utils/inspect'
+import { isLocaleRTL } from '../../utils/locale'
 import { toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
@@ -197,6 +198,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       const locales = concat(this.locale).filter(identity)
       const nf = new Intl.NumberFormat(locales)
       return nf.resolvedOptions().locale
+    },
+    computedRTL() {
+      return isLocaleRTL(this.computedLocale)
     },
     defaultFormatter() {
       // Returns and `Intl.NumberFormat` formatter method reference
@@ -440,6 +444,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         if (!isDisabled && !isReadonly) {
           evt.preventDefault()
           this.setMouseup(true)
+          try {
+            // Since we `preventDefault()`, we must manually focus the button
+            evt.currentTarget.focus()
+          } catch {}
           this.handleStepRepeat(evt, stepper)
         }
       }
@@ -506,6 +514,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'border-right': !isVertical
         },
         attrs: {
+          dir: this.computedRTL ? 'rtl' : 'ltr',
+          ...this.$attrs,
           id: spinId,
           role: 'spinbutton',
           tabindex: isDisabled ? null : '0',
@@ -524,7 +534,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'aria-valuetext': hasValue ? formatter(value) : null
         }
       },
-      [h('div', { staticClass: 'w-100' }, hasValue ? formatter(value) : this.placeholder || '')]
+      [h('bdi', { staticClass: 'w-100' }, hasValue ? formatter(value) : this.placeholder || '')]
     )
 
     return h(
@@ -544,10 +554,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'is-invalid': state === false
         },
         attrs: {
-          ...this.$attrs,
           role: 'group',
           lang: this.computedLocale,
-          tabindex: isDisabled ? null : '-1'
+          tabindex: isDisabled ? null : '-1',
+          title: this.ariaLabel
         },
         on: {
           keydown: this.onKeydown,

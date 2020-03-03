@@ -3,7 +3,7 @@
     key="_bv-icons-table_"
     class="bv-icons-table notranslate"
     role="group"
-    aria-labeledby="bv-icons-table-title"
+    aria-labelledby="bv-icons-table-title"
   >
     <b-row align-v="start">
       <b-col md="5" lg="6">
