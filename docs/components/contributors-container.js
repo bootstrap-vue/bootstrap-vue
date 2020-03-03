@@ -65,7 +65,7 @@ export default {
           'div',
           {
             staticClass: `${CONTRIBUTOR_CLASS_NAME}-name`,
-            class: ['mb-0', 'pt-2', 'text-break']
+            class: ['mb-0', 'pt-1', 'text-break']
           },
           name
         )
