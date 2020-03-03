@@ -95,7 +95,7 @@ export default deepFreeze({
     splitVariant: null
   },
   BFormDatepicker: {
-    // BFormDatepicker will choose from BCalendar first if not provided in BFormDatepicker section
+    // BFormDatepicker will choose from BCalendar first if not provided here
     labelPrevYear: null,
     labelPrevMonth: null,
     labelCurrentMonth: null,
@@ -118,10 +118,6 @@ export default deepFreeze({
     placeholder: 'No file chosen',
     dropPlaceholder: 'Drop files here'
   },
-  BFormSpinbutton: {
-    labelDecrement: 'Decrement',
-    labelIncrement: 'Increment'
-  },
   BFormTag: {
     removeLabel: 'Remove tag',
     variant: 'secondary'
@@ -138,6 +134,28 @@ export default deepFreeze({
   },
   BFormText: {
     textVariant: 'muted'
+  },
+  BFormTimepicker: {
+    // Fallback to BTime
+    labelNoTimeSelected: null,
+    labelSelected: null,
+    labelHours: null,
+    labelMinutes: null,
+    labelSeconds: null,
+    labelAmpm: null,
+    labelAm: null,
+    labelPm: null,
+    // Fallback to BTime then BFormSpinbutton
+    labelDecrement: null,
+    labelIncrement: null,
+    // These props are specific to BFormTimepicker
+    labelNowButton: 'Select now',
+    labelResetButton: 'Reset',
+    labelCloseButton: 'Close'
+  },
+  BFormSpinbutton: {
+    labelDecrement: 'Decrement',
+    labelIncrement: 'Increment'
   },
   BImg: {
     blankColor: 'transparent'
@@ -207,6 +225,20 @@ export default deepFreeze({
     selectedVariant: 'active',
     headVariant: null,
     footVariant: null
+  },
+  BTime: {
+    labelNoTimeSelected: 'No time selected',
+    labelSelected: 'Selected time',
+    labelHours: 'Hours',
+    labelMinutes: 'Minutes',
+    labelSeconds: 'Seconds',
+    labelAmpm: 'AM/PM',
+    // It would be nice to be able to get these from Intl.DateTimeFormat somehow
+    labelAm: 'AM',
+    labelPm: 'PM',
+    // The following inherit from BFormSpinbutton if not provided
+    labelIncrement: null,
+    labelDecrement: null
   },
   BToast: {
     toaster: 'b-toaster-top-right',

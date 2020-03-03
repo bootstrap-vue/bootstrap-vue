@@ -45,6 +45,49 @@ const AttachmentMap = {
   LEFTEND: 'left-end'
 }
 
+export const commonProps = {
+  dropup: {
+    // place on top if possible
+    type: Boolean,
+    default: false
+  },
+  dropright: {
+    // place right if possible
+    type: Boolean,
+    default: false
+  },
+  dropleft: {
+    // place left if possible
+    type: Boolean,
+    default: false
+  },
+  right: {
+    // Right align menu (default is left align)
+    type: Boolean,
+    default: false
+  },
+  offset: {
+    // Number of pixels to offset menu, or a CSS unit value (i.e. 1px, 1rem, etc)
+    type: [Number, String],
+    default: 0
+  },
+  noFlip: {
+    // Disable auto-flipping of menu from bottom<=>top
+    type: Boolean,
+    default: false
+  },
+  popperOpts: {
+    // type: Object,
+    default: () => {}
+  },
+  boundary: {
+    // String: `scrollParent`, `window` or `viewport`
+    // HTMLElement: HTML Element reference
+    type: [String, HTMLElement],
+    default: 'scrollParent'
+  }
+}
+
 // @vue/component
 export default {
   mixins: [idMixin, clickOutMixin, focusInMixin],
@@ -59,46 +102,7 @@ export default {
       type: Boolean,
       default: false
     },
-    dropup: {
-      // place on top if possible
-      type: Boolean,
-      default: false
-    },
-    dropright: {
-      // place right if possible
-      type: Boolean,
-      default: false
-    },
-    dropleft: {
-      // place left if possible
-      type: Boolean,
-      default: false
-    },
-    right: {
-      // Right align menu (default is left align)
-      type: Boolean,
-      default: false
-    },
-    offset: {
-      // Number of pixels to offset menu, or a CSS unit value (i.e. 1px, 1rem, etc)
-      type: [Number, String],
-      default: 0
-    },
-    noFlip: {
-      // Disable auto-flipping of menu from bottom<=>top
-      type: Boolean,
-      default: false
-    },
-    popperOpts: {
-      // type: Object,
-      default: () => {}
-    },
-    boundary: {
-      // String: `scrollParent`, `window` or `viewport`
-      // HTMLElement: HTML Element reference
-      type: [String, HTMLElement],
-      default: 'scrollParent'
-    }
+    ...commonProps
   },
   data() {
     return {
