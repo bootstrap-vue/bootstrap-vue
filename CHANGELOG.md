@@ -16,15 +16,15 @@ Released: 2020-03-04
   (closes [#4797](https://github.com/bootstrap-vue/bootstrap-vue/issues/4797))
   ([#4835](https://github.com/bootstrap-vue/bootstrap-vue/issues/4835))
   ([85c7e75](https://github.com/bootstrap-vue/bootstrap-vue/commit/85c7e759bc78d2ffb5b026cb5ee484b2567136aa))
-- **b-form-datepicker:** add `button-content` optionally scoped slot for icon
+- **b-form-datepicker:** add `button-content` optionally scoped slot for calendar icon
   ([#4795](https://github.com/bootstrap-vue/bootstrap-vue/issues/4795))
   ([7a00910](https://github.com/bootstrap-vue/bootstrap-vue/commit/7a0091099025d8bdcf953b00d8619726b54fa937))
-- **b-form-datepicker:** add calendar-width prop (closes
+- **b-form-datepicker:** add `calendar-width` prop (closes
   [#4817](https://github.com/bootstrap-vue/bootstrap-vue/issues/4817))
   ([#4822](https://github.com/bootstrap-vue/bootstrap-vue/issues/4822))
   ([91b77bc](https://github.com/bootstrap-vue/bootstrap-vue/commit/91b77bc9a6b1a4796698ce3185c0b354156ce563))
-- **b-pagination, b-pagination-nav:** improve aria accessibility (closes:
-  [#4811](https://github.com/bootstrap-vue/bootstrap-vue/issues/4811),
+- **b-pagination, b-pagination-nav:** improve aria accessibility - changes to inner structure and
+  aria attributes (closes: [#4811](https://github.com/bootstrap-vue/bootstrap-vue/issues/4811),
   [#4160](https://github.com/bootstrap-vue/bootstrap-vue/issues/4160))
   ([#4810](https://github.com/bootstrap-vue/bootstrap-vue/issues/4810))
   ([7ee4baa](https://github.com/bootstrap-vue/bootstrap-vue/commit/7ee4baa9a843411cd30a3ee499fc7272b7cf48f2))
@@ -38,8 +38,9 @@ Released: 2020-03-04
 
 ### Bug Fixes v2.6.0
 
-- **b-form-datepicker:** menu focus handling for Firefox and Safari on MacOS (closes
-  [#4814](https://github.com/bootstrap-vue/bootstrap-vue/issues/4814))
+- **b-form-datepicker:** menu focus handling for Firefox and Safari on MacOS, and fix v-model update
+  issue (closes [#4814](https://github.com/bootstrap-vue/bootstrap-vue/issues/4814),
+  [#4827](https://github.com/bootstrap-vue/bootstrap-vue/issues/4827))
   ([#4824](https://github.com/bootstrap-vue/bootstrap-vue/issues/4824))
   ([09fa920](https://github.com/bootstrap-vue/bootstrap-vue/commit/09fa920e4a904c6340c60586b40451dce94efc44))
 - **b-form-spinbutton:** prevent buttons from re-ordering when parent element is RTL
