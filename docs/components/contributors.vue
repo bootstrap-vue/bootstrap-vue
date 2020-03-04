@@ -87,12 +87,12 @@
   .backers & {
     width: 80px;
 
-    .contributor-thumbnail {
-      height: 80px;
-    }
-
     .contributor-name {
       font-size: 70%;
+    }
+
+    .contributor-thumbnail {
+      height: 80px;
     }
   }
 
@@ -107,39 +107,39 @@
   .silver-sponsors & {
     width: 100px;
 
-    .contributor-thumbnail {
-      height: 100px;
-    }
-
     .contributor-name {
       font-size: 90%;
       font-weight: bold;
+    }
+
+    .contributor-thumbnail {
+      height: 100px;
     }
   }
 
   .gold-sponsors & {
     width: 120px;
 
-    .contributor-thumbnail {
-      height: 120px;
-    }
-
     .contributor-name {
       font-size: 90%;
       font-weight: bold;
+    }
+
+    .contributor-thumbnail {
+      height: 120px;
     }
   }
 
   .platinum-sponsors & {
     width: 140px;
 
-    .contributor-thumbnail {
-      height: 140px;
-    }
-
     .contributor-name {
       font-size: 100%;
       font-weight: bold;
+    }
+
+    .contributor-thumbnail {
+      height: 140px;
     }
   }
 }
