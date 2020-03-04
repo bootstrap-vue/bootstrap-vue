@@ -156,10 +156,12 @@ const MAX_DONORS = 64
 
 // This value needs to be less than or equal to our bronze tier amount
 // We may want to set two thresholds: a single donation amount and
-// a total dontation amount. This determine if we link to the donors
+// a total dontation amount. This determines if we link to the donors
 // website or not. Used to help prevent abuse of opencollective via
-// small dontations to gain cheep backlinks for Google page rank
-const LINK_AMT_THRESHOLD = 20
+// small dontations to gain cheep backlinks for Google page rank.
+// A threshold of 24 means that it will take 12 months for a $2/month
+// backer to get a back link rendered in our docs
+const LINK_AMT_THRESHOLD = 24
 
 export default {
   name: 'BVDContributors',
