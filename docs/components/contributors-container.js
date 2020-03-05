@@ -37,8 +37,8 @@ export default {
       const $image = h('b-img-lazy', {
         props: {
           src: imageUrl,
-          fluid: true,
           block: true,
+          fluidGrow: true,
           alt: 'Contributor image'
         }
       })
