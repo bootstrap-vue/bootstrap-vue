@@ -4,6 +4,58 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.6.0"></a>
+
+## [v2.6.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.5.0...v2.6.0)
+
+Released: 2020-03-05
+
+### Features v2.6.0
+
+- **b-calendar, b-form-datepicker:** allow customization of in-component displayed date format
+  (closes [#4797](https://github.com/bootstrap-vue/bootstrap-vue/issues/4797))
+  ([#4835](https://github.com/bootstrap-vue/bootstrap-vue/issues/4835))
+  ([85c7e75](https://github.com/bootstrap-vue/bootstrap-vue/commit/85c7e759bc78d2ffb5b026cb5ee484b2567136aa))
+- **b-form-datepicker:** add `button-content` optionally scoped slot for calendar icon
+  ([#4795](https://github.com/bootstrap-vue/bootstrap-vue/issues/4795))
+  ([7a00910](https://github.com/bootstrap-vue/bootstrap-vue/commit/7a0091099025d8bdcf953b00d8619726b54fa937))
+- **b-form-datepicker:** add `calendar-width` prop (closes
+  [#4817](https://github.com/bootstrap-vue/bootstrap-vue/issues/4817))
+  ([#4822](https://github.com/bootstrap-vue/bootstrap-vue/issues/4822))
+  ([91b77bc](https://github.com/bootstrap-vue/bootstrap-vue/commit/91b77bc9a6b1a4796698ce3185c0b354156ce563))
+- **b-pagination, b-pagination-nav:** improve aria accessibility - changes to inner structure and
+  aria attributes (closes: [#4811](https://github.com/bootstrap-vue/bootstrap-vue/issues/4811),
+  [#4160](https://github.com/bootstrap-vue/bootstrap-vue/issues/4160))
+  ([#4810](https://github.com/bootstrap-vue/bootstrap-vue/issues/4810))
+  ([7ee4baa](https://github.com/bootstrap-vue/bootstrap-vue/commit/7ee4baa9a843411cd30a3ee499fc7272b7cf48f2))
+- **b-tabs:** add ability to provide custom tab button attributes (closes:
+  [#4803](https://github.com/bootstrap-vue/bootstrap-vue/issues/4803))
+  ([#4806](https://github.com/bootstrap-vue/bootstrap-vue/issues/4806))
+  ([c541d3d](https://github.com/bootstrap-vue/bootstrap-vue/commit/c541d3d89ae88f3193305b61ae8ddc735aa6ec03))
+- **b-time, b-form-timepicker:** new components `b-time` and `b-form-timepicker`
+  ([#4783](https://github.com/bootstrap-vue/bootstrap-vue/issues/4783))
+  ([417ef8f](https://github.com/bootstrap-vue/bootstrap-vue/commit/417ef8f2165e68d182e942219d847511b0fd6e9c))
+
+### Bug Fixes v2.6.0
+
+- **b-form-datepicker:** menu focus handling for Firefox and Safari on MacOS, and fix v-model update
+  issue (closes [#4814](https://github.com/bootstrap-vue/bootstrap-vue/issues/4814),
+  [#4827](https://github.com/bootstrap-vue/bootstrap-vue/issues/4827))
+  ([#4824](https://github.com/bootstrap-vue/bootstrap-vue/issues/4824))
+  ([09fa920](https://github.com/bootstrap-vue/bootstrap-vue/commit/09fa920e4a904c6340c60586b40451dce94efc44))
+- **b-form-spinbutton:** prevent buttons from re-ordering when parent element is RTL
+  ([#4802](https://github.com/bootstrap-vue/bootstrap-vue/issues/4802))
+  ([ae2cce9](https://github.com/bootstrap-vue/bootstrap-vue/commit/ae2cce9d593bd310b3d2256ade41df0243447970))
+- **b-form-spinbutton:** prevent double increment/decrement on mobile (fixes
+  [#4838](https://github.com/bootstrap-vue/bootstrap-vue/issues/4838))
+  ([#4842](https://github.com/bootstrap-vue/bootstrap-vue/issues/4842))
+  ([9c2c700](https://github.com/bootstrap-vue/bootstrap-vue/commit/9c2c700a91d7a6e57572f579f68996eaceda5c00))
+
+### Other v2.6.0
+
+- documentation updates
+- dev dependency updates
+
 <a name="2.5.0"></a>
 
 ## [v2.5.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.4.2...v2.5.0)

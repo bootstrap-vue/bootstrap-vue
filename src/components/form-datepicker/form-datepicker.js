@@ -293,7 +293,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       return (this.localLocale || '').replace(/-u-.*$/i, '') || null
     },
     computedResetValue() {
-      return parseYMD(this.resetValue) || ''
+      return formatYMD(this.resetValue) || ''
     }
   },
   watch: {

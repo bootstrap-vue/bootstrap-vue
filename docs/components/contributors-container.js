@@ -37,8 +37,8 @@ export default {
       const $image = h('b-img-lazy', {
         props: {
           src: imageUrl,
-          fluid: true,
           block: true,
+          fluidGrow: true,
           alt: 'Contributor image'
         }
       })
@@ -77,7 +77,7 @@ export default {
         $content = h(
           'b-link',
           {
-            class: ['text-reset'],
+            class: ['text-reset d-block'],
             props: {
               href: website,
               target: '_blank',
