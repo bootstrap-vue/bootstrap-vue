@@ -152,15 +152,11 @@ Custom form controls and selects are also supported.
   <b-form inline>
     <label class="mr-sm-2" for="inline-form-custom-select-pref">Preference</label>
     <b-form-select
-      class="mb-2 mr-sm-2 mb-sm-0"
-      :value="null"
-      :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
       id="inline-form-custom-select-pref"
-    >
-      <template v-slot:first>
-        <option :value="null">Choose...</option>
-      </template>
-    </b-form-select>
+      class="mb-2 mr-sm-2 mb-sm-0"
+      :options="[{ text: 'Choose...', value: null }, 'One', 'Two', 'Three']"
+      :value="null"
+    ></b-form-select>
 
     <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember my preference</b-form-checkbox>
 
@@ -191,6 +187,10 @@ See also:
 - [`<b-form-select>`](/docs/components/form-select) Select input
 - [`<b-form-radio>`](/docs/components/form-radio) Radio Inputs
 - [`<b-form-checkbox>`](/docs/components/form-checkbox) Checkbox Inputs
+- [`b-form-datepicker`](/docs/components/form-datepicker) Date picker input
+- [`b-form-spinbutton`](/docs/components/form-spinbutton) Numerical range spinbutton input
+- [`b-form-tags`](/docs/components/form-tags) Customizable tag input
+- [`<b-form-timepicker>`](/docs/components/form-timepicker) Time picker custom form input
 - [`<b-form-file>`](/docs/components/form-file) File Input
 - [`<b-button>`](/docs/components/button) Buttons
 - [`<b-form-group>`](/docs/components/form-group) Form input wrapper to generate form-groups that

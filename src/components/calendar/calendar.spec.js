@@ -212,6 +212,48 @@ describe('calendar', () => {
     wrapper.destroy()
   })
 
+  it('clicking output header focuses grid', async () => {
+    const wrapper = mount(BCalendar, {
+      attachToDocument: true,
+      propsData: {
+        value: '2020-02-15' // Leap year
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+    expect($grid.is('div')).toBe(true)
+
+    expect(document.activeElement).not.toBe($grid.element)
+
+    const $output = wrapper.find('header > output')
+    expect($output.exists()).toBe(true)
+
+    $output.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).toBe($grid.element)
+
+    wrapper.vm.blur()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).not.toBe($grid.element)
+
+    $output.trigger('focus')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).toBe($grid.element)
+
+    wrapper.destroy()
+  })
+
   it('keyboard navigation works', async () => {
     const wrapper = mount(BCalendar, {
       attachToDocument: true,

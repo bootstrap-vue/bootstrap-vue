@@ -6,7 +6,7 @@
     "slug": "calendar",
     "version": "2.5.0",
     "new": true,
-    "description": "Calendar widget for selecting dates and controlling other components",
+    "description": "BootstrapVue custom calendar widget for selecting dates and controlling other components, fully WAI-ARIA accessible (a11y) and supports internationalization (i18n)",
     "components": [
       {
         "component": "BCalendar",
@@ -135,6 +135,11 @@
           {
             "prop": "labelHelp",
             "description": "Help text that appears at the bottom of the calendar grid"
+          },
+          {
+            "prop": "dateFormatOptions",
+            "version": "2.6.0",
+            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat`"
           }
         ],
         "events": [

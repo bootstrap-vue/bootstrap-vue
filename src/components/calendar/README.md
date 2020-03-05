@@ -230,12 +230,56 @@ fit the width of the parent element. The `width` prop has no effect when `block`
 Note it is _not recommended_ to set a width below `260px`, otherwise truncation and layout issues
 with the component may occur.
 
+### Date string format
+
+<span class="badge badge-info small">v2.6.0+</span>
+
+To change format options of the displayed date text inside the component, e.g. in the header, set
+the `dateFormatOptions` prop to an object containing the requested format properties for the
+`Intl.DateTimeFormat` object (see also [Internationalization](#internationalization)).
+
+```html
+<template>
+  <div>
+    <p>Custom date format:</p>
+    <b-calendar
+      :dateFormatOptions="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
+      locale="en"
+    ></b-calendar>
+    <p class="mt-3">Short date format:</p>
+    <b-calendar
+      :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+      locale="en"
+    ></b-calendar>
+  </div>
+</template>
+
+<!-- b-calendar-dateformat.vue -->
+```
+
+The following table summarizes the valid options for each format property:
+
+| Property  | Possible values                                              |
+| --------- | ------------------------------------------------------------ |
+| `year`    | `'numeric'`, or `'2-digit'`                                  |
+| `month`   | `'numeric'`, `'2-digit'`, `'long'`, `'short'`, or `'narrow'` |
+| `day`     | `'numeric'`, or `'2-digit'`                                  |
+| `weekday` | `'long'`, `'short'`, or `'narrow'`                           |
+
+Notes:
+
+- Leaving out certain options may affect the formatted text string, e.g. the `weekday`
+- The formatted value will vary according to the resolved locale. Some locales may not support the
+  `'narrow'` format and will fall back to `'short'` or `long'` (if `'short'` is not available)
+- `year`, `month` and `day` will always be shown. If you need to leave out a value, set the property
+  to `undefined`, although this is highly discouraged for accessibility reasons
+
 ### Hiding the top selected date header
 
 By default, the current selected date will be displayed at the top of the calendar component,
 formatted in the locale's language.
 
-You can hide this header via the `hide-header` prop. Note this only visually hides the selected
+You can hide this header via the `hide-header` prop. Note this only _visually hides_ the selected
 date, while keeping it available to screen reader users as an `aria-live` region.
 
 ### Border and padding
@@ -400,7 +444,7 @@ properties:
 | `selectedFormatted` | The selected date formatted in the current locale. If no date is selected, this will be the value of the `label-no-date-selected` prop                                                                                                                     |
 | `activeYMD`         | The current date of the calendar day button that can receive focus as a string (`YYYY-MM-DD` format)                                                                                                                                                       |
 | `activeDate`        | The current date of the calendar day button that can receive focus as a `Date` object                                                                                                                                                                      |
-| `activeFormated`    | The active date formatted in the current locale                                                                                                                                                                                                            |
+| `activeFormatted`   | The active date formatted in the current locale                                                                                                                                                                                                            |
 | `disabled`          | Will be `true` if active date is disabled, `false` otherwise                                                                                                                                                                                               |
 | `locale`            | The resolved locale (may not be the same as the requested locale)                                                                                                                                                                                          |
 | `calendarLocale`    | The resolved locale used by the calendar, optionally including the calendar type (i.e. 'gregory'). Usually this will be the same as `locale`, but may include the calendar type used, such as `fa-u-ca-gregory` when selecting the Persian locale (`'fa'`) |
@@ -588,3 +632,5 @@ verbosity and to provide consistency across various screen readers (NVDA, when e
 ## See also
 
 - [`<b-form-datepicker>` Date picker custom form input](/docs/components/form-datepicker)
+- [`<b-form-timepicker>` Time picker custom form input](/docs/comonents/form-timepicker)
+- [`<b-time>` Time date selection widget](/docs/components/calendar)

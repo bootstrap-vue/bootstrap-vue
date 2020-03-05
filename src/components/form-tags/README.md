@@ -1,4 +1,4 @@
-# Form tags
+# Form Tags
 
 > Lightweight custom tagged input form control, with options for customized interface rendering,
 > duplicate tag detection and optional tag validation.

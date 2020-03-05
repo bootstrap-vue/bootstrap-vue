@@ -10,6 +10,7 @@
         <BVDContributorsContainer
           type="platinum-sponsors"
           :contributors="platinumSponsors"
+          :nofollow="false"
         ></BVDContributorsContainer>
       </template>
 
@@ -19,6 +20,7 @@
         <BVDContributorsContainer
           type="gold-sponsors"
           :contributors="goldSponsors"
+          :nofollow="false"
         ></BVDContributorsContainer>
       </template>
 
@@ -28,6 +30,7 @@
         <BVDContributorsContainer
           type="silver-sponsors"
           :contributors="silverSponsors"
+          :nofollow="false"
         ></BVDContributorsContainer>
       </template>
 
@@ -37,6 +40,7 @@
         <BVDContributorsContainer
           type="bronze-sponsors"
           :contributors="bronzeSponsors"
+          :nofollow="false"
         ></BVDContributorsContainer>
       </template>
     </template>
@@ -71,11 +75,24 @@
     height: 55px;
   }
 
+  a:hover .contributor-thumbnail {
+    background-color: #6c757d40;
+  }
+
+  .contributor-name {
+    font-size: 80%;
+    font-weight: 400;
+  }
+
   .backers & {
-    width: 80px;
+    width: 70px;
+
+    .contributor-name {
+      font-size: 60%;
+    }
 
     .contributor-thumbnail {
-      height: 80px;
+      height: 70px;
     }
   }
 
@@ -90,6 +107,11 @@
   .silver-sponsors & {
     width: 100px;
 
+    .contributor-name {
+      font-size: 90%;
+      font-weight: bold;
+    }
+
     .contributor-thumbnail {
       height: 100px;
     }
@@ -98,6 +120,11 @@
   .gold-sponsors & {
     width: 120px;
 
+    .contributor-name {
+      font-size: 90%;
+      font-weight: bold;
+    }
+
     .contributor-thumbnail {
       height: 120px;
     }
@@ -105,6 +132,11 @@
 
   .platinum-sponsors & {
     width: 140px;
+
+    .contributor-name {
+      font-size: 100%;
+      font-weight: bold;
+    }
 
     .contributor-thumbnail {
       height: 140px;
@@ -117,10 +149,19 @@
 import BVDContributorsContainer from '~/components/contributors-container'
 
 const OC_BASE_URL = 'https://rest.opencollective.com/v2/bootstrap-vue/orders/'
-const OC_DEFAULT_PARAMS = { status: 'active', tierSlug: null, limit: 100 }
+const OC_DEFAULT_PARAMS = { status: 'active', tierSlug: null, limit: 200 }
 
-const MAX_BACKERS = 16
-const MAX_DONORS = 32
+const MAX_BACKERS = 32
+const MAX_DONORS = 64
+
+// This value needs to be less than or equal to our bronze tier amount
+// We may want to set two thresholds: a single donation amount and
+// a total dontation amount. This determines if we link to the donors
+// website or not. Used to help prevent abuse of opencollective via
+// small dontations to gain cheep backlinks for Google page rank.
+// A threshold of 24 means that it will take 12 months for a $2/month
+// backer to get a back link rendered in our docs
+const LINK_AMT_THRESHOLD = 24
 
 export default {
   name: 'BVDContributors',
@@ -179,19 +220,35 @@ export default {
     },
     processOcNodes(nodes = []) {
       return nodes.map(entry => {
+        // For recurring donations, this is the total amount donated
+        // For users that donate multiple times, this will be the total of all one time donations
+        const totalAmount = entry.totalDonations.value
+        const amount = entry.amount.value
+        // Fallback URL
+        const slug = entry.fromAccount.slug
+        const fallbackUrl = slug ? `https://opencollective.com/${slug}` : null
+        // Return the normalized result
         return {
-          slug: entry.fromAccount.slug,
+          slug: slug,
           name: entry.fromAccount.name,
+          // type: 'ORGANIZATION', 'INDIVIDUAL'
           type: entry.fromAccount.type,
           imageUrl: entry.fromAccount.imageUrl,
-          website: entry.fromAccount.website,
+          // We only link their website when the total amount is at or above a certain
+          // threshold to prevent some questionable websites from abusing opencollective
+          // as a means to improve thier Google page ranking via backlinks
+          website:
+            Math.max(amount || 0, totalAmount || 0) < LINK_AMT_THRESHOLD
+              ? null
+              : entry.fromAccount.website || fallbackUrl,
+          // status: 'ACTIVE' = typically recurring, 'PAID' = typially one time donation
           status: entry.status,
           // For recurring donations, this is the installment amount
           // For one time donations, this is the donation amount (most recent)
-          amount: entry.amount.value,
+          amount: amount,
           // For recurring donations, this is the total amount donated
           // For users that donate multiple times, this will be the total of all one time donations
-          totalAmount: entry.totalDonations.value,
+          totalAmount: totalAmount,
           // For recurring donations, this is how often the donation is received
           frequency: entry.frequency,
           // We now have sponsor tiers, but some appear as
@@ -228,15 +285,20 @@ export default {
     processBackers(backers = []) {
       // Backers are provided in reverse chronological order
       // so we sort by larger amount first, then by date
-      // Limit to top 16 backers
-      this.backers = backers.sort(this.sortCompare).slice(0, MAX_BACKERS)
+      // Some backers have the tier level as `null`, which started
+      // backing before we started the tier levels
+      // Limit to top N backers
+      this.backers = backers
+        .filter(b => b.tier === null || b.tier === 'backers')
+        .sort(this.sortCompare)
+        .slice(0, MAX_BACKERS)
     },
     processDonors(donors = []) {
       // Donors are provided in reverse chronological order,
       // but donors can be listed more than once (for each individual donation),
-      // although the `totalDonations` is the same on each entry
-      // We sort by larger amount first, then by date
-      // Limit to top 32 most recent donors
+      // although the `totalDonations` is the same on each entry. We filter out
+      // duplicate donors by slug, then sort by larger amount first, then by date
+      // Limit to top N most recent donors
       this.donors = donors
         .reduce((results, donor) => {
           if (results.map(d => d.slug).indexOf(donor.slug) === -1) {
@@ -260,7 +322,8 @@ export default {
       // Bronze sponors are people/organizations with a recurring (active) bronze sponorship
       this.makeOcRequest(this.processBronzeSponsors.bind(this), { tierSlug: 'bronze-sponsors' })
       // Backers are people/organizations with recurring (active) donations
-      this.makeOcRequest(this.processBackers.bind(this), { tierSlug: 'backers' })
+      // Some backers are not tagged as "backers" slug (`null` slug), but have status "active"
+      this.makeOcRequest(this.processBackers.bind(this), { status: 'active' })
       // Donors are people/organizations with one-time (paid) donations
       this.makeOcRequest(this.processDonors.bind(this), { status: 'paid' })
     }

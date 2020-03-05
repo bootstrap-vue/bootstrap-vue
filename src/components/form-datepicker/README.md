@@ -301,6 +301,53 @@ and usage of these props.
 Want a fancy popup with a dark background instead of a light background? Set the `dark` prop to
 `true` to enable the dark background.
 
+### Date string format
+
+<span class="badge badge-info small">v2.6.0+</span>
+
+To change format options of the displayed date text inside the component, e.g. in the header or
+placeholder, set the `date-format-options` prop to an object containing the requested format
+properties for the `Intl.DateTimeFormat` object (see also
+[Internationalization](#internationalization)).
+
+```html
+<template>
+  <div>
+    <label for="datepicker-dateformat1">Custom date format</label>
+    <b-form-datepicker
+      id="datepicker-dateformat1"
+      :dateFormatOptions="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
+      locale="en"
+    ></b-form-datepicker>
+    <label for="datepicker-dateformat2">Short date format</label>
+    <b-form-datepicker
+      id="datepicker-dateformat2"
+      :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+      locale="en"
+    ></b-form-datepicker>
+  </div>
+</template>
+
+<!-- b-form-datepicker-dateformat.vue -->
+```
+
+The following table summarizes the valid options for each format property:
+
+| Property  | Possible values                                              |
+| --------- | ------------------------------------------------------------ |
+| `year`    | `'numeric'`, or `'2-digit'`                                  |
+| `month`   | `'numeric'`, `'2-digit'`, `'long'`, `'short'`, or `'narrow'` |
+| `day`     | `'numeric'`, or `'2-digit'`                                  |
+| `weekday` | `'long'`, `'short'`, or `'narrow'`                           |
+
+Notes:
+
+- Leaving out certain options may affect the formatted text string, e.g. the `weekday`
+- The formatted value will vary according to the resolved locale. Some locales may not support the
+  `'narrow'` format and will fall back to `'short'` or `long'` (if `'short'` is not available)
+- `year`, `month` and `day` will always be shown. If you need to leave out a value, set the property
+  to `undefined`, although this is highly discouraged for accessibility reasons
+
 ## Internationalization
 
 Internationalization of the date picker's calendar is provided via
@@ -439,5 +486,7 @@ BootstrapVue's Custom SCSS/CSS is also required for proper styling of the date p
 
 ## See also
 
+- [`<b-form-timepicker>` Time picker custom form input](/docs/components/form-timepicker)
 - [`<b-calendar>` Calendar date selection widget](/docs/components/calendar)
+- [`<b-time>` Time selection widget](/docs/components/time)
 - [`<b-dropdown>` Dropdown component](/docs/components/dropdown)

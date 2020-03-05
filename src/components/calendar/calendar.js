@@ -20,6 +20,7 @@ import {
 } from '../../utils/date'
 import { requestAF } from '../../utils/dom'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
+import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
@@ -33,37 +34,6 @@ const NAME = 'BCalendar'
 
 // Key Codes
 const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
-
-// Languages that are RTL
-const RTL_LANGS = [
-  'ar',
-  'az',
-  'ckb',
-  'fa',
-  'he',
-  'ks',
-  'lrc',
-  'mzn',
-  'ps',
-  'sd',
-  'te',
-  'ug',
-  'ur',
-  'yi'
-].map(locale => locale.toLowerCase())
-
-// --- Helper utilities ---
-
-export const isLocaleRTL = locale => {
-  // Determines if the locale is RTL (only single locale supported)
-  const parts = toString(locale)
-    .toLowerCase()
-    .replace(/-u-.+/, '')
-    .split('-')
-  const locale1 = parts.slice(0, 2).join('-')
-  const locale2 = parts[0]
-  return arrayIncludes(RTL_LANGS, locale1) || arrayIncludes(RTL_LANGS, locale2)
-}
 
 // --- BCalendar component ---
 
@@ -224,6 +194,16 @@ export const BCalendar = Vue.extend({
     labelHelp: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelHelp')
+    },
+    dateFormatOptions: {
+      // `Intl.DateTimeFormat` object
+      type: Object,
+      default: () => ({
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long'
+      })
     }
   },
   data() {
@@ -372,10 +352,19 @@ export const BCalendar = Vue.extend({
     formatDateString() {
       // Returns a date formatter function
       return createDateFormatter(this.calendarLocale, {
+        // Ensure we have year, month, day shown for screen readers/ARIA
+        // If users really want to leave one of these out, they can
+        // pass `undefined` for the property value
         year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long',
+        month: '2-digit',
+        day: '2-digit',
+        // Merge in user supplied options
+        ...this.dateFormatOptions,
+        // Ensure hours/minutes/seconds are not shown
+        hour: undefined,
+        minute: undefined,
+        second: undefined,
+        // Ensure calendar is gregorian
         calendar: 'gregory'
       })
     },
@@ -648,7 +637,6 @@ export const BCalendar = Vue.extend({
     },
     onClickDay(day) {
       // Clicking on a date "button" to select it
-      // TODO: Change to lookup the `data-data` attribute
       const selectedDate = this.selectedDate
       const activeDate = this.activeDate
       const clickedDate = parseYMD(day.ymd)
@@ -683,6 +671,12 @@ export const BCalendar = Vue.extend({
     },
     gotoNextYear() {
       this.activeYMD = formatYMD(this.constrainDate(oneYearAhead(this.activeDate)))
+    },
+    onHeaderClick() {
+      if (!this.disabled) {
+        this.activeYMD = this.selectedYMD || formatYMD(this.getToday())
+        this.focus()
+      }
     }
   },
   render(h) {
@@ -700,8 +694,9 @@ export const BCalendar = Vue.extend({
     // Flag for making the `aria-live` regions live
     const isLive = this.isLive
     // Pre-compute some IDs
-    const idWidget = safeId()
-    const idValue = safeId('_calendar-value_')
+    // Thes should be computed props
+    const idValue = safeId()
+    const idWidget = safeId('_calendar-wrapper_')
     const idNav = safeId('_calendar-nav_')
     const idGrid = safeId('_calendar-grid_')
     const idGridCaption = safeId('_calendar-grid-caption_')
@@ -718,6 +713,7 @@ export const BCalendar = Vue.extend({
           id: idValue,
           for: idGrid,
           role: 'status',
+          tabindex: this.disabled ? null : '-1',
           // Mainly for testing purposes, as we do not know
           // the exact format `Intl` will format the date string
           'data-selected': toString(selectedYMD),
@@ -725,6 +721,12 @@ export const BCalendar = Vue.extend({
           // to prevent initial announcement on page render
           'aria-live': isLive ? 'polite' : 'off',
           'aria-atomic': isLive ? 'true' : null
+        },
+        on: {
+          // Transfer focus/click to focus grid
+          // and focus active date (or today if no selection)
+          click: this.onHeaderClick,
+          focus: this.onHeaderClick
         }
       },
       this.selectedDate
@@ -855,7 +857,7 @@ export const BCalendar = Vue.extend({
           'small',
           {
             key: idx,
-            staticClass: 'col',
+            staticClass: 'col text-truncate',
             class: { 'text-muted': this.disabled },
             attrs: {
               title: d.label === d.text ? null : d.label,
@@ -971,7 +973,6 @@ export const BCalendar = Vue.extend({
           role: 'application',
           tabindex: this.disabled ? null : '0',
           'data-month': activeYMD.slice(0, -3), // `YYYY-MM`, mainly for testing
-          // tabindex: this.disabled ? null : '0',
           'aria-roledescription': this.labelCalendar || null,
           'aria-labelledby': idGridCaption,
           'aria-describedby': idGridHelp,
@@ -997,6 +998,7 @@ export const BCalendar = Vue.extend({
     const $widget = h(
       'div',
       {
+        staticClass: 'b-calendar-inner',
         class: this.block ? 'd-block' : 'd-inline-block',
         style: this.block ? {} : { width: this.width },
         attrs: {

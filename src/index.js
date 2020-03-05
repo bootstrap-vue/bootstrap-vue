@@ -183,6 +183,10 @@ export { BFormSpinbutton } from './components/form-spinbutton/form-spinbutton'
 export { FormTextareaPlugin } from './components/form-textarea'
 export { BFormTextarea } from './components/form-textarea/form-textarea'
 
+// export * from './components/form-timepicker'
+export { FormTimepickerPlugin } from './components/form-timepicker'
+export { BFormTimepicker } from './components/form-timepicker/form-timepicker'
+
 // export * from './components/image'
 export { ImagePlugin } from './components/image'
 export { BImg } from './components/image/img'
@@ -278,6 +282,10 @@ export { BTd } from './components/table/td'
 export { TabsPlugin } from './components/tabs'
 export { BTabs } from './components/tabs/tabs'
 export { BTab } from './components/tabs/tab'
+
+// export * from './components/time'
+export { TimePlugin } from './components/time'
+export { BTime } from './components/time/time'
 
 // export * from './components/toast'
 export { ToastPlugin } from './components/toast'
