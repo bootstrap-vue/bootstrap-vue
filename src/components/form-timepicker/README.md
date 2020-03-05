@@ -338,6 +338,9 @@ Native HTML5 `<input type="date">` returns the time value in the `'h23'` format,
 what is presented to the user via the GUI (spin buttons) of the `<b-form-timepicker>` component,
 dependant upon the [locale selected](#internationalization).
 
+**Note:** IE 11 _does not support_ resolving the `hourCycle` value of a locale, so we assume either
+`h12` or `h23` based on the resolved `hour12` value.
+
 ### Forcing 12 or 24 hour interface
 
 12-hour versus 24-hour input is determined by the client browsers default locale (or the locale
