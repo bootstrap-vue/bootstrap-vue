@@ -168,7 +168,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       return defaultNumber(this.min, DEFAULT_MIN)
     },
     computedMax() {
-      // We round down to the nearest maimum step value
+      // We round down to the nearest maximum step value
       const max = defaultNumber(this.max, DEFAULT_MAX)
       const step = this.computedStep
       const min = this.computedMin
