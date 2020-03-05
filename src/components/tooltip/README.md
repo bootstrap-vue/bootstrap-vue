@@ -96,7 +96,7 @@ The default position is `top`. Positioning is relative to the trigger element.
   </div>
 </div>
 
-Refer to the [Tolltip directive](/docs/directives/tooltip/#positioning) documentaion for live
+Refer to the [Tooltip directive](/docs/directives/tooltip/#positioning) documentaion for live
 examples of positioning.
 
 ## Triggers
