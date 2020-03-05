@@ -150,6 +150,9 @@ Positioning is relative to the trigger element.
   <div class="clearfix"></div>
 </div>
 
+Refer to the [Popover directive](/docs/directives/popover/#positioning) documentaion for live
+examples of positioning.
+
 ## Triggers
 
 Popovers can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
