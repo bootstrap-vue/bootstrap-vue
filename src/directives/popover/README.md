@@ -169,7 +169,10 @@ Positioning is relative to the trigger element.
       <b-col md="3" class="py-3">
         <b-button v-b-popover.hover.bottomright="'Popover!'" variant="primary">Bottom right</b-button>
       </b-col>
-      <b-col md="3" class="py-3">
+       <b-col md="3" class="py-3">
+        <b-button v-b-popover.hover.bottomleft="'Popover!'" variant="primary">Bottom left</b-button>
+      </b-col>
+     <b-col md="3" class="py-3">
         <b-button v-b-popover.hover.lefttop="'Popover!'" variant="primary">Left top</b-button>
       </b-col>
       <b-col md="3" class="py-3">
