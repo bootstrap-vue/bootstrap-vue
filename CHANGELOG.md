@@ -4,6 +4,24 @@
 > [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 > guidelines.
 
+<a name="2.6.1"></a>
+
+## [v2.6.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.6.0...v2.6.1)
+
+Released: 2020-03-05
+
+### Bug Fixes v2.6.1
+
+- **b-form-spinbutton:** respect step value for initial decrement when `wrap` enabled (closes
+  [#4884](https://github.com/bootstrap-vue/bootstrap-vue/issues/4884))
+  ([#4885](https://github.com/bootstrap-vue/bootstrap-vue/issues/4885))
+  ([28e7245](https://github.com/bootstrap-vue/bootstrap-vue/commit/28e724536be4762382328648f203bd46d8f52fdc))
+
+### Other v2.6.1
+
+- documentation updates
+- dev dependency updates
+
 <a name="2.6.0"></a>
 
 ## [v2.6.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.5.0...v2.6.0)
