@@ -201,7 +201,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       }
       const dtf = new Intl.DateTimeFormat(locale, options)
       const resolved = dtf.resolvedOptions()
-      const hour12 = resolved.hour12
+      const hour12 = resolved.hour12 || false
       // IE 11 doesn't resolve the hourCycle, so we make
       // an assumption and fall back to common values
       const hourCycle = resolved.hourCycle || (hour12 ? 'h12' : 'h23')
