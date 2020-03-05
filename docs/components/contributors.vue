@@ -85,14 +85,14 @@
   }
 
   .backers & {
-    width: 80px;
+    width: 70px;
 
     .contributor-name {
-      font-size: 70%;
+      font-size: 60%;
     }
 
     .contributor-thumbnail {
-      height: 80px;
+      height: 70px;
     }
   }
 

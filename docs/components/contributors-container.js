@@ -77,7 +77,7 @@ export default {
         $content = h(
           'b-link',
           {
-            class: ['text-reset'],
+            class: ['text-reset d-inline-block'],
             props: {
               href: website,
               target: '_blank',
