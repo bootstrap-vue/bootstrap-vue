@@ -14,7 +14,6 @@
 
 .hljs {
   overflow-x: auto;
-  position: relative;
   background-color: #f9f9f9;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
 }
@@ -137,42 +136,52 @@
   background-color: #eee;
 }
 
-pre.editable {
-  &::after {
-    content: "(double click to edit)";
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: #aaa;
-    text-align: right;
-    font-size: 0.75em;
-    padding: 5px 10px 0;
-    line-height: 15px;
-    height: 15px;
-    font-weight: 600;
-  }
+.bd-code {
+  position: relative;
 
-  &:hover {
+  pre {
     &::after {
-      font-size: 0.9em;
-      color: #444;
-      cursor: pointer;
+      content: attr(data-filename);
+      position: absolute;
+      top: -7.5px;
+      right: 0;
+      color: #6c757d;
+      text-align: right;
+      font-size: 0.75em;
+      line-height: 15px;
+      font-weight: 600;
     }
-  }
 
-  &.live {
-    &::after {
-      content: "Live";
-    }
-  }
+    &.editable {
+      &::after {
+        content: "(Double click to edit)";
+        top: 5px;
+        right: 10px;
+      }
 
-  &.error {
-    border: 1px solid #dc3545;
-    box-shadow: 0 1px 1px rgba(220, 53, 69, 0.5);
+      &:hover {
+        &::after {
+          font-size: 0.85em;
+          color: inherit;
+          cursor: pointer;
+        }
+      }
 
-    &::after {
-      content: "JavaScript compile error!";
-      color: #dc3545;
+      &.live {
+        &::after {
+          content: "Live";
+        }
+      }
+
+      &.error {
+        border: 1px solid #dc3545;
+        box-shadow: 0 1px 1px rgba(220, 53, 69, 0.5);
+
+        &::after {
+          content: "JavaScript compile error!";
+          color: #dc3545;
+        }
+      }
     }
   }
 }

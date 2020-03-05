@@ -7,17 +7,20 @@ const hljs = require('highlight.js/lib/highlight.js')
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
 hljs.registerLanguage('typescript', require('highlight.js/lib/languages/typescript'))
 hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
-hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml')) // includes HTML
+hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml')) // Includes HTML
 hljs.registerLanguage('css', require('highlight.js/lib/languages/css'))
 hljs.registerLanguage('scss', require('highlight.js/lib/languages/scss'))
-hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash')) // includes sh
+hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash')) // Includes sh
 hljs.registerLanguage('shell', require('highlight.js/lib/languages/shell'))
 hljs.registerLanguage('plaintext', require('highlight.js/lib/languages/plaintext'))
 
-// Create a new marked renderer
-const renderer = new marked.Renderer()
+// --- Constants ---
+
+const RX_CODE_FILENAME = /^\/\/ ([\w,\s-]+\.[A-Za-z]{1,4})\n/m
 
 const ANCHOR_LINK_HEADING_LEVELS = [2, 3, 4, 5]
+
+// --- Utility methods ---
 
 // Get routes by a given dir
 const getRoutesByDir = (root, dir, excludes = []) =>
@@ -27,17 +30,39 @@ const getRoutesByDir = (root, dir, excludes = []) =>
     .filter(c => !/\.(s?css|js|ts)$/.test(c))
     .map(page => `/docs/${dir}/${page}`)
 
+// --- Custom renderer ---
+
+// Create a new marked renderer
+const renderer = new marked.Renderer()
+
 // Custom "highlight.js" implementation for markdown renderer
 renderer.code = (code, language) => {
+  const attrs = {
+    class: `hljs ${language} p-2`,
+    translate: 'no'
+  }
+
+  const [, filename] = RX_CODE_FILENAME.exec(code) || []
+  if (filename) {
+    attrs['data-filename'] = filename
+    code = code.replace(RX_CODE_FILENAME, '')
+  }
+
   const validLang = !!(language && hljs.getLanguage(language))
   const highlighted = validLang ? hljs.highlight(language, code).value : code
-  return `<pre class="hljs ${language} text-monospace p-2 notranslate" translate="no">${highlighted}</pre>`
+
+  const attrsMarkup = Object.keys(attrs).reduce(
+    (markup, attr) => `${markup}${markup ? ' ' : ''}${attr}="${attrs[attr]}"`,
+    ''
+  )
+
+  return `<div class="bd-code"><pre ${attrsMarkup}>${highlighted}</pre></div>`
 }
 
 // Instruct Google Translate not to translate `<code>` content
 // and don't let browsers wrap the contents across lines
-renderer.codespan = text => {
-  return `<code class="text-nowrap notranslate" translate="no">${text}</code>`
+renderer.codespan = code => {
+  return `<code class="text-nowrap" translate="no">${code}</code>`
 }
 
 // Custom link renderer, to update Bootstrap docs version in href
@@ -106,6 +131,8 @@ renderer.table = function() {
     .replace('<thead>', '<thead class="thead-default">')
   return `<div class="table-responsive-sm">${table}</div>`
 }
+
+// --- Main export ---
 
 module.exports = {
   srcDir: __dirname,
