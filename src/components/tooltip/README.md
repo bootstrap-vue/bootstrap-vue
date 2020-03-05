@@ -96,6 +96,9 @@ The default position is `top`. Positioning is relative to the trigger element.
   </div>
 </div>
 
+Refer to the [Tolltip directive](/docs/directives/tooltip/#positioning) documentaion for live
+examples of positioning.
+
 ## Triggers
 
 Tooltips can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
