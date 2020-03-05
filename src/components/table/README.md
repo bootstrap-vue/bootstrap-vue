@@ -1567,7 +1567,7 @@ will be using other means to convey that a row is selected (such as a scoped fie
 example).
 
 The `selected-variant` can be any of the
-[standard (or custom) bootstrap base color variants](/docs/reference/color-variants), or the special
+[standard (or custom) Bootstrap base color variants](/docs/reference/color-variants), or the special
 [table `active` variant](/docs/reference/color-variants#table-variants) (the default) which takes
 precedence over any specific row or cell variants.
 
