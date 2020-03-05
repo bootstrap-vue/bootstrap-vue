@@ -54,6 +54,9 @@
   <a href="https://opencollective.com/bootstrap-vue">
     <img src="https://flat.badgen.net/opencollective/balance/bootstrap-vue" alt="Open Collective balance">
   </a>
+  <a href="https://gitpod.io/#https://github.com/bootstrap-vue/bootstrap-vue">
+    <img src="https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod" alt="Gitpod Ready-to-Code">
+  </a>
 </p>
 
 <h2 align="center">Links</h2>

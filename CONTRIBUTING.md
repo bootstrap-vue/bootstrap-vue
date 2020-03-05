@@ -17,6 +17,13 @@ that link in issues.
 - `cd bootstrap-vue`
 - Run `yarn install` to get all dependencies installed
 
+## Online one-click setup for Contributing
+
+Contribute to BootstrapVue, using a fully featured online development environment; cloned repo,
+pre-installed dependencies, running web server and rollup watching for changes.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
+
 ## Work on components
 
 If you want to hack and improve components locally, you can follow these steps:
