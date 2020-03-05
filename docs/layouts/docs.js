@@ -1,9 +1,10 @@
+import Ad from '~/components/ad'
 import DocBreadcrumbs from '~/components/doc-breadcrumbs.vue'
 import Feedback from '~/components/feedback'
-import Header from '~/components/header'
 import Footer from '~/components/footer'
-import Search from '~/components/search'
+import Header from '~/components/header'
 import QuickLinks from '~/components/quick-links.vue'
+import Search from '~/components/search'
 import Sidebar from '~/components/sidebar.vue'
 import Toc from '~/components/toc.vue'
 
@@ -41,6 +42,7 @@ export default {
         h(Feedback, { class: ['float-right', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h('div', { class: ['clearfix', 'd-block'] }),
         h(QuickLinks, { class: 'd-xl-none' }),
+        h(Ad, { props: { positionAfter: '.bd-lead' } }),
         h('nuxt')
       ]
     )

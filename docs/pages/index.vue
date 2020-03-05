@@ -181,6 +181,8 @@
             </b-btn>
           </b-col>
         </b-row>
+
+        <BVAd></BVAd>
       </b-container>
     </section>
 
@@ -663,10 +665,14 @@ $bv-angle-padding-md: 6rem;
 
 <script>
 import { version, bootstrapVersion, vueVersion } from '~/content'
+import BVAd from '~/components/ad'
 import BVDContributors from '~/components/contributors'
 
 export default {
-  components: { BVDContributors },
+  components: {
+    BVAd,
+    BVDContributors
+  },
   data() {
     return {
       isIE: false,
