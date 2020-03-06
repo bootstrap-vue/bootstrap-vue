@@ -15,7 +15,9 @@ export default {
     }
   },
   mounted() {
-    this.setPosition()
+    this.$nextTick(() => {
+      this.setPosition()
+    })
   },
   methods: {
     setPosition() {
@@ -33,13 +35,15 @@ export default {
     }
   },
   render(h) {
-    return h('script', {
-      attrs: {
-        id: this.id,
-        async: 'async',
-        type: 'text/javascript',
-        src: this.url
-      }
-    })
+    return h('client-only', [
+      h('script', {
+        attrs: {
+          id: this.id,
+          async: 'async',
+          type: 'text/javascript',
+          src: this.url
+        }
+      })
+    ])
   }
 }
