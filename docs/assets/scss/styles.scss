@@ -188,7 +188,13 @@
 
 .bv-section {
   #carbonads {
-    margin: 3rem auto 0;
+    margin: 0 auto 3rem;
+
+    @media (min-width: 768px) {
+      & {
+        margin: 3rem auto 0;
+      }
+    }
   }
 }
 
