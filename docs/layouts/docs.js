@@ -89,11 +89,8 @@ export default {
           directives: [{ name: 'show', value: this.contentElementsVisible }],
           ref: 'quick-links'
         }),
-        h(Ad, {
-          directives: [
-            { name: 'if', value: this.currentPath !== '/' },
-            { name: 'show', value: this.contentElementsVisible }
-          ],
+        h(this.currentPath !== '/' ? Ad : 'div', {
+          directives: [{ name: 'show', value: this.contentElementsVisible }],
           // We apply the route path as key to change the ad on every page
           key: this.currentPath,
           ref: 'ad'
