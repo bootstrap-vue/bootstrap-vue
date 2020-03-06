@@ -12,7 +12,23 @@ export default {
   name: 'BVDDocsLayout',
   data() {
     return {
-      hasToc: false
+      hasToc: false,
+      contentElements: ['quick-links', 'ad'],
+      contentElementsVisible: false
+    }
+  },
+  computed: {
+    currentPath() {
+      return this.$route.path
+    }
+  },
+  watch: {
+    currentPath(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.$nextTick(() => {
+          this.positionContentElements()
+        })
+      }
     }
   },
   created() {
@@ -20,6 +36,35 @@ export default {
     this.$root.$on('docs-set-toc', toc => {
       this.hasToc = Boolean(toc && toc.toc)
     })
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.positionContentElements()
+    })
+  },
+  methods: {
+    positionContentElements() {
+      // Move the elements to the correct position, if possible
+      const $body = document.body
+      const $referenceNode = $body.querySelector('.bd-lead') || $body.querySelector('h1')
+      if ($referenceNode) {
+        // Get the content elements by their ref names
+        const $contentElements = this.contentElements.map(name => {
+          const $node = this.$refs[name]
+          return $node.$el || $node
+        })
+        // We add the elements in reverse order after the `$referenceNode`
+        // to ensure the correct order
+        $contentElements.reverse().forEach($contentElement => {
+          // IE 11 doesn't support the `node.after()` method, and appears
+          // that the polyfill doesn't polyfill this method
+          $referenceNode.insertAdjacentElement('afterend', $contentElement)
+        })
+
+        // Show the content elements
+        this.contentElementsVisible = true
+      }
+    }
   },
   render(h) {
     const $sidebarCol = h(
@@ -41,8 +86,17 @@ export default {
         h(DocBreadcrumbs, { class: ['float-left', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h(Feedback, { class: ['float-right', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h('div', { class: ['clearfix', 'd-block'] }),
-        h(QuickLinks, { class: 'd-xl-none' }),
-        h(Ad, { props: { positionAfter: '.bd-lead' } }),
+        h(QuickLinks, {
+          class: 'd-xl-none',
+          directives: [{ name: 'show', value: this.contentElementsVisible }],
+          ref: 'quick-links'
+        }),
+        h(Ad, {
+          directives: [{ name: 'show', value: this.contentElementsVisible }],
+          // We apply the route path as key to change the ad on every page
+          key: this.currentPath,
+          ref: 'ad'
+        }),
         h('nuxt')
       ]
     )

@@ -1,6 +1,6 @@
 <template>
   <nav
-    :class="['bd-quick-links', 'mb-3', { 'd-none': !visible || !hasContent }]"
+    :class="['bd-quick-links', 'mb-3', { 'd-none': !hasContent }]"
     :aria-hidden="hasContent ? null : 'true'"
   >
     <header v-if="hasContent">
@@ -55,8 +55,7 @@ export default {
     return {
       toc: {},
       offset: 0,
-      expanded: false,
-      visible: false
+      expanded: false
     }
   },
   computed: {
@@ -69,13 +68,9 @@ export default {
   },
   created() {
     this.$root.$on('docs-set-toc', toc => {
-      // Reset visible/expanded states
-      this.visible = false
       this.expanded = false
       // Update the TOC content
       this.toc = toc
-      // Re-position the quick links
-      this.positionQuickLinks()
     })
   },
   mounted() {
@@ -84,8 +79,6 @@ export default {
     if ($header) {
       this.offset = $header.offsetHeight + 6
     }
-    // Re-position the quick links
-    this.positionQuickLinks()
   },
   methods: {
     scrollIntoView(evt, href) {
@@ -106,22 +99,6 @@ export default {
           $el.focus()
         })
       }
-    },
-    positionQuickLinks() {
-      if (typeof document === 'undefined') {
-        return
-      }
-      // Move the quick links to the correct position, if possible
-      const $body = document.body
-      const $referenceNode = $body.querySelector('.bd-lead') || $body.querySelector('h1')
-      if ($referenceNode) {
-        // IE 11 doesn't support the `node.after()` method, and appears
-        // that the polyfill doesn't polyfill this method
-        $referenceNode.insertAdjacentElement('afterend', this.$el)
-      }
-      // Make the quick links visible
-      // We hide them initially to make the position change not that distracting
-      this.visible = true
     }
   }
 }
