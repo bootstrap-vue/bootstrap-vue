@@ -89,12 +89,14 @@ export default {
           directives: [{ name: 'show', value: this.contentElementsVisible }],
           ref: 'quick-links'
         }),
-        h(this.currentPath !== '/' ? Ad : 'div', {
-          directives: [{ name: 'show', value: this.contentElementsVisible }],
-          // We apply the route path as key to change the ad on every page
-          key: this.currentPath,
-          ref: 'ad'
-        }),
+        this.currentPath === '/'
+          ? h()
+          : h(Ad, {
+              directives: [{ name: 'show', value: this.contentElementsVisible }],
+              // We apply the route path as key to change the ad on every page
+              key: this.currentPath,
+              ref: 'ad'
+            }),
         h('nuxt')
       ]
     )
