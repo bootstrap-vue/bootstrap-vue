@@ -12,7 +12,7 @@
           </p>
         </b-col>
         <b-col lg="auto">
-          <BVAd class="mx-auto mx-lg-0 my-3 my-lg-0"></BVAd>
+          <BVAd class="my-0"></BVAd>
         </b-col>
       </b-row>
     </div>
