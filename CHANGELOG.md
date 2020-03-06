@@ -8,7 +8,7 @@
 
 ## [v2.6.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.6.0...v2.6.1)
 
-Released: 2020-03-05
+Released: 2020-03-06
 
 ### Bug Fixes v2.6.1
 
