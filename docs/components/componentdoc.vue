@@ -323,7 +323,7 @@ import { kebabCase } from '../utils'
 import AnchoredHeading from './anchored-heading'
 
 export default {
-  name: 'BVDComponentdoc',
+  name: 'BVComponentdoc',
   components: { AnchoredHeading },
   props: {
     component: {},

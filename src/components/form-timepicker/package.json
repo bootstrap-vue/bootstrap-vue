@@ -209,7 +209,6 @@
         "slots": [
           {
             "name": "button-content",
-            "version": "2.6.0",
             "description": "Content to place in the timepicker's icon button",
             "scope": [
               {

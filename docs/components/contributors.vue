@@ -7,61 +7,61 @@
       <!-- PLATINUM SPONSORS -->
       <template v-if="platinumSponsors.length > 0">
         <h4 class="h5 mx-auto mt-3 text-muted">Platinum Sponsors</h4>
-        <BVDContributorsContainer
+        <BVContributorsContainer
           type="platinum-sponsors"
           :contributors="platinumSponsors"
           :nofollow="false"
-        ></BVDContributorsContainer>
+        ></BVContributorsContainer>
       </template>
 
       <!-- GOLD SPONSORS -->
       <template v-if="goldSponsors.length > 0">
         <h4 class="h5 mx-auto mt-3 text-muted">Gold Sponsors</h4>
-        <BVDContributorsContainer
+        <BVContributorsContainer
           type="gold-sponsors"
           :contributors="goldSponsors"
           :nofollow="false"
-        ></BVDContributorsContainer>
+        ></BVContributorsContainer>
       </template>
 
       <!-- SILVER SPONSORS -->
       <template v-if="silverSponsors.length > 0">
         <h4 class="h5 mx-auto mt-3 text-muted">Silver Sponsors</h4>
-        <BVDContributorsContainer
+        <BVContributorsContainer
           type="silver-sponsors"
           :contributors="silverSponsors"
           :nofollow="false"
-        ></BVDContributorsContainer>
+        ></BVContributorsContainer>
       </template>
 
       <!-- BRONZE SPONSORS -->
       <template v-if="bronzeSponsors.length > 0">
         <h4 class="h5 mx-auto mt-3 text-muted">Bronze Sponsors</h4>
-        <BVDContributorsContainer
+        <BVContributorsContainer
           type="bronze-sponsors"
           :contributors="bronzeSponsors"
           :nofollow="false"
-        ></BVDContributorsContainer>
+        ></BVContributorsContainer>
       </template>
     </template>
 
     <!-- BACKERS -->
     <template v-if="backers.length > 0">
       <h3 class="h4 mx-auto mt-4 text-muted">Backers</h3>
-      <BVDContributorsContainer
+      <BVContributorsContainer
         type="backers"
         :contributors="backers"
-      ></BVDContributorsContainer>
+      ></BVContributorsContainer>
     </template>
 
     <!-- DONORS -->
     <template v-if="donors.length > 0">
       <h3 class="h4 mx-auto mt-4 text-muted">Donors</h3>
-      <BVDContributorsContainer
+      <BVContributorsContainer
         type="donors"
         :contributors="donors"
         :show-name="false"
-      ></BVDContributorsContainer>
+      ></BVContributorsContainer>
     </template>
   </div>
 </template>
@@ -146,7 +146,7 @@
 </style>
 
 <script>
-import BVDContributorsContainer from '~/components/contributors-container'
+import BVContributorsContainer from '~/components/contributors-container'
 
 const OC_BASE_URL = 'https://rest.opencollective.com/v2/bootstrap-vue/orders/'
 const OC_DEFAULT_PARAMS = { status: 'active', tierSlug: null, limit: 200 }
@@ -164,8 +164,8 @@ const MAX_DONORS = 64
 const LINK_AMT_THRESHOLD = 24
 
 export default {
-  name: 'BVDContributors',
-  components: { BVDContributorsContainer },
+  name: 'BVContributors',
+  components: { BVContributorsContainer },
   data() {
     return {
       platinumSponsors: [],

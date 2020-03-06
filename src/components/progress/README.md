@@ -313,6 +313,9 @@ Notes:
 
 - if `animated` is true, `striped` will automatically be enabled.
 - Animated progress bars don't work in Opera 12 — as they don't support CSS3 animations.
+- The animation effect of this component is dependent on the `prefers-reduced-motion` media query.
+  See the [reduced motion section of our accessibility documentation](/docs/reference/accessibility)
+  for additional details.
 
 ## Multiple bars
 

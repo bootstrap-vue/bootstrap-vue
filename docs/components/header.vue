@@ -176,7 +176,7 @@
 import { version } from '~/content'
 
 export default {
-  name: 'BVDHeader',
+  name: 'BVHeader',
   data() {
     return {
       version,

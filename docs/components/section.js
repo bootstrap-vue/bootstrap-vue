@@ -59,7 +59,7 @@ const linkToRouter = evt => {
 }
 
 export default {
-  name: 'BVDSection',
+  name: 'BVSection',
   functional: true,
   props: {
     tag: {

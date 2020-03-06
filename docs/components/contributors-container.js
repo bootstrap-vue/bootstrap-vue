@@ -4,7 +4,7 @@ const CLASS_NAME = 'contributors-container'
 const CONTRIBUTOR_CLASS_NAME = 'contributor'
 
 export default {
-  name: 'BVDContributorsContainer',
+  name: 'BVContributorsContainer',
   functional: true,
   props: {
     type: {

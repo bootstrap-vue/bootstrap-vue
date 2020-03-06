@@ -316,13 +316,13 @@ properties for the `Intl.DateTimeFormat` object (see also
     <label for="datepicker-dateformat1">Custom date format</label>
     <b-form-datepicker
       id="datepicker-dateformat1"
-      :dateFormatOptions="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
+      :date-format-options="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
       locale="en"
     ></b-form-datepicker>
     <label for="datepicker-dateformat2">Short date format</label>
     <b-form-datepicker
       id="datepicker-dateformat2"
-      :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+      :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
       locale="en"
     ></b-form-datepicker>
   </div>
