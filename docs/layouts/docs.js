@@ -84,11 +84,6 @@ export default {
         h(DocBreadcrumbs, { class: ['float-left', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h(Feedback, { class: ['float-right', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h('div', { class: ['clearfix', 'd-block'], ref: 'clearfix' }),
-        h(QuickLinks, {
-          class: 'd-xl-none',
-          directives: [{ name: 'show', value: this.contentElementsVisible }],
-          ref: 'quick-links'
-        }),
         this.currentPath === '/'
           ? h()
           : h(Ad, {
@@ -97,6 +92,11 @@ export default {
               key: this.currentPath,
               ref: 'ad'
             }),
+        h(QuickLinks, {
+          class: 'd-xl-none',
+          directives: [{ name: 'show', value: this.contentElementsVisible }],
+          ref: 'quick-links'
+        }),
         h('nuxt')
       ]
     )
