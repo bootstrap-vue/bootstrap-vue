@@ -186,17 +186,28 @@
   }
 }
 
+// Carbon Ad margin overrides
 .bv-ad {
   min-height: 130px;
-}
+  margin: 2rem 0;
 
-.bv-section {
   #carbonads {
-    margin: 0 auto 3rem;
+    margin: 0;
+  }
+
+  // Margin overides for the home page ad
+  @at-root .bv-section & {
+    margin-bottom: 3rem;
+
+    #carbonads {
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     @media (min-width: 768px) {
       & {
-        margin: 3rem auto 0;
+        margin-bottom: 0;
+        margin-top: 3rem;
       }
     }
   }
