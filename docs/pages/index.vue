@@ -419,7 +419,7 @@
           Donate
         </b-button>
 
-        <BVDContributors></BVDContributors>
+        <BVContributors></BVContributors>
       </b-container>
     </section>
 
@@ -672,12 +672,12 @@ $bv-angle-padding-md: 6rem;
 <script>
 import { version, bootstrapVersion, vueVersion } from '~/content'
 import BVAd from '~/components/ad'
-import BVDContributors from '~/components/contributors'
+import BVContributors from '~/components/contributors'
 
 export default {
   components: {
     BVAd,
-    BVDContributors
+    BVContributors
   },
   data() {
     return {
