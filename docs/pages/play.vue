@@ -177,7 +177,7 @@
                 </div>
               </template>
 
-              <code-mirror v-model="js" mode="javascript"></code-mirror>
+              <BVCodeMirror v-model="js" mode="javascript"></BVCodeMirror>
             </b-card>
           </b-col>
         </transition-group>
