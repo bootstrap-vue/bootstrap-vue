@@ -22,19 +22,14 @@ export default {
       return this.$route.path
     }
   },
-  watch: {
-    currentPath(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.$nextTick(() => {
-          this.positionContentElements()
-        })
-      }
-    }
-  },
   created() {
     // Only needed so we can set/clear aria-hidden on the TOC nav wrapper
     this.$root.$on('docs-set-toc', toc => {
       this.hasToc = Boolean(toc && toc.toc)
+
+      this.$nextTick(() => {
+        this.positionContentElements()
+      })
     })
   },
   mounted() {
