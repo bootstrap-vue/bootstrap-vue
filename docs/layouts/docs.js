@@ -20,6 +20,9 @@ export default {
   computed: {
     currentPath() {
       return this.$route.path
+    },
+    renderAd() {
+      return ['/', '/play'].indexOf(this.currentPath) === -1
     }
   },
   created() {
@@ -84,14 +87,14 @@ export default {
         h(BVBreadcrumbs, { class: ['float-left', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h(BVFeedback, { class: ['float-right', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h('div', { class: ['clearfix', 'd-block'], ref: 'clearfix' }),
-        this.currentPath === '/'
-          ? h()
-          : h(BVAd, {
+        this.renderAd
+          ? h(BVAd, {
               class: { invisible: !this.contentElementsVisible },
               // We apply the route path as key to change the ad on every page
               key: this.currentPath,
               ref: 'ad'
-            }),
+            })
+          : h(),
         h(BVQuickLinks, {
           class: 'd-xl-none',
           directives: [{ name: 'show', value: this.contentElementsVisible }],
