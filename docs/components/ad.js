@@ -7,18 +7,31 @@ export default {
     },
     url: {
       type: String,
-      default: '//cdn.carbonads.com/carbon.js?serve=CE7ITK77&placement=bootstrap-vuejsorg'
+      default: '//cdn.carbonads.com/carbon.js'
+    },
+    serve: {
+      type: String,
+      default: 'CE7ITK77'
+    },
+    placement: {
+      type: String,
+      default: 'bootstrap-vuejsorg'
+    }
+  },
+  computed: {
+    src() {
+      return `${this.url}?serve=${this.serve}&placement=${this.placement}`
     }
   },
   render(h) {
-    return h('client-only', [
-      h('div', { staticClass: 'bv-ad' }, [
+    return h('div', { staticClass: 'bv-ad' }, [
+      h('client-only', [
         h('script', {
           attrs: {
             id: this.id,
             async: 'async',
             type: 'text/javascript',
-            src: this.url
+            src: this.src
           }
         })
       ])
