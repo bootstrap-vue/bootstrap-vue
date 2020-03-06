@@ -128,59 +128,67 @@
 
     <section class="bv-section bv-gray-color">
       <b-container tag="article">
-        <h2 class="h4 text-center bd-text-purple-bright">Overview</h2>
-        <b-row class="mb-4">
-          <b-col lg="10" offset-lg="1">
-            <p class="text-lg-center">
-              With over 40 available plugins and more than 80 custom UI components, directives, and over 300 icons,
-              <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
-              comprehensive implementations of the
-              <span class="bd-text-purple-bright">Bootstrap v{{ bootstrapVersionMinor }}</span> component and grid system
-              available for <span class="bd-text-purple-bright">Vue.js v{{ vueVersionMinor }}</span>, complete with
-              extensive and automated
-              <b-link href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank">
-                <abbr title="Web Accessibility Initiative – Accessible Rich Internet Applications">WAI-ARIA</abbr>
-              </b-link>
-              accessibility markup.
-            </p>
-          </b-col>
-        </b-row>
+        <div class="d-flex flex-column">
+          <div class="order-2 order-md-1">
+            <h2 class="h4 text-center bd-text-purple-bright">Overview</h2>
+            <b-row class="mb-4">
+              <b-col lg="10" offset-lg="1">
+                <p class="text-lg-center">
+                  With over 40 available plugins and more than 80 custom UI components, directives, and over 300 icons,
+                  <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
+                  comprehensive implementations of the
+                  <span class="bd-text-purple-bright">Bootstrap v{{ bootstrapVersionMinor }}</span> component and grid system
+                  available for <span class="bd-text-purple-bright">Vue.js v{{ vueVersionMinor }}</span>, complete with
+                  extensive and automated
+                  <b-link href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank">
+                    <abbr title="Web Accessibility Initiative – Accessible Rich Internet Applications">WAI-ARIA</abbr>
+                  </b-link>
+                  accessibility markup.
+                </p>
+              </b-col>
+            </b-row>
 
-        <b-row class="justify-content-lg-center">
-          <b-col md="4" lg="3">
-            <b-btn
-              to="/docs"
-              variant="bd-primary"
-              size="lg"
-              class="mb-3 mb-md-0"
-              block
-            >
-              Get started
-            </b-btn>
-          </b-col>
-          <b-col md="4" lg="3">
-            <b-btn
-              to="/play"
-              variant="bd-primary"
-              size="lg"
-              class="mb-3 mb-md-0"
-              block
-            >
-              Playground
-            </b-btn>
-          </b-col>
-          <b-col md="4" lg="3">
-            <b-btn
-              href="https://github.com/bootstrap-vue/bootstrap-vue"
-              variant="outline-secondary"
-              size="lg"
-              target="_blank"
-              block
-            >
-              GitHub
-            </b-btn>
-          </b-col>
-        </b-row>
+            <b-row class="justify-content-lg-center">
+              <b-col md="4" lg="3">
+                <b-btn
+                  to="/docs"
+                  variant="bd-primary"
+                  size="lg"
+                  class="mb-3 mb-md-0"
+                  block
+                >
+                  Get started
+                </b-btn>
+              </b-col>
+              <b-col md="4" lg="3">
+                <b-btn
+                  to="/play"
+                  variant="bd-primary"
+                  size="lg"
+                  class="mb-3 mb-md-0"
+                  block
+                >
+                  Playground
+                </b-btn>
+              </b-col>
+              <b-col md="4" lg="3">
+                <b-btn
+                  href="https://github.com/bootstrap-vue/bootstrap-vue"
+                  variant="outline-secondary"
+                  size="lg"
+                  target="_blank"
+                  block
+                >
+                  GitHub
+                </b-btn>
+              </b-col>
+            </b-row>
+          </div>
+
+          <div class="order-1 order-md-2">
+            <BVAd></BVAd>
+          </div>
+        </div>
       </b-container>
     </section>
 
@@ -663,10 +671,14 @@ $bv-angle-padding-md: 6rem;
 
 <script>
 import { version, bootstrapVersion, vueVersion } from '~/content'
+import BVAd from '~/components/ad'
 import BVDContributors from '~/components/contributors'
 
 export default {
-  components: { BVDContributors },
+  components: {
+    BVAd,
+    BVDContributors
+  },
   data() {
     return {
       isIE: false,
