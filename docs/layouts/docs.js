@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       hasToc: false,
-      contentElements: ['quick-links', 'ad'],
+      contentElements: ['ad', 'quick-links'],
       contentElementsVisible: false
     }
   },
