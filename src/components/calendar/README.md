@@ -221,7 +221,7 @@ fit the width of the parent element. The `width` prop has no effect when `block`
 
 ```html
 <template>
-  <b-calendar block local="en-US"></b-calendar>
+  <b-calendar block locale="en-US"></b-calendar>
 </template>
 
 <!-- b-calendar-block.vue -->
@@ -235,7 +235,7 @@ with the component may occur.
 <span class="badge badge-info small">v2.6.0+</span>
 
 To change format options of the displayed date text inside the component, e.g. in the header, set
-the `dateFormatOptions` prop to an object containing the requested format properties for the
+the `date-format-options` prop to an object containing the requested format properties for the
 `Intl.DateTimeFormat` object (see also [Internationalization](#internationalization)).
 
 ```html
@@ -243,12 +243,12 @@ the `dateFormatOptions` prop to an object containing the requested format proper
   <div>
     <p>Custom date format:</p>
     <b-calendar
-      :dateFormatOptions="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
+      :date-format-options="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
       locale="en"
     ></b-calendar>
     <p class="mt-3">Short date format:</p>
     <b-calendar
-      :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+      :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
       locale="en"
     ></b-calendar>
   </div>

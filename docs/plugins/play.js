@@ -5,10 +5,10 @@ import hljs from '../utils/hljs'
 
 // --- Constants ---
 
-const NAME_REGEX = /<!-- (.*)\.vue -->/
-const NAME_DEFINITION_REGEX = /<!-- .*\.vue -->/
-const TEMPLATE_REGEX = /<template>([\s\S]*)<\/template>/
-const SCRIPT_REGEX = /<script>([\s\S]*)<\/script>/
+const RX_NAME = /<!-- (.*)\.vue -->/
+const RX_NAME_DEFINITION = /<!-- .*\.vue -->/
+const RX_TEMPLATE = /<template>([\s\S]*)<\/template>/
+const RX_SCRIPT = /<script>([\s\S]*)<\/script>/
 
 const CLASS_NAMES = {
   editable: 'editable',
@@ -25,8 +25,8 @@ const match = (regex, text) => (regex.exec(text) || [])[1]
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
 const parseVueTemplate = text => {
-  let template = match(TEMPLATE_REGEX, text)
-  const script = match(SCRIPT_REGEX, text)
+  let template = match(RX_TEMPLATE, text)
+  const script = match(RX_SCRIPT, text)
   const options = {}
 
   // It is plain code
@@ -58,15 +58,16 @@ const createVM = (name, node, vnode) => {
 
     const { template, options } = vt
 
-    // Create a placeholder after node
+    // Create a placeholder after node container
+    const container = node.parentNode
     const holder = document.createElement('div')
-    node.parentNode.insertBefore(holder, node)
+    container.parentNode.insertBefore(holder, container)
 
     // Create VM
     return new Vue({
       ...options,
       el: holder,
-      template: `<div class="bd-example vue-example vue-example-${name} notranslate" translate="no">${template}</div>`,
+      template: `<div class="bd-example vue-example vue-example-${name}" translate="no">${template}</div>`,
       router: vnode.context.$router
     })
   } catch (e) {
@@ -96,12 +97,12 @@ const processExamples = (el, binding, vnode) => {
   }
 
   // Get all code-snippets
-  const pres = [...el.querySelectorAll('pre.hljs')]
+  const pres = [...el.querySelectorAll('.bd-code pre')]
 
   // Iterate over them and parse
   pres.forEach(pre => {
     // Store example name globally
-    const name = match(NAME_REGEX, pre.textContent)
+    const name = match(RX_NAME, pre.textContent)
 
     // Exit early when no name is given
     if (!name) {
@@ -109,7 +110,7 @@ const processExamples = (el, binding, vnode) => {
     }
 
     // Remove name definition
-    const text = pre.textContent.replace(NAME_DEFINITION_REGEX, '').trim()
+    const text = pre.textContent.replace(RX_NAME_DEFINITION, '').trim()
     pre.textContent = text
 
     // Highlight again
