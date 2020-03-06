@@ -291,7 +291,7 @@
   min-height: 130px;
 }
 
-@media @media (min-width: 992px) {
+@media (min-width: 992px) {
   .bv-ad-wrap {
     min-width: 330px;
   }
