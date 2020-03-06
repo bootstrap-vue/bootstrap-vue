@@ -23,8 +23,8 @@ export default {
     }
   },
   created() {
-    // Only needed so we can set/clear aria-hidden on the TOC nav wrapper
     this.$root.$on('docs-set-toc', toc => {
+      // Only needed so we can set/clear aria-hidden on the TOC nav wrapper
       this.hasToc = Boolean(toc && toc.toc)
 
       this.$nextTick(() => {
@@ -87,7 +87,10 @@ export default {
           ref: 'quick-links'
         }),
         h(Ad, {
-          directives: [{ name: 'show', value: this.contentElementsVisible }],
+          directives: [
+            { name: 'if', value: this.currentPath !== '/' },
+            { name: 'show', value: this.contentElementsVisible }
+          ],
           // We apply the route path as key to change the ad on every page
           key: this.currentPath,
           ref: 'ad'
