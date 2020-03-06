@@ -12,9 +12,7 @@
           </p>
         </b-col>
         <b-col lg="auto">
-          <div class="bv-ad-wrap">
-            <BVAd class="my-3 my-lg-1"></BVAd>
-          </div>
+          <BVAd class="my-3 my-lg-1"></BVAd>
         </b-col>
       </b-row>
     </div>
@@ -287,12 +285,12 @@
   transform: 0.3s;
 }
 
-.bv-ad-wrap {
+.bv-ad {
   min-height: 130px;
 }
 
 @media (min-width: 992px) {
-  .bv-ad-wrap {
+  .bv-ad {
     min-width: 330px;
   }
 }
