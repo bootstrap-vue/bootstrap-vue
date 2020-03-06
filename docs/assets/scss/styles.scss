@@ -198,6 +198,7 @@
   // Margin overides for the home page ad
   @at-root .bv-section & {
     margin-bottom: 3rem;
+    margin-top: 0;
 
     #carbonads {
       margin-left: auto;
@@ -206,7 +207,7 @@
 
     @media (min-width: 768px) {
       & {
-        margin-bottom: 0;
+        margin-bottom: -1.5rem;
         margin-top: 3rem;
       }
     }
