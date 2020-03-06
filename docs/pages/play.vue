@@ -3,7 +3,7 @@
     <!-- Introduction -->
     <div class="bd-content mb-4">
       <h1><span class="bd-content-title">{{ title }}</span></h1>
-      <b-row>
+      <b-row align-v="center">
         <b-col>
           <p class="bd-lead">
             Here you can interactively play and test components with a fresh Vue.js instance. Please
@@ -12,7 +12,7 @@
           </p>
         </b-col>
         <b-col lg="auto">
-          <BVAd class="my-3 my-lg-0"></BVAd>
+          <BVAd class="my-3 my-lg-1"></BVAd>
         </b-col>
       </b-row>
     </div>
