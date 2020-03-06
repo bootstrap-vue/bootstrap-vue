@@ -19,7 +19,7 @@ Released: 2020-03-05
 
 ### Other v2.6.1
 
-- documentation updates
+- documentation updates and fixes
 - dev dependency updates
 
 <a name="2.6.0"></a>
