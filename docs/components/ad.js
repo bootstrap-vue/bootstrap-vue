@@ -14,6 +14,11 @@ export default {
       default: null
     }
   },
+  created() {
+    this.$root.$on('docs-set-toc', () => {
+      this.setPosition()
+    })
+  },
   mounted() {
     this.$nextTick(() => {
       this.setPosition()
@@ -36,14 +41,16 @@ export default {
   },
   render(h) {
     return h('client-only', [
-      h('script', {
-        attrs: {
-          id: this.id,
-          async: 'async',
-          type: 'text/javascript',
-          src: this.url
-        }
-      })
+      h('div', { staticClass: 'bv-ad' }, [
+        h('script', {
+          attrs: {
+            id: this.id,
+            async: 'async',
+            type: 'text/javascript',
+            src: this.url
+          }
+        })
+      ])
     ])
   }
 }
