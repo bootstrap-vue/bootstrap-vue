@@ -13,7 +13,6 @@ export default {
       scrollTimeout: null
     }
   },
-
   computed: {
     content() {
       // NOTE: is this computed prop used anymore?
@@ -70,10 +69,8 @@ export default {
       return meta
     }
   },
-
   mounted() {
-    clearTimeout(this.scrollTimeout)
-    this.scrollTimeout = null
+    this.clearScrollTimeout()
     this.focusScroll()
     this.$nextTick(() => {
       // In a `setTimeout()` to allow page time to finish processing
@@ -85,18 +82,21 @@ export default {
       }, 1)
     })
   },
-
   updated() {
-    clearTimeout(this.scrollTimeout)
-    this.scrollTimeout = null
+    this.clearScrollTimeout()
     this.focusScroll()
   },
-
   beforeDestroy() {
+    this.clearScrollTimeout()
     this.$root.$emit('docs-set-toc', {})
   },
-
   methods: {
+    clearScrollTimeout() {
+      if (this.scrollTimeout) {
+        clearTimeout(this.scrollTimeout)
+        this.scrollTimeout = null
+      }
+    },
     focusScroll() {
       const hash = this.$route.hash
       this.$nextTick(() => {
@@ -122,14 +122,13 @@ export default {
         const scroller = document.scrollingElement || document.documentElement || document.body
         // Allow time for v-play to finish rendering
         this.scrollTimeout = setTimeout(() => {
-          // scroll heading into view (minus offset to account for nav top height
+          this.clearScrollTimeout()
+          // Scroll heading into view (minus offset to account for nav top height)
           scrollTo(scroller, offsetTop(el) - 70, 100)
-          this.scrollTimeout = null
         }, 100)
       }
     }
   },
-
   head() {
     return {
       title: this.headTitle,
