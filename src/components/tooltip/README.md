@@ -527,4 +527,14 @@ export default {
 Refer to the [Events](/docs/components/tooltip#component-reference) section of documentation for the
 full list of events.
 
+## Accessibility
+
+The trigger element, when the tooltip is showing, will have the attribute `aria-describedby` set
+with the auto generated ID of the tooltip.
+
+**Note:** The animation effect of this component is dependent on the `prefers-reduced-motion` media
+query. See the
+[reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
+additional details.
+
 <!-- Component reference added automatically from component package.json -->

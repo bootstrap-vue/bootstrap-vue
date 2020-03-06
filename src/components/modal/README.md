@@ -40,7 +40,7 @@ present, nor can you use the `modal-title` slot.
 Modals will not render their content in the document until they are shown (lazily rendered). Modals,
 when visible, are rendered **appended to the `<body>` element**. The placement of the `<b-modal>`
 component will not affect layout, as it always renders as a placeholder comment node (`<!---->`).
-You can revert to the behaviour of previous BootstrapVue versions via the use of the
+You can revert to the behaviour of older BootstrapVue versions via the use of the
 [`static` prop](#lazy-loading-and-static-modals).
 
 ## Toggle modal visibility
@@ -1021,6 +1021,11 @@ emitted.
 `<b-modal>` provides several accessibility features, including auto focus, return focus, keyboard
 (tab) _focus containment_, and automated `aria-*` attributes.
 
+**Note:** The animation effect of this component is dependent on the `prefers-reduced-motion` media
+query. See the
+[reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
+additional details.
+
 ### Modal ARIA attributes
 
 The `aria-labelledby` and `aria-describedby` attributes will appear on the modal automatically in
@@ -1035,11 +1040,11 @@ most cases.
 - If the `aria-label` prop is specified with a string value, the `aria-labelledby` attribute will
   not be rendered, even if you have a title/header for your modal.
 
-The `aria-label` and `title-sr-only` props were added in version 2.0.0-rc.27.
+The `aria-label` and `title-sr-only` props were added in version `v2.0.0-rc.27`.
 
 ### Auto focus on open
 
-`<b-modal>` will autofocus the modal container when opened.
+`<b-modal>` will autofocus the modal _container_ when opened.
 
 You can pre-focus an element within the `<b-modal>` by listening to the `<b-modal>` `shown` event,
 and call the element's `focus()` method. `<b-modal>` will not attempt to autofocus if an element
