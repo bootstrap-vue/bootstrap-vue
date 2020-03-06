@@ -284,6 +284,12 @@
 .flip-list-move {
   transform: 0.3s;
 }
+
+@media @media (min-width: 992px) {
+  .bv-ad {
+    min-width: 330px;
+  }
+}
 </style>
 
 <script>
