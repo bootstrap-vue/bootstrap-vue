@@ -50,7 +50,7 @@
 import { offsetTop, scrollTo } from '~/utils'
 
 export default {
-  name: 'BVDQuickToc',
+  name: 'BVQuickToc',
   data() {
     return {
       toc: {},

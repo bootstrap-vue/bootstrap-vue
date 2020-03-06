@@ -1,7 +1,7 @@
 import { mergeData } from 'vue-functional-data-merge'
 
 export default {
-  name: 'BVDMain',
+  name: 'BVMain',
   functional: true,
   props: {
     tag: {

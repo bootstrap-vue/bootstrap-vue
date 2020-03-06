@@ -147,7 +147,7 @@
                 </div>
               </template>
 
-              <code-mirror v-model="html" mode="htmlmixed"></code-mirror>
+              <BVCodeMirror v-model="html" mode="htmlmixed"></BVCodeMirror>
             </b-card>
           </b-col>
 
@@ -293,7 +293,7 @@ import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/d
 import needsTranspiler from '~/utils/needs-transpiler'
 import { version as bootstrapVueVersion, bootstrapVersion, vueVersion } from '~/content'
 import BVAd from '~/components/ad'
-import CodeMirror from '~/components/codemirror'
+import BVCodeMirror from '~/components/codemirror'
 
 // --- Constants ---
 
@@ -362,7 +362,7 @@ const indent = (value, count = 2, { indent } = { indent: ' ' }) => {
 export default {
   components: {
     BVAd,
-    'code-mirror': CodeMirror
+    BVCodeMirror
   },
   data() {
     return {

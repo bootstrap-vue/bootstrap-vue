@@ -9,7 +9,7 @@ import Sidebar from '~/components/sidebar.vue'
 import Toc from '~/components/toc.vue'
 
 export default {
-  name: 'BVDDocsLayout',
+  name: 'BVDocsLayout',
   data() {
     return {
       hasToc: false,
