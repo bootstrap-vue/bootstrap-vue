@@ -87,7 +87,7 @@ export default {
         this.currentPath === '/'
           ? h()
           : h(Ad, {
-              directives: [{ name: 'show', value: this.contentElementsVisible }],
+              class: { invisible: !this.contentElementsVisible },
               // We apply the route path as key to change the ad on every page
               key: this.currentPath,
               ref: 'ad'
