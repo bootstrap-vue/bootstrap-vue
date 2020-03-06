@@ -221,7 +221,7 @@ fit the width of the parent element. The `width` prop has no effect when `block`
 
 ```html
 <template>
-  <b-calendar block local="en-US"></b-calendar>
+  <b-calendar block locale="en-US"></b-calendar>
 </template>
 
 <!-- b-calendar-block.vue -->

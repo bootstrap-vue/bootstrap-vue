@@ -72,7 +72,7 @@
 import { version } from '~/content'
 
 export default {
-  name: 'BVDFooter',
+  name: 'BVFooter',
   props: {
     isDocs: {
       type: Boolean,
