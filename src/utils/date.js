@@ -119,5 +119,5 @@ export const constrainDate = (date, min = null, max = null) => {
   min = parseYMD(min) || date
   max = parseYMD(max) || date
   // Return a new `Date` object (or `null`)
-  return createDate(date < min ? min : date > max ? max : date)
+  return date ? (date < min ? min : date > max ? max : date) : null
 }
