@@ -21,6 +21,11 @@
             "description": "Returns a `Date` object for the v-model instead of a `YYYY-MM-DD` string"
           },
           {
+            "prop": "initialDate",
+            "version": "2.7.0",
+            "description": "When a `value` is not specified, sets the initial calendar month date that will be presented to the user. Accepts a value in `YYYY-MM-DD` format or a `Date` object. Defaults to the current date (or min or max if the current date is out of range)"
+          },
+          {
             "prop": "disabled",
             "description": "Places the calendar in a non-interactive disabled state"
           },
