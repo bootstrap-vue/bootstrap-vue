@@ -371,7 +371,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     },
     onTodayButton() {
       // Set to today (or min/max if today is out of range)
-      this.setAndClose(formatYMD(constrainDate(createDate()), this.min, this.max))
+      this.setAndClose(formatYMD(constrainDate(createDate(), this.min, this.max)))
     },
     onResetButton() {
       this.setAndClose(this.computedResetValue)
