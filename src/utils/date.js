@@ -116,8 +116,8 @@ export const oneYearAhead = date => {
 export const constrainDate = (date, min = null, max = null) => {
   // Ensure values are date objects (or `null`)
   date = parseYMD(date)
-  min = parseYMD(min)
-  max = parseYMD(max)
-
-  return date ? (min && date < min ? min : max && date > max ? max : date) : null
+  min = parseYMD(min) || date
+  max = parseYMD(max) || date
+  // Return a new `Date` object (or `null`)
+  return createDate(date < min ? min : date > max ? max : date)
 }
