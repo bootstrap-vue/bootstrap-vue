@@ -50,6 +50,22 @@ TBD
 
 TBD
 
+#### Spinner Type
+
+TBD
+
+#### Spinner variant
+
+TBD
+
+#### Spinner size
+
+TBD
+
+### Overlay corner rounding
+
+TBD
+
 ### Custom overlay content
 
 TBD
