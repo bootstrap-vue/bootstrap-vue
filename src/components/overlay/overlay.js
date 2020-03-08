@@ -69,13 +69,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
   computed: {
     computedRounded() {
       const rounded = this.rounded
-      return (
-        rounded === true || rounded === ''
-          ? 'rounded'
-          : !rounded
-            ? ''
-            : `rounded-${rounded}`
-      )
+      return rounded === true || rounded === '' ? 'rounded' : !rounded ? '' : `rounded-${rounded}`
     },
     computedVariant() {
       return this.variant && !this.bgColor ? `bg-${this.variant}` : ''
@@ -104,7 +98,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
     if (this.show) {
       const scope = this.overlayScope
       // Overlay backdrop
-      const $background = h( 'div', {
+      const $background = h('div', {
         staticClass: 'position-absolute',
         class: [this.computedVariant, this.computedRounded],
         style: {
