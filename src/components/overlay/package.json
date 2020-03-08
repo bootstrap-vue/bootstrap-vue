@@ -13,6 +13,54 @@
           {
             "prop": "show",
             "description": "When set, shows the overlay"
+          },
+          {
+            "prop": "variant",
+            "description": "backgrund variant to use for the overlay backdrop"
+          },
+          {
+            "prop": "bgColor",
+            "description": "CSS color to use as the opaque overlay backdrop color. If set, overrides the `variant` prop"
+          },
+          {
+            "prop": "opacity",
+            "description": "Opacity of the overlay backdrop. Valid range is 0 to 1"
+          },
+          {
+            "prop": "rounded",
+            "description": "Apply rounding to the overlay to match your content routing. Valid values are `true`, `'sm'`, `lg`, `circle`, `pill`, `top`, `right`, `bottom`, or `left`"
+          },
+          {
+            "prop": "noCenter",
+            "description": " When set, disabled centering of the overlay content (default content is a border spinner)"
+          },
+          {
+            "prop": "overlayTag",
+            "description": "Element tag to use as for the overlay element"
+          },
+          {
+            "prop": "noWrap",
+            "description": "Disabled generating hte wrapper element, and ignored the default slot. Requires that `<b-overlay>` be placed in an element with position relative set"
+          },
+          {
+            "prop": "wrapTag",
+            "description": "Element tag to use for the overall wrapper element. Has no effect if prop `no-wrap` is set"
+          },
+          {
+            "prop": "zIndex",
+            "description": "zindex value to use for the overlay. You may need to increase this value to suit your content"
+          },
+          {
+            "prop": "spinnerType",
+            "description": "Type of the default spinner to show. Current supported types are 'border' and 'grow'"
+          },
+          {
+            "prop": "spinnerVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the default spinner"
+          },
+          {
+            "prop": "spinnerSmall",
+            "description": "When set, renderes the default spinner in a smaller size"
           }
         ],
         "slots": [
