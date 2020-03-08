@@ -12,8 +12,13 @@ or can be placed as a descendant of a `position: relative` element
 
 The overlay visibility is controlled vis the `show` prop. By default the overlay is not shown.
 
-Note that this component only _visually obscures_ it's content (or the page). Refer to the
-[Accessibilty section](#accessibility) below for additional accessibility details and concerns.
+<div class="alert alert-info">
+  <p class="mb-0">
+    Note that this component only <em>visually obscures</em> its content (or the page). Refer to the
+    <a href="#accessibility" class="alert-link">Accessibilty section</a> below for additional
+    accessibility details and concerns.
+  </p>
+</div>
 
 **Default wrapping mode example:**
 
@@ -190,6 +195,29 @@ Possible values are:
 - `'bottom'` for rounding only the bottom two corners
 - `'left'` for rounding only the two left corners
 - `'right'` for rounding only the two right corners
+
+```html
+<template>
+  <div>
+    <b-row>
+      <b-col md="6">
+        <p>With rouding</p>
+        <b-overlay show class="d-inline-block" rounded="circle">
+          <b-img thumbnail rounded="circle" fluid src="https://picsum.photos/170/170/?image=54" alt="Image 1"></b-img>
+        </b-overlay>
+      </b-col>
+      <b-col md="6">
+        <p>Without rouding</p>
+        <b-overlay show class="d-inline-block">
+          <b-img thumbnail rounded="circle" fluid src="https://picsum.photos/170/170/?image=54" alt="Image 1"></b-img>
+        </b-overlay>
+      </b-col>
+    </b-row>
+  </div>
+</template>
+
+<!-- b-overlay-rounded.vue -->
+```
 
 ### Custom overlay content
 
