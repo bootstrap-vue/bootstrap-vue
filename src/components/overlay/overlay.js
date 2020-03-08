@@ -101,7 +101,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
   render(h) {
     let $overlay = h()
     if (this.show) {
-      const scope = this.overrlayScope
+      const scope = this.overlayScope
       const $background = h(
         'div',
         {
