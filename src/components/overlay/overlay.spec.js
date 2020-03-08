@@ -106,12 +106,12 @@ describe('overlay', () => {
     const $children = wrapper.findAll('div:not(.b-overlay)')
     expect($children.length).toBe(2)
 
-    execpt($children.at(0).classes()).toContain('position-absolute')
-    execpt($children.at(0).classes()).toContain('bg-light')
-    execpt($children.at(0).text()).toBe('')
+    expect($children.at(0).classes()).toContain('position-absolute')
+    expect($children.at(0).classes()).toContain('bg-light')
+    expect($children.at(0).text()).toBe('')
 
-    execpt($children.at(1).classes()).toContain('position-absolute')
-    execpt($children.at(1).classes()).not.toContain('bg-light')
+    expect($children.at(1).classes()).toContain('position-absolute')
+    expect($children.at(1).classes()).not.toContain('bg-light')
     expect(
       $children
         .at(1)
