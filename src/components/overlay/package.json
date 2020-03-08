@@ -28,7 +28,7 @@
           },
           {
             "prop": "blur",
-            "description": "Value for the CSS blur background-filter. Be sure to include the CSS units. Not supported in IE 11"
+            "description": "Value for the CSS blur backdrop-filter. Be sure to include the CSS units. Not supported in IE 11. Set to null or an empty string to disable bluring"
           },
           {
             "prop": "rounded",
