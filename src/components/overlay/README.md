@@ -9,8 +9,8 @@ or can be placed as a descendant of a `position: relative` element (non-wrapping
 
 The overlay visibility is controlled vis the `show` prop. By default the overlay is not shown.
 
-Note that this component only _visually onbcures_ it's content (or the page). Refer to the
-[Accessibilty section](#accessibility) below for additional details and concerns.
+Note that this component only _visually obscures_ it's content (or the page). Refer to the
+[Accessibilty section](#accessibility) below for additional accessibility details and concerns.
 
 **Default wrapping mode example:**
 
