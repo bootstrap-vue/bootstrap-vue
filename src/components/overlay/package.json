@@ -43,6 +43,10 @@
             "description": "Disabled generating the wrapper element, and ignored the default slot. Requires that `<b-overlay>` be placed in an element with position relative set"
           },
           {
+            "prop": "fixed",
+            "description": "When prop `no-wrap` is set, will use fixed positioning instead of absolute positioning. Handy if you want to obsucre the entire application"
+          },
+          {
             "prop": "wrapTag",
             "description": "Element tag to use for the overall wrapper element. Has no effect if prop `no-wrap` is set"
           },
