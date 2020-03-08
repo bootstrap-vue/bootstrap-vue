@@ -86,7 +86,7 @@ TBD
       </b-card>
       <template v-slot:overlay="scope">
         <div class="text-center">
-          <p class="text-center">
+          <p>
             <b-spinner type="grow" :small="scope.spinnerSmall" :varaint="scope.spinnerVariant"></b-spinner>
             Please wait...
             <b-spinner type="grow" :small="scope.spinnerSmall" :varaint="scope.spinnerVariant"></b-spinner>
