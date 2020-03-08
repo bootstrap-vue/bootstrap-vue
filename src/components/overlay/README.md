@@ -59,32 +59,38 @@ And background bluring can be controled via the `blur` prop.
 ```html
 <template>
   <div>
-    <b-form-group label="Variant" label-for="bg-variant">
-      <b-form-select id="bg-variant" v-model="variant" :options="variants"></b-form-select>
-    </b-form-group>
-    <b-form-group label="Opacity" label-for="bg-opacity" :description="opacityString">
-      <b-form-input id="bg-opacity" v-model="opacity" type="range" min="0" max="1" step="0.05"></b-form-input>
-    </b-form-group>
-    <b-form-group label="Blur" label-for="bg-blur">
-      <b-form-select id="bg-blur" v-model="blur" :options="blurs"></b-form-select>
-    </b-form-group>
-    <b-overlay
-      show
-      :variant="variant"
-      :opacity="opacity"
-      :blur="blur"
-      rounded="sm"
-      style="max-width: 320px;"
-    >
-      <b-card title="Card with overlay">
-        <b-card-text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </b-card-text>
-        <b-button disabled variant="primary">Button</b-button>
-      </b-card>
-    </b-overlay>
+    <b-row>
+      <b-col lg="6">
+        <b-form-group label="Variant" label-for="bg-variant">
+          <b-form-select id="bg-variant" v-model="variant" :options="variants"></b-form-select>
+        </b-form-group>
+        <b-form-group label="Opacity" label-for="bg-opacity" :description="opacityString">
+          <b-form-input id="bg-opacity" v-model="opacity" type="range" min="0" max="1" step="0.05"></b-form-input>
+        </b-form-group>
+        <b-form-group label="Blur" label-for="bg-blur">
+          <b-form-select id="bg-blur" v-model="blur" :options="blurs"></b-form-select>
+        </b-form-group>
+      </b-col>
+      <b-col lg="6">
+        <b-overlay
+          show
+          :variant="variant"
+          :opacity="opacity"
+          :blur="blur"
+          rounded="sm"
+          style="max-width: 320px;"
+        >
+          <b-card title="Card with overlay">
+            <b-card-text>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </b-card-text>
+            <b-button disabled variant="primary">Button</b-button>
+          </b-card>
+        </b-overlay>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
