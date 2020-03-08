@@ -70,7 +70,14 @@ And background bluring can be controled via the `blur` prop.
           <b-form-select id="bg-variant" v-model="variant" :options="variants"></b-form-select>
         </b-form-group>
         <b-form-group label="Opacity" label-for="bg-opacity" :description="opacityString">
-          <b-form-input id="bg-opacity" v-model="opacity" type="range" min="0" max="1" step="0.05"></b-form-input>
+          <b-form-input
+            id="bg-opacity"
+            v-model="opacity"
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+          ></b-form-input>
         </b-form-group>
         <b-form-group label="Blur" label-for="bg-blur">
           <b-form-select id="bg-blur" v-model="blur" :options="blurs"></b-form-select>
@@ -104,7 +111,7 @@ And background bluring can be controled via the `blur` prop.
     data() {
       return {
         variant: 'light',
-        opacity: 0.75,
+        opacity: 0.85,
         blur: '2px',
         variants: [
           'light',
@@ -237,11 +244,8 @@ Place custom content in the overlay (replacing the default spinner) via the opti
       </b-card>
       <template v-slot:overlay>
         <div class="text-center">
-          <p>
-            <b-spinner type="grow" small variant="primary"></b-spinner>
-            <span id="cancel-label">Please wait...</span>
-            <b-spinner type="grow" small variant="primary"></b-spinner>
-          </p>
+          <b-icon icon="stopwatch" font-scale="3"></b-icon>
+          <p id="cancel-label">Please wait...</p>
           <b-button
             ref="cancel"
             variant="outline-danger"
@@ -291,14 +295,14 @@ The following scope properties are available to the `overlay` slot:
 ### Overlay content centering
 
 By default the overlay content will be horizontally and vertically centered within the overlay
-regions. To disabled centering, set the `no-center` prop to `true`.
+region. To disabled centering, set the `no-center` prop to `true`.
 
 ### Non-wrapping mode
 
-By default, `<b-overlay>` wraps the content of the default slot. In some cases you may want to wrap
-a parent container. Use the `no-wrap` prop to disable rendering of the wrapping (and ignore the
-default slot). Note that this requires that the ancestor element to be obscured have relative
-positioning (eiteher via the utility class `'position-relative'`, or CSS style
+By default, `<b-overlay>` wraps the content of the default slot. In some cases you may want to
+obscure a parent container. Use the `no-wrap` prop to disable rendering of the wrapping (and ignore
+the default slot). Note that this requires that the ancestor element that is to be obscured to have
+relative positioning (eiteher via the utility class `'position-relative'`, or CSS style
 `'position: relative;'`).
 
 ```html
@@ -339,7 +343,7 @@ positioning (eiteher via the utility class `'position-relative'`, or CSS style
 ```
 
 Note that some of Bootstrap v4's component styles have relative positioning defined (e.g. cards,
-cols, etc.).
+cols, etc.). You may need to adjust the placement of `<b-overlay>` is your markup.
 
 When in `no-wrap` mode, `<b-overlay>` will not set the `aria-busy` attribute on the obscured element.
 You may also want to use an `aria-live` region in your app that announces to screen reader users
