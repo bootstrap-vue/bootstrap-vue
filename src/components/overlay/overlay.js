@@ -113,7 +113,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
           ...positionCover,
           opacity: this.opacity,
           backgroundColor: this.bgColor || null,
-          backdropFilter: this.blur ? `blur${this.blur}` : null
+          backdropFilter: this.blur ? `blur(${this.blur})` : null
         }
       })
       // Overlay content
