@@ -40,7 +40,7 @@
           },
           {
             "prop": "noWrap",
-            "description": "Disabled generating hte wrapper element, and ignored the default slot. Requires that `<b-overlay>` be placed in an element with position relative set"
+            "description": "Disabled generating the wrapper element, and ignored the default slot. Requires that `<b-overlay>` be placed in an element with position relative set"
           },
           {
             "prop": "wrapTag",
