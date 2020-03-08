@@ -24,7 +24,7 @@ Note that this component only _visually obscures_ it's content (or the page). Re
       <b-card title="Card with overlay">
         <b-card-text>Laborum consequat non elit enim exercitation cillum.</b-card-text>
         <b-card-text>Click the button to toggle the overlay:</b-card-text>
-        <b-button :disabled="show" variant="primary"@click="show = true">
+        <b-button :disabled="show" variant="primary" @click="show = true">
           Show overlay
         </b-button>
       </b-card>
@@ -54,6 +54,7 @@ You can control the backdrop background color via the `variant` prop. The varian
 one of Boottrap's
 [background variant utility classes](/docs/reference/color-variants#background-and-border-variants).
 Control the opacity of the backdrop via the `opacity` prop (opacity values can range from `0` to `1`).
+And background bluring can be controled via the `blur` prop.
 
 ```html
 <template>
@@ -64,13 +65,24 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
     <b-form-group label="Opacity" label-for="bg-opacity" :description="opacityString">
       <b-form-input id="bg-opacity" v-model="opacity" type="range" min="0" max="1" step="0.05"></b-form-input>
     </b-form-group>
-    <b-overlay show rounded="sm" style="max-width: 320px;">
+    <b-form-group label="Blur" label-for="bg-blur">
+      <b-form-select id="bg-blur" v-model="blur" :options="blurs"></b-form-select>
+    </b-form-group>
+    <b-overlay
+      show
+      :variant="variant"
+      :opacity="opacity"
+      :blur="blur"
+      rounded="sm"
+      style="max-width: 320px;"
+    >
       <b-card title="Card with overlay">
         <b-card-text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
           incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
           exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </b-card-text>
+        <b-button disabled variant="primary>Button</b-button>
       </b-card>
     </b-overlay>
   </div>
@@ -82,6 +94,7 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
       return {
         variant: 'light',
         opacity: 0.75,
+        blur: '2px',
         variants: [
           'light',
           'dark',
@@ -91,6 +104,13 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
           'danger',
           'warning',
           'info'
+        ],
+        blurs: [
+          { text: 'None', value: '' },
+          '1px',
+          '2px',
+          '5px',
+          '1rem'
         ]
       }
     },
@@ -135,6 +155,7 @@ control the appearance of the spinner via the following props:
           incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
           exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </b-card-text>
+        <b-button disabled variant="primary>Button</b-button>
       </b-card>
     </b-overlay>
   </div>
