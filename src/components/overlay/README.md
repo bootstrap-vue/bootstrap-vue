@@ -4,6 +4,13 @@
 > component and its content. It signals to the user of a state change within the element or
 > component and can be used for creating loaders, warings/alerts and more.
 
+`<b-overlay>` can be used to overlay (wrap) an element or component (the default behaviour),
+or can be placed as a descendant of a `position: relative` element (non-wrapping mode).
+
+The overlay visibility is controlled vis the `show` prop. By default the overlay is not shown.
+
+**Default wrapping mode example:**
+
 ```html
 <template>
   <div>
@@ -39,8 +46,28 @@ TBD
 
 ## Options
 
-TBD
-
-## Usage examples
+### Default spinner styling
 
 TBD
+
+### Custom overlay content
+
+TBD
+
+### Non-wrapping mode
+
+TBD
+
+## Use case examples
+
+TBD
+
+## Accessibility
+
+When using the wraping mode (prop `no-wrap` is not set), teh wrapper will have the attribute
+`aria-bus="true"` set, to allow screen reader users to know the element is n a busy or loading
+state. When prop `no-wrap` is set, then the attribute will not be applied.
+
+Note that the overlay is visual only. You **must** disable any interactive elements (buttons,
+links, etc.) when the overlay is showing, otherwise the obscured elements will still be reachable
+via keyboard navigation (i.e. still in the document tab sequence).
