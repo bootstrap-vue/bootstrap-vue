@@ -32,7 +32,7 @@
           },
           {
             "prop": "noCenter",
-            "description": " When set, disabled centering of the overlay content (default content is a border spinner)"
+            "description": " When set, disables centering of the overlay content (default content is a border spinner)"
           },
           {
             "prop": "overlayTag",
