@@ -73,15 +73,51 @@ TBD
 
 TBD
 
-#### Absolute vs fixed positioning
+```html
+<template>
+  <div>
+    <b-overlay :show="show" rounded="sm" spinner-variant="primary" spinner-small>
+      <b-card title="Card with overlay">
+        <b-card-text>Laborum consequat non elit enim exercitation cillum.</b-card-text>
+        <b-card-text>Click the button to toggle the overlay:</b-card-text>
+        <b-button :disabled="show" variant="primary"@click="show = true">
+          Show overlay
+        </b-button>
+      </b-card>
+      <template v-slot:overlay="scope">
+        <p>
+          <b-spinner type="grow" :size="scope.spinnerVariant" :varaint="scope.spinnerVariant"></b-spinner>
+          Please wait...
+          <b-spinner type="grow" :size="scope.spinnerVariant" :varaint="scope.spinnerVariant"></b-spinner>
+        </p>
+        <b-button variant="outline-danger" size="sm" @click="show = false">Cencel</b-button>
+      </template>
+    </b-overlay>
+  </div>
+</template>
 
-TBD
+<script>
+  export default {
+    data() {
+      return {
+        show: false
+      }
+    }
+  }
+</script>
 
-Refer to the [Accessibilty section](#accessibility) below for additional details and concerns.
+<!-- b-overlay-overlay-slot.vue -->
+```
 
 ### Non-wrapping mode
 
 TBD
+
+#### Absolute vs fixed positioning for `no-wrap`
+
+TBD
+
+Refer to the [Accessibilty section](#accessibility) below for additional details and concerns.
 
 ## Use case examples
 
