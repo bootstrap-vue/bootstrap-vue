@@ -66,7 +66,7 @@
         "slots": [
           {
             "name": "overlay",
-            "description": "",
+            "description": "Custom content to repalce the default overlay spinner",
             "scope": [
               {
                 "prop": "spinnerType",
@@ -87,7 +87,7 @@
           },
           {
             "name": "default",
-            "description": ""
+            "description": "The content to have overlay. The default slot is ignored if the prop `no-wrap` is set"
           }
         ]
       }
