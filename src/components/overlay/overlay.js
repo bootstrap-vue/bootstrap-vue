@@ -102,6 +102,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
     let $overlay = h()
     if (this.show) {
       const scope = this.overlayScope
+      // Overlay backdrop
       const $background = h(
         'div',
         {
@@ -113,7 +114,8 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
             backgroundColor: this.bgColor || null
           }
         }
-      ),
+      )
+      // Overlay content
       const $content = h(
         'div',
         {
@@ -124,6 +126,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
         },
         [this.normalizeSlot('overlay', scope) || this.defaultOverlayFn(scope)]
       )
+      // Overlay positioning
       $overlay = h(
         this.overlayTag,
         {
