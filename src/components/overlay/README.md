@@ -11,7 +11,7 @@
       <b-card title="Card with overlay">
         <b-card-text>Laborum consequat non elit enim exercitation cillum.</b-card-text>
         <b-card-text>Click the button to toggle the overlay:</b-card-text>
-        <b-button :disabed="show" variant="primary"@click="show = true">
+        <b-button :disabled="show" variant="primary"@click="show = true">
           Show overlay
         </b-button>
       </b-card>
