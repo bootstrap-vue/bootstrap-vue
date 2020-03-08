@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { BSpinner } from '../spinner/spinner'
 
 const positionCover = { top: 0, left: 0, bottom: 0, right: 0 }
 
@@ -44,7 +45,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
     },
     spinnerSmall: {
       type: Boolean,
-      default: False
+      default: false
     },
     overlayTag: {
       type: String,
@@ -103,18 +104,15 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
     if (this.show) {
       const scope = this.overlayScope
       // Overlay backdrop
-      const $background = h(
-        'div',
-        {
-          staticClass: 'position-absolute',
-          class: [this.computedVariant, this.computedRounded],
-          style: {
-            ...positionCover,
-            opacity: this.opacity,
-            backgroundColor: this.bgColor || null
-          }
+      const $background = h( 'div', {
+        staticClass: 'position-absolute',
+        class: [this.computedVariant, this.computedRounded],
+        style: {
+          ...positionCover,
+          opacity: this.opacity,
+          backgroundColor: this.bgColor || null
         }
-      )
+      })
       // Overlay content
       const $content = h(
         'div',
