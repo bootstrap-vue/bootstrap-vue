@@ -110,7 +110,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
           style: {
             ...positionCover,
             opacity: this.opacity,
-            background-color: this.bgColor || null
+            backgroundColor: this.bgColor || null
           }
         }
       ),
