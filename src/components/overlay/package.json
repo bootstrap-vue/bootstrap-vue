@@ -1,0 +1,44 @@
+{
+  "name": "@bootstrap-vue/overlay",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Overlay",
+    "description": "The b-overlay component is used to visually obscure a particular element or component and its content. It signals to the user of a state change within the element or component and can be used for creating loaders, warings/alerts and more.",
+    "components": [
+      {
+        "component": "BOverlay",
+        "version": "2.7.0",
+        "props": [
+          {
+            "prop": "show",
+            "description": "When set, shows the overlay"
+          }
+        ],
+        "slots": [
+          {
+            "name": "overlay",
+            "description": "",
+            "scope": [
+              {
+                "prop": "spinnerType",
+                "description": ""
+              },
+              {
+                "prop": "spinnerVariant",
+                "description": ""
+              },
+              {
+                "prop": "spinnerSmall",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "default",
+            "description": ""
+          }
+        ]
+      }
+    ]
+  }
+}
