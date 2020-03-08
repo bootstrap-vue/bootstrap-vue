@@ -131,14 +131,14 @@ TBD
 
 ## Accessibility
 
-When using the wraping mode (prop `no-wrap` is not set), teh wrapper will have the attribute
-`aria-bus="true"` set, to allow screen reader users to know the element is n a busy or loading
+When using the wraping mode (prop `no-wrap` is not set), the wrapper will have the attribute
+`aria-bus="true"` set, to allow screen reader users to know the element is in a busy or loading
 state. When prop `no-wrap` is set, then the attribute will not be applied.
 
 Note that the overlay is visual only. You **must** disable any interactive elements (buttons, links,
 etc.) when the overlay is showing, otherwise the obscured elements will still be reachable via
 keyboard navigation (i.e. still in the document tab sequence).
 
-When using the `no-wrap` prop, and potentically the `fixed` prop, to obscure the entire application or
+When using the `no-wrap` prop, and potentially the `fixed` prop, to obscure the entire application or
 page, you must ensure that internative page elements (other than the content of the overlay) have been
-disabled and aren ot in the document tab sequence.
+disabled and are not in the document tab sequence.
