@@ -82,7 +82,7 @@ And background bluring can be controled via the `blur` prop.
           incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
           exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </b-card-text>
-        <b-button disabled variant="primary>Button</b-button>
+        <b-button disabled variant="primary">Button</b-button>
       </b-card>
     </b-overlay>
   </div>
@@ -155,7 +155,7 @@ control the appearance of the spinner via the following props:
           incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
           exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </b-card-text>
-        <b-button disabled variant="primary>Button</b-button>
+        <b-button disabled variant="primary">Button</b-button>
       </b-card>
     </b-overlay>
   </div>
@@ -190,7 +190,7 @@ TBD
             Please wait...
             <b-spinner type="grow" :small="scope.spinnerSmall" :varaint="scope.spinnerVariant"></b-spinner>
           </p>
-          <b-button variant="outline-danger" size="sm" @click="show = false">Cencel</b-button>
+          <b-button ref="cancel" variant="outline-danger" size="sm" @click="show = false">Cencel</b-button>
         </div>
       </template>
     </b-overlay>
@@ -202,6 +202,16 @@ TBD
     data() {
       return {
         show: false
+      }
+    },
+    watch: {
+      show(newVal) {
+        if (newVal) {
+          // Focus the cancel button when the overlay is showing
+          this.$nextTick(() => {
+            this.$refs.cancel.focus()
+          })
+        }
       }
     }
   }
