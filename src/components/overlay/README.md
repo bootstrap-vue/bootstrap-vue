@@ -61,8 +61,8 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
     <b-form-group label="Variant" label-for="bg-variant">
       <b-form-select id="bg-variant" v-model="variant" :options="variants"></b-form-select>
     </b-form-group>
-    <b-form-group label="Opacity" label-for="bg-opacity">
-      <b-form-input id="bg-opacity" v-model="opacity" type="range" min="0" max="1" step="0.05"></b-form-select>
+    <b-form-group label="Opacity" label-for="bg-opacity" :description="opacityString">
+      <b-form-input id="bg-opacity" v-model="opacity" type="range" min="0" max="1" step="0.05"></b-form-input>
     </b-form-group>
     <b-overlay show rounded="sm" style="max-width: 320px;">
       <b-card title="Card with overlay">
@@ -92,6 +92,11 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
           'warning',
           'info'
         ]
+      }
+    },
+    computed: {
+      opacityString() {
+        return `Opacity value: ${this.opacity}`
       }
     }
   }
