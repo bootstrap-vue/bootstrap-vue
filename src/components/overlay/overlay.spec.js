@@ -79,8 +79,7 @@ describe('overlay', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(false)
-    expect(wrapper.find('.spinner-border').exists()).toBe(false)
+    expect(wrapper.is('div')).toBe(undefined)
 
     wrapper.destroy()
   })
@@ -99,7 +98,7 @@ describe('overlay', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('b-overlay')
-    expect(wrapper.classes()).toContain('position-absoute')
+    expect(wrapper.classes()).toContain('position-absolute')
     expect(wrapper.classes()).not.toContain('b-overlay-wrap')
     expect(wrapper.classes()).not.toContain('position-relative')
 
