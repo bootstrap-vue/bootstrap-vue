@@ -61,6 +61,10 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    fixed: {
+      type: Boolean,
+      default: false
+    },
     zIndex: {
       type: [Number, String],
       default: 10
@@ -123,7 +127,11 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
         this.overlayTag,
         {
           key: 'overlay',
-          staticClass: 'b-overlay position-absolute',
+          staticClass: 'b-overlay',
+          class: {
+            'position-absolute': !this.noWrap || (this.noWrap && !this.fixed),
+            'position-fixed': this.noWrap && this.fixed
+          },
           style: { ...positionCover }
         },
         [$background, $content]
