@@ -128,6 +128,8 @@ And background bluring can be controled via the `blur` prop.
 As an alternative to the `variant` prop, you can specify a CSS color string value via the `bg-color`
 prop.  When a value is provided for `bg-color`, the `variant` prop value is ignored.
 
+Note that background bluring is not available on some browsers (e.g. IE 11).
+
 ### Default spinner styling
 
 The default overlay content is a [`<b-spinner>`](/docs/components/spinner) of type `'border'`. You can
@@ -166,31 +168,55 @@ control the appearance of the spinner via the following props:
 
 ### Overlay corner rounding
 
-TBD
+By default, the overlay backdrop has square corners. If the content you are wrapping has rounded
+corners, you can use the `rounded` prop to apply rounding to the overlay's corners to match the
+obscured content's rounded corners.
+
+Possible values are:
+
+- `true` (or the empty string `''`) to apply default (medium) rouding
+- `false` (the default) applies no rounding to the backdrop overlay
+- `'sm'` for small rounded corners
+- `'lg'` for large rounded corners
+- `'pill'` for pill style rounded corners
+- `'circle'` for cicular (or oval) rounding
+- `'top'` for rounding only the top two corners
+- `'bottom'` for rounding only the bottom two corners
+- `'left'` for rounding only the two left corners
+- `'right'` for rounding only the two right corners
 
 ### Custom overlay content
 
-TBD
+Place custom content in the overlay (replacing the default spinner) via the optionally scoped slot
+`overlay`.
 
 ```html
 <template>
   <div>
-    <b-overlay :show="show" rounded="sm" spinner-variant="primary" spinner-small>
-      <b-card title="Card with overlay">
-        <b-card-text>Laborum consequat non elit enim exercitation cillum.</b-card-text>
+    <b-overlay :show="show" rounded="sm">
+      <b-card title="Card with custom overlay content">
+        <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
         <b-card-text>Click the button to toggle the overlay:</b-card-text>
         <b-button :disabled="show" variant="primary"@click="show = true">
           Show overlay
         </b-button>
       </b-card>
-      <template v-slot:overlay="scope">
+      <template v-slot:overlay>
         <div class="text-center">
           <p>
-            <b-spinner type="grow" :small="scope.spinnerSmall" :varaint="scope.spinnerVariant"></b-spinner>
-            Please wait...
-            <b-spinner type="grow" :small="scope.spinnerSmall" :varaint="scope.spinnerVariant"></b-spinner>
+            <b-spinner type="grow" small variant="primary"></b-spinner>
+            <span id="cancel-label">Please wait...</span>
+            <b-spinner type="grow" small variant="primary"></b-spinner>
           </p>
-          <b-button ref="cancel" variant="outline-danger" size="sm" @click="show = false">Cencel</b-button>
+          <b-button
+            ref="cancel"
+            variant="outline-danger"
+            size="sm"
+            aria-describedby="cancel-label"
+            @click="show = false"
+          >
+            Cancel
+          </b-button>
         </div>
       </template>
     </b-overlay>
@@ -220,6 +246,14 @@ TBD
 <!-- b-overlay-overlay-slot.vue -->
 ```
 
+The following scope properties are available to the `overlay` slot:
+
+| Property         | Description                         |
+| ---------------- | ----------------------------------- |
+| `spinnerVariant` | Value of the `spinner-variant` prop |
+| `spinnerType`    | Value of the `spinner-type` prop    |
+| `spinnerSmall`   | Value of the `spinner-small` prop   |
+
 ### Overlay content centering
 
 By default the overlay content will be horizontally and vertically centered within the overlay
@@ -227,17 +261,73 @@ regions. To disabled centering, set the `no-center` prop to `true`.
 
 ### Non-wrapping mode
 
-TBD
+By default, `<b-overlay>` wraps the content of the default slot. In some cases you may want to wrap
+a parent container. Use the `no-wrap` prop to disable rendering of the wrapping (and ignore the
+default slot). Note that this requires that the ancestor element to be obscured have relative
+positioning (eiteher via the utility class `'position-relative'`, or CSS style
+`'position: relative;'`).
+
+```html
+<template>
+  <div>
+    <div class="position-relative p-4 bg-info">
+      <p class="text-light font-weight-bold">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      <p>
+      <b-card title="Card with parent overlay">
+        <b-card-text>Laborum consequat non elit enim exercitation cillum.</b-card-text>
+        <b-card-text>Click the button to toggle the overlay:</b-card-text>
+        <b-button :disabled="show" variant="primary" @click="show = true">
+          Show overlay
+        </b-button>
+      </b-card>
+      <p class="text-light font-weight-bold mb-0">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </p>
+      <b-overlay :show="show" no-wrap>
+      </b-overlay>
+    </div>
+    <b-button class="mt-3" @click="show = !show">Toggle ovelay</b-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        show: false
+      }
+    }
+  }
+</script>
+
+<!-- b-overlay.vue -->
+```
+
+Note that some of Bootstrap v4's component styles have relative positioning defined (e.g. cards,
+cols, etc.).
+
+When in `no-wrap` mode, `<b-overlay>` will not set the `aria-busy` attribute on the obscured element.
+You may also want to use an `aria-live` region in your app that announces to screen reader users
+that the page is busy.
 
 Refer to the [Accessibilty section](#accessibility) below for additional details and concerns.
 
 #### Absolute vs fixed positioning for `no-wrap`
 
-TBD
+In cases where you want to obscure the entire app or page, when using the `no-wrap` prop, you can switch
+to viewport fixed positioning via setting the prop `fixed` on `<b-overlay>`. Note that this does not
+disable scrolling of the page, and note that any interactive elements on the page will still be in
+the document tab sequence.
+
+You may also need to adjust the z-index of the overlay to ensure that the backdrop appears above all
+other page elements. Use the `z-index` property to override the default z-index value.
+
+Refer to the [Accessibilty section](#accessibility) below for additional details and concerns.
 
 ## Accessibility
 
-When using the wraping mode (prop `no-wrap` is not set), the wrapper will have the attribute
+When using the wrapping mode (prop `no-wrap` is not set), the wrapper will have the attribute
 `aria-bus="true"` set, to allow screen reader users to know the element is in a busy or loading
 state. When prop `no-wrap` is set, then the attribute will not be applied.
 
