@@ -9,6 +9,9 @@ or can be placed as a descendant of a `position: relative` element (non-wrapping
 
 The overlay visibility is controlled vis the `show` prop. By default the overlay is not shown.
 
+Note that this component only _visually onbcures_ it's content (or the page). Refer to the
+[Accessibilty section](#accessibility) below for additional details and concerns.
+
 **Default wrapping mode example:**
 
 ```html
@@ -70,6 +73,12 @@ TBD
 
 TBD
 
+#### Absolute vs fixed positioning
+
+TBD
+
+Refer to the [Accessibilty section](#accessibility) below for additional details and concerns.
+
 ### Non-wrapping mode
 
 TBD
@@ -87,3 +96,7 @@ state. When prop `no-wrap` is set, then the attribute will not be applied.
 Note that the overlay is visual only. You **must** disable any interactive elements (buttons,
 links, etc.) when the overlay is showing, otherwise the obscured elements will still be reachable
 via keyboard navigation (i.e. still in the document tab sequence).
+
+Whne using the `no-wrap` prop and potentically the `fixed` prop to obscure the entire application or
+page, you must ensure that no page elements (other than the content of the overlay) has been disabled
+and arenot in the document tab sequence.
