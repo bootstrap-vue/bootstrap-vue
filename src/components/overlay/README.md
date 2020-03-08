@@ -111,6 +111,10 @@ TBD
 <!-- b-overlay-overlay-slot.vue -->
 ```
 
+### overlay centering
+
+TBD
+
 ### Non-wrapping mode
 
 TBD
