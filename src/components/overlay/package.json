@@ -44,7 +44,7 @@
           },
           {
             "prop": "fixed",
-            "description": "When prop `no-wrap` is set, will use fixed positioning instead of absolute positioning. Handy if you want to obsucre the entire application"
+            "description": "When prop `no-wrap` is set, will use fixed positioning instead of absolute positioning. Handy if you want to obsucre the entire application page"
           },
           {
             "prop": "wrapTag",
