@@ -48,7 +48,7 @@
           },
           {
             "prop": "zIndex",
-            "description": "zindex value to use for the overlay. You may need to increase this value to suit your content"
+            "description": "z-index value to apply to the overlay. You may need to increase this value to suit your content"
           },
           {
             "prop": "spinnerType",
