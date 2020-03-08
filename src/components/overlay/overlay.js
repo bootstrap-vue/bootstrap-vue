@@ -137,7 +137,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
             'position-absolute': !this.noWrap || (this.noWrap && !this.fixed),
             'position-fixed': this.noWrap && this.fixed
           },
-          style: { ...positionCover, zIndex: this.zIndex }
+          style: { ...positionCover, zIndex: this.zIndex || 10 }
         },
         [$background, $content]
       )
