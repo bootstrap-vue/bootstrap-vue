@@ -25,11 +25,11 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
     opacity: {
       type: [Number, String],
       default: 0.8
-      // should have a validator to restrict to 0..1
+      // should have a validator to restrict to 0..1?
     },
     blur: {
       type: String,
-      default: '1rem'
+      default: '2px'
     },
     rounded: {
       type: [Boolean, String],
@@ -113,7 +113,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
           ...positionCover,
           opacity: this.opacity,
           backgroundColor: this.bgColor || null,
-          backgroundFilter: this.blur ? `blur${this.blur}` : null
+          backdropFilter: this.blur ? `blur${this.blur}` : null
         }
       })
       // Overlay content
