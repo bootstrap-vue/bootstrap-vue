@@ -153,6 +153,11 @@ prop. When a value is provided for `bg-color`, the `variant` prop value is ignor
 - Background blurring is not available on some browsers (e.g. IE 11).
 - Blurring requires that the opacity level be relatively high for the effect to be visible.
 
+### Fade transition
+
+By default, the overlay uses Bootstrap's fade transition when showing or hiding. You can disable
+the fade transition via adding the `no-fade` prop to `<b-overlay>`.
+
 ### Default spinner styling
 
 The default overlay content is a [`<b-spinner>`](/docs/components/spinner) of type `'border'`. You
@@ -250,7 +255,7 @@ Place custom content in the overlay (replacing the default spinner) via the opti
 ```html
 <template>
   <div>
-    <b-overlay :show="show" rounded="sm" @shown="onShown">
+    <b-overlay :show="show" rounded="sm" @shown="onShown" @hidden="onHidden">
       <b-card title="Card with custom overlay content">
         <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
         <b-card-text>Click the button to toggle the overlay:</b-card-text>
@@ -285,11 +290,11 @@ Place custom content in the overlay (replacing the default spinner) via the opti
       }
     },
     methods: {
-      onShown() => {
+      onShown() {
         // Focus the cancel button when the overlay is showing
         this.$refs.cancel.focus()
-      }
-      onHidden() => {
+      },
+      onHidden() {
         // Focus the show button when the overlay is removed
         this.$refs.show.focus()
       }
