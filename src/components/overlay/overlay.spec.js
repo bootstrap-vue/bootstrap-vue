@@ -6,7 +6,7 @@ describe('overlay', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BOverlay, {
       slots: {
-        default: '<span>Foobar</span>'
+        default: '<span>foobar</span>'
       }
     })
 
@@ -31,7 +31,7 @@ describe('overlay', () => {
         show: true
       },
       slots: {
-        default: '<span>Foobar</span>'
+        default: '<span>foobar</span>'
       }
     })
 
