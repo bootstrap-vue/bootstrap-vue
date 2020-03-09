@@ -148,7 +148,10 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
 As an alternative to the `variant` prop, you can specify a CSS color string value via the `bg-color`
 prop. When a value is provided for `bg-color`, the `variant` prop value is ignored.
 
-Note that background blurring is not available on some browsers (e.g. IE 11).
+**Notes:**
+
+- Background blurring is not available on some browsers (e.g. IE 11).
+- Blurring requires that the opacity level be relatively high for the effect to be visible.
 
 ### Default spinner styling
 
