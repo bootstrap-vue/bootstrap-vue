@@ -250,11 +250,11 @@ Place custom content in the overlay (replacing the default spinner) via the opti
 ```html
 <template>
   <div>
-    <b-overlay :show="show" rounded="sm">
+    <b-overlay :show="show" rounded="sm" @shown="onShown">
       <b-card title="Card with custom overlay content">
         <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
         <b-card-text>Click the button to toggle the overlay:</b-card-text>
-        <b-button :disabled="show" variant="primary"@click="show = true">
+        <b-button ref="show" :disabled="show" variant="primary" @click="show = true">
           Show overlay
         </b-button>
       </b-card>
@@ -284,14 +284,14 @@ Place custom content in the overlay (replacing the default spinner) via the opti
         show: false
       }
     },
-    watch: {
-      show(newVal) {
-        if (newVal) {
-          // Focus the cancel button when the overlay is showing
-          this.$nextTick(() => {
-            this.$refs.cancel.focus()
-          })
-        }
+    methods: {
+      onShown() => {
+        // Focus the cancel button when the overlay is showing
+        this.$refs.cancel.focus()
+      }
+      onHidden() => {
+        // Focus the show button when the overlay is removed
+        this.$refs.show.focus()
       }
     }
   }
