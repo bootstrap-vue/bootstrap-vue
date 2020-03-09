@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import { toInteger } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BSpinner } from '../spinner/spinner'
 
@@ -17,15 +18,18 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
       default: 'light'
     },
     bgColor: {
-      // Alternative to variant, allowing a specfic
+      // Alternative to variant, allowing a specific
       // CSS color to be applied to the overlay
       type: String,
       default: null
     },
     opacity: {
       type: [Number, String],
-      default: 0.8
-      // should have a validator to restrict to 0..1?
+      default: 0.8,
+      validator(value) {
+        const number = toInteger(value)
+        return number >= 0 && number <= 1
+      }
     },
     blur: {
       type: String,
@@ -143,8 +147,8 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
       )
     }
     // TODO:
-    //   Support transitions (default fade-show)
-    //   Wrap $overlay in a BvTansition component
+    //   Support transitions (default to `fade-show`)
+    //   Wrap `$overlay` in a BvTransition component
     //
     // $overlay = h(BvTransition, {}, $overlay)
 
