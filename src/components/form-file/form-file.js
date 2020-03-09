@@ -12,10 +12,16 @@ import formStateMixin from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
+// --- Constants ---
+
 const NAME = 'BFormFile'
 
 const VALUE_EMPTY_DEPRECATED_MSG =
   'Setting "value"/"v-model" to an empty string for reset is deprecated. Set to "null" instead.'
+
+// --- Helper methods ---
+
+const isValidValue = value => isFile(value) || (isArray(value) && value.every(v => isValidValue(v)))
 
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
@@ -34,21 +40,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     value: {
       type: [File, Array],
       default: null,
-      validator: val => {
+      validator: value => {
         /* istanbul ignore next */
-        if (val === '') {
+        if (value === '') {
           warn(VALUE_EMPTY_DEPRECATED_MSG, NAME)
           return true
         }
-        return (
-          isUndefinedOrNull(val) ||
-          isFile(val) ||
-          (isArray(val) &&
-            (val.length === 0 ||
-              val.every(v => /* istanbul ignore next */ {
-                return isArray(v) || isFile(v)
-              })))
-        )
+        return isUndefinedOrNull(value) || isValidValue(value)
       }
     },
     accept: {
