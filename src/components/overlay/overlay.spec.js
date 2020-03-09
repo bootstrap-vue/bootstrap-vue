@@ -72,6 +72,70 @@ describe('overlay', () => {
     wrapper.destroy()
   })
 
+  it('responds to changes in the `show` prop', async () => {
+    const wrapper = mount(BOverlay, {
+      propsData: {
+        show: false
+      },
+      slots: {
+        default: '<span>foobar</span>'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('b-overlay-wrap')
+    expect(wrapper.classes()).toContain('position-relative')
+    expect(wrapper.attributes('aria-busy')).not.toBe('true')
+    expect(wrapper.text()).toContain('foobar')
+    expect(wrapper.find('.b-overlay').exists()).toBe(false)
+    expect(wrapper.find('.spinner-border').exists()).toBe(false)
+
+    wrapper.setProps({
+      show: true
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('b-overlay-wrap')
+    expect(wrapper.classes()).toContain('position-relative')
+    expect(wrapper.attributes('aria-busy')).toBe('true')
+    expect(wrapper.text()).toContain('foobar')
+    expect(wrapper.find('.b-overlay').exists()).toBe(true)
+    expect(wrapper.find('.spinner-border').exists()).toBe(true)
+
+    wrapper.setProps({
+      show: false
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('b-overlay-wrap')
+    expect(wrapper.classes()).toContain('position-relative')
+    expect(wrapper.attributes('aria-busy')).not.toBe('true')
+    expect(wrapper.text()).toContain('foobar')
+    expect(wrapper.find('.b-overlay').exists()).toBe(false)
+    expect(wrapper.find('.spinner-border').exists()).toBe(false)
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    wrapper.destroy()
+  })
+
   it('has expected default structure when `no-wrap` is set', async () => {
     const wrapper = mount(BOverlay, {
       propsData: {
