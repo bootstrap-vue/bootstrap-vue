@@ -5,8 +5,8 @@
 > component and can be used for creating loaders, warnings/alerts, prompts, and more.
 
 `<b-overlay>` can be used to obscure almost any thing. Example use cases would be forms, tables,
-delete confirmation dialogs, or anywhere you need to signal that the application is busy perfoming a
-background task, or to signal that a certain component is unavailable.
+delete confirmation dialogs, or anywhere you need to signal that the application is busy performing
+a background task, or to signal that a certain component is unavailable.
 
 The component `<b-overlay>` was introduced in BootstrapVue version `v2.7.0`.
 
@@ -401,9 +401,9 @@ state. When prop `no-wrap` is set, then the attribute will not be applied.
 
 Note that the overlay is visual only. You **must** disable any interactive elements (buttons, links,
 etc.) when the overlay is showing, otherwise the obscured elements will still be reachable via
-keyboard navigation (i.e. still in the document tab sequence). It is also reccomended to add either
-the `aria-hidden="true"` or `arai-bus=y"true"` attribute to your obscured content when the overlay is
-visible. Just be carefull not to add `aria-hidden="true"` to the wrapper that contains the
+keyboard navigation (i.e. still in the document tab sequence). It is also recommended to add either
+the `aria-hidden="true"` or `aria-bus=y"true"` attribute to your obscured content when the overlay
+is visible. Just be careful not to add `aria-hidden="true"` to the wrapper that contains the
 `<b-overlay>` component (when using `no-wrap`), as that would hide any interactive content in the
 `overlay` slot for screen reader users.
 
