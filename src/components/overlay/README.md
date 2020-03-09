@@ -313,6 +313,11 @@ The following scope properties are available to the `overlay` slot:
 | `spinnerType`    | Value of the `spinner-type` prop    |
 | `spinnerSmall`   | Value of the `spinner-small` prop   |
 
+When placing interactive content in the overlay, you should focus the container of the custom
+content or one of the focusable controls in the overlay content for accessibility reasons.
+You can listen for the `<b-overlay>` `'shown'` event to know when the overlay content is
+available in the document.
+
 ### Overlay content centering
 
 By default the overlay content will be horizontally and vertically centered within the overlay
@@ -393,6 +398,9 @@ state. When prop `no-wrap` is set, then the attribute will not be applied.
 Note that the overlay is visual only. You **must** disable any interactive elements (buttons, links,
 etc.) when the overlay is showing, otherwise the obscured elements will still be reachable via
 keyboard navigation (i.e. still in the document tab sequence).
+
+If you are placing interactive content in the `overlay` slot, you should focus the content once
+the `'shown'` event has been emitted.
 
 When using the `no-wrap` prop, and potentially the `fixed` prop, to obscure the entire application
 or page, you must ensure that internative page elements (other than the content of the overlay) have
