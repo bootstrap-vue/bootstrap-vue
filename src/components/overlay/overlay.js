@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import { toInteger } from '../../utils/number'
+import { toFloat } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BSpinner } from '../spinner/spinner'
 
@@ -25,9 +25,9 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
     },
     opacity: {
       type: [Number, String],
-      default: 0.8,
+      default: 0.85,
       validator(value) {
-        const number = toInteger(value)
+        const number = toFloat(value)
         return number >= 0 && number <= 1
       }
     },
