@@ -4,6 +4,8 @@
 > component and its content. It signals to the user of a state change within the element or
 > component and can be used for creating loaders, warings/alerts and more.
 
+The component `<b-overlay>` was introduced in BootstrapVue version `v2.7.0`.
+
 ## Overview
 
 `<b-overlay>` can be used to overlay (wrap) an element or component (the default behaviour),
