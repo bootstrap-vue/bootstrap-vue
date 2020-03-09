@@ -4,7 +4,7 @@
   "meta": {
     "title": "Overlay",
     "new": true,
-    "description": "The b-overlay component is used to visually obscure a particular element or component and its content. It signals to the user of a state change within the element or component and can be used for creating loaders, warings/alerts and more.",
+    "description": "The b-overlay component is used to visually obscure a particular element or component and its content. It signals to the user of a state change within the element or component and can be used for creating loaders, warnings/alerts and more.",
     "components": [
       {
         "component": "BOverlay",
@@ -16,7 +16,7 @@
           },
           {
             "prop": "variant",
-            "description": "backgrund variant to use for the overlay backdrop"
+            "description": "Backgrund variant to use for the overlay backdrop"
           },
           {
             "prop": "bgColor",
@@ -24,11 +24,11 @@
           },
           {
             "prop": "opacity",
-            "description": "Opacity of the overlay backdrop. Valid range is 0 to 1"
+            "description": "Opacity of the overlay backdrop. Valid range is `0` to `1`"
           },
           {
             "prop": "blur",
-            "description": "Value for the CSS blur backdrop-filter. Be sure to include the CSS units. Not supported in IE 11. Set to null or an empty string to disable bluring"
+            "description": "Value for the CSS blur backdrop-filter. Be sure to include the CSS units. Not supported in IE 11. Set to null or an empty string to disable blurring"
           },
           {
             "prop": "rounded",
@@ -48,7 +48,7 @@
           },
           {
             "prop": "fixed",
-            "description": "When prop `no-wrap` is set, will use fixed positioning instead of absolute positioning. Handy if you want to obsucre the entire application page"
+            "description": "When prop `no-wrap` is set, will use fixed positioning instead of absolute positioning. Handy if you want to obscure the entire application page"
           },
           {
             "prop": "wrapTag",
@@ -56,7 +56,7 @@
           },
           {
             "prop": "zIndex",
-            "description": "z-index value to apply to the overlay. You may need to increase this value to suit your content"
+            "description": "Z-index value to apply to the overlay. You may need to increase this value to suit your content"
           },
           {
             "prop": "spinnerType",
@@ -74,7 +74,7 @@
         "slots": [
           {
             "name": "overlay",
-            "description": "Custom content to repalce the default overlay spinner",
+            "description": "Custom content to replace the default overlay spinner",
             "scope": [
               {
                 "prop": "spinnerType",
