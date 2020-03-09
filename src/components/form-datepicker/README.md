@@ -305,7 +305,7 @@ and usage of these props.
 By default, when no date is selected, the calendar view will be set to the current month (or the
 `min` or `max` date if today's date is out of range of `min` or `max`) when opened. You can change
 this behaviour by specifying a date via the `initial-date` prop. The initial date prop will be used
-to determine the calendar month to be initially presented to teh user. It does not set the component's
+to determine the calendar month to be initially presented to the user. It does not set the component's
 value.
 
 ### Dark mode
