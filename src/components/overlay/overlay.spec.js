@@ -74,6 +74,12 @@ describe('overlay', () => {
 
   it('responds to changes in the `show` prop', async () => {
     const wrapper = mount(BOverlay, {
+      attachToDocument: true,
+      stubs: {
+        // Disable the use of transitionStub fake transition
+        // as it doesn't run transition hooks
+        transition: false
+      },
       propsData: {
         show: false
       },
