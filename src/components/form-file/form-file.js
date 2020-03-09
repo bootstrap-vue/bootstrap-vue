@@ -40,10 +40,11 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           warn(VALUE_EMPTY_DEPRECATED_MSG, NAME)
           return true
         }
+        /* istanbul ignore next */
         return (
           isUndefinedOrNull(val) ||
           isFile(val) ||
-          (isArray(val) && (val.length === 0 || val.every(v => isFile(v) || isArray(v))))
+          (isArray(val) && (val.length === 0 || val.every(v => (isArray(v) || isFile(v)))))
         )
       }
     },
