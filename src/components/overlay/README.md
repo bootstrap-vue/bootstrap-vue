@@ -155,8 +155,8 @@ prop. When a value is provided for `bg-color`, the `variant` prop value is ignor
 
 ### Fade transition
 
-By default, the overlay uses Bootstrap's fade transition when showing or hiding. You can disable
-the fade transition via adding the `no-fade` prop to `<b-overlay>`.
+By default, the overlay uses Bootstrap's fade transition when showing or hiding. You can disable the
+fade transition via adding the `no-fade` prop to `<b-overlay>`.
 
 ### Default spinner styling
 
@@ -314,9 +314,9 @@ The following scope properties are available to the `overlay` slot:
 | `spinnerSmall`   | Value of the `spinner-small` prop   |
 
 When placing interactive content in the overlay, you should focus the container of the custom
-content or one of the focusable controls in the overlay content for accessibility reasons.
-You can listen for the `<b-overlay>` `'shown'` event to know when the overlay content is
-available in the document.
+content or one of the focusable controls in the overlay content for accessibility reasons. You can
+listen for the `<b-overlay>` `'shown'` event to know when the overlay content is available in the
+document.
 
 ### Overlay content centering
 
@@ -399,8 +399,8 @@ Note that the overlay is visual only. You **must** disable any interactive eleme
 etc.) when the overlay is showing, otherwise the obscured elements will still be reachable via
 keyboard navigation (i.e. still in the document tab sequence).
 
-If you are placing interactive content in the `overlay` slot, you should focus the content once
-the `'shown'` event has been emitted.
+If you are placing interactive content in the `overlay` slot, you should focus the content once the
+`'shown'` event has been emitted.
 
 When using the `no-wrap` prop, and potentially the `fixed` prop, to obscure the entire application
 or page, you must ensure that internative page elements (other than the content of the overlay) have
