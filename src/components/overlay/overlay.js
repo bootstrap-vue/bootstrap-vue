@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import { BvTransition } from '../../utils/bv-transition'
+import { BVTransition } from '../../utils/bv-transition'
 import { toFloat } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BSpinner } from '../spinner/spinner'
@@ -153,7 +153,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
     }
     // Wrap in a fade transition
     $overlay = h(
-      BvTransition,
+      BVTransition,
       {
         props: {
           noFade: this.noFade,
