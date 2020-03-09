@@ -32,7 +32,7 @@ The overlay visibility is controlled vis the `show` prop. By default the overlay
 <template>
   <div>
     <b-overlay :show="show" rounded="sm">
-      <b-card title="Card with overlay">
+      <b-card title="Card with overlay" : aria-hidden="show ? 'true' : null">
         <b-card-text>Laborum consequat non elit enim exercitation cillum.</b-card-text>
         <b-card-text>Click the button to toggle the overlay:</b-card-text>
         <b-button :disabled="show" variant="primary" @click="show = true">
@@ -98,7 +98,7 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
           rounded="sm"
           style="max-width: 320px;"
         >
-          <b-card title="Card with overlay">
+          <b-card title="Card with overlay" aria-hidden="true">
             <b-card-text>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -183,7 +183,7 @@ can control the appearance of the spinner via the following props:
       rounded="sm"
       style="max-width: 320px;"
     >
-      <b-card title="Card with spinner style">
+      <b-card title="Card with spinner style" aria-hidden="true">
         <b-card-text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
           incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -260,7 +260,7 @@ Place custom content in the overlay (replacing the default spinner) via the opti
 <template>
   <div>
     <b-overlay :show="show" rounded="sm" @shown="onShown" @hidden="onHidden">
-      <b-card title="Card with custom overlay content">
+      <b-card title="Card with custom overlay content" :aria-hidden="show ? 'true' : null">
         <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
         <b-card-text>Click the button to toggle the overlay:</b-card-text>
         <b-button ref="show" :disabled="show" variant="primary" @click="show = true">
@@ -401,7 +401,11 @@ state. When prop `no-wrap` is set, then the attribute will not be applied.
 
 Note that the overlay is visual only. You **must** disable any interactive elements (buttons, links,
 etc.) when the overlay is showing, otherwise the obscured elements will still be reachable via
-keyboard navigation (i.e. still in the document tab sequence).
+keyboard navigation (i.e. still in the document tab sequence). It is also reccomended to add either
+the `aria-hidden="true"` or `arai-bus=y"true"` attribute to your obscured content when the overlay is
+visible. Just be carefull not to add `aria-hidden="true"` to the wrapper that contains the
+`<b-overlay>` component (when using `no-wrap`), as that would hide any interactive content in the
+`overlay` slot for screen reader users.
 
 If you are placing interactive content in the `overlay` slot, you should focus the content once the
 `'shown'` event has been emitted.
