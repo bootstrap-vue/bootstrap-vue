@@ -1,8 +1,12 @@
 # Overlay
 
-> BootstrapVue's custom `b-overlay` component is used to visually obscure a particular element or
+> BootstrapVue's custom `b-overlay` component is used to _visually obscure_ a particular element or
 > component and its content. It signals to the user of a state change within the element or
-> component and can be used for creating loaders, warnings/alerts and more.
+> component and can be used for creating loaders, warnings/alerts, prompts, and more.
+
+`<b-overlay>` can be used to obscure almost any thing. Example use cases would be forms, tables,
+delete confirmation dialogs, or anywhere you need to signal that the application is busy perfoming a
+background task, or to signal that a certain component is unavailable.
 
 The component `<b-overlay>` was introduced in BootstrapVue version `v2.7.0`.
 
@@ -12,7 +16,7 @@ The component `<b-overlay>` was introduced in BootstrapVue version `v2.7.0`.
 be placed as a descendant of a `position: relative` element
 ([non-wrapping mode](#non-wrapping-mode)).
 
-The overlay visibility is controlled vis the `show` prop. By default the overlay is not shown.
+The overlay visibility is controlled vis the `show` prop. By default the overlay is _not_ shown.
 
 <div class="alert alert-info">
   <p class="mb-0">
