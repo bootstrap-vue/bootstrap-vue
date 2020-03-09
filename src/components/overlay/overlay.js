@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import { BvTransition } from '../../utils/bv-transition'
 import { toFloat } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BSpinner } from '../spinner/spinner'
@@ -40,6 +41,10 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
       default: false
     },
     noCenter: {
+      type: Boolean,
+      default: false
+    },
+    noFade: {
       type: Boolean,
       default: false
     },
@@ -146,11 +151,21 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
         [$background, $content]
       )
     }
-    // TODO:
-    //   Support transitions (default to `fade-show`)
-    //   Wrap `$overlay` in a BvTransition component
-    //
-    // $overlay = h(BvTransition, {}, $overlay)
+    // Wrap in a fade transition
+    $overlay = h(
+      BvTransition,
+      {
+        props: {
+          noFade: this.noFade,
+          appear: true
+        },
+        on: {
+          afterEnter: () => this.$emit('shown'),
+          afterLeave: () -> this.$emit('hidden')
+        }
+      },
+      [$overlay]
+    )
 
     if (this.noWrap) {
       return $overlay
