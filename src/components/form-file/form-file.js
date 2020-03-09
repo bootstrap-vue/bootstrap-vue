@@ -43,7 +43,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         return (
           isUndefinedOrNull(val) ||
           isFile(val) ||
-          (isArray(val) && (val.length === 0 || val.every(isFile)))
+          (isArray(val) && (val.length === 0 || val.every(v => isFile(v) || isArray(v))))
         )
       }
     },
