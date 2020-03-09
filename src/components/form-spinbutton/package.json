@@ -32,7 +32,7 @@
           },
           {
             "prop": "wrap",
-            "description": "When set, allows the value to wrap around when reading the minimum or maximum value"
+            "description": "When set, allows the value to wrap around when reaching the minimum or maximum value"
           },
           {
             "prop": "locale",
@@ -44,7 +44,7 @@
           },
           {
             "prop": "formatterFn",
-            "description": "A reference to a method to format the displayed value. It ss passed a single argument which is the current value"
+            "description": "A reference to a method to format the displayed value. It is passed a single argument which is the current value"
           },
           {
             "prop": "required",
