@@ -160,8 +160,8 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
           appear: true
         },
         on: {
-          afterEnter: () => this.$emit('shown'),
-          afterLeave: () -> this.$emit('hidden')
+          'after-enter': () => this.$emit('shown'),
+          'after-leave': () => this.$emit('hidden')
         }
       },
       [$overlay]
