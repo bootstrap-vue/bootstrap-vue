@@ -102,6 +102,9 @@ describe('overlay', () => {
     expect(wrapper.find('.b-overlay').exists()).toBe(false)
     expect(wrapper.find('.spinner-border').exists()).toBe(false)
 
+    expect(wrapper.emitted('shown')).toBeUndefined()
+    expect(wrapper.emitted('hidden')).toBeUndefined()
+
     wrapper.setProps({
       show: true
     })
@@ -117,6 +120,10 @@ describe('overlay', () => {
     expect(wrapper.text()).toContain('foobar')
     expect(wrapper.find('.b-overlay').exists()).toBe(true)
     expect(wrapper.find('.spinner-border').exists()).toBe(true)
+
+    expect(wrapper.emitted('shown')).not.toBeUndefined()
+    expect(wrapper.emitted('hidden')).toBeUndefined()
+    expect(wrapper.emitted('shown').length).toBe(1)
 
     wrapper.setProps({
       show: false
@@ -134,10 +141,31 @@ describe('overlay', () => {
     expect(wrapper.find('.b-overlay').exists()).toBe(false)
     expect(wrapper.find('.spinner-border').exists()).toBe(false)
 
+    expect(wrapper.emitted('hidden')).not.toBeUndefined()
+    expect(wrapper.emitted('shown').length).toBe(1)
+    expect(wrapper.emitted('hidden').length).toBe(1)
+
+    wrapper.setProps({
+      show: true
+    })
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+
+    expect(wrapper.emitted('shown').length).toBe(2)
+    expect(wrapper.emitted('hidden').length).toBe(1)
+
+    wrapper.setProps({
+      show: false
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.emitted('shown').length).toBe(2)
+    expect(wrapper.emitted('hidden').length).toBe(2)
 
     wrapper.destroy()
   })
