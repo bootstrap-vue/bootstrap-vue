@@ -31,6 +31,10 @@
             "description": "Value for the CSS blur backdrop-filter. Be sure to include the CSS units. Not supported in IE 11. Set to null or an empty string to disable blurring"
           },
           {
+            "prop": "noFade",
+            "description": "Disables the fade transition of the overlay"
+          },
+          {
             "prop": "rounded",
             "description": "Apply rounding to the overlay to match your content routing. Valid values are `true`, `'sm'`, `lg`, `circle`, `pill`, `top`, `right`, `bottom`, or `left`"
           },
@@ -69,6 +73,16 @@
           {
             "prop": "spinnerSmall",
             "description": "When set, renderes the default spinner in a smaller size"
+          }
+        ],
+        "events": [
+          {
+            "event": "shown",
+            "description": "Emitted when the overlay has been shown"
+          },
+          {
+            "event": "hidden",
+            "description": "Emitted when the overlay has been hidden"
           }
         ],
         "slots": [
