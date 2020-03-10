@@ -176,7 +176,11 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
           [`btn-${size}`]: !!size,
           'border-0': !buttonOnly,
           'h-auto': !buttonOnly,
-          'py-0': !buttonOnly
+          'py-0': !buttonOnly,
+          // `dropdown-toggle` is needed for proper
+          // corner rounding in button only mode
+          'dropdown-toggle': buttonOnly,
+          'dropdown-toggle-no-caret': buttonOnly,
         },
         attrs: {
           id: idButton,
