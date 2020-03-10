@@ -100,6 +100,15 @@ const propsMixin = {
       type: String,
       default: null
     },
+    buttonOnly: {
+      type: Boolean,
+      default: false
+    },
+    buttonVariant: {
+      // Applicable in button only mode
+      type: String,
+      default: 'secondary'
+    },
     calendarWidth: {
       // Width of the calendar dropdown
       type: String,
