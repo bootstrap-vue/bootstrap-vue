@@ -303,9 +303,14 @@ Want a fancy popup with a dark background instead of a light background? Set the
 
 ### Button only mode
 
+<span class="badge badge-info small">v2.7.0+</span>
+
 Fancy just a button that launches the date picker dialog, or want to provide your own optional text
 input field? Use the `button-mode` prop to render the datepicker as a dropdown button. The formatted
 date label will be rendered with the class `sr-only` (available only to screen readers).
+
+In the following simple example, we are placing the datepicker (buton only mode) as an append to a
+`<b-input-group>`:
 
 ```html
 <template>
