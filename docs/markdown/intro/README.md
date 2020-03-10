@@ -145,7 +145,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
 
-Or import Bootstrap and BootstrapVue `scss` files via a single custom SCSS file:
+**Alternatively** you can import Bootstrap and BootstrapVue `scss` files in a custom SCSS file:
 
 ```scss
 // custom.scss
@@ -153,7 +153,7 @@ Or import Bootstrap and BootstrapVue `scss` files via a single custom SCSS file:
 @import 'node_modules/bootstrap-vue/src/index.scss';
 ```
 
-Finally import the `custom.scss` file in your app entry point:
+Make sure to import the `custom.scss` file in your app entry point:
 
 ```js
 // app.js

@@ -140,7 +140,7 @@ const icons = iconNames
   })
 
 export default {
-  name: 'BVDIconsTable',
+  name: 'BVIconsTable',
   data() {
     return {
       iconFilter: '',

@@ -288,6 +288,10 @@ The text for the optional buttons can be set via the `label-today-button`, `labe
 the `label-close-button` props. Due to the limited width of the footer section, it is recommended to
 keep these labels short.
 
+Note that the `Set Today` button may not set the control today's date, if today's date is outside of
+the `min` or `max` date range restrictions. In the case it is outside of the range, it will set to
+either `min` or `max` (depending on which is closes to today's date).
+
 ### Dropdown placement
 
 Use the dropdown props `right`, `dropup`, `dropright`, `dropleft`, `no-flip`, and `offset` to
@@ -296,10 +300,70 @@ control the positioning of the popup calendar.
 Refer to the [`<b-dropdown>` documentation](/docs/components/dropdown) for details on the effects
 and usage of these props.
 
+### Initial open calendar date
+
+By default, when no date is selected, the calendar view will be set to the current month (or the
+`min` or `max` date if today's date is out of range of `min` or `max`) when opened. You can change
+this behaviour by specifying a date via the `initial-date` prop. The initial date prop will be used
+to determine the calendar month to be initially presented to the user. It does not set the
+component's value.
+
 ### Dark mode
 
 Want a fancy popup with a dark background instead of a light background? Set the `dark` prop to
 `true` to enable the dark background.
+
+### Button only mode
+
+<span class="badge badge-info small">v2.7.0+</span>
+
+Fancy just a button that launches the date picker dialog, or want to provide your own optional text
+input field? Use the `button-only` prop to render the datepicker as a dropdown button. The formatted
+date label will be rendered with the class `sr-only` (available only to screen readers).
+
+In the following simple example, we are placing the datepicker (button only mode) as an append to a
+`<b-input-group>`:
+
+```html
+<template>
+  <div>
+    <label for="example-input">Choose a date</label>
+    <b-input-group class="mb-3">
+      <b-form-input
+        id="example-input"
+        v-model="value"
+        type="text"
+        placeholder="YYYY-MM-DD"
+      ></b-form-input>
+      <b-input-group-append>
+        <b-form-datepicker
+          v-model="value"
+          button-only
+          right
+          locale="en-US"
+          aria-controls="example-input"
+        ></b-form-datepicker>
+      </b-input-group-append">
+    </b-input-group>
+    <p>Value: '{{ value }}'</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    }
+  }
+</script>
+
+<!-- b-form-datepicker-button-only.vue -->
+```
+
+Control the size of the button via the `size` prop, and the button variant via the `button-variant`
+prop.
 
 ### Date string format
 
@@ -316,13 +380,14 @@ properties for the `Intl.DateTimeFormat` object (see also
     <label for="datepicker-dateformat1">Custom date format</label>
     <b-form-datepicker
       id="datepicker-dateformat1"
-      :dateFormatOptions="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
+      :date-format-options="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
       locale="en"
     ></b-form-datepicker>
-    <label for="datepicker-dateformat2">Short date format</label>
+
+    <label class="mt-3" for="datepicker-dateformat2">Short date format</label>
     <b-form-datepicker
       id="datepicker-dateformat2"
-      :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+      :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
       locale="en"
     ></b-form-datepicker>
   </div>

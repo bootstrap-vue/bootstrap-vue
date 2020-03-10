@@ -221,7 +221,7 @@ fit the width of the parent element. The `width` prop has no effect when `block`
 
 ```html
 <template>
-  <b-calendar block local="en-US"></b-calendar>
+  <b-calendar block locale="en-US"></b-calendar>
 </template>
 
 <!-- b-calendar-block.vue -->
@@ -230,12 +230,20 @@ fit the width of the parent element. The `width` prop has no effect when `block`
 Note it is _not recommended_ to set a width below `260px`, otherwise truncation and layout issues
 with the component may occur.
 
+### Initial open calendar date
+
+By default, when no date is selected, the calendar view will be set to the current month (or the
+`min` or `max` date if today's date is out of range of `min` or `max`). You can change this
+behaviour by specifying a date via the `initial-date` prop. The initial date prop will be used to
+determine the calendar month to be initially presented to the user. It does not set the component's
+value.
+
 ### Date string format
 
 <span class="badge badge-info small">v2.6.0+</span>
 
 To change format options of the displayed date text inside the component, e.g. in the header, set
-the `dateFormatOptions` prop to an object containing the requested format properties for the
+the `date-format-options` prop to an object containing the requested format properties for the
 `Intl.DateTimeFormat` object (see also [Internationalization](#internationalization)).
 
 ```html
@@ -243,12 +251,12 @@ the `dateFormatOptions` prop to an object containing the requested format proper
   <div>
     <p>Custom date format:</p>
     <b-calendar
-      :dateFormatOptions="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
+      :date-format-options="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
       locale="en"
     ></b-calendar>
     <p class="mt-3">Short date format:</p>
     <b-calendar
-      :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+      :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
       locale="en"
     ></b-calendar>
   </div>
@@ -632,5 +640,5 @@ verbosity and to provide consistency across various screen readers (NVDA, when e
 ## See also
 
 - [`<b-form-datepicker>` Date picker custom form input](/docs/components/form-datepicker)
-- [`<b-form-timepicker>` Time picker custom form input](/docs/comonents/form-timepicker)
+- [`<b-form-timepicker>` Time picker custom form input](/docs/components/form-timepicker)
 - [`<b-time>` Time date selection widget](/docs/components/calendar)

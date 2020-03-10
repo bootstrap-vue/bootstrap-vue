@@ -83,6 +83,16 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
       // Vue coerces `undefined` into Boolean `false`
       default: null
     },
+    buttonOnly: {
+      // When true, renders a btn-group wrapper and visually hides the label
+      type: Boolean,
+      default: false
+    },
+    buttonVariant: {
+      // Applicable in button mode only
+      type: String,
+      default: 'secondary'
+    },
     menuClass: {
       // Extra classes to apply to the `dropdown-menu` div
       type: [String, Array, Object]
@@ -152,14 +162,26 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
     const size = this.size
     const value = toString(this.value) || ''
     const labelSelected = this.labelSelected
+    const buttonOnly = !!this.buttonOnly
+    const buttonVariant = this.buttonVariant
 
     const btnScope = { isHovered, hasFocus, state, opened: visible }
     const $button = h(
       'button',
       {
         ref: 'toggle',
-        staticClass: 'btn border-0 h-auto py-0',
-        class: { [`btn-${size}`]: !!size },
+        staticClass: 'btn',
+        class: {
+          [`btn-${buttonVariant}`]: buttonOnly,
+          [`btn-${size}`]: !!size,
+          'border-0': !buttonOnly,
+          'h-auto': !buttonOnly,
+          'py-0': !buttonOnly,
+          // `dropdown-toggle` is needed for proper
+          // corner rounding in button only mode
+          'dropdown-toggle': buttonOnly,
+          'dropdown-toggle-no-caret': buttonOnly
+        },
         attrs: {
           id: idButton,
           type: 'button',
@@ -231,6 +253,8 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'form-control text-break text-wrap border-0 bg-transparent h-auto pl-1 m-0',
         class: {
+          // Hidden in button only mode
+          'sr-only': buttonOnly,
           // Mute the text if showing the placeholder
           'text-muted': !value,
           [`form-control-${size}`]: !!size,
@@ -261,21 +285,27 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
     return h(
       'div',
       {
-        staticClass:
-          'b-form-btn-label-control form-control dropdown d-flex p-0 h-auto align-items-stretch',
+        staticClass: 'dropdown',
         class: [
           this.directionClass,
           {
+            'btn-group': buttonOnly,
+            'b-form-btn-label-control': !buttonOnly,
+            'form-control': !buttonOnly,
+            [`form-control-${size}`]: !!size && !buttonOnly,
+            'd-flex': !buttonOnly,
+            'p-0': !buttonOnly,
+            'h-auto': !buttonOnly,
+            'align-items-stretch': !buttonOnly,
+            focus: hasFocus && !buttonOnly,
             show: visible,
-            focus: hasFocus,
-            [`form-control-${size}`]: !!size,
             'is-valid': state === true,
             'is-invalid': state === false
           }
         ],
         attrs: {
           id: idWrapper,
-          role: 'group',
+          role: buttonOnly ? null : 'group',
           lang: this.lang || null,
           dir: this.computedDir,
           'aria-disabled': disabled,

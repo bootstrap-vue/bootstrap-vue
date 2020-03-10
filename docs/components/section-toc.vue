@@ -43,6 +43,7 @@ const groups = nav.reduce((obj, g) => {
 }, {})
 
 export default {
+  name: 'BVSectionToc',
   layout: 'docs',
   components: {
     Main,
