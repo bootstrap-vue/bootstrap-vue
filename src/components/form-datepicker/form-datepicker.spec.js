@@ -73,7 +73,8 @@ describe('form-date', () => {
     const wrapper = mount(BFormDatepicker, {
       attachToDocument: true,
       propsData: {
-        id: 'test-button-only'
+        id: 'test-button-only',
+        buttonOnly: true
       }
     })
 
