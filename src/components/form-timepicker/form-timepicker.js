@@ -90,6 +90,15 @@ const propsMixin = {
       type: [Number, String],
       default: 1
     },
+    buttonOnly: {
+      type: Boolean,
+      default: false
+    },
+    buttonVariant: {
+      // Applicable in button only mode
+      type: String,
+      default: 'secondary'
+    },
     nowButton: {
       type: Boolean,
       default: false
