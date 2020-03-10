@@ -70,6 +70,16 @@
             "description": "Set to the string 'rtl' or 'ltr' to explicitly force the calendar to render in right-to-left or left-ro-right (respectively) mode. Defaults to the resolved locale's directionality"
           },
           {
+            "prop": "buttonOnly",
+            "version": "2.7.0",
+            "description": "Renders the datepicker as a dropdown button instead of a form-control"
+          },
+          {
+            "prop": "buttonVariant",
+            "version": "2.7.0",
+            "description": "The button variant to use when in `button-only` mode. Has no effect if prop `button-only` is not set"
+          },
+          {
             "prop": "calendarWidth",
             "version": "2.6.0",
             "description": "Sets the width of the calendar dropdown (see the `b-calendar` prop `width` for details)"

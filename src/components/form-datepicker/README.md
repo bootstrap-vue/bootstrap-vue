@@ -313,6 +313,58 @@ component's value.
 Want a fancy popup with a dark background instead of a light background? Set the `dark` prop to
 `true` to enable the dark background.
 
+### Button only mode
+
+<span class="badge badge-info small">v2.7.0+</span>
+
+Fancy just a button that launches the date picker dialog, or want to provide your own optional text
+input field? Use the `button-only` prop to render the datepicker as a dropdown button. The formatted
+date label will be rendered with the class `sr-only` (available only to screen readers).
+
+In the following simple example, we are placing the datepicker (button only mode) as an append to a
+`<b-input-group>`:
+
+```html
+<template>
+  <div>
+    <label for="example-input">Choose a date</label>
+    <b-input-group class="mb-3">
+      <b-form-input
+        id="example-input"
+        v-model="value"
+        type="text"
+        placeholder="YYYY-MM-DD"
+      ></b-form-input>
+      <b-input-group-append>
+        <b-form-datepicker
+          v-model="value"
+          button-only
+          right
+          locale="en-US"
+          aria-controls="example-input"
+        ></b-form-datepicker>
+      </b-input-group-append">
+    </b-input-group>
+    <p>Value: '{{ value }}'</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    }
+  }
+</script>
+
+<!-- b-form-datepicker-button-only.vue -->
+```
+
+Control the size of the button via the `size` prop, and the button variant via the `button-variant`
+prop.
+
 ### Date string format
 
 <span class="badge badge-info small">v2.6.0+</span>
@@ -331,7 +383,8 @@ properties for the `Intl.DateTimeFormat` object (see also
       :date-format-options="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
       locale="en"
     ></b-form-datepicker>
-    <label for="datepicker-dateformat2">Short date format</label>
+
+    <label class="mt-3" for="datepicker-dateformat2">Short date format</label>
     <b-form-datepicker
       id="datepicker-dateformat2"
       :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
