@@ -88,7 +88,7 @@ describe('form-timepicker', () => {
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.classes()).toContain('btn-group')
-    expect(wrapper.attributes('role')).toEqual('group')
+    expect(wrapper.attributes('role')).not.toEqual('group')
 
     expect(wrapper.find('.dropdown-menu').exists()).toBe(true)
     expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
