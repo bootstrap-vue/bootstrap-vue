@@ -341,7 +341,7 @@ relative positioning (either via the utility class `'position-relative'`, or CSS
     <div class="position-relative p-4 bg-info">
       <p class="text-light font-weight-bold">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      <p>
+      </p>
       <b-card title="Card with parent overlay">
         <b-card-text>Laborum consequat non elit enim exercitation cillum.</b-card-text>
         <b-card-text>Click the button to toggle the overlay:</b-card-text>
@@ -369,7 +369,7 @@ relative positioning (either via the utility class `'position-relative'`, or CSS
   }
 </script>
 
-<!-- b-overlay.vue -->
+<!-- b-overlay-nowrap.vue -->
 ```
 
 Note that some of Bootstrap v4's component styles have relative positioning defined (e.g. cards,
