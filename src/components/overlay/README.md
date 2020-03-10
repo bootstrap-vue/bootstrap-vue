@@ -437,7 +437,7 @@ Here are just a few examples of common use cases.
 <!-- b-overlay-ex-loading-button.vue -->
 ```
 
-### Input groups
+### Busy state input group
 
 ```html
 <template>
@@ -486,6 +486,10 @@ Here are just a few examples of common use cases.
 
 <!-- b-overlay-ex-input-group.vue -->
 ```
+
+### Form confirmation prompt
+
+TBD
 
 ## Accessibility
 
