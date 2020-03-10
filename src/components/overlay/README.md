@@ -393,6 +393,28 @@ other page elements. Use the `z-index` property to override the default z-index 
 
 Refer to the [Accessibility section](#accessibility) below for additional details and concerns.
 
+
+## Accessibility
+
+When using the wrapping mode (prop `no-wrap` is not set), the wrapper will have the attribute
+`aria-bus="true"` set, to allow screen reader users to know the element is in a busy or loading
+state. When prop `no-wrap` is set, then the attribute will not be applied.
+
+Note that the overlay is visual only. You **must** disable any interactive elements (buttons, links,
+etc.) when the overlay is showing, otherwise the obscured elements will still be reachable via
+keyboard navigation (i.e. still in the document tab sequence). It is also recommended to add either
+the `aria-hidden="true"` or `aria-bus=y"true"` attribute to your obscured content when the overlay
+is visible. Just be careful not to add `aria-hidden="true"` to the wrapper that contains the
+`<b-overlay>` component (when using `no-wrap`), as that would hide any interactive content in the
+`overlay` slot for screen reader users.
+
+If you are placing interactive content in the `overlay` slot, you should focus the content once the
+`'shown'` event has been emitted.
+
+When using the `no-wrap` prop, and potentially the `fixed` prop, to obscure the entire application
+or page, you must ensure that internative page elements (other than the content of the overlay) have
+been disabled and are not in the document tab sequence.
+
 ## Use case examples
 
 Here are just a few examples of common use cases.
@@ -442,7 +464,7 @@ Here are just a few examples of common use cases.
 ```html
 <template>
   <div>
-    <b-overlay :show="busy" rounded="lg" opacity="0.6" spinner-small>
+    <b-overlay :show="busy" rounded="lg" opacity="0.6">
       <template v-slot:overlay>
         <div class="d-flex align-items-center">
           <b-spinner small type="grow"variant="secondary"></b-spinner>
@@ -451,7 +473,7 @@ Here are just a few examples of common use cases.
           <span class="sr-only">Please wait...</span>
         </div>
       </template>
-      <b-input-group size="lg">
+      <b-input-group size="lg" :aria-hidden="busy ? 'true' : null">
         <b-form-input v-model="value" :disabled="busy"></b-form-input>
         <b-input-group-append>
           <b-button :disabled="busy" variant="primary" @click="onClick">Do something</b-button>
@@ -493,25 +515,88 @@ Here are just a few examples of common use cases.
 
 ### Form confirmation prompt
 
-TBD
+```html
+<template>
+  <div>
+    <b-form class="position-relative p-3" @submit.prevent="onSubmit">
+      <b-form-group label="Name" label-for="form-name">
+        <b-form-input id="form-name" :disabled="busy"></b-form-input>
+      </b-form-group>
+      <b-form-group label="Email" label-for="form-mail">
+        <b-form-input id="form-email" type="email" :disabled="busy"></b-form-input>
+      </b-form-group>
+      <b-button type="submit" :disabled="busy">Submit</b-button>
 
-## Accessibility
+      <b-overlay :show="busy" no-wrap @shown="onShown">
+        <template v-slot:overlay>
+          <div v-if="processing" class="text-center">
+            <b-icon icon="cloud-upload" font-scale="4"></b-icon>
+            <div class="d-flex align-items-center">
+              <b-spinner small></b-spinner>
+              <span class="ml-3">Processing...</span>
+            </div>
+          </div>
+          <div v-else class="d-flex align-items-center">
+            <strong id="form-confirm-label">Are you sure?</strong>
+            <b-button
+              ref="cancel"
+              variant="outline-danger"
+              class="mx-3"
+              aria-describedby="form-confirm-label"
+              @click="onCancel"
+            >
+              Cancel
+            </b-button>
+            <b-button
+              variant="outline-success"
+              aria-describedby="form-confirm-label"
+              @click="onOK"
+            >
+              OK
+            </b-button>
+          </div>
+        </template>
+      </b-overlay>
+    </b-form>
+  </div>
+</template>
 
-When using the wrapping mode (prop `no-wrap` is not set), the wrapper will have the attribute
-`aria-bus="true"` set, to allow screen reader users to know the element is in a busy or loading
-state. When prop `no-wrap` is set, then the attribute will not be applied.
+<script>
+  export default {
+    data() {
+      return {
+        busy: false,
+        processing: false,
+        timer: null
+      }
+    },
+    beforeDestroy() {
+       if (this.timer) {
+         clearTimeout(this.timer)
+         this.timer = null
+       }
+    },
+    methods: {
+      onShown() {
+        this.$refs.cancel.focus()
+      },
+      onSubmit() {
+        this.processing = false
+        this.busy = true
+      },
+      onCancel() {
+        this.busy = false
+      },
+      onOK() {
+        this.processing = true
+        this.timer = setTimeout(() => {
+          this.busy = false
+          this.timer = null
+        }, 5000)
+      }
+    }
+  } 
+</script>
 
-Note that the overlay is visual only. You **must** disable any interactive elements (buttons, links,
-etc.) when the overlay is showing, otherwise the obscured elements will still be reachable via
-keyboard navigation (i.e. still in the document tab sequence). It is also recommended to add either
-the `aria-hidden="true"` or `aria-bus=y"true"` attribute to your obscured content when the overlay
-is visible. Just be careful not to add `aria-hidden="true"` to the wrapper that contains the
-`<b-overlay>` component (when using `no-wrap`), as that would hide any interactive content in the
-`overlay` slot for screen reader users.
-
-If you are placing interactive content in the `overlay` slot, you should focus the content once the
-`'shown'` event has been emitted.
-
-When using the `no-wrap` prop, and potentially the `fixed` prop, to obscure the entire application
-or page, you must ensure that internative page elements (other than the content of the overlay) have
-been disabled and are not in the document tab sequence.
+<!-- b-overlay-ex-form.vue -->
+```
