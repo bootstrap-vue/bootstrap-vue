@@ -63,6 +63,16 @@
             "description": "When set, visually hides the selected date header"
           },
           {
+            "prop": "buttonOnly",
+            "version": "2.7.0",
+            "description": "Renders the datepicker as a dropdown button instead of a form-control"
+          },
+          {
+            "prop": "buttonVariant",
+            "version": "2.7.0",
+            "description": "The button variant to use when in `button-only` mode. Has no effect if prop `button-only` is not set"
+          },
+          {
             "prop": "menuClass",
             "description": "Class (or classes) to apply to to popup menu wrapper"
           },
