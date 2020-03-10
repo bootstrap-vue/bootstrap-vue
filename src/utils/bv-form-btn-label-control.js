@@ -180,7 +180,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
           // `dropdown-toggle` is needed for proper
           // corner rounding in button only mode
           'dropdown-toggle': buttonOnly,
-          'dropdown-toggle-no-caret': buttonOnly,
+          'dropdown-toggle-no-caret': buttonOnly
         },
         attrs: {
           id: idButton,
