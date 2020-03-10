@@ -249,7 +249,12 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       this.localHMS = newVal || ''
     },
     localHMS(newVal) {
-      this.$emit('input', newVal || '')
+      // We only update hte v-model value when the timepicker
+      // is open, to prevent cursor jumps when bound to a
+      // text input in button only mode
+      if (this.isVisible) {
+        this.$emit('input', newVal || '')
+      }
     }
   },
   methods: {
