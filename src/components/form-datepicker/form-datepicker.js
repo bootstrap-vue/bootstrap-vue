@@ -310,7 +310,10 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       this.localYMD = formatYMD(newVal) || ''
     },
     localYMD(newVal) {
-      this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
+      // We only update the v-model when the datepicker is open
+      if (this.isVisible) {
+        this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
+      }
     },
     calendarYM(newVal, oldVal) /* istanbul ignore next */ {
       // Displayed calendar month has changed
@@ -355,9 +358,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       })
     },
     onInput(ymd) {
-      // We only update the v-model if the dialog is open
-      // to prevent cursor jumps in bound text inputs
-      if (this.localYMD !== ymd && this.isVisible) {
+      if (this.localYMD !== ymd) {
         this.localYMD = ymd
       }
     },
@@ -366,7 +367,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       this.isRTL = isRTL
       this.localLocale = locale
       this.formattedValue = selectedFormatted
-      this.localYMD = this.isVisible ? selectedYMD : this.localYMD
+      this.localYMD = selectedYMD
       this.activeYMD = activeYMD
       // Re-emit the context event
       this.$emit('context', ctx)
