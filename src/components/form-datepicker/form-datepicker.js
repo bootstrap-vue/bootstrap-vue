@@ -108,6 +108,15 @@ const propsMixin = {
       type: String,
       default: null
     },
+    buttonOnly: {
+      type: Boolean,
+      default: false
+    },
+    buttonVariant: {
+      // Applicable in button only mode
+      type: String,
+      default: 'secondary'
+    },
     calendarWidth: {
       // Width of the calendar dropdown
       type: String,
@@ -310,7 +319,10 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       this.localYMD = formatYMD(newVal) || ''
     },
     localYMD(newVal) {
-      this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
+      // We only update the v-model when the datepicker is open
+      if (this.isVisible) {
+        this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
+      }
     },
     calendarYM(newVal, oldVal) /* istanbul ignore next */ {
       // Displayed calendar month has changed

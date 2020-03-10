@@ -41,9 +41,11 @@ describe('form-timepicker', () => {
     await waitRAF()
 
     expect(wrapper.classes()).toContain('b-form-timepicker')
+    expect(wrapper.classes()).toContain('b-form-btn-label-control')
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.classes()).not.toContain('btn-group')
     expect(wrapper.attributes('role')).toEqual('group')
 
     expect(wrapper.find('.dropdown-menu').exists()).toBe(true)
@@ -58,6 +60,49 @@ describe('form-timepicker', () => {
     expect(wrapper.find('input[type="hidden"]').exists()).toBe(false)
 
     const $btn = wrapper.find('button#test-base')
+    expect($btn.exists()).toBe(true)
+    expect($btn.attributes('aria-haspopup')).toEqual('dialog')
+    expect($btn.attributes('aria-expanded')).toEqual('false')
+    expect($btn.find('svg.bi-clock').exists()).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('has expected default structure when button-only is true', async () => {
+    const wrapper = mount(BFormTimepicker, {
+      attachToDocument: true,
+      propsData: {
+        id: 'test-button-only',
+        buttonOnly: true
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.classes()).toContain('b-form-timepicker')
+    expect(wrapper.classes()).not.toContain('b-form-btn-label-control')
+    expect(wrapper.classes()).not.toContain('form-control')
+    expect(wrapper.classes()).toContain('dropdown')
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.classes()).toContain('btn-group')
+    expect(wrapper.attributes('role')).not.toEqual('group')
+
+    expect(wrapper.find('.dropdown-menu').exists()).toBe(true)
+    expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
+    expect(wrapper.find('.dropdown-menu').attributes('role')).toEqual('dialog')
+    expect(wrapper.find('.dropdown-menu').attributes('aria-modal')).toEqual('false')
+
+    expect(wrapper.find('label.form-control').exists()).toBe(true)
+    expect(wrapper.find('label.form-control').attributes('for')).toEqual('test-button-only')
+    expect(wrapper.find('label.form-control').text()).toContain('No time selected')
+    expect(wrapper.find('label.form-control').classes()).toContain('sr-only')
+
+    expect(wrapper.find('input[type="hidden"]').exists()).toBe(false)
+
+    const $btn = wrapper.find('button#test-button-only')
     expect($btn.exists()).toBe(true)
     expect($btn.attributes('aria-haspopup')).toEqual('dialog')
     expect($btn.attributes('aria-expanded')).toEqual('false')
