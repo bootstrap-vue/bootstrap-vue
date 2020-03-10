@@ -536,24 +536,20 @@ Here are just a few examples of common use cases.
               <span class="ml-3">Processing...</span>
             </div>
           </div>
-          <div v-else class="d-flex align-items-center">
+          <div
+            v-else
+            ref="dialog"
+            tabindex="-1"
+            role="dialog"
+            aria-modal="false"
+            aria-labeledby="form-confirm-label"
+            class="d-flex align-items-center p-3"
+          >
             <strong id="form-confirm-label">Are you sure?</strong>
-            <b-button
-              ref="cancel"
-              variant="outline-danger"
-              class="mx-3"
-              aria-describedby="form-confirm-label"
-              @click="onCancel"
-            >
+            <b-button variant="outline-danger" class="mx-3" @click="onCancel">
               Cancel
             </b-button>
-            <b-button
-              variant="outline-success"
-              aria-describedby="form-confirm-label"
-              @click="onOK"
-            >
-              OK
-            </b-button>
+            <b-button variant="outline-success" @click="onOK">OK</b-button>
           </div>
         </template>
       </b-overlay>
@@ -578,7 +574,8 @@ Here are just a few examples of common use cases.
     },
     methods: {
       onShown() {
-        this.$refs.cancel.focus()
+        // Focus the dialog propmt
+        this.$refs.dialog.focus()
       },
       onSubmit() {
         this.processing = false
@@ -589,6 +586,7 @@ Here are just a few examples of common use cases.
       },
       onOK() {
         this.processing = true
+        // `setTimeout` used to simulate async request
         this.timer = setTimeout(() => {
           this.busy = false
           this.timer = null
