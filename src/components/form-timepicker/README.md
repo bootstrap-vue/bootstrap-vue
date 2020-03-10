@@ -210,9 +210,14 @@ and usage of these props.
 
 ### Button only mode
 
+<span class="badge badge-info small">v2.7.0+</span>
+
 Fancy just a button that launches the timepicker dialog, or want to provide your own optional text
 input field? Use the `button-mode` prop to render the timepicker as a dropdown button. The formatted
 time label will be rendered with the class `sr-only` (available only to screen readers).
+
+In the following simple example, we are placing the timepicker (buton only mode) as an append to a
+`<b-input-group>`:
 
 ```html
 <template>
