@@ -501,6 +501,7 @@ Here are just a few examples of common use cases.
     methods: {
       onClick() {
         this.busy = true
+        // `setTimeout` used to simulate async request
         this.timer = setTimeout(() => {
           this.busy = false
           this.timer = null
@@ -531,10 +532,8 @@ Here are just a few examples of common use cases.
         <template v-slot:overlay>
           <div v-if="processing" class="text-center">
             <b-icon icon="cloud-upload" font-scale="4"></b-icon>
-            <div class="d-flex align-items-center">
-              <b-spinner small></b-spinner>
-              <span class="ml-3">Processing...</span>
-            </div>
+            <div class="mb-3">Processing...</div>
+            <b-progress height="3px" min="1" max="20" :value="counter"></b-progress>
           </div>
           <div
             v-else
@@ -563,12 +562,13 @@ Here are just a few examples of common use cases.
       return {
         busy: false,
         processing: false,
+        counter: 1,
         timer: null
       }
     },
     beforeDestroy() {
        if (this.timer) {
-         clearTimeout(this.timer)
+         clearInterval(this.timer)
          this.timer = null
        }
     },
@@ -585,12 +585,21 @@ Here are just a few examples of common use cases.
         this.busy = false
       },
       onOK() {
+        this.counter = 1
         this.processing = true
-        // `setTimeout` used to simulate async request
-        this.timer = setTimeout(() => {
-          this.busy = false
-          this.timer = null
-        }, 5000)
+        // `setInterval` used to simulate async request
+        this.timer = setInterval(() => {
+          if (this.counter < 20) {
+            this.counter = this.counter + 1
+          } else {
+            clearInterval(this.timer)
+            this.timer = null;
+            this.$nextTick(() => {
+              this.busy = false;
+              this.processing = false;
+            })
+          }
+        }, 250)
       }
     }
   } 
