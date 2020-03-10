@@ -593,10 +593,9 @@ Here are just a few examples of common use cases.
             this.counter = this.counter + 1
           } else {
             clearInterval(this.timer)
-            this.timer = null;
+            this.timer = null
             this.$nextTick(() => {
-              this.busy = false;
-              this.processing = false;
+              this.busy = this.processing = false
             })
           }
         }, 250)
