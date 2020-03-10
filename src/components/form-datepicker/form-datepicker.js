@@ -366,7 +366,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       this.isRTL = isRTL
       this.localLocale = locale
       this.formattedValue = selectedFormatted
-      this.localYMD = selectedYMD
+      this.localYMD = this.isVisible ? selectedYMD : this.localYMD
       this.activeYMD = activeYMD
       // Re-emit the context event
       this.$emit('context', ctx)
