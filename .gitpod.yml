@@ -1,6 +1,6 @@
 tasks:
   - init: yarn install
-  - command: yarn run watch
+    command: yarn run watch
   - command: yarn run docs-dev
 ports:
   - port: 3000
