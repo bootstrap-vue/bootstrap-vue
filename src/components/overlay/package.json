@@ -16,7 +16,7 @@
           },
           {
             "prop": "variant",
-            "description": "Backgrund variant to use for the overlay backdrop"
+            "description": "Background variant to use for the overlay backdrop"
           },
           {
             "prop": "bgColor",
