@@ -23,6 +23,7 @@ component (and variant purpose) where they are used. See the sections below for 
 All the **base variants** plus:
 
 - `transparent`
+- `transparent`
 
 These translate to class names `bg-{variant}` for backgrounds and `border-{variant}` for borders.
 
