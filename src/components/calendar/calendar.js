@@ -473,7 +473,7 @@ export const BCalendar = Vue.extend({
       }
     },
     selectedYMD(newYMD, oldYMD) {
-      if (newYMD !== oldYMD && !datesEqual(newYMD, formatYMD(this.value)) {
+      if (newYMD !== oldYMD && !datesEqual(newYMD, formatYMD(this.value))) {
         this.$emit('input', this.valueAsDate ? parseYMD(newYMD) || null : newYMD || '')
       }
     },
