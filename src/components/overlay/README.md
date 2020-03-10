@@ -75,15 +75,18 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
         <b-form-group label="Variant" label-for="bg-variant">
           <b-form-select id="bg-variant" v-model="variant" :options="variants"></b-form-select>
         </b-form-group>
-        <b-form-group label="Opacity" label-for="bg-opacity" :description="opacityString">
-          <b-form-input
-            id="bg-opacity"
-            v-model="opacity"
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-          ></b-form-input>
+        <b-form-group label="Opacity" label-for="bg-opacity">
+          <b-input-group :append="opacity.toFixed(2)">
+            <b-form-input
+              id="bg-opacity"
+              v-model="opacity"
+              type="range"
+              number
+              min="0"
+              max="1"
+              step="0.01"
+            ></b-form-input>
+          </b-input-group>
         </b-form-group>
         <b-form-group label="Blur" label-for="bg-blur">
           <b-form-select id="bg-blur" v-model="blur" :options="blurs"></b-form-select>
@@ -120,6 +123,8 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
         opacity: 0.85,
         blur: '2px',
         variants: [
+          'transparent',
+          'white',
           'light',
           'dark',
           'primary',
@@ -127,7 +132,7 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
           'success',
           'danger',
           'warning',
-          'info'
+          'info',
         ],
         blurs: [
           { text: 'None', value: '' },
@@ -136,11 +141,6 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
           '5px',
           '1rem'
         ]
-      }
-    },
-    computed: {
-      opacityString() {
-        return `Opacity value: ${this.opacity}`
       }
     }
   }
