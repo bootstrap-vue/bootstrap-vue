@@ -393,6 +393,100 @@ other page elements. Use the `z-index` property to override the default z-index 
 
 Refer to the [Accessibility section](#accessibility) below for additional details and concerns.
 
+## Use case examples
+
+Here are just a few examples of common use cases.
+
+### Fancy loading button
+
+```html
+<template>
+  <div>
+    <b-overlay :show="busy" rounded opacity="0.6" spinner-small class="d-inline-block">
+      <b-button :disabled="busy" variant="primary" @click="onClick">Do something</b-button>
+    </b-overlay>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        busy: false,
+        timer: null
+      }
+    },
+    beforeDestroy() {
+       if (this.timer) {
+         clearTimeout(this.timer)
+         this.timer = null
+       }
+    },
+    methods: {
+      onClick() {
+        this.busy = true
+        this.timer = setTimeout(() => {
+          this.busy = false
+          this.timer = null
+        }, 5000)
+      }
+    }
+  } 
+</script>
+
+<!-- b-overlay-ex-loading-button.vue -->
+```
+
+### Input groups
+
+```html
+<template>
+  <div>
+    <b-overlay :show="busy" rounded="lg" opacity="0.6" spinner-small>
+      <template v-slot:overlay>
+        <b-spinner small variant="secondary"></b-spinner>
+        Please wait...
+      </template>
+      <b-input-group size="lg">
+        <b-form-input v-model="value" :disabled="busy"></b-form-input>
+        <b-input-group-append>
+          <b-button :disabled="busy" variant="primary" @click="onClick">Do something</b-button>
+        </b-input-group-append>
+      </b-input-group>
+    </b-overlay>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: 'Some value',
+        busy: false,
+        timer: null
+      }
+    },
+    beforeDestroy() {
+       if (this.timer) {
+         clearTimeout(this.timer)
+         this.timer = null
+       }
+    },
+    methods: {
+      onClick() {
+        this.busy = true
+        this.timer = setTimeout(() => {
+          this.busy = false
+          this.timer = null
+        }, 5000)
+      }
+    }
+  } 
+</script>
+
+<!-- b-overlay-ex-input-group.vue -->
+```
+
 ## Accessibility
 
 When using the wrapping mode (prop `no-wrap` is not set), the wrapper will have the attribute
