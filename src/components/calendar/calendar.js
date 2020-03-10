@@ -473,10 +473,7 @@ export const BCalendar = Vue.extend({
       }
     },
     selectedYMD(newYMD, oldYMD) {
-      // TODO:
-      //   Should we compare to `formatYMD(this.value)` and emit
-      //   only if they are different?
-      if (newYMD !== oldYMD) {
+      if (newYMD !== oldYMD && !datesEqual(newYMD, formatYMD(this.value)) {
         this.$emit('input', this.valueAsDate ? parseYMD(newYMD) || null : newYMD || '')
       }
     },
