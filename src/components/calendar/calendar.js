@@ -60,10 +60,9 @@ export const BCalendar = Vue.extend({
       default: false
     },
     initialDate: {
-      // This specifies the calendar year/month/day
-      // That will be shown when first opening the datepicker
-      // if no v-model value is provided.  Default is the
-      // current date (or min/max). Passed directly to b-calendar
+      // This specifies the calendar year/month/day that will be shown when
+      // first opening the datepicker if no v-model value is provided
+      // Default is the current date (or `min`/`max`)
       type: [String, Date],
       default: null
     },
@@ -706,7 +705,7 @@ export const BCalendar = Vue.extend({
     // Flag for making the `aria-live` regions live
     const isLive = this.isLive
     // Pre-compute some IDs
-    // Thes should be computed props
+    // This should be computed props
     const idValue = safeId()
     const idWidget = safeId('_calendar-wrapper_')
     const idNav = safeId('_calendar-nav_')

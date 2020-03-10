@@ -289,7 +289,7 @@ the `label-close-button` props. Due to the limited width of the footer section, 
 keep these labels short.
 
 Note that the `Set Today` button may not set the control today's date, if today's date is outside of
-the `min` or `max` date range restrictions. In hte case it is outside of hte range, it will set to
+the `min` or `max` date range restrictions. In the case it is outside of the range, it will set to
 either `min` or `max` (depending on which is closes to today's date).
 
 ### Dropdown placement
@@ -305,8 +305,8 @@ and usage of these props.
 By default, when no date is selected, the calendar view will be set to the current month (or the
 `min` or `max` date if today's date is out of range of `min` or `max`) when opened. You can change
 this behaviour by specifying a date via the `initial-date` prop. The initial date prop will be used
-to determine the calendar month to be initially presented to the user. It does not set the component's
-value.
+to determine the calendar month to be initially presented to the user. It does not set the
+component's value.
 
 ### Dark mode
 

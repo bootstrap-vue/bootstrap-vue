@@ -32,10 +32,10 @@ const propsMixin = {
       default: ''
     },
     initialDate: {
-      // This specifies the calendar year/month/day
-      // That will be shown when first opening the datepicker
-      // if no v-model value is provided.  Default is the
-      // current date (or min/max). Passed directly to b-calendar
+      // This specifies the calendar year/month/day that will be shown when
+      // first opening the datepicker if no v-model value is provided
+      // Default is the current date (or `min`/`max`)
+      // Passed directly to <b-calendar>
       type: [String, Date],
       default: null
     },
