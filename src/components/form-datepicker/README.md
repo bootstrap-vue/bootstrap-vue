@@ -301,6 +301,53 @@ and usage of these props.
 Want a fancy popup with a dark background instead of a light background? Set the `dark` prop to
 `true` to enable the dark background.
 
+### Button only mode
+
+Fancy just a button that launches the date picker dialog, or want to provide your own optional text
+input field? Use the `button-mode` prop to render the datepicker as a dropdown button. The formatted
+date label will be rendered with the class `sr-only` (available only to screen readers).
+
+```html
+<template>
+  <div>
+    <label for="example-textfield">Choose a date</label>
+    <b-input-group class="mb-3">
+      <b-form-input
+        id="example-textfield"
+        v-model="value"
+        type="text"
+        placeholder="YYYY-MM-DD"
+      ></b-form-input>
+      <b-input-group-append>
+        <b-form-datepicker
+          v-model="value"
+          button-only
+          right
+          locale="en-US"
+          aria-controls="example-textfield"
+        ></b-form-datepicker>
+      </b-input-group-append">
+    </b-input-group>
+    <p>Value: '{{ value }}'</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    }
+  }
+</script>
+
+<!-- b-form-datepicker-button-only.vue -->
+```
+
+Control the size of the button via the `size` prop, and the button variant via the `button-variant`
+prop.
+
 ### Date string format
 
 <span class="badge badge-info small">v2.6.0+</span>
