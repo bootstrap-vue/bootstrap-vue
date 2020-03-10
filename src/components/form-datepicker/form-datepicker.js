@@ -355,7 +355,9 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       })
     },
     onInput(ymd) {
-      if (this.localYMD !== ymd) {
+      // We only update the v-model if the dialog is open
+      // to prevent cursor jumps in bound text inputs
+      if (this.localYMD !== ymd && this.isVisible) {
         this.localYMD = ymd
       }
     },
