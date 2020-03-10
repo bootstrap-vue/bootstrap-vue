@@ -318,19 +318,19 @@ Want a fancy popup with a dark background instead of a light background? Set the
 <span class="badge badge-info small">v2.7.0+</span>
 
 Fancy just a button that launches the date picker dialog, or want to provide your own optional text
-input field? Use the `button-mode` prop to render the datepicker as a dropdown button. The formatted
+input field? Use the `button-only` prop to render the datepicker as a dropdown button. The formatted
 date label will be rendered with the class `sr-only` (available only to screen readers).
 
-In the following simple example, we are placing the datepicker (buton only mode) as an append to a
+In the following simple example, we are placing the datepicker (button only mode) as an append to a
 `<b-input-group>`:
 
 ```html
 <template>
   <div>
-    <label for="example-textfield">Choose a date</label>
+    <label for="example-input">Choose a date</label>
     <b-input-group class="mb-3">
       <b-form-input
-        id="example-textfield"
+        id="example-input"
         v-model="value"
         type="text"
         placeholder="YYYY-MM-DD"
@@ -341,7 +341,7 @@ In the following simple example, we are placing the datepicker (buton only mode)
           button-only
           right
           locale="en-US"
-          aria-controls="example-textfield"
+          aria-controls="example-input"
         ></b-form-datepicker>
       </b-input-group-append">
     </b-input-group>
@@ -383,7 +383,8 @@ properties for the `Intl.DateTimeFormat` object (see also
       :date-format-options="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
       locale="en"
     ></b-form-datepicker>
-    <label for="datepicker-dateformat2">Short date format</label>
+
+    <label class="mt-3" for="datepicker-dateformat2">Short date format</label>
     <b-form-datepicker
       id="datepicker-dateformat2"
       :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"

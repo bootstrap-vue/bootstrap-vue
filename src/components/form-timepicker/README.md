@@ -213,19 +213,19 @@ and usage of these props.
 <span class="badge badge-info small">v2.7.0+</span>
 
 Fancy just a button that launches the timepicker dialog, or want to provide your own optional text
-input field? Use the `button-mode` prop to render the timepicker as a dropdown button. The formatted
+input field? Use the `button-only` prop to render the timepicker as a dropdown button. The formatted
 time label will be rendered with the class `sr-only` (available only to screen readers).
 
-In the following simple example, we are placing the timepicker (buton only mode) as an append to a
+In the following simple example, we are placing the timepicker (button only mode) as an append to a
 `<b-input-group>`:
 
 ```html
 <template>
   <div>
-    <label for="example-textfield">Choose a time</label>
+    <label for="example-input">Choose a time</label>
     <b-input-group class="mb-3">
       <b-form-input
-        id="example-textfield"
+        id="example-input"
         v-model="value"
         type="text"
         placeholder="HH:mm:ss"
@@ -238,7 +238,7 @@ In the following simple example, we are placing the timepicker (buton only mode)
           show-seconds
           :hour12="false"
           locale="en-US"
-          aria-controls="example-textfield"
+          aria-controls="example-input"
         ></b-form-timepicker>
       </b-input-group-append">
     </b-input-group>
