@@ -444,8 +444,12 @@ Here are just a few examples of common use cases.
   <div>
     <b-overlay :show="busy" rounded="lg" opacity="0.6" spinner-small>
       <template v-slot:overlay>
-        <b-spinner small variant="secondary"></b-spinner>
-        Please wait...
+        <div class="d-flex align-items-center">
+          <b-spinner small type="grow"variant="secondary"></b-spinner>
+          <b-spinner type="grow" variant="secondary"></b-spinner>
+          <b-spinner small type="grow"variant="secondary"></b-spinner>
+          <span class="sr-only">Please wait...</span>
+        </div>
       </template>
       <b-input-group size="lg">
         <b-form-input v-model="value" :disabled="busy"></b-form-input>
