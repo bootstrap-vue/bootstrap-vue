@@ -208,6 +208,54 @@ control the positioning of the popup calendar.
 Refer to the [`<b-dropdown>` documentation](/docs/components/dropdown) for details on the effects
 and usage of these props.
 
+### Button only mode
+
+Fancy just a button that launches the timepicker dialog, or want to provide your own optional text
+input field? Use the `button-mode` prop to render the timepicker as a dropdown button. The formatted
+time label will be rendered with the class `sr-only` (available only to screen readers).
+
+```html
+<template>
+  <div>
+    <label for="example-textfield">Choose a time</label>
+    <b-input-group class="mb-3">
+      <b-form-input
+        id="example-textfield"
+        v-model="value"
+        type="text"
+        placeholder="HH:mm:ss"
+      ></b-form-input>
+      <b-input-group-append>
+        <b-form-timepicker
+          v-model="value"
+          button-only
+          right
+          show-seconds
+          locale="en-US"
+          aria-controls="example-textfield"
+        ></b-form-timepicker>
+      </b-input-group-append">
+    </b-input-group>
+    <p>Value: '{{ value }}'</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    }
+  }
+</script>
+
+<!-- b-form-timepicker-button-only.vue -->
+```
+
+Control the size of the button via the `size` prop, and the button variant via the `button-variant`
+prop.
+
 ## Internationalization
 
 Internationalization of the time interface is provided via
