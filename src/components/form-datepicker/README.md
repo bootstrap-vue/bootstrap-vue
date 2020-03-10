@@ -288,6 +288,10 @@ The text for the optional buttons can be set via the `label-today-button`, `labe
 the `label-close-button` props. Due to the limited width of the footer section, it is recommended to
 keep these labels short.
 
+Note that the `Set Today` button may not set the control today's date, if today's date is outside of
+the `min` or `max` date range restrictions. In the case it is outside of the range, it will set to
+either `min` or `max` (depending on which is closes to today's date).
+
 ### Dropdown placement
 
 Use the dropdown props `right`, `dropup`, `dropright`, `dropleft`, `no-flip`, and `offset` to
@@ -295,6 +299,14 @@ control the positioning of the popup calendar.
 
 Refer to the [`<b-dropdown>` documentation](/docs/components/dropdown) for details on the effects
 and usage of these props.
+
+### Initial open calendar date
+
+By default, when no date is selected, the calendar view will be set to the current month (or the
+`min` or `max` date if today's date is out of range of `min` or `max`) when opened. You can change
+this behaviour by specifying a date via the `initial-date` prop. The initial date prop will be used
+to determine the calendar month to be initially presented to the user. It does not set the
+component's value.
 
 ### Dark mode
 

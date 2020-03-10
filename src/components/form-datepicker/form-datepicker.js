@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'
-import { createDate, formatYMD, parseYMD } from '../../utils/date'
+import { createDate, constrainDate, formatYMD, parseYMD } from '../../utils/date'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
@@ -30,6 +30,14 @@ const propsMixin = {
     resetValue: {
       type: [String, Date],
       default: ''
+    },
+    initialDate: {
+      // This specifies the calendar year/month/day that will be shown when
+      // first opening the datepicker if no v-model value is provided
+      // Default is the current date (or `min`/`max`)
+      // Passed directly to <b-calendar>
+      type: [String, Date],
+      default: null
     },
     placeholder: {
       type: String,
@@ -250,13 +258,13 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     return {
       // We always use `YYYY-MM-DD` value internally
       localYMD: formatYMD(this.value) || '',
+      // If the popup is open
+      isVisible: false,
       // Context data from BCalendar
       localLocale: null,
       isRTL: false,
       formattedValue: '',
-      activeYMD: '',
-      // If the popup is open
-      isVisible: false
+      activeYMD: ''
     }
   },
   computed: {
@@ -274,6 +282,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         value: self.localYMD,
         min: self.min,
         max: self.max,
+        initialDate: self.initialDate,
         readonly: self.readonly,
         disabled: self.disabled,
         locale: self.locale,
@@ -302,7 +311,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       return (this.localLocale || '').replace(/-u-.*$/i, '') || null
     },
     computedResetValue() {
-      return formatYMD(this.resetValue) || ''
+      return formatYMD(constrainDate(this.resetValue)) || ''
     }
   },
   watch: {
@@ -373,7 +382,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       this.$emit('context', ctx)
     },
     onTodayButton() {
-      this.setAndClose(formatYMD(createDate()))
+      // Set to today (or min/max if today is out of range)
+      this.setAndClose(formatYMD(constrainDate(createDate(), this.min, this.max)))
     },
     onResetButton() {
       this.setAndClose(this.computedResetValue)
