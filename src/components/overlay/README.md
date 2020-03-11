@@ -452,38 +452,62 @@ suitable for your application or use case.  The default `z-index` is `10`.
 
 ## Accessibility
 
-When using the wrapping mode (prop `no-wrap` is not set), the wrapper will have the attribute
-`aria-bus="true"` set, to allow screen reader users to know the element is in a busy or loading
-state. When prop `no-wrap` is set, then the attribute will not be applied.
-
 Note that the overlay is visual only. You **must** disable any interactive elements (buttons, links,
 etc.) when the overlay is showing, otherwise the obscured elements will still be reachable via
-keyboard navigation (i.e. still in the document tab sequence). It is also recommended to add either
-the `aria-hidden="true"` or `aria-bus=y"true"` attribute to your obscured content when the overlay
-is visible. Just be careful not to add `aria-hidden="true"` to the wrapper that contains the
-`<b-overlay>` component (when using `no-wrap`), as that would hide any interactive content in the
-`overlay` slot for screen reader users.
+keyboard navigation (i.e. still in the document tab sequence).
+
+If you have any links in the obscured content, we recommend using the
+[`<b-link>` component](/docs/components/link), as it supports the `disabled` state, as native links
+(`<a href="...">`) and `<router-link>` components do not support the disabled state.
+
+It is also recommended to add either the `aria-hidden="true"` or `aria-bus=y"true"` attribute to your
+obscured content when the overlay is visible. Just be careful not to add `aria-hidden="true"` to the
+wrapper that contains the `<b-overlay>` component (when using `no-wrap`), as that would hide any
+interactive content in the `overlay` slot for screen reader users.
 
 If you are placing interactive content in the `overlay` slot, you should focus the content once the
-`'shown'` event has been emitted.
+`'shown'` event has been emitted. You can use the `hidden` event to trigger returning focus to an
+element as needed when the overlay is no longer visible.
+
+When using the wrapping mode (prop `no-wrap` is not set), the wrapper will have the attribute
+`aria-busy="true"` set, to allow screen reader users to know that the wrapped content is in a busy
+or loading state. When prop `no-wrap` is set, the attribute will _not_ be applied.
 
 When using the `no-wrap` prop, and potentially the `fixed` prop, to obscure the entire application
-or page, you must ensure that internative page elements (other than the content of the overlay) have
-been disabled and are not in the document tab sequence.
+or page, you must ensure that all internative page elements (other than the content of the overlay)
+have been disabled and are _not_ in the document tab sequence.
 
 ## Use case examples
 
-Here are just a few examples of common use cases of `<b-overlay>`.
+Here are just a few examples of common use cases of `<b-overlay>`. In all cases, we disable any
+interactive elements in the obscured area to prevent reachability via keyboard navigation (i.e.
+<kbd>TAB</kbd>) or screen reader access.
 
 Please refer to the [Accessibility section](#accessibility) for additional details and concerns.
 
 ### Fancy loading button
 
+Easily create a loading button:
+
 ```html
 <template>
   <div>
-    <b-overlay :show="busy" rounded opacity="0.6" spinner-small class="d-inline-block">
-      <b-button :disabled="busy" variant="primary" @click="onClick">Do something</b-button>
+    <b-overlay
+      :show="busy"
+      rounded
+      opacity="0.6"
+      spinner-small
+      class="d-inline-block"
+      @hidden="onHidden"
+    >
+      <b-button
+        ref="button"
+        :disabled="busy"
+        variant="primary"
+        @click="onClick"
+      >
+        Do something
+      </b-button>
     </b-overlay>
   </div>
 </template>
@@ -503,6 +527,10 @@ Please refer to the [Accessibility section](#accessibility) for additional detai
        }
     },
     methods: {
+      onHidden() {
+        // Return focus to the button once hidden
+        this.$refs.button.focus()
+      },
       onClick() {
         this.busy = true
         // `setTimeout` used to simulate async request
@@ -520,22 +548,27 @@ Please refer to the [Accessibility section](#accessibility) for additional detai
 
 ### Busy state input group
 
+In this example, we obscure the input and button:
+
 ```html
 <template>
   <div>
-    <b-overlay :show="busy" rounded="lg" opacity="0.6">
+    <b-overlay :show="busy" rounded="lg" opacity="0.6" @hidden="onHidden">
       <template v-slot:overlay>
         <div class="d-flex align-items-center">
           <b-spinner small type="grow"variant="secondary"></b-spinner>
           <b-spinner type="grow" variant="dark"></b-spinner>
           <b-spinner small type="grow"variant="secondary"></b-spinner>
+          <!-- We add an SR only text for screen readers -->
           <span class="sr-only">Please wait...</span>
         </div>
       </template>
       <b-input-group size="lg" :aria-hidden="busy ? 'true' : null">
         <b-form-input v-model="value" :disabled="busy"></b-form-input>
         <b-input-group-append>
-          <b-button :disabled="busy" variant="primary" @click="onClick">Do something</b-button>
+          <b-button ref="button" :disabled="busy" variant="primary"  @click="onClick">
+            Do something
+          </b-button>
         </b-input-group-append>
       </b-input-group>
     </b-overlay>
@@ -558,6 +591,10 @@ Please refer to the [Accessibility section](#accessibility) for additional detai
        }
     },
     methods: {
+      onHidden() {
+        // Return focus to the button
+        this.$refs.button.focus()
+      },
       onClick() {
         this.busy = true
         // `setTimeout` used to simulate async request
@@ -575,8 +612,9 @@ Please refer to the [Accessibility section](#accessibility) for additional detai
 
 ### Form confirmation prompt and upload status
 
-This example is a bit more complex, but shows the user of `no-wrap`, and using the `overlay` slot to
+This example is a bit more complex, but shows the use of `no-wrap`, and using the `overlay` slot to
 present the user with a prompt dialog, and once confirmed it shows a uploading status indicator.
+This example also demonstrates additional accessibility markup.
 
 ```html
 <template>
@@ -607,10 +645,10 @@ present the user with a prompt dialog, and once confirmed it shows a uploading s
         </b-input-group>
       </b-form-group>
       <div class="d-flex justify-content-center">
-         <b-button type="submit" :disabled="busy">Submit</b-button>
+         <b-button ref-"submit" type="submit" :disabled="busy">Submit</b-button>
       </div>
 
-      <b-overlay :show="busy" no-wrap @shown="onShown">
+      <b-overlay :show="busy" no-wrap @shown="onShown" @hidden="onHidden">
         <template v-slot:overlay>
           <div v-if="processing" class="text-center p-4 bg-dark text-light rounded">
             <b-icon icon="cloud-upload" font-scale="4"></b-icon>
@@ -667,6 +705,11 @@ present the user with a prompt dialog, and once confirmed it shows a uploading s
         // Focus the dialog propmt
         this.$refs.dialog.focus()
       },
+      onHidden() {
+        // In this case, we return focus to the submit button
+        // You may need to alter this based on your application requirements
+        this.$refs.submit.focus()
+      },
       onSubmit() {
         this.processing = false
         this.busy = true
@@ -688,7 +731,7 @@ present the user with a prompt dialog, and once confirmed it shows a uploading s
               this.busy = this.processing = false
             })
           }
-        }, 250)
+        }, 350)
       }
     }
   } 
