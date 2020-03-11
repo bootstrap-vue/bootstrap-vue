@@ -488,7 +488,7 @@ have been disabled and are _not_ in the document tab sequence.
 
 Here are just a few examples of common use cases of `<b-overlay>`. In all cases, we disable any
 interactive elements in the obscured area to prevent reachability via keyboard navigation (i.e.
-<kbd>TAB</kbd>) or screen reader access.
+<kbd>TAB</kbd> key) or screen reader access.
 
 Please refer to the [Accessibility section](#accessibility) for additional details and concerns.
 
