@@ -37,6 +37,10 @@ components:
 - [Vue2 date range picker](https://innologica.github.io/vue2-daterange-picker/) _Note: Not WAI-ARIA
   compliant_
 
+### Color pickers
+
+- [Vue Colorpicker](https://github.com/caohenghu/vue-colorpicker) _Note: Not WAI-ARIA compliant_
+
 ### Type Ahead
 
 - [Vue Bootstrap TypeAhead](https://github.com/alexurquhart/vue-bootstrap-typeahead) _Note: This
