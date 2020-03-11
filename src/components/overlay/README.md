@@ -447,6 +447,7 @@ Here are just a few examples of common use cases.
     methods: {
       onClick() {
         this.busy = true
+        // `setTimeout` used to simulate async request
         this.timer = setTimeout(() => {
           this.busy = false
           this.timer = null
@@ -520,38 +521,46 @@ Here are just a few examples of common use cases.
 <template>
   <div>
     <b-form class="position-relative p-3" @submit.prevent="onSubmit">
-      <b-form-group label="Name" label-for="form-name">
+      <b-form-group label="Name" label-for="form-name" label-cols-lg="2">
         <b-input-group>
           <b-input-group-prepend is-text>
-            <b-icon icon="person-fill"></b-icon>
+            <b-icon icon="person-fill" scale="1.5"></b-icon>
           </b-input-group-prepend>
           <b-form-input id="form-name" :disabled="busy"></b-form-input>
         </b-input-group>
       </b-form-group>
-      <b-form-group label="Email" label-for="form-mail">
+      <b-form-group label="Email" label-for="form-mail" label-cols-lg="2">
         <b-input-group>
           <b-input-group-prepend is-text>
-            <b-icon icon="envelope-fill"></b-icon>
+            <b-icon icon="envelope-fill" scale="1.5"></b-icon>
           </b-input-group-prepend>
           <b-form-input id="form-email" type="email" :disabled="busy"></b-form-input>
         </b-input-group>
       </b-form-group>
-      <b-form-group label="Image" label-for="form-image">
+      <b-form-group label="Image" label-for="form-image" label-cols-lg="2">
         <b-input-group>
           <b-input-group-prepend is-text>
-            <b-icon icon="image-fill"></b-icon>
+            <b-icon icon="image-fill" scale="1.5"></b-icon>
           </b-input-group-prepend>
           <b-form-file id="form-image" :disabled="busy" accept="image/*"></b-form-file>
         </b-input-group>
       </b-form-group>
-      <b-button type="submit" :disabled="busy">Submit</b-button>
+      <div class="d-flex justify-content-center">
+         <b-button type="submit" :disabled="busy">Submit</b-button>
+      </div>
 
       <b-overlay :show="busy" no-wrap @shown="onShown">
         <template v-slot:overlay>
-          <div v-if="processing" class="text-center">
+          <div v-if="processing" class="text-center p-4 bg-dark text-light rounded">
             <b-icon icon="cloud-upload" font-scale="4"></b-icon>
             <div class="mb-3">Processing...</div>
-            <b-progress height="3px" min="1" max="20" :value="counter"></b-progress>
+            <b-progress
+              height="3px"
+              min="1"
+              max="20"
+              :value="counter"
+              class="mx-n4 rounded-0"
+            ></b-progress>
           </div>
           <div
             v-else
@@ -560,13 +569,15 @@ Here are just a few examples of common use cases.
             role="dialog"
             aria-modal="false"
             aria-labeledby="form-confirm-label"
-            class="d-flex align-items-center p-3"
+            class="text-center p-3"
           >
-            <strong id="form-confirm-label">Are you sure?</strong>
-            <b-button variant="outline-danger" class="mx-3" @click="onCancel">
-              Cancel
-            </b-button>
-            <b-button variant="outline-success" @click="onOK">OK</b-button>
+            <p><strong id="form-confirm-label">Are you sure?</strong></p>
+            <div class="d-flex">
+              <b-button variant="outline-danger" class="mr-3" @click="onCancel">
+                Cancel
+              </b-button>
+              <b-button variant="outline-success" @click="onOK">OK</b-button>
+            </div>
           </div>
         </template>
       </b-overlay>
