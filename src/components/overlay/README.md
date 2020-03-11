@@ -60,6 +60,9 @@ The overlay visibility is controlled vis the `show` prop. By default the overlay
 
 ## Options
 
+There are many options available for styling the overlay, and for providing custom content within
+the overlay.
+
 ### Overlay backdrop color
 
 You can control the backdrop background color via the `variant` prop. The variant is translated into
