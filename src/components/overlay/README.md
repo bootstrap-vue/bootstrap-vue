@@ -4,9 +4,10 @@
 > component and its content. It signals to the user of a state change within the element or
 > component and can be used for creating loaders, warnings/alerts, prompts, and more.
 
-`<b-overlay>` can be used to obscure almost any thing. Example use cases would be forms, tables,
-delete confirmation dialogs, or anywhere you need to signal that the application is busy performing
-a background task, or to signal that a certain component is unavailable.
+`<b-overlay>` can be used to obscure almost anything. [Example use cases](#use-case-examples) would
+be forms, tables, delete confirmation dialogs, or anywhere you need to signal that the application
+is busy performing a background task, to signal that a certain component is unavailable, or to
+provide additional context to the end user.
 
 The component `<b-overlay>` was introduced in BootstrapVue version `v2.7.0`.
 
@@ -59,6 +60,9 @@ The overlay visibility is controlled vis the `show` prop. By default the overlay
 
 ## Options
 
+There are many options available for styling the overlay, and for providing custom content within
+the overlay.
+
 ### Overlay backdrop color
 
 You can control the backdrop background color via the `variant` prop. The variant is translated into
@@ -71,32 +75,38 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
 <template>
   <div>
     <b-row>
-      <b-col lg="6">
-        <b-form-group label="Variant" label-for="bg-variant">
+      <b-col lg="6" aria-controls="overlay-background">
+        <b-form-group label="Variant" label-for="bg-variant" label-cols-sm="4" label-cols-lg="12">
           <b-form-select id="bg-variant" v-model="variant" :options="variants"></b-form-select>
         </b-form-group>
-        <b-form-group label="Opacity" label-for="bg-opacity" :description="opacityString">
-          <b-form-input
-            id="bg-opacity"
-            v-model="opacity"
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-          ></b-form-input>
+        <b-form-group label="Opacity" label-for="bg-opacity" label-cols-sm="4" label-cols-lg="12">
+          <b-input-group>
+            <b-form-input
+              id="bg-opacity"
+              v-model="opacity"
+              type="range"
+              number
+              min="0"
+              max="1"
+              step="0.01"
+            ></b-form-input>
+            <b-input-group-append is-text class="text-monospace">
+              {{ opacity.toFixed(2) }}
+            </b-input-group-append>
+          </b-input-group>
         </b-form-group>
-        <b-form-group label="Blur" label-for="bg-blur">
+        <b-form-group label="Blur" label-for="bg-blur" label-cols-sm="4" label-cols-lg="12">
           <b-form-select id="bg-blur" v-model="blur" :options="blurs"></b-form-select>
         </b-form-group>
       </b-col>
       <b-col lg="6">
         <b-overlay
+          id="overlay-background"
           show
           :variant="variant"
           :opacity="opacity"
           :blur="blur"
           rounded="sm"
-          style="max-width: 320px;"
         >
           <b-card title="Card with overlay" aria-hidden="true">
             <b-card-text>
@@ -120,6 +130,8 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
         opacity: 0.85,
         blur: '2px',
         variants: [
+          'transparent',
+          'white',
           'light',
           'dark',
           'primary',
@@ -127,20 +139,16 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
           'success',
           'danger',
           'warning',
-          'info'
+          'info',
         ],
         blurs: [
           { text: 'None', value: '' },
           '1px',
           '2px',
           '5px',
+          '0.5em',
           '1rem'
         ]
-      }
-    },
-    computed: {
-      opacityString() {
-        return `Opacity value: ${this.opacity}`
       }
     }
   }
@@ -325,7 +333,15 @@ document.
 ### Overlay content centering
 
 By default the overlay content will be horizontally and vertically centered within the overlay
-region. To disabled centering, set the `no-center` prop to `true`.
+region. To disable centering, set the `no-center` prop to `true`.
+
+### Width
+
+`<b-overlay>` defaults to a width of `100%`. When wrapping an inline or inline-block element, you
+will need to add the class `d-inline-block` (e.g. `<b-overlay class="d-inline-block">`).
+
+You can also use the width [utility classes](/docs/reference/utility-classes) or CSS styles to
+control the width of the overlay's wrapping container element.
 
 ### Non-wrapping mode
 
@@ -373,7 +389,48 @@ relative positioning (either via the utility class `'position-relative'`, or CSS
 ```
 
 Note that some of Bootstrap v4's component styles have relative positioning defined (e.g. cards,
-cols, etc.). You may need to adjust the placement of `<b-overlay>` is your markup.
+cols, etc.). You may need to adjust the placement of `<b-overlay>` in your markup.
+
+For example, `<b-card>` has relative positioning, so you can place the `<b-overlay no-wrap>` as a
+descendant of `<b-card>`:
+
+```html
+<template>
+  <div>
+    <b-card header="Card header" footer="Card footer">
+      <b-media>
+        <template v-slot:aside>
+          <b-img
+            thumbnail
+            rounded="circle"
+            src="https://picsum.photos/72/72/?image=58"
+            alt="Image"
+          ></b-img>
+        </template>
+        <p class="mb-0">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+      </b-media>
+      <b-overlay :show="show" no-wrap></b-overlay>
+    </b-card>
+    <b-button @click="show = !show" class="mt-3">Toggle overlay</b-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        show: true
+      }
+    }
+  }
+</script>
+
+<!-- b-overlay-card-relative.vue -->
+```
 
 When in `no-wrap` mode, `<b-overlay>` will not set the `aria-busy` attribute on the obscured
 element. You may also want to use an `aria-live` region in your app that announces to screen reader
@@ -388,28 +445,327 @@ switch to viewport fixed positioning via setting the prop `fixed` on `<b-overlay
 does not disable scrolling of the page, and note that any interactive elements on the page will
 still be in the document tab sequence.
 
-You may also need to adjust the z-index of the overlay to ensure that the backdrop appears above all
-other page elements. Use the `z-index` property to override the default z-index value.
+You may also need to adjust the [z-index of the overlay](#overlay-z-index) to ensure that the
+backdrop appears above all other page elements. Use the `z-index` property to override the default
+`z-index` value.
 
 Refer to the [Accessibility section](#accessibility) below for additional details and concerns.
 
-## Accessibility
+### Overlay z-index
 
-When using the wrapping mode (prop `no-wrap` is not set), the wrapper will have the attribute
-`aria-bus="true"` set, to allow screen reader users to know the element is in a busy or loading
-state. When prop `no-wrap` is set, then the attribute will not be applied.
+In some circumstances, you may need to adjust the `z-index` used by the overlay (depending on
+positioning in the DOM or the content being obscured). Simply set the `z-index` prop with a value
+suitable for your application or use case. The default `z-index` is `10`.
+
+## Accessibility
 
 Note that the overlay is visual only. You **must** disable any interactive elements (buttons, links,
 etc.) when the overlay is showing, otherwise the obscured elements will still be reachable via
-keyboard navigation (i.e. still in the document tab sequence). It is also recommended to add either
-the `aria-hidden="true"` or `aria-bus=y"true"` attribute to your obscured content when the overlay
-is visible. Just be careful not to add `aria-hidden="true"` to the wrapper that contains the
-`<b-overlay>` component (when using `no-wrap`), as that would hide any interactive content in the
-`overlay` slot for screen reader users.
+keyboard navigation (i.e. still in the document tab sequence).
+
+If you have any links in the obscured content, we recommend using the
+[`<b-link>` component](/docs/components/link), as it supports the `disabled` state, as native links
+(`<a href="...">`) and `<router-link>` components do not support the disabled state.
+
+It is also recommended to add either the `aria-hidden="true"` or `aria-bus=y"true"` attribute to
+your obscured content when the overlay is visible. Just be careful not to add `aria-hidden="true"`
+to the wrapper that contains the `<b-overlay>` component (when using `no-wrap`), as that would hide
+any interactive content in the `overlay` slot for screen reader users.
 
 If you are placing interactive content in the `overlay` slot, you should focus the content once the
-`'shown'` event has been emitted.
+`'shown'` event has been emitted. You can use the `hidden` event to trigger returning focus to an
+element as needed when the overlay is no longer visible.
+
+When using the wrapping mode (prop `no-wrap` is not set), the wrapper will have the attribute
+`aria-busy="true"` set, to allow screen reader users to know that the wrapped content is in a busy
+or loading state. When prop `no-wrap` is set, the attribute will _not_ be applied.
 
 When using the `no-wrap` prop, and potentially the `fixed` prop, to obscure the entire application
-or page, you must ensure that internative page elements (other than the content of the overlay) have
-been disabled and are not in the document tab sequence.
+or page, you must ensure that all internative page elements (other than the content of the overlay)
+have been disabled and are _not_ in the document tab sequence.
+
+## Use case examples
+
+Here are just a few examples of common use cases of `<b-overlay>`. In all cases, we disable any
+interactive elements in the obscured area to prevent reachability via keyboard navigation (i.e.
+<kbd>TAB</kbd> key) or screen reader access.
+
+Please refer to the [Accessibility section](#accessibility) for additional details and concerns.
+
+### Fancy loading button
+
+Easily create a loading button:
+
+```html
+<template>
+  <div>
+    <b-overlay
+      :show="busy"
+      rounded
+      opacity="0.6"
+      spinner-small
+      spinner-variant="primary"
+      class="d-inline-block"
+      @hidden="onHidden"
+    >
+      <b-button
+        ref="button"
+        :disabled="busy"
+        variant="primary"
+        @click="onClick"
+      >
+        Do something
+      </b-button>
+    </b-overlay>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        busy: false,
+        timeout: null
+      }
+    },
+    beforeDestroy() {
+      this.clearTimeout()
+    },
+    methods: {
+      clearTimeout() {
+        if (this.timeout) {
+          clearTimeout(this.timeout)
+          this.timeout = null
+        }
+      },
+      setTimeout(callback) {
+        this.clearTimeout()
+        this.timeout = setTimeout(() => {
+          this.clearTimeout()
+          callback()
+        }, 5000)
+      },
+      onHidden() {
+        // Return focus to the button once hidden
+        this.$refs.button.focus()
+      },
+      onClick() {
+        this.busy = true
+        // Simulate an async request
+        this.setTimeout(() => {
+          this.busy = false
+        })
+      }
+    }
+  }
+</script>
+
+<!-- b-overlay-example-loading-button.vue -->
+```
+
+### Busy state input group
+
+In this example, we obscure the input and button:
+
+```html
+<template>
+  <div>
+    <b-overlay :show="busy" rounded="lg" opacity="0.6" @hidden="onHidden">
+      <template v-slot:overlay>
+        <div class="d-flex align-items-center">
+          <b-spinner small type="grow"variant="secondary"></b-spinner>
+          <b-spinner type="grow" variant="dark"></b-spinner>
+          <b-spinner small type="grow"variant="secondary"></b-spinner>
+          <!-- We add an SR only text for screen readers -->
+          <span class="sr-only">Please wait...</span>
+        </div>
+      </template>
+      <b-input-group size="lg" :aria-hidden="busy ? 'true' : null">
+        <b-form-input v-model="value" :disabled="busy"></b-form-input>
+        <b-input-group-append>
+          <b-button ref="button" :disabled="busy" variant="primary"  @click="onClick">
+            Do something
+          </b-button>
+        </b-input-group-append>
+      </b-input-group>
+    </b-overlay>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: 'Some value',
+        busy: false,
+        timeout: null
+      }
+    },
+    beforeDestroy() {
+      this.clearTimeout()
+    },
+    methods: {
+      clearTimeout() {
+        if (this.timeout) {
+          clearTimeout(this.timeout)
+          this.timeout = null
+        }
+      },
+      setTimeout(callback) {
+        this.clearTimeout()
+        this.timeout = setTimeout(() => {
+          this.clearTimeout()
+          callback()
+        }, 5000)
+      },
+      onHidden() {
+        // Return focus to the button
+        this.$refs.button.focus()
+      },
+      onClick() {
+        this.busy = true
+        // Simulate an async request
+        this.setTimeout(() => {
+          this.busy = false
+        })
+      }
+    }
+  }
+</script>
+
+<!-- b-overlay-example-input-group.vue -->
+```
+
+### Form confirmation prompt and upload status
+
+This example is a bit more complex, but shows the use of `no-wrap`, and using the `overlay` slot to
+present the user with a prompt dialog, and once confirmed it shows a uploading status indicator.
+This example also demonstrates additional accessibility markup.
+
+```html
+<template>
+  <div>
+    <b-form class="position-relative p-3" @submit.prevent="onSubmit">
+      <b-form-group label="Name" label-for="form-name" label-cols-lg="2">
+        <b-input-group>
+          <b-input-group-prepend is-text>
+            <b-icon icon="person-fill" scale="1.5"></b-icon>
+          </b-input-group-prepend>
+          <b-form-input id="form-name" :disabled="busy"></b-form-input>
+        </b-input-group>
+      </b-form-group>
+      <b-form-group label="Email" label-for="form-mail" label-cols-lg="2">
+        <b-input-group>
+          <b-input-group-prepend is-text>
+            <b-icon icon="envelope-fill" scale="1.5"></b-icon>
+          </b-input-group-prepend>
+          <b-form-input id="form-email" type="email" :disabled="busy"></b-form-input>
+        </b-input-group>
+      </b-form-group>
+      <b-form-group label="Image" label-for="form-image" label-cols-lg="2">
+        <b-input-group>
+          <b-input-group-prepend is-text>
+            <b-icon icon="image-fill" scale="1.5"></b-icon>
+          </b-input-group-prepend>
+          <b-form-file id="form-image" :disabled="busy" accept="image/*"></b-form-file>
+        </b-input-group>
+      </b-form-group>
+      <div class="d-flex justify-content-center">
+         <b-button ref="submit" type="submit" :disabled="busy">Submit</b-button>
+      </div>
+
+      <b-overlay :show="busy" no-wrap @shown="onShown" @hidden="onHidden">
+        <template v-slot:overlay>
+          <div v-if="processing" class="text-center p-4 bg-primary text-light rounded">
+            <b-icon icon="cloud-upload" font-scale="4"></b-icon>
+            <div class="mb-3">Processing...</div>
+            <b-progress
+              min="1"
+              max="20"
+              :value="counter"
+              variant="success"
+              height="3px"
+              class="mx-n4 rounded-0"
+            ></b-progress>
+          </div>
+          <div
+            v-else
+            ref="dialog"
+            tabindex="-1"
+            role="dialog"
+            aria-modal="false"
+            aria-labelledby="form-confirm-label"
+            class="text-center p-3"
+          >
+            <p><strong id="form-confirm-label">Are you sure?</strong></p>
+            <div class="d-flex">
+              <b-button variant="outline-danger" class="mr-3" @click="onCancel">
+                Cancel
+              </b-button>
+              <b-button variant="outline-success" @click="onOK">OK</b-button>
+            </div>
+          </div>
+        </template>
+      </b-overlay>
+    </b-form>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        busy: false,
+        processing: false,
+        counter: 1,
+        interval: null
+      }
+    },
+    beforeDestroy() {
+      this.clearInterval()
+    },
+    methods: {
+      clearInterval() {
+        if (this.interval) {
+          clearInterval(this.interval)
+          this.interval = null
+        }
+      },
+      onShown() {
+        // Focus the dialog prompt
+        this.$refs.dialog.focus()
+      },
+      onHidden() {
+        // In this case, we return focus to the submit button
+        // You may need to alter this based on your application requirements
+        this.$refs.submit.focus()
+      },
+      onSubmit() {
+        this.processing = false
+        this.busy = true
+      },
+      onCancel() {
+        this.busy = false
+      },
+      onOK() {
+        this.counter = 1
+        this.processing = true
+        // Simulate an async request
+        this.clearInterval()
+        this.interval = setInterval(() => {
+          if (this.counter < 20) {
+            this.counter = this.counter + 1
+          } else {
+            this.clearInterval()
+            this.$nextTick(() => {
+              this.busy = this.processing = false
+            })
+          }
+        }, 350)
+      }
+    }
+  }
+</script>
+
+<!-- b-overlay-example-form.vue -->
+```
