@@ -504,6 +504,7 @@ Easily create a loading button:
       rounded
       opacity="0.6"
       spinner-small
+      spinner-variant="primary"
       class="d-inline-block"
       @hidden="onHidden"
     >
