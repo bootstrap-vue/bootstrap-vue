@@ -473,7 +473,9 @@ been disabled and are not in the document tab sequence.
 
 ## Use case examples
 
-Here are just a few examples of common use cases.
+Here are just a few examples of common use cases of `<b-overlay>`.
+
+Please refer to the [Accessibility section](#accessibility) for additional details and concerns.
 
 ### Fancy loading button
 
