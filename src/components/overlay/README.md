@@ -514,17 +514,35 @@ Here are just a few examples of common use cases.
 <!-- b-overlay-ex-input-group.vue -->
 ```
 
-### Form confirmation prompt
+### Form confirmation prompt and upload status
 
 ```html
 <template>
   <div>
     <b-form class="position-relative p-3" @submit.prevent="onSubmit">
       <b-form-group label="Name" label-for="form-name">
-        <b-form-input id="form-name" :disabled="busy"></b-form-input>
+        <b-input-group>
+          <b-input-group-prepend is-text>
+            <b-icon icon="person-fill"></b-icon>
+          </b-input-group-prepend>
+          <b-form-input id="form-name" :disabled="busy"></b-form-input>
+        </b-input-group>
       </b-form-group>
       <b-form-group label="Email" label-for="form-mail">
-        <b-form-input id="form-email" type="email" :disabled="busy"></b-form-input>
+        <b-input-group>
+          <b-input-group-prepend is-text>
+            <b-icon icon="envelope-fill"></b-icon>
+          </b-input-group-prepend>
+          <b-form-input id="form-email" type="email" :disabled="busy"></b-form-input>
+        </b-input-group>
+      </b-form-group>
+      <b-form-group label="Image" label-for="form-image">
+        <b-input-group>
+          <b-input-group-prepend is-text>
+            <b-icon icon="image-fill"></b-icon>
+          </b-input-group-prepend>
+          <b-form-file id="form-image" :disabled="busy" accept="image/*"></b-form-file>
+        </b-input-group>
       </b-form-group>
       <b-button type="submit" :disabled="busy">Submit</b-button>
 
