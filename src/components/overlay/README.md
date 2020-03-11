@@ -525,27 +525,36 @@ Easily create a loading button:
     data() {
       return {
         busy: false,
-        timer: null
+        timeout: null
       }
     },
     beforeDestroy() {
-       if (this.timer) {
-         clearTimeout(this.timer)
-         this.timer = null
-       }
+      this.clearTimeout()
     },
     methods: {
+      clearTimeout() {
+        if (this.timeout) {
+          clearTimeout(this.timeout)
+          this.timeout = null
+        }
+      },
+      setTimeout(callback) {
+        this.clearTimeout()
+        this.timeout = setTimeout(() => {
+          this.clearTimeout()
+          callback()
+        }, 5000)
+      },
       onHidden() {
         // Return focus to the button once hidden
         this.$refs.button.focus()
       },
       onClick() {
         this.busy = true
-        // `setTimeout` used to simulate async request
-        this.timer = setTimeout(() => {
+        // Simulate a async request
+        this.setTimeout(() => {
           this.busy = false
-          this.timer = null
-        }, 5000)
+        })
       }
     }
   }
@@ -589,27 +598,36 @@ In this example, we obscure the input and button:
       return {
         value: 'Some value',
         busy: false,
-        timer: null
+        timeout: null
       }
     },
     beforeDestroy() {
-       if (this.timer) {
-         clearTimeout(this.timer)
-         this.timer = null
-       }
+      this.clearTimeout()
     },
     methods: {
+      clearTimeout() {
+        if (this.timeout) {
+          clearTimeout(this.timeout)
+          this.timeout = null
+        }
+      },
+      setTimeout(callback) {
+        this.clearTimeout()
+        this.timeout = setTimeout(() => {
+          this.clearTimeout()
+          callback()
+        }, 5000)
+      },
       onHidden() {
         // Return focus to the button
         this.$refs.button.focus()
       },
       onClick() {
         this.busy = true
-        // `setTimeout()` is used to simulate a async request
-        this.timer = setTimeout(() => {
+        // Simulate a async request
+        this.setTimeout(() => {
           this.busy = false
-          this.timer = null
-        }, 5000)
+        })
       }
     }
   }
@@ -700,16 +718,19 @@ This example also demonstrates additional accessibility markup.
         busy: false,
         processing: false,
         counter: 1,
-        timer: null
+        interval: null
       }
     },
-    beforeDestroy() {
-       if (this.timer) {
-         clearInterval(this.timer)
-         this.timer = null
-       }
+     beforeDestroy() {
+      this.clearInterval()
     },
     methods: {
+      clearInterval() {
+        if (this.interval) {
+          clearInterval(this.interval)
+          this.interval = null
+        }
+      },
       onShown() {
         // Focus the dialog prompt
         this.$refs.dialog.focus()
@@ -729,13 +750,13 @@ This example also demonstrates additional accessibility markup.
       onOK() {
         this.counter = 1
         this.processing = true
-        // `setInterval()` is used to simulate a async request
-        this.timer = setInterval(() => {
+        // Simulate a async request
+        this.clearInterval()
+        this.interval = setInterval(() => {
           if (this.counter < 20) {
             this.counter = this.counter + 1
           } else {
-            clearInterval(this.timer)
-            this.timer = null
+            this.clearInterval()
             this.$nextTick(() => {
               this.busy = this.processing = false
             })
