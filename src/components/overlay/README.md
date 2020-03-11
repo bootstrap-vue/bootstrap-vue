@@ -650,14 +650,15 @@ This example also demonstrates additional accessibility markup.
 
       <b-overlay :show="busy" no-wrap @shown="onShown" @hidden="onHidden">
         <template v-slot:overlay>
-          <div v-if="processing" class="text-center p-4 bg-dark text-light rounded">
+          <div v-if="processing" class="text-center p-4 bg-primary text-light rounded">
             <b-icon icon="cloud-upload" font-scale="4"></b-icon>
             <div class="mb-3">Processing...</div>
             <b-progress
-              height="3px"
               min="1"
               max="20"
               :value="counter"
+              variant="success"
+              height="3px"
               class="mx-n4 rounded-0"
             ></b-progress>
           </div>
