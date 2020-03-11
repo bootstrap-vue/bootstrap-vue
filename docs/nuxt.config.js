@@ -144,9 +144,9 @@ module.exports = {
     // - `true` if on Netlify (dev or PR)
     NETLIFY: process.env.NETLIFY,
     // - `true` if triggered by a Pull request commit
-    PULL_REQUEST: process.env.PULL_REQUEST,
+    PULL_REQUEST: process.env.NETLIFY ? process.env.PULL_REQUEST : null,
     // - If the previous is `true`, this will be the PR number
-    REVIEW_ID: process.env.REVIEW_ID
+    REVIEW_ID: process.env.NETLIFY && process.env.PULL_REQUEST ? process.env.REVIEW_ID : null
   },
 
   build: {
