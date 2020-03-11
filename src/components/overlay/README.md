@@ -100,7 +100,6 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
           :opacity="opacity"
           :blur="blur"
           rounded="sm"
-          style="max-width: 320px;"
         >
           <b-card title="Card with overlay" aria-hidden="true">
             <b-card-text>
@@ -140,6 +139,7 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
           '1px',
           '2px',
           '5px',
+          '0.5em',
           '1rem'
         ]
       }
@@ -422,7 +422,7 @@ descendant of `<b-card>`:
   }
 </script>
 
-<! b-overlay-card-relative.vue -->
+<!-- b-overlay-card-relative.vue -->
 ```
 
 When in `no-wrap` mode, `<b-overlay>` will not set the `aria-busy` attribute on the obscured
@@ -438,10 +438,17 @@ switch to viewport fixed positioning via setting the prop `fixed` on `<b-overlay
 does not disable scrolling of the page, and note that any interactive elements on the page will
 still be in the document tab sequence.
 
-You may also need to adjust the z-index of the overlay to ensure that the backdrop appears above all
-other page elements. Use the `z-index` property to override the default z-index value.
+You may also need to adjust the [z-index of the overlay](#overlay-z-index) to ensure that the
+backdrop appears above all other page elements. Use the `z-index` property to override the default
+`z-index `value.
 
 Refer to the [Accessibility section](#accessibility) below for additional details and concerns.
+
+### Overlay z-index
+
+In some circumstances, you may need to adjust the `z-index` used by the overlay (depending on
+positioning in the DOM or the content being obscured). Simply set the `z-index` prop with a value
+suitable for your application or use case.  The default `z-index` is `10`.
 
 ## Accessibility
 
@@ -518,7 +525,7 @@ Here are just a few examples of common use cases.
       <template v-slot:overlay>
         <div class="d-flex align-items-center">
           <b-spinner small type="grow"variant="secondary"></b-spinner>
-          <b-spinner type="grow" variant="secondary"></b-spinner>
+          <b-spinner type="grow" variant="dark"></b-spinner>
           <b-spinner small type="grow"variant="secondary"></b-spinner>
           <span class="sr-only">Please wait...</span>
         </div>
@@ -565,6 +572,9 @@ Here are just a few examples of common use cases.
 ```
 
 ### Form confirmation prompt and upload status
+
+This example is a bit more complex, but shows the user of `no-wrap`, and using the `overlay` slot to
+present the user with a prompt dialog, and once confirmed it shows a uploading status indicator.
 
 ```html
 <template>
