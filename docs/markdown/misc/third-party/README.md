@@ -39,6 +39,9 @@ components:
 
 ### Color pickers
 
+Alternatives to using [`<b-form-input type="color">`](/docs/components/form-input#input-type) (which
+is not natively supported by all browsers, nor supports alapha channels) 
+
 - [Vue Colorpicker](https://github.com/caohenghu/vue-colorpicker) _Note: Not WAI-ARIA compliant_
 
 ### Type Ahead
