@@ -721,7 +721,7 @@ This example also demonstrates additional accessibility markup.
         interval: null
       }
     },
-     beforeDestroy() {
+    beforeDestroy() {
       this.clearInterval()
     },
     methods: {
