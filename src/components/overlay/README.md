@@ -551,7 +551,7 @@ Easily create a loading button:
       },
       onClick() {
         this.busy = true
-        // Simulate a async request
+        // Simulate an async request
         this.setTimeout(() => {
           this.busy = false
         })
@@ -624,7 +624,7 @@ In this example, we obscure the input and button:
       },
       onClick() {
         this.busy = true
-        // Simulate a async request
+        // Simulate an async request
         this.setTimeout(() => {
           this.busy = false
         })
@@ -750,7 +750,7 @@ This example also demonstrates additional accessibility markup.
       onOK() {
         this.counter = 1
         this.processing = true
-        // Simulate a async request
+        // Simulate an async request
         this.clearInterval()
         this.interval = setInterval(() => {
           if (this.counter < 20) {
