@@ -337,8 +337,8 @@ region. To disable centering, set the `no-center` prop to `true`.
 
 ### Width
 
-`<b-overlay>` defaults to a width of `100%`. When wrapping an inline or inline-block element,
-you will need to add the class `d-inline-block` (e.g. `<b-overlay class="d-inline-block">`).
+`<b-overlay>` defaults to a width of `100%`. When wrapping an inline or inline-block element, you
+will need to add the class `d-inline-block` (e.g. `<b-overlay class="d-inline-block">`).
 
 You can also use the width [utility classes](/docs/reference/utility-classes) or CSS styles to
 control the width of the overlay's wrapping container element.
@@ -447,7 +447,7 @@ still be in the document tab sequence.
 
 You may also need to adjust the [z-index of the overlay](#overlay-z-index) to ensure that the
 backdrop appears above all other page elements. Use the `z-index` property to override the default
-`z-index `value.
+`z-index` value.
 
 Refer to the [Accessibility section](#accessibility) below for additional details and concerns.
 
@@ -455,7 +455,7 @@ Refer to the [Accessibility section](#accessibility) below for additional detail
 
 In some circumstances, you may need to adjust the `z-index` used by the overlay (depending on
 positioning in the DOM or the content being obscured). Simply set the `z-index` prop with a value
-suitable for your application or use case.  The default `z-index` is `10`.
+suitable for your application or use case. The default `z-index` is `10`.
 
 ## Accessibility
 
@@ -467,10 +467,10 @@ If you have any links in the obscured content, we recommend using the
 [`<b-link>` component](/docs/components/link), as it supports the `disabled` state, as native links
 (`<a href="...">`) and `<router-link>` components do not support the disabled state.
 
-It is also recommended to add either the `aria-hidden="true"` or `aria-bus=y"true"` attribute to your
-obscured content when the overlay is visible. Just be careful not to add `aria-hidden="true"` to the
-wrapper that contains the `<b-overlay>` component (when using `no-wrap`), as that would hide any
-interactive content in the `overlay` slot for screen reader users.
+It is also recommended to add either the `aria-hidden="true"` or `aria-bus=y"true"` attribute to
+your obscured content when the overlay is visible. Just be careful not to add `aria-hidden="true"`
+to the wrapper that contains the `<b-overlay>` component (when using `no-wrap`), as that would hide
+any interactive content in the `overlay` slot for screen reader users.
 
 If you are placing interactive content in the `overlay` slot, you should focus the content once the
 `'shown'` event has been emitted. You can use the `hidden` event to trigger returning focus to an
@@ -548,10 +548,10 @@ Easily create a loading button:
         }, 5000)
       }
     }
-  } 
+  }
 </script>
 
-<!-- b-overlay-ex-loading-button.vue -->
+<!-- b-overlay-example-loading-button.vue -->
 ```
 
 ### Busy state input group
@@ -605,17 +605,17 @@ In this example, we obscure the input and button:
       },
       onClick() {
         this.busy = true
-        // `setTimeout` used to simulate async request
+        // `setTimeout()` is used to simulate a async request
         this.timer = setTimeout(() => {
           this.busy = false
           this.timer = null
         }, 5000)
       }
     }
-  } 
+  }
 </script>
 
-<!-- b-overlay-ex-input-group.vue -->
+<!-- b-overlay-example-input-group.vue -->
 ```
 
 ### Form confirmation prompt and upload status
@@ -676,7 +676,7 @@ This example also demonstrates additional accessibility markup.
             tabindex="-1"
             role="dialog"
             aria-modal="false"
-            aria-labeledby="form-confirm-label"
+            aria-labelledby="form-confirm-label"
             class="text-center p-3"
           >
             <p><strong id="form-confirm-label">Are you sure?</strong></p>
@@ -711,7 +711,7 @@ This example also demonstrates additional accessibility markup.
     },
     methods: {
       onShown() {
-        // Focus the dialog propmt
+        // Focus the dialog prompt
         this.$refs.dialog.focus()
       },
       onHidden() {
@@ -729,7 +729,7 @@ This example also demonstrates additional accessibility markup.
       onOK() {
         this.counter = 1
         this.processing = true
-        // `setInterval` used to simulate async request
+        // `setInterval()` is used to simulate a async request
         this.timer = setInterval(() => {
           if (this.counter < 20) {
             this.counter = this.counter + 1
@@ -743,8 +743,8 @@ This example also demonstrates additional accessibility markup.
         }, 350)
       }
     }
-  } 
+  }
 </script>
 
-<!-- b-overlay-ex-form.vue -->
+<!-- b-overlay-example-form.vue -->
 ```
