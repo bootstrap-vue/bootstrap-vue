@@ -393,7 +393,6 @@ other page elements. Use the `z-index` property to override the default z-index 
 
 Refer to the [Accessibility section](#accessibility) below for additional details and concerns.
 
-
 ## Accessibility
 
 When using the wrapping mode (prop `no-wrap` is not set), the wrapper will have the attribute
