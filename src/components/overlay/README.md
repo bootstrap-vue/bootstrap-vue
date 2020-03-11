@@ -80,7 +80,7 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
           <b-form-select id="bg-variant" v-model="variant" :options="variants"></b-form-select>
         </b-form-group>
         <b-form-group label="Opacity" label-for="bg-opacity" label-cols-sm="4" label-cols-lg="12">
-          <b-input-group :append="opacity.toFixed(2)">
+          <b-input-group>
             <b-form-input
               id="bg-opacity"
               v-model="opacity"
@@ -90,6 +90,9 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
               max="1"
               step="0.01"
             ></b-form-input>
+            <b-input-group-append is-text class="text-monospace">
+              {{ opacity.toFixed(2) }}
+            </b-input-group-append>
           </b-input-group>
         </b-form-group>
         <b-form-group label="Blur" label-for="bg-blur" label-cols-sm="4" label-cols-lg="12">
