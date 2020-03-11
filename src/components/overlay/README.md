@@ -333,7 +333,7 @@ document.
 ### Overlay content centering
 
 By default the overlay content will be horizontally and vertically centered within the overlay
-region. To disabled centering, set the `no-center` prop to `true`.
+region. To disable centering, set the `no-center` prop to `true`.
 
 ### Width
 
