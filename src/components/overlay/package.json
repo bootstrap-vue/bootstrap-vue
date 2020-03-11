@@ -17,7 +17,7 @@
           },
           {
             "prop": "variant",
-            "description": "Background variant to use for the overlay backdrop"
+            "description": "Background theme color variant to use for the overlay backdrop"
           },
           {
             "prop": "bgColor",
@@ -61,7 +61,7 @@
           },
           {
             "prop": "zIndex",
-            "description": "Z-index value to apply to the overlay. You may need to increase this value to suit your content"
+            "description": "Z-index value to apply to the overlay. You may need to increase this value to suit your content or placement"
           },
           {
             "prop": "spinnerType",
@@ -69,11 +69,11 @@
           },
           {
             "prop": "spinnerVariant",
-            "description": "Applies one of the Bootstrap theme color variants to the default spinner"
+            "description": "Applies one of the Bootstrap theme color variants to the default spinner. Default is to use the current font color"
           },
           {
             "prop": "spinnerSmall",
-            "description": "When set, renderes the default spinner in a smaller size"
+            "description": "When set, renders the default spinner in a smaller size"
           }
         ],
         "events": [
@@ -110,7 +110,7 @@
           },
           {
             "name": "default",
-            "description": "The content to have overlay. The default slot is ignored if the prop `no-wrap` is set"
+            "description": "The content to be overlayed. The default slot is ignored if the prop `no-wrap` is set"
           }
         ]
       }
