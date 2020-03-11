@@ -43,6 +43,8 @@ Alternatives to using [`<b-form-input type="color">`](/docs/components/form-inpu
 is not natively supported by all browsers, nor supports alapha channels) 
 
 - [Vue Colorpicker](https://github.com/caohenghu/vue-colorpicker) _Note: Not WAI-ARIA compliant_
+- [v-color](https://github.com/v-comp/v-color) _Note: Not WAI-ARIA compliant_
+- [Verte](https://baianat.github.io/verte/)  _Note: Not WAI-ARIA compliant_
 
 ### Type Ahead
 
