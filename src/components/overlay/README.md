@@ -645,7 +645,7 @@ This example also demonstrates additional accessibility markup.
         </b-input-group>
       </b-form-group>
       <div class="d-flex justify-content-center">
-         <b-button ref-"submit" type="submit" :disabled="busy">Submit</b-button>
+         <b-button ref="submit" type="submit" :disabled="busy">Submit</b-button>
       </div>
 
       <b-overlay :show="busy" no-wrap @shown="onShown" @hidden="onHidden">
