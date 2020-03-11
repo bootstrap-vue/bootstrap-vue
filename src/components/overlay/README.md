@@ -4,10 +4,10 @@
 > component and its content. It signals to the user of a state change within the element or
 > component and can be used for creating loaders, warnings/alerts, prompts, and more.
 
-`<b-overlay>` can be used to obscure almost anything. Example use cases would be forms, tables,
-delete confirmation dialogs, or anywhere you need to signal that the application is busy performing
-a background task, to signal that a certain component is unavailable, or to provide additional context
-to the end user.
+`<b-overlay>` can be used to obscure almost anything. [Example use cases](#use-case-examples) would
+be forms, tables, delete confirmation dialogs, or anywhere you need to signal that the application
+is busy performing a background task, to signal that a certain component is unavailable, or to
+provide additional context to the end user.
 
 The component `<b-overlay>` was introduced in BootstrapVue version `v2.7.0`.
 
