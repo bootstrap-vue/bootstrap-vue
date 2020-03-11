@@ -4,9 +4,10 @@
 > component and its content. It signals to the user of a state change within the element or
 > component and can be used for creating loaders, warnings/alerts, prompts, and more.
 
-`<b-overlay>` can be used to obscure almost any thing. Example use cases would be forms, tables,
+`<b-overlay>` can be used to obscure almost anything. Example use cases would be forms, tables,
 delete confirmation dialogs, or anywhere you need to signal that the application is busy performing
-a background task, or to signal that a certain component is unavailable.
+a background task, to signal that a certain component is unavailable, or to provide additional context
+to the end user.
 
 The component `<b-overlay>` was introduced in BootstrapVue version `v2.7.0`.
 
@@ -327,6 +328,14 @@ document.
 By default the overlay content will be horizontally and vertically centered within the overlay
 region. To disabled centering, set the `no-center` prop to `true`.
 
+### Width
+
+`<b-overlay>` defaults to a width of `100%`. When wrapping an inline or inline-block element,
+you will need to add the class `d-inline-block` (e.g. `<b-overlay class="d-inline-block">`).
+
+You can also use the width [utility classes](/docs/reference/utility-classes) or CSS styles to
+control the width of the overlay's wrapping container element.
+
 ### Non-wrapping mode
 
 By default, `<b-overlay>` wraps the content of the default slot. In some cases you may want to
@@ -373,7 +382,48 @@ relative positioning (either via the utility class `'position-relative'`, or CSS
 ```
 
 Note that some of Bootstrap v4's component styles have relative positioning defined (e.g. cards,
-cols, etc.). You may need to adjust the placement of `<b-overlay>` is your markup.
+cols, etc.). You may need to adjust the placement of `<b-overlay>` in your markup.
+
+For example, `<b-card>` has relative positioning, so you can place the `<b-overlay no-wrap>` as a
+descendant of `<b-card>`:
+
+```html
+<template>
+  <div>
+    <b-card header="Card header" footer="Card footer">
+      <b-media>
+        <template v-slot:aside>
+          <b-img
+            thumbnail
+            rounded="circle"
+            src="https://picsum.photos/72/72/?image=58"
+            alt="Image"
+          ></b-img>
+        </template>
+        <p class="mb-0">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+      </b-media>
+      <b-overlay :show="show" no-wrap></b-overlay>
+    </b-card>
+    <b-button @click="show = !show" class="mt-3">Toggle overlay</b-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        show: true
+      }
+    }
+  }
+</script>
+
+<! b-overlay-card-relative.vue -->
+```
 
 When in `no-wrap` mode, `<b-overlay>` will not set the `aria-busy` attribute on the obscured
 element. You may also want to use an `aria-live` region in your app that announces to screen reader
