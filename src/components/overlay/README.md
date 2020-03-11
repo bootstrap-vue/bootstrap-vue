@@ -75,7 +75,7 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
 <template>
   <div>
     <b-row>
-      <b-col lg="4" aria-controls="overlay-background">
+      <b-col lg="6" aria-controls="overlay-background">
         <b-form-group label="Variant" label-for="bg-variant" label-cols-sm="4" label-cols-lg="12">
           <b-form-select id="bg-variant" v-model="variant" :options="variants"></b-form-select>
         </b-form-group>
@@ -96,7 +96,7 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
           <b-form-select id="bg-blur" v-model="blur" :options="blurs"></b-form-select>
         </b-form-group>
       </b-col>
-      <b-col lg="8">
+      <b-col lg="6">
         <b-overlay
           id="overlay-background"
           show
