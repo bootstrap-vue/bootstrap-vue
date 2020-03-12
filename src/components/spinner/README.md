@@ -224,6 +224,6 @@ As well, when no label is provided, the spinner will automatically have the attr
 
 ## See also
 
-An alternative to the `<b-spinner>` component is [animated icons](/docs/icons/#animated-icons).
+An alternative to the `<b-spinner>` component are [animated icons](/docs/icons/#animated-icons).
 
 <!-- Component reference added automatically from component package.json -->
