@@ -45,6 +45,7 @@
 @keyframes b-icon-cylon {
   0% {
     transform: translateX(0);
+    animation-timing-function: ease-out;
   }
   25% {
     transform: translateX(-25%);
@@ -52,6 +53,7 @@
   }
   50% {
     transform: translateX(0);
+    animation-timing-function: ease-in-out;
   }
   75% {
     transform: translateX(25%);
@@ -59,6 +61,7 @@
   }
   100% {
     transform: translateX(0);
+    animation-timing-function: ease-in;
   }
 }
 
