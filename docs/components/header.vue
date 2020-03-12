@@ -42,7 +42,7 @@
 
     <b-navbar-nav class="flex-row ml-md-auto d-none d-md-flex">
       <b-nav-item-dropdown
-        :text="isDev ? (isLocal ? 'Local Copy' : (isPR ? `Pull #${isPR}` : 'Development')) : `v${version}`"
+        :text="isDev ? (isLocal ? 'Local Copy' : (isPR ? `Pull #${prID}` : 'Development')) : `v${version}`"
         toggle-class="mr-md-2"
         right
       >
@@ -51,7 +51,7 @@
             Local copy
           </b-dropdown-item>
           <b-dropdown-item v-else-if="isPR" active href="/">
-            Pull Request #{{ isPR }}
+            Pull Request #{{ prID }}
           </b-dropdown-item>
           <b-dropdown-item :active="!isLocal && !isPR" href="https://bootstrap-vue.netlify.com" rel="nofollow">
             Development
@@ -182,15 +182,22 @@ export default {
       version,
       isDev: false,
       isLocal: false,
-      isPR: false
     }
   },
   mounted() {
     const host = window.location.host || ''
     this.isLocal = host === 'localhost' || host === '127.0.0.1'
     this.isDev = host !== 'bootstrap-vue.js.org'
-    const matches = host.match(/^deploy-preview-(\d+)--bootstrap-vue\.netlify\.com$/i)
-    this.isPR = matches && matches[1]
+  },
+  computed: {
+    isNetlify() {
+      return Boolean(process.env.NETLIFY)
+    },
+    isPR() {
+      return this.isNetlify && process.env.PULL_REQUEST && process.env.REVIEW_ID
+    },
+    prID() {
+      return this.isPR ? process.env.REVIEW_ID : ''
+    }
   }
-}
 </script>
