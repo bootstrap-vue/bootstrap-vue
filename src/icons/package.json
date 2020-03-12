@@ -55,19 +55,9 @@
             "description": "Set this prop to true when placing inside a BIconstack component"
           },
           {
-            "prop": "spin",
+            "prop": "animation",
             "version": "2.7.0",
-            "description": "When set, applies a spinning animation to the icon"
-          },
-          {
-            "prop": "pulse",
-            "version": "2.7.0",
-            "description": "When set, applies a pulsing spin animation to the icon. Takes precedence over the `spin` prop"
-          },
-          {
-            "prop": "cylon",
-            "version": "2.7.0",
-            "description": "When set, applies a cylon animation to the icon. Takes precedence over the `pulse` prop"
+            "description": "Animat the icon. Supported built-in animations are 'spin', 'pulse' and 'cyclon'"
           }
         ]
       },
@@ -108,19 +98,9 @@
             "description": "Moves the icon vertically. Positive numbers will shift the icon up, negative down. Value is in 1/16em units"
           },
           {
-            "prop": "spin",
+            "prop": "animation",
             "version": "2.7.0",
-            "description": "When set, applies a spinning animation to the icon"
-          },
-          {
-            "prop": "pulse",
-            "version": "2.7.0",
-            "description": "When set, applies a pulsing spin animation to the icon. Takes precedence over the `spin` prop"
-          },
-          {
-            "prop": "cylon",
-            "version": "2.7.0",
-            "description": "When set, applies a cylon animation to the icon. Takes precedence over the `pulse` prop"
+            "description": "Animat the icon. Supported built-in animations are 'spin', 'pulse' and 'cyclon'"
           }
         ]
       },
@@ -166,19 +146,9 @@
             "description": "Set this prop to true when placing inside a BIconstack component"
           },
           {
-            "prop": "spin",
+            "prop": "animation",
             "version": "2.7.0",
-            "description": "When set, applies a spinning animation to the icon"
-          },
-          {
-            "prop": "pulse",
-            "version": "2.7.0",
-            "description": "When set, applies a pulsing spin animation to the icon. Takes precedence over the `spin` prop"
-          },
-          {
-            "prop": "cylon",
-            "version": "2.7.0",
-            "description": "When set, applies a cylon animation to the icon. Takes precedence over the `pulse` prop"
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cyclon'"
           }
         ]
       },
