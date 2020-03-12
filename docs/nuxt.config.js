@@ -146,7 +146,7 @@ module.exports = {
   build: {
     extractCSS: true,
     cssSourceMap: true,
-    parallel: Boolean(process.env.NETLIFY && process.env.PULL_REQUEST),
+    parallel: Boolean(process.env.PULL_REQUEST && process.env.NETLIFY),
     postcss: {
       preset: {
         autoprefixer: {
