@@ -37,6 +37,14 @@ export const commonIconProps = {
   shiftV: {
     type: [Number, String],
     default: 0
+  },
+  spin: {
+    type: Boolean,
+    default: false
+  },
+  pulse: {
+    type: Boolean,
+    default: false
   }
 }
 
@@ -116,7 +124,11 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
       mergeData(
         {
           staticClass: 'b-icon bi',
-          class: { [`text-${props.variant}`]: !!props.variant },
+          class: {
+            [`text-${props.variant}`]: !!props.variant,
+            'b-icon-spin': props.spin && !props.pulse,
+            'b-icon-pulse': props.pulse
+          },
           attrs: baseAttrs,
           style: isStacked ? {} : { fontSize: fontScale === 1 ? null : `${fontScale * 100}%` }
         },
