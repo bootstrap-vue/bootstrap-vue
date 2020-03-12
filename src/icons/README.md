@@ -450,7 +450,7 @@ takes precedence over `spin`, and `cylon` takes precedence over `pulse`.
     <b-icon icon="arrow-clockwise" pulse font-scale="4"></b-icon>
 
     <p class="mt-3">Cylon animation</p>
-    <b-icon icon="dot" cylon font-scale="4"></b-icon>
+    <b-icon icon="three-dots" cylon font-scale="4"></b-icon>
   </div>
 </template>
 
