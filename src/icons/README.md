@@ -460,7 +460,7 @@ takes precedence over `spin`, and `cylon` takes precedence over `pulse`.
 Note with the `cylon` anmination, the left-right movement extends past the icon's bounding box,
 so you may need to adjust padding or margins to compensate for your use case.
 
-As the animations are CSS based, they are applied _after_ any transforms have taken place:
+As the animations are CSS based, they are applied _after_ any SVG transforms have taken place:
 
 ```html
 <template>
@@ -479,8 +479,8 @@ query. See the
 [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
 additional details.
 
-Side note: the `cylon` animation gets its name from the Cylons of the _original_ Battlestar
-Galactica TV series of the late 1970's.
+Side note: the `cylon` animation gets its name from the "eye" of the Cylons from the _original_ 1978
+Battlestar Galactica TV series.
 
 ## Stacking icons
 
