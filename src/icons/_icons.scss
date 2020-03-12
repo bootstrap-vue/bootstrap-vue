@@ -10,22 +10,22 @@
     vertical-align: -0.15em;
   }
 
-  &.b-icon-spin {
-    animation: 2s infinite linear b-icon-spin;
+  &.b-icon-animation-spin {
+    animation: 2s infinite linear b-icon-animation-spin;
     @media (prefers-reduced-motion: reduce) {
       animation: none;
     }
   }
 
-  &.b-icon-pulse {
-    animation: 1s infinite steps(8) b-icon-spin;
+  &.b-icon-animation-pulse {
+    animation: 1s infinite steps(8) b-icon-animation-spin;
     @media (prefers-reduced-motion: reduce) {
       animation: none;
     }
   }
 
-  &.b-icon-cylon {
-    animation: 0.75s infinite ease-in-out alternate b-icon-cylon;
+  &.b-icon-animation-cylon {
+    animation: 0.75s infinite ease-in-out alternate b-icon-animation-cylon;
     @media (prefers-reduced-motion: reduce) {
       animation: none;
     }
@@ -33,7 +33,7 @@
 }
 
 // Animation for spinning icons
-@keyframes b-icon-spin {
+@keyframes b-icon-animation-spin {
   0% {
     transform: rotate(0deg);
   }
@@ -42,7 +42,7 @@
   }
 }
 
-@keyframes b-icon-cylon {
+@keyframes b-icon-animation-cylon {
   0% {
     transform: translateX(-25%);
   }
