@@ -464,6 +464,8 @@ Note that the animations are CSS based, and is applied _after_ any transforms ha
 <!-- b-icon-spin-aminations-transforms.vue -->
 ```
 
+The animation effects require BootstrapVue's custom CSS.
+
 **Note:** The animation effect of this component is dependent on the `prefers-reduced-motion` media
 query. See the
 [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
