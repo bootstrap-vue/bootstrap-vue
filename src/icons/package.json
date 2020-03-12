@@ -192,6 +192,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -235,6 +240,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -278,6 +288,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -321,6 +336,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -364,6 +384,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -407,6 +432,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -450,6 +480,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -493,6 +528,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -536,6 +576,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -579,6 +624,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -622,6 +672,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -665,6 +720,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -708,6 +768,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -751,6 +816,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -794,6 +864,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -837,6 +912,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -880,6 +960,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -923,6 +1008,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -966,6 +1056,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1009,6 +1104,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1052,6 +1152,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1095,6 +1200,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1138,6 +1248,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1181,6 +1296,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1224,6 +1344,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1267,6 +1392,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1310,6 +1440,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1353,6 +1488,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1396,6 +1536,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1439,6 +1584,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1482,6 +1632,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1525,6 +1680,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1568,6 +1728,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1611,6 +1776,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1654,6 +1824,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1697,6 +1872,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1740,6 +1920,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1783,6 +1968,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1826,6 +2016,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1869,6 +2064,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1912,6 +2112,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1955,6 +2160,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -1998,6 +2208,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2041,6 +2256,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2084,6 +2304,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2127,6 +2352,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2170,6 +2400,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2213,6 +2448,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2256,6 +2496,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2299,6 +2544,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2342,6 +2592,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2385,6 +2640,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2428,6 +2688,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2471,6 +2736,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2514,6 +2784,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2557,6 +2832,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2600,6 +2880,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2643,6 +2928,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2686,6 +2976,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2729,6 +3024,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2772,6 +3072,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2815,6 +3120,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2858,6 +3168,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2901,6 +3216,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2944,6 +3264,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -2987,6 +3312,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3030,6 +3360,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3073,6 +3408,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3116,6 +3456,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3159,6 +3504,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3202,6 +3552,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3245,6 +3600,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3288,6 +3648,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3331,6 +3696,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3374,6 +3744,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3417,6 +3792,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3460,6 +3840,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3503,6 +3888,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3546,6 +3936,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3589,6 +3984,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3632,6 +4032,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3675,6 +4080,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3718,6 +4128,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3761,6 +4176,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3804,6 +4224,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3847,6 +4272,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3890,6 +4320,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3933,6 +4368,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -3976,6 +4416,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4019,6 +4464,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4062,6 +4512,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4105,6 +4560,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4148,6 +4608,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4191,6 +4656,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4234,6 +4704,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4277,6 +4752,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4320,6 +4800,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4363,6 +4848,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4406,6 +4896,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4449,6 +4944,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4492,6 +4992,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4535,6 +5040,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4578,6 +5088,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4621,6 +5136,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4664,6 +5184,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4707,6 +5232,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4750,6 +5280,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4793,6 +5328,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4836,6 +5376,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4879,6 +5424,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4922,6 +5472,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -4965,6 +5520,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5008,6 +5568,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5051,6 +5616,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5094,6 +5664,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5137,6 +5712,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5180,6 +5760,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5223,6 +5808,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5266,6 +5856,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5309,6 +5904,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5352,6 +5952,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5395,6 +6000,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5438,6 +6048,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5481,6 +6096,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5524,6 +6144,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5567,6 +6192,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5610,6 +6240,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5653,6 +6288,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5696,6 +6336,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5739,6 +6384,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5782,6 +6432,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5825,6 +6480,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5868,6 +6528,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5911,6 +6576,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5954,6 +6624,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -5997,6 +6672,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6040,6 +6720,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6083,6 +6768,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6126,6 +6816,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6169,6 +6864,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6212,6 +6912,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6255,6 +6960,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6298,6 +7008,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6341,6 +7056,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6384,6 +7104,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6427,6 +7152,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6470,6 +7200,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6513,6 +7248,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6556,6 +7296,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6599,6 +7344,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6642,6 +7392,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6685,6 +7440,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6728,6 +7488,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6771,6 +7536,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6814,6 +7584,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6857,6 +7632,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6900,6 +7680,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6943,6 +7728,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -6986,6 +7776,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7029,6 +7824,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7072,6 +7872,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7115,6 +7920,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7158,6 +7968,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7201,6 +8016,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7244,6 +8064,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7287,6 +8112,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7330,6 +8160,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7373,6 +8208,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7416,6 +8256,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7459,6 +8304,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7502,6 +8352,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7545,6 +8400,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7588,6 +8448,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7631,6 +8496,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7674,6 +8544,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7717,6 +8592,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7760,6 +8640,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7803,6 +8688,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7846,6 +8736,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7889,6 +8784,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7932,6 +8832,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -7975,6 +8880,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8018,6 +8928,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8061,6 +8976,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8104,6 +9024,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8147,6 +9072,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8190,6 +9120,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8233,6 +9168,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8276,6 +9216,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8319,6 +9264,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8362,6 +9312,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8405,6 +9360,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8448,6 +9408,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8491,6 +9456,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8534,6 +9504,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8577,6 +9552,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8620,6 +9600,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8663,6 +9648,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8706,6 +9696,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8749,6 +9744,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8792,6 +9792,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8835,6 +9840,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8878,6 +9888,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8921,6 +9936,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -8964,6 +9984,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9007,6 +10032,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9050,6 +10080,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9093,6 +10128,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9136,6 +10176,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9179,6 +10224,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9222,6 +10272,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9265,6 +10320,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9308,6 +10368,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9351,6 +10416,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9394,6 +10464,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9437,6 +10512,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9480,6 +10560,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9523,6 +10608,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9566,6 +10656,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9609,6 +10704,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9652,6 +10752,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9695,6 +10800,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9738,6 +10848,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9781,6 +10896,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9824,6 +10944,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9867,6 +10992,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9910,6 +11040,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9953,6 +11088,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -9996,6 +11136,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10039,6 +11184,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10082,6 +11232,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10125,6 +11280,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10168,6 +11328,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10211,6 +11376,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10254,6 +11424,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10297,6 +11472,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10340,6 +11520,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10383,6 +11568,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10426,6 +11616,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10469,6 +11664,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10512,6 +11712,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10555,6 +11760,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10598,6 +11808,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10641,6 +11856,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10684,6 +11904,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10727,6 +11952,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10770,6 +12000,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10813,6 +12048,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10856,6 +12096,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10899,6 +12144,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10942,6 +12192,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -10985,6 +12240,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11028,6 +12288,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11071,6 +12336,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11114,6 +12384,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11157,6 +12432,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11200,6 +12480,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11243,6 +12528,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11286,6 +12576,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11329,6 +12624,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11372,6 +12672,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11415,6 +12720,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11458,6 +12768,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11501,6 +12816,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11544,6 +12864,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11587,6 +12912,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11630,6 +12960,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11673,6 +13008,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11716,6 +13056,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11759,6 +13104,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11802,6 +13152,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11845,6 +13200,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11888,6 +13248,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11931,6 +13296,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -11974,6 +13344,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12017,6 +13392,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12060,6 +13440,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12103,6 +13488,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12146,6 +13536,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12189,6 +13584,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12232,6 +13632,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12275,6 +13680,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12318,6 +13728,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12361,6 +13776,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12404,6 +13824,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12447,6 +13872,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12490,6 +13920,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12533,6 +13968,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12576,6 +14016,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12619,6 +14064,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12662,6 +14112,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12705,6 +14160,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12748,6 +14208,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12791,6 +14256,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12834,6 +14304,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12877,6 +14352,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12920,6 +14400,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -12963,6 +14448,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13006,6 +14496,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13049,6 +14544,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13092,6 +14592,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13135,6 +14640,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13178,6 +14688,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13221,6 +14736,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13264,6 +14784,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13307,6 +14832,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13350,6 +14880,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13393,6 +14928,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13436,6 +14976,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13479,6 +15024,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13522,6 +15072,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13565,6 +15120,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13608,6 +15168,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13651,6 +15216,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       },
@@ -13694,6 +15264,11 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "animation",
+            "version": "2.7.0",
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cylon'"
           }
         ]
       }
