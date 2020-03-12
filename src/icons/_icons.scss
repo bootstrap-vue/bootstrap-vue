@@ -23,6 +23,13 @@
       animation: none;
     }
   }
+
+  &.b-icon-cylon {
+    animation: b-icon-cylon 2s infinite ease-in-out;
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
 }
 
 // Animation for spinning icons
@@ -32,6 +39,24 @@
   }
   100% {
     transform: rotate(359deg);
+  }
+}
+
+@keyframes b-icon-cylon {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-50%};
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(50%};
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 
