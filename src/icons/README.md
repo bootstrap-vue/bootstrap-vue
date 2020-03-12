@@ -471,14 +471,14 @@ As the animations are CSS based, they are applied _after_ any SVG transforms hav
 <!-- b-icon-spin-aminations-transforms.vue -->
 ```
 
-The BootstrapVue custom icon animation effects require BootstrapVue's custom CSS. The `animation`
+The BootstrapVue defined icon animation effects require BootstrapVue's custom CSS. The `animation`
 prop translates to the class name `b-icon-animation-{animationName}`.
 
 Need a different style animation? Just create a custom class defining the animation, and apply that
 class to the icon component, or create a new animation class in the form of
 `b-icon-animation-{animationName}` and pass the custom animation name to the `animation` prop.
 
-**Note:** The BootstrapVue custom animation effects of this component is dependent on the
+**Note:** The BootstrapVue defined animation effects of this component is dependent on the
 `prefers-reduced-motion` media query. See the
 [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
 additional details.
