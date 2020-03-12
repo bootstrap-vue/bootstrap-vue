@@ -126,8 +126,8 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
           staticClass: 'b-icon bi',
           class: {
             [`text-${props.variant}`]: !!props.variant,
-            'b-icon-spin': props.spin && !props.pulse,
-            'b-icon-pulse': props.pulse
+            'b-icon-spin': !isStacked && props.spin && !props.pulse,
+            'b-icon-pulse': !isStacked && props.pulse
           },
           attrs: baseAttrs,
           style: isStacked ? {} : { fontSize: fontScale === 1 ? null : `${fontScale * 100}%` }
