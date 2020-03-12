@@ -42,18 +42,18 @@
 
     <b-navbar-nav class="flex-row ml-md-auto d-none d-md-flex">
       <b-nav-item-dropdown
-        :text="isDev ? (isLocal ? 'Local Copy' : (isPR ? `Pull #${prID}` : 'Development')) : `v${version}`"
+        :text="dropdownText"
         toggle-class="mr-md-2"
         right
       >
-        <template v-if="isDev || isLocal || isPR">
-          <b-dropdown-item v-if="isLocal" active href="/">
-            Local copy
-          </b-dropdown-item>
-          <b-dropdown-item v-else-if="isPR" active href="/">
+        <template v-if="isPR || isDev || isLocal">
+          <b-dropdown-item v-if="isPR" active href="/">
             Pull Request #{{ prID }}
           </b-dropdown-item>
-          <b-dropdown-item :active="!isLocal && !isPR" href="https://bootstrap-vue.netlify.com" rel="nofollow">
+          <b-dropdown-item v-else-if="isLocal" active href="/">
+            Local copy
+          </b-dropdown-item>
+          <b-dropdown-item :active="isDev" href="https://bootstrap-vue.netlify.com" rel="nofollow">
             Development
           </b-dropdown-item>
           <b-dropdown-item href="https://bootstrap-vue.js.org">
@@ -181,13 +181,8 @@ export default {
     return {
       version,
       isDev: false,
-      isLocal: false,
+      isLocal: false
     }
-  },
-  mounted() {
-    const host = window.location.host || ''
-    this.isLocal = host === 'localhost' || host === '127.0.0.1'
-    this.isDev = host !== 'bootstrap-vue.js.org'
   },
   computed: {
     isNetlify() {
@@ -198,7 +193,22 @@ export default {
     },
     prID() {
       return this.isPR ? process.env.REVIEW_ID : ''
+    },
+    dropdownText() {
+      if (this.isPR) {
+        return `Pull #${this.prID}`
+      } else if (this.isLocal) {
+        return 'Local Copy'
+      } else if (this.isDev) {
+        return 'Development'
+      }
+      return `v${version}`
     }
+  },
+  mounted() {
+    const host = window.location.host || ''
+    this.isLocal = host === 'localhost' || host === '127.0.0.1'
+    this.isDev = host !== 'bootstrap-vue.js.org' && !this.isPR && !this.isLocal
   }
 }
 </script>
