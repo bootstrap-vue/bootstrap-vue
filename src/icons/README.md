@@ -458,7 +458,7 @@ precedence over `spin`, and `cylon` takes precedence over `pulse`.
 ```
 
 Note with the `cylon` animation, the left-right movement extends past the icon's bounding box by
-25%, so you may need to adjust padding or margins to compensate for your use case.
+`25%`, so you may need to adjust padding or margins to compensate for your use case.
 
 As the animations are CSS based, they are applied _after_ any SVG transforms have taken place:
 
@@ -472,7 +472,10 @@ As the animations are CSS based, they are applied _after_ any SVG transforms hav
 <!-- b-icon-spin-aminations-transforms.vue -->
 ```
 
-The animation effects require BootstrapVue's custom CSS.
+The BootstrapVue custom icon animation effects require BootstrapVue's custom CSS.
+
+Need a different style animation? Just create a custom class defining the animation, and apply that
+class to the icon component.
 
 **Note:** The animation effect of this component is dependent on the `prefers-reduced-motion` media
 query. See the
