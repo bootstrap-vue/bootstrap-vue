@@ -436,8 +436,8 @@ BootstrapVue includes two spinning animation options for icons: `spin` and `puls
 spin the icon clockwise, but pulse uses a stepped spin. A third animation called `cylon` is also
 provided.
 
-To use the spin animation, set the `animation` prop to one of the animation ames `'spin'`, `'pulse'`
-or `'cyclon'`.
+To use the spin animation, set the `animation` prop to one of the animation names `'spin'`,
+`'pulse'` or `'cylon'`.
 
 ```html
 <template>
