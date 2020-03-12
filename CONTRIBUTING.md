@@ -19,10 +19,41 @@ that link in issues.
 
 ## Online one-click setup for Contributing
 
-Contribute to BootstrapVue, using a fully featured online development environment; cloned repo,
-pre-installed dependencies, running web server and rollup watching for changes.
+You can use Gitpod (A free online VS Code like IDE) for contributing online. With a single click it'll launch a workspace and automatically:
+
+- clone the BootstrapVue repo.
+- install the dependencies.
+- start the ` yarn run watch` and `yarn run docs-dev` scripts.
+
+so that you can start straight away.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
+
+### Making a PR through the online-setup
+
+- Fork the repo by selecting Find Command from View in the top menu and then type fork and press
+  enter:
+
+  ![image](https://user-images.githubusercontent.com/46004116/76392493-75727880-6393-11ea-8939-41e6c36477de.png)
+
+- You can commit your changes either using a the `git` cli or using the GUI in the top left tab
+  under search as shown below:
+
+  ![image](https://user-images.githubusercontent.com/46004116/76298550-6fb95c00-62db-11ea-9fda-f4e8c0840e69.png)
+
+- Once you are done commiting your changes you can push the code via using push button from the
+  GitHub tab in the top right corner as shown:
+
+  ![image](https://user-images.githubusercontent.com/46004116/76299985-c9228a80-62dd-11ea-930c-00eb22156c9e.png)
+
+- Once you have made all the changes and pushed them to your fork. You can make PR from the same
+  GitHub tab in top right corner as shown:
+
+  ![image](https://user-images.githubusercontent.com/46004116/76300458-9036e580-62de-11ea-8f24-ebaa664204ce.png)
+
+  To make a PR just press the "Create pull request" button.
+
+You can find a detailed guide here about PRs in gitpod: https://www.gitpod.io/docs/pull-requests/
 
 ## Work on components
 

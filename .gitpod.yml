@@ -2,6 +2,7 @@ tasks:
   - init: yarn install
     command: yarn run watch
   - command: yarn run docs-dev
+    openMode: split-right
 ports:
   - port: 3000
     onOpen: open-preview
