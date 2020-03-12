@@ -431,13 +431,13 @@ describe('icons', () => {
     expect(wrapper.find('svg > g > g > path').exists()).toBe(true)
   })
 
-  it('b-icon animation props work', async () => {
+  it('b-icon spin animation props work', async () => {
     const wrapper = mount(BIcon, {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'circle-fill',
-        spin: false,
+        spin: true,
         pulse: false,
         cylon: false
       }
@@ -448,36 +448,47 @@ describe('icons', () => {
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-circle-fill')
-    expect(wrapper.classes()).not.toContain('b-icon-spin')
-    expect(wrapper.classes()).not.toContain('b-icon-pulse')
-    expect(wrapper.classes()).not.toContain('b-icon-cylon')
-
-    wrapper.setProps({
-      spin: true
-    })
-
-    expect(wrapper.classes()).toContain('b-icon')
-    expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-circle-fill')
     expect(wrapper.classes()).toContain('b-icon-spin')
     expect(wrapper.classes()).not.toContain('b-icon-pulse')
     expect(wrapper.classes()).not.toContain('b-icon-cylon')
+  })
 
-    wrapper.setProps({
-      pulse: true
+  it('b-icon pulse animation props work', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'circle-fill',
+        spin: true,
+        pulse: true,
+        cylon: false
+      }
     })
 
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-circle-fill')
     expect(wrapper.classes()).not.toContain('b-icon-spin')
     expect(wrapper.classes()).toContain('b-icon-pulse')
     expect(wrapper.classes()).not.toContain('b-icon-cylon')
+  })
 
-    wrapper.setProps({
-      cylon: true
+  it('b-icon cylon animation props work', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'circle-fill',
+        spin: true,
+        pulse: true,
+        cylon: true
+      }
     })
 
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-circle-fill')
