@@ -200,4 +200,5 @@ export default {
       return this.isPR ? process.env.REVIEW_ID : ''
     }
   }
+}
 </script>
