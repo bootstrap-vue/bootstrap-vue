@@ -53,6 +53,16 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "spin",
+            "version": "2.7.0",
+            "description": "When set, applies a spinning animation to the icon"
+          },
+          {
+            "prop": "pulse",
+            "version": "2.7.0",
+            "description": "When set, applies a pulsing spin animation to the icon. Takes precedence over the `spin` prop"
           }
         ]
       },
@@ -91,6 +101,16 @@
           {
             "prop": "shiftV",
             "description": "Moves the icon vertically. Positive numbers will shift the icon up, negative down. Value is in 1/16em units"
+          },
+          {
+            "prop": "spin",
+            "version": "2.7.0",
+            "description": "When set, applies a spinning animation to the icon"
+          },
+          {
+            "prop": "pulse",
+            "version": "2.7.0",
+            "description": "When set, applies a pulsing spin animation to the icon. Takes precedence over the `spin` prop"
           }
         ]
       },
@@ -134,6 +154,16 @@
             "prop": "stacked",
             "version": "2.3.0",
             "description": "Set this prop to true when placing inside a BIconstack component"
+          },
+          {
+            "prop": "spin",
+            "version": "2.7.0",
+            "description": "When set, applies a spinning animation to the icon"
+          },
+          {
+            "prop": "pulse",
+            "version": "2.7.0",
+            "description": "When set, applies a pulsing spin animation to the icon. Takes precedence over the `spin` prop"
           }
         ]
       },
