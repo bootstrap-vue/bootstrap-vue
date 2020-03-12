@@ -59,6 +59,13 @@ $b-custom-file-height-inner-sm: calc(
   #{$b-custom-file-line-height-sm * 1em} + #{$b-custom-file-padding-y-sm * 2}
 ) !default;
 
+// --- Icons ---
+
+// Animations
+$b-icon-animation-spin-duration: 2s !default;
+$b-icon-animation-pulse-duration: 1s !default;
+$b-icon-animation-cylon-duration: 0.75s !default;
+
 // --- Tables ---
 
 // Table busy state

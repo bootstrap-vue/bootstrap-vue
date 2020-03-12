@@ -297,7 +297,7 @@ With the use of Bootstrap's border and background
 <!-- icons-styling.vue -->
 ```
 
-## Transforms
+## SVG transforms
 
 BootstrapVue icons provide several props for applying basic SVG transforms to the `<svg>`. All
 transforms can be combined for added effect. Note that the transforms are applied to the `<svg>`
@@ -428,6 +428,64 @@ Shifting is applied after any rotation transforms. As with scaling, backgrounds 
 affected. If you need to shift the border/background with the icon, use Bootstrap's margin
 [spacing utility classes](/docs/reference/utility-classes).
 
+## Animated icons
+
+<span class="badge badge-info small">v2.7.0+</span>
+
+BootstrapVue includes two spinning animation options for icons: `spin` and `pulse`. Both animations
+spin the icon clockwise, but pulse uses a stepped spin. A third animation called `cylon` is also
+provided.
+
+To use the spin animation, set the `animation` prop to one of the animation names `'spin'`,
+`'pulse'` or `'cylon'`.
+
+```html
+<template>
+  <div>
+    <p>Spinning animation:</p>
+    <b-icon icon="arrow-clockwise" animation="spin" font-scale="4"></b-icon>
+
+    <p class="mt-3">Pulsing animation:</p>
+    <b-icon icon="arrow-clockwise" animation="pulse" font-scale="4"></b-icon>
+
+    <p class="mt-3">Cylon animation:</p>
+    <b-icon icon="three-dots" animation="cylon" font-scale="4"></b-icon>
+  </div>
+</template>
+
+<!-- b-icon-spin-aminations.vue -->
+```
+
+Note with the `cylon` animation, the left-right movement extends past the icon's bounding box by
+`25%`, so you may need to adjust padding or margins to compensate for your use case.
+
+As the animations are CSS based, they are applied _after_ any SVG transforms have taken place:
+
+```html
+<template>
+  <div class="p-4">
+    <b-icon icon="clock" animation="spin" font-scale="4" shift-v="8"></b-icon>
+  </div>
+</template>
+
+<!-- b-icon-spin-aminations-transforms.vue -->
+```
+
+The BootstrapVue defined icon animation effects require BootstrapVue's custom CSS. The `animation`
+prop translates to the class name `b-icon-animation-{animationName}`.
+
+Need a different style animation? Just create a custom class defining the animation, and apply that
+class to the icon component, or create a new animation class in the form of
+`b-icon-animation-{animationName}` and pass the custom animation name to the `animation` prop.
+
+**Note:** The BootstrapVue defined animation effects of this component is dependent on the
+`prefers-reduced-motion` media query. See the
+[reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
+additional details.
+
+Side note: the `cylon` animation gets its name from the "eye" of the Cylons from the _original_
+[1978 Battlestar Galactica TV series](https://www.youtube.com/watch?v=5a5bEIf0UaU).
+
 ## Stacking icons
 
 <span class="badge badge-info small">v2.3.0+</span>
@@ -492,6 +550,8 @@ Stacked icon notes:
 - The `font-scale` prop cannot be used on the inner icon components
 - The `width` and `height` attributes cannot be applied to the inner icon components
 - Stacked icons **cannot** be stacked inside another `<b-iconstack>`
+- Note the animation props on the child icons will have no effect, however you _can_ use the
+  animation props on the `<b-iconstack>` component.
 
 ## Using in components
 

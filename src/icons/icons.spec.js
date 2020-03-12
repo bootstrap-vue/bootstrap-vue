@@ -430,4 +430,22 @@ describe('icons', () => {
     )
     expect(wrapper.find('svg > g > g > path').exists()).toBe(true)
   })
+
+  it('b-icon animation prop works', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'circle-fill',
+        animation: 'spin'
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-circle-fill')
+    expect(wrapper.classes()).toContain('b-icon-animation-spin')
+  })
 })
