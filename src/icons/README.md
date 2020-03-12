@@ -546,8 +546,8 @@ Stacked icon notes:
 - The `font-scale` prop cannot be used on the inner icon components
 - The `width` and `height` attributes cannot be applied to the inner icon components
 - Stacked icons **cannot** be stacked inside another `<b-iconstack>`
-- Note the `spin` and `pulse` animation props on the child icons will have no effect, however you
-  can use the animation props on the `<b-iconstack>` component.
+- Note the animation props on the child icons will have no effect, however you _can_ use the
+  animation props on the `<b-iconstack>` component.
 
 ## Using in components
 
