@@ -436,21 +436,20 @@ BootstrapVue includes two spinning animation options for icons: `spin` and `puls
 spin the icon clockwise, but pulse uses a stepped spin. A third animation called `cylon` is also
 provided.
 
-To use the spin animation, set the `spin` prop to true. To use the pulse animation, set the `pulse`
-prop to `true`, and to use the cylon animation set the `cylon` prop to true. Note that `pulse` takes
-precedence over `spin`, and `cylon` takes precedence over `pulse`.
+To use the spin animation, set the `animation` prop to one of the animation ames `'spin'`, `'pulse'`
+or `'cyclon'`.
 
 ```html
 <template>
   <div>
     <p>Spinning animation:</p>
-    <b-icon icon="arrow-clockwise" spin font-scale="4"></b-icon>
+    <b-icon icon="arrow-clockwise" animation="spin" font-scale="4"></b-icon>
 
     <p class="mt-3">Pulsing animation:</p>
-    <b-icon icon="arrow-clockwise" pulse font-scale="4"></b-icon>
+    <b-icon icon="arrow-clockwise" animation="pulse" font-scale="4"></b-icon>
 
     <p class="mt-3">Cylon animation:</p>
-    <b-icon icon="three-dots" cylon font-scale="4"></b-icon>
+    <b-icon icon="three-dots" animation="cylon" font-scale="4"></b-icon>
   </div>
 </template>
 
@@ -465,17 +464,19 @@ As the animations are CSS based, they are applied _after_ any SVG transforms hav
 ```html
 <template>
   <div class="p-4">
-    <b-icon icon="clock" spin font-scale="4" shift-v="8"></b-icon>
+    <b-icon icon="clock" animation="spin" font-scale="4" shift-v="8"></b-icon>
   </div>
 </template>
 
 <!-- b-icon-spin-aminations-transforms.vue -->
 ```
 
-The BootstrapVue custom icon animation effects require BootstrapVue's custom CSS.
+The BootstrapVue custom icon animation effects require BootstrapVue's custom CSS. The `animation`
+prop translates to the class name `b-icon-animation-{animationName}`.
 
 Need a different style animation? Just create a custom class defining the animation, and apply that
-class to the icon component.
+class to the icon component, or create a new animation class in the form of
+`b-icon-animation-{animationName}` and pass the custom animation name to the `animation` prop.
 
 **Note:** The animation effect of this component is dependent on the `prefers-reduced-motion` media
 query. See the
