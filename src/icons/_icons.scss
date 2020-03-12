@@ -11,21 +11,22 @@
   }
 
   &.b-icon-animation-spin {
-    animation: 2s infinite linear b-icon-animation-spin;
+    animation: $b-icon-animation-spin-duration infinite linear b-icon-animation-spin;
     @media (prefers-reduced-motion: reduce) {
       animation: none;
     }
   }
 
   &.b-icon-animation-pulse {
-    animation: 1s infinite steps(8) b-icon-animation-spin;
+    animation: $b-icon-animation-pulse-duration infinite steps(8) b-icon-animation-spin;
     @media (prefers-reduced-motion: reduce) {
       animation: none;
     }
   }
 
   &.b-icon-animation-cylon {
-    animation: 0.75s infinite ease-in-out alternate b-icon-animation-cylon;
+    animation: $b-icon-animation-cylon-duration infinite ease-in-out alternate
+      b-icon-animation-cylon;
     @media (prefers-reduced-motion: reduce) {
       animation: none;
     }
