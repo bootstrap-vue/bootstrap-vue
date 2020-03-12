@@ -9,6 +9,34 @@
     // Perhaps this values should be SASS variables?
     vertical-align: -0.15em;
   }
+
+  &.b-icon-spin {
+    animation: b-icon-spin 2s infinite linear;
+    @if $enable-prefers-reduced-motion-media-query {
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+  }
+
+  &.b-icon-pulse {
+    animation: b-icon-spin 1s infinite steps(8);
+    @if $enable-prefers-reduced-motion-media-query {
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+  }
+}
+
+// Animation for spinning icons
+@keyframes b-icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
 }
 
 // Make icons slightly larger in buttons, nav-links, dropdowns, and input-group-text
