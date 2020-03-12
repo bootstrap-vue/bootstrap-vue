@@ -434,11 +434,11 @@ affected. If you need to shift the border/background with the icon, use Bootstra
 
 BootstrapVue includes two spinning animation options for icons: `spin` and `pulse`. Both animations
 spin the icon clockwise, but pulse uses a stepped spin. A third animation called `cylon` is also
-provided. 
+provided.
 
 To use the spin animation, set the `spin` prop to true. To use the pulse animation, set the `pulse`
-prop to `true`, and to use the cylon animation set the `cylon` prop to true. Note that `pulse`
-takes precedence over `spin`, and `cylon` takes precedence over `pulse`.
+prop to `true`, and to use the cylon animation set the `cylon` prop to true. Note that `pulse` takes
+precedence over `spin`, and `cylon` takes precedence over `pulse`.
 
 ```html
 <template>
@@ -457,8 +457,8 @@ takes precedence over `spin`, and `cylon` takes precedence over `pulse`.
 <!-- b-icon-spin-aminations.vue -->
 ```
 
-Note with the `cylon` anmination, the left-right movement extends past the icon's bounding box
-by 25%, so you may need to adjust padding or margins to compensate for your use case.
+Note with the `cylon` animation, the left-right movement extends past the icon's bounding box by
+25%, so you may need to adjust padding or margins to compensate for your use case.
 
 As the animations are CSS based, they are applied _after_ any SVG transforms have taken place:
 
