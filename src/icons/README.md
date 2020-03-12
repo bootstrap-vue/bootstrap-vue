@@ -297,7 +297,7 @@ With the use of Bootstrap's border and background
 <!-- icons-styling.vue -->
 ```
 
-## Transforms
+## SVG transforms
 
 BootstrapVue icons provide several props for applying basic SVG transforms to the `<svg>`. All
 transforms can be combined for added effect. Note that the transforms are applied to the `<svg>`
@@ -446,10 +446,10 @@ takes precedence over `spin`, and `cylon` takes precedence over `pulse`.
     <p>Spinning animation:</p>
     <b-icon icon="arrow-clockwise" spin font-scale="4"></b-icon>
 
-    <p class="mt-3">Pulsing animation</p>
+    <p class="mt-3">Pulsing animation:</p>
     <b-icon icon="arrow-clockwise" pulse font-scale="4"></b-icon>
 
-    <p class="mt-3">Cylon animation</p>
+    <p class="mt-3">Cylon animation:</p>
     <b-icon icon="three-dots" cylon font-scale="4"></b-icon>
   </div>
 </template>
@@ -457,8 +457,8 @@ takes precedence over `spin`, and `cylon` takes precedence over `pulse`.
 <!-- b-icon-spin-aminations.vue -->
 ```
 
-Note with the `cylon` anmination, the left-right movement extends past the icon's bounding box,
-so you may need to adjust padding or margins to compensate for your use case.
+Note with the `cylon` anmination, the left-right movement extends past the icon's bounding box
+by 25%, so you may need to adjust padding or margins to compensate for your use case.
 
 As the animations are CSS based, they are applied _after_ any SVG transforms have taken place:
 
