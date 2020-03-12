@@ -12,19 +12,15 @@
 
   &.b-icon-spin {
     animation: b-icon-spin 2s infinite linear;
-    @if $enable-prefers-reduced-motion-media-query {
-      @media (prefers-reduced-motion: reduce) {
-        animation: none;
-      }
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
     }
   }
 
   &.b-icon-pulse {
     animation: b-icon-spin 1s infinite steps(8);
-    @if $enable-prefers-reduced-motion-media-query {
-      @media (prefers-reduced-motion: reduce) {
-        animation: none;
-      }
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
     }
   }
 }
