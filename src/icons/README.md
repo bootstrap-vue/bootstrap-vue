@@ -428,6 +428,47 @@ Shifting is applied after any rotation transforms. As with scaling, backgrounds 
 affected. If you need to shift the border/background with the icon, use Bootstrap's margin
 [spacing utility classes](/docs/reference/utility-classes).
 
+## Animated icons
+
+<span class="badge badge-info small">v2.7.0+</span>
+
+BootstrapVue includes two spinning animation options for icons: `spin` and `pulse`. Both animations
+spin the icon clockwise, but pulse uses a stepped spin.
+
+To use the spin animation, set the `spin` prop to true. To use hte pulse animation, set the `pulse`
+prop to `true`. Note that `pulse` takes precedence over `spin`.
+
+```html
+<template>
+  <div>
+    <p>Spinning animation:</p>
+    <b-icon icon="arrow-clockwise" spin font-scale="4"></b-icon>
+
+    <p class="mt-3">Pulsing animation</p>
+    <b-icon icon="arrow-clockwise" pulse font-scale="4"></b-icon>
+  </div>
+</template>
+
+<!-- b-icon-spin-aminations.vue -->
+```
+
+Note that the animations are CSS based, and is applied _after_ any transforms have taken place:
+
+```html
+<template>
+  <div class="p-4">
+    <b-icon icon="clock" spin font-scale="4" shift-v="8" class="bg-info"></b-icon>
+  </div>
+</template>
+
+<!-- b-icon-spin-aminations-transforms.vue -->
+```
+
+**Note:** The animation effect of this component is dependent on the `prefers-reduced-motion` media
+query. See the
+[reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
+additional details.
+
 ## Stacking icons
 
 <span class="badge badge-info small">v2.3.0+</span>
@@ -492,6 +533,8 @@ Stacked icon notes:
 - The `font-scale` prop cannot be used on the inner icon components
 - The `width` and `height` attributes cannot be applied to the inner icon components
 - Stacked icons **cannot** be stacked inside another `<b-iconstack>`
+- Note the `spin` and `pulse` animation props on the child icons will have no effect, however you
+  can use the animation props on the `<b-iconstack>` component.
 
 ## Using in components
 
