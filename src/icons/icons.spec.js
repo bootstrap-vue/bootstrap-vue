@@ -431,15 +431,13 @@ describe('icons', () => {
     expect(wrapper.find('svg > g > g > path').exists()).toBe(true)
   })
 
-  it('b-icon spin animation props work', async () => {
+  it('b-icon animation prop works', async () => {
     const wrapper = mount(BIcon, {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'circle-fill',
-        spin: true,
-        pulse: false,
-        cylon: false
+        animation: 'spin'
       }
     })
 
@@ -448,52 +446,6 @@ describe('icons', () => {
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-circle-fill')
-    expect(wrapper.classes()).toContain('b-icon-spin')
-    expect(wrapper.classes()).not.toContain('b-icon-pulse')
-    expect(wrapper.classes()).not.toContain('b-icon-cylon')
-  })
-
-  it('b-icon pulse animation props work', async () => {
-    const wrapper = mount(BIcon, {
-      localVue: localVue,
-      parentComponent: parentComponent,
-      propsData: {
-        icon: 'circle-fill',
-        spin: true,
-        pulse: true,
-        cylon: false
-      }
-    })
-
-    expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
-    expect(wrapper.classes()).toContain('b-icon')
-    expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-circle-fill')
-    expect(wrapper.classes()).not.toContain('b-icon-spin')
-    expect(wrapper.classes()).toContain('b-icon-pulse')
-    expect(wrapper.classes()).not.toContain('b-icon-cylon')
-  })
-
-  it('b-icon cylon animation props work', async () => {
-    const wrapper = mount(BIcon, {
-      localVue: localVue,
-      parentComponent: parentComponent,
-      propsData: {
-        icon: 'circle-fill',
-        spin: true,
-        pulse: true,
-        cylon: true
-      }
-    })
-
-    expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
-    expect(wrapper.classes()).toContain('b-icon')
-    expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-circle-fill')
-    expect(wrapper.classes()).not.toContain('b-icon-spin')
-    expect(wrapper.classes()).not.toContain('b-icon-pulse')
-    expect(wrapper.classes()).toContain('b-icon-cylon')
+    expect(wrapper.classes()).toContain('b-icon-animation-spin')
   })
 })
