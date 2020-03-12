@@ -478,8 +478,8 @@ Need a different style animation? Just create a custom class defining the animat
 class to the icon component, or create a new animation class in the form of
 `b-icon-animation-{animationName}` and pass the custom animation name to the `animation` prop.
 
-**Note:** The animation effect of this component is dependent on the `prefers-reduced-motion` media
-query. See the
+**Note:** The BootstrapVue custom animation effects of this component is dependent on the
+`prefers-reduced-motion` media query. See the
 [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
 additional details.
 
