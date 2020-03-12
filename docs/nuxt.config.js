@@ -143,6 +143,9 @@ module.exports = {
     // ENV vars provided by Netlify build:
     // - `true` if on Netlify (dev or PR)
     NETLIFY: process.env.NETLIFY,
+    // Determines the context from netlify (`production`, `deploy-preview` or `branch-deploy`)
+    // In our case, `production` means the dev branch (bootstrap-vue.netlify.com)
+    NETLIFY_CONTEXT: process.env.NETLIFY ? process.env.CONTEXT : null,
     // - `true` if triggered by a Pull request commit
     PULL_REQUEST: process.env.NETLIFY ? process.env.PULL_REQUEST : null,
     // - If the previous is `true`, this will be the PR number
