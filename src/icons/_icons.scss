@@ -11,21 +11,21 @@
   }
 
   &.b-icon-spin {
-    animation: b-icon-spin 2s infinite linear;
+    animation: 2s infinite linear b-icon-spin;
     @media (prefers-reduced-motion: reduce) {
       animation: none;
     }
   }
 
   &.b-icon-pulse {
-    animation: b-icon-spin 1s infinite steps(8);
+    animation: 1s infinite steps(8) b-icon-spin;
     @media (prefers-reduced-motion: reduce) {
       animation: none;
     }
   }
 
   &.b-icon-cylon {
-    animation: b-icon-cylon 1.25s infinite linear;
+    animation: 1s infinite ease-in-out alternate b-icon-cylon;
     @media (prefers-reduced-motion: reduce) {
       animation: none;
     }
@@ -44,16 +44,10 @@
 
 @keyframes b-icon-cylon {
   0% {
-    transform: translateX(0);
-  }
-  25% {
     transform: translateX(-25%);
   }
-  75% {
-    transform: translateX(25%);
-  }
   100% {
-    transform: translateX(0);
+    transform: translateX(25%);
   }
 }
 
