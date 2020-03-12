@@ -433,10 +433,12 @@ affected. If you need to shift the border/background with the icon, use Bootstra
 <span class="badge badge-info small">v2.7.0+</span>
 
 BootstrapVue includes two spinning animation options for icons: `spin` and `pulse`. Both animations
-spin the icon clockwise, but pulse uses a stepped spin.
+spin the icon clockwise, but pulse uses a stepped spin. A third animation called `cylon` is also
+provided. 
 
-To use the spin animation, set the `spin` prop to true. To use hte pulse animation, set the `pulse`
-prop to `true`. Note that `pulse` takes precedence over `spin`.
+To use the spin animation, set the `spin` prop to true. To use the pulse animation, set the `pulse`
+prop to `true`, and to use the cylon animation set the `cylon` prop to true. Note that `pulse`
+takes precedence over `spin`, and `cylon` takes precedence over `pulse`.
 
 ```html
 <template>
@@ -446,18 +448,24 @@ prop to `true`. Note that `pulse` takes precedence over `spin`.
 
     <p class="mt-3">Pulsing animation</p>
     <b-icon icon="arrow-clockwise" pulse font-scale="4"></b-icon>
+
+    <p class="mt-3">Cylon animation</p>
+    <b-icon icon="dot" cylon font-scale="4"></b-icon>
   </div>
 </template>
 
 <!-- b-icon-spin-aminations.vue -->
 ```
 
-Note that the animations are CSS based, and is applied _after_ any transforms have taken place:
+Note with the `cylon` anmination, the left-right movement extends past the icon's bounding box,
+so you may need to adjust padding or margins to compensate for your use case.
+
+As the animations are CSS based, they are applied _after_ any transforms have taken place:
 
 ```html
 <template>
   <div class="p-4">
-    <b-icon icon="clock" spin font-scale="4" shift-v="8" class="bg-info"></b-icon>
+    <b-icon icon="clock" spin font-scale="4" shift-v="8"></b-icon>
   </div>
 </template>
 
@@ -470,6 +478,9 @@ The animation effects require BootstrapVue's custom CSS.
 query. See the
 [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
 additional details.
+
+Side note: the `cylon` animation gets its name from the Cylons of the _original_ Battlestar
+Galactica TV series of the late 1970's.
 
 ## Stacking icons
 
