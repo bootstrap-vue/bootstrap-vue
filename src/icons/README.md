@@ -479,8 +479,8 @@ query. See the
 [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
 additional details.
 
-Side note: the `cylon` animation gets its name from the "eye" of the Cylons from the _original_ 1978
-Battlestar Galactica TV series.
+Side note: the `cylon` animation gets its name from the "eye" of the Cylons from the _original_
+[1978 Battlestar Galactica TV series](https://www.youtube.com/watch?v=5a5bEIf0UaU).
 
 ## Stacking icons
 
