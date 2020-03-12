@@ -45,6 +45,10 @@ export const commonIconProps = {
   pulse: {
     type: Boolean,
     default: false
+  },
+  cylon: {
+    type: Boolean,
+    default: false
   }
 }
 
@@ -81,6 +85,9 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
     const shiftV = toFloat(props.shiftV) || 0
     const flipH = props.flipH
     const flipV = props.flipV
+    const spin = props.spin
+    const pulse = props.pulse
+    const cylon = props.cylon
     // Compute the transforms
     // Note that order is important as SVG transforms are applied in order from
     // left to right and we want flipping/scale to occur before rotation
@@ -126,8 +133,9 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
           staticClass: 'b-icon bi',
           class: {
             [`text-${props.variant}`]: !!props.variant,
-            'b-icon-spin': !isStacked && props.spin && !props.pulse,
-            'b-icon-pulse': !isStacked && props.pulse
+            'b-icon-spin': !isStacked && spin && !pulse && !cylon,
+            'b-icon-pulse': !isStacked && pulse && !cylon,
+            'b-icon-cylon': !isStacked && cylon
           },
           attrs: baseAttrs,
           style: isStacked ? {} : { fontSize: fontScale === 1 ? null : `${fontScale * 100}%` }
