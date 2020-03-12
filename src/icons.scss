@@ -1,4 +1,8 @@
 // --- BootstrapVue Icons Custom SCSS ---
 
+// Include variables and utilities first
+@import "variables";
+@import "utilities";
+
 // Include custom SCSS for icons
 @import "icons/index";
