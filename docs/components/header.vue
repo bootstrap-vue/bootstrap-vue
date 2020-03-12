@@ -180,13 +180,16 @@ export default {
   data() {
     return {
       version,
-      isDev: false,
       isLocal: false
     }
   },
   computed: {
     isNetlify() {
       return Boolean(process.env.NETLIFY)
+    },
+    isDev() {
+      // In our case, `production` is the dev branch preview
+      return this.isNetlify && process.env.NETLIFY_CONTEXT === 'production'
     },
     isPR() {
       return this.isNetlify && process.env.PULL_REQUEST && process.env.REVIEW_ID
@@ -208,7 +211,6 @@ export default {
   mounted() {
     const host = window.location.host || ''
     this.isLocal = host === 'localhost' || host === '127.0.0.1'
-    this.isDev = host !== 'bootstrap-vue.js.org' && !this.isPR && !this.isLocal
   }
 }
 </script>
