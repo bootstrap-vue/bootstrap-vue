@@ -57,7 +57,7 @@
           {
             "prop": "animation",
             "version": "2.7.0",
-            "description": "Animat the icon. Supported built-in animations are 'spin', 'pulse' and 'cyclon'"
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cyclon'"
           }
         ]
       },
@@ -100,7 +100,7 @@
           {
             "prop": "animation",
             "version": "2.7.0",
-            "description": "Animat the icon. Supported built-in animations are 'spin', 'pulse' and 'cyclon'"
+            "description": "Animate the icon. Supported built-in animations are 'spin', 'pulse' and 'cyclon'"
           }
         ]
       },
