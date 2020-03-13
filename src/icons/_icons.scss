@@ -37,6 +37,16 @@
       animation: none;
     }
   }
+
+  &.b-icon-animation-cylon-vertical,
+  &.b-iconstack .b-icon-animation-cylon-vertical > g {
+    transform-origin: center;
+    animation: $b-icon-animation-cylon-duration infinite ease-in-out alternate
+      b-icon-animation-cylon-vertical;
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
 }
 
 // Animation for spinning icons
@@ -55,6 +65,15 @@
   }
   100% {
     transform: translateX(25%);
+  }
+}
+
+@keyframes b-icon-animation-cylon-vertical {
+  0% {
+    transform: translateY(25%);
+  }
+  100% {
+    transform: translateY(-25%);
   }
 }
 
