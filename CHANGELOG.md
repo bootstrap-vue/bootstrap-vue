@@ -1,8 +1,6 @@
 # Changelog
 
-> All notable changes to this project will be documented in this file. See
-> [standard-version](https://github.com/conventional-changelog/standard-version) for commit
-> guidelines.
+> All notable changes to this project will be documented in this file.
 
 <a name="2.7.0"></a>
 
@@ -15,7 +13,7 @@ Released: 2020-03-13
 - **b-overlay:** new component `b-overlay`
   ([#4907](https://github.com/bootstrap-vue/bootstrap-vue/issues/4907))
   ([134d64d](https://github.com/bootstrap-vue/bootstrap-vue/commit/134d64d073bb64fecd74ffc521476bfd97a99fc0))
-- **b-calendar, b-for-datepicker:** add new `initial-date` prop, and constrain today/current month
+- **b-calendar, b-form-datepicker:** add new `initial-date` prop, and constrain today/current month
   buttons between `min` and `max` (closes
   [#4899](https://github.com/bootstrap-vue/bootstrap-vue/issues/4899))
   ([#4906](https://github.com/bootstrap-vue/bootstrap-vue/issues/4906))
