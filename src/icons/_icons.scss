@@ -19,7 +19,7 @@
     }
   }
 
-  &.b-icon-animation-pulse {
+  &.b-icon-animation-pulse,
   &.b-iconstack .b-icon-animation-pulse > g  {
     transform-origin: center;
     animation: $b-icon-animation-pulse-duration infinite steps(8) b-icon-animation-spin;
