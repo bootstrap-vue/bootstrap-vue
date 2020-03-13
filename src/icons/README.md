@@ -596,7 +596,14 @@ Individual icons within the icon stack can also be animated (except on IE 11)
 <!-- b-constack-animation-child-icons.vue -->
 ```
 
-Note: IE 11 does not support animation of child elements within an SVG.
+**Notes:**
+
+- IE 11 does not support animation of child elements within an SVG, hence only the `<b-iconstack>`
+  component can be animated. The child icon(s) animation will not be visible to IE 11 users.
+- The BootstrapVue defined animation effects of this component is dependent on the
+  `prefers-reduced-motion` media query. See the
+  [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
+  additional details.
 
 ## Using in components
 
