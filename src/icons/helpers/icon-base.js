@@ -116,9 +116,6 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
       )
     }
     
-    // Wrap in one final `<g>` for CSS animation purposes
-    $inner = h('g', {}, [$inner])
-
     return h(
       'svg',
       mergeData(
