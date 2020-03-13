@@ -432,10 +432,12 @@ affected. If you need to shift the border/background with the icon, use Bootstra
 
 <span class="badge badge-info small">v2.7.0+</span>
 
-BootstrapVue includes four build-in animations for icons:
+BootstrapVue includes the following built-in animations for icons:
 
 - `'spin'` smothly spins the icon clockwise
-- `'pulse'` spins the icon clockwise, but in a pulsed step style
+- `'spin-reverse'` smothly spins the icon counter-clockwise
+- `'spin-pulse'` spins the icon clockwise, but in a pulsed step style
+- `'spin-reverse-pulse'` spins the icon counter-clockwise, but in a pulsed step style
 - `'cylon'` slides the icon left-right
 - '`cylon-vertical'` slides the icon up-down
 
@@ -443,18 +445,31 @@ To use the animation, set the `animation` prop to one of the animation names abo
 
 ```html
 <template>
-  <div>
-    <p>Spinning animation:</p>
-    <b-icon icon="arrow-clockwise" animation="spin" font-scale="4"></b-icon>
-
-    <p class="mt-3">Pulsing animation:</p>
-    <b-icon icon="arrow-clockwise" animation="pulse" font-scale="4"></b-icon>
-
-    <p class="mt-3">Cylon animation:</p>
-    <b-icon icon="three-dots" animation="cylon" font-scale="4"></b-icon>
-
-    <p class="mt-3">Vertical cylon animation:</p>
-    <b-icon icon="three-dots-vertical" animation="cylon-vertical" font-scale="4"></b-icon>
+  <b-row>
+    <b-col md="6" class="mb-3">
+      <p>Spinning animation:</p>
+      <b-icon icon="arrow-clockwise" animation="spin" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Reverse spinning animation:</p>
+      <b-icon icon="arrow-counterclockwise" animation="spin-reverse" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Pulsing spin animation:</p>
+      <b-icon icon="arrow-clockwise" animation="spin-pulse" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Reversed pulsing spin animation:</p>
+      <b-icon icon="arrow-counterclockwise" animation="spin-reverse-pulse" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Cylon animation:</p>
+      <b-icon icon="three-dots" animation="cylon" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Vertical cylon animation:</p>
+      <b-icon icon="three-dots-vertical" animation="cylon-vertical" font-scale="4"></b-icon>
+    </b-col>
   </div>
 </template>
 
