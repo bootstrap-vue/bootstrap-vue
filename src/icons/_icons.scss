@@ -20,7 +20,7 @@
   }
 
   &.b-icon-animation-spin-reverse,
-  &.b-iconstack .b-icon-animation-spin > g  {
+  &.b-iconstack .b-icon-animation-spin-reverse > g  {
     transform-origin: center;
     animation: $b-icon-animation-spin-duration infinite linear reverse b-icon-animation-spin;
     @media (prefers-reduced-motion: reduce) {
@@ -39,7 +39,7 @@
   }
 
   &.b-icon-animation-spin-reverse-pulse,
-  &.b-iconstack .b-icon-animation-spin-pulse > g  {
+  &.b-iconstack .b-icon-animation-spin-reverse-pulse > g  {
     transform-origin: center;
     animation: $b-icon-animation-spin-pulse-duration infinite steps(8) reverse
       b-icon-animation-spin;
