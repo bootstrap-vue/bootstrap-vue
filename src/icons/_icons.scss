@@ -10,7 +10,8 @@
     vertical-align: -0.15em;
   }
 
-  &.b-icon-animation-spin > g  {
+  &.b-icon-animation-spin,
+  &.b-iconstack .b-icon-animation-spin > g  {
     transform-origin: center;
     animation: $b-icon-animation-spin-duration infinite linear b-icon-animation-spin;
     @media (prefers-reduced-motion: reduce) {
@@ -18,7 +19,8 @@
     }
   }
 
-  &.b-icon-animation-pulse > g {
+  &.b-icon-animation-pulse {
+  &.b-iconstack .b-icon-animation-pulse > g  {
     transform-origin: center;
     animation: $b-icon-animation-pulse-duration infinite steps(8) b-icon-animation-spin;
     @media (prefers-reduced-motion: reduce) {
@@ -26,7 +28,8 @@
     }
   }
 
-  &.b-icon-animation-cylon > g {
+  &.b-icon-animation-cylon,
+  &.b-iconstack .b-icon-animation-cylon > g {
     transform-origin: center;
     animation: $b-icon-animation-cylon-duration infinite ease-in-out alternate
       b-icon-animation-cylon;
