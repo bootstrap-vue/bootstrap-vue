@@ -434,8 +434,8 @@ affected. If you need to shift the border/background with the icon, use Bootstra
 
 BootstrapVue includes the following built-in animations for icons:
 
-- `'spin'` smothly spins the icon clockwise
-- `'spin-reverse'` smothly spins the icon counter-clockwise
+- `'spin'` smoothly spins the icon clockwise
+- `'spin-reverse'` smoothly spins the icon counter-clockwise
 - `'spin-pulse'` spins the icon clockwise, but in a pulsed step style
 - `'spin-reverse-pulse'` spins the icon counter-clockwise, but in a pulsed step style
 - `'cylon'` slides the icon left-right
