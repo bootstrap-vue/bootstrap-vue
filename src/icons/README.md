@@ -473,7 +473,7 @@ To use the animation, set the `animation` prop to one of the animation names abo
   </div>
 </template>
 
-<!-- b-icon-spin-aminations.vue -->
+<!-- b-icon-aminations.vue -->
 ```
 
 Note with the `cylon` animations, the left-right movement (or up-down movement) extends past the
@@ -489,7 +489,7 @@ As the animations are CSS based, they are applied _after_ any SVG transforms hav
   </div>
 </template>
 
-<!-- b-icon-spin-aminations-transforms.vue -->
+<!-- b-icon-aminations-transforms.vue -->
 ```
 
 The BootstrapVue defined icon animation effects require BootstrapVue's custom CSS. The `animation`
@@ -559,7 +559,7 @@ individual icons (`<b-icon>` or `<b-icon-{icon-name}>`) to create complex icons:
   </div>
 </template>
 
-<!-- icons-stacking.vue -->
+<!-- b-iconsstack.vue -->
 ```
 
 `<b-iconstack>` supports the same `variant`, `font-size`, `animation` and transformation props
@@ -586,7 +586,7 @@ The `<b-iconstack>` component supports the same animations as individual icons:
   </div>
 </template>
 
-<!-- b-constack-animation.vue -->
+<!-- b-iconstack-animation.vue -->
 ```
 
 Individual icons within the icon stack can also be animated (except on IE 11):
@@ -608,7 +608,7 @@ Individual icons within the icon stack can also be animated (except on IE 11):
   </div>
 </template>
 
-<!-- b-constack-animation-child-icons.vue -->
+<!-- b-iconstack-animation-child-icons.vue -->
 ```
 
 **Notes:**
