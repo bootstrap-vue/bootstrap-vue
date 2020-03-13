@@ -63,8 +63,11 @@ $b-custom-file-height-inner-sm: calc(
 
 // Animations
 $b-icon-animation-spin-duration: 2s !default;
+$b-icon-animation-spin-reverse-duration: $b-icon-animation-spin-duration !default;
 $b-icon-animation-pulse-duration: 1s !default;
+$b-icon-animation-pulse-reverse-duration: $b-icon-animation-pulse-duration !default;
 $b-icon-animation-cylon-duration: 0.75s !default;
+$b-icon-animation-cylon-vertical-duration: $b-icon-animation-cylon-duration !default;
 
 // --- Tables ---
 
