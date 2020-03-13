@@ -445,7 +445,7 @@ To use the animation, set the `animation` prop to one of the animation names abo
 
 ```html
 <template>
-  <b-row>
+  <b-row class="text-md-center">
     <b-col md="6" class="mb-3">
       <p>Spinning animation:</p>
       <b-icon icon="arrow-clockwise" animation="spin" font-scale="4"></b-icon>
