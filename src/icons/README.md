@@ -432,32 +432,53 @@ affected. If you need to shift the border/background with the icon, use Bootstra
 
 <span class="badge badge-info small">v2.7.0+</span>
 
-BootstrapVue includes two spinning animation options for icons: `spin` and `pulse`. Both animations
-spin the icon clockwise, but pulse uses a stepped spin. A third animation called `cylon` is also
-provided.
+BootstrapVue includes the following built-in animations for icons:
 
-To use the spin animation, set the `animation` prop to one of the animation names `'spin'`,
-`'pulse'` or `'cylon'`.
+- `'spin'` smoothly spins the icon clockwise
+- `'spin-reverse'` smoothly spins the icon counter-clockwise
+- `'spin-pulse'` spins the icon clockwise, but in a pulsed step style
+- `'spin-reverse-pulse'` spins the icon counter-clockwise, but in a pulsed step style
+- `'cylon'` slides the icon left-right
+- '`cylon-vertical'` slides the icon up-down
+
+To use the animation, set the `animation` prop to one of the animation names above.
 
 ```html
 <template>
-  <div>
-    <p>Spinning animation:</p>
-    <b-icon icon="arrow-clockwise" animation="spin" font-scale="4"></b-icon>
-
-    <p class="mt-3">Pulsing animation:</p>
-    <b-icon icon="arrow-clockwise" animation="pulse" font-scale="4"></b-icon>
-
-    <p class="mt-3">Cylon animation:</p>
-    <b-icon icon="three-dots" animation="cylon" font-scale="4"></b-icon>
+  <b-row class="text-md-center">
+    <b-col md="6" class="mb-3">
+      <p>Spinning animation:</p>
+      <b-icon icon="arrow-clockwise" animation="spin" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Reverse spinning animation:</p>
+      <b-icon icon="arrow-counterclockwise" animation="spin-reverse" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Pulsing spin animation:</p>
+      <b-icon icon="arrow-clockwise" animation="spin-pulse" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Reversed pulsing spin animation:</p>
+      <b-icon icon="arrow-counterclockwise" animation="spin-reverse-pulse" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Cylon animation:</p>
+      <b-icon icon="three-dots" animation="cylon" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Vertical cylon animation:</p>
+      <b-icon icon="three-dots-vertical" animation="cylon-vertical" font-scale="4"></b-icon>
+    </b-col>
   </div>
 </template>
 
-<!-- b-icon-spin-aminations.vue -->
+<!-- b-icon-aminations.vue -->
 ```
 
-Note with the `cylon` animation, the left-right movement extends past the icon's bounding box by
-`25%`, so you may need to adjust padding or margins to compensate for your use case.
+Note with the `cylon` animations, the left-right movement (or up-down movement) extends past the
+icon's bounding box by `+/- 25%`, so you may need to adjust padding or margins to compensate for
+your use case.
 
 As the animations are CSS based, they are applied _after_ any SVG transforms have taken place:
 
@@ -468,7 +489,7 @@ As the animations are CSS based, they are applied _after_ any SVG transforms hav
   </div>
 </template>
 
-<!-- b-icon-spin-aminations-transforms.vue -->
+<!-- b-icon-aminations-transforms.vue -->
 ```
 
 The BootstrapVue defined icon animation effects require BootstrapVue's custom CSS. The `animation`
@@ -538,11 +559,11 @@ individual icons (`<b-icon>` or `<b-icon-{icon-name}>`) to create complex icons:
   </div>
 </template>
 
-<!-- icons-stacking.vue -->
+<!-- b-iconsstack.vue -->
 ```
 
-`<b-iconstack>` supports the same `variant`, `font-size`, and transformation props available on
-individual icons.
+`<b-iconstack>` supports the same `variant`, `font-size`, `animation` and transformation props
+available on individual icons.
 
 Stacked icon notes:
 
@@ -550,8 +571,54 @@ Stacked icon notes:
 - The `font-scale` prop cannot be used on the inner icon components
 - The `width` and `height` attributes cannot be applied to the inner icon components
 - Stacked icons **cannot** be stacked inside another `<b-iconstack>`
-- Note the animation props on the child icons will have no effect, however you _can_ use the
-  animation props on the `<b-iconstack>` component.
+
+### Stacked icon animation
+
+The `<b-iconstack>` component supports the same animations as individual icons:
+
+```html
+<template>
+  <div>
+    <b-iconstack font-scale="5" animation="spin">
+      <b-icon stacked icon="camera" variant="info" scale="0.75" shift-v="-0.25"></b-icon>
+      <b-icon stacked icon="circle-slash" variant="danger"></b-icon>
+    </b-iconstack>
+  </div>
+</template>
+
+<!-- b-iconstack-animation.vue -->
+```
+
+Individual icons within the icon stack can also be animated (except on IE 11):
+
+```html
+<template>
+  <div>
+    <b-iconstack font-scale="5" animation="cylon">
+      <b-icon
+        stacked
+        icon="camera"
+        animation="spin"
+        variant="info"
+        scale="0.75"
+        shift-v="-0.25"
+      ></b-icon>
+      <b-icon stacked icon="circle-slash" variant="danger"></b-icon>
+    </b-iconstack>
+  </div>
+</template>
+
+<!-- b-iconstack-animation-child-icons.vue -->
+```
+
+**Notes:**
+
+- IE 11 does not support animation of child elements within an SVG, hence only the `<b-iconstack>`
+  component can be animated. The child icon(s) animation will not be visible to IE 11 users.
+- The BootstrapVue defined animation effects of this component is dependent on the
+  `prefers-reduced-motion` media query. See the
+  [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
+  additional details.
 
 ## Using in components
 
