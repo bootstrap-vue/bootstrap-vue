@@ -115,7 +115,7 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
         [$inner]
       )
     }
-    
+
     return h(
       'svg',
       mergeData(
