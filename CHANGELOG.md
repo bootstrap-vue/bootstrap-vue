@@ -6,6 +6,46 @@
 
 <a name="2.6.1"></a>
 
+## [v2.7.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.6.1...v2.7.0)
+
+Released: 2020-03-13
+
+### Features v2.7.0
+
+- **b-overlay:** new component `b-overlay`
+  ([#4907](https://github.com/bootstrap-vue/bootstrap-vue/issues/4907))
+  ([134d64d](https://github.com/bootstrap-vue/bootstrap-vue/commit/134d64d073bb64fecd74ffc521476bfd97a99fc0))
+- **b-calendar, b-for-datepicker:** add new `initial-date` prop, and constrain today/current month
+  buttons between `min` and `max` (closes
+  [#4899](https://github.com/bootstrap-vue/bootstrap-vue/issues/4899))
+  ([#4906](https://github.com/bootstrap-vue/bootstrap-vue/issues/4906))
+  ([1d957eb](https://github.com/bootstrap-vue/bootstrap-vue/commit/1d957ebd78a8693e91a8116d12c28fe24bd7c19c))
+- **b-form-datepicker, b-form-timepicker:** add support for icon button only mode (closes
+  [#4888](https://github.com/bootstrap-vue/bootstrap-vue/issues/4888))
+  ([#4915](https://github.com/bootstrap-vue/bootstrap-vue/issues/4915))
+  ([13660c3](https://github.com/bootstrap-vue/bootstrap-vue/commit/13660c3ad02f6c692d306ec95f0d2b19212f9423))
+- **b-icon:** add animated icon options (closes
+  [#4720](https://github.com/bootstrap-vue/bootstrap-vue/issues/4720))
+  ([#4934)(https://github.com/bootstrap-vue/bootstrap-vue/issues/4934))
+  ([7c781fa](https://github.com/bootstrap-vue/bootstrap-vue/commit/7c781faea78315a753b2db903b12c500d6547ae1))
+
+### Bug Fixes v2.7.0
+
+- **b-form-file:** fix value prop validation when using directory mode (fixes
+  [#4912](https://github.com/bootstrap-vue/bootstrap-vue/issues/4912))
+  ([#4913](https://github.com/bootstrap-vue/bootstrap-vue/issues/4913))
+  ([498a262](https://github.com/bootstrap-vue/bootstrap-vue/commit/498a26219571bb6108aaa7134dc25c8e1ff6c98f))
+- **b-form-file:** make sure to catch all errors when resetting the input
+  ([#4936](https://github.com/bootstrap-vue/bootstrap-vue/issues/4936))
+  ([682bc46](https://github.com/bootstrap-vue/bootstrap-vue/commit/682bc46028cacfdb570fe416a051160ee9789fe2))
+
+### Other v2.7.0
+
+- `deps`: update devDependency rollup to 2.0.x
+- minor docs updates
+
+<a name="2.6.1"></a>
+
 ## [v2.6.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.6.0...v2.6.1)
 
 Released: 2020-03-06
