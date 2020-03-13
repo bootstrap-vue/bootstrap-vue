@@ -41,7 +41,7 @@
   &.b-icon-animation-cylon-vertical,
   &.b-iconstack .b-icon-animation-cylon-vertical > g {
     transform-origin: center;
-    animation: $b-icon-animation-cylon-duration infinite ease-in-out alternate
+    animation: $b-icon-animation-cylon-vertical-duration infinite ease-in-out alternate
       b-icon-animation-cylon-vertical;
     @media (prefers-reduced-motion: reduce) {
       animation: none;
