@@ -19,10 +19,29 @@
     }
   }
 
-  &.b-icon-animation-pulse,
-  &.b-iconstack .b-icon-animation-pulse > g  {
+  &.b-icon-animation-spin-reverse,
+  &.b-iconstack .b-icon-animation-spin > g  {
     transform-origin: center;
-    animation: $b-icon-animation-pulse-duration infinite steps(8) b-icon-animation-spin;
+    animation: $b-icon-animation-spin-duration infinite linear reverse b-icon-animation-spin;
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &.b-icon-animation-spin-pulse,
+  &.b-iconstack .b-icon-animation-spin-pulse > g  {
+    transform-origin: center;
+    animation: $b-icon-animation-spin-pulse-duration infinite steps(8) b-icon-animation-spin;
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &.b-icon-animation-spin-reverse-pulse,
+  &.b-iconstack .b-icon-animation-spin-pulse > g  {
+    transform-origin: center;
+    animation: $b-icon-animation-spin-pulse-duration infinite steps(8) reverse
+      b-icon-animation-spin;
     @media (prefers-reduced-motion: reduce) {
       animation: none;
     }
