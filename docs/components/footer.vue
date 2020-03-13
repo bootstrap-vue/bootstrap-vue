@@ -23,7 +23,6 @@
             <li><b-link to="/docs/reference" exact>Reference</b-link></li>
             <li><b-link to="/docs/misc" exact>Miscellaneous</b-link></li>
             <li><b-link to="/play" exact>Playground</b-link></li>
-            <li><b-link to="/docs/misc/changelog" exact>Release notes - changelog</b-link></li>
           </ul>
         </b-col>
 
@@ -34,6 +33,10 @@
             <li><a href="https://discord.gg/j2Mtcny" target="_blank">Discord chat</a></li>
             <li><a href="https://twitter.com/BootstrapVue" target="_blank">Twitter</a></li>
             <li><a href="https://opencollective.com/bootstrap-vue/" target="_blank">Open Collective</a></li>
+          </ul>
+          <h5 class="bd-text-purple-bright mb-1 mt-3">Release notes</h5>
+          <ul class="list-unstyled ml-3">
+            <li><b-link to="/docs/misc/changelog" exact>Changelog</b-link></li>
           </ul>
         </b-col>
       </b-row>
