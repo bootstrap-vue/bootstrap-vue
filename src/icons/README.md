@@ -559,7 +559,7 @@ Stacked icon notes:
 
 ### Stacked icon animation
 
-The `<b-iconstack>` component supports teh same animations as individual icons:
+The `<b-iconstack>` component supports the same animations as individual icons:
 
 ```html
 <template>
@@ -574,7 +574,7 @@ The `<b-iconstack>` component supports teh same animations as individual icons:
 <!-- b-constack-animation.vue -->
 ```
 
-Individual icons within the icon stack can also be animated (except on IE 11)
+Individual icons within the icon stack can also be animated (except on IE 11):
 
 ```html
 <template>
