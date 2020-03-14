@@ -71,7 +71,7 @@ describe('icons', () => {
     expect(wrapper.attributes('role')).not.toBe('img')
     expect(wrapper.attributes('alt')).not.toBe('icon')
     expect(wrapper.attributes('focusable')).toBe('false')
-    expect(wrapper.attributes('xmlns')).toBe('http://www.w3.org/2000/svg')
+    expect(wrapper.attributes('xmlns')).not.toBe('http://www.w3.org/2000/svg')
     expect(wrapper.attributes('width')).not.toBe('1em')
     expect(wrapper.attributes('height')).not.toBe('1em')
     expect(wrapper.attributes('viewBox')).toBe('0 0 20 20')
