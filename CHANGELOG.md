@@ -24,8 +24,12 @@ Released: 2020-03-13
   ([13660c3](https://github.com/bootstrap-vue/bootstrap-vue/commit/13660c3ad02f6c692d306ec95f0d2b19212f9423))
 - **b-icon:** add animated icon options (closes
   [#4720](https://github.com/bootstrap-vue/bootstrap-vue/issues/4720))
-  ([#4934](https://github.com/bootstrap-vue/bootstrap-vue/issues/4934))
-  ([7c781fa](https://github.com/bootstrap-vue/bootstrap-vue/commit/7c781faea78315a753b2db903b12c500d6547ae1))
+  ([#4934](https://github.com/bootstrap-vue/bootstrap-vue/issues/4934),
+  [#4945](https://github.com/bootstrap-vue/bootstrap-vue/issues/4945),
+  [#4948](https://github.com/bootstrap-vue/bootstrap-vue/issues/4948))
+  ([7c781fa](https://github.com/bootstrap-vue/bootstrap-vue/commit/7c781faea78315a753b2db903b12c500d6547ae1),
+  [b786f67](https://github.com/bootstrap-vue/bootstrap-vue/commit/b786f671c3d69bbf9dbfb088840a332d4a066b14),
+  [927c234](https://github.com/bootstrap-vue/bootstrap-vue/commit/927c234a6b5d68e23e86f7d1782b179b1ccb8786))
 
 ### Bug Fixes v2.7.0
 
