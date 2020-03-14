@@ -245,6 +245,10 @@ export { BNavbarBrand } from './components/navbar/navbar-brand'
 export { BNavbarNav } from './components/navbar/navbar-nav'
 export { BNavbarToggle } from './components/navbar/navbar-toggle'
 
+// export * from './components/overlay'
+export { OverlayPlugin } from './components/overlay'
+export { BOverlay } from './components/overlay/overlay'
+
 // export * from './components/pagination'
 export { PaginationPlugin } from './components/pagination'
 export { BPagination } from './components/pagination/pagination'

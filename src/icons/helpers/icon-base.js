@@ -37,6 +37,10 @@ export const commonIconProps = {
   shiftV: {
     type: [Number, String],
     default: 0
+  },
+  animation: {
+    type: String,
+    default: null
   }
 }
 
@@ -73,6 +77,7 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
     const shiftV = toFloat(props.shiftV) || 0
     const flipH = props.flipH
     const flipV = props.flipV
+    const animation = props.animation
     // Compute the transforms
     // Note that order is important as SVG transforms are applied in order from
     // left to right and we want flipping/scale to occur before rotation
@@ -111,12 +116,21 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
       )
     }
 
+    if (isStacked) {
+      // Wrap in an additional `<g>` for proper
+      // animation handling if stacked
+      $inner = h('g', {}, [$inner])
+    }
+
     return h(
       'svg',
       mergeData(
         {
           staticClass: 'b-icon bi',
-          class: { [`text-${props.variant}`]: !!props.variant },
+          class: {
+            [`text-${props.variant}`]: !!props.variant,
+            [`b-icon-animation-${animation}`]: !!animation
+          },
           attrs: baseAttrs,
           style: isStacked ? {} : { fontSize: fontScale === 1 ? null : `${fontScale * 100}%` }
         },

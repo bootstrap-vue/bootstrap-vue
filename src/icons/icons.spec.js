@@ -52,6 +52,38 @@ describe('icons', () => {
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
   })
 
+  it('b-icon has expected structure when `stacked` prop is true', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'alert-circle-fill',
+        stacked: true
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.attributes('role')).not.toBe('img')
+    expect(wrapper.attributes('alt')).not.toBe('icon')
+    expect(wrapper.attributes('focusable')).toBe('false')
+    expect(wrapper.attributes('xmlns')).not.toBe('http://www.w3.org/2000/svg')
+    expect(wrapper.attributes('width')).not.toBe('1em')
+    expect(wrapper.attributes('height')).not.toBe('1em')
+    expect(wrapper.attributes('viewBox')).toBe('0 0 20 20')
+    expect(wrapper.attributes('fill')).toBe('currentColor')
+    expect(wrapper.attributes('style')).not.toBeDefined()
+    expect(wrapper.element.style.fontSize).toEqual('')
+    expect(wrapper.find('svg > g').exists()).toBe(true)
+    expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g > path').exists()).toBe(false)
+    expect(wrapper.find('svg > g > g > path').exists()).toBe(true)
+  })
+
   it('b-icon with empty icon name renders BIconBlank', async () => {
     // This test assumes Vue doesn't puke on unknown component names
     // As we don't specify a parent instance (which has all the registered
@@ -429,5 +461,23 @@ describe('icons', () => {
       'translate(10 10) rotate(45) translate(-10 -10)'
     )
     expect(wrapper.find('svg > g > g > path').exists()).toBe(true)
+  })
+
+  it('b-icon animation prop works', async () => {
+    const wrapper = mount(BIcon, {
+      localVue: localVue,
+      parentComponent: parentComponent,
+      propsData: {
+        icon: 'circle-fill',
+        animation: 'spin'
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-circle-fill')
+    expect(wrapper.classes()).toContain('b-icon-animation-spin')
   })
 })
