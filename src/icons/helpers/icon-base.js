@@ -119,7 +119,7 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
     if (isStacked) {
       // Wrap in an additional `<g>` for proper
       // animation handling if stacked
-      const $inner = h('g', {}, [$inner])
+      $inner = h('g', {}, [$inner])
     }
 
     return h(
