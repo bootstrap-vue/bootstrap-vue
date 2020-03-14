@@ -601,9 +601,13 @@ Individual icons within the icon stack can also be animated (except on IE 11):
         animation="spin"
         variant="info"
         scale="0.75"
-        shift-v="-0.25"
       ></b-icon>
-      <b-icon stacked icon="circle-slash" variant="danger"></b-icon>
+      <b-icon
+        stacked
+        icon="circle-slash"
+        animation="spin-reverse"
+        variant="danger"
+      ></b-icon>
     </b-iconstack>
   </div>
 </template>
