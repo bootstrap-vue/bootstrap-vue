@@ -251,7 +251,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
     },
     traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
-      // Based on http://stackoverflow.com/questions/3590058
+      // Based on https://stackoverflow.com/questions/3590058
       return new Promise(resolve => {
         path = path || ''
         if (item.isFile) {

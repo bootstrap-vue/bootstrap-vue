@@ -32,7 +32,7 @@
   <a href="https://codecov.io/gh/bootstrap-vue/bootstrap-vue">
     <img src="https://flat.badgen.net/codecov/c/github/bootstrap-vue/bootstrap-vue" alt="Coverage">
   </a>
-  <a href="http://packagequality.com/#?package=bootstrap-vue">
+  <a href="https://packagequality.com/#?package=bootstrap-vue">
     <img src="https://npm.packagequality.com/shield/bootstrap-vue.svg?style=flat-square" alt="Package quality">
   </a>
   <a href="https://www.npmjs.com/package/bootstrap-vue">
