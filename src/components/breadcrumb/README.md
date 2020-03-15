@@ -46,7 +46,7 @@ element is automatically set if it is `undefined`.
 const items = [
   {
     text: 'Home',
-    href: 'http://google.com'
+    href: 'https://google.com'
   },
   {
     text: 'Posts',
