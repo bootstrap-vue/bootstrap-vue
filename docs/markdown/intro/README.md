@@ -7,9 +7,11 @@
   recommended
 - [Bootstrap](https://getbootstrap.com/) `4.3.1` is required, `v{{ bootstrapVersion }}` is
   recommended
+- [Popper.js](https://popper.js.org/) `v{{ popperVersionMinor }}` is required for dropdowns
+  (and components based on dropdown), tooltips, and popovers. `v{{ popperVersion }}` is
+  recommended
 - [PortalVue](https://portal-vue.linusb.org/) `v{{ portalVueVersionMinor }}` is required by
   [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
-- [Popper.js](https://popper.js.org/) is required for dropdowns, tooltips, and popovers
 - [jQuery](https://jquery.com/) is **not** required
 
 Check out what is new in [BootstrapVue release v{{ version }}](/docs/misc/changelog).
