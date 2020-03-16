@@ -9,6 +9,7 @@
   recommended
 - [PortalVue](https://portal-vue.linusb.org/) `v{{ portalVueVersionMinor }}` is required by
   [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
+- [Popper.js](https://popper.js.org/) is required for dropdowns, tooltips, and popovers
 - [jQuery](https://jquery.com/) is **not** required
 
 Check out what is new in [BootstrapVue release v{{ version }}](/docs/misc/changelog).
@@ -740,8 +741,8 @@ section above for more details.
 
 ### Dependencies
 
-BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
-(for toasts) and
+BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning),
+`[PortalVue`](https://portal-vue.linusb.org/) (for toasts) and
 [`vue-functional-data-merge`](https://github.com/alexsasharegan/vue-functional-data-merge) (used by
 our functional components). These three dependencies are included in the BootstrapVue `UMD` bundle,
 while the UMD (browser) icons only bundle includes `vue-functional-data-merge`.
