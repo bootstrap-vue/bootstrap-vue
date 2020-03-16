@@ -206,7 +206,7 @@ const updatePkgMeta = data => {
   // Update the bootstrap-icons-version reference
   newPkg.meta['bootstrap-icons-version'] = data.version
   // Return the updated `package.json` as a json string
-  return JSON.stringify(newPkg, null, 2)
+  return `${JSON.stringify(newPkg, null, 2)}\n`
 }
 
 // --- Main process ---
