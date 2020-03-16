@@ -5,6 +5,7 @@ import {
   bootstrapVersion,
   defaultConfig,
   nuxtVersion,
+  popperVersion,
   portalVueVersion,
   version,
   vueVersion
@@ -35,6 +36,9 @@ export default {
       nuxtVersion,
       nuxtVersionMinor: nuxtVersion.replace(minorRE, '$1'),
       nuxtVersionMajor: nuxtVersion.replace(majorRE, '$1'),
+      popperVersion,
+      popperVersionMinor: popperVersion.replace(minorRE, '$1'),
+      popperVersionMajor: popperVersion.replace(majorRE, '$1'),
       portalVueVersion,
       portalVueVersionMinor: portalVueVersion.replace(minorRE, '$1'),
       portalVueVersionMajor: portalVueVersion.replace(majorRE, '$1'),
