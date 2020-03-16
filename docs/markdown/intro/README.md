@@ -5,7 +5,7 @@
 
 - [Vue.js](https://vuejs.org/) `v{{ vueVersionMinor }}` is required, `v{{ vueVersion }}` is
   recommended
-- [Bootstrap](https://getbootstrap.com/) `4.3.1` is required, `v{{ bootstrapVersion }}` is
+- [Bootstrap](https://getbootstrap.com/) `v4.3.1` is required, `v{{ bootstrapVersion }}` is
   recommended
 - [Popper.js](https://popper.js.org/) `v{{ popperVersionMinor }}` is required for dropdowns
   (and components based on dropdown), tooltips, and popovers. `v{{ popperVersion }}` is
