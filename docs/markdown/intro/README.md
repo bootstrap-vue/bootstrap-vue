@@ -5,7 +5,10 @@
 
 - [Vue.js](https://vuejs.org/) `v{{ vueVersionMinor }}` is required, `v{{ vueVersion }}` is
   recommended
-- [Bootstrap](https://getbootstrap.com/) `4.3.1` is required, `v{{ bootstrapVersion }}` is
+- [Bootstrap](https://getbootstrap.com/) `v4.3.1` is required, `v{{ bootstrapVersion }}` is
+  recommended
+- [Popper.js](https://popper.js.org/) `v{{ popperVersionMinor }}` is required for dropdowns
+  (and components based on dropdown), tooltips, and popovers. `v{{ popperVersion }}` is
   recommended
 - [PortalVue](https://portal-vue.linusb.org/) `v{{ portalVueVersionMinor }}` is required by
   [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
@@ -740,11 +743,12 @@ section above for more details.
 
 ### Dependencies
 
-BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning), `PortalVue`
-(for toasts) and
+BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning),
+`[PortalVue`](https://portal-vue.linusb.org/) (for toasts) and
 [`vue-functional-data-merge`](https://github.com/alexsasharegan/vue-functional-data-merge) (used by
 our functional components). These three dependencies are included in the BootstrapVue `UMD` bundle,
-while the UMD (browser) icons only bundle includes `vue-functional-data-merge`.
+while the UMD (browser) icons only bundle includes `vue-functional-data-merge`. All other builds do
+not include these dependencies.
 
 ## Migrating a project already using Bootstrap
 
