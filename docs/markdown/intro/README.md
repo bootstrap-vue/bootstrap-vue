@@ -748,7 +748,7 @@ BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioni
 [`vue-functional-data-merge`](https://github.com/alexsasharegan/vue-functional-data-merge) (used by
 our functional components). These three dependencies are included in the BootstrapVue `UMD` bundle,
 while the UMD (browser) icons only bundle includes `vue-functional-data-merge`. All other builds do
-not include these dependancies.
+not include these dependencies.
 
 ## Migrating a project already using Bootstrap
 
