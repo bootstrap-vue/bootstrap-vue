@@ -107,6 +107,7 @@
             "scope": [
               {
                 "prop": "hasFocus",
+                "type": "Boolean",
                 "description": "`true` when the spinbutton has focus"
               }
             ]
@@ -118,6 +119,7 @@
             "scope": [
               {
                 "prop": "hasFocus",
+                "type": "Boolean",
                 "description": "`true` when the spinbutton has focus"
               }
             ]
