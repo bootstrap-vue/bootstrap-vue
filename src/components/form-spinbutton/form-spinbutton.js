@@ -440,7 +440,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const hasValue = !isNull(value)
     const formatter = isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatter
 
-    const makeButton = (stepper, label, IconCmp, keyRef, shortcut, btnDisabled, slotname) => {
+    const makeButton = (stepper, label, IconCmp, keyRef, shortcut, btnDisabled, slotName) => {
       const $icon = h(IconCmp, {
         props: { scale: this.hasFocus ? 1.5 : 1.25 },
         attrs: { 'aria-hidden': 'true' }
@@ -478,14 +478,26 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             touchstart: handler
           }
         },
-        [h('div', {}, [this.normalizeSlot(slotname, scope) || $icon])]
+        [h('div', {}, [this.normalizeSlot(slotName, scope) || $icon])]
       )
     }
     // TODO: Add button disabled state when `wrap` is `false` and at value max/min
-    const $increment =
-      makeButton(this.stepUp, this.labelIncrement, BIconPlus, 'inc', 'ArrowUp', 'increment')
-    const $decrement =
-      makeButton(this.stepDown, this.labelDecrement, BIconDash, 'dec', 'ArrowDown', 'decrement')
+    const $increment = makeButton(
+      this.stepUp,
+      this.labelIncrement,
+      BIconPlus,
+      'inc',
+      'ArrowUp',
+      'increment'
+    )
+    const $decrement = makeButton(
+      this.stepDown,
+      this.labelDecrement,
+      BIconDash,
+      'dec',
+      'ArrowDown',
+      'decrement'
+    )
 
     let $hidden = h()
     if (this.name && !isDisabled) {
