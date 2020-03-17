@@ -467,7 +467,7 @@ If you have any links in the obscured content, we recommend using the
 [`<b-link>` component](/docs/components/link), as it supports the `disabled` state, as native links
 (`<a href="...">`) and `<router-link>` components do not support the disabled state.
 
-It is also recommended to add either the `aria-hidden="true"` or `aria-bus=y"true"` attribute to
+It is also recommended to add either the `aria-hidden="true"` or `aria-busy="true"` attribute to
 your obscured content when the overlay is visible. Just be careful not to add `aria-hidden="true"`
 to the wrapper that contains the `<b-overlay>` component (when using `no-wrap`), as that would hide
 any interactive content in the `overlay` slot for screen reader users.
