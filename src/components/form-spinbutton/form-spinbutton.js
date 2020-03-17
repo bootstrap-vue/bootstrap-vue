@@ -488,7 +488,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       BIconPlus,
       'inc',
       'ArrowUp',
-      false, 
+      false,
       'increment'
     )
     const $decrement = makeButton(
