@@ -9,6 +9,7 @@ import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
 import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIconPlus, BIconDash } from '../../icons/icons'
 
 // --- Constants ---
@@ -47,7 +48,7 @@ const defaultInteger = (value, defaultValue = null) => {
 // @vue/component
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin],
+  mixins: [idMixin, normalizeSlotMixin],
   inheritAttrs: false,
   props: {
     value: {
@@ -439,11 +440,12 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const hasValue = !isNull(value)
     const formatter = isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatter
 
-    const makeButton = (stepper, label, IconCmp, keyRef, shortcut, btnDisabled) => {
+    const makeButton = (stepper, label, IconCmp, keyRef, shortcut, btnDisabled, slotname) => {
       const $icon = h(IconCmp, {
         props: { scale: this.hasFocus ? 1.5 : 1.25 },
         attrs: { 'aria-hidden': 'true' }
       })
+      const scope = { hasFocus: this.hasFocus }
       const handler = evt => {
         if (!isDisabled && !isReadonly) {
           evt.preventDefault()
@@ -476,12 +478,14 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             touchstart: handler
           }
         },
-        [h('div', {}, [$icon])]
+        [h('div', {}, [this.normalizeSlot(slotname, scope) || $icon])]
       )
     }
     // TODO: Add button disabled state when `wrap` is `false` and at value max/min
-    const $increment = makeButton(this.stepUp, this.labelIncrement, BIconPlus, 'inc', 'ArrowUp')
-    const $decrement = makeButton(this.stepDown, this.labelDecrement, BIconDash, 'dec', 'ArrowDown')
+    const $increment =
+      makeButton(this.stepUp, this.labelIncrement, BIconPlus, 'inc', 'ArrowUp', 'increment')
+    const $decrement =
+      makeButton(this.stepDown, this.labelDecrement, BIconDash, 'dec', 'ArrowDown', 'decrement')
 
     let $hidden = h()
     if (this.name && !isDisabled) {
