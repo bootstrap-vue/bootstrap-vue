@@ -459,7 +459,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     const spinIds = []
 
     // Helper method to render a spinbutton
-    const makeSpinbutton = (handler, key, classes, spinbuttonProps = {}, scopedSlots = {}) => {
+    const makeSpinbutton = (handler, key, classes, spinbuttonProps = {}) => {
       const id = this.safeId(`_spinbutton_${key}_`) || null
       spinIds.push(id)
       return h(BFormSpinbutton, {
@@ -482,7 +482,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           min: 0,
           ...spinbuttonProps
         },
-        scopedSlots: scopedSlots,
+        scopedSlots: this.spinScopedSlots,
         on: {
           // We use `change` event to minimize SR verbosity
           // As the spinbutton will announce each value change
@@ -560,20 +560,14 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       //   And switch class `ml-2` to `mr-2`
       //   Note some LTR locales (i.e. zh) also place AM/PM to the left
       $spinners.push(
-        makeSpinbutton(
-          this.setAmpm,
-          'ampm',
-          'ml-2',
-          {
-            value: this.modelAmpm,
-            max: 1,
-            formatterFn: this.formatAmpm,
-            ariaLabel: this.labelAmpm,
-            // We set `required` as `false`, since this always has a value
-            required: false
-          },
-          this.spinScopedSlots
-        )
+        makeSpinbutton(this.setAmpm, 'ampm', 'ml-2', {
+          value: this.modelAmpm,
+          max: 1,
+          formatterFn: this.formatAmpm,
+          ariaLabel: this.labelAmpm,
+          // We set `required` as `false`, since this always has a value
+          required: false
+        })
       )
     }
 
