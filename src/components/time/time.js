@@ -289,16 +289,19 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       }
       return this.labelNoTimeSelected || ' '
     },
-    ampmScopedSlots() {
+    spinScopedSlots() {
+      const h = this.$createElement
       return {
-        increment: ({ hasFocus }) => h(BIconChevronUp, {
-          props: { scale: hasFocus ? 1.5 : 1.25 },
-          attrs: { 'aria-hidden': 'true' }
-        }),
-        decrement: ({ hasFocus }) => h(BIconChevronUp, {
-          props: { flipV: true, scale: hasFocus ? 1.5 : 1.25 },
-          attrs: { 'aria-hidden': 'true' }
-        })
+        increment: ({ hasFocus }) =>
+          h(BIconChevronUp, {
+            props: { scale: hasFocus ? 1.5 : 1.25 },
+            attrs: { 'aria-hidden': 'true' }
+          }),
+        decrement: ({ hasFocus }) =>
+          h(BIconChevronUp, {
+            props: { flipV: true, scale: hasFocus ? 1.5 : 1.25 },
+            attrs: { 'aria-hidden': 'true' }
+          })
       }
     }
   },
@@ -569,7 +572,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
             // We set `required` as `false`, since this always has a value
             required: false
           },
-          this.ampmScopedSlots
+          this.spinScopedSlots
         )
       )
     }
