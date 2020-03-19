@@ -85,7 +85,7 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
     expect(wrapper.find('svg > g').attributes('transform')).toEqual(
-      'translate(10 10) rotate(45) translate(-10 -10)'
+      'translate(8 8) rotate(45) translate(-8 -8)'
     )
   })
 
@@ -105,7 +105,7 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
     expect(wrapper.find('svg > g').attributes('transform')).toEqual(
-      'translate(10 10) scale(1.5 1.5) translate(-10 -10)'
+      'translate(8 8) scale(1.5 1.5) translate(-8 -8)'
     )
   })
 })
