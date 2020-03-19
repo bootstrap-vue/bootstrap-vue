@@ -46,12 +46,21 @@ export const commonIconProps = {
 
 // Base attributes needed on all icons
 const baseAttrs = {
+  viewBox: '0 0 16 16',
   width: '1em',
   height: '1em',
-  viewBox: '0 0 20 20',
   focusable: 'false',
   role: 'img',
   alt: 'icon'
+}
+
+// Attributes that are nulled out when stacked
+const stackedAttrs = {
+  width: null,
+  height: null,
+  focusable: null,
+  role: null,
+  alt: null
 }
 
 // Shared private base component to reduce bundle/runtime size
@@ -137,7 +146,7 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
         // Merge in user supplied data
         data,
         // If icon is stacked, null out some attrs
-        isStacked ? { attrs: { width: null, height: null, role: null, alt: null } } : {},
+        isStacked ? { attrs: stackedAttrs } : {},
         // These cannot be overridden by users
         {
           attrs: {
