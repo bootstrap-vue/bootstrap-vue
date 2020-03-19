@@ -167,7 +167,7 @@ of the icon names listed in the [Icons](#icons) section above.
 <template>
   <div class="h2 mb-0">
     <b-icon-arrow-up></b-icon-arrow-up>
-    <b-icon-alert-triangle-fill></b-icon-alert-triangle-fill>
+    <b-icon-exclamation-triangle-fill></b-icon-exclamation-triangle-fill>
   </div>
 </template>
 
@@ -180,7 +180,7 @@ of the icon names listed in the [Icons](#icons) section above.
 <template>
   <div class="h2 mb-0">
     <b-icon icon="arrow-up"></b-icon>
-    <b-icon icon="alert-triangle"></b-icon>
+    <b-icon icon="exclamation-triangle"></b-icon>
   </div>
 </template>
 
