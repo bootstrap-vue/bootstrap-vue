@@ -91,15 +91,15 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
     // Note that order is important as SVG transforms are applied in order from
     // left to right and we want flipping/scale to occur before rotation
     // Note shifting is applied separately
-    // Assumes that the viewbox is `0 0 20 20` (`10 10` is the center)
+    // Assumes that the viewbox is `0 0 16 16` (`8 8` is the center)
     const hasScale = flipH || flipV || scale !== 1
     const hasTransforms = hasScale || rotate
     const hasShift = shiftH || shiftV
     const transforms = [
-      hasTransforms ? 'translate(10 10)' : null,
+      hasTransforms ? 'translate(8 8)' : null,
       hasScale ? `scale(${(flipH ? -1 : 1) * scale} ${(flipV ? -1 : 1) * scale})` : null,
       rotate ? `rotate(${rotate})` : null,
-      hasTransforms ? 'translate(-10 -10)' : null
+      hasTransforms ? 'translate(-8 -8)' : null
     ].filter(identity)
 
     // Handling stacked icons
@@ -120,7 +120,7 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
     if (hasShift) {
       $inner = h(
         'g',
-        { attrs: { transform: `translate(${(20 * shiftH) / 16} ${(-20 * shiftV) / 16})` } },
+        { attrs: { transform: `translate(${(16 * shiftH) / 16} ${(-16 * shiftV) / 16})` } },
         [$inner]
       )
     }
