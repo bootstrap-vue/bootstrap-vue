@@ -99,6 +99,32 @@
             "description": "Number of steps to jump by once the `repeat-threshold` has been reached. Must be a positive integer. This value is also used for the page up and down keys"
           }
         ],
+        "slots": [
+          {
+            "name": "increment",
+            "version": "2.8.0",
+            "description": "Custom content to place in the increment button",
+            "scope": [
+              {
+                "prop": "hasFocus",
+                "type": "Boolean",
+                "description": "`true` when the spinbutton has focus"
+              }
+            ]
+          },
+          {
+            "name": "decrement",
+            "version": "2.8.0",
+            "description": "Custom content to place in the decrement button",
+            "scope": [
+              {
+                "prop": "hasFocus",
+                "type": "Boolean",
+                "description": "`true` when the spinbutton has focus"
+              }
+            ]
+          }
+        ],
         "events": [
           {
             "event": "input",
