@@ -198,13 +198,13 @@ provide a `variant` prop to apply one of the Bootstrap contextual text variant c
 ```html
 <template>
   <div class="h2 mb-0">
-    <b-icon icon="alert-circle-fill" variant="success"></b-icon>
-    <b-icon icon="alert-circle-fill" variant="warning"></b-icon>
-    <b-icon icon="alert-circle-fill" variant="danger"></b-icon>
-    <b-icon icon="alert-circle-fill" variant="info"></b-icon>
-    <b-icon icon="alert-circle-fill" variant="primary"></b-icon>
-    <b-icon icon="alert-circle-fill" variant="secondary"></b-icon>
-    <b-icon icon="alert-circle-fill" variant="dark"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="success"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="warning"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="danger"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="info"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="primary"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="secondary"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="dark"></b-icon>
   </div>
 </template>
 
@@ -235,11 +235,11 @@ current font size:
 ```html
 <template>
   <div>
-    <p class="h1 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
-    <p class="h2 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
-    <p class="h3 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
-    <p class="h4 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
-    <p class="h5 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
+    <p class="h1 mb-2">Icon <b-icon icon="exclamation-circle-fill"></b-icon></p>
+    <p class="h2 mb-2">Icon <b-icon icon="exclamation-circle-fill"></b-icon></p>
+    <p class="h3 mb-2">Icon <b-icon icon="exclamation-circle-fill"></b-icon></p>
+    <p class="h4 mb-2">Icon <b-icon icon="exclamation-circle-fill"></b-icon></p>
+    <p class="h5 mb-2">Icon <b-icon icon="exclamation-circle-fill"></b-icon></p>
   </div>
 </template>
 
@@ -252,7 +252,7 @@ classes:
 ```html
 <template>
   <div>
-    <b-icon icon="alert-circle" style="width: 120px; height: 120px;"></b-icon>
+    <b-icon icon="exclamation-circle" style="width: 120px; height: 120px;"></b-icon>
   </div>
 </template>
 
@@ -288,9 +288,9 @@ With the use of Bootstrap's border and background
 ```html
 <template>
   <div style="font-size: 4rem;">
-    <b-icon icon="bell-fill" class="border rounded"></b-icon>
-    <b-icon icon="bell-fill" class="border border-info rounded" variant="info"></b-icon>
-    <b-icon icon="bell-fill" class="rounded-circle bg-danger p-1" variant="light"></b-icon>
+    <b-icon icon="bell-fill" class="border rounded p-1"></b-icon>
+    <b-icon icon="bell-fill" class="border border-info rounded p-1" variant="info"></b-icon>
+    <b-icon icon="bell-fill" class="rounded-circle bg-danger p-2" variant="light"></b-icon>
     <b-icon icon="unlock-fill" class="rounded bg-primary p-1" variant="light"></b-icon>
   </div>
 </template>
@@ -352,16 +352,16 @@ but not its physical font size. To illustrate this we have added a background co
 <template>
   <b-row cols="2" cols-sm="4" class="text-center" style="font-size: 4rem;">
     <b-col class="mb-2">
-      <b-icon icon="alert-circle" scale="0.5" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" scale="0.5" class="bg-info"></b-icon>
     </b-col>
     <b-col class="mb-2">
-      <b-icon icon="alert-circle" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" class="bg-info"></b-icon>
     </b-col>
     <b-col class="mb-2">
-      <b-icon icon="alert-circle" scale="1.5" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" scale="1.5" class="bg-info"></b-icon>
     </b-col>
     <b-col class="mb-2">
-      <b-icon icon="alert-circle" scale="2" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" scale="2" class="bg-info"></b-icon>
     </b-col>
   </b-row>
 </template>
@@ -389,29 +389,29 @@ For clarity in the example, we’ve added a background color on the icon so you 
 <template>
   <b-row cols="2" cols-sm="4" class="text-center" style="font-size: 4rem;">
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" shift-v="8" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" shift-v="8" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" shift-v="-8" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" shift-v="-8" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" shift-h="8" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" shift-h="8" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" shift-h="-8" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" shift-h="-8" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" shift-v="16" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" shift-v="16" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" shift-h="-8" shift-v="-8" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" shift-h="-8" shift-v="-8" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
       <b-icon
-        icon="alert-circle"
+        icon="exclamation-circle"
         scale="0.5"
         rotate="45"
         shift-h="-4"
