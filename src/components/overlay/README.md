@@ -277,7 +277,7 @@ Place custom content in the overlay (replacing the default spinner) via the opti
       </b-card>
       <template v-slot:overlay>
         <div class="text-center">
-          <b-icon icon="stopwatch" font-scale="3"></b-icon>
+          <b-icon icon="stopwatch" font-scale="3" animation="cylon"></b-icon>
           <p id="cancel-label">Please wait...</p>
           <b-button
             ref="cancel"

@@ -9,7 +9,8 @@ BootstrapVue icon components are built from
 are opt-in, meaning that they explicitly need to be imported in order to be used. They are not
 installed by default. You do not need `bootstrap-icons` as a dependency.
 
-Icon components were added in BootstrapVue release `v2.2.0`.
+Icon components were added in BootstrapVue release `v2.2.0`. Bootstrap Icons `v1.0.0-alpha3` icons
+were added in BootstrapVue release `v2.8.0`.
 
 <div class="alert alert-info small">
   <p class="mb-0">
@@ -24,7 +25,7 @@ Icon components were added in BootstrapVue release `v2.2.0`.
 
 ## Icons
 
-The library includes over 300 icons. Use the explorer below to search and browse the available
+The library includes over 500 icons. Use the explorer below to search and browse the available
 icons.
 
 <div>
@@ -166,7 +167,7 @@ of the icon names listed in the [Icons](#icons) section above.
 <template>
   <div class="h2 mb-0">
     <b-icon-arrow-up></b-icon-arrow-up>
-    <b-icon-alert-triangle-fill></b-icon-alert-triangle-fill>
+    <b-icon-exclamation-triangle-fill></b-icon-exclamation-triangle-fill>
   </div>
 </template>
 
@@ -179,7 +180,7 @@ of the icon names listed in the [Icons](#icons) section above.
 <template>
   <div class="h2 mb-0">
     <b-icon icon="arrow-up"></b-icon>
-    <b-icon icon="alert-triangle"></b-icon>
+    <b-icon icon="exclamation-triangle"></b-icon>
   </div>
 </template>
 
@@ -197,13 +198,13 @@ provide a `variant` prop to apply one of the Bootstrap contextual text variant c
 ```html
 <template>
   <div class="h2 mb-0">
-    <b-icon icon="alert-circle-fill" variant="success"></b-icon>
-    <b-icon icon="alert-circle-fill" variant="warning"></b-icon>
-    <b-icon icon="alert-circle-fill" variant="danger"></b-icon>
-    <b-icon icon="alert-circle-fill" variant="info"></b-icon>
-    <b-icon icon="alert-circle-fill" variant="primary"></b-icon>
-    <b-icon icon="alert-circle-fill" variant="secondary"></b-icon>
-    <b-icon icon="alert-circle-fill" variant="dark"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="success"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="warning"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="danger"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="info"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="primary"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="secondary"></b-icon>
+    <b-icon icon="exclamation-circle-fill" variant="dark"></b-icon>
   </div>
 </template>
 
@@ -234,11 +235,11 @@ current font size:
 ```html
 <template>
   <div>
-    <p class="h1 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
-    <p class="h2 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
-    <p class="h3 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
-    <p class="h4 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
-    <p class="h5 mb-2">Icon <b-icon icon="alert-circle-fill"></b-icon></p>
+    <p class="h1 mb-2">Icon <b-icon icon="exclamation-circle-fill"></b-icon></p>
+    <p class="h2 mb-2">Icon <b-icon icon="exclamation-circle-fill"></b-icon></p>
+    <p class="h3 mb-2">Icon <b-icon icon="exclamation-circle-fill"></b-icon></p>
+    <p class="h4 mb-2">Icon <b-icon icon="exclamation-circle-fill"></b-icon></p>
+    <p class="h5 mb-2">Icon <b-icon icon="exclamation-circle-fill"></b-icon></p>
   </div>
 </template>
 
@@ -251,7 +252,7 @@ classes:
 ```html
 <template>
   <div>
-    <b-icon icon="alert-circle" style="width: 120px; height: 120px;"></b-icon>
+    <b-icon icon="exclamation-circle" style="width: 120px; height: 120px;"></b-icon>
   </div>
 </template>
 
@@ -281,15 +282,15 @@ Also see the [scaling transforms](#scale) section below for additional sizing op
 
 ## Styling
 
-With the use of Bootstrap's border and background
+With the use of Bootstrap's border, background and padding
 [utility classes](/docs/reference/utility-classes), you can create various styling effects:
 
 ```html
 <template>
   <div style="font-size: 4rem;">
-    <b-icon icon="bell-fill" class="border rounded"></b-icon>
-    <b-icon icon="bell-fill" class="border border-info rounded" variant="info"></b-icon>
-    <b-icon icon="bell-fill" class="rounded-circle bg-danger p-1" variant="light"></b-icon>
+    <b-icon icon="bell-fill" class="border rounded p-2"></b-icon>
+    <b-icon icon="bell-fill" class="border border-info rounded p-2" variant="info"></b-icon>
+    <b-icon icon="bell-fill" class="rounded-circle bg-danger p-2" variant="light"></b-icon>
     <b-icon icon="unlock-fill" class="rounded bg-primary p-1" variant="light"></b-icon>
   </div>
 </template>
@@ -351,16 +352,16 @@ but not its physical font size. To illustrate this we have added a background co
 <template>
   <b-row cols="2" cols-sm="4" class="text-center" style="font-size: 4rem;">
     <b-col class="mb-2">
-      <b-icon icon="alert-circle" scale="0.5" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" scale="0.5" class="bg-info"></b-icon>
     </b-col>
     <b-col class="mb-2">
-      <b-icon icon="alert-circle" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" class="bg-info"></b-icon>
     </b-col>
     <b-col class="mb-2">
-      <b-icon icon="alert-circle" scale="1.5" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" scale="1.5" class="bg-info"></b-icon>
     </b-col>
     <b-col class="mb-2">
-      <b-icon icon="alert-circle" scale="2" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" scale="2" class="bg-info"></b-icon>
     </b-col>
   </b-row>
 </template>
@@ -388,29 +389,29 @@ For clarity in the example, we’ve added a background color on the icon so you 
 <template>
   <b-row cols="2" cols-sm="4" class="text-center" style="font-size: 4rem;">
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" shift-v="8" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" shift-v="8" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" shift-v="-8" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" shift-v="-8" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" shift-h="8" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" shift-h="8" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" shift-h="-8" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" shift-h="-8" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" shift-v="16" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" shift-v="16" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
-      <b-icon icon="alert-circle" shift-h="-8" shift-v="-8" class="bg-info"></b-icon>
+      <b-icon icon="exclamation-circle" shift-h="-8" shift-v="-8" class="bg-info"></b-icon>
     </b-col>
     <b-col class="py-4 mb-2">
       <b-icon
-        icon="alert-circle"
+        icon="exclamation-circle"
         scale="0.5"
         rotate="45"
         shift-h="-4"
@@ -518,14 +519,14 @@ individual icons (`<b-icon>` or `<b-icon-{icon-name}>`) to create complex icons:
 <template>
   <div>
     <b-iconstack font-scale="5">
-      <b-icon stacked icon="camera" variant="info" scale="0.75" shift-v="-0.25"></b-icon>
-      <b-icon stacked icon="circle-slash" variant="danger"></b-icon>
+      <b-icon stacked icon="camera" variant="info" scale="0.75"></b-icon>
+      <b-icon stacked icon="slash-circle" variant="danger"></b-icon>
     </b-iconstack>
 
     <b-iconstack font-scale="5" rotate="90">
-      <b-icon stacked icon="chevron-right" shift-h="-3" variant="danger"></b-icon>
+      <b-icon stacked icon="chevron-right" shift-h="-4" variant="danger"></b-icon>
       <b-icon stacked icon="chevron-right" shift-h="0" variant="success"></b-icon>
-      <b-icon stacked icon="chevron-right" shift-h="3" variant="primary"></b-icon>
+      <b-icon stacked icon="chevron-right" shift-h="4" variant="primary"></b-icon>
     </b-iconstack>
 
     <b-iconstack font-scale="5">
@@ -536,10 +537,10 @@ individual icons (`<b-icon>` or `<b-icon-{icon-name}>`) to create complex icons:
 
     <b-iconstack font-scale="5" variant="white">
       <b-icon stacked icon="square-fill" variant="dark"></b-icon>
-      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="2.5" shift-h="-2.5"></b-icon>
-      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="2.5" shift-h="2.5" rotate="90"></b-icon>
-      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-2.5" shift-h="2.5" rotate="180"></b-icon>
-      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-2.5" shift-h="-2.5" rotate="270"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="3" shift-h="-3"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="3" shift-h="3" rotate="90"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-3" shift-h="3" rotate="180"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-3" shift-h="-3" rotate="270"></b-icon>
     </b-iconstack>
 
     <b-iconstack font-scale="5">
@@ -549,12 +550,12 @@ individual icons (`<b-icon>` or `<b-icon-{icon-name}>`) to create complex icons:
 
     <b-iconstack font-scale="5">
       <b-icon stacked icon="square"></b-icon>
-      <b-icon stacked icon="dot" shift-h="-2.25" shift-v="3"></b-icon>
-      <b-icon stacked icon="dot" shift-h="-2.25"></b-icon>
-      <b-icon stacked icon="dot" shift-h="-2.25" shift-v="-3"></b-icon>
-      <b-icon stacked icon="dot" shift-h="2.25" shift-v="3"></b-icon>
-      <b-icon stacked icon="dot" shift-h="2.25"></b-icon>
-      <b-icon stacked icon="dot" shift-h="2.25" shift-v="-3"></b-icon>
+      <b-icon stacked icon="dot" shift-h="-3" shift-v="4"></b-icon>
+      <b-icon stacked icon="dot" shift-h="-3"></b-icon>
+      <b-icon stacked icon="dot" shift-h="-3" shift-v="-4"></b-icon>
+      <b-icon stacked icon="dot" shift-h="3" shift-v="4"></b-icon>
+      <b-icon stacked icon="dot" shift-h="3"></b-icon>
+      <b-icon stacked icon="dot" shift-h="3" shift-v="-4"></b-icon>
     </b-iconstack>
   </div>
 </template>
@@ -581,7 +582,7 @@ The `<b-iconstack>` component supports the same animations as individual icons:
   <div>
     <b-iconstack font-scale="5" animation="spin">
       <b-icon stacked icon="camera" variant="info" scale="0.75" shift-v="-0.25"></b-icon>
-      <b-icon stacked icon="circle-slash" variant="danger"></b-icon>
+      <b-icon stacked icon="slash-circle" variant="danger"></b-icon>
     </b-iconstack>
   </div>
 </template>
@@ -604,7 +605,7 @@ Individual icons within the icon stack can also be animated (except on IE 11):
       ></b-icon>
       <b-icon
         stacked
-        icon="circle-slash"
+        icon="slash-circle"
         animation="spin-reverse"
         variant="danger"
       ></b-icon>
@@ -651,7 +652,7 @@ font scaled by 125%).
     </b-button>
     <br>
     <b-button size="lg" variant="primary" class="mb-2">
-      <b-icon icon="question-fill" aria-hidden="true"></b-icon>
+      <b-icon icon="question-circle-fill" aria-hidden="true"></b-icon>
       <span class="sr-only">Help</span>
     </b-button>
   </div>
@@ -698,7 +699,7 @@ font scaled by 125%).
           <b-icon icon="cloud-download" aria-hidden="true"></b-icon>
         </b-button>
         <b-button title="New document">
-          <b-icon icon="document" aria-hidden="true"></b-icon>
+          <b-icon icon="file-earmark" aria-hidden="true"></b-icon>
         </b-button>
       </b-button-group>
       <b-button-group class="mr-1">
@@ -783,11 +784,11 @@ font scaled by 125%).
       Cras justo odio
     </b-list-group-item>
     <b-list-group-item class="d-flex justify-content-between align-items-center">
-      <b-icon icon="alert-triangle-fill" scale="2" variant="warning"></b-icon>
+      <b-icon icon="exclamation-triangle-fill" scale="2" variant="warning"></b-icon>
       Dapibus ac facilisis in
     </b-list-group-item>
     <b-list-group-item class="d-flex justify-content-between align-items-center">
-      <b-icon icon="info-fill" scale="2" variant="info"></b-icon>
+      <b-icon icon="info-circle-fill" scale="2" variant="info"></b-icon>
       Morbi leo risus
     </b-list-group-item>
     <b-list-group-item class="d-flex justify-content-between align-items-center">
