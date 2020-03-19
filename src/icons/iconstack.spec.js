@@ -17,7 +17,7 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.attributes('xmlns')).toBe('http://www.w3.org/2000/svg')
     expect(wrapper.attributes('width')).toBe('1em')
     expect(wrapper.attributes('height')).toBe('1em')
-    expect(wrapper.attributes('viewBox')).toBe('0 0 20 20')
+    expect(wrapper.attributes('viewBox')).toBe('0 0 16 16')
     expect(wrapper.attributes('fill')).toBe('currentColor')
     expect(wrapper.attributes('style')).not.toBeDefined()
     expect(wrapper.element.style.fontSize).toEqual('')
