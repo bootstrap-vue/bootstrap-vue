@@ -324,7 +324,6 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     // Render function helpers
     defaultButtonFn({ isHovered, hasFocus }) {
       return this.$createElement(isHovered || hasFocus ? BIconClockFill : BIconClock, {
-        props: { scale: 1.25 },
         attrs: { 'aria-hidden': 'true' }
       })
     }
