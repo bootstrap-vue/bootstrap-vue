@@ -519,14 +519,14 @@ individual icons (`<b-icon>` or `<b-icon-{icon-name}>`) to create complex icons:
 <template>
   <div>
     <b-iconstack font-scale="5">
-      <b-icon stacked icon="camera" variant="info" scale="0.75" shift-v="-0.25"></b-icon>
-      <b-icon stacked icon="circle-slash" variant="danger"></b-icon>
+      <b-icon stacked icon="camera" variant="info" scale="0.75"></b-icon>
+      <b-icon stacked icon="slash-circle" variant="danger"></b-icon>
     </b-iconstack>
 
     <b-iconstack font-scale="5" rotate="90">
-      <b-icon stacked icon="chevron-right" shift-h="-3" variant="danger"></b-icon>
+      <b-icon stacked icon="chevron-right" shift-h="-4" variant="danger"></b-icon>
       <b-icon stacked icon="chevron-right" shift-h="0" variant="success"></b-icon>
-      <b-icon stacked icon="chevron-right" shift-h="3" variant="primary"></b-icon>
+      <b-icon stacked icon="chevron-right" shift-h="4" variant="primary"></b-icon>
     </b-iconstack>
 
     <b-iconstack font-scale="5">
@@ -537,10 +537,10 @@ individual icons (`<b-icon>` or `<b-icon-{icon-name}>`) to create complex icons:
 
     <b-iconstack font-scale="5" variant="white">
       <b-icon stacked icon="square-fill" variant="dark"></b-icon>
-      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="2.5" shift-h="-2.5"></b-icon>
-      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="2.5" shift-h="2.5" rotate="90"></b-icon>
-      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-2.5" shift-h="2.5" rotate="180"></b-icon>
-      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-2.5" shift-h="-2.5" rotate="270"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="3" shift-h="-3"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="3" shift-h="3" rotate="90"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-3" shift-h="3" rotate="180"></b-icon>
+      <b-icon stacked icon="arrow-up-short" scale="0.5" shift-v="-3" shift-h="-3" rotate="270"></b-icon>
     </b-iconstack>
 
     <b-iconstack font-scale="5">
@@ -550,12 +550,12 @@ individual icons (`<b-icon>` or `<b-icon-{icon-name}>`) to create complex icons:
 
     <b-iconstack font-scale="5">
       <b-icon stacked icon="square"></b-icon>
-      <b-icon stacked icon="dot" shift-h="-2.25" shift-v="3"></b-icon>
-      <b-icon stacked icon="dot" shift-h="-2.25"></b-icon>
-      <b-icon stacked icon="dot" shift-h="-2.25" shift-v="-3"></b-icon>
-      <b-icon stacked icon="dot" shift-h="2.25" shift-v="3"></b-icon>
-      <b-icon stacked icon="dot" shift-h="2.25"></b-icon>
-      <b-icon stacked icon="dot" shift-h="2.25" shift-v="-3"></b-icon>
+      <b-icon stacked icon="dot" shift-h="-3" shift-v="4"></b-icon>
+      <b-icon stacked icon="dot" shift-h="-3"></b-icon>
+      <b-icon stacked icon="dot" shift-h="-3" shift-v="-4"></b-icon>
+      <b-icon stacked icon="dot" shift-h="3" shift-v="4"></b-icon>
+      <b-icon stacked icon="dot" shift-h="3"></b-icon>
+      <b-icon stacked icon="dot" shift-h="3" shift-v="-4"></b-icon>
     </b-iconstack>
   </div>
 </template>
@@ -582,7 +582,7 @@ The `<b-iconstack>` component supports the same animations as individual icons:
   <div>
     <b-iconstack font-scale="5" animation="spin">
       <b-icon stacked icon="camera" variant="info" scale="0.75" shift-v="-0.25"></b-icon>
-      <b-icon stacked icon="circle-slash" variant="danger"></b-icon>
+      <b-icon stacked icon="slash-circle" variant="danger"></b-icon>
     </b-iconstack>
   </div>
 </template>
@@ -605,7 +605,7 @@ Individual icons within the icon stack can also be animated (except on IE 11):
       ></b-icon>
       <b-icon
         stacked
-        icon="circle-slash"
+        icon="slash-circle"
         animation="spin-reverse"
         variant="danger"
       ></b-icon>
@@ -652,7 +652,7 @@ font scaled by 125%).
     </b-button>
     <br>
     <b-button size="lg" variant="primary" class="mb-2">
-      <b-icon icon="question-fill" aria-hidden="true"></b-icon>
+      <b-icon icon="question-circle-fill" aria-hidden="true"></b-icon>
       <span class="sr-only">Help</span>
     </b-button>
   </div>
@@ -699,7 +699,7 @@ font scaled by 125%).
           <b-icon icon="cloud-download" aria-hidden="true"></b-icon>
         </b-button>
         <b-button title="New document">
-          <b-icon icon="document" aria-hidden="true"></b-icon>
+          <b-icon icon="file-earmark" aria-hidden="true"></b-icon>
         </b-button>
       </b-button-group>
       <b-button-group class="mr-1">
@@ -784,11 +784,11 @@ font scaled by 125%).
       Cras justo odio
     </b-list-group-item>
     <b-list-group-item class="d-flex justify-content-between align-items-center">
-      <b-icon icon="alert-triangle-fill" scale="2" variant="warning"></b-icon>
+      <b-icon icon="exclamation-triangle-fill" scale="2" variant="warning"></b-icon>
       Dapibus ac facilisis in
     </b-list-group-item>
     <b-list-group-item class="d-flex justify-content-between align-items-center">
-      <b-icon icon="info-fill" scale="2" variant="info"></b-icon>
+      <b-icon icon="info-circle-fill" scale="2" variant="info"></b-icon>
       Morbi leo risus
     </b-list-group-item>
     <b-list-group-item class="d-flex justify-content-between align-items-center">
