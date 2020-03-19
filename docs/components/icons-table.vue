@@ -94,7 +94,7 @@
   }
 
   &:hover .bi {
-    transform: scale(2);
+    transform: scale(1.5);
   }
 }
 
