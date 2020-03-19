@@ -63,7 +63,7 @@ export const BIconBlank = /*#__PURE__*/ makeIcon('Blank', '')
 
 // --- Bootstrap Icons ---
 <% componentNames.forEach(component => { %>
-// prettier-ignore
+// eslint-disable-next-line
 export const <%= component %> = /*#__PURE__*/ makeIcon(
   '<%= icons[component].name %>',
   '<%= icons[component].content %>'
