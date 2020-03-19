@@ -9,7 +9,8 @@ BootstrapVue icon components are built from
 are opt-in, meaning that they explicitly need to be imported in order to be used. They are not
 installed by default. You do not need `bootstrap-icons` as a dependency.
 
-Icon components were added in BootstrapVue release `v2.2.0`.
+Icon components were added in BootstrapVue release `v2.2.0`. Bootstrap Icons `v1.0.0-alpha3` icons
+were added in BootstrapVue release `v2.8.0`.
 
 <div class="alert alert-info small">
   <p class="mb-0">
@@ -24,7 +25,7 @@ Icon components were added in BootstrapVue release `v2.2.0`.
 
 ## Icons
 
-The library includes over 300 icons. Use the explorer below to search and browse the available
+The library includes over 500 icons. Use the explorer below to search and browse the available
 icons.
 
 <div>
