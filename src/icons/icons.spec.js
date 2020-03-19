@@ -27,7 +27,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill'
+        icon: 'alarm-fill'
       }
     })
 
@@ -35,7 +35,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.attributes('role')).toBe('img')
     expect(wrapper.attributes('alt')).toBe('icon')
@@ -57,7 +57,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         stacked: true
       }
     })
@@ -66,7 +66,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.attributes('role')).not.toBe('img')
     expect(wrapper.attributes('alt')).not.toBe('icon')
@@ -147,7 +147,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         variant: 'danger'
       }
     })
@@ -156,7 +156,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes()).toContain('text-danger')
     expect(wrapper.classes().length).toBe(4)
     expect(wrapper.attributes('role')).toBe('img')
@@ -172,7 +172,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         fontScale: '1.25'
       }
     })
@@ -181,7 +181,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.attributes('role')).toBe('img')
     expect(wrapper.attributes('alt')).toBe('icon')
@@ -218,7 +218,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         rotate: '45'
       }
     })
@@ -227,7 +227,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
@@ -242,7 +242,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         scale: '1.5'
       }
     })
@@ -251,7 +251,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
@@ -266,7 +266,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         flipH: true
       }
     })
@@ -275,7 +275,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
@@ -290,7 +290,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         flipV: true
       }
     })
@@ -299,7 +299,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
@@ -314,7 +314,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         flipH: true,
         flipV: true
       }
@@ -324,7 +324,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
@@ -339,7 +339,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         scale: '1.5',
         flipH: true
       }
@@ -349,7 +349,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
@@ -364,7 +364,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         scale: '1.5',
         flipV: true
       }
@@ -374,7 +374,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
@@ -389,7 +389,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         scale: '1.5',
         flipH: true,
         flipV: true
@@ -400,7 +400,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
@@ -415,7 +415,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         shiftH: 8,
         shiftV: 16
       }
@@ -425,7 +425,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
@@ -440,7 +440,7 @@ describe('icons', () => {
       localVue: localVue,
       parentComponent: parentComponent,
       propsData: {
-        icon: 'alert-circle-fill',
+        icon: 'alarm-fill',
         rotate: 45,
         shiftH: 8,
         shiftV: 16
@@ -451,7 +451,7 @@ describe('icons', () => {
     expect(wrapper.is('svg')).toBe(true)
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
-    expect(wrapper.classes()).toContain('bi-alert-circle-fill')
+    expect(wrapper.classes()).toContain('bi-alarm-fill')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
