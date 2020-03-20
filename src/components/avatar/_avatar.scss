@@ -33,6 +33,10 @@
     pointer-events: none;
   }
 
+  > span {
+    border-radius: inherit;
+  }
+
   .b-icon {
     width: 60%;
     height: 60%;
