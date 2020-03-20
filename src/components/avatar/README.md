@@ -52,13 +52,29 @@ TBD
 
 ### Variants
 
-Use the `variant` prop to specify on of bootstrap them variant colors:
+Use the `variant` prop to specify one of bootstrap them variant colors:
 
 TBD
 
 ### Sizing
 
-TBD
+By default, avatars are sized to `2.5em` (which is relative to the current font size). You can change
+the size of the avatar by changin the current font height, or use the prop `height` to specify an
+explicit height. The height value _must_ include the units (such as `px`, `em`, or `rem`).
+
+```html
+<template>
+  <div>
+    <b-avatar></b-avatar>
+    <b-avatar height="4em"></b-avatar>
+    <b-avatar height="48px"></b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-height.vue -->
+```
+
+**Note:** Avatars are _always_ rendered with an aspect ratio of `1:1`.
 
 ### Square
 
