@@ -13,19 +13,21 @@ centered beside any ajoining plain text. They also can be used as children of ot
 ```html
 <template>
   <div>
+    <p>Stand-alone:<p/>
     <div class="mb-4">
       <b-avatar></b-avatar>
       <b-avatar variant="primary" text="BV"></b-avatar>
       <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
       <b-avatar variant="success" icon-name="people-fill"></b-avatar>
     </div>
+    <p>In components:<p/>
     <b-list-group style="max-width: 300px;">
       <b-list-group-item>
         <b-avatar class="mr-1"></b-avatar> Joe Blow
       </b-list-group-item>
       <b-list-group-item>
         <b-avatar variant="primary" text="BV" class="mr-1"></b-avatar>
-        BootstrapVUe
+        BootstrapVue
       </b-list-group-item>
       <b-list-group-item>
         <b-avatar variant="info" src="https://placekitten.com/300/300" class="mr-1"></b-avatar>
