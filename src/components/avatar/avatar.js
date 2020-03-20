@@ -75,7 +75,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     },
     variant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'variant')
+      default: () => getComponentConfig(NAME, 'variant') || 'secondary'
     },
     height: {
       type: String,
