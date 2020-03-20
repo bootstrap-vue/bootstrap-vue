@@ -19,8 +19,11 @@
     outline: 0;
   }
 
-  &:not(:disabled):not(.disabled) {
-    cursor: if($enable-pointer-cursor-for-buttons, pointer, null);
+  &a,
+  &button {
+    &:not(:disabled):not(.disabled) {
+      cursor: if($enable-pointer-cursor-for-buttons, pointer, null);
+    }
   }
 
   &.disabled,
