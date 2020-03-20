@@ -82,7 +82,7 @@ spacing to show the avatar's [variant background](#variants).
   <div>
     <div class="mb-2">
       <b-avatar src="https://placekitten.com/300/300"></b-avatar>
-      <b-avatar src="https://placekitten.com/300/300" height="3.5em"></b-avatar>
+      <b-avatar src="https://placekitten.com/300/300" height="45em"></b-avatar>
     </div>
 </template>
 
@@ -106,7 +106,7 @@ The prop should be set to a valid icon name. Icons will scale respective to the 
       <b-avatar icon-name="people-fill"></b-avatar>
       <b-avatar icon-name="star-fill"></b-avatar>
       <b-avatar icon-name="music-note"></b-avatar>
-      <b-avatar icon-name="star-fill" height="3.5em"></b-avatar>
+      <b-avatar icon-name="star-fill" height="4em"></b-avatar>
     </div>
 </template>
 
