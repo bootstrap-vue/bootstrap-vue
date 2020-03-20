@@ -70,7 +70,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       type: String
       // default: null
     },
-    iconName: {
+    icon: {
       type: String
       // default: null
     },
@@ -120,9 +120,9 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     if (children) {
       // Default slot overrides props
       $content = children
-    } else if (props.iconName) {
+    } else if (props.icon) {
       $content = h(BIcon, {
-        props: { icon: props.iconName },
+        props: { icon: props.icon },
         attrs: { 'aria-hidden': 'true' }
       })
     } else if (props.src) {
