@@ -21,18 +21,18 @@ centered beside any ajoining plain text. They also can be used as children of ot
       <b-avatar variant="dark" text="BV"></b-avatar>
     </div>
     <b-list-group style="max-width: 300px;">
-      <b-list-gropp-item>
+      <b-list-group-item>
         <b-avatar class="mr-3"></b-avatar> Joe Blow
       </b-list-group-item>
-      <b-list-gropp-item>
+      <b-list-group-item>
         <b-avatar variant="info" src="https://placekitten.com/300/300" class="mr-3"></b-avatar>
         Super Kitten
       </b-list-group-item>
-      <b-list-gropp-item>
+      <b-list-group-item>
         <b-avatar variant="success" icon-name="people-fill" class="mr-3"></b-avatar>
         ACME group
       </b-list-group-item>
-      <b-list-gropp-item>
+      <b-list-group-item>
         <b-avatar variant="dark" text="BV" class="mr-3"></b-avatar>
         BootstrapVUe
       </b-list-group-item>
