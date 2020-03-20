@@ -81,6 +81,14 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       type: String,
       default: '2.5em'
     },
+    square: {
+      type: Boolean,
+      default: false
+    },
+    rounded: {
+      type: [Boolean, String],
+      default: false
+    },
     button: {
       type: Boolean,
       default: false
