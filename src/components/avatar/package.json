@@ -43,7 +43,7 @@
         "events": [
           {
             "event": "click",
-            "description": "Emitted when the avatar is clicked (when rendered as a button or link)"
+            "description": "Emitted when the avatar is clicked (when rendered as a button or link)",
             "args": [
               {
                 "arg": "evt",
