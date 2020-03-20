@@ -229,7 +229,7 @@ When set to `true` (or the empty string `''`), it uses the Bootstrap default of 
 
 - The `square` prop takes precedence over the `rounded` prop.
 - Alternatively to to the `square` prop, you can set the `rounded` prop to the string `'0'` to
-  archive a square avatar.
+  achieve a square avatar.
 
 ### Alignment
 
