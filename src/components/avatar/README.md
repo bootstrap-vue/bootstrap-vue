@@ -21,7 +21,7 @@ TBD
 <!-- b-avatar.vue -->
 ```
 
-### Avatar types
+## Avatar types
 
 ### Icon
 
