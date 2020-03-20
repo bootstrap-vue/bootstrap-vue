@@ -1,16 +1,17 @@
 # Avatar
 
 > Avatars are a BootstrapVue custom component, and are typically used to display a user profile as a
-> picture, an icon, or short text. `<b-avatar>` provides several props for customizing its appearance
-> such as color variant and roundedness, and optionally supports acting as a button, link or
-> [router link](/docs/reference/router-links).
+> picture, an icon, or short text. `<b-avatar>` provides several props for customizing its
+> appearance such as color variant and roundness, and optionally supports acting as a button, link
+> or [router link](/docs/reference/router-links).
 
 ## Overview
 
-Avatars are lightweight functional components, which render by default, so that they are vertically
-centered beside any adjoining plain text. They also can be used as children of other components.
+Avatars are lightweight functional components, which render inline by default, so that they are
+vertically centered beside any adjoining plain text. They also can be used as children of other
+components.
 
-The `<b-avatar>` component was added in BootstrapVue verson `v2.8.0`.
+The `<b-avatar>` component was added in BootstrapVue version `v2.8.0`.
 
 ```html
 <template>
@@ -48,14 +49,14 @@ The `<b-avatar>` component was added in BootstrapVue verson `v2.8.0`.
 
 ## Avatar types
 
-The avatar content can be either a short text string, an image, or an icon. Avatar content defaults to
-the [`'person-fill'` icon](/docs/icons) when no other content is specified.
+The avatar content can be either a short text string, an image, or an icon. Avatar content defaults
+to the [`'person-fill'` icon](/docs/icons) when no other content is specified.
 
 ### Text content
 
 You can specify a short string as the content of an avatar via the `text` prop. The string should be
-short (1 to 3 characters), and will be tansformed via CSS to be all uppercase. The font size will be
-scaled relative to the [`height` prop setting](#sizing).
+short (1 to 3 characters), and will be transformed via CSS to be all uppercase. The font size will
+be scaled relative to the [`height` prop setting](#sizing).
 
 ```html
 <template>
@@ -74,7 +75,7 @@ scaled relative to the [`height` prop setting](#sizing).
 ### Image content
 
 Use the `src` prop to specify a URL of an image to use as the avatar content. The image should have
-an aspect ratio of `1:1` (meaning the width and height shoud be equal), otherwise image aspect
+an aspect ratio of `1:1` (meaning the width and height should be equal), otherwise image aspect
 distortion will occur. The image will be scaled up or down to fit withing the avatar's bounding box,
 and will be sized to show the avatar's [variant background](#variants) around the edge.
 
@@ -91,14 +92,15 @@ and will be sized to show the avatar's [variant background](#variants) around th
 ```
 
 **Notes:**
+
 - When using a module bundler and project relative image URLs, please refer to the
   [Component img src resolving](/docs/reference/images) reference section for additional details.
 - The `src` prop takes precedence over the `text` prop.
 
 ### Icon content
 
-Easily use one of [BootstrapVue's icons](/docs/icons) as the avatar content via the `icon` prop.
-The prop should be set to a valid icon name. Icons will scale respective to the [`size` prop](#sizing).
+Easily use one of [BootstrapVue's icons](/docs/icons) as the avatar content via the `icon` prop. The
+prop should be set to a valid icon name. Icons will scale respective to the [`size` prop](#sizing).
 
 ```html
 <template>
@@ -115,17 +117,18 @@ The prop should be set to a valid icon name. Icons will scale respective to the 
 ```
 
 **Notes:**
-- When providing a BootstrapVue icon name, you _must_ ensure that you have regerested the
-  corresponding icon component (either locally to your component/page, or globaly), if not using
-  the full [`BootstrapVueIcons` plugin](/docs/icons)
-- The `icon` prop takes precendence over the `text` and `src` props
-- If the `text`, `src`, or `icon` props are not provided _and_ the
-  [default slot](#custom-content) has no content, then the `person-fill` icon will be used
+
+- When providing a BootstrapVue icon name, you _must_ ensure that you have registered the
+  corresponding icon component (either locally to your component/page, or globally), if not using
+  the full [`BootstrapVueIcons` plugin](/docs/icons).
+- The `icon` prop takes precedence over the `text` and `src` props.
+- If the `text`, `src`, or `icon` props are not provided _and_ the [default slot](#custom-content)
+  has no content, then the `person-fill` icon will be used.
 
 ### Custom content
 
-Use the `default` slot to render custom content in the avatar, for finer grained control of
-its appearance, or if using custom icons or SVGs. e.g.:
+Use the `default` slot to render custom content in the avatar, for finer grained control of its
+appearance, or if using custom icons or SVGs e.g.:
 
 ```html
 <b-avatar><custom-icon></custom-icon></b-avatar>
@@ -133,16 +136,16 @@ its appearance, or if using custom icons or SVGs. e.g.:
 
 **Notes:**
 
-- The default slot takes precedence over the `text`, `src` and `icon` props
-- The defaut slot content will be wrapped in a `<span>` element to ensure proper centering
+- The default slot takes precedence over the `text`, `src` and `icon` props.
+- The default slot content will be wrapped in a `<span>` element to ensure proper centering.
 - You may need additional styling applied to the custom content to compensate for the
-  [shape of avatar component](#rounding)
+  [shape of avatar component](#rounding).
 
 ## Styling
 
 ### Variants
 
-Use the `variant` prop to specify one of bootstrap them variant colors. The default variant is
+Use the `variant` prop to specify one of Bootstrap theme variant colors. The default variant is
 `secondary`.
 
 ```html
@@ -162,14 +165,15 @@ Use the `variant` prop to specify one of bootstrap them variant colors. The defa
 <!-- b-avatar-variant.vue -->
 ```
 
-If you have defined additional custom variants via [SASS theming variables](/docs/reference/theming),
-the custom variants will also be available to use.
+If you have defined additional custom variants via
+[SASS theming variables](/docs/reference/theming), the custom variants will also be available to
+use.
 
 ### Sizing
 
-By default, avatars are sized to `2.5em` (which is relative to the current font size). You can change
-the size of the avatar by changing the current font size, or use the prop `height` to specify an
-explicit height. The height value _must_ include the units (such as `px`, `em`, or `rem`).
+By default, avatars are sized to `2.5em` (which is relative to the current font size). You can
+change the size of the avatar by changing the current font size, or use the prop `height` to specify
+an explicit height. The height value _must_ include the units (such as `px`, `em`, or `rem`).
 
 ```html
 <template>
@@ -201,7 +205,7 @@ Prefer a square avatar? simply set the `square` prop to `true`.
 
 ### Rounding
 
-`<b-avatar>` renders with a circular border radius. You can change the rouding by setting the prop
+`<b-avatar>` renders with a circular border radius. You can change the rounding by setting the prop
 `rounded` to one of the values `true`, `'sm'`, `'lg'`, `'top'`, `'left'`, `'right'`, or `'bottom'`.
 When set to `true` (or the empty string `''`), it uses the Bootstrap default of medium rounding.
 
@@ -225,14 +229,15 @@ When set to `true` (or the empty string `''`), it uses the Bootstrap default of 
 
 - The `square` prop takes precedence over the `rounded` prop.
 - Alternatively to to the `square` prop, you can set the `rounded` prop to the string `'0'` to
-  acheive a square avatar.
+  archive a square avatar.
 
 ### Alignment
 
-By default `<b-avatar>` will be vertically centered with its adjoining content. In some cases you may
-want to alter the alignment, such as ensuring that a text-only avatar aligns its text with the adjoining
-text. Simply set a [vertical alignment utility](/docs/reference/utility-classes) class on the component,
-such as `<b-avatar class="align-baseline" ..>` or `<b-avatar class="align-top" ..>`, etc).
+By default `<b-avatar>` will be vertically centered with its adjoining content. In some cases you
+may want to alter the alignment, such as ensuring that a text-only avatar aligns its text with the
+adjoining text. Simply set a [vertical alignment utility](/docs/reference/utility-classes) class on
+the component, such as `<b-avatar class="align-baseline" ...>` or
+`<b-avatar class="align-top" ...>`, etc.
 
 ## Actionable avatars
 
@@ -243,8 +248,8 @@ reader and keyboard-only users.
 ### Button
 
 Want to trigger the opening of a modal or trigger an action? Set the `button` prop to instruct
-`<b-avatar>` to render as a `<button>` element. When rendered as a button, the component will
-emit the `click` event whenever clicked.
+`<b-avatar>` to render as a `<button>` element. When rendered as a button, the component will emit
+the `click` event whenever clicked.
 
 ```html
 <template>
@@ -258,7 +263,7 @@ emit the `click` event whenever clicked.
   export default {
     methods: {
       onClick() {
-        this.$bvModal.msgBoxOk('User name: Fred Flinstone', {
+        this.$bvModal.msgBoxOk('User name: Fred Flintstone', {
           title: 'User Info',
           size: 'sm',
           buttonSize: 'sm',
@@ -297,7 +302,7 @@ The `to` prop can either be a string path, or a `Location` object. The `to` prop
 **Note:**
 
 - The `button` prop takes precedence over the `href` and `to` props.
-- For addtional details on the `<router-link>` compatible props, please refer to the
+- For additional details on the `<router-link>` compatible props, please refer to the
   [Router support reference section](/docs/reference/router-links).
 
 ## Accessibility
@@ -305,13 +310,13 @@ The `to` prop can either be a string path, or a `Location` object. The `to` prop
 Use the `aria-label` prop to provide an accessible, screen reader friendly, label for your avatar.
 
 While the `click` event is emitted regardless if the `button`, `href`, or `to` props are set, it is
-highly recommended to use the `button` prop when the click event should trigger an action (or use the
-`to` or `href` props when changing routes or changing URLs) for accessibilitiy reasons.
+highly recommended to use the `button` prop when the click event should trigger an action (or use
+the `to` or `href` props when changing routes or changing URLs) for accessibility reasons.
 
 ## Implementation notes
 
-Avatars are based upon `<b-badge>` and `<b-button>` components, and as such, rely upon Bootstaps's
+Avatars are based upon `<b-badge>` and `<b-button>` components, and as such, rely upon Bootstrap's
 `badge-*` and `btn-*` variant classes, as well as the `rounded-*`
 [utility classes](/docs/reference/utility-classes).
 
-`<b-avatar>` also requires BoootstrapVue's custom CSS for proper styling.
+`<b-avatar>` also requires BootstrapVue's custom CSS for proper styling.

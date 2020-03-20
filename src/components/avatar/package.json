@@ -20,19 +20,19 @@
           },
           {
             "prop": "icon",
-            "description": "Icon name to use for the avatar. Must be all lowercased. Defaults to `person-fill` if `text` or `src` props not provided"
+            "description": "Icon name to use for the avatar. Must be all lowercase. Defaults to `person-fill` if `text` or `src` props not provided"
           },
           {
             "prop": "height",
-            "description": "CSS height to apply to the avatar (inlude units such as `px`, `em`, or `rem`)"
+            "description": "CSS height to apply to the avatar (include units such as `px`, `em`, or `rem`)"
           },
           {
             "prop": "button",
-            "description": "When set to 'true', renders the avatar as a button"
+            "description": "When set to `true`, renders the avatar as a button"
           },
           {
             "prop": "buttonType",
-            "description": "Type of button to render (i.e. 'button', 'submit', 'reset'). Has no effect if prop button is not set"
+            "description": "Type of button to render (i.e. `button`, `submit`, `reset`). Has no effect if prop button is not set"
           },
           {
             "prop": "square",
@@ -40,13 +40,13 @@
           },
           {
             "prop": "rounded",
-            "description": "Specifies the type of rounding to apply to the avatar. The `square` prop takes precendence. Refer to the documentation for details"
+            "description": "Specifies the type of rounding to apply to the avatar. The `square` prop takes precedence. Refer to the documentation for details"
           }
         ],
         "slots": [
           {
             "name": "default",
-            "description": "Content to place in the avatar. Overrides props 'text', 'src', and 'icon-name'"
+            "description": "Content to place in the avatar. Overrides props `text`, `src`, and `icon-name`"
           }
         ],
         "events": [
@@ -56,7 +56,7 @@
             "args": [
               {
                 "arg": "evt",
-                "description": "native event object"
+                "description": "Native event object"
               }
             ]
           }

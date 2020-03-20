@@ -1,4 +1,4 @@
-
+// BAvatar custom styles
 
 .b-avatar {
   display: inline-flex;
@@ -13,9 +13,8 @@
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
-  transition: color .15s ease-in-out,
-              background-color .15s ease-in-out,
-              box-shadow .15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
 
   &:focus {
     outline: 0;
