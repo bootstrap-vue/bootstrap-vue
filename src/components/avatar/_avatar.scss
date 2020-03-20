@@ -7,6 +7,8 @@
   vertical-align: middle;
   font-weight: 400;
   line-height: 1;
+  max-width: 100%;
+  max-height: 100vh;
   text-align: center;
   text-transform: uppercase;
   white-space: nowrap;
@@ -40,6 +42,8 @@
   .b-icon {
     width: 60%;
     height: 60%;
+    max-width: 100%;
+    max-height: 100vh;
   }
 
   img {
