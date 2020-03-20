@@ -108,7 +108,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     const isBLink = !isButton && (props.href || props.to)
     const tag = isButton ? 'button' : isBLink ? BLink : 'span'
     const square = props.square
-    const rounded = square ? false : props.rounded === '' ? true : props.rounded
+    const rounded = square ? false : props.rounded === '' ? true : props.rounded || 'circle'
     const height = props.height
 
     let $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true' } })
@@ -128,8 +128,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       class: {
         // We use badge/button styles for theme variants
         [`${isButton ? 'btn' : 'badge'}-${props.variant}`]: !!props.variant,
-        // Roudning  / Square
-        'rounded-circle': !square && !rounded,
+        // Rounding  / Square
         rounded: rounded === true,
         'rounded-0': square,
         [`rounded-${rounded}`]: rounded && rounded !== true,
