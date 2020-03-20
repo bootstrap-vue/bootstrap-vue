@@ -111,16 +111,18 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     const rounded = square ? false : props.rounded === '' ? true : props.rounded || 'circle'
     const height = props.height
 
-    let $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true' } })
+    let $content = null
     if (children) {
       // Default slot overrides props
       $content = h('span', {}, children)
     } else if (props.src) {
       $content = h('img', { attrs: { src: props.src } })
-    } else if (props.text) {
-      $content = h('span', {}, props.text)
     } else if (props.iconName) {
       $content = h(BIcon, { props: { icon: props.iconName }, attrs: { 'aria-hidden': 'true' } })
+    } else if (props.text) {
+      $content = h('span', {}, props.text)
+    } else {
+      $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true' } })
     }
 
     const componentData = {
