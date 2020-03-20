@@ -37,10 +37,10 @@
           {
             "prop": "square",
             "description": "Disables rounding of the avatar, rending the avatar with square corners"
-          }
+          },
           {
             "prop": "rounded",
-            "description": "Specifies the type of rounding to apply to the avatar. Refer to the documentation for details"
+            "description": "Specifies the type of rounding to apply to the avatar. The `square` prop takes precendence. Refer to the documentation for details"
           }
         ],
         "slots": [
