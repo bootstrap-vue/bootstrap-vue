@@ -112,7 +112,7 @@ describe('avatar', () => {
     const wrapper = mount(BAvatar, {
       localVue,
       propsData: {
-        iconName: 'person'
+        icon: 'person'
       }
     })
     expect(wrapper.is('span')).toBe(true)
