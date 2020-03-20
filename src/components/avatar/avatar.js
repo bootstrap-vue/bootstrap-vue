@@ -119,13 +119,12 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     } else if (props.iconName) {
       $content = h(BIcon, {
         props: { icon: props.iconName },
-        style: { fontSize },
         attrs: { 'aria-hidden': 'true' }
       })
     } else if (props.src) {
       $content = h('img', { attrs: { src: props.src } })
     } else if (props.text) {
-      $content = props.text
+      $content = h('span', { style: { fontSize }, props.text)
     } else {
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true' } })
     }
