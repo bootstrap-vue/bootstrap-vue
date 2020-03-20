@@ -2,7 +2,8 @@
 
 > Avatars are typically used to display a user profile as a picture, an icon, or short text.
 > `<b-avatar>` provides several props for customizing its appearance such as color variant and
-> roundedness, and optional supports acting as a button, link or router link.
+> roundedness, and optionally supports acting as a button, link or
+> [router link](/docs/reference/router-links).
 
 ## Overview
 
