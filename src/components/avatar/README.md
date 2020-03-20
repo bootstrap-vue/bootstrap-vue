@@ -90,7 +90,7 @@ TBD
 <!-- b-avatar-rounding.vue -->
 ```
 
-## Actionalble avatars
+## Actionable avatars
 
 Easily create avatars that respond to clicks, or change the URL/route.
 
