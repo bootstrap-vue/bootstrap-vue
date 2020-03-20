@@ -110,17 +110,21 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     const square = props.square
     const rounded = square ? false : props.rounded === '' ? true : props.rounded || 'circle'
     const height = props.height
+    const fontSize = height ? `calc(${height} * 0.4)` : null
 
     let $content = null
     if (children) {
       // Default slot overrides props
-      $content = h('span', {}, children)
+      $content = children
+    } else if (props.iconName) {
+      $content = h(BIcon, {
+        props: { icon: props.iconName },
+        attrs: { 'aria-hidden': 'true' }
+      })
     } else if (props.src) {
       $content = h('img', { attrs: { src: props.src } })
-    } else if (props.iconName) {
-      $content = h(BIcon, { props: { icon: props.iconName }, attrs: { 'aria-hidden': 'true' } })
     } else if (props.text) {
-      $content = h('span', {}, props.text)
+      $content = props.text
     } else {
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true' } })
     }
@@ -137,11 +141,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         // Other classes
         disabled: props.disabled
       },
-      style: {
-        width: height,
-        height: height,
-        fontSize: height ? `calc(${height} * 0.4)` : null
-      },
+      style: { width: height, height: height },
       attrs: {
         type: isButton ? props.buttonType : null,
         'aria-label': props.ariaLabel || null
@@ -149,6 +149,6 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       props: isBLink ? pluckProps(linkProps, props) : {}
     }
 
-    return h(tag, mergeData(data, componentData), [$content])
+    return h(tag, mergeData(data, componentData), [h('span', { style: { fontSize } }, $content])
   }
 })
