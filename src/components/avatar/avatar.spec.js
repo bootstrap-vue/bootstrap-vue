@@ -42,9 +42,29 @@ describe('avatar', () => {
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.attributes('href')).not.toBeDefined()
-    expect(wrapper.attributes('type')).toBeDefined()
-    expect(wrapper.attributes('type')).toEqual('button')
+    expect(wrapper.attributes('type')).not.toBeDefined()
     expect(wrapper.text()).toContain('BV')
+    expect(wrapper.find('.b-icon').exists()).toBe(false)
+    expect(wrapper.find('img').exists()).toBe(false)
+  })
+
+  it('should have expected structure when default slot used', async () => {
+    const wrapper = mount(BAvatar, {
+      propsData: {
+        text: 'FOO'
+      },
+      slots: {
+        default: 'BAR'
+      }
+    })
+    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.classes()).toContain('b-avatar')
+    expect(wrapper.classes()).toContain('badge-secondary')
+    expect(wrapper.classes()).not.toContain('disabled')
+    expect(wrapper.attributes('href')).not.toBeDefined()
+    expect(wrapper.attributes('type')).not.toBeDefined()
+    expect(wrapper.text()).toContain('BAR')
+    expect(wrapper.text()).not.toContain('FOO')
     expect(wrapper.find('.b-icon').exists()).toBe(false)
     expect(wrapper.find('img').exists()).toBe(false)
   })
