@@ -19,8 +19,8 @@
             "description": "Image URL to use for the avatar"
           },
           {
-            "prop": "iconName",
-            "description": "Icon name to use for the avatar"
+            "prop": "icon",
+            "description": "Icon name to use for the avatar. Must be all lowercased"
           },
           {
             "prop": "height",
