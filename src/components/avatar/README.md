@@ -228,9 +228,9 @@ When set to `true` (or the empty string `''`), it uses the Bootstrap default of 
 ### Alignment
 
 By default `<b-avatar>` will be vertically centered with its adjoining content. In some cases you may
-want to alter teh alignment, such as ensuring the text only avatar slinges its text wiht the adjoining
-text. Simpley set a [vertical alignment utility](/docs/reference/utility-classes) class on the component,
-such as `<b-avatar class="align-baseline" ..>` or ``<b-avatar class="align-top" ..>`, etc).
+want to alter the alignment, such as ensuring that a text-only avatar aligns its text with the adjoining
+text. Simply set a [vertical alignment utility](/docs/reference/utility-classes) class on the component,
+such as `<b-avatar class="align-baseline" ..>` or `<b-avatar class="align-top" ..>`, etc).
 
 ## Actionable avatars
 
@@ -247,7 +247,7 @@ emit the `click` event whenever clicked.
 ```html
 <template>
   <div>
-    <b-avatar button @click="onClick" variant="primary" text="FF"></b-avatar>
+    <b-avatar button @click="onClick" variant="primary" text="FF" class="align-baseline"></b-avatar>
     Button Avatar
   </div>
 </template>
