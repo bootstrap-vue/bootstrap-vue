@@ -119,6 +119,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     } else if (props.iconName) {
       $content = h(BIcon, {
         props: { icon: props.iconName },
+        style: { fontSize },
         attrs: { 'aria-hidden': 'true' }
       })
     } else if (props.src) {
@@ -141,7 +142,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         // Other classes
         disabled: props.disabled
       },
-      style: { width: height, height: height },
+      style: { width: height, height: height, fontSize ` : null },
       attrs: {
         type: isButton ? props.buttonType : null,
         'aria-label': props.ariaLabel || null
@@ -149,6 +150,6 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       props: isBLink ? pluckProps(linkProps, props) : {}
     }
 
-    return h(tag, mergeData(data, componentData), [h('span', { style: { fontSize } }, [$content])])
+    return h(tag, mergeData(data, componentData), [$content])
   }
 })
