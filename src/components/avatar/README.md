@@ -14,7 +14,7 @@ TBD
     <b-avatar></b-avatar>
     <b-avatar variant="primary" text="BV"></b-avatar>
     <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
-    <b-avatar variant="warning" icon-name="people-fill"></b-avatar>
+    <b-avatar variant="success" icon-name="people-fill"></b-avatar>
   </div>
 </template>
 
