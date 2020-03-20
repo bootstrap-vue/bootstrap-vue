@@ -67,6 +67,10 @@ export * from './icons/icons'
 export { AlertPlugin } from './components/alert'
 export { BAlert } from './components/alert/alert'
 
+// export * from './components/avatar'
+export { AvatarPlugin } from './components/avatar'
+export { BAvatar } from './components/avatar/avatar'
+
 // export * from './components/badge'
 export { BadgePlugin } from './components/badge'
 export { BBadge } from './components/badge/badge'
