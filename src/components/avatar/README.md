@@ -7,8 +7,8 @@
 
 ## Overview
 
-Avatars are lightweight fnctional components, which render, by default, so that they are vertically
-centered beside any ajoining plain text. They also can be used as children of other components.
+Avatars are lightweight functional components, which render, by default, so that they are vertically
+centered beside any adjoining plain text. They also can be used as children of other components.
 
 ```html
 <template>
@@ -46,13 +46,14 @@ centered beside any ajoining plain text. They also can be used as children of ot
 
 ## Avatar types
 
-The avatar content can be either a short text string, an iamge, or an icon. Avatar content defaults to
+The avatar content can be either a short text string, an image, or an icon. Avatar content defaults to
 the [`'person-fill'` icon](/docs/icons) when no other content is specified.
 
 ### Text content
 
 You can specify a short string as the content of an avatar via the `text` prop. The string should be
-short (1 to 3 characters), and will be tansformed via CSS to be all uppercase.
+short (1 to 3 characters), and will be tansformed via CSS to be all uppercase. The font size will be
+scaled relative to the [`height` prop setting](#sizing).
 
 ```html
 <template>
@@ -68,14 +69,12 @@ short (1 to 3 characters), and will be tansformed via CSS to be all uppercase.
 <!-- b-avatar-text.vue -->
 ```
 
-The font size will be scaled relative to the [`height` prop setting](#sizing).
-
 ### Image content
 
 Use the `src` prop to specify a URL of an image to use as the avatar content. The image should have
 an aspect ratio of `1:1` (meaning the width and height shoud be equal), otherwise image aspect
 distortion will occur. The image will be scaled up or down to fit withing the avatar's bounding box,
-and will be sized to show the avatar's [variant background](#variants) aroundthe edge.
+and will be sized to show the avatar's [variant background](#variants) around the edge.
 
 ```html
 <template>
@@ -167,7 +166,7 @@ the custom variants will also be available to use.
 ### Sizing
 
 By default, avatars are sized to `2.5em` (which is relative to the current font size). You can change
-the size of the avatar by changin the current font height, or use the prop `height` to specify an
+the size of the avatar by changing the current font size, or use the prop `height` to specify an
 explicit height. The height value _must_ include the units (such as `px`, `em`, or `rem`).
 
 ```html
@@ -225,6 +224,13 @@ When set to `true` (or the empty string `''`), it uses the Bootstrap default of 
 - The `square` prop takes precedence over the `rounded` prop.
 - Alternatively to to the `square` prop, you can set the `rounded` prop to the string `'0'` to
   acheive a square avatar.
+
+### Alignment
+
+By default `<b-avatar>` will be vertically centered with its adjoining content. In some cases you may
+want to alter teh alignment, such as ensuring the text only avatar slinges its text wiht the adjoining
+text. Simpley set a [vertical alignment utility](/docs/reference/utility-classes) class on the component,
+such as `<b-avatar class="align-baseline" ..>` or ``<b-avatar class="align-top" ..>`, etc).
 
 ## Actionable avatars
 
