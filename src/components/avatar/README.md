@@ -18,7 +18,7 @@ centered beside any ajoining plain text. They also can be used as children of ot
       <b-avatar></b-avatar>
       <b-avatar variant="primary" text="BV"></b-avatar>
       <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
-      <b-avatar variant="success" icon-name="people-fill"></b-avatar>
+      <b-avatar variant="success" icon="people-fill"></b-avatar>
     </div>
     <p>In components:<p/>
     <b-list-group style="max-width: 300px;">
@@ -34,7 +34,7 @@ centered beside any ajoining plain text. They also can be used as children of ot
         Super Kitty
       </b-list-group-item>
       <b-list-group-item>
-        <b-avatar variant="success" icon-name="people-fill" class="mr-1"></b-avatar>
+        <b-avatar variant="success" icon="people-fill" class="mr-1"></b-avatar>
         ACME group
       </b-list-group-item>
     </b-list-group>
@@ -96,17 +96,17 @@ and will be sized to show the avatar's [variant background](#variants) aroundthe
 
 ### Icon content
 
-Easily use one of [BootstrapVue's icons](/docs/icons) as the avatar content via the `icon-name` prop.
+Easily use one of [BootstrapVue's icons](/docs/icons) as the avatar content via the `icon` prop.
 The prop should be set to a valid icon name. Icons will scale respective to the [`size` prop](#sizing).
 
 ```html
 <template>
   <div>
     <div class="mb-2">
-      <b-avatar icon-name="people-fill"></b-avatar>
-      <b-avatar icon-name="star-fill"></b-avatar>
-      <b-avatar icon-name="music-note"></b-avatar>
-      <b-avatar icon-name="star-fill" height="4em"></b-avatar>
+      <b-avatar icon="people-fill"></b-avatar>
+      <b-avatar icon="star-fill"></b-avatar>
+      <b-avatar icon="music-note"></b-avatar>
+      <b-avatar icon="star-fill" height="4em"></b-avatar>
     </div>
 </template>
 
@@ -117,8 +117,8 @@ The prop should be set to a valid icon name. Icons will scale respective to the 
 - When providing a BootstrapVue icon name, you _must_ ensure that you have regerested the
   corresponding icon component (either locally to your component/page, or globaly), if not using
   the full [`BootstrapVueIcons` plugin](/docs/icons)
-- The `icon-name` prop takes precendence over the `text` and `src` props
-- If the `text`, `src`, or `icon-name` props are not provided _and_ the
+- The `icon` prop takes precendence over the `text` and `src` props
+- If the `text`, `src`, or `icon` props are not provided _and_ the
   [default slot](#custom-content) has no content, then the `person-fill` icon will be used
 
 ### Custom content
