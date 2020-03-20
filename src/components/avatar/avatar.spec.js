@@ -1,6 +1,6 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { BAvatar } from './avatar'
-import { BIconPerson} from '../../icons/icons'
+import { BIconPerson } from '../../icons/icons'
 
 describe('avatar', () => {
   it('should have expected default structure', async () => {
@@ -80,8 +80,7 @@ describe('avatar', () => {
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.attributes('href')).not.toBeDefined()
-    expect(wrapper.attributes('type')).toBeDefined()
-    expect(wrapper.attributes('type')).toEqual('button')
+    expect(wrapper.attributes('type')).not.toBeDefined()
     expect(wrapper.text()).toEqual('')
     expect(wrapper.find('.b-icon').exists()).toBe(false)
     expect(wrapper.find('img').exists()).toBe(true)
@@ -102,8 +101,7 @@ describe('avatar', () => {
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.attributes('href')).not.toBeDefined()
-    expect(wrapper.attributes('type')).toBeDefined()
-    expect(wrapper.attributes('type')).toEqual('button')
+    expect(wrapper.attributes('type')).not.toBeDefined()
     expect(wrapper.text()).toEqual('')
     const $icon = wrapper.find('.b-icon')
     expect($icon.exists()).toBe(true)
