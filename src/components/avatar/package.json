@@ -20,7 +20,7 @@
           },
           {
             "prop": "icon",
-            "description": "Icon name to use for the avatar. Must be all lowercased"
+            "description": "Icon name to use for the avatar. Must be all lowercased. Defaults to `person-fill` if `text` or `src` props not provided"
           },
           {
             "prop": "height",
