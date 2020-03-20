@@ -33,6 +33,14 @@
           {
             "prop": "buttonType",
             "description": "Type of button to render (i.e. 'button', 'submit', 'reset'). Has no effect if prop button is not set"
+          },
+          {
+            "prop": "square",
+            "description": "Disables rounding of the avatar, rending the avatar with square corners"
+          }
+          {
+            "prop": "rounded",
+            "description": "Specifies the type of rounding to apply to the avatar. Refer to the documentation for details"
           }
         ],
         "slots": [
