@@ -13,7 +13,7 @@ centered beside any ajoining plain text. They also can be used as children of ot
 ```html
 <template>
   <div>
-    <div class="mb-2">
+    <div class="mb-4">
       <b-avatar></b-avatar>
       <b-avatar variant="primary" text="BV"></b-avatar>
       <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
