@@ -2,7 +2,7 @@ import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
 import pluckProps from '../../utils/pluck-props'
-import { BLink } from '../link/link
+import { BLink } from '../link/link'
 import { BIcon } from '../../icons/icon'
 import { BIconPersonFill } from '../../icons/icon'
 
@@ -33,7 +33,7 @@ const linkProps = {
   rel: {
     type: String
     // default: null
-  }
+  },
   target: {
     type: String
     // default: null
