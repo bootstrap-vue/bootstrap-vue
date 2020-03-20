@@ -271,8 +271,9 @@ The prop `button-type` can be used to control the type of button to render. Supp
 
 ### Link
 
-Fancy an avatar as a link or router link, then set either the `href` or `to` props (respectively).
-The `to` prop can either be a string path, or a `Location` object.
+Fancy an avatar as a link or router link? Simply set either the `href` or `to` props (respectively).
+The `to` prop can either be a string path, or a `Location` object. The `to` prop requires that
+`Vue router` (or equivalent) be installed.
 
 ```html
 <template>
@@ -285,7 +286,11 @@ The `to` prop can either be a string path, or a `Location` object.
 <!-- b-avatar-href.vue -->
 ```
 
-**Note:** the `button` prop takes precedence over the `href` and `to` props.
+**Note:**
+
+- The `button` prop takes precedence over the `href` and `to` props.
+- For addtional details on the `<router-link>` compatible props, please refer to the
+  [Router support reference section](/docs/reference/router-links).
 
 ## Accessibility
 
