@@ -1,0 +1,38 @@
+
+
+.b-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  border-width: 0;
+  border-radius: 50%;
+  outline: 0;
+  transition: color .15s ease-in-out,
+              background-color .15s ease-in-out,
+              box-shadow .15s ease-in-out;
+
+  &.disabled,
+  &:disabled,
+  &[disabled] {
+    opacity: $btn-disabled-opacity;
+    pointer-events: none;
+  }
+
+  .b-icon {
+    width: 75%;
+    height: 75%;
+  }
+
+  img {
+    width: 90%;
+    height: 90%;
+    border-radius: inherit;
+  }
+}
