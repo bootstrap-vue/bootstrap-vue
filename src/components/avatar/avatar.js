@@ -128,7 +128,8 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       class: {
         // We use badge/button styles for theme variants
         [`${isButton ? 'btn' : 'badge'}-${props.variant}`]: !!props.variant,
-        // Roudning  / Square overrides
+        // Roudning  / Square
+        'rounded-circle': !square && !rounded,
         rounded: rounded === true,
         'rounded-0': square,
         [`rounded-${rounded}`]: rounded && rounded !== true,
