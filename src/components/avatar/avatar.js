@@ -142,7 +142,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         // Other classes
         disabled: props.disabled
       },
-      style: { width: height, height: height, fontSize ` : null },
+      style: { width: height, height: height, fontSize },
       attrs: {
         type: isButton ? props.buttonType : null,
         'aria-label': props.ariaLabel || null
