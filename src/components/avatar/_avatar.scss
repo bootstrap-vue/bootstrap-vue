@@ -45,6 +45,8 @@
   img {
     width: 90%;
     height: 90%;
+    max-width: 100%;
+    max-height: 100vh;
     border-radius: inherit;
   }
 }
