@@ -60,7 +60,7 @@ short (1 to 3 characters), and will be tansformed via CSS to be all uppercase.
       <b-avatar text="BV"></b-avatar>
       <b-avatar text="a"></b-avatar>
       <b-avatar text="Foo"></b-avatar>
-      <b-avatar text="BV" size="3em"></b-avatar>
+      <b-avatar text="BV" height="3em"></b-avatar>
     </div>
 </template>
 
