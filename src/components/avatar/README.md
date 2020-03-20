@@ -101,10 +101,10 @@ The prop should be set to a valid icon name. Icons will scale respective to the 
 <template>
   <div>
     <div class="mb-2">
-      <b-avatar icon="people-fill"></b-avatar>
-      <b-avatar icon="star-fill"></b-avatar>
-      <b-avatar icon="music-note"></b-avatar>
-      <b-avatar icon="star-fill" height="3.5em"></b-avatar>
+      <b-avatar icon-name="people-fill"></b-avatar>
+      <b-avatar icon-name="star-fill"></b-avatar>
+      <b-avatar icon-name="music-note"></b-avatar>
+      <b-avatar icon-name="star-fill" height="3.5em"></b-avatar>
     </div>
 </template>
 
@@ -227,6 +227,8 @@ When set to `true` (or the empty string `''`), it uses the Bootstrap default of 
 ## Actionable avatars
 
 Easily create avatars that respond to clicks, or avatars that change the URL/route when clicked.
+Actionable avatars will appear in the document tab sequence, and are accessible for both screen
+reader and keyboard-only users.
 
 ### Button
 
@@ -252,8 +254,7 @@ emit the `click` event whenever clicked.
           buttonSize: 'sm',
           okVariant: 'success',
           headerClass: 'p-2 border-bottom-0',
-          footerClass: 'p-2 border-top-0',
-          centered: true
+          footerClass: 'p-2 border-top-0'
         })
       }
     }
