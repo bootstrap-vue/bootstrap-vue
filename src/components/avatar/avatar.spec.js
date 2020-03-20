@@ -31,6 +31,25 @@ describe('avatar', () => {
     expect(wrapper.find('img').exists()).toBe(false)
   })
 
+  it('should have expected structure when prop `href` set', async () => {
+    const wrapper = mount(BAvatar, {
+      propsData: {
+        href: '#foo'
+      }
+    })
+    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.classes()).toContain('b-avatar')
+    expect(wrapper.classes()).toContain('badge-secondary')
+    expect(wrapper.classes()).not.toContain('disabled')
+    expect(wrapper.attributes('href')).toBeDefined()
+    expect(wrapper.attributes('href')).toEqual('#foo')
+    expect(wrapper.attributes('type')).not.toBeDefined()
+    expect(wrapper.attributes('type')).not.toEqual('button')
+    expect(wrapper.text()).toEqual('')
+    expect(wrapper.find('.b-icon').exists()).toBe(true)
+    expect(wrapper.find('img').exists()).toBe(false)
+  })
+
   it('should have expected structure when prop `text` set', async () => {
     const wrapper = mount(BAvatar, {
       propsData: {
