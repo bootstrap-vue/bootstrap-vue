@@ -149,6 +149,6 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       props: isBLink ? pluckProps(linkProps, props) : {}
     }
 
-    return h(tag, mergeData(data, componentData), [h('span', { style: { fontSize } }, $content])
+    return h(tag, mergeData(data, componentData), [h('span', { style: { fontSize } }, [$content])])
   }
 })
