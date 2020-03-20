@@ -1,6 +1,6 @@
 # Avatar
 
-> Avatars are a custom BootstrapVue component, and are typically used to display a user profile as a
+> Avatars are a BootstrapVue custom component, and are typically used to display a user profile as a
 > picture, an icon, or short text. `<b-avatar>` provides several props for customizing its appearance
 > such as color variant and roundedness, and optionally supports acting as a button, link or
 > [router link](/docs/reference/router-links).
@@ -46,7 +46,10 @@ its appearance.
 
 TBD
 
-**Note:** the default slot takes precedence over the `text`, `src` and `icon` props.
+**Notes:**
+
+- The default slot takes precedence over the `text`, `src` and `icon` props
+- The defaut slot content will be wrapped in a `<span>` element to ensure proper centering
 
 ## Styling
 
@@ -69,7 +72,7 @@ Use the `variant` prop to specify one of bootstrap them variant colors. The defa
   </div>
 </template>
 
-<!-- b-avatar-height.vue -->
+<!-- b-avatar-variant.vue -->
 ```
 
 ### Sizing
@@ -82,8 +85,8 @@ explicit height. The height value _must_ include the units (such as `px`, `em`, 
 <template>
   <div>
     <b-avatar></b-avatar>
-    <b-avatar height="4em"></b-avatar>
-    <b-avatar height="48px"></b-avatar>
+    <b-avatar height="3em"></b-avatar>
+    <b-avatar height="72px"></b-avatar>
   </div>
 </template>
 
@@ -94,7 +97,7 @@ explicit height. The height value _must_ include the units (such as `px`, `em`, 
 
 ### Square
 
-TBD
+Prefer a square avatar? simply set the `square` prop to `true`.
 
 ```html
 <template>
@@ -108,31 +111,87 @@ TBD
 
 ### Rounding
 
-TBD
+`<b-avatar>` renders with a circular border radius. You can change the rouding by setting the prop
+`rounded` to one of the values `true`, `'sm'`, `'lg'`, `'top'`, `'left'`, `'right'`, or `'bottom'`.
+When set to `true` (or the empty string `''`), it uses the Bootstrap default of medium rounding.
 
 ```html
 <template>
-  <div style="font-size: 3rem;">
+  <div style="font-size: 2rem;">
     <b-avatar rounded="sm"></b-avatar>
     <b-avatar rounded></b-avatar>
     <b-avatar rounded="lg"></b-avatar>
+    <b-avatar rounded="top"></b-avatar>
+    <b-avatar rounded="left"></b-avatar>
+    <b-avatar rounded="right"></b-avatar>
+    <b-avatar rounded="bottom"></b-avatar>
   </div>
 </template>
 
 <!-- b-avatar-rounding.vue -->
 ```
 
+**Note:** The `square` prop takes precedence over the `rounded` prop.
+
 ## Actionable avatars
 
-Easily create avatars that respond to clicks, or change the URL/route.
+Easily create avatars that respond to clicks, or avatars that change the URL/route.
 
 ### Button
 
-TBD
+Want to trigger the opening of a modal or trigger an action? Set the `button` prop to instruct
+`<b-avatar>` to render as a `<button>` element. When rendered as a button, the component will
+emit the `click` event whenever clicked.
+
+```html
+<template>
+  <div>
+    <b-avatar button @click="onClick" variant="primary" text="FF"></b-avatar>
+    Button Avatar
+  </div>
+</template>
+
+<script>
+  export default {
+    methods: {
+      onClick() {
+        this.$bvModal.msgBoxOk('User name: Fred Flinstone', {
+          title: 'User Info',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'success',
+          headerClass: 'p-2 border-bottom-0',
+          footerClass: 'p-2 border-top-0',
+          centered: true
+        })
+      }
+    }
+  }
+</script>
+
+<!-- b-avatar-button.vue -->
+```
+
+The prop `button-type` can be used to control the type of button to render. Supported values are
+`'button'` (the default), `'submit'`, or `'reset'`.
 
 ### Link
 
-TBD
+Fancy an avatar as a link or router link, then set either the `href` or `to` props (respectively).
+The `to` prop can either be a string path, or a `Location` object.
+
+```html
+<template>
+  <div>
+    <b-avatar href="#foobar"variant="info" src="https://placekitten.com/300/300"></b-avatar>
+    Link Avatar
+  </div>
+</template>
+
+<!-- b-avatar-href.vue -->
+```
+
+**Note:** the `button` prop takes precedence over the `href` and `to` props.
 
 ## Accessibility
 
@@ -141,3 +200,5 @@ Use the `aria-label` prop to provide an accessible, screen reader friendly, labe
 ## Implementation notes
 
 TBD
+
+`<b-avatar>` requires BoootstrapVue's custom CSS for proper styling.
