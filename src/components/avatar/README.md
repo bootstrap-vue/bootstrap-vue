@@ -18,7 +18,6 @@ centered beside any ajoining plain text. They also can be used as children of ot
       <b-avatar variant="primary" text="BV"></b-avatar>
       <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
       <b-avatar variant="success" icon-name="people-fill"></b-avatar>
-      <b-avatar variant="dark" text="BV"></b-avatar>
     </div>
     <b-list-group style="max-width: 300px;">
       <b-list-group-item>
