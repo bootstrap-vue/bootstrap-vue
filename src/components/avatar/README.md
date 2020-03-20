@@ -303,7 +303,7 @@ The `to` prop can either be a string path, or a `Location` object. The `to` prop
 Use the `aria-label` prop to provide an accessible, screen reader friendly, label for your avatar.
 
 While the `click` event is emitted regardless if the `button`, `href`, or `to` props are set, it is
-hihgly recommended to use the `button`prop when the click event should trigger an action (or use the
+highly recommended to use the `button` prop when the click event should trigger an action (or use the
 `to` or `href` props when changing routes or changing URLs) for accessibilitiy reasons.
 
 ## Implementation notes
