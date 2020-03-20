@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
 import pluckProps from '../../utils/pluck-props'
+import { BButton } from '../button/button'
 import { BLink } from '../link/link'
 import { BIcon } from '../../icons/icon'
 import { BIconPersonFill } from '../../icons/icons'
@@ -106,7 +107,10 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
   render(h, { props, data, children }) {
     const isButton = props.button
     const isBLink = !isButton && (props.href || props.to)
-    const tag = isButton ? 'button' : isBLink ? BLink : 'span'
+    const tag = isButton ? BButton : isBLink ? BLink : 'span'
+    const variant = props.variant
+    const disabled = props.disabled
+    const type = props.buttonType
     const square = props.square
     const rounded = square ? false : props.rounded === '' ? true : props.rounded || 'circle'
     const height = props.height
@@ -139,14 +143,11 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         'rounded-0': square,
         [`rounded-${rounded}`]: rounded && rounded !== true,
         // Other classes
-        disabled: props.disabled
+        disabled
       },
       style: { width: height, height: height, fontSize },
-      attrs: {
-        type: isButton ? props.buttonType : null,
-        'aria-label': props.ariaLabel || null
-      },
-      props: isBLink ? pluckProps(linkProps, props) : {}
+      attrs: { 'aria-label': props.ariaLabel || null },
+      props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, props) : {}
     }
 
     return h(tag, mergeData(data, componentData), [$content])
