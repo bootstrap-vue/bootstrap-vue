@@ -89,7 +89,11 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       type: String,
       default: 'button'
     },
-    ...linkProps
+    ...linkProps,
+    ariaLabel: {
+      type: String
+      // default: null
+    }
   },
   render(h, { props, data, children }) {
     const isButton = props.button
