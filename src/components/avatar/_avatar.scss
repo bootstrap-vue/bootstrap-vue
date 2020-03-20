@@ -11,10 +11,17 @@
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
-  outline: 0;
   transition: color .15s ease-in-out,
               background-color .15s ease-in-out,
               box-shadow .15s ease-in-out;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:not(:disabled):not(.disabled) {
+    cursor: if($enable-pointer-cursor-for-buttons, pointer, null);
+  }
 
   &.disabled,
   &:disabled,
