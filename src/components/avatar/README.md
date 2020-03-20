@@ -105,7 +105,6 @@ TBD
 ## Accessibility
 
 Use the `aria-label` prop to provide an accessible, screen reader friendly, label for your avatar.
-The default `aria-label` is `'avatar'`.
 
 ## Implementation notes
 
