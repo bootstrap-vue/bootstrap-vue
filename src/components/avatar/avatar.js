@@ -94,23 +94,21 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
   render(h, { props, data, children }) {
     const isButton = props.button
     const isBLink = !isButton && (props.href || props.to)
-    const tag = isBLink ? BLink : 'span'
+    const tag = isButton ? 'button' : isBLink ? BLink : 'span'
     const square = props.square
     const rounded = square ? false : props.rounded === '' ? true : props.rounded
     const height = props.height
 
-    let $content
+    let $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true' } })
     if (children) {
       // Default slot overrides props
-      $content = ('span', {}, children)
+      $content = h('span', {}, children)
     } else if (props.src) {
       $content = h('img', { attrs: { src: props.src } })
-    } else if { props.text && props.text.trim() } {
+    } else if (props.text) {
       $content = h('span', {}, props.text)
     } else if (props.iconName) {
       $content = h(BIcon, { props: { icon: props.iconName }, attrs: { 'aria-hidden': 'true' } })
-    } else {
-      $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true' } })
     }
 
     const componentData = {
