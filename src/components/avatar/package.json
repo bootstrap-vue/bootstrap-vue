@@ -12,19 +12,19 @@
         "props": [
           {
             "prop": "text",
-            "description": "Text to palce in the avatar"
+            "description": "Text to place in the avatar"
           },
           {
             "prop": "src",
             "description": "Image URL to use for the avatar"
           },
           {
-            "prop": "icon",
+            "prop": "iconName",
             "description": "Icon name to use for the avatar"
           },
           {
             "prop": "height",
-            "description": "Css height to apply to the avatar"
+            "description": "CSS height to apply to the avatar (inlude units such as `px`, `em`, or `rem`)"
           },
           {
             "prop": "button",
