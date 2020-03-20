@@ -309,6 +309,6 @@ hihgly recommended to use the `button`prop when the click event should trigger a
 ## Implementation notes
 
 Avatars are based upon `<b-badge>` and `<b-button>` components, and as such, rely upon Bootstaps's
-`badge-*` and `btn-*` variant classes, as well as the `rounded-*` utiltiy classed.
+`badge-*` and `btn-*` variant classes, as well as the `rounded-*` utilityy classes.
 
-`<b-avatar>` also requires BoootstrapVue's custom CSS for additional proper styling.
+`<b-avatar>` also requires BoootstrapVue's custom CSS for proper styling.
