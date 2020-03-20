@@ -73,16 +73,16 @@ The font size will be scaled relative to the [`height` prop setting](#sizing).
 ### Image content
 
 Use the `src` prop to specify a URL of an image to use as the avatar content. The image should have
-an aspect ratio of `1:1` (meaning the width and height shoud be equal), otherwise image aspect distorion
-will occur. The image will be scaled up or down to fit withing the avatar's bounding box, and will have
-spacing to show the avatar's [variant background](#variants).
+an aspect ratio of `1:1` (meaning the width and height shoud be equal), otherwise image aspect
+distortion will occur. The image will be scaled up or down to fit withing the avatar's bounding box,
+and will be sized to show the avatar's [variant background](#variants) aroundthe edge.
 
 ```html
 <template>
   <div>
     <div class="mb-2">
       <b-avatar src="https://placekitten.com/300/300"></b-avatar>
-      <b-avatar src="https://placekitten.com/300/300" height="4rem"></b-avatar>
+      <b-avatar src="https://placekitten.com/300/300" height="6rem"></b-avatar>
     </div>
 </template>
 
