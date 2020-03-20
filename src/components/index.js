@@ -53,6 +53,7 @@ import { TooltipPlugin } from './tooltip'
 export const componentsPlugin = /*#__PURE__*/ pluginFactory({
   plugins: {
     AlertPlugin,
+    AvatarPlugin,
     BadgePlugin,
     BreadcrumbPlugin,
     ButtonPlugin,
