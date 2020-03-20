@@ -4,7 +4,7 @@ import { getComponentConfig } from '../../utils/config'
 import pluckProps from '../../utils/pluck-props'
 import { BLink } from '../link/link'
 import { BIcon } from '../../icons/icon'
-import { BIconPersonFill } from '../../icons/icon'
+import { BIconPersonFill } from '../../icons/icons'
 
 const NAME = 'BAvatar'
 
@@ -42,7 +42,7 @@ const linkProps = {
     type: String
     // default: null
   },
-  disabled: {
+  exact: {
     type: Boolean,
     default: false
   },
@@ -83,7 +83,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     },
     button: {
       type: Boolean,
-      default: false,
+      default: false
     },
     buttonType: {
       type: String,
@@ -117,8 +117,8 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         // We use badge/button styles for theme variants
         [`${isButton ? 'btn' : 'badge'}-${props.variant}`]: !!props.variant,
         // Roudning  / Square overrides
+        rounded: rounded === true,
         'rounded-0': square,
-        'rounded': rounded === true,
         [`rounded-${rounded}`]: rounded && rounded !== true,
         // Other classes
         disabled: props.disabled
@@ -132,7 +132,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         type: isButton ? props.buttonType : null,
         'aria-label': props.ariaLabel || null
       },
-      props: isBLink ? pluckProps(linkProps, props) : {},
+      props: isBLink ? pluckProps(linkProps, props) : {}
     }
 
     return h(tag, mergeData(data, componentData), [$content])
