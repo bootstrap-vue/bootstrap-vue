@@ -61,7 +61,7 @@ short (1 to 3 characters), and will be tansformed via CSS to be all uppercase.
       <b-avatar text="BV"></b-avatar>
       <b-avatar text="a"></b-avatar>
       <b-avatar text="Foo"></b-avatar>
-      <b-avatar text="BV" height="3em"></b-avatar>
+      <b-avatar text="BV" height="4rem"></b-avatar>
     </div>
 </template>
 
@@ -82,7 +82,7 @@ spacing to show the avatar's [variant background](#variants).
   <div>
     <div class="mb-2">
       <b-avatar src="https://placekitten.com/300/300"></b-avatar>
-      <b-avatar src="https://placekitten.com/300/300" height="45em"></b-avatar>
+      <b-avatar src="https://placekitten.com/300/300" height="4rem"></b-avatar>
     </div>
 </template>
 
