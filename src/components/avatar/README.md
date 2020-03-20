@@ -35,9 +35,20 @@ TBD
 
 TBD
 
+**Notes:**
+- When using a module bundler and project relative image URLs, please refer to the
+  [Component img src resolving](/docs/reference/images) reference section for additional details.
+- The `src` prop takes precedence over the `text` prop.
+
 ### Icon content
 
 TBD
+
+**Notes:**
+- When providing a BootstrapVue icon name, you _must_ ensure that you have regerested the
+  corresponding icon component (either locally to your component/page, or globally), if not using
+  the full [`BootstrapVueIcons` plugin](/docs/icons)
+- The `icon-name` prop takes precendence over the `text` and `src` props
 
 ### Custom content
 
