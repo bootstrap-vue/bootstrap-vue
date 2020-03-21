@@ -2,6 +2,8 @@ import { mergeData } from 'vue-functional-data-merge'
 import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { getComponentConfig } from '../../utils/config'
+import { isNumber, isString } from '../../utils/inspect'
+import { toFloat } from '../../utils/number'
 import { BButton } from '../button/button'
 import { BLink } from '../link/link'
 import { BIcon } from '../../icons/icon'
@@ -112,23 +114,18 @@ const props = {
 
 // --- Utility methods ---
 const computeSize = value => {
-  if (value === null) {
-    // Default to `md` size when `null`
-    value = 'md'
-  } else if (typeof value === 'string' && RX_NUMBER.test(value)) {
-    // Parse to number when value is a float-like string
-    value = parseFloat(value, 10)
-  }
-  console.log(DEFAULT_SIZES[value])
-  if (typeof value === 'number') {
-    // Convert all numbers to pixel values
-    return `${value}px`
-  } else if (DEFAULT_SIZES[value]) {
-    // Use default sizes when `sm`, `md` or `lg`
-    return DEFAULT_SIZES[value]
-  }
-  // Use value as is
-  return value
+  // Default to `md` size when `null`, or parse to
+  // number when value is a float-like string
+  value = value === null
+    ? 'md'
+    : isString(value) && RX_NUMBER.test(value)
+      ? toFloat(value)
+      : value
+
+  // Convert all numbers to pixel values
+  // Handle default sizes when `sm`, `md` or `lg`
+  // Or use value as is
+  return isNumber(value) ? `${value}px` : DEFAULT_SIZES[value] ? DEFAULT_SIZES[value] : value
 }
 
 // --- Main component ---
