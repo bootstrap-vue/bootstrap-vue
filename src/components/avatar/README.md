@@ -16,17 +16,17 @@ The `<b-avatar>` component was added in BootstrapVue version `v2.8.0`.
 ```html
 <template>
   <div>
-    <p>Stand-alone:<p/>
+    <p>Using stand-alone:<p/>
     <div class="mb-4">
       <b-avatar></b-avatar>
       <b-avatar variant="primary" text="BV"></b-avatar>
       <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
       <b-avatar variant="success" icon="people-fill"></b-avatar>
     </div>
-    <p>In components:<p/>
+    <p>Using in components (list group) example:<p/>
     <b-list-group style="max-width: 300px;">
       <b-list-group-item>
-        <b-avatar class="mr-1"></b-avatar> Joe Blow
+        <b-avatar class="mr-1"></b-avatar> J. Circlehead
       </b-list-group-item>
       <b-list-group-item>
         <b-avatar variant="primary" text="BV" class="mr-1"></b-avatar>
