@@ -335,6 +335,38 @@ document.
 By default the overlay content will be horizontally and vertically centered within the overlay
 region. To disable centering, set the `no-center` prop to `true`.
 
+In the following example, we have set the `no-center` prop, and absolutely positioned the custom
+overlay slot content at the top right.
+
+```html
+<template>
+  <div>
+    <b-overlay no-center show rounded="sm">
+      <template v-slot:overlay>
+        <b-icon
+          icon="stopwatch"
+          variant="info"
+          scale="2"
+          shift-v="8"
+          shift-h="8"
+          class="position-absolute"
+          style="top: 0; right: 0"
+        ></b-icon>
+      </template>
+      <b-card title="Card with no-center overlay" aria-hidden="true">
+        <b-card-text>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
+        </b-card-text>
+        <b-button disabled variant="primary">Button</b-button>
+      </b-card>
+    </b-overlay>
+  </div>
+</template>
+
+<!-- b-overlay-no-center.vue -->
+```
+
 ### Width
 
 `<b-overlay>` defaults to a width of `100%`. When wrapping an inline or inline-block element, you
@@ -492,7 +524,7 @@ interactive elements in the obscured area to prevent reachability via keyboard n
 
 Please refer to the [Accessibility section](#accessibility) for additional details and concerns.
 
-### Fancy loading button
+### Loading button
 
 Easily create a loading button:
 
@@ -649,7 +681,7 @@ This example also demonstrates additional accessibility markup.
       <b-form-group label="Name" label-for="form-name" label-cols-lg="2">
         <b-input-group>
           <b-input-group-prepend is-text>
-            <b-icon icon="person-fill" scale="1.5"></b-icon>
+            <b-icon icon="person-fill"></b-icon>
           </b-input-group-prepend>
           <b-form-input id="form-name" :disabled="busy"></b-form-input>
         </b-input-group>
@@ -657,7 +689,7 @@ This example also demonstrates additional accessibility markup.
       <b-form-group label="Email" label-for="form-mail" label-cols-lg="2">
         <b-input-group>
           <b-input-group-prepend is-text>
-            <b-icon icon="envelope-fill" scale="1.5"></b-icon>
+            <b-icon icon="envelope-fill"></b-icon>
           </b-input-group-prepend>
           <b-form-input id="form-email" type="email" :disabled="busy"></b-form-input>
         </b-input-group>
@@ -665,7 +697,7 @@ This example also demonstrates additional accessibility markup.
       <b-form-group label="Image" label-for="form-image" label-cols-lg="2">
         <b-input-group>
           <b-input-group-prepend is-text>
-            <b-icon icon="image-fill" scale="1.5"></b-icon>
+            <b-icon icon="image-fill"></b-icon>
           </b-input-group-prepend>
           <b-form-file id="form-image" :disabled="busy" accept="image/*"></b-form-file>
         </b-input-group>
