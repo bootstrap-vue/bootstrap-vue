@@ -120,7 +120,7 @@ const computeSize = value => {
   // Convert all numbers to pixel values
   // Handle default sizes when `sm`, `md` or `lg`
   // Or use value as is
-  return isNumber(value) ? `${value}px` : DEFAULT_SIZES[value] ? DEFAULT_SIZES[value] : value
+  return isNumber(value) ? `${value}px` : DEFAULT_SIZES[value] || value
 }
 
 // --- Main component ---
