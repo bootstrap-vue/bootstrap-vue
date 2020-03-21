@@ -335,8 +335,8 @@ document.
 By default the overlay content will be horizontally and vertically centered within the overlay
 region. To disable centering, set the `no-center` prop to `true`.
 
-In the following example, we have set the `no-center` prop, and absolutely positioned the overlay
-slot content at the top right.
+In the following example, we have set the `no-center` prop, and absolutely positioned the custom
+overlay slot content at the top right.
 
 ```html
 <template>
@@ -355,11 +355,10 @@ slot content at the top right.
           style="top: -0.25em; right: -0.25em;"
         ></b-cion>
       </template>
-      <b-card title="Card with spinner style" aria-hidden="true">
+      <b-card title="Card with no-center overlay" aria-hidden="true">
         <b-card-text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          incididunt ut labore et dolore magna aliqua.
         </b-card-text>
         <b-button disabled variant="primary">Button</b-button>
       </b-card>
