@@ -116,12 +116,7 @@ const props = {
 const computeSize = value => {
   // Default to `md` size when `null`, or parse to
   // number when value is a float-like string
-  value = value === null
-    ? 'md'
-    : isString(value) && RX_NUMBER.test(value)
-      ? toFloat(value)
-      : value
-
+  value = value === null ? 'md' : isString(value) && RX_NUMBER.test(value) ? toFloat(value) : value
   // Convert all numbers to pixel values
   // Handle default sizes when `sm`, `md` or `lg`
   // Or use value as is
