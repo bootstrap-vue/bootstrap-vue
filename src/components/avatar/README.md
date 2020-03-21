@@ -38,7 +38,7 @@ The `<b-avatar>` component was added in BootstrapVue version `v2.8.0`.
       <b-list-group-item class="d-flex align-items-center">
         <b-avatar variant="info" src="https://placekitten.com/300/300" class="mr-3"></b-avatar>
         <span class="mr-auto">Super Kitty</span>
-        <b-badge>12</b-badge>
+        <b-badge>9</b-badge>
       </b-list-group-item>
       <b-list-group-item class="d-flex align-items-center">
         <b-avatar variant="success" icon="people-fill" class="mr-3"></b-avatar>
