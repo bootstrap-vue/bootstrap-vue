@@ -65,13 +65,12 @@ be scaled relative to the [`size` prop setting](#sizing).
 
 ```html
 <template>
-  <div>
-    <div class="mb-2">
-      <b-avatar text="BV"></b-avatar>
-      <b-avatar text="a"></b-avatar>
-      <b-avatar text="Foo"></b-avatar>
-      <b-avatar text="BV" size="4rem"></b-avatar>
-    </div>
+  <div class="mb-2">
+    <b-avatar text="BV"></b-avatar>
+    <b-avatar text="a"></b-avatar>
+    <b-avatar text="Foo"></b-avatar>
+    <b-avatar text="BV" size="4rem"></b-avatar>
+  </div>
 </template>
 
 <!-- b-avatar-text.vue -->
@@ -86,11 +85,10 @@ and will be sized to show the avatar's [variant background](#variants) around th
 
 ```html
 <template>
-  <div>
-    <div class="mb-2">
-      <b-avatar src="https://placekitten.com/300/300"></b-avatar>
-      <b-avatar src="https://placekitten.com/300/300" size="6rem"></b-avatar>
-    </div>
+  <div class="mb-2">
+    <b-avatar src="https://placekitten.com/300/300"></b-avatar>
+    <b-avatar src="https://placekitten.com/300/300" size="6rem"></b-avatar>
+  </div>
 </template>
 
 <!-- b-avatar-src.vue -->
@@ -109,13 +107,12 @@ prop should be set to a valid icon name. Icons will scale respective to the [`si
 
 ```html
 <template>
-  <div>
-    <div class="mb-2">
-      <b-avatar icon="people-fill"></b-avatar>
-      <b-avatar icon="star-fill"></b-avatar>
-      <b-avatar icon="music-note"></b-avatar>
-      <b-avatar icon="star-fill" size="4em"></b-avatar>
-    </div>
+  <div class="mb-2">
+    <b-avatar icon="people-fill"></b-avatar>
+    <b-avatar icon="star-fill"></b-avatar>
+    <b-avatar icon="music-note"></b-avatar>
+    <b-avatar icon="star-fill" size="4em"></b-avatar>
+  </div>
 </template>
 
 <!-- b-avatar-icon.vue -->
