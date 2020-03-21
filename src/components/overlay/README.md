@@ -341,19 +341,17 @@ overlay slot content at the top right.
 ```html
 <template>
   <div>
-    <b-overlay
-      show
-      no-center
-      rounded="sm"
-      style="max-width: 320px;"
-    >
+    <b-overlay no-center show rounded="sm">
       <template v-slot:overlay>
         <b-icon
           icon="stopwatch"
+          variant="info"
           scale="2"
+          shift-v="8"
+          shift-h="8"
           class="position-absolute"
-          style="top: -0.25em; right: -0.25em;"
-        ></b-cion>
+          style="top: 0; right: 0"
+        ></b-icon>
       </template>
       <b-card title="Card with no-center overlay" aria-hidden="true">
         <b-card-text>
