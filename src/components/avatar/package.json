@@ -23,8 +23,8 @@
             "description": "Icon name to use for the avatar. Must be all lowercase. Defaults to `person-fill` if `text` or `src` props not provided"
           },
           {
-            "prop": "height",
-            "description": "CSS height to apply to the avatar (include units such as `px`, `em`, or `rem`)"
+            "prop": "size",
+            "description": "Size of the avatar. Refer to the documentation for details"
           },
           {
             "prop": "button",

@@ -7,9 +7,18 @@ import { BLink } from '../link/link'
 import { BIcon } from '../../icons/icon'
 import { BIconPersonFill } from '../../icons/icons'
 
+// --- Constants ---
 const NAME = 'BAvatar'
 
-// Props we use specific to BLink
+const RX_NUMBER = /^[0-9]*\.?[0-9]+$/
+
+const DEFAULT_SIZES = {
+  sm: '1.5em',
+  md: '2.5em',
+  lg: '3.5em'
+}
+
+// --- Props ---
 const linkProps = {
   href: {
     type: String
@@ -57,53 +66,77 @@ const linkProps = {
   }
 }
 
+const props = {
+  src: {
+    type: String
+    // default: null
+  },
+  text: {
+    type: String
+    // default: null
+  },
+  icon: {
+    type: String
+    // default: null
+  },
+  variant: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'variant')
+  },
+  size: {
+    type: [Number, String],
+    default: null
+  },
+  square: {
+    type: Boolean,
+    default: false
+  },
+  rounded: {
+    type: [Boolean, String],
+    default: false
+  },
+  button: {
+    type: Boolean,
+    default: false
+  },
+  buttonType: {
+    type: String,
+    default: 'button'
+  },
+  ...linkProps,
+  ariaLabel: {
+    type: String
+    // default: null
+  }
+}
+
+// --- Utility methods ---
+const computeSize = value => {
+  if (value === null) {
+    // Default to `md` size when `null`
+    value = 'md'
+  } else if (typeof value === 'string' && RX_NUMBER.test(value)) {
+    // Parse to number when value is a float-like string
+    value = parseFloat(value, 10)
+  }
+  console.log(DEFAULT_SIZES[value])
+  if (typeof value === 'number') {
+    // Convert all numbers to pixel values
+    return `${value}px`
+  } else if (DEFAULT_SIZES[value]) {
+    // Use default sizes when `sm`, `md` or `lg`
+    return DEFAULT_SIZES[value]
+  }
+  // Use value as is
+  return value
+}
+
+// --- Main component ---
 // @vue/component
 export const BAvatar = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
-  props: {
-    src: {
-      type: String
-      // default: null
-    },
-    text: {
-      type: String
-      // default: null
-    },
-    icon: {
-      type: String
-      // default: null
-    },
-    variant: {
-      type: String,
-      default: () => getComponentConfig(NAME, 'variant')
-    },
-    height: {
-      type: String,
-      default: '2.5em'
-    },
-    square: {
-      type: Boolean,
-      default: false
-    },
-    rounded: {
-      type: [Boolean, String],
-      default: false
-    },
-    button: {
-      type: Boolean,
-      default: false
-    },
-    buttonType: {
-      type: String,
-      default: 'button'
-    },
-    ...linkProps,
-    ariaLabel: {
-      type: String
-      // default: null
-    }
-  },
+  props,
   render(h, { props, data, children }) {
     const isButton = props.button
     const isBLink = !isButton && (props.href || props.to)
@@ -113,7 +146,8 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     const type = props.buttonType
     const square = props.square
     const rounded = square ? false : props.rounded === '' ? true : props.rounded || 'circle'
-    const height = props.height
+    const size = computeSize(props.size)
+    console.log(props.size, size)
 
     let $content = null
     if (children) {
@@ -127,7 +161,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     } else if (props.src) {
       $content = h('img', { attrs: { src: props.src } })
     } else if (props.text) {
-      const fontSize = height ? `calc(${height} * 0.4)` : null
+      const fontSize = size ? `calc(${size} * 0.4)` : null
       $content = h('span', { style: { fontSize } }, props.text)
     } else {
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true' } })
@@ -138,14 +172,14 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       class: {
         // We use badge/button styles for theme variants
         [`${isButton ? 'btn' : 'badge'}-${props.variant}`]: !!props.variant,
-        // Rounding  / Square
+        // Rounding / Square
         rounded: rounded === true,
         'rounded-0': square,
         [`rounded-${rounded}`]: rounded && rounded !== true,
         // Other classes
         disabled
       },
-      style: { width: height, height },
+      style: { width: size, height: size },
       attrs: { 'aria-label': props.ariaLabel || null },
       props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, props) : {}
     }

@@ -56,7 +56,7 @@ to the [`'person-fill'` icon](/docs/icons) when no other content is specified.
 
 You can specify a short string as the content of an avatar via the `text` prop. The string should be
 short (1 to 3 characters), and will be transformed via CSS to be all uppercase. The font size will
-be scaled relative to the [`height` prop setting](#sizing).
+be scaled relative to the [`size` prop setting](#sizing).
 
 ```html
 <template>
@@ -65,7 +65,7 @@ be scaled relative to the [`height` prop setting](#sizing).
       <b-avatar text="BV"></b-avatar>
       <b-avatar text="a"></b-avatar>
       <b-avatar text="Foo"></b-avatar>
-      <b-avatar text="BV" height="4rem"></b-avatar>
+      <b-avatar text="BV" size="4rem"></b-avatar>
     </div>
 </template>
 
@@ -84,7 +84,7 @@ and will be sized to show the avatar's [variant background](#variants) around th
   <div>
     <div class="mb-2">
       <b-avatar src="https://placekitten.com/300/300"></b-avatar>
-      <b-avatar src="https://placekitten.com/300/300" height="6rem"></b-avatar>
+      <b-avatar src="https://placekitten.com/300/300" size="6rem"></b-avatar>
     </div>
 </template>
 
@@ -109,7 +109,7 @@ prop should be set to a valid icon name. Icons will scale respective to the [`si
       <b-avatar icon="people-fill"></b-avatar>
       <b-avatar icon="star-fill"></b-avatar>
       <b-avatar icon="music-note"></b-avatar>
-      <b-avatar icon="star-fill" height="4em"></b-avatar>
+      <b-avatar icon="star-fill" size="4em"></b-avatar>
     </div>
 </template>
 
@@ -172,19 +172,23 @@ use.
 ### Sizing
 
 By default, avatars are sized to `2.5em` (which is relative to the current font size). You can
-change the size of the avatar by changing the current font size, or use the prop `height` to specify
-an explicit height. The height value _must_ include the units (such as `px`, `em`, or `rem`).
+change the size of the avatar by changing the current font size, or use the prop `size` to specify
+an explicit size. The sizes `sm`, `md` and `lg` default to `1.5em`, `2.5em` and `3.5em`. Numbers get
+converted to pixel values. Any other value _must_ include the units (such as `px`, `em`, or `rem`).
 
 ```html
 <template>
   <div>
     <b-avatar></b-avatar>
-    <b-avatar height="3em"></b-avatar>
-    <b-avatar height="72px"></b-avatar>
+    <b-avatar size="sm"></b-avatar>
+    <b-avatar size="lg"></b-avatar>
+    <b-avatar :size="24"></b-avatar>
+    <b-avatar size="3em"></b-avatar>
+    <b-avatar size="72px"></b-avatar>
   </div>
 </template>
 
-<!-- b-avatar-height.vue -->
+<!-- b-avatar-size.vue -->
 ```
 
 **Note:** Avatars are _always_ rendered with an aspect ratio of `1:1`.
