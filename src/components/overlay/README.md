@@ -775,4 +775,4 @@ This example also demonstrates additional accessibility markup.
 The modal body has `position: relative;` set, so when using `<b-overlay no-wrap ...>` in the modal
 body only the modal body will be obscured. If you wish to obscure the entire modal (including the
 header and footer), you will need to set the `<b-modal>` prop `body-class` to `position-static`, and
-also set  the `rounded` prop on `<b-overlay>`.
+also set the `rounded` prop on `<b-overlay>`.
