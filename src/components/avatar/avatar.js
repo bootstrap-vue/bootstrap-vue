@@ -114,7 +114,6 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     const square = props.square
     const rounded = square ? false : props.rounded === '' ? true : props.rounded || 'circle'
     const height = props.height
-    const fontSize = height ? `calc(${height} * 0.4)` : null
 
     let $content = null
     if (children) {
@@ -128,6 +127,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     } else if (props.src) {
       $content = h('img', { attrs: { src: props.src } })
     } else if (props.text) {
+      const fontSize = height ? `calc(${height} * 0.4)` : null
       $content = h('span', { style: { fontSize } }, props.text)
     } else {
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true' } })
@@ -145,7 +145,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         // Other classes
         disabled
       },
-      style: { width: height, height, fontSize },
+      style: { width: height, height },
       attrs: { 'aria-label': props.ariaLabel || null },
       props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, props) : {}
     }
