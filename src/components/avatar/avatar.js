@@ -139,7 +139,6 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     const square = props.square
     const rounded = square ? false : props.rounded === '' ? true : props.rounded || 'circle'
     const size = computeSize(props.size)
-    console.log(props.size, size)
 
     let $content = null
     if (children) {
