@@ -2,6 +2,36 @@
 
 > All notable changes to this project will be documented in this file.
 
+<a name="2.8.0"></a>
+
+## [v2.8.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.7.0...v2.8.0)
+
+Released: 2020-03-22
+
+### Features v2.8.0
+
+- **icons:** upgrade to Bootstrap Icons `1.0.0.alpha3`
+  ([#4966](https://github.com/bootstrap-vue/bootstrap-vue/issues/4966))
+  ([d481365](https://github.com/bootstrap-vue/bootstrap-vue/commit/d481365c9f8014e1573026881c3588f2d51999ee))
+  - 200+ new icons
+  - `skip-*` icon names fixed (closes [#4733](https://github.com/bootstrap-vue/bootstrap-vue/4733))
+  - `document-*` icons renamed to `file-*`
+  - `alert-*` icons renamed to `exclamation-*`
+  - `columns-gutters` icon renamed to `columns-gap`
+  - `diamond` icon renamed to `gem` because of new `diamond-*` shape icons
+- **b-avatar:** new `<b-avatar>` component
+  ([#4974](https://github.com/bootstrap-vue/bootstrap-vue/issues/4974))
+  ([b2325a3](https://github.com/bootstrap-vue/bootstrap-vue/commit/b2325a3f87a58207603be0bad41afb3059a575a1))
+- **b-form-spinbutton:** add slots for increment and decrement button content (closes
+  [#4958](https://github.com/bootstrap-vue/bootstrap-vue/issues/4958))
+  ([#4963](https://github.com/bootstrap-vue/bootstrap-vue/issues/4963))
+  ([5684405](https://github.com/bootstrap-vue/bootstrap-vue/commit/5684405197c8dd03b0711b0efc11ab6d76fb7714))
+
+### Other v2.8.0
+
+- docs updates
+- dev dependencies updates
+
 <a name="2.7.0"></a>
 
 ## [v2.7.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.6.1...v2.7.0)
