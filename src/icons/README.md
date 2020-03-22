@@ -20,10 +20,10 @@ were added in BootstrapVue release `v2.8.0`.
   </p>
   <p class="mb-0">
     <strong>Alpha2 to Alpha3 changes:</strong> In addition to over 200 new icons, some icons have
-    changed names: <code>document-*</code> icons renamed <code>file-*</code>, <code>alert-*</code>
-    icons renamed <code>exclamation-*</code>, <code>columns-gutters</code> renamed
-    <code>columns-gap</code>, and <code>diamond</code> renamed <code>gem</code> (because of new
-    <code>diamond-*</code> shape icons).
+    changed names &mdash; <code>document-*</code> icons renamed <code>file-*</code>;
+    <code>alert-*</code> icons renamed <code>exclamation-*</code>; <code>columns-gutters</code>
+    renamed <code>columns-gap</code>; and <code>diamond</code> renamed <code>gem</code> (because of
+    new <code>diamond-*</code> shape icons).
   </p>
 </div>
 
