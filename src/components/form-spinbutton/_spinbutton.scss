@@ -48,7 +48,7 @@
       pointer-events: none;
     }
 
-    &:hover:not(:disabled) > div {
+    &:hover:not(:disabled) > div > .b-icon {
       transform: scale(1.25);
     }
   }

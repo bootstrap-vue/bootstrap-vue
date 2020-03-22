@@ -277,7 +277,7 @@ Place custom content in the overlay (replacing the default spinner) via the opti
       </b-card>
       <template v-slot:overlay>
         <div class="text-center">
-          <b-icon icon="stopwatch" font-scale="3"></b-icon>
+          <b-icon icon="stopwatch" font-scale="3" animation="cylon"></b-icon>
           <p id="cancel-label">Please wait...</p>
           <b-button
             ref="cancel"
@@ -334,6 +334,38 @@ document.
 
 By default the overlay content will be horizontally and vertically centered within the overlay
 region. To disable centering, set the `no-center` prop to `true`.
+
+In the following example, we have set the `no-center` prop, and absolutely positioned the custom
+overlay slot content at the top right.
+
+```html
+<template>
+  <div>
+    <b-overlay no-center show rounded="sm">
+      <template v-slot:overlay>
+        <b-icon
+          icon="stopwatch"
+          variant="info"
+          scale="2"
+          shift-v="8"
+          shift-h="8"
+          class="position-absolute"
+          style="top: 0; right: 0"
+        ></b-icon>
+      </template>
+      <b-card title="Card with no-center overlay" aria-hidden="true">
+        <b-card-text>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
+        </b-card-text>
+        <b-button disabled variant="primary">Button</b-button>
+      </b-card>
+    </b-overlay>
+  </div>
+</template>
+
+<!-- b-overlay-no-center.vue -->
+```
 
 ### Width
 
@@ -467,7 +499,7 @@ If you have any links in the obscured content, we recommend using the
 [`<b-link>` component](/docs/components/link), as it supports the `disabled` state, as native links
 (`<a href="...">`) and `<router-link>` components do not support the disabled state.
 
-It is also recommended to add either the `aria-hidden="true"` or `aria-bus=y"true"` attribute to
+It is also recommended to add either the `aria-hidden="true"` or `aria-busy="true"` attribute to
 your obscured content when the overlay is visible. Just be careful not to add `aria-hidden="true"`
 to the wrapper that contains the `<b-overlay>` component (when using `no-wrap`), as that would hide
 any interactive content in the `overlay` slot for screen reader users.
@@ -492,7 +524,7 @@ interactive elements in the obscured area to prevent reachability via keyboard n
 
 Please refer to the [Accessibility section](#accessibility) for additional details and concerns.
 
-### Fancy loading button
+### Loading button
 
 Easily create a loading button:
 
@@ -649,7 +681,7 @@ This example also demonstrates additional accessibility markup.
       <b-form-group label="Name" label-for="form-name" label-cols-lg="2">
         <b-input-group>
           <b-input-group-prepend is-text>
-            <b-icon icon="person-fill" scale="1.5"></b-icon>
+            <b-icon icon="person-fill"></b-icon>
           </b-input-group-prepend>
           <b-form-input id="form-name" :disabled="busy"></b-form-input>
         </b-input-group>
@@ -657,7 +689,7 @@ This example also demonstrates additional accessibility markup.
       <b-form-group label="Email" label-for="form-mail" label-cols-lg="2">
         <b-input-group>
           <b-input-group-prepend is-text>
-            <b-icon icon="envelope-fill" scale="1.5"></b-icon>
+            <b-icon icon="envelope-fill"></b-icon>
           </b-input-group-prepend>
           <b-form-input id="form-email" type="email" :disabled="busy"></b-form-input>
         </b-input-group>
@@ -665,7 +697,7 @@ This example also demonstrates additional accessibility markup.
       <b-form-group label="Image" label-for="form-image" label-cols-lg="2">
         <b-input-group>
           <b-input-group-prepend is-text>
-            <b-icon icon="image-fill" scale="1.5"></b-icon>
+            <b-icon icon="image-fill"></b-icon>
           </b-input-group-prepend>
           <b-form-file id="form-image" :disabled="busy" accept="image/*"></b-form-file>
         </b-input-group>
@@ -775,4 +807,4 @@ This example also demonstrates additional accessibility markup.
 The modal body has `position: relative;` set, so when using `<b-overlay no-wrap ...>` in the modal
 body only the modal body will be obscured. If you wish to obscure the entire modal (including the
 header and footer), you will need to set the `<b-modal>` prop `body-class` to `position-static`, and
-also set  the `rounded` prop on `<b-overlay>`.
+also set the `rounded` prop on `<b-overlay>`.

@@ -26,8 +26,7 @@ import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { BIconChevronLeft, BIconCircleFill } from '../../icons/icons'
-import { BIconstack } from '../../icons/iconstack'
+import { BIconChevronLeft, BIconChevronDoubleLeft, BIconCircleFill } from '../../icons/icons'
 
 // --- Constants ---
 
@@ -759,17 +758,11 @@ export const BCalendar = Vue.extend({
     )
 
     // Content for the date navigation buttons
-    const $prevYearIcon = h(BIconstack, { props: { shiftV: 0.5, flipH: isRTL } }, [
-      h(BIconChevronLeft, { props: { shiftH: -2 } }),
-      h(BIconChevronLeft, { props: { shiftH: 2 } })
-    ])
+    const $prevYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $prevMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $thisMonthIcon = h(BIconCircleFill, { props: { shiftV: 0.5 } })
     const $nextMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
-    const $nextYearIcon = h(BIconstack, { props: { shiftV: 0.5, flipH: !isRTL } }, [
-      h(BIconChevronLeft, { props: { shiftH: -2 } }),
-      h(BIconChevronLeft, { props: { shiftH: 2 } })
-    ])
+    const $nextYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
 
     // Utility to create the date navigation buttons
     const makeNavBtn = (content, label, handler, btnDisabled, shortcut) => {

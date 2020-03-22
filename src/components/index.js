@@ -2,6 +2,7 @@ import { pluginFactory } from '../utils/plugins'
 
 // Component group plugins
 import { AlertPlugin } from './alert'
+import { AvatarPlugin } from './avatar'
 import { BadgePlugin } from './badge'
 import { BreadcrumbPlugin } from './breadcrumb'
 import { ButtonPlugin } from './button'
@@ -52,6 +53,7 @@ import { TooltipPlugin } from './tooltip'
 export const componentsPlugin = /*#__PURE__*/ pluginFactory({
   plugins: {
     AlertPlugin,
+    AvatarPlugin,
     BadgePlugin,
     BreadcrumbPlugin,
     ButtonPlugin,

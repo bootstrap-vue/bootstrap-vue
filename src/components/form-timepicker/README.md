@@ -236,8 +236,7 @@ In the following simple example, we are placing the timepicker (button only mode
           button-only
           right
           show-seconds
-          :hour12="false"
-          locale="en-US"
+          locale="en"
           aria-controls="example-input"
         ></b-form-timepicker>
       </b-input-group-append">
