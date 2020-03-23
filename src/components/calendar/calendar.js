@@ -7,6 +7,7 @@ import { getComponentConfig } from '../../utils/config'
 import {
   createDate,
   createDateFormatter,
+  constrainDate,
   datesEqual,
   firstDateOfMonth,
   formatYMD,
@@ -25,8 +26,7 @@ import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { BIconChevronLeft, BIconCircleFill } from '../../icons/icons'
-import { BIconstack } from '../../icons/iconstack'
+import { BIconChevronLeft, BIconChevronDoubleLeft, BIconCircleFill } from '../../icons/icons'
 
 // --- Constants ---
 
@@ -57,6 +57,13 @@ export const BCalendar = Vue.extend({
       // Always return the `v-model` value as a date object
       type: Boolean,
       default: false
+    },
+    initialDate: {
+      // This specifies the calendar year/month/day that will be shown when
+      // first opening the datepicker if no v-model value is provided
+      // Default is the current date (or `min`/`max`)
+      type: [String, Date],
+      default: null
     },
     disabled: {
       type: Boolean,
@@ -212,7 +219,9 @@ export const BCalendar = Vue.extend({
       // Selected date
       selectedYMD: selected,
       // Date in calendar grid that has `tabindex` of `0`
-      activeYMD: selected || formatYMD(this.getToday()),
+      activeYMD:
+        selected ||
+        formatYMD(constrainDate(this.initialDate || this.getToday()), this.min, this.max),
       // Will be true if the calendar grid has/contains focus
       gridHasFocus: false,
       // Flag to enable the `aria-live` region(s) after mount
@@ -361,6 +370,7 @@ export const BCalendar = Vue.extend({
         // Merge in user supplied options
         ...this.dateFormatOptions,
         // Ensure hours/minutes/seconds are not shown
+        // As we do not support the time portion (yet)
         hour: undefined,
         minute: undefined,
         second: undefined,
@@ -487,7 +497,9 @@ export const BCalendar = Vue.extend({
     },
     hidden(newVal) {
       // Reset the active focused day when hidden
-      this.activeYMD = this.selectedYMD || formatYMD(this.value) || formatYMD(this.getToday())
+      this.activeYMD =
+        this.selectedYMD ||
+        formatYMD(this.value || this.constrainDate(this.initialDate || this.getToday()))
       // Enable/disable the live regions
       this.setLive(!newVal)
     }
@@ -541,10 +553,7 @@ export const BCalendar = Vue.extend({
     constrainDate(date) {
       // Constrains a date between min and max
       // returns a new `Date` object instance
-      date = parseYMD(date)
-      const min = this.computedMin || date
-      const max = this.computedMax || date
-      return createDate(date < min ? min : date > max ? max : date)
+      return constrainDate(date, this.computedMin, this.computedMax)
     },
     emitSelected(date) {
       // Performed in a `$nextTick()` to (probably) ensure
@@ -573,6 +582,7 @@ export const BCalendar = Vue.extend({
       let activeDate = createDate(this.activeDate)
       let checkDate = createDate(this.activeDate)
       const day = activeDate.getDate()
+      const constrainedToday = this.constrainDate(this.getToday())
       const isRTL = this.isRTL
       if (keyCode === PAGEUP) {
         // PAGEUP - Previous month/year
@@ -605,11 +615,11 @@ export const BCalendar = Vue.extend({
         checkDate = activeDate
       } else if (keyCode === HOME) {
         // HOME - Today
-        activeDate = this.getToday()
+        activeDate = constrainedToday
         checkDate = activeDate
       } else if (keyCode === END) {
         // END - Selected date, or today if no selected date
-        activeDate = parseYMD(this.selectedDate) || this.getToday()
+        activeDate = parseYMD(this.selectedDate) || constrainedToday
         checkDate = activeDate
       }
       if (!this.dateOutOfRange(checkDate) && !datesEqual(activeDate, this.activeDate)) {
@@ -664,7 +674,7 @@ export const BCalendar = Vue.extend({
     },
     gotoCurrentMonth() {
       // TODO: Maybe this goto date should be configurable?
-      this.activeYMD = formatYMD(this.getToday())
+      this.activeYMD = formatYMD(this.constrainDate(this.getToday()))
     },
     gotoNextMonth() {
       this.activeYMD = formatYMD(this.constrainDate(oneMonthAhead(this.activeDate)))
@@ -694,7 +704,7 @@ export const BCalendar = Vue.extend({
     // Flag for making the `aria-live` regions live
     const isLive = this.isLive
     // Pre-compute some IDs
-    // Thes should be computed props
+    // This should be computed props
     const idValue = safeId()
     const idWidget = safeId('_calendar-wrapper_')
     const idNav = safeId('_calendar-nav_')
@@ -748,17 +758,11 @@ export const BCalendar = Vue.extend({
     )
 
     // Content for the date navigation buttons
-    const $prevYearIcon = h(BIconstack, { props: { shiftV: 0.5, flipH: isRTL } }, [
-      h(BIconChevronLeft, { props: { shiftH: -2 } }),
-      h(BIconChevronLeft, { props: { shiftH: 2 } })
-    ])
+    const $prevYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $prevMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $thisMonthIcon = h(BIconCircleFill, { props: { shiftV: 0.5 } })
     const $nextMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
-    const $nextYearIcon = h(BIconstack, { props: { shiftV: 0.5, flipH: !isRTL } }, [
-      h(BIconChevronLeft, { props: { shiftH: -2 } }),
-      h(BIconChevronLeft, { props: { shiftH: 2 } })
-    ])
+    const $nextYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
 
     // Utility to create the date navigation buttons
     const makeNavBtn = (content, label, handler, btnDisabled, shortcut) => {

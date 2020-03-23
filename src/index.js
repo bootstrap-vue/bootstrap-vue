@@ -67,6 +67,10 @@ export * from './icons/icons'
 export { AlertPlugin } from './components/alert'
 export { BAlert } from './components/alert/alert'
 
+// export * from './components/avatar'
+export { AvatarPlugin } from './components/avatar'
+export { BAvatar } from './components/avatar/avatar'
+
 // export * from './components/badge'
 export { BadgePlugin } from './components/badge'
 export { BBadge } from './components/badge/badge'
@@ -244,6 +248,10 @@ export { BNavbar } from './components/navbar/navbar'
 export { BNavbarBrand } from './components/navbar/navbar-brand'
 export { BNavbarNav } from './components/navbar/navbar-nav'
 export { BNavbarToggle } from './components/navbar/navbar-toggle'
+
+// export * from './components/overlay'
+export { OverlayPlugin } from './components/overlay'
+export { BOverlay } from './components/overlay/overlay'
 
 // export * from './components/pagination'
 export { PaginationPlugin } from './components/pagination'

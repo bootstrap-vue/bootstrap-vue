@@ -138,7 +138,7 @@ means, such as additional text hidden using the `.sr-only` class.
 ## With badges
 
 Add [badges](/docs/components/badge) to any list group item to show unread counts, activity, and
-more with the help of some [utility classes](http://getbootstrap.com/docs/4.0/utilities/flex/).
+more with the help of some [flex utility classes](/docs/reference/utility-classes).
 
 ```html
 <b-list-group>

@@ -59,6 +59,18 @@ $b-custom-file-height-inner-sm: calc(
   #{$b-custom-file-line-height-sm * 1em} + #{$b-custom-file-padding-y-sm * 2}
 ) !default;
 
+// --- Icons ---
+
+$b-icon-vertical-offset: -0.15em;
+
+// Animations
+$b-icon-animation-spin-duration: 2s !default;
+$b-icon-animation-spin-reverse-duration: $b-icon-animation-spin-duration !default;
+$b-icon-animation-spin-pulse-duration: 1s !default;
+$b-icon-animation-spin-reverse-pulse-duration: $b-icon-animation-spin-pulse-duration !default;
+$b-icon-animation-cylon-duration: 0.75s !default;
+$b-icon-animation-cylon-vertical-duration: $b-icon-animation-cylon-duration !default;
+
 // --- Tables ---
 
 // Table busy state

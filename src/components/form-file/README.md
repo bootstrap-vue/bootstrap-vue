@@ -94,7 +94,7 @@ type(s). To specify more than one type, separate the values with a comma.
 To accept any file type, leave `accept` as null (default). You can mix and match IANA media types
 and extensions.
 
-Refer to [IANA Media Types](http://www.iana.org/assignments/media-types/) for a complete list of
+Refer to [IANA Media Types](https://www.iana.org/assignments/media-types/) for a complete list of
 standard media types.
 
 **Note:** Not all browsers support or respect the `accept` attribute on file inputs.

@@ -17,7 +17,7 @@ import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 // Sub components used
 import { BFormSpinbutton } from '../form-spinbutton/form-spinbutton'
-import { BIconCircleFill } from '../../icons/icons'
+import { BIconCircleFill, BIconChevronUp } from '../../icons/icons'
 
 // --- Constants ---
 
@@ -288,6 +288,21 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         return this.timeFormatter(createDate(Date.UTC(0, 0, 1, hours, minutes, seconds)))
       }
       return this.labelNoTimeSelected || ' '
+    },
+    spinScopedSlots() {
+      const h = this.$createElement
+      return {
+        increment: ({ hasFocus }) =>
+          h(BIconChevronUp, {
+            props: { scale: hasFocus ? 1.5 : 1.25 },
+            attrs: { 'aria-hidden': 'true' }
+          }),
+        decrement: ({ hasFocus }) =>
+          h(BIconChevronUp, {
+            props: { flipV: true, scale: hasFocus ? 1.5 : 1.25 },
+            attrs: { 'aria-hidden': 'true' }
+          })
+      }
     }
   },
   watch: {
@@ -467,6 +482,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           min: 0,
           ...spinbuttonProps
         },
+        scopedSlots: this.spinScopedSlots,
         on: {
           // We use `change` event to minimize SR verbosity
           // As the spinbutton will announce each value change
