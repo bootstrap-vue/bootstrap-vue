@@ -81,6 +81,10 @@ const props = {
     type: String
     // default: null
   },
+  imgAlt: {
+    type: String,
+    default: 'avatar'
+  },
   variant: {
     type: String,
     default: () => getComponentConfig(NAME, 'variant')
@@ -150,7 +154,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         attrs: { 'aria-hidden': 'true' }
       })
     } else if (props.src) {
-      $content = h('img', { attrs: { src: props.src } })
+      $content = h('img', { attrs: { src: props.src, alt: props.imgAlt || null } })
     } else if (props.text) {
       const fontSize = size ? `calc(${size} * 0.4)` : null
       $content = h('span', { style: { fontSize } }, props.text)
