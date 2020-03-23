@@ -80,7 +80,7 @@
 }
 
 #bv-icons-table-result /deep/ .bi {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .form-group /deep/ .form-text {
@@ -94,7 +94,7 @@
   }
 
   &:hover .bi {
-    transform: scale(2);
+    transform: scale(1.75);
   }
 }
 
