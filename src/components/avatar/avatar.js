@@ -152,7 +152,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     } else if (icon) {
       $content = h(BIcon, {
         props: { icon },
-        attrs: { 'aria-hidden': 'true' }
+        attrs: { 'aria-hidden': 'true', alt }
       })
     } else if (src) {
       $content = h('img', { attrs: { src, alt } })
