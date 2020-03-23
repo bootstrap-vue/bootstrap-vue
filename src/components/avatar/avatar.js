@@ -11,8 +11,11 @@ import { BIconPersonFill } from '../../icons/icons'
 
 // --- Constants ---
 const NAME = 'BAvatar'
+const CLASS_NAME = 'b-avatar'
 
 const RX_NUMBER = /^[0-9]*\.?[0-9]+$/
+
+const FONT_SIZE_SCALE = 0.4
 
 const DEFAULT_SIZES = {
   sm: '1.5em',
@@ -81,6 +84,10 @@ const props = {
     type: String
     // default: null
   },
+  alt: {
+    type: String,
+    default: 'avatar'
+  },
   variant: {
     type: String,
     default: () => getComponentConfig(NAME, 'variant')
@@ -130,40 +137,38 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
-    const isButton = props.button
+    const { variant, disabled, square, icon, src, text, button: isButton, buttonType: type } = props
     const isBLink = !isButton && (props.href || props.to)
     const tag = isButton ? BButton : isBLink ? BLink : 'span'
-    const variant = props.variant
-    const disabled = props.disabled
-    const type = props.buttonType
-    const square = props.square
     const rounded = square ? false : props.rounded === '' ? true : props.rounded || 'circle'
     const size = computeSize(props.size)
+    const alt = props.alt || null
+    const ariaLabel = props.ariaLabel || null
 
     let $content = null
     if (children) {
       // Default slot overrides props
       $content = children
-    } else if (props.icon) {
+    } else if (icon) {
       $content = h(BIcon, {
-        props: { icon: props.icon },
-        attrs: { 'aria-hidden': 'true' }
+        props: { icon },
+        attrs: { 'aria-hidden': 'true', alt }
       })
-    } else if (props.src) {
-      $content = h('img', { attrs: { src: props.src } })
-    } else if (props.text) {
-      const fontSize = size ? `calc(${size} * 0.4)` : null
-      $content = h('span', { style: { fontSize } }, props.text)
+    } else if (src) {
+      $content = h('img', { attrs: { src, alt } })
+    } else if (text) {
+      const fontSize = size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
+      $content = h('span', { style: { fontSize } }, text)
     } else {
-      $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true' } })
+      $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true', alt } })
     }
 
     const componentData = {
-      staticClass: 'b-avatar',
+      staticClass: CLASS_NAME,
       class: {
         // We use badge/button styles for theme variants
-        [`${isButton ? 'btn' : 'badge'}-${props.variant}`]: !!props.variant,
-        // Rounding / Square
+        [`${isButton ? 'btn' : 'badge'}-${variant}`]: !!variant,
+        // Rounding/Square
         rounded: rounded === true,
         'rounded-0': square,
         [`rounded-${rounded}`]: rounded && rounded !== true,
@@ -171,7 +176,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         disabled
       },
       style: { width: size, height: size },
-      attrs: { 'aria-label': props.ariaLabel || null },
+      attrs: { 'aria-label': ariaLabel },
       props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, props) : {}
     }
 
