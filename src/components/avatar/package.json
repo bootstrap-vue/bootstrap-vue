@@ -19,6 +19,11 @@
             "description": "Image URL to use for the avatar"
           },
           {
+            "prop": "imgAlt",
+            "version": "2.9.0",
+            "description": "Value to place in the 'alt' attribute for image avatars"
+          },
+          {
             "prop": "icon",
             "description": "Icon name to use for the avatar. Must be all lowercase. Defaults to `person-fill` if `text` or `src` props not provided"
           },
