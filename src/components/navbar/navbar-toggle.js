@@ -7,9 +7,10 @@ import { EVENT_TOGGLE, EVENT_STATE, EVENT_STATE_SYNC } from '../../directives/to
 const NAME = 'BNavbarToggle'
 
 // TODO:
-//  Switch to using VBToggle directive, will reduce code footprint
-//  Although the click event will no longer be cancellable
-//  Instead add `disabled` prop
+//  Switch to using `VBToggle` directive, will reduce code footprint
+//  Although the `click` event will no longer be cancellable
+//  Instead add `disabled` prop, and have `VBToggle` check element
+//  disabled state
 
 // @vue/component
 export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
