@@ -281,6 +281,8 @@ will reverse the placement of the toggler.
 See the first example on this page for reference, and also refer to
 [`<b-collapse>`](/docs/components/collapse) for details on the collapse component.
 
+#### Custom navbar toggle
+
 `<b-navbar-toggle>` renders the default Bootstrap v4 _hamburger_ (which is a background SVG image).
 You can supply your own content (such as an icon) via the optinally scoped `default` slot. The
 default slot scope contains the property `expanded`, which will be `true` when the collapse is
