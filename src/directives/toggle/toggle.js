@@ -18,9 +18,9 @@ export const EVENT_TOGGLE = 'bv::toggle::collapse'
 // Listen to event for toggle state update (emitted by collapse)
 export const EVENT_STATE = 'bv::collapse::state'
 
-// Private event emitted on $root to ensure the toggle state is always synced.
-// Gets emitted even if the state of b-collapse has not changed.
-// This event is NOT to be documented as people should not be using it.
+// Private event emitted on `$root` to ensure the toggle state is always synced
+// Gets emitted even if the state of b-collapse has not changed
+// This event is NOT to be documented as people should not be using it
 export const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // Private event we send to collapse to request state update sync event
 export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
