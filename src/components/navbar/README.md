@@ -284,10 +284,10 @@ See the first example on this page for reference, and also refer to
 #### Custom navbar toggle
 
 `<b-navbar-toggle>` renders the default Bootstrap v4 _hamburger_ (which is a background SVG image).
-You can supply your own content (such as an icon) via the optinally scoped `default` slot. The
+You can supply your own content (such as an icon) via the optionally scoped `default` slot. The
 default slot scope contains the property `expanded`, which will be `true` when the collapse is
 expanded, or `false` when the collapse is collapsed. You can use this to swap the toggle content
-based on the collaspe state:
+based on the collapse state:
 
 ```html
 <template>
