@@ -5,7 +5,10 @@ import { getComponentConfig } from '../../utils/config'
 
 const NAME = 'BNavbarToggle'
 
-// TODO: Switch to using VBToggle directive, will reduce code footprint
+// TODO:
+//  Switch to using VBToggle directive, will reduce code footprint
+//  Although the click event will no longer be cancellable
+//  Instead add `disabled` prop
 
 // Events we emit on $root
 const EVENT_TOGGLE = 'bv::toggle::collapse'
@@ -52,6 +55,7 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const expanded = this.toggleState
     return h(
       'button',
       {
@@ -60,11 +64,11 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
           type: 'button',
           'aria-label': this.label,
           'aria-controls': this.target,
-          'aria-expanded': this.toggleState ? 'true' : 'false'
+          'aria-expanded': expanded ? 'true' : 'false'
         },
         on: { click: this.onClick }
       },
-      [this.normalizeSlot('default') || h('span', { class: ['navbar-toggler-icon'] })]
+      [this.normalizeSlot('default', { expanded }) || h('span', { class: ['navbar-toggler-icon'] })]
     )
   }
 })
