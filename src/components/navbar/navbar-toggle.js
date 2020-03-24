@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { getComponentConfig } from '../../utils/config'
+import { EVENT_TOGGLE, EVENT_STATE, EVENT_STATE_SYNC } from '../../directives/toggle/toggle'
 
 const NAME = 'BNavbarToggle'
 
@@ -9,14 +10,6 @@ const NAME = 'BNavbarToggle'
 //  Switch to using VBToggle directive, will reduce code footprint
 //  Although the click event will no longer be cancellable
 //  Instead add `disabled` prop
-
-// Events we emit on $root
-const EVENT_TOGGLE = 'bv::toggle::collapse'
-
-// Events we listen to on $root
-const EVENT_STATE = 'bv::collapse::state'
-// This private event is NOT to be documented as people should not be using it.
-const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 
 // @vue/component
 export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
