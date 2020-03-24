@@ -343,7 +343,7 @@ In the following simple example, we are placing the datepicker (button only mode
           locale="en-US"
           aria-controls="example-input"
         ></b-form-datepicker>
-      </b-input-group-append">
+      </b-input-group-append>
     </b-input-group>
     <p>Value: '{{ value }}'</p>
   </div>
