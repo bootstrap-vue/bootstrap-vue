@@ -285,7 +285,32 @@ See the first example on this page for reference, and also refer to
 You can supply your own content (such as an icon) via the optinally scoped `default` slot. The
 default slot scope contains the property `expanded`, which will be `true` when the collapse is
 expanded, or `false` when the collapse is collapsed. You can use this to swap the toggle content
-based on the collaspe state.
+based on the collaspe state:
+
+```html
+<template>
+  <b-navbar toggleable type="dark" variant="dark">
+    <b-navbar-brand href="#">NavBar</b-navbar-brand>
+
+    <b-navbar-toggle target="navbar-toggle-collapse">
+      <template v-slot:default="{ expanded }">
+        <b-icon v-if="expanded" icon="chevron-bar-up"></b-icon>
+        <b-icon v-else icon="chevron-bar-down"></b-icon>
+      </template>
+    </b-navbar-toggle>
+
+    <b-collapse id="navbar-toggle-collapse" is-nav>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item href="#">Link 1</b-nav-item>
+        <b-nav-item href="#">Link 2</b-nav-item>
+        <b-nav-item href="#" disabled>Disabled</b-nav-item>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+</template>
+
+<!-- b-navbar-toggle-slot.vue -->
+```
 
 ## Printing
 
