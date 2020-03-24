@@ -1,8 +1,8 @@
 import Vue from '../../utils/vue'
-import { isBrowser } from '../../utils/env'
-import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOnOff } from '../../utils/events'
 import { BVCollapse } from '../../utils/bv-collapse'
+import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
+import { isBrowser } from '../../utils/env'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOnOff } from '../../utils/events'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -13,9 +13,12 @@ import {
   EVENT_STATE_SYNC
 } from '../../directives/toggle/toggle'
 
-// Accordion event name we emit on $root
+// --- Constants ---
+
+// Accordion event name we emit on `$root`
 const EVENT_ACCORDION = 'bv::collapse::accordion'
 
+// --- Main component ---
 // @vue/component
 export const BCollapse = /*#__PURE__*/ Vue.extend({
   name: 'BCollapse',
