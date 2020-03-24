@@ -316,10 +316,12 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         try {
           this.$refs.time.focus()
         } catch {}
+        this.$emit('shown')
       })
     },
     onHidden() {
       this.isVisible = false
+      this.$emit('hidden')
     },
     // Render function helpers
     defaultButtonFn({ isHovered, hasFocus }) {
