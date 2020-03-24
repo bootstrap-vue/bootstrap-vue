@@ -86,6 +86,20 @@
               }
             ]
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Alternate content to replace the default Bootstrap hamburger",
+            "scope": [
+              {
+                "prop": "expanded",
+                "version": "2.9.0",
+                "type": "Boolean",
+                "description": "`true` if the collapse is expanded, `false` otherwise."
+              }
+            ]
+          }
         ]
       }
     ]
