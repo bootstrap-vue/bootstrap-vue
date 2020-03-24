@@ -13,17 +13,17 @@ const BV_TOGGLE_CONTROLS = '__BV_toggle_CONTROLS__'
 const BV_TOGGLE_TARGETS = '__BV_toggle_TARGETS__'
 
 // Emitted control event for collapse (emitted to collapse)
-const EVENT_TOGGLE = 'bv::toggle::collapse'
+export const EVENT_TOGGLE = 'bv::toggle::collapse'
 
 // Listen to event for toggle state update (emitted by collapse)
-const EVENT_STATE = 'bv::collapse::state'
+export const EVENT_STATE = 'bv::collapse::state'
 
-// Private event emitted on $root to ensure the toggle state is always synced.
-// Gets emitted even if the state of b-collapse has not changed.
-// This event is NOT to be documented as people should not be using it.
-const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
+// Private event emitted on `$root` to ensure the toggle state is always synced
+// Gets emitted even if the state of b-collapse has not changed
+// This event is NOT to be documented as people should not be using it
+export const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // Private event we send to collapse to request state update sync event
-const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
+export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
 // Reset and remove a property from the provided element
 const resetProp = (el, prop) => {
