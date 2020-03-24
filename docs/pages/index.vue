@@ -208,7 +208,7 @@
 
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
             <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
-              <b-icon icon="columns-gap" width="2.5em" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
+              <b-icon icon="puzzle" width="2.5em" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
               <span>Modular</span>
             </b-card-text>
             <b-card-text class="text-center">
