@@ -51,6 +51,9 @@ export default deepFreeze({
     dismissLabel: 'Close',
     variant: 'info'
   },
+  BAvatar: {
+    variant: 'secondary'
+  },
   BBadge: {
     variant: 'secondary'
   },

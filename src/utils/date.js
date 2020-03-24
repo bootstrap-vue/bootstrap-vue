@@ -110,3 +110,14 @@ export const oneYearAhead = date => {
   }
   return date
 }
+
+// Helper function to constrain a date between two values
+// Always returns a `Date` object or `null` if no date passed
+export const constrainDate = (date, min = null, max = null) => {
+  // Ensure values are `Date` objects (or `null`)
+  date = parseYMD(date)
+  min = parseYMD(min) || date
+  max = parseYMD(max) || date
+  // Return a new `Date` object (or `null`)
+  return date ? (date < min ? min : date > max ? max : date) : null
+}

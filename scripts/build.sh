@@ -96,16 +96,16 @@ node-sass --output-style expanded \
           --source-map true \
           --source-map-contents true \
           --precision 6 \
-          scripts/build.scss \
+          scripts/index.scss \
           dist/bootstrap-vue.css
 postcss --config scripts/postcss.config.js \
         --replace dist/bootstrap-vue.css
-# Icons only CSS
+# BootstrapVue Icons only CSS
 node-sass --output-style expanded \
           --source-map true \
           --source-map-contents true \
           --precision 6 \
-          src/icons.scss \
+          scripts/icons.scss \
           dist/bootstrap-vue-icons.css
 postcss --config scripts/postcss.config.js \
         --replace dist/bootstrap-vue-icons.css

@@ -827,7 +827,7 @@ information on the `busy` state.
 ## Custom data rendering
 
 Custom rendering for each data field in a row is possible using either
-[scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or a formatter callback
+[scoped slots](https://vuejs.org/v2/guide/components.html#Scoped-Slots) or a formatter callback
 function, or a combination of both.
 
 ### Scoped field slots
@@ -1766,8 +1766,8 @@ default).
 
 The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by adding the
 `.sync` modifier. Your bound variables will then be updated accordingly based on the current sort
-criteria. See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details on
-the `.sync` prop modifier.
+criteria. See the [Vue docs](https://vuejs.org/v2/guide/components.html#sync-Modifier) for details
+on the `.sync` prop modifier.
 
 Setting `sort-by` to a column that is not defined in the fields as `sortable` will result in the
 table not being sorted.
@@ -1915,7 +1915,7 @@ sorting, as well as pass sort options via the `sort-compare-options` prop.
 
 The `sort-compare-locale` prop defaults to `undefined`, which uses the browser (or Node.js runtime)
 default locale. The prop `sort-compare-locale` can either accept a
-[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an _array_ of such tags. For
+[BCP 47 language tag](https://tools.ietf.org/html/rfc5646) string or an _array_ of such tags. For
 more details on locales, please see
 [Locale identification and negotiation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation)
 on MDN.

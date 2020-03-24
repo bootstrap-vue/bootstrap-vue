@@ -186,6 +186,36 @@
   }
 }
 
+// Carbon Ad margin overrides
+.bv-ad {
+  min-height: 130px;
+  margin: 2rem 0;
+
+  #carbonads {
+    // Override Bootstrap v4 docs CSS ad margin
+    margin: 0;
+  }
+
+  // Margins for the home page ad
+  @at-root .bv-section & {
+    margin-bottom: 3rem;
+    margin-top: 0;
+
+    #carbonads {
+      // Center the ad on the home page
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (min-width: 768px) {
+      & {
+        margin-bottom: -1.5rem;
+        margin-top: 3rem;
+      }
+    }
+  }
+}
+
 .bv-example-row {
   .row {
     + .row {

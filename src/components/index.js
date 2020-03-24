@@ -2,6 +2,7 @@ import { pluginFactory } from '../utils/plugins'
 
 // Component group plugins
 import { AlertPlugin } from './alert'
+import { AvatarPlugin } from './avatar'
 import { BadgePlugin } from './badge'
 import { BreadcrumbPlugin } from './breadcrumb'
 import { ButtonPlugin } from './button'
@@ -35,6 +36,7 @@ import { MediaPlugin } from './media'
 import { ModalPlugin } from './modal'
 import { NavPlugin } from './nav'
 import { NavbarPlugin } from './navbar'
+import { OverlayPlugin } from './overlay'
 import { PaginationPlugin } from './pagination'
 import { PaginationNavPlugin } from './pagination-nav'
 import { PopoverPlugin } from './popover'
@@ -51,6 +53,7 @@ import { TooltipPlugin } from './tooltip'
 export const componentsPlugin = /*#__PURE__*/ pluginFactory({
   plugins: {
     AlertPlugin,
+    AvatarPlugin,
     BadgePlugin,
     BreadcrumbPlugin,
     ButtonPlugin,
@@ -84,6 +87,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     ModalPlugin,
     NavPlugin,
     NavbarPlugin,
+    OverlayPlugin,
     PaginationPlugin,
     PaginationNavPlugin,
     PopoverPlugin,

@@ -5,6 +5,7 @@ export declare const componentsPlugin: BvPlugin
 
 // Export all components as named exports
 export * from './alert'
+export * from './avatar'
 export * from './badge'
 export * from './breadcrumb'
 export * from './button'
@@ -37,6 +38,7 @@ export * from './media'
 export * from './modal'
 export * from './nav'
 export * from './navbar'
+export * from './overlay'
 export * from './pagination'
 export * from './pagination-nav'
 export * from './popover'

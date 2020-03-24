@@ -910,6 +910,11 @@ possible. When the popover is closed, you should return focus back to your trigg
 You may also want to implement focus containment in the popover content while the user is
 interacting with it (keeping focus inside the popover until it is closed by the user).
 
+**Note:** The animation effect of this component is dependent on the `prefers-reduced-motion` media
+query. See the
+[reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
+additional details.
+
 ### Making popovers work for keyboard and assistive technology users
 
 To allow keyboard users to activate your popovers, you should only add them to HTML elements that

@@ -6,7 +6,7 @@ import { warnNoMutationObserverSupport } from './warn'
  * @param {Element} el The DOM element to observe
  * @param {Function} callback callback to be called on change
  * @param {object} [options={childList: true, subtree: true}] observe options
- * @see http://stackoverflow.com/questions/3219758
+ * @see https://stackoverflow.com/questions/3219758
  */
 const observeDom = (
   el,
