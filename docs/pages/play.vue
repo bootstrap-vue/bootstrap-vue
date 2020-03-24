@@ -436,7 +436,8 @@ export default {
         externalJs: [
           '//unpkg.com/babel-polyfill/dist/polyfill.min.js',
           `//unpkg.com/vue@${vueVersion}/dist/vue.min.js`,
-          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.js`
+          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.js`,
+          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue-icons.js`
         ]
       }
     },
@@ -479,13 +480,14 @@ export default {
       const htmlContent = '<div id="app"></div>'
       const jsContent = [
         "import Vue from 'vue'",
-        "import BootstrapVue from 'bootstrap-vue'",
+        "import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'",
         "import App from './App'",
         '',
         "import 'bootstrap/dist/css/bootstrap.css'",
         "import 'bootstrap-vue/dist/bootstrap-vue.css'",
         '',
         'Vue.use(BootstrapVue)',
+        'Vue.use(BootstrapVueIcons)',
         '',
         "new Vue({ el: '#app', render: h => h(App) })"
       ].join('\r\n')
