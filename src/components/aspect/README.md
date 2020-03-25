@@ -40,8 +40,9 @@ The width will always be 100% of the available width in the parent element/compo
           { text: '1:1 (Square)', value: '1:1' },
           { text: '16:9 (HD)', value: '16:9' },
           { text: '1.85:1 (Widescreen)', value: '1.85:1' },
-          { text: '2:1 (Univisium)', value: '2:1' },
-          { text: '21:9 (Anamorphic)', value: '21:9' },
+          { text: '2:1 (Univisium/Superscope)', value: '2:1' },
+          { text: '21:9 (Anamorphic)', value: '21:9' },1.43:1
+          { text: '1.43:1 (IMAX)', value: '1.43:1' },
           { text: '3:2 (35mm Film)', value: '3:2' },
           { text: '3:1 (APS-P)', value: '3:1' },
           { text: '4/3 (Same as 4:3)', value: 4 / 3 },
