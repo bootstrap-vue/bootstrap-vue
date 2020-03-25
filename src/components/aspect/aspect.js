@@ -1,10 +1,6 @@
-//
-// b-aspect
-//
-
 import Vue from '../../utils/vue'
 import { toFloat } from '../../utils/number'
-import normalizeSlotMixin from '../../mixns/normalize-slot'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const RX_ASPECT = /^\d+(\.\d*)?[/:]\d+(\.\d*)?$/
 const RX_SEPARATOR = /[/:]/
