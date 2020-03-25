@@ -31,7 +31,7 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const $sizer = h('div', {
-      staticClass: 'b-aspect-size flex-grow-1',
+      staticClass: 'b-aspect-sizer flex-grow-1',
       style: { paddingBottom: this.padding, height: 0 }
     })
     const $content = h(
