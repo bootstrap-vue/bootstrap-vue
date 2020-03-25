@@ -12,7 +12,7 @@
         "props": [
           {
             "prop": "aspect",
-            "description": "Aspect as a width/height numeric ratio (such as 1.5) or `width:height` string (such as `16:9`)"
+            "description": "Aspect as a width to height numeric ratio (such as `1.5`) or `width:height` string (such as '16:9')"
           }
         ]
       }
