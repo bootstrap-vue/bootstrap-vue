@@ -11,7 +11,7 @@ export const props = {
     default: 'active'
   },
   buttonClass: {
-    type: String,
+    type: [String, Array, Object],
     default: null
   },
   disabled: {
@@ -52,11 +52,13 @@ export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
         'button',
         {
           staticClass: 'dropdown-item',
-          class: {
-            [this.activeClass]: this.active,
-            [`text-${this.variant}`]: this.variant && !(this.active || this.disabled),
-            [this.buttonClass]: this.buttonClass
-          },
+          class: [
+            this.buttonClass,
+            {
+              [this.activeClass]: this.active,
+              [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
+            }
+          ],
           attrs: {
             ...this.$attrs,
             role: 'menuitem',
