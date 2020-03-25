@@ -2,15 +2,20 @@ import Vue from '../../utils/vue'
 import { toFloat } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
+// --- Constants ---
+const NAME = 'BAspect'
+const CLASS_NAME = 'b-aspect'
+
 const RX_ASPECT = /^\d+(\.\d*)?[/:]\d+(\.\d*)?$/
 const RX_SEPARATOR = /[/:]/
 
+// --- Main Component ---
 export const BAspect = /*#__PURE__*/ Vue.extend({
-  name: 'BAspect',
+  name: NAME,
   mixins: [normalizeSlotMixin],
   props: {
     aspect: {
-      // Accepts a number (i.e. 16 / 9, 1, 4 / 3)
+      // Accepts a number (i.e. `16 / 9`, `1`, `4 / 3`)
       // Or a string (i.e. '16/9', '16:9', '4:3' '1:1')
       type: [Number, String],
       default: '1:1'
@@ -35,17 +40,17 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const $sizer = h('div', {
-      staticClass: 'b-aspect-sizer flex-grow-1',
+      staticClass: `${CLASS_NAME}-sizer flex-grow-1`,
       style: { paddingBottom: this.padding, height: 0 }
     })
     const $content = h(
       'div',
       {
-        staticClass: 'b-aspect-content flex-grow-1 w-100 mw-100',
+        staticClass: `${CLASS_NAME}-content flex-grow-1 w-100 mw-100`,
         style: { marginLeft: '-100%' }
       },
       [this.normalizeSlot('default')]
     )
-    return h(this.tag, { staticClass: 'b-aspect d-flex' }, [$sizer, $content])
+    return h(this.tag, { staticClass: `${CLASS_NAME} d-flex` }, [$sizer, $content])
   }
 })
