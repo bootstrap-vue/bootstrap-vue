@@ -4,7 +4,11 @@
 > incrementing or decrementing a numerical value within a range of a minimum and maximum number,
 > with optional step value.
 
-`<b-form-spinbutton>` is
+## Overview
+
+`<b-form-spinbutton>` was introduced in BootstrapVue `v2.5.0`.
+
+The component `<b-form-spinbutton>` is
 [WAI-ARIA compliant](https://www.w3.org/TR/wai-aria-practices-1.2/#spinbutton), allowing for
 [keyboard control](#accessibility), and supports both horizontal (default) and vertical layout.
 
@@ -32,8 +36,6 @@ Similar to [range type inputs](/docs/components/form-input#range-type-input), Bo
 
 <!-- b-form-spinbutton-demo.vue -->
 ```
-
-## Overview
 
 The <kbd>ArrowUp</kbd> and <kbd>ArrowDown</kbd> keys can be used to increment or decrement the
 value.
