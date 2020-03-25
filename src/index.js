@@ -67,6 +67,10 @@ export * from './icons/icons'
 export { AlertPlugin } from './components/alert'
 export { BAlert } from './components/alert/alert'
 
+// export * from './components/aspect'
+export { AspectPlugin } from './components/aspect'
+export { BAspect } from './components/aspect/aspect'
+
 // export * from './components/avatar'
 export { AvatarPlugin } from './components/avatar'
 export { BAvatar } from './components/avatar/avatar'
