@@ -13,7 +13,7 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
       // Accepts a number (i.e. 16 / 9, 1, 4 / 3)
       // Or a string (i.e. '16/9', '16:9', '4:3' '1:1')
       type: [Number, String],
-      default: 1
+      default: '1:1'
     },
     tag: {
       type: String,
