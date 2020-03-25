@@ -1,0 +1,21 @@
+{
+  "name": "@bootstrap-vue/aspect",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Aspect",
+    "new": true,
+    "version": "2.9.0",
+    "description": "The `<b-aspect>` component can be used to maintain a minimum responsive aspect ratio for content.",
+    "components": [
+      {
+        "component": "BAspect",
+        "props": [
+          {
+            "prop": "aspect",
+            "description": "Aspect as a width to height numeric ratio (such as `1.5`) or `width:height` string (such as '16:9')"
+          }
+        ]
+      }
+    ]
+  }
+}
