@@ -9,7 +9,7 @@ describe('aspect', () => {
     expect(wrapper.classes()).toContain('b-aspect')
     expect(wrapper.classes()).toContain('d-flex')
     expect(wrapper.classes().length).toBe(2)
-    
+
     const $sizer = wrapper.find('.b-aspect-sizer')
     expect($sizer.exists()).toBe(true)
     expect($sizer.is('div')).toBe(true)
