@@ -198,6 +198,13 @@
         "aliases": [
           "BDdItem"
         ],
+        "props": [
+          {
+            "prop": "linkClass",
+            "version": "2.9.0",
+            "description": "Class or classes to apply to the inner link element"
+          }
+        ],
         "events": [
           {
             "event": "click",
