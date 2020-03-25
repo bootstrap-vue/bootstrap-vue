@@ -37,17 +37,16 @@ The width will always be 100% of the available width in the parent element/compo
         aspect: '16:9',
         aspects: [
           { text: '4:3 (SD)', value: '4:3' },
-          { text: '4/3 (Same as `4:3`)', value: 4 / 3 },
+          { text: '4/3 (Same as 4:3)', value: 4 / 3 },
           { text: '1:1 (Square)', value: '1:1' },
           { text: '16:9 (HD)', value: '16:9' },
-          { text: '16/9 (Same as `16:9`)', value: 16 / 9 },
+          { text: '16/9 (Same as 16:9)', value: 16 / 9 },
           { text: '1.85:1 (Widescreen)', value: '1.85:1' },
-          { text: '2:1 (Univisium)', value: '1:1' },
+          { text: '2:1 (Univisium)', value: '2:1' },
           { text: '21:9 (Anamorphic)', value: '21:9' },
           { text: '4', value: 4 },
-          { text: '2 (Same as `2:1`)', value: 2 },
-          { text: '1.5', value: 1.5 },
-          { text: '1 (Same as `1:1`)', value: 1 }
+          { text: '2 (Same as 2:1)', value: 2 },
+          { text: '1 (Same as 1:1)', value: 1 }
         ]
       }
     }
