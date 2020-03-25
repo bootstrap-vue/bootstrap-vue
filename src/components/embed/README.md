@@ -58,6 +58,6 @@ embedded element. Note that the type `iframe` does not support any children.
 
 ## See also
 
-- [`<b-aspect>` component](docs/components/aspect)
+- [`<b-aspect>` component](/docs/components/aspect)
 
 <!-- Component reference added automatically from component package.json -->
