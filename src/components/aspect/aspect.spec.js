@@ -4,7 +4,7 @@ import { BAspect } from './aspect'
 describe('aspect', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BAspect)
-    expect(wrapper.isVueInstance()).tobe(true)
+    expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('b-aspect')
     expect(wrapper.classes()).toContain('d-flex')
