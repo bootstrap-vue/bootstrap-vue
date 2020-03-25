@@ -102,4 +102,19 @@ describe('dropdown-item-button', () => {
 
     wrapper.destroy()
   })
+
+  it('has buttonClass when prop is passed a value', () => {
+    const wrapper = mount(BDropdownItemButton, {
+      propsData: {
+        buttonClass: 'button-class'
+      }
+    })
+    expect(wrapper.is('li')).toBe(true)
+
+    const button = wrapper.find('button')
+    expect(button.classes()).toContain('button-class')
+    expect(button.classes()).toContain('dropdown-item')
+
+    wrapper.destroy()
+  })
 })
