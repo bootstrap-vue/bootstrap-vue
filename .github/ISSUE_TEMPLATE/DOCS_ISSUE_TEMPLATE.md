@@ -9,8 +9,13 @@ about: Help improve our docs.
 
 - [ ] Reporting a typo
 - [ ] Reporting a documentation bug
-- [ ] Improvement
-- [ ] Fedback
+- [ ] Documentation improvement
+- [ ] Documentation feedback
+
+<!--
+  If your issue is not regarding the documentation, please choose an issue type:
+  https://github.com/bootstrap-vue/bootstrap-vue/issues/new/choose
+-->
 
 ### Is there a specific documentation page you are reporting?
 
