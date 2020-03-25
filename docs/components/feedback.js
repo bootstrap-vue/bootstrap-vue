@@ -12,8 +12,8 @@ export default {
       return slug || name === 'docs' || name === 'docs-icons'
     },
     reportIssueUrl() {
-      // Propmt user for issue type
-      return `${this.baseUrl}/issues/new/choose`
+      // Select issue template
+      return `${this.baseUrl}/issues/new?template=DOCS_ISSUE_TEMPLATE.md`
     },
     editPageUrl() {
       const name = this.$route.name
