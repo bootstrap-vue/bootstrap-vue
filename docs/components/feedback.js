@@ -12,8 +12,8 @@ export default {
       return slug || name === 'docs' || name === 'docs-icons'
     },
     reportIssueUrl() {
-      // Add appreciate query params for proper issue title
-      return `${this.baseUrl}/issues/new?title=Docs`
+      // Propmt user for issue type
+      return `${this.baseUrl}/issues/new/choose`
     },
     editPageUrl() {
       const name = this.$route.name
