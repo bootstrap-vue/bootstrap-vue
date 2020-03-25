@@ -200,7 +200,7 @@
               {
                 "arg": "bvModalEvt",
                 "type": "BvModalEvent",
-                "description": "BvModalEvent object. `Call bvModalEvt.preventDefault()` to cancel show"
+                "description": "BvModalEvent object. Call `bvModalEvt.preventDefault()` to cancel show"
               }
             ]
           },
@@ -508,22 +508,22 @@
               {
                 "prop": "ok",
                 "type": "Function",
-                "description": "Closes the modal and fires the 'ok' and 'hide' events, with bvModalEvent.trigger = 'ok'"
+                "description": "Closes the modal and fires the 'ok' and 'hide' events, with `bvModalEvent.trigger = 'ok'`"
               },
               {
                 "prop": "cancel",
                 "type": "Function",
-                "description": "Closes the modal and fires the 'cancel' and 'hide' events, with bvModalEvent.trigger = 'cancel'"
+                "description": "Closes the modal and fires the 'cancel' and 'hide' events, with `bvModalEvent.trigger = 'cancel'`"
               },
               {
                 "prop": "close",
                 "type": "Function",
-                "description": "Closes the modal and fires the close and hide events, with bvModalEvent.trigger = 'headerclose'"
+                "description": "Closes the modal and fires the close and hide events, with `bvModalEvent.trigger = 'headerclose'`"
               },
               {
                 "prop": "hide",
                 "type": "Function",
-                "description": "Accepts one argument 'trigger'. Closes the modal and fires the 'hide' event, with the bvModalEvent.trigger = trigger (trigger is optional)"
+                "description": "Accepts one argument `trigger`. Closes the modal and fires the 'hide' event, with the `bvModalEvent.trigger = trigger` (`trigger` is optional)"
               }
             ]
           }
