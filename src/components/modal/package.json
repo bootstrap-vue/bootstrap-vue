@@ -222,7 +222,7 @@
               {
                 "arg": "bvModalEvt",
                 "type": "BvModalEvent",
-                "description": "BvModalEvent object. Call bvModalEvt.preventDefault() to cancel hide"
+                "description": "BvModalEvent object. `bvModalEvt.trigger` will be the type of event that triggers the hide. Call bvModalEvt.preventDefault() to cancel hide"
               }
             ]
           },
