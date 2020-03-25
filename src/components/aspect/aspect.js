@@ -14,6 +14,10 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
       // Or a string (i.e. '16/9', '16:9', '4:3' '1:1')
       type: [Number, String],
       default: 1
+    },
+    tag: {
+      type: String,
+      default: 'div'
     }
   },
   computed: {
@@ -42,6 +46,6 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
       },
       [this.normalizeSlot('default')]
     )
-    return h('div', { staticClass: 'b-aspect d-flex' }, [$sizer, $content])
+    return h(this.tag, { staticClass: 'b-aspect d-flex' }, [$sizer, $content])
   }
 })
