@@ -1,11 +1,11 @@
 ---
-name: Documentation issue
+name: 📖 Documentation issue
 about: Help improve our docs.
 ---
 
 ### Documentation issue
 
-<!-- replace [ ] with [x] to check the box -->
+<!-- (Update "[ ]" to "[x]" to check a box) -->
 
 - [ ] Reporting a typo
 - [ ] Reporting a documentation bug
@@ -19,7 +19,7 @@ about: Help improve our docs.
 
 ### Is there a specific documentation page you are reporting?
 
-<!-- enter the URL or documentation section here -->
+Enter the URL or documentation section here.
 
 ### Additional context or description
 
