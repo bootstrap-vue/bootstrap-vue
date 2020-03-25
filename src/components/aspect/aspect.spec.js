@@ -56,10 +56,10 @@ describe('aspect', () => {
 
     wrapper.destroy()
   })
-  it('should have expected structure when aspect is set to `4/3`', async () => {
+  it('should have expected structure when aspect is set to `16/9`', async () => {
     const wrapper = mount(BAspect, {
       propsData: {
-        aspect: 4 / 3
+        aspect: 16 / 9
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
@@ -72,7 +72,7 @@ describe('aspect', () => {
     expect($sizer.exists()).toBe(true)
     expect($sizer.is('div')).toBe(true)
     expect($sizer.classes()).toContain('flex-grow-1')
-    expect($sizer.attributes('style')).toContain('padding-bottom: 75%;')
+    expect($sizer.attributes('style')).toContain('padding-bottom: 56.25%;')
 
     const $content = wrapper.find('.b-aspect-content')
     expect($content.exists()).toBe(true)
