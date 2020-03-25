@@ -5,7 +5,7 @@
     "title": "Aspect",
     "new": true,
     "version": "2.9.0",
-    "description": "The `<b-aspect>` component can be used to maintain a specific aspect ratio for content.",
+    "description": "The `<b-aspect>` component can be used to maintain a minimum responsive aspect ratio for content.",
     "components": [
       {
         "component": "BAspect",
