@@ -17,7 +17,7 @@ $b-sidebar-zindex: calc($zindex-fixed + 5) !default;
   color: inherit;
   background-color: inherit;
   outline: 0;
-  transform: none;
+  transform: translateX(0);
   z-index: $b-sidebar-zindex;
 
   &.slide {
