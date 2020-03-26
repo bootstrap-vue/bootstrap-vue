@@ -32,7 +32,7 @@
           },
           {
             "prop": "shadow",
-            "description": "Set to boolean `true` for default shadow, 'sm' for small shadow, or 'lg' for large shadow. Default is no shadow"
+            "description": "Set to boolean `true` for mediua shadow, 'sm' for small shadow, 'lg' for large shadow, or boolenan `false` for no shadow. Default is no shadow"
           },
           {
             "prop": "noSlide",
