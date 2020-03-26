@@ -6,7 +6,9 @@
     "new": true,
     "version": "2.10.0",
     "description": "The `<b-sidebar>` component creates a fixed viewport, left or right, sliding popout drawer.",
-    "plugins": [],
+    "plugins": [
+      "VBToggle"
+    ],
     "components": [
       {
         "component": "BSidebar",
