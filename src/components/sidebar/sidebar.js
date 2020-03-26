@@ -41,6 +41,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     shadow: {
       type: [Boolean, String],
       default: false
+    },
+    width: {
+      type: String
+      // default: null
     }
   },
   data() {
@@ -128,6 +132,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   render(h) {
     const localShow = !!this.localShow
     const shadow = this.shadow === '' ? true : this.shadow
+    const width = this.width
 
     let $sidebar = h()
     if (localShow) {
@@ -146,8 +151,9 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
             id: this.safeId(),
             tabindex: '-1',
             role: 'dialog',
-            modal: 'false'
-          }
+            'aria-modal': 'false'
+          },
+          style: width ? { width } : {}
         },
         [this.normalizeSlot('default', { expanded: localShow, hide: this.hide })]
       )
