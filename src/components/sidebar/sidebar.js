@@ -54,12 +54,12 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         ? { css: true }
         : {
             css: true,
-            enterClass: 'd-none',
+            enterClass: '',
             enterActiveClass: 'slide',
             enterToClass: 'show',
             leaveClass: 'show',
             leaveActiveClass: 'slide',
-            leaveToClass: 'd-none'
+            leaveToClass: ''
           }
     }
   },
