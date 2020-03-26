@@ -41,6 +41,10 @@
           {
             "prop": "width",
             "description": "CSS width for the sidebar. Defaults to '320px' as defined by SCSS/CSS"
+          },
+          {
+            "prop": "zIndex",
+            "description": "Specify an arbitrary z-index value to override the value defined by SCSS/CSS"
           }
         ],
         "events": [
