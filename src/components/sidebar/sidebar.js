@@ -62,7 +62,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
             leaveActiveClass: 'slide',
             leaveToClass: ''
           }
-    },
+    }
   },
   watch: {
     show(newVal, oldVal) {
