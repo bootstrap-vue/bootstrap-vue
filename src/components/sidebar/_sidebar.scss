@@ -4,15 +4,12 @@ $b-sidebar-padding-y: $navbar-padding-y !default;
 $b-sidebar-width: 320px !default;
 $b-sidebar-transition-duration: 0.3s !default;
 // this needs to be overridden for docs
-$b-sidebar-zindex: $zindex-fixed !default;
+$b-sidebar-zindex: calc($zindex-fixed + 5) !default;
 
 .b-sidebar {
   position: fixed;
   top: 0;
   bottom: 0;
-  left: 0;
-  right: auto;
-  z-index: $b-sidebar-zindex;
   width: $b-sidebar-width;
   max-width: 100%;
   padding: $b-sidebar-padding-y $b-sidebar-padding-x;
@@ -21,18 +18,27 @@ $b-sidebar-zindex: $zindex-fixed !default;
   background-color: inherit;
   outline: 0;
   transform: none;
+  z-index: $b-sidebar-zindex;
 
   &.slide {
     transition: transform $b-sidebar-transition-duration ease-in-out;
-    transform: translateX(-100%);
     @media (prefers-reduced-motion: reduce) {
       transition: none;
     }
   }
 
+  &:not(.sidebar-right) {
+    left: 0;
+    right: auto;
+    
+    &.slide {
+      transform: translateX(-100%);
+    }
+  }
+
   &.b-sidebar-right {
-    right: 0;
     left: auto;
+    right: 0;
 
     &.slide {
       transform: translateX(100%);
