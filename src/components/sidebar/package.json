@@ -29,6 +29,10 @@
             "description": "Theme variant color for the text of the sidebar"
           },
           {
+            "prop": "shadow",
+            "description": "Set to boolean `true` for default shadow, 'sm' for small shadow, or 'lg' for large shadow. Default is no shadow"
+          },
+          {
             "prop": "noSlide",
             "description": "When set, disables the default sliding animation"
           }
