@@ -5,11 +5,6 @@ import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { EVENT_TOGGLE, EVENT_STATE, EVENT_STATE_REQUEST } from '../../directives/toggle/toggle'
 
-// TODO:
-//  - Listen for other sidebars opening and close self
-
-const EVENT_SIDEBAR = 'bv::sidebar::show'
-
 // @vue/component
 export const BSidebar = /*#__PURE__*/ Vue.extend({
   name: 'BSidebar',
@@ -86,7 +81,6 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     this.localShow = !!this.show
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggle)
     this.listenOnRoot(EVENT_STATE_REQUEST, this.handleSync)
-    this.listenOnRoot(EVENT_SIDEBAR, this.handleOthers)
   },
   beforeDestroy() {
     this.localShow = false
@@ -104,12 +98,6 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     handleSync(id) /* istanbul ignore next: until tests are created */ {
       if (id && id === this.safeId()) {
         this.emitState(this.localShow)
-      }
-    },
-    handleOthers(id) /* istanbul ignore next: until tests are created */ {
-      // Close self when another sidebar opens
-      if (id && id !== this.safeId()) {
-        this.localShow = false
       }
     },
     onBeforeEnter() {
@@ -154,7 +142,9 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           },
           attrs: {
             id: this.safeId(),
-            tabindex: '-1'
+            tabindex: '-1',
+            role: 'dialog',
+            modal: 'false'
           }
         },
         [this.normalizeSlot('default', { expanded: localShow })]
