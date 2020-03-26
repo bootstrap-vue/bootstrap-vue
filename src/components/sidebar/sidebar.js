@@ -122,7 +122,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         }
       } catch {}
       this.$emit('shown')
-    }
+    },
     onAfterLeave() {
       try {
         this.$_returnFocusEl.focus()
