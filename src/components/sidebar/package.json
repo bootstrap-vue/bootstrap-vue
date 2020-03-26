@@ -1,0 +1,39 @@
+{
+  "name": "@bootstrap-vue/sidebar",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Sidebar",
+    "new": true,
+    "version": "2.10.0",
+    "description": "The `<b-sidebar>` component creates a fixed viewport, left or right, sliding popout drawer.",
+    "plugins": [],
+    "components": [
+      {
+        "component": "BSidebar",
+        "version": "2.10.0",
+        "props": [
+          {
+            "prop": "right",
+            "description": "When `true`, positions the sidebar on the right of the viewport"
+          },
+          {
+            "prop": "show",
+            "description": "When `true`, opens the sidebar"
+          },
+          {
+            "prop": "bgVariant",
+            "description": "Theme variant color for the background of the sidebar"
+          },
+          {
+            "prop": "textVariant",
+            "description": "Theme variant color for the text of the sidebar"
+          },
+          {
+            "prop": "noSlide",
+            "description": "When set, disables the default sliding animation"
+          }
+        ]
+      }
+    ]
+  }
+}
