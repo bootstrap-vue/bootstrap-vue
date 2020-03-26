@@ -87,6 +87,9 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     this.$_returnFocusEl = null
   },
   methods: {
+    hide() /* istanbul ignore next: until tests are created */ {
+      this.localShow = false
+    },
     emitState(state = this.localShow) {
       this.$root.$emit(EVENT_STATE, this.safeId(), state)
     },
@@ -146,7 +149,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
             modal: 'false'
           }
         },
-        [this.normalizeSlot('default', { expanded: localShow })]
+        [this.normalizeSlot('default', { expanded: localShow, hide: this.hide })]
       )
     }
 
