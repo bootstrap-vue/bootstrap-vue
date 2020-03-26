@@ -101,9 +101,9 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     emitState(state = this.localShow) {
       this.$root.$emit(EVENT_STATE, this.safeId(), state)
     },
-    handleToggle(id, show) /* istanbul ignore next: until tests are created */ {
+    handleToggle(id) /* istanbul ignore next: until tests are created */ {
       if (id && id === this.safeId()) {
-        this.localShow = !!show
+        this.localShow = !this.localShow
       }
     },
     handleSync(id) /* istanbul ignore next: until tests are created */ {
