@@ -105,7 +105,6 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       try {
         this.$_returnFocusEl = document.activeElement || null
       } catch {}
-      this.$root.$emit(EVENT_SIDEBAR, this.safeId())
     },
     onAfterEnter(el) {
       try {
