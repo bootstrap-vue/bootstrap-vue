@@ -400,10 +400,12 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         try {
           this.$refs.calendar.focus()
         } catch {}
+        this.$emit('shown')
       })
     },
     onHidden() {
       this.isVisible = false
+      this.$emit('hidden')
     },
     // Render helpers
     defaultButtonFn({ isHovered, hasFocus }) {

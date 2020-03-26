@@ -260,6 +260,16 @@
                 "type": "Object"
               }
             ]
+          },
+          {
+            "event": "shown",
+            "version": "2.9.0",
+            "description": "Emitted when the picker popup has shown"
+          },
+          {
+            "event": "hidden",
+            "version": "2.9.0",
+            "description": "Emitted when the picker popup has hidden"
           }
         ],
         "slots": [

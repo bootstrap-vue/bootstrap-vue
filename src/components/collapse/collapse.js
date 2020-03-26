@@ -1,23 +1,24 @@
 import Vue from '../../utils/vue'
-import { isBrowser } from '../../utils/env'
-import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOnOff } from '../../utils/events'
 import { BVCollapse } from '../../utils/bv-collapse'
+import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
+import { isBrowser } from '../../utils/env'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOnOff } from '../../utils/events'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import {
+  EVENT_TOGGLE,
+  EVENT_STATE,
+  EVENT_STATE_REQUEST,
+  EVENT_STATE_SYNC
+} from '../../directives/toggle/toggle'
 
-// Events we emit on $root
-const EVENT_STATE = 'bv::collapse::state'
+// --- Constants ---
+
+// Accordion event name we emit on `$root`
 const EVENT_ACCORDION = 'bv::collapse::accordion'
-// Private event we emit on `$root` to ensure the toggle state is
-// always synced. It gets emitted even if the state has not changed!
-// This event is NOT to be documented as people should not be using it
-const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
-// Events we listen to on `$root`
-const EVENT_TOGGLE = 'bv::toggle::collapse'
-const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
+// --- Main component ---
 // @vue/component
 export const BCollapse = /*#__PURE__*/ Vue.extend({
   name: 'BCollapse',
