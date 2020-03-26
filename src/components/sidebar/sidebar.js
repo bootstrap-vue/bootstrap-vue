@@ -42,6 +42,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     noSlide: {
       type: Boolean,
       default: false
+    },
+    shadow: {
+      type: [Boolean, String],
+      default: false;
     }
   },
   data() {
@@ -133,6 +137,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const localShow = !!this.localShow
+    const shadow = this.shadow === '' ? true : this.shadow
 
     let $sidebar = h()
     if (localShow) {
@@ -141,6 +146,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         {
           staticClass: 'b-sidebar',
           class: {
+            shadow: shadow === true,
+            [`shadow-${shadow}]: shadow && shadow !== true,
             'b-sidebar-right': this.right,
             [`bg-${this.bgVariant}`]: !!this.bgVariant,
             [`text-${this.textVariant}`]: !!this.textVariant
