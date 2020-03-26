@@ -15,7 +15,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   name: 'BSidebar',
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
-    prop: 'show'
+    prop: 'show',
     event: 'input'
   },
   props: {
@@ -55,7 +55,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         ? { css: true }
         : {
             css: true,
-            enterClass: ''
+            enterClass: '',
             enterActiveClass: 'slide',
             enterToClass: 'show',
             leaveClass: 'show',
@@ -63,7 +63,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
             leaveToClass: ''
           }
     },
-  }
+  },
   watch: {
     show(newVal, oldVal) {
       if (newVal !== !oldVal) {
