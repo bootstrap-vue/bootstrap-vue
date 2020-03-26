@@ -2,6 +2,40 @@
 
 > All notable changes to this project will be documented in this file.
 
+<a name="2.9.0"></a>
+
+## [v2.9.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.8.0...v2.9.0)
+
+Released: 2020-03-25
+
+### Features v2.9.0
+
+- **b-aspect:** new custom component `<b-aspect>`
+  ([#5008](https://github.com/bootstrap-vue/bootstrap-vue/issues/5008))
+  ([662c8e0](https://github.com/bootstrap-vue/bootstrap-vue/commit/662c8e0709c8c73fb2119976d1906943cfe6daad))
+- **b-avatar:** add `alt` prop for adding alt attribute to image and icon avatars (closes
+  [#4990](https://github.com/bootstrap-vue/bootstrap-vue/issues/4990))
+  ([#4991](https://github.com/bootstrap-vue/bootstrap-vue/issues/4991))
+  ([d1474f2](https://github.com/bootstrap-vue/bootstrap-vue/commit/d1474f28729e4e13ad97b75a87d56f85543d4c96))
+- **b-drodpown-item-button, b-drodpown-item-button:** add `button-class` and `link-class` prop
+  ([#5014](https://github.com/bootstrap-vue/bootstrap-vue/issues/5014))
+  ([b39d31c](https://github.com/bootstrap-vue/bootstrap-vue/commit/b39d31cede76b594b5608fa472d53e3dac525e2b))
+- **b-form-datepicker, b-form-timepicker:** emit `shown` and `hidden` events
+  ([#5004](https://github.com/bootstrap-vue/bootstrap-vue/issues/5004))
+  ([eb259b9](https://github.com/bootstrap-vue/bootstrap-vue/commit/eb259b998dfd3e88a1b04ed8d3f4c97560f69dbb))
+- **b-navbar-toggle:** make default slot scoped
+  ([#4995](https://github.com/bootstrap-vue/bootstrap-vue/issues/4995))
+  ([144d45f](https://github.com/bootstrap-vue/bootstrap-vue/commit/144d45fb0e4d66bbf243b4a4df39d7f3b9b5c7cc))
+
+### Docs v2.9.0
+
+- Ensure that the `IconsPlugin` is imported when exporting from playground to CodePen, CodeSandbox,
+  and JsFiddle ([#5003](https://github.com/bootstrap-vue/bootstrap-vue/issues/5003))
+
+### Other v2.9.0
+
+- dev dependency updates
+
 <a name="2.8.0"></a>
 
 ## [v2.8.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.7.0...v2.8.0)
