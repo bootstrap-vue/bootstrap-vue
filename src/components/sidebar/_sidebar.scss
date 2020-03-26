@@ -11,7 +11,7 @@ $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
   top: 0;
   bottom: 0;
   width: $b-sidebar-width;
-  max-width: 100%;
+  max-width: 100% !important;
   padding: $b-sidebar-padding-y $b-sidebar-padding-x;
   overflow-y: auto;
   color: inherit;
