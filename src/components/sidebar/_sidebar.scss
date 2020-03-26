@@ -40,7 +40,7 @@ $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
     left: auto;
     right: 0;
 
-    &.slide:not(:show) {
+    &.slide:not(.show) {
       transform: translateX(100%);
     }
   }
