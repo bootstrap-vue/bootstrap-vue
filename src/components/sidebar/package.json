@@ -32,7 +32,17 @@
             "prop": "noSlide",
             "description": "When set, disables the default sliding animation"
           }
-        ]
+        ],
+        "events": [
+          {
+            "event": "shown",
+            "description": "Emitted when the sidebar is showing"
+          },
+          {
+            "event": "hidden",
+            "description": "Emitted when the sidebar has been hidden"
+          }
+        ] 
       }
     ]
   }
