@@ -147,7 +147,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           staticClass: 'b-sidebar',
           class: {
             shadow: shadow === true,
-            [`shadow-${shadow}]: shadow && shadow !== true,
+            [`shadow-${shadow}`]: shadow && shadow !== true,
             'b-sidebar-right': this.right,
             [`bg-${this.bgVariant}`]: !!this.bgVariant,
             [`text-${this.textVariant}`]: !!this.textVariant
