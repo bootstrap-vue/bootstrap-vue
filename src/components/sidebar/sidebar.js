@@ -45,7 +45,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     shadow: {
       type: [Boolean, String],
-      default: false;
+      default: false
     }
   },
   data() {
