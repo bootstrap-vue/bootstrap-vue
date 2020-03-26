@@ -66,7 +66,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     show(newVal, oldVal) {
-      if (newVal !== !oldVal) {
+      if (!!newVal !== !!oldVal) {
         this.localShow = !!newVal
       }
     },
@@ -92,17 +92,17 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     emitState(state = this.localShow) {
       this.$root.$emit(EVENT_STATE, this.safeId(), state)
     },
-    handleToggle(id, show) {
+    handleToggle(id, show) /* istanbul ignore next: until tests are created */ {
       if (id && id === this.safeId()) {
         this.localShow = !!show
       }
     },
-    handleSync(id) {
+    handleSync(id) /* istanbul ignore next: until tests are created */ {
       if (id && id === this.safeId()) {
         this.emitState(this.localShow)
       }
     },
-    handleOthers(id) {
+    handleOthers(id) /* istanbul ignore next: until tests are created */ {
       // Close self when another sidebar opens
       if (id && id !== this.safeId()) {
         this.localShow = false
