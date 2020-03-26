@@ -1,7 +1,8 @@
-import { mount, createWrapper /* , createLocalVue as CreateLocalVue */ } from '@vue/test-utils'
+import { mount /* , createWrapper, createLocalVue as CreateLocalVue */ } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BSidebar } from './sidebar'
 
+/*
 // Events sidebar emits on $root
 const EVENT_STATE = 'bv::collapse::state'
 
@@ -10,10 +11,11 @@ const EVENT_TOGGLE = 'bv::toggle::collapse'
 
 const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
+*/
 
 describe('sidebar', () => {
   it('should have expected default structure', async () => {
-    const wrapper = mount(BCollapse, {
+    const wrapper = mount(BSidebar, {
       attachToDocument: true,
       propsData: {
         id: 'test-1',
