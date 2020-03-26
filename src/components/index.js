@@ -42,6 +42,7 @@ import { PaginationPlugin } from './pagination'
 import { PaginationNavPlugin } from './pagination-nav'
 import { PopoverPlugin } from './popover'
 import { ProgressPlugin } from './progress'
+import { SidebarPlugin } from './sidebar'
 import { SpinnerPlugin } from './spinner'
 // Table plugin includes TableLitePlugin and TableSimplePlugin
 import { TablePlugin } from './table'
@@ -94,6 +95,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     PaginationNavPlugin,
     PopoverPlugin,
     ProgressPlugin,
+    SidebarPlugin,
     SpinnerPlugin,
     TablePlugin,
     TabsPlugin,
