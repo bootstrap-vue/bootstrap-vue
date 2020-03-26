@@ -46,7 +46,25 @@
             "event": "hidden",
             "description": "Emitted when the sidebar has been hidden"
           }
-        ] 
+        ],
+        "slots": [
+          {
+            "name": "defaut",
+            "description": "Content to place in the sidebar",
+            "scope": [
+              {
+                "prop": "hide",
+                "type": "Function",
+                "description": "When called, will close the sidebar"
+              },
+              {
+                "prop": "expanded",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is open"
+              }
+            ]
+          }
+        ]
       }
     ]
   }
