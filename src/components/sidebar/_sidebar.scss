@@ -31,7 +31,7 @@ $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
     left: 0;
     right: auto;
     
-    &.slide {
+    &.slide:not(.show) {
       transform: translateX(-100%);
     }
   }
@@ -40,12 +40,9 @@ $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
     left: auto;
     right: 0;
 
-    &.slide {
+    &.slide:not(:show) {
       transform: translateX(100%);
     }
   }
 
-  &.show {
-    transform: translateX(0);
-  }
 }
