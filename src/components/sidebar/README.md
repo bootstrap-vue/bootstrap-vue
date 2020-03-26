@@ -24,6 +24,11 @@ TBD
 
 Alternatively, you can apply styles or classes to specify the background and text colors.
 
+### Borders
+
+By default, `<b-sidebar>` has no borders.  Use border utility classes and bordeer variant classed
+yo add border(s) to `<b-sidebar>`, or use style overrides.
+
 ### Position
 
 TBD
