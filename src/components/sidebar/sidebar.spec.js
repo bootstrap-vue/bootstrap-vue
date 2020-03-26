@@ -53,6 +53,14 @@ describe('sidebar', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     // TODO: Need to test for comment node
 
+    wrapper.setProps({
+      show: true
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
     wrapper.destroy()
   })
 })
