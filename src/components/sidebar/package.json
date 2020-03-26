@@ -31,12 +31,16 @@
             "description": "Theme variant color for the text of the sidebar"
           },
           {
+            "prop": "noSlide",
+            "description": "When set, disables the default sliding animation"
+          },
+          {
             "prop": "shadow",
             "description": "Set to boolean `true` for mediua shadow, 'sm' for small shadow, 'lg' for large shadow, or boolenan `false` for no shadow. Default is no shadow"
           },
           {
-            "prop": "noSlide",
-            "description": "When set, disables the default sliding animation"
+            "prop": "width",
+            "description": "CSS width for the sidebar. Defaults to '320px' as defined by SCSS/CSS"
           }
         ],
         "events": [
