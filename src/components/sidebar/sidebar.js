@@ -45,6 +45,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     width: {
       type: String
       // default: null
+    },
+    zIndex: {
+      type: [Number, String]
+      // default: null
     }
   },
   data() {
@@ -132,7 +136,6 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   render(h) {
     const localShow = !!this.localShow
     const shadow = this.shadow === '' ? true : this.shadow
-    const width = this.width
 
     let $sidebar = h()
     if (localShow) {
@@ -153,7 +156,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
             role: 'dialog',
             'aria-modal': 'false'
           },
-          style: width ? { width } : {}
+          style: { width: this.width, zIndex: this.zIndex }
         },
         [this.normalizeSlot('default', { expanded: localShow, hide: this.hide })]
       )
