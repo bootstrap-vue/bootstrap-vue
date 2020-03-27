@@ -23,8 +23,8 @@
             "description": "When `true`, positions the sidebar on the right of the viewport"
           },
           {
-            "prop": "show",
-            "description": "When `true`, opens the sidebar"
+            "prop": "visible",
+            "description": "When `true`, opens the sidebar. This is the `v-model`"
           },
           {
             "prop": "bgVariant",
