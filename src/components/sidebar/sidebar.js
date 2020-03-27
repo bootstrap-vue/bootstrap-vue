@@ -137,30 +137,28 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     const localShow = !!this.localShow
     const shadow = this.shadow === '' ? true : this.shadow
 
-    let $sidebar = h()
-    if (localShow) {
-      $sidebar = h(
-        this.tag,
-        {
-          staticClass: 'b-sidebar',
-          class: {
-            shadow: shadow === true,
-            [`shadow-${shadow}`]: shadow && shadow !== true,
-            'b-sidebar-right': this.right,
-            [`bg-${this.bgVariant}`]: !!this.bgVariant,
-            [`text-${this.textVariant}`]: !!this.textVariant
-          },
-          attrs: {
-            id: this.safeId(),
-            tabindex: '-1',
-            role: 'dialog',
-            'aria-modal': 'false'
-          },
-          style: { width: this.width, zIndex: this.zIndex }
+    const $sidebar = h(
+      this.tag,
+      {
+        directives: [{ name: 'show', value: localShow }],
+        staticClass: 'b-sidebar',
+        class: {
+          shadow: shadow === true,
+          [`shadow-${shadow}`]: shadow && shadow !== true,
+          'b-sidebar-right': this.right,
+          [`bg-${this.bgVariant}`]: !!this.bgVariant,
+          [`text-${this.textVariant}`]: !!this.textVariant
         },
-        [this.normalizeSlot('default', { expanded: localShow, hide: this.hide })]
-      )
-    }
+        attrs: {
+          id: this.safeId(),
+          tabindex: '-1',
+          role: 'dialog',
+          'aria-modal': 'false'
+        },
+        style: { width: this.width, zIndex: this.zIndex }
+      },
+      [this.normalizeSlot('default', { expanded: localShow, hide: this.hide })]
+    )
 
     return h(
       'transition',
