@@ -122,8 +122,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     show(newVal, oldVal) {
-      if (!!newVal !== !!oldVal) {
-        this.localShow = !!newVal
+      if (newVal !== oldVal) {
+        this.localShow = newVal
       }
     },
     localShow(newVal, oldVal) {
@@ -137,7 +137,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     // Define non-reactive properties
     this.$_returnFocusEl = null
     // Set initial show state
-    this.localShow = !!this.show
+    this.localShow = this.show
     // Add `$root` listeners
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggle)
     this.listenOnRoot(EVENT_STATE_REQUEST, this.handleSync)
@@ -192,9 +192,9 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const localShow = !!this.localShow
+    const localShow = this.localShow
     const shadow = this.shadow === '' ? true : this.shadow
-    const right = !!this.right
+    const right = this.right
     const scope = { expanded: localShow, hide: this.hide, right }
     const title = this.normalizeSlot('title', scope) || toString(this.title) || null
     const titleId = title ? this.safeId('__title__') : null
