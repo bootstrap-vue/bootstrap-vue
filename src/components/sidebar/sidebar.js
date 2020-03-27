@@ -177,7 +177,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      // internal v-model state
+      // Internal `v-model` state
       localShow: false,
       // For lazy render triggering
       isOpen: false
@@ -228,7 +228,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     this.$_returnFocusEl = null
     // Set initial show state
     this.localShow = this.show
-    // Set initia render state
+    // Set initial render state
     this.isOpen = this.show
     // Add `$root` listeners
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggle)
