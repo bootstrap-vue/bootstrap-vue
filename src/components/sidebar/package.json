@@ -115,7 +115,7 @@
                 "description": "When called, will close the sidebar"
               },
               {
-                "prop": "expanded",
+                "prop": "visible",
                 "type": "Boolean",
                 "description": "`true` if the sidebar is open"
               },
@@ -136,7 +136,7 @@
                 "description": "When called, will close the sidebar"
               },
               {
-                "prop": "expanded",
+                "prop": "visible",
                 "type": "Boolean",
                 "description": "`true` if the sidebar is open"
               },
@@ -157,7 +157,7 @@
                 "description": "When called, will close the sidebar"
               },
               {
-                "prop": "expanded",
+                "prop": "visible",
                 "type": "Boolean",
                 "description": "`true` if the sidebar is open"
               },
