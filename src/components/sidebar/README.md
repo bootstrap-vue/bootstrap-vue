@@ -134,9 +134,13 @@ additional details.
 
 ### Z-index
 
-The sidebar has a default `z-index` defined in SCSS/CSS. In some situations you may need to use
-a different z-index to ensure the sidebar appears over other content. You can do so eitehr CSS
-styles, or via the `z-index` prop.
+The sidebar has a default `z-index` defined in SCSS/CSS. In some situations you may need to use a
+different `z-index` to ensure the sidebar appears over or under other content. You can do so either
+via CSS styles, or via the `z-index` prop.
+
+### Scoped default slot
+
+TBD
 
 ### Hiding the header
 
