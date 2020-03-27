@@ -1,6 +1,4 @@
 // These variables will be moved to /src/_variables.scsss
-$b-sidebar-padding-x: $navbar-padding-x !default;
-$b-sidebar-padding-y: $navbar-padding-y !default;
 $b-sidebar-width: 320px !default;
 $b-sidebar-transition-duration: 0.3s !default;
 // this needs to be overridden for docs
@@ -12,7 +10,6 @@ $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
   bottom: 0;
   width: $b-sidebar-width;
   max-width: 100% !important;
-  padding: $b-sidebar-padding-y $b-sidebar-padding-x;
   overflow-y: auto;
   color: inherit;
   background-color: inherit;
@@ -44,5 +41,4 @@ $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
       transform: translateX(100%);
     }
   }
-
 }
