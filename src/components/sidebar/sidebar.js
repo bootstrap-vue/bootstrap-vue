@@ -153,7 +153,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           id: this.safeId(),
           tabindex: '-1',
           role: 'dialog',
-          'aria-modal': 'false'
+          'aria-modal': 'false',
+          'aria-hidden': localShow ? 'true' : null
         },
         style: { width: this.width, zIndex: this.zIndex }
       },
