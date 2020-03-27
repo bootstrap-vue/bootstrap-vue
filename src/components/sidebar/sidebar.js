@@ -183,9 +183,9 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   data() {
     return {
       // Internal `v-model` state
-      localShow: false,
+      localShow: !!this.show,
       // For lazy render triggering
-      isOpen: false
+      isOpen: !!this.show
     }
   },
   computed: {
@@ -231,10 +231,6 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   created() {
     // Define non-reactive properties
     this.$_returnFocusEl = null
-    // Set initial show state
-    this.localShow = this.show
-    // Set initial render state
-    this.isOpen = this.show
   },
   mounted() {
     // Add `$root` listeners
