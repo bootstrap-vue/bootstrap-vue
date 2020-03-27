@@ -47,32 +47,39 @@ const renderHeader = (h, ctx) => {
 }
 
 const renderBody = (h, ctx) => {
-  if (ctx.lazy && !ctx.localShow) {
-    return h()
-  }
   return h(
     'div',
     {
       staticClass: `${CLASS_NAME}-body`,
       class: ctx.bodyClass
     },
-    ctx.normalizeSlot('default', ctx.slotScope)
+    [ctx.normalizeSlot('default', ctx.slotScope)]
   )
 }
 
 const renderFooter = (h, ctx) => {
-  if ((ctx.lazy && !ctx.localShow) || !ctx.hasNormalizedSlot('footer')) {
+  const $footer = ctx.normalizeSlot('footer', ctx.slotScope)
+  if (!$footer) {
     return h()
   }
-  let $footer = ctx.normalizeSlot('footer', ctx.slotScope)
   return h(
     'footer',
     {
       staticClass: `${CLASS_NAME}-footer`,
       class: ctx.footerClass
     },
-    [ctx.normalizeSlot('footer', ctx.slotScope)]
+    [$footer]
   )
+}
+
+const renderContent = (h, ctx) => {
+  // We render the header even if `lazy` is enabled as it
+  // acts as the accessible label for the sidebar
+  const $header = renderHeader(h, ctx)
+  if (ctx.lazy && !ctx.localShow) {
+    return $header
+  }
+  return [$header, renderBody(h, ctx), renderFooter(h, ctx)]
 }
 
 // --- Main component ---
@@ -295,7 +302,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         style: { width: this.width, zIndex: this.zIndex },
         on: { keydown: this.onKeydown }
       },
-      [renderHeader(h, ctx), renderBody(h, ctx), renderFooter(h, ctx)]
+      [renderContent(h, this)]
     )
 
     return h(
