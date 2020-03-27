@@ -40,7 +40,7 @@
           },
           {
             "prop": "shadow",
-            "description": "Set to boolean `true` for mediua shadow, 'sm' for small shadow, 'lg' for large shadow, or boolenan `false` for no shadow. Default is no shadow"
+            "description": "Set to boolean `true` for medium shadow, 'sm' for small shadow, 'lg' for large shadow, or boolean `false` for no shadow. Default is no shadow"
           },
           {
             "prop": "width",
@@ -64,13 +64,13 @@
           },
           {
             "prop": "noCloseOnEsc",
-            "description": "When set, disables closing the sidebar when the user presses ESC "
+            "description": "When set, disables closing the sidebar when the user presses ESC"
           }
         ],
         "events": [
           {
             "event": "input",
-            "description": "Emitted whenever the visibility of the sidebar changes. Used to update the v-model",
+            "description": "Emitted whenever the visibility of the sidebar changes. Used to update the `v-model`",
             "args": [
               {
                 "arg": "visible",
@@ -111,7 +111,7 @@
             ]
           },
           {
-            "name": "defaut",
+            "name": "default",
             "description": "Content to place in the sidebar",
             "scope": [
               {
