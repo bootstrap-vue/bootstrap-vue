@@ -271,7 +271,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     handleSync(id) {
       // Note `safeId()` can be null until after mount
       if (id && id === this.safeId()) {
-        this.$nextTick({} => {
+        this.$nextTick(() => {
           this.emitSync(this.localShow)
         })
       }
