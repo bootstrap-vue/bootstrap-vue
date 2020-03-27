@@ -1,4 +1,4 @@
-import { mount /* , createWrapper, createLocalVue as CreateLocalVue */ } from '@vue/test-utils'
+import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BSidebar } from './sidebar'
 
@@ -173,6 +173,87 @@ describe('sidebar', () => {
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.isVisible()).toBe(true)
 
+    wrapper.destroy()
+  })
+
+  it('closes when route changes', async () => {
+    const localVue = new CreateLocalVue()
+
+    const $route = new localVue({
+      data() {
+        return {
+          fullPath: '/'
+        }
+      }
+    })
+
+    const wrapper = mount(BSidebar, {
+      attachToDocument: true,
+      localVue,
+      propsData: {
+        id: 'test-route',
+      },
+      mocks: {
+        $route
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVisible()).toBe(false)
+
+    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-route')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVisible()).toBe(true)
+
+    // Fake the route changing
+    $route.fullPath = '/foo#bar'
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVisible()).toBe(false)
+
+    wrapper.setProps({
+      noCloseOnRouteChange: true
+    })
+    await waitNT(wrapper.vm)
+
+    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-route')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVisible()).toBe(true)
+
+    // Fake the route changing
+    $route.fullPath = '/baz/bar'
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.isVisible()).toBe(true)
+    
     wrapper.destroy()
   })
 
