@@ -257,7 +257,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     emitEvent(bvEvt) {
       const type = bvEvt.type
-      this.$root.$emit(`bv::toast:${type}`, bvEvt)
+      this.emitOnRoot(`bv::toast:${type}`, bvEvt)
       this.$emit(type, bvEvt)
     },
     ensureToaster() {
