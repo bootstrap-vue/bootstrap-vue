@@ -4,6 +4,8 @@ import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { EVENT_TOGGLE, EVENT_STATE, EVENT_STATE_REQUEST } from '../../directives/toggle/toggle'
+import { BButtonClose } from '../button/button-close'
+import { BIconX } from '../../icons/icons'
 
 // @vue/component
 export const BSidebar = /*#__PURE__*/ Vue.extend({
@@ -14,6 +16,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     event: 'input'
   },
   props: {
+    title: {
+      type: String
+      // default: null
+    },
     right: {
       type: Boolean,
       default: false
@@ -25,18 +31,6 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     textVariant: {
       type: String,
       default: 'dark'
-    },
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    show: {
-      type: Boolean,
-      default: false
-    },
-    noSlide: {
-      type: Boolean,
-      default: false
     },
     shadow: {
       type: [Boolean, String],
@@ -57,6 +51,22 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     ariaLabelledby: {
       type: String
       // default: null
+    },
+    show: {
+      type: Boolean,
+      default: false
+    },
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    noSlide: {
+      type: Boolean,
+      default: false
+    },
+    noHeader: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -144,9 +154,22 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   render(h) {
     const localShow = !!this.localShow
     const shadow = this.shadow === '' ? true : this.shadow
-    const ariaLabelledby = this.ariaLabelledby || null
-    // `ariaLabelledby` takes precedence over `ariaLabel`
-    const ariaLabel = ariaLabelledby ? null : this.ariaLabel || null
+    const right = this.right
+    const title = this.normalizeSlot('title') || toString(this.title) || null
+    const headerId = title ? this.safeId('__title__') : null
+    const ariaLabel = this.ariaLabel || null
+    // `ariaLabel` takes precedence over `ariaLabelledby`
+    const ariaLabelledby = this.ariaLabelledby || headerId || null
+
+    let $header = h()
+    if (!this.noHeader) {
+      const $title = title ? h() : h('strong', { attrs: { id: headerId } }, [title])
+      $header = h('header', { staticClass: 'b-sidebar-header' }, [
+        right ? $title : h(), 
+        h(BButtonClose, { on: { click: this.hide } }, [BIconX]),
+        !right ? $title : h(), 
+      ])
+    }
 
     const $sidebar = h(
       this.tag,
@@ -171,7 +194,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         },
         style: { width: this.width, zIndex: this.zIndex }
       },
-      [this.normalizeSlot('default', { expanded: localShow, hide: this.hide })]
+      [$header, this.normalizeSlot('default', { expanded: localShow, hide: this.hide })]
     )
 
     return h(
