@@ -1,11 +1,9 @@
-import Vue from 'vue'
 import { mount, createWrapper } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BSidebar } from './sidebar'
 
-// Events sidebar listens to on $root
 const EVENT_TOGGLE = 'bv::toggle::collapse'
-
+const EVENT_STATE = 'bv::collapse::state'
 const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
