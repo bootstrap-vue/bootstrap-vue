@@ -59,6 +59,14 @@
             "description": "Class, or classes, to apply to the built in header. Has no effect if prop `no-header` is set"
           },
           {
+            "prop": "bodyClass",
+            "description": "Class, or classes, to apply to the body (default slot) of the sidebar"
+          },
+          {
+            "prop": "footerClass",
+            "description": "Class, or classes, to apply to the optional `footer` slot"
+          },
+          {
             "prop": "noHeader",
             "description": "When set to `true` disabled rendering of hte default header (including close button)"
           },
