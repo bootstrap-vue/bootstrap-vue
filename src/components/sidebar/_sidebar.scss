@@ -1,6 +1,7 @@
 // These variables will be moved to /src/_variables.scsss
 $b-sidebar-width: 320px !default;
 $b-sidebar-transition-duration: 0.3s !default;
+$b-sidebar-header-font-size: 1.5em !default;
 $b-sidebar-header-padding-y: $navbar-padding-y !default;
 $b-sidebar-header-padding-x: $navbar-padding-x !default;
 // this needs to be overridden for docs
@@ -53,8 +54,17 @@ $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
   }
 
   > .b-sidebar-header {
+    font-size: 1.5em;
     padding: $b-sidebar-header-padding-y $b-sidebar-header-padding-x;
     display: flex;
+    flex-direction: row;
     align-items: center;
+
+    @at-root {
+      // Keep the buttons on the correct end when in RTL mode
+      [dir="rtl"] & {
+        flex-direction: row-reverse;
+      }
+    }
   }
 }
