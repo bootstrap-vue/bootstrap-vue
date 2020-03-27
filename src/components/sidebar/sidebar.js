@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { contains } from '../../utils/dom'
 import { toString } from '../../utils/string'
+import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -74,6 +75,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    noCloseOnEsc: {
+      type: Boolean,
+      default: false
+    },
     show: {
       type: Boolean,
       default: false
@@ -137,6 +142,11 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     handleSync(id) /* istanbul ignore next: until tests are created */ {
       if (id && id === this.safeId()) {
         this.emitState(this.localShow)
+      }
+    },
+    onKeydown(evt) /* istanbul ignore next: until tests are created */ {
+      if (!this.noCloseOnEsc && evt && evt.keycode === KeyCodes.ESC) {
+        this.hide()
       }
     },
     onBeforeEnter() {
@@ -208,7 +218,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           'aria-label': ariaLabel,
           'aria-labelledby': ariaLabelledby
         },
-        style: { width: this.width, zIndex: this.zIndex }
+        style: { width: this.width, zIndex: this.zIndex },
+        on: { keydown: this.onKeydown }
       },
       // TODO: Add in optional lazy render of default slot
       [$header, this.normalizeSlot('default', scope)]
