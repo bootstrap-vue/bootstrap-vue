@@ -151,13 +151,25 @@ via CSS styles, or via the `z-index` prop.
 
 ### Scoped default slot
 
+The `default` slot allows you to provide the body content for your sidebar. It is optionally scoped.
+
+You can apply arbitrary classes to the body section via the `body-class` prop.
+
 TBD
 
-### Hiding the header
+### Header
 
-You can hide the default header (including the close button) via the `no-header` prop. Note that you
+By default, `<b-sidebar>` has a header with optional title and a close button. You can supply a
+title via the `title` prop, or via the optionally scoped slot `title`.
+
+You can apply arbitrary classes to the header section via the `header-class` prop, to override the
+default padding, etc.
+
+#### Hiding the default header
+
+You can disable the default header (including the close button) via the `no-header` prop. Note that you
 will need to provide a method of closing the sidebar. The `default` slot is scoped, which includes a
-`hide` method that can be used to close the sidebar.
+`hide()` method that can be used to close the sidebar.
 
 ```html
 <template>
@@ -187,6 +199,16 @@ will need to provide a method of closing the sidebar. The `default` slot is scop
 
 <!-- b-sidebar-no-header.vue -->
 ```
+
+### Footer
+
+`<b-sidebar>` provides a `footer` slot (optionally scoped), to allow you to provide a footer that
+appears at the bottom of the sidebar. The `footer` slot is scoped, which includes a
+`hide()` method that can be used to close the sidebar.
+
+You can apply arbitrary classes to the footer section via the `footer-class` prop.
+
+TBD
 
 ## Visibility control
 
@@ -219,6 +241,19 @@ The `change` event is used to update the `v-model` and is emitted whenever the v
 the sidebar changes.
 
 ## Accessibility
+
+`<b-sidebar>` provides several accessibility features.
+
+When the sidebar is opened, the entire sidebar will receive focus, which is desirable for screen reader
+and keyboard-only users. When the sidebar is closed, the element that previously had focus before the
+sidebar was opened will be re-focused.
+
+When the sidbar is open, users can press <kbd>Esc</kbd> to close the sidebar. To disabled this feature,
+set the `no-close-on-esc` prop to `true`.
+
+When you have hidden the header, or do not have a title for the sidebar, set either `aria-label` to a
+string that describes the sidebar, or set `aria-labelledby` to an ID of an element that contains the
+title.
 
 TBD
 
