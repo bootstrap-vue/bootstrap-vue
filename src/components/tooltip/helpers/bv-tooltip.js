@@ -46,6 +46,9 @@ const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
 // Sidebar container selector for appending tooltip/popover
 const SIDEBAR_SELECTOR = '.b-sidebar'
 
+// For finding the container to append to
+const CONTAINER_SELECTOR = [MODAL_SELECTOR, SIDEBAR_SELECTOR].join(', ')
+
 // For dropdown sniffing
 const DROPDOWN_CLASS = 'dropdown'
 const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.show'
@@ -522,7 +525,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       //   And if not, self destruct (if container got v-if'ed out of DOM)
       //   Or this could possibly be part of the visibility check
       return container === false
-        ? closest(MODAL_SELECTOR, target) || closest(SIDEBAR_SELECTOR, target) || body
+        ? closest(CONTAINER_SELECTOR, target) || body
         : isString(container)
           ? getById(container.replace(/^#/, '')) || body
           : body
