@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
 import { contains } from '../../utils/dom'
+import { getComponentConfig } from '../../utils/config'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -9,9 +10,15 @@ import { EVENT_TOGGLE, EVENT_STATE, EVENT_STATE_REQUEST } from '../../directives
 import { BButtonClose } from '../button/button-close'
 import { BIconX } from '../../icons/icons'
 
+// --- Constants ---
+
+const NAME = 'BSidebar'
+const CLASS_NAME = 'b-sidebar'
+
+// --- Main component ---
 // @vue/component
 export const BSidebar = /*#__PURE__*/ Vue.extend({
-  name: 'BSidebar',
+  name: NAME,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
     prop: 'show',
@@ -24,23 +31,23 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     right: {
       type: Boolean,
-      default: false
+      default: () => getComponentConfig(NAME, 'right')
     },
     bgVariant: {
       type: String,
-      default: 'light'
+      default: () => getComponentConfig(NAME, 'bgVariant')
     },
     textVariant: {
       type: String,
-      default: 'dark'
+      default: () => getComponentConfig(NAME, 'textVariant')
     },
     shadow: {
       type: [Boolean, String],
-      default: false
+      default: () => getComponentConfig(NAME, 'shadow')
     },
     width: {
-      type: String
-      // default: null
+      type: String,
+      default: () => getComponentConfig(NAME, 'width')
     },
     zIndex: {
       type: [Number, String]
@@ -55,27 +62,36 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       // default: null
     },
     closeLabel: {
-      // `aria-label` for close button. Defaults to 'Close'
+      // `aria-label` for close button
+      // Defaults to 'Close'
       type: String
       // default: undefined
     },
     tag: {
       type: String,
-      default: 'div'
+      default: () => getComponentConfig(NAME, 'tag')
     },
     headerClass: {
       type: [String, Array, Object]
       // default: null
     },
+    contentClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
     noSlide: {
       type: Boolean,
-      default: false
+      default: () => getComponentConfig(NAME, 'noSlide')
     },
     noHeader: {
       type: Boolean,
       default: false
     },
     noCloseOnEsc: {
+      type: Boolean,
+      default: false
+    },
+    lazy: {
       type: Boolean,
       default: false
     },
@@ -118,8 +134,11 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
+    // Define non-reactive properties
     this.$_returnFocusEl = null
+    // Set initial show state
     this.localShow = !!this.show
+    // Add `$root` listeners
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggle)
     this.listenOnRoot(EVENT_STATE_REQUEST, this.handleSync)
   },
@@ -132,20 +151,21 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       this.localShow = false
     },
     emitState(state = this.localShow) {
-      this.$root.$emit(EVENT_STATE, this.safeId(), state)
+      this.emitOnRoot(EVENT_STATE, this.safeId(), state)
     },
     handleToggle(id) /* istanbul ignore next: until tests are created */ {
-      if (id && id === this.safeId()) {
+      if (id === this.safeId()) {
         this.localShow = !this.localShow
       }
     },
     handleSync(id) /* istanbul ignore next: until tests are created */ {
-      if (id && id === this.safeId()) {
+      if (id === this.safeId()) {
         this.emitState(this.localShow)
       }
     },
     onKeydown(evt) /* istanbul ignore next: until tests are created */ {
-      if (!this.noCloseOnEsc && evt && evt.keyCode === KeyCodes.ESC) {
+      const { keyCode } = evt
+      if (!this.noCloseOnEsc && keyCode === KeyCodes.ESC) {
         this.hide()
       }
     },
@@ -194,18 +214,39 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         [h(BIconX)]
       )
       $header = right ? [$close, $title] : [$title, $close]
-      $header = h('header', { staticClass: 'b-sidebar-header', class: this.headerClass }, $header)
+      $header = h(
+        'header',
+        {
+          staticClass: `${CLASS_NAME}-header`,
+          class: this.headerClass
+        },
+        $header
+      )
+    }
+
+    const $content = h(
+      'div',
+      {
+        staticClass: `${CLASS_NAME}-content`,
+        class: this.contentClass
+      },
+      this.normalizeSlot('default', scope)
+    )
+
+    let $body = h()
+    if (!(this.lazy && !this.localShow)) {
+      $body = h('div', { staticClass: `${CLASS_NAME}-body` }, [$header, $content])
     }
 
     const $sidebar = h(
       this.tag,
       {
         directives: [{ name: 'show', value: localShow }],
-        staticClass: 'b-sidebar',
+        staticClass: CLASS_NAME,
         class: {
           shadow: shadow === true,
           [`shadow-${shadow}`]: shadow && shadow !== true,
-          'b-sidebar-right': this.right,
+          [`${CLASS_NAME}-right`]: this.right,
           [`bg-${this.bgVariant}`]: !!this.bgVariant,
           [`text-${this.textVariant}`]: !!this.textVariant
         },
@@ -221,8 +262,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         style: { width: this.width, zIndex: this.zIndex },
         on: { keydown: this.onKeydown }
       },
-      // TODO: Add in optional lazy render of default slot
-      [$header, this.normalizeSlot('default', scope)]
+      [$body]
     )
 
     return h(

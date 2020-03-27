@@ -224,6 +224,14 @@ export default deepFreeze({
   BSpinner: {
     variant: null
   },
+  BSidebar: {
+    bgVariant: 'light',
+    textVariant: 'dark',
+    shadow: false,
+    width: null,
+    tag: 'div',
+    noSlide: false
+  },
   BTable: {
     selectedVariant: 'active',
     headVariant: null,
