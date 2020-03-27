@@ -1,10 +1,13 @@
 import Vue from 'vue'
-import { mount } from '@vue/test-utils'
+import { mount, createWrapper } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BSidebar } from './sidebar'
 
 // Events sidebar listens to on $root
 const EVENT_TOGGLE = 'bv::toggle::collapse'
+
+const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
+const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
 describe('sidebar', () => {
   it('should have expected default structure', async () => {
@@ -173,6 +176,42 @@ describe('sidebar', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.isVisible()).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('handles state sync requests', async () => {
+    const wrapper = mount(BSidebar, {
+      attachToDocument: true,
+      propsData: {
+        // 'id' is a required prop
+        id: 'test-sync',
+        show: true
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    const rootWrapper = createWrapper(wrapper.vm.$root)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).not.toBeDefined()
+
+    rootWrapper.vm.$root.$emit(EVENT_STATE_REQUEST, 'test-sync')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).toBeDefined()
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC).length).toBe(1)
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][0]).toBe('test-sync') // ID
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][1]).toBe(true) // Visible state
 
     wrapper.destroy()
   })
