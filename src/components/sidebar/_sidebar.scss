@@ -8,6 +8,8 @@
   outline: 0;
   transform: translateX(0);
   z-index: $b-sidebar-zindex;
+  display: flex !important;
+  flex-direction: column !important;
 
   &.slide {
     transition: transform $b-sidebar-transition-duration ease-in-out;
@@ -47,6 +49,7 @@
     padding: $b-sidebar-header-padding-y $b-sidebar-header-padding-x;
     display: flex;
     flex-direction: row;
+    flex-grow: 0;
     align-items: center;
 
     @at-root {
@@ -60,5 +63,14 @@
       float: none;
       font-size: $b-sidebar-header-font-size;
     }
+  }
+
+  > .b-sidebar-body {
+    flex-grow: 1;
+    height: 100%;
+  }
+
+  > .b-sidebar-footer {
+    flex-grow: 0;
   }
 }
