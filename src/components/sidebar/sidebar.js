@@ -6,7 +6,12 @@ import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { EVENT_TOGGLE, EVENT_STATE, EVENT_STATE_REQUEST } from '../../directives/toggle/toggle'
+import {
+  EVENT_TOGGLE,
+  EVENT_STATE,
+  EVENT_STATE_REQUEST,
+  EVENT_STATE_SYNC
+} from '../../directives/toggle/toggle'
 import { BButtonClose } from '../button/button-close'
 import { BIconX } from '../../icons/icons'
 
@@ -230,9 +235,18 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     this.localShow = this.show
     // Set initial render state
     this.isOpen = this.show
+  },
+  mounted() {
     // Add `$root` listeners
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggle)
     this.listenOnRoot(EVENT_STATE_REQUEST, this.handleSync)
+    // Send out a gratuitous state event to ensure toggle button is synced 
+    this.$nextTick(() => {
+      this.emitState(this.localShow)
+    })
+  },
+  activated() /* istanbul ignore next */ {
+    this.emitSync()
   },
   beforeDestroy() {
     this.localShow = false
@@ -245,14 +259,21 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     emitState(state = this.localShow) {
       this.emitOnRoot(EVENT_STATE, this.safeId(), state)
     },
+    emitSync(state = this.localShow) {
+      this.emitOnRoot(EVENT_STATE_SYNC, this.safeId(), state)
+    },
     handleToggle(id) {
-      if (id === this.safeId()) {
+      // Note `safeId()` can be null until after mount
+      if (id && id === this.safeId()) {
         this.localShow = !this.localShow
       }
     },
     handleSync(id) {
-      if (id === this.safeId()) {
-        this.emitState(this.localShow)
+      // Note `safeId()` can be null until after mount
+      if (id && id === this.safeId()) {
+        this.$nextTick({} => {
+          this.emitSync(this.localShow)
+        })
       }
     },
     onKeydown(evt) {
