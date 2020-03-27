@@ -41,6 +41,8 @@ describe('sidebar', () => {
     expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.classes()).not.toContain('slide')
     expect(wrapper.text()).toEqual('')
+    // Check for no presense of `display: none' from v-show
+    expect(wrapper.isVisible()).toBe(true)
 
     wrapper.setProps({
       show: false
@@ -51,7 +53,9 @@ describe('sidebar', () => {
     await waitRAF()
 
     expect(wrapper.isVueInstance()).toBe(true)
-    // TODO: Need to test for comment node
+    expect(wrapper.is('div')).toBe(true)
+    // Check for no presense of `display: none' from v-show
+    expect(wrapper.isVisible()).toBe(false)
 
     wrapper.setProps({
       show: true
@@ -60,6 +64,10 @@ describe('sidebar', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    // Check for no presense of `display: none' from v-show
+    expect(wrapper.isVisible()).toBe(true)
 
     wrapper.destroy()
   })
