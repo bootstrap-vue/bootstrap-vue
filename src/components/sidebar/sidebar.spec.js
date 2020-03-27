@@ -63,4 +63,84 @@ describe('sidebar', () => {
 
     wrapper.destroy()
   })
+
+  it('should have expected structure when `no-header` is set', async () => {
+    const wrapper = mount(BSidebar, {
+      attachToDocument: true,
+      propsData: {
+        id: 'test-2',
+        show: true,
+        noHeader: true
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+
+    // TBD
+
+    wrapper.destroy()
+  })
+
+  it('should have expected structure when `lazy` is set', async () => {
+    const wrapper = mount(BSidebar, {
+      attachToDocument: true,
+      propsData: {
+        id: 'test-3',
+        show: false,
+        lazy: true
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+
+    // TBD
+
+    wrapper.destroy()
+  })
+
+  it('should have expected structure when `footer` slot provided', async () => {
+    const wrapper = mount(BSidebar, {
+      attachToDocument: true,
+      propsData: {
+        id: 'test-4',
+        show: true
+      },
+      slots: {
+        footer: '<span>FOOTER</span>'
+      },
+      stubs: {
+        // Disable use of default test transitionStub component
+        transition: false
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+
+    // TBD
+
+    wrapper.destroy()
+  })
 })
