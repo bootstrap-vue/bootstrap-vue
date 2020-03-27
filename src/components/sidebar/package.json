@@ -120,7 +120,7 @@
           },
           {
             "name": "default",
-            "description": "Content to place in the sidebar",
+            "description": "Content to place in the body of the sidebar",
             "scope": [
               {
                 "prop": "hide",
