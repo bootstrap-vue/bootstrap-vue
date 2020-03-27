@@ -69,8 +69,19 @@
         ],
         "events": [
           {
+            "event": "input",
+            "description": "Emitted whenever the visibility of the sidebar changes. Used to update the v-model",
+            "args": [
+              {
+                "arg": "visible",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is open, `false` if it is closed"
+              }
+            ]
+          },
+          {
             "event": "shown",
-            "description": "Emitted when the sidebar is showing"
+            "description": "Emitted when the sidebar has opened"
           },
           {
             "event": "hidden",
