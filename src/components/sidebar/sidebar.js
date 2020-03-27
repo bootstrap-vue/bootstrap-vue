@@ -217,7 +217,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         this.$emit('change', newVal)
       }
     },
-    $route(newVal = {}, oldVal = {}) {
+    $route(newVal = {}, oldVal = {}) /* instanbul ignore next: pain to mock */ {
       if (!this.noCloseOnRouteChange && newVal.fullPath !== oldVal.fullPath) {
         this.hide()
       }
