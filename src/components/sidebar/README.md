@@ -42,7 +42,7 @@ be enabled via CSS.
 
 ## Styling
 
-Several props are provided for contoling the appearance and pacement of the sidebar.
+Several props are provided for controlling the appearance and placement of the sidebar.
 
 ### Title
 
@@ -54,13 +54,13 @@ If the [`no-header` prop](#hiding-the-header) is set, then neither the `title` p
 have any effect.
 
 If you do not provide a title, use either the `aria-label` or `aria-labelledby` props to provide an
-accessible title for the sidebar. See the [Accessibility section](#accessibility) below for additional
-details.
+accessible title for the sidebar. See the [Accessibility section](#accessibility) below for
+additional details.
 
 ### Placement
 
-By default the sidebar will be placed on the left side fo the viewport. Set the `right` prop to `true`
-to have the sidebar appear on the right side of the viewport.
+By default the sidebar will be placed on the left side fo the viewport. Set the `right` prop to
+`true` to have the sidebar appear on the right side of the viewport.
 
 ```html
 <template>
@@ -84,8 +84,8 @@ to have the sidebar appear on the right side of the viewport.
 ### Variants
 
 Use the props `bg-variant` and `text-variant` to control the theme color variant of the background
-and text, respectively. Alternatively, you can apply styles or classes to specify the background
-and text colors.
+and text, respectively. Alternatively, you can apply styles or classes to specify the background and
+text colors.
 
 ```html
 <template>
@@ -106,21 +106,22 @@ and text colors.
 <!-- b-sidebar-variant.vue -->
 ```
 
-The standard Bootstrap theme variants are `'white'`, `'light'`, `'dark'`, `'primary'`, `'secondary'`,
-`'success'`, `'danger'`, `'warning'`, and `'info'`.
+The standard Bootstrap theme variants are `'white'`, `'light'`, `'dark'`, `'primary'`,
+`'secondary'`, `'success'`, `'danger'`, `'warning'`, and `'info'`.
 
 The default background variant is `'light'` and the default text variant is `'dark'`.
 
 ### Shadow
 
 Prefer a sidebar with a backdrop shadow? Set the `shadow` prop to either boolean `true` for a medium
-shadow, `'sm'` for a small shadow, or `'lg'` for a larger shadow. Set it to `false` (the default) for
-no shadow.
+shadow, `'sm'` for a small shadow, or `'lg'` for a larger shadow. Set it to `false` (the default)
+for no shadow.
 
 ### Borders
 
-By default, `<b-sidebar>` has no borders. Use [border utility classes](/docs/reference/utility-classes)
-to add border(s) to `<b-sidebar>`, or use CSS style overrides.
+By default, `<b-sidebar>` has no borders. Use
+[border utility classes](/docs/reference/utility-classes) to add border(s) to `<b-sidebar>`, or use
+CSS style overrides.
 
 ### Width
 
@@ -130,7 +131,7 @@ provide a style of `width` to change the width to a preferred value. The max wid
 ### Padding
 
 The sidebar by default has no padding. You can apply padding utility classes to the component, or
-margin/padding utility classes to the content of the sidebar
+margin/padding utility classes to the content of the sidebar.
 
 ### Disable slide transition
 
@@ -199,23 +200,23 @@ The majority of examples on this page use the `v-b-toggle` directive.
 
 ### `v-model`
 
-The `v-model` reflects the current visibility state of the sidebar. While it can be used to control the
-visibility state of the sidebar, it is reccomended to use the
-[`v-b-toggle` directive](#v-b-toggle-directive) to show the sidebar for accesibility reasons. If you do
-use the `v-model` to show the sidebar, you should place the `aria-controls="id"` attribute (where `id`
-is the ID of the sidebar) on the trigger element, and also set the `aria-explanded` attribute (also on
-the trigger element) to either the string `'true'` (if the sidebar is open) or `'false`' (if the
-slidebar is closed).
+The `v-model` reflects the current visibility state of the sidebar. While it can be used to control
+the visibility state of the sidebar, it is recommended to use the
+[`v-b-toggle` directive](#v-b-toggle-directive) to show the sidebar for accessibility reasons. If
+you do use the `v-model` to show the sidebar, you should place the `aria-controls="id"` attribute
+(where `id` is the ID of the sidebar) on the trigger element, and also set the `aria-expanded`
+attribute (also on the trigger element) to either the string `'true'` (if the sidebar is open) or
+`'false`' (if the sidebar is closed).
 
 The `v-model` is internally bound to the `show` prop, and the `input` event updates the `v-model`.
 
 ## Events
 
-The sidebar wil emit the `shown` event once the sidebar has opened, and the `hidden` event when the
+The sidebar will emit the `shown` event once the sidebar has opened, and the `hidden` event when the
 sidebar has closed.
 
-The `input` event is used to updat the `v-model` and is emitted whenever the visibility state of the
-sidebar changes.
+The `input` event is used to update the `v-model` and is emitted whenever the visibility state of
+the sidebar changes.
 
 ## Accessibility
 
@@ -223,16 +224,15 @@ TBD
 
 ## Implementation notes
 
-BootstrapVue's Custom SCSS/CSS is required for proper styling, and positioning of the sidebar.
+BootstrapVue's custom SCSS/CSS is required for proper styling, and positioning of the sidebar.
 
-The Bootstrap v4 background (`'bg-*'`) and text (`'text-*'`) utility classes are used for controling the
-background and font color, respectively.
+The Bootstrap v4 background (`'bg-*'`) and text (`'text-*'`) utility classes are used for
+controlling the background and font color, respectively.
 
-Some of the default styling for `<b-sidebar>` can be customized via the use of SASS viariables. Refer to
-the [themeing documentation](/docs/reference/theming) for additional details.
+Some of the default styling for `<b-sidebar>` can be customized via the use of SASS variables. Refer
+to the [theming documentation](/docs/reference/theming) for additional details.
 
 ## See also
 
 - [`<b-collapse>` component](/docs/components/collapse)
 - [`<b-button-close>` component](/docs/components/button#comp-ref-b-button-close)
-
