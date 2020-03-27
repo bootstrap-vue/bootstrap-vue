@@ -76,7 +76,24 @@
         "slots": [
           {
             "name": "title",
-            "description": "Content to place in the title of the built-in header. Takes precedence over the `title` prop"
+            "description": "Content to place in the title of the built-in header. Takes precedence over the `title` prop",
+            "scope": [
+              {
+                "prop": "hide",
+                "type": "Function",
+                "description": "When called, will close the sidebar"
+              },
+              {
+                "prop": "expanded",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is open"
+              },
+              {
+                "prop": "right",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is on the right"
+              }
+            ]
           },
           {
             "name": "defaut",
@@ -91,6 +108,11 @@
                 "prop": "expanded",
                 "type": "Boolean",
                 "description": "`true` if the sidebar is open"
+              },
+              {
+                "prop": "right",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is on the right"
               }
             ]
           }
