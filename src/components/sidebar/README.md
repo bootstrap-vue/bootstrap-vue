@@ -38,11 +38,11 @@ The `<b-sidebar>` component was introduced in BootstrapVue `v2.10.0`.
 ```
 
 If the content is taller than the available viewport height, vertical scrolling will automatically
-be enabled via CSS.
+be enabled via CSS on the body of the sidebar.
 
 ## Styling
 
-Several props are provided for controlling the appearance and placement of the sidebar.
+Several props are provided for controlling the appearance of the sidebar.
 
 ### Title
 
@@ -152,10 +152,9 @@ via CSS styles, or via the `z-index` prop.
 ### Scoped default slot
 
 The `default` slot allows you to provide the body content for your sidebar. It is optionally scoped.
+The examples in the following sections demonstrate the use of the default slot scope
 
 You can apply arbitrary classes to the body section via the `body-class` prop.
-
-TBD
 
 ### Header
 
@@ -202,17 +201,15 @@ includes a `hide()` method that can be used to close the sidebar.
 
 ### Footer
 
-`<b-sidebar>` provides a `footer` slot (optionally scoped), to allow you to provide a footer that
+`<b-sidebar>` provides a `footer` slot (optionally scoped), to allow you to provide content that
 appears at the bottom of the sidebar. The `footer` slot is scoped, which includes a `hide()` method
 that can be used to close the sidebar.
-
-You can apply arbitrary classes to the footer section via the `footer-class` prop.
 
 ```html
 <template>
   <div>
     <b-button v-b-toggle.sidebar-footer>Toggle Sidebar</b-button>
-    <b-sidebar id="sidebar-footer" no-header shadow aria-labelledby="sidebar-no-header-title">
+    <b-sidebar id="sidebar-footer" no-header shadow aria-label="Sidebar with custom footer">
       <template v-slot:footer="{ hide }">
        <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
         <strong class="mr-auto">Footer</strong>
@@ -232,6 +229,14 @@ You can apply arbitrary classes to the footer section via the `footer-class` pro
 
 <!-- b-sidebar-footer.vue -->
 ```
+
+You can apply arbitrary classes to the footer section via the `footer-class` prop.
+
+### Lazy rendering
+
+In some instances, you may not want the content rendered when the side bar is not visible. Simply
+set the `lazy` prop on `<b-sidebar>`. When `lazy` is true, the body and optional footer will _not_
+be rendered whenever the sidebar is closed.
 
 ## Visibility control
 
@@ -271,14 +276,13 @@ When the sidebar is opened, the entire sidebar will receive focus, which is desi
 reader and keyboard-only users. When the sidebar is closed, the element that previously had focus
 before the sidebar was opened will be re-focused.
 
-When the sidebar is open, users can press <kbd>Esc</kbd> to close the sidebar. To disabled this
+When the sidebar is open, users can press <kbd>Esc</kbd> to close the sidebar. To disable this
 feature, set the `no-close-on-esc` prop to `true`.
 
 When you have hidden the header, or do not have a title for the sidebar, set either `aria-label` to
 a string that describes the sidebar, or set `aria-labelledby` to an ID of an element that contains
-the title.
-
-TBD
+the title. When using the `lazy` prop _and_ you do not have a header, use the `aria-label` prop to
+provide an appropriate string to label the sidebar.
 
 ## Implementation notes
 
