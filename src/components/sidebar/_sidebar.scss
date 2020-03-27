@@ -8,14 +8,12 @@ $b-sidebar-header-padding-x: $navbar-padding-x !default;
 $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
 
 .b-sidebar {
-  position: fixed;
+  position: fixed !important;
   top: 0;
   bottom: 0;
   width: $b-sidebar-width;
   max-width: 100% !important;
   overflow-y: auto;
-  color: inherit;
-  background-color: inherit;
   outline: 0;
   transform: translateX(0);
   z-index: $b-sidebar-zindex;
