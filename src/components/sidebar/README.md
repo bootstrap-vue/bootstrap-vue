@@ -234,17 +234,17 @@ You can apply arbitrary classes to the footer section via the `footer-class` pro
 
 ### Lazy rendering
 
-In some instances, you may not want the content rendered when the side bar is not visible. Simply
-set the `lazy` prop on `<b-sidebar>`. When `lazy` is true, the body and optional footer will _not_
-be rendered whenever the sidebar is closed.
+In some instances, you may not want the content rendered when the sidebar is not visible. Simply
+set the `lazy` prop on `<b-sidebar>`. When `lazy` is `true`, the body and optional footer will
+_not_ be rendered (removed from DOM) whenever the sidebar is closed.
 
 ## Visibility control
 
 ### `v-b-toggle` directive
 
-Using the `v-b-toggle` directive is the prefered method for opening the sidebar, as it automatically
-handles applying the `aria-controls` and `aria-expanded` accessibility attributes on the trigger
-element.
+Using the `v-b-toggle` directive is the prefered method for _opening_ the sidebar, as it
+automatically handles applying the `aria-controls` and `aria-expanded` accessibility attributes on
+the trigger element.
 
 The majority of examples on this page use the `v-b-toggle` directive.
 
@@ -252,7 +252,7 @@ The majority of examples on this page use the `v-b-toggle` directive.
 
 The `v-model` reflects the current visibility state of the sidebar. While it can be used to control
 the visibility state of the sidebar, it is recommended to use the
-[`v-b-toggle` directive](#v-b-toggle-directive) to show the sidebar for accessibility reasons. If
+[`v-b-toggle` directive](#v-b-toggle-directive) to _show_ the sidebar for accessibility reasons. If
 you do use the `v-model` to show the sidebar, you should place the `aria-controls="id"` attribute
 (where `id` is the ID of the sidebar) on the trigger element, and also set the `aria-expanded`
 attribute (also on the trigger element) to either the string `'true'` (if the sidebar is open) or
