@@ -67,6 +67,10 @@
             "description": "Class, or classes, to apply to the optional `footer` slot"
           },
           {
+            "prop": "lazy",
+            "description": "When set to `true`, the content of the sidebar will only be rendered while the sidebar is open"
+          },
+          {
             "prop": "noHeader",
             "description": "When set to `true` disabled rendering of hte default header (including close button)"
           },
