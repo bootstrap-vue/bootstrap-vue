@@ -258,7 +258,7 @@ you do use the `v-model` to show the sidebar, you should place the `aria-control
 attribute (also on the trigger element) to either the string `'true'` (if the sidebar is open) or
 `'false`' (if the sidebar is closed).
 
-The `v-model` is internally bound to the `show` prop, and the `change` event updates the `v-model`.
+The `v-model` is internally bound to the `visible` prop, and the `change` event updates the `v-model`.
 
 ### Closing on $route change
 
