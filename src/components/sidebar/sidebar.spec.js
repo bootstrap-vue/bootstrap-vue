@@ -1,4 +1,4 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BSidebar } from './sidebar'
 
@@ -177,21 +177,14 @@ describe('sidebar', () => {
   })
 
   it('closes when route changes', async () => {
-    const localVue = new CreateLocalVue()
-
-    const $route = new localVue({
-      data() {
-        return {
-          fullPath: '/'
-        }
-      }
+    const $route = Vue.observable({
+      fullPath: '/'
     })
 
     const wrapper = mount(BSidebar, {
       attachToDocument: true,
-      localVue,
       propsData: {
-        id: 'test-route',
+        id: 'test-route'
       },
       mocks: {
         $route
@@ -253,7 +246,7 @@ describe('sidebar', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.isVisible()).toBe(true)
-    
+
     wrapper.destroy()
   })
 
