@@ -53,6 +53,11 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       type: String
       // default: null
     },
+    closeLabel: {
+      // `aria-label` for close button. Defaults to 'Close'
+      type: String
+      // defaut: undefined
+    },
     show: {
       type: Boolean,
       default: false
@@ -157,14 +162,14 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     const shadow = this.shadow === '' ? true : this.shadow
     const right = this.right
     const title = this.normalizeSlot('title') || toString(this.title) || null
-    const headerId = title ? this.safeId('__title__') : null
+    const titleId = title ? this.safeId('__title__') : null
     const ariaLabel = this.ariaLabel || null
     // `ariaLabel` takes precedence over `ariaLabelledby`
-    const ariaLabelledby = this.ariaLabelledby || headerId || null
+    const ariaLabelledby = this.ariaLabelledby || titleId || null
 
     let $header = h()
     if (!this.noHeader) {
-      const $title = title ? h() : h('strong', { attrs: { id: headerId } }, [title])
+      const $title = title ? h('strong', { attrs: { id: titleId } }, [title]) : h('span') 
       const $close = h(
         BButtonClose,
         {
@@ -173,8 +178,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         },
         [h(BIconX)]
       )
-      const $content = right ? [$title, $close] : [$close, title]
-      $header = h('header', { staticClass: 'b-sidebar-header' }, $content)
+      $header = right ? [$title, $close] : [$close, $title]
+      $header = h('header', { staticClass: 'b-sidebar-header' }, $header)
     }
 
     const $sidebar = h(
@@ -200,6 +205,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         },
         style: { width: this.width, zIndex: this.zIndex }
       },
+      // TODO: Add in optional lazy render of default slot
       [$header, this.normalizeSlot('default', { expanded: localShow, hide: this.hide })]
     )
 
