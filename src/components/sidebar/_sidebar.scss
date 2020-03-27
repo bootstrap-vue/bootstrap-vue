@@ -19,13 +19,13 @@
   &:not(.b-sidebar-right) {
     left: 0;
     right: auto;
-    
+
     &.slide:not(.show) {
       transform: translateX(-100%);
     }
 
     > .b-sidebar-header .close {
-      margin-left: auto
+      margin-left: auto;
     }
   }
 
@@ -38,7 +38,7 @@
     }
 
     > .b-sidebar-header .close {
-      margin-right: auto
+      margin-right: auto;
     }
   }
 
