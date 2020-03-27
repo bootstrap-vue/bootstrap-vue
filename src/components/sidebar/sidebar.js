@@ -15,6 +15,58 @@ import { BIconX } from '../../icons/icons'
 const NAME = 'BSidebar'
 const CLASS_NAME = 'b-sidebar'
 
+// --- Render methods ---
+const renderHeader = (h, ctx) => {
+  if (ctx.noHeader) {
+    return h()
+  }
+
+  const { right, closeLabel, textVariant, headerClass, slotScope, hide } = ctx
+  const title = ctx.normalizeSlot('title', slotScope) || toString(ctx.title) || null
+  const titleId = title ? ctx.safeId('__title__') : null
+
+  const $title = title ? h('strong', { attrs: { id: titleId } }, [title]) : h('span')
+
+  const $close = h(
+    BButtonClose,
+    {
+      props: { ariaLabel: closeLabel, textVariant },
+      on: { click: hide }
+    },
+    [h(BIconX)]
+  )
+
+  return h(
+    'header',
+    {
+      staticClass: `${CLASS_NAME}-header`,
+      class: headerClass
+    },
+    right ? [$close, $title] : [$title, $close]
+  )
+}
+
+const renderContent = (h, ctx) => {
+  return h(
+    'div',
+    {
+      staticClass: `${CLASS_NAME}-content`,
+      class: ctx.contentClass
+    },
+    ctx.normalizeSlot('default', ctx.slotScope)
+  )
+}
+
+const renderBody = (h, ctx) => {
+  if (ctx.lazy && !ctx.localShow) {
+    return h()
+  }
+  return h('div', { staticClass: `${CLASS_NAME}-body` }, [
+    renderHeader(h, ctx),
+    renderContent(h, ctx)
+  ])
+}
+
 // --- Main component ---
 // @vue/component
 export const BSidebar = /*#__PURE__*/ Vue.extend({
@@ -118,6 +170,13 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
             leaveActiveClass: 'slide',
             leaveToClass: ''
           }
+    },
+    slotScope() {
+      return {
+        expanded: this.localShow,
+        right: this.right,
+        hide: this.hide
+      }
     }
   },
   watch: {
@@ -194,49 +253,11 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   render(h) {
     const localShow = this.localShow
     const shadow = this.shadow === '' ? true : this.shadow
-    const right = this.right
-    const scope = { expanded: localShow, hide: this.hide, right }
-    const title = this.normalizeSlot('title', scope) || toString(this.title) || null
+    const title = this.normalizeSlot('title', this.slotScope) || toString(this.title) || null
     const titleId = title ? this.safeId('__title__') : null
     const ariaLabel = this.ariaLabel || null
     // `ariaLabel` takes precedence over `ariaLabelledby`
     const ariaLabelledby = this.ariaLabelledby || titleId || null
-
-    let $header = h()
-    if (!this.noHeader) {
-      const $title = title ? h('strong', { attrs: { id: titleId } }, [title]) : h('span')
-      const $close = h(
-        BButtonClose,
-        {
-          props: { ariaLabel: this.closeLabel, textVariant: this.textVariant },
-          on: { click: this.hide }
-        },
-        [h(BIconX)]
-      )
-      $header = right ? [$close, $title] : [$title, $close]
-      $header = h(
-        'header',
-        {
-          staticClass: `${CLASS_NAME}-header`,
-          class: this.headerClass
-        },
-        $header
-      )
-    }
-
-    const $content = h(
-      'div',
-      {
-        staticClass: `${CLASS_NAME}-content`,
-        class: this.contentClass
-      },
-      this.normalizeSlot('default', scope)
-    )
-
-    let $body = h()
-    if (!(this.lazy && !this.localShow)) {
-      $body = h('div', { staticClass: `${CLASS_NAME}-body` }, [$header, $content])
-    }
 
     const $sidebar = h(
       this.tag,
@@ -262,7 +283,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         style: { width: this.width, zIndex: this.zIndex },
         on: { keydown: this.onKeydown }
       },
-      [$body]
+      [renderBody(h, this)]
     )
 
     return h(
