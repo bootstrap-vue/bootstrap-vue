@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { contains } from '../../utils/dom'
+import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -164,11 +165,16 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     let $header = h()
     if (!this.noHeader) {
       const $title = title ? h() : h('strong', { attrs: { id: headerId } }, [title])
-      $header = h('header', { staticClass: 'b-sidebar-header' }, [
-        right ? $title : h(), 
-        h(BButtonClose, { on: { click: this.hide } }, [BIconX]),
-        !right ? $title : h(), 
-      ])
+      const $close = h(
+        BButtonClose,
+        {
+          props: { ariaLabel: this.closeLabel, variant: this.textVariant },
+          on: { click: this.hide }
+        },
+        [BIconX]
+      )
+      const $content = right ? [$title, $close] : [$close, title]
+      $header = h('header', { staticClass: 'b-sidebar-header' }, $content)
     }
 
     const $sidebar = h(
