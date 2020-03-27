@@ -263,8 +263,8 @@ The `v-model` is internally bound to the `show` prop, and the `change` event upd
 ### Closing on $route change
 
 By default, `<b-sidebar>` will close itself when the `$route` changes (full path including query and
-hash). This can be partuclarly handy if the sidebar is placed outside of your `<router-view>` and is
-used for navigation.
+hash). This can be particularly handy if the sidebar is placed outside of your `<router-view>` and
+is used for navigation.
 
 You can disable this behaviour by setting the `no-close-on-route-change` prop to `true`.
 
