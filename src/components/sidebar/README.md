@@ -2,7 +2,7 @@
 
 > Otherwise known as off-canvas or side drawers, sidebars are fixed position toggleable slide out
 > boxes, for use as navigation, menus or details, etc. They can be positioned on either the left
-> (default) of the viewport or right.
+> (default) or right of the viewport.
 
 ## Overview
 
