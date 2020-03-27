@@ -44,6 +44,7 @@ const renderHeader = (h, ctx) => {
   return h(
     'header',
     {
+      key: 'header',
       staticClass: `${CLASS_NAME}-header`,
       class: headerClass
     },
@@ -55,6 +56,7 @@ const renderBody = (h, ctx) => {
   return h(
     'div',
     {
+      key: 'body',
       staticClass: `${CLASS_NAME}-body`,
       class: ctx.bodyClass
     },
@@ -70,6 +72,7 @@ const renderFooter = (h, ctx) => {
   return h(
     'footer',
     {
+      key: 'footer',
       staticClass: `${CLASS_NAME}-footer`,
       class: ctx.footerClass
     },
