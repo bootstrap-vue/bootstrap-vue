@@ -190,26 +190,31 @@ will need to provide a method of closing the sidebar. The `default` slot is scop
 
 ### `v-b-toggle` directive
 
-Using the `v-b-toggle` directive is the prefered method for toggling the visibility of the sidebar,
-as it automatically handles applying the `aria-controls` and `aria-expanded` accessibility attributes
-on the trigger element.
+Using the `v-b-toggle` directive is the prefered method for opening the sidebar, as it automatically
+handles applying the `aria-controls` and `aria-expanded` accessibility attributes on the trigger
+element.
 
 The majority of examples on this page use the `v-b-toggle` directive.
 
-### V-Model
+### `v-model`
 
 The `v-model` reflects the current visibility state of the sidebar. While it can be used to control the
 visibility state of the sidebar, it is reccomended to use the
-[`v-b-toggle` directive](#v-b-toggle-directive) for accesibility reasons. If you do use the `v-model`
-to show the sidebar, you should place the `aria-controls="id"` attribute (where `id` is the ID of the
-sidebar) on the trigger element, and also set the `aria-explanded` attribute (also on the trigger
-element) to either the string `'true'` (if the sidebar is open) or `'false`' (if the slidebar is
-closed).
+[`v-b-toggle` directive](#v-b-toggle-directive) to show the sidebar for accesibility reasons. If you do
+use the `v-model` to show the sidebar, you should place the `aria-controls="id"` attribute (where `id`
+is the ID of the sidebar) on the trigger element, and also set the `aria-explanded` attribute (also on
+the trigger element) to either the string `'true'` (if the sidebar is open) or `'false`' (if the
+slidebar is closed).
+
+The `v-model` is internally bound to the `show` prop, and the `input` event updates the `v-model`.
 
 ## Events
 
-The sidebar wil emit the `shown` event once the sidebar has opened, and the `hidden` event when the sidebar
-has closed.
+The sidebar wil emit the `shown` event once the sidebar has opened, and the `hidden` event when the
+sidebar has closed.
+
+The `input` event is used to updat the `v-model` and is emitted whenever the visibility state of the
+sidebar changes.
 
 ## Accessibility
 
