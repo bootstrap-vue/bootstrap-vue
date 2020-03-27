@@ -15,6 +15,10 @@
         "version": "2.10.0",
         "props": [
           {
+            "prop": "title",
+            "description": "Text content to place in the default header. The `title` slot takes precedence"
+          },
+          {
             "prop": "right",
             "description": "When `true`, positions the sidebar on the right of the viewport"
           },
@@ -45,6 +49,14 @@
           {
             "prop": "zIndex",
             "description": "Specify an arbitrary z-index value to override the value defined by SCSS/CSS"
+          },
+          {
+            "prop": "closeLabel",
+            "description": "`aria-label` to apply to the built-in close button. Defaults to 'Close'"
+          },
+          {
+            "prop": "noHeader",
+            "description": "When set to `true` disabled rendering of hte default header (including close button)"
           }
         ],
         "events": [
@@ -58,6 +70,10 @@
           }
         ],
         "slots": [
+          {
+            "name": "title",
+            "description": "Content to place in the title of the built-in header. Takes precedence over the `title` prop"
+          },
           {
             "name": "defaut",
             "description": "Content to place in the sidebar",
