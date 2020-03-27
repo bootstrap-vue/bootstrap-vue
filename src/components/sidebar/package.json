@@ -61,6 +61,10 @@
           {
             "prop": "noHeader",
             "description": "When set to `true` disabled rendering of hte default header (including close button)"
+          },
+          {
+            "prop": "noCloseOnEsc",
+            "description": "When set, disables closing the sidebar when the user presses ESC "
           }
         ],
         "events": [
