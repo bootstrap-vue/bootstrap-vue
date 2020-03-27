@@ -217,7 +217,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         this.$emit('change', newVal)
       }
     },
-    $route(newVal = {}, oldVal = {}) /* istanbul ignore next: until tests are created */ {
+    $route(newVal = {}, oldVal = {}) {
       if (!this.noCloseOnRouteChange && newVal.fullPath !== oldVal.fullPath) {
         this.hide()
       }
@@ -250,7 +250,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         this.localShow = !this.localShow
       }
     },
-    handleSync(id) /* istanbul ignore next: until tests are created */ {
+    handleSync(id) {
       if (id === this.safeId()) {
         this.emitState(this.localShow)
       }
