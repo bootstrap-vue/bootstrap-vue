@@ -164,8 +164,9 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   render(h) {
     const localShow = !!this.localShow
     const shadow = this.shadow === '' ? true : this.shadow
-    const right = this.right
-    const title = this.normalizeSlot('title') || toString(this.title) || null
+    const right = !!this.right
+    const scope = { expanded: localShow, hide: this.hide, right }
+    const title = this.normalizeSlot('title', scope) || toString(this.title) || null
     const titleId = title ? this.safeId('__title__') : null
     const ariaLabel = this.ariaLabel || null
     // `ariaLabel` takes precedence over `ariaLabelledby`
@@ -210,7 +211,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         style: { width: this.width, zIndex: this.zIndex }
       },
       // TODO: Add in optional lazy render of default slot
-      [$header, this.normalizeSlot('default', { expanded: localShow, hide: this.hide })]
+      [$header, this.normalizeSlot('default', scope)]
     )
 
     return h(
