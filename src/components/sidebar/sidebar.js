@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
+import KeyCodes from '../../utils/key-codes'
 import { contains } from '../../utils/dom'
 import { toString } from '../../utils/string'
-import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -15,7 +15,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
     prop: 'show',
-    event: 'input'
+    event: 'change'
   },
   props: {
     title: {
@@ -57,7 +57,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     closeLabel: {
       // `aria-label` for close button. Defaults to 'Close'
       type: String
-      // defaut: undefined
+      // default: undefined
     },
     tag: {
       type: String,
@@ -113,7 +113,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     localShow(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.emitState(newVal)
-        this.$emit('input', newVal)
+        this.$emit('change', newVal)
       }
     }
   },

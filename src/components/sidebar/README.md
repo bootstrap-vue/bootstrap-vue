@@ -208,14 +208,14 @@ you do use the `v-model` to show the sidebar, you should place the `aria-control
 attribute (also on the trigger element) to either the string `'true'` (if the sidebar is open) or
 `'false`' (if the sidebar is closed).
 
-The `v-model` is internally bound to the `show` prop, and the `input` event updates the `v-model`.
+The `v-model` is internally bound to the `show` prop, and the `change` event updates the `v-model`.
 
 ## Events
 
 The sidebar will emit the `shown` event once the sidebar has opened, and the `hidden` event when the
 sidebar has closed.
 
-The `input` event is used to update the `v-model` and is emitted whenever the visibility state of
+The `change` event is used to update the `v-model` and is emitted whenever the visibility state of
 the sidebar changes.
 
 ## Accessibility
