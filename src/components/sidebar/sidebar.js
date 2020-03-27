@@ -49,6 +49,14 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     zIndex: {
       type: [Number, String]
       // default: null
+    },
+    ariaLabel: {
+      type: String
+      // default: null
+    },
+    ariaLabelledby: {
+      type: String
+      // default: null
     }
   },
   data() {
@@ -136,6 +144,9 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   render(h) {
     const localShow = !!this.localShow
     const shadow = this.shadow === '' ? true : this.shadow
+    const ariaLabelledby = this.ariaLabelledby || null
+    // `ariaLabelledby` takes precedence over `ariaLabel`
+    const ariaLabel = ariaLabelledby ? null : this.ariaLabel || null
 
     const $sidebar = h(
       this.tag,
@@ -154,7 +165,9 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           tabindex: '-1',
           role: 'dialog',
           'aria-modal': 'false',
-          'aria-hidden': localShow ? 'true' : null
+          'aria-hidden': localShow ? 'true' : null,
+          'aria-label': ariaLabel,
+          'aria-labelledby': ariaLabelledby
         },
         style: { width: this.width, zIndex: this.zIndex }
       },
