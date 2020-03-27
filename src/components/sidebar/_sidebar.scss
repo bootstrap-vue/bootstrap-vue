@@ -26,7 +26,7 @@ $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
     }
   }
 
-  &:not(.sidebar-right) {
+  &:not(.b-sidebar-right) {
     left: 0;
     right: auto;
     
