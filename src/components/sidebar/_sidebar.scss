@@ -1,6 +1,8 @@
 // These variables will be moved to /src/_variables.scsss
 $b-sidebar-width: 320px !default;
 $b-sidebar-transition-duration: 0.3s !default;
+$b-sidebar-header-padding-y: $navbar-padding-y !default;
+$b-sidebar-header-padding-x: $navbar-padding-x !default;
 // this needs to be overridden for docs
 $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
 
@@ -31,6 +33,10 @@ $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
     &.slide:not(.show) {
       transform: translateX(-100%);
     }
+
+    > .b-sidebar-header .close {
+      margin-left: auto
+    }
   }
 
   &.b-sidebar-right {
@@ -40,5 +46,14 @@ $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
     &.slide:not(.show) {
       transform: translateX(100%);
     }
+
+    > .b-sidebar-header .close {
+      margin-right: auto
+    }
+  }
+
+  > .b-sidebar-header {
+    display: flex;
+    padding: $b-sidebar-header-padding-y $b-sidebar-header-padding-x;
   }
 }
