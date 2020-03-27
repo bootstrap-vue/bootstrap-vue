@@ -228,7 +228,7 @@ BootstrapVue's Custom SCSS/CSS is required for proper styling, and positioning o
 The Bootstrap v4 background (`'bg-*'`) and text (`'text-*'`) utility classes are used for controling the
 background and font color, respectively.
 
-Some of hte default styling for `<b-sidebar>` can be customized via the use of SASS viariables. Refer to
+Some of the default styling for `<b-sidebar>` can be customized via the use of SASS viariables. Refer to
 the [themeing documentation](/docs/reference/theming) for additional details.
 
 ## See also
