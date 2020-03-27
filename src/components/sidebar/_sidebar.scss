@@ -8,8 +8,8 @@
   outline: 0;
   transform: translateX(0);
   z-index: $b-sidebar-zindex;
-  display: flex !important;
-  flex-direction: column !important;
+  display: flex;
+  flex-direction: column;
 
   &.slide {
     transition: transform $b-sidebar-transition-duration ease-in-out;
