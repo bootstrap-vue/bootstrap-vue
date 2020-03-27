@@ -9,10 +9,10 @@
 You can place almost any content inside the `<b-sidebar>` optionally scoped default slot, such as
 text, buttons, forms, images, or [vertical navs](/docs/components/nav#vertical-variation).
 
-The component supports a header and built in close button, of which you can optional disabled and
+The component supports a header and built in close button, of which you can optionally disable and
 provide your own header (if needed), and can be easily toggled with our `v-b-toggle` directive.
 
-The componet has little default styling, which provides you with great flexability in laying out the
+The componet has little default styling, which provides you with great flexibility in laying out the
 content of the sidebar.
 
 The `<b-sidebar>` component was introduced in BootstrapVue `v2.10.0`.
