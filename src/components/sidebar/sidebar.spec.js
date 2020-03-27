@@ -199,7 +199,7 @@ describe('sidebar', () => {
     await waitRAF()
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test-sync') // ID
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
     expect(rootWrapper.emitted(EVENT_STATE_SYNC)).not.toBeDefined()
 
