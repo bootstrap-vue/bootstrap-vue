@@ -229,8 +229,7 @@ export default deepFreeze({
     textVariant: 'dark',
     shadow: false,
     width: null,
-    tag: 'div',
-    noSlide: false
+    tag: 'div'
   },
   BTable: {
     selectedVariant: 'active',
