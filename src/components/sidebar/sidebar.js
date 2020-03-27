@@ -168,10 +168,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       const $close = h(
         BButtonClose,
         {
-          props: { ariaLabel: this.closeLabel, variant: this.textVariant },
+          props: { ariaLabel: this.closeLabel, textVariant: this.textVariant },
           on: { click: this.hide }
         },
-        [BIconX]
+        [h(BIconX)]
       )
       const $content = right ? [$title, $close] : [$close, title]
       $header = h('header', { staticClass: 'b-sidebar-header' }, $content)
