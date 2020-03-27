@@ -43,6 +43,9 @@ const MODAL_SELECTOR = '.modal-content'
 // Modal `$root` hidden event
 const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
 
+// Sidebar container selector for appending tooltip/popover
+const SIDEBAR_SELECTOR = '.b-sidebar'
+
 // For dropdown sniffing
 const DROPDOWN_CLASS = 'dropdown'
 const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.show'
@@ -511,14 +514,15 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const container = this.container ? this.container.$el || this.container : false
       const body = document.body
       const target = this.getTarget()
-      // If we are in a modal, we append to the modal instead
-      // of body, unless a container is specified
+      // If we are in a modal, we append to the modal, If we
+      // are in a sidebar, we append to the sidebar, else append
+      // to body, unless a container is specified
       // TODO:
       //   Template should periodically check to see if it is in dom
       //   And if not, self destruct (if container got v-if'ed out of DOM)
       //   Or this could possibly be part of the visibility check
       return container === false
-        ? closest(MODAL_SELECTOR, target) || body
+        ? closest(MODAL_SELECTOR, target) || closest(SIDEBAR_SELECTOR, target) || body
         : isString(container)
           ? getById(container.replace(/^#/, '')) || body
           : body
