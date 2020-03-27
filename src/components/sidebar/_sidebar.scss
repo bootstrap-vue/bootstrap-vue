@@ -8,7 +8,6 @@
   max-width: 100% !important;
   height: 100vh !important;
   margin: 0 !important;
-  overflow-y: auto;
   outline: 0;
   transform: translateX(0);
   z-index: $b-sidebar-zindex;
@@ -70,6 +69,7 @@
   > .b-sidebar-body {
     flex-grow: 1;
     height: 100%;
+    overflow-y: auto;
   }
 
   > .b-sidebar-footer {
