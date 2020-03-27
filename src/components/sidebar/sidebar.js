@@ -93,7 +93,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
-    prop: 'show',
+    prop: 'visible',
     event: 'change'
   },
   props: {
@@ -175,7 +175,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
-    show: {
+    visible: {
       type: Boolean,
       default: false
     }
@@ -183,9 +183,9 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   data() {
     return {
       // Internal `v-model` state
-      localShow: !!this.show,
+      localShow: !!this.visible,
       // For lazy render triggering
-      isOpen: !!this.show
+      isOpen: !!this.visible
     }
   },
   computed: {
@@ -211,7 +211,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    show(newVal, oldVal) {
+    visible(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.localShow = newVal
       }
