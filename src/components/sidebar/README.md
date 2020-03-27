@@ -1,10 +1,16 @@
 # Sidebar
 
-> Otherwise known as off-canvas or side drawers, sidebars are fixed position toggleable slide out
-> boxes, for use as navigation, menus or details, etc. They can be positioned on either the left
-> (default) or right of the viewport.
+> Otherwise known as off-canvas or a side drawer, BootstrapVue's custom `<b-sidebar>` component is a
+> fixed-position toggleable slide out box, which can be used for navigation, menus, details, etc. It
+> can be positioned on either the left (default) or right of the viewport.
 
 ## Overview
+
+You can place almost any content inside the `<b-sidebar>` optionally scoped default slot, such as
+text, buttons, forms, images, or [vertical navs](/docs/components/nav#vertical-variation).
+
+The component supports a header and built in close button, of which you can optional disabled and
+provide your own header (ir needed), and can be easily toggled with our `v-b-toggle` directive.
 
 The `<b-sidebar>` component was introduced in BootstrapVue `v2.10.0`.
 
