@@ -1,15 +1,17 @@
 .b-sidebar {
+  display: flex;
+  flex-direction: column;
   position: fixed !important;
   top: 0;
   bottom: 0;
   width: $b-sidebar-width;
   max-width: 100% !important;
+  height: 100vh !important;
+  margin: 0 !important;
   overflow-y: auto;
   outline: 0;
   transform: translateX(0);
   z-index: $b-sidebar-zindex;
-  display: flex;
-  flex-direction: column;
 
   &.slide {
     transition: transform $b-sidebar-transition-duration ease-in-out;
