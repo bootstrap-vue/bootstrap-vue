@@ -13,7 +13,7 @@ describe('sidebar', () => {
       attachToDocument: true,
       propsData: {
         id: 'test-1',
-        show: true
+        visible: true
       },
       stubs: {
         // Disable use of default test transitionStub component
@@ -43,7 +43,7 @@ describe('sidebar', () => {
     expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
     wrapper.setProps({
-      show: false
+      visible: false
     })
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -56,7 +56,7 @@ describe('sidebar', () => {
     expect(wrapper.isVisible()).toBe(false)
 
     wrapper.setProps({
-      show: true
+      visible: true
     })
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -188,7 +188,7 @@ describe('sidebar', () => {
       propsData: {
         // 'id' is a required prop
         id: 'test-sync',
-        show: true
+        visible: true
       },
       stubs: {
         // Disable use of default test transitionStub component
@@ -223,7 +223,7 @@ describe('sidebar', () => {
       attachToDocument: true,
       propsData: {
         id: 'test-2',
-        show: true,
+        visible: true,
         noHeader: true
       },
       stubs: {
@@ -250,7 +250,7 @@ describe('sidebar', () => {
       attachToDocument: true,
       propsData: {
         id: 'test-3',
-        show: false,
+        visible: false,
         lazy: true
       },
       stubs: {
@@ -270,7 +270,7 @@ describe('sidebar', () => {
     expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
     wrapper.setProps({
-      show: true
+      visible: true
     })
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -289,7 +289,7 @@ describe('sidebar', () => {
       attachToDocument: true,
       propsData: {
         id: 'test-4',
-        show: true
+        visible: true
       },
       slots: {
         footer: '<span>FOOTER</span>'
