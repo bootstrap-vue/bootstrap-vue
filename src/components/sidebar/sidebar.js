@@ -169,7 +169,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
 
     let $header = h()
     if (!this.noHeader) {
-      const $title = title ? h('strong', { attrs: { id: titleId } }, [title]) : h('span') 
+      const $title = title ? h('strong', { attrs: { id: titleId } }, [title]) : h('span')
       const $close = h(
         BButtonClose,
         {
