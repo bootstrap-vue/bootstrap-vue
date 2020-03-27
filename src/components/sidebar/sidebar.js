@@ -162,6 +162,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    noCloseOnRouteChange: {
+      type: Boolean,
+      default: false
+    },
     lazy: {
       type: Boolean,
       default: false
@@ -212,7 +216,12 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         this.emitState(newVal)
         this.$emit('change', newVal)
       }
-    }
+    },
+    $route(newVal = {}, oldVal = {}) /* istanbul ignore next: until tests are created */ {
+      if (!this.noCloseOnRouteChange && newVal.fullPath !== oldVal.fullPath) {
+        this.hide()
+      }
+    } 
   },
   created() {
     // Define non-reactive properties
