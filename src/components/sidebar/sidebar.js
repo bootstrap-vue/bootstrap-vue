@@ -145,7 +145,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       }
     },
     onKeydown(evt) /* istanbul ignore next: until tests are created */ {
-      if (!this.noCloseOnEsc && evt && evt.keycode === KeyCodes.ESC) {
+      if (!this.noCloseOnEsc && evt && evt.keyCode === KeyCodes.ESC) {
         this.hide()
       }
     },
