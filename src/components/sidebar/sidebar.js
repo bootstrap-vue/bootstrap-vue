@@ -178,7 +178,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         },
         [h(BIconX)]
       )
-      $header = right ? [$title, $close] : [$close, $title]
+      $header = right ? [$close, $title] : [$title, $close]
       $header = h('header', { staticClass: 'b-sidebar-header' }, $header)
     }
 
