@@ -83,7 +83,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     right: {
       type: Boolean,
-      default: () => getComponentConfig(NAME, 'right')
+      default: false
     },
     bgVariant: {
       type: String,
@@ -133,7 +133,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     noSlide: {
       type: Boolean,
-      default: () => getComponentConfig(NAME, 'noSlide')
+      default: false
     },
     noHeader: {
       type: Boolean,
