@@ -8,8 +8,6 @@
 
 The `<b-sidebar>` component was introduced in BootstrapVue `v2.10.0`.
 
-TBD
-
 ```html
 <template>
   <div>
@@ -34,7 +32,7 @@ be enabled via CSS.
 
 ## Styling
 
-TBD
+Several props are provided for contoling the appearance and pacement of the sidebar.
 
 ### Title
 
@@ -44,6 +42,10 @@ precedence over the `title` prop.
 
 If the [`no-header` prop](#hiding-the-header) is set, then neither the `title` prop or `title` slot
 have any effect.
+
+If you do not provide a title, use either the `aria-label` or `aria-labelledby` props to provide an
+accessible title for the sidebar. See the [Accessibility section](#accessibility) below for additional
+details.
 
 ### Placement
 
@@ -71,10 +73,33 @@ to have the sidebar appear on the right side of the viewport.
 
 ### Variants
 
-Use the props `bg-variant` and `text-variant` to control the theme color of the background and text,
-respectively.
+Use the props `bg-variant` and `text-variant` to control the theme color variant of the background
+and text, respectively. Alternatively, you can apply styles or classes to specify the background
+and text colors.
 
-Alternatively, you can apply styles or classes to specify the background and text colors.
+```html
+<template>
+  <div>
+    <b-button v-b-toggle.sidebar-variant>Toggle Sidebar</b-button>
+    <b-sidebar id="sidebar-variant" bg-variant="dark" text-variant="light" title="Sidebar!" shadow>
+      <div class="px-3 py-2">
+        <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+          in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+        </p>
+        <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
+      </div>
+    </b-sidebar>
+  </div>
+</template>
+
+<!-- b-sidebar-variant.vue -->
+```
+
+The standard Bootstrap theme variants are `'white'`, `'light'`, `'dark'`, `'primary'`, `'secondary'`,
+`'success'`, `'danger'`, `'warning'`, and `'info'`.
+
+The default background variant is `'light'` and the default text variant is `'dark'`.
 
 ### Shadow
 
@@ -92,12 +117,20 @@ to add border(s) to `<b-sidebar>`, or use CSS style overrides.
 By default the width of `<b-sidebar>` is restricted to `320px` (100% on 'xs' screens). Simply
 provide a style of `width` to change the width to a preferred value. The max width is set to `100%`.
 
-TBD
-
 ### Padding
 
 The sidebar by default has no padding. You can apply padding utility classes to the component, or
 margin/padding utility classes to the content of the sidebar
+
+### Disable slide transition
+
+By default the sidebar will use a sliding transition when showing and hiding. You can disable the
+slide transition via the `no-slide` prop.
+
+**Note:** The BootstrapVue defined transition effect of this component is dependent on the
+`prefers-reduced-motion` media query. See the
+[reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
+additional details.
 
 ### Z-index
 
@@ -141,7 +174,7 @@ Using the `v-b-toggle` directive is the prefered method for toggling the visibil
 as it automatically handles applying the `aria-controls` and `aria-expanded` accessibility attributes
 on the trigger element.
 
-TBD
+The majority of examples on this page use the `v-b-toggle` directive.
 
 ### V-Model
 
@@ -153,11 +186,10 @@ sidebar) on the trigger element, and also set the `aria-explanded` attribute (al
 element) to either the string `'true'` (if the sidebar is open) or `'false`' (if the slidebar is
 closed).
 
-TBD
-
 ## Events
 
-TBD
+The sidebar wil emit the `shown` event once the sidebar has opened, and the `hidden` event when the sidebar
+has closed.
 
 ## Accessibility
 
@@ -165,7 +197,10 @@ TBD
 
 ## Implementation notes
 
-TBD
+BootstrapVue's Custom SCSS/CSS is required for proper styling, and positioning of the sidebar.
+
+The Bootstrap v4 background (`'bg-*'`) and text (`'text-*'`) utility classes are used for controling the
+background and font color, respectively.
 
 ## See also
 
