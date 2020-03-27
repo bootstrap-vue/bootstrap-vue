@@ -55,6 +55,10 @@
             "description": "`aria-label` to apply to the built-in close button. Defaults to 'Close'"
           },
           {
+            "prop": "headerClass",
+            "description": "Class, or classes, to apply to the built in header. Has no effect if prop `no-header` is set"
+          },
+          {
             "prop": "noHeader",
             "description": "When set to `true` disabled rendering of hte default header (including close button)"
           }
