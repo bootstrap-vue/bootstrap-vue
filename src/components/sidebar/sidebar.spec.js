@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BSidebar } from './sidebar'
