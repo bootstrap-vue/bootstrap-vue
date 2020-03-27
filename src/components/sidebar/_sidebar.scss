@@ -53,7 +53,8 @@ $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
   }
 
   > .b-sidebar-header {
-    display: flex;
     padding: $b-sidebar-header-padding-y $b-sidebar-header-padding-x;
+    display: flex;
+    align-items: center;
   }
 }
