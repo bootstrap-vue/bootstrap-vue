@@ -38,6 +38,10 @@ describe('sidebar', () => {
     // Check for no presense of `display: none' from v-show
     expect(wrapper.isVisible()).toBe(true)
 
+    expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
+    expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
+    expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
+
     wrapper.setProps({
       show: false
     })
@@ -234,8 +238,9 @@ describe('sidebar', () => {
     await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
-
-    // TBD
+    expect(wrapper.find('.b-sidebar-header').exists()).toBe(false)
+    expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
+    expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
     wrapper.destroy()
   })
@@ -260,8 +265,21 @@ describe('sidebar', () => {
     await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
+    expect(wrapper.find('.b-sidebar-body').exists()).toBe(false)
+    expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
-    // TBD
+    wrapper.setProps({
+      show: true
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
+    expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
+    expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
     wrapper.destroy()
   })
@@ -288,8 +306,10 @@ describe('sidebar', () => {
     await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
-
-    // TBD
+    expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
+    expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
+    expect(wrapper.find('.b-sidebar-footer').exists()).toBe(true)
+    expect(wrapper.find('.b-sidebar-footer').text()).toEqual('FOOTER')
 
     wrapper.destroy()
   })
