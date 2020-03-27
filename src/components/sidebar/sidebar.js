@@ -236,7 +236,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     // Add `$root` listeners
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggle)
     this.listenOnRoot(EVENT_STATE_REQUEST, this.handleSync)
-    // Send out a gratuitous state event to ensure toggle button is synced 
+    // Send out a gratuitous state event to ensure toggle button is synced
     this.$nextTick(() => {
       this.emitState(this.localShow)
     })
