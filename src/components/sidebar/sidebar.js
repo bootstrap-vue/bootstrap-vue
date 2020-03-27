@@ -46,25 +46,33 @@ const renderHeader = (h, ctx) => {
   )
 }
 
-const renderContent = (h, ctx) => {
+const renderBody = (h, ctx) => {
+  if (ctx.lazy && !ctx.localShow) {
+    return h()
+  }
   return h(
     'div',
     {
-      staticClass: `${CLASS_NAME}-content`,
-      class: ctx.contentClass
+      staticClass: `${CLASS_NAME}-body`,
+      class: ctx.bodyClass
     },
     ctx.normalizeSlot('default', ctx.slotScope)
   )
 }
 
-const renderBody = (h, ctx) => {
-  if (ctx.lazy && !ctx.localShow) {
+const renderFooter = (h, ctx) => {
+  if ((ctx.lazy && !ctx.localShow) || !ctx.hasNormalizedSlot('footer')) {
     return h()
   }
-  return h('div', { staticClass: `${CLASS_NAME}-body` }, [
-    renderHeader(h, ctx),
-    renderContent(h, ctx)
-  ])
+  let $footer = ctx.normalizeSlot('footer', ctx.slotScope)
+  return h(
+    'footer',
+    {
+      staticClass: `${CLASS_NAME}-footer`,
+      class: ctx.footerClass
+    },
+    [ctx.normalizeSlot('footer', ctx.slotScope)]
+  )
 }
 
 // --- Main component ---
@@ -127,7 +135,11 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       type: [String, Array, Object]
       // default: null
     },
-    contentClass: {
+    bodyClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    footerClass: {
       type: [String, Array, Object]
       // default: null
     },
@@ -283,7 +295,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         style: { width: this.width, zIndex: this.zIndex },
         on: { keydown: this.onKeydown }
       },
-      [renderBody(h, this)]
+      [renderHeader(h, ctx), renderBody(h, ctx), renderFooter(h, ctx)]
     )
 
     return h(
