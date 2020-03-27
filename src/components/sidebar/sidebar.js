@@ -239,13 +239,13 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     this.$_returnFocusEl = null
   },
   methods: {
-    hide() /* istanbul ignore next: until tests are created */ {
+    hide() {
       this.localShow = false
     },
     emitState(state = this.localShow) {
       this.emitOnRoot(EVENT_STATE, this.safeId(), state)
     },
-    handleToggle(id) /* istanbul ignore next: until tests are created */ {
+    handleToggle(id) {
       if (id === this.safeId()) {
         this.localShow = !this.localShow
       }
@@ -255,7 +255,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         this.emitState(this.localShow)
       }
     },
-    onKeydown(evt) /* istanbul ignore next: until tests are created */ {
+    onKeydown(evt) {
       const { keyCode } = evt
       if (!this.noCloseOnEsc && keyCode === KeyCodes.ESC) {
         this.hide()
