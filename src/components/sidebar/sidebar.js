@@ -221,7 +221,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       if (!this.noCloseOnRouteChange && newVal.fullPath !== oldVal.fullPath) {
         this.hide()
       }
-    } 
+    }
   },
   created() {
     // Define non-reactive properties
