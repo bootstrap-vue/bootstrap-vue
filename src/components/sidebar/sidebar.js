@@ -76,7 +76,7 @@ const renderContent = (h, ctx) => {
   // We render the header even if `lazy` is enabled as it
   // acts as the accessible label for the sidebar
   const $header = renderHeader(h, ctx)
-  if (ctx.lazy && !ctx.localShow) {
+  if (ctx.lazy && !ctx.isOpen) {
     return $header
   }
   return [$header, renderBody(h, ctx), renderFooter(h, ctx)]
@@ -173,7 +173,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      localShow: false
+      // internal v-model state
+      localShow: false,
+      // For lazy render triggering
+      isOpen: false
     }
   },
   computed: {
@@ -216,6 +219,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     this.$_returnFocusEl = null
     // Set initial show state
     this.localShow = this.show
+    // Set initia render state
+    this.isOpen = this.show
     // Add `$root` listeners
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggle)
     this.listenOnRoot(EVENT_STATE_REQUEST, this.handleSync)
@@ -252,6 +257,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       try {
         this.$_returnFocusEl = document.activeElement || null
       } catch {}
+      // Trigger lazy render
+      this.isOpen = true
     },
     onAfterEnter(el) {
       try {
@@ -266,6 +273,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         this.$_returnFocusEl.focus()
       } catch {}
       this.$_returnFocusEl = null
+      // Trigger lazy render
+      this.isOpen = false
       this.$emit('hidden')
     }
   },
