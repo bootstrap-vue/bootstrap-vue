@@ -58,19 +58,23 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       type: String
       // defaut: undefined
     },
-    show: {
-      type: Boolean,
-      default: false
-    },
     tag: {
       type: String,
       default: 'div'
+    },
+    headerClass: {
+      type: [String, Array, Object]
+      // default: null
     },
     noSlide: {
       type: Boolean,
       default: false
     },
     noHeader: {
+      type: Boolean,
+      default: false
+    },
+    show: {
       type: Boolean,
       default: false
     }
@@ -179,7 +183,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         [h(BIconX)]
       )
       $header = right ? [$close, $title] : [$title, $close]
-      $header = h('header', { staticClass: 'b-sidebar-header' }, $header)
+      $header = h('header', { staticClass: 'b-sidebar-header', class: this.headerClass }, $header)
     }
 
     const $sidebar = h(
