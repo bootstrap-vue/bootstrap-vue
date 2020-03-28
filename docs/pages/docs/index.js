@@ -36,7 +36,7 @@ export default {
   components: {
     CarbonAd,
     Main,
-    QuckLinks,
+    QuickLinks,
     Section
   },
   mixins: [docsMixin],
