@@ -20,8 +20,8 @@ export default {
   template: `
     <Main class="bd-components">
       <Section>${titleLead}</Section>
-      <CarbonAd :key="\`ad-\$\{$route.path\}\`"></CarbonAd>
-      <QuickLinks :key="\`quick-\$\{$route.path\}\`"></QuickLinks>
+      <CarbonAd key="ad-/docs/icons"></CarbonAd>
+      <QuickLinks key="quick-/docs/icons"></QuickLinks>
       <Section play>${body}</Section>
       <Section class="bd-component-reference">
         <AnchoredHeading id="component-reference">Component reference</AnchoredHeading>
@@ -61,7 +61,6 @@ export default {
   },
   mixins: [docsMixin],
   data() {
-    const { titleLead, body } = splitReadme(readme)
     return {
       titleLead,
       body,
