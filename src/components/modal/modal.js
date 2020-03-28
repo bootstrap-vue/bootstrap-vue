@@ -189,18 +189,22 @@ export const props = {
     type: [String, Array, Object],
     default: null
   },
+  // TODO: Rename to `noHeader` and deprecate `hideHeader`
   hideHeader: {
     type: Boolean,
     default: false
   },
+  // TODO: Rename to `noFooter` and deprecate `hideFooter`
   hideFooter: {
     type: Boolean,
     default: false
   },
+  // TODO: Rename to `noHeaderClose` and deprecate `hideHeaderClose`
   hideHeaderClose: {
     type: Boolean,
     default: false
   },
+  // TODO: Rename to `noBackdrop` and deprecate `hideBackdrop`
   hideBackdrop: {
     type: Boolean,
     default: false
