@@ -25,7 +25,6 @@ export default {
     )
     const { titleLead, body } = splitReadme(readme)
     const meta = miscMeta[params.slug]
-    
     return { meta, titleLead, body }
   },
   render(h) {
@@ -47,7 +46,7 @@ export default {
       $leadSection,
       $carbonAd,
       $quickLinks,
-      $bodySection,
+      $bodySection
     ])
   }
 }
