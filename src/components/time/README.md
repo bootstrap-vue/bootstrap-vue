@@ -4,6 +4,8 @@
 > which can be used to control other components, or can be used to create customized time picker
 > inputs.
 
+## Overview
+
 `<b-time>` is WAI-ARIA accessibility compliant, optimized for keyboard control (arrow, page up/down,
 home, and end keys). Internationalization is also supported, and default's to the browser's or
 page's locale, if no locale(s) are specified.
