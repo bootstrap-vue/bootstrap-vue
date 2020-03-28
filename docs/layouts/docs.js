@@ -8,6 +8,17 @@ import BVToc from '~/components/toc.vue'
 
 export default {
   name: 'BVDocsLayout',
+  data() {
+    return {
+      hasToc: false
+    }
+  },
+  created() {
+    this.$root.$on('docs-set-toc', toc => {
+      // Only needed so we can set/clear aria-hidden on the TOC nav wrapper
+      this.hasToc = Boolean(toc && toc.toc)
+    })
+  },
   render(h) {
     const $sidebarCol = h(
       'b-col',
