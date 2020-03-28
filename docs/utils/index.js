@@ -82,8 +82,8 @@ export const relativeUrl = url => {
 
 // Splits an HTML README into two parts: Title+Lead and Body
 // So that we can place ads after the lead section
-// const RX_TITLE_LEAD_BODY = /^\s*(<h1 .+?<\/h1>)\s*(<p class="?bd-lead.+?<\/p>)?(.+)$/i
-const RX_TITLE_LEAD_BODY = /\s*(<h1 .+?<\/h1>)\s*(<p class="?bd-lead.+?<\/p>)?(.+)/i
+// const RX_TITLE_LEAD_BODY = /^\s*(<h1 .+?<\/h1>)\s*(<p class="?bd-lead.+?<\/p>)?(.+)/i
+const RX_TITLE_LEAD_BODY = /^\s*(<h1 .+?<\/h1>)\s*(<p class="?bd-lead.+?<\/p>)?(.*)$/is
 export const splitReadme = (readme = '') => {
   const [, title = '', lead = '', body = ''] = readme.match(RX_TITLE_LEAD_BODY)
   return {
