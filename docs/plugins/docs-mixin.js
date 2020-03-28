@@ -77,7 +77,7 @@ export default {
           const key = `${this.$route.path}_${this.$route.params.slug || ''}`
           const toc = newVal
             ? TOC_CACHE[key] || (TOC_CACHE[key] = makeTOC(newVal || '', this.meta || null))
-            : {} 
+            : {}
           this.$root.$emit('docs-set-toc', toc)
         }
       }
