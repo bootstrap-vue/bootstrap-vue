@@ -1,4 +1,5 @@
 import AnchoredHeading from '~/components/anchored-heading'
+import CarbonAd from '~/components/ad'
 import Componentdoc from '~/components/componentdoc'
 import Importdoc from '~/components/importdoc'
 import Main from '~/components/main'
@@ -30,7 +31,7 @@ export default {
       domProps: { innerHTML: this.titleLead }
     })
     // CarbonAd
-    const $carbonAd = h('aside', { key: `advert-${this.$route.path}` }, 'advert goes here')
+    const $carbonAd = h(CarbonAd, { key: `ad-${this.$route.path}` })
     // Quick links
     const $quickLinks = h('section', {}, 'quicklinks goes here here')
     // Body section
