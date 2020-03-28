@@ -80,6 +80,17 @@ export const relativeUrl = url => {
   return pathname + (hash || '')
 }
 
+// Splits an HTML README into two parts: Title+Lead and Body
+// So that we can place ads after the lead section
+const RX_TITLE_LEAD_BODY = /^\s*(<h1 .+?<\/h1>)\s*(<p class="?bd-lead.+?<\/p>)?(.+)$/i
+export const splitReadme = readme => {
+  const parts = (readme || '').match(RX_TITLE_LEAD_BODY)
+  return { 
+    titleLead: `${parts[1] || ''} ${parts[2] || ''}`,
+    body: parts[3] || readme
+  }
+}
+
 // Process an HTML README and create a page TOC array
 // IDs are the only attribute on auto generated heading tags,
 // so we take advantage of that when using our RegExpr matches
