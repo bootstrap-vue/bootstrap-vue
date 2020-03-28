@@ -2,7 +2,9 @@
 
 > Group a series of buttons together on a single line with `<b-button-group>`.
 
-**Example 1:** Default button group and button group using contextual variants
+## Overview
+
+Button groups are an easy way to group a series of buttons together.
 
 ```html
 <div>
@@ -29,8 +31,6 @@
 
 Set the size prop to `lg` or `sm` to render larger or smaller, respectively, buttons. There is no
 need to specify the size on the individual buttons.
-
-**Example 2:** Default, Small, and Large button groups
 
 ```html
 <div>
@@ -65,8 +65,6 @@ need to specify the size on the individual buttons.
 Make a set of buttons appear vertically stacked rather than horizontally by setting the `vertical`
 prop. Split button dropdowns are not supported here.
 
-**Example 3:** Vertical button group
-
 ```html
 <div>
   <b-button-group vertical>
@@ -83,8 +81,6 @@ prop. Split button dropdowns are not supported here.
 
 Add [`<b-dropdown>`](/docs/components/dropdown) menus directly inside your `<b-button-group>`. Note
 that split dropdown menus are not supported when prop `vertical` is set.
-
-**Example 4:** button group with dropdown menus
 
 ```html
 <div>
