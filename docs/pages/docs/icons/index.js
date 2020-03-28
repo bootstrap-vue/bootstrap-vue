@@ -18,8 +18,8 @@ export default {
   template: `
     <Main class="bd-components">
       <Section>${titleLead}</Section>
-      <CarbonAd :key="\`ad-${$route.path}\`"></CarbonAd>
-      <QuickLinks :key="\`quick-${$route.path}\`"></QuickLinks>
+      <CarbonAd :key="\`ad-\$\{$route.path\}\`"></CarbonAd>
+      <QuickLinks :key="\`quick-\$\{$route.path\}\`"></QuickLinks>
       <Section play>${body}</Section>
       <Section class="bd-component-reference">
         <AnchoredHeading id="component-reference">Component reference</AnchoredHeading>
@@ -49,10 +49,12 @@ export default {
     </Main>`,
   components: {
     AnchoredHeading,
+    CarbonAd,
     Componentdoc,
     IconsTable,
     Importdoc,
     Main,
+    QuickLinks,
     Section
   },
   mixins: [docsMixin],
