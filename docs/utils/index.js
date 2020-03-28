@@ -84,7 +84,7 @@ export const relativeUrl = url => {
 // So that we can place ads after the lead section
 const RX_TITLE_LEAD_BODY = /^\s*(<h1 .+?<\/h1>)\s*(<p class="?bd-lead.+?<\/p>)?(.+)$/i
 export const splitReadme = (readme = '') => {
-  const [_, title = '', lead = '', body = ''] = readme.match(RX_TITLE_LEAD_BODY)
+  const [, title = '', lead = '', body = ''] = readme.match(RX_TITLE_LEAD_BODY)
   return {
     titleLead: `${title} ${lead}`,
     body: body || readme
