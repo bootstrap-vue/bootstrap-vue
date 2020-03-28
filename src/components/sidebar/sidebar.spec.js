@@ -16,7 +16,7 @@ describe('sidebar', () => {
         visible: true
       },
       stubs: {
-        // Disable use of default test transitionStub component
+        // Disable use of default test `transitionStub` component
         transition: false
       }
     })
@@ -35,7 +35,7 @@ describe('sidebar', () => {
     expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.classes()).not.toContain('slide')
     expect(wrapper.text()).toEqual('')
-    // Check for no presense of `display: none' from v-show
+    // Check for no presence of `display: none' from `v-show` directive
     expect(wrapper.isVisible()).toBe(true)
 
     expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
@@ -52,7 +52,7 @@ describe('sidebar', () => {
 
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('div')).toBe(true)
-    // Check for no presense of `display: none' from v-show
+    // Check for no presence of `display: none' from `v-show` directive
     expect(wrapper.isVisible()).toBe(false)
 
     wrapper.setProps({
@@ -64,7 +64,7 @@ describe('sidebar', () => {
     await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
-    // Check for no presense of `display: none' from v-show
+    // Check for no presence of `display: none' from `v-show` directive
     expect(wrapper.isVisible()).toBe(true)
 
     wrapper.destroy()
@@ -77,7 +77,7 @@ describe('sidebar', () => {
         id: 'test-toggle'
       },
       stubs: {
-        // Disable use of default test transitionStub component
+        // Disable use of default test `transitionStub` component
         transition: false
       }
     })
@@ -127,7 +127,7 @@ describe('sidebar', () => {
         id: 'test-esc'
       },
       stubs: {
-        // Disable use of default test transitionStub component
+        // Disable use of default test `transitionStub` component
         transition: false
       }
     })
@@ -186,12 +186,12 @@ describe('sidebar', () => {
     const wrapper = mount(BSidebar, {
       attachToDocument: true,
       propsData: {
-        // 'id' is a required prop
+        // `id` is a required prop
         id: 'test-sync',
         visible: true
       },
       stubs: {
-        // Disable use of default test transitionStub component
+        // Disable use of default test `transitionStub` component
         transition: false
       }
     })
@@ -227,7 +227,7 @@ describe('sidebar', () => {
         noHeader: true
       },
       stubs: {
-        // Disable use of default test transitionStub component
+        // Disable use of default test `transitionStub` component
         transition: false
       }
     })
@@ -254,7 +254,7 @@ describe('sidebar', () => {
         lazy: true
       },
       stubs: {
-        // Disable use of default test transitionStub component
+        // Disable use of default test `transitionStub` component
         transition: false
       }
     })
@@ -295,7 +295,7 @@ describe('sidebar', () => {
         footer: '<span>FOOTER</span>'
       },
       stubs: {
-        // Disable use of default test transitionStub component
+        // Disable use of default test `transitionStub` component
         transition: false
       }
     })
