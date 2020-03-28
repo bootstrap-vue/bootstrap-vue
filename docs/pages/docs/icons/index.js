@@ -62,6 +62,7 @@ export default {
   mixins: [docsMixin],
   data() {
     return {
+      readme,
       titleLead,
       body,
       // Key for icons meta is '' (empty slug)
