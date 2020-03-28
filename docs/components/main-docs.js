@@ -1,5 +1,5 @@
 import CarbonAd from '~/components/ad'
-import Main from '~/compoents/main'
+import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links.vue'
 import Section from '~/components/section'
 import { splitReadme } from '~/utils'
