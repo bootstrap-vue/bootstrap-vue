@@ -11,8 +11,6 @@ inputs vary in presentation, accessibility, and in some instances are not suppor
 `<b-form-datepicker>` provides a consistent and accessible interface across all browser platforms
 and devices.
 
-The `<b-form-datepicker>` component was introduced in BootstrapVue release `v2.5.0`.
-
 ```html
 <template>
   <div>

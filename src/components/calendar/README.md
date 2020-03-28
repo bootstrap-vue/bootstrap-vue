@@ -4,7 +4,7 @@
 > selection widget, which can be used to control other components, or can be used to create
 > customized date picker inputs.
 
-## Oveview
+## Overview
 
 `<b-calendar>` is WAI-ARIA accessibility compliant, optimized for keyboard control (arrow, page
 up/down, home, and end keys). Internationalization is also supported, and default's to the browser's
@@ -12,8 +12,6 @@ or page's locale, if no locale(s) are specified.
 
 If you need a date picker as a custom form control input, use the
 [`<b-form-datepicker>`](/docs/components/form-datepicker) component instead.
-
-`<b-calendar>` was introduced in BootstrapVue `v2.5.0`.
 
 ```html
 <template>

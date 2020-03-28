@@ -6,8 +6,6 @@
 
 ## Overview
 
-The component `<b-overlay>` was introduced in BootstrapVue version `v2.7.0`.
-
 `<b-overlay>` can be used to obscure almost anything. [Example use cases](#use-case-examples) would
 be forms, tables, delete confirmation dialogs, or anywhere you need to signal that the application
 is busy performing a background task, to signal that a certain component is unavailable, or to

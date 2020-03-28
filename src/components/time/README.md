@@ -13,8 +13,6 @@ page's locale, if no locale(s) are specified.
 If you need a time picker as a custom form control input, use the
 [`<b-form-timepicker>`](/docs/components/form-timepicker) component instead.
 
-The component `<b-time>` was introduced in BootstrapVue `v2.6.0`.
-
 ```html
 <template>
   <b-row>

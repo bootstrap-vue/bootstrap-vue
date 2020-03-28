@@ -11,6 +11,10 @@ export default {
       type: String,
       default: ''
     },
+    meta: {
+      type: Object,
+      default: null
+    },
     tag: {
       type: String,
       default: 'main'
@@ -22,6 +26,12 @@ export default {
     },
     titleLead() {
       return this.docs.titleLead || ''
+    },
+    availableSince() {
+      const { version } = this.meta || {}
+      return version
+        ? `Available in BootstrapVue since <code class="text-nowrap">${version}</code>.`
+        : ''
     },
     body() {
       return this.docs.body || this.readme
@@ -36,7 +46,15 @@ export default {
       props: { play: false },
       domProps: { innerHTML: this.titleLead }
     })
-    // CarbonAd
+    // Available since section
+    let $availableSinceSection = h()
+    if (this.availableSince) {
+      $availableSinceSection = h(Section, {
+        props: { play: false },
+        domProps: { innerHTML: this.availableSince }
+      })
+    }
+    // Carbon Ad
     const $carbonAd = h(CarbonAd, { key: `ad-${this.docPath}` })
     // Quick links
     const $quickLinks = h(QuickLinks, { key: `quick-${this.docsPath}` })
@@ -48,6 +66,7 @@ export default {
 
     return h(Main, { props: { tag: this.tag }, staticClass: 'bd-main' }, [
       $leadSection,
+      $availableSinceSection,
       $carbonAd,
       $quickLinks,
       $bodySection,

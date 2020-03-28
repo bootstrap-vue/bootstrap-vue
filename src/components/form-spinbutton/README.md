@@ -6,8 +6,6 @@
 
 ## Overview
 
-`<b-form-spinbutton>` was introduced in BootstrapVue `v2.5.0`.
-
 The component `<b-form-spinbutton>` is
 [WAI-ARIA compliant](https://www.w3.org/TR/wai-aria-practices-1.2/#spinbutton), allowing for
 [keyboard control](#accessibility), and supports both horizontal (default) and vertical layout.

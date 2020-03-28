@@ -27,8 +27,17 @@ export default {
       // Directive importing information
       h(Importdoc, { props: { meta: this.meta } })
     ])
-    return h(MainDocs, { staticClass: 'bd-components', props: { readme: this.readme } }, [
-      $referenceSection
-    ])
+
+    return h(
+      MainDocs,
+      {
+        staticClass: 'bd-components',
+        props: {
+          readme: this.readme,
+          meta: this.meta
+        }
+      },
+      [$referenceSection]
+    )
   }
 }

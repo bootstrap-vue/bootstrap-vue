@@ -23,6 +23,12 @@ export default {
     return { meta, readme }
   },
   render(h) {
-    return h(MainDocs, { staticClass: 'bd-components', props: { readme: this.readme } })
+    return h(MainDocs, {
+      staticClass: 'bd-components',
+      props: {
+        readme: this.readme,
+        meta: this.meta
+      }
+    })
   }
 }

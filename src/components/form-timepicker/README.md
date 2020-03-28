@@ -11,8 +11,6 @@ vary in presentation, accessibility, and in some instances are not supported by 
 `<b-form-timepicker>` provides a consistent and accessible interface across all browser platforms
 and devices.
 
-The `<b-form-timepicker>` component was introduced in BootstrapVue release `v2.6.0`.
-
 ```html
 <template>
   <div>
