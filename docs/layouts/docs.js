@@ -1,4 +1,3 @@
-import BVAd from '~/components/ad'
 import BVBreadcrumbs from '~/components/breadcrumbs.vue'
 import BVFeedback from '~/components/feedback'
 import BVFooter from '~/components/footer'
@@ -13,27 +12,19 @@ export default {
   data() {
     return {
       hasToc: false,
-      contentElements: ['ad', 'quick-links'],
+      contentElements: ['quick-links'],
       contentElementsVisible: false
     }
   },
   computed: {
     currentPath() {
       return this.$route.path
-    },
-    renderAd() {
-      return ['/', '/play'].indexOf(this.currentPath) === -1
     }
   },
   created() {
     this.$root.$on('docs-set-toc', toc => {
       // Only needed so we can set/clear aria-hidden on the TOC nav wrapper
       this.hasToc = Boolean(toc && toc.toc)
-
-      // Re-position the content elements
-      this.$nextTick(() => {
-        this.positionContentElements()
-      })
     })
   },
   mounted() {
@@ -87,14 +78,6 @@ export default {
         h(BVBreadcrumbs, { class: ['float-left', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h(BVFeedback, { class: ['float-right', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h('div', { class: ['clearfix', 'd-block'], ref: 'clearfix' }),
-        this.renderAd
-          ? h(BVAd, {
-              class: { invisible: !this.contentElementsVisible },
-              // We apply the route path as key to change the ad on every page
-              key: this.currentPath,
-              ref: 'ad'
-            })
-          : h(),
         h(BVQuickLinks, {
           class: 'd-xl-none',
           directives: [{ name: 'show', value: this.contentElementsVisible }],
