@@ -6,6 +6,7 @@ import QuickLinks from '~/components/quick-links.vue'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { directives as directivesMeta } from '~/content'
+import { splitReadme } from '~/utils'
 
 const getReadMe = name =>
   import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
@@ -20,7 +21,7 @@ export default {
   async asyncData({ params }) {
     const readme = (await getReadMe(params.slug)).default
     const { titleLead, body } = splitReadme(readme)
-    const meta = componentsMeta[params.slug]
+    const meta = directivesMeta[params.slug]
     return { meta, titleLead, body }
   },
   render(h) {
