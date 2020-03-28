@@ -22,7 +22,7 @@ The `<b-sidebar>` component was introduced in BootstrapVue `v2.10.0`.
 <template>
   <div>
     <b-button v-b-toggle.sidebar-1>Toggle Sidebar</b-button>
-    <b-sidebar id="sidebar-1" title="Sidebar!" shadow>
+    <b-sidebar id="sidebar-1" title="Sidebar" shadow>
       <div class="px-3 py-2">
         <p>
           Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
@@ -66,7 +66,7 @@ By default the sidebar will be placed on the left side fo the viewport. Set the 
 <template>
   <div>
     <b-button v-b-toggle.sidebar-right>Toggle Sidebar</b-button>
-    <b-sidebar id="sidebar-right" right title="Sidebar!" shadow>
+    <b-sidebar id="sidebar-right" title="Sidebar" right shadow>
       <div class="px-3 py-2">
         <p>
           Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
@@ -91,7 +91,7 @@ text colors.
 <template>
   <div>
     <b-button v-b-toggle.sidebar-variant>Toggle Sidebar</b-button>
-    <b-sidebar id="sidebar-variant" bg-variant="dark" text-variant="light" title="Sidebar!" shadow>
+    <b-sidebar id="sidebar-variant" title="Sidebar" bg-variant="dark" text-variant="light" shadow>
       <div class="px-3 py-2">
         <p>
           Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
@@ -174,7 +174,7 @@ includes a `hide()` method that can be used to close the sidebar.
 <template>
   <div>
     <b-button v-b-toggle.sidebar-no-header>Toggle Sidebar</b-button>
-    <b-sidebar id="sidebar-no-header" no-header shadow aria-labelledby="sidebar-no-header-title">
+    <b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" no-header shadow>
       <template v-slot:default="{ hide }">
         <div class="p-3">
           <h4 id="sidebar-no-header-title">Custom header sidebar</h4>
@@ -209,7 +209,7 @@ that can be used to close the sidebar.
 <template>
   <div>
     <b-button v-b-toggle.sidebar-footer>Toggle Sidebar</b-button>
-    <b-sidebar id="sidebar-footer" no-header shadow aria-label="Sidebar with custom footer">
+    <b-sidebar id="sidebar-footer" aria-label="Sidebar with custom footer" no-header shadow>
       <template v-slot:footer="{ hide }">
        <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
         <strong class="mr-auto">Footer</strong>
@@ -234,9 +234,9 @@ You can apply arbitrary classes to the footer section via the `footer-class` pro
 
 ### Lazy rendering
 
-In some instances, you may not want the content rendered when the sidebar is not visible. Simply
-set the `lazy` prop on `<b-sidebar>`. When `lazy` is `true`, the body and optional footer will
-_not_ be rendered (removed from DOM) whenever the sidebar is closed.
+In some instances, you may not want the content rendered when the sidebar is not visible. Simply set
+the `lazy` prop on `<b-sidebar>`. When `lazy` is `true`, the body and optional footer will _not_ be
+rendered (removed from DOM) whenever the sidebar is closed.
 
 ## Visibility control
 
@@ -258,7 +258,8 @@ you do use the `v-model` to show the sidebar, you should place the `aria-control
 attribute (also on the trigger element) to either the string `'true'` (if the sidebar is open) or
 `'false`' (if the sidebar is closed).
 
-The `v-model` is internally bound to the `visible` prop, and the `change` event updates the `v-model`.
+The `v-model` is internally bound to the `visible` prop, and the `change` event updates the
+`v-model`.
 
 ### Closing on $route change
 
@@ -284,7 +285,7 @@ When the sidebar is opened, the entire sidebar will receive focus, which is desi
 reader and keyboard-only users. When the sidebar is closed, the element that previously had focus
 before the sidebar was opened will be re-focused.
 
-When the sidebar is open, users can press <kbd>Esc</kbd> to close the sidebar. To disable this
+When the sidebar is open, users can press <kbd>ESC</kbd> to close the sidebar. To disable this
 feature, set the `no-close-on-esc` prop to `true`.
 
 When you have hidden the header, or do not have a title for the sidebar, set either `aria-label` to
