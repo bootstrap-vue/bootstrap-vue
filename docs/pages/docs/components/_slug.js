@@ -36,7 +36,7 @@ export default {
       // Component importing information
       h(Importdoc, { props: { meta: this.meta } })
     ])
-    return h(MainDocs, { staticClass: 'bd-components', props: { readme: this.readme} }, [
+    return h(MainDocs, { staticClass: 'bd-components', props: { readme: this.readme } }, [
       $referenceSection
     ])
   }
