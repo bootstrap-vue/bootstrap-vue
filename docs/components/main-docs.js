@@ -18,13 +18,13 @@ export default {
   },
   computed: {
     docs() {
-      return splitReadme(this.readme)
+      return splitReadme(this.readme || '')
     },
     titleLead() {
-      return this.docs.titleLead
+      return this.docs.titleLead || ''
     },
     body() {
-      return this.docs.body
+      return this.docs.body || this.readme
     },
     docsPath() {
       return this.$route.path
@@ -37,9 +37,9 @@ export default {
       domProps: { innerHTML: this.titleLead }
     })
     // CarbonAd
-    const $carbonAd = h(CarbonAd, { key: `ad-${this.$route.path}` })
+    const $carbonAd = h(CarbonAd, { key: `ad-${this.docPath}` })
     // Quick links
-    const $quickLinks = h(QuickLinks, { key: `quick-${this.$route.path}` })
+    const $quickLinks = h(QuickLinks, { key: `quick-${this.docsPath}` })
     // Body section
     const $bodySection = h(Section, {
       props: { play: true },
