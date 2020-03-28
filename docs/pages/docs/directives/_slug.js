@@ -4,7 +4,6 @@ import MainDocs from '~/components/main-docs'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { directives as directivesMeta } from '~/content'
-import { splitReadme } from '~/utils'
 
 const getReadMe = name =>
   import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
