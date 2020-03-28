@@ -51,7 +51,7 @@ export default {
       $carbonAd,
       $quickLinks,
       $bodySection,
-      this.$scopedSlots.default()
+      this.$scopedSlots.default ? this.$scopedSlots.default() : this.$slots.default
     ])
   }
 }
