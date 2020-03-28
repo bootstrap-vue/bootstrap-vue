@@ -136,7 +136,10 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
       'li',
       {
         staticClass: 'nav-item',
-        class: [this.tab.titleItemClass],
+        class: [
+          this.tab.titleItemClass,
+          this.tab.localActive ? this.bvTabs.activeNavLiClass : null
+        ],
         attrs: { role: 'presentation' }
       },
       [link]
@@ -198,6 +201,11 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       default: null
     },
     navWrapperClass: {
+      type: [String, Array, Object],
+      default: null
+    },
+    activeNavLiClass: {
+      // Only applied to the currently active li.nav-item
       type: [String, Array, Object],
       default: null
     },
