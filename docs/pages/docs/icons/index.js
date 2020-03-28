@@ -1,12 +1,15 @@
 import AnchoredHeading from '~/components/anchored-heading'
+import CarbonAd from '~/components/ad'
 import Componentdoc from '~/components/componentdoc'
 import IconsTable from '~/components/icons-table'
 import Importdoc from '~/components/importdoc'
 import Main from '~/components/main'
+import QuickLinks from '~/components/quick-links.vue'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { icons as iconsMeta, bootstrapIconsVersion } from '~/content'
 import readme from '~/../src/icons/README.md'
+import { splitReadme } from '~/utils'
 
 export default {
   name: 'BDVIcons',
@@ -14,7 +17,10 @@ export default {
   // We use a string template here so that the docs README can do interpolation
   template: `
     <Main class="bd-components">
-      <Section play>${readme}</Section>
+      <Section>${titleLead}</Section>
+      <CarbonAd :key="`ad-${$route.path}`"></CarbonAd>
+      <QuickLinks :key="`quick-${$route.path}`"></QuickLinks>
+      <Section play>${body}</Section>
       <Section class="bd-component-reference">
         <AnchoredHeading id="component-reference">Component reference</AnchoredHeading>
         <template v-for="c in componentMeta">
@@ -51,8 +57,10 @@ export default {
   },
   mixins: [docsMixin],
   data() {
+    const { titleLead, body } = splitReadme(readme)
     return {
-      readme: readme,
+      titleLead,
+      body,
       // Key for icons meta is '' (empty slug)
       meta: iconsMeta[''],
       bootstrapIconsVersion
