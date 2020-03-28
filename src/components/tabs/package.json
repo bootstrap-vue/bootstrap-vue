@@ -73,6 +73,10 @@
             "description": "CSS class (or classes) to apply to the currently active tab"
           },
           {
+            "prop": "activeNavLiClass",
+            "description": "CSS class (or classes) to apply to the active nav li (li.nav-item)"
+          },
+          {
             "prop": "activeNavItemClass",
             "description": "CSS class (or classes) to apply to the active nav item tab control"
           },
