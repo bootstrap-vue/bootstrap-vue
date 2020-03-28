@@ -11,6 +11,8 @@ import { icons as iconsMeta, bootstrapIconsVersion } from '~/content'
 import readme from '~/../src/icons/README.md'
 import { splitReadme } from '~/utils'
 
+const { titleLead, body } = splitReadme(readme)
+
 export default {
   name: 'BDVIcons',
   layout: 'docs',
