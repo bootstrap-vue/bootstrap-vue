@@ -3,6 +3,8 @@
 > `<b-form-datepicker>` is a BootstrapVue custom date picker input form control, which provides full
 > WAI-ARIA compliance and internationalization support.
 
+## Overview
+
 As a form control wrapper component for the [`<b-calendar>`](/docs/components/calendar) component,
 it provides additional validation state presentation and a compact interface. Native HTML5 date
 inputs vary in presentation, accessibility, and in some instances are not supported by all browsers.
