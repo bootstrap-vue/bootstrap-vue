@@ -186,7 +186,6 @@ describe('sidebar', () => {
     const wrapper = mount(BSidebar, {
       attachToDocument: true,
       propsData: {
-        // `id` is a required prop
         id: 'test-sync',
         visible: true
       },
