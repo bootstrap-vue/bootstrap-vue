@@ -23,7 +23,7 @@ export default {
     const readme = (await getReadMe(params.slug)).default
     const { titleLead, body } = splitReadme(readme)
     const meta = componentsMeta[params.slug]
-    return { readme, meta, titleLead, body }
+    return { meta, titleLead, body }
   },
   render(h) {
     // Lead section
