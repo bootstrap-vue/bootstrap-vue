@@ -34,7 +34,9 @@ export default {
       <Section>${body}</Section>
     </Main>`,
   components: {
+    CarbonAd,
     Main,
+    QuckLinks,
     Section
   },
   mixins: [docsMixin],
