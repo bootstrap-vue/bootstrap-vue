@@ -1,6 +1,5 @@
 import hljs from '~/utils/hljs'
 import MainDocs from '~/components/main-docs'
-import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { misc as miscMeta, defaultConfig } from '~/content'
 
