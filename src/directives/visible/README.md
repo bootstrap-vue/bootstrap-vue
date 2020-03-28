@@ -5,8 +5,6 @@
 
 ## Overview
 
-The `v-b-visible` directive was added in version `2.1.0`.
-
 - `v-b-visible` will call your callback method with a boolean value indicating if the element is
   visible (intersecting with the viewport) or not.
 - The directive can be placed on almost any element or component.

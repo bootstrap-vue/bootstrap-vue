@@ -11,8 +11,6 @@ Avatars are lightweight functional components, which render inline by default, s
 vertically centered beside any adjoining plain text. They also can be used as children of other
 components.
 
-The `<b-avatar>` component was added in BootstrapVue version `v2.8.0`.
-
 ```html
 <template>
   <div>

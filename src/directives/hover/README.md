@@ -7,8 +7,6 @@
 
 The `v-b-hover` directive can be used as an alternative to using custom CSS to handle hover states.
 
-The `v-b-hover` directive was added in version `2.5.0`.
-
 - `v-b-hover` will call your callback method with a boolean value indicating if the element is
   hovered or not.
 - The directive can be placed on almost any element or component.
