@@ -1,4 +1,6 @@
-import Main from '~/components/main'
+import CarbonAd from '~/components/ad'
+import Main from '~/components/main-docs'
+import QuickLinks from '~/components/quick-links.vue'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import {
@@ -11,6 +13,9 @@ import {
   vueVersion
 } from '~/content'
 import readme from '~/markdown/intro/README.md'
+import { splitReadme } from '~/utils'
+
+const { titleLead, body } = splitReadme(readme)
 
 // RegExp to grab the minor version from a full version
 const minorRE = /^(\d+\.\d+)(\..+)$/
@@ -21,7 +26,13 @@ export default {
   name: 'BDVDocs',
   layout: 'docs',
   // We use a string template here so that the docs README can do interpolation
-  template: `<Main><Section>${readme}</Section></Main>`,
+  template: `
+    <Main>
+      <Section>${titleLead}</Section>
+      <CarbonAd key="ad-/docs"></CarbonAd>
+      <QuickLinks key="quick-/docs"></QuickLinks>
+      <Section>${body}</Section>
+    </Main>`,
   components: {
     Main,
     Section
