@@ -69,23 +69,18 @@ export default {
       return meta
     }
   },
-  watch: {
-    readme: {
-      immediate: true,
-      handler(newVal, oldVal) {
-        if (newVal !== oldVal) {
-          const key = `${this.$route.path}_${this.$route.params.slug || ''}`
-          const toc = newVal
-            ? TOC_CACHE[key] || (TOC_CACHE[key] = makeTOC(newVal || '', this.meta || null))
-            : {}
-          this.$root.$emit('docs-set-toc', toc)
-        }
-      }
-    }
-  },
   mounted() {
     this.clearScrollTimeout()
-    this.$nextTick(this.focusScroll)
+    this.focusScroll()
+    this.$nextTick(() => {
+      // In a `setTimeout()` to allow page time to finish processing
+      setTimeout(() => {
+        const key = `${this.$route.path}_${this.$route.params.slug || ''}`
+        const toc =
+          TOC_CACHE[key] || (TOC_CACHE[key] = makeTOC(this.readme || '', this.meta || null))
+        this.$root.$emit('docs-set-toc', toc)
+      }, 1)
+    })
   },
   updated() {
     this.clearScrollTimeout()
