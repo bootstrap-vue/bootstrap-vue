@@ -486,6 +486,11 @@ export default {
         const fallbackMeta = commonProps[prop] || {}
         const description =
           typeof meta.description === 'undefined' ? fallbackMeta.description : meta.description
+        // TODO:
+        //   Can we auto-detect this by doing a lookup in the
+        //   default settings or determine if the prop default
+        //   value came from the settings?
+        const settings = meta.settings || false
         const version = typeof meta.version === 'undefined' ? fallbackMeta.version : meta.version
 
         return {
@@ -494,7 +499,7 @@ export default {
           defaultValue,
           required: p.required || false,
           description: description || '',
-          settings: meta.settings || false,
+          settings,
           version,
           xss: /[a-z]Html$/.test(prop),
           isVModel: this.componentVModel && this.componentVModel.prop === prop,
