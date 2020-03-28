@@ -12,7 +12,7 @@
           target="_blank"
           href="https://vuejs.org/v2/guide/render-function.html#Functional-Components"
         >
-          Functional Component
+          Functional component
         </b-badge>
       </b-col>
       <b-col sm="3" class="text-sm-right">
@@ -57,7 +57,7 @@
       <li v-if="rootEventListeners && rootEventListeners.length > 0">
         <a :href="`#comp-ref-${componentName}-rootEventListeners`">
           <code class="notranslate" translate="no">{{ tag }}</code>
-          <code class="notranslate" translate="no">$root</code> Event Listeners
+          <code class="notranslate" translate="no">$root</code> Event listeners
         </a>
       </li>
     </ul>
@@ -91,16 +91,21 @@
         table-class="bv-docs-table"
         responsive="sm"
         sort-icon-left
+        bordered
         striped
       >
         <template v-slot:cell(prop)="{ value, item }">
-          <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
+          <code class="text-nowrap notranslate" translate="no">{{ value }}</code><br>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
+          <b-badge v-if="item.settings" variant="dark">Settings</b-badge>
           <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
           <b-badge v-if="item.isVModel" variant="primary">v-model</b-badge>
           <b-badge v-if="item.xss" variant="warning">Use with caution</b-badge>
           <b-badge v-if="item.deprecated" variant="danger">Deprecated</b-badge>
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
+        </template>
+        <template v-slot:cell(type)="{ value }">
+          <span v-html="value"></span>
         </template>
         <template v-slot:cell(defaultValue)="{ value }">
           <code v-if="value" class="word-wrap-normal notranslate" translate="no">{{ value }}</code>
@@ -142,13 +147,14 @@
 
     <article v-if="componentVModel" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4" class="mb-3">
-        v-model
+        <code class="notranslate" translate="no">v-model</code>
       </anchored-heading>
       <b-table-lite
         :items="[componentVModel]"
         :fields="[{ key: 'prop', label: 'Property' }, 'event']"
         table-class="bv-docs-table"
         responsive="sm"
+        bordered
         striped
       >
         <template v-slot:cell(prop)="{ value }">
@@ -171,6 +177,7 @@
         table-class="bv-docs-table"
         responsive="sm"
         sort-icon-left
+        bordered
         striped
       >
         <template v-slot:cell(name)="{ value, item }">
@@ -197,6 +204,7 @@
               primary-key="prop"
               class="mb-0"
               head-variant="dark"
+              bordered
               striped
               small
               caption-top
@@ -236,6 +244,7 @@
         primary-key="event"
         table-class="bv-docs-table"
         responsive="sm"
+        bordered
         striped
       >
         <template v-slot:cell(event)="{ value, item }">
@@ -257,7 +266,7 @@
 
     <article v-if="rootEventListeners && rootEventListeners.length > 0" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-rootEventListeners`" level="4" class="mb-3">
-        <code class="notranslate" translate="no">$root</code> Event Listeners
+        <code class="notranslate" translate="no">$root</code> event listeners
       </anchored-heading>
       <p>
         You can control <code class="notranslate" translate="no">{{ tag }}</code> by emitting the
@@ -269,6 +278,7 @@
         primary-key="event"
         table-class="bv-docs-table"
         responsive="sm"
+        bordered
         striped
       >
         <template v-slot:cell(event)="{ value, item }">
@@ -456,26 +466,22 @@ export default {
 
         // Describe type
         let type = p.type
+        let types = []
         if (Array.isArray(type)) {
-          type = type.map(t => t.name).join(' or ')
-        } else if (typeof type === 'undefined') {
-          type = 'Any'
+          types = type.map(type => type.name)
         } else {
-          type = type.name
+          types = type && type.name ? [type.name] : ['Any']
         }
+        type = types
+          .map(type => `<code class="notranslate" translate="no">${type}</code>`)
+          .join(' or ')
 
         // Default value
-        let defaultVal = p.default
-        if (defaultVal instanceof Function && !Array.isArray(defaultVal)) {
-          defaultVal = defaultVal()
+        let defaultValue = p.default
+        if (defaultValue instanceof Function && !Array.isArray(defaultValue)) {
+          defaultValue = defaultValue()
         }
-        if (typeof defaultVal === 'undefined' || defaultVal === null) {
-          defaultVal = ''
-        }
-        defaultVal = JSON.stringify(defaultVal, undefined, 1).replace(/"/g, "'")
-        if (defaultVal === "''") {
-          defaultVal = ''
-        }
+        defaultValue = String(JSON.stringify(defaultValue, undefined, 1)).replace(/"/g, "'")
 
         const fallbackMeta = commonProps[prop] || {}
         const description =
@@ -485,9 +491,10 @@ export default {
         return {
           prop: kebabCase(prop),
           type,
-          defaultValue: defaultVal,
+          defaultValue,
           required: p.required || false,
           description: description || '',
+          settings: meta.settings || false,
           version,
           xss: /[a-z]Html$/.test(prop),
           isVModel: this.componentVModel && this.componentVModel.prop === prop,
