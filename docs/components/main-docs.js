@@ -1,7 +1,7 @@
 import CarbonAd from '~/components/ad'
-import Main from '~/compoent/main'
+import Main from '~/compoents/main'
 import QuickLinks from '~/components/quick-links.vue'
-import Section from '~/component/section'
+import Section from '~/components/section'
 import { splitReadme } from '~/utils'
 
 export default {
