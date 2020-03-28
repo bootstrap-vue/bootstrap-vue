@@ -5,6 +5,7 @@ import Main from '~/components/main'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { components as componentsMeta } from '~/content'
+import { splitReadme } from '~/utils'
 
 const getReadMe = name =>
   import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
@@ -18,14 +19,24 @@ export default {
   },
   async asyncData({ params }) {
     const readme = (await getReadMe(params.slug)).default
+    const { titleLead, body } = splitReadme(readme)
     const meta = componentsMeta[params.slug]
-    return { readme, meta }
+    return { readme, meta, titleLead, body }
   },
   render(h) {
-    // Readme section
-    const $readmeSection = h(Section, {
+    // Lead section
+    const $leadSection = h(Section, {
+      props: { play: false },
+      domProps: { innerHTML: this.titleLead }
+    })
+    // CarbonAd
+    const $carbonAd = h()
+    // Quick links
+    const $quickLinks = h()
+    // Body section
+    const $bodySection = h(Section, {
       props: { play: true },
-      domProps: { innerHTML: this.readme }
+      domProps: { innerHTML: this.body }
     })
     // Reference section
     const $referenceSection = h(Section, { class: ['bd-component-reference'] }, [
@@ -41,6 +52,12 @@ export default {
       // Component importing information
       h(Importdoc, { props: { meta: this.meta } })
     ])
-    return h(Main, { staticClass: 'bd-components' }, [$readmeSection, $referenceSection])
+    return h(Main, { staticClass: 'bd-components' }, [
+      $leadSection,
+      $carbonAd,
+      $quickLinks,
+      $bodySection,
+      $referenceSection
+    ])
   }
 }
