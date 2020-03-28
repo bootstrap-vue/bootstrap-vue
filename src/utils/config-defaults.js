@@ -69,7 +69,7 @@ export default deepFreeze({
   },
   BCalendar: {
     // BFormDate will choose these first if not provided in BFormDate section
-    labelPrevYear:  'Previous year',
+    labelPrevYear: 'Previous year',
     labelPrevMonth: 'Previous month',
     labelCurrentMonth: 'Current month',
     labelNextMonth: 'Next month',
