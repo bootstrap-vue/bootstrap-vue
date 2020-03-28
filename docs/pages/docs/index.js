@@ -13,9 +13,9 @@ import {
   vueVersion
 } from '~/content'
 import readme from '~/markdown/intro/README.md'
-import { splitReadme } from '~/utils'
+import { parseReadme } from '~/utils'
 
-const { titleLead, body } = splitReadme(readme)
+const { titleLead, body } = parseReadme(readme)
 
 // RegExp to grab the minor version from a full version
 const minorRE = /^(\d+\.\d+)(\..+)$/

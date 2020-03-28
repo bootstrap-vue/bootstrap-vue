@@ -85,7 +85,7 @@ export const relativeUrl = url => {
 // const RX_TITLE_LEAD_BODY = /^\s*(<h1 .+?<\/h1>)\s*(<p class="?bd-lead.+?<\/p>)?(.+)/i
 // const RX_TITLE_LEAD_BODY = /^\s*(<h1 .+?<\/h1>)\s*(<p class="?bd-lead.+?<\/p>)?(.*)$/is
 const RX_TITLE_LEAD_BODY = /^\s*(<h1 .+?<\/h1>)\s*(<p class="?bd-lead[\s\S]+?<\/p>)?([\s\S]*)$/i
-export const splitReadme = (readme = '') => {
+export const parseReadme = (readme = '') => {
   const [, title = '', lead = '', body = ''] = readme.match(RX_TITLE_LEAD_BODY)
   return {
     titleLead: `${title} ${lead}`,

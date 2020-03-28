@@ -9,9 +9,9 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { icons as iconsMeta, bootstrapIconsVersion } from '~/content'
 import readme from '~/../src/icons/README.md'
-import { splitReadme } from '~/utils'
+import { parseReadme } from '~/utils'
 
-const { titleLead, body } = splitReadme(readme)
+const { titleLead, body } = parseReadme(readme)
 
 export default {
   name: 'BDVIcons',

@@ -2,7 +2,7 @@ import CarbonAd from '~/components/ad'
 import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links.vue'
 import Section from '~/components/section'
-import { splitReadme } from '~/utils'
+import { parseReadme } from '~/utils'
 
 export default {
   name: 'BVMainDocs',
@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     docs() {
-      return splitReadme(this.readme || '')
+      return parseReadme(this.readme || '')
     },
     titleLead() {
       return this.docs.titleLead || ''
