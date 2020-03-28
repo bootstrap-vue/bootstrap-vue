@@ -244,11 +244,39 @@ describe('sidebar', () => {
     wrapper.destroy()
   })
 
-  it('should have expected structure when `lazy` is set', async () => {
+  it('should have expected structure when `no-header-close` is set', async () => {
     const wrapper = mount(BSidebar, {
       attachToDocument: true,
       propsData: {
         id: 'test-3',
+        visible: true,
+        noHeaderClose: true
+      },
+      stubs: {
+        // Disable use of default test `transitionStub` component
+        transition: false
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
+    expect(wrapper.find('.b-sidebar-header .close').exists()).toBe(false)
+    expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
+    expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('should have expected structure when `lazy` is set', async () => {
+    const wrapper = mount(BSidebar, {
+      attachToDocument: true,
+      propsData: {
+        id: 'test-4',
         visible: false,
         lazy: true
       },
@@ -287,7 +315,7 @@ describe('sidebar', () => {
     const wrapper = mount(BSidebar, {
       attachToDocument: true,
       propsData: {
-        id: 'test-4',
+        id: 'test-5',
         visible: true
       },
       slots: {
