@@ -30,9 +30,9 @@ export default {
       domProps: { innerHTML: this.titleLead }
     })
     // CarbonAd
-    const $carbonAd = h()
+    const $carbonAd = h('aside', { key: `advert-${$route.path}` }, 'advert goes here')
     // Quick links
-    const $quickLinks = h()
+    const $quickLinks = h('section', {}, 'quicklinks goes here here')
     // Body section
     const $bodySection = h(Section, {
       props: { play: true },
