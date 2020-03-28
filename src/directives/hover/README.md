@@ -3,11 +3,11 @@
 > `v-b-hover` is a lightweight directive that allows you to react when an element either becomes
 > hovered or unhovered.
 
+## Overview
+
 The `v-b-hover` directive can be used as an alternative to using custom CSS to handle hover states.
 
 The `v-b-hover` directive was added in version `2.5.0`.
-
-## Overview
 
 - `v-b-hover` will call your callback method with a boolean value indicating if the element is
   hovered or not.
