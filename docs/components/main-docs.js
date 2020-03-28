@@ -2,7 +2,6 @@ import CarbonAd from '~/components/ad'
 import Main from '~/compoent/main'
 import QuickLinks from '~/components/quick-links.vue'
 import Section from '~/component/section'
-import { mergeData } from 'vue-functional-data-merge'
 import { splitReadme } from '~/utils'
 
 export default {
@@ -19,7 +18,7 @@ export default {
   },
   computed: {
     docs() {
-      return { titleLead, body } = splitReadme(this.readme)
+      return splitReadme(this.readme)
     },
     titleLead() {
       return this.docs.titleLead
