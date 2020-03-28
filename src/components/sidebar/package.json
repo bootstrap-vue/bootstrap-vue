@@ -72,7 +72,11 @@
           },
           {
             "prop": "noHeader",
-            "description": "When set to `true` disabled rendering of hte default header (including close button)"
+            "description": "When set to `true` disables rendering of the default header (including close button)"
+          },
+          {
+            "prop": "noHeaderClose",
+            "description": "When set to `true` disables rendering of the header close button"
           },
           {
             "prop": "noCloseOnEsc",
@@ -125,6 +129,10 @@
                 "description": "`true` if the sidebar is on the right"
               }
             ]
+          },
+          {
+            "name": "header-close",
+            "description": "Content of the header close button. Defaults to `<b-icon-x>`"
           },
           {
             "name": "default",
