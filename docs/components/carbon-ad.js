@@ -1,5 +1,5 @@
 export default {
-  name: 'BVAd',
+  name: 'BVCarbonAd',
   props: {
     id: {
       type: String,

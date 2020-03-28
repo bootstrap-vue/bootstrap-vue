@@ -12,7 +12,7 @@
           </p>
         </b-col>
         <b-col lg="auto">
-          <BVAd class="my-3 my-lg-1"></BVAd>
+          <BVCarbonAd class="my-3 my-lg-1"></BVCarbonAd>
         </b-col>
       </b-row>
     </div>
@@ -302,7 +302,7 @@ import debounce from 'lodash/debounce'
 import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/define'
 import needsTranspiler from '~/utils/needs-transpiler'
 import { version as bootstrapVueVersion, bootstrapVersion, vueVersion } from '~/content'
-import BVAd from '~/components/ad'
+import BVCarbonAd from '~/components/carbon-ad'
 import BVCodeMirror from '~/components/code-mirror'
 
 // --- Constants ---
@@ -371,7 +371,7 @@ const indent = (value, count = 2, { indent } = { indent: ' ' }) => {
 
 export default {
   components: {
-    BVAd,
+    BVCarbonAd,
     BVCodeMirror
   },
   data() {

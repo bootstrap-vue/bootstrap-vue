@@ -186,7 +186,7 @@
           </div>
 
           <div class="order-1 order-md-2">
-            <BVAd></BVAd>
+            <BVCarbonAd></BVCarbonAd>
           </div>
         </div>
       </b-container>
@@ -671,12 +671,12 @@ $bv-angle-padding-md: 6rem;
 
 <script>
 import { version, bootstrapVersion, vueVersion } from '~/content'
-import BVAd from '~/components/ad'
+import BVCarbonAd from '~/components/carbon-ad'
 import BVContributors from '~/components/contributors'
 
 export default {
   components: {
-    BVAd,
+    BVCarbonAd,
     BVContributors
   },
   data() {
