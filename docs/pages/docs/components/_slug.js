@@ -4,6 +4,7 @@ import Componentdoc from '~/components/componentdoc'
 import Importdoc from '~/components/importdoc'
 import Main from '~/components/main'
 import Section from '~/components/section'
+import QuickLinks from '~/components/quick-links.vue'
 import docsMixin from '~/plugins/docs-mixin'
 import { components as componentsMeta } from '~/content'
 import { splitReadme } from '~/utils'
@@ -33,7 +34,7 @@ export default {
     // CarbonAd
     const $carbonAd = h(CarbonAd, { key: `ad-${this.$route.path}` })
     // Quick links
-    const $quickLinks = h('section', {}, 'quicklinks goes here here')
+    const $quickLinks = h(QuickLinks, { key: `quick-${this.$route.path}` })
     // Body section
     const $bodySection = h(Section, {
       props: { play: true },
