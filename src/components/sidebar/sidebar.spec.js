@@ -362,7 +362,7 @@ describe('sidebar', () => {
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
-    expect(wrapper.find('.b-sidebar-header > span').text()).toEqual('TITLE')
+    expect(wrapper.find('.b-sidebar-header > strong').text()).toEqual('TITLE')
     expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
     expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
