@@ -21,34 +21,51 @@ const NAME = 'BSidebar'
 const CLASS_NAME = 'b-sidebar'
 
 // --- Render methods ---
+const renderHeaderTitle = (h, ctx) => {
+  const title = ctx.normalizeSlot('title', ctx.slotScope) || toString(ctx.title) || null
+
+  // Render a empty `<span>` when to title was provided
+  if (!title) {
+    return h('span')
+  }
+
+  return h('strong', { attrs: { id: ctx.safeId('__title__') } }, [title])
+}
+
+const renderHeaderClose = (h, ctx) => {
+  if (ctx.noHeaderClose) {
+    return h()
+  }
+
+  const { closeLabel, textVariant, hide } = ctx
+
+  return h(
+    BButtonClose,
+    {
+      ref: 'close-button',
+      props: { ariaLabel: closeLabel, textVariant },
+      on: { click: hide }
+    },
+    [ctx.normalizeSlot('header-close') || h(BIconX)]
+  )
+}
+
 const renderHeader = (h, ctx) => {
   if (ctx.noHeader) {
     return h()
   }
 
-  const { right, closeLabel, textVariant, headerClass, slotScope, hide } = ctx
-  const title = ctx.normalizeSlot('title', slotScope) || toString(ctx.title) || null
-  const titleId = title ? ctx.safeId('__title__') : null
-
-  const $title = title ? h('strong', { attrs: { id: titleId } }, [title]) : h('span')
-
-  const $close = h(
-    BButtonClose,
-    {
-      props: { ariaLabel: closeLabel, textVariant },
-      on: { click: hide }
-    },
-    [h(BIconX)]
-  )
+  const $title = renderHeaderTitle(h, ctx)
+  const $close = renderHeaderClose(h, ctx)
 
   return h(
     'header',
     {
       key: 'header',
       staticClass: `${CLASS_NAME}-header`,
-      class: headerClass
+      class: ctx.headerClass
     },
-    right ? [$close, $title] : [$title, $close]
+    ctx.right ? [$close, $title] : [$title, $close]
   )
 }
 
@@ -69,6 +86,7 @@ const renderFooter = (h, ctx) => {
   if (!$footer) {
     return h()
   }
+
   return h(
     'footer',
     {
@@ -163,6 +181,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       default: false
     },
     noHeader: {
+      type: Boolean,
+      default: false
+    },
+    noHeaderClose: {
       type: Boolean,
       default: false
     },
