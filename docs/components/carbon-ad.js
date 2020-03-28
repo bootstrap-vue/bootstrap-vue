@@ -24,7 +24,7 @@ export default {
     }
   },
   render(h) {
-    return h('aside', { staticClass: 'bv-ad' }, [
+    return h('aside', { staticClass: 'bv-carbon-ad' }, [
       h('client-only', [
         h('script', {
           attrs: {

@@ -285,12 +285,12 @@
   transform: 0.3s;
 }
 
-.bv-ad {
+.bv-carbon-ad {
   min-height: 130px;
 }
 
 @media (min-width: 992px) {
-  .bv-ad {
+  .bv-carbon-ad {
     min-width: 330px;
   }
 }
