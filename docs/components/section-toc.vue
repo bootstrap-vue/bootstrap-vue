@@ -7,7 +7,7 @@
         </span>
       </h1>
       <p v-if="groupDescription" class="bd-lead">{{ groupDescription }}</p>
-      <CarbonAd :key="`ad-{$route.path}`></CarbonAd>
+      <CarbonAd :key="`ad-{$route.path}`"></CarbonAd>
       <b-list-group tag="nav" :aria-label="`${groupTitle} section navigation`" class="mb-5">
         <b-list-group-item
           v-for="page in pages"
