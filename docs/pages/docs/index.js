@@ -26,8 +26,7 @@ export default {
   name: 'BDVDocs',
   layout: 'docs',
   // We use a string template here so that the docs README can do interpolation
-  template: `
-    <Main>
+  template: `<Main>
       <Section>${titleLead}</Section>
       <CarbonAd key="ad-/docs"></CarbonAd>
       <QuickLinks key="quick-/docs"></QuickLinks>
@@ -55,6 +54,8 @@ export default {
       portalVueVersion,
       portalVueVersionMinor: portalVueVersion.replace(minorRE, '$1'),
       portalVueVersionMajor: portalVueVersion.replace(majorRE, '$1'),
+      titleLead,
+      body,
       readme,
       version,
       vueVersion,
