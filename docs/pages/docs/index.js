@@ -1,5 +1,5 @@
 import CarbonAd from '~/components/ad'
-import Main from '~/components/main-docs'
+import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links.vue'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
@@ -26,7 +26,8 @@ export default {
   name: 'BDVDocs',
   layout: 'docs',
   // We use a string template here so that the docs README can do interpolation
-  template: `<Main>
+  template: `
+    <Main>
       <Section>${titleLead}</Section>
       <CarbonAd key="ad-/docs"></CarbonAd>
       <QuickLinks key="quick-/docs"></QuickLinks>
