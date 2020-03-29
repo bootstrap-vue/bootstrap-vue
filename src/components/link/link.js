@@ -20,8 +20,9 @@ export const propsFactory = () => ({
     default: null
   },
   rel: {
-    type: String
-    // default: null
+    type: String,
+    // Must be null if no value provided
+    default: null
   },
   target: {
     type: String,
