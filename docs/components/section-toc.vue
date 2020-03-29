@@ -1,13 +1,15 @@
 <template>
   <Main>
-    <Section>
+    <Section tag="header">
       <h1 :id="id" class="bv-no-focus-ring" tabindex="-1">
         <span class="bd-content-title">
           {{ groupTitle }} <span class="small text-muted">- table of contents</span>
         </span>
       </h1>
-      <p v-if="groupDescription" class="bd-lead">{{ groupDescription }}</p>
-      <CarbonAd :key="`ad-{$route.path}`"></CarbonAd>
+    </Section>
+    <p v-if="groupDescription" class="bd-lead">{{ groupDescription }}</p>
+    <CarbonAd :key="`ad-{$route.path}`"></CarbonAd>
+    <Section>
       <b-list-group tag="nav" :aria-label="`${groupTitle} section navigation`" class="mb-5">
         <b-list-group-item
           v-for="page in pages"
