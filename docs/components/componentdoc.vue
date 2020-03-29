@@ -470,6 +470,9 @@ export default {
           defaultValue = defaultValue()
         }
         defaultValue = String(JSON.stringify(defaultValue, undefined, 1)).replace(/"/g, "'")
+        if (defaultValue === 'undefined') {
+          defaultValue = ''
+        }
 
         const fallbackMeta = commonProps[prop] || {}
         const description =
