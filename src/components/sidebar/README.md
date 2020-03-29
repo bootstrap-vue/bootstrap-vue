@@ -16,8 +16,6 @@ provide your own header (if needed), and can be easily toggled with our `v-b-tog
 The component has minimal default styling, which provides you with great flexibility in laying out
 the content of the sidebar.
 
-The `<b-sidebar>` component was introduced in BootstrapVue `v2.10.0`.
-
 ```html
 <template>
   <div>
