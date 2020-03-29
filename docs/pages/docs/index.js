@@ -28,7 +28,7 @@ export default {
   // We use a string template here so that the docs README can do interpolation
   template: `
     <Main>
-      <Section>${titleLead}</Section>
+      <Section tag="header">${titleLead}</Section>
       <CarbonAd key="ad-/docs"></CarbonAd>
       <QuickLinks key="quick-/docs"></QuickLinks>
       <Section>${body}</Section>
