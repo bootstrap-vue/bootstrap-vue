@@ -4,7 +4,6 @@ import { mergeData } from 'vue-functional-data-merge'
 export const props = {
   src: {
     type: String,
-    // default: null
     required: true
   },
   alt: {

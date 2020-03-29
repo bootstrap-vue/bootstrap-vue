@@ -12,7 +12,6 @@ const NAME = 'BImgLazy'
 export const props = {
   src: {
     type: String,
-    // default: null,
     required: true
   },
   srcset: {
