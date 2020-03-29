@@ -21,8 +21,8 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
     bgColor: {
       // Alternative to variant, allowing a specific
       // CSS color to be applied to the overlay
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     opacity: {
       type: [Number, String],
@@ -53,8 +53,8 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
       default: 'border'
     },
     spinnerVariant: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     spinnerSmall: {
       type: Boolean,
@@ -93,7 +93,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
     },
     overlayScope() {
       return {
-        spinnerType: this.spinnerType,
+        spinnerType: this.spinnerType || null,
         spinnerVariant: this.spinnerVariant || null,
         spinnerSmall: this.spinnerSmall
       }
