@@ -60,7 +60,7 @@
             </svg>
           </b-col>
 
-          <b-col tag="section" cols="12" md="8" order-md="1">
+          <b-col tag="header" cols="12" md="8" order-md="1">
             <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">
               Bootstrap<span class="text-vue-green">Vue</span>
             </h1>
