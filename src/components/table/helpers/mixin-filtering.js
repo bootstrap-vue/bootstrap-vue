@@ -19,8 +19,8 @@ export default {
       default: null
     },
     filterFunction: {
-      type: Function,
-      default: null
+      type: Function
+      // default: null
     },
     filterIgnoredFields: {
       type: Array
