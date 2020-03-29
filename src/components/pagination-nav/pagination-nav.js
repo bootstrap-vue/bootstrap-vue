@@ -44,17 +44,17 @@ const props = {
     default: false
   },
   linkGen: {
-    type: Function,
-    default: null
+    type: Function
+    // default: null
   },
   pageGen: {
-    type: Function,
-    default: null
+    type: Function
+    // default: null
   },
   pages: {
     // Optional array of page links
-    type: Array,
-    default: null
+    type: Array
+    // default: null
   },
   noPageDetect: {
     // Disable auto page number detection if true
