@@ -24,8 +24,8 @@ export default {
       validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)
     },
     sortCompare: {
-      type: Function,
-      default: null
+      type: Function
+      // default: null
     },
     sortCompareOptions: {
       // Supported localCompare options, see `options` section of:
