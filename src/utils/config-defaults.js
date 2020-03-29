@@ -69,7 +69,7 @@ export default deepFreeze({
   },
   BCalendar: {
     // BFormDate will choose these first if not provided in BFormDate section
-    labelPrevYear:  'Previous year',
+    labelPrevYear: 'Previous year',
     labelPrevMonth: 'Previous month',
     labelCurrentMonth: 'Current month',
     labelNextMonth: 'Next month',
@@ -223,6 +223,13 @@ export default deepFreeze({
   },
   BSpinner: {
     variant: null
+  },
+  BSidebar: {
+    bgVariant: 'light',
+    textVariant: 'dark',
+    shadow: false,
+    width: null,
+    tag: 'div'
   },
   BTable: {
     selectedVariant: 'active',

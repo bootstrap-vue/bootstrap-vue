@@ -1,0 +1,78 @@
+.b-sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed !important;
+  top: 0;
+  bottom: 0;
+  width: $b-sidebar-width;
+  max-width: 100% !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  outline: 0;
+  transform: translateX(0);
+  z-index: $b-sidebar-zindex;
+
+  &.slide {
+    transition: transform $b-sidebar-transition-duration ease-in-out;
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  &:not(.b-sidebar-right) {
+    left: 0;
+    right: auto;
+
+    &.slide:not(.show) {
+      transform: translateX(-100%);
+    }
+
+    > .b-sidebar-header .close {
+      margin-left: auto;
+    }
+  }
+
+  &.b-sidebar-right {
+    left: auto;
+    right: 0;
+
+    &.slide:not(.show) {
+      transform: translateX(100%);
+    }
+
+    > .b-sidebar-header .close {
+      margin-right: auto;
+    }
+  }
+
+  > .b-sidebar-header {
+    font-size: $b-sidebar-header-font-size;
+    padding: $b-sidebar-header-padding-y $b-sidebar-header-padding-x;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 0;
+    align-items: center;
+
+    @at-root {
+      // Keep the buttons on the correct end when in RTL mode
+      [dir="rtl"] & {
+        flex-direction: row-reverse;
+      }
+    }
+
+    .close {
+      float: none;
+      font-size: $b-sidebar-header-font-size;
+    }
+  }
+
+  > .b-sidebar-body {
+    flex-grow: 1;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  > .b-sidebar-footer {
+    flex-grow: 0;
+  }
+}
