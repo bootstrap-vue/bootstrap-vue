@@ -33,8 +33,8 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       default: false
     },
     accordion: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     visible: {
       type: Boolean,
