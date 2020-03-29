@@ -26,8 +26,8 @@ const props = {
     default: DEFAULT_TOTAL_ROWS
   },
   ariaControls: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   }
 }
 
