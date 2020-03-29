@@ -39,7 +39,7 @@
           },
           {
             "prop": "pressed",
-            "description": "When set to 'true', gives the button the appearance of being pressed. Syncable with the .sync modifier"
+            "description": "When set to 'true', gives the button the appearance of being pressed and adds attribute 'aria-pressed=\"true\"'. When set to `false` adds attribute 'aria-pressed=\"false\"'. Tri-state prop. Syncable with the .sync modifier"
           }
         ],
         "events": [
