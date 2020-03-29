@@ -6,8 +6,8 @@
           {{ groupTitle }} <span class="small text-muted">- table of contents</span>
         </span>
       </h1>
+      <p v-if="groupDescription" class="bd-lead">{{ groupDescription }}</p>
     </Section>
-    <p v-if="groupDescription" class="bd-lead">{{ groupDescription }}</p>
     <CarbonAd :key="`ad-{$route.path}`"></CarbonAd>
     <Section>
       <b-list-group tag="nav" :aria-label="`${groupTitle} section navigation`" class="mb-5">
