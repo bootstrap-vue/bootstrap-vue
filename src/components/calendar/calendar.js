@@ -62,8 +62,8 @@ export const BCalendar = Vue.extend({
       // This specifies the calendar year/month/day that will be shown when
       // first opening the datepicker if no v-model value is provided
       // Default is the current date (or `min`/`max`)
-      type: [String, Date],
-      default: null
+      type: [String, Date]
+      // default: null
     },
     disabled: {
       type: Boolean,
