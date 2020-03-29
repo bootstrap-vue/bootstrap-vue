@@ -19,8 +19,8 @@ export default {
     primaryKey: {
       // Primary key for record
       // If provided the value in each row must be unique!
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     value: {
       // `v-model` for retrieving the current displayed rows
