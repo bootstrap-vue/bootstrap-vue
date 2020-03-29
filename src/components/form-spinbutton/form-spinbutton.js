@@ -81,8 +81,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       // default: null
     },
     placeholder: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     disabled: {
       type: Boolean,
@@ -119,12 +119,12 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       default: false
     },
     ariaLabel: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     ariaControls: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     labelDecrement: {
       type: String,
@@ -135,8 +135,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME, 'labelIncrement')
     },
     locale: {
-      type: [String, Array],
-      default: null
+      type: [String, Array]
+      // default: null
     },
     repeatDelay: {
       type: [Number, String],
