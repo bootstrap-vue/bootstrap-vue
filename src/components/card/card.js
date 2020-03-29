@@ -21,8 +21,8 @@ export const props = {
   ...cardImgProps,
   ...copyProps(cardMixin.props),
   align: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   noBody: {
     type: Boolean,
