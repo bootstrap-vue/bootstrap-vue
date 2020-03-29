@@ -3,16 +3,16 @@ import { mergeData } from 'vue-functional-data-merge'
 
 export const props = {
   id: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   tag: {
     type: String,
     default: 'header'
   },
   variant: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   }
 }
 
