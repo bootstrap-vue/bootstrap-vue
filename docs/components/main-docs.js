@@ -50,7 +50,7 @@ export default {
     let $availableSinceSection = h()
     if (this.availableSince) {
       $availableSinceSection = h(Section, {
-        props: { play: false },
+        props: { tag: 'header', play: false },
         domProps: { innerHTML: this.availableSince }
       })
     }
