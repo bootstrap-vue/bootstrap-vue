@@ -11,8 +11,8 @@ export const BDropdownText = /*#__PURE__*/ Vue.extend({
       default: 'p'
     },
     variant: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     }
   },
   render(h, { props, data, children }) {
