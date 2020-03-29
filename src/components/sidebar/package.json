@@ -1,0 +1,183 @@
+{
+  "name": "@bootstrap-vue/sidebar",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Sidebar",
+    "new": true,
+    "version": "2.10.0",
+    "description": "The `<b-sidebar>` component creates a fixed viewport, left or right, sliding popout drawer.",
+    "plugins": [
+      "VBTogglePlugin"
+    ],
+    "components": [
+      {
+        "component": "BSidebar",
+        "version": "2.10.0",
+        "props": [
+          {
+            "prop": "title",
+            "description": "Text content to place in the default header. The `title` slot takes precedence"
+          },
+          {
+            "prop": "right",
+            "description": "When `true`, positions the sidebar on the right of the viewport"
+          },
+          {
+            "prop": "visible",
+            "description": "When `true`, opens the sidebar. This is the `v-model`"
+          },
+          {
+            "prop": "bgVariant",
+            "description": "Theme variant color for the background of the sidebar"
+          },
+          {
+            "prop": "textVariant",
+            "description": "Theme variant color for the text of the sidebar"
+          },
+          {
+            "prop": "noSlide",
+            "description": "When set, disables the default sliding animation"
+          },
+          {
+            "prop": "shadow",
+            "description": "Set to boolean `true` for medium shadow, 'sm' for small shadow, 'lg' for large shadow, or boolean `false` for no shadow. Default is no shadow"
+          },
+          {
+            "prop": "width",
+            "description": "CSS width for the sidebar. Defaults to '320px' as defined by SCSS/CSS"
+          },
+          {
+            "prop": "zIndex",
+            "description": "Specify an arbitrary z-index value to override the value defined by SCSS/CSS"
+          },
+          {
+            "prop": "closeLabel",
+            "description": "`aria-label` to apply to the built-in close button. Defaults to 'Close'"
+          },
+          {
+            "prop": "headerClass",
+            "description": "Class, or classes, to apply to the built in header. Has no effect if prop `no-header` is set"
+          },
+          {
+            "prop": "bodyClass",
+            "description": "Class, or classes, to apply to the body (default slot) of the sidebar"
+          },
+          {
+            "prop": "footerClass",
+            "description": "Class, or classes, to apply to the optional `footer` slot"
+          },
+          {
+            "prop": "lazy",
+            "description": "When set to `true`, the content of the sidebar will only be rendered while the sidebar is open"
+          },
+          {
+            "prop": "noHeader",
+            "description": "When set to `true` disables rendering of the default header (including close button)"
+          },
+          {
+            "prop": "noHeaderClose",
+            "description": "When set to `true` disables rendering of the header close button"
+          },
+          {
+            "prop": "noCloseOnEsc",
+            "description": "When set to `true`, disables closing the sidebar when the user presses ESC"
+          },
+          {
+            "prop": "noCloseOnRouteChange",
+            "description": "When set to `true`, disables closing of the sidebar on route change"
+          }
+        ],
+        "events": [
+          {
+            "event": "change",
+            "description": "Emitted whenever the visibility of the sidebar changes. Used to update the `v-model`",
+            "args": [
+              {
+                "arg": "visible",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is open, `false` if it is closed (or in the process of closing)"
+              }
+            ]
+          },
+          {
+            "event": "shown",
+            "description": "Emitted when the sidebar has opened"
+          },
+          {
+            "event": "hidden",
+            "description": "Emitted when the sidebar has been hidden"
+          }
+        ],
+        "slots": [
+          {
+            "name": "title",
+            "description": "Content to place in the title of the built-in header. Takes precedence over the `title` prop",
+            "scope": [
+              {
+                "prop": "hide",
+                "type": "Function",
+                "description": "When called, will close the sidebar"
+              },
+              {
+                "prop": "visible",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is open"
+              },
+              {
+                "prop": "right",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is on the right"
+              }
+            ]
+          },
+          {
+            "name": "header-close",
+            "description": "Content of the header close button. Defaults to `<b-icon-x>`"
+          },
+          {
+            "name": "default",
+            "description": "Content to place in the body of the sidebar",
+            "scope": [
+              {
+                "prop": "hide",
+                "type": "Function",
+                "description": "When called, will close the sidebar"
+              },
+              {
+                "prop": "visible",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is open"
+              },
+              {
+                "prop": "right",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is on the right"
+              }
+            ]
+          },
+          {
+            "name": "footer",
+            "description": "Content to place in the optional footer",
+            "scope": [
+              {
+                "prop": "hide",
+                "type": "Function",
+                "description": "When called, will close the sidebar"
+              },
+              {
+                "prop": "visible",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is open"
+              },
+              {
+                "prop": "right",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is on the right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
