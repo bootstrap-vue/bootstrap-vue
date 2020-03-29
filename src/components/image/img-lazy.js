@@ -12,28 +12,28 @@ const NAME = 'BImgLazy'
 export const props = {
   src: {
     type: String,
-    default: null,
+    // default: null,
     required: true
   },
   srcset: {
-    type: [String, Array],
-    default: null
+    type: [String, Array]
+    // default: null
   },
   sizes: {
-    type: [String, Array],
-    default: null
+    type: [String, Array]
+    // default: null
   },
   alt: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   width: {
-    type: [Number, String],
-    default: null
+    type: [Number, String]
+    // default: null
   },
   height: {
-    type: [Number, String],
-    default: null
+    type: [Number, String]
+    // default: null
   },
   blankSrc: {
     // If null, a blank image is generated
@@ -45,12 +45,12 @@ export const props = {
     default: () => getComponentConfig(NAME, 'blankColor')
   },
   blankWidth: {
-    type: [Number, String],
-    default: null
+    type: [Number, String]
+    // default: null
   },
   blankHeight: {
-    type: [Number, String],
-    default: null
+    type: [Number, String]
+    // default: null
   },
   show: {
     type: Boolean,
