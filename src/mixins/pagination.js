@@ -133,8 +133,8 @@ export const props = {
     default: '\u203A' // '›'
   },
   nextClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   labelLastPage: {
     type: String,
@@ -149,16 +149,16 @@ export const props = {
     default: false
   },
   lastClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   labelPage: {
     type: [String, Function],
     default: 'Go to page'
   },
   pageClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   hideEllipsis: {
     type: Boolean,
@@ -169,8 +169,8 @@ export const props = {
     default: '\u2026' // '…'
   },
   ellipsisClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   }
 }
 
