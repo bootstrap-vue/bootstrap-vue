@@ -31,13 +31,13 @@ const propsMixin = {
       default: ''
     },
     placeholder: {
-      type: String,
+      type: String
       // Defaults to `labelNoTime` from BTime context
-      default: null
+      // default: null
     },
     size: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     disabled: {
       type: Boolean,
@@ -53,12 +53,12 @@ const propsMixin = {
       default: false
     },
     name: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     form: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     state: {
       // Tri-state prop: `true`, `false` or `null`
@@ -71,8 +71,8 @@ const propsMixin = {
       default: null
     },
     locale: {
-      type: [String, Array],
-      default: null
+      type: [String, Array]
+      // default: null
     },
     showSeconds: {
       type: Boolean,
@@ -180,8 +180,8 @@ const propsMixin = {
     },
     // extra dropdown stuff
     menuClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     ...dropdownProps
   }
