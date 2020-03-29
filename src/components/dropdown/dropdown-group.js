@@ -60,7 +60,7 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
     }
 
     const adb = [headerId, props.ariaDescribedBy]
-      .filter(idendity)
+      .filter(identity)
       .join(' ')
       .trim()
 
