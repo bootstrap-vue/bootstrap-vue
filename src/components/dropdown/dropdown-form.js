@@ -13,8 +13,8 @@ export const BDropdownForm = /*#__PURE__*/ Vue.extend({
       default: false
     },
     formClass: {
-      type: [String, Object, Array],
-      default: null
+      type: [String, Object, Array]
+      // default: null
     }
   },
   render(h, { props, data, children }) {
