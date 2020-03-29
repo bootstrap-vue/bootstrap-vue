@@ -26,16 +26,16 @@ export default {
       default: false
     },
     autocomplete: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     placeholder: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     formatter: {
-      type: Function,
-      default: null
+      type: Function
+      // default: null
     },
     lazyFormatter: {
       type: Boolean,
