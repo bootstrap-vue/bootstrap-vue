@@ -21,8 +21,8 @@ export default {
       default: false
     },
     form: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     autofocus: {
       type: Boolean,
