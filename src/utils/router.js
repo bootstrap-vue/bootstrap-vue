@@ -1,4 +1,4 @@
-import { isArray, isNull, isPlainObject, isString, isUndefined, isUndefinedOrNull } from './inspect'
+import { isArray, isNull, isPlainObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
 import { toString } from './string'
 
@@ -98,7 +98,7 @@ export const computeTag = ({ to, disabled } = {}, thisOrParent) => {
 }
 
 export const computeRel = ({ target, rel } = {}) => {
-  if (target === '_blank' && isUndefinedOrNull(rel)) {
+  if (target === '_blank' && isNull(rel)) {
     return 'noopener'
   }
   return rel || null
