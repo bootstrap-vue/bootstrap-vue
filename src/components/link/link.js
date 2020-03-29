@@ -20,8 +20,8 @@ export const propsFactory = () => ({
     default: null
   },
   rel: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   target: {
     type: String,
