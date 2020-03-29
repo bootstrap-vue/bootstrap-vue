@@ -184,52 +184,44 @@
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
         </template>
-        <template v-slot:cell(scope)="{ value, toggleDetails }">
+        <template v-slot:cell(scope)="{ value, detailsShowing, toggleDetails }">
           <b-button
             v-if="value"
-            variant="info"
+            variant="outline-info"
             size="sm"
             class="py-0"
             @click="toggleDetails()"
           >
-            Scope
+            {{ detailsShowing ? 'Hide scope' : 'Show scope' }}
           </b-button>
+          <span v-else>No</span>
         </template>
         <template v-slot:row-details="{ item }">
-          <b-card>
-            <b-table-lite
-              v-if="item.scope"
-              :items="item.scope"
-              :fields="[{ key: 'prop', label: 'Property' }, 'type', 'description']"
-              primary-key="prop"
-              class="mb-0"
-              head-variant="dark"
-              bordered
-              striped
-              small
-              caption-top
-            >
-              <template v-slot:thead-top>
-                <b-tr>
-                  <b-th colspan="3" class="text-center">
-                    Slot
-                    <code class="text-nowrap notranslate text-white" translate="no">
-                      {{ item.name }}
-                    </code>
-                    scoped properties
-                  </b-th>
-                </b-tr>
-              </template>
-              <template v-slot:cell(prop)="{ value, item }">
-                <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
-                <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
-              </template>
-              <template v-slot:cell(type)="{ value }">
-                <span v-if="value" class="text-nowrap notranslate" translate="no">{{ value }}</span>
-                <template v-else>Any</template>
-              </template>
-            </b-table-lite>
-          </b-card>
+          <b-table-lite
+            :items="item.scope"
+            :fields="[{ key: 'prop', label: 'Property' }, 'type', 'description']"
+            primary-key="prop"
+            class="m-0"
+            dark
+            caption-top
+            small
+          >
+            <template v-slot:thead-top>
+              <b-tr>
+                <b-th colspan="3" class="text-center">
+                  <code class="text-nowrap notranslate" translate="no">{{ item.name }}</code>
+                  Slot scoped properties
+                </b-th>
+              </b-tr>
+            </template>
+            <template v-slot:cell(prop)="{ value, item }">
+              <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
+              <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
+            </template>
+            <template v-slot:cell(type)="{ value }">
+              <code class="text-nowrap notranslate" translate="no">{{ value || 'Any' }}</code>
+            </template>
+          </b-table-lite>
         </template>
       </b-table>
     </article>
@@ -420,17 +412,14 @@ export default {
       }, {})
     },
     propsFields() {
-      const fields = [
-        { key: 'prop', label: 'Property', sortable: this.propsItems.length > 9 },
+      const sortable = this.propsItems.length >= 10
+      const hasDescriptions = this.propsItems.some(p => p.description)
+      return [
+        { key: 'prop', label: 'Property', sortable },
         { key: 'type', label: 'Type' },
-        { key: 'defaultValue', label: 'Default' }
+        { key: 'defaultValue', label: 'Default' },
+        ...(hasDescriptions ? [{ key: 'description', label: 'Description' }] : [])
       ]
-      if (this.propsItems.some(p => p.description)) {
-        // If any of the props have a description, then
-        // add the description column
-        fields.push({ key: 'description', label: 'Description' })
-      }
-      return fields
     },
     eventsFields() {
       return [
@@ -447,14 +436,13 @@ export default {
       ]
     },
     slotsFields() {
-      const fields = [
-        { key: 'name', label: 'Slot Name', sortable: this.slotsItems.length > 9 },
+      const sortable = this.slotsItems.length >= 10
+      const hasScopedSlots = this.slots.some(s => s.scope)
+      return [
+        { key: 'name', label: 'Slot Name', sortable },
+        ...(hasScopedSlots ? [{ key: 'scope', label: 'Scoped' }] : []),
         { key: 'description', label: 'Description' }
       ]
-      if (this.slots.length > 0 && this.slots.some(s => s.scope)) {
-        fields.push({ key: 'scope', label: 'Scoped' })
-      }
-      return fields
     },
     propsItems() {
       const props = this.componentProps
@@ -510,7 +498,7 @@ export default {
       })
     },
     slotsItems() {
-      // We use object spread here so that _showDetails doesn't
+      // We use object spread here so that `_showDetails` doesn't
       // mutate the original array objects
       return this.slots ? this.slots.map(s => ({ ...s })) : []
     },
@@ -531,7 +519,7 @@ export default {
       }
       const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/src/components'
       const slug = this.$route.params.slug
-      // Always point to the .js file (which may import a .vue file)
+      // Always point to the `.js` file (which may import a `.vue` file)
       return `${base}/${slug}/${name}.js`
     }
   },
