@@ -19,16 +19,17 @@ export const props = {
     default: false
   },
   state: {
+    // Tri-stste prop: `true`, `false`, or `null`
     type: Boolean,
     default: null
   },
   ariaLive: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   role: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   }
 }
 
@@ -49,8 +50,8 @@ export const BFormInvalidFeedback = /*#__PURE__*/ Vue.extend({
         },
         attrs: {
           id: props.id || null,
-          role: props.role,
-          'aria-live': props.ariaLive,
+          role: props.role || null,
+          'aria-live': props.ariaLive || null,
           'aria-atomic': props.ariaLive ? 'true' : null
         }
       }),
