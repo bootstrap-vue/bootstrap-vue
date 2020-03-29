@@ -25,8 +25,8 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
       default: 0
     },
     label: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     labelHtml: {
       type: String
