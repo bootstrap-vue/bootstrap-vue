@@ -54,20 +54,20 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
       default: false
     },
     min: {
-      type: [String, Number],
-      default: null
+      type: [String, Number]
+      // default: null
     },
     max: {
-      type: [String, Number],
-      default: null
+      type: [String, Number]
+      // default: null
     },
     step: {
-      type: [String, Number],
-      default: null
+      type: [String, Number]
+      // default: null
     },
     list: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     }
   },
   computed: {
