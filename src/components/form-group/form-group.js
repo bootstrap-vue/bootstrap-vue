@@ -174,24 +174,24 @@ const generateProps = () => {
   const bpLabelAlignProps = BREAKPOINTS.reduce((props, breakpoint) => {
     // label-align, label-align-sm, label-align-md, ...
     props[makePropName(breakpoint, 'labelAlign')] = {
-      type: String, // left, right, center
-      default: null
+      type: String // left, right, center
+      // default: null
     }
     return props
   }, create(null))
 
   return {
     label: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     labelFor: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     labelSize: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     labelSrOnly: {
       type: Boolean,
@@ -202,20 +202,20 @@ const generateProps = () => {
     // label-align prop and all label-align-{bp} props
     ...bpLabelAlignProps,
     labelClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     description: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     invalidFeedback: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     validFeedback: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     tooltip: {
       // Enable tooltip style feedback
