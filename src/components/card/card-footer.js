@@ -9,16 +9,16 @@ import cardMixin from '../../mixins/card'
 export const props = {
   ...copyProps(cardMixin.props, prefixPropName.bind(null, 'footer')),
   footer: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   footerHtml: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   footerClass: {
-    type: [String, Object, Array],
-    default: null
+    type: [String, Object, Array]
+    // default: null
   }
 }
 
