@@ -3,8 +3,8 @@ import { mergeData } from 'vue-functional-data-merge'
 
 export const props = {
   id: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   tag: {
     type: String,
@@ -48,7 +48,7 @@ export const BFormInvalidFeedback = /*#__PURE__*/ Vue.extend({
           'd-block': show
         },
         attrs: {
-          id: props.id,
+          id: props.id || null,
           role: props.role,
           'aria-live': props.ariaLive,
           'aria-atomic': props.ariaLive ? 'true' : null
