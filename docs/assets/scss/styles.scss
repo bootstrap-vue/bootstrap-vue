@@ -270,6 +270,11 @@ table#table-transition-example {
   }
 }
 
+// `<b-sidebar>` overrides for docs
+.b-sidebar {
+  z-index: 1071;
+}
+
 // Docsearch overrides
 // See: https://github.com/twbs/bootstrap/blob/master/site/static/docs/4.3/assets/scss/_algolia.scss
 .algolia-autocomplete {
