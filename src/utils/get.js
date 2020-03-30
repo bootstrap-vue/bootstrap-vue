@@ -1,5 +1,5 @@
 import identity from './identity'
-import { isArray, isObject } from './inspect'
+import { isArray, isFunction, isObject } from './inspect'
 
 const RX_ARRAY_NOTATION = /\[(\d+)]/g
 
@@ -16,6 +16,8 @@ const RX_ARRAY_NOTATION = /\[(\d+)]/g
 const get = (obj, path, defaultValue = null) => {
   // Handle array of path values
   path = isArray(path) ? path.join('.') : path
+
+  defaultValue = isFunction(defaultValue) ? defaultValue() : defaultValue
 
   // If no path or no object passed
   if (!path || !isObject(obj)) {
