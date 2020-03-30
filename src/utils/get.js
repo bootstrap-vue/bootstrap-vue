@@ -42,7 +42,7 @@ export const getRaw = (obj, path) => {
   // Traverse path in object to find result
   // Switched to `in` operator vs `hasOwnProperty` to handle obj.prototype getters
   // https://github.com/bootstrap-vue/bootstrap-vue/issues/3463
-  return steps.every(step => isObject(obj) && step in obj && !isUndefined(obj = obj[step]))
+  return steps.every(step => isObject(obj) && step in obj && !isUndefined((obj = obj[step])))
     ? obj
     : undefined
 }
