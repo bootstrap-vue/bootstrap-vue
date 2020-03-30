@@ -190,27 +190,27 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       default: false
     },
     contentClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     navClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     navWrapperClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     activeNavItemClass: {
       // Only applied to the currently active <b-nav-item>
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     activeTabClass: {
       // Only applied to the currently active <b-tab>
       // This prop is sniffed by the <b-tab> child
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     value: {
       // v-model
