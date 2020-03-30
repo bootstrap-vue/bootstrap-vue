@@ -42,7 +42,7 @@ export default deepFreeze({
 
   // Form controls
   formControls: {
-    size: null
+    size: undefined
   },
 
   // Component specific defaults are keyed by the component
