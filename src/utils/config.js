@@ -22,7 +22,7 @@ export const getConfig = () => {
 export const getConfigValue = key => {
   return VueProto[PROP_NAME]
     ? VueProto[PROP_NAME].getConfigValue(key)
-    : cloneDeep(get(DEFAULTS, key, (val) => val === null ? null : undefined))
+    : cloneDeep(get(DEFAULTS, key, val => (val === null ? null : undefined)))
 }
 
 // Method to grab a config value for a particular component
