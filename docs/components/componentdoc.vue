@@ -469,10 +469,9 @@ export default {
         if (defaultValue instanceof Function && !Array.isArray(defaultValue)) {
           defaultValue = defaultValue()
         }
-        defaultValue = String(JSON.stringify(defaultValue, undefined, 1)).replace(/"/g, "'")
-        if (defaultValue === 'undefined') {
-          defaultValue = ''
-        }
+        defaultValue = typeof defaultValue === 'undefined'
+          ? ''
+          : String(JSON.stringify(defaultValue, undefined, 1)).replace(/"/g, "'")
 
         const fallbackMeta = commonProps[prop] || {}
         const description =
