@@ -6,6 +6,10 @@ import { misc as miscMeta, defaultConfig } from '~/content'
 const getReadMe = name =>
   import(`~/markdown/misc/${name}/README.md` /* webpackChunkName: "docs/misc" */)
 
+const replacer = (key, value) => {
+  return typeof value === 'undefined' ? null : value
+}
+
 export default {
   name: 'BDVMisc',
   layout: 'docs',
@@ -17,7 +21,7 @@ export default {
     let readme = (await getReadMe(params.slug)).default
     readme = readme.replace(
       '{{ defaultConfig }}',
-      hljs.highlight('json', JSON.stringify(defaultConfig || {}, undefined, 2)).value
+      hljs.highlight('json', JSON.stringify(defaultConfig || {}, replacer, 2)).value
     )
     const meta = miscMeta[params.slug]
     return { meta, readme }
