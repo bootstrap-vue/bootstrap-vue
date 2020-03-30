@@ -51,8 +51,8 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
   props: {
     target: {
       // Element that the tooltip/popover is positioned relative to
-      type: [HTMLElement, SVGElement],
-      default: null
+      type: [HTMLElement, SVGElement]
+      // default: null
     },
     placement: {
       type: String,
