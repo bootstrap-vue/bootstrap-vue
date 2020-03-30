@@ -92,13 +92,13 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       default: null
     },
     locale: {
-      type: [String, Array],
-      default: null
+      type: [String, Array]
+      // default: null
     },
     ariaLabelledby: {
       // ID of label element
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     secondsStep: {
       type: [Number, String],
