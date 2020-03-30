@@ -1,25 +1,24 @@
 import identity from './identity'
-import { isArray, isFunction, isObject } from './inspect'
+import { isArray, isObject, isUndefined, isUndefinedOrNull } from './inspect'
 
 const RX_ARRAY_NOTATION = /\[(\d+)]/g
 
 /**
- * Get property defined by dot/array notation in string.
+ * Get property defined by dot/array notation in string, returns undefined if not found
  *
  * @link https://gist.github.com/jeneg/9767afdcca45601ea44930ea03e0febf#gistcomment-1935901
  *
  * @param {Object} obj
  * @param {string|Array} path
- * @param {*} defaultValue (optional)
  * @return {*}
  */
-const get = (obj, path, defaultValue = null) => {
+export const getRaw = (obj, path) => {
   // Handle array of path values
   path = isArray(path) ? path.join('.') : path
 
   // If no path or no object passed
   if (!path || !isObject(obj)) {
-    return isFunction(defaultValue) ? defaultValue() : defaultValue
+    return // undefined
   }
 
   // Handle edge case where user has dot(s) in top-level item field key
@@ -37,18 +36,30 @@ const get = (obj, path, defaultValue = null) => {
 
   // Handle case where someone passes a string of only dots
   if (steps.length === 0) {
-    return isFunction(defaultValue) ? defaultValue() : defaultValue
+    return // undefined
   }
 
   // Traverse path in object to find result
-  // We use `!=` vs `!==` to test for both `null` and `undefined`
   // Switched to `in` operator vs `hasOwnProperty` to handle obj.prototype getters
   // https://github.com/bootstrap-vue/bootstrap-vue/issues/3463
-  return steps.every(step => isObject(obj) && step in obj && (obj = obj[step]) != null)
+  return steps.every(step => isObject(obj) && step in obj && !isUndefined(obj = obj[step]))
     ? obj
-    : isFunction(defaultValue)
-      ? defaultValue(obj)
-      : defaultValue
+    : undefined
+}
+
+/**
+ * Get property defined by dot/array notation in string.
+ *
+ * @link https://gist.github.com/jeneg/9767afdcca45601ea44930ea03e0febf#gistcomment-1935901
+ *
+ * @param {Object} obj
+ * @param {string|Array} path
+ * @param {*} defaultValue (optional)
+ * @return {*}
+ */
+export const get = (obj, path, defaultValue = null) => {
+  const val = getRaw(obj, path)
+  return isUndefinedOrNull(val) ? defaultValue : val
 }
 
 export default get
