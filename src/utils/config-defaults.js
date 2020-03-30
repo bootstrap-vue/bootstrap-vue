@@ -58,13 +58,13 @@ export default deepFreeze({
     variant: 'secondary'
   },
   BButton: {
-    size: null,
+    size: undefined,
     variant: 'secondary'
   },
   BButtonClose: {
     content: '&times;',
     // `textVariant` is `null` to inherit the current text color
-    textVariant: null,
+    textVariant: undefined,
     ariaLabel: 'Close'
   },
   BCalendar: {
