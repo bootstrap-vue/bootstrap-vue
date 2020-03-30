@@ -29,11 +29,8 @@ export const getConfigValue = (key, defaultValue = null) => {
 export const getComponentConfig = (cmpName, key = null) => {
   // Return the particular config value for key for if specified,
   // otherwise we return the full config (or an empty object if not found)
-  return (
-    key
-      ? getConfigValue(`${cmpName}.${key}`, val => (val === null ? null : undefined))
-      : getConfigValue(cmpName) || {}
-    )
+  const defaultFn = val => (val === null ? null : undefined)
+  return key ? getConfigValue(`${cmpName}.${key}`, defaultFn) : getConfigValue(cmpName) || {}
 }
 
 // Convenience method for getting all breakpoint names
