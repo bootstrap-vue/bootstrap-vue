@@ -77,7 +77,10 @@ export const popperVersion = parseVersion(dependencies['popper.js'])
 export const portalVueVersion = parseVersion(dependencies['portal-vue'])
 export const nuxtVersion = parseVersion(devDependencies.nuxt)
 export const vueVersion = parseVersion(devDependencies.vue)
-export const defaultConfig = DEFAULT_CONFIG
+export const defaultConfig = JSON.stringify(
+  DEFAULT_CONFIG,
+  (k, v) => typeof v === 'undefined' ? null : v
+,2)
 export const bvDescription = description
 
 export { version }
