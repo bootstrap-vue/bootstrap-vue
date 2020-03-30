@@ -17,11 +17,9 @@ const get = (obj, path, defaultValue = null) => {
   // Handle array of path values
   path = isArray(path) ? path.join('.') : path
 
-  defaultValue = isFunction(defaultValue) ? defaultValue() : defaultValue
-
   // If no path or no object passed
   if (!path || !isObject(obj)) {
-    return defaultValue
+    return isFunction(defaultValue) ? defaultValue() : defaultValue
   }
 
   // Handle edge case where user has dot(s) in top-level item field key
@@ -39,7 +37,7 @@ const get = (obj, path, defaultValue = null) => {
 
   // Handle case where someone passes a string of only dots
   if (steps.length === 0) {
-    return defaultValue
+    return isFunction(defaultValue) ? defaultValue() : defaultValue
   }
 
   // Traverse path in object to find result
@@ -48,7 +46,7 @@ const get = (obj, path, defaultValue = null) => {
   // https://github.com/bootstrap-vue/bootstrap-vue/issues/3463
   return steps.every(step => isObject(obj) && step in obj && (obj = obj[step]) != null)
     ? obj
-    : defaultValue
+    : isFunction(defaultValue) ? defaultValue(obj) : defaultValue
 }
 
 export default get
