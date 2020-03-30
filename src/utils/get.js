@@ -46,7 +46,9 @@ const get = (obj, path, defaultValue = null) => {
   // https://github.com/bootstrap-vue/bootstrap-vue/issues/3463
   return steps.every(step => isObject(obj) && step in obj && (obj = obj[step]) != null)
     ? obj
-    : isFunction(defaultValue) ? defaultValue(obj) : defaultValue
+    : isFunction(defaultValue)
+      ? defaultValue(obj)
+      : defaultValue
 }
 
 export default get
