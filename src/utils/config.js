@@ -19,17 +19,21 @@ export const getConfig = () => {
 }
 
 // Method to grab a config value based on a dotted/array notation key
-export const getConfigValue = key => {
+export const getConfigValue = (key, defaultValue = null) => {
   return VueProto[PROP_NAME]
     ? VueProto[PROP_NAME].getConfigValue(key)
-    : cloneDeep(get(DEFAULTS, key, val => (val === null ? null : undefined)))
+    : cloneDeep(get(DEFAULTS, key, defaultValue))
 }
 
 // Method to grab a config value for a particular component
 export const getComponentConfig = (cmpName, key = null) => {
   // Return the particular config value for key for if specified,
   // otherwise we return the full config (or an empty object if not found)
-  return key ? getConfigValue(`${cmpName}.${key}`) : getConfigValue(cmpName) || {}
+  return (
+    key
+      ? getConfigValue(`${cmpName}.${key}`, val => (val === null ? null : undefined))
+      : getConfigValue(cmpName) || {}
+    )
 }
 
 // Convenience method for getting all breakpoint names
