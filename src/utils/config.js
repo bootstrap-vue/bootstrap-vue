@@ -19,7 +19,7 @@ export const getConfig = () => {
 }
 
 // Method to grab a config value based on a dotted/array notation key
-export const getConfigValue = (key) => {
+export const getConfigValue = key => {
   return VueProto[PROP_NAME]
     ? VueProto[PROP_NAME].getConfigValue(key)
     : cloneDeep(getRaw(DEFAULTS, key))
