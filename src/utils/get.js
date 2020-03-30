@@ -1,5 +1,5 @@
 import identity from './identity'
-import { isArray, isObject, isUndefined, isUndefinedOrNull } from './inspect'
+import { isArray, isNull, isObject, isUndefinedOrNull } from './inspect'
 
 const RX_ARRAY_NOTATION = /\[(\d+)]/g
 
