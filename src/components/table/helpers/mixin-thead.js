@@ -18,8 +18,9 @@ export default {
       default: () => getComponentConfig('BTable', 'headVariant')
     },
     headRowVariant: {
-      type: String, // Any Bootstrap theme variant (or custom)
-      default: null
+      // Any Bootstrap theme variant (or custom)
+      type: String
+      // default: null
     },
     theadClass: {
       type: [String, Array, Object]
