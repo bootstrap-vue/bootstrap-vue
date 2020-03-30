@@ -26,12 +26,12 @@ export const props = {
   id: {
     // Even though the ID prop is provided by idMixin, we
     // add it here for $bvToast props filtering
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   title: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   toaster: {
     type: String,
@@ -91,12 +91,12 @@ export const props = {
     default: () => getComponentConfig(NAME, 'bodyClass')
   },
   href: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   to: {
-    type: [String, Object],
-    default: null
+    type: [String, Object]
+    // default: null
   },
   static: {
     // Render the toast in place, rather than in a portal-target
