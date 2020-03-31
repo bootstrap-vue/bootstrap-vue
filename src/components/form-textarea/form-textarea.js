@@ -130,7 +130,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       // Get current computed styles
       const computedStyle = getCS(el)
       // Height of one line of text in px
-      const lineHeight = toFloat(computedStyle.lineHeight, 0)
+      const lineHeight = toFloat(computedStyle.lineHeight, 1)
       // Calculate height of border and padding
       const border =
         toFloat(computedStyle.borderTopWidth, 0) + toFloat(computedStyle.borderBottomWidth, 0)
