@@ -30,7 +30,7 @@ export default {
     availableSince() {
       const { version } = this.meta || {}
       return version
-        ? `Available in BootstrapVue since <code class="text-nowrap">${version}</code>.`
+        ? `Available in BootstrapVue since <code class="text-nowrap">v${version}</code>.`
         : ''
     },
     body() {
