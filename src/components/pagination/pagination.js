@@ -34,16 +34,10 @@ const props = {
 // --- Helper functions ---
 
 // Sanitize the provided per page number (converting to a number)
-const sanitizePerPage = val => {
-  const perPage = toInteger(val, DEFAULT_PER_PAGE)
-  return perPage < 1 ? 1 : perPage
-}
+const sanitizePerPage = val => Math.max(toInteger(val) || DEFAULT_PER_PAGE, 1)
 
 // Sanitize the provided total rows number (converting to a number)
-const sanitizeTotalRows = val => {
-  const totalRows = toInteger(val, DEFAULT_TOTAL_ROWS)
-  return totalRows < 0 ? 0 : totalRows
-}
+const sanitizeTotalRows = val => Math.max(toInteger(val) || DEFAULT_TOTAL_ROWS, 0)
 
 // The render function is brought in via the `paginationMixin`
 // @vue/component
