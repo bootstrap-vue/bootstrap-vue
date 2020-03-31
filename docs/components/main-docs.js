@@ -50,7 +50,7 @@ export default {
     let $availableSinceSection = h()
     if (this.availableSince) {
       $availableSinceSection = h(Section, { props: { play: false } }, [
-        h('p', { domProps: { innerHTML: this.availableSince } })
+        h('p', { class: 'font-italic', domProps: { innerHTML: this.availableSince } })
       ])
     }
     // Carbon Ad
