@@ -30,8 +30,8 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
       const aspect = this.aspect
       let ratio = 1
       if (RX_ASPECT.test(aspect)) {
-        // Width/Hight can be a decimal value below `1`, so we
-        // only fallback to `1` if the value is `0` or `NaN`
+        // Width and/or Height can be a decimal value below `1`, so
+        // we only fallback to `1` if the value is `0` or `NaN`
         const [width, height] = aspect.split(RX_SEPARATOR).map(v => toFloat(v) || 1)
         ratio = width / height
       } else {
