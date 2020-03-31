@@ -107,7 +107,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         this.baseZIndex = toInteger(getCS(div).zIndex, DEFAULT_ZINDEX)
         document.body.removeChild(div)
       }
-      return this.baseZIndex
+      return this.baseZIndex || DEFAULT_ZINDEX
     },
     getScrollbarWidth() {
       if (isNull(this.scrollbarWidth) && isBrowser) {
