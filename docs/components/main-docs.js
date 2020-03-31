@@ -43,16 +43,15 @@ export default {
   render(h) {
     // Lead section
     const $leadSection = h(Section, {
-      props: { play: false },
+      props: { tag: 'header', play: false },
       domProps: { innerHTML: this.titleLead }
     })
     // Available since section
     let $availableSinceSection = h()
     if (this.availableSince) {
-      $availableSinceSection = h(Section, {
-        props: { tag: 'header', play: false },
-        domProps: { innerHTML: this.availableSince }
-      })
+      $availableSinceSection = h(Section, { props: { play: false } }, [
+        h('p', { domProps: { innerHTML: this.availableSince } })
+      ])
     }
     // Carbon Ad
     const $carbonAd = h(CarbonAd, { key: `ad-${this.docPath}` })
