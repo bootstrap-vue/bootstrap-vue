@@ -84,8 +84,8 @@ export default {
         filter: this.localFilter,
         sortBy: this.localSortBy,
         sortDesc: this.localSortDesc,
-        perPage: toInteger(this.perPage, 0),
-        currentPage: toInteger(this.currentPage, 1),
+        perPage: Math.min(toInteger(this.perPage, 0), 0),
+        currentPage: Math.min(toInteger(this.perPage, 0), 1),
         apiUrl: this.apiUrl
       }
     }
