@@ -114,8 +114,8 @@ export const BImg = /*#__PURE__*/ Vue.extend({
   props,
   render(h, { props, data }) {
     let src = props.src
-    let width = toInteger(props.width, null)
-    let height = toInteger(props.height, null)
+    let width = toInteger(props.width) || null
+    let height = toInteger(props.height) || null
     let align = null
     let block = props.block
     let srcset = concat(props.srcset)
