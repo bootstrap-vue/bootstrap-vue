@@ -27,13 +27,13 @@ const makePageArray = (startNumber, numberOfPages) =>
 
 // Sanitize the provided limit value (converting to a number)
 const sanitizeLimit = val => {
-  const limit = toInteger(val, 1)
+  const limit = toInteger(val) || 1
   return limit < 1 ? DEFAULT_LIMIT : limit
 }
 
 // Sanitize the provided current page number (converting to a number)
 const sanitizeCurrentPage = (val, numberOfPages) => {
-  const page = toInteger(val, 1)
+  const page = toInteger(val) || 1
   return page > numberOfPages ? numberOfPages : page < 1 ? 1 : page
 }
 
