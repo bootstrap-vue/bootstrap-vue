@@ -27,13 +27,13 @@ const makePageArray = (startNumber, numberOfPages) =>
 
 // Sanitize the provided limit value (converting to a number)
 const sanitizeLimit = val => {
-  const limit = toInteger(val) || 1
+  const limit = toInteger(val, 1)
   return limit < 1 ? DEFAULT_LIMIT : limit
 }
 
 // Sanitize the provided current page number (converting to a number)
 const sanitizeCurrentPage = (val, numberOfPages) => {
-  const page = toInteger(val) || 1
+  const page = toInteger(val, 1)
   return page > numberOfPages ? numberOfPages : page < 1 ? 1 : page
 }
 
@@ -60,8 +60,7 @@ export const props = {
     type: [Number, String],
     default: null,
     validator(value) /* istanbul ignore next */ {
-      const number = toInteger(value)
-      if (!isNull(value) && (isNaN(number) || number < 1)) {
+      if (!isNull(value) && toInteger(value, 0) < 1) {
         warn('"v-model" value must be a number greater than "0"', 'BPagination')
         return false
       }
@@ -72,8 +71,7 @@ export const props = {
     type: [Number, String],
     default: DEFAULT_LIMIT,
     validator(value) /* istanbul ignore next */ {
-      const number = toInteger(value)
-      if (isNaN(number) || number < 1) {
+      if (toInteger(value, 0) < 1) {
         warn('Prop "limit" must be a number greater than "0"', 'BPagination')
         return false
       }
@@ -183,10 +181,11 @@ export default {
   },
   props,
   data() {
-    const curr = toInteger(this.value)
+    // `-1` signifies no page initially selected
+    let currentPage = toInteger(this.value, 0)
+    currentPage = currentPage > 0 ? currentPage : -1
     return {
-      // -1 signifies no page initially selected
-      currentPage: curr > 0 ? curr : -1,
+      currentPage,
       localNumberOfPages: 1,
       localLimit: DEFAULT_LIMIT
     }
@@ -375,7 +374,7 @@ export default {
       // We do this in `$nextTick()` to ensure buttons have finished rendering
       this.$nextTick(() => {
         const btn = this.getButtons().find(
-          el => toInteger(getAttr(el, 'aria-posinset')) === this.computedCurrentPage
+          el => toInteger(getAttr(el, 'aria-posinset'), 0) === this.computedCurrentPage
         )
         if (btn && btn.focus) {
           this.setBtnFocus(btn)

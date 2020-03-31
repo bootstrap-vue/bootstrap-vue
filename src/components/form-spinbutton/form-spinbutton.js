@@ -32,18 +32,6 @@ const DEFAULT_REPEAT_THRESHOLD = 10
 // Repeat speed multiplier (step multiplier, must be an integer)
 const DEFAULT_REPEAT_MULTIPLIER = 4
 
-// --- Helper functions ---
-
-const defaultNumber = (value, defaultValue = null) => {
-  value = toFloat(value)
-  return isNaN(value) ? defaultValue : value
-}
-
-const defaultInteger = (value, defaultValue = null) => {
-  value = toInteger(value)
-  return isNaN(value) ? Math.abs(defaultValue) : value
-}
-
 // --- BFormSpinbutton ---
 // @vue/component
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
@@ -157,35 +145,35 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      localValue: defaultNumber(this.value),
+      localValue: toFloat(this.value, null),
       hasFocus: false
     }
   },
   computed: {
     computedStep() {
-      return defaultNumber(this.step, DEFAULT_STEP)
+      return toFloat(this.step, DEFAULT_STEP)
     },
     computedMin() {
-      return defaultNumber(this.min, DEFAULT_MIN)
+      return toFloat(this.min, DEFAULT_MIN)
     },
     computedMax() {
       // We round down to the nearest maximum step value
-      const max = defaultNumber(this.max, DEFAULT_MAX)
+      const max = toFloat(this.max, DEFAULT_MAX)
       const step = this.computedStep
       const min = this.computedMin
       return Math.floor((max - min) / step) * step + min
     },
     computedDelay() {
-      return defaultInteger(this.repeatDelay, DEFAULT_REPEAT_DELAY) || DEFAULT_REPEAT_DELAY
+      return toInteger(this.repeatDelay, DEFAULT_REPEAT_DELAY)
     },
     computedInterval() {
-      return defaultInteger(this.repeatInterval, DEFAULT_REPEAT_INTERVAL) || DEFAULT_REPEAT_INTERVAL
+      return toInteger(this.repeatInterval, DEFAULT_REPEAT_INTERVAL)
     },
     computedThreshold() {
-      return defaultInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD) || 1
+      return toInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD) || 1
     },
     computedStepMultiplier() {
-      return defaultInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULTIPLIER) || 1
+      return toInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULTIPLIER) || 1
     },
     computedPrecision() {
       // Quick and dirty way to get the number of decimals
@@ -224,8 +212,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     value(value) {
-      value = toFloat(value) // Will be `NaN` if `value` is `null`
-      this.localValue = isNaN(value) ? null : value
+      this.localValue = toFloat(value, null)
     },
     localValue(value) {
       this.$emit('input', value)

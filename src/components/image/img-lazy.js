@@ -180,7 +180,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         value: this.doShow,
         modifiers: {
           // Root margin from viewport
-          [`${toInteger(this.offset) || 0}`]: true,
+          [`${toInteger(this.offset, 0)}`]: true,
           // Once the image is shown, stop observing
           once: true
         }

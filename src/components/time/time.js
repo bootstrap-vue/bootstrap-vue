@@ -45,10 +45,7 @@ const parseHMS = hms => {
   hms = toString(hms)
   let [hh, mm, ss] = [null, null, null]
   if (RE_TIME.test(hms)) {
-    ;[hh, mm, ss] = hms
-      .split(':')
-      .map(toInteger)
-      .map(v => (isNaN(v) ? null : v))
+    ;[hh, mm, ss] = hms.split(':').map(v => toInteger(v, null))
   }
   return {
     hours: isUndefinedOrNull(hh) ? null : hh,

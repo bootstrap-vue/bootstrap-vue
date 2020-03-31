@@ -54,7 +54,7 @@ export default {
       return this.filterIncludedFields ? concat(this.filterIncludedFields).filter(Boolean) : null
     },
     computedFilterDebounce() {
-      const ms = toInteger(this.filterDebounce) || 0
+      const ms = toInteger(this.filterDebounce, 0)
       /* istanbul ignore next */
       if (ms > 0) {
         warn(DEBOUNCE_DEPRECATED_MSG, 'BTable')

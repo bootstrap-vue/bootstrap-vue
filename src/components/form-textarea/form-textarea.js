@@ -79,10 +79,10 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       // Ensure rows is at least 2 and positive (2 is the native textarea value)
       // A value of 1 can cause issues in some browsers, and most browsers
       // only support 2 as the smallest value
-      return Math.max(toInteger(this.rows) || 2, 2)
+      return Math.max(toInteger(this.rows, 2), 2)
     },
     computedMaxRows() {
-      return Math.max(this.computedMinRows, toInteger(this.maxRows) || 0)
+      return Math.max(this.computedMinRows, toInteger(this.maxRows, 0))
     },
     computedRows() {
       // This is used to set the attribute 'rows' on the textarea
@@ -130,13 +130,11 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       // Get current computed styles
       const computedStyle = getCS(el)
       // Height of one line of text in px
-      const lineHeight = toFloat(computedStyle.lineHeight)
+      const lineHeight = toFloat(computedStyle.lineHeight, 0)
       // Calculate height of border and padding
       const border =
-        (toFloat(computedStyle.borderTopWidth) || 0) +
-        (toFloat(computedStyle.borderBottomWidth) || 0)
-      const padding =
-        (toFloat(computedStyle.paddingTop) || 0) + (toFloat(computedStyle.paddingBottom) || 0)
+        toFloat(computedStyle.borderTopWidth, 0) + toFloat(computedStyle.borderBottomWidth, 0)
+      const padding = toFloat(computedStyle.paddingTop, 0) + toFloat(computedStyle.paddingBottom, 0)
       // Calculate offset
       const offset = border + padding
       // Minimum height for min rows (which must be 2 rows or greater for cross-browser support)
@@ -160,7 +158,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
 
       // Computed height remains the larger of `oldHeight` and new `height`,
       // when height is in `sticky` mode (prop `no-auto-shrink` is true)
-      if (this.noAutoShrink && (toFloat(oldHeight) || 0) > height) {
+      if (this.noAutoShrink && toFloat(oldHeight, 0) > height) {
         return oldHeight
       }
 

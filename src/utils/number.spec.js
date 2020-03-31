@@ -13,6 +13,8 @@ describe('utils/number', () => {
     expect(toInteger(new Date())).toBe(NaN)
     expect(toInteger(null)).toBe(NaN)
     expect(toInteger(undefined)).toBe(NaN)
+    expect(toInteger(null, 0)).toBe(0)
+    expect(toInteger(undefined, -1)).toBe(-1)
   })
 
   it('toFloat works', async () => {
@@ -21,7 +23,7 @@ describe('utils/number', () => {
     expect(toFloat(1.23)).toBe(1.23)
     expect(toFloat('1.23')).toBe(1.23)
     expect(toFloat(1e5)).toBe(100000)
-    // parseFloat works differntly than patseInt in this case
+    // `parseFloat()` works differently than `parseInt()` in this case
     expect(toFloat('1e5')).toBe(100000)
     expect(toFloat('256 foobar')).toBe(256)
     expect(toFloat('256.78 foobar')).toBe(256.78)
@@ -31,6 +33,8 @@ describe('utils/number', () => {
     expect(toFloat(new Date())).toBe(NaN)
     expect(toFloat(null)).toBe(NaN)
     expect(toFloat(undefined)).toBe(NaN)
+    expect(toFloat(null, 0)).toBe(0)
+    expect(toFloat(undefined, -1)).toBe(-1)
   })
 
   it('toFixed works', async () => {

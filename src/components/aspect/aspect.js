@@ -30,10 +30,10 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
       const aspect = this.aspect
       let ratio = 1
       if (RX_ASPECT.test(aspect)) {
-        const [width, height] = aspect.split(RX_SEPARATOR).map(v => toFloat(v) || 1)
+        const [width, height] = aspect.split(RX_SEPARATOR).map(v => toFloat(v, 1))
         ratio = width / height
       } else {
-        ratio = toFloat(aspect) || 1
+        ratio = toFloat(aspect, 1)
       }
       return `${100 / Math.abs(ratio)}%`
     }

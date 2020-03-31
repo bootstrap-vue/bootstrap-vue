@@ -76,17 +76,17 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
       }
     },
     computedValue() {
-      return toFloat(this.value) || 0
+      return toFloat(this.value, 0)
     },
     computedMax() {
       // Prefer our max over parent setting
       const max = toFloat(this.max)
-      return isNaN(max) ? toFloat(this.bvProgress.max) || 100 : max
+      return isNaN(max) ? toFloat(this.bvProgress.max, 100) : max
     },
     computedPrecision() {
       // Prefer our precision over parent setting
       const precision = toInteger(this.precision)
-      return isNaN(precision) ? toInteger(this.bvProgress.precision) || 0 : precision
+      return isNaN(precision) ? toInteger(this.bvProgress.precision, 0) : precision
     },
     computedProgress() {
       const precision = this.computedPrecision

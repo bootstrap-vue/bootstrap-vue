@@ -144,7 +144,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     computedDuration() {
       // Minimum supported duration is 1 second
-      return Math.max(toInteger(this.autoHideDelay) || 0, MIN_DURATION)
+      return Math.max(toInteger(this.autoHideDelay, 0), MIN_DURATION)
     },
     computedToaster() {
       return String(this.toaster)

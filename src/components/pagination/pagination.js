@@ -35,13 +35,13 @@ const props = {
 
 // Sanitize the provided per page number (converting to a number)
 const sanitizePerPage = val => {
-  const perPage = toInteger(val) || DEFAULT_PER_PAGE
+  const perPage = toInteger(val, DEFAULT_PER_PAGE)
   return perPage < 1 ? 1 : perPage
 }
 
 // Sanitize the provided total rows number (converting to a number)
 const sanitizeTotalRows = val => {
-  const totalRows = toInteger(val) || DEFAULT_TOTAL_ROWS
+  const totalRows = toInteger(val, DEFAULT_TOTAL_ROWS)
   return totalRows < 0 ? 0 : totalRows
 }
 
@@ -87,7 +87,7 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
     // Set the initial page count
     this.localNumberOfPages = this.numberOfPages
     // Set the initial page value
-    const currentPage = toInteger(this.value) || 0
+    const currentPage = toInteger(this.value, 0)
     if (currentPage > 0) {
       this.currentPage = currentPage
     } else {

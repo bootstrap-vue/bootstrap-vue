@@ -247,7 +247,7 @@ export const BCalendar = Vue.extend({
     },
     computedWeekStarts() {
       // `startWeekday` is a prop (constrained to `0` through `6`)
-      return Math.max(toInteger(this.startWeekday) || 0, 0) % 7
+      return Math.max(toInteger(this.startWeekday, 0), 0) % 7
     },
     computedLocale() {
       // Returns the resolved locale used by the calendar

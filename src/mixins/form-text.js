@@ -97,7 +97,7 @@ export default {
     },
     computedDebounce() {
       // Ensure we have a positive number equal to or greater than 0
-      return Math.max(toInteger(this.debounce) || 0, 0)
+      return Math.max(toInteger(this.debounce, 0), 0)
     },
     hasFormatter() {
       return isFunction(this.formatter)
@@ -147,8 +147,7 @@ export default {
       }
       // Emulate `.number` modifier behaviour
       if (this.number) {
-        const number = toFloat(value)
-        value = isNaN(number) ? value : number
+        value = toFloat(value, value)
       }
       return value
     },

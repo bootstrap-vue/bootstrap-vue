@@ -28,7 +28,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
       type: [Number, String],
       default: 0.85,
       validator(value) {
-        const number = toFloat(value)
+        const number = toFloat(value, 0)
         return number >= 0 && number <= 1
       }
     },

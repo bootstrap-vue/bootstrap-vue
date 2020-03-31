@@ -1,5 +1,6 @@
 import looseEqual from '../../../utils/loose-equal'
 import { isArray, isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
+import { toInteger } from '../../../utils/number'
 import { clone } from '../../../utils/object'
 import normalizeFields from './normalize-fields'
 
@@ -83,8 +84,8 @@ export default {
         filter: this.localFilter,
         sortBy: this.localSortBy,
         sortDesc: this.localSortDesc,
-        perPage: parseInt(this.perPage, 10) || 0,
-        currentPage: parseInt(this.currentPage, 10) || 1,
+        perPage: toInteger(this.perPage, 0),
+        currentPage: toInteger(this.currentPage, 1),
         apiUrl: this.apiUrl
       }
     }
