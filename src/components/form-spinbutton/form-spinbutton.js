@@ -172,10 +172,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       return interval > 0 ? interval : DEFAULT_REPEAT_INTERVAL
     },
     computedThreshold() {
-      return toInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD) || 1
+      return Math.max(toInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD), 1)
     },
     computedStepMultiplier() {
-      return toInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULTIPLIER) || 1
+      return Math.max(toInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULTIPLIER), 1)
     },
     computedPrecision() {
       // Quick and dirty way to get the number of decimals
