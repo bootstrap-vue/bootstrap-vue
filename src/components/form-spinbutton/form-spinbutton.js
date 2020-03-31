@@ -164,10 +164,12 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       return Math.floor((max - min) / step) * step + min
     },
     computedDelay() {
-      return toInteger(this.repeatDelay, DEFAULT_REPEAT_DELAY)
+      const delay = toInteger(this.repeatDelay, 0)
+      return delay > 0 ? delay : DEFAULT_REPEAT_DELAY
     },
     computedInterval() {
-      return toInteger(this.repeatInterval, DEFAULT_REPEAT_INTERVAL)
+      const interval = toInteger(this.repeatInterval, 0)
+      return interval > 0 ? interval : DEFAULT_REPEAT_INTERVAL
     },
     computedThreshold() {
       return toInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD) || 1
