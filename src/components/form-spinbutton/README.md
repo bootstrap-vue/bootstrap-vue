@@ -364,7 +364,7 @@ hold the increment or decrement button (or use the up/down arrow keys).
     ></b-form-spinbutton>
     <p>Input event: {{ value1 }}</p>
     <p>Change event: {{ value2 }}</p>
-  </b-row>
+  </div>
 </template>
 
 <script>
