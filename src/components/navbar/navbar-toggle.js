@@ -44,7 +44,7 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
     onClick(evt) {
       this.$emit('click', evt)
       if (!evt.defaultPrevented) {
-        this.$root.$emit(EVENT_TOGGLE, this.target)
+        this.emitOnRoot(EVENT_TOGGLE, this.target)
       }
     },
     handleStateEvt(id, state) {
