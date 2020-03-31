@@ -12,13 +12,13 @@ const RX_ARRAY_NOTATION = /\[(\d+)]/g
  * @param {string|Array} path
  * @return {*}
  */
-export const getRaw = (obj, path) => {
+export const getRaw = (obj, path, defaultValue = undefined) => {
   // Handle array of path values
   path = isArray(path) ? path.join('.') : path
 
   // If no path or no object passed
   if (!path || !isObject(obj)) {
-    return // undefined
+    return defaultValue
   }
 
   // Handle edge case where user has dot(s) in top-level item field key
@@ -36,7 +36,7 @@ export const getRaw = (obj, path) => {
 
   // Handle case where someone passes a string of only dots
   if (steps.length === 0) {
-    return // undefined
+    return defaultValue
   }
 
   // Traverse path in object to find result
@@ -46,7 +46,7 @@ export const getRaw = (obj, path) => {
     ? obj
     : isNull(obj)
       ? null
-      : undefined
+      : defaultValue
 }
 
 /**
