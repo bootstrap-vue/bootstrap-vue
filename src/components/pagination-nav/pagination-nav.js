@@ -13,10 +13,7 @@ import paginationMixin from '../../mixins/pagination'
 const NAME = 'BPaginationNav'
 
 // Sanitize the provided number of pages (converting to a number)
-export const sanitizeNumberOfPages = value => {
-  const numberOfPages = toInteger(value, 1)
-  return numberOfPages < 1 ? 1 : numberOfPages
-}
+export const sanitizeNumberOfPages = value => Math.max(toInteger(value, 0), 1)
 
 const props = {
   size: {
