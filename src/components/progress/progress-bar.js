@@ -87,7 +87,7 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
     computedPrecision() {
       // Prefer our precision over parent setting
       // Default to `0` for invalid values (`-x`, `NaN`)
-      return Math.min(toInteger(this.precision) || toInteger(this.bvProgress.precision, 0), 0)
+      return Math.max(toInteger(this.precision) || toInteger(this.bvProgress.precision, 0), 0)
     },
     computedProgress() {
       const precision = this.computedPrecision
