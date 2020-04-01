@@ -5,7 +5,6 @@ import MainDocs from '~/components/main-docs'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { components as componentsMeta } from '~/content'
-import { parseReadme } from '~/utils'
 
 const getReadMe = name =>
   import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
