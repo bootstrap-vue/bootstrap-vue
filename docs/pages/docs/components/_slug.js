@@ -21,6 +21,8 @@ export default {
     console.log(`Loading readme: ${params.slug}`)
     const readme = (await getReadMe(params.slug)).default
     const meta = componentsMeta[params.slug]
+    // DEBUG
+    console.log(`Finished loading readme: ${params.slug}`)
     return { meta, readme }
   },
   render(h) {
