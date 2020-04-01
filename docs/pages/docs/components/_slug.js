@@ -40,6 +40,7 @@ export default {
     return h(
       MainDocs,
       {
+        key: this.$route.path,
         staticClass: 'bd-components',
         props: {
           readme: this.readme,
