@@ -1,18 +1,16 @@
 import CarbonAd from '~/components/carbon-ad'
-import QuickLinks from '~/components/quick-links.vue'
+import Main from '~/components/main'
+import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
 import { parseReadme } from '~/utils'
 
 export default {
   name: 'BVMainDocs',
+  functional: true,
   props: {
-    titleLead: {
+    tag: {
       type: String,
-      default: ''
-    },
-    body: {
-      type: String,
-      default: ''
+      default: 'main'
     },
     readme: {
       type: String,
@@ -21,20 +19,15 @@ export default {
     meta: {
       type: Object,
       default: null
-    },
-    tag: {
-      type: String,
-      default: 'main'
     }
   },
-  render(h) {
-    const docsPath = this.$route.path
-    const { titleLead, body } = parseReadme(this.readme || '')
-    const { version } = this.meta || {}
+  render(h, { props, children }) {
+    const { tag, readme, meta } = props
+    const { titleLead, body } = parseReadme(readme || '')
+    const { version } = meta || {}
 
     // Lead section
     const $leadSection = h(Section, {
-      key: `lead-${docsPath}`,
       props: { tag: 'header', play: false },
       domProps: { innerHTML: titleLead || '' }
     })
@@ -42,7 +35,7 @@ export default {
     // Available since section
     let $availableSinceSection = h()
     if (version) {
-      $availableSinceSection = h(Section, { key: `avail-${docsPath}`, props: { play: false } }, [
+      $availableSinceSection = h(Section, { props: { play: false } }, [
         h('p', { staticClass: 'font-italic' }, [
           'Available in BootstrapVue since ',
           h('code', { staticClass: 'text-nowrap' }, `v${version}`)
@@ -51,10 +44,10 @@ export default {
     }
 
     // Carbon Ad
-    const $carbonAd = h(CarbonAd, { key: `ad-${docsPath}` })
+    const $carbonAd = h(CarbonAd)
 
     // Quick links
-    const $quickLinks = h(QuickLinks, { key: `quick-${docsPath}` })
+    const $quickLinks = h(QuickLinks)
 
     // Body section
     const $bodySection = h(Section, {
@@ -62,13 +55,13 @@ export default {
       domProps: { innerHTML: body || '' }
     })
 
-    return h(this.tag, { staticClass: 'bd-main' }, [
+    return h(Main, { props: { tag } }, [
       $leadSection,
       $availableSinceSection,
       $carbonAd,
       $quickLinks,
       $bodySection,
-      this.$scopedSlots.default ? this.$scopedSlots.default() : this.$slots.default
+      children
     ])
   }
 }
