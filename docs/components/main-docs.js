@@ -27,38 +27,26 @@ export default {
       default: 'main'
     }
   },
-  computed: {
-    docs() {
-      return parseReadme(this.readme || '')
-    },
-    computedTitleLead() {
-      return this.docs.titleLead || ''
-    },
-    computedBody() {
-      return this.docs.body || ''
-    },
-    availableSince() {
-      const { version } = this.meta || {}
-      return version
-        ? `Available in BootstrapVue since <code class="text-nowrap">v${version}</code>.`
-        : ''
-    }
-  },
   render(h) {
     const docsPath = this.$route.path
+    const { titleLead, body } = parseReadme(this.readme || '')
+    const { version } = this.meta || {}
 
     // Lead section
     const $leadSection = h(Section, {
-      key: `lead-${this.docsPath}`,
+      key: `lead-${docsPath}`,
       props: { tag: 'header', play: false },
-      domProps: { innerHTML: this.titleLead || this.computedTitleLead }
+      domProps: { innerHTML: titleLead || ''}
     })
 
     // Available since section
     let $availableSinceSection = h()
-    if (this.availableSince) {
+    if (version) {
       $availableSinceSection = h(Section, { key: `avail-${docsPath}`, props: { play: false } }, [
-        h('p', { staticClass: 'font-italic', domProps: { innerHTML: this.availableSince } })
+        h('p', { staticClass: 'font-italic' }, [
+          'Available in BootstrapVue since ',
+          h('code', { staticClass: 'text-nowrap' }, `v${version}`)
+        ])
       ])
     }
 
@@ -72,7 +60,7 @@ export default {
     const $bodySection = h(Section, {
       key: `body-${docsPath}`,
       props: { play: true },
-      domProps: { innerHTML: this.body || this.computedBody }
+      domProps: { innerHTML: body || '' }
     })
 
     return h(this.tag, { staticClass: 'bd-main' }, [
