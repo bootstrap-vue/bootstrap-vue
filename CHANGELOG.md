@@ -33,7 +33,7 @@ Released: 2020-04-01
 
 ### Other v2.10.0
 
-- docs updates
+- documation site improvements and updates
 - dev dependency updates
 
 <a name="2.9.0"></a>
