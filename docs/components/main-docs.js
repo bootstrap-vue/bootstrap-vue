@@ -36,7 +36,7 @@ export default {
     const $leadSection = h(Section, {
       key: `lead-${docsPath}`,
       props: { tag: 'header', play: false },
-      domProps: { innerHTML: titleLead || ''}
+      domProps: { innerHTML: titleLead || '' }
     })
 
     // Available since section
@@ -58,7 +58,6 @@ export default {
 
     // Body section
     const $bodySection = h(Section, {
-      key: `body-${docsPath}`,
       props: { play: true },
       domProps: { innerHTML: body || '' }
     })
