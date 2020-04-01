@@ -6,6 +6,14 @@ import { parseReadme } from '~/utils'
 export default {
   name: 'BVMainDocs',
   props: {
+    titleLead: {
+      type: String,
+      default: ''
+    },
+    body: {
+      type: String,
+      default: ''
+    },
     readme: {
       type: String,
       default: ''
