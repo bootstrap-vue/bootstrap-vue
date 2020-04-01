@@ -62,7 +62,7 @@ export default {
       domProps: { innerHTML: this.body }
     })
 
-    return h(props.tag, { staticClass: 'bd-main' }, [
+    return h(this.tag, { staticClass: 'bd-main' }, [
       $leadSection,
       $availableSinceSection,
       $carbonAd,
