@@ -42,6 +42,7 @@ export default {
   render(h) {
     // Lead section
     const $leadSection = h(Section, {
+      key: `lead-${this.docsPath}`,
       props: { tag: 'header', play: false },
       domProps: { innerHTML: this.titleLead }
     })
@@ -53,11 +54,12 @@ export default {
       ])
     }
     // Carbon Ad
-    const $carbonAd = h(CarbonAd, { key: `ad-${this.docPath}` })
+    const $carbonAd = h(CarbonAd, { key: `ad-${this.docsPath}` })
     // Quick links
     const $quickLinks = h(QuickLinks, { key: `quick-${this.docsPath}` })
     // Body section
     const $bodySection = h(Section, {
+      key: `body-${this.docsPath}`,
       props: { play: true },
       domProps: { innerHTML: this.body }
     })
