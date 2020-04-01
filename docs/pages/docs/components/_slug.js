@@ -20,8 +20,7 @@ export default {
   async asyncData({ params }) {
     const readme = (await getReadMe(params.slug)).default
     const meta = componentsMeta[params.slug]
-    const { titleLead, body } = parseReadme(readme)
-    return { meta, readme, titleLead, body }
+    return { meta, readme }
   },
   render(h) {
     // Reference section
@@ -46,8 +45,6 @@ export default {
         staticClass: 'bd-components',
         props: {
           readme: this.readme || '',
-          titleLead: this.titleLead || '',
-          body: this.body || '',
           meta: this.meta
         }
       },
