@@ -17,6 +17,8 @@ export default {
     return Boolean(componentsMeta[params.slug])
   },
   async asyncData({ params }) {
+    // DEBUG
+    console.log(`Loading readme: ${params.slug}`)
     const readme = (await getReadMe(params.slug)).default
     const meta = componentsMeta[params.slug]
     return { meta, readme }
@@ -40,6 +42,7 @@ export default {
     return h(
       MainDocs,
       {
+        key: this.$route.path,
         staticClass: 'bd-components',
         props: {
           readme: this.readme || '',
