@@ -4,6 +4,7 @@ import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
 import { parseReadme } from '~/utils'
 
+// @vue/component
 export default {
   name: 'BVMainDocs',
   functional: true,

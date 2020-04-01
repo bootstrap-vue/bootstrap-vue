@@ -1,6 +1,7 @@
+import { parseReadme } from '~/utils'
 import CarbonAd from '~/components/carbon-ad'
 import Main from '~/components/main'
-import QuickLinks from '~/components/quick-links.vue'
+import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import {
@@ -12,8 +13,8 @@ import {
   version,
   vueVersion
 } from '~/content'
+import meta from '~/markdown/intro/meta.json'
 import readme from '~/markdown/intro/README.md'
-import { parseReadme } from '~/utils'
 
 const { titleLead, body } = parseReadme(readme)
 
@@ -22,17 +23,10 @@ const minorRE = /^(\d+\.\d+)(\..+)$/
 // RegExp to grab the major version from a full version
 const majorRE = /^(\d+)(\.\d+\..+)$/
 
+// @vue/component
 export default {
   name: 'BDVDocs',
   layout: 'docs',
-  // We use a string template here so that the docs README can do interpolation
-  template: `
-    <Main>
-      <Section tag="header">${titleLead}</Section>
-      <CarbonAd key="ad-/docs"></CarbonAd>
-      <QuickLinks key="quick-/docs"></QuickLinks>
-      <Section>${body}</Section>
-    </Main>`,
   components: {
     CarbonAd,
     Main,
@@ -69,13 +63,16 @@ export default {
       const minorVersion = this.bootstrapVersionMinor
       return `//getbootstrap.com/docs/${minorVersion}/getting-started/browsers-devices`
     },
-    // TODO: pull this from the meta.json file
     meta() {
-      return {
-        title: 'Getting started',
-        description:
-          "Get started with BootstrapVue, based on the world's most popular framework - Bootstrap v4, for building responsive, mobile-first sites using Vue.js"
-      }
+      return meta
     }
-  }
+  },
+  // We use a string template here so that the docs README can do interpolation
+  template: `
+    <Main>
+      <Section tag="header">${titleLead}</Section>
+      <CarbonAd key="ad-/docs"></CarbonAd>
+      <QuickLinks key="quick-/docs"></QuickLinks>
+      <Section>${body}</Section>
+    </Main>`
 }

@@ -9,6 +9,7 @@ import { components as componentsMeta } from '~/content'
 const getReadMe = name =>
   import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
 
+// @vue/component
 export default {
   name: 'BDVComponents',
   layout: 'docs',

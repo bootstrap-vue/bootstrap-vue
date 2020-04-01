@@ -1,10 +1,10 @@
-import BVBreadcrumbs from '~/components/breadcrumbs.vue'
+import BVBreadcrumbs from '~/components/breadcrumbs'
 import BVFeedback from '~/components/feedback'
 import BVFooter from '~/components/footer'
 import BVHeader from '~/components/header'
 import BVSearch from '~/components/search'
-import BVSidebar from '~/components/sidebar.vue'
-import BVToc from '~/components/toc.vue'
+import BVSidebar from '~/components/sidebar'
+import BVToc from '~/components/toc'
 
 export default {
   name: 'BVDocsLayout',

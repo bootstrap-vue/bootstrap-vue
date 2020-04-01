@@ -8,6 +8,7 @@ import { directives as directivesMeta } from '~/content'
 const getReadMe = name =>
   import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
 
+// @vue/component
 export default {
   name: 'BDVDirectives',
   layout: 'docs',

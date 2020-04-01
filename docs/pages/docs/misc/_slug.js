@@ -6,10 +6,9 @@ import { misc as miscMeta, defaultConfig } from '~/content'
 const getReadMe = name =>
   import(`~/markdown/misc/${name}/README.md` /* webpackChunkName: "docs/misc" */)
 
-const replacer = (key, value) => {
-  return typeof value === 'undefined' ? null : value
-}
+const replacer = (key, value) => (typeof value === 'undefined' ? null : value)
 
+// @vue/component
 export default {
   name: 'BDVMisc',
   layout: 'docs',
