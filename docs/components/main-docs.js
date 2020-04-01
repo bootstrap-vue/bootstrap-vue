@@ -23,17 +23,17 @@ export default {
     docs() {
       return parseReadme(this.readme || '')
     },
-    titleLead() {
+    computedTitleLead() {
       return this.docs.titleLead || ''
+    },
+    computedBody() {
+      return this.docs.body || ''
     },
     availableSince() {
       const { version } = this.meta || {}
       return version
         ? `Available in BootstrapVue since <code class="text-nowrap">v${version}</code>.`
         : ''
-    },
-    body() {
-      return this.docs.body || ''
     }
   },
   render(h) {
@@ -43,7 +43,7 @@ export default {
     const $leadSection = h(Section, {
       key: `lead-${this.docsPath}`,
       props: { tag: 'header', play: false },
-      domProps: { innerHTML: this.titleLead }
+      domProps: { innerHTML: this.titleLead || this.computedTitleLead }
     })
 
     // Available since section
@@ -64,7 +64,7 @@ export default {
     const $bodySection = h(Section, {
       key: `body-${docsPath}`,
       props: { play: true },
-      domProps: { innerHTML: this.body }
+      domProps: { innerHTML: this.body || this.computedBody }
     })
 
     return h(this.tag, { staticClass: 'bd-main' }, [
