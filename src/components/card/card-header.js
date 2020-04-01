@@ -8,16 +8,16 @@ import cardMixin from '../../mixins/card'
 export const props = {
   ...copyProps(cardMixin.props, prefixPropName.bind(null, 'header')),
   header: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   headerHtml: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   headerClass: {
-    type: [String, Object, Array],
-    default: null
+    type: [String, Object, Array]
+    // default: null
   }
 }
 

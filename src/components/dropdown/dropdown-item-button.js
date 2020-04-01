@@ -11,16 +11,16 @@ export const props = {
     default: 'active'
   },
   buttonClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   disabled: {
     type: Boolean,
     default: false
   },
   variant: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   }
 }
 

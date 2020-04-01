@@ -3,13 +3,13 @@
 > `<b-form-timepicker>` is a BootstrapVue custom time picker input form control, which provides full
 > WAI-ARIA compliance and internationalization support.
 
+## Overview
+
 As a form control wrapper component for the [`<b-time>`](/docs/components/time) component, it
 provides additional validation state presentation and a compact interface. Native HTML5 time inputs
 vary in presentation, accessibility, and in some instances are not supported by all browsers.
 `<b-form-timepicker>` provides a consistent and accessible interface across all browser platforms
 and devices.
-
-The `<b-form-timepicker>` component was introduced in BootstrapVue release `v2.6.0`.
 
 ```html
 <template>

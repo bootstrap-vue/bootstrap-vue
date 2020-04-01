@@ -4,12 +4,11 @@ import { mergeData } from 'vue-functional-data-merge'
 export const props = {
   src: {
     type: String,
-    default: null,
     required: true
   },
   alt: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   top: {
     type: Boolean,
@@ -38,12 +37,12 @@ export const props = {
     default: false
   },
   height: {
-    type: [Number, String],
-    default: null
+    type: [Number, String]
+    // default: null
   },
   width: {
-    type: [Number, String],
-    default: null
+    type: [Number, String]
+    // default: null
   }
 }
 
@@ -69,10 +68,10 @@ export const BCardImg = /*#__PURE__*/ Vue.extend({
       mergeData(data, {
         class: [baseClass],
         attrs: {
-          src: props.src,
-          alt: props.alt,
-          height: props.height,
-          width: props.width
+          src: props.src || null,
+          alt: props.alt || null,
+          height: props.height || null,
+          width: props.width || null
         }
       })
     )

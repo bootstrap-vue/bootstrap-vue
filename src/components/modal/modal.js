@@ -79,8 +79,8 @@ export const props = {
     default: false
   },
   buttonSize: {
-    type: String,
-    default: ''
+    type: String
+    // default: ''
   },
   noStacking: {
     type: Boolean,
@@ -118,16 +118,16 @@ export const props = {
     default: () => getComponentConfig(NAME, 'titleTag')
   },
   titleClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   titleSrOnly: {
     type: Boolean,
     default: false
   },
   ariaLabel: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   headerBgVariant: {
     type: String,
@@ -146,8 +146,8 @@ export const props = {
     default: () => getComponentConfig(NAME, 'headerCloseVariant')
   },
   headerClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   bodyBgVariant: {
     type: String,
@@ -158,20 +158,20 @@ export const props = {
     default: () => getComponentConfig(NAME, 'bodyTextVariant')
   },
   modalClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   dialogClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   contentClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   bodyClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   footerBgVariant: {
     type: String,
@@ -186,8 +186,8 @@ export const props = {
     default: () => getComponentConfig(NAME, 'footerTextVariant')
   },
   footerClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   // TODO: Rename to `noHeader` and deprecate `hideHeader`
   hideHeader: {

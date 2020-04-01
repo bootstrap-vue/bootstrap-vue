@@ -13,13 +13,13 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
   props: {
     // Other non-reactive (while open) props are pulled in from BVPopper
     id: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     html: {
       // Used only by the directive versions
-      type: Boolean,
-      default: false
+      type: Boolean
+      // default: false
     }
   },
   data() {

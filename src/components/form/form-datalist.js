@@ -10,7 +10,6 @@ export const BFormDatalist = /*#__PURE__*/ Vue.extend({
   props: {
     id: {
       type: String,
-      default: null,
       required: true
     }
   },

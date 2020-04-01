@@ -1,10 +1,11 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import { toString } from '../../utils/string'
 
 export const props = {
   title: {
-    type: String,
-    default: ''
+    type: String
+    // default: null
   },
   titleTag: {
     type: String,
@@ -23,7 +24,7 @@ export const BCardTitle = /*#__PURE__*/ Vue.extend({
       mergeData(data, {
         staticClass: 'card-title'
       }),
-      children || props.title
+      children || toString(props.title)
     )
   }
 })

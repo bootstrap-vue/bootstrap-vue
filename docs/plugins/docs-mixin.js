@@ -14,10 +14,6 @@ export default {
     }
   },
   computed: {
-    content() {
-      // NOTE: is this computed prop used anymore?
-      return (this.$route.params.slug && this._content[this.$route.params.slug]) || {}
-    },
     headTitle() {
       const routeName = this.$route.name
       let title = ''
@@ -75,11 +71,11 @@ export default {
     this.$nextTick(() => {
       // In a `setTimeout()` to allow page time to finish processing
       setTimeout(() => {
-        const key = `${this.$route.path}_${this.$route.params.slug || ''}`
+        const key = `${this.$route.name}_${this.$route.params.slug || ''}`
         const toc =
           TOC_CACHE[key] || (TOC_CACHE[key] = makeTOC(this.readme || '', this.meta || null))
         this.$root.$emit('docs-set-toc', toc)
-      }, 1)
+      }, 50)
     })
   },
   updated() {

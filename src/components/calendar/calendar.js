@@ -62,8 +62,8 @@ export const BCalendar = Vue.extend({
       // This specifies the calendar year/month/day that will be shown when
       // first opening the datepicker if no v-model value is provided
       // Default is the current date (or `min`/`max`)
-      type: [String, Date],
-      default: null
+      type: [String, Date]
+      // default: null
     },
     disabled: {
       type: Boolean,
@@ -247,7 +247,7 @@ export const BCalendar = Vue.extend({
     },
     computedWeekStarts() {
       // `startWeekday` is a prop (constrained to `0` through `6`)
-      return Math.max(toInteger(this.startWeekday) || 0, 0) % 7
+      return Math.max(toInteger(this.startWeekday, 0), 0) % 7
     },
     computedLocale() {
       // Returns the resolved locale used by the calendar

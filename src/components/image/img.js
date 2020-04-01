@@ -21,28 +21,28 @@ const BLANK_TEMPLATE =
 
 export const props = {
   src: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   srcset: {
-    type: [String, Array],
-    default: null
+    type: [String, Array]
+    // default: null
   },
   sizes: {
-    type: [String, Array],
-    default: null
+    type: [String, Array]
+    // default: null
   },
   alt: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   width: {
-    type: [Number, String],
-    default: null
+    type: [Number, String]
+    // default: null
   },
   height: {
-    type: [Number, String],
-    default: null
+    type: [Number, String]
+    // default: null
   },
   block: {
     type: Boolean,
@@ -153,7 +153,7 @@ export const BImg = /*#__PURE__*/ Vue.extend({
       mergeData(data, {
         attrs: {
           src: src,
-          alt: props.alt,
+          alt: props.alt || null,
           width: width ? toString(width) : null,
           height: height ? toString(height) : null,
           srcset: srcset || null,
