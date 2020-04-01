@@ -53,7 +53,7 @@
           <b-dropdown-item v-else-if="isLocal" active href="/">
             Local copy
           </b-dropdown-item>
-          <b-dropdown-item :active="isDev" href="https://bootstrap-vue.netlify.com" rel="nofollow">
+          <b-dropdown-item :active="isDev" href="https://bootstrap-vue.netlify.app" rel="nofollow">
             Development
           </b-dropdown-item>
           <b-dropdown-item href="https://bootstrap-vue.js.org">
@@ -64,7 +64,7 @@
           <b-dropdown-item active href="https://bootstrap-vue.js.org">
             Latest (v{{ version }})
           </b-dropdown-item>
-          <b-dropdown-item href="https://bootstrap-vue.netlify.com" rel="nofollow">
+          <b-dropdown-item href="https://bootstrap-vue.netlify.app" rel="nofollow">
             Development
           </b-dropdown-item>
         </template>
