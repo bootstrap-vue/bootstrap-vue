@@ -8,6 +8,7 @@
 import Vue from '../../../utils/vue'
 import Popper from 'popper.js'
 import { getCS, select } from '../../../utils/dom'
+import { toFloat } from '../../../utils/number'
 import { HTMLElement, SVGElement } from '../../../utils/safe-types'
 import { BVTransition } from '../../../utils/bv-transition'
 
@@ -51,8 +52,8 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
   props: {
     target: {
       // Element that the tooltip/popover is positioned relative to
-      type: [HTMLElement, SVGElement],
-      default: null
+      type: [HTMLElement, SVGElement]
+      // default: null
     },
     placement: {
       type: String,
@@ -178,8 +179,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       if (!this.offset) {
         // Could set a ref for the arrow element
         const arrow = this.$refs.arrow || select('.arrow', this.$el)
-        const arrowOffset =
-          (parseFloat(getCS(arrow).width) || 0) + (parseFloat(this.arrowPadding) || 0)
+        const arrowOffset = toFloat(getCS(arrow).width, 0) + toFloat(this.arrowPadding, 0)
         switch (OffsetMap[String(placement).toUpperCase()] || 0) {
           case +1:
             /* istanbul ignore next: can't test in JSDOM */

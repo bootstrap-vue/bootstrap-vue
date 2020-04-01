@@ -2,6 +2,8 @@
 
 > Small and adaptive tag for adding context to just about any content.
 
+## Overview
+
 Badges scale to match the size of the immediate parent element by using relative font sizing and
 `em` units.
 

@@ -1,5 +1,6 @@
+// @vue/component
 export default {
-  name: 'BVAd',
+  name: 'BVCarbonAd',
   props: {
     id: {
       type: String,
@@ -24,7 +25,7 @@ export default {
     }
   },
   render(h) {
-    return h('div', { staticClass: 'bv-ad' }, [
+    return h('aside', { staticClass: 'bv-carbon-ad' }, [
       h('client-only', [
         h('script', {
           attrs: {

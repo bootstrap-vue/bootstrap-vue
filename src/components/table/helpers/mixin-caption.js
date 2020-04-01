@@ -8,8 +8,8 @@ export default {
     //   default: false
     // },
     caption: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     captionHtml: {
       type: String

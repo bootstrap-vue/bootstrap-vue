@@ -79,6 +79,21 @@ describe('dropdown-item', () => {
     wrapper.destroy()
   })
 
+  it('has linkClass when prop is passed a value', () => {
+    const wrapper = mount(BDropdownItem, {
+      propsData: {
+        linkClass: 'link-class'
+      }
+    })
+    expect(wrapper.is('li')).toBe(true)
+
+    const item = wrapper.find('a')
+    expect(item.classes()).toContain('link-class')
+    expect(item.classes()).toContain('dropdown-item')
+
+    wrapper.destroy()
+  })
+
   describe('router-link support', () => {
     it('works', async () => {
       const localVue = new CreateLocalVue()

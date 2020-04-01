@@ -1,19 +1,14 @@
 import Vue from '../../utils/vue'
 import { isUndefinedOrNull } from '../../utils/inspect'
+import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import bindAttrsMixin from '../../mixins/bind-attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-// --- Constants ---
-
-const RX_DIGITS = /^\d+$/
-
-// --- Utility methods ---
-
-// Parse a rowspan or colspan into a digit (or null if < 1 or NaN)
-const parseSpan = val => {
-  val = parseInt(val, 10)
-  return RX_DIGITS.test(String(val)) && val > 0 ? val : null
+// Parse a rowspan or colspan into a digit (or `null` if < `1` )
+const parseSpan = value => {
+  value = toInteger(value, 0)
+  return value > 0 ? value : null
 }
 
 /* istanbul ignore next */

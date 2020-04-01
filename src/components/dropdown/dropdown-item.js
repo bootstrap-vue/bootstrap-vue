@@ -18,6 +18,10 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
   },
   props: {
     ...props,
+    linkClass: {
+      type: [String, Array, Object],
+      default: null
+    },
     variant: {
       type: String,
       default: null
@@ -44,9 +48,12 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
         {
           props: this.$props,
           staticClass: 'dropdown-item',
-          class: {
-            [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
-          },
+          class: [
+            this.linkClass,
+            {
+              [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
+            }
+          ],
           attrs: { ...this.attrs$, role: 'menuitem' },
           on: { click: this.onClick },
           ref: 'item'

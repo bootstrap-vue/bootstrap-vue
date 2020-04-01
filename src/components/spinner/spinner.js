@@ -15,8 +15,8 @@ export const BSpinner = /*#__PURE__*/ Vue.extend({
       default: 'border' // SCSS currently supports 'border' or 'grow'
     },
     label: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     variant: {
       type: String,

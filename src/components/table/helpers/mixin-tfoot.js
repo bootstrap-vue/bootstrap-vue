@@ -12,16 +12,17 @@ export default {
       default: () => getComponentConfig('BTable', 'footVariant')
     },
     footRowVariant: {
-      type: String, // Any Bootstrap theme variant (or custom). Falls back to `headRowVariant`
-      default: null
+      // Any Bootstrap theme variant (or custom). Falls back to `headRowVariant`
+      type: String
+      // default: null
     },
     tfootClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     tfootTrClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     }
   },
   methods: {

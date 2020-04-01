@@ -3,6 +3,12 @@
 > Quick first, previous, next, last, and page buttons for navigation based pagination, supporting
 > regular links or router links.
 
+## Overview
+
+`<b-pagination-nav>` is a custom input component that provides navigational pagination. The total
+number of pages set with the `number-of-pages` prop. Page numbers are indexed from 1 through
+`number-of-pages`.
+
 `b-pagination-nav` will try and auto-detect which page link is active page button based on the
 current page's URL (via either `$route` detection or, if no `$router` detected, the browser location
 URL).
@@ -30,10 +36,6 @@ component pagination (such as table or list pagination), use the
 
 <!-- b-pagination-nav-lead.vue -->
 ```
-
-`<b-pagination-nav>` is a custom input component that provides navigational pagination. The total
-number of pages set with the `number-of-pages` prop. Page numbers are indexed from 1 through
-`number-of-pages`.
 
 ## Page link and number generation
 

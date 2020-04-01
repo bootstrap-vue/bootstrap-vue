@@ -35,7 +35,7 @@ under the toast.
 <!-- toast-intro.vue -->
 ```
 
-**Note:** we are using the `static` prop in the above example to render the toast in-pace in the
+**Note:** we are using the `static` prop in the above example to render the toast in-place in the
 document, rather than transporting it to a `<b-toaster>` target container. And we have added classes
 `bg-secondary` and `progress-bar-striped` to the outer `<div>` for illustrative purposes of toast
 transparency only.

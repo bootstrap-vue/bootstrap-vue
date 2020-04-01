@@ -1,20 +1,62 @@
+import { parseReadme } from '~/utils'
 import AnchoredHeading from '~/components/anchored-heading'
+import CarbonAd from '~/components/carbon-ad'
 import Componentdoc from '~/components/componentdoc'
 import IconsTable from '~/components/icons-table'
 import Importdoc from '~/components/importdoc'
 import Main from '~/components/main'
+import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { icons as iconsMeta, bootstrapIconsVersion } from '~/content'
 import readme from '~/../src/icons/README.md'
 
+const { titleLead, body } = parseReadme(readme)
+
+// @vue/component
 export default {
   name: 'BDVIcons',
   layout: 'docs',
+  components: {
+    AnchoredHeading,
+    CarbonAd,
+    Componentdoc,
+    IconsTable,
+    Importdoc,
+    Main,
+    QuickLinks,
+    Section
+  },
+  mixins: [docsMixin],
+  data() {
+    return {
+      readme,
+      titleLead,
+      body,
+      // Key for icons meta is '' (empty slug)
+      meta: iconsMeta[''],
+      bootstrapIconsVersion
+    }
+  },
+  computed: {
+    componentMeta() {
+      // `docs/content/index.js` massages the list of icon components
+      // to include only `BIcon`, `BIconstack` and an example component
+      // The example icon has a special `srcComponent` property that lists
+      // `BIconBlank` as the component to grab the `$options.props` from
+      return this.meta.components
+    },
+    importMeta() {
+      return { ...this.meta, slug: 'icons', components: this.componentMeta }
+    }
+  },
   // We use a string template here so that the docs README can do interpolation
   template: `
     <Main class="bd-components">
-      <Section play>${readme}</Section>
+      <Section tag="header">${titleLead}</Section>
+      <CarbonAd key="ad-/docs/icons"></CarbonAd>
+      <QuickLinks key="quick-/docs/icons"></QuickLinks>
+      <Section play>${body}</Section>
       <Section class="bd-component-reference">
         <AnchoredHeading id="component-reference">Component reference</AnchoredHeading>
         <template v-for="c in componentMeta">
@@ -40,34 +82,5 @@ export default {
           <code>IconsPlugin</code> is also exported as <code>BootstrapVueIcons</code>.
         </p>
       </Section>
-    </Main>`,
-  components: {
-    AnchoredHeading,
-    Componentdoc,
-    IconsTable,
-    Importdoc,
-    Main,
-    Section
-  },
-  mixins: [docsMixin],
-  data() {
-    return {
-      readme: readme,
-      // Key for icons meta is '' (empty slug)
-      meta: iconsMeta[''],
-      bootstrapIconsVersion
-    }
-  },
-  computed: {
-    componentMeta() {
-      // `docs/content/index.js` massages the list of icon components
-      // to include only `BIcon`, `BIconstack` and an example component
-      // The example icon has a special `srcComponent` property that lists
-      // `BIconBlank` as the component to grab the `$options.props` from
-      return this.meta.components
-    },
-    importMeta() {
-      return { ...this.meta, slug: 'icons', components: this.componentMeta }
-    }
-  }
+    </Main>`
 }

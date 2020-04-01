@@ -31,13 +31,13 @@ const propsMixin = {
       default: ''
     },
     placeholder: {
-      type: String,
+      type: String
       // Defaults to `labelNoTime` from BTime context
-      default: null
+      // default: null
     },
     size: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     disabled: {
       type: Boolean,
@@ -53,12 +53,12 @@ const propsMixin = {
       default: false
     },
     name: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     form: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     state: {
       // Tri-state prop: `true`, `false` or `null`
@@ -71,8 +71,8 @@ const propsMixin = {
       default: null
     },
     locale: {
-      type: [String, Array],
-      default: null
+      type: [String, Array]
+      // default: null
     },
     showSeconds: {
       type: Boolean,
@@ -180,8 +180,8 @@ const propsMixin = {
     },
     // extra dropdown stuff
     menuClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     ...dropdownProps
   }
@@ -249,7 +249,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       this.localHMS = newVal || ''
     },
     localHMS(newVal) {
-      // We only update hte v-model value when the timepicker
+      // We only update the v-model value when the timepicker
       // is open, to prevent cursor jumps when bound to a
       // text input in button only mode
       if (this.isVisible) {
@@ -316,10 +316,12 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         try {
           this.$refs.time.focus()
         } catch {}
+        this.$emit('shown')
       })
     },
     onHidden() {
       this.isVisible = false
+      this.$emit('hidden')
     },
     // Render function helpers
     defaultButtonFn({ isHovered, hasFocus }) {

@@ -1,6 +1,7 @@
 import { from as arrayFrom } from './array'
 import { hasWindowSupport, hasDocumentSupport } from './env'
-import { isFunction, isNull } from '../utils/inspect'
+import { isFunction, isNull } from './inspect'
+import { toFloat } from './number'
 
 // --- Constants ---
 
@@ -223,12 +224,12 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
     if (offsetParent && offsetParent !== el && offsetParent.nodeType === Node.ELEMENT_NODE) {
       parentOffset = offset(offsetParent)
       const offsetParentStyles = getCS(offsetParent)
-      parentOffset.top += parseFloat(offsetParentStyles.borderTopWidth)
-      parentOffset.left += parseFloat(offsetParentStyles.borderLeftWidth)
+      parentOffset.top += toFloat(offsetParentStyles.borderTopWidth, 0)
+      parentOffset.left += toFloat(offsetParentStyles.borderLeftWidth, 0)
     }
   }
   return {
-    top: _offset.top - parentOffset.top - parseFloat(elStyles.marginTop),
-    left: _offset.left - parentOffset.left - parseFloat(elStyles.marginLeft)
+    top: _offset.top - parentOffset.top - toFloat(elStyles.marginTop, 0),
+    left: _offset.left - parentOffset.left - toFloat(elStyles.marginLeft, 0)
   }
 }

@@ -4,7 +4,9 @@
 > incrementing or decrementing a numerical value within a range of a minimum and maximum number,
 > with optional step value.
 
-`<b-form-spinbutton>` is
+## Overview
+
+The component `<b-form-spinbutton>` is
 [WAI-ARIA compliant](https://www.w3.org/TR/wai-aria-practices-1.2/#spinbutton), allowing for
 [keyboard control](#accessibility), and supports both horizontal (default) and vertical layout.
 
@@ -32,8 +34,6 @@ Similar to [range type inputs](/docs/components/form-input#range-type-input), Bo
 
 <!-- b-form-spinbutton-demo.vue -->
 ```
-
-## Overview
 
 The <kbd>ArrowUp</kbd> and <kbd>ArrowDown</kbd> keys can be used to increment or decrement the
 value.
@@ -364,7 +364,7 @@ hold the increment or decrement button (or use the up/down arrow keys).
     ></b-form-spinbutton>
     <p>Input event: {{ value1 }}</p>
     <p>Change event: {{ value2 }}</p>
-  </b-row>
+  </div>
 </template>
 
 <script>

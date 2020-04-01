@@ -14,7 +14,7 @@ const parseCountDown = show => {
   if (show === '' || isBoolean(show)) {
     return 0
   }
-  show = toInteger(show)
+  show = toInteger(show, 0)
   return show > 0 ? show : 0
 }
 
@@ -23,7 +23,7 @@ const parseShow = show => {
   if (show === '' || show === true) {
     return true
   }
-  if (toInteger(show) < 1) {
+  if (toInteger(show, 0) < 1) {
     // Boolean will always return false for the above comparison
     return false
   }

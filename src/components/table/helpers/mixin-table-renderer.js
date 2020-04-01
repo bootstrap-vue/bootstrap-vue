@@ -65,12 +65,12 @@ export default {
       default: false
     },
     tableVariant: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     tableClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     }
   },
   computed: {

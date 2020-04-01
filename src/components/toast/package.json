@@ -18,11 +18,17 @@
           },
           {
             "prop": "toaster",
+            "settings": true,
             "description": "The name of the toaster target to render the toast in"
           },
           {
             "prop": "visible",
             "description": "When true, shows the toast"
+          },
+          {
+            "prop": "variant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the component"
           },
           {
             "prop": "isStatus",
@@ -38,6 +44,7 @@
           },
           {
             "prop": "autoHideDelay",
+            "settings": true,
             "description": "The number of milliseconds before the toast auto dismisses itself"
           },
           {
@@ -54,14 +61,17 @@
           },
           {
             "prop": "toastClass",
+            "settings": true,
             "description": "CSS class (or classes) to add to the toast wrapper element"
           },
           {
             "prop": "headerClass",
+            "settings": true,
             "description": "CSS class (or classes) to add to the toast header element"
           },
           {
             "prop": "bodyClass",
+            "settings": true,
             "description": "CSS class (or classes) to add to the toast body element"
           }
         ],
@@ -155,8 +165,19 @@
             "description": "The toaster's target name"
           },
           {
+            "prop": "ariaLive",
+            "settings": true,
+            "description": "When the rendered element is an aria-live region (for screen reader users), set to either 'polite' or 'assertive'"
+          },
+          {
             "prop": "ariaAtomic",
+            "settings": true,
             "description": "When screen reader's should read out the entire contents (set to string 'true') or just the changes (set to string 'false'). Leave blank for most cases"
+          },
+          {
+            "prop": "role",
+            "settings": true,
+            "description": "Sets the ARIA attribute 'role' to a specific value"
           }
         ]
       }

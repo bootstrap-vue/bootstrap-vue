@@ -11,6 +11,11 @@
         "component": "BAvatar",
         "props": [
           {
+            "prop": "variant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          },
+          {
             "prop": "text",
             "description": "Text to place in the avatar"
           },
@@ -21,6 +26,11 @@
           {
             "prop": "icon",
             "description": "Icon name to use for the avatar. Must be all lowercase. Defaults to `person-fill` if `text` or `src` props not provided"
+          },
+          {
+            "prop": "alt",
+            "version": "2.9.0",
+            "description": "Value to place in the 'alt' attribute for image and icon avatars"
           },
           {
             "prop": "size",
