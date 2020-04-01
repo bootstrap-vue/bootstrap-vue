@@ -161,14 +161,15 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       const fontSize = size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
       $content = h('span', { style: { fontSize } }, text)
     } else {
+      // Fallback default avatar content
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true', alt } })
     }
 
     const componentData = {
       staticClass: CLASS_NAME,
       class: {
-        // We use badge/button styles for theme variants
-        [`${isButton ? 'btn' : 'badge'}-${variant}`]: !!variant,
+        // We use badge styles for theme variants when not rendering `BButton`
+        [`badge-${variant}`]: !isButton && !!variant,
         // Rounding/Square
         rounded: rounded === true,
         'rounded-0': square,
