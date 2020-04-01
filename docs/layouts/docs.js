@@ -39,7 +39,7 @@ export default {
         h(BVBreadcrumbs, { class: ['float-left', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h(BVFeedback, { class: ['float-right', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h('div', { class: ['clearfix', 'd-block'], ref: 'clearfix' }),
-        h('nuxt')
+        h('nuxt', { props: { nuxtChildKey: `_DOCS_${this.$route.path.replace(/\/$/, '')}` } })
       ]
     )
     const $tocCol = h(
