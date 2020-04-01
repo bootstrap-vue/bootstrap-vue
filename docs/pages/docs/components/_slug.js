@@ -5,6 +5,7 @@ import MainDocs from '~/components/main-docs'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { components as componentsMeta } from '~/content'
+import { parseReadme } from '~/utils'
 
 const getReadMe = name =>
   import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
@@ -17,13 +18,10 @@ export default {
     return Boolean(componentsMeta[params.slug])
   },
   async asyncData({ params }) {
-    // DEBUG
-    console.log(`Loading readme: ${params.slug}`)
     const readme = (await getReadMe(params.slug)).default
     const meta = componentsMeta[params.slug]
-    // DEBUG
-    console.log(`Finished loading readme: ${params.slug}`)
-    return { meta, readme }
+    const { titleLead, body } = parseReadme(readme)
+    return { meta, readme, titleLead, body }
   },
   render(h) {
     // Reference section
@@ -48,6 +46,8 @@ export default {
         staticClass: 'bd-components',
         props: {
           readme: this.readme || '',
+          titleLead: this.titleLead || '',
+          body: this.body || '',
           meta: this.meta
         }
       },
