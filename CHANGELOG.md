@@ -2,6 +2,40 @@
 
 > All notable changes to this project will be documented in this file.
 
+<a name="2.10.0"></a>
+
+## [v2.10.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.9.0...v2.10.0)
+
+Released: 2020-04-01
+
+### Features v2.10.0
+
+- **b-sidebar:** new custom component `<b-sidebar>` (closes
+  [#3324](https://github.com/bootstrap-vue/bootstrap-vue/issues/3324),
+  [#3210](https://github.com/bootstrap-vue/bootstrap-vue/issues/3210),
+  [#1702](https://github.com/bootstrap-vue/bootstrap-vue/issues/1702))
+  ([#5021](https://github.com/bootstrap-vue/bootstrap-vue/issues/5021))
+  ([a77866f](https://github.com/bootstrap-vue/bootstrap-vue/commit/a77866f6d032f1a5a22be2d12d60be507825769c))
+
+### Bug Fixes v2.10.0
+
+- **b-avatar:** remove duplicate button variant class
+  ([#5056](https://github.com/bootstrap-vue/bootstrap-vue/issues/5056))
+  ([9f78f32](https://github.com/bootstrap-vue/bootstrap-vue/commit/9f78f32d964b187f35a1feffb7aa4bc264587923))
+- **b-card:** handle `header-html` and `footer-html` props correctly (fixes
+  [#5038](https://github.com/bootstrap-vue/bootstrap-vue/issues/5038))
+  ([#5039](https://github.com/bootstrap-vue/bootstrap-vue/issues/5039))
+  ([f378aef](https://github.com/bootstrap-vue/bootstrap-vue/commit/f378aeffdebdc7922f6ad4c5d513642dfb93cf1d))
+- **types:** add missing declaration for `b-form-timepicker` (closes
+  [#5035](https://github.com/bootstrap-vue/bootstrap-vue/issues/5035))
+  ([#5036](https://github.com/bootstrap-vue/bootstrap-vue/issues/5036))
+  ([ae84118](https://github.com/bootstrap-vue/bootstrap-vue/commit/ae841184dc3037b5d6f365311cc668bccb0e85da))
+
+### Other v2.10.0
+
+- docs updates
+- dev dependency updates
+
 <a name="2.9.0"></a>
 
 ## [v2.9.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.8.0...v2.9.0)
