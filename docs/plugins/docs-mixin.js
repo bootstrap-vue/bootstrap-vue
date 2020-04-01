@@ -14,10 +14,6 @@ export default {
     }
   },
   computed: {
-    content() {
-      // NOTE: is this computed prop used anymore?
-      return (this.$route.params.slug && this._content[this.$route.params.slug]) || {}
-    },
     headTitle() {
       const routeName = this.$route.name
       let title = ''
@@ -79,7 +75,7 @@ export default {
         const toc =
           TOC_CACHE[key] || (TOC_CACHE[key] = makeTOC(this.readme || '', this.meta || null))
         this.$root.$emit('docs-set-toc', toc)
-      }, 1)
+      }, 50)
     })
   },
   updated() {
