@@ -3,6 +3,7 @@ import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
 import { parseReadme } from '~/utils'
+import { mergeData } from 'vue-functional-data-merge'
 
 // @vue/component
 export default {
@@ -22,7 +23,7 @@ export default {
       default: null
     }
   },
-  render(h, { props, children }) {
+  render(h, { props, data, children }) {
     const { tag, readme, meta } = props
     const { titleLead, body } = parseReadme(readme || '')
     const { version } = meta || {}
@@ -56,7 +57,7 @@ export default {
       domProps: { innerHTML: body || '' }
     })
 
-    return h(Main, { props: { tag } }, [
+    return h(Main, mergeData(data, { props: { tag } }), [
       $leadSection,
       $availableSinceSection,
       $carbonAd,
