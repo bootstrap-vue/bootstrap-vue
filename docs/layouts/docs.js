@@ -20,6 +20,10 @@ export default {
     })
   },
   render(h) {
+    // Header
+    const $header = h(BVHeader)
+
+    // Sidebar column
     const $sidebarCol = h(
       'b-col',
       {
@@ -28,6 +32,8 @@ export default {
       },
       [h(BVSearch), h(BVSidebar)]
     )
+
+    // Content column
     const $contentCol = h(
       'b-col',
       {
@@ -39,9 +45,11 @@ export default {
         h(BVBreadcrumbs, { class: ['float-left', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h(BVFeedback, { class: ['float-right', 'mt-2', 'mb-0', 'mb-lg-2'] }),
         h('div', { class: ['clearfix', 'd-block'], ref: 'clearfix' }),
-        h('nuxt', { props: { nuxtChildKey: `_DOCS_${this.$route.path.replace(/\/$/, '')}` } })
+        h('nuxt')
       ]
     )
+
+    // TOC column
     const $tocCol = h(
       'b-col',
       {
@@ -55,8 +63,15 @@ export default {
       },
       [h(BVToc)]
     )
-    const $row = h('b-row', { class: ['flex-xl-nowrap2'] }, [$sidebarCol, $contentCol, $tocCol])
-    const $container = h('b-container', { props: { fluid: true } }, [$row])
-    return h('div', {}, [h(BVHeader), $container, h(BVFooter, { props: { isDocs: true } })])
+
+    // Container
+    const $container = h('b-container', { props: { fluid: true } }, [
+      h('b-row', { class: ['flex-xl-nowrap2'] }, [$sidebarCol, $contentCol, $tocCol])
+    ])
+
+    // Footer
+    const $footer = h(BVFooter, { props: { isDocs: true } })
+
+    return h('div', [$header, $container, $footer])
   }
 }
