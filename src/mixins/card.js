@@ -6,16 +6,16 @@ export default {
       default: 'div'
     },
     bgVariant: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     borderVariant: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     textVariant: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     }
   }
 }

@@ -5,6 +5,8 @@
 > clicking an element, and can contain both content and a title heading. Popovers are tooltips on
 > steroids.
 
+## Overview
+
 Use the `v-b-popover` directive on any **element** or **component** where you would like a popover
 to appear.
 
@@ -15,8 +17,6 @@ to appear.
 
 <!-- b-popover.vue -->
 ```
-
-## Overview
 
 Things to know when using the popover directive:
 

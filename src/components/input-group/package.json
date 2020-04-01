@@ -9,6 +9,11 @@
         "component": "BInputGroup",
         "props": [
           {
+            "prop": "size",
+            "settings": true,
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+          },
+          {
             "prop": "append",
             "description": "Text to append to the input group"
           },

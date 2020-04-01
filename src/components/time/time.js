@@ -45,10 +45,7 @@ const parseHMS = hms => {
   hms = toString(hms)
   let [hh, mm, ss] = [null, null, null]
   if (RE_TIME.test(hms)) {
-    ;[hh, mm, ss] = hms
-      .split(':')
-      .map(toInteger)
-      .map(v => (isNaN(v) ? null : v))
+    ;[hh, mm, ss] = hms.split(':').map(v => toInteger(v, null))
   }
   return {
     hours: isUndefinedOrNull(hh) ? null : hh,
@@ -92,13 +89,13 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       default: null
     },
     locale: {
-      type: [String, Array],
-      default: null
+      type: [String, Array]
+      // default: null
     },
     ariaLabelledby: {
       // ID of label element
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     secondsStep: {
       type: [Number, String],

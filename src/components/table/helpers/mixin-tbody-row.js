@@ -10,16 +10,16 @@ const detailsSlotName = 'row-details'
 export default {
   props: {
     tbodyTrClass: {
-      type: [String, Array, Object, Function],
-      default: null
+      type: [String, Array, Object, Function]
+      // default: null
     },
     tbodyTrAttr: {
-      type: [Object, Function],
-      default: null
+      type: [Object, Function]
+      // default: null
     },
     detailsTdClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     }
   },
   methods: {

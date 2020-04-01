@@ -33,8 +33,8 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       default: false
     },
     accordion: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     visible: {
       type: Boolean,
@@ -154,17 +154,17 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     emitState() {
       this.$emit('input', this.show)
       // Let `v-b-toggle` know the state of this collapse
-      this.$root.$emit(EVENT_STATE, this.safeId(), this.show)
+      this.emitOnRoot(EVENT_STATE, this.safeId(), this.show)
       if (this.accordion && this.show) {
         // Tell the other collapses in this accordion to close
-        this.$root.$emit(EVENT_ACCORDION, this.safeId(), this.accordion)
+        this.emitOnRoot(EVENT_ACCORDION, this.safeId(), this.accordion)
       }
     },
     emitSync() {
       // Emit a private event every time this component updates to ensure
       // the toggle button is in sync with the collapse's state
       // It is emitted regardless if the visible state changes
-      this.$root.$emit(EVENT_STATE_SYNC, this.safeId(), this.show)
+      this.emitOnRoot(EVENT_STATE_SYNC, this.safeId(), this.show)
     },
     checkDisplayBlock() {
       // Check to see if the collapse has `display: block !important` set

@@ -6,8 +6,6 @@
 Tags are arrays of short strings, used in various ways such as assigning categories. Use the default
 user interface, or create your own custom interface via the use of the default scoped slot.
 
-The tagged input was added in BootstrapVue release `v2.2.0`.
-
 ## Basic usage
 
 Tags will have any leading and tailing whitespace removed, and duplicate tags are not permitted.

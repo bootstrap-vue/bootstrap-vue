@@ -123,7 +123,8 @@ const props = {
 const computeSize = value => {
   // Default to `md` size when `null`, or parse to
   // number when value is a float-like string
-  value = value === null ? 'md' : isString(value) && RX_NUMBER.test(value) ? toFloat(value) : value
+  value =
+    value === null ? 'md' : isString(value) && RX_NUMBER.test(value) ? toFloat(value, 0) : value
   // Convert all numbers to pixel values
   // Handle default sizes when `sm`, `md` or `lg`
   // Or use value as is
@@ -160,14 +161,15 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       const fontSize = size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
       $content = h('span', { style: { fontSize } }, text)
     } else {
+      // Fallback default avatar content
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true', alt } })
     }
 
     const componentData = {
       staticClass: CLASS_NAME,
       class: {
-        // We use badge/button styles for theme variants
-        [`${isButton ? 'btn' : 'badge'}-${variant}`]: !!variant,
+        // We use badge styles for theme variants when not rendering `BButton`
+        [`badge-${variant}`]: !isButton && variant,
         // Rounding/Square
         rounded: rounded === true,
         'rounded-0': square,

@@ -1,3 +1,4 @@
+// @vue/component
 export default {
   name: 'BVCodeMirror',
   props: {

@@ -25,8 +25,8 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
       default: 0
     },
     label: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     labelHtml: {
       type: String
@@ -76,17 +76,18 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
       }
     },
     computedValue() {
-      return toFloat(this.value) || 0
+      return toFloat(this.value, 0)
     },
     computedMax() {
       // Prefer our max over parent setting
-      const max = toFloat(this.max)
-      return isNaN(max) ? toFloat(this.bvProgress.max) || 100 : max
+      // Default to `100` for invalid values (`-x`, `0`, `NaN`)
+      const max = toFloat(this.max) || toFloat(this.bvProgress.max, 0)
+      return max > 0 ? max : 100
     },
     computedPrecision() {
       // Prefer our precision over parent setting
-      const precision = toInteger(this.precision)
-      return isNaN(precision) ? toInteger(this.bvProgress.precision) || 0 : precision
+      // Default to `0` for invalid values (`-x`, `NaN`)
+      return Math.max(toInteger(this.precision, toInteger(this.bvProgress.precision, 0)), 0)
     },
     computedProgress() {
       const precision = this.computedPrecision

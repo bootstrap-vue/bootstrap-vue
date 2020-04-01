@@ -20,6 +20,7 @@ import {
 } from '../../utils/dom'
 import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
 import { isString, isUndefined } from '../../utils/inspect'
+import { toInteger } from '../../utils/number'
 import { toString as objectToString } from '../../utils/object'
 import { warn } from '../../utils/warn'
 
@@ -318,7 +319,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
         const el = select(id, scroller)
         if (el && isVisible(el)) {
           return {
-            offset: parseInt(methodFn(el).top, 10) + offsetBase,
+            offset: toInteger(methodFn(el).top, 0) + offsetBase,
             target: id
           }
         }

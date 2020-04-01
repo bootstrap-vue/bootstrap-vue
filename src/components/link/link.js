@@ -21,6 +21,7 @@ export const propsFactory = () => ({
   },
   rel: {
     type: String,
+    // Must be `null` if no value provided
     default: null
   },
   target: {

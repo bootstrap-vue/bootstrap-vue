@@ -17,8 +17,8 @@ export const props = {
     default: false
   },
   align: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   tabs: {
     type: Boolean,
