@@ -1,5 +1,4 @@
 import CarbonAd from '~/components/carbon-ad'
-import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links.vue'
 import Section from '~/components/section'
 import { parseReadme } from '~/utils'
