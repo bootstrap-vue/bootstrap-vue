@@ -42,7 +42,7 @@ export default {
       {
         staticClass: 'bd-components',
         props: {
-          readme: this.readme,
+          readme: this.readme || '',
           meta: this.meta
         }
       },
