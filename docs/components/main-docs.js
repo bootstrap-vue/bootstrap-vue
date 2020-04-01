@@ -33,33 +33,36 @@ export default {
         : ''
     },
     body() {
-      return this.docs.body || this.readme
-    },
-    docsPath() {
-      return this.$route.path
+      return this.docs.body || ''
     }
   },
   render(h) {
+    const docsPath = this.$route.path
+
     // Lead section
     const $leadSection = h(Section, {
       key: `lead-${this.docsPath}`,
       props: { tag: 'header', play: false },
       domProps: { innerHTML: this.titleLead }
     })
+
     // Available since section
     let $availableSinceSection = h()
     if (this.availableSince) {
-      $availableSinceSection = h(Section, { props: { play: false } }, [
+      $availableSinceSection = h(Section, { key: `avail-${docsPath}`, props: { play: false } }, [
         h('p', { staticClass: 'font-italic', domProps: { innerHTML: this.availableSince } })
       ])
     }
+
     // Carbon Ad
-    const $carbonAd = h(CarbonAd, { key: `ad-${this.docsPath}` })
+    const $carbonAd = h(CarbonAd, { key: `ad-${docsPath}` })
+
     // Quick links
-    const $quickLinks = h(QuickLinks, { key: `quick-${this.docsPath}` })
+    const $quickLinks = h(QuickLinks, { key: `quick-${docsPath}` })
+
     // Body section
     const $bodySection = h(Section, {
-      key: `body-${this.docsPath}`,
+      key: `body-${docsPath}`,
       props: { play: true },
       domProps: { innerHTML: this.body }
     })
