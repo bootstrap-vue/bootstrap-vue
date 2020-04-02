@@ -1,7 +1,7 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { BIconPerson } from '../../icons/icons'
 import { BAvatar } from './avatar'
-import { waitNT }  from '../../../tests/utils'
+import { waitNT } from '../../../tests/utils'
 
 describe('avatar', () => {
   it('should have expected default structure', async () => {
@@ -124,7 +124,7 @@ describe('avatar', () => {
 
     expect(wrapper.find('img').exists()).toBe(true)
     expect(wrapper.find('img').attributes('src')).toEqual('/foo/baz')
-    
+
     wrapper.destroy()
   })
 
