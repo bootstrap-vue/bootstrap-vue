@@ -2,6 +2,19 @@
 
 > All notable changes to this project will be documented in this file.
 
+<a name="2.10.1"></a>
+
+## [v2.10.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.10.0...v2.10.1)
+
+Released: 2020-04-02
+
+### Bug Fixes v2.10.1
+
+- **b-table:** fix context object issue introduced in v2.10.0 (fixes
+  [#5065](https://github.com/bootstrap-vue/bootstrap-vue/issues/5065))
+  ([#5067](https://github.com/bootstrap-vue/bootstrap-vue/issues/5067))
+  ([874dca2](https://github.com/bootstrap-vue/bootstrap-vue/commit/874dca2c8c385fecf7cec76e6cfa44eda9fcabf4))
+
 <a name="2.10.0"></a>
 
 ## [v2.10.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.9.0...v2.10.0)
