@@ -230,6 +230,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     slotScope() {
       return {
         isOpen: this.isOpen,
+        isClosed: !this.isOpen,
         visible: this.localShow,
         right: this.right,
         hide: this.hide
