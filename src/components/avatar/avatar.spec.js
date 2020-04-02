@@ -33,6 +33,16 @@ describe('avatar', () => {
     expect(wrapper.text()).toEqual('')
     expect(wrapper.find('.b-icon').exists()).toBe(true)
     expect(wrapper.find('img').exists()).toBe(false)
+
+    expect(wrapper.emitted('click')).toBeUndefined()
+
+    wrapper.trigger('click')
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.emitted('click')).not.toBeUndefined()
+    expect(wrapper.emitted('click').length).toBe(1)
+    expect(wrapper.emitted('click')[0][0]).toBeInstanceOf(Event)
+
     wrapper.destroy()
   })
 
@@ -54,6 +64,16 @@ describe('avatar', () => {
     expect(wrapper.text()).toEqual('')
     expect(wrapper.find('.b-icon').exists()).toBe(true)
     expect(wrapper.find('img').exists()).toBe(false)
+
+    expect(wrapper.emitted('click')).toBeUndefined()
+
+    wrapper.trigger('click')
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.emitted('click')).not.toBeUndefined()
+    expect(wrapper.emitted('click').length).toBe(1)
+    expect(wrapper.emitted('click')[0][0]).toBeInstanceOf(Event)
+
     wrapper.destroy()
   })
 
