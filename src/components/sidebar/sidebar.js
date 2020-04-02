@@ -37,13 +37,13 @@ const renderHeaderClose = (h, ctx) => {
     return h()
   }
 
-  const { closeLabel, textVariant, hide } = ctx
+  const { closeLabel, textVariant, hide, isOpen } = ctx
 
   return h(
     BButtonClose,
     {
       ref: 'close-button',
-      props: { ariaLabel: closeLabel, textVariant },
+      props: { disabled: !isOpen, ariaLabel: closeLabel, textVariant },
       on: { click: hide }
     },
     [ctx.normalizeSlot('header-close') || h(BIconX)]
@@ -229,6 +229,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     slotScope() {
       return {
+        isOpen: this.isOpen,
         visible: this.localShow,
         right: this.right,
         hide: this.hide
