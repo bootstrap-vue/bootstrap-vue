@@ -1,4 +1,3 @@
-import { mergeData } from 'vue-functional-data-merge'
 import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { getComponentConfig } from '../../utils/config'
@@ -8,6 +7,7 @@ import { BButton } from '../button/button'
 import { BLink } from '../link/link'
 import { BIcon } from '../../icons/icon'
 import { BIconPersonFill } from '../../icons/icons'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // --- Constants ---
 const NAME = 'BAvatar'
@@ -135,30 +135,66 @@ const computeSize = value => {
 // @vue/component
 export const BAvatar = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  functional: true,
+  mixins: [normalizeSlotMixin],
   props,
-  render(h, { props, data, children }) {
-    const { variant, disabled, square, icon, src, text, button: isButton, buttonType: type } = props
-    const isBLink = !isButton && (props.href || props.to)
+  data() {
+    return {
+      localSrc: this.src || null
+    }
+  },
+  computed: {
+    computedSize() {
+      return computeSize(this.size)
+    },
+    fontSize() {
+      const size = this.computedSize
+      return size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
+    }
+  },
+  watch: {
+    src(newSrc, oldSrc) {
+      if (newSrc !== oldSrc) {
+        this.localSrc = newSrc || null
+      }
+    }
+  },
+  methods: {
+    onImgError() /* istanbul ignore next: hard to fake an image error */ {
+      this.localSrc = null
+      this.$emit('img-error')
+    }
+  },
+  render(h) {
+    const {
+      variant,
+      disabled,
+      square,
+      icon,
+      localSrc: src,
+      text,
+      fontSize,
+      computedSize: size,
+      button: isButton,
+      buttonType: type
+    } = this
+    const isBLink = !isButton && (this.href || this.to)
     const tag = isButton ? BButton : isBLink ? BLink : 'span'
-    const rounded = square ? false : props.rounded === '' ? true : props.rounded || 'circle'
-    const size = computeSize(props.size)
-    const alt = props.alt || null
-    const ariaLabel = props.ariaLabel || null
+    const rounded = square ? false : this.rounded === '' ? true : this.rounded || 'circle'
+    const alt = this.alt || null
+    const ariaLabel = this.ariaLabel || null
 
     let $content = null
-    if (children) {
+    if (this.hasNormalizedSlot('default')) {
       // Default slot overrides props
-      $content = children
+      $content = this.normalizeSlot('default')
+    } else if (src) {
+      $content = h('img', { attrs: { src, alt }, on: { error: this.onImgError } })
     } else if (icon) {
       $content = h(BIcon, {
         props: { icon },
         attrs: { 'aria-hidden': 'true', alt }
       })
-    } else if (src) {
-      $content = h('img', { attrs: { src, alt } })
     } else if (text) {
-      const fontSize = size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
       $content = h('span', { style: { fontSize } }, text)
     } else {
       // Fallback default avatar content
@@ -179,9 +215,9 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       },
       style: { width: size, height: size },
       attrs: { 'aria-label': ariaLabel },
-      props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, props) : {}
+      props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, this) : {}
     }
 
-    return h(tag, mergeData(data, componentData), [$content])
+    return h(tag, componentData, [$content])
   }
 })
