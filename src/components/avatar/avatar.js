@@ -159,7 +159,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    onImgError() /* istanbul ignore next: hard to fake an image error */ {
+    onImgError() {
       this.localSrc = null
       this.$emit('img-error')
     },
