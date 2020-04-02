@@ -132,7 +132,7 @@
     "esm": "^3.2.25",
     "gh-pages": "^2.2.0",
     "highlight.js": "^9.18.1",
-    "html-loader": "^1.0.0",
+    "html-loader": "^1.1.0",
     "husky": "^4.2.3",
     "jest": "^25.2.6",
     "jest-environment-jsdom-fourteen": "^1.0.1",
