@@ -21,7 +21,11 @@
   }
 
   &a,
-  &button {
+  &button,
+  &.btn {
+    padding: 0;
+    border: 0;
+
     &:not(:disabled):not(.disabled) {
       cursor: if($enable-pointer-cursor-for-buttons, pointer, null);
     }
