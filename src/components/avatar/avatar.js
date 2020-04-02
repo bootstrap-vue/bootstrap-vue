@@ -162,6 +162,9 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     onImgError() /* istanbul ignore next: hard to fake an image error */ {
       this.localSrc = null
       this.$emit('img-error')
+    },
+    onClick(evt) {
+      this.$emit('click', evt)
     }
   },
   render(h) {
@@ -215,7 +218,8 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       },
       style: { width: size, height: size },
       attrs: { 'aria-label': ariaLabel },
-      props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, this) : {}
+      props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, this) : {},
+      on: isBLink || isButton ? { click: this.onClick } : {}
     }
 
     return h(tag, componentData, [$content])
