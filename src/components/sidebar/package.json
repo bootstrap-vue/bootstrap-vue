@@ -119,9 +119,21 @@
                 "description": "When called, will close the sidebar"
               },
               {
+                "prop": "isOpen",
+                "version": "2.11.0",
+                "type": "Boolean",
+                "description": "`true` when the sidebar is transitioning and when fully opened. Useful for disabling interactive elements when the sidebar is hidden"
+              },
+              {
+                "prop": "isClosed",
+                "version": "2.11.0",
+                "type": "Boolean",
+                "description": "The opposite of `isOpen`, for convenience"
+              },
+              {
                 "prop": "visible",
                 "type": "Boolean",
-                "description": "`true` if the sidebar is open"
+                "description": "`true` if the sidebar is open. Note: will be `false` when the close transition happens. This value mimics the internal `v-model` value"
               },
               {
                 "prop": "right",
@@ -144,9 +156,21 @@
                 "description": "When called, will close the sidebar"
               },
               {
+                "prop": "isOpen",
+                "version": "2.11.0",
+                "type": "Boolean",
+                "description": "`true` when the sidebar is transitioning and when fully opened. Useful for disabling interactive elements when the sidebar is hidden"
+              },
+              {
+                "prop": "isClosed",
+                "version": "2.11.0",
+                "type": "Boolean",
+                "description": "The opposite of `isOpen`, for convenience"
+              },
+              {
                 "prop": "visible",
                 "type": "Boolean",
-                "description": "`true` if the sidebar is open"
+                "description": "`true` if the sidebar is open. Note: will be `false` when the close transition happens. This value mimics the internal `v-model` value"
               },
               {
                 "prop": "right",
@@ -165,9 +189,21 @@
                 "description": "When called, will close the sidebar"
               },
               {
+                "prop": "isOpen",
+                "version": "2.11.0",
+                "type": "Boolean",
+                "description": "`true` when the sidebar is transitioning and when fully opened. Useful for disabling interactive elements when the sidebar is hidden"
+              },
+              {
+                "prop": "isClosed",
+                "version": "2.11.0",
+                "type": "Boolean",
+                "description": "The opposite of `isOpen`, for convenience"
+              },
+              {
                 "prop": "visible",
                 "type": "Boolean",
-                "description": "`true` if the sidebar is open"
+                "description": "`true` if the sidebar is open. Note: will be `false` when the close transition happens. This value mimics the internal `v-model` value"
               },
               {
                 "prop": "right",
