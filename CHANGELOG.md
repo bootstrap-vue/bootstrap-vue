@@ -13,6 +13,7 @@ Released: 2020-04-02
 - **b-avatar:** remove default padding when in button mode (fixes
   [#5073](https://github.com/bootstrap-vue/bootstrap-vue/issues/5073))
   ([#5076](https://github.com/bootstrap-vue/bootstrap-vue/issues/5076))
+  ([26377b3](https://github.com/bootstrap-vue/bootstrap-vue/commit/26377b3479f323baa2d702fab7f5200949ed680d))
 - **b-table:** fix context object `currentPage` issue introduced in v2.10.0 (fixes
   [#5065](https://github.com/bootstrap-vue/bootstrap-vue/issues/5065))
   ([#5067](https://github.com/bootstrap-vue/bootstrap-vue/issues/5067))
