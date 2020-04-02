@@ -81,9 +81,10 @@ and will be sized to show the avatar's [variant background](#variants) around th
 - When using a module bundler and project relative image URLs, please refer to the
   [Component img src resolving](/docs/reference/images) reference section for additional details.
 - The `src` prop takes precedence over the `icon` and `text` props.
-- If the image fails to load, the avatar will fallback to the value of the `icon` or `text` props.
-  If neither the `icon` or `text` props are provided, then the default avatar icon will be shown.
-  Alos, when the image fails to load, the `img-error` event will be emitted.
+- <span class="badge badge-secondary">2.11.0+</span> If the image fails to load, the avatar will
+  fallback to the value of the `icon` or `text` props. If neither the `icon` or `text` props are
+  provided, then the default avatar icon will be shown. Also, when the image fails to load, the
+  `img-error` event will be emitted.
 
 ### Icon content
 
