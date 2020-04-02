@@ -55,7 +55,7 @@ components.
 The avatar content can be either a an image, an icon, or short text string. Avatar content defaults
 to the [`'person-fill'` icon](/docs/icons) when no other content is specified.
 
-You can also supply cunstom content via the default slot, although you may need to apply additional
+You can also supply custom content via the default slot, although you may need to apply additional
 styling on the content.
 
 ### Image content
