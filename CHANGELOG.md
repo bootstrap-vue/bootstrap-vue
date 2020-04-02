@@ -10,6 +10,9 @@ Released: 2020-04-02
 
 ### Bug Fixes v2.10.1
 
+- **b-avatar:** remove default padding when in button mode (fixes
+  [#5073](https://github.com/bootstrap-vue/bootstrap-vue/issues/5073))
+  ([#5076](https://github.com/bootstrap-vue/bootstrap-vue/issues/5076))
 - **b-table:** fix context object issue introduced in v2.10.0 (fixes
   [#5065](https://github.com/bootstrap-vue/bootstrap-vue/issues/5065))
   ([#5067](https://github.com/bootstrap-vue/bootstrap-vue/issues/5067))
