@@ -122,7 +122,8 @@ describe('avatar', () => {
   it('should have expected structure when prop `src` set', async () => {
     const wrapper = mount(BAvatar, {
       propsData: {
-        src: '/foo/bar'
+        src: '/foo/bar',
+        text: 'BV'
       }
     })
     expect(wrapper.isVueInstance()).toBe(true)
@@ -136,6 +137,7 @@ describe('avatar', () => {
     expect(wrapper.find('.b-icon').exists()).toBe(false)
     expect(wrapper.find('img').exists()).toBe(true)
     expect(wrapper.find('img').attributes('src')).toEqual('/foo/bar')
+    expect(wrapper.text()).not.toContain('BV')
 
     wrapper.setProps({
       src: '/foo/baz'
@@ -144,6 +146,17 @@ describe('avatar', () => {
 
     expect(wrapper.find('img').exists()).toBe(true)
     expect(wrapper.find('img').attributes('src')).toEqual('/foo/baz')
+    expect(wrapper.text()).not.toContain('BV')
+    expect(wrapper.emitted('img-error')).not.toBeDefined()
+    expect(wrapper.text()).not.toContain('BV')
+
+    // Fake an image error
+    wrapper.find('img').trigger('error')
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('img-error')).toBeDefined()
+    expect(wrapper.emitted('img-error').length).toBe(1)
+    expect(wrapper.find('img').exists()).toBe(false)
+    expect(wrapper.text()).toContain('BV')
 
     wrapper.destroy()
   })
