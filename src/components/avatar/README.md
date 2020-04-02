@@ -52,11 +52,27 @@ components.
 
 ## Avatar types
 
-The avatar content can be either a an image, an icon, or short text string. Avatar content defaults
+The avatar content can be either a short text string, an image, or an icon. Avatar content defaults
 to the [`'person-fill'` icon](/docs/icons) when no other content is specified.
 
-You can also supply custom content via the default slot, although you may need to apply additional
-styling on the content.
+### Text content
+
+You can specify a short string as the content of an avatar via the `text` prop. The string should be
+short (1 to 3 characters), and will be transformed via CSS to be all uppercase. The font size will
+be scaled relative to the [`size` prop setting](#sizing).
+
+```html
+<template>
+  <div class="mb-2">
+    <b-avatar text="BV"></b-avatar>
+    <b-avatar text="a"></b-avatar>
+    <b-avatar text="Foo"></b-avatar>
+    <b-avatar text="BV" size="4rem"></b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-text.vue -->
+```
 
 ### Image content
 
@@ -80,11 +96,7 @@ and will be sized to show the avatar's [variant background](#variants) around th
 
 - When using a module bundler and project relative image URLs, please refer to the
   [Component img src resolving](/docs/reference/images) reference section for additional details.
-- The `src` prop takes precedence over the `icon` and `text` props.
-- <span class="badge badge-secondary">2.11.0+</span> If the image fails to load, the avatar will
-  fallback to the value of the `icon` or `text` props. If neither the `icon` or `text` props are
-  provided, then the default avatar icon will be shown. Also, when the image fails to load, the
-  `img-error` event will be emitted.
+- The `src` prop takes precedence over the `text` prop.
 
 ### Icon content
 
@@ -109,28 +121,9 @@ prop should be set to a valid icon name. Icons will scale respective to the [`si
 - When providing a BootstrapVue icon name, you _must_ ensure that you have registered the
   corresponding icon component (either locally to your component/page, or globally), if not using
   the full [`BootstrapVueIcons` plugin](/docs/icons).
-- The `icon` prop takes precedence over the `text` prop.
+- The `icon` prop takes precedence over the `text` and `src` props.
 - If the `text`, `src`, or `icon` props are not provided _and_ the [default slot](#custom-content)
   has no content, then the `person-fill` icon will be used.
-
-### Text content
-
-You can specify a short string as the content of an avatar via the `text` prop. The string should be
-short (1 to 3 characters), and will be transformed via CSS to be all uppercase. The font size will
-be scaled relative to the [`size` prop setting](#sizing).
-
-```html
-<template>
-  <div class="mb-2">
-    <b-avatar text="BV"></b-avatar>
-    <b-avatar text="a"></b-avatar>
-    <b-avatar text="Foo"></b-avatar>
-    <b-avatar text="BV" size="4rem"></b-avatar>
-  </div>
-</template>
-
-<!-- b-avatar-text.vue -->
-```
 
 ### Custom content
 
