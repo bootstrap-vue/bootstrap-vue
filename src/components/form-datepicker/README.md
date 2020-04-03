@@ -302,6 +302,8 @@ and usage of these props.
 
 ### Initial open calendar date
 
+<span class="badge badge-info small">v2.7.0+</span>
+
 By default, when no date is selected, the calendar view will be set to the current month (or the
 `min` or `max` date if today's date is out of range of `min` or `max`) when opened. You can change
 this behaviour by specifying a date via the `initial-date` prop. The initial date prop will be used
@@ -322,7 +324,7 @@ input field? Use the `button-only` prop to render the datepicker as a dropdown b
 date label will be rendered with the class `sr-only` (available only to screen readers).
 
 In the following simple example, we are placing the datepicker (button only mode) as an append to a
-`<b-input-group>`:
+`<b-input-group>`, and we are using the `context` event to get the formatted datestring and value:
 
 ```html
 <template>
@@ -334,6 +336,7 @@ In the following simple example, we are placing the datepicker (button only mode
         v-model="value"
         type="text"
         placeholder="YYYY-MM-DD"
+        autocomplete="off"
       ></b-form-input>
       <b-input-group-append>
         <b-form-datepicker
@@ -342,10 +345,13 @@ In the following simple example, we are placing the datepicker (button only mode
           right
           locale="en-US"
           aria-controls="example-input"
+          @context="onContext"
         ></b-form-datepicker>
       </b-input-group-append>
     </b-input-group>
-    <p>Value: '{{ value }}'</p>
+    <p class="mb-1">Value: '{{ value }}'</p>
+    <p class="mb-1">Selected: '{{ selected }}'</p>
+    <p>Formatted: '{{ formatted }}'</p>
   </div>
 </template>
 
@@ -353,7 +359,17 @@ In the following simple example, we are placing the datepicker (button only mode
   export default {
     data() {
       return {
-        value: ''
+        value: '',
+        formatted: '',
+        selected: ''
+      }
+    },
+    methods: {
+      onContext(ctx) {
+        // The date formatted in the locale, or the `label-no-date-selected` string
+        this.formatted = ctx.selectedFormatted
+        // The following will be an empty string until a valid date is entered
+        this.selected = ctx.selectedYMD
       }
     }
   }
