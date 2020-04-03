@@ -134,7 +134,7 @@
     "highlight.js": "^9.18.1",
     "html-loader": "^1.1.0",
     "husky": "^4.2.3",
-    "jest": "^25.2.6",
+    "jest": "^25.2.7",
     "jest-environment-jsdom-fourteen": "^1.0.1",
     "lint-staged": "^10.1.1",
     "loader-utils": "^2.0.0",
