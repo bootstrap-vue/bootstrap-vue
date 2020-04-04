@@ -19,7 +19,7 @@ const NAME = 'BFormFile'
 const VALUE_EMPTY_DEPRECATED_MSG =
   'Setting "value"/"v-model" to an empty string for reset is deprecated. Set to "null" instead.'
 
-// --- Helper methods ---
+// --- Helper functions ---
 
 const isValidValue = value => isFile(value) || (isArray(value) && value.every(v => isValidValue(v)))
 

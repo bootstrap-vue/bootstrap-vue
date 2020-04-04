@@ -1,13 +1,13 @@
 import Vue from '../../utils/vue'
+import identity from '../../utils/identity'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { eventOnOff } from '../../utils/events'
 import { isFunction, isNull } from '../../utils/inspect'
+import { DOWN, END, HOME, PAGEUP, UP, PAGEDOWN } from '../../utils/key-codes'
 import { isLocaleRTL } from '../../utils/locale'
 import { toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
-import identity from '../../utils/identity'
-import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIconPlus, BIconDash } from '../../icons/icons'
@@ -15,8 +15,6 @@ import { BIconPlus, BIconDash } from '../../icons/icons'
 // --- Constants ---
 
 const NAME = 'BFormSpinbutton'
-
-const { UP, DOWN, HOME, END, PAGEUP, PAGEDOWN } = KeyCodes
 
 // Default for spin button range and step
 const DEFAULT_MIN = 1

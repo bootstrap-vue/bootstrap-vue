@@ -1,21 +1,18 @@
 // BTime control (not form input control)
 import Vue from '../../utils/vue'
-// Utilities
 import identity from '../../utils/identity'
-import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, createDateFormatter } from '../../utils/date'
 import { contains, requestAF } from '../../utils/dom'
 import { isNull, isUndefinedOrNull } from '../../utils/inspect'
+import { LEFT, RIGHT } from '../../utils/key-codes'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
-// Mixins
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-// Sub components used
 import { BFormSpinbutton } from '../form-spinbutton/form-spinbutton'
 import { BIconCircleFill, BIconChevronUp } from '../../icons/icons'
 
@@ -24,8 +21,6 @@ import { BIconCircleFill, BIconChevronUp } from '../../icons/icons'
 const NAME = 'BTime'
 
 const NUMERIC = 'numeric'
-
-const { LEFT, RIGHT } = KeyCodes
 
 // Time string RegExpr (optional seconds)
 const RE_TIME = /^([0-1]?[0-9]|2[0-3]):[0-5]?[0-9](:[0-5]?[0-9])?$/

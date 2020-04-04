@@ -96,7 +96,7 @@ export const props = {
   }
 }
 
-// --- Helper methods ---
+// --- Helper functions ---
 
 const makeBlankImgSrc = (width, height, color) => {
   const src = encodeURIComponent(

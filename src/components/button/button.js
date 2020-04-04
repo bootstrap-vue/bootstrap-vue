@@ -1,11 +1,11 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import KeyCodes from '../../utils/key-codes'
+import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { addClass, removeClass } from '../../utils/dom'
 import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
+import { ENTER, SPACE } from '../../utils/key-codes'
 import { keys } from '../../utils/object'
 import { toString } from '../../utils/string'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
@@ -62,7 +62,7 @@ const linkPropKeys = keys(linkProps)
 
 export const props = { ...linkProps, ...btnProps }
 
-// --- Helper methods ---
+// --- Helper functions ---
 
 // Returns `true` if a tag's name equals `name`
 const tagIs = (tag, name) => toString(tag).toLowerCase() === toString(name).toLowerCase()
@@ -162,7 +162,7 @@ export const BButton = /*#__PURE__*/ Vue.extend({
         }
         const { keyCode } = evt
         // Add SPACE handler for `href="#"` and ENTER handler for non-standard tags
-        if (keyCode === KeyCodes.SPACE || (keyCode === KeyCodes.ENTER && nonStandardTag)) {
+        if (keyCode === SPACE || (keyCode === ENTER && nonStandardTag)) {
           const target = evt.currentTarget || evt.target
           evt.preventDefault()
           target.click()

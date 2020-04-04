@@ -1,6 +1,5 @@
-import Vue from '../../utils/vue'
 import BVTransition from '../../utils/bv-transition'
-import KeyCodes from '../../utils/key-codes'
+import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import observeDom from '../../utils/observe-dom'
 import { arrayIncludes, concat } from '../../utils/array'
@@ -10,6 +9,7 @@ import { isBrowser } from '../../utils/env'
 import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
 import { stripTags } from '../../utils/html'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
+import { ESC } from '../../utils/key-codes'
 import { HTMLElement } from '../../utils/safe-types'
 import { BTransporterSingle } from '../../utils/transporter'
 import idMixin from '../../mixins/id'
@@ -706,7 +706,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     onEsc(evt) {
       // If ESC pressed, hide modal
-      if (evt.keyCode === KeyCodes.ESC && this.isVisible && !this.noCloseOnEsc) {
+      if (evt.keyCode === ESC && this.isVisible && !this.noCloseOnEsc) {
         this.hide('esc')
       }
     },

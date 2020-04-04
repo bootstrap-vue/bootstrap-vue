@@ -1,7 +1,7 @@
-import KeyCodes from '../utils/key-codes'
 import range from '../utils/range'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import { isFunction, isNull } from '../utils/inspect'
+import { DOWN, LEFT, RIGHT, SPACE, UP } from '../utils/key-codes'
 import { toInteger } from '../utils/number'
 import { toString } from '../utils/string'
 import { warn } from '../utils/warn'
@@ -19,7 +19,7 @@ const ELLIPSIS_THRESHOLD = 3
 // Default # of buttons limit
 const DEFAULT_LIMIT = 5
 
-// --- Helper methods ---
+// --- Helper functions ---
 
 // Make an array of N to N+X
 const makePageArray = (startNumber, numberOfPages) =>
@@ -40,7 +40,7 @@ const sanitizeCurrentPage = (val, numberOfPages) => {
 // Links don't normally respond to SPACE, so we add that
 // functionality via this handler
 const onSpaceKey = evt => {
-  if (evt.keyCode === KeyCodes.SPACE) {
+  if (evt.keyCode === SPACE) {
     evt.preventDefault() // Stop page from scrolling
     evt.stopImmediatePropagation()
     evt.stopPropagation()
@@ -355,10 +355,10 @@ export default {
         // We disable left/right keyboard navigation in `<b-pagination-nav>`
         return
       }
-      if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
+      if (keyCode === LEFT || keyCode === UP) {
         evt.preventDefault()
         shiftKey ? this.focusFirst() : this.focusPrev()
-      } else if (keyCode === KeyCodes.RIGHT || keyCode === KeyCodes.DOWN) {
+      } else if (keyCode === RIGHT || keyCode === DOWN) {
         evt.preventDefault()
         shiftKey ? this.focusLast() : this.focusNext()
       }

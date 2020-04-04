@@ -1,5 +1,4 @@
 import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
@@ -21,6 +20,18 @@ import {
 } from '../../utils/date'
 import { requestAF } from '../../utils/dom'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
+import {
+  DOWN,
+  END,
+  ENTER,
+  HOME,
+  LEFT,
+  PAGEDOWN,
+  PAGEUP,
+  RIGHT,
+  SPACE,
+  UP
+} from '../../utils/key-codes'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
@@ -31,9 +42,6 @@ import { BIconChevronLeft, BIconChevronDoubleLeft, BIconCircleFill } from '../..
 // --- Constants ---
 
 const NAME = 'BCalendar'
-
-// Key Codes
-const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
 
 // --- BCalendar component ---
 

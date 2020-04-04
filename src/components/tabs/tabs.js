@@ -1,6 +1,5 @@
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
-import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import observeDom from '../../utils/observe-dom'
 import stableSort from '../../utils/stable-sort'
@@ -8,6 +7,7 @@ import { arrayIncludes, concat } from '../../utils/array'
 import { BvEvent } from '../../utils/bv-event.class'
 import { requestAF, selectAll } from '../../utils/dom'
 import { isEvent } from '../../utils/inspect'
+import { DOWN, END, HOME, LEFT, RIGHT, SPACE, UP } from '../../utils/key-codes'
 import { toInteger } from '../../utils/number'
 import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
@@ -73,7 +73,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
       if (type === 'click') {
         stop()
         this.$emit('click', evt)
-      } else if (type === 'keydown' && key === KeyCodes.SPACE) {
+      } else if (type === 'keydown' && key === SPACE) {
         // For ARIA tabs the SPACE key will also trigger a click/select
         // Even with keyboard navigation disabled, SPACE should "click" the button
         // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/4323
@@ -81,16 +81,16 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
         this.$emit('click', evt)
       } else if (type === 'keydown' && !this.noKeyNav) {
         // For keyboard navigation
-        if (key === KeyCodes.UP || key === KeyCodes.LEFT || key === KeyCodes.HOME) {
+        if (key === UP || key === LEFT || key === HOME) {
           stop()
-          if (shift || key === KeyCodes.HOME) {
+          if (shift || key === HOME) {
             this.$emit('first', evt)
           } else {
             this.$emit('prev', evt)
           }
-        } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT || key === KeyCodes.END) {
+        } else if (key === DOWN || key === RIGHT || key === END) {
           stop()
-          if (shift || key === KeyCodes.END) {
+          if (shift || key === END) {
             this.$emit('last', evt)
           } else {
             this.$emit('next', evt)

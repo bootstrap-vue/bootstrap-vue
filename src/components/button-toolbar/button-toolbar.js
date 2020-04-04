@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { isVisible, selectAll } from '../../utils/dom'
+import { DOWN, LEFT, RIGHT, UP } from '../../utils/key-codes'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import KeyCodes from '../../utils/key-codes'
 
 const ITEM_SELECTOR = [
   '.btn:not(.disabled):not([disabled]):not(.dropdown-item)',
@@ -50,10 +50,10 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
       }
       const key = evt.keyCode
       const shift = evt.shiftKey
-      if (key === KeyCodes.UP || key === KeyCodes.LEFT) {
+      if (key === UP || key === LEFT) {
         this.stop(evt)
         shift ? this.focusFirst(evt) : this.focusPrev(evt)
-      } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT) {
+      } else if (key === DOWN || key === RIGHT) {
         this.stop(evt)
         shift ? this.focusLast(evt) : this.focusNext(evt)
       }

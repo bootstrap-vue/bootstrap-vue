@@ -1,6 +1,6 @@
-import KeyCodes from '../../../utils/key-codes'
 import { arrayIncludes, from as arrayFrom } from '../../../utils/array'
 import { closest, isElement } from '../../../utils/dom'
+import { DOWN, END, ENTER, HOME, SPACE, UP } from '../../../utils/key-codes'
 import { props as tbodyProps, BTbody } from '../tbody'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
@@ -18,7 +18,7 @@ export default {
   mixins: [tbodyRowMixin],
   props,
   methods: {
-    // Helper methods
+    // Helper functions
     getTbodyTrs() {
       // Returns all the item TR elements (excludes detail and spacer rows)
       // `this.$refs.itemRows` is an array of item TR components/elements
@@ -69,14 +69,12 @@ export default {
         return
       }
       const keyCode = evt.keyCode
-      if (arrayIncludes([KeyCodes.ENTER, KeyCodes.SPACE], keyCode)) {
+      if (arrayIncludes([ENTER, SPACE], keyCode)) {
         // Emulated click for keyboard users, transfer to click handler
         evt.stopPropagation()
         evt.preventDefault()
         this.onTBodyRowClicked(evt)
-      } else if (
-        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
-      ) {
+      } else if (arrayIncludes([UP, DOWN, HOME, END], keyCode)) {
         // Keyboard navigation
         const rowIndex = this.getTbodyTrIndex(target)
         if (rowIndex > -1) {
@@ -84,16 +82,16 @@ export default {
           evt.preventDefault()
           const trs = this.getTbodyTrs()
           const shift = evt.shiftKey
-          if (keyCode === KeyCodes.HOME || (shift && keyCode === KeyCodes.UP)) {
+          if (keyCode === HOME || (shift && keyCode === UP)) {
             // Focus first row
             trs[0].focus()
-          } else if (keyCode === KeyCodes.END || (shift && keyCode === KeyCodes.DOWN)) {
+          } else if (keyCode === END || (shift && keyCode === DOWN)) {
             // Focus last row
             trs[trs.length - 1].focus()
-          } else if (keyCode === KeyCodes.UP && rowIndex > 0) {
+          } else if (keyCode === UP && rowIndex > 0) {
             // Focus previous row
             trs[rowIndex - 1].focus()
-          } else if (keyCode === KeyCodes.DOWN && rowIndex < trs.length - 1) {
+          } else if (keyCode === DOWN && rowIndex < trs.length - 1) {
             // Focus next row
             trs[rowIndex + 1].focus()
           }

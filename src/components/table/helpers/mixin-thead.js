@@ -1,9 +1,9 @@
 import identity from '../../../utils/identity'
-import KeyCodes from '../../../utils/key-codes'
 import startCase from '../../../utils/startcase'
 import { getComponentConfig } from '../../../utils/config'
 import { htmlOrText } from '../../../utils/html'
 import { isUndefinedOrNull } from '../../../utils/inspect'
+import { ENTER, SPACE } from '../../../utils/key-codes'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
 import { BThead } from '../thead'
@@ -83,7 +83,7 @@ export default {
           }
           handlers.keydown = evt => {
             const keyCode = evt.keyCode
-            if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
+            if (keyCode === ENTER || keyCode === SPACE) {
               this.headClicked(evt, field, isFoot)
             }
           }

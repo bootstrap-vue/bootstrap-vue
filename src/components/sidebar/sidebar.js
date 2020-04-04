@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
-import { contains } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
+import { contains } from '../../utils/dom'
+import { ESC } from '../../utils/key-codes'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -299,7 +299,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     onKeydown(evt) {
       const { keyCode } = evt
-      if (!this.noCloseOnEsc && keyCode === KeyCodes.ESC) {
+      if (!this.noCloseOnEsc && keyCode === ESC) {
         this.hide()
       }
     },

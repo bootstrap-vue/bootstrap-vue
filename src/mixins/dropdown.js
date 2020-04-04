@@ -1,8 +1,8 @@
 import Popper from 'popper.js'
-import KeyCodes from '../utils/key-codes'
 import { BvEvent } from '../utils/bv-event.class'
 import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
 import { isNull } from '../utils/inspect'
+import { DOWN, ENTER, ESC, SPACE, UP } from '../utils/key-codes'
 import { HTMLElement } from '../utils/safe-types'
 import { warn } from '../utils/warn'
 import clickOutMixin from './click-out'
@@ -317,10 +317,7 @@ export default {
       const { type, keyCode } = evt
       if (
         type !== 'click' &&
-        !(
-          type === 'keydown' &&
-          [KeyCodes.ENTER, KeyCodes.SPACE, KeyCodes.DOWN].indexOf(keyCode) !== -1
-        )
+        !(type === 'keydown' && [ENTER, SPACE, DOWN].indexOf(keyCode) !== -1)
       ) {
         /* istanbul ignore next */
         return
@@ -355,13 +352,13 @@ export default {
     // Called from dropdown menu context
     onKeydown(evt) {
       const { keyCode } = evt
-      if (keyCode === KeyCodes.ESC) {
+      if (keyCode === ESC) {
         // Close on ESC
         this.onEsc(evt)
-      } else if (keyCode === KeyCodes.DOWN) {
+      } else if (keyCode === DOWN) {
         // Down Arrow
         this.focusNext(evt, false)
-      } else if (keyCode === KeyCodes.UP) {
+      } else if (keyCode === UP) {
         // Up Arrow
         this.focusNext(evt, true)
       }

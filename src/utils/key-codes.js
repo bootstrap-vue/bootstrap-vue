@@ -1,30 +1,21 @@
-/*
- * Key Codes (events)
- */
-import { freeze } from './object'
-
-const KEY_CODES = freeze({
-  SPACE: 32,
-  ENTER: 13,
-  ESC: 27,
-  LEFT: 37,
-  UP: 38,
-  RIGHT: 39,
-  DOWN: 40,
-  PAGEUP: 33,
-  PAGEDOWN: 34,
-  HOME: 36,
-  END: 35,
-  TAB: 9,
-  SHIFT: 16,
-  CTRL: 17,
-  BACKSPACE: 8,
-  ALT: 18,
-  PAUSE: 19,
-  BREAK: 19,
-  INSERT: 45,
-  INS: 45,
-  DELETE: 46
-})
-
-export default KEY_CODES
+export const ALT = 18
+export const BACKSPACE = 8
+export const BREAK = 19
+export const CTRL = 17
+export const DELETE = 46
+export const DOWN = 40
+export const END = 35
+export const ENTER = 13
+export const ESC = 27
+export const HOME = 36
+export const INS = 45
+export const INSERT = 45
+export const LEFT = 37
+export const PAGEDOWN = 34
+export const PAGEUP = 33
+export const PAUSE = 19
+export const RIGHT = 39
+export const SHIFT = 16
+export const SPACE = 32
+export const TAB = 9
+export const UP = 38
