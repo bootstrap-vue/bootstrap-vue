@@ -324,7 +324,7 @@ input field? Use the `button-only` prop to render the datepicker as a dropdown b
 date label will be rendered with the class `sr-only` (available only to screen readers).
 
 In the following simple example, we are placing the datepicker (button only mode) as an append to a
-`<b-input-group>`, and we are using the `context` event to get the formatted datestring and value:
+`<b-input-group>`, and we are using the `context` event to get the formatted date string and value:
 
 ```html
 <template>
