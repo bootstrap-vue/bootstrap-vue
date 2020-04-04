@@ -1,4 +1,4 @@
-import KeyCodes from '../../utils/key-codes'
+import { ENTER, SPACE } from '../../constants/key-codes'
 import { getAttr, hasAttr, isDisabled, matches, select, setAttr } from '../../utils/dom'
 import { EVENT_OPTIONS_PASSIVE, eventOn, eventOff } from '../../utils/events'
 import { isString } from '../../utils/inspect'
@@ -46,10 +46,7 @@ const bind = (el, binding, vnode) => {
         const type = evt.type
         const key = evt.keyCode
         // Open modal only if trigger is not disabled
-        if (
-          type === 'click' ||
-          (type === 'keydown' && (key === KeyCodes.ENTER || key === KeyCodes.SPACE))
-        ) {
+        if (type === 'click' || (type === 'keydown' && (key === ENTER || key === SPACE))) {
           vnode.context.$root.$emit(EVENT_SHOW, target, currentTarget)
         }
       }

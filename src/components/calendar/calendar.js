@@ -1,5 +1,16 @@
+import {
+  DOWN,
+  END,
+  ENTER,
+  HOME,
+  LEFT,
+  PAGEDOWN,
+  PAGEUP,
+  RIGHT,
+  SPACE,
+  UP
+} from '../../constants/key-codes'
 import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
@@ -41,9 +52,6 @@ import {
 // --- Constants ---
 
 const NAME = 'BCalendar'
-
-// Key Codes
-const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
 
 // Common calendar option value strings
 export const STR_GREGORY = 'gregory'

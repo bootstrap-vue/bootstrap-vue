@@ -1,4 +1,3 @@
-import { mergeData } from 'vue-functional-data-merge'
 import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
 import { arrayIncludes, concat } from '../../utils/array'
@@ -6,6 +5,7 @@ import { getBreakpointsUpCached } from '../../utils/config'
 import { create, keys } from '../../utils/object'
 import { suffixPropName } from '../../utils/props'
 import { lowerCase, toString, trim } from '../../utils/string'
+import { mergeData } from '../../utils/vue'
 
 const COMMON_ALIGNMENT = ['start', 'end', 'center']
 

@@ -1,5 +1,5 @@
+import { DOWN, END, HOME, PAGEUP, UP, PAGEDOWN } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
 import identity from '../../utils/identity'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -18,8 +18,6 @@ import { BIconPlus, BIconDash } from '../../icons/icons'
 // --- Constants ---
 
 const NAME = 'BFormSpinbutton'
-
-const { UP, DOWN, HOME, END, PAGEUP, PAGEDOWN } = KeyCodes
 
 // Default for spin button range and step
 const DEFAULT_MIN = 1

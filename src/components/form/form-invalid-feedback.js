@@ -1,5 +1,4 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
   id: {
@@ -19,7 +18,7 @@ export const props = {
     default: false
   },
   state: {
-    // Tri-stste prop: `true`, `false`, or `null`
+    // Tri-state prop: `true`, `false`, or `null`
     type: Boolean,
     default: null
   },

@@ -1,11 +1,10 @@
-import Vue from '../../utils/vue'
+import Vue, { mergeData } from '../../utils/vue'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isString } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
-import { mergeData } from 'vue-functional-data-merge'
 
 // --- Constants --
 

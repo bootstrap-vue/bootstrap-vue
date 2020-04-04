@@ -1,7 +1,7 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
+import { BACKSPACE, DELETE, ENTER } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
 import cssEscape from '../../utils/css-escape'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
@@ -35,9 +35,6 @@ const TYPES = ['text', 'email', 'tel', 'url', 'number']
 
 // Pre-compiled regular expressions for performance reasons
 const RX_SPACES = /[\s\uFEFF\xA0]+/g
-
-// KeyCode constants
-const { ENTER, BACKSPACE, DELETE } = KeyCodes
 
 // --- Utility methods ---
 

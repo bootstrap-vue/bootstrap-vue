@@ -1,5 +1,5 @@
+import { ENTER, SPACE } from '../../../constants/key-codes'
 import identity from '../../../utils/identity'
-import KeyCodes from '../../../utils/key-codes'
 import noop from '../../../utils/noop'
 import startCase from '../../../utils/startcase'
 import { getComponentConfig } from '../../../utils/config'
@@ -96,7 +96,7 @@ export default {
           }
           on.keydown = evt => {
             const keyCode = evt.keyCode
-            if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
+            if (keyCode === ENTER || keyCode === SPACE) {
               this.headClicked(evt, field, isFoot)
             }
           }

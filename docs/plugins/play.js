@@ -10,13 +10,11 @@ const RX_NAME_DEFINITION = /<!-- .*\.vue -->/
 const RX_TEMPLATE = /<template>([\s\S]*)<\/template>/
 const RX_SCRIPT = /<script>([\s\S]*)<\/script>/
 
-const CLASS_NAMES = {
-  editable: 'editable',
-  live: 'live',
-  error: 'error'
-}
+const CLASS_NAMES_EDITABLE = 'editable'
+const CLASS_NAMES_LIVE = 'live'
+const CLASS_NAMES_ERROR = 'error'
 
-// --- Helper functions ---
+// --- Helper methods ---
 
 // Default "transpiler" function
 let compiler = code => code
@@ -117,7 +115,7 @@ const processExamples = (el, binding, vnode) => {
     hljs.highlightBlock(pre)
 
     // Add editable class
-    pre.classList.add(CLASS_NAMES.editable)
+    pre.classList.add(CLASS_NAMES_EDITABLE)
 
     // Store "previous" content on pre element
     pre.$_v_play_content = pre.textContent.trim()
@@ -131,7 +129,7 @@ const processExamples = (el, binding, vnode) => {
     // Enable live edit on double click
     pre.ondblclick = async () => {
       // Add live class
-      pre.classList.add(CLASS_NAMES.live)
+      pre.classList.add(CLASS_NAMES_LIVE)
       // Make editable
       pre.contentEditable = true
 
@@ -158,9 +156,9 @@ const processExamples = (el, binding, vnode) => {
 
         // Toggle error class
         if (vm === null) {
-          pre.classList.add(CLASS_NAMES.error)
+          pre.classList.add(CLASS_NAMES_ERROR)
         } else {
-          pre.classList.remove(CLASS_NAMES.error)
+          pre.classList.remove(CLASS_NAMES_ERROR)
         }
       }, 500)
     }

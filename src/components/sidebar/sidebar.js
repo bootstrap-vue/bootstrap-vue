@@ -1,5 +1,5 @@
+import { ESC } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
 import BVTransition from '../../utils/bv-transition'
 import { attemptFocus, contains, getActiveElement, getTabables } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
@@ -361,7 +361,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     onKeydown(evt) {
       const { keyCode } = evt
-      if (!this.noCloseOnEsc && keyCode === KeyCodes.ESC && this.localShow) {
+      if (!this.noCloseOnEsc && keyCode === ESC && this.localShow) {
         this.hide()
       }
     },

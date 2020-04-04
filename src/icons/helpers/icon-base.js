@@ -1,5 +1,4 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import Vue, { mergeData } from '../../utils/vue'
 import identity from '../../utils/identity'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { mathMax } from '../../utils/math'

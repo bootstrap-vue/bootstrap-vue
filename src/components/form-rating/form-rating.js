@@ -1,3 +1,4 @@
+import { LEFT, RIGHT, UP, DOWN } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -9,7 +10,6 @@ import { mathMax, mathMin } from '../../utils/math'
 import { toInteger, toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
-import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIcon } from '../../icons/icon'
@@ -19,8 +19,6 @@ import { BIconStar, BIconStarHalf, BIconStarFill, BIconX } from '../../icons/ico
 const NAME = 'BFormRating'
 const MIN_STARS = 3
 const DEFAULT_STARS = 5
-
-const { LEFT, RIGHT, UP, DOWN } = KeyCodes
 
 // --- Private helper component ---
 // @vue/component

@@ -1,4 +1,4 @@
-import KeyCodes from '../utils/key-codes'
+import { DOWN, LEFT, RIGHT, SPACE, UP } from '../constants/key-codes'
 import range from '../utils/range'
 import {
   attemptFocus,
@@ -49,7 +49,7 @@ const sanitizeCurrentPage = (val, numberOfPages) => {
 // Links don't normally respond to SPACE, so we add that
 // functionality via this handler
 const onSpaceKey = evt => {
-  if (evt.keyCode === KeyCodes.SPACE) {
+  if (evt.keyCode === SPACE) {
     // Stop page from scrolling
     stopEvent(evt, { immediatePropagation: true })
     // Trigger the click event on the link
@@ -365,10 +365,10 @@ export default {
         // We disable left/right keyboard navigation in `<b-pagination-nav>`
         return
       }
-      if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
+      if (keyCode === LEFT || keyCode === UP) {
         stopEvent(evt, { propagation: false })
         shiftKey ? this.focusFirst() : this.focusPrev()
-      } else if (keyCode === KeyCodes.RIGHT || keyCode === KeyCodes.DOWN) {
+      } else if (keyCode === RIGHT || keyCode === DOWN) {
         stopEvent(evt, { propagation: false })
         shiftKey ? this.focusLast() : this.focusNext()
       }

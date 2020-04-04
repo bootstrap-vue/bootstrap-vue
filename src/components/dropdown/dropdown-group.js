@@ -1,5 +1,4 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import Vue, { mergeData } from '../../utils/vue'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import identity from '../../utils/identity'
 

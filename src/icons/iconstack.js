@@ -1,5 +1,4 @@
-import Vue from '../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import Vue, { mergeData } from '../utils/vue'
 import { commonIconProps, BVIconBase } from './helpers/icon-base'
 
 // @vue/component

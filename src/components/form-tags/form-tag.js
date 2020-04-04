@@ -1,5 +1,5 @@
+import { DELETE } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
 import { getComponentConfig } from '../../utils/config'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -40,10 +40,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
   methods: {
     onDelete(evt) {
       const { type, keyCode } = evt
-      if (
-        !this.disabled &&
-        (type === 'click' || (type === 'keydown' && keyCode === KeyCodes.DELETE))
-      ) {
+      if (!this.disabled && (type === 'click' || (type === 'keydown' && keyCode === DELETE))) {
         this.$emit('remove')
       }
     }

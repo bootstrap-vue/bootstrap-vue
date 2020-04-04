@@ -33,7 +33,7 @@ const props = {
   }
 }
 
-// --- Helper functions ---
+// --- Helper methods ---
 
 // Sanitize the provided per page number (converting to a number)
 const sanitizePerPage = val => mathMax(toInteger(val) || DEFAULT_PER_PAGE, 1)

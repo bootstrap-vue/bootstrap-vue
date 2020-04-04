@@ -1,5 +1,4 @@
-import { mergeData } from 'vue-functional-data-merge'
-import Vue from '../../utils/vue'
+import Vue, { mergeData } from '../../utils/vue'
 import { omit } from '../../utils/object'
 import { BLink, props as BLinkProps } from '../link/link'
 

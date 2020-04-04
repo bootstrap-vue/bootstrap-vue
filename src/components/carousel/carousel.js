@@ -1,5 +1,5 @@
+import { ENTER, LEFT, RIGHT, SPACE } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
 import noop from '../../utils/noop'
 import observeDom from '../../utils/observe-dom'
 import { getComponentConfig } from '../../utils/config'
@@ -433,7 +433,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     },
     handleClick(evt, fn) {
       const keyCode = evt.keyCode
-      if (evt.type === 'click' || keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
+      if (evt.type === 'click' || keyCode === SPACE || keyCode === ENTER) {
         stopEvent(evt)
         fn()
       }
@@ -627,9 +627,9 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
           return
         }
         const keyCode = evt.keyCode
-        if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {
+        if (keyCode === LEFT || keyCode === RIGHT) {
           stopEvent(evt)
-          this[keyCode === KeyCodes.LEFT ? 'prev' : 'next']()
+          this[keyCode === LEFT ? 'prev' : 'next']()
         }
       }
     }

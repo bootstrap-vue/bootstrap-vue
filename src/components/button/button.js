@@ -1,6 +1,5 @@
-import { mergeData } from 'vue-functional-data-merge'
-import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
+import { ENTER, SPACE } from '../../constants/key-codes'
+import Vue, { mergeData } from '../../utils/vue'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { addClass, isTag, removeClass } from '../../utils/dom'
@@ -162,7 +161,7 @@ export const BButton = /*#__PURE__*/ Vue.extend({
         }
         const { keyCode } = evt
         // Add SPACE handler for `href="#"` and ENTER handler for non-standard tags
-        if (keyCode === KeyCodes.SPACE || (keyCode === KeyCodes.ENTER && nonStandardTag)) {
+        if (keyCode === SPACE || (keyCode === ENTER && nonStandardTag)) {
           const target = evt.currentTarget || evt.target
           stopEvent(evt, { propagation: false })
           target.click()

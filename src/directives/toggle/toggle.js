@@ -1,4 +1,4 @@
-import KeyCodes from '../../utils/key-codes'
+import { ENTER, SPACE } from '../../constants/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
 import {
@@ -20,8 +20,6 @@ import { isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 
 // --- Constants ---
-
-const { ENTER, SPACE } = KeyCodes
 
 // Classes to apply to trigger element
 const CLASS_BV_TOGGLE_COLLAPSED = 'collapsed'

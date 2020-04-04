@@ -1,5 +1,5 @@
+import { DOWN, LEFT, RIGHT, UP } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
 import { attemptFocus, contains, isVisible, selectAll } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -79,10 +79,10 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
     },
     onKeydown(evt) {
       const { keyCode, shiftKey } = evt
-      if (keyCode === KeyCodes.UP || keyCode === KeyCodes.LEFT) {
+      if (keyCode === UP || keyCode === LEFT) {
         stopEvent(evt)
         shiftKey ? this.focusFirst(evt) : this.focusPrev(evt)
-      } else if (keyCode === KeyCodes.DOWN || keyCode === KeyCodes.RIGHT) {
+      } else if (keyCode === DOWN || keyCode === RIGHT) {
         stopEvent(evt)
         shiftKey ? this.focusLast(evt) : this.focusNext(evt)
       }

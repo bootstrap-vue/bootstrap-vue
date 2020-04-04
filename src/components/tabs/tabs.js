@@ -1,6 +1,6 @@
+import { DOWN, END, HOME, LEFT, RIGHT, SPACE, UP } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
-import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import observeDom from '../../utils/observe-dom'
 import stableSort from '../../utils/stable-sort'
@@ -69,7 +69,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
       if (type === 'click') {
         stopEvent(evt)
         this.$emit('click', evt)
-      } else if (type === 'keydown' && keyCode === KeyCodes.SPACE) {
+      } else if (type === 'keydown' && keyCode === SPACE) {
         // For ARIA tabs the SPACE key will also trigger a click/select
         // Even with keyboard navigation disabled, SPACE should "click" the button
         // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/4323
@@ -77,16 +77,16 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
         this.$emit('click', evt)
       } else if (type === 'keydown' && !this.noKeyNav) {
         // For keyboard navigation
-        if ([KeyCodes.UP, KeyCodes.LEFT, KeyCodes.HOME].indexOf(keyCode) !== -1) {
+        if ([UP, LEFT, HOME].indexOf(keyCode) !== -1) {
           stopEvent(evt)
-          if (shiftKey || keyCode === KeyCodes.HOME) {
+          if (shiftKey || keyCode === HOME) {
             this.$emit('first', evt)
           } else {
             this.$emit('prev', evt)
           }
-        } else if ([KeyCodes.DOWN, KeyCodes.RIGHT, KeyCodes.END].indexOf(keyCode) !== -1) {
+        } else if ([DOWN, RIGHT, END].indexOf(keyCode) !== -1) {
           stopEvent(evt)
-          if (shiftKey || keyCode === KeyCodes.END) {
+          if (shiftKey || keyCode === END) {
             this.$emit('last', evt)
           } else {
             this.$emit('next', evt)
