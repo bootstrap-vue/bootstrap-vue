@@ -51,11 +51,7 @@ const appDef = {
             title: this.titleAttr || null
           }
         },
-        [
-          'text',
-          // Used for triggering `focousout` on button
-          h('ins', { class: 'other-element', attrs: { tabindex: '-1' } }, 'other')
-        ]
+        'text'
       ),
       typeof this.$slots.default === `undefined` || !this.$slots.default
         ? h(BTooltip, { props: tipProps })
