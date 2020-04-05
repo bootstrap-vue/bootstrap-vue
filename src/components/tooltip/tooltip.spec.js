@@ -17,7 +17,8 @@ const appDef = {
     'btnDisabled',
     'variant',
     'customClass',
-    'delay'
+    'delay',
+    'isModal'
   ],
   render(h) {
     const tipProps = {
@@ -32,7 +33,12 @@ const appDef = {
       customClass: this.customClass,
       delay: this.delay
     }
-    return h('article', { attrs: { id: 'wrapper' } }, [
+    const wrapperData = {
+      attrs: { id: 'wrapper' },
+      // Class to simulate being in a modal
+      class: { 'modal-content': !!this.isModal }
+    }
+    return h('article', wrapperData, [
       h(
         'button',
         {
@@ -108,6 +114,7 @@ describe('b-tooltip', () => {
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
+    expect(wrapper.classes()).not.toContain('modal-content')
 
     // The trigger button
     const $button = wrapper.find('button')
