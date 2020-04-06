@@ -289,8 +289,8 @@ If you want to add extra tabs that do not have any content, you can put them in 
   <b-tabs>
     <!-- Add your b-tab components here -->
     <template v-slot:tabs-end>
-      <b-nav-item href="#" @click="() => {}">Another tab</b-nav-item>
-      <li class="nav-item align-self-center">Plain text</li>
+      <b-nav-item href="#" role="presentation" @click="() => {}">Another tab</b-nav-item>
+      <li role="presentation" class="nav-item align-self-center">Plain text</li>
     </template>
   </b-tabs>
 </div>
@@ -531,7 +531,7 @@ It is recommended to use the `disabled` attribute on the `<b-tab>` component ins
 
         <!-- New Tab Button (Using tabs-end slot) -->
         <template v-slot:tabs-end>
-          <b-nav-item @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
+          <b-nav-item role="presentation" @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
         </template>
 
         <!-- Render this if no tabs -->
