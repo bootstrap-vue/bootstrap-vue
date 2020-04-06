@@ -247,6 +247,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.clearVisibilityInterval()
     // Destroy the template
     this.destroyTemplate()
+    // Remove any other private properties created during create
+    this.$_noop = null
   },
   methods: {
     // --- Methods for creating and destroying the template ---
@@ -826,11 +828,20 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.enable()
       }
     },
-    click() {
+    click(evt) {
       if (!this.$_enabled || this.dropdownOpen()) {
         /* istanbul ignore next */
         return
       }
+      try {
+        // Get around a WebKit bug where `click` does not trigger focus events
+        // On most browsers, `click` triggers a `focusin`/`focus` event first
+        // Needed so that trigger 'click blur' works on iOS
+        // https://github.com/bootstrap-vue/bootstrap-vue/issues/5099
+        // We use `currentTarget` rather than `target` to trigger on the
+        // element, not the inner content
+        evt.currentTarget.focus()
+      } catch {}
       this.activeTrigger.click = !this.activeTrigger.click
       if (this.isWithActiveTrigger) {
         this.enter(null)
