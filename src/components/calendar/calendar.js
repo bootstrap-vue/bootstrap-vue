@@ -599,19 +599,23 @@ export const BCalendar = Vue.extend({
         checkDate.setDate(0)
       } else if (keyCode === LEFT) {
         // LEFT - Previous day (or next day for RTL)
-        activeDate = this.constrainDate(activeDate.setDate(day + (isRTL ? 1 : -1)))
+        activeDate.setDate(day + (isRTL ? 1 : -1))
+        activeDate = this.constrainDate(activeDate)
         checkDate = activeDate
       } else if (keyCode === RIGHT) {
         // RIGHT - Next day (or previous day for RTL)
-        activeDate = this.constrainDate(activeDate.setDate(day + (isRTL ? -1 : 1)))
+        activeDate.setDate(day + (isRTL ? -1 : 1))
+        activeDate = this.constrainDate(activeDate)
         checkDate = activeDate
       } else if (keyCode === UP) {
         // UP - Previous week
-        activeDate = this.constrainDate(activeDate.setDate(day - 7))
+        activeDate.setDate(day - 7)
+        activeDate = this.constrainDate(activeDate)
         checkDate = activeDate
       } else if (keyCode === DOWN) {
         // DOWN - Next week
-        activeDate = this.constrainDate(activeDate.setDate(day + 7))
+        activeDate.setDate(day + 7)
+        activeDate = this.constrainDate(activeDate)
         checkDate = activeDate
       } else if (keyCode === HOME) {
         // HOME - Today
