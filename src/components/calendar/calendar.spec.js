@@ -182,7 +182,7 @@ describe('calendar', () => {
     // Handle the rare case this test is run right at midnight where
     // the current month rolled over at midnight when clicked
     const thisMonth1 = formatYMD(new Date()).slice(0, -3)
-    $navBtns.at(2).trigger('click')
+    $navBtns.at(3).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     const thisMonth2 = formatYMD(new Date()).slice(0, -3)
