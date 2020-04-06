@@ -101,11 +101,13 @@ export default deepFreeze({
   },
   BFormDatepicker: {
     // BFormDatepicker will choose from BCalendar first if not provided here
+    labelPrevDecade: undefined,
     labelPrevYear: undefined,
     labelPrevMonth: undefined,
     labelCurrentMonth: undefined,
     labelNextMonth: undefined,
     labelNextYear: undefined,
+    labelNextDecade: undefined,
     labelToday: undefined,
     labelSelected: undefined,
     labelNoDateSelected: undefined,
