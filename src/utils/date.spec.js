@@ -8,6 +8,8 @@ import {
   oneMonthAhead,
   oneYearAgo,
   oneYearAhead,
+  oneDecadeAgo,
+  oneDecadeAhead,
   constrainDate
 } from './date'
 
@@ -96,7 +98,27 @@ describe('utils/date', () => {
     expect(formatYMD(oneYearAhead(parseYMD('2020-12-31')))).toEqual('2021-12-31')
   })
 
-  it('costrainDate works', async () => {
+  it('oneDecadeAgo works', async () => {
+    // February 2020 was a leap year
+    expect(formatYMD(oneDecadeAgo(parseYMD('2020-02-29')))).toEqual('2010-02-28')
+    expect(formatYMD(oneDecadeAgo(parseYMD('2020-02-28')))).toEqual('2010-02-28')
+    expect(formatYMD(oneDecadeAgo(parseYMD('2020-01-31')))).toEqual('2010-01-31')
+    expect(formatYMD(oneDecadeAgo(parseYMD('2020-11-01')))).toEqual('2010-11-01')
+    expect(formatYMD(oneDecadeAgo(parseYMD('2020-11-30')))).toEqual('2010-11-30')
+    expect(formatYMD(oneDecadeAgo(parseYMD('2020-12-31')))).toEqual('2010-12-31')
+  })
+
+   it('oneDecadeAhead works', async () => {
+    // February 2020 was a leap year
+    expect(formatYMD(oneDecadeAhead(parseYMD('2020-02-29')))).toEqual('2030-02-28')
+    expect(formatYMD(oneDecadeAhead(parseYMD('2020-02-28')))).toEqual('2030-02-28')
+    expect(formatYMD(oneDecadeAhead(parseYMD('2020-01-31')))).toEqual('2030-01-31')
+    expect(formatYMD(oneDecadeAhead(parseYMD('2020-11-01')))).toEqual('2030-11-01')
+    expect(formatYMD(oneDecadeAhead(parseYMD('2020-11-30')))).toEqual('2030-11-30')
+    expect(formatYMD(oneDecadeAhead(parseYMD('2020-12-31')))).toEqual('2030-12-31')
+  })
+
+ it('costrainDate works', async () => {
     const min = parseYMD('2020-01-05')
     const max = parseYMD('2020-01-15')
     const date1 = parseYMD('2020-01-10')
