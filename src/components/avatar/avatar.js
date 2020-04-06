@@ -159,9 +159,9 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    onImgError() {
+    onImgError(evt) {
       this.localSrc = null
-      this.$emit('img-error')
+      this.$emit('img-error', evt)
     },
     onClick(evt) {
       this.$emit('click', evt)
