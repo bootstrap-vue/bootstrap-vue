@@ -126,6 +126,7 @@ describe('calendar', () => {
     const wrapper = mount(BCalendar, {
       attachToDocument: true,
       propsData: {
+        showDecadeNav: true,
         value: '2020-02-15' // Leap year
       }
     })
@@ -142,25 +143,37 @@ describe('calendar', () => {
     expect($navBtns.length).toBe(5)
 
     // Prev Month
-    $navBtns.at(1).trigger('click')
+    $navBtns.at(2).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($grid.attributes('data-month')).toBe('2020-01')
 
     // Next Month
-    $navBtns.at(3).trigger('click')
+    $navBtns.at(4).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($grid.attributes('data-month')).toBe('2020-02')
 
     // Prev Year
-    $navBtns.at(0).trigger('click')
+    $navBtns.at(1).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($grid.attributes('data-month')).toBe('2019-02')
 
     // Next Year
-    $navBtns.at(4).trigger('click')
+    $navBtns.at(5).trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($grid.attributes('data-month')).toBe('2020-02')
+
+    // Prev Decade
+    $navBtns.at(0).trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($grid.attributes('data-month')).toBe('2010-02')
+
+    // Next Decade
+    $navBtns.at(6).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($grid.attributes('data-month')).toBe('2020-02')
