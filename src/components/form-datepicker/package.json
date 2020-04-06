@@ -98,7 +98,12 @@
           },
           {
             "prop": "hideHeader",
-            "description": "When set, visually hides the selected date header"
+            "description": "When `true`, visually hides the selected date header"
+          },
+          {
+            "prop": "showDecadeNav",
+            "version": "2.11.0",
+            "description": "When `true`, shows the +/- decade navigation buttons"
           },
           {
             "prop": "menuClass",
@@ -174,6 +179,12 @@
             "description": "Text so show in the form control when no date is selected. Defaults to the `label-no-date-selected` prop value"
           },
           {
+            "prop": "labelPrevDecade",
+            "version": "2.11.0",
+            "settings": true,
+            "description": "Value of the `aria-label` and `title` attributes on the optional `Previous Decade` navigation button"
+          },
+          {
             "prop": "labelPrevYear",
             "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Previous Year` navigation button"
@@ -197,6 +208,12 @@
             "prop": "labelNextYear",
             "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Next Year` navigation button"
+          },
+          {
+            "prop": "labelNextDecade",
+            "version": "2.11.0",
+            "settings": true,
+            "description": "Value of the `aria-label` and `title` attributes on the optional `Next Decade` navigation button"
           },
           {
             "prop": "labelSelected",
