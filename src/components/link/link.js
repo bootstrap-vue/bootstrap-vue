@@ -149,6 +149,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const { active, disabled, target } = this
     const tag = this.computedTag
     const rel = this.computedRel
     const href = this.computedHref
@@ -156,18 +157,13 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     const routerTag = this.routerTag
 
     const componentData = {
-      class: { active: this.active, disabled: this.disabled },
+      class: { active, disabled },
       attrs: {
         ...this.$attrs,
         // We don't render `rel` or `target` on non link tags when using `vue-router`
-        rel: isRouterLink && routerTag !== 'a' && routerTag !== 'area' ? null : rel,
-        target: isRouterLink && routerTag !== 'a' && routerTag !== 'area' ? null : this.target,
-        tabindex: this.disabled
-          ? '-1'
-          : isUndefined(this.$attrs.tabindex)
-            ? null
-            : this.$attrs.tabindex,
-        'aria-disabled': this.disabled ? 'true' : null
+        ...(isRouterLink && routerTag !== 'a' && routerTag !== 'area' ? {} : { rel, target }),
+        tabindex: disabled ? '-1' : isUndefined(this.$attrs.tabindex) ? null : this.$attrs.tabindex,
+        'aria-disabled': disabled ? 'true' : null
       },
       props: this.computedProps
     }
