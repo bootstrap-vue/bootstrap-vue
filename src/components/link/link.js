@@ -149,12 +149,10 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { active, disabled, target } = this
+    const { active, disabled, target, routerTag, isRouterLink } = this
     const tag = this.computedTag
     const rel = this.computedRel
     const href = this.computedHref
-    const isRouterLink = this.isRouterLink
-    const routerTag = this.routerTag
 
     const componentData = {
       class: { active, disabled },
