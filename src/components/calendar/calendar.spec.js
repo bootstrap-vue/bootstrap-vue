@@ -140,7 +140,7 @@ describe('calendar', () => {
     expect($grid.attributes('data-month')).toBe('2020-02')
 
     const $navBtns = wrapper.findAll('.b-calendar-nav button')
-    expect($navBtns.length).toBe(5)
+    expect($navBtns.length).toBe(7)
 
     // Prev Month
     $navBtns.at(2).trigger('click')
