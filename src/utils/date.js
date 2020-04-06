@@ -111,6 +111,26 @@ export const oneYearAhead = date => {
   return date
 }
 
+export const oneDecadeAgo = date => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setFullYear(date.getFullYear() - 10)
+  if (date.getMonth() !== month) {
+    date.setDate(0)
+  }
+  return date
+}
+
+export const oneDecadeAhead = date => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setFullYear(date.getFullYear() + 10)
+  if (date.getMonth() !== month) {
+    date.setDate(0)
+  }
+  return date
+}
+
 // Helper function to constrain a date between two values
 // Always returns a `Date` object or `null` if no date passed
 export const constrainDate = (date, min = null, max = null) => {
