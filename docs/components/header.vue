@@ -29,7 +29,7 @@
     </b-navbar-brand>
 
     <div class="navbar-nav-scroll">
-      <b-navbar-nav is-nav class="bd-navbar-nav flex-row">
+      <b-navbar-nav class="bd-navbar-nav flex-row">
         <b-nav-item to="/docs" active-class="active" exact>Docs</b-nav-item>
         <b-nav-item to="/docs/components" active-class="active">Components</b-nav-item>
         <b-nav-item to="/docs/directives" active-class="active">Directives</b-nav-item>
