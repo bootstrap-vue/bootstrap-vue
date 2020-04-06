@@ -838,9 +838,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         return
       }
       try {
-        // Get around webkit bug where `click` does not trigger focus events.
-        // On most browsers, `click` triggers a focusin/focus event first.
-        // Needed so that trigger 'click blur' works on iOS.
+        // Get around a WebKit bug where `click` does not trigger focus events
+        // On most browsers, `click` triggers a `focusin`/`focus` event first
+        // Needed so that trigger 'click blur' works on iOS
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/5099
         // We use `currentTarget` rather than `target` to trigger on the
         // element, not the inner content
