@@ -149,7 +149,7 @@ export const BCalendar = Vue.extend({
       default: false
     },
     showDecadeNav: {
-      // When `true` enabled thedecade navigation buttons
+      // When `true` enables the decade navigation buttons
       type: Boolean,
       default: false
     },
