@@ -391,12 +391,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const showEvt = this.buildEvent('show', { cancelable: true })
       this.emitEvent(showEvt)
       // Don't show if event cancelled
-      /* istanbul ignore next: ignore for now */
+      /* istanbul ignore if */
       if (showEvt.defaultPrevented) {
         // Destroy the template (if for some reason it was created)
-        /* istanbul ignore next */
         this.destroyTemplate()
-        /* istanbul ignore next */
         return
       }
       // Fix the title attribute on target
@@ -409,10 +407,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     hide(force = false) {
       // Hide the tooltip
       const tip = this.getTemplateElement()
+      /* istanbul ignore if */
       if (!tip || !this.localShow) {
-        /* istanbul ignore next */
         this.restoreTitle()
-        /* istanbul ignore next */
         return
       }
 
@@ -420,10 +417,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // We disable cancelling if `force` is true
       const hideEvt = this.buildEvent('hide', { cancelable: !force })
       this.emitEvent(hideEvt)
-      /* istanbul ignore next: ignore for now */
+      /* istanbul ignore if: ignore for now */
       if (hideEvt.defaultPrevented) {
         // Don't hide if event cancelled
-        /* istanbul ignore next */
         return
       }
 
