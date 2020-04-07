@@ -511,6 +511,36 @@ describe('form-file', () => {
     wrapper.destroy()
   })
 
+  it('drag placeholder works', async () => {
+    const wrapper = mount(BFormFile, {
+      propsData: {
+        id: 'foo',
+        placeholder: 'PLACEHOLDER',
+        dropPlaceholder: 'DROPHERE'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    const $label = wrapper.find('label')
+    expect($label.exists()).toBe(true)
+    expect($label.text()).toContain('PLACEHOLDER')
+    expect($label.text()).not.toContain('DROPHERE')
+
+    wrapper.trigger('dragover')
+    await waitNT(wrapper.vm)
+
+    expect($label.text()).not.toContain('PLACEHOLDER')
+    expect($label.text()).toContain('DROPHERE')
+
+    wrapper.trigger('dragleave')
+    await waitNT(wrapper.vm)
+
+    expect($label.text()).toContain('PLACEHOLDER')
+    expect($label.text()).not.toContain('DROPHERE')
+
+    wrapper.destroy()
+  })
+
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
   describe('prop `autofocus`', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
