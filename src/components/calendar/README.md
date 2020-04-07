@@ -638,8 +638,10 @@ Keyboard navigation:
 - <kbd>PageDown</kbd> moves to the same day in the next month
 - <kbd>Alt</kbd>+<kbd>PageUp</kbd> moves to the same day and month in the previous year
 - <kbd>Alt</kbd>+<kbd>PageDown</kbd> moves to the same day and month in the next year
-- <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>PageUp</kbd> moves to the same day and month in the previous decade
-- <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>PageDown</kbd> moves to the same day and month in the next decade
+- <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>PageUp</kbd> moves to the same day and month in the previous
+  decade
+- <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>PageDown</kbd> moves to the same day and month in the next
+  decade
 - <kbd>Home</kbd> moves to today's date
 - <kbd>End</kbd> moves to the current selected date, or today if no selected date
 - <kbd>Enter</kbd> or <kbd>Space</kbd> selects the currently highlighted (focused) day
