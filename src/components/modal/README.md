@@ -329,7 +329,7 @@ methods:
 | Property or Method | Type     | Description                                                                                                                                                                                                                                                                                                 |
 | ------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preventDefault()` | Method   | When called prevents the modal from closing                                                                                                                                                                                                                                                                 |
-| `trigger`          | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the first argument provided to the `hide()` method, or `null` otherwise. |
+| `trigger`          | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>Esc</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the first argument provided to the `hide()` method, or `null` otherwise. |
 | `target`           | Property | A reference to the modal element                                                                                                                                                                                                                                                                            |
 | `vueTarget`        | property | A reference to the modal's Vue VM instance                                                                                                                                                                                                                                                                  |
 | `componentId`      | property | The modal's ID                                                                                                                                                                                                                                                                                              |
@@ -777,7 +777,7 @@ format instead of <samp>kebab-case</samp>.
 Both methods return a `Promise` (requires a polyfill for IE 11 and older browser support) which
 resolve into a value when the modal hides. `.msgBoxOk()` always resolves to the value `true`, while
 `.msgBoxConfirm()` resolves to either `true` (OK button pressed), `false` (CANCEL button pressed),
-or `null` (if the modal was closed via backdrop click, <kbd>ESC</kbd> press, or some other means.
+or `null` (if the modal was closed via backdrop click, <kbd>Esc</kbd> press, or some other means.
 
 If `message` is not provided, both methods will return immediately with the value `undefined`.
 
@@ -1184,8 +1184,8 @@ reasons.
 Notes on `v-b-modal` directive accessibility:
 
 - If the element is anything other than a `<button>` (or component that renders a `<button>`), the
-  ARIA `role` will be set to `button`, and a keydown event listeners for <kbd>ENTER</kbd> and
-  <kbd>SPACE</kbd> will be added, along with a `click` listener.
+  ARIA `role` will be set to `button`, and a keydown event listeners for <kbd>Enter</kbd> and
+  <kbd>Space</kbd> will be added, along with a `click` listener.
 - If the element is anything other than a `<button>` or `<a>` (or a component that renders either),
   then a `tabindex` of `0` will be added to the element to ensure accessibility, unless there is
   already a `tabindex` set.

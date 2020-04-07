@@ -420,23 +420,23 @@ focus.
 
 | Keypress                                                              | Action                                         |
 | --------------------------------------------------------------------- | ---------------------------------------------- |
-| <kbd>LEFT</kbd> or <kbd>UP</kbd>                                      | Activate the previous non-disabled tab         |
-| <kbd>RIGHT</kbd> or <kbd>DOWN</kbd>                                   | Activate the next non-disabled tab             |
-| <kbd>SHIFT</kbd>+<kbd>LEFT</kbd> or <kbd>SHIFT</kbd>+<kbd>UP</kbd>    | Activate the first non-disabled tab            |
-| <kbd>HOME</kbd>                                                       | Activate the first non-disabled tab            |
-| <kbd>SHIFT</kbd>+<kbd>RIGHT</kbd> or <kbd>SHIFT</kbd>+<kbd>DOWN</kbd> | Activate the last non-disabled tab             |
-| <kbd>END</kbd>                                                        | Activate the last non-disabled tab             |
-| <kbd>TAB</kbd>                                                        | Move focus to the active tab content           |
-| <kbd>SHIFT</kbd>+<kbd>TAB</kbd>                                       | Move focus to the previous control on the page |
+| <kbd>Left</kbd> or <kbd>Up</kbd>                                      | Activate the previous non-disabled tab         |
+| <kbd>Right</kbd> or <kbd>Down</kbd>                                   | Activate the next non-disabled tab             |
+| <kbd>Shift</kbd>+<kbd>Left</kbd> or <kbd>Shift</kbd>+<kbd>Up</kbd>    | Activate the first non-disabled tab            |
+| <kbd>Home</kbd>                                                       | Activate the first non-disabled tab            |
+| <kbd>Shift</kbd>+<kbd>Right</kbd> or <kbd>Shift</kbd>+<kbd>Down</kbd> | Activate the last non-disabled tab             |
+| <kbd>End</kbd>                                                        | Activate the last non-disabled tab             |
+| <kbd>Tab</kbd>                                                        | Move focus to the active tab content           |
+| <kbd>Shift</kbd>+<kbd>Tab</kbd>                                       | Move focus to the previous control on the page |
 
 Disable keyboard navigation by setting the prop `no-key-nav`. Behavior will now default to regular
 browser navigation with TAB key.
 
 | Keypress                             | Action                                                 |
 | ------------------------------------ | ------------------------------------------------------ |
-| <kbd>TAB</kbd>                       | Move to the next tab button or control on the page     |
-| <kbd>SHIFT</kbd>+<kbd>TAB</kbd>      | Move to the previous tab button or control on the page |
-| <kbd>ENTER</kbd> or <kbd>SPACE</kbd> | Activate current focused button's tab                  |
+| <kbd>Tab</kbd>                       | Move to the next tab button or control on the page     |
+| <kbd>Shift</kbd>+<kbd>Tab</kbd>      | Move to the previous tab button or control on the page |
+| <kbd>Enter</kbd> or <kbd>Space</kbd> | Activate current focused button's tab                  |
 
 ## Programmatically activating and deactivating tabs
 

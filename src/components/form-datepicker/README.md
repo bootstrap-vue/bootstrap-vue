@@ -315,6 +315,16 @@ component's value.
 Want a fancy popup with a dark background instead of a light background? Set the `dark` prop to
 `true` to enable the dark background.
 
+### Optional decade navigation buttons
+
+Set the prop `show-decade-nav` to enable the previous and next decade buttons in the datepicker's
+date navigation toolbar.
+
+The props `label-prev-decade` and `label-next-decade` props can be used to provide custom label text
+for the decade buttons.
+
+For example usage, refer to the [Internationalization section](#internationalization) below.
+
 ### Button only mode
 
 <span class="badge badge-info small">v2.7.0+</span>
@@ -454,13 +464,15 @@ Saturday.
     <label for="example-weekdays">Start weekday:</label>
     <b-form-select id="example-weekdays" v-model="weekday" :options="weekdays" class="mb-2"></b-form-select>
 
-    <b-form-checkbox v-model="showDecadeNav" switch inline class="my-2">
-      Show decade navigation buttons
-    </b-form-checkbox>
+    <div>
+      <b-form-checkbox v-model="showDecadeNav" switch inline class="my-2">
+        Show decade navigation buttons
+      </b-form-checkbox>
 
-    <b-form-checkbox v-model="hideHeader" switch inline class="my-2">
-      Hide calendar header
-    </b-form-checkbox>
+      <b-form-checkbox v-model="hideHeader" switch inline class="my-2">
+        Hide calendar header
+      </b-form-checkbox>
+    </div>
 
     <label for="example-i18n-picker">Date picker:</label>
     <b-form-datepicker
@@ -564,7 +576,7 @@ The popup calendar supports the same
 [keyboard controls as `<b-calendar>`](/docs/components/calendar#accessibility), along with the
 following:
 
-- <kbd>ESC</kbd> will close the popup calendar without selecting a date
+- <kbd>Esc</kbd> will close the popup calendar without selecting a date
 
 When internationalizing the datepicker, it is important to also update the `label-*` props with
 appropriate translated strings, so that international screen reader users will hear the correct
@@ -579,7 +591,8 @@ details.
 [`<b-dropdown>`](/docs/components/dropdown).
 
 `<b-form-datepicker>` uses Bootstrap's margin, padding, border, and flex utility classes, along with
-button (`btn-*`) classes, and the `form-control*` (plus validation) classes.
+button (`btn-*`) classes, dropdown (`dropdown*`) classes, and the `form-control*` (plus validation)
+classes.
 
 BootstrapVue's Custom SCSS/CSS is also required for proper styling of the date picker and calendar.
 
