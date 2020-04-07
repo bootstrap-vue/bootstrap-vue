@@ -497,7 +497,7 @@ the same locale as requested, depending on the supported locales of `Intl`).
     <b-col cols="12" class="mb-3">
       <label for="example-locales">Locale:</label>
       <b-form-select id="example-locales" v-model="locale" :options="locales"></b-form-select>
-      <label for="example-weekdays">Start weekday:</label>
+      <label for="example-weekdays" class="mt-2">Start weekday:</label>
       <b-form-select id="example-weekdays" v-model="weekday" :options="weekdays"></b-form-select>
       <b-form-checkbox v-model="showDecadeNav" switch inline class="my-2">
         Show decade navigation buttons
