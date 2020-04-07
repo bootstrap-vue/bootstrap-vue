@@ -427,7 +427,8 @@ Refer to the [`<b-time>`](/docs/components/time#accessibility) documentation for
 [`<b-dropdown>`](/docs/components/dropdown).
 
 `<b-form-timepicker>` uses Bootstrap's margin, padding, border, and flex utility classes, along with
-button (`btn-*`) classes, and the `form-control*` (plus validation) classes.
+button (`btn-*`) classes, dropdown (`dropdown*`) classes, and the `form-control*` (plus validation)
+classes.
 
 BootstrapVue's Custom SCSS/CSS is also required for proper styling of the time picker and popup.
 
