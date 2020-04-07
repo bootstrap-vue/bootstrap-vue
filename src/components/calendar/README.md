@@ -499,7 +499,12 @@ the same locale as requested, depending on the supported locales of `Intl`).
       <b-form-select id="example-locales" v-model="locale" :options="locales"></b-form-select>
       <label for="example-weekdays">Start weekday:</label>
       <b-form-select id="example-weekdays" v-model="weekday" :options="weekdays"></b-form-select>
-      <b-form-checkbox v-model="showDecadeNav">Show decade navigation buttons</b-form-checkbox>
+      <b-form-checkbox v-model="showDecadeNav" switch inline class="my-2">
+        Show decade navigation buttons
+      </b-form-checkbox>
+      <b-form-checkbox v-model="hideHeader" switch inline class="my-2">
+        Hide the date header
+      </b-form-checkbox>
     </b-col>
     <b-col md="auto">
       <b-calendar
@@ -507,6 +512,7 @@ the same locale as requested, depending on the supported locales of `Intl`).
         v-bind="labels[locale] || {}"
         :locale="locale"
         :start-weekday="weekday"
+        :hide-header="hideHeader"
         :show-decade-nav="showDecadeNav"
         @context="onContext"
       ></b-calendar>
@@ -526,6 +532,7 @@ the same locale as requested, depending on the supported locales of `Intl`).
         value: '',
         context: null,
         showDecadeNav: false,
+        hideHeader: false,
         locale: 'en-US',
         locales: [
           { value: 'en-US', text: 'English US (en-US)' },
