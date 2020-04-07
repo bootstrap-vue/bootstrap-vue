@@ -323,6 +323,8 @@ date navigation toolbar.
 The props `label-prev-decade` and `label-next-decade` props can be used to provide custom label text
 for the decade buttons.
 
+For example usage, refer to the [Internationalization section](#internationalization) below.
+
 ### Button only mode
 
 <span class="badge badge-info small">v2.7.0+</span>
@@ -462,13 +464,15 @@ Saturday.
     <label for="example-weekdays">Start weekday:</label>
     <b-form-select id="example-weekdays" v-model="weekday" :options="weekdays" class="mb-2"></b-form-select>
 
-    <b-form-checkbox v-model="showDecadeNav" switch inline class="my-2">
-      Show decade navigation buttons
-    </b-form-checkbox>
+    <div>
+      <b-form-checkbox v-model="showDecadeNav" switch inline class="my-2">
+        Show decade navigation buttons
+      </b-form-checkbox>
 
-    <b-form-checkbox v-model="hideHeader" switch inline class="my-2">
-      Hide calendar header
-    </b-form-checkbox>
+      <b-form-checkbox v-model="hideHeader" switch inline class="my-2">
+        Hide calendar header
+      </b-form-checkbox>
+    </div>
 
     <label for="example-i18n-picker">Date picker:</label>
     <b-form-datepicker
