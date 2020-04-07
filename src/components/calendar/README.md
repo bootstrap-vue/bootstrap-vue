@@ -290,6 +290,14 @@ formatted in the locale's language.
 You can hide this header via the `hide-header` prop. Note this only _visually hides_ the selected
 date, while keeping it available to screen reader users as an `aria-live` region.
 
+### Optional decade navigation buttons
+
+Set the prop `show-decade-nav` to enable the previous and next decade buttons in the calendar's date
+navigation toolbar.
+
+The props `label-prev-decade` and `label-next-decade` props can be used to provide custom label text
+for the decade buttons.
+
 ### Border and padding
 
 Fancy a calendar with a border with padding? Use Bootstrap's
