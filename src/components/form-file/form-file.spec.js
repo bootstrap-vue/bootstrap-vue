@@ -232,25 +232,25 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles(files)
-    awaitwaitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(files)
 
     // Setting to same array of files should not emit event
     wrapper.vm.setFiles(files)
-    awaitwaitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
 
     // Setting to new array of same files should not emit event
     wrapper.vm.setFiles([file1, file2])
-    awaitwaitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(1)
 
     // Setting to array of new files should emit event
     wrapper.vm.setFiles(files.slice().reverse())
-    awaitwaitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(files.slice().reverse())
 
@@ -258,7 +258,7 @@ describe('form-file', () => {
     wrapper.setData({
       selectedFile: null
     })
-    awaitwaitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(3)
     expect(wrapper.emitted('input')[2][0]).toEqual([])
 
