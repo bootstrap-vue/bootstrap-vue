@@ -576,7 +576,7 @@ The popup calendar supports the same
 [keyboard controls as `<b-calendar>`](/docs/components/calendar#accessibility), along with the
 following:
 
-- <kbd>ESC</kbd> will close the popup calendar without selecting a date
+- <kbd>Esc</kbd> will close the popup calendar without selecting a date
 
 When internationalizing the datepicker, it is important to also update the `label-*` props with
 appropriate translated strings, so that international screen reader users will hear the correct

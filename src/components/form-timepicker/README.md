@@ -413,7 +413,7 @@ time/hour formatting.
 The popup time supports the same keyboard controls as
 [`<b-time>`](/docs/components/time#accessibility), along with the following:
 
-- <kbd>ESC</kbd> will close the popup time without selecting a time
+- <kbd>Esc</kbd> will close the popup time without selecting a time
 
 When internationalizing the timepicker, it is important to also update the `label-*` props with
 appropriate translated strings, so that international screen reader users will hear the correct
