@@ -290,6 +290,18 @@ formatted in the locale's language.
 You can hide this header via the `hide-header` prop. Note this only _visually hides_ the selected
 date, while keeping it available to screen reader users as an `aria-live` region.
 
+For example usage, refer to the [Internationalization section](#internationalization) below.
+
+### Optional decade navigation buttons
+
+Set the prop `show-decade-nav` to enable the previous and next decade buttons in the calendar's date
+navigation toolbar.
+
+The props `label-prev-decade` and `label-next-decade` props can be used to provide custom label text
+for the decade buttons.
+
+For example usage, refer to the [Internationalization section](#internationalization) below.
+
 ### Border and padding
 
 Fancy a calendar with a border with padding? Use Bootstrap's
@@ -489,8 +501,14 @@ the same locale as requested, depending on the supported locales of `Intl`).
     <b-col cols="12" class="mb-3">
       <label for="example-locales">Locale:</label>
       <b-form-select id="example-locales" v-model="locale" :options="locales"></b-form-select>
-      <label for="example-weekdays">Start weekday:</label>
+      <label for="example-weekdays" class="mt-2">Start weekday:</label>
       <b-form-select id="example-weekdays" v-model="weekday" :options="weekdays"></b-form-select>
+      <b-form-checkbox v-model="showDecadeNav" switch inline class="my-2">
+        Show decade navigation buttons
+      </b-form-checkbox>
+      <b-form-checkbox v-model="hideHeader" switch inline class="my-2">
+        Hide the date header
+      </b-form-checkbox>
     </b-col>
     <b-col md="auto">
       <b-calendar
@@ -498,6 +516,8 @@ the same locale as requested, depending on the supported locales of `Intl`).
         v-bind="labels[locale] || {}"
         :locale="locale"
         :start-weekday="weekday"
+        :hide-header="hideHeader"
+        :show-decade-nav="showDecadeNav"
         @context="onContext"
       ></b-calendar>
     </b-col>
@@ -515,6 +535,8 @@ the same locale as requested, depending on the supported locales of `Intl`).
       return {
         value: '',
         context: null,
+        showDecadeNav: false,
+        hideHeader: false,
         locale: 'en-US',
         locales: [
           { value: 'en-US', text: 'English US (en-US)' },
@@ -530,11 +552,13 @@ the same locale as requested, depending on the supported locales of `Intl`).
         ],
         labels: {
           de: {
+            labelPrevDecade: 'Vorheriges Jahrzehnt',
             labelPrevYear: 'Vorheriges Jahr',
             labelPrevMonth: 'Vorheriger Monat',
             labelCurrentMonth: 'Aktueller Monat',
             labelNextMonth: 'Nächster Monat',
             labelNextYear: 'Nächstes Jahr',
+            labelNextDecade: 'Nächstes Jahrzehnt',
             labelToday: 'Heute',
             labelSelected: 'Ausgewähltes Datum',
             labelNoDateSelected: 'Kein Datum gewählt',
@@ -543,11 +567,13 @@ the same locale as requested, depending on the supported locales of `Intl`).
             labelHelp: 'Mit den Pfeiltasten durch den Kalender navigieren'
           },
           'ar-EG': {
+            labelPrevDecade: 'العقد السابق',
             labelPrevYear: 'العام السابق',
             labelPrevMonth: 'الشهر السابق',
             labelCurrentMonth: 'الشهر الحالي',
             labelNextMonth: 'الشهر المقبل',
             labelNextYear: 'العام المقبل',
+            labelNextDecade: 'العقد القادم',
             labelToday: 'اليوم',
             labelSelected: 'التاريخ المحدد',
             labelNoDateSelected: 'لم يتم اختيار تاريخ',
@@ -556,11 +582,13 @@ the same locale as requested, depending on the supported locales of `Intl`).
             labelHelp: 'استخدم مفاتيح المؤشر للتنقل في التواريخ'
           },
           zh: {
+            labelPrevDecade: '过去十年',
             labelPrevYear: '上一年',
             labelPrevMonth: '上个月',
             labelCurrentMonth: '当前月份',
             labelNextMonth: '下个月',
             labelNextYear: '明年',
+            labelNextDecade: '下一个十年',
             labelToday: '今天',
             labelSelected: '选定日期',
             labelNoDateSelected: '未选择日期',
@@ -610,6 +638,10 @@ Keyboard navigation:
 - <kbd>PageDown</kbd> moves to the same day in the next month
 - <kbd>Alt</kbd>+<kbd>PageUp</kbd> moves to the same day and month in the previous year
 - <kbd>Alt</kbd>+<kbd>PageDown</kbd> moves to the same day and month in the next year
+- <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>PageUp</kbd> moves to the same day and month in the previous
+  decade
+- <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>PageDown</kbd> moves to the same day and month in the next
+  decade
 - <kbd>Home</kbd> moves to today's date
 - <kbd>End</kbd> moves to the current selected date, or today if no selected date
 - <kbd>Enter</kbd> or <kbd>Space</kbd> selects the currently highlighted (focused) day

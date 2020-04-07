@@ -16,6 +16,8 @@ import {
   oneMonthAhead,
   oneYearAgo,
   oneYearAhead,
+  oneDecadeAgo,
+  oneDecadeAhead,
   parseYMD,
   resolveLocale
 } from '../../utils/date'
@@ -26,7 +28,12 @@ import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { BIconChevronLeft, BIconChevronDoubleLeft, BIconCircleFill } from '../../icons/icons'
+import {
+  BIconChevronLeft,
+  BIconChevronDoubleLeft,
+  BIconChevronBarLeft,
+  BIconCircleFill
+} from '../../icons/icons'
 
 // --- Constants ---
 
@@ -141,6 +148,11 @@ export const BCalendar = Vue.extend({
       type: Boolean,
       default: false
     },
+    showDecadeNav: {
+      // When `true` enables the decade navigation buttons
+      type: Boolean,
+      default: false
+    },
     hidden: {
       // When `true`, renders a comment node, but keeps the component instance active
       // Mainly for <b-form-date>, so that we can get the component's value and locale
@@ -158,6 +170,10 @@ export const BCalendar = Vue.extend({
       // default: null
     },
     // Labels for buttons and keyboard shortcuts
+    labelPrevDecade: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'labelPrevDecade')
+    },
     labelPrevYear: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelPrevYear')
@@ -177,6 +193,10 @@ export const BCalendar = Vue.extend({
     labelNextYear: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelNextYear')
+    },
+    labelNextDecade: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'labelNextDecade')
     },
     labelToday: {
       type: String,
@@ -397,6 +417,10 @@ export const BCalendar = Vue.extend({
       return createDateFormatter(this.calendarLocale, { day: 'numeric', calendar: 'gregory' })
     },
     // Disabled states for the nav buttons
+    prevDecadeDisabled() {
+      const min = this.computedMin
+      return this.disabled || (min && lastDateOfMonth(oneDecadeAgo(this.activeDate)) < min)
+    },
     prevYearDisabled() {
       const min = this.computedMin
       return this.disabled || (min && lastDateOfMonth(oneYearAgo(this.activeDate)) < min)
@@ -417,7 +441,11 @@ export const BCalendar = Vue.extend({
       const max = this.computedMax
       return this.disabled || (max && firstDateOfMonth(oneYearAhead(this.activeDate)) > max)
     },
-    // Calendar generation
+    nextDecadeDisabled() {
+      const max = this.computedMax
+      return this.disabled || (max && firstDateOfMonth(oneDecadeAhead(this.activeDate)) > max)
+    },
+    // Calendar dates generation
     calendar() {
       const matrix = []
       const firstDay = this.calendarFirstDay
@@ -571,8 +599,7 @@ export const BCalendar = Vue.extend({
       // Calendar keyboard navigation
       // Handles PAGEUP/PAGEDOWN/END/HOME/LEFT/UP/RIGHT/DOWN
       // Focuses grid after updating
-      const keyCode = evt.keyCode
-      const altKey = evt.altKey
+      const { altKey, ctrlKey, keyCode } = evt
       if (!arrayIncludes([PAGEUP, PAGEDOWN, END, HOME, LEFT, UP, RIGHT, DOWN], keyCode)) {
         /* istanbul ignore next */
         return
@@ -586,13 +613,15 @@ export const BCalendar = Vue.extend({
       const isRTL = this.isRTL
       if (keyCode === PAGEUP) {
         // PAGEUP - Previous month/year
-        activeDate = (altKey ? oneYearAgo : oneMonthAgo)(activeDate)
+        activeDate = (altKey ? (ctrlKey ? oneDecadeAgo : oneYearAgo) : oneMonthAgo)(activeDate)
         // We check the first day of month to be in rage
         checkDate = createDate(activeDate)
         checkDate.setDate(1)
       } else if (keyCode === PAGEDOWN) {
         // PAGEDOWN - Next month/year
-        activeDate = (altKey ? oneYearAhead : oneMonthAhead)(activeDate)
+        activeDate = (altKey ? (ctrlKey ? oneDecadeAhead : oneYearAhead) : oneMonthAhead)(
+          activeDate
+        )
         // We check the last day of month to be in rage
         checkDate = createDate(activeDate)
         checkDate.setMonth(checkDate.getMonth() + 1)
@@ -670,6 +699,9 @@ export const BCalendar = Vue.extend({
         this.focus()
       }
     },
+    gotoPrevDecade() {
+      this.activeYMD = formatYMD(this.constrainDate(oneDecadeAgo(this.activeDate)))
+    },
     gotoPrevYear() {
       this.activeYMD = formatYMD(this.constrainDate(oneYearAgo(this.activeDate)))
     },
@@ -686,6 +718,9 @@ export const BCalendar = Vue.extend({
     gotoNextYear() {
       this.activeYMD = formatYMD(this.constrainDate(oneYearAhead(this.activeDate)))
     },
+    gotoNextDecade() {
+      this.activeYMD = formatYMD(this.constrainDate(oneDecadeAhead(this.activeDate)))
+    },
     onHeaderClick() {
       if (!this.disabled) {
         this.activeYMD = this.selectedYMD || formatYMD(this.getToday())
@@ -700,6 +735,7 @@ export const BCalendar = Vue.extend({
     }
 
     const isRTL = this.isRTL
+    const hideDecadeNav = !this.showDecadeNav
     const todayYMD = formatYMD(this.getToday())
     const selectedYMD = this.selectedYMD
     const activeYMD = this.activeYMD
@@ -762,11 +798,13 @@ export const BCalendar = Vue.extend({
     )
 
     // Content for the date navigation buttons
+    const $prevDecadeIcon = h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $prevYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $prevMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $thisMonthIcon = h(BIconCircleFill, { props: { shiftV: 0.5 } })
     const $nextMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
     const $nextYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
+    const $nextDecadeIcon = h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
 
     // Utility to create the date navigation buttons
     const makeNavBtn = (content, label, handler, btnDisabled, shortcut) => {
@@ -802,6 +840,15 @@ export const BCalendar = Vue.extend({
         }
       },
       [
+        hideDecadeNav
+          ? h()
+          : makeNavBtn(
+              $prevDecadeIcon,
+              this.labelPrevDecade,
+              this.gotoPrevDecade,
+              this.prevDecadeDisabled,
+              'Ctrl+Alt+PageDown'
+            ),
         makeNavBtn(
           $prevYearIcon,
           this.labelPrevYear,
@@ -836,7 +883,16 @@ export const BCalendar = Vue.extend({
           this.gotoNextYear,
           this.nextYearDisabled,
           'Alt+PageUp'
-        )
+        ),
+        hideDecadeNav
+          ? h()
+          : makeNavBtn(
+              $nextDecadeIcon,
+              this.labelNextDecade,
+              this.gotoNextDecade,
+              this.nextDecadeDisabled,
+              'Ctrl+Alt+PageUp'
+            )
       ]
     )
 

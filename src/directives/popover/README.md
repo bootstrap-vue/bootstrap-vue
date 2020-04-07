@@ -269,7 +269,7 @@ This `blur` trigger must be used in combination with the `click` trigger.
 
 The following example shows the `click blur` use case. Popovers will only open on click of the
 button, and will close either on click of the button, or a click anywhere else (or a focus change
-via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismissing_.
+via pressing the <kbd>Tab</kbd> key). Some call this behavior _self dismissing_.
 
 ```html
 <div>
