@@ -537,6 +537,17 @@ describe('form-file', () => {
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROPHERE')
 
+    wrapper.trigger('drop', {
+      dataTransfer: {
+        files: [file]
+      }
+    })
+    await waitNT(wrapper.vm)
+
+    expect($label.text()).toContain('PLACEHOLDER')
+    expect($label.text()).not.toContain('DROPHERE')
+    expect($label.text()).not.toContain(file.name)
+
     wrapper.setProps({
       noDrop: false
     })
