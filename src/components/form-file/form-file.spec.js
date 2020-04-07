@@ -511,18 +511,37 @@ describe('form-file', () => {
     wrapper.destroy()
   })
 
-  it('drag placeholder works', async () => {
+  it('drag placeholder and drop works', async () => {
     const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
         placeholder: 'PLACEHOLDER',
-        dropPlaceholder: 'DROPHERE'
+        dropPlaceholder: 'DROPHERE',
+        noDrop: true
       }
+    })
+    const file = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
     })
 
     expect(wrapper.isVueInstance()).toBe(true)
     const $label = wrapper.find('label')
     expect($label.exists()).toBe(true)
+    expect($label.text()).toContain('PLACEHOLDER')
+    expect($label.text()).not.toContain('DROPHERE')
+
+    wrapper.trigger('dragover')
+    await waitNT(wrapper.vm)
+
+    expect($label.text()).toContain('PLACEHOLDER')
+    expect($label.text()).not.toContain('DROPHERE')
+
+    wrapper.setProps({
+      noDrop: false
+    })
+    await waitNT(wrapper.vm)
+
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROPHERE')
 
@@ -537,6 +556,23 @@ describe('form-file', () => {
 
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROPHERE')
+
+    wrapper.trigger('dragover')
+    await waitNT(wrapper.vm)
+
+    expect($label.text()).not.toContain('PLACEHOLDER')
+    expect($label.text()).toContain('DROPHERE')
+
+    wrapper.trigger('drop', {
+      dataTransfer: {
+        files: [file]
+      }
+    })
+    await waitNT(wrapper.vm)
+
+    expect($label.text()).not.toContain('PLACEHOLDER')
+    expect($label.text()).not.toContain('DROPHERE')
+    expect($label.text()).toContain(file.name)
 
     wrapper.destroy()
   })
