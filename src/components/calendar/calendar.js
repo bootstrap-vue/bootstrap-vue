@@ -601,6 +601,7 @@ export const BCalendar = Vue.extend({
       // Focuses grid after updating
       const keyCode = evt.keyCode
       const altKey = evt.altKey
+      const ctrlKey = evt.ctrlKey
       if (!arrayIncludes([PAGEUP, PAGEDOWN, END, HOME, LEFT, UP, RIGHT, DOWN], keyCode)) {
         /* istanbul ignore next */
         return
@@ -614,13 +615,13 @@ export const BCalendar = Vue.extend({
       const isRTL = this.isRTL
       if (keyCode === PAGEUP) {
         // PAGEUP - Previous month/year
-        activeDate = (altKey ? oneYearAgo : oneMonthAgo)(activeDate)
+        activeDate = (altKey ? ctrlKey ? oneDecadeAgo : oneYearAgo : oneMonthAgo)(activeDate)
         // We check the first day of month to be in rage
         checkDate = createDate(activeDate)
         checkDate.setDate(1)
       } else if (keyCode === PAGEDOWN) {
         // PAGEDOWN - Next month/year
-        activeDate = (altKey ? oneYearAhead : oneMonthAhead)(activeDate)
+        activeDate = (altKey ? ctrlKey ? oneDecadeAhead : oneYearAhead : oneMonthAhead)(activeDate)
         // We check the last day of month to be in rage
         checkDate = createDate(activeDate)
         checkDate.setMonth(checkDate.getMonth() + 1)
@@ -846,7 +847,7 @@ export const BCalendar = Vue.extend({
               this.labelPrevDecade,
               this.gotoPrevDecade,
               this.prevDecadeDisabled,
-              null
+              'Ctrl+Alt+PageDown'
             ),
         makeNavBtn(
           $prevYearIcon,
@@ -890,7 +891,7 @@ export const BCalendar = Vue.extend({
               this.labelNextDecade,
               this.gotoNextDecade,
               this.nextDecadeDisabled,
-              null
+              'Ctrl+Alt+PageUp'
             )
       ]
     )
