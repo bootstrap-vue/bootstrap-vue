@@ -178,7 +178,7 @@
         "events": [
           {
             "event": "input",
-            "description": "Emitted to when updating the v-model",
+            "description": "Emitted when updating the v-model",
             "args": [
               {
                 "arg": "date",
@@ -192,7 +192,7 @@
           },
           {
             "event": "selected",
-            "description": "Emitted to when user has selected (clicked) a date. Note this event will also be emitted if the user clicks on the currently selected date",
+            "description": "Emitted when user has selected (clicked) a date. Note this event will also be emitted if the user clicks on the currently selected date",
             "args": [
               {
                 "arg": "ymd",
@@ -208,7 +208,7 @@
           },
           {
             "event": "context",
-            "description": "Emitted to when when the user changes the active date via date navigation buttons or cursor control",
+            "description": "Emitted when when the user changes the active date via date navigation buttons or cursor control",
             "args": [
               {
                 "arg": "context",

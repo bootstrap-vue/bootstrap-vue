@@ -462,6 +462,14 @@ Saturday.
     <label for="example-weekdays">Start weekday:</label>
     <b-form-select id="example-weekdays" v-model="weekday" :options="weekdays" class="mb-2"></b-form-select>
 
+    <b-form-checkbox v-model="showDecadeNav" switch inline class="my-2">
+      Show decade navigation buttons
+    </b-form-checkbox>
+
+    <b-form-checkbox v-model="hideHeader" switch inline class="my-2">
+      Hide calendar header
+    </b-form-checkbox>
+
     <label for="example-i18n-picker">Date picker:</label>
     <b-form-datepicker
       id="example-i18n-picker"
@@ -469,6 +477,8 @@ Saturday.
       v-bind="labels[locale] || {}"
       :locale="locale"
       :start-weekday="weekday"
+      :show-decade-nav="showDecadeNav"
+      :hide-header="hideHeader"
       class="mb-2"
      ></b-form-datepicker>
      <p>Value: <b>'{{ value }}'</b></p>
@@ -481,6 +491,8 @@ Saturday.
       return {
         value: '',
         locale: 'en-US',
+        showDecadeNav: false,
+        hideHeader: false,
         locales: [
           { value: 'en-US', text: 'English US (en-US)' },
           { value: 'de', text: 'German (de)' },
@@ -495,11 +507,13 @@ Saturday.
         ],
         labels: {
           de: {
+            labelPrevDecade: 'Vorheriges Jahrzehnt',
             labelPrevYear: 'Vorheriges Jahr',
             labelPrevMonth: 'Vorheriger Monat',
             labelCurrentMonth: 'Aktueller Monat',
             labelNextMonth: 'Nächster Monat',
             labelNextYear: 'Nächstes Jahr',
+            labelNextDecade: 'Nächstes Jahrzehnt',
             labelToday: 'Heute',
             labelSelected: 'Ausgewähltes Datum',
             labelNoDateSelected: 'Kein Datum gewählt',
@@ -508,11 +522,13 @@ Saturday.
             labelHelp: 'Mit den Pfeiltasten durch den Kalender navigieren'
           },
           'ar-EG': {
+            labelPrevDecade: 'العقد السابق',
             labelPrevYear: 'العام السابق',
             labelPrevMonth: 'الشهر السابق',
             labelCurrentMonth: 'الشهر الحالي',
             labelNextMonth: 'الشهر المقبل',
             labelNextYear: 'العام المقبل',
+            labelNextDecade: 'العقد القادم',
             labelToday: 'اليوم',
             labelSelected: 'التاريخ المحدد',
             labelNoDateSelected: 'لم يتم اختيار تاريخ',
@@ -521,11 +537,13 @@ Saturday.
             labelHelp: 'استخدم مفاتيح المؤشر للتنقل في التواريخ'
           },
           zh: {
+            labelPrevDecade: '过去十年',
             labelPrevYear: '上一年',
             labelPrevMonth: '上个月',
             labelCurrentMonth: '当前月份',
             labelNextMonth: '下个月',
             labelNextYear: '明年',
+            labelNextDecade: '下一个十年',
             labelToday: '今天',
             labelSelected: '选定日期',
             labelNoDateSelected: '未选择日期',
