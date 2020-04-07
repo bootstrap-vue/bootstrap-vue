@@ -315,6 +315,14 @@ component's value.
 Want a fancy popup with a dark background instead of a light background? Set the `dark` prop to
 `true` to enable the dark background.
 
+### Optional decade navigation buttons
+
+Set the prop `show-decade-nav` to enable the previous and next decade buttons in the datepicker's
+date navigation toolbar.
+
+The props `label-prev-decade` and `label-next-decade` props can be used to provide custom label text
+for the decade buttons.
+
 ### Button only mode
 
 <span class="badge badge-info small">v2.7.0+</span>
