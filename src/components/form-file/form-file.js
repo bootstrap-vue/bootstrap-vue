@@ -241,7 +241,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       evt.stopPropagation()
       this.dragging = false
     },
-    onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+    onDrop(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop) {
