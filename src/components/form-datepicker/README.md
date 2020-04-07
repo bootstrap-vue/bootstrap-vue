@@ -591,7 +591,7 @@ details.
 [`<b-dropdown>`](/docs/components/dropdown).
 
 `<b-form-datepicker>` uses Bootstrap's margin, padding, border, and flex utility classes, along with
-button (`btn-*`) classes, dropdonw (`dropdown*`) classes, and the `form-control*` (plus validation)
+button (`btn-*`) classes, dropdown (`dropdown*`) classes, and the `form-control*` (plus validation)
 classes.
 
 BootstrapVue's Custom SCSS/CSS is also required for proper styling of the date picker and calendar.
