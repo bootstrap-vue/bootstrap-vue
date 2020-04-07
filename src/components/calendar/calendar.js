@@ -599,9 +599,7 @@ export const BCalendar = Vue.extend({
       // Calendar keyboard navigation
       // Handles PAGEUP/PAGEDOWN/END/HOME/LEFT/UP/RIGHT/DOWN
       // Focuses grid after updating
-      const keyCode = evt.keyCode
-      const altKey = evt.altKey
-      const ctrlKey = evt.ctrlKey
+      const { altKey, ctrlKey, keyCode } = evt
       if (!arrayIncludes([PAGEUP, PAGEDOWN, END, HOME, LEFT, UP, RIGHT, DOWN], keyCode)) {
         /* istanbul ignore next */
         return
