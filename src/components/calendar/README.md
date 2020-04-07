@@ -499,6 +499,7 @@ the same locale as requested, depending on the supported locales of `Intl`).
       <b-form-select id="example-locales" v-model="locale" :options="locales"></b-form-select>
       <label for="example-weekdays">Start weekday:</label>
       <b-form-select id="example-weekdays" v-model="weekday" :options="weekdays"></b-form-select>
+      <b-form-checkbox v-model="showDecadeNav">Show decade navigation buttons</b-form-checkbox>
     </b-col>
     <b-col md="auto">
       <b-calendar
@@ -506,6 +507,7 @@ the same locale as requested, depending on the supported locales of `Intl`).
         v-bind="labels[locale] || {}"
         :locale="locale"
         :start-weekday="weekday"
+        :show-decade-nav="showDecadeNav"
         @context="onContext"
       ></b-calendar>
     </b-col>
@@ -523,6 +525,7 @@ the same locale as requested, depending on the supported locales of `Intl`).
       return {
         value: '',
         context: null,
+        showDecadeNav: false,
         locale: 'en-US',
         locales: [
           { value: 'en-US', text: 'English US (en-US)' },
@@ -538,11 +541,13 @@ the same locale as requested, depending on the supported locales of `Intl`).
         ],
         labels: {
           de: {
+            labelPrevDecade: 'Vorheriges Jahrzehnt',
             labelPrevYear: 'Vorheriges Jahr',
             labelPrevMonth: 'Vorheriger Monat',
             labelCurrentMonth: 'Aktueller Monat',
             labelNextMonth: 'Nächster Monat',
             labelNextYear: 'Nächstes Jahr',
+            labelNextDecade: 'Nächstes Jahrzehnt',
             labelToday: 'Heute',
             labelSelected: 'Ausgewähltes Datum',
             labelNoDateSelected: 'Kein Datum gewählt',
@@ -551,11 +556,13 @@ the same locale as requested, depending on the supported locales of `Intl`).
             labelHelp: 'Mit den Pfeiltasten durch den Kalender navigieren'
           },
           'ar-EG': {
+            labelPrevDecade: 'العقد السابق',
             labelPrevYear: 'العام السابق',
             labelPrevMonth: 'الشهر السابق',
             labelCurrentMonth: 'الشهر الحالي',
             labelNextMonth: 'الشهر المقبل',
             labelNextYear: 'العام المقبل',
+            labelNextDecade: 'العقد القادم',
             labelToday: 'اليوم',
             labelSelected: 'التاريخ المحدد',
             labelNoDateSelected: 'لم يتم اختيار تاريخ',
@@ -564,11 +571,13 @@ the same locale as requested, depending on the supported locales of `Intl`).
             labelHelp: 'استخدم مفاتيح المؤشر للتنقل في التواريخ'
           },
           zh: {
+            labelPrevDecade: '过去十年',
             labelPrevYear: '上一年',
             labelPrevMonth: '上个月',
             labelCurrentMonth: '当前月份',
             labelNextMonth: '下个月',
             labelNextYear: '明年',
+            labelNextDecade: '下一个十年',
             labelToday: '今天',
             labelSelected: '选定日期',
             labelNoDateSelected: '未选择日期',
