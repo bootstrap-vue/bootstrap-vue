@@ -697,8 +697,8 @@ the contained dropdown sub-components.
 
 Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 
-Note that <kbd>DOWN</kbd> and <kbd>UP</kbd> will not move focus into `<b-dropdown-form>` sub
-components, but users can still use <kbd>TAB</kbd> or <kbd>SHIFT</kbd>+<kbd>TAB</kbd> to move into
+Note that <kbd>Down</kbd> and <kbd>Up</kbd> will not move focus into `<b-dropdown-form>` sub
+components, but users can still use <kbd>Tab</kbd> or <kbd>Shift</kbd>+<kbd>Tab</kbd> to move into
 form controls within the menu.
 
 ## Implementation notes

@@ -123,8 +123,9 @@ CSS style overrides.
 
 ### Width
 
-By default the width of `<b-sidebar>` is restricted to `320px` (100% on 'xs' screens). Simply
-provide a style of `width` to change the width to a preferred value. The max width is set to `100%`.
+By default the width of `<b-sidebar>` is set to `320px` (100% on 'xs' screens). Simply provide a
+value via the `width` prop (i.e. `'180px'`, `'20em'`, etc) to override this default. The max width
+is set to `100%` via CSS.
 
 ### Padding
 
@@ -283,7 +284,7 @@ When the sidebar is opened, the entire sidebar will receive focus, which is desi
 reader and keyboard-only users. When the sidebar is closed, the element that previously had focus
 before the sidebar was opened will be re-focused.
 
-When the sidebar is open, users can press <kbd>ESC</kbd> to close the sidebar. To disable this
+When the sidebar is open, users can press <kbd>Esc</kbd> to close the sidebar. To disable this
 feature, set the `no-close-on-esc` prop to `true`.
 
 When you have hidden the header, or do not have a title for the sidebar, set either `aria-label` to

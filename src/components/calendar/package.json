@@ -87,7 +87,12 @@
           },
           {
             "prop": "hideHeader",
-            "description": "When set, visually hides the selected date header"
+            "description": "When `true`, visually hides the selected date header"
+          },
+          {
+            "prop": "showDecadeNav",
+            "version": "2.11.0",
+            "description": "When `true`, shows the +/- decade navigation buttons"
           },
           {
             "prop": "roleDescription",
@@ -95,7 +100,13 @@
           },
           {
             "prop": "hidden",
-            "description": "When set, renders a comment node instead of the calendar widget while keeping the Vue instance active. Mainly used when implementing a custom date picker"
+            "description": "When `true`, renders a comment node instead of the calendar widget while keeping the Vue instance active. Mainly used when implementing a custom date picker"
+          },
+          {
+            "prop": "labelPrevDecade",
+            "version": "2.11.0",
+            "settings": true,
+            "description": "Value of the `aria-label` and `title` attributes on the optional `Previous Decade` navigation button"
           },
           {
             "prop": "labelPrevYear",
@@ -121,6 +132,12 @@
             "prop": "labelNextYear",
             "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Next Year` navigation button"
+          },
+          {
+            "prop": "labelNextDecade",
+            "version": "2.11.0",
+            "settings": true,
+            "description": "Value of the `aria-label` and `title` attributes on the optional `Next Decade` navigation button"
           },
           {
             "prop": "labelSelected",
@@ -161,7 +178,7 @@
         "events": [
           {
             "event": "input",
-            "description": "Emitted to when updating the v-model",
+            "description": "Emitted when updating the v-model",
             "args": [
               {
                 "arg": "date",
@@ -175,7 +192,7 @@
           },
           {
             "event": "selected",
-            "description": "Emitted to when user has selected (clicked) a date. Note this event will also be emitted if the user clicks on the currently selected date",
+            "description": "Emitted when user has selected (clicked) a date. Note this event will also be emitted if the user clicks on the currently selected date",
             "args": [
               {
                 "arg": "ymd",
@@ -191,7 +208,7 @@
           },
           {
             "event": "context",
-            "description": "Emitted to when when the user changes the active date via date navigation buttons or cursor control",
+            "description": "Emitted when when the user changes the active date via date navigation buttons or cursor control",
             "args": [
               {
                 "arg": "context",

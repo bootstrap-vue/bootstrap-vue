@@ -302,6 +302,8 @@ and usage of these props.
 
 ### Initial open calendar date
 
+<span class="badge badge-info small">v2.7.0+</span>
+
 By default, when no date is selected, the calendar view will be set to the current month (or the
 `min` or `max` date if today's date is out of range of `min` or `max`) when opened. You can change
 this behaviour by specifying a date via the `initial-date` prop. The initial date prop will be used
@@ -313,6 +315,16 @@ component's value.
 Want a fancy popup with a dark background instead of a light background? Set the `dark` prop to
 `true` to enable the dark background.
 
+### Optional decade navigation buttons
+
+Set the prop `show-decade-nav` to enable the previous and next decade buttons in the datepicker's
+date navigation toolbar.
+
+The props `label-prev-decade` and `label-next-decade` props can be used to provide custom label text
+for the decade buttons.
+
+For example usage, refer to the [Internationalization section](#internationalization) below.
+
 ### Button only mode
 
 <span class="badge badge-info small">v2.7.0+</span>
@@ -322,7 +334,7 @@ input field? Use the `button-only` prop to render the datepicker as a dropdown b
 date label will be rendered with the class `sr-only` (available only to screen readers).
 
 In the following simple example, we are placing the datepicker (button only mode) as an append to a
-`<b-input-group>`:
+`<b-input-group>`, and we are using the `context` event to get the formatted date string and value:
 
 ```html
 <template>
@@ -334,6 +346,7 @@ In the following simple example, we are placing the datepicker (button only mode
         v-model="value"
         type="text"
         placeholder="YYYY-MM-DD"
+        autocomplete="off"
       ></b-form-input>
       <b-input-group-append>
         <b-form-datepicker
@@ -342,10 +355,13 @@ In the following simple example, we are placing the datepicker (button only mode
           right
           locale="en-US"
           aria-controls="example-input"
+          @context="onContext"
         ></b-form-datepicker>
       </b-input-group-append>
     </b-input-group>
-    <p>Value: '{{ value }}'</p>
+    <p class="mb-1">Value: '{{ value }}'</p>
+    <p class="mb-1">Selected: '{{ selected }}'</p>
+    <p>Formatted: '{{ formatted }}'</p>
   </div>
 </template>
 
@@ -353,7 +369,17 @@ In the following simple example, we are placing the datepicker (button only mode
   export default {
     data() {
       return {
-        value: ''
+        value: '',
+        formatted: '',
+        selected: ''
+      }
+    },
+    methods: {
+      onContext(ctx) {
+        // The date formatted in the locale, or the `label-no-date-selected` string
+        this.formatted = ctx.selectedFormatted
+        // The following will be an empty string until a valid date is entered
+        this.selected = ctx.selectedYMD
       }
     }
   }
@@ -438,6 +464,16 @@ Saturday.
     <label for="example-weekdays">Start weekday:</label>
     <b-form-select id="example-weekdays" v-model="weekday" :options="weekdays" class="mb-2"></b-form-select>
 
+    <div>
+      <b-form-checkbox v-model="showDecadeNav" switch inline class="my-2">
+        Show decade navigation buttons
+      </b-form-checkbox>
+
+      <b-form-checkbox v-model="hideHeader" switch inline class="my-2">
+        Hide calendar header
+      </b-form-checkbox>
+    </div>
+
     <label for="example-i18n-picker">Date picker:</label>
     <b-form-datepicker
       id="example-i18n-picker"
@@ -445,6 +481,8 @@ Saturday.
       v-bind="labels[locale] || {}"
       :locale="locale"
       :start-weekday="weekday"
+      :show-decade-nav="showDecadeNav"
+      :hide-header="hideHeader"
       class="mb-2"
      ></b-form-datepicker>
      <p>Value: <b>'{{ value }}'</b></p>
@@ -457,6 +495,8 @@ Saturday.
       return {
         value: '',
         locale: 'en-US',
+        showDecadeNav: false,
+        hideHeader: false,
         locales: [
           { value: 'en-US', text: 'English US (en-US)' },
           { value: 'de', text: 'German (de)' },
@@ -471,11 +511,13 @@ Saturday.
         ],
         labels: {
           de: {
+            labelPrevDecade: 'Vorheriges Jahrzehnt',
             labelPrevYear: 'Vorheriges Jahr',
             labelPrevMonth: 'Vorheriger Monat',
             labelCurrentMonth: 'Aktueller Monat',
             labelNextMonth: 'Nächster Monat',
             labelNextYear: 'Nächstes Jahr',
+            labelNextDecade: 'Nächstes Jahrzehnt',
             labelToday: 'Heute',
             labelSelected: 'Ausgewähltes Datum',
             labelNoDateSelected: 'Kein Datum gewählt',
@@ -484,11 +526,13 @@ Saturday.
             labelHelp: 'Mit den Pfeiltasten durch den Kalender navigieren'
           },
           'ar-EG': {
+            labelPrevDecade: 'العقد السابق',
             labelPrevYear: 'العام السابق',
             labelPrevMonth: 'الشهر السابق',
             labelCurrentMonth: 'الشهر الحالي',
             labelNextMonth: 'الشهر المقبل',
             labelNextYear: 'العام المقبل',
+            labelNextDecade: 'العقد القادم',
             labelToday: 'اليوم',
             labelSelected: 'التاريخ المحدد',
             labelNoDateSelected: 'لم يتم اختيار تاريخ',
@@ -497,11 +541,13 @@ Saturday.
             labelHelp: 'استخدم مفاتيح المؤشر للتنقل في التواريخ'
           },
           zh: {
+            labelPrevDecade: '过去十年',
             labelPrevYear: '上一年',
             labelPrevMonth: '上个月',
             labelCurrentMonth: '当前月份',
             labelNextMonth: '下个月',
             labelNextYear: '明年',
+            labelNextDecade: '下一个十年',
             labelToday: '今天',
             labelSelected: '选定日期',
             labelNoDateSelected: '未选择日期',
@@ -530,7 +576,7 @@ The popup calendar supports the same
 [keyboard controls as `<b-calendar>`](/docs/components/calendar#accessibility), along with the
 following:
 
-- <kbd>ESC</kbd> will close the popup calendar without selecting a date
+- <kbd>Esc</kbd> will close the popup calendar without selecting a date
 
 When internationalizing the datepicker, it is important to also update the `label-*` props with
 appropriate translated strings, so that international screen reader users will hear the correct
@@ -545,7 +591,8 @@ details.
 [`<b-dropdown>`](/docs/components/dropdown).
 
 `<b-form-datepicker>` uses Bootstrap's margin, padding, border, and flex utility classes, along with
-button (`btn-*`) classes, and the `form-control*` (plus validation) classes.
+button (`btn-*`) classes, dropdown (`dropdown*`) classes, and the `form-control*` (plus validation)
+classes.
 
 BootstrapVue's Custom SCSS/CSS is also required for proper styling of the date picker and calendar.
 
