@@ -898,7 +898,7 @@ export const BCalendar = Vue.extend({
       'header',
       {
         key: 'grid-caption',
-        staticClass: 'b-calendar-caption text-center font-weight-bold',
+        staticClass: 'b-calendar-grid-caption text-center font-weight-bold',
         class: { 'text-muted': this.disabled },
         attrs: {
           id: idGridCaption,
@@ -912,7 +912,10 @@ export const BCalendar = Vue.extend({
     // Calendar weekday headings
     const $gridWeekDays = h(
       'div',
-      { staticClass: 'row no-gutters border-bottom', attrs: { 'aria-hidden': 'true' } },
+      {
+        staticClass: 'b-calendar-grid-weekdays row no-gutters border-bottom',
+        attrs: { 'aria-hidden': 'true' }
+      },
       this.calendarHeadings.map((d, idx) => {
         return h(
           'small',
@@ -1028,7 +1031,7 @@ export const BCalendar = Vue.extend({
       'div',
       {
         ref: 'grid',
-        staticClass: 'form-control h-auto text-center p-0 mb-0',
+        staticClass: 'b-calendar-grid form-control h-auto text-center',
         attrs: {
           id: idGrid,
           role: 'application',
