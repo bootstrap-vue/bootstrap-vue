@@ -174,7 +174,6 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         class: {
           [`btn-${buttonVariant}`]: buttonOnly,
           [`btn-${size}`]: !!size,
-          'border-0': !buttonOnly,
           'h-auto': !buttonOnly,
           // `dropdown-toggle` is needed for proper
           // corner rounding in button only mode
@@ -250,7 +249,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
     const $label = h(
       'label',
       {
-        staticClass: 'form-control text-break text-wrap border-0 bg-transparent h-auto',
+        staticClass: 'form-control text-break text-wrap bg-transparent h-auto',
         class: {
           // Hidden in button only mode
           'sr-only': buttonOnly,
@@ -293,7 +292,6 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
             'form-control': !buttonOnly,
             [`form-control-${size}`]: !!size && !buttonOnly,
             'd-flex': !buttonOnly,
-            'p-0': !buttonOnly,
             'h-auto': !buttonOnly,
             'align-items-stretch': !buttonOnly,
             focus: hasFocus && !buttonOnly,
