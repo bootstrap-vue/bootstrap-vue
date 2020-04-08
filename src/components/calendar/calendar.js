@@ -1097,9 +1097,9 @@ export const BCalendar = Vue.extend({
       'div',
       {
         staticClass: 'b-calendar',
-        // We use a style here rather than class `d-inline-block` so that users can
+        // We use a style here rather than class `d-inline-flex` so that users can
         // override the display value (`d-*` classes use the `!important` flag)
-        style: this.block ? {} : { display: 'inline-block' }
+        style: this.block ? {} : { display: 'inline-flex' }
       },
       [$widget]
     )
