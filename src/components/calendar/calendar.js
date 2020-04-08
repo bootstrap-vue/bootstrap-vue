@@ -734,15 +734,10 @@ export const BCalendar = Vue.extend({
       return h()
     }
 
-    const isRTL = this.isRTL
+    const { isLive, isRTL, activeYMD, selectedYMD, safeId } = this
     const hideDecadeNav = !this.showDecadeNav
     const todayYMD = formatYMD(this.getToday())
-    const selectedYMD = this.selectedYMD
-    const activeYMD = this.activeYMD
     const highlightToday = !this.noHighlightToday
-    const safeId = this.safeId
-    // Flag for making the `aria-live` regions live
-    const isLive = this.isLive
     // Pre-compute some IDs
     // This should be computed props
     const idValue = safeId()
@@ -757,7 +752,7 @@ export const BCalendar = Vue.extend({
     let $header = h(
       'output',
       {
-        staticClass: 'd-block text-center rounded border small p-1 mb-1',
+        staticClass: 'form-control form-control-sm text-center',
         class: { 'text-muted': this.disabled, readonly: this.readonly || this.disabled },
         attrs: {
           id: idValue,
@@ -791,13 +786,15 @@ export const BCalendar = Vue.extend({
     $header = h(
       'header',
       {
-        class: this.hideHeader ? 'sr-only' : 'mb-1',
+        staticClass: 'b-calendar-header',
+        class: { 'sr-only': this.hideHeader },
         attrs: { title: this.selectedDate ? this.labelSelectedDate || null : null }
       },
       [$header]
     )
 
     // Content for the date navigation buttons
+    // TODO: add slots for the nav button content
     const $prevDecadeIcon = h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $prevYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $prevMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: isRTL } })
@@ -811,7 +808,7 @@ export const BCalendar = Vue.extend({
       return h(
         'button',
         {
-          staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill p-1 mx-1',
+          staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill',
           class: { disabled: btnDisabled },
           attrs: {
             title: label || null,
@@ -830,7 +827,7 @@ export const BCalendar = Vue.extend({
     const $nav = h(
       'div',
       {
-        staticClass: 'b-calendar-nav d-flex mx-n1 mb-1',
+        staticClass: 'b-calendar-nav d-flex',
         attrs: {
           id: idNav,
           role: 'group',
@@ -901,7 +898,7 @@ export const BCalendar = Vue.extend({
       'header',
       {
         key: 'grid-caption',
-        staticClass: 'text-center font-weight-bold p-1 m-0',
+        staticClass: 'b-calendar-caption text-center font-weight-bold',
         class: { 'text-muted': this.disabled },
         attrs: {
           id: idGridCaption,
