@@ -17,6 +17,7 @@
 
   output {
     padding: 0.25rem;
+    font-size: 80%;
 
     &.readonly {
       background-color: $input-disabled-bg;
