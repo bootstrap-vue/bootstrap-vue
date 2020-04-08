@@ -1054,7 +1054,7 @@ export const BCalendar = Vue.extend({
 
     // Optional bottom slot
     let $slot = this.normalizeSlot('default')
-    $slot = $slot ? h('footer', { staticClass: 'mt-2' }, $slot) : h()
+    $slot = $slot ? h('footer', { staticClass: 'b-calendar-footer' }, $slot) : h()
 
     const $widget = h(
       'div',
