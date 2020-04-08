@@ -1063,7 +1063,6 @@ export const BCalendar = Vue.extend({
       'div',
       {
         staticClass: 'b-calendar-inner',
-        class: this.block ? 'd-block' : 'd-inline-block',
         style: this.block ? {} : { width: this.width },
         attrs: {
           id: idWidget,
@@ -1093,15 +1092,6 @@ export const BCalendar = Vue.extend({
     )
 
     // Wrap in an outer div that can be styled
-    return h(
-      'div',
-      {
-        staticClass: 'b-calendar',
-        // We use a style here rather than class `d-inline-flex` so that users can
-        // override the display value (`d-*` classes use the `!important` flag)
-        style: this.block ? {} : { display: 'inline-flex' }
-      },
-      [$widget]
-    )
+    return h('div', { staticClass: 'b-calendar', class: { 'd-block': this.block } }, [$widget])
   }
 })
