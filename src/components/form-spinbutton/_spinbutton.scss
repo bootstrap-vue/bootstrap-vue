@@ -6,9 +6,6 @@
   background-image: none;
   padding: 0;
 
-  &.flex-column {
-  }
-
   @at-root {
     // Prevent the buttons from reversing order on in horizontal RTL mode
     [dir="rtl"] &:not(.flex-column),
