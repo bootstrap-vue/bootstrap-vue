@@ -24,7 +24,9 @@
     margin-top: 0.5rem;
   }
 
-  .form-control[role="application"] {
+  .b-calendar-grid {
+    padding: 0;
+    margin: 0;
     // Easy rounded corners on contained elements,
     // specifically the footer of the calendar grid
     overflow: hidden;
