@@ -331,7 +331,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { localHMS, disabled, readonly} = this
+    const { localHMS, disabled, readonly } = this
     const placeholder = isUndefinedOrNull(this.placeholder)
       ? this.labelNoTimeSelected
       : this.placeholder
