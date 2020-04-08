@@ -225,7 +225,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
       'div',
       {
         ref: 'menu',
-        staticClass: 'dropdown-menu p-2',
+        staticClass: 'dropdown-menu',
         class: [
           this.menuClass,
           {
@@ -251,7 +251,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
     const $label = h(
       'label',
       {
-        staticClass: 'form-control text-break text-wrap border-0 bg-transparent h-auto pl-1 m-0',
+        staticClass: 'form-control text-break text-wrap border-0 bg-transparent h-auto',
         class: {
           // Hidden in button only mode
           'sr-only': buttonOnly,
