@@ -16,6 +16,11 @@
             "description": "The current value of the file input. Will be a single File object or an array of File objects (if multiple or directory is set). Can be set to null, or an empty array to reset the file input"
           },
           {
+            "prop": "placeholder",
+            "settings": true,
+            "description": "Sets the 'placeholder' attribute value on the form control"
+          },
+          {
             "prop": "accept",
             "description": "Value to set on the file input's 'accept' attribute"
           },
@@ -25,10 +30,12 @@
           },
           {
             "prop": "browseText",
+            "settings": true,
             "description": "Text content for the file browse button"
           },
           {
             "prop": "dropPlaceholder",
+            "settings": true,
             "description": "Text to display as the placeholder when fies are being dragged"
           },
           {

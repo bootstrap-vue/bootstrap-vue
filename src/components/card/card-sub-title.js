@@ -1,13 +1,14 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
+import { toString } from '../../utils/string'
 
 const NAME = 'BCardSubTitle'
 
 export const props = {
   subTitle: {
-    type: String,
-    default: ''
+    type: String
+    // default: null
   },
   subTitleTag: {
     type: String,
@@ -31,7 +32,7 @@ export const BCardSubTitle = /*#__PURE__*/ Vue.extend({
         staticClass: 'card-subtitle',
         class: [props.subTitleTextVariant ? `text-${props.subTitleTextVariant}` : null]
       }),
-      children || props.subTitle
+      children || toString(props.subTitle)
     )
   }
 })

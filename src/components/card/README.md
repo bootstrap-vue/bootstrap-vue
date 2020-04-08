@@ -3,7 +3,7 @@
 > A card is a flexible and extensible content container. It includes options for headers and
 > footers, a wide variety of content, contextual background colors, and powerful display options.
 
-## Introduction
+## Overview
 
 Cards are built with as little markup and styles as possible, but still manage to deliver a ton of
 control and customization. Built with flexbox, they offer easy alignment and mix well with other
@@ -296,7 +296,7 @@ may be needed depending on your card content.
   <b-card no-body class="overflow-hidden" style="max-width: 540px;">
     <b-row no-gutters>
       <b-col md="6">
-        <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
+        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
       </b-col>
       <b-col md="6">
         <b-card-body title="Horizontal Card">

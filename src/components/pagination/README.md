@@ -3,6 +3,12 @@
 > Quick first, previous, next, last, and page buttons for pagination control of another component
 > (such as `<b-table>` or lists).
 
+## Overview
+
+`<b-pagination>` is a custom input component that provides a current page number input control. The
+value should be bound via `v-model` in your app. Page numbers are indexed from 1. The number of
+pages is computed from the provided prop values for `total-rows` and `per-page`.
+
 For pagination that changes to a new URL, use the
 [`<b-pagination-nav>`](/docs/components/pagination-nav) component instead.
 
@@ -59,12 +65,6 @@ For pagination that changes to a new URL, use the
 
 <!-- b-pagination.vue -->
 ```
-
-## Overview
-
-`<b-pagination>` is a custom input component that provides a current page number input control. The
-value should be bound via `v-model` in your app. Page numbers are indexed from 1. The number of
-pages is computed from the provided prop values for `total-rows` and `per-page`.
 
 ## Customizing appearance
 
@@ -403,11 +403,11 @@ recommended unless the content of the button textually conveys its purpose.
 pattern.
 
 - Tabbing into the pagination component will autofocus the current active page button
-- <kbd>LEFT</kbd> (or <kbd>UP</kbd>) and <kbd>RIGHT</kbd> (or <kbd>DOWN</kbd>) arrow keys will focus
+- <kbd>Left</kbd> (or <kbd>Up</kbd>) and <kbd>Right</kbd> (or <kbd>Down</kbd>) arrow keys will focus
   the previous and next buttons, respectively, in the page list
-- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the currently focused page button
-- Pressing <kbd>TAB</kbd> will move to the next control or link on the page, while pressing
-  <kbd>SHIFT</kbd>+<kbd>TAB</kbd> will move to the previous control or link on the page.
+- <kbd>Enter</kbd> or <kbd>Space</kbd> keys will select (click) the currently focused page button
+- Pressing <kbd>Tab</kbd> will move to the next control or link on the page, while pressing
+  <kbd>Shift</kbd>+<kbd>Tab</kbd> will move to the previous control or link on the page.
 
 ## See also
 

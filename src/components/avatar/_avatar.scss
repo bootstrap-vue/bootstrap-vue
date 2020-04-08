@@ -1,0 +1,59 @@
+// BAvatar custom styles
+
+.b-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  font-weight: 400;
+  line-height: 1;
+  max-width: 100%;
+  max-height: auto;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &a,
+  &button,
+  &.btn {
+    padding: 0;
+    border: 0;
+
+    &:not(:disabled):not(.disabled) {
+      cursor: if($enable-pointer-cursor-for-buttons, pointer, null);
+    }
+  }
+
+  &.disabled,
+  &:disabled,
+  &[disabled] {
+    opacity: $btn-disabled-opacity;
+    pointer-events: none;
+  }
+
+  > span {
+    border-radius: inherit;
+  }
+
+  .b-icon {
+    width: 60%;
+    height: auto;
+    max-width: 100%;
+    max-height: auto;
+  }
+
+  img {
+    width: 90%;
+    height: 90%;
+    max-width: 100%;
+    max-height: auto;
+    border-radius: inherit;
+  }
+}

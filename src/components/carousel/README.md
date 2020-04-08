@@ -312,4 +312,9 @@ features. It is highly recommended to always add an ID to all components.
 All carousel controls and indicators have aria labels. These can be customized by setting the
 various `label-*` props.
 
+**Note:** The animation effect of this component is dependent on the `prefers-reduced-motion` media
+query. See the
+[reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
+additional details.
+
 <!-- Component reference added automatically from component package.json -->

@@ -1,49 +1,46 @@
-<template>
-  <nav aria-label="Breadcrumbs">
-    <b-breadcrumb :items="items" class="d-inline-flex bg-transparent px-2 py-1 my-0">
-    </b-breadcrumb>
-  </nav>
-</template>
-
-<style scoped>
-.breadcrumb /deep/ .breadcrumb-item {
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin-bottom: 0;
-}
-</style>
-
-<script>
 import { nav } from '~/content'
 
-const navLookup = nav.reduce((obj, section) => {
-  obj[section.base.replace('/', '')] = section
-  return obj
-}, {})
+const navLookup = nav.reduce(
+  (obj, section) => ({ ...obj, [section.base.replace('/', '')]: section }),
+  {}
+)
 
+// @vue/component
 export default {
-  name: 'BVDBreadcrumbs',
+  name: 'BVBreadcrumbs',
   computed: {
     items() {
       const items = [{ text: 'Home', to: '/' }, { text: 'Docs', to: '/docs' }]
+
       const section = this.$route.name.split('-')[1] || ''
-      const slug = this.$route.params.slug || ''
       if (section) {
         const sectionMeta = navLookup[section] || {}
+
         items.push({
           text: sectionMeta.title || section,
           to: ['/docs', section].join('/')
         })
+
+        const slug = this.$route.params.slug || ''
         if (slug) {
           const pagesMeta = sectionMeta.pages || {}
+
           items.push({
             text: (pagesMeta[slug] || {}).title || slug,
             to: ['/docs', section, slug].join('/')
           })
         }
       }
+
       return items
     }
+  },
+  render(h) {
+    return h('nav', { attrs: { 'aria-label': 'Breadcrumbs' } }, [
+      h('b-breadcrumb', {
+        staticClass: 'd-inline-flex my-0 px-2 py-1 bg-transparent',
+        props: { items: this.items }
+      })
+    ])
   }
 }
-</script>

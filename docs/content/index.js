@@ -54,7 +54,6 @@ export const nav = [
   {
     title: 'Icons',
     base: 'icons',
-    new: true,
     version: '2.3.0',
     description: 'BootstrapVue icons'
   },
@@ -73,10 +72,11 @@ export const nav = [
 ]
 
 export const bootstrapVersion = parseVersion(dependencies.bootstrap)
-export const nuxtVersion = parseVersion(devDependencies.nuxt)
-export const portalVueVersion = parseVersion(dependencies['portal-vue'])
-export const vueVersion = parseVersion(devDependencies.vue)
 export const bootstrapIconsVersion = parseFullVersion(devDependencies['bootstrap-icons'])
+export const popperVersion = parseVersion(dependencies['popper.js'])
+export const portalVueVersion = parseVersion(dependencies['portal-vue'])
+export const nuxtVersion = parseVersion(devDependencies.nuxt)
+export const vueVersion = parseVersion(devDependencies.vue)
 export const defaultConfig = DEFAULT_CONFIG
 export const bvDescription = description
 

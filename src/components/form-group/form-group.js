@@ -1,30 +1,29 @@
-// Utils
 import memoize from '../../utils/memoize'
 import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
 import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isBoolean } from '../../utils/inspect'
+import { toInteger } from '../../utils/number'
 import { keys, create } from '../../utils/object'
 import { upperFirst } from '../../utils/string'
-// Mixins
 import formStateMixin from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-// Sub components
 import { BCol } from '../layout/col'
 import { BFormRow } from '../layout/form-row'
 import { BFormText } from '../form/form-text'
 import { BFormInvalidFeedback } from '../form/form-invalid-feedback'
 import { BFormValidFeedback } from '../form/form-valid-feedback'
 
+// --- Constants ---
 // Component name
 const NAME = 'BFormGroup'
 
 // Selector for finding first input in the form-group
 const SELECTOR = 'input:not([disabled]),textarea:not([disabled]),select:not([disabled])'
 
-// Render helper functions (here rather than polluting the instance with more methods)
+// --- Render methods ---
 const renderInvalidFeedback = (h, ctx) => {
   const content = ctx.normalizeSlot('invalid-feedback') || ctx.invalidFeedback
   let invalidFeedback = h()
@@ -174,24 +173,24 @@ const generateProps = () => {
   const bpLabelAlignProps = BREAKPOINTS.reduce((props, breakpoint) => {
     // label-align, label-align-sm, label-align-md, ...
     props[makePropName(breakpoint, 'labelAlign')] = {
-      type: String, // left, right, center
-      default: null
+      type: String // left, right, center
+      // default: null
     }
     return props
   }, create(null))
 
   return {
     label: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     labelFor: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     labelSize: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     labelSrOnly: {
       type: Boolean,
@@ -202,20 +201,20 @@ const generateProps = () => {
     // label-align prop and all label-align-{bp} props
     ...bpLabelAlignProps,
     labelClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     description: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     invalidFeedback: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     validFeedback: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     tooltip: {
       // Enable tooltip style feedback
@@ -262,7 +261,7 @@ export const BFormGroup = {
         propVal = propVal === '' ? true : propVal || false
         if (!isBoolean(propVal) && propVal !== 'auto') {
           // Convert to column size to number
-          propVal = parseInt(propVal, 10) || 0
+          propVal = toInteger(propVal, 0)
           // Ensure column size is greater than 0
           propVal = propVal > 0 ? propVal : false
         }

@@ -37,6 +37,7 @@ const options = {
     source: 'src',
     img: 'src',
     image: 'xlink:href',
+    'b-avatar': 'src',
     'b-img': 'src',
     'b-img-lazy': ['src', 'blank-src'],
     'b-card': 'img-src',
@@ -75,6 +76,7 @@ module.exports = {
         options.transformAssetUrls = {
           img: 'src',
           image: 'xlink:href',
+          'b-avatar': 'src',
           'b-img': 'src',
           'b-img-lazy': ['src', 'blank-src'],
           'b-card': 'img-src',
@@ -104,6 +106,7 @@ module.exports = {
         source: 'src',
         img: 'src',
         image: 'xlink:href',
+        'b-avatar': 'src',
         'b-img': 'src',
         'b-img-lazy': ['src', 'blank-src'],
         'b-card': 'img-src',

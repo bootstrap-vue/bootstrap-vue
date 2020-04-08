@@ -8,6 +8,7 @@
 import Vue from '../../../utils/vue'
 import * as Popper from '@popperjs/core'
 import { getCS, select, removeNode } from '../../../utils/dom'
+import { toFloat } from '../../../utils/number'
 import { HTMLElement, SVGElement } from '../../../utils/safe-types'
 import { BVTransition } from '../../../utils/bv-transition'
 
@@ -55,8 +56,8 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
   props: {
     target: {
       // Element that the tooltip/popover is positioned relative to
-      type: [HTMLElement, SVGElement],
-      default: null
+      type: [HTMLElement, SVGElement]
+      // default: null
     },
     placement: {
       type: String,
@@ -210,8 +211,8 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     calculateOffset({ placement, reference }) {
       const $arrow = this.getArrow()
       const arrowStyles = getCS($arrow)
-      const arrowWidth = parseFloat(arrowStyles.width) || 0
-      const arrowHeight = parseFloat(arrowStyles.height) || 0
+      const arrowWidth = toFloat(arrowStyles.width) || 0
+      const arrowHeight = toFloat(arrowStyles.height) || 0
       const arrowOffset = arrowWidth + this.arrowPadding
 
       let skidding = 0

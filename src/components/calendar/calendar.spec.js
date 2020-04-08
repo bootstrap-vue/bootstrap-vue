@@ -126,6 +126,7 @@ describe('calendar', () => {
     const wrapper = mount(BCalendar, {
       attachToDocument: true,
       propsData: {
+        showDecadeNav: true,
         value: '2020-02-15' // Leap year
       }
     })
@@ -139,28 +140,40 @@ describe('calendar', () => {
     expect($grid.attributes('data-month')).toBe('2020-02')
 
     const $navBtns = wrapper.findAll('.b-calendar-nav button')
-    expect($navBtns.length).toBe(5)
+    expect($navBtns.length).toBe(7)
 
     // Prev Month
-    $navBtns.at(1).trigger('click')
+    $navBtns.at(2).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($grid.attributes('data-month')).toBe('2020-01')
 
     // Next Month
-    $navBtns.at(3).trigger('click')
+    $navBtns.at(4).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($grid.attributes('data-month')).toBe('2020-02')
 
     // Prev Year
-    $navBtns.at(0).trigger('click')
+    $navBtns.at(1).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($grid.attributes('data-month')).toBe('2019-02')
 
     // Next Year
-    $navBtns.at(4).trigger('click')
+    $navBtns.at(5).trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($grid.attributes('data-month')).toBe('2020-02')
+
+    // Prev Decade
+    $navBtns.at(0).trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect($grid.attributes('data-month')).toBe('2010-02')
+
+    // Next Decade
+    $navBtns.at(6).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     expect($grid.attributes('data-month')).toBe('2020-02')
@@ -169,7 +182,7 @@ describe('calendar', () => {
     // Handle the rare case this test is run right at midnight where
     // the current month rolled over at midnight when clicked
     const thisMonth1 = formatYMD(new Date()).slice(0, -3)
-    $navBtns.at(2).trigger('click')
+    $navBtns.at(3).trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     const thisMonth2 = formatYMD(new Date()).slice(0, -3)
@@ -208,6 +221,48 @@ describe('calendar', () => {
     await waitRAF()
 
     expect(document.activeElement).not.toBe($grid.element)
+
+    wrapper.destroy()
+  })
+
+  it('clicking output header focuses grid', async () => {
+    const wrapper = mount(BCalendar, {
+      attachToDocument: true,
+      propsData: {
+        value: '2020-02-15' // Leap year
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+    expect($grid.is('div')).toBe(true)
+
+    expect(document.activeElement).not.toBe($grid.element)
+
+    const $output = wrapper.find('header > output')
+    expect($output.exists()).toBe(true)
+
+    $output.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).toBe($grid.element)
+
+    wrapper.vm.blur()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).not.toBe($grid.element)
+
+    $output.trigger('focus')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(document.activeElement).toBe($grid.element)
 
     wrapper.destroy()
   })

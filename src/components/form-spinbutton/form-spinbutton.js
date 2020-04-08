@@ -1,13 +1,15 @@
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { EVENT_OPTIONS_PASSIVE, eventOnOff } from '../../utils/events'
+import { eventOnOff } from '../../utils/events'
 import { isFunction, isNull } from '../../utils/inspect'
+import { isLocaleRTL } from '../../utils/locale'
 import { toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
 import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIconPlus, BIconDash } from '../../icons/icons'
 
 // --- Constants ---
@@ -30,23 +32,11 @@ const DEFAULT_REPEAT_THRESHOLD = 10
 // Repeat speed multiplier (step multiplier, must be an integer)
 const DEFAULT_REPEAT_MULTIPLIER = 4
 
-// --- Helper functions ---
-
-const defaultNumber = (value, defaultValue = null) => {
-  value = toFloat(value)
-  return isNaN(value) ? defaultValue : value
-}
-
-const defaultInteger = (value, defaultValue = null) => {
-  value = toInteger(value)
-  return isNaN(value) ? Math.abs(defaultValue) : value
-}
-
 // --- BFormSpinbutton ---
 // @vue/component
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin],
+  mixins: [idMixin, normalizeSlotMixin],
   inheritAttrs: false,
   props: {
     value: {
@@ -79,8 +69,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       // default: null
     },
     placeholder: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     disabled: {
       type: Boolean,
@@ -117,12 +107,12 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       default: false
     },
     ariaLabel: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     ariaControls: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     labelDecrement: {
       type: String,
@@ -133,8 +123,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME, 'labelIncrement')
     },
     locale: {
-      type: [String, Array],
-      default: null
+      type: [String, Array]
+      // default: null
     },
     repeatDelay: {
       type: [Number, String],
@@ -155,31 +145,37 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      localValue: defaultNumber(this.value),
+      localValue: toFloat(this.value, null),
       hasFocus: false
     }
   },
   computed: {
     computedStep() {
-      return defaultNumber(this.step, DEFAULT_STEP)
+      return toFloat(this.step, DEFAULT_STEP)
     },
     computedMin() {
-      return defaultNumber(this.min, DEFAULT_MIN)
+      return toFloat(this.min, DEFAULT_MIN)
     },
     computedMax() {
-      return defaultNumber(this.max, DEFAULT_MAX)
+      // We round down to the nearest maximum step value
+      const max = toFloat(this.max, DEFAULT_MAX)
+      const step = this.computedStep
+      const min = this.computedMin
+      return Math.floor((max - min) / step) * step + min
     },
     computedDelay() {
-      return defaultInteger(this.repeatDelay, DEFAULT_REPEAT_DELAY) || DEFAULT_REPEAT_DELAY
+      const delay = toInteger(this.repeatDelay, 0)
+      return delay > 0 ? delay : DEFAULT_REPEAT_DELAY
     },
     computedInterval() {
-      return defaultInteger(this.repeatInterval, DEFAULT_REPEAT_INTERVAL) || DEFAULT_REPEAT_INTERVAL
+      const interval = toInteger(this.repeatInterval, 0)
+      return interval > 0 ? interval : DEFAULT_REPEAT_INTERVAL
     },
     computedThreshold() {
-      return defaultInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD) || 1
+      return Math.max(toInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD), 1)
     },
     computedStepMultiplier() {
-      return defaultInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULTIPLIER) || 1
+      return Math.max(toInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULTIPLIER), 1)
     },
     computedPrecision() {
       // Quick and dirty way to get the number of decimals
@@ -198,6 +194,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       const nf = new Intl.NumberFormat(locales)
       return nf.resolvedOptions().locale
     },
+    computedRTL() {
+      return isLocaleRTL(this.computedLocale)
+    },
     defaultFormatter() {
       // Returns and `Intl.NumberFormat` formatter method reference
       const precision = this.computedPrecision
@@ -215,8 +214,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     value(value) {
-      value = toFloat(value) // Will be `NaN` if `value` is `null`
-      this.localValue = isNaN(value) ? null : value
+      this.localValue = toFloat(value, null)
     },
     localValue(value) {
       this.$emit('input', value)
@@ -366,8 +364,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           return
         }
         this.resetTimers()
-        // Enable body mouseup event handler
-        this.setMouseup(true)
         // Step the counter initially
         stepper(1)
         const threshold = this.computedThreshold
@@ -393,9 +389,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       const { type, button } = evt || {}
       /* istanbul ignore if */
       if (type === 'mouseup' && button) {
-        // we only care about left (main === 0) mouse button click
+        // Ignore non left button (main === 0) mouse button click
         return
       }
+      evt.preventDefault()
       this.resetTimers()
       this.setMouseup(false)
       // Trigger the change event
@@ -405,8 +402,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       // Enable or disabled the body mouseup/touchend handlers
       // Use try/catch to handle case when called server side
       try {
-        eventOnOff(on, document.body, 'mouseup', this.onMouseup, EVENT_OPTIONS_PASSIVE)
-        eventOnOff(on, document.body, 'touchend', this.onMouseup, EVENT_OPTIONS_PASSIVE)
+        eventOnOff(on, document.body, 'mouseup', this.onMouseup, false)
+        eventOnOff(on, document.body, 'touchend', this.onMouseup, false)
       } catch {}
     },
     resetTimers() {
@@ -432,13 +429,20 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     const hasValue = !isNull(value)
     const formatter = isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatter
 
-    const makeButton = (stepper, label, IconCmp, keyRef, shortcut, btnDisabled) => {
+    const makeButton = (stepper, label, IconCmp, keyRef, shortcut, btnDisabled, slotName) => {
       const $icon = h(IconCmp, {
         props: { scale: this.hasFocus ? 1.5 : 1.25 },
         attrs: { 'aria-hidden': 'true' }
       })
-      const handler = evt => /* istanbul ignore next: until tests written */ {
+      const scope = { hasFocus: this.hasFocus }
+      const handler = evt => {
         if (!isDisabled && !isReadonly) {
+          evt.preventDefault()
+          this.setMouseup(true)
+          try {
+            // Since we `preventDefault()`, we must manually focus the button
+            evt.currentTarget.focus()
+          } catch {}
           this.handleStepRepeat(evt, stepper)
         }
       }
@@ -463,12 +467,28 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             touchstart: handler
           }
         },
-        [h('div', {}, [$icon])]
+        [h('div', {}, [this.normalizeSlot(slotName, scope) || $icon])]
       )
     }
     // TODO: Add button disabled state when `wrap` is `false` and at value max/min
-    const $increment = makeButton(this.stepUp, this.labelIncrement, BIconPlus, 'inc', 'ArrowUp')
-    const $decrement = makeButton(this.stepDown, this.labelDecrement, BIconDash, 'dec', 'ArrowDown')
+    const $increment = makeButton(
+      this.stepUp,
+      this.labelIncrement,
+      BIconPlus,
+      'inc',
+      'ArrowUp',
+      false,
+      'increment'
+    )
+    const $decrement = makeButton(
+      this.stepDown,
+      this.labelDecrement,
+      BIconDash,
+      'dec',
+      'ArrowDown',
+      false,
+      'decrement'
+    )
 
     let $hidden = h()
     if (this.name && !isDisabled) {
@@ -505,6 +525,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'border-right': !isVertical
         },
         attrs: {
+          dir: this.computedRTL ? 'rtl' : 'ltr',
+          ...this.$attrs,
           id: spinId,
           role: 'spinbutton',
           tabindex: isDisabled ? null : '0',
@@ -523,7 +545,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'aria-valuetext': hasValue ? formatter(value) : null
         }
       },
-      [h('div', { staticClass: 'w-100' }, hasValue ? formatter(value) : this.placeholder || '')]
+      [h('bdi', { staticClass: 'w-100' }, hasValue ? formatter(value) : this.placeholder || '')]
     )
 
     return h(
@@ -543,13 +565,10 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'is-invalid': state === false
         },
         attrs: {
-          ...this.$attrs,
           role: 'group',
           lang: this.computedLocale,
           tabindex: isDisabled ? null : '-1',
-          // We want to keep the order of the buttons regardless
-          // of locale (flex will re-order based on rtl/ltr)
-          dir: 'ltr'
+          title: this.ariaLabel
         },
         on: {
           keydown: this.onKeydown,

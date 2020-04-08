@@ -12,10 +12,16 @@ import formStateMixin from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
+// --- Constants ---
+
 const NAME = 'BFormFile'
 
 const VALUE_EMPTY_DEPRECATED_MSG =
   'Setting "value"/"v-model" to an empty string for reset is deprecated. Set to "null" instead.'
+
+// --- Helper methods ---
+
+const isValidValue = value => isFile(value) || (isArray(value) && value.every(v => isValidValue(v)))
 
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
@@ -34,17 +40,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     value: {
       type: [File, Array],
       default: null,
-      validator: val => {
+      validator: value => {
         /* istanbul ignore next */
-        if (val === '') {
+        if (value === '') {
           warn(VALUE_EMPTY_DEPRECATED_MSG, NAME)
           return true
         }
-        return (
-          isUndefinedOrNull(val) ||
-          isFile(val) ||
-          (isArray(val) && (val.length === 0 || val.every(isFile)))
-        )
+        return isUndefinedOrNull(value) || isValidValue(value)
       }
     },
     accept: {
@@ -167,15 +169,16 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
     },
     reset() {
+      // IE 11 doesn't support setting `$input.value` to `''` or `null`
+      // So we use this little extra hack to reset the value, just in case
+      // This also appears to work on modern browsers as well
+      // Wrapped in try in case IE 11 or mobile Safari crap out
       try {
-        // Wrapped in try in case IE 11 craps out
-        this.$refs.input.value = ''
+        const $input = this.$refs.input
+        $input.value = ''
+        $input.type = ''
+        $input.type = 'file'
       } catch (e) {}
-      // IE 11 doesn't support setting `input.value` to '' or null
-      // So we use this little extra hack to reset the value, just in case.
-      // This also appears to work on modern browsers as well.
-      this.$refs.input.type = ''
-      this.$refs.input.type = 'file'
       this.selectedFile = this.multiple ? [] : null
     },
     onFileChange(evt) {
@@ -222,21 +225,23 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // Triggered when the parent form (if any) is reset
       this.selectedFile = this.multiple ? [] : null
     },
-    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+    onDragover(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop || !this.custom) {
         return
       }
       this.dragging = true
-      evt.dataTransfer.dropEffect = 'copy'
+      try {
+        evt.dataTransfer.dropEffect = 'copy'
+      } catch {}
     },
-    onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+    onDragleave(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       this.dragging = false
     },
-    onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+    onDrop(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop) {
@@ -248,7 +253,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
     },
     traverseFileTree(item, path) /* istanbul ignore next: not supported in JSDOM */ {
-      // Based on http://stackoverflow.com/questions/3590058
+      // Based on https://stackoverflow.com/questions/3590058
       return new Promise(resolve => {
         path = path || ''
         if (item.isFile) {

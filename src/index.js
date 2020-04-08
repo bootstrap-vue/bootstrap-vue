@@ -67,6 +67,14 @@ export * from './icons/icons'
 export { AlertPlugin } from './components/alert'
 export { BAlert } from './components/alert/alert'
 
+// export * from './components/aspect'
+export { AspectPlugin } from './components/aspect'
+export { BAspect } from './components/aspect/aspect'
+
+// export * from './components/avatar'
+export { AvatarPlugin } from './components/avatar'
+export { BAvatar } from './components/avatar/avatar'
+
 // export * from './components/badge'
 export { BadgePlugin } from './components/badge'
 export { BBadge } from './components/badge/badge'
@@ -183,6 +191,10 @@ export { BFormSpinbutton } from './components/form-spinbutton/form-spinbutton'
 export { FormTextareaPlugin } from './components/form-textarea'
 export { BFormTextarea } from './components/form-textarea/form-textarea'
 
+// export * from './components/form-timepicker'
+export { FormTimepickerPlugin } from './components/form-timepicker'
+export { BFormTimepicker } from './components/form-timepicker/form-timepicker'
+
 // export * from './components/image'
 export { ImagePlugin } from './components/image'
 export { BImg } from './components/image/img'
@@ -241,6 +253,10 @@ export { BNavbarBrand } from './components/navbar/navbar-brand'
 export { BNavbarNav } from './components/navbar/navbar-nav'
 export { BNavbarToggle } from './components/navbar/navbar-toggle'
 
+// export * from './components/overlay'
+export { OverlayPlugin } from './components/overlay'
+export { BOverlay } from './components/overlay/overlay'
+
 // export * from './components/pagination'
 export { PaginationPlugin } from './components/pagination'
 export { BPagination } from './components/pagination/pagination'
@@ -257,6 +273,10 @@ export { BPopover } from './components/popover/popover'
 export { ProgressPlugin } from './components/progress'
 export { BProgress } from './components/progress/progress'
 export { BProgressBar } from './components/progress/progress-bar'
+
+// export * from './components/sidebar'
+export { SidebarPlugin } from './components/sidebar'
+export { BSidebar } from './components/sidebar/sidebar'
 
 // export * from './components/spinner'
 export { SpinnerPlugin } from './components/spinner'
@@ -278,6 +298,10 @@ export { BTd } from './components/table/td'
 export { TabsPlugin } from './components/tabs'
 export { BTabs } from './components/tabs/tabs'
 export { BTab } from './components/tabs/tab'
+
+// export * from './components/time'
+export { TimePlugin } from './components/time'
+export { BTime } from './components/time/time'
 
 // export * from './components/toast'
 export { ToastPlugin } from './components/toast'

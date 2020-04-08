@@ -14,6 +14,11 @@
         "component": "BNavbar",
         "props": [
           {
+            "prop": "variant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          },
+          {
             "prop": "type",
             "description": "Control the text color by setting to 'light' for use with light background color variants, or 'dark' for dark background color variants"
           },
@@ -71,6 +76,7 @@
           },
           {
             "prop": "label",
+            "settings": true,
             "description": "String to place in the toggle's 'aria-label' attribute"
           }
         ],
@@ -83,6 +89,20 @@
                 "name": "event",
                 "type": "MouseEvent",
                 "description": "Native click event object"
+              }
+            ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Alternate content to replace the default Bootstrap hamburger",
+            "scope": [
+              {
+                "prop": "expanded",
+                "version": "2.9.0",
+                "type": "Boolean",
+                "description": "`true` if the collapse is expanded, `false` otherwise."
               }
             ]
           }

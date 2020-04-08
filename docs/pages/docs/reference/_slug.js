@@ -1,11 +1,11 @@
-import Main from '~/components/main'
-import Section from '~/components/section'
+import MainDocs from '~/components/main-docs'
 import docsMixin from '~/plugins/docs-mixin'
 import { reference as referenceMeta } from '~/content'
 
 const getReadMe = name =>
   import(`~/markdown/reference/${name}/README.md` /* webpackChunkName: "docs/reference" */)
 
+// @vue/component
 export default {
   name: 'BDVReference',
   layout: 'docs',
@@ -16,14 +16,15 @@ export default {
   async asyncData({ params }) {
     const readme = (await getReadMe(params.slug)).default
     const meta = referenceMeta[params.slug]
-    return { readme, meta }
+    return { meta, readme }
   },
   render(h) {
-    // Readme section
-    const $readmeSection = h(Section, {
-      props: { play: true },
-      domProps: { innerHTML: this.readme }
+    return h(MainDocs, {
+      staticClass: 'bd-components',
+      props: {
+        readme: this.readme,
+        meta: this.meta
+      }
     })
-    return h(Main, { staticClass: 'bd-components' }, [$readmeSection])
   }
 }

@@ -58,8 +58,9 @@ const linkToRouter = evt => {
   // Else, normal browser link handling (i.e. external links)
 }
 
+// @vue/component
 export default {
-  name: 'BVDSection',
+  name: 'BVSection',
   functional: true,
   props: {
     tag: {

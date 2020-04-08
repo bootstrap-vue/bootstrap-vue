@@ -34,18 +34,18 @@ export default {
     },
     buttonVariant: {
       // Only applicable when rendered with button style
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     ariaLabel: {
       // Placed on the input if present.
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     ariaLabelledby: {
       // Placed on the input if present.
-      type: String,
-      default: null
+      type: String
+      // default: null
     }
   },
   data() {

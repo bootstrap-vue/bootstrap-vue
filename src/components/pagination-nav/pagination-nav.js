@@ -13,10 +13,7 @@ import paginationMixin from '../../mixins/pagination'
 const NAME = 'BPaginationNav'
 
 // Sanitize the provided number of pages (converting to a number)
-export const sanitizeNumberOfPages = value => {
-  const numberOfPages = toInteger(value) || 1
-  return numberOfPages < 1 ? 1 : numberOfPages
-}
+export const sanitizeNumberOfPages = value => Math.max(toInteger(value, 0), 1)
 
 const props = {
   size: {
@@ -27,8 +24,8 @@ const props = {
     type: [Number, String],
     default: 1,
     validator(value) /* istanbul ignore next */ {
-      const num = toInteger(value)
-      if (isNaN(num) || num < 1) {
+      const number = toInteger(value, 0)
+      if (number < 1) {
         warn('Prop "number-of-pages" must be a number greater than "0"', NAME)
         return false
       }
@@ -44,17 +41,17 @@ const props = {
     default: false
   },
   linkGen: {
-    type: Function,
-    default: null
+    type: Function
+    // default: null
   },
   pageGen: {
-    type: Function,
-    default: null
+    type: Function
+    // default: null
   },
   pages: {
     // Optional array of page links
-    type: Array,
-    default: null
+    type: Array
+    // default: null
   },
   noPageDetect: {
     // Disable auto page number detection if true
@@ -94,8 +91,8 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
     },
     computedValue() {
       // Returns the value prop as a number or `null` if undefined or < 1
-      const val = toInteger(this.value)
-      return isNaN(val) || val < 1 ? null : val
+      const value = toInteger(this.value, 0)
+      return value < 1 ? null : value
     }
   },
   watch: {

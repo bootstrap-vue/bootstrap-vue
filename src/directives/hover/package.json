@@ -5,7 +5,6 @@
     "title": "Hover",
     "description": "A lightweight directive that allows you to react when an element either becomes hovered or unhovered",
     "directive": "VBHover",
-    "new": true,
     "version": "2.5.0",
     "expression": [
       "Function"

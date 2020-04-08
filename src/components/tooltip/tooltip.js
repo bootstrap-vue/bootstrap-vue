@@ -24,7 +24,6 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // String ID of element, or element/component reference
       // Or function that returns one of the above
       type: [String, HTMLElement, SVGElement, Function, Object],
-      // default: undefined,
       required: true
     },
     triggers: {
@@ -92,8 +91,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     id: {
       // ID to use for tooltip element
       // If not provided on will automatically be generated
-      type: String,
-      default: null
+      type: String
+      // default: null
     }
   },
   data() {

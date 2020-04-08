@@ -6,7 +6,7 @@
     "slug": "calendar",
     "version": "2.5.0",
     "new": true,
-    "description": "Calendar widget for selecting dates and controlling other components",
+    "description": "BootstrapVue custom calendar widget for selecting dates and controlling other components, fully WAI-ARIA accessible (a11y) and supports internationalization (i18n)",
     "components": [
       {
         "component": "BCalendar",
@@ -19,6 +19,11 @@
           {
             "prop": "valueAsDate",
             "description": "Returns a `Date` object for the v-model instead of a `YYYY-MM-DD` string"
+          },
+          {
+            "prop": "initialDate",
+            "version": "2.7.0",
+            "description": "When a `value` is not specified, sets the initial calendar month date that will be presented to the user. Accepts a value in `YYYY-MM-DD` format or a `Date` object. Defaults to the current date (or min or max if the current date is out of range)"
           },
           {
             "prop": "disabled",
@@ -82,7 +87,12 @@
           },
           {
             "prop": "hideHeader",
-            "description": "When set, visually hides the selected date header"
+            "description": "When `true`, visually hides the selected date header"
+          },
+          {
+            "prop": "showDecadeNav",
+            "version": "2.11.0",
+            "description": "When `true`, shows the +/- decade navigation buttons"
           },
           {
             "prop": "roleDescription",
@@ -90,57 +100,85 @@
           },
           {
             "prop": "hidden",
-            "description": "When set, renders a comment node instead of the calendar widget while keeping the Vue instance active. Mainly used when implementing a custom date picker"
+            "description": "When `true`, renders a comment node instead of the calendar widget while keeping the Vue instance active. Mainly used when implementing a custom date picker"
+          },
+          {
+            "prop": "labelPrevDecade",
+            "version": "2.11.0",
+            "settings": true,
+            "description": "Value of the `aria-label` and `title` attributes on the optional `Previous Decade` navigation button"
           },
           {
             "prop": "labelPrevYear",
+            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Previous Year` navigation button"
           },
           {
             "prop": "labelPrevMonth",
+            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Previous Month` navigation button"
           },
           {
             "prop": "labelCurrentMonth",
+            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Current Month` navigation button"
           },
           {
             "prop": "labelNextMonth",
+            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Next Month` navigation button"
           },
           {
             "prop": "labelNextYear",
+            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Next Year` navigation button"
           },
           {
+            "prop": "labelNextDecade",
+            "version": "2.11.0",
+            "settings": true,
+            "description": "Value of the `aria-label` and `title` attributes on the optional `Next Decade` navigation button"
+          },
+          {
             "prop": "labelSelected",
+            "settings": true,
             "description": "Value of the `aria-label` attribute set on the calendar grid date button that is selected"
           },
           {
             "prop": "labelToday",
+            "settings": true,
             "description": "Value of the `aria-label` attribute for the calendar grid date button to signify that the date is today's date"
           },
           {
             "prop": "labelNoDateSelected",
+            "settings": true,
             "description": "Label to use when no date is currently selected"
           },
           {
             "prop": "labelCalendar",
+            "settings": true,
             "description": "Value of the `aria-label` and `role-description` attributes applied to the calendar grid"
           },
           {
             "prop": "labelNav",
+            "settings": true,
             "description": "Value of the `aria-label` attribute on to the calendar navigation button wrapper"
           },
           {
             "prop": "labelHelp",
+            "settings": true,
             "description": "Help text that appears at the bottom of the calendar grid"
+          },
+          {
+            "prop": "dateFormatOptions",
+            "version": "2.6.0",
+            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat`"
           }
         ],
         "events": [
           {
             "event": "input",
-            "description": "Emitted to when updating the v-model",
+            "description": "Emitted when updating the v-model",
             "args": [
               {
                 "arg": "date",
@@ -154,7 +192,7 @@
           },
           {
             "event": "selected",
-            "description": "Emitted to when user has selected (clicked) a date. Note this event will also be emitted if the user clicks on the currently selected date",
+            "description": "Emitted when user has selected (clicked) a date. Note this event will also be emitted if the user clicks on the currently selected date",
             "args": [
               {
                 "arg": "ymd",
@@ -170,7 +208,7 @@
           },
           {
             "event": "context",
-            "description": "Emitted to when when the user changes the active date via date navigation buttons or cursor control",
+            "description": "Emitted when when the user changes the active date via date navigation buttons or cursor control",
             "args": [
               {
                 "arg": "context",

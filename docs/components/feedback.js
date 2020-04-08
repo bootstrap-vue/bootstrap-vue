@@ -1,5 +1,6 @@
+// @vue/component
 export default {
-  name: 'BVDFeedback',
+  name: 'BVFeedback',
   data() {
     return {
       baseUrl: 'https://github.com/bootstrap-vue/bootstrap-vue'
@@ -12,8 +13,8 @@ export default {
       return slug || name === 'docs' || name === 'docs-icons'
     },
     reportIssueUrl() {
-      // Add appreciate query params for proper issue title
-      return `${this.baseUrl}/issues/new?title=Docs`
+      // Select issue template
+      return `${this.baseUrl}/issues/new?template=DOCS_ISSUE_TEMPLATE.md`
     },
     editPageUrl() {
       const name = this.$route.name

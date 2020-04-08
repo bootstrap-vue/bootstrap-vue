@@ -34,6 +34,10 @@
             <li><a href="https://twitter.com/BootstrapVue" target="_blank">Twitter</a></li>
             <li><a href="https://opencollective.com/bootstrap-vue/" target="_blank">Open Collective</a></li>
           </ul>
+          <h5 class="bd-text-purple-bright mb-1 mt-3">Release notes</h5>
+          <ul class="list-unstyled ml-3">
+            <li><b-link to="/docs/misc/changelog" exact>Changelog</b-link></li>
+          </ul>
         </b-col>
       </b-row>
 
@@ -50,7 +54,7 @@
         Currently v{{ version }}. Code licensed
         <a href="https://github.com/bootstrap-vue/bootstrap-vue/blob/master/LICENSE" target="_blank">MIT</a>.
         Docs generated with <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a>
-        <template v-if="isNetlify"> and proudly hosted on <a href="https://www.netlify.com" target="_blank">Netlify</a></template>
+        <template v-if="isNetlify"> and proudly hosted on <a href="https://www.netlify.com" target="_blank">Netlify</a></template>.
       </p>
     </b-container>
   </footer>
@@ -72,7 +76,7 @@
 import { version } from '~/content'
 
 export default {
-  name: 'BVDFooter',
+  name: 'BVFooter',
   props: {
     isDocs: {
       type: Boolean,

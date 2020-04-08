@@ -26,24 +26,18 @@ const props = {
     default: DEFAULT_TOTAL_ROWS
   },
   ariaControls: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   }
 }
 
 // --- Helper functions ---
 
 // Sanitize the provided per page number (converting to a number)
-const sanitizePerPage = val => {
-  const perPage = toInteger(val) || DEFAULT_PER_PAGE
-  return perPage < 1 ? 1 : perPage
-}
+const sanitizePerPage = val => Math.max(toInteger(val) || DEFAULT_PER_PAGE, 1)
 
 // Sanitize the provided total rows number (converting to a number)
-const sanitizeTotalRows = val => {
-  const totalRows = toInteger(val) || DEFAULT_TOTAL_ROWS
-  return totalRows < 0 ? 0 : totalRows
-}
+const sanitizeTotalRows = val => Math.max(toInteger(val) || DEFAULT_TOTAL_ROWS, 0)
 
 // The render function is brought in via the `paginationMixin`
 // @vue/component
@@ -87,7 +81,7 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
     // Set the initial page count
     this.localNumberOfPages = this.numberOfPages
     // Set the initial page value
-    const currentPage = toInteger(this.value) || 0
+    const currentPage = toInteger(this.value, 0)
     if (currentPage > 0) {
       this.currentPage = currentPage
     } else {
@@ -132,8 +126,9 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
       return pageNum
     },
     linkProps() {
-      // Always '#' for pagination component
-      return { href: '#' }
+      // No props, since we render a plain button
+      /* istanbul ignore next */
+      return {}
     }
   }
 })

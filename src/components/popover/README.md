@@ -150,6 +150,9 @@ Positioning is relative to the trigger element.
   <div class="clearfix"></div>
 </div>
 
+Refer to the [Popover directive](/docs/directives/popover/#positioning) documentaion for live
+examples of positioning.
+
 ## Triggers
 
 Popovers can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
@@ -907,6 +910,11 @@ possible. When the popover is closed, you should return focus back to your trigg
 You may also want to implement focus containment in the popover content while the user is
 interacting with it (keeping focus inside the popover until it is closed by the user).
 
+**Note:** The animation effect of this component is dependent on the `prefers-reduced-motion` media
+query. See the
+[reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
+additional details.
+
 ### Making popovers work for keyboard and assistive technology users
 
 To allow keyboard users to activate your popovers, you should only add them to HTML elements that
@@ -927,7 +935,7 @@ Additionally, while it is possible to also include interactive controls (such as
 links) in your popover, be aware that currently the popover does not manage keyboard focus order.
 When a keyboard user opens a popover, focus remains on the triggering element, and as the popover
 usually does not immediately follow the trigger in the document's structure, there is no guarantee
-that moving forward/pressing <kbd>TAB</kbd> will move a keyboard user into the popover itself. In
+that moving forward/pressing <kbd>Tab</kbd> will move a keyboard user into the popover itself. In
 short, simply adding interactive controls to a popover is likely to make these controls
 unreachable/unusable for keyboard users and users of assistive technologies, or at the very least
 make for an illogical overall focus order. **In these cases, consider using a `<b-modal>` dialog

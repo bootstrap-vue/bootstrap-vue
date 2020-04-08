@@ -1,6 +1,6 @@
 <template>
   <nav
-    :class="['bd-quick-links', 'mb-3', { 'd-none': !quickLinksVisible || !hasContent }]"
+    :class="['bd-quick-links', 'mb-3', 'd-xl-none', { 'd-none': !hasContent }]"
     :aria-hidden="hasContent ? null : 'true'"
   >
     <header v-if="hasContent">
@@ -11,12 +11,10 @@
         size="sm"
         block
       >
-        <span v-if="quickLinksExpanded">Hide</span>
-        <span v-else>Show</span>
-        page table of contents
+        {{ toogleText }}
       </b-button>
     </header>
-    <b-collapse v-if="hasContent" id="bd-quick-links-collapse" v-model="quickLinksExpanded" tag="ul">
+    <b-collapse v-if="hasContent" id="bd-quick-links-collapse" v-model="expanded" tag="ul">
       <li v-for="h2 in toc.toc" :key="h2.href">
         <b-link :href="h2.href" @click="scrollIntoView($event, h2.href)">
           <span v-html="h2.label"></span>
@@ -52,29 +50,27 @@
 import { offsetTop, scrollTo } from '~/utils'
 
 export default {
-  name: 'BVDQuickToc',
+  name: 'BVQuickLinks',
   data() {
     return {
       toc: {},
       offset: 0,
-      quickLinksExpanded: false,
-      quickLinksVisible: false
+      expanded: false
     }
   },
   computed: {
     hasContent() {
       return !!this.toc.toc
+    },
+    toogleText() {
+      return `${this.expanded ? 'Hide' : 'Show'} page table of contents`
     }
   },
   created() {
     this.$root.$on('docs-set-toc', toc => {
-      // Reset visible/expanded states
-      this.quickLinksVisible = false
-      this.quickLinksExpanded = false
+      this.expanded = false
       // Update the TOC content
       this.toc = toc
-      // Re-position the quick links
-      this.positionQuickLinks()
     })
   },
   mounted() {
@@ -83,8 +79,6 @@ export default {
     if ($header) {
       this.offset = $header.offsetHeight + 6
     }
-    // Re-position the quick links
-    this.positionQuickLinks()
   },
   methods: {
     scrollIntoView(evt, href) {
@@ -105,22 +99,6 @@ export default {
           $el.focus()
         })
       }
-    },
-    positionQuickLinks() {
-      if (typeof document === 'undefined') {
-        return
-      }
-      // Move the quick links to the correct position, if possible
-      const $body = document.body
-      const $referenceNode = $body.querySelector('.bd-lead') || $body.querySelector('h1')
-      if ($referenceNode) {
-        // IE 11 doesn't support the `node.after()` method, and appears
-        // that the polyfill doesn't polyfill this method
-        $referenceNode.insertAdjacentElement('afterend', this.$el)
-      }
-      // Make the quick links visible
-      // We hide them initially to make the position change not that distracting
-      this.quickLinksVisible = true
     }
   }
 }

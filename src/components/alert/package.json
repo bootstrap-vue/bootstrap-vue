@@ -9,11 +9,17 @@
         "component": "BAlert",
         "props": [
           {
+            "prop": "variant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          },
+          {
             "prop": "dismissible",
             "description": "When set, enables the dismiss close button"
           },
           {
             "prop": "dismissLabel",
+            "settings": true,
             "description": "Value for the 'aria-label' attribute on the dismiss button"
           },
           {

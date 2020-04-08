@@ -1,0 +1,88 @@
+{
+  "name": "@bootstrap-vue/avatar",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Avatar",
+    "new": true,
+    "version": "2.8.0",
+    "description": "Avatars are typically used to display a user profile as a picture, an icon, or short text.",
+    "components": [
+      {
+        "component": "BAvatar",
+        "props": [
+          {
+            "prop": "variant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          },
+          {
+            "prop": "text",
+            "description": "Text to place in the avatar"
+          },
+          {
+            "prop": "src",
+            "description": "Image URL to use for the avatar"
+          },
+          {
+            "prop": "icon",
+            "description": "Icon name to use for the avatar. Must be all lowercase. Defaults to `person-fill` if `text` or `src` props not provided"
+          },
+          {
+            "prop": "alt",
+            "version": "2.9.0",
+            "description": "Value to place in the 'alt' attribute for image and icon avatars"
+          },
+          {
+            "prop": "size",
+            "description": "Size of the avatar. Refer to the documentation for details"
+          },
+          {
+            "prop": "button",
+            "description": "When set to `true`, renders the avatar as a button"
+          },
+          {
+            "prop": "buttonType",
+            "description": "Type of button to render (i.e. `button`, `submit`, `reset`). Has no effect if prop button is not set"
+          },
+          {
+            "prop": "square",
+            "description": "Disables rounding of the avatar, rending the avatar with square corners"
+          },
+          {
+            "prop": "rounded",
+            "description": "Specifies the type of rounding to apply to the avatar. The `square` prop takes precedence. Refer to the documentation for details"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the avatar. Overrides props `text`, `src`, and `icon-name`"
+          }
+        ],
+        "events": [
+          {
+            "event": "click",
+            "description": "Emitted when the avatar is clicked when rendered as a button or link. Not emitted otherwise",
+            "args": [
+              {
+                "arg": "evt",
+                "description": "Native Event object"
+              }
+            ]
+          },
+          {
+            "event": "img-error",
+            "version": "2.11.0",
+            "description": "Emitted if an image `src` is provided and the image fails to load",
+            "args": [
+              {
+                "arg": "evt",
+                "description": "Native Event object"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

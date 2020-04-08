@@ -40,7 +40,7 @@ present, nor can you use the `modal-title` slot.
 Modals will not render their content in the document until they are shown (lazily rendered). Modals,
 when visible, are rendered **appended to the `<body>` element**. The placement of the `<b-modal>`
 component will not affect layout, as it always renders as a placeholder comment node (`<!---->`).
-You can revert to the behaviour of previous BootstrapVue versions via the use of the
+You can revert to the behaviour of older BootstrapVue versions via the use of the
 [`static` prop](#lazy-loading-and-static-modals).
 
 ## Toggle modal visibility
@@ -329,7 +329,7 @@ methods:
 | Property or Method | Type     | Description                                                                                                                                                                                                                                                                                                 |
 | ------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `preventDefault()` | Method   | When called prevents the modal from closing                                                                                                                                                                                                                                                                 |
-| `trigger`          | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the first argument provided to the `hide()` method, or `null` otherwise. |
+| `trigger`          | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>Esc</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the first argument provided to the `hide()` method, or `null` otherwise. |
 | `target`           | Property | A reference to the modal element                                                                                                                                                                                                                                                                            |
 | `vueTarget`        | property | A reference to the modal's Vue VM instance                                                                                                                                                                                                                                                                  |
 | `componentId`      | property | The modal's ID                                                                                                                                                                                                                                                                                              |
@@ -777,7 +777,7 @@ format instead of <samp>kebab-case</samp>.
 Both methods return a `Promise` (requires a polyfill for IE 11 and older browser support) which
 resolve into a value when the modal hides. `.msgBoxOk()` always resolves to the value `true`, while
 `.msgBoxConfirm()` resolves to either `true` (OK button pressed), `false` (CANCEL button pressed),
-or `null` (if the modal was closed via backdrop click, <kbd>ESC</kbd> press, or some other means.
+or `null` (if the modal was closed via backdrop click, <kbd>Esc</kbd> press, or some other means.
 
 If `message` is not provided, both methods will return immediately with the value `undefined`.
 
@@ -1021,6 +1021,11 @@ emitted.
 `<b-modal>` provides several accessibility features, including auto focus, return focus, keyboard
 (tab) _focus containment_, and automated `aria-*` attributes.
 
+**Note:** The animation effect of this component is dependent on the `prefers-reduced-motion` media
+query. See the
+[reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
+additional details.
+
 ### Modal ARIA attributes
 
 The `aria-labelledby` and `aria-describedby` attributes will appear on the modal automatically in
@@ -1035,11 +1040,11 @@ most cases.
 - If the `aria-label` prop is specified with a string value, the `aria-labelledby` attribute will
   not be rendered, even if you have a title/header for your modal.
 
-The `aria-label` and `title-sr-only` props were added in version 2.0.0-rc.27.
+The `aria-label` and `title-sr-only` props were added in version `v2.0.0-rc.27`.
 
 ### Auto focus on open
 
-`<b-modal>` will autofocus the modal container when opened.
+`<b-modal>` will autofocus the modal _container_ when opened.
 
 You can pre-focus an element within the `<b-modal>` by listening to the `<b-modal>` `shown` event,
 and call the element's `focus()` method. `<b-modal>` will not attempt to autofocus if an element
@@ -1179,8 +1184,8 @@ reasons.
 Notes on `v-b-modal` directive accessibility:
 
 - If the element is anything other than a `<button>` (or component that renders a `<button>`), the
-  ARIA `role` will be set to `button`, and a keydown event listeners for <kbd>ENTER</kbd> and
-  <kbd>SPACE</kbd> will be added, along with a `click` listener.
+  ARIA `role` will be set to `button`, and a keydown event listeners for <kbd>Enter</kbd> and
+  <kbd>Space</kbd> will be added, along with a `click` listener.
 - If the element is anything other than a `<button>` or `<a>` (or a component that renders either),
   then a `tabindex` of `0` will be added to the element to ensure accessibility, unless there is
   already a `tabindex` set.

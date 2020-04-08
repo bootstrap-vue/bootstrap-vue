@@ -1,7 +1,8 @@
 import { mergeData } from 'vue-functional-data-merge'
 
+// @vue/component
 export default {
-  name: 'BVDAnchoredHeading',
+  name: 'BVAnchoredHeading',
   functional: true,
   props: {
     id: {

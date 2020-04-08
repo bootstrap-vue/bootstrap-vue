@@ -24,7 +24,7 @@
         "props": [
           {
             "prop": "isNav",
-            "description": "When set, signifies that the collapse is bart of a navbar, enabling certain features for navbar support"
+            "description": "When set, signifies that the collapse is part of a navbar, enabling certain features for navbar support"
           },
           {
             "prop": "accordion",

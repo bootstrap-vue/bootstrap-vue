@@ -3,6 +3,12 @@
 > Quick first, previous, next, last, and page buttons for navigation based pagination, supporting
 > regular links or router links.
 
+## Overview
+
+`<b-pagination-nav>` is a custom input component that provides navigational pagination. The total
+number of pages set with the `number-of-pages` prop. Page numbers are indexed from 1 through
+`number-of-pages`.
+
 `b-pagination-nav` will try and auto-detect which page link is active page button based on the
 current page's URL (via either `$route` detection or, if no `$router` detected, the browser location
 URL).
@@ -30,10 +36,6 @@ component pagination (such as table or list pagination), use the
 
 <!-- b-pagination-nav-lead.vue -->
 ```
-
-`<b-pagination-nav>` is a custom input component that provides navigational pagination. The total
-number of pages set with the `number-of-pages` prop. Page numbers are indexed from 1 through
-`number-of-pages`.
 
 ## Page link and number generation
 
@@ -515,23 +517,14 @@ recommended unless the content of the button textually conveys its purpose.
 
 ### Keyboard navigation
 
-`<b-pagination-nav>` supports keyboard navigation out of the box, and follows the
-[WAI-ARIA roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/#kbd_roving_tabindex)
-pattern.
-
-- Tabbing into the pagination component will autofocus the current active page button
-- <kbd>LEFT</kbd> (or <kbd>UP</kbd>) and <kbd>RIGHT</kbd> (or <kbd>DOWN</kbd>) arrow keys will focus
-  the previous and next buttons, respectively, in the page list
-- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the currently focused page button
-- Pressing <kbd>TAB</kbd> will move to the next control or link on the page, while pressing
-  <kbd>SHIFT</kbd>+<kbd>TAB</kbd> will move to the previous control or link on the page.
+`<b-pagination-nav>` supports standard <kbd>Tab</kbd> key navigation.
 
 ## See also
 
 Refer to the [Router support](/docs/reference/router-links) reference page for router-link specific
 props.
 
-For pagination control of a component (such as `<b-table>`), use the
+For pagination control of a component (such as `<b-table>`) or a pagination list, use the
 [`<b-pagination>`](/docs/components/pagination) component instead.
 
 <!-- Component reference added automatically from component package.json -->

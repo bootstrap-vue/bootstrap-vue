@@ -19,6 +19,7 @@
           table-class="bv-docs-table"
           responsive="sm"
           head-variant="default"
+          bordered
           striped
         >
           <template v-slot:cell(component)="{ value }">
@@ -53,6 +54,7 @@
           table-class="bv-docs-table"
           responsive="sm"
           head-variant="default"
+          bordered
           striped
         >
           <template v-slot:cell(directive)="{ value }">
@@ -92,6 +94,7 @@
         responsive="sm"
         head-variant="default"
         caption-top
+        bordered
         striped
       >
         <template v-slot:cell(namedExport)="{ value }">
@@ -126,7 +129,7 @@ import AnchoredHeading from './anchored-heading'
 const importPath = 'bootstrap-vue'
 
 export default {
-  name: 'BVDImportdoc',
+  name: 'BVImportdoc',
   components: { AnchoredHeading },
   props: {
     meta: {}

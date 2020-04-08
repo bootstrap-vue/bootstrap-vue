@@ -12,6 +12,16 @@
         ],
         "props": [
           {
+            "prop": "size",
+            "settings": true,
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+          },
+          {
+            "prop": "variant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          },
+          {
             "prop": "block",
             "description": "Renders a 100% width button (expands to the width of its parent container)"
           },
@@ -29,7 +39,7 @@
           },
           {
             "prop": "pressed",
-            "description": "When set to 'true', gives the button the appearance of being pressed. Syncable with the .sync modifier"
+            "description": "When set to 'true', gives the button the appearance of being pressed and adds attribute 'aria-pressed=\"true\"'. When set to `false` adds attribute 'aria-pressed=\"false\"'. Tri-state prop. Syncable with the .sync modifier"
           }
         ],
         "events": [
@@ -54,8 +64,19 @@
         "props": [
           {
             "prop": "content",
+            "settings": true,
             "version": "2.3.0",
             "description": "The content of the close button"
+          },
+          {
+            "prop": "textVariant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the text"
+          },
+          {
+            "prop": "ariaLabel",
+            "settings": true,
+            "description": "Sets the value of 'aria-label' attribute on the rendered element"
           }
         ],
         "events": [

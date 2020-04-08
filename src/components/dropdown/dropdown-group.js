@@ -1,31 +1,32 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
+import identity from '../../utils/identity'
 
 export const props = {
   id: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   header: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   headerTag: {
     type: String,
     default: 'header'
   },
   headerVariant: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   headerClasses: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   ariaDescribedby: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   }
 }
 
@@ -59,7 +60,7 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
     }
 
     const adb = [headerId, props.ariaDescribedBy]
-      .filter(Boolean)
+      .filter(identity)
       .join(' ')
       .trim()
 

@@ -2,6 +2,8 @@ import { pluginFactory } from '../utils/plugins'
 
 // Component group plugins
 import { AlertPlugin } from './alert'
+import { AspectPlugin } from './aspect'
+import { AvatarPlugin } from './avatar'
 import { BadgePlugin } from './badge'
 import { BreadcrumbPlugin } from './breadcrumb'
 import { ButtonPlugin } from './button'
@@ -24,6 +26,7 @@ import { FormSelectPlugin } from './form-select'
 import { FormSpinbuttonPlugin } from './form-spinbutton'
 import { FormTagsPlugin } from './form-tags'
 import { FormTextareaPlugin } from './form-textarea'
+import { FormTimepickerPlugin } from './form-timepicker'
 import { ImagePlugin } from './image'
 import { InputGroupPlugin } from './input-group'
 import { JumbotronPlugin } from './jumbotron'
@@ -34,14 +37,17 @@ import { MediaPlugin } from './media'
 import { ModalPlugin } from './modal'
 import { NavPlugin } from './nav'
 import { NavbarPlugin } from './navbar'
+import { OverlayPlugin } from './overlay'
 import { PaginationPlugin } from './pagination'
 import { PaginationNavPlugin } from './pagination-nav'
 import { PopoverPlugin } from './popover'
 import { ProgressPlugin } from './progress'
+import { SidebarPlugin } from './sidebar'
 import { SpinnerPlugin } from './spinner'
 // Table plugin includes TableLitePlugin and TableSimplePlugin
 import { TablePlugin } from './table'
 import { TabsPlugin } from './tabs'
+import { TimePlugin } from './time'
 import { ToastPlugin } from './toast'
 import { TooltipPlugin } from './tooltip'
 
@@ -49,6 +55,8 @@ import { TooltipPlugin } from './tooltip'
 export const componentsPlugin = /*#__PURE__*/ pluginFactory({
   plugins: {
     AlertPlugin,
+    AspectPlugin,
+    AvatarPlugin,
     BadgePlugin,
     BreadcrumbPlugin,
     ButtonPlugin,
@@ -71,6 +79,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     FormSpinbuttonPlugin,
     FormTagsPlugin,
     FormTextareaPlugin,
+    FormTimepickerPlugin,
     ImagePlugin,
     InputGroupPlugin,
     JumbotronPlugin,
@@ -81,13 +90,16 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     ModalPlugin,
     NavPlugin,
     NavbarPlugin,
+    OverlayPlugin,
     PaginationPlugin,
     PaginationNavPlugin,
     PopoverPlugin,
     ProgressPlugin,
+    SidebarPlugin,
     SpinnerPlugin,
     TablePlugin,
     TabsPlugin,
+    TimePlugin,
     ToastPlugin,
     TooltipPlugin
   }

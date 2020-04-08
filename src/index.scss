@@ -7,9 +7,11 @@
 @import "variables";
 @import "utilities";
 
+// General styling needed for special form controls
+@import "custom-controls";
+
 // Include custom SCSS for components
 @import "components/index";
 
 // Include custom SCSS for icons
-// Temporary until Bootstrap v5 (maybe)
 @import "icons/index";

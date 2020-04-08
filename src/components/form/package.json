@@ -40,6 +40,11 @@
         "component": "BFormText",
         "props": [
           {
+            "prop": "textVariant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the text"
+          },
+          {
             "prop": "inline",
             "description": "When set, renders the help text as an inline element, rather than a block element"
           }

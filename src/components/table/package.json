@@ -223,7 +223,7 @@
           },
           {
             "prop": "sortCompare",
-            "description": "A reference to a function for sort-comparing tow rows of data. Defaults to the internal sort compare routine. See docs for details"
+            "description": "A reference to a function for sort-comparing two rows of data. Defaults to the internal sort compare routine. See docs for details"
           },
           {
             "prop": "sortCompareOptions",
@@ -255,6 +255,7 @@
           },
           {
             "prop": "selectedVariant",
+            "settings": true,
             "description": "Bootstrap color theme variant to set selected rows to. Use any of the standard Bootstrap theme color variants, or the special table row variant 'active' (default). Set to an empty string to not use a variant"
           },
           {
@@ -1062,6 +1063,7 @@
           },
           {
             "prop": "headVariant",
+            "settings": true,
             "description": "Header variant: 'light' or 'dark', or unset. May take precedence over head-row-variant"
           },
           {
@@ -1071,6 +1073,7 @@
           },
           {
             "prop": "footVariant",
+            "settings": true,
             "description": "Footer variant: 'light' or 'dark', or unset. May take precedence over foot-row-variant"
           },
           {

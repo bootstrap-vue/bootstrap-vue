@@ -3,8 +3,8 @@ import { mergeData } from 'vue-functional-data-merge'
 
 export const props = {
   id: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   tag: {
     type: String,
@@ -19,16 +19,17 @@ export const props = {
     default: false
   },
   state: {
+    // Tri-state prop: `true`, `false`, or `null`
     type: Boolean,
     default: null
   },
   ariaLive: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   role: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   }
 }
 
@@ -48,9 +49,9 @@ export const BFormValidFeedback = /*#__PURE__*/ Vue.extend({
           'd-block': show
         },
         attrs: {
-          id: props.id,
-          role: props.role,
-          'aria-live': props.ariaLive,
+          id: props.id || null,
+          role: props.role || null,
+          'aria-live': props.ariaLive || null,
           'aria-atomic': props.ariaLive ? 'true' : null
         }
       }),

@@ -35,7 +35,7 @@ under the toast.
 <!-- toast-intro.vue -->
 ```
 
-**Note:** we are using the `static` prop in the above example to render the toast in-pace in the
+**Note:** we are using the `static` prop in the above example to render the toast in-place in the
 document, rather than transporting it to a `<b-toaster>` target container. And we have added classes
 `bg-secondary` and `progress-bar-striped` to the outer `<div>` for illustrative purposes of toast
 transparency only.
@@ -597,7 +597,7 @@ provides general guidelines when using toasts.
 ### Internet Explorer screen reader support
 
 Unfortunately, IE 11 when used with [NVDA](https://github.com/nvaccess/nvda) or
-[JAWS](http://www.freedomscientific.com/products/software/jaws/) screen readers, will not properly
+[JAWS](https://www.freedomscientific.com/products/software/jaws/) screen readers, will not properly
 announce/voice toasts when they appear. If you have a large non-sighted user-base using IE 11, you
 may want to create an additional off-screen `aria-live` region for IE 11 browsers only (created on
 page load) where copies of toast message text are placed dynamically, in addition to displaying

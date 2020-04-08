@@ -7,6 +7,7 @@ import { getComponentConfig } from '../../utils/config'
 import {
   createDate,
   createDateFormatter,
+  constrainDate,
   datesEqual,
   firstDateOfMonth,
   formatYMD,
@@ -15,17 +16,24 @@ import {
   oneMonthAhead,
   oneYearAgo,
   oneYearAhead,
+  oneDecadeAgo,
+  oneDecadeAhead,
   parseYMD,
   resolveLocale
 } from '../../utils/date'
 import { requestAF } from '../../utils/dom'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
+import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { BIconChevronLeft, BIconCircleFill } from '../../icons/icons'
-import { BIconstack } from '../../icons/iconstack'
+import {
+  BIconChevronLeft,
+  BIconChevronDoubleLeft,
+  BIconChevronBarLeft,
+  BIconCircleFill
+} from '../../icons/icons'
 
 // --- Constants ---
 
@@ -33,37 +41,6 @@ const NAME = 'BCalendar'
 
 // Key Codes
 const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
-
-// Languages that are RTL
-const RTL_LANGS = [
-  'ar',
-  'az',
-  'ckb',
-  'fa',
-  'he',
-  'ks',
-  'lrc',
-  'mzn',
-  'ps',
-  'sd',
-  'te',
-  'ug',
-  'ur',
-  'yi'
-].map(locale => locale.toLowerCase())
-
-// --- Helper utilities ---
-
-export const isLocaleRTL = locale => {
-  // Determines if the locale is RTL (only single locale supported)
-  const parts = toString(locale)
-    .toLowerCase()
-    .replace(/-u-.+/, '')
-    .split('-')
-  const locale1 = parts.slice(0, 2).join('-')
-  const locale2 = parts[0]
-  return arrayIncludes(RTL_LANGS, locale1) || arrayIncludes(RTL_LANGS, locale2)
-}
 
 // --- BCalendar component ---
 
@@ -87,6 +64,13 @@ export const BCalendar = Vue.extend({
       // Always return the `v-model` value as a date object
       type: Boolean,
       default: false
+    },
+    initialDate: {
+      // This specifies the calendar year/month/day that will be shown when
+      // first opening the datepicker if no v-model value is provided
+      // Default is the current date (or `min`/`max`)
+      type: [String, Date]
+      // default: null
     },
     disabled: {
       type: Boolean,
@@ -164,6 +148,11 @@ export const BCalendar = Vue.extend({
       type: Boolean,
       default: false
     },
+    showDecadeNav: {
+      // When `true` enables the decade navigation buttons
+      type: Boolean,
+      default: false
+    },
     hidden: {
       // When `true`, renders a comment node, but keeps the component instance active
       // Mainly for <b-form-date>, so that we can get the component's value and locale
@@ -181,6 +170,10 @@ export const BCalendar = Vue.extend({
       // default: null
     },
     // Labels for buttons and keyboard shortcuts
+    labelPrevDecade: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'labelPrevDecade')
+    },
     labelPrevYear: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelPrevYear')
@@ -200,6 +193,10 @@ export const BCalendar = Vue.extend({
     labelNextYear: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelNextYear')
+    },
+    labelNextDecade: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'labelNextDecade')
     },
     labelToday: {
       type: String,
@@ -224,6 +221,16 @@ export const BCalendar = Vue.extend({
     labelHelp: {
       type: String,
       default: () => getComponentConfig(NAME, 'labelHelp')
+    },
+    dateFormatOptions: {
+      // `Intl.DateTimeFormat` object
+      type: Object,
+      default: () => ({
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long'
+      })
     }
   },
   data() {
@@ -232,7 +239,9 @@ export const BCalendar = Vue.extend({
       // Selected date
       selectedYMD: selected,
       // Date in calendar grid that has `tabindex` of `0`
-      activeYMD: selected || formatYMD(this.getToday()),
+      activeYMD:
+        selected ||
+        formatYMD(constrainDate(this.initialDate || this.getToday()), this.min, this.max),
       // Will be true if the calendar grid has/contains focus
       gridHasFocus: false,
       // Flag to enable the `aria-live` region(s) after mount
@@ -258,7 +267,7 @@ export const BCalendar = Vue.extend({
     },
     computedWeekStarts() {
       // `startWeekday` is a prop (constrained to `0` through `6`)
-      return Math.max(toInteger(this.startWeekday) || 0, 0) % 7
+      return Math.max(toInteger(this.startWeekday, 0), 0) % 7
     },
     computedLocale() {
       // Returns the resolved locale used by the calendar
@@ -372,10 +381,20 @@ export const BCalendar = Vue.extend({
     formatDateString() {
       // Returns a date formatter function
       return createDateFormatter(this.calendarLocale, {
+        // Ensure we have year, month, day shown for screen readers/ARIA
+        // If users really want to leave one of these out, they can
+        // pass `undefined` for the property value
         year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long',
+        month: '2-digit',
+        day: '2-digit',
+        // Merge in user supplied options
+        ...this.dateFormatOptions,
+        // Ensure hours/minutes/seconds are not shown
+        // As we do not support the time portion (yet)
+        hour: undefined,
+        minute: undefined,
+        second: undefined,
+        // Ensure calendar is gregorian
         calendar: 'gregory'
       })
     },
@@ -398,6 +417,10 @@ export const BCalendar = Vue.extend({
       return createDateFormatter(this.calendarLocale, { day: 'numeric', calendar: 'gregory' })
     },
     // Disabled states for the nav buttons
+    prevDecadeDisabled() {
+      const min = this.computedMin
+      return this.disabled || (min && lastDateOfMonth(oneDecadeAgo(this.activeDate)) < min)
+    },
     prevYearDisabled() {
       const min = this.computedMin
       return this.disabled || (min && lastDateOfMonth(oneYearAgo(this.activeDate)) < min)
@@ -418,7 +441,11 @@ export const BCalendar = Vue.extend({
       const max = this.computedMax
       return this.disabled || (max && firstDateOfMonth(oneYearAhead(this.activeDate)) > max)
     },
-    // Calendar generation
+    nextDecadeDisabled() {
+      const max = this.computedMax
+      return this.disabled || (max && firstDateOfMonth(oneDecadeAhead(this.activeDate)) > max)
+    },
+    // Calendar dates generation
     calendar() {
       const matrix = []
       const firstDay = this.calendarFirstDay
@@ -498,7 +525,9 @@ export const BCalendar = Vue.extend({
     },
     hidden(newVal) {
       // Reset the active focused day when hidden
-      this.activeYMD = this.selectedYMD || formatYMD(this.value) || formatYMD(this.getToday())
+      this.activeYMD =
+        this.selectedYMD ||
+        formatYMD(this.value || this.constrainDate(this.initialDate || this.getToday()))
       // Enable/disable the live regions
       this.setLive(!newVal)
     }
@@ -552,10 +581,7 @@ export const BCalendar = Vue.extend({
     constrainDate(date) {
       // Constrains a date between min and max
       // returns a new `Date` object instance
-      date = parseYMD(date)
-      const min = this.computedMin || date
-      const max = this.computedMax || date
-      return createDate(date < min ? min : date > max ? max : date)
+      return constrainDate(date, this.computedMin, this.computedMax)
     },
     emitSelected(date) {
       // Performed in a `$nextTick()` to (probably) ensure
@@ -573,8 +599,7 @@ export const BCalendar = Vue.extend({
       // Calendar keyboard navigation
       // Handles PAGEUP/PAGEDOWN/END/HOME/LEFT/UP/RIGHT/DOWN
       // Focuses grid after updating
-      const keyCode = evt.keyCode
-      const altKey = evt.altKey
+      const { altKey, ctrlKey, keyCode } = evt
       if (!arrayIncludes([PAGEUP, PAGEDOWN, END, HOME, LEFT, UP, RIGHT, DOWN], keyCode)) {
         /* istanbul ignore next */
         return
@@ -584,16 +609,19 @@ export const BCalendar = Vue.extend({
       let activeDate = createDate(this.activeDate)
       let checkDate = createDate(this.activeDate)
       const day = activeDate.getDate()
+      const constrainedToday = this.constrainDate(this.getToday())
       const isRTL = this.isRTL
       if (keyCode === PAGEUP) {
         // PAGEUP - Previous month/year
-        activeDate = (altKey ? oneYearAgo : oneMonthAgo)(activeDate)
+        activeDate = (altKey ? (ctrlKey ? oneDecadeAgo : oneYearAgo) : oneMonthAgo)(activeDate)
         // We check the first day of month to be in rage
         checkDate = createDate(activeDate)
         checkDate.setDate(1)
       } else if (keyCode === PAGEDOWN) {
         // PAGEDOWN - Next month/year
-        activeDate = (altKey ? oneYearAhead : oneMonthAhead)(activeDate)
+        activeDate = (altKey ? (ctrlKey ? oneDecadeAhead : oneYearAhead) : oneMonthAhead)(
+          activeDate
+        )
         // We check the last day of month to be in rage
         checkDate = createDate(activeDate)
         checkDate.setMonth(checkDate.getMonth() + 1)
@@ -601,26 +629,30 @@ export const BCalendar = Vue.extend({
       } else if (keyCode === LEFT) {
         // LEFT - Previous day (or next day for RTL)
         activeDate.setDate(day + (isRTL ? 1 : -1))
+        activeDate = this.constrainDate(activeDate)
         checkDate = activeDate
       } else if (keyCode === RIGHT) {
         // RIGHT - Next day (or previous day for RTL)
         activeDate.setDate(day + (isRTL ? -1 : 1))
+        activeDate = this.constrainDate(activeDate)
         checkDate = activeDate
       } else if (keyCode === UP) {
         // UP - Previous week
         activeDate.setDate(day - 7)
+        activeDate = this.constrainDate(activeDate)
         checkDate = activeDate
       } else if (keyCode === DOWN) {
         // DOWN - Next week
         activeDate.setDate(day + 7)
+        activeDate = this.constrainDate(activeDate)
         checkDate = activeDate
       } else if (keyCode === HOME) {
         // HOME - Today
-        activeDate = this.getToday()
+        activeDate = constrainedToday
         checkDate = activeDate
       } else if (keyCode === END) {
         // END - Selected date, or today if no selected date
-        activeDate = parseYMD(this.selectedDate) || this.getToday()
+        activeDate = parseYMD(this.selectedDate) || constrainedToday
         checkDate = activeDate
       }
       if (!this.dateOutOfRange(checkDate) && !datesEqual(activeDate, this.activeDate)) {
@@ -648,7 +680,6 @@ export const BCalendar = Vue.extend({
     },
     onClickDay(day) {
       // Clicking on a date "button" to select it
-      // TODO: Change to lookup the `data-data` attribute
       const selectedDate = this.selectedDate
       const activeDate = this.activeDate
       const clickedDate = parseYMD(day.ymd)
@@ -668,6 +699,9 @@ export const BCalendar = Vue.extend({
         this.focus()
       }
     },
+    gotoPrevDecade() {
+      this.activeYMD = formatYMD(this.constrainDate(oneDecadeAgo(this.activeDate)))
+    },
     gotoPrevYear() {
       this.activeYMD = formatYMD(this.constrainDate(oneYearAgo(this.activeDate)))
     },
@@ -676,13 +710,22 @@ export const BCalendar = Vue.extend({
     },
     gotoCurrentMonth() {
       // TODO: Maybe this goto date should be configurable?
-      this.activeYMD = formatYMD(this.getToday())
+      this.activeYMD = formatYMD(this.constrainDate(this.getToday()))
     },
     gotoNextMonth() {
       this.activeYMD = formatYMD(this.constrainDate(oneMonthAhead(this.activeDate)))
     },
     gotoNextYear() {
       this.activeYMD = formatYMD(this.constrainDate(oneYearAhead(this.activeDate)))
+    },
+    gotoNextDecade() {
+      this.activeYMD = formatYMD(this.constrainDate(oneDecadeAhead(this.activeDate)))
+    },
+    onHeaderClick() {
+      if (!this.disabled) {
+        this.activeYMD = this.selectedYMD || formatYMD(this.getToday())
+        this.focus()
+      }
     }
   },
   render(h) {
@@ -692,6 +735,7 @@ export const BCalendar = Vue.extend({
     }
 
     const isRTL = this.isRTL
+    const hideDecadeNav = !this.showDecadeNav
     const todayYMD = formatYMD(this.getToday())
     const selectedYMD = this.selectedYMD
     const activeYMD = this.activeYMD
@@ -700,8 +744,9 @@ export const BCalendar = Vue.extend({
     // Flag for making the `aria-live` regions live
     const isLive = this.isLive
     // Pre-compute some IDs
-    const idWidget = safeId()
-    const idValue = safeId('_calendar-value_')
+    // This should be computed props
+    const idValue = safeId()
+    const idWidget = safeId('_calendar-wrapper_')
     const idNav = safeId('_calendar-nav_')
     const idGrid = safeId('_calendar-grid_')
     const idGridCaption = safeId('_calendar-grid-caption_')
@@ -718,6 +763,7 @@ export const BCalendar = Vue.extend({
           id: idValue,
           for: idGrid,
           role: 'status',
+          tabindex: this.disabled ? null : '-1',
           // Mainly for testing purposes, as we do not know
           // the exact format `Intl` will format the date string
           'data-selected': toString(selectedYMD),
@@ -725,6 +771,12 @@ export const BCalendar = Vue.extend({
           // to prevent initial announcement on page render
           'aria-live': isLive ? 'polite' : 'off',
           'aria-atomic': isLive ? 'true' : null
+        },
+        on: {
+          // Transfer focus/click to focus grid
+          // and focus active date (or today if no selection)
+          click: this.onHeaderClick,
+          focus: this.onHeaderClick
         }
       },
       this.selectedDate
@@ -746,17 +798,13 @@ export const BCalendar = Vue.extend({
     )
 
     // Content for the date navigation buttons
-    const $prevYearIcon = h(BIconstack, { props: { shiftV: 0.5, flipH: isRTL } }, [
-      h(BIconChevronLeft, { props: { shiftH: -2 } }),
-      h(BIconChevronLeft, { props: { shiftH: 2 } })
-    ])
+    const $prevDecadeIcon = h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: isRTL } })
+    const $prevYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $prevMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $thisMonthIcon = h(BIconCircleFill, { props: { shiftV: 0.5 } })
     const $nextMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
-    const $nextYearIcon = h(BIconstack, { props: { shiftV: 0.5, flipH: !isRTL } }, [
-      h(BIconChevronLeft, { props: { shiftH: -2 } }),
-      h(BIconChevronLeft, { props: { shiftH: 2 } })
-    ])
+    const $nextYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
+    const $nextDecadeIcon = h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
 
     // Utility to create the date navigation buttons
     const makeNavBtn = (content, label, handler, btnDisabled, shortcut) => {
@@ -792,6 +840,15 @@ export const BCalendar = Vue.extend({
         }
       },
       [
+        hideDecadeNav
+          ? h()
+          : makeNavBtn(
+              $prevDecadeIcon,
+              this.labelPrevDecade,
+              this.gotoPrevDecade,
+              this.prevDecadeDisabled,
+              'Ctrl+Alt+PageDown'
+            ),
         makeNavBtn(
           $prevYearIcon,
           this.labelPrevYear,
@@ -826,7 +883,16 @@ export const BCalendar = Vue.extend({
           this.gotoNextYear,
           this.nextYearDisabled,
           'Alt+PageUp'
-        )
+        ),
+        hideDecadeNav
+          ? h()
+          : makeNavBtn(
+              $nextDecadeIcon,
+              this.labelNextDecade,
+              this.gotoNextDecade,
+              this.nextDecadeDisabled,
+              'Ctrl+Alt+PageUp'
+            )
       ]
     )
 
@@ -855,7 +921,7 @@ export const BCalendar = Vue.extend({
           'small',
           {
             key: idx,
-            staticClass: 'col',
+            staticClass: 'col text-truncate',
             class: { 'text-muted': this.disabled },
             attrs: {
               title: d.label === d.text ? null : d.label,
@@ -971,7 +1037,6 @@ export const BCalendar = Vue.extend({
           role: 'application',
           tabindex: this.disabled ? null : '0',
           'data-month': activeYMD.slice(0, -3), // `YYYY-MM`, mainly for testing
-          // tabindex: this.disabled ? null : '0',
           'aria-roledescription': this.labelCalendar || null,
           'aria-labelledby': idGridCaption,
           'aria-describedby': idGridHelp,
@@ -997,6 +1062,7 @@ export const BCalendar = Vue.extend({
     const $widget = h(
       'div',
       {
+        staticClass: 'b-calendar-inner',
         class: this.block ? 'd-block' : 'd-inline-block',
         style: this.block ? {} : { width: this.width },
         attrs: {

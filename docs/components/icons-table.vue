@@ -3,7 +3,7 @@
     key="_bv-icons-table_"
     class="bv-icons-table notranslate"
     role="group"
-    aria-labeledby="bv-icons-table-title"
+    aria-labelledby="bv-icons-table-title"
   >
     <b-row align-v="start">
       <b-col md="5" lg="6">
@@ -80,7 +80,7 @@
 }
 
 #bv-icons-table-result /deep/ .bi {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .form-group /deep/ .form-text {
@@ -94,7 +94,7 @@
   }
 
   &:hover .bi {
-    transform: scale(2);
+    transform: scale(1.75);
   }
 }
 
@@ -140,7 +140,7 @@ const icons = iconNames
   })
 
 export default {
-  name: 'BVDIconsTable',
+  name: 'BVIconsTable',
   data() {
     return {
       iconFilter: '',

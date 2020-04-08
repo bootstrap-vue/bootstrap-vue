@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Spinbutton",
-    "new": true,
     "version": "2.5.0",
-    "description": "Numerical spinbutton custom form input component",
+    "description": "BootstrapVue custom numerical spinbutton form input component, featuring WAI-ARIA accessibility (a11y) and internationalization (i18n)",
     "components": [
       {
         "component": "BFormSpinbutton",
@@ -32,7 +31,7 @@
           },
           {
             "prop": "wrap",
-            "description": "When set, allows the value to wrap around when reading the minimum or maximum value"
+            "description": "When set, allows the value to wrap around when reaching the minimum or maximum value"
           },
           {
             "prop": "locale",
@@ -44,7 +43,7 @@
           },
           {
             "prop": "formatterFn",
-            "description": "A reference to a method to format the displayed value. It ss passed a single argument which is the current value"
+            "description": "A reference to a method to format the displayed value. It is passed a single argument which is the current value"
           },
           {
             "prop": "required",
@@ -76,10 +75,12 @@
           },
           {
             "prop": "labelIncrement",
+            "settings": true,
             "description": "Text to be used for the `aria-label` attribute on the increment button"
           },
           {
             "prop": "labelDecrement",
+            "settings": true,
             "description": "Text to be used for the `aria-label` attribute on the decrement button"
           },
           {
@@ -97,6 +98,32 @@
           {
             "prop": "repeatStepMultiplier",
             "description": "Number of steps to jump by once the `repeat-threshold` has been reached. Must be a positive integer. This value is also used for the page up and down keys"
+          }
+        ],
+        "slots": [
+          {
+            "name": "increment",
+            "version": "2.8.0",
+            "description": "Custom content to place in the increment button",
+            "scope": [
+              {
+                "prop": "hasFocus",
+                "type": "Boolean",
+                "description": "`true` when the spinbutton has focus"
+              }
+            ]
+          },
+          {
+            "name": "decrement",
+            "version": "2.8.0",
+            "description": "Custom content to place in the decrement button",
+            "scope": [
+              {
+                "prop": "hasFocus",
+                "type": "Boolean",
+                "description": "`true` when the spinbutton has focus"
+              }
+            ]
           }
         ],
         "events": [
