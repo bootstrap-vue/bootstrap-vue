@@ -355,6 +355,9 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     }
 
     if (this.resetButton) {
+      if ($footer.length > 0) {
+        $footer.push(' ')
+      }
       const label = this.labelResetButton
       $footer.push(
         h(
@@ -370,6 +373,9 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     }
 
     if (!this.noCloseButton) {
+      if ($footer.length > 0) {
+        $footer.push(' ')
+      }
       const label = this.labelCloseButton
       $footer.push(
         h(
