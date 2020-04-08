@@ -331,9 +331,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const localHMS = this.localHMS
-    const disabled = this.disabled
-    const readonly = this.readonly
+    const { localHMS, disabled, readonly} = this
     const placeholder = isUndefinedOrNull(this.placeholder)
       ? this.labelNoTimeSelected
       : this.placeholder
@@ -347,7 +345,6 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            staticClass: 'mx-1',
             props: { size: 'sm', disabled: disabled || readonly, variant: this.nowButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onNowButton }
@@ -363,7 +360,6 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            staticClass: 'mx-1',
             props: { size: 'sm', disabled: disabled || readonly, variant: this.resetButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onResetButton }
@@ -379,7 +375,6 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            staticClass: 'mx-1',
             props: { size: 'sm', disabled, variant: this.closeButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onCloseButton }
@@ -394,7 +389,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         h(
           'div',
           {
-            staticClass: 'b-form-date-controls d-flex flex-wrap mx-n1',
+            staticClass: 'b-form-date-controls d-flex flex-wrap',
             class: {
               'justify-content-between': $footer.length > 1,
               'justify-content-end': $footer.length < 2
