@@ -11,6 +11,10 @@
     margin-bottom: 0.25rem;
   }
 
+  .b-calendar-nav .btn {
+    padding: 0.25rem;
+  }
+
   output.readonly {
     background-color: $input-disabled-bg;
     opacity: 1;
@@ -26,7 +30,7 @@
     overflow: hidden;
   }
 
-  .b-calendar-caption {
+  .b-calendar-grid-caption {
     padding: 0.25rem;
   }
 
