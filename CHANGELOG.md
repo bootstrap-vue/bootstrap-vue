@@ -2,6 +2,42 @@
 
 > All notable changes to this project will be documented in this file.
 
+<a name="2.11.0"></a>
+
+## [v2.11.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.10.1...v2.11.0)
+
+Released: 2020-04-07
+
+### Features v2.11.0
+
+- **b-avatar:** if image `src` fails to load, then show icon, text or fallback icon
+  ([#5079](https://github.com/bootstrap-vue/bootstrap-vue/issues/5079))
+  ([ed6704d](https://github.com/bootstrap-vue/bootstrap-vue/commit/ed6704d0971ade485393b7f711f05d93ca42ebc3))
+- **b-calendar, b-form-datepicker:** add optional decade navigation buttons (addresses
+  [#4976](https://github.com/bootstrap-vue/bootstrap-vue/issues/4976))
+  ([#5112](https://github.com/bootstrap-vue/bootstrap-vue/issues/5112))
+  ([b1f74a8](https://github.com/bootstrap-vue/bootstrap-vue/commit/b1f74a84f4021022e606360ee6824c6645b6fbd0))
+
+### Bug Fixes v2.11.0
+
+- **b-calendar, b-form-datepicker:** handle keyboard navigation when selected date is out of range
+  (fixes [#5057](https://github.com/bootstrap-vue/bootstrap-vue/issues/5057))
+  ([#5108](https://github.com/bootstrap-vue/bootstrap-vue/issues/5108))
+  ([6ed09f4](https://github.com/bootstrap-vue/bootstrap-vue/commit/6ed09f40ae1594c7ad96dedc8c3d7c2a54d4d9c7))
+- **b-link:** don't render `target` or `rel` attrs when `router-tag` other than `a` or `area`
+  provided ([#5107](https://github.com/bootstrap-vue/bootstrap-vue/issues/5107))
+  ([33c6cef](https://github.com/bootstrap-vue/bootstrap-vue/commit/33c6cefc2f46ab8110e39f110d984f230d525c86))
+- **tooltip, popover:** handle `'click blur'` trigger on iOS webkit browsers (fixes
+  [#5099](https://github.com/bootstrap-vue/bootstrap-vue/issues/5099))
+  ([#5103](https://github.com/bootstrap-vue/bootstrap-vue/issues/5103))
+  ([27da76c](https://github.com/bootstrap-vue/bootstrap-vue/commit/27da76cdc70449b0564e31f5733df97d758652ea))
+
+### Other v2.11.0
+
+- additional unit testing
+- dev dependencies updates
+- minor documentation updates
+
 <a name="2.10.1"></a>
 
 ## [v2.10.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.10.0...v2.10.1)
