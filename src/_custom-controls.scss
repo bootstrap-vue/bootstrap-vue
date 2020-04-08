@@ -65,10 +65,15 @@
     color: $form-feedback-invalid-color;
   }
 
+  > .dropdown-menu {
+    padding: 0.5rem;
+  }
+
   > label {
     // Unfortunately this is not supported by all browsers :(
     // text-align: end;
     outline: 0;
+    padding-left: 0.25rem;
     @if $enable-pointer-cursor-for-buttons {
       cursor: pointer;
     }
@@ -85,6 +90,7 @@
       min-height: calc(#{$input-height-lg} - #{$input-height-border});
     }
   }
+
 
   // Disabled and read-only styling
   &[aria-disabled="true"],
