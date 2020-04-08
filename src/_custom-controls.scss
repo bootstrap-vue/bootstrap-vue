@@ -74,6 +74,7 @@
     // text-align: end;
     outline: 0;
     padding-left: 0.25rem;
+    margin: 0;
     @if $enable-pointer-cursor-for-buttons {
       cursor: pointer;
     }
