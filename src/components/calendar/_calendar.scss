@@ -12,12 +12,17 @@
   }
 
   .b-calendar-nav .btn {
+    border: 0;
     padding: 0.25rem;
   }
 
-  output.readonly {
-    background-color: $input-disabled-bg;
-    opacity: 1;
+  output {
+    padding: 0.25rem;
+
+    &.readonly {
+      background-color: $input-disabled-bg;
+      opacity: 1;
+    }
   }
 
   .b-calendar-footer {
