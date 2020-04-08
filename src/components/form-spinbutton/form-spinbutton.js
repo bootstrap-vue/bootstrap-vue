@@ -512,7 +512,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         key: 'output',
         staticClass: 'flex-grow-1',
         class: {
-          'w-100': !isVertical && !isInline,
           'd-flex': isVertical,
           'align-self-center': !isVertical,
           'align-items-center': isVertical,
@@ -542,7 +541,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'aria-valuetext': hasValue ? formatter(value) : null
         }
       },
-      [h('bdi', { staticClass: 'w-100' }, hasValue ? formatter(value) : this.placeholder || '')]
+      [h('bdi', {}, hasValue ? formatter(value) : this.placeholder || '')]
     )
 
     return h(
