@@ -1,6 +1,8 @@
 // BCalendar custom styles
 
 .b-calendar {
+  display: inline-flex;
+
   .b-calendar-inner {
     // Prevent calendar from going below this width
     min-width: 250px;
