@@ -1016,7 +1016,7 @@ export const BCalendar = Vue.extend({
     const $gridHelp = h(
       'footer',
       {
-        staticClass: 'border-top small text-muted text-center bg-light',
+        staticClass: 'b-calendar-grid-help border-top small text-muted text-center bg-light',
         attrs: {
           id: idGridHelp
         }
