@@ -225,21 +225,23 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // Triggered when the parent form (if any) is reset
       this.selectedFile = this.multiple ? [] : null
     },
-    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+    onDragover(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop || !this.custom) {
         return
       }
       this.dragging = true
-      evt.dataTransfer.dropEffect = 'copy'
+      try {
+        evt.dataTransfer.dropEffect = 'copy'
+      } catch {}
     },
-    onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+    onDragleave(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       this.dragging = false
     },
-    onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+    onDrop(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop) {

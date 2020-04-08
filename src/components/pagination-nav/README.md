@@ -517,7 +517,7 @@ recommended unless the content of the button textually conveys its purpose.
 
 ### Keyboard navigation
 
-`<b-pagination-nav>` supports standard <kbd>TAB</kbd> key navigation.
+`<b-pagination-nav>` supports standard <kbd>Tab</kbd> key navigation.
 
 ## See also
 

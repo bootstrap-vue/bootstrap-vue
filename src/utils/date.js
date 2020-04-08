@@ -71,10 +71,22 @@ export const lastDateOfMonth = date => {
   return date
 }
 
+export const addYears = (date, numberOfYears) => {
+  date = createDate(date)
+  const month = date.getMonth()
+  date.setFullYear(date.getFullYear() + numberOfYears)
+  // Handle Feb 29th for leap years
+  if (date.getMonth() !== month) {
+    date.setDate(0)
+  }
+  return date
+}
+
 export const oneMonthAgo = date => {
   date = createDate(date)
   const month = date.getMonth()
   date.setMonth(month - 1)
+  // Handle when days in month are different
   if (date.getMonth() === month) {
     date.setDate(0)
   }
@@ -85,6 +97,7 @@ export const oneMonthAhead = date => {
   date = createDate(date)
   const month = date.getMonth()
   date.setMonth(month + 1)
+  // Handle when days in month are different
   if (date.getMonth() === (month + 2) % 12) {
     date.setDate(0)
   }
@@ -92,23 +105,19 @@ export const oneMonthAhead = date => {
 }
 
 export const oneYearAgo = date => {
-  date = createDate(date)
-  const month = date.getMonth()
-  date.setMonth(month - 12)
-  if (date.getMonth() !== month) {
-    date.setDate(0)
-  }
-  return date
+  return addYears(date, -1)
 }
 
 export const oneYearAhead = date => {
-  date = createDate(date)
-  const month = date.getMonth()
-  date.setMonth(month + 12)
-  if (date.getMonth() !== month) {
-    date.setDate(0)
-  }
-  return date
+  return addYears(date, 1)
+}
+
+export const oneDecadeAgo = date => {
+  return addYears(date, -10)
+}
+
+export const oneDecadeAhead = date => {
+  return addYears(date, 10)
 }
 
 // Helper function to constrain a date between two values
