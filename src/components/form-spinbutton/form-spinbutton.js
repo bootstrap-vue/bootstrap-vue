@@ -516,9 +516,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'd-flex': isVertical,
           'align-self-center': !isVertical,
           'align-items-center': isVertical,
-          'py-1': isVertical,
-          'px-1': !isVertical,
-          'mx-1': isVertical,
           'border-top': isVertical,
           'border-bottom': isVertical,
           'border-left': !isVertical,
@@ -551,7 +548,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     return h(
       'div',
       {
-        staticClass: 'b-form-spinbutton form-control p-0',
+        staticClass: 'b-form-spinbutton form-control',
         class: {
           disabled: isDisabled,
           readonly: isReadonly,
