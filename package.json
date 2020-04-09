@@ -49,11 +49,11 @@
     }
   ],
   "files": [
-    "src",
     "dist",
-    "nuxt",
-    "esm",
     "es",
+    "esm",
+    "nuxt",
+    "src",
     "types"
   ],
   "sideEffects": [
@@ -65,16 +65,17 @@
   ],
   "scripts": {
     "build": "scripts/build.sh",
-    "watch": "rollup -c scripts/rollup.config.js --watch",
+    "bundlewatch": "bundlewatch --config .bundlewatch.config.json",
+    "docs-build": "cross-env NODE_ENV=docs nuxt build -c docs/nuxt.config.js",
     "docs-dev": "cross-env NODE_ENV=docs nuxt dev -c docs/nuxt.config.js",
     "docs-gen": "cross-env NODE_ENV=docs nuxt generate -c docs/nuxt.config.js",
-    "docs-build": "cross-env NODE_ENV=docs nuxt build -c docs/nuxt.config.js",
     "docs-publish": "scripts/docs-publish.sh",
-    "test": "jest",
     "lint": "eslint --ext .js,.md,.vue ./",
+    "postinstall": "opencollective || exit 0",
     "prettify": "prettier --write '**/*.{js,json,md,scss,ts,vue}'",
     "release": "npm run prettify && npm run test && npm run build && standard-version",
-    "postinstall": "opencollective || exit 0"
+    "test": "jest",
+    "watch": "rollup -c scripts/rollup.config.js --watch"
   },
   "husky": {
     "hooks": {
@@ -111,6 +112,7 @@
     "babel-jest": "^25.3.0",
     "babel-plugin-istanbul": "^6.0.0",
     "bootstrap-icons": "^1.0.0-alpha3",
+    "bundlewatch": "^0.2.6",
     "clean-css-cli": "^4.3.0",
     "codecov": "^3.6.5",
     "codemirror": "^5.52.2",

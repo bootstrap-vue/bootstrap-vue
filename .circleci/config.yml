@@ -73,7 +73,7 @@ jobs:
           command: yarn build
 
   # --------------------------------------------------------------------------
-  # Phase 3: Tests
+  # Phase 3: Tests + BundleWatch
   # --------------------------------------------------------------------------
   test:
     <<: *defaults
@@ -84,6 +84,16 @@ jobs:
       - run:
           name: Tests
           command: yarn test -w=2 --coverage && yarn codecov
+
+  bundlewatch:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: BundleWatch
+          command: yarn bundlewatch
 
   # --------------------------------------------------------------------------
   # Phase 4: Publish docs (master branch only)
@@ -106,9 +116,9 @@ workflows:
   commit:
     jobs:
       - setup
-      - lint:  { requires: [setup] }
+      - lint: { requires: [setup] }
       # - audit: { requires: [setup] }
       - build: { requires: [setup] }
-      - lint:  { requires: [setup] }
-      - test:  { requires: [setup] }
-      - docs:  { requires: [setup], filters: { branches: { only: [master] } } }
+      - test: { requires: [setup] }
+      - bundlewatch: { requires: [setup] }
+      - docs: { requires: [setup], filters: { branches: { only: [master] } } }
