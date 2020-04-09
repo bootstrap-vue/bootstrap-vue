@@ -13,7 +13,7 @@
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
-  posiion: relative;
+  position: relative;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
 
@@ -47,7 +47,6 @@
     width: 60%;
     height: auto;
     max-width: 100%;
-    max-height: auto;
   }
 
   img {
@@ -56,5 +55,16 @@
     max-width: 100%;
     max-height: auto;
     border-radius: inherit;
+  }
+
+  .b-avatar-badge {
+    // Positioning will be handled via inline styles
+    position: absolute;
+    min-height: 1.5em;
+    min-width: 1.5em;
+    padding: 0.25em;
+    line-height: 1;
+    border-radius: 10em;
+    font-size: 70%;
   }
 }
