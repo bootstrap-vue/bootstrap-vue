@@ -516,8 +516,8 @@ class to the icon component, or create a new animation class in the form of
 
 **Note:** The BootstrapVue defined animation effects of this component is dependent on the
 `prefers-reduced-motion` media query. See the
-[reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
-additional details.
+[reduced motion section of our accessibility documentation](/docs/reference/accessibility#reduced-motion)
+for additional details.
 
 Side note: the `cylon` animation gets its name from the "eye" of the Cylons from the _original_
 [1978 Battlestar Galactica TV series](https://www.youtube.com/watch?v=5a5bEIf0UaU).
