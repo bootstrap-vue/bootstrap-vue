@@ -81,6 +81,17 @@
       animation: none;
     }
   }
+
+  &.b-icon-animation-fade,
+  &.b-iconstack .b-icon-animation-cylon-fade > g {
+    transform-origin: center;
+    animation: $b-icon-animation-throb-duration infinite ease-in-out alternate
+      b-icon-animation-fade;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
 }
 
 // Animation for spinning icons
@@ -119,6 +130,15 @@
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes b-icon-animation-fade {
+  0% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
