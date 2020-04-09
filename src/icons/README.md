@@ -127,7 +127,7 @@ Vue.use(BootstrapVueIcons)
 BootstrapVue icons SCSS/CSS does not depend on any Bootstrap SASS variables, mixins, functions or
 CSS classes (other than the Bootstrap `text-{variant}` text color utility classes, if using the
 `variant` prop). Please note that the icons CSS is _also_ included in the main BootstrapVue SCSS/CSS
-files.
+files. Animations effects require BootstrapVue custom SCSS/CSS.
 
 ### Browser
 
@@ -515,7 +515,7 @@ class to the icon component, or create a new animation class in the form of
 - With the `cylon` animations, the left-right movement (or up-down movement) extends _past_ the
   icon's bounding box by `+/- 25%`, so you may need to adjust padding or margins to compensate for
   your use case.
-- Animation durations can be [configured via SASS SASS variables](/docs/reference/theming)
+- Animation durations can be [configured via SASS SCSS variables](/docs/reference/theming)
 - The BootstrapVue defined animation effects of this component is dependent on the
   `prefers-reduced-motion` media query. See the
  [reduced motion section of our accessibility documentation](/docs/reference/accessibility#reduced-motion)
