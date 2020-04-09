@@ -8,17 +8,17 @@ A clear and concise description of what the pull request does.
 
 **What kind of change does this PR introduce?** (check at least one)
 
-- [ ] Bugfix
-- [ ] Feature
-- [ ] Enhancement
-- [ ] ARIA accessibility
-- [ ] Documentation update
+- [ ] Bugfix (fixes a boo-boo in the code) - `fix(...)`, requires a minor version update
+- [ ] Feature (adds a new feature to BootstrapVue) - `feat(...)`, requires a minor version update
+- [ ] Enhancement (augments an existing feature in BootstrapVue) - `feat(...)`, requires a minor version update
+- [ ] ARIA accessibility (fixes or improves ARIA accessibility) - `fix(...)`, requires a patch version update
+- [ ] Documentation update (Improves documentation or type-o fixes) - `chore(docs)`, requires a patch version update
 - [ ] Other (please describe)
 
 **Does this PR introduce a breaking change?** (check one)
 
 - [ ] No
-- [ ] Yes (please describe)
+- [ ] Yes (please describe) Breaking changes require a minor version update
 
 **The PR fulfills these requirements:**
 
