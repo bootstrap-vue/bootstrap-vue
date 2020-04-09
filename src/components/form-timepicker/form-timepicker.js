@@ -345,6 +345,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
+            key: 'now-btn',
             props: { size: 'sm', disabled: disabled || readonly, variant: this.nowButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onNowButton }
@@ -356,13 +357,14 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
 
     if (this.resetButton) {
       if ($footer.length > 0) {
-        $footer.push(' ')
+        $footer.push(h('span', ' '))
       }
       const label = this.labelResetButton
       $footer.push(
         h(
           BButton,
           {
+            key: 'reset-btn',
             props: { size: 'sm', disabled: disabled || readonly, variant: this.resetButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onResetButton }
@@ -374,13 +376,14 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
 
     if (!this.noCloseButton) {
       if ($footer.length > 0) {
-        $footer.push(' ')
+        $footer.push(h('span', ' '))
       }
       const label = this.labelCloseButton
       $footer.push(
         h(
           BButton,
           {
+            key: 'close-btn',
             props: { size: 'sm', disabled, variant: this.closeButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onCloseButton }
