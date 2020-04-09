@@ -12,7 +12,7 @@
   text-align: center;
   text-transform: uppercase;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
@@ -39,11 +39,17 @@
     pointer-events: none;
   }
 
-  > span {
+  .b-avatar-text {
     border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .b-icon {
+  > .b-icon {
     width: 60%;
     height: auto;
     max-width: 100%;
