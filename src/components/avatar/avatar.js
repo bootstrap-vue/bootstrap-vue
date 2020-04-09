@@ -171,12 +171,13 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       return size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
     },
     badgeStyle() {
-      const offset = this.badgeOffset || '0px'
+      const { badgeTop, badgeLeft, badgeOffset } = this
+      const offset = badgeOffset || '0px'
       return {
-        top: this.badgeTop ? offset : null,
-        bottom: this.badgeTop ? null : offset,
-        right: this.badgeRight ? offset : null,
-        left: this.badgeRight ? null : offset
+        top: badgeTop ? offset : null,
+        bottom: badgeTop ? null : offset,
+        left: badgeLeft ? offset : null,
+        right: badgeLeft ? null : offset
       }
     }
   },
