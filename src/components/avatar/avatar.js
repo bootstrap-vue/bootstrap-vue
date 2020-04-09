@@ -237,8 +237,9 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     }
 
     let $badge = h()
-    if (badge || badge === '') {
-      badge = badge === true ? '' : badge
+    const hasBadgeSlot = this.hasNormalizedSlot('badge')
+    if (badge || badge === '' || hasBadgeSlot) {
+      const badgeText = badge === true ? '' : badge
       $badge = h(
         'span',
         {
@@ -246,7 +247,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
           class: { [`badge-${badgeVariant}`]: !!badgeVariant },
           style: badgeStyle
         },
-        [this.hasNormalizedSlot('badge') ? this.normalizeSlot('badge') : badge]
+        [hasBadgeSlot ? this.normalizeSlot('badge') : badgeText]
       )
     }
 
