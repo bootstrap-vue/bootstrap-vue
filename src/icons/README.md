@@ -483,7 +483,7 @@ To use the animation, set the `animation` prop to one of the animation names abo
     </b-col>
     <b-col md="6" class="mb-3">
       <p>Fade animation:</p>
-      <b-icon icon="circle-fille" animation="fade" font-scale="4"></b-icon>
+      <b-icon icon="star-fill" animation="fade" font-scale="4"></b-icon>
     </b-col>
   </div>
 </template>
