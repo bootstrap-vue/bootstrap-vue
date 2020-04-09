@@ -666,7 +666,7 @@ font scaled by 125%).
     </b-button>
     <br>
     <b-button size="lg" variant="primary" class="mb-2">
-      <b-icon icon="question-circle-fill" aria-label="hep"></b-icon>
+      <b-icon icon="question-circle-fill" aria-label="Help"></b-icon>
     </b-button>
   </div>
 </template>
