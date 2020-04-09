@@ -491,10 +491,6 @@ To use the animation, set the `animation` prop to one of the animation names abo
 <!-- b-icon-aminations.vue -->
 ```
 
-Note with the `cylon` animations, the left-right movement (or up-down movement) extends past the
-icon's bounding box by `+/- 25%`, so you may need to adjust padding or margins to compensate for
-your use case.
-
 As the animations are CSS based, they are applied _after_ any SVG transforms have taken place:
 
 ```html
@@ -514,13 +510,18 @@ Need a different style animation? Just create a custom class defining the animat
 class to the icon component, or create a new animation class in the form of
 `b-icon-animation-{animationName}` and pass the custom animation name to the `animation` prop.
 
-**Note:** The BootstrapVue defined animation effects of this component is dependent on the
-`prefers-reduced-motion` media query. See the
-[reduced motion section of our accessibility documentation](/docs/reference/accessibility#reduced-motion)
-for additional details.
+**Animation notes:**
 
-Side note: the `cylon` animation gets its name from the "eye" of the Cylons from the _original_
-[1978 Battlestar Galactica TV series](https://www.youtube.com/watch?v=5a5bEIf0UaU).
+- With the `cylon` animations, the left-right movement (or up-down movement) extends _past_ the
+  icon's bounding box by `+/- 25%`, so you may need to adjust padding or margins to compensate for
+  your use case.
+- Animation durations can be [configured via SASS SASS variables](/docs/reference/theming)
+- The BootstrapVue defined animation effects of this component is dependent on the
+  `prefers-reduced-motion` media query. See the
+ [reduced motion section of our accessibility documentation](/docs/reference/accessibility#reduced-motion)
+  for additional details.
+- The `cylon` animation gets its name from the "eye" of the Cylons from the _original_
+  [1978 Battlestar Galactica TV series](https://www.youtube.com/watch?v=5a5bEIf0UaU).
 
 ## Stacking icons
 
