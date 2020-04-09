@@ -230,7 +230,9 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         attrs: { 'aria-hidden': 'true', alt }
       })
     } else if (text) {
-      $content = h('span', { staticClass: 'b-avatar-text', style: { fontSize } }, text)
+      $content = h('span', { staticClass: 'b-avatar-text', style: { fontSize } }, [
+        h('span', {}, text)
+      ])
     } else {
       // Fallback default avatar content
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true', alt } })
