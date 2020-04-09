@@ -217,4 +217,23 @@ describe('avatar', () => {
     expect(wrapper8.attributes('style')).toEqual('width: 36px; height: 36px;')
     wrapper8.destroy()
   })
+
+  it('should have expected structure when prop badge is set', async () => {
+    const wrapper = mount(BAvatar, {
+      propsData: {
+        badge: true
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.classes()).toContain('b-avatar')
+    expect(wrapper.classes()).toContain('badge-secondary')
+    expect(wrapper.classes()).not.toContain('disabled')
+    expect(wrapper.attributes('href')).not.toBeDefined()
+    expect(wrapper.attributes('type')).not.toBeDefined()
+
+    // TBD
+
+    wrapper.destroy()
+  })
 })
