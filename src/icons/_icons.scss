@@ -124,8 +124,8 @@
 
 @keyframes b-icon-animation-throb {
   0% {
-    opacity: 0.5;
-    transform: scale(0.5);
+    opacity: 0.25;
+    transform: scale(0.25);
   }
   100% {
     opacity: 1;
@@ -135,7 +135,7 @@
 
 @keyframes b-icon-animation-fade {
   0% {
-    opacity: 0.25;
+    opacity: 0.1;
   }
   100% {
     opacity: 1;
