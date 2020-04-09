@@ -10,8 +10,6 @@
   max-width: 100%;
   max-height: auto;
   text-align: center;
-  text-transform: uppercase;
-  white-space: nowrap;
   overflow: visible;
   position: relative;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
@@ -40,6 +38,8 @@
   }
 
   .b-avatar-text {
+    text-transform: uppercase;
+    white-space: nowrap;
     border-radius: inherit;
     width: 100%;
     height: 100%;
