@@ -356,7 +356,7 @@ Add textual content to the badge by supplying a string to the `badge` prop, or u
 ### Badge positioning
 
 By default the badge appears on the bottom right ofhte avatar. You can use the `badge-top` and
-`badge-right` boolean props to switch the sides. combine both props to move the badge to the top
+`badge-right` boolean props to switch the sides. Combine both props to move the badge to the top
 right of the avatar.
 
 ```html
@@ -378,11 +378,11 @@ Positive values will move the badge inward, while negative values will move the 
 
 ```html
 <template>
-  <div style="font-size: 3rem">
+  <div>
     <b-avatar badge></b-avatar>
-    <b-avatar badge badge-offset="-0.25em"></b-avatar>
+    <b-avatar badge badge-offset="-0.5em"></b-avatar>
     <b-avatar badge badge-offset="-2px"></b-avatar>
-    <b-avatar badge badge-offset="5px"></b-avatar>
+    <b-avatar badge badge-offset="2px"></b-avatar>
   </div>
 </template>
 
@@ -392,6 +392,8 @@ Positive values will move the badge inward, while negative values will move the 
 ## Accessibility
 
 Use the `aria-label` prop to provide an accessible, screen reader friendly, label for your avatar.
+If you have a badge, it is recommended to add inforation to your aria-label regarding the badge
+purpose or content (i.g. `'3 messages'`, `'online'`, etc)).
 
 While the `click` event is emitted regardless if the `button`, `href`, or `to` props are set, it is
 highly recommended to use the `button` prop when the click event should trigger an action (or use
