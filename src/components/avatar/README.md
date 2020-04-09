@@ -328,6 +328,7 @@ be set via the `badge-variant` prop.  The badge will scale with the size of the 
     <b-avatar badge badge-variant="warning" icon="people-fill"></b-avatar>
     <b-avatar badge badge-variant="success" src="https://placekitten.com/300/300"></b-avatar>
     <b-avatar badge badge-variant="dark" text="BV"></b-avatar>
+    <b-avatar square badge badge-variant="dark" text="BV"></b-avatar>
   </div>
 </template>
 
@@ -341,7 +342,7 @@ Add textual content to the badge by supplying a string to the `badge` prop, or u
 
 ```html
 <template>
-  <divstyle="font-size: 3rem">
+  <div style="font-size: 3rem">
     <b-avatar badge="BV"></b-avatar>
     <b-avatar badge-variant="info" src="https://placekitten.com/300/300">
       <template v-slot:badge><b-icon icon="star-fill"></b-badge></template>
@@ -356,11 +357,37 @@ Add textual content to the badge by supplying a string to the `badge` prop, or u
 
 By default the badge appears on the bottom right ofhte avatar. You can use the `badge-top` and
 `badge-right` boolean props to switch the sides. combine both props to move the badge to the top
-right of the avatar.  Use the `badge-offset` prop to control the offset of the badge. The
+right of the avatar.
+
+```html
+<template>
+  <div style="font-size: 3rem">
+    <b-avatar badge></b-avatar>
+    <b-avatar badge badge-left></b-avatar>
+    <b-avatar badge badge-top></b-avatar>
+    <b-avatar badge badge-left badge-top></b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-badge-position.vue -->
+```
+
+Use the `badge-offset` prop to control the offset of the badge. The
 `badge-offset` must be a valid CSS length string (i.e. `'2px'`, `'-2px'`, `'0.5em'`, etc.).
 Positive values will move the badge inward, while negative values will move the badge outward.
 
-TBD
+```html
+<template>
+  <div style="font-size: 3rem">
+    <b-avatar badge></b-avatar>
+    <b-avatar badge badge-offset="-0.25em"></b-avatar>
+    <b-avatar badge badge-offset="-2px"></b-avatar>
+    <b-avatar badge badge-offset="5px"></b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-badge-offset.vue -->
+```
 
 ## Accessibility
 
