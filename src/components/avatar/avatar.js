@@ -16,6 +16,7 @@ const CLASS_NAME = 'b-avatar'
 const RX_NUMBER = /^[0-9]*\.?[0-9]+$/
 
 const FONT_SIZE_SCALE = 0.4
+const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
 
 const DEFAULT_SIZES = {
   sm: '1.5em',
@@ -171,9 +172,10 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       return size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
     },
     badgeStyle() {
-      const { badgeTop, badgeLeft, badgeOffset } = this
+      const { computedSize: size, badgeTop, badgeLeft, badgeOffset } = this
       const offset = badgeOffset || '0px'
       return {
+        fontSize: size ? `calc(${size} * ${BAGE_FONT_SIZE_SCALE} )` : null,
         top: badgeTop ? offset : null,
         bottom: badgeTop ? null : offset,
         left: badgeLeft ? offset : null,
