@@ -446,7 +446,7 @@ BootstrapVue includes the following built-in animations for icons:
 - `'cylon'` slides the icon left-right
 - '`cylon-vertical'` slides the icon up-down
 - `'throb'` scales the icon in and out <span class="badge badge-info small">2.12.0+</span>
-- '`cylon-vertical'` fades teh icon in and out <span class="badge badge-info small">2.12.0+</span>
+- '`cylon-vertical'` fades the icon in and out <span class="badge badge-info small">2.12.0+</span>
 
 To use the animation, set the `animation` prop to one of the animation names above.
 
