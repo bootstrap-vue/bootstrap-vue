@@ -112,6 +112,26 @@ const props = {
     type: String,
     default: 'button'
   },
+  badge: {
+    type: [Boolean, String],
+    default: false
+  },
+  badgeVariant: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'badgeVariant')
+  },
+  badgeTop: {
+    type: Boolean,
+    default: false
+  },
+  badgeLeft: {
+    type: Boolean,
+    default: false
+  },
+  badgeOffset: {
+    type: String,
+    default: '0px'
+  },
   ...linkProps,
   ariaLabel: {
     type: String
@@ -149,6 +169,15 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     fontSize() {
       const size = this.computedSize
       return size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
+    },
+    badgeStyle() {
+      const offset = this.badgeOffset || '0px'
+      return {
+        top: this.badgeTop ? offset : null,
+        bottom: this.badgeTop ? null : offset,
+        right: this.badgeRight ? offset : null,
+        left: this.badgeRight ? null : offset
+      }
     }
   },
   watch: {
@@ -178,7 +207,10 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       fontSize,
       computedSize: size,
       button: isButton,
-      buttonType: type
+      buttonType: type,
+      badge,
+      badgeVariant,
+      badgeStyle
     } = this
     const isBLink = !isButton && (this.href || this.to)
     const tag = isButton ? BButton : isBLink ? BLink : 'span'
@@ -204,6 +236,20 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true', alt } })
     }
 
+    let $badge = h()
+    if (badge || badge === '') {
+      badge = badge === true ? '' : badge
+      $badge = h(
+        'span',
+        {
+          staticClass: 'b-avatar-badge',
+          class: { [`badge-${badgeVariant}`]: !!badgeVariant },
+          style: badgeStyle
+        },
+        [this.hasNormalizedSlot('badge') ? this.normalizeSlot('badge') : badge]
+      )
+    }
+
     const componentData = {
       staticClass: CLASS_NAME,
       class: {
@@ -217,11 +263,11 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         disabled
       },
       style: { width: size, height: size },
-      attrs: { 'aria-label': ariaLabel },
+      attrs: { 'aria-label': ariaLabel || null },
       props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, this) : {},
       on: isBLink || isButton ? { click: this.onClick } : {}
     }
 
-    return h(tag, componentData, [$content])
+    return h(tag, componentData, [$content, $badge])
   }
 })
