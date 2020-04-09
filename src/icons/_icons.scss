@@ -72,7 +72,7 @@
   }
 
   &.b-icon-animation-throb,
-  &.b-iconstack .b-icon-animation-cylon-throb > g {
+  &.b-iconstack .b-icon-animation-throb > g {
     transform-origin: center;
     animation: $b-icon-animation-throb-duration infinite ease-in-out alternate
       b-icon-animation-throb;
@@ -83,7 +83,7 @@
   }
 
   &.b-icon-animation-fade,
-  &.b-iconstack .b-icon-animation-cylon-fade > g {
+  &.b-iconstack .b-icon-animation-fade > g {
     transform-origin: center;
     animation: $b-icon-animation-throb-duration infinite ease-in-out alternate
       b-icon-animation-fade;
