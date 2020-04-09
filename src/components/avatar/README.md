@@ -7,9 +7,8 @@
 
 ## Overview
 
-Avatars are lightweight functional components, which render inline by default, so that they are
-vertically centered beside any adjoining plain text. They also can be used as children of other
-components.
+Avatars are lightweight components, which render inline by default, so that they are vertically
+centered beside any adjoining plain text. They also can be used as children of other components.
 
 ```html
 <template>
@@ -315,6 +314,53 @@ The `to` prop can either be a string path, or a `Location` object. The `to` prop
 - The `button` prop takes precedence over the `href` and `to` props.
 - For additional details on the `<router-link>` compatible props, please refer to the
   [Router support reference section](/docs/reference/router-links).
+
+## Badge avatars
+
+Easily add a badge to your avatar via the `badge` prop or `'badge'` slot, and the badge variant can
+be set via the `badge-variant` prop.  The badge will scale with the size of the avatar.
+
+```html
+<template>
+  <div>
+    <b-avatar badge></b-avatar>
+    <b-avatar badge badge-variant="danger" src="https://placekitten.com/300/300"></b-avatar>
+    <b-avatar badge badge-variant="warning" icon="people-fill"></b-avatar>
+    <b-avatar badge badge-variant="success" src="https://placekitten.com/300/300"></b-avatar>
+    <b-avatar badge badge-variant="dark" text="BV"></b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-badge.vue -->
+```
+
+### Badge content
+
+Add textual content to the badge by supplying a string to the `badge` prop, or use the named slot
+`'badge'`.
+
+```html
+<template>
+  <divstyle="font-size: 3rem">
+    <b-avatar badge="BV"></b-avatar>
+    <b-avatar badge-variant="info" src="https://placekitten.com/300/300">
+      <template v-slot:badge><b-icon icon="star-fill"></b-badge></template>
+    </b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-badge-content.vue -->
+```
+
+### Badge positioning
+
+By default the badge appears on the bottom right ofhte avatar. You can use the `badge-top` and
+`badge-right` boolean props to switch the sides. combine both props to move the badge to the top
+right of the avatar.  Use the `badge-offset` prop to control the offset of the badge. The
+`badge-offset` must be a valid CSS length string (i.e. `'2px'`, `'-2px'`, `'0.5em'`, etc.).
+Positive values will move the badge inward, while negative values will move the badge outward.
+
+TBD
 
 ## Accessibility
 
