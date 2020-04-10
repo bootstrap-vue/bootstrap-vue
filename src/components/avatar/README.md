@@ -344,7 +344,7 @@ Add textual content to the badge by supplying a string to the `badge` prop, or u
 
 ```html
 <template>
-  <div style="font-size: 3rem">
+  <div style="font-size: 2rem">
     <b-avatar badge="BV"></b-avatar>
     <b-avatar badge="7" variant="primary" badge-variant="dark"></b-avatar>
     <b-avatar badge-variant="info" src="https://placekitten.com/300/300">
@@ -364,7 +364,7 @@ right of the avatar.
 
 ```html
 <template>
-  <div style="font-size: 3rem">
+  <div>
     <b-avatar badge></b-avatar>
     <b-avatar badge badge-left></b-avatar>
     <b-avatar badge badge-top></b-avatar>
