@@ -232,7 +232,25 @@ describe('avatar', () => {
     expect(wrapper.attributes('href')).not.toBeDefined()
     expect(wrapper.attributes('type')).not.toBeDefined()
 
-    // TBD
+    const $badge = wrapper.find('.b-avatar-badge')
+    expect($badge.exists()).toBe(true)
+    expect($badge.classes()).toContain('badge-primary')
+    expect($badge.text()).toEqual('')
+
+    wrapper.setProps({
+      badge: 'FOO'
+    })
+    await waitNT(wrapper.vm)
+    expect($badge.classes()).toContain('badge-primary')
+    expect($badge.text()).toEqual('FOO')
+
+    wrapper.setProps({
+      badgeVariant: 'info'
+    })
+    await waitNT(wrapper.vm)
+    expect($badge.classes()).not.toContain('badge-primary')
+    expect($badge.classes()).toContain('badge-info')
+    expect($badge.text()).toEqual('FOO')
 
     wrapper.destroy()
   })
