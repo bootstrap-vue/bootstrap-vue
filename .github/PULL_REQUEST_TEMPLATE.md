@@ -8,10 +8,10 @@ A clear and concise description of what the pull request does.
 
 **What kind of change does this PR introduce?** (check at least one)
 
-- [ ] Bugfix (fixes a boo-boo in the code) - `fix(...)`, requires a minor version update
+- [ ] Bugfix (fixes a boo-boo in the code) - `fix(...)`, requires a patch version update
 - [ ] Feature (adds a new feature to BootstrapVue) - `feat(...)`, requires a minor version update
 - [ ] Enhancement (augments an existing feature in BootstrapVue) - `feat(...)`, requires a minor version update
-- [ ] ARIA accessibility (fixes or improves ARIA accessibility) - `fix(...)`, requires a patch version update
+- [ ] ARIA accessibility (fixes or improves ARIA accessibility) - `fix(...)`, requires a patch or minor version update
 - [ ] Documentation update (Improves documentation or type-o fixes) - `chore(docs)`, requires a patch version update
 - [ ] Other (please describe)
 
@@ -25,7 +25,7 @@ A clear and concise description of what the pull request does.
 - [ ] It's submitted to the `dev` branch, **not** the `master` branch
 - [ ] When resolving a specific issue, it's referenced in the PR's title (i.e. `[...] (fixes #xxx[,#xxx])`, where "xxx" is the issue number)
 - [ ] It should address only one issue or feature. If adding multiple features or fixing a bug and adding a new feature, break them into separate PRs if at all possible.
-- [ ] The title should follow the [**Conventional Commits**](https://www.conventionalcommits.org/) naming convention (i.e. `fix(alert): not alerting during SSR render`, `docs(badge): update pill examples`, `chore(docs): fix typo in README`, etc). **This is very important, as the `CHANGELOG` is generated from these messages.**
+- [ ] The title should follow the [**Conventional Commits**](https://www.conventionalcommits.org/) naming convention (i.e. `fix(alert): not alerting during SSR render`, `docs(badge): update pill examples`, `chore(docs): fix typo in README`, etc). **This is very important, as the `CHANGELOG` is generated from these messages, and determines the next version type (patch or minor).**
 
 **If new features/enhancement/fixes are added or changed:**
 
