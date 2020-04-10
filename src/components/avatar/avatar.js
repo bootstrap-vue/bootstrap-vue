@@ -224,7 +224,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     let $content = null
     if (this.hasNormalizedSlot('default')) {
       // Default slot overrides props
-      $content = this.normalizeSlot('default')
+      $content = h('span', { staticClass: 'b-avatar-custom' }, [this.normalizeSlot('default')])
     } else if (src) {
       $content = h('img', { attrs: { src, alt }, on: { error: this.onImgError } })
     } else if (icon) {
