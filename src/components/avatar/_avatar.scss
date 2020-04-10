@@ -49,6 +49,16 @@
     justify-content: center;
   }
 
+  .b-avatar-custom {
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    vertical-align: middle;
+    justify-content: center;
+  }
+
   > .b-icon {
     width: 60%;
     height: auto;
