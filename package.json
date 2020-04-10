@@ -50,7 +50,6 @@
   ],
   "files": [
     "dist",
-    "es",
     "esm",
     "nuxt",
     "src",
