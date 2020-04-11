@@ -57,7 +57,7 @@
         "events": [
           {
             "event": "change",
-            "description": "Emitted to update the v-model
+            "description": "Emitted to update the v-model",
             "args": [
               {
                 "arg": "value",
