@@ -353,7 +353,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           [`form-control-${size}`]: !!size,
           'd-flex-inline': inline,
           'd-flex': !inline,
-          'border-transparent': noBorder,
+          'border-0': noBorder,
           disabled,
           readonly: !disabled && readonly
         },
