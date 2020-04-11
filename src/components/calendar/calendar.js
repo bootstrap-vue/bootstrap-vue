@@ -779,7 +779,7 @@ export const BCalendar = Vue.extend({
             // We use `bdi` elements here in case the label doesn't match the locale
             // Although IE 11 does not deal with <BDI> at all (equivalent to a span)
             h('bdi', { staticClass: 'sr-only' }, ` (${toString(this.labelSelected)}) `),
-            h('bdi', {}, this.formatDateString(this.selectedDate))
+            h('bdi', this.formatDateString(this.selectedDate))
           ]
         : this.labelNoDateSelected || '\u00a0' // '&nbsp;'
     )
