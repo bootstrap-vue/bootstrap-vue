@@ -66,7 +66,7 @@ const BVFormRatingStar = Vue.extend({
         },
         on: { click: this.onClick }
       },
-      [this.normalizeSlot(type, { type, variant, color })]
+      [this.normalizeSlot(type, { type, variant })]
     )
   }
 })
@@ -75,8 +75,8 @@ const BVFormRatingStar = Vue.extend({
 // @vue/component
 export const BFormRating = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin],
   components: { BIconStar, BIconStarHalf, BIconStarFill },
+  mixins: [idMixin],
   model: {
     prop: 'value',
     event: 'change'
@@ -152,7 +152,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     },
     formattedRating() {
       return this.localValue.toFixed(toInteger(this.precision, 0))
-    },
+    }
   },
   watch: {
     localValue(newVal, oldVal) {
@@ -184,7 +184,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     },
     // Render helper functions
     renderIcon(icon) {
-      return this.$createElement(BIcon, {vprops: { icon, variant: this.variant || null } })
+      return this.$createElement(BIcon, { props: { icon, variant: this.variant || null } })
     },
     iconEmptyFn() {
       return this.renderIcon(this.iconEmpty)
