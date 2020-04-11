@@ -281,7 +281,7 @@ If you reaquire additional information before a user can supply a ratings value,
 
 Read-only ratings remain focusable, a buton are not intearactive. This state is hnady for diplaying
 the current rating of an item. Fractional value are allowed and will result in the displaying of _half
-icons_ when the `value` is not a whole number. This state is useful for disapaying an aggtegated
+icons_ when the `value` is not a whole number. This state is useful for disapaying an aggregated
 ratings value.
 
 ```html
@@ -304,7 +304,7 @@ clear icon is clicked.
 <template>
   <div>
     <b-form-rating v-model="value" show-clear show-value></b-form-rating>
-    <p class="mt-2">Value: {{ value }}>/p?
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -318,7 +318,7 @@ clear icon is clicked.
   }
 </script>
 
-<!-- b-form-rating-reset.vue -->
+<!-- b-form-rating-clear.vue -->
 ```
 
 **Notes:**
