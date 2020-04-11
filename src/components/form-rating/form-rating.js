@@ -193,7 +193,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    value(newVal, oldVal) {
+    value(newVal, oldVal) /* istanbul ignore next: until tests are ready */ {
       if (newVal !== oldVal) {
         this.localValue = toFloat(newVal, 0)
       }
