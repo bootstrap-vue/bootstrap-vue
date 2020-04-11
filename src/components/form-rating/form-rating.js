@@ -33,14 +33,14 @@ const BVFormRatingStar = Vue.extend({
       type: Number,
       default: 0
     },
-    variant: {
-      type: String
-      // default: null
-    },
     focused: {
       // If parent is focused
       type: Boolean,
       default: false
+    },
+    variant: {
+      type: String
+      // default: null
     },
     disabled: {
       type: Boolean,
@@ -64,10 +64,12 @@ const BVFormRatingStar = Vue.extend({
     }
   },
   render(h) {
-    const { rating, star, variant, focused, disabled, readonly, hasClear } = this
+    const { rating, star, focused, hasClear, variant, disabled, readonly } = this
 
     const minStar = hasClear ? 0 : 1
     const type = rating >= star ? 'full' : rating >= star - 0.5 ? 'half' : 'empty'
+
+    const scope = { variant, disabled, readonly }
 
     return h(
       'span',
@@ -83,7 +85,7 @@ const BVFormRatingStar = Vue.extend({
         },
         on: { click: this.onClick }
       },
-      [h('span', { staticClass: 'b-rating-icon' }, [this.normalizeSlot(type)])]
+      [h('span', { staticClass: 'b-rating-icon' }, [this.normalizeSlot(type, scope)])]
     )
   }
 })
