@@ -43,7 +43,7 @@
           },
           {
             "prop": "precision",
-            "description": "setermines the number of digita after the decimal to show. Defaults to do defined precision"
+            "description": "Specify the number of digits after the decimal to show. Defaults to to no defined precision"
           },
           {
             "prop": "readonly",
