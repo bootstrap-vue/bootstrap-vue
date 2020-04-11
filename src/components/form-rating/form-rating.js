@@ -124,6 +124,10 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    size: {
+      type: String
+      // default: null
+    },
     name: {
       type: String
       // default: null
