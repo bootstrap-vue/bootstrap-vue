@@ -358,11 +358,10 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           readonly: !disabled && readonly
         },
         attrs: {
-          dir: this.isRTL ? 'rtl' : null,
+          dir: this.isRTL ? 'rtl' : 'ltr',
           tabindex: disabled ? null : '0',
           disabled,
           role: 'slider',
-          dir: isRTL? 'rtl' : 'ltr',
           'aria-disabled': disabled ? 'true' : null,
           'aria-readonly': !disabled && readonly ? 'true' : null,
           'aria-live': 'off',
