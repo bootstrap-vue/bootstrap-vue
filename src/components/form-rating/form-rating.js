@@ -315,9 +315,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           {
             key: 'clear',
             staticClass: 'b-rating-star b-rating-star-clear flex-grow-1',
-            class: {
-              focused: hasFocus && computedRating === 0)
-            },
+            class: { focused: hasFocus && computedRating === 0 },
             on: { click: () => this.onSeleced(0) }
           },
           [($scopedSlots['icon-clear'] || this.iconClearFn)()]
