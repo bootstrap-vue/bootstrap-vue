@@ -43,4 +43,35 @@ describe('form-rating', () => {
 
     wrapper.destroy()
   })
+
+  it('has expected strcture when prop `show-value` set', async () => {
+    const wrapper = mount(BFormRating, {
+      propsData: {
+        showValue: true,
+        value: '3.5',
+        precision: 2
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+
+    // TBD
+
+    wrapper.setProps({
+      value: null
+    })
+    await waitNT(wrapper.vm)
+
+    // TBD
+
+    wrapper.setProps({
+      value: '1.236'
+    })
+    await waitNT(wrapper.vm)
+
+    // TBD
+
+    wrapper.destroy()
+  })
 })
