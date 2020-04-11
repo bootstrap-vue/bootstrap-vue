@@ -311,7 +311,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
             staticClass: 'b-rating-star b-rating-star-clear flex-grow-1',
             on: { click: () => this.onSeleced(0) }
           },
-          [this.normalzeSlot('icon-x') || this.iconXFn()]
+          [(this.normalzeSlot['icon-x'] || this.iconXFn)()]
         )
       )
     }
