@@ -15,6 +15,10 @@
     min-width: 3.5em;
   }
 
+  .b-rating-star: {
+    transition: transform .15s ease-in-out;
+  }
+
   // Zoom focused or hovered stars
   &:not(.disabled):not(.readonly) {
     .b-rating-star {
