@@ -302,7 +302,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           {
             key: 'clear',
             staticClass: 'b-rating-star b-rating-clear',
-            on: click: this.onSeleced(0)
+            on: { click: () => this.onSeleced(0) }
           }
           [h(BIconX)]
       )
