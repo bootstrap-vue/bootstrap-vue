@@ -166,7 +166,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       type: [String, Array]
       // default: undefined
     },
-    showReset: {
+    showClear: {
       type: Boolean,
       default: false
     }
@@ -289,20 +289,22 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       computedRating,
       computedStars,
       formattedRating,
+      showClear,
       isRTL,
       $scopedSlots
     } = this
     const $content = []
 
-    if (this.showReset && !disabled && !readonly)) {
+    if (this.showClear && !disabled && !readonly)) {
       $content.push(
         h(
           'span',
           {
-            key: 'reset',
+            key: 'clear',
             staticClass: 'b-rating-star b-rating-clear',
+            on: click: this.onSeleced(0)
           }
-          h(BIconX, { on: { click: this.onSlected(0) } })
+          [h(BIconX)]
       )
     }
 
