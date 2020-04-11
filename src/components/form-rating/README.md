@@ -15,7 +15,7 @@ TBD
 <template>
   <div>
     <b-form-rating v-model="value"></b-form-rating>
-    <p clas="mt-2">{{ value }}</p>
+    <p class="mt-2">{{ value }}</p>
   </div>
 </template>
 
