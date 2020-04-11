@@ -90,15 +90,66 @@
         "slots": [
           {
             "name": "icon-empty",
-            "description": "Content for the empty icon"
+            "description": "Content for the empty icon",
+            "scope": [
+              {
+                "prop": "variant",
+                "type": "String",
+                "description": "Value of the `variant` prop, or null if disabled"
+              },
+              {
+                "prop": "disabled",
+                "type": "Boolean",
+                "description": "Value of the `disabled` prop"
+              },
+              {
+                "prop": "readonly",
+                "type": "Boolean",
+                "description": "Value of the `readonly` prop"
+              }
+            ]
           },
           {
             "name": "icon-half",
-            "description": "Content for the half icon"
+            "description": "Content for the half icon",
+            "scope": [
+              {
+                "prop": "variant",
+                "type": "String",
+                "description": "Value of the `variant` prop, or null if disabled"
+              },
+              {
+                "prop": "disabled",
+                "type": "Boolean",
+                "description": "Value of the `disabled` prop"
+              },
+              {
+                "prop": "readonly",
+                "type": "Boolean",
+                "description": "Value of the `readonly` prop"
+              }
+            ]
           },
           {
             "name": "icon-full",
-            "description": "Content for the full icon"
+            "description": "Content for the full icon",
+            "scope": [
+              {
+                "prop": "variant",
+                "type": "String",
+                "description": "Value of the `variant` prop, or null if disabled"
+              },
+              {
+                "prop": "disabled",
+                "type": "Boolean",
+                "description": "Value of the `disabled` prop"
+              },
+              {
+                "prop": "readonly",
+                "type": "Boolean",
+                "description": "Value of the `readonly` prop"
+              }
+            ]
           },
           {
             "name": "icon-clear",
