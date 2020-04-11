@@ -297,13 +297,14 @@ ratings value.
 
 ### Clear button
 
-Optionally show a reset icon via the `show-reset` prop. The value will be set to `null` when the
-reset icon is clicked.
+Optionally show a clear icon via the `show-clear` prop. The value will be set to `0` when the
+clear icon is clicked.
 
 ```html
 <template>
   <div>
     <b-form-rating v-model="value" show-clear show-value></b-form-rating>
+    <p class="mt-2">Value: {{ value }}>/p?
   </div>
 </template>
 
