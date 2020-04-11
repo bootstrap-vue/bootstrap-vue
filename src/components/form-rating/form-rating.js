@@ -49,6 +49,10 @@ const BVFormRatingStar = Vue.extend({
     readonly: {
       type: Boolean,
       default: false
+    },
+    hasClear: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -60,8 +64,9 @@ const BVFormRatingStar = Vue.extend({
     }
   },
   render(h) {
-    const { rating, star, variant, focused, disabled, readonly } = this
+    const { rating, star, variant, focused, disabled, readonly, hasClear } = this
 
+    const minStar = hasClear ? 0 : 1
     const type = rating >= star ? 'full' : rating >= star - 0.5 ? 'half' : 'empty'
 
     return h(
@@ -70,7 +75,7 @@ const BVFormRatingStar = Vue.extend({
         staticClass: 'b-rating-star',
         class: {
           // We assume when interactive
-          focused: (focused && rating === star) || (!toInteger(rating) && star === 1),
+          focused: (focused && rating === star) || (!toInteger(rating) && star === minStar),
           // We add type classes to we can handle RTL styling
           'b-rating-star-empty': type === 'empty',
           'b-rating-star-half': type === 'half',
@@ -183,7 +188,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
   },
   computed: {
     computedRating() {
-      return toFloat(this.localValue.toFixed(toInteger(this.precision, 2)))
+      return toFloat(toFloat(this.localValue, 0).toFixed(toInteger(this.precision, 2)))
     },
     computedStars() {
       return Math.max(MIN_STARS, toInteger(this.stars, DEFAULT_STARS))
@@ -310,6 +315,9 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           {
             key: 'clear',
             staticClass: 'b-rating-star b-rating-star-clear flex-grow-1',
+            class: {
+              focused: hasFocus && computedRating === 0)
+            },
             on: { click: () => this.onSeleced(0) }
           },
           [($scopedSlots['icon-clear'] || this.iconClearFn)()]
@@ -328,7 +336,8 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
             variant: disabled ? '' : variant || null,
             disabled,
             readonly,
-            focused: hasFocus
+            focused: hasFocus,
+            hasClear: showClear
           },
           staticClass: 'flex-grow-1',
           style: color && !disabled ? { color } : {},
