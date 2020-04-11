@@ -295,7 +295,7 @@ ratings value.
 <!-- b-form-rating-readonly.vue -->
 ```
 
-### Reset buttom
+### Reset button
 
 Optionally show a reset icon via the `show-reset` prop. The value will be set to `null` when the
 reset icon is clicked.
