@@ -467,7 +467,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             touchstart: handler
           }
         },
-        [h('div', {}, [this.normalizeSlot(slotName, scope) || $icon])]
+        [h('div', [this.normalizeSlot(slotName, scope) || $icon])]
       )
     }
     // TODO: Add button disabled state when `wrap` is `false` and at value max/min
@@ -541,7 +541,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'aria-valuetext': hasValue ? formatter(value) : null
         }
       },
-      [h('bdi', {}, hasValue ? formatter(value) : this.placeholder || '')]
+      [h('bdi', hasValue ? formatter(value) : this.placeholder || '')]
     )
 
     return h(
