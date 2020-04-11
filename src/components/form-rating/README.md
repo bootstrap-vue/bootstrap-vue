@@ -310,8 +310,8 @@ value only:
 ```html
 <template>
   <div>
-    <b-form-select v-mdodel="locale" :options="locales" class="mb-2"><b-form-select>
-    <b-form-rating v-model="value" :local="locale" show-value precision="2"></b-form-rating>
+    <b-form-select v-model="locale" :options="locales" class="mb-2"><b-form-select>
+    <b-form-rating v-model="value" :locale="locale" show-value precision="2"></b-form-rating>
     <p class="mt-2">{{ value }}</p>
   </div>
 </template>
@@ -320,7 +320,7 @@ value only:
   export default {
     data() {
       return {
-        value: 3.75
+        value: 3.75,
         locale: 'en-US',
         locales: [
           { text: 'English US (en-US)', value: 'en-US' },
