@@ -86,7 +86,7 @@ prop. The minumum allowed stars is  `3`.
 
 ### Show value
 
-Bu default `<b-form-rating>` does not dusplay the current numerical value. To show the current value
+Bu default `<b-form-rating>` does not display the current numerical value. To show the current value
 simply set the `show-value` prop to `true`. To control the precison (number of digits after the
 decimal) simply set the `precision` prop to the number of digits after teh deciman to show.
 
