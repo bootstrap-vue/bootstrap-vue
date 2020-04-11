@@ -17,7 +17,7 @@ TBD
 </template>
 
 <script>
-  export  default {
+  export default {
     data() {
       return {
         value: null
@@ -39,7 +39,7 @@ TBD
 </template>
 
 <script>
-  export  default {
+  export default {
     data() {
       return {
         value: 4.5
@@ -65,7 +65,7 @@ TBD
 </template>
 
 <script>
-  export  default {
+  export default {
     data() {
       return {
         value: null
