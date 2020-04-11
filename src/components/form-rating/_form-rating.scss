@@ -15,8 +15,7 @@
     min-width: 3.5em;
   }
 
-  .b-rating-star,
-  .b-rating-star > * {
+  .b-rating-star {
     transition: all .15s ease-in-out;
   }
 
@@ -32,14 +31,17 @@
       cursor: pointer;
     }
 
-    &:focus:not(:hover) .b-rating-star.focused .b-icon,
-    .b-rating-star:hover .b-icon {
+    &:focus:not(:hover) .b-rating-star.focused,
+    .b-rating-star:hover {
       transform: scale(1.5);
     }
   }
 
   // Flip the half icon if RTL mode
-  @at-root [dir="rtl"] .b-rating-star-half {
-    transform: scale(-1, 1);
+  @at-root [dir="rtl"] &,
+  &[dir="rtl"] {
+    .b-rating-star-half {
+      transform: scale(-1, 1);
+    }
   }
 }
