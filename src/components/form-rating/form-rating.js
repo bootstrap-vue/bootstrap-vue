@@ -3,7 +3,7 @@
 //
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
-import { isLocaleRTL } from '../../locale'
+import { isLocaleRTL } from '../../utils/locale'
 import { toInteger, toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
