@@ -269,7 +269,7 @@ If you reaquire additional information before a user can supply a ratings value,
 ```html
 <template>
   <div>
-    <label for="rating-disabled">Small rating with no border</label>
+    <label for="rating-disabled">Disabled rating</label>
     <b-form-rating id="rating-disabled" value="2.75" disabled></b-form-rating>
   </div>
 </template>
@@ -287,7 +287,8 @@ ratings value.
 ```html
 <template>
   <div>
-    <b-form-rating value="2.65" readonly show-value precision="3"></b-form-rating>
+    <label for="rating-readonly">Disabled rating</label>
+    <b-form-rating id="rating-readonly" value="2.65" readonly show-value precision="3"></b-form-rating>
   </div>
 </template>
 
@@ -296,7 +297,7 @@ ratings value.
 
 ### Reset buttom
 
-Optionally show a reset icon via the `show-reset` prop. The valuewill be set to `null` when the
+Optionally show a reset icon via the `show-reset` prop. The value will be set to `null` when the
 reset icon is clicked.
 
 ```html
