@@ -2,9 +2,11 @@
 // BFormRating
 //
 import Vue from '../../utils/vue'
-import { arrayIncludes } from '../../utils/array'
+import { arrayIncludes, concat } from '../../utils/array'
+import { isLocaleRTL } from '../../locale'
 import { toInteger, toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
+import identity from '../../utils/identity'
 import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -143,6 +145,12 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     iconFull: {
       type: String,
       default: 'star-fill'
+    },
+    locale: {
+      // Locale for the foratted value (if shown)
+      // Defaults to the browser locale. Falls back to `en`
+      type: [String, Array]
+      // default: undefined
     }
   },
   data() {
@@ -158,8 +166,22 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     computedStars() {
       return Math.max(MIN_STARS, toInteger(this.stars, DEFAULT_STARS))
     },
+    computedLocale() {
+      const locales = concat(this.locale).filter(identity)
+      const nf = new Intl.NumberFormat(locales)
+      return nf.locale
+    },
+    isRTL() {
+      return isLocaleRTL(this.computedLocale)
+    },
     formattedRating() {
-      return this.localValue.toFixed(toInteger(this.precision, 0))
+      const precision = this.precision
+      const value = parseFloat(this.computedRating.toFixed(precision))
+      return value.toLocaleString(this.computedLocale, {
+        notation: 'standard',
+        minimumFractionDigits: precision,
+        maximumFractionDigits: precision
+      })
     }
   },
   watch: {
@@ -311,6 +333,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           readonly: !disabled && readonly
         },
         attrs: {
+          dir: this.isRTL ? 'rtl' : null,
           tabindex: disabled ? null : '0',
           disabled,
           role: 'slider',
