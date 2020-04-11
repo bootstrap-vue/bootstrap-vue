@@ -42,7 +42,7 @@ const BVFormRatingStar = Vue.extend({
     }
   },
   methods: {
-    onClick(evt) {
+    onClick(evt) /* istanbul ignore next: until tests are ready */ {
       evt.preventDefault()
       this.$emit('selected', this.star)
     }
