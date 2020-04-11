@@ -68,7 +68,7 @@ const BVFormRatingStar = Vue.extend({
         },
         on: { click: this.onClick }
       },
-      [this.normalizeSlot(type, { type, variant })]
+      [this.normalizeSlot(type, { type, variant, disabled, readonly })]
     )
   }
 })
@@ -239,7 +239,12 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     },
     // Render helper functions
     renderIcon(icon) {
-      return this.$createElement(BIcon, { props: { icon, variant: this.variant || null } })
+      return this.$createElement(BIcon, {
+        props: {
+          icon,
+          variant: this.disabled ? null : this.variant || null
+        }
+      })
     },
     iconEmptyFn() {
       return this.renderIcon(this.iconEmpty)
