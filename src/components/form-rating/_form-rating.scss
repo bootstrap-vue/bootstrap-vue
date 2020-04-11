@@ -1,0 +1,28 @@
+//
+// BFormRating
+//
+
+.b-rating {
+  .b-rating-star,
+  .b-rating-value {
+    padding: 0 0.25em;
+  }
+
+  .b-rating-value {
+    // Keep the stars from moving when value changes
+    min-width: 3.5em;
+  }
+
+  // Zoom focused or hovered stars
+  &:not(.disabled):not(:readonly) {
+    &:focus:not(:hover) .b-rating-star.focus .b-icon,
+    .b-rating-star:hover .b-icon {
+      transform: scale(1.5);
+    }
+  }
+
+  // Flip the half icon if RTL mode
+  @at-root [dir="rtl"] .b-rating-star-half {
+    transform: scale(-1, 1);
+  }
+}
