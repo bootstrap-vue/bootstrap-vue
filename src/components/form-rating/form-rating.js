@@ -236,7 +236,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       if (!this.disabled && !this.readonly) {
         if (arrayIncludes([LEFT, DOWN], keyCode)) {
           evt.preventDefault()
-          this.localValue = Math.max(1, this.localValue - 1)
+          this.localValue = Math.max(this.showClear ? 0 : 1, this.localValue - 1) || null
         } else if (arrayIncludes([RIGHT, UP], keyCode)) {
           evt.preventDefault()
           this.localValue = Math.min(this.computedStars, this.localValue + 1)
