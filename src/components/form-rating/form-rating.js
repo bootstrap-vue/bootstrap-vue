@@ -162,6 +162,22 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
+    // Public methods
+    focus() /* istanbul ignore next: until tests are ready */ {
+      if (!this.disabled) {
+        try {
+          this.$el.focus()
+        } catch {}
+      }
+    },
+    blur() /* istanbul ignore next: until tests are ready */ {
+      if (!this.disabled) {
+        try {
+          this.$el.blur()
+        } catch {}
+      }
+    },
+    // Private methods
     onKeydown(evt) /* istanbul ignore next: until tests are ready */ {
       const { keyCode } = evt
       if (!this.disabled && !this.readonly) {
@@ -175,11 +191,15 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       }
     },
     onSelected(value) /* istanbul ignore next: until tests are ready */ {
-      this.localValue = value
+      if (!this.disabled && !this.readonly) {
+        this.localValue = value
+      }
     },
     onFocus(evt) /* istanbul ignore next: until tests are ready */ {
       if (!this.disabled && !this.readonly) {
         this.hasFocus = evt.type === 'focus'
+      } else {
+        this.hasFocus = false
       }
     },
     // Render helper functions
@@ -293,7 +313,11 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           'aria-valuemax': toString(computedStars),
           'aria-valuenow': computedRating ? toString(computedRating) : null
         },
-        on: { keydown: this.onKeydown, focus: this.onFocus, blur: this.onFocus }
+        on: {
+          keydown: this.onKeydown,
+          focus: this.onFocus,
+          blur: this.onFocus
+        }
       },
       $content
     )
