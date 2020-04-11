@@ -204,6 +204,7 @@ respectively.
     <b-form-rating id="rating-md" v-model="value"></b-form-rating>
     <label for="rating-lg" class="mt-3">Large rating</label>
     <b-form-rating id="rating-lg" v-model="value" size="lg"></b-form-rating>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -238,6 +239,7 @@ form-control border, simply set the `no-border` prop to `true`.
     <b-form-rating id="rating-md-no-border" v-model="value" no-border></b-form-rating>
     <label for="rating-lg-no-border" class="mt-3">Large rating with no border</label>
     <b-form-rating id="rating-lg-no-border" v-model="value" no-border size="lg"></b-form-rating>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -291,6 +293,33 @@ ratings value.
 
 <!-- b-form-rating-readonly.vue -->
 ```
+
+### Reset buttom
+
+Optionally show a reset icon via the `show-reset` prop. The valuewill be set to `null` when the
+reset icon is clicked.
+
+```html
+<template>
+  <div>
+    <b-form-rating v-model="value" show-reset show-value></b-form-rating>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      value: 2.5
+    }
+  }
+</script>
+
+<!-- b-form-rating-reset.vue -->
+```
+
+**Notes:**
+
+- The reset icon will _not_ be shown when the props `readonly` or `disabled` are set.
 
 ### Icons
 
