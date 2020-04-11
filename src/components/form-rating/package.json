@@ -38,6 +38,14 @@
             "description": "When `true` disables the default border"
           },
           {
+            "prop": "inline",
+            "description": "When `true` renders as an inlin element rather than a blick (100% width) element"
+          },
+          {
+            "prop": "precision",
+            "description": "setermines the number of digita after the decimal to show. Defaults to do defined precision"
+          },
+          {
             "prop": "readonly",
             "description": "When `true` makes the rating readonly. When `true`, fractional ratings values are allowed (half icons will be shown)"
           },
