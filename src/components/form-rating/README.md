@@ -52,6 +52,48 @@ TBD
 
 ## Styling
 
+### Show value
+
+TBD
+
+```html
+<template>
+  <div>
+    <b-form-rating v-model="value" show-value></b-form-rating>
+    <p clas="mt-2">{{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export  default {
+    data() {
+      return {
+        value: null
+      }
+    }
+  }
+</script>
+<!-- b-form-rating-value.vue -->
+```
+
+### Variant
+
+TBD
+
+### Disabled
+
+TBD
+
+### Readonly
+
+TBD
+
+### Icons
+
+TBD
+
+### Custom icons using slots
+
 TBD
 
 ## Impementation notes
