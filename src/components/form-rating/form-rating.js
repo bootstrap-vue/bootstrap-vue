@@ -305,6 +305,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
             on: { click: () => this.onSeleced(0) }
           }
           [h(BIconX)]
+        )
       )
     }
 
