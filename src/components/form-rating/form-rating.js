@@ -160,7 +160,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       type: String,
       default: 'star-fill'
     },
-    iconX: {
+    iconClear: {
       type: String,
       default: 'x'
     },
@@ -277,8 +277,8 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     iconFullFn() {
       return this.renderIcon(this.iconFull)
     },
-    iconXFn() /* istanbul ignore next: until tests are ready */ {
-      return this.renderIcon(this.iconX)
+    iconClearFn() /* istanbul ignore next: until tests are ready */ {
+      return this.$createElement(BIcon, { props: { icon: this.iconClear } })
     }
   },
   render(h) {
@@ -312,7 +312,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
             staticClass: 'b-rating-star b-rating-star-clear flex-grow-1',
             on: { click: () => this.onSeleced(0) }
           },
-          [(this.normalizeSlot['icon-x'] || this.iconXFn)()]
+          [($scopedSlots['icon-clear'] || this.iconClearFn)()]
         )
       )
     }
