@@ -1,0 +1,201 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - dev
+      - master
+  pull_request:
+    branches:
+      - dev
+      - master
+
+jobs:
+  setup:
+    runs-on: ${{ matrix.os }}
+    if: github.event_name == 'push' || !(github.base_ref == 'master' && github.head_ref == 'dev')
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [10, 12]
+
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # All history
+
+      - name: Fetch tags
+        run: git fetch --depth=1 origin "+refs/tags/*:refs/tags/*"
+
+      - name: Cache node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+
+      - name: Install dependencies
+        run: yarn --check-files --frozen-lockfile --non-interactive
+
+      - name: Cache workspace
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
+
+  lint:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [12]
+
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Restore workspace cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
+
+      - name: Lint
+        run: yarn lint
+    needs: setup
+
+  audit:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [12]
+
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Restore workspace cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
+
+      - name: Audit
+        run: yarn audit
+    needs: setup
+
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [10, 12]
+
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Restore workspace cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
+
+      - name: Test
+        run: yarn test -w=2 --coverage
+
+      - name: CodeCov
+        uses: codecov/codecov-action@v1
+        if: matrix.os == 'ubuntu-latest' && matrix.node == '10'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
+    needs: setup
+
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [12]
+
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Restore workspace cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
+
+      - name: Build
+        run: yarn build
+
+      - name: Cache fixtures
+        uses: actions/cache@v1
+        with:
+          path: test/fixtures
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-fixtures-${{ github.sha }}
+    needs: setup
+
+  bundlewatch:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [12]
+
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Restore workspace cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
+
+      - name: Restore fixtures
+        uses: actions/cache@v1
+        with:
+          path: test/fixtures
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-fixtures-${{ github.sha }}
+
+      - name: BundleWatch
+        run: yarn bundlewatch
+        env:
+          BUNDLEWATCH_GITHUB_TOKEN: "${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}"
+    needs: build
