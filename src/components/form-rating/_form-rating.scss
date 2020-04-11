@@ -20,8 +20,8 @@
     transition: all .15s ease-in-out;
   }
 
-  :.disabled,
-  :disabled {
+  &.disabled,
+  &:disabled {
     background-color: $input-disabled-bg,
     color: $text-muted;
   }
