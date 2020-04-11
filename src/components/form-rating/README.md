@@ -254,6 +254,11 @@ form-control border, simply set the `no-border` prop to `true`.
 <!-- b-form-rating-no-border.vue -->
 ```
 
+**Notes:**
+
+- A focus ring will show when the rating compoentn has focus, regarless of the `no-border` setting
+  for accesibiity reasons.
+
 ### Disabled
 
 If you reaquire additional information before a user can supply a ratings value, simply set the
