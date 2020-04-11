@@ -120,5 +120,5 @@ workflows:
       # - audit: { requires: [setup] }
       - build: { requires: [setup] }
       - test: { requires: [setup] }
-      - bundlewatch: { requires: [build] }
+      - bundlewatch: { requires: [setup, build] }
       - docs: { requires: [setup], filters: { branches: { only: [master] } } }
