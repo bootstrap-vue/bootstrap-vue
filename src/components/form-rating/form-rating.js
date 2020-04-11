@@ -256,7 +256,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       return this.$createElement(BIcon, {
         props: {
           icon,
-          variant: this.disabled ? null : this.variant || null
+          variant: this.disabled || this.color ? null : this.variant || null
         }
       })
     },
