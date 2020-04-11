@@ -240,7 +240,8 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       )
     }
 
-    if (name) /* istanbul ignore next: until tests are ready */ {
+    /* istanbul ignore next: until tests are ready */
+    if (name) {
       $content.push(
         h('input', {
           key: 'hidden',
@@ -254,7 +255,8 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       )
     }
 
-    if (this.showValue) /* istanbul ignore next: until tests are ready */ {
+    /* istanbul ignore next: until tests are ready */
+    if (this.showValue) {
       $content.push(
         h(
           'span',
