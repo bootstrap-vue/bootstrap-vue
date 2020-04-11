@@ -25,6 +25,7 @@ TBD
     }
   }
 </script>
+
 <!-- b-form-rating.vue -->
 ```
 
@@ -47,10 +48,37 @@ TBD
     }
   }
 </script>
+
 <!-- b-form-rating-non-interactive.vue -->
 ```
 
 ## Styling
+
+### Number of stars
+
+By default, `<b-form-rating>` defaults to `5` stars. You canchange the number of stars via the `stars`
+prop.  The minumum allowed stars is  `3`.
+
+```html
+<template>
+  <div>
+    <b-form-rating v-model="value" stars="10"></b-form-rating>
+    <p clas="mt-2">{{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: null
+      }
+    }
+  }
+</script>
+
+<!-- b-form-rating-stars.vue -->
+```
 
 ### Show value
 
@@ -73,10 +101,15 @@ TBD
     }
   }
 </script>
+
 <!-- b-form-rating-value.vue -->
 ```
 
 ### Variant
+
+TBD
+
+### Inline mode
 
 TBD
 
