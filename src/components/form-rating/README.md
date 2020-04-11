@@ -279,13 +279,13 @@ If you reaquire additional information before a user can supply a ratings value,
 
 Read-only ratings remain focusable, a buton are not intearactive. This state is hnady for diplaying
 the current rating of an item. Fractional value are allowed and will result in the displaying of _half
-icons_ when the `value` is not a whole number. this state is useful for disapaying an aggtegated
+icons_ when the `value` is not a whole number. This state is useful for disapaying an aggtegated
 ratings value.
 
 ```html
 <template>
   <div>
-    <b-form-rating value="2.65" readonly></b-form-rating>
+    <b-form-rating value="2.65" readonly show-value precision="3"></b-form-rating>
   </div>
 </template>
 
@@ -294,11 +294,23 @@ ratings value.
 
 ### Icons
 
-TBD
+By default `<b-form-rating>` uses the [Bootstrap Icons](/docs/icos) icons `star`, `star-half` and
+`star-fill`.  You canspecify alternate ootstrap Icons] icons to use via the `icon-empty`, `icon-half`
+and `icon-full` props. These props accept a Bootstrap Icon kebab-case name, and requires that the
+corresponsiding icon componenet be registered either locally or globally.
 
-### Custom icons using slots
+```html
+<template>
+  <div>
+    <b-form-rating icon-empty="heart" icon-half="heart-half" icon-full="heart-fill"><b-form-rating>
+  </div>
+</template>
 
-TBD
+<!-- b-form-rating-icons.vue
+```
+
+Alteraitvely, you an supply your own content via the `'icon-empty'`, `'icon-half'` and `'icon-full'`
+scoped slots.
 
 ## Internationalization
 
