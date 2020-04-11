@@ -41,7 +41,7 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
       - name: Install dependencies
-        run: yarn --check-files --frozen-lockfile --non-interactive
+        run: yarn install --check-files --frozen-lockfile --non-interactive
 
       - name: Cache workspace
         uses: actions/cache@v1
@@ -72,7 +72,7 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
 
       - name: Lint
-        run: yarn test:lint
+        run: yarn run test:lint
     needs: setup
 
   audit:
@@ -98,7 +98,7 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
 
       - name: Audit
-        run: yarn audit
+        run: yarn run audit
     needs: setup
 
   test-unit:
@@ -124,7 +124,7 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
 
       - name: Test unit
-        run: yarn test:unit --coverage
+        run: yarn run test:unit --coverage
 
       - name: CodeCov
         uses: codecov/codecov-action@v1
@@ -157,7 +157,7 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
 
       - name: Build
-        run: yarn build
+        run: yarn run build
 
       - name: Cache fixtures
         uses: actions/cache@v1
@@ -195,7 +195,7 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-fixtures-${{ github.sha }}
 
       - name: BundleWatch
-        run: yarn bundlewatch
+        run: yarn run bundlewatch
         env:
           BUNDLEWATCH_GITHUB_TOKEN: "${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}"
     needs: build
