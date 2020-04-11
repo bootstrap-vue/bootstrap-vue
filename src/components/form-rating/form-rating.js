@@ -11,7 +11,7 @@ import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIcon } from '../../icons/icon'
-import { BIconX, BIconStar, BIconStarHalf, BIconStarFill } from '../../icons/icons'
+import {BIconStar, BIconStarHalf, BIconStarFill, BIconX } from '../../icons/icons'
 
 const NAME = 'BFormRating'
 const MIN_STARS = 3
@@ -87,7 +87,7 @@ const BVFormRatingStar = Vue.extend({
 // @vue/component
 export const BFormRating = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  components: { BIconStar, BIconStarHalf, BIconStarFill },
+  components: { BIconStar, BIconStarHalf, BIconStarFill, BIconX },
   mixins: [idMixin],
   model: {
     prop: 'value',
@@ -159,6 +159,10 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     iconFull: {
       type: String,
       default: 'star-fill'
+    },
+    iconX: {
+      type: String,
+      default: 'x'
     },
     locale: {
       // Locale for the foratted value (if shown)
@@ -272,6 +276,9 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     },
     iconFullFn() {
       return this.renderIcon(this.iconFull)
+    },
+    iconXFn(){
+      return this.renderIcon(this.iconX)
     }
   },
   render(h) {
@@ -304,7 +311,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
             staticClass: 'b-rating-star b-rating-star-clear flex-grow-1',
             on: { click: () => this.onSeleced(0) }
           },
-          [h(BIconX)]
+          [this.normalzeSlot('icon-x') || this.iconXFn()]
         )
       )
     }
