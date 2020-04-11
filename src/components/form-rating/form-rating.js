@@ -163,11 +163,12 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
   methods: {
     onKeydown(evt) {
       const { keyCode } = evt
-      if (!this.disabled && !this.readonly && arrayIncludes([LEFT, RIGHT, UP, DOWN], keyCode)) {
-        evt.preventDefault()
-        if (arrayIncludes([LEFT, DOWN], keyCode)keyCode === LEFT or keyCode == DOWN) {
+      if (!this.disabled && !this.readonly) {
+        if (arrayIncludes([LEFT, DOWN], keyCode)) {
+          evt.preventDefault()
           this.localValue = Math.max(1, this.localValue - 1)
-        } else if (keyCode === RIGHT or keyCode == UP) {
+        } else if (arrayIncludes([RIGHT, UP], keyCode)) {
+          evt.preventDefault()
           this.localValue = Math.min(this.computedStars, this.localValue + 1)
         }
       }
