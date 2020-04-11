@@ -21,6 +21,7 @@
   }
 
   :.disabled,
+  :disabled {
     background-color: $input-disabled-bg,
     color: $text-muted;
   }
