@@ -47,7 +47,7 @@ TBD
   export default {
     data() {
       return {
-        value: 4.5
+        value: 3.5
       }
     }
   }
