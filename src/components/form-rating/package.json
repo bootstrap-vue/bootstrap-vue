@@ -43,6 +43,10 @@
             "description": "When `true` renders as an inlin element rather than a blick (100% width) element"
           },
           {
+            "prop": "showClear",
+            "description": "When `true` shows the clear value icon button"
+          },
+          {
             "prop": "precision",
             "description": "Specify the number of digits after the decimal to show. Defaults to to no defined precision"
           },
