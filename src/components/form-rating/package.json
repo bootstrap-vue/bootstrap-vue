@@ -62,6 +62,10 @@
             "prop": "iconFull",
             "description": "Bootstrap Icon name to use for the full icon. Note icon must be registered in your component or globally"
           },
+          {
+            "prop": "iconClear",
+            "description": "Bootstrap Icon name to use for the clear button. Note icon must be registered in your component or globally"
+          },
           { 
             "prop": "locale",
             "description": "local to use when showing the value when prop `show-value` is set. Defaults to the browser default locale"
@@ -91,6 +95,10 @@
           {
             "name": "icon-full",
             "description": "Content for the full icon"
+          },
+          {
+            "name": "icon-clear",
+            "description": "Content for the optional clear button"
           }
         ]
       }
