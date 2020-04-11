@@ -278,7 +278,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           props: {
             rating: computedRating,
             star: value,
-            variant: disabled ? null : variant || null,
+            variant: disabled ? '' : variant || null,
             disabled,
             readonly,
             focused: hasFocus
