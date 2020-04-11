@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, /* waitRAF */ } from '../../../tests/utils'
+import { waitNT /*, waitRAF */ } from '../../../tests/utils'
 import { BFormRating } from './form-rating'
 
 describe('form-rating', () => {
