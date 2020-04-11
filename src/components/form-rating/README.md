@@ -287,7 +287,7 @@ ratings value.
 ```html
 <template>
   <div>
-    <label for="rating-readonly">Disabled rating</label>
+    <label for="rating-readonly">Readonly rating</label>
     <b-form-rating id="rating-readonly" value="2.65" readonly show-value precision="3"></b-form-rating>
   </div>
 </template>
