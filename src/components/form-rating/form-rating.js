@@ -334,7 +334,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     if (this.showValue) {
       $content.push(
         h(
-          'span',
+          'b',
           {
             key: 'value',
             staticClass: 'b-rating-value flex-grow-1',
