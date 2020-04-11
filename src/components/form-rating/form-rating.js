@@ -69,12 +69,6 @@ const BVFormRatingStar = Vue.extend({
     const minStar = hasClear ? 0 : 1
     const type = rating >= star ? 'full' : rating >= star - 0.5 ? 'half' : 'empty'
 
-    const $icon = h(
-      'span',
-      { staticClass: 'b-rating-icon' },
-      [this.normalizeSlot(type, { type, variant, disabled, readonly })]
-    )
-
     return h(
       'span',
       {
@@ -89,7 +83,7 @@ const BVFormRatingStar = Vue.extend({
         },
         on: { click: this.onClick }
       },
-      [$icon]
+      [h('span', { staticClass: 'b-rating-icon' }, [this.normalizeSlot(type)])]
     )
   }
 })
@@ -315,11 +309,9 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
 
     /* istanbul ignore next: until tests are ready */
     if (showClear && !disabled && !readonly) {
-      const $icon = h(
-        'span',
-        { staticClass: 'b-rating-icon' },
-        [($scopedSlots['icon-clear'] || this.iconClearFn)()]
-      )
+      const $icon = h('span', { staticClass: 'b-rating-icon' }, [
+        ($scopedSlots['icon-clear'] || this.iconClearFn)()
+      ])
       $content.push(
         h(
           'span',
