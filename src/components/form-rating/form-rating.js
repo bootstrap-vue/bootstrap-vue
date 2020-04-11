@@ -9,7 +9,7 @@ import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIcon } from '../../icons/icon'
-import { BIconStar, BIconStarHalf, BIconStarFill } from '../../icons/icons/'
+import { BIconStar, BIconStarHalf, BIconStarFill } from '../../icons/icons'
 
 const NAME = 'BFormRating'
 const MIN_STARS = 3
@@ -62,7 +62,7 @@ const BVFormRatingStar = Vue.extend({
           // We add type classes to we can handle RTL styling
           'b-rating-star-empty': type === 'empty',
           'b-rating-star-half': type === 'half',
-          'b-rating-star-full': type === 'full',
+          'b-rating-star-full': type === 'full'
         },
         on: { click: this.onClick }
       },
