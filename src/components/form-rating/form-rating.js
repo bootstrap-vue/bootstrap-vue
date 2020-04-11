@@ -183,7 +183,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     computedLocale() {
       const locales = concat(this.locale).filter(identity)
       const nf = new Intl.NumberFormat(locales)
-      return nf.locale
+      return nf.resolvedOptions().locale
     },
     isRTL() {
       return isLocaleRTL(this.computedLocale)
