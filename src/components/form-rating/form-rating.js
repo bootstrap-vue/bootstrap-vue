@@ -41,6 +41,14 @@ const BVFormRatingStar = Vue.extend({
       // If parent is focused
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -50,7 +58,7 @@ const BVFormRatingStar = Vue.extend({
     }
   },
   render(h) {
-    const { rating, star, variant, focused } = this
+    const { rating, star, variant, focused, disabled, readonly } = this
 
     const type = rating >= star ? 'full' : rating >= star - 0.5 ? 'half' : 'empty'
 
