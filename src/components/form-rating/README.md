@@ -1,6 +1,8 @@
 # Form Rating
 
-> BootstrapVue custom range component for entering or displaying a rating value
+> BootstrapVue custom range component for entering or displaying a rating value. `<b-form-rating>`
+> appears as a `slider` style inpunt for WAI-ARIA accessiility, and can also be used to display the
+> current rating value of an entity (readonly mode).
 
 ## Overview
 
