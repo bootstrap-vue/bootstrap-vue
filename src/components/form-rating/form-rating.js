@@ -83,7 +83,7 @@ const BVFormRatingStar = Vue.extend({
         },
         on: { click: this.onClick }
       },
-      [this.normalizeSlot(type, { type, variant, disabled, readonly })]
+      [h('span', this.normalizeSlot(type, { type, variant, disabled, readonly }))]
     )
   }
 })
@@ -318,7 +318,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
             class: { focused: hasFocus && computedRating === 0 },
             on: { click: () => this.onSelected(null) }
           },
-          [($scopedSlots['icon-clear'] || this.iconClearFn)()]
+          [h('span', ($scopedSlots['icon-clear'] || this.iconClearFn)())]
         )
       )
     }
