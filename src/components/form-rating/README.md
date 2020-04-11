@@ -167,7 +167,7 @@ value or `rgb(...)`/`rgba(...)` color value:
 ```html
 <template>
   <div>
-    <b-form-rating v-model="value" color="#ff0055"></b-form-rating>
+    <b-form-rating v-model="value" color="#ff00ff"></b-form-rating>
     <p class="mt-2">{{ value }}</p>
   </div>
 </template>
