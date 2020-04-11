@@ -217,7 +217,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
   watch: {
     value(newVal, oldVal) /* istanbul ignore next: until tests are ready */ {
       if (newVal !== oldVal) {
-        this.localValue = toFloat(newVal, 0)
+        this.localValue = toFloat(newVal, null)
       }
     },
     localValue(newVal, oldVal) /* istanbul ignore next: until tests are ready */ {
@@ -362,7 +362,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           key: 'hidden',
           attrs: {
             type: 'hidden',
-            value: computedRating || '',
+            value: isNull(this.localValue) ? '' : computedRating,
             name,
             form: form || null
           }
