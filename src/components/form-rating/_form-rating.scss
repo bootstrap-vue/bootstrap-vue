@@ -32,7 +32,7 @@
       cursor: pointer;
     }
 
-    &:focus:not(:hover) .b-rating-star.focus .b-icon,
+    &:focus:not(:hover) .b-rating-star.focused .b-icon,
     .b-rating-star:hover .b-icon {
       transform: scale(1.5);
     }
