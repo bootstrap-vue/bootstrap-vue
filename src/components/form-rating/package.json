@@ -7,7 +7,7 @@
     "description": "BootstrapVue custom ratings form control or ratings display",
     "components": [
       {
-        "component": "BRating",
+        "component": "BFormRating",
         "version": "2.12.0",
         "aliases": [
           "BRating"
