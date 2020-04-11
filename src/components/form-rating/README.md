@@ -295,7 +295,7 @@ ratings value.
 <!-- b-form-rating-readonly.vue -->
 ```
 
-### Reset button
+### Clear button
 
 Optionally show a reset icon via the `show-reset` prop. The value will be set to `null` when the
 reset icon is clicked.
@@ -303,14 +303,16 @@ reset icon is clicked.
 ```html
 <template>
   <div>
-    <b-form-rating v-model="value" show-reset show-value></b-form-rating>
+    <b-form-rating v-model="value" show-clear show-value></b-form-rating>
   </div>
 </template>
 
 <script>
   export default {
     data() {
-      value: 2.5
+      return {
+        value: 2.5
+      }
     }
   }
 </script>
