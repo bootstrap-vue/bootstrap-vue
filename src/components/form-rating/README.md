@@ -322,7 +322,7 @@ value only:
 ```html
 <template>
   <div>
-    <b-form-select v-model="locale" :options="locales" class="mb-2"><b-form-select>
+    <b-form-select v-model="locale" :options="locales" class="mb-2"></b-form-select>
     <b-form-rating v-model="value" :locale="locale" show-value precision="2"></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
