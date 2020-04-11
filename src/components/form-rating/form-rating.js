@@ -11,7 +11,7 @@ import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIcon } from '../../icons/icon'
-import { BIconStar, BIconStarHalf, BIconStarFill } from '../../icons/icons'
+import { BIconX, BIconStar, BIconStarHalf, BIconStarFill } from '../../icons/icons'
 
 const NAME = 'BFormRating'
 const MIN_STARS = 3
@@ -165,6 +165,10 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       // Defaults to the browser locale. Falls back to `en`
       type: [String, Array]
       // default: undefined
+    },
+    showReset: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -289,6 +293,18 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       $scopedSlots
     } = this
     const $content = []
+
+    if (this.showReset && !disabled && !readonly)) {
+      $content.push(
+        h(
+          'span',
+          {
+            key: 'reset',
+            staticClass: 'b-rating-star b-rating-clear',
+          }
+          h(BIconX, { on: { click: this.onSlected(0) } })
+      )
+    }
 
     for (let index = 0; index < computedStars; index++) {
       const value = index + 1
