@@ -150,7 +150,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       return Math.max(MIN_STARS, toInteger(this.stars, DEFAULT_STARS))
     },
     formattedRating() {
-      return this.localValue.toFixed(toInteger(this.precision, 0)))
+      return this.localValue.toFixed(toInteger(this.precision, 0))
     },
   },
   watch: {
