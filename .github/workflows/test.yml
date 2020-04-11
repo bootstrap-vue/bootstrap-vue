@@ -72,7 +72,7 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
 
       - name: Lint
-        run: yarn lint
+        run: yarn test:lint
     needs: setup
 
   audit:
@@ -101,7 +101,7 @@ jobs:
         run: yarn audit
     needs: setup
 
-  test:
+  test-unit:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -123,12 +123,12 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
 
-      - name: Test
-        run: yarn test -w=2 --coverage
+      - name: Test unit
+        run: yarn test:unit --coverage
 
       - name: CodeCov
         uses: codecov/codecov-action@v1
-        if: matrix.os == 'ubuntu-latest' && matrix.node == '10'
+        if: matrix.node == '10'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests
@@ -196,6 +196,6 @@ jobs:
 
       - name: BundleWatch
         run: yarn bundlewatch
-        env:
-          BUNDLEWATCH_GITHUB_TOKEN: "${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}"
+        with:
+          token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
     needs: build
