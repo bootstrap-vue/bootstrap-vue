@@ -60,7 +60,7 @@ const BVFormRatingStar = Vue.extend({
         staticClass: 'b-rating-star',
         class: {
           // We assume when interactive
-          focused: focused && (rating === star || (!rating && star === 1)),
+          focused: (focused && rating === star) || (!rating && star === 1)),
           // We add type classes to we can handle RTL styling
           'b-rating-star-empty': type === 'empty',
           'b-rating-star-half': type === 'half',
