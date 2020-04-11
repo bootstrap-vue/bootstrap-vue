@@ -3,13 +3,15 @@
 //
 
 .b-rating {
+  text-align: center;
+
   .b-rating-star,
   .b-rating-value {
     padding: 0 0.25em;
   }
 
   .b-rating-value {
-    // Keep the stars from moving when value changes
+    // Keep the stars from moving when value changes (usually)
     min-width: 3.5em;
   }
 
