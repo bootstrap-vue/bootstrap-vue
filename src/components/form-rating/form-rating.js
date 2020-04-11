@@ -232,9 +232,9 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           style: color && !disabled ? { color } : {},
           on: { selected: this.onSelected },
           scopedSlots: {
-            empty: $scopedSlots('icon-empty') || this.iconEmptyFn,
-            half: $scopedSlots('icon-half') || this.iconHalfFn,
-            full: $scopedSlots('icon-full') || this.iconFullFn
+            empty: $scopedSlots['icon-empty'] || this.iconEmptyFn,
+            half: $scopedSlots['icon-half'] || this.iconHalfFn,
+            full: $scopedSlots['icon-full'] || this.iconFullFn
           }
         })
       )
