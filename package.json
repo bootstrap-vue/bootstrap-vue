@@ -50,11 +50,9 @@
   ],
   "files": [
     "dist",
-    "es",
     "esm",
     "nuxt",
-    "src",
-    "types"
+    "src"
   ],
   "sideEffects": [
     "**/*.scss",
