@@ -391,7 +391,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           'aria-disabled': disabled ? 'true' : null,
           'aria-readonly': !disabled && readonly ? 'true' : null,
           'aria-live': 'off',
-          'aria-valuemin': '1',
+          'aria-valuemin': showClear ? '0' : '1',
           'aria-valuemax': toString(computedStars),
           'aria-valuenow': computedRating ? toString(computedRating) : null
         },
