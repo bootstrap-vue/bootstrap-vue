@@ -3,6 +3,7 @@
 //
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
+import { isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger, toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
@@ -65,10 +66,8 @@ const BVFormRatingStar = Vue.extend({
   },
   render(h) {
     const { rating, star, focused, hasClear, variant, disabled, readonly } = this
-
     const minStar = hasClear ? 0 : 1
     const type = rating >= star ? 'full' : rating >= star - 0.5 ? 'half' : 'empty'
-
     const scope = { variant, disabled, readonly }
 
     return h(
@@ -204,9 +203,11 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       return isLocaleRTL(this.computedLocale)
     },
     formattedRating() {
+      if (isNull(this.localValue)) {
+        return ''
+      }
       const precision = this.precision
-      const value = parseFloat(this.computedRating.toFixed(precision))
-      return value.toLocaleString(this.computedLocale, {
+      return this.computedRating.toLocaleString(this.computedLocale, {
         notation: 'standard',
         minimumFractionDigits: precision,
         maximumFractionDigits: precision
@@ -336,7 +337,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           props: {
             rating: computedRating,
             star: value,
-            variant: disabled ? '' : variant || null,
+            variant: disabled ? null : variant || null,
             disabled,
             readonly,
             focused: hasFocus,
