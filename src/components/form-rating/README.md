@@ -297,7 +297,7 @@ ratings value.
 
 ### Clear button
 
-Optionally show a clear icon via the `show-clear` prop. The value will be set to `0` when the
+Optionally show a clear icon via the `show-clear` prop. The value will be set to `null` when the
 clear icon is clicked.
 
 ```html
@@ -323,14 +323,15 @@ clear icon is clicked.
 
 **Notes:**
 
-- The reset icon will _not_ be shown when the props `readonly` or `disabled` are set.
+- The clear icon will _not_ be shown when the props `readonly` or `disabled` are set.
 
 ### Icons
 
-By default `<b-form-rating>` uses the [Bootstrap Icons](/docs/icos) icons `star`, `star-half` and
-`star-fill`.  You canspecify alternate ootstrap Icons] icons to use via the `icon-empty`, `icon-half`
-and `icon-full` props. These props accept a Bootstrap Icon kebab-case name, and requires that the
-corresponsiding icon componenet be registered either locally or globally.
+By default `<b-form-rating>` uses the [Bootstrap Icons](/docs/icos) icons `'star'`, `'star-half'`,
+`'star-fill'`, and the icon `'x'` (for the clear button). You can specify alternate Bootstrap Icons
+to use via the `icon-empty`, `icon-half`, `icon-full`, and `icon-clear` props. These props accept a
+Bootstrap Icon kebab-case name, and requires that the corresponsiding icon component be registered
+either locally or globally.
 
 ```html
 <template>
@@ -339,11 +340,11 @@ corresponsiding icon componenet be registered either locally or globally.
   </div>
 </template>
 
-<!-- b-form-rating-icons.vue
+<!-- b-form-rating-icons.vue -->
 ```
 
-Alteraitvely, you an supply your own content via the `'icon-empty'`, `'icon-half'` and `'icon-full'`
-scoped slots.
+Alteraitvely, you an supply your own content via the `'icon-empty'`, `'icon-half'`, `'icon-full'`,
+and `'icon-clear'` scoped slots.
 
 ## Internationalization
 
