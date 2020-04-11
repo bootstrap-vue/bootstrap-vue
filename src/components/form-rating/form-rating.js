@@ -277,7 +277,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     iconFullFn() {
       return this.renderIcon(this.iconFull)
     },
-    iconXFn() {
+    iconXFn() /* istanbul ignore next: until tests are ready */ {
       return this.renderIcon(this.iconX)
     }
   },
@@ -302,6 +302,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     } = this
     const $content = []
 
+    /* istanbul ignore next: until tests are ready */
     if (showClear && !disabled && !readonly) {
       $content.push(
         h(
