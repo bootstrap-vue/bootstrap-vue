@@ -67,7 +67,7 @@ prop. The minumum allowed stars is  `3`.
 <template>
   <div>
     <b-form-rating v-model="value" stars="10"></b-form-rating>
-    <p class="mt-2">VAlue: {{ value }}</p>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
