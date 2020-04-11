@@ -2,6 +2,7 @@
 // BFormRating
 //
 import Vue from '../../utils/vue'
+import { arrayIncludes } from '../../utils/array'
 import { toInteger, toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
 import KeyCodes from '../../utils/key-codes'
@@ -47,7 +48,7 @@ const BVFormRatingStar = Vue.extend({
     }
   },
   render(h) {
-    const { rating, star, variant, focused, iconEmpty, iconHalf, iconFull } = this
+    const { rating, star, variant, focused } = this
 
     const type = rating >= star ? 'empty' : rating >= star - 0.5 ? 'half' : 'empty'
 
@@ -61,11 +62,11 @@ const BVFormRatingStar = Vue.extend({
           // We add type classes to we can handle RTL styling
           'b-rating-star-empty': type === 'empty',
           'b-rating-star-half': type === 'half',
-          'b-rating-star-empty': type === 'full',
+          'b-rating-star-full': type === 'full',
         },
-        on: { 'click': this.onClick }
+        on: { click: this.onClick }
       },
-      [this.normalizeSlot(type, { type })]
+      [this.normalizeSlot(type, { type, variant, color })]
     )
   }
 })
@@ -183,7 +184,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     },
     // Render helper functions
     renderIcon(icon) {
-      return this.$createElement(BIcon, {props: { icon, variant: this.variant || null } })
+      return this.$createElement(BIcon, {vprops: { icon, variant: this.variant || null } })
     },
     iconEmptyFn() {
       return this.renderIcon(this.iconEmpty)
@@ -233,7 +234,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           scopedSlots: {
             empty: $scopedSlots('icon-empty') || this.iconEmptyFn,
             half: $scopedSlots('icon-half') || this.iconHalfFn,
-            full: $scopedSlots('icon-full') || this.iconFullFn,
+            full: $scopedSlots('icon-full') || this.iconFullFn
           }
         })
       )
