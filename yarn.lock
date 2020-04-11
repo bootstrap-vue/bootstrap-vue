@@ -3435,24 +3435,24 @@ codesandbox-import-util-types@^2.1.9:
   resolved "https://registry.yarnpkg.com/codesandbox-import-util-types/-/codesandbox-import-util-types-2.1.9.tgz#24ba5ec3d966f51f18b78c48d32e6411da90aa74"
   integrity sha512-Vc4qh+neVfHtS3RG+7wvaErMoEKdNTnLFnyj4Dcbn3NV7v9nlPj/z6MGhHp9S+vAjegWorFzxg9lKB1WGHTt5Q==
 
-codesandbox-import-utils@^2.1.12:
-  version "2.1.12"
-  resolved "https://registry.yarnpkg.com/codesandbox-import-utils/-/codesandbox-import-utils-2.1.12.tgz#0cc6b649ed8bc5ef57c9fcb1bc98b161389a4b83"
-  integrity sha512-eTP3TboAlFEZDblCf3uwnV0S3tZCKnoubDONibAE9rI2pdximDGFQdHUpHPU4509bQ6UF2w+DVExlhkxmLFenA==
+codesandbox-import-utils@^2.1.14:
+  version "2.1.14"
+  resolved "https://registry.yarnpkg.com/codesandbox-import-utils/-/codesandbox-import-utils-2.1.14.tgz#b8222d95208048173ddc754f00618dde5e892eda"
+  integrity sha512-IOV1lk/hEnp6KV4uuHvfjrdIbYSVx11WXr75ABjHPuBh117AgKEbujTduoAChDuEofevV6GwlIyl32EBNECE1Q==
   dependencies:
     codesandbox-import-util-types "^2.1.9"
     istextorbinary "^2.2.1"
     lz-string "^1.4.4"
 
-codesandbox@^2.1.12:
-  version "2.1.12"
-  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.1.12.tgz#2ab7186b9db3f49b85b27dc95c171ff05101a5c2"
-  integrity sha512-DDveHGGR3dGDgLwAbK0Z75pgA+5Mm2OwigYwrNgEc0m4anzTXWnk0CrWAIRJzDm1QCk97w17/DYl1R3LCYi3Tw==
+codesandbox@^2.1.14:
+  version "2.1.14"
+  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.1.14.tgz#63a61773f20038af29107a3d2921e576016250fe"
+  integrity sha512-aVOFvUXvsX+a+oTZ7c+mHdWoo3L/C96SDL6iBMOBFB7a0TjjKM03aVmFgrssGdd1cAGCagolGe0zii6EwMS5hQ==
   dependencies:
     axios "^0.18.1"
     chalk "^2.4.1"
     codesandbox-import-util-types "^2.1.9"
-    codesandbox-import-utils "^2.1.12"
+    codesandbox-import-utils "^2.1.14"
     commander "^2.9.0"
     datauri "^1.1.0"
     filesize "^3.6.1"
@@ -11155,10 +11155,10 @@ rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.4.0.tgz#b136a4d701d24dd79ec9551ee0330e7f632ee9d2"
-  integrity sha512-dYE2ZKl9+kxuFKDaaSuauZjIPa8hcKDqI7WrOq1pTXYG4GJw+6ypLifGIvCKw5yJpSmuFohuimYpg0wfRXTCLw==
+rollup@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.6.0.tgz#e69d50dc2217af23ab5f6df9a48e45df4ab56df1"
+  integrity sha512-qbvQ9ZbvbhBdtRBZ/A4g+9z3iJQ1rHAtjinn3FiN+j5tfz8xiNyTE1JEEMcFWqlH7+NHadI9ieeqKdp8HwYLnQ==
   optionalDependencies:
     fsevents "~2.1.2"
 
