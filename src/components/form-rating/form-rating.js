@@ -162,7 +162,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    onKeydown(evt) {
+    onKeydown(evt) /* istanbul ignore next: until tests are ready */ {
       const { keyCode } = evt
       if (!this.disabled && !this.readonly) {
         if (arrayIncludes([LEFT, DOWN], keyCode)) {
@@ -174,10 +174,10 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
         }
       }
     },
-    onSelected(value) {
+    onSelected(value) /* istanbul ignore next: until tests are ready */ {
       this.localValue = value
     },
-    onFocus(evt) {
+    onFocus(evt) /* istanbul ignore next: until tests are ready */ {
       if (!this.disabled && !this.readonly) {
         this.hasFocus = evt.type === 'focus'
       }
@@ -240,7 +240,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       )
     }
 
-    if (name) {
+    if (name) /* istanbul ignore next: until tests are ready */ {
       $content.push(
         h('input', {
           key: 'hidden',
@@ -254,7 +254,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       )
     }
 
-    if (this.showValue) {
+    if (this.showValue) /* istanbul ignore next: until tests are ready */ {
       $content.push(
         h(
           'span',
