@@ -16,7 +16,11 @@
   }
 
   // Zoom focused or hovered stars
-  &:not(.disabled):not(:readonly) {
+  &:not(.disabled):not(.readonly) {
+    .b-rating-star {
+      cursor: pointer;
+    }
+
     &:focus:not(:hover) .b-rating-star.focus .b-icon,
     .b-rating-star:hover .b-icon {
       transform: scale(1.5);
