@@ -112,6 +112,14 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    name: {
+      type: String
+      // default: null
+    },
+    form: {
+      type: String
+      // default: null
+    },
     noBorder: {
       type: Boolean,
       default: false
