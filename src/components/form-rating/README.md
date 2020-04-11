@@ -38,7 +38,7 @@ TBD
 ```html
 <template>
   <div>
-    <b-form-rating v-model="value"></b-form-rating>
+    <b-form-rating v-model="value" readonly></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
@@ -47,7 +47,7 @@ TBD
   export default {
     data() {
       return {
-        value: 3.5
+        value: 2.5
       }
     }
   }
