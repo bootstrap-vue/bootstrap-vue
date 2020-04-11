@@ -111,6 +111,8 @@ decimal) simply set the `precision` prop to the number of digits after teh decim
 <!-- b-form-rating-value.vue -->
 ```
 
+**With precision set:**
+
 ```html
 <template>
   <div>
@@ -123,7 +125,7 @@ decimal) simply set the `precision` prop to the number of digits after teh decim
   export default {
     data() {
       return {
-        value: 3.75
+        value: 3.5
       }
     }
   }
