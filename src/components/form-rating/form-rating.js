@@ -50,7 +50,7 @@ const BVFormRatingStar = Vue.extend({
   render(h) {
     const { rating, star, variant, focused } = this
 
-    const type = rating >= star ? 'empty' : rating >= star - 0.5 ? 'half' : 'empty'
+    const type = rating >= star ? 'full' : rating >= star - 0.5 ? 'half' : 'empty'
 
     return h(
       'span',
