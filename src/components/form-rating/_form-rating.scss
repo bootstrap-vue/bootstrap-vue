@@ -25,15 +25,17 @@
     color: $text-muted;
   }
 
-  // Zoom focused or hovered stars
   &:not(.disabled):not(.readonly) {
     .b-rating-star {
       cursor: pointer;
     }
 
+    // Zoom focused or hovered stars
     &:focus:not(:hover) .b-rating-star.focused,
     .b-rating-star:hover {
-      transform: scale(1.5);
+      > span {
+        transform: scale(1.5);
+      }
     }
   }
 
