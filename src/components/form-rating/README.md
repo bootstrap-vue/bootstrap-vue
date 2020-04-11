@@ -16,7 +16,7 @@ TBD
 <template>
   <div>
     <b-form-rating v-model="value"></b-form-rating>
-    <p class="mt-2">{{ value }}</p>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -39,7 +39,7 @@ TBD
 <template>
   <div>
     <b-form-rating v-model="value"></b-form-rating>
-    <p class="mt-2">{{ value }}</p>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -67,7 +67,7 @@ prop. The minumum allowed stars is  `3`.
 <template>
   <div>
     <b-form-rating v-model="value" stars="10"></b-form-rating>
-    <p class="mt-2">{{ value }}</p>
+    <p class="mt-2">VAlue: {{ value }}</p>
   </div>
 </template>
 
@@ -94,7 +94,7 @@ decimal) simply set the `precision` prop to the number of digits after teh decim
 <template>
   <div>
     <b-form-rating v-model="value" show-value></b-form-rating>
-    <p class="mt-2">{{ value }}</p>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -117,7 +117,7 @@ decimal) simply set the `precision` prop to the number of digits after teh decim
 <template>
   <div>
     <b-form-rating v-model="value" show-value precision="2"></b-form-rating>
-    <p class="mt-2">{{ value }}</p>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -144,7 +144,7 @@ Easily chnage the rating icon color to one of the Bootstrap theme variants via t
 <template>
   <div>
     <b-form-rating v-model="value" variant="success"></b-form-rating>
-    <p class="mt-2">{{ value }}</p>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -168,7 +168,7 @@ value or `rgb(...)`/`rgba(...)` color value:
 <template>
   <div>
     <b-form-rating v-model="value" color="#ff00ff"></b-form-rating>
-    <p class="mt-2">{{ value }}</p>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -285,7 +285,7 @@ ratings value.
 ```html
 <template>
   <div>
-    <b-form-rating value="2.5" readonly></b-form-rating>
+    <b-form-rating value="2.65" readonly></b-form-rating>
   </div>
 </template>
 
@@ -312,7 +312,7 @@ value only:
   <div>
     <b-form-select v-model="locale" :options="locales" class="mb-2"><b-form-select>
     <b-form-rating v-model="value" :locale="locale" show-value precision="2"></b-form-rating>
-    <p class="mt-2">{{ value }}</p>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
