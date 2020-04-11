@@ -258,9 +258,9 @@ If you reaquire additional information before a user can supply a ratings value,
 
 ```html
 <template>
-  <div>value
+  <div>
     <label for="rating-disabled">Small rating with no border</label>
-    <b-form-rating id="rating-disabled" value-"4.5" disabled></b-form-rating>
+    <b-form-rating id="rating-disabled" value="2.75" disabled></b-form-rating>
   </div>
 </template>
 
@@ -276,8 +276,8 @@ ratings value.
 
 ```html
 <template>
-  <div>value
-    <b-form-rating value-"4.5" readonly></b-form-rating>
+  <div>
+    <b-form-rating value="2.5" readonly></b-form-rating>
   </div>
 </template>
 
