@@ -295,7 +295,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     } = this
     const $content = []
 
-    if (this.showClear && !disabled && !readonly)) {
+    if (this.showClear && !disabled && !readonly) {
       $content.push(
         h(
           'span',
