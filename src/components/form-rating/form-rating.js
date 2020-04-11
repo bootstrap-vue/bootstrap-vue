@@ -285,6 +285,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       computedRating,
       computedStars,
       formattedRating,
+      isRTL,
       $scopedSlots
     } = this
     const $content = []
@@ -361,6 +362,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           tabindex: disabled ? null : '0',
           disabled,
           role: 'slider',
+          dir: isRTL? 'rtl' : 'ltr',
           'aria-disabled': disabled ? 'true' : null,
           'aria-readonly': !disabled && readonly ? 'true' : null,
           'aria-live': 'off',
