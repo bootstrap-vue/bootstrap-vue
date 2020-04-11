@@ -279,16 +279,16 @@ If you reaquire additional information before a user can supply a ratings value,
 
 ### Readonly
 
-Read-only ratings remain focusable, a buton are not intearactive. This state is hnady for diplaying
-the current rating of an item. Fractional value are allowed and will result in the displaying of _half
-icons_ when the `value` is not a whole number. This state is useful for disapaying an aggregated
-ratings value.
+Read-only ratings remain focusable, but are not intearactive. This state is hnady for diplaying the
+current rating of an item. Fractional value are allowed and will result in the displaying of _half
+icons_ when the `value` is not a whole number (half icon threshold is `0.5`). This state is useful
+for disapaying an aggregated ratings value.
 
 ```html
 <template>
   <div>
     <label for="rating-readonly">Readonly rating</label>
-    <b-form-rating id="rating-readonly" value="2.65" readonly show-value precision="3"></b-form-rating>
+    <b-form-rating id="rating-readonly" value="2.6536" readonly show-value precision="3"></b-form-rating>
   </div>
 </template>
 
@@ -346,11 +346,17 @@ either locally or globally.
 Alteraitvely, you an supply your own content via the `'icon-empty'`, `'icon-half'`, `'icon-full'`,
 and `'icon-clear'` scoped slots.
 
+## Form submission
+
+If you inted to submit the rating value via standard form submission, set the `name` prop to the
+desired form field name. A hidden input will be generated with the current value (or an empty string
+if there is no value).
+
 ## Internationalization
 
-When a `locale` is specified, the displayed vaue (when the `show-value` prop is `true`0 ) will be
-in the browser's defqault locale. To change the locale, simple set the `locale` prop to the prefered
-locale, or an array of prefered loales (most preferred locale first). This wil affcet the displayed
+When a `locale` is specified, the displayed value (when the `show-value` prop is `true`) will be
+in the browser's default locale. To change the locale, simple set the `locale` prop to the preferred
+locale, or an array of prefered locales (most preferred locale first). This will affcet the displayed
 value only:
 
 ```html
