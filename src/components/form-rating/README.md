@@ -131,6 +131,7 @@ decimal) simply set the `precision` prop to the number of digits after teh decim
 
 <!-- b-form-rating-value-precision.vue -->
 ```
+
 ### Variant
 
 
@@ -294,13 +295,44 @@ TBD
 
 ## Internationalization
 
-TBD
+When a `locale` is specified, the displayed vaue (when the `show-value` prop is `true`0 ) will be
+in the browser's defqault locale. To change the locale, simple set the `locale` prop to the prefered
+locale, or an array of prefered loales (most preferred locale first). This wil affcet the displayed
+value only:
 
+```html
+<template>
+  <div>
+    <b-form-select v-mdodel="locale" :options="locales" class="mb-2"><b-form-select>
+    <b-form-rating v-model="value" :local="locale" show-value precision="2"></b-form-rating>
+    <p class="mt-2">{{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: 3.75
+        locale: 'en-US',
+        locales: [
+          { text: 'English US (en-US)', value: 'en-US' },
+          { text: 'French (fr)', value: 'fr' },
+          { text: 'Persian (fa)', value: 'fa'},
+          { text: 'Arabic Eegription (ar-EG)', value: 'ar-EG' }
+        ]
+      }
+    }
+  }
+</script>
+
+<!-- b-form-rating-i18n.vue -->
+```
 
 ## Impementation notes
 
 TBD
 
 ## Accessibility
-re 
+
 TBD
