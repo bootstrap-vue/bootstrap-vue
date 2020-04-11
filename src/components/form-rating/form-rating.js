@@ -295,14 +295,14 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     } = this
     const $content = []
 
-    if (this.showClear && !disabled && !readonly) {
+    if (showClear && !disabled && !readonly) {
       $content.push(
         h(
           'span',
           {
             key: 'clear',
-            staticClass: 'b-rating-star b-rating-clear',
-            on: { click: () => this.onSeleced(0) }
+            staticClass: 'b-rating-star b-rating-star-clear',
+            on: { click: () => this.onSeleced(null) }
           }
           [h(BIconX)]
         )
