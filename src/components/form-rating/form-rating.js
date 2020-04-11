@@ -45,7 +45,7 @@ const BVFormRatingStar = Vue.extend({
       evt.preventDefault()
       this.$emit('selected', this.star)
     }
-  }
+  },
   render(h) {
     const { rating, star, variant, focused, iconEmpty, iconHalf, iconFull } = this
 
@@ -106,7 +106,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     disabled: {
       type: Boolean,
       default: false
-    }
+    },
     readonly: {
       type: Boolean,
       default: false
@@ -135,7 +135,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       type: String,
       default: 'star-fill'
     }
-  }
+  },
   data() {
     return {
       localValue: toFloat(this.value, 0),
@@ -179,7 +179,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       if (!this.disabled && !this.readonly) {
         this.hasFocus = evt.type === 'focus'
       }
-    }
+    },
     // Render helper functions
     renderIcon(icon) {
       return this.$createElement(BIcon, {props: { icon, variant: this.variant || null } })
@@ -205,7 +205,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       variant,
       color,
       noBorder,
-      hasFocus
+      hasFocus,
       computedRating,
       computedStars,
       formattedRating,
