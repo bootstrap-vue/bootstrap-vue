@@ -60,8 +60,8 @@ TBD
 
 ### Number of stars
 
-By default, `<b-form-rating>` defaults to `5` stars. You canchange the number of stars via the `stars`
-prop.  The minumum allowed stars is  `3`.
+By default, `<b-form-rating>` defaults to `5` stars. You can change the number of stars via the `stars`
+prop. The minumum allowed stars is  `3`.
 
 ```html
 <template>
