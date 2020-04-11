@@ -20,6 +20,11 @@
     transition: all .15s ease-in-out;
   }
 
+  :.disabled,
+    background-color: $input-disabled-bg,
+    color: $text-muted;
+  }
+
   // Zoom focused or hovered stars
   &:not(.disabled):not(.readonly) {
     .b-rating-star {
