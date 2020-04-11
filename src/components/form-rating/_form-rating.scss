@@ -16,7 +16,14 @@
   }
 
   .b-rating-star {
+    display: inline-flex;
+    justify-content: center;
     transition: all .15s ease-in-out;
+
+    > span {
+      display: inline-flex;
+      transition: all .15s ease-in-out;
+    }
   }
 
   &.disabled,
@@ -30,7 +37,7 @@
       cursor: pointer;
     }
 
-    // Zoom focused or hovered stars
+    // Zoom focused or hovered icons
     &:focus:not(:hover) .b-rating-star.focused,
     .b-rating-star:hover {
       > span {
