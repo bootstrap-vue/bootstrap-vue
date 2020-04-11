@@ -3,7 +3,7 @@
 > BootstrapVue custom range component for entering or displaying a rating value. `<b-form-rating>`
 > appears as a `slider` style inpunt for WAI-ARIA accessiility, and can also be used to display the
 > current rating value of an entity (readonly mode). Rating values range from `1` to the number of
-> stars allowed (dfault stars is `5`, minimum starts is `3`). Because `<b-form-rating>` has the class
+> stars allowed (default stars is `5`, minimum stars is `3`). Because `<b-form-rating>` has the class
 > `form-control` it can easily be placed inside [input groups](/docs/components/input-group).
 
 ## Overview
