@@ -196,6 +196,6 @@ jobs:
 
       - name: BundleWatch
         run: yarn bundlewatch
-        with:
-          token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
+        env:
+          BUNDLEWATCH_GITHUB_TOKEN: "${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}"
     needs: build
