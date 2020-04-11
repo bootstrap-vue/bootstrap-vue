@@ -11,7 +11,7 @@ import KeyCodes from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIcon } from '../../icons/icon'
-import {BIconStar, BIconStarHalf, BIconStarFill, BIconX } from '../../icons/icons'
+import { BIconStar, BIconStarHalf, BIconStarFill, BIconX } from '../../icons/icons'
 
 const NAME = 'BFormRating'
 const MIN_STARS = 3
@@ -277,7 +277,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     iconFullFn() {
       return this.renderIcon(this.iconFull)
     },
-    iconXFn(){
+    iconXFn() {
       return this.renderIcon(this.iconX)
     }
   },
