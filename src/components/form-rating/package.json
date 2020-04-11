@@ -60,6 +60,10 @@
           {
             "prop": "iconFull",
             "description": "Bootstrap Icon name to use for the full icon. Note icon must be registered in your component or globally"
+          },
+          { 
+            "prop": "locale",
+            "description": "local to use when showing the value when prop `show-value` is set. Defaults to the browser default locale"
           }
         ],
         "events": [
