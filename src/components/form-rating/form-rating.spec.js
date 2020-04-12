@@ -241,7 +241,6 @@ describe('form-rating', () => {
 
   it('keyboard navigation works', async () => {
     const wrapper = mount(BFormRating, {
-      attachToDocument: true,
       propsData: {
         showValue: true,
         value: null
@@ -251,17 +250,13 @@ describe('form-rating', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
 
-    wrapper.vm.focus()
-    await waitNT(wrapper.vm)
-
     const $value = wrapper.find('.b-rating-value')
     expect($value.exists()).toBe(true)
     expect($value.text()).toEqual('')
 
     wrapper.trigger('keydown.right')
     await waitNT(wrapper.vm)
-    await waitNT(wrapper.vm)
-    expect(wrapper.find('.b-rating-value').text()).toEqual('1')
+    expect($value.text()).toEqual('1')
 
     wrapper.trigger('keydown.right')
     await waitNT(wrapper.vm)
@@ -300,6 +295,27 @@ describe('form-rating', () => {
     expect($value.text()).toEqual('1')
 
     wrapper.trigger('keydown.left')
+    await waitNT(wrapper.vm)
+    expect($value.text()).toEqual('1')
+
+    wrapper.setProps({
+      readonly: true
+    })
+    await waitNT(wrapper.vm)
+    expect($value.text()).toEqual('1')
+
+    wrapper.trigger('keydown.right')
+    await waitNT(wrapper.vm)
+    expect($value.text()).toEqual('1')
+
+    wrapper.setProps({
+      readonly: false,
+      disabled: true
+    })
+    await waitNT(wrapper.vm)
+    expect($value.text()).toEqual('1')
+
+    wrapper.trigger('keydown.right')
     await waitNT(wrapper.vm)
     expect($value.text()).toEqual('1')
 
