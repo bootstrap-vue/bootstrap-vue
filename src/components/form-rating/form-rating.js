@@ -202,15 +202,13 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     formattedRating() {
       const value = this.localValue
       const precision = toInteger(this.precision)
-      return (
-        isNull(value)
-          ? ''
-          : value.toLocaleString(this.computedLocale, {
-              notation: 'standard',
-              minimumFractionDigits: isNaN(precision) ? 0 : precision,
-              maximumFractionDigits: isNaN(precision) ? 3 : precision
-            })
-      )
+      return isNull(value)
+        ? ''
+        : value.toLocaleString(this.computedLocale, {
+            notation: 'standard',
+            minimumFractionDigits: isNaN(precision) ? 0 : precision,
+            maximumFractionDigits: isNaN(precision) ? 3 : precision
+          })
     }
   },
   watch: {
