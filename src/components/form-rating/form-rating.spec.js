@@ -48,7 +48,6 @@ describe('form-rating', () => {
 
     // TBD
 
-
     wrapper.destroy()
   })
 
