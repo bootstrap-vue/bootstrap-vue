@@ -185,6 +185,7 @@ describe('form-rating', () => {
       attachToDocument: true,
       propsData: {
         showValue: true,
+        disabled: false,
         value: '3.5',
         precision: 2
       }
@@ -203,6 +204,32 @@ describe('form-rating', () => {
     expect(wrapper.vm.hasFocus).toBe(true)
 
     wrapper.vm.blur()
+    await waitNT(wrapper.vm)
+
+    expect(document.activeElement).not.toBe(wrapper.element)
+    expect(wrapper.vm.hasFocus).not.toBe(true)
+
+    wrapper.trigger('focus')
+    await waitNT(wrapper.vm)
+
+    expect(document.activeElement).toBe(wrapper.element)
+    expect(wrapper.vm.hasFocus).toBe(true)
+
+    wrapper.trigger('blur')
+    await waitNT(wrapper.vm)
+
+    expect(document.activeElement).not.toBe(wrapper.element)
+    expect(wrapper.vm.hasFocus).not.toBe(true)
+
+    wrapper.vm.focus()
+    await waitNT(wrapper.vm)
+
+    expect(document.activeElement).toBe(wrapper.element)
+    expect(wrapper.vm.hasFocus).toBe(true)
+
+    wrapper.setProps({
+      disabled: true
+    })
     await waitNT(wrapper.vm)
 
     expect(document.activeElement).not.toBe(wrapper.element)
