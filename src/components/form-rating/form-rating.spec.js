@@ -101,11 +101,11 @@ describe('form-rating', () => {
     expect(wrapper.vm.localValue).toBe(1)
     const $stars = wrapper.findAll('.b-rating-star')
     expect($stars.length).toBe(5)
-    expect($stars.at(0).is('b-rating-star-full')).toBe(true)
-    expect($stars.at(1).is('b-rating-star-empty')).toBe(true)
-    expect($stars.at(2).is('b-rating-star-empty')).toBe(true)
-    expect($stars.at(3).is('b-rating-star-empty')).toBe(true)
-    expect($stars.at(4).is('b-rating-star-empty')).toBe(true)
+    expect($stars.at(0).is('.b-rating-star-full')).toBe(true)
+    expect($stars.at(1).is('.b-rating-star-empty')).toBe(true)
+    expect($stars.at(2).is('.b-rating-star-empty')).toBe(true)
+    expect($stars.at(3).is('.b-rating-star-empty')).toBe(true)
+    expect($stars.at(4).is('.b-rating-star-empty')).toBe(true)
 
     wrapper.setProps({
       value: 3.5
@@ -114,11 +114,11 @@ describe('form-rating', () => {
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     expect(wrapper.vm.localValue).toBe(4)
-    expect($stars.at(0).is('b-rating-star-full')).toBe(true)
-    expect($stars.at(1).is('b-rating-star-full')).toBe(true)
-    expect($stars.at(2).is('b-rating-star-full')).toBe(true)
-    expect($stars.at(3).is('b-rating-star-half')).toBe(true)
-    expect($stars.at(4).is('b-rating-star-empty')).toBe(true)
+    expect($stars.at(0).is('.b-rating-star-full')).toBe(true)
+    expect($stars.at(1).is('.b-rating-star-full')).toBe(true)
+    expect($stars.at(2).is('.b-rating-star-full')).toBe(true)
+    expect($stars.at(3).is('.b-rating-star-half')).toBe(true)
+    expect($stars.at(4).is('.b-rating-star-empty')).toBe(true)
 
     wrapper.setProps({
       value: 1
@@ -127,11 +127,11 @@ describe('form-rating', () => {
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     expect(wrapper.vm.localValue).toBe(1)
-    expect($stars.at(0).is('b-rating-star-full')).toBe(true)
-    expect($stars.at(1).is('b-rating-star-empty')).toBe(true)
-    expect($stars.at(2).is('b-rating-star-empty')).toBe(true)
-    expect($stars.at(3).is('b-rating-star-empty')).toBe(true)
-    expect($stars.at(4).is('b-rating-star-empty')).toBe(true)
+    expect($stars.at(0).is('.b-rating-star-full')).toBe(true)
+    expect($stars.at(1).is('.b-rating-star-empty')).toBe(true)
+    expect($stars.at(2).is('.b-rating-star-empty')).toBe(true)
+    expect($stars.at(3).is('.b-rating-star-empty')).toBe(true)
+    expect($stars.at(4).is('.b-rating-star-empty')).toBe(true)
 
     // Click 5th star
     $stars.at(4).trigger('click')
@@ -140,11 +140,11 @@ describe('form-rating', () => {
     expect(wrapper.emitted('change').length).toBe(1)
     expect(wrapper.emitted('change')[0][0]).toBe(5)
     expect(wrapper.vm.localValue).toBe(5)
-    expect($stars.at(0).is('b-rating-star-full')).toBe(true)
-    expect($stars.at(1).is('b-rating-star-full')).toBe(true)
-    expect($stars.at(2).is('b-rating-star-full')).toBe(true)
-    expect($stars.at(3).is('b-rating-star-full')).toBe(true)
-    expect($stars.at(4).is('b-rating-star-full')).toBe(true)
+    expect($stars.at(0).is('.b-rating-star-full')).toBe(true)
+    expect($stars.at(1).is('.b-rating-star-full')).toBe(true)
+    expect($stars.at(2).is('.b-rating-star-full')).toBe(true)
+    expect($stars.at(3).is('.b-rating-star-full')).toBe(true)
+    expect($stars.at(4).is('.b-rating-star-full')).toBe(true)
 
     // Click 2nd star
     $stars.at(1).trigger('click')
@@ -152,11 +152,11 @@ describe('form-rating', () => {
     expect(wrapper.emitted('change').length).toBe(2)
     expect(wrapper.emitted('change')[1][0]).toBe(2)
     expect(wrapper.vm.localValue).toBe(2)
-    expect($stars.at(0).is('b-rating-star-full')).toBe(true)
-    expect($stars.at(1).is('b-rating-star-full')).toBe(true)
-    expect($stars.at(2).is('b-rating-star-empty')).toBe(true)
-    expect($stars.at(3).is('b-rating-star-empty')).toBe(true)
-    expect($stars.at(4).is('b-rating-star-empty')).toBe(true)
+    expect($stars.at(0).is('.b-rating-star-full')).toBe(true)
+    expect($stars.at(1).is('.b-rating-star-full')).toBe(true)
+    expect($stars.at(2).is('.b-rating-star-empty')).toBe(true)
+    expect($stars.at(3).is('.b-rating-star-empty')).toBe(true)
+    expect($stars.at(4).is('.b-rating-star-empty')).toBe(true)
 
     wrapper.destroy()
   })
@@ -362,6 +362,22 @@ describe('form-rating', () => {
     })
     await waitNT(wrapper.vm)
     expect($value.text()).toEqual('1')
+
+    wrapper.trigger('keydown.right')
+    await waitNT(wrapper.vm)
+    expect($value.text()).toEqual('1')
+
+    wrapper.setProps({
+      readonly: false,
+      disabled: false,
+      showClear: true
+    })
+    await waitNT(wrapper.vm)
+    expect($value.text()).toEqual('1')
+
+    wrapper.trigger('keydown.left')
+    await waitNT(wrapper.vm)
+    expect($value.text()).toEqual('')
 
     wrapper.trigger('keydown.right')
     await waitNT(wrapper.vm)
