@@ -221,6 +221,12 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       if (newVal !== oldVal && newVal !== (this.value || 0)) {
         this.$emit('change', newVal || null)
       }
+    },
+    disabled(newVal, oldVal) {
+      if (!newVal) {
+        this.hasFocus = false
+        this.blur()
+      }
     }
   },
   methods: {
