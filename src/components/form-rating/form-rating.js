@@ -1,6 +1,3 @@
-//
-// BFormRating
-//
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
 import { isNull } from '../../utils/inspect'
