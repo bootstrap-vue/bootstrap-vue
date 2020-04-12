@@ -86,6 +86,11 @@ const BVFormRatingStar = Vue.extend({
   }
 })
 
+// Utility methods
+const computeStars = stars => Math.max(MIN_STARS, toInteger(stars, DEFAULT_STARS))
+
+const clampValue = (value, min, max) => Math.max(Math.min(value, max), min)
+
 // BFormRating
 // @vue/component
 export const BFormRating = /*#__PURE__*/ Vue.extend({
@@ -179,17 +184,22 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     }
   },
   data() {
+    const value = toFloat(this.value, null)
+    const stars = computeStars(this.stars)
     return {
-      localValue: toFloat(this.value, null),
+      localValue: isNull(value) ? null : clampValue(value, 0, stars),
       hasFocus: false
     }
   },
   computed: {
-    computedRating() {
-      return toFloat(toFloat(this.localValue, 0).toFixed(toInteger(this.precision, 2)))
-    },
     computedStars() {
-      return Math.max(MIN_STARS, toInteger(this.stars, DEFAULT_STARS))
+      return computeStars(this.stars)
+    },
+    computedRating() {
+      const value = toFloat(this.localValue, 0)
+      const precision = toInteger(this.precision, 3)
+      // We clamp the value between 0 and stars
+      return clampValue(toFloat(value.toFixed(precision)), 0, this.computedStars)
     },
     computedLocale() {
       const locales = concat(this.locale).filter(identity)
@@ -200,7 +210,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       return isLocaleRTL(this.computedLocale)
     },
     formattedRating() {
-      const value = this.localValue
+      let value = this.localValue
       const precision = toInteger(this.precision)
       return isNull(value)
         ? ''
@@ -214,7 +224,8 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
   watch: {
     value(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.localValue = toFloat(newVal, null)
+        const value = toFloat(newVal, null)
+        this.localValue = isNull(value) ? null : clampValue(value, 0, this.computedStars)
       }
     },
     localValue(newVal, oldVal) {
