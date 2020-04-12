@@ -264,11 +264,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       }
     },
     onFocus(evt) {
-      if (!this.disabled && !this.readonly) {
-        this.hasFocus = evt.type === 'focus'
-      } else {
-        this.hasFocus = false
-      }
+      this.hasFocus = this.disabled || this.readonly ? false : evt.type === 'focus'
     },
     // Render helper functions
     renderIcon(icon) {
