@@ -76,7 +76,7 @@
           {
             "prop": "badgeOffset",
             "version": "2.12.0",
-            "description": "CSS length to offset the badge. Positive values move the badge inwards, while negative valuesmove the badge outwards"
+            "description": "CSS length to offset the badge. Positive values move the badge inwards, while negative values move the badge outwards"
           }
         ],
         "slots": [
