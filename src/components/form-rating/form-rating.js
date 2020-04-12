@@ -72,7 +72,7 @@ const BVFormRatingStar = Vue.extend({
       {
         staticClass: 'b-rating-star',
         class: {
-          // We assume when interactive
+          // When not hovered, we use this class to focus the current (or first) star
           focused: (focused && rating === star) || (!toInteger(rating) && star === minStar),
           // We add type classes to we can handle RTL styling
           'b-rating-star-empty': type === 'empty',
