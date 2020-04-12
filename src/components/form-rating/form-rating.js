@@ -210,7 +210,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       return isLocaleRTL(this.computedLocale)
     },
     formattedRating() {
-      let value = this.localValue
+      const value = this.localValue
       const precision = toInteger(this.precision)
       return isNull(value)
         ? ''
