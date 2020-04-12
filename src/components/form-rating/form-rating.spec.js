@@ -44,6 +44,33 @@ describe('form-rating', () => {
     wrapper.destroy()
   })
 
+  it('has expected strcture when prop `show-clear` set', async () => {
+    const wrapper = mount(BFormRating, {
+      propsData: {
+        showClear: true,
+        value: 3
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+
+    // TBD
+
+    const $clear = wrapper.find('.b-form-rating-clear')
+    expect($clear.exists()).toBe(true)
+    expect(wrapper.emitted('change')).not.toBeDefined()
+
+    $clear.trigger('click')
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('change').length).toBe(1)
+    expect(wrapper.emitted('change')[0][0]).toEqual(null)
+
+    wrapper.destroy()
+  })
+
   it('has expected strcture when prop `show-value` set', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
