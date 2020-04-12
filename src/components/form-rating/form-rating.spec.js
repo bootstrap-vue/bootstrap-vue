@@ -58,7 +58,7 @@ describe('form-rating', () => {
 
     // TBD
 
-    const $stars = wrapper.findAll('b-rating-star')
+    const $stars = wrapper.findAll('.b-rating-star')
     expect($stars.length).toBe(5)
 
     // Click 5th star
