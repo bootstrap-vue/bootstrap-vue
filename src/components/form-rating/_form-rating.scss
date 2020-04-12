@@ -5,6 +5,10 @@
 .b-rating {
   text-align: center;
 
+  &.d-inline-flex {
+    width: auto;
+  }
+
   .b-rating-star,
   .b-rating-value {
     padding: 0 0.25em;
@@ -18,8 +22,7 @@
   .b-rating-star {
     display: inline-flex;
     justify-content: center;
-    transition: all .15s ease-in-out;
-
+ 
     .b-rating-icon {
       display: inline-flex;
       transition: all .15s ease-in-out;
