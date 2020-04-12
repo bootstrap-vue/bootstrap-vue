@@ -7,9 +7,8 @@
 
 ## Overview
 
-Avatars are lightweight functional components, which render inline by default, so that they are
-vertically centered beside any adjoining plain text. They also can be used as children of other
-components.
+Avatars are lightweight components, which render inline by default, so that they are vertically
+centered beside any adjoining plain text. They also can be used as children of other components.
 
 ```html
 <template>
