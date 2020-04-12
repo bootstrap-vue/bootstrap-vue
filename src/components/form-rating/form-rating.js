@@ -400,6 +400,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           readonly: !disabled && readonly
         },
         attrs: {
+          id: this.safeId(),
           dir: isRTL ? 'rtl' : 'ltr',
           tabindex: disabled ? null : '0',
           disabled,
