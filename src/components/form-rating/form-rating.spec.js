@@ -113,7 +113,7 @@ describe('form-rating', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
-    expect(wrapper.vm.localValue).toBe(4)
+    expect(wrapper.vm.localValue).toBe(3.5)
     expect($stars.at(0).is('.b-rating-star-full')).toBe(true)
     expect($stars.at(1).is('.b-rating-star-full')).toBe(true)
     expect($stars.at(2).is('.b-rating-star-full')).toBe(true)
