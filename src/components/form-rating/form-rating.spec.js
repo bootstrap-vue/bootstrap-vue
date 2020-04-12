@@ -41,6 +41,14 @@ describe('form-rating', () => {
 
     // TBD
 
+    wrapper.setProps({
+      value: 4
+    })
+    await waitNT(wrapper.vm)
+
+    // TBD
+
+
     wrapper.destroy()
   })
 
