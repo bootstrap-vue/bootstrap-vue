@@ -212,12 +212,12 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    value(newVal, oldVal) /* istanbul ignore next: until tests are ready */ {
+    value(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.localValue = toFloat(newVal, null)
       }
     },
-    localValue(newVal, oldVal) /* istanbul ignore next: until tests are ready */ {
+    localValue(newVal, oldVal) {
       if (newVal !== oldVal && newVal !== (this.value || 0)) {
         this.$emit('change', newVal || null)
       }
