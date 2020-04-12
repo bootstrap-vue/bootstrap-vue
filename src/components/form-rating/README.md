@@ -1,12 +1,14 @@
 # Form Rating
 
 > BootstrapVue custom range component for entering or displaying a rating value. `<b-form-rating>`
-> appears as a `slider` style input for WAI-ARIA accessiility, and can also be used to display the
-> current rating value of an entity (readonly mode). Rating values range from `1` to the number of
-> stars allowed (default stars is `5`, minimum stars is `3`). Because `<b-form-rating>` has the class
-> `form-control` it can easily be placed inside [input groups](/docs/components/input-group).
+> appears as a `slider` style input for WAI-ARIA accessibility, and can also be used to display the
+> current rating value of an entity (readonly mode).
 
 ## Overview
+
+Rating values range from `1` to the number of stars allowed (default stars is `5`, minimum stars is
+`3`). Since `<b-form-rating>` uses the Bootstrap class `form-control`, it can easily be placed
+inside [input groups](/docs/components/input-group).
 
 There are two main modes for `<b-form-rating>`: interactive and readonly.
 
@@ -43,7 +45,7 @@ Readonly mode is used for displaying an aggregated rating, and supports `half` s
 ```html
 <template>
   <div>
-    <b-form-rating v-model="value" readonly></b-form-rating>
+    <b-form-rating v-model="value" readonly show-value></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
@@ -66,7 +68,7 @@ Readonly mode is used for displaying an aggregated rating, and supports `half` s
 ### Number of stars
 
 By default, `<b-form-rating>` defaults to `5` stars. You can change the number of stars via the `stars`
-prop. The minumum allowed stars is  `3`.
+prop. The minumum allowed stars is `3`.
 
 ```html
 <template>
@@ -99,7 +101,7 @@ decimal) simply set the `precision` prop to the number of digits after the decim
 ```html
 <template>
   <div>
-    <b-form-rating v-model="value" readonly show-value></b-form-rating>
+    <b-form-rating v-model="value" show-value></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
@@ -108,7 +110,7 @@ decimal) simply set the `precision` prop to the number of digits after the decim
   export default {
     data() {
       return {
-        value: 3.5
+        value: 4
       }
     }
   }
@@ -196,7 +198,7 @@ value or `rgb(...)`/`rgba(...)` color value:
 
 ### Control sizing
 
-fancier a small or large rating control? Simply set the prop `size` to either `'sm'` or `'lg'`
+Fancy a small or large rating control? Simply set the prop `size` to either `'sm'` or `'lg'`
 respectively.
 
 ```html
@@ -229,7 +231,7 @@ respectively.
 
 By default, `<b-form-rating>` occupies 100% width of the parent container.  In some situations
 you may prefer the custom input to occupy on the space required for it's contents.  Simply set
-the `inine` prop to `true` to render the component in inline mode:
+the `inline` prop to `true` to render the component in inline mode:
 
 ```html
 <template>
@@ -307,7 +309,7 @@ for disapaying an aggregated or average ratings value.
     <label for="rating-readonly">Readonly rating</label>
     <b-form-rating
       id="rating-readonly"
-      value="2.6536"
+      value="3.6536"
       readonly
       show-value
       precision="3"
@@ -418,7 +420,7 @@ the optioanl displayed value and the left-to-right or right-to-left orientation 
 
 ## Impementation notes
 
-The ratings control uses the Bootstrap v4 `form-control*`, `d-*` (display), `border*` and `text-{variant}`
+The ratings control uses the Bootstrap v4 `form-control*`, `d-*` (display), `border-*` and `text-{variant}`
 classes, as well as BootstrapVue's custom CSS for proper styling.
 
 ## Accessibility
