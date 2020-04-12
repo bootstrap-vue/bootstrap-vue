@@ -252,7 +252,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
         }
       }
     },
-    onSelected(value) /* istanbul ignore next: until tests are ready */ {
+    onSelected(value) {
       if (!this.disabled && !this.readonly) {
         this.localValue = value
       }
@@ -282,7 +282,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     iconFullFn() {
       return this.renderIcon(this.iconFull)
     },
-    iconClearFn() /* istanbul ignore next: until tests are ready */ {
+    iconClearFn() {
       return this.$createElement(BIcon, { props: { icon: this.iconClear } })
     }
   },
@@ -307,7 +307,6 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     } = this
     const $content = []
 
-    /* istanbul ignore next: until tests are ready */
     if (showClear && !disabled && !readonly) {
       const $icon = h('span', { staticClass: 'b-rating-icon' }, [
         ($scopedSlots['icon-clear'] || this.iconClearFn)()
@@ -352,7 +351,6 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       )
     }
 
-    /* istanbul ignore next: until tests are ready */
     if (name) {
       $content.push(
         h('input', {
@@ -367,7 +365,6 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       )
     }
 
-    /* istanbul ignore next: until tests are ready */
     if (this.showValue) {
       $content.push(
         h(
