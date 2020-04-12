@@ -179,4 +179,35 @@ describe('form-rating', () => {
 
     wrapper.destroy()
   })
+
+  it('focus and blur methods work', async () => {
+    const wrapper = mount(BFormRating, {
+      attachToDocument: true,
+      propsData: {
+        showValue: true,
+        value: '3.5',
+        precision: 2
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+
+    expect(document.activeElement).not.toBe(wrapper.el)
+    expect(wrapper.vm.hasFocus).not.toBe(true)
+
+    wrapper.wm.focus()
+    await waitNT(wrapper.vm)
+
+    expect(document.activeElement).toBe(wrapper.el)
+    expect(wrapper.vm.hasFocus).toBe(true)
+
+    wrapper.wm.blur()
+    await waitNT(wrapper.vm)
+
+    expect(document.activeElement).not.toBe(wrapper.el)
+    expect(wrapper.vm.hasFocus).not.toBe(true)
+
+    wrapper.destroy()
+  })
 })
