@@ -1,8 +1,7 @@
 # Form Rating
 
-> BootstrapVue custom range component for entering or displaying a rating value. `<b-form-rating>`
-> appears as a `slider` style input for WAI-ARIA accessibility, and can also be used to display the
-> current rating value of an entity (readonly mode).
+> BootstrapVue's custom range component, `<b-form-rating>`, is for entering or displaying a rating
+> value. The component is fully WAI-ARIA accessibile and supports keyboard control.
 
 ## Overview
 
@@ -73,8 +72,13 @@ prop. The minumum allowed stars is `3`.
 ```html
 <template>
   <div>
-    <b-form-rating v-model="value" stars="10"></b-form-rating>
-    <p class="mt-2">Value: {{ value }}</p>
+    <label for="rating-10">Rating with 10 stars:</label>
+    <b-form-rating id="rating-10" v-model="value10" stars="10"></b-form-rating>
+    <p class="mt-2">Value: {{ value10 }}</p>
+
+    <label for="rating-7">Rating with 7 stars:</label>
+    <b-form-rating id="rating-7" v-model="value7" stars="7"></b-form-rating>
+    <p class="mt-2">Value: {{ value7 }}</p>
   </div>
 </template>
 
@@ -82,7 +86,8 @@ prop. The minumum allowed stars is `3`.
   export default {
     data() {
       return {
-        value: null
+        value10: null,
+        value7: null,
       }
     }
   }
@@ -144,12 +149,15 @@ decimal) simply set the `precision` prop to the number of digits after the decim
 
 ### Variant
 
-Easily change the rating icon color to one of the Bootstrap theme variants via the `variant` prop:
+Easily change the rating icon color to one of the Bootstrap theme variants via the `variant` prop.
+The default variant color is `'warning'`.
 
 ```html
 <template>
   <div>
     <b-form-rating v-model="value" variant="success"></b-form-rating>
+    <b-form-rating v-model="value" variant="primary"></b-form-rating>
+    <b-form-rating v-model="value" variant="info"></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
@@ -174,6 +182,7 @@ value or `rgb(...)`/`rgba(...)` color value:
 <template>
   <div>
     <b-form-rating v-model="value" color="#ff00ff"></b-form-rating>
+    <b-form-rating v-model="value" color="rgb(255,255,0)"></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
@@ -194,7 +203,7 @@ value or `rgb(...)`/`rgba(...)` color value:
 **Notes:**
 
 - The prop `color` takes precedence over the `variant` prop
-- Variants translate to the `text-{variant}` utility class
+- Variants translate to the `text-{variant}` utility class on the icon
 
 ### Control sizing
 
@@ -206,10 +215,13 @@ respectively.
   <div>
     <label for="rating-sm">Small rating</label>
     <b-form-rating id="rating-sm" v-model="value" size="sm"></b-form-rating>
+
     <label for="rating-md" class="mt-3">Default rating (medium)</label>
     <b-form-rating id="rating-md" v-model="value"></b-form-rating>
+
     <label for="rating-lg" class="mt-3">Large rating</label>
     <b-form-rating id="rating-lg" v-model="value" size="lg"></b-form-rating>
+
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
@@ -229,9 +241,9 @@ respectively.
 
 ### Inline mode
 
-By default, `<b-form-rating>` occupies 100% width of the parent container.  In some situations
-you may prefer the custom input to occupy on the space required for it's contents.  Simply set
-the `inline` prop to `true` to render the component in inline mode:
+By default, `<b-form-rating>` occupies 100% width of the parent container.  In some situations you
+may prefer the custom input to occupy on the space required for it's contents. Simply set the
+`inline` prop to `true` to render the component in inline mode:
 
 ```html
 <template>
@@ -254,10 +266,13 @@ form-control border, simply set the `no-border` prop to `true`.
   <div>
     <label for="rating-sm-no-border">Small rating with no border</label>
     <b-form-rating id="rating-sm-no-border" v-model="value" no-border size="sm"></b-form-rating>
+
     <label for="rating-md-no-border" class="mt-3">Default rating (medium) with no border</label>
     <b-form-rating id="rating-md-no-border" v-model="value" no-border></b-form-rating>
+
     <label for="rating-lg-no-border" class="mt-3">Large rating with no border</label>
     <b-form-rating id="rating-lg-no-border" v-model="value" no-border size="lg"></b-form-rating>
+
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
@@ -277,8 +292,8 @@ form-control border, simply set the `no-border` prop to `true`.
 
 **Notes:**
 
-- A focus ring will show when the rating compoentn has focus, regarless of the `no-border` setting
-  for accesibiity reasons.
+- For accesibiity reasons a focus ring will show when the rating component has focus, regarless of
+  the `no-border` setting.
 
 ### Disabled
 
@@ -298,10 +313,9 @@ If you reaquire additional information before a user can supply a ratings value,
 
 ### Readonly
 
-Read-only ratings remain focusable, but are not intearactive. This state is handy for diplaying the
-current rating of an item. Fractional value are allowed and will result in the displaying of _half
-icons_ when the `value` is not a whole number (half icon threshold is `0.5`). This state is useful
-for disapaying an aggregated or average ratings value.
+Readonly ratings remain focusable, but are not intearactive. This state is useful for disapaying an
+aggregated or average ratings value. Fractional values are allowed and will result in the displaying
+of _half icons_ when the `value` is not a whole number (the half icon threshold is `0.5`).
 
 ```html
 <template>
@@ -353,10 +367,10 @@ clear icon is clicked.
 ### Icons
 
 By default `<b-form-rating>` uses the [Bootstrap Icons](/docs/icons) icons `'star'`, `'star-half'`,
-`'star-fill'`, and the icon `'x'` (for the optional clear button). You can specify alternate Bootstrap Icons
-to use via the `icon-empty`, `icon-half`, `icon-full`, and `icon-clear` props. These props accept a
-Bootstrap Icon <samp>kebab-case</samp> name, and requires that the corresponsiding icon component be
-registered either locally or globally.
+`'star-fill'`, and the icon `'x'` (for the optional clear button). You can specify alternate
+Bootstrap Icons to use via the `icon-empty`, `icon-half`, `icon-full`, and `icon-clear` props. These
+props accept a Bootstrap Icon <samp>kebab-case</samp> name, and requires that the corresponsiding
+icon component be registered/installed either locally or globally.
 
 ```html
 <template>
@@ -387,7 +401,7 @@ if there is no value).
 When a `locale` is specified, the displayed value (when the `show-value` prop is `true`) will be
 in the browser's default locale. To change the locale, simple set the `locale` prop to the
 preferred locale, or an array of prefered locales (most preferred locale first). This will affect
-the optioanl displayed value and the left-to-right or right-to-left orientation of the component.
+the optional displayed value and the left-to-right or right-to-left orientation of the component.
 
 ```html
 <template>
@@ -420,12 +434,15 @@ the optioanl displayed value and the left-to-right or right-to-left orientation 
 
 ## Impementation notes
 
-The ratings control uses the Bootstrap v4 `form-control*`, `d-*` (display), `border-*` and `text-{variant}`
-classes, as well as BootstrapVue's custom CSS for proper styling.
+The ratings control uses the Bootstrap v4 `form-control*`, `d-*` (display), `border-*` and
+`text-{variant}` classes, as well as BootstrapVue's custom CSS for proper styling.
+
+The root element of the control is an `<output>` element, which allows a `<label>` element to be
+asociated with it.
 
 ## Accessibility
 
-Th screen reader users `<b-form-rating>` appears as a slider input.
+To screen reader users `<b-form-rating>` appears as a slider input.
 
 Keyboard navigation is employed to select the rating value, and mimics the keyboard controls of
 `range` inputs:
