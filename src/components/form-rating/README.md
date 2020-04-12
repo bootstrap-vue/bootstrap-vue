@@ -8,7 +8,10 @@
 
 ## Overview
 
-TBD
+There are two main modes for `<b-form-rating>`: interactive and readonly.
+
+Interactive mode allows the user to chose a rating from `1` to the number of stars (default `5`) in
+whole number increments.
 
 **Interactive rating (input mode):**
 
@@ -33,6 +36,8 @@ TBD
 <!-- b-form-rating.vue -->
 ```
 
+Readonly mode is used for displaying an aggregated rating, and supports `half` stars.
+
 **Readonly (non-interacitve) rating:**
 
 ```html
@@ -47,7 +52,7 @@ TBD
   export default {
     data() {
       return {
-        value: 2.5
+        value: 2.567
       }
     }
   }
@@ -223,7 +228,20 @@ respectively.
 
 ### Inline mode
 
-TBD
+By default, `<b-form-rating>` occupies 100% width of the parent container.  In some situations
+you may prefer the custom input to occupy on the space required for it's contents.  Simply set
+the `inine` prop to `true` to render the component in inline mode:
+
+```html
+<template>
+  <div>
+    <label for="rating-inline">Inline rating:</label>
+    <b-form-rating id="rating-inline" inline value="4"></b-form-rating>
+  </div>
+</template>
+
+<!-- b-form-rating-inline.vue -->
+```
 
 ### No Border
 
@@ -279,7 +297,7 @@ If you reaquire additional information before a user can supply a ratings value,
 
 ### Readonly
 
-Read-only ratings remain focusable, but are not intearactive. This state is hnady for diplaying the
+Read-only ratings remain focusable, but are not intearactive. This state is handy for diplaying the
 current rating of an item. Fractional value are allowed and will result in the displaying of _half
 icons_ when the `value` is not a whole number (half icon threshold is `0.5`). This state is useful
 for disapaying an aggregated ratings value.
@@ -336,7 +354,12 @@ either locally or globally.
 ```html
 <template>
   <div>
-    <b-form-rating icon-empty="heart" icon-half="heart-half" icon-full="heart-fill"><b-form-rating>
+    <b-form-rating
+      icon-empty="heart"
+      icon-half="heart-half"
+      icon-full="heart-fill"
+      variant="danger"
+    ><b-form-rating>
   </div>
 </template>
 
@@ -348,7 +371,7 @@ and `'icon-clear'` scoped slots.
 
 ## Form submission
 
-If you inted to submit the rating value via standard form submission, set the `name` prop to the
+If you intend to submit the rating value via standard form submission, set the `name` prop to the
 desired form field name. A hidden input will be generated with the current value (or an empty string
 if there is no value).
 
@@ -390,8 +413,15 @@ value only:
 
 ## Impementation notes
 
-TBD
+The ratings control uses the Bootstrap v4 `form-control*`, `d-flex*`, `border*` and `text-{variant}`
+classes, as well as BootstrapVue's custom CSS for proper styling.
 
 ## Accessibility
 
-TBD
+`<b-form-rating>` appears as a slider input to Screen Reader users.
+
+Keyboard navigation is employed to select the rating value, and mimics the keyboard controls of
+`range` inputs:
+
+- <kbd>Left</kbd> or <kbd>Down</kbd> will decrement the rating value by `1`
+- <kbd>Right</kbd> or <kbd>Up</kbd> will increment the rating value by `1`
