@@ -215,8 +215,8 @@ describe('form-rating', () => {
     $output.trigger('focus')
     await waitNT(wrapper.vm)
 
-    expect(document.activeElement).toEqual($output.element)
     expect(wrapper.vm.hasFocus).toBe(true)
+    expect(document.activeElement).toEqual(wrapper.vm.$el)
 
     $output.trigger('blur')
     await waitNT(wrapper.vm)
