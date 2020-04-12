@@ -180,7 +180,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      localValue: toFloat(this.value, 0),
+      localValue: toFloat(this.value, null),
       hasFocus: false
     }
   },
@@ -246,15 +246,16 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       }
     },
     // Private methods
-    onKeydown(evt) /* istanbul ignore next: until tests are ready */ {
-      const { keyCode } = evt
+    onKeydown(evt) {
+      const { keyCode, preventDefault } = evt
+      const value = this.localValue
       if (!this.disabled && !this.readonly) {
         if (arrayIncludes([LEFT, DOWN], keyCode)) {
-          evt.preventDefault()
-          this.localValue = Math.max(this.showClear ? 0 : 1, this.localValue - 1) || null
+          preventDefault()
+          this.localValue = Math.max(this.showClear ? 0 : 1, value - 1) || null
         } else if (arrayIncludes([RIGHT, UP], keyCode)) {
-          evt.preventDefault()
-          this.localValue = Math.min(this.computedStars, this.localValue + 1)
+          preventDefault()
+          this.localValue = Math.min(this.computedStars, value + 1)
         }
       }
     },
