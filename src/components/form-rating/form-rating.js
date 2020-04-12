@@ -248,8 +248,8 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     // Private methods
     onKeydown(evt) {
       const { keyCode } = evt
-      const value = toInteger(this.localValue, 0)
       if (!this.disabled && !this.readonly) {
+        const value = toInteger(this.localValue, 0)
         const stop = () => evt.preventDefault()
         if (arrayIncludes([LEFT, DOWN], keyCode)) {
           stop()
