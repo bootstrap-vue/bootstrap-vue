@@ -93,35 +93,13 @@ prop. The minumum allowed stars is  `3`.
 
 Bu default `<b-form-rating>` does not display the current numerical value. To show the current value
 simply set the `show-value` prop to `true`. To control the precison (number of digits after the
-decimal) simply set the `precision` prop to the number of digits after teh deciman to show.
+decimal) simply set the `precision` prop to the number of digits after the decimal to show. The
+`precision` setting is useful when showing an agregated or average rating value in `readonly` mode.
 
 ```html
 <template>
   <div>
-    <b-form-rating v-model="value" show-value></b-form-rating>
-    <p class="mt-2">Value: {{ value }}</p>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        value: 3
-      }
-    }
-  }
-</script>
-
-<!-- b-form-rating-value.vue -->
-```
-
-**With precision set:**
-
-```html
-<template>
-  <div>
-    <b-form-rating v-model="value" show-value precision="2"></b-form-rating>
+    <b-form-rating v-model="value" readonly show-value></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
@@ -136,14 +114,35 @@ decimal) simply set the `precision` prop to the number of digits after teh decim
   }
 </script>
 
+<!-- b-form-rating-value.vue -->
+```
+
+**With precision set:**
+
+```html
+<template>
+  <div>
+    <b-form-rating v-model="value" readonly show-value precision="2"></b-form-rating>
+    <p class="mt-2">Value: {{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: 3.555
+      }
+    }
+  }
+</script>
+
 <!-- b-form-rating-value-precision.vue -->
 ```
 
 ### Variant
 
-
-Easily chnage the rating icon color to one of the Bootstrap theme variants via the `variant` prop:
-
+Easily change the rating icon color to one of the Bootstrap theme variants via the `variant` prop:
 
 ```html
 <template>
@@ -243,7 +242,7 @@ the `inine` prop to `true` to render the component in inline mode:
 <!-- b-form-rating-inline.vue -->
 ```
 
-### No Border
+### Borderless
 
 By default, `<b-from-rating>` has standard Bootstrap form-control stying. To disable the default
 form-control border, simply set the `no-border` prop to `true`.
@@ -253,7 +252,7 @@ form-control border, simply set the `no-border` prop to `true`.
   <div>
     <label for="rating-sm-no-border">Small rating with no border</label>
     <b-form-rating id="rating-sm-no-border" v-model="value" no-border size="sm"></b-form-rating>
-    <label for="rating-md-no-border" class="mt-3">Default rating (merum) with no border</label>
+    <label for="rating-md-no-border" class="mt-3">Default rating (medium) with no border</label>
     <b-form-rating id="rating-md-no-border" v-model="value" no-border></b-form-rating>
     <label for="rating-lg-no-border" class="mt-3">Large rating with no border</label>
     <b-form-rating id="rating-lg-no-border" v-model="value" no-border size="lg"></b-form-rating>
@@ -300,13 +299,19 @@ If you reaquire additional information before a user can supply a ratings value,
 Read-only ratings remain focusable, but are not intearactive. This state is handy for diplaying the
 current rating of an item. Fractional value are allowed and will result in the displaying of _half
 icons_ when the `value` is not a whole number (half icon threshold is `0.5`). This state is useful
-for disapaying an aggregated ratings value.
+for disapaying an aggregated or average ratings value.
 
 ```html
 <template>
   <div>
     <label for="rating-readonly">Readonly rating</label>
-    <b-form-rating id="rating-readonly" value="2.6536" readonly show-value precision="3"></b-form-rating>
+    <b-form-rating
+      id="rating-readonly"
+      value="2.6536"
+      readonly
+      show-value
+      precision="3"
+    ></b-form-rating>
   </div>
 </template>
 
@@ -345,11 +350,11 @@ clear icon is clicked.
 
 ### Icons
 
-By default `<b-form-rating>` uses the [Bootstrap Icons](/docs/icos) icons `'star'`, `'star-half'`,
-`'star-fill'`, and the icon `'x'` (for the clear button). You can specify alternate Bootstrap Icons
+By default `<b-form-rating>` uses the [Bootstrap Icons](/docs/icons) icons `'star'`, `'star-half'`,
+`'star-fill'`, and the icon `'x'` (for the optional clear button). You can specify alternate Bootstrap Icons
 to use via the `icon-empty`, `icon-half`, `icon-full`, and `icon-clear` props. These props accept a
-Bootstrap Icon kebab-case name, and requires that the corresponsiding icon component be registered
-either locally or globally.
+Bootstrap Icon <samp>kebab-case</samp> name, and requires that the corresponsiding icon component be
+registered either locally or globally.
 
 ```html
 <template>
@@ -378,9 +383,9 @@ if there is no value).
 ## Internationalization
 
 When a `locale` is specified, the displayed value (when the `show-value` prop is `true`) will be
-in the browser's default locale. To change the locale, simple set the `locale` prop to the preferred
-locale, or an array of prefered locales (most preferred locale first). This will affcet the displayed
-value only:
+in the browser's default locale. To change the locale, simple set the `locale` prop to the
+preferred locale, or an array of prefered locales (most preferred locale first). This will affect
+the optioanl displayed value and the left-to-right or right-to-left orientation of the component.
 
 ```html
 <template>
@@ -401,7 +406,7 @@ value only:
           { text: 'English US (en-US)', value: 'en-US' },
           { text: 'French (fr)', value: 'fr' },
           { text: 'Persian (fa)', value: 'fa'},
-          { text: 'Arabic Eegription (ar-EG)', value: 'ar-EG' }
+          { text: 'Arabic Egiption (ar-EG)', value: 'ar-EG' }
         ]
       }
     }
@@ -413,12 +418,12 @@ value only:
 
 ## Impementation notes
 
-The ratings control uses the Bootstrap v4 `form-control*`, `d-flex*`, `border*` and `text-{variant}`
+The ratings control uses the Bootstrap v4 `form-control*`, `d-*` (display), `border*` and `text-{variant}`
 classes, as well as BootstrapVue's custom CSS for proper styling.
 
 ## Accessibility
 
-`<b-form-rating>` appears as a slider input to Screen Reader users.
+Th screen reader users `<b-form-rating>` appears as a slider input.
 
 Keyboard navigation is employed to select the rating value, and mimics the keyboard controls of
 `range` inputs:
