@@ -72,7 +72,7 @@
           },
           { 
             "prop": "locale",
-            "description": "local to use when showing the value when prop `show-value` is set. Defaults to the browser default locale"
+            "description": "locale (or locales) to use when showing the value when prop `show-value` is set. Defaults to the browser default locale"
           }
         ],
         "events": [
