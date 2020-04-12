@@ -385,7 +385,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-rating form-control align-items-center',
         class: {
           [`form-control-${size}`]: !!size,
-          'd-flex-inline': inline,
+          'd-inline-flex': inline,
           'd-flex': !inline,
           'border-0': noBorder,
           disabled,
