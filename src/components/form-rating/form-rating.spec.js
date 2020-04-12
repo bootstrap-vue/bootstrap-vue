@@ -251,13 +251,17 @@ describe('form-rating', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
 
+    wrapper.vm.focus()
+    await waitNT(wrapper.vm)
+
     const $value = wrapper.find('.b-rating-value')
     expect($value.exists()).toBe(true)
     expect($value.text()).toEqual('')
 
     wrapper.trigger('keydown.right')
     await waitNT(wrapper.vm)
-    expect($value.text()).toEqual('1')
+    await waitNT(wrapper.vm)
+    expect(wrapper.find('.b-rating-value').text()).toEqual('1')
 
     wrapper.trigger('keydown.right')
     await waitNT(wrapper.vm)
