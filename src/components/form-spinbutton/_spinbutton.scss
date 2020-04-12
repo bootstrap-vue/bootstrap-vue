@@ -1,14 +1,10 @@
-.b-form-spinbutton.form-control {
+.b-form-spinbutton {
   text-align: center;
   // Quick way to get end buttons rounded on outside edges
   overflow: hidden;
   // Hide validation icon, as there is no room for it
   background-image: none;
-
-  &.flex-column {
-    height: auto;
-    width: auto;
-  }
+  padding: 0;
 
   @at-root {
     // Prevent the buttons from reversing order on in horizontal RTL mode
@@ -23,6 +19,9 @@
     outline: 0;
     border: 0;
     background-color: transparent;
+    width: auto;
+    margin: 0;
+    padding: 0 0.25rem;
 
     > div,
     > bdi {
@@ -33,11 +32,24 @@
     }
   }
 
-  &.d-inline-flex:not(.flex-column) {
-    &,
+  &.flex-column {
+    height: auto;
+    width: auto;
+
     output {
-      width: auto;
+      margin: 0 0.25rem;
+      padding: 0.25rem 0;
     }
+  }
+
+  &:not(.d-inline-flex):not(.flex-column) {
+    output: {
+      width: 100%;
+    }
+  }
+
+  &.d-inline-flex:not(.flex-column) {
+    width: auto;
   }
 
   .btn {

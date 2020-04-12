@@ -467,7 +467,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             touchstart: handler
           }
         },
-        [h('div', {}, [this.normalizeSlot(slotName, scope) || $icon])]
+        [h('div', [this.normalizeSlot(slotName, scope) || $icon])]
       )
     }
     // TODO: Add button disabled state when `wrap` is `false` and at value max/min
@@ -512,13 +512,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         key: 'output',
         staticClass: 'flex-grow-1',
         class: {
-          'w-100': !isVertical && !isInline,
           'd-flex': isVertical,
           'align-self-center': !isVertical,
           'align-items-center': isVertical,
-          'py-1': isVertical,
-          'px-1': !isVertical,
-          'mx-1': isVertical,
           'border-top': isVertical,
           'border-bottom': isVertical,
           'border-left': !isVertical,
@@ -545,13 +541,13 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'aria-valuetext': hasValue ? formatter(value) : null
         }
       },
-      [h('bdi', { staticClass: 'w-100' }, hasValue ? formatter(value) : this.placeholder || '')]
+      [h('bdi', hasValue ? formatter(value) : this.placeholder || '')]
     )
 
     return h(
       'div',
       {
-        staticClass: 'b-form-spinbutton form-control p-0',
+        staticClass: 'b-form-spinbutton form-control',
         class: {
           disabled: isDisabled,
           readonly: isReadonly,
