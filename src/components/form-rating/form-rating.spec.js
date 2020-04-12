@@ -73,7 +73,7 @@ describe('form-rating', () => {
 
     // TBD
 
-    const $clear = wrapper.find('.b-form-rating-clear')
+    const $clear = wrapper.find('.b-rating-star-clear')
     expect($clear.exists()).toBe(true)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
