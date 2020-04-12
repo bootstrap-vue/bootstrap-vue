@@ -52,7 +52,6 @@
   // Flip the half icon if RTL mode.
   // We transform the outer star wrapper so that we do not
   // interfere with the hover/focus transform above
-  @at-root [dir="rtl"] &,
   &[dir="rtl"] {
     .b-rating-star-half {
       transform: scale(-1, 1);
