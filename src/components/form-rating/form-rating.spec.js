@@ -194,37 +194,40 @@ describe('form-rating', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
 
-    expect(document.activeElement).not.toEqual(wrapper.element)
+    const $output = wrapper.find('output')
+    expect($output.exists()).toBe(true)
+
+    expect(document.activeElement).not.toEqual($output.element)
     expect(wrapper.vm.hasFocus).not.toBe(true)
 
     wrapper.vm.focus()
     await waitNT(wrapper.vm)
 
-    expect(document.activeElement).toEqual(wrapper.element)
+    expect(document.activeElement).toEqual($output.element)
     expect(wrapper.vm.hasFocus).toBe(true)
 
     wrapper.vm.blur()
     await waitNT(wrapper.vm)
 
-    expect(document.activeElement).not.toEqual(wrapper.element)
+    expect(document.activeElement).not.toEqual($output.element)
     expect(wrapper.vm.hasFocus).not.toBe(true)
 
     wrapper.trigger('focus')
     await waitNT(wrapper.vm)
 
-    expect(document.activeElement).toEqual(wrapper.element)
+    expect(document.activeElement).toEqual($output.element)
     expect(wrapper.vm.hasFocus).toBe(true)
 
     wrapper.trigger('blur')
     await waitNT(wrapper.vm)
 
-    expect(document.activeElement).not.toEqual(wrapper.element)
+    expect(document.activeElement).not.toEqual($output.element)
     expect(wrapper.vm.hasFocus).not.toBe(true)
 
     wrapper.vm.focus()
     await waitNT(wrapper.vm)
 
-    expect(document.activeElement).toEqual(wrapper.element)
+    expect(document.activeElement).toEqual($output.element)
     expect(wrapper.vm.hasFocus).toBe(true)
 
     wrapper.setProps({
@@ -232,7 +235,7 @@ describe('form-rating', () => {
     })
     await waitNT(wrapper.vm)
 
-    expect(document.activeElement).not.toBe(wrapper.element)
+    expect(document.activeElement).not.toBe($output.element)
     expect(wrapper.vm.hasFocus).not.toBe(true)
 
     wrapper.destroy()
