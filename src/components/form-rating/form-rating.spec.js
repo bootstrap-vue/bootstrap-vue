@@ -193,19 +193,19 @@ describe('form-rating', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
 
-    expect(document.activeElement).not.toBe(wrapper.el)
+    expect(document.activeElement).not.toBe(wrapper.element)
     expect(wrapper.vm.hasFocus).not.toBe(true)
 
-    wrapper.wm.focus()
+    wrapper.vm.focus()
     await waitNT(wrapper.vm)
 
-    expect(document.activeElement).toBe(wrapper.el)
+    expect(document.activeElement).toBe(wrapper.element)
     expect(wrapper.vm.hasFocus).toBe(true)
 
-    wrapper.wm.blur()
+    wrapper.vm.blur()
     await waitNT(wrapper.vm)
 
-    expect(document.activeElement).not.toBe(wrapper.el)
+    expect(document.activeElement).not.toBe(wrapper.element)
     expect(wrapper.vm.hasFocus).not.toBe(true)
 
     wrapper.destroy()
