@@ -232,6 +232,8 @@ describe('form-rating', () => {
     })
     await waitNT(wrapper.vm)
 
+    wrapper.vm.focus()
+    await waitNT(wrapper.vm)
     expect(wrapper.vm.hasFocus).not.toBe(true)
 
     wrapper.destroy()
