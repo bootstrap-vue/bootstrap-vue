@@ -45,7 +45,7 @@ Readonly mode is used for displaying an aggregated rating, and supports `half` s
 ```html
 <template>
   <div>
-    <b-form-rating v-model="value" readonly show-value></b-form-rating>
+    <b-form-rating v-model="value" readonly></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
