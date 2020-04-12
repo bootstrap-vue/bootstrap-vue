@@ -9,7 +9,28 @@ describe('form-rating', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
 
-    // TBD
+    expect(wrapper.is('output')).toBe(true)
+
+    expect(wrapper.classes()).toContain('b-rating')
+    expect(wrapper.classes()).toContain('d-flex')
+    expect(wrapper.classes()).toContain('form-control')
+
+    expect(wrapper.classes()).not.toContain('d-inline-flex')
+    expect(wrapper.classes()).not.toContain('form-control-lg')
+    expect(wrapper.classes()).not.toContain('form-control-sm')
+    expect(wrapper.classes()).not.toContain('border-0')
+    expect(wrapper.classes()).not.toContain('disabled')
+    expect(wrapper.classes()).not.toContain('readonly')
+
+    expect(wrapper.attributes('id')).not.toBe('')
+    expect(wrapper.attributes('role')).toEqual('slider')
+    expect(wrapper.attributes('aria-live')).toEqual('off')
+    expect(wrapper.attributes('aria-valuemin')).toEqual('1')
+    expect(wrapper.attributes('aria-valuemax')).toEqual('5')
+
+    const $stars = wrapper.findAll('.b-rating-star')
+    expect($stars.length).toBe(5)
+    expect($stars.is('.flex-grow-1')).toBe(true)
 
     wrapper.destroy()
   })
@@ -24,7 +45,29 @@ describe('form-rating', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     await waitNT(wrapper.vm)
 
-    // TBD
+    const $stars = wrapper.findAll('.b-rating-star')
+    expect($stars.length).toBe(10)
+    expect($stars.is('.flex-grow-1')).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('renders hidden input when prop `name` set', async () => {
+    const wrapper = mount(BFormRating, {
+      propsData: {
+        name: 'foo',
+        value: 3.5
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+
+    const $input = wrapper.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.attributes('type')).toEqual('hidden')
+    expect($input.attributes('name')).toEqual('foo')
+    expect($input.attributes('value')).toEqual('3.5')
 
     wrapper.destroy()
   })
@@ -32,7 +75,7 @@ describe('form-rating', () => {
   it('has expected strcture when prop `value` set', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
-        value: 1
+        value: '1'
       }
     })
 
@@ -40,7 +83,7 @@ describe('form-rating', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
-    // TBD
+    expect(wrapper.vm.localValue).toBe(1)
 
     wrapper.setProps({
       value: 4
@@ -48,7 +91,7 @@ describe('form-rating', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
-    // TBD
+    expect(wrapper.vm.localValue).toBe(4)
 
     wrapper.setProps({
       value: 1
@@ -56,7 +99,7 @@ describe('form-rating', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
-    // TBD
+    expect(wrapper.vm.localValue).toBe(1)
 
     const $stars = wrapper.findAll('.b-rating-star')
     expect($stars.length).toBe(5)
@@ -67,28 +110,14 @@ describe('form-rating', () => {
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
     expect(wrapper.emitted('change')[0][0]).toBe(5)
+    expect(wrapper.vm.localValue).toBe(5)
 
     // Click 2nd star
     $stars.at(1).trigger('click')
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('change').length).toBe(2)
     expect(wrapper.emitted('change')[1][0]).toBe(2)
-
-    wrapper.destroy()
-  })
-
-  it('has expected strcture when prop `name` set', async () => {
-    const wrapper = mount(BFormRating, {
-      propsData: {
-        name: 'foo',
-        value: '3.5'
-      }
-    })
-
-    expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
-
-    // TBD
+    expect(wrapper.vm.localValue).toBe(2)
 
     wrapper.destroy()
   })
