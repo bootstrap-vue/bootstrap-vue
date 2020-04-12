@@ -225,14 +225,14 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     // Public methods
-    focus() /* istanbul ignore next: until tests are ready */ {
+    focus() {
       if (!this.disabled) {
         try {
           this.$el.focus()
         } catch {}
       }
     },
-    blur() /* istanbul ignore next: until tests are ready */ {
+    blur() {
       if (!this.disabled) {
         try {
           this.$el.blur()
@@ -257,7 +257,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
         this.localValue = value
       }
     },
-    onFocus(evt) /* istanbul ignore next: until tests are ready */ {
+    onFocus(evt) {
       if (!this.disabled && !this.readonly) {
         this.hasFocus = evt.type === 'focus'
       } else {
