@@ -1,7 +1,7 @@
 # Form Rating
 
 > BootstrapVue's custom range component, `<b-form-rating>`, is for entering or displaying a rating
-> value. The component is fully WAI-ARIA accessibile and supports keyboard control.
+> value. The component is fully WAI-ARIA accessible and supports keyboard control.
 
 ## Overview
 
@@ -39,7 +39,7 @@ whole number increments.
 
 Readonly mode is used for displaying an aggregated rating, and supports `half` stars.
 
-**Readonly (non-interacitve) rating:**
+**Readonly (non-interactive) rating:**
 
 ```html
 <template>
@@ -94,15 +94,16 @@ The default is to use the default form control text color.
 <!-- b-form-rating-variant.vue -->
 ```
 
-To apply a _custom color_, use the `color` prop which accepts a standard CSS color name, hex color
-value (`#...`) or RGB (`rgb(...)`) color value:
+To apply a _custom color_, use the `color` prop which accepts a standard CSS color name, HEX color
+value (`#...`) or RGB/RGBA (`rgb(...)`/`rgba(...)`) color value:
 
 ```html
 <template>
   <div>
     <b-form-rating v-model="value" color="indigo" class="mb-2"></b-form-rating>
     <b-form-rating v-model="value" color="#ff00ff" class="mb-2"></b-form-rating>
-    <b-form-rating v-model="value" color="rgb(64,192,128)" class="mb-2"></b-form-rating>
+    <b-form-rating v-model="value" color="rgb(64, 192, 128)" class="mb-2"></b-form-rating>
+    <b-form-rating v-model="value" color="rgba(64, 192, 128, 0.75)" class="mb-2"></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
@@ -128,7 +129,7 @@ value (`#...`) or RGB (`rgb(...)`) color value:
 ### Number of stars
 
 By default, `<b-form-rating>` defaults to `5` stars. You can change the number of stars via the
-`stars` prop. The minumum allowed stars is `3`.
+`stars` prop. The minimum allowed stars is `3`.
 
 ```html
 <template>
@@ -159,10 +160,10 @@ By default, `<b-form-rating>` defaults to `5` stars. You can change the number o
 
 ### Show value
 
-Bu default `<b-form-rating>` does not display the current numerical value. To show the current value
-simply set the `show-value` prop to `true`. To control the precison (number of digits after the
+By default `<b-form-rating>` does not display the current numerical value. To show the current value
+simply set the `show-value` prop to `true`. To control the precision (number of digits after the
 decimal) simply set the `precision` prop to the number of digits after the decimal to show. The
-`precision` setting is useful when showing an agregated or average rating value in `readonly` mode.
+`precision` setting is useful when showing an aggregated or average rating value in `readonly` mode.
 
 ```html
 <template>
@@ -261,7 +262,7 @@ may prefer the custom input to occupy on the space required for it's contents. S
 
 ### Borderless
 
-By default, `<b-from-rating>` has standard Bootstrap form-control stying. To disable the default
+By default, `<b-from-rating>` has standard Bootstrap form-control styling. To disable the default
 form-control border, simply set the `no-border` prop to `true`.
 
 ```html
@@ -295,8 +296,8 @@ form-control border, simply set the `no-border` prop to `true`.
 
 **Notes:**
 
-- For accesibility reasons a focus ring will show when the rating component has focus, regarless of
-  the `no-border` setting.
+- For accessibility reasons a focus ring will show when the rating component has focus, regardless
+  of the `no-border` setting.
 
 ### Disabled
 
@@ -316,7 +317,7 @@ If you require additional information before a user can chose a ratings value, s
 
 ### Readonly
 
-Readonly ratings remain focusable, but are not intearactive. This state is useful for disapaying an
+Readonly ratings remain focusable, but are not interactive. This state is useful for displaying an
 aggregated or average ratings value. Fractional values are allowed and will result in the displaying
 of _half icons_ when the `value` is not a whole number (the half icon threshold is `0.5`).
 
@@ -372,8 +373,8 @@ clear icon is clicked.
 By default `<b-form-rating>` uses the [Bootstrap Icons](/docs/icons) icons `'star'`, `'star-half'`,
 `'star-fill'`, and the icon `'x'` (for the optional clear button). You can specify alternate
 Bootstrap Icons to use via the `icon-empty`, `icon-half`, `icon-full`, and `icon-clear` props. These
-props accept a Bootstrap Icon <samp>kebab-case</samp> name, and requires that the corresponsiding
-icon component be registered/installed either locally or globally.
+props accept a Bootstrap Icon <samp>kebab-case</samp> name, and requires that the corresponding icon
+component be registered/installed either locally or globally.
 
 ```html
 <template>
@@ -392,7 +393,7 @@ icon component be registered/installed either locally or globally.
 <!-- b-form-rating-icons.vue -->
 ```
 
-Alteraitvely, you an supply your own content via the `'icon-empty'`, `'icon-half'`, `'icon-full'`,
+Alternatively, you an supply your own content via the `'icon-empty'`, `'icon-half'`, `'icon-full'`,
 and `'icon-clear'` scoped slots.
 
 ## Form submission
@@ -461,7 +462,7 @@ displayed value and the left-to-right or right-to-left orientation of the compon
           { text: 'English US (en-US)', value: 'en-US' },
           { text: 'French (fr)', value: 'fr' },
           { text: 'Persian (fa)', value: 'fa'},
-          { text: 'Arabic Egiption (ar-EG)', value: 'ar-EG' }
+          { text: 'Arabic Egyptian (ar-EG)', value: 'ar-EG' }
         ]
       }
     }
@@ -471,13 +472,13 @@ displayed value and the left-to-right or right-to-left orientation of the compon
 <!-- b-form-rating-i18n.vue -->
 ```
 
-## Impementation notes
+## Implementation notes
 
 The ratings control uses the Bootstrap v4 `form-control*`, `d-*` (display), `border-*` and
 `text-{variant}` classes, as well as BootstrapVue's custom CSS for proper styling.
 
 The root element of the control is an `<output>` element, which allows a `<label>` element to be
-asociated with it.
+associated with it.
 
 ## Accessibility
 
