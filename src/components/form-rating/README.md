@@ -127,8 +127,8 @@ value (`#...`) or RGB (`rgb(...)`) color value:
 
 ### Number of stars
 
-By default, `<b-form-rating>` defaults to `5` stars. You can change the number of stars via the `stars`
-prop. The minumum allowed stars is `3`.
+By default, `<b-form-rating>` defaults to `5` stars. You can change the number of stars via the
+`stars` prop. The minumum allowed stars is `3`.
 
 ```html
 <template>
@@ -244,7 +244,7 @@ respectively.
 
 ### Inline mode
 
-By default, `<b-form-rating>` occupies 100% width of the parent container.  In some situations you
+By default, `<b-form-rating>` occupies 100% width of the parent container. In some situations you
 may prefer the custom input to occupy on the space required for it's contents. Simply set the
 `inline` prop to `true` to render the component in inline mode:
 
@@ -437,10 +437,10 @@ The following is an example of placing `<b-form-rating>` in an input group:
 
 ## Internationalization
 
-When a `locale` is specified, the displayed value (when the `show-value` prop is `true`) will be
-in the browser's default locale. To change the locale, simple set the `locale` prop to the
-preferred locale, or an array of prefered locales (most preferred locale first). This will affect
-the optional displayed value and the left-to-right or right-to-left orientation of the component.
+When a `locale` is specified, the displayed value (when the `show-value` prop is `true`) will be in
+the browser's default locale. To change the locale, simple set the `locale` prop to the preferred
+locale, or an array of prefered locales (most preferred locale first). This will affect the optional
+displayed value and the left-to-right or right-to-left orientation of the component.
 
 ```html
 <template>

@@ -72,7 +72,7 @@
             "prop": "iconClear",
             "description": "Bootstrap Icon name to use for the clear button. Note icon must be registered in your component or globally"
           },
-          { 
+          {
             "prop": "locale",
             "description": "locale (or locales) to use when showing the value when prop `show-value` is set. Defaults to the browser default locale"
           }
