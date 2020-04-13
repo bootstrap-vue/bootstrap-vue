@@ -260,15 +260,21 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     // Private methods
     onKeydown(evt) {
       const { keyCode } = evt
-      if (!this.disabled && !this.readonly) {
+      if (!this.disabled && !this.readonly && arrayIncludes([LEFT, DOWN, RIGHT, UP], keyCode)) {
+        evt.preventDefault()
         const value = toInteger(this.localValue, 0)
-        const stop = () => evt.preventDefault()
-        if (arrayIncludes([LEFT, DOWN], keyCode)) {
-          stop()
-          this.localValue = Math.max(this.showClear ? 0 : 1, value - 1) || null
-        } else if (arrayIncludes([RIGHT, UP], keyCode)) {
-          stop()
-          this.localValue = Math.min(this.computedStars, value + 1)
+        const min = this.showClear ? 0 : 1
+        const stars = this.computedStars
+        // In RTL mode, LEFT/RIGHT are swapped
+        const amountRtl = this.isRTL ? -1 : 1
+        if (keyCode === LEFT)) {
+          this.localValue = clampValue(value - amountRtl, min, stars) || null
+        } else if (keyCode === RIGHT) {
+          this.localValue = clampValue(value + amountRtl, min, stars)
+        } else if (keyCode === DOWN) {
+          this.localValue = clampValue(value - 1, min, stars) || null
+        } else if (keyCode === UP)) {
+          this.localValue = clampValue(value + 1, min, stars)
         }
       }
     },
