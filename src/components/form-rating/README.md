@@ -94,14 +94,15 @@ The default is to use the default form control text color.
 <!-- b-form-rating-variant.vue -->
 ```
 
-To apply a _custom color_, use the `color` prop which accepts a standard CSS color name, hex (`#...`) color
-value or `rgb(...)`/`rgba(...)` color value:
+To apply a _custom color_, use the `color` prop which accepts a standard CSS color name, hex color
+value (`#...`) or RGB (`rgb(...)`) color value:
 
 ```html
 <template>
   <div>
+    <b-form-rating v-model="value" color="indigo" class="mb-2"></b-form-rating>
     <b-form-rating v-model="value" color="#ff00ff" class="mb-2"></b-form-rating>
-    <b-form-rating v-model="value" color="rgb(255,255,0)" class="mb-2"></b-form-rating>
+    <b-form-rating v-model="value" color="rgb(64,192,128)" class="mb-2"></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
@@ -294,12 +295,12 @@ form-control border, simply set the `no-border` prop to `true`.
 
 **Notes:**
 
-- For accesibiity reasons a focus ring will show when the rating component has focus, regarless of
+- For accesibility reasons a focus ring will show when the rating component has focus, regarless of
   the `no-border` setting.
 
 ### Disabled
 
-If you reaquire additional information before a user can supply a ratings value, simply set the
+If you require additional information before a user can chose a ratings value, simply set the
 `disabled` prop to `true` to disable any user interactivity on the component:
 
 ```html
@@ -381,6 +382,8 @@ icon component be registered/installed either locally or globally.
       icon-empty="heart"
       icon-half="heart-half"
       icon-full="heart-fill"
+      icon-clear="slash-circle"
+      show-clear
       variant="danger"
     ><b-form-rating>
   </div>
