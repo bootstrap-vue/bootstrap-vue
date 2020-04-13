@@ -52,7 +52,8 @@ export default deepFreeze({
     variant: 'info'
   },
   BAvatar: {
-    variant: 'secondary'
+    variant: 'secondary',
+    badgeVariant: 'primary'
   },
   BBadge: {
     variant: 'secondary'

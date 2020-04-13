@@ -51,12 +51,43 @@
           {
             "prop": "rounded",
             "description": "Specifies the type of rounding to apply to the avatar. The `square` prop takes precedence. Refer to the documentation for details"
+          },
+          {
+            "prop": "badge",
+            "version": "2.12.0",
+            "description": "When `true` shows an empty badge on the avatar, alternatively set to a string for content in the badge"
+          },
+          {
+            "prop": "badgeVariant",
+            "version": "2.12.0",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the badge"
+          },
+          {
+            "prop": "badgeTop",
+            "version": "2.12.0",
+            "description": "When `true` places the badge at the top instead of the bottom"
+          },
+          {
+            "prop": "badgeLeft",
+            "version": "2.12.0",
+            "description": "When `true` places the badge at the left instead of the right"
+          },
+          {
+            "prop": "badgeOffset",
+            "version": "2.12.0",
+            "description": "CSS length to offset the badge. Positive values move the badge inwards, while negative values move the badge outwards"
           }
         ],
         "slots": [
           {
             "name": "default",
             "description": "Content to place in the avatar. Overrides props `text`, `src`, and `icon-name`"
+          },
+          {
+            "name": "badge",
+            "version": "2.12.0",
+            "description": "Content to place in the avatars optional badge. Overrides the `badge` prop"
           }
         ],
         "events": [
