@@ -12,13 +12,14 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIcon } from '../../icons/icon'
 import { BIconStar, BIconStarHalf, BIconStarFill, BIconX } from '../../icons/icons'
 
+// --- Constants ---
 const NAME = 'BFormRating'
 const MIN_STARS = 3
 const DEFAULT_STARS = 5
 
 const { LEFT, RIGHT, UP, DOWN } = KeyCodes
 
-// Private helper component
+// --- Private helper component ---
 // @vue/component
 const BVFormRatingStar = Vue.extend({
   name: 'BVFormRatingStar',
@@ -56,7 +57,7 @@ const BVFormRatingStar = Vue.extend({
   },
   methods: {
     onClick(evt) {
-      if (!this.disabed && !this.readonly) {
+      if (!this.disabled && !this.readonly) {
         evt.preventDefault()
         this.$emit('selected', this.star)
       }
@@ -66,7 +67,7 @@ const BVFormRatingStar = Vue.extend({
     const { rating, star, focused, hasClear, variant, disabled, readonly } = this
     const minStar = hasClear ? 0 : 1
     const type = rating >= star ? 'full' : rating >= star - 0.5 ? 'half' : 'empty'
-    const scope = { variant, disabled, readonly }
+    const slotScope = { variant, disabled, readonly }
 
     return h(
       'span',
@@ -82,17 +83,17 @@ const BVFormRatingStar = Vue.extend({
         },
         on: { click: this.onClick }
       },
-      [h('span', { staticClass: 'b-rating-icon' }, [this.normalizeSlot(type, scope)])]
+      [h('span', { staticClass: 'b-rating-icon' }, [this.normalizeSlot(type, slotScope)])]
     )
   }
 })
 
-// Utility methods
+// --- Utility methods ---
 const computeStars = stars => Math.max(MIN_STARS, toInteger(stars, DEFAULT_STARS))
 
 const clampValue = (value, min, max) => Math.max(Math.min(value, max), min)
 
-// BFormRating
+// --- BFormRating ---
 // @vue/component
 export const BFormRating = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -174,7 +175,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       default: 'x'
     },
     locale: {
-      // Locale for the foratted value (if shown)
+      // Locale for the formatted value (if shown)
       // Defaults to the browser locale. Falls back to `en`
       type: [String, Array]
       // default: undefined
@@ -199,7 +200,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     computedRating() {
       const value = toFloat(this.localValue, 0)
       const precision = toInteger(this.precision, 3)
-      // We clamp the value between 0 and stars
+      // We clamp the value between `0` and stars
       return clampValue(toFloat(value.toFixed(precision)), 0, this.computedStars)
     },
     computedLocale() {
@@ -245,7 +246,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    // Public methods
+    // --- Public methods ---
     focus() {
       if (!this.disabled) {
         try {
@@ -260,7 +261,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
         } catch {}
       }
     },
-    // Private methods
+    // --- Private methods ---
     onKeydown(evt) {
       const { keyCode } = evt
       if (this.isInteractive && arrayIncludes([LEFT, DOWN, RIGHT, UP], keyCode)) {
@@ -289,7 +290,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     onFocus(evt) {
       this.hasFocus = !this.isInteractive ? false : evt.type === 'focus'
     },
-    // Render helper functions
+    // --- Render methods ---
     renderIcon(icon) {
       return this.$createElement(BIcon, {
         props: {
@@ -340,10 +341,10 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
         h(
           'span',
           {
-            key: 'clear',
             staticClass: 'b-rating-star b-rating-star-clear flex-grow-1',
             class: { focused: hasFocus && computedRating === 0 },
-            on: { click: () => this.onSelected(null) }
+            on: { click: () => this.onSelected(null) },
+            key: 'clear'
           },
           [$icon]
         )
@@ -354,7 +355,8 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       const value = index + 1
       $content.push(
         h(BVFormRatingStar, {
-          key: index,
+          staticClass: 'flex-grow-1',
+          style: color && !disabled ? { color } : {},
           props: {
             rating: computedRating,
             star: value,
@@ -364,14 +366,13 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
             focused: hasFocus,
             hasClear: showClear
           },
-          staticClass: 'flex-grow-1',
-          style: color && !disabled ? { color } : {},
           on: { selected: this.onSelected },
           scopedSlots: {
             empty: $scopedSlots['icon-empty'] || this.iconEmptyFn,
             half: $scopedSlots['icon-half'] || this.iconHalfFn,
             full: $scopedSlots['icon-full'] || this.iconFullFn
-          }
+          },
+          key: index
         })
       )
     }
@@ -379,13 +380,13 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     if (name) {
       $content.push(
         h('input', {
-          key: 'hidden',
           attrs: {
             type: 'hidden',
             value: isNull(this.localValue) ? '' : computedRating,
             name,
             form: form || null
-          }
+          },
+          key: 'hidden'
         })
       )
     }
@@ -395,9 +396,9 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
         h(
           'b',
           {
-            key: 'value',
             staticClass: 'b-rating-value flex-grow-1',
-            attrs: { 'aria-hidden': 'true' }
+            attrs: { 'aria-hidden': 'true' },
+            key: 'value'
           },
           toString(formattedRating)
         )
