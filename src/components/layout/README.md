@@ -248,7 +248,7 @@ See how aspects of the Bootstrap grid system work across multiple devices with a
 ### Container sizes
 
 The following table outlines the default container maximum widths at the various breakpoints. These
-may vary if you are using custom themed Booootstrap v4 SCSS/CSS.
+may vary if you are using custom themed Bootstrap v4 SCSS/CSS.
 
 | Container type | Extra small `<576px` | Small `≥576px` | Medium `≥768px` | Large `≥992px` | Extra large `≥1200px` |
 | -------------- | -------------------- | -------------- | --------------- | -------------- | --------------------- |
