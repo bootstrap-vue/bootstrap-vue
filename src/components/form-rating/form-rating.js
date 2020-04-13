@@ -81,6 +81,7 @@ const BVFormRatingStar = Vue.extend({
           'b-rating-star-half': type === 'half',
           'b-rating-star-full': type === 'full'
         },
+        attrs: { tabindex: !disabled && !readonly ? '-1' : null },
         on: { click: this.onClick }
       },
       [h('span', { staticClass: 'b-rating-icon' }, [this.normalizeSlot(type, slotScope)])]
@@ -329,6 +330,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       formattedRating,
       showClear,
       isRTL,
+      isInteractive,
       $scopedSlots
     } = this
     const $content = []
@@ -343,6 +345,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           {
             staticClass: 'b-rating-star b-rating-star-clear flex-grow-1',
             class: { focused: hasFocus && computedRating === 0 },
+            attrs: { tabindex: isInteractive ? '-1' : null },
             on: { click: () => this.onSelected(null) },
             key: 'clear'
           },
