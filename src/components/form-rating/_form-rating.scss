@@ -1,7 +1,3 @@
-//
-// BFormRating
-//
-
 .b-rating {
   text-align: center;
 
@@ -49,7 +45,7 @@
     }
   }
 
-  // Flip the half icon if RTL mode.
+  // Flip the half icon if RTL mode
   // We transform the outer star wrapper so that we do not
   // interfere with the hover/focus transform above
   &[dir="rtl"] {
