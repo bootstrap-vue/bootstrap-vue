@@ -439,20 +439,32 @@ affected. If you need to shift the border/background with the icon, use Bootstra
 
 BootstrapVue includes the following built-in animations for icons:
 
+- `'cylon'` slides the icon left-right
+- `'cylon-vertical'` slides the icon up-down
+- `'fade'` fades the icon in and out <span class="badge badge-info small">2.12.0+</span>
 - `'spin'` smoothly spins the icon clockwise
 - `'spin-reverse'` smoothly spins the icon counter-clockwise
 - `'spin-pulse'` spins the icon clockwise, but in a pulsed step style
 - `'spin-reverse-pulse'` spins the icon counter-clockwise, but in a pulsed step style
-- `'cylon'` slides the icon left-right
-- '`cylon-vertical'` slides the icon up-down
 - `'throb'` scales the icon in and out <span class="badge badge-info small">2.12.0+</span>
-- '`FADE'` fades the icon in and out <span class="badge badge-info small">2.12.0+</span>
 
 To use the animation, set the `animation` prop to one of the animation names above.
 
 ```html
 <template>
   <b-row class="text-md-center">
+    <b-col md="6" class="mb-3">
+      <p>Cylon animation:</p>
+      <b-icon icon="three-dots" animation="cylon" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Vertical cylon animation:</p>
+      <b-icon icon="three-dots-vertical" animation="cylon-vertical" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Fade animation:</p>
+      <b-icon icon="star-fill" animation="fade" font-scale="4"></b-icon>
+    </b-col>
     <b-col md="6" class="mb-3">
       <p>Spinning animation:</p>
       <b-icon icon="arrow-clockwise" animation="spin" font-scale="4"></b-icon>
@@ -470,20 +482,8 @@ To use the animation, set the `animation` prop to one of the animation names abo
       <b-icon icon="arrow-counterclockwise" animation="spin-reverse-pulse" font-scale="4"></b-icon>
     </b-col>
     <b-col md="6" class="mb-3">
-      <p>Cylon animation:</p>
-      <b-icon icon="three-dots" animation="cylon" font-scale="4"></b-icon>
-    </b-col>
-    <b-col md="6" class="mb-3">
-      <p>Vertical cylon animation:</p>
-      <b-icon icon="three-dots-vertical" animation="cylon-vertical" font-scale="4"></b-icon>
-    </b-col>
-    <b-col md="6" class="mb-3">
       <p>Throb animation:</p>
       <b-icon icon="circle-fill" animation="throb" font-scale="4"></b-icon>
-    </b-col>
-    <b-col md="6" class="mb-3">
-      <p>Fade animation:</p>
-      <b-icon icon="star-fill" animation="fade" font-scale="4"></b-icon>
     </b-col>
   </div>
 </template>
@@ -518,7 +518,7 @@ class to the icon component, or create a new animation class in the form of
 - Animation durations can be [configured via SASS SCSS variables](/docs/reference/theming)
 - The BootstrapVue defined animation effects of this component is dependent on the
   `prefers-reduced-motion` media query. See the
- [reduced motion section of our accessibility documentation](/docs/reference/accessibility#reduced-motion)
+  [reduced motion section of our accessibility documentation](/docs/reference/accessibility#reduced-motion)
   for additional details.
 - The `cylon` animation gets its name from the "eye" of the Cylons from the _original_
   [1978 Battlestar Galactica TV series](https://www.youtube.com/watch?v=5a5bEIf0UaU).
