@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
+import { getComponentConfig } from '../../utils/config'
 import { isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger, toFloat } from '../../utils/number'
@@ -112,15 +113,13 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       validator: val => toInteger(val) >= MIN_STARS
     },
     variant: {
-      // TODO: Add in global config
-      type: String
-      // default: null
+      type: String,
+      default: () => getComponentConfig(NAME, 'variant')
     },
     color: {
       // CSS color string (overrides variant)
-      // TODO: Should this also be in global config???
-      type: String
-      // default: null
+      type: String,
+      default: () => getComponentConfig(NAME, 'color')
     },
     showValue: {
       type: Boolean,
