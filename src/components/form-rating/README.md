@@ -67,16 +67,16 @@ Readonly mode is used for displaying an aggregated rating, and supports `half` s
 ### Variant and color
 
 Easily apply one of the Bootstrap theme color variants to the rating icon via the `variant` prop.
-The default is to use the text color defined by the class `form-control`
+The default is to use the default form control text color.
 
 ```html
 <template>
   <div>
-    <b-form-rating v-model="value" variant="warning"></b-form-rating>
-    <b-form-rating v-model="value" variant="success"></b-form-rating>
-    <b-form-rating v-model="value" variant="danger"></b-form-rating>
-    <b-form-rating v-model="value" variant="primary"></b-form-rating>
-    <b-form-rating v-model="value" variant="info"></b-form-rating>
+    <b-form-rating v-model="value" variant="warning" class="mb-2"></b-form-rating>
+    <b-form-rating v-model="value" variant="success" class="mb-2"></b-form-rating>
+    <b-form-rating v-model="value" variant="danger" class="mb-2"></b-form-rating>
+    <b-form-rating v-model="value" variant="primary" class="mb-2"></b-form-rating>
+    <b-form-rating v-model="value" variant="info" class="mb-2"></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
@@ -85,7 +85,7 @@ The default is to use the text color defined by the class `form-control`
   export default {
     data() {
       return {
-        value: null
+        value: 3
       }
     }
   }
@@ -94,14 +94,14 @@ The default is to use the text color defined by the class `form-control`
 <!-- b-form-rating-variant.vue -->
 ```
 
-To apply a custom color, use the `color` prop which accepts a standard CSS color name, hex (`#...`) color
+To apply a _custom color_, use the `color` prop which accepts a standard CSS color name, hex (`#...`) color
 value or `rgb(...)`/`rgba(...)` color value:
 
 ```html
 <template>
   <div>
-    <b-form-rating v-model="value" color="#ff00ff"></b-form-rating>
-    <b-form-rating v-model="value" color="rgb(255,255,0)"></b-form-rating>
+    <b-form-rating v-model="value" color="#ff00ff" class="mb-2"></b-form-rating>
+    <b-form-rating v-model="value" color="rgb(255,255,0)" class="mb-2"></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
