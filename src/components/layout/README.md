@@ -115,7 +115,7 @@ Responsive containers are new in Bootstrap v4.4. They allow you to specify a con
 wide (fluid) until particular breakpoint is reached at which point a `max-width` is applied. For
 example, setting prop `fluid` to `'md'` will render a container that is 100% wide to start until the
 `'md'` breakpoint is reached, at which point it will remain at that breakpoint's container
-`max-width`.
+`max-width` until the next breakpoint is reached.
 
 ```html
 <b-container fluid="sm">
