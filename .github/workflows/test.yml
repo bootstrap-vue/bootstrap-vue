@@ -130,7 +130,6 @@ jobs:
         uses: codecov/codecov-action@v1
         if: matrix.node == '10'
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests
     needs: setup
 
