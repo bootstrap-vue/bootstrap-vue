@@ -217,4 +217,41 @@ describe('avatar', () => {
     expect(wrapper8.attributes('style')).toEqual('width: 36px; height: 36px;')
     wrapper8.destroy()
   })
+
+  it('should have expected structure when prop badge is set', async () => {
+    const wrapper = mount(BAvatar, {
+      propsData: {
+        badge: true
+      }
+    })
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.classes()).toContain('b-avatar')
+    expect(wrapper.classes()).toContain('badge-secondary')
+    expect(wrapper.classes()).not.toContain('disabled')
+    expect(wrapper.attributes('href')).not.toBeDefined()
+    expect(wrapper.attributes('type')).not.toBeDefined()
+
+    const $badge = wrapper.find('.b-avatar-badge')
+    expect($badge.exists()).toBe(true)
+    expect($badge.classes()).toContain('badge-primary')
+    expect($badge.text()).toEqual('')
+
+    wrapper.setProps({
+      badge: 'FOO'
+    })
+    await waitNT(wrapper.vm)
+    expect($badge.classes()).toContain('badge-primary')
+    expect($badge.text()).toEqual('FOO')
+
+    wrapper.setProps({
+      badgeVariant: 'info'
+    })
+    await waitNT(wrapper.vm)
+    expect($badge.classes()).not.toContain('badge-primary')
+    expect($badge.classes()).toContain('badge-info')
+    expect($badge.text()).toEqual('FOO')
+
+    wrapper.destroy()
+  })
 })
