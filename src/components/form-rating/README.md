@@ -447,10 +447,12 @@ asociated with it.
 
 ## Accessibility
 
-To screen reader users `<b-form-rating>` appears as a slider input.
+To screen reader users `<b-form-rating>` appears as a _slider_ type input input.
 
 Keyboard navigation is employed to select the rating value, and mimics the keyboard controls of
 `range` inputs:
 
 - <kbd>Left</kbd> or <kbd>Down</kbd> will decrement the rating value by `1`
 - <kbd>Right</kbd> or <kbd>Up</kbd> will increment the rating value by `1`
+- When the [`locale`](#internationalization) resolves to a right-to-left language, the
+  <kbd>Left</kbd> and <kbd>Right</kbd> behaviour is reversed.
