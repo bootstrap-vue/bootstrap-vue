@@ -115,7 +115,7 @@ Responsive containers are new in Bootstrap v4.4. They allow you to specify a con
 wide (fluid) until particular breakpoint is reached at which point a `max-width` is applied. For
 example, setting prop `fluid` to `'md'` will render a container that is 100% wide to start until the
 `'md'` breakpoint is reached, at which point it will remain at that breakpoint's container
-`max-width`.
+`max-width` until the next breakpoint is reached.
 
 ```html
 <b-container fluid="sm">
@@ -134,6 +134,9 @@ example, setting prop `fluid` to `'md'` will render a container that is 100% wid
 
 Setting the fluid prop to a breakpoint name translates to the Bootstrap class
 `.container-{breakpoint}`.
+
+Refer to the [Grid options section](#grid-options) table below for the default container width
+values.
 
 ## Rows `<b-row>` and `<b-form-row>`
 
@@ -241,6 +244,23 @@ See how aspects of the Bootstrap grid system work across multiple devices with a
 - The above breakpoint values and names are the Bootstrap defaults. They can be customized via
   [SCSS variables](/docs/reference/theming), and (if also using custom breakpoint names), via the
   BootstrapVue [global configuration](/docs/misc/settings).
+
+### Container sizes
+
+The following table outlines the default container maximum widths at the various breakpoints. These
+may vary if you are using custom themed Bootstrap v4 SCSS/CSS.
+
+| Container type | Extra small `<576px` | Small `≥576px` | Medium `≥768px` | Large `≥992px` | Extra large `≥1200px` |
+| -------------- | -------------------- | -------------- | --------------- | -------------- | --------------------- |
+| _default_      | `100%`               | `540px`        | `720px`         | `960px`        | `1140px`              |
+| `fluid`        | `100%`               | `100%`         | `100%`          | `100%`         | `100%`                |
+| `fluid="sm"`   | `100%`               | `540px`        | `720px`         | `960px`        | `1140px`              |
+| `fluid="md"`   | `100%`               | `100%`         | `720px`         | `960px`        | `1140px`              |
+| `fluid="lg"`   | `100%`               | `100%`         | `100%`          | `960px`        | `1140px`              |
+| `fluid="xl"`   | `100%`               | `100%`         | `100%`          | `100%`         | `1140px`              |
+
+Refer to the [Containers `<b-container>` section](#containers-b-container) section above for
+additional information
 
 ## Auto-layout columns
 
