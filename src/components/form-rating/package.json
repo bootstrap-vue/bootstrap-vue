@@ -1,5 +1,5 @@
 {
-  "name": "@bootstrap-vue/FORM-RATING",
+  "name": "@bootstrap-vue/form-rating",
   "version": "1.0.0",
   "meta": {
     "title": "Form Rating",
@@ -20,7 +20,7 @@
           },
           {
             "prop": "stars",
-            "description": "The number of stars to show. Minimum value is 3, default is 5"
+            "description": "The number of stars to show. Minimum value is `3`, default is `5`"
           },
           {
             "prop": "variant",
@@ -30,7 +30,7 @@
           {
             "prop": "color",
             "settings": true,
-            "description": "CSS color to use instead of variant. Acceptts either a hex or rgb/rgab string"
+            "description": "CSS color to use instead of variant. Accepts either a HEX or RGB/RGBA string"
           },
           {
             "prop": "showValue",
@@ -42,7 +42,7 @@
           },
           {
             "prop": "inline",
-            "description": "When `true` renders as an inlin element rather than a blick (100% width) element"
+            "description": "When `true` renders as an inline element rather than a blick (100% width) element"
           },
           {
             "prop": "showClear",
@@ -74,7 +74,7 @@
           },
           {
             "prop": "locale",
-            "description": "locale (or locales) to use when showing the value when prop `show-value` is set. Defaults to the browser default locale"
+            "description": "Locale (or locales) to use when showing the value when prop `show-value` is set. Defaults to the browser default locale"
           }
         ],
         "events": [
@@ -97,7 +97,7 @@
               {
                 "prop": "variant",
                 "type": "String",
-                "description": "Value of the `variant` prop, or null if disabled"
+                "description": "Value of the `variant` prop, or `null` if disabled"
               },
               {
                 "prop": "disabled",
@@ -118,7 +118,7 @@
               {
                 "prop": "variant",
                 "type": "String",
-                "description": "Value of the `variant` prop, or null if disabled"
+                "description": "Value of the `variant` prop, or `null` if disabled"
               },
               {
                 "prop": "disabled",
@@ -139,7 +139,7 @@
               {
                 "prop": "variant",
                 "type": "String",
-                "description": "Value of the `variant` prop, or null if disabled"
+                "description": "Value of the `variant` prop, or `null` if disabled"
               },
               {
                 "prop": "disabled",
