@@ -60,7 +60,7 @@ describe('form-rating', () => {
     await waitNT(wrapper.vm)
 
     const $stars = wrapper.findAll('.b-rating-star')
-    expect($stars.length).toBe(10)
+    expect($stars.length).toBe(5)
     expect($stars.is('.flex-grow-1')).toBe(true)
     expect($stars.is('.b-rating-star-empty')).toBe(true)
 
