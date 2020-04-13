@@ -64,6 +64,66 @@ Readonly mode is used for displaying an aggregated rating, and supports `half` s
 
 ## Styling
 
+### Variant and color
+
+Easily apply one of the Bootstrap theme color variants to the rating icon via the `variant` prop.
+The default is to use the text color defined by the class `form-control`
+
+```html
+<template>
+  <div>
+    <b-form-rating v-model="value" variant="warning"></b-form-rating>
+    <b-form-rating v-model="value" variant="success"></b-form-rating>
+    <b-form-rating v-model="value" variant="danger"></b-form-rating>
+    <b-form-rating v-model="value" variant="primary"></b-form-rating>
+    <b-form-rating v-model="value" variant="info"></b-form-rating>
+    <p class="mt-2">Value: {{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: null
+      }
+    }
+  }
+</script>
+
+<!-- b-form-rating-variant.vue -->
+```
+
+To apply a custom color, use the `color` prop which accepts a standard CSS color name, hex (`#...`) color
+value or `rgb(...)`/`rgba(...)` color value:
+
+```html
+<template>
+  <div>
+    <b-form-rating v-model="value" color="#ff00ff"></b-form-rating>
+    <b-form-rating v-model="value" color="rgb(255,255,0)"></b-form-rating>
+    <p class="mt-2">Value: {{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: null
+      }
+    }
+  }
+</script>
+
+<!-- b-form-rating-color.vue -->
+```
+
+**Notes:**
+
+- The prop `color` takes precedence over the `variant` prop
+- Variants translate to the `text-{variant}` utility class on the icon
+
 ### Number of stars
 
 By default, `<b-form-rating>` defaults to `5` stars. You can change the number of stars via the `stars`
@@ -146,64 +206,6 @@ decimal) simply set the `precision` prop to the number of digits after the decim
 
 <!-- b-form-rating-value-precision.vue -->
 ```
-
-### Variant
-
-Easily change the rating icon color to one of the Bootstrap theme variants via the `variant` prop.
-The default variant color is `'warning'`.
-
-```html
-<template>
-  <div>
-    <b-form-rating v-model="value" variant="success"></b-form-rating>
-    <b-form-rating v-model="value" variant="primary"></b-form-rating>
-    <b-form-rating v-model="value" variant="info"></b-form-rating>
-    <p class="mt-2">Value: {{ value }}</p>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        value: null
-      }
-    }
-  }
-</script>
-
-<!-- b-form-rating-variant.vue -->
-```
-
-To apply a custom color, use the `color` prop which accepts a standard CSS color name, hex (`#...`) color
-value or `rgb(...)`/`rgba(...)` color value:
-
-```html
-<template>
-  <div>
-    <b-form-rating v-model="value" color="#ff00ff"></b-form-rating>
-    <b-form-rating v-model="value" color="rgb(255,255,0)"></b-form-rating>
-    <p class="mt-2">Value: {{ value }}</p>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        value: null
-      }
-    }
-  }
-</script>
-
-<!-- b-form-rating-color.vue -->
-```
-
-**Notes:**
-
-- The prop `color` takes precedence over the `variant` prop
-- Variants translate to the `text-{variant}` utility class on the icon
 
 ### Control sizing
 
