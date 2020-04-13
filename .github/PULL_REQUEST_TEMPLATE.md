@@ -10,15 +10,15 @@ A clear and concise description of what the pull request does.
 
 - [ ] Bugfix (fixes a boo-boo in the code) - `fix(...)`, requires a patch version update
 - [ ] Feature (adds a new feature to BootstrapVue) - `feat(...)`, requires a minor version update
-- [ ] Enhancement (augments an existing feature in BootstrapVue) - `feat(...)`, requires a minor version update
+- [ ] Enhancement (augments an existing feature) - `feat(...)`, requires a minor version update
 - [ ] ARIA accessibility (fixes or improves ARIA accessibility) - `fix(...)`, requires a patch or minor version update
-- [ ] Documentation update (Improves documentation or type-o fixes) - `chore(docs)`, requires a patch version update
+- [ ] Documentation update (improves documentation or typo fixes) - `chore(docs)`, requires a patch version update
 - [ ] Other (please describe)
 
 **Does this PR introduce a breaking change?** (check one)
 
 - [ ] No
-- [ ] Yes (please describe) Breaking changes require a minor version update
+- [ ] Yes (please describe since breaking changes require a minor version update)
 
 **The PR fulfills these requirements:**
 
@@ -32,7 +32,7 @@ A clear and concise description of what the pull request does.
 - [ ] Includes documentation updates
 - [ ] Includes component package.json meta section updates (prop, slot and event changes/updates)
 - [ ] Includes any needed TypeScript declaration file updates
-- [ ] New/updated tests are included and passing (required for new features and enahncements)
+- [ ] New/updated tests are included and passing (required for new features and enhancements)
 - [ ] Existing test suites are passing
 - [ ] CodeCov for patch has met target (all changes/updates have been tested)
 - [ ] The changes have not impacted the functionality of other components or directives
