@@ -135,6 +135,22 @@ example, setting prop `fluid` to `'md'` will render a container that is 100% wid
 Setting the fluid prop to a breakpoint name translates to the Bootstrap class
 `.container-{breakpoint}`.
 
+### Container sizes
+
+The following table outlines the default widths at the various breakpoints. These may vary if you
+are using custom themed Booootstrap v4 SCSS/CSS.
+
+| Container type | Extra small `<576px` | Small `≥576px` | Medium `≥768px` | Large `≥992px` | Extra large `≥1200px` |
+| -------------- | -------------------- | -------------- | --------------- | -------------- | --------------------- |
+| _default_      | `100%`               | `540px`        | `720px`         | `960px`        | `1140px`              |
+| `fluid`        | `100%`               | `100%`         | `100%`          | `100%`         | `100%`                |
+| `fluid="sm"`   | `100%`               | `540px`        | `720px`         | `960px`        | `1140px`              |
+| `fluid="md"`   | `100%`               | `100%`         | `720px`         | `960px`        | `1140px`              |
+| `fluid="lg"`   | `100%`               | `100%`         | `100%`          | `960px`        | `1140px`              |
+| `fluid="xl"`   | `100%`               | `100%`         | `100%`          | `100%`         | `1140px`              |
+
+Also refer to the [Grid options section](#grid-options) table below.
+
 ## Rows `<b-row>` and `<b-form-row>`
 
 Rows are wrappers for [columns](#columns-b-col). Each column has horizontal padding (called a
