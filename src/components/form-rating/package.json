@@ -24,10 +24,12 @@
           },
           {
             "prop": "variant",
+            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the component"
           },
           {
             "prop": "color",
+            "settings": true,
             "description": "CSS color to use instead of variant. Acceptts either a hex or rgb/rgab string"
           },
           {
