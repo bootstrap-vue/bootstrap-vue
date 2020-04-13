@@ -112,11 +112,13 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       validator: val => toInteger(val) >= MIN_STARS
     },
     variant: {
-      type: String,
-      default: 'warning'
+      // TODO: Add in global config
+      type: String
+      // default: null
     },
     color: {
       // CSS color string (overrides variant)
+      // TODO: Should this also be in global config???
       type: String
       // default: null
     },
