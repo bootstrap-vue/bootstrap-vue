@@ -358,7 +358,7 @@ Add textual content to the badge by supplying a string to the `badge` prop, or u
 
 ### Badge positioning
 
-By default the badge appears on the bottom right ofhte avatar. You can use the `badge-top` and
+By default the badge appears on the bottom right of the avatar. You can use the `badge-top` and
 `badge-right` boolean props to switch the sides. Combine both props to move the badge to the top
 right of the avatar.
 
