@@ -661,9 +661,8 @@ the best possible accessibility to _all_ users.
 
 ## Implementation notes
 
-`<b-calendar>` uses Bootstrap's margin, padding, border, and flex utility classes, along with button
-(`btn-*`) classes and the `form-control` class. BootstrapVue's custom SCSS/CSS is also required for
-proper styling.
+`<b-calendar>` uses Bootstrap's border and flex utility classes, along with button (`btn-*`) classes
+and the `form-control` class. BootstrapVue's custom SCSS/CSS is also required for proper styling.
 
 Accessibility-wise, we chose _not_ to use the ARIA role `grid` for the calendar to minimize
 verbosity and to provide consistency across various screen readers (NVDA, when encountering role

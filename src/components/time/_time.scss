@@ -21,4 +21,21 @@
       flex-direction: row-reverse;
     }
   }
+
+  .b-time-header {
+    margin-bottom: 0.5rem;
+
+    output {
+      padding: 0.25rem;
+      font-size: 80%;
+    }
+  }
+
+  .b-time-footer {
+    margin-top: 0.5rem;
+  }
+
+  .b-time-ampm {
+    margin-left: 0.5rem;
+  }
 }
