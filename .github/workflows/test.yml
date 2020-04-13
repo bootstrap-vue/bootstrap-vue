@@ -124,12 +124,13 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
 
       - name: Test unit
-        run: yarn run test:unit --coverage
+        run: yarn run test:unit --coverage --maxWorkers=2
 
       - name: CodeCov
         uses: codecov/codecov-action@v1
         if: matrix.node == '10'
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests
     needs: setup
 
