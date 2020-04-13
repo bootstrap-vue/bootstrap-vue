@@ -320,7 +320,7 @@ The `to` prop can either be a string path, or a `Location` object. The `to` prop
 <span class="badge badge-info small">2.12.0+<span>
 
 Easily add a badge to your avatar via the `badge` prop or `'badge'` slot, and the badge variant can
-be set via the `badge-variant` prop.  The badge will scale with the size of the avatar.
+be set via the `badge-variant` prop. The badge will scale with the size of the avatar.
 
 ```html
 <template>
@@ -375,9 +375,9 @@ right of the avatar.
 <!-- b-avatar-badge-position.vue -->
 ```
 
-Use the `badge-offset` prop to control the offset of the badge. The
-`badge-offset` must be a valid CSS length string (i.e. `'2px'`, `'-2px'`, `'0.5em'`, etc.).
-Positive values will move the badge inward, while negative values will move the badge outward.
+Use the `badge-offset` prop to control the offset of the badge. The `badge-offset` must be a valid
+CSS length string (i.e. `'2px'`, `'-2px'`, `'0.5em'`, etc.). Positive values will move the badge
+inward, while negative values will move the badge outward.
 
 ```html
 <template>
