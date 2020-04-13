@@ -409,9 +409,8 @@ prompts and descriptions.
 The `<b-time>` component is based upon the custom BootstrapVue component
 [`<b-form-spinbutton>`](/docs/components/form-spinbutton).
 
-`<b-time>` uses Bootstrap's margin, padding, border, and flex utility classes, along with button
-(`btn-*`) classes and the `form-control` class. BootstrapVue's custom SCSS/CSS is also required for
-proper styling.
+`<b-time>` uses Bootstrap's border and flex utility classes, along with button (`btn-*`) classes and
+the `form-control` class. BootstrapVue's custom SCSS/CSS is also required for proper styling.
 
 ## See also
 
