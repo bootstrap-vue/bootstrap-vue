@@ -3,7 +3,7 @@ import { waitNT /*, waitRAF */ } from '../../../tests/utils'
 import { BFormRating } from './form-rating'
 
 describe('form-rating', () => {
-  it('has expected default strcture', async () => {
+  it('has expected default structure', async () => {
     const wrapper = mount(BFormRating)
 
     expect(wrapper.isVueInstance()).toBe(true)
@@ -34,11 +34,11 @@ describe('form-rating', () => {
     // Since value is `null` all stars will be empty
     expect($stars.is('.b-rating-star-empty')).toBe(true)
 
-    // `show-value` is `false` by dfault
+    // `show-value` is `false` by default
     const $value = wrapper.find('.b-rating-value')
     expect($value.exists()).toBe(false)
 
-    // `name` is null by default
+    // `name` is `null` by default
     const $input = wrapper.find('input')
     expect($input.exists()).toBe(false)
 
@@ -73,7 +73,7 @@ describe('form-rating', () => {
     wrapper.destroy()
   })
 
-  it('has expected strcture when prop `stars` set', async () => {
+  it('has expected structure when prop `stars` set', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
         stars: '10'
@@ -111,7 +111,7 @@ describe('form-rating', () => {
     wrapper.destroy()
   })
 
-  it('has expected strcture when prop `value` set', async () => {
+  it('has expected structure when prop `value` set', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
         value: '1'
@@ -185,7 +185,7 @@ describe('form-rating', () => {
     wrapper.destroy()
   })
 
-  it('has expected strcture when prop `show-clear` set', async () => {
+  it('has expected structure when prop `show-clear` set', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
         showClear: true,
@@ -216,7 +216,7 @@ describe('form-rating', () => {
     wrapper.destroy()
   })
 
-  it('has expected strcture when prop `show-value` set', async () => {
+  it('has expected structure when prop `show-value` set', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
         showValue: true,
