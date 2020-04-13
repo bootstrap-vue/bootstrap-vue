@@ -87,7 +87,7 @@
           {
             "name": "badge",
             "version": "2.12.0",
-            "description": "Content to place in the avatars optional badge. Overrides the prop `badge`"
+            "description": "Content to place in the avatars optional badge. Overrides the `badge` prop"
           }
         ],
         "events": [
