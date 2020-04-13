@@ -276,7 +276,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           this.localValue = clampValue(value + amountRtl, min, stars)
         } else if (keyCode === DOWN) {
           this.localValue = clampValue(value - 1, min, stars) || null
-        } else if (keyCode === UP)) {
+        } else if (keyCode === UP) {
           this.localValue = clampValue(value + 1, min, stars)
         }
       }
