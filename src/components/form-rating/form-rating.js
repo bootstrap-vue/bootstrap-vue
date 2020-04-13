@@ -207,6 +207,9 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       const nf = new Intl.NumberFormat(locales)
       return nf.resolvedOptions().locale
     },
+    isInteractive() {
+      return !this.disabled && !this.readonly
+    },
     isRTL() {
       return isLocaleRTL(this.computedLocale)
     },
@@ -260,14 +263,14 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     // Private methods
     onKeydown(evt) {
       const { keyCode } = evt
-      if (!this.disabled && !this.readonly && arrayIncludes([LEFT, DOWN, RIGHT, UP], keyCode)) {
+      if (this.isInteractive && arrayIncludes([LEFT, DOWN, RIGHT, UP], keyCode)) {
         evt.preventDefault()
         const value = toInteger(this.localValue, 0)
         const min = this.showClear ? 0 : 1
         const stars = this.computedStars
         // In RTL mode, LEFT/RIGHT are swapped
         const amountRtl = this.isRTL ? -1 : 1
-        if (keyCode === LEFT)) {
+        if (keyCode === LEFT) {
           this.localValue = clampValue(value - amountRtl, min, stars) || null
         } else if (keyCode === RIGHT) {
           this.localValue = clampValue(value + amountRtl, min, stars)
@@ -279,12 +282,12 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       }
     },
     onSelected(value) {
-      if (!this.disabled && !this.readonly) {
+      if (this.isInteractive) {
         this.localValue = value
       }
     },
     onFocus(evt) {
-      this.hasFocus = this.disabled || this.readonly ? false : evt.type === 'focus'
+      this.hasFocus = !this.isInteractive ? false : evt.type === 'focus'
     },
     // Render helper functions
     renderIcon(icon) {
