@@ -8,6 +8,11 @@ defaults: &defaults
     NODE_ENV: test
     NODE_OPTIONS: --max_old_space_size=4096
 
+general:
+  branches:
+    only:
+      - master
+
 jobs:
   # --------------------------------------------------------------------------
   # Phase 1: Setup
