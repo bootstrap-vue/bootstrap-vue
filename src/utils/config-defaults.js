@@ -126,6 +126,10 @@ export default deepFreeze({
     placeholder: 'No file chosen',
     dropPlaceholder: 'Drop files here'
   },
+  BFormRating: {
+    variant: null,
+    color: null
+  },
   BFormTag: {
     removeLabel: 'Remove tag',
     variant: 'secondary'
