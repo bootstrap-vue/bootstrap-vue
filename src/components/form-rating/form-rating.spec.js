@@ -49,6 +49,30 @@ describe('form-rating', () => {
     wrapper.destroy()
   })
 
+  it('has icons with variant class when `variant` set', async () => {
+    const wrapper = mount(BFormRating, {
+      propsData: {
+        variant: 'primary'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+
+    const $stars = wrapper.findAll('.b-rating-star')
+    expect($stars.length).toBe(10)
+    expect($stars.is('.flex-grow-1')).toBe(true)
+    expect($stars.is('.b-rating-star-empty')).toBe(true)
+
+    const $icons = wrapper.findAll('.b-icon')
+    expect($icons.length).toBe(5)
+    expect($icons.is('.bi-star')).toBe(true)
+    expect($icons.is('.text-primary')).toBe(true)
+    expect($icons.is('.text-warning')).toBe(false)
+
+    wrapper.destroy()
+  })
+
   it('has expected strcture when prop `stars` set', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
