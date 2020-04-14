@@ -1,0 +1,71 @@
+{
+  "files": [
+    {
+      "path": "./dist/bootstrap-vue-icons.js",
+      "maxSize": "58 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue-icons.min.js",
+      "maxSize": "54 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue-icons.common.js",
+      "maxSize": "61 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue-icons.common.min.js",
+      "maxSize": "56 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue-icons.esm.js",
+      "maxSize": "59 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue-icons.esm.min.js",
+      "maxSize": "56 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue-icons.css",
+      "maxSize": "1 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue-icons.min.css",
+      "maxSize": "0.9 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue.js",
+      "maxSize": "223 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue.min.js",
+      "maxSize": "98 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue.common.js",
+      "maxSize": "251 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue.common.min.js",
+      "maxSize": "142 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue.esm.js",
+      "maxSize": "249 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue.esm.min.js",
+      "maxSize": "142 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue.css",
+      "maxSize": "10 kB"
+    },
+    {
+      "path": "./dist/bootstrap-vue.min.css",
+      "maxSize": "9 kB"
+    }
+  ],
+  "ci": {
+    "trackBranches": ["master", "dev"]
+  }
+}
