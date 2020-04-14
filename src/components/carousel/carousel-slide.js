@@ -111,7 +111,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
         },
         // Touch support event handler
         on: noDrag
-          ? {
+          ? /* istanbul ignore next */ {
               dragstart: e => {
                 /* istanbul ignore next: difficult to test in JSDOM */
                 e.preventDefault()
