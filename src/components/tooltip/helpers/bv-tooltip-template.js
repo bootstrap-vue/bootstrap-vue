@@ -66,7 +66,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
           /* istanbul ignore next: difficult to test in JSDOM */
           this.$emit('mouseenter', evt)
         },
-        mouseleave/* istanbul ignore next */: evt => {
+        mouseleave /* istanbul ignore next */: evt => {
           /* istanbul ignore next: difficult to test in JSDOM */
           this.$emit('mouseleave', evt)
         },
