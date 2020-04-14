@@ -44,6 +44,7 @@ export default {
         return keys(options).map(key => this.normalizeOption(options[key] || {}, key))
       }
       // If not an array or object, return an empty array
+      /* istanbul ignore next */
       return []
     }
   },
