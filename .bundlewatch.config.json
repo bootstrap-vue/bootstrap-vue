@@ -26,31 +26,31 @@
     },
     {
       "path": "./dist/bootstrap-vue-icons.css",
-      "maxSize": "0.8 kB"
+      "maxSize": "1 kB"
     },
     {
       "path": "./dist/bootstrap-vue-icons.min.css",
-      "maxSize": "0.8 kB"
+      "maxSize": "0.9 kB"
     },
     {
       "path": "./dist/bootstrap-vue.js",
-      "maxSize": "220 kB"
+      "maxSize": "223 kB"
     },
     {
       "path": "./dist/bootstrap-vue.min.js",
-      "maxSize": "96 kB"
+      "maxSize": "98 kB"
     },
     {
       "path": "./dist/bootstrap-vue.common.js",
-      "maxSize": "249 kB"
+      "maxSize": "251 kB"
     },
     {
       "path": "./dist/bootstrap-vue.common.min.js",
-      "maxSize": "141 kB"
+      "maxSize": "142 kB"
     },
     {
       "path": "./dist/bootstrap-vue.esm.js",
-      "maxSize": "246 kB"
+      "maxSize": "249 kB"
     },
     {
       "path": "./dist/bootstrap-vue.esm.min.js",
