@@ -95,6 +95,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
+    /* istanbul ignore next */
     templateType() /* istanbul ignore next */ {
       // Overridden by template component
       return 'unknown'
@@ -181,10 +182,10 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
         const arrow = this.$refs.arrow || select('.arrow', this.$el)
         const arrowOffset = toFloat(getCS(arrow).width, 0) + toFloat(this.arrowPadding, 0)
         switch (OffsetMap[String(placement).toUpperCase()] || 0) {
-          case +1:
+          case +1 /* istanbul ignore next */:
             /* istanbul ignore next: can't test in JSDOM */
             return `+50%p - ${arrowOffset}px`
-          case -1:
+          case -1 /* istanbul ignore next */:
             /* istanbul ignore next: can't test in JSDOM */
             return `-50%p + ${arrowOffset}px`
           default:
@@ -211,6 +212,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       // Callback used by popper to adjust the arrow placement
       this.attachment = this.getAttachment(data.placement)
     },
+    /* istanbul ignore next */
     renderTemplate(h) /* istanbul ignore next */ {
       // Will be overridden by templates
       return h('div')
