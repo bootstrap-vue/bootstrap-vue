@@ -449,6 +449,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         this.touchStartX = evt.touches[0].clientX
       }
     },
+    /* istanbul ignore next */
     touchMove(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
       // Ensure swiping with one touch and not pinching
       if (evt.touches && evt.touches.length > 1) {
