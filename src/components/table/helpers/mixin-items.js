@@ -9,6 +9,7 @@ export default {
     items: {
       // Provider mixin adds in `Function` type
       type: Array,
+      /* istanbul ignore next */
       default() /* istanbul ignore next */ {
         return []
       }
@@ -75,6 +76,7 @@ export default {
         this.sortedItems ||
         this.filteredItems ||
         this.localItems ||
+        /* istanbul ignore next */
         []
       ).slice()
     },
