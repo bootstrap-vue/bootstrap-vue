@@ -87,7 +87,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       const $title = isFunction(this.title)
         ? this.title({})
         : isUndefinedOrNull(this.title)
-          ? h()
+          ? /* istanbul ignore next */ h()
           : this.title
 
       // Directive versions only
