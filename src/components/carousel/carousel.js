@@ -299,6 +299,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       }
     },
     // Restart auto rotate slides when focus/hover leaves the carousel
+    /* istanbul ignore next */
     restart() /* istanbul ignore next: difficult to test */ {
       if (!this.$el.contains(document.activeElement)) {
         this.start()
@@ -422,6 +423,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         fn()
       }
     },
+    /* istanbul ignore next */
     handleSwipe() /* istanbul ignore next: JSDOM doesn't support touch events */ {
       const absDeltaX = Math.abs(this.touchDeltaX)
       if (absDeltaX <= SWIPE_THRESHOLD) {
@@ -439,6 +441,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         this.next()
       }
     },
+    /* istanbul ignore next */
     touchStart(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
       if (hasPointerEventSupport && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchStartX = evt.clientX
@@ -454,6 +457,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         this.touchDeltaX = evt.touches[0].clientX - this.touchStartX
       }
     },
+    /* istanbul ignore next */
     touchEnd(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
       if (hasPointerEventSupport && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchDeltaX = evt.clientX - this.touchStartX
