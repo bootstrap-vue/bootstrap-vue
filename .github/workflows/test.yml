@@ -182,9 +182,6 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
 
-      - name: Build
-        run: yarn run build
-
       - name: Download build files
         uses: actions/download-artifact@v1
         with:
