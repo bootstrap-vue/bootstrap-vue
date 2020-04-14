@@ -29,7 +29,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Cache node_modules
-        id: node_modules_cache_id
         uses: actions/cache@v1
         with:
           path: node_modules
@@ -45,6 +44,7 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
 
   lint:
+    needs: setup
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -68,9 +68,9 @@ jobs:
 
       - name: Lint
         run: yarn run test:lint
-    needs: setup
 
   audit:
+    needs: setup
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -94,9 +94,9 @@ jobs:
 
       - name: Audit
         run: yarn run audit
-    needs: setup
 
   test-unit:
+    needs: setup
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -126,9 +126,9 @@ jobs:
         if: matrix.node == '10'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-    needs: setup
 
   build:
+    needs: setup
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -153,13 +153,50 @@ jobs:
       - name: Build
         run: yarn run build
 
+      - name: Upload build files
+        uses: actions/upload-artifact@v1
+        with:
+          name: build-files
+          path: build
+
+  bundlewatch:
+    needs: build
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [12]
+
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Restore workspace cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
+
+      - name: Build
+        run: yarn run build
+
+      - name: Download build files
+        uses: actions/download-artifact@v1
+        with:
+          name: build-files
+
       - name: BundleWatch
         run: yarn run bundlewatch
         env:
           BUNDLEWATCH_GITHUB_TOKEN: "${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}"
-    needs: setup
 
   docs:
+    needs: setup
     runs-on: ${{ matrix.os }}
     if: github.event_name == 'push' && github.ref == 'master'
 
@@ -184,4 +221,3 @@ jobs:
 
       - name: Publish docs
         run: yarn run docs-publish
-    needs: setup
