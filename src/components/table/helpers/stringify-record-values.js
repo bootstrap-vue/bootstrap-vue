@@ -7,7 +7,7 @@ import stringifyObjectValues from './stringify-object-values'
 const stringifyRecordValues = (row, ignoreFields, includeFields, fieldsObj) => {
   return isObject(row)
     ? stringifyObjectValues(sanitizeRow(row, ignoreFields, includeFields, fieldsObj))
-    : ''
+    : /* istanbul ignore next */ ''
 }
 
 export default stringifyRecordValues
