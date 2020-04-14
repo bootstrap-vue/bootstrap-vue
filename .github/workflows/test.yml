@@ -186,6 +186,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: build-files
+          path: dist
 
       - name: BundleWatch
         run: yarn run bundlewatch
