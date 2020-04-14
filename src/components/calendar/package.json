@@ -4,7 +4,6 @@
   "meta": {
     "title": "Calendar",
     "slug": "calendar",
-    "version": "2.5.0",
     "new": true,
     "description": "BootstrapVue custom calendar widget for selecting dates and controlling other components, fully WAI-ARIA accessible (a11y) and supports internationalization (i18n)",
     "components": [
