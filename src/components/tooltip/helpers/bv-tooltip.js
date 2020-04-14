@@ -850,6 +850,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.leave(null)
       }
     },
+    /* istanbul ignore next */
     toggle() /* istanbul ignore next */ {
       // Manual toggle handler
       if (!this.$_enabled || this.dropdownOpen()) {
