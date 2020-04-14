@@ -27,11 +27,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0 # All history
-
-      - name: Fetch tags
-        run: git fetch --depth=1 origin "+refs/tags/*:refs/tags/*"
 
       - name: Cache node_modules
         id: node_modules_cache_id
