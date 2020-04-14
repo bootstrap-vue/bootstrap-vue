@@ -350,9 +350,11 @@ export const BTime = /*#__PURE__*/ Vue.extend({
   mounted() {
     this.setLive(true)
   },
+  /* istanbul ignore next */
   activated() /* istanbul ignore next */ {
     this.setLive(true)
   },
+  /* istanbul ignore next */
   deactivated() /* istanbul ignore next */ {
     this.setLive(false)
   },
@@ -388,9 +390,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         hh === 0 && hourCycle === 'h12'
           ? 12
           : hh === 0 && hourCycle === 'h24'
-            ? 24
+            ? /* istanbul ignore next */ 24
             : hh === 12 && hourCycle === 'h11'
-              ? 0
+              ? /* istanbul ignore next */ 0
               : hh
       return this.numberFormatter(hh)
     },
@@ -580,7 +582,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         },
         on: {
           keydown: this.onSpinLeftRight,
-          click: evt => /* istanbul ignore next */ {
+          click /* istanbul ignore next */: evt => /* istanbul ignore next */ {
             if (evt.target === evt.currentTarget) {
               this.focus()
             }
