@@ -182,7 +182,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
         const arrow = this.$refs.arrow || select('.arrow', this.$el)
         const arrowOffset = toFloat(getCS(arrow).width, 0) + toFloat(this.arrowPadding, 0)
         switch (OffsetMap[String(placement).toUpperCase()] || 0) {
-           /* istanbul ignore next: can't test in JSDOM */
+          /* istanbul ignore next: can't test in JSDOM */
           case +1:
             /* istanbul ignore next: can't test in JSDOM */
             return `+50%p - ${arrowOffset}px`
