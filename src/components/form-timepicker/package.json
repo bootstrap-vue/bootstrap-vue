@@ -4,7 +4,6 @@
   "meta": {
     "title": "Form Timepicker",
     "description": "BootstrapVue custom time picker input form control, which provides full WAI-ARIA accessibility (a11y) and supports internationalization (i18n)",
-    "new": true,
     "version": "2.6.0",
     "components": [
       {
