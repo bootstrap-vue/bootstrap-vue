@@ -143,6 +143,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
     handleHover(hovered) {
       this.isHovered = hovered
     },
+    /* istanbul ignore next */
     stopEvent(evt) /* istanbul ignore next */ {
       evt.stopPropagation()
     }
@@ -201,7 +202,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
       [
         this.hasNormalizedSlot('button-content')
           ? this.normalizeSlot('button-content', btnScope)
-          : h(BIconChevronDown, { props: { scale: 1.25 } })
+          : /* istanbul ignore next */ h(BIconChevronDown, { props: { scale: 1.25 } })
       ]
     )
 
