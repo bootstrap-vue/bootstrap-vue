@@ -1006,7 +1006,10 @@ export const BIconCircle = /*#__PURE__*/ makeIcon(
 )
 
 // eslint-disable-next-line
-export const BIconCircleFill = /*#__PURE__*/ makeIcon('CircleFill', '<circle cx="8" cy="8" r="8"/>')
+export const BIconCircleFill = /*#__PURE__*/ makeIcon(
+  'CircleFill',
+  '<circle cx="8" cy="8" r="8"/>'
+)
 
 // eslint-disable-next-line
 export const BIconCircleHalf = /*#__PURE__*/ makeIcon(
