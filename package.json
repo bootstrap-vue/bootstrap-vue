@@ -114,7 +114,6 @@
     "bootstrap-icons": "^1.0.0-alpha3",
     "bundlewatch": "^0.2.6",
     "clean-css-cli": "^4.3.0",
-    "codecov": "^3.6.5",
     "codemirror": "^5.52.2",
     "codesandbox": "^2.1.14",
     "core-js": ">=2.6.5 <3.0.0",
