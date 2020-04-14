@@ -23,7 +23,7 @@ export const BMediaAside = /*#__PURE__*/ Vue.extend({
         ? 'start'
         : props.verticalAlign === 'bottom'
           ? 'end'
-          : props.verticalAlign
+          : /* istanbul ignore next */ props.verticalAlign
     return h(
       props.tag,
       mergeData(data, {
