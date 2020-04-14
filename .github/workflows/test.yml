@@ -157,7 +157,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: build-files
-          path: build
+          path: dist
 
   bundlewatch:
     needs: build
