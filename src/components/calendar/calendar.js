@@ -473,10 +473,10 @@ export const BCalendar = Vue.extend({
           let dateInfo = dateInfoFn(dayYMD, parseYMD(dayYMD))
           dateInfo =
             isString(dateInfo) || isArray(dateInfo)
-              ? { class: dateInfo }
+              ? /* istanbul ignore next */ { class: dateInfo }
               : isPlainObject(dateInfo)
                 ? { class: '', ...dateInfo }
-                : { class: '' }
+                : /* istanbul ignore next */ { class: '' }
           matrix[week].push({
             ymd: dayYMD,
             // Cell content
@@ -540,9 +540,11 @@ export const BCalendar = Vue.extend({
   mounted() {
     this.setLive(true)
   },
+  /* istanbul ignore next */
   activated() /* istanbul ignore next */ {
     this.setLive(true)
   },
+  /* istanbul ignore next */
   deactivated() /* istanbul ignore next */ {
     this.setLive(false)
   },
