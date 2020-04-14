@@ -172,6 +172,7 @@ export default {
     // Create non-reactive property
     this.$_popper = null
   },
+  /* istanbul ignore next */
   deactivated() /* istanbul ignore next: not easy to test */ {
     // In case we are inside a `<keep-alive>`
     this.visible = false
@@ -341,6 +342,7 @@ export default {
       }
     },
     // Mousedown handler for the toggle
+    /* istanbul ignore next */
     onMousedown(evt) /* istanbul ignore next */ {
       // We prevent the 'mousedown' event for the toggle to stop the
       // 'focusin' event from being fired
