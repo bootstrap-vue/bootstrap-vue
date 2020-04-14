@@ -126,6 +126,7 @@ jobs:
         if: matrix.node == '10'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
 
   build:
     needs: setup
