@@ -1,12 +1,14 @@
 import hljs from '~/utils/hljs'
-import Main from '~/components/main'
-import Section from '~/components/section'
+import MainDocs from '~/components/main-docs'
 import docsMixin from '~/plugins/docs-mixin'
 import { misc as miscMeta, defaultConfig } from '~/content'
 
 const getReadMe = name =>
   import(`~/markdown/misc/${name}/README.md` /* webpackChunkName: "docs/misc" */)
 
+const replacer = (key, value) => (typeof value === 'undefined' ? null : value)
+
+// @vue/component
 export default {
   name: 'BDVMisc',
   layout: 'docs',
@@ -18,14 +20,18 @@ export default {
     let readme = (await getReadMe(params.slug)).default
     readme = readme.replace(
       '{{ defaultConfig }}',
-      hljs.highlight('json', JSON.stringify(defaultConfig || {}, undefined, 2)).value
+      hljs.highlight('json', JSON.stringify(defaultConfig || {}, replacer, 2)).value
     )
     const meta = miscMeta[params.slug]
-    return { readme, meta }
+    return { meta, readme }
   },
   render(h) {
-    // Readme section
-    const $readmeSection = h(Section, { domProps: { innerHTML: this.readme } })
-    return h(Main, { staticClass: 'bd-components' }, [$readmeSection])
+    return h(MainDocs, {
+      staticClass: 'bd-components',
+      props: {
+        readme: this.readme,
+        meta: this.meta
+      }
+    })
   }
 }

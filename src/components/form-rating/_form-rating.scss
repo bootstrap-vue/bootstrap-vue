@@ -1,0 +1,57 @@
+.b-rating {
+  text-align: center;
+
+  &.d-inline-flex {
+    width: auto;
+  }
+
+  .b-rating-star,
+  .b-rating-value {
+    padding: 0 0.25em;
+  }
+
+  .b-rating-value {
+    // Keep the stars from moving when value changes (usually)
+    min-width: 2.5em;
+  }
+
+  .b-rating-star {
+    display: inline-flex;
+    justify-content: center;
+    outline: 0;
+
+    .b-rating-icon {
+      display: inline-flex;
+      transition: all 0.15s ease-in-out;
+    }
+  }
+
+  &.disabled,
+  &:disabled {
+    background-color: $input-disabled-bg;
+    color: $text-muted;
+  }
+
+  &:not(.disabled):not(.readonly) {
+    .b-rating-star {
+      cursor: pointer;
+    }
+
+    // Zoom focused or hovered icons
+    &:focus:not(:hover) .b-rating-star.focused,
+    .b-rating-star:hover {
+      .b-rating-icon {
+        transform: scale(1.5);
+      }
+    }
+  }
+
+  // Flip the half icon if RTL mode
+  // We transform the outer star wrapper so that we do not
+  // interfere with the hover/focus transform above
+  &[dir="rtl"] {
+    .b-rating-star-half {
+      transform: scale(-1, 1);
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import AnchoredHeading from '~/components/anchored-heading'
 import Componentdoc from '~/components/componentdoc'
 import Importdoc from '~/components/importdoc'
-import Main from '~/components/main'
+import MainDocs from '~/components/main-docs'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { components as componentsMeta } from '~/content'
@@ -9,6 +9,7 @@ import { components as componentsMeta } from '~/content'
 const getReadMe = name =>
   import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
 
+// @vue/component
 export default {
   name: 'BDVComponents',
   layout: 'docs',
@@ -19,14 +20,9 @@ export default {
   async asyncData({ params }) {
     const readme = (await getReadMe(params.slug)).default
     const meta = componentsMeta[params.slug]
-    return { readme, meta }
+    return { meta, readme }
   },
   render(h) {
-    // Readme section
-    const $readmeSection = h(Section, {
-      props: { play: true },
-      domProps: { innerHTML: this.readme }
-    })
     // Reference section
     const $referenceSection = h(Section, { class: ['bd-component-reference'] }, [
       // Heading
@@ -41,6 +37,18 @@ export default {
       // Component importing information
       h(Importdoc, { props: { meta: this.meta } })
     ])
-    return h(Main, { staticClass: 'bd-components' }, [$readmeSection, $referenceSection])
+
+    return h(
+      MainDocs,
+      {
+        key: this.$route.path,
+        staticClass: 'bd-components',
+        props: {
+          readme: this.readme || '',
+          meta: this.meta
+        }
+      },
+      [$referenceSection]
+    )
   }
 }

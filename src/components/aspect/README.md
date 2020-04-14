@@ -7,8 +7,6 @@
 
 ## Overview
 
-The `<b-aspect>` component was introduced in BootstrapVue `v2.9.0`.
-
 The default [aspect](<https://en.wikipedia.org/wiki/Aspect_ratio_(image)>) ratio is `1:1` (ratio of
 `1`), which makes the height always be at least the same as the width. The `aspect` prop can be used
 to specify an arbitrary aspect ratio (i.e. `1.5`) or a ratio as a string such as `'16:9'` or

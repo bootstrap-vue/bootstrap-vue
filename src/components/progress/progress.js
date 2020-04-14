@@ -27,8 +27,8 @@ export const BProgress = /*#__PURE__*/ Vue.extend({
       default: false
     },
     height: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     precision: {
       type: [Number, String],

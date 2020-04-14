@@ -22,6 +22,7 @@ import { FormFilePlugin } from './form-file'
 import { FormGroupPlugin } from './form-group'
 import { FormInputPlugin } from './form-input'
 import { FormRadioPlugin } from './form-radio'
+import { FormRatingPlugin } from './form-rating'
 import { FormSelectPlugin } from './form-select'
 import { FormSpinbuttonPlugin } from './form-spinbutton'
 import { FormTagsPlugin } from './form-tags'
@@ -42,6 +43,7 @@ import { PaginationPlugin } from './pagination'
 import { PaginationNavPlugin } from './pagination-nav'
 import { PopoverPlugin } from './popover'
 import { ProgressPlugin } from './progress'
+import { SidebarPlugin } from './sidebar'
 import { SpinnerPlugin } from './spinner'
 // Table plugin includes TableLitePlugin and TableSimplePlugin
 import { TablePlugin } from './table'
@@ -74,6 +76,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     FormGroupPlugin,
     FormInputPlugin,
     FormRadioPlugin,
+    FormRatingPlugin,
     FormSelectPlugin,
     FormSpinbuttonPlugin,
     FormTagsPlugin,
@@ -94,6 +97,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     PaginationNavPlugin,
     PopoverPlugin,
     ProgressPlugin,
+    SidebarPlugin,
     SpinnerPlugin,
     TablePlugin,
     TabsPlugin,

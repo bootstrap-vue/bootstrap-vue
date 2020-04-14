@@ -5,6 +5,8 @@
 > clicking an element, and can contain both content and a title heading. Popovers are tooltips on
 > steroids.
 
+## Overview
+
 Use the `v-b-popover` directive on any **element** or **component** where you would like a popover
 to appear.
 
@@ -15,8 +17,6 @@ to appear.
 
 <!-- b-popover.vue -->
 ```
-
-## Overview
 
 Things to know when using the popover directive:
 
@@ -269,7 +269,7 @@ This `blur` trigger must be used in combination with the `click` trigger.
 
 The following example shows the `click blur` use case. Popovers will only open on click of the
 button, and will close either on click of the button, or a click anywhere else (or a focus change
-via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismissing_.
+via pressing the <kbd>Tab</kbd> key). Some call this behavior _self dismissing_.
 
 ```html
 <div>

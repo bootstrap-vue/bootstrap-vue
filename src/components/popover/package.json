@@ -36,19 +36,28 @@
             "description": "placement to use when the popover would be out of boundaries. Refer to the docs for more details"
           },
           {
+            "prop": "variant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          },
+          {
             "prop": "customClass",
+            "settings": true,
             "description": "CSS class (or classes) to apply to the popover's root element"
           },
           {
             "prop": "delay",
+            "settings": true,
             "description": "Value for the show and hide delay. Applies to both show and hide when specified as a number or string. Use object form to set show and hide delays individually"
           },
           {
             "prop": "boundary",
+            "settings": true,
             "description": "The boundary constraint of the popover: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement or component"
           },
           {
             "prop": "boundaryPadding",
+            "settings": true,
             "description": "The popover will try and stay away from the edge of the boundary element by the number of pixels specified"
           },
           {

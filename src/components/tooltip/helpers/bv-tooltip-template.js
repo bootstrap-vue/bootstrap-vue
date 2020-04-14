@@ -13,13 +13,13 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
   props: {
     // Other non-reactive (while open) props are pulled in from BVPopper
     id: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     html: {
       // Used only by the directive versions
-      type: Boolean,
-      default: false
+      type: Boolean
+      // default: false
     }
   },
   data() {
@@ -62,19 +62,19 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
     templateListeners() {
       // Used for hover/focus trigger listeners
       return {
-        mouseenter: evt => {
+        mouseenter /* istanbul ignore next */: evt => {
           /* istanbul ignore next: difficult to test in JSDOM */
           this.$emit('mouseenter', evt)
         },
-        mouseleave: evt => {
+        mouseleave /* istanbul ignore next */: evt => {
           /* istanbul ignore next: difficult to test in JSDOM */
           this.$emit('mouseleave', evt)
         },
-        focusin: evt => {
+        focusin /* istanbul ignore next */: evt => {
           /* istanbul ignore next: difficult to test in JSDOM */
           this.$emit('focusin', evt)
         },
-        focusout: evt => {
+        focusout /* istanbul ignore next */: evt => {
           /* istanbul ignore next: difficult to test in JSDOM */
           this.$emit('focusout', evt)
         }
@@ -87,7 +87,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       const $title = isFunction(this.title)
         ? this.title({})
         : isUndefinedOrNull(this.title)
-          ? h()
+          ? /* istanbul ignore next */ h()
           : this.title
 
       // Directive versions only

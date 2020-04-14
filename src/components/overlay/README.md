@@ -4,20 +4,18 @@
 > component and its content. It signals to the user of a state change within the element or
 > component and can be used for creating loaders, warnings/alerts, prompts, and more.
 
+## Overview
+
 `<b-overlay>` can be used to obscure almost anything. [Example use cases](#use-case-examples) would
 be forms, tables, delete confirmation dialogs, or anywhere you need to signal that the application
 is busy performing a background task, to signal that a certain component is unavailable, or to
 provide additional context to the end user.
 
-The component `<b-overlay>` was introduced in BootstrapVue version `v2.7.0`.
-
-## Overview
-
 `<b-overlay>` can be used to overlay (wrap) an element or component (the default behaviour), or can
 be placed as a descendant of a `position: relative` element
 ([non-wrapping mode](#non-wrapping-mode)).
 
-The overlay visibility is controlled vis the `show` prop. By default the overlay is _not_ shown.
+The overlay visibility is controlled via the `show` prop. By default the overlay is _not_ shown.
 
 <div class="alert alert-info">
   <p class="mb-0">
@@ -520,7 +518,7 @@ have been disabled and are _not_ in the document tab sequence.
 
 Here are just a few examples of common use cases of `<b-overlay>`. In all cases, we disable any
 interactive elements in the obscured area to prevent reachability via keyboard navigation (i.e.
-<kbd>TAB</kbd> key) or screen reader access.
+<kbd>Tab</kbd> key) or screen reader access.
 
 Please refer to the [Accessibility section](#accessibility) for additional details and concerns.
 

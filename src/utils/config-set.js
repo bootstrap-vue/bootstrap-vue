@@ -1,6 +1,6 @@
 import OurVue from './vue'
 import cloneDeep from './clone-deep'
-import get from './get'
+import { getRaw } from './get'
 import { isArray, isPlainObject, isString, isUndefined } from './inspect'
 import { getOwnPropertyNames, hasOwnProperty } from './object'
 import { warn } from './warn'
@@ -20,15 +20,18 @@ class BvConfig {
     this.$_cachedBreakpoints = null
   }
 
+  /* istanbul ignore next */
   static get Defaults() /* istanbul ignore next */ {
     return DEFAULTS
   }
 
+  /* istanbul ignore next */
   get defaults() /* istanbul ignore next */ {
     return DEFAULTS
   }
 
   // Returns the defaults
+  /* istanbul ignore next */
   getDefaults() /* istanbul ignore next */ {
     return this.defaults
   }
@@ -92,7 +95,7 @@ class BvConfig {
   getConfigValue(key) {
     // First we try the user config, and if key not found we fall back to default value
     // NOTE: If we deep clone DEFAULTS into config, then we can skip the fallback for get
-    return cloneDeep(get(this.$_config, key, get(DEFAULTS, key)))
+    return cloneDeep(getRaw(this.$_config, key, getRaw(DEFAULTS, key)))
   }
 }
 

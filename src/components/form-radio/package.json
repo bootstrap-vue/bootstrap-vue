@@ -12,6 +12,11 @@
         ],
         "props": [
           {
+            "prop": "size",
+            "settings": true,
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+          },
+          {
             "prop": "stacked",
             "description": "When set, renders the radio group in stacked mode"
           },
@@ -90,6 +95,11 @@
           {
             "prop": "value",
             "description": "Value returned when this radio is checked"
+          },
+          {
+            "prop": "size",
+            "settings": true,
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
           },
           {
             "prop": "inline",

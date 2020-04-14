@@ -1,6 +1,6 @@
 <template>
   <nav
-    :class="['bd-quick-links', 'mb-3', { 'd-none': !hasContent }]"
+    :class="['bd-quick-links', 'mb-3', 'd-xl-none', { 'd-none': !hasContent }]"
     :aria-hidden="hasContent ? null : 'true'"
   >
     <header v-if="hasContent">

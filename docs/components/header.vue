@@ -29,7 +29,7 @@
     </b-navbar-brand>
 
     <div class="navbar-nav-scroll">
-      <b-navbar-nav is-nav class="bd-navbar-nav flex-row">
+      <b-navbar-nav class="bd-navbar-nav flex-row">
         <b-nav-item to="/docs" active-class="active" exact>Docs</b-nav-item>
         <b-nav-item to="/docs/components" active-class="active">Components</b-nav-item>
         <b-nav-item to="/docs/directives" active-class="active">Directives</b-nav-item>
@@ -53,7 +53,7 @@
           <b-dropdown-item v-else-if="isLocal" active href="/">
             Local copy
           </b-dropdown-item>
-          <b-dropdown-item :active="isDev" href="https://bootstrap-vue.netlify.com" rel="nofollow">
+          <b-dropdown-item :active="isDev" href="https://bootstrap-vue.netlify.app" rel="nofollow">
             Development
           </b-dropdown-item>
           <b-dropdown-item href="https://bootstrap-vue.js.org">
@@ -64,7 +64,7 @@
           <b-dropdown-item active href="https://bootstrap-vue.js.org">
             Latest (v{{ version }})
           </b-dropdown-item>
-          <b-dropdown-item href="https://bootstrap-vue.netlify.com" rel="nofollow">
+          <b-dropdown-item href="https://bootstrap-vue.netlify.app" rel="nofollow">
             Development
           </b-dropdown-item>
         </template>

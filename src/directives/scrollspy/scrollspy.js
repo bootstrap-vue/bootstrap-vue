@@ -1,7 +1,8 @@
 import ScrollSpy from './scrollspy.class'
 import { isBrowser } from '../../utils/env'
-import { keys } from '../../utils/object'
 import { isNumber, isObject, isString } from '../../utils/inspect'
+import { toInteger } from '../../utils/number'
+import { keys } from '../../utils/object'
 
 // Key we use to store our instance
 const BV_SCROLLSPY = '__BV_ScrollSpy__'
@@ -27,7 +28,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   keys(bindings.modifiers).forEach(mod => {
     if (onlyDigitsRE.test(mod)) {
       // Offset value
-      config.offset = parseInt(mod, 10)
+      config.offset = toInteger(mod, 0)
     } else if (offsetRE.test(mod)) {
       // Offset method
       config.method = mod
@@ -82,22 +83,27 @@ const removeScrollspy = el => /* istanbul ignore next: not easy to test */ {
  * Export our directive
  */
 export const VBScrollspy = {
+  /* istanbul ignore next: not easy to test */
   bind(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     applyScrollspy(el, bindings, vnode)
   },
+  /* istanbul ignore next: not easy to test */
   inserted(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     applyScrollspy(el, bindings, vnode)
   },
+  /* istanbul ignore next: not easy to test */
   update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     if (bindings.value !== bindings.oldValue) {
       applyScrollspy(el, bindings, vnode)
     }
   },
+  /* istanbul ignore next: not easy to test */
   componentUpdated(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
     if (bindings.value !== bindings.oldValue) {
       applyScrollspy(el, bindings, vnode)
     }
   },
+  /* istanbul ignore next: not easy to test */
   unbind(el) /* istanbul ignore next: not easy to test */ {
     removeScrollspy(el)
   }

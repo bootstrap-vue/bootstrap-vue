@@ -3,11 +3,9 @@
 > `v-b-hover` is a lightweight directive that allows you to react when an element either becomes
 > hovered or unhovered.
 
-The `v-b-hover` directive can be used as an alternative to using custom CSS to handle hover states.
-
-The `v-b-hover` directive was added in version `2.5.0`.
-
 ## Overview
+
+The `v-b-hover` directive can be used as an alternative to using custom CSS to handle hover states.
 
 - `v-b-hover` will call your callback method with a boolean value indicating if the element is
   hovered or not.
@@ -52,7 +50,7 @@ The directive has no modifiers.
 
 ## Live example
 
-In the following, we are swapping icons and tet color depending on the hover state of the element:
+In the following, we are swapping icons and text color depending on the hover state of the element:
 
 ```html
 <template>
@@ -86,4 +84,4 @@ In the following, we are swapping icons and tet color depending on the hover sta
 ## Accessibility concerns
 
 Hover state should not be used to convey special meaning, as screen reader users and keyboard only
-users typically ac not typically trigger hover state on elements.
+users typically can not trigger hover state on elements.

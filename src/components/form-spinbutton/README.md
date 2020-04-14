@@ -6,8 +6,6 @@
 
 ## Overview
 
-`<b-form-spinbutton>` was introduced in BootstrapVue `v2.5.0`.
-
 The component `<b-form-spinbutton>` is
 [WAI-ARIA compliant](https://www.w3.org/TR/wai-aria-practices-1.2/#spinbutton), allowing for
 [keyboard control](#accessibility), and supports both horizontal (default) and vertical layout.
@@ -366,7 +364,7 @@ hold the increment or decrement button (or use the up/down arrow keys).
     ></b-form-spinbutton>
     <p>Input event: {{ value1 }}</p>
     <p>Change event: {{ value2 }}</p>
-  </b-row>
+  </div>
 </template>
 
 <script>
@@ -405,7 +403,7 @@ Note the the `repeat-delay`, `repeat-threshold` and `repeat-interval` only appli
 
 ## Implementation notes
 
-`<b-form-spinbutton>` uses a mixture of Bootstrap v4 utility classes (margin, padding, and flex),
+`<b-form-spinbutton>` uses a mixture of Bootstrap v4 utility classes (border, alignment, flex),
 form-control and button classes, along with additional custom BootstrapVue SCSS/CSS.
 
 ## See also

@@ -31,13 +31,13 @@ const propsMixin = {
       default: ''
     },
     placeholder: {
-      type: String,
+      type: String
       // Defaults to `labelNoTime` from BTime context
-      default: null
+      // default: null
     },
     size: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     disabled: {
       type: Boolean,
@@ -53,12 +53,12 @@ const propsMixin = {
       default: false
     },
     name: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     form: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     state: {
       // Tri-state prop: `true`, `false` or `null`
@@ -71,8 +71,8 @@ const propsMixin = {
       default: null
     },
     locale: {
-      type: [String, Array],
-      default: null
+      type: [String, Array]
+      // default: null
     },
     showSeconds: {
       type: Boolean,
@@ -180,8 +180,8 @@ const propsMixin = {
     },
     // extra dropdown stuff
     menuClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     ...dropdownProps
   }
@@ -249,7 +249,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       this.localHMS = newVal || ''
     },
     localHMS(newVal) {
-      // We only update hte v-model value when the timepicker
+      // We only update the v-model value when the timepicker
       // is open, to prevent cursor jumps when bound to a
       // text input in button only mode
       if (this.isVisible) {
@@ -331,9 +331,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const localHMS = this.localHMS
-    const disabled = this.disabled
-    const readonly = this.readonly
+    const { localHMS, disabled, readonly } = this
     const placeholder = isUndefinedOrNull(this.placeholder)
       ? this.labelNoTimeSelected
       : this.placeholder
@@ -347,7 +345,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            staticClass: 'mx-1',
+            key: 'now-btn',
             props: { size: 'sm', disabled: disabled || readonly, variant: this.nowButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onNowButton }
@@ -358,12 +356,16 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     }
 
     if (this.resetButton) {
+      if ($footer.length > 0) {
+        // Add a "spacer" betwen buttons ('&nbsp;')
+        $footer.push(h('span', '\u00a0'))
+      }
       const label = this.labelResetButton
       $footer.push(
         h(
           BButton,
           {
-            staticClass: 'mx-1',
+            key: 'reset-btn',
             props: { size: 'sm', disabled: disabled || readonly, variant: this.resetButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onResetButton }
@@ -374,12 +376,16 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     }
 
     if (!this.noCloseButton) {
+      if ($footer.length > 0) {
+        // Add a "spacer" betwen buttons ('&nbsp;')
+        $footer.push(h('span', '\u00a0'))
+      }
       const label = this.labelCloseButton
       $footer.push(
         h(
           BButton,
           {
-            staticClass: 'mx-1',
+            key: 'close-btn',
             props: { size: 'sm', disabled, variant: this.closeButtonVariant },
             attrs: { 'aria-label': label || null },
             on: { click: this.onCloseButton }
@@ -394,7 +400,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         h(
           'div',
           {
-            staticClass: 'b-form-date-controls d-flex flex-wrap mx-n1',
+            staticClass: 'b-form-date-controls d-flex flex-wrap',
             class: {
               'justify-content-between': $footer.length > 1,
               'justify-content-end': $footer.length < 2

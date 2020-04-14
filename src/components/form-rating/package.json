@@ -1,0 +1,164 @@
+{
+  "name": "@bootstrap-vue/form-rating",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Form Rating",
+    "version": "2.12.0",
+    "new": true,
+    "description": "BootstrapVue custom ratings form control or ratings display",
+    "components": [
+      {
+        "component": "BFormRating",
+        "version": "2.12.0",
+        "aliases": [
+          "BRating"
+        ],
+        "props": [
+          {
+            "prop": "value",
+            "description": "Rating value. This is the v-model"
+          },
+          {
+            "prop": "stars",
+            "description": "The number of stars to show. Minimum value is `3`, default is `5`"
+          },
+          {
+            "prop": "variant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          },
+          {
+            "prop": "color",
+            "settings": true,
+            "description": "CSS color to use instead of variant. Accepts either a HEX or RGB/RGBA string"
+          },
+          {
+            "prop": "showValue",
+            "description": "When `true` shows the current rating value in the control"
+          },
+          {
+            "prop": "noBorder",
+            "description": "When `true` disables the default border"
+          },
+          {
+            "prop": "inline",
+            "description": "When `true` renders as an inline element rather than a blick (100% width) element"
+          },
+          {
+            "prop": "showClear",
+            "description": "When `true` shows the clear value icon button"
+          },
+          {
+            "prop": "precision",
+            "description": "Specify the number of digits after the decimal to show. Defaults to to no defined precision"
+          },
+          {
+            "prop": "readonly",
+            "description": "When `true` makes the rating readonly. When `true`, fractional ratings values are allowed (half icons will be shown)"
+          },
+          {
+            "prop": "iconEmpty",
+            "description": "Bootstrap Icon name to use for the empty icon. Note icon must be registered in your component or globally"
+          },
+          {
+            "prop": "iconHalf",
+            "description": "Bootstrap Icon name to use for the half icon. Note icon must be registered in your component or globally"
+          },
+          {
+            "prop": "iconFull",
+            "description": "Bootstrap Icon name to use for the full icon. Note icon must be registered in your component or globally"
+          },
+          {
+            "prop": "iconClear",
+            "description": "Bootstrap Icon name to use for the clear button. Note icon must be registered in your component or globally"
+          },
+          {
+            "prop": "locale",
+            "description": "Locale (or locales) to use when showing the value when prop `show-value` is set. Defaults to the browser default locale"
+          }
+        ],
+        "events": [
+          {
+            "event": "change",
+            "description": "Emitted to update the v-model",
+            "args": [
+              {
+                "arg": "value",
+                "description": "Current ratings value"
+              }
+            ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "icon-empty",
+            "description": "Content for the empty icon",
+            "scope": [
+              {
+                "prop": "variant",
+                "type": "String",
+                "description": "Value of the `variant` prop, or `null` if disabled"
+              },
+              {
+                "prop": "disabled",
+                "type": "Boolean",
+                "description": "Value of the `disabled` prop"
+              },
+              {
+                "prop": "readonly",
+                "type": "Boolean",
+                "description": "Value of the `readonly` prop"
+              }
+            ]
+          },
+          {
+            "name": "icon-half",
+            "description": "Content for the half icon",
+            "scope": [
+              {
+                "prop": "variant",
+                "type": "String",
+                "description": "Value of the `variant` prop, or `null` if disabled"
+              },
+              {
+                "prop": "disabled",
+                "type": "Boolean",
+                "description": "Value of the `disabled` prop"
+              },
+              {
+                "prop": "readonly",
+                "type": "Boolean",
+                "description": "Value of the `readonly` prop"
+              }
+            ]
+          },
+          {
+            "name": "icon-full",
+            "description": "Content for the full icon",
+            "scope": [
+              {
+                "prop": "variant",
+                "type": "String",
+                "description": "Value of the `variant` prop, or `null` if disabled"
+              },
+              {
+                "prop": "disabled",
+                "type": "Boolean",
+                "description": "Value of the `disabled` prop"
+              },
+              {
+                "prop": "readonly",
+                "type": "Boolean",
+                "description": "Value of the `readonly` prop"
+              }
+            ]
+          },
+          {
+            "name": "icon-clear",
+            "description": "Content for the optional clear button"
+          }
+        ]
+      }
+    ]
+  }
+}

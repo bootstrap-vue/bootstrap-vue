@@ -56,18 +56,22 @@
           },
           {
             "prop": "labelPrev",
+            "settings": true,
             "description": "Sets the 'aria-label' value for the previous slide control"
           },
           {
             "prop": "labelNext",
+            "settings": true,
             "description": "Sets the 'aria-label' value for the next slide control"
           },
           {
             "prop": "labelGotoSlide",
+            "settings": true,
             "description": "Sets the prefix for the 'aria-label' on the slide indicator controls. Will be suffixed with the slide number (1 indexed)"
           },
           {
             "prop": "labelIndicators",
+            "settings": true,
             "description": "Sets the 'aria-label' on the indicator controls wrapper"
           },
           {

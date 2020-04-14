@@ -79,11 +79,11 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
     ...commonIconProps
   },
   render(h, { data, props, children }) {
-    const fontScale = Math.max(toFloat(props.fontScale) || 1, 0) || 1
-    const scale = Math.max(toFloat(props.scale) || 1, 0) || 1
-    const rotate = toFloat(props.rotate) || 0
-    const shiftH = toFloat(props.shiftH) || 0
-    const shiftV = toFloat(props.shiftV) || 0
+    const fontScale = Math.max(toFloat(props.fontScale, 1), 0) || 1
+    const scale = Math.max(toFloat(props.scale, 1), 0) || 1
+    const rotate = toFloat(props.rotate, 0)
+    const shiftH = toFloat(props.shiftH, 0)
+    const shiftV = toFloat(props.shiftV, 0)
     const flipH = props.flipH
     const flipV = props.flipV
     const animation = props.animation

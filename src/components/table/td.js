@@ -1,14 +1,13 @@
 import Vue from '../../utils/vue'
 import { isUndefinedOrNull } from '../../utils/inspect'
+import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-const digitsRx = /^\d+$/
-
-// Parse a rowspan or colspan into a digit (or null if < 1 or NaN)
-const parseSpan = val => {
-  val = parseInt(val, 10)
-  return digitsRx.test(String(val)) && val > 0 ? val : null
+// Parse a rowspan or colspan into a digit (or `null` if < `1` )
+const parseSpan = value => {
+  value = toInteger(value, 0)
+  return value > 0 ? value : null
 }
 
 /* istanbul ignore next */
@@ -46,6 +45,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   inject: {
     bvTableTr: {
+      /* istanbul ignore next */
       default() /* istanbul ignore next */ {
         return {}
       }
@@ -104,6 +104,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     headVariant() {
       return this.bvTableTr.headVariant
     },
+    /* istanbul ignore next: need to add in tests for footer variant */
     footVariant() /* istanbul ignore next: need to add in tests for footer variant */ {
       return this.bvTableTr.footVariant
     },
@@ -168,7 +169,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         // stacked mode (if a stacked heading label is provided)
         'data-label':
           this.isStackedCell && !isUndefinedOrNull(this.stackedHeading)
-            ? toString(this.stackedHeading)
+            ? /* istanbul ignore next */ toString(this.stackedHeading)
             : null
       }
     }

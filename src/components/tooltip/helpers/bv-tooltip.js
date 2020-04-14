@@ -31,6 +31,7 @@ import {
   isUndefined,
   isUndefinedOrNull
 } from '../../../utils/inspect'
+import { toInteger } from '../../../utils/number'
 import { keys } from '../../../utils/object'
 import { warn } from '../../../utils/warn'
 import { BvEvent } from '../../../utils/bv-event.class'
@@ -42,6 +43,12 @@ const NAME = 'BVTooltip'
 const MODAL_SELECTOR = '.modal-content'
 // Modal `$root` hidden event
 const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
+
+// Sidebar container selector for appending tooltip/popover
+const SIDEBAR_SELECTOR = '.b-sidebar'
+
+// For finding the container to append to
+const CONTAINER_SELECTOR = [MODAL_SELECTOR, SIDEBAR_SELECTOR].join(', ')
 
 // For dropdown sniffing
 const DROPDOWN_CLASS = 'dropdown'
@@ -128,10 +135,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Normalizes delay into object form
       const delay = { show: 0, hide: 0 }
       if (isPlainObject(this.delay)) {
-        delay.show = Math.max(parseInt(this.delay.show, 10) || 0, 0)
-        delay.hide = Math.max(parseInt(this.delay.hide, 10) || 0, 0)
+        delay.show = Math.max(toInteger(this.delay.show, 0), 0)
+        delay.hide = Math.max(toInteger(this.delay.hide, 0), 0)
       } else if (isNumber(this.delay) || isString(this.delay)) {
-        delay.show = delay.hide = Math.max(parseInt(this.delay, 10) || 0, 0)
+        delay.show = delay.hide = Math.max(toInteger(this.delay, 0), 0)
       }
       return delay
     },
@@ -222,16 +229,18 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       }
     })
   },
+  /* istanbul ignore next */
   updated() /* istanbul ignore next */ {
     // Usually called when the slots/data changes
     this.$nextTick(this.handleTemplateUpdate)
   },
+  /* istanbul ignore next */
   deactivated() /* istanbul ignore next */ {
     // In a keepalive that has been deactivated, so hide
     // the tooltip/popover if it is showing
     this.forceHide()
   },
-  beforeDestroy() /* istanbul ignore next */ {
+  beforeDestroy() {
     // Remove all handler/listeners
     this.unListen()
     this.setWhileOpenListeners(false)
@@ -240,6 +249,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.clearVisibilityInterval()
     // Destroy the template
     this.destroyTemplate()
+    // Remove any other private properties created during create
+    this.$_noop = null
   },
   methods: {
     // --- Methods for creating and destroying the template ---
@@ -282,9 +293,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           target: this.getPlacementTarget(),
           boundary: this.getBoundary(),
           // Ensure the following are integers
-          offset: parseInt(this.offset, 10) || 0,
-          arrowPadding: parseInt(this.arrowPadding, 10) || 0,
-          boundaryPadding: parseInt(this.boundaryPadding, 10) || 0
+          offset: toInteger(this.offset, 0),
+          arrowPadding: toInteger(this.arrowPadding, 0),
+          boundaryPadding: toInteger(this.boundaryPadding, 0)
         }
       }))
       // We set the initial reactive data (values that can be changed while open)
@@ -382,12 +393,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const showEvt = this.buildEvent('show', { cancelable: true })
       this.emitEvent(showEvt)
       // Don't show if event cancelled
-      /* istanbul ignore next: ignore for now */
+      /* istanbul ignore if */
       if (showEvt.defaultPrevented) {
         // Destroy the template (if for some reason it was created)
-        /* istanbul ignore next */
         this.destroyTemplate()
-        /* istanbul ignore next */
         return
       }
       // Fix the title attribute on target
@@ -400,10 +409,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     hide(force = false) {
       // Hide the tooltip
       const tip = this.getTemplateElement()
+      /* istanbul ignore if */
       if (!tip || !this.localShow) {
-        /* istanbul ignore next */
         this.restoreTitle()
-        /* istanbul ignore next */
         return
       }
 
@@ -411,10 +419,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // We disable cancelling if `force` is true
       const hideEvt = this.buildEvent('hide', { cancelable: !force })
       this.emitEvent(hideEvt)
-      /* istanbul ignore next: ignore for now */
+      /* istanbul ignore if: ignore for now */
       if (hideEvt.defaultPrevented) {
         // Don't hide if event cancelled
-        /* istanbul ignore next */
         return
       }
 
@@ -511,17 +518,18 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const container = this.container ? this.container.$el || this.container : false
       const body = document.body
       const target = this.getTarget()
-      // If we are in a modal, we append to the modal instead
-      // of body, unless a container is specified
+      // If we are in a modal, we append to the modal, If we
+      // are in a sidebar, we append to the sidebar, else append
+      // to body, unless a container is specified
       // TODO:
       //   Template should periodically check to see if it is in dom
       //   And if not, self destruct (if container got v-if'ed out of DOM)
       //   Or this could possibly be part of the visibility check
       return container === false
-        ? closest(MODAL_SELECTOR, target) || body
-        : isString(container)
-          ? getById(container.replace(/^#/, '')) || body
-          : body
+        ? closest(CONTAINER_SELECTOR, target) || body
+        : /*istanbul ignore next */ isString(container)
+          ? /*istanbul ignore next */ getById(container.replace(/^#/, '')) || body
+          : /*istanbul ignore next */ body
     },
     getBoundary() {
       return this.boundary ? this.boundary.$el || this.boundary : 'scrollParent'
@@ -808,6 +816,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.show()
       }
     },
+    /*istanbul ignore next: ignore for now */
     doDisable(id) /*istanbul ignore next: ignore for now */ {
       // Programmatically disable tooltip or popover
       if (!id || (this.getTargetId() === id || this.computedId === id)) {
@@ -815,6 +824,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.disable()
       }
     },
+    /*istanbul ignore next: ignore for now */
     doEnable(id) /*istanbul ignore next: ignore for now */ {
       // Programmatically enable tooltip or popover
       if (!id || (this.getTargetId() === id || this.computedId === id)) {
@@ -822,11 +832,20 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.enable()
       }
     },
-    click() {
+    click(evt) {
       if (!this.$_enabled || this.dropdownOpen()) {
         /* istanbul ignore next */
         return
       }
+      try {
+        // Get around a WebKit bug where `click` does not trigger focus events
+        // On most browsers, `click` triggers a `focusin`/`focus` event first
+        // Needed so that trigger 'click blur' works on iOS
+        // https://github.com/bootstrap-vue/bootstrap-vue/issues/5099
+        // We use `currentTarget` rather than `target` to trigger on the
+        // element, not the inner content
+        evt.currentTarget.focus()
+      } catch {}
       this.activeTrigger.click = !this.activeTrigger.click
       if (this.isWithActiveTrigger) {
         this.enter(null)
@@ -835,6 +854,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.leave(null)
       }
     },
+    /* istanbul ignore next */
     toggle() /* istanbul ignore next */ {
       // Manual toggle handler
       if (!this.$_enabled || this.dropdownOpen()) {

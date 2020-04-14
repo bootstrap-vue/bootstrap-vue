@@ -935,7 +935,7 @@ Additionally, while it is possible to also include interactive controls (such as
 links) in your popover, be aware that currently the popover does not manage keyboard focus order.
 When a keyboard user opens a popover, focus remains on the triggering element, and as the popover
 usually does not immediately follow the trigger in the document's structure, there is no guarantee
-that moving forward/pressing <kbd>TAB</kbd> will move a keyboard user into the popover itself. In
+that moving forward/pressing <kbd>Tab</kbd> will move a keyboard user into the popover itself. In
 short, simply adding interactive controls to a popover is likely to make these controls
 unreachable/unusable for keyboard users and users of assistive technologies, or at the very least
 make for an illogical overall focus order. **In these cases, consider using a `<b-modal>` dialog

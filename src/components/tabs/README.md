@@ -57,17 +57,17 @@ When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatical
   <b-card no-body>
     <b-tabs card>
       <b-tab no-body title="Picture 1">
-        <b-card-img bottom src="https://picsum.photos/600/200/?image=21"></b-card-img>
+        <b-card-img bottom src="https://picsum.photos/600/200/?image=21" alt="Image 21"></b-card-img>
         <b-card-footer>Picture 1 footer</b-card-footer>
       </b-tab>
 
       <b-tab no-body title="Picture 2">
-        <b-card-img bottom src="https://picsum.photos/600/200/?image=25"></b-card-img>
+        <b-card-img bottom src="https://picsum.photos/600/200/?image=25" alt="Image 25"></b-card-img>
         <b-card-footer>Picture 2 footer</b-card-footer>
       </b-tab>
 
       <b-tab no-body title="Picture 3">
-        <b-card-img bottom src="https://picsum.photos/600/200/?image=26"></b-card-img>
+        <b-card-img bottom src="https://picsum.photos/600/200/?image=26" alt="Image 26"></b-card-img>
         <b-card-footer>Picture 3 footer</b-card-footer>
       </b-tab>
 
@@ -289,8 +289,8 @@ If you want to add extra tabs that do not have any content, you can put them in 
   <b-tabs>
     <!-- Add your b-tab components here -->
     <template v-slot:tabs-end>
-      <b-nav-item href="#" @click="() => {}">Another tab</b-nav-item>
-      <li class="nav-item align-self-center">Plain text</li>
+      <b-nav-item href="#" role="presentation" @click="() => {}">Another tab</b-nav-item>
+      <li role="presentation" class="nav-item align-self-center">Plain text</li>
     </template>
   </b-tabs>
 </div>
@@ -420,23 +420,23 @@ focus.
 
 | Keypress                                                              | Action                                         |
 | --------------------------------------------------------------------- | ---------------------------------------------- |
-| <kbd>LEFT</kbd> or <kbd>UP</kbd>                                      | Activate the previous non-disabled tab         |
-| <kbd>RIGHT</kbd> or <kbd>DOWN</kbd>                                   | Activate the next non-disabled tab             |
-| <kbd>SHIFT</kbd>+<kbd>LEFT</kbd> or <kbd>SHIFT</kbd>+<kbd>UP</kbd>    | Activate the first non-disabled tab            |
-| <kbd>HOME</kbd>                                                       | Activate the first non-disabled tab            |
-| <kbd>SHIFT</kbd>+<kbd>RIGHT</kbd> or <kbd>SHIFT</kbd>+<kbd>DOWN</kbd> | Activate the last non-disabled tab             |
-| <kbd>END</kbd>                                                        | Activate the last non-disabled tab             |
-| <kbd>TAB</kbd>                                                        | Move focus to the active tab content           |
-| <kbd>SHIFT</kbd>+<kbd>TAB</kbd>                                       | Move focus to the previous control on the page |
+| <kbd>Left</kbd> or <kbd>Up</kbd>                                      | Activate the previous non-disabled tab         |
+| <kbd>Right</kbd> or <kbd>Down</kbd>                                   | Activate the next non-disabled tab             |
+| <kbd>Shift</kbd>+<kbd>Left</kbd> or <kbd>Shift</kbd>+<kbd>Up</kbd>    | Activate the first non-disabled tab            |
+| <kbd>Home</kbd>                                                       | Activate the first non-disabled tab            |
+| <kbd>Shift</kbd>+<kbd>Right</kbd> or <kbd>Shift</kbd>+<kbd>Down</kbd> | Activate the last non-disabled tab             |
+| <kbd>End</kbd>                                                        | Activate the last non-disabled tab             |
+| <kbd>Tab</kbd>                                                        | Move focus to the active tab content           |
+| <kbd>Shift</kbd>+<kbd>Tab</kbd>                                       | Move focus to the previous control on the page |
 
 Disable keyboard navigation by setting the prop `no-key-nav`. Behavior will now default to regular
 browser navigation with TAB key.
 
 | Keypress                             | Action                                                 |
 | ------------------------------------ | ------------------------------------------------------ |
-| <kbd>TAB</kbd>                       | Move to the next tab button or control on the page     |
-| <kbd>SHIFT</kbd>+<kbd>TAB</kbd>      | Move to the previous tab button or control on the page |
-| <kbd>ENTER</kbd> or <kbd>SPACE</kbd> | Activate current focused button's tab                  |
+| <kbd>Tab</kbd>                       | Move to the next tab button or control on the page     |
+| <kbd>Shift</kbd>+<kbd>Tab</kbd>      | Move to the previous tab button or control on the page |
+| <kbd>Enter</kbd> or <kbd>Space</kbd> | Activate current focused button's tab                  |
 
 ## Programmatically activating and deactivating tabs
 
@@ -531,7 +531,7 @@ It is recommended to use the `disabled` attribute on the `<b-tab>` component ins
 
         <!-- New Tab Button (Using tabs-end slot) -->
         <template v-slot:tabs-end>
-          <b-nav-item @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
+          <b-nav-item role="presentation" @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
         </template>
 
         <!-- Render this if no tabs -->

@@ -187,7 +187,7 @@
 }
 
 // Carbon Ad margin overrides
-.bv-ad {
+.bv-carbon-ad {
   min-height: 130px;
   margin: 2rem 0;
 
@@ -268,6 +268,11 @@ table#table-transition-example {
   .flip-list-move {
     transition: transform 1s;
   }
+}
+
+// `<b-sidebar>` overrides for docs
+.b-sidebar {
+  z-index: 1071;
 }
 
 // Docsearch overrides

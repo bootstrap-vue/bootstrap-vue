@@ -4,14 +4,14 @@
 > which can be used to control other components, or can be used to create customized time picker
 > inputs.
 
+## Overview
+
 `<b-time>` is WAI-ARIA accessibility compliant, optimized for keyboard control (arrow, page up/down,
 home, and end keys). Internationalization is also supported, and default's to the browser's or
 page's locale, if no locale(s) are specified.
 
 If you need a time picker as a custom form control input, use the
 [`<b-form-timepicker>`](/docs/components/form-timepicker) component instead.
-
-The component `<b-time>` was introduced in BootstrapVue `v2.6.0`.
 
 ```html
 <template>
@@ -409,9 +409,8 @@ prompts and descriptions.
 The `<b-time>` component is based upon the custom BootstrapVue component
 [`<b-form-spinbutton>`](/docs/components/form-spinbutton).
 
-`<b-time>` uses Bootstrap's margin, padding, border, and flex utility classes, along with button
-(`btn-*`) classes and the `form-control` class. BootstrapVue's custom SCSS/CSS is also required for
-proper styling.
+`<b-time>` uses Bootstrap's border and flex utility classes, along with button (`btn-*`) classes and
+the `form-control` class. BootstrapVue's custom SCSS/CSS is also required for proper styling.
 
 ## See also
 
