@@ -31,6 +31,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
   name: 'BTabButtonHelper',
   inject: {
     bvTabs: {
+      /* istanbul ignore next */
       default() /* istanbul ignore next */ {
         return {}
       }
@@ -41,6 +42,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
     tab: { default: null },
     tabs: {
       type: Array,
+      /* istanbul ignore next */
       default() /* istanbul ignore next */ {
         return []
       }
@@ -330,9 +332,11 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       this.isMounted = true
     })
   },
+  /* istanbul ignore next */
   deactivated() /* istanbul ignore next */ {
     this.isMounted = false
   },
+  /* istanbul ignore next */
   activated() /* istanbul ignore next */ {
     this.currentTab = toInteger(this.value, -1)
     this.$nextTick(() => {

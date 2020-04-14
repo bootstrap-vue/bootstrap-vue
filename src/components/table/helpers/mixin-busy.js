@@ -53,11 +53,11 @@ export default {
             staticClass: 'b-table-busy-slot',
             class: [
               isFunction(this.tbodyTrClass)
-                ? this.tbodyTrClass(null, busySlotName)
+                ? /* istanbul ignore next */ this.tbodyTrClass(null, busySlotName)
                 : this.tbodyTrClass
             ],
             attrs: isFunction(this.tbodyTrAttr)
-              ? this.tbodyTrAttr(null, busySlotName)
+              ? /* istanbul ignore next */ this.tbodyTrAttr(null, busySlotName)
               : this.tbodyTrAttr
           },
           [

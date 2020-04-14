@@ -263,7 +263,7 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
         const loc = isBrowser ? window.location || document.location : null
         const currLink = loc
           ? { path: loc.pathname, hash: loc.hash, query: parseQuery(loc.search) }
-          : {}
+          : /* istanbul ignore next */ {}
         // Loop through the possible pages looking for a match until found
         for (let page = 1; !guess && page <= this.localNumberOfPages; page++) {
           const to = this.makeLink(page)

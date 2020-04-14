@@ -125,6 +125,7 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
     makePage(pageNum) {
       return pageNum
     },
+    /* istanbul ignore next */
     linkProps() {
       // No props, since we render a plain button
       /* istanbul ignore next */

@@ -107,11 +107,13 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     // It is emitted regardless if the visible state changes
     this.emitSync()
   },
+  /* istanbul ignore next */
   deactivated() /* istanbul ignore next */ {
     if (this.isNav) {
       this.setWindowEvents(false)
     }
   },
+  /* istanbul ignore next */
   activated() /* istanbul ignore next */ {
     if (this.isNav) {
       this.setWindowEvents(true)

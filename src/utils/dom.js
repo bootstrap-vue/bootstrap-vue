@@ -33,6 +33,7 @@ export const closestEl =
   }
 
 // `requestAnimationFrame()` convenience method
+/* istanbul ignore next: JSDOM always returns the first option */
 export const requestAF =
   w.requestAnimationFrame ||
   w.webkitRequestAnimationFrame ||
