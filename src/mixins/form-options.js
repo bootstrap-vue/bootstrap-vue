@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     formOptions() {
-      const options = this.options || []
+      const options = this.options
       // Normalize the given options array
       if (isArray(options)) {
         return options.map(option => this.normalizeOption(option))
