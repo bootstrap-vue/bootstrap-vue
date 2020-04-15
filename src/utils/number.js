@@ -17,3 +17,6 @@ export const toFloat = (value, defaultValue = NaN) => {
 // representation with `precision` digits after the decimal
 // Returns the string 'NaN' if the value cannot be converted
 export const toFixed = (val, precision) => toFloat(val).toFixed(toInteger(precision, 0))
+
+// Is a value number like (i.e. a number or a number as string)
+export const isNumeric = value => toInteger(value, null) !== null

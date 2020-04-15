@@ -1,13 +1,17 @@
+import BVTransition from '../../utils/bv-transition'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBoolean } from '../../utils/inspect'
-import { toInteger } from '../../utils/number'
-import BVTransition from '../../utils/bv-transition'
+import { isNumeric, toInteger } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButtonClose } from '../button/button-close'
 
+// --- Constants ---
 const NAME = 'BAlert'
+const CLASS_NAME = 'alert'
+
+// --- Utility methods ---
 
 // Convert `show` value to a number
 const parseCountDown = show => {
@@ -30,9 +34,7 @@ const parseShow = show => {
   return !!show
 }
 
-// Is a value number like (i.e. a number or a number as string)
-const isNumericLike = value => !isNaN(toInteger(value))
-
+// --- Main component ---
 // @vue/component
 export const BAlert = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -65,8 +67,8 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      countDownTimerId: null,
       countDown: 0,
+      countDownTimeout: null,
       // If initially shown, we need to set these for SSR
       localShow: parseShow(this.show)
     }
@@ -77,8 +79,8 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
       this.localShow = parseShow(newVal)
     },
     countDown(newVal) {
-      this.clearTimer()
-      if (isNumericLike(this.show)) {
+      this.clearCountDownInterval()
+      if (isNumeric(this.show)) {
         // Ignore if this.show transitions to a boolean value.
         this.$emit('dismiss-count-down', newVal)
         if (this.show !== newVal) {
@@ -87,7 +89,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
         }
         if (newVal > 0) {
           this.localShow = true
-          this.countDownTimerId = setTimeout(() => {
+          this.countDownTimeout = setTimeout(() => {
             this.countDown--
           }, 1000)
         } else {
@@ -101,11 +103,11 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
       }
     },
     localShow(newVal) {
-      if (!newVal && (this.dismissible || isNumericLike(this.show))) {
+      if (!newVal && (this.dismissible || isNumeric(this.show))) {
         // Only emit dismissed events for dismissible or auto dismissing alerts
         this.$emit('dismissed')
       }
-      if (!isNumericLike(this.show) && this.show !== newVal) {
+      if (!isNumeric(this.show) && this.show !== newVal) {
         // Only emit booleans if we weren't passed a number via `this.show`
         this.$emit('input', newVal)
       }
@@ -120,27 +122,27 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
     this.localShow = parseShow(this.show)
   },
   beforeDestroy() {
-    this.clearTimer()
+    this.clearCountDownInterval()
   },
   methods: {
     dismiss() {
-      this.clearTimer()
+      this.clearCountDownInterval()
       this.countDown = 0
       this.localShow = false
     },
-    clearTimer() {
-      if (this.countDownTimerId) {
-        clearInterval(this.countDownTimerId)
-        this.countDownTimerId = null
+    clearCountDownInterval() {
+      if (this.countDownTimeout) {
+        clearTimeout(this.countDownTimeout)
+        this.countDownTimeout = null
       }
     }
   },
   render(h) {
-    let $alert // undefined
+    let $alert = h()
     if (this.localShow) {
+      const { dismissible, variant } = this
       let $dismissBtn = h()
-      if (this.dismissible) {
-        // Add dismiss button
+      if (dismissible) {
         $dismissBtn = h(
           BButtonClose,
           { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
@@ -150,18 +152,17 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
       $alert = h(
         'div',
         {
-          key: this._uid,
-          staticClass: 'alert',
+          staticClass: CLASS_NAME,
           class: {
-            'alert-dismissible': this.dismissible,
-            [`alert-${this.variant}`]: this.variant
+            [`${CLASS_NAME}-dismissible`]: dismissible,
+            [`${CLASS_NAME}-${variant}`]: !!variant
           },
-          attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
+          attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true },
+          key: this._uid
         },
         [$dismissBtn, this.normalizeSlot('default')]
       )
-      $alert = [$alert]
     }
-    return h(BVTransition, { props: { noFade: !this.fade } }, $alert)
+    return h(BVTransition, { props: { noFade: !this.fade } }, [$alert])
   }
 })
