@@ -9,7 +9,8 @@ const CLASS_NAME = 'b-aspect'
 const RX_ASPECT = /^\d+(\.\d*)?[/:]\d+(\.\d*)?$/
 const RX_SEPARATOR = /[/:]/
 
-// --- Main Component ---
+// --- Main component ---
+// @vue/component
 export const BAspect = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [normalizeSlotMixin],
