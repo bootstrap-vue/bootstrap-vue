@@ -20,15 +20,18 @@ class BvConfig {
     this.$_cachedBreakpoints = null
   }
 
+  /* istanbul ignore next */
   static get Defaults() /* istanbul ignore next */ {
     return DEFAULTS
   }
 
+  /* istanbul ignore next */
   get defaults() /* istanbul ignore next */ {
     return DEFAULTS
   }
 
   // Returns the defaults
+  /* istanbul ignore next */
   getDefaults() /* istanbul ignore next */ {
     return this.defaults
   }

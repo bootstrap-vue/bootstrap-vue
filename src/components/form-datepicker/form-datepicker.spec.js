@@ -111,6 +111,26 @@ describe('form-date', () => {
     wrapper.destroy()
   })
 
+  it('renders custom placeholder', async () => {
+    const wrapper = mount(BFormDatepicker, {
+      attachToDocument: true,
+      propsData: {
+        value: '',
+        placeholder: 'FOOBAR'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.is('div')).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.find('label.form-control').exists()).toBe(true)
+    expect(wrapper.find('label.form-control').text()).toContain('FOOBAR')
+
+    wrapper.destroy()
+  })
+
   it('renders hidden input when name prop is set', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachToDocument: true,

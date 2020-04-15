@@ -473,10 +473,10 @@ export const BCalendar = Vue.extend({
           let dateInfo = dateInfoFn(dayYMD, parseYMD(dayYMD))
           dateInfo =
             isString(dateInfo) || isArray(dateInfo)
-              ? { class: dateInfo }
+              ? /* istanbul ignore next */ { class: dateInfo }
               : isPlainObject(dateInfo)
                 ? { class: '', ...dateInfo }
-                : { class: '' }
+                : /* istanbul ignore next */ { class: '' }
           matrix[week].push({
             ymd: dayYMD,
             // Cell content
@@ -540,9 +540,11 @@ export const BCalendar = Vue.extend({
   mounted() {
     this.setLive(true)
   },
+  /* istanbul ignore next */
   activated() /* istanbul ignore next */ {
     this.setLive(true)
   },
+  /* istanbul ignore next */
   deactivated() /* istanbul ignore next */ {
     this.setLive(false)
   },
@@ -734,15 +736,10 @@ export const BCalendar = Vue.extend({
       return h()
     }
 
-    const isRTL = this.isRTL
+    const { isLive, isRTL, activeYMD, selectedYMD, safeId } = this
     const hideDecadeNav = !this.showDecadeNav
     const todayYMD = formatYMD(this.getToday())
-    const selectedYMD = this.selectedYMD
-    const activeYMD = this.activeYMD
     const highlightToday = !this.noHighlightToday
-    const safeId = this.safeId
-    // Flag for making the `aria-live` regions live
-    const isLive = this.isLive
     // Pre-compute some IDs
     // This should be computed props
     const idValue = safeId()
@@ -757,7 +754,7 @@ export const BCalendar = Vue.extend({
     let $header = h(
       'output',
       {
-        staticClass: 'd-block text-center rounded border small p-1 mb-1',
+        staticClass: 'form-control form-control-sm text-center',
         class: { 'text-muted': this.disabled, readonly: this.readonly || this.disabled },
         attrs: {
           id: idValue,
@@ -784,20 +781,22 @@ export const BCalendar = Vue.extend({
             // We use `bdi` elements here in case the label doesn't match the locale
             // Although IE 11 does not deal with <BDI> at all (equivalent to a span)
             h('bdi', { staticClass: 'sr-only' }, ` (${toString(this.labelSelected)}) `),
-            h('bdi', {}, this.formatDateString(this.selectedDate))
+            h('bdi', this.formatDateString(this.selectedDate))
           ]
         : this.labelNoDateSelected || '\u00a0' // '&nbsp;'
     )
     $header = h(
       'header',
       {
-        class: this.hideHeader ? 'sr-only' : 'mb-1',
+        staticClass: 'b-calendar-header',
+        class: { 'sr-only': this.hideHeader },
         attrs: { title: this.selectedDate ? this.labelSelectedDate || null : null }
       },
       [$header]
     )
 
     // Content for the date navigation buttons
+    // TODO: add slots for the nav button content
     const $prevDecadeIcon = h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $prevYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: isRTL } })
     const $prevMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: isRTL } })
@@ -811,7 +810,7 @@ export const BCalendar = Vue.extend({
       return h(
         'button',
         {
-          staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill p-1 mx-1',
+          staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill',
           class: { disabled: btnDisabled },
           attrs: {
             title: label || null,
@@ -830,7 +829,7 @@ export const BCalendar = Vue.extend({
     const $nav = h(
       'div',
       {
-        staticClass: 'b-calendar-nav d-flex mx-n1 mb-1',
+        staticClass: 'b-calendar-nav d-flex',
         attrs: {
           id: idNav,
           role: 'group',
@@ -901,7 +900,7 @@ export const BCalendar = Vue.extend({
       'header',
       {
         key: 'grid-caption',
-        staticClass: 'text-center font-weight-bold p-1 m-0',
+        staticClass: 'b-calendar-grid-caption text-center font-weight-bold',
         class: { 'text-muted': this.disabled },
         attrs: {
           id: idGridCaption,
@@ -915,7 +914,10 @@ export const BCalendar = Vue.extend({
     // Calendar weekday headings
     const $gridWeekDays = h(
       'div',
-      { staticClass: 'row no-gutters border-bottom', attrs: { 'aria-hidden': 'true' } },
+      {
+        staticClass: 'b-calendar-grid-weekdays row no-gutters border-bottom',
+        attrs: { 'aria-hidden': 'true' }
+      },
       this.calendarHeadings.map((d, idx) => {
         return h(
           'small',
@@ -1019,7 +1021,7 @@ export const BCalendar = Vue.extend({
     const $gridHelp = h(
       'footer',
       {
-        staticClass: 'border-top small text-muted text-center bg-light',
+        staticClass: 'b-calendar-grid-help border-top small text-muted text-center bg-light',
         attrs: {
           id: idGridHelp
         }
@@ -1031,7 +1033,7 @@ export const BCalendar = Vue.extend({
       'div',
       {
         ref: 'grid',
-        staticClass: 'form-control h-auto text-center p-0 mb-0',
+        staticClass: 'b-calendar-grid form-control h-auto text-center',
         attrs: {
           id: idGrid,
           role: 'application',
@@ -1057,13 +1059,12 @@ export const BCalendar = Vue.extend({
 
     // Optional bottom slot
     let $slot = this.normalizeSlot('default')
-    $slot = $slot ? h('footer', { staticClass: 'mt-2' }, $slot) : h()
+    $slot = $slot ? h('footer', { staticClass: 'b-calendar-footer' }, $slot) : h()
 
     const $widget = h(
       'div',
       {
         staticClass: 'b-calendar-inner',
-        class: this.block ? 'd-block' : 'd-inline-block',
         style: this.block ? {} : { width: this.width },
         attrs: {
           id: idWidget,
@@ -1093,15 +1094,6 @@ export const BCalendar = Vue.extend({
     )
 
     // Wrap in an outer div that can be styled
-    return h(
-      'div',
-      {
-        staticClass: 'b-calendar',
-        // We use a style here rather than class `d-inline-block` so that users can
-        // override the display value (`d-*` classes use the `!important` flag)
-        style: this.block ? {} : { display: 'inline-block' }
-      },
-      [$widget]
-    )
+    return h('div', { staticClass: 'b-calendar', class: { 'd-block': this.block } }, [$widget])
   }
 })

@@ -350,9 +350,11 @@ export const BTime = /*#__PURE__*/ Vue.extend({
   mounted() {
     this.setLive(true)
   },
+  /* istanbul ignore next */
   activated() /* istanbul ignore next */ {
     this.setLive(true)
   },
+  /* istanbul ignore next */
   deactivated() /* istanbul ignore next */ {
     this.setLive(false)
   },
@@ -388,9 +390,9 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         hh === 0 && hourCycle === 'h12'
           ? 12
           : hh === 0 && hourCycle === 'h24'
-            ? 24
+            ? /* istanbul ignore next */ 24
             : hh === 12 && hourCycle === 'h11'
-              ? 0
+              ? /* istanbul ignore next */ 0
               : hh
       return this.numberFormatter(hh)
     },
@@ -512,7 +514,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
 
     // Hours
     $spinners.push(
-      makeSpinbutton(this.setHours, 'hours', '', {
+      makeSpinbutton(this.setHours, 'hours', 'b-time-hours', {
         value: this.modelHours,
         max: 23,
         step: 1,
@@ -526,7 +528,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
 
     // Minutes
     $spinners.push(
-      makeSpinbutton(this.setMinutes, 'minutes', '', {
+      makeSpinbutton(this.setMinutes, 'minutes', 'b-time-minutes', {
         value: this.modelMinutes,
         max: 59,
         step: this.minutesStep || 1,
@@ -540,7 +542,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       $spinners.push(makeColon())
       // Seconds
       $spinners.push(
-        makeSpinbutton(this.setSeconds, 'seconds', '', {
+        makeSpinbutton(this.setSeconds, 'seconds', 'b-time-seconds', {
           value: this.modelSeconds,
           max: 59,
           step: this.secondsStep || 1,
@@ -557,7 +559,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       //   And switch class `ml-2` to `mr-2`
       //   Note some LTR locales (i.e. zh) also place AM/PM to the left
       $spinners.push(
-        makeSpinbutton(this.setAmpm, 'ampm', 'ml-2', {
+        makeSpinbutton(this.setAmpm, 'ampm', 'b-time-ampm', {
           value: this.modelAmpm,
           max: 1,
           formatterFn: this.formatAmpm,
@@ -580,7 +582,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         },
         on: {
           keydown: this.onSpinLeftRight,
-          click: evt => /* istanbul ignore next */ {
+          click /* istanbul ignore next */: evt => /* istanbul ignore next */ {
             if (evt.target === evt.currentTarget) {
               this.focus()
             }
@@ -594,7 +596,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     const $value = h(
       'output',
       {
-        staticClass: 'border rounded d-block p-1 small text-center',
+        staticClass: 'form-control form-control-sm text-center',
         class: {
           disabled: this.disabled || this.readonly
         },
@@ -619,13 +621,13 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     )
     const $header = h(
       'header',
-      { class: { 'sr-only': this.hideHeader, 'mb-2': !this.hideHeader } },
+      { staticClass: 'b-time-header', class: { 'sr-only': this.hideHeader } },
       [$value]
     )
 
     // Optional bottom slot
     let $slot = this.normalizeSlot('default')
-    $slot = $slot ? h('footer', { staticClass: 'mt-2' }, $slot) : h()
+    $slot = $slot ? h('footer', { staticClass: 'b-time-footer' }, $slot) : h()
 
     return h(
       'div',

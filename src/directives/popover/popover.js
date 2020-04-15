@@ -236,7 +236,7 @@ const applyPopover = (el, bindings, vnode) => {
         // If title/content is a function, we execute it here
         newData[prop] =
           (prop === 'title' || prop === 'content') && isFunction(data[prop])
-            ? data[prop](el)
+            ? /* istanbul ignore next */ data[prop](el)
             : data[prop]
       }
     })
