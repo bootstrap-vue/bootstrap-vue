@@ -10,10 +10,11 @@ import { keys } from '../../utils/object'
 import { suffixClass, toString } from '../../utils/string'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 
-// --- Constants --
-
+// --- Constants ---
 const NAME = 'BButton'
+const CLASS_NAME = 'btn'
 
+// --- Props ---
 const btnProps = {
   block: {
     type: Boolean,
@@ -92,10 +93,10 @@ const isNonStandardTag = props => !isLink(props) && !isButton(props)
 
 // Compute required classes (non static classes)
 const computeClass = props => [
-  `btn-${props.variant || getComponentConfig(NAME, 'variant')}`,
+  suffixClass(CLASS_NAME, props.variant || getComponentConfig(NAME, 'variant')),
   {
-    [suffixClass('btn', props.size)]: !!props.size,
-    'btn-block': props.block,
+    [suffixClass(CLASS_NAME, props.size)]: !!props.size,
+    [suffixClass(CLASS_NAME, 'block')]: props.block,
     'rounded-pill': props.pill,
     'rounded-0': props.squared && !props.pill,
     disabled: props.disabled,
@@ -108,13 +109,15 @@ const computeLinkProps = props => (isLink(props) ? pluckProps(linkPropKeys, prop
 
 // Compute the attributes for a button
 const computeAttrs = (props, data) => {
+  const { disabled } = props
   const button = isButton(props)
   const link = isLink(props)
   const toggle = isToggle(props)
   const nonStandardTag = isNonStandardTag(props)
   const hashLink = link && props.href === '#'
-  const role = data.attrs && data.attrs.role ? data.attrs.role : null
-  let tabindex = data.attrs ? data.attrs.tabindex : null
+  const attrs = data.attrs || {}
+  const role = attrs.role || null
+  let tabindex = attrs.tabindex || null
   if (nonStandardTag || hashLink) {
     tabindex = '0'
   }
@@ -122,13 +125,13 @@ const computeAttrs = (props, data) => {
     // Type only used for "real" buttons
     type: button && !link ? props.type : null,
     // Disabled only set on "real" buttons
-    disabled: button ? props.disabled : null,
+    disabled: button ? disabled : null,
     // We add a role of button when the tag is not a link or button for ARIA
     // Don't bork any role provided in `data.attrs` when `isLink` or `isButton`
     // Except when link has `href` of `#`
     role: nonStandardTag || hashLink ? 'button' : role,
     // We set the `aria-disabled` state for non-standard tags
-    'aria-disabled': nonStandardTag ? String(props.disabled) : null,
+    'aria-disabled': nonStandardTag ? String(disabled) : null,
     // For toggles, we need to set the pressed state for ARIA
     'aria-pressed': toggle ? String(props.pressed) : null,
     // `autocomplete="off"` is needed in toggle mode to prevent some browsers
@@ -138,10 +141,11 @@ const computeAttrs = (props, data) => {
     // Links are tabbable, but don't allow disabled, while non buttons or links
     // are not tabbable, so we mimic that functionality by disabling tabbing
     // when disabled, and adding a `tabindex="0"` to non buttons or non links
-    tabindex: props.disabled && !button ? '-1' : tabindex
+    tabindex: disabled && !button ? '-1' : tabindex
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BButton = /*#__PURE__*/ Vue.extend({
   name: NAME,
