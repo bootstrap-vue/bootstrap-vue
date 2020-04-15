@@ -797,13 +797,28 @@ export const BCalendar = Vue.extend({
 
     // Content for the date navigation buttons
     // TODO: add slots for the nav button content
-    const $prevDecadeIcon = h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: isRTL } })
-    const $prevYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: isRTL } })
-    const $prevMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: isRTL } })
-    const $thisMonthIcon = h(BIconCircleFill, { props: { shiftV: 0.5 } })
-    const $nextMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
-    const $nextYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
-    const $nextDecadeIcon = h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
+    const navScope = { isRTL }
+    const $prevDecadeIcon =
+      this.normalizeSlot('nav-prev-decade', navScope) ||
+      h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: isRTL } })
+    const $prevYearIcon =
+      this.normalizeSlot('nav-prev-year', navScope) ||
+      h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: isRTL } })
+    const $prevMonthIcon =
+      this.normalizeSlot('nav-prev-month', navScope) ||
+      h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: isRTL } })
+    const $thisMonthIcon =
+      this.normalizeSlot('nav-this-month', navScope) ||
+      h(BIconCircleFill, { props: { shiftV: 0.5 } })
+    const $nextMonthIcon =
+      this.normalizeSlot('nav-next-month', navScope) ||
+      h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
+    const $nextYearIcon =
+      this.normalizeSlot('nav-next-year', navScope) ||
+      h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
+    const $nextDecadeIcon =
+      this.normalizeSlot('nav-next-decade', navScope) ||
+      h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
 
     // Utility to create the date navigation buttons
     const makeNavBtn = (content, label, handler, btnDisabled, shortcut) => {
