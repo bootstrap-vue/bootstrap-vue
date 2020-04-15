@@ -3,6 +3,7 @@ import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-la
 import { getComponentConfig } from '../../utils/config'
 import { createDate, constrainDate, formatYMD, parseYMD } from '../../utils/date'
 import { isUndefinedOrNull } from '../../utils/inspect'
+import { pick } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
@@ -437,6 +438,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const $scopedSlots = this.$scopedSlots
     const localYMD = this.localYMD
     const disabled = this.disabled
     const readonly = this.readonly
@@ -519,7 +521,16 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           selected: this.onSelected,
           input: this.onInput,
           context: this.onContext
-        }
+        },
+        scopedSlots: pick($scopedSlots, [
+          'nav-prev-decade',
+          'nav-prev-year',
+          'nav-prev-month',
+          'nav-this-month',
+          'nav-next-month',
+          'nav-next-year',
+          'nav-next-decade'
+        ])
       },
       $footer
     )
@@ -547,7 +558,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           hidden: this.onHidden
         },
         scopedSlots: {
-          'button-content': this.$scopedSlots['button-content'] || this.defaultButtonFn
+          'button-content': $scopedSlots['button-content'] || this.defaultButtonFn
         }
       },
       [$calendar]
