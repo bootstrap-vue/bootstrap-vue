@@ -96,6 +96,11 @@
             "description": "Set to a function reference which returns `true` if the date is disabled, or `false` if the date should be enabled. See documentation for details"
           },
           {
+            "prop": "dateInfoFn",
+            "version": "2.12.0",
+            "description": "Set to a function reference which returns a class (string), or classes (array of strings) to apply to the date cell. See calendar documentation for details. Passed through to the child calendar component"
+          },
+          {
             "prop": "hideHeader",
             "description": "When `true`, visually hides the selected date header"
           },
