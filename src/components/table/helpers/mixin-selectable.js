@@ -91,7 +91,7 @@ export default {
         this.clearSelected()
       }
     },
-    selectable(newVal) {
+    isSelectable(newVal) {
       this.clearSelected()
       this.setSelectionHandlers(newVal)
     },
