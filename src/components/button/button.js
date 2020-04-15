@@ -7,7 +7,7 @@ import { addClass, removeClass } from '../../utils/dom'
 import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
 import { ENTER, SPACE } from '../../utils/key-codes'
 import { keys } from '../../utils/object'
-import { toString } from '../../utils/string'
+import { suffixClass, toString } from '../../utils/string'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 
 // --- Constants --
@@ -94,7 +94,7 @@ const isNonStandardTag = props => !isLink(props) && !isButton(props)
 const computeClass = props => [
   `btn-${props.variant || getComponentConfig(NAME, 'variant')}`,
   {
-    [`btn-${props.size}`]: props.size,
+    [suffixClass('btn', props.size)]: !!props.size,
     'btn-block': props.block,
     'rounded-pill': props.pill,
     'rounded-0': props.squared && !props.pill,
