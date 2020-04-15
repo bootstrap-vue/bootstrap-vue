@@ -189,7 +189,7 @@ export default {
         // These events are for row-clicked handlers
         click: this.onTBodyRowClicked,
         keydown: this.onTbodyRowKeydown,
-        // The follwoing events are not overly accessible 
+        // The follwoing events are not overly accessible
         auxclick: this.onTbodyRowMiddleMouseRowClicked,
         // TODO:
         //   Perhaps we do want to automatically prevent the
