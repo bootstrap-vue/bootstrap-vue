@@ -2,6 +2,7 @@
  * ScrollSpy class definition
  */
 
+import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import observeDom from '../../utils/observe-dom'
 import {
   addClass,
@@ -18,7 +19,7 @@ import {
   select,
   selectAll
 } from '../../utils/dom'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
+import { eventOn, eventOff } from '../../utils/events'
 import { isString, isUndefined } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString as objectToString } from '../../utils/object'

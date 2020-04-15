@@ -1,6 +1,7 @@
 // v-b-hover directive
+import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { isBrowser } from '../../utils/env'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOnOff } from '../../utils/events'
+import { eventOnOff } from '../../utils/events'
 import { isFunction } from '../../utils/inspect'
 
 // --- Constants ---

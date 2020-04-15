@@ -3,6 +3,7 @@
 // Handles trigger events, etc.
 // Instantiates template on demand
 
+import { EVENT_OPTIONS_NO_CAPTURE } from '../../../constants/events'
 import Vue from '../../../utils/vue'
 import getScopId from '../../../utils/get-scope-id'
 import looseEqual from '../../../utils/loose-equal'
@@ -22,7 +23,7 @@ import {
   select,
   setAttr
 } from '../../../utils/dom'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff, eventOnOff } from '../../../utils/events'
+import { eventOn, eventOff, eventOnOff } from '../../../utils/events'
 import {
   isFunction,
   isNumber,

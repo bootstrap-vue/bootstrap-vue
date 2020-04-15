@@ -1,5 +1,6 @@
+import { EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
 import { contains } from '../utils/dom'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../utils/events'
+import { eventOn, eventOff } from '../utils/events'
 
 // @vue/component
 export default {
