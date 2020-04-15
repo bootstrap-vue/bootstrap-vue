@@ -253,7 +253,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // And pass the title prop as a fallback
       this.setTitle(this.$scopedSlots.default || this.title)
     },
-    // Helper functions for `updateContent()`
+    // Utility methods for `updateContent()`
     setTitle(val) {
       val = isUndefinedOrNull(val) ? '' : val
       // We only update the value if it has changed

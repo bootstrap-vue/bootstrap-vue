@@ -31,7 +31,7 @@ const props = {
   }
 }
 
-// --- Helper functions ---
+// --- Utility methods ---
 
 // Sanitize the provided per page number (converting to a number)
 const sanitizePerPage = val => Math.max(toInteger(val) || DEFAULT_PER_PAGE, 1)

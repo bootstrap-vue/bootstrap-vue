@@ -14,7 +14,7 @@ const CLASS_NAMES_EDITABLE = 'editable'
 const CLASS_NAMES_LIVE = 'live'
 const CLASS_NAMES_ERROR = 'error'
 
-// --- Helper functions ---
+// --- Utility methods ---
 
 // Default "transpiler" function
 let compiler = code => code

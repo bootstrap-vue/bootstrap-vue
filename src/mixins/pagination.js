@@ -19,7 +19,7 @@ const ELLIPSIS_THRESHOLD = 3
 // Default # of buttons limit
 const DEFAULT_LIMIT = 5
 
-// --- Helper functions ---
+// --- Utility methods ---
 
 // Make an array of N to N+X
 const makePageArray = (startNumber, numberOfPages) =>

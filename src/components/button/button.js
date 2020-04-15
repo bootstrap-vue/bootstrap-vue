@@ -62,7 +62,7 @@ const linkPropKeys = keys(linkProps)
 
 export const props = { ...linkProps, ...btnProps }
 
-// --- Helper functions ---
+// --- Utility methods ---
 
 // Returns `true` if a tag's name equals `name`
 const tagIs = (tag, name) => toString(tag).toLowerCase() === toString(name).toLowerCase()

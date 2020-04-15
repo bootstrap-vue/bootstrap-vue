@@ -18,7 +18,7 @@ export default {
   mixins: [tbodyRowMixin],
   props,
   methods: {
-    // Helper functions
+    // Utility methods
     getTbodyTrs() {
       // Returns all the item TR elements (excludes detail and spacer rows)
       // `this.$refs.itemRows` is an array of item TR components/elements
