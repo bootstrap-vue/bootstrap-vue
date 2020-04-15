@@ -3,11 +3,11 @@ import pluckProps from '../../utils/pluck-props'
 import { getComponentConfig } from '../../utils/config'
 import { isNumber, isString } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BLink } from '../link/link'
 import { BIcon } from '../../icons/icon'
 import { BIconPersonFill } from '../../icons/icons'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // --- Constants ---
 const NAME = 'BAvatar'
