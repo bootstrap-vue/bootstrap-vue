@@ -35,7 +35,7 @@ export default {
   },
   computed: {
     isSelectable() {
-      return this.selectable && this.selectMode
+      return this.selectMode && this.selectable
     },
     hasSelectableRowClick() {
       return this.isSelectable && !this.noSelectOnClick
@@ -93,6 +93,7 @@ export default {
     },
     isSelectable(newVal) {
       this.clearSelected()
+      this.setSelectionHandlers(false)
       this.setSelectionHandlers(newVal)
     },
     selectMode() {
