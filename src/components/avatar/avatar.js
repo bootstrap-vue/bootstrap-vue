@@ -1,3 +1,4 @@
+import { RX_NUMBER } from '../../constants/regex'
 import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { getComponentConfig } from '../../utils/config'
@@ -12,8 +13,6 @@ import { BIconPersonFill } from '../../icons/icons'
 // --- Constants ---
 const NAME = 'BAvatar'
 const CLASS_NAME = 'b-avatar'
-
-const RX_NUMBER = /^[0-9]*\.?[0-9]+$/
 
 const FONT_SIZE_SCALE = 0.4
 const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7

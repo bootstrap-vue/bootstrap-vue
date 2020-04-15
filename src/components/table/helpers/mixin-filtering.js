@@ -1,3 +1,4 @@
+import { RX_SPACES } from '../../../constants/regex'
 import cloneDeep from '../../../utils/clone-deep'
 import identity from '../../../utils/identity'
 import looseEqual from '../../../utils/loose-equal'
@@ -11,8 +12,7 @@ import stringifyRecordValues from './stringify-record-values'
 const DEBOUNCE_DEPRECATED_MSG =
   'Prop "filter-debounce" is deprecated. Use the debounce feature of "<b-form-input>" instead.'
 
-const RX_SPACES = /[\s\uFEFF\xA0]+/g
-
+// @vue/component
 export default {
   props: {
     filter: {

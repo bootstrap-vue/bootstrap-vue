@@ -1,7 +1,6 @@
+import { RX_ARRAY_NOTATION } from '../constants/regex'
 import identity from './identity'
 import { isArray, isNull, isObject, isUndefinedOrNull } from './inspect'
-
-const RX_ARRAY_NOTATION = /\[(\d+)]/g
 
 /**
  * Get property defined by dot/array notation in string, returns undefined if not found

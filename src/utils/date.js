@@ -1,14 +1,8 @@
-// Date utility functions
+import { RX_DATE } from '../constants/regex'
 import identity from './identity'
 import { concat } from './array'
 import { isDate, isString } from './inspect'
 import { toInteger } from './number'
-
-// --- Constants ---
-
-const RX_DATE = /^\d+-\d+-\d+$/
-
-// --- Date utility methods ---
 
 // Create or clone a date (`new Date(...)` shortcut)
 export const createDate = (...args) => new Date(...args)

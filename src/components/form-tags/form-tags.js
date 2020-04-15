@@ -1,6 +1,7 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import { BACKSPACE, DELETE, ENTER } from '../../constants/key-codes'
+import { RX_SPACES } from '../../constants/regex'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
@@ -22,9 +23,6 @@ const NAME = 'BFormTags'
 
 // Supported input types (for built in input)
 const TYPES = ['text', 'email', 'tel', 'url', 'number']
-
-// Pre-compiled regular expressions for performance reasons
-const RX_SPACES = /[\s\uFEFF\xA0]+/g
 
 // --- Utility methods ---
 
