@@ -338,7 +338,7 @@
               {
                 "prop": "isRTL",
                 "type": "Boolean",
-                "description": "Will be `true` if the nav bar is rendered right to left"
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
               }
             ]
           },
@@ -350,7 +350,7 @@
               {
                 "prop": "isRTL",
                 "type": "Boolean",
-                "description": "Will be `true` if the nav bar is rendered right to left"
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
               }
             ]
           },
@@ -362,7 +362,7 @@
               {
                 "prop": "isRTL",
                 "type": "Boolean",
-                "description": "Will be `true` if the nav bar is rendered right to left"
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
               }
             ]
           },
@@ -374,7 +374,7 @@
               {
                 "prop": "isRTL",
                 "type": "Boolean",
-                "description": "Will be `true` if the nav bar is rendered right to left"
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
               }
             ]
           },
@@ -386,7 +386,7 @@
               {
                 "prop": "isRTL",
                 "type": "Boolean",
-                "description": "Will be `true` if the nav bar is rendered right to left"
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
               }
             ]
           },
@@ -398,7 +398,7 @@
               {
                 "prop": "isRTL",
                 "type": "Boolean",
-                "description": "Will be `true` if the nav bar is rendered right to left"
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
               }
             ]
           },
@@ -410,7 +410,7 @@
               {
                 "prop": "isRTL",
                 "type": "Boolean",
-                "description": "Will be `true` if the nav bar is rendered right to left"
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
               }
             ]
           }
