@@ -1,11 +1,12 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { isEvent } from '../../utils/inspect'
-import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 
+// --- Constants ---
 const NAME = 'BButtonClose'
 
+// --- Props ---
 const props = {
   content: {
     type: String,
@@ -25,30 +26,29 @@ const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BButtonClose = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
-  render(h, { props, data, slots, scopedSlots }) {
-    const $slots = slots()
-    const $scopedSlots = scopedSlots || {}
-
+  render(h, { props, data, children }) {
+    const { disabled, textVariant, ariaLabel } = props
     const componentData = {
       staticClass: 'close',
       class: {
-        [`text-${props.textVariant}`]: props.textVariant
+        [`text-${textVariant}`]: textVariant
       },
       attrs: {
         type: 'button',
-        disabled: props.disabled,
-        'aria-label': props.ariaLabel ? String(props.ariaLabel) : null
+        disabled,
+        'aria-label': ariaLabel ? String(ariaLabel) : null
       },
       on: {
         click(evt) {
           // Ensure click on button HTML content is also disabled
           /* istanbul ignore if: bug in JSDOM still emits click on inner element */
-          if (props.disabled && isEvent(evt)) {
+          if (disabled && isEvent(evt)) {
             evt.stopPropagation()
             evt.preventDefault()
           }
@@ -56,13 +56,9 @@ export const BButtonClose = /*#__PURE__*/ Vue.extend({
       }
     }
     // Careful not to override the default slot with innerHTML
-    if (!hasNormalizedSlot('default', $scopedSlots, $slots)) {
+    if (!children) {
       componentData.domProps = { innerHTML: props.content }
     }
-    return h(
-      'button',
-      mergeData(data, componentData),
-      normalizeSlot('default', {}, $scopedSlots, $slots)
-    )
+    return h('button', mergeData(data, componentData), [children])
   }
 })
