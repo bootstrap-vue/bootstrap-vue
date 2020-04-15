@@ -196,7 +196,7 @@ export const BButton = /*#__PURE__*/ Vue.extend({
     }
 
     const componentData = {
-      staticClass: 'btn',
+      staticClass: CLASS_NAME,
       class: computeClass(props),
       props: computeLinkProps(props),
       attrs: computeAttrs(props, data),
