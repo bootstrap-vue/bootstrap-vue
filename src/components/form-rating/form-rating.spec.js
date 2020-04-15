@@ -221,7 +221,9 @@ describe('form-rating', () => {
       propsData: {
         showValue: true,
         value: '3.5',
-        precision: 2
+        precision: 2,
+        // Define a fixed locale to reliably test formatted text
+        locale: 'en'
       }
     })
 
@@ -315,7 +317,9 @@ describe('form-rating', () => {
     const wrapper = mount(BFormRating, {
       propsData: {
         showValue: true,
-        value: null
+        value: null,
+        // Define a fixed locale to reliably test formatted text
+        locale: 'en'
       }
     })
 
