@@ -366,6 +366,31 @@ slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 <!-- b-calendar-default-slot.vue -->
 ```
 
+### Date navigation button slots
+
+<span class="badge badge-info small">2.12.0+</span>
+
+To change the content of the calendar's date navigation buttons, BootstrapVue provided scoped slots
+for each button:
+
+- `nav-prev-decade'
+- `nav-prev-year`
+- `nav-prev-month`
+- `nav-this-month` (the go to selected/today button)
+- `nav-next-month`
+- `nav-next-year`
+- `nav-next-decade`
+
+All seven slots have the same scoped property available:
+
+| Property | Type    | Description                                                           |
+| -------- | ------- | --------------------------------------------------------------------- |
+| `isRTL`  | Boolean | Will be `true` when the date navigation bar is rendered right-to-left |
+
+You can use the `isRTL` scoped property to "flip" the prev vs next button content to handle the
+left-to-right to right-to-left orientation change &mdash; i.e. the previous year button will be on
+the right when `isRTL` is `true`, instead of the left.
+
 ### Adding CSS classes to specific dates
 
 If you need to highlight a specific date or dates, set the `date-info-fn` prop to a reference to a
