@@ -370,16 +370,16 @@ slot can be used to add buttons such as `Select Today` or `Reset`, etc.
 
 <span class="badge badge-info small">2.12.0+</span>
 
-To change the content of the calendar's date navigation buttons, BootstrapVue provided scoped slots
+To change the content of the calendar's date navigation buttons, BootstrapVue provides scoped slots
 for each button:
 
-- `nav-prev-decade'
-- `nav-prev-year`
-- `nav-prev-month`
-- `nav-this-month` (the go to selected/today button)
-- `nav-next-month`
-- `nav-next-year`
-- `nav-next-decade`
+- `'nav-prev-decade'`
+- `'nav-prev-year'`
+- `'nav-prev-month'`
+- `'nav-this-month'` (the go to selected/today button)
+- `'nav-next-month'`
+- `'nav-next-year'`
+- `'nav-next-decade'`
 
 All seven slots have the same scoped property available:
 
