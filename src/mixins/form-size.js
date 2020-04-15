@@ -1,5 +1,5 @@
 import { getComponentConfig } from '../utils/config'
-import { suffixClass } from '../../utils/string'
+import { suffixClass } from '../utils/string'
 
 // @vue/component
 export default {
