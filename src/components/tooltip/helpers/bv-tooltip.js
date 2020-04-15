@@ -467,6 +467,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     onTemplateShown() {
       const prevHoverState = this.$_hoverState
       this.$_hoverState = ''
+      /* istanbul ignore if */
       if (prevHoverState === 'out') {
         this.leave(null)
       }
