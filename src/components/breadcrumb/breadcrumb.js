@@ -1,5 +1,5 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import Vue from '../../utils/vue'
 import { isArray, isObject } from '../../utils/inspect'
 import { toString } from '../../utils/string'
 import { BBreadcrumbItem } from './breadcrumb-item'
@@ -17,22 +17,27 @@ export const BBreadcrumb = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
+    const { items } = props
     let childNodes = children
-    // Build child nodes from items if given.
-    if (isArray(props.items)) {
+
+    // Build child nodes from items if given
+    if (isArray(items)) {
+      const itemsCount = props.items.length
       let activeDefined = false
-      childNodes = props.items.map((item, idx) => {
+      childNodes = items.map((item, idx) => {
         if (!isObject(item)) {
           item = { text: toString(item) }
         }
-        // Copy the value here so we can normalize it.
+
+        // Copy the value here so we can normalize it
         let active = item.active
         if (active) {
           activeDefined = true
         }
+
+        // Auto-detect active by position in list
         if (!active && !activeDefined) {
-          // Auto-detect active by position in list.
-          active = idx + 1 === props.items.length
+          active = idx + 1 === itemsCount
         }
 
         return h(BBreadcrumbItem, { props: { ...item, active } })
