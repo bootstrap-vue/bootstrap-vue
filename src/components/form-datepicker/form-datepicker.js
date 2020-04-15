@@ -431,6 +431,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const $scopedSlots = this.$scopedSlots
     const localYMD = this.localYMD
     const disabled = this.disabled
     const readonly = this.readonly
@@ -515,13 +516,13 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           context: this.onContext
         },
         scopedSlots: {
-          'nav-prev-decade': this.$scopedSlots['nav-prev-decade'],
-          'nav-prev-year': this.$scopedSlots['nav-prev-year'],
-          'nav-prev-month': this.$scopedSlots['nav-prev-month'],
-          'nav-this-month': this.$scopedSlots['nav-this-month'],
-          'nav-next-month': this.$scopedSlots['nav-next-month'],
-          'nav-next-year': this.$scopedSlots['nav-next-year'],
-          'nav-next-decade': this.$scopedSlots['nav-next-decade']
+          'nav-prev-decade': $scopedSlots['nav-prev-decade'],
+          'nav-prev-year': $scopedSlots['nav-prev-year'],
+          'nav-prev-month': $scopedSlots['nav-prev-month'],
+          'nav-this-month': $scopedSlots['nav-this-month'],
+          'nav-next-month': $scopedSlots['nav-next-month'],
+          'nav-next-year': $scopedSlots['nav-next-year'],
+          'nav-next-decade': $scopedSlots['nav-next-decade']
         }
       },
       $footer
