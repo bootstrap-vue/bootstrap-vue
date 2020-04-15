@@ -1,3 +1,4 @@
+import { ENTER, LEFT, RIGHT, SPACE } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import noop from '../../utils/noop'
 import observeDom from '../../utils/observe-dom'
@@ -6,7 +7,6 @@ import { selectAll, reflow, addClass, removeClass, setAttr } from '../../utils/d
 import { isBrowser, hasTouchSupport, hasPointerEventSupport } from '../../utils/env'
 import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
 import { isUndefined } from '../../utils/inspect'
-import { ENTER, LEFT, RIGHT, SPACE } from '../../utils/key-codes'
 import { toInteger } from '../../utils/number'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'

@@ -1,4 +1,5 @@
 // BTime control (not form input control)
+import { LEFT, RIGHT } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
@@ -7,7 +8,6 @@ import { getComponentConfig } from '../../utils/config'
 import { createDate, createDateFormatter } from '../../utils/date'
 import { contains, requestAF } from '../../utils/dom'
 import { isNull, isUndefinedOrNull } from '../../utils/inspect'
-import { LEFT, RIGHT } from '../../utils/key-codes'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'

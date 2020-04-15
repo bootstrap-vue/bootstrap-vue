@@ -1,5 +1,6 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
+import { BACKSPACE, DELETE, ENTER } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
@@ -7,7 +8,6 @@ import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { matches, requestAF, select } from '../../utils/dom'
 import { isEvent, isFunction, isString } from '../../utils/inspect'
-import { BACKSPACE, DELETE, ENTER } from '../../utils/key-codes'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'

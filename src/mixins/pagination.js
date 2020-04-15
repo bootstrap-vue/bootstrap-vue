@@ -1,7 +1,7 @@
+import { DOWN, LEFT, RIGHT, SPACE, UP } from '../constants/key-codes'
 import range from '../utils/range'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import { isFunction, isNull } from '../utils/inspect'
-import { DOWN, LEFT, RIGHT, SPACE, UP } from '../utils/key-codes'
 import { toInteger } from '../utils/number'
 import { toString } from '../utils/string'
 import { warn } from '../utils/warn'

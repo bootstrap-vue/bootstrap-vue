@@ -1,6 +1,6 @@
+import { DOWN, END, ENTER, HOME, SPACE, UP } from '../../../constants/key-codes'
 import { arrayIncludes, from as arrayFrom } from '../../../utils/array'
 import { closest, isElement } from '../../../utils/dom'
-import { DOWN, END, ENTER, HOME, SPACE, UP } from '../../../utils/key-codes'
 import { props as tbodyProps, BTbody } from '../tbody'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'

@@ -1,7 +1,7 @@
+import { ESC } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { contains } from '../../utils/dom'
-import { ESC } from '../../utils/key-codes'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'

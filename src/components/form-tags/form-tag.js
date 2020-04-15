@@ -1,6 +1,6 @@
+import { DELETE } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
-import { DELETE } from '../../utils/key-codes'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BBadge } from '../badge/badge'

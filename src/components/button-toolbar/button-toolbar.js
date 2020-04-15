@@ -1,6 +1,6 @@
+import { DOWN, LEFT, RIGHT, UP } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import { isVisible, selectAll } from '../../utils/dom'
-import { DOWN, LEFT, RIGHT, UP } from '../../utils/key-codes'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const ITEM_SELECTOR = [

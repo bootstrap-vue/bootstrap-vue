@@ -1,7 +1,7 @@
+import { ENTER, SPACE } from '../../constants/key-codes'
 import { getAttr, hasAttr, isDisabled, matches, select, setAttr } from '../../utils/dom'
 import { EVENT_OPTIONS_PASSIVE, eventOn, eventOff } from '../../utils/events'
 import { isString } from '../../utils/inspect'
-import { ENTER, SPACE } from '../../utils/key-codes'
 import { keys } from '../../utils/object'
 
 // Emitted show event for modal
