@@ -22,7 +22,7 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
       const titleDomProps = this.html && !isFunction(this.title) ? { innerHTML: this.title } : {}
       const $header =
         isUndefinedOrNull($title) || $title === ''
-          ? h()
+          ? /* istanbul ignore next */ h()
           : h('h3', { staticClass: 'popover-header', domProps: titleDomProps }, [$title])
 
       const $content = isFunction(this.content) ? this.content({}) : this.content
@@ -30,7 +30,7 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
         this.html && !isFunction(this.content) ? { innerHTML: this.content } : {}
       const $body =
         isUndefinedOrNull($content) || $content === ''
-          ? h()
+          ? /* istanbul ignore next */ h()
           : h('div', { staticClass: 'popover-body', domProps: contentDomProps }, [$content])
 
       return h(
