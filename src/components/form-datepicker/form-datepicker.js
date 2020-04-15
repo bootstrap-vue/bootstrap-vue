@@ -513,6 +513,15 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           selected: this.onSelected,
           input: this.onInput,
           context: this.onContext
+        },
+        scopedSlots: {
+          'nav-prev-decade': this.$scopedSlot['nav-prev-decade'],
+          'nav-prev-year': this.$scopedSlot['nav-prev-year'],
+          'nav-prev-month': this.$scopedSlot['nav-prev-month'],
+          'nav-this-month': this.$scopedSlot['nav-this-month'],
+          'nav-next-month': this.$scopedSlot['nav-next-month'],
+          'nav-next-year': this.$scopedSlot['nav-next-year'],
+          'nav-next-decade': this.$scopedSlot['nav-next-decade']
         }
       },
       $footer
