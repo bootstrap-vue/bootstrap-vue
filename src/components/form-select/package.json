@@ -16,6 +16,11 @@
             "description": "Current value of the select. Should be set to an array when the 'multiple' prop is set"
           },
           {
+            "prop": "size",
+            "settings": true,
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+          },
+          {
             "prop": "multiple",
             "description": "When set, allows multiple options to be selected (multi-select)"
           },

@@ -5,7 +5,6 @@
     "title": "Form Datepicker",
     "version": "2.5.0",
     "slug": "form-datepicker",
-    "new": true,
     "description": "BootstrapVue custom date picker input form control, which provides full WAI-ARIA accessibility (a11y) and supports internationalization (i18n)",
     "components": [
       {
@@ -98,7 +97,12 @@
           },
           {
             "prop": "hideHeader",
-            "description": "When set, visually hides the selected date header"
+            "description": "When `true`, visually hides the selected date header"
+          },
+          {
+            "prop": "showDecadeNav",
+            "version": "2.11.0",
+            "description": "When `true`, shows the +/- decade navigation buttons"
           },
           {
             "prop": "menuClass",
@@ -174,59 +178,85 @@
             "description": "Text so show in the form control when no date is selected. Defaults to the `label-no-date-selected` prop value"
           },
           {
+            "prop": "labelPrevDecade",
+            "version": "2.11.0",
+            "settings": true,
+            "description": "Value of the `aria-label` and `title` attributes on the optional `Previous Decade` navigation button"
+          },
+          {
             "prop": "labelPrevYear",
+            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Previous Year` navigation button"
           },
           {
             "prop": "labelPrevMonth",
+            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Previous Month` navigation button"
           },
           {
             "prop": "labelCurrentMonth",
+            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Current Month` navigation button"
           },
           {
             "prop": "labelNextMonth",
+            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Next Month` navigation button"
           },
           {
             "prop": "labelNextYear",
+            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Next Year` navigation button"
           },
           {
+            "prop": "labelNextDecade",
+            "version": "2.11.0",
+            "settings": true,
+            "description": "Value of the `aria-label` and `title` attributes on the optional `Next Decade` navigation button"
+          },
+          {
             "prop": "labelSelected",
+            "settings": true,
             "description": "Value of the `aria-label` attribute set on the calendar grid date button that is selected"
           },
           {
             "prop": "labelToday",
+            "settings": true,
             "description": "Value of the `aria-label` attribute for the calendar grid date button to signify that the date is today's date"
           },
           {
             "prop": "labelNoDateSelected",
+            "settings": true,
             "description": "Label to use when no date is currently selected"
           },
           {
             "prop": "labelCalendar",
+            "settings": true,
             "description": "Value of the `aria-label` and `role-description` attributes applied to the calendar grid"
           },
           {
             "prop": "labelNav",
+            "settings": true,
             "description": "Value of the `aria-label` attribute on to the calendar navigation button wrapper"
           },
           {
             "prop": "labelHelp",
+            "settings": true,
             "description": "help text that appears at the bottom of the calendar grid"
           },
           {
             "prop": "labelTodayButton",
+            "settings": true,
             "description": "Content for the optional `Select today` button"
           },
           {
             "prop": "labelResetButton",
+            "settings": true,
             "description": "Content for the optional `Reset` button"
           },
           {
             "prop": "labelCloseButton",
+            "settings": true,
             "description": "Content for the optional `Close` button"
           },
           {
@@ -260,6 +290,16 @@
                 "type": "Object"
               }
             ]
+          },
+          {
+            "event": "shown",
+            "version": "2.9.0",
+            "description": "Emitted when the picker popup has shown"
+          },
+          {
+            "event": "hidden",
+            "version": "2.9.0",
+            "description": "Emitted when the picker popup has hidden"
           }
         ],
         "slots": [

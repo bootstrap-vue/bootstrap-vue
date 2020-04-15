@@ -60,7 +60,7 @@
             </svg>
           </b-col>
 
-          <b-col tag="section" cols="12" md="8" order-md="1">
+          <b-col tag="header" cols="12" md="8" order-md="1">
             <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">
               Bootstrap<span class="text-vue-green">Vue</span>
             </h1>
@@ -186,7 +186,7 @@
           </div>
 
           <div class="order-1 order-md-2">
-            <BVAd></BVAd>
+            <BVCarbonAd></BVCarbonAd>
           </div>
         </div>
       </b-container>
@@ -208,7 +208,7 @@
 
           <b-card tag="article" body-text-variant="muted" class="rounded-0 border-0">
             <b-card-text text-tag="h3" class="h5 text-center bd-text-purple-bright mb-2">
-              <b-icon icon="columns-gap" width="2.5em" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
+              <b-icon icon="puzzle" width="2.5em" height="2.5em" class="mx-auto d-block mb-3"></b-icon>
               <span>Modular</span>
             </b-card-text>
             <b-card-text class="text-center">
@@ -671,12 +671,12 @@ $bv-angle-padding-md: 6rem;
 
 <script>
 import { version, bootstrapVersion, vueVersion } from '~/content'
-import BVAd from '~/components/ad'
+import BVCarbonAd from '~/components/carbon-ad'
 import BVContributors from '~/components/contributors'
 
 export default {
   components: {
-    BVAd,
+    BVCarbonAd,
     BVContributors
   },
   data() {

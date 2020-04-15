@@ -21,8 +21,8 @@ export default {
       default: false
     },
     form: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     autofocus: {
       type: Boolean,
@@ -32,7 +32,8 @@ export default {
   mounted() {
     this.handleAutofocus()
   },
-  activated() /* istanbul ignore next */ {
+  /* istanbul ignore next */
+  activated() {
     this.handleAutofocus()
   },
   methods: {

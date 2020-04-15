@@ -28,33 +28,33 @@ const propsMixin = {
       default: false
     },
     resetValue: {
-      type: [String, Date],
-      default: ''
+      type: [String, Date]
+      // default: null
     },
     initialDate: {
       // This specifies the calendar year/month/day that will be shown when
       // first opening the datepicker if no v-model value is provided
       // Default is the current date (or `min`/`max`)
       // Passed directly to <b-calendar>
-      type: [String, Date],
-      default: null
+      type: [String, Date]
+      // default: null
     },
     placeholder: {
-      type: String,
+      type: String
       // Defaults to `labelNoDateSelected` from calendar context
-      default: null
+      // default: null
     },
     size: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     min: {
-      type: [String, Date],
-      default: null
+      type: [String, Date]
+      // default: null
     },
     max: {
-      type: [String, Date],
-      default: null
+      type: [String, Date]
+      // default: null
     },
     disabled: {
       type: Boolean,
@@ -70,12 +70,12 @@ const propsMixin = {
       default: false
     },
     name: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     form: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     state: {
       // Tri-state prop: `true`, `false` or `null`
@@ -83,8 +83,8 @@ const propsMixin = {
       default: null
     },
     dateDisabledFn: {
-      type: Function,
-      default: null
+      type: Function
+      // default: null
     },
     noCloseOnSelect: {
       type: Boolean,
@@ -94,9 +94,14 @@ const propsMixin = {
       type: Boolean,
       default: false
     },
+    showDecadeNav: {
+      // When `true` enables the decade navigation buttons
+      type: Boolean,
+      default: false
+    },
     locale: {
-      type: [String, Array],
-      default: null
+      type: [String, Array]
+      // default: null
     },
     startWeekday: {
       // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
@@ -105,8 +110,8 @@ const propsMixin = {
       default: 0
     },
     direction: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     buttonOnly: {
       type: Boolean,
@@ -129,8 +134,8 @@ const propsMixin = {
     },
     todayVariant: {
       // Variant color to use for today's date (defaults to `variant`)
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     noHighlightToday: {
       // Disable highlighting today's date
@@ -175,6 +180,10 @@ const propsMixin = {
     },
     // Labels for buttons and keyboard shortcuts
     // These pick BCalendar global config if no BFormDate global config
+    labelPrevDecade: {
+      type: String,
+      default: () => getConfigFallback('labelPrevDecade')
+    },
     labelPrevYear: {
       type: String,
       default: () => getConfigFallback('labelPrevYear')
@@ -194,6 +203,10 @@ const propsMixin = {
     labelNextYear: {
       type: String,
       default: () => getConfigFallback('labelNextYear')
+    },
+    labelNextDecade: {
+      type: String,
+      default: () => getConfigFallback('labelNextDecade')
     },
     labelToday: {
       type: String,
@@ -236,8 +249,8 @@ const propsMixin = {
     },
     // extra dropdown stuff
     menuClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     ...dropdownProps
   }
@@ -293,11 +306,14 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         selectedVariant: self.selectedVariant,
         todayVariant: self.todayVariant,
         hideHeader: self.hideHeader,
+        showDecadeNav: self.showDecadeNav,
+        labelPrevDecade: self.labelPrevDecade,
         labelPrevYear: self.labelPrevYear,
         labelPrevMonth: self.labelPrevMonth,
         labelCurrentMonth: self.labelCurrentMonth,
         labelNextMonth: self.labelNextMonth,
         labelNextYear: self.labelNextYear,
+        labelNextDecade: self.labelNextDecade,
         labelToday: self.labelToday,
         labelSelected: self.labelSelected,
         labelNoDateSelected: self.labelNoDateSelected,
@@ -400,10 +416,12 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         try {
           this.$refs.calendar.focus()
         } catch {}
+        this.$emit('shown')
       })
     },
     onHidden() {
       this.isVisible = false
+      this.$emit('hidden')
     },
     // Render helpers
     defaultButtonFn({ isHovered, hasFocus }) {

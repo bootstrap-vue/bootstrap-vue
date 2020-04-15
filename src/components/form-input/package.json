@@ -16,6 +16,11 @@
             "description": "The current value of the input.  Result will always be a string, except when the 'number' prop is used"
           },
           {
+            "prop": "size",
+            "settings": true,
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+          },
+          {
             "prop": "ariaInvalid",
             "description": "Sets the 'aria-invalid' attribute with the specified value"
           },

@@ -10,6 +10,7 @@ import formValidityMixin from '../../mixins/form-validity'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import { getCS, isVisible, requestAF } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
+import { toInteger, toFloat } from '../../utils/number'
 
 // @vue/component
 export const BFormTextarea = /*#__PURE__*/ Vue.extend({
@@ -33,8 +34,8 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       default: 2
     },
     maxRows: {
-      type: [Number, String],
-      default: null
+      type: [Number, String]
+      // default: null
     },
     wrap: {
       // 'soft', 'hard' or 'off'. Browser default is 'soft'
@@ -78,10 +79,10 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       // Ensure rows is at least 2 and positive (2 is the native textarea value)
       // A value of 1 can cause issues in some browsers, and most browsers
       // only support 2 as the smallest value
-      return Math.max(parseInt(this.rows, 10) || 2, 2)
+      return Math.max(toInteger(this.rows, 2), 2)
     },
     computedMaxRows() {
-      return Math.max(this.computedMinRows, parseInt(this.maxRows, 10) || 0)
+      return Math.max(this.computedMinRows, toInteger(this.maxRows, 0))
     },
     computedRows() {
       // This is used to set the attribute 'rows' on the textarea
@@ -129,13 +130,11 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       // Get current computed styles
       const computedStyle = getCS(el)
       // Height of one line of text in px
-      const lineHeight = parseFloat(computedStyle.lineHeight)
+      const lineHeight = toFloat(computedStyle.lineHeight, 1)
       // Calculate height of border and padding
       const border =
-        (parseFloat(computedStyle.borderTopWidth) || 0) +
-        (parseFloat(computedStyle.borderBottomWidth) || 0)
-      const padding =
-        (parseFloat(computedStyle.paddingTop) || 0) + (parseFloat(computedStyle.paddingBottom) || 0)
+        toFloat(computedStyle.borderTopWidth, 0) + toFloat(computedStyle.borderBottomWidth, 0)
+      const padding = toFloat(computedStyle.paddingTop, 0) + toFloat(computedStyle.paddingBottom, 0)
       // Calculate offset
       const offset = border + padding
       // Minimum height for min rows (which must be 2 rows or greater for cross-browser support)
@@ -159,7 +158,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
 
       // Computed height remains the larger of `oldHeight` and new `height`,
       // when height is in `sticky` mode (prop `no-auto-shrink` is true)
-      if (this.noAutoShrink && (parseFloat(oldHeight) || 0) > height) {
+      if (this.noAutoShrink && toFloat(oldHeight, 0) > height) {
         return oldHeight
       }
 
@@ -188,10 +187,10 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       ],
       attrs: {
         id: self.safeId(),
-        name: self.name,
+        name: self.name || null,
         form: self.form || null,
         disabled: self.disabled,
-        placeholder: self.placeholder,
+        placeholder: self.placeholder || null,
         required: self.required,
         autocomplete: self.autocomplete || null,
         readonly: self.readonly || self.plaintext,

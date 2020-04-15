@@ -3,13 +3,13 @@
 > `<b-form-timepicker>` is a BootstrapVue custom time picker input form control, which provides full
 > WAI-ARIA compliance and internationalization support.
 
+## Overview
+
 As a form control wrapper component for the [`<b-time>`](/docs/components/time) component, it
 provides additional validation state presentation and a compact interface. Native HTML5 time inputs
 vary in presentation, accessibility, and in some instances are not supported by all browsers.
 `<b-form-timepicker>` provides a consistent and accessible interface across all browser platforms
 and devices.
-
-The `<b-form-timepicker>` component was introduced in BootstrapVue release `v2.6.0`.
 
 ```html
 <template>
@@ -413,7 +413,7 @@ time/hour formatting.
 The popup time supports the same keyboard controls as
 [`<b-time>`](/docs/components/time#accessibility), along with the following:
 
-- <kbd>ESC</kbd> will close the popup time without selecting a time
+- <kbd>Esc</kbd> will close the popup time without selecting a time
 
 When internationalizing the timepicker, it is important to also update the `label-*` props with
 appropriate translated strings, so that international screen reader users will hear the correct
@@ -426,9 +426,8 @@ Refer to the [`<b-time>`](/docs/components/time#accessibility) documentation for
 `<b-form-timepicker>` is based upon the components [`<b-time>`](/docs/components/time) and
 [`<b-dropdown>`](/docs/components/dropdown).
 
-`<b-form-timepicker>` uses Bootstrap's margin, padding, border, and flex utility classes, along with
-button (`btn-*`) classes, and the `form-control*` (plus validation) classes.
-
+`<b-form-timepicker>` uses Bootstrap's border and flex utility classes, along with button (`btn-*`)
+classes, dropdown (`dropdown*`) classes, and the `form-control*` (plus validation) classes.
 BootstrapVue's Custom SCSS/CSS is also required for proper styling of the time picker and popup.
 
 ## See also

@@ -24,8 +24,8 @@ export default {
       validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)
     },
     sortCompare: {
-      type: Function,
-      default: null
+      type: Function
+      // default: null
     },
     sortCompareOptions: {
       // Supported localCompare options, see `options` section of:
@@ -108,7 +108,7 @@ export default {
         const field = this.computedFieldsObj[sortBy] || {}
         const sortByFormatted = field.sortByFormatted
         const formatter = isFunction(sortByFormatted)
-          ? sortByFormatted
+          ? /* istanbul ignore next */ sortByFormatted
           : sortByFormatted
             ? this.getFieldFormatter(sortBy)
             : undefined
@@ -141,6 +141,7 @@ export default {
     }
   },
   watch: {
+    /* istanbul ignore next: pain in the butt to test */
     isSortable(newVal) /* istanbul ignore next: pain in the butt to test */ {
       if (newVal) {
         if (this.isSortable) {

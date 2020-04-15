@@ -25,6 +25,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
   inject: {
     bvTable: {
       // Sniffed by <b-tr> / <b-td> / <b-th>
+      /* istanbul ignore next */
       default() /* istanbul ignore next */ {
         return {}
       }

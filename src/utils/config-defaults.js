@@ -42,7 +42,7 @@ export default deepFreeze({
 
   // Form controls
   formControls: {
-    size: null
+    size: undefined
   },
 
   // Component specific defaults are keyed by the component
@@ -52,28 +52,31 @@ export default deepFreeze({
     variant: 'info'
   },
   BAvatar: {
-    variant: 'secondary'
+    variant: 'secondary',
+    badgeVariant: 'primary'
   },
   BBadge: {
     variant: 'secondary'
   },
   BButton: {
-    size: null,
+    size: undefined,
     variant: 'secondary'
   },
   BButtonClose: {
     content: '&times;',
     // `textVariant` is `null` to inherit the current text color
-    textVariant: null,
+    textVariant: undefined,
     ariaLabel: 'Close'
   },
   BCalendar: {
     // BFormDate will choose these first if not provided in BFormDate section
-    labelPrevYear:  'Previous year',
+    labelPrevDecade: 'Previous decade',
+    labelPrevYear: 'Previous year',
     labelPrevMonth: 'Previous month',
     labelCurrentMonth: 'Current month',
     labelNextMonth: 'Next month',
     labelNextYear: 'Next year',
+    labelNextDecade: 'Next decade',
     labelToday: 'Today',
     labelSelected: 'Selected date',
     labelNoDateSelected: 'No date selected',
@@ -93,23 +96,25 @@ export default deepFreeze({
   },
   BDropdown: {
     toggleText: 'Toggle Dropdown',
-    size: null,
+    size: undefined,
     variant: 'secondary',
-    splitVariant: null
+    splitVariant: undefined
   },
   BFormDatepicker: {
     // BFormDatepicker will choose from BCalendar first if not provided here
-    labelPrevYear: null,
-    labelPrevMonth: null,
-    labelCurrentMonth: null,
-    labelNextMonth: null,
-    labelNextYear: null,
-    labelToday: null,
-    labelSelected: null,
-    labelNoDateSelected: null,
-    labelCalendar: null,
-    labelNav: null,
-    labelHelp: null,
+    labelPrevDecade: undefined,
+    labelPrevYear: undefined,
+    labelPrevMonth: undefined,
+    labelCurrentMonth: undefined,
+    labelNextMonth: undefined,
+    labelNextYear: undefined,
+    labelNextDecade: undefined,
+    labelToday: undefined,
+    labelSelected: undefined,
+    labelNoDateSelected: undefined,
+    labelCalendar: undefined,
+    labelNav: undefined,
+    labelHelp: undefined,
     // These props are specific to BFormDatepicker
     labelTodayButton: 'Select today',
     labelResetButton: 'Reset',
@@ -120,6 +125,10 @@ export default deepFreeze({
     // Chrome default file prompt
     placeholder: 'No file chosen',
     dropPlaceholder: 'Drop files here'
+  },
+  BFormRating: {
+    variant: null,
+    color: null
   },
   BFormTag: {
     removeLabel: 'Remove tag',
@@ -140,17 +149,17 @@ export default deepFreeze({
   },
   BFormTimepicker: {
     // Fallback to BTime
-    labelNoTimeSelected: null,
-    labelSelected: null,
-    labelHours: null,
-    labelMinutes: null,
-    labelSeconds: null,
-    labelAmpm: null,
-    labelAm: null,
-    labelPm: null,
+    labelNoTimeSelected: undefined,
+    labelSelected: undefined,
+    labelHours: undefined,
+    labelMinutes: undefined,
+    labelSeconds: undefined,
+    labelAmpm: undefined,
+    labelAm: undefined,
+    labelPm: undefined,
     // Fallback to BTime then BFormSpinbutton
-    labelDecrement: null,
-    labelIncrement: null,
+    labelDecrement: undefined,
+    labelIncrement: undefined,
     // These props are specific to BFormTimepicker
     labelNowButton: 'Select now',
     labelResetButton: 'Reset',
@@ -167,28 +176,28 @@ export default deepFreeze({
     blankColor: 'transparent'
   },
   BInputGroup: {
-    size: null
+    size: undefined
   },
   BJumbotron: {
-    bgVariant: null,
-    borderVariant: null,
-    textVariant: null
+    bgVariant: undefined,
+    borderVariant: undefined,
+    textVariant: undefined
   },
   BListGroupItem: {
-    variant: null
+    variant: undefined
   },
   BModal: {
     titleTag: 'h5',
     size: 'md',
-    headerBgVariant: null,
-    headerBorderVariant: null,
-    headerTextVariant: null,
-    headerCloseVariant: null,
-    bodyBgVariant: null,
-    bodyTextVariant: null,
-    footerBgVariant: null,
-    footerBorderVariant: null,
-    footerTextVariant: null,
+    headerBgVariant: undefined,
+    headerBorderVariant: undefined,
+    headerTextVariant: undefined,
+    headerCloseVariant: undefined,
+    bodyBgVariant: undefined,
+    bodyTextVariant: undefined,
+    footerBgVariant: undefined,
+    footerBorderVariant: undefined,
+    footerTextVariant: undefined,
     cancelTitle: 'Cancel',
     cancelVariant: 'secondary',
     okTitle: 'OK',
@@ -203,31 +212,38 @@ export default deepFreeze({
     label: 'Toggle navigation'
   },
   BPagination: {
-    size: null
+    size: undefined
   },
   BPaginationNav: {
-    size: null
+    size: undefined
   },
   BPopover: {
     boundary: 'scrollParent',
     boundaryPadding: 5,
-    customClass: null,
+    customClass: undefined,
     delay: 50,
-    variant: null
+    variant: undefined
   },
   BProgress: {
-    variant: null
+    variant: undefined
   },
   BProgressBar: {
-    variant: null
+    variant: undefined
   },
   BSpinner: {
-    variant: null
+    variant: undefined
+  },
+  BSidebar: {
+    bgVariant: 'light',
+    textVariant: 'dark',
+    shadow: false,
+    width: undefined,
+    tag: 'div'
   },
   BTable: {
     selectedVariant: 'active',
-    headVariant: null,
-    footVariant: null
+    headVariant: undefined,
+    footVariant: undefined
   },
   BTime: {
     labelNoTimeSelected: 'No time selected',
@@ -240,27 +256,27 @@ export default deepFreeze({
     labelAm: 'AM',
     labelPm: 'PM',
     // The following inherit from BFormSpinbutton if not provided
-    labelIncrement: null,
-    labelDecrement: null
+    labelIncrement: undefined,
+    labelDecrement: undefined
   },
   BToast: {
     toaster: 'b-toaster-top-right',
     autoHideDelay: 5000,
-    variant: null,
-    toastClass: null,
-    headerClass: null,
-    bodyClass: null
+    variant: undefined,
+    toastClass: undefined,
+    headerClass: undefined,
+    bodyClass: undefined
   },
   BToaster: {
-    ariaLive: null,
-    ariaAtomic: null,
-    role: null
+    ariaLive: undefined,
+    ariaAtomic: undefined,
+    role: undefined
   },
   BTooltip: {
     boundary: 'scrollParent',
     boundaryPadding: 5,
-    customClass: null,
+    customClass: undefined,
     delay: 50,
-    variant: null
+    variant: undefined
   }
 })

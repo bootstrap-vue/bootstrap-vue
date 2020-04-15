@@ -11,8 +11,8 @@ export const props = {
   // Import common card props and prefix them with `body-`
   ...copyProps(cardMixin.props, prefixPropName.bind(null, 'body')),
   bodyClass: {
-    type: [String, Object, Array],
-    default: null
+    type: [String, Object, Array]
+    // default: null
   },
   ...titleProps,
   ...subTitleProps,

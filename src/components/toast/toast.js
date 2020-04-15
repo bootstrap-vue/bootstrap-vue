@@ -26,12 +26,12 @@ export const props = {
   id: {
     // Even though the ID prop is provided by idMixin, we
     // add it here for $bvToast props filtering
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   title: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   toaster: {
     type: String,
@@ -91,12 +91,12 @@ export const props = {
     default: () => getComponentConfig(NAME, 'bodyClass')
   },
   href: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   to: {
-    type: [String, Object],
-    default: null
+    type: [String, Object]
+    // default: null
   },
   static: {
     // Render the toast in place, rather than in a portal-target
@@ -144,7 +144,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     computedDuration() {
       // Minimum supported duration is 1 second
-      return Math.max(toInteger(this.autoHideDelay) || 0, MIN_DURATION)
+      return Math.max(toInteger(this.autoHideDelay, 0), MIN_DURATION)
     },
     computedToaster() {
       return String(this.toaster)
@@ -167,10 +167,12 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         this.$emit('change', newVal)
       }
     },
+    /* istanbul ignore next */
     toaster() /* istanbul ignore next */ {
       // If toaster target changed, make sure toaster exists
       this.$nextTick(this.ensureToaster)
     },
+    /* istanbul ignore next */
     static(newVal) /* istanbul ignore next */ {
       // If static changes to true, and the toast is showing,
       // ensure the toaster target exists
@@ -257,7 +259,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     emitEvent(bvEvt) {
       const type = bvEvt.type
-      this.$root.$emit(`bv::toast:${type}`, bvEvt)
+      this.emitOnRoot(`bv::toast:${type}`, bvEvt)
       this.$emit(type, bvEvt)
     },
     ensureToaster() {

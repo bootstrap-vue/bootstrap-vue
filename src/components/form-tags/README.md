@@ -6,14 +6,12 @@
 Tags are arrays of short strings, used in various ways such as assigning categories. Use the default
 user interface, or create your own custom interface via the use of the default scoped slot.
 
-The tagged input was added in BootstrapVue release `v2.2.0`.
-
 ## Basic usage
 
 Tags will have any leading and tailing whitespace removed, and duplicate tags are not permitted.
 Tags that contain spaces are permitted by default.
 
-Tags are added by clicking the **Add** button, pressing the <kbd>ENTER</kbd> key or optionally when
+Tags are added by clicking the **Add** button, pressing the <kbd>Enter</kbd> key or optionally when
 the `change` event fires on the new tag input (i.e. when focus moves from the input). The **Add**
 button will only appear when the user has entered a new tag value.
 
@@ -41,18 +39,18 @@ button will only appear when the user has entered a new tag value.
 <!-- form-tags-example.vue -->
 ```
 
-You can disable adding a new tag when pressing <kbd>ENTER</kbd> via the `no-add-on-enter` prop, and
+You can disable adding a new tag when pressing <kbd>Enter</kbd> via the `no-add-on-enter` prop, and
 enable adding a tag on the input's `change` event via the `add-on-change` prop.
 
 ## Tag creation using separators
 
-To auto create tags when a separator character is typed (i.e. <kbd>SPACE</kbd>, <kbd>,</kbd>, etc),
+To auto create tags when a separator character is typed (i.e. <kbd>Space</kbd>, <kbd>,</kbd>, etc),
 set the `separator` prop to the character that will trigger the tag to be added. If multiple
 separator characters are needed, then include them as a single string (i.e. `' ,;'`), or an array of
-characters (i.e. `[' ', ',', ';']`), which will trigger a new tag to be added when <kbd>SPACE</kbd>,
+characters (i.e. `[' ', ',', ';']`), which will trigger a new tag to be added when <kbd>Space</kbd>,
 <kbd>,</kbd>, _or_ <kbd>;</kbd> are typed). Separators must be a single character.
 
-The following example will auto create a tag when <kbd>SPACE</KBD>, <kbd>,</kbd>, or <kbd>;</kbd>
+The following example will auto create a tag when <kbd>Space</KBD>, <kbd>,</kbd>, or <kbd>;</kbd>
 are typed:
 
 ```html
@@ -86,8 +84,8 @@ are typed:
 
 ## Last tag removal via backspace keypress
 
-When the prop `remove-on-delete` is set, and the user presses <kbd>BACKSPACE</kbd> (or
-<kbd>DEL</kbd>) _and_ the input value is empty, the last tag in the tag list will be removed.
+When the prop `remove-on-delete` is set, and the user presses <kbd>Backspace</kbd> (or
+<kbd>Del</kbd>) _and_ the input value is empty, the last tag in the tag list will be removed.
 
 ```html
 <template>
@@ -104,7 +102,7 @@ When the prop `remove-on-delete` is set, and the user presses <kbd>BACKSPACE</kb
       class="mb-2"
     ></b-form-tags>
     <b-form-text id="tags-remove-on-delete-help">
-      Press <kbd>BACKSPACE</kbd> to remove the last tag entered
+      Press <kbd>Backspace</kbd> to remove the last tag entered
     </b-form-text>
     <p>Value: {{ value }}</p>
   </div>
@@ -263,7 +261,7 @@ three arrays as its arguments:
 - `duplicateTags` (tags that would be a duplicate of existing or validTags).
 
 The event will be emitted only when the new tag input changes (characters are entered that would be
-considered part of a tag), or when the user attempts to add a tag (i.e. via <kbd>ENTER</kbd>,
+considered part of a tag), or when the user attempts to add a tag (i.e. via <kbd>Enter</kbd>,
 clicking the **Add** button, or entering a separator). The three arrays will be empty when the user
 clears the new tag input element (or contains just spaces).
 
@@ -381,7 +379,7 @@ The `inputHandlers` object contains event handlers to bind (`v-on`) to the new t
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `input`   | Function | Event handler for the input element `input` event. Accepts a single argument of either an event object or a string. Updates the internal v-model for the new tag input element |
 | `change`  | Function | Event handler for the input element `change` event. Accepts a single argument of either an event object or a string. Change will trigger adding the tag.                       |
-| `keydown` | Function | Event handler for the input element `keydown` <kbd>ENTER</kbd> and <kbd>DEL</kbd> events. Accepts a single argument which is the native keydown event object                   |
+| `keydown` | Function | Event handler for the input element `keydown` <kbd>Enter</kbd> and <kbd>Del</kbd> events. Accepts a single argument which is the native keydown event object                   |
 
 The `change` handler, when needed, must be enabled via the `add-on-change` prop, otherwise it is a
 noop method.

@@ -7,11 +7,8 @@
 
 ## Overview
 
-Avatars are lightweight functional components, which render inline by default, so that they are
-vertically centered beside any adjoining plain text. They also can be used as children of other
-components.
-
-The `<b-avatar>` component was added in BootstrapVue version `v2.8.0`.
+Avatars are lightweight components, which render inline by default, so that they are vertically
+centered beside any adjoining plain text. They also can be used as children of other components.
 
 ```html
 <template>
@@ -54,27 +51,11 @@ The `<b-avatar>` component was added in BootstrapVue version `v2.8.0`.
 
 ## Avatar types
 
-The avatar content can be either a short text string, an image, or an icon. Avatar content defaults
+The avatar content can be either a an image, an icon, or short text string. Avatar content defaults
 to the [`'person-fill'` icon](/docs/icons) when no other content is specified.
 
-### Text content
-
-You can specify a short string as the content of an avatar via the `text` prop. The string should be
-short (1 to 3 characters), and will be transformed via CSS to be all uppercase. The font size will
-be scaled relative to the [`size` prop setting](#sizing).
-
-```html
-<template>
-  <div class="mb-2">
-    <b-avatar text="BV"></b-avatar>
-    <b-avatar text="a"></b-avatar>
-    <b-avatar text="Foo"></b-avatar>
-    <b-avatar text="BV" size="4rem"></b-avatar>
-  </div>
-</template>
-
-<!-- b-avatar-text.vue -->
-```
+You can also supply custom content via the default slot, although you may need to apply additional
+styling on the content.
 
 ### Image content
 
@@ -98,7 +79,11 @@ and will be sized to show the avatar's [variant background](#variants) around th
 
 - When using a module bundler and project relative image URLs, please refer to the
   [Component img src resolving](/docs/reference/images) reference section for additional details.
-- The `src` prop takes precedence over the `text` prop.
+- The `src` prop takes precedence over the `icon` and `text` props.
+- <span class="badge badge-secondary">2.11.0+</span> If the image fails to load, the avatar will
+  fallback to the value of the `icon` or `text` props. If neither the `icon` or `text` props are
+  provided, then the default avatar icon will be shown. Also, when the image fails to load, the
+  `img-error` event will be emitted.
 
 ### Icon content
 
@@ -123,9 +108,28 @@ prop should be set to a valid icon name. Icons will scale respective to the [`si
 - When providing a BootstrapVue icon name, you _must_ ensure that you have registered the
   corresponding icon component (either locally to your component/page, or globally), if not using
   the full [`BootstrapVueIcons` plugin](/docs/icons).
-- The `icon` prop takes precedence over the `text` and `src` props.
+- The `icon` prop takes precedence over the `text` prop.
 - If the `text`, `src`, or `icon` props are not provided _and_ the [default slot](#custom-content)
   has no content, then the `person-fill` icon will be used.
+
+### Text content
+
+You can specify a short string as the content of an avatar via the `text` prop. The string should be
+short (1 to 3 characters), and will be transformed via CSS to be all uppercase. The font size will
+be scaled relative to the [`size` prop setting](#sizing).
+
+```html
+<template>
+  <div class="mb-2">
+    <b-avatar text="BV"></b-avatar>
+    <b-avatar text="a"></b-avatar>
+    <b-avatar text="Foo"></b-avatar>
+    <b-avatar text="BV" size="4rem"></b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-text.vue -->
+```
 
 ### Custom content
 
@@ -311,9 +315,92 @@ The `to` prop can either be a string path, or a `Location` object. The `to` prop
 - For additional details on the `<router-link>` compatible props, please refer to the
   [Router support reference section](/docs/reference/router-links).
 
+## Badge avatars
+
+<span class="badge badge-info small">2.12.0+<span>
+
+Easily add a badge to your avatar via the `badge` prop or `'badge'` slot, and the badge variant can
+be set via the `badge-variant` prop. The badge will scale with the size of the avatar.
+
+```html
+<template>
+  <div>
+    <b-avatar badge></b-avatar>
+    <b-avatar badge badge-variant="danger" src="https://placekitten.com/300/300"></b-avatar>
+    <b-avatar badge badge-variant="warning" icon="people-fill"></b-avatar>
+    <b-avatar badge badge-variant="success" src="https://placekitten.com/300/300"></b-avatar>
+    <b-avatar badge badge-variant="dark" text="BV"></b-avatar>
+    <b-avatar square badge badge-variant="dark" text="BV"></b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-badge.vue -->
+```
+
+### Badge content
+
+Add textual content to the badge by supplying a string to the `badge` prop, or use the named slot
+`'badge'`.
+
+```html
+<template>
+  <div style="font-size: 2rem">
+    <b-avatar badge="BV"></b-avatar>
+    <b-avatar badge="7" variant="primary" badge-variant="dark"></b-avatar>
+    <b-avatar badge-variant="info" src="https://placekitten.com/300/300">
+      <template v-slot:badge><b-icon icon="star-fill"></b-badge></template>
+    </b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-badge-content.vue -->
+```
+
+### Badge positioning
+
+By default the badge appears on the bottom right of the avatar. You can use the `badge-top` and
+`badge-right` boolean props to switch the sides. Combine both props to move the badge to the top
+right of the avatar.
+
+```html
+<template>
+  <div>
+    <b-avatar badge></b-avatar>
+    <b-avatar badge badge-left></b-avatar>
+    <b-avatar badge badge-top></b-avatar>
+    <b-avatar badge badge-left badge-top></b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-badge-position.vue -->
+```
+
+Use the `badge-offset` prop to control the offset of the badge. The `badge-offset` must be a valid
+CSS length string (i.e. `'2px'`, `'-2px'`, `'0.5em'`, etc.). Positive values will move the badge
+inward, while negative values will move the badge outward.
+
+```html
+<template>
+  <div>
+    <b-avatar badge></b-avatar>
+    <b-avatar badge badge-offset="-0.5em"></b-avatar>
+    <b-avatar badge badge-offset="-2px"></b-avatar>
+    <b-avatar badge badge-offset="2px"></b-avatar>
+    <b-avatar badge badge-top></b-avatar>
+    <b-avatar badge badge-top badge-offset="-0.5em"></b-avatar>
+    <b-avatar badge badge-top badge-offset="-2px"></b-avatar>
+    <b-avatar badge badge-top badge-offset="2px"></b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-badge-offset.vue -->
+```
+
 ## Accessibility
 
 Use the `aria-label` prop to provide an accessible, screen reader friendly, label for your avatar.
+If you have a badge, it is recommended to add inforation to your aria-label regarding the badge
+purpose or content (i.g. `'3 messages'`, `'online'`, etc)).
 
 While the `click` event is emitted regardless if the `button`, `href`, or `to` props are set, it is
 highly recommended to use the `button` prop when the click event should trigger an action (or use

@@ -3,6 +3,7 @@ import { mergeData } from 'vue-functional-data-merge'
 const CLASS_NAME = 'contributors-container'
 const CONTRIBUTOR_CLASS_NAME = 'contributor'
 
+// @vue/component
 export default {
   name: 'BVContributorsContainer',
   functional: true,

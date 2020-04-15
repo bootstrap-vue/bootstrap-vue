@@ -11,6 +11,11 @@
         "component": "BAvatar",
         "props": [
           {
+            "prop": "variant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          },
+          {
             "prop": "text",
             "description": "Text to place in the avatar"
           },
@@ -21,6 +26,11 @@
           {
             "prop": "icon",
             "description": "Icon name to use for the avatar. Must be all lowercase. Defaults to `person-fill` if `text` or `src` props not provided"
+          },
+          {
+            "prop": "alt",
+            "version": "2.9.0",
+            "description": "Value to place in the 'alt' attribute for image and icon avatars"
           },
           {
             "prop": "size",
@@ -41,22 +51,64 @@
           {
             "prop": "rounded",
             "description": "Specifies the type of rounding to apply to the avatar. The `square` prop takes precedence. Refer to the documentation for details"
+          },
+          {
+            "prop": "badge",
+            "version": "2.12.0",
+            "description": "When `true` shows an empty badge on the avatar, alternatively set to a string for content in the badge"
+          },
+          {
+            "prop": "badgeVariant",
+            "version": "2.12.0",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the badge"
+          },
+          {
+            "prop": "badgeTop",
+            "version": "2.12.0",
+            "description": "When `true` places the badge at the top instead of the bottom"
+          },
+          {
+            "prop": "badgeLeft",
+            "version": "2.12.0",
+            "description": "When `true` places the badge at the left instead of the right"
+          },
+          {
+            "prop": "badgeOffset",
+            "version": "2.12.0",
+            "description": "CSS length to offset the badge. Positive values move the badge inwards, while negative values move the badge outwards"
           }
         ],
         "slots": [
           {
             "name": "default",
             "description": "Content to place in the avatar. Overrides props `text`, `src`, and `icon-name`"
+          },
+          {
+            "name": "badge",
+            "version": "2.12.0",
+            "description": "Content to place in the avatars optional badge. Overrides the `badge` prop"
           }
         ],
         "events": [
           {
             "event": "click",
-            "description": "Emitted when the avatar is clicked (when rendered as a button or link)",
+            "description": "Emitted when the avatar is clicked when rendered as a button or link. Not emitted otherwise",
             "args": [
               {
                 "arg": "evt",
-                "description": "Native event object"
+                "description": "Native Event object"
+              }
+            ]
+          },
+          {
+            "event": "img-error",
+            "version": "2.11.0",
+            "description": "Emitted if an image `src` is provided and the image fails to load",
+            "args": [
+              {
+                "arg": "evt",
+                "description": "Native Event object"
               }
             ]
           }

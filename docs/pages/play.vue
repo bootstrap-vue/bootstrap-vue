@@ -12,7 +12,7 @@
           </p>
         </b-col>
         <b-col lg="auto">
-          <BVAd class="my-3 my-lg-1"></BVAd>
+          <BVCarbonAd class="my-3 my-lg-1"></BVCarbonAd>
         </b-col>
       </b-row>
     </div>
@@ -285,12 +285,12 @@
   transform: 0.3s;
 }
 
-.bv-ad {
+.bv-carbon-ad {
   min-height: 130px;
 }
 
 @media (min-width: 992px) {
-  .bv-ad {
+  .bv-carbon-ad {
     min-width: 330px;
   }
 }
@@ -302,7 +302,7 @@ import debounce from 'lodash/debounce'
 import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/define'
 import needsTranspiler from '~/utils/needs-transpiler'
 import { version as bootstrapVueVersion, bootstrapVersion, vueVersion } from '~/content'
-import BVAd from '~/components/ad'
+import BVCarbonAd from '~/components/carbon-ad'
 import BVCodeMirror from '~/components/code-mirror'
 
 // --- Constants ---
@@ -371,7 +371,7 @@ const indent = (value, count = 2, { indent } = { indent: ' ' }) => {
 
 export default {
   components: {
-    BVAd,
+    BVCarbonAd,
     BVCodeMirror
   },
   data() {
@@ -436,7 +436,8 @@ export default {
         externalJs: [
           '//unpkg.com/babel-polyfill/dist/polyfill.min.js',
           `//unpkg.com/vue@${vueVersion}/dist/vue.min.js`,
-          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.js`
+          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.js`,
+          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue-icons.js`
         ]
       }
     },
@@ -479,13 +480,14 @@ export default {
       const htmlContent = '<div id="app"></div>'
       const jsContent = [
         "import Vue from 'vue'",
-        "import BootstrapVue from 'bootstrap-vue'",
+        "import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'",
         "import App from './App'",
         '',
         "import 'bootstrap/dist/css/bootstrap.css'",
         "import 'bootstrap-vue/dist/bootstrap-vue.css'",
         '',
         'Vue.use(BootstrapVue)',
+        'Vue.use(BootstrapVueIcons)',
         '',
         "new Vue({ el: '#app', render: h => h(App) })"
       ].join('\r\n')

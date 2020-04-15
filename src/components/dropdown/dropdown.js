@@ -18,6 +18,7 @@ export const props = {
   html: {
     // Button label
     type: String
+    // default: undefined
   },
   size: {
     type: String,
@@ -32,8 +33,8 @@ export const props = {
     default: false
   },
   menuClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   toggleTag: {
     type: String,
@@ -45,8 +46,8 @@ export const props = {
     default: () => getComponentConfig(NAME, 'toggleText')
   },
   toggleClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   noCaret: {
     type: Boolean,
@@ -69,8 +70,8 @@ export const props = {
     default: () => getComponentConfig(NAME, 'splitVariant')
   },
   splitClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   splitButtonType: {
     type: String,

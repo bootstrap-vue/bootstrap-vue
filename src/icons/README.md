@@ -127,7 +127,7 @@ Vue.use(BootstrapVueIcons)
 BootstrapVue icons SCSS/CSS does not depend on any Bootstrap SASS variables, mixins, functions or
 CSS classes (other than the Bootstrap `text-{variant}` text color utility classes, if using the
 `variant` prop). Please note that the icons CSS is _also_ included in the main BootstrapVue SCSS/CSS
-files.
+files. Animations effects require BootstrapVue custom SCSS/CSS.
 
 ### Browser
 
@@ -439,18 +439,32 @@ affected. If you need to shift the border/background with the icon, use Bootstra
 
 BootstrapVue includes the following built-in animations for icons:
 
+- `'cylon'` slides the icon left-right
+- `'cylon-vertical'` slides the icon up-down
+- `'fade'` fades the icon in and out <span class="badge badge-info small">2.12.0+</span>
 - `'spin'` smoothly spins the icon clockwise
 - `'spin-reverse'` smoothly spins the icon counter-clockwise
 - `'spin-pulse'` spins the icon clockwise, but in a pulsed step style
 - `'spin-reverse-pulse'` spins the icon counter-clockwise, but in a pulsed step style
-- `'cylon'` slides the icon left-right
-- '`cylon-vertical'` slides the icon up-down
+- `'throb'` scales the icon in and out <span class="badge badge-info small">2.12.0+</span>
 
 To use the animation, set the `animation` prop to one of the animation names above.
 
 ```html
 <template>
   <b-row class="text-md-center">
+    <b-col md="6" class="mb-3">
+      <p>Cylon animation:</p>
+      <b-icon icon="three-dots" animation="cylon" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Vertical cylon animation:</p>
+      <b-icon icon="three-dots-vertical" animation="cylon-vertical" font-scale="4"></b-icon>
+    </b-col>
+    <b-col md="6" class="mb-3">
+      <p>Fade animation:</p>
+      <b-icon icon="star-fill" animation="fade" font-scale="4"></b-icon>
+    </b-col>
     <b-col md="6" class="mb-3">
       <p>Spinning animation:</p>
       <b-icon icon="arrow-clockwise" animation="spin" font-scale="4"></b-icon>
@@ -468,22 +482,14 @@ To use the animation, set the `animation` prop to one of the animation names abo
       <b-icon icon="arrow-counterclockwise" animation="spin-reverse-pulse" font-scale="4"></b-icon>
     </b-col>
     <b-col md="6" class="mb-3">
-      <p>Cylon animation:</p>
-      <b-icon icon="three-dots" animation="cylon" font-scale="4"></b-icon>
-    </b-col>
-    <b-col md="6" class="mb-3">
-      <p>Vertical cylon animation:</p>
-      <b-icon icon="three-dots-vertical" animation="cylon-vertical" font-scale="4"></b-icon>
+      <p>Throb animation:</p>
+      <b-icon icon="circle-fill" animation="throb" font-scale="4"></b-icon>
     </b-col>
   </div>
 </template>
 
 <!-- b-icon-aminations.vue -->
 ```
-
-Note with the `cylon` animations, the left-right movement (or up-down movement) extends past the
-icon's bounding box by `+/- 25%`, so you may need to adjust padding or margins to compensate for
-your use case.
 
 As the animations are CSS based, they are applied _after_ any SVG transforms have taken place:
 
@@ -504,13 +510,18 @@ Need a different style animation? Just create a custom class defining the animat
 class to the icon component, or create a new animation class in the form of
 `b-icon-animation-{animationName}` and pass the custom animation name to the `animation` prop.
 
-**Note:** The BootstrapVue defined animation effects of this component is dependent on the
-`prefers-reduced-motion` media query. See the
-[reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
-additional details.
+**Animation notes:**
 
-Side note: the `cylon` animation gets its name from the "eye" of the Cylons from the _original_
-[1978 Battlestar Galactica TV series](https://www.youtube.com/watch?v=5a5bEIf0UaU).
+- With the `cylon` animations, the left-right movement (or up-down movement) extends _past_ the
+  icon's bounding box by `+/- 25%`, so you may need to adjust padding or margins to compensate for
+  your use case.
+- Animation durations can be [configured via SASS SCSS variables](/docs/reference/theming)
+- The BootstrapVue defined animation effects of this component is dependent on the
+  `prefers-reduced-motion` media query. See the
+  [reduced motion section of our accessibility documentation](/docs/reference/accessibility#reduced-motion)
+  for additional details.
+- The `cylon` animation gets its name from the "eye" of the Cylons from the _original_
+  [1978 Battlestar Galactica TV series](https://www.youtube.com/watch?v=5a5bEIf0UaU).
 
 ## Stacking icons
 
@@ -572,7 +583,7 @@ available on individual icons.
 
 Stacked icon notes:
 
-- Remember to set the `stacked` prop on the inner icon components
+- Remember to set the `stacked` prop on the inner icon components!
 - The `font-scale` prop cannot be used on the inner icon components
 - The `width` and `height` attributes cannot be applied to the inner icon components
 - Stacked icons **cannot** be stacked inside another `<b-iconstack>`
@@ -603,7 +614,7 @@ Individual icons within the icon stack can also be animated (except on IE 11):
       <b-icon
         stacked
         icon="camera"
-        animation="spin"
+        animation="throb"
         variant="info"
         scale="0.75"
       ></b-icon>
@@ -644,20 +655,19 @@ font scaled by 125%).
 <template>
   <div>
     <b-button size="sm" class="mb-2">
-      <b-icon icon="gear-fill"></b-icon> Settings
+      <b-icon icon="gear-fill" aria-hidden="true"></b-icon> Settings
     </b-button>
     <br>
     <b-button variant="primary" class="mb-2">
-      Pay now <b-icon icon="credit-card"></b-icon>
+      Pay now <b-icon icon="credit-card" aria-hidden="true"></b-icon>
     </b-button>
     <br>
     <b-button variant="outline-info" class="mb-2">
-      <b-icon icon="power"></b-icon> Logout
+      <b-icon icon="power" aria-hidden="true"></b-icon> Logout
     </b-button>
     <br>
     <b-button size="lg" variant="primary" class="mb-2">
-      <b-icon icon="question-circle-fill" aria-hidden="true"></b-icon>
-      <span class="sr-only">Help</span>
+      <b-icon icon="question-circle-fill" aria-label="Help"></b-icon>
     </b-button>
   </div>
 </template>

@@ -21,6 +21,7 @@ export const propsFactory = () => ({
   },
   rel: {
     type: String,
+    // Must be `null` if no value provided
     default: null
   },
   target: {
@@ -148,23 +149,19 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const { active, disabled, target, routerTag, isRouterLink } = this
     const tag = this.computedTag
     const rel = this.computedRel
     const href = this.computedHref
-    const isRouterLink = this.isRouterLink
 
     const componentData = {
-      class: { active: this.active, disabled: this.disabled },
+      class: { active, disabled },
       attrs: {
         ...this.$attrs,
-        rel,
-        target: this.target,
-        tabindex: this.disabled
-          ? '-1'
-          : isUndefined(this.$attrs.tabindex)
-            ? null
-            : this.$attrs.tabindex,
-        'aria-disabled': this.disabled ? 'true' : null
+        // We don't render `rel` or `target` on non link tags when using `vue-router`
+        ...(isRouterLink && routerTag !== 'a' && routerTag !== 'area' ? {} : { rel, target }),
+        tabindex: disabled ? '-1' : isUndefined(this.$attrs.tabindex) ? null : this.$attrs.tabindex,
+        'aria-disabled': disabled ? 'true' : null
       },
       props: this.computedProps
     }
