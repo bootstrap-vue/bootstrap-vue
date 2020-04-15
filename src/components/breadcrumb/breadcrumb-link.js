@@ -1,5 +1,5 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { htmlOrText } from '../../utils/html'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
