@@ -62,3 +62,6 @@ export const lowerCase = str => toString(str).toLowerCase()
 
 // Upper case a string
 export const upperCase = str => toString(str).toUpperCase()
+
+// Suffix a class name
+export const suffixClass = (base, suffix) => [base, toString(suffix)].join('-')

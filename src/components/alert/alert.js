@@ -4,6 +4,7 @@ import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBoolean } from '../../utils/inspect'
 import { isNumeric, toInteger } from '../../utils/number'
+import { suffixClass } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButtonClose } from '../button/button-close'
 
@@ -154,8 +155,8 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
         {
           staticClass: CLASS_NAME,
           class: {
-            [`${CLASS_NAME}-dismissible`]: dismissible,
-            [`${CLASS_NAME}-${variant}`]: !!variant
+            [suffixClass(CLASS_NAME, 'dismissible')]: dismissible,
+            [suffixClass(CLASS_NAME, variant)]: !!variant
           },
           attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true },
           key: this._uid
