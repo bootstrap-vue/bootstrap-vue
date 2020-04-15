@@ -71,6 +71,8 @@ describe('utils/number', () => {
   })
 
   it('isNumeric() works', async () => {
+    expect(isNumeric(0)).toBe(true)
+    expect(isNumeric('0')).toBe(true)
     expect(isNumeric(1)).toBe(true)
     expect(isNumeric('1')).toBe(true)
     expect(isNumeric(1e5)).toBe(true)
