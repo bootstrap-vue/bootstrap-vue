@@ -3,6 +3,7 @@ import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-la
 import { getComponentConfig } from '../../utils/config'
 import { createDate, constrainDate, formatYMD, parseYMD } from '../../utils/date'
 import { isUndefinedOrNull } from '../../utils/inspect'
+import { pick } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
@@ -515,15 +516,15 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           input: this.onInput,
           context: this.onContext
         },
-        scopedSlots: {
-          'nav-prev-decade': $scopedSlots['nav-prev-decade'],
-          'nav-prev-year': $scopedSlots['nav-prev-year'],
-          'nav-prev-month': $scopedSlots['nav-prev-month'],
-          'nav-this-month': $scopedSlots['nav-this-month'],
-          'nav-next-month': $scopedSlots['nav-next-month'],
-          'nav-next-year': $scopedSlots['nav-next-year'],
-          'nav-next-decade': $scopedSlots['nav-next-decade']
-        }
+        scopedSlots: pick($scopedSlots, [
+          'nav-prev-decade',
+          'nav-prev-year',
+          'nav-prev-month',
+          'nav-this-month',
+          'nav-next-month',
+          'nav-next-year',
+          'nav-next-decade'
+        ])
       },
       $footer
     )
@@ -551,7 +552,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           hidden: this.onHidden
         },
         scopedSlots: {
-          'button-content': this.$scopedSlots['button-content'] || this.defaultButtonFn
+          'button-content': $scopedSlots['button-content'] || this.defaultButtonFn
         }
       },
       [$calendar]
