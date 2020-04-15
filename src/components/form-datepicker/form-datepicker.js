@@ -178,6 +178,11 @@ const propsMixin = {
       type: String,
       default: 'outline-secondary'
     },
+    dateInfoFn: {
+      // Passed through to b-calendar
+      type: Function
+      // default: undefined
+    },
     // Labels for buttons and keyboard shortcuts
     // These pick BCalendar global config if no BFormDate global config
     labelPrevDecade: {
@@ -305,6 +310,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         dateDisabledFn: self.dateDisabledFn,
         selectedVariant: self.selectedVariant,
         todayVariant: self.todayVariant,
+        dateInfoFn: self.dateInfoFn,
         hideHeader: self.hideHeader,
         showDecadeNav: self.showDecadeNav,
         labelPrevDecade: self.labelPrevDecade,
