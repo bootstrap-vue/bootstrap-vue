@@ -14,7 +14,7 @@ describe('mixins/listen-on-root', () => {
         this.listenOnRootOnce('root-once', spyOnce)
       },
       render(h) {
-        return h('div', {}, this.$slots.default)
+        return h('div', this.$slots.default)
       }
     })
 
@@ -27,7 +27,7 @@ describe('mixins/listen-on-root', () => {
         }
       },
       render(h) {
-        return h('div', {}, [this.destroy ? h() : h(TestComponent, {}, 'test-component')])
+        return h('div', [this.destroy ? h() : h(TestComponent, 'test-component')])
       }
     })
 

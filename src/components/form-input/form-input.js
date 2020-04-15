@@ -1,4 +1,6 @@
 import Vue from '../../utils/vue'
+import { arrayIncludes } from '../../utils/array'
+import { eventOn, eventOff, eventOnOff } from '../../utils/events'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
@@ -6,8 +8,6 @@ import formStateMixin from '../../mixins/form-state'
 import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
-import { arrayIncludes } from '../../utils/array'
-import { eventOn, eventOff } from '../../utils/dom'
 
 // Valid supported input types
 const TYPES = [
@@ -54,20 +54,20 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
       default: false
     },
     min: {
-      type: [String, Number],
-      default: null
+      type: [String, Number]
+      // default: null
     },
     max: {
-      type: [String, Number],
-      default: null
+      type: [String, Number]
+      // default: null
     },
     step: {
-      type: [String, Number],
-      default: null
+      type: [String, Number]
+      // default: null
     },
     list: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     }
   },
   computed: {
@@ -84,11 +84,13 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
   mounted() {
     this.setWheelStopper(this.noWheel)
   },
+  /* istanbul ignore next */
   deactivated() {
     // Turn off listeners when keep-alive component deactivated
     /* istanbul ignore next */
     this.setWheelStopper(false)
   },
+  /* istanbul ignore next */
   activated() {
     // Turn on listeners (if no-wheel) when keep-alive component activated
     /* istanbul ignore next */
@@ -101,20 +103,17 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
   methods: {
     setWheelStopper(on) {
       const input = this.$el
-      // We use native events, so that we don't interfere with propgation
-      if (on) {
-        eventOn(input, 'focus', this.onWheelFocus)
-        eventOn(input, 'blur', this.onWheelBlur)
-      } else {
-        eventOff(input, 'focus', this.onWheelFocus)
-        eventOff(input, 'blur', this.onWheelBlur)
+      // We use native events, so that we don't interfere with propagation
+      eventOnOff(on, input, 'focus', this.onWheelFocus)
+      eventOnOff(on, input, 'blur', this.onWheelBlur)
+      if (!on) {
         eventOff(document, 'wheel', this.stopWheel)
       }
     },
-    onWheelFocus(evt) {
+    onWheelFocus() {
       eventOn(document, 'wheel', this.stopWheel)
     },
-    onWheelBlur(evt) {
+    onWheelBlur() {
       eventOff(document, 'wheel', this.stopWheel)
     },
     stopWheel(evt) {

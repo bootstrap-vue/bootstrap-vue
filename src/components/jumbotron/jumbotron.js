@@ -17,12 +17,12 @@ export const props = {
     default: false
   },
   header: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   headerHtml: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   headerTag: {
     type: String,
@@ -33,12 +33,12 @@ export const props = {
     default: '3'
   },
   lead: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   leadHtml: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   leadTag: {
     type: String,

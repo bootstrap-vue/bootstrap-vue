@@ -10,16 +10,16 @@ const detailsSlotName = 'row-details'
 export default {
   props: {
     tbodyTrClass: {
-      type: [String, Array, Object, Function],
-      default: null
+      type: [String, Array, Object, Function]
+      // default: null
     },
     tbodyTrAttr: {
-      type: [Object, Function],
-      default: null
+      type: [Object, Function]
+      // default: null
     },
     detailsTdClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     }
   },
   methods: {
@@ -171,7 +171,7 @@ export default {
       let $childNodes = slotName ? this.normalizeSlot(slotName, slotScope) : toString(formatted)
       if (this.isStacked) {
         // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
-        $childNodes = [h('div', {}, [$childNodes])]
+        $childNodes = [h('div', [$childNodes])]
       }
       // Render either a td or th cell
       return h(cellTag, data, [$childNodes])
@@ -225,7 +225,7 @@ export default {
         ? this.tbodyTrClass(item, 'row')
         : this.tbodyTrClass
       const userTrAttrs = isFunction(this.tbodyTrAttr)
-        ? this.tbodyTrAttr(item, 'row')
+        ? /* istanbul ignore next */ this.tbodyTrAttr(item, 'row')
         : this.tbodyTrAttr
 
       // Add the item row
@@ -295,10 +295,10 @@ export default {
 
         // Add the actual details row
         const userDetailsTrClasses = isFunction(this.tbodyTrClass)
-          ? this.tbodyTrClass(item, detailsSlotName)
+          ? /* istanbul ignore next */ this.tbodyTrClass(item, detailsSlotName)
           : this.tbodyTrClass
         const userDetailsTrAttrs = isFunction(this.tbodyTrAttr)
-          ? this.tbodyTrAttr(item, detailsSlotName)
+          ? /* istanbul ignore next */ this.tbodyTrAttr(item, detailsSlotName)
           : this.tbodyTrAttr
         $rows.push(
           h(

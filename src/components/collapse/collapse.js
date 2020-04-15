@@ -1,34 +1,24 @@
 import Vue from '../../utils/vue'
+import { BVCollapse } from '../../utils/bv-collapse'
+import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
+import { isBrowser } from '../../utils/env'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOnOff } from '../../utils/events'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { isBrowser } from '../../utils/env'
-import { BVCollapse } from '../../utils/bv-collapse'
 import {
-  addClass,
-  hasClass,
-  removeClass,
-  closest,
-  matches,
-  getCS,
-  eventOn,
-  eventOff
-} from '../../utils/dom'
+  EVENT_TOGGLE,
+  EVENT_STATE,
+  EVENT_STATE_REQUEST,
+  EVENT_STATE_SYNC
+} from '../../directives/toggle/toggle'
 
-// Events we emit on $root
-const EVENT_STATE = 'bv::collapse::state'
+// --- Constants ---
+
+// Accordion event name we emit on `$root`
 const EVENT_ACCORDION = 'bv::collapse::accordion'
-// Private event we emit on `$root` to ensure the toggle state is
-// always synced. It gets emitted even if the state has not changed!
-// This event is NOT to be documented as people should not be using it
-const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
-// Events we listen to on `$root`
-const EVENT_TOGGLE = 'bv::toggle::collapse'
-const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
-// Event listener options
-const EventOptions = { passive: true, capture: false }
-
+// --- Main component ---
 // @vue/component
 export const BCollapse = /*#__PURE__*/ Vue.extend({
   name: 'BCollapse',
@@ -43,8 +33,8 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       default: false
     },
     accordion: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     visible: {
       type: Boolean,
@@ -117,11 +107,13 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     // It is emitted regardless if the visible state changes
     this.emitSync()
   },
+  /* istanbul ignore next */
   deactivated() /* istanbul ignore next */ {
     if (this.isNav) {
       this.setWindowEvents(false)
     }
   },
+  /* istanbul ignore next */
   activated() /* istanbul ignore next */ {
     if (this.isNav) {
       this.setWindowEvents(true)
@@ -137,45 +129,44 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     setWindowEvents(on) {
-      const method = on ? eventOn : eventOff
-      method(window, 'resize', this.handleResize, EventOptions)
-      method(window, 'orientationchange', this.handleResize, EventOptions)
+      eventOnOff(on, window, 'resize', this.handleResize, EVENT_OPTIONS_NO_CAPTURE)
+      eventOnOff(on, window, 'orientationchange', this.handleResize, EVENT_OPTIONS_NO_CAPTURE)
     },
     toggle() {
       this.show = !this.show
     },
-    onEnter(el) {
+    onEnter() {
       this.transitioning = true
       // This should be moved out so we can add cancellable events
       this.$emit('show')
     },
-    onAfterEnter(el) {
+    onAfterEnter() {
       this.transitioning = false
       this.$emit('shown')
     },
-    onLeave(el) {
+    onLeave() {
       this.transitioning = true
       // This should be moved out so we can add cancellable events
       this.$emit('hide')
     },
-    onAfterLeave(el) {
+    onAfterLeave() {
       this.transitioning = false
       this.$emit('hidden')
     },
     emitState() {
       this.$emit('input', this.show)
       // Let `v-b-toggle` know the state of this collapse
-      this.$root.$emit(EVENT_STATE, this.safeId(), this.show)
+      this.emitOnRoot(EVENT_STATE, this.safeId(), this.show)
       if (this.accordion && this.show) {
         // Tell the other collapses in this accordion to close
-        this.$root.$emit(EVENT_ACCORDION, this.safeId(), this.accordion)
+        this.emitOnRoot(EVENT_ACCORDION, this.safeId(), this.accordion)
       }
     },
     emitSync() {
       // Emit a private event every time this component updates to ensure
       // the toggle button is in sync with the collapse's state
       // It is emitted regardless if the visible state changes
-      this.$root.$emit(EVENT_STATE_SYNC, this.safeId(), this.show)
+      this.emitOnRoot(EVENT_STATE_SYNC, this.safeId(), this.show)
     },
     checkDisplayBlock() {
       // Check to see if the collapse has `display: block !important` set

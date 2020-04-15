@@ -18,8 +18,9 @@ export default {
       default: () => getComponentConfig('BTable', 'headVariant')
     },
     headRowVariant: {
-      type: String, // Any Bootstrap theme variant (or custom)
-      default: null
+      // Any Bootstrap theme variant (or custom)
+      type: String
+      // default: null
     },
     theadClass: {
       type: [String, Array, Object]
@@ -151,7 +152,7 @@ export default {
         const trProps = {
           variant: isUndefinedOrNull(this.footRowVariant)
             ? this.headRowVariant
-            : this.footRowVariant
+            : /* istanbul ignore next */ this.footRowVariant
         }
         $trs.push(h(BTr, { class: this.tfootTrClass, props: trProps }, $cells))
       } else {

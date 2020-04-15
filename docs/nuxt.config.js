@@ -7,17 +7,20 @@ const hljs = require('highlight.js/lib/highlight.js')
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
 hljs.registerLanguage('typescript', require('highlight.js/lib/languages/typescript'))
 hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
-hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml')) // includes HTML
+hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml')) // Includes HTML
 hljs.registerLanguage('css', require('highlight.js/lib/languages/css'))
 hljs.registerLanguage('scss', require('highlight.js/lib/languages/scss'))
-hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash')) // includes sh
+hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash')) // Includes sh
 hljs.registerLanguage('shell', require('highlight.js/lib/languages/shell'))
 hljs.registerLanguage('plaintext', require('highlight.js/lib/languages/plaintext'))
 
-// Create a new marked renderer
-const renderer = new marked.Renderer()
+// --- Constants ---
+
+const RX_CODE_FILENAME = /^\/\/ ([\w,\s-]+\.[A-Za-z]{1,4})\n/m
 
 const ANCHOR_LINK_HEADING_LEVELS = [2, 3, 4, 5]
+
+// --- Utility methods ---
 
 // Get routes by a given dir
 const getRoutesByDir = (root, dir, excludes = []) =>
@@ -27,20 +30,42 @@ const getRoutesByDir = (root, dir, excludes = []) =>
     .filter(c => !/\.(s?css|js|ts)$/.test(c))
     .map(page => `/docs/${dir}/${page}`)
 
+// --- Custom renderer ---
+
+// Create a new marked renderer
+const renderer = new marked.Renderer()
+
 // Custom "highlight.js" implementation for markdown renderer
 renderer.code = (code, language) => {
+  const attrs = {
+    class: `hljs ${language} p-2`,
+    translate: 'no'
+  }
+
+  const [, filename] = RX_CODE_FILENAME.exec(code) || []
+  if (filename) {
+    attrs['data-filename'] = filename
+    code = code.replace(RX_CODE_FILENAME, '')
+  }
+
   const validLang = !!(language && hljs.getLanguage(language))
   const highlighted = validLang ? hljs.highlight(language, code).value : code
-  return `<pre class="hljs ${language} text-monospace p-2 notranslate" translate="no">${highlighted}</pre>`
+
+  const attrsMarkup = Object.keys(attrs).reduce(
+    (markup, attr) => `${markup}${markup ? ' ' : ''}${attr}="${attrs[attr]}"`,
+    ''
+  )
+
+  return `<div class="bd-code"><pre ${attrsMarkup}>${highlighted}</pre></div>`
 }
 
-// Instruct google translate not to translate `<code>` content, and
-// don't let browsers wrap the contents across lines
-renderer.codespan = text => {
-  return `<code translate="no" class="notranslate text-nowrap">${text}</code>`
+// Instruct Google Translate not to translate `<code>` content
+// and don't let browsers wrap the contents across lines
+renderer.codespan = code => {
+  return `<code class="text-nowrap" translate="no">${code}</code>`
 }
 
-// Custom link renderer, to update bootstrap docs version in href
+// Custom link renderer, to update Bootstrap docs version in href
 // Only applies to markdown links (not explicit `<a href="..">...</a>` tags
 renderer.link = (href, title, text) => {
   let target = ''
@@ -86,20 +111,20 @@ renderer.heading = function(text, level, raw, slugger) {
 
   const anchor =
     ANCHOR_LINK_HEADING_LEVELS.indexOf(level) !== -1
-      ? `<a class="anchorjs-link" href="#${link}" aria-label="Anchor"></a>`
+      ? `<a class="anchorjs-link" href="#${link}" aria-labelledby="${link}"></a>`
       : ''
   const attrs = `id="${link}" class="bv-no-focus-ring"`
   return `<h${level} ${attrs}>${getTextMarkup(text + anchor)}</h${level}>\n`
 }
 
-// Convert lead-in blockquote paragraphs to true bootstrap docs leads
+// Convert lead-in blockquote paragraphs to true Bootstrap docs leads
 renderer.blockquote = function(text) {
   return text.replace('<p>', '<p class="bd-lead">')
 }
 
 // Bootstrap v4 table support for markdown renderer
 const originalTable = renderer.table
-renderer.table = function(header, body) {
+renderer.table = function() {
   let table = originalTable.apply(this, arguments)
   table = table
     .replace('<table>', '<table class="b-table table table-bordered table-striped bv-docs-table">')
@@ -107,13 +132,24 @@ renderer.table = function(header, body) {
   return `<div class="table-responsive-sm">${table}</div>`
 }
 
+// --- Main export ---
+
 module.exports = {
   srcDir: __dirname,
 
   modern: 'client',
 
   env: {
-    NETLIFY: process.env.NETLIFY
+    // ENV vars provided by Netlify build:
+    // - `true` if on Netlify (dev or PR)
+    NETLIFY: process.env.NETLIFY,
+    // Determines the context from netlify (`production`, `deploy-preview` or `branch-deploy`)
+    // In our case, `production` means the dev branch (bootstrap-vue.netlify.com)
+    NETLIFY_CONTEXT: process.env.NETLIFY ? process.env.CONTEXT : null,
+    // - `true` if triggered by a Pull request commit
+    PULL_REQUEST: process.env.NETLIFY ? process.env.PULL_REQUEST : null,
+    // - If the previous is `true`, this will be the PR number
+    REVIEW_ID: process.env.NETLIFY && process.env.PULL_REQUEST ? process.env.REVIEW_ID : null
   },
 
   build: {
@@ -240,7 +276,7 @@ module.exports = {
     'highlight.js/styles/atom-one-light.css',
     'codemirror/lib/codemirror.css',
     'bootstrap/dist/css/bootstrap.css',
-    '../scripts/build.scss', // BootstrapVue SCSS
+    '../scripts/index.scss', // BootstrapVue SCSS
     '@assets/css/docs.min.css',
     '@assets/scss/styles.scss'
   ]

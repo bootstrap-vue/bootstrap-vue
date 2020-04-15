@@ -4,23 +4,23 @@
 
 import observeDom from '../../utils/observe-dom'
 import {
+  addClass,
+  closest,
+  getAttr,
+  getBCR,
+  hasClass,
   isElement,
   isVisible,
-  closest,
   matches,
-  getBCR,
   offset,
   position,
-  selectAll,
-  select,
-  hasClass,
-  addClass,
   removeClass,
-  getAttr,
-  eventOn,
-  eventOff
+  select,
+  selectAll
 } from '../../utils/dom'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
 import { isString, isUndefined } from '../../utils/inspect'
+import { toInteger } from '../../utils/number'
 import { toString as objectToString } from '../../utils/object'
 import { warn } from '../../utils/warn'
 
@@ -79,9 +79,6 @@ const TransitionEndEvents = [
   'oTransitionEnd'
 ]
 
-// Options for events
-const EventOptions = { passive: true, capture: false }
-
 /*
  * Utility Methods
  */
@@ -94,6 +91,7 @@ const toType = obj => /* istanbul ignore next: not easy to test */ {
 }
 
 // Check config properties for expected types
+/* istanbul ignore next */
 const typeCheckConfig = (
   componentName,
   config,
@@ -195,13 +193,13 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
   listen() {
     const scroller = this.getScroller()
     if (scroller && scroller.tagName !== 'BODY') {
-      eventOn(scroller, 'scroll', this, EventOptions)
+      eventOn(scroller, 'scroll', this, EVENT_OPTIONS_NO_CAPTURE)
     }
-    eventOn(window, 'scroll', this, EventOptions)
-    eventOn(window, 'resize', this, EventOptions)
-    eventOn(window, 'orientationchange', this, EventOptions)
+    eventOn(window, 'scroll', this, EVENT_OPTIONS_NO_CAPTURE)
+    eventOn(window, 'resize', this, EVENT_OPTIONS_NO_CAPTURE)
+    eventOn(window, 'orientationchange', this, EVENT_OPTIONS_NO_CAPTURE)
     TransitionEndEvents.forEach(evtName => {
-      eventOn(window, evtName, this, EventOptions)
+      eventOn(window, evtName, this, EVENT_OPTIONS_NO_CAPTURE)
     })
     this.setObservers(true)
     // Schedule a refresh
@@ -212,13 +210,13 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     const scroller = this.getScroller()
     this.setObservers(false)
     if (scroller && scroller.tagName !== 'BODY') {
-      eventOff(scroller, 'scroll', this, EventOptions)
+      eventOff(scroller, 'scroll', this, EVENT_OPTIONS_NO_CAPTURE)
     }
-    eventOff(window, 'scroll', this, EventOptions)
-    eventOff(window, 'resize', this, EventOptions)
-    eventOff(window, 'orientationchange', this, EventOptions)
+    eventOff(window, 'scroll', this, EVENT_OPTIONS_NO_CAPTURE)
+    eventOff(window, 'resize', this, EVENT_OPTIONS_NO_CAPTURE)
+    eventOff(window, 'orientationchange', this, EVENT_OPTIONS_NO_CAPTURE)
     TransitionEndEvents.forEach(evtName => {
-      eventOff(window, evtName, this, EventOptions)
+      eventOff(window, evtName, this, EVENT_OPTIONS_NO_CAPTURE)
     })
   }
 
@@ -322,7 +320,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
         const el = select(id, scroller)
         if (el && isVisible(el)) {
           return {
-            offset: parseInt(methodFn(el).top, 10) + offsetBase,
+            offset: toInteger(methodFn(el).top, 0) + offsetBase,
             target: id
           }
         }

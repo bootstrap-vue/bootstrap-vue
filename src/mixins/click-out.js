@@ -1,6 +1,5 @@
-import { contains, eventOff, eventOn } from '../utils/dom'
-
-const eventOptions = { passive: true, capture: false }
+import { contains } from '../utils/dom'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../utils/events'
 
 // @vue/component
 export default {
@@ -12,9 +11,19 @@ export default {
   watch: {
     listenForClickOut(newValue, oldValue) {
       if (newValue !== oldValue) {
-        eventOff(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, eventOptions)
+        eventOff(
+          this.clickOutElement,
+          this.clickOutEventName,
+          this._clickOutHandler,
+          EVENT_OPTIONS_NO_CAPTURE
+        )
         if (newValue) {
-          eventOn(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, eventOptions)
+          eventOn(
+            this.clickOutElement,
+            this.clickOutEventName,
+            this._clickOutHandler,
+            EVENT_OPTIONS_NO_CAPTURE
+          )
         }
       }
     }
@@ -32,11 +41,21 @@ export default {
       this.clickOutEventName = 'click'
     }
     if (this.listenForClickOut) {
-      eventOn(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, eventOptions)
+      eventOn(
+        this.clickOutElement,
+        this.clickOutEventName,
+        this._clickOutHandler,
+        EVENT_OPTIONS_NO_CAPTURE
+      )
     }
   },
   beforeDestroy() /* istanbul ignore next */ {
-    eventOff(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, eventOptions)
+    eventOff(
+      this.clickOutElement,
+      this.clickOutEventName,
+      this._clickOutHandler,
+      EVENT_OPTIONS_NO_CAPTURE
+    )
   },
   methods: {
     isClickOut(evt) {

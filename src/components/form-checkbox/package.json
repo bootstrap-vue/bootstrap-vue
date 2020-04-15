@@ -13,6 +13,11 @@
         ],
         "props": [
           {
+            "prop": "size",
+            "settings": true,
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+          },
+          {
             "prop": "stacked",
             "description": "When set, renders the checkbox group in stacked mode"
           },
@@ -90,6 +95,11 @@
           {
             "prop": "uncheckedValue",
             "description": "Value returned when this checkbox is unchecked. Note not applicable when multiple checkboxes bound to the same v-model array"
+          },
+          {
+            "prop": "size",
+            "settings": true,
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
           },
           {
             "prop": "inline",

@@ -1,0 +1,123 @@
+{
+  "name": "@bootstrap-vue/time",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Time",
+    "version": "2.6.0",
+    "description": "A custom time input widget that can be used to control other components",
+    "components": [
+      {
+        "component": "BTime",
+        "version": "2.6.0",
+        "props": [
+          {
+            "prop": "value",
+            "description": "Initially selected time value. Accepts a `HH:mm:ss` string. Valid value ranges from `00:00:00` to `23:59:59`"
+          },
+          {
+            "prop": "showSeconds",
+            "description": "When true, shows the seconds spinbutton. If `false` the seconds spin button will not be shown and the seconds portion of the time will always be `0`"
+          },
+          {
+            "prop": "hour12",
+            "description": "Tri-state prop. If `true` forces the interface to 12 hour format. If `false` forces the interface into 24 hour format. If `null` the current locale will determine the 12 or 24 hour interface (default)"
+          },
+          {
+            "prop": "locale",
+            "description": "Locale (or locales) for the component to use. When passing an array of locales, the order of the locales is from most preferred to least preferred. If not provided, defaults to the clients default locale"
+          },
+          {
+            "prop": "secondsStep",
+            "description": "Step value for the seconds spinbutton. Should be a value evenly divided into 60"
+          },
+          {
+            "prop": "minutesStep",
+            "description": "Step value for the minutes spinbutton. Should be a value evenly divided into 60"
+          },
+          {
+            "prop": "hideHeader",
+            "description": "When set, visually hides the selected time header"
+          },
+          {
+            "prop": "labelNoTimeSelected",
+            "settings": true,
+            "description": "String to show when no time is selected"
+          },
+          {
+            "prop": "labelSelected",
+            "settings": true,
+            "description": "Hidden sr-only string when a time is selected"
+          },
+          {
+            "prop": "labelIncrement",
+            "settings": true,
+            "description": "Value of the `aria-label` attribute on the spinbuttons `+` button"
+          },
+          {
+            "prop": "labelDecrement",
+            "settings": true,
+            "description": "Value of the `aria-label` attribute on the spinbuttons `-` button"
+          },
+          {
+            "prop": "labelHours",
+            "settings": true,
+            "description": "Value of the `aria-label` attribute on the `Hours` spinbutton"
+          },
+          {
+            "prop": "labelMinutes",
+            "settings": true,
+            "description": "Value of the `aria-label` attribute on the `Minutes` spinbutton"
+          },
+          {
+            "prop": "labelSeconds",
+            "settings": true,
+            "description": "Value of the `aria-label` attribute on the `Seconds` spinbutton"
+          },
+          {
+            "prop": "labelAmpm",
+            "settings": true,
+            "description": "Value of the `aria-label` attribute on the `AM/PM` spinbutton"
+          },
+          {
+            "prop": "labelAm",
+            "settings": true,
+            "description": "Text to display in the AM/PM spinbutton when 'AM' is selected"
+          },
+          {
+            "prop": "labelPm",
+            "settings": true,
+            "description": "Text to display in the AM/PM spinbutton when 'PM' is selected"
+          }
+        ],
+        "events": [
+          {
+            "event": "input",
+            "description": "Event that updates the v-model",
+            "args": [
+              {
+                "arg": "value",
+                "description": "The selected time as an `HH:mm:ss` string. Will be an empty string if no time selected"
+              }
+            ]
+          },
+          {
+            "event": "context",
+            "description": "Emitted whenever the internal model state, or locale, updates. Also emitted when the component is initially created",
+            "args": [
+              {
+                "arg": "context",
+                "description": "The context object. Refer to the docs for details"
+              }
+            ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Used to place custom controls at the bottom of the time component"
+          }
+        ]
+      }
+    ]
+  }
+}

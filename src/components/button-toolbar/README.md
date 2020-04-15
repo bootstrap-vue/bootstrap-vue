@@ -91,12 +91,12 @@ Enable optional keyboard navigation by setting the prop `key-nav`.
 
 | Keypress                                                              | Action                                                |
 | --------------------------------------------------------------------- | ----------------------------------------------------- |
-| <kbd>LEFT</kbd> or <kbd>UP</kbd>                                      | Move to the previous non-disabled item in the toolbar |
-| <kbd>RIGHT</kbd> or <kbd>DOWN</kbd>                                   | Move to the next non-disabled item in the toolbar     |
-| <kbd>SHIFT</kbd>+<kbd>LEFT</kbd> or <kbd>SHIFT</kbd>+<kbd>UP</kbd>    | Move to the first non-disabled item in the toolbar    |
-| <kbd>SHIFT</kbd>+<kbd>RIGHT</kbd> or <kbd>SHIFT</kbd>+<kbd>DOWN</kbd> | Move to the last non-disabled item in the toolbar     |
-| <kbd>TAB</kbd>                                                        | Move to the next control on the page                  |
-| <kbd>SHIFT</kbd>+<kbd>TAB</kbd>                                       | Move to the previous control on the page              |
+| <kbd>Left</kbd> or <kbd>Up</kbd>                                      | Move to the previous non-disabled item in the toolbar |
+| <kbd>Right</kbd> or <kbd>Down</kbd>                                   | Move to the next non-disabled item in the toolbar     |
+| <kbd>Shift</kbd>+<kbd>Left</kbd> or <kbd>Shift</kbd>+<kbd>Up</kbd>    | Move to the first non-disabled item in the toolbar    |
+| <kbd>Shift</kbd>+<kbd>Right</kbd> or <kbd>Shift</kbd>+<kbd>Down</kbd> | Move to the last non-disabled item in the toolbar     |
+| <kbd>Tab</kbd>                                                        | Move to the next control on the page                  |
+| <kbd>Shift</kbd>+<kbd>Tab</kbd>                                       | Move to the previous control on the page              |
 
 **Caution:** If you have text or text-like inputs in your toolbar, leave keyboard navigation off, as
 it is not possible to use key presses to jump out of a text (or test-like) inputs.

@@ -1,3 +1,5 @@
+import { toInteger } from '../../../utils/number'
+
 export default {
   props: {
     perPage: {
@@ -15,8 +17,8 @@ export default {
     },
     paginatedItems() {
       let items = this.sortedItems || this.filteredItems || this.localItems || []
-      const currentPage = Math.max(parseInt(this.currentPage, 10) || 1, 1)
-      const perPage = Math.max(parseInt(this.perPage, 10) || 0, 0)
+      const currentPage = Math.max(toInteger(this.currentPage, 1), 1)
+      const perPage = Math.max(toInteger(this.perPage, 0), 0)
       // Apply local pagination
       if (this.localPaging && !!perPage) {
         // Grab the current page of data (which may be past filtered items limit)

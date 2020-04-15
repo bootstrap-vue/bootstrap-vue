@@ -12,7 +12,7 @@
           target="_blank"
           href="https://vuejs.org/v2/guide/render-function.html#Functional-Components"
         >
-          Functional Component
+          Functional component
         </b-badge>
       </b-col>
       <b-col sm="3" class="text-sm-right">
@@ -57,7 +57,7 @@
       <li v-if="rootEventListeners && rootEventListeners.length > 0">
         <a :href="`#comp-ref-${componentName}-rootEventListeners`">
           <code class="notranslate" translate="no">{{ tag }}</code>
-          <code class="notranslate" translate="no">$root</code> Event Listeners
+          <code class="notranslate" translate="no">$root</code> Event listeners
         </a>
       </li>
     </ul>
@@ -91,16 +91,21 @@
         table-class="bv-docs-table"
         responsive="sm"
         sort-icon-left
+        bordered
         striped
       >
         <template v-slot:cell(prop)="{ value, item }">
-          <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
+          <code class="text-nowrap notranslate" translate="no">{{ value }}</code><br>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
+          <b-badge v-if="item.settings" variant="dark" href="/docs/misc/settings" title="Configurable in settings">Settings</b-badge>
           <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
           <b-badge v-if="item.isVModel" variant="primary">v-model</b-badge>
           <b-badge v-if="item.xss" variant="warning">Use with caution</b-badge>
           <b-badge v-if="item.deprecated" variant="danger">Deprecated</b-badge>
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
+        </template>
+        <template v-slot:cell(type)="{ value }">
+          <span v-html="value"></span>
         </template>
         <template v-slot:cell(defaultValue)="{ value }">
           <code v-if="value" class="word-wrap-normal notranslate" translate="no">{{ value }}</code>
@@ -142,13 +147,14 @@
 
     <article v-if="componentVModel" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-v-model`" level="4" class="mb-3">
-        v-model
+        <code class="notranslate" translate="no">v-model</code>
       </anchored-heading>
       <b-table-lite
         :items="[componentVModel]"
         :fields="[{ key: 'prop', label: 'Property' }, 'event']"
         table-class="bv-docs-table"
         responsive="sm"
+        bordered
         striped
       >
         <template v-slot:cell(prop)="{ value }">
@@ -171,57 +177,51 @@
         table-class="bv-docs-table"
         responsive="sm"
         sort-icon-left
+        bordered
         striped
       >
         <template v-slot:cell(name)="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
         </template>
-        <template v-slot:cell(scope)="{ value, toggleDetails }">
+        <template v-slot:cell(scope)="{ value, detailsShowing, toggleDetails }">
           <b-button
             v-if="value"
-            variant="info"
+            variant="outline-info"
             size="sm"
             class="py-0"
             @click="toggleDetails()"
           >
-            Scope
+            {{ detailsShowing ? 'Hide scope' : 'Show scope' }}
           </b-button>
+          <span v-else>No</span>
         </template>
         <template v-slot:row-details="{ item }">
-          <b-card>
-            <b-table-lite
-              v-if="item.scope"
-              :items="item.scope"
-              :fields="[{ key: 'prop', label: 'Property' }, 'type', 'description']"
-              primary-key="prop"
-              class="mb-0"
-              head-variant="dark"
-              striped
-              small
-              caption-top
-            >
-              <template v-slot:thead-top>
-                <b-tr>
-                  <b-th colspan="3" class="text-center">
-                    Slot
-                    <code class="text-nowrap notranslate text-white" translate="no">
-                      {{ item.name }}
-                    </code>
-                    scoped properties
-                  </b-th>
-                </b-tr>
-              </template>
-              <template v-slot:cell(prop)="{ value, item }">
-                <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
-                <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
-              </template>
-              <template v-slot:cell(type)="{ value }">
-                <span v-if="value" class="text-nowrap notranslate" translate="no">{{ value }}</span>
-                <template v-else>Any</template>
-              </template>
-            </b-table-lite>
-          </b-card>
+          <b-table-lite
+            :items="item.scope"
+            :fields="[{ key: 'prop', label: 'Property' }, 'type', 'description']"
+            primary-key="prop"
+            class="m-0"
+            dark
+            caption-top
+            small
+          >
+            <template v-slot:thead-top>
+              <b-tr>
+                <b-th colspan="3" class="text-center">
+                  <code class="text-nowrap notranslate" translate="no">{{ item.name }}</code>
+                  Slot scoped properties
+                </b-th>
+              </b-tr>
+            </template>
+            <template v-slot:cell(prop)="{ value, item }">
+              <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
+              <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
+            </template>
+            <template v-slot:cell(type)="{ value }">
+              <code class="text-nowrap notranslate" translate="no">{{ value || 'Any' }}</code>
+            </template>
+          </b-table-lite>
         </template>
       </b-table>
     </article>
@@ -236,6 +236,7 @@
         primary-key="event"
         table-class="bv-docs-table"
         responsive="sm"
+        bordered
         striped
       >
         <template v-slot:cell(event)="{ value, item }">
@@ -257,7 +258,7 @@
 
     <article v-if="rootEventListeners && rootEventListeners.length > 0" class="bd-content">
       <anchored-heading :id="`comp-ref-${componentName}-rootEventListeners`" level="4" class="mb-3">
-        <code class="notranslate" translate="no">$root</code> Event Listeners
+        <code class="notranslate" translate="no">$root</code> event listeners
       </anchored-heading>
       <p>
         You can control <code class="notranslate" translate="no">{{ tag }}</code> by emitting the
@@ -269,6 +270,7 @@
         primary-key="event"
         table-class="bv-docs-table"
         responsive="sm"
+        bordered
         striped
       >
         <template v-slot:cell(event)="{ value, item }">
@@ -323,7 +325,7 @@ import { kebabCase } from '../utils'
 import AnchoredHeading from './anchored-heading'
 
 export default {
-  name: 'BVDComponentdoc',
+  name: 'BVComponentdoc',
   components: { AnchoredHeading },
   props: {
     component: {},
@@ -410,17 +412,14 @@ export default {
       }, {})
     },
     propsFields() {
-      const fields = [
-        { key: 'prop', label: 'Property', sortable: this.propsItems.length > 9 },
+      const sortable = this.propsItems.length >= 10
+      const hasDescriptions = this.propsItems.some(p => p.description)
+      return [
+        { key: 'prop', label: 'Property', sortable },
         { key: 'type', label: 'Type' },
-        { key: 'defaultValue', label: 'Default' }
+        { key: 'defaultValue', label: 'Default' },
+        ...(hasDescriptions ? [{ key: 'description', label: 'Description' }] : [])
       ]
-      if (this.propsItems.some(p => p.description)) {
-        // If any of the props have a description, then
-        // add the description column
-        fields.push({ key: 'description', label: 'Description' })
-      }
-      return fields
     },
     eventsFields() {
       return [
@@ -437,14 +436,13 @@ export default {
       ]
     },
     slotsFields() {
-      const fields = [
-        { key: 'name', label: 'Slot Name', sortable: this.slotsItems.length > 9 },
+      const sortable = this.slotsItems.length >= 10
+      const hasScopedSlots = this.slots.some(s => s.scope)
+      return [
+        { key: 'name', label: 'Slot Name', sortable },
+        ...(hasScopedSlots ? [{ key: 'scope', label: 'Scoped' }] : []),
         { key: 'description', label: 'Description' }
       ]
-      if (this.slots.length > 0 && this.slots.some(s => s.scope)) {
-        fields.push({ key: 'scope', label: 'Scoped' })
-      }
-      return fields
     },
     propsItems() {
       const props = this.componentProps
@@ -456,38 +454,43 @@ export default {
 
         // Describe type
         let type = p.type
+        let types = []
         if (Array.isArray(type)) {
-          type = type.map(t => t.name).join(' or ')
-        } else if (typeof type === 'undefined') {
-          type = 'Any'
+          types = type.map(type => type.name)
         } else {
-          type = type.name
+          types = type && type.name ? [type.name] : ['Any']
         }
+        type = types
+          .map(type => `<code class="notranslate" translate="no">${type}</code>`)
+          .join(' or ')
 
         // Default value
-        let defaultVal = p.default
-        if (defaultVal instanceof Function && !Array.isArray(defaultVal)) {
-          defaultVal = defaultVal()
+        let defaultValue = p.default
+        if (defaultValue instanceof Function && !Array.isArray(defaultValue)) {
+          defaultValue = defaultValue()
         }
-        if (typeof defaultVal === 'undefined' || defaultVal === null) {
-          defaultVal = ''
-        }
-        defaultVal = JSON.stringify(defaultVal).replace(/"/g, "'")
-        if (defaultVal === "''") {
-          defaultVal = ''
-        }
+        defaultValue =
+          typeof defaultValue === 'undefined'
+            ? ''
+            : String(JSON.stringify(defaultValue, undefined, 1)).replace(/"/g, "'")
 
         const fallbackMeta = commonProps[prop] || {}
         const description =
           typeof meta.description === 'undefined' ? fallbackMeta.description : meta.description
+        // TODO:
+        //   Can we auto-detect this by doing a lookup in the
+        //   default settings or determine if the prop default
+        //   value came from the settings?
+        const settings = meta.settings || false
         const version = typeof meta.version === 'undefined' ? fallbackMeta.version : meta.version
 
         return {
           prop: kebabCase(prop),
           type,
-          defaultValue: defaultVal,
+          defaultValue,
           required: p.required || false,
           description: description || '',
+          settings,
           version,
           xss: /[a-z]Html$/.test(prop),
           isVModel: this.componentVModel && this.componentVModel.prop === prop,
@@ -498,7 +501,7 @@ export default {
       })
     },
     slotsItems() {
-      // We use object spread here so that _showDetails doesn't
+      // We use object spread here so that `_showDetails` doesn't
       // mutate the original array objects
       return this.slots ? this.slots.map(s => ({ ...s })) : []
     },
@@ -519,7 +522,7 @@ export default {
       }
       const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/src/components'
       const slug = this.$route.params.slug
-      // Always point to the .js file (which may import a .vue file)
+      // Always point to the `.js` file (which may import a `.vue` file)
       return `${base}/${slug}/${name}.js`
     }
   },

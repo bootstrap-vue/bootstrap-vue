@@ -1,7 +1,8 @@
 import { mergeData } from 'vue-functional-data-merge'
 
+// @vue/component
 export default {
-  name: 'BVDAnchoredHeading',
+  name: 'BVAnchoredHeading',
   functional: true,
   props: {
     id: {
@@ -18,7 +19,11 @@ export default {
       'b-link',
       {
         staticClass: 'anchorjs-link',
-        attrs: { to: { hash: `#${props.id}` }, 'aria-label': 'Anchor' }
+        props: { to: { hash: `#${props.id}` } },
+        attrs: {
+          'aria-labelledby': props.id || null,
+          'aria-label': props.id ? null : 'Anchor'
+        }
       },
       [h()]
     )

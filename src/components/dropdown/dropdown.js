@@ -10,10 +10,15 @@ import { BButton } from '../button/button'
 const NAME = 'BDropdown'
 
 export const props = {
-  toggleText: {
-    // This really should be toggleLabel
+  text: {
+    // Button label
     type: String,
-    default: () => getComponentConfig(NAME, 'toggleText')
+    default: ''
+  },
+  html: {
+    // Button label
+    type: String
+    // default: undefined
   },
   size: {
     type: String,
@@ -28,16 +33,21 @@ export const props = {
     default: false
   },
   menuClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   toggleTag: {
     type: String,
     default: 'button'
   },
+  toggleText: {
+    // This really should be toggleLabel
+    type: String,
+    default: () => getComponentConfig(NAME, 'toggleText')
+  },
   toggleClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   noCaret: {
     type: Boolean,
@@ -60,13 +70,18 @@ export const props = {
     default: () => getComponentConfig(NAME, 'splitVariant')
   },
   splitClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   },
   splitButtonType: {
     type: String,
     default: 'button',
     validator: value => arrayIncludes(['button', 'submit', 'reset'], value)
+  },
+  lazy: {
+    // If true, only render menu contents when open
+    type: Boolean,
+    default: false
   },
   role: {
     type: String,

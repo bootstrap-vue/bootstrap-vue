@@ -1,0 +1,76 @@
+.b-form-spinbutton {
+  text-align: center;
+  // Quick way to get end buttons rounded on outside edges
+  overflow: hidden;
+  // Hide validation icon, as there is no room for it
+  background-image: none;
+  padding: 0;
+
+  @at-root {
+    // Prevent the buttons from reversing order on in horizontal RTL mode
+    [dir="rtl"] &:not(.flex-column),
+    &[dir="rtl"]:not(.flex-column) {
+      flex-direction: row-reverse;
+    }
+  }
+
+  output {
+    font-size: inherit;
+    outline: 0;
+    border: 0;
+    background-color: transparent;
+    width: auto;
+    margin: 0;
+    padding: 0 0.25rem;
+
+    > div,
+    > bdi {
+      display: block;
+      min-width: 2.25em;
+      // We set a height to ensure an empty value isn't collapsed
+      height: 1em * $input-line-height;
+    }
+  }
+
+  &.flex-column {
+    height: auto;
+    width: auto;
+
+    output {
+      margin: 0 0.25rem;
+      padding: 0.25rem 0;
+    }
+  }
+
+  &:not(.d-inline-flex):not(.flex-column) {
+    output: {
+      width: 100%;
+    }
+  }
+
+  &.d-inline-flex:not(.flex-column) {
+    width: auto;
+  }
+
+  .btn {
+    line-height: 1;
+    box-shadow: none !important;
+
+    &:disabled {
+      pointer-events: none;
+    }
+
+    &:hover:not(:disabled) > div > .b-icon {
+      transform: scale(1.25);
+    }
+  }
+
+  &.disabled,
+  &.readonly {
+    background-color: $input-disabled-bg;
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}

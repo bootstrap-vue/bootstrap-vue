@@ -37,6 +37,7 @@ const options = {
     source: 'src',
     img: 'src',
     image: 'xlink:href',
+    'b-avatar': 'src',
     'b-img': 'src',
     'b-img-lazy': ['src', 'blank-src'],
     'b-card': 'img-src',
@@ -75,6 +76,7 @@ module.exports = {
         options.transformAssetUrls = {
           img: 'src',
           image: 'xlink:href',
+          'b-avatar': 'src',
           'b-img': 'src',
           'b-img-lazy': ['src', 'blank-src'],
           'b-card': 'img-src',
@@ -97,13 +99,14 @@ In your `nuxt.config.js` file, add the following to your build section:
 ```js
 module.exports = {
   build: {
-    extend(config, ctx) {
+    extend(config) {
       const vueLoader = config.module.rules.find(rule => rule.loader === 'vue-loader')
       vueLoader.options.transformAssetUrls = {
         video: ['src', 'poster'],
         source: 'src',
         img: 'src',
         image: 'xlink:href',
+        'b-avatar': 'src',
         'b-img': 'src',
         'b-img-lazy': ['src', 'blank-src'],
         'b-card': 'img-src',

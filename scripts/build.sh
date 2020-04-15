@@ -29,7 +29,8 @@ echo 'Compiling ESM modular build...'
 NODE_ENV=esm babel src \
       --out-dir esm \
       --ignore 'src/**/*.spec.js' \
-      --ignore 'src/browser*.js' \
+      --ignore 'src/browser.js' \
+      --ignore 'src/browser-icons.js' \
       --ignore 'src/icons-only.js'
 echo "${BV_BANNER}" | cat - esm/index.js > esm/tmp.js && mv -f esm/tmp.js esm/index.js
 echo 'Done.'
@@ -95,16 +96,16 @@ node-sass --output-style expanded \
           --source-map true \
           --source-map-contents true \
           --precision 6 \
-          scripts/build.scss \
+          scripts/index.scss \
           dist/bootstrap-vue.css
 postcss --config scripts/postcss.config.js \
         --replace dist/bootstrap-vue.css
-# Icons only CSS
+# BootstrapVue Icons only CSS
 node-sass --output-style expanded \
           --source-map true \
           --source-map-contents true \
           --precision 6 \
-          src/icons.scss \
+          scripts/icons.scss \
           dist/bootstrap-vue-icons.css
 postcss --config scripts/postcss.config.js \
         --replace dist/bootstrap-vue-icons.css

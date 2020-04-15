@@ -1,0 +1,13 @@
+{
+  "name": "@bootstrap-vue/v-b-hover",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Hover",
+    "description": "A lightweight directive that allows you to react when an element either becomes hovered or unhovered",
+    "directive": "VBHover",
+    "version": "2.5.0",
+    "expression": [
+      "Function"
+    ]
+  }
+}

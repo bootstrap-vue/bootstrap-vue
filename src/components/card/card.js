@@ -21,8 +21,8 @@ export const props = {
   ...cardImgProps,
   ...copyProps(cardMixin.props),
   align: {
-    type: String,
-    default: null
+    type: String
+    // default: null
   },
   noBody: {
     type: Boolean,
@@ -58,7 +58,7 @@ export const BCard = /*#__PURE__*/ Vue.extend({
       }
     }
 
-    if (props.header || hasNormalizedSlot('header', $scopedSlots, $slots)) {
+    if (props.header || props.headerHtml || hasNormalizedSlot('header', $scopedSlots, $slots)) {
       header = h(
         BCardHeader,
         { props: pluckProps(headerProps, props) },
@@ -72,7 +72,7 @@ export const BCard = /*#__PURE__*/ Vue.extend({
       content = [h(BCardBody, { props: pluckProps(bodyProps, props) }, [...content])]
     }
 
-    if (props.footer || hasNormalizedSlot('footer', $scopedSlots, $slots)) {
+    if (props.footer || props.footerHtml || hasNormalizedSlot('footer', $scopedSlots, $slots)) {
       footer = h(
         BCardFooter,
         {

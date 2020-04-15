@@ -150,6 +150,9 @@ Positioning is relative to the trigger element.
   <div class="clearfix"></div>
 </div>
 
+Refer to the [Popover directive](/docs/directives/popover/#positioning) documentaion for live
+examples of positioning.
+
 ## Triggers
 
 Popovers can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
@@ -160,11 +163,37 @@ If a popover has more than one trigger, then all triggers must be cleared before
 close. I.e. if a popover has the trigger `focus click`, and it was opened by `focus`, and the user
 then clicks the trigger element, they must click it again **and** move focus to close the popover.
 
+### Caveats with `focus` trigger on `<button>` elements
+
+For proper cross-browser and cross-platform behavior when using only the `focus` trigger, you must
+use an element that renders the `<a>` tag, not the `<button>` tag, and you also must include a
+`tabindex="0"` attribute.
+
+The following will generate an `<a>` that looks like a button:
+
+```html
+<b-button
+  href="#"
+  tabindex="0"
+  v-b-popover.focus="'Popover content'"
+  title="Popover title"
+>
+  Link button with popover directive
+</b-button>
+
+<b-button id="link-button" href="#" tabindex="0">
+  Link button with popover component
+</b-button>
+<b-popover target="link-button" title="Popover title" triggers="focus">
+  Popover content
+</b-popover>
+```
+
 ### Dismiss on next click (self-dismissing)
 
 Use the `focus` trigger by itself to dismiss popovers on the next click that the user makes. `focus`
 also makes the popover activate on both `focus` and `click` (as a click makes the element receive
-focus, assuming it is in the tab sequence of the page).
+focus on most browsers, assuming it is in the tab sequence of the page).
 
 You can, however, specify your trigger as `click blur`, which will make only a click activate the
 popover, and either a click on the element, _or_ losing focus to another element or part of the
@@ -274,7 +303,7 @@ prop:
 
 ```html
 <div class="text-center">
-  <b-button id="popover-button-variant">Button</b-button>
+  <b-button id="popover-button-variant" href="#" tabindex="0">Button</b-button>
   <b-popover target="popover-button-variant" variant="danger" triggers="focus">
     <template v-slot:title>Danger!</template>
     Danger variant popover
@@ -881,6 +910,11 @@ possible. When the popover is closed, you should return focus back to your trigg
 You may also want to implement focus containment in the popover content while the user is
 interacting with it (keeping focus inside the popover until it is closed by the user).
 
+**Note:** The animation effect of this component is dependent on the `prefers-reduced-motion` media
+query. See the
+[reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
+additional details.
+
 ### Making popovers work for keyboard and assistive technology users
 
 To allow keyboard users to activate your popovers, you should only add them to HTML elements that
@@ -901,7 +935,7 @@ Additionally, while it is possible to also include interactive controls (such as
 links) in your popover, be aware that currently the popover does not manage keyboard focus order.
 When a keyboard user opens a popover, focus remains on the triggering element, and as the popover
 usually does not immediately follow the trigger in the document's structure, there is no guarantee
-that moving forward/pressing <kbd>TAB</kbd> will move a keyboard user into the popover itself. In
+that moving forward/pressing <kbd>Tab</kbd> will move a keyboard user into the popover itself. In
 short, simply adding interactive controls to a popover is likely to make these controls
 unreachable/unusable for keyboard users and users of assistive technologies, or at the very least
 make for an illogical overall focus order. **In these cases, consider using a `<b-modal>` dialog

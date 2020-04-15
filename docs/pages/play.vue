@@ -3,11 +3,18 @@
     <!-- Introduction -->
     <div class="bd-content mb-4">
       <h1><span class="bd-content-title">{{ title }}</span></h1>
-      <p class="bd-lead">
-        Here you can interactively play and test components with a fresh Vue.js instance. Please
-        refer to the <b-link to="/docs">Docs</b-link> section for more information about
-        available components and usage.
-      </p>
+      <b-row align-v="center">
+        <b-col>
+          <p class="bd-lead">
+            Here you can interactively play and test components with a fresh Vue.js instance. Please
+            refer to the <b-link to="/docs">Docs</b-link> section for more information about
+            available components and usage.
+          </p>
+        </b-col>
+        <b-col lg="auto">
+          <BVCarbonAd class="my-3 my-lg-1"></BVCarbonAd>
+        </b-col>
+      </b-row>
     </div>
 
     <!-- Compiler loading state -->
@@ -140,7 +147,7 @@
                 </div>
               </template>
 
-              <code-mirror v-model="html" mode="htmlmixed"></code-mirror>
+              <BVCodeMirror v-model="html" mode="htmlmixed"></BVCodeMirror>
             </b-card>
           </b-col>
 
@@ -170,7 +177,7 @@
                 </div>
               </template>
 
-              <code-mirror v-model="js" mode="javascript"></code-mirror>
+              <BVCodeMirror v-model="js" mode="javascript"></BVCodeMirror>
             </b-card>
           </b-col>
         </transition-group>
@@ -277,6 +284,16 @@
 .flip-list-move {
   transform: 0.3s;
 }
+
+.bv-carbon-ad {
+  min-height: 130px;
+}
+
+@media (min-width: 992px) {
+  .bv-carbon-ad {
+    min-width: 330px;
+  }
+}
 </style>
 
 <script>
@@ -285,7 +302,8 @@ import debounce from 'lodash/debounce'
 import { getParameters as getCodeSandboxParameters } from 'codesandbox/lib/api/define'
 import needsTranspiler from '~/utils/needs-transpiler'
 import { version as bootstrapVueVersion, bootstrapVersion, vueVersion } from '~/content'
-import CodeMirror from '~/components/codemirror'
+import BVCarbonAd from '~/components/carbon-ad'
+import BVCodeMirror from '~/components/code-mirror'
 
 // --- Constants ---
 
@@ -353,7 +371,8 @@ const indent = (value, count = 2, { indent } = { indent: ' ' }) => {
 
 export default {
   components: {
-    'code-mirror': CodeMirror
+    BVCarbonAd,
+    BVCodeMirror
   },
   data() {
     return {
@@ -417,7 +436,8 @@ export default {
         externalJs: [
           '//unpkg.com/babel-polyfill/dist/polyfill.min.js',
           `//unpkg.com/vue@${vueVersion}/dist/vue.min.js`,
-          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.js`
+          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.js`,
+          `//unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue-icons.js`
         ]
       }
     },
@@ -460,13 +480,14 @@ export default {
       const htmlContent = '<div id="app"></div>'
       const jsContent = [
         "import Vue from 'vue'",
-        "import BootstrapVue from 'bootstrap-vue'",
+        "import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'",
         "import App from './App'",
         '',
         "import 'bootstrap/dist/css/bootstrap.css'",
         "import 'bootstrap-vue/dist/bootstrap-vue.css'",
         '',
         'Vue.use(BootstrapVue)',
+        'Vue.use(BootstrapVueIcons)',
         '',
         "new Vue({ el: '#app', render: h => h(App) })"
       ].join('\r\n')
@@ -597,7 +618,7 @@ export default {
         // appData watcher
         this.contentUnWatch = this.$watch(
           'appData',
-          (newVal, oldVal) => {
+          () => {
             this.run()
           },
           { deep: true }
@@ -605,7 +626,7 @@ export default {
         // Javascript watcher
         this.jsUnWatch = this.$watch(
           () => this.js.trim(),
-          (newVal, oldVal) => {
+          () => {
             this.compileJs()
           },
           { immediate: true }

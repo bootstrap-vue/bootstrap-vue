@@ -119,6 +119,11 @@
           {
             "prop": "right",
             "description": "Set if the image will be placed at the end (right) of the card. Synonym for the 'right' prop"
+          },
+          {
+            "prop": "subTitleTextVariant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the sub title text"
           }
         ]
       },

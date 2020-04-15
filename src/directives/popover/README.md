@@ -5,6 +5,8 @@
 > clicking an element, and can contain both content and a title heading. Popovers are tooltips on
 > steroids.
 
+## Overview
+
 Use the `v-b-popover` directive on any **element** or **component** where you would like a popover
 to appear.
 
@@ -15,8 +17,6 @@ to appear.
 
 <!-- b-popover.vue -->
 ```
-
-## Overview
 
 Things to know when using the popover directive:
 
@@ -151,17 +151,38 @@ Positioning is relative to the trigger element.
       <b-col md="3" class="py-3">
         <b-button v-b-popover.hover.top="'Popover!'" variant="primary">Top</b-button>
       </b-col>
-
       <b-col md="3" class="py-3">
         <b-button v-b-popover.hover.right="'Popover!'" variant="primary">Right</b-button>
       </b-col>
-
       <b-col md="3" class="py-3">
         <b-button v-b-popover.hover.left="'Popover!'" variant="primary">Left</b-button>
       </b-col>
-
       <b-col md="3" class="py-3">
         <b-button v-b-popover.hover.bottom="'Popover!'" variant="primary">Bottom</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-popover.hover.topright="'Popover!'" variant="primary">Top right</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-popover.hover.topleft="'Popover!'" variant="primary">Top left</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-popover.hover.bottomright="'Popover!'" variant="primary">Bottom right</b-button>
+      </b-col>
+       <b-col md="3" class="py-3">
+        <b-button v-b-popover.hover.bottomleft="'Popover!'" variant="primary">Bottom left</b-button>
+      </b-col>
+     <b-col md="3" class="py-3">
+        <b-button v-b-popover.hover.lefttop="'Popover!'" variant="primary">Left top</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-popover.hover.leftbottom="'Popover!'" variant="primary">Left bottom</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-popover.hover.righttop="'Popover!'" variant="primary">right top</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-popover.hover.rightbottom="'Popover!'" variant="primary">right bottom</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -215,6 +236,25 @@ assistive technologies currently do not announce the popover in this situation.
 Additionally, do not rely solely on `hover` as the trigger for your popover, as this will make your
 popovers _impossible to trigger for keyboard-only users_.
 
+### Caveats with `focus` trigger on `<button>` elements
+
+For proper cross-browser and cross-platform behavior when using only the `focus` trigger, you must
+use an element that renders the `<a>` tag, not the `<button>` tag, and you also must include a
+`tabindex="0"` attribute.
+
+The following will generate an `<a>` that looks like a button:
+
+```html
+<b-button
+  href="#"
+  tabindex="0"
+  v-b-popover.focus="'Popover content'"
+  title="Popover title"
+>
+  Link button with popover directive
+</b-button>
+```
+
 ### Dismiss on next click (self dismissing)
 
 Use the `focus` trigger by itself to dismiss popovers on the next click that the user makes. `focus`
@@ -229,7 +269,7 @@ This `blur` trigger must be used in combination with the `click` trigger.
 
 The following example shows the `click blur` use case. Popovers will only open on click of the
 button, and will close either on click of the button, or a click anywhere else (or a focus change
-via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismissing_.
+via pressing the <kbd>Tab</kbd> key). Some call this behavior _self dismissing_.
 
 ```html
 <div>

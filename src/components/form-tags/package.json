@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Tags",
-    "new": true,
     "version": "2.2.0",
     "description": "Lightweight custom tagged input form control, with options for customized interface rendering, duplicate tag detection and optional tag validation",
     "components": [
@@ -21,6 +20,11 @@
           {
             "prop": "name",
             "description": "Sets the value of the 'name' attribute on the form control. When set, creates a hidden input for each tag"
+          },
+          {
+            "prop": "placeholder",
+            "settings": true,
+            "description": "Sets the 'placeholder' attribute value on the form control"
           },
           {
             "prop": "inputId",
@@ -41,14 +45,17 @@
           },
           {
             "prop": "addButtonText",
+            "settings": true,
             "description": "Text for the built in 'Add' button. Slot `add-button-text' takes precedence"
           },
           {
             "prop": "addButtonVariant",
+            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the 'Add' button"
           },
           {
             "prop": "tagVariant",
+            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the tags"
           },
           {
@@ -61,7 +68,14 @@
           },
           {
             "prop": "tagRemoveLabel",
+            "settings": true,
             "description": "The value of the 'aria-label' attribute on the remove button in the tag"
+          },
+          {
+            "prop": "tagRemovedLabel",
+            "settings": true,
+            "version": "2.5.0",
+            "description": "Label for the aria-live region that announces removed tag(s) to screen reader users"
           },
           {
             "prop": "tagValidator",
@@ -69,10 +83,12 @@
           },
           {
             "prop": "invalidTagText",
+            "settings": true,
             "description": "The error message when invalid tags are detected. Set to an empty string to disable the message"
           },
           {
             "prop": "duplicateTagText",
+            "settings": true,
             "description": "The message when duplicate tags are detected. Set to an empty string to disable the message"
           },
           {
@@ -81,7 +97,7 @@
           },
           {
             "prop": "removeOnDelete",
-            "description": "When set, enables removal of last tag in tags when user presses delete and the input is empty"
+            "description": "When set, enables removal of last tag in tags when user presses delete or backspace and the input is empty"
           },
           {
             "prop": "addOnChange",
@@ -297,11 +313,17 @@
             "description": "Value to place in the 'title' attribute of the tag. Will also be used for the tag content if no default slot provided"
           },
           {
+            "prop": "variant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          },
+          {
             "prop": "pill",
             "description": "Makes the tag have a pill appearance"
           },
           {
             "prop": "removeLabel",
+            "settings": true,
             "description": "The value of the 'aria-label' attribute on the remove button in the tag"
           }
         ],

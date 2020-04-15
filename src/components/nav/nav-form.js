@@ -6,8 +6,8 @@ import { BForm, props as BFormProps } from '../form/form'
 export const props = {
   ...omit(BFormProps, ['inline']),
   formClass: {
-    type: [String, Array, Object],
-    default: null
+    type: [String, Array, Object]
+    // default: null
   }
 }
 

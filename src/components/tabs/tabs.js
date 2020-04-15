@@ -8,6 +8,7 @@ import { arrayIncludes, concat } from '../../utils/array'
 import { BvEvent } from '../../utils/bv-event.class'
 import { requestAF, selectAll } from '../../utils/dom'
 import { isEvent } from '../../utils/inspect'
+import { toInteger } from '../../utils/number'
 import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -30,6 +31,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
   name: 'BTabButtonHelper',
   inject: {
     bvTabs: {
+      /* istanbul ignore next */
       default() /* istanbul ignore next */ {
         return {}
       }
@@ -40,6 +42,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
     tab: { default: null },
     tabs: {
       type: Array,
+      /* istanbul ignore next */
       default() /* istanbul ignore next */ {
         return []
       }
@@ -115,6 +118,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
         ],
         props: { disabled: this.tab.disabled },
         attrs: {
+          ...this.tab.titleLinkAttributes,
           role: 'tab',
           id: this.id,
           // Roving tab index when keynav enabled
@@ -189,27 +193,27 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       default: false
     },
     contentClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     navClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     navWrapperClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     activeNavItemClass: {
       // Only applied to the currently active <b-nav-item>
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     activeTabClass: {
       // Only applied to the currently active <b-tab>
       // This prop is sniffed by the <b-tab> child
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     value: {
       // v-model
@@ -218,11 +222,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     }
   },
   data() {
-    let tabIdx = parseInt(this.value, 10)
-    tabIdx = isNaN(tabIdx) ? -1 : tabIdx
     return {
       // Index of current tab
-      currentTab: tabIdx,
+      currentTab: toInteger(this.value, -1),
       // Array of direct child <b-tab> instances, in DOM order
       tabs: [],
       // Array of child instances registered (for triggering reactive updates)
@@ -245,11 +247,11 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    currentTab(val, old) {
+    currentTab(newVal) {
       let index = -1
       // Ensure only one tab is active at most
       this.tabs.forEach((tab, idx) => {
-        if (val === idx && !tab.disabled) {
+        if (newVal === idx && !tab.disabled) {
           tab.localActive = true
           index = idx
         } else {
@@ -259,17 +261,16 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // Update the v-model
       this.$emit('input', index)
     },
-    value(val, old) {
-      if (val !== old) {
-        val = parseInt(val, 10)
-        val = isNaN(val) ? -1 : val
-        old = parseInt(old, 10) || 0
+    value(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        newVal = toInteger(newVal, -1)
+        oldVal = toInteger(oldVal, 0)
         const tabs = this.tabs
-        if (tabs[val] && !tabs[val].disabled) {
-          this.activateTab(tabs[val])
+        if (tabs[newVal] && !tabs[newVal].disabled) {
+          this.activateTab(tabs[newVal])
         } else {
           // Try next or prev tabs
-          if (val < old) {
+          if (newVal < oldVal) {
             this.previousTab()
           } else {
             this.nextTab()
@@ -277,7 +278,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         }
       }
     },
-    registeredTabs(newVal, oldVal) {
+    registeredTabs() {
       // Each b-tab will register/unregister itself.
       // We use this to detect when tabs are added/removed
       // to trigger the update of the tabs.
@@ -300,7 +301,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         })
       }
     },
-    isMounted(newVal, oldVal) {
+    isMounted(newVal) {
       // Trigger an update after mounted.  Needed for tabs inside lazy modals.
       if (newVal) {
         requestAF(() => {
@@ -312,8 +313,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
-    const tabIdx = parseInt(this.value, 10)
-    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
+    this.currentTab = toInteger(this.value, -1)
     this._bvObserver = null
     // For SSR and to make sure only a single tab is shown on mount
     // We wrap this in a `$nextTick()` to ensure the child tabs have been created
@@ -332,12 +332,13 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       this.isMounted = true
     })
   },
+  /* istanbul ignore next */
   deactivated() /* istanbul ignore next */ {
     this.isMounted = false
   },
+  /* istanbul ignore next */
   activated() /* istanbul ignore next */ {
-    const tabIdx = parseInt(this.value, 10)
-    this.currentTab = isNaN(tabIdx) ? -1 : tabIdx
+    this.currentTab = toInteger(this.value, -1)
     this.$nextTick(() => {
       this.updateTabs()
       this.isMounted = true
@@ -453,7 +454,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
 
       // Set the current tab state to active
-      tabs.forEach((tab, idx) => {
+      tabs.forEach(tab => {
         // tab.localActive = idx === tabIndex && !tab.disabled
         tab.localActive = false
       })

@@ -61,7 +61,7 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
     setItemFocus(item) {
       item && item.focus && item.focus()
     },
-    focusFirst(evt) {
+    focusFirst() {
       const items = this.getItems()
       this.setItemFocus(items[0])
     },
@@ -81,7 +81,7 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
         this.setItemFocus(items[0])
       }
     },
-    focusLast(evt) {
+    focusLast() {
       const items = this.getItems().reverse()
       this.setItemFocus(items[0])
     },

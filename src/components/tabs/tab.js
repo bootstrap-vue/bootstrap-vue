@@ -22,8 +22,8 @@ export const BTab = /*#__PURE__*/ Vue.extend({
       default: 'div'
     },
     buttonId: {
-      type: String,
-      default: ''
+      type: String
+      // default: ''
     },
     title: {
       type: String,
@@ -31,13 +31,17 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     },
     titleItemClass: {
       // Sniffed by tabs.js and added to nav 'li.nav-item'
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     titleLinkClass: {
       // Sniffed by tabs.js and added to nav 'a.nav-link'
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
+    },
+    titleLinkAttributes: {
+      type: Object
+      // default: null
     },
     disabled: {
       type: Boolean,
@@ -85,7 +89,7 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    localActive(newVal, oldVal) {
+    localActive(newVal) {
       // Make 'active' prop work with `.sync` modifier
       this.$emit('update:active', newVal)
     },

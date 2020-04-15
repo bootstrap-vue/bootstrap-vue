@@ -51,6 +51,7 @@
           },
           {
             "prop": "size",
+            "settings": true,
             "description": "Size of the rendered buttons: 'sm', 'md' (default), or 'lg'"
           },
           {

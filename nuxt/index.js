@@ -73,6 +73,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
       // Nuxt default is missing image
       image: 'xlink:href',
       // Add BootstrapVue specific component asset items
+      'b-avatar': 'src',
       'b-img': 'src',
       'b-img-lazy': ['src', 'blank-src'],
       'b-card': 'img-src',
@@ -92,7 +93,7 @@ module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
     if (!usePretranspiled) {
       // Use bootstrap-vue source code for smaller prod builds
       // by aliasing 'bootstrap-vue' to the source files
-      this.extendBuild((config, { isServer }) => {
+      this.extendBuild(config => {
         if (!config.resolve.alias) {
           config.resolve.alias = {}
         }

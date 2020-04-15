@@ -1,0 +1,73 @@
+// BCalendar custom styles
+
+.b-calendar {
+  display: inline-flex;
+
+  .b-calendar-inner {
+    // Prevent calendar from going below this width
+    min-width: 250px;
+  }
+
+  .b-calendar-header,
+  .b-calendar-nav {
+    margin-bottom: 0.25rem;
+  }
+
+  .b-calendar-nav .btn {
+    padding: 0.25rem;
+  }
+
+  output {
+    padding: 0.25rem;
+    font-size: 80%;
+
+    &.readonly {
+      background-color: $input-disabled-bg;
+      opacity: 1;
+    }
+  }
+
+  .b-calendar-footer {
+    margin-top: 0.5rem;
+  }
+
+  .b-calendar-grid {
+    padding: 0;
+    margin: 0;
+    // Easy rounded corners on contained elements,
+    // specifically the footer of the calendar grid
+    overflow: hidden;
+  }
+
+  .b-calendar-grid-caption {
+    padding: 0.25rem;
+  }
+
+  .b-calendar-grid-body {
+    .col[data-date] {
+      // We hard code the sizes in `px` to fit
+      // correctly on small mobile device screens
+      .btn {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+        line-height: 1;
+        margin: 3px auto;
+        padding: 9px 0;
+      }
+    }
+  }
+
+  // Style to get around Bootstrap v4.4 bug
+  // with hand cursor on disabled buttons
+  // As well, when a button is still focusable, but is
+  // `aria-disabled` we want `pointer-events: none`
+  .btn {
+    &:disabled,
+    &.disabled,
+    &[aria-disabled="true"] {
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+}

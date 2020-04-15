@@ -578,16 +578,16 @@ values: `sm`, `md`, `lg`, or `xl`.
 - Using props `responsive` and `fixed` together will **not** work as expected. Fixed table layout
   uses the first row (table header in this case) to compute the width required by each column (and
   the overall table width) to fit within the width of the parent container &mdash; without taking
-  cells in the `<tbody>` into consideration &mdash; resulting in table that may not be resposive. To
-  get around this limitation, you would need to specify widths for the columns (or certain columns)
-  via one of the following methods:
+  cells in the `<tbody>` into consideration &mdash; resulting in table that may not be responsive.
+  To get around this limitation, you would need to specify widths for the columns (or certain
+  columns) via one of the following methods:
   - Use `<col>` elements within the [`table-colgroup` slot](#table-colgroup) that have widths set
     (e.g. `<col style="width: 20rem">`), or
   - Wrap header cells in `<div>` elements, via the use of
     [custom header rendering](#header-and-footer-custom-rendering-via-scoped-slots), which have a
     minimum width set on them, or
-  - Use the `thStyle` property of the [field definition object](#field-definition-reference) to
-    set a width for the column(s), or
+  - Use the `thStyle` property of the [field definition object](#field-definition-reference) to set
+    a width for the column(s), or
   - Use custom CSS to define classes to apply to the columns to set widths, via the `thClass` or
     `class` properties of the [field definition object](#field-definition-reference).
 
@@ -827,7 +827,7 @@ information on the `busy` state.
 ## Custom data rendering
 
 Custom rendering for each data field in a row is possible using either
-[scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or a formatter callback
+[scoped slots](https://vuejs.org/v2/guide/components.html#Scoped-Slots) or a formatter callback
 function, or a combination of both.
 
 ### Scoped field slots
@@ -1307,7 +1307,7 @@ available horizontal space.
   the body scrolls. To get around this issue, set the prop `no-border-collapse` on the table (note
   that this may cause double width borders when using features such as `bordered`, etc).
 - The sticky header feature uses CSS style `position: sticky` to position the headings. Internet
-  Explorer does not support `position: sticky`, hence for IE11 the table headings will scroll with
+  Explorer does not support `position: sticky`, hence for IE 11 the table headings will scroll with
   the table body.
 
 ### Sticky columns
@@ -1403,7 +1403,7 @@ set.
   (note that this may cause double width borders when using features such as `bordered`, etc).
 - BootstrapVue's custom CSS is required in order to support sticky columns.
 - The sticky column feature uses CSS style `position: sticky` to position the column cells. Internet
-  Explorer does not support `position: sticky`, hence for IE11 the sticky column will scroll with
+  Explorer does not support `position: sticky`, hence for IE 11 the sticky column will scroll with
   the table body.
 
 ### Row details support
@@ -1510,8 +1510,8 @@ Users can easily change the selecting mode by setting the `select-mode` prop.
 
 - `'multi'`: Each click will select/deselect the row (default mode)
 - `'single'`: Only a single row can be selected at one time
-- `'range'`: Any row clicked is selected, any other deselected. <kbd>SHIFT</kbd> + click selects a
-  range of rows, and <kbd>CTRL</kbd> (or <kbd>CMD</kbd>) + click will toggle the selected row.
+- `'range'`: Any row clicked is selected, any other deselected. <kbd>Shift</kbd> + click selects a
+  range of rows, and <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd>) + click will toggle the selected row.
 
 When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
 event, passing a single argument which is the complete list of selected items. **Treat this argument
@@ -1567,7 +1567,7 @@ will be using other means to convey that a row is selected (such as a scoped fie
 example).
 
 The `selected-variant` can be any of the
-[standard (or custom) bootstrap base color variants](/docs/reference/color-variants), or the special
+[standard (or custom) Bootstrap base color variants](/docs/reference/color-variants), or the special
 [table `active` variant](/docs/reference/color-variants#table-variants) (the default) which takes
 precedence over any specific row or cell variants.
 
@@ -1766,8 +1766,8 @@ default).
 
 The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by adding the
 `.sync` modifier. Your bound variables will then be updated accordingly based on the current sort
-criteria. See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details on
-the `.sync` prop modifier.
+criteria. See the [Vue docs](https://vuejs.org/v2/guide/components.html#sync-Modifier) for details
+on the `.sync` prop modifier.
 
 Setting `sort-by` to a column that is not defined in the fields as `sortable` will result in the
 table not being sorted.
@@ -1915,7 +1915,7 @@ sorting, as well as pass sort options via the `sort-compare-options` prop.
 
 The `sort-compare-locale` prop defaults to `undefined`, which uses the browser (or Node.js runtime)
 default locale. The prop `sort-compare-locale` can either accept a
-[BCP 47 language tag](http://tools.ietf.org/html/rfc5646) string or an _array_ of such tags. For
+[BCP 47 language tag](https://tools.ietf.org/html/rfc5646) string or an _array_ of such tags. For
 more details on locales, please see
 [Locale identification and negotiation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation)
 on MDN.
@@ -2221,7 +2221,7 @@ method.
 <!-- eslint-disable no-unused-vars, prefer-const -->
 
 ```js
-function myProvider(ctx) {
+function myProvider() {
   let items = []
 
   // Perform any items processing needed
@@ -2306,7 +2306,7 @@ function should handle errors from data sources and return an empty array to `<b
       }
     }
     methods: {
-      myProvider (ctx) {
+      myProvider () {
         // Here we don't set isBusy prop, so busy state will be
         // handled by table itself
         // this.isBusy = true
@@ -2405,6 +2405,8 @@ have changed.
 
 The `sort-changed` event provides a single argument of the table's current state context object.
 This context object has the same format as used by items provider functions.
+
+<!-- eslint-disable no-unused-vars -->
 
 ```js
 export default {
@@ -2775,7 +2777,7 @@ When using `<b-table-simple>` with the helper table components, elements will ha
 roles applied by default, of which you can optionally override. When using click handlers on the
 `<b-table-simple>` helper components, you will need to apply appropriate `aria-*` attributes, and
 set `tabindex="0"` to make the click actions accessible to screen reader and keyboard-only users.
-You should also listen for `@keydown.enter.prevent` to handle users pressing <kbd>ENTER</kbd> to
+You should also listen for `@keydown.enter.prevent` to handle users pressing <kbd>Enter</kbd> to
 trigger your click on cells or rows (required for accessibility for keyboard-only users).
 
 ### Heading accessibility
@@ -2783,7 +2785,7 @@ trigger your click on cells or rows (required for accessibility for keyboard-onl
 When a column (field) is sortable (`<b-table>` only) or there is a `head-clicked` listener
 registered (`<b-table>` and `<b-table-lite>`), the header (and footer) `<th>` cells will be placed
 into the document tab sequence (via `tabindex="0"`) for accessibility by keyboard-only and screen
-reader users, so that the user may trigger a click (by pressing <kbd>ENTER</kbd> on the header
+reader users, so that the user may trigger a click (by pressing <kbd>Enter</kbd> on the header
 cells.
 
 ### Data row accessibility
@@ -2792,16 +2794,16 @@ When the table is in `selectable` mode (`<b-table>` only, and prop `no-select-on
 or if there is a `row-clicked` event listener registered (`<b-table>` and `<b-table-lite>`), all
 data item rows (`<tr>` elements) will be placed into the document tab sequence (via `tabindex="0"`)
 to allow keyboard-only and screen reader users the ability to click the rows by pressing
-<kbd>ENTER</kbd> or <kbd>SPACE</kbd>.
+<kbd>Enter</kbd> or <kbd>Space</kbd>.
 
 When the table items rows are placed in the document tab sequence (`<b-table>` and
 `<b-table-lite>`), they will also support basic keyboard navigation when focused:
 
-- <kbd>DOWN</kbd> will move to the next row
-- <kbd>UP</kbd> will move to the previous row
-- <kbd>END</kbd> or <kbd>DOWN</kbd>+<kbd>SHIFT</kbd> will move to the last row
-- <kbd>HOME</kbd> or <kbd>UP</kbd>+<kbd>SHIFT</kbd> will move to the first row
-- <kbd>ENTER</kbd> or <kbd>SPACE</kbd> to click the row.
+- <kbd>Down</kbd> will move to the next row
+- <kbd>Up</kbd> will move to the previous row
+- <kbd>End</kbd> or <kbd>Down</kbd>+<kbd>Shift</kbd> will move to the last row
+- <kbd>Home</kbd> or <kbd>Up</kbd>+<kbd>Shift</kbd> will move to the first row
+- <kbd>Enter</kbd> or <kbd>Space</kbd> to click the row.
 
 ### Row event accessibility
 

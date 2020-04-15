@@ -3,7 +3,7 @@ import { BIconstack } from './iconstack'
 
 describe('icons > b-iconstack', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(BIconstack, {})
+    const wrapper = mount(BIconstack)
 
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.is('svg')).toBe(true)
@@ -17,7 +17,7 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.attributes('xmlns')).toBe('http://www.w3.org/2000/svg')
     expect(wrapper.attributes('width')).toBe('1em')
     expect(wrapper.attributes('height')).toBe('1em')
-    expect(wrapper.attributes('viewBox')).toBe('0 0 20 20')
+    expect(wrapper.attributes('viewBox')).toBe('0 0 16 16')
     expect(wrapper.attributes('fill')).toBe('currentColor')
     expect(wrapper.attributes('style')).not.toBeDefined()
     expect(wrapper.element.style.fontSize).toEqual('')
@@ -85,7 +85,7 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
     expect(wrapper.find('svg > g').attributes('transform')).toEqual(
-      'translate(10 10) rotate(45) translate(-10 -10)'
+      'translate(8 8) rotate(45) translate(-8 -8)'
     )
   })
 
@@ -105,7 +105,7 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
     expect(wrapper.find('svg > g').attributes('transform')).toEqual(
-      'translate(10 10) scale(1.5 1.5) translate(-10 -10)'
+      'translate(8 8) scale(1.5 1.5) translate(-8 -8)'
     )
   })
 })

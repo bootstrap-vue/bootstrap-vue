@@ -67,6 +67,14 @@ export * from './icons/icons'
 export { AlertPlugin } from './components/alert'
 export { BAlert } from './components/alert/alert'
 
+// export * from './components/aspect'
+export { AspectPlugin } from './components/aspect'
+export { BAspect } from './components/aspect/aspect'
+
+// export * from './components/avatar'
+export { AvatarPlugin } from './components/avatar'
+export { BAvatar } from './components/avatar/avatar'
+
 // export * from './components/badge'
 export { BadgePlugin } from './components/badge'
 export { BBadge } from './components/badge/badge'
@@ -88,6 +96,10 @@ export { BButtonGroup } from './components/button-group/button-group'
 // export * from './components/button-toolbar'
 export { ButtonToolbarPlugin } from './components/button-toolbar'
 export { BButtonToolbar } from './components/button-toolbar/button-toolbar'
+
+// export * from './components/calendar'
+export { CalendarPlugin } from './components/calendar'
+export { BCalendar } from './components/calendar/calendar'
 
 // export * from './components/card'
 export { CardPlugin } from './components/card'
@@ -139,6 +151,10 @@ export { FormCheckboxPlugin } from './components/form-checkbox'
 export { BFormCheckbox } from './components/form-checkbox/form-checkbox'
 export { BFormCheckboxGroup } from './components/form-checkbox/form-checkbox-group'
 
+// export * from './components/form-datepicker'
+export { FormDatepickerPlugin } from './components/form-datepicker'
+export { BFormDatepicker } from './components/form-datepicker/form-datepicker'
+
 // export * from './components/form-file'
 export { FormFilePlugin } from './components/form-file'
 export { BFormFile } from './components/form-file/form-file'
@@ -156,6 +172,10 @@ export { FormRadioPlugin } from './components/form-radio'
 export { BFormRadio } from './components/form-radio/form-radio'
 export { BFormRadioGroup } from './components/form-radio/form-radio-group'
 
+// export * from './components/form-rating'
+export { FormRatingPlugin } from './components/form-rating'
+export { BFormRating } from './components/form-rating/form-rating'
+
 // export * from './components/form-tags'
 export { FormTagsPlugin } from './components/form-tags'
 export { BFormTags } from './components/form-tags/form-tags'
@@ -167,9 +187,17 @@ export { BFormSelect } from './components/form-select/form-select'
 export { BFormSelectOption } from './components/form-select/form-select-option'
 export { BFormSelectOptionGroup } from './components/form-select/form-select-option-group'
 
+// export * from './components/form-spinbutton'
+export { FormSpinbuttonPlugin } from './components/form-spinbutton'
+export { BFormSpinbutton } from './components/form-spinbutton/form-spinbutton'
+
 // export * from './components/form-textarea'
 export { FormTextareaPlugin } from './components/form-textarea'
 export { BFormTextarea } from './components/form-textarea/form-textarea'
+
+// export * from './components/form-timepicker'
+export { FormTimepickerPlugin } from './components/form-timepicker'
+export { BFormTimepicker } from './components/form-timepicker/form-timepicker'
 
 // export * from './components/image'
 export { ImagePlugin } from './components/image'
@@ -229,6 +257,10 @@ export { BNavbarBrand } from './components/navbar/navbar-brand'
 export { BNavbarNav } from './components/navbar/navbar-nav'
 export { BNavbarToggle } from './components/navbar/navbar-toggle'
 
+// export * from './components/overlay'
+export { OverlayPlugin } from './components/overlay'
+export { BOverlay } from './components/overlay/overlay'
+
 // export * from './components/pagination'
 export { PaginationPlugin } from './components/pagination'
 export { BPagination } from './components/pagination/pagination'
@@ -245,6 +277,10 @@ export { BPopover } from './components/popover/popover'
 export { ProgressPlugin } from './components/progress'
 export { BProgress } from './components/progress/progress'
 export { BProgressBar } from './components/progress/progress-bar'
+
+// export * from './components/sidebar'
+export { SidebarPlugin } from './components/sidebar'
+export { BSidebar } from './components/sidebar/sidebar'
 
 // export * from './components/spinner'
 export { SpinnerPlugin } from './components/spinner'
@@ -267,6 +303,10 @@ export { TabsPlugin } from './components/tabs'
 export { BTabs } from './components/tabs/tabs'
 export { BTab } from './components/tabs/tab'
 
+// export * from './components/time'
+export { TimePlugin } from './components/time'
+export { BTime } from './components/time/time'
+
 // export * from './components/toast'
 export { ToastPlugin } from './components/toast'
 export { BToast } from './components/toast/toast'
@@ -284,6 +324,10 @@ export { BTooltip } from './components/tooltip/tooltip'
 // Webpack v5 fixes the optimizations with re-export of re-exports so this
 // can be reverted back to `export * from './scrollspy'` when Webpack v5 is released
 // https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
+
+// export * from './directives/hover'
+export { VBHoverPlugin } from './directives/hover'
+export { VBHover } from './directives/hover/hover'
 
 // export * from './directives/modal'
 export { VBModalPlugin } from './directives/modal'

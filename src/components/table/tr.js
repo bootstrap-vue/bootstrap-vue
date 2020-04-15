@@ -23,7 +23,8 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   },
   inject: {
     bvTableRowGroup: {
-      defaut() /* istanbul ignore next */ {
+      /* istanbul ignore next */
+      default() /* istanbul ignore next */ {
         return {}
       }
     }
@@ -79,9 +80,9 @@ export const BTr = /*#__PURE__*/ Vue.extend({
     },
     isRowDark() {
       return this.headVariant === LIGHT || this.footVariant === LIGHT
-        ? false
+        ? /* istanbul ignore next */ false
         : this.headVariant === DARK || this.footVariant === DARK
-          ? true
+          ? /* istanbul ignore next */ true
           : this.isDark
     },
     trClasses() {
@@ -100,7 +101,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
         // Pass native listeners to child
         on: this.$listeners
       },
-      this.normalizeSlot('default', {})
+      this.normalizeSlot('default')
     )
   }
 })

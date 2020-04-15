@@ -22,6 +22,11 @@
         "component": "BListGroupItem",
         "props": [
           {
+            "prop": "variant",
+            "settings": true,
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          },
+          {
             "prop": "button",
             "description": "When true renders the list-group-item as a button element"
           },

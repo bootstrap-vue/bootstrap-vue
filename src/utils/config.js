@@ -1,6 +1,6 @@
 import Vue from './vue'
 import cloneDeep from './clone-deep'
-import get from './get'
+import { getRaw } from './get'
 import memoize from './memoize'
 import DEFAULTS from './config-defaults'
 
@@ -22,7 +22,7 @@ export const getConfig = () => {
 export const getConfigValue = key => {
   return VueProto[PROP_NAME]
     ? VueProto[PROP_NAME].getConfigValue(key)
-    : cloneDeep(get(DEFAULTS, key))
+    : cloneDeep(getRaw(DEFAULTS, key))
 }
 
 // Method to grab a config value for a particular component

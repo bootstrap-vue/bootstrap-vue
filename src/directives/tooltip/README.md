@@ -3,6 +3,8 @@
 > Documentation and examples for adding custom BootstrapVue tooltips, using Bootstrap v4 CSS for
 > styling and animations. Tooltips can be triggered by hovering, focusing, or clicking an element
 
+## Overview
+
 Use the `v-b-tooltip` directive on any element or component where you would like a tooltip to
 appear.
 
@@ -13,8 +15,6 @@ appear.
 
 <!-- b-tooltip.vue -->
 ```
-
-## Overview
 
 Things to know when using the tooltip directive:
 
@@ -104,6 +104,30 @@ The default position is `top`. Positioning is relative to the trigger element.
       <b-col md="3" class="py-3">
         <b-button v-b-tooltip.hover.bottom="'Tooltip!'" variant="primary">Bottom</b-button>
       </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-tooltip.hover.topright="'Tooltip!'" variant="primary">Top right</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-tooltip.hover.topleft="'Tooltip!'" variant="primary">Top left</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-tooltip.hover.bottomright="'Tooltip!'" variant="primary">Bottom right</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-tooltip.hover.bottomleft="'Tooltip!'" variant="primary">Bottom left</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-tooltip.hover.lefttop="'Tooltip!'" variant="primary">Left top</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-tooltip.hover.leftbottom="'Tooltip!'" variant="primary">Left bottom</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-tooltip.hover.righttop="'Tooltip!'" variant="primary">Right top</b-button>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-button v-b-tooltip.hover.rightbottom="'Tooltip!'" variant="primary">Right bottom</b-button>
+      </b-col>
     </b-row>
   </b-container>
 </div>
@@ -170,6 +194,25 @@ override the `pointer-events` on the disabled element.
 </div>
 
 <!-- disabled-trigger-element.vue -->
+```
+
+### Caveats with `focus` trigger on `<button>` elements
+
+For proper cross-browser and cross-platform behavior when using only the `focus` trigger, you must
+use an element that renders the `<a>` tag, not the `<button>` tag, and you also must include a
+`tabindex="0"` attribute.
+
+The following will generate an `<a>` that looks like a button:
+
+```html
+<b-button
+  href="#"
+  tabindex="0"
+  v-b-tooltip.focus
+  title="Tooltip title"
+>
+  Link button with tooltip directive
+</b-button>
 ```
 
 ### Dismiss on next click

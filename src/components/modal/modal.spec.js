@@ -986,6 +986,48 @@ describe('modal', () => {
 
       wrapper.destroy()
     })
+
+    it('modal closes when no-stacking is true and another modal opens', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          static: true,
+          id: 'test',
+          visible: true,
+          noStacking: true
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('block')
+
+      // Simulate an other modal opening (by emiting a fake BvEvent)
+      // `bvEvent.vueTarget` is normally a Vue instance, but in this
+      // case we just use a random object since we are checking inequality
+      wrapper.vm.$root.$emit('bv::modal::show', { vueTarget: Number })
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      // Modal should now be closed
+      expect($modal.element.style.display).toEqual('none')
+
+      wrapper.destroy()
+    })
   })
 
   describe('focus management', () => {
@@ -994,7 +1036,7 @@ describe('modal', () => {
     it('returns focus to previous active element when return focus not set and not using v-b-toggle', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [
+          return h('div', [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
             h(BModal, { props: { static: true, id: 'test', visible: false } }, 'modal content')
           ])
@@ -1071,7 +1113,7 @@ describe('modal', () => {
     it('returns focus to element specified in toggle() method', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [
+          return h('div', [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
             h(
               'button',
@@ -1160,7 +1202,7 @@ describe('modal', () => {
     it('if focus leaves modal it returns to modal', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [
+          return h('div', [
             h('button', { attrs: { id: 'button', type: 'button' } }, 'Button'),
             h(BModal, { props: { static: true, id: 'test', visible: true } }, 'Modal content')
           ])
@@ -1247,7 +1289,7 @@ describe('modal', () => {
     it('it allows focus for elements when "no-enforce-focus" enabled', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [
+          return h('div', [
             h('button', { attrs: { id: 'button1', type: 'button' } }, 'Button 1'),
             h('button', { attrs: { id: 'button2', type: 'button' } }, 'Button 2'),
             h(
@@ -1321,7 +1363,7 @@ describe('modal', () => {
     it('it allows focus for elements in "ignore-enforce-focus-selector" prop', async () => {
       const App = localVue.extend({
         render(h) {
-          return h('div', {}, [
+          return h('div', [
             h('button', { attrs: { id: 'button1', type: 'button' } }, 'Button 1'),
             h('button', { attrs: { id: 'button2', type: 'button' } }, 'Button 2'),
             h(

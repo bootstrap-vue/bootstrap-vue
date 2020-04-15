@@ -1,4 +1,5 @@
 import cloneDeep from '../../../utils/clone-deep'
+import identity from '../../../utils/identity'
 import looseEqual from '../../../utils/loose-equal'
 import { concat } from '../../../utils/array'
 import { isFunction, isString, isRegExp } from '../../../utils/inspect'
@@ -19,8 +20,8 @@ export default {
       default: null
     },
     filterFunction: {
-      type: Function,
-      default: null
+      type: Function
+      // default: null
     },
     filterIgnoredFields: {
       type: Array
@@ -48,13 +49,13 @@ export default {
   },
   computed: {
     computedFilterIgnored() {
-      return this.filterIgnoredFields ? concat(this.filterIgnoredFields).filter(Boolean) : null
+      return this.filterIgnoredFields ? concat(this.filterIgnoredFields).filter(identity) : null
     },
     computedFilterIncluded() {
-      return this.filterIncludedFields ? concat(this.filterIncludedFields).filter(Boolean) : null
+      return this.filterIncludedFields ? concat(this.filterIncludedFields).filter(identity) : null
     },
     computedFilterDebounce() {
-      const ms = toInteger(this.filterDebounce) || 0
+      const ms = toInteger(this.filterDebounce, 0)
       /* istanbul ignore next */
       if (ms > 0) {
         warn(DEBOUNCE_DEPRECATED_MSG, 'BTable')
@@ -98,7 +99,7 @@ export default {
   },
   watch: {
     // Watch for debounce being set to 0
-    computedFilterDebounce(newVal, oldVal) {
+    computedFilterDebounce(newVal) {
       if (!newVal && this.$_filterTimer) {
         clearTimeout(this.$_filterTimer)
         this.$_filterTimer = null
@@ -110,7 +111,7 @@ export default {
       // We need a deep watcher in case the user passes
       // an object when using `filter-function`
       deep: true,
-      handler(newCriteria, oldCriteria) {
+      handler(newCriteria) {
         const timeout = this.computedFilterDebounce
         clearTimeout(this.$_filterTimer)
         this.$_filterTimer = null
@@ -127,7 +128,7 @@ export default {
     },
     // Watch for changes to the filter criteria and filtered items vs `localItems`
     // Set visual state and emit events as required
-    filteredCheck({ filteredItems, localItems, localFilter }) {
+    filteredCheck({ filteredItems, localFilter }) {
       // Determine if the dataset is filtered or not
       let isFiltered = false
       if (!localFilter) {

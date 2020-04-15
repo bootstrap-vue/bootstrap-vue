@@ -13,12 +13,12 @@ describe('utils/click-out', () => {
         this.listenForClickOut = true
       },
       methods: {
-        clickOutHandler(evt) {
+        clickOutHandler() {
           count++
         }
       },
       render(h) {
-        return h('div', {}, [h('button', {}, 'button')])
+        return h('div', [h('button', 'button')])
       }
     })
 

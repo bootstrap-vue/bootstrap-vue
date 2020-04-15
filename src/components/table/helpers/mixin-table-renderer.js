@@ -65,12 +65,12 @@ export default {
       default: false
     },
     tableVariant: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     tableClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     }
   },
   computed: {
@@ -165,7 +165,7 @@ export default {
     const $content = []
 
     if (this.isTableSimple) {
-      $content.push(this.normalizeSlot('default', {}))
+      $content.push(this.normalizeSlot('default'))
     } else {
       // Build the `<caption>` (from caption mixin)
       $content.push(this.renderCaption ? this.renderCaption() : null)

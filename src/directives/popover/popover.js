@@ -12,6 +12,7 @@ import {
   isUndefined,
   isUndefinedOrNull
 } from '../../utils/inspect'
+import { toInteger } from '../../utils/number'
 import { keys } from '../../utils/object'
 import { BVPopover } from '../../components/popover/helpers/bv-popover'
 
@@ -61,7 +62,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     html: false,
     delay: getComponentConfig(NAME, 'delay'),
     boundary: String(getComponentConfig(NAME, 'boundary')),
-    boundaryPadding: parseInt(getComponentConfig(NAME, 'boundaryPadding'), 10) || 0,
+    boundaryPadding: toInteger(getComponentConfig(NAME, 'boundaryPadding'), 0),
     variant: getComponentConfig(NAME, 'variant'),
     customClass: getComponentConfig(NAME, 'customClass')
   }
@@ -95,8 +96,8 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   // Normalize delay
   if (!isPlainObject(config.delay)) {
     config.delay = {
-      show: parseInt(config.delay, 10) || 0,
-      hide: parseInt(config.delay, 10) || 0
+      show: toInteger(config.delay, 0),
+      hide: toInteger(config.delay, 0)
     }
   }
 
@@ -117,18 +118,18 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
       config.boundary = mod
     } else if (delayRE.test(mod)) {
       // Delay value
-      const delay = parseInt(mod.slice(1), 10) || 0
+      const delay = toInteger(mod.slice(1), 0)
       config.delay.show = delay
       config.delay.hide = delay
     } else if (delayShowRE.test(mod)) {
       // Delay show value
-      config.delay.show = parseInt(mod.slice(2), 10) || 0
+      config.delay.show = toInteger(mod.slice(2), 0)
     } else if (delayHideRE.test(mod)) {
       // Delay hide value
-      config.delay.hide = parseInt(mod.slice(2), 10) || 0
+      config.delay.hide = toInteger(mod.slice(2), 0)
     } else if (offsetRE.test(mod)) {
       // Offset value, negative allowed
-      config.offset = parseInt(mod.slice(1), 10) || 0
+      config.offset = toInteger(mod.slice(1), 0)
     } else if (variantRE.test(mod)) {
       // Variant
       config.variant = mod.slice(2) || null
@@ -235,7 +236,7 @@ const applyPopover = (el, bindings, vnode) => {
         // If title/content is a function, we execute it here
         newData[prop] =
           (prop === 'title' || prop === 'content') && isFunction(data[prop])
-            ? data[prop](el)
+            ? /* istanbul ignore next */ data[prop](el)
             : data[prop]
       }
     })

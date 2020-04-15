@@ -5,9 +5,139 @@
     overflow: visible;
     // The following is required to compensate for alignment
     // issues with the Bootstrap Icons alpha implementation
-    // And might be able to remove in future version of bootstrap-icons
-    // Perhaps this values should be SASS variables?
-    vertical-align: -0.15em;
+    vertical-align: $b-icon-vertical-offset;
+  }
+
+  &.b-icon-animation-cylon,
+  &.b-iconstack .b-icon-animation-cylon > g {
+    transform-origin: center;
+    animation: $b-icon-animation-cylon-duration infinite ease-in-out alternate
+      b-icon-animation-cylon;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &.b-icon-animation-cylon-vertical,
+  &.b-iconstack .b-icon-animation-cylon-vertical > g {
+    transform-origin: center;
+    animation: $b-icon-animation-cylon-vertical-duration infinite ease-in-out alternate
+      b-icon-animation-cylon-vertical;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &.b-icon-animation-fade,
+  &.b-iconstack .b-icon-animation-fade > g {
+    transform-origin: center;
+    animation: $b-icon-animation-throb-duration infinite ease-in-out alternate b-icon-animation-fade;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &.b-icon-animation-spin,
+  &.b-iconstack .b-icon-animation-spin > g {
+    transform-origin: center;
+    animation: $b-icon-animation-spin-duration infinite linear normal b-icon-animation-spin;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &.b-icon-animation-spin-reverse,
+  &.b-iconstack .b-icon-animation-spin-reverse > g {
+    transform-origin: center;
+    animation: $b-icon-animation-spin-reverse-duration infinite linear reverse b-icon-animation-spin;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &.b-icon-animation-spin-pulse,
+  &.b-iconstack .b-icon-animation-spin-pulse > g {
+    transform-origin: center;
+    animation: $b-icon-animation-spin-pulse-duration infinite steps(8) normal b-icon-animation-spin;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &.b-icon-animation-spin-reverse-pulse,
+  &.b-iconstack .b-icon-animation-spin-reverse-pulse > g {
+    transform-origin: center;
+    animation: $b-icon-animation-spin-reverse-pulse-duration infinite steps(8) reverse
+      b-icon-animation-spin;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &.b-icon-animation-throb,
+  &.b-iconstack .b-icon-animation-throb > g {
+    transform-origin: center;
+    animation: $b-icon-animation-throb-duration infinite ease-in-out alternate
+      b-icon-animation-throb;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+}
+
+// Animation for spinning icons
+@keyframes b-icon-animation-cylon {
+  0% {
+    transform: translateX(-25%);
+  }
+  100% {
+    transform: translateX(25%);
+  }
+}
+
+@keyframes b-icon-animation-cylon-vertical {
+  0% {
+    transform: translateY(25%);
+  }
+  100% {
+    transform: translateY(-25%);
+  }
+}
+
+@keyframes b-icon-animation-fade {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes b-icon-animation-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes b-icon-animation-throb {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 

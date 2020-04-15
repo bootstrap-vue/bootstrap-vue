@@ -23,14 +23,14 @@ describe('mixins/listen-on-window', () => {
         this.listenOnWindow('resize', spyResize2)
       },
       watch: {
-        offResizeOne(newVal, oldVal) {
+        offResizeOne(newVal) {
           if (newVal) {
             this.listenOffWindow('resize', spyResize1)
           }
         }
       },
       render(h) {
-        return h('div', {}, this.$slots.default)
+        return h('div', this.$slots.default)
       }
     })
 
@@ -50,7 +50,7 @@ describe('mixins/listen-on-window', () => {
         const props = {
           offResizeOne: this.offResizeOne
         }
-        return h('div', {}, [this.destroy ? h() : h(TestComponent, { props }, 'test-component')])
+        return h('div', [this.destroy ? h() : h(TestComponent, { props }, 'test-component')])
       }
     })
 

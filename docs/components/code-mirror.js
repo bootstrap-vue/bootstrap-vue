@@ -1,5 +1,6 @@
+// @vue/component
 export default {
-  name: 'CodeMirror',
+  name: 'BVCodeMirror',
   props: {
     value: {
       type: String,

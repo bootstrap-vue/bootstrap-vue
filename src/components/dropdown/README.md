@@ -6,7 +6,7 @@
 `<b-dropdown>` (or known by its shorter alias of `<b-dd>`) components are toggleable, contextual
 overlays for displaying lists of links and more. They're toggled by clicking (or pressing space or
 enter when focused), not by hovering; this is an
-[intentional design decision](http://markdotto.com/2012/02/27/bootstrap-explained-dropdowns/).
+[intentional design decision](https://markdotto.com/2012/02/27/bootstrap-explained-dropdowns/).
 
 ```html
 <div>
@@ -697,8 +697,8 @@ the contained dropdown sub-components.
 
 Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 
-Note that <kbd>DOWN</kbd> and <kbd>UP</kbd> will not move focus into `<b-dropdown-form>` sub
-components, but users can still use <kbd>TAB</kbd> or <kbd>SHIFT</kbd>+<kbd>TAB</kbd> to move into
+Note that <kbd>Down</kbd> and <kbd>Up</kbd> will not move focus into `<b-dropdown-form>` sub
+components, but users can still use <kbd>Tab</kbd> or <kbd>Shift</kbd>+<kbd>Tab</kbd> to move into
 form controls within the menu.
 
 ## Implementation notes

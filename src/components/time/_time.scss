@@ -1,0 +1,41 @@
+// BTime custom SCSS
+
+.b-time {
+  min-width: 150px;
+
+  &[aria-disabled="true"] output,
+  &[aria-readonly="true"] output,
+  output.disabled {
+    background-color: $input-disabled-bg;
+    opacity: 1;
+  }
+
+  &[aria-disabled="true"] output {
+    pointer-events: none;
+  }
+
+  @at-root {
+    // Prevent the spinbuttons from reversing order in RTL mode
+    // as time is always read LTR
+    [dir="rtl"] & > .d-flex:not(.flex-column) {
+      flex-direction: row-reverse;
+    }
+  }
+
+  .b-time-header {
+    margin-bottom: 0.5rem;
+
+    output {
+      padding: 0.25rem;
+      font-size: 80%;
+    }
+  }
+
+  .b-time-footer {
+    margin-top: 0.5rem;
+  }
+
+  .b-time-ampm {
+    margin-left: 0.5rem;
+  }
+}

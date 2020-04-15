@@ -1,8 +1,8 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import Vue from '../../utils/vue'
-import identity from '../../utils/identity'
 import KeyCodes from '../../utils/key-codes'
+import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -11,10 +11,10 @@ import { isEvent, isFunction, isString } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { BFormTag } from './form-tag'
+import { BButton } from '../button/button'
 import { BFormInvalidFeedback } from '../form/form-invalid-feedback'
 import { BFormText } from '../form/form-text'
-import { BButton } from '../button/button'
+import { BFormTag } from './form-tag'
 
 // --- Constants ---
 
@@ -25,6 +25,9 @@ const TYPES = ['text', 'email', 'tel', 'url', 'number']
 
 // Pre-compiled regular expressions for performance reasons
 const RX_SPACES = /[\s\uFEFF\xA0]+/g
+
+// KeyCode constants
+const { ENTER, BACKSPACE, DELETE } = KeyCodes
 
 // --- Utility methods ---
 
@@ -62,8 +65,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   },
   props: {
     inputId: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     placeholder: {
       type: String,
@@ -74,12 +77,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       default: false
     },
     name: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     form: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     autofocus: {
       type: Boolean,
@@ -91,8 +94,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       default: null
     },
     size: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     },
     inputType: {
       type: String,
@@ -100,8 +103,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       validator: type => arrayIncludes(TYPES, type)
     },
     inputClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     inputAttrs: {
       // Additional attributes to add to the input element
@@ -121,8 +124,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME, 'tagVariant')
     },
     tagClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     tagPills: {
       type: Boolean,
@@ -132,9 +135,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: String,
       default: () => getComponentConfig(NAME, 'tagRemoveLabel')
     },
+    tagRemovedLabel: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'tagRemovedLabel')
+    },
     tagValidator: {
-      type: Function,
-      default: null
+      type: Function
+      // default: null
     },
     duplicateTagText: {
       type: String,
@@ -146,8 +153,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     separator: {
       // Character (or characters) that trigger adding tags
-      type: [String, Array],
-      default: null
+      type: [String, Array]
+      // default: null
     },
     removeOnDelete: {
       // Enable deleting last tag in list when BACKSPACE is
@@ -182,6 +189,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       hasFocus: false,
       newTag: '',
       tags: [],
+      // Tags that were removed
+      removedTags: [],
       // Populated when tags are parsed
       tagsState: cleanTagsState()
     }
@@ -263,10 +272,15 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     value(newVal) {
       this.tags = cleanTags(newVal)
     },
-    tags(newVal) {
+    tags(newVal, oldVal) {
       // Update the `v-model` (if it differs from the value prop)
       if (!looseEqual(newVal, this.value)) {
         this.$emit('input', newVal)
+      }
+      if (!looseEqual(newVal, oldVal)) {
+        newVal = concat(newVal).filter(identity)
+        oldVal = concat(oldVal).filter(identity)
+        this.removedTags = oldVal.filter(old => !arrayIncludes(newVal, old))
       }
     },
     tagsState(newVal, oldVal) {
@@ -284,6 +298,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
   mounted() {
     this.handleAutofocus()
   },
+  /* istanbul ignore next */
   activated() /* istanbul ignore next */ {
     this.handleAutofocus()
   },
@@ -336,7 +351,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       //   Or emit cancelable `BvEvent`
       this.tags = this.tags.filter(t => t !== tag)
       // Return focus to the input (if possible)
-      this.focus()
+      this.$nextTick(() => {
+        this.focus()
+      })
     },
     // --- Input element event handlers ---
     onInputInput(evt) {
@@ -383,20 +400,26 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const keyCode = evt.keyCode
       const value = evt.target.value || ''
       /* istanbul ignore else: testing to be added later */
-      if (!this.noAddOnEnter && keyCode === KeyCodes.ENTER) {
+      if (!this.noAddOnEnter && keyCode === ENTER) {
         // Attempt to add the tag when user presses enter
         evt.preventDefault()
         this.addTag()
-      } else if (this.removeOnDelete && keyCode === KeyCodes.BACKSPACE && value === '') {
-        // Remove the last tag if the user pressed backspace and the input is empty
+      } else if (
+        this.removeOnDelete &&
+        (keyCode === BACKSPACE || keyCode === DELETE) &&
+        value === ''
+      ) {
+        // Remove the last tag if the user pressed backspace/delete and the input is empty
         evt.preventDefault()
-        this.tags.pop()
+        this.tags = this.tags.slice(0, -1)
       }
     },
     // --- Wrapper event handlers ---
     onClick(evt) {
       if (!this.disabled && isEvent(evt) && evt.target === evt.currentTarget) {
-        this.$nextTick(this.focus)
+        this.$nextTick(() => {
+          this.focus()
+        })
       }
     },
     onFocusin() {
@@ -493,9 +516,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       invalidTagText,
       duplicateTagText,
       isInvalid,
-      invalidTags,
       isDuplicate,
-      duplicateTags,
       disabled,
       placeholder,
       addButtonText,
@@ -505,7 +526,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const h = this.$createElement
 
       // Make the list of tags
-      const $tags = tags.map((tag, idx) => {
+      const $tags = tags.map(tag => {
         tag = toString(tag)
         return h(
           BFormTag,
@@ -514,7 +535,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             staticClass: 'mt-1 mr-1',
             class: tagClass,
             props: {
-              // 'BFormTag' will auto generate an ID
+              // `BFormTag` will auto generate an ID
               // so we do not need to set the ID prop
               tag: 'li',
               title: tag,
@@ -593,10 +614,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         'li',
         {
           key: '__li-input__',
-          staticClass: 'd-inline-flex flex-grow-1 mt-1',
-          attrs: { role: 'group', 'aria-live': 'off', 'aria-controls': tagListId }
+          staticClass: 'flex-grow-1 mt-1',
+          attrs: {
+            role: 'none',
+            'aria-live': 'off',
+            'aria-controls': tagListId
+          }
         },
-        [$input, $button]
+        [h('div', { staticClass: 'd-flex', attrs: { role: 'group' } }, [$input, $button])]
       )
 
       // Wrap in an unordered list element (we use a list for accessibility)
@@ -605,16 +630,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         {
           key: '_tags_list_',
           staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center',
-          attrs: {
-            id: tagListId,
-            // Don't interrupt the user abruptly
-            // Although maybe this should be 'assertive'
-            // to provide immediate feedback of the tag added/removed
-            'aria-live': 'polite',
-            // Only read elements that have been added or removed
-            'aria-atomic': 'false',
-            'aria-relevant': 'additions removals'
-          }
+          attrs: { id: tagListId }
         },
         // `concat()` is faster than array spread when args are known to be arrays
         concat($tags, $field)
@@ -709,6 +725,38 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     // Generate the user interface
     const $content = this.normalizeSlot('default', scope) || this.defaultRender(scope)
 
+    // Generate the `aria-live` region for the current value(s)
+    const $output = h(
+      'output',
+      {
+        staticClass: 'sr-only',
+        attrs: {
+          id: this.safeId('_selected-tags_'),
+          role: 'status',
+          for: this.computedInputId,
+          'aria-live': this.hasFocus ? 'polite' : 'off',
+          'aria-atomic': 'true',
+          'aria-relevant': 'additions text'
+        }
+      },
+      this.tags.join(', ')
+    )
+
+    // Removed tag live region
+    const $removed = h(
+      'div',
+      {
+        staticClass: 'sr-only',
+        attrs: {
+          id: this.safeId('_removed-tags_'),
+          role: 'status',
+          'aria-live': this.hasFocus ? 'assertive' : 'off',
+          'aria-atomic': 'true'
+        }
+      },
+      this.removedTags.length > 0 ? `(${this.tagRemovedLabel}) ${this.removedTags.join(', ')}` : ''
+    )
+
     // Add hidden inputs for form submission
     let $hidden = h()
     if (this.name && !this.disabled) {
@@ -742,7 +790,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: this.safeId(),
           role: 'group',
-          tabindex: this.disabled || this.noOuterFocus ? null : '-1'
+          tabindex: this.disabled || this.noOuterFocus ? null : '-1',
+          'aria-describedby': this.safeId('_selected_')
         },
         on: {
           focusin: this.onFocusin,
@@ -750,7 +799,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           click: this.onClick
         }
       },
-      concat($content, $hidden)
+      concat($output, $removed, $content, $hidden)
     )
   }
 })

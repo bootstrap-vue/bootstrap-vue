@@ -4,6 +4,8 @@ import { BTooltip } from './tooltip'
 
 const localVue = new CreateLocalVue()
 
+const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
+
 // Our test application definition
 const appDef = {
   props: [
@@ -17,7 +19,8 @@ const appDef = {
     'btnDisabled',
     'variant',
     'customClass',
-    'delay'
+    'delay',
+    'isModal'
   ],
   render(h) {
     const tipProps = {
@@ -32,7 +35,12 @@ const appDef = {
       customClass: this.customClass,
       delay: this.delay
     }
-    return h('article', { attrs: { id: 'wrapper' } }, [
+    const wrapperData = {
+      attrs: { id: 'wrapper' },
+      // Class to simulate being in a modal
+      class: { 'modal-content': !!this.isModal }
+    }
+    return h('article', wrapperData, [
       h(
         'button',
         {
@@ -108,6 +116,7 @@ describe('b-tooltip', () => {
     expect(wrapper.is('article')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
+    expect(wrapper.classes()).not.toContain('modal-content')
 
     // The trigger button
     const $button = wrapper.find('button')
@@ -946,6 +955,153 @@ describe('b-tooltip', () => {
     await waitRAF()
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
+
+    // Tooltip element should not be in the document
+    expect(document.body.contains(tip)).toBe(false)
+    expect(document.getElementById(adb)).toBe(null)
+
+    wrapper.destroy()
+  })
+
+  it('does not close on $root modal hidden event by default', async () => {
+    jest.useFakeTimers()
+    const App = localVue.extend(appDef)
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      propsData: {
+        triggers: 'click',
+        show: true,
+        disabled: false,
+        titleAttr: 'ignored'
+      },
+      slots: {
+        default: 'title'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+    expect(wrapper.classes()).not.toContain('modal-content')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
+    expect($button.attributes('title')).toBeDefined()
+    expect($button.attributes('title')).toEqual('')
+    expect($button.attributes('data-original-title')).toBeDefined()
+    expect($button.attributes('data-original-title')).toEqual('ignored')
+    expect($button.attributes('aria-describedby')).toBeDefined()
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+
+    // b-tooltip wrapper
+    const $tipHolder = wrapper.find(BTooltip)
+    expect($tipHolder.exists()).toBe(true)
+
+    // Find the tooltip element in the document
+    const tip = document.getElementById(adb)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+
+    // Tooltip should ignore when ID is not its own
+    wrapper.vm.$root.$emit(MODAL_CLOSE_EVENT, 'some-modal')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($button.attributes('aria-describedby')).toBeDefined()
+
+    // Tooltip element should still be in the document
+    expect(document.body.contains(tip)).toBe(true)
+    expect(document.getElementById(adb)).not.toBe(null)
+
+    wrapper.destroy()
+  })
+
+  it('closes on $root modal hidden event when inside a modal', async () => {
+    jest.useFakeTimers()
+    const App = localVue.extend(appDef)
+    const wrapper = mount(App, {
+      attachToDocument: true,
+      localVue: localVue,
+      propsData: {
+        triggers: 'click',
+        show: true,
+        disabled: false,
+        titleAttr: 'ignored',
+        isModal: true
+      },
+      slots: {
+        default: 'title'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+    expect(wrapper.classes()).toContain('modal-content')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
+    expect($button.attributes('title')).toBeDefined()
+    expect($button.attributes('title')).toEqual('')
+    expect($button.attributes('data-original-title')).toBeDefined()
+    expect($button.attributes('data-original-title')).toEqual('ignored')
+    expect($button.attributes('aria-describedby')).toBeDefined()
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+
+    // b-tooltip wrapper
+    const $tipHolder = wrapper.find(BTooltip)
+    expect($tipHolder.exists()).toBe(true)
+
+    // Find the tooltip element in the document
+    const tip = document.getElementById(adb)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+
+    // Tooltip should ignore when ID is not its own
+    wrapper.vm.$root.$emit(MODAL_CLOSE_EVENT, 'some-modal')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
