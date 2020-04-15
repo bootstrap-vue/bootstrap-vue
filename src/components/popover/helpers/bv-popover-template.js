@@ -42,7 +42,6 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
           on: this.templateListeners
         },
         [$arrow, $header, $body]
-
       )
     }
   }
