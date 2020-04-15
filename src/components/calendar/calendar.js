@@ -796,29 +796,28 @@ export const BCalendar = Vue.extend({
     )
 
     // Content for the date navigation buttons
-    // TODO: add slots for the nav button content
     const navScope = { isRTL }
+    const navProps = { shiftV: 0.5 }
+    const navPrevProps = { ...navProps, flipH: isRTL }
+    const navNextProps = { ...navProps, flipH: !isRTL }
     const $prevDecadeIcon =
       this.normalizeSlot('nav-prev-decade', navScope) ||
-      h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: isRTL } })
+      h(BIconChevronBarLeft, { props: navPrevProps })
     const $prevYearIcon =
       this.normalizeSlot('nav-prev-year', navScope) ||
-      h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: isRTL } })
+      h(BIconChevronDoubleLeft, { props: navPrevProps })
     const $prevMonthIcon =
-      this.normalizeSlot('nav-prev-month', navScope) ||
-      h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: isRTL } })
+      this.normalizeSlot('nav-prev-month', navScope) || h(BIconChevronLeft, { props: navPrevProps })
     const $thisMonthIcon =
-      this.normalizeSlot('nav-this-month', navScope) ||
-      h(BIconCircleFill, { props: { shiftV: 0.5 } })
+      this.normalizeSlot('nav-this-month', navScope) || h(BIconCircleFill, { props: navProps })
     const $nextMonthIcon =
-      this.normalizeSlot('nav-next-month', navScope) ||
-      h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
+      this.normalizeSlot('nav-next-month', navScope) || h(BIconChevronLeft, { props: navNextProps })
     const $nextYearIcon =
       this.normalizeSlot('nav-next-year', navScope) ||
-      h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
+      h(BIconChevronDoubleLeft, { props: navNextProps })
     const $nextDecadeIcon =
       this.normalizeSlot('nav-next-decade', navScope) ||
-      h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
+      h(BIconChevronBarLeft, { props: navNextProps })
 
     // Utility to create the date navigation buttons
     const makeNavBtn = (content, label, handler, btnDisabled, shortcut) => {
