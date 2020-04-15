@@ -1,4 +1,5 @@
 import { getComponentConfig } from '../utils/config'
+import { suffixClass } from '../../utils/string'
 
 // @vue/component
 export default {
@@ -10,11 +11,11 @@ export default {
   },
   computed: {
     sizeFormClass() {
-      return [this.size ? `form-control-${this.size}` : null]
+      return [this.size ? suffixClass('form-control', this.size) : null]
     },
     /* istanbul ignore next: don't think this is used */
     sizeBtnClass() {
-      return [this.size ? `btn-${this.size}` : null]
+      return [this.size ? suffixClass('btn', this.size) : null]
     }
   }
 }
