@@ -23,6 +23,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   },
   inject: {
     bvTableRowGroup: {
+      /* istanbul ignore next */
       default() /* istanbul ignore next */ {
         return {}
       }
@@ -79,9 +80,9 @@ export const BTr = /*#__PURE__*/ Vue.extend({
     },
     isRowDark() {
       return this.headVariant === LIGHT || this.footVariant === LIGHT
-        ? false
+        ? /* istanbul ignore next */ false
         : this.headVariant === DARK || this.footVariant === DARK
-          ? true
+          ? /* istanbul ignore next */ true
           : this.isDark
     },
     trClasses() {

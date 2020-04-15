@@ -403,7 +403,7 @@ Note the the `repeat-delay`, `repeat-threshold` and `repeat-interval` only appli
 
 ## Implementation notes
 
-`<b-form-spinbutton>` uses a mixture of Bootstrap v4 utility classes (margin, padding, and flex),
+`<b-form-spinbutton>` uses a mixture of Bootstrap v4 utility classes (border, alignment, flex),
 form-control and button classes, along with additional custom BootstrapVue SCSS/CSS.
 
 ## See also

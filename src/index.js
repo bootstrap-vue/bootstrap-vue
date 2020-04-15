@@ -172,6 +172,10 @@ export { FormRadioPlugin } from './components/form-radio'
 export { BFormRadio } from './components/form-radio/form-radio'
 export { BFormRadioGroup } from './components/form-radio/form-radio-group'
 
+// export * from './components/form-rating'
+export { FormRatingPlugin } from './components/form-rating'
+export { BFormRating } from './components/form-rating/form-rating'
+
 // export * from './components/form-tags'
 export { FormTagsPlugin } from './components/form-tags'
 export { BFormTags } from './components/form-tags/form-tags'

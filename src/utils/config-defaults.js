@@ -52,7 +52,8 @@ export default deepFreeze({
     variant: 'info'
   },
   BAvatar: {
-    variant: 'secondary'
+    variant: 'secondary',
+    badgeVariant: 'primary'
   },
   BBadge: {
     variant: 'secondary'
@@ -124,6 +125,10 @@ export default deepFreeze({
     // Chrome default file prompt
     placeholder: 'No file chosen',
     dropPlaceholder: 'Drop files here'
+  },
+  BFormRating: {
+    variant: null,
+    color: null
   },
   BFormTag: {
     removeLabel: 'Remove tag',

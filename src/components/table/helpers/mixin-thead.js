@@ -152,7 +152,7 @@ export default {
         const trProps = {
           variant: isUndefinedOrNull(this.footRowVariant)
             ? this.headRowVariant
-            : this.footRowVariant
+            : /* istanbul ignore next */ this.footRowVariant
         }
         $trs.push(h(BTr, { class: this.tfootTrClass, props: trProps }, $cells))
       } else {

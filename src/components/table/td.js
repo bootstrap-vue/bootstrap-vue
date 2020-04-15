@@ -45,6 +45,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   inject: {
     bvTableTr: {
+      /* istanbul ignore next */
       default() /* istanbul ignore next */ {
         return {}
       }
@@ -103,6 +104,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     headVariant() {
       return this.bvTableTr.headVariant
     },
+    /* istanbul ignore next: need to add in tests for footer variant */
     footVariant() /* istanbul ignore next: need to add in tests for footer variant */ {
       return this.bvTableTr.footVariant
     },
@@ -167,7 +169,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         // stacked mode (if a stacked heading label is provided)
         'data-label':
           this.isStackedCell && !isUndefinedOrNull(this.stackedHeading)
-            ? toString(this.stackedHeading)
+            ? /* istanbul ignore next */ toString(this.stackedHeading)
             : null
       }
     }

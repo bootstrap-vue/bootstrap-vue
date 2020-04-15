@@ -99,6 +99,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
+    /* istanbul ignore next */
     templateType() /* istanbul ignore next */ {
       // Overridden by template component
       return 'unknown'
@@ -248,6 +249,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     popperPlacementChange({ placement }) {
       this.attachment = this.getAttachment(placement)
     },
+    /* istanbul ignore next */
     renderTemplate(h) /* istanbul ignore next */ {
       // Will be overridden by templates
       return h()

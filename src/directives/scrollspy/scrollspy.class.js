@@ -91,6 +91,7 @@ const toType = obj => /* istanbul ignore next: not easy to test */ {
 }
 
 // Check config properties for expected types
+/* istanbul ignore next */
 const typeCheckConfig = (
   componentName,
   config,
