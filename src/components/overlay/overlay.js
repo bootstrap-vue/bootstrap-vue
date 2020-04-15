@@ -131,7 +131,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
         {
           staticClass: 'position-absolute',
           style: this.noCenter
-            ? { ...positionCover }
+            ? /* istanbul ignore next */ { ...positionCover }
             : { top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)' }
         },
         [this.normalizeSlot('overlay', scope) || this.defaultOverlayFn(scope)]

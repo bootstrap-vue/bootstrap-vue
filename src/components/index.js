@@ -22,6 +22,7 @@ import { FormFilePlugin } from './form-file'
 import { FormGroupPlugin } from './form-group'
 import { FormInputPlugin } from './form-input'
 import { FormRadioPlugin } from './form-radio'
+import { FormRatingPlugin } from './form-rating'
 import { FormSelectPlugin } from './form-select'
 import { FormSpinbuttonPlugin } from './form-spinbutton'
 import { FormTagsPlugin } from './form-tags'
@@ -75,6 +76,7 @@ export const componentsPlugin = /*#__PURE__*/ pluginFactory({
     FormGroupPlugin,
     FormInputPlugin,
     FormRadioPlugin,
+    FormRatingPlugin,
     FormSelectPlugin,
     FormSpinbuttonPlugin,
     FormTagsPlugin,

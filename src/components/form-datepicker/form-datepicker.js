@@ -94,6 +94,11 @@ const propsMixin = {
       type: Boolean,
       default: false
     },
+    showDecadeNav: {
+      // When `true` enables the decade navigation buttons
+      type: Boolean,
+      default: false
+    },
     locale: {
       type: [String, Array]
       // default: null
@@ -175,6 +180,10 @@ const propsMixin = {
     },
     // Labels for buttons and keyboard shortcuts
     // These pick BCalendar global config if no BFormDate global config
+    labelPrevDecade: {
+      type: String,
+      default: () => getConfigFallback('labelPrevDecade')
+    },
     labelPrevYear: {
       type: String,
       default: () => getConfigFallback('labelPrevYear')
@@ -194,6 +203,10 @@ const propsMixin = {
     labelNextYear: {
       type: String,
       default: () => getConfigFallback('labelNextYear')
+    },
+    labelNextDecade: {
+      type: String,
+      default: () => getConfigFallback('labelNextDecade')
     },
     labelToday: {
       type: String,
@@ -293,11 +306,14 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         selectedVariant: self.selectedVariant,
         todayVariant: self.todayVariant,
         hideHeader: self.hideHeader,
+        showDecadeNav: self.showDecadeNav,
+        labelPrevDecade: self.labelPrevDecade,
         labelPrevYear: self.labelPrevYear,
         labelPrevMonth: self.labelPrevMonth,
         labelCurrentMonth: self.labelCurrentMonth,
         labelNextMonth: self.labelNextMonth,
         labelNextYear: self.labelNextYear,
+        labelNextDecade: self.labelNextDecade,
         labelToday: self.labelToday,
         labelSelected: self.labelSelected,
         labelNoDateSelected: self.labelNoDateSelected,

@@ -52,7 +52,8 @@ export default deepFreeze({
     variant: 'info'
   },
   BAvatar: {
-    variant: 'secondary'
+    variant: 'secondary',
+    badgeVariant: 'primary'
   },
   BBadge: {
     variant: 'secondary'
@@ -69,11 +70,13 @@ export default deepFreeze({
   },
   BCalendar: {
     // BFormDate will choose these first if not provided in BFormDate section
+    labelPrevDecade: 'Previous decade',
     labelPrevYear: 'Previous year',
     labelPrevMonth: 'Previous month',
     labelCurrentMonth: 'Current month',
     labelNextMonth: 'Next month',
     labelNextYear: 'Next year',
+    labelNextDecade: 'Next decade',
     labelToday: 'Today',
     labelSelected: 'Selected date',
     labelNoDateSelected: 'No date selected',
@@ -99,11 +102,13 @@ export default deepFreeze({
   },
   BFormDatepicker: {
     // BFormDatepicker will choose from BCalendar first if not provided here
+    labelPrevDecade: undefined,
     labelPrevYear: undefined,
     labelPrevMonth: undefined,
     labelCurrentMonth: undefined,
     labelNextMonth: undefined,
     labelNextYear: undefined,
+    labelNextDecade: undefined,
     labelToday: undefined,
     labelSelected: undefined,
     labelNoDateSelected: undefined,
@@ -120,6 +125,10 @@ export default deepFreeze({
     // Chrome default file prompt
     placeholder: 'No file chosen',
     dropPlaceholder: 'Drop files here'
+  },
+  BFormRating: {
+    variant: null,
+    color: null
   },
   BFormTag: {
     removeLabel: 'Remove tag',

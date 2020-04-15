@@ -36,10 +36,10 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
         [
           h('div', { ref: 'arrow', staticClass: 'arrow' }),
           isUndefinedOrNull($title) || $title === ''
-            ? h()
+            ? /* istanbul ignore next */ h()
             : h('h3', { staticClass: 'popover-header', domProps: titleDomProps }, [$title]),
           isUndefinedOrNull($content) || $content === ''
-            ? h()
+            ? /* istanbul ignore next */ h()
             : h('div', { staticClass: 'popover-body', domProps: contentDomProps }, [$content])
         ]
       )

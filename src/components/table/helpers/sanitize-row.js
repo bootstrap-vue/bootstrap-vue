@@ -20,9 +20,9 @@ const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) =>
       // `f.formater` will have already been noramlized into a function ref
       const filterByFormatted = f.filterByFormatted
       const formatter = isFunction(filterByFormatted)
-        ? filterByFormatted
+        ? /* istanbul ignore next */ filterByFormatted
         : filterByFormatted
-          ? f.formatter
+          ? /* istanbul ignore next */ f.formatter
           : null
       obj[key] = isFunction(formatter) ? formatter(val, key, row) : val
     }

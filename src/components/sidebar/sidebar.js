@@ -216,7 +216,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   computed: {
     transitionProps() {
       return this.noSlide
-        ? { css: true }
+        ? /* istanbul ignore next */ { css: true }
         : {
             css: true,
             enterClass: '',
@@ -247,6 +247,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         this.$emit('change', newVal)
       }
     },
+    /* istanbul ignore next */
     $route(newVal = {}, oldVal = {}) /* istanbul ignore next: pain to mock */ {
       if (!this.noCloseOnRouteChange && newVal.fullPath !== oldVal.fullPath) {
         this.hide()
@@ -266,6 +267,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       this.emitState(this.localShow)
     })
   },
+  /* istanbul ignore next */
   activated() /* istanbul ignore next */ {
     this.emitSync()
   },

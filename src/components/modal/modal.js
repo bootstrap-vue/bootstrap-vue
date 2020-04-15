@@ -275,7 +275,7 @@ export const props = {
   autoFocusButton: {
     type: String,
     default: null,
-    validator: val => {
+    validator /* istanbul ignore next */: val => {
       /* istanbul ignore next */
       return isUndefinedOrNull(val) || arrayIncludes(['ok', 'cancel', 'close'], val)
     }
@@ -794,6 +794,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             const close = this.$refs['close-button']
             // Focus the appropriate button or modal content wrapper
             const autoFocus = this.autoFocusButton
+            /* istanbul ignore next */
             const el =
               autoFocus === 'ok' && ok
                 ? ok.$el || ok

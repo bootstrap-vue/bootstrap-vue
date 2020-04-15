@@ -986,6 +986,48 @@ describe('modal', () => {
 
       wrapper.destroy()
     })
+
+    it('modal closes when no-stacking is true and another modal opens', async () => {
+      const wrapper = mount(BModal, {
+        attachToDocument: true,
+        stubs: {
+          transition: false
+        },
+        propsData: {
+          static: true,
+          id: 'test',
+          visible: true,
+          noStacking: true
+        }
+      })
+
+      expect(wrapper.isVueInstance()).toBe(true)
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('block')
+
+      // Simulate an other modal opening (by emiting a fake BvEvent)
+      // `bvEvent.vueTarget` is normally a Vue instance, but in this
+      // case we just use a random object since we are checking inequality
+      wrapper.vm.$root.$emit('bv::modal::show', { vueTarget: Number })
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      // Modal should now be closed
+      expect($modal.element.style.display).toEqual('none')
+
+      wrapper.destroy()
+    })
   })
 
   describe('focus management', () => {

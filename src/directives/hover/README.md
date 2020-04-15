@@ -50,7 +50,7 @@ The directive has no modifiers.
 
 ## Live example
 
-In the following, we are swapping icons and tet color depending on the hover state of the element:
+In the following, we are swapping icons and text color depending on the hover state of the element:
 
 ```html
 <template>
@@ -84,4 +84,4 @@ In the following, we are swapping icons and tet color depending on the hover sta
 ## Accessibility concerns
 
 Hover state should not be used to convey special meaning, as screen reader users and keyboard only
-users typically ac not typically trigger hover state on elements.
+users typically can not trigger hover state on elements.

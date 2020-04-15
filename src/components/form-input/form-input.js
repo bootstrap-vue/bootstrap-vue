@@ -84,11 +84,13 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
   mounted() {
     this.setWheelStopper(this.noWheel)
   },
+  /* istanbul ignore next */
   deactivated() {
     // Turn off listeners when keep-alive component deactivated
     /* istanbul ignore next */
     this.setWheelStopper(false)
   },
+  /* istanbul ignore next */
   activated() {
     // Turn on listeners (if no-wheel) when keep-alive component activated
     /* istanbul ignore next */

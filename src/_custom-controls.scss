@@ -31,9 +31,11 @@
 
 // Shared BVFormBtnLabelControl styling
 // Currently used by BFormTimepicker and BFormDatepicker
+// Does not apply to button-only styling
 .b-form-btn-label-control {
   // Remove background validation images from main wrapper
   background-image: none;
+  padding: 0;
 
   @at-root {
     // Prevent the button/label from reversing order on in horizontal RTL mode
@@ -51,6 +53,7 @@
     line-height: 1;
     font-size: inherit;
     box-shadow: none !important;
+    border: 0;
 
     &:disabled {
       pointer-events: none;
@@ -65,10 +68,15 @@
     color: $form-feedback-invalid-color;
   }
 
+  > .dropdown-menu {
+    padding: 0.5rem;
+  }
+
   > label {
-    // Unfortunately this is not supported by all browsers :(
-    // text-align: end;
     outline: 0;
+    padding-left: 0.25rem;
+    margin: 0;
+    border: 0;
     @if $enable-pointer-cursor-for-buttons {
       cursor: pointer;
     }
