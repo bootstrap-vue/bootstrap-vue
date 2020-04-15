@@ -65,7 +65,7 @@ export default {
         target !== document.activeElement ||
         target.tabIndex !== 0
       ) {
-        // Early exit if not an item row TR
+        // Early exit if not an item row TR and not in the tabindex
         return
       }
       const keyCode = evt.keyCode
@@ -135,7 +135,6 @@ export default {
       const items = this.computedItems
       // Shortcut to `createElement` (could use `this._c()` instead)
       const h = this.$createElement
-      const hasRowClickHandler = this.hasListener('row-clicked') || this.hasSelectableRowClick
 
       // Prepare the tbody rows
       const $rows = []
@@ -147,7 +146,6 @@ export default {
         $rows.push($busy)
       } else {
         // Table isn't busy, or we don't have a busy slot
-
         // Create a slot cache for improved performance when looking up cell slot names
         // Values will be keyed by the field's `key` and will store the slot's name
         // Slots could be dynamic (i.e. `v-if`), so we must compute on each render
@@ -188,6 +186,10 @@ export default {
 
       // Note: these events will only emit if a listener is registered
       const handlers = {
+        // These events are for row-clicked handlers
+        click: this.onTBodyRowClicked,
+        keydown: this.onTbodyRowKeydown,
+        // The follwoing events are not overly accessible 
         auxclick: this.onTbodyRowMiddleMouseRowClicked,
         // TODO:
         //   Perhaps we do want to automatically prevent the
@@ -197,11 +199,6 @@ export default {
         // The following event(s) is not considered A11Y friendly
         dblclick: this.onTbodyRowDblClicked
         // Hover events (`mouseenter`/`mouseleave`) are handled by `tbody-row` mixin
-      }
-      // Add in click/keydown listeners if needed
-      if (hasRowClickHandler) {
-        handlers.click = this.onTBodyRowClicked
-        handlers.keydown = this.onTbodyRowKeydown
       }
 
       // Assemble rows into the tbody
