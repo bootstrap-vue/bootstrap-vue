@@ -1,4 +1,5 @@
 import { isArray } from './array'
+import { isNumeric } from './number'
 import { isObject, isPlainObject } from './object'
 import { File } from './safe-types'
 
@@ -42,4 +43,4 @@ export const isPromise = val =>
   !isUndefinedOrNull(val) && isFunction(val.then) && isFunction(val.catch)
 
 // Extra convenience named re-exports
-export { isArray, isObject, isPlainObject }
+export { isArray, isNumeric, isObject, isPlainObject }
