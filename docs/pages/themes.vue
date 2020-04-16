@@ -9,6 +9,10 @@
         </p>
       </header>
 
+      <article v-if="!themes || themes.length === 0" class="bvd-theme">
+        <h2 class="h4">Coming soon!</h2>
+      </article>
+
       <article
         v-for="(theme, idx) in themes"
         :key="idx"
@@ -56,8 +60,8 @@
             BootstrapVue may receive a commission on themes purchased via the above affiliate links.
           </li>
           <li>
-            Refer to the <b-link href="/docs/reference/theming">Theming section</blink> for details
-            on incorporating custom theme SCSS files.
+            Refer to the <b-link href="/docs/reference/theming">Theming section</b-link> for
+            details on incorporating custom theme SCSS files.
           </li>
         </ul>
       </aside>
