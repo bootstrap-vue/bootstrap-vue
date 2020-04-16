@@ -102,7 +102,7 @@ export default {
           price: '$500.00'
         },
         {
-          title: 'To be determined',
+          title: 'Funky dashboard extreme',
           type: 'dahsboard',
           img: 'https://picsum.photos/800/600/?image=82',
           href: '#',
