@@ -75,7 +75,7 @@ export default {
           description: 'TBD'
           provider: 'XXXXXXX',
           price: '$75.00'
-        },
+        }
       ]
     }
   },
