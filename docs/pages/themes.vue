@@ -17,7 +17,8 @@
             </b-col>
             <b-col>
               <b-card-body class="d-flex flex-column">
-                <h2 class="h3">To be determined</h2>
+                <!-- We use `<h2>` for correct semantics, but `.h4` style -->
+                <h2 class="h4">To be determined</h2>
                 <b-card-text class="flex-grow-1">
                   {{ theme.description }}
                 </b-card-text>
