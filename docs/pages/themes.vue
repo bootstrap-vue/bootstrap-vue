@@ -51,6 +51,7 @@
             </b-col>
           </b-row>
         </b-card>
+      </article>
 
       <article class="bvd-theme">
         <b-card no-body>
