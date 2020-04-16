@@ -264,7 +264,7 @@
               <span>Configurable</span>
             </b-card-text>
             <b-card-text class="text-center">
-              Create <b-link to="/docs/reference/theming">themes</b-link> with SCSS variables and <b-link to="/docs/misc/settings">global options</b-link>
+              Create <b-link to="/docs/reference/theming">themes</b-link> with SCSS variables and <b-link to="/docs/reference/settings">global options</b-link>
             </b-card-text>
           </b-card>
 
