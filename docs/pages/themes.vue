@@ -99,7 +99,7 @@ export default {
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           provider: 'Innovative Bob',
-          price: '$10,000.00'
+          price: '$500.00'
         },
         {
           title: 'To be determined',
