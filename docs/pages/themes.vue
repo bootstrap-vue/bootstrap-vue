@@ -38,7 +38,7 @@
         </b-card>
       </article>
 
-      <aside id="#theme-notes" class="pb-5 small text-muted">
+      <aside id="#theme-notes" class="text-muted">
         <h2 class="h4">Notes:</h2>
         <ul class="small">
           <li clas="mb-2">
