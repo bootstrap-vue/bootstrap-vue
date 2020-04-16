@@ -22,12 +22,12 @@
         <b-card no-body bg-variant="light">
           <b-row no-gutters>
             <b-col md="5" lg="4" xl="4" aria-hidden="true">
-              <b-card-img
+              <b-card-img-lazy
                 :src="theme.img"
                 width="400"
                 alt="Image"
                 class="rounded-0"
-              ></b-card-img>
+              ></b-card-img-lazy>
             </b-col>
             <b-col>
               <b-card-body class="d-flex flex-column h-100">
@@ -94,7 +94,7 @@ export default {
         {
           title: 'Superduper Dashboard - PRO',
           type: 'dashboard',
-          img: 'https://picsum.photos/400/300/?image=84',
+          img: 'https://picsum.photos/800/600/?image=84',
           href: '#',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -104,7 +104,7 @@ export default {
         {
           title: 'To be determined',
           type: 'dahsboard',
-          img: 'https://picsum.photos/400/300/?image=82',
+          img: 'https://picsum.photos/800/600/?image=82',
           href: '#',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -113,7 +113,7 @@ export default {
         },
         {
           title: 'Some mystery theme theatre',
-          img: 'https://picsum.photos/400/300/?image=54',
+          img: 'https://picsum.photos/800/600/?image=54',
           href: '#',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
