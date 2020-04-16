@@ -1,5 +1,5 @@
 <template>
-  <b-container id="content" tag="main" class="pb-5">
+  <b-container id="content" fluid="lg" tag="main" class="pb-5">
     <section>
       <header class="bd-content pb-4">
         <h1>Custom themes and dashboards</h1>
