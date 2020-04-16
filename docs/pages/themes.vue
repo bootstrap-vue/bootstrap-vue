@@ -25,7 +25,6 @@
               <b-card-img
                 :src="theme.img"
                 width="400"
-                height="300"
                 alt="Image"
                 class="rounded-0"
               ></b-card-img>
