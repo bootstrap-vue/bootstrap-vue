@@ -40,7 +40,9 @@
                   <i>Provided by: {{ theme.provider }}</i>
                 </b-card-text>
                 <b-card-text class="d-flex align-items-center">
-                  <b-button :href="theme.href" target="_blank" variant="bd-primary">Get theme</b-button>
+                  <b-button :href="theme.href" target="_blank" variant="bd-primary">
+                    Get {{ theme.type || 'theme' }}
+                  </b-button>
                   <small v-if="theme.price" class="text-muted position-relative ml-3">
                     Price: {{ theme.price }}
                     <b-link href="#theme-notes" title="See notes" class="stretched-link">
