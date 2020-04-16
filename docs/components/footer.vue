@@ -21,7 +21,6 @@
             <li><b-link to="/docs/directives" exact>Directives</b-link></li>
             <li><b-link to="/docs/icons" exact>Icons</b-link></li>
             <li><b-link to="/docs/reference" exact>Reference</b-link></li>
-            <li><b-link to="/docs/misc" exact>Miscellaneous</b-link></li>
             <li><b-link to="/play" exact>Playground</b-link></li>
           </ul>
         </b-col>
@@ -40,7 +39,7 @@
           </ul>
           <h5 class="bd-text-purple-bright mb-1 mt-3">Release notes</h5>
           <ul class="list-unstyled ml-3">
-            <li><b-link to="/docs/misc/changelog" exact>Changelog</b-link></li>
+            <li><b-link to="/docs/reference/changelog" exact>Changelog</b-link></li>
           </ul>
         </b-col>
       </b-row>
