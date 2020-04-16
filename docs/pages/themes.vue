@@ -64,7 +64,7 @@
             Refer to the vendor/provider website for current pricing.
           </li>
           <li>
-            BootstrapVue may receive a commission on themes purchased via the above affiliate links.
+            BootstrapVue receives a commission on themes purchased via the above affiliate links.
           </li>
           <li>
             Refer to the <b-link to="/docs/reference/theming">Theming section</b-link> for
