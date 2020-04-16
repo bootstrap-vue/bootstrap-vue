@@ -5,7 +5,8 @@
         <h1>Custom themes and dashboards</h1>
         <p class="lead">
           With the below themes and dashboards built by our partners, you can build eye catching
-          apps and pages &mdash; all using BootstrapVue!
+          apps and pages &mdash; all using BootstrapVue! The folloing items have been curated by
+          the BootstrapVue team.
         </p>
       </header>
 
@@ -56,7 +57,7 @@
         </b-card>
       </article>
 
-      <aside id="theme-notes" class="text-muted">
+      <aside id="theme-notes" class="text-muted mb-5">
         <h2 class="h6">Notes:</h2>
         <ul class="small">
           <li clas="mb-2">
@@ -70,6 +71,24 @@
             Refer to the <b-link to="/docs/reference/theming">Theming section</b-link> for
             details on incorporating custom theme SCSS files.
           </li>
+        </ul>
+      </aside>
+
+      <aside id="theme-providers" class="text-muted">
+        <h2 class="h6">Are you a theme provider?</h2>
+        <p>
+          If you are interested in being an affiliate and listing your theme or dashboard on this
+          page, your product must meet the following guidelines:
+        </p>
+        <ul>
+          <li>It must be based on (or extends) BootstrapVue components;</li>
+          <li>
+            Must be be compatible with BootstrapVue so that users can incorporate native
+            BootstrapVue components if they wish;
+          </li>
+          <li>Should avoid the need for jQuery or Bootstrap v4 javascript files;</li>
+          <li>Should provide source SCSS/SASS files/variables;</li>
+          <li>Should promote that it is based on _BootstrapVue_ (not just Bootstrap _and_ Vue)</li>
         </ul>
       </aside>
     </section>
