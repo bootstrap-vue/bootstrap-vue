@@ -9,7 +9,7 @@
         </p>
       </header>
 
-      <article v-for="(theme, idx) in themes" :key="idx" class="bvd-theme pb-5">
+      <article v-for="(theme, idx) in themes" :key="idx" class="bvd-theme mb-5">
         <b-card no-body bg-variant="light" class="shadow">
           <b-row no-gutters>
             <b-col md="auto">
@@ -44,12 +44,15 @@
       </article>
 
       <aside id="#theme-notes" class="pb-5 small text-muted">
-        <p>
-          <b>*</b>: Prices are subject to change. Refer to the vendors website for details.
-        </p>
-        <p>
-          BootstrapVue may receive a commission on themes purchased via the above affiliate links.
-        </p>
+        <h2 class="h4">Notes:</h4>
+        <ul class="small">
+          <li clas="mb-2">
+            <b>*</b>: Prices are subject to change. Refer to the vendor/provider website for details.
+          </li>
+          <li>
+            BootstrapVue may receive a commission on themes purchased via the above affiliate links.
+          </li>
+        </ul>
       </aside>
     </section>
   </b-container>
