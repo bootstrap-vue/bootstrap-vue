@@ -27,7 +27,7 @@
                 </b-card-text>
                 <b-card-text class="d-flex align-items-center">
                   <b-button :href="theme.href" disabled variant="bd-primary">Get theme</b-button>
-                  <small class="text-muted ml-3">
+                  <small v-if="theme.price" class="text-muted ml-3">
                     Price: {{ theme.price }}
                     <sup><b-link href="#theme-notes" title="See notes"><b>*</b></b-link></sup>
                   </small>
