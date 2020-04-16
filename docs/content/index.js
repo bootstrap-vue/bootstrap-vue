@@ -40,25 +40,25 @@ export const nav = [
     title: 'Components',
     base: 'components/',
     pages: components,
-    description: 'BootstrapVue components and component group plugins'
+    description: 'BootstrapVue components and component group plugins.'
   },
   {
     title: 'Directives',
     base: 'directives/',
     pages: directives,
-    description: 'BootstrapVue directives and directive group plugins'
+    description: 'BootstrapVue directives and directive group plugins.'
   },
   {
     title: 'Icons',
     base: 'icons',
     version: '2.3.0',
-    description: 'BootstrapVue icons'
+    description: 'BootstrapVue icons.'
   },
   {
     title: 'Reference',
     base: 'reference/',
     pages: reference,
-    description: 'BootstrapVue and Bootstrap reference, and additional resources documentation'
+    description: 'BootstrapVue and Bootstrap reference, and additional resources documentation.'
   }
 ]
 
