@@ -103,7 +103,7 @@ export default {
         },
         {
           title: 'Funky dashboard extreme',
-          type: 'dahsboard',
+          type: 'dashboard',
           img: 'https://picsum.photos/800/600/?image=82',
           href: '#',
           description:
