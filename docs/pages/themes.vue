@@ -1,15 +1,21 @@
 <template>
-  <main id="content" role="main">
+  <b-container id="content" tag="main" class="pb-5">
     <section>
-      <h1>Custom themes and dashboards</h1>
+      <header class="pb-4">
+        <h1>Custom themes and dashboards</h1>
+        <p>
+          With the below themes and dahsboards built by our partners you can build eye catching apps
+          and pages, all using BootstrapVue.
+        </p>
+      </header>
 
       <article class="bvd-theme">
         <b-card no-body>
           <b-row no-gutters>
-            <b-col md="6">
-              <b-card-img src="https://picsum.photos/320/280/?image=84" alt="Image" class="rounded-0"></b-card-img>
+            <b-col md="3">
+              <b-card-img src="https://picsum.photos/320/240/?image=84" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
-            <b-col md="6">
+            <b-col md="9">
               <b-card-body title="To be determined">
                 <b-card-text>
                   TBD
@@ -24,10 +30,10 @@
       <article class="bvd-theme">
         <b-card no-body>
           <b-row no-gutters>
-            <b-col md="6">
-              <b-card-img src="https://picsum.photos/320/280/?image=82" alt="Image" class="rounded-0"></b-card-img>
+            <b-col md="3">
+              <b-card-img src="https://picsum.photos/320/240/?image=82" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
-            <b-col md="6">
+            <b-col md="9">
               <b-card-body title="To be determined">
                 <b-card-text>
                   TBD
@@ -39,8 +45,14 @@
         </b-card>
       </article>
     </section>
-  </main>
+  </b-container>
 </template>
+
+<style lang="scss">
+.bvd-theme:not(:last-child) {
+  margin-bottom: 2rem;
+}
+</style>
 
 <script>
 export default {
