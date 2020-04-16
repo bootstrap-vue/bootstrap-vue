@@ -9,7 +9,7 @@
         </p>
       </header>
 
-      <article v-for="(theme, idx) in themes" :key="idx" class="bvd-theme">
+      <article v-for="(theme, idx) in themes" :key="idx" class="bvd-theme pb-5">
         <b-card no-body bg-variant="light" class="shadow">
           <b-row no-gutters>
             <b-col md="auto">
@@ -29,6 +29,9 @@
                   {{ theme.description }}
                 </b-card-text>
                 <b-card-text class="text-muted small">
+                  Price: <b>{{ theme.price }}</b><b-link href="#theme-notes"><b>*</b></b-link>
+                </b-card-text>
+                <b-card-text class="text-muted small">
                   <i>Provided by: <b>{{ theme.provider }}</b></i>
                 </b-card-text>
                 <b-card-text>
@@ -39,16 +42,21 @@
           </b-row>
         </b-card>
       </article>
+
+      <aside id="#theme-notes" class="pb-5 small text-muted" >
+        <p>
+          <b>*</b>: Prices are subject to change. Refer to the vendors website for details.
+        </p>
+        <p>
+          BootstrapVue may receive a commission on themes purchased via the above affiliate links.
+        </p>
+      </aside>
     </section>
   </b-container>
 </template>
 
 <style lang="scss" scoped>
 .bvd-theme {
-  &:not(:last-child) {
-    margin-bottom: 3rem;
-  }
-
   .card {
     // Simple way to get rounded corners
     overflow: hidden;
