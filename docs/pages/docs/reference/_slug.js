@@ -11,7 +11,7 @@ const getReadMe = name => {
     name = ''
     base = '/../'
     file = 'CHANGELOG.md'
-  } else if (name === 'contributing') {
+  } else if (name === 'contributing/') {
     name = ''
     base = '/../'
     file = 'CONTRIBUTING.md'
