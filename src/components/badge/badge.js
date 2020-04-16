@@ -1,11 +1,13 @@
 import { mergeData } from 'vue-functional-data-merge'
+import { CLASS_NAME_BADGE } from '../../constants/class-names'
+import { NAME_BADGE } from '../../constants/components'
 import Vue from '../../utils/vue'
-import { getComponentConfig } from '../../utils/config'
 import pluckProps from '../../utils/pluck-props'
+import { getComponentConfig } from '../../utils/config'
+import { suffixClass } from '../../utils/string'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 
-const NAME = 'BBadge'
-
+// --- Props ---
 const linkProps = linkPropsFactory()
 delete linkProps.href.default
 delete linkProps.to.default
@@ -18,7 +20,7 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
+    default: () => getComponentConfig(NAME_BADGE, 'variant')
   },
   pill: {
     type: Boolean,
@@ -26,23 +28,25 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BBadge = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_BADGE,
   functional: true,
   props,
   render(h, { props, data, children }) {
+    const { variant, active, disabled } = props
     const isBLink = props.href || props.to
     const tag = isBLink ? BLink : props.tag
 
     const componentData = {
-      staticClass: 'badge',
+      staticClass: CLASS_NAME_BADGE,
       class: [
-        props.variant ? `badge-${props.variant}` : 'badge-secondary',
+        suffixClass(CLASS_NAME_BADGE, variant || 'secondary'),
         {
-          'badge-pill': props.pill,
-          active: props.active,
-          disabled: props.disabled
+          [suffixClass(CLASS_NAME_BADGE, 'pill')]: props.pill,
+          active,
+          disabled
         }
       ],
       props: isBLink ? pluckProps(linkProps, props) : {}

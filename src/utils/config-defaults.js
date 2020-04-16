@@ -1,3 +1,10 @@
+import {
+  NAME_ALERT,
+  NAME_AVATAR,
+  NAME_BADGE,
+  NAME_BUTTON,
+  NAME_BUTTON_CLOSE
+} from '../constants/components'
 import { deepFreeze } from './object'
 
 // --- General BootstrapVue configuration ---
@@ -47,22 +54,22 @@ export default deepFreeze({
 
   // Component specific defaults are keyed by the component
   // name (PascalCase) and prop name (camelCase)
-  BAlert: {
+  [NAME_ALERT]: {
     dismissLabel: 'Close',
     variant: 'info'
   },
-  BAvatar: {
+  [NAME_AVATAR]: {
     variant: 'secondary',
     badgeVariant: 'primary'
   },
-  BBadge: {
+  [NAME_BADGE]: {
     variant: 'secondary'
   },
-  BButton: {
+  [NAME_BUTTON]: {
     size: undefined,
     variant: 'secondary'
   },
-  BButtonClose: {
+  [NAME_BUTTON_CLOSE]: {
     content: '&times;',
     // `textVariant` is `null` to inherit the current text color
     textVariant: undefined,

@@ -1,4 +1,6 @@
 import { mergeData } from 'vue-functional-data-merge'
+import { CLASS_NAME_BUTTON } from '../../constants/class-names'
+import { NAME_BUTTON } from '../../constants/components'
 import { ENTER, SPACE } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
@@ -9,10 +11,6 @@ import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 import { suffixClass, toString } from '../../utils/string'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
-
-// --- Constants ---
-const NAME = 'BButton'
-const CLASS_NAME = 'btn'
 
 // --- Props ---
 const btnProps = {
@@ -26,11 +24,11 @@ const btnProps = {
   },
   size: {
     type: String,
-    default: () => getComponentConfig(NAME, 'size')
+    default: () => getComponentConfig(NAME_BUTTON, 'size')
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
+    default: () => getComponentConfig(NAME_BUTTON, 'variant')
   },
   type: {
     type: String,
@@ -93,10 +91,10 @@ const isNonStandardTag = props => !isLink(props) && !isButton(props)
 
 // Compute required classes (non static classes)
 const computeClass = props => [
-  suffixClass(CLASS_NAME, props.variant || getComponentConfig(NAME, 'variant')),
+  suffixClass(CLASS_NAME_BUTTON, props.variant || getComponentConfig(NAME_BUTTON, 'variant')),
   {
-    [suffixClass(CLASS_NAME, props.size)]: !!props.size,
-    [suffixClass(CLASS_NAME, 'block')]: props.block,
+    [suffixClass(CLASS_NAME_BUTTON, props.size)]: !!props.size,
+    [suffixClass(CLASS_NAME_BUTTON, 'block')]: props.block,
     'rounded-pill': props.pill,
     'rounded-0': props.squared && !props.pill,
     disabled: props.disabled,
@@ -148,7 +146,7 @@ const computeAttrs = (props, data) => {
 // --- Main component ---
 // @vue/component
 export const BButton = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_BUTTON,
   functional: true,
   props,
   render(h, { props, data, listeners, children }) {
@@ -196,7 +194,7 @@ export const BButton = /*#__PURE__*/ Vue.extend({
     }
 
     const componentData = {
-      staticClass: CLASS_NAME,
+      staticClass: CLASS_NAME_BUTTON,
       class: computeClass(props),
       props: computeLinkProps(props),
       attrs: computeAttrs(props, data),

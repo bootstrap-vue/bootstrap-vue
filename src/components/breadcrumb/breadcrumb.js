@@ -1,9 +1,12 @@
 import { mergeData } from 'vue-functional-data-merge'
+import { CLASS_NAME_BREADCRUMB } from '../../constants/class-names'
+import { NAME_BREADCRUMB } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { isArray, isObject } from '../../utils/inspect'
 import { toString } from '../../utils/string'
 import { BBreadcrumbItem } from './breadcrumb-item'
 
+// --- Props ---
 export const props = {
   items: {
     type: Array,
@@ -11,9 +14,10 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BBreadcrumb = /*#__PURE__*/ Vue.extend({
-  name: 'BBreadcrumb',
+  name: NAME_BREADCRUMB,
   functional: true,
   props,
   render(h, { props, data, children }) {
@@ -44,6 +48,6 @@ export const BBreadcrumb = /*#__PURE__*/ Vue.extend({
       })
     }
 
-    return h('ol', mergeData(data, { staticClass: 'breadcrumb' }), childNodes)
+    return h('ol', mergeData(data, { staticClass: CLASS_NAME_BREADCRUMB }), childNodes)
   }
 })

@@ -1,9 +1,16 @@
+import {
+  CLASS_NAME_AVATAR,
+  CLASS_NAME_BADGE,
+  CLASS_NAME_ROUNDED
+} from '../../constants/class-names'
+import { NAME_AVATAR } from '../../constants/components'
 import { RX_NUMBER } from '../../constants/regex'
 import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { getComponentConfig } from '../../utils/config'
 import { isNumber, isString } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
+import { suffixClass } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BLink } from '../link/link'
@@ -11,9 +18,6 @@ import { BIcon } from '../../icons/icon'
 import { BIconPersonFill } from '../../icons/icons'
 
 // --- Constants ---
-const NAME = 'BAvatar'
-const CLASS_NAME = 'b-avatar'
-
 const FONT_SIZE_SCALE = 0.4
 const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
 
@@ -90,7 +94,7 @@ const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
+    default: () => getComponentConfig(NAME_AVATAR, 'variant')
   },
   size: {
     type: [Number, String],
@@ -118,7 +122,7 @@ const props = {
   },
   badgeVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'badgeVariant')
+    default: () => getComponentConfig(NAME_AVATAR, 'badgeVariant')
   },
   badgeTop: {
     type: Boolean,
@@ -154,7 +158,7 @@ const computeSize = value => {
 // --- Main component ---
 // @vue/component
 export const BAvatar = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_AVATAR,
   mixins: [normalizeSlotMixin],
   props,
   data() {
@@ -223,7 +227,9 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     let $content = null
     if (this.hasNormalizedSlot('default')) {
       // Default slot overrides props
-      $content = h('span', { staticClass: 'b-avatar-custom' }, [this.normalizeSlot('default')])
+      $content = h('span', { staticClass: suffixClass(CLASS_NAME_AVATAR, 'custom') }, [
+        this.normalizeSlot('default')
+      ])
     } else if (src) {
       $content = h('img', { attrs: { src, alt }, on: { error: this.onImgError } })
     } else if (icon) {
@@ -232,7 +238,11 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         attrs: { 'aria-hidden': 'true', alt }
       })
     } else if (text) {
-      $content = h('span', { staticClass: 'b-avatar-text', style: { fontSize } }, [h('span', text)])
+      $content = h(
+        'span',
+        { staticClass: suffixClass(CLASS_NAME_AVATAR, 'text'), style: { fontSize } },
+        [h('span', text)]
+      )
     } else {
       // Fallback default avatar content
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true', alt } })
@@ -245,8 +255,8 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       $badge = h(
         'span',
         {
-          staticClass: 'b-avatar-badge',
-          class: { [`badge-${badgeVariant}`]: !!badgeVariant },
+          staticClass: suffixClass(CLASS_NAME_AVATAR, 'badge'),
+          class: { [suffixClass(CLASS_NAME_BADGE, badgeVariant)]: !!badgeVariant },
           style: badgeStyle
         },
         [hasBadgeSlot ? this.normalizeSlot('badge') : badgeText]
@@ -254,14 +264,14 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     }
 
     const componentData = {
-      staticClass: CLASS_NAME,
+      staticClass: CLASS_NAME_AVATAR,
       class: {
         // We use badge styles for theme variants when not rendering `BButton`
-        [`badge-${variant}`]: !isButton && variant,
+        [suffixClass(CLASS_NAME_BADGE, variant)]: !isButton && variant,
         // Rounding/Square
-        rounded: rounded === true,
-        'rounded-0': square,
-        [`rounded-${rounded}`]: rounded && rounded !== true,
+        [CLASS_NAME_ROUNDED]: rounded === true,
+        [suffixClass(CLASS_NAME_ROUNDED, 0)]: square,
+        [suffixClass(CLASS_NAME_ROUNDED, rounded)]: rounded && rounded !== true,
         // Other classes
         disabled
       },

@@ -1,3 +1,5 @@
+import { CLASS_NAME_ALERT } from '../../constants/class-names'
+import { NAME_ALERT } from '../../constants/components'
 import BVTransition from '../../utils/bv-transition'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
@@ -7,10 +9,6 @@ import { isNumeric, toInteger } from '../../utils/number'
 import { suffixClass } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButtonClose } from '../button/button-close'
-
-// --- Constants ---
-const NAME = 'BAlert'
-const CLASS_NAME = 'alert'
 
 // --- Utility methods ---
 
@@ -38,7 +36,7 @@ const parseShow = show => {
 // --- Main component ---
 // @vue/component
 export const BAlert = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_ALERT,
   mixins: [normalizeSlotMixin],
   model: {
     prop: 'show',
@@ -47,7 +45,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
   props: {
     variant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'variant')
+      default: () => getComponentConfig(NAME_ALERT, 'variant')
     },
     dismissible: {
       type: Boolean,
@@ -55,7 +53,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
     },
     dismissLabel: {
       type: String,
-      default: () => getComponentConfig(NAME, 'dismissLabel')
+      default: () => getComponentConfig(NAME_ALERT, 'dismissLabel')
     },
     show: {
       type: [Boolean, Number, String],
@@ -153,10 +151,10 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
       $alert = h(
         'div',
         {
-          staticClass: CLASS_NAME,
+          staticClass: CLASS_NAME_ALERT,
           class: {
-            [suffixClass(CLASS_NAME, 'dismissible')]: dismissible,
-            [suffixClass(CLASS_NAME, variant)]: !!variant
+            [suffixClass(CLASS_NAME_ALERT, 'dismissible')]: dismissible,
+            [suffixClass(CLASS_NAME_ALERT, variant)]: !!variant
           },
           attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true },
           key: this._uid

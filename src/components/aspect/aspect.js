@@ -1,18 +1,18 @@
+import { CLASS_NAME_ASPECT } from '../../constants/class-names'
+import { NAME_ASPECT } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { toFloat } from '../../utils/number'
+import { suffixClass } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // --- Constants ---
-const NAME = 'BAspect'
-const CLASS_NAME = 'b-aspect'
-
 const RX_ASPECT = /^\d+(\.\d*)?[/:]\d+(\.\d*)?$/
 const RX_SEPARATOR = /[/:]/
 
 // --- Main component ---
 // @vue/component
 export const BAspect = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_ASPECT,
   mixins: [normalizeSlotMixin],
   props: {
     aspect: {
@@ -43,17 +43,26 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const $sizer = h('div', {
-      staticClass: `${CLASS_NAME}-sizer flex-grow-1`,
+      staticClass: suffixClass(CLASS_NAME_ASPECT, 'sizer'),
+      class: 'flex-grow-1',
       style: { paddingBottom: this.padding, height: 0 }
     })
     const $content = h(
       'div',
       {
-        staticClass: `${CLASS_NAME}-content flex-grow-1 w-100 mw-100`,
+        staticClass: suffixClass(CLASS_NAME_ASPECT, 'content'),
+        class: ['flex-grow-1', 'w-100', 'mw-100'],
         style: { marginLeft: '-100%' }
       },
       [this.normalizeSlot('default')]
     )
-    return h(this.tag, { staticClass: `${CLASS_NAME} d-flex` }, [$sizer, $content])
+    return h(
+      this.tag,
+      {
+        staticClass: CLASS_NAME_ASPECT,
+        class: 'd-flex'
+      },
+      [$sizer, $content]
+    )
   }
 })

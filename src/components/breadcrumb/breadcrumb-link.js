@@ -1,9 +1,11 @@
 import { mergeData } from 'vue-functional-data-merge'
+import { NAME_BREADCRUMB_LINK } from '../../constants/components'
 import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { htmlOrText } from '../../utils/html'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 
+// --- Props ---
 export const props = {
   ...linkPropsFactory(),
   text: {
@@ -20,9 +22,10 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
-  name: 'BBreadcrumbLink',
+  name: NAME_BREADCRUMB_LINK,
   functional: true,
   props,
   render(h, { props: suppliedProps, data, children }) {

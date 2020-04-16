@@ -1,16 +1,15 @@
+import { CLASS_NAME_BUTTON_CLOSE } from '../../constants/class-names'
+import { NAME_BUTTON_CLOSE } from '../../constants/components'
 import { mergeData } from 'vue-functional-data-merge'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
-import { isEvent } from '../../utils/inspect'
-
-// --- Constants ---
-const NAME = 'BButtonClose'
+import { isArray, isEvent } from '../../utils/inspect'
 
 // --- Props ---
 const props = {
   content: {
     type: String,
-    default: () => getComponentConfig(NAME, 'content')
+    default: () => getComponentConfig(NAME_BUTTON_CLOSE, 'content')
   },
   disabled: {
     type: Boolean,
@@ -18,24 +17,24 @@ const props = {
   },
   ariaLabel: {
     type: String,
-    default: () => getComponentConfig(NAME, 'ariaLabel')
+    default: () => getComponentConfig(NAME_BUTTON_CLOSE, 'ariaLabel')
   },
   textVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'textVariant')
+    default: () => getComponentConfig(NAME_BUTTON_CLOSE, 'textVariant')
   }
 }
 
 // --- Main component ---
 // @vue/component
 export const BButtonClose = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_BUTTON_CLOSE,
   functional: true,
   props,
   render(h, { props, data, children }) {
     const { disabled, textVariant, ariaLabel } = props
     const componentData = {
-      staticClass: 'close',
+      staticClass: CLASS_NAME_BUTTON_CLOSE,
       class: {
         [`text-${textVariant}`]: textVariant
       },
@@ -56,7 +55,7 @@ export const BButtonClose = /*#__PURE__*/ Vue.extend({
       }
     }
     // Careful not to override the default slot with innerHTML
-    if (!children) {
+    if (!children || (isArray(children) && children.length === 0)) {
       componentData.domProps = { innerHTML: props.content }
     }
     return h('button', mergeData(data, componentData), [children])
