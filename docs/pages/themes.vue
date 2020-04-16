@@ -10,7 +10,7 @@
       </header>
 
       <article v-for="(theme, idx) in themes" :key="idx" class="bvd-theme">
-        <b-card no-body class="shadow">
+        <b-card no-body bg-variant="light" class="shadow">
           <b-row no-gutters>
             <b-col md="auto">
               <b-card-img :src="theme.img" alt="Image" class="rounded-0"></b-card-img>
