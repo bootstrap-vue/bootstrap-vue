@@ -17,7 +17,7 @@
       >
         <b-card no-body bg-variant="light" class="shadow">
           <b-row no-gutters>
-            <b-col md="7" lg="4" xl="3" aria-hidden="true"">
+            <b-col md="7" lg="4" xl="3" aria-hidden="true">
                <b-card-img :src="theme.img" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col>
@@ -54,6 +54,10 @@
           </li>
           <li>
             BootstrapVue may receive a commission on themes purchased via the above affiliate links.
+          </li>
+          <li>
+            Refer to the <b-link href="/docs/reference/theming">Theming section</blink> for details
+            on incorporating custom theme SCSS files.
           </li>
         </ul>
       </aside>
