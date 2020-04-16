@@ -76,11 +76,11 @@
 
       <aside id="theme-providers" class="text-muted">
         <h2 class="h6">Are you a theme provider?</h2>
-        <p>
+        <p class="small">
           If you are interested in being an affiliate and listing your theme or dashboard on this
           page, your product must meet the following guidelines:
         </p>
-        <ul>
+        <ul class="small">
           <li>It must be based on (or extends) BootstrapVue components;</li>
           <li>
             Must be be compatible with BootstrapVue so that users can incorporate native
