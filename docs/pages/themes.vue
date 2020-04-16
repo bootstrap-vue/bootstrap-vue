@@ -21,7 +21,7 @@
       >
         <b-card no-body bg-variant="light">
           <b-row no-gutters>
-            <b-col md="5" lg="4" xl="3" aria-hidden="true">
+            <b-col md="5" lg="4" xl="4" aria-hidden="true">
               <b-card-img
                 :src="theme.img"
                 width="400"
