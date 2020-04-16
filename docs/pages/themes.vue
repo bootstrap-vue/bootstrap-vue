@@ -29,7 +29,7 @@
                   {{ theme.description }}
                 </b-card-text>
                 <b-card-text class="text-muted small">
-                  Price: <b>{{ theme.price }}</b><b-link href="#theme-notes"><b>*</b></b-link>
+                  Price: <b>{{ theme.price }}</b><b-link href="#theme-notes" title="See notes"><b>*</b></b-link>
                 </b-card-text>
                 <b-card-text class="text-muted small">
                   <i>Provided by: <b>{{ theme.provider }}</b></i>
@@ -43,7 +43,7 @@
         </b-card>
       </article>
 
-      <aside id="#theme-notes" class="pb-5 small text-muted" >
+      <aside id="#theme-notes" class="pb-5 small text-muted">
         <p>
           <b>*</b>: Prices are subject to change. Refer to the vendors website for details.
         </p>
