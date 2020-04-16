@@ -3,8 +3,21 @@ import MainDocs from '~/components/main-docs'
 import docsMixin from '~/plugins/docs-mixin'
 import { reference as referenceMeta, defaultConfig } from '~/content'
 
-const getReadMe = name =>
-  import(`~/markdown/reference/${name}/README.md` /* webpackChunkName: "docs/reference" */)
+const getReadMe = name => {
+  let base = '/markdown/reference/'
+  let file = 'README.md'
+  name = `${name}/`
+  if (name === 'changelog/') {
+    name = ''
+    base = '/../'
+    file = 'CHANGELOG.md'
+  } else if (name === 'contributing') {
+    name = ''
+    base = '/../'
+    file = 'CONTRIBUTING.md'
+  }
+  import(`~${base}${name}${file}` /* webpackChunkName: "docs/reference" */)
+}
 
 const replacer = (key, value) => (typeof value === 'undefined' ? null : value)
 
