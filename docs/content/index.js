@@ -58,7 +58,7 @@ export const nav = [
     title: 'Reference',
     base: 'reference/',
     pages: reference,
-    description: 'BootstrapVue and Bootstrap reference documentation'
+    description: 'BootstrapVue and Bootstrap reference, and additional resources documentation'
   }
 ]
 
