@@ -318,5 +318,18 @@ describe('utils/dom', () => {
     const wrapper5 = mount(Component5)
     expect(hasChildren(currentChildren)).toBe(true)
     wrapper5.destroy()
+
+    const Component6 = Vue.extend({
+      components: { Base },
+      template: `
+        <Base>
+
+
+        </Base>
+      `
+    })
+    const wrapper6 = mount(Component6)
+    expect(hasChildren(currentChildren)).toBe(false)
+    wrapper6.destroy()
   })
 })
