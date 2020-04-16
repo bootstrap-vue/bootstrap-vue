@@ -9,16 +9,21 @@
         </p>
       </header>
 
-      <article v-for="(theme, idx) in themes" :key="idx" class="bvd-theme mb-5">
+      <article
+        v-for="(theme, idx) in themes"
+        :key="idx"
+        :aria-labelledby="`theme-label-${idx}`"
+        class="bvd-theme mb-5"
+      >
         <b-card no-body bg-variant="light" class="shadow">
           <b-row no-gutters>
-            <b-col md="7" lg="4" xl="3">
+            <b-col md="7" lg="4" xl="3 aria-hidden="true"">
                <b-card-img :src="theme.img" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col>
               <b-card-body class="d-flex flex-column h-100">
                 <!-- We use `<h2>` for correct semantics, but `.h4` style -->
-                <h2 class="h4">To be determined</h2>
+                <h2 :id="theme-label-${idx}" class="h4">To be determined</h2>
                 <b-card-text class="flex-grow-1">
                   {{ theme.description }}
                 </b-card-text>
@@ -29,11 +34,9 @@
                   <b-button :href="theme.href" disabled variant="bd-primary">Get theme</b-button>
                   <small v-if="theme.price" class="text-muted position-relative ml-3">
                     Price: {{ theme.price }}
-                    <sup>
-                      <b-link href="#theme-notes" title="See notes" class="stretched-link">
-                        <b>*</b>
-                      </b-link>
-                    </sup>
+                    <b-link href="#theme-notes" target="_blank" title="See notes" class="stretched-link">
+                      <b>*</b>
+                    </b-link>
                   </small>
                 </b-card-text>
               </b-card-body>
@@ -42,7 +45,7 @@
         </b-card>
       </article>
 
-      <aside id="#theme-notes" class="text-muted">
+      <aside id="theme-notes" class="text-muted">
         <h2 class="h6">Notes:</h2>
         <ul class="small">
           <li clas="mb-2">
