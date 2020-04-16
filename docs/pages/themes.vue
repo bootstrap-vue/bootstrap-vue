@@ -9,66 +9,22 @@
         </p>
       </header>
 
-      <article class="bvd-theme">
+      <article v-for="(theme, id) in themes" :key="idx" class="bvd-theme">
         <b-card no-body>
           <b-row no-gutters>
             <b-col md="auto">
-              <b-card-img src="https://picsum.photos/320/240/?image=84" alt="Image" class="rounded-0"></b-card-img>
+              <b-card-img :src="theme.img" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col>
               <b-card-body class="d-flex flex-column">
                 <h2 class="h3">To be determined</h2>
                 <b-card-text>
-                  TBD
+                  {{ theme.description }}
                 </b-card-text>
                 <b-card-text class="text-muted">
-                  <i>Provided by: <b>XXXXXXXX</b></i>
+                  <i>Provided by: <b>{{ theme.provider }}</b></i>
                 </b-card-text>
-                <b-button href="#" disabled variant="bd-primary">Get theme</b-button>
-              </b-card-body>
-            </b-col>
-          </b-row>
-        </b-card>
-      </article>
-
-      <article class="bvd-theme">
-        <b-card no-body>
-          <b-row no-gutters>
-            <b-col md="auto">
-              <b-card-img src="https://picsum.photos/320/240/?image=82" alt="Image" class="rounded-0"></b-card-img>
-            </b-col>
-            <b-col>
-              <b-card-body class="d-flex flex-column">
-                <h2 class="h3">To be determined</h2>
-                <b-card-text>
-                  TBD
-                </b-card-text>
-                <b-card-text class="text-muted">
-                  <i>Provided by: <b>XXXXXXXX</b></i>
-                </b-card-text>
-                <b-button href="#" disabled variant="bd-primary">Get theme</b-button>
-              </b-card-body>
-            </b-col>
-          </b-row>
-        </b-card>
-      </article>
-
-      <article class="bvd-theme">
-        <b-card no-body>
-          <b-row no-gutters>
-            <b-col md="auto">
-              <b-card-img src="https://picsum.photos/320/240/?image=54" alt="Image" class="rounded-0"></b-card-img>
-            </b-col>
-            <b-col>
-              <b-card-body class="d-flex flex-column">
-                <h2 class="h3">To be determined</h2>
-                <b-card-text>
-                  TBD
-                </b-card-text>
-                <b-card-text class="text-muted">
-                  <i>Provided by: <b>XXXXXXXX</b></i>
-                </b-card-text>
-                <b-button href="#" disabled variant="bd-primary">Get theme</b-button>
+                <b-button :href="theme.href" disabled variant="bd-primary">Get theme</b-button>
               </b-card-body>
             </b-col>
           </b-row>
@@ -94,7 +50,34 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      themes: [
+        {
+          title: 'To be determied'
+          img: 'https://picsum.photos/320/240/?image=84',
+          href: '#'
+          description: 'TBD'
+          provider: 'XXXXXXX',
+          price: '$10,000.00'
+        },
+        {
+          title: 'To be determied'
+          img: 'https://picsum.photos/320/240/?image=82',
+          href: '#'
+          description: 'TBD'
+          provider: 'XXXXXXX',
+          price: 'Free'
+        },
+        {
+          title: 'To be determied'
+          img: 'https://picsum.photos/320/240/?image=54',
+          href: '#'
+          description: 'TBD'
+          provider: 'XXXXXXX',
+          price: '$75.00'
+        },
+      ]
+    }
   },
   computed: {
     title() {
