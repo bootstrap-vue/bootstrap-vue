@@ -1,7 +1,7 @@
 <template>
   <b-container id="content" tag="main" class="pb-5">
     <section>
-      <header class="pb-4">
+      <header class="bd-content pb-4">
         <h1>Custom themes and dashboards</h1>
         <p>
           With the below themes and dahsboards built by our partners you can build eye catching apps
