@@ -21,7 +21,7 @@
                 <b-card-text class="flex-grow-1">
                   {{ theme.description }}
                 </b-card-text>
-                <b-card-text class="text-muted">
+                <b-card-text class="text-muted small">
                   <i>Provided by: <b>{{ theme.provider }}</b></i>
                 </b-card-text>
                 <b-card-text>
