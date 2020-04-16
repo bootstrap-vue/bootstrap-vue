@@ -60,7 +60,7 @@
             BootstrapVue may receive a commission on themes purchased via the above affiliate links.
           </li>
           <li>
-            Refer to the <b-link href="/docs/reference/theming">Theming section</b-link> for
+            Refer to the <b-link to="/docs/reference/theming">Theming section</b-link> for
             details on incorporating custom theme SCSS files.
           </li>
         </ul>
