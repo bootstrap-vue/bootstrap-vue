@@ -5,6 +5,8 @@ import { reference as referenceMeta } from '~/content'
 const getReadMe = name =>
   import(`~/markdown/reference/${name}/README.md` /* webpackChunkName: "docs/reference" */)
 
+const replacer = (key, value) => (typeof value === 'undefined' ? null : value)
+
 // @vue/component
 export default {
   name: 'BDVReference',
@@ -15,7 +17,11 @@ export default {
   },
   async asyncData({ params }) {
     const readme = (await getReadMe(params.slug)).default
-    const meta = referenceMeta[params.slug]
+    let meta = referenceMeta[params.slug]
+    readme = readme.replace(
+      '{{ defaultConfig }}',
+      hljs.highlight('json', JSON.stringify(defaultConfig || {}, replacer, 2)).value
+    )
     return { meta, readme }
   },
   render(h) {
