@@ -93,6 +93,7 @@ export default {
       themes: [
         {
           title: 'Superduper Dashboard - PRO',
+          type: 'dashboard',
           img: 'https://picsum.photos/400/300/?image=84',
           href: '#',
           description:
@@ -102,6 +103,7 @@ export default {
         },
         {
           title: 'To be determined',
+          type: 'dahsboard',
           img: 'https://picsum.photos/400/300/?image=82',
           href: '#',
           description:
