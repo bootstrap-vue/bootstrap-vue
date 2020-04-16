@@ -203,6 +203,7 @@ module.exports = {
         // Nuxt default is missing image
         image: 'xlink:href',
         // Add BootstrapVue specific component asset items
+        'b-avatar': 'src',
         'b-img': 'src',
         'b-img-lazy': ['src', 'blank-src'],
         'b-card': 'img-src',
