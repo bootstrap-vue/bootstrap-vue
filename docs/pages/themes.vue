@@ -23,12 +23,14 @@
         <b-card no-body bg-variant="light">
           <b-row no-gutters>
             <b-col md="6" lg="4" xl="4" aria-hidden="true">
-              <b-card-img-lazy
-                :src="theme.img"
-                width="400"
-                alt="Image"
-                class="rounded-0"
-              ></b-card-img-lazy>
+              <b-aspect aspect="4:3">
+                <b-card-img-lazy
+                  :src="theme.img"
+                  width="400"
+                  alt="Image"
+                  class="rounded-0"
+                ></b-card-img-lazy>
+              </b-aspect>
             </b-col>
             <b-col>
               <b-card-body class="d-flex flex-column h-100">
