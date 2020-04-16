@@ -227,7 +227,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       $content = h('span', { staticClass: 'b-avatar-custom' }, [this.normalizeSlot('default')])
     } else if (src) {
       $content = h('img', {
-        style: variant === '' ? { width: '100%', height: '100%' } : {},
+        style: variant ? {} : { width: '100%', height: '100%' },
         attrs: { src, alt },
         on: { error: this.onImgError }
       })
