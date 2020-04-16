@@ -23,11 +23,13 @@
                   {{ theme.description }}
                 </b-card-text>
                 <b-card-text class="text-muted small">
-                  Price: <b>{{ theme.price }}</b><b-link href="#theme-notes" title="See notes"><b>*</b></b-link>
                   <i>Provided by: {{ theme.provider }}</i>
                 </b-card-text>
-                <b-card-text>
+                <b-card-text class="d-flex align-items-center">
                   <b-button :href="theme.href" disabled variant="bd-primary">Get theme</b-button>
+                  <small class="text-muted ml-3">
+                    Price: <b>{{ theme.price }}</b><b-link href="#theme-notes" title="See notes"><b>*</b></b-link>
+                  </small>
                 </b-card-text>
               </b-card-body>
             </b-col>
