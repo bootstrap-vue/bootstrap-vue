@@ -5,16 +5,15 @@ import { reference as referenceMeta, defaultConfig } from '~/content'
 
 const getReadMe = name => {
   let base = '/markdown/reference/'
-  let file = 'README.md'
-  name = `${name}/`
+  let file = '/README.md'
   if (name === 'changelog/') {
     name = ''
-    base = '/../'
-    file = 'CHANGELOG.md'
-  } else if (name === 'contributing/') {
+    base = '/..'
+    file = '/CHANGELOG.md'
+  } else if (name === 'contributing') {
     name = ''
-    base = '/../'
-    file = 'CONTRIBUTING.md'
+    base = '/..'
+    file = '/CONTRIBUTING.md'
   }
   import(`~${base}${name}${file}` /* webpackChunkName: "docs/reference" */)
 }
