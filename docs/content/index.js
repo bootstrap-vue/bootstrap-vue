@@ -30,9 +30,6 @@ export { icons }
 const referenceContext = require.context('~/markdown/reference', true, /meta.json/)
 export const reference = importAll(referenceContext)
 
-const miscContext = require.context('~/markdown/misc', true, /meta.json/)
-export const misc = importAll(miscContext)
-
 export const nav = [
   {
     title: 'Getting started',
@@ -62,12 +59,6 @@ export const nav = [
     base: 'reference/',
     pages: reference,
     description: 'BootstrapVue and Bootstrap reference documentation'
-  },
-  {
-    title: 'Misc',
-    base: 'misc/',
-    pages: misc,
-    description: 'BootstrapVue changelog, settings, and miscellaneous additional resources'
   }
 ]
 
