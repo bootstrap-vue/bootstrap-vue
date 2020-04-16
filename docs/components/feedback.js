@@ -34,7 +34,7 @@ export default {
         } else if (slug === 'contributing') {
           path = 'CONTRIBUTING.md'
         } else if (slug === 'settings') {
-          path = 'docs/markdown/misc/settings/README.md'
+          path = 'docs/markdown/reference/settings/README.md'
         } else {
           path = `docs/markdown/reference/${slug}/README.md`
         }
