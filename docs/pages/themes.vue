@@ -12,15 +12,19 @@
       <article class="bvd-theme">
         <b-card no-body>
           <b-row no-gutters>
-            <b-col md="3">
+            <b-col md="auto">
               <b-card-img src="https://picsum.photos/320/240/?image=84" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
-            <b-col md="9">
-              <b-card-body title="To be determined">
+            <b-col>
+              <b-card-body class="d-flex flex-column">
+                <h2 class="h3">To be determined</h2>
                 <b-card-text>
                   TBD
                 </b-card-text>
-                <b-button disabled variant="bd-primary">Get theme</b-button>
+                <b-card-text class="text-muted">
+                  <i>Provided by: <b>XXXXXXXX</b></i>
+                </b-card-text>
+                <b-button href="#" disabled variant="bd-primary">Get theme</b-button>
               </b-card-body>
             </b-col>
           </b-row>
@@ -30,15 +34,40 @@
       <article class="bvd-theme">
         <b-card no-body>
           <b-row no-gutters>
-            <b-col md="3">
+            <b-col md="auto">
               <b-card-img src="https://picsum.photos/320/240/?image=82" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
-            <b-col md="9">
-              <b-card-body title="To be determined">
+            <b-col>
+              <b-card-body class="d-flex flex-column">
+                <h2 class="h3">To be determined</h2>
                 <b-card-text>
                   TBD
                 </b-card-text>
-                <b-button disabled variant="bd-primary">Get theme</b-button>
+                <b-card-text class="text-muted">
+                  <i>Provided by: <b>XXXXXXXX</b></i>
+                </b-card-text>
+                <b-button href="#" disabled variant="bd-primary">Get theme</b-button>
+              </b-card-body>
+            </b-col>
+          </b-row>
+        </b-card>
+
+      <article class="bvd-theme">
+        <b-card no-body>
+          <b-row no-gutters>
+            <b-col md="auto">
+              <b-card-img src="https://picsum.photos/320/240/?image=54" alt="Image" class="rounded-0"></b-card-img>
+            </b-col>
+            <b-col>
+              <b-card-body class="d-flex flex-column">
+                <h2 class="h3">To be determined</h2>
+                <b-card-text>
+                  TBD
+                </b-card-text>
+                <b-card-text class="text-muted">
+                  <i>Provided by: <b>XXXXXXXX</b></i>
+                </b-card-text>
+                <b-button href="#" disabled variant="bd-primary">Get theme</b-button>
               </b-card-body>
             </b-col>
           </b-row>
@@ -48,9 +77,16 @@
   </b-container>
 </template>
 
-<style lang="scss">
-.bvd-theme:not(:last-child) {
-  margin-bottom: 2rem;
+<style lang="scss" scoped>
+.bvd-theme {
+  &:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+
+  .card {
+    // Simple way to get rounded corners
+    overflow: hidden;
+  }
 }
 </style>
 
