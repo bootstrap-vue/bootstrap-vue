@@ -84,6 +84,8 @@ and will be sized to show the avatar's [variant background](#variants) around th
   fallback to the value of the `icon` or `text` props. If neither the `icon` or `text` props are
   provided, then the default avatar icon will be shown. Also, when the image fails to load, the
   `img-error` event will be emitted.
+- <span class="badge badge-secondary">2.12.0+</span> Setting the [variant prop](#variants) to an
+  empty string will remove the visible background border around the image.
 
 ### Icon content
 
@@ -301,7 +303,7 @@ The `to` prop can either be a string path, or a `Location` object. The `to` prop
 ```html
 <template>
   <div>
-    <b-avatar href="#foobar"variant="info" src="https://placekitten.com/300/300"></b-avatar>
+    <b-avatar href="#foobar" variant="info" src="https://placekitten.com/300/300"></b-avatar>
     Link Avatar
   </div>
 </template>
