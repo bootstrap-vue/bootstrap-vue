@@ -2,8 +2,8 @@ import { mergeData } from 'vue-functional-data-merge'
 import { NAME_BREADCRUMB_LINK } from '../../constants/components'
 import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
+import { hasChildren } from '../../utils/dom'
 import { htmlOrText } from '../../utils/html'
-import { isArray } from '../../utils/inspect'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 
 // --- Props ---
@@ -37,7 +37,7 @@ export const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
       componentData.attrs = { 'aria-current': suppliedProps.ariaCurrent }
     }
 
-    if (!children || (isArray(children) && children.length === 0)) {
+    if (!hasChildren(children)) {
       componentData.domProps = htmlOrText(suppliedProps.html, suppliedProps.text)
     }
 

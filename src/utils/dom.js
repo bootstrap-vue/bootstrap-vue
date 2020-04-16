@@ -1,6 +1,6 @@
 import { from as arrayFrom } from './array'
 import { hasWindowSupport, hasDocumentSupport } from './env'
-import { isFunction, isNull } from './inspect'
+import { isArray, isFunction, isNull } from './inspect'
 import { toFloat } from './number'
 
 // --- Constants ---
@@ -234,3 +234,7 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
     left: _offset.left - parentOffset.left - toFloat(elStyles.marginLeft, 0)
   }
 }
+
+// Determine wether a component has children
+export const hasChildren = children =>
+  isArray(children) ? children.some(c => hasChildren(c)) : !!children

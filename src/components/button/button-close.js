@@ -3,7 +3,8 @@ import { NAME_BUTTON_CLOSE } from '../../constants/components'
 import { mergeData } from 'vue-functional-data-merge'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
-import { isArray, isEvent } from '../../utils/inspect'
+import { hasChildren } from '../../utils/dom'
+import { isEvent } from '../../utils/inspect'
 
 // --- Props ---
 const props = {
@@ -54,10 +55,12 @@ export const BButtonClose = /*#__PURE__*/ Vue.extend({
         }
       }
     }
+
     // Careful not to override the default slot with innerHTML
-    if (!children || (isArray(children) && children.length === 0)) {
+    if (!hasChildren(children)) {
       componentData.domProps = { innerHTML: props.content }
     }
+
     return h('button', mergeData(data, componentData), [children])
   }
 })

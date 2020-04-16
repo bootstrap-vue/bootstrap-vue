@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import {
-  isElement,
-  isDisabled,
-  contains,
   closest,
+  contains,
+  getAttr,
+  hasAttr,
+  hasChildren,
+  hasClass,
+  isDisabled,
+  isElement,
   matches,
   select,
-  selectAll,
-  hasAttr,
-  getAttr,
-  hasClass
+  selectAll
 } from './dom'
 
 const template = `
@@ -29,7 +30,7 @@ const template = `
 const App = Vue.extend({ template })
 
 describe('utils/dom', () => {
-  it('isElement works', async () => {
+  it('isElement() works', async () => {
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -42,7 +43,7 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('isDisabled works', async () => {
+  it('isDisabled() works', async () => {
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -58,7 +59,7 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('hasClass works', async () => {
+  it('hasClass() works', async () => {
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -75,7 +76,7 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('contains works', async () => {
+  it('contains() works', async () => {
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -96,7 +97,7 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('closest works', async () => {
+  it('closest() works', async () => {
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -122,7 +123,7 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('matches works', async () => {
+  it('matches() works', async () => {
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -147,7 +148,7 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('hasAttr works', async () => {
+  it('hasAttr() works', async () => {
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -167,7 +168,7 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('getAttr works', async () => {
+  it('getAttr() works', async () => {
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -190,7 +191,7 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('select works', async () => {
+  it('select() works', async () => {
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -216,7 +217,7 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('selectAll works', async () => {
+  it('selectAll() works', async () => {
     const wrapper = mount(App, {
       attachToDocument: true
     })
@@ -261,5 +262,61 @@ describe('utils/dom', () => {
     expect(selectAll('div.baz button')[2]).toBe($btns.at(2).element)
 
     wrapper.destroy()
+  })
+
+  it('hasChildren() works', async () => {
+    let currentChildren = null
+    const Base = Vue.extend({
+      functional: true,
+      render(h, { data, children }) {
+        currentChildren = children
+        return h('div', data, children)
+      }
+    })
+
+    const Component1 = Vue.extend({
+      components: { Base },
+      template: '<Base></Base>'
+    })
+    const wrapper1 = mount(Component1)
+    expect(hasChildren(currentChildren)).toBe(false)
+    wrapper1.destroy()
+
+    const Component2 = Vue.extend({
+      components: { Base },
+      template: '<Base> </Base>'
+    })
+    const wrapper2 = mount(Component2)
+    expect(hasChildren(currentChildren)).toBe(false)
+    wrapper2.destroy()
+
+    const Component3 = Vue.extend({
+      components: { Base },
+      template: '<Base>&times;</Base>'
+    })
+    const wrapper3 = mount(Component3)
+    expect(hasChildren(currentChildren)).toBe(true)
+    wrapper3.destroy()
+
+    const Component4 = Vue.extend({
+      components: { Base },
+      template: '<Base><span></span></Base>'
+    })
+    const wrapper4 = mount(Component4)
+    expect(hasChildren(currentChildren)).toBe(true)
+    wrapper4.destroy()
+
+    const Component5 = Vue.extend({
+      components: { Base },
+      template: `
+        <Base>
+          <span></span>
+          <span></span>
+          <span></span>
+        </Base>`
+    })
+    const wrapper5 = mount(Component5)
+    expect(hasChildren(currentChildren)).toBe(true)
+    wrapper5.destroy()
   })
 })
