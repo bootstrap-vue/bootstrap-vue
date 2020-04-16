@@ -13,7 +13,13 @@
         <b-card no-body bg-variant="light" class="shadow">
           <b-row no-gutters>
             <b-col md="auto">
-              <b-card-img :src="theme.img" width="320" height="240" alt="Image" class="rounded-0"></b-card-img>
+              <b-card-img
+                :src="theme.img"
+                width="320"
+                height="240"
+                alt="Image"
+                class="rounded-0"
+              ></b-card-img>
             </b-col>
             <b-col>
               <b-card-body class="d-flex flex-column">
