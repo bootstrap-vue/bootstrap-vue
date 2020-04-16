@@ -18,12 +18,12 @@
         <b-card no-body bg-variant="light" class="shadow">
           <b-row no-gutters>
             <b-col md="7" lg="4" xl="3" aria-hidden="true">
-               <b-card-img :src="theme.img" alt="Image" class="rounded-0"></b-card-img>
+              <b-card-img :src="theme.img" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col>
               <b-card-body class="d-flex flex-column h-100">
                 <!-- We use `<h2>` for correct semantics, but `.h5` style -->
-                <h2 :id="theme-label-${idx}" class="h5">To be determined</h2>
+                <h2 :id="`theme-label-${idx}`" class="h5">{{ theme.title }}</h2>
                 <b-card-text class="flex-grow-1">
                   {{ theme.description }}
                 </b-card-text>
