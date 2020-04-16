@@ -57,10 +57,10 @@
         </b-card>
       </article>
 
-      <aside id="theme-notes" class="text-muted mb-5">
+      <aside id="theme-notes" class="text-muted mb-3">
         <h2 class="h6">Notes:</h2>
         <ul class="small">
-          <li clas="mb-2">
+          <li>
             Prices shown are in US dollars unless otherwise noted. Prices are subject to change.
             Refer to the vendor/provider website for current pricing.
           </li>
@@ -76,7 +76,7 @@
 
       <aside id="theme-providers" class="text-muted">
         <h2 class="h6">Are you a theme provider?</h2>
-        <p class="small">
+        <p class="small mb-2">
           If you are interested in being an affiliate and listing your theme or dashboard on this
           page, your product must meet the following guidelines:
         </p>
