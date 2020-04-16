@@ -12,7 +12,7 @@
       <article v-for="(theme, idx) in themes" :key="idx" class="bvd-theme mb-5">
         <b-card no-body bg-variant="light" class="shadow">
           <b-row no-gutters>
-            <b-col md="7" lg="4">
+            <b-col md="7" lg="4" xl="3">
                <b-card-img :src="theme.img" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col>
