@@ -121,7 +121,7 @@ export default {
   },
   head() {
     const title = `${this.title} | BootstrapVue`
-    const description = 'Premium and free themes and dashboards for BootstrapVue.'
+    const description = 'BootstrapVue based premium themes and dashboards.'
     return {
       title,
       meta: [
