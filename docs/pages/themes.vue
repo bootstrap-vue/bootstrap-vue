@@ -13,13 +13,9 @@
         <b-card no-body bg-variant="light" class="shadow">
           <b-row no-gutters>
             <b-col md="auto">
-              <b-card-img
-                :src="theme.img"
-                width="320"
-                height="240"
-                alt="Image"
-                class="rounded-0"
-              ></b-card-img>
+              <b-aspect ratio="4:3">
+                <b-card-img :src="theme.img" alt="Image" class="rounded-0"></b-card-img>
+              </b-aspect>
             </b-col>
             <b-col>
               <b-card-body class="d-flex flex-column h-100">
@@ -44,7 +40,7 @@
       </article>
 
       <aside id="#theme-notes" class="pb-5 small text-muted">
-        <h2 class="h4">Notes:</h4>
+        <h2 class="h4">Notes:</h2>
         <ul class="small">
           <li clas="mb-2">
             <b>*</b>: Prices are subject to change. Refer to the vendor/provider website for details.
@@ -75,7 +71,7 @@ export default {
       themes: [
         {
           title: 'To be determined',
-          img: 'https://picsum.photos/320/240/?image=84',
+          img: 'https://picsum.photos/400/300/?image=84',
           href: '#',
           description: 'TBD',
           provider: 'XXXXXXX',
@@ -83,7 +79,7 @@ export default {
         },
         {
           title: 'To be determined',
-          img: 'https://picsum.photos/320/240/?image=82',
+          img: 'https://picsum.photos/400/300/?image=82',
           href: '#',
           description: 'TBD',
           provider: 'XXXXXXX',
@@ -91,7 +87,7 @@ export default {
         },
         {
           title: 'To be determined',
-          img: 'https://picsum.photos/320/240/?image=54',
+          img: 'https://picsum.photos/400/300/?image=54',
           href: '#',
           description: 'TBD',
           provider: 'XXXXXXX',
