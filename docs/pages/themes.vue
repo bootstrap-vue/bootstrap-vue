@@ -72,7 +72,8 @@ export default {
           title: 'To be determined',
           img: 'https://picsum.photos/400/300/?image=84',
           href: '#',
-          description: 'TBD',
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           provider: 'XXXXXXX',
           price: '$10,000.00'
         },
@@ -80,7 +81,8 @@ export default {
           title: 'To be determined',
           img: 'https://picsum.photos/400/300/?image=82',
           href: '#',
-          description: 'TBD',
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           provider: 'XXXXXXX',
           price: 'Free'
         },
@@ -88,7 +90,8 @@ export default {
           title: 'To be determined',
           img: 'https://picsum.photos/400/300/?image=54',
           href: '#',
-          description: 'TBD',
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           provider: 'XXXXXXX',
           price: '$75.00'
         }
