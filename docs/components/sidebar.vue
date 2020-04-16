@@ -50,6 +50,10 @@
       </b-nav>
     </b-link>
 
+    <b-link to="/themes" exact router-tag="div" active-class="active">
+      <b-link to="/themes" exact class="bd-toc-link" active-class="">Themes</b-link>
+    </b-link>
+
     <b-link to="/play" exact router-tag="div" active-class="active">
       <b-link to="/play" exact class="bd-toc-link" active-class="">Playground</b-link>
     </b-link>
