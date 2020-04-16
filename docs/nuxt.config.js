@@ -243,10 +243,10 @@ module.exports = {
   generate: {
     dir: 'docs-dist',
     routes: () => [
+      // Dynamic slug routes
       ...getRoutesByDir('src', 'components'),
       ...getRoutesByDir('src', 'directives', ['modal', 'toggle']),
-      ...getRoutesByDir('docs/markdown', 'reference'),
-      ...getRoutesByDir('docs/markdown', 'misc')
+      ...getRoutesByDir('docs/markdown', 'reference')
     ]
   },
 
