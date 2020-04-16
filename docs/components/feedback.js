@@ -29,14 +29,14 @@ export default {
       } else if (name === 'docs-directives-slug') {
         path = `src/directives/${slug}/README.md`
       } else if (name === 'docs-reference-slug') {
-        path = `docs/markdown/reference/${slug}/README.md`
-      } else if (name === 'docs-misc-slug') {
         if (slug === 'changelog') {
           path = 'CHANGELOG.md'
         } else if (slug === 'contributing') {
           path = 'CONTRIBUTING.md'
         } else if (slug === 'settings') {
           path = 'docs/markdown/misc/settings/README.md'
+        } else {
+          path = `docs/markdown/reference/${slug}/README.md`
         }
       }
       return `${this.baseUrl}/tree/dev/${path}`
