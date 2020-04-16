@@ -32,28 +32,26 @@
                 ></b-card-img-lazy>
               </b-aspect>
             </b-col>
-            <b-col>
-              <b-card-body class="d-flex flex-column h-100">
-                <!-- We use `<h2>` for correct semantics, but `.h5` style -->
-                <h2 :id="`theme-label-${idx}`" class="h5">{{ theme.title }}</h2>
-                <b-card-text class="flex-grow-1">
-                  {{ theme.description }}
-                </b-card-text>
-                <b-card-text class="text-muted small">
-                  <i>Provided by: {{ theme.provider }}</i>
-                </b-card-text>
-                <b-card-text class="d-flex align-items-center">
-                  <b-button :href="theme.href" target="_blank" variant="bd-primary">
-                    Get {{ theme.type || 'theme' }}
-                  </b-button>
-                  <small v-if="theme.price" class="text-muted position-relative ml-3">
-                    Price: {{ theme.price }}
-                    <b-link href="#theme-notes" title="See notes" class="stretched-link">
-                      <b>*</b>
-                    </b-link>
-                  </small>
-                </b-card-text>
-              </b-card-body>
+            <b-col class="d-flex flex-column p-4">
+              <!-- We use `<h2>` for correct semantics, but `.h5` style -->
+              <h2 :id="`theme-label-${idx}`" class="h5">{{ theme.title }}</h2>
+              <b-card-text class="flex-grow-1">
+                {{ theme.description }}
+              </b-card-text>
+              <b-card-text class="text-muted small">
+                <i>Provided by: {{ theme.provider }}</i>
+              </b-card-text>
+              <b-card-text class="d-flex align-items-center">
+                <b-button :href="theme.href" target="_blank" variant="bd-primary">
+                  Get {{ theme.type || 'theme' }}
+                </b-button>
+                <small v-if="theme.price" class="text-muted position-relative ml-3">
+                  Price: {{ theme.price }}
+                  <b-link href="#theme-notes" title="See notes" class="stretched-link">
+                    <b>*</b>
+                  </b-link>
+                </small>
+              </b-card-text>
             </b-col>
           </b-row>
         </b-card>
