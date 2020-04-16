@@ -22,8 +22,8 @@
             </b-col>
             <b-col>
               <b-card-body class="d-flex flex-column h-100">
-                <!-- We use `<h2>` for correct semantics, but `.h4` style -->
-                <h2 :id="theme-label-${idx}" class="h4">To be determined</h2>
+                <!-- We use `<h2>` for correct semantics, but `.h5` style -->
+                <h2 :id="theme-label-${idx}" class="h5">To be determined</h2>
                 <b-card-text class="flex-grow-1">
                   {{ theme.description }}
                 </b-card-text>
