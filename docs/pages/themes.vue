@@ -92,12 +92,12 @@ export default {
       // This could be async data that comes from a JSON file
       themes: [
         {
-          title: 'To be determined - PRO',
+          title: 'Superduper Dashboard - PRO',
           img: 'https://picsum.photos/400/300/?image=84',
           href: '#',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          provider: 'XXXXXXX',
+          provider: 'Innovative Bob',
           price: '$10,000.00'
         },
         {
@@ -106,16 +106,16 @@ export default {
           href: '#',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          provider: 'XXXXXXX',
+          provider: 'Dashboards-R-Us',
           price: 'Free'
         },
         {
-          title: 'To be determined',
+          title: 'Some mystery theme theatre',
           img: 'https://picsum.photos/400/300/?image=54',
           href: '#',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          provider: 'XXXXXXX',
+          provider: 'Cyberdyne Terminators',
           price: '$75.00'
         }
       ]
