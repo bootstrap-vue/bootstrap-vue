@@ -279,7 +279,7 @@ a {
 ## See also
 
 - If you are defining custom breakpoint names, please see the
-  [BootstrapVue settings](/docs/misc/settings) page on how to update BootstrapVue `<b-col>` and
+  [BootstrapVue settings](/docs/reference/settings) page on how to update BootstrapVue `<b-col>` and
   `<b-form-group>` breakpoint specific props.
 - For more details on theming Bootstrap's SCSS/CSS, refer to the
   [**Official Bootstrap v4 Theming Documentation**](https://getbootstrap.com/docs/4.4/getting-started/theming/).
