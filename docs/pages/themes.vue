@@ -51,28 +51,29 @@
 export default {
   data() {
     return {
+      // This could be async data that comes from a JSON file
       themes: [
         {
-          title: 'To be determied'
+          title: 'To be determined',
           img: 'https://picsum.photos/320/240/?image=84',
-          href: '#'
-          description: 'TBD'
+          href: '#',
+          description: 'TBD',
           provider: 'XXXXXXX',
           price: '$10,000.00'
         },
         {
-          title: 'To be determied'
+          title: 'To be determined',
           img: 'https://picsum.photos/320/240/?image=82',
-          href: '#'
-          description: 'TBD'
+          href: '#',
+          description: 'TBD',
           provider: 'XXXXXXX',
           price: 'Free'
         },
         {
-          title: 'To be determied'
+          title: 'To be determined',
           img: 'https://picsum.photos/320/240/?image=54',
-          href: '#'
-          description: 'TBD'
+          href: '#',
+          description: 'TBD',
           provider: 'XXXXXXX',
           price: '$75.00'
         }
