@@ -9,7 +9,7 @@
         </p>
       </header>
 
-      <article v-for="(theme, id) in themes" :key="idx" class="bvd-theme">
+      <article v-for="(theme, idx) in themes" :key="idx" class="bvd-theme">
         <b-card no-body>
           <b-row no-gutters>
             <b-col md="auto">
