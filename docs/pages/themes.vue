@@ -26,8 +26,9 @@
               <b-aspect aspect="4:3">
                 <b-card-img-lazy
                   :src="theme.img"
-                  width="400"
                   alt="Image"
+                  blank-width="400"
+                  blank-height="300"
                   class="rounded-0"
                 ></b-card-img-lazy>
               </b-aspect>
