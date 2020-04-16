@@ -231,7 +231,11 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         this.normalizeSlot('default')
       ])
     } else if (src) {
-      $content = h('img', { attrs: { src, alt }, on: { error: this.onImgError } })
+      $content = h('img', {
+        style: variant ? {} : { width: '100%', height: '100%' },
+        attrs: { src, alt },
+        on: { error: this.onImgError }
+      })
     } else if (icon) {
       $content = h(BIcon, {
         props: { icon },
