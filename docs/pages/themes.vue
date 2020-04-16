@@ -18,13 +18,15 @@
             <b-col>
               <b-card-body class="d-flex flex-column">
                 <h2 class="h3">To be determined</h2>
-                <b-card-text>
+                <b-card-text class="flex-grow-1">
                   {{ theme.description }}
                 </b-card-text>
                 <b-card-text class="text-muted">
                   <i>Provided by: <b>{{ theme.provider }}</b></i>
                 </b-card-text>
-                <b-button :href="theme.href" disabled variant="bd-primary">Get theme</b-button>
+                <b-card-text>
+                  <b-button :href="theme.href" disabled variant="bd-primary">Get theme</b-button>
+                </b-card-text>
               </b-card-body>
             </b-col>
           </b-row>
