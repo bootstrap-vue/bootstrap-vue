@@ -53,8 +53,8 @@
         <h2 class="h6">Notes:</h2>
         <ul class="small">
           <li clas="mb-2">
-            <b>*</b>: Prices are in US dollars unless otherwise noted. Prices are subject to
-            change. Refer to the vendor/provider website for current pricing.
+            Prices shown are in US dollars unless otherwise noted. Prices are subject to change.
+            Refer to the vendor/provider website for current pricing.
           </li>
           <li>
             BootstrapVue may receive a commission on themes purchased via the above affiliate links.
