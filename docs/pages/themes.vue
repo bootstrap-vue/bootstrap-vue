@@ -12,7 +12,7 @@
       <article v-for="(theme, idx) in themes" :key="idx" class="bvd-theme mb-5">
         <b-card no-body bg-variant="light" class="shadow">
           <b-row no-gutters>
-            <b-col md="5" lg="4">
+            <b-col md="7" lg="4">
                <b-card-img :src="theme.img" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col>
@@ -69,7 +69,7 @@ export default {
       // This could be async data that comes from a JSON file
       themes: [
         {
-          title: 'To be determined',
+          title: 'To be determined - PRO',
           img: 'https://picsum.photos/400/300/?image=84',
           href: '#',
           description:
