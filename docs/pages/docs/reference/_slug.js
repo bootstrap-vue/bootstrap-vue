@@ -4,18 +4,7 @@ import docsMixin from '~/plugins/docs-mixin'
 import { reference as referenceMeta, defaultConfig } from '~/content'
 
 const getReadMe = slug => {
-  let base = '/markdown/reference/'
-  let file = '/README.md'
-  if (slug === 'changelog/') {
-    slug = ''
-    base = '/..'
-    file = '/CHANGELOG.md'
-  } else if (slug === 'contributing') {
-    slig = ''
-    base = '/..'
-    file = '/CONTRIBUTING.md'
-  }
-  import(`~${base}${slug}${file}` /* webpackChunkName: "docs/reference" */)
+  import(`~/markdown/reference/${slug}/README.md` /* webpackChunkName: "docs/reference" */)
 }
 
 const replacer = (key, value) => (typeof value === 'undefined' ? null : value)
