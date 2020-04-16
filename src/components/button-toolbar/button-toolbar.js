@@ -1,19 +1,29 @@
+import {
+  CLASS_NAME_BUTTON,
+  CLASS_NAME_BUTTON_TOOLBAR,
+  CLASS_NAME_DISABLED,
+  CLASS_NAME_DROPDOWN_ITEM,
+  CLASS_NAME_FORM_CONTROL
+} from '../../constants/class-names'
+import { NAME_BUTTON_TOOLBAR } from '../../constants/components'
 import { DOWN, LEFT, RIGHT, UP } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import { isVisible, selectAll } from '../../utils/dom'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
+// --- Constants ---
 const ITEM_SELECTOR = [
-  '.btn:not(.disabled):not([disabled]):not(.dropdown-item)',
-  '.form-control:not(.disabled):not([disabled])',
-  'select:not(.disabled):not([disabled])',
-  'input[type="checkbox"]:not(.disabled)',
-  'input[type="radio"]:not(.disabled)'
+  `.${CLASS_NAME_BUTTON}:not(.${CLASS_NAME_DISABLED}):not([disabled]):not(.${CLASS_NAME_DROPDOWN_ITEM})`,
+  `.${CLASS_NAME_FORM_CONTROL}:not(.${CLASS_NAME_DISABLED}):not([disabled])`,
+  `select:not(.${CLASS_NAME_DISABLED}):not([disabled])`,
+  `input[type="checkbox"]:not(.${CLASS_NAME_DISABLED})`,
+  `input[type="radio"]:not(.${CLASS_NAME_DISABLED})`
 ].join(',')
 
+// --- Main component ---
 // @vue/component
 export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
-  name: 'BButtonToolbar',
+  name: NAME_BUTTON_TOOLBAR,
   mixins: [normalizeSlotMixin],
   props: {
     justify: {
@@ -98,7 +108,7 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
     return h(
       'div',
       {
-        staticClass: 'btn-toolbar',
+        staticClass: CLASS_NAME_BUTTON_TOOLBAR,
         class: { 'justify-content-between': this.justify },
         attrs: {
           role: 'toolbar',

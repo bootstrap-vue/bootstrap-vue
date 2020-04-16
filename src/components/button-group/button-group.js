@@ -1,9 +1,11 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import { CLASS_NAME_BUTTON_GROUP } from '../../constants/class-names'
+import { NAME_BUTTON, NAME_BUTTON_GROUP } from '../../constants/components'
+import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
+import { suffixClass } from '../../utils/string'
 
-const NAME = 'BButtonGroup'
-
+// --- Props ---
 export const props = {
   vertical: {
     type: Boolean,
@@ -11,7 +13,7 @@ export const props = {
   },
   size: {
     type: String,
-    default: () => getComponentConfig('BButton', 'size')
+    default: () => getComponentConfig(NAME_BUTTON, 'size')
   },
   tag: {
     type: String,
@@ -23,19 +25,21 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BButtonGroup = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_BUTTON_GROUP,
   functional: true,
   props,
   render(h, { props, data, children }) {
+    const { vertical, size } = props
     return h(
       props.tag,
       mergeData(data, {
         class: {
-          'btn-group': !props.vertical,
-          'btn-group-vertical': props.vertical,
-          [`btn-group-${props.size}`]: props.size
+          [CLASS_NAME_BUTTON_GROUP]: !vertical,
+          [suffixClass(CLASS_NAME_BUTTON_GROUP, 'vertical')]: vertical,
+          [suffixClass(CLASS_NAME_BUTTON_GROUP, size)]: size
         },
         attrs: { role: props.ariaRole }
       }),
