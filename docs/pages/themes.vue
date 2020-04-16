@@ -12,10 +12,8 @@
       <article v-for="(theme, idx) in themes" :key="idx" class="bvd-theme mb-5">
         <b-card no-body bg-variant="light" class="shadow">
           <b-row no-gutters>
-            <b-col md="auto">
-              <b-aspect ratio="4:3">
-                <b-card-img :src="theme.img" alt="Image" class="rounded-0"></b-card-img>
-              </b-aspect>
+            <b-col md="5" lg="4">
+               <b-card-img :src="theme.img" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col>
               <b-card-body class="d-flex flex-column h-100">
@@ -26,9 +24,7 @@
                 </b-card-text>
                 <b-card-text class="text-muted small">
                   Price: <b>{{ theme.price }}</b><b-link href="#theme-notes" title="See notes"><b>*</b></b-link>
-                </b-card-text>
-                <b-card-text class="text-muted small">
-                  <i>Provided by: <b>{{ theme.provider }}</b></i>
+                  <i>Provided by: {{ theme.provider }}</i>
                 </b-card-text>
                 <b-card-text>
                   <b-button :href="theme.href" disabled variant="bd-primary">Get theme</b-button>
