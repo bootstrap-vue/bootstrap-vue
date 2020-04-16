@@ -3,6 +3,6 @@
 export default {
   fetch({ redirect, route = {} }) {
     // Use a 301 (permanent) redirect instead of default 302 (found)
-    redirect(301, `/docs/reference/third-party{route.hash || ''}`)
+    redirect(301, `/docs/reference/third-party${route.hash || ''}`)
   }
 }
