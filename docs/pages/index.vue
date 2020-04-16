@@ -121,7 +121,7 @@
 
         <p class="mb-0 text-muted text-center mb-n4 mb-md-n5">
           Current Version<br>
-          <b-link to="/docs/misc/changelog" class="small">v{{ version }}</b-link>
+          <b-link to="/docs/reference/changelog" class="small">v{{ version }}</b-link>
         </p>
       </b-container>
     </section>
