@@ -82,14 +82,14 @@
           page, your product must meet the following guidelines:
         </p>
         <ul class="small">
-          <li>It must be based on (or extends) BootstrapVue components;</li>
+          <li>It must be based on (or extends) BootstrapVue components</li>
           <li>
             Must be be compatible with BootstrapVue so that users can incorporate native
-            BootstrapVue components if they wish;
+            BootstrapVue components if they wish
           </li>
-          <li>Should avoid the need for jQuery or Bootstrap v4 javascript files;</li>
-          <li>Should provide source SCSS/SASS files/variables;</li>
-          <li>Should promote that it is based on _BootstrapVue_ (not just Bootstrap _and_ Vue)</li>
+          <li>Should avoid the need for jQuery or Bootstrap v4 javascript files</li>
+          <li>Should provide source SCSS/SASS files/variables for BootstrapVue custom SCSS</li>
+          <li>Should promote that it is based on <i>BootstrapVue</i></li>
         </ul>
       </aside>
     </section>
