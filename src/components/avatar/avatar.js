@@ -105,6 +105,10 @@ const props = {
     type: [Boolean, String],
     default: false
   },
+  shadow: {
+    type: [Boolean, String],
+    default: false
+  },
   button: {
     type: Boolean,
     default: false
@@ -204,6 +208,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       variant,
       disabled,
       square,
+      shadow,
       icon,
       localSrc: src,
       text,
@@ -267,6 +272,9 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         rounded: rounded === true,
         'rounded-0': square,
         [`rounded-${rounded}`]: rounded && rounded !== true,
+        // Shadows
+        shadow: shadow === true || shadow === '',
+        [`shadow-${shadow}`]: shadow && shadow !== true && shadow !== '',
         // Other classes
         disabled
       },
