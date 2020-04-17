@@ -314,6 +314,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         dateInfoFn: self.dateInfoFn,
         hideHeader: self.hideHeader,
         showDecadeNav: self.showDecadeNav,
+        noHighlightToday: self.noHighlightToday,
         labelPrevDecade: self.labelPrevDecade,
         labelPrevYear: self.labelPrevYear,
         labelPrevMonth: self.labelPrevMonth,

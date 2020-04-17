@@ -48,23 +48,23 @@
       >
         <template v-if="isPR || isDev || isLocal">
           <b-dropdown-item v-if="isPR" active href="/">
-            Pull Request #{{ prID }}
+            Pull Request {{ prId ? '#' + prId : '- ' + branchName }}
           </b-dropdown-item>
           <b-dropdown-item v-else-if="isLocal" active href="/">
             Local copy
           </b-dropdown-item>
-          <b-dropdown-item :active="isDev" href="https://bootstrap-vue.netlify.app" rel="nofollow">
+          <b-dropdown-item :active="isDev" :href="devURL" rel="nofollow">
             Development
           </b-dropdown-item>
-          <b-dropdown-item href="https://bootstrap-vue.js.org">
+          <b-dropdown-item :href="prodURL">
             Latest (v{{ version }})
           </b-dropdown-item>
         </template>
         <template v-else>
-          <b-dropdown-item active href="https://bootstrap-vue.js.org">
+          <b-dropdown-item active :href="prodURL">
             Latest (v{{ version }})
           </b-dropdown-item>
-          <b-dropdown-item href="https://bootstrap-vue.netlify.app" rel="nofollow">
+          <b-dropdown-item :href="devURL" rel="nofollow">
             Development
           </b-dropdown-item>
         </template>
@@ -184,22 +184,43 @@ export default {
     }
   },
   computed: {
+    prodURL() {
+      return 'https://bootstrap-vue.js.org/'
+    },
+    devURL() {
+      if (this.isNetlify) {
+        return 'https://bootstrap-vue.netlify.app/'
+      }
+      return 'https://dev.bootstrap-vue.now.sh/'
+    },
     isNetlify() {
       return Boolean(process.env.NETLIFY)
     },
+    isZeitNow() {
+      return Boolean(process.env.ZEIT_NOW)
+    },
     isDev() {
-      // In our case, `production` is the dev branch preview
-      return this.isNetlify && process.env.NETLIFY_CONTEXT === 'production'
+      // In our case, `production` is the dev branch preview (Netlify)
+      return (
+        (this.isNetlify && process.env.NETLIFY_CONTEXT === 'production') ||
+        (this.isZeitNow && process.env.ZEIT_BRANCH === 'dev')
+      )
     },
     isPR() {
-      return this.isNetlify && process.env.PULL_REQUEST && process.env.REVIEW_ID
+      return (
+        (this.isNetlify && process.env.PULL_REQUEST && process.env.REVIEW_ID) ||
+        (this.isZeitNow && !this.isDev && !process.env.ZEIT_BRANCH !== 'master')
+      )
     },
-    prID() {
+    prId() {
       return this.isPR ? process.env.REVIEW_ID : ''
+    },
+    branchName() {
+      return this.isZeitNow ? process.env.ZEIT_BRANCH || '' : ''
     },
     dropdownText() {
       if (this.isPR) {
-        return `Pull #${this.prID}`
+        return this.prId ? `Pull #${this.prId}` : 'Pull Request'
       } else if (this.isLocal) {
         return 'Local Copy'
       } else if (this.isDev) {
