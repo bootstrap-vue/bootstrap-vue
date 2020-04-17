@@ -188,10 +188,10 @@ export default {
       return 'https://bootstrap-vue.js.org/'
     },
     devURL() {
-      // TODO:
-      //   change this to Zeit Dev URL
-      //   https://dev.bootstrap-vue.now.sh/
-      return 'https://bootstrap-vue.netlify.app/'
+      if (this.isNetlify) {
+        return 'https://bootstrap-vue.netlify.app/'
+      }
+      return 'https://dev.bootstrap-vue.now.sh/'
     },
     isNetlify() {
       return Boolean(process.env.NETLIFY)
