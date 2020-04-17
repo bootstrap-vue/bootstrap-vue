@@ -209,7 +209,7 @@ export default {
     isPR() {
       return (
         (this.isNetlify && process.env.PULL_REQUEST && process.env.REVIEW_ID) ||
-        (this.isZeitNow && !this.isDev && !process.env.ZEIT_BRANCH === 'master')
+        (this.isZeitNow && !this.isDev && !process.env.ZEIT_BRANCH !== 'master')
       )
     },
     prID() {
