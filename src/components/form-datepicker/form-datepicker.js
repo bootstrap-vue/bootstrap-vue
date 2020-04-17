@@ -240,6 +240,7 @@ const propsMixin = {
     },
     dateFormatOptions: {
       // `Intl.DateTimeFormat` object
+      // Note: this value is *not* to be placed in the global config
       type: Object,
       default: () => ({
         year: 'numeric',
@@ -247,6 +248,17 @@ const propsMixin = {
         day: 'numeric',
         weekday: 'long'
       })
+    },
+    weekdayHeaderFormat: {
+      // Format of the weekday names at the top of the calendar
+      // Note: this value is *not* to be placed in the global config
+      type: String,
+      // `short` is typically a 3 letter abbreviation,
+      // `narrow` is typically a single letter
+      // `long` is the full week day name
+      // Although some locales may override this (i.e `ar`, etc)
+      default: 'short',
+      validator: value => arrayIncludes(['long', 'short', 'narrow'], value)
     },
     // Dark mode
     dark: {
@@ -328,7 +340,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         labelCalendar: self.labelCalendar,
         labelNav: self.labelNav,
         labelHelp: self.labelHelp,
-        dateFormatOptions: self.dateFormatOptions
+        dateFormatOptions: self.dateFormatOptions,
+        weekdayHeaderFormat: self.weekdayHeaderFormat
       }
     },
     computedLang() {
