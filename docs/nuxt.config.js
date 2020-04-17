@@ -150,13 +150,20 @@ module.exports = {
     PULL_REQUEST: process.env.NETLIFY ? process.env.PULL_REQUEST : null,
     // - If the previous is `true`, this will be the PR number
     REVIEW_ID: process.env.NETLIFY && process.env.PULL_REQUEST ? process.env.REVIEW_ID : null,
-    // ENV vars provided by Zeit Now build:
+    // ENV vars provided by Zeit Now build
+    // https://zeit.co/docs/v2/build-step#system-environment-variables
     // - `true` if on Zeit Now (dev or PR)
     ZEIT_NOW: process.env.NOW_GITHUB_DEPLOYMENT,
-    // - The branch name for the deploy (i.e. `dev`, `master`, `patch-1`, etc)
+    // - The branch name used for the deploy (i.e. `dev`, `master`, `patch-1`, etc)
     ZEIT_BRANCH: process.env.NOW_GITHUB_COMMIT_REF,
     // - The Commit SHA hash
-    ZEIT_COMMIT_SHA: process.env.NOW_GITHUB_COMMIT_SHA
+    ZEIT_COMMIT_SHA: process.env.NOW_GITHUB_COMMIT_SHA,
+    // - The deployment URL
+    ZEIT_URL: process.env.NOW_URL,
+    // - The Github Organization (ie. bootstrap-vue)
+    ZEIT_GITHUB_ORG: process.env.NOW_GITHUB_ORG,
+    // - The repo is the organization (i.e. bootstrap-vue)
+    ZEIT_GITHUB_REPO: process.env.NOW_GITHUB_REPO
   },
 
   build: {
