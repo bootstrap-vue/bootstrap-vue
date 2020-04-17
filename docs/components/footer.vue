@@ -43,7 +43,7 @@
 
       <hr>
 
-      <template v-if="isZeitNow">
+      <template v-if="isZeitNow && false">
         <p class="mb-4 text-center">
           <strong class="d-block mx-auto mb-2">Hosting provided by</strong>
           <a href="https://zeit.co/?utm_campaign=bootstrap-vue" target="_blank" rel="noopener">
