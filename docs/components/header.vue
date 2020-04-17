@@ -48,7 +48,7 @@
       >
         <template v-if="isPR || isDev || isLocal">
           <b-dropdown-item v-if="isPR" active href="/">
-            Pull Request {{ prID ? '#' + prID : '- ' + branchName }}
+            Pull Request {{ prId ? '#' + prId : '- ' + branchName }}
           </b-dropdown-item>
           <b-dropdown-item v-else-if="isLocal" active href="/">
             Local copy
@@ -212,7 +212,7 @@ export default {
         (this.isZeitNow && !this.isDev && !process.env.ZEIT_BRANCH !== 'master')
       )
     },
-    prID() {
+    prId() {
       return this.isPR ? process.env.REVIEW_ID : ''
     },
     branchName() {
@@ -220,7 +220,7 @@ export default {
     },
     dropdownText() {
       if (this.isPR) {
-        return this.prID ? `Pull #${this.prID}` : 'Pull Request'
+        return this.prId ? `Pull #${this.prId}` : 'Pull Request'
       } else if (this.isLocal) {
         return 'Local Copy'
       } else if (this.isDev) {
