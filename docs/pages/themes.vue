@@ -89,7 +89,7 @@
           </li>
           <li>Should avoid the need for jQuery or Bootstrap v4 javascript files</li>
           <li>Should provide source SCSS/SASS files/variables for BootstrapVue custom SCSS</li>
-          <li>Should promote that it is based on <i>BootstrapVue</i></li>
+          <li>Should promote that it is based on (or compatable with) <i>BootstrapVue</i></li>
         </ul>
       </aside>
     </section>
