@@ -45,7 +45,7 @@
 
       <template v-if="isZeitNow">
         <p class="mb-3 text-center">
-          <strong>Depolyment preview hosting provided by</strong>
+          <strong class="mb2">Depolyment preview hosting provided by</strong>
           <br>
           <a href="https://zeit.co/?utm_campaign=bootstrap-vue" target="_blank" rel="noopener">
             <svg
