@@ -7,7 +7,7 @@ import { isUndefinedOrNull } from '../../utils/inspect'
 import { pick } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
-import { BCalendar } from '../calendar/calendar'
+import { BCalendar, STR_LONG, STR_NARROW, STR_NUMERIC, STR_SHORT } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
 
 const NAME = 'BFormDatepicker'
@@ -244,10 +244,10 @@ const propsMixin = {
       // Note: this value is *not* to be placed in the global config
       type: Object,
       default: () => ({
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long'
+        year: STR_NUMERIC,
+        month: STR_LONG,
+        day: STR_NUMERIC,
+        weekday: STR_LONG
       })
     },
     weekdayHeaderFormat: {
@@ -258,8 +258,8 @@ const propsMixin = {
       // `narrow` is typically a single letter
       // `long` is the full week day name
       // Although some locales may override this (i.e `ar`, etc)
-      default: 'short',
-      validator: value => arrayIncludes(['long', 'short', 'narrow'], value)
+      default: STR_SHORT,
+      validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
     },
     // Dark mode
     dark: {
