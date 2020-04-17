@@ -149,7 +149,14 @@ module.exports = {
     // - `true` if triggered by a Pull request commit
     PULL_REQUEST: process.env.NETLIFY ? process.env.PULL_REQUEST : null,
     // - If the previous is `true`, this will be the PR number
-    REVIEW_ID: process.env.NETLIFY && process.env.PULL_REQUEST ? process.env.REVIEW_ID : null
+    REVIEW_ID: process.env.NETLIFY && process.env.PULL_REQUEST ? process.env.REVIEW_ID : null,
+    // ENV vars provided by Zeit Now build:
+    // - `true` if on Zeit Now (dev or PR)
+    ZEIT_NOW: process.env.NOW_GITHUB_DEPLOYMENT,
+    // - The branch name for the deploy (i.e. `dev`, `master`, `patch-1`, etc)
+    ZEIT_BRANCH: process.env.NOW_GITHUB_COMMIT_REF,
+    // - The Commit SHA hash
+    ZEIT_COMMIT_SHA: process.env.NOW_GITHUB_COMMIT_SHA
   },
 
   build: {
