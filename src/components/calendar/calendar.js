@@ -43,12 +43,12 @@ const NAME = 'BCalendar'
 const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
 
 // Common calendar option value strings
-const STR_GREGORY = 'gregory'
-const STR_NUMERIC = 'numeric'
-const STR_2_DIGIT = '2-digit'
-const STR_LONG = 'long'
-const STR_SHORT = 'short'
-const STR_NARROW = 'narrow'
+export const STR_GREGORY = 'gregory'
+export const STR_NUMERIC = 'numeric'
+export const STR_2_DIGIT = '2-digit'
+export const STR_LONG = 'long'
+export const STR_SHORT = 'short'
+export const STR_NARROW = 'narrow'
 
 // --- BCalendar component ---
 
