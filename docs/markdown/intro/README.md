@@ -26,8 +26,8 @@ The online documentation is comprised of the following sections:
 - [Directives](/docs/directives) - Directives and directive plugin documentation
 - [Icons](/docs/icons) - Icons and icon plugin documentation <b-badge>v2.2.0+</b-badge>
 - [Reference](/docs/reference) - Reference information and documentation
-- [Miscellaneous](/docs/misc) - Miscellaneous information
 - [Playground](/play) - Online playground
+- [Themes](/themes) - Themes and dashboards
 
 ## Prerequisites
 
