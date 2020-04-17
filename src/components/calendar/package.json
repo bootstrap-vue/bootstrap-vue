@@ -176,7 +176,7 @@
           {
             "prop": "weekdayHeaderFormat",
             "version": "2.12.0",
-            "description": "Format to use for the calendar wekday headings. Possible values are `long`, `short` (default), or `narrow`"
+            "description": "Format to use for the calendar weekday headings. Possible values are `long`, `short` (default), or `narrow`"
           }
         ],
         "events": [
