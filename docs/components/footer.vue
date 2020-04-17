@@ -70,7 +70,14 @@
                 fill="url(#logotype21)"
               />
               <defs>
-                <linearGradient id="logotype21" x1="99.8392" y1="103.113" x2="36.06" y2="15.3616" gradientUnits="userSpaceOnUse">
+                <linearGradient
+                  id="logotype21"
+                  x1="99.8392"
+                  y1="103.113"
+                  x2="36.06"
+                  y2="15.3616"
+                  gradientUnits="userSpaceOnUse"
+                >
                   <stop stop-color="#fff" />
                   <stop offset="1" stop-color="#000" />
                 </linearGradient>
