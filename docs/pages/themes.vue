@@ -64,7 +64,7 @@
       </article>
 
       <aside id="theme-notes" class="text-muted mb-3" aria-labelledby="theme-notes-heading">
-        <h2 id=="theme-notes-heading" class="h6">Notes:</h2>
+        <h2 id="theme-notes-heading" class="h6">Notes:</h2>
         <ul class="small">
           <li>
             Prices shown are in US dollars unless otherwise noted. Prices are subject to change.
@@ -112,7 +112,7 @@
   // Shrink the display text a bit on smaller screens
   // Only used if no themes are available
   .display-4 {
-      font-size: 2.5rem;
+    font-size: 2.5rem;
   }
 }
 
@@ -124,7 +124,6 @@
     box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.06);
   }
 }
-
 </style>
 
 <script>
