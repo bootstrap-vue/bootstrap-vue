@@ -106,6 +106,7 @@
 .bv-logo {
   // BV Logo (SVG)
   width: 280px;
+  height: 240px;
 }
 
 @media (max-width: 991px) {
