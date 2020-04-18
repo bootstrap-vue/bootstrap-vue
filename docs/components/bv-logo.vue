@@ -52,6 +52,7 @@
       </g>
     </g>
   </svg>
+  <div v-else class="bv-logo"></div>
 </template>
 
 <style lang="scss" scoped>
