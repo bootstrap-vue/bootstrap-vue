@@ -10,7 +10,7 @@
         </p>
       </header>
 
-      <article v-if="themes || !themes || themes.length === 0" class="bvd-theme text-center mb-5">
+      <article v-if="!themes || themes.length === 0" class="bvd-theme text-center mb-5">
         <b-img src="~static/logo.svg" center alt="BootstrapVue logo" class="bv-theme-logo"></b-img>
         <h2 class="display-4 font-weight-bold text-dark mt-3">Coming soon!</h2>
         <p>Themes will be coming in the near future.</p>
@@ -117,7 +117,9 @@ export default {
   data() {
     return {
       // This could be async data that comes from a JSON file
+      // Theme image preview should be 800x400px (and 4:3 aspect ratio)
       themes: [
+        /*
         {
           title: 'Superduper Dashboard - PRO',
           type: 'dashboard',
@@ -160,6 +162,7 @@ export default {
           provider: 'Cyberdyne Terminators',
           price: '$75.00'
         }
+        */
       ]
     }
   },
