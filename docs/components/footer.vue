@@ -3,13 +3,7 @@
     <b-container>
       <b-row class="justify-content-center">
         <b-col cols="12" sm order-sm="3" class="text-center text-sm-right">
-          <b-img
-            src="~static/logo.svg"
-            class="mb-4 mt-0 mt-sm-4"
-            alt="BootstrapVue logo"
-            width="100"
-            fluid
-          ></b-img>
+          <BvLogo width="120" height="120" class="img-fluid mb-4 mt-0 mt-sm-4"></BvLogo>
         </b-col>
 
         <b-col cols="auto" md="4" class="text-left">
@@ -128,9 +122,11 @@
 
 <script>
 import { version } from '~/content'
+import BvLogo from '~/components/bv-logo'
 
 export default {
   name: 'BVFooter',
+  components: { BvLogo },
   props: {
     isDocs: {
       type: Boolean,
