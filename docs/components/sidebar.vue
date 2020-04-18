@@ -50,7 +50,7 @@
       </b-nav>
     </b-link>
 
-    <!-- Comment out for now
+    <!-- TODO: Uncomment when we have themes
     <b-link to="/themes" exact router-tag="div" active-class="active">
       <b-link to="/themes" exact class="bd-toc-link" active-class="">Themes</b-link>
     </b-link>
