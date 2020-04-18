@@ -114,6 +114,7 @@ export default {
         {
           title: 'Superduper Dashboard - PRO',
           type: 'dashboard',
+          category: 'Admin & Dashboard',
           img: 'https://picsum.photos/800/600/?image=84',
           href: '#',
           description:
@@ -124,6 +125,7 @@ export default {
         {
           title: 'Funky dashboard extreme',
           type: 'dashboard',
+          category: 'Admin & Dashboard',
           img: 'https://picsum.photos/800/600/?image=82',
           href: '#',
           description:
@@ -134,6 +136,17 @@ export default {
         {
           title: 'Some mystery theme theatre',
           img: 'https://picsum.photos/800/600/?image=54',
+          category: 'Landing & Corporate',
+          href: '#',
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          provider: 'Cyberdyne Terminators',
+          price: '$75.00'
+        },
+        {
+          title: 'Shopper Style Galore',
+          img: 'https://picsum.photos/800/600/?image=90',
+          category: 'E-Commerce & Retail',
           href: '#',
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
