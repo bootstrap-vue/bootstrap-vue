@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import { arrayIncludes } from '../../utils/array'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, constrainDate, formatYMD, parseYMD } from '../../utils/date'
@@ -6,7 +7,7 @@ import { isUndefinedOrNull } from '../../utils/inspect'
 import { pick } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
-import { BCalendar } from '../calendar/calendar'
+import { BCalendar, STR_LONG, STR_NARROW, STR_NUMERIC, STR_SHORT } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
 
 const NAME = 'BFormDatepicker'
@@ -240,13 +241,25 @@ const propsMixin = {
     },
     dateFormatOptions: {
       // `Intl.DateTimeFormat` object
+      // Note: This value is *not* to be placed in the global config
       type: Object,
       default: () => ({
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long'
+        year: STR_NUMERIC,
+        month: STR_LONG,
+        day: STR_NUMERIC,
+        weekday: STR_LONG
       })
+    },
+    weekdayHeaderFormat: {
+      // Format of the weekday names at the top of the calendar
+      // Note: This value is *not* to be placed in the global config
+      type: String,
+      // `short` is typically a 3 letter abbreviation,
+      // `narrow` is typically a single letter
+      // `long` is the full week day name
+      // Although some locales may override this (i.e `ar`, etc)
+      default: STR_SHORT,
+      validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
     },
     // Dark mode
     dark: {
@@ -328,7 +341,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         labelCalendar: self.labelCalendar,
         labelNav: self.labelNav,
         labelHelp: self.labelHelp,
-        dateFormatOptions: self.dateFormatOptions
+        dateFormatOptions: self.dateFormatOptions,
+        weekdayHeaderFormat: self.weekdayHeaderFormat
       }
     },
     computedLang() {
