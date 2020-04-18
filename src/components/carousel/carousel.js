@@ -1,3 +1,12 @@
+import {
+  CLASS_NAME_ACTIVE,
+  CLASS_NAME_CAROUSEL,
+  CLASS_NAME_CAROUSEL_ITEM,
+  CLASS_NAME_POINTER_EVENT,
+  CLASS_NAME_SLIDE,
+  CLASS_NAME_SR_ONLY
+} from '../../constants/class-names'
+import { NAME_CAROUSEL } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { ENTER, LEFT, RIGHT, SPACE } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
@@ -9,11 +18,11 @@ import { isBrowser, hasTouchSupport, hasPointerEventSupport } from '../../utils/
 import { eventOn, eventOff } from '../../utils/events'
 import { isUndefined } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
+import { suffixClass } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-const NAME = 'BCarousel'
-
+// --- Constants ---
 // Slide directional classes
 const DIRECTION = {
   next: {
@@ -49,6 +58,7 @@ const TransitionEndEvents = {
   transition: 'transitionend'
 }
 
+// --- Helper methods ---
 // Return the browser specific transitionEnd event name
 const getTransitionEndEvent = el => {
   for (const name in TransitionEndEvents) {
@@ -61,9 +71,10 @@ const getTransitionEndEvent = el => {
   return null
 }
 
+// --- Main component ---
 // @vue/component
 export const BCarousel = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_CAROUSEL,
   mixins: [idMixin, normalizeSlotMixin],
   provide() {
     return { bvCarousel: this }
@@ -75,19 +86,19 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
   props: {
     labelPrev: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelPrev')
+      default: () => getComponentConfig(NAME_CAROUSEL, 'labelPrev')
     },
     labelNext: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNext')
+      default: () => getComponentConfig(NAME_CAROUSEL, 'labelNext')
     },
     labelGotoSlide: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelGotoSlide')
+      default: () => getComponentConfig(NAME_CAROUSEL, 'labelGotoSlide')
     },
     labelIndicators: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelIndicators')
+      default: () => getComponentConfig(NAME_CAROUSEL, 'labelIndicators')
     },
     interval: {
       type: Number,
@@ -329,8 +340,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       // Update v-model
       this.$emit('input', this.index)
       if (this.noAnimation) {
-        addClass(nextSlide, 'active')
-        removeClass(currentSlide, 'active')
+        addClass(nextSlide, CLASS_NAME_ACTIVE)
+        removeClass(currentSlide, CLASS_NAME_ACTIVE)
         this.isSliding = false
         // Notify ourselves that we're done sliding (slid)
         this.$nextTick(() => this.$emit('sliding-end', to))
@@ -358,8 +369,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
           this._animationTimeout = null
           removeClass(nextSlide, dirClass)
           removeClass(nextSlide, overlayClass)
-          addClass(nextSlide, 'active')
-          removeClass(currentSlide, 'active')
+          addClass(nextSlide, CLASS_NAME_ACTIVE)
+          removeClass(currentSlide, CLASS_NAME_ACTIVE)
           removeClass(currentSlide, dirClass)
           removeClass(currentSlide, overlayClass)
           setAttr(currentSlide, 'aria-current', 'false')
@@ -390,17 +401,17 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     updateSlides() {
       this.pause(true)
       // Get all slides as DOM elements
-      this.slides = selectAll('.carousel-item', this.$refs.inner)
+      this.slides = selectAll(`.${CLASS_NAME_CAROUSEL_ITEM}`, this.$refs.inner)
       const numSlides = this.slides.length
       // Keep slide number in range
       const index = Math.max(0, Math.min(Math.floor(this.index), numSlides - 1))
       this.slides.forEach((slide, idx) => {
         const n = idx + 1
         if (idx === index) {
-          addClass(slide, 'active')
+          addClass(slide, CLASS_NAME_ACTIVE)
           setAttr(slide, 'aria-current', 'true')
         } else {
-          removeClass(slide, 'active')
+          removeClass(slide, CLASS_NAME_ACTIVE)
           setAttr(slide, 'aria-current', 'false')
         }
         setAttr(slide, 'aria-posinset', String(n))
@@ -488,9 +499,9 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       'div',
       {
         ref: 'inner',
-        class: ['carousel-inner'],
+        staticClass: suffixClass(CLASS_NAME_CAROUSEL, 'inner'),
         attrs: {
-          id: this.safeId('__BV_inner_'),
+          id: this.safeId('_BV_inner_'),
           role: 'list'
         }
       },
@@ -520,11 +531,11 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         h(
           'a',
           {
-            class: ['carousel-control-prev'],
+            staticClass: suffixClass(CLASS_NAME_CAROUSEL, 'control-prev'),
             attrs: {
               href: '#',
               role: 'button',
-              'aria-controls': this.safeId('__BV_inner_'),
+              'aria-controls': this.safeId('_BV_inner_'),
               'aria-disabled': this.isSliding ? 'true' : null
             },
             on: {
@@ -533,18 +544,21 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
             }
           },
           [
-            h('span', { class: ['carousel-control-prev-icon'], attrs: { 'aria-hidden': 'true' } }),
-            h('span', { class: ['sr-only'] }, [this.labelPrev])
+            h('span', {
+              staticClass: suffixClass(CLASS_NAME_CAROUSEL, 'control-prev-icon'),
+              attrs: { 'aria-hidden': 'true' }
+            }),
+            h('span', { class: CLASS_NAME_SR_ONLY }, [this.labelPrev])
           ]
         ),
         h(
           'a',
           {
-            class: ['carousel-control-next'],
+            class: suffixClass(CLASS_NAME_CAROUSEL, 'control-next'),
             attrs: {
               href: '#',
               role: 'button',
-              'aria-controls': this.safeId('__BV_inner_'),
+              'aria-controls': this.safeId('_BV_inner_'),
               'aria-disabled': this.isSliding ? 'true' : null
             },
             on: {
@@ -553,8 +567,11 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
             }
           },
           [
-            h('span', { class: ['carousel-control-next-icon'], attrs: { 'aria-hidden': 'true' } }),
-            h('span', { class: ['sr-only'] }, [this.labelNext])
+            h('span', {
+              staticClass: suffixClass(CLASS_NAME_CAROUSEL, 'control-next-icon'),
+              attrs: { 'aria-hidden': 'true' }
+            }),
+            h('span', { class: CLASS_NAME_SR_ONLY }, [this.labelNext])
           ]
         )
       ]
@@ -564,29 +581,29 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     const indicators = h(
       'ol',
       {
-        class: ['carousel-indicators'],
+        staticClass: suffixClass(CLASS_NAME_CAROUSEL, 'indicators'),
         directives: [
           { name: 'show', rawName: 'v-show', value: this.indicators, expression: 'indicators' }
         ],
         attrs: {
-          id: this.safeId('__BV_indicators_'),
+          id: this.safeId('_BV_indicators_'),
           'aria-hidden': this.indicators ? 'false' : 'true',
           'aria-label': this.labelIndicators,
-          'aria-owns': this.safeId('__BV_inner_')
+          'aria-owns': this.safeId('_BV_inner_')
         }
       },
       this.slides.map((slide, n) => {
         return h('li', {
           key: `slide_${n}`,
-          class: { active: n === this.index },
+          class: { [CLASS_NAME_ACTIVE]: n === this.index },
           attrs: {
             role: 'button',
-            id: this.safeId(`__BV_indicator_${n + 1}_`),
+            id: this.safeId(`_BV_indicator_${n + 1}_`),
             tabindex: this.indicators ? '0' : '-1',
             'aria-current': n === this.index ? 'true' : 'false',
             'aria-label': `${this.labelGotoSlide} ${n + 1}`,
             'aria-describedby': this.slides[n].id || null,
-            'aria-controls': this.safeId('__BV_inner_')
+            'aria-controls': this.safeId('_BV_inner_')
           },
           on: {
             click: evt => {
@@ -640,11 +657,11 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     return h(
       'div',
       {
-        staticClass: 'carousel',
+        staticClass: CLASS_NAME_CAROUSEL,
         class: {
-          slide: !this.noAnimation,
-          'carousel-fade': !this.noAnimation && this.fade,
-          'pointer-event': !this.noTouch && hasTouchSupport && hasPointerEventSupport
+          [CLASS_NAME_SLIDE]: !this.noAnimation,
+          [suffixClass(CLASS_NAME_CAROUSEL, 'fade')]: !this.noAnimation && this.fade,
+          [CLASS_NAME_POINTER_EVENT]: !this.noTouch && hasTouchSupport && hasPointerEventSupport
         },
         style: { background: this.background },
         attrs: {

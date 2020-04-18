@@ -1,9 +1,18 @@
+import {
+  CLASS_NAME_COLLAPSE,
+  CLASS_NAME_DROPDOWN_ITEM,
+  CLASS_NAME_NAVBAR,
+  CLASS_NAME_NAV_LINK,
+  CLASS_NAME_SHOW
+} from '../../constants/class-names'
+import { NAME_COLLAPSE } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import Vue from '../../utils/vue'
 import { BVCollapse } from '../../utils/bv-collapse'
 import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { eventOnOff } from '../../utils/events'
+import { suffixClass } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -15,14 +24,15 @@ import {
 } from '../../directives/toggle/toggle'
 
 // --- Constants ---
-
 // Accordion event name we emit on `$root`
 const EVENT_ACCORDION = 'bv::collapse::accordion'
+
+const STYLE_DISPLAY_BLOCK = 'block'
 
 // --- Main component ---
 // @vue/component
 export const BCollapse = /*#__PURE__*/ Vue.extend({
-  name: 'BCollapse',
+  name: NAME_COLLAPSE,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
     prop: 'visible',
@@ -60,9 +70,9 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
   computed: {
     classObject() {
       return {
-        'navbar-collapse': this.isNav,
-        collapse: !this.transitioning,
-        show: this.show && !this.transitioning
+        [suffixClass(CLASS_NAME_NAVBAR, 'collapse')]: this.isNav,
+        [CLASS_NAME_COLLAPSE]: !this.transitioning,
+        [CLASS_NAME_SHOW]: this.show && !this.transitioning
       }
     }
   },
@@ -173,22 +183,23 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       // Check to see if the collapse has `display: block !important` set
       // We can't set `display: none` directly on `this.$el`, as it would
       // trigger a new transition to start (or cancel a current one)
-      const restore = hasClass(this.$el, 'show')
-      removeClass(this.$el, 'show')
-      const isBlock = getCS(this.$el).display === 'block'
+      const restore = hasClass(this.$el, CLASS_NAME_SHOW)
+      removeClass(this.$el, CLASS_NAME_SHOW)
+      const isBlock = getCS(this.$el).display === STYLE_DISPLAY_BLOCK
       if (restore) {
-        addClass(this.$el, 'show')
+        addClass(this.$el, CLASS_NAME_SHOW)
       }
       return isBlock
     },
     clickHandler(evt) {
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
       const el = evt.target
-      if (!this.isNav || !el || getCS(this.$el).display !== 'block') {
+      if (!this.isNav || !el || getCS(this.$el).display !== STYLE_DISPLAY_BLOCK) {
         /* istanbul ignore next: can't test getComputedStyle in JSDOM */
         return
       }
-      if (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item', el)) {
+      const selector = `.${CLASS_NAME_DROPDOWN_ITEM}, .${CLASS_NAME_NAV_LINK}`
+      if (matches(el, selector) || closest(selector, el)) {
         if (!this.checkDisplayBlock()) {
           // Only close the collapse if it is not forced to be `display: block !important`
           this.show = false
@@ -219,7 +230,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     },
     handleResize() {
       // Handler for orientation/resize to set collapsed state in nav/navbar
-      this.show = getCS(this.$el).display === 'block'
+      this.show = getCS(this.$el).display === STYLE_DISPLAY_BLOCK
     }
   },
   render(h) {

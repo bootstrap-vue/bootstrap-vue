@@ -1,6 +1,10 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import { CLASS_NAME_CARD, CLASS_NAME_CARD_GROUP } from '../../constants/class-names'
+import { NAME_CARD_GROUP } from '../../constants/components'
+import Vue from '../../utils/vue'
+import { suffixClass } from '../../utils/string'
 
+// --- Props ---
 export const props = {
   tag: {
     type: String,
@@ -16,16 +20,21 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BCardGroup = /*#__PURE__*/ Vue.extend({
-  name: 'BCardGroup',
+  name: NAME_CARD_GROUP,
   functional: true,
   props,
   render(h, { props, data, children }) {
     return h(
       props.tag,
       mergeData(data, {
-        class: props.deck ? 'card-deck' : props.columns ? 'card-columns' : 'card-group'
+        staticClass: props.deck
+          ? suffixClass(CLASS_NAME_CARD, 'deck')
+          : props.columns
+            ? suffixClass(CLASS_NAME_CARD, 'columns')
+            : CLASS_NAME_CARD_GROUP
       }),
       children
     )

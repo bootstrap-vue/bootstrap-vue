@@ -3,7 +3,10 @@ import {
   NAME_AVATAR,
   NAME_BADGE,
   NAME_BUTTON,
-  NAME_BUTTON_CLOSE
+  NAME_BUTTON_CLOSE,
+  NAME_CALENDAR,
+  NAME_CARD_SUB_TITLE,
+  NAME_CAROUSEL
 } from '../constants/components'
 import { deepFreeze } from './object'
 
@@ -75,7 +78,7 @@ export default deepFreeze({
     textVariant: undefined,
     ariaLabel: 'Close'
   },
-  BCalendar: {
+  [NAME_CALENDAR]: {
     // BFormDate will choose these first if not provided in BFormDate section
     labelPrevDecade: 'Previous decade',
     labelPrevYear: 'Previous year',
@@ -91,11 +94,11 @@ export default deepFreeze({
     labelNav: 'Calendar navigation',
     labelHelp: 'Use cursor keys to navigate calendar dates'
   },
-  BCardSubTitle: {
+  [NAME_CARD_SUB_TITLE]: {
     // `<b-card>` and `<b-card-body>` also inherit this prop
     subTitleTextVariant: 'muted'
   },
-  BCarousel: {
+  [NAME_CAROUSEL]: {
     labelPrev: 'Previous Slide',
     labelNext: 'Next Slide',
     labelGotoSlide: 'Goto Slide',

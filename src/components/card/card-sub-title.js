@@ -1,10 +1,12 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import { CLASS_NAME_CARD_SUB_TITLE, CLASS_NAME_TEXT } from '../../constants/class-names'
+import { NAME_CARD_SUB_TITLE } from '../../constants/components'
+import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
+import { hasChildren } from '../../utils/dom'
 import { toString } from '../../utils/string'
 
-const NAME = 'BCardSubTitle'
-
+// --- Props ---
 export const props = {
   subTitle: {
     type: String
@@ -16,23 +18,24 @@ export const props = {
   },
   subTitleTextVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'subTitleTextVariant')
+    default: () => getComponentConfig(NAME_CARD_SUB_TITLE, 'subTitleTextVariant')
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BCardSubTitle = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_CARD_SUB_TITLE,
   functional: true,
   props,
   render(h, { props, data, children }) {
     return h(
       props.subTitleTag,
       mergeData(data, {
-        staticClass: 'card-subtitle',
-        class: [props.subTitleTextVariant ? `text-${props.subTitleTextVariant}` : null]
+        staticClass: CLASS_NAME_CARD_SUB_TITLE,
+        class: props.subTitleTextVariant ? `${CLASS_NAME_TEXT}-${props.subTitleTextVariant}` : null
       }),
-      children || toString(props.subTitle)
+      hasChildren(children) ? children : toString(props.subTitle)
     )
   }
 })

@@ -5,14 +5,21 @@
 //   during the enter/leave transition phases only
 //   Although it appears that Vue may be leaving the classes
 //   in-place after the transition completes
+import {
+  CLASS_NAME_COLLAPSE,
+  CLASS_NAME_COLLAPSING,
+  CLASS_NAME_SHOW
+} from '../constants/class-names'
 import Vue from './vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getBCR, reflow, requestAF } from './dom'
 
+// --- Utility methods ---
+
 // Transition event handler helpers
 const onEnter = el => {
   el.style.height = 0
-  // Animaton frame delay neeeded for `appear` to work
+  // Animation frame delay needed for `appear` to work
   requestAF(() => {
     reflow(el)
     el.style.height = `${el.scrollHeight}px`
@@ -35,16 +42,18 @@ const onAfterLeave = el => {
   el.style.height = null
 }
 
+// --- Constants
+
 // Default transition props
 // `appear` will use the enter classes
 const TRANSITION_PROPS = {
   css: true,
   enterClass: '',
-  enterActiveClass: 'collapsing',
-  enterToClass: 'collapse show',
-  leaveClass: 'collapse show',
-  leaveActiveClass: 'collapsing',
-  leaveToClass: 'collapse'
+  enterActiveClass: CLASS_NAME_COLLAPSING,
+  enterToClass: [CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW].join(' '),
+  leaveClass: [CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW].join(' '),
+  leaveActiveClass: CLASS_NAME_COLLAPSING,
+  leaveToClass: CLASS_NAME_COLLAPSE
 }
 
 // Default transition handlers
@@ -56,6 +65,7 @@ const TRANSITION_HANDLERS = {
   afterLeave: onAfterLeave
 }
 
+// --- Main component ---
 // @vue/component
 export const BVCollapse = /*#__PURE__*/ Vue.extend({
   name: 'BVCollapse',
@@ -72,7 +82,7 @@ export const BVCollapse = /*#__PURE__*/ Vue.extend({
       'transition',
       // We merge in the `appear` prop last
       mergeData(data, { props: TRANSITION_PROPS, on: TRANSITION_HANDLERS }, { props }),
-      // Note: `<tranition>` supports a single root element only
+      // Note: `<transition>` supports a single root element only
       children
     )
   }

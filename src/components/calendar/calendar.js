@@ -1,4 +1,35 @@
 import {
+  CLASS_NAME_ACTIVE,
+  CLASS_NAME_BACKGROUND,
+  CLASS_NAME_BORDER_BOTTOM,
+  CLASS_NAME_BORDER_TOP,
+  CLASS_NAME_BUTTON,
+  CLASS_NAME_CALENDAR,
+  CLASS_NAME_COL,
+  CLASS_NAME_DISABLED,
+  CLASS_NAME_DISPLAY_BLOCK,
+  CLASS_NAME_DISPLAY_FLEX,
+  CLASS_NAME_FLEX_FILL,
+  CLASS_NAME_FOCUS,
+  CLASS_NAME_FONT_WEIGHT_BOLD,
+  CLASS_NAME_FORM_CONTROL,
+  CLASS_NAME_HEIGHT_AUTO,
+  CLASS_NAME_NO_BORDER,
+  CLASS_NAME_NO_GUTTERS,
+  CLASS_NAME_NO_PADDING,
+  CLASS_NAME_READONLY,
+  CLASS_NAME_ROUNDED_CIRCLE,
+  CLASS_NAME_ROW,
+  CLASS_NAME_SMALL,
+  CLASS_NAME_SR_ONLY,
+  CLASS_NAME_TEXT,
+  CLASS_NAME_TEXT_CENTER,
+  CLASS_NAME_TEXT_MUTED,
+  CLASS_NAME_TEXT_NOWRAP,
+  CLASS_NAME_TEXT_TRUNCATE
+} from '../../constants/class-names'
+import { NAME_CALENDAR } from '../../constants/components'
+import {
   DOWN,
   END,
   ENTER,
@@ -36,7 +67,7 @@ import { requestAF } from '../../utils/dom'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
-import { toString } from '../../utils/string'
+import { suffixClass, toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import {
@@ -46,15 +77,10 @@ import {
   BIconCircleFill
 } from '../../icons/icons'
 
-// --- Constants ---
-
-const NAME = 'BCalendar'
-
 // --- BCalendar component ---
-
 // @vue/component
 export const BCalendar = Vue.extend({
-  name: NAME,
+  name: NAME_CALENDAR,
   mixins: [idMixin, normalizeSlotMixin],
   model: {
     // Even though this is the default that Vue assumes, we need
@@ -180,55 +206,55 @@ export const BCalendar = Vue.extend({
     // Labels for buttons and keyboard shortcuts
     labelPrevDecade: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelPrevDecade')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevDecade')
     },
     labelPrevYear: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelPrevYear')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevYear')
     },
     labelPrevMonth: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelPrevMonth')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevMonth')
     },
     labelCurrentMonth: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelCurrentMonth')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelCurrentMonth')
     },
     labelNextMonth: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNextMonth')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextMonth')
     },
     labelNextYear: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNextYear')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextYear')
     },
     labelNextDecade: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNextDecade')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextDecade')
     },
     labelToday: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelToday')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelToday')
     },
     labelSelected: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelSelected')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelSelected')
     },
     labelNoDateSelected: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNoDateSelected')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNoDateSelected')
     },
     labelCalendar: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelCalendar')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelCalendar')
     },
     labelNav: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNav')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNav')
     },
     labelHelp: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelHelp')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelHelp')
     },
     dateFormatOptions: {
       // `Intl.DateTimeFormat` object
@@ -750,22 +776,30 @@ export const BCalendar = Vue.extend({
     const highlightToday = !this.noHighlightToday
     // Pre-compute some IDs
     // This should be computed props
-    const idValue = safeId()
-    const idWidget = safeId('_calendar-wrapper_')
-    const idNav = safeId('_calendar-nav_')
-    const idGrid = safeId('_calendar-grid_')
-    const idGridCaption = safeId('_calendar-grid-caption_')
-    const idGridHelp = safeId('_calendar-grid-help_')
+    const id = safeId()
+    const baseId = `${id}__calendar`
+    const idWidget = `${baseId}-wrapper_`
+    const idNav = `${baseId}-nav_`
+    const idGrid = `${baseId}-grid_`
+    const idGridCaption = `${baseId}-grid-caption_`
+    const idGridHelp = `${baseId}-grid-help_`
     const idActive = activeYMD ? safeId(`_cell-${activeYMD}_`) : null
 
     // Header showing current selected date
     let $header = h(
       'output',
       {
-        staticClass: 'form-control form-control-sm text-center',
-        class: { 'text-muted': this.disabled, readonly: this.readonly || this.disabled },
+        staticClass: CLASS_NAME_FORM_CONTROL,
+        class: [
+          suffixClass(CLASS_NAME_FORM_CONTROL, 'sm'),
+          CLASS_NAME_TEXT_CENTER,
+          {
+            [CLASS_NAME_TEXT_MUTED]: this.disabled,
+            [CLASS_NAME_READONLY]: this.readonly || this.disabled
+          }
+        ],
         attrs: {
-          id: idValue,
+          id,
           for: idGrid,
           role: 'status',
           tabindex: this.disabled ? null : '-1',
@@ -788,7 +822,7 @@ export const BCalendar = Vue.extend({
         ? [
             // We use `bdi` elements here in case the label doesn't match the locale
             // Although IE 11 does not deal with <BDI> at all (equivalent to a span)
-            h('bdi', { staticClass: 'sr-only' }, ` (${toString(this.labelSelected)}) `),
+            h('bdi', { staticClass: CLASS_NAME_SR_ONLY }, ` (${toString(this.labelSelected)}) `),
             h('bdi', this.formatDateString(this.selectedDate))
           ]
         : this.labelNoDateSelected || '\u00a0' // '&nbsp;'
@@ -796,8 +830,8 @@ export const BCalendar = Vue.extend({
     $header = h(
       'header',
       {
-        staticClass: 'b-calendar-header',
-        class: { 'sr-only': this.hideHeader },
+        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'header'),
+        class: { [CLASS_NAME_SR_ONLY]: this.hideHeader },
         attrs: { title: this.selectedDate ? this.labelSelectedDate || null : null }
       },
       [$header]
@@ -832,8 +866,14 @@ export const BCalendar = Vue.extend({
       return h(
         'button',
         {
-          staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill',
-          class: { disabled: btnDisabled },
+          staticClass: CLASS_NAME_BUTTON,
+          class: [
+            suffixClass(CLASS_NAME_BUTTON, 'sm'),
+            suffixClass(CLASS_NAME_BUTTON, 'outline-secondary'),
+            CLASS_NAME_NO_BORDER,
+            CLASS_NAME_FLEX_FILL,
+            { disabled: btnDisabled }
+          ],
           attrs: {
             title: label || null,
             type: 'button',
@@ -851,7 +891,8 @@ export const BCalendar = Vue.extend({
     const $nav = h(
       'div',
       {
-        staticClass: 'b-calendar-nav d-flex',
+        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'nav'),
+        class: CLASS_NAME_DISPLAY_FLEX,
         attrs: {
           id: idNav,
           role: 'group',
@@ -922,8 +963,12 @@ export const BCalendar = Vue.extend({
       'header',
       {
         key: 'grid-caption',
-        staticClass: 'b-calendar-grid-caption text-center font-weight-bold',
-        class: { 'text-muted': this.disabled },
+        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'grid-caption'),
+        class: [
+          CLASS_NAME_TEXT_CENTER,
+          CLASS_NAME_FONT_WEIGHT_BOLD,
+          { [CLASS_NAME_TEXT_MUTED]: this.disabled }
+        ],
         attrs: {
           id: idGridCaption,
           'aria-live': isLive ? 'polite' : null,
@@ -937,7 +982,8 @@ export const BCalendar = Vue.extend({
     const $gridWeekDays = h(
       'div',
       {
-        staticClass: 'b-calendar-grid-weekdays row no-gutters border-bottom',
+        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'grid-weekdays'),
+        class: [CLASS_NAME_ROW, CLASS_NAME_NO_GUTTERS, CLASS_NAME_BORDER_BOTTOM],
         attrs: { 'aria-hidden': 'true' }
       },
       this.calendarHeadings.map((d, idx) => {
@@ -945,8 +991,11 @@ export const BCalendar = Vue.extend({
           'small',
           {
             key: idx,
-            staticClass: 'col text-truncate',
-            class: { 'text-muted': this.disabled },
+            class: [
+              CLASS_NAME_COL,
+              CLASS_NAME_TEXT_TRUNCATE,
+              { [CLASS_NAME_TEXT_MUTED]: this.disabled }
+            ],
             attrs: {
               title: d.label === d.text ? null : d.label,
               'aria-label': d.label
@@ -968,28 +1017,35 @@ export const BCalendar = Vue.extend({
         const $btn = h(
           'span',
           {
-            staticClass: 'btn border-0 rounded-circle text-nowrap',
             // Should we add some classes to signify if today/selected/etc?
-            class: {
-              // Give the fake button a focus ring
-              focus: isActive && this.gridHasFocus,
-              // Styling
-              disabled: day.isDisabled || this.disabled,
-              active: isSelected, // makes the button look "pressed"
-              // Selected date style (need to computed from variant)
-              [this.computedVariant]: isSelected,
-              // Today day style (if not selected), same variant color as selected date
-              [this.computedTodayVariant]:
-                isToday && highlightToday && !isSelected && day.isThisMonth,
-              // Non selected/today styling
-              'btn-outline-light': !(isToday && highlightToday) && !isSelected && !isActive,
-              'btn-light': !(isToday && highlightToday) && !isSelected && isActive,
-              // Text styling
-              'text-muted': !day.isThisMonth && !isSelected,
-              'text-dark':
-                !(isToday && highlightToday) && !isSelected && !isActive && day.isThisMonth,
-              'font-weight-bold': (isSelected || day.isThisMonth) && !day.isDisabled
-            },
+            class: [
+              CLASS_NAME_BUTTON,
+              CLASS_NAME_NO_BORDER,
+              CLASS_NAME_ROUNDED_CIRCLE,
+              CLASS_NAME_TEXT_NOWRAP,
+              {
+                // Give the fake button a focus ring
+                [CLASS_NAME_FOCUS]: isActive && this.gridHasFocus,
+                // Styling
+                [CLASS_NAME_DISABLED]: day.isDisabled || this.disabled,
+                [CLASS_NAME_ACTIVE]: isSelected, // makes the button look "pressed"
+                // Selected date style (need to computed from variant)
+                [this.computedVariant]: isSelected,
+                // Today day style (if not selected), same variant color as selected date
+                [this.computedTodayVariant]:
+                  isToday && highlightToday && !isSelected && day.isThisMonth,
+                // Non selected/today styling
+                [suffixClass(CLASS_NAME_BUTTON, 'outline-light')]:
+                  !(isToday && highlightToday) && !isSelected && !isActive,
+                [suffixClass(CLASS_NAME_BUTTON, 'light')]:
+                  !(isToday && highlightToday) && !isSelected && isActive,
+                // Text styling
+                [CLASS_NAME_TEXT_MUTED]: !day.isThisMonth && !isSelected,
+                [suffixClass(CLASS_NAME_TEXT, 'dark')]:
+                  !(isToday && highlightToday) && !isSelected && !isActive && day.isThisMonth,
+                [CLASS_NAME_FONT_WEIGHT_BOLD]: (isSelected || day.isThisMonth) && !day.isDisabled
+              }
+            ],
             on: { click: () => this.onClickDay(day) }
           },
           day.day
@@ -998,8 +1054,11 @@ export const BCalendar = Vue.extend({
           'div', // Cell with button
           {
             key: dIndex,
-            staticClass: 'col p-0',
-            class: day.isDisabled ? 'bg-light' : day.info.class || '',
+            class: [
+              CLASS_NAME_COL,
+              CLASS_NAME_NO_PADDING,
+              day.isDisabled ? suffixClass(CLASS_NAME_BACKGROUND, 'light') : day.info.class || ''
+            ],
             attrs: {
               id: idCell,
               role: 'button',
@@ -1027,14 +1086,21 @@ export const BCalendar = Vue.extend({
       // Return the week "row"
       // We use the first day of the weeks YMD value as a
       // key for efficient DOM patching / element re-use
-      return h('div', { key: week[0].ymd, staticClass: 'row no-gutters' }, $cells)
+      return h(
+        'div',
+        {
+          key: week[0].ymd,
+          staticClass: [CLASS_NAME_ROW, CLASS_NAME_NO_GUTTERS]
+        },
+        $cells
+      )
     })
     $gridBody = h(
       'div',
       {
         // A key is only required on the body if we add in transition support
         // key: this.activeYMD.slice(0, -3),
-        staticClass: 'b-calendar-grid-body',
+        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'grid-body'),
         style: this.disabled ? { pointerEvents: 'none' } : {}
       },
       $gridBody
@@ -1043,19 +1109,27 @@ export const BCalendar = Vue.extend({
     const $gridHelp = h(
       'footer',
       {
-        staticClass: 'b-calendar-grid-help border-top small text-muted text-center bg-light',
+        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'grid-help'),
+        class: [
+          CLASS_NAME_BORDER_TOP,
+          CLASS_NAME_SMALL,
+          CLASS_NAME_TEXT_MUTED,
+          CLASS_NAME_TEXT_CENTER,
+          suffixClass(CLASS_NAME_BACKGROUND, 'light')
+        ],
         attrs: {
           id: idGridHelp
         }
       },
-      [h('div', { staticClass: 'small' }, this.labelHelp)]
+      [h('div', { staticClass: CLASS_NAME_SMALL }, this.labelHelp)]
     )
 
     const $grid = h(
       'div',
       {
         ref: 'grid',
-        staticClass: 'b-calendar-grid form-control h-auto text-center',
+        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'grid'),
+        class: [CLASS_NAME_FORM_CONTROL, CLASS_NAME_HEIGHT_AUTO, CLASS_NAME_TEXT_CENTER],
         attrs: {
           id: idGrid,
           role: 'application',
@@ -1081,12 +1155,14 @@ export const BCalendar = Vue.extend({
 
     // Optional bottom slot
     let $slot = this.normalizeSlot('default')
-    $slot = $slot ? h('footer', { staticClass: 'b-calendar-footer' }, $slot) : h()
+    $slot = $slot
+      ? h('footer', { staticClass: suffixClass(CLASS_NAME_CALENDAR, 'footer') }, $slot)
+      : h()
 
     const $widget = h(
       'div',
       {
-        staticClass: 'b-calendar-inner',
+        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'inner'),
         style: this.block ? {} : { width: this.width },
         attrs: {
           id: idWidget,
@@ -1102,7 +1178,7 @@ export const BCalendar = Vue.extend({
             // Should the attr (if present) go last?
             // Or should this attr be a prop?
             this.$attrs['aria-describedby'],
-            idValue,
+            id,
             idGridHelp
           ]
             .filter(identity)
@@ -1116,6 +1192,13 @@ export const BCalendar = Vue.extend({
     )
 
     // Wrap in an outer div that can be styled
-    return h('div', { staticClass: 'b-calendar', class: { 'd-block': this.block } }, [$widget])
+    return h(
+      'div',
+      {
+        staticClass: CLASS_NAME_CALENDAR,
+        class: { [CLASS_NAME_DISPLAY_BLOCK]: this.block }
+      },
+      [$widget]
+    )
   }
 })

@@ -1,10 +1,19 @@
+import {
+  CLASS_NAME_CAROUSEL,
+  CLASS_NAME_CAROUSEL_ITEM,
+  CLASS_NAME_DISPLAY_NONE
+} from '../../constants/class-names'
+import { NAME_CAROUSEL_SLIDE } from '../../constants/components'
 import Vue from '../../utils/vue'
+import identity from '../../utils/identity'
 import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { hasTouchSupport } from '../../utils/env'
 import { htmlOrText } from '../../utils/html'
+import { suffixClass } from '../../utils/string'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BImg } from '../image/img'
 
+// --- Props ---
 export const props = {
   imgSrc: {
     type: String
@@ -62,9 +71,10 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
-  name: 'BCarouselSlide',
+  name: NAME_CAROUSEL_SLIDE,
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
     bvCarousel: {
@@ -79,10 +89,8 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
   props,
   computed: {
     contentClasses() {
-      return [
-        this.contentVisibleUp ? 'd-none' : '',
-        this.contentVisibleUp ? `d-${this.contentVisibleUp}-block` : ''
-      ]
+      const { contentVisibleUp } = this
+      return contentVisibleUp ? [CLASS_NAME_DISPLAY_NONE, `d-${this.contentVisibleUp}-block`] : []
     },
     computedWidth() {
       // Use local width, or try parent width
@@ -120,28 +128,25 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
           : {}
       })
     }
-    if (!img) {
-      img = h()
-    }
+    img = img || h()
 
     let content = h()
-
     const contentChildren = [
       this.caption || this.captionHtml
-        ? h(this.captionTag, {
-            domProps: htmlOrText(this.captionHtml, this.caption)
-          })
-        : false,
+        ? h(this.captionTag, { domProps: htmlOrText(this.captionHtml, this.caption) })
+        : null,
       this.text || this.textHtml
         ? h(this.textTag, { domProps: htmlOrText(this.textHtml, this.text) })
-        : false,
-      this.normalizeSlot('default') || false
+        : null,
+      this.normalizeSlot('default')
     ]
-
-    if (contentChildren.some(Boolean)) {
+    if (contentChildren.some(identity)) {
       content = h(
         this.contentTag,
-        { staticClass: 'carousel-caption', class: this.contentClasses },
+        {
+          staticClass: suffixClass(CLASS_NAME_CAROUSEL, 'caption'),
+          class: this.contentClasses
+        },
         contentChildren.map(i => i || h())
       )
     }
@@ -149,7 +154,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
     return h(
       'div',
       {
-        staticClass: 'carousel-item',
+        staticClass: CLASS_NAME_CAROUSEL_ITEM,
         style: { background: this.background || this.bvCarousel.background || null },
         attrs: { id: this.safeId(), role: 'listitem' }
       },

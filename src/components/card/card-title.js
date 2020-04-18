@@ -1,7 +1,11 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import { CLASS_NAME_CARD_TITLE } from '../../constants/class-names'
+import { NAME_CARD_TITLE } from '../../constants/components'
+import Vue from '../../utils/vue'
+import { hasChildren } from '../../utils/dom'
 import { toString } from '../../utils/string'
 
+// --- Props ---
 export const props = {
   title: {
     type: String
@@ -13,18 +17,19 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BCardTitle = /*#__PURE__*/ Vue.extend({
-  name: 'BCardTitle',
+  name: NAME_CARD_TITLE,
   functional: true,
   props,
   render(h, { props, data, children }) {
     return h(
       props.titleTag,
       mergeData(data, {
-        staticClass: 'card-title'
+        staticClass: CLASS_NAME_CARD_TITLE
       }),
-      children || toString(props.title)
+      hasChildren(children) ? children : toString(props.title)
     )
   }
 })

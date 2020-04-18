@@ -67,7 +67,7 @@ describe('carousel', () => {
     const id = wrapper.attributes('id')
 
     // Slide wrapper
-    // <div role="list" class="carousel-inner" id="__BVID__52___BV_inner_"></div>
+    // <div role="list" class="carousel-inner" id="__BVID__52__BV_inner_"></div>
     expect(wrapper.findAll('.carousel > .carousel-inner').length).toBe(1)
     const $inner = wrapper.find('.carousel > .carousel-inner')
     expect($inner.classes()).toContain('carousel-inner')
@@ -75,11 +75,11 @@ describe('carousel', () => {
     expect($inner.attributes('role')).toBeDefined()
     expect($inner.attributes('role')).toEqual('list')
     expect($inner.attributes('id')).toBeDefined()
-    expect($inner.attributes('id')).toEqual(`${id}___BV_inner_`)
+    expect($inner.attributes('id')).toEqual(`${id}__BV_inner_`)
 
     // Controls (none by default)
-    // <a href="#" role="button" class="carousel-control-prev" aria-controls="__BVID__55___BV_inner_"></a>
-    // <a href="#" role="button" class="carousel-control-next" aria-controls="__BVID__55___BV_inner_"></a>
+    // <a href="#" role="button" class="carousel-control-prev" aria-controls="__BVID__55__BV_inner_"></a>
+    // <a href="#" role="button" class="carousel-control-next" aria-controls="__BVID__55__BV_inner_"></a>
     expect(wrapper.findAll('.carousel > .carousel-control-prev').length).toBe(0)
     expect(wrapper.findAll('.carousel > .carousel-control-next').length).toBe(0)
     expect(wrapper.findAll('a').length).toBe(0)
@@ -89,17 +89,17 @@ describe('carousel', () => {
     //   aria-hidden="true"
     //   aria-label="Select a slide to display"
     //   class="carousel-indicators"
-    //   id="__BVID__52___BV_indicators_"
-    //   aria-owns="__BVID__52___BV_inner_"
+    //   id="__BVID__52__BV_indicators_"
+    //   aria-owns="__BVID__52__BV_inner_"
     //   style="display: none;"></ol>
     expect(wrapper.findAll('.carousel > ol').length).toBe(1)
     const $indicators = wrapper.find('.carousel > ol')
     expect($indicators.classes()).toContain('carousel-indicators')
     expect($indicators.classes().length).toBe(1)
     expect($indicators.attributes('id')).toBeDefined()
-    expect($indicators.attributes('id')).toEqual(`${id}___BV_indicators_`)
+    expect($indicators.attributes('id')).toEqual(`${id}__BV_indicators_`)
     expect($indicators.attributes('aria-owns')).toBeDefined()
-    expect($indicators.attributes('aria-owns')).toEqual(`${id}___BV_inner_`)
+    expect($indicators.attributes('aria-owns')).toEqual(`${id}__BV_inner_`)
     expect($indicators.attributes('aria-hidden')).toBeDefined()
     expect($indicators.attributes('aria-hidden')).toEqual('true')
     expect($indicators.attributes('aria-label')).toBeDefined()
@@ -133,12 +133,12 @@ describe('carousel', () => {
     const id = wrapper.attributes('id')
 
     // Slide wrapper
-    // <div role="list" class="carousel-inner" id="__BVID__52___BV_inner_"></div>
+    // <div role="list" class="carousel-inner" id="__BVID__52__BV_inner_"></div>
     expect(wrapper.findAll('.carousel > .carousel-inner').length).toBe(1)
 
     // Controls
-    // <a href="#" role="button" class="carousel-control-prev" aria-controls="__BVID__55___BV_inner_"></a>
-    // <a href="#" role="button" class="carousel-control-next" aria-controls="__BVID__55___BV_inner_"></a>
+    // <a href="#" role="button" class="carousel-control-prev" aria-controls="__BVID__55__BV_inner_"></a>
+    // <a href="#" role="button" class="carousel-control-next" aria-controls="__BVID__55__BV_inner_"></a>
     expect(wrapper.findAll('.carousel > .carousel-control-prev').length).toBe(1)
     expect(wrapper.findAll('.carousel > .carousel-control-next').length).toBe(1)
     expect(wrapper.findAll('a').length).toBe(2)
@@ -150,8 +150,8 @@ describe('carousel', () => {
     expect($next.attributes('href')).toEqual('#')
     expect($prev.attributes('role')).toEqual('button')
     expect($next.attributes('role')).toEqual('button')
-    expect($prev.attributes('aria-controls')).toEqual(`${id}___BV_inner_`)
-    expect($next.attributes('aria-controls')).toEqual(`${id}___BV_inner_`)
+    expect($prev.attributes('aria-controls')).toEqual(`${id}__BV_inner_`)
+    expect($next.attributes('aria-controls')).toEqual(`${id}__BV_inner_`)
     expect($prev.classes()).toContain('carousel-control-prev')
     expect($next.classes()).toContain('carousel-control-next')
     expect($prev.classes().length).toBe(1)
@@ -162,8 +162,8 @@ describe('carousel', () => {
     //   aria-hidden="true"
     //   aria-label="Select a slide to display"
     //   class="carousel-indicators"
-    //   id="__BVID__52___BV_indicators_"
-    //   aria-owns="__BVID__52___BV_inner_"
+    //   id="__BVID__52__BV_indicators_"
+    //   aria-owns="__BVID__52__BV_inner_"
     //   style="display: none;"></ol>
     expect(wrapper.findAll('.carousel > ol').length).toBe(1)
     const $indicators = wrapper.find('.carousel > ol')
@@ -196,12 +196,12 @@ describe('carousel', () => {
     expect(wrapper.attributes('id')).toBeDefined()
 
     // Slide wrapper
-    // <div role="list" class="carousel-inner" id="__BVID__52___BV_inner_"></div>
+    // <div role="list" class="carousel-inner" id="__BVID__52__BV_inner_"></div>
     expect(wrapper.findAll('.carousel > .carousel-inner').length).toBe(1)
 
     // Controls (none by default)
-    // <a href="#" role="button" class="carousel-control-prev" aria-controls="__BVID__55___BV_inner_"></a>
-    // <a href="#" role="button" class="carousel-control-next" aria-controls="__BVID__55___BV_inner_"></a>
+    // <a href="#" role="button" class="carousel-control-prev" aria-controls="__BVID__55__BV_inner_"></a>
+    // <a href="#" role="button" class="carousel-control-next" aria-controls="__BVID__55__BV_inner_"></a>
     expect(wrapper.findAll('.carousel > .carousel-control-prev').length).toBe(0)
     expect(wrapper.findAll('.carousel > .carousel-control-next').length).toBe(0)
 
@@ -210,8 +210,8 @@ describe('carousel', () => {
     //   aria-hidden="true"
     //   aria-label="Select a slide to display"
     //   class="carousel-indicators"
-    //   id="__BVID__52___BV_indicators_"
-    //   aria-owns="__BVID__52___BV_inner_"
+    //   id="__BVID__52__BV_indicators_"
+    //   aria-owns="__BVID__52__BV_inner_"
     //   style="display: none;"></ol>
     expect(wrapper.findAll('.carousel > ol').length).toBe(1)
     const $indicators = wrapper.find('.carousel > ol')

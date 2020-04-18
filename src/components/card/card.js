@@ -1,9 +1,18 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import prefixPropName from '../../utils/prefix-prop-name'
-import unPrefixPropName from '../../utils/unprefix-prop-name'
+import {
+  CLASS_NAME_BACKGROUND,
+  CLASS_NAME_BORDER,
+  CLASS_NAME_CARD,
+  CLASS_NAME_FLEX_ROW,
+  CLASS_NAME_FLEX_ROW_REVERSE,
+  CLASS_NAME_TEXT
+} from '../../constants/class-names'
+import { NAME_CARD } from '../../constants/components'
+import Vue from '../../utils/vue'
 import copyProps from '../../utils/copy-props'
 import pluckProps from '../../utils/pluck-props'
+import prefixPropName from '../../utils/prefix-prop-name'
+import unPrefixPropName from '../../utils/unprefix-prop-name'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import cardMixin from '../../mixins/card'
 import { BCardBody, props as bodyProps } from './card-body'
@@ -11,6 +20,7 @@ import { BCardHeader, props as headerProps } from './card-header'
 import { BCardFooter, props as footerProps } from './card-footer'
 import { BCardImg, props as imgProps } from './card-img'
 
+// --- Props ---
 const cardImgProps = copyProps(imgProps, prefixPropName.bind(null, 'img'))
 cardImgProps.imgSrc.required = false
 
@@ -30,9 +40,10 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BCard = /*#__PURE__*/ Vue.extend({
-  name: 'BCard',
+  name: NAME_CARD,
   functional: true,
   props,
   render(h, { props, data, slots, scopedSlots }) {
@@ -85,15 +96,15 @@ export const BCard = /*#__PURE__*/ Vue.extend({
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: 'card',
+        staticClass: CLASS_NAME_CARD,
         class: {
-          'flex-row': props.imgLeft || props.imgStart,
-          'flex-row-reverse':
+          [CLASS_NAME_FLEX_ROW]: props.imgLeft || props.imgStart,
+          [CLASS_NAME_FLEX_ROW_REVERSE]:
             (props.imgRight || props.imgEnd) && !(props.imgLeft || props.imgStart),
-          [`text-${props.align}`]: props.align,
-          [`bg-${props.bgVariant}`]: props.bgVariant,
-          [`border-${props.borderVariant}`]: props.borderVariant,
-          [`text-${props.textVariant}`]: props.textVariant
+          [`${CLASS_NAME_TEXT}-${props.align}`]: props.align,
+          [`${CLASS_NAME_BACKGROUND}-${props.bgVariant}`]: props.bgVariant,
+          [`${CLASS_NAME_BORDER}-${props.borderVariant}`]: props.borderVariant,
+          [`${CLASS_NAME_TEXT}-${props.textVariant}`]: props.textVariant
         }
       }),
       [imgFirst, header, ...content, footer, imgLast]

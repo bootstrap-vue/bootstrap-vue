@@ -1,6 +1,10 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import { CLASS_NAME_CARD_IMG } from '../../constants/class-names'
+import { NAME_CARD_IMG } from '../../constants/components'
+import Vue from '../../utils/vue'
+import { suffixClass } from '../../utils/string'
 
+// --- Props ---
 export const props = {
   src: {
     type: String,
@@ -46,27 +50,27 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BCardImg = /*#__PURE__*/ Vue.extend({
-  name: 'BCardImg',
+  name: NAME_CARD_IMG,
   functional: true,
   props,
   render(h, { props, data }) {
-    let baseClass = 'card-img'
-    if (props.top) {
-      baseClass += '-top'
-    } else if (props.right || props.end) {
-      baseClass += '-right'
-    } else if (props.bottom) {
-      baseClass += '-bottom'
-    } else if (props.left || props.start) {
-      baseClass += '-left'
-    }
+    const direction = props.top
+      ? 'top'
+      : props.right || props.end
+        ? 'right'
+        : props.bottom
+          ? 'bottom'
+          : props.left || props.start
+            ? 'left'
+            : ''
 
     return h(
       'img',
       mergeData(data, {
-        class: [baseClass],
+        staticClass: direction ? suffixClass(CLASS_NAME_CARD_IMG, direction) : CLASS_NAME_CARD_IMG,
         attrs: {
           src: props.src || null,
           alt: props.alt || null,
