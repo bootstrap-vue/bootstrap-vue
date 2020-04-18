@@ -447,12 +447,12 @@ The calendar weekday name header format defaults to `'short'`, which is typicall
 abbreviation of the weekday, although some [locales](#internationalization) may override this. The
 format can be controlled via the prop `weekday-header-format` and accepts one of three values:
 
-- `'long'` the full weekday name (e.g. <samp>Tuesday</samp>). Handy when using a full width calendar.
-  Avoid using with the default calendar width.
+- `'long'` the full weekday name (e.g. <samp>Tuesday</samp>). Handy when using a full width
+  calendar. Avoid using with the default calendar width.
 - `'short'` typically is a 2 or 3 letter abbreviation of the weekday name, depending on the selected
-  locale (e.g. "Tue")
-- `'narrow'` typically a single character abbreviation (e.g., <samp>T</samp>). Two weekdays may
-  have the same narrow style for some locales (e.g. Tueday and Thursday's narrow style are both
+  locale (e.g. "Tue").
+- `'narrow'` is typically a single character abbreviation (e.g., <samp>T</samp>). Two weekdays may
+  have the same narrow style for some locales (e.g. Tuesday and Thursday's narrow style are both
   <samp>T</samp>). This can be handy for those locales that do not support the `'short'` format,
   such as locales `'ar'` and `'fa'`.
 
