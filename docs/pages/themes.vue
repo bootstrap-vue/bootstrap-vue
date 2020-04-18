@@ -67,8 +67,12 @@
         <h2 id="theme-notes-heading" class="h6">Notes:</h2>
         <ul class="small">
           <li>
-            Prices shown are in US dollars unless otherwise noted. Prices are subject to change.
-            Refer to the vendor/provider website for current pricing.
+            Prices shown are in US dollars. Prices are subject to change. Refer to the
+            vendor/provider website for current pricing.
+          </li>
+          <li>
+            Theme licenses are typicaly per-site (unless onterwised noted). Refer to the theme site
+            for licensing information.
           </li>
           <li>
             BootstrapVue receives a commission on themes purchased via the above affiliate links.
