@@ -11,7 +11,7 @@
       </header>
 
       <article v-if="!themes || themes.length === 0" class="bvd-theme text-center mb-5">
-        <b-card>
+        <b-card bg-varinatt="light">
           <BvLogo class="mx-auto"></BvLogo>
           <h2 class="display-4 font-weight-bold text-dark mt-3">Coming soon!</h2>
           <p class="card-text">Themes will be coming in the near future.</p>
