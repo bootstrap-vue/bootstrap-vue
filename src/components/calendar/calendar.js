@@ -232,7 +232,7 @@ export const BCalendar = Vue.extend({
     },
     dateFormatOptions: {
       // `Intl.DateTimeFormat` object
-      // Note: this value is *not* to be placed in the global config
+      // Note: This value is *not* to be placed in the global config
       type: Object,
       default: () => ({
         year: STR_NUMERIC,
@@ -243,7 +243,7 @@ export const BCalendar = Vue.extend({
     },
     weekdayHeaderFormat: {
       // Format of the weekday names at the top of the calendar
-      // Note: this value is *not* to be placed in the global config
+      // Note: This value is *not* to be placed in the global config
       type: String,
       // `short` is typically a 3 letter abbreviation,
       // `narrow` is typically a single letter
