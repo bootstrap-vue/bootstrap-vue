@@ -72,7 +72,7 @@
           </li>
           <li>
             Theme licenses are typicaly per-site (unless onterwised noted). Refer to the theme site
-            for licensing information.
+            documentaton for licensing information.
           </li>
           <li>
             BootstrapVue receives a commission on themes purchased via the above affiliate links.
