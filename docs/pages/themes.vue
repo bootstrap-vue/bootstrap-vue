@@ -102,7 +102,8 @@
           </li>
           <li>
             Should avoid the need for jQuery or Bootstrap v4 JavaScript files (except for included
-            3<sup>rd</sup> party compoents if required).</li>
+            3<sup>rd</sup> party compoents if required).
+          </li>
           <li>Should provide the source SCSS/SASS files/variables.</li>
           <li>Should promote that it is based on (or compatable with) <i>BootstrapVue</i>.</li>
           <li>
