@@ -217,6 +217,7 @@ module.exports = {
         // Nuxt default is missing image
         image: 'xlink:href',
         // Add BootstrapVue specific component asset items
+        'b-avatar': 'src',
         'b-img': 'src',
         'b-img-lazy': ['src', 'blank-src'],
         'b-card': 'img-src',
@@ -257,10 +258,10 @@ module.exports = {
   generate: {
     dir: 'docs-dist',
     routes: () => [
+      // Dynamic slug routes
       ...getRoutesByDir('src', 'components'),
       ...getRoutesByDir('src', 'directives', ['modal', 'toggle']),
-      ...getRoutesByDir('docs/markdown', 'reference'),
-      ...getRoutesByDir('docs/markdown', 'misc')
+      ...getRoutesByDir('docs/markdown', 'reference')
     ]
   },
 

@@ -244,7 +244,7 @@ See how aspects of the Bootstrap grid system work across multiple devices with a
 - There is no `xs` prop. The `cols` prop refers to the `xs` (smallest) breakpoint.
 - The above breakpoint values and names are the Bootstrap defaults. They can be customized via
   [SCSS variables](/docs/reference/theming), and (if also using custom breakpoint names), via the
-  BootstrapVue [global configuration](/docs/misc/settings).
+  BootstrapVue [global configuration](/docs/reference/settings).
 
 ### Container sizes
 
