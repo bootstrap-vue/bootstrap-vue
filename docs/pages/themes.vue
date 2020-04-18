@@ -40,7 +40,8 @@
                 {{ theme.description }}
               </b-card-text>
               <b-card-text class="text-muted small">
-                <i>Provided by: {{ theme.provider }}</i>
+                <span>Category: {{ theme.category }}</span>
+                <span class="ml-3"><i>Provided by: {{ theme.provider }}</i></span>
               </b-card-text>
               <b-card-text class="d-flex align-items-center">
                 <b-button :href="theme.href" target="_blank" variant="bd-primary">
