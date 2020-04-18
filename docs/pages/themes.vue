@@ -91,8 +91,9 @@
             BootstrapVue components if they wish.
           </li>
           <li>Should avoid the need for jQuery or Bootstrap v4 JavaScript files.</li>
-          <li>Should provide source SCSS/SASS files/variables for BootstrapVue custom SCSS.</li>
+          <li>Should provide the source SCSS/SASS files/variables.</li>
           <li>Should promote that it is based on (or compatable with) <i>BootstrapVue</i>.</li>
+          <li>Any custom components should be WAI-ARIA accessible.</li>
         </ul>
       </aside>
     </section>
