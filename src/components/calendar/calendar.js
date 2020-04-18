@@ -442,10 +442,18 @@ export const BCalendar = Vue.extend({
       })
     },
     formatDay() {
-      return createDateFormatter(this.calendarLocale, {
-        day: STR_NUMERIC,
-        calendar: STR_GREGORY
+      // Calendar grid day number formatter
+      // We don't use DateTimeFormatter here as it can place extra
+      // character(s) after the number (i.e the `zh` locale)
+      const nf = new Intl.NumberFormat([this.computedLocale], {
+        style: 'decimal',
+        minimumIntegerDigits: 1,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+        notation: 'standard'
       })
+      // Return a formatter function instance
+      return (date => nf.format(date.getDate()))
     },
     // Disabled states for the nav buttons
     prevDecadeDisabled() {
