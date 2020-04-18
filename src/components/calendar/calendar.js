@@ -453,7 +453,7 @@ export const BCalendar = Vue.extend({
         notation: 'standard'
       })
       // Return a formatter function instance
-      return (date => nf.format(date.getDate()))
+      return date => nf.format(date.getDate())
     },
     // Disabled states for the nav buttons
     prevDecadeDisabled() {
