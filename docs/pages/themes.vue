@@ -105,7 +105,10 @@
             3<sup>rd</sup> party compoents if required).</li>
           <li>Should provide the source SCSS/SASS files/variables.</li>
           <li>Should promote that it is based on (or compatable with) <i>BootstrapVue</i>.</li>
-          <li>Any custom components should be WAI-ARIA accessible.</li>
+          <li>
+            Any custom components should be WAI-ARIA accessible. Any WAI-ARIA limitations should be
+            noted in the documeantation.
+          </li>
         </ul>
       </aside>
     </section>
