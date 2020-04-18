@@ -283,6 +283,10 @@ a {
 
 ## See also
 
+<!-- Comment out for now
+- For premium dashboards and themes, please refer to the [`Themes section`](/themes) of the
+documetation.
+-->
 - If you are defining custom breakpoint names, please see the
   [BootstrapVue settings](/docs/reference/settings) page on how to update BootstrapVue `<b-col>` and
   `<b-form-group>` breakpoint specific props.
