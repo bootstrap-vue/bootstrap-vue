@@ -10,8 +10,10 @@
         </p>
       </header>
 
-      <article v-if="!themes || themes.length === 0" class="bvd-theme">
-        <h2 class="h4">Coming soon!</h2>
+      <article v-if="themes || !themes || themes.length === 0" class="bvd-theme text-center">
+        <b-img src="/logo.svg" center alt="BootstrapVue logo"></b-img>
+        <h2 class="display-1 text-bold mt-3">Coming soon!</h2>
+        <p>Themes will be coming in the near future</p>
       </article>
 
       <article
