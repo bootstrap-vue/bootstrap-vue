@@ -10,10 +10,10 @@
         </p>
       </header>
 
-      <article v-if="themes || !themes || themes.length === 0" class="bvd-theme text-center">
-        <b-img src="/logo.svg" center alt="BootstrapVue logo"></b-img>
-        <h2 class="display-1 text-bold mt-3">Coming soon!</h2>
-        <p>Themes will be coming in the near future</p>
+      <article v-if="themes || !themes || themes.length === 0" class="bvd-theme text-center mb-5">
+        <b-img src="~static/logo.svg" center alt="BootstrapVue logo" class="bv-theme-logo"></b-img>
+        <h2 class="display-4 font-weight-bold text-dark mt-3">Coming soon!</h2>
+        <p>Themes will be coming in the near future.</p>
       </article>
 
       <article
@@ -100,6 +100,10 @@
 </template>
 
 <style lang="scss" scoped>
+.bv-theme-logo {
+  // BV Logo (SVG)
+  width: 200px;
+}
 .bvd-theme {
   .card {
     // Simple way to get rounded corners
