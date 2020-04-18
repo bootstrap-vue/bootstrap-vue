@@ -96,7 +96,9 @@
             Must be be compatible with BootstrapVue so that users can incorporate native
             BootstrapVue components if they wish.
           </li>
-          <li>Should avoid the need for jQuery or Bootstrap v4 JavaScript files.</li>
+          <li>
+            Should avoid the need for jQuery or Bootstrap v4 JavaScript files (except for included
+            3<sup>rd</sup> party compoents if required).</li>
           <li>Should provide the source SCSS/SASS files/variables.</li>
           <li>Should promote that it is based on (or compatable with) <i>BootstrapVue</i>.</li>
           <li>Any custom components should be WAI-ARIA accessible.</li>
