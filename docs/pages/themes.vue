@@ -31,8 +31,8 @@
                 <b-card-img-lazy
                   :src="theme.img"
                   alt="Image"
-                  blank-width="400"
-                  blank-height="300"
+                  blank-width="800"
+                  blank-height="600"
                   class="rounded-0"
                 ></b-card-img-lazy>
               </b-aspect>
