@@ -120,6 +120,8 @@
   .card {
     // Simple way to get rounded corners on the images
     overflow: hidden;
+    // Add some shadow
+    box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.06);
   }
 }
 
