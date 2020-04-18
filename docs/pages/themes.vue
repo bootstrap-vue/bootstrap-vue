@@ -75,6 +75,10 @@
             documentaton for licensing information.
           </li>
           <li>
+            BootstrapVue does not guaantee that all coustom components provided by a theme are
+            WIA-ARIA compliant. Refer to the provider documentation for details.
+          </li>
+          <li>
             BootstrapVue receives a commission on themes purchased via the above affiliate links.
           </li>
           <li>
