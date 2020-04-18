@@ -22,7 +22,7 @@
             preserveAspectRatio="xMidYMid meet"
             role="img"
             focusable="false"
-            class="bv-theme-logo mt-4"
+            class="bv-theme-logo"
           >
             <title>BootstrapVue Logo</title>
             <defs>
@@ -151,7 +151,7 @@
 <style lang="scss" scoped>
 .bv-theme-logo {
   // BV Logo (SVG)
-  width: 200px;
+  width: 280px;
 }
 
 @media (max-width: 991px) {
