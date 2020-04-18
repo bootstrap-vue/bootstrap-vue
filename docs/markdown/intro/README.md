@@ -599,8 +599,8 @@ module.exports = {
 ### Passing custom BootstrapVue config with Nuxt.js
 
 If you need to pass a custom
-[BootstrapVue configuration](/docs/misc/settings#default-bootstrapvue-configuration), you may do so
-by setting the `config` property in your `nuxt.config.js`:
+[BootstrapVue configuration](/docs/reference/settings#default-bootstrapvue-configuration), you may
+do so by setting the `config` property in your `nuxt.config.js`:
 
 ```js
 module.exports = {
