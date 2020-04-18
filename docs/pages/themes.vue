@@ -11,9 +11,11 @@
       </header>
 
       <article v-if="!themes || themes.length === 0" class="bvd-theme text-center mb-5">
-        <b-img src="~static/logo.svg" center alt="BootstrapVue logo" class="bv-theme-logo"></b-img>
-        <h2 class="display-4 font-weight-bold text-dark mt-3">Coming soon!</h2>
-        <p>Themes will be coming in the near future.</p>
+        <b-card>
+          <b-img src="~static/logo.svg" center alt="BootstrapVue logo" class="bv-theme-logo"></b-img>
+          <h2 class="display-4 font-weight-bold text-dark mt-3">Coming soon!</h2>
+          <p class="card-text">Themes will be coming in the near future.</p>
+        </b-card>
       </article>
 
       <article
@@ -61,8 +63,8 @@
         </b-card>
       </article>
 
-      <aside id="theme-notes" class="text-muted mb-3">
-        <h2 class="h6">Notes:</h2>
+      <aside id="theme-notes" class="text-muted mb-3" aria-labelledby="theme-notes-heading">
+        <h2 id=="theme-notes-heading" class="h6">Notes:</h2>
         <ul class="small">
           <li>
             Prices shown are in US dollars unless otherwise noted. Prices are subject to change.
@@ -78,8 +80,8 @@
         </ul>
       </aside>
 
-      <aside id="theme-providers" class="text-muted">
-        <h2 class="h6">Are you a theme provider?</h2>
+      <aside id="theme-providers" class="text-muted" aria-labelledby="theme-provider-heading">
+        <h2 id="theme-provider-heading" class="h6">Are you a theme provider?</h2>
         <p class="small mb-2">
           If you are interested in being an affiliate and listing your theme or dashboard on this
           page, your product must meet the following guidelines:
@@ -105,12 +107,22 @@
   // BV Logo (SVG)
   width: 200px;
 }
+
+@media (max-width: 991px) {
+  // Shrink the display text a bit on smaller screens
+  // Only used if no themes are available
+  .display-4 {
+      font-size: 2.5rem;
+  }
+}
+
 .bvd-theme {
   .card {
-    // Simple way to get rounded corners
+    // Simple way to get rounded corners on the images
     overflow: hidden;
   }
 }
+
 </style>
 
 <script>
