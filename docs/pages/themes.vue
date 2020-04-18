@@ -40,8 +40,8 @@
                 {{ theme.description }}
               </b-card-text>
               <b-card-text class="text-muted small">
-                <span class="d-block d-md-inline-block mb-2 mb-md-0">Category: {{ theme.category }}</span>
-                <span class="d-block d-md-inline-block ml-md-3"><i>Provided by: {{ theme.provider }}</i></span>
+                <span class="d-block d-lg-inline-block mb-2 mb-lg-0">Category: {{ theme.category }}</span>
+                <span class="d-block d-lg-inline-block ml-lg-3"><i>Provided by: {{ theme.provider }}</i></span>
               </b-card-text>
               <b-card-text class="d-flex align-items-center">
                 <b-button :href="theme.href" target="_blank" variant="bd-primary">
