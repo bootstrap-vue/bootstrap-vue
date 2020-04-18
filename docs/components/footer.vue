@@ -3,7 +3,7 @@
     <b-container>
       <b-row class="justify-content-center">
         <b-col cols="12" sm order-sm="3" class="text-center text-sm-right">
-          <BvLogo width="120" height="120" class="img-fluid mt-n5 mb-4 mb-sm-0"></BvLogo>
+          <BvLogo width="120" height="120" class="img-fluid mb-4 mb-sm-0"></BvLogo>
         </b-col>
 
         <b-col cols="auto" md="4" class="text-left">
@@ -109,6 +109,10 @@
 </template>
 
 <style scoped>
+.bv-logo {
+  margin-top: -2rem;
+}
+
 .docs-border {
   border-top: 3px solid #dee2e6;
 }
