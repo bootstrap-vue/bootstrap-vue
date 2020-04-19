@@ -32,6 +32,9 @@ Released: 2020-04-19
 - **b-form-rating:** new `b-form-rating` custom component
   ([#5132](https://github.com/bootstrap-vue/bootstrap-vue/issues/5132))
   ([30ad7fe](https://github.com/bootstrap-vue/bootstrap-vue/commit/30ad7fe746cd6187311c86319abf6e9519b81f15))
+- **b-sidebar:** add optional backdrop support
+  ([#5182](https://github.com/bootstrap-vue/bootstrap-vue/issues/5182))
+  ([c6375e5](https://github.com/bootstrap-vue/bootstrap-vue/commit/c6375e5513cb0ec33a9bc9fc894a123d74cf7768))
 - **custom components:** avoid using padding/margin utility classes where possible (closes
   [#5117](https://github.com/bootstrap-vue/bootstrap-vue/issues/5117))
   ([#5121](https://github.com/bootstrap-vue/bootstrap-vue/issues/5121))
