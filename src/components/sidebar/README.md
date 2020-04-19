@@ -237,6 +237,36 @@ In some instances, you may not want the content rendered when the sidebar is not
 the `lazy` prop on `<b-sidebar>`. When `lazy` is `true`, the body and optional footer will _not_ be
 rendered (removed from DOM) whenever the sidebar is closed.
 
+### Backdrop
+
+<span class="badge badge-info small">2.12.0+</span>
+
+Add a basic backdrop when the side bar is open via the `backdrop` prop. When set to `true`, the
+sidebar will show an opaque backdrop. Clicking on the backdrop will close the sidebar, unless the
+`no-close-on-backdrop` prop is set to `true`.
+
+```html
+<template>
+  <div>
+    <b-button v-b-toggle.sidebar-backdrop>Toggle Sidebar</b-button>
+    <b-sidebar id="sidebar-backdrop" aria-label="Sidebar with backdrop" shadow>
+      <div class="px-3 py-2">
+        <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+          in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+        </p>
+        <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
+      </div>
+    </b-sidebar>
+  </div>
+</template>
+
+<!-- b-sidebar-backdrop.vue -->
+```
+
+Note that when the sidebar is open, it may still be possible to scroll the body and that focus is
+not constrained to the content of the sidebar (unlike the behaviour of modals).
+
 ## Visibility control
 
 ### `v-b-toggle` directive
