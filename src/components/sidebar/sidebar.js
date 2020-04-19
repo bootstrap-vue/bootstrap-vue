@@ -115,7 +115,8 @@ const renderBackdrop = (h, ctx) => {
   }
   return h('div', {
     directives: [{ name: 'show', value: ctx.localShow }],
-    staticClass: 'b-sidebar-backdrop'
+    staticClass: 'b-sidebar-backdrop',
+    on: { click: ctx.onBackdropClick }    
   })
 }
 
@@ -205,6 +206,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       default: false
     },
     noCloseOnEsc: {
+      type: Boolean,
+      default: false
+    },
+    noCloseOnBackdrop: {
       type: Boolean,
       default: false
     },
@@ -317,7 +322,12 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     onKeydown(evt) {
       const { keyCode } = evt
-      if (!this.noCloseOnEsc && keyCode === KeyCodes.ESC) {
+      if (!this.noCloseOnEsc && keyCode === KeyCodes.ESC && this.localShow) {
+        this.hide()
+      }
+    },
+    onBackdropClick(evt) {
+      if (this.localShow && !this.noCloseOnBackdrop) {
         this.hide()
       }
     },
@@ -377,8 +387,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           'aria-label': ariaLabel,
           'aria-labelledby': ariaLabelledby
         },
-        style: { width: this.width },
-        on: { keydown: this.onKeydown }
+        style: { width: this.width }
       },
       [renderContent(h, this)]
     )
@@ -405,7 +414,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'b-sidebar-outer',
         class: { 'b-sidebar-right': this.right },
-        style: { zIndex: this.zIndex }
+        style: { zIndex: this.zIndex },
+        on: { keydown: this.onKeydown }
       },
       [$sidebar, $backdrop]
     )
