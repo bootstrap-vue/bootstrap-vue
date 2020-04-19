@@ -5,7 +5,15 @@ import identity from '../../utils/identity'
 import observeDom from '../../utils/observe-dom'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { closest, contains, getTababales, isVisible, requestAF, select, selectAll } from '../../utils/dom'
+import {
+  closest,
+  contains,
+  getTabables,
+  isVisible,
+  requestAF,
+  select,
+  selectAll
+} from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
 import { stripTags } from '../../utils/html'
