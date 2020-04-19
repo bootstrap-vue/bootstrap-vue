@@ -8,6 +8,17 @@ import { toFloat } from './number'
 const w = hasWindowSupport ? window : {}
 const d = hasDocumentSupport ? document : {}
 const elProto = typeof Element !== 'undefined' ? Element.prototype : {}
+const TABABLE_SELECTOR = [
+  'button',
+  '[href]:not(.disabled)',
+  'input',
+  'select',
+  'textarea',
+  '[tabindex]',
+  '[contenteditable]'
+]
+  .map(s => `${s}:not(:disabled):not([disabled])`)
+  .join(', ')
 
 // --- Normalization utils ---
 
@@ -233,4 +244,12 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
     top: _offset.top - parentOffset.top - toFloat(elStyles.marginTop, 0),
     left: _offset.left - parentOffset.left - toFloat(elStyles.marginLeft, 0)
   }
+}
+
+expot const getTababales = (el = document) => {
+  // Find all tabable elements in the modal content
+  // Assumes users have not used tabindex > 0 on elements!
+  return selectAll(TABABLE_SELECTOR, el)
+    .filter(isVisible)
+    .filter(i => i.tabIndex > -1 && !i.disabled)
 }
