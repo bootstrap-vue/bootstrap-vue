@@ -439,4 +439,44 @@ describe('sidebar', () => {
 
     wrapper.destroy()
   })
+
+  it('constrain focus works when `backdrop` is true', async () => {
+    const wrapper = mount(BSidebar, {
+      attachToDocument: true,
+      propsData: {
+        id: 'test-backdrop',
+        noCloseOnBackdrop: false,
+        visible: false,
+        backdrop: true
+      },
+      slots: {
+        default: '<input class="input1"><input class="input2">'
+      },
+      stubs: {
+        // Disable use of default test `transitionStub` component
+        transition: false
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $sidebar = wrapper.find('.b-sidebar')
+    expect($sidebar.exists()).toBe(true)
+
+    const $input1 = wrapper.dins('input.input1')
+    const $input2 = wrapper.dins('input.input2')
+
+    expect($input1.exists()).tobe(true)
+    expect($input2.exists()).tobe(true)
+
+    expect(document.activeelement).toEqual($sidebar.element)
+
+    // TBD
+
+    wrapper.destroy()
+  })
 })
