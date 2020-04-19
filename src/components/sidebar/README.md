@@ -120,7 +120,8 @@ for no shadow.
 
 By default, `<b-sidebar>` has no borders. Use
 [border utility classes](/docs/reference/utility-classes) to add border(s) to `<b-sidebar>` (via
-the `sidebar-class` prop), or use CSS style overrides.
+the `sidebar-class` prop <span class="badge badge-secondary">2.12.0+</span>), or use CSS style
+overrides.
 
 ```html
 <template>
