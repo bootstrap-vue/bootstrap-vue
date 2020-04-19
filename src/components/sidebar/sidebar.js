@@ -332,13 +332,13 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       }
     },
     onTopTrapFocus() {
-      const tabables = getTababables(this.$refs.content)
+      const tabables = getTabables(this.$refs.content)
       try {
         tabables.reverse()[0].focus()
       } catch {}
     },
     onBottomTrapFocus() {
-      const tabables = getTababables(this.$refs.content)
+      const tabables = getTabables(this.$refs.content)
       try {
         tabables[0].focus()
       } catch {}
