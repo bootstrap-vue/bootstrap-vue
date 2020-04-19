@@ -331,13 +331,15 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         this.hide()
       }
     },
-    onTopTrapFocus() {
+    /* istanbul ignore next */
+    onTopTrapFocus() /* istanbul ignore next */ {
       const tabables = getTabables(this.$refs.content)
       try {
         tabables.reverse()[0].focus()
       } catch {}
     },
-    onBottomTrapFocus() {
+    /* istanbul ignore next */
+    onBottomTrapFocus() /* istanbul ignore next */ {
       const tabables = getTabables(this.$refs.content)
       try {
         tabables[0].focus()
