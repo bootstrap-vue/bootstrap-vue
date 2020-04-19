@@ -116,7 +116,7 @@ const renderBackdrop = (h, ctx) => {
   return h('div', {
     directives: [{ name: 'show', value: ctx.localShow }],
     staticClass: 'b-sidebar-backdrop',
-    on: { click: ctx.onBackdropClick }    
+    on: { click: ctx.onBackdropClick }
   })
 }
 
@@ -326,7 +326,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         this.hide()
       }
     },
-    onBackdropClick(evt) {
+    onBackdropClick() {
       if (this.localShow && !this.noCloseOnBackdrop) {
         this.hide()
       }
