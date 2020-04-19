@@ -190,7 +190,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     backdrop: {
       // If true, shows a basic backdrop
       type: Boolean,
-      default; false
+      default: false
     },
     noSlide: {
       type: Boolean,
