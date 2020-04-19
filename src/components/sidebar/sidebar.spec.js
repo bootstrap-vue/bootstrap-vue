@@ -29,6 +29,9 @@ describe('sidebar', () => {
     const $sidebar = wrapper.find('.b-sidebar')
     expect($sidebar.exists()).toBe(true)
 
+    const $backdrop = wrapper.find('.b-sideba-brackdrop')
+    expect($sidebar.exists()).toBe(false)
+
     expect($sidebar.is('div')).toBe(true)
     expect($sidebar.attributes('id')).toBeDefined()
     expect($sidebar.attributes('id')).toEqual('test-1')
@@ -70,6 +73,24 @@ describe('sidebar', () => {
     expect(wrapper.is('div')).toBe(true)
     // Check for no presence of `display: none' from `v-show` directive
     expect($sidebar.isVisible()).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('shows backdrop when prop `backdrop` is true', async () => {
+    const wrapper = mount(BSidebar, {
+      attachToDocument: true,
+      propsData: {
+        id: 'test-backdrop',
+        backdrop: true
+      },
+      stubs: {
+        // Disable use of default test `transitionStub` component
+        transition: false
+      }
+    })
+
+    // TBD
 
     wrapper.destroy()
   })
