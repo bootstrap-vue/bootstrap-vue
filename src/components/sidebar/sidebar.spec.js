@@ -482,7 +482,7 @@ describe('sidebar', () => {
     expect($input1.exists()).toBe(true)
     expect($input2.exists()).toBe(true)
 
-    expect(document.activeelement).toEqual($sidebar.element)
+    expect(document.activeElement).toEqual($sidebar.element)
 
     // TBD
 
