@@ -187,13 +187,13 @@ export default {
   },
   computed: {
     prodURL() {
-      return 'https://bootstrap-vue.js.org/'
+      return 'https://bootstrap-vue.org/'
     },
     devURL() {
       if (this.isNetlify) {
         return 'https://bootstrap-vue.netlify.app/'
       }
-      return 'https://dev.bootstrap-vue.now.sh/'
+      return 'https://dev.bootstrap-vue.org/'
     },
     isNetlify() {
       return Boolean(process.env.NETLIFY)
