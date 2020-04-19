@@ -163,6 +163,9 @@ slide transition via the `no-slide` prop.
 [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
 additional details.
 
+When disablding the slid transition, the fade transiton of the [optional backdrop](#backdrop) will
+also be disabled.
+
 ### Z-index
 
 The sidebar has a default `z-index` defined in SCSS/CSS. In some situations you may need to use a
