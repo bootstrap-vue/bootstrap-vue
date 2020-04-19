@@ -331,6 +331,18 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         this.hide()
       }
     },
+    onTopTrapFocus() {
+      const tabables = getTababables(this.$refs.content)
+      try {
+        tabables.reverse()[0].focus()
+      } catch {}
+    },
+    onBottomTrapFocus() {
+      const tabables = getTababables(this.$refs.content)
+      try {
+        tabables.[0].focus()
+      } catch {}
+    },
     onBeforeEnter() {
       this.$_returnFocusEl = null
       try {
@@ -369,6 +381,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     let $sidebar = h(
       this.tag,
       {
+        ref: 'content',
         directives: [{ name: 'show', value: localShow }],
         staticClass: CLASS_NAME,
         class: {
@@ -412,8 +425,14 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     let $tabTrapTop = h()
     let $tabTrapBottom = h()
     if (this.backdrop) {
-      $tabTrapTop = h('div', { attrs: { tabindex: '0' } })
-      $tabTrapBottom = h('div', { attrs: { tabindex: '0' } })
+      $tabTrapTop = h('div', {
+        attrs: { tabindex: '0' },
+        on: { focus: this.onTopTrapFocus }
+      })
+      $tabTrapBottom = h('div', {
+        attrs: { tabindex: '0' },
+        on: { focus: this.onBottomTrapFocus }
+      })
     }
 
     return h(
