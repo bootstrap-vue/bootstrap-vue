@@ -29,7 +29,7 @@ describe('sidebar', () => {
     const $sidebar = wrapper.find('.b-sidebar')
     expect($sidebar.exists()).toBe(true)
 
-    const $backdrop = wrapper.find('.b-sideba-backdrop')
+    const $backdrop = wrapper.find('.b-sidebar-backdrop')
     expect($backdrop.exists()).toBe(false)
 
     expect($sidebar.is('div')).toBe(true)
