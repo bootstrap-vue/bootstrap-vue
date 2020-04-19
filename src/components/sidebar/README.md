@@ -249,7 +249,7 @@ sidebar will show an opaque backdrop. Clicking on the backdrop will close the si
 <template>
   <div>
     <b-button v-b-toggle.sidebar-backdrop>Toggle Sidebar</b-button>
-    <b-sidebar id="sidebar-backdrop" aria-label="Sidebar with backdrop" shadow>
+    <b-sidebar id="sidebar-backdrop" backdrop aria-label="Sidebar with backdrop" shadow>
       <div class="px-3 py-2">
         <p>
           Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
