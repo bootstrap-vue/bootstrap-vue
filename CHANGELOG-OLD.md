@@ -2454,8 +2454,7 @@ Notable changes:
 v1.0.0 introduces a new source code structure. For those users that are importing individual
 components, the path to the individual components has changed. Please reference the
 [GitHub repo](https://github.com/bootstrap-vue/bootstrap-vue/) and
-[documentation](https://bootstrap-vue.js.org/docs) for the new structure and information on
-importing.
+[documentation](https://bootstrap-vue.org/docs) for the new structure and information on importing.
 
 ### Bug Fixes v1.0.0
 
