@@ -125,6 +125,7 @@ const renderBackdrop = (h, ctx) => {
 export const BSidebar = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
+  inheritAttrs: false,
   model: {
     prop: 'visible',
     event: 'change'
@@ -401,6 +402,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           this.sidebarClass
         ],
         attrs: {
+          ...this.$attrs,
           id: this.safeId(),
           tabindex: '-1',
           role: 'dialog',
