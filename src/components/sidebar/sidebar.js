@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
+import BVTransition from '../../utils/bv-transition'
 import { contains } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
 import { toString } from '../../utils/string'
@@ -106,6 +107,16 @@ const renderContent = (h, ctx) => {
     return $header
   }
   return [$header, renderBody(h, ctx), renderFooter(h, ctx)]
+}
+
+const renderBackdrop = (h, ctx) => {
+  if (!ctx.backdrop) {
+    return h()
+  }
+  return h('div', {
+    directives: [{ name: 'show', value: ctx.localShow }],
+    staticClass: 'b-sidebar-backdrop'
+  })
 }
 
 // --- Main component ---
@@ -340,7 +351,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     // `ariaLabel` takes precedence over `ariaLabelledby`
     const ariaLabelledby = this.ariaLabelledby || titleId || null
 
-    const $sidebar = h(
+    let $sidebar = h(
       this.tag,
       {
         directives: [{ name: 'show', value: localShow }],
@@ -367,7 +378,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       [renderContent(h, this)]
     )
 
-    return h(
+    $sidebar = h(
       'transition',
       {
         props: this.transitionProps,
@@ -378,6 +389,19 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         }
       },
       [$sidebar]
+    )
+
+    const $backdrop = h(BVTransition, { props: { noFade: this.noSlide } }, [
+      renderBackdrop(h, this)
+    ])
+
+    return h(
+      'div',
+      {
+        staticClass: 'b-sidebar-outer',
+        class: { 'b-sidebar-right': this.right }
+      }
+      [$sidebar, $backdrop]
     )
   }
 })
