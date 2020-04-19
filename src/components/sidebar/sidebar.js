@@ -176,6 +176,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       type: String,
       default: () => getComponentConfig(NAME, 'tag')
     },
+    sidebarClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
     headerClass: {
       type: [String, Array, Object]
       // default: null
@@ -386,13 +390,16 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         ref: 'content',
         directives: [{ name: 'show', value: localShow }],
         staticClass: CLASS_NAME,
-        class: {
-          shadow: shadow === true,
-          [`shadow-${shadow}`]: shadow && shadow !== true,
-          [`${CLASS_NAME}-right`]: this.right,
-          [`bg-${this.bgVariant}`]: !!this.bgVariant,
-          [`text-${this.textVariant}`]: !!this.textVariant
-        },
+        class: [
+          {
+            shadow: shadow === true,
+            [`shadow-${shadow}`]: shadow && shadow !== true,
+            [`${CLASS_NAME}-right`]: this.right,
+            [`bg-${this.bgVariant}`]: !!this.bgVariant,
+            [`text-${this.textVariant}`]: !!this.textVariant
+          },
+          this.sidebarClass
+        ],
         attrs: {
           id: this.safeId(),
           tabindex: '-1',
