@@ -396,7 +396,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           tabindex: '-1',
           role: 'dialog',
           'aria-modal': this.backdrop ? 'true' : 'false',
-          'aria-hidden': localShow ? 'false' : 'true',
+          'aria-hidden': localShow ? null : 'true',
           'aria-label': ariaLabel,
           'aria-labelledby': ariaLabelledby
         },
