@@ -246,7 +246,7 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
   }
 }
 
-export const getTababales = (el = document) => {
+export const getTabables = (el = document) => {
   // Find all tabable elements in the modal content
   // Assumes users have not used tabindex > 0 on elements!
   return selectAll(TABABLE_SELECTOR, el)
