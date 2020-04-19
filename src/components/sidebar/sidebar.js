@@ -405,7 +405,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'b-sidebar-outer',
         class: { 'b-sidebar-right': this.right },
-        style: { zIndex: this.zIndex },
+        style: { zIndex: this.zIndex }
       },
       [$sidebar, $backdrop]
     )
