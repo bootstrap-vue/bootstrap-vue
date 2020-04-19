@@ -464,14 +464,23 @@ describe('sidebar', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    wrapper.setProps({
+      visible: true
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
     const $sidebar = wrapper.find('.b-sidebar')
     expect($sidebar.exists()).toBe(true)
+    expect($sidebar.isVisible()).toBe(true)
 
     const $input1 = wrapper.find('input.input1')
     const $input2 = wrapper.find('input.input2')
 
-    expect($input1.exists()).tobe(true)
-    expect($input2.exists()).tobe(true)
+    expect($input1.exists()).toBe(true)
+    expect($input2.exists()).toBe(true)
 
     expect(document.activeelement).toEqual($sidebar.element)
 
