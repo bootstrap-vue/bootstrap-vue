@@ -467,8 +467,8 @@ describe('sidebar', () => {
     const $sidebar = wrapper.find('.b-sidebar')
     expect($sidebar.exists()).toBe(true)
 
-    const $input1 = wrapper.dins('input.input1')
-    const $input2 = wrapper.dins('input.input2')
+    const $input1 = wrapper.find('input.input1')
+    const $input2 = wrapper.find('input.input2')
 
     expect($input1.exists()).tobe(true)
     expect($input2.exists()).tobe(true)
