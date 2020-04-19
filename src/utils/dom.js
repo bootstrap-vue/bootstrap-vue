@@ -5,9 +5,6 @@ import { toFloat } from './number'
 
 // --- Constants ---
 
-const w = hasWindowSupport ? window : {}
-const d = hasDocumentSupport ? document : {}
-const elProto = typeof Element !== 'undefined' ? Element.prototype : {}
 const TABABLE_SELECTOR = [
   'button',
   '[href]:not(.disabled)',
@@ -19,6 +16,10 @@ const TABABLE_SELECTOR = [
 ]
   .map(s => `${s}:not(:disabled):not([disabled])`)
   .join(', ')
+
+const w = hasWindowSupport ? window : {}
+const d = hasDocumentSupport ? document : {}
+const elProto = typeof Element !== 'undefined' ? Element.prototype : {}
 
 // --- Normalization utils ---
 
@@ -246,10 +247,9 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
   }
 }
 
-export const getTabables = (el = document) => {
-  // Find all tabable elements in the modal content
-  // Assumes users have not used tabindex > 0 on elements!
-  return selectAll(TABABLE_SELECTOR, el)
+// Find all tabable elements in the given element
+// Assumes users have not used `tabindex` > `0` on elements
+export const getTabables = (el = document) =>
+  selectAll(TABABLE_SELECTOR, el)
     .filter(isVisible)
     .filter(i => i.tabIndex > -1 && !i.disabled)
-}
