@@ -56,8 +56,6 @@ describe('sidebar', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.is('div')).toBe(true)
 
-    const $sidebar = wrapper.find('.b-sidebar')
-    expect($sidebar.exists()).toBe(true)
     // Check for no presence of `display: none' from `v-show` directive
     expect($sidebar.isVisible()).toBe(false)
 
