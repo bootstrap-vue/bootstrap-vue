@@ -2,6 +2,5 @@
 dist/
 docs-dist/
 esm/
-es/
 node_modules/
 nuxt/plugin.*.js
