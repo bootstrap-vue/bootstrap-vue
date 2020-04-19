@@ -127,7 +127,7 @@ overrides.
 <template>
   <div>
     <b-button v-b-toggle.sidebar-border>Toggle Sidebar</b-button>
-    <b-sidebar id="sidebar-border" sidebar-class="border-right border-dark">
+    <b-sidebar id="sidebar-border" sidebar-class="border-right border-danger">
       <div class="px-3 py-2">
         <p>
           Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
