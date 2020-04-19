@@ -82,6 +82,8 @@ describe('sidebar', () => {
       attachToDocument: true,
       propsData: {
         id: 'test-backdrop',
+        noCloseOnBackdrop: true,
+        visible: true,
         backdrop: true
       },
       stubs: {
@@ -100,6 +102,26 @@ describe('sidebar', () => {
     expect($sidebar.exists()).toBe(true)
     const $backdrop = wrapper.find('.b-sideba-brackdrop')
     expect($backdrop.exists()).toBe(false)
+
+    $sidebar.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($sidebar.isVisible()).toBe(true)
+    expect($backdrop.isVisible()).toBe(true)
+
+    wrapper.setProps({
+      noCloseOnBackdrop: false
+    })
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($sidebar.isVisible()).toBe(true)
+    expect($backdrop.isVisible()).toBe(true)
 
     $sidebar.trigger('click')
     await waitNT(wrapper.vm)
