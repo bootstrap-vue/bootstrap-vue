@@ -55,8 +55,8 @@
     "src"
   ],
   "sideEffects": [
-    "**/*.scss",
     "**/*.css",
+    "**/*.scss",
     "**/*.vue",
     "./docs",
     "./types"
