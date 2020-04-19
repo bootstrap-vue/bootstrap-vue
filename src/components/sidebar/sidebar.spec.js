@@ -29,7 +29,7 @@ describe('sidebar', () => {
     const $sidebar = wrapper.find('.b-sidebar')
     expect($sidebar.exists()).toBe(true)
 
-    const $backdrop = wrapper.find('.b-sideba-brackdrop')
+    const $backdrop = wrapper.find('.b-sideba-backdrop')
     expect($backdrop.exists()).toBe(false)
 
     expect($sidebar.is('div')).toBe(true)
@@ -100,8 +100,8 @@ describe('sidebar', () => {
 
     const $sidebar = wrapper.find('.b-sidebar')
     expect($sidebar.exists()).toBe(true)
-    const $backdrop = wrapper.find('.b-sideba-brackdrop')
-    expect($backdrop.exists()).toBe(false)
+    const $backdrop = wrapper.find('.b-sideba-backdrop')
+    expect($backdrop.exists()).toBe(true)
 
     $sidebar.trigger('click')
     await waitNT(wrapper.vm)
