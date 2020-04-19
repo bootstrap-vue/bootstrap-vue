@@ -372,7 +372,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           'aria-label': ariaLabel,
           'aria-labelledby': ariaLabelledby
         },
-        style: { width: this.width, zIndex: this.zIndex },
+        style: { width: this.width },
         on: { keydown: this.onKeydown }
       },
       [renderContent(h, this)]
@@ -399,7 +399,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'b-sidebar-outer',
-        class: { 'b-sidebar-right': this.right }
+        class: { 'b-sidebar-right': this.right },
+        style: { zIndex: this.zIndex },
       },
       [$sidebar, $backdrop]
     )
