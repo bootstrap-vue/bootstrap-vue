@@ -4,11 +4,11 @@
   bottom: 0;
   z-index: $b-sidebar-zindex;
 
-  :not(.b-sidebar-right) {
+  &:not(.b-sidebar-right) {
     left: 0;
   }
 
-  .b-sidebar-right {
+  &.b-sidebar-right {
     right: 0;
   }
 }
