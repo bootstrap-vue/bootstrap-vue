@@ -247,7 +247,7 @@ module.exports = {
     },
     meta: {
       // `ogHost` is required for `og:image` to be populated
-      ogHost: 'https://bootstrap-vue.js.org',
+      ogHost: 'https://bootstrap-vue.org',
       ogImage: true,
       twitterCard: 'summary',
       twitterSite: '@BootstrapVue',
