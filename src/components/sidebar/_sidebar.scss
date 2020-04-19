@@ -1,17 +1,10 @@
 .b-sidebar-outer {
   position: fixed !important;
   top: 0;
-  bottom: 0;
+  right: 0;
+  height: 0;
   overflow: visible;
   z-index: $b-sidebar-zindex;
-
-  &:not(.b-sidebar-right) {
-    left: 0;
-  }
-
-  &.b-sidebar-right {
-    right: 0;
-  }
 }
 
 .b-sidebar-backdrop {
@@ -28,9 +21,9 @@
 .b-sidebar {
   display: flex;
   flex-direction: column;
-  position: absolute !important;
+  position: fixed !important;
   top: 0;
-  bottom: 0;
+  height: 100vh;
   width: $b-sidebar-width;
   max-width: 100% !important;
   height: 100vh !important;
