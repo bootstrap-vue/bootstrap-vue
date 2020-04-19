@@ -55,6 +55,11 @@
             "description": "`aria-label` to apply to the built-in close button. Defaults to 'Close'"
           },
           {
+            "prop": "sidebarClass",
+            "version": "2.12.0",
+            "description": "Class, or classes, to apply to the sidebar content wrapper"
+          },
+          {
             "prop": "headerClass",
             "description": "Class, or classes, to apply to the built in header. Has no effect if prop `no-header` is set"
           },
