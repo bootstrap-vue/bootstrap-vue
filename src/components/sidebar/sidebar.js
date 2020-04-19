@@ -340,7 +340,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     onBottomTrapFocus() {
       const tabables = getTababables(this.$refs.content)
       try {
-        tabables.[0].focus()
+        tabables[0].focus()
       } catch {}
     },
     onBeforeEnter() {
