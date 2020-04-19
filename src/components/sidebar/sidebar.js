@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
 import BVTransition from '../../utils/bv-transition'
-import { contains } from '../../utils/dom'
+import { contains, getTabables } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
