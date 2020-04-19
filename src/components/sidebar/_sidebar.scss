@@ -2,6 +2,7 @@
   position: fixed !important;
   top: 0;
   bottom: 0;
+  overflow: visible;
   z-index: $b-sidebar-zindex;
 
   &:not(.b-sidebar-right) {
