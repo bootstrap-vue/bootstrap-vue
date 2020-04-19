@@ -90,7 +90,25 @@ describe('sidebar', () => {
       }
     })
 
-    // TBD
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $sidebar = wrapper.find('.b-sidebar')
+    expect($sidebar.exists()).toBe(true)
+    const $backdrop = wrapper.find('.b-sideba-brackdrop')
+    expect($backdrop.exists()).toBe(false)
+
+    $sidebar.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($sidebar.isVisible()).toBe(false)
+    expect($backdrop.isVisible()).toBe(false)
 
     wrapper.destroy()
   })
