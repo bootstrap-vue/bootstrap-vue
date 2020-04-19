@@ -9,7 +9,6 @@ coverage/
 dist/
 docs-dist/
 esm/
-es/
 node_modules/
 sw.js
 workbox*.js*
