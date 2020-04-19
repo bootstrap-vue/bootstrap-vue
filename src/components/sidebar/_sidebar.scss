@@ -2,6 +2,7 @@
   position: fixed !important;
   top: 0;
   bottom: 0;
+  z-index: $b-sidebar-zindex;
 
   :not(.b-sidebar-right) {
     left: 0;
@@ -10,6 +11,17 @@
   .b-sidebar-right {
     right: 0;
   }
+}
+
+.b-sidebar-backdrop {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: .5;
 }
 
 .b-sidebar {
@@ -24,7 +36,6 @@
   margin: 0 !important;
   outline: 0;
   transform: translateX(0);
-  z-index: $b-sidebar-zindex;
 
   &.slide {
     transition: transform $b-sidebar-transition-duration ease-in-out;
