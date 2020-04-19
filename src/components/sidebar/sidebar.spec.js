@@ -103,7 +103,7 @@ describe('sidebar', () => {
     const $backdrop = wrapper.find('.b-sidebar-backdrop')
     expect($backdrop.exists()).toBe(true)
 
-    $sidebar.trigger('click')
+    $backdrop.trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -123,7 +123,7 @@ describe('sidebar', () => {
     expect($sidebar.isVisible()).toBe(true)
     expect($backdrop.isVisible()).toBe(true)
 
-    $sidebar.trigger('click')
+    $backdrop.trigger('click')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
