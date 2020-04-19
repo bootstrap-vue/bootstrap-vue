@@ -441,7 +441,6 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'b-sidebar-outer',
-        class: { 'b-sidebar-right': this.right },
         style: { zIndex: this.zIndex },
         attrs: { tabindex: '-1' },
         on: { keydown: this.onKeydown }
