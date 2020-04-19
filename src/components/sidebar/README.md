@@ -270,8 +270,9 @@ sidebar will show an opaque backdrop. Clicking on the backdrop will close the si
 <!-- b-sidebar-backdrop.vue -->
 ```
 
-Note that when the sidebar is open, it may still be possible to scroll the body and that focus is
-not constrained to the content of the sidebar (unlike the behaviour of modals).
+Note that when the sidebar is open, it may still be possible to scroll the body (unlike the
+behaviour of modals). When the backdrop in enabled, focus contraint will attempt to keep focus
+within the sidebar.
 
 ## Visibility control
 
@@ -321,7 +322,11 @@ reader and keyboard-only users. When the sidebar is closed, the element that pre
 before the sidebar was opened will be re-focused.
 
 When the sidebar is open, users can press <kbd>Esc</kbd> to close the sidebar. To disable this
-feature, set the `no-close-on-esc` prop to `true`.
+feature, set the `no-close-on-esc` prop to `true`. with the backdrop enabled, you can use the prop
+`no-close-on-backdrop` to disable the colse on backdrop click feature.
+
+When the `backdrop` prop is `true`, the sidebar will attempt to constrain focus wthin the sidebar,
+and the sidebar will have the attribute `aria-modal="true"` set.
 
 When you have hidden the header, or do not have a title for the sidebar, set either `aria-label` to
 a string that describes the sidebar, or set `aria-labelledby` to an ID of an element that contains
