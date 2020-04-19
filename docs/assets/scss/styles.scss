@@ -271,7 +271,8 @@ table#table-transition-example {
 }
 
 // `<b-sidebar>` overrides for docs
-.b-sidebar {
+.b-sidebar-outer,
+.b-sidebar{
   z-index: 1071;
 }
 
