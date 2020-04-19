@@ -1,7 +1,21 @@
+.b-sidebar-outer {
+  position: fixed !important;
+  top: 0;
+  bottom: 0;
+
+  :not(.b-sidebar-right) {
+    left: 0;
+  }
+
+  .b-sidebar-right {
+    right: 0;
+  }
+}
+
 .b-sidebar {
   display: flex;
   flex-direction: column;
-  position: fixed !important;
+  position: absolute !important;
   top: 0;
   bottom: 0;
   width: $b-sidebar-width;
