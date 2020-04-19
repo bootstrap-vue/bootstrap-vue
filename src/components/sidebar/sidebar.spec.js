@@ -444,7 +444,8 @@ describe('sidebar', () => {
     const wrapper = mount(BSidebar, {
       attachToDocument: true,
       propsData: {
-        id: 'test-backdrop',
+        id: 'test-tab',
+        noHeader: true,
         noCloseOnBackdrop: false,
         visible: false,
         backdrop: true
@@ -483,6 +484,27 @@ describe('sidebar', () => {
     expect($input2.exists()).toBe(true)
 
     expect(document.activeElement).toEqual($sidebar.element)
+
+    wrapper.trigger('keydown.tab')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(document.activeElement).toEqual($input1.element)
+
+    wrapper.trigger('keydown.tab')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(document.activeElement).toEqual($input2.element)
+
+    wrapper.trigger('keydown.tab')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(document.activeElement).toEqual($input1.element)
 
     // TBD
 
