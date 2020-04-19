@@ -12,7 +12,6 @@ import {
   isVisible,
   requestAF,
   select,
-  selectAll
 } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
