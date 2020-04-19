@@ -272,7 +272,8 @@ sidebar will show an opaque backdrop. Clicking on the backdrop will close the si
 
 Note that when the sidebar is open, it may still be possible to scroll the body (unlike the
 behaviour of modals). When the backdrop in enabled, focus contraint will attempt to keep focus
-within the sidebar.
+within the sidebar. Note that in rare circumstances it might be possible for users to move focus
+to elements outside of the sidebar.
 
 ## Visibility control
 
