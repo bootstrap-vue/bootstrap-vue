@@ -119,8 +119,8 @@ for no shadow.
 ### Borders
 
 By default, `<b-sidebar>` has no borders. Use
-[border utility classes](/docs/reference/utility-classes) to add border(s) to `<b-sidebar>` (via
-the `sidebar-class` prop <span class="badge badge-secondary">2.12.0+</span>), or use CSS style
+[border utility classes](/docs/reference/utility-classes) to add border(s) to `<b-sidebar>` (via the
+`sidebar-class` prop <span class="badge badge-secondary">2.12.0+</span>), or use CSS style
 overrides.
 
 ```html
@@ -163,7 +163,7 @@ slide transition via the `no-slide` prop.
 [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
 additional details.
 
-When disablding the slid transition, the fade transiton of the [optional backdrop](#backdrop) will
+When disabling the slid transition, the fade transition of the [optional backdrop](#backdrop) will
 also be disabled.
 
 ### Z-index
@@ -294,9 +294,9 @@ sidebar will show an opaque backdrop. Clicking on the backdrop will close the si
 ```
 
 Note that when the sidebar is open, it may still be possible to scroll the body (unlike the
-behaviour of modals). When the backdrop in enabled, focus contraint will attempt to keep focus
-within the sidebar. Note that in rare circumstances it might be possible for users to move focus
-to elements outside of the sidebar.
+behaviour of modals). When the backdrop in enabled, focus constraint will attempt to keep focus
+within the sidebar. Note that in rare circumstances it might be possible for users to move focus to
+elements outside of the sidebar.
 
 ## Visibility control
 
@@ -347,9 +347,9 @@ before the sidebar was opened will be re-focused.
 
 When the sidebar is open, users can press <kbd>Esc</kbd> to close the sidebar. To disable this
 feature, set the `no-close-on-esc` prop to `true`. with the backdrop enabled, you can use the prop
-`no-close-on-backdrop` to disable the colse on backdrop click feature.
+`no-close-on-backdrop` to disable the close on backdrop click feature.
 
-When the `backdrop` prop is `true`, the sidebar will attempt to constrain focus wthin the sidebar,
+When the `backdrop` prop is `true`, the sidebar will attempt to constrain focus within the sidebar,
 and the sidebar will have the attribute `aria-modal="true"` set.
 
 When you have hidden the header, or do not have a title for the sidebar, set either `aria-label` to
