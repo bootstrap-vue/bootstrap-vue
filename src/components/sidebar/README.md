@@ -2,7 +2,8 @@
 
 > Otherwise known as off-canvas or a side drawer, BootstrapVue's custom `<b-sidebar>` component is a
 > fixed-position toggleable slide out box, which can be used for navigation, menus, details, etc. It
-> can be positioned on either the left (default) or right of the viewport.
+> can be positioned on either the left (default) or right of the viewport, with optional backdrop
+> support.
 
 ## Overview
 
