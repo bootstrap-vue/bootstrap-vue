@@ -409,6 +409,13 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       renderBackdrop(h, this)
     ])
 
+    let $tabTrapTop = h()
+    let $tabTrapBottom = h()
+    if (this.backdrop) {
+      $tabTrapTop = h('div', { attrs: { tabindex: '0' } })
+      $tabTrapBottom = h('div', { attrs: { tabindex: '0' } })
+    }
+
     return h(
       'div',
       {
@@ -417,7 +424,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         style: { zIndex: this.zIndex },
         on: { keydown: this.onKeydown }
       },
-      [$sidebar, $backdrop]
+      [$tabTrapTop, $sidebar, $tabTrapBottom, $backdrop]
     )
   }
 })
