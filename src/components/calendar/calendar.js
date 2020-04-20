@@ -1131,7 +1131,7 @@ export const BCalendar = Vue.extend({
         'div',
         {
           key: week[0].ymd,
-          staticClass: [CLASS_NAME_ROW, CLASS_NAME_NO_GUTTERS]
+          class: [CLASS_NAME_ROW, CLASS_NAME_NO_GUTTERS]
         },
         $cells
       )
