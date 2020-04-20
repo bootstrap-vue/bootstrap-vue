@@ -1,4 +1,5 @@
 .nuxt/
+coverage/
 dist/
 docs-dist/
 esm/
