@@ -23,11 +23,11 @@ export default {
           staticClass: 'b-table-bottom-row',
           class: [
             isFunction(this.tbodyTrClass)
-              ? this.tbodyTrClass(null, 'row-bottom')
+              ? /* istanbul ignore next */ this.tbodyTrClass(null, 'row-bottom')
               : this.tbodyTrClass
           ],
           attrs: isFunction(this.tbodyTrAttr)
-            ? this.tbodyTrAttr(null, 'row-bottom')
+            ? /* istanbul ignore next */ this.tbodyTrAttr(null, 'row-bottom')
             : this.tbodyTrAttr
         },
         this.normalizeSlot(slotName, { columns: fields.length, fields: fields })

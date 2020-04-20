@@ -524,7 +524,7 @@ export default {
         'aria-disabled': disabled ? 'true' : null,
         'aria-controls': this.ariaControls || null,
         'aria-label': isFunction(this.labelPage)
-          ? this.labelPage(page.number)
+          ? /* istanbul ignore next */ this.labelPage(page.number)
           : `${this.labelPage} ${page.number}`,
         'aria-checked': isNav ? null : active ? 'true' : 'false',
         'aria-current': isNav && active ? 'page' : null,

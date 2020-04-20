@@ -2,7 +2,8 @@
 
 > Otherwise known as off-canvas or a side drawer, BootstrapVue's custom `<b-sidebar>` component is a
 > fixed-position toggleable slide out box, which can be used for navigation, menus, details, etc. It
-> can be positioned on either the left (default) or right of the viewport.
+> can be positioned on either the left (default) or right of the viewport, with optional backdrop
+> support.
 
 ## Overview
 
@@ -118,8 +119,28 @@ for no shadow.
 ### Borders
 
 By default, `<b-sidebar>` has no borders. Use
-[border utility classes](/docs/reference/utility-classes) to add border(s) to `<b-sidebar>`, or use
-CSS style overrides.
+[border utility classes](/docs/reference/utility-classes) to add border(s) to `<b-sidebar>` (via the
+`sidebar-class` prop <span class="badge badge-secondary">2.12.0+</span>), or use CSS style
+overrides.
+
+```html
+<template>
+  <div>
+    <b-button v-b-toggle.sidebar-border>Toggle Sidebar</b-button>
+    <b-sidebar id="sidebar-border" sidebar-class="border-right border-danger">
+      <div class="px-3 py-2">
+        <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+          in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+        </p>
+        <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
+      </div>
+    </b-sidebar>
+  </div>
+</template>
+
+<!-- b-sidebar-border.vue -->
+```
 
 ### Width
 
@@ -141,6 +162,9 @@ slide transition via the `no-slide` prop.
 `prefers-reduced-motion` media query. See the
 [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
 additional details.
+
+When disabling the slid transition, the fade transition of the [optional backdrop](#backdrop) will
+also be disabled.
 
 ### Z-index
 
@@ -237,6 +261,43 @@ In some instances, you may not want the content rendered when the sidebar is not
 the `lazy` prop on `<b-sidebar>`. When `lazy` is `true`, the body and optional footer will _not_ be
 rendered (removed from DOM) whenever the sidebar is closed.
 
+### Backdrop
+
+<span class="badge badge-info small">2.12.0+</span>
+
+Add a basic backdrop when the side bar is open via the `backdrop` prop. When set to `true`, the
+sidebar will show an opaque backdrop. Clicking on the backdrop will close the sidebar, unless the
+`no-close-on-backdrop` prop is set to `true`.
+
+```html
+<template>
+  <div>
+    <b-button v-b-toggle.sidebar-backdrop>Toggle Sidebar</b-button>
+    <b-sidebar
+      id="sidebar-backdrop"
+      title="Sidebar with backdrop"
+      backdrop
+      shadow
+    >
+      <div class="px-3 py-2">
+        <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+          in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+        </p>
+        <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
+      </div>
+    </b-sidebar>
+  </div>
+</template>
+
+<!-- b-sidebar-backdrop.vue -->
+```
+
+Note that when the sidebar is open, it may still be possible to scroll the body (unlike the
+behaviour of modals). When the backdrop in enabled, focus constraint will attempt to keep focus
+within the sidebar. Note that in rare circumstances it might be possible for users to move focus to
+elements outside of the sidebar.
+
 ## Visibility control
 
 ### `v-b-toggle` directive
@@ -285,7 +346,11 @@ reader and keyboard-only users. When the sidebar is closed, the element that pre
 before the sidebar was opened will be re-focused.
 
 When the sidebar is open, users can press <kbd>Esc</kbd> to close the sidebar. To disable this
-feature, set the `no-close-on-esc` prop to `true`.
+feature, set the `no-close-on-esc` prop to `true`. with the backdrop enabled, you can use the prop
+`no-close-on-backdrop` to disable the close on backdrop click feature.
+
+When the `backdrop` prop is `true`, the sidebar will attempt to constrain focus within the sidebar,
+and the sidebar will have the attribute `aria-modal="true"` set.
 
 When you have hidden the header, or do not have a title for the sidebar, set either `aria-label` to
 a string that describes the sidebar, or set `aria-labelledby` to an ID of an element that contains

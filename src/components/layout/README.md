@@ -114,8 +114,7 @@ Setting the `fluid` prop to true (or an empty string) is equivalent to the Boots
 Responsive containers are new in Bootstrap v4.4. They allow you to specify a container that is 100%
 wide (fluid) until particular breakpoint is reached at which point a `max-width` is applied. For
 example, setting prop `fluid` to `'md'` will render a container that is 100% wide to start until the
-`'md'` breakpoint is reached, at which point it will remain at that breakpoint's container
-`max-width`.
+`'md'` breakpoint is reached, at which point it will become a standard non-fluid container.
 
 ```html
 <b-container fluid="sm">
@@ -134,6 +133,9 @@ example, setting prop `fluid` to `'md'` will render a container that is 100% wid
 
 Setting the fluid prop to a breakpoint name translates to the Bootstrap class
 `.container-{breakpoint}`.
+
+Refer to the [Grid options section](#grid-options) table below for the default container width
+values.
 
 ## Rows `<b-row>` and `<b-form-row>`
 
@@ -161,86 +163,105 @@ change with the [font size](https://drafts.csswg.org/mediaqueries-3/#units).
 
 See how aspects of the Bootstrap grid system work across multiple devices with a handy table.
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>
-        <strong>Extra small</strong> (xs)<br>
-        <code>&lt;576px</code>
-      </th>
-      <th>
-        <strong>Small</strong> (sm)<br>
-        <code>≥576px</code>
-      </th>
-      <th>
-        <strong>Medium</strong> (md)<br>
-        <code>≥768px</code>
-      </th>
-      <th>
-        <strong>Large</strong> (lg)<br>
-        <code>≥992px</code>
-      </th>
-      <th>
-        <strong>Extra large</strong> (xl)<br>
-        <code>≥1200px</code>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th class="text-left">Max container width</th>
-      <td>None (auto)</td>
-      <td>540px</td>
-      <td>720px</td>
-      <td>960px</td>
-      <td>1140px</td>
-    </tr>
-    <tr>
-      <th class="text-left">Prop</th>
-      <td><code>cols="*"</code></td>
-      <td><code>sm="*"</code></td>
-      <td><code>md="*"</code></td>
-      <td><code>lg="*"</code></td>
-      <td><code>xl="*"</code></td>
-    </tr>
-    <tr>
-      <th class="text-left"># of columns</th>
-      <td colspan="5">12</td>
-    </tr>
-    <tr>
-      <th class="text-left">Gutter width</th>
-      <td colspan="5">30px (15px on each side of a column)</td>
-    </tr>
-    <tr>
-      <th class="text-left">Nestable</th>
-      <td colspan="5">Yes</td>
-    </tr>
-    <tr>
-      <th class="text-left">Offset</th>
-      <td><code>offset="*"</code></td>
-      <td><code>offset-sm="*"</code></td>
-      <td><code>offset-md="*"</code></td>
-      <td><code>offset-lg="*"</code></td>
-      <td><code>offset-xl="*"</code></td>
-    </tr>
-    <tr>
-      <th class="text-left">Order</th>
-      <td><code>order="*"</code></td>
-      <td><code>order-sm="*"</code></td>
-      <td><code>order-md="*"</code></td>
-      <td><code>order-lg="*"</code></td>
-      <td><code>order-xl="*"</code></td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive-sm">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>
+          <strong>Extra small</strong> (xs)<br>
+          <code>&lt;576px</code>
+        </th>
+        <th>
+          <strong>Small</strong> (sm)<br>
+          <code>≥576px</code>
+        </th>
+        <th>
+          <strong>Medium</strong> (md)<br>
+          <code>≥768px</code>
+        </th>
+        <th>
+          <strong>Large</strong> (lg)<br>
+          <code>≥992px</code>
+        </th>
+        <th>
+          <strong>Extra large</strong> (xl)<br>
+          <code>≥1200px</code>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="text-left">Max container width</th>
+        <td>None (auto)</td>
+        <td>540px</td>
+        <td>720px</td>
+        <td>960px</td>
+        <td>1140px</td>
+      </tr>
+      <tr>
+        <th class="text-left">Prop</th>
+        <td><code>cols="*"</code></td>
+        <td><code>sm="*"</code></td>
+        <td><code>md="*"</code></td>
+        <td><code>lg="*"</code></td>
+        <td><code>xl="*"</code></td>
+      </tr>
+      <tr>
+        <th class="text-left"># of columns</th>
+        <td colspan="5">12</td>
+      </tr>
+      <tr>
+        <th class="text-left">Gutter width</th>
+        <td colspan="5">30px (15px on each side of a column)</td>
+      </tr>
+      <tr>
+        <th class="text-left">Nestable</th>
+        <td colspan="5">Yes</td>
+      </tr>
+      <tr>
+        <th class="text-left">Offset</th>
+        <td><code>offset="*"</code></td>
+        <td><code>offset-sm="*"</code></td>
+        <td><code>offset-md="*"</code></td>
+        <td><code>offset-lg="*"</code></td>
+        <td><code>offset-xl="*"</code></td>
+      </tr>
+      <tr>
+        <th class="text-left">Order</th>
+        <td><code>order="*"</code></td>
+        <td><code>order-sm="*"</code></td>
+        <td><code>order-md="*"</code></td>
+        <td><code>order-lg="*"</code></td>
+        <td><code>order-xl="*"</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 **Notes:**
 
 - There is no `xs` prop. The `cols` prop refers to the `xs` (smallest) breakpoint.
 - The above breakpoint values and names are the Bootstrap defaults. They can be customized via
   [SCSS variables](/docs/reference/theming), and (if also using custom breakpoint names), via the
-  BootstrapVue [global configuration](/docs/misc/settings).
+  BootstrapVue [global configuration](/docs/reference/settings).
+
+### Container sizes
+
+The following table outlines the default container maximum widths at the various breakpoints. These
+may vary if you are using custom themed Bootstrap v4 SCSS/CSS.
+
+| Container type | Extra small `<576px` | Small `≥576px` | Medium `≥768px` | Large `≥992px` | Extra large `≥1200px` |
+| -------------- | -------------------- | -------------- | --------------- | -------------- | --------------------- |
+| _default_      | `100%`               | `540px`        | `720px`         | `960px`        | `1140px`              |
+| `fluid`        | `100%`               | `100%`         | `100%`          | `100%`         | `100%`                |
+| `fluid="sm"`   | `100%`               | `540px`        | `720px`         | `960px`        | `1140px`              |
+| `fluid="md"`   | `100%`               | `100%`         | `720px`         | `960px`        | `1140px`              |
+| `fluid="lg"`   | `100%`               | `100%`         | `100%`          | `960px`        | `1140px`              |
+| `fluid="xl"`   | `100%`               | `100%`         | `100%`          | `100%`         | `1140px`              |
+
+Refer to the [Containers `<b-container>` section](#containers-b-container) section above for
+additional information
 
 ## Auto-layout columns
 

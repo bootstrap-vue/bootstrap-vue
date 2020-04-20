@@ -229,16 +229,18 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       }
     })
   },
+  /* istanbul ignore next */
   updated() /* istanbul ignore next */ {
     // Usually called when the slots/data changes
     this.$nextTick(this.handleTemplateUpdate)
   },
+  /* istanbul ignore next */
   deactivated() /* istanbul ignore next */ {
     // In a keepalive that has been deactivated, so hide
     // the tooltip/popover if it is showing
     this.forceHide()
   },
-  beforeDestroy() /* istanbul ignore next */ {
+  beforeDestroy() {
     // Remove all handler/listeners
     this.unListen()
     this.setWhileOpenListeners(false)
@@ -467,6 +469,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     onTemplateShown() {
       const prevHoverState = this.$_hoverState
       this.$_hoverState = ''
+      /* istanbul ignore next: occasional Node 10 coverage error */
       if (prevHoverState === 'out') {
         this.leave(null)
       }
@@ -525,9 +528,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       //   Or this could possibly be part of the visibility check
       return container === false
         ? closest(CONTAINER_SELECTOR, target) || body
-        : isString(container)
-          ? getById(container.replace(/^#/, '')) || body
-          : body
+        : /*istanbul ignore next */ isString(container)
+          ? /*istanbul ignore next */ getById(container.replace(/^#/, '')) || body
+          : /*istanbul ignore next */ body
     },
     getBoundary() {
       return this.boundary ? this.boundary.$el || this.boundary : 'scrollParent'
@@ -814,6 +817,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.show()
       }
     },
+    /*istanbul ignore next: ignore for now */
     doDisable(id) /*istanbul ignore next: ignore for now */ {
       // Programmatically disable tooltip or popover
       if (!id || (this.getTargetId() === id || this.computedId === id)) {
@@ -821,6 +825,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.disable()
       }
     },
+    /*istanbul ignore next: ignore for now */
     doEnable(id) /*istanbul ignore next: ignore for now */ {
       // Programmatically enable tooltip or popover
       if (!id || (this.getTargetId() === id || this.computedId === id)) {
@@ -850,6 +855,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.leave(null)
       }
     },
+    /* istanbul ignore next */
     toggle() /* istanbul ignore next */ {
       // Manual toggle handler
       if (!this.$_enabled || this.dropdownOpen()) {

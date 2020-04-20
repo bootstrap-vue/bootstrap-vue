@@ -42,6 +42,14 @@ const NAME = 'BCalendar'
 // Key Codes
 const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
 
+// Common calendar option value strings
+export const STR_GREGORY = 'gregory'
+export const STR_NUMERIC = 'numeric'
+export const STR_2_DIGIT = '2-digit'
+export const STR_LONG = 'long'
+export const STR_SHORT = 'short'
+export const STR_NARROW = 'narrow'
+
 // --- BCalendar component ---
 
 // @vue/component
@@ -224,13 +232,25 @@ export const BCalendar = Vue.extend({
     },
     dateFormatOptions: {
       // `Intl.DateTimeFormat` object
+      // Note: This value is *not* to be placed in the global config
       type: Object,
       default: () => ({
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long'
+        year: STR_NUMERIC,
+        month: STR_LONG,
+        day: STR_NUMERIC,
+        weekday: STR_LONG
       })
+    },
+    weekdayHeaderFormat: {
+      // Format of the weekday names at the top of the calendar
+      // Note: This value is *not* to be placed in the global config
+      type: String,
+      // `short` is typically a 3 letter abbreviation,
+      // `narrow` is typically a single letter
+      // `long` is the full week day name
+      // Although some locales may override this (i.e `ar`, etc)
+      default: STR_SHORT,
+      validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
     }
   },
   data() {
@@ -271,18 +291,18 @@ export const BCalendar = Vue.extend({
     },
     computedLocale() {
       // Returns the resolved locale used by the calendar
-      return resolveLocale(concat(this.locale).filter(identity), 'gregory')
+      return resolveLocale(concat(this.locale).filter(identity), STR_GREGORY)
     },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)
       // Needed because IE 11 resolves `ar-IR` as islamic-civil calendar
       // and IE 11 (and some other browsers) do not support the `calendar` option
       // And we currently only support the gregorian calendar
-      const fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: 'gregory' })
+      const fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: STR_GREGORY })
       const calendar = fmt.resolvedOptions().calendar
       let locale = fmt.resolvedOptions().locale
       /* istanbul ignore if: mainly for IE 11 and a few other browsers, hard to test in JSDOM */
-      if (calendar !== 'gregory') {
+      if (calendar !== STR_GREGORY) {
         // Ensure the locale requests the gregorian calendar
         // Mainly for IE 11, and currently we can't handle non-gregorian calendars
         // TODO: Should we always return this value?
@@ -384,9 +404,9 @@ export const BCalendar = Vue.extend({
         // Ensure we have year, month, day shown for screen readers/ARIA
         // If users really want to leave one of these out, they can
         // pass `undefined` for the property value
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
+        year: STR_NUMERIC,
+        month: STR_2_DIGIT,
+        day: STR_2_DIGIT,
         // Merge in user supplied options
         ...this.dateFormatOptions,
         // Ensure hours/minutes/seconds are not shown
@@ -395,26 +415,45 @@ export const BCalendar = Vue.extend({
         minute: undefined,
         second: undefined,
         // Ensure calendar is gregorian
-        calendar: 'gregory'
+        calendar: STR_GREGORY
       })
     },
     formatYearMonth() {
       // Returns a date formatter function
       return createDateFormatter(this.calendarLocale, {
-        year: 'numeric',
-        month: 'long',
-        calendar: 'gregory'
+        year: STR_NUMERIC,
+        month: STR_LONG,
+        calendar: STR_GREGORY
       })
     },
     formatWeekdayName() {
-      return createDateFormatter(this.calendarLocale, { weekday: 'long', calendar: 'gregory' })
+      // Long weekday name for weekday header aria-label
+      return createDateFormatter(this.calendarLocale, {
+        weekday: STR_LONG,
+        calendar: STR_GREGORY
+      })
     },
     formatWeekdayNameShort() {
-      // Used as the header cells
-      return createDateFormatter(this.calendarLocale, { weekday: 'short', calendar: 'gregory' })
+      // Weekday header cell format
+      // defaults to 'short' 3 letter days, where possible
+      return createDateFormatter(this.calendarLocale, {
+        weekday: this.weekdayHeaderFormat || STR_SHORT,
+        calendar: STR_GREGORY
+      })
     },
     formatDay() {
-      return createDateFormatter(this.calendarLocale, { day: 'numeric', calendar: 'gregory' })
+      // Calendar grid day number formatter
+      // We don't use DateTimeFormatter here as it can place extra
+      // character(s) after the number (i.e the `zh` locale)
+      const nf = new Intl.NumberFormat([this.computedLocale], {
+        style: 'decimal',
+        minimumIntegerDigits: 1,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+        notation: 'standard'
+      })
+      // Return a formatter function instance
+      return date => nf.format(date.getDate())
     },
     // Disabled states for the nav buttons
     prevDecadeDisabled() {
@@ -473,10 +512,10 @@ export const BCalendar = Vue.extend({
           let dateInfo = dateInfoFn(dayYMD, parseYMD(dayYMD))
           dateInfo =
             isString(dateInfo) || isArray(dateInfo)
-              ? { class: dateInfo }
+              ? /* istanbul ignore next */ { class: dateInfo }
               : isPlainObject(dateInfo)
                 ? { class: '', ...dateInfo }
-                : { class: '' }
+                : /* istanbul ignore next */ { class: '' }
           matrix[week].push({
             ymd: dayYMD,
             // Cell content
@@ -540,9 +579,11 @@ export const BCalendar = Vue.extend({
   mounted() {
     this.setLive(true)
   },
+  /* istanbul ignore next */
   activated() /* istanbul ignore next */ {
     this.setLive(true)
   },
+  /* istanbul ignore next */
   deactivated() /* istanbul ignore next */ {
     this.setLive(false)
   },
@@ -734,15 +775,10 @@ export const BCalendar = Vue.extend({
       return h()
     }
 
-    const isRTL = this.isRTL
+    const { isLive, isRTL, activeYMD, selectedYMD, safeId } = this
     const hideDecadeNav = !this.showDecadeNav
     const todayYMD = formatYMD(this.getToday())
-    const selectedYMD = this.selectedYMD
-    const activeYMD = this.activeYMD
     const highlightToday = !this.noHighlightToday
-    const safeId = this.safeId
-    // Flag for making the `aria-live` regions live
-    const isLive = this.isLive
     // Pre-compute some IDs
     // This should be computed props
     const idValue = safeId()
@@ -757,7 +793,7 @@ export const BCalendar = Vue.extend({
     let $header = h(
       'output',
       {
-        staticClass: 'd-block text-center rounded border small p-1 mb-1',
+        staticClass: 'form-control form-control-sm text-center',
         class: { 'text-muted': this.disabled, readonly: this.readonly || this.disabled },
         attrs: {
           id: idValue,
@@ -784,34 +820,50 @@ export const BCalendar = Vue.extend({
             // We use `bdi` elements here in case the label doesn't match the locale
             // Although IE 11 does not deal with <BDI> at all (equivalent to a span)
             h('bdi', { staticClass: 'sr-only' }, ` (${toString(this.labelSelected)}) `),
-            h('bdi', {}, this.formatDateString(this.selectedDate))
+            h('bdi', this.formatDateString(this.selectedDate))
           ]
         : this.labelNoDateSelected || '\u00a0' // '&nbsp;'
     )
     $header = h(
       'header',
       {
-        class: this.hideHeader ? 'sr-only' : 'mb-1',
+        staticClass: 'b-calendar-header',
+        class: { 'sr-only': this.hideHeader },
         attrs: { title: this.selectedDate ? this.labelSelectedDate || null : null }
       },
       [$header]
     )
 
     // Content for the date navigation buttons
-    const $prevDecadeIcon = h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: isRTL } })
-    const $prevYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: isRTL } })
-    const $prevMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: isRTL } })
-    const $thisMonthIcon = h(BIconCircleFill, { props: { shiftV: 0.5 } })
-    const $nextMonthIcon = h(BIconChevronLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
-    const $nextYearIcon = h(BIconChevronDoubleLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
-    const $nextDecadeIcon = h(BIconChevronBarLeft, { props: { shiftV: 0.5, flipH: !isRTL } })
+    const navScope = { isRTL }
+    const navProps = { shiftV: 0.5 }
+    const navPrevProps = { ...navProps, flipH: isRTL }
+    const navNextProps = { ...navProps, flipH: !isRTL }
+    const $prevDecadeIcon =
+      this.normalizeSlot('nav-prev-decade', navScope) ||
+      h(BIconChevronBarLeft, { props: navPrevProps })
+    const $prevYearIcon =
+      this.normalizeSlot('nav-prev-year', navScope) ||
+      h(BIconChevronDoubleLeft, { props: navPrevProps })
+    const $prevMonthIcon =
+      this.normalizeSlot('nav-prev-month', navScope) || h(BIconChevronLeft, { props: navPrevProps })
+    const $thisMonthIcon =
+      this.normalizeSlot('nav-this-month', navScope) || h(BIconCircleFill, { props: navProps })
+    const $nextMonthIcon =
+      this.normalizeSlot('nav-next-month', navScope) || h(BIconChevronLeft, { props: navNextProps })
+    const $nextYearIcon =
+      this.normalizeSlot('nav-next-year', navScope) ||
+      h(BIconChevronDoubleLeft, { props: navNextProps })
+    const $nextDecadeIcon =
+      this.normalizeSlot('nav-next-decade', navScope) ||
+      h(BIconChevronBarLeft, { props: navNextProps })
 
     // Utility to create the date navigation buttons
     const makeNavBtn = (content, label, handler, btnDisabled, shortcut) => {
       return h(
         'button',
         {
-          staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill p-1 mx-1',
+          staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill',
           class: { disabled: btnDisabled },
           attrs: {
             title: label || null,
@@ -830,7 +882,7 @@ export const BCalendar = Vue.extend({
     const $nav = h(
       'div',
       {
-        staticClass: 'b-calendar-nav d-flex mx-n1 mb-1',
+        staticClass: 'b-calendar-nav d-flex',
         attrs: {
           id: idNav,
           role: 'group',
@@ -901,7 +953,7 @@ export const BCalendar = Vue.extend({
       'header',
       {
         key: 'grid-caption',
-        staticClass: 'text-center font-weight-bold p-1 m-0',
+        staticClass: 'b-calendar-grid-caption text-center font-weight-bold',
         class: { 'text-muted': this.disabled },
         attrs: {
           id: idGridCaption,
@@ -915,7 +967,10 @@ export const BCalendar = Vue.extend({
     // Calendar weekday headings
     const $gridWeekDays = h(
       'div',
-      { staticClass: 'row no-gutters border-bottom', attrs: { 'aria-hidden': 'true' } },
+      {
+        staticClass: 'b-calendar-grid-weekdays row no-gutters border-bottom',
+        attrs: { 'aria-hidden': 'true' }
+      },
       this.calendarHeadings.map((d, idx) => {
         return h(
           'small',
@@ -1019,7 +1074,7 @@ export const BCalendar = Vue.extend({
     const $gridHelp = h(
       'footer',
       {
-        staticClass: 'border-top small text-muted text-center bg-light',
+        staticClass: 'b-calendar-grid-help border-top small text-muted text-center bg-light',
         attrs: {
           id: idGridHelp
         }
@@ -1031,7 +1086,7 @@ export const BCalendar = Vue.extend({
       'div',
       {
         ref: 'grid',
-        staticClass: 'form-control h-auto text-center p-0 mb-0',
+        staticClass: 'b-calendar-grid form-control h-auto text-center',
         attrs: {
           id: idGrid,
           role: 'application',
@@ -1057,13 +1112,12 @@ export const BCalendar = Vue.extend({
 
     // Optional bottom slot
     let $slot = this.normalizeSlot('default')
-    $slot = $slot ? h('footer', { staticClass: 'mt-2' }, $slot) : h()
+    $slot = $slot ? h('footer', { staticClass: 'b-calendar-footer' }, $slot) : h()
 
     const $widget = h(
       'div',
       {
         staticClass: 'b-calendar-inner',
-        class: this.block ? 'd-block' : 'd-inline-block',
         style: this.block ? {} : { width: this.width },
         attrs: {
           id: idWidget,
@@ -1093,15 +1147,6 @@ export const BCalendar = Vue.extend({
     )
 
     // Wrap in an outer div that can be styled
-    return h(
-      'div',
-      {
-        staticClass: 'b-calendar',
-        // We use a style here rather than class `d-inline-block` so that users can
-        // override the display value (`d-*` classes use the `!important` flag)
-        style: this.block ? {} : { display: 'inline-block' }
-      },
-      [$widget]
-    )
+    return h('div', { staticClass: 'b-calendar', class: { 'd-block': this.block } }, [$widget])
   }
 })

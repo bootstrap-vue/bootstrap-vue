@@ -8,6 +8,7 @@ export const hasWindowSupport = typeof window !== 'undefined'
 export const hasDocumentSupport = typeof document !== 'undefined'
 export const hasNavigatorSupport = typeof navigator !== 'undefined'
 export const hasPromiseSupport = typeof Promise !== 'undefined'
+/* istanbul ignore next: JSDOM always returns false */
 export const hasMutationObserverSupport =
   typeof MutationObserver !== 'undefined' ||
   typeof WebKitMutationObserver !== 'undefined' ||
@@ -50,6 +51,7 @@ export const hasTouchSupport =
 export const hasPointerEventSupport =
   isBrowser && Boolean(window.PointerEvent || window.MSPointerEvent)
 
+/* istanbul ignore next: JSDOM only checks for 'IntersectionObserver' */
 export const hasIntersectionObserverSupport =
   isBrowser &&
   'IntersectionObserver' in window &&

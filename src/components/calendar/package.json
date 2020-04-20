@@ -5,7 +5,6 @@
     "title": "Calendar",
     "slug": "calendar",
     "version": "2.5.0",
-    "new": true,
     "description": "BootstrapVue custom calendar widget for selecting dates and controlling other components, fully WAI-ARIA accessible (a11y) and supports internationalization (i18n)",
     "components": [
       {
@@ -173,6 +172,11 @@
             "prop": "dateFormatOptions",
             "version": "2.6.0",
             "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat`"
+          },
+          {
+            "prop": "weekdayHeaderFormat",
+            "version": "2.12.0",
+            "description": "Format to use for the calendar weekday headings. Possible values are `long`, `short` (default), or `narrow`"
           }
         ],
         "events": [
@@ -224,6 +228,90 @@
           {
             "name": "default",
             "description": "Used to place custom controls at the bottom of the calendar component"
+          },
+          {
+            "name": "nav-prev-decade",
+            "version": "2.12.0",
+            "description": "Used to place custom content in the previous decade navigation button",
+            "scope": [
+              {
+                "prop": "isRTL",
+                "type": "Boolean",
+                "description": "Will be `true` if the nav bar is rendered right to left"
+              }
+            ]
+          },
+          {
+            "name": "nav-prev-year",
+            "version": "2.12.0",
+            "description": "Used to place custom content in the previous year navigation button",
+            "scope": [
+              {
+                "prop": "isRTL",
+                "type": "Boolean",
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
+              }
+            ]
+          },
+          {
+            "name": "nav-prev-month",
+            "version": "2.12.0",
+            "description": "Used to place custom content in the previous month navigation button",
+            "scope": [
+              {
+                "prop": "isRTL",
+                "type": "Boolean",
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
+              }
+            ]
+          },
+          {
+            "name": "nav-this-month",
+            "version": "2.12.0",
+            "description": "Used to place custom content in the this month/day navigation button",
+            "scope": [
+              {
+                "prop": "isRTL",
+                "type": "Boolean",
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
+              }
+            ]
+          },
+          {
+            "name": "nav-next-month",
+            "version": "2.12.0",
+            "description": "Used to place custom content in the next month navigation button",
+            "scope": [
+              {
+                "prop": "isRTL",
+                "type": "Boolean",
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
+              }
+            ]
+          },
+          {
+            "name": "nav-next-year",
+            "version": "2.12.0",
+            "description": "Used to place custom content in the next year navigation button",
+            "scope": [
+              {
+                "prop": "isRTL",
+                "type": "Boolean",
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
+              }
+            ]
+          },
+          {
+            "name": "nav-next-decade",
+            "version": "2.12.0",
+            "description": "Used to place custom content in the next decade navigation button",
+            "scope": [
+              {
+                "prop": "isRTL",
+                "type": "Boolean",
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
+              }
+            ]
           }
         ]
       }

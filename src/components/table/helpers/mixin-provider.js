@@ -11,6 +11,7 @@ export default {
     items: {
       // Adds in 'Function' support
       type: [Array, Function],
+      /* istanbul ignore next */
       default() /* istanbul ignore next */ {
         return []
       }

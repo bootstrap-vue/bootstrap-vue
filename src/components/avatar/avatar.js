@@ -16,6 +16,7 @@ const CLASS_NAME = 'b-avatar'
 const RX_NUMBER = /^[0-9]*\.?[0-9]+$/
 
 const FONT_SIZE_SCALE = 0.4
+const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
 
 const DEFAULT_SIZES = {
   sm: '1.5em',
@@ -112,6 +113,26 @@ const props = {
     type: String,
     default: 'button'
   },
+  badge: {
+    type: [Boolean, String],
+    default: false
+  },
+  badgeVariant: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'badgeVariant')
+  },
+  badgeTop: {
+    type: Boolean,
+    default: false
+  },
+  badgeLeft: {
+    type: Boolean,
+    default: false
+  },
+  badgeOffset: {
+    type: String,
+    default: '0px'
+  },
   ...linkProps,
   ariaLabel: {
     type: String
@@ -149,6 +170,17 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     fontSize() {
       const size = this.computedSize
       return size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
+    },
+    badgeStyle() {
+      const { computedSize: size, badgeTop, badgeLeft, badgeOffset } = this
+      const offset = badgeOffset || '0px'
+      return {
+        fontSize: size ? `calc(${size} * ${BADGE_FONT_SIZE_SCALE} )` : null,
+        top: badgeTop ? offset : null,
+        bottom: badgeTop ? null : offset,
+        left: badgeLeft ? offset : null,
+        right: badgeLeft ? null : offset
+      }
     }
   },
   watch: {
@@ -178,7 +210,10 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       fontSize,
       computedSize: size,
       button: isButton,
-      buttonType: type
+      buttonType: type,
+      badge,
+      badgeVariant,
+      badgeStyle
     } = this
     const isBLink = !isButton && (this.href || this.to)
     const tag = isButton ? BButton : isBLink ? BLink : 'span'
@@ -189,19 +224,38 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     let $content = null
     if (this.hasNormalizedSlot('default')) {
       // Default slot overrides props
-      $content = this.normalizeSlot('default')
+      $content = h('span', { staticClass: 'b-avatar-custom' }, [this.normalizeSlot('default')])
     } else if (src) {
-      $content = h('img', { attrs: { src, alt }, on: { error: this.onImgError } })
+      $content = h('img', {
+        style: variant ? {} : { width: '100%', height: '100%' },
+        attrs: { src, alt },
+        on: { error: this.onImgError }
+      })
     } else if (icon) {
       $content = h(BIcon, {
         props: { icon },
         attrs: { 'aria-hidden': 'true', alt }
       })
     } else if (text) {
-      $content = h('span', { style: { fontSize } }, text)
+      $content = h('span', { staticClass: 'b-avatar-text', style: { fontSize } }, [h('span', text)])
     } else {
       // Fallback default avatar content
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true', alt } })
+    }
+
+    let $badge = h()
+    const hasBadgeSlot = this.hasNormalizedSlot('badge')
+    if (badge || badge === '' || hasBadgeSlot) {
+      const badgeText = badge === true ? '' : badge
+      $badge = h(
+        'span',
+        {
+          staticClass: 'b-avatar-badge',
+          class: { [`badge-${badgeVariant}`]: !!badgeVariant },
+          style: badgeStyle
+        },
+        [hasBadgeSlot ? this.normalizeSlot('badge') : badgeText]
+      )
     }
 
     const componentData = {
@@ -217,11 +271,11 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         disabled
       },
       style: { width: size, height: size },
-      attrs: { 'aria-label': ariaLabel },
+      attrs: { 'aria-label': ariaLabel || null },
       props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, this) : {},
       on: isBLink || isButton ? { click: this.onClick } : {}
     }
 
-    return h(tag, componentData, [$content])
+    return h(tag, componentData, [$content, $badge])
   }
 })

@@ -5,14 +5,14 @@
   align-items: center;
   justify-content: center;
   vertical-align: middle;
+  font-size: inherit;
   font-weight: 400;
   line-height: 1;
   max-width: 100%;
   max-height: auto;
   text-align: center;
-  text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
 
@@ -38,15 +38,30 @@
     pointer-events: none;
   }
 
-  > span {
+  .b-avatar-custom,
+  .b-avatar-text {
     border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
   }
 
-  .b-icon {
+  .b-avatar-text {
+    text-transform: uppercase;
+    white-space: nowrap;
+    align-items: center;
+  }
+
+  .b-avatar-custom {
+    vertical-align: middle;
+  }
+
+  > .b-icon {
     width: 60%;
     height: auto;
     max-width: 100%;
-    max-height: auto;
   }
 
   img {
@@ -55,5 +70,18 @@
     max-width: 100%;
     max-height: auto;
     border-radius: inherit;
+  }
+
+  .b-avatar-badge {
+    // Positioning will be handled via inline styles
+    position: absolute;
+    min-height: 1.5em;
+    min-width: 1.5em;
+    padding: 0.25em;
+    line-height: 1;
+    border-radius: 10em;
+    font-size: 70%;
+    font-weight: 700;
+    z-index: 5;
   }
 }

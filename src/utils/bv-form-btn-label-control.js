@@ -143,6 +143,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
     handleHover(hovered) {
       this.isHovered = hovered
     },
+    /* istanbul ignore next */
     stopEvent(evt) /* istanbul ignore next */ {
       evt.stopPropagation()
     }
@@ -174,9 +175,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         class: {
           [`btn-${buttonVariant}`]: buttonOnly,
           [`btn-${size}`]: !!size,
-          'border-0': !buttonOnly,
           'h-auto': !buttonOnly,
-          'py-0': !buttonOnly,
           // `dropdown-toggle` is needed for proper
           // corner rounding in button only mode
           'dropdown-toggle': buttonOnly,
@@ -203,7 +202,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
       [
         this.hasNormalizedSlot('button-content')
           ? this.normalizeSlot('button-content', btnScope)
-          : h(BIconChevronDown, { props: { scale: 1.25 } })
+          : /* istanbul ignore next */ h(BIconChevronDown, { props: { scale: 1.25 } })
       ]
     )
 
@@ -225,7 +224,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
       'div',
       {
         ref: 'menu',
-        staticClass: 'dropdown-menu p-2',
+        staticClass: 'dropdown-menu',
         class: [
           this.menuClass,
           {
@@ -251,7 +250,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
     const $label = h(
       'label',
       {
-        staticClass: 'form-control text-break text-wrap border-0 bg-transparent h-auto pl-1 m-0',
+        staticClass: 'form-control text-break text-wrap bg-transparent h-auto',
         class: {
           // Hidden in button only mode
           'sr-only': buttonOnly,
@@ -294,7 +293,6 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
             'form-control': !buttonOnly,
             [`form-control-${size}`]: !!size && !buttonOnly,
             'd-flex': !buttonOnly,
-            'p-0': !buttonOnly,
             'h-auto': !buttonOnly,
             'align-items-stretch': !buttonOnly,
             focus: hasFocus && !buttonOnly,

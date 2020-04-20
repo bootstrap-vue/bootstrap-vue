@@ -32,7 +32,8 @@ export default {
   mounted() {
     this.handleAutofocus()
   },
-  activated() /* istanbul ignore next */ {
+  /* istanbul ignore next */
+  activated() {
     this.handleAutofocus()
   },
   methods: {

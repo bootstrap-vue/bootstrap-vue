@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
-import { contains } from '../../utils/dom'
+import BVTransition from '../../utils/bv-transition'
+import { contains, getTabables } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
@@ -108,11 +109,23 @@ const renderContent = (h, ctx) => {
   return [$header, renderBody(h, ctx), renderFooter(h, ctx)]
 }
 
+const renderBackdrop = (h, ctx) => {
+  if (!ctx.backdrop) {
+    return h()
+  }
+  return h('div', {
+    directives: [{ name: 'show', value: ctx.localShow }],
+    staticClass: 'b-sidebar-backdrop',
+    on: { click: ctx.onBackdropClick }
+  })
+}
+
 // --- Main component ---
 // @vue/component
 export const BSidebar = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
+  inheritAttrs: false,
   model: {
     prop: 'visible',
     event: 'change'
@@ -164,6 +177,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       type: String,
       default: () => getComponentConfig(NAME, 'tag')
     },
+    sidebarClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
     headerClass: {
       type: [String, Array, Object]
       // default: null
@@ -175,6 +192,11 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     footerClass: {
       type: [String, Array, Object]
       // default: null
+    },
+    backdrop: {
+      // If true, shows a basic backdrop
+      type: Boolean,
+      default: false
     },
     noSlide: {
       type: Boolean,
@@ -189,6 +211,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       default: false
     },
     noCloseOnEsc: {
+      type: Boolean,
+      default: false
+    },
+    noCloseOnBackdrop: {
       type: Boolean,
       default: false
     },
@@ -216,7 +242,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   computed: {
     transitionProps() {
       return this.noSlide
-        ? { css: true }
+        ? /* istanbul ignore next */ { css: true }
         : {
             css: true,
             enterClass: '',
@@ -247,6 +273,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         this.$emit('change', newVal)
       }
     },
+    /* istanbul ignore next */
     $route(newVal = {}, oldVal = {}) /* istanbul ignore next: pain to mock */ {
       if (!this.noCloseOnRouteChange && newVal.fullPath !== oldVal.fullPath) {
         this.hide()
@@ -266,6 +293,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       this.emitState(this.localShow)
     })
   },
+  /* istanbul ignore next */
   activated() /* istanbul ignore next */ {
     this.emitSync()
   },
@@ -299,9 +327,28 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     onKeydown(evt) {
       const { keyCode } = evt
-      if (!this.noCloseOnEsc && keyCode === KeyCodes.ESC) {
+      if (!this.noCloseOnEsc && keyCode === KeyCodes.ESC && this.localShow) {
         this.hide()
       }
+    },
+    onBackdropClick() {
+      if (this.localShow && !this.noCloseOnBackdrop) {
+        this.hide()
+      }
+    },
+    /* istanbul ignore next */
+    onTopTrapFocus() /* istanbul ignore next */ {
+      const tabables = getTabables(this.$refs.content)
+      try {
+        tabables.reverse()[0].focus()
+      } catch {}
+    },
+    /* istanbul ignore next */
+    onBottomTrapFocus() /* istanbul ignore next */ {
+      const tabables = getTabables(this.$refs.content)
+      try {
+        tabables[0].focus()
+      } catch {}
     },
     onBeforeEnter() {
       this.$_returnFocusEl = null
@@ -338,34 +385,38 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     // `ariaLabel` takes precedence over `ariaLabelledby`
     const ariaLabelledby = this.ariaLabelledby || titleId || null
 
-    const $sidebar = h(
+    let $sidebar = h(
       this.tag,
       {
+        ref: 'content',
         directives: [{ name: 'show', value: localShow }],
         staticClass: CLASS_NAME,
-        class: {
-          shadow: shadow === true,
-          [`shadow-${shadow}`]: shadow && shadow !== true,
-          [`${CLASS_NAME}-right`]: this.right,
-          [`bg-${this.bgVariant}`]: !!this.bgVariant,
-          [`text-${this.textVariant}`]: !!this.textVariant
-        },
+        class: [
+          {
+            shadow: shadow === true,
+            [`shadow-${shadow}`]: shadow && shadow !== true,
+            [`${CLASS_NAME}-right`]: this.right,
+            [`bg-${this.bgVariant}`]: !!this.bgVariant,
+            [`text-${this.textVariant}`]: !!this.textVariant
+          },
+          this.sidebarClass
+        ],
         attrs: {
+          ...this.$attrs,
           id: this.safeId(),
           tabindex: '-1',
           role: 'dialog',
-          'aria-modal': 'false',
-          'aria-hidden': localShow ? 'true' : null,
+          'aria-modal': this.backdrop ? 'true' : 'false',
+          'aria-hidden': localShow ? null : 'true',
           'aria-label': ariaLabel,
           'aria-labelledby': ariaLabelledby
         },
-        style: { width: this.width, zIndex: this.zIndex },
-        on: { keydown: this.onKeydown }
+        style: { width: this.width }
       },
       [renderContent(h, this)]
     )
 
-    return h(
+    $sidebar = h(
       'transition',
       {
         props: this.transitionProps,
@@ -376,6 +427,34 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         }
       },
       [$sidebar]
+    )
+
+    const $backdrop = h(BVTransition, { props: { noFade: this.noSlide } }, [
+      renderBackdrop(h, this)
+    ])
+
+    let $tabTrapTop = h()
+    let $tabTrapBottom = h()
+    if (this.backdrop && this.localShow) {
+      $tabTrapTop = h('div', {
+        attrs: { tabindex: '0' },
+        on: { focus: this.onTopTrapFocus }
+      })
+      $tabTrapBottom = h('div', {
+        attrs: { tabindex: '0' },
+        on: { focus: this.onBottomTrapFocus }
+      })
+    }
+
+    return h(
+      'div',
+      {
+        staticClass: 'b-sidebar-outer',
+        style: { zIndex: this.zIndex },
+        attrs: { tabindex: '-1' },
+        on: { keydown: this.onKeydown }
+      },
+      [$tabTrapTop, $sidebar, $tabTrapBottom, $backdrop]
     )
   }
 })

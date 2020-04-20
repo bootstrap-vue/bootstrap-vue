@@ -13,10 +13,10 @@
   [Toasts](/docs/components/toast), `v{{ portalVueVersion }}` is recommended
 - [jQuery](https://jquery.com/) is **not** required
 
-Check out what is new in [BootstrapVue release v{{ version }}](/docs/misc/changelog).
+Check out what is new in [BootstrapVue release v{{ version }}](/docs/reference/changelog).
 
 If you are migrating from a previous `v2.0.0-rc.##` release, please see the
-[`v2.0.0` migration guide](/docs/misc/changelog#v200).
+[`v2.0.0` migration guide](/docs/reference/changelog#v200).
 
 ## Documentation sections
 
@@ -26,8 +26,11 @@ The online documentation is comprised of the following sections:
 - [Directives](/docs/directives) - Directives and directive plugin documentation
 - [Icons](/docs/icons) - Icons and icon plugin documentation <b-badge>v2.2.0+</b-badge>
 - [Reference](/docs/reference) - Reference information and documentation
-- [Miscellaneous](/docs/misc) - Miscellaneous information
 - [Playground](/play) - Online playground
+
+<!-- TODO: Uncomment when we have themes
+- [Themes](/themes) - Themes and dashboards
+-->
 
 ## Prerequisites
 
@@ -599,8 +602,8 @@ module.exports = {
 ### Passing custom BootstrapVue config with Nuxt.js
 
 If you need to pass a custom
-[BootstrapVue configuration](/docs/misc/settings#default-bootstrapvue-configuration), you may do so
-by setting the `config` property in your `nuxt.config.js`:
+[BootstrapVue configuration](/docs/reference/settings#default-bootstrapvue-configuration), you may
+do so by setting the `config` property in your `nuxt.config.js`:
 
 ```js
 module.exports = {
@@ -743,7 +746,7 @@ section above for more details.
 ### Dependencies
 
 BootstrapVue relies on `Popper.js` (for Tooltip, Popover, and Dropdown positioning),
-`[PortalVue`](https://portal-vue.linusb.org/) (for toasts) and
+[`PortalVue`](https://portal-vue.linusb.org/) (for toasts) and
 [`vue-functional-data-merge`](https://github.com/alexsasharegan/vue-functional-data-merge) (used by
 our functional components). These three dependencies are included in the BootstrapVue `UMD` bundle,
 while the UMD (browser) icons only bundle includes `vue-functional-data-merge`. All other builds do

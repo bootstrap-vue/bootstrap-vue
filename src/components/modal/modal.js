@@ -5,7 +5,7 @@ import identity from '../../utils/identity'
 import observeDom from '../../utils/observe-dom'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { closest, contains, isVisible, requestAF, select, selectAll } from '../../utils/dom'
+import { closest, contains, getTabables, isVisible, requestAF, select } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
 import { stripTags } from '../../utils/html'
@@ -36,20 +36,6 @@ const OBSERVER_CONFIG = {
   attributes: true,
   attributeFilter: ['style', 'class']
 }
-
-// Query selector to find all tabbable elements
-// (includes tabindex="-1", which we filter out after)
-const TABABLE_SELECTOR = [
-  'button',
-  '[href]:not(.disabled)',
-  'input',
-  'select',
-  'textarea',
-  '[tabindex]',
-  '[contenteditable]'
-]
-  .map(s => `${s}:not(:disabled):not([disabled])`)
-  .join(', ')
 
 // --- Utility methods ---
 
@@ -275,7 +261,7 @@ export const props = {
   autoFocusButton: {
     type: String,
     default: null,
-    validator: val => {
+    validator /* istanbul ignore next */: val => {
       /* istanbul ignore next */
       return isUndefinedOrNull(val) || arrayIncludes(['ok', 'cancel', 'close'], val)
     }
@@ -564,14 +550,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
       return null
     },
-    // Private method to get a list of all tabable elements within modal content
-    getTabables() {
-      // Find all tabable elements in the modal content
-      // Assumes users have not used tabindex > 0 on elements!
-      return selectAll(TABABLE_SELECTOR, this.$refs.content)
-        .filter(isVisible)
-        .filter(i => i.tabIndex > -1 && !i.disabled)
-    },
     // Private method to finish showing modal
     doShow() {
       /* istanbul ignore next: commenting out for now until we can test stacking */
@@ -727,7 +705,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       ) {
         return
       }
-      const tabables = this.getTabables()
+      const tabables = getTabables(this.$refs.content)
       const { bottomTrap, topTrap } = this.$refs
       if (bottomTrap && target === bottomTrap) {
         // If user pressed TAB out of modal into our bottom trab trap element
@@ -794,6 +772,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             const close = this.$refs['close-button']
             // Focus the appropriate button or modal content wrapper
             const autoFocus = this.autoFocusButton
+            /* istanbul ignore next */
             const el =
               autoFocus === 'ok' && ok
                 ? ok.$el || ok

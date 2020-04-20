@@ -149,7 +149,21 @@ module.exports = {
     // - `true` if triggered by a Pull request commit
     PULL_REQUEST: process.env.NETLIFY ? process.env.PULL_REQUEST : null,
     // - If the previous is `true`, this will be the PR number
-    REVIEW_ID: process.env.NETLIFY && process.env.PULL_REQUEST ? process.env.REVIEW_ID : null
+    REVIEW_ID: process.env.NETLIFY && process.env.PULL_REQUEST ? process.env.REVIEW_ID : null,
+    // ENV vars provided by Zeit Now build
+    // https://zeit.co/docs/v2/build-step#system-environment-variables
+    // - `true` if on Zeit Now (dev or PR)
+    ZEIT_NOW: process.env.NOW_GITHUB_DEPLOYMENT,
+    // - The branch name used for the deploy (i.e. `dev`, `master`, `patch-1`, etc)
+    ZEIT_BRANCH: process.env.NOW_GITHUB_COMMIT_REF,
+    // - The Commit SHA hash
+    ZEIT_COMMIT_SHA: process.env.NOW_GITHUB_COMMIT_SHA,
+    // - The deployment URL
+    ZEIT_URL: process.env.NOW_URL,
+    // - The Github Organization (ie. bootstrap-vue)
+    ZEIT_GITHUB_ORG: process.env.NOW_GITHUB_ORG,
+    // - The repo is the organization (i.e. bootstrap-vue)
+    ZEIT_GITHUB_REPO: process.env.NOW_GITHUB_REPO
   },
 
   build: {
@@ -203,6 +217,7 @@ module.exports = {
         // Nuxt default is missing image
         image: 'xlink:href',
         // Add BootstrapVue specific component asset items
+        'b-avatar': 'src',
         'b-img': 'src',
         'b-img-lazy': ['src', 'blank-src'],
         'b-card': 'img-src',
@@ -232,7 +247,7 @@ module.exports = {
     },
     meta: {
       // `ogHost` is required for `og:image` to be populated
-      ogHost: 'https://bootstrap-vue.js.org',
+      ogHost: 'https://bootstrap-vue.org',
       ogImage: true,
       twitterCard: 'summary',
       twitterSite: '@BootstrapVue',
@@ -243,10 +258,10 @@ module.exports = {
   generate: {
     dir: 'docs-dist',
     routes: () => [
+      // Dynamic slug routes
       ...getRoutesByDir('src', 'components'),
       ...getRoutesByDir('src', 'directives', ['modal', 'toggle']),
-      ...getRoutesByDir('docs/markdown', 'reference'),
-      ...getRoutesByDir('docs/markdown', 'misc')
+      ...getRoutesByDir('docs/markdown', 'reference')
     ]
   },
 

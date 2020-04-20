@@ -29,7 +29,7 @@ export default {
       const trs = (refs.itemRows || []).map(tr => tr.$el || tr)
       return tbody && tbody.children && tbody.children.length > 0 && trs && trs.length > 0
         ? arrayFrom(tbody.children).filter(tr => arrayIncludes(trs, tr))
-        : []
+        : /* istanbul ignore next */ []
     },
     getTbodyTrIndex(el) {
       // Returns index of a particular TBODY item TR
@@ -161,7 +161,7 @@ export default {
           cache[key] = this.hasNormalizedSlot(fullName)
             ? fullName
             : this.hasNormalizedSlot(lowerName)
-              ? lowerName
+              ? /* istanbul ignore next */ lowerName
               : defaultSlotName
         })
         // Created as a non-reactive property so to not trigger component updates
