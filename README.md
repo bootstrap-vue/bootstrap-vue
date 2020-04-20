@@ -22,11 +22,9 @@
   <a href="https://vuejs.org">
     <img src="https://flat.badgen.net/badge/vue.js/2.6.x/4fc08d" alt="Vue.js version">
   </a>
-  <!-- Moved away from circleci
-  <a href="https://circleci.com/gh/bootstrap-vue/bootstrap-vue">
-    <img src="https://flat.badgen.net/circleci/github/bootstrap-vue/bootstrap-vue/master?label=build" alt="CircleCI status">
+  <a href="https://github.com/bootstrap-vue/bootstrap-vue/actions?workflow=Tests">
+    <img src="https://flat.badgen.net/github/status/bootstrap-vue/bootstrap-vue" alt="Build status">
   </a>
-  -->
   <a href="https://github.com/bootstrap-vue/bootstrap-vue">
     <img src="https://flat.badgen.net/david/dep/bootstrap-vue/bootstrap-vue" alt="Dependencies status">
   </a>
