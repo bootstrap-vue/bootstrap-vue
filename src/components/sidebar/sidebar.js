@@ -435,7 +435,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
 
     let $tabTrapTop = h()
     let $tabTrapBottom = h()
-    if (this.backdrop) {
+    if (this.backdrop && this.localShow) {
       $tabTrapTop = h('div', {
         attrs: { tabindex: '0' },
         on: { focus: this.onTopTrapFocus }
