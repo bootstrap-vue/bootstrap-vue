@@ -5,6 +5,18 @@ import { toFloat } from './number'
 
 // --- Constants ---
 
+const TABABLE_SELECTOR = [
+  'button',
+  '[href]:not(.disabled)',
+  'input',
+  'select',
+  'textarea',
+  '[tabindex]',
+  '[contenteditable]'
+]
+  .map(s => `${s}:not(:disabled):not([disabled])`)
+  .join(', ')
+
 const w = hasWindowSupport ? window : {}
 const d = hasDocumentSupport ? document : {}
 const elProto = typeof Element !== 'undefined' ? Element.prototype : {}
@@ -238,3 +250,10 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
 // Determine wether a component has children
 export const hasChildren = children =>
   isArray(children) ? children.some(c => hasChildren(c)) : !!children
+
+// Find all tabable elements in the given element
+// Assumes users have not used `tabindex` > `0` on elements
+export const getTabables = (el = document) =>
+  selectAll(TABABLE_SELECTOR, el)
+    .filter(isVisible)
+    .filter(i => i.tabIndex > -1 && !i.disabled)

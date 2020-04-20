@@ -1,16 +1,36 @@
+.b-sidebar-outer {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  overflow: visible;
+  z-index: $b-sidebar-zindex;
+}
+
+.b-sidebar-backdrop {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0.5;
+}
+
 .b-sidebar {
   display: flex;
   flex-direction: column;
   position: fixed !important;
   top: 0;
-  bottom: 0;
+  height: 100vh;
   width: $b-sidebar-width;
   max-width: 100% !important;
   height: 100vh !important;
   margin: 0 !important;
   outline: 0;
   transform: translateX(0);
-  z-index: $b-sidebar-zindex;
 
   &.slide {
     transition: transform $b-sidebar-transition-duration ease-in-out;

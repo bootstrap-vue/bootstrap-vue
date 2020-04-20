@@ -901,8 +901,8 @@ Read the following migration guide for more details.
   `$bv-popover-color-level` have been removed. Use variables `$b-popover-bg-level`,
   `$b-popover-border-level`, and `$b-popover-color-level` (respectively) instead.
 
-Please refer to the [documentation](https://bootstrap-vue.js.org/) for the latest usage and
-examples, and below for a list of fixes and new features.
+Please refer to the [documentation](https://bootstrap-vue.org/) for the latest usage and examples,
+and below for a list of fixes and new features.
 
 ### Bug Fixes v2.0.0
 

@@ -97,7 +97,7 @@
         <template v-slot:cell(prop)="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code><br>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
-          <b-badge v-if="item.settings" variant="dark" href="/docs/misc/settings" title="Configurable in settings">Settings</b-badge>
+          <b-badge v-if="item.settings" variant="dark" href="/docs/reference/settings" title="Configurable in settings">Settings</b-badge>
           <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
           <b-badge v-if="item.isVModel" variant="primary">v-model</b-badge>
           <b-badge v-if="item.xss" variant="warning">Use with caution</b-badge>

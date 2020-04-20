@@ -1,9 +1,13 @@
+import hljs from '~/utils/hljs'
 import MainDocs from '~/components/main-docs'
 import docsMixin from '~/plugins/docs-mixin'
-import { reference as referenceMeta } from '~/content'
+import { reference as referenceMeta, defaultConfig } from '~/content'
 
-const getReadMe = name =>
-  import(`~/markdown/reference/${name}/README.md` /* webpackChunkName: "docs/reference" */)
+const getReadMe = slug => {
+  return import(`~/markdown/reference/${slug}/README.md` /* webpackChunkName: "docs/reference" */)
+}
+
+const replacer = (key, value) => (typeof value === 'undefined' ? null : value)
 
 // @vue/component
 export default {
@@ -14,8 +18,12 @@ export default {
     return Boolean(referenceMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readme = (await getReadMe(params.slug)).default
+    let readme = (await getReadMe(params.slug)).default
     const meta = referenceMeta[params.slug]
+    readme = readme.replace(
+      '{{ defaultConfig }}',
+      hljs.highlight('json', JSON.stringify(defaultConfig || {}, replacer, 2)).value
+    )
     return { meta, readme }
   },
   render(h) {

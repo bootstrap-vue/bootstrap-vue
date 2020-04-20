@@ -2,6 +2,6 @@
 // @vue/component
 export default {
   fetch({ redirect }) {
-    redirect('/docs/components/layout')
+    redirect(301, '/docs/components/layout')
   }
 }
