@@ -595,7 +595,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       this.slides.map((slide, n) => {
         return h('li', {
           key: `slide_${n}`,
-          class: { [CLASS_NAME_ACTIVE]: n === this.index },
+          class: [n === this.index ? CLASS_NAME_ACTIVE : null],
           attrs: {
             role: 'button',
             id: this.safeId(`_BV_indicator_${n + 1}_`),
