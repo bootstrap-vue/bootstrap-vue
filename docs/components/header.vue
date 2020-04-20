@@ -201,24 +201,24 @@ export default {
     isZeitNow() {
       return Boolean(process.env.ZEIT_NOW)
     },
+    branchName() {
+      return this.isZeitNow ? process.env.ZEIT_BRANCH || '' : ''
+    },
     isDev() {
       // In our case, `production` is the dev branch preview (Netlify)
       return (
         (this.isNetlify && process.env.NETLIFY_CONTEXT === 'production') ||
-        (this.isZeitNow && process.env.ZEIT_BRANCH === 'dev')
+        (this.isZeitNow && this.branchName === 'dev')
       )
     },
     isPR() {
       return (
         (this.isNetlify && process.env.PULL_REQUEST && process.env.REVIEW_ID) ||
-        (this.isZeitNow && !this.isDev && process.env.ZEIT_BRANCH !== 'master')
+        (this.isZeitNow && !this.isDev && this.branchName !== 'master')
       )
     },
     prId() {
       return this.isPR ? process.env.REVIEW_ID : ''
-    },
-    branchName() {
-      return this.isZeitNow ? process.env.ZEIT_BRANCH || '' : ''
     },
     dropdownText() {
       if (this.isPR) {
