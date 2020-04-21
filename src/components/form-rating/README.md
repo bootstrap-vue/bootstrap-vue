@@ -12,7 +12,7 @@ inside [input groups](/docs/components/input-group).
 There are two main modes for `<b-form-rating>`: interactive and readonly.
 
 Interactive mode allows the user to chose a rating from `1` to the number of stars (default `5`) in
-whole number increments.
+_whole number_ increments.
 
 **Interactive rating (input mode):**
 
