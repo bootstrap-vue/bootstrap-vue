@@ -138,7 +138,7 @@
     "improved-yarn-audit": "^2.0.0",
     "jest": "^25.4.0",
     "jest-environment-jsdom-fourteen": "^1.0.1",
-    "lint-staged": "^10.1.6",
+    "lint-staged": "^10.1.7",
     "loader-utils": "^2.0.0",
     "lodash": "^4.17.15",
     "marked": "^1.0.0",
