@@ -44,10 +44,10 @@
 
       <hr>
 
-      <template v-if="isZeitNow && false">
+      <template v-if="isVercel && false">
         <p class="mb-4 text-center">
           <strong class="d-block mx-auto mb-2">Hosting provided by</strong>
-          <a href="https://zeit.co/?utm_campaign=bootstrap-vue" target="_blank" rel="noopener">
+          <a href="https://vercel.com/?utm_campaign=bootstrap-vue" target="_blank" rel="noopener">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               role="img"
@@ -98,12 +98,12 @@
         Currently v{{ version }}. Code licensed
         <a href="https://github.com/bootstrap-vue/bootstrap-vue/blob/master/LICENSE" target="_blank">MIT</a>.
         Docs generated with
-        <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a><template v-if="!isNetlify && !isZeitNow">.</template>
+        <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a><template v-if="!isNetlify && !isVercel">.</template>
         <template v-if="isNetlify">
           and proudly hosted on <a href="https://www.netlify.com" target="_blank">Netlify</a>.
         </template>
-        <template v-else-if="isZeitNow">
-          and proudly hosted on <a href="https://zeit.co/?utm_campaign=bootstrap-vue" target="_blank">Zeit</a>.
+        <template v-else-if="isVercel">
+          and proudly hosted on <a href="https://vercel.com/?utm_campaign=bootstrap-vue" target="_blank">Vercel</a>.
         </template>
       </p>
     </b-container>
@@ -146,8 +146,8 @@ export default {
     isNetlify() {
       return Boolean(process.env.NETLIFY)
     },
-    isZeitNow() {
-      return Boolean(process.env.ZEIT_NOW)
+    isVercel() {
+      return Boolean(process.env.VERCEL_NOW || process.env.ZEIT_NOW)
     }
   }
 }
