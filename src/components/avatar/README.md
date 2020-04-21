@@ -142,6 +142,19 @@ appearance, or if using custom icons or SVGs e.g.:
 <b-avatar><custom-icon></custom-icon></b-avatar>
 ```
 
+**Multi-line text example:**
+
+```html
+<template>
+  <div class="mb-2">
+    <b-avatar size="4em">Hello<br>World</b-avatar>
+    <b-avatar size="4em">你好<br>世界</b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-default-slot-multi-line.vue -->
+```
+
 **Notes:**
 
 - The default slot takes precedence over the `text`, `src` and `icon` props.
