@@ -3420,10 +3420,10 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-codemirror@^5.52.2:
-  version "5.52.2"
-  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.52.2.tgz#c29e1f7179f85eb0dd17c0586fa810e4838ff584"
-  integrity sha512-WCGCixNUck2HGvY8/ZNI1jYfxPG5cRHv0VjmWuNzbtCLz8qYA5d+je4QhSSCtCaagyeOwMi/HmmPTjBgiTm2lQ==
+codemirror@^5.53.0:
+  version "5.53.0"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.53.0.tgz#7d5c373388e26bb902082da749a0e8cedbfe2b95"
+  integrity sha512-gpnlCCcfp/k9U38X5edaTNRAuNW3vNyAFiG4ZeytlHBl0PsCRYFTomLnAsTfJf/B1eQ7kyzB4k3XXolebpYhtA==
 
 codesandbox-import-util-types@^2.1.9:
   version "2.1.9"
