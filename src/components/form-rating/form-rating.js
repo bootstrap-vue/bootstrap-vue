@@ -225,12 +225,11 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
         minimumFractionDigits: isNaN(precision) ? 0 : precision,
         maximumFractionDigits: isNaN(precision) ? 3 : precision
       }
-      let value = this.localValue
       const precision = toInteger(this.precision)
       const showValueMax = this.showValueMax
       const locale = this.computedLocale
-      let value = this.localValue
       const stars = this.computedStars.toLocaleString(locale, formatOptions)
+      let value = this.localValue
       value = isNull(value)
         ? showValueMax
            ? '-'
