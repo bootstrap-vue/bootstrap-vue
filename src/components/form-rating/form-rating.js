@@ -127,6 +127,10 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    showValueMax: {
+      type: Boolean,
+      default: false
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -216,15 +220,22 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       return isLocaleRTL(this.computedLocale)
     },
     formattedRating() {
-      const value = this.localValue
       const precision = toInteger(this.precision)
-      return isNull(value)
-        ? ''
-        : value.toLocaleString(this.computedLocale, {
-            notation: 'standard',
-            minimumFractionDigits: isNaN(precision) ? 0 : precision,
-            maximumFractionDigits: isNaN(precision) ? 3 : precision
-          })
+      const showValueMax = this.showValueMax
+      const locale = this.computedLocale
+      const formatOptions = {
+        notation: 'standard',
+        minimumFractionDigits: isNaN(precision) ? 0 : precision,
+        maximumFractionDigits: isNaN(precision) ? 3 : precision
+      }
+      const stars = this.computedStars.toLocaleString(locale)
+      let value = this.localValue
+      value = isNull(value)
+        ? showValueMax
+          ? '-'
+          : ''
+        : value.toLocaleString(locale, formatOptions)
+      return showValueMax ? `${value}/${stars}` : value
     }
   },
   watch: {
