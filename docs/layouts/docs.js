@@ -1,3 +1,4 @@
+import { BASE_URL } from '~/constants'
 import BVBreadcrumbs from '~/components/breadcrumbs'
 import BVFeedback from '~/components/feedback'
 import BVFooter from '~/components/footer'
@@ -73,5 +74,18 @@ export default {
     const $footer = h(BVFooter, { props: { isDocs: true } })
 
     return h('div', [$header, $container, $footer])
+  },
+  head() {
+    // Add canonical URL so all site variations are
+    // indexed to the same primary URL
+    return {
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: `${BASE_URL}${this.$route.path}`
+        }
+      ]
+    }
   }
 }
