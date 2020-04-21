@@ -232,8 +232,8 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       let value = this.localValue
       value = isNull(value)
         ? showValueMax
-           ? '-'
-           : ''
+          ? '-'
+          : ''
         : value.toLocaleString(locale, formatOptions)
       return showValueMax ? `${value}/${stars}` : value
     }
