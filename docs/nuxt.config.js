@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const marked = require('marked')
 const hljs = require('highlight.js/lib/highlight.js')
+const { BASE_URL, GA_TRACKING_ID, TWITTER_HANDLE } = require('./constants')
 
 // Import only the languages we need from "highlight.js"
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
@@ -247,11 +248,11 @@ module.exports = {
     },
     meta: {
       // `ogHost` is required for `og:image` to be populated
-      ogHost: 'https://bootstrap-vue.org',
+      ogHost: BASE_URL,
       ogImage: true,
       twitterCard: 'summary',
-      twitterSite: '@BootstrapVue',
-      twitterCreator: '@BootstrapVue'
+      twitterSite: TWITTER_HANDLE,
+      twitterCreator: TWITTER_HANDLE
     }
   },
 
@@ -271,7 +272,7 @@ module.exports = {
   modules: ['@nuxtjs/pwa'],
 
   'google-analytics': {
-    id: 'UA-89526435-1',
+    id: GA_TRACKING_ID,
     autoTracking: {
       exception: true
     }

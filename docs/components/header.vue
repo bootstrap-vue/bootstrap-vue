@@ -175,6 +175,7 @@
 </style>
 
 <script>
+import { BASE_URL, BASE_URL_DEV, NETLIFY_URL } from '~/constants'
 import { version } from '~/content'
 
 export default {
@@ -187,13 +188,13 @@ export default {
   },
   computed: {
     prodURL() {
-      return 'https://bootstrap-vue.org/'
+      return BASE_URL
     },
     devURL() {
       if (this.isNetlify) {
-        return 'https://bootstrap-vue.netlify.app/'
+        return NETLIFY_URL
       }
-      return 'https://dev.bootstrap-vue.org/'
+      return BASE_URL_DEV
     },
     isNetlify() {
       return Boolean(process.env.NETLIFY)
