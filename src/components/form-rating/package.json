@@ -37,6 +37,11 @@
             "description": "When `true` shows the current rating value in the control"
           },
           {
+            "prop": "showValueMax",
+            "version": "2.13.0",
+            "description": "When set to `true` and prop `show-value` is `true`, includes the maximum star rating possible in the formatted value"
+          },
+          {
             "prop": "noBorder",
             "description": "When `true` disables the default border"
           },
