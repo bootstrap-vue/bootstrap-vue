@@ -227,16 +227,16 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       }
       let value = this.localValue
       const precision = toInteger(this.precision)
-      const showMaxValue = this.showMaxValue
+      const showValueMax = this.showValueMax
       const locale = this.computedLocale
       let value = this.localValue
-      const stars = this.computedStars.localString(locale, formatOptions)
+      const stars = this.computedStars.toLocaleString(locale, formatOptions)
       value = isNull(value)
-        ? showMaxValue
+        ? showValueMax
            ? '-'
            : ''
         : value.toLocaleString(locale, formatOptions)
-      return showMaxValue ? `${value}/${stars}` : value
+      return showValueMax ? `${value}/${stars}` : value
     }
   },
   watch: {
