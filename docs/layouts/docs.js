@@ -6,6 +6,8 @@ import BVSearch from '~/components/search'
 import BVSidebar from '~/components/sidebar'
 import BVToc from '~/components/toc'
 
+const BASE_URL = 'https://bootstrap-vue.org'
+
 export default {
   name: 'BVDocsLayout',
   data() {
@@ -73,5 +75,18 @@ export default {
     const $footer = h(BVFooter, { props: { isDocs: true } })
 
     return h('div', [$header, $container, $footer])
+  },
+  head() {
+    // Add conanonical URL so all site variations are
+    // indexed to the same primary URL
+    return {
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: `${BASE_URL}${this.$route.path}`
+        }
+      ]
+    }
   }
 }
