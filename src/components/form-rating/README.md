@@ -209,6 +209,33 @@ decimal) simply set the `precision` prop to the number of digits after the decim
 <!-- b-form-rating-value-precision.vue -->
 ```
 
+#### Show maximum value
+
+<span class="badge badge-info small">2.13.0+</span>
+
+Optionally show the maximum rating possible by also setting the prop `show-value-max` to `true`:
+
+```html
+<template>
+  <div>
+    <b-form-rating v-model="value" readonly show-value show-value-max precision="2"></b-form-rating>
+    <p class="mt-2">Value: {{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: 3.555
+      }
+    }
+  }
+</script>
+
+<!-- b-form-rating-value-max.vue -->
+```
+
 ### Control sizing
 
 Fancy a small or large rating control? Simply set the prop `size` to either `'sm'` or `'lg'`
