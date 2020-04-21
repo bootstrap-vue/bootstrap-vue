@@ -147,7 +147,7 @@ export default {
       return Boolean(process.env.NETLIFY)
     },
     isVercel() {
-      return Boolean(process.env.VERCEL_NOW || process.env.ZEIT_NOW)
+      return Boolean(process.env.VERCEL_NOW)
     }
   }
 }
