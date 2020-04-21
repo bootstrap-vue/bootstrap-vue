@@ -12,7 +12,7 @@ inside [input groups](/docs/components/input-group).
 There are two main modes for `<b-form-rating>`: interactive and readonly.
 
 Interactive mode allows the user to chose a rating from `1` to the number of stars (default `5`) in
-whole number increments.
+_whole number_ increments.
 
 **Interactive rating (input mode):**
 
@@ -207,6 +207,39 @@ decimal) simply set the `precision` prop to the number of digits after the decim
 </script>
 
 <!-- b-form-rating-value-precision.vue -->
+```
+
+#### Show maximum value
+
+<span class="badge badge-info small">2.13.0+</span>
+
+Optionally show the maximum rating possible by also setting the prop `show-value-max` to `true`:
+
+```html
+<template>
+  <div>
+    <b-form-rating
+      v-model="value"
+      readonly
+      show-value
+      show-value-max
+      precision="2"
+    ></b-form-rating>
+    <p class="mt-2">Value: {{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: 3.555
+      }
+    }
+  }
+</script>
+
+<!-- b-form-rating-value-max.vue -->
 ```
 
 ### Control sizing
