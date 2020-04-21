@@ -218,7 +218,13 @@ Optionally show the maximum rating possible by also setting the prop `show-value
 ```html
 <template>
   <div>
-    <b-form-rating v-model="value" readonly show-value show-value-max precision="2"></b-form-rating>
+    <b-form-rating
+      v-model="value"
+      readonly
+      show-value
+      show-value-max
+      precision="2"
+    ></b-form-rating>
     <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
