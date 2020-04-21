@@ -199,30 +199,35 @@ export default {
     isNetlify() {
       return Boolean(process.env.NETLIFY)
     },
-    isZeitNow() {
-      return Boolean(process.env.ZEIT_NOW)
+    isVercel() {
+      return Boolean(process.env.VERCEL_NOW)
     },
     branchName() {
-      return this.isZeitNow ? process.env.ZEIT_BRANCH || '' : ''
+      // Netlify doesn't support providing the branch name
+      return this.isVercel ? process.env.VERCEL_BRANCH || '' : ''
     },
     isDev() {
       // In our case, `production` is the dev branch preview (Netlify)
       return (
         (this.isNetlify && process.env.NETLIFY_CONTEXT === 'production') ||
-        (this.isZeitNow && this.branchName === 'dev')
+        (this.isVercel && this.branchName === 'dev')
       )
     },
     isPR() {
       return (
         (this.isNetlify && process.env.PULL_REQUEST && process.env.REVIEW_ID) ||
-        (this.isZeitNow && !this.isDev && this.branchName !== 'master')
+        (this.isVercel && !this.isDev && this.branchName !== 'master')
       )
     },
     prId() {
+      // Vercel doesn't currently support returning the PR number
+      // `REVIEW_ID` is provided by Netlify
       return this.isPR ? process.env.REVIEW_ID : ''
     },
     dropdownText() {
+      // Dropdown button text
       if (this.isPR) {
+        // Vercel doesn't currently support returning the PR number
         return this.prId ? `Pull #${this.prId}` : 'Pull Request'
       } else if (this.isLocal) {
         return 'Local Copy'
