@@ -530,7 +530,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       {
         key: 'calendar',
         ref: 'calendar',
-        staticClass: 'b-form-date-calendar',
+        staticClass: 'b-form-date-calendar w-100',
         props: this.calendarProps,
         on: {
           selected: this.onSelected,
