@@ -208,31 +208,3 @@ jobs:
         env:
           BUNDLEWATCH_GITHUB_TOKEN: "${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}"
           CI_BRANCH_BASE: "${{ github.base_ref }}"
-
-  docs:
-    needs: setup
-    runs-on: ${{ matrix.os }}
-    if: github.event_name == 'push' && github.ref == 'master'
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [12]
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-
-      - name: Set Node.js version
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Restore workspace cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
-
-      - name: Publish docs
-        run: yarn run docs-publish
