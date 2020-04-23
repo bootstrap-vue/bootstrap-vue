@@ -38,6 +38,13 @@
   padding: 0;
 
   @at-root {
+    // Handle input-group padding overrides
+    .input-group & {
+      padding: 0;
+    }
+  }
+
+  @at-root {
     // Prevent the button/label from reversing order on in horizontal RTL mode
     [dir="rtl"] &,
     &[dir="rtl"] {
