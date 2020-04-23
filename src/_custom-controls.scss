@@ -32,8 +32,9 @@
 // Shared BVFormBtnLabelControl styling
 // Currently used by BFormTimepicker and BFormDatepicker
 // Does not apply to button-only styling
-.b-form-btn-label-control {
-  // Remove background validation images from main wrapper
+.b-form-btn-label-control.form-control {
+  // Remove background validation images and padding from
+  // main wrapper as they will be present in the inner label element
   background-image: none;
   padding: 0;
 
