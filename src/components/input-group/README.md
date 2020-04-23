@@ -113,10 +113,13 @@ subcomponent inside of the `<b-input-group-prepend>` or `<b-input-group-append>`
 
 The following are the form controls supported as the input-group's _main_ input element:
 
-- `<b-form-input>`
-- `<b-form-textarea>`
-- `<b-form-select>`
-- `<b-form-file>`
+- [`<b-form-input>`](/docs/components/form-input)
+- [`<b-form-textarea>`](/docs/components/form-textarea)
+- [`<b-form-select>`](/docs/components/form-select)
+- [`<b-form-file>`](/docs/components/form-file)
+- [`<b-form-rating>`](/docs/components/form-rating)
+- [`<b-form-tags>`](/docs/components/form-tags)
+- [`<b-form-spinbutton>`](/docs/components/form-splinbutton)
 
 **Notes:**
 
