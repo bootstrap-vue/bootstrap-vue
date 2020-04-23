@@ -187,11 +187,12 @@ See also:
 - [`<b-form-select>`](/docs/components/form-select) Select input
 - [`<b-form-radio>`](/docs/components/form-radio) Radio Inputs
 - [`<b-form-checkbox>`](/docs/components/form-checkbox) Checkbox Inputs
-- [`b-form-datepicker`](/docs/components/form-datepicker) Date picker input
-- [`b-form-spinbutton`](/docs/components/form-spinbutton) Numerical range spinbutton input
-- [`b-form-tags`](/docs/components/form-tags) Customizable tag input
-- [`<b-form-timepicker>`](/docs/components/form-timepicker) Time picker custom form input
 - [`<b-form-file>`](/docs/components/form-file) File Input
+- [`<b-form-datepicker>`](/docs/components/form-datepicker) Date picker input
+- [`<b-form-spinbutton>`](/docs/components/form-spinbutton) Numerical range spinbutton input
+- [`<b-form-tags>`](/docs/components/form-tags) Customizable tag input
+- [`<b-form-timepicker>`](/docs/components/form-timepicker) Time picker custom form input
+- [`<b-form-rating>`](/docs/components/form-rating) Star rating custom form input and display
 - [`<b-button>`](/docs/components/button) Buttons
 - [`<b-form-group>`](/docs/components/form-group) Form input wrapper to generate form-groups that
   support labels, help text and feedback
