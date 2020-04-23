@@ -127,6 +127,8 @@ The following are the form controls supported as the input-group's _main_ input 
   in a `<b-input-group>` which has a [`size`](#control-sizing) specified.
 - BootstrapVue uses custom SCSS/CSS when `<b-form-input type="range">` is placed in a
   `<b-input-group>`.
+- BootstrapVue's custom components (i.e. `<b-form-spinbutton>`, `<b-form-rating>`, `<b-form-tags>`,
+  etc.) require BootstrapVue's custom SCSS/CSS.
 
 ## Checkbox and radio addons
 
