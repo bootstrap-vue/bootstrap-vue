@@ -84,6 +84,7 @@
     padding-left: 0.25rem;
     margin: 0;
     border: 0;
+    font-size: inherit;
     @if $enable-pointer-cursor-for-buttons {
       cursor: pointer;
     }
@@ -98,6 +99,17 @@
 
     &.form-control-lg {
       min-height: calc(#{$input-height-lg} - #{$input-height-border});
+    }
+
+    @at-root {
+      // Handle input group sizing
+      .input-group.input-group-sm & {
+        min-height: calc(#{$input-height-sm} - #{$input-height-border});
+      }
+
+      .input-group.input-group-lg & {
+        min-height: calc(#{$input-height-lg} - #{$input-height-border});
+      }
     }
   }
 
