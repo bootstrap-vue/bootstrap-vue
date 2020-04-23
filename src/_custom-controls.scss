@@ -32,13 +32,11 @@
 // Shared BVFormBtnLabelControl styling
 // Currently used by BFormTimepicker and BFormDatepicker
 // Does not apply to button-only styling
-.b-form-btn-label-control {
-  &.form-control {
-    // Remove background validation images and padding from
-    // main wrapper As they will be present in the inner input
-    background-image: none;
-    padding: 0;
-  }
+.b-form-btn-label-control.form-control {
+  // Remove background validation images and padding from
+  // main wrapper as they will be present in the inner label element
+  background-image: none;
+  padding: 0;
 
   @at-root {
     // Prevent the button/label from reversing order on in horizontal RTL mode
