@@ -35,7 +35,11 @@
 .b-form-btn-label-control {
   // Remove background validation images from main wrapper
   background-image: none;
-  padding: 0;
+
+  &,
+  @at-root .input-group & {
+    padding: 0;
+  }
 
   @at-root {
     // Prevent the button/label from reversing order on in horizontal RTL mode
@@ -109,3 +113,5 @@
     }
   }
 }
+
+.input-group .bform-
