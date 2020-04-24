@@ -1,4 +1,5 @@
 .idea/
+.now/
 .nuxt/
 .vscode/
 coverage/
