@@ -133,3 +133,10 @@
     }
   }
 }
+
+// Button only mode menu padding overrides
+.b-form-btn-label-control.btn-group {
+  > .dropdown-menu {
+    padding: 0.5rem;
+  }
+}
