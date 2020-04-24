@@ -6,7 +6,12 @@ import { toInteger } from './number'
 
 // --- Constants ---
 
-const RX_DATE = /^\d+-\d+-\d+$/
+// Loose YYYY-MM-DD matching, ignores any appended time inforation
+// Matches '1999-12-20', '1999-1-1', '1999-01-20T22:51:49.118Z', '1999-01-02 13:00:00'
+const RX_DATE = /^\d+-\d\d?-\d\d?(?:\s|T|$)/
+
+// Used to split off the date parts of the YYYY-MM-DD string
+const RX_DATE_SPLIT = /-|\s|T/
 
 // --- Date utility methods ---
 
@@ -16,7 +21,7 @@ export const createDate = (...args) => new Date(...args)
 // Parse a date sting, or Date object, into a Date object (with no time information)
 export const parseYMD = date => {
   if (isString(date) && RX_DATE.test(date.trim())) {
-    const [year, month, day] = date.split('-').map(toInteger)
+    const [year, month, day] = date.split(RX_DATE_SPLIT).map(v => toInteger(v, 1))
     return createDate(year, month - 1, day)
   } else if (isDate(date)) {
     return createDate(date.getFullYear(), date.getMonth(), date.getDate())
