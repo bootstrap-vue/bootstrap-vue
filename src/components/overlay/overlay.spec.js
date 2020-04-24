@@ -170,6 +170,41 @@ describe('overlay', () => {
     wrapper.destroy()
   })
 
+  it('emits event when overlay clicked', async () => {
+    const wrapper = mount(BOverlay, {
+      propsData: {
+        show: true
+      },
+      slots: {
+        default: '<span>foobar</span>'
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.classes()).toContain('b-overlay-wrap')
+
+    const $overlay = wrapper.find('.b-overlay')
+    expect($overlay.exists()).toBe(true)
+
+    expect(wrapper.emitted('click')).not.toBeDefined()
+
+    $overlay.trigger('click')
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.emitted('click')).toBeDefined()
+    expect(wrapper.emitted('click').length).toBe(1)
+    expect(wrapper.emitted('click')[0][0]).toBeInstanceOf(Event)
+    expect(wrapper.emitted('click')[0][0].type).toEqual('click')
+
+    wrapper.destroy()
+  })
+
   it('has expected default structure when `no-wrap` is set', async () => {
     const wrapper = mount(BOverlay, {
       propsData: {
