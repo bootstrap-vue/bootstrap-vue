@@ -1,5 +1,5 @@
 import get from '../../../utils/get'
-import { isArray, isPlainObject, isUndefined } from '../../../utils/inspect'
+import { isNull, isPlainObject, isUndefined } from '../../../utils/inspect'
 import formOptionsMixin from '../../../mixins/form-options'
 
 // @vue/component
@@ -21,12 +21,12 @@ export default {
       if (isPlainObject(option)) {
         const value = get(option, this.valueField)
         const text = get(option, this.textField)
-        const options = get(option, this.optionsField)
+        const options = get(option, this.optionsField, null)
         // When it has options, create an `<optgroup>` object
-        if (isArray(options)) {
+        if (!isNull(options)) {
           return {
             label: String(get(option, this.labelField) || text),
-            options
+            options: this.normalizeOptions(options)
           }
         }
         // Otherwise create an `<option>` object
