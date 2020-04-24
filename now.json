@@ -2,7 +2,12 @@
   "headers": [
     {
       "source": "/(.*)",
-      "headers": [{ "key": "X-Robots-Tag", "value": "" }]
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": ""
+        }
+      ]
     }
   ]
 }
