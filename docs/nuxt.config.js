@@ -177,20 +177,6 @@ module.exports = {
         }
       }
     },
-    templates: [
-      // Generate apropriate robots.txt file
-      {
-        // Source template
-        src: './docs/static-templates/robots.txt',
-        // Output file relative to `.nuxt/` directory
-        dst: '../static/robots.txt',
-        options: {
-          isProd:
-            process.env.VERCEL_GITHUB_COMMIT_REF === 'master' ||
-            process.env.NOW_GITHUB_COMMIT_REF === 'master'
-        }
-      }
-    ],
     extend(config, { isDev, loaders }) {
       config.resolve.alias.vue = 'vue/dist/vue.common'
 
