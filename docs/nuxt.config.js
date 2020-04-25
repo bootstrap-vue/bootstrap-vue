@@ -178,10 +178,12 @@ module.exports = {
       }
     },
     templates: [
+      // Genrate apropriate robots.txt file
       {
-        // Genrate apropriate robots.txt file
-        src: '~/templates/robots.txt',
-        dst: '~/static/robots.txt',
+        // Source template
+        src: './templates/robots.txt',
+        // relative to `.nuxt/` directory
+        dst: 'robots.txt',
         options: {
           isProd:
             process.env.VERCEL_GITHUB_COMMIT_REF === 'master' ||
