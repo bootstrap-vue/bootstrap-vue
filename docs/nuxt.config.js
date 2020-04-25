@@ -180,9 +180,9 @@ module.exports = {
     templates: [
       // Genrate apropriate robots.txt file
       {
-        // Source template
-        src: './templates/robots.txt',
-        // relative to `.nuxt/` directory
+        // Source template relative to nuxt.config.js
+        src: '~/templates/robots.txt',
+        // Output file relative to `.nuxt/` directory
         dst: 'robots.txt',
         options: {
           isProd:
