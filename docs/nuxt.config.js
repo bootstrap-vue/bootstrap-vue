@@ -177,6 +177,18 @@ module.exports = {
         }
       }
     },
+    templates: [
+      {
+        // Genrate apropriate robots.txt file
+        src: '~/templates/robots.txt',
+        dst: '~/static/robots.txt',
+        options: {
+          isProd:
+            process.env.VERCEL_GITHUB_COMMIT_REF === 'master' ||
+            process.env.NOW_GITHUB_COMMIT_REF === 'master'
+        }
+      }
+    ],
     extend(config, { isDev, loaders }) {
       config.resolve.alias.vue = 'vue/dist/vue.common'
 
