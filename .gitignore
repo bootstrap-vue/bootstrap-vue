@@ -12,5 +12,3 @@ node_modules/
 .DS_Store
 sw.js
 workbox*.js*
-docs/static/robots.txt
-docs/static/sitemap.xml
