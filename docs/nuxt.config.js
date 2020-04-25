@@ -178,10 +178,10 @@ module.exports = {
       }
     },
     templates: [
-      // Genrate apropriate robots.txt file
+      // Generate apropriate robots.txt file
       {
         // Source template relative to nuxt.config.js
-        src: '~/static-templates/robots.txt',
+        src: './static-templates/robots.txt',
         // Output file relative to `.nuxt/` directory
         dst: '../static/robots.txt',
         options: {
