@@ -138,7 +138,7 @@ renderer.table = function() {
 const isProdDocs =
   process.env.VERCEL_GITHUB_ORG === 'bootstrap-vue' &&
   process.env.VERCEL_GITHUB_REPO === 'bootstrap-vue' &&
-  true // process.env.VERCEL_GITHUB_COMMIT_REF === 'master'
+  process.env.VERCEL_GITHUB_COMMIT_REF === 'master'
 
 // --- Main export ---
 
