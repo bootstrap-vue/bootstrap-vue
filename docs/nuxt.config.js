@@ -282,15 +282,22 @@ module.exports = {
     }
   },
 
+  // We enable crawling in production docs only
   robots: () => {
+    // In production docs we allow crawling, else we deny crawling
     return [isProdDocs ? { UserAgent: '*', Allow: '/' } : { UserAgent: '*', Disallow: '/' }]
   },
 
+  // We only include a populated `sitemap.xml` in production docs
   sitemap: {
-    hostname: isProdDocs ? BASE_URL : 'https://localhost',
-    // Exclude all static routes when not prod
+    // Sitemaps requires a hostname, so we use localhost in
+    // non-prod mode just to make the sitemap module happy
+    hostname: isProdDocs ? BASE_URL : 'http://localhost',
+    // Exclude all static routes when not prod. Exclude
+    // only redirect routes in prod.
     exclude: isProdDocs ? ['/docs/misc', '/docs/misc/**', '/docs/layout'] : ['/', '/**'],
-    // Include dynamic slug routes in prod
+    // Include dynamic slug routes (from generate.routes) in prod, while
+    // in non prod docs  we do not include dynamic routes (empty array)
     ...(isProdDocs ? {} : { routes: [] })
   },
 
