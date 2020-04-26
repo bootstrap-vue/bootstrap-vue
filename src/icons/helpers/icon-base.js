@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import identity from '../../utils/identity'
 import { isUndefinedOrNull } from '../../utils/inspect'
+import { mathMax } from '../../utils/math'
 import { toFloat } from '../../utils/number'
 
 // Common icon props (should be cloned/spread before using)
@@ -79,8 +80,8 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
     ...commonIconProps
   },
   render(h, { data, props, children }) {
-    const fontScale = Math.max(toFloat(props.fontScale, 1), 0) || 1
-    const scale = Math.max(toFloat(props.scale, 1), 0) || 1
+    const fontScale = mathMax(toFloat(props.fontScale, 1), 0) || 1
+    const scale = mathMax(toFloat(props.scale, 1), 0) || 1
     const rotate = toFloat(props.rotate, 0)
     const shiftH = toFloat(props.shiftH, 0)
     const shiftV = toFloat(props.shiftV, 0)
