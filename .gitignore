@@ -1,6 +1,7 @@
 .idea/
 .now/
 .nuxt/
+.vercel/
 .vscode/
 coverage/
 dist/
