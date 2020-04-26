@@ -11,6 +11,7 @@
           variant="secondary"
           target="_blank"
           href="https://vuejs.org/v2/guide/render-function.html#Functional-Components"
+          class="mb-3 mb-sm-0"
         >
           Functional component
         </b-badge>
