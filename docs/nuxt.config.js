@@ -133,7 +133,7 @@ renderer.table = function() {
   return `<div class="table-responsive-sm">${table}</div>`
 }
 
-const isProdDocs = 
+const isProdDocs =
   process.env.VERCEL_GITHUB_COMMIT_REF === 'master' ||
   process.env.NOW_GITHUB_COMMIT_REF === 'master'
 
