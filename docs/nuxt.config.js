@@ -21,6 +21,13 @@ const RX_CODE_FILENAME = /^\/\/ ([\w,\s-]+\.[A-Za-z]{1,4})\n/m
 
 const ANCHOR_LINK_HEADING_LEVELS = [2, 3, 4, 5]
 
+// Determine if documentation generation is published production docs
+// Must be from 'bootstrap-vue/bootstrap-vue' repo 'master' branch
+const IS_PROD_DOCS =
+  process.env.VERCEL_GITHUB_ORG === 'bootstrap-vue' &&
+  process.env.VERCEL_GITHUB_REPO === 'bootstrap-vue' &&
+  process.env.VERCEL_GITHUB_COMMIT_REF === 'master'
+
 // --- Utility methods ---
 
 // Get routes by a given dir
@@ -154,17 +161,17 @@ module.exports = {
     // ENV vars provided by Vercel/Zeit Now build
     // https://zeit.co/docs/v2/build-step#system-environment-variables
     // - `true` if on Zeit Now (dev or PR)
-    VERCEL_NOW: process.env.VERCEL_GITHUB_DEPLOYMENT || process.env.NOW_GITHUB_DEPLOYMENT,
+    VERCEL_NOW: process.env.VERCEL_GITHUB_DEPLOYMENT,
     // - The branch name used for the deploy (i.e. `dev`, `master`, `patch-1`, etc)
-    VERCEL_BRANCH: process.env.VERCEL_GITHUB_COMMIT_REF || process.env.NOW_GITHUB_COMMIT_REF,
+    VERCEL_BRANCH: process.env.VERCEL_GITHUB_COMMIT_REF,
     // - The Commit SHA hash
-    VERCEL_COMMIT_SHA: process.env.VERCEL_GITHUB_COMMIT_SHA || process.env.NOW_GITHUB_COMMIT_SHA,
+    VERCEL_COMMIT_SHA: process.env.VERCEL_GITHUB_COMMIT_SHA,
     // - The deployment URL
-    VERCEL_URL: process.env.VERCEL_URL || process.env.NOW_URL,
+    VERCEL_URL: process.env.VERCEL_URL,
     // - The Github Organization (ie. bootstrap-vue)
-    VERCEL_GITHUB_ORG: process.env.VERCEL_GITHUB_ORG || process.env.NOW_GITHUB_ORG,
+    VERCEL_GITHUB_ORG: process.env.VERCEL_GITHUB_ORG,
     // - The repo is the organization (i.e. bootstrap-vue)
-    VERCEL_GITHUB_REPO: process.env.VERCEL_GITHUB_REPO || process.env.NOW_GITHUB_REPO
+    VERCEL_GITHUB_REPO: process.env.VERCEL_GITHUB_REPO
   },
 
   build: {
@@ -269,13 +276,32 @@ module.exports = {
   plugins: ['~/plugins/bootstrap-vue.js', '~/plugins/play.js', '~/plugins/docs.js'],
 
   buildModules: ['@nuxtjs/google-analytics'],
-  modules: ['@nuxtjs/pwa'],
+  modules: ['@nuxtjs/pwa', '@nuxtjs/robots', '@nuxtjs/sitemap'],
 
   'google-analytics': {
     id: GA_TRACKING_ID,
     autoTracking: {
       exception: true
     }
+  },
+
+  // We enable crawling in production docs only
+  robots: () => {
+    // In production docs we allow crawling, else we deny crawling
+    return [IS_PROD_DOCS ? { UserAgent: '*', Allow: '/' } : { UserAgent: '*', Disallow: '/' }]
+  },
+
+  // We only include a populated `sitemap.xml` in production docs
+  sitemap: {
+    // Sitemaps requires a hostname, so we use localhost in
+    // non-prod mode just to make the sitemap module happy
+    hostname: IS_PROD_DOCS ? BASE_URL : 'http://localhost',
+    // Exclude all static routes when not prod
+    // Exclude only redirect routes in prod
+    exclude: IS_PROD_DOCS ? ['/docs/misc', '/docs/misc/**', '/docs/layout'] : ['/', '/**'],
+    // Include dynamic slug routes (from `generate.routes`) in prod, while
+    // in non-prod docs we do not include dynamic routes (empty array)
+    ...(IS_PROD_DOCS ? {} : { routes: [] })
   },
 
   head: {
