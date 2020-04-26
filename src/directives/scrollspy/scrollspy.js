@@ -1,6 +1,7 @@
 import ScrollSpy from './scrollspy.class'
 import { isBrowser } from '../../utils/env'
 import { isNumber, isObject, isString } from '../../utils/inspect'
+import { mathRound } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { keys } from '../../utils/object'
 
@@ -41,7 +42,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
     config.element = bindings.value
   } else if (isNumber(bindings.value)) {
     // Value is offset
-    config.offset = Math.round(bindings.value)
+    config.offset = mathRound(bindings.value)
   } else if (isObject(bindings.value)) {
     // Value is config object
     // Filter the object based on our supported config options
