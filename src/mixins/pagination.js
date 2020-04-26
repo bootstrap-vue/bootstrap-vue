@@ -2,6 +2,7 @@ import KeyCodes from '../utils/key-codes'
 import range from '../utils/range'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import { isFunction, isNull } from '../utils/inspect'
+import { mathFloor, mathMax, mathMin } from '../../utils/math'
 import { toInteger } from '../utils/number'
 import { toString } from '../utils/string'
 import { warn } from '../utils/warn'
@@ -234,7 +235,7 @@ export default {
           showLastDots = true
           numberOfLinks = limit - (firstNumber ? 0 : 1)
         }
-        numberOfLinks = Math.min(numberOfLinks, limit)
+        numberOfLinks = mathMin(numberOfLinks, limit)
       } else if (numberOfPages - currentPage + 2 < limit && limit > ELLIPSIS_THRESHOLD) {
         if (!hideEllipsis || firstNumber) {
           showFirstDots = true
@@ -248,7 +249,7 @@ export default {
           showFirstDots = !!(!hideEllipsis || firstNumber)
           showLastDots = !!(!hideEllipsis || lastNumber)
         }
-        startNumber = currentPage - Math.floor(numberOfLinks / 2)
+        startNumber = currentPage - mathFloor(numberOfLinks / 2)
       }
       // Sanity checks
       /* istanbul ignore if */
@@ -272,13 +273,13 @@ export default {
       // Special handling for lower limits (where ellipsis are never shown)
       if (limit <= ELLIPSIS_THRESHOLD) {
         if (firstNumber && startNumber === 1) {
-          numberOfLinks = Math.min(numberOfLinks + 1, numberOfPages, limit + 1)
+          numberOfLinks = mathMin(numberOfLinks + 1, numberOfPages, limit + 1)
         } else if (lastNumber && numberOfPages === startNumber + numberOfLinks - 1) {
-          startNumber = Math.max(startNumber - 1, 1)
-          numberOfLinks = Math.min(numberOfPages - startNumber + 1, numberOfPages, limit + 1)
+          startNumber = mathMax(startNumber - 1, 1)
+          numberOfLinks = mathMin(numberOfPages - startNumber + 1, numberOfPages, limit + 1)
         }
       }
-      numberOfLinks = Math.min(numberOfLinks, numberOfPages - startNumber + 1)
+      numberOfLinks = mathMin(numberOfLinks, numberOfPages - startNumber + 1)
       return { showFirstDots, showLastDots, numberOfLinks, startNumber }
     },
     pageList() {
