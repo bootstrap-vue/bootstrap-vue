@@ -83,7 +83,7 @@ describe('form-timepicker', () => {
     await waitRAF()
 
     expect(wrapper.classes()).toContain('b-form-timepicker')
-    expect(wrapper.classes()).not.toContain('b-form-btn-label-control')
+    expect(wrapper.classes()).toContain('b-form-btn-label-control')
     expect(wrapper.classes()).not.toContain('form-control')
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).not.toContain('show')
