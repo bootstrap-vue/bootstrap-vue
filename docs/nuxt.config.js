@@ -133,6 +133,10 @@ renderer.table = function() {
   return `<div class="table-responsive-sm">${table}</div>`
 }
 
+const isProdDocs = 
+  process.env.VERCEL_GITHUB_COMMIT_REF === 'master' ||
+  process.env.NOW_GITHUB_COMMIT_REF === 'master'
+
 // --- Main export ---
 
 module.exports = {
@@ -269,13 +273,25 @@ module.exports = {
   plugins: ['~/plugins/bootstrap-vue.js', '~/plugins/play.js', '~/plugins/docs.js'],
 
   buildModules: ['@nuxtjs/google-analytics'],
-  modules: ['@nuxtjs/pwa'],
+  modules: ['@nuxtjs/pwa', '@nuxtjs/robots', '@nuxtjs/sitemap'],
 
   'google-analytics': {
     id: GA_TRACKING_ID,
     autoTracking: {
       exception: true
     }
+  },
+
+  robots: () => {
+    return [isProdDocs ? { UserAgent: '*', Allow: '/' } : { UserAgent: '*', Disallow: '/' }]
+  },
+
+  sitemap: {
+    hostname: isProdDocs ? BASE_URL : 'https://localhost',
+    // Exclude all static routes when not prod
+    exclude: isProdDocs ? ['/docs/misc', '/docs/misc/**', '/docs/layout'] : ['/', '/**'],
+    // Include dynamic slug routes in prod
+    ...(isProdDocs ? {} : { routes: [] })
   },
 
   head: {
