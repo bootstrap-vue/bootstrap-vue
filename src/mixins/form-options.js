@@ -33,19 +33,7 @@ export default {
   },
   computed: {
     formOptions() {
-      const options = this.options
-      // Normalize the given options array
-      if (isArray(options)) {
-        return options.map(option => this.normalizeOption(option))
-      } else if (isPlainObject(options)) {
-        // Deprecate the object options format
-        warn(OPTIONS_OBJECT_DEPRECATED_MSG, this.$options.name)
-        // Normalize a `options` object to an array of options
-        return keys(options).map(key => this.normalizeOption(options[key] || {}, key))
-      }
-      // If not an array or object, return an empty array
-      /* istanbul ignore next */
-      return []
+      return this.normalizeOptions(this.options)
     }
   },
   methods: {
@@ -67,6 +55,20 @@ export default {
         text: stripTags(String(option)),
         disabled: false
       }
+    },
+    normalizeOptions(options) {
+      // Normalize the given options array
+      if (isArray(options)) {
+        return options.map(option => this.normalizeOption(option))
+      } else if (isPlainObject(options)) {
+        // Deprecate the object options format
+        warn(OPTIONS_OBJECT_DEPRECATED_MSG, this.$options.name)
+        // Normalize a `options` object to an array of options
+        return keys(options).map(key => this.normalizeOption(options[key] || {}, key))
+      }
+      // If not an array or object, return an empty array
+      /* istanbul ignore next */
+      return []
     }
   }
 }
