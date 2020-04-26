@@ -21,6 +21,13 @@ const RX_CODE_FILENAME = /^\/\/ ([\w,\s-]+\.[A-Za-z]{1,4})\n/m
 
 const ANCHOR_LINK_HEADING_LEVELS = [2, 3, 4, 5]
 
+// Determine if documentation generation is published production docs
+// Must be from 'bootstrap-vue/bootstrap-vue' repo 'master' branch
+const IS_PROD_DOCS =
+  process.env.VERCEL_GITHUB_ORG === 'bootstrap-vue' &&
+  process.env.VERCEL_GITHUB_REPO === 'bootstrap-vue' &&
+  process.env.VERCEL_GITHUB_COMMIT_REF === 'master'
+
 // --- Utility methods ---
 
 // Get routes by a given dir
@@ -132,13 +139,6 @@ renderer.table = function() {
     .replace('<thead>', '<thead class="thead-default">')
   return `<div class="table-responsive-sm">${table}</div>`
 }
-
-// Determine if documettion generation is published prod docs
-// Must be from bootstrap-vue/bootstrap-vue repo master branch
-const isProdDocs =
-  process.env.VERCEL_GITHUB_ORG === 'bootstrap-vue' &&
-  process.env.VERCEL_GITHUB_REPO === 'bootstrap-vue' &&
-  process.env.VERCEL_GITHUB_COMMIT_REF === 'master'
 
 // --- Main export ---
 
@@ -288,20 +288,20 @@ module.exports = {
   // We enable crawling in production docs only
   robots: () => {
     // In production docs we allow crawling, else we deny crawling
-    return [isProdDocs ? { UserAgent: '*', Allow: '/' } : { UserAgent: '*', Disallow: '/' }]
+    return [IS_PROD_DOCS ? { UserAgent: '*', Allow: '/' } : { UserAgent: '*', Disallow: '/' }]
   },
 
   // We only include a populated `sitemap.xml` in production docs
   sitemap: {
     // Sitemaps requires a hostname, so we use localhost in
     // non-prod mode just to make the sitemap module happy
-    hostname: isProdDocs ? BASE_URL : 'http://localhost',
-    // Exclude all static routes when not prod. Exclude
-    // only redirect routes in prod.
-    exclude: isProdDocs ? ['/docs/misc', '/docs/misc/**', '/docs/layout'] : ['/', '/**'],
-    // Include dynamic slug routes (from generate.routes) in prod, while
-    // in non prod docs  we do not include dynamic routes (empty array)
-    ...(isProdDocs ? {} : { routes: [] })
+    hostname: IS_PROD_DOCS ? BASE_URL : 'http://localhost',
+    // Exclude all static routes when not prod
+    // Exclude only redirect routes in prod
+    exclude: IS_PROD_DOCS ? ['/docs/misc', '/docs/misc/**', '/docs/layout'] : ['/', '/**'],
+    // Include dynamic slug routes (from `generate.routes`) in prod, while
+    // in non-prod docs we do not include dynamic routes (empty array)
+    ...(IS_PROD_DOCS ? {} : { routes: [] })
   },
 
   head: {
