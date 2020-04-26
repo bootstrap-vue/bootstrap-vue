@@ -5,3 +5,5 @@ export const mathMin = Math.min
 export const mathMax = Math.max
 
 export const mathAbs = Math.abs
+
+export const mathFloor = Math.floor
