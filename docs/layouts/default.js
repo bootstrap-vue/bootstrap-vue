@@ -1,4 +1,4 @@
-import { BASE_URL, GWT_BV_ORG, GWT_JS_ORG } from '~/constants'
+import { BASE_URL, GWT_BV_ORG, GWT_JS_ORG, GWT_BV_NETLIFY } from '~/constants'
 import Footer from '~/components/footer'
 import Header from '~/components/header'
 
@@ -25,11 +25,17 @@ export default {
           name: 'google-site-verification',
           content: GWT_BV_ORG
         },
-        // Add GWT site verification for bootstrap-vue.js.org
+        // Add GWT site verification for bootstrap-vue.js.org (legacy)
         {
           hid: 'google-site-verification-js-org',
           name: 'google-site-verification',
           content: GWT_JS_ORG
+        },
+        // Add GWT site verification for bootstrap-vue.netlify.app (legacy)
+        {
+          hid: 'google-site-verification-netlify',
+          name: 'google-site-verification',
+          content: GWT_BV_NETLIFY
         }
       ]
     }

@@ -13,3 +13,6 @@ export const GWT_JS_ORG = 'H9Mn7ie5Z5KJSjRfsn9nilLn5kFgn7BMEqL_sUhVpzg'
 // *.bootstrap-vue.org
 // <meta name="google-site-verification" content="5E0vyG9CXTfY7McIt2aQppkNA6FQ3b0JJRZzhQ16HW4" />
 export const GWT_BV_ORG = '5E0vyG9CXTfY7McIt2aQppkNA6FQ3b0JJRZzhQ16HW4'
+// bootstrap-vue.netlify.app (legacy dev site)
+// <meta name="google-site-verification" content="Ba1MOy9bRa-r-8eLhSTEkayGbGrT3HhbNuqNiY60uzo" />
+export const GWT_BV_NETLIFY = 'Ba1MOy9bRa-r-8eLhSTEkayGbGrT3HhbNuqNiY60uzo'
