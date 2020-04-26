@@ -68,8 +68,7 @@ const generateProps = () => {
     alignContent: {
       type: String,
       default: null,
-      validator: str =>
-        arrayIncludes(concat(COMMON_ALIGNMENT, 'between', 'around', 'stretch'), str)
+      validator: str => arrayIncludes(concat(COMMON_ALIGNMENT, 'between', 'around', 'stretch'), str)
     },
     ...rowColsProps
   }
