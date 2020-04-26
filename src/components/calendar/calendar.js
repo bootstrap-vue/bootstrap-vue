@@ -24,6 +24,7 @@ import {
 import { requestAF } from '../../utils/dom'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
+import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
@@ -287,7 +288,7 @@ export const BCalendar = Vue.extend({
     },
     computedWeekStarts() {
       // `startWeekday` is a prop (constrained to `0` through `6`)
-      return Math.max(toInteger(this.startWeekday, 0), 0) % 7
+      return mathMax(toInteger(this.startWeekday, 0), 0) % 7
     },
     computedLocale() {
       // Returns the resolved locale used by the calendar
