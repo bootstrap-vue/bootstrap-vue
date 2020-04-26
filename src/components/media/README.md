@@ -65,7 +65,7 @@
   <b-card>
     <b-media no-body>
       <b-media-aside vertical-align="center">
-        <b-img blank blank-color="#ccc" width="128" height="256" alt="placeholder"></b-img>
+        <b-img blank blank-color="#ccc" width="64" height="128" alt="placeholder"></b-img>
       </b-media-aside>
 
       <b-media-body class="ml-3">

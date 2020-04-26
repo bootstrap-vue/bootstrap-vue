@@ -3420,10 +3420,10 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-codemirror@^5.53.0:
-  version "5.53.0"
-  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.53.0.tgz#7d5c373388e26bb902082da749a0e8cedbfe2b95"
-  integrity sha512-gpnlCCcfp/k9U38X5edaTNRAuNW3vNyAFiG4ZeytlHBl0PsCRYFTomLnAsTfJf/B1eQ7kyzB4k3XXolebpYhtA==
+codemirror@^5.53.2:
+  version "5.53.2"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.53.2.tgz#9799121cf8c50809cca487304e9de3a74d33f428"
+  integrity sha512-wvSQKS4E+P8Fxn/AQ+tQtJnF1qH5UOlxtugFLpubEZ5jcdH2iXTVinb+Xc/4QjshuOxRm4fUsU2QPF1JJKiyXA==
 
 codesandbox-import-util-types@^2.1.9:
   version "2.1.9"
@@ -4891,10 +4891,10 @@ escodegen@^1.11.0, escodegen@^1.11.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-prettier@^6.10.1:
-  version "6.10.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.10.1.tgz#129ef9ec575d5ddc0e269667bf09defcd898642a"
-  integrity sha512-svTy6zh1ecQojvpbJSgH3aei/Rt7C6i090l5f2WQ4aB05lYHeZIR1qL4wZyyILTbtmnbHP5Yn8MrsOJMGa8RkQ==
+eslint-config-prettier@^6.11.0:
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.11.0.tgz#f6d2238c1290d01c859a8b5c1f7d352a0b0da8b1"
+  integrity sha512-oB8cpLWSAjOVFEJhhyMZh6NOEOtBVziaqdDQ86+qhDHFbZXoRTM7pNSvFRfW/W/L/LrQ38C99J5CGuRBBzBsdA==
   dependencies:
     get-stdin "^6.0.0"
 
@@ -7966,10 +7966,10 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-lint-staged@^10.1.6:
-  version "10.1.6"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.1.6.tgz#086db5e4f5906642ccf648e9b54375d794a9be81"
-  integrity sha512-45zaGxf4XZuwdUk87yRFE/1b4vTZmH2UnYmUPmindsgdAljOFpWWb0yEjxngmqERUS/MGauJexFF6BjLVg9VMA==
+lint-staged@^10.1.7:
+  version "10.1.7"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.1.7.tgz#b628f8b010083fe4e116d0af7949a32f1ea6b3a7"
+  integrity sha512-ZkK8t9Ep/AHuJQKV95izSa+DqotftGnSsNeEmCSqbQ6j4C4H0jDYhEZqVOGD1Q2Oe227igbqjMWycWyYbQtpoA==
   dependencies:
     chalk "^4.0.0"
     commander "^5.0.0"
@@ -8883,10 +8883,10 @@ node-res@^5.0.1:
     on-finished "^2.3.0"
     vary "^1.1.2"
 
-node-sass@^4.13.1:
-  version "4.13.1"
-  resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.13.1.tgz#9db5689696bb2eec2c32b98bfea4c7a2e992d0a3"
-  integrity sha512-TTWFx+ZhyDx1Biiez2nB0L3YrCZ/8oHagaDalbuBSlqXgUPsdkUSzJsVxeDO9LtPB49+Fh3WQl3slABo6AotNw==
+node-sass@^4.14.0:
+  version "4.14.0"
+  resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.14.0.tgz#a8e9d7720f8e15b4a1072719dcf04006f5648eeb"
+  integrity sha512-AxqU+DFpk0lEz95sI6jO0hU0Rwyw7BXVEv6o9OItoXLyeygPeaSpiV4rwQb10JiTghHaa0gZeD21sz+OsQluaw==
   dependencies:
     async-foreach "^0.1.3"
     chalk "^1.1.1"
@@ -11199,10 +11199,10 @@ rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.6.1.tgz#8354e67caa7b8bf24c2488d9e2f64da2be62eebe"
-  integrity sha512-1RhFDRJeg027YjBO6+JxmVWkEZY0ASztHhoEUEWxOwkh4mjO58TFD6Uo7T7Y3FbmDpRTfKhM5NVxJyimCn0Elg==
+rollup@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.7.2.tgz#0f8ee6216d33e83c0750116312c2c92b94cc7f72"
+  integrity sha512-SdtTZVMMVSPe7SNv4exUyPXARe5v/p3TeeG3LRA5WabLPJt4Usi3wVrvVlyAUTG40JJmqS6zbIHt2vWTss2prw==
   optionalDependencies:
     fsevents "~2.1.2"
 
