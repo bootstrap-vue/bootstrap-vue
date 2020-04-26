@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   vertical-align: middle;
+  font-size: inherit;
   font-weight: 400;
   line-height: 1;
   max-width: 100%;
@@ -45,16 +46,12 @@
     overflow: hidden;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
   .b-avatar-text {
     text-transform: uppercase;
     white-space: nowrap;
-    align-items: center;
-  }
-
-  .b-avatar-custom {
-    vertical-align: middle;
   }
 
   > .b-icon {

@@ -35,7 +35,9 @@
         <b-nav-item to="/docs/directives" active-class="active">Directives</b-nav-item>
         <b-nav-item to="/docs/icons" active-class="active">Icons</b-nav-item>
         <b-nav-item to="/docs/reference" active-class="active">Reference</b-nav-item>
-        <b-nav-item to="/docs/misc" active-class="active">Misc</b-nav-item>
+        <!-- TODO: Uncomment when we have themes
+        <b-nav-item to="/themes" active-class="active">Themes</b-nav-item>
+        -->
         <b-nav-item to="/play" active-class="active">Play</b-nav-item>
       </b-navbar-nav>
     </div>
@@ -48,23 +50,23 @@
       >
         <template v-if="isPR || isDev || isLocal">
           <b-dropdown-item v-if="isPR" active href="/">
-            Pull Request #{{ prID }}
+            Pull Request {{ prId ? '#' + prId : '- ' + branchName }}
           </b-dropdown-item>
           <b-dropdown-item v-else-if="isLocal" active href="/">
             Local copy
           </b-dropdown-item>
-          <b-dropdown-item :active="isDev" href="https://bootstrap-vue.netlify.app" rel="nofollow">
+          <b-dropdown-item :active="isDev" :href="devURL" rel="nofollow">
             Development
           </b-dropdown-item>
-          <b-dropdown-item href="https://bootstrap-vue.js.org">
+          <b-dropdown-item :href="prodURL">
             Latest (v{{ version }})
           </b-dropdown-item>
         </template>
         <template v-else>
-          <b-dropdown-item active href="https://bootstrap-vue.js.org">
+          <b-dropdown-item active :href="prodURL">
             Latest (v{{ version }})
           </b-dropdown-item>
-          <b-dropdown-item href="https://bootstrap-vue.netlify.app" rel="nofollow">
+          <b-dropdown-item :href="devURL" rel="nofollow">
             Development
           </b-dropdown-item>
         </template>
@@ -173,6 +175,7 @@
 </style>
 
 <script>
+import { BASE_URL, BASE_URL_DEV, NETLIFY_URL } from '~/constants'
 import { version } from '~/content'
 
 export default {
@@ -184,22 +187,48 @@ export default {
     }
   },
   computed: {
+    prodURL() {
+      return BASE_URL
+    },
+    devURL() {
+      if (this.isNetlify) {
+        return NETLIFY_URL
+      }
+      return BASE_URL_DEV
+    },
     isNetlify() {
       return Boolean(process.env.NETLIFY)
     },
+    isVercel() {
+      return Boolean(process.env.VERCEL_NOW)
+    },
+    branchName() {
+      // Netlify doesn't support providing the branch name
+      return this.isVercel ? process.env.VERCEL_BRANCH || '' : ''
+    },
     isDev() {
-      // In our case, `production` is the dev branch preview
-      return this.isNetlify && process.env.NETLIFY_CONTEXT === 'production'
+      // In our case, `production` is the dev branch preview (Netlify)
+      return (
+        (this.isNetlify && process.env.NETLIFY_CONTEXT === 'production') ||
+        (this.isVercel && this.branchName === 'dev')
+      )
     },
     isPR() {
-      return this.isNetlify && process.env.PULL_REQUEST && process.env.REVIEW_ID
+      return (
+        (this.isNetlify && process.env.PULL_REQUEST && process.env.REVIEW_ID) ||
+        (this.isVercel && !this.isDev && this.branchName !== 'master')
+      )
     },
-    prID() {
+    prId() {
+      // Vercel doesn't currently support returning the PR number
+      // `REVIEW_ID` is provided by Netlify
       return this.isPR ? process.env.REVIEW_ID : ''
     },
     dropdownText() {
+      // Dropdown button text
       if (this.isPR) {
-        return `Pull #${this.prID}`
+        // Vercel doesn't currently support returning the PR number
+        return this.prId ? `Pull #${this.prId}` : 'Pull Request'
       } else if (this.isLocal) {
         return 'Local Copy'
       } else if (this.isDev) {

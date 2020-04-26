@@ -252,6 +252,43 @@ describe('form-rating', () => {
     wrapper.destroy()
   })
 
+  it('has expected structure when prop `show-value` and `show-value-max` are set', async () => {
+    const wrapper = mount(BFormRating, {
+      propsData: {
+        showValue: true,
+        showValueMax: true,
+        value: '3.5',
+        precision: 2
+      }
+    })
+
+    expect(wrapper.isVueInstance()).toBe(true)
+    await waitNT(wrapper.vm)
+
+    const $stars = wrapper.findAll('.b-rating-star')
+    expect($stars.length).toBe(5)
+
+    const $value = wrapper.find('.b-rating-value')
+    expect($value.exists()).toBe(true)
+    expect($value.text()).toEqual('3.50/5')
+
+    wrapper.setProps({
+      value: null
+    })
+    await waitNT(wrapper.vm)
+
+    expect($value.text()).toEqual('-/5')
+
+    wrapper.setProps({
+      value: '1.236'
+    })
+    await waitNT(wrapper.vm)
+
+    expect($value.text()).toEqual('1.24/5')
+
+    wrapper.destroy()
+  })
+
   it('focus and blur methods work', async () => {
     const wrapper = mount(BFormRating, {
       attachToDocument: true,

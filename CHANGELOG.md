@@ -2,6 +2,68 @@
 
 > All notable changes to this project will be documented in this file.
 
+<a name="2.12.0"></a>
+
+## [v2.12.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.11.0...v2.12.0)
+
+Released: 2020-04-20
+
+### Features v2.12.0
+
+- **b-avatar:** add support for badges on avatars
+  ([#5124](https://github.com/bootstrap-vue/bootstrap-vue/issues/5124))
+  ([a2e465b](https://github.com/bootstrap-vue/bootstrap-vue/commit/a2e465b6457cabb88e42bcefd86a86e36c4602de))
+- **b-avatar:** if `variant` is empty string, then remove spacing around image (closes
+  [#5154](https://github.com/bootstrap-vue/bootstrap-vue/issues/5154))
+  ([#5156](https://github.com/bootstrap-vue/bootstrap-vue/issues/5156))
+  ([7ff87fc](https://github.com/bootstrap-vue/bootstrap-vue/commit/7ff87fc560a2ad005bdca394cccf1fafa9d5e696))
+- **b-calendar, b-form-datepicker:** add prop `weekday-header-format` to specify weekday header
+  length (closes [#5171](https://github.com/bootstrap-vue/bootstrap-vue/issues/5171))
+  ([#5175](https://github.com/bootstrap-vue/bootstrap-vue/issues/5175))
+  ([8241644](https://github.com/bootstrap-vue/bootstrap-vue/commit/8241644477b174042bb163ba1741c3066165d9f9))
+- **b-calendar, b-form-datepicker:** add scoped slots for date navigation buttons (closes
+  [#5117](https://github.com/bootstrap-vue/bootstrap-vue/issues/5117))
+  ([#5147](https://github.com/bootstrap-vue/bootstrap-vue/issues/5147))
+  ([5f69864](https://github.com/bootstrap-vue/bootstrap-vue/commit/5f69864497a13a9b18a96b508af6b9ba89a43add))
+- **b-form-datepicker:** add pass through prop `date-info-fn` (closes
+  [#4826](https://github.com/bootstrap-vue/bootstrap-vue/issues/4826))
+  ([#5150](https://github.com/bootstrap-vue/bootstrap-vue/issues/5150))
+  ([bf35f80](https://github.com/bootstrap-vue/bootstrap-vue/commit/bf35f80d1c4619cf4494dc8a6256d093140d4052))
+- **b-form-rating:** new `b-form-rating` custom component
+  ([#5132](https://github.com/bootstrap-vue/bootstrap-vue/issues/5132))
+  ([30ad7fe](https://github.com/bootstrap-vue/bootstrap-vue/commit/30ad7fe746cd6187311c86319abf6e9519b81f15))
+- **b-sidebar:** add optional backdrop support
+  ([#5182](https://github.com/bootstrap-vue/bootstrap-vue/issues/5182))
+  ([c6375e5](https://github.com/bootstrap-vue/bootstrap-vue/commit/c6375e5513cb0ec33a9bc9fc894a123d74cf7768))
+- **custom components:** avoid using padding/margin utility classes where possible (closes
+  [#5117](https://github.com/bootstrap-vue/bootstrap-vue/issues/5117))
+  ([#5121](https://github.com/bootstrap-vue/bootstrap-vue/issues/5121))
+  ([8c6cfe0](https://github.com/bootstrap-vue/bootstrap-vue/commit/8c6cfe0af919a4e54667bcb4b29d2ba6b6576b67))
+- **icons:** new `throb` and `fade` animations
+  ([#5122](https://github.com/bootstrap-vue/bootstrap-vue/issues/5122))
+  ([bc0117c](https://github.com/bootstrap-vue/bootstrap-vue/commit/bc0117cc794c948b202daf2e17f22eb4c36235cc))
+
+### Bug Fixes v2.12.0
+
+- **b-alert:** fix memory leak by using the correct method to clear the countdown timeout
+  ([#5158](https://github.com/bootstrap-vue/bootstrap-vue/issues/5158))
+  ([7a7f33d](https://github.com/bootstrap-vue/bootstrap-vue/commit/7a7f33d74f906e5feecf2bf177636c7f85bc4537))
+- **b-avatar:** fix button type font size inheritance
+  ([#5177](https://github.com/bootstrap-vue/bootstrap-vue/issues/5177))
+  ([441ebdc](https://github.com/bootstrap-vue/bootstrap-vue/commit/441ebdc8a262c6c6ed494ddc6a6c0c06604045ef))
+- **b-calendar:** use `Intl.NumberFormat` for formatting the number in the date buttons (closes
+  [#5171](https://github.com/bootstrap-vue/bootstrap-vue/issues/5171))
+  ([#5179](https://github.com/bootstrap-vue/bootstrap-vue/issues/5179))
+  ([cbf2cd0](https://github.com/bootstrap-vue/bootstrap-vue/commit/cbf2cd007cce81a5f664fa649b08af6735fe16e4))
+- **b-form-datepicker:** make datepicker respect `no-highlight-today` prop
+  ([#5159](https://github.com/bootstrap-vue/bootstrap-vue/issues/5159))
+  ([c4ead33](https://github.com/bootstrap-vue/bootstrap-vue/commit/c4ead3302b176e4a90fbfcfe6380de0edc22640f))
+
+### Other v2.12.0
+
+- documentation updates
+- dev dependency updates
+
 <a name="2.11.0"></a>
 
 ## [v2.11.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.10.1...v2.11.0)
@@ -901,8 +963,8 @@ Read the following migration guide for more details.
   `$bv-popover-color-level` have been removed. Use variables `$b-popover-bg-level`,
   `$b-popover-border-level`, and `$b-popover-color-level` (respectively) instead.
 
-Please refer to the [documentation](https://bootstrap-vue.js.org/) for the latest usage and
-examples, and below for a list of fixes and new features.
+Please refer to the [documentation](https://bootstrap-vue.org/) for the latest usage and examples,
+and below for a list of fixes and new features.
 
 ### Bug Fixes v2.0.0
 

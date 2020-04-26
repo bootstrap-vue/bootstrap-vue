@@ -77,6 +77,18 @@
         ],
         "events": [
           {
+            "event": "click",
+            "version": "2.13.0",
+            "description": "Emitted when overlay is clicked",
+            "args": [
+              {
+                "arg": "event",
+                "type": "MouseEvent",
+                "description": "Native click event object"
+              }
+            ]
+          },
+          {
             "event": "shown",
             "description": "Emitted when the overlay has been shown"
           },

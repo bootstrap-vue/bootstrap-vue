@@ -37,6 +37,11 @@
     // Easy rounded corners on contained elements,
     // specifically the footer of the calendar grid
     overflow: hidden;
+
+    .row {
+      // Prevent grid rows from wrapping
+      flex-wrap: nowrap;
+    }
   }
 
   .b-calendar-grid-caption {
