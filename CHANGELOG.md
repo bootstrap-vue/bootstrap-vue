@@ -50,6 +50,7 @@ Released: 2020-04-26
 
 - dev dependencies updates
 - documentation updates
+- new docs domain [`https://bootstrap-vue.org/`](https://bootstrap-vue.org/)
 
 <a name="2.12.0"></a>
 
