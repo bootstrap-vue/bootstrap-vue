@@ -133,9 +133,12 @@ renderer.table = function() {
   return `<div class="table-responsive-sm">${table}</div>`
 }
 
+// Determine if documettion generation is published prod docs
+// Must be from bootstrap-vue/bootstrap-vue repo master branch
 const isProdDocs =
-  process.env.VERCEL_GITHUB_COMMIT_REF === 'master' ||
-  process.env.NOW_GITHUB_COMMIT_REF === 'master'
+  process.env.VERCEL_GITHUB_ORG === 'bootstrap-vue' &&
+  process.env.VERCEL_GITHUB_REPO === 'bootstrap-vue' &&
+  process.env.VERCEL_GITHUB_COMMIT_REF === 'master'
 
 // --- Main export ---
 
@@ -158,17 +161,17 @@ module.exports = {
     // ENV vars provided by Vercel/Zeit Now build
     // https://zeit.co/docs/v2/build-step#system-environment-variables
     // - `true` if on Zeit Now (dev or PR)
-    VERCEL_NOW: process.env.VERCEL_GITHUB_DEPLOYMENT || process.env.NOW_GITHUB_DEPLOYMENT,
+    VERCEL_NOW: process.env.VERCEL_GITHUB_DEPLOYMENT,
     // - The branch name used for the deploy (i.e. `dev`, `master`, `patch-1`, etc)
-    VERCEL_BRANCH: process.env.VERCEL_GITHUB_COMMIT_REF || process.env.NOW_GITHUB_COMMIT_REF,
+    VERCEL_BRANCH: process.env.VERCEL_GITHUB_COMMIT_REF,
     // - The Commit SHA hash
-    VERCEL_COMMIT_SHA: process.env.VERCEL_GITHUB_COMMIT_SHA || process.env.NOW_GITHUB_COMMIT_SHA,
+    VERCEL_COMMIT_SHA: process.env.VERCEL_GITHUB_COMMIT_SHA,
     // - The deployment URL
-    VERCEL_URL: process.env.VERCEL_URL || process.env.NOW_URL,
+    VERCEL_URL: process.env.VERCEL_URL,
     // - The Github Organization (ie. bootstrap-vue)
-    VERCEL_GITHUB_ORG: process.env.VERCEL_GITHUB_ORG || process.env.NOW_GITHUB_ORG,
+    VERCEL_GITHUB_ORG: process.env.VERCEL_GITHUB_ORG,
     // - The repo is the organization (i.e. bootstrap-vue)
-    VERCEL_GITHUB_REPO: process.env.VERCEL_GITHUB_REPO || process.env.NOW_GITHUB_REPO
+    VERCEL_GITHUB_REPO: process.env.VERCEL_GITHUB_REPO
   },
 
   build: {
