@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { isBoolean } from '../../utils/inspect'
+import { mathMax, mathPow } from '../../utils/math'
 import { toFixed, toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -87,11 +88,11 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
     computedPrecision() {
       // Prefer our precision over parent setting
       // Default to `0` for invalid values (`-x`, `NaN`)
-      return Math.max(toInteger(this.precision, toInteger(this.bvProgress.precision, 0)), 0)
+      return mathMax(toInteger(this.precision, toInteger(this.bvProgress.precision, 0)), 0)
     },
     computedProgress() {
       const precision = this.computedPrecision
-      const p = Math.pow(10, precision)
+      const p = mathPow(10, precision)
       return toFixed((100 * p * this.computedValue) / this.computedMax / p, precision)
     },
     computedVariant() {

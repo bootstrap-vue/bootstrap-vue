@@ -3,6 +3,7 @@ import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
+import { mathMax, mathMin } from '../../utils/math'
 import { toInteger, toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
@@ -90,9 +91,9 @@ const BVFormRatingStar = Vue.extend({
 })
 
 // --- Utility methods ---
-const computeStars = stars => Math.max(MIN_STARS, toInteger(stars, DEFAULT_STARS))
+const computeStars = stars => mathMax(MIN_STARS, toInteger(stars, DEFAULT_STARS))
 
-const clampValue = (value, min, max) => Math.max(Math.min(value, max), min)
+const clampValue = (value, min, max) => mathMax(mathMin(value, max), min)
 
 // --- BFormRating ---
 // @vue/component

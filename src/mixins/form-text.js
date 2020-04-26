@@ -1,4 +1,5 @@
 import { isFunction } from '../utils/inspect'
+import { mathMax } from '../utils/math'
 import { toInteger, toFloat } from '../utils/number'
 import { toString } from '../utils/string'
 
@@ -97,7 +98,7 @@ export default {
     },
     computedDebounce() {
       // Ensure we have a positive number equal to or greater than 0
-      return Math.max(toInteger(this.debounce, 0), 0)
+      return mathMax(toInteger(this.debounce, 0), 0)
     },
     hasFormatter() {
       return isFunction(this.formatter)

@@ -4,6 +4,7 @@ import { getComponentConfig } from '../../utils/config'
 import { eventOnOff } from '../../utils/events'
 import { isFunction, isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
+import { mathFloor, mathMax, mathPow, mathRound } from '../../utils/math'
 import { toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
@@ -161,7 +162,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       const max = toFloat(this.max, DEFAULT_MAX)
       const step = this.computedStep
       const min = this.computedMin
-      return Math.floor((max - min) / step) * step + min
+      return mathFloor((max - min) / step) * step + min
     },
     computedDelay() {
       const delay = toInteger(this.repeatDelay, 0)
@@ -172,18 +173,18 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       return interval > 0 ? interval : DEFAULT_REPEAT_INTERVAL
     },
     computedThreshold() {
-      return Math.max(toInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD), 1)
+      return mathMax(toInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD), 1)
     },
     computedStepMultiplier() {
-      return Math.max(toInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULTIPLIER), 1)
+      return mathMax(toInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULTIPLIER), 1)
     },
     computedPrecision() {
       // Quick and dirty way to get the number of decimals
       const step = this.computedStep
-      return Math.floor(step) === step ? 0 : (step.toString().split('.')[1] || '').length
+      return mathFloor(step) === step ? 0 : (step.toString().split('.')[1] || '').length
     },
     computedMultiplier() {
-      return Math.pow(10, this.computedPrecision || 0)
+      return mathPow(10, this.computedPrecision || 0)
     },
     valueAsFixed() {
       const value = this.localValue
@@ -274,9 +275,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         const multiplier = this.computedMultiplier
         const wrap = this.wrap
         // We ensure that the value steps like a native input
-        value = Math.round((value - min) / step) * step + min + step
+        value = mathRound((value - min) / step) * step + min + step
         // We ensure that precision is maintained (decimals)
-        value = Math.round(value * multiplier) / multiplier
+        value = mathRound(value * multiplier) / multiplier
         // Handle if wrapping is enabled
         this.localValue =
           value > max ? (wrap ? min : max) : value < min ? (wrap ? max : min) : value
