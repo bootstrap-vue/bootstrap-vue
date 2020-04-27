@@ -42,6 +42,9 @@ Released: 2020-04-27
   [#5237](https://github.com/bootstrap-vue/bootstrap-vue/issues/5237))
   ([#5238](https://github.com/bootstrap-vue/bootstrap-vue/issues/5238))
   ([6354e6e](https://github.com/bootstrap-vue/bootstrap-vue/commit/6354e6eb90b93e668c2794b3b4c2117a7cfc0ab0))
+- **types:** update table field definition types to include sticky column (fixes
+  [#5263](https://github.com/bootstrap-vue/bootstrap-vue/issues/5263))
+  ([#5265](https://github.com/bootstrap-vue/bootstrap-vue/issues/5265))
 - handle nested form options normalization
   ([#5247](https://github.com/bootstrap-vue/bootstrap-vue/issues/5247))
   ([0c57ffe](https://github.com/bootstrap-vue/bootstrap-vue/commit/0c57ffe31c946475498fa3554b8b4aba4e9d19df))
