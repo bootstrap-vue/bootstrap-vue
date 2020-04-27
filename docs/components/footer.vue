@@ -44,9 +44,28 @@
 
       <hr>
 
+      <p class="mb-2">
+        Designed and built with all the love in the world. Maintained by the
+        <a href="https://github.com/orgs/bootstrap-vue/people" target="_blank">core team</a>
+        with the help of
+        <a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors" target="_blank">our contributors</a>.
+      </p>
+
+      <p>
+        Currently v{{ version }}. Code licensed
+        <a href="https://github.com/bootstrap-vue/bootstrap-vue/blob/master/LICENSE" target="_blank">MIT</a>.
+        Docs generated with
+        <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a><template v-if="!isNetlify && !isVercel">.</template>
+        <template v-if="isNetlify">
+          and proudly hosted on <a href="https://www.netlify.com" target="_blank">Netlify</a>.
+        </template>
+        <template v-else-if="isVercel">
+          and proudly hosted on <a href="https://vercel.com/?utm_campaign=bootstrapvue" target="_blank">Vercel</a>.
+        </template>
+      </p>
+
       <template v-if="isVercel">
-        <p class="mb-4 text-center">
-          <strong class="d-block mx-auto mb-2">Hosting provided by</strong>
+        <p class="mt-3 text-center">
           <a href="https://vercel.com/?utm_campaign=bootstrapvue" target="_blank" rel="noopener">
             <svg
               role="img"
@@ -75,26 +94,6 @@
           </a>
         </p>
       </template>
-
-      <p class="mb-2">
-        Designed and built with all the love in the world. Maintained by the
-        <a href="https://github.com/orgs/bootstrap-vue/people" target="_blank">core team</a>
-        with the help of
-        <a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors" target="_blank">our contributors</a>.
-      </p>
-
-      <p>
-        Currently v{{ version }}. Code licensed
-        <a href="https://github.com/bootstrap-vue/bootstrap-vue/blob/master/LICENSE" target="_blank">MIT</a>.
-        Docs generated with
-        <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a><template v-if="!isNetlify && !isVercel">.</template>
-        <template v-if="isNetlify">
-          and proudly hosted on <a href="https://www.netlify.com" target="_blank">Netlify</a>.
-        </template>
-        <template v-else-if="isVercel">
-          and proudly hosted on <a href="https://vercel.com/?utm_campaign=bootstrapvue" target="_blank">Vercel</a>.
-        </template>
-      </p>
     </b-container>
   </footer>
 </template>
