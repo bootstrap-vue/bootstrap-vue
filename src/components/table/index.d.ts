@@ -234,6 +234,7 @@ export interface BvTableField {
   variant?: BvTableVariant | string
   tdAttr?: any | ((value: any, key: string, item: any) => any)
   thAttr?: any | ((value: any, key: string, item: any, type: string) => any)
+  stickyColumn?: boolean
   isRowHeader?: boolean
 }
 
