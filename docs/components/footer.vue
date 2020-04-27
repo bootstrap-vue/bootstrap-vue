@@ -60,13 +60,13 @@
           and proudly hosted on <a href="https://www.netlify.com" target="_blank">Netlify</a>.
         </template>
         <template v-else-if="isVercel">
-          and proudly hosted on <a href="https://vercel.com/?utm_campaign=bootstrapvue" target="_blank">Vercel</a>.
+          and proudly hosted on <a href="https://vercel.com/?utm_source=bootstrapvue" target="_blank">Vercel</a>.
         </template>
       </p>
 
       <template v-if="isVercel">
         <p class="mt-3 text-center">
-          <a href="https://vercel.com/?utm_campaign=bootstrapvue" target="_blank" rel="noopener">
+          <a href="https://vercel.com/?utm_source=bootstrapvue" target="_blank" rel="noopener">
             <img src="~assets/powered-by-vercel.svg" width="159" height="33">
           </a>
         </p>
