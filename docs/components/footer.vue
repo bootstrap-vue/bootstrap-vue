@@ -44,49 +44,6 @@
 
       <hr>
 
-      <template v-if="isZeitNow && false">
-        <p class="mb-4 text-center">
-          <strong class="d-block mx-auto mb-2">Hosting provided by</strong>
-          <a href="https://zeit.co/?utm_campaign=bootstrap-vue" target="_blank" rel="noopener">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              role="img"
-              height="35"
-              viewBox="0 0 231 46"
-              fill="none"
-              focusable="false"
-              alt="Zeit Logo"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M107.2 37H86.75V33.9L101.85 12.35H87V8.80002H106.95V11.9L91.85 33.45H107.2V37ZM146.95 37H128.6V8.80002H146.95V12.35H132.75V20.85H145.1V24.4H132.75V33.45H146.95V37ZM169.05 37H186.95V33.45H180.1V12.35H186.95V8.80002H169.05V12.35H175.95V33.45H169.05V37ZM220.55 37H216.4V12.35H206.9V8.80002H230.15V12.35H220.55V37Z"
-                fill="#000"
-              />
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M25.6882 0.470947L50.9832 45.3291H0.393188L25.6882 0.470947Z"
-                fill="url(#logotype21)"
-              />
-              <defs>
-                <linearGradient
-                  id="logotype21"
-                  x1="99.8392"
-                  y1="103.113"
-                  x2="36.06"
-                  y2="15.3616"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stop-color="#fff" />
-                  <stop offset="1" stop-color="#000" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </a>
-        </p>
-      </template>
-
       <p class="mb-2">
         Designed and built with all the love in the world. Maintained by the
         <a href="https://github.com/orgs/bootstrap-vue/people" target="_blank">core team</a>
@@ -98,14 +55,22 @@
         Currently v{{ version }}. Code licensed
         <a href="https://github.com/bootstrap-vue/bootstrap-vue/blob/master/LICENSE" target="_blank">MIT</a>.
         Docs generated with
-        <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a><template v-if="!isNetlify && !isZeitNow">.</template>
+        <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a><template v-if="!isNetlify && !isVercel">.</template>
         <template v-if="isNetlify">
           and proudly hosted on <a href="https://www.netlify.com" target="_blank">Netlify</a>.
         </template>
-        <template v-else-if="isZeitNow">
-          and proudly hosted on <a href="https://zeit.co/?utm_campaign=bootstrap-vue" target="_blank">Zeit</a>.
+        <template v-else-if="isVercel">
+          and proudly hosted on <a href="https://vercel.com/?utm_source=bootstrapvue" target="_blank">Vercel</a>.
         </template>
       </p>
+
+      <template v-if="isVercel">
+        <p class="mt-3 text-center">
+          <a href="https://vercel.com/?utm_source=bootstrapvue" target="_blank" rel="noopener">
+            <img src="~assets/powered-by-vercel.svg" width="159" height="33">
+          </a>
+        </p>
+      </template>
     </b-container>
   </footer>
 </template>
@@ -146,8 +111,8 @@ export default {
     isNetlify() {
       return Boolean(process.env.NETLIFY)
     },
-    isZeitNow() {
-      return Boolean(process.env.ZEIT_NOW)
+    isVercel() {
+      return Boolean(process.env.VERCEL_NOW)
     }
   }
 }

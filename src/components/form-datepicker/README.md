@@ -481,6 +481,39 @@ You can use the `isRTL` scoped property to "flip" the prev vs next button conten
 left-to-right to right-to-left orientation change &mdash; i.e. the previous year button will be on
 the right when `isRTL` is `true`, instead of the left.
 
+### Full width calendar dropdown
+
+To create a full width calendar dropdown (where the width matches the input width), simply set the
+`menu-class` prop to `'w-100'` and set the `calendar-width` prop to `'100%'`:
+
+```html
+<template>
+  <div>
+    <label for="datepicker-full-width">Choose a date</label>
+    <b-form-datepicker
+      id="datepicker-full-width"
+      v-model="value"
+      menu-class="w-100"
+      calendar-width="100%"
+      class="mb-2"
+    ></b-form-datepicker>
+    <p>Value: '{{ value }}'</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ''
+      }
+    }
+  }
+</script>
+
+<!-- b-form-datepicker-full-width.vue -->
+```
+
 ## Internationalization
 
 Internationalization of the date picker's calendar is provided via
