@@ -67,7 +67,7 @@
       <template v-if="isVercel">
         <p class="mt-3 text-center">
           <a href="https://vercel.com/?utm_campaign=bootstrapvue" target="_blank" rel="noopener">
-            <img src="~assets/powered-by-vercel.svg" width="212" height"44">
+            <img src="~assets/powered-by-vercel.svg" width="159" height="33">
           </a>
         </p>
       </template>
