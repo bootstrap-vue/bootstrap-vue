@@ -13,12 +13,12 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
     size: {
       // Child avatars will always use this over their own size
       type: String,
-      default: undefined
+      default: null
     },
     variant: {
       // Child avatars will prefer this variant over their own
       type: String,
-      default: undefined
+      default: null
     },
     tag: {
       type: String,
