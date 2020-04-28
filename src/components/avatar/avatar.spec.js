@@ -283,8 +283,54 @@ describe('avatar', () => {
     expect(wrapper2.isVueInstance()).toBe(true)
     expect(wrapper2.is('span')).toBe(true)
     expect(wrapper2.classes()).toContain('b-avatar')
-    // expect(wrapper2.classes()).toContain('badge-danger')
-    // expect(wrapper2.attributes('style')).toEqual('width: 2.5em; height: 2.5em;')
+    expect(wrapper2.classes()).toContain('badge-danger')
+    expect(wrapper2.classes()).not.toContain('badge-secondary')
+    expect(wrapper2.attributes('style')).toEqual('width: 2.5em; height: 2.5em;')
+
+    wrapper2.destroy()
+  })
+
+  it('should handle b-avatar-group size', async () => {
+    const wrapper1 = mount(BAvatar, {
+      propsData: {
+        size: '5em'
+      },
+      provide: {
+        bvAvatarGroup() {
+          return {}
+        }
+      }
+    })
+    expect(wrapper1.isVueInstance()).toBe(true)
+    expect(wrapper1.is('span')).toBe(true)
+    expect(wrapper1.classes()).toContain('b-avatar')
+    expect(wrapper1.classes()).toContain('badge-secondary')
+    expect(wrapper1.attributes('style')).not.toEqual('width: 5em; height: 5em;')
+    // Uses avatar group size (default)
+    expect(wrapper1.attributes('style')).toEqual('width: 2.5em; height: 2.5em;')
+
+    wrapper1.destroy()
+
+    const wrapper2 = mount(BAvatar, {
+      propsData: {
+        size: '2em'
+      },
+      provide: {
+        bvAvatarGroup() {
+          return {
+            size: '5em'
+          }
+        }
+      }
+    })
+    expect(wrapper2.isVueInstance()).toBe(true)
+    expect(wrapper2.is('span')).toBe(true)
+    expect(wrapper2.classes()).toContain('b-avatar')
+    expect(wrapper2.classes()).toContain('badge-danger')
+    expect(wrapper2.classes()).not.toContain('badge-secondary')
+    expect(wrapper2.attributes('style')).not.toEqual('width: 2.5em; height: 2.5em;')
+    expect(wrapper2.attributes('style')).not.toEqual('width: 2em; height: 2em;')
+    expect(wrapper2.attributes('style')).toEqual('width: 5em; height: 5em;')
 
     wrapper2.destroy()
   })
