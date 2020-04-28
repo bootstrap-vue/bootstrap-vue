@@ -83,6 +83,10 @@
 .b-avatar-group {
   display: flex;
 
+  .b-avatar {
+    border: $border-width solid $border-color;
+  }
+
   .b-avatar + .b-avatar {
     margin-left: -0.75em;
     margin-right: 0;
@@ -94,7 +98,7 @@
     &[dir="rtl"] {
       .b-avatar + .b-avatar {
         margin-left: 0;
-        marign-right: -0.75em;
+        margin-right: -0.75em;
       }
     }
   }
