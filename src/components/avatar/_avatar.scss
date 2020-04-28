@@ -89,7 +89,7 @@
 .b-avatar-group {
   display: flex;
 
-  avatar + avatar {
+  .b-avatar + .b-avatar {
     margin-left: -0.75em;
     margin-right: 0;
   }
@@ -98,7 +98,7 @@
     // Handle right-to-left margins
     [dir="rtl"] &,
     &[dir="rtl"] {
-      avatar + avatar {
+      .b-avatar + .b-avatar {
         margin-left: 0;
         marign-right: -0.75em;
       }
