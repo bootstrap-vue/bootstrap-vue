@@ -56,7 +56,7 @@ export default {
       default: false
     },
     debounce: {
-      // Debounce timout (in ms). Not applicable with `lazy` prop
+      // Debounce timeout (in ms). Not applicable with `lazy` prop
       type: [Number, String],
       default: 0
     }
