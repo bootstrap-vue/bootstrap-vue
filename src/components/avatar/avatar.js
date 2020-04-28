@@ -144,11 +144,12 @@ const props = {
 const computeSize = value => {
   // Default to `md` size when `null`, or parse to
   // number when value is a float-like string
-  value = isUndefinedOrNull(value) || value === ''
-    ? 'md'
-    : isString(value) && RX_NUMBER.test(value)
-      ? toFloat(value, 0)
-      : value
+  value =
+    isUndefinedOrNull(value) || value === ''
+      ? 'md'
+      : isString(value) && RX_NUMBER.test(value)
+        ? toFloat(value, 0)
+        : value
   // Convert all numbers to pixel values
   // Handle default sizes when `sm`, `md` or `lg`
   // Or use value as is
@@ -171,7 +172,13 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
   },
   computed: {
     computedSize() {
+      // Always use the avatar group size
       return computeSize(this.bvAvatarGroup ? this.bvAvatarGroup.size : this.size)
+    },
+    computedVariant() {
+      // Prefer avatar-group variant if provided
+      const avatarGroup = this.bvAvatarGroup
+      return avatarGroup && avatarGroup.variant ? avatarGroup.variant : this.variant
     },
     fontSize() {
       const size = this.computedSize
@@ -207,7 +214,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const {
-      variant,
+      computedVariant: variant,
       disabled,
       square,
       icon,
