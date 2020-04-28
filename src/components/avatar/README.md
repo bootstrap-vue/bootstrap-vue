@@ -411,6 +411,34 @@ inward, while negative values will move the badge outward.
 <!-- b-avatar-badge-offset.vue -->
 ```
 
+## Avatar groups
+
+<span class="badge badge-info small">v2.14.0+</span>
+
+Group multiple avatars together by wrapping them in a `<b-avatar-group>` component:
+
+```html
+<template>
+  <div>
+    <b-avatar-group size="3em" variant="info">
+      <b-avatar></b-avatar>
+      <b-avatar text="BV"></b-avatar>
+      <b-avatar src="https://placekitten.com/300/300"></b-avatar>
+      <b-avatar text="OK"></b-avatar>
+    </b-avatar-group>
+  </div>
+</template>
+
+<!-- b-avatar-group.vue -->
+```
+
+**Notes:**
+
+- The `size` prop will be ignored on individual avatars. To size the avatars, use the prop `size`
+  on `<b-avatar-group>`
+- The `variant`, `square` and `rounded` props on `<b-avatar-group>` takes precedence over the
+  respective props on individual avatars.
+
 ## Accessibility
 
 Use the `aria-label` prop to provide an accessible, screen reader friendly, label for your avatar.
