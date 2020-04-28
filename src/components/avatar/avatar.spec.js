@@ -254,4 +254,38 @@ describe('avatar', () => {
 
     wrapper.destroy()
   })
+
+  it('should handle b-avatar-group variant', async () => {
+    const wrapper1 = mount(BAvatar, {
+      provide: {
+        bvAvatarGroup() {
+          return {}
+        }
+      }
+    })
+    expect(wrapper1.isVueInstance()).toBe(true)
+    expect(wrapper1.is('span')).toBe(true)
+    expect(wrapper1.classes()).toContain('b-avatar')
+    expect(wrapper1.classes()).toContain('badge-secondary')
+    expect(wrapper1.attributes('style')).toEqual('width: 2.5em; height: 2.5em;')
+
+    wrapper1.destroy()
+
+    const wrapper2 = mount(BAvatar, {
+      provide: {
+        bvAvatarGroup() {
+          return {
+            variant: 'danger'
+          }
+        }
+      }
+    })
+    expect(wrapper2.isVueInstance()).toBe(true)
+    expect(wrapper2.is('span')).toBe(true)
+    expect(wrapper2.classes()).toContain('b-avatar')
+    // expect(wrapper2.classes()).toContain('badge-danger')
+    // expect(wrapper2.attributes('style')).toEqual('width: 2.5em; height: 2.5em;')
+
+    wrapper2.destroy()
+  })
 })
