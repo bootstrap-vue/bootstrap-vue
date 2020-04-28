@@ -157,6 +157,9 @@ const computeSize = value => {
 export const BAvatar = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [normalizeSlotMixin],
+  inject: {
+    bvAvatarGroup: { default: null }
+  },
   props,
   data() {
     return {
