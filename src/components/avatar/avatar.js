@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { getComponentConfig } from '../../utils/config'
-import { isNumber, isString } from '../../utils/inspect'
+import { isNumber, isString, isUndefinedOrNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import { BButton } from '../button/button'
 import { BLink } from '../link/link'
@@ -144,8 +144,11 @@ const props = {
 const computeSize = value => {
   // Default to `md` size when `null`, or parse to
   // number when value is a float-like string
-  value =
-    value === null ? 'md' : isString(value) && RX_NUMBER.test(value) ? toFloat(value, 0) : value
+  value = isUndefinedOrNull(value) || value === ''
+    ? 'md'
+    : isString(value) && RX_NUMBER.test(value)
+      ? toFloat(value, 0)
+      : value
   // Convert all numbers to pixel values
   // Handle default sizes when `sm`, `md` or `lg`
   // Or use value as is
@@ -168,7 +171,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
   },
   computed: {
     computedSize() {
-      return computeSize(this.size)
+      return computeSize(this.bvAvatarGroup ? this.bvAvatarGroup.size : this.size)
     },
     fontSize() {
       const size = this.computedSize
