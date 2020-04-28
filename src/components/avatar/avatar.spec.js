@@ -319,8 +319,7 @@ describe('avatar', () => {
     expect(wrapper2.isVueInstance()).toBe(true)
     expect(wrapper2.is('span')).toBe(true)
     expect(wrapper2.classes()).toContain('b-avatar')
-    expect(wrapper2.classes()).toContain('badge-danger')
-    expect(wrapper2.classes()).not.toContain('badge-secondary')
+    expect(wrapper2.classes()).toContain('badge-secondary')
     // Should use BAvatarGroup size prop
     expect(wrapper2.attributes('style')).toEqual('width: 5em; height: 5em;')
 
