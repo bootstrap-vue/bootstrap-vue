@@ -71,8 +71,8 @@
             vendor/provider website for current pricing.
           </li>
           <li>
-            Theme licenses are typically per-site (unless onterwised noted). Refer to the theme site
-            documentation for licensing information.
+            Theme licenses are typically per-site (unless onterwised noted). Refer to the theme
+            site documentation for licensing information.
           </li>
           <li>
             BootstrapVue does not guarantee that all coustom components provided by a theme are
