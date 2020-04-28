@@ -3,6 +3,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 const NAME = 'BAvatarGroup'
 
+// @vue/component
 export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [normalizeSlotMixin],
