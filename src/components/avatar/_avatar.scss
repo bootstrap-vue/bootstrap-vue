@@ -91,5 +91,17 @@
 
   avatar + avatar {
     margin-left: -0.75em;
+    margin-right: 0;
+  }
+
+  @at-root {
+    // Handle right-to-left margins
+    [dir="rtl"] &,
+    &[dir="rtl"] {
+      avatar + avatar {
+        margin-left: 0;
+        marign-right: -0.75em;
+      }
+    }
   }
 }
