@@ -180,6 +180,12 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       const avatarGroup = this.bvAvatarGroup
       return avatarGroup && avatarGroup.variant ? avatarGroup.variant : this.variant
     },
+    computedRounded() {
+      const avatarGroup = this.bvAvatarGroup
+      const square = avatarGroup && avatarGroup.square ? true : this.square
+      const rounded = avatarGroup && avatarGroup.rounded ? avatarGroup.rounded : this.rounded
+      return square ? '0' : rounded === '' ? true : rounded || 'circle'
+    },
     fontSize() {
       const size = this.computedSize
       return size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
@@ -216,7 +222,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     const {
       computedVariant: variant,
       disabled,
-      square,
+      computedRounded: rounded,
       icon,
       localSrc: src,
       text,
@@ -230,7 +236,6 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     } = this
     const isBLink = !isButton && (this.href || this.to)
     const tag = isButton ? BButton : isBLink ? BLink : 'span'
-    const rounded = square ? false : this.rounded === '' ? true : this.rounded || 'circle'
     const alt = this.alt || null
     const ariaLabel = this.ariaLabel || null
 
@@ -278,7 +283,6 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         [`badge-${variant}`]: !isButton && variant,
         // Rounding/Square
         rounded: rounded === true,
-        'rounded-0': square,
         [`rounded-${rounded}`]: rounded && rounded !== true,
         // Other classes
         disabled
