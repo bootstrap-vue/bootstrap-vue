@@ -101,7 +101,7 @@
     }
 
     // Handle right-to-left margins
-    [dir="rtl"] &
+    [dir="rtl"] & {
       .b-avatar + .b-avatar {
         margin-left: 0 !important;
       }
