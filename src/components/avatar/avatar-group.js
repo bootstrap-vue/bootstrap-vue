@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { toFloat } from '../../utils/number'
 import { computeSize } from './avatar'
 
 const NAME = 'BAvatarGroup'
