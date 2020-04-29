@@ -55,7 +55,7 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
         style: this.paddingStyle,
         attrs: { role: 'group' }
       },
-      [this.normalizeSlot('default')]
+      [h('div', { staticClass: 'b-avatar-group-inner' }, [this.normalizeSlot('default')])]
     )
   }
 })
