@@ -17,7 +17,7 @@ const RX_NUMBER = /^[0-9]*\.?[0-9]+$/
 
 const FONT_SIZE_SCALE = 0.4
 const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
-export const GROUP_MARGIN_SCALE = FONT_SIZE_SCALE * 0.4
+export const GROUP_MARGIN_SCALE = FONT_SIZE_SCALE * 0.375
 
 const DEFAULT_SIZES = {
   sm: '1.5em',
