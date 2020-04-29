@@ -266,7 +266,7 @@ describe('avatar', () => {
     expect(wrapper1.is('span')).toBe(true)
     expect(wrapper1.classes()).toContain('b-avatar')
     expect(wrapper1.classes()).toContain('badge-secondary')
-    expect(wrapper1.attributes('style')).toEqual('width: 2.5em; height: 2.5em;')
+    expect(wrapper1.attributes('style')).toContain('width: 2.5em; height: 2.5em;')
 
     wrapper1.destroy()
 
@@ -282,7 +282,7 @@ describe('avatar', () => {
     expect(wrapper2.classes()).toContain('b-avatar')
     expect(wrapper2.classes()).toContain('badge-danger')
     expect(wrapper2.classes()).not.toContain('badge-secondary')
-    expect(wrapper2.attributes('style')).toEqual('width: 2.5em; height: 2.5em;')
+    expect(wrapper2.attributes('style')).toContain('width: 2.5em; height: 2.5em;')
 
     wrapper2.destroy()
   })
