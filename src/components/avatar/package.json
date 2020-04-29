@@ -129,6 +129,10 @@
             "description": "Size of all the child avatars. Refer to the documentation for details"
           },
           {
+            "prop": "overlap",
+            "description": "Floating point number specifying the amount of overlap where 0 is no overlap and 1 is 100% overlap"
+          },
+          {
             "prop": "square",
             "description": "Disables rounding of the child avatars, rending earch avatar with square corners"
           },
