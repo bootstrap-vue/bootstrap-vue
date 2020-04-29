@@ -37,7 +37,8 @@
   }
 
   .b-avatar-custom,
-  .b-avatar-text {
+  .b-avatar-text,
+  .b-avatar-img {
     border-radius: inherit;
     width: 100%;
     height: 100%;
@@ -92,8 +93,16 @@
 
   a,
   .btn {
+    .b-avatar-img img {
+      transition: transform 0.15s ease-in-out;
+    }
+
     &.b-avatar:hover:not(.disabled):not(disabled) {
-      z-index: 3
+      z-index: 3;
+
+      .b-avatar-img img {
+        transform: scale(1.2)
+      }
     }
   }
 }
