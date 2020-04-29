@@ -61,8 +61,7 @@ styling on the content.
 
 Use the `src` prop to specify a URL of an image to use as the avatar content. The image should have
 an aspect ratio of `1:1` (meaning the width and height should be equal), otherwise image aspect
-distortion will occur. The image will be scaled up or down to fit within the avatar's bounding box,
-and will be sized to show the avatar's [variant background](#variants) around the edge.
+distortion will occur. The image will be scaled up or down to fit within the avatar's bounding box.
 
 ```html
 <template>
@@ -84,8 +83,9 @@ and will be sized to show the avatar's [variant background](#variants) around th
   fallback to the value of the `icon` or `text` props. If neither the `icon` or `text` props are
   provided, then the default avatar icon will be shown. Also, when the image fails to load, the
   `img-error` event will be emitted.
-- <span class="badge badge-secondary">2.12.0+</span> Setting the [variant prop](#variants) to an
-  empty string will remove the visible background border around the image.
+- [Variant colors](#variants) when using images not not normally visible, unless the image fails
+  load. The variant will affect the focus styling when the image avatar is also an
+  [actionalble avatar](#actionalble-avatars).
 
 ### Icon content
 
@@ -270,6 +270,8 @@ Easily create avatars that respond to clicks, or avatars that change the URL/rou
 Actionable avatars will appear in the document tab sequence, and are accessible for both screen
 reader and keyboard-only users.
 
+Image avatars, when actionalble, employ a basic scale transform on the image when hovered.
+
 ### Button
 
 Want to trigger the opening of a modal or trigger an action? Set the `button` prop to instruct
@@ -278,10 +280,20 @@ the `click` event whenever clicked.
 
 ```html
 <template>
-  <div>
-    <b-avatar button @click="onClick" variant="primary" text="FF" class="align-baseline"></b-avatar>
-    Button Avatar
-  </div>
+  <b-list-group>
+    <b-list-group-item>
+      <b-avatar button @click="onClick" variant="primary" text="FF" class="align-baseline"></b-avatar>
+      Button Text Avatar
+    </b-list-group-item>
+    <b-list-group-item>
+      <b-avatar button @click="onClick" src="https://placekitten.com/300/300"></b-avatar>
+      Button Image Avatar
+    </b-list-group-item>
+    <b-list-group-item>
+      <b-avatar button @click="onClick" icon="star-fill" class="align-center"></b-avatar>
+      Button Icon Avatar
+    </b-list-group-item>
+  </b-list-group>
 </template>
 
 <script>
@@ -315,10 +327,20 @@ The `to` prop can either be a string path, or a `Location` object. The `to` prop
 
 ```html
 <template>
-  <div>
-    <b-avatar href="#foobar" variant="info" src="https://placekitten.com/300/300"></b-avatar>
-    Link Avatar
-  </div>
+  <b-list-group>
+    <b-list-group-item>
+      <b-avatar href="#foo" variant="primary" text="FF" class="align-baseline"></b-avatar>
+      Link Text Avatar
+    </b-list-group-item>
+    <b-list-group-item>
+      <b-avatar href="#bar" src="https://placekitten.com/300/300"></b-avatar>
+      Link Image Avatar
+    </b-list-group-item>
+    <b-list-group-item>
+      <b-avatar href="#baz" icon="star-fill" class="align-center"></b-avatar>
+      Link Icon Avatar
+    </b-list-group-item>
+  </b-list-group>
 </template>
 
 <!-- b-avatar-href.vue -->
