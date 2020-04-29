@@ -21,7 +21,7 @@
   }
 
   &.btn,
-  &[href]{
+  &[href] {
     padding: 0;
     border: 0;
 
@@ -34,7 +34,7 @@
 
       &:hover {
         .b-avatar-img img {
-          transform: scale(1.2)
+          transform: scale(1.15)
         }
       }
     }
