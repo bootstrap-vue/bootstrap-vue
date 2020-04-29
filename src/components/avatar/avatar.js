@@ -186,9 +186,15 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       const rounded = avatarGroup && avatarGroup.rounded ? avatarGroup.rounded : this.rounded
       return square ? '0' : rounded === '' ? true : rounded || 'circle'
     },
-    fontSize() {
+    fontStyle() {
       const size = this.computedSize
-      return size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
+      const fontSize = size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
+      return fontSize ? { fontSize } : {}
+    },
+    marginStyle() {
+      const size = this.computedSize
+      const value = size ? `calc(${size} * -${FONT_SIZE_SCALE})` : null
+      return value && this.bvAvatarGroup ? { marginLeft: value, marginRight: value } : {}
     },
     badgeStyle() {
       const { computedSize: size, badgeTop, badgeLeft, badgeOffset } = this
@@ -226,7 +232,8 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       icon,
       localSrc: src,
       text,
-      fontSize,
+      fontStyle,
+      marginStyle,
       computedSize: size,
       button: isButton,
       buttonType: type,
@@ -255,7 +262,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         attrs: { 'aria-hidden': 'true', alt }
       })
     } else if (text) {
-      $content = h('span', { staticClass: 'b-avatar-text', style: { fontSize } }, [h('span', text)])
+      $content = h('span', { staticClass: 'b-avatar-text', style: fontStyle }, [h('span', text)])
     } else {
       // Fallback default avatar content
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true', alt } })
@@ -287,7 +294,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         // Other classes
         disabled
       },
-      style: { width: size, height: size },
+      style: { width: size, height: size, ...marginStyle },
       attrs: { 'aria-label': ariaLabel || null },
       props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, this) : {},
       on: isBLink || isButton ? { click: this.onClick } : {}
