@@ -17,6 +17,7 @@ const RX_NUMBER = /^[0-9]*\.?[0-9]+$/
 
 const FONT_SIZE_SCALE = 0.4
 const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
+export const GROUP_MARGIN_SCALE = FONT_SIZE_SCALE * -1
 
 const DEFAULT_SIZES = {
   sm: '1.5em',
@@ -141,7 +142,7 @@ const props = {
 }
 
 // --- Utility methods ---
-const computeSize = value => {
+export const computeSize = value => {
   // Default to `md` size when `null`, or parse to
   // number when value is a float-like string
   value =
@@ -193,7 +194,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     },
     marginStyle() {
       let value = this.computedSize
-      value = value ? `calc(${value} * -${FONT_SIZE_SCALE})` : null
+      value = value ? `calc(${value} * ${GROUP_MARGIN_SCALE})` : null
       return value && this.bvAvatarGroup ? { marginLeft: value, marginRight: value } : {}
     },
     badgeStyle() {
