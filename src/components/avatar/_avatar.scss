@@ -87,24 +87,10 @@
     border: $border-width solid $border-color;
   }
 
-  .b-avatar:first-child() {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  @at-root {
-    // Handle right-to-left margins
-    [dir="rtl"] & {
-      .b-avatar + .b-avatar {
-        margin-left: 0 !important;
-      }
-    }
-
-    // Handle left-to-right margins
-    :not([dir="rtl"]) & {
-      .b-avatar + .b-avatar {
-        margin-right: 0 !important;
-      }
+  a,
+  .btn {
+    &.b-avatar:hover:not(.disabled):not(disabled) {
+      z-index: 3
     }
   }
 }
