@@ -150,7 +150,7 @@ Positioning is relative to the trigger element.
   <div class="clearfix"></div>
 </div>
 
-Refer to the [Popover directive](/docs/directives/popover/#positioning) documentaion for live
+Refer to the [Popover directive](/docs/directives/popover/#positioning) documentation for live
 examples of positioning.
 
 ## Triggers

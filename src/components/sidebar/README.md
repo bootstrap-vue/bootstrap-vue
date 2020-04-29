@@ -302,7 +302,7 @@ elements outside of the sidebar.
 
 ### `v-b-toggle` directive
 
-Using the `v-b-toggle` directive is the prefered method for _opening_ the sidebar, as it
+Using the `v-b-toggle` directive is the preferred method for _opening_ the sidebar, as it
 automatically handles applying the `aria-controls` and `aria-expanded` accessibility attributes on
 the trigger element.
 

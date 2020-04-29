@@ -236,7 +236,7 @@ export default {
           imageUrl: entry.fromAccount.imageUrl,
           // We only link their website when the total amount is at or above a certain
           // threshold to prevent some questionable websites from abusing opencollective
-          // as a means to improve thier Google page ranking via backlinks
+          // as a means to improve their Google page ranking via backlinks
           website:
             Math.max(amount || 0, totalAmount || 0) < LINK_AMT_THRESHOLD
               ? null
