@@ -1,6 +1,6 @@
 import Vue from '../../utils/vue'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { computeSize, GROUP_MARGIN_SCALE } from './avatar'
+import { computeSize } from './avatar'
 
 const NAME = 'BAvatarGroup'
 
@@ -22,6 +22,10 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
       type: String,
       default: null
     },
+    overlap: {
+      type: [Number, String],
+      default: .3
+    },
     square: {
       // Child avatars will prefer this prop (if set) over their own
       type: Boolean,
@@ -41,9 +45,12 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
     computedSize() {
       return computeSize(this.size)
     },
+    overlapScale() {
+      return toFloat(this.overlap, 0) / 2
+    },
     paddingStyle() {
       let value = this.computedSize
-      value = value ? `calc(${value} * ${GROUP_MARGIN_SCALE})` : null
+      value = value ? `calc(${value} * ${this.overlapScale})` : null
       return value ? { paddingLeft: value, paddingRight: value } : {}
     }
   },
