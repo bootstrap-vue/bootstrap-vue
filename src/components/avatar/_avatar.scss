@@ -87,18 +87,23 @@
     border: $border-width solid $border-color;
   }
 
-  .b-avatar + .b-avatar {
-    margin-left: -0.75em;
-    margin-right: 0;
+  .b-avatar:first-child() {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 
   @at-root {
-    // Handle right-to-left margins
-    [dir="rtl"] &,
-    &[dir="rtl"] {
+    // Handle left-to-right margins
+    :not([dir="rtl"]) & {
       .b-avatar + .b-avatar {
-        margin-left: 0;
-        margin-right: -0.75em;
+        margin-right: 0 !important;
+      }
+    }
+
+    // Handle right-to-left margins
+    [dir="rtl"] &
+      .b-avatar + .b-avatar {
+        margin-left: 0 !important;
       }
     }
   }
