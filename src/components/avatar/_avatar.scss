@@ -81,8 +81,10 @@
 }
 
 .b-avatar-group {
-  display: flex;
-  flex-wrap: wrap;
+  .b-avatar-group-inner {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
   .b-avatar {
     border: $border-width solid $border-color;
