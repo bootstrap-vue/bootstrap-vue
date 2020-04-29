@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { mathMax, mathMin } from '../../utils/math'
 import { toFloat } from '../../utils/number'
 import { computeSize } from './avatar'
 
@@ -47,7 +48,7 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
       return computeSize(this.size)
     },
     overlapScale() {
-      return toFloat(this.overlap, 0) / 2
+      return mathMin(mathMax(toFloat(this.overlap, 0), 0), 1) / 2
     },
     paddingStyle() {
       let value = this.computedSize
