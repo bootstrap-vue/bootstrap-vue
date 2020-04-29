@@ -580,7 +580,7 @@ provides general guidelines when using toasts.
   be reached by keyboard-only users.
 - Avoid initiating many toasts in quick succession, as screen readers may interrupt reading the
   current toast and announce the new toast, causing the context of the previous toast to be missed.
-- For toasts with long textual content, adjust the `auto-hide-delay` to a larger timout, to allow
+- For toasts with long textual content, adjust the `auto-hide-delay` to a larger timeout, to allow
   users time to read the content of the toast. A good length of time to keep messages up is 4
   seconds plus 1 extra second for every 100 words, rounding up. This is approximately how fast the
   average person reads. That means the shortest default that should be used as a best practice is 5
