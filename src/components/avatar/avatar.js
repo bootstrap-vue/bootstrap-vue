@@ -17,7 +17,6 @@ const RX_NUMBER = /^[0-9]*\.?[0-9]+$/
 
 const FONT_SIZE_SCALE = 0.4
 const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
-export const GROUP_MARGIN_SCALE = FONT_SIZE_SCALE * 0.375
 
 const DEFAULT_SIZES = {
   sm: '1.5em',
@@ -193,9 +192,11 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       return fontSize ? { fontSize } : {}
     },
     marginStyle() {
-      let value = this.computedSize
-      value = value ? `calc(${value} * -${GROUP_MARGIN_SCALE})` : null
-      return value && this.bvAvatarGroup ? { marginLeft: value, marginRight: value } : {}
+      const avatarGroup = this.bvAvatarGroup
+      const overlapScale = avatarGroup ? avatarGroup.overlapScale : 0
+      const size = this.computedSize
+      const value = size && overlapScale ? `calc(${size} * -${overlapScale})` : null
+      return value ? { marginLeft: value, marginRight: value } : {}
     },
     badgeStyle() {
       const { computedSize: size, badgeTop, badgeLeft, badgeOffset } = this
