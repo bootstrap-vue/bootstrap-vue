@@ -459,10 +459,95 @@ Group multiple avatars together by wrapping them in a `<b-avatar-group>` compone
 
 **Notes:**
 
-- The `size` prop will be ignored on individual avatars. To size the avatars, use the prop `size`
-  on `<b-avatar-group>`
+- 
 - The `variant`, `square` and `rounded` props on `<b-avatar-group>` will take precedence over the
   respective props on individual avatars.
+
+### Avatar group size
+
+To size the avatars, use the prop `size` on `<b-avatar-group>`. The size prop accepts the same type
+of values as the `size` prop on `<b-avatar>`. Note that the `size` prop will be ignored on
+individual avatars when they are placed inside a `<b-avatar-group>`.
+
+```html
+<template>
+  <div>
+    <b-avatar-group size="3rem">
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+    </b-avatar-group>
+  </div>
+</template>
+
+<!-- b-avatar-group-size.vue -->
+```
+
+### Avatar group variant
+
+Use the `variant` prop to color all child avatars in the `<b-avatar-group>`. Note that the `variant`
+prop, when set, will override the the `variant` specified on individual avatars.
+
+```html
+<template>
+  <div>
+    <b-avatar-group variant="success">
+      <b-avatar></b-avatar>
+      <b-avatar variant="info"></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+    </b-avatar-group>
+  </div>
+</template>
+
+<!-- b-avatar-group-variant.vue -->
+```
+
+### Avatar group rouding
+
+Similar to the `ariant` prop, the `<b-avatar-group>` props `square` and `rounded` take precedence
+over the respective props on individual child avatars.
+
+```html
+<template>
+  <div>
+    <b-avatar-group rounded="lg">
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+    </b-avatar-group>
+  </div>
+</template>
+
+<!-- b-avatar-group-rounded.vue -->
+```
+
+### Avatar group overlap
+
+By default child avatars inside a `<b-avatar-group>` will overlap by a factor of `0.3` (relative
+to the size of the avatar). You can control the overlap amount by setting the `overlap` prop to
+a value between `0` and `1`, where `0` means no overlap and `1` means 100% overlap.
+
+```html
+<template>
+  <div>
+    <b-avatar-group overlap="0.65">
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+    </b-avatar-group>
+  </div>
+</template>
+
+<!-- b-avatar-group-overlap.vue -->
+```
 
 ## Accessibility
 
