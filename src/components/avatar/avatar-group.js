@@ -43,7 +43,7 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
     },
     paddingStyle() {
       let value = this.computedSize
-      value = value ? `calc(${value} * ${GROUP_MARGIN_SCALE})` : null
+      value = value ? `calc(${value} * ${GROUP_MARGIN_SCALE}) !important` : null
       return value ? { paddingLeft: value, paddingRight: value } : {}
     }
   },
