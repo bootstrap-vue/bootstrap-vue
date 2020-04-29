@@ -771,7 +771,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.enter(evt)
       } else if (type === 'focusin' && arrayIncludes(triggers, 'focus')) {
         // `focusin` is a bubbling event
-        // `evt` includes `relatedTarget` (element loosing focus)
+        // `evt` includes `relatedTarget` (element losing focus)
         this.enter(evt)
       } else if (
         (type === 'focusout' &&
@@ -782,7 +782,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // `mouseleave` is a non-bubbling event
         // `tip` is the template (will be null if not open)
         const tip = this.getTemplateElement()
-        // `evtTarget` is the element which is loosing focus/hover and
+        // `evtTarget` is the element which is losing focus/hover and
         const evtTarget = evt.target
         // `relatedTarget` is the element gaining focus/hover
         const relatedTarget = evt.relatedTarget

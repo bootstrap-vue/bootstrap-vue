@@ -2159,7 +2159,7 @@ If you have a text input tied to the `filter` prop of `<b-table>`, the filtering
 for each character typed by the user. With large items datasets, this process can take a while and
 may cause the text input to appear sluggish.
 
-To help alleviate this type of situation, `<b-table>` accepts a debounce timout value (in
+To help alleviate this type of situation, `<b-table>` accepts a debounce timeout value (in
 milliseconds) via the `filter-debounce` prop. The default is `0` (milliseconds). When a value
 greater than `0` is provided, the filter will wait for that time before updating the table results.
 If the value of the `filter` prop changes before this timeout expires, the filtering will be once

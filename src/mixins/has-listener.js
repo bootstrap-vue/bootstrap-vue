@@ -8,9 +8,9 @@ import { isArray, isUndefined } from '../utils/inspect'
 export default {
   methods: {
     hasListener(name) {
-      // Only includes listeners registerd via `v-on:name`
+      // Only includes listeners registered via `v-on:name`
       const $listeners = this.$listeners || {}
-      // Includes `v-on:name` and `this.$on('name')` registerd listeners
+      // Includes `v-on:name` and `this.$on('name')` registered listeners
       // Note this property is not part of the public Vue API, but it is
       // the only way to determine if a listener was added via `vm.$on`
       const $events = this._events || {}

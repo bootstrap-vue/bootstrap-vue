@@ -370,7 +370,7 @@ export const BCalendar = Vue.extend({
     },
     // Computed props that return a function reference
     dateOutOfRange() {
-      // Check wether a date is within the min/max range
+      // Check whether a date is within the min/max range
       // returns a new function ref if the pops change
       // We do this as we need to trigger the calendar computed prop
       // to update when these props update

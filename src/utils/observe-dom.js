@@ -61,7 +61,7 @@ const observeDom = (
     }
 
     // We only call the callback if a change that could affect
-    // layout/size truely happened
+    // layout/size truly happened
     if (changed) {
       callback()
     }
