@@ -9,6 +9,7 @@
     "components": [
       {
         "component": "BAvatar",
+        "version": "2.8.0",
         "props": [
           {
             "prop": "variant",
