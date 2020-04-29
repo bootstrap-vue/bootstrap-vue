@@ -257,6 +257,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         attrs: { src, alt },
         on: { error: this.onImgError }
       })
+      $content = h('span', { staticClass: 'b-avatar-img' }, [$content])
     } else if (icon) {
       $content = h(BIcon, {
         props: { icon },
