@@ -187,13 +187,13 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       return square ? '0' : rounded === '' ? true : rounded || 'circle'
     },
     fontStyle() {
-      const size = this.computedSize
-      const fontSize = size ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
+      let fontSize = this.computedSize
+      fontSize = fontSize ? `calc(${fontSize} * ${FONT_SIZE_SCALE})` : null
       return fontSize ? { fontSize } : {}
     },
     marginStyle() {
-      const size = this.computedSize
-      const value = size ? `calc(${size} * -${FONT_SIZE_SCALE})` : null
+      let value = this.computedSize
+      value = value ? `calc(${value} * -${FONT_SIZE_SCALE})` : null
       return value && this.bvAvatarGroup ? { marginLeft: value, marginRight: value } : {}
     },
     badgeStyle() {
