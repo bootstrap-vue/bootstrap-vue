@@ -420,11 +420,11 @@ Group multiple avatars together by wrapping them in a `<b-avatar-group>` compone
 ```html
 <template>
   <div>
-    <b-avatar-group size="3em" variant="info">
+    <b-avatar-group size="5em">
       <b-avatar></b-avatar>
-      <b-avatar text="BV"></b-avatar>
-      <b-avatar src="https://placekitten.com/300/300"></b-avatar>
-      <b-avatar text="OK"></b-avatar>
+      <b-avatar text="BV" variant="primary"></b-avatar>
+      <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+      <b-avatar text="OK" variant="danger"></b-avatar>
     </b-avatar-group>
   </div>
 </template>
@@ -436,7 +436,7 @@ Group multiple avatars together by wrapping them in a `<b-avatar-group>` compone
 
 - The `size` prop will be ignored on individual avatars. To size the avatars, use the prop `size`
   on `<b-avatar-group>`
-- The `variant`, `square` and `rounded` props on `<b-avatar-group>` takes precedence over the
+- The `variant`, `square` and `rounded` props on `<b-avatar-group>` will take precedence over the
   respective props on individual avatars.
 
 ## Accessibility
