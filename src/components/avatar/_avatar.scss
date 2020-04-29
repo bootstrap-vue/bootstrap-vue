@@ -93,17 +93,17 @@
   }
 
   @at-root {
-    // Handle left-to-right margins
-    :not([dir="rtl"]) & {
-      .b-avatar + .b-avatar {
-        margin-right: 0 !important;
-      }
-    }
-
     // Handle right-to-left margins
     [dir="rtl"] & {
       .b-avatar + .b-avatar {
         margin-left: 0 !important;
+      }
+    }
+
+    // Handle left-to-right margins
+    :not([dir="rtl"]) & {
+      .b-avatar + .b-avatar {
+        margin-right: 0 !important;
       }
     }
   }
