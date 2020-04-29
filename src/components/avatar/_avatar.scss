@@ -64,6 +64,10 @@
     white-space: nowrap;
   }
 
+  &[href] .b-avatar-text {
+    text-decoration: none;
+  }
+
   > .b-icon {
     width: 60%;
     height: auto;
