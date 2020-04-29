@@ -202,7 +202,7 @@ By default `<b-form-spinbutton>` will format the displayed number in the users b
 locale. You can change the localized formatting by specifying a locale (or array of locales) via the
 `locale` prop. Number format localization is performed via
 [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat).
-The locales available will be dependant on the browser implementation. Localization only controls
+The locales available will be dependent on the browser implementation. Localization only controls
 the presentation of the value to the user, and does not affect the `v-model`.
 
 ```html

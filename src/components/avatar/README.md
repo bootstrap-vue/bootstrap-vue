@@ -61,7 +61,7 @@ styling on the content.
 
 Use the `src` prop to specify a URL of an image to use as the avatar content. The image should have
 an aspect ratio of `1:1` (meaning the width and height should be equal), otherwise image aspect
-distortion will occur. The image will be scaled up or down to fit withing the avatar's bounding box,
+distortion will occur. The image will be scaled up or down to fit within the avatar's bounding box,
 and will be sized to show the avatar's [variant background](#variants) around the edge.
 
 ```html

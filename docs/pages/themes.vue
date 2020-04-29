@@ -71,8 +71,8 @@
             vendor/provider website for current pricing.
           </li>
           <li>
-            Theme licenses are typicaly per-site (unless onterwised noted). Refer to the theme site
-            documentaton for licensing information.
+            Theme licenses are typically per-site (unless onterwised noted). Refer to the theme
+            site documentation for licensing information.
           </li>
           <li>
             BootstrapVue does not guarantee that all coustom components provided by a theme are
@@ -102,10 +102,10 @@
           </li>
           <li>
             Should avoid the need for jQuery or Bootstrap v4 JavaScript files (except for included
-            3<sup>rd</sup> party compoents if required).
+            3<sup>rd</sup> party components if required).
           </li>
           <li>Should provide the source SCSS/SASS files/variables.</li>
-          <li>Should promote that it is based on (or compatable with) <i>BootstrapVue</i>.</li>
+          <li>Should promote that it is based on (or compatible with) <i>BootstrapVue</i>.</li>
           <li>
             Custom components provided by the theme should be WAI-ARIA accessible. Any WAI-ARIA
             limitations should be noted in the theme documeantation.
