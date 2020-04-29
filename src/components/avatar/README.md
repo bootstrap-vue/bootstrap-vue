@@ -440,8 +440,6 @@ Group multiple avatars together by wrapping them in a `<b-avatar-group>` compone
   on `<b-avatar-group>`
 - The `variant`, `square` and `rounded` props on `<b-avatar-group>` will take precedence over the
   respective props on individual avatars.
-- Avoid using padding utility classes on `<b-avatar-group>`. If padding is required, wrap the
-  component in a `<div>` and apply the padding to the `<div>`.
 
 ## Accessibility
 
