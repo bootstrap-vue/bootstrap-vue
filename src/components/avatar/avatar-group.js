@@ -25,7 +25,7 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
     },
     overlap: {
       type: [Number, String],
-      default: .3
+      default: 0.3
     },
     square: {
       // Child avatars will prefer this prop (if set) over their own
