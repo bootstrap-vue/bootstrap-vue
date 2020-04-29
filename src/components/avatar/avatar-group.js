@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { computeSize, GROUP_MARGIN_SCALE } from './avatar'
 
 const NAME = 'BAvatarGroup'
 
@@ -36,9 +37,25 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
       default: 'div'
     }
   },
+  computed: {
+    computedSize() {
+      return computeSize(this.size)
+    },
+    paddingStyle() {
+      let value = this.computedSize
+      value = value ? `calc(${value} * -${GROUP_MARGIN_SCALE}) !important` : null
+      return value ? { paddingLeft: value, paddingRight: value } : {}
+    }
+  },
   render(h) {
-    return h(this.tag, { staticClass: 'b-avatar-group', attrs: { role: 'group' } }, [
-      this.normalizeSlot('default')
-    ])
+    return h(
+      this.tag,
+      {
+        staticClass: 'b-avatar-group',
+        style: this.paddingStyle,
+        attrs: { role: 'group' }
+      },
+      [this.normalizeSlot('default')]
+    )
   }
 })
