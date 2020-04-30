@@ -124,7 +124,8 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       let variant = this.variant
       if (
         (!variant && this.isStickyHeader && !this.headVariant) ||
-        (!variant && this.isStickyColumn)
+        (!variant && this.isStickyColumn && this.isTbody) ||
+        (!variant && this.isStickyColumn && this.isThead && !this.headVariant)
       ) {
         // Needed for sticky-header mode as Bootstrap v4 table cells do
         // not inherit parent's background-color. Boo!
