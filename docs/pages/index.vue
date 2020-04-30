@@ -379,7 +379,7 @@
             class="bvd-partner d-inline-block"
           >
             <svg
-``            xmlns="http://www.w3.org/2000/svg"
+              xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 283 64"
               fill="#000"
               focusable="false"
