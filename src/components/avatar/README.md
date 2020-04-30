@@ -83,8 +83,8 @@ distortion will occur. The image will be scaled up or down to fit within the ava
   fallback to the value of the `icon` or `text` props. If neither the `icon` or `text` props are
   provided, then the default avatar icon will be shown. Also, when the image fails to load, the
   `img-error` event will be emitted.
-- [Variant colors](#variants) when using images not not normally visible, unless the image fails
-  load. The variant will affect the focus styling when the image avatar is also an
+- [Variant colors](#variants) when using images not normally visible, unless the image fails load.
+  The variant will affect the focus styling when the image avatar is also an
   [actionalble avatar](#actionalble-avatars).
 
 ### Icon content
