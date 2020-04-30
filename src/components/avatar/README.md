@@ -459,7 +459,6 @@ Group multiple avatars together by wrapping them in a `<b-avatar-group>` compone
 
 **Notes:**
 
-- 
 - The `variant`, `square` and `rounded` props on `<b-avatar-group>` will take precedence over the
   respective props on individual avatars.
 
@@ -529,9 +528,9 @@ over the respective props on individual child avatars.
 
 ### Group overlap
 
-By default child avatars inside a `<b-avatar-group>` will overlap by a factor of `0.3` (relative
-to the size of the avatar). You can control the overlap amount by setting the `overlap` prop to
-a value between `0` and `1`, where `0` means no overlap and `1` means 100% overlap.
+By default child avatars inside a `<b-avatar-group>` will overlap by a factor of `0.3` (relative to
+the size of the avatar). You can control the overlap amount by setting the `overlap` prop to a value
+between `0` and `1`, where `0` means no overlap and `1` means 100% overlap.
 
 ```html
 <template>
