@@ -770,7 +770,7 @@ describe('table > sorting', () => {
     wrapper.destroy()
   })
 
-  it('sorting by virutal column formatter works', async () => {
+  it('sorting by virtual column formatter works', async () => {
     const wrapper = mount(BTable, {
       propsData: {
         items: [{ a: 5, b: 2 }, { a: 10, b: 9 }],

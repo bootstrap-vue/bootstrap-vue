@@ -5,7 +5,7 @@
 ## Playground & Issue reports
 
 If you want to play with BootstrapVue components without any local setup just head to our
-[Online Playground](https://bootstrap-vue.js.org/play) and you can interactively play and test
+[Online Playground](https://bootstrap-vue.org/play) and you can interactively play and test
 components with a fresh Vue instance. If you want to keep your changes or make PRs reporting a
 component's misbehaviour you can save them to _CodePen_, _CodeSandbox_ or _JSFiddle_ and provide
 that link in issues.

@@ -6,6 +6,7 @@
 import Vue from '../../../utils/vue'
 import getScopId from '../../../utils/get-scope-id'
 import looseEqual from '../../../utils/loose-equal'
+import { mathMax } from '../../../utils/math'
 import noop from '../../../utils/noop'
 import { arrayIncludes, concat, from as arrayFrom } from '../../../utils/array'
 import {
@@ -135,10 +136,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Normalizes delay into object form
       const delay = { show: 0, hide: 0 }
       if (isPlainObject(this.delay)) {
-        delay.show = Math.max(toInteger(this.delay.show, 0), 0)
-        delay.hide = Math.max(toInteger(this.delay.hide, 0), 0)
+        delay.show = mathMax(toInteger(this.delay.show, 0), 0)
+        delay.hide = mathMax(toInteger(this.delay.hide, 0), 0)
       } else if (isNumber(this.delay) || isString(this.delay)) {
-        delay.show = delay.hide = Math.max(toInteger(this.delay, 0), 0)
+        delay.show = delay.hide = mathMax(toInteger(this.delay, 0), 0)
       }
       return delay
     },
@@ -469,6 +470,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     onTemplateShown() {
       const prevHoverState = this.$_hoverState
       this.$_hoverState = ''
+      /* istanbul ignore next: occasional Node 10 coverage error */
       if (prevHoverState === 'out') {
         this.leave(null)
       }
@@ -769,7 +771,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.enter(evt)
       } else if (type === 'focusin' && arrayIncludes(triggers, 'focus')) {
         // `focusin` is a bubbling event
-        // `evt` includes `relatedTarget` (element loosing focus)
+        // `evt` includes `relatedTarget` (element losing focus)
         this.enter(evt)
       } else if (
         (type === 'focusout' &&
@@ -780,7 +782,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // `mouseleave` is a non-bubbling event
         // `tip` is the template (will be null if not open)
         const tip = this.getTemplateElement()
-        // `evtTarget` is the element which is loosing focus/hover and
+        // `evtTarget` is the element which is losing focus/hover and
         const evtTarget = evt.target
         // `relatedTarget` is the element gaining focus/hover
         const relatedTarget = evt.relatedTarget

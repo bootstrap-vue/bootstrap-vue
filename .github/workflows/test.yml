@@ -21,18 +21,27 @@ jobs:
         node: [10, 12]
 
     steps:
-      - uses: actions/setup-node@v1
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
 
       - name: Cache node_modules
         uses: actions/cache@v1
         with:
-          path: node_modules
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('yarn.lock') }}
+            ${{ runner.OS }}-node-v${{ matrix.node }}-
+            ${{ runner.OS }}-
 
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile --non-interactive
@@ -53,12 +62,13 @@ jobs:
         node: [12]
 
     steps:
-      - uses: actions/setup-node@v1
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-
-      - name: Checkout
-        uses: actions/checkout@master
 
       - name: Restore workspace cache
         uses: actions/cache@v1
@@ -79,12 +89,13 @@ jobs:
         node: [12]
 
     steps:
-      - uses: actions/setup-node@v1
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-
-      - name: Checkout
-        uses: actions/checkout@master
 
       - name: Restore workspace cache
         uses: actions/cache@v1
@@ -105,12 +116,13 @@ jobs:
         node: [10, 12]
 
     steps:
-      - uses: actions/setup-node@v1
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-
-      - name: Checkout
-        uses: actions/checkout@master
 
       - name: Restore workspace cache
         uses: actions/cache@v1
@@ -138,12 +150,13 @@ jobs:
         node: [12]
 
     steps:
-      - uses: actions/setup-node@v1
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-
-      - name: Checkout
-        uses: actions/checkout@master
 
       - name: Restore workspace cache
         uses: actions/cache@v1
@@ -170,12 +183,13 @@ jobs:
         node: [12]
 
     steps:
-      - uses: actions/setup-node@v1
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-
-      - name: Checkout
-        uses: actions/checkout@master
 
       - name: Restore workspace cache
         uses: actions/cache@v1
@@ -193,30 +207,4 @@ jobs:
         run: yarn run bundlewatch
         env:
           BUNDLEWATCH_GITHUB_TOKEN: "${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}"
-
-  docs:
-    needs: setup
-    runs-on: ${{ matrix.os }}
-    if: github.event_name == 'push' && github.ref == 'master'
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [12]
-
-    steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Checkout
-        uses: actions/checkout@master
-
-      - name: Restore workspace cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
-
-      - name: Publish docs
-        run: yarn run docs-publish
+          CI_BRANCH_BASE: "${{ github.base_ref }}"

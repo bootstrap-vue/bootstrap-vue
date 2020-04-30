@@ -4,6 +4,7 @@ import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isArray, isUndefined, isFunction, isObject } from '../../utils/inspect'
+import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { computeHref, parseQuery } from '../../utils/router'
 import { toString } from '../../utils/string'
@@ -13,7 +14,7 @@ import paginationMixin from '../../mixins/pagination'
 const NAME = 'BPaginationNav'
 
 // Sanitize the provided number of pages (converting to a number)
-export const sanitizeNumberOfPages = value => Math.max(toInteger(value, 0), 1)
+export const sanitizeNumberOfPages = value => mathMax(toInteger(value, 0), 1)
 
 const props = {
   size: {

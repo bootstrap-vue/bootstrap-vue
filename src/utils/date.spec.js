@@ -17,9 +17,14 @@ describe('utils/date', () => {
   it('parseYMD works', async () => {
     const date1 = parseYMD('2020-01-15')
     const date2 = new Date(2020, 0, 15)
+    const date3 = parseYMD('2020-01-15T23:16:56.131Z')
+    const date4 = parseYMD('2020-01-15 23:16:56')
 
     expect(date1.toISOString()).toEqual(date2.toISOString())
+    expect(date1.toISOString()).toEqual(date3.toISOString())
+    expect(date1.toISOString()).toEqual(date4.toISOString())
     expect(parseYMD('yyyy-mm-dd')).toEqual(null)
+    expect(parseYMD('2020-01-15XYZ')).toEqual(null)
   })
 
   it('formatYMD works', async () => {
@@ -28,6 +33,9 @@ describe('utils/date', () => {
     expect(formatYMD('2020-01-32')).toEqual('2020-02-01')
     expect(formatYMD('adsadsad')).toEqual(null)
     expect(formatYMD('x2020-01-15')).toEqual(null)
+    expect(formatYMD('2020-01-15x')).toEqual(null)
+    expect(formatYMD('2020-01-15T23:16:56.131Z')).toEqual('2020-01-15')
+    expect(formatYMD('2020-01-15 23:16:56')).toEqual('2020-01-15')
   })
 
   it('datesEqual works', async () => {

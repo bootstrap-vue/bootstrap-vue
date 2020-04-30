@@ -2,7 +2,7 @@ import { mergeData } from 'vue-functional-data-merge'
 import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
 import suffixPropName from '../../utils/suffix-prop-name'
-import { arrayIncludes } from '../../utils/array'
+import { arrayIncludes, concat } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
 import { create, keys } from '../../utils/object'
 import { lowerCase, toString, trim } from '../../utils/string'
@@ -58,18 +58,17 @@ const generateProps = () => {
     alignV: {
       type: String,
       default: null,
-      validator: str => arrayIncludes(COMMON_ALIGNMENT.concat(['baseline', 'stretch']), str)
+      validator: str => arrayIncludes(concat(COMMON_ALIGNMENT, 'baseline', 'stretch'), str)
     },
     alignH: {
       type: String,
       default: null,
-      validator: str => arrayIncludes(COMMON_ALIGNMENT.concat(['between', 'around']), str)
+      validator: str => arrayIncludes(concat(COMMON_ALIGNMENT, 'between', 'around'), str)
     },
     alignContent: {
       type: String,
       default: null,
-      validator: str =>
-        arrayIncludes(COMMON_ALIGNMENT.concat(['between', 'around', 'stretch']), str)
+      validator: str => arrayIncludes(concat(COMMON_ALIGNMENT, 'between', 'around', 'stretch'), str)
     },
     ...rowColsProps
   }

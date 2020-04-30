@@ -2,6 +2,122 @@
 
 > All notable changes to this project will be documented in this file.
 
+<a name="2.13.0"></a>
+
+## [v2.13.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.12.0...v2.13.0)
+
+Released: 2020-04-27
+
+### Features v2.13.0
+
+- **b-calendar, b-form-datepicker:** relax `YYYY-MM-DD` string parsing (closes
+  [#5232](https://github.com/bootstrap-vue/bootstrap-vue/issues/5232))
+  ([#5242](https://github.com/bootstrap-vue/bootstrap-vue/issues/5242))
+  ([f362802](https://github.com/bootstrap-vue/bootstrap-vue/commit/f362802b2794f0e5d294bbb004d91ccd623a1e25))
+- **b-form-rating:** add `show-value-max` prop to show possible max rating when `show-value` is
+  `true` ([#5200](https://github.com/bootstrap-vue/bootstrap-vue/issues/5200))
+  ([e9d54e6](https://github.com/bootstrap-vue/bootstrap-vue/commit/e9d54e6c6a736b2a4f9dbf232dd2b20afa0e990c))
+- **b-overlay:** add support for overlay `click` event (closes
+  [#5243](https://github.com/bootstrap-vue/bootstrap-vue/issues/5243))
+  ([#5248](https://github.com/bootstrap-vue/bootstrap-vue/issues/5248))
+  ([582560f](https://github.com/bootstrap-vue/bootstrap-vue/commit/582560ff97690ab1e5c1f609d76804b7b3daa104))
+
+### Bug Fixes v2.13.0
+
+- **b-avatar:** set `align-items: center` for default slot content (fixes:
+  [#5205](https://github.com/bootstrap-vue/bootstrap-vue/issues/5205))
+  ([#5207](https://github.com/bootstrap-vue/bootstrap-vue/issues/5207))
+  ([c4981fd](https://github.com/bootstrap-vue/bootstrap-vue/commit/c4981fd098253840a37e731331de65b0e732fc79))
+- **b-calendar, b-form-datepicker:** minor adjustments to styling and example updates
+  ([#5211](https://github.com/bootstrap-vue/bootstrap-vue/issues/5211))
+  ([f0d8ffe](https://github.com/bootstrap-vue/bootstrap-vue/commit/f0d8ffe4253079939008108fe86529a2f69553f1))
+- **b-form-datepicker, b-form-timepicker:** fix menu padding in button only mode (fixes
+  [#5251](https://github.com/bootstrap-vue/bootstrap-vue/issues/5251))
+  ([#5252](https://github.com/bootstrap-vue/bootstrap-vue/issues/5252))
+  ([d57a643](https://github.com/bootstrap-vue/bootstrap-vue/commit/d57a643f0c6b5e805a42a3387fb0db4443bfc01f))
+- **b-form-datepicker, b-form-timepicker:** adjust scss to support input-groups
+  ([#5231](https://github.com/bootstrap-vue/bootstrap-vue/issues/5231))
+  ([7b1adc4](https://github.com/bootstrap-vue/bootstrap-vue/commit/7b1adc460f11c2ee54466fe0d204579f3f6f1bd2))
+- **b-form-datepicker, b-form-timepicker:** prevent duplicate validation icons (fixes
+  [#5237](https://github.com/bootstrap-vue/bootstrap-vue/issues/5237))
+  ([#5238](https://github.com/bootstrap-vue/bootstrap-vue/issues/5238))
+  ([6354e6e](https://github.com/bootstrap-vue/bootstrap-vue/commit/6354e6eb90b93e668c2794b3b4c2117a7cfc0ab0))
+- **types:** update table field definition types to include sticky column (fixes
+  [#5263](https://github.com/bootstrap-vue/bootstrap-vue/issues/5263))
+  ([#5265](https://github.com/bootstrap-vue/bootstrap-vue/issues/5265))
+  ([20eb3ac](https://github.com/bootstrap-vue/bootstrap-vue/commit/20eb3ac9e22ddbcc41d1f1aa923871007abe0dc0))
+- handle nested form options normalization
+  ([#5247](https://github.com/bootstrap-vue/bootstrap-vue/issues/5247))
+  ([0c57ffe](https://github.com/bootstrap-vue/bootstrap-vue/commit/0c57ffe31c946475498fa3554b8b4aba4e9d19df))
+
+### Other v2.13.0
+
+- dev dependencies updates
+- documentation updates
+- new docs domain [`https://bootstrap-vue.org/`](https://bootstrap-vue.org/)
+
+<a name="2.12.0"></a>
+
+## [v2.12.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.11.0...v2.12.0)
+
+Released: 2020-04-20
+
+### Features v2.12.0
+
+- **b-avatar:** add support for badges on avatars
+  ([#5124](https://github.com/bootstrap-vue/bootstrap-vue/issues/5124))
+  ([a2e465b](https://github.com/bootstrap-vue/bootstrap-vue/commit/a2e465b6457cabb88e42bcefd86a86e36c4602de))
+- **b-avatar:** if `variant` is empty string, then remove spacing around image (closes
+  [#5154](https://github.com/bootstrap-vue/bootstrap-vue/issues/5154))
+  ([#5156](https://github.com/bootstrap-vue/bootstrap-vue/issues/5156))
+  ([7ff87fc](https://github.com/bootstrap-vue/bootstrap-vue/commit/7ff87fc560a2ad005bdca394cccf1fafa9d5e696))
+- **b-calendar, b-form-datepicker:** add prop `weekday-header-format` to specify weekday header
+  length (closes [#5171](https://github.com/bootstrap-vue/bootstrap-vue/issues/5171))
+  ([#5175](https://github.com/bootstrap-vue/bootstrap-vue/issues/5175))
+  ([8241644](https://github.com/bootstrap-vue/bootstrap-vue/commit/8241644477b174042bb163ba1741c3066165d9f9))
+- **b-calendar, b-form-datepicker:** add scoped slots for date navigation buttons (closes
+  [#5117](https://github.com/bootstrap-vue/bootstrap-vue/issues/5117))
+  ([#5147](https://github.com/bootstrap-vue/bootstrap-vue/issues/5147))
+  ([5f69864](https://github.com/bootstrap-vue/bootstrap-vue/commit/5f69864497a13a9b18a96b508af6b9ba89a43add))
+- **b-form-datepicker:** add pass through prop `date-info-fn` (closes
+  [#4826](https://github.com/bootstrap-vue/bootstrap-vue/issues/4826))
+  ([#5150](https://github.com/bootstrap-vue/bootstrap-vue/issues/5150))
+  ([bf35f80](https://github.com/bootstrap-vue/bootstrap-vue/commit/bf35f80d1c4619cf4494dc8a6256d093140d4052))
+- **b-form-rating:** new `b-form-rating` custom component
+  ([#5132](https://github.com/bootstrap-vue/bootstrap-vue/issues/5132))
+  ([30ad7fe](https://github.com/bootstrap-vue/bootstrap-vue/commit/30ad7fe746cd6187311c86319abf6e9519b81f15))
+- **b-sidebar:** add optional backdrop support
+  ([#5182](https://github.com/bootstrap-vue/bootstrap-vue/issues/5182))
+  ([c6375e5](https://github.com/bootstrap-vue/bootstrap-vue/commit/c6375e5513cb0ec33a9bc9fc894a123d74cf7768))
+- **custom components:** avoid using padding/margin utility classes where possible (closes
+  [#5117](https://github.com/bootstrap-vue/bootstrap-vue/issues/5117))
+  ([#5121](https://github.com/bootstrap-vue/bootstrap-vue/issues/5121))
+  ([8c6cfe0](https://github.com/bootstrap-vue/bootstrap-vue/commit/8c6cfe0af919a4e54667bcb4b29d2ba6b6576b67))
+- **icons:** new `throb` and `fade` animations
+  ([#5122](https://github.com/bootstrap-vue/bootstrap-vue/issues/5122))
+  ([bc0117c](https://github.com/bootstrap-vue/bootstrap-vue/commit/bc0117cc794c948b202daf2e17f22eb4c36235cc))
+
+### Bug Fixes v2.12.0
+
+- **b-alert:** fix memory leak by using the correct method to clear the countdown timeout
+  ([#5158](https://github.com/bootstrap-vue/bootstrap-vue/issues/5158))
+  ([7a7f33d](https://github.com/bootstrap-vue/bootstrap-vue/commit/7a7f33d74f906e5feecf2bf177636c7f85bc4537))
+- **b-avatar:** fix button type font size inheritance
+  ([#5177](https://github.com/bootstrap-vue/bootstrap-vue/issues/5177))
+  ([441ebdc](https://github.com/bootstrap-vue/bootstrap-vue/commit/441ebdc8a262c6c6ed494ddc6a6c0c06604045ef))
+- **b-calendar:** use `Intl.NumberFormat` for formatting the number in the date buttons (closes
+  [#5171](https://github.com/bootstrap-vue/bootstrap-vue/issues/5171))
+  ([#5179](https://github.com/bootstrap-vue/bootstrap-vue/issues/5179))
+  ([cbf2cd0](https://github.com/bootstrap-vue/bootstrap-vue/commit/cbf2cd007cce81a5f664fa649b08af6735fe16e4))
+- **b-form-datepicker:** make datepicker respect `no-highlight-today` prop
+  ([#5159](https://github.com/bootstrap-vue/bootstrap-vue/issues/5159))
+  ([c4ead33](https://github.com/bootstrap-vue/bootstrap-vue/commit/c4ead3302b176e4a90fbfcfe6380de0edc22640f))
+
+### Other v2.12.0
+
+- documentation updates
+- dev dependency updates
+
 <a name="2.11.0"></a>
 
 ## [v2.11.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.10.1...v2.11.0)
@@ -901,8 +1017,8 @@ Read the following migration guide for more details.
   `$bv-popover-color-level` have been removed. Use variables `$b-popover-bg-level`,
   `$b-popover-border-level`, and `$b-popover-color-level` (respectively) instead.
 
-Please refer to the [documentation](https://bootstrap-vue.js.org/) for the latest usage and
-examples, and below for a list of fixes and new features.
+Please refer to the [documentation](https://bootstrap-vue.org/) for the latest usage and examples,
+and below for a list of fixes and new features.
 
 ### Bug Fixes v2.0.0
 

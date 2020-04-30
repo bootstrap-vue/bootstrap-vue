@@ -1,5 +1,6 @@
 import looseEqual from '../../../utils/loose-equal'
 import { isArray, isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
+import { mathMax } from '../../../utils/math'
 import { toInteger } from '../../../utils/number'
 import { clone } from '../../../utils/object'
 import normalizeFields from './normalize-fields'
@@ -86,8 +87,8 @@ export default {
         filter: this.localFilter,
         sortBy: this.localSortBy,
         sortDesc: this.localSortDesc,
-        perPage: Math.max(toInteger(this.perPage, 0), 0),
-        currentPage: Math.max(toInteger(this.currentPage, 0), 1),
+        perPage: mathMax(toInteger(this.perPage, 0), 0),
+        currentPage: mathMax(toInteger(this.currentPage, 0), 1),
         apiUrl: this.apiUrl
       }
     }

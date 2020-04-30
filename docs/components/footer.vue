@@ -3,13 +3,9 @@
     <b-container>
       <b-row class="justify-content-center">
         <b-col cols="12" sm order-sm="3" class="text-center text-sm-right">
-          <b-img
-            src="~static/logo.svg"
-            class="mb-4 mt-0 mt-sm-4"
-            alt="BootstrapVue logo"
-            width="100"
-            fluid
-          ></b-img>
+          <b-link to="/" class="d-inline-block mx-auto">
+            <BvLogo width="120" height="120" class="img-fluid mb-4 mb-sm-0"></BvLogo>
+          </b-link>
         </b-col>
 
         <b-col cols="auto" md="4" class="text-left">
@@ -21,9 +17,14 @@
             <li><b-link to="/docs/directives" exact>Directives</b-link></li>
             <li><b-link to="/docs/icons" exact>Icons</b-link></li>
             <li><b-link to="/docs/reference" exact>Reference</b-link></li>
-            <li><b-link to="/docs/misc" exact>Miscellaneous</b-link></li>
             <li><b-link to="/play" exact>Playground</b-link></li>
           </ul>
+          <!-- TODO: Uncomment when we have themes
+          <h5 class="bd-text-purple-bright mb-1 mt-3">Themes</h5>
+          <ul class="list-unstyled ml-3">
+            <li><b-link to="/themes" exact>Themes and dashboards</b-link></li>
+          </ul>
+          -->
         </b-col>
 
         <b-col cols="auto" class="text-left">
@@ -36,7 +37,7 @@
           </ul>
           <h5 class="bd-text-purple-bright mb-1 mt-3">Release notes</h5>
           <ul class="list-unstyled ml-3">
-            <li><b-link to="/docs/misc/changelog" exact>Changelog</b-link></li>
+            <li><b-link to="/docs/reference/changelog" exact>Changelog</b-link></li>
           </ul>
         </b-col>
       </b-row>
@@ -53,14 +54,32 @@
       <p>
         Currently v{{ version }}. Code licensed
         <a href="https://github.com/bootstrap-vue/bootstrap-vue/blob/master/LICENSE" target="_blank">MIT</a>.
-        Docs generated with <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a>
-        <template v-if="isNetlify"> and proudly hosted on <a href="https://www.netlify.com" target="_blank">Netlify</a></template>.
+        Docs generated with
+        <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a><template v-if="!isNetlify && !isVercel">.</template>
+        <template v-if="isNetlify">
+          and proudly hosted on <a href="https://www.netlify.com" target="_blank">Netlify</a>.
+        </template>
+        <template v-else-if="isVercel">
+          and proudly hosted on <a href="https://vercel.com/?utm_source=bootstrapvue" target="_blank">Vercel</a>.
+        </template>
       </p>
+
+      <template v-if="isVercel">
+        <p class="mt-3 text-center">
+          <a href="https://vercel.com/?utm_source=bootstrapvue" target="_blank" rel="noopener">
+            <img src="~assets/powered-by-vercel.svg" width="159" height="33">
+          </a>
+        </p>
+      </template>
     </b-container>
   </footer>
 </template>
 
 <style scoped>
+.bv-logo {
+  margin-top: -2rem;
+}
+
 .docs-border {
   border-top: 3px solid #dee2e6;
 }
@@ -74,9 +93,11 @@
 
 <script>
 import { version } from '~/content'
+import BvLogo from '~/components/bv-logo'
 
 export default {
   name: 'BVFooter',
+  components: { BvLogo },
   props: {
     isDocs: {
       type: Boolean,
@@ -89,6 +110,9 @@ export default {
   computed: {
     isNetlify() {
       return Boolean(process.env.NETLIFY)
+    },
+    isVercel() {
+      return Boolean(process.env.VERCEL_NOW)
     }
   }
 }

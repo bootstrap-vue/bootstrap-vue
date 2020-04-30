@@ -84,7 +84,7 @@ describe('form-date', () => {
     await waitRAF()
 
     expect(wrapper.classes()).toContain('b-form-datepicker')
-    expect(wrapper.classes()).not.toContain('b-form-btn-label-control')
+    expect(wrapper.classes()).toContain('b-form-btn-label-control')
     expect(wrapper.classes()).not.toContain('form-control')
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).not.toContain('show')
