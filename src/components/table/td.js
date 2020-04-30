@@ -104,8 +104,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     headVariant() {
       return this.bvTableTr.headVariant
     },
-    /* istanbul ignore next: need to add in tests for footer variant */
-    footVariant() /* istanbul ignore next: need to add in tests for footer variant */ {
+    footVariant() {
       return this.bvTableTr.footVariant
     },
     tableVariant() {
@@ -120,12 +119,12 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     cellClasses() {
       // We use computed props here for improved performance by caching
       // the results of the string interpolation
-      // TODO: need to add handling for footVariant
       let variant = this.variant
       if (
         (!variant && this.isStickyHeader && !this.headVariant) ||
-        (!variant && this.isStickyColumn && !this.isThead) ||
-        (!variant && this.isStickyColumn && this.isThead && !this.headVariant)
+        (!variant && this.isStickyColumn && this.isTbody) ||
+        (!variant && this.isStickyColumn && this.isThead && !this.headVariant) ||
+        (!variant && this.isStickyColumn && this.isTfoot && !this.footVariant)
       ) {
         // Needed for sticky-header mode as Bootstrap v4 table cells do
         // not inherit parent's background-color. Boo!
