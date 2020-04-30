@@ -464,8 +464,8 @@ Group multiple avatars together by wrapping them in a `<b-avatar-group>` compone
 
 ### Group size
 
-To size the avatars, use the prop `size` on `<b-avatar-group>`. The size prop accepts the same type
-of values as the `size` prop on `<b-avatar>`. Note that the `size` prop will be ignored on
+To size the avatars, use the prop `size` on `<b-avatar-group>`. The `size` prop accepts the same
+type of values as the `size` prop on `<b-avatar>`. Note that the `size` prop will be ignored on
 individual avatars when they are placed inside a `<b-avatar-group>`.
 
 ```html
