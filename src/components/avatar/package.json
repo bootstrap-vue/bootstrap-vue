@@ -134,7 +134,7 @@
           },
           {
             "prop": "square",
-            "description": "Disables rounding of the child avatars, rending earch avatar with square corners"
+            "description": "Disables rounding of the child avatars, rendering each avatar with square corners"
           },
           {
             "prop": "rounded",

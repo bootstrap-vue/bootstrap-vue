@@ -505,9 +505,9 @@ prop, when set, will override the the `variant` specified on individual avatars.
 <!-- b-avatar-group-variant.vue -->
 ```
 
-### Group rouding
+### Group rounding
 
-Similar to the `ariant` prop, the `<b-avatar-group>` props `square` and `rounded` take precedence
+Similar to the `variant` prop, the `<b-avatar-group>` props `square` and `rounded` take precedence
 over the respective props on individual child avatars.
 
 ```html
