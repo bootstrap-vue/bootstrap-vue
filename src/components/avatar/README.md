@@ -463,7 +463,7 @@ Group multiple avatars together by wrapping them in a `<b-avatar-group>` compone
 - The `variant`, `square` and `rounded` props on `<b-avatar-group>` will take precedence over the
   respective props on individual avatars.
 
-### Avatar group size
+### Group size
 
 To size the avatars, use the prop `size` on `<b-avatar-group>`. The size prop accepts the same type
 of values as the `size` prop on `<b-avatar>`. Note that the `size` prop will be ignored on
@@ -485,7 +485,7 @@ individual avatars when they are placed inside a `<b-avatar-group>`.
 <!-- b-avatar-group-size.vue -->
 ```
 
-### Avatar group variant
+### Group variant
 
 Use the `variant` prop to color all child avatars in the `<b-avatar-group>`. Note that the `variant`
 prop, when set, will override the the `variant` specified on individual avatars.
@@ -506,7 +506,7 @@ prop, when set, will override the the `variant` specified on individual avatars.
 <!-- b-avatar-group-variant.vue -->
 ```
 
-### Avatar group rouding
+### Group rouding
 
 Similar to the `ariant` prop, the `<b-avatar-group>` props `square` and `rounded` take precedence
 over the respective props on individual child avatars.
@@ -527,7 +527,7 @@ over the respective props on individual child avatars.
 <!-- b-avatar-group-rounded.vue -->
 ```
 
-### Avatar group overlap
+### Group overlap
 
 By default child avatars inside a `<b-avatar-group>` will overlap by a factor of `0.3` (relative
 to the size of the avatar). You can control the overlap amount by setting the `overlap` prop to
