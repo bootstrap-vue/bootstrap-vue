@@ -378,7 +378,7 @@
             href="https://vercel.com/?utm_source=bootstrapvue"
             target="_blank"
             rel="noopener follow"
-            class="bvd-partner d-inline-block"
+            class="bvd-partner d-inline-block p-1"
           >
             <b-img-lazy src="~/assets/vercel.svg" alt="Vercel logo"></b-img-lazy>
           </a>
