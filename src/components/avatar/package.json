@@ -130,7 +130,7 @@
           },
           {
             "prop": "overlap",
-            "description": "Floating point number specifying the amount of overlap where 0 is no overlap and 1 is 100% overlap"
+            "description": "Floating point number specifying the amount of overlap where `0` is no overlap and `1` is 100% overlap"
           },
           {
             "prop": "square",
