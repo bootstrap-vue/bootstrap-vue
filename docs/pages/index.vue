@@ -370,7 +370,7 @@
         <BVContributors></BVContributors>
 
         <div class="text-center" aria-labeledby="parners-heading">
-           <h3 id="partners-heading" class="h4 mx-auto mt-4">Partners<h3>
+           <h3 id="partners-heading" class="h4 mx-auto mt-4">Partners</h3>
            <p class="text-muted">BootstrapVue would like to thank our partners</p>
            <a href="https://vercel.com/?utm_souce=bootstrapvue" target="_blank" rel="noopener">
             <svg height="20" viewBox="0 0 283 64" fill="#000">
