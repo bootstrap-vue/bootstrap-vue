@@ -370,7 +370,7 @@
         <BVContributors></BVContributors>
 
         <div class="text-center mb-n4" aria-labeledby="parners-heading">
-          <h3 id="partners-heading" class="h4 mx-auto mt-4">Partners</h3>
+          <h3 id="partners-heading" class="mx-auto mt-4">Partners</h3>
           <p class="text-muted mb-4">BootstrapVue would like to thank our partners</p>
           <a
             href="https://vercel.com/?utm_source=bootstrapvue"
@@ -378,7 +378,7 @@
             rel="noopener follow"
             class="bvd-partner d-inline-block"
           >
-            <b-img-lazy src="~/assets/vercel.svg" alt="Vercel logo" style="width: 2.5rem;"></b-img-lazy>
+            <b-img-lazy src="~/assets/vercel.svg" alt="Vercel logo"></b-img-lazy>
           </a>
         </div>
       </b-container>
@@ -432,8 +432,12 @@
 }
 
 .bvd-partner {
-  opacity: 0.75;
+  opacity: 0.6;
   transition: opacity 0.15s ease-in-out;
+
+  img {
+    height: 2.5rem;
+  }
 
   &:hover,
   &:focus {
