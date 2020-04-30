@@ -472,7 +472,7 @@ individual avatars when they are placed inside a `<b-avatar-group>`.
 ```html
 <template>
   <div>
-    <b-avatar-group size="3rem">
+    <b-avatar-group size="5rem">
       <b-avatar></b-avatar>
       <b-avatar></b-avatar>
       <b-avatar></b-avatar>
