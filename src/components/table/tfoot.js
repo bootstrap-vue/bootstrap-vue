@@ -60,8 +60,7 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
       // background color inheritance with Bootstrap v4 table CSS
       return !this.isStacked && this.bvTable.stickyHeader
     },
-    /* istanbul ignore next: Not currently sniffed in tests */
-    tableVariant() /* istanbul ignore next: Not currently sniffed in tests */ {
+    tableVariant() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.tableVariant
     },
