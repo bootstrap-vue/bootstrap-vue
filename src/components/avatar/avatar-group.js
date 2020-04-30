@@ -4,8 +4,10 @@ import { mathMax, mathMin } from '../../utils/math'
 import { toFloat } from '../../utils/number'
 import { computeSize } from './avatar'
 
+// --- Constants ---
 const NAME = 'BAvatarGroup'
 
+// --- Main component ---
 // @vue/component
 export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
   name: NAME,
