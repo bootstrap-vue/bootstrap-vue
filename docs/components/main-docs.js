@@ -14,7 +14,16 @@ export default {
       type: String,
       default: 'main'
     },
+    titleLead: {
+      type: String,
+      default: ''
+    },
+    body: {
+      type: String,
+      default: ''
+    },
     readme: {
+      // TODO: remove once dos-loader is fully implemented
       type: String,
       default: ''
     },
@@ -25,7 +34,11 @@ export default {
   },
   render(h, { props, data, children }) {
     const { tag, readme, meta } = props
-    const { titleLead, body } = parseReadme(readme || '')
+    let titleLead = props.titleLead
+    let body = props.body
+    if (!titleLead && !body) {
+      { titleLead, body } = parseReadme(readme || '')
+    }
     const { version } = meta || {}
 
     // Lead section
