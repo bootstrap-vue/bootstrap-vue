@@ -6,6 +6,10 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { components as componentsMeta } from '~/content'
 
+// TODO:
+//   Add error detection when chunk not available
+//   due to docs updates. Perhaps show a message to
+//   reload docs, or perhaps auto re-load
 const getReadMe = name =>
   import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
 
@@ -18,9 +22,12 @@ export default {
     return Boolean(componentsMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readme = (await getReadMe(params.slug)).default
+    const readmeData = (await getReadMe(params.slug)).default
+    const titleLead = readmeData.titleLead || ''
+    const body = readmeData.body || ''
+    const baseTOC = readmeData.baseTOC || {}
     const meta = componentsMeta[params.slug]
-    return { meta, readme }
+    return { meta, readme: String(readmeData), titleLead, body, baseTOC }
   },
   render(h) {
     // Reference section
@@ -44,8 +51,11 @@ export default {
         key: this.$route.path,
         staticClass: 'bd-components',
         props: {
+          meta: this.meta,
+          titleLead: this.titleLead,
+          body: this.body,
+          // TODO: remove this once new docs-loader implemented
           readme: this.readme || '',
-          meta: this.meta
         }
       },
       [$referenceSection]
