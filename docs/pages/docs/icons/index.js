@@ -9,9 +9,16 @@ import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { icons as iconsMeta, bootstrapIconsVersion } from '~/content'
-import readme from '~/../src/icons/README.md'
+import readmeData from '~/../src/icons/README.md'
 
-const { titleLead, body } = parseReadme(readme)
+let titleLead = readmeData.titleLead || ''
+let body = readmeData.body || ''
+let baseTOC = readmeData.baseTOC || {}
+const readme = String(readmeData)
+
+if (!titleLead && !body) {
+  ;({ titleLead, body } = parseReadme(readme))
+}
 
 // @vue/component
 export default {
@@ -30,9 +37,11 @@ export default {
   mixins: [docsMixin],
   data() {
     return {
-      readme,
       titleLead,
       body,
+      baseTOC,
+      // TODO: remove once docs-loader is implemented
+      readme,
       // Key for icons meta is '' (empty slug)
       meta: iconsMeta[''],
       bootstrapIconsVersion
