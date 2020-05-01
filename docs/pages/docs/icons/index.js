@@ -13,7 +13,7 @@ import readmeData from '~/../src/icons/README.md'
 
 let titleLead = readmeData.titleLead || ''
 let body = readmeData.body || ''
-let baseTOC = readmeData.baseTOC || {}
+const baseTOC = readmeData.baseTOC || {}
 const readme = String(readmeData)
 
 if (!titleLead && !body) {
