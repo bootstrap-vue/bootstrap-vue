@@ -16,7 +16,7 @@ const stripQuotes = (str = '') => str.replace(RX_QUOTES, '')
 // Splits an HTML README into two parts: Title+Lead and Body
 // So that we can place ads after the lead section
 const RX_TITLE_LEAD_BODY = /^\s*(<h1 .+?<\/h1>)\s*(<p class="?bd-lead[\s\S]+?<\/p>)?([\s\S]*)$/i
-const parseReadme = readme  => {
+const parseReadme = readme => {
   const parts = (readme || '').match(RX_TITLE_LEAD_BODY)
   const title = parts[1] || ''
   const lead = parts[2] || ''
