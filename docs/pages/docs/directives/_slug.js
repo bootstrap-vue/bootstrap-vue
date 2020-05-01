@@ -17,9 +17,12 @@ export default {
     return Boolean(directivesMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readme = (await getReadMe(params.slug)).default
+    const readmeData = (await getReadMe(params.slug)).default
+    const titleLead = readmeData.titleLead || ''
+    const body = readmeData.body || ''
+    const baseTOC = readmeData.baseTOC || {}
     const meta = directivesMeta[params.slug]
-    return { meta, readme }
+    return { meta, readme: String(readmeData), titleLead, body, baseTOC }
   },
   render(h) {
     const $referenceSection = h(Section, { class: ['bd-component-reference'] }, [
@@ -34,8 +37,11 @@ export default {
       {
         staticClass: 'bd-components',
         props: {
-          readme: this.readme,
-          meta: this.meta
+          meta: this.meta,
+          titleLead: this.titleLead,
+          body: this.body,
+          // TODO: remove this once new docs-loader implemented
+          readme: this.readme
         }
       },
       [$referenceSection]
