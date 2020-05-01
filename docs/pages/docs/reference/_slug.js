@@ -18,20 +18,31 @@ export default {
     return Boolean(referenceMeta[params.slug])
   },
   async asyncData({ params }) {
-    let readme = (await getReadMe(params.slug)).default
+    const readmeData = (await getReadMe(params.slug)).default
+    const titleLead = readmeData.titleLead || ''
+    let body = readmeData.body || ''
+    const baseTOC = readmeData.baseTOC || {}
     const meta = referenceMeta[params.slug]
+    body = body.replace(
+      '{{ defaultConfig }}',
+      hljs.highlight('json', JSON.stringify(defaultConfig || {}, replacer, 2)).value
+    )
+    let readme = String(readmeData)
     readme = readme.replace(
       '{{ defaultConfig }}',
       hljs.highlight('json', JSON.stringify(defaultConfig || {}, replacer, 2)).value
     )
-    return { meta, readme }
+    return { meta, readme, titleLead, body, baseTOC }
   },
   render(h) {
     return h(MainDocs, {
       staticClass: 'bd-components',
       props: {
+        meta: this.meta,
+        titleLead: this.titleLead,
+        body: this.body,
+        // TODO: remove once docs-loader is implemented
         readme: this.readme,
-        meta: this.meta
       }
     })
   }
