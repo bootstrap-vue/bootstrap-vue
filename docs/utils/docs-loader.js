@@ -91,13 +91,11 @@ module.exports = function(html) {
   // Build the base TOC for the page
   const baseTOC = makeBaseTOC(html)
   // Return a object with the parsed bits
-  return {
-    baseTOC,
-    titleLead,
-    body,
-    toString() {
-      // Fallback method to render raw readme
-      return [this.titleLead || '', this.body || ''].join(' ').trim()
-    }
-  }
+  return `module.exports = {
+  baseToc: ${JSON.stringify(baseTOC)},
+  titleLead: ${JSON.stringify(titleLead)},
+  body: ${JSON.stringify(body)},
+  toString() {
+    return [this.titleLead || '', this.body || ''].join(' ').trim()
+  }\n}`
 }
