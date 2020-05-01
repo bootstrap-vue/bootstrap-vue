@@ -14,9 +14,14 @@ import {
   vueVersion
 } from '~/content'
 import meta from '~/markdown/intro/meta.json'
-import readme from '~/markdown/intro/README.md'
+import readmeData from '~/markdown/intro/README.md'
 
-const { titleLead, body } = parseReadme(readme)
+let titleLead = readmeData.titleLead || ''
+let body = readmeData.body || ''
+let baseTOC = readmeData.baseTOC || {}
+if (!titelLead && !body) {
+  ;({ titleLead, body } = parseReadme(String(readmedata)))
+}
 
 // RegExp to grab the minor version from a full version
 const minorRE = /^(\d+\.\d+)(\..+)$/
@@ -51,7 +56,7 @@ export default {
       portalVueVersionMajor: portalVueVersion.replace(majorRE, '$1'),
       titleLead,
       body,
-      readme,
+      baseTOC,
       version,
       vueVersion,
       vueVersionMinor: vueVersion.replace(minorRE, '$1'),
