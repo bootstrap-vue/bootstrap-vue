@@ -201,7 +201,7 @@ module.exports = {
         use: [
           // Loaders are handled last to first
           { loader: 'docs-loader' },
-          { loader: 'html-loader' },
+          // { loader: 'html-loader' },
           {
             loader: 'marked-loader',
             options: {
