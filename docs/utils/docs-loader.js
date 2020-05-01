@@ -101,7 +101,7 @@ module.exports = function(markdown) {
     body,
     toString() {
       // Fallback method to render raw readme
-      return [this.titleLead || '', this.body || ''].join(' ')
+      return [this.titleLead || '', this.body || ''].join(' ').trim()
     }
   }
 }
