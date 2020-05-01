@@ -1,7 +1,7 @@
 /*
  * docs-mixin: used by any page under /docs path
  */
-import { makeTOC, scrollTo, offsetTop } from '~/utils'
+import { updateMetaTOC, scrollTo, offsetTop } from '~/utils'
 import { bvDescription, nav } from '~/content'
 
 const TOC_CACHE = {}
@@ -71,7 +71,7 @@ export default {
       setTimeout(() => {
         const key = `${this.$route.name}_${this.$route.params.slug || ''}`
         const toc =
-          TOC_CACHE[key] || (TOC_CACHE[key] = makeTOC(this.readme || '', this.meta || null))
+          TOC_CACHE[key] || (TOC_CACHE[key] = updateMetaTOC(this.baseTOC || {}, this.meta || null))
         this.$root.$emit('docs-set-toc', toc)
       }, 50)
     })
