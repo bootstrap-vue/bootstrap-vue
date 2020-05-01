@@ -1,9 +1,7 @@
-// Custom markdown loader that parses a README.md file into
+// Custom post `html-loader` loader that parses HTML into:
 // - titleLead (title + lead paragrpah)
 // - body (everything after the lead paragraph
 // - baseTOC (base Table of Contents object parsed from the README)
-const marked = require('marked')
-const { getOptions } = require('loader-utils')
 
 // --- Utility methods and constants ---
 
@@ -79,15 +77,10 @@ const makeBaseTOC = readme => {
 
 // --- docs-loader export ---
 const RX_NO_TRANSLATE = /<(kbd|code|samp)>/gi
-module.exports = function(markdown) {
-  // merge params and default config
-  const options = getOptions(this)
+module.exports = function(html) {
+  html = html || ''
   // Make results cacheable
   this.cacheable()
-  // Pass our options
-  marked.setOptions(options)
-  // Return the converted file as HTML
-  const html = marked(markdown) || ''
   // Mark certain elements as translate="no"
   html.replace(RX_NO_TRANSLATE, '<$1 class="notranslate" translate="no">')
   // Parse teh README into its sections
