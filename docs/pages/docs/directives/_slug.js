@@ -5,6 +5,10 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { directives as directivesMeta } from '~/content'
 
+// TODO:
+//   Add error detection when chunk not available
+//   due to docs updates. Perhaps show a message to
+//   reload docs, or perhaps auto re-load
 const getReadMe = name =>
   import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
 
