@@ -189,6 +189,7 @@ module.exports = {
 
       config.resolveLoader.alias = config.resolveLoader.alias || {}
       config.resolveLoader.alias['marked-loader'] = path.join(__dirname, './utils/marked-loader')
+      config.resolveLoader.alias['docs-loader'] = path.join(__dirname, './utils/docs-loader')
 
       // Source maps make the bundles monstrous, do leave it off in prod mode
       if (isDev) {
@@ -198,6 +199,8 @@ module.exports = {
       config.module.rules.push({
         test: /\.md$/,
         use: [
+          // Loaders are handled last to first
+          { loader: 'docs-loader' },
           { loader: 'html-loader' },
           {
             loader: 'marked-loader',
