@@ -16,8 +16,11 @@ const stripQuotes = (str = '') => str.replace(RX_QUOTES, '')
 // Splits an HTML README into two parts: Title+Lead and Body
 // So that we can place ads after the lead section
 const RX_TITLE_LEAD_BODY = /^\s*(<h1 .+?<\/h1>)\s*(<p class="?bd-lead[\s\S]+?<\/p>)?([\s\S]*)$/i
-const parseReadme = (readme = '') => {
-  const [, title = '', lead = '', body = ''] = readme.match(RX_TITLE_LEAD_BODY)
+const parseReadme = readme  => {
+  const parts = (readme || '').match(RX_TITLE_LEAD_BODY)
+  const title = parts[1] || ''
+  const lead = parts[2] || ''
+  const body = parts[3] || ''
   const hasTitleLead = title || lead
   return {
     titleLead: hasTitleLead ? `${title} ${lead}` : '',
@@ -41,7 +44,7 @@ const makeBaseTOC = readme => {
 
   // Get the first <h1> tag with ID
   const h1 = readme.match(RX_HEADING_H1) || []
-  if (h1.length) {
+  if (h1) {
     top = `#${stripQuotes(h1[1])}`
     title = stripHTML(h1[2])
   }
@@ -83,7 +86,7 @@ module.exports = function(html) {
   this.cacheable()
   // Mark certain elements as translate="no"
   html.replace(RX_NO_TRANSLATE, '<$1 class="notranslate" translate="no">')
-  // Parse teh README into its sections
+  // Parse the README into its sections
   const { titleLead, body } = parseReadme(html)
   // Build the base TOC for the page
   const baseTOC = makeBaseTOC(html)
