@@ -55,7 +55,7 @@ export default {
           titleLead: this.titleLead,
           body: this.body,
           // TODO: remove this once new docs-loader implemented
-          readme: this.readme || '',
+          readme: this.readme || ''
         }
       },
       [$referenceSection]
