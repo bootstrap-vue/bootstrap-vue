@@ -18,9 +18,9 @@ import readmeData from '~/markdown/intro/README.md'
 
 let titleLead = readmeData.titleLead || ''
 let body = readmeData.body || ''
-let baseTOC = readmeData.baseTOC || {}
-if (!titelLead && !body) {
-  ;({ titleLead, body } = parseReadme(String(readmedata)))
+const baseTOC = readmeData.baseTOC || {}
+if (!titleLead && !body) {
+  ;({ titleLead, body } = parseReadme(String(readmeData)))
 }
 
 // RegExp to grab the minor version from a full version
