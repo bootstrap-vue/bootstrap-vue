@@ -92,6 +92,76 @@ export const parseReadme = (readme = '') => {
   }
 }
 
+// Update the tocData with any additional info from the meta data
+export const updateMetaTOC = (tocData = {}, meta = null) => {
+  if (!meta) {
+    return tocData
+  }
+  // tocData in the format of { title, top, toc }
+  const isDirective = !!meta.directive
+  const hasComponents = meta.components && meta.components.length > 0
+  const hasDirectives = meta.directives && meta.directives.length > 0
+
+  tocData.toc = (tocData.toc || []).slice()
+
+  if (!isDirective && (hasComponents || hasDirectives)) {
+    const componentToc = []
+    if (hasComponents) {
+      componentToc.push(
+        // Add component sub-headings
+        ...meta.components.map(({ component }) => {
+          const tag = kebabCase(component).replace('{', '-{')
+          const hash = `#comp-ref-${tag}`.replace('{', '').replace('}', '')
+          return { label: `&lt;${tag}&gt;`, href: hash }
+        }),
+        // Add component import sub-heading
+        {
+          label: 'Importing individual components',
+          href: '#importing-individual-components'
+        }
+      )
+    }
+    // Add directive import sub-heading
+    if (hasDirectives) {
+      componentToc.push({
+        label: 'Importing individual directives',
+        href: '#importing-individual-directives'
+      })
+    }
+    // Add plugin import sub-heading
+    componentToc.push({
+      label: 'Importing as a Vue.js plugin',
+      href: '#importing-as-a-plugin'
+    })
+    // Add component reference heading
+    tocData.toc.push({
+      label: 'Component reference',
+      href: '#component-reference',
+      toc: componentToc
+    })
+  } else if (isDirective) {
+    // Add directive reference heading
+    tocData.toc.push({
+      label: 'Directive reference',
+      href: '#directive-reference',
+      toc: [
+        // Directive import sub-heading
+        {
+          label: 'Importing individual directives',
+          href: '#importing-individual-directives'
+        },
+        // Plugin import sub-heading
+        {
+          label: 'Importing as a Vue.js plugin',
+          href: '#importing-as-a-plugin'
+        }
+      ]
+    })
+  }
+
+  return tocData
+}
+
 // Process an HTML README and create a page TOC array
 // IDs are the only attribute on auto generated heading tags,
 // so we take advantage of that when using our RegExpr matches
