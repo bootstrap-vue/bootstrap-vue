@@ -42,7 +42,7 @@ export default {
         titleLead: this.titleLead,
         body: this.body,
         // TODO: remove once docs-loader is implemented
-        readme: this.readme,
+        readme: this.readme
       }
     })
   }
