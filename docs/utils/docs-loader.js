@@ -31,7 +31,7 @@ const parseReadme = (readme = '') => {
 const RX_HEADING_H1 = /<h1 id=([^> ]+)[^>]*>(.+?)<\/h1>/
 const RX_ALL_HEADING_H2H3 = /<h([23]) id=[^> ]+[^>]*>.+?<\/h\1>/g
 const RX_HEADING_H2H3 = /^<(h[23]) id=([^> ]+)[^>]*>(.+?)<\/\1>$/
-const makeBaseTOC = (readme) => {
+const makeBaseTOC = readme => {
   if (!readme) {
     return {}
   }
