@@ -37,7 +37,7 @@ export default {
     let titleLead = props.titleLead
     let body = props.body
     if (!titleLead && !body) {
-      ;{ titleLead, body } = parseReadme(readme || '')
+      ;({ titleLead, body } = parseReadme(readme || ''))
     }
     const { version } = meta || {}
 
