@@ -33,7 +33,7 @@ const IS_PROD_DOCS =
 // Get routes by a given dir
 const getRoutesByDir = (root, dir, excludes = []) =>
   fs
-    .readdirSync(`${root}/${dir}`)
+    .readdirSync(`${[root, dir].filter(Boolean).join('/'}`)
     .filter(c => excludes.indexOf(c) === -1)
     .filter(c => !/\.(s?css|js|ts)$/.test(c))
     .map(page => `/docs/${dir}/${page}`)
