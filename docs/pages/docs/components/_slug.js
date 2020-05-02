@@ -27,7 +27,7 @@ export default {
     const body = readmeData.body || ''
     const baseTOC = readmeData.baseTOC || {}
     const meta = componentsMeta[params.slug]
-    return { meta, readme: String(readmeData), titleLead, body, baseTOC }
+    return { meta, titleLead, body, baseTOC }
   },
   render(h) {
     // Reference section
