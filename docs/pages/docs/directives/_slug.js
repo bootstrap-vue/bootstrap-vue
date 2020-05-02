@@ -5,12 +5,19 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { directives as directivesMeta } from '~/content'
 
-// TODO:
-//   Add error detection when chunk not available
-//   due to docs updates. Perhaps show a message to
-//   reload docs, or perhaps auto re-load
-const getReadMeData = name =>
-  import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
+const getReadMeData = name => {
+  try {
+    return import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
+  } catch {
+    // If the dynamic import fails to load, trap the error
+    return {
+      loadError: true,
+      titleLead: '<h1>Documentation has updated!</h1><p class="lead">Please reload the page</p>',
+      body: '',
+      baseTOC: null
+    }
+  }
+}
 
 // @vue/component
 export default {
