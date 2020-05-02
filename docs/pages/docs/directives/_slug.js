@@ -10,12 +10,7 @@ const getReadMeData = name => {
     return import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
   } catch {
     // If the dynamic import fails to load, trap the error
-    return {
-      loadError: true,
-      titleLead: '<h1>Documentation has updated!</h1><p class="lead">Please reload the page</p>',
-      body: '',
-      baseTOC: null
-    }
+    return { loadError: true }
   }
 }
 
