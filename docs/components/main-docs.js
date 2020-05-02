@@ -24,6 +24,10 @@ export default {
     meta: {
       type: Object,
       default: null
+    },
+    loadError: {
+      type: Boolean,
+      default: false
     }
   },
   render(h, { props, data, children }) {
@@ -47,6 +51,11 @@ export default {
       ])
     }
 
+    // Error handler
+    const $error = props.loadError
+      ? h('b-button', { on: { click: () => { window.location.reload(true) } } }, 'Reload Page')
+      : h()
+
     // Carbon Ad
     const $carbonAd = h(CarbonAd)
 
@@ -61,6 +70,7 @@ export default {
 
     return h(Main, mergeData(data, { props: { tag } }), [
       $leadSection,
+      $error,
       $availableSinceSection,
       $carbonAd,
       $quickLinks,
