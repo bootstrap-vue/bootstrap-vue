@@ -10,7 +10,7 @@ import { components as componentsMeta } from '~/content'
 //   Add error detection when chunk not available
 //   due to docs updates. Perhaps show a message to
 //   reload docs, or perhaps auto re-load
-const getReadMe = name =>
+const getReadMeData = name =>
   import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
 
 // @vue/component
@@ -22,7 +22,7 @@ export default {
     return Boolean(componentsMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMe(params.slug)).default
+    const readmeData = (await getReadMeData(params.slug)).default
     const titleLead = readmeData.titleLead || ''
     const body = readmeData.body || ''
     const baseTOC = readmeData.baseTOC || {}
@@ -53,9 +53,7 @@ export default {
         props: {
           meta: this.meta,
           titleLead: this.titleLead,
-          body: this.body,
-          // TODO: remove this once new docs-loader implemented
-          readme: this.readme || ''
+          body: this.body
         }
       },
       [$referenceSection]
