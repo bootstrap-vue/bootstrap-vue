@@ -9,7 +9,7 @@ import { directives as directivesMeta } from '~/content'
 //   Add error detection when chunk not available
 //   due to docs updates. Perhaps show a message to
 //   reload docs, or perhaps auto re-load
-const getReadMe = name =>
+const getReadMeData = name =>
   import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
 
 // @vue/component
@@ -21,12 +21,12 @@ export default {
     return Boolean(directivesMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMe(params.slug)).default
+    const readmeData = (await getReadMeData(params.slug)).default
     const titleLead = readmeData.titleLead || ''
     const body = readmeData.body || ''
     const baseTOC = readmeData.baseTOC || {}
     const meta = directivesMeta[params.slug]
-    return { meta, readme: String(readmeData), titleLead, body, baseTOC }
+    return { meta, titleLead, body, baseTOC }
   },
   render(h) {
     const $referenceSection = h(Section, { class: ['bd-component-reference'] }, [
@@ -43,9 +43,7 @@ export default {
         props: {
           meta: this.meta,
           titleLead: this.titleLead,
-          body: this.body,
-          // TODO: remove this once new docs-loader implemented
-          readme: this.readme
+          body: this.body
         }
       },
       [$referenceSection]
