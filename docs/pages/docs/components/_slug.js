@@ -10,8 +10,21 @@ import { components as componentsMeta } from '~/content'
 //   Add error detection when chunk not available
 //   due to docs updates. Perhaps show a message to
 //   reload docs, or perhaps auto re-load
-const getReadMeData = name =>
-  import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
+const getReadMeData = name => {
+  try {
+    return import(
+      `~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */
+    )
+  } catch {
+    // If the dynamic import fails to load, trap the error
+    return {
+      loadError: true,
+      titleLead: '<h1>Documentation has updated!</h1><p class="lead">Please reload the page</p>',
+      body: '',
+      baseTOC: null
+    }
+  }
+}
 
 // @vue/component
 export default {
@@ -26,8 +39,9 @@ export default {
     const titleLead = readmeData.titleLead || ''
     const body = readmeData.body || ''
     const baseTOC = readmeData.baseTOC || {}
+    const loadError = readmeData.loadError || false
     const meta = componentsMeta[params.slug]
-    return { meta, titleLead, body, baseTOC }
+    return { meta, titleLead, body, baseTOC, loadError }
   },
   render(h) {
     // Reference section
@@ -53,7 +67,8 @@ export default {
         props: {
           meta: this.meta,
           titleLead: this.titleLead,
-          body: this.body
+          body: this.body,
+          loadError: this.loadError
         }
       },
       [$referenceSection]
