@@ -6,10 +6,6 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { components as componentsMeta } from '~/content'
 
-// TODO:
-//   Add error detection when chunk not available
-//   due to docs updates. Perhaps show a message to
-//   reload docs, or perhaps auto re-load
 const getReadMeData = name => {
   try {
     return import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
