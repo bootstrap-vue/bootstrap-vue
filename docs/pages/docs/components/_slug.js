@@ -9,10 +9,7 @@ import { components as componentsMeta } from '~/content'
 const getReadMeData = name => {
   try {
     return import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
-  } catch {
-    // If the dynamic import fails to load, trap the error
-    return { loadError: true }
-  }
+  } catch {}
 }
 
 // @vue/component
@@ -24,8 +21,8 @@ export default {
     return Boolean(componentsMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMeData(params.slug)).default
-    const loadError = readmeData.loaderror || false
+    const readmeData = (await getReadMeData(params.slug)).default || { loadError: true }
+    const loadError = readmeData.loadError || false
     const titleLead = readmeData.titleLead || ''
     const body = readmeData.body || ''
     const baseTOC = readmeData.baseTOC || {}
