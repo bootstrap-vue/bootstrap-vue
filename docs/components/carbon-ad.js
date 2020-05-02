@@ -30,7 +30,11 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(() => (this.mounted = true))
+    this.$nextTick(() => {
+      requestAnimationFrame(() => {
+        this.mounted = true
+      })
+    })
   },
   render(h) {
     let $script = h()
