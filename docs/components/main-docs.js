@@ -2,6 +2,7 @@ import CarbonAd from '~/components/carbon-ad'
 import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
+import BVDReload from '~/components/reload'
 import { mergeData } from 'vue-functional-data-merge'
 
 // @vue/component
@@ -52,9 +53,7 @@ export default {
     }
 
     // Error handler
-    const $error = props.loadError
-      ? h('b-button', { on: { click: () => { window.location.reload(true) } } }, 'Reload Page')
-      : h()
+    const $error = props.loadError ? h(BVDReload) : h()
 
     // Carbon Ad
     const $carbonAd = h(CarbonAd)
