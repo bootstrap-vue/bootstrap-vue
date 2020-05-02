@@ -23,7 +23,7 @@ export default {
     return Boolean(directivesMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMeData(params.slug)).default || { loadError: true }
+    const readmeData = (await getReadMeData(params.slug)).default
     const loadError = readmeData.loadError || false
     const titleLead = readmeData.titleLead || ''
     const body = readmeData.body || ''
