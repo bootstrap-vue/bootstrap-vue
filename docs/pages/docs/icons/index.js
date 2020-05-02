@@ -1,4 +1,3 @@
-import { parseReadme } from '~/utils'
 import AnchoredHeading from '~/components/anchored-heading'
 import CarbonAd from '~/components/carbon-ad'
 import Componentdoc from '~/components/componentdoc'
@@ -14,7 +13,6 @@ import readmeData from '~/../src/icons/README.md'
 const titleLead = readmeData.titleLead || ''
 const body = readmeData.body || ''
 const baseTOC = readmeData.baseTOC || {}
-
 
 // @vue/component
 export default {
