@@ -6,9 +6,8 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { components as componentsMeta } from '~/content'
 
-const getReadMeData = name => 
+const getReadMeData = name =>
   import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
-}
 
 // @vue/component
 export default {
