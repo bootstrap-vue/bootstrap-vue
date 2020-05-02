@@ -92,7 +92,7 @@ module.exports = function(html) {
   const baseTOC = makeBaseTOC(html)
   // Return a object with the parsed bits
   return `module.exports = {
-  baseToc: ${JSON.stringify(baseTOC)},
+  baseTOC: ${JSON.stringify(baseTOC)},
   titleLead: ${JSON.stringify(titleLead)},
   body: ${JSON.stringify(body)},
   toString() {
