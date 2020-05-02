@@ -27,7 +27,7 @@ export default {
     return Boolean(referenceMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMeData(params.slug)).default || { loadError: true }
+    const readmeData = (await getReadMeData(params.slug)).default
     const loadError = readmeData.loadError || false
     const titleLead = readmeData.titleLead || ''
     let body = readmeData.body || ''
