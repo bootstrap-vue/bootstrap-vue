@@ -3,11 +3,9 @@ import MainDocs from '~/components/main-docs'
 import docsMixin from '~/plugins/docs-mixin'
 import { reference as referenceMeta, defaultConfig } from '~/content'
 
-const getReadMeData = name => {
-  try {
-    return import(`~/../src/reference/${name}/README.md` /* webpackChunkName: "docs/reference" */)
-  } catch {}
-}
+const getReadMeData = name =>
+  import(`~/../src/reference/${name}/README.md` /* webpackChunkName: "docs/reference" */)
+
 const replacer = (key, value) => (typeof value === 'undefined' ? null : value)
 
 // @vue/component
@@ -19,7 +17,12 @@ export default {
     return Boolean(referenceMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMeData(params.slug)).default || { loadError: true }
+    let readmeData = {}
+    try {
+      readmeData = (await getReadMeData(params.slug)).default || { loadError: true }
+    } catch {
+      readmeData = { loadError: true }
+    }
     const loadError = readmeData.loadError || false
     const titleLead = readmeData.titleLead || ''
     let body = readmeData.body || ''
