@@ -16,6 +16,6 @@ export default {
       },
       'Reload page'
     )
-    return h(Section, [$lead, h('p', $button)])
+    return h(Section, [$lead, h('p', [$button])])
   }
 }
