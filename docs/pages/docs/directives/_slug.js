@@ -5,8 +5,13 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { directives as directivesMeta } from '~/content'
 
-const getReadMeData = name =>
-  import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
+const getReadMeData = name => {
+  try {
+    return import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
+  } catch {
+    return { default: { loadError: true } }
+  }
+}
 
 // @vue/component
 export default {
@@ -17,12 +22,7 @@ export default {
     return Boolean(directivesMeta[params.slug])
   },
   async asyncData({ params }) {
-    let readmeData = {}
-    try {
-      readmeData = (await getReadMeData(params.slug)).default || { loadError: true }
-    } catch {
-      readmeData = { loadError: true }
-    }
+    const readmeData = (await getReadMeData(params.slug)).default
     const loadError = readmeData.loadError || false
     const titleLead = readmeData.titleLead || ''
     const body = readmeData.body || ''
