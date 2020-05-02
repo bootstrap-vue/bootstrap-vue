@@ -1,7 +1,7 @@
 export default {
+  name: 'BVDReload',
   render(h) {
-    name: 'BVDReload',
-    return(
+    return h(
       'b-button',
       {
         props: { variant: 'primary' },
