@@ -1,4 +1,3 @@
-import { parseReadme } from '~/utils'
 import CarbonAd from '~/components/carbon-ad'
 import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links'
@@ -16,8 +15,8 @@ import {
 import meta from '~/markdown/intro/meta.json'
 import readmeData from '~/markdown/intro/README.md'
 
-let titleLead = readmeData.titleLead || ''
-let body = readmeData.body || ''
+const titleLead = readmeData.titleLead || ''
+const body = readmeData.body || ''
 const baseTOC = readmeData.baseTOC || {}
 
 // RegExp to grab the minor version from a full version
