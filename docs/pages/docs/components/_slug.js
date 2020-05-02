@@ -30,7 +30,7 @@ export default {
   },
   async asyncData({ params }) {
     const readmeData = (await getReadMeData(params.slug)).default || { loadError: true }
-    const loadError: readmeData.loaderror || false
+    const loadError = readmeData.loaderror || false
     const titleLead = readmeData.titleLead || ''
     const body = readmeData.body || ''
     const baseTOC = readmeData.baseTOC || {}
