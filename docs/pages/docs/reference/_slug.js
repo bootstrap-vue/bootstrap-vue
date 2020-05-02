@@ -27,7 +27,8 @@ export default {
     return Boolean(referenceMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMeData(params.slug)).default
+    const readmeData = (await getReadMeData(params.slug)).default || { loadError: true }
+    const loadError = readmeData.loadError || false
     const titleLead = readmeData.titleLead || ''
     let body = readmeData.body || ''
     const baseTOC = readmeData.baseTOC || {}
@@ -36,7 +37,7 @@ export default {
       '{{ defaultConfig }}',
       hljs.highlight('json', JSON.stringify(defaultConfig || {}, replacer, 2)).value
     )
-    return { meta, titleLead, body, baseTOC }
+    return { meta, titleLead, body, baseTOC, loadError }
   },
   render(h) {
     return h(MainDocs, {
@@ -44,7 +45,8 @@ export default {
       props: {
         meta: this.meta,
         titleLead: this.titleLead,
-        body: this.body
+        body: this.body,
+        loadError: this.loadError
       }
     })
   }
