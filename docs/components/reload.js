@@ -1,4 +1,4 @@
-import Sectin from './section'
+import Section from './section'
 
 export default {
   name: 'BVDReload',
