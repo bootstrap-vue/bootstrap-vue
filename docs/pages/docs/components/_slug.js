@@ -12,9 +12,7 @@ import { components as componentsMeta } from '~/content'
 //   reload docs, or perhaps auto re-load
 const getReadMeData = name => {
   try {
-    return import(
-      `~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */
-    )
+    return import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
   } catch {
     // If the dynamic import fails to load, trap the error
     return {
