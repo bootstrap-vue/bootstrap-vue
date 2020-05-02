@@ -29,13 +29,13 @@
         <b-link
           v-for="page in group.pages"
           :key="page.title"
-          :to="buildUrl('/docs/', [group.base, page.slug])"
+          :to="buildUrl('/docs', [group.base, page.slug])"
           router-tag="li"
           class="nav-item"
           active-class="active bd-sidenav-active"
         >
           <b-link
-            :to="buildUrl('/docs/', [group.base, page.slug])"
+            :to="buildUrl('/docs', [group.base, page.slug])"
             :exact="group.exact"
             class="nav-link"
             active-class=""
