@@ -2,7 +2,6 @@ import CarbonAd from '~/components/carbon-ad'
 import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
-import { parseReadme } from '~/utils'
 import { mergeData } from 'vue-functional-data-merge'
 
 // @vue/component
@@ -22,23 +21,13 @@ export default {
       type: String,
       default: ''
     },
-    readme: {
-      // TODO: remove once dos-loader is fully implemented
-      type: String,
-      default: ''
-    },
     meta: {
       type: Object,
       default: null
     }
   },
   render(h, { props, data, children }) {
-    const { tag, readme, meta } = props
-    let titleLead = props.titleLead
-    let body = props.body
-    if (!titleLead && !body) {
-      ;({ titleLead, body } = parseReadme(readme || ''))
-    }
+    const { tag, titleLead, body, meta } = props
     const { version } = meta || {}
 
     // Lead section
