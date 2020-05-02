@@ -84,7 +84,10 @@ module.exports = html => {
   // If we place html-loader before this loader, we need to
   // eval the output first and extract module.exports
   try {
+    /* eslint-disable prefer-const */
+    // the eval will populate module.exports
     let module = {}
+    /* eslint-enable prefer-const */
     /* eslint-disable no-eval */
     eval(html)
     /* eslint-enable no-eval */
