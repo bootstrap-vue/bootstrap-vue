@@ -80,7 +80,9 @@ const makeBaseTOC = readme => {
 
 // --- docs-loader export ---
 const RX_NO_TRANSLATE = /<(kbd|code|samp)>/gi
-module.exports = html => {
+module.exports = function(html) => {
+  // Make results cacheable
+  this.cacheable()
   // If we place html-loader before this loader, we need to
   // eval the output first and extract module.exports
   try {
@@ -94,8 +96,6 @@ module.exports = html => {
     html = module.exports || ''
   } catch {}
   html = html || ''
-  // Make results cacheable
-  this.cacheable()
   // Mark certain elements as translate="no"
   html.replace(RX_NO_TRANSLATE, '<$1 class="notranslate" translate="no">')
   // Parse the README into its sections
