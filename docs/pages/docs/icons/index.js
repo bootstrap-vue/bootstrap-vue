@@ -11,14 +11,10 @@ import docsMixin from '~/plugins/docs-mixin'
 import { icons as iconsMeta, bootstrapIconsVersion } from '~/content'
 import readmeData from '~/../src/icons/README.md'
 
-let titleLead = readmeData.titleLead || ''
-let body = readmeData.body || ''
+const titleLead = readmeData.titleLead || ''
+const body = readmeData.body || ''
 const baseTOC = readmeData.baseTOC || {}
-const readme = String(readmeData)
 
-if (!titleLead && !body) {
-  ;({ titleLead, body } = parseReadme(readme))
-}
 
 // @vue/component
 export default {
@@ -40,8 +36,6 @@ export default {
       titleLead,
       body,
       baseTOC,
-      // TODO: remove once docs-loader is implemented
-      readme,
       // Key for icons meta is '' (empty slug)
       meta: iconsMeta[''],
       bootstrapIconsVersion
