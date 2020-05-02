@@ -7,14 +7,14 @@
     <b-link
       v-for="group in nav"
       :key="group.base"
-      :to="buildUrl('/docs/', [group.base])"
+      :to="buildUrl('/docs', [group.base])"
       :exact="group.exact"
       router-tag="div"
       class="bd-toc-item"
       active-class="active"
     >
       <b-link
-        :to="buildUrl('/docs/', [group.base])"
+        :to="buildUrl('/docs', [group.base])"
         :exact="group.exact"
         class="bd-toc-link"
         active-class=""
@@ -72,8 +72,9 @@ export default {
   },
   methods: {
     buildUrl(basePath, parts = []) {
-      parts = parts.filter(Boolean)
-      return `${basePath}/${parts.join('/')}`.replace(/(https?:\/\/)|(\/)+/g, '$1$2')
+      parts = parts.filter(Boolean).join('/')
+      const path = [basepath, parts].filter(Boolean).join('/')
+      return path.replace(/(https?:\/\/)|(\/)+/g, '$1$2')
     }
   }
 }
