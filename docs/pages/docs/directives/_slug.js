@@ -52,7 +52,7 @@ export default {
           meta: this.meta,
           titleLead: this.titleLead,
           body: this.body,
-          loadError: this.localError
+          loadError: this.loadError
         }
       },
       [$referenceSection]
