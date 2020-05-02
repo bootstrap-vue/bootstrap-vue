@@ -3,10 +3,19 @@ import MainDocs from '~/components/main-docs'
 import docsMixin from '~/plugins/docs-mixin'
 import { reference as referenceMeta, defaultConfig } from '~/content'
 
-const getReadMeData = slug => {
-  return import(`~/markdown/reference/${slug}/README.md` /* webpackChunkName: "docs/reference" */)
+const getReadMeData = name => {
+  try {
+    return import(`~/../src/reference/${name}/README.md` /* webpackChunkName: "docs/reference" */)
+  } catch {
+    // If the dynamic import fails to load, trap the error
+    return {
+      loadError: true,
+      titleLead: '<h1>Documentation has updated!</h1><p class="lead">Please reload the page</p>',
+      body: '',
+      baseTOC: null
+    }
+  }
 }
-
 const replacer = (key, value) => (typeof value === 'undefined' ? null : value)
 
 // @vue/component
