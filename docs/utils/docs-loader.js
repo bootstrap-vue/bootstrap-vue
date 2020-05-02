@@ -80,7 +80,7 @@ const makeBaseTOC = readme => {
 
 // --- docs-loader export ---
 const RX_NO_TRANSLATE = /<(kbd|code|samp)>/gi
-module.exports = function(html) => {
+module.exports = function(html) {
   // Make results cacheable
   this.cacheable()
   // If we place html-loader before this loader, we need to
