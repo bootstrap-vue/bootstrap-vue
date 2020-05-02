@@ -19,12 +19,6 @@ export const parseFullVersion = version => {
   return matchesCount > 0 ? matches[matchesCount - 1] : ''
 }
 
-// Remove any HTML tags, but leave entities alone
-const stripHTML = (str = '') => str.replace(/<[^>]+>/g, '')
-
-// Remove any double quotes from a string
-const stripQuotes = (str = '') => str.replace(/"/g, '')
-
 export const parseUrl = value => {
   const anchor = document.createElement('a')
   anchor.href = value
