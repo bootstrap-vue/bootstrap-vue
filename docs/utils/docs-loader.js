@@ -23,8 +23,8 @@ const parseReadme = readme => {
   const body = parts[3] || ''
   const hasTitleLead = title || lead
   return {
-    titleLead: hasTitleLead ? `${title} ${lead}` : '',
-    body: hasTitleLead ? body : readme || ''
+    titleLead: (hasTitleLead ? `${title} ${lead}` : '').trim(),
+    body: (hasTitleLead ? body : readme || '').trim()
   }
 }
 
