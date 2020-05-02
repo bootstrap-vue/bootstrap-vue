@@ -28,12 +28,13 @@ export default {
     return Boolean(directivesMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMeData(params.slug)).default
+    const readmeData = (await getReadMeData(params.slug)).default || { loadError: true }
+    const loadError: readmeData.loadError || false
     const titleLead = readmeData.titleLead || ''
     const body = readmeData.body || ''
     const baseTOC = readmeData.baseTOC || {}
     const meta = directivesMeta[params.slug]
-    return { meta, titleLead, body, baseTOC }
+    return { meta, titleLead, body, baseTOC, loadError }
   },
   render(h) {
     const $referenceSection = h(Section, { class: ['bd-component-reference'] }, [
@@ -50,7 +51,8 @@ export default {
         props: {
           meta: this.meta,
           titleLead: this.titleLead,
-          body: this.body
+          body: this.body,
+          loadError: this.localError
         }
       },
       [$referenceSection]
