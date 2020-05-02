@@ -6,10 +6,7 @@ import { reference as referenceMeta, defaultConfig } from '~/content'
 const getReadMeData = name => {
   try {
     return import(`~/../src/reference/${name}/README.md` /* webpackChunkName: "docs/reference" */)
-  } catch {
-    // If the dynamic import fails to load, trap the error
-    return { loadError: true }
-  }
+  } catch {}
 }
 const replacer = (key, value) => (typeof value === 'undefined' ? null : value)
 
@@ -22,7 +19,7 @@ export default {
     return Boolean(referenceMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMeData(params.slug)).default
+    const readmeData = (await getReadMeData(params.slug)).default || { loadError: true }
     const loadError = readmeData.loadError || false
     const titleLead = readmeData.titleLead || ''
     let body = readmeData.body || ''
