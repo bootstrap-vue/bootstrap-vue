@@ -29,11 +29,11 @@ export default {
     return Boolean(componentsMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMeData(params.slug)).default
+    const readmeData = (await getReadMeData(params.slug)).default || { loadError: true }
+    const loadError: readmeData.loaderror || false
     const titleLead = readmeData.titleLead || ''
     const body = readmeData.body || ''
     const baseTOC = readmeData.baseTOC || {}
-    const loadError = readmeData.loadError || false
     const meta = componentsMeta[params.slug]
     return { meta, titleLead, body, baseTOC, loadError }
   },
