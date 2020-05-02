@@ -30,10 +30,10 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(() => this.mounted = true)
+    this.$nextTick(() => (this.mounted = true))
   },
   render(h) {
-    let $srcipt = h()
+    let $script = h()
     if (this.mounted) {
       $script = h('script', {
         attrs: {
