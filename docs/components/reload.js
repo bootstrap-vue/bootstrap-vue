@@ -3,7 +3,8 @@ import Section from './section'
 export default {
   name: 'BVDReload',
   render(h) {
-    const $lead = h('p', { staticClass: 'lead' }, 'Updated documentation available. Please reload.')
+    const $heading = h('h1', [h('span', { staticClass: 'bd-content-title' }, 'Updated documentation')])
+    const $lead = h('p', { staticClass: 'lead' }, 'Updated documentation is available. Please reload.')
     const $button = h(
       'b-button',
       {
@@ -16,6 +17,6 @@ export default {
       },
       'Reload page'
     )
-    return h(Section, [$lead, h('p', [$button])])
+    return h(Section, [$heading, $lead, h('p', [$button])])
   }
 }
