@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     buildUrl(basePath, parts = []) {
-      parts = parts.filter(Boolean).join('/')
+      parts = parts.filter(Boolean).join('/').replace(/\/$/, '')
       const path = [basePath, parts].filter(Boolean).join('/')
       return path.replace(/(https?:\/\/)|(\/)+/g, '$1$2')
     }
