@@ -6,8 +6,13 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { components as componentsMeta } from '~/content'
 
-const getReadMeData = name =>
-  import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
+const getReadMeData = name => {
+  try {
+    return import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
+  } catch {
+    return { default: { loadError: true } }
+  }
+}
 
 // @vue/component
 export default {
@@ -18,12 +23,7 @@ export default {
     return Boolean(componentsMeta[params.slug])
   },
   async asyncData({ params }) {
-    let readmeData = {}
-    try {
-      readmeData = (await getReadMeData(params.slug)).default || { loadError: true }
-    } catch {
-      readmeData = { loadError: true }
-    }
+    const readmeData = (await getReadMeData(params.slug)).default
     const loadError = readmeData.loadError || false
     const titleLead = readmeData.titleLead || ''
     const body = readmeData.body || ''
