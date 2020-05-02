@@ -80,7 +80,16 @@ const makeBaseTOC = readme => {
 
 // --- docs-loader export ---
 const RX_NO_TRANSLATE = /<(kbd|code|samp)>/gi
-module.exports = function(html) {
+module.exports = html => {
+  // If we place html-loader before this loader, we need to
+  // eval the output first and extract module.exports
+  try {
+    let module = {}
+    /* eslint-disable no-eval */
+    eval(html)
+    /* eslint-enable no-eval */
+    html = module.exports || ''
+  } catch {}
   html = html || ''
   // Make results cacheable
   this.cacheable()
@@ -90,12 +99,6 @@ module.exports = function(html) {
   const { titleLead, body } = parseReadme(html)
   // Build the base TOC for the page
   const baseTOC = makeBaseTOC(html)
-  // Return a object with the parsed bits
-  return `module.exports = {
-  baseTOC: ${JSON.stringify(baseTOC)},
-  titleLead: ${JSON.stringify(titleLead)},
-  body: ${JSON.stringify(body)},
-  toString() {
-    return [this.titleLead || '', this.body || ''].join(' ').trim()
-  }\n}`
+  // Return a stringified object with the parsed bits
+  return `module.exports = ${JSON.stringify({ baseTOC, titleLead, body })}`
 }
