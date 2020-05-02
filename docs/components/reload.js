@@ -1,5 +1,6 @@
 export default {
   render(h) {
+    name: 'BVDReload',
     return(
       'b-button',
       {
