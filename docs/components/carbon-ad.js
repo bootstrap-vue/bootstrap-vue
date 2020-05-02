@@ -36,6 +36,9 @@ export default {
       })
     })
   },
+  beforeDestroy() {
+    this.mounted = false
+  },
   render(h) {
     let $script = h()
     if (this.mounted) {
