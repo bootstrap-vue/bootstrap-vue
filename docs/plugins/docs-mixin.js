@@ -64,7 +64,7 @@ export default {
     }
   },
   created() {
-    // In a nextTick to ensure toc.vue is created first
+    // In a `$nextTick()` to ensure `toc.vue` is created first
     this.$nextTick(() => {
       const key = `${this.$route.name}_${this.$route.params.slug || ''}`
       const toc =
