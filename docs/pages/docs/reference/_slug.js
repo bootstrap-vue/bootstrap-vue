@@ -3,7 +3,7 @@ import MainDocs from '~/components/main-docs'
 import docsMixin from '~/plugins/docs-mixin'
 import { reference as referenceMeta, defaultConfig } from '~/content'
 
-const getReadMeData = name => {
+const getReadmeData = name => {
   try {
     return import(`~/markdown/reference/${name}/README.md` /* webpackChunkName: "docs/reference" */)
   } catch {
@@ -22,12 +22,10 @@ export default {
     return Boolean(referenceMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMeData(params.slug)).default
-    const loadError = readmeData.loadError || false
-    const titleLead = readmeData.titleLead || ''
-    let body = readmeData.body || ''
-    const baseTOC = readmeData.baseTOC || {}
-    const meta = referenceMeta[params.slug]
+    const name = params.slug
+    const meta = referenceMeta[name]
+    const readmeData = (await getReadmeData(name)).default
+    let { titleLead = '', body = '', baseTOC = {}, loadError = false } = readmeData
     body = body.replace(
       '{{ defaultConfig }}',
       hljs.highlight('json', JSON.stringify(defaultConfig || {}, replacer, 2)).value

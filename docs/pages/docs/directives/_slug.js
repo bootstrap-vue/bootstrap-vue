@@ -5,7 +5,7 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { directives as directivesMeta } from '~/content'
 
-const getReadMeData = name => {
+const getReadmeData = name => {
   try {
     return import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
   } catch {
@@ -22,12 +22,10 @@ export default {
     return Boolean(directivesMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMeData(params.slug)).default
-    const loadError = readmeData.loadError || false
-    const titleLead = readmeData.titleLead || ''
-    const body = readmeData.body || ''
-    const baseTOC = readmeData.baseTOC || {}
-    const meta = directivesMeta[params.slug]
+    const name = params.slug
+    const meta = directivesMeta[name]
+    const readmeData = (await getReadmeData(name)).default
+    const { titleLead = '', body = '', baseTOC = {}, loadError = false } = readmeData
     return { meta, titleLead, body, baseTOC, loadError }
   },
   render(h) {

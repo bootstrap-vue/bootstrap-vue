@@ -10,9 +10,7 @@ import docsMixin from '~/plugins/docs-mixin'
 import { icons as iconsMeta, bootstrapIconsVersion } from '~/content'
 import readmeData from '~/../src/icons/README.md'
 
-const titleLead = readmeData.titleLead || ''
-const body = readmeData.body || ''
-const baseTOC = readmeData.baseTOC || {}
+const { titleLead = '', body = '', baseTOC = {} } = readmeData
 
 // @vue/component
 export default {
@@ -34,7 +32,7 @@ export default {
       titleLead,
       body,
       baseTOC,
-      // Key for icons meta is '' (empty slug)
+      // Key for icons meta is `''` (empty slug)
       meta: iconsMeta[''],
       bootstrapIconsVersion
     }

@@ -15,9 +15,7 @@ import {
 import meta from '~/markdown/intro/meta.json'
 import readmeData from '~/markdown/intro/README.md'
 
-const titleLead = readmeData.titleLead || ''
-const body = readmeData.body || ''
-const baseTOC = readmeData.baseTOC || {}
+const { titleLead = '', body = '', baseTOC = {} } = readmeData
 
 // RegExp to grab the minor version from a full version
 const minorRE = /^(\d+\.\d+)(\..+)$/

@@ -6,7 +6,7 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { components as componentsMeta } from '~/content'
 
-const getReadMeData = name => {
+const getReadmeData = name => {
   try {
     return import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
   } catch {
@@ -23,12 +23,10 @@ export default {
     return Boolean(componentsMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readmeData = (await getReadMeData(params.slug)).default
-    const loadError = readmeData.loadError || false
-    const titleLead = readmeData.titleLead || ''
-    const body = readmeData.body || ''
-    const baseTOC = readmeData.baseTOC || {}
-    const meta = componentsMeta[params.slug]
+    const name = params.slug
+    const meta = componentsMeta[name]
+    const readmeData = (await getReadmeData(name)).default
+    const { titleLead = '', body = '', baseTOC = {}, loadError = false } = readmeData
     return { meta, titleLead, body, baseTOC, loadError }
   },
   render(h) {
