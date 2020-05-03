@@ -18,6 +18,7 @@
         :exact="group.exact"
         class="bd-toc-link"
         active-class=""
+        no-prefetch
       >
         {{ group.title }}
         <b-badge v-if="group.new" tag="small" variant="success" class="text-uppercase">New</b-badge>
@@ -51,13 +52,41 @@
     </b-link>
 
     <!-- TODO: Uncomment when we have themes
-    <b-link to="/themes" exact router-tag="div" active-class="active">
-      <b-link to="/themes" exact class="bd-toc-link" active-class="">Themes</b-link>
+    <b-link
+      to="/themes"
+      router-tag="div"
+      active-class="active"
+      no-prefetch
+      exact
+    >
+      <b-link
+        to="/themes"
+        active-class=""
+        exact
+        no-prefetch
+        class="bd-toc-link"
+      >
+        Themes
+      </b-link>
     </b-link>
     -->
 
-    <b-link to="/play" exact router-tag="div" active-class="active">
-      <b-link to="/play" exact class="bd-toc-link" active-class="">Playground</b-link>
+    <b-link
+      to="/play"
+      router-tag="div"
+      active-class="active"
+      exact
+      no-prefetch
+    >
+      <b-link
+        to="/play"
+        active-class=""
+        exact
+        no-prefetch
+        class="bd-toc-link"
+      >
+        Playground
+      </b-link>
     </b-link>
   </nav>
 </template>
