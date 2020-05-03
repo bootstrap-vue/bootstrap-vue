@@ -76,7 +76,7 @@ export const relativeUrl = url => {
 
 // Update the tocData with any additional info from the meta data
 export const updateMetaTOC = (tocData = {}, meta = null) => {
-  if (!meta) {
+  if (!meta || tocData.metaMerged) {
     return tocData
   }
   // `tocData` in the format of `{ title, top, toc }`
@@ -85,6 +85,9 @@ export const updateMetaTOC = (tocData = {}, meta = null) => {
   const hasDirectives = meta.directives && meta.directives.length > 0
 
   tocData.toc = (tocData.toc || []).slice()
+  // Set a flag to say meta has been merged, to prevent
+  // duplicate entries on SSR pages
+  tocData.metaMerged = true
 
   if (!isDirective && (hasComponents || hasDirectives)) {
     const componentToc = []
