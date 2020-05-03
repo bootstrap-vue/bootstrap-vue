@@ -419,7 +419,7 @@ component be registered/installed either locally or globally.
       icon-clear="slash-circle"
       show-clear
       variant="danger"
-    ><b-form-rating>
+    ></b-form-rating>
   </div>
 </template>
 
