@@ -1,8 +1,8 @@
 import CarbonAd from '~/components/carbon-ad'
 import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links'
+import Reload from '~/components/reload'
 import Section from '~/components/section'
-import BVDReload from '~/components/reload'
 import { mergeData } from 'vue-functional-data-merge'
 
 // @vue/component
@@ -32,7 +32,7 @@ export default {
     }
   },
   render(h, { props, data, children }) {
-    const { tag, titleLead, body, meta } = props
+    const { tag, titleLead, body, meta, loadError } = props
     const { version } = meta || {}
 
     // Lead section
@@ -53,7 +53,7 @@ export default {
     }
 
     // Error handler
-    const $error = props.loadError ? h(BVDReload) : h()
+    const $error = loadError ? h(Reload) : h()
 
     // Carbon Ad
     const $carbonAd = h(CarbonAd)
