@@ -79,7 +79,7 @@ export const updateMetaTOC = (tocData = {}, meta = null) => {
   if (!meta) {
     return tocData
   }
-  // tocData in the format of { title, top, toc }
+  // `tocData` in the format of `{ title, top, toc }`
   const isDirective = !!meta.directive
   const hasComponents = meta.components && meta.components.length > 0
   const hasDirectives = meta.directives && meta.directives.length > 0
