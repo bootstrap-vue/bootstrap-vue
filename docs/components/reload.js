@@ -1,7 +1,8 @@
 import Section from './section'
 
+// @vue/component
 export default {
-  name: 'BVDReload',
+  name: 'BVReload',
   render(h) {
     const $heading = h('h1', [
       h('span', { staticClass: 'bd-content-title' }, 'Updated documentation')
