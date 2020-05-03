@@ -17,6 +17,7 @@ hljs.registerLanguage('plaintext', require('highlight.js/lib/languages/plaintext
 
 // --- Constants ---
 
+const RX_EXCLUDE_EXTENSIONS = /\.(s?css|js|ts)$/
 const RX_CODE_FILENAME = /^\/\/ ([\w,\s-]+\.[A-Za-z]{1,4})\n/m
 
 const ANCHOR_LINK_HEADING_LEVELS = [2, 3, 4, 5]
@@ -35,7 +36,7 @@ const getRoutesByDir = (root, dir, excludes = []) =>
   fs
     .readdirSync(`${[root, dir].filter(Boolean).join('/')}`)
     .filter(c => excludes.indexOf(c) === -1)
-    .filter(c => !/\.(s?css|js|ts)$/.test(c))
+    .filter(c => !RX_EXCLUDE_EXTENSIONS.test(c))
     .map(page => `/docs/${dir}/${page}`)
 
 // --- Custom renderer ---
