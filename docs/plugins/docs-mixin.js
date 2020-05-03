@@ -82,7 +82,7 @@ export default {
   },
   beforeDestroy() {
     this.clearScrollTimeout()
-    this.$root.$emit('docs-set-toc', {})
+    // this.$root.$emit('docs-set-toc', {})
   },
   methods: {
     clearScrollTimeout() {
