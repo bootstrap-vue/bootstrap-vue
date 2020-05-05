@@ -17,6 +17,7 @@ hljs.registerLanguage('plaintext', require('highlight.js/lib/languages/plaintext
 
 // --- Constants ---
 
+const RX_EXCLUDE_EXTENSIONS = /\.(s?css|js|ts)$/
 const RX_CODE_FILENAME = /^\/\/ ([\w,\s-]+\.[A-Za-z]{1,4})\n/m
 
 const ANCHOR_LINK_HEADING_LEVELS = [2, 3, 4, 5]
@@ -33,9 +34,9 @@ const IS_PROD_DOCS =
 // Get routes by a given dir
 const getRoutesByDir = (root, dir, excludes = []) =>
   fs
-    .readdirSync(`${root}/${dir}`)
+    .readdirSync(`${[root, dir].filter(Boolean).join('/')}`)
     .filter(c => excludes.indexOf(c) === -1)
-    .filter(c => !/\.(s?css|js|ts)$/.test(c))
+    .filter(c => !RX_EXCLUDE_EXTENSIONS.test(c))
     .map(page => `/docs/${dir}/${page}`)
 
 // --- Custom renderer ---
@@ -189,6 +190,7 @@ module.exports = {
 
       config.resolveLoader.alias = config.resolveLoader.alias || {}
       config.resolveLoader.alias['marked-loader'] = path.join(__dirname, './utils/marked-loader')
+      config.resolveLoader.alias['docs-loader'] = path.join(__dirname, './utils/docs-loader')
 
       // Source maps make the bundles monstrous, do leave it off in prod mode
       if (isDev) {
@@ -198,6 +200,8 @@ module.exports = {
       config.module.rules.push({
         test: /\.md$/,
         use: [
+          // Loaders are handled last to first
+          { loader: 'docs-loader' },
           { loader: 'html-loader' },
           {
             loader: 'marked-loader',

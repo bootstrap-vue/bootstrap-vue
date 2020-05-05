@@ -18,7 +18,7 @@ The width will always be 100% of the available width in the parent element/compo
 <template>
   <div>
     <b-form-group label="Aspect ratio" label-for="ratio" label-cols-md="auto" class="mb-3">
-      <b-form-select id="ratio" v-model="aspect" :options="aspects"></b-form-input>
+      <b-form-select id="ratio" v-model="aspect" :options="aspects"></b-form-select>
     </b-form-group>
     <b-card>
       <b-aspect :aspect="aspect">

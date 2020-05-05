@@ -1,4 +1,3 @@
-import { parseReadme } from '~/utils'
 import AnchoredHeading from '~/components/anchored-heading'
 import CarbonAd from '~/components/carbon-ad'
 import Componentdoc from '~/components/componentdoc'
@@ -9,9 +8,9 @@ import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { icons as iconsMeta, bootstrapIconsVersion } from '~/content'
-import readme from '~/../src/icons/README.md'
+import readmeData from '~/../src/icons/README.md'
 
-const { titleLead, body } = parseReadme(readme)
+const { titleLead = '', body = '', baseTOC = {} } = readmeData
 
 // @vue/component
 export default {
@@ -30,10 +29,10 @@ export default {
   mixins: [docsMixin],
   data() {
     return {
-      readme,
       titleLead,
       body,
-      // Key for icons meta is '' (empty slug)
+      baseTOC,
+      // Key for icons meta is `''` (empty slug)
       meta: iconsMeta[''],
       bootstrapIconsVersion
     }
