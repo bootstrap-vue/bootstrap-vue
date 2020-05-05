@@ -10,7 +10,7 @@ Released: 2020-05-05
 
 ### Bug Fixes v2.13.1
 
-- **b-table, b-table-lite, b-table-simple:** handle head variant for sticky columns (fixes
+- **b-table, b-table-lite, b-table-simple:** handle head/foot variant for sticky columns (fixes
   [#5278](https://github.com/bootstrap-vue/bootstrap-vue/issues/5278))
   ([#5279](https://github.com/bootstrap-vue/bootstrap-vue/issues/5279))
   ([53e309e](https://github.com/bootstrap-vue/bootstrap-vue/commit/53e309e947b4710fcf8d989cc9ef0f31c58487ae))
