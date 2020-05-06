@@ -2273,7 +2273,7 @@ function myProvider(ctx) {
 }
 ```
 
-**Example: using an async function (semi-synchronous):**
+**Example: Using an async function (semi-synchronous):**
 
 Using an async method to return an items array is possible:
 
@@ -2282,8 +2282,8 @@ Using an async method to return an items array is possible:
 ```js
 async function myProvider(ctx) {
   try {
-    const resp = await axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage)
-    return resp.items
+    const response = await axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage)
+    return response.items
   } catch (error) {
     return []
   }
