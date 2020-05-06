@@ -2273,6 +2273,26 @@ function myProvider(ctx) {
 }
 ```
 
+**Example: using an async function (semi-synchronous):**
+
+Using an async method to return an items array is possible:
+
+<!-- eslint-disable no-unused-vars, no-undef -->
+
+```js
+async function myProvider(ctx) {
+  try {
+    const resp = await axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage);
+    return resp.items
+  } catch (error) {
+    return []
+  }
+}
+```
+
+Note that not all browsers support `async/await` natively. For browsers that do not support `async`
+methods, you will need to transpile your code.
+
 ### Automated table busy state
 
 `<b-table>` automatically tracks/controls its `busy` state when items provider functions are used,
@@ -2336,6 +2356,24 @@ function should handle errors from data sources and return an empty array to `<b
   called/refreshed until the `busy` state has been set to `false`.
 - All click related and hover events, and sort-changed events will **not** be emitted when in the
   `busy` state (either set automatically during provider update, or when manually set).
+
+If using an `async/await` provider:
+
+<!-- eslint-disable no-unused-vars, no-undef -->
+
+```js
+async function myProvider(ctx) {
+  this.isBusy = true
+  try {
+    const resp = await axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage);
+    this.isBusy = false
+    return resp.items
+  } catch (error) {
+    this.isBusy = false
+    return []
+  }
+}
+```
 
 ### Provider paging, filtering, and sorting
 
