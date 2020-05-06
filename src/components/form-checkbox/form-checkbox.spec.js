@@ -1165,11 +1165,11 @@ describe('form-checkbox', () => {
     expect(input.element).not.toBe(document.activeElement)
 
     wrapper.vm.focus()
-    wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(input.element).toBe(document.activeElement)
 
     wrapper.vm.blur()
-    wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(input.element).not.toBe(document.activeElement)
 
     wrapper.destroy()
