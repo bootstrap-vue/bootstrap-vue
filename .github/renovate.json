@@ -17,10 +17,6 @@
     {
       "packageNames": ["prettier"],
       "allowedVersions": "<=1.14.3"
-    },
-    {
-      "packageNames": ["@vue/test-utils"],
-      "allowedVersions": "<=1.0.0-beta.29"
     }
   ]
 }
