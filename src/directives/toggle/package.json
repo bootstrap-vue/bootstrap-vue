@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Toggle",
-    "description": "A lightweight directive for toggling visibility state for collapses and sidebars by ID. Automatically handles the accessibility attributes on the trigger element",
+    "description": "A light-weight directive for toggling visibility state for collapses and sidebars by ID. It automatically handles the accessibility attributes on the trigger element",
     "directive": "VBToggle",
     "expression": "String",
     "modifiers": [
