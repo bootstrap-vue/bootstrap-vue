@@ -413,9 +413,7 @@ describe('form-group', () => {
     expect(document.activeElement).not.toBe($input.element)
     expect(document.activeElement).not.toBe($legend.element)
 
-    $legend.trigger('click')
-    await waitNT(wrapper.vm)
-
+    await $legend.trigger('click')
     expect(document.activeElement).toBe($input.element)
 
     wrapper.destroy()

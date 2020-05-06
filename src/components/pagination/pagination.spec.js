@@ -650,12 +650,11 @@ describe('pagination', () => {
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     // Click on 2nd button
-    wrapper
+    await wrapper
       .findAll('li')
       .at(3)
       .find('button')
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
@@ -663,23 +662,21 @@ describe('pagination', () => {
     expect(wrapper.emitted('change')[0][0]).toBe(2)
 
     // Click goto last button
-    wrapper
+    await wrapper
       .findAll('li')
       .at(6)
       .find('button')
       .trigger('keydown.space') // Generates a click event
-    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
     expect(wrapper.emitted('change')[1][0]).toBe(3)
 
     // Click prev button
-    wrapper
+    await wrapper
       .findAll('li')
       .at(1)
       .find('button')
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
     expect(wrapper.emitted('change')[2][0]).toBe(2)
@@ -1045,33 +1042,27 @@ describe('pagination', () => {
       expect(document.activeElement).toEqual(links.at(3).element)
 
       // LEFT
-      wrapper.trigger('keydown.left')
-      await waitNT(wrapper.vm)
+      await wrapper.trigger('keydown.left')
       expect(document.activeElement).toEqual(links.at(2).element)
 
       // RIGHT
-      links.at(2).trigger('keydown.right')
-      await waitNT(wrapper.vm)
+      await links.at(2).trigger('keydown.right')
       expect(document.activeElement).toEqual(links.at(3).element)
 
       // UP (same as LEFT)
-      wrapper.trigger('keydown.up')
-      await waitNT(wrapper.vm)
+      await wrapper.trigger('keydown.up')
       expect(document.activeElement).toEqual(links.at(2).element)
 
       // DOWN (same as RIGHT)
-      links.at(2).trigger('keydown.down')
-      await waitNT(wrapper.vm)
+      await links.at(2).trigger('keydown.down')
       expect(document.activeElement).toEqual(links.at(3).element)
 
       // SHIFT-RIGHT
-      links.at(2).trigger('keydown.right', { shiftKey: true })
-      await waitNT(wrapper.vm)
+      await links.at(2).trigger('keydown.right', { shiftKey: true })
       expect(document.activeElement).toEqual(links.at(6).element)
 
       // SHIFT-LEFT
-      links.at(6).trigger('keydown.left', { shiftKey: true })
-      await waitNT(wrapper.vm)
+      await links.at(6).trigger('keydown.left', { shiftKey: true })
       expect(document.activeElement).toEqual(links.at(0).element)
 
       wrapper.destroy()

@@ -253,31 +253,19 @@ describe('form-timepicker', () => {
     expect($toggle.find('svg.bi-clock').exists()).toBe(true)
     expect($toggle.find('svg.bi-clock-fill').exists()).toBe(false)
 
-    $toggle.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $toggle.trigger('mouseenter')
     expect($toggle.find('svg.bi-clock').exists()).toBe(false)
     expect($toggle.find('svg.bi-clock-fill').exists()).toBe(true)
 
-    $toggle.trigger('mouseleave')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $toggle.trigger('mouseleave')
     expect($toggle.find('svg.bi-clock').exists()).toBe(true)
     expect($toggle.find('svg.bi-clock-fill').exists()).toBe(false)
 
-    $label.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $label.trigger('mouseenter')
     expect($toggle.find('svg.bi-clock').exists()).toBe(false)
     expect($toggle.find('svg.bi-clock-fill').exists()).toBe(true)
 
-    $label.trigger('mouseleave')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $label.trigger('mouseleave')
     expect($toggle.find('svg.bi-clock').exists()).toBe(true)
     expect($toggle.find('svg.bi-clock-fill').exists()).toBe(false)
 
@@ -308,20 +296,14 @@ describe('form-timepicker', () => {
     expect($menu.exists()).toBe(true)
     expect($menu.classes()).not.toContain('show')
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).not.toContain('show')
 
     wrapper.destroy()
@@ -358,12 +340,9 @@ describe('form-timepicker', () => {
     expect($menu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
 
     const $value = wrapper.find('input[type="hidden"]')
@@ -380,23 +359,17 @@ describe('form-timepicker', () => {
 
     const $now = $btns.at(0)
 
-    $now.trigger('click')
-    await waitNT(wrapper.vm)
+    await $now.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).not.toContain('show')
     expect($value.attributes('value')).not.toBe('')
     expect(/^\d\d:\d\d:\d\d$/.test($value.attributes('value'))).toBe(true)
 
     // Open the popup again
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
     expect($value.attributes('value')).not.toBe('')
 
@@ -404,22 +377,16 @@ describe('form-timepicker', () => {
     expect($btns.length).toBe(3)
     const $reset = $btns.at(1)
 
-    $reset.trigger('click')
-    await waitNT(wrapper.vm)
+    await $reset.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).not.toContain('show')
     expect($value.attributes('value')).toBe('')
 
     // Open the popup again
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
     expect($value.attributes('value')).toBe('')
 
@@ -427,12 +394,9 @@ describe('form-timepicker', () => {
     expect($btns.length).toBe(3)
     const $close = $btns.at(2)
 
-    $close.trigger('click')
-    await waitNT(wrapper.vm)
+    await $close.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).not.toContain('show')
     expect($value.attributes('value')).toBe('')
 

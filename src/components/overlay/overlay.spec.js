@@ -194,9 +194,7 @@ describe('overlay', () => {
 
     expect(wrapper.emitted('click')).not.toBeDefined()
 
-    $overlay.trigger('click')
-    await waitNT(wrapper.vm)
-
+    await $overlay.trigger('click')
     expect(wrapper.emitted('click')).toBeDefined()
     expect(wrapper.emitted('click').length).toBe(1)
     expect(wrapper.emitted('click')[0][0]).toBeInstanceOf(Event)

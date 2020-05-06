@@ -41,7 +41,7 @@ describe('v-b-toggle directive', () => {
     expect(spy).not.toHaveBeenCalled()
 
     const $button = wrapper.find('button')
-    $button.trigger('click')
+    await $button.trigger('click')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
@@ -79,7 +79,7 @@ describe('v-b-toggle directive', () => {
     expect(spy).not.toHaveBeenCalled()
 
     const $button = wrapper.find('button')
-    $button.trigger('click')
+    await $button.trigger('click')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
@@ -125,7 +125,7 @@ describe('v-b-toggle directive', () => {
     expect(wrapper.find('span').text()).toBe('span')
 
     const $span = wrapper.find('span')
-    $span.trigger('click')
+    await $span.trigger('click')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test')
     expect(wrapper.find('span').attributes('role')).toBe('button')

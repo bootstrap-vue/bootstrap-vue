@@ -1,6 +1,6 @@
 import VueRouter from 'vue-router'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { waitRAF } from '../../../tests/utils'
 import { BDropdownItem } from './dropdown-item'
 
 describe('dropdown-item', () => {
@@ -43,8 +43,7 @@ describe('dropdown-item', () => {
 
     const item = wrapper.find('a')
     expect(item).toBeDefined()
-    item.trigger('click')
-    await waitNT(wrapper.vm)
+    await item.trigger('click')
     await waitRAF()
     expect(called).toBe(true)
     expect(refocus).toBe(true)
@@ -70,8 +69,7 @@ describe('dropdown-item', () => {
 
     const item = wrapper.find('a')
     expect(item).toBeDefined()
-    item.trigger('click')
-    await waitNT(wrapper.vm)
+    await item.trigger('click')
     await waitRAF()
     expect(called).toBe(false)
     expect(refocus).toBe(null)

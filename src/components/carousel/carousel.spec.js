@@ -344,10 +344,7 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    $next.trigger('click')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $next.trigger('click')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -366,10 +363,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(1)
 
-    $prev.trigger('click')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $prev.trigger('click')
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -417,10 +411,7 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    $next.trigger('keydown.space')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $next.trigger('keydown.space')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -439,10 +430,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(1)
 
-    $prev.trigger('keydown.space')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $prev.trigger('keydown.space')
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -490,10 +478,7 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    $indicators.at(3).trigger('click')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $indicators.at(3).trigger('click')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -512,10 +497,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(3)
 
-    $indicators.at(1).trigger('click')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $indicators.at(1).trigger('click')
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -563,10 +545,7 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    $indicators.at(3).trigger('keydown.space')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $indicators.at(3).trigger('keydown.space')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -585,10 +564,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(3)
 
-    $indicators.at(1).trigger('keydown.enter')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $indicators.at(1).trigger('keydown.enter')
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -633,10 +609,7 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    $carousel.trigger('keydown.right')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $carousel.trigger('keydown.right')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -655,10 +628,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(1)
 
-    $carousel.trigger('keydown.left')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $carousel.trigger('keydown.left')
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)

@@ -423,46 +423,42 @@ describe('pagination-nav', () => {
     expect(wrapper.emitted('input')).not.toBeDefined()
 
     // Click on current page button (does nothing)
-    wrapper
+    await wrapper
       .findAll('li')
       .at(2)
       .find('a')
       .trigger('click')
-    await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.vm.computedCurrentPage).toBe(1)
     expect(wrapper.emitted('input')).not.toBeDefined()
 
     // Click on 2nd page button
-    wrapper
+    await wrapper
       .findAll('li')
       .at(3)
       .find('a')
       .trigger('click')
-    await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toBe(2)
 
     // Click goto last button
-    wrapper
+    await wrapper
       .findAll('li')
       .at(6)
       .find('a')
       .trigger('keydown.space') // Generates a click event
-    await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.vm.computedCurrentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
 
     // Click prev button
-    wrapper
+    await wrapper
       .findAll('li')
       .at(1)
       .find('a')
       .trigger('click')
-    await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)

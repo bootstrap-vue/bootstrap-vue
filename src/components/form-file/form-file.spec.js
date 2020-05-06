@@ -160,12 +160,10 @@ describe('form-file', () => {
 
     expect(input.classes()).not.toContain('focus')
 
-    input.trigger('focusin')
-    await waitNT(wrapper.vm)
+    await input.trigger('focusin')
     expect(input.classes()).toContain('focus')
 
-    input.trigger('focusout')
-    await waitNT(wrapper.vm)
+    await input.trigger('focusout')
     expect(input.classes()).not.toContain('focus')
 
     wrapper.destroy()
@@ -285,7 +283,7 @@ describe('form-file', () => {
 
     const input = wrapper.find('input')
     input.element.value = ''
-    input.trigger('change')
+    await input.trigger('change')
     expect(wrapper.emitted('change').length).toEqual(1)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
@@ -438,8 +436,7 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
 
-    wrapper.find('input').trigger('reset')
-    await waitNT(wrapper.vm)
+    await wrapper.find('input').trigger('reset')
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
 
@@ -531,56 +528,40 @@ describe('form-file', () => {
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
 
-    wrapper.trigger('dragover')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('dragover')
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
 
-    wrapper.trigger('drop', {
+    await wrapper.trigger('drop', {
       dataTransfer: {
         files: [file]
       }
     })
-    await waitNT(wrapper.vm)
-
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
     expect($label.text()).not.toContain(file.name)
 
-    await wrapper.setProps({
-      noDrop: false
-    })
-    await waitNT(wrapper.vm)
-
+    await wrapper.setProps({ noDrop: false })
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
 
-    wrapper.trigger('dragover')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('dragover')
     expect($label.text()).not.toContain('PLACEHOLDER')
     expect($label.text()).toContain('DROP_HERE')
 
-    wrapper.trigger('dragleave')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('dragleave')
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
 
-    wrapper.trigger('dragover')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('dragover')
     expect($label.text()).not.toContain('PLACEHOLDER')
     expect($label.text()).toContain('DROP_HERE')
 
-    wrapper.trigger('drop', {
+    await wrapper.trigger('drop', {
       dataTransfer: {
         files: [file]
       }
     })
-    await waitNT(wrapper.vm)
-
     expect($label.text()).not.toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
     expect($label.text()).toContain(file.name)

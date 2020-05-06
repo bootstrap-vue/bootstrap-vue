@@ -244,7 +244,6 @@ describe('table > provider functions', () => {
     wrapper.vm.refresh()
     // Trigger a context change that would trigger an internal _providerUpdate
     await wrapper.setProps({ sortBy: 'b' })
-
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed')).not.toBeDefined()
 
@@ -297,10 +296,7 @@ describe('table > provider functions', () => {
     ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
 
-    await wrapper.setProps({
-      items: provider2
-    })
-
+    await wrapper.setProps({ items: provider2 })
     await waitNT(wrapper.vm)
 
     expect(wrapper.find('tbody').exists()).toBe(true)

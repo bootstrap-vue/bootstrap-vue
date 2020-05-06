@@ -80,9 +80,7 @@ describe('mixins/listen-on-window', () => {
     expect(spyResize2).toHaveBeenCalledTimes(1)
     expect(spyScroll).toHaveBeenCalledTimes(1)
 
-    await wrapper.setProps({
-      offResizeOne: true
-    })
+    await wrapper.setProps({ offResizeOne: true })
 
     window.dispatchEvent(new Event('resize'))
 
@@ -96,9 +94,7 @@ describe('mixins/listen-on-window', () => {
     expect(spyResize2).toHaveBeenCalledTimes(2)
     expect(spyScroll).toHaveBeenCalledTimes(2)
 
-    await wrapper.setProps({
-      destroy: true
-    })
+    await wrapper.setProps({ destroy: true })
 
     expect(spyResize1).toHaveBeenCalledTimes(1)
     expect(spyResize2).toHaveBeenCalledTimes(2)

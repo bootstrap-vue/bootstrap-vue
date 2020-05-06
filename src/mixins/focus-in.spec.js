@@ -34,18 +34,16 @@ describe('utils/focus-in', () => {
 
     // When this.listenForFocusIn is true
     expect(count).toBe(0)
-    wrapper.find('button').trigger('focusin')
+    await wrapper.find('button').trigger('focusin')
     expect(count).toBe(1)
     document.dispatchEvent(focusinEvt)
     await waitNT(wrapper.vm)
     expect(count).toBe(2)
 
     // When this.listenForFocusIn is false
-    await wrapper.setData({
-      listenForFocusIn: false
-    })
+    await wrapper.setData({ listenForFocusIn: false })
     expect(count).toBe(2)
-    wrapper.find('button').trigger('focusin')
+    await wrapper.find('button').trigger('focusin')
     expect(count).toBe(2)
     document.dispatchEvent(focusinEvt)
     await waitNT(wrapper.vm)

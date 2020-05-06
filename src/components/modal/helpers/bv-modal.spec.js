@@ -102,7 +102,7 @@ describe('$bvModal', () => {
     expect($modal.findAll('button').length).toBe(1)
     const $button = $modal.find('button')
     expect($button.text()).toEqual('OK')
-    $button.trigger('click')
+    await $button.trigger('click')
 
     // Promise should now resolve
     const result = await p
@@ -165,7 +165,7 @@ describe('$bvModal', () => {
     const $buttons = $modal.findAll('button')
     expect($buttons.at(0).text()).toEqual('Cancel')
     expect($buttons.at(1).text()).toEqual('OK')
-    $buttons.at(0).trigger('click')
+    await $buttons.at(0).trigger('click')
 
     // Promise should now resolve
     const result = await p

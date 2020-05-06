@@ -424,8 +424,7 @@ describe('modal', () => {
       expect(evt).toEqual(null)
 
       // Try and close modal (but we prevent it)
-      $close.trigger('click')
-      await waitNT(wrapper.vm)
+      await $close.trigger('click')
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
@@ -441,8 +440,7 @@ describe('modal', () => {
       cancelHide = false
       trigger = null
       evt = null
-      $close.trigger('click')
-      await waitNT(wrapper.vm)
+      await $close.trigger('click')
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
@@ -507,8 +505,7 @@ describe('modal', () => {
       expect(trigger).toEqual(null)
 
       // Try and close modal (but we prevent it)
-      $ok.trigger('click')
-      await waitNT(wrapper.vm)
+      await $ok.trigger('click')
       expect(trigger).toEqual('ok')
 
       await waitNT(wrapper.vm)
@@ -522,8 +519,7 @@ describe('modal', () => {
       // Try and close modal (and not prevent it)
       cancelHide = false
       trigger = null
-      $cancel.trigger('click')
-      await waitNT(wrapper.vm)
+      await $cancel.trigger('click')
       expect(trigger).toEqual('cancel')
 
       await waitNT(wrapper.vm)
@@ -580,8 +576,7 @@ describe('modal', () => {
       expect(trigger).toEqual(null)
 
       // Try and close modal via ESC
-      $modal.trigger('keydown.esc')
-      await waitNT(wrapper.vm)
+      await $modal.trigger('keydown.esc')
       expect(trigger).toEqual('esc')
 
       await waitNT(wrapper.vm)
@@ -639,8 +634,7 @@ describe('modal', () => {
       expect(trigger).toEqual(null)
 
       // Try and close modal via click out
-      $modal.trigger('click')
-      await waitNT(wrapper.vm)
+      await $modal.trigger('click')
       expect(trigger).toEqual('backdrop')
 
       await waitNT(wrapper.vm)
@@ -707,15 +701,11 @@ describe('modal', () => {
 
       // Try and close modal via a "dragged" click out
       // starting from inside modal and finishing on backdrop
-      $dialog.trigger('mousedown')
-      $modal.trigger('mouseup')
-      $modal.trigger('click')
-
-      await waitNT(wrapper.vm)
+      await $dialog.trigger('mousedown')
+      await $modal.trigger('mouseup')
+      await $modal.trigger('click')
       await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
-
       expect(called).toEqual(false)
       expect(trigger).toEqual(null)
 
@@ -724,15 +714,11 @@ describe('modal', () => {
 
       // Try and close modal via a "dragged" click out
       // starting from inside modal and finishing on backdrop
-      $footer.trigger('mousedown')
-      $modal.trigger('mouseup')
-      $modal.trigger('click')
-
-      await waitNT(wrapper.vm)
+      await $footer.trigger('mousedown')
+      await $modal.trigger('mouseup')
+      await $modal.trigger('click')
       await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
-
       expect(called).toEqual(false)
       expect(trigger).toEqual(null)
 
@@ -740,13 +726,9 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('block')
 
       // Try and close modal via click out
-      $modal.trigger('click')
-
-      await waitNT(wrapper.vm)
+      await $modal.trigger('click')
       await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
-
       expect(called).toEqual(true)
       expect(trigger).toEqual('backdrop')
 
@@ -1242,7 +1224,7 @@ describe('modal', () => {
 
       // Try and focus the external button
       $button.element.focus()
-      $button.trigger('focusin')
+      await $button.trigger('focusin')
       expect(document.activeElement).not.toBe($button.element)
       expect(document.activeElement).toBe($content.element)
 
@@ -1257,8 +1239,7 @@ describe('modal', () => {
       expect($closeButton.is('button')).toBe(true)
       // Focus the tab trap
       $bottomTrap.element.focus()
-      $bottomTrap.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await $bottomTrap.trigger('focusin')
       expect(document.activeElement).not.toBe($bottomTrap.element)
       expect(document.activeElement).not.toBe($content.element)
       // The close (x) button (first tabable in modal) should be focused
@@ -1275,8 +1256,7 @@ describe('modal', () => {
       expect($okButton.is('button')).toBe(true)
       // Focus the tab trap
       $topTrap.element.focus()
-      $topTrap.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await $topTrap.trigger('focusin')
       expect(document.activeElement).not.toBe($topTrap.element)
       expect(document.activeElement).not.toBe($bottomTrap.element)
       expect(document.activeElement).not.toBe($content.element)
@@ -1345,15 +1325,13 @@ describe('modal', () => {
 
       // Try to focus button1
       $button1.element.focus()
-      $button1.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await $button1.trigger('focusin')
       expect(document.activeElement).toBe($button1.element)
       expect(document.activeElement).not.toBe($content.element)
 
       // Try to focus button2
       $button2.element.focus()
-      $button2.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await $button2.trigger('focusin')
       expect(document.activeElement).toBe($button2.element)
       expect(document.activeElement).not.toBe($content.element)
 
@@ -1419,15 +1397,13 @@ describe('modal', () => {
 
       // Try to focus button1
       $button1.element.focus()
-      $button1.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await $button1.trigger('focusin')
       expect(document.activeElement).toBe($button1.element)
       expect(document.activeElement).not.toBe($content.element)
 
       // Try to focus button2
       $button2.element.focus()
-      $button2.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await $button2.trigger('focusin')
       expect(document.activeElement).not.toBe($button2.element)
       expect(document.activeElement).toBe($content.element)
 

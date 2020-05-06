@@ -138,8 +138,7 @@ describe('button-toolbar', () => {
       expect(document.activeElement).not.toBe(wrapper.element)
       expect(document.activeElement).not.toBe($btns.at(0).element)
 
-      wrapper.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await wrapper.trigger('focusin')
       expect(document.activeElement).toBe($btns.at(0).element)
 
       wrapper.destroy()
@@ -164,28 +163,23 @@ describe('button-toolbar', () => {
       expect(document.activeElement).toBe($btns.at(0).element)
 
       // Cursor right
-      $btns.at(0).trigger('keydown.right')
-      await waitNT(wrapper.vm)
+      await $btns.at(0).trigger('keydown.right')
       expect(document.activeElement).toBe($btns.at(1).element)
 
       // Cursor right (skips disabled button)
-      $btns.at(1).trigger('keydown.right')
-      await waitNT(wrapper.vm)
+      await $btns.at(1).trigger('keydown.right')
       expect(document.activeElement).toBe($btns.at(3).element)
 
       // Cursor shift-right (focuses last button)
-      $btns.at(1).trigger('keydown.right', { shiftKey: true })
-      await waitNT(wrapper.vm)
+      await $btns.at(1).trigger('keydown.right', { shiftKey: true })
       expect(document.activeElement).toBe($btns.at(5).element)
 
       // Cursor left
-      $btns.at(5).trigger('keydown.left')
-      await waitNT(wrapper.vm)
+      await $btns.at(5).trigger('keydown.left')
       expect(document.activeElement).toBe($btns.at(4).element)
 
       // Cursor shift left (focuses first button)
-      $btns.at(5).trigger('keydown.left', { shiftKey: true })
-      await waitNT(wrapper.vm)
+      await $btns.at(5).trigger('keydown.left', { shiftKey: true })
       expect(document.activeElement).toBe($btns.at(0).element)
 
       wrapper.destroy()

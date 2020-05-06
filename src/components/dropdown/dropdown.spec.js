@@ -420,7 +420,7 @@ describe('dropdown', () => {
     const $buttons = wrapper.findAll('button')
     const $split = $buttons.at(0)
 
-    $split.trigger('click')
+    await $split.trigger('click')
 
     expect(wrapper.emitted('click')).toBeDefined()
     expect(wrapper.emitted('click').length).toBe(1)
@@ -466,8 +466,7 @@ describe('dropdown', () => {
     expect($dropdown.classes()).not.toContain('show')
 
     // Open menu by clicking toggle
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
@@ -477,23 +476,20 @@ describe('dropdown', () => {
     expect(document.activeElement).toBe($menu.element)
 
     // Close menu by clicking toggle again
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
 
     // Open menu again
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
     expect($dropdown.classes()).toContain('show')
 
     // Close by clicking dropdown-item
-    $item.trigger('click')
-    await waitNT(wrapper.vm)
+    await $item.trigger('click')
     await waitRAF()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
@@ -521,23 +517,20 @@ describe('dropdown', () => {
     expect(document.activeElement).toBe($menu.element)
 
     // Close menu by moving focus away from menu
-    $input.trigger('focusin')
-    await waitNT(wrapper.vm)
+    await $input.trigger('focusin')
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Open menu via keydown.down event on toggle button
-    $toggle.trigger('keydown.down')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('keydown.down')
     await waitRAF()
     expect($dropdown.classes()).toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
 
     // Close menu by clicking outside
-    $container.trigger('click')
-    await waitNT(wrapper.vm)
+    await $container.trigger('click')
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
@@ -550,8 +543,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('true')
 
     // Close menu by keydown.esc event on dropdown item
-    $item.trigger('keydown.esc')
-    await waitNT(wrapper.vm)
+    await $item.trigger('keydown.esc')
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
@@ -564,10 +556,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('true')
 
     // When disabled changes to true, menu should close
-    $dropdown.setProps({
-      disabled: true
-    })
-    await waitNT(wrapper.vm)
+    await $dropdown.setProps({ disabled: true })
     await waitRAF()
     expect($dropdown.classes()).not.toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
@@ -580,10 +569,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Re-enable dropdown and open it
-    $dropdown.setProps({
-      disabled: false
-    })
-    await waitNT(wrapper.vm)
+    await $dropdown.setProps({ disabled: false })
     await waitRAF()
     $dropdown.vm.show()
     await waitNT(wrapper.vm)
@@ -633,10 +619,8 @@ describe('dropdown', () => {
     expect($dropdown.classes()).not.toContain('show')
 
     // Should prevent menu from opening
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(1)
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
@@ -647,10 +631,8 @@ describe('dropdown', () => {
 
     // Allow menu to open
     prevent = false
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(2)
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
@@ -699,51 +681,43 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Trigger keydown.down on toggle to open menu
-    $toggle.trigger('keydown.down')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('keydown.down')
     await waitRAF()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect(document.activeElement).toBe($menu.element)
 
     // Move to first menu item
-    $menu.trigger('keydown.down')
-    await waitNT(wrapper.vm)
+    await $menu.trigger('keydown.down')
     await waitRAF()
     expect(document.activeElement).toBe($items.at(0).element)
 
     // Move to second menu item
-    $items.at(0).trigger('keydown.down')
-    await waitNT(wrapper.vm)
+    await $items.at(0).trigger('keydown.down')
     await waitRAF()
     expect(document.activeElement).toBe($items.at(1).element)
 
     // Move down to next menu item (should skip disabled item)
-    $items.at(1).trigger('keydown.down')
-    await waitNT(wrapper.vm)
+    await $items.at(1).trigger('keydown.down')
     await waitRAF()
     expect(document.activeElement).toBe($items.at(3).element)
 
     // Move down to next menu item (should remain on same item)
-    $items.at(3).trigger('keydown.down')
-    await waitNT(wrapper.vm)
+    await $items.at(3).trigger('keydown.down')
     await waitRAF()
     expect(document.activeElement).toBe($items.at(3).element)
 
     // Move up to previous menu item (should skip disabled item)
-    $items.at(3).trigger('keydown.up')
-    await waitNT(wrapper.vm)
+    await $items.at(3).trigger('keydown.up')
     await waitRAF()
     expect(document.activeElement).toBe($items.at(1).element)
 
     // Move up to previous menu item
-    $items.at(1).trigger('keydown.up')
-    await waitNT(wrapper.vm)
+    await $items.at(1).trigger('keydown.up')
     await waitRAF()
     expect(document.activeElement).toBe($items.at(0).element)
 
     // Move up to previous menu item (should remain on first item)
-    $items.at(0).trigger('keydown.up')
-    await waitNT(wrapper.vm)
+    await $items.at(0).trigger('keydown.up')
     await waitRAF()
     expect(document.activeElement).toBe($items.at(0).element)
 

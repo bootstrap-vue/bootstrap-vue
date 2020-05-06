@@ -187,12 +187,8 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('interactive')).toBe(false)
 
     // Hide the tooltip
-    await wrapper.setProps({
-      show: false
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ show: false })
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -205,12 +201,8 @@ describe('b-tooltip', () => {
     expect(document.querySelector(adb)).toBe(null)
 
     // Show the tooltip
-    await wrapper.setProps({
-      show: true
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ show: true })
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -285,14 +277,8 @@ describe('b-tooltip', () => {
     expect($tip.text()).toContain('hello')
 
     // Change the title prop
-    await wrapper.setProps({
-      title: 'world'
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ title: 'world' })
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     // Tooltip element should still be in the document
@@ -343,12 +329,8 @@ describe('b-tooltip', () => {
     expect($tipHolder.exists()).toBe(true)
 
     // Activate tooltip by trigger
-    $button.trigger('click')
-    await waitNT(wrapper.vm)
+    await $button.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -414,10 +396,8 @@ describe('b-tooltip', () => {
     expect($tipHolder.exists()).toBe(true)
 
     // Activate tooltip by trigger
-    $button.trigger('focusin')
-    await waitNT(wrapper.vm)
+    await $button.trigger('focusin')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -438,10 +418,8 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     // Deactivate tooltip by trigger
-    $button.trigger('focusout', { relatedTarget: document.body })
-    await waitNT(wrapper.vm)
+    await $button.trigger('focusout', { relatedTarget: document.body })
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -497,10 +475,8 @@ describe('b-tooltip', () => {
     expect($tipHolder.exists()).toBe(true)
 
     // Activate tooltip by trigger
-    $button.trigger('mouseenter')
-    await waitNT(wrapper.vm)
+    await $button.trigger('mouseenter')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -521,8 +497,8 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     // Deactivate tooltip by trigger
-    $button.trigger('mouseleave', { relatedTarget: document.body })
-    await waitNT(wrapper.vm)
+    await $button.trigger('mouseleave', { relatedTarget: document.body })
+    await waitRAF()
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -579,10 +555,8 @@ describe('b-tooltip', () => {
     expect($tipHolder.exists()).toBe(true)
 
     // Try to activate tooltip by trigger
-    $button.trigger('click')
-    await waitNT(wrapper.vm)
+    await $button.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -592,22 +566,16 @@ describe('b-tooltip', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // Now enable the tooltip
-    await wrapper.setProps({
-      disabled: false
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ disabled: false })
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
     await waitRAF()
 
     // Try to activate tooltip by trigger
-    $button.trigger('click')
-    await waitNT(wrapper.vm)
+    await $button.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -626,12 +594,8 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('tooltip')).toBe(true)
 
     // Now disable the tooltip
-    await wrapper.setProps({
-      disabled: true
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ disabled: true })
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -640,12 +604,8 @@ describe('b-tooltip', () => {
     await waitRAF()
 
     // Try to close tooltip by trigger
-    $button.trigger('click')
-    await waitNT(wrapper.vm)
+    await $button.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -1274,10 +1234,7 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('noninteractive')).toBe(false)
 
     // Enable 'noninteractive'. Should be reactive
-    await wrapper.setProps({
-      noninteractive: true
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ noninteractive: true })
     await waitRAF()
     expect(tip.classList.contains('tooltip')).toBe(true)
     expect(tip.classList.contains('b-tooltip')).toBe(true)
@@ -1331,10 +1288,7 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('b-tooltip-danger')).toBe(true)
 
     // Change variant type. Should be reactive
-    await wrapper.setProps({
-      variant: 'success'
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ variant: 'success' })
     await waitRAF()
     expect(tip.classList.contains('tooltip')).toBe(true)
     expect(tip.classList.contains('b-tooltip-success')).toBe(true)
@@ -1391,10 +1345,7 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('foobar-class')).toBe(true)
 
     // Change custom class. Should be reactive
-    await wrapper.setProps({
-      customClass: 'barbaz-class'
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ customClass: 'barbaz-class' })
     await waitRAF()
     expect(tip.classList.contains('tooltip')).toBe(true)
     expect(tip.classList.contains('barbaz-class')).toBe(true)

@@ -353,7 +353,7 @@ describe('form-input', () => {
 
     const input = wrapper.find('input')
     input.element.value = 'test'
-    input.trigger('input')
+    await input.trigger('input')
 
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted().input[0].length).toEqual(1)
@@ -370,7 +370,7 @@ describe('form-input', () => {
       }
     })
     const input = wrapper.find('input')
-    input.trigger('focus')
+    await input.trigger('focus')
 
     expect(wrapper.emitted()).toMatchObject({})
     expect(spy).toHaveBeenCalled()
@@ -385,7 +385,7 @@ describe('form-input', () => {
       }
     })
     const input = wrapper.find('input')
-    input.trigger('blur')
+    await input.trigger('blur')
 
     expect(wrapper.emitted('blur')).toBeDefined()
     expect(wrapper.emitted('blur')[0].length).toEqual(1)
@@ -406,7 +406,7 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     input.element.value = 'TEST'
-    input.trigger('input')
+    await input.trigger('input')
 
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
@@ -431,7 +431,7 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     input.element.value = 'TEST'
-    input.trigger('input')
+    await input.trigger('input')
 
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
@@ -460,14 +460,14 @@ describe('form-input', () => {
 
     // Input event needed to set initial value
     input.element.value = 'TEST'
-    input.trigger('input')
+    await input.trigger('input')
 
     expect(input.vm.localValue).toEqual('TEST')
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
 
-    input.trigger('blur')
+    await input.trigger('blur')
 
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(2)
@@ -560,7 +560,7 @@ describe('form-input', () => {
     })
     const input = wrapper.find('input')
     input.element.value = 'TEST'
-    input.trigger('input')
+    await input.trigger('input')
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('update')).not.toBeDefined()
     // Value in input should remain the same as entered
@@ -589,7 +589,7 @@ describe('form-input', () => {
     expect(wrapper.props().noWheel).toBe(true)
 
     input.element.focus()
-    input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    await input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
     // `:no-wheel="true"` will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
@@ -616,7 +616,7 @@ describe('form-input', () => {
     expect(wrapper.props().noWheel).toBe(false)
 
     input.element.focus()
-    input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    await input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
     // `:no-wheel="false"` will not fire a blur event on the input when wheel fired
     expect(spy).not.toHaveBeenCalled()
@@ -643,7 +643,7 @@ describe('form-input', () => {
     expect(wrapper.props().noWheel).toBe(false)
 
     input.element.focus()
-    input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    await input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
     // no-wheel=false will not fire a blur event on the input when wheel fired
     expect(spy).not.toHaveBeenCalled()
@@ -653,7 +653,7 @@ describe('form-input', () => {
     expect(wrapper.props().noWheel).toBe(true)
 
     input.element.focus()
-    input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    await input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
     // no-wheel=true will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
@@ -671,8 +671,7 @@ describe('form-input', () => {
 
     const input = wrapper.find('input')
     input.element.value = '123.450'
-    input.trigger('input')
-    await waitNT(wrapper.vm)
+    await input.trigger('input')
 
     expect(input.element.value).toBe('123.450')
     // `v-model` update event (should emit a numerical value)
@@ -688,8 +687,7 @@ describe('form-input', () => {
 
     // Update the input to be different string-wise, but same numerically
     input.element.value = '123.4500'
-    input.trigger('input')
-    await waitNT(wrapper.vm)
+    await input.trigger('input')
 
     expect(input.element.value).toBe('123.4500')
     // Should emit a new input event
@@ -700,10 +698,7 @@ describe('form-input', () => {
     expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
 
     // Updating the `v-model` to new numeric value
-    await wrapper.setProps({
-      value: 45.6
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ value: 45.6 })
     expect(input.element.value).toBe('45.6')
 
     wrapper.destroy()
@@ -719,22 +714,19 @@ describe('form-input', () => {
 
     const input = wrapper.find('input')
     input.element.value = 'a'
-    input.trigger('input')
-    await waitNT(wrapper.vm)
+    await input.trigger('input')
     expect(input.element.value).toBe('a')
     // `v-model` update event should not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
 
     input.element.value = 'ab'
-    input.trigger('input')
-    await waitNT(wrapper.vm)
+    await input.trigger('input')
     expect(input.element.value).toBe('ab')
     // `v-model` update event should not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
 
     // trigger a change event
-    input.trigger('change')
-    await waitNT(wrapper.vm)
+    await input.trigger('change')
     expect(input.element.value).toBe('ab')
     // `v-model` update event should have emitted
     expect(wrapper.emitted('update')).toBeDefined()
@@ -742,22 +734,19 @@ describe('form-input', () => {
     expect(wrapper.emitted('update')[0][0]).toBe('ab')
 
     input.element.value = 'abc'
-    input.trigger('input')
-    await waitNT(wrapper.vm)
+    await input.trigger('input')
     expect(input.element.value).toBe('abc')
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toEqual(1)
 
     input.element.value = 'abcd'
-    input.trigger('input')
-    await waitNT(wrapper.vm)
+    await input.trigger('input')
     expect(input.element.value).toBe('abcd')
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toEqual(1)
 
     // Trigger a blur event
-    input.trigger('blur')
-    await waitNT(wrapper.vm)
+    await input.trigger('blur')
     expect(input.element.value).toBe('abcd')
     // `v-model` update event should have emitted
     expect(wrapper.emitted('update').length).toEqual(2)
@@ -778,8 +767,7 @@ describe('form-input', () => {
 
     const input = wrapper.find('input')
     input.element.value = 'a'
-    input.trigger('input')
-    await waitNT(wrapper.vm)
+    await input.trigger('input')
     expect(input.element.value).toBe('a')
     // `v-model` update event should not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
@@ -789,8 +777,7 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')[0][0]).toBe('a')
 
     input.element.value = 'ab'
-    input.trigger('input')
-    await waitNT(wrapper.vm)
+    await input.trigger('input')
     expect(input.element.value).toBe('ab')
     // `v-model` update event should not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
@@ -811,8 +798,7 @@ describe('form-input', () => {
 
     // Update input
     input.element.value = 'abc'
-    input.trigger('input')
-    await waitNT(wrapper.vm)
+    await input.trigger('input')
     expect(input.element.value).toBe('abc')
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toBe(1)
@@ -822,8 +808,7 @@ describe('form-input', () => {
 
     // Update input
     input.element.value = 'abcd'
-    input.trigger('input')
-    await waitNT(wrapper.vm)
+    await input.trigger('input')
     expect(input.element.value).toBe('abcd')
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toEqual(1)
@@ -832,8 +817,7 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')[3][0]).toBe('abcd')
 
     // Trigger a `change` event
-    input.trigger('change')
-    await waitNT(wrapper.vm)
+    await input.trigger('change')
     expect(input.element.value).toBe('abcd')
     // `v-model` update event should have emitted (change overrides debounce)
     expect(wrapper.emitted('update').length).toEqual(2)

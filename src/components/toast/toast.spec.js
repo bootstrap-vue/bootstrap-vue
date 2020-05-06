@@ -103,15 +103,8 @@ describe('b-toast', () => {
     expect(wrapper.emitted('hide')).not.toBeDefined()
     expect(wrapper.emitted('hidden')).not.toBeDefined()
 
-    await wrapper.setProps({
-      visible: true
-    })
-
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ visible: true })
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.is('div')).toBe(true)
@@ -123,15 +116,8 @@ describe('b-toast', () => {
     expect(wrapper.emitted('show').length).toBe(1)
     expect(wrapper.emitted('shown').length).toBe(1)
 
-    await wrapper.setProps({
-      visible: false
-    })
-
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ visible: false })
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
@@ -184,15 +170,8 @@ describe('b-toast', () => {
     expect(wrapper.emitted('hidden')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
 
-    $body.trigger('click')
-
-    await waitNT(wrapper.vm)
+    await $body.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.is('div')).not.toBe(true)
@@ -287,16 +266,12 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    wrapper.trigger('mouseenter')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('mouseenter')
     await waitRAF()
-
     expect(wrapper.vm.timer).toEqual(null)
 
-    wrapper.trigger('mouseleave')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('mouseleave')
     await waitRAF()
-
     expect(wrapper.vm.timer).not.toEqual(null)
 
     wrapper.destroy()
@@ -336,16 +311,12 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    wrapper.trigger('mouseenter')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('mouseenter')
     await waitRAF()
-
     expect(wrapper.vm.timer).not.toEqual(null)
 
-    wrapper.trigger('mouseleave')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('mouseleave')
     await waitRAF()
-
     expect(wrapper.vm.timer).not.toEqual(null)
 
     wrapper.destroy()

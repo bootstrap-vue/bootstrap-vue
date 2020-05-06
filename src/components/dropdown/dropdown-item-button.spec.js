@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
 import { BDropdownItemButton } from './dropdown-item-button'
 
 describe('dropdown-item-button', () => {
@@ -67,8 +66,7 @@ describe('dropdown-item-button', () => {
 
     const button = wrapper.find('button')
     expect(button).toBeDefined()
-    button.trigger('click')
-    await waitNT(wrapper.vm)
+    await button.trigger('click')
     expect(called).toBe(true)
     expect(refocus).toBe(true)
 
@@ -95,8 +93,7 @@ describe('dropdown-item-button', () => {
 
     const button = wrapper.find('button')
     expect(button).toBeDefined()
-    button.trigger('click')
-    await waitNT(wrapper.vm)
+    await button.trigger('click')
     expect(called).toBe(false)
     expect(refocus).toBe(null)
 

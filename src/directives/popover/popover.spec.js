@@ -114,12 +114,8 @@ describe('v-b-popover directive', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // Trigger click
-    $button.trigger('click')
-    await waitNT(wrapper.vm)
+    await $button.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)

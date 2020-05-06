@@ -103,32 +103,21 @@ describe('sidebar', () => {
     const $backdrop = wrapper.find('.b-sidebar-backdrop')
     expect($backdrop.exists()).toBe(true)
 
-    $backdrop.trigger('click')
-    await waitNT(wrapper.vm)
+    await $backdrop.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($sidebar.isVisible()).toBe(true)
     expect($backdrop.isVisible()).toBe(true)
 
-    await wrapper.setProps({
-      noCloseOnBackdrop: false
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ noCloseOnBackdrop: false })
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($sidebar.isVisible()).toBe(true)
     expect($backdrop.isVisible()).toBe(true)
 
-    $backdrop.trigger('click')
-    await waitNT(wrapper.vm)
+    await $backdrop.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($sidebar.isVisible()).toBe(false)
     expect($backdrop.isVisible()).toBe(false)
 
@@ -220,33 +209,22 @@ describe('sidebar', () => {
     expect($sidebar.is('div')).toBe(true)
     expect($sidebar.isVisible()).toBe(true)
 
-    wrapper.trigger('keydown.esc')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.esc')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($sidebar.is('div')).toBe(true)
     expect($sidebar.isVisible()).toBe(false)
 
-    await wrapper.setProps({
-      noCloseOnEsc: true
-    })
+    await wrapper.setProps({ noCloseOnEsc: true })
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-esc')
-    await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($sidebar.is('div')).toBe(true)
     expect($sidebar.isVisible()).toBe(true)
 
-    wrapper.trigger('keydown.esc')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.esc')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($sidebar.is('div')).toBe(true)
     expect($sidebar.isVisible()).toBe(true)
 

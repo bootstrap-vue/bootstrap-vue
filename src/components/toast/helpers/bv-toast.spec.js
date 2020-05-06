@@ -123,15 +123,11 @@ describe('$bvToast', () => {
     expect($toast.findAll('button').length).toBe(1)
     const $button = $toast.find('button')
     expect($button.classes()).toContain('close')
-    $button.trigger('click')
 
-    await waitNT(wrapper.vm)
+    await $button.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     // Toast should be gone from DOM

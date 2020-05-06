@@ -1,5 +1,4 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
 import { VBHover } from './hover'
 
 describe('v-b-hover directive', () => {
@@ -32,28 +31,18 @@ describe('v-b-hover directive', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(hovered1).toBe(false)
 
-    wrapper.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('mouseenter')
     expect(hovered1).toBe(true)
 
-    wrapper.trigger('mouseleave')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('mouseleave')
     expect(hovered1).toBe(false)
 
     await wrapper.setData({ text: 'BAR' })
-
-    wrapper.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('mouseenter')
     expect(hovered1).toBe(true)
 
     await wrapper.setData({ changeHandler: true })
-
-    wrapper.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('mouseenter')
     expect(hovered2).toBe(true)
 
     wrapper.destroy()

@@ -212,7 +212,7 @@ describe('button', () => {
     expect(wrapper.is('button')).toBe(true)
     expect(called).toBe(0)
     expect(evt).toEqual(null)
-    wrapper.find('button').trigger('click')
+    await wrapper.find('button').trigger('click')
     expect(called).toBe(1)
     expect(evt).toBeInstanceOf(MouseEvent)
   })
@@ -242,7 +242,7 @@ describe('button', () => {
     expect(evt).toEqual(null)
 
     // We add keydown.space to make links act like buttons
-    wrapper.find('.btn').trigger('keydown.space')
+    await wrapper.find('.btn').trigger('keydown.space')
     expect(called).toBe(1)
     expect(evt).toBeInstanceOf(Event)
 
@@ -264,7 +264,7 @@ describe('button', () => {
 
     expect(wrapper.is('button')).toBe(true)
     expect(called).toBe(0)
-    wrapper.find('button').trigger('click')
+    await wrapper.find('button').trigger('click')
     expect(called).toBe(0)
   })
 
@@ -277,7 +277,7 @@ describe('button', () => {
 
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
-    wrapper.find('button').trigger('click')
+    await wrapper.find('button').trigger('click')
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
     expect(wrapper.attributes('autocomplete')).not.toBeDefined()
@@ -319,9 +319,9 @@ describe('button', () => {
     })
 
     expect(wrapper.classes()).not.toContain('focus')
-    wrapper.trigger('focusin')
+    await wrapper.trigger('focusin')
     expect(wrapper.classes()).toContain('focus')
-    wrapper.trigger('focusout')
+    await wrapper.trigger('focusout')
     expect(wrapper.classes()).not.toContain('focus')
   })
 
@@ -342,7 +342,7 @@ describe('button', () => {
 
     expect(called).toBe(0)
 
-    wrapper.find('button').trigger('click')
+    await wrapper.find('button').trigger('click')
 
     expect(called).toBe(1)
     expect(values[0]).toBe(true)

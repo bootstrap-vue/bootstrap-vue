@@ -245,31 +245,19 @@ describe('form-date', () => {
     expect($toggle.find('svg.bi-calendar').exists()).toBe(true)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(false)
 
-    $toggle.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $toggle.trigger('mouseenter')
     expect($toggle.find('svg.bi-calendar').exists()).toBe(false)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(true)
 
-    $toggle.trigger('mouseleave')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $toggle.trigger('mouseleave')
     expect($toggle.find('svg.bi-calendar').exists()).toBe(true)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(false)
 
-    $label.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $label.trigger('mouseenter')
     expect($toggle.find('svg.bi-calendar').exists()).toBe(false)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(true)
 
-    $label.trigger('mouseleave')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $label.trigger('mouseleave')
     expect($toggle.find('svg.bi-calendar').exists()).toBe(true)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(false)
 
@@ -300,20 +288,14 @@ describe('form-date', () => {
     expect($menu.exists()).toBe(true)
     expect($menu.classes()).not.toContain('show')
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).not.toContain('show')
 
     wrapper.destroy()
@@ -344,12 +326,9 @@ describe('form-date', () => {
     expect($menu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(true)
 
@@ -367,12 +346,9 @@ describe('form-date', () => {
 
     // Simulate picking todays date on calendar by `keydown.enter` on grid
     // The calendar has today's date as the default calendar day button
-    $grid.trigger('keydown.enter')
-    await waitNT(wrapper.vm)
+    await $grid.trigger('keydown.enter')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).not.toContain('show')
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
@@ -405,12 +381,9 @@ describe('form-date', () => {
     expect($menu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(true)
 
@@ -428,10 +401,8 @@ describe('form-date', () => {
 
     // Simulate picking todays date on calendar by `keydown.enter` on grid
     // The calendar has today's date as the default calendar day button
-    $grid.trigger('keydown.enter')
-    await waitNT(wrapper.vm)
+    await $grid.trigger('keydown.enter')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     // Calendar should remain open
@@ -474,12 +445,9 @@ describe('form-date', () => {
     expect($menu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
 
     const $value = wrapper.find('input[type="hidden"]')
@@ -498,10 +466,8 @@ describe('form-date', () => {
     const $reset = $btns.at(1)
     const $close = $btns.at(2)
 
-    $today.trigger('click')
-    await waitNT(wrapper.vm)
+    await $today.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect($menu.classes()).toContain('show')
@@ -509,19 +475,15 @@ describe('form-date', () => {
     expect($value.attributes('value')).not.toBe('')
     expect(/^\d+-\d\d-\d\d$/.test($value.attributes('value'))).toBe(true)
 
-    $reset.trigger('click')
-    await waitNT(wrapper.vm)
+    await $reset.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect($menu.classes()).toContain('show')
     expect($value.attributes('value')).toBe('')
 
-    $close.trigger('click')
-    await waitNT(wrapper.vm)
+    await $close.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect($menu.classes()).not.toContain('show')
@@ -558,10 +520,8 @@ describe('form-date', () => {
     expect($menu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect($menu.classes()).toContain('show')
@@ -580,10 +540,8 @@ describe('form-date', () => {
 
     const $reset = $btns.at(0)
 
-    $reset.trigger('click')
-    await waitNT(wrapper.vm)
+    await $reset.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect($menu.classes()).not.toContain('show')

@@ -454,13 +454,9 @@ describe('collapse', () => {
     expect($collapse.find('.nav-link').exists()).toBe(true)
 
     // Click on link
-    wrapper.find('.nav-link').trigger('click')
-
-    await waitNT(wrapper.vm)
+    await wrapper.find('.nav-link').trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($collapse.classes()).not.toContain('show')
     expect($collapse.element.style.display).toEqual('none')
 
@@ -520,13 +516,9 @@ describe('collapse', () => {
     expect($collapse.find('.nav-link').exists()).toBe(true)
 
     // Click on link
-    wrapper.find('.nav-link').trigger('click')
-
-    await waitNT(wrapper.vm)
+    await wrapper.find('.nav-link').trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($collapse.classes()).toContain('show')
     expect($collapse.element.style.display).toEqual('')
 

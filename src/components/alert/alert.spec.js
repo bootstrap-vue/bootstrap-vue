@@ -138,11 +138,8 @@ describe('alert', () => {
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
-    await wrapper.setProps({
-      show: true
-    })
+    await wrapper.setProps({ show: true })
 
-    await waitNT(wrapper.vm)
     expect(wrapper.html()).toBeDefined()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
@@ -219,9 +216,7 @@ describe('alert', () => {
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('input')).not.toBeDefined()
 
-    wrapper.find('button').trigger('click')
-
-    await waitNT(wrapper.vm)
+    await wrapper.find('button').trigger('click')
 
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
@@ -249,9 +244,7 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
-    await wrapper.setProps({
-      show: true
-    })
+    await wrapper.setProps({ show: true })
 
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
@@ -261,11 +254,7 @@ describe('alert', () => {
     await waitRAF()
     await waitRAF()
 
-    await wrapper.setProps({
-      show: false
-    })
-
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ show: false })
     await waitRAF()
 
     // Dismissed won't be emitted unless dismissible=true or show is a number
@@ -371,9 +360,7 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
 
     // Reset countdown
-    await wrapper.setProps({
-      show: 3
-    })
+    await wrapper.setProps({ show: 3 })
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(3) // 3 - 0
 
@@ -423,7 +410,8 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
 
-    wrapper.find('button').trigger('click')
+    await wrapper.find('button').trigger('click')
+    await waitRAF()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(0)
 

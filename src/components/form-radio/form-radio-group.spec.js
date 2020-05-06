@@ -327,6 +327,7 @@ describe('form-radio-group', () => {
         required: true
       }
     })
+
     // We need `$nextTick()` here since auto generated name is
     // computed in a `$nextTick()` on mount
     await waitNT(wrapper.vm)
@@ -398,9 +399,7 @@ describe('form-radio-group', () => {
     expect(radios.at(1).element.checked).toBe(true)
     expect(radios.at(2).element.checked).toBe(false)
 
-    await wrapper.setProps({
-      checked: 'one'
-    })
+    await wrapper.setProps({ checked: 'one' })
 
     expect(wrapper.vm.localChecked).toEqual('one')
     expect(radios.is('input[type=radio]')).toBe(true)

@@ -603,9 +603,7 @@ describe('form-select', () => {
     // Select 2nd and 3rd option
     $options.at(1).element.selected = true
     $options.at(2).element.selected = true
-    wrapper.trigger('change')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('change')
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toEqual(['two', 'three'])
@@ -636,9 +634,7 @@ describe('form-select', () => {
     // Select 2nd and 3rd option
     $options.at(1).element.selected = true
     $options.at(2).element.selected = true
-    wrapper.trigger('change')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('change')
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toEqual([{ b: 2 }, { c: 3 }])

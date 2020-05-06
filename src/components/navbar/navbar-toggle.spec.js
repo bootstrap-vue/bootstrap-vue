@@ -96,7 +96,7 @@ describe('navbar-toggle', () => {
     expect(wrapper.emitted('click')).not.toBeDefined()
     expect(rootClicked).toBe(false)
 
-    wrapper.trigger('click')
+    await wrapper.trigger('click')
     expect(wrapper.emitted('click')).toBeDefined()
     expect(rootClicked).toBe(true)
 

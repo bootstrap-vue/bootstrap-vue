@@ -31,7 +31,7 @@ describe('v-b-modal directive', () => {
     expect(spy).not.toHaveBeenCalled()
 
     const $button = wrapper.find('button')
-    $button.trigger('click')
+    await $button.trigger('click')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test', $button.element)
 
@@ -71,7 +71,7 @@ describe('v-b-modal directive', () => {
     expect(wrapper.find('a').text()).toBe('link')
 
     const $link = wrapper.find('a')
-    $link.trigger('click')
+    await $link.trigger('click')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test', $link.element)
     expect(wrapper.find('a').attributes('role')).toBe('button')
@@ -113,7 +113,7 @@ describe('v-b-modal directive', () => {
     expect(wrapper.find('span').text()).toBe('span')
 
     const $span = wrapper.find('span')
-    $span.trigger('click')
+    await $span.trigger('click')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test', $span.element)
     expect(wrapper.find('span').attributes('role')).toBe('button')
@@ -161,7 +161,7 @@ describe('v-b-modal directive', () => {
     expect(wrapper.find('span').text()).toBe('span')
 
     const $span = wrapper.find('span')
-    $span.trigger('keydown.space')
+    await $span.trigger('keydown.space')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test', $span.element)
     expect(wrapper.find('span').attributes('role')).toBe('button')
@@ -201,7 +201,7 @@ describe('v-b-modal directive', () => {
     expect(wrapper.find('span').text()).toBe('span')
 
     const $span = wrapper.find('span')
-    $span.trigger('keydown.enter')
+    await $span.trigger('keydown.enter')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test', $span.element)
     expect(wrapper.find('span').attributes('role')).toBe('button')

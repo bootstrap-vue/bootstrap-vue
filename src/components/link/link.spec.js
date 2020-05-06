@@ -215,7 +215,7 @@ describe('b-link', () => {
       expect(wrapper.is('a')).toBe(true)
       expect(called).toBe(0)
       expect(evt).toEqual(null)
-      wrapper.find('a').trigger('click')
+      await wrapper.find('a').trigger('click')
       expect(called).toBe(1)
       expect(evt).toBeInstanceOf(MouseEvent)
 
@@ -233,7 +233,7 @@ describe('b-link', () => {
       expect(wrapper.is('a')).toBe(true)
       expect(spy1).not.toHaveBeenCalled()
       expect(spy2).not.toHaveBeenCalled()
-      wrapper.find('a').trigger('click')
+      await wrapper.find('a').trigger('click')
       expect(spy1).toHaveBeenCalled()
       expect(spy2).toHaveBeenCalled()
 
@@ -257,7 +257,7 @@ describe('b-link', () => {
       expect(wrapper.is('a')).toBe(true)
       expect(called).toBe(0)
       expect(evt).toEqual(null)
-      wrapper.find('a').trigger('click')
+      await wrapper.find('a').trigger('click')
       expect(called).toBe(0)
       expect(evt).toEqual(null)
 
@@ -273,7 +273,7 @@ describe('b-link', () => {
       const spy = jest.fn()
       expect(wrapper.is('a')).toBe(true)
       wrapper.find('a').element.addEventListener('click', spy)
-      wrapper.find('a').trigger('click')
+      await wrapper.find('a').trigger('click')
       expect(spy).not.toHaveBeenCalled()
 
       wrapper.destroy()
@@ -290,7 +290,7 @@ describe('b-link', () => {
         localVue: localVue
       })
       wrapper.vm.$root.$on('clicked::link', spy)
-      wrapper.find('a').trigger('click')
+      await wrapper.find('a').trigger('click')
       expect(spy).toHaveBeenCalled()
 
       wrapper.destroy()
@@ -310,7 +310,7 @@ describe('b-link', () => {
       expect(wrapper.isVueInstance()).toBe(true)
 
       wrapper.vm.$root.$on('clicked::link', spy)
-      wrapper.find('a').trigger('click')
+      await wrapper.find('a').trigger('click')
       expect(spy).not.toHaveBeenCalled()
 
       wrapper.destroy()

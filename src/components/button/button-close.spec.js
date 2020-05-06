@@ -99,7 +99,7 @@ describe('button-close', () => {
 
     const btn = wrapper.find('button')
     expect(btn).toBeDefined()
-    btn.trigger('click')
+    await btn.trigger('click')
 
     expect(spy1).toHaveBeenCalled()
     expect(spy1.mock.calls.length).toBe(1)
@@ -108,7 +108,7 @@ describe('button-close', () => {
     // Works when clicking on an inner element
     const span = wrapper.find('span')
     expect(span).toBeDefined()
-    span.trigger('click')
+    await span.trigger('click')
 
     expect(spy1.mock.calls.length).toBe(2)
   })
@@ -131,7 +131,7 @@ describe('button-close', () => {
 
     const btn = wrapper.find('button')
     expect(btn).toBeDefined()
-    btn.trigger('click')
+    await btn.trigger('click')
 
     expect(spy1).not.toHaveBeenCalled()
 
@@ -142,7 +142,7 @@ describe('button-close', () => {
     // // Does not emit click on inner element clicks
     // const span = wrapper.find('span')
     // expect(span).toBeDefined()
-    // span.trigger('click')
+    // await span.trigger('click')
     //
     // expect(spy1).not.toHaveBeenCalled()
   })
@@ -161,7 +161,7 @@ describe('button-close', () => {
 
     const btn = wrapper.find('button')
     expect(btn).toBeDefined()
-    btn.trigger('click')
+    await btn.trigger('click')
 
     expect(spy1).toHaveBeenCalled()
     expect(spy2).toHaveBeenCalled()

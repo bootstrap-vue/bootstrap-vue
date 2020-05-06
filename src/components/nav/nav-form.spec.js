@@ -79,7 +79,7 @@ describe('nav > nav-form', () => {
 
     expect(onSubmit).not.toHaveBeenCalled()
 
-    $form.trigger('submit')
+    await $form.trigger('submit')
     expect(onSubmit).toHaveBeenCalled()
   })
 })

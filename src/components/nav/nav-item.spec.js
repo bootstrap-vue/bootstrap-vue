@@ -69,12 +69,12 @@ describe('nav-item', () => {
       }
     })
     expect(spy).not.toHaveBeenCalled()
-    wrapper.trigger('click')
+    await wrapper.trigger('click')
     expect(spy).not.toHaveBeenCalled()
 
     const link = wrapper.find(BLink)
     expect(link).toBeDefined()
-    link.trigger('click')
+    await link.trigger('click')
     expect(spy).toHaveBeenCalled()
   })
 
@@ -87,12 +87,12 @@ describe('nav-item', () => {
       }
     })
     expect(spy).not.toHaveBeenCalled()
-    wrapper.trigger('click')
+    await wrapper.trigger('click')
     expect(spy).not.toHaveBeenCalled()
 
     const link = wrapper.find(BLink)
     expect(link).toBeDefined()
-    link.trigger('click')
+    await link.trigger('click')
     expect(spy).not.toHaveBeenCalled()
   })
 })

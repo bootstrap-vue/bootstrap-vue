@@ -158,8 +158,7 @@ describe('form-rating', () => {
     expect($stars.at(4).is('.b-rating-star-empty')).toBe(true)
 
     // Click 5th star
-    $stars.at(4).trigger('click')
-    await waitNT(wrapper.vm)
+    await $stars.at(4).trigger('click')
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
     expect(wrapper.emitted('change')[0][0]).toBe(5)
@@ -171,8 +170,7 @@ describe('form-rating', () => {
     expect($stars.at(4).is('.b-rating-star-full')).toBe(true)
 
     // Click 2nd star
-    $stars.at(1).trigger('click')
-    await waitNT(wrapper.vm)
+    await $stars.at(1).trigger('click')
     expect(wrapper.emitted('change').length).toBe(2)
     expect(wrapper.emitted('change')[1][0]).toBe(2)
     expect(wrapper.vm.localValue).toBe(2)
@@ -206,9 +204,7 @@ describe('form-rating', () => {
     expect($clear.exists()).toBe(true)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
-    $clear.trigger('click')
-    await waitNT(wrapper.vm)
-
+    await $clear.trigger('click')
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
     expect(wrapper.emitted('change')[0][0]).toEqual(null)
@@ -324,26 +320,17 @@ describe('form-rating', () => {
     expect(document.activeElement).not.toEqual($output.element)
     expect(wrapper.vm.hasFocus).not.toBe(true)
 
-    $output.trigger('focus')
-    await waitNT(wrapper.vm)
-
+    await $output.trigger('focus')
     expect(wrapper.vm.hasFocus).toBe(true)
 
-    $output.trigger('blur')
-    await waitNT(wrapper.vm)
-
+    await $output.trigger('blur')
     expect(wrapper.vm.hasFocus).not.toBe(true)
 
     wrapper.vm.focus()
     await waitNT(wrapper.vm)
-
     expect(wrapper.vm.hasFocus).toBe(true)
 
-    await wrapper.setProps({
-      disabled: true
-    })
-    await waitNT(wrapper.vm)
-
+    await wrapper.setProps({ disabled: true })
     wrapper.vm.focus()
     await waitNT(wrapper.vm)
     expect(wrapper.vm.hasFocus).not.toBe(true)
@@ -367,69 +354,52 @@ describe('form-rating', () => {
     expect($value.exists()).toBe(true)
     expect($value.text()).toEqual('')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('1')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('2')
 
-    wrapper.trigger('keydown.up')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.up')
     expect($value.text()).toEqual('3')
 
-    wrapper.trigger('keydown.up')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.up')
     expect($value.text()).toEqual('4')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('5')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('5')
 
-    wrapper.trigger('keydown.left')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.left')
     expect($value.text()).toEqual('4')
 
-    wrapper.trigger('keydown.left')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.left')
     expect($value.text()).toEqual('3')
 
-    wrapper.trigger('keydown.down')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.down')
     expect($value.text()).toEqual('2')
 
-    wrapper.trigger('keydown.down')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.down')
     expect($value.text()).toEqual('1')
 
-    wrapper.trigger('keydown.left')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.left')
     expect($value.text()).toEqual('1')
 
-    await wrapper.setProps({
-      readonly: true
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ readonly: true })
     expect($value.text()).toEqual('1')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('1')
 
     await wrapper.setProps({
       readonly: false,
       disabled: true
     })
-    await waitNT(wrapper.vm)
     expect($value.text()).toEqual('1')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('1')
 
     await wrapper.setProps({
@@ -437,15 +407,12 @@ describe('form-rating', () => {
       disabled: false,
       showClear: true
     })
-    await waitNT(wrapper.vm)
     expect($value.text()).toEqual('1')
 
-    wrapper.trigger('keydown.left')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.left')
     expect($value.text()).toEqual('')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('1')
 
     wrapper.destroy()
