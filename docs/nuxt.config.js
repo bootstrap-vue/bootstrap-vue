@@ -272,7 +272,7 @@ module.exports = {
     routes: () => [
       // Dynamic slug routes
       ...getRoutesByDir('src', 'components'),
-      ...getRoutesByDir('src', 'directives', ['modal', 'toggle']),
+      ...getRoutesByDir('src', 'directives', ['modal']),
       ...getRoutesByDir('docs/markdown', 'reference')
     ]
   },
