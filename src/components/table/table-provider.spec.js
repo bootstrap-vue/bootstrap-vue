@@ -379,7 +379,7 @@ describe('table > provider functions', () => {
 
     expect(wrapper.is('table')).toBe(true)
 
-    const $table = wrapper.find(BTable)
+    const $table = wrapper.findComponent(BTable)
     expect($table.exists()).toBe(true)
 
     await waitNT(wrapper.vm)

@@ -297,7 +297,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $carousel = wrapper.find(BCarousel)
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.vm).toBeDefined()
 
@@ -330,7 +330,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $carousel = wrapper.find(BCarousel)
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.vm).toBeDefined()
 
@@ -397,7 +397,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $carousel = wrapper.find(BCarousel)
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.vm).toBeDefined()
 
@@ -464,7 +464,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $carousel = wrapper.find(BCarousel)
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.vm).toBeDefined()
 
@@ -531,7 +531,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $carousel = wrapper.find(BCarousel)
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.vm).toBeDefined()
 
@@ -598,7 +598,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $carousel = wrapper.find(BCarousel)
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.vm).toBeDefined()
 
@@ -662,7 +662,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $carousel = wrapper.find(BCarousel)
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.vm).toBeDefined()
 
@@ -747,7 +747,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $carousel = wrapper.find(BCarousel)
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.vm).toBeDefined()
 
@@ -831,7 +831,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $carousel = wrapper.find(BCarousel)
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.vm).toBeDefined()
 
@@ -900,7 +900,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $carousel = wrapper.find(BCarousel)
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.vm).toBeDefined()
 
@@ -985,7 +985,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $carousel = wrapper.find(BCarousel)
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.vm).toBeDefined()
 
@@ -1055,7 +1055,7 @@ describe('carousel', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $carousel = wrapper.find(BCarousel)
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
     expect($carousel.vm).toBeDefined()
 

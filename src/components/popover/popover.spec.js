@@ -121,7 +121,7 @@ describe('b-popover', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // <b-popover> wrapper
-    const $tipHolder = wrapper.find(BPopover)
+    const $tipHolder = wrapper.findComponent(BPopover)
     expect($tipHolder.exists()).toBe(true)
     expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
@@ -165,7 +165,7 @@ describe('b-popover', () => {
     const adb = $button.attributes('aria-describedby')
 
     // <b-popover> wrapper
-    const $tipHolder = wrapper.find(BPopover)
+    const $tipHolder = wrapper.findComponent(BPopover)
     expect($tipHolder.exists()).toBe(true)
     expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 

@@ -542,9 +542,9 @@ describe('pagination-nav', () => {
       await waitNT(wrapper.vm)
 
       // The pagination-nav component should exist
-      expect(wrapper.find(BPaginationNav).exists()).toBe(true)
+      expect(wrapper.findComponent(BPaginationNav).exists()).toBe(true)
       // And should be on page 2
-      expect(wrapper.find(BPaginationNav).vm.currentPage).toBe(2)
+      expect(wrapper.findComponent(BPaginationNav).vm.currentPage).toBe(2)
 
       // Push router to a new page
       wrapper.vm.$router.push('/3')
@@ -555,9 +555,9 @@ describe('pagination-nav', () => {
       await waitNT(wrapper.vm)
 
       // The pagination-nav component should exist
-      expect(wrapper.find(BPaginationNav).exists()).toBe(true)
+      expect(wrapper.findComponent(BPaginationNav).exists()).toBe(true)
       // And should be on page 3
-      expect(wrapper.find(BPaginationNav).vm.currentPage).toBe(3)
+      expect(wrapper.findComponent(BPaginationNav).vm.currentPage).toBe(3)
 
       wrapper.destroy()
     })
@@ -603,9 +603,9 @@ describe('pagination-nav', () => {
       await waitNT(wrapper.vm)
 
       // The <pagination-nav> component should exist
-      expect(wrapper.find(BPaginationNav).exists()).toBe(true)
+      expect(wrapper.findComponent(BPaginationNav).exists()).toBe(true)
       // And should be on page 2
-      expect(wrapper.find(BPaginationNav).vm.currentPage).toBe(2)
+      expect(wrapper.findComponent(BPaginationNav).vm.currentPage).toBe(2)
 
       // Push router to a new page
       wrapper.vm.$router.push('/3')
@@ -616,9 +616,9 @@ describe('pagination-nav', () => {
       await waitNT(wrapper.vm)
 
       // The pagination-nav component should exist
-      expect(wrapper.find(BPaginationNav).exists()).toBe(true)
+      expect(wrapper.findComponent(BPaginationNav).exists()).toBe(true)
       // And should be on page 3
-      expect(wrapper.find(BPaginationNav).vm.currentPage).toBe(3)
+      expect(wrapper.findComponent(BPaginationNav).vm.currentPage).toBe(3)
 
       wrapper.destroy()
     })

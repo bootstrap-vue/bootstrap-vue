@@ -128,7 +128,7 @@ describe('b-tooltip', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
     expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
@@ -173,7 +173,7 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
     expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
@@ -261,7 +261,7 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
     expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
@@ -325,7 +325,7 @@ describe('b-tooltip', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
 
     // Activate tooltip by trigger
@@ -392,7 +392,7 @@ describe('b-tooltip', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
 
     // Activate tooltip by trigger
@@ -471,7 +471,7 @@ describe('b-tooltip', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
 
     // Activate tooltip by trigger
@@ -551,7 +551,7 @@ describe('b-tooltip', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // b-tooltip wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
 
     // Try to activate tooltip by trigger
@@ -654,7 +654,7 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
 
     // Find the tooltip element in the document
@@ -666,7 +666,7 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     // Hide the tooltip by emitting event on instance
-    const bTooltip = wrapper.find(BTooltip)
+    const bTooltip = wrapper.findComponent(BTooltip)
     expect(bTooltip.exists()).toBe(true)
     bTooltip.vm.$emit('close')
     await waitNT(wrapper.vm)
@@ -745,7 +745,7 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
 
     // Find the tooltip element in the document
@@ -819,7 +819,7 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // b-tooltip wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
 
     // Find the tooltip element in the document
@@ -893,7 +893,7 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // <b-tooltip> wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
 
     // Find the tooltip element in the document
@@ -968,7 +968,7 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // b-tooltip wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
 
     // Find the tooltip element in the document
@@ -1043,7 +1043,7 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // b-tooltip wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
 
     // Find the tooltip element in the document
@@ -1115,7 +1115,7 @@ describe('b-tooltip', () => {
     const adb = $button.attributes('aria-describedby')
 
     // b-tooltip wrapper
-    const $tipHolder = wrapper.find(BTooltip)
+    const $tipHolder = wrapper.findComponent(BTooltip)
     expect($tipHolder.exists()).toBe(true)
 
     // Find the tooltip element in the document

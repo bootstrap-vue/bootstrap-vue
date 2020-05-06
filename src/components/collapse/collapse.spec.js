@@ -439,7 +439,7 @@ describe('collapse', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $collapse = wrapper.find(BCollapse)
+    const $collapse = wrapper.findComponent(BCollapse)
     expect($collapse.vm).toBeDefined()
 
     expect(wrapper.find('style').exists()).toBe(true)
@@ -501,7 +501,7 @@ describe('collapse', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    const $collapse = wrapper.find(BCollapse)
+    const $collapse = wrapper.findComponent(BCollapse)
     expect($collapse.vm).toBeDefined()
 
     expect(wrapper.find('style').exists()).toBe(true)

@@ -117,9 +117,9 @@ describe('tabs', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(3)
+    expect(tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 2nd tab (index 1) to be active
     expect(tabs.vm.currentTab).toBe(1)
@@ -149,9 +149,9 @@ describe('tabs', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(3)
+    expect(tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 2nd tab (index 1) to be active
     expect(tabs.vm.currentTab).toBe(1)
@@ -180,15 +180,15 @@ describe('tabs', () => {
 
     await waitNT(wrapper.vm)
     await waitRAF()
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(3)
+    expect(tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 2nd tab (index 1) to be active
     expect(tabs.vm.currentTab).toBe(1)
-    expect(tabs.findAll(BTab).at(0).vm.localActive).toBe(false)
-    expect(tabs.findAll(BTab).at(1).vm.localActive).toBe(true)
-    expect(tabs.findAll(BTab).at(2).vm.localActive).toBe(false)
+    expect(tabs.findAllComponents(BTab).at(0).vm.localActive).toBe(false)
+    expect(tabs.findAllComponents(BTab).at(1).vm.localActive).toBe(true)
+    expect(tabs.findAllComponents(BTab).at(2).vm.localActive).toBe(false)
 
     expect(tabs.emitted('input')).toBeDefined()
     expect(tabs.emitted('input').length).toBe(1)
@@ -197,15 +197,15 @@ describe('tabs', () => {
 
     // Deactivate current tab (BTab 2, index 1)
     await tabs
-      .findAll(BTab)
+      .findAllComponents(BTab)
       .at(1)
       .setProps({ active: false })
 
     // Expect last tab (index 2) to be active
     expect(tabs.vm.currentTab).toBe(2)
-    expect(tabs.findAll(BTab).at(0).vm.localActive).toBe(false)
-    expect(tabs.findAll(BTab).at(1).vm.localActive).toBe(false)
-    expect(tabs.findAll(BTab).at(2).vm.localActive).toBe(true)
+    expect(tabs.findAllComponents(BTab).at(0).vm.localActive).toBe(false)
+    expect(tabs.findAllComponents(BTab).at(1).vm.localActive).toBe(false)
+    expect(tabs.findAllComponents(BTab).at(2).vm.localActive).toBe(true)
     expect(tabs.emitted('input').length).toBe(2)
     expect(tabs.emitted('input')[1][0]).toBe(2)
 
@@ -227,9 +227,9 @@ describe('tabs', () => {
 
     await waitNT(wrapper.vm)
     await waitRAF()
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(3)
+    expect(tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
     expect(tabs.vm.currentTab).toBe(0)
@@ -271,9 +271,9 @@ describe('tabs', () => {
 
     await waitNT(wrapper.vm)
     await waitRAF()
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(3)
+    expect(tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
     expect(tabs.vm.currentTab).toBe(0)
@@ -327,9 +327,9 @@ describe('tabs', () => {
 
     await waitNT(wrapper.vm)
     await waitRAF()
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(3)
+    expect(tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
     expect(tabs.vm.currentTab).toBe(0)
@@ -383,13 +383,13 @@ describe('tabs', () => {
 
     await waitNT(wrapper.vm)
     await waitRAF()
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(3)
+    expect(tabs.findAllComponents(BTab).length).toBe(3)
 
-    const tab1 = tabs.findAll(BTab).at(0)
-    const tab2 = tabs.findAll(BTab).at(1)
-    const tab3 = tabs.findAll(BTab).at(2)
+    const tab1 = tabs.findAllComponents(BTab).at(0)
+    const tab2 = tabs.findAllComponents(BTab).at(1)
+    const tab3 = tabs.findAllComponents(BTab).at(2)
 
     expect(wrapper.findAll('.nav-link')).toBeDefined()
     expect(wrapper.findAll('.nav-link').length).toBe(3)
@@ -457,13 +457,13 @@ describe('tabs', () => {
 
     await waitNT(wrapper.vm)
     await waitRAF()
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(3)
+    expect(tabs.findAllComponents(BTab).length).toBe(3)
 
-    const tab1 = tabs.findAll(BTab).at(0)
-    const tab2 = tabs.findAll(BTab).at(1)
-    const tab3 = tabs.findAll(BTab).at(2)
+    const tab1 = tabs.findAllComponents(BTab).at(0)
+    const tab2 = tabs.findAllComponents(BTab).at(1)
+    const tab3 = tabs.findAllComponents(BTab).at(2)
 
     expect(wrapper.findAll('.nav-link')).toBeDefined()
     expect(wrapper.findAll('.nav-link').length).toBe(3)
@@ -531,13 +531,13 @@ describe('tabs', () => {
 
     await waitNT(wrapper.vm)
     await waitRAF()
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(3)
+    expect(tabs.findAllComponents(BTab).length).toBe(3)
 
-    const tab1 = tabs.findAll(BTab).at(0)
-    const tab2 = tabs.findAll(BTab).at(1)
-    const tab3 = tabs.findAll(BTab).at(2)
+    const tab1 = tabs.findAllComponents(BTab).at(0)
+    const tab2 = tabs.findAllComponents(BTab).at(1)
+    const tab3 = tabs.findAllComponents(BTab).at(2)
 
     expect(wrapper.findAll('.nav-link')).toBeDefined()
     expect(wrapper.findAll('.nav-link').length).toBe(3)
@@ -550,7 +550,7 @@ describe('tabs', () => {
 
     // RIGHT moves to next tab
     await wrapper
-      .findAll(BLink)
+      .findAllComponents(BLink)
       .at(0)
       .trigger('keydown.right')
     await waitRAF()
@@ -561,7 +561,7 @@ describe('tabs', () => {
 
     // END key moves to last tab
     await wrapper
-      .findAll(BLink)
+      .findAllComponents(BLink)
       .at(1)
       .trigger('keydown.end')
     await waitRAF()
@@ -572,7 +572,7 @@ describe('tabs', () => {
 
     // LEFT moves to previous tab
     await wrapper
-      .findAll(BLink)
+      .findAllComponents(BLink)
       .at(2)
       .trigger('keydown.left')
     await waitRAF()
@@ -583,7 +583,7 @@ describe('tabs', () => {
 
     // HOME moves to first tab
     await wrapper
-      .findAll(BLink)
+      .findAllComponents(BLink)
       .at(1)
       .trigger('keydown.home')
     await waitRAF()
@@ -610,13 +610,13 @@ describe('tabs', () => {
 
     await waitNT(wrapper.vm)
     await waitRAF()
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(3)
+    expect(tabs.findAllComponents(BTab).length).toBe(3)
 
-    const tab1 = tabs.findAll(BTab).at(0)
-    const tab2 = tabs.findAll(BTab).at(1)
-    const tab3 = tabs.findAll(BTab).at(2)
+    const tab1 = tabs.findAllComponents(BTab).at(0)
+    const tab2 = tabs.findAllComponents(BTab).at(1)
+    const tab3 = tabs.findAllComponents(BTab).at(2)
 
     // Expect 3rd tab (index 2) to be active
     expect(tabs.vm.currentTab).toBe(2)
@@ -661,15 +661,15 @@ describe('tabs', () => {
 
     await waitNT(wrapper.vm)
     await waitRAF()
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(1)
+    expect(tabs.findAllComponents(BTab).length).toBe(1)
 
     // Expect tab button content to be `original`
     expect(wrapper.find('.nav-link').text()).toBe('original')
 
     // Get the BTab's instance
-    const tabVm = wrapper.find(BTab).vm
+    const tabVm = wrapper.findComponent(BTab).vm
     expect(tabVm).toBeDefined()
 
     // Change title slot content
@@ -698,11 +698,11 @@ describe('tabs', () => {
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     await waitRAF()
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(3)
+    expect(tabs.findAllComponents(BTab).length).toBe(3)
 
     const getNavItemByTab = tab => wrapper.find(`#${tab.$el.id}___BV_tab_button__`)
 
@@ -714,7 +714,7 @@ describe('tabs', () => {
 
     // Set 2nd tab to be active
     tabs.setProps({ value: 1 })
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     await waitRAF()
     expect(tabs.vm.currentTab).toBe(1)
     // Expect 2nd tabs nav item to have "active-nav-item-class" applied
@@ -739,11 +739,11 @@ describe('tabs', () => {
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
-    await wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     await waitRAF()
-    const tabs = wrapper.find(BTabs)
+    const tabs = wrapper.findComponent(BTabs)
     expect(tabs).toBeDefined()
-    expect(tabs.findAll(BTab).length).toBe(3)
+    expect(tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
     expect(tabs.vm.currentTab).toBe(0)

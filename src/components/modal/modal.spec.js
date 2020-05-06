@@ -1056,7 +1056,7 @@ describe('modal', () => {
       expect(document.activeElement).toBe($button.element)
 
       // Try and open modal via `.toggle()` method
-      wrapper.find(BModal).vm.toggle()
+      wrapper.findComponent(BModal).vm.toggle()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1074,7 +1074,7 @@ describe('modal', () => {
       expect($modal.element.contains(document.activeElement)).toBe(true)
 
       // Try and close modal via `.toggle()` method
-      wrapper.find(BModal).vm.toggle()
+      wrapper.findComponent(BModal).vm.toggle()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1144,7 +1144,7 @@ describe('modal', () => {
       expect(document.activeElement).toBe($button.element)
 
       // Try and open modal via `.toggle()` method
-      wrapper.find(BModal).vm.toggle('button.return-to')
+      wrapper.findComponent(BModal).vm.toggle('button.return-to')
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1163,7 +1163,7 @@ describe('modal', () => {
       expect($modal.element.contains(document.activeElement)).toBe(true)
 
       // Try and close modal via `.toggle()` method
-      wrapper.find(BModal).vm.toggle()
+      wrapper.findComponent(BModal).vm.toggle()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1230,7 +1230,7 @@ describe('modal', () => {
 
       // Emulate TAB by focusing the `bottomTrap` span element
       // Should focus first button in modal (in the header)
-      const $bottomTrap = wrapper.find(BModal).find({ ref: 'bottomTrap' })
+      const $bottomTrap = wrapper.findComponent(BModal).find({ ref: 'bottomTrap' })
       expect($bottomTrap.exists()).toBe(true)
       expect($bottomTrap.is('span')).toBe(true)
       // Find the close (x) button (it is the only one with the `.close` class)
@@ -1247,7 +1247,7 @@ describe('modal', () => {
 
       // Emulate CTRL-TAB by focusing the `topTrap` div element
       // Should focus last button in modal (in the footer)
-      const $topTrap = wrapper.find(BModal).find({ ref: 'topTrap' })
+      const $topTrap = wrapper.findComponent(BModal).find({ ref: 'topTrap' })
       expect($topTrap.exists()).toBe(true)
       expect($topTrap.is('span')).toBe(true)
       // Find the OK button (it is the only one with `.btn-primary` class)
