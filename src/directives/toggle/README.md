@@ -30,13 +30,17 @@ Modifiers and the value can be used at the same time.
 ```html
 <template>
   <div>
-    <b-button v-b-toggle.my-collaspe>Toggle Collapse</b-button>
-    <b-button v-b-toggle.my-sidebar>Toggle Sidebar</b-button>
+    <div class="mb-3">
+      <b-button v-b-toggle.my-collapse>Toggle Collapse</b-button>
+      <b-button v-b-toggle.my-sidebar>Toggle Sidebar</b-button>
+    </div>
+
     <b-collapse id="my-collapse">
       <b-card title="Collapsable card">
         Hello world!
       </b-card>
     </b-collapse>
+
     <b-sidebar id="my-sidebar" title="Sidebar" shadow>
       <div class="px-3 py-2">
         Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
