@@ -5,7 +5,7 @@
 
 ## Overview
 
-The `v-b-toggle` directive can be used on interative elements, such as buttons, to toggle the
+The `v-b-toggle` directive can be used on interactive elements, such as buttons, to toggle the
 visibility state of the [`<b-collapse>`](/docs/components/collapse) and
 [`<b-sidebar>`](/docs/components/sidebar) components.
 
@@ -17,7 +17,7 @@ details.
 ## Directive syntax and usage
 
 The directive is applied to the element or component that triggers the visibility of hte target. The
-target component can be sepcified (via ID) as either a directive modifier(s) or as a string passed
+target component can be specified (via ID) as either a directive modifier(s) or as a string passed
 to as the directive value:
 
 - `v-b-toggle.my-collapse` - the directive modifier (multiple targets allowed)
@@ -36,7 +36,7 @@ Modifiers and the value can be used at the same time.
     </div>
 
     <b-collapse id="my-collapse">
-      <b-card title="Collapsable card">
+      <b-card title="Collapsible card">
         Hello world!
       </b-card>
     </b-collapse>
@@ -58,14 +58,14 @@ Modifiers and the value can be used at the same time.
 The directive, for accessibility reasons, should be placed on an clickable interactive element such
 as a `<button>` or `<b-button>`, which can easily be accessed by keyboard-only users and screen
 reader users. Elements that do not natively have an accessibility role of `button` will have the
-attributes `role="button"` and `tabindex="0"` applied, and will have the apropriate click and
-keyboard handlers instantiated. Therefore it is _highly reccommended_ to _not_ place the directive
-on form controls other than buttons.
+attributes `role="button"` and `tabindex="0"` applied, and will have the appropriate click and
+keyboard handlers instantiated. Therefore it is _highly recommended_ to _not_ place the directive on
+form controls other than buttons.
 
 The directive applies, and dynamically updates, the following ARIA attributes on the trigger
 element:
 
-- `aria-controls` - the ID of the collaspe or sidebar component(s) being toggled 
+- `aria-controls` - the ID of the collapse or sidebar component(s) being toggled
 - `aria-expanded` - the visibility state of the collapse or sidebar
 
 When the target component is _not_ expanded, the trigger element will have the class `collapsed`
@@ -74,5 +74,5 @@ trigger element.
 
 ## See also
 
-- [`<b-collapse>`](/docs/components/collapse) Collapsable content with accordion support
+- [`<b-collapse>`](/docs/components/collapse) Collapsible content with accordion support
 - [`<b-sidebar>`](/docs/components/sidebar) Off-canvas sidebar
