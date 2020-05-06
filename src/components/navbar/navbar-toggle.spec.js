@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
 import { BNavbarToggle } from './navbar-toggle'
 
 describe('navbar-toggle', () => {
@@ -70,12 +71,12 @@ describe('navbar-toggle', () => {
     expect(scope.expanded).toBe(false)
 
     wrapper.vm.$root.$emit('bv::collapse::state', 'target-6', true)
-
+    await waitNT(wrapper.vm)
     expect(scope).not.toBe(null)
     expect(scope.expanded).toBe(true)
 
     wrapper.vm.$root.$emit('bv::collapse::state', 'target-6', false)
-
+    await waitNT(wrapper.vm)
     expect(scope).not.toBe(null)
     expect(scope.expanded).toBe(false)
   })
@@ -111,18 +112,28 @@ describe('navbar-toggle', () => {
 
     // Private state event
     wrapper.vm.$root.$emit('bv::collapse::state', 'target-8', true)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('true')
+
     wrapper.vm.$root.$emit('bv::collapse::state', 'target-8', false)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
+
     wrapper.vm.$root.$emit('bv::collapse::state', 'foo', true)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
 
     // Private sync event
     wrapper.vm.$root.$emit('bv::collapse::sync::state', 'target-8', true)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('true')
+
     wrapper.vm.$root.$emit('bv::collapse::sync::state', 'target-8', false)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
+
     wrapper.vm.$root.$emit('bv::collapse::sync::state', 'foo', true)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
   })
 })
