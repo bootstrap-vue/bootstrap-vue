@@ -793,7 +793,7 @@ describe('form-checkbox', () => {
     expect(label.classes()).not.toContain('active')
     expect(label.classes()).toContain('btn')
     expect(label.classes()).toContain('btn-secondary')
-    input.setChecked(true)
+    await input.setChecked(true)
     expect(label.classes().length).toEqual(3)
     expect(label.classes()).toContain('active')
     expect(label.classes()).toContain('btn')
