@@ -2282,7 +2282,7 @@ Using an async method to return an items array is possible:
 ```js
 async function myProvider(ctx) {
   try {
-    const response = await axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage)
+    const response = await axios.get(`/some/url?page=${ctx.currentPage}&size=${ctx.perPage}`)
     return response.items
   } catch (error) {
     return []
@@ -2358,9 +2358,9 @@ If using an `async/await` provider:
 async function myProvider(ctx) {
   this.isBusy = true
   try {
-    const resp = await axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage)
+    const response = await axios.get(`/some/url?page=${ctx.currentPage}&size=${ctx.perPage}`)
     this.isBusy = false
-    return resp.items
+    return response.items
   } catch (error) {
     this.isBusy = false
     return []
