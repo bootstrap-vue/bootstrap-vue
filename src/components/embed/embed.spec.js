@@ -13,6 +13,8 @@ describe('embed', () => {
     expect(wrapper.findAll('iframe').length).toBe(1)
     expect(wrapper.find('iframe').classes()).toContain('embed-responsive-item')
     expect(wrapper.find('iframe').classes().length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('has custom root element when tag prop set', async () => {
@@ -27,6 +29,8 @@ describe('embed', () => {
     expect(wrapper.classes()).toContain('embed-responsive-16by9')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.findAll('iframe').length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('it renders specified inner element when type set', async () => {
@@ -43,6 +47,8 @@ describe('embed', () => {
     expect(wrapper.findAll('video').length).toBe(1)
     expect(wrapper.find('video').classes()).toContain('embed-responsive-item')
     expect(wrapper.find('video').classes().length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('renders specified aspect ratio class', async () => {
@@ -56,6 +62,8 @@ describe('embed', () => {
     expect(wrapper.classes()).toContain('embed-responsive')
     expect(wrapper.classes()).toContain('embed-responsive-4by3')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('non-prop attributes should rendered on on inner element', async () => {
@@ -74,6 +82,8 @@ describe('embed', () => {
     expect(wrapper.find('iframe').attributes('src')).toBe('/foo/bar')
     expect(wrapper.find('iframe').attributes('baz')).toBeDefined()
     expect(wrapper.find('iframe').attributes('baz')).toBe('buz')
+
+    wrapper.destroy()
   })
 
   it('default slot should be rendered inside inner element', async () => {
@@ -94,5 +104,7 @@ describe('embed', () => {
     expect(wrapper.find('video').classes()).toContain('embed-responsive-item')
     expect(wrapper.find('video').classes().length).toBe(1)
     expect(wrapper.find('video').text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 })

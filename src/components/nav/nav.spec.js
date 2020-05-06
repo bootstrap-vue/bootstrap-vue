@@ -9,6 +9,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('renders custom root element when prop tag set', async () => {
@@ -22,6 +24,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
@@ -35,6 +39,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('applies pill style', async () => {
@@ -49,6 +55,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('nav-pills')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('applies tab style', async () => {
@@ -63,6 +71,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('nav-tabs')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('applies vertical style', async () => {
@@ -77,6 +87,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('flex-column')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('applies justify style when justified', async () => {
@@ -91,6 +103,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('nav-justified')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it("doesn't apply justify style when vertical", async () => {
@@ -106,6 +120,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('flex-column')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('applies fill style style when fill set', async () => {
@@ -120,6 +136,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('nav-fill')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it("doesn't apply fill style when vertical", async () => {
@@ -135,6 +153,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('flex-column')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('applies alignment correctly', async () => {
@@ -149,6 +169,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('justify-content-center')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it("doesn't apply alignment when vertical", async () => {
@@ -164,6 +186,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('flex-column')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('applies small style', async () => {
@@ -178,6 +202,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('small')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('applies card-header-tabs class when tabs and card-header props set', async () => {
@@ -194,6 +220,8 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('card-header-tabs')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('applies card-header-pills class when pills and card-header props set', async () => {
@@ -210,5 +238,7 @@ describe('nav', () => {
     expect(wrapper.classes()).toContain('card-header-pills')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 })

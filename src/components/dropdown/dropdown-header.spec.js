@@ -4,6 +4,7 @@ import { BDropdownHeader } from './dropdown-header'
 describe('dropdown > dropdown-header', () => {
   it('works', async () => {
     const wrapper = mount(BDropdownHeader)
+
     expect(wrapper.is('li')).toBe(true)
 
     const header = wrapper.find('header')
@@ -12,6 +13,8 @@ describe('dropdown > dropdown-header', () => {
     expect(header.classes().length).toBe(1)
     expect(header.attributes('id')).not.toBeDefined()
     expect(header.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders custom header element when prop tag set', async () => {
@@ -20,6 +23,7 @@ describe('dropdown > dropdown-header', () => {
         props: { tag: 'h2' }
       }
     })
+
     expect(wrapper.is('li')).toBe(true)
 
     const header = wrapper.find('h2')
@@ -28,6 +32,8 @@ describe('dropdown > dropdown-header', () => {
     expect(header.classes().length).toBe(1)
     expect(header.attributes('id')).not.toBeDefined()
     expect(header.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('user supplied id when prop id set', async () => {
@@ -36,6 +42,7 @@ describe('dropdown > dropdown-header', () => {
         props: { id: 'foo' }
       }
     })
+
     expect(wrapper.is('li')).toBe(true)
 
     const header = wrapper.find('header')
@@ -44,12 +51,15 @@ describe('dropdown > dropdown-header', () => {
     expect(header.classes().length).toBe(1)
     expect(header.attributes('id')).toBeDefined()
     expect(header.attributes('id')).toEqual('foo')
+
+    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
     const wrapper = mount(BDropdownHeader, {
       slots: { default: 'foobar' }
     })
+
     expect(wrapper.is('li')).toBe(true)
 
     const header = wrapper.find('header')
@@ -57,5 +67,7 @@ describe('dropdown > dropdown-header', () => {
     expect(header.classes()).toContain('dropdown-header')
     expect(header.classes().length).toBe(1)
     expect(header.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 })

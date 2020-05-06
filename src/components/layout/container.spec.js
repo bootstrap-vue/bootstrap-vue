@@ -9,6 +9,8 @@ describe('layout > container', () => {
     expect(wrapper.classes()).toContain('container')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders custom root element when prop tag set', async () => {
@@ -22,6 +24,8 @@ describe('layout > container', () => {
     expect(wrapper.classes()).toContain('container')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('should have container-fluid class when prop fluid set', async () => {
@@ -35,6 +39,8 @@ describe('layout > container', () => {
     expect(wrapper.classes()).toContain('container-fluid')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('should have container-md class when prop fluid="md"', async () => {
@@ -48,6 +54,8 @@ describe('layout > container', () => {
     expect(wrapper.classes()).toContain('container-md')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('has content from default slot', async () => {
@@ -61,5 +69,7 @@ describe('layout > container', () => {
     expect(wrapper.classes()).toContain('container')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 })

@@ -4,6 +4,7 @@ import { BDropdownDivider } from './dropdown-divider'
 describe('dropdown > dropdown-divider', () => {
   it('works', async () => {
     const wrapper = mount(BDropdownDivider)
+
     expect(wrapper.is('li')).toBe(true)
 
     const divider = wrapper.find('hr')
@@ -13,6 +14,8 @@ describe('dropdown > dropdown-divider', () => {
     expect(divider.attributes('role')).toBeDefined()
     expect(divider.attributes('role')).toEqual('separator')
     expect(divider.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders custom root element when prop tag set', async () => {
@@ -21,6 +24,7 @@ describe('dropdown > dropdown-divider', () => {
         props: { tag: 'span' }
       }
     })
+
     expect(wrapper.is('li')).toBe(true)
 
     const divider = wrapper.find('span')
@@ -30,12 +34,15 @@ describe('dropdown > dropdown-divider', () => {
     expect(divider.attributes('role')).toBeDefined()
     expect(divider.attributes('role')).toEqual('separator')
     expect(divider.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('does not render default slot content', async () => {
     const wrapper = mount(BDropdownDivider, {
       slots: { default: 'foobar' }
     })
+
     expect(wrapper.is('li')).toBe(true)
 
     const divider = wrapper.find('hr')
@@ -45,5 +52,7 @@ describe('dropdown > dropdown-divider', () => {
     expect(divider.attributes('role')).toBeDefined()
     expect(divider.attributes('role')).toEqual('separator')
     expect(divider.text()).toEqual('')
+
+    wrapper.destroy()
   })
 })

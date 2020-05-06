@@ -4,6 +4,7 @@ import { BBadge } from './badge'
 describe('badge', () => {
   it('should have base classes', async () => {
     const wrapper = mount(BBadge)
+
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).toContain('badge-secondary')
@@ -11,6 +12,8 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.attributes('href')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should have default slot content', async () => {
@@ -19,6 +22,7 @@ describe('badge', () => {
         default: 'foobar'
       }
     })
+
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.text()).toBe('foobar')
     expect(wrapper.classes()).toContain('badge')
@@ -27,6 +31,8 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.attributes('href')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('should apply variant class', async () => {
@@ -35,12 +41,15 @@ describe('badge', () => {
         variant: 'danger'
       }
     })
+
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('badge-danger')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).not.toContain('badge-pill')
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
+
+    wrapper.destroy()
   })
 
   it('should apply pill class', async () => {
@@ -49,12 +58,15 @@ describe('badge', () => {
         pill: true
       }
     })
+
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('badge-pill')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
+
+    wrapper.destroy()
   })
 
   it('should have active class when prop active set', async () => {
@@ -63,12 +75,15 @@ describe('badge', () => {
         active: true
       }
     })
+
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).not.toContain('badge-pill')
     expect(wrapper.classes()).not.toContain('disabled')
+
+    wrapper.destroy()
   })
 
   it('should have disabled class when prop disabled set', async () => {
@@ -77,12 +92,15 @@ describe('badge', () => {
         disabled: true
       }
     })
+
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('disabled')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).not.toContain('badge-pill')
     expect(wrapper.classes()).not.toContain('active')
+
+    wrapper.destroy()
   })
 
   it('renders custom root element', async () => {
@@ -91,12 +109,15 @@ describe('badge', () => {
         tag: 'small'
       }
     })
+
     expect(wrapper.is('small')).toBe(true)
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('badge-pill')
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
+
+    wrapper.destroy()
   })
 
   it('renders link when href provided', async () => {
@@ -105,6 +126,7 @@ describe('badge', () => {
         href: '/foo/bar'
       }
     })
+
     expect(wrapper.is('a')).toBe(true)
     expect(wrapper.attributes('href')).toBeDefined()
     expect(wrapper.attributes('href')).toBe('/foo/bar')
@@ -113,5 +135,7 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('badge-pill')
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
+
+    wrapper.destroy()
   })
 })

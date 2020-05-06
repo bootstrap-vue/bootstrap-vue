@@ -8,6 +8,8 @@ describe('form', () => {
     expect(wrapper.is('form')).toBe(true)
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
@@ -22,6 +24,8 @@ describe('form', () => {
     expect(wrapper.attributes('id')).not.toBeDefined()
     expect(wrapper.attributes('novalidate')).not.toBeDefined()
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('has class form-inline when prop inline set', async () => {
@@ -37,6 +41,8 @@ describe('form', () => {
     expect(wrapper.attributes('id')).not.toBeDefined()
     expect(wrapper.attributes('novalidate')).not.toBeDefined()
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('has class was-validation when prop validated set', async () => {
@@ -52,6 +58,8 @@ describe('form', () => {
     expect(wrapper.attributes('id')).not.toBeDefined()
     expect(wrapper.attributes('novalidate')).not.toBeDefined()
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('has user supplied id', async () => {
@@ -67,6 +75,8 @@ describe('form', () => {
     expect(wrapper.attributes('id')).toEqual('foo')
     expect(wrapper.attributes('novalidate')).not.toBeDefined()
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('has attribute novalidate when prop novalidate set', async () => {
@@ -81,5 +91,7 @@ describe('form', () => {
     expect(wrapper.attributes('id')).not.toBeDefined()
     expect(wrapper.attributes('novalidate')).toBeDefined()
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 })

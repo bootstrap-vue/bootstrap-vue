@@ -5,6 +5,7 @@ import { BNavItem } from './nav-item'
 describe('nav-item', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BNavItem)
+
     expect(wrapper.is('li')).toBe(true)
     expect(wrapper.classes()).toContain('nav-item')
     expect(wrapper.classes().length).toBe(1)
@@ -18,6 +19,8 @@ describe('nav-item', () => {
     expect(link.attributes('href')).toBeDefined()
     expect(link.attributes('href')).toBe('#')
     expect(link.attributes('role')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('has attrs on link when link-attrs set', async () => {
@@ -28,11 +31,15 @@ describe('nav-item', () => {
         }
       }
     })
+
     expect(wrapper.attributes('role')).not.toBeDefined()
+
     const link = wrapper.find(BLink)
     expect(link).toBeDefined()
     expect(link.attributes('role')).toBeDefined()
     expect(link.attributes('role')).toBe('tab')
+
+    wrapper.destroy()
   })
 
   it('has custom classes on link when link-classes set', async () => {
@@ -43,11 +50,14 @@ describe('nav-item', () => {
         }
       }
     })
+
     const link = wrapper.find(BLink)
     expect(link).toBeDefined()
     expect(link.classes()).toContain('foo')
     expect(link.classes()).toContain('bar')
     expect(link.classes()).toContain('nav-link')
+
+    wrapper.destroy()
   })
 
   it('has class "disabled" on link when disabled set', async () => {
@@ -56,9 +66,12 @@ describe('nav-item', () => {
         props: { disabled: true }
       }
     })
+
     const link = wrapper.find(BLink)
     expect(link).toBeDefined()
     expect(link.classes()).toContain('disabled')
+
+    wrapper.destroy()
   })
 
   it('emits click event when clicked', async () => {
@@ -68,6 +81,7 @@ describe('nav-item', () => {
         on: { click: spy }
       }
     })
+
     expect(spy).not.toHaveBeenCalled()
     await wrapper.trigger('click')
     expect(spy).not.toHaveBeenCalled()
@@ -76,6 +90,8 @@ describe('nav-item', () => {
     expect(link).toBeDefined()
     await link.trigger('click')
     expect(spy).toHaveBeenCalled()
+
+    wrapper.destroy()
   })
 
   it('does not emit a click event when clicked and disabled', async () => {
@@ -86,6 +102,7 @@ describe('nav-item', () => {
         on: { click: spy }
       }
     })
+
     expect(spy).not.toHaveBeenCalled()
     await wrapper.trigger('click')
     expect(spy).not.toHaveBeenCalled()
@@ -94,5 +111,7 @@ describe('nav-item', () => {
     expect(link).toBeDefined()
     await link.trigger('click')
     expect(spy).not.toHaveBeenCalled()
+
+    wrapper.destroy()
   })
 })

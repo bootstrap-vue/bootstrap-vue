@@ -9,6 +9,8 @@ describe('media-aside', () => {
     expect(wrapper.classes()).toContain('d-flex')
     expect(wrapper.classes()).toContain('align-self-start')
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('has custom root element when prop tag set', async () => {
@@ -23,6 +25,8 @@ describe('media-aside', () => {
     expect(wrapper.classes()).toContain('align-self-start')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('has alignment class when prop vertical-align set', async () => {
@@ -36,6 +40,8 @@ describe('media-aside', () => {
     expect(wrapper.classes()).toContain('d-flex')
     expect(wrapper.classes()).toContain('align-self-end')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
@@ -51,5 +57,7 @@ describe('media-aside', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.findAll('b').length).toBe(1)
     expect(wrapper.find('b').text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 })

@@ -4,6 +4,7 @@ import { BDropdownGroup } from './dropdown-group'
 describe('dropdown > dropdown-header', () => {
   it('works', async () => {
     const wrapper = mount(BDropdownGroup)
+
     expect(wrapper.is('li')).toBe(true)
     expect(wrapper.classes().length).toBe(0)
 
@@ -18,6 +19,8 @@ describe('dropdown > dropdown-header', () => {
     expect(ul.attributes('id')).not.toBeDefined()
 
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders header element when prop header set', async () => {
@@ -26,6 +29,7 @@ describe('dropdown > dropdown-header', () => {
         props: { header: 'foobar' }
       }
     })
+
     expect(wrapper.is('li')).toBe(true)
 
     const header = wrapper.find('header')
@@ -34,6 +38,8 @@ describe('dropdown > dropdown-header', () => {
     expect(header.classes().length).toBe(1)
     expect(header.attributes('id')).not.toBeDefined()
     expect(header.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('renders custom header element when prop header-tag set', async () => {
@@ -45,12 +51,15 @@ describe('dropdown > dropdown-header', () => {
         }
       }
     })
+
     expect(wrapper.is('li')).toBe(true)
 
     const header = wrapper.find('.dropdown-header')
     expect(header.is('h6')).toBe(true)
     expect(header.classes().length).toBe(1)
     expect(header.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('user supplied id when prop id set', async () => {
@@ -59,21 +68,27 @@ describe('dropdown > dropdown-header', () => {
         props: { id: 'foo' }
       }
     })
+
     expect(wrapper.is('li')).toBe(true)
 
     const ul = wrapper.find('ul')
     expect(ul.attributes('id')).toBeDefined()
     expect(ul.attributes('id')).toEqual('foo')
+
+    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
     const wrapper = mount(BDropdownGroup, {
       slots: { default: '<li>foobar</li>' }
     })
+
     expect(wrapper.is('li')).toBe(true)
 
     const ul = wrapper.find('ul')
     expect(ul.is('ul')).toBe(true)
     expect(ul.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 })

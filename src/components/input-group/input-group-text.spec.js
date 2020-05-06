@@ -9,6 +9,8 @@ describe('input-group > input-group-text', () => {
     expect(wrapper.classes()).toContain('input-group-text')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('has custom root element when prop tag set', async () => {
@@ -22,6 +24,8 @@ describe('input-group > input-group-text', () => {
     expect(wrapper.classes()).toContain('input-group-text')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('renders content of default slot', async () => {
@@ -35,5 +39,7 @@ describe('input-group > input-group-text', () => {
     expect(wrapper.classes()).toContain('input-group-text')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 })

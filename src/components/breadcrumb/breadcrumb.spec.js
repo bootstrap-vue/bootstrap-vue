@@ -9,6 +9,8 @@ describe('breadcrumb', () => {
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('should render default slot when no items provided', async () => {
@@ -22,6 +24,8 @@ describe('breadcrumb', () => {
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('should accept items', () => {
@@ -96,6 +100,8 @@ describe('breadcrumb', () => {
         .exists()
     ).toBe(true)
     expect($lis.at(3).text()).toBe('Library')
+
+    wrapper.destroy()
   })
 
   it('should apply active class to active item', async () => {
@@ -171,5 +177,7 @@ describe('breadcrumb', () => {
         .attributes('href')
     ).toBe('/admin/manage/library')
     expect($lis.at(3).text()).toBe('Library')
+
+    wrapper.destroy()
   })
 })

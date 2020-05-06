@@ -13,6 +13,8 @@ describe('media', () => {
     expect(wrapper.text()).toEqual('')
     // Should have only one child element
     expect(wrapper.findAll('.media > *').length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('renders custom root element when tag prop set', async () => {
@@ -25,6 +27,8 @@ describe('media', () => {
     expect(wrapper.is('section')).toBe(true)
     expect(wrapper.classes()).toContain('media')
     expect(wrapper.classes().length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('has expected structure when slot aside present', async () => {
@@ -46,6 +50,8 @@ describe('media', () => {
     expect(wrapper.find('.media > .media-body + .d-flex').exists()).toBe(false)
     // Aside has extra classes
     expect(wrapper.find('.d-flex').classes()).toContain('mr-3')
+
+    wrapper.destroy()
   })
 
   it('has expected structure when prop right-align is set and slot aside present', async () => {
@@ -70,6 +76,8 @@ describe('media', () => {
     expect(wrapper.find('.media > .d-flex + .media-body').exists()).toBe(false)
     // Aside has extra classes
     expect(wrapper.find('.d-flex').classes()).toContain('ml-3')
+
+    wrapper.destroy()
   })
 
   it('places default slot inside media-body', async () => {
@@ -85,6 +93,8 @@ describe('media', () => {
     expect(wrapper.findAll('.media-body').length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
     expect(wrapper.find('.media-body').text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('does not have child media-body is prop no-body set', async () => {
@@ -101,6 +111,8 @@ describe('media', () => {
     expect(wrapper.text()).toEqual('')
     // Should have no child elements
     expect(wrapper.findAll('.media > *').length).toBe(0)
+
+    wrapper.destroy()
   })
 
   it('places default slot inside self when no-body set', async () => {
@@ -118,6 +130,8 @@ describe('media', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.media-body').length).toBe(0)
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('sets verticalAlign prop on media-aside child', async () => {
@@ -142,5 +156,7 @@ describe('media', () => {
     expect(wrapper.find('.d-flex').classes()).toContain('align-self-end')
     // Should have content in aside
     expect(wrapper.find('.d-flex').text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 })

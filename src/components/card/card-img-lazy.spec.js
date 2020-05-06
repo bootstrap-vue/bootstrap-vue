@@ -10,8 +10,11 @@ describe('card-image', () => {
         }
       }
     })
+
     expect(wrapper.is('img')).toBe(true)
     expect(wrapper.attributes('src')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('default does not have alt attribute', async () => {
@@ -22,7 +25,10 @@ describe('card-image', () => {
         }
       }
     })
+
     expect(wrapper.attributes('alt')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('default has attributes width and height set to 1', async () => {
@@ -33,6 +39,7 @@ describe('card-image', () => {
         }
       }
     })
+
     expect(wrapper.attributes('width')).not.toBeDefined()
     expect(wrapper.attributes('height')).not.toBeDefined()
     // Without IntersectionObserver support, the main image is shown
@@ -41,6 +48,8 @@ describe('card-image', () => {
     // expect(wrapper.attributes('width')).toBe('1')
     // expect(wrapper.attributes('height')).toBeDefined()
     // expect(wrapper.attributes('height')).toBe('1')
+
+    wrapper.destroy()
   })
 
   it('default has class "card-img"', async () => {
@@ -51,7 +60,10 @@ describe('card-image', () => {
         }
       }
     })
+
     expect(wrapper.classes()).toContain('card-img')
+
+    wrapper.destroy()
   })
 
   it('has class "card-img-top" when prop top=true', async () => {
@@ -63,7 +75,10 @@ describe('card-image', () => {
         }
       }
     })
+
     expect(wrapper.classes()).toContain('card-img-top')
+
+    wrapper.destroy()
   })
 
   it('has class "card-img-bottom" when prop bottom=true', async () => {
@@ -75,7 +90,10 @@ describe('card-image', () => {
         }
       }
     })
+
     expect(wrapper.classes()).toContain('card-img-bottom')
+
+    wrapper.destroy()
   })
 
   it('has class "card-img-top" when props top=true and bottom=true', async () => {
@@ -88,7 +106,10 @@ describe('card-image', () => {
         }
       }
     })
+
     expect(wrapper.classes()).toContain('card-img-top')
+
+    wrapper.destroy()
   })
 
   it('has class "card-img-left" when prop left=true', async () => {
@@ -100,7 +121,10 @@ describe('card-image', () => {
         }
       }
     })
+
     expect(wrapper.classes()).toContain('card-img-left')
+
+    wrapper.destroy()
   })
 
   it('has class "card-img-right" when prop right=true', async () => {
@@ -112,7 +136,10 @@ describe('card-image', () => {
         }
       }
     })
+
     expect(wrapper.classes()).toContain('card-img-right')
+
+    wrapper.destroy()
   })
 
   it('has attribute alt when prop alt set', async () => {
@@ -124,8 +151,11 @@ describe('card-image', () => {
         }
       }
     })
+
     expect(wrapper.attributes('alt')).toBeDefined()
     expect(wrapper.attributes('alt')).toBe('image')
+
+    wrapper.destroy()
   })
 
   it('has attribute width when prop width set', async () => {
@@ -137,8 +167,11 @@ describe('card-image', () => {
         }
       }
     })
+
     expect(wrapper.attributes('width')).toBeDefined()
     expect(wrapper.attributes('width')).toBe('600')
+
+    wrapper.destroy()
   })
 
   it('has attribute height when prop height set', async () => {
@@ -150,7 +183,10 @@ describe('card-image', () => {
         }
       }
     })
+
     expect(wrapper.attributes('height')).toBeDefined()
     expect(wrapper.attributes('height')).toBe('300')
+
+    wrapper.destroy()
   })
 })

@@ -9,6 +9,8 @@ describe('layout > form-row', () => {
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('custom root element when prop tag set', async () => {
@@ -22,6 +24,8 @@ describe('layout > form-row', () => {
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
@@ -35,5 +39,7 @@ describe('layout > form-row', () => {
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 })

@@ -12,6 +12,8 @@ describe('input-group', () => {
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.findAll('.input-group > *').length).toBe(0)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('should render custom root element when prop tag is set', async () => {
@@ -27,6 +29,8 @@ describe('input-group', () => {
     expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.findAll('.input-group > *').length).toBe(0)
+
+    wrapper.destroy()
   })
 
   it('should apply size class when when prop size is set', async () => {
@@ -40,6 +44,8 @@ describe('input-group', () => {
     expect(wrapper.classes()).toContain('input-group')
     expect(wrapper.classes()).toContain('input-group-lg')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('should render default slot content', async () => {
@@ -54,6 +60,8 @@ describe('input-group', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
     expect(wrapper.findAll('.input-group > *').length).toBe(0)
+
+    wrapper.destroy()
   })
 
   it('renders input-group-prepend & input-group-append when prepend & append props set', async () => {
@@ -81,6 +89,8 @@ describe('input-group', () => {
     expect(wrapper.find('.input-group > .input-group-prepend ~ .input-group-append').exists()).toBe(
       true
     )
+
+    wrapper.destroy()
   })
 
   it('renders input-group-prepend & input-group-append when prepend-html & append-html props set', async () => {
@@ -108,6 +118,8 @@ describe('input-group', () => {
     expect(wrapper.find('.input-group > .input-group-prepend ~ .input-group-append').exists()).toBe(
       true
     )
+
+    wrapper.destroy()
   })
 
   it('renders input-group-prepend & input-group-append when prepend & append slots present', async () => {
@@ -135,5 +147,7 @@ describe('input-group', () => {
     expect(wrapper.find('.input-group > .input-group-prepend ~ .input-group-append').exists()).toBe(
       true
     )
+
+    wrapper.destroy()
   })
 })

@@ -10,6 +10,8 @@ describe('input-group > input-group-append', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.input-group-append > *').length).toBe(0)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders custom root element when tag prop is set', async () => {
@@ -24,6 +26,8 @@ describe('input-group > input-group-append', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.input-group-append > *').length).toBe(0)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders content of default slot', async () => {
@@ -37,6 +41,8 @@ describe('input-group > input-group-append', () => {
     expect(wrapper.classes()).toContain('input-group-append')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('renders child input-group-text when prop is-text set', async () => {
@@ -52,6 +58,8 @@ describe('input-group > input-group-append', () => {
     expect(wrapper.findAll('.input-group-text').length).toBe(1)
     expect(wrapper.findAll('.input-group-append > .input-group-text').length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders default slot inside child input-group-text when prop is-text set', async () => {
@@ -70,5 +78,7 @@ describe('input-group > input-group-append', () => {
     expect(wrapper.findAll('.input-group-text').length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
     expect(wrapper.find('.input-group-text').text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 })

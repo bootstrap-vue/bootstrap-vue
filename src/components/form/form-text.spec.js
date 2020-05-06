@@ -10,6 +10,8 @@ describe('form > form-text', () => {
     expect(wrapper.classes()).toContain('text-muted')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
@@ -24,6 +26,8 @@ describe('form > form-text', () => {
     expect(wrapper.classes()).toContain('text-muted')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('renders custom root element when prop tag set', async () => {
@@ -38,6 +42,8 @@ describe('form > form-text', () => {
     expect(wrapper.classes()).toContain('text-muted')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('has user supplied ID', async () => {
@@ -50,6 +56,8 @@ describe('form > form-text', () => {
     expect(wrapper.is('small')).toBe(true)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('foo')
+
+    wrapper.destroy()
   })
 
   it('does not have class form-text when prop inline set', async () => {
@@ -63,6 +71,8 @@ describe('form > form-text', () => {
     expect(wrapper.classes()).not.toContain('form-text')
     expect(wrapper.classes()).toContain('text-muted')
     expect(wrapper.classes().length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('has variant class applied when prop text-variant is set', async () => {
@@ -77,5 +87,7 @@ describe('form > form-text', () => {
     expect(wrapper.classes()).toContain('text-info')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 })

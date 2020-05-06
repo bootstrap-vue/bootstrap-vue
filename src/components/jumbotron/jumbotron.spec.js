@@ -9,6 +9,8 @@ describe('jumbotron', () => {
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders with custom root element when props tag is set', async () => {
@@ -22,6 +24,8 @@ describe('jumbotron', () => {
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('has border when prop border-variant is set', async () => {
@@ -36,6 +40,8 @@ describe('jumbotron', () => {
     expect(wrapper.classes()).toContain('border')
     expect(wrapper.classes()).toContain('border-danger')
     expect(wrapper.classes().length).toBe(3)
+
+    wrapper.destroy()
   })
 
   it('has background variant when prop bg-variant is set', async () => {
@@ -49,6 +55,8 @@ describe('jumbotron', () => {
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes()).toContain('bg-info')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('has text variant when prop text-variant is set', async () => {
@@ -62,6 +70,8 @@ describe('jumbotron', () => {
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes()).toContain('text-primary')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
@@ -76,6 +86,8 @@ describe('jumbotron', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
     expect(wrapper.findAll('.jumbotron > *').length).toBe(0)
+
+    wrapper.destroy()
   })
 
   it('renders default slot content inside container when fluid prop set', async () => {
@@ -97,6 +109,8 @@ describe('jumbotron', () => {
     expect(wrapper.find('.container').is('div')).toBe(true)
     expect(wrapper.find('.container').text()).toEqual('foobar')
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('renders default slot content inside container-fluid when fluid prop and container-fluid set', async () => {
@@ -120,6 +134,8 @@ describe('jumbotron', () => {
     expect(wrapper.find('.container-fluid').is('div')).toBe(true)
     expect(wrapper.find('.container-fluid').text()).toEqual('foobar')
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('renders header lead and content when using props', async () => {
@@ -147,6 +163,8 @@ describe('jumbotron', () => {
     expect(wrapper.findAll('span').length).toBe(1)
     expect(wrapper.find('span').text()).toEqual('baz')
     expect(wrapper.find('.jumbotron > h1 + p + span').exists()).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('renders header lead and content when using slots', async () => {
@@ -172,5 +190,7 @@ describe('jumbotron', () => {
     expect(wrapper.findAll('span').length).toBe(1)
     expect(wrapper.find('span').text()).toEqual('baz')
     expect(wrapper.find('.jumbotron > h1 + p + span').exists()).toBe(true)
+
+    wrapper.destroy()
   })
 })
