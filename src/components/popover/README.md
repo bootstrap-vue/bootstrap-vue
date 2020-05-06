@@ -38,7 +38,7 @@ Things to know when using popover component:
 
 ## Target
 
-The target is the _trigger_ element (or component) that will trigger the popver. The target is
+The target is the _trigger_ element (or component) that will trigger the popover. The target is
 specified via the `target` prop, and can be any of the following:
 
 - A string identifying the ID of the trigger element (or ID of the root element of a component)
