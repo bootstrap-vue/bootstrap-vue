@@ -55,6 +55,9 @@ element is not found during mount, the tooltip will never open. Always place you
 component lower in the DOM than your target element. This rule also applies if a callback function
 is used as target element, since that callback is called only once on mount.
 
+`HTMLElement` refers to standard HTML elements such as `<div>`, `<button>`, etc, while `SVGElement`
+refers to `<svg>` or supported child elements of SVGs.
+
 ## Positioning
 
 Twelve options are available for positioning: `top`, `topleft`, `topright`, `right`, `righttop`,
