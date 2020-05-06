@@ -5,7 +5,7 @@ describe('progress', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BProgress)
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('progress')
     expect(wrapper.text()).toEqual('')
@@ -28,7 +28,7 @@ describe('progress', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('progress')
     expect(wrapper.text()).toEqual('foobar')
@@ -47,7 +47,7 @@ describe('progress', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('progress')
     expect(wrapper.findAll('.progress-bar').length).toBe(1)

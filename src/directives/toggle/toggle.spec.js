@@ -33,7 +33,7 @@ describe('v-b-toggle directive', () => {
       localVue: localVue
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('button')).toBe(true)
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
@@ -71,7 +71,7 @@ describe('v-b-toggle directive', () => {
       localVue: localVue
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('button')).toBe(true)
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
@@ -115,7 +115,7 @@ describe('v-b-toggle directive', () => {
       localVue: localVue
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('span')).toBe(true)
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('span').attributes('role')).toBe('button')
@@ -160,7 +160,7 @@ describe('v-b-toggle directive', () => {
       localVue: localVue
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('button')).toBe(true)
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
@@ -199,7 +199,7 @@ describe('v-b-toggle directive', () => {
       localVue: localVue
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('button')).toBe(true)
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')

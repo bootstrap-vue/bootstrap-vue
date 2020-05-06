@@ -38,7 +38,7 @@ describe('mixins/listen-on-root', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.text()).toEqual('test-component')
 
     expect(spyOn).not.toHaveBeenCalled()

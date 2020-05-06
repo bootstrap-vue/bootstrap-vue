@@ -5,7 +5,7 @@ import { BAlert } from './alert'
 describe('alert', () => {
   it('hidden alert renders comment node', async () => {
     const wrapper = mount(BAlert)
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
@@ -19,7 +19,7 @@ describe('alert', () => {
         show: '0'
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
@@ -33,7 +33,7 @@ describe('alert', () => {
         show: 0
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
@@ -119,7 +119,7 @@ describe('alert', () => {
         default: '<article>foobar</article>'
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('div')).toBe(true)
 
     await waitNT(wrapper.vm)
@@ -133,7 +133,7 @@ describe('alert', () => {
   it('hidden alert shows when show prop set', async () => {
     const wrapper = mount(BAlert)
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
@@ -155,7 +155,7 @@ describe('alert', () => {
         dismissible: true
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert')
@@ -172,7 +172,7 @@ describe('alert', () => {
         dismissible: true
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.find('button').exists()).toBe(true)
@@ -190,7 +190,7 @@ describe('alert', () => {
         dismissLabel: 'foobar'
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.find('button').exists()).toBe(true)
@@ -207,7 +207,7 @@ describe('alert', () => {
         dismissible: true
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('alert-dismissible')
@@ -241,7 +241,7 @@ describe('alert', () => {
         transition: false
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).not.toBeDefined()
 
     await wrapper.setProps({ show: true })
@@ -273,7 +273,7 @@ describe('alert', () => {
         show: 3
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
@@ -310,7 +310,7 @@ describe('alert', () => {
         show: '3'
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
@@ -347,7 +347,7 @@ describe('alert', () => {
         show: 2
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
@@ -398,7 +398,7 @@ describe('alert', () => {
         dismissible: true
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()

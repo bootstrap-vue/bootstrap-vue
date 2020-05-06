@@ -6,7 +6,7 @@ describe('form-rating', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormRating)
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     expect(wrapper.is('output')).toBe(true)
@@ -56,7 +56,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $stars = wrapper.findAll('.b-rating-star')
@@ -80,7 +80,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $stars = wrapper.findAll('.b-rating-star')
@@ -99,7 +99,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $input = wrapper.find('input')
@@ -118,7 +118,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
@@ -191,7 +191,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $stars = wrapper.findAll('.b-rating-star')
@@ -222,7 +222,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $stars = wrapper.findAll('.b-rating-star')
@@ -260,7 +260,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $stars = wrapper.findAll('.b-rating-star')
@@ -299,7 +299,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $output = wrapper.find('output')
@@ -347,7 +347,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $value = wrapper.find('.b-rating-value')

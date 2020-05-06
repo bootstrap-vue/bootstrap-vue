@@ -61,7 +61,7 @@ describe('mixins/listen-on-window', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.text()).toEqual('test-component')
 
     expect(spyResize1).not.toHaveBeenCalled()

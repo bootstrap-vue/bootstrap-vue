@@ -5,7 +5,7 @@ import { BAvatar } from './avatar'
 describe('avatar', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BAvatar)
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
@@ -21,7 +21,7 @@ describe('avatar', () => {
         button: true
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('button')).toBe(true)
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('btn-secondary')
@@ -50,7 +50,7 @@ describe('avatar', () => {
         href: '#foo'
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('a')).toBe(true)
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
@@ -80,7 +80,7 @@ describe('avatar', () => {
         text: 'BV'
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
@@ -102,7 +102,7 @@ describe('avatar', () => {
         default: 'BAR'
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
@@ -123,7 +123,7 @@ describe('avatar', () => {
         text: 'BV'
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
@@ -162,7 +162,7 @@ describe('avatar', () => {
         icon: 'person'
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
@@ -216,7 +216,7 @@ describe('avatar', () => {
         badge: true
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('span')).toBe(true)
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')

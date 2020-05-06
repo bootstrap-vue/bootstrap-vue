@@ -57,7 +57,7 @@ describe('v-b-tooltip directive', () => {
       attachToDocument: true
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -94,7 +94,7 @@ describe('v-b-tooltip directive', () => {
       attachToDocument: true
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -148,7 +148,7 @@ describe('v-b-tooltip directive', () => {
       attachToDocument: true
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -197,7 +197,7 @@ describe('v-b-tooltip directive', () => {
       attachToDocument: true
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('button')).toBe(true)
     const $button = wrapper.find('button')
     await waitNT(wrapper.vm)

@@ -4,7 +4,7 @@ import { BAspect } from './aspect'
 describe('aspect', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BAspect)
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('b-aspect')
     expect(wrapper.classes()).toContain('d-flex')
@@ -34,7 +34,7 @@ describe('aspect', () => {
         tag: 'section'
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('section')).toBe(true)
     expect(wrapper.classes()).toContain('b-aspect')
     expect(wrapper.classes()).toContain('d-flex')
@@ -64,7 +64,7 @@ describe('aspect', () => {
         aspect: '4:3'
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('b-aspect')
     expect(wrapper.classes()).toContain('d-flex')
@@ -92,7 +92,7 @@ describe('aspect', () => {
         aspect: 16 / 9
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('b-aspect')
     expect(wrapper.classes()).toContain('d-flex')

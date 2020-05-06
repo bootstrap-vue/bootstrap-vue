@@ -5,7 +5,7 @@ import { BFormSpinbutton } from './form-spinbutton'
 describe('form-spinbutton', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormSpinbutton)
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -62,7 +62,7 @@ describe('form-spinbutton', () => {
         value: 5
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -119,7 +119,7 @@ describe('form-spinbutton', () => {
         inline: true
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -167,7 +167,7 @@ describe('form-spinbutton', () => {
         vertical: true
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -216,7 +216,7 @@ describe('form-spinbutton', () => {
         value: null
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -243,7 +243,7 @@ describe('form-spinbutton', () => {
     const wrapper = mount(BFormSpinbutton, {
       attachToDocument: true
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -386,7 +386,7 @@ describe('form-spinbutton', () => {
     const wrapper = mount(BFormSpinbutton, {
       attachToDocument: true
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -497,7 +497,7 @@ describe('form-spinbutton', () => {
         value: 1
       }
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -658,7 +658,7 @@ describe('form-spinbutton', () => {
     const wrapper = mount(BFormSpinbutton, {
       attachToDocument: true
     })
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 

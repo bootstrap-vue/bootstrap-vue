@@ -65,7 +65,7 @@ describe('mixins/listen-on-document', () => {
       }
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.text()).toEqual('test-component')
 
     expect(spyClick1).not.toHaveBeenCalled()

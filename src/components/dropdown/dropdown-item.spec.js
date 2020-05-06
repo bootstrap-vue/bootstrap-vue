@@ -128,7 +128,7 @@ describe('dropdown-item', () => {
         attachToDocument: true
       })
 
-      expect(wrapper.vm).toBeTruthy()
+      expect(wrapper.vm).toBeDefined()
       expect(wrapper.is('ul')).toBe(true)
 
       expect(wrapper.findAll('li').length).toBe(4)
@@ -136,21 +136,21 @@ describe('dropdown-item', () => {
 
       const $links = wrapper.findAll('a')
 
-      expect($links.at(0).vm).toBeTruthy()
+      expect($links.at(0).vm).toBeDefined()
       expect($links.at(0).vm.$options.name).toBe('BLink')
       expect($links.at(0).vm.$children.length).toBe(1)
       expect($links.at(0).vm.$children[0].$options.name).toBe('RouterLink')
 
-      expect($links.at(1).vm).toBeTruthy()
+      expect($links.at(1).vm).toBeDefined()
       expect($links.at(1).vm.$options.name).toBe('BLink')
       expect($links.at(1).vm.$children.length).toBe(0)
 
-      expect($links.at(2).vm).toBeTruthy()
+      expect($links.at(2).vm).toBeDefined()
       expect($links.at(2).vm.$options.name).toBe('BLink')
       expect($links.at(2).vm.$children.length).toBe(1)
       expect($links.at(2).vm.$children[0].$options.name).toBe('RouterLink')
 
-      expect($links.at(3).vm).toBeTruthy()
+      expect($links.at(3).vm).toBeDefined()
       expect($links.at(3).vm.$options.name).toBe('BLink')
       expect($links.at(3).vm.$children.length).toBe(0)
 

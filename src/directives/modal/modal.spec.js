@@ -24,7 +24,7 @@ describe('v-b-modal directive', () => {
       localVue: localVue
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('button')).toBe(true)
     expect(wrapper.find('button').attributes('tabindex')).not.toBeDefined()
     expect(wrapper.find('button').attributes('role')).not.toBeDefined()
@@ -63,7 +63,7 @@ describe('v-b-modal directive', () => {
       localVue: localVue
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('a')).toBe(true)
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('a').attributes('role')).toBe('button')
@@ -105,7 +105,7 @@ describe('v-b-modal directive', () => {
       localVue: localVue
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('span')).toBe(true)
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('span').attributes('role')).toBe('button')
@@ -153,7 +153,7 @@ describe('v-b-modal directive', () => {
       localVue: localVue
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('span')).toBe(true)
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('span').attributes('role')).toBe('button')
@@ -194,7 +194,7 @@ describe('v-b-modal directive', () => {
       localVue: localVue
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.is('span')).toBe(true)
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('span').attributes('role')).toBe('button')

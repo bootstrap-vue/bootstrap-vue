@@ -31,7 +31,7 @@ describe('$bvToast', () => {
       localVue: localVue
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -82,7 +82,7 @@ describe('$bvToast', () => {
       localVue: localVue
     })
 
-    expect(wrapper.vm).toBeTruthy()
+    expect(wrapper.vm).toBeDefined()
 
     // `$bvModal.toast`
     expect(wrapper.vm.$bvToast).toBeDefined()
