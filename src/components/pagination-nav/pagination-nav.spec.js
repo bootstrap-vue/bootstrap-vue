@@ -158,7 +158,7 @@ describe('pagination-nav', () => {
     let $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(7)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       numberOfPages: 5
     })
 
@@ -386,7 +386,7 @@ describe('pagination-nav', () => {
     expect($links.at(6).attributes('href')).toBe('/baz?3')
 
     // Add extra page
-    wrapper.setProps({
+    await wrapper.setProps({
       pages: ['/baz?1', '/baz?2', '/baz?3', '/baz?4']
     })
     await waitNT(wrapper.vm)

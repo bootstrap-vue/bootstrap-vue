@@ -45,7 +45,7 @@ describe('form-spinbutton', () => {
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
     expect($output.text()).toEqual('')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       placeholder: 'foobar'
     })
     await waitNT(wrapper.vm)
@@ -100,7 +100,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuenow')).toEqual('5')
     expect($output.attributes('aria-valuetext')).toEqual('5')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 8
     })
     await waitNT(wrapper.vm)
@@ -228,7 +228,7 @@ describe('form-spinbutton', () => {
     expect($hidden.attributes('name')).toBe('foobar')
     expect($hidden.attributes('value')).toBe('')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 50
     })
     await waitNT(wrapper.vm)
@@ -324,7 +324,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       wrap: true
     })
 
@@ -350,7 +350,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       disabled: true
     })
     await waitNT(wrapper.vm)
@@ -377,7 +377,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       disabled: false,
       readonly: true
     })
@@ -405,7 +405,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       disabled: false,
       readonly: false
     })
@@ -795,7 +795,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).not.toContain('focus')
     expect(document.activeElement).not.toBe($output.element)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       disabled: true
     })
     await waitNT(wrapper.vm)

@@ -131,7 +131,7 @@ describe('form-rating', () => {
     expect($stars.at(3).is('.b-rating-star-empty')).toBe(true)
     expect($stars.at(4).is('.b-rating-star-empty')).toBe(true)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3.5
     })
     await waitNT(wrapper.vm)
@@ -144,7 +144,7 @@ describe('form-rating', () => {
     expect($stars.at(3).is('.b-rating-star-half')).toBe(true)
     expect($stars.at(4).is('.b-rating-star-empty')).toBe(true)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 1
     })
     await waitNT(wrapper.vm)
@@ -236,14 +236,14 @@ describe('form-rating', () => {
     expect($value.exists()).toBe(true)
     expect($value.text()).toEqual('3.50')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: null
     })
     await waitNT(wrapper.vm)
 
     expect($value.text()).toEqual('')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '1.236'
     })
     await waitNT(wrapper.vm)
@@ -274,14 +274,14 @@ describe('form-rating', () => {
     expect($value.exists()).toBe(true)
     expect($value.text()).toEqual('3.50/5')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: null
     })
     await waitNT(wrapper.vm)
 
     expect($value.text()).toEqual('-/5')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '1.236'
     })
     await waitNT(wrapper.vm)
@@ -339,7 +339,7 @@ describe('form-rating', () => {
 
     expect(wrapper.vm.hasFocus).toBe(true)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       disabled: true
     })
     await waitNT(wrapper.vm)
@@ -411,7 +411,7 @@ describe('form-rating', () => {
     await waitNT(wrapper.vm)
     expect($value.text()).toEqual('1')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       readonly: true
     })
     await waitNT(wrapper.vm)
@@ -421,7 +421,7 @@ describe('form-rating', () => {
     await waitNT(wrapper.vm)
     expect($value.text()).toEqual('1')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       readonly: false,
       disabled: true
     })
@@ -432,7 +432,7 @@ describe('form-rating', () => {
     await waitNT(wrapper.vm)
     expect($value.text()).toEqual('1')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       readonly: false,
       disabled: false,
       showClear: true

@@ -355,7 +355,7 @@ describe('form-radio-group', () => {
     expect(radios.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual('')
 
-    radios.at(0).trigger('click')
+    await radios.at(0).trigger('click')
     expect(wrapper.vm.localChecked).toEqual('one')
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
@@ -364,14 +364,14 @@ describe('form-radio-group', () => {
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toEqual('one')
 
-    radios.at(2).trigger('click')
+    await radios.at(2).trigger('click')
     expect(wrapper.vm.localChecked).toEqual('three')
     expect(wrapper.emitted('change').length).toBe(2)
     expect(wrapper.emitted('change')[1][0]).toEqual('three')
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toEqual('three')
 
-    radios.at(0).trigger('click')
+    await radios.at(0).trigger('click')
     expect(wrapper.vm.localChecked).toEqual('one')
     expect(wrapper.emitted('change').length).toBe(3)
     expect(wrapper.emitted('change')[2][0]).toEqual('one')
@@ -398,7 +398,7 @@ describe('form-radio-group', () => {
     expect(radios.at(1).element.checked).toBe(true)
     expect(radios.at(2).element.checked).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       checked: 'one'
     })
 

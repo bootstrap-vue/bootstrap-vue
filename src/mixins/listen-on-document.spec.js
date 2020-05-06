@@ -90,7 +90,7 @@ describe('mixins/listen-on-document', () => {
     expect(spyClick2).toHaveBeenCalledTimes(1)
     expect(spyFocusin).toHaveBeenCalledTimes(1)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       offClickOne: true
     })
 
@@ -106,7 +106,7 @@ describe('mixins/listen-on-document', () => {
     expect(spyClick2).toHaveBeenCalledTimes(2)
     expect(spyFocusin).toHaveBeenCalledTimes(2)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       destroy: true
     })
 

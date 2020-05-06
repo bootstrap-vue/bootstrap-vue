@@ -105,7 +105,7 @@ describe('overlay', () => {
     expect(wrapper.emitted('shown')).toBeUndefined()
     expect(wrapper.emitted('hidden')).toBeUndefined()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       show: true
     })
     await waitNT(wrapper.vm)
@@ -125,7 +125,7 @@ describe('overlay', () => {
     expect(wrapper.emitted('hidden')).toBeUndefined()
     expect(wrapper.emitted('shown').length).toBe(1)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       show: false
     })
     await waitNT(wrapper.vm)
@@ -145,7 +145,7 @@ describe('overlay', () => {
     expect(wrapper.emitted('shown').length).toBe(1)
     expect(wrapper.emitted('hidden').length).toBe(1)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       show: true
     })
     await waitNT(wrapper.vm)
@@ -156,7 +156,7 @@ describe('overlay', () => {
     expect(wrapper.emitted('shown').length).toBe(2)
     expect(wrapper.emitted('hidden').length).toBe(1)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       show: false
     })
     await waitNT(wrapper.vm)

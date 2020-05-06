@@ -904,11 +904,11 @@ describe('form-checkbox', () => {
     const input = wrapper.find('input')
     expect(input).toBeDefined()
     expect(input.element.indeterminate).toBe(false)
-    wrapper.setProps({
+    await wrapper.setProps({
       indeterminate: true
     })
     expect(input.element.indeterminate).toBe(true)
-    wrapper.setProps({
+    await wrapper.setProps({
       indeterminate: false
     })
     expect(input.element.indeterminate).toBe(false)
@@ -1016,7 +1016,7 @@ describe('form-checkbox', () => {
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.vm.localChecked).toBeDefined()
     expect(wrapper.vm.localChecked).toBe(null)
-    wrapper.setProps({
+    await wrapper.setProps({
       checked: 'bar'
     })
     expect(wrapper.vm.localChecked).toEqual('bar')
@@ -1089,7 +1089,7 @@ describe('form-checkbox', () => {
     expect(wrapper.vm.localChecked.length).toBe(1)
     expect(wrapper.vm.localChecked[0]).toEqual('foo')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       checked: []
     })
 

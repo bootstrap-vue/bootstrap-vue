@@ -87,11 +87,11 @@ describe('form-textarea', () => {
       }
     })
     expect(wrapper.classes()).toContain('form-control-sm')
-    wrapper.setProps({ size: 'lg' })
+    await wrapper.setProps({ size: 'lg' })
     expect(wrapper.classes()).toContain('form-control-lg')
-    wrapper.setProps({ size: 'foobar' })
+    await wrapper.setProps({ size: 'foobar' })
     expect(wrapper.classes()).toContain('form-control-foobar')
-    wrapper.setProps({ size: '' })
+    await wrapper.setProps({ size: '' })
     expect(wrapper.classes()).not.toContain('form-control-')
 
     wrapper.destroy()

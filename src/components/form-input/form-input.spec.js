@@ -513,7 +513,7 @@ describe('form-input', () => {
       attachToDocument: true
     })
 
-    wrapper.setProps({ value: 'TEST' })
+    await wrapper.setProps({ value: 'TEST' })
     const input = wrapper.find('input')
 
     expect(input.element.value).toEqual('TEST')
@@ -536,7 +536,7 @@ describe('form-input', () => {
       },
       attachToDocument: true
     })
-    wrapper.setProps({ value: 'TEST' })
+    await wrapper.setProps({ value: 'TEST' })
     const input = wrapper.find('input')
 
     expect(input.element.value).toEqual('TEST')
@@ -648,7 +648,7 @@ describe('form-input', () => {
     // no-wheel=false will not fire a blur event on the input when wheel fired
     expect(spy).not.toHaveBeenCalled()
 
-    wrapper.setProps({ noWheel: true })
+    await wrapper.setProps({ noWheel: true })
 
     expect(wrapper.props().noWheel).toBe(true)
 
@@ -700,7 +700,7 @@ describe('form-input', () => {
     expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
 
     // Updating the `v-model` to new numeric value
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 45.6
     })
     await waitNT(wrapper.vm)

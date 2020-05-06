@@ -178,7 +178,7 @@ describe('b-popover', () => {
     expect(tip.classList.contains('b-popover')).toBe(true)
 
     // Hide the Popover
-    wrapper.setProps({
+    await wrapper.setProps({
       show: false
     })
     await waitNT(wrapper.vm)

@@ -48,7 +48,7 @@ describe('sidebar', () => {
     expect($sidebar.find('.b-sidebar-body').exists()).toBe(true)
     expect($sidebar.find('.b-sidebar-footer').exists()).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       visible: false
     })
     await waitNT(wrapper.vm)
@@ -62,7 +62,7 @@ describe('sidebar', () => {
     // Check for no presence of `display: none' from `v-show` directive
     expect($sidebar.isVisible()).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       visible: true
     })
     await waitNT(wrapper.vm)
@@ -112,7 +112,7 @@ describe('sidebar', () => {
     expect($sidebar.isVisible()).toBe(true)
     expect($backdrop.isVisible()).toBe(true)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       noCloseOnBackdrop: false
     })
     await waitNT(wrapper.vm)
@@ -229,7 +229,7 @@ describe('sidebar', () => {
     expect($sidebar.is('div')).toBe(true)
     expect($sidebar.isVisible()).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       noCloseOnEsc: true
     })
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-esc')
@@ -367,7 +367,7 @@ describe('sidebar', () => {
     expect(wrapper.find('.b-sidebar-body').exists()).toBe(false)
     expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       visible: true
     })
     await waitNT(wrapper.vm)

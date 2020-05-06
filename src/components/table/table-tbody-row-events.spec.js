@@ -307,7 +307,7 @@ describe('table > tbody row events', () => {
     wrapper.destroy()
   })
 
-  it('should not emit row-nhovered event when a row is hovered and no listener', async () => {
+  it('should not emit row-unhovered event when a row is hovered and no listener', async () => {
     const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,

@@ -62,7 +62,7 @@ describe('img-lazy', () => {
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toContain(src)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       show: true
     })
     await waitNT(wrapper.vm)
@@ -77,7 +77,7 @@ describe('img-lazy', () => {
     // observer = wrapper.element.__bv__visibility_observer
     // expect(observer).not.toBeDefined()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       show: false
     })
     await waitNT(wrapper.vm)

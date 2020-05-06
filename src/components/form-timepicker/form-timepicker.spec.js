@@ -130,7 +130,7 @@ describe('form-timepicker', () => {
     expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
     expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '01:02:03'
     })
     await waitNT(wrapper.vm)
@@ -140,7 +140,7 @@ describe('form-timepicker', () => {
     expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
     expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('01:02:00')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       showSeconds: true,
       value: '01:02:33'
     })
@@ -171,7 +171,7 @@ describe('form-timepicker', () => {
     expect(wrapper.find('label.form-control').exists()).toBe(true)
     expect(wrapper.find('label.form-control').text()).toContain('No time selected')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       placeholder: 'foobar'
     })
     await waitNT(wrapper.vm)
@@ -181,7 +181,7 @@ describe('form-timepicker', () => {
     expect(wrapper.find('label.form-control').text()).not.toContain('No time selected')
     expect(wrapper.find('label.form-control').text()).toContain('foobar')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '01:02:03'
     })
 

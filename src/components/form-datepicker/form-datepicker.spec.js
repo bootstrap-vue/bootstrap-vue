@@ -149,7 +149,7 @@ describe('form-date', () => {
     expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
     expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '2020-01-20'
     })
     await waitNT(wrapper.vm)
@@ -175,7 +175,7 @@ describe('form-date', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '2020-01-20'
     })
 

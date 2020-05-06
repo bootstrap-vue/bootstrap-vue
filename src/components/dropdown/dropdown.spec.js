@@ -906,7 +906,7 @@ describe('dropdown', () => {
     expect($toggle.classes()).not.toContain('btn-secondary')
 
     // Change split button variant
-    wrapper.setProps({
+    await wrapper.setProps({
       splitVariant: 'danger'
     })
     expect($split.classes()).toContain('btn-danger')

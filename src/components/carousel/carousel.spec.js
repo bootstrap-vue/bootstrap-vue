@@ -534,7 +534,7 @@ describe('carousel', () => {
     wrapper.destroy()
   })
 
-  it('should scroll to specified slide when indicator kepress space/enter', async () => {
+  it('should scroll to specified slide when indicator keypress space/enter', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
       attachToDocument: true,
@@ -712,7 +712,7 @@ describe('carousel', () => {
     expect($carousel.emitted('unpaused')).not.toBeDefined()
     expect($carousel.emitted('paused')).not.toBeDefined()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       interval: 1000
     })
     await waitNT(wrapper.vm)
@@ -732,7 +732,7 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       interval: 0
     })
     await waitNT(wrapper.vm)
@@ -748,7 +748,7 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       interval: 1000
     })
     await waitNT(wrapper.vm)
@@ -794,7 +794,7 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(0)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 1
     })
 
@@ -820,7 +820,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input')[0][0]).toEqual(1)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
 
@@ -879,7 +879,7 @@ describe('carousel', () => {
     expect($carousel.vm.isSliding).toBe(false)
 
     // Transitions (or fallback timers) are not used when no-animation set
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 1
     })
 
@@ -897,7 +897,7 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(1)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
 
@@ -947,7 +947,7 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(0)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 1
     })
 
@@ -962,7 +962,7 @@ describe('carousel', () => {
     expect($carousel.vm.isSliding).toBe(true)
 
     // Set new slide while sliding
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
 

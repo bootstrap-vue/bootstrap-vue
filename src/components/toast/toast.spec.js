@@ -103,7 +103,7 @@ describe('b-toast', () => {
     expect(wrapper.emitted('hide')).not.toBeDefined()
     expect(wrapper.emitted('hidden')).not.toBeDefined()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       visible: true
     })
 
@@ -123,7 +123,7 @@ describe('b-toast', () => {
     expect(wrapper.emitted('show').length).toBe(1)
     expect(wrapper.emitted('shown').length).toBe(1)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       visible: false
     })
 

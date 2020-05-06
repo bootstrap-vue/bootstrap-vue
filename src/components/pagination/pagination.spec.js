@@ -153,7 +153,7 @@ describe('pagination', () => {
     expect(wrapper.is('ul')).toBe(true)
     expect(wrapper.findAll('li').length).toBe(5)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       totalRows: 4
     })
     await waitNT(wrapper.vm)
@@ -161,7 +161,7 @@ describe('pagination', () => {
     expect(wrapper.is('ul')).toBe(true)
     expect(wrapper.findAll('li').length).toBe(8)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       perPage: 2
     })
     await waitNT(wrapper.vm)
@@ -390,7 +390,7 @@ describe('pagination', () => {
     expect(wrapper.findAll('button.page-link').length).toBe(4)
     expect(wrapper.findAll('button.page-link').is('[aria-controls="foo"]')).toBe(true)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       ariaControls: null
     })
     await waitNT(wrapper.vm)
@@ -528,7 +528,7 @@ describe('pagination', () => {
 
     // Should have the first and last 2 pages buttons with the
     // display classes when currentPage = 4
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '4'
     })
     await waitNT(wrapper.vm)
@@ -565,7 +565,7 @@ describe('pagination', () => {
 
     // Should have the first 4 pages buttons with the
     // display classes when currentPage = 4
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '7'
     })
     await waitNT(wrapper.vm)
@@ -607,7 +607,7 @@ describe('pagination', () => {
     expect(lis.at(6).attributes('role')).toBe('separator')
 
     // Should have both ellipsis showing when currentPage = 4
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '4'
     })
     await waitNT(wrapper.vm)
@@ -618,7 +618,7 @@ describe('pagination', () => {
     expect(lis.at(6).attributes('role')).toBe('separator')
 
     // Should have first ellipsis showing when currentPage = 5
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 5
     })
     await waitNT(wrapper.vm)
@@ -701,7 +701,7 @@ describe('pagination', () => {
     // Should be 13 <li> total
     expect(wrapper.findAll('li').length).toBe(13)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       limit: 4
     })
     await waitNT(wrapper.vm)
@@ -728,7 +728,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')).not.toBeDefined()
 
     // Change total rows to larger value. Should not change page number
-    wrapper.setProps({
+    await wrapper.setProps({
       totalRows: 20
     })
     await waitNT(wrapper.vm)
@@ -736,7 +736,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')).not.toBeDefined()
 
     // Change to page 20
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 20
     })
     await waitNT(wrapper.vm)
@@ -746,7 +746,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')[0][0]).toBe(20)
 
     // Decrease number of pages should reset to page 1
-    wrapper.setProps({
+    await wrapper.setProps({
       totalRows: 10
     })
     await waitNT(wrapper.vm)
@@ -755,7 +755,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')[1][0]).toBe(1)
 
     // Change to page 3
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
     await waitNT(wrapper.vm)
@@ -764,7 +764,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')[2][0]).toBe(3)
 
     // Decrease number of pages to 5 should not reset to page 1
-    wrapper.setProps({
+    await wrapper.setProps({
       totalRows: 5
     })
     await waitNT(wrapper.vm)
@@ -790,7 +790,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')).not.toBeDefined()
 
     // Change perPage
-    wrapper.setProps({
+    await wrapper.setProps({
       perPage: 2
     })
     await waitNT(wrapper.vm)
@@ -800,7 +800,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')[0][0]).toBe(1)
 
     // Change page to 3
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
     await waitNT(wrapper.vm)
@@ -810,7 +810,7 @@ describe('pagination', () => {
 
     // Change perPage. Should reset to page 1, even though
     // current page is within range of numberOfPages
-    wrapper.setProps({
+    await wrapper.setProps({
       perPage: 1
     })
     await waitNT(wrapper.vm)
@@ -842,63 +842,63 @@ describe('pagination', () => {
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '5', '…', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 2
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '5', '…', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '5', '…', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 4
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '5', '…', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 5
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '…', '4', '5', '6', '…', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 6
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '…', '5', '6', '7', '…', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 7
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '…', '6', '7', '8', '9', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 8
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '…', '6', '7', '8', '9', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 9
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '…', '6', '7', '8', '9', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 10
     })
     await waitNT(wrapper.vm)
@@ -929,63 +929,63 @@ describe('pagination', () => {
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 2
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 4
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '3', '4', '5', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 5
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '4', '5', '6', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 6
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '5', '6', '7', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 7
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '6', '7', '8', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 8
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '7', '8', '9', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 9
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '7', '8', '9', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 10
     })
     await waitNT(wrapper.vm)

@@ -187,7 +187,7 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('interactive')).toBe(false)
 
     // Hide the tooltip
-    wrapper.setProps({
+    await wrapper.setProps({
       show: false
     })
     await waitNT(wrapper.vm)
@@ -205,7 +205,7 @@ describe('b-tooltip', () => {
     expect(document.querySelector(adb)).toBe(null)
 
     // Show the tooltip
-    wrapper.setProps({
+    await wrapper.setProps({
       show: true
     })
     await waitNT(wrapper.vm)
@@ -285,7 +285,7 @@ describe('b-tooltip', () => {
     expect($tip.text()).toContain('hello')
 
     // Change the title prop
-    wrapper.setProps({
+    await wrapper.setProps({
       title: 'world'
     })
     await waitNT(wrapper.vm)
@@ -592,7 +592,7 @@ describe('b-tooltip', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // Now enable the tooltip
-    wrapper.setProps({
+    await wrapper.setProps({
       disabled: false
     })
     await waitNT(wrapper.vm)
@@ -626,7 +626,7 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('tooltip')).toBe(true)
 
     // Now disable the tooltip
-    wrapper.setProps({
+    await wrapper.setProps({
       disabled: true
     })
     await waitNT(wrapper.vm)
@@ -1274,7 +1274,7 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('noninteractive')).toBe(false)
 
     // Enable 'noninteractive'. Should be reactive
-    wrapper.setProps({
+    await wrapper.setProps({
       noninteractive: true
     })
     await waitNT(wrapper.vm)
@@ -1331,7 +1331,7 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('b-tooltip-danger')).toBe(true)
 
     // Change variant type. Should be reactive
-    wrapper.setProps({
+    await wrapper.setProps({
       variant: 'success'
     })
     await waitNT(wrapper.vm)
@@ -1391,7 +1391,7 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('foobar-class')).toBe(true)
 
     // Change custom class. Should be reactive
-    wrapper.setProps({
+    await wrapper.setProps({
       customClass: 'barbaz-class'
     })
     await waitNT(wrapper.vm)

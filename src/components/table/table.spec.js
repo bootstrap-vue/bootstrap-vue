@@ -419,7 +419,7 @@ describe('table', () => {
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
     expect(wrapper.find('tbody > tr').classes()).toContain('table-primary')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       dark: true
     })
 
@@ -443,7 +443,7 @@ describe('table', () => {
     expect(wrapper.findAll('tbody > tr > td').length).toBe(1)
     expect(wrapper.find('tbody > tr > td').classes()).toContain('table-info')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       dark: true
     })
 
@@ -466,7 +466,7 @@ describe('table', () => {
     expect(wrapper).toBeDefined()
 
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
-    wrapper.setProps({
+    await wrapper.setProps({
       items: items2
     })
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
@@ -492,7 +492,7 @@ describe('table', () => {
     expect($trs.at(1).classes()).toContain('foobar')
 
     // As a function
-    wrapper.setProps({
+    await wrapper.setProps({
       tbodyTrClass: item => {
         return item.a === 1 ? 'foo' : 'bar'
       }
@@ -524,21 +524,21 @@ describe('table', () => {
     expect(wrapper.find('thead').classes().length).toBe(0)
     expect(wrapper.find('tfoot').classes().length).toBe(0)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       headVariant: 'light'
     })
 
     expect(wrapper.find('thead').classes()).toContain('thead-light')
     expect(wrapper.find('tfoot').classes()).toContain('thead-light')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       footVariant: 'dark'
     })
 
     expect(wrapper.find('thead').classes()).toContain('thead-light')
     expect(wrapper.find('tfoot').classes()).toContain('thead-dark')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       theadClass: 'foo',
       tfootClass: 'bar'
     })
@@ -548,7 +548,7 @@ describe('table', () => {
     expect(wrapper.find('tfoot').classes()).toContain('thead-dark')
     expect(wrapper.find('tfoot').classes()).toContain('bar')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       theadTrClass: 'willy',
       tfootTrClass: 'wonka'
     })

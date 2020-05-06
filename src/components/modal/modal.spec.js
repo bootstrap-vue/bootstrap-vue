@@ -248,7 +248,7 @@ describe('modal', () => {
       expect($backdrop.exists()).toBe(true)
 
       // Now we close the modal via the value prop
-      wrapper.setProps({
+      await wrapper.setProps({
         visible: false
       })
       await waitNT(wrapper.vm)

@@ -58,7 +58,7 @@ describe('time', () => {
     expect($spinners.at(1).text()).toEqual('14')
     expect($spinners.at(2).text()).toEqual('15')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '01:02:03'
     })
     await waitNT(wrapper.vm)
@@ -90,7 +90,7 @@ describe('time', () => {
     expect($spinners.at(1).text()).toEqual('02')
     expect($spinners.at(2).text()).toEqual('AM')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '13:14:00'
     })
     await waitNT(wrapper.vm)
@@ -121,7 +121,7 @@ describe('time', () => {
     expect($spinners.at(0).text()).toEqual('01')
     expect($spinners.at(1).text()).toEqual('02')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '13:14:00'
     })
     await waitNT(wrapper.vm)

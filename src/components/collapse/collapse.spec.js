@@ -150,7 +150,7 @@ describe('collapse', () => {
     wrapper.destroy()
   })
 
-  it('should emit its state on mount (initialy hidden)', async () => {
+  it('should emit its state on mount (initially hidden)', async () => {
     const wrapper = mount(BCollapse, {
       attachToDocument: true,
       propsData: {
@@ -288,7 +288,7 @@ describe('collapse', () => {
     expect(wrapper.element.style.display).toEqual('none')
 
     // Change visible prop
-    wrapper.setProps({
+    await wrapper.setProps({
       visible: true
     })
     await waitNT(wrapper.vm)

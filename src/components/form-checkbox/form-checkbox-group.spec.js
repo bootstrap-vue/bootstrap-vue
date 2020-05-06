@@ -381,7 +381,7 @@ describe('form-checkbox-group', () => {
     expect(checks.at(1).element.checked).toBe(true)
     expect(checks.at(2).element.checked).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       checked: ['three', 'one']
     })
 

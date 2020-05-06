@@ -82,7 +82,7 @@ describe('table > pagination', () => {
         .text()
     ).toBe('7')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       currentPage: 2
     })
 
@@ -101,7 +101,7 @@ describe('table > pagination', () => {
         .text()
     ).toBe('13')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       currentPage: 3
     })
 
@@ -121,7 +121,7 @@ describe('table > pagination', () => {
     })
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       currentPage: 10
     })
 

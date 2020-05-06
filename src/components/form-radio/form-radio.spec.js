@@ -602,7 +602,7 @@ describe('form-radio', () => {
     wrapper.destroy()
   })
 
-  it('stand-alone button has label classes btn and btn-secondary when uchecked', async () => {
+  it('stand-alone button has label classes btn and btn-secondary when unchecked', async () => {
     const wrapper = mount(BFormRadio, {
       propsData: {
         button: true,
@@ -778,7 +778,7 @@ describe('form-radio', () => {
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.vm.localChecked).toBeDefined()
     expect(wrapper.vm.localChecked).toBe('')
-    wrapper.setProps({
+    await wrapper.setProps({
       checked: 'bar'
     })
     expect(wrapper.vm.localChecked).toEqual('bar')

@@ -51,7 +51,7 @@ describe('mixins/listen-on-root', () => {
     expect(spyOn).toHaveBeenCalledTimes(1)
     expect(spyOnce).not.toHaveBeenCalled()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       destroy: true
     })
 

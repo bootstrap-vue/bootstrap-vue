@@ -541,14 +541,14 @@ describe('form-select', () => {
     expect($options.at(0).element.selected).toBe(true)
 
     // Select 2nd option
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 'two'
     })
 
     expect($options.at(1).element.selected).toBe(true)
 
     // Select 3rd option
-    wrapper.setProps({
+    await wrapper.setProps({
       value: { three: 3 }
     })
 

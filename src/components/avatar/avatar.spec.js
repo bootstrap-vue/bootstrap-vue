@@ -139,7 +139,7 @@ describe('avatar', () => {
     expect(wrapper.find('img').attributes('src')).toEqual('/foo/bar')
     expect(wrapper.text()).not.toContain('BV')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       src: '/foo/baz'
     })
     await waitNT(wrapper.vm)
@@ -237,14 +237,14 @@ describe('avatar', () => {
     expect($badge.classes()).toContain('badge-primary')
     expect($badge.text()).toEqual('')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       badge: 'FOO'
     })
     await waitNT(wrapper.vm)
     expect($badge.classes()).toContain('badge-primary')
     expect($badge.text()).toEqual('FOO')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       badgeVariant: 'info'
     })
     await waitNT(wrapper.vm)

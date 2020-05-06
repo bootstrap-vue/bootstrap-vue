@@ -138,7 +138,7 @@ describe('alert', () => {
     expect(wrapper.isEmpty()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       show: true
     })
 
@@ -249,7 +249,7 @@ describe('alert', () => {
     expect(wrapper.isVueInstance()).toBe(true)
     expect(wrapper.html()).not.toBeDefined()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       show: true
     })
 
@@ -261,7 +261,7 @@ describe('alert', () => {
     await waitRAF()
     await waitRAF()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       show: false
     })
 
@@ -371,7 +371,7 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
 
     // Reset countdown
-    wrapper.setProps({
+    await wrapper.setProps({
       show: 3
     })
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)

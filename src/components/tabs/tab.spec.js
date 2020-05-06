@@ -246,7 +246,7 @@ describe('tab', () => {
     expect(deactivateCalled).toBe(false)
     expect(deactivateVm).toBe(null)
 
-    wrapper.setProps({ active: true })
+    await wrapper.setProps({ active: true })
 
     expect(activateCalled).toBe(true)
     expect(activateVm).toBe(wrapper.vm)
@@ -258,7 +258,7 @@ describe('tab', () => {
     deactivateCalled = false
     deactivateVm = null
 
-    wrapper.setProps({ active: false })
+    await wrapper.setProps({ active: false })
 
     expect(activateCalled).toBe(false)
     expect(activateVm).toBe(null)
@@ -295,7 +295,7 @@ describe('tab', () => {
     expect(activateCalled).toBe(false)
     expect(activateVm).toBe(null)
 
-    wrapper.setProps({ active: true })
+    await wrapper.setProps({ active: true })
 
     expect(activateCalled).toBe(false)
     expect(activateVm).toBe(null)

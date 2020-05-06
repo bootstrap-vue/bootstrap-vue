@@ -74,7 +74,7 @@ describe('calendar', () => {
 
     expect(wrapper.vm.selectedYMD).toBe('2020-01-01')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '2020-01-15'
     })
 

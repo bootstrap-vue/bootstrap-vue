@@ -108,7 +108,7 @@ describe('table > busy state', () => {
     ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       busy: true
     })
 
@@ -130,7 +130,7 @@ describe('table > busy state', () => {
         .classes()
     ).toContain('b-table-busy-slot')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       busy: false
     })
 

@@ -566,7 +566,7 @@ describe('table > row select', () => {
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Change filter
-    wrapper.setProps({
+    await wrapper.setProps({
       filter: '2'
     })
     await waitNT(wrapper.vm)
@@ -618,7 +618,7 @@ describe('table > row select', () => {
     expect($rows.at(2).is('[aria-selected="false"]')).toBe(true)
 
     // Change page
-    wrapper.setProps({
+    await wrapper.setProps({
       currentPage: 2
     })
     await waitNT(wrapper.vm)
@@ -663,7 +663,7 @@ describe('table > row select', () => {
     expect($rows.at(3).is('[aria-selected="false"]')).toBe(true)
 
     // Change mode
-    wrapper.setProps({
+    await wrapper.setProps({
       selectMode: 'range'
     })
     await waitNT(wrapper.vm)
@@ -710,7 +710,7 @@ describe('table > row select', () => {
     expect(wrapper.classes()).not.toContain('b-table-selecting-range')
 
     // Disabled selectable
-    wrapper.setProps({
+    await wrapper.setProps({
       selectable: false
     })
     await waitNT(wrapper.vm)

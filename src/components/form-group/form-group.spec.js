@@ -266,7 +266,7 @@ describe('form-group', () => {
     expect($input.attributes('aria-describedby')).toEqual('group-id__BV_description_')
 
     // With state = true, description and valid are visible
-    wrapper.setProps({
+    await wrapper.setProps({
       state: true
     })
     await waitNT(wrapper.vm)
@@ -279,7 +279,7 @@ describe('form-group', () => {
     expect(wrapper.classes()).toContain('is-valid')
 
     // With state = true, description and valid are visible
-    wrapper.setProps({
+    await wrapper.setProps({
       state: false
     })
     await waitNT(wrapper.vm)
@@ -293,7 +293,7 @@ describe('form-group', () => {
     expect(wrapper.classes()).toContain('is-invalid')
   })
 
-  it('validation elemetns respect feedback-aria-live attribute', async () => {
+  it('validation elements respect feedback-aria-live attribute', async () => {
     const wrapper = mount(BFormGroup, {
       propsData: {
         id: 'group-id',
@@ -325,7 +325,7 @@ describe('form-group', () => {
     expect(wrapper.find('.valid-feedback').attributes('aria-atomic')).toEqual('true')
 
     // With feedback-aria-live set to null
-    wrapper.setProps({
+    await wrapper.setProps({
       feedbackAriaLive: null
     })
     await waitNT(wrapper.vm)

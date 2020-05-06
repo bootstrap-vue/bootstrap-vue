@@ -105,7 +105,7 @@ describe('table > sorting', () => {
     ).toContain(wrapper.vm.labelSortClear)
 
     // Change sort direction
-    wrapper.setProps({
+    await wrapper.setProps({
       sortDesc: true
     })
     await waitNT(wrapper.vm)
@@ -156,7 +156,7 @@ describe('table > sorting', () => {
     ).toContain(wrapper.vm.labelSortClear)
 
     // Clear sort
-    wrapper.setProps({
+    await wrapper.setProps({
       sortBy: null,
       sortDesc: false
     })
@@ -786,7 +786,7 @@ describe('table > sorting', () => {
             sortByFormatted: true
           }
         ],
-        // Initialy unsorted
+        // Initially unsorted
         sortBy: ''
       }
     })
@@ -802,7 +802,7 @@ describe('table > sorting', () => {
     expect($tds.at(1).text()).toBe('2')
     expect($tds.at(2).text()).toBe('3') // 5 - 2
 
-    wrapper.setProps({
+    await wrapper.setProps({
       sortBy: 'c',
       sortDesc: false
     })
