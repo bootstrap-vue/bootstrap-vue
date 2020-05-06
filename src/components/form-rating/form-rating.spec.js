@@ -219,6 +219,7 @@ describe('form-rating', () => {
   it('has expected structure when prop `show-value` set', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
+        locale: 'en',
         showValue: true,
         value: '3.5',
         precision: 2
@@ -255,6 +256,7 @@ describe('form-rating', () => {
   it('has expected structure when prop `show-value` and `show-value-max` are set', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
+        locale: 'en',
         showValue: true,
         showValueMax: true,
         value: '3.5',
@@ -293,6 +295,7 @@ describe('form-rating', () => {
     const wrapper = mount(BFormRating, {
       attachToDocument: true,
       propsData: {
+        locale: 'en',
         showValue: true,
         disabled: false,
         value: '3.5',
@@ -351,6 +354,7 @@ describe('form-rating', () => {
   it('keyboard navigation works', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
+        locale: 'en',
         showValue: true,
         value: null
       }

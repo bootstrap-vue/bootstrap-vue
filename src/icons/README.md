@@ -485,7 +485,7 @@ To use the animation, set the `animation` prop to one of the animation names abo
       <p>Throb animation:</p>
       <b-icon icon="circle-fill" animation="throb" font-scale="4"></b-icon>
     </b-col>
-  </div>
+  </b-row>
 </template>
 
 <!-- b-icon-aminations.vue -->
