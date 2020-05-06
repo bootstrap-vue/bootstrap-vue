@@ -6,7 +6,7 @@ describe('form-group', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
 
   beforeEach(() => {
-    // Mock getBCR so that the isVisible(el) test returns true
+    // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
     // Needed for input focusing
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
       width: 24,

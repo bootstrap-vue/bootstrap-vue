@@ -79,7 +79,7 @@ describe('b-tooltip', () => {
         ownerDocument: document
       }
     })
-    // Mock getBCR so that the isVisible(el) test returns true
+    // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
     // Needed for visibility checks of trigger element, etc
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
       width: 24,

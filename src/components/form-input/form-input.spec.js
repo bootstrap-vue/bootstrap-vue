@@ -867,7 +867,7 @@ describe('form-input', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 
     beforeEach(() => {
-      // Mock getBCR so that the isVisible(el) test returns true
+      // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 24,
         height: 24,

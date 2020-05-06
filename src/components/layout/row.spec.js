@@ -37,7 +37,7 @@ describe('layout > row', () => {
     expect(wrapper.text()).toEqual('foobar')
   })
 
-  it('has class no-guttens when prop no-gutters is set', async () => {
+  it('has class no-gutters when prop no-gutters is set', async () => {
     const wrapper = mount(BRow, {
       propsData: {
         noGutters: true
@@ -50,7 +50,7 @@ describe('layout > row', () => {
     expect(wrapper.classes().length).toBe(2)
   })
 
-  it('has vertial align class when prop align-v is set', async () => {
+  it('has vertical align class when prop align-v is set', async () => {
     const wrapper = mount(BRow, {
       propsData: {
         alignV: 'baseline'

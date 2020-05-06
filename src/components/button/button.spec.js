@@ -179,7 +179,7 @@ describe('button', () => {
     // Actually returns 4, as disabled is there twice
     expect(wrapper.attributes('aria-disabled')).toBeDefined()
     expect(wrapper.attributes('aria-disabled')).toBe('true')
-    // Shouldnt have a role with href not `#`
+    // Shouldn't have a role with href not `#`
     expect(wrapper.attributes('role')).not.toEqual('button')
   })
 

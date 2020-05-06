@@ -105,7 +105,7 @@ describe('form-valid-feedback', () => {
     expect(feedback.classes()).toContain('valid-tooltip')
   })
 
-  it('should not contain class alid-feedback when tooltip is set', async () => {
+  it('should not contain class valid-feedback when tooltip is set', async () => {
     const feedback = mount(BFormValidFeedback, {
       context: {
         props: {

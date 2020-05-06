@@ -20,7 +20,7 @@ describe('dropdown', () => {
         ownerDocument: document
       }
     })
-    // Mock getBCR so that the isVisible(el) test returns true
+    // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
     // Needed for keyboard navigation testing
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
       width: 24,
