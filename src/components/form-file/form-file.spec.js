@@ -46,6 +46,7 @@ describe('form-file', () => {
         multiple: true
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('multiple')).toBeDefined()
 
@@ -59,6 +60,7 @@ describe('form-file', () => {
         required: true
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('required')).toBeDefined()
     expect(input.attributes('aria-required')).toBeDefined()
@@ -74,6 +76,7 @@ describe('form-file', () => {
         disabled: true
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('disabled')).toBeDefined()
 
@@ -87,6 +90,7 @@ describe('form-file', () => {
         capture: true
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('capture')).toBeDefined()
 
@@ -100,6 +104,7 @@ describe('form-file', () => {
         accept: 'image/*'
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('accept')).toBeDefined()
     expect(input.attributes('accept')).toBe('image/*')
@@ -114,6 +119,7 @@ describe('form-file', () => {
         name: 'bar'
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('name')).toBeDefined()
     expect(input.attributes('name')).toBe('bar')
@@ -128,6 +134,7 @@ describe('form-file', () => {
         form: 'bar'
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('form')).toBeDefined()
     expect(input.attributes('form')).toBe('bar')
@@ -142,6 +149,7 @@ describe('form-file', () => {
         foo: 'bar'
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('foo')).toBeDefined()
     expect(input.attributes('foo')).toEqual('bar')
@@ -155,6 +163,7 @@ describe('form-file', () => {
         id: 'foo'
       }
     })
+
     const input = wrapper.find('input')
     expect(input).toBeDefined()
 
@@ -176,6 +185,7 @@ describe('form-file', () => {
         plain: true
       }
     })
+
     expect(wrapper.is('input')).toBe(true)
     expect(wrapper.attributes('type')).toBeDefined()
     expect(wrapper.attributes('type')).toBe('file')
@@ -192,6 +202,7 @@ describe('form-file', () => {
         id: 'foo'
       }
     })
+
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -199,12 +210,14 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles([file])
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
 
     // Setting to same array of files should not emit event
     wrapper.vm.setFiles([file])
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
 
@@ -218,6 +231,7 @@ describe('form-file', () => {
         multiple: true
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -253,10 +267,7 @@ describe('form-file', () => {
     expect(wrapper.emitted('input')[1][0]).toEqual(files.slice().reverse())
 
     // Internally setting `selectedFile` to `null` should emit empty array
-    await wrapper.setData({
-      selectedFile: null
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setData({ selectedFile: null })
     expect(wrapper.emitted('input').length).toEqual(3)
     expect(wrapper.emitted('input')[2][0]).toEqual([])
 
@@ -269,6 +280,7 @@ describe('form-file', () => {
         id: 'foo'
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -298,6 +310,7 @@ describe('form-file', () => {
         multiple: false
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -306,11 +319,13 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles(files)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
 
     wrapper.vm.reset()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
 
@@ -324,6 +339,7 @@ describe('form-file', () => {
         multiple: true
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -336,11 +352,13 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles(files)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(files)
 
     wrapper.vm.reset()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual([])
 
@@ -354,6 +372,7 @@ describe('form-file', () => {
         value: null
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -367,8 +386,6 @@ describe('form-file', () => {
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
 
     await wrapper.setProps({ value: null })
-    await waitNT(wrapper.vm)
-
     expect(wrapper.emitted('input').length).toEqual(1)
 
     wrapper.destroy()
@@ -382,6 +399,7 @@ describe('form-file', () => {
         multiple: true
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -400,7 +418,6 @@ describe('form-file', () => {
     expect(wrapper.emitted('input')[0][0]).toEqual(files)
 
     await wrapper.setProps({ value: null })
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual([])
 
@@ -410,7 +427,6 @@ describe('form-file', () => {
     expect(wrapper.emitted('input')[2][0]).toEqual(files)
 
     await wrapper.setProps({ value: [] })
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(4)
     expect(wrapper.emitted('input')[3][0]).toEqual([])
 
@@ -424,6 +440,7 @@ describe('form-file', () => {
         value: null
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -456,6 +473,7 @@ describe('form-file', () => {
         }
       }
     })
+
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -463,6 +481,7 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles([file])
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
@@ -489,6 +508,7 @@ describe('form-file', () => {
         }
       }
     })
+
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -496,6 +516,7 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles([file])
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
@@ -517,6 +538,7 @@ describe('form-file', () => {
         noDrop: true
       }
     })
+
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -598,6 +620,7 @@ describe('form-file', () => {
           autofocus: true
         }
       })
+
       expect(wrapper.vm).toBeDefined()
       await waitNT(wrapper.vm)
       await waitRAF()
