@@ -76,7 +76,7 @@ describe('utils/config', () => {
     // TODO: getConfig will return default config instead of empty object
     expect(getConfig()).toEqual({})
 
-    // Try a conponent config
+    // Try a component config
     setConfig(testConfig)
     expect(getConfig()).toEqual(testConfig)
     expect(getConfig()).not.toBe(testConfig)
