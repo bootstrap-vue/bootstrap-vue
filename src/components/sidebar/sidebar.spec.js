@@ -1,5 +1,5 @@
 import { mount, createWrapper } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BSidebar } from './sidebar'
 
 const EVENT_TOGGLE = 'bv::toggle::collapse'
@@ -10,7 +10,7 @@ const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 describe('sidebar', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BSidebar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-1',
         visible: true
@@ -79,7 +79,7 @@ describe('sidebar', () => {
 
   it('shows backdrop when prop `backdrop` is true', async () => {
     const wrapper = mount(BSidebar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-backdrop',
         noCloseOnBackdrop: true,
@@ -126,7 +126,7 @@ describe('sidebar', () => {
 
   it('shows and hides in response to v-b-toggle events', async () => {
     const wrapper = mount(BSidebar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-toggle'
       },
@@ -179,7 +179,7 @@ describe('sidebar', () => {
 
   it('closes when ESC key is pressed', async () => {
     const wrapper = mount(BSidebar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-esc'
       },
@@ -233,7 +233,7 @@ describe('sidebar', () => {
 
   it('handles state sync requests', async () => {
     const wrapper = mount(BSidebar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-sync',
         visible: true
@@ -268,7 +268,7 @@ describe('sidebar', () => {
 
   it('should have expected structure when `no-header` is set', async () => {
     const wrapper = mount(BSidebar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-2',
         visible: true,
@@ -295,7 +295,7 @@ describe('sidebar', () => {
 
   it('should have expected structure when `no-header-close` is set', async () => {
     const wrapper = mount(BSidebar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-3',
         visible: true,
@@ -323,7 +323,7 @@ describe('sidebar', () => {
 
   it('should have expected structure when `lazy` is set', async () => {
     const wrapper = mount(BSidebar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-4',
         visible: false,
@@ -362,7 +362,7 @@ describe('sidebar', () => {
 
   it('should have expected structure when `footer` slot provided', async () => {
     const wrapper = mount(BSidebar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-5',
         visible: true
@@ -392,7 +392,7 @@ describe('sidebar', () => {
 
   it('should have expected structure when `title` prop provided', async () => {
     const wrapper = mount(BSidebar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-title',
         visible: true,

@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BPopover } from './popover'
 
 const localVue = new CreateLocalVue()
@@ -95,7 +95,7 @@ describe('b-popover', () => {
   it('has expected default structure', async () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click'
@@ -132,7 +132,7 @@ describe('b-popover', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click',

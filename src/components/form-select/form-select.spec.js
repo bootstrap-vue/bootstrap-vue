@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormSelect } from './form-select'
 
 describe('form-select', () => {
@@ -280,7 +280,7 @@ describe('form-select', () => {
 
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormSelect, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(document.activeElement).not.toBe(wrapper.element)
@@ -667,7 +667,7 @@ describe('form-select', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormSelect, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           autofocus: true,
           options: ['a', 'b', 'c']
@@ -687,7 +687,7 @@ describe('form-select', () => {
 
     it('does not autofocus when false', async () => {
       const wrapper = mount(BFormSelect, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           autofocus: false,
           options: ['a', 'b', 'c']

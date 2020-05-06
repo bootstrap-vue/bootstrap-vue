@@ -1,5 +1,5 @@
 import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCollapse } from './collapse'
 
 // Events collapse emits on $root
@@ -34,7 +34,7 @@ describe('collapse', () => {
 
   it('should have expected default structure', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test'
@@ -62,7 +62,7 @@ describe('collapse', () => {
 
   it('should have expected structure when prop is-nav is set', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -91,7 +91,7 @@ describe('collapse', () => {
 
   it('renders default slot content', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test'
@@ -121,7 +121,7 @@ describe('collapse', () => {
 
   it('should mount as visible when prop visible is true', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -152,7 +152,7 @@ describe('collapse', () => {
 
   it('should emit its state on mount (initially hidden)', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test'
@@ -184,7 +184,7 @@ describe('collapse', () => {
 
   it('should emit its state on mount (initially visible)', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -217,7 +217,7 @@ describe('collapse', () => {
 
   it('should respond to state sync requests', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -259,7 +259,7 @@ describe('collapse', () => {
 
   it('setting visible to true after mount shows collapse', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -308,7 +308,7 @@ describe('collapse', () => {
 
   it('should respond to according events', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -430,7 +430,7 @@ describe('collapse', () => {
       }
     })
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       stubs: {
         // Disable use of default test transitionStub component
@@ -492,7 +492,7 @@ describe('collapse', () => {
       }
     })
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       stubs: {
         // Disable use of default test transitionStub component
@@ -527,7 +527,7 @@ describe('collapse', () => {
 
   it('should not respond to root toggle event that does not match ID', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test'
@@ -562,7 +562,7 @@ describe('collapse', () => {
   it('default slot scope works', async () => {
     let scope = null
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',

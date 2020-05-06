@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { createContainer } from '../../../tests/utils'
 import { BTable } from './table'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
@@ -398,7 +399,7 @@ describe('table > tbody row events', () => {
 
   it('should not emit row-clicked event when clicking on a button or other interactive element', async () => {
     const wrapper = mount(BTable, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // Add extra virtual columns
         fields: [].concat(testFields, ['d', 'e', 'f']),

@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { VBTooltip } from './tooltip'
 import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
 
@@ -54,7 +54,7 @@ describe('v-b-tooltip directive', () => {
 
     const wrapper = mount(App, {
       localVue: localVue,
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -91,7 +91,7 @@ describe('v-b-tooltip directive', () => {
 
     const wrapper = mount(App, {
       localVue: localVue,
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -145,7 +145,7 @@ describe('v-b-tooltip directive', () => {
 
     const wrapper = mount(App, {
       localVue: localVue,
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -194,7 +194,7 @@ describe('v-b-tooltip directive', () => {
 
     const wrapper = mount(App, {
       localVue: localVue,
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()

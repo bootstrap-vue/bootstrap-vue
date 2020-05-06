@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormFile } from './form-file'
 
 describe('form-file', () => {
@@ -616,7 +616,7 @@ describe('form-file', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormFile, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           autofocus: true
         }

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormTextarea } from './form-textarea'
 
 describe('form-textarea', () => {
@@ -435,7 +435,7 @@ describe('form-textarea', () => {
 
   it('does not have style resize by default', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(input.element.style).toBeDefined()
@@ -446,7 +446,7 @@ describe('form-textarea', () => {
 
   it('does not have style resize when no-resize is set', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         noResize: true
       }
@@ -460,7 +460,7 @@ describe('form-textarea', () => {
 
   it('does not have style resize when max-rows not set', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         rows: 10
       }
@@ -474,7 +474,7 @@ describe('form-textarea', () => {
 
   it('does not have style resize when max-rows less than rows', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         rows: 10,
         maxRows: 5
@@ -489,7 +489,7 @@ describe('form-textarea', () => {
 
   it('has style resize:none when max-rows greater than rows', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         rows: 2,
         maxRows: 5
@@ -505,7 +505,7 @@ describe('form-textarea', () => {
 
   it('does not have style height by default', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(input.element.style).toBeDefined()
@@ -517,7 +517,7 @@ describe('form-textarea', () => {
 
   it('does not have style height when rows and max-rows equal', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         rows: 2,
         maxRows: 2
@@ -533,7 +533,7 @@ describe('form-textarea', () => {
 
   it('does not have style height when max-rows not set', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         rows: 5
       }
@@ -551,7 +551,7 @@ describe('form-textarea', () => {
   //
   // it('has style height when max-rows greater than rows', async () => {
   //   const input = mount(BFormTextarea, {
-  //     attachToDocument: true,
+  //     attachTo: createContainer(),
   //     propsData: {
   //       rows: 2,
   //       maxRows: 5
@@ -568,7 +568,7 @@ describe('form-textarea', () => {
   //
   // it('auto height should work', async () => {
   //   const input = mount(BFormTextarea, {
-  //     attachToDocument: true,
+  //     attachTo: createContainer(),
   //     propsData: {
   //       value: '',
   //       rows: 2,
@@ -599,7 +599,7 @@ describe('form-textarea', () => {
 
   it('Formats on input when not lazy', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         formatter(value) {
@@ -627,7 +627,7 @@ describe('form-textarea', () => {
 
   it('Formats on change when not lazy', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         formatter(value) {
@@ -655,7 +655,7 @@ describe('form-textarea', () => {
 
   it('Formats on blur when lazy', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         formatter(value) {
           return value.toLowerCase()
@@ -711,7 +711,7 @@ describe('form-textarea', () => {
 
   it('Does not format value on mount when not lazy', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: 'TEST',
         formatter(value) {
@@ -730,7 +730,7 @@ describe('form-textarea', () => {
 
   it('Does not format value on mount when lazy', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: 'TEST',
         formatter(value) {
@@ -750,7 +750,7 @@ describe('form-textarea', () => {
 
   it('Does not format on prop "value" change when not lazy', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         formatter(value) {
@@ -775,7 +775,7 @@ describe('form-textarea', () => {
 
   it('does not format on value prop change when lazy', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         formatter(value) {
@@ -802,7 +802,7 @@ describe('form-textarea', () => {
 
   it('trim modifier prop works', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         trim: true
@@ -869,7 +869,7 @@ describe('form-textarea', () => {
 
   it('number modifier prop works', async () => {
     const input = mount(BFormTextarea, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         number: true
@@ -958,7 +958,7 @@ describe('form-textarea', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormTextarea, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           autofocus: true
         }
@@ -978,7 +978,7 @@ describe('form-textarea', () => {
 
     it('does not autofocus when false', async () => {
       const wrapper = mount(BFormTextarea, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           autofocus: false
         }

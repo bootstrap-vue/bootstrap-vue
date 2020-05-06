@@ -1,12 +1,12 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { PortalTarget } from 'portal-vue'
 import { BToaster } from './toaster'
 
 describe('b-toaster', () => {
   it('has expected structure', async () => {
     const wrapper = mount(BToaster, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       stubs: {
         'transition-group': false,
         transition: false
@@ -43,7 +43,7 @@ describe('b-toaster', () => {
 
   it('accepts aria props', async () => {
     const wrapper = mount(BToaster, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       stubs: {
         'transition-group': false,
         transition: false

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormRadio } from './form-radio'
 
 describe('form-radio', () => {
@@ -897,7 +897,7 @@ describe('form-radio', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormRadio, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           checked: false,
           autofocus: true
@@ -920,7 +920,7 @@ describe('form-radio', () => {
 
     it('does not autofocus by default', async () => {
       const wrapper = mount(BFormRadio, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           checked: false
         },

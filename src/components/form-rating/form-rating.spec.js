@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { createContainer, waitNT } from '../../../tests/utils'
 import { BFormRating } from './form-rating'
 
 describe('form-rating', () => {
@@ -289,7 +289,7 @@ describe('form-rating', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BFormRating, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         locale: 'en',
         showValue: true,

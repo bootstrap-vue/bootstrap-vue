@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BOverlay } from './overlay'
 
 describe('overlay', () => {
@@ -74,7 +74,7 @@ describe('overlay', () => {
 
   it('responds to changes in the `show` prop', async () => {
     const wrapper = mount(BOverlay, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       stubs: {
         // Disable the use of transitionStub fake transition
         // as it doesn't run transition hooks

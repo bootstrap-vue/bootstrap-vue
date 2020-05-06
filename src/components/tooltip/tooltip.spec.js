@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue, createWrapper } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BTooltip } from './tooltip'
 
 const localVue = new CreateLocalVue()
@@ -100,7 +100,7 @@ describe('b-tooltip', () => {
   it('has expected default structure', async () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click'
@@ -139,7 +139,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click',
@@ -225,7 +225,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click',
@@ -295,7 +295,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click',
@@ -357,7 +357,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'focus',
@@ -437,7 +437,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'hover',
@@ -518,7 +518,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click',
@@ -622,7 +622,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click',
@@ -705,7 +705,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click',
@@ -779,7 +779,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click',
@@ -852,7 +852,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click',
@@ -927,7 +927,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click',
@@ -1001,7 +1001,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click',
@@ -1077,7 +1077,7 @@ describe('b-tooltip', () => {
 
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         triggers: 'click',
@@ -1191,7 +1191,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         show: true
@@ -1247,7 +1247,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         show: true,
@@ -1301,7 +1301,7 @@ describe('b-tooltip', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue,
       propsData: {
         show: true,

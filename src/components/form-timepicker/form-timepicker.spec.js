@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormTimepicker } from './form-timepicker'
 
 // Note that JSDOM only supports `en-US` (`en`) locale for Intl
@@ -29,7 +29,7 @@ describe('form-timepicker', () => {
 
   it('has expected default structure', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-base'
       }
@@ -70,7 +70,7 @@ describe('form-timepicker', () => {
 
   it('has expected default structure when button-only is true', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-button-only',
         buttonOnly: true
@@ -113,7 +113,7 @@ describe('form-timepicker', () => {
 
   it('renders hidden input when name prop is set', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         name: 'foobar',
@@ -156,7 +156,7 @@ describe('form-timepicker', () => {
 
   it('renders placeholder text', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         hour12: false
@@ -197,7 +197,7 @@ describe('form-timepicker', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         id: 'test-focus-blur'
@@ -233,7 +233,7 @@ describe('form-timepicker', () => {
 
   it('hover works to change icons', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         id: 'test-hover'
@@ -274,7 +274,7 @@ describe('form-timepicker', () => {
 
   it('opens calendar when toggle button clicked', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         id: 'test-open'
@@ -405,7 +405,7 @@ describe('form-timepicker', () => {
 
   it('`button-content` static slot works', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-button-slot',
         showSeconds: true,

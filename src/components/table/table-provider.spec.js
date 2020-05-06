@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { createContainer, waitNT } from '../../../tests/utils'
 import { BTable } from './table'
 
 const testItems = [
@@ -374,7 +374,7 @@ describe('table > provider functions', () => {
     }
 
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(wrapper.is('table')).toBe(true)

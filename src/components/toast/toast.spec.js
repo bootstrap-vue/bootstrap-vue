@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BToast } from './toast'
 
 describe('b-toast', () => {
@@ -14,7 +14,7 @@ describe('b-toast', () => {
 
   it('has expected structure', async () => {
     const wrapper = mount(BToast, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       stubs: {
         transition: false
       },
@@ -72,7 +72,7 @@ describe('b-toast', () => {
 
   it('visible prop works', async () => {
     const wrapper = mount(BToast, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       stubs: {
         transition: false
       },
@@ -136,7 +136,7 @@ describe('b-toast', () => {
 
   it('alert with link closes on click works', async () => {
     const wrapper = mount(BToast, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       stubs: {
         transition: false
       },
@@ -187,7 +187,7 @@ describe('b-toast', () => {
   it('auto-hide works', async () => {
     jest.useFakeTimers()
     const wrapper = mount(BToast, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       stubs: {
         transition: false
       },
@@ -235,7 +235,7 @@ describe('b-toast', () => {
 
   it('hover pause works', async () => {
     const wrapper = mount(BToast, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       stubs: {
         transition: false
       },
@@ -279,7 +279,7 @@ describe('b-toast', () => {
 
   it('hover pause has no effect when no-hover-pause is set', async () => {
     const wrapper = mount(BToast, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       stubs: {
         transition: false
       },

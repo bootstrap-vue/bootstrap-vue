@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../tests/utils'
+import { createContainer, waitNT } from '../../tests/utils'
 import clickOutMixin from './click-out'
 
 describe('utils/click-out', () => {
@@ -23,7 +23,7 @@ describe('utils/click-out', () => {
     })
 
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     const clickEvt = new MouseEvent('click')

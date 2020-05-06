@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../tests/utils'
+import { createContainer, waitNT } from '../../tests/utils'
 import focusInMixin from './focus-in'
 
 describe('utils/focus-in', () => {
@@ -23,7 +23,7 @@ describe('utils/focus-in', () => {
     })
 
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     const focusinEvt = new FocusEvent('focusin')

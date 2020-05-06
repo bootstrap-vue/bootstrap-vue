@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { VBPopover } from './popover'
 import { BVPopover } from '../../components/popover/helpers/bv-popover'
 
@@ -54,7 +54,7 @@ describe('v-b-popover directive', () => {
 
     const wrapper = mount(App, {
       localVue: localVue,
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -91,7 +91,7 @@ describe('v-b-popover directive', () => {
 
     const wrapper = mount(App, {
       localVue: localVue,
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()

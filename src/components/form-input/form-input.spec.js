@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormInput } from './form-input'
 
 describe('form-input', () => {
@@ -127,7 +127,7 @@ describe('form-input', () => {
 
   it('has safeId after mount when no id provided', async () => {
     const wrapper = mount(BFormInput, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
     const input = wrapper.find('input')
     await waitNT(wrapper.vm)
@@ -402,7 +402,7 @@ describe('form-input', () => {
           return value.toLowerCase()
         }
       },
-      attachToDocument: true
+      attachTo: createContainer()
     })
     const input = wrapper.find('input')
     input.element.value = 'TEST'
@@ -427,7 +427,7 @@ describe('form-input', () => {
         },
         lazyFormatter: true
       },
-      attachToDocument: true
+      attachTo: createContainer()
     })
     const input = wrapper.find('input')
     input.element.value = 'TEST'
@@ -454,7 +454,7 @@ describe('form-input', () => {
         },
         lazyFormatter: true
       },
-      attachToDocument: true
+      attachTo: createContainer()
     })
     const input = wrapper.find('input')
 
@@ -489,7 +489,7 @@ describe('form-input', () => {
           return String(value).toLowerCase()
         }
       },
-      attachToDocument: true
+      attachTo: createContainer()
     })
     const input = wrapper.find('input')
 
@@ -510,7 +510,7 @@ describe('form-input', () => {
           return value.toLowerCase()
         }
       },
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     await wrapper.setProps({ value: 'TEST' })
@@ -534,7 +534,7 @@ describe('form-input', () => {
         },
         lazyFormatter: true
       },
-      attachToDocument: true
+      attachTo: createContainer()
     })
     await wrapper.setProps({ value: 'TEST' })
     const input = wrapper.find('input')
@@ -556,7 +556,7 @@ describe('form-input', () => {
           return false
         }
       },
-      attachToDocument: true
+      attachTo: createContainer()
     })
     const input = wrapper.find('input')
     input.element.value = 'TEST'
@@ -581,7 +581,7 @@ describe('form-input', () => {
       listeners: {
         blur: spy
       },
-      attachToDocument: true
+      attachTo: createContainer()
     })
     const input = wrapper.find('input')
 
@@ -608,7 +608,7 @@ describe('form-input', () => {
       listeners: {
         blur: spy
       },
-      attachToDocument: true
+      attachTo: createContainer()
     })
     const input = wrapper.find('input')
 
@@ -635,7 +635,7 @@ describe('form-input', () => {
       listeners: {
         blur: spy
       },
-      attachToDocument: true
+      attachTo: createContainer()
     })
     const input = wrapper.find('input')
 
@@ -869,7 +869,7 @@ describe('form-input', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormInput, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           autofocus: true
         }
@@ -888,7 +888,7 @@ describe('form-input', () => {
 
     it('does not autofocus when false', async () => {
       const wrapper = mount(BFormInput, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           autofocus: false
         }

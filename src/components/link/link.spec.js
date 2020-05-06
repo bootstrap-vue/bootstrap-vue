@@ -1,5 +1,6 @@
 import VueRouter from 'vue-router'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { createContainer } from '../../../tests/utils'
 import { BLink } from './link'
 
 describe('b-link', () => {
@@ -181,7 +182,7 @@ describe('b-link', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BLink, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         href: '#foobar'
       }
@@ -351,7 +352,7 @@ describe('b-link', () => {
 
       const wrapper = mount(App, {
         localVue: localVue,
-        attachToDocument: true
+        attachTo: createContainer()
       })
 
       expect(wrapper.vm).toBeDefined()

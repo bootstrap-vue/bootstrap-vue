@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCalendar } from './calendar'
 import { formatYMD } from '../../utils/date'
 
@@ -8,7 +8,7 @@ import { formatYMD } from '../../utils/date'
 describe('calendar', () => {
   it('has expected base structure', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -42,7 +42,7 @@ describe('calendar', () => {
 
   it('has expected structure when value is set', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '2020-02-15' // Leap year
       }
@@ -62,7 +62,7 @@ describe('calendar', () => {
 
   it('reacts to changes in value', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '2020-01-01' // Leap year
       }
@@ -88,7 +88,7 @@ describe('calendar', () => {
 
   it('clicking a date selects date', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '2020-01-01' // Leap year
       }
@@ -122,7 +122,7 @@ describe('calendar', () => {
 
   it('date navigation buttons work', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         showDecadeNav: true,
         value: '2020-02-15' // Leap year
@@ -178,7 +178,7 @@ describe('calendar', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '2020-02-15' // Leap year
       }
@@ -211,7 +211,7 @@ describe('calendar', () => {
 
   it('clicking output header focuses grid', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '2020-02-15' // Leap year
       }
@@ -246,7 +246,7 @@ describe('calendar', () => {
 
   it('keyboard navigation works', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '2020-02-15' // Leap year
       }

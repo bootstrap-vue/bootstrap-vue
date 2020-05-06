@@ -1,5 +1,5 @@
 import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../../tests/utils'
 import { ToastPlugin } from '../index'
 
 describe('$bvToast', () => {
@@ -27,7 +27,7 @@ describe('$bvToast', () => {
       }
     })
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue
     })
 
@@ -78,7 +78,7 @@ describe('$bvToast', () => {
       }
     })
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue
     })
 

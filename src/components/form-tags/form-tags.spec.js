@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormTags } from './form-tags'
 
 describe('form-tags', () => {
@@ -494,7 +494,7 @@ describe('form-tags', () => {
 
   it('focuses input when wrapper div clicked', async () => {
     const wrapper = mount(BFormTags, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: ['apple', 'orange']
       }
@@ -546,7 +546,7 @@ describe('form-tags', () => {
 
   it('autofocus works', async () => {
     const wrapper = mount(BFormTags, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         autofocus: true,
         value: ['apple', 'orange']

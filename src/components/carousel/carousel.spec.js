@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCarousel } from './carousel'
 import { BCarouselSlide } from './carousel-slide'
 
@@ -45,7 +45,7 @@ describe('carousel', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -113,7 +113,7 @@ describe('carousel', () => {
   it('has prev/next controls when prop controls is set', async () => {
     const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         controls: true
       }
@@ -177,7 +177,7 @@ describe('carousel', () => {
   it('has indicators showing when prop indicators is set', async () => {
     const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         indicators: true
       }
@@ -225,7 +225,7 @@ describe('carousel', () => {
   it('should have class carousel-fade when prop fade=true', async () => {
     const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         fade: true
       }
@@ -245,7 +245,7 @@ describe('carousel', () => {
   it('should not have class fade or slide when prop no-animation=true', async () => {
     const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         noAnimation: true
       }
@@ -265,7 +265,7 @@ describe('carousel', () => {
   it('should not have class fade or slide when prop no-animation=true and fade=true', async () => {
     const wrapper = mount(BCarousel, {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         fade: true,
         noAnimation: true
@@ -286,7 +286,7 @@ describe('carousel', () => {
   it('should not automatically scroll to next slide when interval=0', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -318,7 +318,7 @@ describe('carousel', () => {
   it('should scroll to next/prev slide when next/prev clicked', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -385,7 +385,7 @@ describe('carousel', () => {
   it('should scroll to next/prev slide when next/prev space keypress', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -452,7 +452,7 @@ describe('carousel', () => {
   it('should scroll to specified slide when indicator clicked', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -519,7 +519,7 @@ describe('carousel', () => {
   it('should scroll to specified slide when indicator keypress space/enter', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -586,7 +586,7 @@ describe('carousel', () => {
   it('should scroll to next/prev slide when key next/prev pressed', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -650,7 +650,7 @@ describe('carousel', () => {
   it('should emit paused and unpaused events when interval changed to 0', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -735,7 +735,7 @@ describe('carousel', () => {
   it('should scroll to specified slide when value (v-model) changed', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -819,7 +819,7 @@ describe('carousel', () => {
   it('changing slides works when no-animation set', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -888,7 +888,7 @@ describe('carousel', () => {
   it('setting new slide when sliding is active, schedules the new slide to happen after finished', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -971,7 +971,7 @@ describe('carousel', () => {
   it('Next/Prev slide wraps to end/start when no-wrap is false', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -1040,7 +1040,7 @@ describe('carousel', () => {
   it('Next/Prev slide does not wrap to end/start when no-wrap is true', async () => {
     const wrapper = mount(localVue.extend(appDef), {
       localVue: localVue,
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,

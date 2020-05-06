@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT } from '../../tests/utils'
+import { createContainer, waitNT } from '../../tests/utils'
 import { BTransporterSingle } from './transporter'
 
 describe('utils/transporter component', () => {
@@ -13,7 +13,7 @@ describe('utils/transporter component', () => {
     })
 
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue
     })
 
@@ -34,7 +34,7 @@ describe('utils/transporter component', () => {
     })
 
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       localVue: localVue
     })
 

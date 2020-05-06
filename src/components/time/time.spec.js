@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BTime } from './time'
 
 //  Note that JSDOM only supports `en-US` (`en`) locale for Intl
@@ -205,7 +205,7 @@ describe('time', () => {
 
   it('blur and focus methods work', async () => {
     const wrapper = mount(BTime, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -234,7 +234,7 @@ describe('time', () => {
 
   it('arrow left/right moves focus', async () => {
     const wrapper = mount(BTime, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         showSeconds: true,
         value: '00:00:00',

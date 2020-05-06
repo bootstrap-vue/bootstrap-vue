@@ -1,4 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { createContainer } from '../../tests/utils'
 import listenOnWindowMixin from './listen-on-window'
 
 describe('mixins/listen-on-window', () => {
@@ -55,7 +56,7 @@ describe('mixins/listen-on-window', () => {
     })
 
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         destroy: false
       }

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormCheckbox } from './form-checkbox'
 
 describe('form-checkbox', () => {
@@ -1143,7 +1143,7 @@ describe('form-checkbox', () => {
 
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormCheckbox, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         checked: false
       },
@@ -1199,7 +1199,7 @@ describe('form-checkbox', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormCheckbox, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           checked: false,
           autofocus: true
@@ -1222,7 +1222,7 @@ describe('form-checkbox', () => {
 
     it('does not auto focus when false', async () => {
       const wrapper = mount(BFormCheckbox, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           checked: false,
           autofocus: false

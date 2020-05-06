@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { createContainer, waitNT } from '../../../tests/utils'
 import { isVisible, getBCR, contains } from '../../utils/dom'
 import { BPagination } from './pagination'
 
@@ -1021,7 +1021,7 @@ describe('pagination', () => {
           value: 2,
           limit: 3
         },
-        attachToDocument: true
+        attachTo: createContainer()
       })
       await waitNT(wrapper.vm)
       expect(wrapper.is('ul')).toBe(true)
@@ -1076,7 +1076,7 @@ describe('pagination', () => {
           value: 2,
           limit: 3
         },
-        attachToDocument: true
+        attachTo: createContainer()
       })
       await waitNT(wrapper.vm)
       expect(wrapper.is('ul')).toBe(true)
@@ -1104,7 +1104,7 @@ describe('pagination', () => {
           value: 1,
           limit: 5
         },
-        attachToDocument: true
+        attachTo: createContainer()
       })
       let links
 
