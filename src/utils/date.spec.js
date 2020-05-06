@@ -14,7 +14,7 @@ import {
 } from './date'
 
 describe('utils/date', () => {
-  it('parseYMD works', async () => {
+  it('parseYMD() works', async () => {
     const date1 = parseYMD('2020-01-15')
     const date2 = new Date(2020, 0, 15)
     const date3 = parseYMD('2020-01-15T23:16:56.131Z')
@@ -27,18 +27,18 @@ describe('utils/date', () => {
     expect(parseYMD('2020-01-15XYZ')).toEqual(null)
   })
 
-  it('formatYMD works', async () => {
+  it('formatYMD() works', async () => {
     expect(formatYMD(new Date(2020, 0, 15))).toEqual('2020-01-15')
     expect(formatYMD('2020-01-15')).toEqual('2020-01-15')
     expect(formatYMD('2020-01-32')).toEqual('2020-02-01')
-    expect(formatYMD('adsadsad')).toEqual(null)
+    expect(formatYMD('foobar')).toEqual(null)
     expect(formatYMD('x2020-01-15')).toEqual(null)
     expect(formatYMD('2020-01-15x')).toEqual(null)
     expect(formatYMD('2020-01-15T23:16:56.131Z')).toEqual('2020-01-15')
     expect(formatYMD('2020-01-15 23:16:56')).toEqual('2020-01-15')
   })
 
-  it('datesEqual works', async () => {
+  it('datesEqual() works', async () => {
     expect(datesEqual('2020-01-15', '2020-01-15')).toBe(true)
     expect(datesEqual('2020-01-15', '2020-12-15')).toBe(false)
     expect(datesEqual(new Date(2020, 0, 15), '2020-12-15')).toBe(false)
@@ -47,7 +47,7 @@ describe('utils/date', () => {
     expect(datesEqual('2020-02-15', new Date(2020, 0, 15))).toBe(false)
   })
 
-  it('firstDateOfMonth works', async () => {
+  it('firstDateOfMonth() works', async () => {
     // February 2020 was a leap year
     expect(formatYMD(firstDateOfMonth(parseYMD('2020-02-03')))).toEqual('2020-02-01')
     expect(formatYMD(firstDateOfMonth(parseYMD('2020-02-29')))).toEqual('2020-02-01')
@@ -56,7 +56,7 @@ describe('utils/date', () => {
     expect(formatYMD(firstDateOfMonth(parseYMD('2020-12-03')))).toEqual('2020-12-01')
   })
 
-  it('lastDateOfMonth works', async () => {
+  it('lastDateOfMonth() works', async () => {
     // February 2020 was a leap year
     expect(formatYMD(lastDateOfMonth(parseYMD('2020-02-03')))).toEqual('2020-02-29')
     expect(formatYMD(lastDateOfMonth(parseYMD('2019-02-03')))).toEqual('2019-02-28')
@@ -65,7 +65,7 @@ describe('utils/date', () => {
     expect(formatYMD(lastDateOfMonth(parseYMD('2020-12-03')))).toEqual('2020-12-31')
   })
 
-  it('oneMonthAgo works', async () => {
+  it('oneMonthAgo() works', async () => {
     // February 2020 was a leap year
     expect(formatYMD(oneMonthAgo(parseYMD('2020-02-03')))).toEqual('2020-01-03')
     expect(formatYMD(oneMonthAgo(parseYMD('2020-03-28')))).toEqual('2020-02-28')
@@ -74,7 +74,7 @@ describe('utils/date', () => {
     expect(formatYMD(oneMonthAgo(parseYMD('2020-12-31')))).toEqual('2020-11-30')
   })
 
-  it('oneMonthAhead works', async () => {
+  it('oneMonthAhead() works', async () => {
     // February 2020 was a leap year
     expect(formatYMD(oneMonthAhead(parseYMD('2020-02-03')))).toEqual('2020-03-03')
     expect(formatYMD(oneMonthAhead(parseYMD('2020-01-31')))).toEqual('2020-02-29')
@@ -86,7 +86,7 @@ describe('utils/date', () => {
     expect(formatYMD(oneMonthAhead(parseYMD('2020-12-31')))).toEqual('2021-01-31')
   })
 
-  it('oneYearAgo works', async () => {
+  it('oneYearAgo() works', async () => {
     // February 2020 was a leap year
     expect(formatYMD(oneYearAgo(parseYMD('2020-02-29')))).toEqual('2019-02-28')
     expect(formatYMD(oneYearAgo(parseYMD('2020-02-28')))).toEqual('2019-02-28')
@@ -96,7 +96,7 @@ describe('utils/date', () => {
     expect(formatYMD(oneYearAgo(parseYMD('2020-12-31')))).toEqual('2019-12-31')
   })
 
-  it('oneYearAhead works', async () => {
+  it('oneYearAhead() works', async () => {
     // February 2020 was a leap year
     expect(formatYMD(oneYearAhead(parseYMD('2020-02-29')))).toEqual('2021-02-28')
     expect(formatYMD(oneYearAhead(parseYMD('2020-02-28')))).toEqual('2021-02-28')
@@ -106,7 +106,7 @@ describe('utils/date', () => {
     expect(formatYMD(oneYearAhead(parseYMD('2020-12-31')))).toEqual('2021-12-31')
   })
 
-  it('oneDecadeAgo works', async () => {
+  it('oneDecadeAgo() works', async () => {
     // February 2020 was a leap year
     expect(formatYMD(oneDecadeAgo(parseYMD('2020-02-29')))).toEqual('2010-02-28')
     expect(formatYMD(oneDecadeAgo(parseYMD('2020-02-28')))).toEqual('2010-02-28')
@@ -116,7 +116,7 @@ describe('utils/date', () => {
     expect(formatYMD(oneDecadeAgo(parseYMD('2020-12-31')))).toEqual('2010-12-31')
   })
 
-  it('oneDecadeAhead works', async () => {
+  it('oneDecadeAhead() works', async () => {
     // February 2020 was a leap year
     expect(formatYMD(oneDecadeAhead(parseYMD('2020-02-29')))).toEqual('2030-02-28')
     expect(formatYMD(oneDecadeAhead(parseYMD('2020-02-28')))).toEqual('2030-02-28')
@@ -126,7 +126,7 @@ describe('utils/date', () => {
     expect(formatYMD(oneDecadeAhead(parseYMD('2020-12-31')))).toEqual('2030-12-31')
   })
 
-  it('costrainDate works', async () => {
+  it('constrainDate() works', async () => {
     const min = parseYMD('2020-01-05')
     const max = parseYMD('2020-01-15')
     const date1 = parseYMD('2020-01-10')
