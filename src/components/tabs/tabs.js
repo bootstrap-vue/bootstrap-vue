@@ -8,6 +8,7 @@ import { arrayIncludes, concat } from '../../utils/array'
 import { BvEvent } from '../../utils/bv-event.class'
 import { requestAF, selectAll } from '../../utils/dom'
 import { isEvent } from '../../utils/inspect'
+import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { omit } from '../../utils/object'
 import idMixin from '../../mixins/id'
@@ -548,7 +549,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     // Move to previous non-disabled tab
     previousTab(focus) {
-      const currentIndex = Math.max(this.currentTab, 0)
+      const currentIndex = mathMax(this.currentTab, 0)
       const tab = this.tabs
         .slice(0, currentIndex)
         .reverse()
@@ -560,7 +561,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     // Move to next non-disabled tab
     nextTab(focus) {
-      const currentIndex = Math.max(this.currentTab, -1)
+      const currentIndex = mathMax(this.currentTab, -1)
       const tab = this.tabs.slice(currentIndex + 1).find(notDisabled)
       if (this.activateTab(tab) && focus) {
         this.focusButton(tab)

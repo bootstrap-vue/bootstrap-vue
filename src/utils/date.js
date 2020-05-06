@@ -1,4 +1,4 @@
-import { RX_DATE } from '../constants/regex'
+import { RX_DATE, RX_DATE_SPLIT } from '../constants/regex'
 import identity from './identity'
 import { concat } from './array'
 import { isDate, isString } from './inspect'
@@ -10,7 +10,7 @@ export const createDate = (...args) => new Date(...args)
 // Parse a date sting, or Date object, into a Date object (with no time information)
 export const parseYMD = date => {
   if (isString(date) && RX_DATE.test(date.trim())) {
-    const [year, month, day] = date.split('-').map(toInteger)
+    const [year, month, day] = date.split(RX_DATE_SPLIT).map(v => toInteger(v, 1))
     return createDate(year, month - 1, day)
   } else if (isDate(date)) {
     return createDate(date.getFullYear(), date.getMonth(), date.getDate())

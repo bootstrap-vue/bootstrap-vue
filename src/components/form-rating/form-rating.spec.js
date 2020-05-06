@@ -219,11 +219,11 @@ describe('form-rating', () => {
   it('has expected structure when prop `show-value` set', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
+        // Define a fixed locale to reliably test formatted text
+        locale: 'en',
         showValue: true,
         value: '3.5',
-        precision: 2,
-        // Define a fixed locale to reliably test formatted text
-        locale: 'en'
+        precision: 2
       }
     })
 
@@ -257,6 +257,8 @@ describe('form-rating', () => {
   it('has expected structure when prop `show-value` and `show-value-max` are set', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
+        // Define a fixed locale to reliably test formatted text
+        locale: 'en',
         showValue: true,
         showValueMax: true,
         value: '3.5',
@@ -353,10 +355,10 @@ describe('form-rating', () => {
   it('keyboard navigation works', async () => {
     const wrapper = mount(BFormRating, {
       propsData: {
-        showValue: true,
-        value: null,
         // Define a fixed locale to reliably test formatted text
-        locale: 'en'
+        locale: 'en',
+        showValue: true,
+        value: null
       }
     })
 

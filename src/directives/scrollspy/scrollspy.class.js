@@ -21,6 +21,7 @@ import {
 } from '../../utils/dom'
 import { eventOn, eventOff } from '../../utils/events'
 import { isString, isUndefined } from '../../utils/inspect'
+import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { toString as objectToString } from '../../utils/object'
 import { warn } from '../../utils/warn'
@@ -407,7 +408,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
   getScrollHeight() {
     return (
       this.getScroller().scrollHeight ||
-      Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
+      mathMax(document.body.scrollHeight, document.documentElement.scrollHeight)
     )
   }
 

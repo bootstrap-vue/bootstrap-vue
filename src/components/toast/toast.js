@@ -6,6 +6,7 @@ import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { eventOnOff } from '../../utils/events'
+import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -145,7 +146,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     computedDuration() {
       // Minimum supported duration is 1 second
-      return Math.max(toInteger(this.autoHideDelay, 0), MIN_DURATION)
+      return mathMax(toInteger(this.autoHideDelay, 0), MIN_DURATION)
     },
     computedToaster() {
       return String(this.toaster)
@@ -304,7 +305,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       const passed = Date.now() - this.dismissStarted
       if (passed > 0) {
         this.clearDismissTimer()
-        this.resumeDismiss = Math.max(this.computedDuration - passed, MIN_DURATION)
+        this.resumeDismiss = mathMax(this.computedDuration - passed, MIN_DURATION)
       }
     },
     onUnPause() {

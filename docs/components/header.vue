@@ -30,15 +30,15 @@
 
     <div class="navbar-nav-scroll">
       <b-navbar-nav class="bd-navbar-nav flex-row">
-        <b-nav-item to="/docs" active-class="active" exact>Docs</b-nav-item>
-        <b-nav-item to="/docs/components" active-class="active">Components</b-nav-item>
-        <b-nav-item to="/docs/directives" active-class="active">Directives</b-nav-item>
-        <b-nav-item to="/docs/icons" active-class="active">Icons</b-nav-item>
+        <b-nav-item to="/docs" active-class="active" exact no-prefetch>Docs</b-nav-item>
+        <b-nav-item to="/docs/components" active-class="active" no-prefetch>Components</b-nav-item>
+        <b-nav-item to="/docs/directives" active-class="active" no-prefetch>Directives</b-nav-item>
+        <b-nav-item to="/docs/icons" active-class="active" no-prefetch>Icons</b-nav-item>
         <b-nav-item to="/docs/reference" active-class="active">Reference</b-nav-item>
         <!-- TODO: Uncomment when we have themes
-        <b-nav-item to="/themes" active-class="active">Themes</b-nav-item>
+        <b-nav-item to="/themes" active-class="active" no-prefetch>Themes</b-nav-item>
         -->
-        <b-nav-item to="/play" active-class="active">Play</b-nav-item>
+        <b-nav-item to="/play" active-class="active" no-prefetch>Play</b-nav-item>
       </b-navbar-nav>
     </div>
 
@@ -175,6 +175,7 @@
 </style>
 
 <script>
+import { BASE_URL, BASE_URL_DEV, NETLIFY_URL } from '~/constants'
 import { version } from '~/content'
 
 export default {
@@ -187,41 +188,46 @@ export default {
   },
   computed: {
     prodURL() {
-      return 'https://bootstrap-vue.org/'
+      return BASE_URL
     },
     devURL() {
       if (this.isNetlify) {
-        return 'https://bootstrap-vue.netlify.app/'
+        return NETLIFY_URL
       }
-      return 'https://dev.bootstrap-vue.org/'
+      return BASE_URL_DEV
     },
     isNetlify() {
       return Boolean(process.env.NETLIFY)
     },
-    isZeitNow() {
-      return Boolean(process.env.ZEIT_NOW)
+    isVercel() {
+      return Boolean(process.env.VERCEL_NOW)
     },
     branchName() {
-      return this.isZeitNow ? process.env.ZEIT_BRANCH || '' : ''
+      // Netlify doesn't support providing the branch name
+      return this.isVercel ? process.env.VERCEL_BRANCH || '' : ''
     },
     isDev() {
       // In our case, `production` is the dev branch preview (Netlify)
       return (
         (this.isNetlify && process.env.NETLIFY_CONTEXT === 'production') ||
-        (this.isZeitNow && this.branchName === 'dev')
+        (this.isVercel && this.branchName === 'dev')
       )
     },
     isPR() {
       return (
         (this.isNetlify && process.env.PULL_REQUEST && process.env.REVIEW_ID) ||
-        (this.isZeitNow && !this.isDev && this.branchName !== 'master')
+        (this.isVercel && !this.isDev && this.branchName !== 'master')
       )
     },
     prId() {
+      // Vercel doesn't currently support returning the PR number
+      // `REVIEW_ID` is provided by Netlify
       return this.isPR ? process.env.REVIEW_ID : ''
     },
     dropdownText() {
+      // Dropdown button text
       if (this.isPR) {
+        // Vercel doesn't currently support returning the PR number
         return this.prId ? `Pull #${this.prId}` : 'Pull Request'
       } else if (this.isLocal) {
         return 'Local Copy'

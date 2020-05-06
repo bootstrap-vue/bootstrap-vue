@@ -61,7 +61,7 @@ styling on the content.
 
 Use the `src` prop to specify a URL of an image to use as the avatar content. The image should have
 an aspect ratio of `1:1` (meaning the width and height should be equal), otherwise image aspect
-distortion will occur. The image will be scaled up or down to fit withing the avatar's bounding box,
+distortion will occur. The image will be scaled up or down to fit within the avatar's bounding box,
 and will be sized to show the avatar's [variant background](#variants) around the edge.
 
 ```html
@@ -140,6 +140,19 @@ appearance, or if using custom icons or SVGs e.g.:
 
 ```html
 <b-avatar><custom-icon></custom-icon></b-avatar>
+```
+
+**Multi-line text example:**
+
+```html
+<template>
+  <div class="mb-2">
+    <b-avatar size="4em">Hello<br>World</b-avatar>
+    <b-avatar size="4em">你好<br>世界</b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-default-slot-multi-line.vue -->
 ```
 
 **Notes:**
@@ -350,7 +363,7 @@ Add textual content to the badge by supplying a string to the `badge` prop, or u
     <b-avatar badge="BV"></b-avatar>
     <b-avatar badge="7" variant="primary" badge-variant="dark"></b-avatar>
     <b-avatar badge-variant="info" src="https://placekitten.com/300/300">
-      <template v-slot:badge><b-icon icon="star-fill"></b-badge></template>
+      <template v-slot:badge><b-icon icon="star-fill"></b-icon></template>
     </b-avatar>
   </div>
 </template>

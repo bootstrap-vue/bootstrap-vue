@@ -34,10 +34,29 @@ Things to know when using tooltip component:
 - When triggered from hyperlinks that span multiple lines, tooltips will be centered. Use
   white-space: nowrap; on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
 
+## Target
+
+The target is the _trigger_ element (or component) that will trigger the tooltip. The target is
+specified via the `target` prop, and can be any of the following:
+
+- A string identifying the ID of the trigger element (or ID of the root element of a component)
+- A reference (ref) to an `HTMLElement` or an `SVGElement` (e.g. `this.$refs.refName`)
+- A reference (ref) to a component that has either an `HTMLElement` or `SVGElement` as its root
+  element (e.g. `this.$refs.refName`)
+- A function (callback) that returns a reference to an `HTMLElement` or `SVGElement`
+
+For more information on references, see the official
+[Vue documentation](https://vuejs.org/v2/api/#vm-refs).
+
+**Note:**
+
 The target element **must** exist in the document before `<b-tooltip>` is mounted. If the target
 element is not found during mount, the tooltip will never open. Always place your `<b-tooltip>`
-component lower in the DOM than your target element. This rule also applies if a callback is used as
-target element, since that callback is called only once on mount.
+component lower in the DOM than your target element. This rule also applies if a callback function
+is used as target element, since that callback is called only once on mount.
+
+`HTMLElement` refers to standard HTML elements such as `<div>`, `<button>`, etc, while `SVGElement`
+refers to `<svg>` or supported child elements of SVGs.
 
 ## Positioning
 
@@ -96,7 +115,7 @@ The default position is `top`. Positioning is relative to the trigger element.
   </div>
 </div>
 
-Refer to the [Tooltip directive](/docs/directives/tooltip/#positioning) documentaion for live
+Refer to the [Tooltip directive](/docs/directives/tooltip/#positioning) documentation for live
 examples of positioning.
 
 ## Triggers
@@ -210,7 +229,7 @@ override the `pointer-events` on the disabled element.
 | `container`          | `null`           | Element string ID to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default)                                                                               | Any valid in-document unique element ID.                                                                                                         |
 | `boundary`           | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to change this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                         |
 | `boundary-padding`   | `5`              | Amount of pixel used to define a minimum distance between the boundaries and the tooltip. This makes sure the tooltip always has a little padding between the edges of its container                       | Any positive number                                                                                                                              |
-| `noninteractive`     | `false`          | Wether the tooltip should not be user-interactive                                                                                                                                                          | `true` or `false`                                                                                                                                |
+| `noninteractive`     | `false`          | Whether the tooltip should not be user-interactive                                                                                                                                                         | `true` or `false`                                                                                                                                |
 | `variant`            | `null`           | Contextual color variant for the tooltip                                                                                                                                                                   | Any contextual theme color variant name                                                                                                          |
 | `custom-class`       | `null`           | A custom classname to apply to the tooltip outer wrapper element                                                                                                                                           | A string                                                                                                                                         |
 | `id`                 | `null`           | An ID to use on the tooltip root element. If none is provided, one will automatically be generated. If you do provide an ID, it _must_ be guaranteed to be unique on the rendered page                     | A valid unique element ID string                                                                                                                 |
@@ -404,7 +423,7 @@ long as you have provided the `.sync` prop modifier.
 ```
 
 **Note:** _In the above example, since we are using the default tooltip triggers of `focus hover`,
-the tooltip will close before it is disabled due to loosing focus (and hover) to the toggle button._
+the tooltip will close before it is disabled due to losing focus (and hover) to the toggle button._
 
 You can also emit `$root` events to trigger disabling and enabling of tooltip(s). See the
 **Disabling and enabling tooltips via \$root events** section below for details.

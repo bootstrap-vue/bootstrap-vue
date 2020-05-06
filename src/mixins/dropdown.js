@@ -245,7 +245,7 @@ export default {
     },
     updatePopper() /* istanbul ignore next: not easy to test */ {
       // Instructs popper to re-computes the dropdown position
-      // usefull if the content changes size
+      // useful if the content changes size
       try {
         this.$_popper.scheduleUpdate()
       } catch {}

@@ -146,7 +146,7 @@ export default {
       // Generate the array of <th> cells
       const $cells = fields.map(makeCell).filter(identity)
 
-      // Genrate the row(s)
+      // Generate the row(s)
       const $trs = []
       if (isFoot) {
         const trProps = {

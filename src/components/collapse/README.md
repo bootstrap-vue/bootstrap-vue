@@ -22,7 +22,8 @@
 
 ## Usage
 
-Other elements can easily toggle `<b-collapse>` components using the `v-b-toggle` directive.
+Other elements can easily toggle `<b-collapse>` components using the
+[`v-b-toggle` directive](/docs/directives/toggle).
 
 ```html
 <div>
@@ -299,5 +300,9 @@ apply those roles for you automatically, as it depends on your final document ma
 query. See the
 [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
 additional details.
+
+## See also
+
+- [`v-b-toggle` directive](/docs/directives/toggle)
 
 <!-- Component reference added automatically from component package.json -->

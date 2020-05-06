@@ -2,6 +2,78 @@
 
 > All notable changes to this project will be documented in this file.
 
+<a name="2.13.1"></a>
+
+## [v2.13.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.13.0...v2.13.1)
+
+Released: 2020-05-05
+
+### Bug Fixes v2.13.1
+
+- **b-table, b-table-lite, b-table-simple:** handle head/foot variant for sticky columns (fixes
+  [#5278](https://github.com/bootstrap-vue/bootstrap-vue/issues/5278))
+  ([#5279](https://github.com/bootstrap-vue/bootstrap-vue/issues/5279))
+  ([53e309e](https://github.com/bootstrap-vue/bootstrap-vue/commit/53e309e947b4710fcf8d989cc9ef0f31c58487ae))
+
+### Other v2.13.1
+
+- documentation updates
+- dev dependency updates
+
+<a name="2.13.0"></a>
+
+## [v2.13.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.12.0...v2.13.0)
+
+Released: 2020-04-27
+
+### Features v2.13.0
+
+- **b-calendar, b-form-datepicker:** relax `YYYY-MM-DD` string parsing (closes
+  [#5232](https://github.com/bootstrap-vue/bootstrap-vue/issues/5232))
+  ([#5242](https://github.com/bootstrap-vue/bootstrap-vue/issues/5242))
+  ([f362802](https://github.com/bootstrap-vue/bootstrap-vue/commit/f362802b2794f0e5d294bbb004d91ccd623a1e25))
+- **b-form-rating:** add `show-value-max` prop to show possible max rating when `show-value` is
+  `true` ([#5200](https://github.com/bootstrap-vue/bootstrap-vue/issues/5200))
+  ([e9d54e6](https://github.com/bootstrap-vue/bootstrap-vue/commit/e9d54e6c6a736b2a4f9dbf232dd2b20afa0e990c))
+- **b-overlay:** add support for overlay `click` event (closes
+  [#5243](https://github.com/bootstrap-vue/bootstrap-vue/issues/5243))
+  ([#5248](https://github.com/bootstrap-vue/bootstrap-vue/issues/5248))
+  ([582560f](https://github.com/bootstrap-vue/bootstrap-vue/commit/582560ff97690ab1e5c1f609d76804b7b3daa104))
+
+### Bug Fixes v2.13.0
+
+- **b-avatar:** set `align-items: center` for default slot content (fixes:
+  [#5205](https://github.com/bootstrap-vue/bootstrap-vue/issues/5205))
+  ([#5207](https://github.com/bootstrap-vue/bootstrap-vue/issues/5207))
+  ([c4981fd](https://github.com/bootstrap-vue/bootstrap-vue/commit/c4981fd098253840a37e731331de65b0e732fc79))
+- **b-calendar, b-form-datepicker:** minor adjustments to styling and example updates
+  ([#5211](https://github.com/bootstrap-vue/bootstrap-vue/issues/5211))
+  ([f0d8ffe](https://github.com/bootstrap-vue/bootstrap-vue/commit/f0d8ffe4253079939008108fe86529a2f69553f1))
+- **b-form-datepicker, b-form-timepicker:** fix menu padding in button only mode (fixes
+  [#5251](https://github.com/bootstrap-vue/bootstrap-vue/issues/5251))
+  ([#5252](https://github.com/bootstrap-vue/bootstrap-vue/issues/5252))
+  ([d57a643](https://github.com/bootstrap-vue/bootstrap-vue/commit/d57a643f0c6b5e805a42a3387fb0db4443bfc01f))
+- **b-form-datepicker, b-form-timepicker:** adjust scss to support input-groups
+  ([#5231](https://github.com/bootstrap-vue/bootstrap-vue/issues/5231))
+  ([7b1adc4](https://github.com/bootstrap-vue/bootstrap-vue/commit/7b1adc460f11c2ee54466fe0d204579f3f6f1bd2))
+- **b-form-datepicker, b-form-timepicker:** prevent duplicate validation icons (fixes
+  [#5237](https://github.com/bootstrap-vue/bootstrap-vue/issues/5237))
+  ([#5238](https://github.com/bootstrap-vue/bootstrap-vue/issues/5238))
+  ([6354e6e](https://github.com/bootstrap-vue/bootstrap-vue/commit/6354e6eb90b93e668c2794b3b4c2117a7cfc0ab0))
+- **types:** update table field definition types to include sticky column (fixes
+  [#5263](https://github.com/bootstrap-vue/bootstrap-vue/issues/5263))
+  ([#5265](https://github.com/bootstrap-vue/bootstrap-vue/issues/5265))
+  ([20eb3ac](https://github.com/bootstrap-vue/bootstrap-vue/commit/20eb3ac9e22ddbcc41d1f1aa923871007abe0dc0))
+- handle nested form options normalization
+  ([#5247](https://github.com/bootstrap-vue/bootstrap-vue/issues/5247))
+  ([0c57ffe](https://github.com/bootstrap-vue/bootstrap-vue/commit/0c57ffe31c946475498fa3554b8b4aba4e9d19df))
+
+### Other v2.13.0
+
+- dev dependencies updates
+- documentation updates
+- new docs domain [`https://bootstrap-vue.org/`](https://bootstrap-vue.org/)
+
 <a name="2.12.0"></a>
 
 ## [v2.12.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.11.0...v2.12.0)

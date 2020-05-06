@@ -1,6 +1,7 @@
 import { CLASS_NAME_ASPECT } from '../../constants/class-names'
 import { NAME_ASPECT } from '../../constants/components'
 import Vue from '../../utils/vue'
+import { mathAbs } from '../../utils/math'
 import { toFloat } from '../../utils/number'
 import { suffixClass } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -38,7 +39,7 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
       } else {
         ratio = toFloat(aspect) || 1
       }
-      return `${100 / Math.abs(ratio)}%`
+      return `${100 / mathAbs(ratio)}%`
     }
   },
   render(h) {
