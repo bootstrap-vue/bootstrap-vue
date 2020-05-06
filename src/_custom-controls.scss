@@ -107,13 +107,13 @@
       .input-group.input-group-sm & {
         min-height: calc(#{$input-height-sm} - #{$input-height-border});
         padding-top: $input-padding-y-sm;
-        padding-bottom: $input-padding-y-sm
+        padding-bottom: $input-padding-y-sm;
       }
 
       .input-group.input-group-lg & {
         min-height: calc(#{$input-height-lg} - #{$input-height-border});
         padding-top: $input-padding-y-lg;
-        padding-bottom: $input-padding-y-lg
+        padding-bottom: $input-padding-y-lg;
       }
     }
   }

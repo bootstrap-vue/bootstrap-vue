@@ -520,7 +520,7 @@ Internationalization of the date picker's calendar is provided via
 [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat),
 except for labels applied to elements of the calendar control (aria-labels, selected status, and
 help text). You must provide your own translations for these labels. The available locales will be
-browser dependant (not all browsers support all locales)
+browser dependent (not all browsers support all locales)
 
 By default `<b-form-datepicker>` will use the browser's default locale, but you can specify the
 locale (or locales) to use via the `locale` prop. The prop accepts either a single locale string, or

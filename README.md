@@ -91,6 +91,12 @@ This project exists thanks to all the people who contribute. [[Contribute]](CONT
 
 <a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890"></a>
 
+<h2 align="center">Partners</h2>
+
+<p align="center">
+  <a href="https://vercel.com/?utm_source=bootstrapvue" target="_blank" rel="noopener"><img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/static/powered-by-vercel.svg" width="175" alt="Powered by Vercel"></a>
+</p>
+
 <h2 align="center">License</h2>
 
 Released under the MIT [License](./LICENSE). Copyright (c) BootstrapVue.

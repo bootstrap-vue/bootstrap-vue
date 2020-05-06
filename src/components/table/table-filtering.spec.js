@@ -238,7 +238,7 @@ describe('table > filtering', () => {
 
   describe('debouncing (deprecated)', () => {
     // Wrapped in a describe to limit console.warn override
-    // to prevent depreacted prop warnings
+    // to prevent deprecated prop warnings
     const originalWarn = console.warn
     afterEach(() => (console.warn = originalWarn))
     beforeEach(() => (console.warn = () => {}))

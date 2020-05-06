@@ -1,4 +1,3 @@
-import { parseReadme } from '~/utils'
 import CarbonAd from '~/components/carbon-ad'
 import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links'
@@ -14,9 +13,9 @@ import {
   vueVersion
 } from '~/content'
 import meta from '~/markdown/intro/meta.json'
-import readme from '~/markdown/intro/README.md'
+import readmeData from '~/markdown/intro/README.md'
 
-const { titleLead, body } = parseReadme(readme)
+const { titleLead = '', body = '', baseTOC = {} } = readmeData
 
 // RegExp to grab the minor version from a full version
 const minorRE = /^(\d+\.\d+)(\..+)$/
@@ -51,7 +50,7 @@ export default {
       portalVueVersionMajor: portalVueVersion.replace(majorRE, '$1'),
       titleLead,
       body,
-      readme,
+      baseTOC,
       version,
       vueVersion,
       vueVersionMinor: vueVersion.replace(minorRE, '$1'),

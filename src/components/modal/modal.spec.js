@@ -1013,7 +1013,7 @@ describe('modal', () => {
 
       expect($modal.element.style.display).toEqual('block')
 
-      // Simulate an other modal opening (by emiting a fake BvEvent)
+      // Simulate an other modal opening (by emitting a fake BvEvent)
       // `bvEvent.vueTarget` is normally a Vue instance, but in this
       // case we just use a random object since we are checking inequality
       wrapper.vm.$root.$emit('bv::modal::show', { vueTarget: Number })

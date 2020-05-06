@@ -141,7 +141,7 @@ describe('card-image', () => {
     expect(wrapper.attributes('width')).toBe('600')
   })
 
-  it('has attribute heigth when prop height set', async () => {
+  it('has attribute height when prop height set', async () => {
     const wrapper = mount(BCardImg, {
       context: {
         props: {

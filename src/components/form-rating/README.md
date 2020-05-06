@@ -419,7 +419,7 @@ component be registered/installed either locally or globally.
       icon-clear="slash-circle"
       show-clear
       variant="danger"
-    ><b-form-rating>
+    ></b-form-rating>
   </div>
 </template>
 
@@ -473,8 +473,8 @@ The following is an example of placing `<b-form-rating>` in an input group:
 
 When a `locale` is specified, the displayed value (when the `show-value` prop is `true`) will be in
 the browser's default locale. To change the locale, simple set the `locale` prop to the preferred
-locale, or an array of prefered locales (most preferred locale first). This will affect the optional
-displayed value and the left-to-right or right-to-left orientation of the component.
+locale, or an array of preferred locales (most preferred locale first). This will affect the
+optional displayed value and the left-to-right or right-to-left orientation of the component.
 
 ```html
 <template>
