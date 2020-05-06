@@ -43,7 +43,7 @@ describe('utils/click-out', () => {
     expect(count).toBe(1)
 
     // When this.listenForClickOut is false
-    wrapper.setData({
+    await wrapper.setData({
       listenForClickOut: false
     })
     document.dispatchEvent(clickEvt)

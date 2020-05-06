@@ -56,7 +56,7 @@ describe('table > busy state', () => {
     expect(wrapper.attributes('aria-busy')).toBeDefined()
     expect(wrapper.attributes('aria-busy')).toEqual('false')
 
-    wrapper.setData({
+    await wrapper.setData({
       localBusy: true
     })
 
@@ -74,7 +74,7 @@ describe('table > busy state', () => {
     })
     expect(wrapper.emitted('update:busy')).not.toBeDefined()
 
-    wrapper.setData({
+    await wrapper.setData({
       localBusy: true
     })
 

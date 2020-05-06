@@ -119,7 +119,7 @@ describe('v-b-modal directive', () => {
     expect(wrapper.find('span').attributes('role')).toBe('button')
 
     // Test updating component. should maintain role attribute
-    wrapper.setData({
+    await wrapper.setData({
       text: 'foobar'
     })
     expect(wrapper.find('span').text()).toBe('foobar')

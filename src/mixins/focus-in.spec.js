@@ -41,7 +41,7 @@ describe('utils/focus-in', () => {
     expect(count).toBe(2)
 
     // When this.listenForFocusIn is false
-    wrapper.setData({
+    await wrapper.setData({
       listenForFocusIn: false
     })
     expect(count).toBe(2)

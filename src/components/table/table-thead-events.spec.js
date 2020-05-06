@@ -95,7 +95,7 @@ describe('table > thead events', () => {
         'head-clicked': () => {}
       }
     })
-    wrapper.setData({
+    await wrapper.setData({
       localBusy: true
     })
     expect(wrapper).toBeDefined()

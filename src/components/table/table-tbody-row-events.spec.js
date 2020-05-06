@@ -68,7 +68,7 @@ describe('table > tbody row events', () => {
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
-    wrapper.setData({
+    await wrapper.setData({
       localBusy: true
     })
     $rows.at(1).trigger('click')

@@ -134,7 +134,7 @@ describe('v-b-toggle directive', () => {
     expect(wrapper.find('span').classes()).not.toContain('collapsed')
 
     // Test updating component. should maintain role attribute
-    wrapper.setData({
+    await wrapper.setData({
       text: 'foobar'
     })
     expect(wrapper.find('span').text()).toBe('foobar')

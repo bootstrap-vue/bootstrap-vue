@@ -42,14 +42,14 @@ describe('v-b-hover directive', () => {
 
     expect(hovered1).toBe(false)
 
-    wrapper.setData({ text: 'BAR' })
+    await wrapper.setData({ text: 'BAR' })
 
     wrapper.trigger('mouseenter')
     await waitNT(wrapper.vm)
 
     expect(hovered1).toBe(true)
 
-    wrapper.setData({ changeHandler: true })
+    await wrapper.setData({ changeHandler: true })
 
     wrapper.trigger('mouseenter')
     await waitNT(wrapper.vm)

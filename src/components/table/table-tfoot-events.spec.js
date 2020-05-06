@@ -79,7 +79,7 @@ describe('table > tfoot events', () => {
         'head-clicked': () => {}
       }
     })
-    wrapper.setData({
+    await wrapper.setData({
       localBusy: true
     })
     expect(wrapper).toBeDefined()

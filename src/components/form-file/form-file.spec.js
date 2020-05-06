@@ -255,7 +255,7 @@ describe('form-file', () => {
     expect(wrapper.emitted('input')[1][0]).toEqual(files.slice().reverse())
 
     // Internally setting `selectedFile` to `null` should emit empty array
-    wrapper.setData({
+    await wrapper.setData({
       selectedFile: null
     })
     await waitNT(wrapper.vm)

@@ -91,7 +91,7 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('card-body')
 
-    wrapper.setData({ localActive: true })
+    await wrapper.setData({ localActive: true })
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -99,7 +99,7 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('card-body')
 
-    wrapper.setData({ localActive: false })
+    await wrapper.setData({ localActive: false })
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -123,7 +123,7 @@ describe('tab', () => {
     expect(called).toBe(false)
     expect(value).toBe(null)
 
-    wrapper.setData({ localActive: true })
+    await wrapper.setData({ localActive: true })
 
     expect(called).toBe(true)
     expect(value).toBe(true)
@@ -202,7 +202,7 @@ describe('tab', () => {
       }
     })
 
-    wrapper.setData({ localActive: true })
+    await wrapper.setData({ localActive: true })
 
     expect(called).toBe(true)
     expect(vm).toEqual(wrapper.vm)
