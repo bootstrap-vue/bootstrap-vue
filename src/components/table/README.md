@@ -2282,7 +2282,7 @@ Using an async method to return an items array is possible:
 ```js
 async function myProvider(ctx) {
   try {
-    const resp = await axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage);
+    const resp = await axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage)
     return resp.items
   } catch (error) {
     return []
@@ -2350,13 +2350,6 @@ function should handle errors from data sources and return an empty array to `<b
 </script>
 ```
 
-**Notes:**
-
-- If you manually place the table in the `busy` state, the items provider will **not** be
-  called/refreshed until the `busy` state has been set to `false`.
-- All click related and hover events, and sort-changed events will **not** be emitted when in the
-  `busy` state (either set automatically during provider update, or when manually set).
-
 If using an `async/await` provider:
 
 <!-- eslint-disable no-unused-vars, no-undef -->
@@ -2365,7 +2358,7 @@ If using an `async/await` provider:
 async function myProvider(ctx) {
   this.isBusy = true
   try {
-    const resp = await axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage);
+    const resp = await axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage)
     this.isBusy = false
     return resp.items
   } catch (error) {
@@ -2374,6 +2367,13 @@ async function myProvider(ctx) {
   }
 }
 ```
+
+**Notes:**
+
+- If you manually place the table in the `busy` state, the items provider will **not** be
+  called/refreshed until the `busy` state has been set to `false`.
+- All click related and hover events, and sort-changed events will **not** be emitted when in the
+  `busy` state (either set automatically during provider update, or when manually set).
 
 ### Provider paging, filtering, and sorting
 
