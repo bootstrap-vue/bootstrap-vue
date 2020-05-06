@@ -35,7 +35,7 @@ describe('form-timepicker', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -77,7 +77,7 @@ describe('form-timepicker', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -121,7 +121,7 @@ describe('form-timepicker', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -163,7 +163,7 @@ describe('form-timepicker', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -204,7 +204,7 @@ describe('form-timepicker', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -240,7 +240,7 @@ describe('form-timepicker', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -281,7 +281,7 @@ describe('form-timepicker', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -324,7 +324,7 @@ describe('form-timepicker', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -416,7 +416,7 @@ describe('form-timepicker', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()

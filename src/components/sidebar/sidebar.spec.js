@@ -20,7 +20,7 @@ describe('sidebar', () => {
         transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -56,7 +56,7 @@ describe('sidebar', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
 
     // Check for no presence of `display: none' from `v-show` directive
@@ -92,7 +92,7 @@ describe('sidebar', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -135,7 +135,7 @@ describe('sidebar', () => {
         transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -188,7 +188,7 @@ describe('sidebar', () => {
         transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -243,7 +243,7 @@ describe('sidebar', () => {
         transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -279,7 +279,7 @@ describe('sidebar', () => {
         transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -306,7 +306,7 @@ describe('sidebar', () => {
         transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -334,7 +334,7 @@ describe('sidebar', () => {
         transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -375,7 +375,7 @@ describe('sidebar', () => {
         transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -403,7 +403,7 @@ describe('sidebar', () => {
         transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)

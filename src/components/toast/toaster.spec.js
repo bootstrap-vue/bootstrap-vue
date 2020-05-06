@@ -16,7 +16,7 @@ describe('b-toaster', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -56,7 +56,7 @@ describe('b-toaster', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 

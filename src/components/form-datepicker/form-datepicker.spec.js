@@ -36,7 +36,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -78,7 +78,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -120,7 +120,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -140,7 +140,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -170,7 +170,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -196,7 +196,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -232,7 +232,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -273,7 +273,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -310,7 +310,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -367,7 +367,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -429,7 +429,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -504,7 +504,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -562,7 +562,7 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()

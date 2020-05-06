@@ -106,7 +106,7 @@ describe('b-popover', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
 
     expect(wrapper.is('article')).toBe(true)
@@ -144,7 +144,7 @@ describe('b-popover', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)

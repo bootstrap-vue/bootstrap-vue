@@ -10,7 +10,7 @@ describe('overlay', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -37,7 +37,7 @@ describe('overlay', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -88,7 +88,7 @@ describe('overlay', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -180,7 +180,7 @@ describe('overlay', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -210,7 +210,7 @@ describe('overlay', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -229,7 +229,7 @@ describe('overlay', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)

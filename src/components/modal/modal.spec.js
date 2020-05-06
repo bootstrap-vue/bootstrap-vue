@@ -37,7 +37,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
       await waitNT(wrapper.vm)
 
       // Main outer wrapper (has z-index, etc)... The stacker <div>
@@ -85,7 +85,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
 
@@ -103,7 +103,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
 
@@ -128,7 +128,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
       await waitRAF()
 
       // Main outer wrapper (has z-index, etc)... The stacker <div>
@@ -184,7 +184,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
       await waitRAF()
 
       expect(wrapper.isEmpty()).toBe(true)
@@ -224,7 +224,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -277,7 +277,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       // Modal title
       const $title = wrapper.find('.modal-title')
@@ -398,7 +398,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -478,7 +478,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -560,7 +560,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -618,7 +618,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -678,7 +678,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -751,7 +751,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -801,7 +801,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -864,7 +864,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -932,7 +932,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -983,7 +983,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1032,7 +1032,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1114,7 +1114,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1198,7 +1198,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1295,7 +1295,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1367,7 +1367,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeTruthy()
 
       await waitNT(wrapper.vm)
       await waitRAF()

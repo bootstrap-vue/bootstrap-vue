@@ -26,7 +26,7 @@ describe('form-group', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormGroup)
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
@@ -54,7 +54,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
@@ -80,7 +80,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('foo')
     expect(wrapper.find('label').attributes('id')).toEqual('foo__BV_label_')
@@ -99,7 +99,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
@@ -149,7 +149,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.is('fieldset')).toBe(false)
     expect(wrapper.find('legend').exists()).toBe(false)
@@ -191,7 +191,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
@@ -238,7 +238,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
@@ -308,7 +308,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
@@ -357,7 +357,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     const $label = wrapper.find('label')
     expect($label.exists()).toBe(true)
@@ -381,7 +381,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
 
     const $label = wrapper.find('label')
@@ -402,7 +402,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
 
     const $legend = wrapper.find('legend')

@@ -20,7 +20,7 @@ describe('$bvModal', () => {
       localVue: localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -68,7 +68,7 @@ describe('$bvModal', () => {
       localVue: localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     // `$bvModal.msgBoxOk`
     expect(wrapper.vm.$bvModal).toBeDefined()
@@ -130,7 +130,7 @@ describe('$bvModal', () => {
       localVue: localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     // `$bvModal.msgBoxConfirm`
     expect(wrapper.vm.$bvModal).toBeDefined()

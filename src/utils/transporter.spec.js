@@ -17,7 +17,7 @@ describe('utils/transporter component', () => {
       localVue: localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.text()).toEqual('content')
 
@@ -38,7 +38,7 @@ describe('utils/transporter component', () => {
       localVue: localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
 

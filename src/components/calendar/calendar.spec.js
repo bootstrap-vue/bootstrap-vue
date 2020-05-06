@@ -11,7 +11,7 @@ describe('calendar', () => {
       attachToDocument: true
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('div')).toBe(true)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -48,7 +48,7 @@ describe('calendar', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -68,7 +68,7 @@ describe('calendar', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -94,7 +94,7 @@ describe('calendar', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -129,7 +129,7 @@ describe('calendar', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -184,7 +184,7 @@ describe('calendar', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -217,7 +217,7 @@ describe('calendar', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -252,7 +252,7 @@ describe('calendar', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 

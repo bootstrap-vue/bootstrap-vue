@@ -57,7 +57,7 @@ describe('v-b-popover directive', () => {
       attachToDocument: true
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -94,7 +94,7 @@ describe('v-b-popover directive', () => {
       attachToDocument: true
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.is('button')).toBe(true)
     const $button = wrapper.find('button')
     await waitNT(wrapper.vm)

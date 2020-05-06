@@ -719,7 +719,7 @@ describe('pagination', () => {
         limit: 20
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.vm.currentPage).toBe(10)
     expect(wrapper.emitted('input')).not.toBeDefined()
@@ -781,7 +781,7 @@ describe('pagination', () => {
         limit: 20
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.vm.currentPage).toBe(4)
     expect(wrapper.emitted('input')).not.toBeDefined()
@@ -833,7 +833,7 @@ describe('pagination', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     expect(wrapper.findAll(selector).length).toBe(9)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
@@ -920,7 +920,7 @@ describe('pagination', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     expect(wrapper.findAll(selector).length).toBe(7)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())

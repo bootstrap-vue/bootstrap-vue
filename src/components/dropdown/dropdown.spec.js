@@ -44,7 +44,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     // Wait for auto ID to be generated
     await waitNT(wrapper.vm)
@@ -94,7 +94,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     // Wait for auto ID to be generated
     await waitNT(wrapper.vm)
@@ -161,7 +161,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
 
@@ -190,7 +190,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     const $menu = wrapper.find('.dropdown-menu')
@@ -211,7 +211,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     const $menu = wrapper.find('.dropdown-menu')
@@ -229,7 +229,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
@@ -413,7 +413,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     expect(wrapper.emitted('click')).not.toBeDefined()
 
     expect(wrapper.findAll('button').length).toBe(2)
@@ -443,7 +443,7 @@ describe('dropdown', () => {
       attachToDocument: true
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.findAll('.dropdown').length).toBe(1)
     expect(wrapper.findAll('.dropdown-toggle').length).toBe(1)
@@ -457,7 +457,7 @@ describe('dropdown', () => {
     const $item = wrapper.find('.dropdown-item')
     const $input = wrapper.find('#input')
 
-    expect($dropdown.isVueInstance()).toBe(true)
+    expect($dropdown.vm).toBeTruthy()
 
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
@@ -601,7 +601,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -663,7 +663,7 @@ describe('dropdown', () => {
       attachToDocument: true
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -729,7 +729,7 @@ describe('dropdown', () => {
       attachToDocument: true
     })
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     expect(wrapper.classes()).not.toContain('position-static')
     wrapper.destroy()
@@ -743,7 +743,7 @@ describe('dropdown', () => {
       }
     })
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     expect(wrapper.classes()).toContain('position-static')
     wrapper.destroy()
@@ -758,7 +758,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.findAll('.btn').length).toBe(1)
     const $toggle = wrapper.find('.btn')
@@ -779,7 +779,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.findAll('.btn').length).toBe(2)
     const $split = wrapper.findAll('.btn').at(0)
@@ -802,7 +802,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.findAll('.btn').length).toBe(1)
     const $toggle = wrapper.find('.btn')
@@ -823,7 +823,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.findAll('.btn').length).toBe(2)
     const $split = wrapper.findAll('.btn').at(0)
@@ -843,7 +843,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.findAll('.btn').length).toBe(1)
     const $toggle = wrapper.find('.btn')
@@ -865,7 +865,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.findAll('.btn').length).toBe(2)
     const $split = wrapper.findAll('.btn').at(0)
@@ -899,7 +899,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.findAll('.btn').length).toBe(2)
     const $buttons = wrapper.findAll('.btn')
@@ -927,7 +927,7 @@ describe('dropdown', () => {
     })
 
     expect(wrapper.is('div')).toBe(true)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
 
     expect(wrapper.findAll('.btn').length).toBe(2)
     const $buttons = wrapper.findAll('.btn')

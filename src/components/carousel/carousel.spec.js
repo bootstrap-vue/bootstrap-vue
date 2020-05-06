@@ -48,7 +48,7 @@ describe('carousel', () => {
       attachToDocument: true
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -119,7 +119,7 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -183,7 +183,7 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -231,7 +231,7 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -251,7 +251,7 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -272,7 +272,7 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -296,10 +296,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -329,10 +329,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeTruthy()
 
     const $next = $carousel.find('.carousel-control-next')
     const $prev = $carousel.find('.carousel-control-prev')
@@ -396,10 +396,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeTruthy()
 
     const $next = $carousel.find('.carousel-control-next')
     const $prev = $carousel.find('.carousel-control-prev')
@@ -463,10 +463,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -530,10 +530,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -597,10 +597,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -661,10 +661,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -746,10 +746,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -830,10 +830,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -899,10 +899,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -984,10 +984,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -1054,10 +1054,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $carousel = wrapper.find(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeTruthy()
 
     await waitNT(wrapper.vm)
     await waitRAF()

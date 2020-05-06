@@ -522,7 +522,7 @@ describe('form-file', () => {
       lastModified: Date.now()
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $label = wrapper.find('label')
     expect($label.exists()).toBe(true)
     expect($label.text()).toContain('PLACEHOLDER')

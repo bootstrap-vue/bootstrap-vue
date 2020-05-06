@@ -45,7 +45,7 @@ describe('collapse', () => {
       }
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.is('div')).toBe(true)
@@ -74,7 +74,7 @@ describe('collapse', () => {
       }
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.is('div')).toBe(true)
@@ -104,7 +104,7 @@ describe('collapse', () => {
         transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.is('div')).toBe(true)
@@ -135,7 +135,7 @@ describe('collapse', () => {
         transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.is('div')).toBe(true)
@@ -438,9 +438,9 @@ describe('collapse', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $collapse = wrapper.find(BCollapse)
-    expect($collapse.isVueInstance()).toBe(true)
+    expect($collapse.vm).toBeTruthy()
 
     expect(wrapper.find('style').exists()).toBe(true)
 
@@ -500,9 +500,9 @@ describe('collapse', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     const $collapse = wrapper.find(BCollapse)
-    expect($collapse.isVueInstance()).toBe(true)
+    expect($collapse.vm).toBeTruthy()
 
     expect(wrapper.find('style').exists()).toBe(true)
 
@@ -541,7 +541,7 @@ describe('collapse', () => {
       }
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeTruthy()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.classes()).not.toContain('show')
