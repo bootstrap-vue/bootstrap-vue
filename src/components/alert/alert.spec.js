@@ -11,7 +11,7 @@ describe('alert', () => {
     const wrapper = mount(BAlert)
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.element).toBeEmpty()
     expect(wrapper.html()).not.toBeDefined()
 
     wrapper.destroy()
@@ -25,7 +25,7 @@ describe('alert', () => {
     })
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.element).toBeEmpty()
     expect(wrapper.html()).not.toBeDefined()
 
     wrapper.destroy()
@@ -39,7 +39,7 @@ describe('alert', () => {
     })
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.element).toBeEmpty()
     expect(wrapper.html()).not.toBeDefined()
 
     wrapper.destroy()
@@ -139,7 +139,7 @@ describe('alert', () => {
 
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.element).toBeEmpty()
     expect(wrapper.html()).not.toBeDefined()
 
     await wrapper.setProps({ show: true })
@@ -222,7 +222,7 @@ describe('alert', () => {
 
     await wrapper.find('button').trigger('click')
 
-    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.element).toBeEmpty()
     expect(wrapper.html()).not.toBeDefined()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
@@ -259,7 +259,7 @@ describe('alert', () => {
     // Dismissed won't be emitted unless dismissible=true or show is a number
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
 
-    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.element).toBeEmpty()
     expect(wrapper.html()).not.toBeDefined()
 
     wrapper.destroy()
@@ -296,7 +296,7 @@ describe('alert', () => {
     await waitRAF()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
-    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.element).toBeEmpty()
     expect(wrapper.html()).not.toBeDefined()
 
     wrapper.destroy()
@@ -333,7 +333,7 @@ describe('alert', () => {
     await waitRAF()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
-    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.element).toBeEmpty()
     expect(wrapper.html()).not.toBeDefined()
 
     wrapper.destroy()
@@ -383,7 +383,7 @@ describe('alert', () => {
     await waitRAF()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
-    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.element).toBeEmpty()
     expect(wrapper.html()).not.toBeDefined()
 
     wrapper.destroy()
@@ -422,7 +422,7 @@ describe('alert', () => {
     await waitRAF()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
-    expect(wrapper.isEmpty()).toBe(true)
+    expect(wrapper.element).toBeEmpty()
     expect(wrapper.html()).not.toBeDefined()
 
     wrapper.destroy()

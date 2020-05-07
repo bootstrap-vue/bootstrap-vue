@@ -42,7 +42,7 @@ describe('sidebar', () => {
     expect($sidebar.classes()).not.toContain('slide')
     expect($sidebar.text()).toEqual('')
     // Check for no presence of `display: none' from `v-show` directive
-    expect($sidebar.isVisible()).toBe(true)
+    expect($sidebar.element).toBeVisible()
 
     expect($sidebar.find('.b-sidebar-header').exists()).toBe(true)
     expect($sidebar.find('.b-sidebar-body').exists()).toBe(true)
@@ -60,7 +60,7 @@ describe('sidebar', () => {
     expect(wrapper.is('div')).toBe(true)
 
     // Check for no presence of `display: none' from `v-show` directive
-    expect($sidebar.isVisible()).toBe(false)
+    expect($sidebar.element).not.toBeVisible()
 
     await wrapper.setProps({
       visible: true
@@ -72,7 +72,7 @@ describe('sidebar', () => {
 
     expect(wrapper.is('div')).toBe(true)
     // Check for no presence of `display: none' from `v-show` directive
-    expect($sidebar.isVisible()).toBe(true)
+    expect($sidebar.element).toBeVisible()
 
     wrapper.destroy()
   })
@@ -102,20 +102,20 @@ describe('sidebar', () => {
     await $backdrop.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($sidebar.isVisible()).toBe(true)
-    expect($backdrop.isVisible()).toBe(true)
+    expect($sidebar.element).toBeVisible()
+    expect($backdrop.element).toBeVisible()
 
     await wrapper.setProps({ noCloseOnBackdrop: false })
     await waitRAF()
     await waitRAF()
-    expect($sidebar.isVisible()).toBe(true)
-    expect($backdrop.isVisible()).toBe(true)
+    expect($sidebar.element).toBeVisible()
+    expect($backdrop.element).toBeVisible()
 
     await $backdrop.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($sidebar.isVisible()).toBe(false)
-    expect($backdrop.isVisible()).toBe(false)
+    expect($sidebar.element).not.toBeVisible()
+    expect($backdrop.element).not.toBeVisible()
 
     wrapper.destroy()
   })
@@ -137,7 +137,7 @@ describe('sidebar', () => {
     expect($sidebar.exists()).toBe(true)
 
     expect($sidebar.is('div')).toBe(true)
-    expect($sidebar.isVisible()).toBe(false)
+    expect($sidebar.element).not.toBeVisible()
 
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-toggle')
     await waitNT(wrapper.vm)
@@ -146,7 +146,7 @@ describe('sidebar', () => {
     await waitRAF()
 
     expect($sidebar.is('div')).toBe(true)
-    expect($sidebar.isVisible()).toBe(true)
+    expect($sidebar.element).toBeVisible()
 
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-toggle')
     await waitNT(wrapper.vm)
@@ -155,7 +155,7 @@ describe('sidebar', () => {
     await waitRAF()
 
     expect($sidebar.is('div')).toBe(true)
-    expect($sidebar.isVisible()).toBe(false)
+    expect($sidebar.element).not.toBeVisible()
 
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'foobar')
     await waitNT(wrapper.vm)
@@ -164,7 +164,7 @@ describe('sidebar', () => {
     await waitRAF()
 
     expect($sidebar.is('div')).toBe(true)
-    expect($sidebar.isVisible()).toBe(false)
+    expect($sidebar.element).not.toBeVisible()
 
     wrapper.destroy()
   })
@@ -186,7 +186,7 @@ describe('sidebar', () => {
     expect($sidebar.exists()).toBe(true)
 
     expect($sidebar.is('div')).toBe(true)
-    expect($sidebar.isVisible()).toBe(false)
+    expect($sidebar.element).not.toBeVisible()
 
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-esc')
     await waitNT(wrapper.vm)
@@ -195,26 +195,26 @@ describe('sidebar', () => {
     await waitRAF()
 
     expect($sidebar.is('div')).toBe(true)
-    expect($sidebar.isVisible()).toBe(true)
+    expect($sidebar.element).toBeVisible()
 
     await wrapper.trigger('keydown.esc')
     await waitRAF()
     await waitRAF()
     expect($sidebar.is('div')).toBe(true)
-    expect($sidebar.isVisible()).toBe(false)
+    expect($sidebar.element).not.toBeVisible()
 
     await wrapper.setProps({ noCloseOnEsc: true })
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-esc')
     await waitRAF()
     await waitRAF()
     expect($sidebar.is('div')).toBe(true)
-    expect($sidebar.isVisible()).toBe(true)
+    expect($sidebar.element).toBeVisible()
 
     await wrapper.trigger('keydown.esc')
     await waitRAF()
     await waitRAF()
     expect($sidebar.is('div')).toBe(true)
-    expect($sidebar.isVisible()).toBe(true)
+    expect($sidebar.element).toBeVisible()
 
     wrapper.destroy()
   })

@@ -9,5 +9,5 @@ module.exports = {
   testEnvironmentOptions: {
     pretendToBeVisual: true
   },
-  setupFiles: ['./tests/setup.js']
+  setupFilesAfterEnv: ['./tests/setup.js']
 }

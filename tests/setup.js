@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 import { config as vtuConfig } from '@vue/test-utils'
 import { TransitionGroupStub, TransitionStub } from './components'
 
