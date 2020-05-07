@@ -356,7 +356,8 @@ describe('table > tbody row events', () => {
       listeners: {
         // Rows will only have tabindex=0 when a row-clicked listener present
         'row-clicked': () => {}
-      }
+      },
+      attachTo: createContainer()
     })
     expect(wrapper).toBeDefined()
     const $rows = wrapper.findAll('tbody > tr')
@@ -471,7 +472,8 @@ describe('table > tbody row events', () => {
       listeners: {
         // Tabindex will only be set if there is a row-clicked listener
         'row-clicked': () => {}
-      }
+      },
+      attachTo: createContainer()
     })
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
