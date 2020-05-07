@@ -1,6 +1,10 @@
-import { mount } from '@vue/test-utils'
+import { config as vtuConfig, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BOverlay } from './overlay'
+
+// Disable the use of the TransitionStub component
+// since it doesn't run transition hooks
+vtuConfig.stubs.transition = false
 
 describe('overlay', () => {
   it('has expected default structure', async () => {
@@ -75,11 +79,6 @@ describe('overlay', () => {
   it('responds to changes in the `show` prop', async () => {
     const wrapper = mount(BOverlay, {
       attachTo: createContainer(),
-      stubs: {
-        // Disable the use of transitionStub fake transition
-        // as it doesn't run transition hooks
-        transition: false
-      },
       propsData: {
         show: false
       },

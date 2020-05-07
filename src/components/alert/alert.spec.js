@@ -1,6 +1,10 @@
-import { mount } from '@vue/test-utils'
+import { config as vtuConfig, mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BAlert } from './alert'
+
+// Disable the use of the TransitionStub component
+// since it doesn't run transition hooks
+vtuConfig.stubs.transition = false
 
 describe('alert', () => {
   it('hidden alert renders comment node', async () => {
@@ -234,11 +238,6 @@ describe('alert', () => {
       propsData: {
         show: false,
         fade: true
-      },
-      stubs: {
-        // The builtin stub doesn't execute the transition hooks
-        // so we let it use the real transition component
-        transition: false
       }
     })
     expect(wrapper.vm).toBeDefined()

@@ -1,6 +1,10 @@
-import { mount, createWrapper } from '@vue/test-utils'
+import { config as vtuConfig, createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BSidebar } from './sidebar'
+
+// Disable the use of the TransitionStub component
+// since it doesn't run transition hooks
+vtuConfig.stubs.transition = false
 
 const EVENT_TOGGLE = 'bv::toggle::collapse'
 const EVENT_STATE = 'bv::collapse::state'
@@ -14,10 +18,6 @@ describe('sidebar', () => {
       propsData: {
         id: 'test-1',
         visible: true
-      },
-      stubs: {
-        // Disable use of default test `transitionStub` component
-        transition: false
       }
     })
     expect(wrapper.vm).toBeDefined()
@@ -85,10 +85,6 @@ describe('sidebar', () => {
         noCloseOnBackdrop: true,
         visible: true,
         backdrop: true
-      },
-      stubs: {
-        // Disable use of default test `transitionStub` component
-        transition: false
       }
     })
 
@@ -129,10 +125,6 @@ describe('sidebar', () => {
       attachTo: createContainer(),
       propsData: {
         id: 'test-toggle'
-      },
-      stubs: {
-        // Disable use of default test `transitionStub` component
-        transition: false
       }
     })
     expect(wrapper.vm).toBeDefined()
@@ -182,10 +174,6 @@ describe('sidebar', () => {
       attachTo: createContainer(),
       propsData: {
         id: 'test-esc'
-      },
-      stubs: {
-        // Disable use of default test `transitionStub` component
-        transition: false
       }
     })
     expect(wrapper.vm).toBeDefined()
@@ -237,10 +225,6 @@ describe('sidebar', () => {
       propsData: {
         id: 'test-sync',
         visible: true
-      },
-      stubs: {
-        // Disable use of default test `transitionStub` component
-        transition: false
       }
     })
     expect(wrapper.vm).toBeDefined()
@@ -273,10 +257,6 @@ describe('sidebar', () => {
         id: 'test-2',
         visible: true,
         noHeader: true
-      },
-      stubs: {
-        // Disable use of default test `transitionStub` component
-        transition: false
       }
     })
     expect(wrapper.vm).toBeDefined()
@@ -300,10 +280,6 @@ describe('sidebar', () => {
         id: 'test-3',
         visible: true,
         noHeaderClose: true
-      },
-      stubs: {
-        // Disable use of default test `transitionStub` component
-        transition: false
       }
     })
     expect(wrapper.vm).toBeDefined()
@@ -328,10 +304,6 @@ describe('sidebar', () => {
         id: 'test-4',
         visible: false,
         lazy: true
-      },
-      stubs: {
-        // Disable use of default test `transitionStub` component
-        transition: false
       }
     })
     expect(wrapper.vm).toBeDefined()
@@ -369,10 +341,6 @@ describe('sidebar', () => {
       },
       slots: {
         footer: '<span>FOOTER</span>'
-      },
-      stubs: {
-        // Disable use of default test `transitionStub` component
-        transition: false
       }
     })
     expect(wrapper.vm).toBeDefined()
@@ -397,10 +365,6 @@ describe('sidebar', () => {
         id: 'test-title',
         visible: true,
         title: 'TITLE'
-      },
-      stubs: {
-        // Disable use of default test `transitionStub` component
-        transition: false
       }
     })
     expect(wrapper.vm).toBeDefined()

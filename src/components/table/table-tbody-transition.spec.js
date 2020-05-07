@@ -1,5 +1,6 @@
-import { mount, TransitionGroupStub } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { createContainer } from '../../../tests/utils'
+import { TransitionGroupStub } from '../../../tests/components'
 import { BTable } from './table'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
@@ -12,9 +13,6 @@ describe('table > tbody transition', () => {
       propsData: {
         fields: testFields,
         items: testItems
-      },
-      stubs: {
-        'transition-group': TransitionGroupStub
       }
     })
     expect(wrapper).toBeDefined()
@@ -35,9 +33,6 @@ describe('table > tbody transition', () => {
         tbodyTransitionProps: {
           name: 'fade'
         }
-      },
-      stubs: {
-        'transition-group': TransitionGroupStub
       }
     })
     expect(wrapper).toBeDefined()
@@ -61,9 +56,6 @@ describe('table > tbody transition', () => {
           onBeforeLeave: () => {},
           onAfterLeave: () => {}
         }
-      },
-      stubs: {
-        'transition-group': TransitionGroupStub
       }
     })
     expect(wrapper).toBeDefined()

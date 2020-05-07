@@ -1,7 +1,11 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { config as vtuConfig, createLocalVue as CreateLocalVue, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BModal } from './modal'
 import { BvModalEvent } from './helpers/bv-modal-event.class'
+
+// Disable the use of the TransitionStub component
+// since it doesn't run transition hooks
+vtuConfig.stubs.transition = false
 
 // The default Z-INDEX for modal backdrop
 const DEFAULT_ZINDEX = 1040
@@ -116,11 +120,6 @@ describe('modal', () => {
     it('has expected structure when initially open', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          // Disable the use of transitionStub fake transition
-          // as it doesn't run transition hooks
-          transition: false
-        },
         propsData: {
           static: true,
           id: 'test',
@@ -172,11 +171,6 @@ describe('modal', () => {
     it('renders appended to body when initially open and not static', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          // Disable the use of transitionStub fake transition
-          // as it doesn't run transition hooks
-          transition: false
-        },
         propsData: {
           static: false,
           id: 'test-target',
@@ -212,11 +206,6 @@ describe('modal', () => {
     it('has expected structure when closed after being initially open', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          // Disable the use of transitionStub fake transition
-          // as it doesn't run transition hooks
-          transition: false
-        },
         propsData: {
           static: true,
           id: 'test',
@@ -379,9 +368,6 @@ describe('modal', () => {
       let evt = null
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          transition: false
-        },
         propsData: {
           static: true,
           id: 'test',
@@ -460,9 +446,6 @@ describe('modal', () => {
       let trigger = null
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          transition: false
-        },
         propsData: {
           static: true,
           id: 'test',
@@ -545,9 +528,6 @@ describe('modal', () => {
       let trigger = null
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          transition: false
-        },
         propsData: {
           static: true,
           id: 'test',
@@ -603,9 +583,6 @@ describe('modal', () => {
       let trigger = null
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          transition: false
-        },
         propsData: {
           static: true,
           id: 'test',
@@ -662,9 +639,6 @@ describe('modal', () => {
       let called = false
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          transition: false
-        },
         propsData: {
           static: true,
           id: 'test',
@@ -741,9 +715,6 @@ describe('modal', () => {
     it('$root bv::show::modal and bv::hide::modal work', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          transition: false
-        },
         propsData: {
           static: true,
           id: 'test',
@@ -791,9 +762,6 @@ describe('modal', () => {
     it('$root bv::toggle::modal works', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          transition: false
-        },
         propsData: {
           static: true,
           id: 'test',
@@ -854,9 +822,6 @@ describe('modal', () => {
       let called = 0
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          transition: false
-        },
         propsData: {
           static: true,
           id: 'test',
@@ -922,9 +887,6 @@ describe('modal', () => {
     it('instance .toggle() methods works', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          transition: false
-        },
         propsData: {
           static: true,
           id: 'test',
@@ -972,9 +934,6 @@ describe('modal', () => {
     it('modal closes when no-stacking is true and another modal opens', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        stubs: {
-          transition: false
-        },
         propsData: {
           static: true,
           id: 'test',
@@ -1026,10 +985,7 @@ describe('modal', () => {
       })
       const wrapper = mount(App, {
         attachTo: createContainer(),
-        localVue: localVue,
-        stubs: {
-          transition: false
-        }
+        localVue
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -1108,10 +1064,7 @@ describe('modal', () => {
       })
       const wrapper = mount(App, {
         attachTo: createContainer(),
-        localVue: localVue,
-        stubs: {
-          transition: false
-        }
+        localVue
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -1192,10 +1145,7 @@ describe('modal', () => {
       })
       const wrapper = mount(App, {
         attachTo: createContainer(),
-        localVue: localVue,
-        stubs: {
-          transition: false
-        }
+        localVue
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -1289,10 +1239,7 @@ describe('modal', () => {
       })
       const wrapper = mount(App, {
         attachTo: createContainer(),
-        localVue: localVue,
-        stubs: {
-          transition: false
-        }
+        localVue
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -1361,10 +1308,7 @@ describe('modal', () => {
       })
       const wrapper = mount(App, {
         attachTo: createContainer(),
-        localVue: localVue,
-        stubs: {
-          transition: false
-        }
+        localVue
       })
 
       expect(wrapper.vm).toBeDefined()

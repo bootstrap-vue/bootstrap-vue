@@ -1,6 +1,10 @@
-import { mount } from '@vue/test-utils'
+import { config as vtuConfig, mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BTab } from './tab'
+
+// Disable the use of the TransitionStub component
+// since it doesn't run transition hooks
+vtuConfig.stubs.transition = false
 
 describe('tab', () => {
   it('default has expected classes, attributes and structure', async () => {
@@ -78,14 +82,7 @@ describe('tab', () => {
   })
 
   it('has class active and show when localActive becomes true', async () => {
-    const wrapper = mount(BTab, {
-      mountToDocument: true,
-      stubs: {
-        // The builtin stub doesn't execute the transition hooks
-        // so we let it use the real transition component
-        transition: false
-      }
-    })
+    const wrapper = mount(BTab)
 
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')

@@ -1,16 +1,16 @@
-import { mount } from '@vue/test-utils'
+import { config as vtuConfig, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { PortalTarget } from 'portal-vue'
 import { BToaster } from './toaster'
+
+// Disable the use of the TransitionStub component
+// since it doesn't run transition hooks
+vtuConfig.stubs.transition = false
 
 describe('b-toaster', () => {
   it('has expected structure', async () => {
     const wrapper = mount(BToaster, {
       attachTo: createContainer(),
-      stubs: {
-        'transition-group': false,
-        transition: false
-      },
       propsData: {
         name: 'foo'
       }
@@ -44,10 +44,6 @@ describe('b-toaster', () => {
   it('accepts aria props', async () => {
     const wrapper = mount(BToaster, {
       attachTo: createContainer(),
-      stubs: {
-        'transition-group': false,
-        transition: false
-      },
       propsData: {
         name: 'bar',
         ariaLive: 'assertive',

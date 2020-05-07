@@ -1,6 +1,10 @@
-import { mount } from '@vue/test-utils'
+import { config as vtuConfig, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BToast } from './toast'
+
+// Disable the use of the TransitionStub component
+// since it doesn't run transition hooks
+vtuConfig.stubs.transition = false
 
 describe('b-toast', () => {
   beforeAll(() => {
@@ -15,9 +19,6 @@ describe('b-toast', () => {
   it('has expected structure', async () => {
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
-      stubs: {
-        transition: false
-      },
       propsData: {
         static: true,
         noAutoHide: true,
@@ -73,9 +74,6 @@ describe('b-toast', () => {
   it('visible prop works', async () => {
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
-      stubs: {
-        transition: false
-      },
       propsData: {
         static: true,
         noAutoHide: true,
@@ -137,9 +135,6 @@ describe('b-toast', () => {
   it('alert with link closes on click works', async () => {
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
-      stubs: {
-        transition: false
-      },
       propsData: {
         static: true,
         noAutoHide: true,
@@ -188,9 +183,6 @@ describe('b-toast', () => {
     jest.useFakeTimers()
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
-      stubs: {
-        transition: false
-      },
       propsData: {
         static: true,
         noAutoHide: false,
@@ -236,9 +228,6 @@ describe('b-toast', () => {
   it('hover pause works', async () => {
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
-      stubs: {
-        transition: false
-      },
       propsData: {
         static: true,
         noAutoHide: false,
@@ -280,9 +269,6 @@ describe('b-toast', () => {
   it('hover pause has no effect when no-hover-pause is set', async () => {
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
-      stubs: {
-        transition: false
-      },
       propsData: {
         static: true,
         noAutoHide: false,

@@ -1,6 +1,15 @@
-import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import {
+  config as vtuConfig,
+  createLocalVue as CreateLocalVue,
+  createWrapper,
+  mount
+} from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCollapse } from './collapse'
+
+// Disable the use of the TransitionStub component
+// since it doesn't run transition hooks
+vtuConfig.stubs.transition = false
 
 // Events collapse emits on $root
 const EVENT_STATE = 'bv::collapse::state'
@@ -38,10 +47,6 @@ describe('collapse', () => {
       propsData: {
         // 'id' is a required prop
         id: 'test'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -67,10 +72,6 @@ describe('collapse', () => {
         // 'id' is a required prop
         id: 'test',
         isNav: true
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -98,10 +99,6 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     expect(wrapper.vm).toBeDefined()
@@ -129,10 +126,6 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     expect(wrapper.vm).toBeDefined()
@@ -159,10 +152,6 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -192,10 +181,6 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -225,10 +210,6 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -267,10 +248,6 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -317,10 +294,6 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -431,11 +404,7 @@ describe('collapse', () => {
     })
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
-      }
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -493,11 +462,7 @@ describe('collapse', () => {
     })
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
-      }
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -534,10 +499,6 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -573,10 +534,6 @@ describe('collapse', () => {
           scope = props
           return this.$createElement('div', 'foobar')
         }
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
