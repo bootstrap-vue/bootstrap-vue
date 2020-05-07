@@ -686,8 +686,8 @@ describe('table > row select', () => {
     expect(wrapper.emitted('row-selected').length).toBe(1)
     $rows = wrapper.findAll('tbody > tr')
     // Should remove tabindex and aria-selected attributes
-    expect($rows.wrappers.every(w => w.attributes('tabindex') === '')).toBe(true)
-    expect($rows.wrappers.every(w => w.attributes('aria-selected') === '')).toBe(true)
+    expect($rows.wrappers.every(w => w.attributes('tabindex') === undefined)).toBe(true)
+    expect($rows.wrappers.every(w => w.attributes('aria-selected') === undefined)).toBe(true)
     expect(wrapper.classes()).not.toContain('b-table-selectable')
     expect(wrapper.classes()).not.toContain('b-table-selecting-range')
 
