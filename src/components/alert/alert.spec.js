@@ -266,14 +266,20 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(3) // 3 - 0
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(2) // 3 - 1
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(1) // 3 - 2
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
 
@@ -305,14 +311,20 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(3) // 3 - 0
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(2) // 3 - 1
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(1) // 3 - 2
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
 
@@ -344,6 +356,8 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
 
@@ -353,19 +367,27 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(3) // 3 - 0
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(2) // 3 - 1
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(5)
     expect(wrapper.emitted('dismiss-count-down')[4][0]).toBe(1) // 3 - 2
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(6)
     expect(wrapper.emitted('dismiss-count-down')[5][0]).toBe(0) // 3 - 3
 
     // Just to make sure there aren't any more timers pending
     jest.runAllTimers()
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(6)
 
     await waitNT(wrapper.vm)
@@ -397,6 +419,8 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
 
@@ -407,6 +431,8 @@ describe('alert', () => {
 
     // Should not emit any new countdown values
     jest.runAllTimers()
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
 
     await waitNT(wrapper.vm)
