@@ -92,8 +92,6 @@ describe('modal', () => {
       expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
-
-      expect(wrapper.element).toBeEmpty()
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
       wrapper.destroy()
@@ -110,8 +108,6 @@ describe('modal', () => {
       expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
-
-      expect(wrapper.element).toBeEmpty()
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
       wrapper.destroy()
@@ -179,9 +175,8 @@ describe('modal', () => {
       })
 
       expect(wrapper.vm).toBeDefined()
-      await waitRAF()
 
-      expect(wrapper.element).toBeEmpty()
+      await waitRAF()
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
       const outer = document.getElementById('test-target___BV_modal_outer_')
