@@ -99,7 +99,7 @@ describe('button-toolbar', () => {
 
       await waitNT(wrapper.vm)
 
-      expect(wrapper.is('div.btn-toolbar')).toBe(true)
+      expect(wrapper.find('div.btn-toolbar').exists()).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
 
       const $groups = wrapper.findAllComponents(BButtonGroup)
@@ -109,12 +109,42 @@ describe('button-toolbar', () => {
       const $btns = wrapper.findAllComponents(BButton)
       expect($btns).toBeDefined()
       expect($btns.length).toBe(6)
-      expect($btns.at(0).is('button[tabindex="-1"')).toBe(true)
-      expect($btns.at(1).is('button[tabindex="-1"')).toBe(true)
-      expect($btns.at(2).is('button[tabindex="-1"')).toBe(false) // Disabled button
-      expect($btns.at(3).is('button[tabindex="-1"')).toBe(true)
-      expect($btns.at(4).is('button[tabindex="-1"')).toBe(true)
-      expect($btns.at(5).is('button[tabindex="-1"')).toBe(true)
+      expect(
+        $btns
+          .at(0)
+          .find('button[tabindex="-1"')
+          .exists()
+      ).toBe(true)
+      expect(
+        $btns
+          .at(1)
+          .find('button[tabindex="-1"')
+          .exists()
+      ).toBe(true)
+      expect(
+        $btns
+          .at(2)
+          .find('button[tabindex="-1"')
+          .exists()
+      ).toBe(false) // Disabled button
+      expect(
+        $btns
+          .at(3)
+          .find('button[tabindex="-1"')
+          .exists()
+      ).toBe(true)
+      expect(
+        $btns
+          .at(4)
+          .find('button[tabindex="-1"')
+          .exists()
+      ).toBe(true)
+      expect(
+        $btns
+          .at(5)
+          .find('button[tabindex="-1"')
+          .exists()
+      ).toBe(true)
 
       wrapper.destroy()
     })
@@ -126,7 +156,7 @@ describe('button-toolbar', () => {
 
       await waitNT(wrapper.vm)
 
-      expect(wrapper.is('div.btn-toolbar')).toBe(true)
+      expect(wrapper.find('div.btn-toolbar').exists()).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
 
       const $btns = wrapper.findAll('button')
@@ -149,7 +179,7 @@ describe('button-toolbar', () => {
 
       await waitNT(wrapper.vm)
 
-      expect(wrapper.is('div.btn-toolbar')).toBe(true)
+      expect(wrapper.find('div.btn-toolbar').exists()).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
 
       const $btns = wrapper.findAll('button')
