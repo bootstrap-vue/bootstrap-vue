@@ -215,7 +215,7 @@ describe('overlay', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(undefined)
+    expect(wrapper.find('div').exists()).toBe(false)
 
     wrapper.destroy()
   })
