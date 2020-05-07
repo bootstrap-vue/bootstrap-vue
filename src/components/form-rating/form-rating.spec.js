@@ -9,7 +9,7 @@ describe('form-rating', () => {
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('output')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OUTPUT')
 
     expect(wrapper.classes()).toContain('b-rating')
     expect(wrapper.classes()).toContain('d-flex')
