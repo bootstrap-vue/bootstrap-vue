@@ -1,4 +1,4 @@
-import { config as vtuConfig, createLocalVue as CreateLocalVue, mount } from '@vue/test-utils'
+import { config as vtuConfig, createLocalVue, createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BModal } from './modal'
 import { BvModalEvent } from './helpers/bv-modal-event.class'
@@ -967,7 +967,7 @@ describe('modal', () => {
   })
 
   describe('focus management', () => {
-    const localVue = new CreateLocalVue()
+    const localVue = createLocalVue()
 
     it('returns focus to previous active element when return focus not set and not using v-b-toggle', async () => {
       const App = localVue.extend({
@@ -1175,7 +1175,7 @@ describe('modal', () => {
 
       // Emulate TAB by focusing the `bottomTrap` span element
       // Should focus first button in modal (in the header)
-      const $bottomTrap = wrapper.findComponent(BModal).find({ ref: 'bottomTrap' })
+      const $bottomTrap = createWrapper(wrapper.findComponent(BModal).vm.$refs.bottomTrap)
       expect($bottomTrap.exists()).toBe(true)
       expect($bottomTrap.element.tagName).toBe('SPAN')
       // Find the close (x) button (it is the only one with the `.close` class)
@@ -1192,7 +1192,7 @@ describe('modal', () => {
 
       // Emulate CTRL-TAB by focusing the `topTrap` div element
       // Should focus last button in modal (in the footer)
-      const $topTrap = wrapper.findComponent(BModal).find({ ref: 'topTrap' })
+      const $topTrap = createWrapper(wrapper.findComponent(BModal).vm.$refs.topTrap)
       expect($topTrap.exists()).toBe(true)
       expect($topTrap.element.tagName).toBe('SPAN')
       // Find the OK button (it is the only one with `.btn-primary` class)
