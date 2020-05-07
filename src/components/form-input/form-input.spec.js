@@ -258,7 +258,7 @@ describe('form-input', () => {
 
   it('does not have aria-invalid attribute by default', async () => {
     const wrapper = mount(BFormInput)
-    expect(wrapper.contains('[aria-invalid]')).toBe(false)
+    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
 
     wrapper.destroy()
   })
@@ -269,7 +269,7 @@ describe('form-input', () => {
         state: true
       }
     })
-    expect(wrapper.contains('[aria-invalid]')).toBe(false)
+    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
 
     wrapper.destroy()
   })
@@ -563,6 +563,7 @@ describe('form-input', () => {
     await input.trigger('input')
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('update')).not.toBeDefined()
+    await waitNT(wrapper.vm)
     // Value in input should remain the same as entered
     expect(input.element.value).toEqual('TEST')
     expect(wrapper.vm.localValue).toBe('abc')
@@ -654,6 +655,7 @@ describe('form-input', () => {
 
     input.element.focus()
     await input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    await waitNT(wrapper.vm)
 
     // no-wheel=true will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
