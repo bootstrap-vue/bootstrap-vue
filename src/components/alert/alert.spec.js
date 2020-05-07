@@ -258,6 +258,8 @@ describe('alert', () => {
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
 
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
@@ -295,6 +297,8 @@ describe('alert', () => {
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
 
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
@@ -331,6 +335,8 @@ describe('alert', () => {
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
+
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
@@ -382,6 +388,8 @@ describe('alert', () => {
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
+
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
