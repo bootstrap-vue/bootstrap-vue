@@ -381,9 +381,24 @@ describe('form-select', () => {
     expect($options.at(0).text()).toBe('1,50 €')
     expect($options.at(1).text()).toBe('5,00 €')
     expect($options.at(2).text()).toBe('50,75 €')
-    expect($options.at(0).find('span').exists()).toBe(false)
-    expect($options.at(1).find('span').exists()).toBe(true)
-    expect($options.at(2).find('span').exists()).toBe(false)
+    expect(
+      $options
+        .at(0)
+        .find('span')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(1)
+        .find('span')
+        .exists()
+    ).toBe(true)
+    expect(
+      $options
+        .at(2)
+        .find('span')
+        .exists()
+    ).toBe(false)
     expect($options.at(0).attributes('value')).toBe('1.5')
     expect($options.at(1).attributes('value')).toBe('5')
     expect($options.at(2).attributes('value')).toBe('50.75')
