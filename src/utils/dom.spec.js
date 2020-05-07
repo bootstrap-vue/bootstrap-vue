@@ -30,12 +30,13 @@ const template = `
 const App = Vue.extend({ template })
 
 describe('utils/dom', () => {
-  it('isElement works', async () => {
+  it('isElement() works', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div.foo')).toBe(true)
+    expect(wrapper.find('div.foo').exists()).toBe(true)
     expect(isElement(wrapper.element)).toBe(true)
     expect(isElement(null)).toBe(false)
     expect(isElement(App)).toBe(false)
@@ -43,10 +44,11 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('isDisabled works', async () => {
+  it('isDisabled() works', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -59,10 +61,11 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('hasClass works', async () => {
+  it('hasClass() works', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $span = wrapper.find('span.barspan')
@@ -76,10 +79,11 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('contains works', async () => {
+  it('contains() works', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $span = wrapper.find('span.barspan')
@@ -97,10 +101,11 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('closest works', async () => {
+  it('closest() works', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -123,10 +128,11 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('matches works', async () => {
+  it('matches() works', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -148,10 +154,11 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('hasAttr works', async () => {
+  it('hasAttr() works', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -168,10 +175,11 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('getAttr works', async () => {
+  it('getAttr() works', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -191,10 +199,11 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('select works', async () => {
+  it('select() works', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -217,10 +226,11 @@ describe('utils/dom', () => {
     wrapper.destroy()
   })
 
-  it('selectAll works', async () => {
+  it('selectAll() works', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
