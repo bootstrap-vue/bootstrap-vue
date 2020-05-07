@@ -1,11 +1,12 @@
 import { mount } from '@vue/test-utils'
-import { BAvatarGroup } from './avatar-group'
 import { waitNT } from '../../../tests/utils'
+import { BAvatarGroup } from './avatar-group'
 
 describe('avatar-group', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BAvatarGroup)
-    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     expect(wrapper.is('div')).toBe(true)
@@ -22,7 +23,8 @@ describe('avatar-group', () => {
         tag: 'article'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     expect(wrapper.is('article')).toBe(true)
@@ -39,7 +41,8 @@ describe('avatar-group', () => {
         default: '<span>FOOBAR</span>'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     expect(wrapper.is('div')).toBe(true)
