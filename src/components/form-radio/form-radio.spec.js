@@ -841,7 +841,7 @@ describe('form-radio', () => {
 
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormRadio, {
-      mountToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         checked: false
       },
