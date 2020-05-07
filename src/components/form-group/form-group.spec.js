@@ -31,7 +31,7 @@ describe('form-group', () => {
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('fieldset')).toBe(true)
+    expect(wrapper.element.tagName).toBe('FIELDSET')
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -104,8 +104,8 @@ describe('form-group', () => {
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('fieldset')).toBe(false)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).not.toBe('FIELDSET')
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -151,9 +151,9 @@ describe('form-group', () => {
 
     expect(wrapper.vm).toBeDefined()
 
-    expect(wrapper.is('fieldset')).toBe(false)
+    expect(wrapper.element.tagName).not.toBe('FIELDSET')
     expect(wrapper.find('legend').exists()).toBe(false)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(2)
@@ -196,8 +196,8 @@ describe('form-group', () => {
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('fieldset')).toBe(true)
-    expect(wrapper.is('div')).toBe(false)
+    expect(wrapper.element.tagName).toBe('FIELDSET')
+    expect(wrapper.element.tagName).not.toBe('DIV')
     expect(wrapper.find('legend').exists()).toBe(true)
     expect(wrapper.find('fieldset > div > legend').exists()).toBe(true)
     expect(wrapper.classes()).toContain('form-group')

@@ -5,7 +5,7 @@ describe('form', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BForm)
 
-    expect(wrapper.is('form')).toBe(true)
+    expect(wrapper.element.tagName).toBe('FORM')
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
 
@@ -19,7 +19,7 @@ describe('form', () => {
       }
     })
 
-    expect(wrapper.is('form')).toBe(true)
+    expect(wrapper.element.tagName).toBe('FORM')
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.attributes('id')).not.toBeDefined()
     expect(wrapper.attributes('novalidate')).not.toBeDefined()
@@ -35,7 +35,7 @@ describe('form', () => {
       }
     })
 
-    expect(wrapper.is('form')).toBe(true)
+    expect(wrapper.element.tagName).toBe('FORM')
     expect(wrapper.classes()).toContain('form-inline')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('id')).not.toBeDefined()
@@ -52,7 +52,7 @@ describe('form', () => {
       }
     })
 
-    expect(wrapper.is('form')).toBe(true)
+    expect(wrapper.element.tagName).toBe('FORM')
     expect(wrapper.classes()).toContain('was-validated')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('id')).not.toBeDefined()
@@ -69,7 +69,7 @@ describe('form', () => {
       }
     })
 
-    expect(wrapper.is('form')).toBe(true)
+    expect(wrapper.element.tagName).toBe('FORM')
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('foo')
@@ -86,7 +86,7 @@ describe('form', () => {
       }
     })
 
-    expect(wrapper.is('form')).toBe(true)
+    expect(wrapper.element.tagName).toBe('FORM')
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.attributes('id')).not.toBeDefined()
     expect(wrapper.attributes('novalidate')).toBeDefined()

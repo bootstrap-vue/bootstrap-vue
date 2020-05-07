@@ -5,7 +5,7 @@ describe('button', () => {
   it('has default structure and classes', async () => {
     const wrapper = mount(BButton)
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.attributes('type')).toBeDefined()
     expect(wrapper.attributes('type')).toBe('button')
     expect(wrapper.classes()).toContain('btn')
@@ -29,7 +29,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toBeDefined()
     expect(wrapper.attributes('href')).toBe('/foo/bar')
     expect(wrapper.attributes('type')).not.toBeDefined()
@@ -53,7 +53,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.attributes('type')).toBeDefined()
     expect(wrapper.attributes('type')).toBe('button')
     expect(wrapper.classes()).toContain('btn')
@@ -72,7 +72,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.attributes('type')).toBeDefined()
     expect(wrapper.attributes('type')).toBe('button')
     expect(wrapper.classes()).toContain('btn')
@@ -89,7 +89,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.attributes('type')).toBeDefined()
     expect(wrapper.attributes('type')).toBe('button')
     expect(wrapper.classes()).toContain('btn')
@@ -107,7 +107,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.attributes('type')).toBeDefined()
     expect(wrapper.attributes('type')).toBe('button')
     expect(wrapper.classes()).toContain('btn')
@@ -125,7 +125,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.attributes('type')).toBeDefined()
     expect(wrapper.attributes('type')).toBe('button')
     expect(wrapper.classes()).toContain('btn')
@@ -143,7 +143,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.attributes('type')).not.toBeDefined()
     expect(wrapper.classes()).toContain('btn')
     expect(wrapper.classes()).toContain('btn-secondary')
@@ -168,7 +168,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.attributes('type')).toBe('button')
     expect(wrapper.classes()).toContain('btn')
     expect(wrapper.classes()).toContain('btn-secondary')
@@ -187,7 +187,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.classes()).toContain('btn')
     expect(wrapper.classes()).toContain('btn-secondary')
     expect(wrapper.classes()).toContain('disabled')
@@ -210,7 +210,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.classes()).toContain('btn')
     expect(wrapper.classes()).toContain('btn-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -231,7 +231,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(called).toBe(0)
     expect(evt).toEqual(null)
     await wrapper.find('button').trigger('click')
@@ -256,7 +256,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.classes()).toContain('btn')
     expect(wrapper.classes()).toContain('btn-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -288,7 +288,7 @@ describe('button', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(called).toBe(0)
     await wrapper.find('button').trigger('click')
     expect(called).toBe(0)

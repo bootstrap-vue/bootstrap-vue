@@ -5,7 +5,7 @@ describe('nav', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BNav)
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
@@ -20,7 +20,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
@@ -35,7 +35,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('foobar')
@@ -50,7 +50,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('nav-pills')
     expect(wrapper.classes().length).toBe(2)
@@ -66,7 +66,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('nav-tabs')
     expect(wrapper.classes().length).toBe(2)
@@ -82,7 +82,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('flex-column')
     expect(wrapper.classes().length).toBe(2)
@@ -98,7 +98,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('nav-justified')
     expect(wrapper.classes().length).toBe(2)
@@ -115,7 +115,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('flex-column')
     expect(wrapper.classes().length).toBe(2)
@@ -131,7 +131,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('nav-fill')
     expect(wrapper.classes().length).toBe(2)
@@ -148,7 +148,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('flex-column')
     expect(wrapper.classes().length).toBe(2)
@@ -164,7 +164,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('justify-content-center')
     expect(wrapper.classes().length).toBe(2)
@@ -181,7 +181,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('flex-column')
     expect(wrapper.classes().length).toBe(2)
@@ -197,7 +197,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('small')
     expect(wrapper.classes().length).toBe(2)
@@ -214,7 +214,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('nav-tabs')
     expect(wrapper.classes()).toContain('card-header-tabs')
@@ -232,7 +232,7 @@ describe('nav', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.classes()).toContain('nav')
     expect(wrapper.classes()).toContain('nav-pills')
     expect(wrapper.classes()).toContain('card-header-pills')

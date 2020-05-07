@@ -5,10 +5,10 @@ describe('dropdown > dropdown-divider', () => {
   it('works', async () => {
     const wrapper = mount(BDropdownDivider)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const divider = wrapper.find('hr')
-    expect(divider.is('hr')).toBe(true)
+    expect(divider.element.tagName).toBe('HR')
     expect(divider.classes()).toContain('dropdown-divider')
     expect(divider.classes().length).toBe(1)
     expect(divider.attributes('role')).toBeDefined()
@@ -25,10 +25,10 @@ describe('dropdown > dropdown-divider', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const divider = wrapper.find('span')
-    expect(divider.is('span')).toBe(true)
+    expect(divider.element.tagName).toBe('SPAN')
     expect(divider.classes()).toContain('dropdown-divider')
     expect(divider.classes().length).toBe(1)
     expect(divider.attributes('role')).toBeDefined()
@@ -43,10 +43,10 @@ describe('dropdown > dropdown-divider', () => {
       slots: { default: 'foobar' }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const divider = wrapper.find('hr')
-    expect(divider.is('hr')).toBe(true)
+    expect(divider.element.tagName).toBe('HR')
     expect(divider.classes()).toContain('dropdown-divider')
     expect(divider.classes().length).toBe(1)
     expect(divider.attributes('role')).toBeDefined()

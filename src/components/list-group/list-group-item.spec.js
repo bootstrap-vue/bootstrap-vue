@@ -5,7 +5,7 @@ describe('list-group > list-group-item', () => {
   it('default should have tag div', async () => {
     const wrapper = mount(BListGroupItem)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     wrapper.destroy()
   })
@@ -103,7 +103,7 @@ describe('list-group > list-group-item', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
 
     wrapper.destroy()
   })
@@ -163,7 +163,7 @@ describe('list-group > list-group-item', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
 
     wrapper.destroy()
   })
@@ -174,7 +174,7 @@ describe('list-group > list-group-item', () => {
         props: { tag: 'a' }
       }
     })
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
   })
 
   it('should have tag button when button=true', async () => {
@@ -184,7 +184,7 @@ describe('list-group > list-group-item', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
 
     wrapper.destroy()
   })
@@ -199,7 +199,7 @@ describe('list-group > list-group-item', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
 
     wrapper.destroy()
   })
@@ -214,7 +214,7 @@ describe('list-group > list-group-item', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.attributes('href')).not.toBeDefined()
 
     wrapper.destroy()

@@ -5,7 +5,7 @@ describe('navbar-brand', () => {
   it('default has tag "div"', async () => {
     const wrapper = mount(BNavbarBrand)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     wrapper.destroy()
   })
@@ -26,7 +26,7 @@ describe('navbar-brand', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('navbar-brand')
     expect(wrapper.classes().length).toBe(1)
 
@@ -40,7 +40,7 @@ describe('navbar-brand', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toBe('#foo')
     expect(wrapper.classes()).toContain('navbar-brand')
     expect(wrapper.classes().length).toBe(1)

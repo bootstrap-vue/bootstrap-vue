@@ -13,7 +13,7 @@ describe('form-select-option-group', () => {
       }
     })
 
-    expect(wrapper.is('optgroup')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTGROUP')
     expect(wrapper.attributes('label')).toBeDefined()
     expect(wrapper.attributes('label')).toEqual('foo')
     expect(wrapper.text()).toEqual('')
@@ -29,7 +29,7 @@ describe('form-select-option-group', () => {
       }
     })
 
-    expect(wrapper.is('optgroup')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTGROUP')
     expect(wrapper.attributes('label')).toBeDefined()
     expect(wrapper.attributes('label')).toEqual('foo')
 
@@ -58,7 +58,7 @@ describe('form-select-option-group', () => {
       }
     })
 
-    expect(wrapper.is('optgroup')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTGROUP')
     expect(wrapper.attributes('label')).toBeDefined()
     expect(wrapper.attributes('label')).toEqual('foo')
 
@@ -86,7 +86,7 @@ describe('form-select-option-group', () => {
       }
     })
 
-    expect(wrapper.is('optgroup')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTGROUP')
     expect(wrapper.attributes('label')).toBeDefined()
     expect(wrapper.attributes('label')).toEqual('foo')
 
@@ -120,7 +120,7 @@ describe('form-select-option-group', () => {
       }
     })
 
-    expect(wrapper.is('optgroup')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTGROUP')
     expect(wrapper.attributes('label')).toBeDefined()
     expect(wrapper.attributes('label')).toEqual('foo')
 

@@ -5,10 +5,10 @@ describe('dropdown-form', () => {
   it('renders with tag "form"', async () => {
     const wrapper = mount(BDropdownForm)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const form = wrapper.find('form')
-    expect(form.is('form')).toBe(true)
+    expect(form.element.tagName).toBe('FORM')
 
     wrapper.destroy()
   })
@@ -16,7 +16,7 @@ describe('dropdown-form', () => {
   it('default has expected classes', async () => {
     const wrapper = mount(BDropdownForm)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const form = wrapper.find('form')
     expect(form.classes()).toContain('b-dropdown-form')
@@ -42,10 +42,10 @@ describe('dropdown-form', () => {
   it('has tabindex on form', async () => {
     const wrapper = mount(BDropdownForm)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const form = wrapper.find('form')
-    expect(form.is('form')).toBe(true)
+    expect(form.element.tagName).toBe('FORM')
     expect(form.attributes('tabindex')).toBeDefined()
     expect(form.attributes('tabindex')).toEqual('-1')
 
@@ -59,10 +59,10 @@ describe('dropdown-form', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const form = wrapper.find('form')
-    expect(form.is('form')).toBe(true)
+    expect(form.element.tagName).toBe('FORM')
     expect(form.attributes('tabindex')).not.toBeDefined()
     expect(form.attributes('disabled')).toBeDefined()
     expect(form.classes()).toContain('disabled')
@@ -75,7 +75,7 @@ describe('dropdown-form', () => {
       propsData: { validated: true }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const form = wrapper.find('form')
     expect(form.classes()).toContain('was-validated')
@@ -87,7 +87,7 @@ describe('dropdown-form', () => {
   it('does not have attribute novalidate by default', async () => {
     const wrapper = mount(BDropdownForm)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const form = wrapper.find('form')
     expect(form.attributes('novalidate')).not.toBeDefined()
@@ -100,7 +100,7 @@ describe('dropdown-form', () => {
       propsData: { novalidate: true }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const form = wrapper.find('form')
     expect(form.attributes('novalidate')).toBeDefined()

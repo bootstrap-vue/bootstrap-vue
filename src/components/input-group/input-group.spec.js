@@ -5,7 +5,7 @@ describe('input-group', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BInputGroup)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('input-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('role')).toBeDefined()
@@ -23,7 +23,7 @@ describe('input-group', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('input-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('role')).toBeDefined()
@@ -40,7 +40,7 @@ describe('input-group', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('input-group')
     expect(wrapper.classes()).toContain('input-group-lg')
     expect(wrapper.classes().length).toBe(2)
@@ -55,7 +55,7 @@ describe('input-group', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('input-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
@@ -75,7 +75,7 @@ describe('input-group', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('input-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foofoobarbar')
@@ -104,7 +104,7 @@ describe('input-group', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('input-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobazbar')
@@ -131,7 +131,7 @@ describe('input-group', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('input-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foofoobarbarbaz')

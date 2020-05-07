@@ -20,7 +20,7 @@ describe('overlay', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-overlay-wrap')
     expect(wrapper.classes()).toContain('position-relative')
     expect(wrapper.attributes('aria-busy')).not.toBe('true')
@@ -47,7 +47,7 @@ describe('overlay', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-overlay-wrap')
     expect(wrapper.classes()).toContain('position-relative')
     expect(wrapper.attributes('aria-busy')).toBe('true')
@@ -93,7 +93,7 @@ describe('overlay', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-overlay-wrap')
     expect(wrapper.classes()).toContain('position-relative')
     expect(wrapper.attributes('aria-busy')).not.toBe('true')
@@ -112,7 +112,7 @@ describe('overlay', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-overlay-wrap')
     expect(wrapper.classes()).toContain('position-relative')
     expect(wrapper.attributes('aria-busy')).toBe('true')
@@ -132,7 +132,7 @@ describe('overlay', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-overlay-wrap')
     expect(wrapper.classes()).toContain('position-relative')
     expect(wrapper.attributes('aria-busy')).not.toBe('true')
@@ -185,7 +185,7 @@ describe('overlay', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-overlay-wrap')
 
     const $overlay = wrapper.find('.b-overlay')
@@ -234,7 +234,7 @@ describe('overlay', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-overlay')
     expect(wrapper.classes()).toContain('position-absolute')
     expect(wrapper.classes()).not.toContain('b-overlay-wrap')

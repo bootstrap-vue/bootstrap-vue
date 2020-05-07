@@ -5,7 +5,7 @@ describe('breadcrumb-link', () => {
   it('has default classes and structure', async () => {
     const wrapper = mount(BBreadcrumbLink)
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toBeDefined()
     expect(wrapper.attributes('href')).toBe('#')
     expect(wrapper.classes().length).toBe(0)
@@ -58,7 +58,7 @@ describe('breadcrumb-link', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.attributes('href')).not.toBeDefined()
     expect(wrapper.attributes('aria-current')).toBe('location')
     expect(wrapper.classes().length).toBe(0)
@@ -74,7 +74,7 @@ describe('breadcrumb-link', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.attributes('aria-current')).toBe('foobar')
     expect(wrapper.attributes('href')).not.toBeDefined()
     expect(wrapper.classes().length).toBe(0)
@@ -89,7 +89,7 @@ describe('breadcrumb-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toBeDefined()
     expect(wrapper.attributes('href')).toBe('/foo/bar')
     expect(wrapper.attributes('aria-current')).not.toBeDefined()
@@ -106,7 +106,7 @@ describe('breadcrumb-link', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.attributes('href')).not.toBeDefined()
     expect(wrapper.attributes('aria-current')).toBeDefined()
     expect(wrapper.attributes('aria-current')).toBe('location')

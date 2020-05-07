@@ -36,7 +36,7 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-toast')
     expect(wrapper.classes()).toContain('b-toast-prepend')
     expect(wrapper.classes().length).toBe(2)
@@ -46,13 +46,13 @@ describe('b-toast', () => {
 
     expect(wrapper.find('.toast').exists()).toBe(true)
     const $toast = wrapper.find('.toast')
-    expect($toast.is('div')).toBe(true)
+    expect($toast.element.tagName).toBe('DIV')
     expect($toast.classes()).toContain('toast')
     expect($toast.attributes('tabindex')).toEqual('0')
 
     expect($toast.find('.toast-header').exists()).toBe(true)
     const $header = $toast.find('.toast-header')
-    expect($header.is('header')).toBe(true)
+    expect($header.element.tagName).toBe('HEADER')
     expect($header.classes().length).toBe(1)
     expect($header.find('strong').exists()).toBe(true)
     expect($header.find('strong').text()).toEqual('title')
@@ -64,7 +64,7 @@ describe('b-toast', () => {
 
     expect($toast.find('.toast-body').exists()).toBe(true)
     const $body = $toast.find('.toast-body')
-    expect($body.is('div')).toBe(true)
+    expect($body.element.tagName).toBe('DIV')
     expect($body.classes().length).toBe(1)
     expect($body.text()).toEqual('content')
 
@@ -105,7 +105,7 @@ describe('b-toast', () => {
     await waitRAF()
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('shown')).toBeDefined()
@@ -155,10 +155,10 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     const $body = wrapper.find('.toast-body')
-    expect($body.is('a')).toBe(true)
+    expect($body.element.tagName).toBe('A')
     expect($body.attributes('href')).toEqual('#foobar')
 
     expect(wrapper.emitted('hide')).not.toBeDefined()
@@ -169,7 +169,7 @@ describe('b-toast', () => {
     await waitRAF()
     await waitRAF()
 
-    expect(wrapper.is('div')).not.toBe(true)
+    expect(wrapper.element.tagName).not.toBe('DIV')
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     expect(wrapper.emitted('hide')).toBeDefined()
@@ -204,7 +204,7 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.timer).not.toEqual(null)
 
     jest.runOnlyPendingTimers()
@@ -218,7 +218,7 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).not.toBe(true)
+    expect(wrapper.element.tagName).not.toBe('DIV')
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
     expect(wrapper.vm.timer).toBe(null)
 
@@ -250,7 +250,7 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.timer).not.toEqual(null)
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -292,7 +292,7 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.timer).not.toEqual(null)
     await waitNT(wrapper.vm)
     await waitRAF()

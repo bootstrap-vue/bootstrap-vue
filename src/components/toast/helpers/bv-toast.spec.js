@@ -109,7 +109,7 @@ describe('$bvToast', () => {
     expect(toast).toBeDefined()
     expect(toast).not.toEqual(null)
     const $toast = createWrapper(toast)
-    expect($toast.is('div')).toBe(true)
+    expect($toast.element.tagName).toBe('DIV')
 
     // Find  header
     expect($toast.find('.toast-header').exists()).toBe(true)

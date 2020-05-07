@@ -10,7 +10,7 @@ describe('form-checkbox-group', () => {
   it('default has structure <div></div>', async () => {
     const wrapper = mount(BFormCheckboxGroup)
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     const children = wrapper.element.children
     expect(children.length).toEqual(0)
 

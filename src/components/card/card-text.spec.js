@@ -5,7 +5,7 @@ describe('card-text', () => {
   it('has root element "p"', async () => {
     const wrapper = mount(BCardText)
 
-    expect(wrapper.is('p')).toBe(true)
+    expect(wrapper.element.tagName).toBe('P')
 
     wrapper.destroy()
   })
@@ -27,7 +27,7 @@ describe('card-text', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card-text')
 
     wrapper.destroy()

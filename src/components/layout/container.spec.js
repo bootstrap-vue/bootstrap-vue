@@ -5,7 +5,7 @@ describe('layout > container', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BContainer)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('container')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
@@ -20,7 +20,7 @@ describe('layout > container', () => {
       }
     })
 
-    expect(wrapper.is('section')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SECTION')
     expect(wrapper.classes()).toContain('container')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
@@ -35,7 +35,7 @@ describe('layout > container', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('container-fluid')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
@@ -50,7 +50,7 @@ describe('layout > container', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('container-md')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
@@ -65,7 +65,7 @@ describe('layout > container', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('container')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')

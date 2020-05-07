@@ -5,7 +5,7 @@ describe('card-title', () => {
   it('default has tag "h4"', async () => {
     const wrapper = mount(BCardTitle)
 
-    expect(wrapper.is('h4')).toBe(true)
+    expect(wrapper.element.tagName).toBe('H4')
 
     wrapper.destroy()
   })
@@ -26,7 +26,7 @@ describe('card-title', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     wrapper.destroy()
   })

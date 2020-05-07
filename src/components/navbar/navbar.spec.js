@@ -5,7 +5,7 @@ describe('navbar', () => {
   it('default has tag "nav"', async () => {
     const wrapper = mount(BNavbar)
 
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     // No role added if default tag is used
     expect(wrapper.attributes('role')).not.toBeDefined()
 
@@ -28,7 +28,7 @@ describe('navbar', () => {
       propsData: { tag: 'div' }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toBe('navigation')
 

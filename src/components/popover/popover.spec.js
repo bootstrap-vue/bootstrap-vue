@@ -109,7 +109,7 @@ describe('b-popover', () => {
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -151,7 +151,7 @@ describe('b-popover', () => {
     await waitRAF()
     jest.runOnlyPendingTimers()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 

@@ -9,7 +9,7 @@ describe('form-select', () => {
 
   it('has select as root element', async () => {
     const wrapper = mount(BFormSelect)
-    expect(wrapper.is('select')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SELECT')
 
     wrapper.destroy()
   })
@@ -231,7 +231,7 @@ describe('form-select', () => {
     })
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.is('select')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SELECT')
 
     wrapper.destroy()
   })

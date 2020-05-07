@@ -26,7 +26,7 @@ describe('pagination-nav', () => {
     await waitRAF()
 
     // <pagination-nav> has an outer wrapper of nav
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     const $ul = wrapper.find('ul.pagination')
     expect($ul.exists()).toBe(true)
 
@@ -60,7 +60,7 @@ describe('pagination-nav', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     const $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(9)
 
@@ -89,7 +89,7 @@ describe('pagination-nav', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     const $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(9)
 
@@ -114,7 +114,7 @@ describe('pagination-nav', () => {
     await waitRAF()
 
     // <pagination-nav> has an outer wrapper of nav
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     const $ul = wrapper.find('ul.pagination')
     expect($ul.exists()).toBe(true)
 
@@ -154,7 +154,7 @@ describe('pagination-nav', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     let $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(7)
 
@@ -181,7 +181,7 @@ describe('pagination-nav', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     const $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(9)
 
@@ -211,7 +211,7 @@ describe('pagination-nav', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     const $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(9)
 
@@ -241,7 +241,7 @@ describe('pagination-nav', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     const $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(9)
 
@@ -271,7 +271,7 @@ describe('pagination-nav', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     const $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(9)
 
@@ -295,7 +295,7 @@ describe('pagination-nav', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     const $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(9)
 
@@ -337,7 +337,7 @@ describe('pagination-nav', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     const $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(9)
 
@@ -373,7 +373,7 @@ describe('pagination-nav', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
     let $links = wrapper.findAll('a.page-link')
     expect($links.length).toBe(7)
 
@@ -415,7 +415,7 @@ describe('pagination-nav', () => {
         limit: 10
       }
     })
-    expect(wrapper.is('nav')).toBe(true)
+    expect(wrapper.element.tagName).toBe('NAV')
 
     expect(wrapper.findAll('li').length).toBe(7)
 
@@ -489,7 +489,7 @@ describe('pagination-nav', () => {
       expect(wrapper.vm.$router).not.toBeDefined()
       expect(wrapper.vm.$route).not.toBeDefined()
 
-      expect(wrapper.is('nav')).toBe(true)
+      expect(wrapper.element.tagName).toBe('NAV')
       const $ul = wrapper.find('ul.pagination')
       expect($ul.exists()).toBe(true)
 

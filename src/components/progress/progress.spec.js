@@ -6,12 +6,12 @@ describe('progress', () => {
     const wrapper = mount(BProgress)
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('progress')
     expect(wrapper.text()).toEqual('')
     expect(wrapper.findAll('.progress-bar').length).toBe(1)
     const $bar = wrapper.find('.progress-bar')
-    expect($bar.is('div')).toBe(true)
+    expect($bar.element.tagName).toBe('DIV')
     expect($bar.attributes('role')).toBe('progressbar')
     expect($bar.attributes('aria-valuemin')).toBe('0')
     expect($bar.attributes('aria-valuemax')).toBe('100')
@@ -29,7 +29,7 @@ describe('progress', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('progress')
     expect(wrapper.text()).toEqual('foobar')
     expect(wrapper.findAll('.progress-bar').length).toBe(0)
@@ -48,12 +48,12 @@ describe('progress', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('progress')
     expect(wrapper.findAll('.progress-bar').length).toBe(1)
 
     const $bar = wrapper.find('.progress-bar')
-    expect($bar.is('div')).toBe(true)
+    expect($bar.element.tagName).toBe('DIV')
     expect($bar.attributes('role')).toBe('progressbar')
     expect($bar.attributes('aria-valuemin')).toBe('0')
     expect($bar.attributes('aria-valuemax')).toBe('50')

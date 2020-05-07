@@ -5,7 +5,7 @@ describe('form > form-text', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormText)
 
-    expect(wrapper.is('small')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SMALL')
     expect(wrapper.classes()).toContain('form-text')
     expect(wrapper.classes()).toContain('text-muted')
     expect(wrapper.classes().length).toBe(2)
@@ -21,7 +21,7 @@ describe('form > form-text', () => {
       }
     })
 
-    expect(wrapper.is('small')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SMALL')
     expect(wrapper.classes()).toContain('form-text')
     expect(wrapper.classes()).toContain('text-muted')
     expect(wrapper.classes().length).toBe(2)
@@ -37,7 +37,7 @@ describe('form > form-text', () => {
       }
     })
 
-    expect(wrapper.is('p')).toBe(true)
+    expect(wrapper.element.tagName).toBe('P')
     expect(wrapper.classes()).toContain('form-text')
     expect(wrapper.classes()).toContain('text-muted')
     expect(wrapper.classes().length).toBe(2)
@@ -53,7 +53,7 @@ describe('form > form-text', () => {
       }
     })
 
-    expect(wrapper.is('small')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SMALL')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('foo')
 
@@ -67,7 +67,7 @@ describe('form > form-text', () => {
       }
     })
 
-    expect(wrapper.is('small')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SMALL')
     expect(wrapper.classes()).not.toContain('form-text')
     expect(wrapper.classes()).toContain('text-muted')
     expect(wrapper.classes().length).toBe(1)
@@ -82,7 +82,7 @@ describe('form > form-text', () => {
       }
     })
 
-    expect(wrapper.is('small')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SMALL')
     expect(wrapper.classes()).toContain('form-text')
     expect(wrapper.classes()).toContain('text-info')
     expect(wrapper.classes().length).toBe(2)

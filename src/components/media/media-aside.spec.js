@@ -5,7 +5,7 @@ describe('media-aside', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BMediaAside)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('d-flex')
     expect(wrapper.classes()).toContain('align-self-start')
     expect(wrapper.text()).toEqual('')
@@ -20,7 +20,7 @@ describe('media-aside', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('d-flex')
     expect(wrapper.classes()).toContain('align-self-start')
     expect(wrapper.classes().length).toBe(2)
@@ -36,7 +36,7 @@ describe('media-aside', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('d-flex')
     expect(wrapper.classes()).toContain('align-self-end')
     expect(wrapper.classes().length).toBe(2)
@@ -51,7 +51,7 @@ describe('media-aside', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('d-flex')
     expect(wrapper.classes()).toContain('align-self-start')
     expect(wrapper.classes().length).toBe(2)

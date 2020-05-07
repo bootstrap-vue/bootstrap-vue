@@ -5,7 +5,7 @@ describe('form-valid-feedback', () => {
   it('default should have tag div', async () => {
     const wrapper = mount(BFormValidFeedback)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     wrapper.destroy()
   })
@@ -65,7 +65,7 @@ describe('form-valid-feedback', () => {
       }
     })
 
-    expect(wrapper.is('small')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SMALL')
 
     wrapper.destroy()
   })

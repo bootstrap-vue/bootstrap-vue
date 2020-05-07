@@ -5,7 +5,7 @@ describe('card-footer', () => {
   it('has root element "div"', async () => {
     const wrapper = mount(BCardFooter)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     wrapper.destroy()
   })
@@ -28,7 +28,7 @@ describe('card-footer', () => {
       }
     })
 
-    expect(wrapper.is('footer')).toBe(true)
+    expect(wrapper.element.tagName).toBe('FOOTER')
     expect(wrapper.classes()).toContain('card-footer')
 
     wrapper.destroy()

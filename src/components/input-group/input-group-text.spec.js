@@ -5,7 +5,7 @@ describe('input-group > input-group-text', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BInputGroupText)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('input-group-text')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
@@ -20,7 +20,7 @@ describe('input-group > input-group-text', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('input-group-text')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
@@ -35,7 +35,7 @@ describe('input-group > input-group-text', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('input-group-text')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('foobar')

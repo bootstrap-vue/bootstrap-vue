@@ -45,7 +45,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
 
       // Main outer wrapper (has z-index, etc)... The stacker <div>
-      expect(wrapper.is('div')).toBe(true)
+      expect(wrapper.element.tagName).toBe('DIV')
       expect(wrapper.classes().length).toBe(0)
       expect(wrapper.element.style.position).toEqual('absolute')
       expect(wrapper.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
@@ -131,7 +131,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Main outer wrapper (has z-index, etc)... The stacker <div>
-      expect(wrapper.is('div')).toBe(true)
+      expect(wrapper.element.tagName).toBe('DIV')
       expect(wrapper.classes().length).toBe(0)
       expect(wrapper.element.style.position).toEqual('absolute')
       expect(wrapper.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
@@ -219,7 +219,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Main outer wrapper (has z-index, etc)... The stacker <div>
-      expect(wrapper.is('div')).toBe(true)
+      expect(wrapper.element.tagName).toBe('DIV')
       expect(wrapper.classes().length).toBe(0)
       expect(wrapper.element.style.position).toEqual('absolute')
       expect(wrapper.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
@@ -999,7 +999,7 @@ describe('modal', () => {
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
-      expect($button.is('button')).toBe(true)
+      expect($button.element.tagName).toBe('BUTTON')
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -1080,11 +1080,11 @@ describe('modal', () => {
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
-      expect($button.is('button')).toBe(true)
+      expect($button.element.tagName).toBe('BUTTON')
 
       const $button2 = wrapper.find('button.return-to')
       expect($button2.exists()).toBe(true)
-      expect($button2.is('button')).toBe(true)
+      expect($button2.element.tagName).toBe('BUTTON')
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -1161,7 +1161,7 @@ describe('modal', () => {
 
       const $button = wrapper.find('#button')
       expect($button.exists()).toBe(true)
-      expect($button.is('button')).toBe(true)
+      expect($button.element.tagName).toBe('BUTTON')
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -1182,11 +1182,11 @@ describe('modal', () => {
       // Should focus first button in modal (in the header)
       const $bottomTrap = wrapper.findComponent(BModal).find({ ref: 'bottomTrap' })
       expect($bottomTrap.exists()).toBe(true)
-      expect($bottomTrap.is('span')).toBe(true)
+      expect($bottomTrap.element.tagName).toBe('SPAN')
       // Find the close (x) button (it is the only one with the `.close` class)
       const $closeButton = $modal.find('button.close')
       expect($closeButton.exists()).toBe(true)
-      expect($closeButton.is('button')).toBe(true)
+      expect($closeButton.element.tagName).toBe('BUTTON')
       // Focus the tab trap
       $bottomTrap.element.focus()
       await $bottomTrap.trigger('focusin')
@@ -1199,11 +1199,11 @@ describe('modal', () => {
       // Should focus last button in modal (in the footer)
       const $topTrap = wrapper.findComponent(BModal).find({ ref: 'topTrap' })
       expect($topTrap.exists()).toBe(true)
-      expect($topTrap.is('span')).toBe(true)
+      expect($topTrap.element.tagName).toBe('SPAN')
       // Find the OK button (it is the only one with `.btn-primary` class)
       const $okButton = $modal.find('button.btn.btn-primary')
       expect($okButton.exists()).toBe(true)
-      expect($okButton.is('button')).toBe(true)
+      expect($okButton.element.tagName).toBe('BUTTON')
       // Focus the tab trap
       $topTrap.element.focus()
       await $topTrap.trigger('focusin')
@@ -1255,11 +1255,11 @@ describe('modal', () => {
 
       const $button1 = wrapper.find('#button1')
       expect($button1.exists()).toBe(true)
-      expect($button1.is('button')).toBe(true)
+      expect($button1.element.tagName).toBe('BUTTON')
 
       const $button2 = wrapper.find('#button2')
       expect($button2.exists()).toBe(true)
-      expect($button2.is('button')).toBe(true)
+      expect($button2.element.tagName).toBe('BUTTON')
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -1324,11 +1324,11 @@ describe('modal', () => {
 
       const $button1 = wrapper.find('#button1')
       expect($button1.exists()).toBe(true)
-      expect($button1.is('button')).toBe(true)
+      expect($button1.element.tagName).toBe('BUTTON')
 
       const $button2 = wrapper.find('#button2')
       expect($button2.exists()).toBe(true)
-      expect($button2.is('button')).toBe(true)
+      expect($button2.element.tagName).toBe('BUTTON')
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)

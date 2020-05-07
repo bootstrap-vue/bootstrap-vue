@@ -5,7 +5,7 @@ import { BFormTags } from './form-tags'
 describe('form-tags', () => {
   it('has div as root element', async () => {
     const wrapper = mount(BFormTags)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.classes()).toContain('b-form-tags')
     expect(wrapper.classes()).toContain('form-control')
@@ -21,7 +21,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     const $tags = wrapper.findAll('.b-form-tag')
     expect($tags.length).toBe(2)
@@ -49,7 +49,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     await wrapper.setProps({
       value: ['pear']
@@ -72,7 +72,7 @@ describe('form-tags', () => {
         }
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -104,7 +104,7 @@ describe('form-tags', () => {
         name: 'foo'
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     const $hidden = wrapper.findAll('input[type=hidden]')
     expect($hidden.length).toBe(2)
@@ -123,7 +123,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect(wrapper.vm.newTag).toEqual('')
@@ -164,7 +164,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange', 'pear', 'peach']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach'])
     expect(wrapper.vm.newTag).toEqual('')
@@ -194,7 +194,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect(wrapper.vm.newTag).toEqual('')
@@ -234,7 +234,7 @@ describe('form-tags', () => {
         value: ['one', 'two']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.vm.tags).toEqual(['one', 'two'])
     expect(wrapper.vm.newTag).toEqual('')
@@ -295,7 +295,7 @@ describe('form-tags', () => {
         value: ['one', 'two']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.vm.tags).toEqual(['one', 'two'])
     expect(wrapper.vm.newTag).toEqual('')
@@ -465,7 +465,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect(wrapper.vm.newTag).toEqual('')
@@ -499,7 +499,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -552,7 +552,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 

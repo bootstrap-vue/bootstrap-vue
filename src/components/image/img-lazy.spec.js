@@ -12,7 +12,7 @@ describe('img-lazy', () => {
         src: src
       }
     })
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
 
     wrapper.destroy()
   })
@@ -25,7 +25,7 @@ describe('img-lazy', () => {
         show: true
       }
     })
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
 
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toBe(src)
@@ -42,7 +42,7 @@ describe('img-lazy', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
 
     await waitNT(wrapper.vm)
     await waitRAF()

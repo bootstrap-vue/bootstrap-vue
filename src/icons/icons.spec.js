@@ -32,7 +32,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -65,7 +65,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -102,7 +102,7 @@ describe('icons', () => {
 
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.text()).toBe('')
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-blank')
@@ -125,7 +125,7 @@ describe('icons', () => {
 
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.text()).toBe('')
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
     expect(wrapper.find('svg > g').element).toBeEmpty()
@@ -143,7 +143,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-blank')
@@ -166,7 +166,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -193,7 +193,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -221,7 +221,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-fake-icon-test')
@@ -244,7 +244,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -270,7 +270,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -296,7 +296,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -322,7 +322,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -349,7 +349,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -376,7 +376,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -403,7 +403,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -431,7 +431,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -458,7 +458,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -486,7 +486,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-alarm-fill')
@@ -515,7 +515,7 @@ describe('icons', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-circle-fill')

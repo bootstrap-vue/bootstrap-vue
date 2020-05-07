@@ -5,7 +5,7 @@ describe('jumbotron', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BJumbotron)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
@@ -20,7 +20,7 @@ describe('jumbotron', () => {
       }
     })
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
@@ -35,7 +35,7 @@ describe('jumbotron', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes()).toContain('border')
     expect(wrapper.classes()).toContain('border-danger')
@@ -51,7 +51,7 @@ describe('jumbotron', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes()).toContain('bg-info')
     expect(wrapper.classes().length).toBe(2)
@@ -66,7 +66,7 @@ describe('jumbotron', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes()).toContain('text-primary')
     expect(wrapper.classes().length).toBe(2)
@@ -81,7 +81,7 @@ describe('jumbotron', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
@@ -100,13 +100,13 @@ describe('jumbotron', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes()).toContain('jumbotron-fluid')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.findAll('.jumbotron > *').length).toBe(1)
     expect(wrapper.findAll('.container').length).toBe(1)
-    expect(wrapper.find('.container').is('div')).toBe(true)
+    expect(wrapper.find('.container').element.tagName).toBe('DIV')
     expect(wrapper.find('.container').text()).toEqual('foobar')
     expect(wrapper.text()).toEqual('foobar')
 
@@ -124,14 +124,14 @@ describe('jumbotron', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes()).toContain('jumbotron-fluid')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.findAll('.jumbotron > *').length).toBe(1)
     expect(wrapper.findAll('.container').length).toBe(0)
     expect(wrapper.findAll('.container-fluid').length).toBe(1)
-    expect(wrapper.find('.container-fluid').is('div')).toBe(true)
+    expect(wrapper.find('.container-fluid').element.tagName).toBe('DIV')
     expect(wrapper.find('.container-fluid').text()).toEqual('foobar')
     expect(wrapper.text()).toEqual('foobar')
 
@@ -149,7 +149,7 @@ describe('jumbotron', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('h1').length).toBe(1)
@@ -176,7 +176,7 @@ describe('jumbotron', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('h1').length).toBe(1)

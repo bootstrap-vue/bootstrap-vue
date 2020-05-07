@@ -5,7 +5,7 @@ describe('card-body', () => {
   it('has root element "div"', async () => {
     const wrapper = mount(BCardBody)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     wrapper.destroy()
   })
@@ -28,7 +28,7 @@ describe('card-body', () => {
       }
     })
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.classes()).toContain('card-body')
 
     wrapper.destroy()

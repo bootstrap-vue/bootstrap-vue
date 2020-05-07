@@ -5,7 +5,7 @@ describe('button-group', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BButtonGroup)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('btn-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('role')).toBeDefined()
@@ -22,7 +22,7 @@ describe('button-group', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('btn-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('role')).toBeDefined()
@@ -40,7 +40,7 @@ describe('button-group', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('btn-group-vertical')
     expect(wrapper.classes()).not.toContain('btn-group')
     expect(wrapper.classes().length).toBe(1)
@@ -55,7 +55,7 @@ describe('button-group', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('btn-group')
     expect(wrapper.classes()).toContain('btn-group-sm')
     expect(wrapper.classes().length).toBe(2)
@@ -71,7 +71,7 @@ describe('button-group', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('btn-group-sm')
     expect(wrapper.classes()).toContain('btn-group-vertical')
     expect(wrapper.classes()).not.toContain('btn-group')
@@ -87,7 +87,7 @@ describe('button-group', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('btn-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('role')).toBeDefined()

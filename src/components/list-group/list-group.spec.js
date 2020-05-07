@@ -5,7 +5,7 @@ describe('list-group', () => {
   it('default should have tag div', async () => {
     const wrapper = mount(BListGroup)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     wrapper.destroy()
   })
@@ -28,7 +28,7 @@ describe('list-group', () => {
       }
     })
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
 
     wrapper.destroy()
   })

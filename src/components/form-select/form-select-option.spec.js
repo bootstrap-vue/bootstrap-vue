@@ -9,7 +9,7 @@ describe('form-select-option', () => {
       }
     })
 
-    expect(wrapper.is('option')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTION')
     expect(wrapper.attributes('value')).toBeDefined()
     expect(wrapper.attributes('value')).toEqual('foo')
     expect(wrapper.text()).toEqual('')
@@ -27,7 +27,7 @@ describe('form-select-option', () => {
       }
     })
 
-    expect(wrapper.is('option')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTION')
     expect(wrapper.attributes('value')).toBeDefined()
     expect(wrapper.attributes('value')).toEqual('foo')
     expect(wrapper.text()).toEqual('foobar')
@@ -45,7 +45,7 @@ describe('form-select-option', () => {
       }
     })
 
-    expect(wrapper.is('option')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTION')
     expect(wrapper.attributes('value')).toBeDefined()
     expect(wrapper.attributes('value')).toEqual('foo')
 
@@ -63,7 +63,7 @@ describe('form-select-option', () => {
       }
     })
 
-    expect(wrapper.is('option')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTION')
     expect(wrapper.attributes('value')).toBeDefined()
     expect(wrapper.attributes('value')).toEqual('foo')
     expect(wrapper.attributes('disabled')).toBeDefined()

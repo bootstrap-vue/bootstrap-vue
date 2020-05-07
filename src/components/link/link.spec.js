@@ -7,7 +7,7 @@ describe('b-link', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BLink)
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('#')
     expect(wrapper.attributes('target')).toEqual('_self')
     expect(wrapper.attributes('rel')).not.toBeDefined()
@@ -25,7 +25,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('#')
     expect(wrapper.attributes('target')).toEqual('_self')
     expect(wrapper.attributes('rel')).not.toBeDefined()
@@ -43,7 +43,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_self')
     expect(wrapper.attributes('rel')).not.toBeDefined()
@@ -61,7 +61,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('#foobar')
     expect(wrapper.attributes('target')).toEqual('_self')
     expect(wrapper.attributes('rel')).not.toBeDefined()
@@ -79,7 +79,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_self')
     expect(wrapper.attributes('rel')).not.toBeDefined()
@@ -97,7 +97,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_self')
     expect(wrapper.attributes('rel')).not.toBeDefined()
@@ -116,7 +116,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_blank')
     expect(wrapper.attributes('rel')).toEqual('noopener')
@@ -134,7 +134,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_blank')
     expect(wrapper.attributes('rel')).toEqual('alternate')
@@ -150,7 +150,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes().length).toBe(1)
 
@@ -188,7 +188,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
 
     expect(document.activeElement).not.toBe(wrapper.element)
     wrapper.vm.focus()
@@ -213,7 +213,7 @@ describe('b-link', () => {
           }
         }
       })
-      expect(wrapper.is('a')).toBe(true)
+      expect(wrapper.element.tagName).toBe('A')
       expect(called).toBe(0)
       expect(evt).toEqual(null)
       await wrapper.find('a').trigger('click')
@@ -231,7 +231,7 @@ describe('b-link', () => {
           click: [spy1, spy2]
         }
       })
-      expect(wrapper.is('a')).toBe(true)
+      expect(wrapper.element.tagName).toBe('A')
       expect(spy1).not.toHaveBeenCalled()
       expect(spy2).not.toHaveBeenCalled()
       await wrapper.find('a').trigger('click')
@@ -255,7 +255,7 @@ describe('b-link', () => {
           }
         }
       })
-      expect(wrapper.is('a')).toBe(true)
+      expect(wrapper.element.tagName).toBe('A')
       expect(called).toBe(0)
       expect(evt).toEqual(null)
       await wrapper.find('a').trigger('click')
@@ -272,7 +272,7 @@ describe('b-link', () => {
         }
       })
       const spy = jest.fn()
-      expect(wrapper.is('a')).toBe(true)
+      expect(wrapper.element.tagName).toBe('A')
       wrapper.find('a').element.addEventListener('click', spy)
       await wrapper.find('a').trigger('click')
       expect(spy).not.toHaveBeenCalled()
@@ -356,7 +356,7 @@ describe('b-link', () => {
       })
 
       expect(wrapper.vm).toBeDefined()
-      expect(wrapper.is('main')).toBe(true)
+      expect(wrapper.element.tagName).toBe('MAIN')
 
       expect(wrapper.findAll('a').length).toBe(4)
 

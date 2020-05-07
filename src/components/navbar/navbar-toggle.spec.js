@@ -10,7 +10,7 @@ describe('navbar-toggle', () => {
       }
     })
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
 
     wrapper.destroy()
   })

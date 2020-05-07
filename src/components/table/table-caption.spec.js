@@ -14,7 +14,7 @@ describe('table > caption', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('caption').exists()).toBe(false)
 
     wrapper.destroy()
@@ -31,7 +31,7 @@ describe('table > caption', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('table > caption').exists()).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
@@ -55,7 +55,7 @@ describe('table > caption', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('table > caption').exists()).toBe(true)
     expect(scope).toEqual({}) /* scoped is an empty object for caption */
     expect(
@@ -78,7 +78,7 @@ describe('table > caption', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('table > caption').exists()).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
@@ -96,7 +96,7 @@ describe('table > caption', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('table > caption').exists()).toBe(true)
     expect(
       wrapper
@@ -121,7 +121,7 @@ describe('table > caption', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('table > caption').exists()).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
@@ -141,7 +141,7 @@ describe('table > caption', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.attributes('id')).toBe('zzz')
     await waitNT(wrapper.vm)
     expect(wrapper.find('table > caption').exists()).toBe(true)
@@ -163,7 +163,7 @@ describe('table > caption', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.attributes('id')).toBe('zzz')
     await waitNT(wrapper.vm)
     expect(wrapper.find('table > caption').exists()).toBe(true)

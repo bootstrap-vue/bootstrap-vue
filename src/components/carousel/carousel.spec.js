@@ -54,7 +54,7 @@ describe('carousel', () => {
 
     // Outer wrapper
     // <div role="region" aria-busy="false" class="carousel slide" id="__BVID__52"></div>
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).toContain('slide')
     expect(wrapper.classes().length).toBe(2)
@@ -125,7 +125,7 @@ describe('carousel', () => {
 
     // Outer wrapper
     // <div role="region" aria-busy="false" class="carousel slide" id="__BVID__52"></div>
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).toContain('slide')
     expect(wrapper.classes().length).toBe(2)
@@ -144,8 +144,8 @@ describe('carousel', () => {
     expect(wrapper.findAll('a').length).toBe(2)
     const $prev = wrapper.find('.carousel > .carousel-control-prev')
     const $next = wrapper.find('.carousel > .carousel-control-next')
-    expect($prev.is('a')).toBe(true)
-    expect($next.is('a')).toBe(true)
+    expect($prev.element.tagName).toBe('A')
+    expect($next.element.tagName).toBe('A')
     expect($prev.attributes('href')).toEqual('#')
     expect($next.attributes('href')).toEqual('#')
     expect($prev.attributes('role')).toEqual('button')
@@ -189,7 +189,7 @@ describe('carousel', () => {
 
     // Outer wrapper
     // <div role="region" aria-busy="false" class="carousel slide" id="__BVID__52"></div>
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).toContain('slide')
     expect(wrapper.classes().length).toBe(2)

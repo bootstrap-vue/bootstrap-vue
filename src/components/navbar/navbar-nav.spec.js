@@ -5,7 +5,7 @@ describe('navbar-nav', () => {
   it('default has tag "ul"', async () => {
     const wrapper = mount(BNavbarNav)
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
 
     wrapper.destroy()
   })
@@ -26,7 +26,7 @@ describe('navbar-nav', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('navbar-nav')
     expect(wrapper.classes().length).toBe(1)
 

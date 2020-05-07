@@ -68,7 +68,7 @@ describe('v-b-popover directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     const $button = wrapper.find('button')
 
     // Should have instance of popover class on it
@@ -95,7 +95,7 @@ describe('v-b-popover directive', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     const $button = wrapper.find('button')
     await waitNT(wrapper.vm)
     await waitRAF()

@@ -25,7 +25,7 @@ describe('v-b-modal directive', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.find('button').attributes('tabindex')).not.toBeDefined()
     expect(wrapper.find('button').attributes('role')).not.toBeDefined()
     expect(spy).not.toHaveBeenCalled()
@@ -64,7 +64,7 @@ describe('v-b-modal directive', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('a').attributes('role')).toBe('button')
     expect(wrapper.find('a').attributes('tabindex')).not.toBeDefined()
@@ -106,7 +106,7 @@ describe('v-b-modal directive', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('span').attributes('role')).toBe('button')
     expect(wrapper.find('span').attributes('tabindex')).toBe('0')
@@ -154,7 +154,7 @@ describe('v-b-modal directive', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('span').attributes('role')).toBe('button')
     expect(wrapper.find('span').attributes('tabindex')).toBe('0')
@@ -195,7 +195,7 @@ describe('v-b-modal directive', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('span').attributes('role')).toBe('button')
     expect(wrapper.find('span').text()).toBe('span')

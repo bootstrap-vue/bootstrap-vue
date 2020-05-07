@@ -34,7 +34,7 @@ describe('v-b-toggle directive', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
     expect(wrapper.find('button').classes()).not.toContain('collapsed')
@@ -72,7 +72,7 @@ describe('v-b-toggle directive', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
     expect(wrapper.find('button').classes()).not.toContain('collapsed')
@@ -116,7 +116,7 @@ describe('v-b-toggle directive', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('span').attributes('role')).toBe('button')
     expect(wrapper.find('span').attributes('aria-controls')).toBe('test')
@@ -161,7 +161,7 @@ describe('v-b-toggle directive', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
     expect(wrapper.find('button').classes()).not.toContain('collapsed')
@@ -200,7 +200,7 @@ describe('v-b-toggle directive', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
     expect(wrapper.find('button').classes()).not.toContain('collapsed')

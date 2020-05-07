@@ -5,7 +5,7 @@ describe('embed', () => {
   it('default should have expected default structure', async () => {
     const wrapper = mount(BEmbed)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('embed-responsive')
     expect(wrapper.classes()).toContain('embed-responsive-16by9')
     expect(wrapper.classes().length).toBe(2)
@@ -24,7 +24,7 @@ describe('embed', () => {
       }
     })
 
-    expect(wrapper.is('aside')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ASIDE')
     expect(wrapper.classes()).toContain('embed-responsive')
     expect(wrapper.classes()).toContain('embed-responsive-16by9')
     expect(wrapper.classes().length).toBe(2)
@@ -40,7 +40,7 @@ describe('embed', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('embed-responsive')
     expect(wrapper.classes()).toContain('embed-responsive-16by9')
     expect(wrapper.classes().length).toBe(2)
@@ -58,7 +58,7 @@ describe('embed', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('embed-responsive')
     expect(wrapper.classes()).toContain('embed-responsive-4by3')
     expect(wrapper.classes().length).toBe(2)
@@ -74,7 +74,7 @@ describe('embed', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('embed-responsive')
     expect(wrapper.findAll('iframe').length).toBe(1)
     expect(wrapper.find('iframe').classes()).toContain('embed-responsive-item')
@@ -96,7 +96,7 @@ describe('embed', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('embed-responsive')
     expect(wrapper.classes()).toContain('embed-responsive-16by9')
     expect(wrapper.classes().length).toBe(2)

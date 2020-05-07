@@ -6,10 +6,10 @@ import { BDropdownItem } from './dropdown-item'
 describe('dropdown-item', () => {
   it('renders with tag "a" and href="#" by default', async () => {
     const wrapper = mount(BDropdownItem)
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const item = wrapper.find('a')
-    expect(item.is('a')).toBe(true)
+    expect(item.element.tagName).toBe('A')
     expect(item.attributes('href')).toBe('#')
 
     wrapper.destroy()
@@ -17,7 +17,7 @@ describe('dropdown-item', () => {
 
   it('has class "dropdown-item"', async () => {
     const wrapper = mount(BDropdownItem)
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const item = wrapper.find('a')
     expect(item.classes()).toContain('dropdown-item')
@@ -39,7 +39,7 @@ describe('dropdown-item', () => {
         }
       }
     })
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const item = wrapper.find('a')
     expect(item).toBeDefined()
@@ -65,7 +65,7 @@ describe('dropdown-item', () => {
         }
       }
     })
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const item = wrapper.find('a')
     expect(item).toBeDefined()
@@ -83,7 +83,7 @@ describe('dropdown-item', () => {
         linkClass: 'link-class'
       }
     })
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const item = wrapper.find('a')
     expect(item.classes()).toContain('link-class')
@@ -129,7 +129,7 @@ describe('dropdown-item', () => {
       })
 
       expect(wrapper.vm).toBeDefined()
-      expect(wrapper.is('ul')).toBe(true)
+      expect(wrapper.element.tagName).toBe('UL')
 
       expect(wrapper.findAll('li').length).toBe(4)
       expect(wrapper.findAll('a').length).toBe(4)

@@ -5,7 +5,7 @@ describe('img', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BImg)
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.attributes('width')).not.toBeDefined()
     expect(wrapper.attributes('height')).not.toBeDefined()
@@ -20,7 +20,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
 
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toEqual('/foo/bar')
@@ -38,7 +38,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
     expect(wrapper.classes()).toContain('img-fluid')
     expect(wrapper.classes().length).toBe(1)
 
@@ -53,7 +53,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
     expect(wrapper.classes()).toContain('img-fluid')
     expect(wrapper.classes()).toContain('w-100')
     expect(wrapper.classes().length).toBe(2)
@@ -69,7 +69,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
     expect(wrapper.classes()).toContain('img-thumbnail')
     expect(wrapper.classes().length).toBe(1)
 
@@ -84,7 +84,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
     expect(wrapper.classes()).toContain('rounded')
     expect(wrapper.classes().length).toBe(1)
 
@@ -99,7 +99,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
     expect(wrapper.classes()).toContain('rounded-circle')
     expect(wrapper.classes().length).toBe(1)
 
@@ -114,7 +114,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
     expect(wrapper.classes()).toContain('float-left')
     expect(wrapper.classes().length).toBe(1)
 
@@ -129,7 +129,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
     expect(wrapper.classes()).toContain('float-right')
     expect(wrapper.classes().length).toBe(1)
 
@@ -144,7 +144,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
     expect(wrapper.classes()).toContain('mx-auto')
     expect(wrapper.classes()).toContain('d-block')
     expect(wrapper.classes().length).toBe(2)
@@ -159,7 +159,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
 
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
@@ -177,7 +177,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
 
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
@@ -195,7 +195,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
 
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
@@ -214,7 +214,7 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
 
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toEqual('/foo/bar')

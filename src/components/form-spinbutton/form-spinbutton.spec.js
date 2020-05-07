@@ -23,13 +23,13 @@ describe('form-spinbutton', () => {
 
     const $decrement = wrapper.find('[aria-label="Decrement"]')
     expect($decrement.exists()).toBe(true)
-    expect($decrement.is('button')).toBe(true)
+    expect($decrement.element.tagName).toBe('BUTTON')
     expect($decrement.attributes('tabindex')).toEqual('-1')
     expect($decrement.attributes('aria-keyshortcuts')).toEqual('ArrowDown')
 
     const $increment = wrapper.find('[aria-label="Increment"]')
     expect($increment.exists()).toBe(true)
-    expect($increment.is('button')).toBe(true)
+    expect($increment.element.tagName).toBe('BUTTON')
     expect($increment.attributes('tabindex')).toEqual('-1')
     expect($increment.attributes('aria-keyshortcuts')).toEqual('ArrowUp')
 
@@ -80,13 +80,13 @@ describe('form-spinbutton', () => {
 
     const $decrement = wrapper.find('[aria-label="Decrement"]')
     expect($decrement.exists()).toBe(true)
-    expect($decrement.is('button')).toBe(true)
+    expect($decrement.element.tagName).toBe('BUTTON')
     expect($decrement.attributes('tabindex')).toEqual('-1')
     expect($decrement.attributes('aria-keyshortcuts')).toEqual('ArrowDown')
 
     const $increment = wrapper.find('[aria-label="Increment"]')
     expect($increment.exists()).toBe(true)
-    expect($increment.is('button')).toBe(true)
+    expect($increment.element.tagName).toBe('BUTTON')
     expect($increment.attributes('tabindex')).toEqual('-1')
     expect($increment.attributes('aria-keyshortcuts')).toEqual('ArrowUp')
 
@@ -137,13 +137,13 @@ describe('form-spinbutton', () => {
 
     const $decrement = wrapper.find('[aria-label="Decrement"]')
     expect($decrement.exists()).toBe(true)
-    expect($decrement.is('button')).toBe(true)
+    expect($decrement.element.tagName).toBe('BUTTON')
     expect($decrement.attributes('tabindex')).toEqual('-1')
     expect($decrement.attributes('aria-keyshortcuts')).toEqual('ArrowDown')
 
     const $increment = wrapper.find('[aria-label="Increment"]')
     expect($increment.exists()).toBe(true)
-    expect($increment.is('button')).toBe(true)
+    expect($increment.element.tagName).toBe('BUTTON')
     expect($increment.attributes('tabindex')).toEqual('-1')
     expect($increment.attributes('aria-keyshortcuts')).toEqual('ArrowUp')
 
@@ -185,13 +185,13 @@ describe('form-spinbutton', () => {
 
     const $decrement = wrapper.find('[aria-label="Decrement"]')
     expect($decrement.exists()).toBe(true)
-    expect($decrement.is('button')).toBe(true)
+    expect($decrement.element.tagName).toBe('BUTTON')
     expect($decrement.attributes('tabindex')).toEqual('-1')
     expect($decrement.attributes('aria-keyshortcuts')).toEqual('ArrowDown')
 
     const $increment = wrapper.find('[aria-label="Increment"]')
     expect($increment.exists()).toBe(true)
-    expect($increment.is('button')).toBe(true)
+    expect($increment.element.tagName).toBe('BUTTON')
     expect($increment.attributes('tabindex')).toEqual('-1')
     expect($increment.attributes('aria-keyshortcuts')).toEqual('ArrowUp')
 

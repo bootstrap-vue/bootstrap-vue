@@ -18,7 +18,7 @@ describe('utils/transporter component', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.text()).toEqual('content')
 
     wrapper.destroy()

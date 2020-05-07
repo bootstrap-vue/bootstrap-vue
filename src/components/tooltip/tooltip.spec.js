@@ -113,7 +113,7 @@ describe('b-tooltip', () => {
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
     expect(wrapper.classes()).not.toContain('modal-content')
@@ -157,7 +157,7 @@ describe('b-tooltip', () => {
     await waitRAF()
     jest.runOnlyPendingTimers()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -245,7 +245,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -270,7 +270,7 @@ describe('b-tooltip', () => {
     expect(tip).not.toBe(null)
     expect(tip).toBeInstanceOf(HTMLElement)
     const $tip = createWrapper(tip)
-    expect($tip.is('div')).toBe(true)
+    expect($tip.element.tagName).toBe('DIV')
     expect($tip.classes()).toContain('tooltip')
     expect($tip.classes()).toContain('b-tooltip')
     // Should contain our title prop value
@@ -313,7 +313,7 @@ describe('b-tooltip', () => {
     await waitRAF()
     jest.runOnlyPendingTimers()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -380,7 +380,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -459,7 +459,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -539,7 +539,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -644,7 +644,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -727,7 +727,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -801,7 +801,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -874,7 +874,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -949,7 +949,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
     expect(wrapper.classes()).not.toContain('modal-content')
@@ -1024,7 +1024,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
     expect(wrapper.classes()).toContain('modal-content')
@@ -1100,7 +1100,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -1210,7 +1210,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -1267,7 +1267,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -1321,7 +1321,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 

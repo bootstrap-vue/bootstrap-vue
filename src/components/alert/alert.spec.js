@@ -9,6 +9,7 @@ vtuConfig.stubs.transition = false
 describe('alert', () => {
   it('hidden alert renders comment node', async () => {
     const wrapper = mount(BAlert)
+
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.element).toBeEmpty()
@@ -23,6 +24,7 @@ describe('alert', () => {
         show: '0'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.element).toBeEmpty()
@@ -37,6 +39,7 @@ describe('alert', () => {
         show: 0
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.element).toBeEmpty()
@@ -51,12 +54,13 @@ describe('alert', () => {
         show: true
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('DIV')
 
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
     expect(wrapper.classes()).not.toContain('fade')
@@ -75,12 +79,13 @@ describe('alert', () => {
         show: ''
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('DIV')
 
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
     expect(wrapper.classes()).not.toContain('fade')
@@ -100,11 +105,12 @@ describe('alert', () => {
         variant: 'success'
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('DIV')
 
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-success')
     expect(wrapper.attributes('role')).toBe('alert')
@@ -123,8 +129,9 @@ describe('alert', () => {
         default: '<article>foobar</article>'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     await waitNT(wrapper.vm)
 
@@ -145,7 +152,7 @@ describe('alert', () => {
     await wrapper.setProps({ show: true })
 
     expect(wrapper.html()).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
 
@@ -159,9 +166,10 @@ describe('alert', () => {
         dismissible: true
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
     expect(wrapper.classes()).toContain('alert-dismissible')
@@ -176,9 +184,10 @@ describe('alert', () => {
         dismissible: true
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.find('button').classes()).toContain('close')
     expect(wrapper.find('button').attributes('aria-label')).toBe('Close')
@@ -194,9 +203,10 @@ describe('alert', () => {
         dismissLabel: 'foobar'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.find('button').classes()).toContain('close')
     expect(wrapper.find('button').attributes('aria-label')).toBe('foobar')
@@ -211,9 +221,10 @@ describe('alert', () => {
         dismissible: true
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert-dismissible')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.find('button').exists()).toBe(true)
@@ -240,12 +251,13 @@ describe('alert', () => {
         fade: true
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).not.toBeDefined()
 
     await wrapper.setProps({ show: true })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
     expect(wrapper.classes()).toContain('fade')
@@ -272,6 +284,7 @@ describe('alert', () => {
         show: 3
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
 
@@ -309,6 +322,7 @@ describe('alert', () => {
         show: '3'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
 
@@ -346,6 +360,7 @@ describe('alert', () => {
         show: 2
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
 
@@ -397,6 +412,7 @@ describe('alert', () => {
         dismissible: true
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
 

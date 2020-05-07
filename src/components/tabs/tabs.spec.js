@@ -14,7 +14,7 @@ describe('tabs', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('tabs')
     expect(wrapper.classes()).not.toContain('row')
     expect(wrapper.classes()).not.toContain('no-gutters')
@@ -43,7 +43,7 @@ describe('tabs', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('tabs')
     expect(wrapper.findAll('.card-header').length).toBe(1)
     expect(wrapper.findAll('ul').length).toBe(1)
@@ -65,7 +65,7 @@ describe('tabs', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('tabs')
     expect(wrapper.classes()).toContain('row')
     expect(wrapper.classes()).toContain('no-gutters')

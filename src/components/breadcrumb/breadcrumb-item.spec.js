@@ -5,7 +5,7 @@ describe('breadcrumb-item', () => {
   it('has default classes and structure', async () => {
     const wrapper = mount(BBreadcrumbItem)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes().length).toBe(1)
@@ -20,7 +20,7 @@ describe('breadcrumb-item', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)
@@ -31,7 +31,7 @@ describe('breadcrumb-item', () => {
   it('has link as child', async () => {
     const wrapper = mount(BBreadcrumbItem)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.find('a').exists()).toBe(true)
     expect(wrapper.find('a').attributes('href')).toBe('#')
 
@@ -45,7 +45,7 @@ describe('breadcrumb-item', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.find('a').exists()).toBe(true)
     expect(wrapper.find('a').attributes('href')).toBe('/foo/bar')
 
@@ -59,7 +59,7 @@ describe('breadcrumb-item', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)
@@ -76,7 +76,7 @@ describe('breadcrumb-item', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)
@@ -93,7 +93,7 @@ describe('breadcrumb-item', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)
@@ -112,7 +112,7 @@ describe('breadcrumb-item', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)

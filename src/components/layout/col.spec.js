@@ -5,7 +5,7 @@ describe('layout > col', () => {
   it('should have default expected structure', async () => {
     const wrapper = mount(BCol)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('col')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.col > *').length).toBe(0)
@@ -21,7 +21,7 @@ describe('layout > col', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('col')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.col > *').length).toBe(0)
@@ -41,7 +41,7 @@ describe('layout > col', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('col-6')
     expect(wrapper.classes()).toContain('col-sm-5')
     expect(wrapper.classes()).toContain('col-md-4')
@@ -59,7 +59,7 @@ describe('layout > col', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('col-sm-5')
     expect(wrapper.classes().length).toBe(1)
 
@@ -77,7 +77,7 @@ describe('layout > col', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('col')
     expect(wrapper.classes()).toContain('offset-6')
     expect(wrapper.classes()).toContain('offset-sm-5')
@@ -100,7 +100,7 @@ describe('layout > col', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('col')
     expect(wrapper.classes()).toContain('order-6')
     expect(wrapper.classes()).toContain('order-sm-5')
@@ -123,7 +123,7 @@ describe('layout > col', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('col')
     expect(wrapper.classes()).toContain('col-sm')
     expect(wrapper.classes()).toContain('col-md')
@@ -144,7 +144,7 @@ describe('layout > col', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('col-sm')
     expect(wrapper.classes()).toContain('col-md')
     expect(wrapper.classes()).toContain('col-lg')
@@ -161,7 +161,7 @@ describe('layout > col', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('col')
     expect(wrapper.classes()).toContain('align-self-center')
     expect(wrapper.classes().length).toBe(2)

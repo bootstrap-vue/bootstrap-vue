@@ -19,7 +19,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -44,7 +44,7 @@ describe('pagination', () => {
         value: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     const lis = wrapper.findAll('li')
     expect(lis).toBeDefined()
     expect(lis.length).toBe(5)
@@ -56,11 +56,11 @@ describe('pagination', () => {
       if (index === 2) {
         expect(li.classes()).toContain('active')
         expect(li.classes()).not.toContain('disabled')
-        expect(pageLink.is('button')).toBe(true)
+        expect(pageLink.element.tagName).toBe('BUTTON')
       } else {
         expect(li.classes()).not.toContain('active')
         expect(li.classes()).toContain('disabled')
-        expect(pageLink.is('span')).toBe(true)
+        expect(pageLink.element.tagName).toBe('SPAN')
       }
     })
 
@@ -150,7 +150,7 @@ describe('pagination', () => {
         limit: 10
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(5)
 
     await wrapper.setProps({
@@ -158,7 +158,7 @@ describe('pagination', () => {
     })
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(8)
 
     await wrapper.setProps({
@@ -166,7 +166,7 @@ describe('pagination', () => {
     })
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(6)
 
     wrapper.destroy()
@@ -180,7 +180,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -204,7 +204,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -229,7 +229,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -254,7 +254,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination-foo')
     expect(wrapper.classes()).toContain('pagination')
@@ -280,7 +280,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -305,7 +305,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -330,7 +330,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -357,7 +357,7 @@ describe('pagination', () => {
         value: 3
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
 
     // Classes
     expect(wrapper.classes()).toContain('text-center')
@@ -385,7 +385,7 @@ describe('pagination', () => {
         ariaControls: 'foo'
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(5)
     expect(wrapper.findAll('button.page-link').length).toBe(4)
     expect(wrapper.findAll('button.page-link').is('[aria-controls="foo"]')).toBe(true)
@@ -411,7 +411,7 @@ describe('pagination', () => {
         value: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(5)
     expect(wrapper.findAll('button').length).toBe(4)
     expect(
@@ -451,7 +451,7 @@ describe('pagination', () => {
         disabled: true
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(7)
     expect(wrapper.findAll('.page-item').length).toBe(7)
     expect(wrapper.findAll('.page-item').is('li.page-item.disabled')).toBe(true)
@@ -487,7 +487,7 @@ describe('pagination', () => {
         value: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     const lis = wrapper.findAll('li')
     expect(lis).toBeDefined()
     // Including bookend buttons
@@ -595,7 +595,7 @@ describe('pagination', () => {
         value: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
 
     // Should have ellipsis in place of last button
     // When currentPage = 0
@@ -639,7 +639,7 @@ describe('pagination', () => {
         value: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
 
     // Grab the page buttons
     const lis = wrapper.findAll('li')
@@ -693,7 +693,7 @@ describe('pagination', () => {
         limit: 10
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
 
     // Should be 13 <li> total
     expect(wrapper.findAll('li').length).toBe(13)
@@ -1024,7 +1024,7 @@ describe('pagination', () => {
         attachTo: createContainer()
       })
       await waitNT(wrapper.vm)
-      expect(wrapper.is('ul')).toBe(true)
+      expect(wrapper.element.tagName).toBe('UL')
       await waitNT(wrapper.vm)
       // Grab the button links (2 bookends + 3 pages + 2 bookends)
       const links = wrapper.findAll('button.page-link')
@@ -1079,7 +1079,7 @@ describe('pagination', () => {
         attachTo: createContainer()
       })
       await waitNT(wrapper.vm)
-      expect(wrapper.is('ul')).toBe(true)
+      expect(wrapper.element.tagName).toBe('UL')
       // Grab the button links (2 bookends + 3 pages + 2 bookends)
       const links = wrapper.findAll('button.page-link')
       expect(links.length).toBe(7)
@@ -1109,7 +1109,7 @@ describe('pagination', () => {
       let links
 
       await waitNT(wrapper.vm)
-      expect(wrapper.is('ul')).toBe(true)
+      expect(wrapper.element.tagName).toBe('UL')
       // Grab the button links (2 disabled bookends + 4 pages + (-ellipsis) + 2 bookends)
       links = wrapper.findAll('button.page-link')
       expect(links.length).toBe(6)

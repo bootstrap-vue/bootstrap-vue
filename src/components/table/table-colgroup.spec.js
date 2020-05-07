@@ -15,7 +15,7 @@ describe('table > colgroup', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('colgroup').exists()).toBe(false)
 
     wrapper.destroy()
@@ -32,7 +32,7 @@ describe('table > colgroup', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('table > colgroup').exists()).toBe(true)
     expect(
       wrapper
@@ -62,7 +62,7 @@ describe('table > colgroup', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     await waitNT(wrapper.vm)
     expect(columns).toBe(3)
     expect(fields).toEqual(normalizeFields(testFields))

@@ -5,7 +5,7 @@ describe('card-group', () => {
   it('has root element "div"', async () => {
     const wrapper = mount(BCardGroup)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     wrapper.destroy()
   })
@@ -28,7 +28,7 @@ describe('card-group', () => {
       }
     })
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.classes()).toContain('card-group')
 
     wrapper.destroy()

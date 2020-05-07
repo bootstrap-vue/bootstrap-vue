@@ -5,10 +5,10 @@ describe('dropdown-text', () => {
   it('renders with tag "p" by default', async () => {
     const wrapper = mount(BDropdownText)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const text = wrapper.find('p')
-    expect(text.is('p')).toBe(true)
+    expect(text.element.tagName).toBe('P')
 
     wrapper.destroy()
   })
@@ -16,7 +16,7 @@ describe('dropdown-text', () => {
   it('has custom class "b-dropdown-text"', async () => {
     const wrapper = mount(BDropdownText)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const text = wrapper.find('p')
     expect(text.classes()).toContain('b-dropdown-text')
@@ -31,10 +31,10 @@ describe('dropdown-text', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const text = wrapper.find('div')
-    expect(text.is('div')).toBe(true)
+    expect(text.element.tagName).toBe('DIV')
     expect(text.classes()).toContain('b-dropdown-text')
 
     wrapper.destroy()

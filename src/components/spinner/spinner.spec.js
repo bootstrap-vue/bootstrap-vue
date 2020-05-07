@@ -6,7 +6,7 @@ describe('spinner', () => {
     const wrapper = mount(BSpinner)
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.find('span.sr-only').exists()).toBe(false)
 
     wrapper.destroy()
@@ -19,7 +19,7 @@ describe('spinner', () => {
       }
     })
 
-    expect(wrapper.is('aside')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ASIDE')
 
     wrapper.destroy()
   })
@@ -35,7 +35,7 @@ describe('spinner', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.find('span').exists()).toBe(true)
     expect(wrapper.text()).toBe('Loading...')
 

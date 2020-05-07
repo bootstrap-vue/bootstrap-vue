@@ -5,7 +5,7 @@ describe('badge', () => {
   it('should have base classes', async () => {
     const wrapper = mount(BBadge)
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('badge-pill')
@@ -23,7 +23,7 @@ describe('badge', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.text()).toBe('foobar')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).toContain('badge-secondary')
@@ -42,7 +42,7 @@ describe('badge', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('badge-danger')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).not.toContain('badge-pill')
@@ -59,7 +59,7 @@ describe('badge', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('badge-pill')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).toContain('badge-secondary')
@@ -76,7 +76,7 @@ describe('badge', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).toContain('badge')
@@ -93,7 +93,7 @@ describe('badge', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('disabled')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).toContain('badge')
@@ -110,7 +110,7 @@ describe('badge', () => {
       }
     })
 
-    expect(wrapper.is('small')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SMALL')
     expect(wrapper.classes()).toContain('badge')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('badge-pill')
@@ -127,7 +127,7 @@ describe('badge', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toBeDefined()
     expect(wrapper.attributes('href')).toBe('/foo/bar')
     expect(wrapper.classes()).toContain('badge')

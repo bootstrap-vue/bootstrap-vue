@@ -12,7 +12,7 @@ describe('calendar', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -190,7 +190,7 @@ describe('calendar', () => {
 
     const $grid = wrapper.find('[role="application"]')
     expect($grid.exists()).toBe(true)
-    expect($grid.is('div')).toBe(true)
+    expect($grid.element.tagName).toBe('DIV')
 
     expect(document.activeElement).not.toBe($grid.element)
 
@@ -223,7 +223,7 @@ describe('calendar', () => {
 
     const $grid = wrapper.find('[role="application"]')
     expect($grid.exists()).toBe(true)
-    expect($grid.is('div')).toBe(true)
+    expect($grid.element.tagName).toBe('DIV')
 
     expect(document.activeElement).not.toBe($grid.element)
 

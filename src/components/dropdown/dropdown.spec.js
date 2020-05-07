@@ -43,7 +43,7 @@ describe('dropdown', () => {
       attachTo: createContainer()
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     // Wait for auto ID to be generated
@@ -72,7 +72,7 @@ describe('dropdown', () => {
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     const $menu = wrapper.find('.dropdown-menu')
-    expect($menu.is('ul')).toBe(true)
+    expect($menu.element.tagName).toBe('UL')
     expect($menu.classes().length).toBe(1)
     expect($menu.attributes('role')).toBeDefined()
     expect($menu.attributes('role')).toEqual('menu')
@@ -93,7 +93,7 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     // Wait for auto ID to be generated
@@ -138,7 +138,7 @@ describe('dropdown', () => {
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     const $menu = wrapper.find('.dropdown-menu')
-    expect($menu.is('ul')).toBe(true)
+    expect($menu.element.tagName).toBe('UL')
     expect($menu.classes().length).toBe(1)
     expect($menu.attributes('role')).toBeDefined()
     expect($menu.attributes('role')).toEqual('menu')
@@ -160,7 +160,7 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
@@ -189,7 +189,7 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
@@ -210,7 +210,7 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
@@ -228,7 +228,7 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.attributes('id')).toBeDefined()
@@ -301,7 +301,7 @@ describe('dropdown', () => {
         toggleTag: 'div'
       }
     })
-    expect(wrapper.find('.dropdown-toggle').is('div')).toBe(true)
+    expect(wrapper.find('.dropdown-toggle').element.tagName).toBe('DIV')
     wrapper.destroy()
   })
 
@@ -412,7 +412,7 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.emitted('click')).not.toBeDefined()
 
@@ -600,7 +600,7 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -728,7 +728,7 @@ describe('dropdown', () => {
     const wrapper = mount(BDropdown, {
       attachTo: createContainer()
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.classes()).not.toContain('position-static')
@@ -742,7 +742,7 @@ describe('dropdown', () => {
         boundary: 'viewport'
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.classes()).toContain('position-static')
@@ -757,13 +757,13 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.findAll('.btn').length).toBe(1)
     const $toggle = wrapper.find('.btn')
 
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
     expect($toggle.classes()).toContain('btn-lg')
 
     wrapper.destroy()
@@ -778,16 +778,16 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.findAll('.btn').length).toBe(2)
     const $split = wrapper.findAll('.btn').at(0)
     const $toggle = wrapper.findAll('.btn').at(1)
 
-    expect($split.is('button')).toBe(true)
+    expect($split.element.tagName).toBe('BUTTON')
     expect($split.classes()).toContain('btn-lg')
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
     expect($toggle.classes()).toContain('btn-lg')
 
     wrapper.destroy()
@@ -801,13 +801,13 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.findAll('.btn').length).toBe(1)
     const $toggle = wrapper.find('.btn')
 
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
     expect($toggle.text()).toEqual('foobar')
 
     wrapper.destroy()
@@ -822,13 +822,13 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.findAll('.btn').length).toBe(2)
     const $split = wrapper.findAll('.btn').at(0)
 
-    expect($split.is('button')).toBe(true)
+    expect($split.element.tagName).toBe('BUTTON')
     expect($split.text()).toEqual('foobar')
 
     wrapper.destroy()
@@ -842,13 +842,13 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.findAll('.btn').length).toBe(1)
     const $toggle = wrapper.find('.btn')
 
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
     expect($toggle.classes()).toContain('btn-primary')
     expect($toggle.classes()).not.toContain('btn-secondary')
 
@@ -864,18 +864,18 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.findAll('.btn').length).toBe(2)
     const $split = wrapper.findAll('.btn').at(0)
     const $toggle = wrapper.findAll('.btn').at(1)
 
-    expect($split.is('button')).toBe(true)
+    expect($split.element.tagName).toBe('BUTTON')
     expect($split.classes()).toContain('btn-primary')
     expect($split.classes()).not.toContain('btn-secondary')
 
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
     expect($toggle.classes()).toContain('btn-primary')
     expect($toggle.classes()).not.toContain('btn-secondary')
 
@@ -898,7 +898,7 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.findAll('.btn').length).toBe(2)
@@ -906,9 +906,9 @@ describe('dropdown', () => {
     const $split = $buttons.at(0)
     const $toggle = $buttons.at(1)
 
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
 
-    expect($split.is('a')).toBe(true)
+    expect($split.element.tagName).toBe('A')
     expect($split.classes()).toContain('btn')
     expect($split.classes()).toContain('btn-secondary')
     expect($split.attributes('href')).toBeDefined()
@@ -926,7 +926,7 @@ describe('dropdown', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.findAll('.btn').length).toBe(2)
@@ -934,9 +934,9 @@ describe('dropdown', () => {
     const $split = $buttons.at(0)
     const $toggle = $buttons.at(1)
 
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
 
-    expect($split.is('a')).toBe(true)
+    expect($split.element.tagName).toBe('A')
     expect($split.classes()).toContain('btn')
     expect($split.classes()).toContain('btn-secondary')
     expect($split.attributes('href')).toBeDefined()

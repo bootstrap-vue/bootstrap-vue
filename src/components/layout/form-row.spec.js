@@ -5,7 +5,7 @@ describe('layout > form-row', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormRow)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
@@ -20,7 +20,7 @@ describe('layout > form-row', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
@@ -35,7 +35,7 @@ describe('layout > form-row', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')

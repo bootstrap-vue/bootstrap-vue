@@ -16,7 +16,7 @@ describe('form-checkbox', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     const children = wrapper.element.children
     expect(children.length).toEqual(2)
     expect(children[0].tagName).toEqual('INPUT')
@@ -396,7 +396,7 @@ describe('form-checkbox', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     const children = wrapper.element.children
     expect(children.length).toEqual(2)
     expect(children[0].tagName).toEqual('INPUT')
@@ -607,7 +607,7 @@ describe('form-checkbox', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     const children = wrapper.element.children
     expect(children.length).toEqual(2)
     expect(children[0].tagName).toEqual('INPUT')
@@ -700,7 +700,7 @@ describe('form-checkbox', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     const label = wrapper.element.children
     expect(label.length).toEqual(1)
     expect(label[0].tagName).toEqual('LABEL')

@@ -8,7 +8,7 @@ import { BButtonToolbar } from './button-toolbar'
 describe('button-toolbar', () => {
   it('toolbar root should be "div"', async () => {
     const wrapper = mount(BButtonToolbar)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     wrapper.destroy()
   })
 

@@ -14,7 +14,7 @@ describe('tab', () => {
 
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('tab-pane')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('active')

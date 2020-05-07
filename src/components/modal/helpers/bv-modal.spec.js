@@ -96,7 +96,7 @@ describe('$bvModal', () => {
     expect(modal).toBeDefined()
     expect(modal).not.toEqual(null)
     const $modal = createWrapper(modal)
-    expect($modal.is('div')).toBe(true)
+    expect($modal.element.tagName).toBe('DIV')
 
     // Find the OK button and click it
     expect($modal.findAll('button').length).toBe(1)
@@ -158,7 +158,7 @@ describe('$bvModal', () => {
     expect(modal).toBeDefined()
     expect(modal).not.toEqual(null)
     const $modal = createWrapper(modal)
-    expect($modal.is('div')).toBe(true)
+    expect($modal.element.tagName).toBe('DIV')
 
     // Find the CANCEL button and click it
     expect($modal.findAll('button').length).toBe(2)

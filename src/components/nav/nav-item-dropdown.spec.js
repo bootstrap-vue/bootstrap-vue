@@ -43,7 +43,7 @@ describe('nav-item-dropdown', () => {
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.findAll('.dropdown-toggle').length).toBe(1)
     const $toggle = wrapper.find('.dropdown-toggle')
-    expect($toggle.is('a')).toBe(true)
+    expect($toggle.element.tagName).toBe('A')
 
     expect($toggle.attributes('aria-disabled')).toBeDefined()
     expect($toggle.attributes('href')).toEqual('#')

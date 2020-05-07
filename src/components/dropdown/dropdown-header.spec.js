@@ -5,10 +5,10 @@ describe('dropdown > dropdown-header', () => {
   it('works', async () => {
     const wrapper = mount(BDropdownHeader)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const header = wrapper.find('header')
-    expect(header.is('header')).toBe(true)
+    expect(header.element.tagName).toBe('HEADER')
     expect(header.classes()).toContain('dropdown-header')
     expect(header.classes().length).toBe(1)
     expect(header.attributes('id')).not.toBeDefined()
@@ -24,10 +24,10 @@ describe('dropdown > dropdown-header', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const header = wrapper.find('h2')
-    expect(header.is('h2')).toBe(true)
+    expect(header.element.tagName).toBe('H2')
     expect(header.classes()).toContain('dropdown-header')
     expect(header.classes().length).toBe(1)
     expect(header.attributes('id')).not.toBeDefined()
@@ -43,10 +43,10 @@ describe('dropdown > dropdown-header', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const header = wrapper.find('header')
-    expect(header.is('header')).toBe(true)
+    expect(header.element.tagName).toBe('HEADER')
     expect(header.classes()).toContain('dropdown-header')
     expect(header.classes().length).toBe(1)
     expect(header.attributes('id')).toBeDefined()
@@ -60,10 +60,10 @@ describe('dropdown > dropdown-header', () => {
       slots: { default: 'foobar' }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const header = wrapper.find('header')
-    expect(header.is('header')).toBe(true)
+    expect(header.element.tagName).toBe('HEADER')
     expect(header.classes()).toContain('dropdown-header')
     expect(header.classes().length).toBe(1)
     expect(header.text()).toEqual('foobar')

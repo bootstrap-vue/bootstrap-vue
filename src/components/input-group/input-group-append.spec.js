@@ -5,7 +5,7 @@ describe('input-group > input-group-append', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BInputGroupAppend)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('input-group-append')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.input-group-append > *').length).toBe(0)
@@ -21,7 +21,7 @@ describe('input-group > input-group-append', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('input-group-append')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.input-group-append > *').length).toBe(0)
@@ -37,7 +37,7 @@ describe('input-group > input-group-append', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('input-group-append')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
@@ -52,7 +52,7 @@ describe('input-group > input-group-append', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('input-group-append')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.input-group-text').length).toBe(1)
@@ -72,7 +72,7 @@ describe('input-group > input-group-append', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('input-group-append')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('.input-group-text').length).toBe(1)

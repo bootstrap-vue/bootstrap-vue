@@ -6,7 +6,7 @@ describe('icons > b-iconstack', () => {
     const wrapper = mount(BIconstack)
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('b-iconstack')
     expect(wrapper.classes()).toContain('bi')
@@ -36,7 +36,7 @@ describe('icons > b-iconstack', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('b-iconstack')
     expect(wrapper.classes()).toContain('bi')
@@ -59,7 +59,7 @@ describe('icons > b-iconstack', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('b-iconstack')
     expect(wrapper.classes()).toContain('bi')
@@ -83,7 +83,7 @@ describe('icons > b-iconstack', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('b-iconstack')
     expect(wrapper.classes()).toContain('bi')
@@ -105,7 +105,7 @@ describe('icons > b-iconstack', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.is('svg')).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.classes()).toContain('b-icon')
     expect(wrapper.classes()).toContain('b-iconstack')
     expect(wrapper.classes()).toContain('bi')

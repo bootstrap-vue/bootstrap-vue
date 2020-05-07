@@ -6,13 +6,13 @@ describe('nav-item', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BNavItem)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('nav-item')
     expect(wrapper.classes().length).toBe(1)
 
     const link = wrapper.find('a')
     expect(link).toBeDefined()
-    expect(link.is('a')).toBe(true)
+    expect(link.element.tagName).toBe('A')
     expect(link.is(BLink)).toBe(true)
     expect(link.classes()).toContain('nav-link')
     expect(link.classes().length).toBe(1)

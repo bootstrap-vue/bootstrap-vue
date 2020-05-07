@@ -5,7 +5,7 @@ describe('breadcrumb', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BBreadcrumb)
 
-    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OL')
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
@@ -20,7 +20,7 @@ describe('breadcrumb', () => {
       }
     })
 
-    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OL')
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('foobar')
@@ -41,7 +41,7 @@ describe('breadcrumb', () => {
       }
     })
 
-    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OL')
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('li').length).toBe(4)
@@ -116,7 +116,7 @@ describe('breadcrumb', () => {
       }
     })
 
-    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OL')
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('li').length).toBe(4)

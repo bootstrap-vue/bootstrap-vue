@@ -12,7 +12,7 @@ describe('time', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.element.hasAttribute('lang')).toBe(true)
     expect(wrapper.element.hasAttribute('aria-labelledby')).toBe(true)

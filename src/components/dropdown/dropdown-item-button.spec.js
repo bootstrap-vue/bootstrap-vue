@@ -4,10 +4,10 @@ import { BDropdownItemButton } from './dropdown-item-button'
 describe('dropdown-item-button', () => {
   it('renders with tag "button" and type="button" by default', async () => {
     const wrapper = mount(BDropdownItemButton)
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const button = wrapper.find('button')
-    expect(button.is('button')).toBe(true)
+    expect(button.element.tagName).toBe('BUTTON')
     expect(button.attributes('type')).toBe('button')
 
     wrapper.destroy()
@@ -15,7 +15,7 @@ describe('dropdown-item-button', () => {
 
   it('has class "dropdown-item"', async () => {
     const wrapper = mount(BDropdownItemButton)
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const button = wrapper.find('button')
     expect(button.classes()).toContain('dropdown-item')
@@ -28,7 +28,7 @@ describe('dropdown-item-button', () => {
     const wrapper = mount(BDropdownItemButton, {
       propsData: { active: true }
     })
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const button = wrapper.find('button')
     expect(button.classes()).toContain('active')
@@ -41,7 +41,7 @@ describe('dropdown-item-button', () => {
     const wrapper = mount(BDropdownItemButton, {
       propsData: { disabled: true }
     })
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const button = wrapper.find('button')
     expect(button.attributes('disabled')).toBeDefined()
@@ -62,7 +62,7 @@ describe('dropdown-item-button', () => {
         }
       }
     })
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const button = wrapper.find('button')
     expect(button).toBeDefined()
@@ -89,7 +89,7 @@ describe('dropdown-item-button', () => {
         }
       }
     })
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const button = wrapper.find('button')
     expect(button).toBeDefined()
@@ -106,7 +106,7 @@ describe('dropdown-item-button', () => {
         buttonClass: 'button-class'
       }
     })
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     const button = wrapper.find('button')
     expect(button.classes()).toContain('button-class')

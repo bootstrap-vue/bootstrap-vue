@@ -10,7 +10,7 @@ describe('form-file', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('custom-file')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toBe('foo__BV_file_outer_')
@@ -186,7 +186,7 @@ describe('form-file', () => {
       }
     })
 
-    expect(wrapper.is('input')).toBe(true)
+    expect(wrapper.element.tagName).toBe('INPUT')
     expect(wrapper.attributes('type')).toBeDefined()
     expect(wrapper.attributes('type')).toBe('file')
     expect(wrapper.attributes('id')).toBeDefined()

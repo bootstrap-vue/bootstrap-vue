@@ -377,7 +377,7 @@ describe('table > provider functions', () => {
       attachTo: createContainer()
     })
 
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
 
     const $table = wrapper.findComponent(BTable)
     expect($table.exists()).toBe(true)

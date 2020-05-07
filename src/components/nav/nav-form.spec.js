@@ -5,7 +5,7 @@ describe('nav > nav-form', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BNavForm)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('form-inline')
     expect(wrapper.classes().length).toBe(1)
 
@@ -25,7 +25,7 @@ describe('nav > nav-form', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('form-inline')
     expect(wrapper.classes().length).toBe(1)
 
@@ -47,7 +47,7 @@ describe('nav > nav-form', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('form-inline')
     expect(wrapper.classes().length).toBe(1)
 
@@ -74,7 +74,7 @@ describe('nav > nav-form', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('form-inline')
     expect(wrapper.classes().length).toBe(1)
 

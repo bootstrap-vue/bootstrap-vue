@@ -15,7 +15,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(2)
@@ -34,7 +34,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).toContain('table-striped')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
@@ -54,7 +54,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).toContain('table-bordered')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
@@ -74,7 +74,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).toContain('table-borderless')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
@@ -94,7 +94,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).toContain('table-hover')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
@@ -114,7 +114,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).toContain('table-sm')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
@@ -134,7 +134,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).toContain('table-dark')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
@@ -154,7 +154,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).toContain('border')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
@@ -174,7 +174,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).toContain('b-table-fixed')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
@@ -194,7 +194,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).toContain('b-table-no-border-collapse')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
@@ -214,7 +214,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).toContain('b-table-stacked')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
@@ -234,7 +234,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).toContain('b-table-stacked-md')
     expect(wrapper.classes()).toContain('table')
     expect(wrapper.classes()).toContain('b-table')
@@ -254,7 +254,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-table-sticky-header')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.find('table').classes()).toContain('table')
@@ -275,7 +275,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-table-sticky-header')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('style')).toBeDefined()
@@ -298,7 +298,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('table-responsive')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.find('table').classes()).toContain('table')
@@ -319,7 +319,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('table-responsive-md')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.find('table').classes()).toContain('table')
@@ -341,7 +341,7 @@ describe('table', () => {
 
     expect(wrapper).toBeDefined()
     expect(wrapper.is(BTable)).toBe(true)
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.classes()).not.toContain('table-responsive')
     expect(wrapper.classes()).toContain('b-table-stacked')
     expect(wrapper.classes()).toContain('table')

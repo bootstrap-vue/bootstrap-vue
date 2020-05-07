@@ -5,7 +5,7 @@ describe('layout > row', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BRow)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('row')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
@@ -18,7 +18,7 @@ describe('layout > row', () => {
       }
     })
 
-    expect(wrapper.is('p')).toBe(true)
+    expect(wrapper.element.tagName).toBe('P')
     expect(wrapper.classes()).toContain('row')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
@@ -31,7 +31,7 @@ describe('layout > row', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('row')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
@@ -44,7 +44,7 @@ describe('layout > row', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('row')
     expect(wrapper.classes()).toContain('no-gutters')
     expect(wrapper.classes().length).toBe(2)
@@ -57,7 +57,7 @@ describe('layout > row', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('row')
     expect(wrapper.classes()).toContain('align-items-baseline')
     expect(wrapper.classes().length).toBe(2)
@@ -70,7 +70,7 @@ describe('layout > row', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('row')
     expect(wrapper.classes()).toContain('justify-content-center')
     expect(wrapper.classes().length).toBe(2)
@@ -83,7 +83,7 @@ describe('layout > row', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('row')
     expect(wrapper.classes()).toContain('align-content-stretch')
     expect(wrapper.classes().length).toBe(2)
@@ -96,7 +96,7 @@ describe('layout > row', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('row')
     expect(wrapper.classes()).toContain('row-cols-6')
     expect(wrapper.classes().length).toBe(2)
@@ -109,7 +109,7 @@ describe('layout > row', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('row')
     expect(wrapper.classes()).toContain('row-cols-md-3')
     expect(wrapper.classes().length).toBe(2)
@@ -126,7 +126,7 @@ describe('layout > row', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('row')
     expect(wrapper.classes()).toContain('row-cols-1')
     expect(wrapper.classes()).toContain('row-cols-sm-2')

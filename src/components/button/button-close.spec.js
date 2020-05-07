@@ -5,7 +5,7 @@ describe('button-close', () => {
   it('has root element "button"', async () => {
     const wrapper = mount(BButtonClose)
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
 
     wrapper.destroy()
   })

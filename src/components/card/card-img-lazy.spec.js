@@ -11,7 +11,7 @@ describe('card-image', () => {
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
     expect(wrapper.attributes('src')).toBeDefined()
 
     wrapper.destroy()

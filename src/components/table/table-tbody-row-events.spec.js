@@ -44,7 +44,7 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
@@ -422,7 +422,7 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(1)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
