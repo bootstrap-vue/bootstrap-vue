@@ -493,12 +493,7 @@ describe('table-lite', () => {
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
     expect(wrapper.findAll('tbody > tr > *').length).toBe(2)
 
-    expect(
-      wrapper
-        .findAll('tbody > tr > *')
-        .at(0)
-        .is('th')
-    ).toBe(true)
+    expect(wrapper.findAll('tbody > tr > *').at(0).element.tagName).toBe('TH')
     expect(
       wrapper
         .findAll('tbody > tr > *')
@@ -512,12 +507,7 @@ describe('table-lite', () => {
         .attributes('scope')
     ).toBe('row')
 
-    expect(
-      wrapper
-        .findAll('tbody > tr > *')
-        .at(1)
-        .is('td')
-    ).toBe(true)
+    expect(wrapper.findAll('tbody > tr > *').at(1).element.tagName).toBe('TD')
     expect(
       wrapper
         .findAll('tbody > tr > *')
