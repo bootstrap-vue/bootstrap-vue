@@ -258,11 +258,12 @@ describe('avatar', () => {
   it('should handle b-avatar-group variant', async () => {
     const wrapper1 = mount(BAvatar, {
       provide: {
-        // Empulate undefined/null props
+        // Emulate `undefined`/`null` props
         bvAvatarGroup: {}
       }
     })
-    expect(wrapper1.isVueInstance()).toBe(true)
+
+    expect(wrapper1.vm).toBeDefined()
     expect(wrapper1.is('span')).toBe(true)
     expect(wrapper1.classes()).toContain('b-avatar')
     expect(wrapper1.classes()).toContain('badge-secondary')
@@ -277,7 +278,8 @@ describe('avatar', () => {
         }
       }
     })
-    expect(wrapper2.isVueInstance()).toBe(true)
+
+    expect(wrapper2.vm).toBeDefined()
     expect(wrapper2.is('span')).toBe(true)
     expect(wrapper2.classes()).toContain('b-avatar')
     expect(wrapper2.classes()).toContain('badge-danger')
@@ -293,11 +295,12 @@ describe('avatar', () => {
         size: '5em'
       },
       provide: {
-        // Empulate undefined/null props
+        // Emulate `undefined`/`null` props
         bvAvatarGroup: {}
       }
     })
-    expect(wrapper1.isVueInstance()).toBe(true)
+
+    expect(wrapper1.vm).toBeDefined()
     expect(wrapper1.is('span')).toBe(true)
     expect(wrapper1.classes()).toContain('b-avatar')
     expect(wrapper1.classes()).toContain('badge-secondary')
@@ -316,7 +319,8 @@ describe('avatar', () => {
         }
       }
     })
-    expect(wrapper2.isVueInstance()).toBe(true)
+
+    expect(wrapper2.vm).toBeDefined()
     expect(wrapper2.is('span')).toBe(true)
     expect(wrapper2.classes()).toContain('b-avatar')
     expect(wrapper2.classes()).toContain('badge-secondary')
