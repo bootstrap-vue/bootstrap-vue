@@ -484,7 +484,7 @@ describe('form-textarea', () => {
     expect(wrapper.element.style).toBeDefined()
     expect(wrapper.element.style.resize).toEqual('')
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('has style resize:none when max-rows greater than rows', async () => {
@@ -930,7 +930,7 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('input')[3][0]).toEqual('0123 450')
     expect(typeof wrapper.emitted('input')[3][0]).toEqual('string')
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   // These tests are wrapped in a new describe to limit
