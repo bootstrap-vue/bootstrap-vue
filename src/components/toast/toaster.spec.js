@@ -32,7 +32,7 @@ describe('b-toaster', () => {
 
     expect(wrapper.find('.b-toaster-slot').exists()).toBe(true)
     const $slot = wrapper.find('.b-toaster-slot')
-    expect($slot.is(PortalTarget)).toBe(true)
+    expect($slot.findComponent(PortalTarget).exists()).toBe(true)
     expect($slot.element.tagName).toBe('DIV')
     expect($slot.classes()).toContain('b-toaster-slot')
     expect($slot.classes()).toContain('vue-portal-target')
@@ -65,7 +65,7 @@ describe('b-toaster', () => {
 
     expect(wrapper.find('.b-toaster-slot').exists()).toBe(true)
     const $slot = wrapper.find('.b-toaster-slot')
-    expect($slot.is(PortalTarget)).toBe(true)
+    expect($slot.findComponent(PortalTarget).exists()).toBe(true)
     expect($slot.element.tagName).toBe('DIV')
     expect($slot.classes()).toContain('b-toaster-slot')
     expect($slot.classes()).toContain('vue-portal-target')
