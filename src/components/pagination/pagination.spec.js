@@ -388,7 +388,11 @@ describe('pagination', () => {
     expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(5)
     expect(wrapper.findAll('button.page-link').length).toBe(4)
-    expect(wrapper.findAll('button.page-link').is('[aria-controls="foo"]')).toBe(true)
+    expect(
+      wrapper
+        .findAll('button.page-link')
+        .wrappers.every(w => w.find('[aria-controls="foo"]').exists())
+    ).toBe(true)
 
     await wrapper.setProps({
       ariaControls: null
@@ -396,7 +400,9 @@ describe('pagination', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.findAll('li').length).toBe(5)
     expect(wrapper.findAll('button.page-link').length).toBe(4)
-    expect(wrapper.findAll('button.page-link').is('[aria-controls]')).toBe(false)
+    expect(
+      wrapper.findAll('button.page-link').wrappers.every(w => w.find('[aria-controls]').exists())
+    ).toBe(false)
 
     wrapper.destroy()
   })
@@ -454,8 +460,12 @@ describe('pagination', () => {
     expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(7)
     expect(wrapper.findAll('.page-item').length).toBe(7)
-    expect(wrapper.findAll('.page-item').is('li.page-item.disabled')).toBe(true)
-    expect(wrapper.findAll('.page-link').is('span.page-link')).toBe(true)
+    expect(
+      wrapper.findAll('.page-item').wrappers.every(w => w.find('li.page-item.disabled').exists())
+    ).toBe(true)
+    expect(
+      wrapper.findAll('.page-link').wrappers.every(w => w.find('span.page-link').exists())
+    ).toBe(true)
     expect(
       wrapper
         .findAll('.page-link')
