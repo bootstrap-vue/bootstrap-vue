@@ -440,7 +440,7 @@ describe('dropdown', () => {
     })
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: 'body'
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -660,7 +660,7 @@ describe('dropdown', () => {
     })
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: 'body'
     })
 
     expect(wrapper.vm).toBeDefined()
