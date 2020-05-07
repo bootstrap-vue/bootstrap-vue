@@ -12,8 +12,8 @@ describe('nav-item', () => {
 
     const link = wrapper.find('a')
     expect(link).toBeDefined()
+    expect(link.findComponent(BLink).exists()).toBe(true)
     expect(link.element.tagName).toBe('A')
-    expect(link.is(BLink)).toBe(true)
     expect(link.classes()).toContain('nav-link')
     expect(link.classes().length).toBe(1)
     expect(link.attributes('href')).toBeDefined()
@@ -34,8 +34,10 @@ describe('nav-item', () => {
 
     expect(wrapper.attributes('role')).not.toBeDefined()
 
-    const link = wrapper.find(BLink)
+    const link = wrapper.find('a')
     expect(link).toBeDefined()
+    expect(link.findComponent(BLink).exists()).toBe(true)
+    expect(link.element.tagName).toBe('A')
     expect(link.attributes('role')).toBeDefined()
     expect(link.attributes('role')).toBe('tab')
 
@@ -51,8 +53,10 @@ describe('nav-item', () => {
       }
     })
 
-    const link = wrapper.find(BLink)
+    const link = wrapper.find('a')
     expect(link).toBeDefined()
+    expect(link.findComponent(BLink).exists()).toBe(true)
+    expect(link.element.tagName).toBe('A')
     expect(link.classes()).toContain('foo')
     expect(link.classes()).toContain('bar')
     expect(link.classes()).toContain('nav-link')
@@ -67,8 +71,10 @@ describe('nav-item', () => {
       }
     })
 
-    const link = wrapper.find(BLink)
+    const link = wrapper.find('a')
     expect(link).toBeDefined()
+    expect(link.findComponent(BLink).exists()).toBe(true)
+    expect(link.element.tagName).toBe('A')
     expect(link.classes()).toContain('disabled')
 
     wrapper.destroy()
@@ -86,8 +92,10 @@ describe('nav-item', () => {
     await wrapper.trigger('click')
     expect(spy).not.toHaveBeenCalled()
 
-    const link = wrapper.find(BLink)
+    const link = wrapper.find('a')
     expect(link).toBeDefined()
+    expect(link.findComponent(BLink).exists()).toBe(true)
+    expect(link.element.tagName).toBe('A')
     await link.trigger('click')
     expect(spy).toHaveBeenCalled()
 
@@ -107,8 +115,10 @@ describe('nav-item', () => {
     await wrapper.trigger('click')
     expect(spy).not.toHaveBeenCalled()
 
-    const link = wrapper.find(BLink)
+    const link = wrapper.find('a')
     expect(link).toBeDefined()
+    expect(link.findComponent(BLink).exists()).toBe(true)
+    expect(link.element.tagName).toBe('A')
     await link.trigger('click')
     expect(spy).not.toHaveBeenCalled()
 
