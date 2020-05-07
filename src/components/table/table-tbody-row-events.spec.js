@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer } from '../../../tests/utils'
+import { createContainer, waitNT } from '../../../tests/utils'
 import { BTable } from './table'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
@@ -363,7 +363,9 @@ describe('table > tbody row events', () => {
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
     $rows.at(1).element.focus() // Event only works when the TR is focused
+    await waitNT(wrapper.vm)
     await $rows.at(1).trigger('keydown.enter')
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('row-clicked')).toBeDefined()
     expect(wrapper.emitted('row-clicked').length).toBe(1)
     expect(wrapper.emitted('row-clicked')[0][0]).toEqual(testItems[1]) // Row item
@@ -472,8 +474,11 @@ describe('table > tbody row events', () => {
       }
     })
     expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
+    expect($rows.wrappers.every(w => w.attributes('tabindex') === '0')).toBe(true)
+
     expect(document.activeElement).not.toBe($rows.at(0).element)
     expect(document.activeElement).not.toBe($rows.at(1).element)
     expect(document.activeElement).not.toBe($rows.at(2).element)
