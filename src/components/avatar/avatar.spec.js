@@ -254,4 +254,79 @@ describe('avatar', () => {
 
     wrapper.destroy()
   })
+
+  it('should handle b-avatar-group variant', async () => {
+    const wrapper1 = mount(BAvatar, {
+      provide: {
+        // Emulate `undefined`/`null` props
+        bvAvatarGroup: {}
+      }
+    })
+
+    expect(wrapper1.vm).toBeDefined()
+    expect(wrapper1.is('span')).toBe(true)
+    expect(wrapper1.classes()).toContain('b-avatar')
+    expect(wrapper1.classes()).toContain('badge-secondary')
+    expect(wrapper1.attributes('style')).toContain('width: 2.5em; height: 2.5em;')
+
+    wrapper1.destroy()
+
+    const wrapper2 = mount(BAvatar, {
+      provide: {
+        bvAvatarGroup: {
+          variant: 'danger'
+        }
+      }
+    })
+
+    expect(wrapper2.vm).toBeDefined()
+    expect(wrapper2.is('span')).toBe(true)
+    expect(wrapper2.classes()).toContain('b-avatar')
+    expect(wrapper2.classes()).toContain('badge-danger')
+    expect(wrapper2.classes()).not.toContain('badge-secondary')
+    expect(wrapper2.attributes('style')).toContain('width: 2.5em; height: 2.5em;')
+
+    wrapper2.destroy()
+  })
+
+  it('should handle b-avatar-group size', async () => {
+    const wrapper1 = mount(BAvatar, {
+      propsData: {
+        size: '5em'
+      },
+      provide: {
+        // Emulate `undefined`/`null` props
+        bvAvatarGroup: {}
+      }
+    })
+
+    expect(wrapper1.vm).toBeDefined()
+    expect(wrapper1.is('span')).toBe(true)
+    expect(wrapper1.classes()).toContain('b-avatar')
+    expect(wrapper1.classes()).toContain('badge-secondary')
+    // Uses avatar group size (default)
+    expect(wrapper1.attributes('style')).toContain('width: 2.5em; height: 2.5em;')
+
+    wrapper1.destroy()
+
+    const wrapper2 = mount(BAvatar, {
+      propsData: {
+        size: '2em'
+      },
+      provide: {
+        bvAvatarGroup: {
+          size: '5em'
+        }
+      }
+    })
+
+    expect(wrapper2.vm).toBeDefined()
+    expect(wrapper2.is('span')).toBe(true)
+    expect(wrapper2.classes()).toContain('b-avatar')
+    expect(wrapper2.classes()).toContain('badge-secondary')
+    // Should use BAvatarGroup size prop
+    expect(wrapper2.attributes('style')).toContain('width: 5em; height: 5em;')
+
+    wrapper2.destroy()
+  })
 })
