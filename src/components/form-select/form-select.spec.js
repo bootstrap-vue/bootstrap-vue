@@ -312,7 +312,7 @@ describe('form-select', () => {
     expect($options.at(0).attributes('value')).toBe('one')
     expect($options.at(1).attributes('value')).toBe('two')
     expect($options.at(2).attributes('value')).toBe('three')
-    expect($options.is('[disabled]')).toBe(false)
+    expect($options.wrappers.every(o => o.find('[disabled]').exists())).toBe(false)
 
     wrapper.destroy()
   })
@@ -336,9 +336,24 @@ describe('form-select', () => {
     expect($options.at(0).attributes('value')).toBe('1')
     expect($options.at(1).attributes('value')).toBe('2')
     expect($options.at(2).attributes('value')).toBe('3')
-    expect($options.at(0).is('[disabled]')).toBe(false)
-    expect($options.at(1).is('[disabled]')).toBe(true)
-    expect($options.at(2).is('[disabled]')).toBe(false)
+    expect(
+      $options
+        .at(0)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(1)
+        .find('[disabled]')
+        .exists()
+    ).toBe(true)
+    expect(
+      $options
+        .at(2)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
 
     wrapper.destroy()
   })
@@ -372,9 +387,24 @@ describe('form-select', () => {
     expect($options.at(0).attributes('value')).toBe('1.5')
     expect($options.at(1).attributes('value')).toBe('5')
     expect($options.at(2).attributes('value')).toBe('50.75')
-    expect($options.at(0).is('[disabled]')).toBe(false)
-    expect($options.at(1).is('[disabled]')).toBe(false)
-    expect($options.at(2).is('[disabled]')).toBe(true)
+    expect(
+      $options
+        .at(0)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(1)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(2)
+        .find('[disabled]')
+        .exists()
+    ).toBe(true)
 
     wrapper.destroy()
   })
@@ -412,10 +442,30 @@ describe('form-select', () => {
     expect($options.at(1).attributes('value')).toBe('2')
     expect($options.at(2).attributes('value')).toBe('3')
     expect($options.at(3).attributes('value')).toBe('4')
-    expect($options.at(0).is('[disabled]')).toBe(false)
-    expect($options.at(1).is('[disabled]')).toBe(false)
-    expect($options.at(2).is('[disabled]')).toBe(false)
-    expect($options.at(3).is('[disabled]')).toBe(true)
+    expect(
+      $options
+        .at(0)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(1)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(2)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(3)
+        .find('[disabled]')
+        .exists()
+    ).toBe(true)
 
     wrapper.destroy()
   })
@@ -449,10 +499,30 @@ describe('form-select', () => {
     expect($options.at(1).attributes('value')).toBe('2')
     expect($options.at(2).attributes('value')).toBe('3')
     expect($options.at(3).attributes('value')).toBe('4')
-    expect($options.at(0).is('[disabled]')).toBe(false)
-    expect($options.at(1).is('[disabled]')).toBe(false)
-    expect($options.at(2).is('[disabled]')).toBe(false)
-    expect($options.at(3).is('[disabled]')).toBe(true)
+    expect(
+      $options
+        .at(0)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(1)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(2)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(3)
+        .find('[disabled]')
+        .exists()
+    ).toBe(true)
 
     wrapper.destroy()
   })
