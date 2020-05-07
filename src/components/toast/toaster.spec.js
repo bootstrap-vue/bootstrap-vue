@@ -5,6 +5,7 @@ import { BToaster } from './toaster'
 
 // Disable the use of the TransitionStub component
 // since it doesn't run transition hooks
+vtuConfig.stubs['transition-group'] = false
 vtuConfig.stubs.transition = false
 
 describe('b-toaster', () => {
