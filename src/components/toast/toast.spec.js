@@ -103,6 +103,9 @@ describe('b-toast', () => {
 
     await wrapper.setProps({ visible: true })
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.element.tagName).toBe('DIV')
@@ -116,6 +119,9 @@ describe('b-toast', () => {
 
     await wrapper.setProps({ visible: false })
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
@@ -167,6 +173,9 @@ describe('b-toast', () => {
 
     await $body.trigger('click')
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.element.tagName).not.toBe('DIV')
