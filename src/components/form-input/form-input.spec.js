@@ -830,7 +830,7 @@ describe('form-input', () => {
 
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormInput, {
-      mountToDocument: true
+      attachTo: createContainer()
     })
     const input = wrapper.find('input')
 
