@@ -473,7 +473,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect($dropdown.classes()).toContain('show')
-    expect(document.activeElement).toBe($menu.element)
+    expect(document.activeElement === $menu.element).toBe(true)
 
     // Close menu by clicking toggle again
     await $toggle.trigger('click')
@@ -485,7 +485,7 @@ describe('dropdown', () => {
     await $toggle.trigger('click')
     await waitRAF()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
-    expect(document.activeElement).toBe($menu.element)
+    expect(document.activeElement === $menu.element).toBe(true)
     expect($dropdown.classes()).toContain('show')
 
     // Close by clicking dropdown-item
@@ -527,7 +527,7 @@ describe('dropdown', () => {
     await waitRAF()
     expect($dropdown.classes()).toContain('show')
     expect($toggle.attributes('aria-expanded')).toEqual('true')
-    expect(document.activeElement).toBe($menu.element)
+    expect(document.activeElement === $menu.element).toBe(true)
 
     // Close menu by clicking outside
     await $container.trigger('click')
@@ -684,42 +684,42 @@ describe('dropdown', () => {
     await $toggle.trigger('keydown.down')
     await waitRAF()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
-    expect(document.activeElement).toBe($menu.element)
+    expect(document.activeElement === $menu.element).toBe(true)
 
     // Move to first menu item
     await $menu.trigger('keydown.down')
     await waitRAF()
-    expect(document.activeElement).toBe($items.at(0).element)
+    expect(document.activeElement === $items.at(0).element).toBe(true)
 
     // Move to second menu item
     await $items.at(0).trigger('keydown.down')
     await waitRAF()
-    expect(document.activeElement).toBe($items.at(1).element)
+    expect(document.activeElement === $items.at(1).element).toBe(true)
 
     // Move down to next menu item (should skip disabled item)
     await $items.at(1).trigger('keydown.down')
     await waitRAF()
-    expect(document.activeElement).toBe($items.at(3).element)
+    expect(document.activeElement === $items.at(3).element).toBe(true)
 
     // Move down to next menu item (should remain on same item)
     await $items.at(3).trigger('keydown.down')
     await waitRAF()
-    expect(document.activeElement).toBe($items.at(3).element)
+    expect(document.activeElement === $items.at(3).element).toBe(true)
 
     // Move up to previous menu item (should skip disabled item)
     await $items.at(3).trigger('keydown.up')
     await waitRAF()
-    expect(document.activeElement).toBe($items.at(1).element)
+    expect(document.activeElement === $items.at(1).element).toBe(true)
 
     // Move up to previous menu item
     await $items.at(1).trigger('keydown.up')
     await waitRAF()
-    expect(document.activeElement).toBe($items.at(0).element)
+    expect(document.activeElement === $items.at(0).element).toBe(true)
 
     // Move up to previous menu item (should remain on first item)
     await $items.at(0).trigger('keydown.up')
     await waitRAF()
-    expect(document.activeElement).toBe($items.at(0).element)
+    expect(document.activeElement === $items.at(0).element).toBe(true)
 
     wrapper.destroy()
   })
