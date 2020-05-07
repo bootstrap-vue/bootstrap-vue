@@ -102,15 +102,13 @@ describe('button-toolbar', () => {
       expect(wrapper.is('div.btn-toolbar')).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
 
-      const $groups = wrapper.findAll('.btn-group')
+      const $groups = wrapper.findAllComponents(BButtonGroup)
       expect($groups).toBeDefined()
       expect($groups.length).toBe(3)
-      expect($groups.is(BButtonGroup)).toBe(true)
 
-      const $btns = wrapper.findAll('button')
+      const $btns = wrapper.findAllComponents(BButton)
       expect($btns).toBeDefined()
       expect($btns.length).toBe(6)
-      expect($btns.is(BButton)).toBe(true)
       expect($btns.at(0).is('button[tabindex="-1"')).toBe(true)
       expect($btns.at(1).is('button[tabindex="-1"')).toBe(true)
       expect($btns.at(2).is('button[tabindex="-1"')).toBe(false) // Disabled button
