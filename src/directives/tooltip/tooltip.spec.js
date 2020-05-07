@@ -53,7 +53,7 @@ describe('v-b-tooltip directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue,
+      localVue,
       attachTo: createContainer()
     })
 
@@ -90,7 +90,7 @@ describe('v-b-tooltip directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue,
+      localVue,
       attachTo: createContainer()
     })
 
@@ -144,7 +144,7 @@ describe('v-b-tooltip directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue,
+      localVue,
       attachTo: createContainer()
     })
 
@@ -193,7 +193,7 @@ describe('v-b-tooltip directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue,
+      localVue,
       attachTo: createContainer()
     })
 

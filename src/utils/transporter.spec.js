@@ -14,7 +14,7 @@ describe('utils/transporter component', () => {
 
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -35,7 +35,7 @@ describe('utils/transporter component', () => {
 
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()

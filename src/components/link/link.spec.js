@@ -288,7 +288,7 @@ describe('b-link', () => {
       })
       const spy = jest.fn()
       const wrapper = mount(App, {
-        localVue: localVue
+        localVue
       })
       wrapper.vm.$root.$on('clicked::link', spy)
       await wrapper.find('a').trigger('click')
@@ -305,7 +305,7 @@ describe('b-link', () => {
       })
       const spy = jest.fn()
       const wrapper = mount(App, {
-        localVue: localVue
+        localVue
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -351,7 +351,7 @@ describe('b-link', () => {
       })
 
       const wrapper = mount(App, {
-        localVue: localVue,
+        localVue,
         attachTo: createContainer()
       })
 

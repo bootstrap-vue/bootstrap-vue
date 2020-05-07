@@ -96,7 +96,7 @@ describe('b-popover', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click'
       },
@@ -133,7 +133,7 @@ describe('b-popover', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click',
         show: true

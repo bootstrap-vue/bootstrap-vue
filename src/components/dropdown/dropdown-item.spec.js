@@ -124,7 +124,7 @@ describe('dropdown-item', () => {
       })
 
       const wrapper = mount(App, {
-        localVue: localVue,
+        localVue,
         attachTo: createContainer()
       })
 

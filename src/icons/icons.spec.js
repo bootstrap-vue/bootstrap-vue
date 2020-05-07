@@ -24,7 +24,7 @@ describe('icons', () => {
 
   it('b-icon has expected structure', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill'
@@ -56,7 +56,7 @@ describe('icons', () => {
 
   it('b-icon has expected structure when `stacked` prop is true', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -94,7 +94,7 @@ describe('icons', () => {
     // As we don't specify a parent instance (which has all the registered
     // components for the icons)
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       propsData: {
         icon: ''
       }
@@ -116,7 +116,7 @@ describe('icons', () => {
     // This test assumes Vue doesn't puke on unknown component names
     // As we currently do not check the validity of icon names
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: undefined
@@ -135,7 +135,7 @@ describe('icons', () => {
 
   it('b-icon with unknown icon name renders BIconBlank', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'unknown-icon-name'
@@ -157,7 +157,7 @@ describe('icons', () => {
 
   it('b-icon variant works', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -184,7 +184,7 @@ describe('icons', () => {
 
   it('b-icon font-scale prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -212,7 +212,7 @@ describe('icons', () => {
 
   it('b-icon with custom icon works', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       // Parent component has a custom icon registered
       parentComponent: parentComponent,
       propsData: {
@@ -235,7 +235,7 @@ describe('icons', () => {
 
   it('b-icon rotate prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -261,7 +261,7 @@ describe('icons', () => {
 
   it('b-icon scale prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -287,7 +287,7 @@ describe('icons', () => {
 
   it('b-icon flip-h prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -313,7 +313,7 @@ describe('icons', () => {
 
   it('b-icon flip-v prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -339,7 +339,7 @@ describe('icons', () => {
 
   it('b-icon flip-h prop works with flip-v prop', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -366,7 +366,7 @@ describe('icons', () => {
 
   it('b-icon scale prop works with flip-h prop', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -393,7 +393,7 @@ describe('icons', () => {
 
   it('b-icon scale prop works with flip-v prop', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -420,7 +420,7 @@ describe('icons', () => {
 
   it('b-icon scale prop works with flip-h and flip-v prop', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -448,7 +448,7 @@ describe('icons', () => {
 
   it('b-icon shift-h and shift-v props work', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -475,7 +475,7 @@ describe('icons', () => {
 
   it('b-icon shift-h and shift-v props work with rotate prop', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'alarm-fill',
@@ -506,7 +506,7 @@ describe('icons', () => {
 
   it('b-icon animation prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue: localVue,
+      localVue,
       parentComponent: parentComponent,
       propsData: {
         icon: 'circle-fill',

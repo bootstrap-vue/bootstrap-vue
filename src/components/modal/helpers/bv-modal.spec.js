@@ -17,7 +17,7 @@ describe('$bvModal', () => {
     })
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -65,7 +65,7 @@ describe('$bvModal', () => {
     })
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -127,7 +127,7 @@ describe('$bvModal', () => {
     })
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()

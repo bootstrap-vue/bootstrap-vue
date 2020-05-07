@@ -28,7 +28,7 @@ describe('$bvToast', () => {
     })
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -79,7 +79,7 @@ describe('$bvToast', () => {
     })
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()

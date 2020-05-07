@@ -21,7 +21,7 @@ describe('v-b-modal directive', () => {
       template: '<button v-b-modal.test>button</button>'
     })
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -60,7 +60,7 @@ describe('v-b-modal directive', () => {
       template: '<a href="#" v-b-modal.test>{{ text }}</a>'
     })
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -102,7 +102,7 @@ describe('v-b-modal directive', () => {
       template: '<span v-b-modal.test>{{ text }}</span>'
     })
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -150,7 +150,7 @@ describe('v-b-modal directive', () => {
       template: '<span v-b-modal.test>{{ text }}</span>'
     })
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -191,7 +191,7 @@ describe('v-b-modal directive', () => {
       template: '<span tabindex="0" v-b-modal.test>{{ text }}</span>'
     })
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()

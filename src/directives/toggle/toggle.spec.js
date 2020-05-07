@@ -30,7 +30,7 @@ describe('v-b-toggle directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -68,7 +68,7 @@ describe('v-b-toggle directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -112,7 +112,7 @@ describe('v-b-toggle directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -157,7 +157,7 @@ describe('v-b-toggle directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -196,7 +196,7 @@ describe('v-b-toggle directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
     expect(wrapper.vm).toBeDefined()

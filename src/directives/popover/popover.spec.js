@@ -53,7 +53,7 @@ describe('v-b-popover directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue,
+      localVue,
       attachTo: createContainer()
     })
 
@@ -90,7 +90,7 @@ describe('v-b-popover directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue,
+      localVue,
       attachTo: createContainer()
     })
 

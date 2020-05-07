@@ -101,7 +101,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click'
       },
@@ -140,7 +140,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click',
         show: true
@@ -226,7 +226,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click',
         show: true,
@@ -296,7 +296,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click',
         show: false
@@ -358,7 +358,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'focus',
         show: false,
@@ -438,7 +438,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'hover',
         show: false,
@@ -519,7 +519,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click',
         show: false,
@@ -623,7 +623,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click',
         show: true,
@@ -706,7 +706,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click',
         show: true,
@@ -780,7 +780,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click',
         show: true,
@@ -853,7 +853,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click',
         show: true,
@@ -928,7 +928,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click',
         show: true,
@@ -1002,7 +1002,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click',
         show: true,
@@ -1078,7 +1078,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         triggers: 'click',
         show: true,
@@ -1192,7 +1192,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         show: true
       },
@@ -1248,7 +1248,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         show: true,
         variant: 'danger'
@@ -1302,7 +1302,7 @@ describe('b-tooltip', () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue: localVue,
+      localVue,
       propsData: {
         show: true,
         customClass: 'foobar-class'
