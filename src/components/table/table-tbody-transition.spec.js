@@ -19,7 +19,7 @@ describe('table > tbody transition', () => {
     expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tbody').element.tagName).toBe('TBODY')
-    expect(wrapper.find(TransitionGroupStub).exists()).toBe(false)
+    expect(wrapper.findComponent(TransitionGroupStub).exists()).toBe(false)
 
     wrapper.destroy()
   })
@@ -37,7 +37,7 @@ describe('table > tbody transition', () => {
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.element.tagName).toBe('TABLE')
-    expect(wrapper.find(TransitionGroupStub).exists()).toBe(true)
+    expect(wrapper.findComponent(TransitionGroupStub).exists()).toBe(true)
     // Transition-group stub doesn't render itself with the specified tag
     expect(wrapper.find('tbody').exists()).toBe(false)
 
@@ -60,7 +60,7 @@ describe('table > tbody transition', () => {
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.element.tagName).toBe('TABLE')
-    expect(wrapper.find(TransitionGroupStub).exists()).toBe(true)
+    expect(wrapper.findComponent(TransitionGroupStub).exists()).toBe(true)
     // Transition-group stub doesn't render itself with the specified tag
     expect(wrapper.find('tbody').exists()).toBe(false)
 
