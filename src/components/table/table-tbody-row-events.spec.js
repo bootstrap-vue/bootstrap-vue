@@ -362,7 +362,7 @@ describe('table > tbody row events', () => {
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
-    $rows.at(1).element.focus() // Event only works when the tr is focused
+    $rows.at(1).element.focus() // Event only works when the TR is focused
     await $rows.at(1).trigger('keydown.enter')
     expect(wrapper.emitted('row-clicked')).toBeDefined()
     expect(wrapper.emitted('row-clicked').length).toBe(1)
@@ -390,7 +390,7 @@ describe('table > tbody row events', () => {
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
-    $rows.at(1).element.focus() /* event only works when the tr is focused */
+    $rows.at(1).element.focus() // Event only works when the TR is focused
     await $rows.at(1).trigger('keydown.enter')
     expect(wrapper.emitted('row-clicked')).not.toBeDefined()
 
