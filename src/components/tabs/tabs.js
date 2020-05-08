@@ -388,6 +388,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           attributeFilter: ['id']
         })
       } else {
+        /* istanbul ignore next */
         if (this._bvObserver && this._bvObserver.disconnect) {
           this._bvObserver.disconnect()
         }
