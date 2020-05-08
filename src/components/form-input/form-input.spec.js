@@ -643,6 +643,7 @@ describe('form-input', () => {
 
     wrapper.element.focus()
     await waitNT(wrapper.vm)
+    expect(document.activeElement).toBe(wrapper.element)
     await wrapper.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
     await waitNT(wrapper.vm)
 
@@ -655,10 +656,12 @@ describe('form-input', () => {
 
     wrapper.element.focus()
     await waitNT(wrapper.vm)
+    expect(document.activeElement).toBe(wrapper.element)
     await wrapper.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
     await waitNT(wrapper.vm)
 
     // no-wheel=true will fire a blur event on the input when wheel fired
+    expect(document.activeElement).not.toBe(wrapper.element)
     expect(spy).toHaveBeenCalled()
 
     wrapper.destroy()
