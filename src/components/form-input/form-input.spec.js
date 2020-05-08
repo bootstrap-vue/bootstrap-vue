@@ -638,13 +638,13 @@ describe('form-input', () => {
       },
       attachTo: createContainer()
     })
-    const input = wrapper.find('input')
-
-    expect(input.element.type).toBe('number')
+    expect(wrapper.element.type).toBe('number')
     expect(wrapper.props().noWheel).toBe(false)
 
-    input.element.focus()
-    await input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    wrapper.element.focus()
+    await waitNT(wrapper.vm)
+    await wrapper.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    await waitNT(wrapper.vm)
 
     // no-wheel=false will not fire a blur event on the input when wheel fired
     expect(spy).not.toHaveBeenCalled()
@@ -653,8 +653,9 @@ describe('form-input', () => {
 
     expect(wrapper.props().noWheel).toBe(true)
 
-    input.element.focus()
-    await input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    wrapper.element.focus()
+    await waitNT(wrapper.vm)
+    await wrapper.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
     await waitNT(wrapper.vm)
 
     // no-wheel=true will fire a blur event on the input when wheel fired
