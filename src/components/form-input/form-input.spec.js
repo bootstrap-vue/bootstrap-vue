@@ -6,8 +6,9 @@ import { BFormInput } from './form-input'
 describe('form-input', () => {
   it('has class form-control', async () => {
     const wrapper = mount(BFormInput)
-    const input = wrapper.find('input')
-    expect(input.classes()).toContain('form-control')
+
+    const $input = wrapper.find('input')
+    expect($input.classes()).toContain('form-control')
 
     wrapper.destroy()
   })
@@ -18,8 +19,9 @@ describe('form-input', () => {
         size: 'lg'
       }
     })
-    const input = wrapper.find('input')
-    expect(input.classes()).toContain('form-control-lg')
+
+    const $input = wrapper.find('input')
+    expect($input.classes()).toContain('form-control-lg')
 
     wrapper.destroy()
   })
@@ -30,17 +32,19 @@ describe('form-input', () => {
         size: 'sm'
       }
     })
-    const input = wrapper.find('input')
-    expect(input.classes()).toContain('form-control-sm')
+
+    const $input = wrapper.find('input')
+    expect($input.classes()).toContain('form-control-sm')
 
     wrapper.destroy()
   })
 
   it('does not have class form-control-plaintext when plaintext not set', async () => {
     const wrapper = mount(BFormInput)
-    const input = wrapper.find('input')
-    expect(input.classes()).not.toContain('form-control-plaintext')
-    expect(input.attributes('readonly')).not.toBeDefined()
+
+    const $input = wrapper.find('input')
+    expect($input.classes()).not.toContain('form-control-plaintext')
+    expect($input.attributes('readonly')).not.toBeDefined()
 
     wrapper.destroy()
   })
@@ -51,8 +55,9 @@ describe('form-input', () => {
         plaintext: true
       }
     })
-    const input = wrapper.find('input')
-    expect(input.classes()).toContain('form-control-plaintext')
+
+    const $input = wrapper.find('input')
+    expect($input.classes()).toContain('form-control-plaintext')
 
     wrapper.destroy()
   })
@@ -63,9 +68,10 @@ describe('form-input', () => {
         plaintext: true
       }
     })
-    const input = wrapper.find('input')
-    expect(input.classes()).toContain('form-control-plaintext')
-    expect(input.attributes('readonly')).toBeDefined()
+
+    const $input = wrapper.find('input')
+    expect($input.classes()).toContain('form-control-plaintext')
+    expect($input.attributes('readonly')).toBeDefined()
 
     wrapper.destroy()
   })
@@ -76,9 +82,10 @@ describe('form-input', () => {
         type: 'range'
       }
     })
-    const input = wrapper.find('input')
-    expect(input.classes()).toContain('custom-range')
-    expect(input.classes()).not.toContain('form-control')
+
+    const $input = wrapper.find('input')
+    expect($input.classes()).toContain('custom-range')
+    expect($input.classes()).not.toContain('form-control')
 
     wrapper.destroy()
   })
@@ -90,10 +97,11 @@ describe('form-input', () => {
         plaintext: true
       }
     })
-    const input = wrapper.find('input')
-    expect(input.classes()).toContain('custom-range')
-    expect(input.classes()).not.toContain('form-control')
-    expect(input.classes()).not.toContain('form-control-plaintext')
+
+    const $input = wrapper.find('input')
+    expect($input.classes()).toContain('custom-range')
+    expect($input.classes()).not.toContain('form-control')
+    expect($input.classes()).not.toContain('form-control-plaintext')
 
     wrapper.destroy()
   })
@@ -105,10 +113,11 @@ describe('form-input', () => {
         plaintext: true
       }
     })
-    const input = wrapper.find('input')
-    expect(input.classes()).not.toContain('custom-range')
-    expect(input.classes()).not.toContain('form-control-plaintext')
-    expect(input.classes()).toContain('form-control')
+
+    const $input = wrapper.find('input')
+    expect($input.classes()).not.toContain('custom-range')
+    expect($input.classes()).not.toContain('form-control-plaintext')
+    expect($input.classes()).toContain('form-control')
 
     wrapper.destroy()
   })
@@ -119,8 +128,9 @@ describe('form-input', () => {
         id: 'foobar'
       }
     })
-    const input = wrapper.find('input')
-    expect(input.attributes('id')).toBe('foobar')
+
+    const $input = wrapper.find('input')
+    expect($input.attributes('id')).toBe('foobar')
 
     wrapper.destroy()
   })
@@ -129,9 +139,12 @@ describe('form-input', () => {
     const wrapper = mount(BFormInput, {
       attachTo: createContainer()
     })
-    const input = wrapper.find('input')
+
+    // We need to wait a tick for `safeId` to be generated
     await waitNT(wrapper.vm)
-    expect(input.attributes('id')).toBeDefined()
+
+    const $input = wrapper.find('input')
+    expect($input.attributes('id')).toBeDefined()
 
     wrapper.destroy()
   })
@@ -142,16 +155,18 @@ describe('form-input', () => {
         form: 'foobar'
       }
     })
-    const input = wrapper.find('input')
-    expect(input.attributes('form')).toBe('foobar')
+
+    const $input = wrapper.find('input')
+    expect($input.attributes('form')).toBe('foobar')
 
     wrapper.destroy()
   })
 
   it('does not have list attribute when list prop not set', async () => {
     const wrapper = mount(BFormInput)
-    const input = wrapper.find('input')
-    expect(input.attributes('list')).not.toBeDefined()
+
+    const $input = wrapper.find('input')
+    expect($input.attributes('list')).not.toBeDefined()
 
     wrapper.destroy()
   })
@@ -162,8 +177,9 @@ describe('form-input', () => {
         list: 'foobar'
       }
     })
-    const input = wrapper.find('input')
-    expect(input.attributes('list')).toBe('foobar')
+
+    const $input = wrapper.find('input')
+    expect($input.attributes('list')).toBe('foobar')
 
     wrapper.destroy()
   })
@@ -175,16 +191,18 @@ describe('form-input', () => {
         type: 'password'
       }
     })
-    const input = wrapper.find('input')
-    expect(input.attributes('list')).not.toBeDefined()
+
+    const $input = wrapper.find('input')
+    expect($input.attributes('list')).not.toBeDefined()
 
     wrapper.destroy()
   })
 
   it('renders text input by default', async () => {
     const wrapper = mount(BFormInput)
-    const input = wrapper.find('input')
-    expect(input.attributes('type')).toBe('text')
+
+    const $input = wrapper.find('input')
+    expect($input.attributes('type')).toBe('text')
 
     wrapper.destroy()
   })
@@ -195,8 +213,9 @@ describe('form-input', () => {
         type: 'number'
       }
     })
-    const input = wrapper.find('input')
-    expect(input.attributes('type')).toBe('number')
+
+    const $input = wrapper.find('input')
+    expect($input.attributes('type')).toBe('number')
 
     wrapper.destroy()
   })
@@ -211,9 +230,8 @@ describe('form-input', () => {
       }
     })
 
-    const input = wrapper.find('input')
-
-    expect(input.attributes('type')).toBe('text')
+    const $input = wrapper.find('input')
+    expect($input.attributes('type')).toBe('text')
 
     expect(Vue.config.warnHandler).toHaveBeenCalled()
     Vue.config.warnHandler = warnHandler
@@ -223,9 +241,10 @@ describe('form-input', () => {
 
   it('does not have is-valid or is-invalid classes when state is default', async () => {
     const wrapper = mount(BFormInput)
-    const input = wrapper.find('input')
-    expect(input.classes()).not.toContain('is-valid')
-    expect(input.classes()).not.toContain('is-invalid')
+
+    const $input = wrapper.find('input')
+    expect($input.classes()).not.toContain('is-valid')
+    expect($input.classes()).not.toContain('is-invalid')
 
     wrapper.destroy()
   })
@@ -236,9 +255,10 @@ describe('form-input', () => {
         state: true
       }
     })
-    const input = wrapper.find('input')
-    expect(input.classes()).toContain('is-valid')
-    expect(input.classes()).not.toContain('is-invalid')
+
+    const $input = wrapper.find('input')
+    expect($input.classes()).toContain('is-valid')
+    expect($input.classes()).not.toContain('is-invalid')
 
     wrapper.destroy()
   })
@@ -249,15 +269,17 @@ describe('form-input', () => {
         state: false
       }
     })
-    const input = wrapper.find('input')
-    expect(input.classes()).toContain('is-invalid')
-    expect(input.classes()).not.toContain('is-valid')
+
+    const $input = wrapper.find('input')
+    expect($input.classes()).toContain('is-invalid')
+    expect($input.classes()).not.toContain('is-valid')
 
     wrapper.destroy()
   })
 
   it('does not have aria-invalid attribute by default', async () => {
     const wrapper = mount(BFormInput)
+
     expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
 
     wrapper.destroy()
@@ -269,6 +291,7 @@ describe('form-input', () => {
         state: true
       }
     })
+
     expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
 
     wrapper.destroy()
@@ -280,8 +303,9 @@ describe('form-input', () => {
         state: false
       }
     })
-    const input = wrapper.find('input')
-    expect(input.attributes('aria-invalid')).toBe('true')
+
+    const $input = wrapper.find('input')
+    expect($input.attributes('aria-invalid')).toBe('true')
 
     wrapper.destroy()
   })
@@ -292,8 +316,9 @@ describe('form-input', () => {
         ariaInvalid: 'true'
       }
     })
-    const input = wrapper.find('input')
-    expect(input.attributes('aria-invalid')).toBe('true')
+
+    const $input = wrapper.find('input')
+    expect($input.attributes('aria-invalid')).toBe('true')
 
     wrapper.destroy()
   })
@@ -304,8 +329,9 @@ describe('form-input', () => {
         ariaInvalid: true
       }
     })
-    const input = wrapper.find('input')
-    expect(input.attributes('aria-invalid')).toBe('true')
+
+    const $input = wrapper.find('input')
+    expect($input.attributes('aria-invalid')).toBe('true')
 
     wrapper.destroy()
   })
@@ -316,8 +342,9 @@ describe('form-input', () => {
         ariaInvalid: 'spelling'
       }
     })
-    const input = wrapper.find('input')
-    expect(input.attributes('aria-invalid')).toBe('spelling')
+
+    const $input = wrapper.find('input')
+    expect($input.attributes('aria-invalid')).toBe('spelling')
 
     wrapper.destroy()
   })
@@ -328,9 +355,10 @@ describe('form-input', () => {
         disabled: true
       }
     })
-    const input = wrapper.find('input')
-    expect(!!input.attributes('disabled')).toBe(true)
-    expect(input.element.disabled).toBe(true)
+
+    const $input = wrapper.find('input')
+    expect(!!$input.attributes('disabled')).toBe(true)
+    expect($input.element.disabled).toBe(true)
 
     wrapper.destroy()
   })
@@ -341,9 +369,10 @@ describe('form-input', () => {
         disabled: false
       }
     })
-    const input = wrapper.find('input')
-    expect(!!input.attributes('disabled')).toBe(false)
-    expect(input.element.disabled).toBe(false)
+
+    const $input = wrapper.find('input')
+    expect(!!$input.attributes('disabled')).toBe(false)
+    expect($input.element.disabled).toBe(false)
 
     wrapper.destroy()
   })
@@ -351,9 +380,9 @@ describe('form-input', () => {
   it('emits an input event', async () => {
     const wrapper = mount(BFormInput)
 
-    const input = wrapper.find('input')
-    input.element.value = 'test'
-    await input.trigger('input')
+    const $input = wrapper.find('input')
+    $input.element.value = 'test'
+    await $input.trigger('input')
 
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted().input[0].length).toEqual(1)
@@ -369,8 +398,9 @@ describe('form-input', () => {
         focus: spy
       }
     })
-    const input = wrapper.find('input')
-    await input.trigger('focus')
+
+    const $input = wrapper.find('input')
+    await $input.trigger('focus')
 
     expect(wrapper.emitted()).toMatchObject({})
     expect(spy).toHaveBeenCalled()
@@ -384,8 +414,9 @@ describe('form-input', () => {
         value: 'TEST'
       }
     })
-    const input = wrapper.find('input')
-    await input.trigger('blur')
+
+    const $input = wrapper.find('input')
+    await $input.trigger('blur')
 
     expect(wrapper.emitted('blur')).toBeDefined()
     expect(wrapper.emitted('blur')[0].length).toEqual(1)
@@ -404,9 +435,10 @@ describe('form-input', () => {
       },
       attachTo: createContainer()
     })
-    const input = wrapper.find('input')
-    input.element.value = 'TEST'
-    await input.trigger('input')
+
+    const $input = wrapper.find('input')
+    $input.element.value = 'TEST'
+    await $input.trigger('input')
 
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
@@ -429,9 +461,10 @@ describe('form-input', () => {
       },
       attachTo: createContainer()
     })
-    const input = wrapper.find('input')
-    input.element.value = 'TEST'
-    await input.trigger('input')
+
+    const $input = wrapper.find('input')
+    $input.element.value = 'TEST'
+    await $input.trigger('input')
 
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
@@ -440,7 +473,7 @@ describe('form-input', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
     expect(wrapper.emitted('change')).not.toBeDefined()
-    expect(input.vm.localValue).toEqual('TEST')
+    expect($input.vm.localValue).toEqual('TEST')
 
     wrapper.destroy()
   })
@@ -456,18 +489,19 @@ describe('form-input', () => {
       },
       attachTo: createContainer()
     })
-    const input = wrapper.find('input')
+
+    const $input = wrapper.find('input')
 
     // Input event needed to set initial value
-    input.element.value = 'TEST'
-    await input.trigger('input')
+    $input.element.value = 'TEST'
+    await $input.trigger('input')
 
-    expect(input.vm.localValue).toEqual('TEST')
+    expect($input.vm.localValue).toEqual('TEST')
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
 
-    await input.trigger('blur')
+    await $input.trigger('blur')
 
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(2)
@@ -476,7 +510,7 @@ describe('form-input', () => {
     expect(wrapper.emitted('change')).not.toBeDefined()
     expect(wrapper.emitted('blur')).toBeDefined()
     expect(wrapper.emitted('blur').length).toEqual(1)
-    expect(input.vm.localValue).toEqual('test')
+    expect($input.vm.localValue).toEqual('test')
 
     wrapper.destroy()
   })
@@ -491,9 +525,9 @@ describe('form-input', () => {
       },
       attachTo: createContainer()
     })
-    const input = wrapper.find('input')
 
-    expect(input.vm.localValue).toEqual('TEST')
+    const $input = wrapper.find('input')
+    expect($input.vm.localValue).toEqual('TEST')
     expect(wrapper.emitted('update')).not.toBeDefined()
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
@@ -513,10 +547,10 @@ describe('form-input', () => {
       attachTo: createContainer()
     })
 
+    const $input = wrapper.find('input')
     await wrapper.setProps({ value: 'TEST' })
-    const input = wrapper.find('input')
 
-    expect(input.element.value).toEqual('TEST')
+    expect($input.element.value).toEqual('TEST')
     expect(wrapper.emitted('update')).not.toBeDefined() // Note emitted as value hasn't changed
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
@@ -536,10 +570,11 @@ describe('form-input', () => {
       },
       attachTo: createContainer()
     })
-    await wrapper.setProps({ value: 'TEST' })
-    const input = wrapper.find('input')
 
-    expect(input.element.value).toEqual('TEST')
+    const $input = wrapper.find('input')
+    await wrapper.setProps({ value: 'TEST' })
+
+    expect($input.element.value).toEqual('TEST')
     expect(wrapper.emitted('update')).not.toBeDefined() // Not emitted when value doesnt change
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
@@ -558,24 +593,19 @@ describe('form-input', () => {
       },
       attachTo: createContainer()
     })
+
     const $input = wrapper.find('input')
     expect($input.exists()).toBe(true)
 
-    $input.trigger('focus')
-    $input.setValue('TEST')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $input.trigger('focus')
+    await $input.setValue('TEST')
 
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('update')).not.toBeDefined()
     // v-model should not change
     expect(wrapper.vm.localValue).toBe('abc')
     // Value in input should remain the same as entered
-    // This works in real life, but fails in JSDON/VTU for some reason
-    // TODO: Commenting out for now to get tests pasing until a resolution is found
-    // expect($input.element.value).toEqual('TEST')
+    expect($input.element.value).toEqual('TEST')
 
     wrapper.destroy()
   })
@@ -593,15 +623,13 @@ describe('form-input', () => {
       },
       attachTo: createContainer()
     })
+
     expect(wrapper.element.type).toBe('number')
     expect(wrapper.props().noWheel).toBe(true)
 
     wrapper.element.focus()
-    wrapper.trigger('focus')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('focus')
     await wrapper.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
-    await waitNT(wrapper.vm)
-    await waitNT(wrapper.vm)
 
     // `:no-wheel="true"` will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
@@ -622,17 +650,15 @@ describe('form-input', () => {
       },
       attachTo: createContainer()
     })
+
     expect(wrapper.element.type).toBe('number')
     expect(wrapper.props().noWheel).toBe(false)
     expect(document.activeElement).not.toBe(wrapper.element)
 
     wrapper.element.focus()
-    wrapper.trigger('focus')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('focus')
     expect(document.activeElement).toBe(wrapper.element)
     await wrapper.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
-    await waitNT(wrapper.vm)
-    await waitNT(wrapper.vm)
 
     // `:no-wheel="false"` will not fire a blur event on the input when wheel fired
     expect(spy).not.toHaveBeenCalled()
@@ -653,16 +679,15 @@ describe('form-input', () => {
       },
       attachTo: createContainer()
     })
+
     expect(wrapper.element.type).toBe('number')
     expect(wrapper.props().noWheel).toBe(false)
     expect(document.activeElement).not.toBe(wrapper.element)
 
     wrapper.element.focus()
-    wrapper.trigger('focus')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('focus')
     expect(document.activeElement).toBe(wrapper.element)
     await wrapper.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
-    await waitNT(wrapper.vm)
 
     // no-wheel=false will not fire a blur event on the input when wheel fired
     expect(spy).not.toHaveBeenCalled()
@@ -671,12 +696,9 @@ describe('form-input', () => {
     expect(wrapper.props().noWheel).toBe(true)
 
     wrapper.element.focus()
-    wrapper.trigger('focus')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('focus')
     expect(document.activeElement).toBe(wrapper.element)
     await wrapper.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
-    await waitNT(wrapper.vm)
-    await waitNT(wrapper.vm)
 
     // no-wheel=true will fire a blur event on the input when wheel fired
     expect(document.activeElement).not.toBe(wrapper.element)
@@ -693,11 +715,11 @@ describe('form-input', () => {
       }
     })
 
-    const input = wrapper.find('input')
-    input.element.value = '123.450'
-    await input.trigger('input')
+    const $input = wrapper.find('input')
+    $input.element.value = '123.450'
+    await $input.trigger('input')
 
-    expect(input.element.value).toBe('123.450')
+    expect($input.element.value).toBe('123.450')
     // `v-model` update event (should emit a numerical value)
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toBe(1)
@@ -710,10 +732,10 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')[0][0]).toEqual('123.450')
 
     // Update the input to be different string-wise, but same numerically
-    input.element.value = '123.4500'
-    await input.trigger('input')
+    $input.element.value = '123.4500'
+    await $input.trigger('input')
 
-    expect(input.element.value).toBe('123.4500')
+    expect($input.element.value).toBe('123.4500')
     // Should emit a new input event
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual('123.4500')
@@ -723,7 +745,7 @@ describe('form-input', () => {
 
     // Updating the `v-model` to new numeric value
     await wrapper.setProps({ value: 45.6 })
-    expect(input.element.value).toBe('45.6')
+    expect($input.element.value).toBe('45.6')
 
     wrapper.destroy()
   })
@@ -736,42 +758,42 @@ describe('form-input', () => {
       }
     })
 
-    const input = wrapper.find('input')
-    input.element.value = 'a'
-    await input.trigger('input')
-    expect(input.element.value).toBe('a')
+    const $input = wrapper.find('input')
+    $input.element.value = 'a'
+    await $input.trigger('input')
+    expect($input.element.value).toBe('a')
     // `v-model` update event should not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
 
-    input.element.value = 'ab'
-    await input.trigger('input')
-    expect(input.element.value).toBe('ab')
+    $input.element.value = 'ab'
+    await $input.trigger('input')
+    expect($input.element.value).toBe('ab')
     // `v-model` update event should not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
 
     // trigger a change event
-    await input.trigger('change')
-    expect(input.element.value).toBe('ab')
+    await $input.trigger('change')
+    expect($input.element.value).toBe('ab')
     // `v-model` update event should have emitted
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toBe('ab')
 
-    input.element.value = 'abc'
-    await input.trigger('input')
-    expect(input.element.value).toBe('abc')
+    $input.element.value = 'abc'
+    await $input.trigger('input')
+    expect($input.element.value).toBe('abc')
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toEqual(1)
 
-    input.element.value = 'abcd'
-    await input.trigger('input')
-    expect(input.element.value).toBe('abcd')
+    $input.element.value = 'abcd'
+    await $input.trigger('input')
+    expect($input.element.value).toBe('abcd')
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toEqual(1)
 
     // Trigger a blur event
-    await input.trigger('blur')
-    expect(input.element.value).toBe('abcd')
+    await $input.trigger('blur')
+    expect($input.element.value).toBe('abcd')
     // `v-model` update event should have emitted
     expect(wrapper.emitted('update').length).toEqual(2)
     expect(wrapper.emitted('update')[1][0]).toBe('abcd')
@@ -789,10 +811,10 @@ describe('form-input', () => {
       }
     })
 
-    const input = wrapper.find('input')
-    input.element.value = 'a'
-    await input.trigger('input')
-    expect(input.element.value).toBe('a')
+    const $input = wrapper.find('input')
+    $input.element.value = 'a'
+    await $input.trigger('input')
+    expect($input.element.value).toBe('a')
     // `v-model` update event should not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
     // `input` event should be emitted
@@ -800,9 +822,9 @@ describe('form-input', () => {
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe('a')
 
-    input.element.value = 'ab'
-    await input.trigger('input')
-    expect(input.element.value).toBe('ab')
+    $input.element.value = 'ab'
+    await $input.trigger('input')
+    expect($input.element.value).toBe('ab')
     // `v-model` update event should not have emitted
     expect(wrapper.emitted('update')).not.toBeDefined()
     // `input` event should be emitted
@@ -812,7 +834,7 @@ describe('form-input', () => {
     // Advance timer
     jest.runOnlyPendingTimers()
     // Should update the v-model
-    expect(input.element.value).toBe('ab')
+    expect($input.element.value).toBe('ab')
     // `v-model` update event should have emitted
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toBe(1)
@@ -821,9 +843,9 @@ describe('form-input', () => {
     expect(wrapper.emitted('input').length).toBe(2)
 
     // Update input
-    input.element.value = 'abc'
-    await input.trigger('input')
-    expect(input.element.value).toBe('abc')
+    $input.element.value = 'abc'
+    await $input.trigger('input')
+    expect($input.element.value).toBe('abc')
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toBe(1)
     // `input` event should be emitted
@@ -831,9 +853,9 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')[2][0]).toBe('abc')
 
     // Update input
-    input.element.value = 'abcd'
-    await input.trigger('input')
-    expect(input.element.value).toBe('abcd')
+    $input.element.value = 'abcd'
+    await $input.trigger('input')
+    expect($input.element.value).toBe('abcd')
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toEqual(1)
     // `input` event should be emitted
@@ -841,8 +863,8 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')[3][0]).toBe('abcd')
 
     // Trigger a `change` event
-    await input.trigger('change')
-    expect(input.element.value).toBe('abcd')
+    await $input.trigger('change')
+    expect($input.element.value).toBe('abcd')
     // `v-model` update event should have emitted (change overrides debounce)
     expect(wrapper.emitted('update').length).toEqual(2)
     expect(wrapper.emitted('update')[1][0]).toBe('abcd')
@@ -856,16 +878,17 @@ describe('form-input', () => {
     const wrapper = mount(BFormInput, {
       attachTo: createContainer()
     })
-    const input = wrapper.find('input')
+
+    const $input = wrapper.find('input')
 
     expect(typeof wrapper.vm.focus).toBe('function')
     expect(typeof wrapper.vm.blur).toBe('function')
 
-    expect(document.activeElement).not.toBe(input.element)
+    expect(document.activeElement).not.toBe($input.element)
     wrapper.vm.focus()
-    expect(document.activeElement).toBe(input.element)
+    expect(document.activeElement).toBe($input.element)
     wrapper.vm.blur()
-    expect(document.activeElement).not.toBe(input.element)
+    expect(document.activeElement).not.toBe($input.element)
 
     wrapper.destroy()
   })
@@ -898,14 +921,15 @@ describe('form-input', () => {
           autofocus: true
         }
       })
+
       expect(wrapper.vm).toBeDefined()
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      const input = wrapper.find('input')
-      expect(input.exists()).toBe(true)
+      const $input = wrapper.find('input')
+      expect($input.exists()).toBe(true)
       expect(document).toBeDefined()
-      expect(document.activeElement).toBe(input.element)
+      expect(document.activeElement).toBe($input.element)
 
       wrapper.destroy()
     })
@@ -917,14 +941,15 @@ describe('form-input', () => {
           autofocus: false
         }
       })
+
       expect(wrapper.vm).toBeDefined()
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      const input = wrapper.find('input')
-      expect(input.exists()).toBe(true)
+      const $input = wrapper.find('input')
+      expect($input.exists()).toBe(true)
       expect(document).toBeDefined()
-      expect(document.activeElement).not.toBe(input.element)
+      expect(document.activeElement).not.toBe($input.element)
 
       wrapper.destroy()
     })
