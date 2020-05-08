@@ -558,14 +558,15 @@ describe('form-input', () => {
       },
       attachTo: createContainer()
     })
-    const input = wrapper.find('input')
-    input.element.value = 'TEST'
-    await input.trigger('input')
+    wrapper.element.value = 'TEST'
+    await wrapper.trigger('input')
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('update')).not.toBeDefined()
-    await waitNT(wrapper.vm)
     // Value in input should remain the same as entered
-    expect(input.element.value).toEqual('TEST')
+    expect(wrapper.element.value).toEqual('TEST')
+    // v-model should not equal input
     expect(wrapper.vm.localValue).toBe('abc')
 
     wrapper.destroy()
