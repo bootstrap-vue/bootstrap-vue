@@ -391,7 +391,7 @@ describe('form-radio-group', () => {
       }
     })
     expect(wrapper.classes()).toBeDefined()
-    let radios = wrapper.findAll('input')
+    const radios = wrapper.findAll('input')
     expect(radios.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual('two')
     expect(radios.wrappers.every(w => w.attributes('type') === 'radio')).toBe(true)
@@ -401,13 +401,13 @@ describe('form-radio-group', () => {
 
     await wrapper.setProps({ checked: 'one' })
     await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
 
-    expect(wrapper.vm.localChecked).toEqual('one')
-    radios = wrapper.findAll('input')
+    expect(wrapper.vm.localChecked).toEqual('three')
     expect(radios.wrappers.every(w => w.attributes('type') === 'radio')).toBe(true)
-    expect(radios.at(2).element.checked).toBe(false)
+    expect(radios.at(0).element.checked).toBe(false)
     expect(radios.at(1).element.checked).toBe(false)
-    expect(radios.at(0).element.checked).toBe(true)
+    expect(radios.at(2).element.checked).toBe(true)
 
     wrapper.destroy()
   })
