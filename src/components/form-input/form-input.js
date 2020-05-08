@@ -77,6 +77,35 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
     localType() {
       // We only allow certain types
       return arrayIncludes(TYPES, this.type) ? this.type : 'text'
+    },
+    computedAttrs() {
+      const { localType: type, disabled, placeholder, required, min, max, step } = this
+
+      return {
+        id: this.safeId(),
+        name: this.name || null,
+        form: this.form || null,
+        type,
+        disabled,
+        placeholder,
+        required,
+        autocomplete: this.autocomplete || null,
+        readonly: this.readonly || this.plaintext,
+        min,
+        max,
+        step,
+        list: type !== 'password' ? this.list : null,
+        'aria-required': required ? 'true' : null,
+        'aria-invalid': this.computedAriaInvalid
+      }
+    },
+    computedListeners() {
+      return {
+        ...this.bvListeners,
+        input: this.onInput,
+        change: this.onChange,
+        blur: this.onBlur
+      }
     }
   },
   watch: {
@@ -125,45 +154,12 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    // We alias `this` to `self` for better minification
-    const self = this
     return h('input', {
       ref: 'input',
-      class: self.computedClass,
-      directives: [
-        {
-          name: 'model',
-          rawName: 'v-model',
-          value: self.localValue,
-          expression: 'localValue'
-        }
-      ],
-      attrs: {
-        id: self.safeId(),
-        name: self.name,
-        form: self.form || null,
-        type: self.localType,
-        disabled: self.disabled,
-        placeholder: self.placeholder,
-        required: self.required,
-        autocomplete: self.autocomplete || null,
-        readonly: self.readonly || self.plaintext,
-        min: self.min,
-        max: self.max,
-        step: self.step,
-        list: self.localType !== 'password' ? self.list : null,
-        'aria-required': self.required ? 'true' : null,
-        'aria-invalid': self.computedAriaInvalid
-      },
-      domProps: {
-        value: self.localValue
-      },
-      on: {
-        ...self.bvListeners,
-        input: self.onInput,
-        change: self.onChange,
-        blur: self.onBlur
-      }
+      class: this.computedClass,
+      attrs: this.computedAttrs,
+      domProps: { value: this.localValue },
+      on: this.computedListeners
     })
   }
 })
