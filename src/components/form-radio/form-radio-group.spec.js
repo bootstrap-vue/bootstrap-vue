@@ -399,7 +399,7 @@ describe('form-radio-group', () => {
     expect(radios.at(1).element.checked).toBe(true)
     expect(radios.at(2).element.checked).toBe(false)
 
-    await wrapper.setProps({ checked: 'one' })
+    await wrapper.setProps({ checked: 'three' })
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
