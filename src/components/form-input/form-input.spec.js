@@ -562,8 +562,7 @@ describe('form-input', () => {
     expect($input.exists()).toBe(true)
 
     $input.trigger('focus')
-    $input.element.value = 'abcTEST'
-    $input.trigger('input')
+    $input.setValue('TEST')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -573,7 +572,7 @@ describe('form-input', () => {
     expect(wrapper.vm.localValue).toBe('abc')
     // Value in input should remain the same as entered
     // This works in real life, but fails in JSDON/VTU for some reason
-    expect($input.element.value).toEqual('abcTEST')
+    expect($input.element.value).toEqual('TEST')
 
     wrapper.destroy()
   })
