@@ -6,7 +6,6 @@ module.exports = {
     '.*\\.(vue)$': 'vue-jest'
   },
   coverageDirectory: './coverage/',
-  // JSDOM for node > v6
   testEnvironmentOptions: {
     pretendToBeVisual: true
   },
