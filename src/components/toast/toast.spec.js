@@ -160,6 +160,7 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.element.tagName).toBe('DIV')
 
@@ -177,8 +178,8 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
 
-    expect(wrapper.element.tagName).not.toBe('DIV')
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     expect(wrapper.emitted('hide')).toBeDefined()
@@ -227,7 +228,6 @@ describe('b-toast', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.element.tagName).not.toBe('DIV')
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
     expect(wrapper.vm.timer).toBe(null)
 
