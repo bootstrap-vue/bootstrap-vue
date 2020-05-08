@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormTextarea } from './form-textarea'
 
 describe('form-textarea', () => {
@@ -87,11 +87,11 @@ describe('form-textarea', () => {
       }
     })
     expect(wrapper.classes()).toContain('form-control-sm')
-    wrapper.setProps({ size: 'lg' })
+    await wrapper.setProps({ size: 'lg' })
     expect(wrapper.classes()).toContain('form-control-lg')
-    wrapper.setProps({ size: 'foobar' })
+    await wrapper.setProps({ size: 'foobar' })
     expect(wrapper.classes()).toContain('form-control-foobar')
-    wrapper.setProps({ size: '' })
+    await wrapper.setProps({ size: '' })
     expect(wrapper.classes()).not.toContain('form-control-')
 
     wrapper.destroy()
@@ -175,7 +175,7 @@ describe('form-textarea', () => {
 
   it('does not have aria-invalid attribute by default', async () => {
     const wrapper = mount(BFormTextarea)
-    expect(wrapper.contains('[aria-invalid]')).toBe(false)
+    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
 
     wrapper.destroy()
   })
@@ -186,344 +186,364 @@ describe('form-textarea', () => {
         state: true
       }
     })
-    expect(wrapper.contains('[aria-invalid]')).toBe(false)
+    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
 
     wrapper.destroy()
   })
 
   it('has aria-invalid attribute when state=false', async () => {
-    const input = mount(BFormTextarea, {
+    const wrapper = mount(BFormTextarea, {
       propsData: {
         state: false
       }
     })
-    expect(input.attributes('aria-invalid')).toBe('true')
+    expect(wrapper.attributes('aria-invalid')).toBe('true')
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('has aria-invalid attribute when aria-invalid=true', async () => {
-    const input = mount(BFormTextarea, {
+    const wrapper = mount(BFormTextarea, {
       propsData: {
         ariaInvalid: true
       }
     })
-    expect(input.attributes('aria-invalid')).toBe('true')
-    input.setProps({ ariaInvalid: 'true' })
-    expect(input.attributes('aria-invalid')).toBe('true')
+    expect(wrapper.attributes('aria-invalid')).toBe('true')
+    await wrapper.setProps({ ariaInvalid: 'true' })
+    expect(wrapper.attributes('aria-invalid')).toBe('true')
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('has aria-invalid attribute when aria-invalid="spelling"', async () => {
-    const input = mount(BFormTextarea, {
+    const wrapper = mount(BFormTextarea, {
       propsData: {
         ariaInvalid: 'spelling'
       }
     })
-    expect(input.attributes('aria-invalid')).toBe('spelling')
+    expect(wrapper.attributes('aria-invalid')).toBe('spelling')
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('does not emit an update event on mount when value not set', async () => {
-    const input = mount(BFormTextarea)
-    expect(input.emitted('update')).not.toBeDefined()
+    const wrapper = mount(BFormTextarea)
+    expect(wrapper.emitted('update')).not.toBeDefined()
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('does mot emit an update event on mount when value is set and no formatter', async () => {
-    const input = mount(BFormTextarea, {
+    const wrapper = mount(BFormTextarea, {
       value: 'foobar'
     })
-    expect(input.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('update')).not.toBeDefined()
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('emits an input event with single arg of value', async () => {
-    const input = mount(BFormTextarea)
+    const wrapper = mount(BFormTextarea)
 
-    input.element.value = 'test'
-    input.trigger('input')
+    wrapper.element.value = 'test'
+    await wrapper.trigger('input')
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input')[0].length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual('test')
 
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input')[0].length).toEqual(1)
-    expect(input.emitted('input')[0][0]).toEqual('test')
-
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('emits an change event with single arg of value', async () => {
-    const input = mount(BFormTextarea)
+    const wrapper = mount(BFormTextarea)
 
-    input.element.value = 'test'
+    wrapper.element.value = 'test'
+    await wrapper.trigger('change')
+    expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('change')[0].length).toEqual(1)
+    expect(wrapper.emitted('change')[0][0]).toEqual('test')
 
-    input.trigger('change')
-    expect(input.emitted('change')).toBeDefined()
-    expect(input.emitted('change')[0].length).toEqual(1)
-    expect(input.emitted('change')[0][0]).toEqual('test')
-
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('emits an update event with one arg on input', async () => {
-    const input = mount(BFormTextarea)
+    const wrapper = mount(BFormTextarea)
 
-    input.element.value = 'test'
-    input.trigger('input')
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update')[0].length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('test')
+    wrapper.element.value = 'test'
+    await wrapper.trigger('input')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update')[0].length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toEqual('test')
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('does not emit an update event on change when value not changed', async () => {
-    const input = mount(BFormTextarea)
+    const wrapper = mount(BFormTextarea)
 
-    input.element.value = 'test'
-    input.trigger('input')
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('test')
-    input.trigger('change')
-    expect(input.emitted('update').length).toEqual(1)
+    wrapper.element.value = 'test'
+    await wrapper.trigger('input')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toEqual('test')
 
-    input.destroy()
+    await wrapper.trigger('change')
+    expect(wrapper.emitted('update').length).toEqual(1)
+
+    wrapper.destroy()
   })
 
   it('emits an update event with one arg on change when input text changed', async () => {
-    const input = mount(BFormTextarea)
+    const wrapper = mount(BFormTextarea)
 
-    input.element.value = 'test'
-    input.trigger('input')
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('test')
-    input.element.value = 'TEST'
-    input.trigger('change')
-    expect(input.emitted('update').length).toEqual(2)
-    expect(input.emitted('update')[1][0]).toEqual('TEST')
+    wrapper.element.value = 'test'
+    await wrapper.trigger('input')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toEqual('test')
 
-    input.destroy()
+    wrapper.element.value = 'TEST'
+    await wrapper.trigger('change')
+    expect(wrapper.emitted('update').length).toEqual(2)
+    expect(wrapper.emitted('update')[1][0]).toEqual('TEST')
+
+    wrapper.destroy()
   })
 
   it('does not emit an update, input or change event when value prop changed', async () => {
-    const input = mount(BFormTextarea, {
+    const wrapper = mount(BFormTextarea, {
       value: ''
     })
 
-    expect(input.emitted('update')).not.toBeDefined()
-    expect(input.emitted('input')).not.toBeDefined()
-    expect(input.emitted('change')).not.toBeDefined()
-    input.setProps({ value: 'test' })
-    expect(input.emitted('update')).not.toBeDefined()
-    expect(input.emitted('input')).not.toBeDefined()
-    expect(input.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
 
-    input.destroy()
+    await wrapper.setProps({ value: 'test' })
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('emits a native focus event', async () => {
     const spy = jest.fn()
-    const input = mount(BFormTextarea, {
+    const wrapper = mount(BFormTextarea, {
       listeners: {
         focus: spy
       }
     })
-    input.trigger('focus')
-    expect(input.emitted('focus')).not.toBeDefined()
+
+    await wrapper.trigger('focus')
+    expect(wrapper.emitted('focus')).not.toBeDefined()
     expect(spy).toHaveBeenCalled()
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('emits a blur event when blurred', async () => {
-    const input = mount(BFormTextarea)
-    input.trigger('blur')
-    expect(input.emitted('blur')).toBeDefined()
+    const wrapper = mount(BFormTextarea)
 
-    input.destroy()
+    await wrapper.trigger('blur')
+    expect(wrapper.emitted('blur')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('has attribute rows set to 2 by default', async () => {
-    const input = mount(BFormTextarea)
-    expect(input.attributes('rows')).toBeDefined()
-    expect(input.attributes('rows')).toEqual('2')
+    const wrapper = mount(BFormTextarea)
 
-    input.destroy()
+    expect(wrapper.attributes('rows')).toBeDefined()
+    expect(wrapper.attributes('rows')).toEqual('2')
+
+    wrapper.destroy()
   })
 
   it('has attribute rows when rows set and max-rows not set', async () => {
-    const input = mount(BFormTextarea, {
+    const wrapper = mount(BFormTextarea, {
       propsData: {
         rows: 10
       }
     })
-    expect(input.attributes('rows')).toBeDefined()
-    expect(input.attributes('rows')).toEqual('10')
-    // Should work with both text and number values
-    input.setProps({ rows: '20' })
-    expect(input.attributes('rows')).toBeDefined()
-    expect(input.attributes('rows')).toEqual('20')
-    // Should use minimum value of 2 when rows is set less than 2
-    input.setProps({ rows: '1' })
-    expect(input.attributes('rows')).toBeDefined()
-    expect(input.attributes('rows')).toEqual('2')
-    input.setProps({ rows: -10 })
-    expect(input.attributes('rows')).toBeDefined()
-    expect(input.attributes('rows')).toEqual('2')
 
-    input.destroy()
+    expect(wrapper.attributes('rows')).toBeDefined()
+    expect(wrapper.attributes('rows')).toEqual('10')
+
+    // Should work with both text and number values
+    await wrapper.setProps({ rows: '20' })
+    expect(wrapper.attributes('rows')).toBeDefined()
+    expect(wrapper.attributes('rows')).toEqual('20')
+
+    // Should use minimum value of 2 when rows is set less than 2
+    await wrapper.setProps({ rows: '1' })
+    expect(wrapper.attributes('rows')).toBeDefined()
+    expect(wrapper.attributes('rows')).toEqual('2')
+
+    await wrapper.setProps({ rows: -10 })
+    expect(wrapper.attributes('rows')).toBeDefined()
+    expect(wrapper.attributes('rows')).toEqual('2')
+
+    wrapper.destroy()
   })
 
   it('has attribute rows set when rows and max-rows are equal', async () => {
-    const input = mount(BFormTextarea, {
+    const wrapper = mount(BFormTextarea, {
       propsData: {
         rows: 5,
         maxRows: 5
       }
     })
-    expect(input.attributes('rows')).toBeDefined()
-    expect(input.attributes('rows')).toEqual('5')
-    // Should work with both text and number values
-    input.setProps({ rows: '10', maxRows: '10' })
-    expect(input.attributes('rows')).toBeDefined()
-    expect(input.attributes('rows')).toEqual('10')
 
-    input.destroy()
+    expect(wrapper.attributes('rows')).toBeDefined()
+    expect(wrapper.attributes('rows')).toEqual('5')
+
+    // Should work with both text and number values
+    await wrapper.setProps({ rows: '10', maxRows: '10' })
+    expect(wrapper.attributes('rows')).toBeDefined()
+    expect(wrapper.attributes('rows')).toEqual('10')
+
+    wrapper.destroy()
   })
 
   it('does not have rows set when rows and max-rows set', async () => {
-    const input = mount(BFormTextarea, {
+    const wrapper = mount(BFormTextarea, {
       propsData: {
         rows: 2,
         maxRows: 5
       }
     })
-    expect(input.attributes('rows')).not.toBeDefined()
 
-    input.destroy()
+    expect(wrapper.attributes('rows')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('has attribute rows set when max-rows less than rows', async () => {
-    const input = mount(BFormTextarea, {
+    const wrapper = mount(BFormTextarea, {
       propsData: {
         rows: 10,
         maxRows: 5
       }
     })
-    expect(input.attributes('rows')).toBeDefined()
-    expect(input.attributes('rows')).toEqual('10')
 
-    input.destroy()
+    expect(wrapper.attributes('rows')).toBeDefined()
+    expect(wrapper.attributes('rows')).toEqual('10')
+
+    wrapper.destroy()
   })
 
   it('does not have style resize by default', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer()
     })
-    expect(input.element.style).toBeDefined()
-    expect(input.element.style.resize).toEqual('')
 
-    input.destroy()
+    expect(wrapper.element.style).toBeDefined()
+    expect(wrapper.element.style.resize).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('does not have style resize when no-resize is set', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         noResize: true
       }
     })
-    expect(input.element.style).toBeDefined()
-    expect(input.element.style.resize).toEqual('none')
 
-    input.destroy()
+    expect(wrapper.element.style).toBeDefined()
+    expect(wrapper.element.style.resize).toEqual('none')
+
+    wrapper.destroy()
   })
 
   it('does not have style resize when max-rows not set', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         rows: 10
       }
     })
-    expect(input.element.style).toBeDefined()
-    expect(input.element.style.resize).toEqual('')
 
-    input.destroy()
+    expect(wrapper.element.style).toBeDefined()
+    expect(wrapper.element.style.resize).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('does not have style resize when max-rows less than rows', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         rows: 10,
         maxRows: 5
       }
     })
-    expect(input.element.style).toBeDefined()
-    expect(input.element.style.resize).toEqual('')
 
-    input.destroy()
+    expect(wrapper.element.style).toBeDefined()
+    expect(wrapper.element.style.resize).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('has style resize:none when max-rows greater than rows', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         rows: 2,
         maxRows: 5
       }
     })
-    expect(input.element.style).toBeDefined()
-    expect(input.element.style.resize).toBeDefined()
-    expect(input.element.style.resize).toEqual('none')
 
-    input.destroy()
+    expect(wrapper.element.style).toBeDefined()
+    expect(wrapper.element.style.resize).toBeDefined()
+    expect(wrapper.element.style.resize).toEqual('none')
+
+    wrapper.destroy()
   })
 
   it('does not have style height by default', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer()
     })
-    expect(input.element.style).toBeDefined()
-    expect(input.element.style.height).toBeDefined()
-    expect(input.element.style.height).toEqual('')
 
-    input.destroy()
+    expect(wrapper.element.style).toBeDefined()
+    expect(wrapper.element.style.height).toBeDefined()
+    expect(wrapper.element.style.height).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('does not have style height when rows and max-rows equal', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         rows: 2,
         maxRows: 2
       }
     })
-    expect(input.element.style).toBeDefined()
-    expect(input.element.style.height).toBeDefined()
-    expect(input.element.style.height).toEqual('')
 
-    input.destroy()
+    expect(wrapper.element.style).toBeDefined()
+    expect(wrapper.element.style.height).toBeDefined()
+    expect(wrapper.element.style.height).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('does not have style height when max-rows not set', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         rows: 5
       }
     })
-    expect(input.element.style).toBeDefined()
-    expect(input.element.style.height).toBeDefined()
-    expect(input.element.style.height).toEqual('')
 
-    input.destroy()
+    expect(wrapper.element.style).toBeDefined()
+    expect(wrapper.element.style.height).toBeDefined()
+    expect(wrapper.element.style.height).toEqual('')
+
+    wrapper.destroy()
   })
 
   // The height style calculations do not work in JSDOM environment
@@ -531,7 +551,7 @@ describe('form-textarea', () => {
   //
   // it('has style height when max-rows greater than rows', async () => {
   //   const input = mount(BFormTextarea, {
-  //     attachToDocument: true,
+  //     attachTo: createContainer(),
   //     propsData: {
   //       rows: 2,
   //       maxRows: 5
@@ -548,7 +568,7 @@ describe('form-textarea', () => {
   //
   // it('auto height should work', async () => {
   //   const input = mount(BFormTextarea, {
-  //     attachToDocument: true,
+  //     attachTo: createContainer(),
   //     propsData: {
   //       value: '',
   //       rows: 2,
@@ -561,14 +581,14 @@ describe('form-textarea', () => {
   //   const firstHeight = parseFloat(input.element.style.height)
   //   // Set content to five lines heigh
   //   input.element.value = 'one\n two\n three\n four\n five'
-  //   input.trigger('input')
+  //   await input.trigger('input')
   //   expect(input.emitted('update')).toBeDefined()
   //   expect(input.element.style.height).not.toEqual('')
   //   const secondHeight = parseFloat(input.element.style.height)
   //   expect(secondHeight).toBeGreaterThan(firstHeight)
   //   // Set content to one lines heigh
   //   input.element.value = 'one'
-  //   input.trigger('input')
+  //   await input.trigger('input')
   //   expect(input.emitted('update').length).toEqual(2)
   //   expect(input.element.style.height).not.toEqual('')
   //   const thirdHeight = parseFloat(input.element.style.height)
@@ -578,8 +598,8 @@ describe('form-textarea', () => {
   // })
 
   it('Formats on input when not lazy', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         value: '',
         formatter(value) {
@@ -587,26 +607,27 @@ describe('form-textarea', () => {
         }
       }
     })
-    input.element.value = 'TEST'
-    input.trigger('input')
+
+    wrapper.element.value = 'TEST'
+    await wrapper.trigger('input')
 
     // Update event fires first with formatted value
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('test')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toEqual('test')
     // Followed by an input event with formatted value
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input').length).toEqual(1)
-    expect(input.emitted('input')[0][0]).toEqual('test')
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual('test')
     // And no change event
-    expect(input.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('Formats on change when not lazy', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         value: '',
         formatter(value) {
@@ -614,26 +635,27 @@ describe('form-textarea', () => {
         }
       }
     })
-    input.element.value = 'TEST'
-    input.trigger('change')
+
+    wrapper.element.value = 'TEST'
+    await wrapper.trigger('change')
 
     // Update event fires first with formatted value
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('test')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toEqual('test')
     // Followed by a change event with formatted value
-    expect(input.emitted('change')).toBeDefined()
-    expect(input.emitted('change').length).toEqual(1)
-    expect(input.emitted('change')[0][0]).toEqual('test')
+    expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('change').length).toEqual(1)
+    expect(wrapper.emitted('change')[0][0]).toEqual('test')
     // And no input event
-    expect(input.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('input')).not.toBeDefined()
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('Formats on blur when lazy', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         formatter(value) {
           return value.toLowerCase()
@@ -642,53 +664,54 @@ describe('form-textarea', () => {
       }
     })
 
-    input.element.value = 'TEST'
-    input.trigger('input')
+    wrapper.element.value = 'TEST'
+    await wrapper.trigger('input')
 
     // Update event fires first
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('TEST')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
     // Followed by an input
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input').length).toEqual(1)
-    expect(input.emitted('input')[0][0]).toEqual('TEST')
-    expect(input.vm.localValue).toEqual('TEST')
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
+    expect(wrapper.vm.localValue).toEqual('TEST')
 
-    input.trigger('change')
+    await wrapper.trigger('change')
+
     // Update does not fire again
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('TEST')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
     // Event change emitted
-    expect(input.emitted('change')).toBeDefined()
-    expect(input.emitted('change').length).toEqual(1)
-    expect(input.emitted('change')[0][0]).toEqual('TEST')
-    expect(input.vm.localValue).toEqual('TEST')
+    expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('change').length).toEqual(1)
+    expect(wrapper.emitted('change')[0][0]).toEqual('TEST')
+    expect(wrapper.vm.localValue).toEqual('TEST')
 
-    input.trigger('blur')
+    await wrapper.trigger('blur')
 
     // Update fires before change with formatted value
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(2)
-    expect(input.emitted('update')[1][0]).toEqual('test')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(2)
+    expect(wrapper.emitted('update')[1][0]).toEqual('test')
     // Followed by blur event with native event
-    expect(input.emitted('blur')).toBeDefined()
-    expect(input.emitted('blur')[0][0] instanceof Event).toBe(true)
-    expect(input.emitted('blur')[0][0].type).toEqual('blur')
+    expect(wrapper.emitted('blur')).toBeDefined()
+    expect(wrapper.emitted('blur')[0][0] instanceof Event).toBe(true)
+    expect(wrapper.emitted('blur')[0][0].type).toEqual('blur')
 
     // Expected number of events from above sequence
-    expect(input.emitted('input').length).toEqual(1)
-    expect(input.emitted('change').length).toEqual(1)
-    expect(input.emitted('blur').length).toEqual(1)
-    expect(input.emitted('update').length).toEqual(2)
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('change').length).toEqual(1)
+    expect(wrapper.emitted('blur').length).toEqual(1)
+    expect(wrapper.emitted('update').length).toEqual(2)
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('Does not format value on mount when not lazy', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         value: 'TEST',
         formatter(value) {
@@ -696,17 +719,18 @@ describe('form-textarea', () => {
         }
       }
     })
-    expect(input.emitted('input')).not.toBeDefined()
-    expect(input.emitted('change')).not.toBeDefined()
-    expect(input.emitted('update')).not.toBeDefined()
-    expect(input.vm.localValue).toEqual('TEST')
 
-    input.destroy()
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.vm.localValue).toEqual('TEST')
+
+    wrapper.destroy()
   })
 
   it('Does not format value on mount when lazy', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         value: 'TEST',
         formatter(value) {
@@ -715,17 +739,18 @@ describe('form-textarea', () => {
         lazyFormatter: true
       }
     })
-    expect(input.emitted('input')).not.toBeDefined()
-    expect(input.emitted('change')).not.toBeDefined()
-    expect(input.emitted('update')).not.toBeDefined()
-    expect(input.vm.localValue).toEqual('TEST')
 
-    input.destroy()
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.vm.localValue).toEqual('TEST')
+
+    wrapper.destroy()
   })
 
   it('Does not format on prop "value" change when not lazy', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         value: '',
         formatter(value) {
@@ -733,22 +758,24 @@ describe('form-textarea', () => {
         }
       }
     })
-    expect(input.emitted('update')).not.toBeDefined()
-    expect(input.emitted('input')).not.toBeDefined()
-    expect(input.emitted('change')).not.toBeDefined()
-    expect(input.vm.localValue).toEqual('')
-    input.setProps({ value: 'TEST' })
-    expect(input.emitted('update')).not.toBeDefined()
-    expect(input.emitted('input')).not.toBeDefined()
-    expect(input.emitted('change')).not.toBeDefined()
-    expect(input.vm.localValue).toEqual('TEST')
 
-    input.destroy()
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.vm.localValue).toEqual('')
+
+    await wrapper.setProps({ value: 'TEST' })
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.vm.localValue).toEqual('TEST')
+
+    wrapper.destroy()
   })
 
-  it('Does not format on value prop change when lazy', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+  it('does not format on value prop change when lazy', async () => {
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         value: '',
         formatter(value) {
@@ -757,149 +784,153 @@ describe('form-textarea', () => {
         lazyFormatter: true
       }
     })
-    expect(input.emitted('update')).not.toBeDefined()
-    expect(input.emitted('input')).not.toBeDefined()
-    expect(input.emitted('change')).not.toBeDefined()
-    expect(input.vm.localValue).toEqual('')
-    input.setProps({ value: 'TEST' })
-    // Does not emit any events
-    expect(input.emitted('update')).not.toBeDefined()
-    expect(input.emitted('input')).not.toBeDefined()
-    expect(input.emitted('change')).not.toBeDefined()
-    expect(input.vm.localValue).toEqual('TEST')
 
-    input.destroy()
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.vm.localValue).toEqual('')
+
+    // Does not emit any events
+    await wrapper.setProps({ value: 'TEST' })
+    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.vm.localValue).toEqual('TEST')
+
+    wrapper.destroy()
   })
 
   it('trim modifier prop works', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         value: '',
         trim: true
       }
     })
-    expect(input.vm.localValue).toEqual('')
 
-    input.element.value = 'TEST'
-    input.trigger('input')
+    expect(wrapper.vm.localValue).toEqual('')
 
-    expect(input.vm.localValue).toEqual('TEST')
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('TEST')
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input').length).toEqual(1)
-    expect(input.emitted('input')[0][0]).toEqual('TEST')
+    wrapper.element.value = 'TEST'
+    await wrapper.trigger('input')
 
-    input.element.value = 'TEST  '
-    input.trigger('input')
+    expect(wrapper.vm.localValue).toEqual('TEST')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
 
-    expect(input.vm.localValue).toEqual('TEST  ')
+    wrapper.element.value = 'TEST  '
+    await wrapper.trigger('input')
+
+    expect(wrapper.vm.localValue).toEqual('TEST  ')
     // `v-model` value stays the same and update event shouldn't be emitted again
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input').length).toEqual(2)
-    expect(input.emitted('input')[1][0]).toEqual('TEST  ')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual('TEST  ')
 
-    input.element.value = '  TEST  '
-    input.trigger('input')
+    wrapper.element.value = '  TEST  '
+    await wrapper.trigger('input')
 
-    expect(input.vm.localValue).toEqual('  TEST  ')
+    expect(wrapper.vm.localValue).toEqual('  TEST  ')
     // `v-model` value stays the same and update event shouldn't be emitted again
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input').length).toEqual(3)
-    expect(input.emitted('input')[2][0]).toEqual('  TEST  ')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(3)
+    expect(wrapper.emitted('input')[2][0]).toEqual('  TEST  ')
 
-    input.trigger('input')
+    await wrapper.trigger('input')
 
-    expect(input.vm.localValue).toEqual('  TEST  ')
+    expect(wrapper.vm.localValue).toEqual('  TEST  ')
     // `v-model` value stays the same and update event shouldn't be emitted again
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input').length).toEqual(4)
-    expect(input.emitted('input')[3][0]).toEqual('  TEST  ')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(4)
+    expect(wrapper.emitted('input')[3][0]).toEqual('  TEST  ')
 
-    input.trigger('change')
+    await wrapper.trigger('change')
 
-    expect(input.vm.localValue).toEqual('  TEST  ')
+    expect(wrapper.vm.localValue).toEqual('  TEST  ')
     // `v-model` value stays the same and update event shouldn't be emitted again
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('change')).toBeDefined()
-    expect(input.emitted('change').length).toEqual(1)
-    expect(input.emitted('change')[0][0]).toEqual('  TEST  ')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('change').length).toEqual(1)
+    expect(wrapper.emitted('change')[0][0]).toEqual('  TEST  ')
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   it('number modifier prop works', async () => {
-    const input = mount(BFormTextarea, {
-      attachToDocument: true,
+    const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       propsData: {
         value: '',
         number: true
       }
     })
-    expect(input.vm.localValue).toEqual('')
 
-    input.element.value = 'TEST'
-    input.trigger('input')
+    expect(wrapper.vm.localValue).toEqual('')
 
-    expect(input.vm.localValue).toEqual('TEST')
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('TEST')
-    expect(typeof input.emitted('update')[0][0]).toEqual('string')
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input').length).toEqual(1)
-    expect(input.emitted('input')[0][0]).toEqual('TEST')
-    expect(typeof input.emitted('input')[0][0]).toEqual('string')
+    wrapper.element.value = 'TEST'
+    await wrapper.trigger('input')
 
-    input.element.value = '123.45'
-    input.trigger('input')
+    expect(wrapper.vm.localValue).toEqual('TEST')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
+    expect(typeof wrapper.emitted('update')[0][0]).toEqual('string')
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
+    expect(typeof wrapper.emitted('input')[0][0]).toEqual('string')
 
-    expect(input.vm.localValue).toEqual('123.45')
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(2)
-    expect(input.emitted('update')[1][0]).toEqual(123.45)
-    expect(typeof input.emitted('update')[1][0]).toEqual('number')
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input').length).toEqual(2)
-    expect(input.emitted('input')[1][0]).toEqual('123.45')
-    expect(typeof input.emitted('input')[1][0]).toEqual('string')
+    wrapper.element.value = '123.45'
+    await wrapper.trigger('input')
 
-    input.element.value = '0123.450'
-    input.trigger('input')
+    expect(wrapper.vm.localValue).toEqual('123.45')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(2)
+    expect(wrapper.emitted('update')[1][0]).toEqual(123.45)
+    expect(typeof wrapper.emitted('update')[1][0]).toEqual('number')
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual('123.45')
+    expect(typeof wrapper.emitted('input')[1][0]).toEqual('string')
 
-    expect(input.vm.localValue).toEqual('0123.450')
+    wrapper.element.value = '0123.450'
+    await wrapper.trigger('input')
+
+    expect(wrapper.vm.localValue).toEqual('0123.450')
     // `v-model` value stays the same and update event shouldn't be emitted again
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(2)
-    expect(input.emitted('update')[1][0]).toEqual(123.45)
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input').length).toEqual(3)
-    expect(input.emitted('input')[2][0]).toEqual('0123.450')
-    expect(typeof input.emitted('input')[2][0]).toEqual('string')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(2)
+    expect(wrapper.emitted('update')[1][0]).toEqual(123.45)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(3)
+    expect(wrapper.emitted('input')[2][0]).toEqual('0123.450')
+    expect(typeof wrapper.emitted('input')[2][0]).toEqual('string')
 
-    input.element.value = '0123 450'
-    input.trigger('input')
+    wrapper.element.value = '0123 450'
+    await wrapper.trigger('input')
 
-    expect(input.vm.localValue).toEqual('0123 450')
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(3)
-    expect(input.emitted('update')[2][0]).toEqual(123)
-    expect(typeof input.emitted('update')[2][0]).toEqual('number')
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input').length).toEqual(4)
-    expect(input.emitted('input')[3][0]).toEqual('0123 450')
-    expect(typeof input.emitted('input')[3][0]).toEqual('string')
+    expect(wrapper.vm.localValue).toEqual('0123 450')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(3)
+    expect(wrapper.emitted('update')[2][0]).toEqual(123)
+    expect(typeof wrapper.emitted('update')[2][0]).toEqual('number')
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(4)
+    expect(wrapper.emitted('input')[3][0]).toEqual('0123 450')
+    expect(typeof wrapper.emitted('input')[3][0]).toEqual('string')
 
-    input.destroy()
+    wrapper.destroy()
   })
 
   // These tests are wrapped in a new describe to limit
@@ -927,11 +958,12 @@ describe('form-textarea', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormTextarea, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           autofocus: true
         }
       })
+
       expect(wrapper.vm).toBeDefined()
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -946,11 +978,12 @@ describe('form-textarea', () => {
 
     it('does not autofocus when false', async () => {
       const wrapper = mount(BFormTextarea, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           autofocus: false
         }
       })
+
       expect(wrapper.vm).toBeDefined()
       await waitNT(wrapper.vm)
       await waitRAF()

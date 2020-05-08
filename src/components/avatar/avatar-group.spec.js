@@ -9,7 +9,7 @@ describe('avatar-group', () => {
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-avatar-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('role')).toEqual('group')
@@ -27,7 +27,7 @@ describe('avatar-group', () => {
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.classes()).toContain('b-avatar-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('role')).toEqual('group')
@@ -45,7 +45,7 @@ describe('avatar-group', () => {
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-avatar-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('role')).toEqual('group')

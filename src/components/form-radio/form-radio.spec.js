@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormRadio } from './form-radio'
 
 describe('form-radio', () => {
@@ -16,7 +16,7 @@ describe('form-radio', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     const children = wrapper.element.children
     expect(children.length).toEqual(2)
     expect(children[0].tagName).toEqual('INPUT')
@@ -383,7 +383,7 @@ describe('form-radio', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     const children = wrapper.element.children
     expect(children.length).toEqual(2)
     expect(children[0].tagName).toEqual('INPUT')
@@ -573,7 +573,7 @@ describe('form-radio', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     const label = wrapper.element.children
     expect(label.length).toEqual(1)
     expect(label[0].tagName).toEqual('LABEL')
@@ -602,7 +602,7 @@ describe('form-radio', () => {
     wrapper.destroy()
   })
 
-  it('stand-alone button has label classes btn and btn-secondary when uchecked', async () => {
+  it('stand-alone button has label classes btn and btn-secondary when unchecked', async () => {
     const wrapper = mount(BFormRadio, {
       propsData: {
         button: true,
@@ -666,7 +666,7 @@ describe('form-radio', () => {
     expect(label.classes()).not.toContain('active')
     expect(label.classes()).toContain('btn')
     expect(label.classes()).toContain('btn-secondary')
-    input.setChecked(true)
+    await input.setChecked(true)
     expect(label.classes().length).toEqual(3)
     expect(label.classes()).toContain('active')
     expect(label.classes()).toContain('btn')
@@ -695,10 +695,10 @@ describe('form-radio', () => {
     expect(label.classes()).toContain('btn')
     expect(label.classes()).toContain('btn-secondary')
     expect(input).toBeDefined()
-    input.trigger('focus')
+    await input.trigger('focus')
     expect(label.classes().length).toEqual(3)
     expect(label.classes()).toContain('focus')
-    input.trigger('blur')
+    await input.trigger('blur')
     expect(label.classes().length).toEqual(2)
     expect(label.classes()).not.toContain('focus')
 
@@ -778,7 +778,7 @@ describe('form-radio', () => {
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.vm.localChecked).toBeDefined()
     expect(wrapper.vm.localChecked).toBe('')
-    wrapper.setProps({
+    await wrapper.setProps({
       checked: 'bar'
     })
     expect(wrapper.vm.localChecked).toEqual('bar')
@@ -808,7 +808,7 @@ describe('form-radio', () => {
     const input = wrapper.find('input')
     expect(input).toBeDefined()
 
-    input.trigger('click')
+    await input.trigger('click')
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
     expect(wrapper.emitted('change')[0][0]).toEqual('bar')
@@ -833,7 +833,7 @@ describe('form-radio', () => {
     const input = wrapper.find('input')
     expect(input).toBeDefined()
 
-    input.trigger('click')
+    await input.trigger('click')
     expect(wrapper.vm.localChecked).toEqual({ bar: 1, baz: 2 })
 
     wrapper.destroy()
@@ -841,7 +841,7 @@ describe('form-radio', () => {
 
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormRadio, {
-      mountToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         checked: false
       },
@@ -863,11 +863,11 @@ describe('form-radio', () => {
     expect(input.element).not.toBe(document.activeElement)
 
     wrapper.vm.focus()
-    wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(input.element).toBe(document.activeElement)
 
     wrapper.vm.blur()
-    wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(input.element).not.toBe(document.activeElement)
 
     wrapper.destroy()
@@ -878,7 +878,7 @@ describe('form-radio', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 
     beforeEach(() => {
-      // Mock getBCR so that the isVisible(el) test returns true
+      // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
       // In our test below, all pagination buttons would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 24,
@@ -897,7 +897,7 @@ describe('form-radio', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormRadio, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           checked: false,
           autofocus: true
@@ -920,7 +920,7 @@ describe('form-radio', () => {
 
     it('does not autofocus by default', async () => {
       const wrapper = mount(BFormRadio, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           checked: false
         },

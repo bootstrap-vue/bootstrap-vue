@@ -1,15 +1,15 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { createContainer, waitNT } from '../../../tests/utils'
 import { BFormRating } from './form-rating'
 
 describe('form-rating', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormRating)
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('output')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OUTPUT')
 
     expect(wrapper.classes()).toContain('b-rating')
     expect(wrapper.classes()).toContain('d-flex')
@@ -30,9 +30,9 @@ describe('form-rating', () => {
 
     const $stars = wrapper.findAll('.b-rating-star')
     expect($stars.length).toBe(5)
-    expect($stars.is('.flex-grow-1')).toBe(true)
+    expect($stars.wrappers.every(s => s.find('.flex-grow-1'))).toBe(true)
     // Since value is `null` all stars will be empty
-    expect($stars.is('.b-rating-star-empty')).toBe(true)
+    expect($stars.wrappers.every(s => s.find('.b-rating-star-empty'))).toBe(true)
 
     // `show-value` is `false` by default
     const $value = wrapper.find('.b-rating-value')
@@ -56,19 +56,19 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $stars = wrapper.findAll('.b-rating-star')
     expect($stars.length).toBe(5)
-    expect($stars.is('.flex-grow-1')).toBe(true)
-    expect($stars.is('.b-rating-star-empty')).toBe(true)
+    expect($stars.wrappers.every(s => s.find('.flex-grow-1').exists())).toBe(true)
+    expect($stars.wrappers.every(s => s.find('.b-rating-star-empty').exists())).toBe(true)
 
     const $icons = wrapper.findAll('.b-icon')
     expect($icons.length).toBe(5)
-    expect($icons.is('.bi-star')).toBe(true)
-    expect($icons.is('.text-primary')).toBe(true)
-    expect($icons.is('.text-warning')).toBe(false)
+    expect($icons.wrappers.every(i => i.find('.bi-star').exists())).toBe(true)
+    expect($icons.wrappers.every(i => i.find('.text-primary').exists())).toBe(true)
+    expect($icons.wrappers.every(i => i.find('.text-warning').exists())).toBe(false)
 
     wrapper.destroy()
   })
@@ -80,13 +80,13 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $stars = wrapper.findAll('.b-rating-star')
     expect($stars.length).toBe(10)
-    expect($stars.is('.flex-grow-1')).toBe(true)
-    expect($stars.is('.b-rating-star-empty')).toBe(true)
+    expect($stars.wrappers.every(s => s.find('.flex-grow-1').exists())).toBe(true)
+    expect($stars.wrappers.every(s => s.find('.b-rating-star-empty').exists())).toBe(true)
 
     wrapper.destroy()
   })
@@ -99,7 +99,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $input = wrapper.find('input')
@@ -118,69 +118,192 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     expect(wrapper.vm.localValue).toBe(1)
     const $stars = wrapper.findAll('.b-rating-star')
     expect($stars.length).toBe(5)
-    expect($stars.at(0).is('.b-rating-star-full')).toBe(true)
-    expect($stars.at(1).is('.b-rating-star-empty')).toBe(true)
-    expect($stars.at(2).is('.b-rating-star-empty')).toBe(true)
-    expect($stars.at(3).is('.b-rating-star-empty')).toBe(true)
-    expect($stars.at(4).is('.b-rating-star-empty')).toBe(true)
+    expect(
+      $stars
+        .at(0)
+        .find('.b-rating-star-full')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(1)
+        .find('.b-rating-star-empty')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(2)
+        .find('.b-rating-star-empty')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(3)
+        .find('.b-rating-star-empty')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(4)
+        .find('.b-rating-star-empty')
+        .exists()
+    ).toBe(true)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3.5
     })
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     expect(wrapper.vm.localValue).toBe(3.5)
-    expect($stars.at(0).is('.b-rating-star-full')).toBe(true)
-    expect($stars.at(1).is('.b-rating-star-full')).toBe(true)
-    expect($stars.at(2).is('.b-rating-star-full')).toBe(true)
-    expect($stars.at(3).is('.b-rating-star-half')).toBe(true)
-    expect($stars.at(4).is('.b-rating-star-empty')).toBe(true)
+    expect(
+      $stars
+        .at(0)
+        .find('.b-rating-star-full')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(1)
+        .find('.b-rating-star-full')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(2)
+        .find('.b-rating-star-full')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(3)
+        .find('.b-rating-star-half')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(4)
+        .find('.b-rating-star-empty')
+        .exists()
+    ).toBe(true)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 1
     })
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     expect(wrapper.vm.localValue).toBe(1)
-    expect($stars.at(0).is('.b-rating-star-full')).toBe(true)
-    expect($stars.at(1).is('.b-rating-star-empty')).toBe(true)
-    expect($stars.at(2).is('.b-rating-star-empty')).toBe(true)
-    expect($stars.at(3).is('.b-rating-star-empty')).toBe(true)
-    expect($stars.at(4).is('.b-rating-star-empty')).toBe(true)
+    expect(
+      $stars
+        .at(0)
+        .find('.b-rating-star-full')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(1)
+        .find('.b-rating-star-empty')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(2)
+        .find('.b-rating-star-empty')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(3)
+        .find('.b-rating-star-empty')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(4)
+        .find('.b-rating-star-empty')
+        .exists()
+    ).toBe(true)
 
     // Click 5th star
-    $stars.at(4).trigger('click')
-    await waitNT(wrapper.vm)
+    await $stars.at(4).trigger('click')
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
     expect(wrapper.emitted('change')[0][0]).toBe(5)
     expect(wrapper.vm.localValue).toBe(5)
-    expect($stars.at(0).is('.b-rating-star-full')).toBe(true)
-    expect($stars.at(1).is('.b-rating-star-full')).toBe(true)
-    expect($stars.at(2).is('.b-rating-star-full')).toBe(true)
-    expect($stars.at(3).is('.b-rating-star-full')).toBe(true)
-    expect($stars.at(4).is('.b-rating-star-full')).toBe(true)
+    expect(
+      $stars
+        .at(0)
+        .find('.b-rating-star-full')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(1)
+        .find('.b-rating-star-full')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(2)
+        .find('.b-rating-star-full')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(3)
+        .find('.b-rating-star-full')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(4)
+        .find('.b-rating-star-full')
+        .exists()
+    ).toBe(true)
 
     // Click 2nd star
-    $stars.at(1).trigger('click')
-    await waitNT(wrapper.vm)
+    await $stars.at(1).trigger('click')
     expect(wrapper.emitted('change').length).toBe(2)
     expect(wrapper.emitted('change')[1][0]).toBe(2)
     expect(wrapper.vm.localValue).toBe(2)
-    expect($stars.at(0).is('.b-rating-star-full')).toBe(true)
-    expect($stars.at(1).is('.b-rating-star-full')).toBe(true)
-    expect($stars.at(2).is('.b-rating-star-empty')).toBe(true)
-    expect($stars.at(3).is('.b-rating-star-empty')).toBe(true)
-    expect($stars.at(4).is('.b-rating-star-empty')).toBe(true)
+    expect(
+      $stars
+        .at(0)
+        .find('.b-rating-star-full')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(1)
+        .find('.b-rating-star-full')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(2)
+        .find('.b-rating-star-empty')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(3)
+        .find('.b-rating-star-empty')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(4)
+        .find('.b-rating-star-empty')
+        .exists()
+    ).toBe(true)
 
     wrapper.destroy()
   })
@@ -193,22 +316,30 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $stars = wrapper.findAll('.b-rating-star')
     // The clear button is a "star"
     expect($stars.length).toBe(6)
-    expect($stars.at(0).is('.b-rating-star-clear')).toBe(true)
-    expect($stars.at(1).is('.b-rating-star-clear')).not.toBe(true)
+    expect(
+      $stars
+        .at(0)
+        .find('.b-rating-star-clear')
+        .exists()
+    ).toBe(true)
+    expect(
+      $stars
+        .at(1)
+        .find('.b-rating-star-clear')
+        .exists()
+    ).toBe(false)
 
     const $clear = wrapper.find('.b-rating-star-clear')
     expect($clear.exists()).toBe(true)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
-    $clear.trigger('click')
-    await waitNT(wrapper.vm)
-
+    await $clear.trigger('click')
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
     expect(wrapper.emitted('change')[0][0]).toEqual(null)
@@ -226,7 +357,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $stars = wrapper.findAll('.b-rating-star')
@@ -236,14 +367,14 @@ describe('form-rating', () => {
     expect($value.exists()).toBe(true)
     expect($value.text()).toEqual('3.50')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: null
     })
     await waitNT(wrapper.vm)
 
     expect($value.text()).toEqual('')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '1.236'
     })
     await waitNT(wrapper.vm)
@@ -264,7 +395,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $stars = wrapper.findAll('.b-rating-star')
@@ -274,14 +405,14 @@ describe('form-rating', () => {
     expect($value.exists()).toBe(true)
     expect($value.text()).toEqual('3.50/5')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: null
     })
     await waitNT(wrapper.vm)
 
     expect($value.text()).toEqual('-/5')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '1.236'
     })
     await waitNT(wrapper.vm)
@@ -293,7 +424,7 @@ describe('form-rating', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BFormRating, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         locale: 'en',
         showValue: true,
@@ -303,7 +434,7 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $output = wrapper.find('output')
@@ -324,26 +455,17 @@ describe('form-rating', () => {
     expect(document.activeElement).not.toEqual($output.element)
     expect(wrapper.vm.hasFocus).not.toBe(true)
 
-    $output.trigger('focus')
-    await waitNT(wrapper.vm)
-
+    await $output.trigger('focus')
     expect(wrapper.vm.hasFocus).toBe(true)
 
-    $output.trigger('blur')
-    await waitNT(wrapper.vm)
-
+    await $output.trigger('blur')
     expect(wrapper.vm.hasFocus).not.toBe(true)
 
     wrapper.vm.focus()
     await waitNT(wrapper.vm)
-
     expect(wrapper.vm.hasFocus).toBe(true)
 
-    wrapper.setProps({
-      disabled: true
-    })
-    await waitNT(wrapper.vm)
-
+    await wrapper.setProps({ disabled: true })
     wrapper.vm.focus()
     await waitNT(wrapper.vm)
     expect(wrapper.vm.hasFocus).not.toBe(true)
@@ -360,92 +482,72 @@ describe('form-rating', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $value = wrapper.find('.b-rating-value')
     expect($value.exists()).toBe(true)
     expect($value.text()).toEqual('')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('1')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('2')
 
-    wrapper.trigger('keydown.up')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.up')
     expect($value.text()).toEqual('3')
 
-    wrapper.trigger('keydown.up')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.up')
     expect($value.text()).toEqual('4')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('5')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('5')
 
-    wrapper.trigger('keydown.left')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.left')
     expect($value.text()).toEqual('4')
 
-    wrapper.trigger('keydown.left')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.left')
     expect($value.text()).toEqual('3')
 
-    wrapper.trigger('keydown.down')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.down')
     expect($value.text()).toEqual('2')
 
-    wrapper.trigger('keydown.down')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.down')
     expect($value.text()).toEqual('1')
 
-    wrapper.trigger('keydown.left')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.left')
     expect($value.text()).toEqual('1')
 
-    wrapper.setProps({
-      readonly: true
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ readonly: true })
     expect($value.text()).toEqual('1')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('1')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       readonly: false,
       disabled: true
     })
-    await waitNT(wrapper.vm)
     expect($value.text()).toEqual('1')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('1')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       readonly: false,
       disabled: false,
       showClear: true
     })
-    await waitNT(wrapper.vm)
     expect($value.text()).toEqual('1')
 
-    wrapper.trigger('keydown.left')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.left')
     expect($value.text()).toEqual('')
 
-    wrapper.trigger('keydown.right')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('keydown.right')
     expect($value.text()).toEqual('1')
 
     wrapper.destroy()

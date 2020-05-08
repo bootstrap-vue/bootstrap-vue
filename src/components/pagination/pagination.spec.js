@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { createContainer, waitNT } from '../../../tests/utils'
 import { isVisible, getBCR, contains } from '../../utils/dom'
 import { BPagination } from './pagination'
 
@@ -19,7 +19,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -44,7 +44,7 @@ describe('pagination', () => {
         value: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     const lis = wrapper.findAll('li')
     expect(lis).toBeDefined()
     expect(lis.length).toBe(5)
@@ -56,11 +56,11 @@ describe('pagination', () => {
       if (index === 2) {
         expect(li.classes()).toContain('active')
         expect(li.classes()).not.toContain('disabled')
-        expect(pageLink.is('button')).toBe(true)
+        expect(pageLink.element.tagName).toBe('BUTTON')
       } else {
         expect(li.classes()).not.toContain('active')
         expect(li.classes()).toContain('disabled')
-        expect(pageLink.is('span')).toBe(true)
+        expect(pageLink.element.tagName).toBe('SPAN')
       }
     })
 
@@ -150,23 +150,23 @@ describe('pagination', () => {
         limit: 10
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(5)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       totalRows: 4
     })
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(8)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       perPage: 2
     })
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(6)
 
     wrapper.destroy()
@@ -180,7 +180,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -204,7 +204,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -229,7 +229,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -254,7 +254,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination-foo')
     expect(wrapper.classes()).toContain('pagination')
@@ -280,7 +280,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -305,7 +305,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -330,7 +330,7 @@ describe('pagination', () => {
         perPage: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     // Classes
     expect(wrapper.classes()).toContain('pagination')
     expect(wrapper.classes()).toContain('b-pagination')
@@ -357,7 +357,7 @@ describe('pagination', () => {
         value: 3
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
 
     // Classes
     expect(wrapper.classes()).toContain('text-center')
@@ -385,18 +385,24 @@ describe('pagination', () => {
         ariaControls: 'foo'
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(5)
     expect(wrapper.findAll('button.page-link').length).toBe(4)
-    expect(wrapper.findAll('button.page-link').is('[aria-controls="foo"]')).toBe(true)
+    expect(
+      wrapper
+        .findAll('button.page-link')
+        .wrappers.every(w => w.find('[aria-controls="foo"]').exists())
+    ).toBe(true)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       ariaControls: null
     })
     await waitNT(wrapper.vm)
     expect(wrapper.findAll('li').length).toBe(5)
     expect(wrapper.findAll('button.page-link').length).toBe(4)
-    expect(wrapper.findAll('button.page-link').is('[aria-controls]')).toBe(false)
+    expect(
+      wrapper.findAll('button.page-link').wrappers.every(w => w.find('[aria-controls]').exists())
+    ).toBe(false)
 
     wrapper.destroy()
   })
@@ -411,7 +417,7 @@ describe('pagination', () => {
         value: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(5)
     expect(wrapper.findAll('button').length).toBe(4)
     expect(
@@ -451,11 +457,15 @@ describe('pagination', () => {
         disabled: true
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     expect(wrapper.findAll('li').length).toBe(7)
     expect(wrapper.findAll('.page-item').length).toBe(7)
-    expect(wrapper.findAll('.page-item').is('li.page-item.disabled')).toBe(true)
-    expect(wrapper.findAll('.page-link').is('span.page-link')).toBe(true)
+    expect(
+      wrapper.findAll('.page-item').wrappers.every(w => w.find('li.page-item.disabled').exists())
+    ).toBe(true)
+    expect(
+      wrapper.findAll('.page-link').wrappers.every(w => w.find('span.page-link').exists())
+    ).toBe(true)
     expect(
       wrapper
         .findAll('.page-link')
@@ -487,7 +497,7 @@ describe('pagination', () => {
         value: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
     const lis = wrapper.findAll('li')
     expect(lis).toBeDefined()
     // Including bookend buttons
@@ -528,7 +538,7 @@ describe('pagination', () => {
 
     // Should have the first and last 2 pages buttons with the
     // display classes when currentPage = 4
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '4'
     })
     await waitNT(wrapper.vm)
@@ -565,7 +575,7 @@ describe('pagination', () => {
 
     // Should have the first 4 pages buttons with the
     // display classes when currentPage = 4
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '7'
     })
     await waitNT(wrapper.vm)
@@ -595,7 +605,7 @@ describe('pagination', () => {
         value: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
 
     // Should have ellipsis in place of last button
     // When currentPage = 0
@@ -607,7 +617,7 @@ describe('pagination', () => {
     expect(lis.at(6).attributes('role')).toBe('separator')
 
     // Should have both ellipsis showing when currentPage = 4
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '4'
     })
     await waitNT(wrapper.vm)
@@ -618,7 +628,7 @@ describe('pagination', () => {
     expect(lis.at(6).attributes('role')).toBe('separator')
 
     // Should have first ellipsis showing when currentPage = 5
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 5
     })
     await waitNT(wrapper.vm)
@@ -639,7 +649,7 @@ describe('pagination', () => {
         value: 1
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
 
     // Grab the page buttons
     const lis = wrapper.findAll('li')
@@ -650,12 +660,11 @@ describe('pagination', () => {
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     // Click on 2nd button
-    wrapper
+    await wrapper
       .findAll('li')
       .at(3)
       .find('button')
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
@@ -663,23 +672,21 @@ describe('pagination', () => {
     expect(wrapper.emitted('change')[0][0]).toBe(2)
 
     // Click goto last button
-    wrapper
+    await wrapper
       .findAll('li')
       .at(6)
       .find('button')
       .trigger('keydown.space') // Generates a click event
-    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(3)
     expect(wrapper.emitted('input')[1][0]).toBe(3)
     expect(wrapper.emitted('change')[1][0]).toBe(3)
 
     // Click prev button
-    wrapper
+    await wrapper
       .findAll('li')
       .at(1)
       .find('button')
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.vm.computedCurrentPage).toBe(2)
     expect(wrapper.emitted('input')[2][0]).toBe(2)
     expect(wrapper.emitted('change')[2][0]).toBe(2)
@@ -696,12 +703,12 @@ describe('pagination', () => {
         limit: 10
       }
     })
-    expect(wrapper.is('ul')).toBe(true)
+    expect(wrapper.element.tagName).toBe('UL')
 
     // Should be 13 <li> total
     expect(wrapper.findAll('li').length).toBe(13)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       limit: 4
     })
     await waitNT(wrapper.vm)
@@ -722,13 +729,13 @@ describe('pagination', () => {
         limit: 20
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.vm.currentPage).toBe(10)
     expect(wrapper.emitted('input')).not.toBeDefined()
 
     // Change total rows to larger value. Should not change page number
-    wrapper.setProps({
+    await wrapper.setProps({
       totalRows: 20
     })
     await waitNT(wrapper.vm)
@@ -736,7 +743,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')).not.toBeDefined()
 
     // Change to page 20
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 20
     })
     await waitNT(wrapper.vm)
@@ -746,7 +753,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')[0][0]).toBe(20)
 
     // Decrease number of pages should reset to page 1
-    wrapper.setProps({
+    await wrapper.setProps({
       totalRows: 10
     })
     await waitNT(wrapper.vm)
@@ -755,7 +762,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')[1][0]).toBe(1)
 
     // Change to page 3
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
     await waitNT(wrapper.vm)
@@ -764,7 +771,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')[2][0]).toBe(3)
 
     // Decrease number of pages to 5 should not reset to page 1
-    wrapper.setProps({
+    await wrapper.setProps({
       totalRows: 5
     })
     await waitNT(wrapper.vm)
@@ -784,13 +791,13 @@ describe('pagination', () => {
         limit: 20
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.vm.currentPage).toBe(4)
     expect(wrapper.emitted('input')).not.toBeDefined()
 
     // Change perPage
-    wrapper.setProps({
+    await wrapper.setProps({
       perPage: 2
     })
     await waitNT(wrapper.vm)
@@ -800,7 +807,7 @@ describe('pagination', () => {
     expect(wrapper.emitted('input')[0][0]).toBe(1)
 
     // Change page to 3
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
     await waitNT(wrapper.vm)
@@ -810,7 +817,7 @@ describe('pagination', () => {
 
     // Change perPage. Should reset to page 1, even though
     // current page is within range of numberOfPages
-    wrapper.setProps({
+    await wrapper.setProps({
       perPage: 1
     })
     await waitNT(wrapper.vm)
@@ -836,69 +843,69 @@ describe('pagination', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.findAll(selector).length).toBe(9)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '5', '…', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 2
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '5', '…', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '5', '…', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 4
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '5', '…', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 5
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '…', '4', '5', '6', '…', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 6
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '…', '5', '6', '7', '…', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 7
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '…', '6', '7', '8', '9', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 8
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '…', '6', '7', '8', '9', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 9
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '…', '6', '7', '8', '9', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 10
     })
     await waitNT(wrapper.vm)
@@ -923,69 +930,69 @@ describe('pagination', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     expect(wrapper.findAll(selector).length).toBe(7)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 2
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '2', '3', '4', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 4
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '3', '4', '5', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 5
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '4', '5', '6', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 6
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '5', '6', '7', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 7
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '6', '7', '8', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 8
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '7', '8', '9', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 9
     })
     await waitNT(wrapper.vm)
     items = wrapperArrayToArray(wrapper.findAll(selector)).map(w => w.text())
     expect(items).toEqual(['‹', '1', '7', '8', '9', '10', '›'])
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 10
     })
     await waitNT(wrapper.vm)
@@ -1000,7 +1007,7 @@ describe('pagination', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 
     beforeEach(() => {
-      // Mock getBCR so that the isVisible(el) test returns true
+      // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
       // In our test below, all pagination buttons would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 24,
@@ -1024,10 +1031,10 @@ describe('pagination', () => {
           value: 2,
           limit: 3
         },
-        attachToDocument: true
+        attachTo: createContainer()
       })
       await waitNT(wrapper.vm)
-      expect(wrapper.is('ul')).toBe(true)
+      expect(wrapper.element.tagName).toBe('UL')
       await waitNT(wrapper.vm)
       // Grab the button links (2 bookends + 3 pages + 2 bookends)
       const links = wrapper.findAll('button.page-link')
@@ -1045,33 +1052,27 @@ describe('pagination', () => {
       expect(document.activeElement).toEqual(links.at(3).element)
 
       // LEFT
-      wrapper.trigger('keydown.left')
-      await waitNT(wrapper.vm)
+      await wrapper.trigger('keydown.left')
       expect(document.activeElement).toEqual(links.at(2).element)
 
       // RIGHT
-      links.at(2).trigger('keydown.right')
-      await waitNT(wrapper.vm)
+      await links.at(2).trigger('keydown.right')
       expect(document.activeElement).toEqual(links.at(3).element)
 
       // UP (same as LEFT)
-      wrapper.trigger('keydown.up')
-      await waitNT(wrapper.vm)
+      await wrapper.trigger('keydown.up')
       expect(document.activeElement).toEqual(links.at(2).element)
 
       // DOWN (same as RIGHT)
-      links.at(2).trigger('keydown.down')
-      await waitNT(wrapper.vm)
+      await links.at(2).trigger('keydown.down')
       expect(document.activeElement).toEqual(links.at(3).element)
 
       // SHIFT-RIGHT
-      links.at(2).trigger('keydown.right', { shiftKey: true })
-      await waitNT(wrapper.vm)
+      await links.at(2).trigger('keydown.right', { shiftKey: true })
       expect(document.activeElement).toEqual(links.at(6).element)
 
       // SHIFT-LEFT
-      links.at(6).trigger('keydown.left', { shiftKey: true })
-      await waitNT(wrapper.vm)
+      await links.at(6).trigger('keydown.left', { shiftKey: true })
       expect(document.activeElement).toEqual(links.at(0).element)
 
       wrapper.destroy()
@@ -1085,10 +1086,10 @@ describe('pagination', () => {
           value: 2,
           limit: 3
         },
-        attachToDocument: true
+        attachTo: createContainer()
       })
       await waitNT(wrapper.vm)
-      expect(wrapper.is('ul')).toBe(true)
+      expect(wrapper.element.tagName).toBe('UL')
       // Grab the button links (2 bookends + 3 pages + 2 bookends)
       const links = wrapper.findAll('button.page-link')
       expect(links.length).toBe(7)
@@ -1113,12 +1114,12 @@ describe('pagination', () => {
           value: 1,
           limit: 5
         },
-        attachToDocument: true
+        attachTo: createContainer()
       })
       let links
 
       await waitNT(wrapper.vm)
-      expect(wrapper.is('ul')).toBe(true)
+      expect(wrapper.element.tagName).toBe('UL')
       // Grab the button links (2 disabled bookends + 4 pages + (-ellipsis) + 2 bookends)
       links = wrapper.findAll('button.page-link')
       expect(links.length).toBe(6)

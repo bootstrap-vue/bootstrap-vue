@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormCheckbox } from './form-checkbox'
 
 describe('form-checkbox', () => {
@@ -16,7 +16,7 @@ describe('form-checkbox', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     const children = wrapper.element.children
     expect(children.length).toEqual(2)
     expect(children[0].tagName).toEqual('INPUT')
@@ -396,7 +396,7 @@ describe('form-checkbox', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     const children = wrapper.element.children
     expect(children.length).toEqual(2)
     expect(children[0].tagName).toEqual('INPUT')
@@ -607,7 +607,7 @@ describe('form-checkbox', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     const children = wrapper.element.children
     expect(children.length).toEqual(2)
     expect(children[0].tagName).toEqual('INPUT')
@@ -700,7 +700,7 @@ describe('form-checkbox', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     const label = wrapper.element.children
     expect(label.length).toEqual(1)
     expect(label[0].tagName).toEqual('LABEL')
@@ -793,7 +793,7 @@ describe('form-checkbox', () => {
     expect(label.classes()).not.toContain('active')
     expect(label.classes()).toContain('btn')
     expect(label.classes()).toContain('btn-secondary')
-    input.setChecked(true)
+    await input.setChecked(true)
     expect(label.classes().length).toEqual(3)
     expect(label.classes()).toContain('active')
     expect(label.classes()).toContain('btn')
@@ -822,10 +822,10 @@ describe('form-checkbox', () => {
     expect(label.classes()).toContain('btn')
     expect(label.classes()).toContain('btn-secondary')
     expect(input).toBeDefined()
-    input.trigger('focus')
+    await input.trigger('focus')
     expect(label.classes().length).toEqual(3)
     expect(label.classes()).toContain('focus')
-    input.trigger('blur')
+    await input.trigger('blur')
     expect(label.classes().length).toEqual(2)
     expect(label.classes()).not.toContain('focus')
 
@@ -904,11 +904,11 @@ describe('form-checkbox', () => {
     const input = wrapper.find('input')
     expect(input).toBeDefined()
     expect(input.element.indeterminate).toBe(false)
-    wrapper.setProps({
+    await wrapper.setProps({
       indeterminate: true
     })
     expect(input.element.indeterminate).toBe(true)
-    wrapper.setProps({
+    await wrapper.setProps({
       indeterminate: false
     })
     expect(input.element.indeterminate).toBe(false)
@@ -1016,7 +1016,7 @@ describe('form-checkbox', () => {
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.vm.localChecked).toBeDefined()
     expect(wrapper.vm.localChecked).toBe(null)
-    wrapper.setProps({
+    await wrapper.setProps({
       checked: 'bar'
     })
     expect(wrapper.vm.localChecked).toEqual('bar')
@@ -1046,12 +1046,12 @@ describe('form-checkbox', () => {
     const input = wrapper.find('input')
     expect(input).toBeDefined()
 
-    input.trigger('click')
+    await input.trigger('click')
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
     expect(wrapper.emitted('change')[0][0]).toEqual('bar')
 
-    input.trigger('click')
+    await input.trigger('click')
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(2)
     expect(wrapper.emitted('change')[1][0]).toEqual('foo')
@@ -1078,30 +1078,30 @@ describe('form-checkbox', () => {
     const input = wrapper.find('input')
     expect(input).toBeDefined()
 
-    input.trigger('click')
+    await input.trigger('click')
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(2)
     expect(wrapper.vm.localChecked[0]).toEqual('foo')
     expect(wrapper.vm.localChecked[1]).toEqual('bar')
 
-    input.trigger('click')
+    await input.trigger('click')
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(1)
     expect(wrapper.vm.localChecked[0]).toEqual('foo')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       checked: []
     })
 
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(0)
 
-    input.trigger('click')
+    await input.trigger('click')
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(1)
     expect(wrapper.vm.localChecked[0]).toEqual('bar')
 
-    input.trigger('click')
+    await input.trigger('click')
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(0)
 
@@ -1127,13 +1127,13 @@ describe('form-checkbox', () => {
     const input = wrapper.find('input')
     expect(input).toBeDefined()
 
-    input.trigger('click')
+    await input.trigger('click')
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(2)
     expect(wrapper.vm.localChecked[0]).toEqual('foo')
     expect(wrapper.vm.localChecked[1]).toEqual({ bar: 1, baz: 2 })
 
-    input.trigger('click')
+    await input.trigger('click')
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(1)
     expect(wrapper.vm.localChecked[0]).toEqual('foo')
@@ -1143,7 +1143,7 @@ describe('form-checkbox', () => {
 
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormCheckbox, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         checked: false
       },
@@ -1165,11 +1165,11 @@ describe('form-checkbox', () => {
     expect(input.element).not.toBe(document.activeElement)
 
     wrapper.vm.focus()
-    wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(input.element).toBe(document.activeElement)
 
     wrapper.vm.blur()
-    wrapper.vm.$nextTick()
+    await waitNT(wrapper.vm)
     expect(input.element).not.toBe(document.activeElement)
 
     wrapper.destroy()
@@ -1180,7 +1180,7 @@ describe('form-checkbox', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 
     beforeEach(() => {
-      // Mock getBCR so that the isVisible(el) test returns true
+      // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
       // In our test below, all pagination buttons would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 24,
@@ -1199,7 +1199,7 @@ describe('form-checkbox', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormCheckbox, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           checked: false,
           autofocus: true
@@ -1222,7 +1222,7 @@ describe('form-checkbox', () => {
 
     it('does not auto focus when false', async () => {
       const wrapper = mount(BFormCheckbox, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           checked: false,
           autofocus: false

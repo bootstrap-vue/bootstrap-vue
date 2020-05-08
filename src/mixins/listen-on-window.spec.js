@@ -1,4 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { createContainer } from '../../tests/utils'
 import listenOnWindowMixin from './listen-on-window'
 
 describe('mixins/listen-on-window', () => {
@@ -55,13 +56,13 @@ describe('mixins/listen-on-window', () => {
     })
 
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         destroy: false
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.text()).toEqual('test-component')
 
     expect(spyResize1).not.toHaveBeenCalled()
@@ -80,9 +81,7 @@ describe('mixins/listen-on-window', () => {
     expect(spyResize2).toHaveBeenCalledTimes(1)
     expect(spyScroll).toHaveBeenCalledTimes(1)
 
-    wrapper.setProps({
-      offResizeOne: true
-    })
+    await wrapper.setProps({ offResizeOne: true })
 
     window.dispatchEvent(new Event('resize'))
 
@@ -96,9 +95,7 @@ describe('mixins/listen-on-window', () => {
     expect(spyResize2).toHaveBeenCalledTimes(2)
     expect(spyScroll).toHaveBeenCalledTimes(2)
 
-    wrapper.setProps({
-      destroy: true
-    })
+    await wrapper.setProps({ destroy: true })
 
     expect(spyResize1).toHaveBeenCalledTimes(1)
     expect(spyResize2).toHaveBeenCalledTimes(2)

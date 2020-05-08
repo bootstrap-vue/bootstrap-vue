@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCalendar } from './calendar'
 import { formatYMD } from '../../utils/date'
 
@@ -8,11 +8,11 @@ import { formatYMD } from '../../utils/date'
 describe('calendar', () => {
   it('has expected base structure', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -42,13 +42,13 @@ describe('calendar', () => {
 
   it('has expected structure when value is set', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '2020-02-15' // Leap year
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -62,19 +62,19 @@ describe('calendar', () => {
 
   it('reacts to changes in value', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '2020-01-01' // Leap year
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.vm.selectedYMD).toBe('2020-01-01')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '2020-01-15'
     })
 
@@ -88,13 +88,13 @@ describe('calendar', () => {
 
   it('clicking a date selects date', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '2020-01-01' // Leap year
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -111,9 +111,7 @@ describe('calendar', () => {
     expect($grid.attributes('aria-activedescendant')).toBeDefined()
     expect($grid.attributes('aria-activedescendant')).not.toEqual($cell.attributes('id'))
 
-    $btn.trigger('click')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $btn.trigger('click')
 
     expect($cell.attributes('aria-selected')).toBeDefined()
     expect($cell.attributes('aria-selected')).toEqual('true')
@@ -124,14 +122,14 @@ describe('calendar', () => {
 
   it('date navigation buttons work', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         showDecadeNav: true,
         value: '2020-02-15' // Leap year
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -143,48 +141,34 @@ describe('calendar', () => {
     expect($navBtns.length).toBe(7)
 
     // Prev Month
-    $navBtns.at(2).trigger('click')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $navBtns.at(2).trigger('click')
     expect($grid.attributes('data-month')).toBe('2020-01')
 
     // Next Month
-    $navBtns.at(4).trigger('click')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $navBtns.at(4).trigger('click')
     expect($grid.attributes('data-month')).toBe('2020-02')
 
     // Prev Year
-    $navBtns.at(1).trigger('click')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $navBtns.at(1).trigger('click')
     expect($grid.attributes('data-month')).toBe('2019-02')
 
     // Next Year
-    $navBtns.at(5).trigger('click')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $navBtns.at(5).trigger('click')
     expect($grid.attributes('data-month')).toBe('2020-02')
 
     // Prev Decade
-    $navBtns.at(0).trigger('click')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $navBtns.at(0).trigger('click')
     expect($grid.attributes('data-month')).toBe('2010-02')
 
     // Next Decade
-    $navBtns.at(6).trigger('click')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $navBtns.at(6).trigger('click')
     expect($grid.attributes('data-month')).toBe('2020-02')
 
     // Current Month
     // Handle the rare case this test is run right at midnight where
     // the current month rolled over at midnight when clicked
     const thisMonth1 = formatYMD(new Date()).slice(0, -3)
-    $navBtns.at(3).trigger('click')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $navBtns.at(3).trigger('click')
     const thisMonth2 = formatYMD(new Date()).slice(0, -3)
     const thisMonth = $grid.attributes('data-month')
     expect(thisMonth === thisMonth1 || thisMonth === thisMonth2).toBe(true)
@@ -194,19 +178,19 @@ describe('calendar', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '2020-02-15' // Leap year
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
     const $grid = wrapper.find('[role="application"]')
     expect($grid.exists()).toBe(true)
-    expect($grid.is('div')).toBe(true)
+    expect($grid.element.tagName).toBe('DIV')
 
     expect(document.activeElement).not.toBe($grid.element)
 
@@ -227,41 +211,34 @@ describe('calendar', () => {
 
   it('clicking output header focuses grid', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '2020-02-15' // Leap year
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
     const $grid = wrapper.find('[role="application"]')
     expect($grid.exists()).toBe(true)
-    expect($grid.is('div')).toBe(true)
+    expect($grid.element.tagName).toBe('DIV')
 
     expect(document.activeElement).not.toBe($grid.element)
 
     const $output = wrapper.find('header > output')
     expect($output.exists()).toBe(true)
 
-    $output.trigger('click')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $output.trigger('click')
     expect(document.activeElement).toBe($grid.element)
 
     wrapper.vm.blur()
     await waitNT(wrapper.vm)
     await waitRAF()
-
     expect(document.activeElement).not.toBe($grid.element)
 
-    $output.trigger('focus')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $output.trigger('focus')
     expect(document.activeElement).toBe($grid.element)
 
     wrapper.destroy()
@@ -269,13 +246,13 @@ describe('calendar', () => {
 
   it('keyboard navigation works', async () => {
     const wrapper = mount(BCalendar, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '2020-02-15' // Leap year
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -289,90 +266,70 @@ describe('calendar', () => {
     expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
 
     // Left
-    $grid.trigger('keydown.left')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $grid.trigger('keydown.left')
     $cell = wrapper.find('[data-date="2020-02-14"]')
     expect($cell.exists()).toBe(true)
     expect($cell.attributes('id')).toBeDefined()
     expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
 
     // Right
-    $grid.trigger('keydown.right')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $grid.trigger('keydown.right')
     $cell = wrapper.find('[data-date="2020-02-15"]')
     expect($cell.exists()).toBe(true)
     expect($cell.attributes('id')).toBeDefined()
     expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
 
     // Up
-    $grid.trigger('keydown.up')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $grid.trigger('keydown.up')
     $cell = wrapper.find('[data-date="2020-02-08"]')
     expect($cell.exists()).toBe(true)
     expect($cell.attributes('id')).toBeDefined()
     expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
 
     // Down
-    $grid.trigger('keydown.down')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $grid.trigger('keydown.down')
     $cell = wrapper.find('[data-date="2020-02-15"]')
     expect($cell.exists()).toBe(true)
     expect($cell.attributes('id')).toBeDefined()
     expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
 
     // PageUp
-    $grid.trigger('keydown.pageup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $grid.trigger('keydown.pageup')
     $cell = wrapper.find('[data-date="2020-01-15"]')
     expect($cell.exists()).toBe(true)
     expect($cell.attributes('id')).toBeDefined()
     expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
 
     // PageDown
-    $grid.trigger('keydown.pagedown')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $grid.trigger('keydown.pagedown')
     $cell = wrapper.find('[data-date="2020-02-15"]')
     expect($cell.exists()).toBe(true)
     expect($cell.attributes('id')).toBeDefined()
     expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
 
     // Alt + PageUp
-    $grid.trigger('keydown.pageup', { altKey: true })
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $grid.trigger('keydown.pageup', { altKey: true })
     $cell = wrapper.find('[data-date="2019-02-15"]')
     expect($cell.exists()).toBe(true)
     expect($cell.attributes('id')).toBeDefined()
     expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
 
     // End (selected date)
-    $grid.trigger('keydown.end')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $grid.trigger('keydown.end')
     $cell = wrapper.find('[data-date="2020-02-15"]')
     expect($cell.exists()).toBe(true)
     expect($cell.attributes('id')).toBeDefined()
     expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
 
     // Alt + PageDown
-    $grid.trigger('keydown.pagedown', { altKey: true })
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $grid.trigger('keydown.pagedown', { altKey: true })
     $cell = wrapper.find('[data-date="2021-02-15"]')
     expect($cell.exists()).toBe(true)
     expect($cell.attributes('id')).toBeDefined()
     expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
 
     // Home (today's date)
-    $grid.trigger('keydown.home')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $grid.trigger('keydown.home')
     const todayID = $grid.attributes('aria-activedescendant')
     expect(todayID).toBeDefined()
     $cell = $grid.find(`#${todayID}`)

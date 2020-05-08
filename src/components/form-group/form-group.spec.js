@@ -1,12 +1,12 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { createContainer, waitNT } from '../../../tests/utils'
 import { BFormGroup } from './form-group'
 
 describe('form-group', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
 
   beforeEach(() => {
-    // Mock getBCR so that the isVisible(el) test returns true
+    // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
     // Needed for input focusing
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
       width: 24,
@@ -26,12 +26,12 @@ describe('form-group', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormGroup)
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
 
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('fieldset')).toBe(true)
+    expect(wrapper.element.tagName).toBe('FIELDSET')
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -54,7 +54,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
 
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
@@ -80,7 +80,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('foo')
     expect(wrapper.find('label').attributes('id')).toEqual('foo__BV_label_')
@@ -99,13 +99,13 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
 
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('fieldset')).toBe(false)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).not.toBe('FIELDSET')
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('id')).toBeDefined()
@@ -149,11 +149,11 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
 
-    expect(wrapper.is('fieldset')).toBe(false)
+    expect(wrapper.element.tagName).not.toBe('FIELDSET')
     expect(wrapper.find('legend').exists()).toBe(false)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(2)
@@ -191,13 +191,13 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
 
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('fieldset')).toBe(true)
-    expect(wrapper.is('div')).toBe(false)
+    expect(wrapper.element.tagName).toBe('FIELDSET')
+    expect(wrapper.element.tagName).not.toBe('DIV')
     expect(wrapper.find('legend').exists()).toBe(true)
     expect(wrapper.find('fieldset > div > legend').exists()).toBe(true)
     expect(wrapper.classes()).toContain('form-group')
@@ -238,7 +238,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
 
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
@@ -266,7 +266,7 @@ describe('form-group', () => {
     expect($input.attributes('aria-describedby')).toEqual('group-id__BV_description_')
 
     // With state = true, description and valid are visible
-    wrapper.setProps({
+    await wrapper.setProps({
       state: true
     })
     await waitNT(wrapper.vm)
@@ -279,7 +279,7 @@ describe('form-group', () => {
     expect(wrapper.classes()).toContain('is-valid')
 
     // With state = true, description and valid are visible
-    wrapper.setProps({
+    await wrapper.setProps({
       state: false
     })
     await waitNT(wrapper.vm)
@@ -293,7 +293,7 @@ describe('form-group', () => {
     expect(wrapper.classes()).toContain('is-invalid')
   })
 
-  it('validation elemetns respect feedback-aria-live attribute', async () => {
+  it('validation elements respect feedback-aria-live attribute', async () => {
     const wrapper = mount(BFormGroup, {
       propsData: {
         id: 'group-id',
@@ -308,7 +308,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
 
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
@@ -325,7 +325,7 @@ describe('form-group', () => {
     expect(wrapper.find('.valid-feedback').attributes('aria-atomic')).toEqual('true')
 
     // With feedback-aria-live set to null
-    wrapper.setProps({
+    await wrapper.setProps({
       feedbackAriaLive: null
     })
     await waitNT(wrapper.vm)
@@ -357,7 +357,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     const $label = wrapper.find('label')
     expect($label.exists()).toBe(true)
@@ -381,7 +381,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $label = wrapper.find('label')
@@ -392,7 +392,7 @@ describe('form-group', () => {
 
   it('clicking legend focuses input', async () => {
     const wrapper = mount(BFormGroup, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'group-id',
         label: 'test'
@@ -402,7 +402,7 @@ describe('form-group', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
     const $legend = wrapper.find('legend')
@@ -413,9 +413,7 @@ describe('form-group', () => {
     expect(document.activeElement).not.toBe($input.element)
     expect(document.activeElement).not.toBe($legend.element)
 
-    $legend.trigger('click')
-    await waitNT(wrapper.vm)
-
+    await $legend.trigger('click')
     expect(document.activeElement).toBe($input.element)
 
     wrapper.destroy()

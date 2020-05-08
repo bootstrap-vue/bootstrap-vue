@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { createContainer, waitNT } from '../../../tests/utils'
 import { BButton } from '../button/button'
 import { BButtonGroup } from '../button-group/button-group'
 import { BButtonToolbar } from './button-toolbar'
@@ -8,7 +8,7 @@ import { BButtonToolbar } from './button-toolbar'
 describe('button-toolbar', () => {
   it('toolbar root should be "div"', async () => {
     const wrapper = mount(BButtonToolbar)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     wrapper.destroy()
   })
 
@@ -64,7 +64,7 @@ describe('button-toolbar', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 
     beforeEach(() => {
-      // Mock getBCR so that the isVisible(el) test returns true
+      // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
       // In our test below, all pagination buttons would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 24,
@@ -94,41 +94,69 @@ describe('button-toolbar', () => {
 
     it('has correct structure', async () => {
       const wrapper = mount(App, {
-        attachToDocument: true
+        attachTo: createContainer()
       })
 
       await waitNT(wrapper.vm)
 
-      expect(wrapper.is('div.btn-toolbar')).toBe(true)
+      expect(wrapper.find('div.btn-toolbar').exists()).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
 
-      const $groups = wrapper.findAll('.btn-group')
+      const $groups = wrapper.findAllComponents(BButtonGroup)
       expect($groups).toBeDefined()
       expect($groups.length).toBe(3)
-      expect($groups.is(BButtonGroup)).toBe(true)
 
-      const $btns = wrapper.findAll('button')
+      const $btns = wrapper.findAllComponents(BButton)
       expect($btns).toBeDefined()
       expect($btns.length).toBe(6)
-      expect($btns.is(BButton)).toBe(true)
-      expect($btns.at(0).is('button[tabindex="-1"')).toBe(true)
-      expect($btns.at(1).is('button[tabindex="-1"')).toBe(true)
-      expect($btns.at(2).is('button[tabindex="-1"')).toBe(false) // Disabled button
-      expect($btns.at(3).is('button[tabindex="-1"')).toBe(true)
-      expect($btns.at(4).is('button[tabindex="-1"')).toBe(true)
-      expect($btns.at(5).is('button[tabindex="-1"')).toBe(true)
+      expect(
+        $btns
+          .at(0)
+          .find('button[tabindex="-1"')
+          .exists()
+      ).toBe(true)
+      expect(
+        $btns
+          .at(1)
+          .find('button[tabindex="-1"')
+          .exists()
+      ).toBe(true)
+      expect(
+        $btns
+          .at(2)
+          .find('button[tabindex="-1"')
+          .exists()
+      ).toBe(false) // Disabled button
+      expect(
+        $btns
+          .at(3)
+          .find('button[tabindex="-1"')
+          .exists()
+      ).toBe(true)
+      expect(
+        $btns
+          .at(4)
+          .find('button[tabindex="-1"')
+          .exists()
+      ).toBe(true)
+      expect(
+        $btns
+          .at(5)
+          .find('button[tabindex="-1"')
+          .exists()
+      ).toBe(true)
 
       wrapper.destroy()
     })
 
     it('focuses first button when tabbed into', async () => {
       const wrapper = mount(App, {
-        attachToDocument: true
+        attachTo: createContainer()
       })
 
       await waitNT(wrapper.vm)
 
-      expect(wrapper.is('div.btn-toolbar')).toBe(true)
+      expect(wrapper.find('div.btn-toolbar').exists()).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
 
       const $btns = wrapper.findAll('button')
@@ -138,8 +166,7 @@ describe('button-toolbar', () => {
       expect(document.activeElement).not.toBe(wrapper.element)
       expect(document.activeElement).not.toBe($btns.at(0).element)
 
-      wrapper.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await wrapper.trigger('focusin')
       expect(document.activeElement).toBe($btns.at(0).element)
 
       wrapper.destroy()
@@ -147,12 +174,12 @@ describe('button-toolbar', () => {
 
     it('keyboard navigation works', async () => {
       const wrapper = mount(App, {
-        attachToDocument: true
+        attachTo: createContainer()
       })
 
       await waitNT(wrapper.vm)
 
-      expect(wrapper.is('div.btn-toolbar')).toBe(true)
+      expect(wrapper.find('div.btn-toolbar').exists()).toBe(true)
       expect(wrapper.attributes('tabindex')).toBe('0')
 
       const $btns = wrapper.findAll('button')
@@ -164,28 +191,23 @@ describe('button-toolbar', () => {
       expect(document.activeElement).toBe($btns.at(0).element)
 
       // Cursor right
-      $btns.at(0).trigger('keydown.right')
-      await waitNT(wrapper.vm)
+      await $btns.at(0).trigger('keydown.right')
       expect(document.activeElement).toBe($btns.at(1).element)
 
       // Cursor right (skips disabled button)
-      $btns.at(1).trigger('keydown.right')
-      await waitNT(wrapper.vm)
+      await $btns.at(1).trigger('keydown.right')
       expect(document.activeElement).toBe($btns.at(3).element)
 
       // Cursor shift-right (focuses last button)
-      $btns.at(1).trigger('keydown.right', { shiftKey: true })
-      await waitNT(wrapper.vm)
+      await $btns.at(1).trigger('keydown.right', { shiftKey: true })
       expect(document.activeElement).toBe($btns.at(5).element)
 
       // Cursor left
-      $btns.at(5).trigger('keydown.left')
-      await waitNT(wrapper.vm)
+      await $btns.at(5).trigger('keydown.left')
       expect(document.activeElement).toBe($btns.at(4).element)
 
       // Cursor shift left (focuses first button)
-      $btns.at(5).trigger('keydown.left', { shiftKey: true })
-      await waitNT(wrapper.vm)
+      await $btns.at(5).trigger('keydown.left', { shiftKey: true })
       expect(document.activeElement).toBe($btns.at(0).element)
 
       wrapper.destroy()

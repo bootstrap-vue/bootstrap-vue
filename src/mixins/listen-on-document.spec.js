@@ -1,4 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { createContainer } from '../../tests/utils'
 import listenOnDocumentMixin from './listen-on-document'
 
 describe('mixins/listen-on-document', () => {
@@ -59,13 +60,13 @@ describe('mixins/listen-on-document', () => {
     })
 
     const wrapper = mount(App, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         destroy: false
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.text()).toEqual('test-component')
 
     expect(spyClick1).not.toHaveBeenCalled()
@@ -78,50 +79,38 @@ describe('mixins/listen-on-document', () => {
     const $input = wrapper.find('input')
     expect($input.exists()).toBe(true)
 
-    $input.trigger('focusin')
-
+    await $input.trigger('focusin')
     expect(spyClick1).not.toHaveBeenCalled()
     expect(spyClick2).not.toHaveBeenCalled()
     expect(spyFocusin).toHaveBeenCalledTimes(1)
 
-    $span.trigger('click')
-
+    await $span.trigger('click')
     expect(spyClick1).toHaveBeenCalledTimes(1)
     expect(spyClick2).toHaveBeenCalledTimes(1)
     expect(spyFocusin).toHaveBeenCalledTimes(1)
 
-    wrapper.setProps({
-      offClickOne: true
-    })
-
-    $span.trigger('click')
-
+    await wrapper.setProps({ offClickOne: true })
+    await $span.trigger('click')
     expect(spyClick1).toHaveBeenCalledTimes(1)
     expect(spyClick2).toHaveBeenCalledTimes(2)
     expect(spyFocusin).toHaveBeenCalledTimes(1)
 
-    $input.trigger('focusin')
-
+    await $input.trigger('focusin')
     expect(spyClick1).toHaveBeenCalledTimes(1)
     expect(spyClick2).toHaveBeenCalledTimes(2)
     expect(spyFocusin).toHaveBeenCalledTimes(2)
 
-    wrapper.setProps({
-      destroy: true
-    })
-
+    await wrapper.setProps({ destroy: true })
     expect(spyClick1).toHaveBeenCalledTimes(1)
     expect(spyClick2).toHaveBeenCalledTimes(2)
     expect(spyFocusin).toHaveBeenCalledTimes(2)
 
-    $input.trigger('focusin')
-
+    await $input.trigger('focusin')
     expect(spyClick1).toHaveBeenCalledTimes(1)
     expect(spyClick2).toHaveBeenCalledTimes(2)
     expect(spyFocusin).toHaveBeenCalledTimes(2)
 
-    $span.trigger('click')
-
+    await $span.trigger('click')
     expect(spyClick1).toHaveBeenCalledTimes(1)
     expect(spyClick2).toHaveBeenCalledTimes(2)
     expect(spyFocusin).toHaveBeenCalledTimes(2)

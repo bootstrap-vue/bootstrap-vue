@@ -79,13 +79,13 @@ describe('utils/router', () => {
       expect(parseQuery('?foo=bar&baz=buz')).toEqual({ foo: 'bar', baz: 'buz' })
     })
 
-    it('parses empty vals', async () => {
+    it('parses empty values', async () => {
       expect(parseQuery('?foo')).toEqual({ foo: null })
       expect(parseQuery('?foo=bar&baz')).toEqual({ foo: 'bar', baz: null })
       expect(parseQuery('?foo=&baz')).toEqual({ foo: '', baz: null })
     })
 
-    it('handles null key/value pairs vals', async () => {
+    it('handles null key/value pairs values', async () => {
       expect(parseQuery('?foo=bar&&baz=fiz')).toEqual({ foo: 'bar', '': null, baz: 'fiz' })
       expect(parseQuery('?foo=bar&=&baz=fiz')).toEqual({ foo: 'bar', '': '', baz: 'fiz' })
     })

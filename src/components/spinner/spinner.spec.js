@@ -3,23 +3,29 @@ import { BSpinner } from './spinner'
 
 describe('spinner', () => {
   it('default has root element of span, and no children', async () => {
-    const spinner = mount(BSpinner)
-    expect(spinner).toBeDefined()
-    expect(spinner.is('span')).toBe(true)
-    expect(spinner.find('span.sr-only').exists()).toBe(false)
+    const wrapper = mount(BSpinner)
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.element.tagName).toBe('SPAN')
+    expect(wrapper.find('span.sr-only').exists()).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('renders custom root element when tag prop is set', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: { tag: 'aside' }
       }
     })
-    expect(spinner.is('aside')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('ASIDE')
+
+    wrapper.destroy()
   })
 
   it('default has inner span when label is set', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: {
           tag: 'div',
@@ -27,22 +33,28 @@ describe('spinner', () => {
         }
       }
     })
-    expect(spinner).toBeDefined()
-    expect(spinner.is('div')).toBe(true)
-    expect(spinner.find('span').exists()).toBe(true)
-    expect(spinner.text()).toBe('Loading...')
+
+    expect(wrapper).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.find('span').exists()).toBe(true)
+    expect(wrapper.text()).toBe('Loading...')
+
+    wrapper.destroy()
   })
 
   it('accepts custom label text via label slot', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       slots: { label: 'foobar' },
       context: {}
     })
-    expect(spinner.text()).toBe('foobar')
+
+    expect(wrapper.text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('has inner span class "sr-only" when label is set', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: {
           tag: 'div',
@@ -50,42 +62,54 @@ describe('spinner', () => {
         }
       }
     })
-    const span = spinner.find('span')
+
+    const span = wrapper.find('span')
     expect(span).toBeDefined()
     expect(span.classes().length).toBe(1)
     expect(span.classes()).toContain('sr-only')
+
+    wrapper.destroy()
   })
 
   it('default has class "spinner-border"', async () => {
-    const spinner = mount(BSpinner)
-    expect(spinner.classes().length).toBe(1)
-    expect(spinner.classes()).toContain('spinner-border')
+    const wrapper = mount(BSpinner)
+
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.classes()).toContain('spinner-border')
+
+    wrapper.destroy()
   })
 
   it('default has class "spinner-border-sm" when prop small=true', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: { small: true }
       }
     })
-    expect(spinner.classes().length).toBe(2)
-    expect(spinner.classes()).toContain('spinner-border')
-    expect(spinner.classes()).toContain('spinner-border-sm')
+
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.classes()).toContain('spinner-border')
+    expect(wrapper.classes()).toContain('spinner-border-sm')
+
+    wrapper.destroy()
   })
 
   it('default has classes "spinner-border" and "text-danger" when prop variant="danger"', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: { variant: 'danger' }
       }
     })
-    expect(spinner.classes().length).toBe(2)
-    expect(spinner.classes()).toContain('spinner-border')
-    expect(spinner.classes()).toContain('text-danger')
+
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.classes()).toContain('spinner-border')
+    expect(wrapper.classes()).toContain('text-danger')
+
+    wrapper.destroy()
   })
 
   it('default has class "text-danger" and "spinner-border-sm" when prop variant="danger" and small=true', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: {
           variant: 'danger',
@@ -93,40 +117,52 @@ describe('spinner', () => {
         }
       }
     })
-    expect(spinner.classes().length).toBe(3)
-    expect(spinner.classes()).toContain('spinner-border')
-    expect(spinner.classes()).toContain('spinner-border-sm')
-    expect(spinner.classes()).toContain('text-danger')
+
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.classes()).toContain('spinner-border')
+    expect(wrapper.classes()).toContain('spinner-border-sm')
+    expect(wrapper.classes()).toContain('text-danger')
+
+    wrapper.destroy()
   })
 
   it('does not have role "status" when no label provided', async () => {
-    const spinner = mount(BSpinner)
-    expect(spinner.attributes('role')).not.toBeDefined()
+    const wrapper = mount(BSpinner)
+
+    expect(wrapper.attributes('role')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('has role "status" when label provided', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: { label: 'Loading' }
       }
     })
-    expect(spinner.attributes('role')).toBeDefined()
-    expect(spinner.attributes('role')).toEqual('status')
+
+    expect(wrapper.attributes('role')).toBeDefined()
+    expect(wrapper.attributes('role')).toEqual('status')
+
+    wrapper.destroy()
   })
 
   it('does not add custom role when role prop is set and no label', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: {
           role: 'foobar'
         }
       }
     })
-    expect(spinner.attributes('role')).not.toBeDefined()
+
+    expect(wrapper.attributes('role')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('adds custom role when role prop is set and label provided', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: {
           role: 'foobar',
@@ -134,67 +170,88 @@ describe('spinner', () => {
         }
       }
     })
-    expect(spinner.attributes('role')).toBeDefined()
-    expect(spinner.attributes('role')).toEqual('foobar')
+
+    expect(wrapper.attributes('role')).toBeDefined()
+    expect(wrapper.attributes('role')).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('has attribute "aria-hidden" when no label provided', async () => {
-    const spinner = mount(BSpinner)
-    expect(spinner.attributes('aria-hidden')).toBeDefined()
-    expect(spinner.attributes('aria-hidden')).toEqual('true')
+    const wrapper = mount(BSpinner)
+
+    expect(wrapper.attributes('aria-hidden')).toBeDefined()
+    expect(wrapper.attributes('aria-hidden')).toEqual('true')
+
+    wrapper.destroy()
   })
 
   it('does not have attribute "aria-hidden" when label provided', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: { label: 'loading' }
       }
     })
-    expect(spinner.attributes('aria-hidden')).not.toBeDefined()
+
+    expect(wrapper.attributes('aria-hidden')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('does not have attribute "aria-hidden" when label slot provided', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       slots: {
         label: 'loading'
       }
     })
-    expect(spinner.attributes('aria-hidden')).not.toBeDefined()
+
+    expect(wrapper.attributes('aria-hidden')).not.toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('places user supplied attributes on root element', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         attrs: { id: 'foobar' }
       }
     })
-    expect(spinner.attributes('id')).toBeDefined()
-    expect(spinner.attributes('id')).toEqual('foobar')
+
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('places user supplied class on root element', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         class: ['foo', 'bar']
       }
     })
-    expect(spinner.classes()).toContain('spinner-border')
-    expect(spinner.classes()).toContain('foo')
-    expect(spinner.classes()).toContain('bar')
+
+    expect(wrapper.classes()).toContain('spinner-border')
+    expect(wrapper.classes()).toContain('foo')
+    expect(wrapper.classes()).toContain('bar')
+
+    wrapper.destroy()
   })
 
   it('has class "spinner-grow" when prop type="grow"', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: { type: 'grow' }
       }
     })
-    expect(spinner.classes().length).toBe(1)
-    expect(spinner.classes()).toContain('spinner-grow')
+
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.classes()).toContain('spinner-grow')
+
+    wrapper.destroy()
   })
 
   it('has class "spinner-grow-sm" when props small=true and type="grow"', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: {
           small: true,
@@ -202,13 +259,16 @@ describe('spinner', () => {
         }
       }
     })
-    expect(spinner.classes().length).toBe(2)
-    expect(spinner.classes()).toContain('spinner-grow')
-    expect(spinner.classes()).toContain('spinner-grow-sm')
+
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.classes()).toContain('spinner-grow')
+    expect(wrapper.classes()).toContain('spinner-grow-sm')
+
+    wrapper.destroy()
   })
 
   it('has classes "spinner-grow" and "text-danger" when props type="grow" and variant="danger"', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: {
           type: 'grow',
@@ -216,13 +276,16 @@ describe('spinner', () => {
         }
       }
     })
-    expect(spinner.classes().length).toBe(2)
-    expect(spinner.classes()).toContain('spinner-grow')
-    expect(spinner.classes()).toContain('text-danger')
+
+    expect(wrapper.classes().length).toBe(2)
+    expect(wrapper.classes()).toContain('spinner-grow')
+    expect(wrapper.classes()).toContain('text-danger')
+
+    wrapper.destroy()
   })
 
   it('has classes "text-info", "spinner-grow" and "spinner-grow-sm" when props type="grow", variant="info" and small=true', async () => {
-    const spinner = mount(BSpinner, {
+    const wrapper = mount(BSpinner, {
       context: {
         props: {
           type: 'grow',
@@ -231,9 +294,12 @@ describe('spinner', () => {
         }
       }
     })
-    expect(spinner.classes().length).toBe(3)
-    expect(spinner.classes()).toContain('spinner-grow')
-    expect(spinner.classes()).toContain('spinner-grow-sm')
-    expect(spinner.classes()).toContain('text-info')
+
+    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.classes()).toContain('spinner-grow')
+    expect(wrapper.classes()).toContain('spinner-grow-sm')
+    expect(wrapper.classes()).toContain('text-info')
+
+    wrapper.destroy()
   })
 })

@@ -19,11 +19,11 @@ describe('table > thead events', () => {
     const $ths = wrapper.findAll('thead > tr > th')
     expect($ths.length).toBe(testFields.length)
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
-    $ths.at(0).trigger('click')
+    await $ths.at(0).trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
-    $ths.at(1).trigger('click')
+    await $ths.at(1).trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
-    $ths.at(2).trigger('click')
+    await $ths.at(2).trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
   })
 
@@ -44,7 +44,7 @@ describe('table > thead events', () => {
     const $ths = wrapper.findAll('thead > tr > th')
     expect($ths.length).toBe(testFields.length)
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
-    $ths.at(0).trigger('click')
+    await $ths.at(0).trigger('click')
     expect(wrapper.emitted('head-clicked')).toBeDefined()
     expect(wrapper.emitted('head-clicked').length).toBe(1)
     expect(wrapper.emitted('head-clicked')[0][0]).toEqual(testFields[0].key) // Field key
@@ -52,7 +52,7 @@ describe('table > thead events', () => {
     expect(wrapper.emitted('head-clicked')[0][2]).toBeInstanceOf(MouseEvent) // Event
     expect(wrapper.emitted('head-clicked')[0][3]).toBe(false) // Is footer
 
-    $ths.at(2).trigger('click')
+    await $ths.at(2).trigger('click')
     expect(wrapper.emitted('head-clicked').length).toBe(2)
     expect(wrapper.emitted('head-clicked')[1][0]).toEqual(testFields[2].key) // Field key
     expect(wrapper.emitted('head-clicked')[1][1]).toEqual(testFields[2]) // Field definition
@@ -78,7 +78,7 @@ describe('table > thead events', () => {
     const $ths = wrapper.findAll('thead > tr > th')
     expect($ths.length).toBe(testFields.length)
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
-    $ths.at(0).trigger('click')
+    await $ths.at(0).trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
 
     wrapper.destroy()
@@ -95,14 +95,14 @@ describe('table > thead events', () => {
         'head-clicked': () => {}
       }
     })
-    wrapper.setData({
+    await wrapper.setData({
       localBusy: true
     })
     expect(wrapper).toBeDefined()
     const $ths = wrapper.findAll('thead > tr > th')
     expect($ths.length).toBe(testFields.length)
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
-    $ths.at(0).trigger('click')
+    await $ths.at(0).trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
 
     wrapper.destroy()
@@ -132,17 +132,17 @@ describe('table > thead events', () => {
 
     const $btn = wrapper.find('button[id="a"]')
     expect($btn.exists()).toBe(true)
-    $btn.trigger('click')
+    await $btn.trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
 
     const $input = wrapper.find('input[id="b"]')
     expect($input.exists()).toBe(true)
-    $input.trigger('click')
+    await $input.trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
 
     const $link = wrapper.find('a[id="c"]')
     expect($link.exists()).toBe(true)
-    $link.trigger('click')
+    await $link.trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
 
     wrapper.destroy()
