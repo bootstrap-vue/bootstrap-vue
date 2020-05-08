@@ -158,6 +158,13 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         beforeLeave: this.onBeforeLeave,
         afterLeave: this.onAfterLeave
       }
+    },
+    computedAttrs() {
+      return {
+        ...this.bvAttrs,
+        id: this.safeId(),
+        tabindex: '0'
+      }
     }
   },
   watch: {
@@ -397,11 +404,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           ref: 'toast',
           staticClass: 'toast',
           class: this.toastClass,
-          attrs: {
-            ...this.bvAttrs,
-            tabindex: '0',
-            id: this.safeId()
-          }
+          attrs: this.computedAttrs
         },
         [$header, $body]
       )

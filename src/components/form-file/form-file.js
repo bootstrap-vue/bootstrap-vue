@@ -128,6 +128,22 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           ? toString(this.fileNameFormatter(files))
           : files.map(file => file.name).join(', ')
       }
+    },
+    computedAttrs() {
+      return {
+        ...this.bvAttrs,
+        type: 'file',
+        id: this.safeId(),
+        name: this.name,
+        disabled: this.disabled,
+        required: this.required,
+        form: this.form || null,
+        capture: this.capture || null,
+        accept: this.accept || null,
+        multiple: this.multiple,
+        webkitdirectory: this.directory,
+        'aria-required': this.required ? 'true' : null
+      }
     }
   },
   watch: {
@@ -291,20 +307,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         },
         this.stateClass
       ],
-      attrs: {
-        ...this.bvAttrs,
-        type: 'file',
-        id: this.safeId(),
-        name: this.name,
-        disabled: this.disabled,
-        required: this.required,
-        form: this.form || null,
-        capture: this.capture || null,
-        accept: this.accept || null,
-        multiple: this.multiple,
-        webkitdirectory: this.directory,
-        'aria-required': this.required ? 'true' : null
-      },
+      attrs: this.computedAttrs,
       on: {
         change: this.onFileChange,
         focusin: this.focusHandler,

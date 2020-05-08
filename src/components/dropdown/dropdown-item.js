@@ -27,6 +27,14 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
       default: null
     }
   },
+  computed: {
+    computedAttrs() {
+      return {
+        ...this.bvAttrs,
+        role: 'menuitem'
+      }
+    }
+  },
   methods: {
     closeDropdown() {
       // Close on next animation frame to allow <b-link> time to process
@@ -54,7 +62,7 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
               [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
             }
           ],
-          attrs: { ...this.bvAttrs, role: 'menuitem' },
+          attrs: this.computedAttrs,
           on: { click: this.onClick },
           ref: 'item'
         },

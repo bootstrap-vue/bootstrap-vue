@@ -153,6 +153,18 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
+    spinId() {
+      return this.safeId()
+    },
+    computedInline() {
+      return this.inline && !this.vertical
+    },
+    computedReadonly() {
+      return this.readonly && !this.disabled
+    },
+    computedRequired() {
+      return this.required && !this.computedReadonly && !this.disabled
+    },
     computedStep() {
       return toFloat(this.step, DEFAULT_STEP)
     },
@@ -213,6 +225,50 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       })
       // Return the format method reference
       return nf.format
+    },
+    computedFormatter() {
+      return isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatter
+    },
+    computedAttrs() {
+      return {
+        ...this.bvAttrs,
+        role: 'group',
+        lang: this.computedLocale,
+        tabindex: this.disabled ? null : '-1',
+        title: this.ariaLabel
+      }
+    },
+    computedSpinAttrs() {
+      const {
+        spinId,
+        localValue: value,
+        computedRequired: required,
+        disabled,
+        state,
+        computedFormatter
+      } = this
+      const hasValue = !isNull(value)
+
+      return {
+        dir: this.computedRTL ? 'rtl' : 'ltr',
+        ...this.bvAttrs,
+        id: spinId,
+        role: 'spinbutton',
+        tabindex: disabled ? null : '0',
+        'aria-live': 'off',
+        'aria-label': this.ariaLabel || null,
+        'aria-controls': this.ariaControls || null,
+        // TODO: May want to check if the value is in range
+        'aria-invalid': state === false || (!hasValue && required) ? 'true' : null,
+        'aria-required': required ? 'true' : null,
+        // These attrs are required for role spinbutton
+        'aria-valuemin': toString(this.computedMin),
+        'aria-valuemax': toString(this.computedMax),
+        // These should be `null` if the value is out of range
+        // They must also be non-existent attrs if the value is out of range or `null`
+        'aria-valuenow': hasValue ? value : null,
+        'aria-valuetext': hasValue ? computedFormatter(value) : null
+      }
     }
   },
   watch: {
@@ -421,17 +477,18 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const spinId = this.safeId()
-    const value = this.localValue
-    const isVertical = this.vertical
-    const isInline = this.inline && !isVertical
-    const isDisabled = this.disabled
-    const isReadonly = this.readonly && !isDisabled
-    const isRequired = this.required && !isReadonly && !isDisabled
-    const state = this.state
-    const size = this.size
+    const {
+      spinId,
+      localValue: value,
+      computedInline: inline,
+      computedReadonly: readonly,
+      vertical,
+      disabled,
+      state,
+      size,
+      computedFormatter
+    } = this
     const hasValue = !isNull(value)
-    const formatter = isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatter
 
     const makeButton = (stepper, label, IconCmp, keyRef, shortcut, btnDisabled, slotName) => {
       const $icon = h(IconCmp, {
@@ -440,7 +497,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       })
       const scope = { hasFocus: this.hasFocus }
       const handler = evt => {
-        if (!isDisabled && !isReadonly) {
+        if (!disabled && !readonly) {
           evt.preventDefault()
           this.setMouseup(true)
           try {
@@ -456,12 +513,12 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           key: keyRef || null,
           ref: keyRef,
           staticClass: 'btn btn-sm border-0 rounded-0',
-          class: { 'py-0': !isVertical },
+          class: { 'py-0': !vertical },
           attrs: {
             tabindex: '-1',
             type: 'button',
-            disabled: isDisabled || isReadonly || btnDisabled,
-            'aria-disabled': isDisabled || isReadonly || btnDisabled ? 'true' : null,
+            disabled: disabled || readonly || btnDisabled,
+            'aria-disabled': disabled || readonly || btnDisabled ? 'true' : null,
             'aria-controls': spinId,
             'aria-label': label || null,
             'aria-keyshortcuts': shortcut || null
@@ -495,7 +552,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     )
 
     let $hidden = h()
-    if (this.name && !isDisabled) {
+    if (this.name && !disabled) {
       $hidden = h('input', {
         key: 'hidden',
         attrs: {
@@ -516,36 +573,17 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         key: 'output',
         staticClass: 'flex-grow-1',
         class: {
-          'd-flex': isVertical,
-          'align-self-center': !isVertical,
-          'align-items-center': isVertical,
-          'border-top': isVertical,
-          'border-bottom': isVertical,
-          'border-left': !isVertical,
-          'border-right': !isVertical
+          'd-flex': vertical,
+          'align-self-center': !vertical,
+          'align-items-center': vertical,
+          'border-top': vertical,
+          'border-bottom': vertical,
+          'border-left': !vertical,
+          'border-right': !vertical
         },
-        attrs: {
-          dir: this.computedRTL ? 'rtl' : 'ltr',
-          ...this.bvAttrs,
-          id: spinId,
-          role: 'spinbutton',
-          tabindex: isDisabled ? null : '0',
-          'aria-live': 'off',
-          'aria-label': this.ariaLabel || null,
-          'aria-controls': this.ariaControls || null,
-          // TODO: May want to check if the value is in range
-          'aria-invalid': state === false || (!hasValue && isRequired) ? 'true' : null,
-          'aria-required': isRequired ? 'true' : null,
-          // These attrs are required for role spinbutton
-          'aria-valuemin': toString(this.computedMin),
-          'aria-valuemax': toString(this.computedMax),
-          // These should be `null` if the value is out of range
-          // They must also be non-existent attrs if the value is out of range or `null`
-          'aria-valuenow': hasValue ? value : null,
-          'aria-valuetext': hasValue ? formatter(value) : null
-        }
+        attrs: this.computedSpinAttrs
       },
-      [h('bdi', hasValue ? formatter(value) : this.placeholder || '')]
+      [h('bdi', hasValue ? computedFormatter(value) : this.placeholder || '')]
     )
 
     return h(
@@ -553,24 +591,18 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'b-form-spinbutton form-control',
         class: {
-          disabled: isDisabled,
-          readonly: isReadonly,
+          disabled,
+          readonly,
           focus: this.hasFocus,
           [`form-control-${size}`]: !!size,
-          'd-inline-flex': isInline || isVertical,
-          'd-flex': !isInline && !isVertical,
-          'align-items-stretch': !isVertical,
-          'flex-column': isVertical,
+          'd-inline-flex': inline || vertical,
+          'd-flex': !inline && !vertical,
+          'align-items-stretch': !vertical,
+          'flex-column': vertical,
           'is-valid': state === true,
           'is-invalid': state === false
         },
-        attrs: {
-          ...this.bvAttrs,
-          role: 'group',
-          lang: this.computedLocale,
-          tabindex: isDisabled ? null : '-1',
-          title: this.ariaLabel
-        },
+        attrs: this.computedAttrs,
         on: {
           keydown: this.onKeydown,
           keyup: this.onKeyup,
@@ -579,9 +611,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           '!blur': this.onFocusBlur
         }
       },
-      isVertical
-        ? [$increment, $hidden, $spin, $decrement]
-        : [$decrement, $hidden, $spin, $increment]
+      vertical ? [$increment, $hidden, $spin, $decrement] : [$decrement, $hidden, $spin, $increment]
     )
   }
 })
