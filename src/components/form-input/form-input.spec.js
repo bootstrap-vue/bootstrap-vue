@@ -571,6 +571,7 @@ describe('form-input', () => {
     // v-model should not change
     expect(wrapper.vm.localValue).toBe('abc')
     // Value in input should remain the same as entered
+    // This works in real life, but fails in JSDON/VTU for some reason
     expect($input.element.value).toEqual('TEST')
 
     wrapper.destroy()
