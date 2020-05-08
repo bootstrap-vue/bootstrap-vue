@@ -564,10 +564,10 @@ describe('form-input', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('update')).not.toBeDefined()
+    // v-model should not change
+    expect(wrapper.vm.localValue).toBe('abc')
     // Value in input should remain the same as entered
     expect(wrapper.element.value).toEqual('TEST')
-    // v-model should not equal input
-    expect(wrapper.vm.localValue).toBe('abc')
 
     wrapper.destroy()
   })
@@ -585,13 +585,15 @@ describe('form-input', () => {
       },
       attachTo: createContainer()
     })
-    const input = wrapper.find('input')
-
-    expect(input.element.type).toBe('number')
+    expect(wrapper.element.type).toBe('number')
     expect(wrapper.props().noWheel).toBe(true)
 
-    input.element.focus()
-    await input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    wrapper.element.focus()
+    wrapper.trigger('focus')
+    await waitNT(wrapper.vm)
+    await wrapper.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+    await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
 
     // `:no-wheel="true"` will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
@@ -614,8 +616,12 @@ describe('form-input', () => {
     })
     expect(wrapper.element.type).toBe('number')
     expect(wrapper.props().noWheel).toBe(false)
+    expect(document.activeElement).not.toBe(wrapper.element)
 
     wrapper.element.focus()
+    wrapper.trigger('focus')
+    await waitNT(wrapper.vm)
+    expect(document.activeElement).toBe(wrapper.element)
     await wrapper.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
