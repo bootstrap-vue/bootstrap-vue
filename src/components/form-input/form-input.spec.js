@@ -563,7 +563,7 @@ describe('form-input', () => {
 
     $input.trigger('focus')
     $input.element.value = 'abcTEST'
-    $input.trigger('input', { inputEvent: 'insertText' })
+    $input.trigger('input')
     await waitNT(wrapper.vm)
     await waitRAF()
 
