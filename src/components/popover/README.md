@@ -36,9 +36,29 @@ Things to know when using popover component:
 - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use
   `white-space: nowrap;` on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
 
+## Target
+
+The target is the _trigger_ element (or component) that will trigger the popover. The target is
+specified via the `target` prop, and can be any of the following:
+
+- A string identifying the ID of the trigger element (or ID of the root element of a component)
+- A reference (ref) to an `HTMLElement` or an `SVGElement` (e.g. via `this.$refs.refName`)
+- A reference (ref) to a component that has either an `HTMLElement` or `SVGElement` as its root
+  element (e.g. via `this.$refs.refName`)
+- A function (callback) that returns a reference to an `HTMLElement` or `SVGElement`
+
+For more information on references, see the official
+[Vue documentation](https://vuejs.org/v2/api/#vm-refs).
+
+**Notes:**
+
 The target element **must** exist in the document before `<b-popover>` is mounted. If the target
 element is not found during mount, the popover will never open. Always place your `<b-popover>`
-component lower in the DOM than your target element.
+component lower in the DOM than your target element. This rule also applies if a callback function
+is used as target element, since that callback is called only once on mount.
+
+`HTMLElement` refers to standard HTML elements such as `<div>`, `<button>`, etc, while `SVGElement`
+refers to `<svg>` or supported child elements of SVGs.
 
 ## Positioning
 
@@ -150,7 +170,7 @@ Positioning is relative to the trigger element.
   <div class="clearfix"></div>
 </div>
 
-Refer to the [Popover directive](/docs/directives/popover/#positioning) documentaion for live
+Refer to the [Popover directive](/docs/directives/popover/#positioning) documentation for live
 examples of positioning.
 
 ## Triggers

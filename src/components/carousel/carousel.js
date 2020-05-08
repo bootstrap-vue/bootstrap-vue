@@ -7,6 +7,7 @@ import { selectAll, reflow, addClass, removeClass, setAttr } from '../../utils/d
 import { isBrowser, hasTouchSupport, hasPointerEventSupport } from '../../utils/env'
 import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
 import { isUndefined } from '../../utils/inspect'
+import { mathAbs, mathFloor, mathMax, mathMin } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -235,7 +236,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       const noWrap = this.noWrap
       const numSlides = this.numSlides
       // Make sure we have an integer (you never know!)
-      slide = Math.floor(slide)
+      slide = mathFloor(slide)
       // Don't do anything if nothing to slide to
       if (numSlides === 0) {
         return
@@ -295,7 +296,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       }
       // Don't start if no interval, or less than 2 slides
       if (this.interval && this.numSlides > 1) {
-        this._intervalId = setInterval(this.next, Math.max(1000, this.interval))
+        this._intervalId = setInterval(this.next, mathMax(1000, this.interval))
       }
     },
     // Restart auto rotate slides when focus/hover leaves the carousel
@@ -392,7 +393,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       this.slides = selectAll('.carousel-item', this.$refs.inner)
       const numSlides = this.slides.length
       // Keep slide number in range
-      const index = Math.max(0, Math.min(Math.floor(this.index), numSlides - 1))
+      const index = mathMax(0, mathMin(mathFloor(this.index), numSlides - 1))
       this.slides.forEach((slide, idx) => {
         const n = idx + 1
         if (idx === index) {
@@ -425,7 +426,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     },
     /* istanbul ignore next */
     handleSwipe() /* istanbul ignore next: JSDOM doesn't support touch events */ {
-      const absDeltaX = Math.abs(this.touchDeltaX)
+      const absDeltaX = mathAbs(this.touchDeltaX)
       if (absDeltaX <= SWIPE_THRESHOLD) {
         return
       }
@@ -477,7 +478,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       }
       this._touchTimeout = setTimeout(
         this.start,
-        TOUCH_EVENT_COMPAT_WAIT + Math.max(1000, this.interval)
+        TOUCH_EVENT_COMPAT_WAIT + mathMax(1000, this.interval)
       )
     }
   },

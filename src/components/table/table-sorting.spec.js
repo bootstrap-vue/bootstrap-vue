@@ -105,10 +105,7 @@ describe('table > sorting', () => {
     ).toContain(wrapper.vm.labelSortClear)
 
     // Change sort direction
-    wrapper.setProps({
-      sortDesc: true
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ sortDesc: true })
     expect(wrapper.emitted('input').length).toBe(2)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
@@ -156,11 +153,10 @@ describe('table > sorting', () => {
     ).toContain(wrapper.vm.labelSortClear)
 
     // Clear sort
-    wrapper.setProps({
+    await wrapper.setProps({
       sortBy: null,
       sortDesc: false
     })
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toBe(4)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
@@ -277,11 +273,10 @@ describe('table > sorting', () => {
     expect(columnA[2]).toBe('2')
 
     // Sort by first column
-    wrapper
+    await wrapper
       .findAll('thead > tr > th')
       .at(0)
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed')).toBeDefined()
     expect(wrapper.emitted('sort-changed').length).toBe(1)
     expect(wrapper.emitted('sort-changed')[0][0]).toEqual(wrapper.vm.context)
@@ -299,11 +294,10 @@ describe('table > sorting', () => {
     expect(columnA[2]).toBe('3')
 
     // Click first column header again to reverse sort
-    wrapper
+    await wrapper
       .findAll('thead > tr > th')
       .at(0)
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(2)
     expect(wrapper.emitted('sort-changed')[1][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -320,11 +314,10 @@ describe('table > sorting', () => {
     expect(columnA[2]).toBe('1')
 
     // Click second column header to sort by it (by using keydown.enter)
-    wrapper
+    await wrapper
       .findAll('thead > tr > th')
       .at(1)
       .trigger('keydown.enter')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(3)
     expect(wrapper.emitted('sort-changed')[2][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -341,11 +334,10 @@ describe('table > sorting', () => {
     expect(columnB[2]).toBe('c')
 
     // Click third column header to clear sort
-    wrapper
+    await wrapper
       .findAll('thead > tr > th')
       .at(2)
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(4)
     expect(wrapper.emitted('sort-changed')[3][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -399,11 +391,10 @@ describe('table > sorting', () => {
     expect(wrapper.findAll('tfoot > tr > th > .sr-only').length).toBe(2)
 
     // Sort by first column
-    wrapper
+    await wrapper
       .findAll('tfoot > tr > th')
       .at(0)
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed')).toBeDefined()
     expect(wrapper.emitted('sort-changed').length).toBe(1)
     expect(wrapper.emitted('sort-changed')[0][0]).toEqual(wrapper.vm.context)
@@ -424,11 +415,10 @@ describe('table > sorting', () => {
     expect(wrapper.findAll('tfoot > tr > th > .sr-only').length).toBe(3)
 
     // Click first column header again to reverse sort
-    wrapper
+    await wrapper
       .findAll('tfoot > tr > th')
       .at(0)
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(2)
     expect(wrapper.emitted('sort-changed')[1][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -448,11 +438,10 @@ describe('table > sorting', () => {
     expect(wrapper.findAll('tfoot > tr > th > .sr-only').length).toBe(3)
 
     // Click second column header to sort by it (by using keydown.enter)
-    wrapper
+    await wrapper
       .findAll('tfoot > tr > th')
       .at(1)
       .trigger('keydown.enter')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(3)
     expect(wrapper.emitted('sort-changed')[2][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -469,11 +458,10 @@ describe('table > sorting', () => {
     expect(columnB[2]).toBe('c')
 
     // Click third column header to clear sort
-    wrapper
+    await wrapper
       .findAll('tfoot > tr > th')
       .at(2)
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(4)
     expect(wrapper.emitted('sort-changed')[3][0]).toEqual(wrapper.vm.context)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -531,11 +519,10 @@ describe('table > sorting', () => {
     expect(wrapper.findAll('tfoot > tr > th > .sr-only').length).toBe(0)
 
     // Click first column
-    wrapper
+    await wrapper
       .findAll('tfoot > tr > th')
       .at(0)
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
@@ -554,11 +541,10 @@ describe('table > sorting', () => {
     expect(wrapper.findAll('tfoot > tr > th > .sr-only').length).toBe(0)
 
     // Click third column header
-    wrapper
+    await wrapper
       .findAll('tfoot > tr > th')
       .at(2)
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed')).not.toBeDefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
@@ -641,11 +627,10 @@ describe('table > sorting', () => {
     ).toBe(false)
 
     // Change sort direction (should be descending first)
-    wrapper
+    await wrapper
       .findAll('thead > tr > th')
       .at(0)
       .trigger('click')
-    await waitNT(wrapper.vm)
 
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
@@ -727,11 +712,10 @@ describe('table > sorting', () => {
     expect(columnA[2]).toBe('2')
 
     // Click first column to sort
-    wrapper
+    await wrapper
       .findAll('thead > tr > th')
       .at(0)
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed')).toBeDefined()
     expect(wrapper.emitted('sort-changed').length).toBe(1)
     $rows = wrapper.findAll('tbody > tr').wrappers
@@ -748,11 +732,10 @@ describe('table > sorting', () => {
     expect(columnA[2]).toBe('3')
 
     // Click third column header (should not clear sorting)
-    wrapper
+    await wrapper
       .findAll('thead > tr > th')
       .at(2)
       .trigger('click')
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('sort-changed').length).toBe(1)
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
@@ -770,7 +753,7 @@ describe('table > sorting', () => {
     wrapper.destroy()
   })
 
-  it('sorting by virutal column formatter works', async () => {
+  it('sorting by virtual column formatter works', async () => {
     const wrapper = mount(BTable, {
       propsData: {
         items: [{ a: 5, b: 2 }, { a: 10, b: 9 }],
@@ -786,7 +769,7 @@ describe('table > sorting', () => {
             sortByFormatted: true
           }
         ],
-        // Initialy unsorted
+        // Initially unsorted
         sortBy: ''
       }
     })
@@ -802,7 +785,7 @@ describe('table > sorting', () => {
     expect($tds.at(1).text()).toBe('2')
     expect($tds.at(2).text()).toBe('3') // 5 - 2
 
-    wrapper.setProps({
+    await wrapper.setProps({
       sortBy: 'c',
       sortDesc: false
     })

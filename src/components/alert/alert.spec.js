@@ -1,14 +1,17 @@
-import { mount } from '@vue/test-utils'
+import { config as vtuConfig, mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BAlert } from './alert'
+
+// Disable the use of the TransitionStub component
+// since it doesn't run transition hooks
+vtuConfig.stubs.transition = false
 
 describe('alert', () => {
   it('hidden alert renders comment node', async () => {
     const wrapper = mount(BAlert)
-    expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
-    expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.destroy()
   })
@@ -19,10 +22,9 @@ describe('alert', () => {
         show: '0'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
-    expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.destroy()
   })
@@ -33,10 +35,9 @@ describe('alert', () => {
         show: 0
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
-    expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.destroy()
   })
@@ -47,12 +48,8 @@ describe('alert', () => {
         show: true
       }
     })
-    expect(wrapper.is('div')).toBe(true)
 
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
     expect(wrapper.classes()).not.toContain('fade')
@@ -71,12 +68,8 @@ describe('alert', () => {
         show: ''
       }
     })
-    expect(wrapper.is('div')).toBe(true)
 
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
     expect(wrapper.classes()).not.toContain('fade')
@@ -96,11 +89,8 @@ describe('alert', () => {
         variant: 'success'
       }
     })
-    expect(wrapper.is('div')).toBe(true)
 
-    await waitNT(wrapper.vm)
-
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-success')
     expect(wrapper.attributes('role')).toBe('alert')
@@ -119,10 +109,9 @@ describe('alert', () => {
         default: '<article>foobar</article>'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
 
-    await waitNT(wrapper.vm)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.find('article').exists()).toBe(true)
     expect(wrapper.find('article').text()).toBe('foobar')
@@ -133,18 +122,13 @@ describe('alert', () => {
   it('hidden alert shows when show prop set', async () => {
     const wrapper = mount(BAlert)
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
-    expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    wrapper.setProps({
-      show: true
-    })
+    await wrapper.setProps({ show: true })
 
-    await waitNT(wrapper.vm)
     expect(wrapper.html()).toBeDefined()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
 
@@ -158,9 +142,9 @@ describe('alert', () => {
         dismissible: true
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
-    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
     expect(wrapper.classes()).toContain('alert-dismissible')
@@ -175,9 +159,9 @@ describe('alert', () => {
         dismissible: true
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
-    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.find('button').classes()).toContain('close')
     expect(wrapper.find('button').attributes('aria-label')).toBe('Close')
@@ -193,9 +177,9 @@ describe('alert', () => {
         dismissLabel: 'foobar'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
-    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.find('button').classes()).toContain('close')
     expect(wrapper.find('button').attributes('aria-label')).toBe('foobar')
@@ -210,21 +194,18 @@ describe('alert', () => {
         dismissible: true
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    await waitNT(wrapper.vm)
-    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert-dismissible')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('input')).not.toBeDefined()
 
-    wrapper.find('button').trigger('click')
+    await wrapper.find('button').trigger('click')
 
-    await waitNT(wrapper.vm)
-
-    expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.emitted('input')).toBeDefined()
@@ -239,21 +220,15 @@ describe('alert', () => {
       propsData: {
         show: false,
         fade: true
-      },
-      stubs: {
-        // The builtin stub doesn't execute the transition hooks
-        // so we let it use the real transition component
-        transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
 
-    wrapper.setProps({
-      show: true
-    })
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    expect(wrapper.is('div')).toBe(true)
+    await wrapper.setProps({ show: true })
+
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
     expect(wrapper.classes()).toContain('fade')
@@ -261,18 +236,13 @@ describe('alert', () => {
     await waitRAF()
     await waitRAF()
 
-    wrapper.setProps({
-      show: false
-    })
-
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ show: false })
     await waitRAF()
 
     // Dismissed won't be emitted unless dismissible=true or show is a number
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
 
-    expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.destroy()
   })
@@ -284,8 +254,11 @@ describe('alert', () => {
         show: 3
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
+
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
@@ -293,14 +266,20 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(3) // 3 - 0
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(2) // 3 - 1
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(1) // 3 - 2
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
 
@@ -308,8 +287,7 @@ describe('alert', () => {
     await waitRAF()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
-    expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.destroy()
   })
@@ -321,8 +299,11 @@ describe('alert', () => {
         show: '3'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
+
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
@@ -330,14 +311,20 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(3) // 3 - 0
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(2) // 3 - 1
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(1) // 3 - 2
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
 
@@ -345,8 +332,7 @@ describe('alert', () => {
     await waitRAF()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
-    expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.destroy()
   })
@@ -358,8 +344,11 @@ describe('alert', () => {
         show: 2
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
+
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
@@ -367,38 +356,45 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
 
     // Reset countdown
-    wrapper.setProps({
-      show: 3
-    })
+    await wrapper.setProps({ show: 3 })
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(3) // 3 - 0
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(2) // 3 - 1
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(5)
     expect(wrapper.emitted('dismiss-count-down')[4][0]).toBe(1) // 3 - 2
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(6)
     expect(wrapper.emitted('dismiss-count-down')[5][0]).toBe(0) // 3 - 3
 
     // Just to make sure there aren't any more timers pending
     jest.runAllTimers()
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(6)
 
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
-    expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.destroy()
   })
@@ -411,8 +407,11 @@ describe('alert', () => {
         dismissible: true
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.html()).toBeDefined()
+
+    await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('dismissed')).not.toBeDefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
@@ -420,23 +419,27 @@ describe('alert', () => {
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
 
     jest.runTimersToTime(1000)
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
 
-    wrapper.find('button').trigger('click')
+    await wrapper.find('button').trigger('click')
+    await waitRAF()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(0)
 
     // Should not emit any new countdown values
     jest.runAllTimers()
+    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
 
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
-    expect(wrapper.isEmpty()).toBe(true)
-    expect(wrapper.html()).not.toBeDefined()
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.destroy()
   })

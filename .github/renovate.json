@@ -11,12 +11,16 @@
       "allowedVersions": "<3.0.0"
     },
     {
+      "packageNames": ["highlight.js"],
+      "allowedVersions": "<10.0.0"
+    },
+    {
       "packageNames": ["prettier"],
       "allowedVersions": "<=1.14.3"
     },
     {
       "packageNames": ["@vue/test-utils"],
-      "allowedVersions": "<=1.0.0-beta.29"
+      "allowedVersions": "<2.0.0"
     }
   ]
 }

@@ -4,10 +4,13 @@ import { BBreadcrumbItem } from './breadcrumb-item'
 describe('breadcrumb-item', () => {
   it('has default classes and structure', async () => {
     const wrapper = mount(BBreadcrumbItem)
-    expect(wrapper.is('li')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes().length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('has class active when prop active is set', async () => {
@@ -16,17 +19,23 @@ describe('breadcrumb-item', () => {
         active: true
       }
     })
-    expect(wrapper.is('li')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('has link as child', async () => {
     const wrapper = mount(BBreadcrumbItem)
-    expect(wrapper.is('li')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.find('a').exists()).toBe(true)
     expect(wrapper.find('a').attributes('href')).toBe('#')
+
+    wrapper.destroy()
   })
 
   it('has link as child and href', async () => {
@@ -35,9 +44,12 @@ describe('breadcrumb-item', () => {
         href: '/foo/bar'
       }
     })
-    expect(wrapper.is('li')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.find('a').exists()).toBe(true)
     expect(wrapper.find('a').attributes('href')).toBe('/foo/bar')
+
+    wrapper.destroy()
   })
 
   it('has child span and class active when prop active is set', async () => {
@@ -46,11 +58,14 @@ describe('breadcrumb-item', () => {
         active: true
       }
     })
-    expect(wrapper.is('li')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.find('span').exists()).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('has child text content from prop text', async () => {
@@ -60,11 +75,14 @@ describe('breadcrumb-item', () => {
         text: 'foobar'
       }
     })
-    expect(wrapper.is('li')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('has child text content from prop html', async () => {
@@ -74,11 +92,14 @@ describe('breadcrumb-item', () => {
         html: 'foobar'
       }
     })
-    expect(wrapper.is('li')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('has child text content from default slot', async () => {
@@ -90,10 +111,13 @@ describe('breadcrumb-item', () => {
         default: 'foobar'
       }
     })
-    expect(wrapper.is('li')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 })

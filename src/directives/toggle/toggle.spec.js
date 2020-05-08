@@ -30,18 +30,18 @@ describe('v-b-toggle directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
     expect(wrapper.find('button').classes()).not.toContain('collapsed')
     expect(spy).not.toHaveBeenCalled()
 
     const $button = wrapper.find('button')
-    $button.trigger('click')
+    await $button.trigger('click')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
@@ -68,18 +68,18 @@ describe('v-b-toggle directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
     expect(wrapper.find('button').classes()).not.toContain('collapsed')
     expect(spy).not.toHaveBeenCalled()
 
     const $button = wrapper.find('button')
-    $button.trigger('click')
+    await $button.trigger('click')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
@@ -112,11 +112,11 @@ describe('v-b-toggle directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('span').attributes('role')).toBe('button')
     expect(wrapper.find('span').attributes('aria-controls')).toBe('test')
@@ -125,7 +125,7 @@ describe('v-b-toggle directive', () => {
     expect(wrapper.find('span').text()).toBe('span')
 
     const $span = wrapper.find('span')
-    $span.trigger('click')
+    await $span.trigger('click')
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test')
     expect(wrapper.find('span').attributes('role')).toBe('button')
@@ -134,7 +134,7 @@ describe('v-b-toggle directive', () => {
     expect(wrapper.find('span').classes()).not.toContain('collapsed')
 
     // Test updating component. should maintain role attribute
-    wrapper.setData({
+    await wrapper.setData({
       text: 'foobar'
     })
     expect(wrapper.find('span').text()).toBe('foobar')
@@ -157,11 +157,11 @@ describe('v-b-toggle directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
     expect(wrapper.find('button').classes()).not.toContain('collapsed')
@@ -196,11 +196,11 @@ describe('v-b-toggle directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue
+      localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
     expect(wrapper.find('button').classes()).not.toContain('collapsed')

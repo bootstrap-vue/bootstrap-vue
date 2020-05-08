@@ -2159,7 +2159,7 @@ If you have a text input tied to the `filter` prop of `<b-table>`, the filtering
 for each character typed by the user. With large items datasets, this process can take a while and
 may cause the text input to appear sluggish.
 
-To help alleviate this type of situation, `<b-table>` accepts a debounce timout value (in
+To help alleviate this type of situation, `<b-table>` accepts a debounce timeout value (in
 milliseconds) via the `filter-debounce` prop. The default is `0` (milliseconds). When a value
 greater than `0` is provided, the filter will wait for that time before updating the table results.
 If the value of the `filter` prop changes before this timeout expires, the filtering will be once
@@ -2273,6 +2273,26 @@ function myProvider(ctx) {
 }
 ```
 
+**Example: Using an async function (semi-synchronous):**
+
+Using an async method to return an items array is possible:
+
+<!-- eslint-disable no-unused-vars, no-undef -->
+
+```js
+async function myProvider(ctx) {
+  try {
+    const response = await axios.get(`/some/url?page=${ctx.currentPage}&size=${ctx.perPage}`)
+    return response.items
+  } catch (error) {
+    return []
+  }
+}
+```
+
+Note that not all browsers support `async/await` natively. For browsers that do not support `async`
+methods, you will need to transpile your code.
+
 ### Automated table busy state
 
 `<b-table>` automatically tracks/controls its `busy` state when items provider functions are used,
@@ -2328,6 +2348,24 @@ function should handle errors from data sources and return an empty array to `<b
     }
   }
 </script>
+```
+
+If using an `async/await` provider:
+
+<!-- eslint-disable no-unused-vars, no-undef -->
+
+```js
+async function myProvider(ctx) {
+  this.isBusy = true
+  try {
+    const response = await axios.get(`/some/url?page=${ctx.currentPage}&size=${ctx.perPage}`)
+    this.isBusy = false
+    return response.items
+  } catch (error) {
+    this.isBusy = false
+    return []
+  }
+}
 ```
 
 **Notes:**

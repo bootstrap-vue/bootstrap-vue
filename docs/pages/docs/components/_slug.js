@@ -6,8 +6,13 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { components as componentsMeta } from '~/content'
 
-const getReadMe = name =>
-  import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
+const getReadmeData = name => {
+  try {
+    return import(`~/../src/components/${name}/README.md` /* webpackChunkName: "docs/components" */)
+  } catch {
+    return { default: { loadError: true } }
+  }
+}
 
 // @vue/component
 export default {
@@ -18,9 +23,11 @@ export default {
     return Boolean(componentsMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readme = (await getReadMe(params.slug)).default
-    const meta = componentsMeta[params.slug]
-    return { meta, readme }
+    const name = params.slug
+    const meta = componentsMeta[name]
+    const readmeData = (await getReadmeData(name)).default
+    const { titleLead = '', body = '', baseTOC = {}, loadError = false } = readmeData
+    return { meta, titleLead, body, baseTOC, loadError }
   },
   render(h) {
     // Reference section
@@ -44,8 +51,10 @@ export default {
         key: this.$route.path,
         staticClass: 'bd-components',
         props: {
-          readme: this.readme || '',
-          meta: this.meta
+          meta: this.meta,
+          titleLead: this.titleLead,
+          body: this.body,
+          loadError: this.loadError
         }
       },
       [$referenceSection]

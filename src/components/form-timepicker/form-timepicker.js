@@ -357,7 +357,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
 
     if (this.resetButton) {
       if ($footer.length > 0) {
-        // Add a "spacer" betwen buttons ('&nbsp;')
+        // Add a "spacer" between buttons ('&nbsp;')
         $footer.push(h('span', '\u00a0'))
       }
       const label = this.labelResetButton
@@ -377,7 +377,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
 
     if (!this.noCloseButton) {
       if ($footer.length > 0) {
-        // Add a "spacer" betwen buttons ('&nbsp;')
+        // Add a "spacer" between buttons ('&nbsp;')
         $footer.push(h('span', '\u00a0'))
       }
       const label = this.labelCloseButton

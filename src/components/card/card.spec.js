@@ -6,19 +6,21 @@ describe('card', () => {
     const wrapper = mount(BCard)
 
     // Outer div
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card')
     expect(wrapper.classes().length).toBe(1)
 
     // Should have one child div.card-body
     expect(wrapper.findAll('.card > .card-body').length).toBe(1)
     expect(wrapper.findAll('.card-body').length).toBe(1)
-    expect(wrapper.find('.card-body').is('div')).toBe(true)
+    expect(wrapper.find('.card-body').element.tagName).toBe('DIV')
     expect(wrapper.find('.card-body').classes()).toContain('card-body')
     expect(wrapper.find('.card-body').classes().length).toBe(1)
 
     // Should have no content by default
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('should not contain "card-body" if prop no-body set', async () => {
@@ -29,7 +31,7 @@ describe('card', () => {
     })
 
     // Outer div
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card')
     expect(wrapper.classes().length).toBe(1)
 
@@ -37,6 +39,8 @@ describe('card', () => {
     expect(wrapper.findAll('.card-body').length).toBe(0)
     // Should have no content by default
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders custom root element when tag prop set', async () => {
@@ -48,10 +52,12 @@ describe('card', () => {
     })
 
     // Outer div
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.classes()).toContain('card')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('applies variant classes to root element', async () => {
@@ -65,13 +71,15 @@ describe('card', () => {
     })
 
     // Outer div
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card')
     expect(wrapper.classes()).toContain('bg-info')
     expect(wrapper.classes()).toContain('border-danger')
     expect(wrapper.classes()).toContain('text-dark')
     expect(wrapper.classes().length).toBe(4)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('applies text align class to when align prop set', async () => {
@@ -83,11 +91,13 @@ describe('card', () => {
     })
 
     // Outer div
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card')
     expect(wrapper.classes()).toContain('text-right')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('should have content from default slot', async () => {
@@ -109,14 +119,17 @@ describe('card', () => {
     })
 
     // With body
-    expect(wrapperBody.is('div')).toBe(true)
+    expect(wrapperBody.element.tagName).toBe('DIV')
     expect(wrapperBody.findAll('.card-body').length).toBe(1)
     expect(wrapperBody.find('.card-body').text()).toBe('foobar')
 
     // With no body
-    expect(wrapperNoBody.is('div')).toBe(true)
+    expect(wrapperNoBody.element.tagName).toBe('DIV')
     expect(wrapperNoBody.findAll('.card-body').length).toBe(0)
     expect(wrapperNoBody.text()).toBe('foobar')
+
+    wrapperBody.destroy()
+    wrapperNoBody.destroy()
   })
 
   it('should have class flex-row when img-left set', async () => {
@@ -127,10 +140,12 @@ describe('card', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card')
     expect(wrapper.classes()).toContain('flex-row')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('should have class flex-row-reverse when img-right set', async () => {
@@ -141,10 +156,12 @@ describe('card', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card')
     expect(wrapper.classes()).toContain('flex-row-reverse')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('should have class flex-row when img-left and img-right set', async () => {
@@ -156,11 +173,13 @@ describe('card', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card')
     expect(wrapper.classes()).toContain('flex-row')
     expect(wrapper.classes()).not.toContain('flex-row-reverse')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('should have header and footer when header and footer props are set', async () => {
@@ -174,7 +193,7 @@ describe('card', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card')
 
     expect(wrapper.findAll('.card-header').length).toBe(1)
@@ -186,6 +205,8 @@ describe('card', () => {
 
     // Expected order
     expect(wrapper.find('.card-header+.card-body+.card-footer').exists()).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('should have img at top', async () => {
@@ -197,12 +218,12 @@ describe('card', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card')
 
     expect(wrapper.findAll('img').length).toBe(1)
     const $img = wrapper.find('img')
-    expect($img.is('img')).toBe(true)
+    expect($img.element.tagName).toBe('IMG')
     expect($img.attributes('src')).toBe('/foo/bar')
     expect($img.attributes('alt')).toBe('foobar')
     expect($img.classes()).toContain('card-img-top')
@@ -210,6 +231,8 @@ describe('card', () => {
 
     // Expected order
     expect(wrapper.find('img + .card-body').exists()).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('should have img at bottom', async () => {
@@ -221,12 +244,12 @@ describe('card', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card')
 
     expect(wrapper.findAll('img').length).toBe(1)
     const $img = wrapper.find('img')
-    expect($img.is('img')).toBe(true)
+    expect($img.element.tagName).toBe('IMG')
     expect($img.attributes('src')).toBe('/foo/bar')
     expect($img.attributes('alt')).toBe('foobar')
     expect($img.classes()).toContain('card-img-bottom')
@@ -234,6 +257,8 @@ describe('card', () => {
 
     // Expected order
     expect(wrapper.find('.card-body + img').exists()).toBe(true)
+
+    wrapper.destroy()
   })
 
   it('should have img overlay', async () => {
@@ -245,13 +270,13 @@ describe('card', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card')
     expect(wrapper.classes().length).toBe(1)
 
     expect(wrapper.findAll('img').length).toBe(1)
     const $img = wrapper.find('img')
-    expect($img.is('img')).toBe(true)
+    expect($img.element.tagName).toBe('IMG')
     expect($img.attributes('src')).toBe('/foo/bar')
     expect($img.attributes('alt')).toBe('foobar')
     expect($img.classes()).toContain('card-img')
@@ -265,5 +290,7 @@ describe('card', () => {
 
     // Expected order
     expect(wrapper.find('img + .card-body').exists()).toBe(true)
+
+    wrapper.destroy()
   })
 })

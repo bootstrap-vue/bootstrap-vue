@@ -9,7 +9,7 @@ describe('nav-item-dropdown', () => {
         toggleClass: 'nav-link-custom'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.findAll('.dropdown-toggle').length).toBe(1)
     const $toggle = wrapper.find('.dropdown-toggle')
 
@@ -26,7 +26,7 @@ describe('nav-item-dropdown', () => {
         text: 'toggle'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.vm.isNav).toBe(true)
 
@@ -40,10 +40,10 @@ describe('nav-item-dropdown', () => {
         disabled: true
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.findAll('.dropdown-toggle').length).toBe(1)
     const $toggle = wrapper.find('.dropdown-toggle')
-    expect($toggle.is('a')).toBe(true)
+    expect($toggle.element.tagName).toBe('A')
 
     expect($toggle.attributes('aria-disabled')).toBeDefined()
     expect($toggle.attributes('href')).toEqual('#')

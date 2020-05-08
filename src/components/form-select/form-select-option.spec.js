@@ -9,10 +9,12 @@ describe('form-select-option', () => {
       }
     })
 
-    expect(wrapper.is('option')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTION')
     expect(wrapper.attributes('value')).toBeDefined()
     expect(wrapper.attributes('value')).toEqual('foo')
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
@@ -25,10 +27,12 @@ describe('form-select-option', () => {
       }
     })
 
-    expect(wrapper.is('option')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTION')
     expect(wrapper.attributes('value')).toBeDefined()
     expect(wrapper.attributes('value')).toEqual('foo')
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 
   it('renders HTML as default slot content', async () => {
@@ -41,12 +45,14 @@ describe('form-select-option', () => {
       }
     })
 
-    expect(wrapper.is('option')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTION')
     expect(wrapper.attributes('value')).toBeDefined()
     expect(wrapper.attributes('value')).toEqual('foo')
 
     const $bold = wrapper.find('b')
     expect($bold.text()).toEqual('Bold')
+
+    wrapper.destroy()
   })
 
   it('has disabled attribute applied when disabled=true', async () => {
@@ -57,11 +63,13 @@ describe('form-select-option', () => {
       }
     })
 
-    expect(wrapper.is('option')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OPTION')
     expect(wrapper.attributes('value')).toBeDefined()
     expect(wrapper.attributes('value')).toEqual('foo')
     expect(wrapper.attributes('disabled')).toBeDefined()
     expect(wrapper.attributes('disabled')).toEqual('disabled')
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 })

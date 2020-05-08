@@ -5,8 +5,13 @@ import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import { directives as directivesMeta } from '~/content'
 
-const getReadMe = name =>
-  import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
+const getReadmeData = name => {
+  try {
+    return import(`~/../src/directives/${name}/README.md` /* webpackChunkName: "docs/directives" */)
+  } catch {
+    return { default: { loadError: true } }
+  }
+}
 
 // @vue/component
 export default {
@@ -17,9 +22,11 @@ export default {
     return Boolean(directivesMeta[params.slug])
   },
   async asyncData({ params }) {
-    const readme = (await getReadMe(params.slug)).default
-    const meta = directivesMeta[params.slug]
-    return { meta, readme }
+    const name = params.slug
+    const meta = directivesMeta[name]
+    const readmeData = (await getReadmeData(name)).default
+    const { titleLead = '', body = '', baseTOC = {}, loadError = false } = readmeData
+    return { meta, titleLead, body, baseTOC, loadError }
   },
   render(h) {
     const $referenceSection = h(Section, { class: ['bd-component-reference'] }, [
@@ -34,8 +41,10 @@ export default {
       {
         staticClass: 'bd-components',
         props: {
-          readme: this.readme,
-          meta: this.meta
+          meta: this.meta,
+          titleLead: this.titleLead,
+          body: this.body,
+          loadError: this.loadError
         }
       },
       [$referenceSection]

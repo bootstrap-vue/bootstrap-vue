@@ -4,13 +4,19 @@ import { BCardTitle } from './card-title'
 describe('card-title', () => {
   it('default has tag "h4"', async () => {
     const wrapper = mount(BCardTitle)
-    expect(wrapper.is('h4')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('H4')
+
+    wrapper.destroy()
   })
 
   it('default has class "card-title"', async () => {
     const wrapper = mount(BCardTitle)
+
     expect(wrapper.classes()).toContain('card-title')
     expect(wrapper.classes().length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('renders custom tag', async () => {
@@ -19,7 +25,10 @@ describe('card-title', () => {
         props: { titleTag: 'div' }
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('DIV')
+
+    wrapper.destroy()
   })
 
   it('has content from default slot', async () => {
@@ -28,6 +37,9 @@ describe('card-title', () => {
         default: 'bar'
       }
     })
+
     expect(wrapper.text()).toContain('bar')
+
+    wrapper.destroy()
   })
 })

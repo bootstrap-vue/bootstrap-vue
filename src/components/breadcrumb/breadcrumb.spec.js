@@ -5,10 +5,12 @@ describe('breadcrumb', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BBreadcrumb)
 
-    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OL')
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
+
+    wrapper.destroy()
   })
 
   it('should render default slot when no items provided', async () => {
@@ -18,10 +20,12 @@ describe('breadcrumb', () => {
       }
     })
 
-    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OL')
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('should accept items', () => {
@@ -37,7 +41,7 @@ describe('breadcrumb', () => {
       }
     })
 
-    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OL')
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('li').length).toBe(4)
@@ -96,6 +100,8 @@ describe('breadcrumb', () => {
         .exists()
     ).toBe(true)
     expect($lis.at(3).text()).toBe('Library')
+
+    wrapper.destroy()
   })
 
   it('should apply active class to active item', async () => {
@@ -110,7 +116,7 @@ describe('breadcrumb', () => {
       }
     })
 
-    expect(wrapper.is('ol')).toBe(true)
+    expect(wrapper.element.tagName).toBe('OL')
     expect(wrapper.classes()).toContain('breadcrumb')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('li').length).toBe(4)
@@ -171,5 +177,7 @@ describe('breadcrumb', () => {
         .attributes('href')
     ).toBe('/admin/manage/library')
     expect($lis.at(3).text()).toBe('Library')
+
+    wrapper.destroy()
   })
 })

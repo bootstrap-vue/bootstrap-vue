@@ -1,3 +1,4 @@
+import { mathMax } from '../../../utils/math'
 import { toInteger } from '../../../utils/number'
 
 export default {
@@ -17,8 +18,8 @@ export default {
     },
     paginatedItems() {
       let items = this.sortedItems || this.filteredItems || this.localItems || []
-      const currentPage = Math.max(toInteger(this.currentPage, 1), 1)
-      const perPage = Math.max(toInteger(this.perPage, 0), 0)
+      const currentPage = mathMax(toInteger(this.currentPage, 1), 1)
+      const perPage = mathMax(toInteger(this.perPage, 0), 0)
       // Apply local pagination
       if (this.localPaging && !!perPage) {
         // Grab the current page of data (which may be past filtered items limit)

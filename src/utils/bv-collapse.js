@@ -12,7 +12,7 @@ import { getBCR, reflow, requestAF } from './dom'
 // Transition event handler helpers
 const onEnter = el => {
   el.style.height = 0
-  // Animaton frame delay neeeded for `appear` to work
+  // Animaton frame delay needed for `appear` to work
   requestAF(() => {
     reflow(el)
     el.style.height = `${el.scrollHeight}px`
@@ -72,7 +72,7 @@ export const BVCollapse = /*#__PURE__*/ Vue.extend({
       'transition',
       // We merge in the `appear` prop last
       mergeData(data, { props: TRANSITION_PROPS, on: TRANSITION_HANDLERS }, { props }),
-      // Note: `<tranition>` supports a single root element only
+      // Note: `<transition>` supports a single root element only
       children
     )
   }

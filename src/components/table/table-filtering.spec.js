@@ -78,7 +78,7 @@ describe('table > filtering', () => {
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
     expect(wrapper.emitted('filtered')).not.toBeDefined()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       filter: 'z'
     })
     await waitNT(wrapper.vm)
@@ -93,7 +93,7 @@ describe('table > filtering', () => {
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[0][1]).toEqual(1)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       filter: ''
     })
     await waitNT(wrapper.vm)
@@ -107,7 +107,7 @@ describe('table > filtering', () => {
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[1][1]).toEqual(3)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       filter: '3'
     })
     await waitNT(wrapper.vm)
@@ -121,7 +121,7 @@ describe('table > filtering', () => {
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[2][1]).toEqual(1)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       // Setting to null will also clear the filter
       filter: null
     })
@@ -159,7 +159,7 @@ describe('table > filtering', () => {
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
     expect(wrapper.emitted('filtered')).not.toBeDefined()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       filter: /z/
     })
     await waitNT(wrapper.vm)
@@ -174,7 +174,7 @@ describe('table > filtering', () => {
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[0][1]).toEqual(1)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       filter: []
     })
     await waitNT(wrapper.vm)
@@ -220,7 +220,7 @@ describe('table > filtering', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.findAll('tbody > tr').length).toBe(testItems.length)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       filter: 'ZZZZZZ'
     })
     await waitNT(wrapper.vm)
@@ -238,7 +238,7 @@ describe('table > filtering', () => {
 
   describe('debouncing (deprecated)', () => {
     // Wrapped in a describe to limit console.warn override
-    // to prevent depreacted prop warnings
+    // to prevent deprecated prop warnings
     const originalWarn = console.warn
     afterEach(() => (console.warn = originalWarn))
     beforeEach(() => (console.warn = () => {}))
@@ -265,7 +265,7 @@ describe('table > filtering', () => {
       lastFilterTimer = wrapper.vm.$_filterTimer
 
       // Set filter to a single character
-      wrapper.setProps({
+      await wrapper.setProps({
         filter: '1'
       })
       await waitNT(wrapper.vm)
@@ -276,7 +276,7 @@ describe('table > filtering', () => {
       expect(wrapper.vm.localFilter).not.toEqual('1')
 
       // Change filter
-      wrapper.setProps({
+      await wrapper.setProps({
         filter: 'z'
       })
       await waitNT(wrapper.vm)
@@ -295,7 +295,7 @@ describe('table > filtering', () => {
       expect(wrapper.vm.localFilter).toEqual('z')
 
       // Change filter
-      wrapper.setProps({
+      await wrapper.setProps({
         filter: '1'
       })
       await waitNT(wrapper.vm)
@@ -307,7 +307,7 @@ describe('table > filtering', () => {
       expect(wrapper.vm.localFilter).toEqual('z')
 
       // Change filter-debounce to no debouncing
-      wrapper.setProps({
+      await wrapper.setProps({
         filterDebounce: 0
       })
       await waitNT(wrapper.vm)

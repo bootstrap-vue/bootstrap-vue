@@ -61,8 +61,7 @@ styling on the content.
 
 Use the `src` prop to specify a URL of an image to use as the avatar content. The image should have
 an aspect ratio of `1:1` (meaning the width and height should be equal), otherwise image aspect
-distortion will occur. The image will be scaled up or down to fit withing the avatar's bounding box,
-and will be sized to show the avatar's [variant background](#variants) around the edge.
+distortion will occur. The image will be scaled up or down to fit within the avatar's bounding box.
 
 ```html
 <template>
@@ -84,6 +83,9 @@ and will be sized to show the avatar's [variant background](#variants) around th
   fallback to the value of the `icon` or `text` props. If neither the `icon` or `text` props are
   provided, then the default avatar icon will be shown. Also, when the image fails to load, the
   `img-error` event will be emitted.
+- [Variant colors](#variants) when using images not normally visible, unless the image fails load.
+  The variant will affect the focus styling when the image avatar is also an
+  [actionalble avatar](#actionalble-avatars).
 
 ### Icon content
 
@@ -138,6 +140,19 @@ appearance, or if using custom icons or SVGs e.g.:
 
 ```html
 <b-avatar><custom-icon></custom-icon></b-avatar>
+```
+
+**Multi-line text example:**
+
+```html
+<template>
+  <div class="mb-2">
+    <b-avatar size="4em">Hello<br>World</b-avatar>
+    <b-avatar size="4em">你好<br>世界</b-avatar>
+  </div>
+</template>
+
+<!-- b-avatar-default-slot-multi-line.vue -->
 ```
 
 **Notes:**
@@ -255,6 +270,8 @@ Easily create avatars that respond to clicks, or avatars that change the URL/rou
 Actionable avatars will appear in the document tab sequence, and are accessible for both screen
 reader and keyboard-only users.
 
+Image avatars, when actionalble, employ a basic scale transform on the image when hovered.
+
 ### Button
 
 Want to trigger the opening of a modal or trigger an action? Set the `button` prop to instruct
@@ -263,10 +280,20 @@ the `click` event whenever clicked.
 
 ```html
 <template>
-  <div>
-    <b-avatar button @click="onClick" variant="primary" text="FF" class="align-baseline"></b-avatar>
-    Button Avatar
-  </div>
+  <b-list-group>
+    <b-list-group-item>
+      <b-avatar button @click="onClick" variant="primary" text="FF" class="align-baseline"></b-avatar>
+      Button Text Avatar
+    </b-list-group-item>
+    <b-list-group-item>
+      <b-avatar button @click="onClick" src="https://placekitten.com/300/300"></b-avatar>
+      Button Image Avatar
+    </b-list-group-item>
+    <b-list-group-item>
+      <b-avatar button @click="onClick" icon="star-fill" class="align-center"></b-avatar>
+      Button Icon Avatar
+    </b-list-group-item>
+  </b-list-group>
 </template>
 
 <script>
@@ -300,10 +327,20 @@ The `to` prop can either be a string path, or a `Location` object. The `to` prop
 
 ```html
 <template>
-  <div>
-    <b-avatar href="#foobar"variant="info" src="https://placekitten.com/300/300"></b-avatar>
-    Link Avatar
-  </div>
+  <b-list-group>
+    <b-list-group-item>
+      <b-avatar href="#foo" variant="primary" text="FF" class="align-baseline"></b-avatar>
+      Link Text Avatar
+    </b-list-group-item>
+    <b-list-group-item>
+      <b-avatar href="#bar" src="https://placekitten.com/300/300"></b-avatar>
+      Link Image Avatar
+    </b-list-group-item>
+    <b-list-group-item>
+      <b-avatar href="#baz" icon="star-fill" class="align-center"></b-avatar>
+      Link Icon Avatar
+    </b-list-group-item>
+  </b-list-group>
 </template>
 
 <!-- b-avatar-href.vue -->
@@ -348,7 +385,7 @@ Add textual content to the badge by supplying a string to the `badge` prop, or u
     <b-avatar badge="BV"></b-avatar>
     <b-avatar badge="7" variant="primary" badge-variant="dark"></b-avatar>
     <b-avatar badge-variant="info" src="https://placekitten.com/300/300">
-      <template v-slot:badge><b-icon icon="star-fill"></b-badge></template>
+      <template v-slot:badge><b-icon icon="star-fill"></b-icon></template>
     </b-avatar>
   </div>
 </template>
@@ -394,6 +431,121 @@ inward, while negative values will move the badge outward.
 </template>
 
 <!-- b-avatar-badge-offset.vue -->
+```
+
+## Avatar groups
+
+<span class="badge badge-info small">v2.14.0+</span>
+
+Group multiple avatars together by wrapping them in a `<b-avatar-group>` component:
+
+```html
+<template>
+  <div>
+    <b-avatar-group size="60px">
+      <b-avatar></b-avatar>
+      <b-avatar text="BV" variant="primary"></b-avatar>
+      <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+      <b-avatar text="OK" variant="danger"></b-avatar>
+      <b-avatar variant="warning"></b-avatar>
+      <b-avatar src="https://placekitten.com/320/320" variant="dark"></b-avatar>
+      <b-avatar icon="music-note" variant="success"></b-avatar>
+    </b-avatar-group>
+  </div>
+</template>
+
+<!-- b-avatar-group.vue -->
+```
+
+**Notes:**
+
+- The `variant`, `square` and `rounded` props on `<b-avatar-group>` will take precedence over the
+  respective props on individual avatars.
+
+### Group size
+
+To size the avatars, use the prop `size` on `<b-avatar-group>`. The `size` prop accepts the same
+type of values as the `size` prop on `<b-avatar>`. Note that the `size` prop will be ignored on
+individual avatars when they are placed inside a `<b-avatar-group>`.
+
+```html
+<template>
+  <div>
+    <b-avatar-group size="5rem">
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+    </b-avatar-group>
+  </div>
+</template>
+
+<!-- b-avatar-group-size.vue -->
+```
+
+### Group variant
+
+Use the `variant` prop to color all child avatars in the `<b-avatar-group>`. Note that the `variant`
+prop, when set, will override the the `variant` specified on individual avatars.
+
+```html
+<template>
+  <div>
+    <b-avatar-group variant="success">
+      <b-avatar></b-avatar>
+      <b-avatar variant="info"></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+    </b-avatar-group>
+  </div>
+</template>
+
+<!-- b-avatar-group-variant.vue -->
+```
+
+### Group rounding
+
+Similar to the `variant` prop, the `<b-avatar-group>` props `square` and `rounded` take precedence
+over the respective props on individual child avatars.
+
+```html
+<template>
+  <div>
+    <b-avatar-group rounded="lg">
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+    </b-avatar-group>
+  </div>
+</template>
+
+<!-- b-avatar-group-rounded.vue -->
+```
+
+### Group overlap
+
+By default child avatars inside a `<b-avatar-group>` will overlap by a factor of `0.3` (relative to
+the size of the avatar). You can control the overlap amount by setting the `overlap` prop to a value
+between `0` and `1`, where `0` means no overlap and `1` means 100% overlap.
+
+```html
+<template>
+  <div>
+    <b-avatar-group overlap="0.65">
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+      <b-avatar></b-avatar>
+    </b-avatar-group>
+  </div>
+</template>
+
+<!-- b-avatar-group-overlap.vue -->
 ```
 
 ## Accessibility

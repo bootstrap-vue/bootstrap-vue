@@ -12,6 +12,9 @@ export const props = {
 const LIGHT = 'light'
 const DARK = 'dark'
 
+// TODO:
+//   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
+//   to the child elements, so this can be converted to a functional component
 // @vue/component
 export const BTr = /*#__PURE__*/ Vue.extend({
   name: 'BTr',

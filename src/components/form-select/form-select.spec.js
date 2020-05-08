@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormSelect } from './form-select'
 
 describe('form-select', () => {
@@ -9,7 +9,7 @@ describe('form-select', () => {
 
   it('has select as root element', async () => {
     const wrapper = mount(BFormSelect)
-    expect(wrapper.is('select')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SELECT')
 
     wrapper.destroy()
   })
@@ -231,7 +231,7 @@ describe('form-select', () => {
     })
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.is('select')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SELECT')
 
     wrapper.destroy()
   })
@@ -280,7 +280,7 @@ describe('form-select', () => {
 
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormSelect, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
     expect(document.activeElement).not.toBe(wrapper.element)
@@ -312,7 +312,7 @@ describe('form-select', () => {
     expect($options.at(0).attributes('value')).toBe('one')
     expect($options.at(1).attributes('value')).toBe('two')
     expect($options.at(2).attributes('value')).toBe('three')
-    expect($options.is('[disabled]')).toBe(false)
+    expect($options.wrappers.every(o => o.find('[disabled]').exists())).toBe(false)
 
     wrapper.destroy()
   })
@@ -336,9 +336,24 @@ describe('form-select', () => {
     expect($options.at(0).attributes('value')).toBe('1')
     expect($options.at(1).attributes('value')).toBe('2')
     expect($options.at(2).attributes('value')).toBe('3')
-    expect($options.at(0).is('[disabled]')).toBe(false)
-    expect($options.at(1).is('[disabled]')).toBe(true)
-    expect($options.at(2).is('[disabled]')).toBe(false)
+    expect(
+      $options
+        .at(0)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(1)
+        .find('[disabled]')
+        .exists()
+    ).toBe(true)
+    expect(
+      $options
+        .at(2)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
 
     wrapper.destroy()
   })
@@ -366,15 +381,45 @@ describe('form-select', () => {
     expect($options.at(0).text()).toBe('1,50 €')
     expect($options.at(1).text()).toBe('5,00 €')
     expect($options.at(2).text()).toBe('50,75 €')
-    expect($options.at(0).contains('span')).toBe(false)
-    expect($options.at(1).contains('span')).toBe(true)
-    expect($options.at(2).contains('span')).toBe(false)
+    expect(
+      $options
+        .at(0)
+        .find('span')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(1)
+        .find('span')
+        .exists()
+    ).toBe(true)
+    expect(
+      $options
+        .at(2)
+        .find('span')
+        .exists()
+    ).toBe(false)
     expect($options.at(0).attributes('value')).toBe('1.5')
     expect($options.at(1).attributes('value')).toBe('5')
     expect($options.at(2).attributes('value')).toBe('50.75')
-    expect($options.at(0).is('[disabled]')).toBe(false)
-    expect($options.at(1).is('[disabled]')).toBe(false)
-    expect($options.at(2).is('[disabled]')).toBe(true)
+    expect(
+      $options
+        .at(0)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(1)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(2)
+        .find('[disabled]')
+        .exists()
+    ).toBe(true)
 
     wrapper.destroy()
   })
@@ -412,10 +457,30 @@ describe('form-select', () => {
     expect($options.at(1).attributes('value')).toBe('2')
     expect($options.at(2).attributes('value')).toBe('3')
     expect($options.at(3).attributes('value')).toBe('4')
-    expect($options.at(0).is('[disabled]')).toBe(false)
-    expect($options.at(1).is('[disabled]')).toBe(false)
-    expect($options.at(2).is('[disabled]')).toBe(false)
-    expect($options.at(3).is('[disabled]')).toBe(true)
+    expect(
+      $options
+        .at(0)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(1)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(2)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(3)
+        .find('[disabled]')
+        .exists()
+    ).toBe(true)
 
     wrapper.destroy()
   })
@@ -449,10 +514,30 @@ describe('form-select', () => {
     expect($options.at(1).attributes('value')).toBe('2')
     expect($options.at(2).attributes('value')).toBe('3')
     expect($options.at(3).attributes('value')).toBe('4')
-    expect($options.at(0).is('[disabled]')).toBe(false)
-    expect($options.at(1).is('[disabled]')).toBe(false)
-    expect($options.at(2).is('[disabled]')).toBe(false)
-    expect($options.at(3).is('[disabled]')).toBe(true)
+    expect(
+      $options
+        .at(0)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(1)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(2)
+        .find('[disabled]')
+        .exists()
+    ).toBe(false)
+    expect(
+      $options
+        .at(3)
+        .find('[disabled]')
+        .exists()
+    ).toBe(true)
 
     wrapper.destroy()
   })
@@ -541,14 +626,14 @@ describe('form-select', () => {
     expect($options.at(0).element.selected).toBe(true)
 
     // Select 2nd option
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 'two'
     })
 
     expect($options.at(1).element.selected).toBe(true)
 
     // Select 3rd option
-    wrapper.setProps({
+    await wrapper.setProps({
       value: { three: 3 }
     })
 
@@ -603,9 +688,7 @@ describe('form-select', () => {
     // Select 2nd and 3rd option
     $options.at(1).element.selected = true
     $options.at(2).element.selected = true
-    wrapper.trigger('change')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('change')
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toEqual(['two', 'three'])
@@ -636,9 +719,7 @@ describe('form-select', () => {
     // Select 2nd and 3rd option
     $options.at(1).element.selected = true
     $options.at(2).element.selected = true
-    wrapper.trigger('change')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('change')
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toEqual([{ b: 2 }, { c: 3 }])
@@ -652,7 +733,7 @@ describe('form-select', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 
     beforeEach(() => {
-      // Mock getBCR so that the isVisible(el) test returns true
+      // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
       // In our test below, all pagination buttons would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 24,
@@ -671,7 +752,7 @@ describe('form-select', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormSelect, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           autofocus: true,
           options: ['a', 'b', 'c']
@@ -691,7 +772,7 @@ describe('form-select', () => {
 
     it('does not autofocus when false', async () => {
       const wrapper = mount(BFormSelect, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           autofocus: false,
           options: ['a', 'b', 'c']

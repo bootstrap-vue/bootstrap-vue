@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { getCS, isVisible, requestAF } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
+import { mathCeil, mathMax, mathMin } from '../../utils/math'
 import { toInteger, toFloat } from '../../utils/number'
 import bindAttrsMixin from '../../mixins/bind-attrs'
 import formMixin from '../../mixins/form'
@@ -81,10 +82,10 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       // Ensure rows is at least 2 and positive (2 is the native textarea value)
       // A value of 1 can cause issues in some browsers, and most browsers
       // only support 2 as the smallest value
-      return Math.max(toInteger(this.rows, 2), 2)
+      return mathMax(toInteger(this.rows, 2), 2)
     },
     computedMaxRows() {
-      return Math.max(this.computedMinRows, toInteger(this.maxRows, 0))
+      return mathMax(this.computedMinRows, toInteger(this.maxRows, 0))
     },
     computedRows() {
       // This is used to set the attribute 'rows' on the textarea
@@ -152,11 +153,11 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       el.style.height = oldHeight
 
       // Calculate content height in 'rows' (scrollHeight includes padding but not border)
-      const contentRows = Math.max((scrollHeight - padding) / lineHeight, 2)
+      const contentRows = mathMax((scrollHeight - padding) / lineHeight, 2)
       // Calculate number of rows to display (limited within min/max rows)
-      const rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows)
+      const rows = mathMin(mathMax(contentRows, this.computedMinRows), this.computedMaxRows)
       // Calculate the required height of the textarea including border and padding (in pixels)
-      const height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight)
+      const height = mathMax(mathCeil(rows * lineHeight + offset), minHeight)
 
       // Computed height remains the larger of `oldHeight` and new `height`,
       // when height is in `sticky` mode (prop `no-auto-shrink` is true)

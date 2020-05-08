@@ -13,6 +13,9 @@ export const props = {
   }
 }
 
+// TODO:
+//   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
+//   to the child elements, so this can be converted to a functional component
 // @vue/component
 export const BTbody = /*#__PURE__*/ Vue.extend({
   name: 'BTbody',
@@ -61,7 +64,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
       // background color inheritance with Bootstrap v4 table CSS
       return !this.isStacked && this.bvTable.stickyHeader
     },
-    tableVariant() /* istanbul ignore next: Not currently sniffed in tests */ {
+    tableVariant() {
       // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.tableVariant
     },

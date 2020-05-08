@@ -9,7 +9,7 @@ describe('form-tag', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
 
     expect(wrapper.classes()).toContain('b-form-tag')
     expect(wrapper.classes()).toContain('badge')
@@ -34,7 +34,7 @@ describe('form-tag', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
 
     expect(wrapper.classes()).toContain('b-form-tag')
     expect(wrapper.classes()).toContain('badge')
@@ -61,7 +61,7 @@ describe('form-tag', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
 
     expect(wrapper.classes()).toContain('b-form-tag')
     expect(wrapper.classes()).toContain('badge')
@@ -86,7 +86,7 @@ describe('form-tag', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
 
     expect(wrapper.classes()).toContain('b-form-tag')
     expect(wrapper.classes()).toContain('badge')
@@ -102,7 +102,7 @@ describe('form-tag', () => {
 
     expect(wrapper.emitted('remove')).not.toBeDefined()
 
-    $btn.trigger('click')
+    await $btn.trigger('click')
 
     expect(wrapper.emitted('remove')).toBeDefined()
     expect(wrapper.emitted('remove').length).toBe(1)

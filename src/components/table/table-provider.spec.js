@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { createContainer, waitNT } from '../../../tests/utils'
 import { BTable } from './table'
 
 const testItems = [
@@ -243,8 +243,7 @@ describe('table > provider functions', () => {
     wrapper.vm.refresh()
     wrapper.vm.refresh()
     // Trigger a context change that would trigger an internal _providerUpdate
-    wrapper.setProps({ sortBy: 'b' })
-
+    await wrapper.setProps({ sortBy: 'b' })
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed')).not.toBeDefined()
 
@@ -297,10 +296,7 @@ describe('table > provider functions', () => {
     ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
 
-    wrapper.setProps({
-      items: provider2
-    })
-
+    await wrapper.setProps({ items: provider2 })
     await waitNT(wrapper.vm)
 
     expect(wrapper.find('tbody').exists()).toBe(true)
@@ -378,12 +374,12 @@ describe('table > provider functions', () => {
     }
 
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
 
-    const $table = wrapper.find(BTable)
+    const $table = wrapper.findComponent(BTable)
     expect($table.exists()).toBe(true)
 
     await waitNT(wrapper.vm)
@@ -396,7 +392,7 @@ describe('table > provider functions', () => {
 
     // Change the filter criteria child property, but not the object reference
     // `setData` recursively traverses the object and only changes the leaf values
-    wrapper.setData({ filter: { a: '456' } })
+    await wrapper.setData({ filter: { a: '456' } })
     expect(wrapper.vm.filter).toEqual({ a: '456' })
 
     await waitNT(wrapper.vm)

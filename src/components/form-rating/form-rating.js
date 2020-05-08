@@ -3,6 +3,7 @@ import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
+import { mathMax, mathMin } from '../../utils/math'
 import { toInteger, toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
@@ -90,9 +91,9 @@ const BVFormRatingStar = Vue.extend({
 })
 
 // --- Utility methods ---
-const computeStars = stars => Math.max(MIN_STARS, toInteger(stars, DEFAULT_STARS))
+const computeStars = stars => mathMax(MIN_STARS, toInteger(stars, DEFAULT_STARS))
 
-const clampValue = (value, min, max) => Math.max(Math.min(value, max), min)
+const clampValue = (value, min, max) => mathMax(mathMin(value, max), min)
 
 // --- BFormRating ---
 // @vue/component
@@ -124,6 +125,10 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME, 'color')
     },
     showValue: {
+      type: Boolean,
+      default: false
+    },
+    showValueMax: {
       type: Boolean,
       default: false
     },
@@ -216,15 +221,22 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       return isLocaleRTL(this.computedLocale)
     },
     formattedRating() {
-      const value = this.localValue
       const precision = toInteger(this.precision)
-      return isNull(value)
-        ? ''
-        : value.toLocaleString(this.computedLocale, {
-            notation: 'standard',
-            minimumFractionDigits: isNaN(precision) ? 0 : precision,
-            maximumFractionDigits: isNaN(precision) ? 3 : precision
-          })
+      const showValueMax = this.showValueMax
+      const locale = this.computedLocale
+      const formatOptions = {
+        notation: 'standard',
+        minimumFractionDigits: isNaN(precision) ? 0 : precision,
+        maximumFractionDigits: isNaN(precision) ? 3 : precision
+      }
+      const stars = this.computedStars.toLocaleString(locale)
+      let value = this.localValue
+      value = isNull(value)
+        ? showValueMax
+          ? '-'
+          : ''
+        : value.toLocaleString(locale, formatOptions)
+      return showValueMax ? `${value}/${stars}` : value
     }
   },
   watch: {

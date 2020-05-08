@@ -4,6 +4,7 @@ import range from '../../../utils/range'
 import { isArray, arrayIncludes } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { isNumber } from '../../../utils/inspect'
+import { mathMax, mathMin } from '../../../utils/math'
 import sanitizeRow from './sanitize-row'
 
 export default {
@@ -205,8 +206,8 @@ export default {
         if (this.selectedLastRow > -1 && evt.shiftKey) {
           // range
           for (
-            let idx = Math.min(this.selectedLastRow, index);
-            idx <= Math.max(this.selectedLastRow, index);
+            let idx = mathMin(this.selectedLastRow, index);
+            idx <= mathMax(this.selectedLastRow, index);
             idx++
           ) {
             selectedRows[idx] = true

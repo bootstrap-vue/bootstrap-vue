@@ -74,6 +74,7 @@ export { BAspect } from './components/aspect/aspect'
 // export * from './components/avatar'
 export { AvatarPlugin } from './components/avatar'
 export { BAvatar } from './components/avatar/avatar'
+export { BAvatarGroup } from './components/avatar/avatar-group'
 
 // export * from './components/badge'
 export { BadgePlugin } from './components/badge'

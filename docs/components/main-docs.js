@@ -1,8 +1,8 @@
 import CarbonAd from '~/components/carbon-ad'
 import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links'
+import Reload from '~/components/reload'
 import Section from '~/components/section'
-import { parseReadme } from '~/utils'
 import { mergeData } from 'vue-functional-data-merge'
 
 // @vue/component
@@ -14,18 +14,25 @@ export default {
       type: String,
       default: 'main'
     },
-    readme: {
+    titleLead: {
+      type: String,
+      default: ''
+    },
+    body: {
       type: String,
       default: ''
     },
     meta: {
       type: Object,
       default: null
+    },
+    loadError: {
+      type: Boolean,
+      default: false
     }
   },
   render(h, { props, data, children }) {
-    const { tag, readme, meta } = props
-    const { titleLead, body } = parseReadme(readme || '')
+    const { tag, titleLead, body, meta, loadError } = props
     const { version } = meta || {}
 
     // Lead section
@@ -45,6 +52,9 @@ export default {
       ])
     }
 
+    // Error handler
+    const $error = loadError ? h(Reload) : h()
+
     // Carbon Ad
     const $carbonAd = h(CarbonAd)
 
@@ -59,6 +69,7 @@ export default {
 
     return h(Main, mergeData(data, { props: { tag } }), [
       $leadSection,
+      $error,
       $availableSinceSection,
       $carbonAd,
       $quickLinks,

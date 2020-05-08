@@ -242,11 +242,11 @@ and
 [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat),
 except for the labels applied to elements of the time control (aria-labels, selected status, etc).
 You must provide your own translations for these labels. The available locales will be browser
-dependant (not all browsers support all locales).
+dependent (not all browsers support all locales).
 
 By default `<b-time>` will use the browser's default locale, but you can specify the locale (or
 locales) to use via the `locale` prop. The prop accepts either a single locale string, or an array
-of locale strings (listed in order of most preferred locale to least prefered).
+of locale strings (listed in order of most preferred locale to least preferred).
 
 The emitted `'context'` event will include which locale the time control has resolved to (which may
 not be the same locale as requested, depending on the supported locales of `Intl`).
@@ -358,7 +358,7 @@ includes the resolved `hourCycle` value.
 
 Native HTML5 `<input type="date">` returns the time value in the `'h23'` format, and `<b-time>` also
 returns the v-model in the `'h23'` format. This value may differ from what is presented to the user
-via the GUI (spin buttons) of the `<b-time>` component, dependant upon the
+via the GUI (spin buttons) of the `<b-time>` component, dependent upon the
 [locale selected](#internationalization).
 
 **Note:** IE 11 _does not support_ resolving the `hourCycle` value of a locale, so we assume either

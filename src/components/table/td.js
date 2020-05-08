@@ -41,6 +41,9 @@ export const props = {
   }
 }
 
+// TODO:
+//   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
+//   to the child elements, so this can be converted to a functional component
 // @vue/component
 export const BTd = /*#__PURE__*/ Vue.extend({
   name: 'BTableCell',
@@ -107,8 +110,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     headVariant() {
       return this.bvTableTr.headVariant
     },
-    /* istanbul ignore next: need to add in tests for footer variant */
-    footVariant() /* istanbul ignore next: need to add in tests for footer variant */ {
+    footVariant() {
       return this.bvTableTr.footVariant
     },
     tableVariant() {
@@ -123,11 +125,12 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     cellClasses() {
       // We use computed props here for improved performance by caching
       // the results of the string interpolation
-      // TODO: We need to add handling for `footVariant`
       let variant = this.variant
       if (
         (!variant && this.isStickyHeader && !this.headVariant) ||
-        (!variant && this.isStickyColumn)
+        (!variant && this.isStickyColumn && this.inTfoot && !this.footVariant) ||
+        (!variant && this.isStickyColumn && this.inThead && !this.headVariant) ||
+        (!variant && this.isStickyColumn && this.inTbody)
       ) {
         // Needed for sticky-header mode as Bootstrap v4 table cells do
         // not inherit parent's background-color. Boo!

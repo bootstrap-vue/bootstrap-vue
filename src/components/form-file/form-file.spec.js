@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormFile } from './form-file'
 
 describe('form-file', () => {
@@ -10,7 +10,7 @@ describe('form-file', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('custom-file')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toBe('foo__BV_file_outer_')
@@ -46,6 +46,7 @@ describe('form-file', () => {
         multiple: true
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('multiple')).toBeDefined()
 
@@ -59,6 +60,7 @@ describe('form-file', () => {
         required: true
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('required')).toBeDefined()
     expect(input.attributes('aria-required')).toBeDefined()
@@ -74,6 +76,7 @@ describe('form-file', () => {
         disabled: true
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('disabled')).toBeDefined()
 
@@ -87,6 +90,7 @@ describe('form-file', () => {
         capture: true
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('capture')).toBeDefined()
 
@@ -100,6 +104,7 @@ describe('form-file', () => {
         accept: 'image/*'
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('accept')).toBeDefined()
     expect(input.attributes('accept')).toBe('image/*')
@@ -114,6 +119,7 @@ describe('form-file', () => {
         name: 'bar'
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('name')).toBeDefined()
     expect(input.attributes('name')).toBe('bar')
@@ -128,6 +134,7 @@ describe('form-file', () => {
         form: 'bar'
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('form')).toBeDefined()
     expect(input.attributes('form')).toBe('bar')
@@ -142,6 +149,7 @@ describe('form-file', () => {
         foo: 'bar'
       }
     })
+
     const input = wrapper.find('input')
     expect(input.attributes('foo')).toBeDefined()
     expect(input.attributes('foo')).toEqual('bar')
@@ -155,17 +163,16 @@ describe('form-file', () => {
         id: 'foo'
       }
     })
+
     const input = wrapper.find('input')
     expect(input).toBeDefined()
 
     expect(input.classes()).not.toContain('focus')
 
-    input.trigger('focusin')
-    await waitNT(wrapper.vm)
+    await input.trigger('focusin')
     expect(input.classes()).toContain('focus')
 
-    input.trigger('focusout')
-    await waitNT(wrapper.vm)
+    await input.trigger('focusout')
     expect(input.classes()).not.toContain('focus')
 
     wrapper.destroy()
@@ -178,7 +185,8 @@ describe('form-file', () => {
         plain: true
       }
     })
-    expect(wrapper.is('input')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('INPUT')
     expect(wrapper.attributes('type')).toBeDefined()
     expect(wrapper.attributes('type')).toBe('file')
     expect(wrapper.attributes('id')).toBeDefined()
@@ -194,6 +202,7 @@ describe('form-file', () => {
         id: 'foo'
       }
     })
+
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -201,12 +210,14 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles([file])
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
 
     // Setting to same array of files should not emit event
     wrapper.vm.setFiles([file])
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
 
@@ -220,6 +231,7 @@ describe('form-file', () => {
         multiple: true
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -255,10 +267,7 @@ describe('form-file', () => {
     expect(wrapper.emitted('input')[1][0]).toEqual(files.slice().reverse())
 
     // Internally setting `selectedFile` to `null` should emit empty array
-    wrapper.setData({
-      selectedFile: null
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setData({ selectedFile: null })
     expect(wrapper.emitted('input').length).toEqual(3)
     expect(wrapper.emitted('input')[2][0]).toEqual([])
 
@@ -271,6 +280,7 @@ describe('form-file', () => {
         id: 'foo'
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -278,6 +288,7 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles([file1])
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('change')).not.toBeDefined()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
@@ -285,7 +296,7 @@ describe('form-file', () => {
 
     const input = wrapper.find('input')
     input.element.value = ''
-    input.trigger('change')
+    await input.trigger('change')
     expect(wrapper.emitted('change').length).toEqual(1)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
@@ -300,6 +311,7 @@ describe('form-file', () => {
         multiple: false
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -308,11 +320,13 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles(files)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
 
     wrapper.vm.reset()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
 
@@ -326,6 +340,7 @@ describe('form-file', () => {
         multiple: true
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -338,11 +353,13 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles(files)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(files)
 
     wrapper.vm.reset()
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual([])
 
@@ -356,6 +373,7 @@ describe('form-file', () => {
         value: null
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -368,9 +386,7 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
 
-    wrapper.setProps({ value: null })
-    await waitNT(wrapper.vm)
-
+    await wrapper.setProps({ value: null })
     expect(wrapper.emitted('input').length).toEqual(1)
 
     wrapper.destroy()
@@ -384,6 +400,7 @@ describe('form-file', () => {
         multiple: true
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -401,8 +418,7 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(files)
 
-    wrapper.setProps({ value: null })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ value: null })
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual([])
 
@@ -411,8 +427,7 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(3)
     expect(wrapper.emitted('input')[2][0]).toEqual(files)
 
-    wrapper.setProps({ value: [] })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ value: [] })
     expect(wrapper.emitted('input').length).toEqual(4)
     expect(wrapper.emitted('input')[3][0]).toEqual([])
 
@@ -426,6 +441,7 @@ describe('form-file', () => {
         value: null
       }
     })
+
     const file1 = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -438,8 +454,7 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
 
-    wrapper.find('input').trigger('reset')
-    await waitNT(wrapper.vm)
+    await wrapper.find('input').trigger('reset')
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
 
@@ -459,6 +474,7 @@ describe('form-file', () => {
         }
       }
     })
+
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -466,6 +482,7 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles([file])
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
@@ -492,6 +509,7 @@ describe('form-file', () => {
         }
       }
     })
+
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -499,6 +517,7 @@ describe('form-file', () => {
 
     // Emulate the files array
     wrapper.vm.setFiles([file])
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
@@ -516,73 +535,58 @@ describe('form-file', () => {
       propsData: {
         id: 'foo',
         placeholder: 'PLACEHOLDER',
-        dropPlaceholder: 'DROPHERE',
+        dropPlaceholder: 'DROP_HERE',
         noDrop: true
       }
     })
+
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     const $label = wrapper.find('label')
     expect($label.exists()).toBe(true)
     expect($label.text()).toContain('PLACEHOLDER')
-    expect($label.text()).not.toContain('DROPHERE')
+    expect($label.text()).not.toContain('DROP_HERE')
 
-    wrapper.trigger('dragover')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('dragover')
     expect($label.text()).toContain('PLACEHOLDER')
-    expect($label.text()).not.toContain('DROPHERE')
+    expect($label.text()).not.toContain('DROP_HERE')
 
-    wrapper.trigger('drop', {
+    await wrapper.trigger('drop', {
       dataTransfer: {
         files: [file]
       }
     })
-    await waitNT(wrapper.vm)
-
     expect($label.text()).toContain('PLACEHOLDER')
-    expect($label.text()).not.toContain('DROPHERE')
+    expect($label.text()).not.toContain('DROP_HERE')
     expect($label.text()).not.toContain(file.name)
 
-    wrapper.setProps({
-      noDrop: false
-    })
-    await waitNT(wrapper.vm)
-
+    await wrapper.setProps({ noDrop: false })
     expect($label.text()).toContain('PLACEHOLDER')
-    expect($label.text()).not.toContain('DROPHERE')
+    expect($label.text()).not.toContain('DROP_HERE')
 
-    wrapper.trigger('dragover')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('dragover')
     expect($label.text()).not.toContain('PLACEHOLDER')
-    expect($label.text()).toContain('DROPHERE')
+    expect($label.text()).toContain('DROP_HERE')
 
-    wrapper.trigger('dragleave')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('dragleave')
     expect($label.text()).toContain('PLACEHOLDER')
-    expect($label.text()).not.toContain('DROPHERE')
+    expect($label.text()).not.toContain('DROP_HERE')
 
-    wrapper.trigger('dragover')
-    await waitNT(wrapper.vm)
-
+    await wrapper.trigger('dragover')
     expect($label.text()).not.toContain('PLACEHOLDER')
-    expect($label.text()).toContain('DROPHERE')
+    expect($label.text()).toContain('DROP_HERE')
 
-    wrapper.trigger('drop', {
+    await wrapper.trigger('drop', {
       dataTransfer: {
         files: [file]
       }
     })
-    await waitNT(wrapper.vm)
-
     expect($label.text()).not.toContain('PLACEHOLDER')
-    expect($label.text()).not.toContain('DROPHERE')
+    expect($label.text()).not.toContain('DROP_HERE')
     expect($label.text()).toContain(file.name)
 
     wrapper.destroy()
@@ -593,7 +597,7 @@ describe('form-file', () => {
     const origGetBCR = Element.prototype.getBoundingClientRect
 
     beforeEach(() => {
-      // Mock getBCR so that the isVisible(el) test returns true
+      // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
       // In our test below, all pagination buttons would normally be visible
       Element.prototype.getBoundingClientRect = jest.fn(() => ({
         width: 24,
@@ -612,11 +616,12 @@ describe('form-file', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormFile, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           autofocus: true
         }
       })
+
       expect(wrapper.vm).toBeDefined()
       await waitNT(wrapper.vm)
       await waitRAF()

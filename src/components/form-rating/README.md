@@ -1,7 +1,7 @@
 # Form Rating
 
-> BootstrapVue's custom range component, `<b-form-rating>`, is for entering or displaying a rating
-> value. The component is fully WAI-ARIA accessible and supports keyboard control.
+> BootstrapVue's custom star rating component, `<b-form-rating>`, is for entering or displaying a
+> rating value. The component is fully WAI-ARIA accessible and supports keyboard control.
 
 ## Overview
 
@@ -12,7 +12,7 @@ inside [input groups](/docs/components/input-group).
 There are two main modes for `<b-form-rating>`: interactive and readonly.
 
 Interactive mode allows the user to chose a rating from `1` to the number of stars (default `5`) in
-whole number increments.
+_whole number_ increments.
 
 **Interactive rating (input mode):**
 
@@ -209,6 +209,39 @@ decimal) simply set the `precision` prop to the number of digits after the decim
 <!-- b-form-rating-value-precision.vue -->
 ```
 
+#### Show maximum value
+
+<span class="badge badge-info small">2.13.0+</span>
+
+Optionally show the maximum rating possible by also setting the prop `show-value-max` to `true`:
+
+```html
+<template>
+  <div>
+    <b-form-rating
+      v-model="value"
+      readonly
+      show-value
+      show-value-max
+      precision="2"
+    ></b-form-rating>
+    <p class="mt-2">Value: {{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: 3.555
+      }
+    }
+  }
+</script>
+
+<!-- b-form-rating-value-max.vue -->
+```
+
 ### Control sizing
 
 Fancy a small or large rating control? Simply set the prop `size` to either `'sm'` or `'lg'`
@@ -386,7 +419,7 @@ component be registered/installed either locally or globally.
       icon-clear="slash-circle"
       show-clear
       variant="danger"
-    ><b-form-rating>
+    ></b-form-rating>
   </div>
 </template>
 
@@ -440,8 +473,8 @@ The following is an example of placing `<b-form-rating>` in an input group:
 
 When a `locale` is specified, the displayed value (when the `show-value` prop is `true`) will be in
 the browser's default locale. To change the locale, simple set the `locale` prop to the preferred
-locale, or an array of prefered locales (most preferred locale first). This will affect the optional
-displayed value and the left-to-right or right-to-left orientation of the component.
+locale, or an array of preferred locales (most preferred locale first). This will affect the
+optional displayed value and the left-to-right or right-to-left orientation of the component.
 
 ```html
 <template>

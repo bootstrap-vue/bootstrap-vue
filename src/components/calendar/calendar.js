@@ -24,6 +24,7 @@ import {
 import { requestAF } from '../../utils/dom'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
+import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
@@ -41,6 +42,14 @@ const NAME = 'BCalendar'
 
 // Key Codes
 const { UP, DOWN, LEFT, RIGHT, PAGEUP, PAGEDOWN, HOME, END, ENTER, SPACE } = KeyCodes
+
+// Common calendar option value strings
+export const STR_GREGORY = 'gregory'
+export const STR_NUMERIC = 'numeric'
+export const STR_2_DIGIT = '2-digit'
+export const STR_LONG = 'long'
+export const STR_SHORT = 'short'
+export const STR_NARROW = 'narrow'
 
 // --- BCalendar component ---
 
@@ -224,13 +233,25 @@ export const BCalendar = Vue.extend({
     },
     dateFormatOptions: {
       // `Intl.DateTimeFormat` object
+      // Note: This value is *not* to be placed in the global config
       type: Object,
       default: () => ({
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long'
+        year: STR_NUMERIC,
+        month: STR_LONG,
+        day: STR_NUMERIC,
+        weekday: STR_LONG
       })
+    },
+    weekdayHeaderFormat: {
+      // Format of the weekday names at the top of the calendar
+      // Note: This value is *not* to be placed in the global config
+      type: String,
+      // `short` is typically a 3 letter abbreviation,
+      // `narrow` is typically a single letter
+      // `long` is the full week day name
+      // Although some locales may override this (i.e `ar`, etc)
+      default: STR_SHORT,
+      validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
     }
   },
   data() {
@@ -267,22 +288,22 @@ export const BCalendar = Vue.extend({
     },
     computedWeekStarts() {
       // `startWeekday` is a prop (constrained to `0` through `6`)
-      return Math.max(toInteger(this.startWeekday, 0), 0) % 7
+      return mathMax(toInteger(this.startWeekday, 0), 0) % 7
     },
     computedLocale() {
       // Returns the resolved locale used by the calendar
-      return resolveLocale(concat(this.locale).filter(identity), 'gregory')
+      return resolveLocale(concat(this.locale).filter(identity), STR_GREGORY)
     },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)
       // Needed because IE 11 resolves `ar-IR` as islamic-civil calendar
       // and IE 11 (and some other browsers) do not support the `calendar` option
       // And we currently only support the gregorian calendar
-      const fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: 'gregory' })
+      const fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: STR_GREGORY })
       const calendar = fmt.resolvedOptions().calendar
       let locale = fmt.resolvedOptions().locale
       /* istanbul ignore if: mainly for IE 11 and a few other browsers, hard to test in JSDOM */
-      if (calendar !== 'gregory') {
+      if (calendar !== STR_GREGORY) {
         // Ensure the locale requests the gregorian calendar
         // Mainly for IE 11, and currently we can't handle non-gregorian calendars
         // TODO: Should we always return this value?
@@ -349,7 +370,7 @@ export const BCalendar = Vue.extend({
     },
     // Computed props that return a function reference
     dateOutOfRange() {
-      // Check wether a date is within the min/max range
+      // Check whether a date is within the min/max range
       // returns a new function ref if the pops change
       // We do this as we need to trigger the calendar computed prop
       // to update when these props update
@@ -384,9 +405,9 @@ export const BCalendar = Vue.extend({
         // Ensure we have year, month, day shown for screen readers/ARIA
         // If users really want to leave one of these out, they can
         // pass `undefined` for the property value
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
+        year: STR_NUMERIC,
+        month: STR_2_DIGIT,
+        day: STR_2_DIGIT,
         // Merge in user supplied options
         ...this.dateFormatOptions,
         // Ensure hours/minutes/seconds are not shown
@@ -395,26 +416,45 @@ export const BCalendar = Vue.extend({
         minute: undefined,
         second: undefined,
         // Ensure calendar is gregorian
-        calendar: 'gregory'
+        calendar: STR_GREGORY
       })
     },
     formatYearMonth() {
       // Returns a date formatter function
       return createDateFormatter(this.calendarLocale, {
-        year: 'numeric',
-        month: 'long',
-        calendar: 'gregory'
+        year: STR_NUMERIC,
+        month: STR_LONG,
+        calendar: STR_GREGORY
       })
     },
     formatWeekdayName() {
-      return createDateFormatter(this.calendarLocale, { weekday: 'long', calendar: 'gregory' })
+      // Long weekday name for weekday header aria-label
+      return createDateFormatter(this.calendarLocale, {
+        weekday: STR_LONG,
+        calendar: STR_GREGORY
+      })
     },
     formatWeekdayNameShort() {
-      // Used as the header cells
-      return createDateFormatter(this.calendarLocale, { weekday: 'short', calendar: 'gregory' })
+      // Weekday header cell format
+      // defaults to 'short' 3 letter days, where possible
+      return createDateFormatter(this.calendarLocale, {
+        weekday: this.weekdayHeaderFormat || STR_SHORT,
+        calendar: STR_GREGORY
+      })
     },
     formatDay() {
-      return createDateFormatter(this.calendarLocale, { day: 'numeric', calendar: 'gregory' })
+      // Calendar grid day number formatter
+      // We don't use DateTimeFormatter here as it can place extra
+      // character(s) after the number (i.e the `zh` locale)
+      const nf = new Intl.NumberFormat([this.computedLocale], {
+        style: 'decimal',
+        minimumIntegerDigits: 1,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+        notation: 'standard'
+      })
+      // Return a formatter function instance
+      return date => nf.format(date.getDate())
     },
     // Disabled states for the nav buttons
     prevDecadeDisabled() {
