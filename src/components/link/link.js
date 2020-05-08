@@ -1,9 +1,10 @@
 import Vue from '../../utils/vue'
-import bindAttrsMixin from '../../mixins/bind-attrs'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { concat } from '../../utils/array'
 import { isEvent, isFunction, isUndefined } from '../../utils/inspect'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
+import attrsMixin from '../../mixins/attrs'
+import listenersMixin from '../../mixins/listeners'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 /**
  * The Link component is used in many other BV components
@@ -81,7 +82,8 @@ export const props = propsFactory()
 // @vue/component
 export const BLink = /*#__PURE__*/ Vue.extend({
   name: 'BLink',
-  mixins: [bindAttrsMixin, normalizeSlotMixin],
+  // Mixin order is important!
+  mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inheritAttrs: false,
   props: propsFactory(),
   computed: {
@@ -108,7 +110,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     onClick(evt) {
       const evtIsEvent = isEvent(evt)
       const isRouterLink = this.isRouterLink
-      const suppliedHandler = this.listeners$.click
+      const suppliedHandler = this.bvListeners.click
       if (evtIsEvent && this.disabled) {
         // Stop event from bubbling up
         evt.stopPropagation()
@@ -149,7 +151,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const $attrs = this.attrs$
+    const $attrs = this.bvAttrs
     const { active, disabled, target, routerTag, isRouterLink } = this
     const tag = this.computedTag
     const rel = this.computedRel
@@ -170,7 +172,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     // `<router-link>`/`<nuxt-link>` instead of `on`
     componentData[isRouterLink ? 'nativeOn' : 'on'] = {
       // Transfer all listeners (native) to the root element
-      ...this.listeners$,
+      ...this.bvListeners,
       // We want to overwrite any click handler since our callback
       // will invoke the user supplied handler(s) if `!this.disabled`
       click: this.onClick

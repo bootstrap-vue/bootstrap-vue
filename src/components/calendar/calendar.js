@@ -27,6 +27,7 @@ import { isLocaleRTL } from '../../utils/locale'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
+import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import {
@@ -56,7 +57,8 @@ export const STR_NARROW = 'narrow'
 // @vue/component
 export const BCalendar = Vue.extend({
   name: NAME,
-  mixins: [idMixin, normalizeSlotMixin],
+  // Mixin order is important!
+  mixins: [attrsMixin, idMixin, normalizeSlotMixin],
   model: {
     // Even though this is the default that Vue assumes, we need
     // to add it for the docs to reflect that this is the model
@@ -1133,7 +1135,7 @@ export const BCalendar = Vue.extend({
           'aria-describedby': [
             // Should the attr (if present) go last?
             // Or should this attr be a prop?
-            this.$attrs['aria-describedby'],
+            this.bvAttrs['aria-describedby'],
             idValue,
             idGridHelp
           ]

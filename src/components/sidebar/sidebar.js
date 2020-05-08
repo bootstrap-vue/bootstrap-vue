@@ -4,6 +4,7 @@ import BVTransition from '../../utils/bv-transition'
 import { contains, getTabables } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
 import { toString } from '../../utils/string'
+import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -124,7 +125,8 @@ const renderBackdrop = (h, ctx) => {
 // @vue/component
 export const BSidebar = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
+  // Mixin order is important!
+  mixins: [attrsMixin, idMixin, listenOnRootMixin, normalizeSlotMixin],
   inheritAttrs: false,
   model: {
     prop: 'visible',
@@ -402,7 +404,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           this.sidebarClass
         ],
         attrs: {
-          ...this.$attrs,
+          ...this.bvAttrs,
           id: this.safeId(),
           tabindex: '-1',
           role: 'dialog',

@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
-import bindAttrsMixin from '../../mixins/bind-attrs'
+import attrsMixin from '../../mixins/attrs'
+import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 export const props = {
@@ -16,7 +17,8 @@ export const props = {
 // @vue/component
 export const BThead = /*#__PURE__*/ Vue.extend({
   name: 'BThead',
-  mixins: [bindAttrsMixin, normalizeSlotMixin],
+  // Mixin order is important!
+  mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inheritAttrs: false,
   provide() {
     return {
@@ -71,7 +73,7 @@ export const BThead = /*#__PURE__*/ Vue.extend({
       return [this.headVariant ? `thead-${this.headVariant}` : null]
     },
     theadAttrs() {
-      return { role: 'rowgroup', ...this.attrs$ }
+      return { role: 'rowgroup', ...this.bvAttrs }
     }
   },
   render(h) {
@@ -81,7 +83,7 @@ export const BThead = /*#__PURE__*/ Vue.extend({
         class: this.theadClasses,
         attrs: this.theadAttrs,
         // Pass down any native listeners
-        on: this.listeners$
+        on: this.bvListeners
       },
       this.normalizeSlot('default')
     )

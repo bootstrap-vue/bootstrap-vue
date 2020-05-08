@@ -1,5 +1,5 @@
 import Vue from '../../utils/vue'
-import bindAttrsMixin from '../../mixins/bind-attrs'
+import attrsMixin from '../../mixins/attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 export const props = {
@@ -28,7 +28,7 @@ export const props = {
 // @vue/component
 export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
   name: 'BDropdownItemButton',
-  mixins: [bindAttrsMixin, normalizeSlotMixin],
+  mixins: [attrsMixin, normalizeSlotMixin],
   inheritAttrs: false,
   inject: {
     bvDropdown: {
@@ -61,7 +61,7 @@ export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
             }
           ],
           attrs: {
-            ...this.attrs$,
+            ...this.bvAttrs,
             role: 'menuitem',
             type: 'button',
             disabled: this.disabled

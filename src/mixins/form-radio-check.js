@@ -1,9 +1,9 @@
-import bindAttrsMixin from './bind-attrs'
+import attrsMixin from './attrs'
 import normalizeSlotMixin from './normalize-slot'
 
 // @vue/component
 export default {
-  mixins: [bindAttrsMixin, normalizeSlotMixin],
+  mixins: [attrsMixin, normalizeSlotMixin],
   inheritAttrs: false,
   model: {
     prop: 'checked',
@@ -202,7 +202,7 @@ export default {
         }
       ],
       attrs: {
-        ...this.attrs$,
+        ...this.bvAttrs,
         id: this.safeId(),
         type: this.isRadio ? 'radio' : 'checkbox',
         name: this.getName,

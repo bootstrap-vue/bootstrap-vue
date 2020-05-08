@@ -1,7 +1,6 @@
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { eventOn, eventOff, eventOnOff } from '../../utils/events'
-import bindAttrsMixin from '../../mixins/bind-attrs'
 import formMixin from '../../mixins/form'
 import formSelectionMixin from '../../mixins/form-selection'
 import formSizeMixin from '../../mixins/form-size'
@@ -9,6 +8,7 @@ import formStateMixin from '../../mixins/form-state'
 import formTextMixin from '../../mixins/form-text'
 import formValidityMixin from '../../mixins/form-validity'
 import idMixin from '../../mixins/id'
+import listenersMixin from '../../mixins/listeners'
 
 // Valid supported input types
 const TYPES = [
@@ -32,8 +32,9 @@ const TYPES = [
 // @vue/component
 export const BFormInput = /*#__PURE__*/ Vue.extend({
   name: 'BFormInput',
+  // Mixin order is important!
   mixins: [
-    bindAttrsMixin,
+    listenersMixin,
     idMixin,
     formMixin,
     formSizeMixin,
@@ -158,7 +159,7 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
         value: self.localValue
       },
       on: {
-        ...self.listeners$,
+        ...self.bvListeners,
         input: self.onInput,
         change: self.onChange,
         blur: self.onBlur

@@ -3,7 +3,6 @@ import { getCS, isVisible, requestAF } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 import { mathCeil, mathMax, mathMin } from '../../utils/math'
 import { toInteger, toFloat } from '../../utils/number'
-import bindAttrsMixin from '../../mixins/bind-attrs'
 import formMixin from '../../mixins/form'
 import formSelectionMixin from '../../mixins/form-selection'
 import formSizeMixin from '../../mixins/form-size'
@@ -12,6 +11,7 @@ import formTextMixin from '../../mixins/form-text'
 import formValidityMixin from '../../mixins/form-validity'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import listenersMixin from '../../mixins/listeners'
 import { VBVisible } from '../../directives/visible/visible'
 
 // @vue/component
@@ -20,8 +20,9 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   directives: {
     'b-visible': VBVisible
   },
+  // Mixin order is important!
   mixins: [
-    bindAttrsMixin,
+    listenersMixin,
     idMixin,
     listenOnRootMixin,
     formMixin,
@@ -206,7 +207,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
         value: self.localValue
       },
       on: {
-        ...self.listeners$,
+        ...self.bvListeners,
         input: self.onInput,
         change: self.onChange,
         blur: self.onBlur

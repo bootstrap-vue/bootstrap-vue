@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
-import bindAttrsMixin from '../../mixins/bind-attrs'
+import attrsMixin from '../../mixins/attrs'
+import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 export const props = {
@@ -18,7 +19,8 @@ const DARK = 'dark'
 // @vue/component
 export const BTr = /*#__PURE__*/ Vue.extend({
   name: 'BTr',
-  mixins: [bindAttrsMixin, normalizeSlotMixin],
+  // Mixin order is important!
+  mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inheritAttrs: false,
   provide() {
     return {
@@ -93,7 +95,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
       return [this.variant ? `${this.isRowDark ? 'bg' : 'table'}-${this.variant}` : null]
     },
     trAttrs() {
-      return { role: 'row', ...this.attrs$ }
+      return { role: 'row', ...this.bvAttrs }
     }
   },
   render(h) {
@@ -103,7 +105,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
         class: this.trClasses,
         attrs: this.trAttrs,
         // Pass native listeners to child
-        on: this.listeners$
+        on: this.bvListeners
       },
       this.normalizeSlot('default')
     )

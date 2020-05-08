@@ -9,7 +9,7 @@ import { isLocaleRTL } from '../../utils/locale'
 import { mathFloor, mathMax, mathPow, mathRound } from '../../utils/math'
 import { toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
-import bindAttrsMixin from '../../mixins/bind-attrs'
+import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIconPlus, BIconDash } from '../../icons/icons'
@@ -38,7 +38,8 @@ const DEFAULT_REPEAT_MULTIPLIER = 4
 // @vue/component
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [bindAttrsMixin, idMixin, normalizeSlotMixin],
+  // Mixin order is important!
+  mixins: [attrsMixin, idMixin, normalizeSlotMixin],
   inheritAttrs: false,
   props: {
     value: {
@@ -525,7 +526,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         },
         attrs: {
           dir: this.computedRTL ? 'rtl' : 'ltr',
-          ...this.$attrs,
+          ...this.bvAttrs,
           id: spinId,
           role: 'spinbutton',
           tabindex: isDisabled ? null : '0',
@@ -564,7 +565,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'is-invalid': state === false
         },
         attrs: {
-          ...this.attrs$,
+          ...this.bvAttrs,
           role: 'group',
           lang: this.computedLocale,
           tabindex: isDisabled ? null : '-1',

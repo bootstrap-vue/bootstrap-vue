@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 
 // Mixins
-import bindAttrsMixin from '../../mixins/bind-attrs'
+import attrsMixin from '../../mixins/attrs'
 import hasListenerMixin from '../../mixins/has-listener'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -35,7 +35,7 @@ export const BTable = /*#__PURE__*/ Vue.extend({
   // They are merged from first to last, followed by this component
   mixins: [
     // General mixins
-    bindAttrsMixin,
+    attrsMixin,
     hasListenerMixin,
     idMixin,
     normalizeSlotMixin,
