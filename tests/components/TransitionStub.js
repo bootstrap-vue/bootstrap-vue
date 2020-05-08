@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const getRealChild = vnode => {
   const compOptions = vnode && vnode.componentOptions
   if (compOptions && compOptions.Ctor.options.abstract) {
