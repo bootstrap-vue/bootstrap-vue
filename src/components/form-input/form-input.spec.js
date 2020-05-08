@@ -561,6 +561,7 @@ describe('form-input', () => {
     const $input = wrapper.find('input')
     expect($input.exists()).toBe(true)
 
+    $input.trigger('focus')
     await $input.setValue('test')
     await waitNT(wrapper.vm)
     await waitRAF()
