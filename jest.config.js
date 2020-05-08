@@ -7,7 +7,6 @@ module.exports = {
   },
   coverageDirectory: './coverage/',
   // JSDOM for node > v6
-  testEnvironment: 'jest-environment-jsdom-fourteen',
   testEnvironmentOptions: {
     pretendToBeVisual: true
   },
