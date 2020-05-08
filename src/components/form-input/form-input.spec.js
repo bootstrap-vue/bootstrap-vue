@@ -559,11 +559,11 @@ describe('form-input', () => {
       attachTo: createContainer()
     })
     const $input = wrapper.find('input')
-    exoect (input.exists()).toBe(true)
-    
+    expect($input.exists()).toBe(true)
+
     await $input.setValue('test')
     await waitNT(wrapper.vm)
-    
+
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('update')).not.toBeDefined()
     // v-model should not change
