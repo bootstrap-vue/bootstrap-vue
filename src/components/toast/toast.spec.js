@@ -172,7 +172,10 @@ describe('b-toast', () => {
     expect(wrapper.emitted('hidden')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
 
+    $body.element.focus()
     await $body.trigger('click')
+    await waitRAF()
+    await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
