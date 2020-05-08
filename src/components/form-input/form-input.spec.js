@@ -563,6 +563,7 @@ describe('form-input', () => {
 
     await $input.setValue('test')
     await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('update')).not.toBeDefined()
