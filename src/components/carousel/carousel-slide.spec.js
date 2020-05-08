@@ -4,7 +4,7 @@ import { BCarouselSlide } from './carousel-slide'
 describe('carousel-slide', () => {
   it('has root element "div"', async () => {
     const wrapper = mount(BCarouselSlide)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     wrapper.destroy()
   })
@@ -101,7 +101,7 @@ describe('carousel-slide', () => {
       }
     })
     expect(wrapper.find('.carousel-caption').exists()).toBe(true)
-    expect(wrapper.find('.carousel-caption').is('span')).toBe(true)
+    expect(wrapper.find('.carousel-caption').element.tagName).toBe('SPAN')
 
     wrapper.destroy()
   })

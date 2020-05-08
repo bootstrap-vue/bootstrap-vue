@@ -5,7 +5,7 @@ describe('progress-bar', () => {
   it('has correct base class and structure', async () => {
     const wrapper = mount(BProgressBar)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('progress-bar')
     expect(wrapper.attributes('role')).toBe('progressbar')
     expect(wrapper.attributes('aria-valuemin')).toBe('0')

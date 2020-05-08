@@ -1,11 +1,11 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormSpinbutton } from './form-spinbutton'
 
 describe('form-spinbutton', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormSpinbutton)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -23,13 +23,13 @@ describe('form-spinbutton', () => {
 
     const $decrement = wrapper.find('[aria-label="Decrement"]')
     expect($decrement.exists()).toBe(true)
-    expect($decrement.is('button')).toBe(true)
+    expect($decrement.element.tagName).toBe('BUTTON')
     expect($decrement.attributes('tabindex')).toEqual('-1')
     expect($decrement.attributes('aria-keyshortcuts')).toEqual('ArrowDown')
 
     const $increment = wrapper.find('[aria-label="Increment"]')
     expect($increment.exists()).toBe(true)
-    expect($increment.is('button')).toBe(true)
+    expect($increment.element.tagName).toBe('BUTTON')
     expect($increment.attributes('tabindex')).toEqual('-1')
     expect($increment.attributes('aria-keyshortcuts')).toEqual('ArrowUp')
 
@@ -45,7 +45,7 @@ describe('form-spinbutton', () => {
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
     expect($output.text()).toEqual('')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       placeholder: 'foobar'
     })
     await waitNT(wrapper.vm)
@@ -62,7 +62,7 @@ describe('form-spinbutton', () => {
         value: 5
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -80,13 +80,13 @@ describe('form-spinbutton', () => {
 
     const $decrement = wrapper.find('[aria-label="Decrement"]')
     expect($decrement.exists()).toBe(true)
-    expect($decrement.is('button')).toBe(true)
+    expect($decrement.element.tagName).toBe('BUTTON')
     expect($decrement.attributes('tabindex')).toEqual('-1')
     expect($decrement.attributes('aria-keyshortcuts')).toEqual('ArrowDown')
 
     const $increment = wrapper.find('[aria-label="Increment"]')
     expect($increment.exists()).toBe(true)
-    expect($increment.is('button')).toBe(true)
+    expect($increment.element.tagName).toBe('BUTTON')
     expect($increment.attributes('tabindex')).toEqual('-1')
     expect($increment.attributes('aria-keyshortcuts')).toEqual('ArrowUp')
 
@@ -100,7 +100,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuenow')).toEqual('5')
     expect($output.attributes('aria-valuetext')).toEqual('5')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 8
     })
     await waitNT(wrapper.vm)
@@ -119,7 +119,7 @@ describe('form-spinbutton', () => {
         inline: true
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -137,13 +137,13 @@ describe('form-spinbutton', () => {
 
     const $decrement = wrapper.find('[aria-label="Decrement"]')
     expect($decrement.exists()).toBe(true)
-    expect($decrement.is('button')).toBe(true)
+    expect($decrement.element.tagName).toBe('BUTTON')
     expect($decrement.attributes('tabindex')).toEqual('-1')
     expect($decrement.attributes('aria-keyshortcuts')).toEqual('ArrowDown')
 
     const $increment = wrapper.find('[aria-label="Increment"]')
     expect($increment.exists()).toBe(true)
-    expect($increment.is('button')).toBe(true)
+    expect($increment.element.tagName).toBe('BUTTON')
     expect($increment.attributes('tabindex')).toEqual('-1')
     expect($increment.attributes('aria-keyshortcuts')).toEqual('ArrowUp')
 
@@ -167,7 +167,7 @@ describe('form-spinbutton', () => {
         vertical: true
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -185,13 +185,13 @@ describe('form-spinbutton', () => {
 
     const $decrement = wrapper.find('[aria-label="Decrement"]')
     expect($decrement.exists()).toBe(true)
-    expect($decrement.is('button')).toBe(true)
+    expect($decrement.element.tagName).toBe('BUTTON')
     expect($decrement.attributes('tabindex')).toEqual('-1')
     expect($decrement.attributes('aria-keyshortcuts')).toEqual('ArrowDown')
 
     const $increment = wrapper.find('[aria-label="Increment"]')
     expect($increment.exists()).toBe(true)
-    expect($increment.is('button')).toBe(true)
+    expect($increment.element.tagName).toBe('BUTTON')
     expect($increment.attributes('tabindex')).toEqual('-1')
     expect($increment.attributes('aria-keyshortcuts')).toEqual('ArrowUp')
 
@@ -216,7 +216,7 @@ describe('form-spinbutton', () => {
         value: null
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -228,7 +228,7 @@ describe('form-spinbutton', () => {
     expect($hidden.attributes('name')).toBe('foobar')
     expect($hidden.attributes('value')).toBe('')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 50
     })
     await waitNT(wrapper.vm)
@@ -241,9 +241,9 @@ describe('form-spinbutton', () => {
 
   it('basic +/- buttons click', async () => {
     const wrapper = mount(BFormSpinbutton, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -263,170 +263,117 @@ describe('form-spinbutton', () => {
     const $decrement = wrapper.find('[aria-label="Decrement"]')
     expect($decrement.exists()).toBe(true)
 
-    $decrement.trigger('mousedown')
-    $decrement.trigger('mouseup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $decrement.trigger('mousedown')
+    await $decrement.trigger('mouseup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    $increment.trigger('mousedown')
-    $increment.trigger('mouseup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $increment.trigger('mousedown')
+    await $increment.trigger('mouseup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('2')
     expect($output.attributes('aria-valuetext')).toEqual('2')
 
-    $increment.trigger('mousedown')
-    $increment.trigger('mouseup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $increment.trigger('mousedown')
+    await $increment.trigger('mouseup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('3')
     expect($output.attributes('aria-valuetext')).toEqual('3')
 
-    $decrement.trigger('mousedown')
-    $decrement.trigger('mouseup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $decrement.trigger('mousedown')
+    await $decrement.trigger('mouseup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('2')
     expect($output.attributes('aria-valuetext')).toEqual('2')
 
-    $decrement.trigger('mousedown')
-    $decrement.trigger('mouseup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $decrement.trigger('mousedown')
+    await $decrement.trigger('mouseup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    $decrement.trigger('mousedown')
-    $decrement.trigger('mouseup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $decrement.trigger('mousedown')
+    await $decrement.trigger('mouseup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // `wrap` is off so it should not change to `1`
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    wrapper.setProps({
-      wrap: true
-    })
-
-    $decrement.trigger('mousedown')
-    $decrement.trigger('mouseup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.setProps({ wrap: true })
+    await $decrement.trigger('mousedown')
+    await $decrement.trigger('mouseup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // wrap is on so it should change to 100
     expect($output.attributes('aria-valuenow')).toEqual('100')
     expect($output.attributes('aria-valuetext')).toEqual('100')
 
-    $increment.trigger('mousedown')
-    $increment.trigger('mouseup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $increment.trigger('mousedown')
+    await $increment.trigger('mouseup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // wrap is on so it should change to 1
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    wrapper.setProps({
-      disabled: true
-    })
-    await waitNT(wrapper.vm)
-
-    $increment.trigger('mousedown')
-    $increment.trigger('mouseup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.setProps({ disabled: true })
+    await $increment.trigger('mousedown')
+    await $increment.trigger('mouseup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // Disabled so should not change
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    $decrement.trigger('mousedown')
-    $decrement.trigger('mouseup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $decrement.trigger('mousedown')
+    await $decrement.trigger('mouseup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // Disabled so should not change
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       disabled: false,
       readonly: true
     })
-    await waitNT(wrapper.vm)
-
-    $increment.trigger('mousedown')
-    $increment.trigger('mouseup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $increment.trigger('mousedown')
+    await $increment.trigger('mouseup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // Readonly so should not change
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    $decrement.trigger('mousedown')
-    $decrement.trigger('mouseup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $decrement.trigger('mousedown')
+    await $decrement.trigger('mouseup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // Readonly so should not change
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       disabled: false,
       readonly: false
     })
-    await waitNT(wrapper.vm)
-
     // Touch events should work as well
-    $increment.trigger('touchstart')
-    $increment.trigger('touchend')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $increment.trigger('touchstart')
+    await $increment.trigger('touchend')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('2')
     expect($output.attributes('aria-valuetext')).toEqual('2')
 
-    $decrement.trigger('touchstart')
-    $decrement.trigger('touchend')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $decrement.trigger('touchstart')
+    await $decrement.trigger('touchend')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('1')
@@ -437,9 +384,9 @@ describe('form-spinbutton', () => {
 
   it('basic keyboard control works', async () => {
     const wrapper = mount(BFormSpinbutton, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -454,115 +401,82 @@ describe('form-spinbutton', () => {
     expect($output.element.hasAttribute('aria-valuenow')).toBe(false)
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
 
-    wrapper.trigger('keydown.up')
-    wrapper.trigger('keyup.up')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.trigger('keydown.up')
+    await wrapper.trigger('keyup.up')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    wrapper.trigger('keydown.up')
-    wrapper.trigger('keyup.up')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.trigger('keydown.up')
+    await wrapper.trigger('keyup.up')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('2')
     expect($output.attributes('aria-valuetext')).toEqual('2')
 
-    wrapper.trigger('keydown.end')
-    wrapper.trigger('keyup.end')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.trigger('keydown.end')
+    await wrapper.trigger('keyup.end')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('100')
     expect($output.attributes('aria-valuetext')).toEqual('100')
 
-    wrapper.trigger('keydown.up')
-    wrapper.trigger('keyup.up')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.trigger('keydown.up')
+    await wrapper.trigger('keyup.up')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // `wrap` is off so it should not change to `1`
     expect($output.attributes('aria-valuenow')).toEqual('100')
     expect($output.attributes('aria-valuetext')).toEqual('100')
 
-    wrapper.trigger('keydown.down')
-    wrapper.trigger('keyup.down')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.trigger('keydown.down')
+    await wrapper.trigger('keyup.down')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('99')
     expect($output.attributes('aria-valuetext')).toEqual('99')
 
-    wrapper.trigger('keydown.down')
-    wrapper.trigger('keyup.down')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.trigger('keydown.down')
+    await wrapper.trigger('keyup.down')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('98')
     expect($output.attributes('aria-valuetext')).toEqual('98')
 
-    wrapper.trigger('keydown.home')
-    wrapper.trigger('keyup.home')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.trigger('keydown.home')
+    await wrapper.trigger('keyup.home')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    wrapper.trigger('keydown.down')
-    wrapper.trigger('keyup.down')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.trigger('keydown.down')
+    await wrapper.trigger('keyup.down')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // `wrap` is off so it should not change to `1`
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    wrapper.trigger('keydown.pageup')
-    wrapper.trigger('keyup.pageup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.trigger('keydown.pageup')
+    await wrapper.trigger('keyup.pageup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // Default jump is `4`
     expect($output.attributes('aria-valuenow')).toEqual('5')
     expect($output.attributes('aria-valuetext')).toEqual('5')
 
-    wrapper.trigger('keydown.pageup')
-    wrapper.trigger('keyup.pageup')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.trigger('keydown.pageup')
+    await wrapper.trigger('keyup.pageup')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // Default jump is `4`
     expect($output.attributes('aria-valuenow')).toEqual('9')
     expect($output.attributes('aria-valuetext')).toEqual('9')
 
-    wrapper.trigger('keydown.pagedown')
-    wrapper.trigger('keyup.pagedown')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.trigger('keydown.pagedown')
+    await wrapper.trigger('keyup.pagedown')
     expect($output.attributes('aria-valuemin')).toEqual('1')
     expect($output.attributes('aria-valuemax')).toEqual('100')
     // Default jump is `4`
@@ -575,7 +489,7 @@ describe('form-spinbutton', () => {
   it('auto repeat works', async () => {
     jest.useFakeTimers()
     const wrapper = mount(BFormSpinbutton, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         min: 1,
         max: 100,
@@ -583,7 +497,7 @@ describe('form-spinbutton', () => {
         value: 1
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -600,9 +514,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
 
-    wrapper.trigger('keydown.up')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await wrapper.trigger('keydown.up')
     expect($output.attributes('aria-valuenow')).toEqual('2')
     expect($output.attributes('aria-valuetext')).toEqual('2')
     expect(wrapper.emitted('input')).toBeDefined()
@@ -732,9 +644,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     // Un-press key
-    wrapper.trigger('keyup.up')
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await wrapper.trigger('keyup.up')
     expect($output.attributes('aria-valuenow')).toEqual('21')
     expect($output.attributes('aria-valuetext')).toEqual('21')
     expect(wrapper.emitted('input').length).toBe(13)
@@ -746,9 +656,9 @@ describe('form-spinbutton', () => {
 
   it('focus and blur handling works', async () => {
     const wrapper = mount(BFormSpinbutton, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -795,7 +705,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).not.toContain('focus')
     expect(document.activeElement).not.toBe($output.element)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       disabled: true
     })
     await waitNT(wrapper.vm)
@@ -812,8 +722,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).not.toContain('focus')
     expect(document.activeElement).not.toBe($output.element)
 
-    $output.trigger('focus')
-    await waitNT(wrapper.vm)
+    await $output.trigger('focus')
     expect(wrapper.classes()).not.toContain('focus')
     expect(document.activeElement).not.toBe($output.element)
 

@@ -9,6 +9,7 @@
     "components": [
       {
         "component": "BAvatar",
+        "version": "2.8.0",
         "props": [
           {
             "prop": "variant",
@@ -111,6 +112,33 @@
                 "description": "Native Event object"
               }
             ]
+          }
+        ]
+      },
+      {
+        "component": "BAvatarGroup",
+        "version": "2.14.0",
+        "props": [
+          {
+            "prop": "variant",
+            "settings": false,
+            "description": "Applies one of the Bootstrap theme color variants to all child avatars"
+          },
+          {
+            "prop": "size",
+            "description": "Size of all the child avatars. Refer to the documentation for details"
+          },
+          {
+            "prop": "overlap",
+            "description": "Floating point number specifying the amount of overlap where `0` is no overlap and `1` is 100% overlap"
+          },
+          {
+            "prop": "square",
+            "description": "Disables rounding of the child avatars, rendering each avatar with square corners"
+          },
+          {
+            "prop": "rounded",
+            "description": "Specifies the type of rounding to apply to the child avatars. The `square` prop takes precedence. Refer to the documentation for details"
           }
         ]
       }

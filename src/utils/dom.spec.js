@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
+import { createContainer } from '../../tests/utils'
 import {
   closest,
   contains,
@@ -32,10 +33,11 @@ const App = Vue.extend({ template })
 describe('utils/dom', () => {
   it('isElement() works', async () => {
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('div.foo')).toBe(true)
+    expect(wrapper.find('div.foo').exists()).toBe(true)
     expect(isElement(wrapper.element)).toBe(true)
     expect(isElement(null)).toBe(false)
     expect(isElement(App)).toBe(false)
@@ -45,8 +47,9 @@ describe('utils/dom', () => {
 
   it('isDisabled() works', async () => {
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -61,8 +64,9 @@ describe('utils/dom', () => {
 
   it('hasClass() works', async () => {
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $span = wrapper.find('span.barspan')
@@ -78,8 +82,9 @@ describe('utils/dom', () => {
 
   it('contains() works', async () => {
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $span = wrapper.find('span.barspan')
@@ -99,8 +104,9 @@ describe('utils/dom', () => {
 
   it('closest() works', async () => {
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -125,8 +131,9 @@ describe('utils/dom', () => {
 
   it('matches() works', async () => {
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -150,8 +157,9 @@ describe('utils/dom', () => {
 
   it('hasAttr() works', async () => {
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -170,8 +178,9 @@ describe('utils/dom', () => {
 
   it('getAttr() works', async () => {
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -193,8 +202,9 @@ describe('utils/dom', () => {
 
   it('select() works', async () => {
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -219,8 +229,9 @@ describe('utils/dom', () => {
 
   it('selectAll() works', async () => {
     const wrapper = mount(App, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')

@@ -1,12 +1,13 @@
 import VueRouter from 'vue-router'
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { createContainer } from '../../../tests/utils'
 import { BLink } from './link'
 
 describe('b-link', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BLink)
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('#')
     expect(wrapper.attributes('target')).toEqual('_self')
     expect(wrapper.attributes('rel')).not.toBeDefined()
@@ -24,7 +25,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('#')
     expect(wrapper.attributes('target')).toEqual('_self')
     expect(wrapper.attributes('rel')).not.toBeDefined()
@@ -42,7 +43,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_self')
     expect(wrapper.attributes('rel')).not.toBeDefined()
@@ -60,7 +61,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('#foobar')
     expect(wrapper.attributes('target')).toEqual('_self')
     expect(wrapper.attributes('rel')).not.toBeDefined()
@@ -78,7 +79,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_self')
     expect(wrapper.attributes('rel')).not.toBeDefined()
@@ -96,7 +97,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_self')
     expect(wrapper.attributes('rel')).not.toBeDefined()
@@ -115,7 +116,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_blank')
     expect(wrapper.attributes('rel')).toEqual('noopener')
@@ -133,7 +134,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_blank')
     expect(wrapper.attributes('rel')).toEqual('alternate')
@@ -149,7 +150,7 @@ describe('b-link', () => {
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes().length).toBe(1)
 
@@ -181,13 +182,13 @@ describe('b-link', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BLink, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         href: '#foobar'
       }
     })
 
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.element.tagName).toBe('A')
 
     expect(document.activeElement).not.toBe(wrapper.element)
     wrapper.vm.focus()
@@ -212,10 +213,10 @@ describe('b-link', () => {
           }
         }
       })
-      expect(wrapper.is('a')).toBe(true)
+      expect(wrapper.element.tagName).toBe('A')
       expect(called).toBe(0)
       expect(evt).toEqual(null)
-      wrapper.find('a').trigger('click')
+      await wrapper.find('a').trigger('click')
       expect(called).toBe(1)
       expect(evt).toBeInstanceOf(MouseEvent)
 
@@ -230,10 +231,10 @@ describe('b-link', () => {
           click: [spy1, spy2]
         }
       })
-      expect(wrapper.is('a')).toBe(true)
+      expect(wrapper.element.tagName).toBe('A')
       expect(spy1).not.toHaveBeenCalled()
       expect(spy2).not.toHaveBeenCalled()
-      wrapper.find('a').trigger('click')
+      await wrapper.find('a').trigger('click')
       expect(spy1).toHaveBeenCalled()
       expect(spy2).toHaveBeenCalled()
 
@@ -254,10 +255,10 @@ describe('b-link', () => {
           }
         }
       })
-      expect(wrapper.is('a')).toBe(true)
+      expect(wrapper.element.tagName).toBe('A')
       expect(called).toBe(0)
       expect(evt).toEqual(null)
-      wrapper.find('a').trigger('click')
+      await wrapper.find('a').trigger('click')
       expect(called).toBe(0)
       expect(evt).toEqual(null)
 
@@ -271,9 +272,9 @@ describe('b-link', () => {
         }
       })
       const spy = jest.fn()
-      expect(wrapper.is('a')).toBe(true)
+      expect(wrapper.element.tagName).toBe('A')
       wrapper.find('a').element.addEventListener('click', spy)
-      wrapper.find('a').trigger('click')
+      await wrapper.find('a').trigger('click')
       expect(spy).not.toHaveBeenCalled()
 
       wrapper.destroy()
@@ -287,10 +288,10 @@ describe('b-link', () => {
       })
       const spy = jest.fn()
       const wrapper = mount(App, {
-        localVue: localVue
+        localVue
       })
       wrapper.vm.$root.$on('clicked::link', spy)
-      wrapper.find('a').trigger('click')
+      await wrapper.find('a').trigger('click')
       expect(spy).toHaveBeenCalled()
 
       wrapper.destroy()
@@ -304,13 +305,13 @@ describe('b-link', () => {
       })
       const spy = jest.fn()
       const wrapper = mount(App, {
-        localVue: localVue
+        localVue
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       wrapper.vm.$root.$on('clicked::link', spy)
-      wrapper.find('a').trigger('click')
+      await wrapper.find('a').trigger('click')
       expect(spy).not.toHaveBeenCalled()
 
       wrapper.destroy()
@@ -350,32 +351,32 @@ describe('b-link', () => {
       })
 
       const wrapper = mount(App, {
-        localVue: localVue,
-        attachToDocument: true
+        localVue,
+        attachTo: createContainer()
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
-      expect(wrapper.is('main')).toBe(true)
+      expect(wrapper.vm).toBeDefined()
+      expect(wrapper.element.tagName).toBe('MAIN')
 
       expect(wrapper.findAll('a').length).toBe(4)
 
       const $links = wrapper.findAll('a')
 
-      expect($links.at(0).isVueInstance()).toBe(true)
+      expect($links.at(0).vm).toBeDefined()
       expect($links.at(0).vm.$options.name).toBe('BLink')
       expect($links.at(0).vm.$children.length).toBe(1)
       expect($links.at(0).vm.$children[0].$options.name).toBe('RouterLink')
 
-      expect($links.at(1).isVueInstance()).toBe(true)
+      expect($links.at(1).vm).toBeDefined()
       expect($links.at(1).vm.$options.name).toBe('BLink')
       expect($links.at(1).vm.$children.length).toBe(0)
 
-      expect($links.at(2).isVueInstance()).toBe(true)
+      expect($links.at(2).vm).toBeDefined()
       expect($links.at(2).vm.$options.name).toBe('BLink')
       expect($links.at(2).vm.$children.length).toBe(1)
       expect($links.at(2).vm.$children[0].$options.name).toBe('RouterLink')
 
-      expect($links.at(3).isVueInstance()).toBe(true)
+      expect($links.at(3).vm).toBeDefined()
       expect($links.at(3).vm.$options.name).toBe('BLink')
       expect($links.at(3).vm.$children.length).toBe(0)
 

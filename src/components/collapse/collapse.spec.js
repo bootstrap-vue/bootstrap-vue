@@ -1,6 +1,15 @@
-import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import {
+  config as vtuConfig,
+  createLocalVue as CreateLocalVue,
+  createWrapper,
+  mount
+} from '@vue/test-utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCollapse } from './collapse'
+
+// Disable the use of the TransitionStub component
+// since it doesn't run transition hooks
+vtuConfig.stubs.transition = false
 
 // Events collapse emits on $root
 const EVENT_STATE = 'bv::collapse::state'
@@ -15,7 +24,7 @@ describe('collapse', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
 
   beforeEach(() => {
-    // Mock getBCR so that the we can get a fake height for element
+    // Mock `getBoundingClientRect()` so that the we can get a fake height for element
     // Needed for keyboard navigation testing
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
       width: 100,
@@ -34,21 +43,17 @@ describe('collapse', () => {
 
   it('should have expected default structure', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
     expect(wrapper.classes()).toContain('collapse')
@@ -62,22 +67,18 @@ describe('collapse', () => {
 
   it('should have expected structure when prop is-nav is set', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
         isNav: true
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
     expect(wrapper.classes()).toContain('collapse')
@@ -91,23 +92,19 @@ describe('collapse', () => {
 
   it('renders default slot content', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test'
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
     expect(wrapper.classes()).toContain('collapse')
@@ -121,7 +118,7 @@ describe('collapse', () => {
 
   it('should mount as visible when prop visible is true', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -129,16 +126,12 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
     expect(wrapper.classes()).toContain('show')
@@ -150,19 +143,15 @@ describe('collapse', () => {
     wrapper.destroy()
   })
 
-  it('should emit its state on mount (initialy hidden)', async () => {
+  it('should emit its state on mount (initially hidden)', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test'
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -184,7 +173,7 @@ describe('collapse', () => {
 
   it('should emit its state on mount (initially visible)', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -192,10 +181,6 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -217,7 +202,7 @@ describe('collapse', () => {
 
   it('should respond to state sync requests', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -225,10 +210,6 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -259,7 +240,7 @@ describe('collapse', () => {
 
   it('setting visible to true after mount shows collapse', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -267,10 +248,6 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -288,7 +265,7 @@ describe('collapse', () => {
     expect(wrapper.element.style.display).toEqual('none')
 
     // Change visible prop
-    wrapper.setProps({
+    await wrapper.setProps({
       visible: true
     })
     await waitNT(wrapper.vm)
@@ -308,7 +285,7 @@ describe('collapse', () => {
 
   it('should respond to according events', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -317,10 +294,6 @@ describe('collapse', () => {
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)
@@ -412,7 +385,7 @@ describe('collapse', () => {
     const App = localVue.extend({
       render(h) {
         return h('div', [
-          // JSDOM supports getComputedStyle when using stylesheets (non responsive)
+          // JSDOM supports `getComputedStyle()` when using stylesheets (non responsive)
           // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030
           h('style', { attrs: { type: 'text/css' } }, '.collapse:not(.show) { display: none; }'),
           h(
@@ -430,17 +403,13 @@ describe('collapse', () => {
       }
     })
     const wrapper = mount(App, {
-      attachToDocument: true,
-      localVue: localVue,
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
-      }
+      attachTo: createContainer(),
+      localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $collapse = wrapper.find(BCollapse)
-    expect($collapse.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    const $collapse = wrapper.findComponent(BCollapse)
+    expect($collapse.vm).toBeDefined()
 
     expect(wrapper.find('style').exists()).toBe(true)
 
@@ -454,13 +423,9 @@ describe('collapse', () => {
     expect($collapse.find('.nav-link').exists()).toBe(true)
 
     // Click on link
-    wrapper.find('.nav-link').trigger('click')
-
-    await waitNT(wrapper.vm)
+    await wrapper.find('.nav-link').trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($collapse.classes()).not.toContain('show')
     expect($collapse.element.style.display).toEqual('none')
 
@@ -472,7 +437,7 @@ describe('collapse', () => {
     const App = localVue.extend({
       render(h) {
         return h('div', [
-          // JSDOM supports getComputedStyle when using stylesheets (non responsive)
+          // JSDOM supports `getComputedStyle()` when using stylesheets (non responsive)
           // Although it appears to be picky about CSS definition ordering
           // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030
           h(
@@ -496,17 +461,13 @@ describe('collapse', () => {
       }
     })
     const wrapper = mount(App, {
-      attachToDocument: true,
-      localVue: localVue,
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
-      }
+      attachTo: createContainer(),
+      localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $collapse = wrapper.find(BCollapse)
-    expect($collapse.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    const $collapse = wrapper.findComponent(BCollapse)
+    expect($collapse.vm).toBeDefined()
 
     expect(wrapper.find('style').exists()).toBe(true)
 
@@ -520,13 +481,9 @@ describe('collapse', () => {
     expect($collapse.find('.nav-link').exists()).toBe(true)
 
     // Click on link
-    wrapper.find('.nav-link').trigger('click')
-
-    await waitNT(wrapper.vm)
+    await wrapper.find('.nav-link').trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($collapse.classes()).toContain('show')
     expect($collapse.element.style.display).toEqual('')
 
@@ -535,21 +492,17 @@ describe('collapse', () => {
 
   it('should not respond to root toggle event that does not match ID', async () => {
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test'
       },
       slots: {
         default: '<div>foobar</div>'
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     // const rootWrapper = createWrapper(wrapper.vm.$root)
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.classes()).not.toContain('show')
@@ -570,7 +523,7 @@ describe('collapse', () => {
   it('default slot scope works', async () => {
     let scope = null
     const wrapper = mount(BCollapse, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -581,10 +534,6 @@ describe('collapse', () => {
           scope = props
           return this.$createElement('div', 'foobar')
         }
-      },
-      stubs: {
-        // Disable use of default test transitionStub component
-        transition: false
       }
     })
     const rootWrapper = createWrapper(wrapper.vm.$root)

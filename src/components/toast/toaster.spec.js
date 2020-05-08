@@ -1,26 +1,27 @@
-import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { config as vtuConfig, mount } from '@vue/test-utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { PortalTarget } from 'portal-vue'
 import { BToaster } from './toaster'
+
+// Disable the use of the TransitionStub component
+// since it doesn't run transition hooks
+vtuConfig.stubs['transition-group'] = false
+vtuConfig.stubs.transition = false
 
 describe('b-toaster', () => {
   it('has expected structure', async () => {
     const wrapper = mount(BToaster, {
-      attachToDocument: true,
-      stubs: {
-        'transition-group': false,
-        transition: false
-      },
+      attachTo: createContainer(),
       propsData: {
         name: 'foo'
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.attributes('id')).toBe('foo')
     expect(wrapper.attributes('aria-live')).not.toBeDefined()
     expect(wrapper.attributes('aria-atomic')).not.toBeDefined()
@@ -31,8 +32,8 @@ describe('b-toaster', () => {
 
     expect(wrapper.find('.b-toaster-slot').exists()).toBe(true)
     const $slot = wrapper.find('.b-toaster-slot')
-    expect($slot.is(PortalTarget)).toBe(true)
-    expect($slot.is('div')).toBe(true)
+    expect($slot.findComponent(PortalTarget).exists()).toBe(true)
+    expect($slot.element.tagName).toBe('DIV')
     expect($slot.classes()).toContain('b-toaster-slot')
     expect($slot.classes()).toContain('vue-portal-target')
     expect($slot.classes().length).toBe(2)
@@ -43,11 +44,7 @@ describe('b-toaster', () => {
 
   it('accepts aria props', async () => {
     const wrapper = mount(BToaster, {
-      attachToDocument: true,
-      stubs: {
-        'transition-group': false,
-        transition: false
-      },
+      attachTo: createContainer(),
       propsData: {
         name: 'bar',
         ariaLive: 'assertive',
@@ -56,11 +53,11 @@ describe('b-toaster', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.attributes('id')).toBe('bar')
     expect(wrapper.attributes('aria-live')).toEqual('assertive')
     expect(wrapper.attributes('aria-atomic')).toEqual('true')
@@ -68,8 +65,8 @@ describe('b-toaster', () => {
 
     expect(wrapper.find('.b-toaster-slot').exists()).toBe(true)
     const $slot = wrapper.find('.b-toaster-slot')
-    expect($slot.is(PortalTarget)).toBe(true)
-    expect($slot.is('div')).toBe(true)
+    expect($slot.findComponent(PortalTarget).exists()).toBe(true)
+    expect($slot.element.tagName).toBe('DIV')
     expect($slot.classes()).toContain('b-toaster-slot')
     expect($slot.classes()).toContain('vue-portal-target')
     expect($slot.classes().length).toBe(2)

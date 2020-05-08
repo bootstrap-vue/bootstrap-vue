@@ -14,7 +14,7 @@ describe('table > tbody bottom-row slot', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(testItems.length)
@@ -33,7 +33,7 @@ describe('table > tbody bottom-row slot', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(testItems.length + 1)
@@ -70,7 +70,7 @@ describe('table > tbody bottom-row slot', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(columns).toBe(3)
     expect(fields).toEqual(normalizeFields(testFields))

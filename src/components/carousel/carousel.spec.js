@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCarousel } from './carousel'
 import { BCarouselSlide } from './carousel-slide'
 
@@ -44,17 +44,17 @@ const appDef = {
 describe('carousel', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BCarousel, {
-      localVue: localVue,
-      attachToDocument: true
+      localVue,
+      attachTo: createContainer()
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
     // Outer wrapper
     // <div role="region" aria-busy="false" class="carousel slide" id="__BVID__52"></div>
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).toContain('slide')
     expect(wrapper.classes().length).toBe(2)
@@ -112,20 +112,20 @@ describe('carousel', () => {
 
   it('has prev/next controls when prop controls is set', async () => {
     const wrapper = mount(BCarousel, {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         controls: true
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
     // Outer wrapper
     // <div role="region" aria-busy="false" class="carousel slide" id="__BVID__52"></div>
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).toContain('slide')
     expect(wrapper.classes().length).toBe(2)
@@ -144,8 +144,8 @@ describe('carousel', () => {
     expect(wrapper.findAll('a').length).toBe(2)
     const $prev = wrapper.find('.carousel > .carousel-control-prev')
     const $next = wrapper.find('.carousel > .carousel-control-next')
-    expect($prev.is('a')).toBe(true)
-    expect($next.is('a')).toBe(true)
+    expect($prev.element.tagName).toBe('A')
+    expect($next.element.tagName).toBe('A')
     expect($prev.attributes('href')).toEqual('#')
     expect($next.attributes('href')).toEqual('#')
     expect($prev.attributes('role')).toEqual('button')
@@ -176,20 +176,20 @@ describe('carousel', () => {
 
   it('has indicators showing when prop indicators is set', async () => {
     const wrapper = mount(BCarousel, {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         indicators: true
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
     // Outer wrapper
     // <div role="region" aria-busy="false" class="carousel slide" id="__BVID__52"></div>
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('carousel')
     expect(wrapper.classes()).toContain('slide')
     expect(wrapper.classes().length).toBe(2)
@@ -224,14 +224,14 @@ describe('carousel', () => {
 
   it('should have class carousel-fade when prop fade=true', async () => {
     const wrapper = mount(BCarousel, {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         fade: true
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -244,14 +244,14 @@ describe('carousel', () => {
 
   it('should not have class fade or slide when prop no-animation=true', async () => {
     const wrapper = mount(BCarousel, {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         noAnimation: true
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -264,15 +264,15 @@ describe('carousel', () => {
 
   it('should not have class fade or slide when prop no-animation=true and fade=true', async () => {
     const wrapper = mount(BCarousel, {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         fade: true,
         noAnimation: true
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -285,8 +285,8 @@ describe('carousel', () => {
 
   it('should not automatically scroll to next slide when interval=0', async () => {
     const wrapper = mount(localVue.extend(appDef), {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -296,10 +296,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(BCarousel)
+    expect(wrapper.vm).toBeDefined()
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -317,8 +317,8 @@ describe('carousel', () => {
 
   it('should scroll to next/prev slide when next/prev clicked', async () => {
     const wrapper = mount(localVue.extend(appDef), {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -329,10 +329,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(BCarousel)
+    expect(wrapper.vm).toBeDefined()
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeDefined()
 
     const $next = $carousel.find('.carousel-control-next')
     const $prev = $carousel.find('.carousel-control-prev')
@@ -344,10 +344,7 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    $next.trigger('click')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $next.trigger('click')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -366,10 +363,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(1)
 
-    $prev.trigger('click')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $prev.trigger('click')
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -390,8 +384,8 @@ describe('carousel', () => {
 
   it('should scroll to next/prev slide when next/prev space keypress', async () => {
     const wrapper = mount(localVue.extend(appDef), {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -402,10 +396,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(BCarousel)
+    expect(wrapper.vm).toBeDefined()
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeDefined()
 
     const $next = $carousel.find('.carousel-control-next')
     const $prev = $carousel.find('.carousel-control-prev')
@@ -417,10 +411,7 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    $next.trigger('keydown.space')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $next.trigger('keydown.space')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -439,10 +430,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(1)
 
-    $prev.trigger('keydown.space')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $prev.trigger('keydown.space')
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -463,8 +451,8 @@ describe('carousel', () => {
 
   it('should scroll to specified slide when indicator clicked', async () => {
     const wrapper = mount(localVue.extend(appDef), {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -475,10 +463,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(BCarousel)
+    expect(wrapper.vm).toBeDefined()
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -490,10 +478,7 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    $indicators.at(3).trigger('click')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $indicators.at(3).trigger('click')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -512,10 +497,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(3)
 
-    $indicators.at(1).trigger('click')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $indicators.at(1).trigger('click')
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -534,10 +516,10 @@ describe('carousel', () => {
     wrapper.destroy()
   })
 
-  it('should scroll to specified slide when indicator kepress space/enter', async () => {
+  it('should scroll to specified slide when indicator keypress space/enter', async () => {
     const wrapper = mount(localVue.extend(appDef), {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -548,10 +530,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(BCarousel)
+    expect(wrapper.vm).toBeDefined()
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -563,10 +545,7 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    $indicators.at(3).trigger('keydown.space')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $indicators.at(3).trigger('keydown.space')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -585,10 +564,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(3)
 
-    $indicators.at(1).trigger('keydown.enter')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $indicators.at(1).trigger('keydown.enter')
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -609,8 +585,8 @@ describe('carousel', () => {
 
   it('should scroll to next/prev slide when key next/prev pressed', async () => {
     const wrapper = mount(localVue.extend(appDef), {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -621,10 +597,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(BCarousel)
+    expect(wrapper.vm).toBeDefined()
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -633,10 +609,7 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    $carousel.trigger('keydown.right')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $carousel.trigger('keydown.right')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -655,10 +628,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(1)
 
-    $carousel.trigger('keydown.left')
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await $carousel.trigger('keydown.left')
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -679,8 +649,8 @@ describe('carousel', () => {
 
   it('should emit paused and unpaused events when interval changed to 0', async () => {
     const wrapper = mount(localVue.extend(appDef), {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -691,10 +661,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(BCarousel)
+    expect(wrapper.vm).toBeDefined()
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -712,7 +682,7 @@ describe('carousel', () => {
     expect($carousel.emitted('unpaused')).not.toBeDefined()
     expect($carousel.emitted('paused')).not.toBeDefined()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       interval: 1000
     })
     await waitNT(wrapper.vm)
@@ -732,7 +702,7 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       interval: 0
     })
     await waitNT(wrapper.vm)
@@ -748,7 +718,7 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       interval: 1000
     })
     await waitNT(wrapper.vm)
@@ -764,8 +734,8 @@ describe('carousel', () => {
 
   it('should scroll to specified slide when value (v-model) changed', async () => {
     const wrapper = mount(localVue.extend(appDef), {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -776,10 +746,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(BCarousel)
+    expect(wrapper.vm).toBeDefined()
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -794,7 +764,7 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(0)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 1
     })
 
@@ -820,7 +790,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input')[0][0]).toEqual(1)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
 
@@ -848,8 +818,8 @@ describe('carousel', () => {
 
   it('changing slides works when no-animation set', async () => {
     const wrapper = mount(localVue.extend(appDef), {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -860,10 +830,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(BCarousel)
+    expect(wrapper.vm).toBeDefined()
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -879,7 +849,7 @@ describe('carousel', () => {
     expect($carousel.vm.isSliding).toBe(false)
 
     // Transitions (or fallback timers) are not used when no-animation set
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 1
     })
 
@@ -897,7 +867,7 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(1)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
 
@@ -917,8 +887,8 @@ describe('carousel', () => {
 
   it('setting new slide when sliding is active, schedules the new slide to happen after finished', async () => {
     const wrapper = mount(localVue.extend(appDef), {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -929,10 +899,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(BCarousel)
+    expect(wrapper.vm).toBeDefined()
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -947,7 +917,7 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(0)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 1
     })
 
@@ -962,7 +932,7 @@ describe('carousel', () => {
     expect($carousel.vm.isSliding).toBe(true)
 
     // Set new slide while sliding
-    wrapper.setProps({
+    await wrapper.setProps({
       value: 3
     })
 
@@ -1000,8 +970,8 @@ describe('carousel', () => {
 
   it('Next/Prev slide wraps to end/start when no-wrap is false', async () => {
     const wrapper = mount(localVue.extend(appDef), {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -1014,10 +984,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(BCarousel)
+    expect(wrapper.vm).toBeDefined()
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -1069,8 +1039,8 @@ describe('carousel', () => {
 
   it('Next/Prev slide does not wrap to end/start when no-wrap is true', async () => {
     const wrapper = mount(localVue.extend(appDef), {
-      localVue: localVue,
-      attachToDocument: true,
+      localVue,
+      attachTo: createContainer(),
       propsData: {
         interval: 0,
         fade: false,
@@ -1084,10 +1054,10 @@ describe('carousel', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    const $carousel = wrapper.find(BCarousel)
+    expect(wrapper.vm).toBeDefined()
+    const $carousel = wrapper.findComponent(BCarousel)
     expect($carousel).toBeDefined()
-    expect($carousel.isVueInstance()).toBe(true)
+    expect($carousel.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
     await waitRAF()

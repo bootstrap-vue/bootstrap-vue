@@ -14,7 +14,7 @@ describe('table > custom tfoot slot', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('thead').exists()).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tfoot').exists()).toBe(false)
@@ -34,7 +34,7 @@ describe('table > custom tfoot slot', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('thead').exists()).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tfoot').exists()).toBe(true)
@@ -56,7 +56,7 @@ describe('table > custom tfoot slot', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('thead').exists()).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tfoot').exists()).toBe(true)
@@ -78,7 +78,7 @@ describe('table > custom tfoot slot', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('thead').exists()).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tfoot').exists()).toBe(true)

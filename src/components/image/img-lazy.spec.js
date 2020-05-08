@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BImgLazy } from './img-lazy'
 
 const src = 'https://picsum.photos/1024/400/?image=41'
@@ -7,25 +7,25 @@ const src = 'https://picsum.photos/1024/400/?image=41'
 describe('img-lazy', () => {
   it('has root element "img"', async () => {
     const wrapper = mount(BImgLazy, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         src: src
       }
     })
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
 
     wrapper.destroy()
   })
 
   it('is initially shown show prop is set', async () => {
     const wrapper = mount(BImgLazy, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         src: src,
         show: true
       }
     })
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
 
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toBe(src)
@@ -35,14 +35,14 @@ describe('img-lazy', () => {
 
   it('shows when IntersectionObserver not supported', async () => {
     const wrapper = mount(BImgLazy, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         src: src,
         show: false
       }
     })
 
-    expect(wrapper.is('img')).toBe(true)
+    expect(wrapper.element.tagName).toBe('IMG')
 
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -62,7 +62,7 @@ describe('img-lazy', () => {
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toContain(src)
 
-    wrapper.setProps({
+    await wrapper.setProps({
       show: true
     })
     await waitNT(wrapper.vm)
@@ -77,7 +77,7 @@ describe('img-lazy', () => {
     // observer = wrapper.element.__bv__visibility_observer
     // expect(observer).not.toBeDefined()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       show: false
     })
     await waitNT(wrapper.vm)

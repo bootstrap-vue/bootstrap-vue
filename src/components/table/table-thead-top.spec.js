@@ -14,7 +14,7 @@ describe('table > thead thead-top slot', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('thead').exists()).toBe(true)
     expect(wrapper.findAll('thead > tr').exists()).toBe(true)
     expect(wrapper.findAll('thead > tr').length).toBe(1)
@@ -33,7 +33,7 @@ describe('table > thead thead-top slot', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('thead').exists()).toBe(true)
     expect(wrapper.findAll('thead > tr').exists()).toBe(true)
     expect(wrapper.findAll('thead > tr').length).toBe(2)
@@ -72,7 +72,7 @@ describe('table > thead thead-top slot', () => {
       }
     })
     expect(wrapper).toBeDefined()
-    expect(wrapper.is('table')).toBe(true)
+    expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('thead').exists()).toBe(true)
     expect(columns).toBe(3)
     expect(fields).toEqual(normalizeFields(testFields))
