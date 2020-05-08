@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import attrsMixin from './attrs'
 
 const BTest = {
-  name 'BTest',
+  name: 'BTest',
   mixins: [attrsMixin],
   inheritAttrs: false,
   render(h) {
@@ -11,7 +11,7 @@ const BTest = {
 }
 
 const App = {
-  name 'App',
+  name: 'App',
   props: {
     attrs: {
       type: Object,
