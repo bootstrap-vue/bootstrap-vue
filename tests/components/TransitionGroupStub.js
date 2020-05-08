@@ -1,3 +1,4 @@
+/* istabul ignore next */
 export default {
   render(h) {
     const tag = this.tag || this.$vnode.data.tag || 'span'
