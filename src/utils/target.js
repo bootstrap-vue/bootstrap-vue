@@ -1,6 +1,6 @@
 import { concat } from './array'
 import { eventOn, eventOff } from './events'
-import { isArray, isString } from './inspect'
+import { isString } from './inspect'
 import { keys } from './object'
 
 const allListenTypes = { hover: true, click: true, focus: true }
@@ -10,15 +10,12 @@ const BVBoundListeners = '__BV_boundEventListeners__'
 export const getTargets = ({ modifiers, arg, value }) => {
   const targets = keys(modifiers || {}).filter(t => !allListenTypes[t])
 
-  if (isString(arg)) {
-    targets.push(arg)
-  }
-
-  // Support pasing a single string ID or an array of string IDs
-  concat(value).forEach(t => t && isString(t) && targets.push(t))
+  // Add ID from `arg` (if provided), and support value
+  // as a single string ID or an array of string IDs
+  concat(arg, value).forEach(t => isString(t) && targets.push(t))
 
   // Return only unique targets
-  return targets.filter((t, index, arr) => arr.indexOf(t) === index)
+  return targets.filter((t, index, arr) => t && arr.indexOf(t) === index)
 }
 
 export const bindTargets = (vnode, binding, listenTypes, fn) => {
