@@ -7,14 +7,19 @@ const allListenTypes = { hover: true, click: true, focus: true }
 
 const BVBoundListeners = '__BV_boundEventListeners__'
 
+const RX_SPLIT_SEPARATOR = /[,;\s]+/
+
 export const getTargets = ({ modifiers, arg, value }) => {
+  value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
+
   const targets = keys(modifiers || {}).filter(t => !allListenTypes[t])
 
   // Add ID from `arg` (if provided), and support value
   // as a single string ID or an array of string IDs
+  // If `value` is not an array or string, then it gets filtered out
   concat(arg, value).forEach(t => isString(t) && targets.push(t))
 
-  // Return only unique targets
+  // Return only unique and truthy target IDs
   return targets.filter((t, index, arr) => t && arr.indexOf(t) === index)
 }
 
