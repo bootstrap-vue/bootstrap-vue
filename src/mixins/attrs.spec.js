@@ -61,7 +61,7 @@ describe('mixins > attrs', () => {
 
     // Correctly adds new attrs data
     await wrapper.setProps({
-      attrs: { 'foo': 'bar', 'baz': 'biz' }
+      attrs: { foo: 'bar', baz: 'biz' }
     })
 
     expect($section.attributes()).toEqual({})
