@@ -495,8 +495,8 @@ values are `'start'`, `'center'`, `'end'`, `'baseline'`, and `'stretch'`:
 <!-- b-grid-vertical-alignment.vue -->
 ```
 
-For indidual grid cell vertical alignment, use the `align-self` prop on `<b-col>`. Possible
-values are `'start'`, `'center'`, `'end'`, `'baseline'`, and `'stretch'`:
+For individual grid cell vertical alignment, use the `align-self` prop on `<b-col>`. Possible values
+are `'start'`, `'center'`, `'end'`, `'baseline'`, and `'stretch'`:
 
 ```html
 <b-container class="bv-example-row bv-example-row-flex-cols">
