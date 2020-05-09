@@ -35,11 +35,11 @@ export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 // --- Helper methods ---
 
 const setTriggerState = (el, state) => {
-  if (state === true) {
+  if (state) {
     removeClass(el, CLASS_VBTOGGLE_NOT_COLLAPSED)
     addClass(el, CLASS_VBTOGGLE_COLLAPSED)
     setAttr(el, 'aria-expanded', 'true')
-  } else if (state === false) {
+  } else {
     removeClass(el, CLASS_VBTOGGLE_COLLAPSED)
     addClass(el, CLASS_VBTOGGLE_NOT_COLLAPSED)
     setAttr(el, 'aria-expanded', 'false')
