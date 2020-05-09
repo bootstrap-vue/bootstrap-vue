@@ -1,21 +1,29 @@
-import { keys } from './object'
 import { eventOn, eventOff } from './events'
+import { isArray, isString } from './inspect'
+import { keys } from './object'
 
 const allListenTypes = { hover: true, click: true, focus: true }
 
 const BVBoundListeners = '__BV_boundEventListeners__'
 
-const getTargets = binding => {
-  const targets = keys(binding.modifiers || {}).filter(t => !allListenTypes[t])
+export const getTargets = ({ modifiers, arg, value }) => {
+  const targets = keys(modifiers || {}).filter(t => !allListenTypes[t])
 
-  if (binding.value) {
-    targets.push(binding.value)
+  if (arg && isString(arg)) {
+    targets.push(arg)
   }
 
-  return targets
+  if (value && isString(value)) {
+    targets.push(value)
+  } else if (isArray(value)) {
+    value.forEach(t => t && isString(t) && targets.push(t))
+  }
+
+  // return only unique targets
+  return targets.filter((target, index, array) => array.indexOf(target) === index)
 }
 
-const bindTargets = (vnode, binding, listenTypes, fn) => {
+export const bindTargets = (vnode, binding, listenTypes, fn) => {
   const targets = getTargets(binding)
 
   const listener = () => {
@@ -26,8 +34,7 @@ const bindTargets = (vnode, binding, listenTypes, fn) => {
     if (listenTypes[type] || binding.modifiers[type]) {
       eventOn(vnode.elm, type, listener)
       const boundListeners = vnode.elm[BVBoundListeners] || {}
-      boundListeners[type] = boundListeners[type] || []
-      boundListeners[type].push(listener)
+      boundListeners[type] = (boundListeners[type] || []).push(listener)
       vnode.elm[BVBoundListeners] = boundListeners
     }
   })
@@ -36,7 +43,7 @@ const bindTargets = (vnode, binding, listenTypes, fn) => {
   return targets
 }
 
-const unbindTargets = (vnode, binding, listenTypes) => {
+export const unbindTargets = (vnode, binding, listenTypes) => {
   keys(allListenTypes).forEach(type => {
     if (listenTypes[type] || binding.modifiers[type]) {
       const boundListeners = vnode.elm[BVBoundListeners] && vnode.elm[BVBoundListeners][type]
@@ -47,7 +54,5 @@ const unbindTargets = (vnode, binding, listenTypes) => {
     }
   })
 }
-
-export { bindTargets, unbindTargets, getTargets }
 
 export default bindTargets
