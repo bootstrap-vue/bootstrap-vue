@@ -1,6 +1,5 @@
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
-import { toString } from '../../utils/string'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { VBToggle, EVENT_STATE, EVENT_STATE_SYNC } from '../../directives/toggle/toggle'
@@ -14,8 +13,8 @@ const CLASS_NAME = 'navbar-toggler'
 // @vue/component
 export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [listenOnRootMixin, normalizeSlotMixin],
   directives: { BToggle: VBToggle },
+  mixins: [listenOnRootMixin, normalizeSlotMixin],
   props: {
     label: {
       type: String,
