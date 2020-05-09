@@ -450,7 +450,14 @@ each tier as needed. See the example below for a better idea of how it all works
 
 Use flexbox alignment utilities to vertically and horizontally align columns.
 
+**Note:** Internet Explorer 11 does not support vertical alignment of flex items when the flex
+container has a `min-height` as shown below.
+[See Flexbugs #3 for more details](https://github.com/philipwalton/flexbugs#flexbug-3).
+
 ### Vertical alignment
+
+For vertical alignment of all grid cells in a row, use the `align-v` prop on `<b-row>`. Possible
+values are `'start'`, `'center'`, `'end'`, `'baseline'`, and `'stretch'`:
 
 ```html
 <b-container class="bv-example-row bv-example-row-flex-cols">
@@ -471,10 +478,25 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
     <b-col>One of three columns</b-col>
     <b-col>One of three columns</b-col>
   </b-row>
+
+  <b-row align-v="baseline">
+    <b-col style="font-size: 0.75rem;">One of three columns</b-col>
+    <b-col>One of three columns</b-col>
+    <b-col style="font-size: 1.25rem;">One of three columns</b-col>
+  </b-row>
+
+  <b-row align-v="stretch">
+    <b-col>One of three columns</b-col>
+    <b-col>One of three columns</b-col>
+    <b-col>One of three columns</b-col>
+  </b-row>
 </b-container>
 
 <!-- b-grid-vertical-alignment.vue -->
 ```
+
+For individual grid cell vertical alignment, use the `align-self` prop on `<b-col>`. Possible values
+are `'start'`, `'center'`, `'end'`, `'baseline'`, and `'stretch'`:
 
 ```html
 <b-container class="bv-example-row bv-example-row-flex-cols">
@@ -483,12 +505,19 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
     <b-col align-self="center">One of three columns</b-col>
     <b-col align-self="end">One of three columns</b-col>
   </b-row>
+  <b-row>
+    <b-col align-self="baseline">One of two columns</b-col>
+    <b-col align-self="stretch">One of two  columns</b-col>
+  </b-row>
 </b-container>
 
 <!-- b-grid-align-self.vue -->
 ```
 
 ### Horizontal alignment
+
+To horizontally align grid cells within a row, use the `align-h` prop on `<b-row>`. Possible values
+are: `'start'`, `'center'`, `'end'`, `'around'`, and `'between'`:
 
 ```html
 <b-container class="bv-example-row">

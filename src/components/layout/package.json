@@ -24,7 +24,7 @@
           },
           {
             "prop": "alignV",
-            "description": "Vertical alignment of all columns in a row: 'start', 'center', or 'end'"
+            "description": "Vertical alignment of all columns in a row: 'start', 'center', 'end', 'baseline', or 'stretch'"
           },
           {
             "prop": "alignH",
@@ -66,7 +66,7 @@
         "props": [
           {
             "prop": "alignSelf",
-            "description": "Vertical alignment of the grid cell with respect to the row: 'start', 'center', or 'end'"
+            "description": "Vertical alignment of the grid cell with respect to the row: 'start', 'center', 'end', 'baseline', or 'stretch'"
           },
           {
             "prop": "col",
