@@ -50,6 +50,7 @@ describe('v-b-toggle directive', () => {
 
     wrapper.destroy()
   })
+
   it('works on passing ID as directive value', async () => {
     const localVue = new CreateLocalVue()
     const spy = jest.fn()
@@ -65,6 +66,45 @@ describe('v-b-toggle directive', () => {
         this.$root.$off(EVENT_TOGGLE, spy)
       },
       template: `<button v-b-toggle="'test'">button</button>`
+    })
+
+    const wrapper = mount(App, {
+      localVue
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('BUTTON')
+    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
+    expect(wrapper.find('button').classes()).not.toContain('collapsed')
+    expect(spy).not.toHaveBeenCalled()
+
+    const $button = wrapper.find('button')
+    await $button.trigger('click')
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toBeCalledWith('test')
+    expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
+    expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
+    expect(wrapper.find('button').classes()).not.toContain('collapsed')
+
+    wrapper.destroy()
+  })
+
+  it('works on passing ID as directive argument', async () => {
+    const localVue = new CreateLocalVue()
+    const spy = jest.fn()
+
+    const App = localVue.extend({
+      directives: {
+        bToggle: VBToggle
+      },
+      mounted() {
+        this.$root.$on(EVENT_TOGGLE, spy)
+      },
+      beforeDestroy() {
+        this.$root.$off(EVENT_TOGGLE, spy)
+      },
+      template: `<button v-b-toggle:test>button</button>`
     })
 
     const wrapper = mount(App, {
