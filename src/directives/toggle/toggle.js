@@ -66,10 +66,12 @@ const handleUpdate = (el, binding, vnode) => {
   // after element is updated (either by parent re-rendering
   // or changes to this element or its contents
   if (el[BV_TOGGLE_STATE] === true) {
+    removeClass(el, 'not-collapsed')
     addClass(el, 'collapsed')
     setAttr(el, 'aria-expanded', 'true')
   } else if (el[BV_TOGGLE_STATE] === false) {
     removeClass(el, 'collapsed')
+    addClass(el, 'not-collapsed')
     setAttr(el, 'aria-expanded', 'false')
   }
   setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
@@ -105,7 +107,9 @@ export const VBToggle = {
           el[BV_TOGGLE_STATE] = state
           if (state) {
             removeClass(el, 'collapsed')
+            addClass(el, 'not-collapsed')
           } else {
+            removeClass(el, 'not-collapsed')
             addClass(el, 'collapsed')
           }
         }
@@ -136,6 +140,7 @@ export const VBToggle = {
     resetProp(el, BV_TOGGLE_TARGETS)
     // Reset classes/attrs
     removeClass(el, 'collapsed')
+    removeClass(el, 'not-collapsed')
     removeAttr(el, 'aria-expanded')
     removeAttr(el, 'aria-controls')
     removeAttr(el, 'role')
