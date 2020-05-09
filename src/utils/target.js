@@ -9,18 +9,18 @@ const BVBoundListeners = '__BV_boundEventListeners__'
 export const getTargets = ({ modifiers, arg, value }) => {
   const targets = keys(modifiers || {}).filter(t => !allListenTypes[t])
 
-  if (arg && isString(arg)) {
+  if (isString(arg)) {
     targets.push(arg)
   }
 
-  if (value && isString(value)) {
+  if (isString(value)) {
     targets.push(value)
   } else if (isArray(value)) {
     value.forEach(t => t && isString(t) && targets.push(t))
   }
 
   // return only unique targets
-  return targets.filter((target, index, array) => array.indexOf(target) === index)
+  return targets.filter((target, index, arr) => arr.indexOf(target) === index)
 }
 
 export const bindTargets = (vnode, binding, listenTypes, fn) => {
@@ -34,7 +34,8 @@ export const bindTargets = (vnode, binding, listenTypes, fn) => {
     if (listenTypes[type] || binding.modifiers[type]) {
       eventOn(vnode.elm, type, listener)
       const boundListeners = vnode.elm[BVBoundListeners] || {}
-      boundListeners[type] = (boundListeners[type] || []).push(listener)
+      boundListeners[type] = boundListeners[type] || []
+      boundListeners[type].push(listener)
       vnode.elm[BVBoundListeners] = boundListeners
     }
   })
