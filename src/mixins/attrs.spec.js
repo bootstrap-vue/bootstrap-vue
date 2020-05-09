@@ -15,7 +15,7 @@ const App = {
   props: {
     attrs: {
       type: Object,
-      default: {}
+      default: () => ({})
     }
   },
   render(h) {
@@ -45,19 +45,19 @@ describe('mixins > attrs', () => {
     expect($section.attributes()).toEqual({})
     expect($article.attributes()).toEqual({})
 
-    expect(BTest.vm.bvAttrs).toBeDefined()
-    expect(BTest.vm.bvAttrs.foo).not.toBeDefined()
-    expect(BTest.vm.bvAttrs.baz).not.toBeDefined()
+    expect($test.vm.bvAttrs).toBeDefined()
+    expect($test.vm.bvAttrs.foo).not.toBeDefined()
+    expect($test.vm.bvAttrs.baz).not.toBeDefined()
 
     // Correctly adds new attrs data
     await wrapper.setProps({
-      attrs: { 'foo': 'bar' }
+      attrs: { foo: 'bar' }
     })
 
     expect($section.attributes()).toEqual({})
-    expect($article.attributes()).toEqual({ 'foo': 'bar' })
-    expect(BTest.vm.bvAttrs.foo).toEqual('bar')
-    expect(BTest.vm.bvAttrs.baz).not.toBeDefined()
+    expect($article.attributes()).toEqual({ foo: 'bar' })
+    expect($test.vm.bvAttrs.foo).toEqual('bar')
+    expect($test.vm.bvAttrs.baz).not.toBeDefined()
 
     // Correctly adds new attrs data
     await wrapper.setProps({
@@ -65,27 +65,27 @@ describe('mixins > attrs', () => {
     })
 
     expect($section.attributes()).toEqual({})
-    expect($article.attributes()).toEqual({ 'foo': 'bar', 'baz': 'biz' })
-    expect(BTest.vm.bvAttrs.foo).toEqual('bar')
-    expect(BTest.vm.bvAttrs.baz).toEqual('biz')
+    expect($article.attributes()).toEqual({ foo: 'bar', baz: 'biz' })
+    expect($test.vm.bvAttrs.foo).toEqual('bar')
+    expect($test.vm.bvAttrs.baz).toEqual('biz')
 
     // Correctly removes attrs data
     await wrapper.setProps({
-      attrs: { 'foo': 'bar' }
+      attrs: { foo: 'bar' }
     })
 
     expect($section.attributes()).toEqual({})
-    expect($article.attributes()).toEqual({ 'foo': 'bar' })
-    expect(BTest.vm.bvAttrs.foo).toEqual('bar')
-    expect(BTest.vm.bvAttrs.baz).not.toBeDefined()
+    expect($article.attributes()).toEqual({ foo: 'bar' })
+    expect($test.vm.bvAttrs.foo).toEqual('bar')
+    expect($test.vm.bvAttrs.baz).not.toBeDefined()
 
     // Correctly removes all attrs data
     await wrapper.setProps({ attrs: {} })
 
     expect($section.attributes()).toEqual({})
     expect($article.attributes()).toEqual({})
-    expect(BTest.vm.bvAttrs.foo).not.toBeDefined()
-    expect(BTest.vm.bvAttrs.baz).not.toBeDefined()
+    expect($test.vm.bvAttrs.foo).not.toBeDefined()
+    expect($test.vm.bvAttrs.baz).not.toBeDefined()
 
     wrapper.destroy()
   })
