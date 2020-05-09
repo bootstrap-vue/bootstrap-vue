@@ -21,8 +21,10 @@ export const getTargets = ({ modifiers, arg, value }) => {
 export const bindTargets = (vnode, binding, listenTypes, fn) => {
   const targets = getTargets(binding)
 
-  const listener = () => {
-    fn({ targets, vnode })
+  const listener = evt => {
+    if (!evt.defaultPrevented) {
+      fn({ targets, vnode, evt })
+    }
   }
 
   keys(allListenTypes).forEach(type => {
