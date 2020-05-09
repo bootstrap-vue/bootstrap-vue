@@ -10,9 +10,11 @@ const BVBoundListeners = '__BV_boundEventListeners__'
 const RX_SPLIT_SEPARATOR = /\s+/
 
 export const getTargets = ({ modifiers, arg, value }) => {
-  value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
-
+  // Any modifiers are condisered target IDs
   const targets = keys(modifiers || {}).filter(t => !allListenTypes[t])
+
+  // If value is a string, split out individual targets (if space delimited)
+  value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
 
   // Add ID from `arg` (if provided), and support value
   // as a single string ID or an array of string IDs
