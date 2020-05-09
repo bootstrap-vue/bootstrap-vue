@@ -1,3 +1,4 @@
+import { concat } from './array'
 import { eventOn, eventOff } from './events'
 import { isArray, isString } from './inspect'
 import { keys } from './object'
@@ -13,14 +14,11 @@ export const getTargets = ({ modifiers, arg, value }) => {
     targets.push(arg)
   }
 
-  if (isString(value)) {
-    targets.push(value)
-  } else if (isArray(value)) {
-    value.forEach(t => t && isString(t) && targets.push(t))
-  }
+  // Support pasing a single string ID or an array of string IDs
+  concat(value).forEach(t => t && isString(t) && targets.push(t))
 
-  // return only unique targets
-  return targets.filter((target, index, arr) => arr.indexOf(target) === index)
+  // Return only unique targets
+  return targets.filter((t, index, arr) => arr.indexOf(t) === index)
 }
 
 export const bindTargets = (vnode, binding, listenTypes, fn) => {
