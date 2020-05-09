@@ -7,7 +7,7 @@ const allListenTypes = { hover: true, click: true, focus: true }
 
 const BVBoundListeners = '__BV_boundEventListeners__'
 
-const RX_SPLIT_SEPARATOR = /[,;\s]+/
+const RX_SPLIT_SEPARATOR = /\s+/
 
 export const getTargets = ({ modifiers, arg, value }) => {
   value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
