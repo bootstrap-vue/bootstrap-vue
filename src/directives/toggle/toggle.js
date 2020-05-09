@@ -1,7 +1,14 @@
 import looseEqual from '../../utils/loose-equal'
+import { arrayIncludes } from '../../utils/array'
 import { addClass, hasAttr, removeAttr, removeClass, setAttr } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { bindTargets, getTargets, unbindTargets } from '../../utils/target'
+
+// --- Constants ---
+
+// Classes to apply to trigger element
+const CLASS_VBTOGGLE_COLLAPSED = 'collapsed'
+const CLASS_VBTOGGLE_NOT_COLLAPSED = 'not-collapsed'
 
 // Target listen types
 const listenTypes = { click: true }
@@ -24,6 +31,20 @@ export const EVENT_STATE = 'bv::collapse::state'
 export const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // Private event we send to collapse to request state update sync event
 export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
+
+// --- Helper methods ---
+
+const setTriggerState = (el, state) => {
+  if (state === true) {
+    removeClass(el, CLASS_VBTOGGLE_NOT_COLLAPSED)
+    addClass(el, CLASS_VBTOGGLE_COLLAPSED)
+    setAttr(el, 'aria-expanded', 'true')
+  } else if (state === false) {
+    removeClass(el, CLASS_VBTOGGLE_COLLAPSED)
+    addClass(el, CLASS_VBTOGGLE_NOT_COLLAPSED)
+    setAttr(el, 'aria-expanded', 'false')
+  }
+}
 
 // Reset and remove a property from the provided element
 const resetProp = (el, prop) => {
@@ -65,15 +86,7 @@ const handleUpdate = (el, binding, vnode) => {
   // Ensure the collapse class and aria-* attributes persist
   // after element is updated (either by parent re-rendering
   // or changes to this element or its contents
-  if (el[BV_TOGGLE_STATE] === true) {
-    removeClass(el, 'not-collapsed')
-    addClass(el, 'collapsed')
-    setAttr(el, 'aria-expanded', 'true')
-  } else if (el[BV_TOGGLE_STATE] === false) {
-    removeClass(el, 'collapsed')
-    addClass(el, 'not-collapsed')
-    setAttr(el, 'aria-expanded', 'false')
-  }
+  setTriggerState(el, el[BV_TOGGLE_STATE])
   setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
 }
 
@@ -100,18 +113,11 @@ export const VBToggle = {
       // Toggle state handler
       const toggleDirectiveHandler = (id, state) => {
         const targets = el[BV_TOGGLE_TARGETS] || []
-        if (targets.indexOf(id) !== -1) {
-          // Set aria-expanded state
-          setAttr(el, 'aria-expanded', state ? 'true' : 'false')
+        if (arrayIncludes(targets, id)) {
           // Set/Clear 'collapsed' class state
           el[BV_TOGGLE_STATE] = state
-          if (state) {
-            removeClass(el, 'collapsed')
-            addClass(el, 'not-collapsed')
-          } else {
-            removeClass(el, 'not-collapsed')
-            addClass(el, 'collapsed')
-          }
+          // Set aria-expanded and class state on trigger element
+          setTriggerState(el, state)
         }
       }
 
