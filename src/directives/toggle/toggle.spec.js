@@ -210,12 +210,14 @@ describe('v-b-toggle directive', () => {
 
     $root.$emit(EVENT_STATE, 'test', true)
     await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('true')
     expect(wrapper.find('button').classes()).not.toContain('collapsed')
 
     $root.$emit(EVENT_STATE, 'test', false)
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
@@ -249,12 +251,14 @@ describe('v-b-toggle directive', () => {
 
     $root.$emit(EVENT_STATE_SYNC, 'test', true)
     await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('true')
     expect(wrapper.find('button').classes()).not.toContain('collapsed')
 
     $root.$emit(EVENT_STATE_SYNC, 'test', false)
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
