@@ -62,7 +62,7 @@ describe('mixins > listeners', () => {
     expect($test.vm.bvListeners.focus).toBeDefined()
     expect($test.vm.bvListeners.blur).not.toBeDefined()
 
-    // Correctly updates attrs data
+    // Correctly updates listeners
     await wrapper.setProps({
       listenClick: false,
       listenBlur: true
@@ -72,7 +72,7 @@ describe('mixins > listeners', () => {
     expect($test.vm.bvListeners.focus).toBeDefined()
     expect($test.vm.bvListeners.blur).toBeDefined()
 
-    // Correctly removes attrs data
+    // Correctly removes listeners
     await wrapper.setProps({
       listenClick: false,
       listenFocus: false,
