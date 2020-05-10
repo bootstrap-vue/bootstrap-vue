@@ -87,7 +87,7 @@ const removeClickListener = el => {
 }
 
 const addClickListener = (el, handler) => {
-  el[BV_TOGGLE_CLICK_HANDLER] = handler || () => {}
+  el[BV_TOGGLE_CLICK_HANDLER] = handler || (() => {})
   eventOn(el, 'click', handler)
   if (!arrayIncludes(standardTags, el.tagName)) {
     eventOn(el, 'keydown', handler)
