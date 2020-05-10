@@ -12,18 +12,25 @@ visibility state of the [`<b-collapse>`](/docs/components/collapse) and
 Besides toggling the visibility of the target component, the directive automatically updates ARIA
 accessibility attributes on the element it is applied to so that they reflect the visibility state
 of the target component. Refer to the [Accessibility section](#accessibility) below for additional
-details.
+details and caveats.
 
 ## Directive syntax and usage
 
 The directive is applied to the element or component that triggers the visibility of hte target. The
-target component can be specified (via ID) as either a directive modifier(s) or as a string passed
-to as the directive value:
+target component can be specified (via its ID) as either a directive modifier(s), the directive
+argument, or as a string passed to as the directive value:
 
-- `v-b-toggle.my-collapse` - the directive modifier (multiple targets allowed)
-- `v-b-toggle="'my-collapse'"` - the directive value (as a String, single target only)
+- `v-b-toggle.my-collapse` - the directive modifier (multiple targets allowed, each ID is a modifier)
+- `v-b-toggle:my-collapse` - the directive argument
+  ([Vue dynamic argument](https://vuejs.org/v2/guide/syntax.html#Dynamic-Arguments) is supported)
+  <span class="badge badge-info small">v2.14.0+</span>
+- `v-b-toggle="'my-collapse'"` - the directive value as a string ID
+- `v-b-toggle="'my-collapse1 my-collapse2'"` - the directive value as a space separated string of IDs
+  <span class="badge badge-info small">v2.14.0+</span>
+- `v-b-toggle="['my-collapse1', 'my-collapse2']"` - the directive value as an array of string IDs
+  <span class="badge badge-info small">v2.14.0+</span>
 
-Modifiers and the value can be used at the same time.
+Modifiers, argument, and the value can be used at the same time when targetting multie components.
 
 ### Example usage
 
@@ -58,21 +65,31 @@ Modifiers and the value can be used at the same time.
 The directive, for accessibility reasons, should be placed on an clickable interactive element such
 as a `<button>` or `<b-button>`, which can easily be accessed by keyboard-only users and screen
 reader users. Elements that do not natively have an accessibility role of `button` will have the
-attributes `role="button"` and `tabindex="0"` applied, and will have the appropriate click and
-keyboard handlers instantiated. Therefore it is _highly recommended_ to _not_ place the directive on
-form controls other than buttons.
+attributes `role="button"` and `tabindex="0"` applied, and will have the appropriate click handler
+instantiated. Therefore it is _highly recommended_ to _not_ place the directive on form controls
+other than buttons.
 
 The directive applies, and dynamically updates, the following ARIA attributes on the trigger
 element:
 
-- `aria-controls` - the ID of the collapse or sidebar component(s) being toggled
-- `aria-expanded` - the visibility state of the collapse or sidebar
+- `aria-controls` - the ID(s) of the collapse or sidebar component(s) being toggled
+- `aria-expanded` - the visibility state of the collapse or sidebar (see the
+  [caveats section](#caveats-with-multiple-targets) below)
 
 When the target component is _not_ expanded, the trigger element will have the class `collapsed`
 applied. When the target component is expanded, the `collapsed` class will be removed from the
-trigger element.
+trigger element and the class `not-collapsed` will be added (the `not-collapsed` class was added in
+BootstrapVue v2.14.0).
+
+### Caveats with multiple targets
+
+When multiple targets are specified, the value of the `aria-expanded` attribute may not be correct
+if the individual target components can have thier collapsed state controlled independently (either
+via `v-model`, other controls with `v-b-toggle` directive, or CSS visibility).
 
 ## See also
 
 - [`<b-collapse>`](/docs/components/collapse) Collapsible content with accordion support
 - [`<b-sidebar>`](/docs/components/sidebar) Off-canvas sidebar
+- [`<b-navbar-toggle>`](/docs/components/navbar#b-navbar-toggle-and-b-collapse-is-nav) Navbar
+  hamburger toggle button (based on `v-b-toggle` directive)
