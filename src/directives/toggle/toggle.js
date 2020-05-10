@@ -21,7 +21,7 @@ const allListenTypes = { click: true, keydown: true }
 
 // Property key for handler storage
 const BV_BASE = '__BV_toggle'
-const BV_TOGGLE_HANDLER = `${BV_BASE}_HANDLER__`
+const BV_TOGGLE_ROOT_HANDLER = `${BV_BASE}_HANDLER__`
 const BV_TOGGLE_STATE = `${BV_BASE}_STATE__`
 const BV_TOGGLE_CONTROLS = `${BV_BASE}_CONTROLS__`
 const BV_TOGGLE_TARGETS = `${BV_BASE}_TARGETS__`
@@ -79,7 +79,7 @@ const bindTargets = (vnode, binding, listenTypes, fn) => {
 
   // To trigger adding ENTER/SPACE handlers
   if (listenTypes.click && !arrayIncludes(standardTags, vnode.elm.tagName)) {
-    listenTypes.keydown = true
+    listenTypes = { ...listenTypes, keydown: true }
   }
 
   const listener = evt => {
@@ -106,7 +106,7 @@ const bindTargets = (vnode, binding, listenTypes, fn) => {
 
 const unbindTargets = (vnode, binding, listenTypes) => {
   if (listenTypes.click && !arrayIncludes(standardTags, vnode.elm.tagName)) {
-    listenTypes.keydown = true
+    listenTypes = { ...listenTypes, keydown: true }
   }
 
   keys(allListenTypes).forEach(type => {
@@ -140,23 +140,25 @@ const resetProp = (el, prop) => {
 }
 
 // Handle targets update
-const handleTargets = ({ targets, vnode }) => {
-  targets.forEach(target => {
-    vnode.context.$root.$emit(EVENT_TOGGLE, target)
-  })
+const handleTargets = ({ targets, vnode, evt }) => {
+  if (!evt.defaultPrevented && !isDisabled(evt.currentTarget)) {
+    targets.forEach(target => {
+      vnode.context.$root.$emit(EVENT_TOGGLE, target)
+    })
+  }
 }
 
 // Handle directive updates
-/* istanbul ignore next: not easy to test */
 const handleUpdate = (el, binding, vnode) => {
   if (!isBrowser || !vnode.context) {
     return
   }
 
+  // If targets array has changed, reset stuff
   if (!looseEqual(getTargets(binding), el[BV_TOGGLE_TARGETS])) {
-    // Targets have changed, so update accordingly
     unbindTargets(vnode, binding, listenTypes)
-    const targets = bindTargets(vnode, binding, listenTypes, handleTargets)
+    const targets = getTargets(vnode, bindings, handleTargets)
+    bindTargets(vnode, binding,, listenTypes, handleTargets)
     // Update targets array to element
     el[BV_TOGGLE_TARGETS] = targets
     // Add aria attributes to element
@@ -168,8 +170,8 @@ const handleUpdate = (el, binding, vnode) => {
     } else {
       removeAttr(el, ATTR_ARIA_CONTROLS)
     }
-    // Request a state update from targets so that we can ensure
-    // expanded state is correct
+    // Request a state update from targets so that we can
+    // ensure expanded state is correct (in most cases)
     targets.forEach(target => {
       vnode.context.$root.$emit(EVENT_STATE_REQUEST, target)
     })
@@ -203,7 +205,7 @@ export const VBToggle = {
     el[BV_TOGGLE_TARGETS] = []
 
     // Toggle state handler
-    el[BV_TOGGLE_HANDLER] = (id, state) => {
+    el[BV_TOGGLE_ROOT_HANDLER] = (id, state) => {
       // `state` will be true of target is expanded
       const targets = el[BV_TOGGLE_TARGETS] || []
       if (arrayIncludes(targets, id)) {
@@ -216,9 +218,9 @@ export const VBToggle = {
 
     if (vnode.context) {
       // Listen for toggle state changes (public)
-      vnode.context.$root.$on(EVENT_STATE, el[BV_TOGGLE_HANDLER])
+      vnode.context.$root.$on(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
       // Listen for toggle state sync (private)
-      vnode.context.$root.$on(EVENT_STATE_SYNC, el[BV_TOGGLE_HANDLER])
+      vnode.context.$root.$on(EVENT_STATE_SYNC, el[BV_TOGGLE_ROOT_HANDLER])
     }
 
     // Initial update of trigger
@@ -227,14 +229,14 @@ export const VBToggle = {
   componentUpdated: handleUpdate,
   // updated: handleUpdate,
   unbind(el, binding, vnode) /* istanbul ignore next */ {
-    unbindTargets(vnode, binding, listenTypes)
+    unbindTargets(vnode, binding)
     // Remove our $root listener
-    if (el[BV_TOGGLE_HANDLER]) {
-      vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE_HANDLER])
-      vnode.context.$root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE_HANDLER])
+    if (el[BV_TOGGLE_ROOT_HANDLER]) {
+      vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
+      vnode.context.$root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE_ROOT_HANDLER])
     }
     // Reset custom props
-    resetProp(el, BV_TOGGLE_HANDLER)
+    resetProp(el, BV_TOGGLE_ROOT_HANDLER)
     resetProp(el, BV_TOGGLE_STATE)
     resetProp(el, BV_TOGGLE_CONTROLS)
     resetProp(el, BV_TOGGLE_TARGETS)
