@@ -93,10 +93,10 @@ trigger element when the target component is closed, and removed when open. As o
 
 The directive, for accessibility reasons, should be placed on an clickable interactive element such
 as a `<button>` or `<b-button>`, which can easily be accessed by keyboard-only users and screen
-reader users. Elements that do not natively have an accessibility role of `button` will have the
-attributes `role="button"` and `tabindex="0"` applied, and will have the appropriate click handler
-instantiated. Therefore it is _highly recommended_ to _not_ place the directive on form controls
-other than buttons.
+reader users. Elements that do not natively have an accessibility role of `button` (or `link`) will
+have the attributes `role="button"` and `tabindex="0"` applied, and will have the appropriate click
+handler instantiated. Therefore it is _highly recommended_ to _not_ place the directive on form
+controls other than buttons.
 
 The directive applies, and dynamically updates, the following ARIA attributes on the trigger
 element:
