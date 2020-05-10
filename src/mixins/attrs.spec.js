@@ -1,8 +1,10 @@
 import { mount } from '@vue/test-utils'
 import attrsMixin from './attrs'
 
+// Note: The following tests indirectly test `utils/cache`
+
 describe('mixins > attrs', () => {
-  it('works (indirectly tests utils/cache)', async () => {
+  it('works', async () => {
     const BTest = {
       name: 'BTest',
       mixins: [attrsMixin],
@@ -90,64 +92,95 @@ describe('mixins > attrs', () => {
   })
 
   it('does not re-render parent child components', async () => {
-    let renderCount = 0
+    let input1RenderCount = 0
+    let input2RenderCount = 0
 
-    const BTest = {
-      name: 'BTest',
+    const Input1 = {
+      props: ['value'],
+      render(h) {
+        input1RenderCount++
+        return h('input', {
+          attrs: { ...this.$attrs, value: this.value },
+          domProps: { value: this.value },
+          on: { input: e => this.$emit('input', e.target.value) }
+        })
+      }
+    }
+    const Input2 = {
+      props: ['value'],
       mixins: [attrsMixin],
-      inheritAttrs: false,
       render(h) {
-        renderCount++
-        return h('section', [h('article', { attrs: this.bvAttrs })])
-      }
-    }
-    const App = {
-      name: 'App',
-      props: {
-        test1Attrs: {
-          type: Object,
-          default: () => ({})
-        },
-        test2Attrs: {
-          type: Object,
-          default: () => ({})
-        }
-      },
-      render(h) {
-        return h('div', [
-          h(BTest, { attrs: this.test1Attrs }),
-          h(BTest, { attrs: this.test2Attrs })
-        ])
+        input2RenderCount++
+        return h('input', {
+          attrs: { ...this.bvAttrs, value: this.value },
+          domProps: { value: this.value },
+          on: { input: e => this.$emit('input', e.target.value) }
+        })
       }
     }
 
-    const wrapper = mount(App)
+    const App1 = {
+      components: { Input1 },
+      props: ['value1', 'value2'],
+      template: `<div>
+        <Input1 v-model="value1" />
+        <Input1 v-model="value2" />
+      </div>`
+    }
+    const App2 = {
+      components: { Input2 },
+      props: ['value1', 'value2'],
+      template: `<div>
+        <Input2 v-model="value1" />
+        <Input2 v-model="value2" />
+      </div>`
+    }
 
-    const $tests = wrapper.findAllComponents(BTest)
-    expect($tests.length).toBe(2)
-    expect($tests.at(0)).toBeDefined()
-    expect($tests.at(1)).toBeDefined()
-    expect(renderCount).toBe(2)
+    const wrapper1 = mount(App1)
+    const wrapper2 = mount(App2)
 
-    const $section1 = $tests.at(0).find('section')
-    const $section2 = $tests.at(1).find('section')
-    const $article1 = $section1.find('article')
-    const $article2 = $section2.find('article')
+    const $inputs1 = wrapper1.findAllComponents(Input1)
+    expect($inputs1.length).toBe(2)
+    expect($inputs1.at(0)).toBeDefined()
+    expect($inputs1.at(0).vm.value).toBe(undefined)
+    expect($inputs1.at(1)).toBeDefined()
+    expect($inputs1.at(1).vm.value).toBe(undefined)
+    expect(input1RenderCount).toBe(2)
 
-    await wrapper.setProps({ test1Attrs: { foo: 'bar' } })
-    expect($section1.attributes()).toEqual({})
-    expect($article1.attributes()).toEqual({ foo: 'bar' })
-    expect($section2.attributes()).toEqual({})
-    expect($article2.attributes()).toEqual({})
-    expect(renderCount).toBe(3)
+    const $inputs2 = wrapper2.findAllComponents(Input2)
+    expect($inputs2.length).toBe(2)
+    expect($inputs2.at(0)).toBeDefined()
+    expect($inputs2.at(0).vm.value).toBe(undefined)
+    expect($inputs2.at(1)).toBeDefined()
+    expect($inputs2.at(1).vm.value).toBe(undefined)
+    expect(input2RenderCount).toBe(2)
 
-    await wrapper.setProps({ test2Attrs: { baz: 'biz' } })
-    expect($section1.attributes()).toEqual({})
-    expect($article1.attributes()).toEqual({ foo: 'bar' })
-    expect($section2.attributes()).toEqual({})
-    expect($article2.attributes()).toEqual({ baz: 'biz' })
-    expect(renderCount).toBe(4)
+    // Update the value for the first `Input1`
+    await wrapper1.setProps({ value1: 'foo' })
+    expect($inputs1.at(0).vm.value).toBe('foo')
+    expect($inputs1.at(1).vm.value).toBe(undefined)
 
-    wrapper.destroy()
+    expect(input1RenderCount).toBe(4)
+
+    // Update the value for the second `Input1`
+    await wrapper1.setProps({ value2: 'bar' })
+    expect($inputs1.at(0).vm.value).toBe('foo')
+    expect($inputs1.at(1).vm.value).toBe('bar')
+    expect(input1RenderCount).toBe(6)
+
+    // Update the value for the first `Input2`
+    await wrapper2.setProps({ value1: 'foo' })
+    expect($inputs2.at(0).vm.value).toBe('foo')
+    expect($inputs2.at(1).vm.value).toBe(undefined)
+    expect(input2RenderCount).toBe(3)
+
+    // Update the value for the second `Input2`
+    await wrapper2.setProps({ value2: 'bar' })
+    expect($inputs2.at(0).vm.value).toBe('foo')
+    expect($inputs2.at(1).vm.value).toBe('bar')
+    expect(input2RenderCount).toBe(4)
+
+    wrapper1.destroy()
+    wrapper2.destroy()
   })
 })
