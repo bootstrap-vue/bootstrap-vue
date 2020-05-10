@@ -60,7 +60,7 @@ describe('mixins > attrs', () => {
     expect($test.vm.bvAttrs.foo).toEqual('bar')
     expect($test.vm.bvAttrs.baz).not.toBeDefined()
 
-    // Correctly adds new attrs data
+    // Correctly updates attrs data
     await wrapper.setProps({
       attrs: { foo: 'bar', baz: 'biz' }
     })
