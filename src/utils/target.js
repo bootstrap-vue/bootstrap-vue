@@ -9,7 +9,7 @@ const { ENTER, SPACE } = KeyCodes
 
 const keyDownEvents = [ENTER, SPACE]
 
-const nonStdTags = ['BUTTON', 'A']
+const standardTags = ['BUTTON', 'A']
 
 const allListenTypes = { hover: true, click: true, focus: true, keydown: true }
 
@@ -37,7 +37,7 @@ export const bindTargets = (vnode, binding, listenTypes = [], fn) => {
   const targets = getTargets(binding)
 
   // To trigger adding ENTER/SPACE handlers
-  const needsKeyDown = !arrayIncludes(['BUTTON', 'A'], vnode.elm.tagName)
+  const needsKeyDown = !arrayIncludes(standardTags, vnode.elm.tagName)
   listenTypes = needsKeyDown ? listenTypes.push('keydown') : listenTypes
  
   const listener = evt => {
@@ -63,7 +63,7 @@ export const bindTargets = (vnode, binding, listenTypes = [], fn) => {
 }
 
 export const unbindTargets = (vnode, binding, listenTypes) => {
-  const needsKeyDown = !arrayIncludes(['BUTTON', 'A'], vnode.elm.tagName)
+  const needsKeyDown = !arrayIncludes(standardTags, vnode.elm.tagName)
   listenTypes = needsKeyDown ? listenTypes.push('keydown') : listenTypes
 
   keys(allListenTypes).forEach(type => {
