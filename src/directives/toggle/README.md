@@ -43,7 +43,7 @@ Modifiers, argument, and the value can be used at the same time when targetting 
     </div>
 
     <b-collapse id="my-collapse">
-      <b-card title="Collapsible card">
+      <b-card title="Collapsable card">
         Hello world!
       </b-card>
     </b-collapse>
