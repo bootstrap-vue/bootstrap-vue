@@ -249,8 +249,8 @@ describe('v-b-toggle directive', () => {
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('true')
-    expect(wrapper.find('button').classes()).toContain('collapsed')
-    expect(wrapper.find('button').classes()).not.toContain('not-collapsed')
+    expect(wrapper.find('button').classes()).not.toContain('collapsed')
+    expect(wrapper.find('button').classes()).toContain('not-collapsed')
 
     wrapper.destroy()
   })
