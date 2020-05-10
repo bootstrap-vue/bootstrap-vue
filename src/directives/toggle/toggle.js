@@ -15,10 +15,6 @@ const { ENTER, SPACE } = KeyCodes
 const CLASS_BV_TOGGLE_COLLAPSED = 'collapsed'
 const CLASS_BV_TOGGLE_NOT_COLLAPSED = 'not-collapsed'
 
-// Target listen types
-const listenTypes = { click: true }
-const allListenTypes = { click: true, keydown: true }
-
 // Property key for handler storage
 const BV_BASE = '__BV_toggle'
 // Root event listener property (Function)
@@ -113,15 +109,6 @@ const resetProp = (el, prop) => {
   delete el[prop]
 }
 
-// Handle targets update
-const handleTargets = ({ targets, vnode, evt }) => {
-  if (!evt.defaultPrevented && !isDisabled(evt.currentTarget)) {
-    targets.forEach(target => {
-      vnode.context.$root.$emit(EVENT_TOGGLE, target)
-    })
-  }
-}
-
 // Handle directive updates
 const handleUpdate = (el, binding, vnode) => {
   if (!isBrowser || !vnode.context) {
@@ -214,7 +201,7 @@ export const VBToggle = {
   componentUpdated: handleUpdate,
   // updated: handleUpdate,
   unbind(el, binding, vnode) {
-    removeClickListener(e)
+    removeClickListener(el)
     // Remove our $root listener
     if (el[BV_TOGGLE_ROOT_HANDLER]) {
       vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
