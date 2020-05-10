@@ -51,11 +51,13 @@ export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
 const keyDownEvents = [ENTER, SPACE]
 
-const standardTags = ['BUTTON', 'A']
-
 const RX_SPLIT_SEPARATOR = /\s+/
 
 // --- Helper methods ---
+
+const isNonStandardTag = el => {
+  return !arrayIncludes(['BUTTON', 'A'], el.tagName)
+}
 
 const getTargets = ({ modifiers, arg, value }) => {
   // Any modifiers are considered target IDs
@@ -73,20 +75,70 @@ const getTargets = ({ modifiers, arg, value }) => {
   return targets.filter((t, index, arr) => t && arr.indexOf(t) === index)
 }
 
-const removeClickListener = el => {
-  const listener = el[BV_TOGGLE_CLICK_HANDLER]
-  if (listener) {
-    eventOff(el, 'click', listener)
-    eventOff(el, 'keydown', listener)
+const removeClickListener = vnode => {
+  const el = vnode.elm
+  const handler = el[BV_TOGGLE_CLICK_HANDLER]
+  if (handler) {
+    eventOff(el, 'click', handler)
+    eventOff(el, 'keydown', handler)
   }
   el[BV_TOGGLE_CLICK_HANDLER] = null
 }
 
-const addClickListener = (el, handler) => {
-  el[BV_TOGGLE_CLICK_HANDLER] = handler || (() => {})
-  eventOn(el, 'click', handler)
-  if (!arrayIncludes(standardTags, el.tagName)) {
-    eventOn(el, 'keydown', handler)
+const addClickListener = vnode => {
+  removeClickHandler(vnode)
+  if (vnode.context) {
+    const el = vnode.elm
+    const $root = vnode.context
+    const handler = evt => {
+      const el = evt.currentTarget
+      const targets = el[BV_TOGGLE_TARGETS] || []
+      const ignore = evt.type === 'keydown' && !arrayIncludes(keyDownEvents, evt.keyCode)
+      if (!evt.defaultPrevented && !ignore && !isDisabled(el)) {
+        targets.forEach(target => {
+          $root.$emit(EVENT_TOGGLE, target)
+        })
+      }
+    }
+    el[BV_TOGGLE_CLICK_HANDLER] = handler
+    eventOn(el, 'click', handler)
+    if (isNonStandardTag(el)) {
+      eventOn(el, 'keydown', handler)
+    }
+  }
+}
+
+const removeRootListeners = vnode => {
+  const el = vnode.elm
+  if (el[BV_TOGGLE_ROOT_HANDLER] && vnode.context) {
+    const $root = vnode.context.$root
+    $root.$off(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
+    // Listen for toggle state sync (private)
+    $root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE_ROOT_HANDLER])
+  }
+  el[BV_TOGGLE_ROOT_HANDLER] = null
+}
+
+const addRootListeners = vnode => {
+  const el = vnode.elm
+  removeRootListeners(vnode)
+  if (vnode.context) {
+    const $root = vnode.context.$root
+    const handler = (id, state) => {
+      // `state` will be true of target is expanded
+      const targets = el[BV_TOGGLE_TARGETS] || []
+      if (arrayIncludes(targets, id)) {
+        // Set/Clear 'collapsed' visibility class state
+        el[BV_TOGGLE_STATE] = state
+        // Set aria-expanded and class state on trigger element
+        setToggleState(el, state)
+      }
+    }
+    el[BV_TOGGLE_ROOT_HANDLER] = handler
+    // Listen for toggle state changes (public)
+    $root.$on(EVENT_STATE, handler)
+    // Listen for toggle state sync (private)
+    $root.$on(EVENT_STATE_SYNC, handler)
   }
 }
 
@@ -116,43 +168,9 @@ const handleUpdate = (el, binding, vnode) => {
     return
   }
 
-  // Parse list of target IDs
-  const targets = getTargets(binding)
-
-  // If targets array has changed, reset stuff
-  if (!looseEqual(targets, el[BV_TOGGLE_TARGETS])) {
-    // Remove any existing click handler
-    removeClickListener(el)
-    // Update targets array to element storage
-    el[BV_TOGGLE_TARGETS] = targets
-    // Add a new click listener
-    addClickListener(el, evt => {
-      const el = evt.currentTarget
-      const targets = el[BV_TOGGLE_TARGETS] || []
-      const ignore = evt.type === 'keydown' && !arrayIncludes(keyDownEvents, evt.keyCode)
-      if (!evt.defaultPrevented && !ignore && !isDisabled(el)) {
-        targets.forEach(target => {
-          vnode.context.$root.$emit(EVENT_TOGGLE, target)
-        })
-      }
-    })
-    // ensure aria-controls is up to date
-    /* istanbul ignore else */
-    if (targets.length) {
-      setAttr(el, ATTR_ARIA_CONTROLS, targets.join(' '))
-    } else {
-      removeAttr(el, ATTR_ARIA_CONTROLS)
-    }
-    // Request a state update from targets so that we can
-    // ensure expanded state is correct (in most cases)
-    targets.forEach(target => {
-      vnode.context.$root.$emit(EVENT_STATE_REQUEST, target)
-    })
-  }
-
   // If element is not a button or link, we add `role="button"`
   // and `tabindex="0"` for accessibility reasons
-  if (!arrayIncludes(standardTags, el.tagName)) {
+  if (isNonStandardTag(el)) {
     if (!hasAttr(el, ATTR_ROLE)) {
       setAttr(el, ATTR_ROLE, 'button')
     }
@@ -165,6 +183,30 @@ const handleUpdate = (el, binding, vnode) => {
   // after element is updated (either by parent re-rendering
   // or changes to this element or its contents)
   setToggleState(el, el[BV_TOGGLE_STATE])
+
+  // Parse list of target IDs
+  const targets = getTargets(binding)
+
+  /* istanbul ignore else */
+  // Ensure the `aria-controls` hasn't been overritten
+  // or removed when vnode updates
+  if (targets.length) {
+    setAttr(el, ATTR_ARIA_CONTROLS, targets.join(' '))
+  } else {
+    removeAttr(el, ATTR_ARIA_CONTROLS)
+  }
+
+  // If targets array has changed, update
+  if (!looseEqual(targets, el[BV_TOGGLE_TARGETS])) {
+    // Update targets array to element storage
+    el[BV_TOGGLE_TARGETS] = targets
+    // ensure aria-controls is up to date
+    // Request a state update from targets so that we can
+    // ensure expanded state is correct (in most cases)
+    targets.forEach(target => {
+      vnode.context.$root.$emit(EVENT_STATE_REQUEST, target)
+    })
+  }
 }
 
 /*
@@ -176,38 +218,19 @@ export const VBToggle = {
     el[BV_TOGGLE_STATE] = false
     // Assume no targets initially
     el[BV_TOGGLE_TARGETS] = []
-
-    // `$root` event handler
-    el[BV_TOGGLE_ROOT_HANDLER] = (id, state) => {
-      // `state` will be true of target is expanded
-      const targets = el[BV_TOGGLE_TARGETS] || []
-      if (arrayIncludes(targets, id)) {
-        // Set/Clear 'collapsed' visibility class state
-        el[BV_TOGGLE_STATE] = state
-        // Set aria-expanded and class state on trigger element
-        setToggleState(el, state)
-      }
-    }
-
-    if (vnode.context) {
-      // Listen for toggle state changes (public)
-      vnode.context.$root.$on(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
-      // Listen for toggle state sync (private)
-      vnode.context.$root.$on(EVENT_STATE_SYNC, el[BV_TOGGLE_ROOT_HANDLER])
-    }
-
+    // Add our root listners
+    addRootListeners(vnode)
+    // Add our click listener(s)
+    addClickListener(vnode)
     // Initial update of trigger
     handleUpdate(el, binding, vnode)
   },
   componentUpdated: handleUpdate,
   // updated: handleUpdate,
   unbind(el, binding, vnode) {
-    removeClickListener(el)
+    removeClickListener(vnode)
     // Remove our $root listener
-    if (el[BV_TOGGLE_ROOT_HANDLER]) {
-      vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
-      vnode.context.$root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE_ROOT_HANDLER])
-    }
+    removeRootListeners(vnode)
     // Reset custom props
     resetProp(el, BV_TOGGLE_ROOT_HANDLER)
     resetProp(el, BV_TOGGLE_CLICK_HANDLER)
