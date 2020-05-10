@@ -26,12 +26,12 @@ argument, or as a string/array passed to as the directive value:
   ([Vue dynamic argument](https://vuejs.org/v2/guide/syntax.html#Dynamic-Arguments) is supported)
   <span class="badge badge-info small">v2.14.0+</span>
 - `v-b-toggle="'my-collapse'"` - the directive value as a string ID
-- `v-b-toggle="'my-collapse1 my-collapse2'"` - the directive value as a space separated string of IDs
-  <span class="badge badge-info small">v2.14.0+</span>
+- `v-b-toggle="'my-collapse1 my-collapse2'"` - the directive value as a space separated string of
+  IDs <span class="badge badge-info small">v2.14.0+</span>
 - `v-b-toggle="['my-collapse1', 'my-collapse2']"` - the directive value as an array of string IDs
   <span class="badge badge-info small">v2.14.0+</span>
 
-Modifiers, argument, and the value can be used at the same time when targetting multiple components.
+Modifiers, argument, and the value can be used at the same time when targeting multiple components.
 
 ### Example usage
 
@@ -44,7 +44,7 @@ Modifiers, argument, and the value can be used at the same time when targetting 
     </div>
 
     <b-collapse id="my-collapse">
-      <b-card title="Collapsable card">
+      <b-card title="Collapsible card">
         Hello world!
       </b-card>
     </b-collapse>
@@ -108,7 +108,7 @@ element:
 ### Caveats with multiple targets
 
 When multiple targets are specified, the value of the `aria-expanded` attribute may not be correct
-if the individual target components can have thier collapsed state controlled independently (either
+if the individual target components can have their collapsed state controlled independently (either
 via `v-model`, other controls with `v-b-toggle` directive, or CSS visibility).
 
 ## See also
