@@ -1,4 +1,4 @@
-import { concat } from './array'
+import { arrayIncludes, concat } from './array'
 import { hasClass } from './dom'
 import { eventOn, eventOff } from './events'
 import { isString } from './inspect'
