@@ -20,7 +20,7 @@ describe('v-b-toggle directive', () => {
       directives: {
         bToggle: VBToggle
       },
-      beforeMount() {
+      mounted() {
         this.$root.$on(EVENT_TOGGLE, spy)
       },
       beforeDestroy() {
@@ -44,6 +44,7 @@ describe('v-b-toggle directive', () => {
 
     const $button = wrapper.find('button')
     await $button.trigger('click')
+    await waitNT(wrapper.vm)
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test')
     // Since there is no target collapse to respond with the
