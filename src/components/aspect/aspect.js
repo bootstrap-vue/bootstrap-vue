@@ -1,4 +1,4 @@
-import { CLASS_NAME_ASPECT } from '../../constants/class-names'
+import { CLASS_NAME_BV_ASPECT } from '../../constants/class-names'
 import { NAME_ASPECT } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { mathAbs } from '../../utils/math'
@@ -44,14 +44,14 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const $sizer = h('div', {
-      staticClass: suffixClass(CLASS_NAME_ASPECT, 'sizer'),
+      staticClass: suffixClass(CLASS_NAME_BV_ASPECT, 'sizer'),
       class: 'flex-grow-1',
       style: { paddingBottom: this.padding, height: 0 }
     })
     const $content = h(
       'div',
       {
-        staticClass: suffixClass(CLASS_NAME_ASPECT, 'content'),
+        staticClass: suffixClass(CLASS_NAME_BV_ASPECT, 'content'),
         class: ['flex-grow-1', 'w-100', 'mw-100'],
         style: { marginLeft: '-100%' }
       },
@@ -60,7 +60,7 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
     return h(
       this.tag,
       {
-        staticClass: CLASS_NAME_ASPECT,
+        staticClass: CLASS_NAME_BV_ASPECT,
         class: 'd-flex'
       },
       [$sizer, $content]

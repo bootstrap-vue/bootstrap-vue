@@ -4,7 +4,7 @@ import {
   CLASS_NAME_BORDER_BOTTOM,
   CLASS_NAME_BORDER_TOP,
   CLASS_NAME_BUTTON,
-  CLASS_NAME_CALENDAR,
+  CLASS_NAME_BV_CALENDAR,
   CLASS_NAME_COL,
   CLASS_NAME_DISABLED,
   CLASS_NAME_DISPLAY_BLOCK,
@@ -872,7 +872,7 @@ export const BCalendar = Vue.extend({
     $header = h(
       'header',
       {
-        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'header'),
+        staticClass: suffixClass(CLASS_NAME_BV_CALENDAR, 'header'),
         class: { [CLASS_NAME_SR_ONLY]: this.hideHeader },
         attrs: { title: this.selectedDate ? this.labelSelectedDate || null : null }
       },
@@ -933,7 +933,7 @@ export const BCalendar = Vue.extend({
     const $nav = h(
       'div',
       {
-        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'nav'),
+        staticClass: suffixClass(CLASS_NAME_BV_CALENDAR, 'nav'),
         class: CLASS_NAME_DISPLAY_FLEX,
         attrs: {
           id: idNav,
@@ -1005,7 +1005,7 @@ export const BCalendar = Vue.extend({
       'header',
       {
         key: 'grid-caption',
-        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'grid-caption'),
+        staticClass: suffixClass(CLASS_NAME_BV_CALENDAR, 'grid-caption'),
         class: [
           CLASS_NAME_TEXT_CENTER,
           CLASS_NAME_FONT_WEIGHT_BOLD,
@@ -1024,7 +1024,7 @@ export const BCalendar = Vue.extend({
     const $gridWeekDays = h(
       'div',
       {
-        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'grid-weekdays'),
+        staticClass: suffixClass(CLASS_NAME_BV_CALENDAR, 'grid-weekdays'),
         class: [CLASS_NAME_ROW, CLASS_NAME_NO_GUTTERS, CLASS_NAME_BORDER_BOTTOM],
         attrs: { 'aria-hidden': 'true' }
       },
@@ -1142,7 +1142,7 @@ export const BCalendar = Vue.extend({
       {
         // A key is only required on the body if we add in transition support
         // key: this.activeYMD.slice(0, -3),
-        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'grid-body'),
+        staticClass: suffixClass(CLASS_NAME_BV_CALENDAR, 'grid-body'),
         style: this.disabled ? { pointerEvents: 'none' } : {}
       },
       $gridBody
@@ -1151,7 +1151,7 @@ export const BCalendar = Vue.extend({
     const $gridHelp = h(
       'footer',
       {
-        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'grid-help'),
+        staticClass: suffixClass(CLASS_NAME_BV_CALENDAR, 'grid-help'),
         class: [
           CLASS_NAME_BORDER_TOP,
           CLASS_NAME_SMALL,
@@ -1170,7 +1170,7 @@ export const BCalendar = Vue.extend({
       'div',
       {
         ref: 'grid',
-        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'grid'),
+        staticClass: suffixClass(CLASS_NAME_BV_CALENDAR, 'grid'),
         class: [CLASS_NAME_FORM_CONTROL, CLASS_NAME_HEIGHT_AUTO, CLASS_NAME_TEXT_CENTER],
         attrs: {
           id: idGrid,
@@ -1198,13 +1198,13 @@ export const BCalendar = Vue.extend({
     // Optional bottom slot
     let $slot = this.normalizeSlot('default')
     $slot = $slot
-      ? h('footer', { staticClass: suffixClass(CLASS_NAME_CALENDAR, 'footer') }, $slot)
+      ? h('footer', { staticClass: suffixClass(CLASS_NAME_BV_CALENDAR, 'footer') }, $slot)
       : h()
 
     const $widget = h(
       'div',
       {
-        staticClass: suffixClass(CLASS_NAME_CALENDAR, 'inner'),
+        staticClass: suffixClass(CLASS_NAME_BV_CALENDAR, 'inner'),
         style: this.block ? {} : { width: this.width },
         attrs: {
           id: idWidget,
@@ -1237,7 +1237,7 @@ export const BCalendar = Vue.extend({
     return h(
       'div',
       {
-        staticClass: CLASS_NAME_CALENDAR,
+        staticClass: CLASS_NAME_BV_CALENDAR,
         class: { [CLASS_NAME_DISPLAY_BLOCK]: this.block }
       },
       [$widget]

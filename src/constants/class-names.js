@@ -25,9 +25,9 @@ export const CLASS_NAME_NAVBAR = 'navbar'
 export const CLASS_NAME_NAV_LINK = 'nav-link'
 
 // BootstrapVue components
-export const CLASS_NAME_ASPECT = 'b-aspect'
-export const CLASS_NAME_AVATAR = 'b-avatar'
-export const CLASS_NAME_CALENDAR = 'b-calendar'
+export const CLASS_NAME_BV_ASPECT = 'b-aspect'
+export const CLASS_NAME_BV_AVATAR = 'b-avatar'
+export const CLASS_NAME_BV_CALENDAR = 'b-calendar'
 
 // Utility classes
 export const CLASS_NAME_ACTIVE = 'active'

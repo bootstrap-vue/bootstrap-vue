@@ -1,6 +1,6 @@
 import {
-  CLASS_NAME_AVATAR,
   CLASS_NAME_BADGE,
+  CLASS_NAME_BV_AVATAR,
   CLASS_NAME_ROUNDED
 } from '../../constants/class-names'
 import { NAME_AVATAR } from '../../constants/components'
@@ -254,7 +254,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     let $content = null
     if (this.hasNormalizedSlot('default')) {
       // Default slot overrides props
-      $content = h('span', { staticClass: suffixClass(CLASS_NAME_AVATAR, 'custom') }, [
+      $content = h('span', { staticClass: suffixClass(CLASS_NAME_BV_AVATAR, 'custom') }, [
         this.normalizeSlot('default')
       ])
     } else if (src) {
@@ -272,7 +272,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     } else if (text) {
       $content = h(
         'span',
-        { staticClass: suffixClass(CLASS_NAME_AVATAR, 'text'), style: fontStyle },
+        { staticClass: suffixClass(CLASS_NAME_BV_AVATAR, 'text'), style: fontStyle },
         [h('span', text)]
       )
     } else {
@@ -287,7 +287,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       $badge = h(
         'span',
         {
-          staticClass: suffixClass(CLASS_NAME_AVATAR, 'badge'),
+          staticClass: suffixClass(CLASS_NAME_BV_AVATAR, 'badge'),
           class: { [suffixClass(CLASS_NAME_BADGE, badgeVariant)]: !!badgeVariant },
           style: badgeStyle
         },
@@ -296,7 +296,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     }
 
     const componentData = {
-      staticClass: CLASS_NAME_AVATAR,
+      staticClass: CLASS_NAME_BV_AVATAR,
       class: {
         // We use badge styles for theme variants when not rendering `BButton`
         [suffixClass(CLASS_NAME_BADGE, variant)]: !isButton && variant,
