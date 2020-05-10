@@ -1,8 +1,10 @@
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes } from '../../utils/array'
 import { addClass, hasAttr, removeAttr, removeClass, setAttr } from '../../utils/dom'
+import { isString } from '../../utils/inspect'
 import { isBrowser } from '../../utils/env'
-import { bindTargets, getTargets, unbindTargets } from '../../utils/target'
+import { keys } from '../../utils/object'
+import { bindTargets, unbindTargets } from '../../utils/target'
 
 // --- Constants ---
 
@@ -14,10 +16,17 @@ const CLASS_VBTOGGLE_NOT_COLLAPSED = 'not-collapsed'
 const listenTypes = { click: true }
 
 // Property key for handler storage
-const BV_TOGGLE = '__BV_toggle__'
+const BV_TOGGLE_HANDLER = '__BV_toggle_HANDLER__'
 const BV_TOGGLE_STATE = '__BV_toggle_STATE__'
 const BV_TOGGLE_CONTROLS = '__BV_toggle_CONTROLS__'
 const BV_TOGGLE_TARGETS = '__BV_toggle_TARGETS__'
+
+// Commonly used Strings
+const STRING_FALSE = 'false'
+const STRING_TRUE = 'true'
+const ATTR_ARIA_CONTROLS = 'aria-controls'
+const ATTR_ARIA_EXPANDED = 'aria-expanded'
+const ATTR_ROLE = 'role'
 
 // Emitted control event for collapse (emitted to collapse)
 export const EVENT_TOGGLE = 'bv::toggle::collapse'
@@ -32,18 +41,37 @@ export const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // Private event we send to collapse to request state update sync event
 export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
+const RX_SPLIT_SEPARATOR = /\s+/
+
 // --- Helper methods ---
+
+// Parse binding for tagets
+const getTargets = ({ modifiers, arg, value }) => {
+  // Any modifiers are condisered target IDs
+  const targets = keys(modifiers || {})
+
+  // If value is a string, split out individual targets (if space delimited)
+  value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
+
+  // Add ID from `arg` (if provided), and support value
+  // as a single string ID or an array of string IDs
+  // If `value` is not an array or string, then it gets filtered out
+  concat(arg, value).forEach(t => isString(t) && targets.push(t))
+
+  // Return only unique and truthy target IDs
+  return targets.filter((t, index, arr) => t && arr.indexOf(t) === index)
+}
 
 const setToggleState = (el, state) => {
   // State refers to the visibility of the collapse/sidebar
   if (state) {
     removeClass(el, CLASS_VBTOGGLE_COLLAPSED)
     addClass(el, CLASS_VBTOGGLE_NOT_COLLAPSED)
-    setAttr(el, 'aria-expanded', 'true')
+    setAttr(el, ATTR_ARIA_EXPANDED, STRING_TRUE)
   } else {
     removeClass(el, CLASS_VBTOGGLE_NOT_COLLAPSED)
     addClass(el, CLASS_VBTOGGLE_COLLAPSED)
-    setAttr(el, 'aria-expanded', 'false')
+    setAttr(el, ATTR_ARIA_EXPANDED, STRING_FALSE)
   }
 }
 
@@ -78,9 +106,9 @@ const handleUpdate = (el, binding, vnode) => {
     // ensure aria-controls is up to date
     /* istanbul ignore else */
     if (el[BV_TOGGLE_CONTROLS]) {
-      setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
+      setAttr(el, ATTR_ARIA_CONTROLS, el[BV_TOGGLE_CONTROLS])
     } else {
-      removeAttr(el, 'aria-controls')
+      removeAttr(el, ATTR_ARIA_CONTROLS)
     }
     // Request a state update from targets so that we can ensure
     // expanded state is correct
@@ -116,7 +144,7 @@ export const VBToggle = {
     el[BV_TOGGLE_TARGETS] = []
 
     // Toggle state handler
-    el[BV_TOGGLE] = (id, state) => {
+    el[BV_TOGGLE_HANDLER] = (id, state) => {
       // `state` will be true of target is expanded
       const targets = el[BV_TOGGLE_TARGETS] || []
       if (arrayIncludes(targets, id)) {
@@ -142,20 +170,20 @@ export const VBToggle = {
   unbind(el, binding, vnode) /* istanbul ignore next */ {
     unbindTargets(vnode, binding, listenTypes)
     // Remove our $root listener
-    if (el[BV_TOGGLE]) {
-      vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE])
-      vnode.context.$root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE])
+    if (el[BV_TOGGLE_HANDLER]) {
+      vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE_HANDLER])
+      vnode.context.$root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE_HANDLER])
     }
-    // Reset custom  props
-    resetProp(el, BV_TOGGLE)
+    // Reset custom props
+    resetProp(el, BV_TOGGLE_HANDLER)
     resetProp(el, BV_TOGGLE_STATE)
     resetProp(el, BV_TOGGLE_CONTROLS)
     resetProp(el, BV_TOGGLE_TARGETS)
     // Reset classes/attrs
-    removeClass(el, 'collapsed')
-    removeClass(el, 'not-collapsed')
-    removeAttr(el, 'aria-expanded')
-    removeAttr(el, 'aria-controls')
-    removeAttr(el, 'role')
+    removeClass(el, CLASS_VBTOGGLE_COLLAPSED)
+    removeClass(el, CLASS_VBTOGGLE_NOT_COLLAPSED)
+    removeAttr(el, ATTR_ARIA_EXPANDED)
+    removeAttr(el, ATTR_ARIA_CONTROLS)
+    removeAttr(el, ATTR_ROLE)
   }
 }
