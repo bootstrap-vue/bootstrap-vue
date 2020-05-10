@@ -87,13 +87,12 @@ const removeClickListener = el => {
 const addClickListener = (el, vnode) => {
   removeClickListener(el)
   if (vnode.context) {
-    const $root = vnode.context
     const handler = evt => {
       const targets = el[BV_TOGGLE_TARGETS] || []
       const ignore = evt.type === 'keydown' && !arrayIncludes(keyDownEvents, evt.keyCode)
       if (!evt.defaultPrevented && !ignore && !isDisabled(el)) {
         targets.forEach(target => {
-          $root.$emit(EVENT_TOGGLE, target)
+          vnode.context.$root.$emit(EVENT_TOGGLE, target)
         })
       }
     }
@@ -107,10 +106,8 @@ const addClickListener = (el, vnode) => {
 
 const removeRootListeners = (el, vnode) => {
   if (el[BV_TOGGLE_ROOT_HANDLER] && vnode.context) {
-    const $root = vnode.context.$root
-    $root.$off(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
-    // Listen for toggle state sync (private)
-    $root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE_ROOT_HANDLER])
+    vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
+    vnode.context.$root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE_ROOT_HANDLER])
   }
   el[BV_TOGGLE_ROOT_HANDLER] = null
 }
@@ -118,11 +115,9 @@ const removeRootListeners = (el, vnode) => {
 const addRootListeners = (el, vnode) => {
   removeRootListeners(el, vnode)
   if (vnode.context) {
-    const $root = vnode.context.$root
     const handler = (id, state) => {
       // `state` will be true of target is expanded
-      const targets = el[BV_TOGGLE_TARGETS] || []
-      if (arrayIncludes(targets, id)) {
+      if (arrayIncludes(el[BV_TOGGLE_TARGETS] || [], id)) {
         // Set/Clear 'collapsed' visibility class state
         el[BV_TOGGLE_STATE] = state
         // Set aria-expanded and class state on trigger element
@@ -131,9 +126,9 @@ const addRootListeners = (el, vnode) => {
     }
     el[BV_TOGGLE_ROOT_HANDLER] = handler
     // Listen for toggle state changes (public)
-    $root.$on(EVENT_STATE, handler)
+    vnode.context.$root.$on(EVENT_STATE, handler)
     // Listen for toggle state sync (private)
-    $root.$on(EVENT_STATE_SYNC, handler)
+    vnode.context.$root.$on(EVENT_STATE_SYNC, handler)
   }
 }
 
@@ -191,8 +186,6 @@ const handleUpdate = (el, binding, vnode) => {
     removeAttr(el, ATTR_ARIA_CONTROLS)
   }
 
-  // Add/Update our root listeners
-  addRootListeners(el, vnode)
   // Add/Update our click listener(s)
   addClickListener(el, vnode)
 
@@ -218,6 +211,8 @@ export const VBToggle = {
     el[BV_TOGGLE_STATE] = false
     // Assume no targets initially
     el[BV_TOGGLE_TARGETS] = []
+    // Add our root listeners
+    addRootListeners(el, vnode)
     // Initial update of trigger
     handleUpdate(el, binding, vnode)
   },
