@@ -75,8 +75,7 @@ const getTargets = ({ modifiers, arg, value }) => {
   return targets.filter((t, index, arr) => t && arr.indexOf(t) === index)
 }
 
-const removeClickListener = vnode => {
-  const el = vnode.elm
+const removeClickListener = el => {
   const handler = el[BV_TOGGLE_CLICK_HANDLER]
   if (handler) {
     eventOff(el, 'click', handler)
@@ -85,13 +84,11 @@ const removeClickListener = vnode => {
   el[BV_TOGGLE_CLICK_HANDLER] = null
 }
 
-const addClickListener = vnode => {
-  removeClickListener(vnode)
+const addClickListener = (el, vnode) => {
+  removeClickListener(el)
   if (vnode.context) {
-    const el = vnode.elm
     const $root = vnode.context
     const handler = evt => {
-      const el = evt.currentTarget
       const targets = el[BV_TOGGLE_TARGETS] || []
       const ignore = evt.type === 'keydown' && !arrayIncludes(keyDownEvents, evt.keyCode)
       if (!evt.defaultPrevented && !ignore && !isDisabled(el)) {
@@ -108,8 +105,7 @@ const addClickListener = vnode => {
   }
 }
 
-const removeRootListeners = vnode => {
-  const el = vnode.elm
+const removeRootListeners = (el, vnode) => {
   if (el[BV_TOGGLE_ROOT_HANDLER] && vnode.context) {
     const $root = vnode.context.$root
     $root.$off(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
@@ -119,9 +115,8 @@ const removeRootListeners = vnode => {
   el[BV_TOGGLE_ROOT_HANDLER] = null
 }
 
-const addRootListeners = vnode => {
-  const el = vnode.elm
-  removeRootListeners(vnode)
+const addRootListeners = (el, vnode) => {
+  removeRootListeners(el, vnode)
   if (vnode.context) {
     const $root = vnode.context.$root
     const handler = (id, state) => {
@@ -196,6 +191,11 @@ const handleUpdate = (el, binding, vnode) => {
     removeAttr(el, ATTR_ARIA_CONTROLS)
   }
 
+  // Add/Update our root listeners
+  addRootListeners(el, vnode)
+  // Add/Update our click listener(s)
+  addClickListener(el, vnode)
+
   // If targets array has changed, update
   if (!looseEqual(targets, el[BV_TOGGLE_TARGETS])) {
     // Update targets array to element storage
@@ -218,19 +218,15 @@ export const VBToggle = {
     el[BV_TOGGLE_STATE] = false
     // Assume no targets initially
     el[BV_TOGGLE_TARGETS] = []
-    // Add our root listners
-    addRootListeners(vnode)
-    // Add our click listener(s)
-    addClickListener(vnode)
     // Initial update of trigger
     handleUpdate(el, binding, vnode)
   },
   componentUpdated: handleUpdate,
-  updated: handleUpdate,
+  // updated: handleUpdate,
   unbind(el, binding, vnode) {
-    removeClickListener(vnode)
+    removeClickListener(el)
     // Remove our $root listener
-    removeRootListeners(vnode)
+    removeRootListeners(el, vnode)
     // Reset custom props
     resetProp(el, BV_TOGGLE_ROOT_HANDLER)
     resetProp(el, BV_TOGGLE_CLICK_HANDLER)
