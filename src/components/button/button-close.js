@@ -1,7 +1,6 @@
 import { CLASS_NAME_BUTTON_CLOSE } from '../../constants/class-names'
 import { NAME_BUTTON_CLOSE } from '../../constants/components'
-import { mergeData } from 'vue-functional-data-merge'
-import Vue from '../../utils/vue'
+import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { hasChildren } from '../../utils/dom'
 import { isEvent } from '../../utils/inspect'

@@ -1,31 +1,35 @@
+import { CLASS_NAME_DROPDOWN_ITEM, CLASS_NAME_TEXT } from '../../constants/class-names'
+import { NAME_DROPDOWN_ITEM } from '../../constants/components'
+import { ROLE_MENUITEM, ROLE_PRESENTATION } from '../../constants/roles'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import Vue from '../../utils/vue'
 import { requestAF } from '../../utils/dom'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { suffixClass } from '../../utils/string'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 
-export const props = linkPropsFactory()
+// --- Props ---
+export const props = {
+  ...linkPropsFactory(),
+  linkClass: {
+    type: [String, Array, Object],
+    default: null
+  },
+  variant: {
+    type: String,
+    default: null
+  }
+}
 
+// --- Main component ---
 // @vue/component
 export const BDropdownItem = /*#__PURE__*/ Vue.extend({
-  name: 'BDropdownItem',
+  name: NAME_DROPDOWN_ITEM,
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
   inject: {
-    bvDropdown: {
-      default: null
-    }
+    bvDropdown: { default: null }
   },
-  props: {
-    ...props,
-    linkClass: {
-      type: [String, Array, Object],
-      default: null
-    },
-    variant: {
-      type: String,
-      default: null
-    }
-  },
+  props,
   methods: {
     closeDropdown() {
       // Close on next animation frame to allow <b-link> time to process
@@ -41,19 +45,20 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    return h('li', { attrs: { role: 'presentation' } }, [
+    return h('li', { attrs: { role: ROLE_PRESENTATION } }, [
       h(
         BLink,
         {
           props: this.$props,
-          staticClass: 'dropdown-item',
+          staticClass: CLASS_NAME_DROPDOWN_ITEM,
           class: [
             this.linkClass,
             {
-              [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
+              [suffixClass(CLASS_NAME_TEXT, props.variant)]:
+                this.variant && !(this.active || this.disabled)
             }
           ],
-          attrs: { ...this.$attrs, role: 'menuitem' },
+          attrs: { ...this.$attrs, role: ROLE_MENUITEM },
           on: { click: this.onClick },
           ref: 'item'
         },

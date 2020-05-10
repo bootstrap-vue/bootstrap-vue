@@ -1,7 +1,6 @@
-import { mergeData } from 'vue-functional-data-merge'
 import { CLASS_NAME_CARD_IMG } from '../../constants/class-names'
 import { NAME_CARD_IMG_LAZY } from '../../constants/components'
-import Vue from '../../utils/vue'
+import Vue, { mergeData } from '../../utils/vue'
 import { omit } from '../../utils/object'
 import { suffixClass } from '../../utils/string'
 import { BImgLazy, props as imgLazyProps } from '../image/img-lazy'

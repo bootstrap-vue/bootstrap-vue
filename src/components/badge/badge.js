@@ -1,7 +1,6 @@
-import { mergeData } from 'vue-functional-data-merge'
 import { CLASS_NAME_BADGE } from '../../constants/class-names'
 import { NAME_BADGE } from '../../constants/components'
-import Vue from '../../utils/vue'
+import Vue, { mergeData } from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { getComponentConfig } from '../../utils/config'
 import { suffixClass } from '../../utils/string'

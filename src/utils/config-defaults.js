@@ -6,7 +6,9 @@ import {
   NAME_BUTTON_CLOSE,
   NAME_CALENDAR,
   NAME_CARD_SUB_TITLE,
-  NAME_CAROUSEL
+  NAME_CAROUSEL,
+  NAME_DROPDOWN,
+  NAME_FORM_DATEPICKER
 } from '../constants/components'
 import { deepFreeze } from './object'
 
@@ -104,13 +106,13 @@ export default deepFreeze({
     labelGotoSlide: 'Goto Slide',
     labelIndicators: 'Select a slide to display'
   },
-  BDropdown: {
+  [NAME_DROPDOWN]: {
     toggleText: 'Toggle Dropdown',
     size: undefined,
     variant: 'secondary',
     splitVariant: undefined
   },
-  BFormDatepicker: {
+  [NAME_FORM_DATEPICKER]: {
     // BFormDatepicker will choose from BCalendar first if not provided here
     labelPrevDecade: undefined,
     labelPrevYear: undefined,

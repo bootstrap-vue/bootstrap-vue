@@ -1,11 +1,13 @@
+import { NAME_FORM_CHECKBOX_GROUP } from '../../constants/components'
 import Vue from '../../utils/vue'
-import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formOptionsMixin from '../../mixins/form-options'
 import formRadioCheckGroupMixin from '../../mixins/form-radio-check-group'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
+import idMixin from '../../mixins/id'
 
+// --- Props ---
 export const props = {
   switches: {
     // Custom switch styling
@@ -18,9 +20,10 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BFormCheckboxGroup = /*#__PURE__*/ Vue.extend({
-  name: 'BFormCheckboxGroup',
+  name: NAME_FORM_CHECKBOX_GROUP,
   mixins: [
     idMixin,
     formMixin,
@@ -30,9 +33,7 @@ export const BFormCheckboxGroup = /*#__PURE__*/ Vue.extend({
     formStateMixin
   ],
   provide() {
-    return {
-      bvCheckGroup: this
-    }
+    return { bvCheckGroup: this }
   },
   props,
   data() {

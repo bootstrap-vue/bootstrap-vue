@@ -1,3 +1,22 @@
+import { ARIA_VALUE_TRUE } from '../../constants/aria'
+import {
+  CLASS_NAME_BACKGROUND,
+  CLASS_NAME_BV_FORM_DATE,
+  CLASS_NAME_BV_FORM_DATEPICKER,
+  CLASS_NAME_DISPLAY_FLEX,
+  CLASS_NAME_FLEX_WRAP,
+  CLASS_NAME_JUSTIFY_CONTENT_BETWEEN,
+  CLASS_NAME_JUSTIFY_CONTENT_END,
+  CLASS_NAME_TEXT,
+  CLASS_NAME_WIDTH_FULL
+} from '../../constants/class-names'
+import { NAME_CALENDAR, NAME_FORM_DATEPICKER } from '../../constants/components'
+import {
+  CALENDAR_LONG,
+  CALENDAR_NARROW,
+  CALENDAR_SHORT,
+  DATE_FORMAT_NUMERIC
+} from '../../constants/date'
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
@@ -5,18 +24,20 @@ import { getComponentConfig } from '../../utils/config'
 import { createDate, constrainDate, formatYMD, parseYMD } from '../../utils/date'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { pick } from '../../utils/object'
+import { suffixClass } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
-import { BCalendar, STR_LONG, STR_NARROW, STR_NUMERIC, STR_SHORT } from '../calendar/calendar'
+import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
 
-const NAME = 'BFormDatepicker'
+// --- Utility methods ---
 
-// Fallback to BCalendar prop if no value found
+// Fallback to `BCalendar` prop if no value found
 const getConfigFallback = prop => {
-  return getComponentConfig(NAME, prop) || getComponentConfig('BCalendar', prop)
+  return getComponentConfig(NAME_FORM_DATEPICKER, prop) || getComponentConfig(NAME_CALENDAR, prop)
 }
 
+// --- Props ---
 // We create our props as a mixin so that we can control
 // where they appear in the props listing reference section
 const propsMixin = {
@@ -150,7 +171,7 @@ const propsMixin = {
     },
     labelTodayButton: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelTodayButton')
+      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelTodayButton')
     },
     todayButtonVariant: {
       type: String,
@@ -162,7 +183,7 @@ const propsMixin = {
     },
     labelResetButton: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelResetButton')
+      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelResetButton')
     },
     resetButtonVariant: {
       type: String,
@@ -174,7 +195,7 @@ const propsMixin = {
     },
     labelCloseButton: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelCloseButton')
+      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelCloseButton')
     },
     closeButtonVariant: {
       type: String,
@@ -186,7 +207,7 @@ const propsMixin = {
       // default: undefined
     },
     // Labels for buttons and keyboard shortcuts
-    // These pick BCalendar global config if no BFormDate global config
+    // These pick `BCalendar` global config if no BFormDate global config
     labelPrevDecade: {
       type: String,
       default: () => getConfigFallback('labelPrevDecade')
@@ -244,10 +265,10 @@ const propsMixin = {
       // Note: This value is *not* to be placed in the global config
       type: Object,
       default: () => ({
-        year: STR_NUMERIC,
-        month: STR_LONG,
-        day: STR_NUMERIC,
-        weekday: STR_LONG
+        year: DATE_FORMAT_NUMERIC,
+        month: CALENDAR_LONG,
+        day: DATE_FORMAT_NUMERIC,
+        weekday: CALENDAR_LONG
       })
     },
     weekdayHeaderFormat: {
@@ -258,8 +279,8 @@ const propsMixin = {
       // `narrow` is typically a single letter
       // `long` is the full week day name
       // Although some locales may override this (i.e `ar`, etc)
-      default: STR_SHORT,
-      validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
+      default: CALENDAR_SHORT,
+      validator: value => arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
     },
     // Dark mode
     dark: {
@@ -275,11 +296,10 @@ const propsMixin = {
   }
 }
 
-// --- BFormDate component ---
-
+// --- Main component ---
 // @vue/component
 export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_FORM_DATEPICKER,
   // The mixins order determines the order of appearance in the props reference section
   mixins: [idMixin, propsMixin],
   model: {
@@ -292,7 +312,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       localYMD: formatYMD(this.value) || '',
       // If the popup is open
       isVisible: false,
-      // Context data from BCalendar
+      // Context data from `BCalendar`
       localLocale: null,
       isRTL: false,
       formattedValue: '',
@@ -448,7 +468,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     // Render helpers
     defaultButtonFn({ isHovered, hasFocus }) {
       return this.$createElement(isHovered || hasFocus ? BIconCalendarFill : BIconCalendar, {
-        attrs: { 'aria-hidden': 'true' }
+        attrs: { 'aria-hidden': ARIA_VALUE_TRUE }
       })
     }
   },
@@ -514,11 +534,15 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         h(
           'div',
           {
-            staticClass: 'b-form-date-controls d-flex flex-wrap',
-            class: {
-              'justify-content-between': $footer.length > 1,
-              'justify-content-end': $footer.length < 2
-            }
+            staticClass: suffixClass(CLASS_NAME_BV_FORM_DATE, 'controls'),
+            class: [
+              CLASS_NAME_DISPLAY_FLEX,
+              CLASS_NAME_FLEX_WRAP,
+              {
+                [CLASS_NAME_JUSTIFY_CONTENT_BETWEEN]: $footer.length > 1,
+                [CLASS_NAME_JUSTIFY_CONTENT_END]: $footer.length < 2
+              }
+            ]
           },
           $footer
         )
@@ -530,7 +554,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       {
         key: 'calendar',
         ref: 'calendar',
-        staticClass: 'b-form-date-calendar w-100',
+        staticClass: suffixClass(CLASS_NAME_BV_FORM_DATE, 'calendar'),
+        class: CLASS_NAME_WIDTH_FULL,
         props: this.calendarProps,
         on: {
           selected: this.onSelected,
@@ -554,7 +579,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       BVFormBtnLabelControl,
       {
         ref: 'control',
-        staticClass: 'b-form-datepicker',
+        staticClass: CLASS_NAME_BV_FORM_DATEPICKER,
         props: {
           // This adds unneeded props, but reduces code size:
           ...this.$props,
@@ -565,7 +590,13 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           value: localYMD || '',
           formattedValue: localYMD ? this.formattedValue : '',
           placeholder: placeholder || '',
-          menuClass: [{ 'bg-dark': !!this.dark, 'text-light': !!this.dark }, this.menuClass]
+          menuClass: [
+            {
+              [suffixClass(CLASS_NAME_BACKGROUND, 'dark')]: !!this.dark,
+              [suffixClass(CLASS_NAME_TEXT, 'light')]: !!this.dark
+            },
+            this.menuClass
+          ]
         },
         on: {
           show: this.onShow,

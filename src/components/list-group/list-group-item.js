@@ -1,5 +1,4 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import Vue, { mergeData } from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'

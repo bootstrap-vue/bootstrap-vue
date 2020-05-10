@@ -1,5 +1,7 @@
+import { ARIA_LIVE_POLITE } from '../../constants/aria'
 import { CLASS_NAME_ALERT } from '../../constants/class-names'
 import { NAME_ALERT } from '../../constants/components'
+import { ROLE_ALERT } from '../../constants/roles'
 import BVTransition from '../../utils/bv-transition'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
@@ -156,7 +158,11 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
             [suffixClass(CLASS_NAME_ALERT, 'dismissible')]: dismissible,
             [suffixClass(CLASS_NAME_ALERT, variant)]: !!variant
           },
-          attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true },
+          attrs: {
+            role: ROLE_ALERT,
+            'aria-live': ARIA_LIVE_POLITE,
+            'aria-atomic': true
+          },
           key: this._uid
         },
         [$dismissBtn, this.normalizeSlot('default')]

@@ -1,6 +1,11 @@
+import { CLASS_NAME_DROPDOWN_ITEM, CLASS_NAME_TEXT } from '../../constants/class-names'
+import { NAME_DROPDOWN_ITEM_BUTTON } from '../../constants/components'
+import { ROLE_MENUITEM, ROLE_PRESENTATION } from '../../constants/roles'
 import Vue from '../../utils/vue'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { suffixClass } from '../../utils/string'
 
+// --- Props ---
 export const props = {
   active: {
     type: Boolean,
@@ -24,15 +29,14 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
-  name: 'BDropdownItemButton',
+  name: NAME_DROPDOWN_ITEM_BUTTON,
   mixins: [normalizeSlotMixin],
   inheritAttrs: false,
   inject: {
-    bvDropdown: {
-      default: null
-    }
+    bvDropdown: { default: null }
   },
   props,
   methods: {
@@ -47,21 +51,22 @@ export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    return h('li', { attrs: { role: 'presentation' } }, [
+    return h('li', { attrs: { role: ROLE_PRESENTATION } }, [
       h(
         'button',
         {
-          staticClass: 'dropdown-item',
+          staticClass: CLASS_NAME_DROPDOWN_ITEM,
           class: [
             this.buttonClass,
             {
               [this.activeClass]: this.active,
-              [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
+              [suffixClass(CLASS_NAME_TEXT, props.variant)]:
+                this.variant && !(this.active || this.disabled)
             }
           ],
           attrs: {
             ...this.$attrs,
-            role: 'menuitem',
+            role: ROLE_MENUITEM,
             type: 'button',
             disabled: this.disabled
           },

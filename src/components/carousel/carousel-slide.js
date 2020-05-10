@@ -4,6 +4,7 @@ import {
   CLASS_NAME_DISPLAY_NONE
 } from '../../constants/class-names'
 import { NAME_CAROUSEL_SLIDE } from '../../constants/components'
+import { ROLE_LISTITEM } from '../../constants/roles'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import idMixin from '../../mixins/id'
@@ -156,7 +157,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
       {
         staticClass: CLASS_NAME_CAROUSEL_ITEM,
         style: { background: this.background || this.bvCarousel.background || null },
-        attrs: { id: this.safeId(), role: 'listitem' }
+        attrs: { id: this.safeId(), role: ROLE_LISTITEM }
       },
       [img, content]
     )

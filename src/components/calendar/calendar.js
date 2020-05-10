@@ -1,3 +1,4 @@
+import { ARIA_LIVE_POLITE, ARIA_VALUE_OFF, ARIA_VALUE_TRUE } from '../../constants/aria'
 import {
   CLASS_NAME_ACTIVE,
   CLASS_NAME_BACKGROUND,
@@ -30,6 +31,14 @@ import {
 } from '../../constants/class-names'
 import { NAME_CALENDAR } from '../../constants/components'
 import {
+  CALENDAR_GREGORY,
+  CALENDAR_LONG,
+  CALENDAR_NARROW,
+  CALENDAR_SHORT,
+  DATE_FORMAT_2_DIGIT,
+  DATE_FORMAT_NUMERIC
+} from '../../constants/date'
+import {
   DOWN,
   END,
   ENTER,
@@ -41,6 +50,7 @@ import {
   SPACE,
   UP
 } from '../../constants/key-codes'
+import { ROLE_APPLICATION, ROLE_BUTTON, ROLE_GROUP, ROLE_STATUS } from '../../constants/roles'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
@@ -77,16 +87,6 @@ import {
   BIconChevronBarLeft,
   BIconCircleFill
 } from '../../icons/icons'
-
-// --- Constants ---
-
-// Common calendar option value strings
-export const STR_GREGORY = 'gregory'
-export const STR_NUMERIC = 'numeric'
-export const STR_2_DIGIT = '2-digit'
-export const STR_LONG = 'long'
-export const STR_SHORT = 'short'
-export const STR_NARROW = 'narrow'
 
 // --- BCalendar component ---
 // @vue/component
@@ -272,10 +272,10 @@ export const BCalendar = Vue.extend({
       // Note: This value is *not* to be placed in the global config
       type: Object,
       default: () => ({
-        year: STR_NUMERIC,
-        month: STR_LONG,
-        day: STR_NUMERIC,
-        weekday: STR_LONG
+        year: DATE_FORMAT_NUMERIC,
+        month: CALENDAR_LONG,
+        day: DATE_FORMAT_NUMERIC,
+        weekday: CALENDAR_LONG
       })
     },
     weekdayHeaderFormat: {
@@ -286,8 +286,8 @@ export const BCalendar = Vue.extend({
       // `narrow` is typically a single letter
       // `long` is the full week day name
       // Although some locales may override this (i.e `ar`, etc)
-      default: STR_SHORT,
-      validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
+      default: CALENDAR_SHORT,
+      validator: value => arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
     }
   },
   data() {
@@ -328,18 +328,18 @@ export const BCalendar = Vue.extend({
     },
     computedLocale() {
       // Returns the resolved locale used by the calendar
-      return resolveLocale(concat(this.locale).filter(identity), STR_GREGORY)
+      return resolveLocale(concat(this.locale).filter(identity), CALENDAR_GREGORY)
     },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)
       // Needed because IE 11 resolves `ar-IR` as islamic-civil calendar
       // and IE 11 (and some other browsers) do not support the `calendar` option
       // And we currently only support the gregorian calendar
-      const fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: STR_GREGORY })
+      const fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: CALENDAR_GREGORY })
       const calendar = fmt.resolvedOptions().calendar
       let locale = fmt.resolvedOptions().locale
       /* istanbul ignore if: mainly for IE 11 and a few other browsers, hard to test in JSDOM */
-      if (calendar !== STR_GREGORY) {
+      if (calendar !== CALENDAR_GREGORY) {
         // Ensure the locale requests the gregorian calendar
         // Mainly for IE 11, and currently we can't handle non-gregorian calendars
         // TODO: Should we always return this value?
@@ -441,9 +441,9 @@ export const BCalendar = Vue.extend({
         // Ensure we have year, month, day shown for screen readers/ARIA
         // If users really want to leave one of these out, they can
         // pass `undefined` for the property value
-        year: STR_NUMERIC,
-        month: STR_2_DIGIT,
-        day: STR_2_DIGIT,
+        year: DATE_FORMAT_NUMERIC,
+        month: DATE_FORMAT_2_DIGIT,
+        day: DATE_FORMAT_2_DIGIT,
         // Merge in user supplied options
         ...this.dateFormatOptions,
         // Ensure hours/minutes/seconds are not shown
@@ -452,30 +452,30 @@ export const BCalendar = Vue.extend({
         minute: undefined,
         second: undefined,
         // Ensure calendar is gregorian
-        calendar: STR_GREGORY
+        calendar: CALENDAR_GREGORY
       })
     },
     formatYearMonth() {
       // Returns a date formatter function
       return createDateFormatter(this.calendarLocale, {
-        year: STR_NUMERIC,
-        month: STR_LONG,
-        calendar: STR_GREGORY
+        year: DATE_FORMAT_NUMERIC,
+        month: CALENDAR_LONG,
+        calendar: CALENDAR_GREGORY
       })
     },
     formatWeekdayName() {
       // Long weekday name for weekday header aria-label
       return createDateFormatter(this.calendarLocale, {
-        weekday: STR_LONG,
-        calendar: STR_GREGORY
+        weekday: CALENDAR_LONG,
+        calendar: CALENDAR_GREGORY
       })
     },
     formatWeekdayNameShort() {
       // Weekday header cell format
       // defaults to 'short' 3 letter days, where possible
       return createDateFormatter(this.calendarLocale, {
-        weekday: this.weekdayHeaderFormat || STR_SHORT,
-        calendar: STR_GREGORY
+        weekday: this.weekdayHeaderFormat || CALENDAR_SHORT,
+        calendar: CALENDAR_GREGORY
       })
     },
     formatDay() {
@@ -843,15 +843,15 @@ export const BCalendar = Vue.extend({
         attrs: {
           id,
           for: idGrid,
-          role: 'status',
+          role: ROLE_STATUS,
           tabindex: this.disabled ? null : '-1',
           // Mainly for testing purposes, as we do not know
           // the exact format `Intl` will format the date string
           'data-selected': toString(selectedYMD),
           // We wait until after mount to enable `aria-live`
           // to prevent initial announcement on page render
-          'aria-live': isLive ? 'polite' : 'off',
-          'aria-atomic': isLive ? 'true' : null
+          'aria-live': isLive ? ARIA_LIVE_POLITE : ARIA_VALUE_OFF,
+          'aria-atomic': isLive ? ARIA_VALUE_TRUE : null
         },
         on: {
           // Transfer focus/click to focus grid
@@ -920,12 +920,12 @@ export const BCalendar = Vue.extend({
             title: label || null,
             type: 'button',
             'aria-label': label || null,
-            'aria-disabled': btnDisabled ? 'true' : null,
+            'aria-disabled': btnDisabled ? ARIA_VALUE_TRUE : null,
             'aria-keyshortcuts': shortcut || null
           },
           on: btnDisabled ? {} : { click: handler }
         },
-        [h('div', { attrs: { 'aria-hidden': 'true' } }, [content])]
+        [h('div', { attrs: { 'aria-hidden': ARIA_VALUE_TRUE } }, [content])]
       )
     }
 
@@ -937,8 +937,8 @@ export const BCalendar = Vue.extend({
         class: CLASS_NAME_DISPLAY_FLEX,
         attrs: {
           id: idNav,
-          role: 'group',
-          'aria-hidden': this.disabled ? 'true' : null,
+          role: ROLE_GROUP,
+          'aria-hidden': this.disabled ? ARIA_VALUE_TRUE : null,
           'aria-label': this.labelNav || null,
           'aria-controls': idGrid
         }
@@ -1013,8 +1013,8 @@ export const BCalendar = Vue.extend({
         ],
         attrs: {
           id: idGridCaption,
-          'aria-live': isLive ? 'polite' : null,
-          'aria-atomic': isLive ? 'true' : null
+          'aria-live': isLive ? ARIA_LIVE_POLITE : null,
+          'aria-atomic': isLive ? ARIA_VALUE_TRUE : null
         }
       },
       this.formatYearMonth(this.calendarFirstDay)
@@ -1026,7 +1026,7 @@ export const BCalendar = Vue.extend({
       {
         staticClass: suffixClass(CLASS_NAME_BV_CALENDAR, 'grid-weekdays'),
         class: [CLASS_NAME_ROW, CLASS_NAME_NO_GUTTERS, CLASS_NAME_BORDER_BOTTOM],
-        attrs: { 'aria-hidden': 'true' }
+        attrs: { 'aria-hidden': ARIA_VALUE_TRUE }
       },
       this.calendarHeadings.map((d, idx) => {
         return h(
@@ -1103,11 +1103,11 @@ export const BCalendar = Vue.extend({
             ],
             attrs: {
               id: idCell,
-              role: 'button',
+              role: ROLE_BUTTON,
               'data-date': day.ymd, // Primarily for testing purposes
               // Only days in the month are presented as buttons to screen readers
-              'aria-hidden': day.isThisMonth ? null : 'true',
-              'aria-disabled': day.isDisabled || this.disabled ? 'true' : null,
+              'aria-hidden': day.isThisMonth ? null : ARIA_VALUE_TRUE,
+              'aria-disabled': day.isDisabled || this.disabled ? ARIA_VALUE_TRUE : null,
               'aria-label': [
                 day.label,
                 isSelected ? `(${this.labelSelected})` : null,
@@ -1118,7 +1118,7 @@ export const BCalendar = Vue.extend({
               // NVDA doesn't convey `aria-selected`, but does `aria-current`,
               // ChromeVox doesn't convey `aria-current`, but does `aria-selected`,
               // so we set both attributes for robustness
-              'aria-selected': isSelected ? 'true' : null,
+              'aria-selected': isSelected ? ARIA_VALUE_TRUE : null,
               'aria-current': isSelected ? 'date' : null
             }
           },
@@ -1174,7 +1174,7 @@ export const BCalendar = Vue.extend({
         class: [CLASS_NAME_FORM_CONTROL, CLASS_NAME_HEIGHT_AUTO, CLASS_NAME_TEXT_CENTER],
         attrs: {
           id: idGrid,
-          role: 'application',
+          role: ROLE_APPLICATION,
           tabindex: this.disabled ? null : '0',
           'data-month': activeYMD.slice(0, -3), // `YYYY-MM`, mainly for testing
           'aria-roledescription': this.labelCalendar || null,
@@ -1182,8 +1182,8 @@ export const BCalendar = Vue.extend({
           'aria-describedby': idGridHelp,
           // `aria-readonly` is not considered valid on `role="application"`
           // https://www.w3.org/TR/wai-aria-1.1/#aria-readonly
-          // 'aria-readonly': this.readonly && !this.disabled ? 'true' : null,
-          'aria-disabled': this.disabled ? 'true' : null,
+          // 'aria-readonly': this.readonly && !this.disabled ? ARIA_VALUE_TRUE : null,
+          'aria-disabled': this.disabled ? ARIA_VALUE_TRUE : null,
           'aria-activedescendant': idActive
         },
         on: {
@@ -1211,7 +1211,7 @@ export const BCalendar = Vue.extend({
           dir: isRTL ? 'rtl' : 'ltr',
           lang: this.computedLocale || null,
           role: 'group',
-          'aria-disabled': this.disabled ? 'true' : null,
+          'aria-disabled': this.disabled ? ARIA_VALUE_TRUE : null,
           // If datepicker controls an input, this will specify the ID of the input
           'aria-controls': this.ariaControls || null,
           // This should be a prop (so it can be changed to Date picker, etc, localized

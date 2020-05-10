@@ -1,7 +1,6 @@
-import { mergeData } from 'vue-functional-data-merge'
 import { CLASS_NAME_CARD_IMG } from '../../constants/class-names'
 import { NAME_CARD_IMG } from '../../constants/components'
-import Vue from '../../utils/vue'
+import Vue, { mergeData } from '../../utils/vue'
 import { suffixClass } from '../../utils/string'
 
 // --- Props ---

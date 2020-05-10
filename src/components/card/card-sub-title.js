@@ -1,10 +1,9 @@
-import { mergeData } from 'vue-functional-data-merge'
 import { CLASS_NAME_CARD_SUB_TITLE, CLASS_NAME_TEXT } from '../../constants/class-names'
 import { NAME_CARD_SUB_TITLE } from '../../constants/components'
-import Vue from '../../utils/vue'
+import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { hasChildren } from '../../utils/dom'
-import { toString } from '../../utils/string'
+import { suffixClass, toString } from '../../utils/string'
 
 // --- Props ---
 export const props = {
@@ -33,7 +32,9 @@ export const BCardSubTitle = /*#__PURE__*/ Vue.extend({
       props.subTitleTag,
       mergeData(data, {
         staticClass: CLASS_NAME_CARD_SUB_TITLE,
-        class: props.subTitleTextVariant ? `${CLASS_NAME_TEXT}-${props.subTitleTextVariant}` : null
+        class: props.subTitleTextVariant
+          ? suffixClass(CLASS_NAME_TEXT, props.subTitleTextVariant)
+          : null
       }),
       hasChildren(children) ? children : toString(props.subTitle)
     )

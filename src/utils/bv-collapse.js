@@ -10,8 +10,7 @@ import {
   CLASS_NAME_COLLAPSING,
   CLASS_NAME_SHOW
 } from '../constants/class-names'
-import Vue from './vue'
-import { mergeData } from 'vue-functional-data-merge'
+import Vue, { mergeData } from './vue'
 import { getBCR, reflow, requestAF } from './dom'
 
 // --- Utility methods ---

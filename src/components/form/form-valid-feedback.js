@@ -1,6 +1,13 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { ARIA_VALUE_TRUE } from '../../constants/aria'
+import {
+  CLASS_NAME_DISPLAY_BLOCK,
+  CLASS_NAME_FORM_VALID_FEEDBACK,
+  CLASS_NAME_FORM_VALID_TOOLTIP
+} from '../../constants/class-names'
+import { NAME_FORM_VALID_FEEDBACK } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 
+// --- Props ---
 export const props = {
   id: {
     type: String
@@ -33,26 +40,29 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BFormValidFeedback = /*#__PURE__*/ Vue.extend({
-  name: 'BFormValidFeedback',
+  name: NAME_FORM_VALID_FEEDBACK,
   functional: true,
   props,
   render(h, { props, data, children }) {
+    const { tooltip, ariaLive } = props
     const show = props.forceShow === true || props.state === true
+
     return h(
       props.tag,
       mergeData(data, {
         class: {
-          'valid-feedback': !props.tooltip,
-          'valid-tooltip': props.tooltip,
-          'd-block': show
+          [CLASS_NAME_FORM_VALID_FEEDBACK]: !tooltip,
+          [CLASS_NAME_FORM_VALID_TOOLTIP]: tooltip,
+          [CLASS_NAME_DISPLAY_BLOCK]: show
         },
         attrs: {
           id: props.id || null,
           role: props.role || null,
-          'aria-live': props.ariaLive || null,
-          'aria-atomic': props.ariaLive ? 'true' : null
+          'aria-live': ariaLive || null,
+          'aria-atomic': ariaLive ? ARIA_VALUE_TRUE : null
         }
       }),
       children

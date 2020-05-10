@@ -1,8 +1,17 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
-import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
+import {
+  CLASS_NAME_DROPDOWN_HEADER,
+  CLASS_NAME_LIST_UNSTYLED,
+  CLASS_NAME_TEXT
+} from '../../constants/class-names'
+import { NAME_DROPDOWN_GROUP } from '../../constants/components'
+import { ROLE_GROUP, ROLE_HEADING, ROLE_PRESENTATION } from '../../constants/roles'
+import Vue, { mergeData } from '../../utils/vue'
 import identity from '../../utils/identity'
+import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
+import { omit } from '../../utils/object'
+import { suffixClass } from '../../utils/string'
 
+// --- Props ---
 export const props = {
   id: {
     type: String
@@ -30,54 +39,57 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
-  name: 'BDropdownGroup',
+  name: NAME_DROPDOWN_GROUP,
   functional: true,
   props,
   render(h, { props, data, slots, scopedSlots }) {
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}
-    const $attrs = data.attrs || {}
-    data.attrs = {}
-    let header
-    let headerId = null
+    const slotScope = {}
 
+    let headerId = null
+    let $header = h()
     if (hasNormalizedSlot('header', $scopedSlots, $slots) || props.header) {
       headerId = props.id ? `_bv_${props.id}_group_dd_header` : null
-      header = h(
+      $header = h(
         props.headerTag,
         {
-          staticClass: 'dropdown-header',
-          class: [props.headerClasses, { [`text-${props.variant}`]: props.variant }],
+          staticClass: CLASS_NAME_DROPDOWN_HEADER,
+          class: [
+            props.headerClasses,
+            { [suffixClass(CLASS_NAME_TEXT, props.variant)]: props.variant }
+          ],
           attrs: {
             id: headerId,
-            role: 'heading'
+            role: ROLE_HEADING
           }
         },
-        normalizeSlot('header', {}, $scopedSlots, $slots) || props.header
+        normalizeSlot('header', slotScope, $scopedSlots, $slots) || props.header
       )
     }
 
-    const adb = [headerId, props.ariaDescribedBy]
+    const ariaDescribedBy = [headerId, props.ariaDescribedBy]
       .filter(identity)
       .join(' ')
       .trim()
 
-    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
-      header || h(),
+    return h('li', mergeData(omit(data, ['attrs']), { attrs: { role: ROLE_PRESENTATION } }), [
+      $header,
       h(
         'ul',
         {
-          staticClass: 'list-unstyled',
+          staticClass: CLASS_NAME_LIST_UNSTYLED,
           attrs: {
-            ...$attrs,
+            ...data.attrs,
             id: props.id || null,
-            role: 'group',
-            'aria-describedby': adb || null
+            role: ROLE_GROUP,
+            'aria-describedby': ariaDescribedBy || null
           }
         },
-        normalizeSlot('default', {}, $scopedSlots, $slots)
+        normalizeSlot('default', slotScope, $scopedSlots, $slots)
       )
     ])
   }

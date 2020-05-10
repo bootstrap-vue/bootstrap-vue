@@ -1,8 +1,14 @@
-import { mergeData } from 'vue-functional-data-merge'
-import { CLASS_NAME_BUTTON } from '../../constants/class-names'
+import {
+  CLASS_NAME_ACTIVE,
+  CLASS_NAME_BUTTON,
+  CLASS_NAME_DISABLED,
+  CLASS_NAME_NOT_ROUNDED,
+  CLASS_NAME_ROUNDED_PILL
+} from '../../constants/class-names'
 import { NAME_BUTTON } from '../../constants/components'
 import { ENTER, SPACE } from '../../constants/key-codes'
-import Vue from '../../utils/vue'
+import { ROLE_BUTTON } from '../../constants/roles'
+import Vue, { mergeData } from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -95,10 +101,10 @@ const computeClass = props => [
   {
     [suffixClass(CLASS_NAME_BUTTON, props.size)]: !!props.size,
     [suffixClass(CLASS_NAME_BUTTON, 'block')]: props.block,
-    'rounded-pill': props.pill,
-    'rounded-0': props.squared && !props.pill,
-    disabled: props.disabled,
-    active: props.pressed
+    [CLASS_NAME_ROUNDED_PILL]: props.pill,
+    [CLASS_NAME_NOT_ROUNDED]: props.squared && !props.pill,
+    [CLASS_NAME_DISABLED]: props.disabled,
+    [CLASS_NAME_ACTIVE]: props.pressed
   }
 ]
 
@@ -127,7 +133,7 @@ const computeAttrs = (props, data) => {
     // We add a role of button when the tag is not a link or button for ARIA
     // Don't bork any role provided in `data.attrs` when `isLink` or `isButton`
     // Except when link has `href` of `#`
-    role: nonStandardTag || hashLink ? 'button' : role,
+    role: nonStandardTag || hashLink ? ROLE_BUTTON : role,
     // We set the `aria-disabled` state for non-standard tags
     'aria-disabled': nonStandardTag ? String(disabled) : null,
     // For toggles, we need to set the pressed state for ARIA

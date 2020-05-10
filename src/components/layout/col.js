@@ -1,4 +1,3 @@
-import { mergeData } from 'vue-functional-data-merge'
 import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
 import suffixPropName from '../../utils/suffix-prop-name'
@@ -7,6 +6,7 @@ import { getBreakpointsUpCached } from '../../utils/config'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { assign, create, keys } from '../../utils/object'
 import { lowerCase } from '../../utils/string'
+import { mergeData } from '../../utils/vue'
 
 const RX_COL_CLASS = /^col-/
 
@@ -113,7 +113,7 @@ const generateProps = () => {
   }
 }
 
-// We do not use Vue.extend here as that would evaluate the props
+// We do not use `Vue.extend()` here as that would evaluate the props
 // immediately, which we do not want to happen
 // @vue/component
 export const BCol = {

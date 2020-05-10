@@ -1,3 +1,4 @@
+import { NAME_FORM_CHECKBOX } from '../../constants/components'
 import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
@@ -10,7 +11,7 @@ import idMixin from '../../mixins/id'
 
 // @vue/component
 export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
-  name: 'BFormCheckbox',
+  name: NAME_FORM_CHECKBOX,
   mixins: [
     formRadioCheckMixin, // Includes shared render function
     idMixin,
@@ -52,8 +53,7 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   },
   computed: {
     isChecked() {
-      const checked = this.computedLocalChecked
-      const value = this.value
+      const { computedLocalChecked: checked, value } = this
       if (isArray(checked)) {
         return looseIndexOf(checked, value) > -1
       } else {
@@ -88,7 +88,7 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
       const value = this.value
       const isArr = isArray(localChecked)
       const uncheckedValue = isArr ? null : this.uncheckedValue
-      // Update computedLocalChecked
+      // Update `computedLocalChecked`
       if (isArr) {
         const idx = looseIndexOf(localChecked, value)
         if (checked && idx < 0) {
@@ -104,7 +104,7 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
       this.computedLocalChecked = localChecked
       // Change is only emitted on user interaction
       this.$emit('change', checked ? value : uncheckedValue)
-      // If this is a child of form-checkbox-group, we emit a change event on it as well
+      // If this is a child of <form-checkbox-group>, we emit a change event on it as well
       if (this.isGroup) {
         this.bvGroup.$emit('change', localChecked)
       }

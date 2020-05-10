@@ -1,3 +1,4 @@
+import { ARIA_VALUE_TRUE } from '../../constants/aria'
 import {
   CLASS_NAME_BADGE,
   CLASS_NAME_BV_AVATAR,
@@ -18,6 +19,9 @@ import { BIcon } from '../../icons/icon'
 import { BIconPersonFill } from '../../icons/icons'
 
 // --- Constants ---
+const SLOT_BADGE = 'badge'
+const SLOT_DEFAULT = 'default'
+
 const FONT_SIZE_SCALE = 0.4
 const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
 
@@ -252,10 +256,10 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     const ariaLabel = this.ariaLabel || null
 
     let $content = null
-    if (this.hasNormalizedSlot('default')) {
+    if (this.hasNormalizedSlot(SLOT_DEFAULT)) {
       // Default slot overrides props
       $content = h('span', { staticClass: suffixClass(CLASS_NAME_BV_AVATAR, 'custom') }, [
-        this.normalizeSlot('default')
+        this.normalizeSlot(SLOT_DEFAULT)
       ])
     } else if (src) {
       $content = h('img', {
@@ -263,11 +267,11 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         attrs: { src, alt },
         on: { error: this.onImgError }
       })
-      $content = h('span', { staticClass: 'b-avatar-img' }, [$content])
+      $content = h('span', { staticClass: suffixClass(CLASS_NAME_BV_AVATAR, 'img') }, [$content])
     } else if (icon) {
       $content = h(BIcon, {
         props: { icon },
-        attrs: { 'aria-hidden': 'true', alt }
+        attrs: { 'aria-hidden': ARIA_VALUE_TRUE, alt }
       })
     } else if (text) {
       $content = h(
@@ -277,11 +281,11 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       )
     } else {
       // Fallback default avatar content
-      $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true', alt } })
+      $content = h(BIconPersonFill, { attrs: { 'aria-hidden': ARIA_VALUE_TRUE, alt } })
     }
 
     let $badge = h()
-    const hasBadgeSlot = this.hasNormalizedSlot('badge')
+    const hasBadgeSlot = this.hasNormalizedSlot(SLOT_BADGE)
     if (badge || badge === '' || hasBadgeSlot) {
       const badgeText = badge === true ? '' : badge
       $badge = h(
@@ -291,7 +295,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
           class: { [suffixClass(CLASS_NAME_BADGE, badgeVariant)]: !!badgeVariant },
           style: badgeStyle
         },
-        [hasBadgeSlot ? this.normalizeSlot('badge') : badgeText]
+        [hasBadgeSlot ? this.normalizeSlot(SLOT_BADGE) : badgeText]
       )
     }
 

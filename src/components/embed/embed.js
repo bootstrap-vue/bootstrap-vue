@@ -1,13 +1,26 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { CLASS_NAME_EMBED } from '../../constants/class-names'
+import { NAME_EMBED, NAME_IMG, NAME_IMG_LAZY } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
+import { kebabCase, suffixClass } from '../../utils/string'
 
+// --- Constants ---
+const ALLOWED_COMPONENTS = [NAME_IMG, NAME_IMG_LAZY]
+const ALLOWED_TYPES = [
+  'embed',
+  'iframe',
+  'img',
+  'object',
+  'video',
+  ...ALLOWED_COMPONENTS.map(name => kebabCase(name))
+]
+
+// --- Props ---
 export const props = {
   type: {
     type: String,
     default: 'iframe',
-    validator: str =>
-      arrayIncludes(['iframe', 'embed', 'video', 'object', 'img', 'b-img', 'b-img-lazy'], str)
+    validator: value => arrayIncludes(ALLOWED_TYPES, value)
   },
   tag: {
     type: String,
@@ -19,22 +32,27 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BEmbed = /*#__PURE__*/ Vue.extend({
-  name: 'BEmbed',
+  name: NAME_EMBED,
   functional: true,
   props,
   render(h, { props, data, children }) {
     return h(
       props.tag,
       {
-        ref: data.ref,
-        staticClass: 'embed-responsive',
-        class: {
-          [`embed-responsive-${props.aspect}`]: props.aspect
-        }
+        staticClass: CLASS_NAME_EMBED,
+        class: { [suffixClass(CLASS_NAME_EMBED, props.aspect)]: props.aspect },
+        ref: data.ref
       },
-      [h(props.type, mergeData(data, { ref: '', staticClass: 'embed-responsive-item' }), children)]
+      [
+        h(
+          props.type,
+          mergeData(data, { staticClass: suffixClass(CLASS_NAME_EMBED, 'item') }),
+          children
+        )
+      ]
     )
   }
 })

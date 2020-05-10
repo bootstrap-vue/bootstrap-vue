@@ -1,7 +1,7 @@
-import { mergeData } from 'vue-functional-data-merge'
 import { CLASS_NAME_BUTTON_GROUP } from '../../constants/class-names'
 import { NAME_BUTTON, NAME_BUTTON_GROUP } from '../../constants/components'
-import Vue from '../../utils/vue'
+import { ROLE_GROUP } from '../../constants/roles'
+import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { suffixClass } from '../../utils/string'
 
@@ -21,7 +21,7 @@ export const props = {
   },
   ariaRole: {
     type: String,
-    default: 'group'
+    default: ROLE_GROUP
   }
 }
 

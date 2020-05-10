@@ -25,7 +25,7 @@ const navProps = omit(BNavProps, ['tabs', 'isNavBar', 'cardHeader'])
 // Filter function to filter out disabled tabs
 const notDisabled = tab => !tab.disabled
 
-// --- Helper components ---
+// --- Utility methods ---
 
 // @vue/component
 const BTabButtonHelper = /*#__PURE__*/ Vue.extend({

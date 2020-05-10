@@ -1,16 +1,16 @@
+import { CLASS_NAME_BV_AVATAR_GROUP } from '../../constants/class-names'
+import { NAME_AVATAR_GROUP } from '../../constants/components'
+import { ROLE_GROUP } from '../../constants/roles'
 import Vue from '../../utils/vue'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { mathMax, mathMin } from '../../utils/math'
 import { toFloat } from '../../utils/number'
+import { suffixClass } from '../../utils/string'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { computeSize } from './avatar'
 
-// --- Constants ---
-const NAME = 'BAvatarGroup'
-
-// --- Main component ---
 // @vue/component
 export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_AVATAR_GROUP,
   mixins: [normalizeSlotMixin],
   provide() {
     return { bvAvatarGroup: this }
@@ -59,10 +59,22 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const $inner = h('div', { staticClass: 'b-avatar-group-inner', style: this.paddingStyle }, [
-      this.normalizeSlot('default')
-    ])
+    const $inner = h(
+      'div',
+      {
+        staticClass: suffixClass(CLASS_NAME_BV_AVATAR_GROUP, 'inner'),
+        style: this.paddingStyle
+      },
+      [this.normalizeSlot('default')]
+    )
 
-    return h(this.tag, { staticClass: 'b-avatar-group', attrs: { role: 'group' } }, [$inner])
+    return h(
+      this.tag,
+      {
+        staticClass: CLASS_NAME_BV_AVATAR_GROUP,
+        attrs: { role: ROLE_GROUP }
+      },
+      [$inner]
+    )
   }
 })

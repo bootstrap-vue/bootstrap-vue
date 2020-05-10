@@ -1,4 +1,3 @@
-import { mergeData } from 'vue-functional-data-merge'
 import {
   CLASS_NAME_BACKGROUND,
   CLASS_NAME_BORDER,
@@ -8,7 +7,7 @@ import {
   CLASS_NAME_TEXT
 } from '../../constants/class-names'
 import { NAME_CARD_BODY } from '../../constants/components'
-import Vue from '../../utils/vue'
+import Vue, { mergeData } from '../../utils/vue'
 import copyProps from '../../utils/copy-props'
 import pluckProps from '../../utils/pluck-props'
 import prefixPropName from '../../utils/prefix-prop-name'

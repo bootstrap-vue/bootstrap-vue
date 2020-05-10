@@ -1,4 +1,3 @@
-import { mergeData } from 'vue-functional-data-merge'
 import {
   CLASS_NAME_CARD_HEADER,
   CLASS_NAME_BACKGROUND,
@@ -6,7 +5,7 @@ import {
   CLASS_NAME_TEXT
 } from '../../constants/class-names'
 import { NAME_CARD_HEADER } from '../../constants/components'
-import Vue from '../../utils/vue'
+import Vue, { mergeData } from '../../utils/vue'
 import copyProps from '../../utils/copy-props'
 import prefixPropName from '../../utils/prefix-prop-name'
 import { htmlOrText } from '../../utils/html'

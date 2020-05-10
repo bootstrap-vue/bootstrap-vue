@@ -1,10 +1,12 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { CLASS_NAME_DISABLED, CLASS_NAME_BV_DROPDOWN_FORM } from '../../constants/class-names'
+import { NAME_DROPDOWN_FORM } from '../../constants/components'
+import { ROLE_PRESENTATION } from '../../constants/roles'
+import Vue, { mergeData } from '../../utils/vue'
 import { BForm, props as formProps } from '../form/form'
 
 // @vue/component
 export const BDropdownForm = /*#__PURE__*/ Vue.extend({
-  name: 'BDropdownForm',
+  name: NAME_DROPDOWN_FORM,
   functional: true,
   props: {
     ...formProps,
@@ -22,13 +24,13 @@ export const BDropdownForm = /*#__PURE__*/ Vue.extend({
     const $listeners = data.on || {}
     data.attrs = {}
     data.on = {}
-    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
+    return h('li', mergeData(data, { attrs: { role: ROLE_PRESENTATION } }), [
       h(
         BForm,
         {
           ref: 'form',
-          staticClass: 'b-dropdown-form',
-          class: [props.formClass, { disabled: props.disabled }],
+          staticClass: CLASS_NAME_BV_DROPDOWN_FORM,
+          class: [props.formClass, { [CLASS_NAME_DISABLED]: props.disabled }],
           props,
           attrs: {
             ...$attrs,

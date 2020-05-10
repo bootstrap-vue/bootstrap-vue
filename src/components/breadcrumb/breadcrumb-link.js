@@ -1,6 +1,5 @@
-import { mergeData } from 'vue-functional-data-merge'
 import { NAME_BREADCRUMB_LINK } from '../../constants/components'
-import Vue from '../../utils/vue'
+import Vue, { mergeData } from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { hasChildren } from '../../utils/dom'
 import { htmlOrText } from '../../utils/html'

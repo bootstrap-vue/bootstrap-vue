@@ -1,9 +1,13 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { CLASS_NAME_BV_DROPDOWN_TEXT, CLASS_NAME_TEXT } from '../../constants/class-names'
+import { NAME_DROPDOWN_TEXT } from '../../constants/components'
+import { ROLE_PRESENTATION } from '../../constants/roles'
+import Vue, { mergeData } from '../../utils/vue'
+import { omit } from '../../utils/object'
+import { suffixClass } from '../../utils/string'
 
 // @vue/component
 export const BDropdownText = /*#__PURE__*/ Vue.extend({
-  name: 'BDropdownText',
+  name: NAME_DROPDOWN_TEXT,
   functional: true,
   props: {
     tag: {
@@ -16,18 +20,14 @@ export const BDropdownText = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h, { props, data, children }) {
-    const $attrs = data.attrs || {}
-    data.attrs = {}
-    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
+    return h('li', mergeData(omit(data, ['attrs']), { attrs: { role: ROLE_PRESENTATION } }), [
       h(
         props.tag,
         {
-          staticClass: 'b-dropdown-text',
-          class: {
-            [`text-${props.variant}`]: props.variant
-          },
+          staticClass: CLASS_NAME_BV_DROPDOWN_TEXT,
+          class: { [suffixClass(CLASS_NAME_TEXT, props.variant)]: props.variant },
           props,
-          attrs: $attrs,
+          attrs: data.attrs,
           ref: 'text'
         },
         children

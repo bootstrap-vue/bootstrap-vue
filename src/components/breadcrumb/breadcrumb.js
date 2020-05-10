@@ -1,7 +1,6 @@
-import { mergeData } from 'vue-functional-data-merge'
 import { CLASS_NAME_BREADCRUMB } from '../../constants/class-names'
 import { NAME_BREADCRUMB } from '../../constants/components'
-import Vue from '../../utils/vue'
+import Vue, { mergeData } from '../../utils/vue'
 import { isArray, isObject } from '../../utils/inspect'
 import { toString } from '../../utils/string'
 import { BBreadcrumbItem } from './breadcrumb-item'
