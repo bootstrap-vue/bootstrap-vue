@@ -24,12 +24,13 @@ argument, or as a string/array passed to as the directive value:
   target ID)
 - `v-b-toggle:my-collapse` - the directive argument
   ([Vue dynamic argument](https://vuejs.org/v2/guide/syntax.html#Dynamic-Arguments) is supported)
-  <span class="badge badge-info small">v2.14.0+</span>
+  <span class="badge badge-info small" aria-label="Available in BootstrapVue v2.14.0+">v2.14.0+</span>
 - `v-b-toggle="'my-collapse'"` - the directive value as a string ID
 - `v-b-toggle="'my-collapse1 my-collapse2'"` - the directive value as a space separated string of
-  IDs <span class="badge badge-info small">v2.14.0+</span>
+  IDs
+  <span class="badge badge-info small" aria-label="Available in BootstrapVue v2.14.0+">v2.14.0+</span>
 - `v-b-toggle="['my-collapse1', 'my-collapse2']"` - the directive value as an array of string IDs
-  <span class="badge badge-info small">v2.14.0+</span>
+  <span class="badge badge-info small" aria-label="Available in BootstrapVue v2.14.0+">v2.14.0+</span>
 
 Modifiers, argument, and the value can be used at the same time when targeting multiple components.
 
