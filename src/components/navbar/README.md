@@ -330,7 +330,7 @@ Navbars are hidden by default when printing. Force them to be printed by setting
 - [`<b-sidebar>` component](/docs/components/sidebar)
 - [`v-b-toggle` directive](/docs/directives/toggle)
 - [`<b-nav>` documentation](/docs/components/nav) for additional components and sub-component
-  aliases.
+  aliases
 
 Refer to the [Router support](/docs/reference/router-links) reference page for router-link specific
 props.
