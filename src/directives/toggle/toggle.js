@@ -110,7 +110,7 @@ export const VBToggle = {
     el[BV_TOGGLE_TARGETS] = []
 
     // Toggle state handler
-    el[BV_TOGGLE] = toggleDirectiveHandler = (id, state) => {
+    el[BV_TOGGLE] = (id, state) => {
       // `state` will be true of target is expanded
       const targets = el[BV_TOGGLE_TARGETS] || []
       if (arrayIncludes(targets, id)) {
