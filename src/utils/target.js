@@ -36,9 +36,8 @@ export const getTargets = ({ modifiers, arg, value }) => {
 export const bindTargets = (vnode, binding, listenTypes = [], fn) => {
   const targets = getTargets(binding)
 
-  // to trigger adding EnTER/SPACe handlers
+  // To trigger adding ENTER/SPACE handlers
   const needsKeyDown = !arrayIncludes(['BUTTON', 'A'], vnode.elm.tagName)
-
   listenTypes = needsKeyDown ? listenTypes.push('keydown') : listenTypes
  
   const listener = evt => {
