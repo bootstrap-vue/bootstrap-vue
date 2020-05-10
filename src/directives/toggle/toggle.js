@@ -21,12 +21,14 @@ const allListenTypes = { click: true, keydown: true }
 
 // Property key for handler storage
 const BV_BASE = '__BV_toggle'
+// Root event listener property (Function)
 const BV_TOGGLE_ROOT_HANDLER = `${BV_BASE}_HANDLER__`
+// Trigger element click handler property (Function)
 const BV_TOGGLE_CLICK_HANDLER = `${BV_BASE}_CLICK__`
+// Target visibility state property (Boolean)
 const BV_TOGGLE_STATE = `${BV_BASE}_STATE__`
-const BV_TOGGLE_CONTROLS = `${BV_BASE}_CONTROLS__`
+// Target ID list property (Array)
 const BV_TOGGLE_TARGETS = `${BV_BASE}_TARGETS__`
-const BV_TOGGLE_LISTENERS = `${BV_BASE}_LISTENERS__`
 
 // Commonly used strings
 const STRING_FALSE = 'false'
@@ -75,7 +77,7 @@ const getTargets = ({ modifiers, arg, value }) => {
   return targets.filter((t, index, arr) => t && arr.indexOf(t) === index)
 }
 
-const removeListeners = el => {
+const removeClickListener = el => {
   const listener = el[BV_TOGGLE_CLICK_HANDLER]
   if (listener) {
     eventOff(el, 'click', listener)
@@ -84,60 +86,12 @@ const removeListeners = el => {
   el[BV_TOGGLE_CLICK_HANDLER] = null
 }
 
-/*
-const addListeners = (el, handler) => {
-  el[BV_TOGGLE_CLICK_HANDLER] = handler
+const addClickListener = (el, handler) => {
+  el[BV_TOGGLE_CLICK_HANDLER] = handler || () => {}
   eventOn(el, 'click', handler)
-  if (arrayIncludes(standardTags, el.tagName)) {
+  if (!arrayIncludes(standardTags, el.tagName)) {
     eventOn(el, 'keydown', handler)
   }
-}
-*/
-
-const bindTargets = (vnode, binding, listenTypes, fn) => {
-  const targets = getTargets(binding)
-
-  // To trigger adding ENTER/SPACE handlers
-  if (listenTypes.click && !arrayIncludes(standardTags, vnode.elm.tagName)) {
-    listenTypes = { ...listenTypes, keydown: true }
-  }
-
-  const listener = evt => {
-    const el = evt.currentTarget
-    const ignore = evt.type === 'keydown' && !arrayIncludes(keyDownEvents, evt.keyCode)
-    if (!evt.defaultPrevented && !ignore && !isDisabled(el)) {
-      fn({ targets, vnode, evt })
-    }
-  }
-
-  keys(allListenTypes).forEach(type => {
-    if (listenTypes[type]) {
-      eventOn(vnode.elm, type, listener)
-      const boundListeners = vnode.elm[BV_TOGGLE_LISTENERS] || {}
-      boundListeners[type] = boundListeners[type] || []
-      boundListeners[type].push(listener)
-      vnode.elm[BV_TOGGLE_LISTENERS] = boundListeners
-    }
-  })
-
-  // Return the list of targets
-  return targets
-}
-
-const unbindTargets = (vnode, binding, listenTypes) => {
-  if (listenTypes.click && !arrayIncludes(standardTags, vnode.elm.tagName)) {
-    listenTypes = { ...listenTypes, keydown: true }
-  }
-
-  keys(allListenTypes).forEach(type => {
-    if (listenTypes[type]) {
-      const boundListeners = vnode.elm[BV_TOGGLE_LISTENERS] && vnode.elm[BV_TOGGLE_LISTENERS][type]
-      if (boundListeners) {
-        boundListeners.forEach(listener => eventOff(vnode.elm, type, listener))
-        delete vnode.elm[BV_TOGGLE_LISTENERS][type]
-      }
-    }
-  })
 }
 
 const setToggleState = (el, state) => {
@@ -174,19 +128,30 @@ const handleUpdate = (el, binding, vnode) => {
     return
   }
 
+  // Parse list of target IDs
+  const targets = getTargets(binding)
+
   // If targets array has changed, reset stuff
-  if (!looseEqual(getTargets(binding), el[BV_TOGGLE_TARGETS])) {
-    unbindTargets(vnode, binding, listenTypes)
-    const targets = getTargets(binding)
-    bindTargets(vnode, binding, listenTypes, handleTargets)
-    // Update targets array to element
+  if (!looseEqual(targets, el[BV_TOGGLE_TARGETS])) {
+    // Remove any existing click handler
+    removeClickListener(el)
+    // Update targets array to element storage
     el[BV_TOGGLE_TARGETS] = targets
-    // Add aria attributes to element
-    el[BV_TOGGLE_CONTROLS] = targets.join(' ')
+    // Add a new click listener
+    addClickListener(el, evt => {
+      const el = evt.currentTarget
+      const targets = el[BV_TOGGLE_TARGETS] || []
+      const ignore = evt.type === 'keydown' && !arrayIncludes(keyDownEvents, evt.keyCode)
+      if (!evt.defaultPrevented && !ignore && !isDisabled(el)) {
+        targets.forEach(target => {
+          vnode.context.$root.$emit(EVENT_TOGGLE, target)
+        })
+      }
+    })
     // ensure aria-controls is up to date
     /* istanbul ignore else */
-    if (el[BV_TOGGLE_CONTROLS]) {
-      setAttr(el, ATTR_ARIA_CONTROLS, el[BV_TOGGLE_CONTROLS])
+    if (targets.length) {
+      setAttr(el, ATTR_ARIA_CONTROLS, targets.join(' '))
     } else {
       removeAttr(el, ATTR_ARIA_CONTROLS)
     }
@@ -224,7 +189,7 @@ export const VBToggle = {
     // Assume no targets initially
     el[BV_TOGGLE_TARGETS] = []
 
-    // Toggle state handler
+    // `$root` event handler
     el[BV_TOGGLE_ROOT_HANDLER] = (id, state) => {
       // `state` will be true of target is expanded
       const targets = el[BV_TOGGLE_TARGETS] || []
@@ -248,20 +213,18 @@ export const VBToggle = {
   },
   componentUpdated: handleUpdate,
   // updated: handleUpdate,
-  unbind(el, binding, vnode) /* istanbul ignore next */ {
-    unbindTargets(vnode, binding, listenTypes)
+  unbind(el, binding, vnode) {
+    removeClickListener(e)
     // Remove our $root listener
     if (el[BV_TOGGLE_ROOT_HANDLER]) {
       vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
       vnode.context.$root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE_ROOT_HANDLER])
     }
-    removeListeners(el)
     // Reset custom props
     resetProp(el, BV_TOGGLE_ROOT_HANDLER)
+    resetProp(el, BV_TOGGLE_CLICK_HANDLER)
     resetProp(el, BV_TOGGLE_STATE)
-    resetProp(el, BV_TOGGLE_CONTROLS)
     resetProp(el, BV_TOGGLE_TARGETS)
-    resetProp(el, BV_TOGGLE_LISTENERS)
     // Reset classes/attrs
     removeClass(el, CLASS_BV_TOGGLE_COLLAPSED)
     removeClass(el, CLASS_BV_TOGGLE_NOT_COLLAPSED)
