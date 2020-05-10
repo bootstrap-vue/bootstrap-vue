@@ -173,12 +173,14 @@ describe('mixins > attrs', () => {
     await wrapper2.setProps({ value1: 'foo' })
     expect($inputs2.at(0).vm.value).toBe('foo')
     expect($inputs2.at(1).vm.value).toBe(undefined)
+    // With `attrsMixin` only the affected `Input2` is re-rendered
     expect(input2RenderCount).toBe(3)
 
     // Update the value for the second `Input2`
     await wrapper2.setProps({ value2: 'bar' })
     expect($inputs2.at(0).vm.value).toBe('foo')
     expect($inputs2.at(1).vm.value).toBe('bar')
+    // With `attrsMixin` only the affected `Input2` is re-rendered
     expect(input2RenderCount).toBe(4)
 
     wrapper1.destroy()
