@@ -44,7 +44,6 @@ describe('v-b-toggle directive', () => {
 
     const $button = wrapper.find('button')
     await $button.trigger('click')
-    await waitNT(wrapper.vm)
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test')
     // Since there is no target collapse to respond with the
@@ -163,7 +162,7 @@ describe('v-b-toggle directive', () => {
       beforeDestroy() {
         this.$root.$off(EVENT_TOGGLE, spy)
       },
-      template: '<span tabindex="0" v-b-toggle.test>{{ text }}</span>'
+      template: '<span v-b-toggle.test>{{ text }}</span>'
     })
 
     const wrapper = mount(App, {
