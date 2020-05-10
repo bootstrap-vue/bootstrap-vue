@@ -34,7 +34,8 @@ export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
 // --- Helper methods ---
 
-const setTriggerState = (el, state) => {
+const setToggleState = (el, state) => {
+  // State refers to the visibility of the collapse/sidebar
   if (state) {
     removeClass(el, CLASS_VBTOGGLE_COLLAPSED)
     addClass(el, CLASS_VBTOGGLE_NOT_COLLAPSED)
@@ -86,7 +87,7 @@ const handleUpdate = (el, binding, vnode) => {
   // Ensure the collapse class and aria-* attributes persist
   // after element is updated (either by parent re-rendering
   // or changes to this element or its contents
-  setTriggerState(el, el[BV_TOGGLE_STATE])
+  setToggleState(el, el[BV_TOGGLE_STATE])
   setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
 }
 
@@ -104,20 +105,20 @@ export const VBToggle = {
       // State is initially collapsed until we receive a state event
       el[BV_TOGGLE_STATE] = false
       setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
-      setAttr(el, 'aria-expanded', 'false')
-      // If element is not a button, we add `role="button"` for accessibility
-      if (el.tagName !== 'BUTTON' && !hasAttr(el, 'role')) {
+      // If element is not a button or link, we add `role="button"` for accessibility
+      if (el.tagName !== 'BUTTON' && el.tagName !== 'A' && !hasAttr(el, 'role')) {
         setAttr(el, 'role', 'button')
       }
+      setToggleState(el, el[BV_TOGGLE_STATE])
 
       // Toggle state handler
       const toggleDirectiveHandler = (id, state) => {
         const targets = el[BV_TOGGLE_TARGETS] || []
         if (arrayIncludes(targets, id)) {
-          // Set/Clear 'collapsed' class state
+          // Set/Clear 'collapsed' visibility class state
           el[BV_TOGGLE_STATE] = state
           // Set aria-expanded and class state on trigger element
-          setTriggerState(el, state)
+          setToggleState(el, state)
         }
       }
 
