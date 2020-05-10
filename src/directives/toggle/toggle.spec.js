@@ -20,7 +20,7 @@ describe('v-b-toggle directive', () => {
       directives: {
         bToggle: VBToggle
       },
-      mounted() {
+      beforeMount() {
         this.$root.$on(EVENT_TOGGLE, spy)
       },
       beforeDestroy() {
