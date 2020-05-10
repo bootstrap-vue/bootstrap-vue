@@ -86,7 +86,7 @@ const removeClickListener = vnode => {
 }
 
 const addClickListener = vnode => {
-  removeClickHandler(vnode)
+  removeClickListener(vnode)
   if (vnode.context) {
     const el = vnode.elm
     const $root = vnode.context
