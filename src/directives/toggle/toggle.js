@@ -17,18 +17,21 @@ const CLASS_BV_TOGGLE_NOT_COLLAPSED = 'not-collapsed'
 
 // Target listen types
 const listenTypes = { click: true }
-const allListenTypes = { hover: true, click: true, focus: true, keydown: true }
+const allListenTypes = { click: true, keydown: true }
 
 // Property key for handler storage
-const BV_TOGGLE_HANDLER = '__BV_toggle_HANDLER__'
-const BV_TOGGLE_STATE = '__BV_toggle_STATE__'
-const BV_TOGGLE_CONTROLS = '__BV_toggle_CONTROLS__'
-const BV_TOGGLE_TARGETS = '__BV_toggle_TARGETS__'
-const BV_TOGGLE_LISTENERS = '__BV_toggle_LISTENERS__'
+const BV_BASE = '__BV_toggle'
+const BV_TOGGLE_HANDLER = `${BV_BASE}_HANDLER__`
+const BV_TOGGLE_STATE = `${BV_BASE}_STATE__`
+const BV_TOGGLE_CONTROLS = `${vBASE}_CONTROLS__`
+const BV_TOGGLE_TARGETS = `${BV_BASE}_TARGETS__`
+const BV_TOGGLE_LISTENERS = `${BV_BASE}_LISTENERS__`
 
 // Commonly used strings
 const STRING_FALSE = 'false'
 const STRING_TRUE = 'true'
+
+// Commonly used attribute names
 const ATTR_ARIA_CONTROLS = 'aria-controls'
 const ATTR_ARIA_EXPANDED = 'aria-expanded'
 const ATTR_ROLE = 'role'
@@ -57,7 +60,7 @@ const RX_SPLIT_SEPARATOR = /\s+/
 
 const getTargets = ({ modifiers, arg, value }) => {
   // Any modifiers are considered target IDs
-  const targets = keys(modifiers || {}).filter(t => !allListenTypes[t])
+  const targets = keys(modifiers || {}))
 
   // If value is a string, split out individual targets (if space delimited)
   value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
@@ -88,7 +91,7 @@ const bindTargets = (vnode, binding, listenTypes, fn) => {
   }
 
   keys(allListenTypes).forEach(type => {
-    if (listenTypes[type] || binding.modifiers[type]) {
+    if (listenTypes[type]) {
       eventOn(vnode.elm, type, listener)
       const boundListeners = vnode.elm[BV_TOGGLE_LISTENERS] || {}
       boundListeners[type] = boundListeners[type] || []
@@ -107,7 +110,7 @@ const unbindTargets = (vnode, binding, listenTypes) => {
   }
 
   keys(allListenTypes).forEach(type => {
-    if (listenTypes[type] || binding.modifiers[type]) {
+    if (listenTypes[type]) {
       const boundListeners = vnode.elm[BV_TOGGLE_LISTENERS] && vnode.elm[BV_TOGGLE_LISTENERS][type]
       if (boundListeners) {
         boundListeners.forEach(listener => eventOff(vnode.elm, type, listener))
@@ -196,6 +199,7 @@ export const VBToggle = {
   bind(el, binding, vnode) {
     // State is initially collapsed until we receive a state event
     el[BV_TOGGLE_STATE] = false
+    // Assume no targets initially
     el[BV_TOGGLE_TARGETS] = []
 
     // Toggle state handler
@@ -221,7 +225,7 @@ export const VBToggle = {
     handleUpdate(el, binding, vnode)
   },
   componentUpdated: handleUpdate,
-  updated: handleUpdate,
+  // updated: handleUpdate,
   unbind(el, binding, vnode) /* istanbul ignore next */ {
     unbindTargets(vnode, binding, listenTypes)
     // Remove our $root listener
