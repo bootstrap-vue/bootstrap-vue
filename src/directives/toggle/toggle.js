@@ -89,9 +89,15 @@ const handleUpdate = (el, binding, vnode) => {
     })
   }
 
-  // If element is not a button or link, we add `role="button"` for accessibility
-  if (el.tagName !== 'BUTTON' && el.tagName !== 'A' && !hasAttr(el, 'role')) {
-    setAttr(el, 'role', 'button')
+  // If element is not a button or link, we add `role="button"`
+  // and `tabindex="0"` for accessibility reasons
+  if (el.tagName !== 'BUTTON' && el.tagName !== 'A') {
+    if (!hasAttr(el, 'role')) {
+      setAttr(el, 'role', 'button')
+    }
+    if (!hasAttr(el, 'tabindex')) {
+      setAttr(el, 'tabindex', '0')
+    }
   }
 
   // Ensure the collapse class and aria-* attributes persist
