@@ -33,12 +33,13 @@ export const getTargets = ({ modifiers, arg, value }) => {
   return targets.filter((t, index, arr) => t && arr.indexOf(t) === index)
 }
 
-export const bindTargets = (vnode, binding, listenTypes = [], fn) => {
+export const bindTargets = (vnode, binding, listenTypes, fn) => {
   const targets = getTargets(binding)
 
   // To trigger adding ENTER/SPACE handlers
-  const needsKeyDown = !arrayIncludes(standardTags, vnode.elm.tagName)
-  listenTypes = needsKeyDown ? listenTypes.push('keydown') : listenTypes
+  if (listenTypes.click && !arrayIncludes(standardTags, vnode.elm.tagName)) {
+    listenTypes.keydown = true
+  }
 
   const listener = evt => {
     const el = evt.currentTarget
@@ -63,8 +64,9 @@ export const bindTargets = (vnode, binding, listenTypes = [], fn) => {
 }
 
 export const unbindTargets = (vnode, binding, listenTypes) => {
-  const needsKeyDown = !arrayIncludes(standardTags, vnode.elm.tagName)
-  listenTypes = needsKeyDown ? listenTypes.push('keydown') : listenTypes
+  if (listenTpes.click && !arrayIncludes(standardTags, vnode.elm.tagName)) {
+    listenTypes.keydown = true
+  }
 
   keys(allListenTypes).forEach(type => {
     if (listenTypes[type] || binding.modifiers[type]) {
