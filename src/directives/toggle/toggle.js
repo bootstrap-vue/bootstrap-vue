@@ -1,23 +1,38 @@
+import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
-import { arrayIncludes } from '../../utils/array'
-import { addClass, hasAttr, removeAttr, removeClass, setAttr } from '../../utils/dom'
+import { arrayIncludes, concat } from '../../utils/array'
+import { addClass, hasAttr, isDisabled, removeAttr, removeClass, setAttr } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
-import { bindTargets, getTargets, unbindTargets } from '../../utils/target'
+import { eventOn, eventOff } from '../..//utils/events'
+import { isString } from '../..//utils/inspect'
+import { keys } from '../../utils/object'
 
 // --- Constants ---
 
+const { ENTER, SPACE } = KeyCodes
+
 // Classes to apply to trigger element
-const CLASS_VBTOGGLE_COLLAPSED = 'collapsed'
-const CLASS_VBTOGGLE_NOT_COLLAPSED = 'not-collapsed'
+const CLASS_BV_TOGGLE_COLLAPSED = 'collapsed'
+const CLASS_BV_TOGGLE_NOT_COLLAPSED = 'not-collapsed'
 
 // Target listen types
 const listenTypes = { click: true }
+const allListenTypes = { hover: true, click: true, focus: true, keydown: true }
 
 // Property key for handler storage
-const BV_TOGGLE = '__BV_toggle__'
+const BV_TOGGLE_HANDLER = '__BV_toggle_HANDLER__'
 const BV_TOGGLE_STATE = '__BV_toggle_STATE__'
 const BV_TOGGLE_CONTROLS = '__BV_toggle_CONTROLS__'
 const BV_TOGGLE_TARGETS = '__BV_toggle_TARGETS__'
+const BV_TOGGLE_LISTENERS = '__BV_toggle_LISTENERS__'
+
+// Commonly used strings
+const STRING_FALSE = 'false'
+const STRING_TRUE = 'true'
+const ATTR_ARIA_CONTROLS = 'aria-controls'
+const ATTR_ARIA_EXPANDED = 'aria-expanded'
+const ATTR_ROLE = 'role'
+const ATTR_TABINDEX = 'tabindex'
 
 // Emitted control event for collapse (emitted to collapse)
 export const EVENT_TOGGLE = 'bv::toggle::collapse'
@@ -32,18 +47,86 @@ export const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // Private event we send to collapse to request state update sync event
 export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
+const keyDownEvents = [ENTER, SPACE]
+
+const standardTags = ['BUTTON', 'A']
+
+const RX_SPLIT_SEPARATOR = /\s+/
+
 // --- Helper methods ---
+
+const getTargets = ({ modifiers, arg, value }) => {
+  // Any modifiers are considered target IDs
+  const targets = keys(modifiers || {}).filter(t => !allListenTypes[t])
+
+  // If value is a string, split out individual targets (if space delimited)
+  value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
+
+  // Add ID from `arg` (if provided), and support value
+  // as a single string ID or an array of string IDs
+  // If `value` is not an array or string, then it gets filtered out
+  concat(arg, value).forEach(t => isString(t) && targets.push(t))
+
+  // Return only unique and truthy target IDs
+  return targets.filter((t, index, arr) => t && arr.indexOf(t) === index)
+}
+
+const bindTargets = (vnode, binding, listenTypes, fn) => {
+  const targets = getTargets(binding)
+
+  // To trigger adding ENTER/SPACE handlers
+  if (listenTypes.click && !arrayIncludes(standardTags, vnode.elm.tagName)) {
+    listenTypes.keydown = true
+  }
+
+  const listener = evt => {
+    const el = evt.currentTarget
+    const ignore = evt.type === 'keydown' && !arrayIncludes(keyDownEvents, evt.keyCode)
+    if (!evt.defaultPrevented && !ignore && !isDisabled(el)) {
+      fn({ targets, vnode, evt })
+    }
+  }
+
+  keys(allListenTypes).forEach(type => {
+    if (listenTypes[type] || binding.modifiers[type]) {
+      eventOn(vnode.elm, type, listener)
+      const boundListeners = vnode.elm[BV_TOGGLE_LISTENERS] || {}
+      boundListeners[type] = boundListeners[type] || []
+      boundListeners[type].push(listener)
+      vnode.elm[BV_TOGGLE_LISTENERS] = boundListeners
+    }
+  })
+
+  // Return the list of targets
+  return targets
+}
+
+const unbindTargets = (vnode, binding, listenTypes) => {
+  if (listenTypes.click && !arrayIncludes(standardTags, vnode.elm.tagName)) {
+    listenTypes.keydown = true
+  }
+
+  keys(allListenTypes).forEach(type => {
+    if (listenTypes[type] || binding.modifiers[type]) {
+      const boundListeners = vnode.elm[BV_TOGGLE_LISTENERS] && vnode.elm[BV_TOGGLE_LISTENERS][type]
+      if (boundListeners) {
+        boundListeners.forEach(listener => eventOff(vnode.elm, type, listener))
+        delete vnode.elm[BV_TOGGLE_LISTENERS][type]
+      }
+    }
+  })
+}
 
 const setToggleState = (el, state) => {
   // State refers to the visibility of the collapse/sidebar
   if (state) {
-    removeClass(el, CLASS_VBTOGGLE_COLLAPSED)
-    addClass(el, CLASS_VBTOGGLE_NOT_COLLAPSED)
-    setAttr(el, 'aria-expanded', 'true')
+    removeClass(el, CLASS_BV_TOGGLE_COLLAPSED)
+    addClass(el, CLASS_BV_TOGGLE_NOT_COLLAPSED)
+    setAttr(el, ATTR_ARIA_EXPANDED, STRING_TRUE)
   } else {
-    removeClass(el, CLASS_VBTOGGLE_NOT_COLLAPSED)
-    addClass(el, CLASS_VBTOGGLE_COLLAPSED)
-    setAttr(el, 'aria-expanded', 'false')
+    removeClass(el, CLASS_BV_TOGGLE_NOT_COLLAPSED)
+    addClass(el, CLASS_BV_TOGGLE_COLLAPSED)
+    setAttr(el, ATTR_ARIA_EXPANDED, STRING_FALSE)
   }
 }
 
@@ -78,9 +161,9 @@ const handleUpdate = (el, binding, vnode) => {
     // ensure aria-controls is up to date
     /* istanbul ignore else */
     if (el[BV_TOGGLE_CONTROLS]) {
-      setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
+      setAttr(el, ATTR_ARIA_CONTROLS, el[BV_TOGGLE_CONTROLS])
     } else {
-      removeAttr(el, 'aria-controls')
+      removeAttr(el, ATTR_ARIA_CONTROLS)
     }
     // Request a state update from targets so that we can ensure
     // expanded state is correct
@@ -91,12 +174,12 @@ const handleUpdate = (el, binding, vnode) => {
 
   // If element is not a button or link, we add `role="button"`
   // and `tabindex="0"` for accessibility reasons
-  if (el.tagName !== 'BUTTON' && el.tagName !== 'A') {
-    if (!hasAttr(el, 'role')) {
-      setAttr(el, 'role', 'button')
+  if (!arrayIncludes(standardTags, el.tagName)) {
+    if (!hasAttr(el, ATTR_ROLE)) {
+      setAttr(el, ATTR_ROLE, 'button')
     }
-    if (!hasAttr(el, 'tabindex')) {
-      setAttr(el, 'tabindex', '0')
+    if (!hasAttr(el, ATTR_TABINDEX)) {
+      setAttr(el, ATTR_TABINDEX, '0')
     }
   }
 
@@ -116,7 +199,7 @@ export const VBToggle = {
     el[BV_TOGGLE_TARGETS] = []
 
     // Toggle state handler
-    el[BV_TOGGLE] = (id, state) => {
+    el[BV_TOGGLE_HANDLER] = (id, state) => {
       // `state` will be true of target is expanded
       const targets = el[BV_TOGGLE_TARGETS] || []
       if (arrayIncludes(targets, id)) {
@@ -129,9 +212,9 @@ export const VBToggle = {
 
     if (vnode.context) {
       // Listen for toggle state changes (public)
-      vnode.context.$root.$on(EVENT_STATE, el[BV_TOGGLE])
+      vnode.context.$root.$on(EVENT_STATE, el[BV_TOGGLE_HANDLER])
       // Listen for toggle state sync (private)
-      vnode.context.$root.$on(EVENT_STATE_SYNC, el[BV_TOGGLE])
+      vnode.context.$root.$on(EVENT_STATE_SYNC, el[BV_TOGGLE_HANDLER])
     }
 
     // Initial update of trigger
@@ -142,20 +225,20 @@ export const VBToggle = {
   unbind(el, binding, vnode) /* istanbul ignore next */ {
     unbindTargets(vnode, binding, listenTypes)
     // Remove our $root listener
-    if (el[BV_TOGGLE]) {
-      vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE])
-      vnode.context.$root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE])
+    if (el[BV_TOGGLE_HANDLER]) {
+      vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE_HANDLER])
+      vnode.context.$root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE_HANDLER])
     }
-    // Reset custom  props
-    resetProp(el, BV_TOGGLE)
+    // Reset custom props
+    resetProp(el, BV_TOGGLE_HANDLER)
     resetProp(el, BV_TOGGLE_STATE)
     resetProp(el, BV_TOGGLE_CONTROLS)
     resetProp(el, BV_TOGGLE_TARGETS)
     // Reset classes/attrs
-    removeClass(el, 'collapsed')
-    removeClass(el, 'not-collapsed')
-    removeAttr(el, 'aria-expanded')
-    removeAttr(el, 'aria-controls')
-    removeAttr(el, 'role')
+    removeClass(el, CLASS_BV_TOGGLE_COLLAPSED)
+    removeClass(el, CLASS_BV_TOGGLE_NOT_COLLAPSED)
+    removeAttr(el, ATTR_ARIA_EXPANDED)
+    removeAttr(el, ATTR_ARIA_CONTROLS)
+    removeAttr(el, ATTR_ROLE)
   }
 }
