@@ -158,7 +158,7 @@ const handleUpdate = (el, binding, vnode) => {
   if (!looseEqual(getTargets(binding), el[BV_TOGGLE_TARGETS])) {
     unbindTargets(vnode, binding, listenTypes)
     const targets = getTargets(vnode, bindings, handleTargets)
-    bindTargets(vnode, binding,, listenTypes, handleTargets)
+    bindTargets(vnode, binding, listenTypes, handleTargets)
     // Update targets array to element
     el[BV_TOGGLE_TARGETS] = targets
     // Add aria attributes to element
