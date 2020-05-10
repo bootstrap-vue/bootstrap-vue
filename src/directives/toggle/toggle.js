@@ -84,13 +84,15 @@ const removeListeners = el => {
   el[BV_TOGGLE_CLICK_HANDLER] = null
 }
 
+/*
 const addListeners = (el, handler) => {
   el[BV_TOGGLE_CLICK_HANDLER] = handler
   eventOn(el, 'click', handler)
-  if(arrayIncludes(standardTags, el.tagName)) {
+  if (arrayIncludes(standardTags, el.tagName)) {
     eventOn(el, 'keydown', handler)
   }
 }
+*/
 
 const bindTargets = (vnode, binding, listenTypes, fn) => {
   const targets = getTargets(binding)
