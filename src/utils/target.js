@@ -5,6 +5,10 @@ import { isString } from './inspect'
 import { keys } from './object'
 import KeyCodes from './key-codes'
 
+// TODO:
+//  Since this utility is now only user by `v-b-toggle` directive, the
+//  logic here could be simplified and moved to be within `v-b-toggle`
+
 const { ENTER, SPACE } = KeyCodes
 
 const keyDownEvents = [ENTER, SPACE]
