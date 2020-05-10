@@ -157,7 +157,7 @@ const handleUpdate = (el, binding, vnode) => {
   // If targets array has changed, reset stuff
   if (!looseEqual(getTargets(binding), el[BV_TOGGLE_TARGETS])) {
     unbindTargets(vnode, binding, listenTypes)
-    const targets = getTargets(vnode, binding, handleTargets)
+    const targets = getTargets(binding)
     bindTargets(vnode, binding, listenTypes, handleTargets)
     // Update targets array to element
     el[BV_TOGGLE_TARGETS] = targets
