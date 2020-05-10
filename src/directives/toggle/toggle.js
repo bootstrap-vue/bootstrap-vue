@@ -229,7 +229,7 @@ export const VBToggle = {
   componentUpdated: handleUpdate,
   // updated: handleUpdate,
   unbind(el, binding, vnode) /* istanbul ignore next */ {
-    unbindTargets(vnode, binding)
+    unbindTargets(vnode, binding, listenTypes)
     // Remove our $root listener
     if (el[BV_TOGGLE_ROOT_HANDLER]) {
       vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
