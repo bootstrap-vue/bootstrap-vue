@@ -60,7 +60,7 @@ const RX_SPLIT_SEPARATOR = /\s+/
 
 const getTargets = ({ modifiers, arg, value }) => {
   // Any modifiers are considered target IDs
-  const targets = keys(modifiers || {}))
+  const targets = keys(modifiers || {})
 
   // If value is a string, split out individual targets (if space delimited)
   value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
