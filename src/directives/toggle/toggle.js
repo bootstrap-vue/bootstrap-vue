@@ -253,6 +253,7 @@ export const VBToggle = {
       vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
       vnode.context.$root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE_ROOT_HANDLER])
     }
+    removeListeners(el)
     // Reset custom props
     resetProp(el, BV_TOGGLE_ROOT_HANDLER)
     resetProp(el, BV_TOGGLE_STATE)
