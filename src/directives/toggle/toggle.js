@@ -1,5 +1,5 @@
 import looseEqual from '../../utils/loose-equal'
-import { arrayIncludes } from '../../utils/array'
+import { arrayIncludes, concat } from '../../utils/array'
 import { addClass, hasAttr, removeAttr, removeClass, setAttr } from '../../utils/dom'
 import { isString } from '../../utils/inspect'
 import { isBrowser } from '../../utils/env'
@@ -157,9 +157,9 @@ export const VBToggle = {
 
     if (vnode.context) {
       // Listen for toggle state changes (public)
-      vnode.context.$root.$on(EVENT_STATE, el[BV_TOGGLE])
+      vnode.context.$root.$on(EVENT_STATE, el[BV_TOGGLE_HANDLER])
       // Listen for toggle state sync (private)
-      vnode.context.$root.$on(EVENT_STATE_SYNC, el[BV_TOGGLE])
+      vnode.context.$root.$on(EVENT_STATE_SYNC, el[BV_TOGGLE_HANDLER])
     }
 
     // Initial update of trigger
