@@ -22,6 +22,7 @@ const allListenTypes = { click: true, keydown: true }
 // Property key for handler storage
 const BV_BASE = '__BV_toggle'
 const BV_TOGGLE_ROOT_HANDLER = `${BV_BASE}_HANDLER__`
+const BV_TOGGLE_CLICK_HANDLER = `${BV_BASE}_CLICK__`
 const BV_TOGGLE_STATE = `${BV_BASE}_STATE__`
 const BV_TOGGLE_CONTROLS = `${BV_BASE}_CONTROLS__`
 const BV_TOGGLE_TARGETS = `${BV_BASE}_TARGETS__`
@@ -72,6 +73,23 @@ const getTargets = ({ modifiers, arg, value }) => {
 
   // Return only unique and truthy target IDs
   return targets.filter((t, index, arr) => t && arr.indexOf(t) === index)
+}
+
+const removeListeners = el => {
+  const listener = el[BV_TOGGLE_CLICK_HANDLER]
+  if (listener) {
+    eventOff(el, 'click', listener)
+    eventOff(el, 'keydown', listener)
+  }
+  el[BV_TOGGLE_CLICK_HANDLER] = null
+}
+
+const addListeners = (el, handler) => {
+  el[BV_TOGGLE_CLICK_HANDLER] = handler
+  eventOn(el, 'click', handler)
+  if(arrayIncludes(standardTags, el.tagName)) {
+    eventOn(el, 'keydown', handler)
+  }
 }
 
 const bindTargets = (vnode, binding, listenTypes, fn) => {
