@@ -80,8 +80,8 @@ describe('v-b-toggle directive', () => {
     expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('button').classes()).not.toContain('collapsed')
-    expect(wrapper.find('button').classes()).toContain('not-collapsed')
+    expect(wrapper.find('button').classes()).toContain('collapsed')
+    expect(wrapper.find('button').classes()).not.toContain('not-collapsed')
     expect(spy).not.toHaveBeenCalled()
 
     const $button = wrapper.find('button')
@@ -92,8 +92,8 @@ describe('v-b-toggle directive', () => {
     // current state, the classes and attrs remain the same
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('button').classes()).not.toContain('collapsed')
-    expect(wrapper.find('button').classes()).toContain('not-collapsed')
+    expect(wrapper.find('button').classes()).toContain('collapsed')
+    expect(wrapper.find('button').classes()).not.toContain('not-collapsed')
 
     wrapper.destroy()
   })
@@ -123,8 +123,8 @@ describe('v-b-toggle directive', () => {
     expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('button').classes()).not.toContain('collapsed')
-    expect(wrapper.find('button').classes()).toContain('not-collapsed')
+    expect(wrapper.find('button').classes()).toContain('collapsed')
+    expect(wrapper.find('button').classes()).not.toContain('not-collapsed')
     expect(spy).not.toHaveBeenCalled()
 
     const $button = wrapper.find('button')
@@ -135,8 +135,8 @@ describe('v-b-toggle directive', () => {
     // current state, the classes and attrs remain the same
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('button').classes()).not.toContain('collapsed')
-    expect(wrapper.find('button').classes()).toContain('not-collapsed')
+    expect(wrapper.find('button').classes()).toContain('collapsed')
+    expect(wrapper.find('button').classes()).not.toContain('not-collapsed')
 
     wrapper.destroy()
   })
@@ -173,8 +173,8 @@ describe('v-b-toggle directive', () => {
     expect(wrapper.find('span').attributes('role')).toBe('button')
     expect(wrapper.find('span').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('span').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('span').classes()).not.toContain('collapsed')
-    expect(wrapper.find('span').classes()).toContain('not-collapsed')
+    expect(wrapper.find('span').classes()).toContain('collapsed')
+    expect(wrapper.find('span').classes()).not.toContain('not-collapsed')
     expect(wrapper.find('span').text()).toBe('span')
 
     const $span = wrapper.find('span')
@@ -186,8 +186,8 @@ describe('v-b-toggle directive', () => {
     // current state, the classes and attrs remain the same
     expect(wrapper.find('span').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('span').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('span').classes()).not.toContain('collapsed')
-    expect(wrapper.find('span').classes()).toContain('not-collapsed')
+    expect(wrapper.find('span').classes()).toContain('collapsed')
+    expect(wrapper.find('span').classes()).not.toContain('not-collapsed')
 
     // Test updating component. should maintain role attribute
     await wrapper.setData({
@@ -199,8 +199,8 @@ describe('v-b-toggle directive', () => {
     // current state, the classes and attrs remain the same
     expect(wrapper.find('span').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('span').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('span').classes()).not.toContain('collapsed')
-    expect(wrapper.find('span').classes()).toContain('not-collapsed')
+    expect(wrapper.find('span').classes()).toContain('collapsed')
+    expect(wrapper.find('span').classes()).not.toContain('not-collapsed')
 
     wrapper.destroy()
   })
@@ -223,8 +223,8 @@ describe('v-b-toggle directive', () => {
     expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('button').classes()).not.toContain('collapsed')
-    expect(wrapper.find('button').classes()).toContain('not-collapsed')
+    expect(wrapper.find('button').classes()).toContain('collapsed')
+    expect(wrapper.find('button').classes()).not.toContain('not-collapsed')
 
     const $root = wrapper.vm.$root
 
@@ -249,8 +249,8 @@ describe('v-b-toggle directive', () => {
 
     expect(wrapper.find('button').attributes('aria-controls')).toBe('test')
     expect(wrapper.find('button').attributes('aria-expanded')).toBe('false')
-    expect(wrapper.find('button').classes()).not.toContain('collapsed')
-    expect(wrapper.find('button').classes()).toContain('not-collapsed')
+    expect(wrapper.find('button').classes()).toContain('collapsed')
+    expect(wrapper.find('button').classes()).not.toContain('not-collapsed')
 
     wrapper.destroy()
   })
