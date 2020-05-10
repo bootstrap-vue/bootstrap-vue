@@ -1,4 +1,4 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
 import { VBToggle } from './toggle'
 
@@ -13,14 +13,14 @@ const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 
 describe('v-b-toggle directive', () => {
   it('works on buttons', async () => {
-    const localVue = new CreateLocalVue()
+    const localVue = createLocalVue()
     const spy = jest.fn()
 
     const App = localVue.extend({
       directives: {
         bToggle: VBToggle
       },
-      mounted() {
+      created() {
         this.$root.$on(EVENT_TOGGLE, spy)
       },
       beforeDestroy() {
@@ -59,7 +59,7 @@ describe('v-b-toggle directive', () => {
   })
 
   it('works on passing ID as directive value', async () => {
-    const localVue = new CreateLocalVue()
+    const localVue = createLocalVue()
     const spy = jest.fn()
 
     const App = localVue.extend({
@@ -102,7 +102,7 @@ describe('v-b-toggle directive', () => {
   })
 
   it('works on passing ID as directive argument', async () => {
-    const localVue = new CreateLocalVue()
+    const localVue = createLocalVue()
     const spy = jest.fn()
 
     const App = localVue.extend({
@@ -145,7 +145,7 @@ describe('v-b-toggle directive', () => {
   })
 
   it('works on non-buttons', async () => {
-    const localVue = new CreateLocalVue()
+    const localVue = createLocalVue()
     const spy = jest.fn()
 
     const App = localVue.extend({
@@ -238,7 +238,7 @@ describe('v-b-toggle directive', () => {
   })
 
   it('responds to state update events', async () => {
-    const localVue = new CreateLocalVue()
+    const localVue = createLocalVue()
 
     const App = localVue.extend({
       directives: {
@@ -288,7 +288,7 @@ describe('v-b-toggle directive', () => {
   })
 
   it('responds to private sync state update events', async () => {
-    const localVue = new CreateLocalVue()
+    const localVue = createLocalVue()
 
     const App = localVue.extend({
       directives: {
