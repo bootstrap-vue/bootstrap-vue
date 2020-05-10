@@ -238,6 +238,7 @@ export const VBToggle = {
     resetProp(el, BV_TOGGLE_STATE)
     resetProp(el, BV_TOGGLE_CONTROLS)
     resetProp(el, BV_TOGGLE_TARGETS)
+    resetProp(el, BV_TOGGLE_LISTENERS)
     // Reset classes/attrs
     removeClass(el, CLASS_BV_TOGGLE_COLLAPSED)
     removeClass(el, CLASS_BV_TOGGLE_NOT_COLLAPSED)
