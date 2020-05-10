@@ -63,7 +63,7 @@ const handleTargets = ({ targets, vnode }) => {
 // Handle directive updates
 /* istanbul ignore next: not easy to test */
 const handleUpdate = (el, binding, vnode) => {
-  if (!isBrowser) {
+  if (!isBrowser || !vnode.context) {
     return
   }
 
@@ -76,7 +76,12 @@ const handleUpdate = (el, binding, vnode) => {
     // Add aria attributes to element
     el[BV_TOGGLE_CONTROLS] = targets.join(' ')
     // ensure aria-controls is up to date
-    setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
+    /* istanbul ignore else */
+    if (el[BV_TOGGLE_CONTROLS]) {
+      setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
+    } else {
+      removeAttr(el, 'aria-controls')
+    }
     // Request a state update from targets so that we can ensure
     // expanded state is correct
     targets.forEach(target => {
@@ -84,11 +89,15 @@ const handleUpdate = (el, binding, vnode) => {
     })
   }
 
+  // If element is not a button or link, we add `role="button"` for accessibility
+  if (el.tagName !== 'BUTTON' && el.tagName !== 'A' && !hasAttr(el, 'role')) {
+    setAttr(el, 'role', 'button')
+  }
+
   // Ensure the collapse class and aria-* attributes persist
   // after element is updated (either by parent re-rendering
-  // or changes to this element or its contents
+  // or changes to this element or its contents)
   setToggleState(el, el[BV_TOGGLE_STATE])
-  setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
 }
 
 /*
@@ -96,40 +105,31 @@ const handleUpdate = (el, binding, vnode) => {
  */
 export const VBToggle = {
   bind(el, binding, vnode) {
-    const targets = bindTargets(vnode, binding, listenTypes, handleTargets)
-    if (isBrowser && vnode.context && targets.length > 0) {
-      // Add targets array to element
-      el[BV_TOGGLE_TARGETS] = targets
-      // Add aria attributes to element
-      el[BV_TOGGLE_CONTROLS] = targets.join(' ')
-      // State is initially collapsed until we receive a state event
-      el[BV_TOGGLE_STATE] = false
-      setAttr(el, 'aria-controls', el[BV_TOGGLE_CONTROLS])
-      // If element is not a button or link, we add `role="button"` for accessibility
-      if (el.tagName !== 'BUTTON' && el.tagName !== 'A' && !hasAttr(el, 'role')) {
-        setAttr(el, 'role', 'button')
+    // State is initially collapsed until we receive a state event
+    el[BV_TOGGLE_STATE] = false
+    el[BV_TOGGLE_TARGETS] = []
+
+    // Toggle state handler
+    el[BV_TOGGLE] = toggleDirectiveHandler = (id, state) => {
+      // `state` will be true of target is expanded
+      const targets = el[BV_TOGGLE_TARGETS] || []
+      if (arrayIncludes(targets, id)) {
+        // Set/Clear 'collapsed' visibility class state
+        el[BV_TOGGLE_STATE] = state
+        // Set aria-expanded and class state on trigger element
+        setToggleState(el, state)
       }
-      setToggleState(el, el[BV_TOGGLE_STATE])
+    }
 
-      // Toggle state handler
-      const toggleDirectiveHandler = (id, state) => {
-        const targets = el[BV_TOGGLE_TARGETS] || []
-        if (arrayIncludes(targets, id)) {
-          // Set/Clear 'collapsed' visibility class state
-          el[BV_TOGGLE_STATE] = state
-          // Set aria-expanded and class state on trigger element
-          setToggleState(el, state)
-        }
-      }
-
-      // Store the toggle handler on the element
-      el[BV_TOGGLE] = toggleDirectiveHandler
-
+    if (vnode.context) {
       // Listen for toggle state changes (public)
       vnode.context.$root.$on(EVENT_STATE, el[BV_TOGGLE])
       // Listen for toggle state sync (private)
       vnode.context.$root.$on(EVENT_STATE_SYNC, el[BV_TOGGLE])
     }
+
+    // Initial update of trigger
+    handleUpdate(el, binding, vnode)
   },
   componentUpdated: handleUpdate,
   updated: handleUpdate,
