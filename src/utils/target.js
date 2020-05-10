@@ -64,7 +64,7 @@ export const bindTargets = (vnode, binding, listenTypes, fn) => {
 }
 
 export const unbindTargets = (vnode, binding, listenTypes) => {
-  if (listenTpes.click && !arrayIncludes(standardTags, vnode.elm.tagName)) {
+  if (listenTypes.click && !arrayIncludes(standardTags, vnode.elm.tagName)) {
     listenTypes.keydown = true
   }
 
