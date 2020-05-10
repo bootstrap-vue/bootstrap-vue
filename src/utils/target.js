@@ -1,5 +1,5 @@
 import { arrayIncludes, concat } from './array'
-import { hasClass } from './dom'
+import { isDisabled } from './dom'
 import { eventOn, eventOff } from './events'
 import { isString } from './inspect'
 import { keys } from './object'
@@ -48,7 +48,7 @@ export const bindTargets = (vnode, binding, listenTypes, fn) => {
   const listener = evt => {
     const el = evt.currentTarget
     const ignore = evt.type === 'keydown' && !arrayIncludes(keyDownEvents, evt.keyCode)
-    if (!evt.defaultPrevented && !ignore && !el.disabled && !hasClass(el, 'disabled')) {
+    if (!evt.defaultPrevented && !ignore && !isDisabled(el)) {
       fn({ targets, vnode, evt })
     }
   }
