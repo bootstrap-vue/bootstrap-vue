@@ -3,8 +3,15 @@ import { hasClass } from './dom'
 import { eventOn, eventOff } from './events'
 import { isString } from './inspect'
 import { keys } from './object'
+import KeyCodes from './key-codes'
 
-const allListenTypes = { hover: true, click: true, focus: true }
+const { ENTER, SPACE } = KeyCodes
+
+const keyDownEvents = [ENTER, SPACE]
+
+const nonStdTags = ['BUTTON', 'A']
+
+const allListenTypes = { hover: true, click: true, focus: true, keydown: true }
 
 const BVBoundListeners = '__BV_boundEventListeners__'
 
@@ -26,12 +33,18 @@ export const getTargets = ({ modifiers, arg, value }) => {
   return targets.filter((t, index, arr) => t && arr.indexOf(t) === index)
 }
 
-export const bindTargets = (vnode, binding, listenTypes, fn) => {
+export const bindTargets = (vnode, binding, listenTypes = [], fn) => {
   const targets = getTargets(binding)
 
+  // to trigger adding EnTER/SPACe handlers
+  const needsKeyDown = !arrayIncludes(['BUTTON', 'A'], vnode.elm.tagName)
+
+  listenTypes = needsKeyDown ? listenTypes.push('keydown') : listenTypes
+ 
   const listener = evt => {
     const el = evt.currentTarget
-    if (!evt.defaultPrevented && !el.disabled && !hasClass(el, 'disabled')) {
+    const ignore = evt.type === 'keydown' && !arrayIncludes(keyDownEvents, evt.keyCode)
+    if (!evt.defaultPrevented && !ignore && !el.disabled && !hasClass(el, 'disabled')) {
       fn({ targets, vnode, evt })
     }
   }
@@ -51,6 +64,9 @@ export const bindTargets = (vnode, binding, listenTypes, fn) => {
 }
 
 export const unbindTargets = (vnode, binding, listenTypes) => {
+  const needsKeyDown = !arrayIncludes(['BUTTON', 'A'], vnode.elm.tagName)
+  listenTypes = needsKeyDown ? listenTypes.push('keydown') : listenTypes
+
   keys(allListenTypes).forEach(type => {
     if (listenTypes[type] || binding.modifiers[type]) {
       const boundListeners = vnode.elm[BVBoundListeners] && vnode.elm[BVBoundListeners][type]
