@@ -1,4 +1,5 @@
 import { concat } from './array'
+import { hasClass } from './dom'
 import { eventOn, eventOff } from './events'
 import { isString } from './inspect'
 import { keys } from './object'
@@ -29,7 +30,8 @@ export const bindTargets = (vnode, binding, listenTypes, fn) => {
   const targets = getTargets(binding)
 
   const listener = evt => {
-    if (!evt.defaultPrevented) {
+    const el = evt.currentTarget
+    if (!evt.defaultPrevented && !el.disabled && !hasClass(el, 'disabled')) {
       fn({ targets, vnode, evt })
     }
   }
