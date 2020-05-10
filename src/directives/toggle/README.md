@@ -18,9 +18,10 @@ details and caveats.
 
 The directive is applied to the element or component that triggers the visibility of hte target. The
 target component can be specified (via its ID) as either a directive modifier(s), the directive
-argument, or as a string passed to as the directive value:
+argument, or as a string/array passed to as the directive value:
 
-- `v-b-toggle.my-collapse` - the directive modifier (multiple targets allowed, each ID is a modifier)
+- `v-b-toggle.my-collapse` - the directive modifier (multiple targets allowed, each modifier is a
+  target ID)
 - `v-b-toggle:my-collapse` - the directive argument
   ([Vue dynamic argument](https://vuejs.org/v2/guide/syntax.html#Dynamic-Arguments) is supported)
   <span class="badge badge-info small">v2.14.0+</span>
@@ -30,7 +31,7 @@ argument, or as a string passed to as the directive value:
 - `v-b-toggle="['my-collapse1', 'my-collapse2']"` - the directive value as an array of string IDs
   <span class="badge badge-info small">v2.14.0+</span>
 
-Modifiers, argument, and the value can be used at the same time when targetting multie components.
+Modifiers, argument, and the value can be used at the same time when targetting multiple components.
 
 ### Example usage
 
@@ -60,6 +61,34 @@ Modifiers, argument, and the value can be used at the same time when targetting 
 <!-- v-b-toggle-directive.vue -->
 ```
 
+## Hiding and showing content in the toggle trigger element
+
+When using the `v-b-toggle` directive, the class `collapsed` will automatically be placed on the
+trigger element when the target component is closed, and removed when open. As of BootstrapVue
+`2.14.0`, the class `not-collapsed` will be applied when the target is _not_ closed.
+
+**Example HTML markup:**
+
+```html
+<div>
+  <b-button v-b-toggle:my-collapse>
+    <span class="when-open">Close</span><span class="when-closed">Open</span> My Collapse
+  </b-button>
+  <b-collapse id="my-collapse">
+    <!-- Content here -->
+  </b-collapse>
+</div>
+```
+
+**Example Custom CSS:**
+
+```css
+.collapsed > .when-open,
+.not-collapsed > .when-closed {
+  display: none;
+}
+```
+
 ## Accessibility
 
 The directive, for accessibility reasons, should be placed on an clickable interactive element such
@@ -75,11 +104,6 @@ element:
 - `aria-controls` - the ID(s) of the collapse or sidebar component(s) being toggled
 - `aria-expanded` - the visibility state of the collapse or sidebar (see the
   [caveats section](#caveats-with-multiple-targets) below)
-
-When the target component is _not_ expanded, the trigger element will have the class `collapsed`
-applied. When the target component is expanded, the `collapsed` class will be removed from the
-trigger element and the class `not-collapsed` will be added (the `not-collapsed` class was added in
-BootstrapVue v2.14.0).
 
 ### Caveats with multiple targets
 
