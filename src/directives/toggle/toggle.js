@@ -222,7 +222,7 @@ export const VBToggle = {
     handleUpdate(el, binding, vnode)
   },
   componentUpdated: handleUpdate,
-  // updated: handleUpdate,
+  updated: handleUpdate,
   unbind(el, binding, vnode) {
     removeClickListener(el)
     // Remove our $root listener
