@@ -111,6 +111,7 @@ const resetProp = (el, prop) => {
 
 // Handle directive updates
 const handleUpdate = (el, binding, vnode) => {
+  /* istanbul ignore next: should never happen */
   if (!isBrowser || !vnode.context) {
     return
   }
