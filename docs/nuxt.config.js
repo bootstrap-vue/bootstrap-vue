@@ -296,7 +296,7 @@ module.exports = {
   },
 
   // We only include a populated `sitemap.xml` in production docs
-  sitemap: !IS_PROD_DOCS
+  sitemap: IS_PROD_DOCS
     ? { hostname: BASE_URL, defaults: { changefreq: 'weekly', lastmod: new Date().toISOString() } }
     : false,
 
