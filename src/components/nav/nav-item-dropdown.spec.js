@@ -94,12 +94,85 @@ describe('nav-item-dropdown', () => {
     wrapper.destroy()
   })
 
-  it('should open/close on toggle click', async () => {
+  it('should have correct toggle content when "text" prop set', async () => {
     const wrapper = mount(BNavItemDropdown, {
       propsData: {
-        text: 'toggle'
+        text: 'foo'
       }
     })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+
+    const $toggle = wrapper.find('.dropdown-toggle')
+    expect($toggle.text()).toEqual('foo')
+
+    wrapper.destroy()
+  })
+
+  it('should have correct toggle content when "html" prop set', async () => {
+    const wrapper = mount(BNavItemDropdown, {
+      propsData: {
+        text: 'foo',
+        html: '<span>bar</span>'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+
+    const $toggle = wrapper.find('.dropdown-toggle')
+    expect($toggle.find('span').exists()).toBe(true)
+    expect($toggle.text()).toEqual('bar')
+
+    wrapper.destroy()
+  })
+
+  it('should have correct toggle content from "text" slot', async () => {
+    const wrapper = mount(BNavItemDropdown, {
+      propsData: {
+        text: 'foo',
+        html: '<span>bar</span>'
+      },
+      slots: {
+        text: '<strong>baz</strong>'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+
+    const $toggle = wrapper.find('.dropdown-toggle')
+    expect($toggle.find('strong').exists()).toBe(true)
+    expect($toggle.text()).toEqual('baz')
+
+    wrapper.destroy()
+  })
+
+  it('should have correct toggle content from "button-content" slot', async () => {
+    const wrapper = mount(BNavItemDropdown, {
+      propsData: {
+        text: 'foo',
+        html: '<span>bar</span>'
+      },
+      slots: {
+        'button-content': '<article>foobar</article>',
+        text: '<strong>baz</strong>'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+
+    const $toggle = wrapper.find('.dropdown-toggle')
+    expect($toggle.find('article').exists()).toBe(true)
+    expect($toggle.text()).toEqual('foobar')
+
+    wrapper.destroy()
+  })
+
+  it('should open/close on toggle click', async () => {
+    const wrapper = mount(BNavItemDropdown)
 
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
