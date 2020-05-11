@@ -296,10 +296,9 @@ module.exports = {
   },
 
   // We only include a populated `sitemap.xml` in production docs
-  sitemap:
-    IS_PROD_DOCS
-      ? { hostname: BASE_URL, defaults: { changefreq: 'weekly', lastmod: new Date().toISOString() } }
-      : false,
+  sitemap: IS_PROD_DOCS
+    ? { hostname: BASE_URL, defaults: { changefreq: 'weekly', lastmod: new Date().toISOString() } }
+    : false,
 
   head: {
     meta: [{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
