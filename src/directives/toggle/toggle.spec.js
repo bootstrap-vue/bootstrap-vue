@@ -197,8 +197,8 @@ describe('v-b-toggle directive', () => {
     await $button.trigger('click')
 
     expect(spy).toHaveBeenCalledTimes(2)
-    expect(spy).toHaveBeenNthCalledWith(1,'test1')
-    expect(spy).toHaveBeenNthCalledWith(2,'test2')
+    expect(spy).toHaveBeenNthCalledWith(1, 'test1')
+    expect(spy).toHaveBeenNthCalledWith(2, 'test2')
     // Since there is no target collapse to respond with the
     // current state, the classes and attrs remain the same
     expect($button.attributes('aria-controls')).toBe('test1 test2')
@@ -219,7 +219,7 @@ describe('v-b-toggle directive', () => {
     await $button.trigger('click')
 
     expect(spy).toHaveBeenCalledTimes(3)
-    expect(spy).toHaveBeenNthCalledWith(3,'test2')
+    expect(spy).toHaveBeenNthCalledWith(3, 'test2')
     // Since there is no target collapse to respond with the
     // current state, the classes and attrs remain the same
     expect($button.attributes('aria-controls')).toBe('test2')
