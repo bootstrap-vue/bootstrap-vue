@@ -69,8 +69,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         ref: 'toggle'
       },
       [
-        this.$slots['button-content'] ||
-          this.$slots.text ||
+        this.normalizeSlot(['button-content', 'text']) ||
           h('span', { domProps: htmlOrText(this.html, this.text) })
       ]
     )
