@@ -23,7 +23,9 @@ describe('navbar-toggle', () => {
     })
 
     expect(wrapper.classes()).toContain('navbar-toggler')
-    expect(wrapper.classes().length).toBe(1)
+    // Class added by v-b-toggle
+    expect(wrapper.classes()).toContain('collapsed')
+    expect(wrapper.classes().length).toBe(2)
 
     wrapper.destroy()
   })
