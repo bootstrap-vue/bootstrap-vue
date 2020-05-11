@@ -296,17 +296,10 @@ module.exports = {
   },
 
   // We only include a populated `sitemap.xml` in production docs
-  sitemap: {
-    // Sitemaps requires a hostname, so we use localhost in
-    // non-prod mode just to make the sitemap module happy
-    hostname: IS_PROD_DOCS ? BASE_URL : 'http://localhost',
-    // Exclude all static routes when not prod
-    // Exclude only redirect routes in prod
-    exclude: IS_PROD_DOCS ? ['/docs/misc', '/docs/misc/**', '/docs/layout'] : ['/', '/**'],
-    // Include dynamic slug routes (from `generate.routes`) in prod, while
-    // in non-prod docs we do not include dynamic routes (empty array)
-    ...(IS_PROD_DOCS ? {} : { routes: [] })
-  },
+  sitemap:
+    IS_PROD_DOCS
+      ? { hostname: BASE_URL, defaults: { changefreq: 'weekly', lastmod: new Date().toISOString() } }
+      : false,
 
   head: {
     meta: [{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
