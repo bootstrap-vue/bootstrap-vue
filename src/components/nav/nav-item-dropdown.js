@@ -5,16 +5,13 @@ import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { props as BDropdownProps } from '../dropdown/dropdown'
-import { BLink, props as BLinkProps } from '../link/link'
+import { BLink } from '../link/link'
 
 // --- Props ---
-export const props = {
-  ...pluckProps(
-    ['text', 'html', 'menuClass', 'toggleClass', 'noCaret', 'role', 'lazy'],
-    BDropdownProps
-  ),
-  ...pluckProps(['href'], BLinkProps)
-}
+export const props = pluckProps(
+  ['text', 'html', 'menuClass', 'toggleClass', 'noCaret', 'role', 'lazy'],
+  BDropdownProps
+)
 
 // --- Main component ---
 // @vue/component
@@ -55,7 +52,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         staticClass: 'nav-link dropdown-toggle',
         class: this.toggleClasses,
         props: {
-          href: this.href || `#${toggleId || ''}`,
+          href: `#${this.id || ''}`,
           disabled: this.disabled
         },
         attrs: {
