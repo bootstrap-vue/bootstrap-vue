@@ -71,7 +71,7 @@ export const isElement = el => !!(el && el.nodeType === Node.ELEMENT_NODE)
 // Get the currently active HTML element
 export const getActiveElement = (excludes = []) => {
   const activeElement = d.activeElement
-  return activeElement && excludes.every(el => el !== activeElement) ? activeElement : null
+  return activeElement && !excludes.some(el => el === activeElement) ? activeElement : null
 }
 
 // Determine if an HTML element is the currently active element
@@ -265,20 +265,16 @@ export const getTabables = (el = document) =>
 
 // Attempt to focus an element, and return `true` if successful
 export const attemptFocus = (el, options = {}) => {
-  if (isElement(el) && el.focus) {
-    try {
-      el.focus(options)
-    } catch {}
-  }
+  try {
+    el.focus(options)
+  } catch {}
   return isActiveElement(el)
 }
 
 // Attempt to blur an element, and return `true` if successful
 export const attemptBlur = el => {
-  if (isElement(el) && el.blur) {
-    try {
-      el.blur()
-    } catch {}
-  }
+  try {
+    el.blur()
+  } catch {}
   return !isActiveElement(el)
 }
