@@ -4,11 +4,7 @@ import { BNavItemDropdown } from './nav-item-dropdown'
 
 describe('nav-item-dropdown', () => {
   it('has expected default structure', async () => {
-    const wrapper = mount(BNavItemDropdown, {
-      propsData: {
-        text: 'toggle'
-      }
-    })
+    const wrapper = mount(BNavItemDropdown)
 
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
@@ -39,11 +35,7 @@ describe('nav-item-dropdown', () => {
   })
 
   it('should have a flag that we are in a nav', async () => {
-    const wrapper = mount(BNavItemDropdown, {
-      propsData: {
-        text: 'toggle'
-      }
-    })
+    const wrapper = mount(BNavItemDropdown)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.vm.isNav).toBe(true)
@@ -54,7 +46,6 @@ describe('nav-item-dropdown', () => {
   it('should have custom toggle class when "toggle-class" prop set', async () => {
     const wrapper = mount(BNavItemDropdown, {
       propsData: {
-        text: 'toggle',
         toggleClass: 'nav-link-custom'
       }
     })
@@ -71,7 +62,6 @@ describe('nav-item-dropdown', () => {
   it('should be disabled when "disabled" prop set', async () => {
     const wrapper = mount(BNavItemDropdown, {
       propsData: {
-        text: 'toggle',
         disabled: true
       }
     })
@@ -82,6 +72,24 @@ describe('nav-item-dropdown', () => {
     const $toggle = wrapper.find('.dropdown-toggle')
     expect($toggle.classes()).toContain('disabled')
     expect($toggle.attributes('aria-disabled')).toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('should have href with ID when "id" prop set', async () => {
+    const wrapper = mount(BNavItemDropdown, {
+      propsData: {
+        id: 'foo'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.element.hasAttribute('id')).toBe(true)
+
+    const $toggle = wrapper.find('.dropdown-toggle')
+    expect($toggle.attributes('href')).toEqual(`#${wrapper.attributes('id')}`)
 
     wrapper.destroy()
   })
