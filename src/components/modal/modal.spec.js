@@ -58,8 +58,7 @@ describe('modal', () => {
       expect($modal.exists()).toBe(true)
       expect($modal.attributes('id')).toBeDefined()
       expect($modal.attributes('id')).toEqual('test')
-      expect($modal.attributes('role')).toBeDefined()
-      expect($modal.attributes('role')).toEqual('dialog')
+      expect($modal.attributes('role')).not.toBeDefined()
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
       expect($modal.classes()).toContain('modal')
@@ -74,8 +73,6 @@ describe('modal', () => {
       expect($content.exists()).toBe(true)
       expect($content.attributes('tabindex')).toBeDefined()
       expect($content.attributes('tabindex')).toEqual('-1')
-      expect($content.attributes('role')).toBeDefined()
-      expect($content.attributes('role')).toEqual('document')
 
       wrapper.destroy()
     })
@@ -158,8 +155,6 @@ describe('modal', () => {
       expect($content.exists()).toBe(true)
       expect($content.attributes('tabindex')).toBeDefined()
       expect($content.attributes('tabindex')).toEqual('-1')
-      expect($content.attributes('role')).toBeDefined()
-      expect($content.attributes('role')).toEqual('document')
 
       wrapper.destroy()
     })
