@@ -297,15 +297,15 @@ module.exports = {
 
   // We only include a populated `sitemap.xml` in production docs
   sitemap: () => {
+    // Don't generate a sitemap for non-production docs
     if (!IS_PROD_DOCS) {
-      // Do not generate a sitemap for non-production docs
       return false
     }
     return {
       hostname: BASE_URL,
-      // exclude any redirect pages from sitemaps
+      // Exclude any redirect pages from sitemaps
       exclude: ['/docs/misc', '/docs/misc/**', '/docs/layout'],
-      // Default proeprties to apply to each URL entry
+      // Default properties to apply to each URL entry
       defaults: { changefreq: 'weekly', lastmod: new Date().toISOString() }
     }
   },
