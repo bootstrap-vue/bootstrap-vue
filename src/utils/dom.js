@@ -266,7 +266,6 @@ export const getTabables = (rootEl = document) =>
 // Attempt to focus an element, and return `true` if successful
 export const attemptFocus = (el, options = {}) => {
   try {
-    el = (el || {}).$el || el
     el.focus(options)
   } catch {}
   return isActiveElement(el)
@@ -275,7 +274,6 @@ export const attemptFocus = (el, options = {}) => {
 // Attempt to blur an element, and return `true` if successful
 export const attemptBlur = el => {
   try {
-    el = (el || {}).$el || el
     el.blur()
   } catch {}
   return !isActiveElement(el)
