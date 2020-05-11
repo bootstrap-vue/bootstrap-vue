@@ -5,7 +5,15 @@ import identity from '../../utils/identity'
 import observeDom from '../../utils/observe-dom'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { closest, contains, getTabables, isVisible, requestAF, select } from '../../utils/dom'
+import {
+  attemptFocus,
+  closest,
+  contains,
+  getActiveElement,
+  getTabables,
+  requestAF,
+  select
+} from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
 import { stripTags } from '../../utils/html'
@@ -36,19 +44,6 @@ const OBSERVER_CONFIG = {
   characterData: true,
   attributes: true,
   attributeFilter: ['style', 'class']
-}
-
-// --- Utility methods ---
-
-// Attempt to focus an element, and return true if successful
-const attemptFocus = el => {
-  if (el && isVisible(el) && el.focus) {
-    try {
-      el.focus()
-    } catch {}
-  }
-  // If the element has focus, then return true
-  return document.activeElement === el
 }
 
 // --- Props ---
@@ -587,22 +582,17 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     // Private method to get the current document active element
     getActiveElement() {
-      if (isBrowser) {
-        const activeElement = document.activeElement
-        // Note: On IE 11, `document.activeElement` may be null.
-        // So we test it for truthiness first.
-        // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
-        // Returning focus to document.body may cause unwanted scrolls, so we
-        // exclude setting focus on body
-        if (activeElement && activeElement !== document.body && activeElement.focus) {
-          // Preset the fallback return focus value if it is not set
-          // `document.activeElement` should be the trigger element that was clicked or
-          // in the case of using the v-model, which ever element has current focus
-          // Will be overridden by some commands such as toggle, etc.
-          return activeElement
-        }
-      }
-      return null
+      // Returning focus to `document.body` may cause unwanted scrolls,
+      // so we exclude setting focus on body
+      const activeElement = getActiveElement(isBrowser ? [document.body] : [])
+      // Preset the fallback return focus value if it is not set
+      // `document.activeElement` should be the trigger element that was clicked or
+      // in the case of using the v-model, which ever element has current focus
+      // Will be overridden by some commands such as toggle, etc.
+      // Note: On IE 11, `document.activeElement` may be `null`
+      // So we test it for truthiness first
+      // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
+      return activeElement && activeElement.focus ? activeElement : null
     },
     // Private method to finish showing modal
     doShow() {
@@ -777,7 +767,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         }
       }
       // Otherwise focus the modal content container
-      content.focus({ preventScroll: true })
+      attemptFocus(content, { preventScroll: true })
     },
     // Turn on/off focusin listener
     setEnforceFocus(on) {

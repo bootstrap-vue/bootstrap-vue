@@ -1,6 +1,13 @@
 import KeyCodes from '../utils/key-codes'
 import range from '../utils/range'
-import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
+import {
+  attemptFocus,
+  getActiveElement,
+  getAttr,
+  isDisabled,
+  isVisible,
+  selectAll
+} from '../utils/dom'
 import { isFunction, isNull } from '../utils/inspect'
 import { mathFloor, mathMax, mathMin } from '../utils/math'
 import { toInteger } from '../utils/number'
@@ -368,18 +375,13 @@ export default {
       // Return only buttons that are visible
       return selectAll('button.page-link, a.page-link', this.$el).filter(btn => isVisible(btn))
     },
-    setBtnFocus(btn) {
-      btn.focus()
-    },
     focusCurrent() {
       // We do this in `$nextTick()` to ensure buttons have finished rendering
       this.$nextTick(() => {
         const btn = this.getButtons().find(
           el => toInteger(getAttr(el, 'aria-posinset'), 0) === this.computedCurrentPage
         )
-        if (btn && btn.focus) {
-          this.setBtnFocus(btn)
-        } else {
+        if (!attemptFocus(btn)) {
           // Fallback if current page is not in button list
           this.focusFirst()
         }
@@ -389,9 +391,7 @@ export default {
       // We do this in `$nextTick()` to ensure buttons have finished rendering
       this.$nextTick(() => {
         const btn = this.getButtons().find(el => !isDisabled(el))
-        if (btn && btn.focus && btn !== document.activeElement) {
-          this.setBtnFocus(btn)
-        }
+        attemptFocus(btn)
       })
     },
     focusLast() {
@@ -400,18 +400,16 @@ export default {
         const btn = this.getButtons()
           .reverse()
           .find(el => !isDisabled(el))
-        if (btn && btn.focus && btn !== document.activeElement) {
-          this.setBtnFocus(btn)
-        }
+        attemptFocus(btn)
       })
     },
     focusPrev() {
       // We do this in `$nextTick()` to ensure buttons have finished rendering
       this.$nextTick(() => {
         const buttons = this.getButtons()
-        const idx = buttons.indexOf(document.activeElement)
-        if (idx > 0 && !isDisabled(buttons[idx - 1]) && buttons[idx - 1].focus) {
-          this.setBtnFocus(buttons[idx - 1])
+        const index = buttons.indexOf(getActiveElement())
+        if (index > 0 && !isDisabled(buttons[index - 1])) {
+          attemptFocus(buttons[index - 1])
         }
       })
     },
@@ -419,10 +417,9 @@ export default {
       // We do this in `$nextTick()` to ensure buttons have finished rendering
       this.$nextTick(() => {
         const buttons = this.getButtons()
-        const idx = buttons.indexOf(document.activeElement)
-        const cnt = buttons.length - 1
-        if (idx < cnt && !isDisabled(buttons[idx + 1]) && buttons[idx + 1].focus) {
-          this.setBtnFocus(buttons[idx + 1])
+        const index = buttons.indexOf(getActiveElement())
+        if (index < buttons.length - 1 && !isDisabled(buttons[index + 1])) {
+          attemptFocus(buttons[index + 1])
         }
       })
     }

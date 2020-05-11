@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
+import { attemptBlur } from '../../utils/dom'
 import { eventOn, eventOff, eventOnOff } from '../../utils/events'
 import formMixin from '../../mixins/form'
 import formSelectionMixin from '../../mixins/form-selection'
@@ -150,7 +151,7 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
     },
     stopWheel(evt) {
       evt.preventDefault()
-      this.$el.blur()
+      attemptBlur(this.$el)
     }
   },
   render(h) {

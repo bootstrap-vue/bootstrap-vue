@@ -2,6 +2,7 @@
 // Private component used by `b-form-datepicker` and `b-form-timepicker`
 //
 import Vue from './vue'
+import { attemptBlur, attemptFocus } from './dom'
 import { toString } from './string'
 import dropdownMixin, { commonProps } from '../mixins/dropdown'
 import idMixin from '../mixins/id'
@@ -125,16 +126,12 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
   methods: {
     focus() {
       if (!this.disabled) {
-        try {
-          this.$refs.toggle.focus()
-        } catch {}
+        attemptFocus(this.$refs.toggle)
       }
     },
     blur() {
       if (!this.disabled) {
-        try {
-          this.$refs.toggle.blur()
-        } catch {}
+        attemptBlur(this.$refs.toggle)
       }
     },
     setFocus(evt) {

@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { from as arrayFrom, isArray } from '../../utils/array'
+import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { htmlOrText } from '../../utils/html'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
@@ -83,10 +84,10 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     focus() {
-      this.$refs.input.focus()
+      attemptFocus(this.$refs.input)
     },
     blur() {
-      this.$refs.input.blur()
+      attemptBlur(this.$refs.input)
     }
   },
   render(h) {

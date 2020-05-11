@@ -3,6 +3,7 @@ import KeyCodes from '../../utils/key-codes'
 import identity from '../../utils/identity'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
+import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { eventOnOff } from '../../utils/events'
 import { isFunction, isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
@@ -306,16 +307,12 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     // --- Public methods ---
     focus() {
       if (!this.disabled) {
-        try {
-          this.$refs.spinner.focus()
-        } catch {}
+        attemptFocus(this.$refs.spinner)
       }
     },
     blur() {
       if (!this.disabled) {
-        try {
-          this.$refs.spinner.blur()
-        } catch {}
+        attemptBlur(this.$refs.spinner)
       }
     },
     // --- Private methods ---
@@ -500,10 +497,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         if (!disabled && !readonly) {
           evt.preventDefault()
           this.setMouseup(true)
-          try {
-            // Since we `preventDefault()`, we must manually focus the button
-            evt.currentTarget.focus()
-          } catch {}
+          // Since we `preventDefault()`, we must manually focus the button
+          attemptFocus(evt.currentTarget)
           this.handleStepRepeat(evt, stepper)
         }
       }

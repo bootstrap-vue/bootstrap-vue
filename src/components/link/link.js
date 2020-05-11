@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { concat } from '../../utils/array'
+import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isEvent, isFunction, isUndefined } from '../../utils/inspect'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
 import { omit } from '../../utils/object'
@@ -175,14 +176,10 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       }
     },
     focus() {
-      if (this.$el && this.$el.focus) {
-        this.$el.focus()
-      }
+      attemptFocus(this.$el)
     },
     blur() {
-      if (this.$el && this.$el.blur) {
-        this.$el.blur()
-      }
+      attemptBlur(this.$el)
     }
   },
   render(h) {
