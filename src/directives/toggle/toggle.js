@@ -3,8 +3,8 @@ import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
 import { addClass, hasAttr, isDisabled, removeAttr, removeClass, setAttr } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
-import { eventOn, eventOff } from '../..//utils/events'
-import { isString } from '../..//utils/inspect'
+import { eventOn, eventOff } from '../../utils/events'
+import { isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 
 // --- Constants ---
@@ -55,9 +55,7 @@ const RX_SPLIT_SEPARATOR = /\s+/
 
 // --- Helper methods ---
 
-const isNonStandardTag = el => {
-  return !arrayIncludes(['BUTTON', 'A'], el.tagName)
-}
+const isNonStandardTag = el => !arrayIncludes(['BUTTON', 'A'], el.tagName)
 
 const getTargets = ({ modifiers, arg, value }) => {
   // Any modifiers are considered target IDs
@@ -116,11 +114,11 @@ const addRootListeners = (el, vnode) => {
   removeRootListeners(el, vnode)
   if (vnode.context) {
     const handler = (id, state) => {
-      // `state` will be true of target is expanded
+      // `state` will be `true` if target is expanded
       if (arrayIncludes(el[BV_TOGGLE_TARGETS] || [], id)) {
         // Set/Clear 'collapsed' visibility class state
         el[BV_TOGGLE_STATE] = state
-        // Set aria-expanded and class state on trigger element
+        // Set `aria-expanded` and class state on trigger element
         setToggleState(el, state)
       }
     }
@@ -169,7 +167,7 @@ const handleUpdate = (el, binding, vnode) => {
     }
   }
 
-  // Ensure the collapse class and aria-* attributes persist
+  // Ensure the collapse class and `aria-*` attributes persist
   // after element is updated (either by parent re-rendering
   // or changes to this element or its contents)
   setToggleState(el, el[BV_TOGGLE_STATE])
@@ -178,7 +176,7 @@ const handleUpdate = (el, binding, vnode) => {
   const targets = getTargets(binding)
 
   /* istanbul ignore else */
-  // Ensure the `aria-controls` hasn't been overritten
+  // Ensure the `aria-controls` hasn't been overwritten
   // or removed when vnode updates
   if (targets.length) {
     setAttr(el, ATTR_ARIA_CONTROLS, targets.join(' '))
@@ -193,7 +191,7 @@ const handleUpdate = (el, binding, vnode) => {
   if (!looseEqual(targets, el[BV_TOGGLE_TARGETS])) {
     // Update targets array to element storage
     el[BV_TOGGLE_TARGETS] = targets
-    // ensure aria-controls is up to date
+    // Ensure `aria-controls` is up to date
     // Request a state update from targets so that we can
     // ensure expanded state is correct (in most cases)
     targets.forEach(target => {
