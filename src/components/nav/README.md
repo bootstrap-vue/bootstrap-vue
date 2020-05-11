@@ -190,12 +190,13 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
 
 Sometimes you want to add your own class names to the generated dropdown toggle button, that by
 default have the classes `nav-link` and `dropdown-toggle`. Use the `toggle-class` prop to add them
-(like above) which will produce something like:
+(like above) which will render HTML similar to:
 
 ```html
 <li id="my-nav-dropdown" class="nav-item b-nav-dropdown dropdown">
   <a
-    href="#"
+    role="button"
+    href="#my-nav-dropdown"
     id="my-nav-dropdown__BV_button_"
     aria-haspopup="true"
     aria-expanded="false"
@@ -221,6 +222,17 @@ By default, `<b-nav-item-dropdown>` renders the menu contents in the DOM even wh
 shown. When there are a large number of dropdowns rendered on the same page, performance could be
 impacted due to larger overall memory utilization. You can instruct `<b-nav-item-dropdown>` to
 render the menu contents only when it is shown by setting the `lazy` prop to true.
+
+### Dropdown implementation note
+
+Note that the toggle button is actually rendered as a link `<a>` tag with `role="button"` for
+styling purposes, and typically has the `href` set to `#` unless an ID is provided via the `id`
+prop.
+
+The toggle will prevent scroll-top-top behaviour (via JavaScript) when clicking the toggle link. In
+some cases when using SSR, and the user clicks the toggle button _before_ Vue has had a chance to
+hydrate the component, the page will scroll to top. In these cases, simply providing a unique ID via
+the `id` prop will prevent the unwanted scroll-to-top behaviour.
 
 ## Nav text content
 
