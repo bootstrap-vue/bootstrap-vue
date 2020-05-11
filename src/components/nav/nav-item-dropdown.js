@@ -1,19 +1,19 @@
 import Vue from '../../utils/vue'
-import { props as BDropdownProps } from '../dropdown/dropdown'
-import idMixin from '../../mixins/id'
-import dropdownMixin from '../../mixins/dropdown'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 import pluckProps from '../../utils/pluck-props'
 import { htmlOrText } from '../../utils/html'
+import dropdownMixin from '../../mixins/dropdown'
+import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { props as BDropdownProps } from '../dropdown/dropdown'
 import { BLink } from '../link/link'
 
-// -- Constants --
-
+// --- Props ---
 export const props = pluckProps(
   ['text', 'html', 'menuClass', 'toggleClass', 'noCaret', 'role', 'lazy'],
   BDropdownProps
 )
 
+// --- Main component ---
 // @vue/component
 export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
   name: 'BNavItemDropdown',
@@ -41,16 +41,13 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const button = h(
+    const $button = h(
       BLink,
       {
         ref: 'toggle',
         staticClass: 'nav-link dropdown-toggle',
         class: this.toggleClasses,
-        props: {
-          href: '#',
-          disabled: this.disabled
-        },
+        props: { disabled: this.disabled },
         attrs: {
           id: this.safeId('_BV_button_'),
           'aria-haspopup': 'true',
@@ -68,7 +65,8 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
           h('span', { domProps: htmlOrText(this.html, this.text) })
       ]
     )
-    const menu = h(
+
+    const $menu = h(
       'ul',
       {
         staticClass: 'dropdown-menu',
@@ -84,6 +82,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
       },
       !this.lazy || this.visible ? this.normalizeSlot('default', { hide: this.hide }) : [h()]
     )
+
     return h(
       'li',
       {
@@ -91,7 +90,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         class: this.dropdownClasses,
         attrs: { id: this.safeId() }
       },
-      [button, menu]
+      [$button, $menu]
     )
   }
 })
