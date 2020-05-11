@@ -95,7 +95,7 @@ describe('nav-item-dropdown', () => {
     wrapper.destroy()
   })
 
-  it('should have correct toggle content when "text" prop set', async () => {
+  it('should have correct toggle content when "text" prop set [DEPRECATED]', async () => {
     const wrapper = mount(BNavItemDropdown, {
       propsData: {
         text: 'foo'
