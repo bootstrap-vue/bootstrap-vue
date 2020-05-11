@@ -1,3 +1,4 @@
+import { attemptBlur, attemptFocus } from '../utils/dom'
 import attrsMixin from './attrs'
 import normalizeSlotMixin from './normalize-slot'
 
@@ -177,13 +178,13 @@ export default {
     },
     // Convenience methods for focusing the input
     focus() {
-      if (!this.isDisabled && this.$refs.input && this.$refs.input.focus) {
-        this.$refs.input.focus()
+      if (!this.isDisabled) {
+        attemptFocus(this.$refs.input)
       }
     },
     blur() {
-      if (!this.isDisabled && this.$refs.input && this.$refs.input.blur) {
-        this.$refs.input.blur()
+      if (!this.isDisabled) {
+        attemptBlur(this.$refs.input)
       }
     }
   },

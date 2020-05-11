@@ -68,6 +68,15 @@ export const removeNode = el => el && el.parentNode && el.parentNode.removeChild
 // Determine if an element is an HTML element
 export const isElement = el => !!(el && el.nodeType === Node.ELEMENT_NODE)
 
+// Get the currently active HTML element
+export const getActiveElement = (excludes = []) => {
+  const activeElement = d.activeElement
+  return activeElement && !excludes.some(el => el === activeElement) ? activeElement : null
+}
+
+// Determine if an HTML element is the currently active element
+export const isActiveElement = el => isElement(el) && el === getActiveElement()
+
 // Determine if an HTML element is visible - Faster than CSS check
 export const isVisible = el => {
   if (!isElement(el) || !el.parentNode || !contains(d.body, el)) {
@@ -249,7 +258,23 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
 
 // Find all tabable elements in the given element
 // Assumes users have not used `tabindex` > `0` on elements
-export const getTabables = (el = document) =>
-  selectAll(TABABLE_SELECTOR, el)
+export const getTabables = (rootEl = document) =>
+  selectAll(TABABLE_SELECTOR, rootEl)
     .filter(isVisible)
-    .filter(i => i.tabIndex > -1 && !i.disabled)
+    .filter(el => el.tabIndex > -1 && !el.disabled)
+
+// Attempt to focus an element, and return `true` if successful
+export const attemptFocus = (el, options = {}) => {
+  try {
+    el.focus(options)
+  } catch {}
+  return isActiveElement(el)
+}
+
+// Attempt to blur an element, and return `true` if successful
+export const attemptBlur = el => {
+  try {
+    el.blur()
+  } catch {}
+  return !isActiveElement(el)
+}

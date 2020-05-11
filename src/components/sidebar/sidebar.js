@@ -1,8 +1,9 @@
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
 import BVTransition from '../../utils/bv-transition'
-import { contains, getTabables } from '../../utils/dom'
+import { attemptFocus, contains, getActiveElement, getTabables } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
+import { isBrowser } from '../../utils/env'
 import { toString } from '../../utils/string'
 import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
@@ -359,37 +360,28 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     /* istanbul ignore next */
     onTopTrapFocus() /* istanbul ignore next */ {
       const tabables = getTabables(this.$refs.content)
-      try {
-        tabables.reverse()[0].focus()
-      } catch {}
+      attemptFocus(tabables.reverse()[0])
     },
     /* istanbul ignore next */
     onBottomTrapFocus() /* istanbul ignore next */ {
       const tabables = getTabables(this.$refs.content)
-      try {
-        tabables[0].focus()
-      } catch {}
+      attemptFocus(tabables[0])
     },
     onBeforeEnter() {
-      this.$_returnFocusEl = null
-      try {
-        this.$_returnFocusEl = document.activeElement || null
-      } catch {}
+      // Returning focus to `document.body` may cause unwanted scrolls,
+      // so we exclude setting focus on body
+      this.$_returnFocusEl = getActiveElement(isBrowser ? [document.body] : [])
       // Trigger lazy render
       this.isOpen = true
     },
     onAfterEnter(el) {
-      try {
-        if (!contains(el, document.activeElement)) {
-          el.focus()
-        }
-      } catch {}
+      if (!contains(el, getActiveElement())) {
+        attemptFocus(el)
+      }
       this.$emit('shown')
     },
     onAfterLeave() {
-      try {
-        this.$_returnFocusEl.focus()
-      } catch {}
+      attemptFocus(this.$_returnFocusEl)
       this.$_returnFocusEl = null
       // Trigger lazy render
       this.isOpen = false
