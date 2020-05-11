@@ -3,6 +3,7 @@ import KeyCodes from '../../utils/key-codes'
 import BVTransition from '../../utils/bv-transition'
 import { attemptFocus, contains, getActiveElement, getTabables } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
+import { isBrowser } from '../../utils/env'
 import { toString } from '../../utils/string'
 import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
@@ -367,7 +368,9 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       attemptFocus(tabables[0])
     },
     onBeforeEnter() {
-      this.$_returnFocusEl = getActiveElement()
+      // Returning focus to `document.body` may cause unwanted scrolls,
+      // so we exclude setting focus on body
+      this.$_returnFocusEl = getActiveElement(isBrowser ? [document.body] : [])
       // Trigger lazy render
       this.isOpen = true
     },
