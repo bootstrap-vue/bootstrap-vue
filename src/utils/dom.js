@@ -258,14 +258,17 @@ export const position = el => /* istanbul ignore next: getBoundingClientRect() d
 
 // Find all tabable elements in the given element
 // Assumes users have not used `tabindex` > `0` on elements
-export const getTabables = (el = document) =>
-  selectAll(TABABLE_SELECTOR, el)
+export const getTabables = (rootEl = document) =>
+  selectAll(TABABLE_SELECTOR, rootEl)
     .filter(isVisible)
-    .filter(i => i.tabIndex > -1 && !i.disabled)
+    .filter(el => el.tabIndex > -1 && !el.disabled)
 
 // Attempt to focus an element, and return `true` if successful
 export const attemptFocus = (el, options = {}) => {
   try {
+    // Handle case where we might be passed a component reference
+    el = el.$el || el
+    // Attempt the focus
     el.focus(options)
   } catch {}
   return isActiveElement(el)
@@ -274,6 +277,9 @@ export const attemptFocus = (el, options = {}) => {
 // Attempt to blur an element, and return `true` if successful
 export const attemptBlur = el => {
   try {
+    // Handle case where we might be passed a component reference
+    el = el.$el || el
+    // Attempt the blur
     el.blur()
   } catch {}
   return !isActiveElement(el)
