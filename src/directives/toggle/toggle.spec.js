@@ -143,7 +143,7 @@ describe('v-b-toggle directive', () => {
     wrapper.destroy()
   })
 
-  it('works with multipl targets', async () => {
+  it('works with multiple targets, and updates when targets change', async () => {
     const localVue = createLocalVue()
     const spy = jest.fn()
 
