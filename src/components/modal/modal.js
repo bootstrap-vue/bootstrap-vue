@@ -431,7 +431,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
 
       return {
         id: this.modalId,
-        role: isVisible ? 'dialog' : null,
+        role: 'dialog',
         'aria-hidden': isVisible ? null : 'true',
         'aria-modal': isVisible ? 'true' : null,
         'aria-label': ariaLabel,
