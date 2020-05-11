@@ -281,6 +281,12 @@ will reverse the placement of the toggler.
 See the first example on this page for reference, and also refer to
 [`<b-collapse>`](/docs/components/collapse) for details on the collapse component.
 
+Besides being used to control a collapse, the `<b-navbar-toggle>` can also be used to toggle
+visibility of the [`<b-sidebar>`](/docs/components/sidebar) component. Just specify the ID of the
+`<b-sidebar>` via the `target` prop.
+
+Internally, `<b-navbar-toggle>` uses the [`v-b-toggle` directive](/docs/directives/toggle).
+
 #### Custom navbar toggle
 
 `<b-navbar-toggle>` renders the default Bootstrap v4 _hamburger_ (which is a background SVG image).
@@ -320,9 +326,13 @@ Navbars are hidden by default when printing. Force them to be printed by setting
 
 ## See also
 
+- [`<b-collapse>` component](/docs/components/collapse)
+- [`<b-sidebar>` component](/docs/components/sidebar)
+- [`v-b-toggle` directive](/docs/directives/toggle)
+- [`<b-nav>` documentation](/docs/components/nav) for additional components and sub-component
+  aliases
+
 Refer to the [Router support](/docs/reference/router-links) reference page for router-link specific
 props.
-
-Also see [`<b-nav>`](/docs/components/nav) for additional components and sub-component aliases.
 
 <!-- Component reference added automatically from component package.json -->
