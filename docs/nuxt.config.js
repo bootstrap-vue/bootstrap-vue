@@ -296,15 +296,19 @@ module.exports = {
   },
 
   // We only include a populated `sitemap.xml` in production docs
-  sitemap: !IS_PROD_DOCS
-    ? {
-        hostname: BASE_URL,
-        // exclude any redirect pages from sitemaps
-        exclude: ['/docs/misc', '/docs/misc/**', '/docs/layout'],
-        // Default proeprties to apply to each URL entry
-        defaults: { changefreq: 'weekly', lastmod: new Date().toISOString() }
-      }
-    : false,
+  sitemap: () => {
+    // TESTING: switch to `!IS_PROD_DOCS`
+    if (IS_PROD_DOCS) {
+      return false
+    }
+    return {
+      hostname: BASE_URL,
+      // exclude any redirect pages from sitemaps
+      exclude: ['/docs/misc', '/docs/misc/**', '/docs/layout'],
+      // Default proeprties to apply to each URL entry
+      defaults: { changefreq: 'weekly', lastmod: new Date().toISOString() }
+    }
+  },
 
   head: {
     meta: [{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
