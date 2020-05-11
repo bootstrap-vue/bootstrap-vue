@@ -87,7 +87,7 @@ describe('nav-item-dropdown', () => {
     await waitNT(wrapper.vm)
 
     expect(wrapper.element.hasAttribute('id')).toBe(true)
-    expect(wrapper.attributes('id').toEqual('foo')
+    expect(wrapper.attributes('id')).toEqual('foo')
 
     const $toggle = wrapper.find('.dropdown-toggle')
     expect($toggle.attributes('href')).toEqual('#foo')
@@ -168,6 +168,65 @@ describe('nav-item-dropdown', () => {
     const $toggle = wrapper.find('.dropdown-toggle')
     expect($toggle.find('article').exists()).toBe(true)
     expect($toggle.text()).toEqual('foobar')
+
+    wrapper.destroy()
+  })
+
+  it('should have correct menu content for "default" slot', async () => {
+    let slotScope = null
+    const wrapper = mount(BNavItemDropdown, {
+      scopedSlots: {
+        default(scope) {
+          slotScope = scope
+          return this.$createElement('div', 'foo')
+        }
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+
+    const $menu = wrapper.find('.dropdown-menu')
+    expect($menu.find('div').exists()).toBe(true)
+    expect($menu.text()).toEqual('foo')
+
+    expect(slotScope).toBeDefined()
+    expect(slotScope.hide).toBeDefined()
+
+    wrapper.destroy()
+  })
+
+  it('should only render menu content when visible when "lazy" prop set', async () => {
+    const wrapper = mount(BNavItemDropdown, {
+      propsData: {
+        lazy: true
+      },
+      scopedSlots: {
+        default() {
+          return this.$createElement('div', 'bar')
+        }
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.vm.visible).toBe(false)
+    await waitNT(wrapper.vm)
+
+    const $menu = wrapper.find('.dropdown-menu')
+    expect($menu.find('div').exists()).toBe(false)
+
+    wrapper.vm.show()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(wrapper.vm.visible).toBe(true)
+    expect($menu.find('div').exists()).toBe(true)
+    expect($menu.text()).toEqual('bar')
+
+    wrapper.vm.hide()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(wrapper.vm.visible).toBe(false)
+    expect($menu.find('div').exists()).toBe(false)
 
     wrapper.destroy()
   })
