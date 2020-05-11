@@ -104,8 +104,7 @@ const addClickListener = (el, vnode) => {
 
 const removeRootListeners = (el, vnode) => {
   if (el[BV_TOGGLE_ROOT_HANDLER] && vnode.context) {
-    vnode.context.$root.$off(EVENT_STATE, el[BV_TOGGLE_ROOT_HANDLER])
-    vnode.context.$root.$off(EVENT_STATE_SYNC, el[BV_TOGGLE_ROOT_HANDLER])
+    vnode.context.$root.$off([EVENT_STATE, EVENT_STATE_SYNC], el[BV_TOGGLE_ROOT_HANDLER])
   }
   el[BV_TOGGLE_ROOT_HANDLER] = null
 }
@@ -123,10 +122,8 @@ const addRootListeners = (el, vnode) => {
       }
     }
     el[BV_TOGGLE_ROOT_HANDLER] = handler
-    // Listen for toggle state changes (public)
-    vnode.context.$root.$on(EVENT_STATE, handler)
-    // Listen for toggle state sync (private)
-    vnode.context.$root.$on(EVENT_STATE_SYNC, handler)
+    // Listen for toggle state changes (public) and sync (private)
+    vnode.context.$root.$on([EVENT_STATE, EVENT_STATE_SYNC], handler)
   }
 }
 
