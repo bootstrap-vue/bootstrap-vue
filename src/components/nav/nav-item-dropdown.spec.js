@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BNavItemDropdown } from './nav-item-dropdown'
 
 describe('nav-item-dropdown', () => {
@@ -25,7 +25,7 @@ describe('nav-item-dropdown', () => {
     expect($toggle.attributes('role')).toEqual('button')
     expect($toggle.attributes('aria-haspopup')).toEqual('true')
     expect($toggle.attributes('aria-expanded')).toEqual('false')
-    expect($toggle.attributes('href')).toEqual(`#${$toggle.attributes('id')}`)
+    expect($toggle.attributes('href')).toEqual('#')
     expect($toggle.classes()).toContain('dropdown-toggle')
     expect($toggle.classes()).toContain('nav-link')
 
@@ -38,7 +38,7 @@ describe('nav-item-dropdown', () => {
     wrapper.destroy()
   })
 
-  it('should flag that we are in a nav', async () => {
+  it('should have a flag that we are in a nav', async () => {
     const wrapper = mount(BNavItemDropdown, {
       propsData: {
         text: 'toggle'
@@ -51,7 +51,7 @@ describe('nav-item-dropdown', () => {
     wrapper.destroy()
   })
 
-  it('should have custom toggle class in nav-item-dropdown', async () => {
+  it('should have custom toggle class when "toggle-class" prop set', async () => {
     const wrapper = mount(BNavItemDropdown, {
       propsData: {
         text: 'toggle',
@@ -60,20 +60,15 @@ describe('nav-item-dropdown', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-
     await waitNT(wrapper.vm)
 
     const $toggle = wrapper.find('.dropdown-toggle')
-    expect($toggle.element.tagName).toBe('A')
-    expect($toggle.attributes('href')).toEqual(`#${$toggle.attributes('id')}`)
-    expect($toggle.classes()).toContain('nav-link')
-    expect($toggle.classes()).toContain('dropdown-toggle')
     expect($toggle.classes()).toContain('nav-link-custom')
 
     wrapper.destroy()
   })
 
-  it('should be disabled when disabled prop set', async () => {
+  it('should be disabled when "disabled" prop set', async () => {
     const wrapper = mount(BNavItemDropdown, {
       propsData: {
         text: 'toggle',
@@ -82,38 +77,53 @@ describe('nav-item-dropdown', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-
     await waitNT(wrapper.vm)
 
     const $toggle = wrapper.find('.dropdown-toggle')
-    expect($toggle.element.tagName).toBe('A')
-    expect($toggle.attributes('role')).toEqual('button')
-    expect($toggle.attributes('href')).toEqual(`#${$toggle.attributes('id')}`)
-    expect($toggle.classes()).toContain('nav-link')
-    expect($toggle.classes()).toContain('dropdown-toggle')
     expect($toggle.classes()).toContain('disabled')
     expect($toggle.attributes('aria-disabled')).toBeDefined()
 
     wrapper.destroy()
   })
 
-  it('should prevent click when custom href is set', async () => {
+  it('should open/close on toggle click', async () => {
     const wrapper = mount(BNavItemDropdown, {
       propsData: {
-        text: 'toggle',
-        href: '/foobar'
+        text: 'toggle'
       }
     })
 
     expect(wrapper.vm).toBeDefined()
-
     await waitNT(wrapper.vm)
 
     const $toggle = wrapper.find('.dropdown-toggle')
-    expect($toggle.element.tagName).toBe('A')
-    expect($toggle.attributes('href')).toEqual('/foobar')
-    expect($toggle.classes()).toContain('nav-link')
-    expect($toggle.classes()).toContain('dropdown-toggle')
+    expect(wrapper.vm.visible).toBe(false)
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+
+    await $toggle.trigger('click')
+    await waitRAF()
+    expect(wrapper.vm.visible).toBe(true)
+    expect($toggle.attributes('aria-expanded')).toEqual('true')
+
+    await $toggle.trigger('click')
+    await waitRAF()
+    expect(wrapper.vm.visible).toBe(false)
+    expect($toggle.attributes('aria-expanded')).toEqual('false')
+
+    wrapper.destroy()
+  })
+
+  it('should prevent toggle click', async () => {
+    const wrapper = mount(BNavItemDropdown, {
+      propsData: {
+        text: 'toggle'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+
+    const $toggle = wrapper.find('.dropdown-toggle')
 
     await $toggle.trigger('click')
     expect(wrapper.emitted('toggle')).toBeDefined()
