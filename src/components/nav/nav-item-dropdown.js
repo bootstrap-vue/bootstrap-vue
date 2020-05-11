@@ -23,8 +23,8 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
   computed: {
-    buttonId() {
-      return this.safeId('_BV_button_')
+    toggleId() {
+      return this.safeId('_BV_toggle_')
     },
     isNav() {
       // Signal to dropdown mixin that we are in a navbar
@@ -47,19 +47,19 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { buttonId, visible } = this
+    const { toggleId, visible } = this
 
-    const $button = h(
+    const $toggle = h(
       BLink,
       {
         staticClass: 'nav-link dropdown-toggle',
         class: this.toggleClasses,
         props: {
-          href: this.href || `#${buttonId}`,
+          href: this.href || `#${toggleId}`,
           disabled: this.disabled
         },
         attrs: {
-          id: buttonId,
+          id: toggleId,
           role: 'button',
           'aria-haspopup': 'true',
           'aria-expanded': visible ? 'true' : 'false'
@@ -85,7 +85,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         class: this.menuClasses,
         attrs: {
           tabindex: '-1',
-          'aria-labelledby': buttonId
+          'aria-labelledby': toggleId
         },
         on: {
           keydown: this.onKeydown // Handle UP, DOWN and ESC
@@ -102,7 +102,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         class: this.dropdownClasses,
         attrs: { id: this.safeId() }
       },
-      [$button, $menu]
+      [$toggle, $menu]
     )
   }
 })
