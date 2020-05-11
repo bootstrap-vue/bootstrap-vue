@@ -143,6 +143,93 @@ describe('v-b-toggle directive', () => {
     wrapper.destroy()
   })
 
+  it('works with multipl targets', async () => {
+    const localVue = createLocalVue()
+    const spy = jest.fn()
+
+    const App = localVue.extend({
+      directives: {
+        bToggle: VBToggle
+      },
+      props: {
+        target: {
+          type: [String, Array],
+          default: null
+        }
+      },
+      mounted() {
+        this.$root.$on(EVENT_TOGGLE, spy)
+      },
+      beforeDestroy() {
+        this.$root.$off(EVENT_TOGGLE, spy)
+      },
+      template: `<button v-b-toggle="target">button</button>`
+    })
+
+    const wrapper = mount(App, {
+      propsData: {
+        target: 'test1'
+      },
+      localVue
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('BUTTON')
+
+    const $button = wrapper.find('button')
+
+    expect($button.attributes('aria-controls')).toBe('test1')
+    expect($button.attributes('aria-expanded')).toBe('false')
+    expect($button.classes()).toContain('collapsed')
+    expect($button.classes()).not.toContain('not-collapsed')
+    expect(spy).not.toHaveBeenCalled()
+
+    await wrapper.setProps({
+      target: ['test1', 'test2']
+    })
+
+    expect($button.attributes('aria-controls')).toBe('test1 test2')
+    expect($button.attributes('aria-expanded')).toBe('false')
+    expect($button.classes()).toContain('collapsed')
+    expect($button.classes()).not.toContain('not-collapsed')
+    expect(spy).not.toHaveBeenCalled()
+
+    await $button.trigger('click')
+
+    expect(spy).toHaveBeenCalledTimes(2)
+    expect(spy).toHaveBeenNthCalledWith(1,'test1')
+    expect(spy).toHaveBeenNthCalledWith(2,'test2')
+    // Since there is no target collapse to respond with the
+    // current state, the classes and attrs remain the same
+    expect($button.attributes('aria-controls')).toBe('test1 test2')
+    expect($button.attributes('aria-expanded')).toBe('false')
+    expect($button.classes()).toContain('collapsed')
+    expect($button.classes()).not.toContain('not-collapsed')
+
+    await wrapper.setProps({
+      target: ['test2']
+    })
+
+    expect($button.attributes('aria-controls')).toBe('test2')
+    expect($button.attributes('aria-expanded')).toBe('false')
+    expect($button.classes()).toContain('collapsed')
+    expect($button.classes()).not.toContain('not-collapsed')
+    expect(spy).toHaveBeenCalledTimes(2)
+
+    await $button.trigger('click')
+
+    expect(spy).toHaveBeenCalledTimes(3)
+    expect(spy).toHaveBeenNthCalledWith(3,'test2')
+    // Since there is no target collapse to respond with the
+    // current state, the classes and attrs remain the same
+    expect($button.attributes('aria-controls')).toBe('test2')
+    expect($button.attributes('aria-expanded')).toBe('false')
+    expect($button.classes()).toContain('collapsed')
+    expect($button.classes()).not.toContain('not-collapsed')
+
+    wrapper.destroy()
+  })
+
   it('works on non-buttons', async () => {
     const localVue = createLocalVue()
     const spy = jest.fn()
