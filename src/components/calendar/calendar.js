@@ -21,7 +21,7 @@ import {
   parseYMD,
   resolveLocale
 } from '../../utils/date'
-import { requestAF } from '../../utils/dom'
+import { attemptBlur, attemptFocus, requestAF } from '../../utils/dom'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax } from '../../utils/math'
@@ -618,15 +618,13 @@ export const BCalendar = Vue.extend({
     // Public method(s)
     focus() {
       if (!this.disabled) {
-        try {
-          this.$refs.grid.focus()
-        } catch {}
+        attemptFocus(this.$refs.grid)
       }
     },
     blur() {
-      try {
-        this.$refs.grid.blur()
-      } catch {}
+      if (!this.disabled) {
+        attemptBlur(this.$refs.grid)
+      }
     },
     // Private methods
     setLive(on) {

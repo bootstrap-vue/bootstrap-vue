@@ -7,7 +7,7 @@ import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, createDateFormatter } from '../../utils/date'
-import { contains, requestAF } from '../../utils/dom'
+import { attemptBlur, attemptFocus, contains, getActiveElement, requestAF } from '../../utils/dom'
 import { isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
@@ -365,19 +365,16 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     // Public methods
     focus() {
       if (!this.disabled) {
-        try {
-          // We focus the first spin button
-          this.$refs.spinners[0].focus()
-        } catch {}
+        // We focus the first spin button
+        attemptFocus(this.$refs.spinners[0])
       }
     },
     blur() {
       if (!this.disabled) {
-        try {
-          if (contains(this.$el, document.activeElement)) {
-            document.activeElement.blur()
-          }
-        } catch {}
+        const activeElement = getActiveElement()
+        if (contains(this.$el, activeElement)) {
+          attemptBlur(activeElement)
+        }
       }
     },
     // Formatters for the spin buttons
@@ -429,9 +426,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         let index = spinners.map(cmp => !!cmp.hasFocus).indexOf(true)
         index = index + (keyCode === LEFT ? -1 : 1)
         index = index >= spinners.length ? 0 : index < 0 ? spinners.length - 1 : index
-        try {
-          spinners[index].focus()
-        } catch {}
+        attemptFocus(spinners[index])
       }
     },
     setLive(on) {

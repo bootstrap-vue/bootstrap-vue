@@ -1,4 +1,4 @@
-import { matches, select, isVisible, requestAF } from '../utils/dom'
+import { attemptFocus, isVisible, matches, requestAF, select } from '../utils/dom'
 
 const SELECTOR = 'input, textarea, select'
 
@@ -45,7 +45,7 @@ export default {
             if (!matches(el, SELECTOR)) {
               el = select(SELECTOR, el)
             }
-            el && el.focus && el.focus()
+            attemptFocus(el)
           }
         })
       })

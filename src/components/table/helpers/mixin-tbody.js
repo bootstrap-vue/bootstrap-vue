@@ -1,6 +1,6 @@
 import KeyCodes from '../../../utils/key-codes'
 import { arrayIncludes, from as arrayFrom } from '../../../utils/array'
-import { closest, isElement } from '../../../utils/dom'
+import { attemptFocus, closest, isActiveElement, isElement } from '../../../utils/dom'
 import { props as tbodyProps, BTbody } from '../tbody'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
@@ -62,7 +62,7 @@ export default {
       if (
         this.tbodyRowEvtStopped(evt) ||
         target.tagName !== 'TR' ||
-        target !== document.activeElement ||
+        !isActiveElement(target) ||
         target.tabIndex !== 0
       ) {
         // Early exit if not an item row TR
@@ -86,16 +86,16 @@ export default {
           const shift = evt.shiftKey
           if (keyCode === KeyCodes.HOME || (shift && keyCode === KeyCodes.UP)) {
             // Focus first row
-            trs[0].focus()
+            attemptFocus(trs[0])
           } else if (keyCode === KeyCodes.END || (shift && keyCode === KeyCodes.DOWN)) {
             // Focus last row
-            trs[trs.length - 1].focus()
+            attemptFocus(trs[trs.length - 1])
           } else if (keyCode === KeyCodes.UP && rowIndex > 0) {
             // Focus previous row
-            trs[rowIndex - 1].focus()
+            attemptFocus(trs[rowIndex - 1])
           } else if (keyCode === KeyCodes.DOWN && rowIndex < trs.length - 1) {
             // Focus next row
-            trs[rowIndex + 1].focus()
+            attemptFocus(trs[rowIndex + 1])
           }
         }
       }
