@@ -226,13 +226,13 @@ render the menu contents only when it is shown by setting the `lazy` prop to tru
 ### Dropdown implementation note
 
 Note that the toggle button is actually rendered as a link `<a>` tag with `role="button"` for
-styling purposes, and typically has the `href` set to `#` unless and ID is provided via the `id`
+styling purposes, and typically has the `href` set to `#` unless an ID is provided via the `id`
 prop.
 
-The toggle will prevent scroll top top behaviour (via javascript) when clicking the toggle link. In
+The toggle will prevent scroll-top-top behaviour (via JavaScript) when clicking the toggle link. In
 some cases when using SSR, and the user clicks the toggle button _before_ Vue has had a chance to
-hydrate the component, the page will scroll to top. In these cases, simply providing a unique ID
-via the `id` prop will prevent the unwanted scroll to top behaviour.
+hydrate the component, the page will scroll to top. In these cases, simply providing a unique ID via
+the `id` prop will prevent the unwanted scroll-to-top behaviour.
 
 ## Nav text content
 
