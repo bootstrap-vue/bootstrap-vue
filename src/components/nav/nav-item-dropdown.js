@@ -55,7 +55,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         staticClass: 'nav-link dropdown-toggle',
         class: this.toggleClasses,
         props: {
-          href: this.href || `#${toggleId}`,
+          href: this.href || `#${toggleId || ''}`,
           disabled: this.disabled
         },
         attrs: {
