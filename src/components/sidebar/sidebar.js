@@ -379,6 +379,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     onAfterLeave() {
       attemptFocus(this.$_returnFocusEl)
+      this.$_returnFocusEl = null
       // Trigger lazy render
       this.isOpen = false
       this.$emit('hidden')
