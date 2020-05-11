@@ -297,8 +297,8 @@ module.exports = {
 
   // We only include a populated `sitemap.xml` in production docs
   sitemap: () => {
-    // TESTING: switch to `!IS_PROD_DOCS`
-    if (IS_PROD_DOCS) {
+    if (!IS_PROD_DOCS) {
+      // Do not generate a sitemap for non-production docs
       return false
     }
     return {
