@@ -4,6 +4,7 @@ import BVTransition from '../../utils/bv-transition'
 import { contains, getTabables } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
 import { toString } from '../../utils/string'
+import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -124,7 +125,8 @@ const renderBackdrop = (h, ctx) => {
 // @vue/component
 export const BSidebar = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
+  // Mixin order is important!
+  mixins: [attrsMixin, idMixin, listenOnRootMixin, normalizeSlotMixin],
   inheritAttrs: false,
   model: {
     prop: 'visible',
@@ -259,6 +261,24 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         right: this.right,
         hide: this.hide
       }
+    },
+    computedTile() {
+      return this.normalizeSlot('title', this.slotScope) || toString(this.title) || null
+    },
+    titleId() {
+      return this.computedTile ? this.safeId('__title__') : null
+    },
+    computedAttrs() {
+      return {
+        ...this.bvAttrs,
+        id: this.safeId(),
+        tabindex: '-1',
+        role: 'dialog',
+        'aria-modal': this.backdrop ? 'true' : 'false',
+        'aria-hidden': this.localShow ? null : 'true',
+        'aria-label': this.ariaLabel || null,
+        'aria-labelledby': this.ariaLabelledby || this.titleId || null
+      }
     }
   },
   watch: {
@@ -379,11 +399,6 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   render(h) {
     const localShow = this.localShow
     const shadow = this.shadow === '' ? true : this.shadow
-    const title = this.normalizeSlot('title', this.slotScope) || toString(this.title) || null
-    const titleId = title ? this.safeId('__title__') : null
-    const ariaLabel = this.ariaLabel || null
-    // `ariaLabel` takes precedence over `ariaLabelledby`
-    const ariaLabelledby = this.ariaLabelledby || titleId || null
 
     let $sidebar = h(
       this.tag,
@@ -401,16 +416,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           },
           this.sidebarClass
         ],
-        attrs: {
-          ...this.$attrs,
-          id: this.safeId(),
-          tabindex: '-1',
-          role: 'dialog',
-          'aria-modal': this.backdrop ? 'true' : 'false',
-          'aria-hidden': localShow ? null : 'true',
-          'aria-label': ariaLabel,
-          'aria-labelledby': ariaLabelledby
-        },
+        attrs: this.computedAttrs,
         style: { width: this.width }
       },
       [renderContent(h, this)]

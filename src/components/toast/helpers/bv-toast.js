@@ -10,6 +10,7 @@ import {
   assign,
   defineProperties,
   defineProperty,
+  hasOwnProperty,
   keys,
   omit,
   readonlyDescriptor
@@ -177,8 +178,7 @@ const plugin = Vue => {
 
   // Define our read-only `$bvToast` instance property
   // Placed in an if just in case in HMR mode
-  // eslint-disable-next-line no-prototype-builtins
-  if (!Vue.prototype.hasOwnProperty(PROP_NAME)) {
+  if (!hasOwnProperty(Vue.prototype, PROP_NAME)) {
     defineProperty(Vue.prototype, PROP_NAME, {
       get() {
         /* istanbul ignore next */

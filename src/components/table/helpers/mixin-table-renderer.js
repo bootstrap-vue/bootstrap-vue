@@ -1,6 +1,7 @@
 import identity from '../../../utils/identity'
 import { isBoolean } from '../../../utils/inspect'
 import { toString } from '../../../utils/string'
+import attrsMixin from '../../../mixins/attrs'
 
 // Main `<table>` render mixin
 // Includes all main table styling options
@@ -9,6 +10,8 @@ export default {
   // Don't place attributes on root element automatically,
   // as table could be wrapped in responsive `<div>`
   inheritAttrs: false,
+  // Mixin order is important!
+  mixins: [attrsMixin],
   provide() {
     return {
       bvTable: this
@@ -130,7 +133,8 @@ export default {
     tableAttrs() {
       // Preserve user supplied aria-describedby, if provided in `$attrs`
       const adb =
-        [(this.$attrs || {})['aria-describedby'], this.captionId].filter(identity).join(' ') || null
+        [(this.bvAttrs || {})['aria-describedby'], this.captionId].filter(identity).join(' ') ||
+        null
       const items = this.computedItems
       const filteredItems = this.filteredItems
       const fields = this.computedFields
@@ -152,7 +156,7 @@ export default {
         // in case user has supplied their own
         'aria-rowcount': rowCount,
         // Merge in user supplied `$attrs` if any
-        ...this.$attrs,
+        ...this.bvAttrs,
         // Now we can override any `$attrs` here
         id: this.safeId(),
         role: 'table',

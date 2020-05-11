@@ -1,8 +1,9 @@
+import attrsMixin from './attrs'
 import normalizeSlotMixin from './normalize-slot'
 
 // @vue/component
 export default {
-  mixins: [normalizeSlotMixin],
+  mixins: [attrsMixin, normalizeSlotMixin],
   inheritAttrs: false,
   model: {
     prop: 'checked',
@@ -140,6 +141,21 @@ export default {
           focus: this.hasFocus
         }
       ]
+    },
+    computedAttrs() {
+      return {
+        ...this.bvAttrs,
+        id: this.safeId(),
+        type: this.isRadio ? 'radio' : 'checkbox',
+        name: this.getName,
+        form: this.getForm,
+        disabled: this.isDisabled,
+        required: this.isRequired,
+        autocomplete: 'off',
+        'aria-required': this.isRequired || null,
+        'aria-label': this.ariaLabel || null,
+        'aria-labelledby': this.ariaLabelledby || null
+      }
     }
   },
   watch: {
@@ -200,19 +216,7 @@ export default {
           expression: 'computedLocalChecked'
         }
       ],
-      attrs: {
-        ...this.$attrs,
-        id: this.safeId(),
-        type: this.isRadio ? 'radio' : 'checkbox',
-        name: this.getName,
-        form: this.getForm,
-        disabled: this.isDisabled,
-        required: this.isRequired,
-        autocomplete: 'off',
-        'aria-required': this.isRequired || null,
-        'aria-label': this.ariaLabel || null,
-        'aria-labelledby': this.ariaLabelledby || null
-      },
+      attrs: this.computedAttrs,
       domProps: {
         value: this.value,
         checked: this.isChecked

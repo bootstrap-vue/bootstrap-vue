@@ -22,7 +22,7 @@ import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
 import { isString, isUndefined } from '../../utils/inspect'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
-import { toString as objectToString } from '../../utils/object'
+import { hasOwnProperty, toString as objectToString } from '../../utils/object'
 import { warn } from '../../utils/warn'
 
 /*
@@ -99,7 +99,7 @@ const typeCheckConfig = (
   configTypes
 ) => /* istanbul ignore next: not easy to test */ {
   for (const property in configTypes) {
-    if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
+    if (hasOwnProperty(configTypes, property)) {
       const expectedTypes = configTypes[property]
       const value = config[property]
       let valueType = value && isElement(value) ? 'element' : toType(value)

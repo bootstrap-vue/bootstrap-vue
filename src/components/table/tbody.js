@@ -1,4 +1,6 @@
 import Vue from '../../utils/vue'
+import attrsMixin from '../../mixins/attrs'
+import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 export const props = {
@@ -18,7 +20,8 @@ export const props = {
 // @vue/component
 export const BTbody = /*#__PURE__*/ Vue.extend({
   name: 'BTbody',
-  mixins: [normalizeSlotMixin],
+  // Mixin order is important!
+  mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inheritAttrs: false,
   provide() {
     return {
@@ -71,7 +74,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
       return this.tbodyTransitionProps || this.tbodyTransitionHandlers
     },
     tbodyAttrs() {
-      return { role: 'rowgroup', ...this.$attrs }
+      return { role: 'rowgroup', ...this.bvAttrs }
     },
     tbodyProps() {
       return this.tbodyTransitionProps ? { ...this.tbodyTransitionProps, tag: 'tbody' } : {}
@@ -83,13 +86,12 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
       attrs: this.tbodyAttrs
     }
     if (this.isTransitionGroup) {
-      // We use native listeners if a transition group
-      // for any delegated events
+      // We use native listeners if a transition group for any delegated events
       data.on = this.tbodyTransitionHandlers || {}
-      data.nativeOn = this.$listeners || {}
+      data.nativeOn = this.bvListeners
     } else {
       // Otherwise we place any listeners on the tbody element
-      data.on = this.$listeners || {}
+      data.on = this.bvListeners
     }
     return h(
       this.isTransitionGroup ? 'transition-group' : 'tbody',

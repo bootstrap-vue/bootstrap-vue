@@ -2,6 +2,8 @@ import Vue from '../../utils/vue'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
+import attrsMixin from '../../mixins/attrs'
+import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // Parse a rowspan or colspan into a digit (or `null` if < `1` )
@@ -12,6 +14,8 @@ const parseSpan = value => {
 
 /* istanbul ignore next */
 const spanValidator = val => isUndefinedOrNull(val) || parseSpan(val) > 0
+
+// --- Props ---
 
 export const props = {
   variant: {
@@ -44,7 +48,8 @@ export const props = {
 // @vue/component
 export const BTd = /*#__PURE__*/ Vue.extend({
   name: 'BTableCell',
-  mixins: [normalizeSlotMixin],
+  // Mixin order is important!
+  mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inheritAttrs: false,
   inject: {
     bvTableTr: {
@@ -167,7 +172,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         role: role,
         scope: scope,
         // Allow users to override role/scope plus add other attributes
-        ...this.$attrs,
+        ...this.bvAttrs,
         // Add in the stacked cell label data-attribute if in
         // stacked mode (if a stacked heading label is provided)
         'data-label':
@@ -185,7 +190,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         class: this.cellClasses,
         attrs: this.cellAttrs,
         // Transfer any native listeners
-        on: this.$listeners
+        on: this.bvListeners
       },
       [this.isStackedCell ? h('div', [content]) : content]
     )
