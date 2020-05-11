@@ -87,9 +87,10 @@ describe('nav-item-dropdown', () => {
     await waitNT(wrapper.vm)
 
     expect(wrapper.element.hasAttribute('id')).toBe(true)
+    expect(wrapper.attributes('id').toEqual('foo')
 
     const $toggle = wrapper.find('.dropdown-toggle')
-    expect($toggle.attributes('href')).toEqual(`#${wrapper.attributes('id')}`)
+    expect($toggle.attributes('href')).toEqual('#foo')
 
     wrapper.destroy()
   })
