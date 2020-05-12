@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { concat } from '../../utils/array'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
-import { isEvent, isFunction, isUndefined } from '../../utils/inspect'
+import { isBoolean, isEvent, isFunction, isUndefined } from '../../utils/inspect'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
 import { omit } from '../../utils/object'
 import attrsMixin from '../../mixins/attrs'
@@ -75,9 +75,13 @@ export const propsFactory = () => ({
   // <nuxt-link> specific prop(s)
   prefetch: {
     type: Boolean
-    // Must be `undefined` to fall back to the value defined in the
+    // Must be `null` to fall back to the value defined in the
     // `nuxt.config.js` configuration file for `router.prefetchLinks`
-    // default: undefined
+    // We convert `null` to `undefined`, so that Nuxt will use the
+    // compiled default. Vue treats `undefined` as default of `false`
+    // for Boolean props, so we must set it as `null` here to be a
+    // true tri-state prop
+    default: null
   },
   noPrefetch: {
     type: Boolean,
@@ -111,7 +115,14 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       return computeHref({ to: this.to, href: this.href }, this.computedTag)
     },
     computedProps() {
-      const props = this.isRouterLink ? { ...this.$props, tag: this.routerTag } : {}
+      const prefetch = this.prefetch
+      const props = this.isRouterLink
+        ? {
+            ...this.$props,
+            prefetch: isBoolean(prefetch) ? prefetch : undefined,
+            tag: this.routerTag
+          }
+        : {}
       // Ensure the `href` prop does not exist for router links
       return this.computedHref ? props : omit(props, ['href'])
     },
