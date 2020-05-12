@@ -1,4 +1,4 @@
-import { mount, createWrapper } from '@vue/test-utils'
+import { createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BTooltip } from './tooltip'
 

@@ -1,10 +1,6 @@
-import { config as vtuConfig, mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BTab } from './tab'
-
-// Disable the use of the TransitionStub component
-// since it doesn't run transition hooks
-vtuConfig.stubs.transition = false
 
 describe('tab', () => {
   it('default has expected classes, attributes and structure', async () => {

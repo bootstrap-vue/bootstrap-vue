@@ -1,10 +1,6 @@
-import { config as vtuConfig, mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BOverlay } from './overlay'
-
-// Disable the use of the TransitionStub component
-// since it doesn't run transition hooks
-vtuConfig.stubs.transition = false
 
 describe('overlay', () => {
   it('has expected default structure', async () => {

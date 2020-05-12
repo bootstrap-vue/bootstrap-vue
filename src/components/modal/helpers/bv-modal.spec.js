@@ -1,6 +1,10 @@
-import { mount, createLocalVue, createWrapper } from '@vue/test-utils'
+import { config as vtuConfig, createLocalVue, createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../../tests/utils'
+import { TransitionStub } from '../../../../tests/components'
 import { ModalPlugin } from '../index'
+
+// Stub `<transition>` component
+vtuConfig.stubs.transition = TransitionStub
 
 const localVue = createLocalVue()
 localVue.use(ModalPlugin)

@@ -1,10 +1,6 @@
-import { config as vtuConfig, createWrapper, mount } from '@vue/test-utils'
+import { createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCollapse } from './collapse'
-
-// Disable the use of the TransitionStub component
-// since it doesn't run transition hooks
-vtuConfig.stubs.transition = false
 
 // Events collapse emits on $root
 const EVENT_STATE = 'bv::collapse::state'

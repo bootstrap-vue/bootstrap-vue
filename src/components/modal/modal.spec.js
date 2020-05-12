@@ -1,11 +1,7 @@
-import { config as vtuConfig, createWrapper, mount } from '@vue/test-utils'
+import { createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BModal } from './modal'
 import { BvModalEvent } from './helpers/bv-modal-event.class'
-
-// Disable the use of the TransitionStub component
-// since it doesn't run transition hooks
-vtuConfig.stubs.transition = false
 
 // The default Z-INDEX for modal backdrop
 const DEFAULT_ZINDEX = 1040

@@ -1,4 +1,4 @@
-import { mount, createWrapper, createLocalVue } from '@vue/test-utils'
+import { createLocalVue, createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../../tests/utils'
 import { ToastPlugin } from '../index'
 
