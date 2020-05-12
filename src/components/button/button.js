@@ -61,7 +61,7 @@ const btnProps = {
   }
 }
 
-export const props = { ...btnProps, ...linkProps }
+export const props = { ...linkProps, ...btnProps }
 
 // --- Helper methods ---
 
