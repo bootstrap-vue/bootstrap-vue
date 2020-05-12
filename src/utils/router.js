@@ -95,20 +95,15 @@ export const computeTag = ({ to, disabled, routerComponentName } = {}, thisOrPar
     return ANCHOR_TAG
   }
 
-  // Possible To Do:
-  //   Check registered components for existance of user supplied
-  //   router link component name. We would need to check PascalCase,
-  //   kebab-case, and camelCase versions of name:
+  // TODO:
+  //   Check registered components for existence of user supplied router link component name
+  //   We would need to check PascalCase, kebab-case, and camelCase versions of name:
   //   const name = routerComponentName
   //   const names = [name, PascalCase(name), KebabCase(name), CamelCase(name)]
   //   exists = names.some(name => !!thisOrParent.$options.components[name])
-  //   And may want to cache the result for performance
-  //   Or: we just let the render fail if the component is not registered
-  return routerComponentName
-    ? routerComponentName
-    : thisOrParent.$nuxt
-      ? 'nuxt-link'
-      : 'router-link'
+  //   And may want to cache the result for performance or we just let the render fail
+  //   if the component is not registered
+  return routerComponentName || thisOrParent.$nuxt ? 'nuxt-link' : 'router-link'
 }
 
 export const computeRel = ({ target, rel } = {}) => {
