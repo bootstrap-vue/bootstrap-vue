@@ -159,7 +159,7 @@ additional Nuxt.js specific props.
 
 - type: `boolean`
 - default: `null`
-- availability: Nuxt.js 2.10.0+
+- availability: Nuxt.js 2.10.0+ and BootstrapVue 2.15.0+
 
 To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within
 the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `prefetch` to
