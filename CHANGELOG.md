@@ -2,6 +2,41 @@
 
 > All notable changes to this project will be documented in this file.
 
+<a name="2.14.0"></a>
+
+## [v2.14.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.13.1...v2.14.0)
+
+Released: 2020-05-12
+
+### Features v2.14.0
+
+- **b-avatar-group:** new helper component `<b-avatar-group>`
+  ([#5272](https://github.com/bootstrap-vue/bootstrap-vue/issues/5272))
+  ([c84faae](https://github.com/bootstrap-vue/bootstrap-vue/commit/c84faaebe18bbf652583d6c302447e931a4ab741))
+- **b-nav-item-dropdown:** improve default handling of dropdown toggle link (closes
+  [#3942](https://github.com/bootstrap-vue/bootstrap-vue/issues/3942))
+  ([#5344](https://github.com/bootstrap-vue/bootstrap-vue/issues/5344))
+  ([62c6105](https://github.com/bootstrap-vue/bootstrap-vue/commit/62c6105e25bc4590f9e2fa92069b77ccbc17fac6))
+- **v-b-toggle:** support specifying target ID via directive argument, and array of target IDs via
+  directive value (closes [#4834](https://github.com/bootstrap-vue/bootstrap-vue/issues/4834))
+  ([#5336](https://github.com/bootstrap-vue/bootstrap-vue/issues/5336))
+  ([260ef72](https://github.com/bootstrap-vue/bootstrap-vue/commit/260ef7259e46d343823767374322db0ae3a74803))
+
+### Bug Fixes v2.14.0
+
+- **b-modal:** remove `role="document"` from `.modal-content`
+  ([#5345](https://github.com/bootstrap-vue/bootstrap-vue/issues/5345))
+  ([0c2b406](https://github.com/bootstrap-vue/bootstrap-vue/commit/0c2b406e8dadc274e8433d3a4c414e799d0fa228))
+- **perf:** avoid useless re-renders of component on parent update
+  ([#4825](https://github.com/bootstrap-vue/bootstrap-vue/issues/4825))
+  ([2cb3fe0](https://github.com/bootstrap-vue/bootstrap-vue/commit/2cb3fe0fa822a8284e023ccf71f8e451f124016a))
+
+### Other v2.14.0
+
+- dev dependency upgrades
+- docs updates
+- upgrade to vue test utils 1.0.x
+
 <a name="2.13.1"></a>
 
 ## [v2.13.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.13.0...v2.13.1)
