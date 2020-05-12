@@ -32,13 +32,13 @@ describe('mixins/listen-on-root', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue,
+      localVue,
       propsData: {
         destroy: false
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.text()).toEqual('test-component')
 
     expect(spyOn).not.toHaveBeenCalled()
@@ -51,9 +51,7 @@ describe('mixins/listen-on-root', () => {
     expect(spyOn).toHaveBeenCalledTimes(1)
     expect(spyOnce).not.toHaveBeenCalled()
 
-    wrapper.setProps({
-      destroy: true
-    })
+    await wrapper.setProps({ destroy: true })
 
     expect(spyOn).toHaveBeenCalledTimes(1)
     expect(spyOnce).not.toHaveBeenCalled()

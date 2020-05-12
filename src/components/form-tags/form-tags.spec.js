@@ -1,11 +1,11 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormTags } from './form-tags'
 
 describe('form-tags', () => {
   it('has div as root element', async () => {
     const wrapper = mount(BFormTags)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.classes()).toContain('b-form-tags')
     expect(wrapper.classes()).toContain('form-control')
@@ -21,7 +21,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     const $tags = wrapper.findAll('.b-form-tag')
     expect($tags.length).toBe(2)
@@ -49,9 +49,9 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: ['pear']
     })
 
@@ -72,7 +72,7 @@ describe('form-tags', () => {
         }
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -104,7 +104,7 @@ describe('form-tags', () => {
         name: 'foo'
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     const $hidden = wrapper.findAll('input[type=hidden]')
     expect($hidden.length).toBe(2)
@@ -123,7 +123,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect(wrapper.vm.newTag).toEqual('')
@@ -135,27 +135,23 @@ describe('form-tags', () => {
     expect($input.element.type).toBe('text')
 
     $input.element.value = 'pear'
-    $input.trigger('input')
+    await $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('pear')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
-    $input.trigger('change')
+    await $input.trigger('change')
     expect(wrapper.vm.newTag).toEqual('pear')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
-    wrapper.setProps({
-      addOnChange: true
-    })
-    $input.trigger('change')
+    await wrapper.setProps({ addOnChange: true })
+    await $input.trigger('change')
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
-    wrapper.setProps({
-      addOnChange: false
-    })
+    await wrapper.setProps({ addOnChange: false })
 
     $input.element.value = 'peach'
-    $input.trigger('input')
+    await $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('peach')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
-    $input.trigger('keydown.enter')
+    await $input.trigger('keydown.enter')
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach'])
 
@@ -168,7 +164,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange', 'pear', 'peach']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach'])
     expect(wrapper.vm.newTag).toEqual('')
@@ -181,7 +177,7 @@ describe('form-tags', () => {
     const $btn = $tags.at(1).find('button')
     expect($btn.exists()).toBe(true)
 
-    $btn.trigger('click')
+    await $btn.trigger('click')
     expect(wrapper.vm.tags).toEqual(['apple', 'pear', 'peach'])
 
     $tags = wrapper.findAll('.badge')
@@ -198,7 +194,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect(wrapper.vm.newTag).toEqual('')
@@ -209,21 +205,21 @@ describe('form-tags', () => {
     expect($input.element.value).toBe('')
 
     $input.element.value = 'pear'
-    $input.trigger('input')
+    await $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('pear')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     $input.element.value = 'pear '
-    $input.trigger('input')
+    await $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
 
     $input.element.value = 'peach;  foo,bar apple pie'
-    $input.trigger('input')
+    await $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('peach;  foo,bar apple pie')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
 
     $input.element.value = 'peach;  foo,bar apple pie '
-    $input.trigger('input')
+    await $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('apple ')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach', 'foo', 'bar', 'pie'])
 
@@ -238,7 +234,7 @@ describe('form-tags', () => {
         value: ['one', 'two']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.vm.tags).toEqual(['one', 'two'])
     expect(wrapper.vm.newTag).toEqual('')
@@ -249,45 +245,41 @@ describe('form-tags', () => {
     expect($input.element.value).toBe('')
 
     $input.element.value = 'tag'
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two'])
     expect(wrapper.vm.newTag).toEqual('tag')
 
     $input.element.value = 'tag '
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     expect(wrapper.vm.newTag).toEqual('')
 
     $input.element.value = 'three four one four '
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual('three four one four ')
 
     $input.element.value = ' three '
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three ')
 
     $input.element.value = ' three seven '
-    $input.trigger('input')
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three seven ')
 
     $input.element.value = ' three cat seven '
-    $input.trigger('input')
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four', 'cat'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual('three seven ')
 
     $input.element.value = '    '
-    $input.trigger('input')
+    await $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('    ')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four', 'cat'])
 
@@ -303,7 +295,7 @@ describe('form-tags', () => {
         value: ['one', 'two']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.vm.tags).toEqual(['one', 'two'])
     expect(wrapper.vm.newTag).toEqual('')
@@ -319,8 +311,7 @@ describe('form-tags', () => {
     expect($input.element.value).toBe('')
 
     $input.element.value = 'tag'
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two'])
     expect(wrapper.vm.newTag).toEqual('tag')
     expect(wrapper.vm.duplicateTags).toEqual([])
@@ -337,8 +328,7 @@ describe('form-tags', () => {
     expect(wrapper.find('.form-text').exists()).toBe(false)
 
     $input.element.value = 'tag '
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.duplicateTags).toEqual([])
@@ -351,8 +341,7 @@ describe('form-tags', () => {
 
     // Emulate a user typing the word `three` (but not finished)
     $input.element.value = 'thr'
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // Invalid tags are left in the input
     expect(wrapper.vm.newTag).toEqual('thr')
@@ -369,8 +358,7 @@ describe('form-tags', () => {
     expect(wrapper.find('.form-text').exists()).toBe(false)
     // Add next character
     $input.element.value = 'thre'
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // Invalid tags are left in the input
     expect(wrapper.vm.newTag).toEqual('thre')
@@ -387,8 +375,7 @@ describe('form-tags', () => {
     expect(wrapper.find('.form-text').exists()).toBe(false)
     // Add next character
     $input.element.value = 'three'
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual('three')
@@ -405,8 +392,7 @@ describe('form-tags', () => {
     expect(wrapper.find('.form-text').exists()).toBe(false)
     // Add next character
     $input.element.value = 'three '
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual('three ')
@@ -416,8 +402,7 @@ describe('form-tags', () => {
     expect(wrapper.emitted('tag-state').length).toBe(4)
 
     $input.element.value = 'two'
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual('two')
@@ -434,8 +419,7 @@ describe('form-tags', () => {
     expect(wrapper.find('.form-text').exists()).toBe(true)
 
     $input.element.value = ' three two '
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
@@ -448,8 +432,7 @@ describe('form-tags', () => {
     expect(wrapper.emitted('tag-state')[5][2]).toEqual(['two'])
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
     expect(wrapper.find('.form-text').exists()).toBe(true)
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
@@ -458,8 +441,7 @@ describe('form-tags', () => {
     expect(wrapper.find('.form-text').exists()).toBe(true)
 
     $input.element.value = '    '
-    $input.trigger('input')
-    await waitNT(wrapper.vm)
+    await $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('    ')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     expect(wrapper.emitted('tag-state').length).toBe(7)
@@ -483,7 +465,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect(wrapper.vm.newTag).toEqual('')
@@ -497,13 +479,12 @@ describe('form-tags', () => {
     expect($button.classes()).toContain('invisible')
 
     $input.element.value = 'pear'
-    $input.trigger('input')
+    await $input.trigger('input')
     expect(wrapper.vm.newTag).toEqual('pear')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect($button.classes()).not.toContain('invisible')
 
-    $button.trigger('click')
-
+    await $button.trigger('click')
     expect($button.classes()).toContain('invisible')
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
@@ -513,12 +494,12 @@ describe('form-tags', () => {
 
   it('focuses input when wrapper div clicked', async () => {
     const wrapper = mount(BFormTags, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -534,34 +515,30 @@ describe('form-tags', () => {
 
     expect(document.activeElement).not.toBe($input.element)
 
-    wrapper.trigger('click')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await wrapper.trigger('click')
     expect(document.activeElement).toBe($input.element)
-    $input.trigger('focusin')
+    await $input.trigger('focusin')
     expect(wrapper.classes()).toContain('focus')
 
     $input.element.blur()
     await waitNT(wrapper.vm)
     await waitRAF()
-
     expect(document.activeElement).not.toBe($input.element)
-    $input.trigger('focusout')
+    await $input.trigger('focusout')
     expect(wrapper.classes()).not.toContain('focus')
 
     wrapper.vm.focus()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(document.activeElement).toBe($input.element)
-    $input.trigger('focusin')
+    await $input.trigger('focusin')
     expect(wrapper.classes()).toContain('focus')
 
     wrapper.vm.blur()
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(document.activeElement).not.toBe($input.element)
-    $input.trigger('focusout')
+    await $input.trigger('focusout')
     expect(wrapper.classes()).not.toContain('focus')
 
     wrapper.destroy()
@@ -569,13 +546,13 @@ describe('form-tags', () => {
 
   it('autofocus works', async () => {
     const wrapper = mount(BFormTags, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         autofocus: true,
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 

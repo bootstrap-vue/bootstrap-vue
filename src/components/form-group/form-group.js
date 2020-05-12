@@ -1,7 +1,15 @@
 import memoize from '../../utils/memoize'
 import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
-import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
+import {
+  select,
+  selectAll,
+  isVisible,
+  setAttr,
+  removeAttr,
+  getAttr,
+  attemptFocus
+} from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isBoolean } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
@@ -361,11 +369,9 @@ export const BFormGroup = {
         return
       }
       const inputs = selectAll(SELECTOR, this.$refs.content).filter(isVisible)
-      if (inputs && inputs.length === 1 && inputs[0].focus) {
-        // if only a single input, focus it, emulating label behaviour
-        try {
-          inputs[0].focus()
-        } catch {}
+      // If only a single input, focus it, emulating label behaviour
+      if (inputs && inputs.length === 1) {
+        attemptFocus(inputs[0])
       }
     },
     setInputDescribedBy(add, remove) {

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormTimepicker } from './form-timepicker'
 
 // Note that JSDOM only supports `en-US` (`en`) locale for Intl
@@ -29,14 +29,14 @@ describe('form-timepicker', () => {
 
   it('has expected default structure', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-base'
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -70,15 +70,15 @@ describe('form-timepicker', () => {
 
   it('has expected default structure when button-only is true', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-button-only',
         buttonOnly: true
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -113,7 +113,7 @@ describe('form-timepicker', () => {
 
   it('renders hidden input when name prop is set', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         name: 'foobar',
@@ -121,8 +121,8 @@ describe('form-timepicker', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -130,7 +130,7 @@ describe('form-timepicker', () => {
     expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
     expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '01:02:03'
     })
     await waitNT(wrapper.vm)
@@ -140,7 +140,7 @@ describe('form-timepicker', () => {
     expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
     expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('01:02:00')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       showSeconds: true,
       value: '01:02:33'
     })
@@ -156,22 +156,22 @@ describe('form-timepicker', () => {
 
   it('renders placeholder text', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         hour12: false
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.find('label.form-control').exists()).toBe(true)
     expect(wrapper.find('label.form-control').text()).toContain('No time selected')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       placeholder: 'foobar'
     })
     await waitNT(wrapper.vm)
@@ -181,7 +181,7 @@ describe('form-timepicker', () => {
     expect(wrapper.find('label.form-control').text()).not.toContain('No time selected')
     expect(wrapper.find('label.form-control').text()).toContain('foobar')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '01:02:03'
     })
 
@@ -197,22 +197,22 @@ describe('form-timepicker', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         id: 'test-focus-blur'
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
     const $toggle = wrapper.find('button#test-focus-blur')
 
     expect($toggle.exists()).toBe(true)
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
 
     expect(document.activeElement).not.toBe($toggle.element)
 
@@ -233,15 +233,15 @@ describe('form-timepicker', () => {
 
   it('hover works to change icons', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         id: 'test-hover'
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -249,35 +249,23 @@ describe('form-timepicker', () => {
     const $label = wrapper.find('button#test-hover ~ label')
 
     expect($toggle.exists()).toBe(true)
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
     expect($toggle.find('svg.bi-clock').exists()).toBe(true)
     expect($toggle.find('svg.bi-clock-fill').exists()).toBe(false)
 
-    $toggle.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $toggle.trigger('mouseenter')
     expect($toggle.find('svg.bi-clock').exists()).toBe(false)
     expect($toggle.find('svg.bi-clock-fill').exists()).toBe(true)
 
-    $toggle.trigger('mouseleave')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $toggle.trigger('mouseleave')
     expect($toggle.find('svg.bi-clock').exists()).toBe(true)
     expect($toggle.find('svg.bi-clock-fill').exists()).toBe(false)
 
-    $label.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $label.trigger('mouseenter')
     expect($toggle.find('svg.bi-clock').exists()).toBe(false)
     expect($toggle.find('svg.bi-clock-fill').exists()).toBe(true)
 
-    $label.trigger('mouseleave')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $label.trigger('mouseleave')
     expect($toggle.find('svg.bi-clock').exists()).toBe(true)
     expect($toggle.find('svg.bi-clock-fill').exists()).toBe(false)
 
@@ -286,42 +274,36 @@ describe('form-timepicker', () => {
 
   it('opens calendar when toggle button clicked', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         id: 'test-open'
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
     const $toggle = wrapper.find('button#test-open')
 
     expect($toggle.exists()).toBe(true)
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
 
     const $menu = wrapper.find('.dropdown-menu')
 
     expect($menu.exists()).toBe(true)
     expect($menu.classes()).not.toContain('show')
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).not.toContain('show')
 
     wrapper.destroy()
@@ -342,8 +324,8 @@ describe('form-timepicker', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -353,17 +335,14 @@ describe('form-timepicker', () => {
     const $menu = wrapper.find('.dropdown-menu')
 
     expect($toggle.exists()).toBe(true)
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
     expect($menu.exists()).toBe(true)
     expect($menu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
 
     const $value = wrapper.find('input[type="hidden"]')
@@ -380,23 +359,17 @@ describe('form-timepicker', () => {
 
     const $now = $btns.at(0)
 
-    $now.trigger('click')
-    await waitNT(wrapper.vm)
+    await $now.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).not.toContain('show')
     expect($value.attributes('value')).not.toBe('')
     expect(/^\d\d:\d\d:\d\d$/.test($value.attributes('value'))).toBe(true)
 
     // Open the popup again
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
     expect($value.attributes('value')).not.toBe('')
 
@@ -404,22 +377,16 @@ describe('form-timepicker', () => {
     expect($btns.length).toBe(3)
     const $reset = $btns.at(1)
 
-    $reset.trigger('click')
-    await waitNT(wrapper.vm)
+    await $reset.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).not.toContain('show')
     expect($value.attributes('value')).toBe('')
 
     // Open the popup again
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
     expect($value.attributes('value')).toBe('')
 
@@ -427,12 +394,9 @@ describe('form-timepicker', () => {
     expect($btns.length).toBe(3)
     const $close = $btns.at(2)
 
-    $close.trigger('click')
-    await waitNT(wrapper.vm)
+    await $close.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).not.toContain('show')
     expect($value.attributes('value')).toBe('')
 
@@ -441,7 +405,7 @@ describe('form-timepicker', () => {
 
   it('`button-content` static slot works', async () => {
     const wrapper = mount(BFormTimepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-button-slot',
         showSeconds: true,
@@ -452,8 +416,8 @@ describe('form-timepicker', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)

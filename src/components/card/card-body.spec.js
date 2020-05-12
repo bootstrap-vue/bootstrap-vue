@@ -4,13 +4,19 @@ import { BCardBody } from './card-body'
 describe('card-body', () => {
   it('has root element "div"', async () => {
     const wrapper = mount(BCardBody)
-    expect(wrapper.is('div')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('DIV')
+
+    wrapper.destroy()
   })
 
   it('has class card-body', async () => {
     const wrapper = mount(BCardBody)
+
     expect(wrapper.classes()).toContain('card-body')
     expect(wrapper.classes().length).toBe(1)
+
+    wrapper.destroy()
   })
 
   it('has custom root element when prop bodyTag is set', async () => {
@@ -21,8 +27,11 @@ describe('card-body', () => {
         }
       }
     })
-    expect(wrapper.is('article')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.classes()).toContain('card-body')
+
+    wrapper.destroy()
   })
 
   it('has class bg-info when prop bodyBgVariant=info', async () => {
@@ -31,9 +40,12 @@ describe('card-body', () => {
         props: { bodyBgVariant: 'info' }
       }
     })
+
     expect(wrapper.classes()).toContain('card-body')
     expect(wrapper.classes()).toContain('bg-info')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('has class text-info when prop bodyTextVariant=info', async () => {
@@ -42,9 +54,12 @@ describe('card-body', () => {
         props: { bodyTextVariant: 'info' }
       }
     })
+
     expect(wrapper.classes()).toContain('card-body')
     expect(wrapper.classes()).toContain('text-info')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('has class border-info when prop bodyBorderVariant=info', async () => {
@@ -53,9 +68,12 @@ describe('card-body', () => {
         props: { bodyBorderVariant: 'info' }
       }
     })
+
     expect(wrapper.classes()).toContain('card-body')
     expect(wrapper.classes()).toContain('border-info')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('has all variant classes when all variant props set', async () => {
@@ -68,11 +86,14 @@ describe('card-body', () => {
         }
       }
     })
+
     expect(wrapper.classes()).toContain('card-body')
     expect(wrapper.classes()).toContain('text-info')
     expect(wrapper.classes()).toContain('bg-danger')
     expect(wrapper.classes()).toContain('border-dark')
     expect(wrapper.classes().length).toBe(4)
+
+    wrapper.destroy()
   })
 
   it('has class "card-img-overlay" when overlay="true"', async () => {
@@ -83,9 +104,12 @@ describe('card-body', () => {
         }
       }
     })
+
     expect(wrapper.classes()).toContain('card-body')
     expect(wrapper.classes()).toContain('card-img-overlay')
     expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('has card-title when title prop is set', async () => {
@@ -96,7 +120,10 @@ describe('card-body', () => {
         }
       }
     })
+
     expect(wrapper.find('div.card-title')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('has card-sub-title when sub-title prop is set', async () => {
@@ -107,6 +134,9 @@ describe('card-body', () => {
         }
       }
     })
+
     expect(wrapper.find('div.card-subtitle')).toBeDefined()
+
+    wrapper.destroy()
   })
 })

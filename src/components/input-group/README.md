@@ -119,7 +119,7 @@ The following are the form controls supported as the input-group's _main_ input 
 - [`<b-form-file>`](/docs/components/form-file)
 - [`<b-form-rating>`](/docs/components/form-rating)
 - [`<b-form-tags>`](/docs/components/form-tags)
-- [`<b-form-spinbutton>`](/docs/components/form-splinbutton)
+- [`<b-form-spinbutton>`](/docs/components/form-spinbutton)
 - [`<b-form-datepicker>`](/docs/components/form-datepicker)
 - [`<b-form-timepicker>`](/docs/components/form-timepicker)
 

@@ -5,13 +5,22 @@ import identity from '../../utils/identity'
 import observeDom from '../../utils/observe-dom'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { closest, contains, getTabables, isVisible, requestAF, select } from '../../utils/dom'
+import {
+  attemptFocus,
+  closest,
+  contains,
+  getActiveElement,
+  getTabables,
+  requestAF,
+  select
+} from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
 import { stripTags } from '../../utils/html'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { HTMLElement } from '../../utils/safe-types'
 import { BTransporterSingle } from '../../utils/transporter'
+import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
 import listenOnDocumentMixin from '../../mixins/listen-on-document'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -35,19 +44,6 @@ const OBSERVER_CONFIG = {
   characterData: true,
   attributes: true,
   attributeFilter: ['style', 'class']
-}
-
-// --- Utility methods ---
-
-// Attempt to focus an element, and return true if successful
-const attemptFocus = el => {
-  if (el && isVisible(el) && el.focus) {
-    try {
-      el.focus()
-    } catch {}
-  }
-  // If the element has focus, then return true
-  return document.activeElement === el
 }
 
 // --- Props ---
@@ -272,6 +268,7 @@ export const props = {
 export const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME,
   mixins: [
+    attrsMixin,
     idMixin,
     listenOnDocumentMixin,
     listenOnRootMixin,
@@ -305,6 +302,30 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
+    modalId() {
+      return this.safeId()
+    },
+    modalOuterId() {
+      return this.safeId('__BV_modal_outer_')
+    },
+    modalHeaderId() {
+      return this.safeId('__BV_modal_header_')
+    },
+    modalBodyId() {
+      return this.safeId('__BV_modal_body_')
+    },
+    modalTitleId() {
+      return this.safeId('__BV_modal_title_')
+    },
+    modalContentId() {
+      return this.safeId('__BV_modal_content_')
+    },
+    modalFooterId() {
+      return this.safeId('__BV_modal_footer_')
+    },
+    modalBackdropId() {
+      return this.safeId('__BV_modal_backdrop_')
+    },
     modalClasses() {
       return [
         {
@@ -388,6 +409,36 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         .filter(identity)
         .join(',')
         .trim()
+    },
+    computedAttrs() {
+      // If the parent has a scoped style attribute, and the modal
+      // is portalled, add the scoped attribute to the modal wrapper
+      const scopedStyleAttrs = !this.static ? this.scopedStyleAttrs : {}
+
+      return {
+        ...scopedStyleAttrs,
+        ...this.bvAttrs,
+        id: this.modalOuterId
+      }
+    },
+    computedModalAttrs() {
+      const { isVisible, ariaLabel } = this
+
+      return {
+        id: this.modalId,
+        role: 'dialog',
+        'aria-hidden': isVisible ? null : 'true',
+        'aria-modal': isVisible ? 'true' : null,
+        'aria-label': ariaLabel,
+        'aria-labelledby':
+          this.hideHeader ||
+          ariaLabel ||
+          // TODO: Rename slot to `title` and deprecate `modal-title`
+          !(this.hasNormalizedSlot('modal-title') || this.titleHtml || this.title)
+            ? null
+            : this.modalTitleId,
+        'aria-describedby': this.modalBodyId
+      }
     }
   },
   watch: {
@@ -448,7 +499,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         ...options,
         // Options that can't be overridden
         vueTarget: this,
-        componentId: this.safeId()
+        componentId: this.modalId
       })
     },
     // Public method to show modal
@@ -533,22 +584,17 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     // Private method to get the current document active element
     getActiveElement() {
-      if (isBrowser) {
-        const activeElement = document.activeElement
-        // Note: On IE 11, `document.activeElement` may be null.
-        // So we test it for truthiness first.
-        // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
-        // Returning focus to document.body may cause unwanted scrolls, so we
-        // exclude setting focus on body
-        if (activeElement && activeElement !== document.body && activeElement.focus) {
-          // Preset the fallback return focus value if it is not set
-          // `document.activeElement` should be the trigger element that was clicked or
-          // in the case of using the v-model, which ever element has current focus
-          // Will be overridden by some commands such as toggle, etc.
-          return activeElement
-        }
-      }
-      return null
+      // Returning focus to `document.body` may cause unwanted scrolls,
+      // so we exclude setting focus on body
+      const activeElement = getActiveElement(isBrowser ? [document.body] : [])
+      // Preset the fallback return focus value if it is not set
+      // `document.activeElement` should be the trigger element that was clicked or
+      // in the case of using the v-model, which ever element has current focus
+      // Will be overridden by some commands such as toggle, etc.
+      // Note: On IE 11, `document.activeElement` may be `null`
+      // So we test it for truthiness first
+      // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
+      return activeElement && activeElement.focus ? activeElement : null
     },
     // Private method to finish showing modal
     doShow() {
@@ -723,7 +769,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         }
       }
       // Otherwise focus the modal content container
-      content.focus({ preventScroll: true })
+      attemptFocus(content, { preventScroll: true })
     },
     // Turn on/off focusin listener
     setEnforceFocus(on) {
@@ -736,18 +782,18 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     // Root listener handlers
     showHandler(id, triggerEl) {
-      if (id === this.safeId()) {
+      if (id === this.modalId) {
         this.return_focus = triggerEl || this.getActiveElement()
         this.show()
       }
     },
     hideHandler(id) {
-      if (id === this.safeId()) {
+      if (id === this.modalId) {
         this.hide('event')
       }
     },
     toggleHandler(id, triggerEl) {
-      if (id === this.safeId()) {
+      if (id === this.modalId) {
         this.toggle(triggerEl)
       }
     },
@@ -850,7 +896,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               {
                 staticClass: 'modal-title',
                 class: this.titleClasses,
-                attrs: { id: this.safeId('__BV_modal_title_') },
+                attrs: { id: this.modalTitleId },
                 domProps
               },
               // TODO: Rename slot to `title` and deprecate `modal-title`
@@ -865,7 +911,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             ref: 'header',
             staticClass: 'modal-header',
             class: this.headerClasses,
-            attrs: { id: this.safeId('__BV_modal_header_') }
+            attrs: { id: this.modalHeaderId }
           },
           [modalHeader]
         )
@@ -878,7 +924,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           ref: 'body',
           staticClass: 'modal-body',
           class: this.bodyClasses,
-          attrs: { id: this.safeId('__BV_modal_body_') }
+          attrs: { id: this.modalBodyId }
         },
         this.normalizeSlot('default', this.slotScope)
       )
@@ -936,7 +982,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             ref: 'footer',
             staticClass: 'modal-footer',
             class: this.footerClasses,
-            attrs: { id: this.safeId('__BV_modal_footer_') }
+            attrs: { id: this.modalFooterId }
           },
           [modalFooter]
         )
@@ -950,8 +996,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           staticClass: 'modal-content',
           class: this.contentClass,
           attrs: {
-            role: 'document',
-            id: this.safeId('__BV_modal_content_'),
+            id: this.modalContentId,
             tabindex: '-1'
           }
         },
@@ -990,21 +1035,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           directives: [
             { name: 'show', rawName: 'v-show', value: this.isVisible, expression: 'isVisible' }
           ],
-          attrs: {
-            id: this.safeId(),
-            role: 'dialog',
-            'aria-hidden': this.isVisible ? null : 'true',
-            'aria-modal': this.isVisible ? 'true' : null,
-            'aria-label': this.ariaLabel,
-            'aria-labelledby':
-              this.hideHeader ||
-              this.ariaLabel ||
-              // TODO: Rename slot to `title` and deprecate `modal-title`
-              !(this.hasNormalizedSlot('modal-title') || this.titleHtml || this.title)
-                ? null
-                : this.safeId('__BV_modal_title_'),
-            'aria-describedby': this.safeId('__BV_modal_body_')
-          },
+          attrs: this.computedModalAttrs,
           on: { keydown: this.onEsc, click: this.onClickOut }
         },
         [modalDialog]
@@ -1042,16 +1073,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       if (!this.hideBackdrop && this.isVisible) {
         backdrop = h(
           'div',
-          { staticClass: 'modal-backdrop', attrs: { id: this.safeId('__BV_modal_backdrop_') } },
+          { staticClass: 'modal-backdrop', attrs: { id: this.modalBackdropId } },
           // TODO: Rename slot to `backdrop` and deprecate `modal-backdrop`
           [this.normalizeSlot('modal-backdrop')]
         )
       }
       backdrop = h(BVTransition, { props: { noFade: this.noFade } }, [backdrop])
-
-      // If the parent has a scoped style attribute, and the modal
-      // is portalled, add the scoped attribute to the modal wrapper
-      const scopedStyleAttrs = !this.static ? this.scopedStyleAttrs : {}
 
       // Assemble modal and backdrop in an outer <div>
       return h(
@@ -1059,7 +1086,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         {
           key: `modal-outer-${this._uid}`,
           style: this.modalOuterStyle,
-          attrs: { ...scopedStyleAttrs, ...this.$attrs, id: this.safeId('__BV_modal_outer_') }
+          attrs: this.computedAttrs
         },
         [modal, backdrop]
       )

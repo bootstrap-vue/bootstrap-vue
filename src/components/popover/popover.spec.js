@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BPopover } from './popover'
 
 const localVue = new CreateLocalVue()
@@ -74,7 +74,7 @@ describe('b-popover', () => {
         ownerDocument: document
       }
     })
-    // Mock getBCR so that the isVisible(el) test returns true
+    // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
     // Needed for visibility checks of trigger element, etc
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
       width: 24,
@@ -95,8 +95,8 @@ describe('b-popover', () => {
   it('has expected default structure', async () => {
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
-      localVue: localVue,
+      attachTo: createContainer(),
+      localVue,
       propsData: {
         triggers: 'click'
       },
@@ -106,10 +106,10 @@ describe('b-popover', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -121,7 +121,7 @@ describe('b-popover', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // <b-popover> wrapper
-    const $tipHolder = wrapper.find(BPopover)
+    const $tipHolder = wrapper.findComponent(BPopover)
     expect($tipHolder.exists()).toBe(true)
     expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
@@ -132,8 +132,8 @@ describe('b-popover', () => {
     jest.useFakeTimers()
     const App = localVue.extend(appDef)
     const wrapper = mount(App, {
-      attachToDocument: true,
-      localVue: localVue,
+      attachTo: createContainer(),
+      localVue,
       propsData: {
         triggers: 'click',
         show: true
@@ -144,14 +144,14 @@ describe('b-popover', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
 
-    expect(wrapper.is('article')).toBe(true)
+    expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('wrapper')
 
@@ -165,7 +165,7 @@ describe('b-popover', () => {
     const adb = $button.attributes('aria-describedby')
 
     // <b-popover> wrapper
-    const $tipHolder = wrapper.find(BPopover)
+    const $tipHolder = wrapper.findComponent(BPopover)
     expect($tipHolder.exists()).toBe(true)
     expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
@@ -178,7 +178,7 @@ describe('b-popover', () => {
     expect(tip.classList.contains('b-popover')).toBe(true)
 
     // Hide the Popover
-    wrapper.setProps({
+    await wrapper.setProps({
       show: false
     })
     await waitNT(wrapper.vm)

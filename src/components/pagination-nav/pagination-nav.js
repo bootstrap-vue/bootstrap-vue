@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
 import { getComponentConfig } from '../../utils/config'
-import { requestAF } from '../../utils/dom'
+import { attemptBlur, requestAF } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isArray, isUndefined, isFunction, isObject } from '../../utils/inspect'
 import { mathMax } from '../../utils/math'
@@ -147,13 +147,11 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
         this.$emit('change', pageNum)
       })
       this.$nextTick(() => {
-        // Done in a nextTick() to ensure rendering complete
-        try {
-          // Emulate native link click page reloading behaviour by blurring the
-          // paginator and returning focus to the document
-          const target = evt.currentTarget || evt.target
-          target.blur()
-        } catch (e) {}
+        // Emulate native link click page reloading behaviour by blurring the
+        // paginator and returning focus to the document
+        // Done in a `nextTick()` to ensure rendering complete
+        const target = evt.currentTarget || evt.target
+        attemptBlur(target)
       })
     },
     getPageInfo(pageNum) {

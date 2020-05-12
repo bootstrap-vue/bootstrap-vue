@@ -1,18 +1,21 @@
 import Vue from '../../utils/vue'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { concat } from '../../utils/array'
+import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isEvent, isFunction, isUndefined } from '../../utils/inspect'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
+import { omit } from '../../utils/object'
+import attrsMixin from '../../mixins/attrs'
+import listenersMixin from '../../mixins/listeners'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 /**
- * The Link component is used in many other BV components.
- * As such, sharing its props makes supporting all its features easier.
- * However, some components need to modify the defaults for their own purpose.
+ * The Link component is used in many other BV components
+ * As such, sharing its props makes supporting all its features easier
+ * However, some components need to modify the defaults for their own purpose
  * Prefer sharing a fresh copy of the props to ensure mutations
- * do not affect other component references to the props.
+ * do not affect other component references to the props
  *
- * https://github.com/vuejs/vue-router/blob/dev/src/components/link.js
- * @return {{}}
+ * See: https://github.com/vuejs/vue-router/blob/dev/src/components/link.js
  */
 export const propsFactory = () => ({
   href: {
@@ -81,7 +84,8 @@ export const props = propsFactory()
 // @vue/component
 export const BLink = /*#__PURE__*/ Vue.extend({
   name: 'BLink',
-  mixins: [normalizeSlotMixin],
+  // Mixin order is important!
+  mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inheritAttrs: false,
   props: propsFactory(),
   computed: {
@@ -101,14 +105,48 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       return computeHref({ to: this.to, href: this.href }, this.computedTag)
     },
     computedProps() {
-      return this.isRouterLink ? { ...this.$props, tag: this.routerTag } : {}
+      const props = this.isRouterLink ? { ...this.$props, tag: this.routerTag } : {}
+      // Ensure the `href` prop does not exist for router links
+      return this.computedHref ? props : omit(props, ['href'])
+    },
+    computedAttrs() {
+      const {
+        bvAttrs,
+        computedHref: href,
+        computedRel: rel,
+        disabled,
+        target,
+        routerTag,
+        isRouterLink
+      } = this
+
+      return {
+        ...bvAttrs,
+        // If `href` attribute exists on `<router-link>` (even `undefined` or `null`)
+        // it fails working on SSR, so we explicitly add it here if needed
+        // (i.e. if `computedHref()` is truthy)
+        ...(href ? { href } : {}),
+        // We don't render `rel` or `target` on non link tags when using `vue-router`
+        ...(isRouterLink && routerTag !== 'a' && routerTag !== 'area' ? {} : { rel, target }),
+        tabindex: disabled ? '-1' : isUndefined(bvAttrs.tabindex) ? null : bvAttrs.tabindex,
+        'aria-disabled': disabled ? 'true' : null
+      }
+    },
+    computedListeners() {
+      return {
+        // Transfer all listeners (native) to the root element
+        ...this.bvListeners,
+        // We want to overwrite any click handler since our callback
+        // will invoke the user supplied handler(s) if `!this.disabled`
+        click: this.onClick
+      }
     }
   },
   methods: {
     onClick(evt) {
       const evtIsEvent = isEvent(evt)
       const isRouterLink = this.isRouterLink
-      const suppliedHandler = this.$listeners.click
+      const suppliedHandler = this.bvListeners.click
       if (evtIsEvent && this.disabled) {
         // Stop event from bubbling up
         evt.stopPropagation()
@@ -138,52 +176,25 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       }
     },
     focus() {
-      if (this.$el && this.$el.focus) {
-        this.$el.focus()
-      }
+      attemptFocus(this.$el)
     },
     blur() {
-      if (this.$el && this.$el.blur) {
-        this.$el.blur()
-      }
+      attemptBlur(this.$el)
     }
   },
   render(h) {
-    const { active, disabled, target, routerTag, isRouterLink } = this
-    const tag = this.computedTag
-    const rel = this.computedRel
-    const href = this.computedHref
+    const { active, disabled } = this
 
-    const componentData = {
-      class: { active, disabled },
-      attrs: {
-        ...this.$attrs,
-        // We don't render `rel` or `target` on non link tags when using `vue-router`
-        ...(isRouterLink && routerTag !== 'a' && routerTag !== 'area' ? {} : { rel, target }),
-        tabindex: disabled ? '-1' : isUndefined(this.$attrs.tabindex) ? null : this.$attrs.tabindex,
-        'aria-disabled': disabled ? 'true' : null
+    return h(
+      this.computedTag,
+      {
+        class: { active, disabled },
+        attrs: this.computedAttrs,
+        props: this.computedProps,
+        // We must use `nativeOn` for `<router-link>`/`<nuxt-link>` instead of `on`
+        [this.isRouterLink ? 'nativeOn' : 'on']: this.computedListeners
       },
-      props: this.computedProps
-    }
-    // Add the event handlers. We must use `nativeOn` for
-    // `<router-link>`/`<nuxt-link>` instead of `on`
-    componentData[isRouterLink ? 'nativeOn' : 'on'] = {
-      // Transfer all listeners (native) to the root element
-      ...this.$listeners,
-      // We want to overwrite any click handler since our callback
-      // will invoke the user supplied handler(s) if `!this.disabled`
-      click: this.onClick
-    }
-
-    // If href attribute exists on <router-link> (even undefined or null) it fails working on
-    // SSR, so we explicitly add it here if needed (i.e. if computedHref() is truthy)
-    if (href) {
-      componentData.attrs.href = href
-    } else {
-      // Ensure the prop HREF does not exist for router links
-      delete componentData.props.href
-    }
-
-    return h(tag, componentData, this.normalizeSlot('default'))
+      this.normalizeSlot('default')
+    )
   }
 })

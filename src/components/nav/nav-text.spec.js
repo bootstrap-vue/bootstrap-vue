@@ -5,10 +5,12 @@ describe('nav > nav-text', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BNavText)
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('navbar-text')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
@@ -18,9 +20,11 @@ describe('nav > nav-text', () => {
       }
     })
 
-    expect(wrapper.is('li')).toBe(true)
+    expect(wrapper.element.tagName).toBe('LI')
     expect(wrapper.classes()).toContain('navbar-text')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 })

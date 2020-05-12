@@ -1,0 +1,26 @@
+{
+  "name": "@bootstrap-vue/v-b-toggle",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Toggle",
+    "description": "A light-weight directive for toggling visibility state for collapses and sidebars by ID. It automatically handles the accessibility attributes on the trigger element.",
+    "directive": "VBToggle",
+    "expression": [
+      "String",
+      "Array"
+    ],
+    "arg": {
+      "version": "2.14.0",
+      "pattern": "[a-zA-Z][a-zA-Z0-9_\\-]*",
+      "description": "ID of component to toggle",
+      "required": false
+    },
+    "modifiers": [
+      {
+        "name": "{componentId}",
+        "pattern": "[a-zA-Z][a-zA-Z0-9_\\-]*",
+        "description": "ID of component to toggle"
+      }
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT } from '../../tests/utils'
+import { createContainer, waitNT } from '../../tests/utils'
 import { BTransporterSingle } from './transporter'
 
 describe('utils/transporter component', () => {
@@ -13,12 +13,12 @@ describe('utils/transporter component', () => {
     })
 
     const wrapper = mount(App, {
-      attachToDocument: true,
-      localVue: localVue
+      attachTo: createContainer(),
+      localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.text()).toEqual('content')
 
     wrapper.destroy()
@@ -34,11 +34,11 @@ describe('utils/transporter component', () => {
     })
 
     const wrapper = mount(App, {
-      attachToDocument: true,
-      localVue: localVue
+      attachTo: createContainer(),
+      localVue
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
 
     await waitNT(wrapper.vm)
 

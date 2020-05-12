@@ -1,13 +1,12 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
 import { BIconPerson } from '../../icons/icons'
 import { BAvatar } from './avatar'
-import { waitNT } from '../../../tests/utils'
 
 describe('avatar', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BAvatar)
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -22,8 +21,8 @@ describe('avatar', () => {
         button: true
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('btn-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -36,8 +35,7 @@ describe('avatar', () => {
 
     expect(wrapper.emitted('click')).toBeUndefined()
 
-    wrapper.trigger('click')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('click')
 
     expect(wrapper.emitted('click')).not.toBeUndefined()
     expect(wrapper.emitted('click').length).toBe(1)
@@ -52,8 +50,8 @@ describe('avatar', () => {
         href: '#foo'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('a')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -67,8 +65,7 @@ describe('avatar', () => {
 
     expect(wrapper.emitted('click')).toBeUndefined()
 
-    wrapper.trigger('click')
-    await waitNT(wrapper.vm)
+    await wrapper.trigger('click')
 
     expect(wrapper.emitted('click')).not.toBeUndefined()
     expect(wrapper.emitted('click').length).toBe(1)
@@ -83,8 +80,8 @@ describe('avatar', () => {
         text: 'BV'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -105,8 +102,8 @@ describe('avatar', () => {
         default: 'BAR'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -126,8 +123,8 @@ describe('avatar', () => {
         text: 'BV'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -139,11 +136,7 @@ describe('avatar', () => {
     expect(wrapper.find('img').attributes('src')).toEqual('/foo/bar')
     expect(wrapper.text()).not.toContain('BV')
 
-    wrapper.setProps({
-      src: '/foo/baz'
-    })
-    await waitNT(wrapper.vm)
-
+    await wrapper.setProps({ src: '/foo/baz' })
     expect(wrapper.find('img').exists()).toBe(true)
     expect(wrapper.find('img').attributes('src')).toEqual('/foo/baz')
     expect(wrapper.text()).not.toContain('BV')
@@ -151,8 +144,7 @@ describe('avatar', () => {
     expect(wrapper.text()).not.toContain('BV')
 
     // Fake an image error
-    wrapper.find('img').trigger('error')
-    await waitNT(wrapper.vm)
+    await wrapper.find('img').trigger('error')
     expect(wrapper.emitted('img-error')).toBeDefined()
     expect(wrapper.emitted('img-error').length).toBe(1)
     expect(wrapper.find('img').exists()).toBe(false)
@@ -170,8 +162,8 @@ describe('avatar', () => {
         icon: 'person'
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -224,8 +216,8 @@ describe('avatar', () => {
         badge: true
       }
     })
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('b-avatar')
     expect(wrapper.classes()).toContain('badge-secondary')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -237,21 +229,90 @@ describe('avatar', () => {
     expect($badge.classes()).toContain('badge-primary')
     expect($badge.text()).toEqual('')
 
-    wrapper.setProps({
-      badge: 'FOO'
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ badge: 'FOO' })
     expect($badge.classes()).toContain('badge-primary')
     expect($badge.text()).toEqual('FOO')
 
-    wrapper.setProps({
-      badgeVariant: 'info'
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ badgeVariant: 'info' })
     expect($badge.classes()).not.toContain('badge-primary')
     expect($badge.classes()).toContain('badge-info')
     expect($badge.text()).toEqual('FOO')
 
     wrapper.destroy()
+  })
+
+  it('should handle b-avatar-group variant', async () => {
+    const wrapper1 = mount(BAvatar, {
+      provide: {
+        // Emulate `undefined`/`null` props
+        bvAvatarGroup: {}
+      }
+    })
+
+    expect(wrapper1.vm).toBeDefined()
+    expect(wrapper1.element.tagName).toBe('SPAN')
+    expect(wrapper1.classes()).toContain('b-avatar')
+    expect(wrapper1.classes()).toContain('badge-secondary')
+    expect(wrapper1.attributes('style')).toContain('width: 2.5em; height: 2.5em;')
+
+    wrapper1.destroy()
+
+    const wrapper2 = mount(BAvatar, {
+      provide: {
+        bvAvatarGroup: {
+          variant: 'danger'
+        }
+      }
+    })
+
+    expect(wrapper2.vm).toBeDefined()
+    expect(wrapper2.element.tagName).toBe('SPAN')
+    expect(wrapper2.classes()).toContain('b-avatar')
+    expect(wrapper2.classes()).toContain('badge-danger')
+    expect(wrapper2.classes()).not.toContain('badge-secondary')
+    expect(wrapper2.attributes('style')).toContain('width: 2.5em; height: 2.5em;')
+
+    wrapper2.destroy()
+  })
+
+  it('should handle b-avatar-group size', async () => {
+    const wrapper1 = mount(BAvatar, {
+      propsData: {
+        size: '5em'
+      },
+      provide: {
+        // Emulate `undefined`/`null` props
+        bvAvatarGroup: {}
+      }
+    })
+
+    expect(wrapper1.vm).toBeDefined()
+    expect(wrapper1.element.tagName).toBe('SPAN')
+    expect(wrapper1.classes()).toContain('b-avatar')
+    expect(wrapper1.classes()).toContain('badge-secondary')
+    // Uses avatar group size (default)
+    expect(wrapper1.attributes('style')).toContain('width: 2.5em; height: 2.5em;')
+
+    wrapper1.destroy()
+
+    const wrapper2 = mount(BAvatar, {
+      propsData: {
+        size: '2em'
+      },
+      provide: {
+        bvAvatarGroup: {
+          size: '5em'
+        }
+      }
+    })
+
+    expect(wrapper2.vm).toBeDefined()
+    expect(wrapper2.element.tagName).toBe('SPAN')
+    expect(wrapper2.classes()).toContain('b-avatar')
+    expect(wrapper2.classes()).toContain('badge-secondary')
+    // Should use BAvatarGroup size prop
+    expect(wrapper2.attributes('style')).toContain('width: 5em; height: 5em;')
+
+    wrapper2.destroy()
   })
 })

@@ -8,7 +8,7 @@ describe('form-datalist', () => {
         id: 'test-list'
       }
     })
-    expect(wrapper.is('datalist')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DATALIST')
 
     wrapper.destroy()
   })

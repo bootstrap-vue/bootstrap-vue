@@ -1,5 +1,5 @@
 import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { VBTooltip } from './tooltip'
 import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
 
@@ -23,7 +23,7 @@ describe('v-b-tooltip directive', () => {
         ownerDocument: document
       }
     })
-    // Mock getBCR so that the isVisible(el) test returns true
+    // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
     // Needed for visibility checks of trigger element, etc.
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
       width: 24,
@@ -53,11 +53,11 @@ describe('v-b-tooltip directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue,
-      attachToDocument: true
+      localVue,
+      attachTo: createContainer()
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -68,7 +68,7 @@ describe('v-b-tooltip directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     const $button = wrapper.find('button')
 
     // Should have instance of popover class on it
@@ -90,11 +90,11 @@ describe('v-b-tooltip directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue,
-      attachToDocument: true
+      localVue,
+      attachTo: createContainer()
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -105,7 +105,7 @@ describe('v-b-tooltip directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     const $button = wrapper.find('button')
 
     // Should have instance of popover class on it
@@ -115,12 +115,8 @@ describe('v-b-tooltip directive', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // Trigger click
-    $button.trigger('click')
-    await waitNT(wrapper.vm)
+    await $button.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -148,11 +144,11 @@ describe('v-b-tooltip directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue,
-      attachToDocument: true
+      localVue,
+      attachTo: createContainer()
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -163,7 +159,7 @@ describe('v-b-tooltip directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.element.tagName).toBe('BUTTON')
     const $button = wrapper.find('button')
 
     // Should have instance of popover class on it
@@ -173,12 +169,8 @@ describe('v-b-tooltip directive', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // Trigger click
-    $button.trigger('click')
-    await waitNT(wrapper.vm)
+    await $button.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -201,12 +193,12 @@ describe('v-b-tooltip directive', () => {
     })
 
     const wrapper = mount(App, {
-      localVue: localVue,
-      attachToDocument: true
+      localVue,
+      attachTo: createContainer()
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('BUTTON')
     const $button = wrapper.find('button')
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -219,12 +211,8 @@ describe('v-b-tooltip directive', () => {
     await waitRAF()
 
     // Trigger click
-    $button.trigger('click')
-    await waitNT(wrapper.vm)
+    await $button.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)

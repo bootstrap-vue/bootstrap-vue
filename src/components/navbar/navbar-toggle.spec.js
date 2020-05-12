@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { waitNT } from '../../../tests/utils'
 import { BNavbarToggle } from './navbar-toggle'
 
 describe('navbar-toggle', () => {
@@ -8,7 +9,10 @@ describe('navbar-toggle', () => {
         target: 'target-1'
       }
     })
-    expect(wrapper.is('button')).toBe(true)
+
+    expect(wrapper.element.tagName).toBe('BUTTON')
+
+    wrapper.destroy()
   })
 
   it('default has class "navbar-toggler"', async () => {
@@ -17,8 +21,13 @@ describe('navbar-toggle', () => {
         target: 'target-2'
       }
     })
+
     expect(wrapper.classes()).toContain('navbar-toggler')
-    expect(wrapper.classes().length).toBe(1)
+    // Class added by v-b-toggle
+    expect(wrapper.classes()).toContain('collapsed')
+    expect(wrapper.classes().length).toBe(2)
+
+    wrapper.destroy()
   })
 
   it('default has default attributes', async () => {
@@ -27,10 +36,13 @@ describe('navbar-toggle', () => {
         target: 'target-3'
       }
     })
+
     expect(wrapper.attributes('type')).toBe('button')
     expect(wrapper.attributes('aria-controls')).toBe('target-3')
     expect(wrapper.attributes('aria-expanded')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Toggle navigation')
+
+    wrapper.destroy()
   })
 
   it('default has inner button-close', async () => {
@@ -39,7 +51,10 @@ describe('navbar-toggle', () => {
         target: 'target-4'
       }
     })
+
     expect(wrapper.find('span.navbar-toggler-icon')).toBeDefined()
+
+    wrapper.destroy()
   })
 
   it('accepts custom label when label prop is set', async () => {
@@ -49,7 +64,10 @@ describe('navbar-toggle', () => {
         label: 'foobar'
       }
     })
+
     expect(wrapper.attributes('aria-label')).toBe('foobar')
+
+    wrapper.destroy()
   })
 
   it('default slot scope works', async () => {
@@ -70,14 +88,16 @@ describe('navbar-toggle', () => {
     expect(scope.expanded).toBe(false)
 
     wrapper.vm.$root.$emit('bv::collapse::state', 'target-6', true)
-
+    await waitNT(wrapper.vm)
     expect(scope).not.toBe(null)
     expect(scope.expanded).toBe(true)
 
     wrapper.vm.$root.$emit('bv::collapse::state', 'target-6', false)
-
+    await waitNT(wrapper.vm)
     expect(scope).not.toBe(null)
     expect(scope.expanded).toBe(false)
+
+    wrapper.destroy()
   })
 
   it('emits click event', async () => {
@@ -95,11 +115,13 @@ describe('navbar-toggle', () => {
     expect(wrapper.emitted('click')).not.toBeDefined()
     expect(rootClicked).toBe(false)
 
-    wrapper.trigger('click')
+    await wrapper.trigger('click')
     expect(wrapper.emitted('click')).toBeDefined()
     expect(rootClicked).toBe(true)
 
     wrapper.vm.$root.$off('bv::toggle::collapse', onRootClick)
+
+    wrapper.destroy()
   })
 
   it('sets aria-expanded when receives root emit for target', async () => {
@@ -111,18 +133,30 @@ describe('navbar-toggle', () => {
 
     // Private state event
     wrapper.vm.$root.$emit('bv::collapse::state', 'target-8', true)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('true')
+
     wrapper.vm.$root.$emit('bv::collapse::state', 'target-8', false)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
+
     wrapper.vm.$root.$emit('bv::collapse::state', 'foo', true)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
 
     // Private sync event
     wrapper.vm.$root.$emit('bv::collapse::sync::state', 'target-8', true)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('true')
+
     wrapper.vm.$root.$emit('bv::collapse::sync::state', 'target-8', false)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
+
     wrapper.vm.$root.$emit('bv::collapse::sync::state', 'foo', true)
+    await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
+
+    wrapper.destroy()
   })
 })

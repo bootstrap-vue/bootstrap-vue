@@ -5,10 +5,12 @@ describe('layout > form-row', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormRow)
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('custom root element when prop tag set', async () => {
@@ -18,10 +20,12 @@ describe('layout > form-row', () => {
       }
     })
 
-    expect(wrapper.is('span')).toBe(true)
+    expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
+
+    wrapper.destroy()
   })
 
   it('renders default slot content', async () => {
@@ -31,9 +35,11 @@ describe('layout > form-row', () => {
       }
     })
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
+
+    wrapper.destroy()
   })
 })

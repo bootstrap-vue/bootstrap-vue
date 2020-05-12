@@ -21,12 +21,13 @@ import {
   parseYMD,
   resolveLocale
 } from '../../utils/date'
-import { requestAF } from '../../utils/dom'
+import { attemptBlur, attemptFocus, requestAF } from '../../utils/dom'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
+import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import {
@@ -56,7 +57,8 @@ export const STR_NARROW = 'narrow'
 // @vue/component
 export const BCalendar = Vue.extend({
   name: NAME,
-  mixins: [idMixin, normalizeSlotMixin],
+  // Mixin order is important!
+  mixins: [attrsMixin, idMixin, normalizeSlotMixin],
   model: {
     // Even though this is the default that Vue assumes, we need
     // to add it for the docs to reflect that this is the model
@@ -271,6 +273,27 @@ export const BCalendar = Vue.extend({
     }
   },
   computed: {
+    valueId() {
+      return this.safeId()
+    },
+    widgetId() {
+      return this.safeId('_calendar-wrapper_')
+    },
+    navId() {
+      return this.safeId('_calendar-nav_')
+    },
+    gridId() {
+      return this.safeId('_calendar-grid_')
+    },
+    gridCaptionId() {
+      return this.safeId('_calendar-grid-caption_')
+    },
+    gridHelpId() {
+      return this.safeId('_calendar-grid-help_')
+    },
+    activeId() {
+      return this.activeYMD ? this.safeId(`_cell-${this.activeYMD}_`) : null
+    },
     // TODO: Use computed props to convert `YYYY-MM-DD` to `Date` object
     selectedDate() {
       // Selected as a `Date` object
@@ -595,15 +618,13 @@ export const BCalendar = Vue.extend({
     // Public method(s)
     focus() {
       if (!this.disabled) {
-        try {
-          this.$refs.grid.focus()
-        } catch {}
+        attemptFocus(this.$refs.grid)
       }
     },
     blur() {
-      try {
-        this.$refs.grid.blur()
-      } catch {}
+      if (!this.disabled) {
+        attemptBlur(this.$refs.grid)
+      }
     },
     // Private methods
     setLive(on) {
@@ -771,24 +792,28 @@ export const BCalendar = Vue.extend({
     }
   },
   render(h) {
-    // If hidden prop is set, render just a placeholder node
+    // If `hidden` prop is set, render just a placeholder node
     if (this.hidden) {
       return h()
     }
 
-    const { isLive, isRTL, activeYMD, selectedYMD, safeId } = this
+    const {
+      valueId,
+      widgetId,
+      navId,
+      gridId,
+      gridCaptionId,
+      gridHelpId,
+      activeId,
+      isLive,
+      isRTL,
+      activeYMD,
+      selectedYMD,
+      safeId
+    } = this
     const hideDecadeNav = !this.showDecadeNav
     const todayYMD = formatYMD(this.getToday())
     const highlightToday = !this.noHighlightToday
-    // Pre-compute some IDs
-    // This should be computed props
-    const idValue = safeId()
-    const idWidget = safeId('_calendar-wrapper_')
-    const idNav = safeId('_calendar-nav_')
-    const idGrid = safeId('_calendar-grid_')
-    const idGridCaption = safeId('_calendar-grid-caption_')
-    const idGridHelp = safeId('_calendar-grid-help_')
-    const idActive = activeYMD ? safeId(`_cell-${activeYMD}_`) : null
 
     // Header showing current selected date
     let $header = h(
@@ -797,8 +822,8 @@ export const BCalendar = Vue.extend({
         staticClass: 'form-control form-control-sm text-center',
         class: { 'text-muted': this.disabled, readonly: this.readonly || this.disabled },
         attrs: {
-          id: idValue,
-          for: idGrid,
+          id: valueId,
+          for: gridId,
           role: 'status',
           tabindex: this.disabled ? null : '-1',
           // Mainly for testing purposes, as we do not know
@@ -885,11 +910,11 @@ export const BCalendar = Vue.extend({
       {
         staticClass: 'b-calendar-nav d-flex',
         attrs: {
-          id: idNav,
+          id: navId,
           role: 'group',
           'aria-hidden': this.disabled ? 'true' : null,
           'aria-label': this.labelNav || null,
-          'aria-controls': idGrid
+          'aria-controls': gridId
         }
       },
       [
@@ -957,7 +982,7 @@ export const BCalendar = Vue.extend({
         staticClass: 'b-calendar-grid-caption text-center font-weight-bold',
         class: { 'text-muted': this.disabled },
         attrs: {
-          id: idGridCaption,
+          id: gridCaptionId,
           'aria-live': isLive ? 'polite' : null,
           'aria-atomic': isLive ? 'true' : null
         }
@@ -1077,7 +1102,7 @@ export const BCalendar = Vue.extend({
       {
         staticClass: 'b-calendar-grid-help border-top small text-muted text-center bg-light',
         attrs: {
-          id: idGridHelp
+          id: gridHelpId
         }
       },
       [h('div', { staticClass: 'small' }, this.labelHelp)]
@@ -1089,18 +1114,18 @@ export const BCalendar = Vue.extend({
         ref: 'grid',
         staticClass: 'b-calendar-grid form-control h-auto text-center',
         attrs: {
-          id: idGrid,
+          id: gridId,
           role: 'application',
           tabindex: this.disabled ? null : '0',
           'data-month': activeYMD.slice(0, -3), // `YYYY-MM`, mainly for testing
           'aria-roledescription': this.labelCalendar || null,
-          'aria-labelledby': idGridCaption,
-          'aria-describedby': idGridHelp,
+          'aria-labelledby': gridCaptionId,
+          'aria-describedby': gridHelpId,
           // `aria-readonly` is not considered valid on `role="application"`
           // https://www.w3.org/TR/wai-aria-1.1/#aria-readonly
           // 'aria-readonly': this.readonly && !this.disabled ? 'true' : null,
           'aria-disabled': this.disabled ? 'true' : null,
-          'aria-activedescendant': idActive
+          'aria-activedescendant': activeId
         },
         on: {
           keydown: this.onKeydownGrid,
@@ -1121,7 +1146,7 @@ export const BCalendar = Vue.extend({
         staticClass: 'b-calendar-inner',
         style: this.block ? {} : { width: this.width },
         attrs: {
-          id: idWidget,
+          id: widgetId,
           dir: isRTL ? 'rtl' : 'ltr',
           lang: this.computedLocale || null,
           role: 'group',
@@ -1133,9 +1158,9 @@ export const BCalendar = Vue.extend({
           'aria-describedby': [
             // Should the attr (if present) go last?
             // Or should this attr be a prop?
-            this.$attrs['aria-describedby'],
-            idValue,
-            idGridHelp
+            this.bvAttrs['aria-describedby'],
+            valueId,
+            gridHelpId
           ]
             .filter(identity)
             .join(' ')

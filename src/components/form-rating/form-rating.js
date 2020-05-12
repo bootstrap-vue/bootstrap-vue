@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
+import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax, mathMin } from '../../utils/math'
@@ -262,16 +263,12 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     // --- Public methods ---
     focus() {
       if (!this.disabled) {
-        try {
-          this.$el.focus()
-        } catch {}
+        attemptFocus(this.$el)
       }
     },
     blur() {
       if (!this.disabled) {
-        try {
-          this.$el.blur()
-        } catch {}
+        attemptBlur(this.$el)
       }
     },
     // --- Private methods ---

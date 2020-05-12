@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 
 // Mixins
+import attrsMixin from '../../mixins/attrs'
 import hasListenerMixin from '../../mixins/has-listener'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -31,19 +32,21 @@ import tableRendererMixin from './helpers/mixin-table-renderer'
 export const BTable = /*#__PURE__*/ Vue.extend({
   name: 'BTable',
   // Order of mixins is important!
-  // They are merged from first to last, followed by this component.
+  // They are merged from first to last, followed by this component
   mixins: [
-    // Required Mixins
+    // General mixins
+    attrsMixin,
     hasListenerMixin,
     idMixin,
     normalizeSlotMixin,
+    // Required table mixins
     itemsMixin,
     tableRendererMixin,
     stackedMixin,
     theadMixin,
     tfootMixin,
     tbodyMixin,
-    // Features Mixins
+    // Table features mixins
     stackedMixin,
     filteringMixin,
     sortingMixin,
@@ -57,5 +60,5 @@ export const BTable = /*#__PURE__*/ Vue.extend({
     busyMixin,
     providerMixin
   ]
-  // render function provided by table-renderer mixin
+  // Render function is provided by table-renderer mixin
 })

@@ -6,7 +6,7 @@ import observeDom from '../../utils/observe-dom'
 import stableSort from '../../utils/stable-sort'
 import { arrayIncludes, concat } from '../../utils/array'
 import { BvEvent } from '../../utils/bv-event.class'
-import { requestAF, selectAll } from '../../utils/dom'
+import { attemptFocus, requestAF, selectAll } from '../../utils/dom'
 import { isEvent } from '../../utils/inspect'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
@@ -57,9 +57,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     focus() {
-      if (this.$refs && this.$refs.link && this.$refs.link.focus) {
-        this.$refs.link.focus()
-      }
+      attemptFocus(this.$refs.link)
     },
     handleEvt(evt) {
       const stop = () => {
@@ -388,6 +386,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           attributeFilter: ['id']
         })
       } else {
+        /* istanbul ignore next */
         if (this._bvObserver && this._bvObserver.disconnect) {
           this._bvObserver.disconnect()
         }
@@ -522,10 +521,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     focusButton(tab) {
       // Wrap in `$nextTick()` to ensure DOM has completed rendering/updating before focusing
       this.$nextTick(() => {
-        const button = this.getButtonForTab(tab)
-        if (button && button.focus) {
-          button.focus()
-        }
+        attemptFocus(this.getButtonForTab(tab))
       })
     },
     // Emit a click event on a specified <b-tab> component instance

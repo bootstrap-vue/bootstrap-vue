@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormDatepicker } from './form-datepicker'
 // import { formatYMD } from '../../utils/date'
 
@@ -30,14 +30,14 @@ describe('form-date', () => {
 
   it('has expected base structure', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-base'
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -71,15 +71,15 @@ describe('form-date', () => {
 
   it('has expected base structure in button-only mode', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-button-only',
         buttonOnly: true
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -113,15 +113,15 @@ describe('form-date', () => {
 
   it('renders custom placeholder', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         placeholder: 'FOOBAR'
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -133,15 +133,15 @@ describe('form-date', () => {
 
   it('renders hidden input when name prop is set', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         name: 'foobar'
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -149,7 +149,7 @@ describe('form-date', () => {
     expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
     expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('')
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '2020-01-20'
     })
     await waitNT(wrapper.vm)
@@ -164,18 +164,18 @@ describe('form-date', () => {
 
   it('reacts to changes in value', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: ''
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    wrapper.setProps({
+    await wrapper.setProps({
       value: '2020-01-20'
     })
 
@@ -189,22 +189,22 @@ describe('form-date', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         id: 'test-focus-blur'
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
     const $toggle = wrapper.find('button#test-focus-blur')
 
     expect($toggle.exists()).toBe(true)
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
 
     expect(document.activeElement).not.toBe($toggle.element)
 
@@ -225,15 +225,15 @@ describe('form-date', () => {
 
   it('hover works to change icons', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         id: 'test-hover'
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -241,35 +241,23 @@ describe('form-date', () => {
     const $label = wrapper.find('button#test-hover ~ label')
 
     expect($toggle.exists()).toBe(true)
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
     expect($toggle.find('svg.bi-calendar').exists()).toBe(true)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(false)
 
-    $toggle.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $toggle.trigger('mouseenter')
     expect($toggle.find('svg.bi-calendar').exists()).toBe(false)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(true)
 
-    $toggle.trigger('mouseleave')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $toggle.trigger('mouseleave')
     expect($toggle.find('svg.bi-calendar').exists()).toBe(true)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(false)
 
-    $label.trigger('mouseenter')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $label.trigger('mouseenter')
     expect($toggle.find('svg.bi-calendar').exists()).toBe(false)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(true)
 
-    $label.trigger('mouseleave')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $label.trigger('mouseleave')
     expect($toggle.find('svg.bi-calendar').exists()).toBe(true)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(false)
 
@@ -278,42 +266,36 @@ describe('form-date', () => {
 
   it('opens calendar when toggle button clicked', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         id: 'test-open'
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
     const $toggle = wrapper.find('button#test-open')
 
     expect($toggle.exists()).toBe(true)
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
 
     const $menu = wrapper.find('.dropdown-menu')
 
     expect($menu.exists()).toBe(true)
     expect($menu.classes()).not.toContain('show')
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).not.toContain('show')
 
     wrapper.destroy()
@@ -321,15 +303,15 @@ describe('form-date', () => {
 
   it('emits new value when date updated', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         id: 'test-emit-input'
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -339,17 +321,14 @@ describe('form-date', () => {
     const $menu = wrapper.find('.dropdown-menu')
 
     expect($toggle.exists()).toBe(true)
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
     expect($menu.exists()).toBe(true)
     expect($menu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(true)
 
@@ -367,12 +346,9 @@ describe('form-date', () => {
 
     // Simulate picking todays date on calendar by `keydown.enter` on grid
     // The calendar has today's date as the default calendar day button
-    $grid.trigger('keydown.enter')
-    await waitNT(wrapper.vm)
+    await $grid.trigger('keydown.enter')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).not.toContain('show')
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
@@ -383,7 +359,7 @@ describe('form-date', () => {
 
   it('does not close popup when prop `no-close-on-select` is set', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         value: '',
         id: 'test-no-close',
@@ -391,8 +367,8 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -400,17 +376,14 @@ describe('form-date', () => {
     const $menu = wrapper.find('.dropdown-menu')
 
     expect($toggle.exists()).toBe(true)
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
     expect($menu.exists()).toBe(true)
     expect($menu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(true)
 
@@ -428,10 +401,8 @@ describe('form-date', () => {
 
     // Simulate picking todays date on calendar by `keydown.enter` on grid
     // The calendar has today's date as the default calendar day button
-    $grid.trigger('keydown.enter')
-    await waitNT(wrapper.vm)
+    await $grid.trigger('keydown.enter')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     // Calendar should remain open
@@ -446,7 +417,7 @@ describe('form-date', () => {
 
   it('renders optional footer buttons', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-footer',
         value: '1900-01-01',
@@ -458,8 +429,8 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -469,17 +440,14 @@ describe('form-date', () => {
     const $menu = wrapper.find('.dropdown-menu')
 
     expect($toggle.exists()).toBe(true)
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
     expect($menu.exists()).toBe(true)
     expect($menu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($menu.classes()).toContain('show')
 
     const $value = wrapper.find('input[type="hidden"]')
@@ -498,10 +466,8 @@ describe('form-date', () => {
     const $reset = $btns.at(1)
     const $close = $btns.at(2)
 
-    $today.trigger('click')
-    await waitNT(wrapper.vm)
+    await $today.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect($menu.classes()).toContain('show')
@@ -509,19 +475,15 @@ describe('form-date', () => {
     expect($value.attributes('value')).not.toBe('')
     expect(/^\d+-\d\d-\d\d$/.test($value.attributes('value'))).toBe(true)
 
-    $reset.trigger('click')
-    await waitNT(wrapper.vm)
+    await $reset.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect($menu.classes()).toContain('show')
     expect($value.attributes('value')).toBe('')
 
-    $close.trigger('click')
-    await waitNT(wrapper.vm)
+    await $close.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect($menu.classes()).not.toContain('show')
@@ -532,7 +494,7 @@ describe('form-date', () => {
 
   it('prop reset-value works', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-reset',
         value: '2020-01-15',
@@ -542,8 +504,8 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -553,15 +515,13 @@ describe('form-date', () => {
     const $menu = wrapper.find('.dropdown-menu')
 
     expect($toggle.exists()).toBe(true)
-    expect($toggle.is('button')).toBe(true)
+    expect($toggle.element.tagName).toBe('BUTTON')
     expect($menu.exists()).toBe(true)
     expect($menu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
-    $toggle.trigger('click')
-    await waitNT(wrapper.vm)
+    await $toggle.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect($menu.classes()).toContain('show')
@@ -580,10 +540,8 @@ describe('form-date', () => {
 
     const $reset = $btns.at(0)
 
-    $reset.trigger('click')
-    await waitNT(wrapper.vm)
+    await $reset.trigger('click')
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
 
     expect($menu.classes()).not.toContain('show')
@@ -594,7 +552,7 @@ describe('form-date', () => {
 
   it('`button-content` static slot works', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         id: 'test-button-slot',
         value: '2020-01-15'
@@ -604,8 +562,8 @@ describe('form-date', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)

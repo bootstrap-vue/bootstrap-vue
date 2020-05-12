@@ -20,7 +20,7 @@
     },
     {
       "packageNames": ["@vue/test-utils"],
-      "allowedVersions": "<=1.0.0-beta.29"
+      "allowedVersions": "<2.0.0"
     }
   ]
 }

@@ -1,7 +1,7 @@
 import Popper from 'popper.js'
 import KeyCodes from '../utils/key-codes'
 import { BvEvent } from '../utils/bv-event.class'
-import { closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
+import { attemptFocus, closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
 import { isNull } from '../utils/inspect'
 import { HTMLElement } from '../utils/safe-types'
 import { warn } from '../utils/warn'
@@ -431,27 +431,20 @@ export default {
         this.focusItem(index, items)
       })
     },
-    focusItem(idx, items) {
-      const el = items.find((el, i) => i === idx)
-      if (el && el.focus) {
-        el.focus()
-      }
+    focusItem(index, items) {
+      const el = items.find((el, i) => i === index)
+      attemptFocus(el)
     },
     getItems() {
       // Get all items
       return filterVisibles(selectAll(Selector.ITEM_SELECTOR, this.$refs.menu))
     },
     focusMenu() {
-      try {
-        this.$refs.menu.focus()
-      } catch {}
+      attemptFocus(this.$refs.menu)
     },
     focusToggler() {
       this.$nextTick(() => {
-        const toggler = this.toggler
-        if (toggler && toggler.focus) {
-          toggler.focus()
-        }
+        attemptFocus(this.toggler)
       })
     }
   }

@@ -1,17 +1,18 @@
 import Vue from '../../utils/vue'
-import { VBVisible } from '../../directives/visible/visible'
-import idMixin from '../../mixins/id'
-import formMixin from '../../mixins/form'
-import formSizeMixin from '../../mixins/form-size'
-import formStateMixin from '../../mixins/form-state'
-import formTextMixin from '../../mixins/form-text'
-import formSelectionMixin from '../../mixins/form-selection'
-import formValidityMixin from '../../mixins/form-validity'
-import listenOnRootMixin from '../../mixins/listen-on-root'
 import { getCS, isVisible, requestAF } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 import { mathCeil, mathMax, mathMin } from '../../utils/math'
 import { toInteger, toFloat } from '../../utils/number'
+import formMixin from '../../mixins/form'
+import formSelectionMixin from '../../mixins/form-selection'
+import formSizeMixin from '../../mixins/form-size'
+import formStateMixin from '../../mixins/form-state'
+import formTextMixin from '../../mixins/form-text'
+import formValidityMixin from '../../mixins/form-validity'
+import idMixin from '../../mixins/id'
+import listenOnRootMixin from '../../mixins/listen-on-root'
+import listenersMixin from '../../mixins/listeners'
+import { VBVisible } from '../../directives/visible/visible'
 
 // @vue/component
 export const BFormTextarea = /*#__PURE__*/ Vue.extend({
@@ -19,7 +20,9 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   directives: {
     'b-visible': VBVisible
   },
+  // Mixin order is important!
   mixins: [
+    listenersMixin,
     idMixin,
     listenOnRootMixin,
     formMixin,
@@ -89,6 +92,32 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       // This is used to set the attribute 'rows' on the textarea
       // If auto-height is enabled, then we return `null` as we use CSS to control height
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
+    },
+    computedAttrs() {
+      const { disabled, required } = this
+
+      return {
+        id: this.safeId(),
+        name: this.name || null,
+        form: this.form || null,
+        disabled,
+        placeholder: this.placeholder || null,
+        required,
+        autocomplete: this.autocomplete || null,
+        readonly: this.readonly || this.plaintext,
+        rows: this.computedRows,
+        wrap: this.wrap || null,
+        'aria-required': this.required ? 'true' : null,
+        'aria-invalid': this.computedAriaInvalid
+      }
+    },
+    computedListeners() {
+      return {
+        ...this.bvListeners,
+        input: this.onInput,
+        change: this.onChange,
+        blur: this.onBlur
+      }
     }
   },
   watch: {
@@ -168,17 +197,11 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    // Using self instead of this helps reduce code size during minification
-    const self = this
     return h('textarea', {
       ref: 'input',
-      class: self.computedClass,
-      style: self.computedStyle,
+      class: this.computedClass,
+      style: this.computedStyle,
       directives: [
-        {
-          name: 'model',
-          value: self.localValue
-        },
         {
           name: 'b-visible',
           value: this.visibleCallback,
@@ -186,29 +209,9 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
           modifiers: { '640': true }
         }
       ],
-      attrs: {
-        id: self.safeId(),
-        name: self.name || null,
-        form: self.form || null,
-        disabled: self.disabled,
-        placeholder: self.placeholder || null,
-        required: self.required,
-        autocomplete: self.autocomplete || null,
-        readonly: self.readonly || self.plaintext,
-        rows: self.computedRows,
-        wrap: self.wrap || null,
-        'aria-required': self.required ? 'true' : null,
-        'aria-invalid': self.computedAriaInvalid
-      },
-      domProps: {
-        value: self.localValue
-      },
-      on: {
-        ...self.$listeners,
-        input: self.onInput,
-        change: self.onChange,
-        blur: self.onBlur
-      }
+      attrs: this.computedAttrs,
+      domProps: { value: this.localValue },
+      on: this.computedListeners
     })
   }
 })

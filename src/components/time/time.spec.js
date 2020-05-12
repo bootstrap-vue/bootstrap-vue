@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BTime } from './time'
 
 //  Note that JSDOM only supports `en-US` (`en`) locale for Intl
@@ -8,11 +8,11 @@ describe('time', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BTime)
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.is('div')).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.element.hasAttribute('lang')).toBe(true)
     expect(wrapper.element.hasAttribute('aria-labelledby')).toBe(true)
@@ -48,7 +48,7 @@ describe('time', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -58,12 +58,8 @@ describe('time', () => {
     expect($spinners.at(1).text()).toEqual('14')
     expect($spinners.at(2).text()).toEqual('15')
 
-    wrapper.setProps({
-      value: '01:02:03'
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ value: '01:02:03' })
     await waitRAF()
-
     expect($spinners.at(0).text()).toEqual('01')
     expect($spinners.at(1).text()).toEqual('02')
     expect($spinners.at(2).text()).toEqual('03')
@@ -80,7 +76,7 @@ describe('time', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -90,12 +86,8 @@ describe('time', () => {
     expect($spinners.at(1).text()).toEqual('02')
     expect($spinners.at(2).text()).toEqual('AM')
 
-    wrapper.setProps({
-      value: '13:14:00'
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ value: '13:14:00' })
     await waitRAF()
-
     expect($spinners.at(0).text()).toEqual('01')
     expect($spinners.at(1).text()).toEqual('14')
     expect($spinners.at(2).text()).toEqual('PM')
@@ -112,7 +104,7 @@ describe('time', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -121,12 +113,8 @@ describe('time', () => {
     expect($spinners.at(0).text()).toEqual('01')
     expect($spinners.at(1).text()).toEqual('02')
 
-    wrapper.setProps({
-      value: '13:14:00'
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ value: '13:14:00' })
     await waitRAF()
-
     expect($spinners.at(0).text()).toEqual('13')
     expect($spinners.at(1).text()).toEqual('14')
 
@@ -143,7 +131,7 @@ describe('time', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -167,7 +155,7 @@ describe('time', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -181,46 +169,34 @@ describe('time', () => {
     const $seconds = $spinners.at(2)
     const $ampm = $spinners.at(3)
 
-    $hours.trigger('keydown.up')
-    $hours.trigger('keyup.up')
-    await waitNT(wrapper.vm)
+    await $hours.trigger('keydown.up')
+    await $hours.trigger('keyup.up')
     await waitRAF()
-
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe('01:00:00')
 
-    $minutes.trigger('keydown.up')
-    $minutes.trigger('keyup.up')
-    await waitNT(wrapper.vm)
+    await $minutes.trigger('keydown.up')
+    await $minutes.trigger('keyup.up')
     await waitRAF()
-
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toBe('01:01:00')
 
-    $seconds.trigger('keydown.up')
-    $seconds.trigger('keyup.up')
-    await waitNT(wrapper.vm)
+    await $seconds.trigger('keydown.up')
+    await $seconds.trigger('keyup.up')
     await waitRAF()
-
     expect(wrapper.emitted('input').length).toBe(3)
     expect(wrapper.emitted('input')[2][0]).toBe('01:01:01')
 
-    $ampm.trigger('keydown.up')
-    $ampm.trigger('keyup.up')
-    await waitNT(wrapper.vm)
-    await waitNT(wrapper.vm)
+    await $ampm.trigger('keydown.up')
+    await $ampm.trigger('keyup.up')
     await waitRAF()
-
     expect(wrapper.emitted('input').length).toBe(4)
     expect(wrapper.emitted('input')[3][0]).toBe('13:01:01')
 
-    $ampm.trigger('keydown.up')
-    $ampm.trigger('keyup.up')
-    await waitNT(wrapper.vm)
-    await waitNT(wrapper.vm)
+    await $ampm.trigger('keydown.up')
+    await $ampm.trigger('keyup.up')
     await waitRAF()
-
     expect(wrapper.emitted('input').length).toBe(5)
     expect(wrapper.emitted('input')[4][0]).toBe('01:01:01')
 
@@ -229,10 +205,10 @@ describe('time', () => {
 
   it('blur and focus methods work', async () => {
     const wrapper = mount(BTime, {
-      attachToDocument: true
+      attachTo: createContainer()
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -258,7 +234,7 @@ describe('time', () => {
 
   it('arrow left/right moves focus', async () => {
     const wrapper = mount(BTime, {
-      attachToDocument: true,
+      attachTo: createContainer(),
       propsData: {
         showSeconds: true,
         value: '00:00:00',
@@ -267,7 +243,7 @@ describe('time', () => {
       }
     })
 
-    expect(wrapper.isVueInstance()).toBe(true)
+    expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -290,40 +266,22 @@ describe('time', () => {
 
     expect(document.activeElement).toBe($hours.element)
 
-    $hours.trigger('keydown.right')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $hours.trigger('keydown.right')
     expect(document.activeElement).toBe($minutes.element)
 
-    $minutes.trigger('keydown.right')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $minutes.trigger('keydown.right')
     expect(document.activeElement).toBe($seconds.element)
 
-    $seconds.trigger('keydown.right')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $seconds.trigger('keydown.right')
     expect(document.activeElement).toBe($ampm.element)
 
-    $ampm.trigger('keydown.right')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $ampm.trigger('keydown.right')
     expect(document.activeElement).toBe($hours.element)
 
-    $hours.trigger('keydown.left')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $hours.trigger('keydown.left')
     expect(document.activeElement).toBe($ampm.element)
 
-    $ampm.trigger('keydown.left')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
+    await $ampm.trigger('keydown.left')
     expect(document.activeElement).toBe($seconds.element)
 
     wrapper.destroy()

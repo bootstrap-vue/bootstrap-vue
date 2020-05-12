@@ -1,13 +1,15 @@
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
+import { attemptBlur } from '../../utils/dom'
 import { eventOn, eventOff, eventOnOff } from '../../utils/events'
-import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
+import formSelectionMixin from '../../mixins/form-selection'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import formTextMixin from '../../mixins/form-text'
-import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
+import idMixin from '../../mixins/id'
+import listenersMixin from '../../mixins/listeners'
 
 // Valid supported input types
 const TYPES = [
@@ -31,7 +33,9 @@ const TYPES = [
 // @vue/component
 export const BFormInput = /*#__PURE__*/ Vue.extend({
   name: 'BFormInput',
+  // Mixin order is important!
   mixins: [
+    listenersMixin,
     idMixin,
     formMixin,
     formSizeMixin,
@@ -41,15 +45,15 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
     formValidityMixin
   ],
   props: {
-    // value prop defined in form-text mixin
-    // value: { },
+    // `value` prop is defined in form-text mixin
     type: {
       type: String,
       default: 'text',
       validator: type => arrayIncludes(TYPES, type)
     },
     noWheel: {
-      // Disable mousewheel to prevent wheel from changing values (i.e. number/date).
+      // Disable mousewheel to prevent wheel from
+      // changing values (i.e. number/date)
       type: Boolean,
       default: false
     },
@@ -74,6 +78,35 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
     localType() {
       // We only allow certain types
       return arrayIncludes(TYPES, this.type) ? this.type : 'text'
+    },
+    computedAttrs() {
+      const { localType: type, disabled, placeholder, required, min, max, step } = this
+
+      return {
+        id: this.safeId(),
+        name: this.name || null,
+        form: this.form || null,
+        type,
+        disabled,
+        placeholder,
+        required,
+        autocomplete: this.autocomplete || null,
+        readonly: this.readonly || this.plaintext,
+        min,
+        max,
+        step,
+        list: type !== 'password' ? this.list : null,
+        'aria-required': required ? 'true' : null,
+        'aria-invalid': this.computedAriaInvalid
+      }
+    },
+    computedListeners() {
+      return {
+        ...this.bvListeners,
+        input: this.onInput,
+        change: this.onChange,
+        blur: this.onBlur
+      }
     }
   },
   watch: {
@@ -118,48 +151,16 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
     },
     stopWheel(evt) {
       evt.preventDefault()
-      this.$el.blur()
+      attemptBlur(this.$el)
     }
   },
   render(h) {
-    var self = this
     return h('input', {
       ref: 'input',
-      class: self.computedClass,
-      directives: [
-        {
-          name: 'model',
-          rawName: 'v-model',
-          value: self.localValue,
-          expression: 'localValue'
-        }
-      ],
-      attrs: {
-        id: self.safeId(),
-        name: self.name,
-        form: self.form || null,
-        type: self.localType,
-        disabled: self.disabled,
-        placeholder: self.placeholder,
-        required: self.required,
-        autocomplete: self.autocomplete || null,
-        readonly: self.readonly || self.plaintext,
-        min: self.min,
-        max: self.max,
-        step: self.step,
-        list: self.localType !== 'password' ? self.list : null,
-        'aria-required': self.required ? 'true' : null,
-        'aria-invalid': self.computedAriaInvalid
-      },
-      domProps: {
-        value: self.localValue
-      },
-      on: {
-        ...self.$listeners,
-        input: self.onInput,
-        change: self.onChange,
-        blur: self.onBlur
-      }
+      class: this.computedClass,
+      attrs: this.computedAttrs,
+      domProps: { value: this.localValue },
+      on: this.computedListeners
     })
   }
 })

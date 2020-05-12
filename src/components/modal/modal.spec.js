@@ -1,7 +1,11 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { config as vtuConfig, createLocalVue, createWrapper, mount } from '@vue/test-utils'
+import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BModal } from './modal'
 import { BvModalEvent } from './helpers/bv-modal-event.class'
+
+// Disable the use of the TransitionStub component
+// since it doesn't run transition hooks
+vtuConfig.stubs.transition = false
 
 // The default Z-INDEX for modal backdrop
 const DEFAULT_ZINDEX = 1040
@@ -30,18 +34,18 @@ describe('modal', () => {
   describe('structure', () => {
     it('has expected default structure', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test'
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
       await waitNT(wrapper.vm)
 
       // Main outer wrapper (has z-index, etc)... The stacker <div>
-      expect(wrapper.is('div')).toBe(true)
+      expect(wrapper.element.tagName).toBe('DIV')
       expect(wrapper.classes().length).toBe(0)
       expect(wrapper.element.style.position).toEqual('absolute')
       expect(wrapper.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
@@ -70,26 +74,22 @@ describe('modal', () => {
       expect($content.exists()).toBe(true)
       expect($content.attributes('tabindex')).toBeDefined()
       expect($content.attributes('tabindex')).toEqual('-1')
-      expect($content.attributes('role')).toBeDefined()
-      expect($content.attributes('role')).toEqual('document')
 
       wrapper.destroy()
     })
 
     it('has expected default structure when static and lazy', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           static: true,
           lazy: true
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
-
-      expect(wrapper.isEmpty()).toBe(true)
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
       wrapper.destroy()
@@ -97,17 +97,15 @@ describe('modal', () => {
 
     it('has expected default structure when not static', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           static: false
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
-
-      expect(wrapper.isEmpty()).toBe(true)
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
       wrapper.destroy()
@@ -115,12 +113,7 @@ describe('modal', () => {
 
     it('has expected structure when initially open', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          // Disable the use of transitionStub fake transition
-          // as it doesn't run transition hooks
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -128,11 +121,11 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
       await waitRAF()
 
       // Main outer wrapper (has z-index, etc)... The stacker <div>
-      expect(wrapper.is('div')).toBe(true)
+      expect(wrapper.element.tagName).toBe('DIV')
       expect(wrapper.classes().length).toBe(0)
       expect(wrapper.element.style.position).toEqual('absolute')
       expect(wrapper.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
@@ -163,20 +156,13 @@ describe('modal', () => {
       expect($content.exists()).toBe(true)
       expect($content.attributes('tabindex')).toBeDefined()
       expect($content.attributes('tabindex')).toEqual('-1')
-      expect($content.attributes('role')).toBeDefined()
-      expect($content.attributes('role')).toEqual('document')
 
       wrapper.destroy()
     })
 
     it('renders appended to body when initially open and not static', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          // Disable the use of transitionStub fake transition
-          // as it doesn't run transition hooks
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: false,
           id: 'test-target',
@@ -184,10 +170,9 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
-      await waitRAF()
+      expect(wrapper.vm).toBeDefined()
 
-      expect(wrapper.isEmpty()).toBe(true)
+      await waitRAF()
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
       const outer = document.getElementById('test-target___BV_modal_outer_')
@@ -211,12 +196,7 @@ describe('modal', () => {
 
     it('has expected structure when closed after being initially open', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          // Disable the use of transitionStub fake transition
-          // as it doesn't run transition hooks
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -224,13 +204,13 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
 
       // Main outer wrapper (has z-index, etc)... The stacker <div>
-      expect(wrapper.is('div')).toBe(true)
+      expect(wrapper.element.tagName).toBe('DIV')
       expect(wrapper.classes().length).toBe(0)
       expect(wrapper.element.style.position).toEqual('absolute')
       expect(wrapper.element.style.zIndex).toEqual(`${DEFAULT_ZINDEX}`)
@@ -248,7 +228,7 @@ describe('modal', () => {
       expect($backdrop.exists()).toBe(true)
 
       // Now we close the modal via the value prop
-      wrapper.setProps({
+      await wrapper.setProps({
         visible: false
       })
       await waitNT(wrapper.vm)
@@ -269,7 +249,7 @@ describe('modal', () => {
 
     it('title-html prop works', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -277,7 +257,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       // Modal title
       const $title = wrapper.find('.modal-title')
@@ -292,7 +272,7 @@ describe('modal', () => {
     // We may want to move these tests into individual files for manageability
     it('default footer ok and cancel buttons', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           static: true
         }
@@ -321,7 +301,7 @@ describe('modal', () => {
 
     it('default header close button', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           static: true
         }
@@ -342,7 +322,7 @@ describe('modal', () => {
 
     it('ok-title-html and cancel-title-html works', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
+        attachTo: createContainer(),
         propsData: {
           static: true,
           okTitleHtml: '<em>ok</em>',
@@ -378,10 +358,7 @@ describe('modal', () => {
       let trigger = null
       let evt = null
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -398,7 +375,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -424,8 +401,7 @@ describe('modal', () => {
       expect(evt).toEqual(null)
 
       // Try and close modal (but we prevent it)
-      $close.trigger('click')
-      await waitNT(wrapper.vm)
+      await $close.trigger('click')
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
@@ -441,8 +417,7 @@ describe('modal', () => {
       cancelHide = false
       trigger = null
       evt = null
-      $close.trigger('click')
-      await waitNT(wrapper.vm)
+      await $close.trigger('click')
       expect(trigger).toEqual('headerclose')
       expect(evt).toBeInstanceOf(BvModalEvent)
 
@@ -461,10 +436,7 @@ describe('modal', () => {
       let cancelHide = true
       let trigger = null
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -480,7 +452,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -507,8 +479,7 @@ describe('modal', () => {
       expect(trigger).toEqual(null)
 
       // Try and close modal (but we prevent it)
-      $ok.trigger('click')
-      await waitNT(wrapper.vm)
+      await $ok.trigger('click')
       expect(trigger).toEqual('ok')
 
       await waitNT(wrapper.vm)
@@ -522,8 +493,7 @@ describe('modal', () => {
       // Try and close modal (and not prevent it)
       cancelHide = false
       trigger = null
-      $cancel.trigger('click')
-      await waitNT(wrapper.vm)
+      await $cancel.trigger('click')
       expect(trigger).toEqual('cancel')
 
       await waitNT(wrapper.vm)
@@ -548,10 +518,7 @@ describe('modal', () => {
     it('pressing ESC closes modal', async () => {
       let trigger = null
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -564,7 +531,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -580,8 +547,7 @@ describe('modal', () => {
       expect(trigger).toEqual(null)
 
       // Try and close modal via ESC
-      $modal.trigger('keydown.esc')
-      await waitNT(wrapper.vm)
+      await $modal.trigger('keydown.esc')
       expect(trigger).toEqual('esc')
 
       await waitNT(wrapper.vm)
@@ -607,10 +573,7 @@ describe('modal', () => {
     it('click outside closes modal', async () => {
       let trigger = null
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -623,7 +586,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -639,8 +602,7 @@ describe('modal', () => {
       expect(trigger).toEqual(null)
 
       // Try and close modal via click out
-      $modal.trigger('click')
-      await waitNT(wrapper.vm)
+      await $modal.trigger('click')
       expect(trigger).toEqual('backdrop')
 
       await waitNT(wrapper.vm)
@@ -667,10 +629,7 @@ describe('modal', () => {
       let trigger = null
       let called = false
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -684,7 +643,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -707,15 +666,11 @@ describe('modal', () => {
 
       // Try and close modal via a "dragged" click out
       // starting from inside modal and finishing on backdrop
-      $dialog.trigger('mousedown')
-      $modal.trigger('mouseup')
-      $modal.trigger('click')
-
-      await waitNT(wrapper.vm)
+      await $dialog.trigger('mousedown')
+      await $modal.trigger('mouseup')
+      await $modal.trigger('click')
       await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
-
       expect(called).toEqual(false)
       expect(trigger).toEqual(null)
 
@@ -724,15 +679,11 @@ describe('modal', () => {
 
       // Try and close modal via a "dragged" click out
       // starting from inside modal and finishing on backdrop
-      $footer.trigger('mousedown')
-      $modal.trigger('mouseup')
-      $modal.trigger('click')
-
-      await waitNT(wrapper.vm)
+      await $footer.trigger('mousedown')
+      await $modal.trigger('mouseup')
+      await $modal.trigger('click')
       await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
-
       expect(called).toEqual(false)
       expect(trigger).toEqual(null)
 
@@ -740,13 +691,9 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('block')
 
       // Try and close modal via click out
-      $modal.trigger('click')
-
-      await waitNT(wrapper.vm)
+      await $modal.trigger('click')
       await waitRAF()
-      await waitNT(wrapper.vm)
       await waitRAF()
-
       expect(called).toEqual(true)
       expect(trigger).toEqual('backdrop')
 
@@ -758,10 +705,7 @@ describe('modal', () => {
 
     it('$root bv::show::modal and bv::hide::modal work', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -769,7 +713,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -808,10 +752,7 @@ describe('modal', () => {
 
     it('$root bv::toggle::modal works', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -819,7 +760,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -871,10 +812,7 @@ describe('modal', () => {
       let prevent = true
       let called = 0
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -882,7 +820,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -939,10 +877,7 @@ describe('modal', () => {
 
     it('instance .toggle() methods works', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -950,7 +885,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -989,10 +924,7 @@ describe('modal', () => {
 
     it('modal closes when no-stacking is true and another modal opens', async () => {
       const wrapper = mount(BModal, {
-        attachToDocument: true,
-        stubs: {
-          transition: false
-        },
+        attachTo: createContainer(),
         propsData: {
           static: true,
           id: 'test',
@@ -1001,7 +933,7 @@ describe('modal', () => {
         }
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1031,7 +963,7 @@ describe('modal', () => {
   })
 
   describe('focus management', () => {
-    const localVue = new CreateLocalVue()
+    const localVue = createLocalVue()
 
     it('returns focus to previous active element when return focus not set and not using v-b-toggle', async () => {
       const App = localVue.extend({
@@ -1043,14 +975,11 @@ describe('modal', () => {
         }
       })
       const wrapper = mount(App, {
-        attachToDocument: true,
-        localVue: localVue,
-        stubs: {
-          transition: false
-        }
+        attachTo: createContainer(),
+        localVue
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1061,7 +990,7 @@ describe('modal', () => {
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
-      expect($button.is('button')).toBe(true)
+      expect($button.element.tagName).toBe('BUTTON')
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -1074,7 +1003,7 @@ describe('modal', () => {
       expect(document.activeElement).toBe($button.element)
 
       // Try and open modal via `.toggle()` method
-      wrapper.find(BModal).vm.toggle()
+      wrapper.findComponent(BModal).vm.toggle()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1092,7 +1021,7 @@ describe('modal', () => {
       expect($modal.element.contains(document.activeElement)).toBe(true)
 
       // Try and close modal via `.toggle()` method
-      wrapper.find(BModal).vm.toggle()
+      wrapper.findComponent(BModal).vm.toggle()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1125,14 +1054,11 @@ describe('modal', () => {
         }
       })
       const wrapper = mount(App, {
-        attachToDocument: true,
-        localVue: localVue,
-        stubs: {
-          transition: false
-        }
+        attachTo: createContainer(),
+        localVue
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1145,11 +1071,11 @@ describe('modal', () => {
 
       const $button = wrapper.find('button.trigger')
       expect($button.exists()).toBe(true)
-      expect($button.is('button')).toBe(true)
+      expect($button.element.tagName).toBe('BUTTON')
 
       const $button2 = wrapper.find('button.return-to')
       expect($button2.exists()).toBe(true)
-      expect($button2.is('button')).toBe(true)
+      expect($button2.element.tagName).toBe('BUTTON')
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -1162,7 +1088,7 @@ describe('modal', () => {
       expect(document.activeElement).toBe($button.element)
 
       // Try and open modal via `.toggle()` method
-      wrapper.find(BModal).vm.toggle('button.return-to')
+      wrapper.findComponent(BModal).vm.toggle('button.return-to')
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1181,7 +1107,7 @@ describe('modal', () => {
       expect($modal.element.contains(document.activeElement)).toBe(true)
 
       // Try and close modal via `.toggle()` method
-      wrapper.find(BModal).vm.toggle()
+      wrapper.findComponent(BModal).vm.toggle()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1209,14 +1135,11 @@ describe('modal', () => {
         }
       })
       const wrapper = mount(App, {
-        attachToDocument: true,
-        localVue: localVue,
-        stubs: {
-          transition: false
-        }
+        attachTo: createContainer(),
+        localVue
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1229,7 +1152,7 @@ describe('modal', () => {
 
       const $button = wrapper.find('#button')
       expect($button.exists()).toBe(true)
-      expect($button.is('button')).toBe(true)
+      expect($button.element.tagName).toBe('BUTTON')
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -1242,23 +1165,22 @@ describe('modal', () => {
 
       // Try and focus the external button
       $button.element.focus()
-      $button.trigger('focusin')
+      await $button.trigger('focusin')
       expect(document.activeElement).not.toBe($button.element)
       expect(document.activeElement).toBe($content.element)
 
       // Emulate TAB by focusing the `bottomTrap` span element
       // Should focus first button in modal (in the header)
-      const $bottomTrap = wrapper.find(BModal).find({ ref: 'bottomTrap' })
+      const $bottomTrap = createWrapper(wrapper.findComponent(BModal).vm.$refs.bottomTrap)
       expect($bottomTrap.exists()).toBe(true)
-      expect($bottomTrap.is('span')).toBe(true)
+      expect($bottomTrap.element.tagName).toBe('SPAN')
       // Find the close (x) button (it is the only one with the `.close` class)
       const $closeButton = $modal.find('button.close')
       expect($closeButton.exists()).toBe(true)
-      expect($closeButton.is('button')).toBe(true)
+      expect($closeButton.element.tagName).toBe('BUTTON')
       // Focus the tab trap
       $bottomTrap.element.focus()
-      $bottomTrap.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await $bottomTrap.trigger('focusin')
       expect(document.activeElement).not.toBe($bottomTrap.element)
       expect(document.activeElement).not.toBe($content.element)
       // The close (x) button (first tabable in modal) should be focused
@@ -1266,17 +1188,16 @@ describe('modal', () => {
 
       // Emulate CTRL-TAB by focusing the `topTrap` div element
       // Should focus last button in modal (in the footer)
-      const $topTrap = wrapper.find(BModal).find({ ref: 'topTrap' })
+      const $topTrap = createWrapper(wrapper.findComponent(BModal).vm.$refs.topTrap)
       expect($topTrap.exists()).toBe(true)
-      expect($topTrap.is('span')).toBe(true)
+      expect($topTrap.element.tagName).toBe('SPAN')
       // Find the OK button (it is the only one with `.btn-primary` class)
       const $okButton = $modal.find('button.btn.btn-primary')
       expect($okButton.exists()).toBe(true)
-      expect($okButton.is('button')).toBe(true)
+      expect($okButton.element.tagName).toBe('BUTTON')
       // Focus the tab trap
       $topTrap.element.focus()
-      $topTrap.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await $topTrap.trigger('focusin')
       expect(document.activeElement).not.toBe($topTrap.element)
       expect(document.activeElement).not.toBe($bottomTrap.element)
       expect(document.activeElement).not.toBe($content.element)
@@ -1308,14 +1229,11 @@ describe('modal', () => {
         }
       })
       const wrapper = mount(App, {
-        attachToDocument: true,
-        localVue: localVue,
-        stubs: {
-          transition: false
-        }
+        attachTo: createContainer(),
+        localVue
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1328,11 +1246,11 @@ describe('modal', () => {
 
       const $button1 = wrapper.find('#button1')
       expect($button1.exists()).toBe(true)
-      expect($button1.is('button')).toBe(true)
+      expect($button1.element.tagName).toBe('BUTTON')
 
       const $button2 = wrapper.find('#button2')
       expect($button2.exists()).toBe(true)
-      expect($button2.is('button')).toBe(true)
+      expect($button2.element.tagName).toBe('BUTTON')
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -1345,15 +1263,13 @@ describe('modal', () => {
 
       // Try to focus button1
       $button1.element.focus()
-      $button1.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await $button1.trigger('focusin')
       expect(document.activeElement).toBe($button1.element)
       expect(document.activeElement).not.toBe($content.element)
 
       // Try to focus button2
       $button2.element.focus()
-      $button2.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await $button2.trigger('focusin')
       expect(document.activeElement).toBe($button2.element)
       expect(document.activeElement).not.toBe($content.element)
 
@@ -1382,14 +1298,11 @@ describe('modal', () => {
         }
       })
       const wrapper = mount(App, {
-        attachToDocument: true,
-        localVue: localVue,
-        stubs: {
-          transition: false
-        }
+        attachTo: createContainer(),
+        localVue
       })
 
-      expect(wrapper.isVueInstance()).toBe(true)
+      expect(wrapper.vm).toBeDefined()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -1402,11 +1315,11 @@ describe('modal', () => {
 
       const $button1 = wrapper.find('#button1')
       expect($button1.exists()).toBe(true)
-      expect($button1.is('button')).toBe(true)
+      expect($button1.element.tagName).toBe('BUTTON')
 
       const $button2 = wrapper.find('#button2')
       expect($button2.exists()).toBe(true)
-      expect($button2.is('button')).toBe(true)
+      expect($button2.element.tagName).toBe('BUTTON')
 
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
@@ -1419,15 +1332,13 @@ describe('modal', () => {
 
       // Try to focus button1
       $button1.element.focus()
-      $button1.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await $button1.trigger('focusin')
       expect(document.activeElement).toBe($button1.element)
       expect(document.activeElement).not.toBe($content.element)
 
       // Try to focus button2
       $button2.element.focus()
-      $button2.trigger('focusin')
-      await waitNT(wrapper.vm)
+      await $button2.trigger('focusin')
       expect(document.activeElement).not.toBe($button2.element)
       expect(document.activeElement).toBe($content.element)
 
