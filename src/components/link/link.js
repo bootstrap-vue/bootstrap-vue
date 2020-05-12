@@ -106,7 +106,11 @@ export const BLink = /*#__PURE__*/ Vue.extend({
   computed: {
     computedTag() {
       // We don't pass `this` as the first arg as we need reactivity of the props
-      return computeTag({ to: this.to, disabled: this.disabled }, this)
+      return computeTag({
+        to: this.to,
+        disabled: this.disabled,
+        routerComponentName: this.routerComponentName
+      }, this)
     },
     isRouterLink() {
       return isRouterLink(this.computedTag)
