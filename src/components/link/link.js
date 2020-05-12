@@ -83,11 +83,10 @@ export const propsFactory = () => ({
     type: Boolean,
     default: false
   },
-  // To support 3rd party router links based on `<router-link>`
-  // i.e. set to `g-link` for Gridsome
-  // Default is to auto choose betwen `<router-link>` and `<nuxt-link>`
-  // As Grdisome doesn't provide a mechanism to auto detect
-  // And has caveats such as not supporting FQDN URLs or hash only URLs
+  // To support 3rd party router links based on `<router-link>` (i.e. `g-link` for Gridsome)
+  // Default is to auto choose between `<router-link>` and `<nuxt-link>`
+  // Gridsome doesn't provide a mechanism to auto detect and has caveats
+  // such as not supporting FQDN URLs or hash only URLs
   routerComponentName: {
     type: String
     // default: undefined
@@ -106,11 +105,8 @@ export const BLink = /*#__PURE__*/ Vue.extend({
   computed: {
     computedTag() {
       // We don't pass `this` as the first arg as we need reactivity of the props
-      return computeTag({
-        to: this.to,
-        disabled: this.disabled,
-        routerComponentName: this.routerComponentName
-      }, this)
+      const { to, disabled, routerComponentName } = this
+      return computeTag({ to, disabled, routerComponentName }, this)
     },
     isRouterLink() {
       return isRouterLink(this.computedTag)
