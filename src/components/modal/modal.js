@@ -422,15 +422,17 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
     },
     computedModalAttrs() {
+      const { isVisible, ariaLabel } = this
+
       return {
         id: this.modalId,
         role: 'dialog',
-        'aria-hidden': this.isVisible ? null : 'true',
-        'aria-modal': this.isVisible ? 'true' : null,
-        'aria-label': this.ariaLabel,
+        'aria-hidden': isVisible ? null : 'true',
+        'aria-modal': isVisible ? 'true' : null,
+        'aria-label': ariaLabel,
         'aria-labelledby':
           this.hideHeader ||
-          this.ariaLabel ||
+          ariaLabel ||
           // TODO: Rename slot to `title` and deprecate `modal-title`
           !(this.hasNormalizedSlot('modal-title') || this.titleHtml || this.title)
             ? null
@@ -994,7 +996,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           staticClass: 'modal-content',
           class: this.contentClass,
           attrs: {
-            role: 'document',
             id: this.modalContentId,
             tabindex: '-1'
           }
