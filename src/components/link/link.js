@@ -83,9 +83,9 @@ export const propsFactory = () => ({
     type: Boolean,
     default: false
   },
-  // To support 3rd party router links based on router link
+  // To support 3rd party router links based on `<router-link>`
   // i.e. set to `g-link` for Gridsome
-  // Default is to auto choose `<router-link>` vs `<nuxt-link>`
+  // Default is to auto choose betwen `<router-link>` and `<nuxt-link>`
   // As Grdisome doesn't provide a mechanism to auto detect
   // And has caveats such as not supporting FQDN URLs or hash only URLs
   routerComponentName: {
