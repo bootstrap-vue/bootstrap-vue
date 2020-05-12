@@ -1,4 +1,4 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { VBTooltip } from './tooltip'
 import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
@@ -11,10 +11,10 @@ describe('v-b-tooltip directive', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
 
   beforeEach(() => {
+    // Hack to make Popper not bork out during tests
+    // Note: Popper still does not do any positioning calculation in JSDOM though
+    // So we cannot test actual positioning - just detect when it is open
     // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
-    // Hack to make Popper not bork out during tests.
-    // Note popper still does not do any positioning calculation in JSDOM though.
-    // So we cannot test actual positioning... just detect when it is open.
     document.createRange = () => ({
       setStart: () => {},
       setEnd: () => {},
@@ -43,17 +43,15 @@ describe('v-b-tooltip directive', () => {
 
   it('should have BVTooltip Vue class instance', async () => {
     jest.useFakeTimers()
-    const localVue = new CreateLocalVue()
 
-    const App = localVue.extend({
+    const App = {
       directives: {
         bTooltip: VBTooltip
       },
       template: '<button v-b-tooltip title="foobar">button</button>'
-    })
+    }
 
     const wrapper = mount(App, {
-      localVue,
       attachTo: createContainer()
     })
 
@@ -80,17 +78,15 @@ describe('v-b-tooltip directive', () => {
 
   it('should work', async () => {
     jest.useFakeTimers()
-    const localVue = new CreateLocalVue()
 
-    const App = localVue.extend({
+    const App = {
       directives: {
         bTooltip: VBTooltip
       },
       template: '<button v-b-tooltip.click.html title="<b>foobar</b>">button</button>'
-    })
+    }
 
     const wrapper = mount(App, {
-      localVue,
       attachTo: createContainer()
     })
 
@@ -134,17 +130,15 @@ describe('v-b-tooltip directive', () => {
 
   it('should not show tooltip when title is empty', async () => {
     jest.useFakeTimers()
-    const localVue = new CreateLocalVue()
 
-    const App = localVue.extend({
+    const App = {
       directives: {
         bTooltip: VBTooltip
       },
       template: '<button v-b-tooltip.click title="">button</button>'
-    })
+    }
 
     const wrapper = mount(App, {
-      localVue,
       attachTo: createContainer()
     })
 
@@ -183,17 +177,15 @@ describe('v-b-tooltip directive', () => {
 
   it('variant and customClass should work', async () => {
     jest.useFakeTimers()
-    const localVue = new CreateLocalVue()
 
-    const App = localVue.extend({
+    const App = {
       directives: {
         bTooltip: VBTooltip
       },
       template: `<button v-b-tooltip.click.html.v-info="{ customClass: 'foobar'}" title="<b>foobar</b>">button</button>`
-    })
+    }
 
     const wrapper = mount(App, {
-      localVue,
       attachTo: createContainer()
     })
 

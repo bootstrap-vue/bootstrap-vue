@@ -1,14 +1,12 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { VBModal } from './modal'
 
 const EVENT_SHOW = 'bv::show::modal'
 
 describe('v-b-modal directive', () => {
   it('works on buttons', async () => {
-    const localVue = new CreateLocalVue()
     const spy = jest.fn()
-
-    const App = localVue.extend({
+    const App = {
       directives: {
         bModal: VBModal
       },
@@ -19,10 +17,8 @@ describe('v-b-modal directive', () => {
         this.$root.$off(EVENT_SHOW, spy)
       },
       template: '<button v-b-modal.test>button</button>'
-    })
-    const wrapper = mount(App, {
-      localVue
-    })
+    }
+    const wrapper = mount(App)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('BUTTON')
@@ -39,10 +35,8 @@ describe('v-b-modal directive', () => {
   })
 
   it('works on links', async () => {
-    const localVue = new CreateLocalVue()
     const spy = jest.fn()
-
-    const App = localVue.extend({
+    const App = {
       directives: {
         bModal: VBModal
       },
@@ -58,10 +52,8 @@ describe('v-b-modal directive', () => {
         this.$root.$off(EVENT_SHOW, spy)
       },
       template: '<a href="#" v-b-modal.test>{{ text }}</a>'
-    })
-    const wrapper = mount(App, {
-      localVue
-    })
+    }
+    const wrapper = mount(App)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('A')
@@ -81,10 +73,8 @@ describe('v-b-modal directive', () => {
   })
 
   it('works on non-buttons', async () => {
-    const localVue = new CreateLocalVue()
     const spy = jest.fn()
-
-    const App = localVue.extend({
+    const App = {
       directives: {
         bModal: VBModal
       },
@@ -100,10 +90,8 @@ describe('v-b-modal directive', () => {
         this.$root.$off(EVENT_SHOW, spy)
       },
       template: '<span v-b-modal.test>{{ text }}</span>'
-    })
-    const wrapper = mount(App, {
-      localVue
-    })
+    }
+    const wrapper = mount(App)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('SPAN')
@@ -129,10 +117,8 @@ describe('v-b-modal directive', () => {
   })
 
   it('works on non-buttons using keydown space', async () => {
-    const localVue = new CreateLocalVue()
     const spy = jest.fn()
-
-    const App = localVue.extend({
+    const App = {
       directives: {
         bModal: VBModal
       },
@@ -148,10 +134,8 @@ describe('v-b-modal directive', () => {
         this.$root.$off(EVENT_SHOW, spy)
       },
       template: '<span v-b-modal.test>{{ text }}</span>'
-    })
-    const wrapper = mount(App, {
-      localVue
-    })
+    }
+    const wrapper = mount(App)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('SPAN')
@@ -170,10 +154,8 @@ describe('v-b-modal directive', () => {
   })
 
   it('works on non-buttons using keydown enter', async () => {
-    const localVue = new CreateLocalVue()
     const spy = jest.fn()
-
-    const App = localVue.extend({
+    const App = {
       directives: {
         bModal: VBModal
       },
@@ -189,10 +171,8 @@ describe('v-b-modal directive', () => {
         this.$root.$off(EVENT_SHOW, spy)
       },
       template: '<span tabindex="0" v-b-modal.test>{{ text }}</span>'
-    })
-    const wrapper = mount(App, {
-      localVue
-    })
+    }
+    const wrapper = mount(App)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('SPAN')

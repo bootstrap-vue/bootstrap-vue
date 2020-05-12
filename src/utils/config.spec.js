@@ -104,10 +104,10 @@ describe('utils/config', () => {
   })
 
   it('config via Vue.use(BootstrapVue) works', async () => {
+    const localVue = createLocalVue()
     const testConfig = {
       BAlert: { variant: 'foobar' }
     }
-    const localVue = createLocalVue()
 
     expect(getConfig()).toEqual({})
 
@@ -120,10 +120,10 @@ describe('utils/config', () => {
   })
 
   it('config via Vue.use(ComponentPlugin) works', async () => {
+    const localVue = createLocalVue()
     const testConfig = {
       BAlert: { variant: 'foobar' }
     }
-    const localVue = createLocalVue()
 
     expect(getConfig()).toEqual({})
 
@@ -136,10 +136,10 @@ describe('utils/config', () => {
   })
 
   it('config via Vue.use(BVConfig) works', async () => {
+    const localVue = createLocalVue()
     const testConfig = {
       BAlert: { variant: 'foobar' }
     }
-    const localVue = createLocalVue()
 
     expect(getConfig()).toEqual({})
 
