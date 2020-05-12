@@ -232,5 +232,8 @@
   },
   "noPrefetch": {
     "description": "nuxt-link prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'no-prefetch' will disabled this feature for the specific link"
+  },
+  "prefetch": {
+    "description": "nuxt-link prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'true' for prefetching, 'false' for no prefetching', or 'null' for default value in 'router.prefetchLinks'."
   }
 }

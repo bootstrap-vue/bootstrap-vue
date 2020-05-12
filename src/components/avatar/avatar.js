@@ -69,6 +69,10 @@ const linkProps = {
   noPrefetch: {
     type: Boolean,
     default: false
+  },
+  prefetch: {
+    type: Boolean,
+    default: null
   }
 }
 

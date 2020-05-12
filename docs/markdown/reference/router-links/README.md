@@ -187,3 +187,12 @@ export default {
   }
 }
 ```
+
+### `prefetch`
+
+- type: `boolean`
+- default: `null`
+- availability: Nuxt.js 2.10.0+
+
+Since Nuxt.js v2.10.0, if you have set router.prefetchLinks to false globally but you want to
+prefetch a specific link, you can use the prefetch prop.

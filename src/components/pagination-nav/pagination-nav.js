@@ -76,6 +76,10 @@ const props = {
   noPrefetch: {
     type: Boolean,
     default: false
+  },
+  prefetch: {
+    type: Boolean,
+    default: null
   }
 }
 
@@ -202,7 +206,8 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
         append: this.append,
         replace: this.replace,
         // nuxt-link specific prop
-        noPrefetch: this.noPrefetch
+        noPrefetch: this.noPrefetch,
+        prefetch: this.prefetch
       }
       if (this.useRouter || isObject(link)) {
         props.to = link
