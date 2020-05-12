@@ -122,7 +122,9 @@ export const BLink = /*#__PURE__*/ Vue.extend({
             //   pluck only the router-link props instead of
             //   passing all props to router-link/nuxt-link
             ...this.$props,
+            // Coerce `prefetch` value `null` to be `undefined`
             prefetch: isBoolean(prefetch) ? prefetch : undefined,
+            // Pass `router-tag` as `tag` prop
             tag: this.routerTag
           }
         : {}
