@@ -1,25 +1,28 @@
 import Vue from '../../utils/vue'
-import { props as BDropdownProps } from '../dropdown/dropdown'
-import idMixin from '../../mixins/id'
-import dropdownMixin from '../../mixins/dropdown'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 import pluckProps from '../../utils/pluck-props'
 import { htmlOrText } from '../../utils/html'
+import dropdownMixin from '../../mixins/dropdown'
+import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { props as BDropdownProps } from '../dropdown/dropdown'
 import { BLink } from '../link/link'
 
-// -- Constants --
-
+// --- Props ---
 export const props = pluckProps(
   ['text', 'html', 'menuClass', 'toggleClass', 'noCaret', 'role', 'lazy'],
   BDropdownProps
 )
 
+// --- Main component ---
 // @vue/component
 export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
   name: 'BNavItemDropdown',
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
   computed: {
+    toggleId() {
+      return this.safeId('_BV_toggle_')
+    },
     isNav() {
       // Signal to dropdown mixin that we are in a navbar
       return true
@@ -41,49 +44,54 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const button = h(
+    const { toggleId, visible } = this
+
+    const $toggle = h(
       BLink,
       {
-        ref: 'toggle',
         staticClass: 'nav-link dropdown-toggle',
         class: this.toggleClasses,
         props: {
-          href: '#',
+          href: `#${this.id || ''}`,
           disabled: this.disabled
         },
         attrs: {
-          id: this.safeId('_BV_button_'),
+          id: toggleId,
+          role: 'button',
           'aria-haspopup': 'true',
-          'aria-expanded': this.visible ? 'true' : 'false'
+          'aria-expanded': visible ? 'true' : 'false'
         },
         on: {
           mousedown: this.onMousedown,
           click: this.toggle,
           keydown: this.toggle // Handle ENTER, SPACE and DOWN
-        }
+        },
+        ref: 'toggle'
       },
       [
-        this.$slots['button-content'] ||
-          this.$slots.text ||
+        // TODO: The `text` slot is deprecated in favor of the `button-content` slot
+        this.normalizeSlot(['button-content', 'text']) ||
           h('span', { domProps: htmlOrText(this.html, this.text) })
       ]
     )
-    const menu = h(
+
+    const $menu = h(
       'ul',
       {
         staticClass: 'dropdown-menu',
         class: this.menuClasses,
-        ref: 'menu',
         attrs: {
           tabindex: '-1',
-          'aria-labelledby': this.safeId('_BV_button_')
+          'aria-labelledby': toggleId
         },
         on: {
           keydown: this.onKeydown // Handle UP, DOWN and ESC
-        }
+        },
+        ref: 'menu'
       },
-      !this.lazy || this.visible ? this.normalizeSlot('default', { hide: this.hide }) : [h()]
+      !this.lazy || visible ? this.normalizeSlot('default', { hide: this.hide }) : [h()]
     )
+
     return h(
       'li',
       {
@@ -91,7 +99,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         class: this.dropdownClasses,
         attrs: { id: this.safeId() }
       },
-      [button, menu]
+      [$toggle, $menu]
     )
   }
 })

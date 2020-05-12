@@ -15,7 +15,14 @@ import Vue from '../../utils/vue'
 import noop from '../../utils/noop'
 import observeDom from '../../utils/observe-dom'
 import { getComponentConfig } from '../../utils/config'
-import { selectAll, reflow, addClass, removeClass, setAttr } from '../../utils/dom'
+import {
+  addClass,
+  getActiveElement,
+  reflow,
+  removeClass,
+  selectAll,
+  setAttr
+} from '../../utils/dom'
 import { isBrowser, hasTouchSupport, hasPointerEventSupport } from '../../utils/env'
 import { eventOn, eventOff } from '../../utils/events'
 import { isUndefined } from '../../utils/inspect'
@@ -318,7 +325,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     // Restart auto rotate slides when focus/hover leaves the carousel
     /* istanbul ignore next */
     restart() /* istanbul ignore next: difficult to test */ {
-      if (!this.$el.contains(document.activeElement)) {
+      if (!this.$el.contains(getActiveElement())) {
         this.start()
       }
     },

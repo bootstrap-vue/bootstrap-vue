@@ -1,10 +1,11 @@
 import { CLASS_NAME_DROPDOWN_ITEM, CLASS_NAME_TEXT } from '../../constants/class-names'
 import { NAME_DROPDOWN_ITEM } from '../../constants/components'
 import { ROLE_MENUITEM, ROLE_PRESENTATION } from '../../constants/roles'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 import Vue from '../../utils/vue'
 import { requestAF } from '../../utils/dom'
 import { suffixClass } from '../../utils/string'
+import attrsMixin from '../../mixins/attrs'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BLink, propsFactory as linkPropsFactory } from '../link/link'
 
 // --- Props ---
@@ -24,12 +25,20 @@ export const props = {
 // @vue/component
 export const BDropdownItem = /*#__PURE__*/ Vue.extend({
   name: NAME_DROPDOWN_ITEM,
-  mixins: [normalizeSlotMixin],
+  mixins: [attrsMixin, normalizeSlotMixin],
   inheritAttrs: false,
   inject: {
     bvDropdown: { default: null }
   },
   props,
+  computed: {
+    computedAttrs() {
+      return {
+        ...this.bvAttrs,
+        role: ROLE_MENUITEM
+      }
+    }
+  },
   methods: {
     closeDropdown() {
       // Close on next animation frame to allow <b-link> time to process
@@ -58,7 +67,7 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
                 this.variant && !(this.active || this.disabled)
             }
           ],
-          attrs: { ...this.$attrs, role: ROLE_MENUITEM },
+          attrs: this.computedAttrs,
           on: { click: this.onClick },
           ref: 'item'
         },

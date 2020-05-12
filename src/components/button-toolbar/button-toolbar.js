@@ -10,7 +10,7 @@ import { NAME_BUTTON_TOOLBAR } from '../../constants/components'
 import { DOWN, LEFT, RIGHT, UP } from '../../constants/key-codes'
 import { ROLE_TOOLBAR } from '../../constants/roles'
 import Vue from '../../utils/vue'
-import { isVisible, selectAll } from '../../utils/dom'
+import { attemptFocus, isVisible, selectAll } from '../../utils/dom'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // --- Constants ---
@@ -70,19 +70,16 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
         shift ? this.focusLast(evt) : this.focusNext(evt)
       }
     },
-    setItemFocus(item) {
-      item && item.focus && item.focus()
-    },
     focusFirst() {
       const items = this.getItems()
-      this.setItemFocus(items[0])
+      attemptFocus(items[0])
     },
     focusPrev(evt) {
       let items = this.getItems()
       const index = items.indexOf(evt.target)
       if (index > -1) {
         items = items.slice(0, index).reverse()
-        this.setItemFocus(items[0])
+        attemptFocus(items[0])
       }
     },
     focusNext(evt) {
@@ -90,12 +87,12 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
       const index = items.indexOf(evt.target)
       if (index > -1) {
         items = items.slice(index + 1)
-        this.setItemFocus(items[0])
+        attemptFocus(items[0])
       }
     },
     focusLast() {
       const items = this.getItems().reverse()
-      this.setItemFocus(items[0])
+      attemptFocus(items[0])
     },
     getItems() {
       const items = selectAll(ITEM_SELECTOR, this.$el)

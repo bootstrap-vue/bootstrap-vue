@@ -8,6 +8,7 @@ import { requestAF } from '../../utils/dom'
 import { eventOnOff } from '../../utils/events'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
+import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -110,7 +111,7 @@ export const props = {
 // @vue/component
 export const BToast = /*#__PURE__*/ Vue.extend({
   name: NAME,
-  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin, scopedStyleAttrsMixin],
+  mixins: [attrsMixin, idMixin, listenOnRootMixin, normalizeSlotMixin, scopedStyleAttrsMixin],
   inheritAttrs: false,
   model: {
     prop: 'visible',
@@ -157,6 +158,13 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         afterEnter: this.onAfterEnter,
         beforeLeave: this.onBeforeLeave,
         afterLeave: this.onAfterLeave
+      }
+    },
+    computedAttrs() {
+      return {
+        ...this.bvAttrs,
+        id: this.safeId(),
+        tabindex: '0'
       }
     }
   },
@@ -397,11 +405,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           ref: 'toast',
           staticClass: 'toast',
           class: this.toastClass,
-          attrs: {
-            ...this.$attrs,
-            tabindex: '0',
-            id: this.safeId()
-          }
+          attrs: this.computedAttrs
         },
         [$header, $body]
       )

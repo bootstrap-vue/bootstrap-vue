@@ -74,8 +74,6 @@ describe('modal', () => {
       expect($content.exists()).toBe(true)
       expect($content.attributes('tabindex')).toBeDefined()
       expect($content.attributes('tabindex')).toEqual('-1')
-      expect($content.attributes('role')).toBeDefined()
-      expect($content.attributes('role')).toEqual('document')
 
       wrapper.destroy()
     })
@@ -158,8 +156,6 @@ describe('modal', () => {
       expect($content.exists()).toBe(true)
       expect($content.attributes('tabindex')).toBeDefined()
       expect($content.attributes('tabindex')).toEqual('-1')
-      expect($content.attributes('role')).toBeDefined()
-      expect($content.attributes('role')).toEqual('document')
 
       wrapper.destroy()
     })

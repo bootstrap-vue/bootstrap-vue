@@ -2,6 +2,7 @@ import { CLASS_NAME_DROPDOWN_ITEM, CLASS_NAME_TEXT } from '../../constants/class
 import { NAME_DROPDOWN_ITEM_BUTTON } from '../../constants/components'
 import { ROLE_MENUITEM, ROLE_PRESENTATION } from '../../constants/roles'
 import Vue from '../../utils/vue'
+import attrsMixin from '../../mixins/attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { suffixClass } from '../../utils/string'
 
@@ -33,12 +34,22 @@ export const props = {
 // @vue/component
 export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
   name: NAME_DROPDOWN_ITEM_BUTTON,
-  mixins: [normalizeSlotMixin],
+  mixins: [attrsMixin, normalizeSlotMixin],
   inheritAttrs: false,
   inject: {
     bvDropdown: { default: null }
   },
   props,
+  computed: {
+    computedAttrs() {
+      return {
+        ...this.bvAttrs,
+        role: ROLE_MENUITEM,
+        type: 'button',
+        disabled: this.disabled
+      }
+    }
+  },
   methods: {
     closeDropdown() {
       if (this.bvDropdown) {
@@ -64,12 +75,7 @@ export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
                 this.variant && !(this.active || this.disabled)
             }
           ],
-          attrs: {
-            ...this.$attrs,
-            role: ROLE_MENUITEM,
-            type: 'button',
-            disabled: this.disabled
-          },
+          attrs: this.computedAttrs,
           on: { click: this.onClick },
           ref: 'button'
         },

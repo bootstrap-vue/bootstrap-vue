@@ -22,6 +22,7 @@ import { arrayIncludes } from '../../utils/array'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, constrainDate, formatYMD, parseYMD } from '../../utils/date'
+import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { pick } from '../../utils/object'
 import { suffixClass } from '../../utils/string'
@@ -397,16 +398,12 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     // Public methods
     focus() {
       if (!this.disabled) {
-        try {
-          this.$refs.control.focus()
-        } catch {}
+        attemptFocus(this.$refs.control)
       }
     },
     blur() {
       if (!this.disabled) {
-        try {
-          this.$refs.control.blur()
-        } catch {}
+        attemptBlur(this.$refs.control)
       }
     },
     // Private methods
@@ -455,9 +452,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     },
     onShown() {
       this.$nextTick(() => {
-        try {
-          this.$refs.calendar.focus()
-        } catch {}
+        attemptFocus(this.$refs.calendar)
         this.$emit('shown')
       })
     },

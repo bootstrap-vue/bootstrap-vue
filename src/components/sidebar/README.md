@@ -12,7 +12,8 @@ You can place almost any content inside the `<b-sidebar>`
 [vertical navs](/docs/components/nav#vertical-variation).
 
 The component supports a header and built in close button, of which you can optionally disable and
-provide your own header (if needed), and can be easily toggled with our `v-b-toggle` directive.
+provide your own header (if needed), and can be easily toggled with our
+[`v-b-toggle` directive](/docs/directives/toggle).
 
 The component has minimal default styling, which provides you with great flexibility in laying out
 the content of the sidebar.
@@ -302,9 +303,9 @@ elements outside of the sidebar.
 
 ### `v-b-toggle` directive
 
-Using the `v-b-toggle` directive is the preferred method for _opening_ the sidebar, as it
-automatically handles applying the `aria-controls` and `aria-expanded` accessibility attributes on
-the trigger element.
+Using the [`v-b-toggle` directive](/docs/directive/toggle) is the preferred method for _opening_ the
+sidebar, as it automatically handles applying the `aria-controls` and `aria-expanded` accessibility
+attributes on the trigger element.
 
 The majority of examples on this page use the `v-b-toggle` directive.
 
@@ -369,5 +370,6 @@ to the [theming documentation](/docs/reference/theming) for additional details.
 
 ## See also
 
+- [`v-b-toggle` directive](/docs/directives/toggle)
 - [`<b-collapse>` component](/docs/components/collapse)
 - [`<b-button-close>` component](/docs/components/button#comp-ref-b-button-close)

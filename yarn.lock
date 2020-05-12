@@ -1594,13 +1594,13 @@
   resolved "https://registry.yarnpkg.com/@nuxtjs/robots/-/robots-2.4.2.tgz#9a96c91abb70e39b414eec502ef1cf7d5ef0235e"
   integrity sha512-BW3qhvxlPBKlMkZHtARFPeliFraiZHS28G3j4qgRbSfOBtHC0yDX3Dnq1LkQMzAbPfbw6A1L3sdjgBVZZnfFAw==
 
-"@nuxtjs/sitemap@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/sitemap/-/sitemap-2.2.1.tgz#a00b528e361673b3f2651a0f1ee4081e89f9c6fd"
-  integrity sha512-GrXTueBaSQgAuBbUrGcKu37VbZBOZ4omHqk8FfthK71R26vp9LWUcqlRbuQaIrAYynjSfSPxaLpX8opUwO1nKw==
+"@nuxtjs/sitemap@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/sitemap/-/sitemap-2.3.0.tgz#ca032b84f54a6570123305098b2b9a7821f4ab29"
+  integrity sha512-mSh0vc8HuJHMOm8ifKIKXxGETDq+Oc7MgwWVeq20AEfblNQUOWFLv+bYqh8BkxvuXc2/488zMrKhWOfwzasQOA==
   dependencies:
     async-cache "^1.1.0"
-    consola "^2.11.3"
+    consola "^2.12.1"
     etag "^1.8.1"
     fresh "^0.5.2"
     fs-extra "^8.1.0"
@@ -3810,6 +3810,11 @@ consola@^2.10.0, consola@^2.10.1, consola@^2.11.3, consola@^2.6.0, consola@^2.9.
   version "2.11.3"
   resolved "https://registry.yarnpkg.com/consola/-/consola-2.11.3.tgz#f7315836224c143ac5094b47fd4c816c2cd1560e"
   integrity sha512-aoW0YIIAmeftGR8GSpw6CGQluNdkWMWh3yEFjH/hmynTYnMtibXszii3lxCXmk8YxJtI3FAK5aTiquA5VH68Gw==
+
+consola@^2.12.1:
+  version "2.12.1"
+  resolved "https://registry.yarnpkg.com/consola/-/consola-2.12.1.tgz#88e9311a02cb88a7f6f9488239dd30b6ba99cbb0"
+  integrity sha512-aEkkju9ZcEa9y2MhzNhfmTUws/CEZZ0LKu0FxftSU3HygPfVMMIMSYyYct+xBN6XNRhsaDZjw2HAv3m2ammXSA==
 
 console-browserify@^1.1.0:
   version "1.2.0"
@@ -11291,10 +11296,10 @@ rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.9.0:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.9.0.tgz#6b09bf82b68351417269b333e4bb2624ebd1e148"
-  integrity sha512-a3fLsmHUbO2OCE/Qp1aM8PtqnCWHysc9QfYs4PIGbUDraeNMH1v0uT7nqQeDB3IfDjNNLl8H2Z7UKs0q1SbK1g==
+rollup@^2.9.1:
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.9.1.tgz#3038ba1378e2ee614b5c9385b8379d7bec4c69ea"
+  integrity sha512-kEZn76R0j+WD4AActu5Np4RShNlewTtJhdUaWNtHwHnAA8AOapyXgH6O7NL2RkcQLHnl49oz1xW1VrDcu5yP+Q==
   optionalDependencies:
     fsevents "~2.1.2"
 
