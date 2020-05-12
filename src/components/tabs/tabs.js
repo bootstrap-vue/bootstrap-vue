@@ -312,8 +312,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
-    this.currentTab = toInteger(this.value, -1)
+    // Create private non-reactive props
     this._bvObserver = null
+    this.currentTab = toInteger(this.value, -1)
     // For SSR and to make sure only a single tab is shown on mount
     // We wrap this in a `$nextTick()` to ensure the child tabs have been created
     this.$nextTick(() => {
@@ -362,11 +363,13 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     unregisterTab(tab) {
       this.registeredTabs = this.registeredTabs.slice().filter(t => t !== tab)
     },
+    // DOM observer is needed to detect changes in order of tabs
     setObserver(on) {
-      // DOM observer is needed to detect changes in order of tabs
+      if (this._bvObserver) {
+        this._bvObserver.disconnect()
+        this._bvObserver = null
+      }
       if (on) {
-        // Make sure no existing observer running
-        this.setObserver(false)
         const self = this
         /* istanbul ignore next: difficult to test mutation observer in JSDOM */
         const handler = () => {
@@ -385,12 +388,6 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           attributes: true,
           attributeFilter: ['id']
         })
-      } else {
-        /* istanbul ignore next */
-        if (this._bvObserver && this._bvObserver.disconnect) {
-          this._bvObserver.disconnect()
-        }
-        this._bvObserver = null
       }
     },
     getTabs() {

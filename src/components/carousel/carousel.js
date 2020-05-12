@@ -205,9 +205,10 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
   },
   created() {
     // Create private non-reactive props
-    this._intervalId = null
-    this._animationTimeout = null
-    this._touchTimeout = null
+    this._bvInterval = null
+    this._bvAnimationTimeout = null
+    this._bvTouchTimeout = null
+    this._bvObserver = null
     // Set initial paused state
     this.isPaused = !(toInteger(this.interval, 0) > 0)
   },
@@ -217,22 +218,47 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     // Get all slides
     this.updateSlides()
     // Observe child changes so we can update slide list
-    observeDom(this.$refs.inner, this.updateSlides.bind(this), {
-      subtree: false,
-      childList: true,
-      attributes: true,
-      attributeFilter: ['id']
-    })
+    this.setObserver()
   },
   beforeDestroy() {
-    clearTimeout(this._animationTimeout)
-    clearTimeout(this._touchTimeout)
-    clearInterval(this._intervalId)
-    this._intervalId = null
-    this._animationTimeout = null
-    this._touchTimeout = null
+    this.clearInterval()
+    this.clearAnimationTimeout()
+    this.clearTouchTimeout()
+    this.setObserver(false)
   },
   methods: {
+    clearInterval() {
+      if (this._bvInterval) {
+        clearInterval(this._bvInterval)
+        this._bvInterval = null
+      }
+    },
+    clearAnimationTimeout() {
+      if (this._bvAnimationTimeout) {
+        clearTimeout(this._bvAnimationTimeout)
+        this._bvAnimationTimeout = null
+      }
+    },
+    clearTouchTimeout() {
+      if (this._bvTouchTimeout) {
+        clearTimeout(this._bvTouchTimeout)
+        this._bvTouchTimeout = null
+      }
+    },
+    setObserver(on = false) {
+      if (this._bvObserver) {
+        this._bvObserver.disconnect()
+        this._bvObserver = null
+      }
+      if (on) {
+        this._bvObserver = observeDom(this.$refs.inner, this.updateSlides.bind(this), {
+          subtree: false,
+          childList: true,
+          attributes: true,
+          attributeFilter: ['id']
+        })
+      }
+    },
     // Set slide
     setSlide(slide, direction = null) {
       // Don't animate when page is not visible
@@ -286,10 +312,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       if (!evt) {
         this.isPaused = true
       }
-      if (this._intervalId) {
-        clearInterval(this._intervalId)
-        this._intervalId = null
-      }
+      this.clearInterval()
     },
     // Start auto rotate slides
     start(evt) {
@@ -297,13 +320,10 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         this.isPaused = false
       }
       /* istanbul ignore next: most likely will never happen, but just in case */
-      if (this._intervalId) {
-        clearInterval(this._intervalId)
-        this._intervalId = null
-      }
+      this.clearInterval()
       // Don't start if no interval, or less than 2 slides
       if (this.interval && this.numSlides > 1) {
-        this._intervalId = setInterval(this.next, mathMax(1000, this.interval))
+        this._bvInterval = setInterval(this.next, mathMax(1000, this.interval))
       }
     },
     // Restart auto rotate slides when focus/hover leaves the carousel
@@ -362,7 +382,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
               eventOff(currentSlide, evt, onceTransEnd, EVENT_OPTIONS_NO_CAPTURE)
             )
           }
-          this._animationTimeout = null
+          this.clearAnimationTimeout()
           removeClass(nextSlide, dirClass)
           removeClass(nextSlide, overlayClass)
           addClass(nextSlide, 'active')
@@ -387,7 +407,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
           )
         }
         // Fallback to setTimeout()
-        this._animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION)
+        this._bvAnimationTimeout = setTimeout(onceTransEnd, TRANS_DURATION)
       }
       if (isCycling) {
         this.start(false)
@@ -480,10 +500,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       // is NOT fired) and after a timeout (to allow for mouse compatibility
       // events to fire) we explicitly restart cycling
       this.pause(false)
-      if (this._touchTimeout) {
-        clearTimeout(this._touchTimeout)
-      }
-      this._touchTimeout = setTimeout(
+      this.clearTouchTimeout()
+      this._bvTouchTimeout = setTimeout(
         this.start,
         TOUCH_EVENT_COMPAT_WAIT + mathMax(1000, this.interval)
       )
