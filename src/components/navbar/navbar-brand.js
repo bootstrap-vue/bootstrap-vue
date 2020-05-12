@@ -1,9 +1,10 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
-import { BLink, propsFactory } from '../link/link'
+import { clone } from '../../utils/object'
+import { BLink, props as BLinkProps } from '../link/link'
 
-const linkProps = propsFactory()
+const linkProps = clone(BLinkProps)
 linkProps.href.default = undefined
 linkProps.to.default = undefined
 
