@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
+import pluckProps from '../../utils/pluck-props'
 import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, requestAF } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
@@ -10,6 +11,7 @@ import { computeHref, parseQuery } from '../../utils/router'
 import { toString } from '../../utils/string'
 import { warn } from '../../utils/warn'
 import paginationMixin from '../../mixins/pagination'
+import { props as BLinkProps } from '../link/link'
 
 const NAME = 'BPaginationNav'
 
@@ -59,28 +61,7 @@ const props = {
     type: Boolean,
     default: false
   },
-  // router-link specific props
-  activeClass: {
-    type: String
-    // default: undefined
-  },
-  exact: {
-    type: Boolean,
-    default: false
-  },
-  exactActiveClass: {
-    type: String
-    // default: undefined
-  },
-  // nuxt-link specific prop(s)
-  noPrefetch: {
-    type: Boolean,
-    default: false
-  },
-  prefetch: {
-    type: Boolean,
-    default: null
-  }
+  ...pluckProps(['activeClass', 'exact', 'exactActiveClass', 'prefetch', 'noPrefetch'], BLinkProps)
 }
 
 // The render function is brought in via the pagination mixin
@@ -195,25 +176,37 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
     },
     linkProps(pageNum) {
       const link = this.makeLink(pageNum)
+      const {
+        disabled,
+        exact,
+        activeClass,
+        exactActiveClass,
+        append,
+        replace,
+        prefetch,
+        noPrefetch
+      } = this
+
       const props = {
         target: this.target || null,
         rel: this.rel || null,
-        disabled: this.disabled,
-        // The following props are only used if BLink detects router
-        exact: this.exact,
-        activeClass: this.activeClass,
-        exactActiveClass: this.exactActiveClass,
-        append: this.append,
-        replace: this.replace,
-        // nuxt-link specific prop
-        noPrefetch: this.noPrefetch,
-        prefetch: this.prefetch
+        disabled,
+        // The following props are only used if `BLink` detects router
+        exact,
+        activeClass,
+        exactActiveClass,
+        append,
+        replace,
+        // <nuxt-link> specific prop
+        prefetch,
+        noPrefetch
       }
       if (this.useRouter || isObject(link)) {
         props.to = link
       } else {
         props.href = link
       }
+
       return props
     },
     resolveLink(to = '') {
