@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BLink } from '../link/link'
@@ -102,7 +101,7 @@ describe('tabs', () => {
   })
 
   it('sets correct tab active when first tab is disabled', async () => {
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BTabs, [
           h(BTab, { props: { disabled: true } }, 'tab 0'),
@@ -110,7 +109,7 @@ describe('tabs', () => {
           h(BTab, { props: {} }, 'tab 2')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
@@ -134,7 +133,7 @@ describe('tabs', () => {
   })
 
   it('sets current index based on active prop of b-tab', async () => {
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BTabs, [
           h(BTab, { props: { active: false } }, 'tab 0'),
@@ -142,7 +141,7 @@ describe('tabs', () => {
           h(BTab, { props: { active: false } }, 'tab 2')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
@@ -166,7 +165,7 @@ describe('tabs', () => {
   })
 
   it('selects first non-disabled tab when active tab disabled', async () => {
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BTabs, [
           h(BTab, { props: { active: false, disabled: true } }, 'tab 0'),
@@ -174,7 +173,7 @@ describe('tabs', () => {
           h(BTab, { props: { active: false } }, 'tab 2')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
@@ -213,7 +212,7 @@ describe('tabs', () => {
   })
 
   it('v-model works', async () => {
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BTabs, { props: { value: 0 } }, [
           h(BTab, { props: {} }, 'tab 0'),
@@ -221,7 +220,7 @@ describe('tabs', () => {
           h(BTab, { props: {} }, 'tab 2')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
@@ -257,7 +256,7 @@ describe('tabs', () => {
   })
 
   it('v-model works when trying to activate a disabled tab', async () => {
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BTabs, { props: { value: 0 } }, [
           h(BTab, { props: {} }, 'tab 0'),
@@ -265,7 +264,7 @@ describe('tabs', () => {
           h(BTab, { props: {} }, 'tab 2')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
@@ -305,7 +304,7 @@ describe('tabs', () => {
   })
 
   it('`activate-tab` event works', async () => {
-    const App = Vue.extend({
+    const App = {
       methods: {
         preventTab(next, prev, bvEvt) {
           // Prevent 3rd tab (index === 2) from activating
@@ -321,7 +320,7 @@ describe('tabs', () => {
           h(BTab, { props: {} }, 'tab 2')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
@@ -369,7 +368,7 @@ describe('tabs', () => {
   })
 
   it('clicking on tab activates the tab, and tab emits click event', async () => {
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BTabs, { props: { value: 0 } }, [
           h(BTab, { props: { title: 'one' } }, 'tab 0'),
@@ -377,7 +376,7 @@ describe('tabs', () => {
           h(BTab, { props: { title: 'three' } }, 'tab 2')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
@@ -443,7 +442,7 @@ describe('tabs', () => {
   })
 
   it('pressing space on tab activates the tab, and tab emits click event', async () => {
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BTabs, { props: { value: 0, noKeyNav: true } }, [
           h(BTab, { props: { title: 'one' } }, 'tab 0'),
@@ -451,7 +450,7 @@ describe('tabs', () => {
           h(BTab, { props: { title: 'three' } }, 'tab 2')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
@@ -517,7 +516,7 @@ describe('tabs', () => {
   })
 
   it('key nav works', async () => {
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BTabs, { props: { value: 0 } }, [
           h(BTab, { props: { title: 'one' } }, 'tab 0'),
@@ -525,7 +524,7 @@ describe('tabs', () => {
           h(BTab, { props: { title: 'three' } }, 'tab 2')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
@@ -596,7 +595,7 @@ describe('tabs', () => {
   })
 
   it('disabling active tab selects first non-disabled tab', async () => {
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BTabs, { props: { value: 2 } }, [
           h(BTab, { props: { title: 'one' } }, 'tab 0'),
@@ -604,7 +603,7 @@ describe('tabs', () => {
           h(BTab, { props: { title: 'three', disabled: false } }, 'tab 2')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
@@ -649,13 +648,13 @@ describe('tabs', () => {
   })
 
   it('tab title slots are reactive', async () => {
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BTabs, { props: { value: 2 } }, [
           h(BTab, { props: { title: 'original' } }, 'tab content')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
@@ -686,7 +685,7 @@ describe('tabs', () => {
 
   it('"active-nav-item-class" is applied to active nav item', async () => {
     const activeNavItemClass = 'text-success'
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BTabs, { props: { value: 0, activeNavItemClass } }, [
           h(BTab, { props: {} }, 'tab 0'),
@@ -694,7 +693,7 @@ describe('tabs', () => {
           h(BTab, { props: {} }, 'tab 2')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
@@ -727,7 +726,7 @@ describe('tabs', () => {
 
   it('"active-tab-class" is applied to active tab', async () => {
     const activeTabClass = 'text-success'
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BTabs, { props: { value: 0, activeTabClass } }, [
           h(BTab, { props: {} }, 'tab 0'),
@@ -735,7 +734,7 @@ describe('tabs', () => {
           h(BTab, { props: {} }, 'tab 2')
         ])
       }
-    })
+    }
     const wrapper = mount(App)
     expect(wrapper).toBeDefined()
 
