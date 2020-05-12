@@ -4,7 +4,7 @@ import { getComponentConfig } from '../../utils/config'
 import { isNumber, isString, isUndefinedOrNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import { BButton } from '../button/button'
-import { BLink } from '../link/link'
+import { BLink, props as BLinkProps } from '../link/link'
 import { BIcon } from '../../icons/icon'
 import { BIconPersonFill } from '../../icons/icons'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -25,56 +25,23 @@ const DEFAULT_SIZES = {
 }
 
 // --- Props ---
-const linkProps = {
-  href: {
-    type: String
-    // default: null
-  },
-  to: {
-    type: [String, Object]
-    // default: null
-  },
-  append: {
-    type: Boolean,
-    default: false
-  },
-  replace: {
-    type: Boolean,
-    default: false
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  rel: {
-    type: String
-    // default: null
-  },
-  target: {
-    type: String
-    // default: null
-  },
-  activeClass: {
-    type: String
-    // default: null
-  },
-  exact: {
-    type: Boolean,
-    default: false
-  },
-  exactActiveClass: {
-    type: String
-    // default: null
-  },
-  noPrefetch: {
-    type: Boolean,
-    default: false
-  },
-  prefetch: {
-    type: Boolean,
-    default: null
-  }
-}
+const linkProps = pluckProps(
+  [
+    'href',
+    'rel',
+    'target',
+    'disabled',
+    'to',
+    'append',
+    'replace',
+    'activeClass',
+    'exact',
+    'exactActiveClass',
+    'prefetch',
+    'noPrefetch'
+  ],
+  BLinkProps
+)
 
 const props = {
   src: {
