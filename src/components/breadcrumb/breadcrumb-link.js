@@ -2,10 +2,9 @@ import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
 import { htmlOrText } from '../../utils/html'
-import { BLink, propsFactory as linkPropsFactory } from '../link/link'
+import { BLink, props as BLinkProps } from '../link/link'
 
 export const props = {
-  ...linkPropsFactory(),
   text: {
     type: String,
     default: null
@@ -17,7 +16,8 @@ export const props = {
   ariaCurrent: {
     type: String,
     default: 'location'
-  }
+  },
+  ...BLinkProps
 }
 
 // @vue/component
