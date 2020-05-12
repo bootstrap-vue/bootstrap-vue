@@ -90,6 +90,19 @@ trigger element when the target component is closed, and removed when open. As o
 }
 ```
 
+## Preventing the target from opening or closing
+
+`v-b-toggle` checks if the `click` event (and `keydown` event for non-button/links) was canceled
+(i.e. `evt.preventDefault()` was called on the event), and if so, it will _not_ dispatch the toggle
+event to the target(s).
+
+Because of this, avoid placing `v-b-toggle` on a `<b-button>` or `<b-link>` that has the `href`
+prop set to `'#'`, as these components (or components based on them) call
+`event.preventDefault()` to stop the browser from scrolling to the top of the page.
+
+Note that disabled `<button>`, `<b-button>`, or `<b-link>` will _not_ dispatch the toggle event
+to the target(s).
+
 ## Accessibility
 
 The directive, for accessibility reasons, should be placed on an clickable interactive element such
