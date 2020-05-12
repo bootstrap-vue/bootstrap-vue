@@ -10,7 +10,7 @@ Released: 2020-05-12
 
 ### Features v2.14.0
 
-- **b-avatar-group:** new helper component b-avatar-group
+- **b-avatar-group:** new helper component `<b-avatar-group>`
   ([#5272](https://github.com/bootstrap-vue/bootstrap-vue/issues/5272))
   ([c84faae](https://github.com/bootstrap-vue/bootstrap-vue/commit/c84faaebe18bbf652583d6c302447e931a4ab741))
 - **b-nav-item-dropdown:** improve default handling of dropdown toggle link (closes
