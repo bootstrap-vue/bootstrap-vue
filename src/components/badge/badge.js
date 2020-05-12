@@ -12,7 +12,6 @@ delete linkProps.href.default
 delete linkProps.to.default
 
 export const props = {
-  ...linkProps,
   tag: {
     type: String,
     default: 'span'
@@ -24,7 +23,8 @@ export const props = {
   pill: {
     type: Boolean,
     default: false
-  }
+  },
+  ...linkProps
 }
 
 // @vue/component
