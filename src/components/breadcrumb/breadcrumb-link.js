@@ -5,7 +5,6 @@ import { htmlOrText } from '../../utils/html'
 import { BLink, props as BLinkProps } from '../link/link'
 
 export const props = {
-  ...BLinkProps,
   text: {
     type: String,
     default: null
@@ -17,7 +16,8 @@ export const props = {
   ariaCurrent: {
     type: String,
     default: 'location'
-  }
+  },
+  ...BLinkProps
 }
 
 // @vue/component
