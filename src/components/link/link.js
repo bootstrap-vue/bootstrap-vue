@@ -74,7 +74,7 @@ export const propsFactory = () => ({
   },
   // <nuxt-link> specific prop(s)
   prefetch: {
-    type: Boolean
+    type: Boolean,
     // Must be `null` to fall back to the value defined in the
     // `nuxt.config.js` configuration file for `router.prefetchLinks`
     // We convert `null` to `undefined`, so that Nuxt will use the
@@ -118,6 +118,9 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       const prefetch = this.prefetch
       const props = this.isRouterLink
         ? {
+            // TODO:
+            //   pluck only the router-link props instead of
+            //   passing all props to router-link/nuxt-link
             ...this.$props,
             prefetch: isBoolean(prefetch) ? prefetch : undefined,
             tag: this.routerTag
