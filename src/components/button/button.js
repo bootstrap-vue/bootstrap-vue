@@ -6,13 +6,62 @@ import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { addClass, removeClass } from '../../utils/dom'
 import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
-import { clone, keys } from '../../utils/object'
+import { clone } from '../../utils/object'
 import { toString } from '../../utils/string'
 import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Constants ---
 
 const NAME = 'BButton'
+
+// --- Props ---
+
+const linkProps = clone(BLinkProps)
+delete linkProps.href.default
+delete linkProps.to.default
+
+const btnProps = {
+  block: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  size: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'size')
+  },
+  variant: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'variant')
+  },
+  type: {
+    type: String,
+    default: 'button'
+  },
+  tag: {
+    type: String,
+    default: 'button'
+  },
+  pill: {
+    type: Boolean,
+    default: false
+  },
+  squared: {
+    type: Boolean,
+    default: false
+  },
+  pressed: {
+    // Tri-state: `true`, `false` or `null`
+    // => On, off, not a toggle
+    type: Boolean,
+    default: null
+  }
+}
+
+export const props = { ...btnProps, ...linkProps }
 
 // --- Helper methods ---
 
@@ -56,7 +105,7 @@ const computeClass = props => [
 ]
 
 // Compute the link props to pass to b-link (if required)
-const computeLinkProps = props => (isLink(props) ? pluckProps(linkPropKeys, props) : null)
+const computeLinkProps = props => (isLink(props) ? pluckProps(linkProps, props) : null)
 
 // Compute the attributes for a button
 const computeAttrs = (props, data) => {
@@ -93,56 +142,6 @@ const computeAttrs = (props, data) => {
     tabindex: props.disabled && !button ? '-1' : tabindex
   }
 }
-
-// --- Props ---
-
-const btnProps = {
-  block: {
-    type: Boolean,
-    default: false
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  size: {
-    type: String,
-    default: () => getComponentConfig(NAME, 'size')
-  },
-  variant: {
-    type: String,
-    default: () => getComponentConfig(NAME, 'variant')
-  },
-  type: {
-    type: String,
-    default: 'button'
-  },
-  tag: {
-    type: String,
-    default: 'button'
-  },
-  pill: {
-    type: Boolean,
-    default: false
-  },
-  squared: {
-    type: Boolean,
-    default: false
-  },
-  pressed: {
-    // Tri-state: `true`, `false` or `null`
-    // => On, off, not a toggle
-    type: Boolean,
-    default: null
-  }
-}
-
-const linkProps = clone(BLinkProps)
-delete linkProps.href.default
-delete linkProps.to.default
-const linkPropKeys = keys(linkProps)
-
-export const props = { ...linkProps, ...btnProps }
 
 // --- Main component ---
 // @vue/component
