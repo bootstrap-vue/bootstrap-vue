@@ -39,7 +39,7 @@ export const propsFactory = () => ({
     type: Boolean,
     default: false
   },
-  // router-link specific props
+  // <router-link> specific props
   to: {
     type: [String, Object],
     default: null
@@ -72,7 +72,13 @@ export const propsFactory = () => ({
     type: String,
     default: 'a'
   },
-  // nuxt-link specific prop(s)
+  // <nuxt-link> specific prop(s)
+  prefetch: {
+    type: Boolean
+    // Must be `undefined` to fall back to the value defined in the
+    // `nuxt.config.js` configuration file for `router.prefetchLinks`
+    // default: undefined
+  },
   noPrefetch: {
     type: Boolean,
     default: false

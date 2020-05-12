@@ -155,19 +155,18 @@ render a [`<nuxt-link>`](https://nuxtjs.org/api/components-nuxt-link) sub compon
 `<router-link>`. `<nuxt-link>` supports all of the above router link props, plus the following
 additional Nuxt.js specific props.
 
-### `no-prefetch`
+### `prefetch`
 
 - type: `boolean`
-- default: `false`
-- availability: Nuxt.js 2.4.0+
+- default: `undefined`
+- availability: Nuxt.js 2.10.0+
 
 To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within
-the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `no-prefetch` will
-disabled this feature for the specific link.
+the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `prefetch` to
+`true` or `false` will overwrite the default value of `router.prefetchLinks` configured in the
+`nuxt.config.js` configuration file.
 
-**Note:** If you have prefetching disabled in your `nuxt.config.js` configuration
-(`router: { prefetchLinks: false}`), or are using a version of Nuxt.js `< 2.4.0`, then this prop
-will have no effect.
+**Note:** If you have are using a version of Nuxt.js `< 2.10.0`, then this prop will have no effect.
 
 Prefetching support requires
 [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
@@ -187,3 +186,17 @@ export default {
   }
 }
 ```
+
+### `no-prefetch`
+
+- type: `boolean`
+- default: `false`
+- availability: Nuxt.js 2.4.0+
+
+To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within
+the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `no-prefetch` will
+disabled this feature for the specific link.
+
+**Note:** If you have prefetching disabled in your `nuxt.config.js` configuration
+(`router: { prefetchLinks: false }`), or are using a version of Nuxt.js `< 2.4.0`, then this prop
+will have no effect.
