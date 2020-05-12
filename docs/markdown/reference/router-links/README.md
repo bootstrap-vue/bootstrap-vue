@@ -169,7 +169,7 @@ the viewport, Nuxt.js will automatically prefetch the code splitted page. Settin
 **Notes:**
 
 - If you have are using a version of Nuxt.js `< 2.10.0`, then this prop will have no effect.
-- Remember to v-bind the prop value, e.g. `:prefetch="true"` or `:prefetch="false"`.
+- Remember to `v-bind` the prop value (e.g. `:prefetch="true"` or `:prefetch="false"`).
 
 Prefetching support requires
 [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
