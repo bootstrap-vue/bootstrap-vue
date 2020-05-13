@@ -335,14 +335,14 @@ describe('modal', () => {
       expect($cancel.attributes('type')).toBe('button')
       expect($cancel.text()).toContain('cancel')
       // `v-html` is applied to a span
-      expect($cancel.html()).toContain('<span><em>cancel</em></span>')
+      expect($cancel.html()).toContain('<em>cancel</em>')
 
       // OK button (right-most button)
       const $ok = $buttons.at(1)
       expect($ok.attributes('type')).toBe('button')
       expect($ok.text()).toContain('ok')
       // `v-html` is applied to a span
-      expect($ok.html()).toContain('<span><em>ok</em></span>')
+      expect($ok.html()).toContain('<em>ok</em>')
 
       wrapper.destroy()
     })
