@@ -332,9 +332,23 @@ describe('b-link', () => {
         ]
       })
 
+      // Fake Gridsome `<g-link>` component
+      const GLink = {
+        name: 'GLink',
+        props: {
+          to: {
+            type: [String, Object],
+            default: ''
+          }
+        },
+        render(h) {
+          return h('router-link', { props: this.$props }, [this.$slots.default])
+        }
+      }
+
       const App = localVue.extend({
         router,
-        components: { BLink },
+        components: { BLink, GLink },
         render(h) {
           return h('main', [
             // router-link
@@ -345,6 +359,8 @@ describe('b-link', () => {
             h('b-link', { props: { to: { path: '/b' } } }, ['to-path-b']),
             // regular link
             h('b-link', { props: { href: '/b' } }, ['href-a']),
+            // g-link
+            h('b-link', { props: { routerComponentName: 'g-link', to: '/a' } }, ['glink-a']),
             h('router-view')
           ])
         }
@@ -358,7 +374,7 @@ describe('b-link', () => {
       expect(wrapper.vm).toBeDefined()
       expect(wrapper.element.tagName).toBe('MAIN')
 
-      expect(wrapper.findAll('a').length).toBe(4)
+      expect(wrapper.findAll('a').length).toBe(5)
 
       const $links = wrapper.findAll('a')
 
@@ -379,6 +395,11 @@ describe('b-link', () => {
       expect($links.at(3).vm).toBeDefined()
       expect($links.at(3).vm.$options.name).toBe('BLink')
       expect($links.at(3).vm.$children.length).toBe(0)
+
+      expect($links.at(4).vm).toBeDefined()
+      expect($links.at(4).vm.$options.name).toBe('BLink')
+      expect($links.at(4).vm.$children.length).toBe(1)
+      expect($links.at(4).vm.$children[0].$options.name).toBe('GLink')
 
       wrapper.destroy()
     })
