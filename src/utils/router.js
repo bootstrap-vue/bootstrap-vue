@@ -103,7 +103,7 @@ export const computeTag = ({ to, disabled, routerComponentName } = {}, thisOrPar
   //   exists = names.some(name => !!thisOrParent.$options.components[name])
   //   And may want to cache the result for performance or we just let the render fail
   //   if the component is not registered
-  return routerComponentName || thisOrParent.$nuxt ? 'nuxt-link' : 'router-link'
+  return routerComponentName || (thisOrParent.$nuxt ? 'nuxt-link' : 'router-link')
 }
 
 export const computeRel = ({ target, rel } = {}) => {
