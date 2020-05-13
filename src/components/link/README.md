@@ -32,8 +32,8 @@ BootstrapVue auto detects using `<router-link>` and `<nuxt-link>` link component
 frameworks also provide customized versions of `<router-link>`, such as
 [Gridsome's `<g-link>` component](https://gridsome.org/docs/linking/). `<b-link>` can support these
 third party `<router-link>` compatible components via the use of the `router-component-name` prop.
-All vue-router props (excluding `<nuxt-link>` specific props) will be passed to the specified router
-link component.
+All `vue-router` props (excluding `<nuxt-link>` specific props) will be passed to the specified
+router link component.
 
 Note that the 3rd party component will only be used when the `to` prop is set.
 
