@@ -20,7 +20,7 @@ const NAME = 'BPaginationNav'
 
 // --- Props ---
 
-const linkProps = omit(BLinkProps, ['event'])
+const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 
 const props = {
   size: {
