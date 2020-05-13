@@ -114,6 +114,7 @@ class VisibilityObserver {
   }
 
   stop() {
+    /* istanbul ignore next */
     this.observer && this.observer.disconnect()
     this.observer = null
   }
