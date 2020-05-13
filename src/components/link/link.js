@@ -1,12 +1,17 @@
 import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
+import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isBoolean, isEvent, isFunction, isUndefined } from '../../utils/inspect'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+
+// --- Constants ---
+
+const NAME = 'BLink'
 
 // --- Props ---
 
@@ -93,8 +98,8 @@ export const props = {
   // Gridsome doesn't provide a mechanism to auto detect and has caveats
   // such as not supporting FQDN URLs or hash only URLs
   routerComponentName: {
-    type: String
-    // default: undefined
+    type: String,
+    default: () => getComponentConfig(NAME, 'routerComponentName')
   }
 }
 
