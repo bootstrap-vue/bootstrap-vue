@@ -224,7 +224,7 @@ Note that the 3rd arty component will only be used when the `to` prop is set.
 - default: `undefined`
 - availability: BootstrapVue 2.15.0+
 
-Set this prop to the name of the `<router-link>` compatible component, e.g. `'g-link''` for
+Set this prop to the name of the `<router-link>` compatible component, e.g. `'g-link'` for
 [Gridsome](https://gridsome.org/).
 
 If left at the default, BootstrapVue will automatically select `<router-link>` or `<nuxt-link>`.
