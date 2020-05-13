@@ -1,4 +1,4 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import { BIconPerson } from '../../icons/icons'
 import { BAvatar } from './avatar'
 
@@ -154,14 +154,16 @@ describe('avatar', () => {
   })
 
   it('should have expected structure when prop `icon` set', async () => {
-    const localVue = new CreateLocalVue()
+    const localVue = createLocalVue()
     localVue.component('BIconPerson', BIconPerson)
+
     const wrapper = mount(BAvatar, {
       localVue,
       propsData: {
         icon: 'person'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('b-avatar')

@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router'
-import { mount, createLocalVue } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import { createContainer } from '../../../tests/utils'
 import { BLink } from './link'
 
@@ -200,8 +200,6 @@ describe('b-link', () => {
   })
 
   describe('click handling', () => {
-    const localVue = createLocalVue()
-
     it('should invoke click handler bound by Vue when clicked on', async () => {
       let called = 0
       let evt = null
@@ -281,15 +279,13 @@ describe('b-link', () => {
     })
 
     it('should emit "clicked::link" on $root when clicked on', async () => {
-      const App = localVue.extend({
+      const spy = jest.fn()
+      const App = {
         render(h) {
           return h('div', [h(BLink, { props: { href: '/foo' } }, 'link')])
         }
-      })
-      const spy = jest.fn()
-      const wrapper = mount(App, {
-        localVue
-      })
+      }
+      const wrapper = mount(App)
       wrapper.vm.$root.$on('clicked::link', spy)
       await wrapper.find('a').trigger('click')
       expect(spy).toHaveBeenCalled()
@@ -298,15 +294,13 @@ describe('b-link', () => {
     })
 
     it('should NOT emit "clicked::link" on $root when clicked on when disabled', async () => {
-      const App = localVue.extend({
+      const spy = jest.fn()
+      const App = {
         render(h) {
           return h('div', [h(BLink, { props: { href: '/foo', disabled: true } }, 'link')])
         }
-      })
-      const spy = jest.fn()
-      const wrapper = mount(App, {
-        localVue
-      })
+      }
+      const wrapper = mount(App)
 
       expect(wrapper.vm).toBeDefined()
 
@@ -350,7 +344,7 @@ describe('b-link', () => {
 
       localVue.component('GLink', GLink)
 
-      const App = localVue.extend({
+      const App = {
         router,
         components: { BLink },
         render(h) {
@@ -364,11 +358,11 @@ describe('b-link', () => {
             // regular link
             h('b-link', { props: { href: '/b' } }, ['href-a']),
             // g-link
-            h('b-link', { props: { routerComponentName: 'g-link', to: '/a' } }, ['glink-a']),
+            h('b-link', { props: { routerComponentName: 'g-link', to: '/a' } }, ['g-link-a']),
             h('router-view')
           ])
         }
-      })
+      }
 
       const wrapper = mount(App, {
         localVue,

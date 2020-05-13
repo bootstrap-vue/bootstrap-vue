@@ -1,12 +1,11 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { VBHover } from './hover'
 
 describe('v-b-hover directive', () => {
   it('works', async () => {
-    const localVue = new CreateLocalVue()
     let hovered1 = false
     let hovered2 = false
-    const App = localVue.extend({
+    const App = {
       data() {
         return {
           text: 'FOO',
@@ -25,7 +24,7 @@ describe('v-b-hover directive', () => {
         }
       },
       template: `<div v-b-hover="changeHandler ? handleHover2 : handleHover1"><span>{{ text }}</span></div>`
-    })
+    }
     const wrapper = mount(App)
 
     expect(wrapper.vm).toBeDefined()

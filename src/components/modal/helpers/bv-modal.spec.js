@@ -1,20 +1,21 @@
-import { mount, createWrapper, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { config as vtuConfig, createLocalVue, createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../../tests/utils'
+import { TransitionStub } from '../../../../tests/components'
 import { ModalPlugin } from '../index'
 
+// Stub `<transition>` component
+vtuConfig.stubs.transition = TransitionStub
+
+const localVue = createLocalVue()
+localVue.use(ModalPlugin)
+
 describe('$bvModal', () => {
-  const localVue = new CreateLocalVue()
-
-  beforeAll(() => {
-    localVue.use(ModalPlugin)
-  })
-
   it('$bvModal.show() and $bvModal.hide() works', async () => {
-    const App = localVue.extend({
+    const App = {
       render(h) {
         return h('b-modal', { props: { static: true, id: 'test1' } }, 'content')
       }
-    })
+    }
     const wrapper = mount(App, {
       attachTo: createContainer(),
       localVue
@@ -58,11 +59,11 @@ describe('$bvModal', () => {
   })
 
   it('$bvModal.msgBoxOk() works', async () => {
-    const App = localVue.extend({
+    const App = {
       render(h) {
         return h('div', 'app')
       }
-    })
+    }
     const wrapper = mount(App, {
       attachTo: createContainer(),
       localVue
@@ -120,11 +121,11 @@ describe('$bvModal', () => {
   })
 
   it('$bvModal.msgBoxConfirm() works', async () => {
-    const App = localVue.extend({
+    const App = {
       render(h) {
         return h('div', 'app')
       }
-    })
+    }
     const wrapper = mount(App, {
       attachTo: createContainer(),
       localVue

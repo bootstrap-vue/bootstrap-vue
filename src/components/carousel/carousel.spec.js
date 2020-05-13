@@ -1,50 +1,39 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCarousel } from './carousel'
 import { BCarouselSlide } from './carousel-slide'
 
-const localVue = new CreateLocalVue()
-
 jest.useFakeTimers()
 
-const appDef = {
-  props: {
-    interval: 0,
-    indicators: false,
-    controls: false,
-    fade: false,
-    noAnimation: false,
-    noWrap: false,
-    value: 0
-  },
+const App = {
+  props: [
+    // BCarousel props
+    'interval',
+    'indicators',
+    'controls',
+    'fade',
+    'noAnimation',
+    'noWrap',
+    'value',
+    // Custom props
+    'slideCount'
+  ],
   render(h) {
-    return h(
-      BCarousel,
-      {
-        props: {
-          interval: this.interval,
-          indicators: this.indicators,
-          controls: this.controls,
-          fade: this.fade,
-          noAnimation: this.noAnimation,
-          noWrap: this.noWrap,
-          value: this.value
-        }
-      },
-      [
-        h(BCarouselSlide, 'slide 1'),
-        h(BCarouselSlide, 'slide 2'),
-        h(BCarouselSlide, 'slide 3'),
-        h(BCarouselSlide, 'slide 4')
-      ]
+    const props = { ...this.$props }
+    const { slideCount = 4 } = props
+    delete props.slideCount
+
+    const $slides = [...Array(slideCount)].map((_, i) =>
+      h(BCarouselSlide, { key: `slide-${i}` }, `Slide ${i + 1}`)
     )
+
+    return h(BCarousel, { props }, $slides)
   }
 }
 
 describe('carousel', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BCarousel, {
-      localVue,
       attachTo: createContainer()
     })
 
@@ -112,7 +101,6 @@ describe('carousel', () => {
 
   it('has prev/next controls when prop controls is set', async () => {
     const wrapper = mount(BCarousel, {
-      localVue,
       attachTo: createContainer(),
       propsData: {
         controls: true
@@ -176,7 +164,6 @@ describe('carousel', () => {
 
   it('has indicators showing when prop indicators is set', async () => {
     const wrapper = mount(BCarousel, {
-      localVue,
       attachTo: createContainer(),
       propsData: {
         indicators: true
@@ -222,9 +209,8 @@ describe('carousel', () => {
     wrapper.destroy()
   })
 
-  it('should have class carousel-fade when prop fade=true', async () => {
+  it('should have class "carousel-fade" when prop "fade" is "true"', async () => {
     const wrapper = mount(BCarousel, {
-      localVue,
       attachTo: createContainer(),
       propsData: {
         fade: true
@@ -242,9 +228,8 @@ describe('carousel', () => {
     wrapper.destroy()
   })
 
-  it('should not have class fade or slide when prop no-animation=true', async () => {
+  it('should not have class "fade" or "slide" when prop "no-animation" is "true"', async () => {
     const wrapper = mount(BCarousel, {
-      localVue,
       attachTo: createContainer(),
       propsData: {
         noAnimation: true
@@ -262,9 +247,8 @@ describe('carousel', () => {
     wrapper.destroy()
   })
 
-  it('should not have class fade or slide when prop no-animation=true and fade=true', async () => {
+  it('should not have class "fade" or "slide" when prop "no-animation" and "fade" are "true"', async () => {
     const wrapper = mount(BCarousel, {
-      localVue,
       attachTo: createContainer(),
       propsData: {
         fade: true,
@@ -283,16 +267,11 @@ describe('carousel', () => {
     wrapper.destroy()
   })
 
-  it('should not automatically scroll to next slide when interval=0', async () => {
-    const wrapper = mount(localVue.extend(appDef), {
-      localVue,
+  it('should not automatically scroll to next slide when "interval" is "0"', async () => {
+    const wrapper = mount(App, {
       attachTo: createContainer(),
       propsData: {
-        interval: 0,
-        fade: false,
-        noAnimation: false,
-        indicators: true,
-        controls: true
+        interval: 0
       }
     })
 
@@ -316,16 +295,11 @@ describe('carousel', () => {
   })
 
   it('should scroll to next/prev slide when next/prev clicked', async () => {
-    const wrapper = mount(localVue.extend(appDef), {
-      localVue,
+    const wrapper = mount(App, {
       attachTo: createContainer(),
       propsData: {
         interval: 0,
-        fade: false,
-        noAnimation: false,
-        indicators: true,
-        controls: true,
-        value: 0
+        controls: true
       }
     })
 
@@ -383,16 +357,11 @@ describe('carousel', () => {
   })
 
   it('should scroll to next/prev slide when next/prev space keypress', async () => {
-    const wrapper = mount(localVue.extend(appDef), {
-      localVue,
+    const wrapper = mount(App, {
       attachTo: createContainer(),
       propsData: {
         interval: 0,
-        fade: false,
-        noAnimation: false,
-        indicators: true,
-        controls: true,
-        value: 0
+        controls: true
       }
     })
 
@@ -450,16 +419,11 @@ describe('carousel', () => {
   })
 
   it('should scroll to specified slide when indicator clicked', async () => {
-    const wrapper = mount(localVue.extend(appDef), {
-      localVue,
+    const wrapper = mount(App, {
       attachTo: createContainer(),
       propsData: {
         interval: 0,
-        fade: false,
-        noAnimation: false,
-        indicators: true,
-        controls: true,
-        value: 0
+        controls: true
       }
     })
 
@@ -517,16 +481,11 @@ describe('carousel', () => {
   })
 
   it('should scroll to specified slide when indicator keypress space/enter', async () => {
-    const wrapper = mount(localVue.extend(appDef), {
-      localVue,
+    const wrapper = mount(App, {
       attachTo: createContainer(),
       propsData: {
         interval: 0,
-        fade: false,
-        noAnimation: false,
-        indicators: true,
-        controls: true,
-        value: 0
+        controls: true
       }
     })
 
@@ -584,16 +543,11 @@ describe('carousel', () => {
   })
 
   it('should scroll to next/prev slide when key next/prev pressed', async () => {
-    const wrapper = mount(localVue.extend(appDef), {
-      localVue,
+    const wrapper = mount(App, {
       attachTo: createContainer(),
       propsData: {
         interval: 0,
-        fade: false,
-        noAnimation: false,
-        indicators: true,
-        controls: true,
-        value: 0
+        controls: true
       }
     })
 
@@ -647,17 +601,11 @@ describe('carousel', () => {
     wrapper.destroy()
   })
 
-  it('should emit paused and unpaused events when interval changed to 0', async () => {
-    const wrapper = mount(localVue.extend(appDef), {
-      localVue,
+  it('should emit paused and unpaused events when "interval" changed to 0', async () => {
+    const wrapper = mount(App, {
       attachTo: createContainer(),
       propsData: {
-        interval: 0,
-        fade: false,
-        noAnimation: false,
-        indicators: true,
-        controls: true,
-        value: 0
+        interval: 0
       }
     })
 
@@ -733,15 +681,10 @@ describe('carousel', () => {
   })
 
   it('should scroll to specified slide when value (v-model) changed', async () => {
-    const wrapper = mount(localVue.extend(appDef), {
-      localVue,
+    const wrapper = mount(App, {
       attachTo: createContainer(),
       propsData: {
         interval: 0,
-        fade: false,
-        noAnimation: false,
-        indicators: true,
-        controls: true,
         value: 0
       }
     })
@@ -816,17 +759,12 @@ describe('carousel', () => {
     wrapper.destroy()
   })
 
-  it('changing slides works when no-animation set', async () => {
-    const wrapper = mount(localVue.extend(appDef), {
-      localVue,
+  it('changing slides works when "no-animation" set', async () => {
+    const wrapper = mount(App, {
       attachTo: createContainer(),
       propsData: {
         interval: 0,
-        fade: false,
-        noAnimation: true,
-        indicators: true,
-        controls: true,
-        value: 0
+        noAnimation: true
       }
     })
 
@@ -886,16 +824,10 @@ describe('carousel', () => {
   })
 
   it('setting new slide when sliding is active, schedules the new slide to happen after finished', async () => {
-    const wrapper = mount(localVue.extend(appDef), {
-      localVue,
+    const wrapper = mount(App, {
       attachTo: createContainer(),
       propsData: {
-        interval: 0,
-        fade: false,
-        noAnimation: false,
-        indicators: true,
-        controls: true,
-        value: 0
+        interval: 0
       }
     })
 
@@ -968,17 +900,13 @@ describe('carousel', () => {
     wrapper.destroy()
   })
 
-  it('Next/Prev slide wraps to end/start when no-wrap is false', async () => {
-    const wrapper = mount(localVue.extend(appDef), {
-      localVue,
+  it('next/prev slide wraps to end/start when "no-wrap is "false"', async () => {
+    const wrapper = mount(App, {
       attachTo: createContainer(),
       propsData: {
         interval: 0,
-        fade: false,
         noAnimation: true,
         noWrap: false,
-        indicators: true,
-        controls: true,
         // Start at last slide
         value: 3
       }
@@ -1037,18 +965,15 @@ describe('carousel', () => {
     wrapper.destroy()
   })
 
-  it('Next/Prev slide does not wrap to end/start when no-wrap is true', async () => {
-    const wrapper = mount(localVue.extend(appDef), {
-      localVue,
+  it('next/prev slide does not wrap to end/start when "no-wrap" is "true"', async () => {
+    const wrapper = mount(App, {
       attachTo: createContainer(),
       propsData: {
         interval: 0,
-        fade: false,
         // Transitions (or fallback timers) are not used when no-animation set
         noAnimation: true,
         noWrap: true,
         indicators: true,
-        controls: true,
         // Start at last slide
         value: 3
       }
