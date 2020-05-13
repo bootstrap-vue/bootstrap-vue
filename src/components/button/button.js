@@ -16,7 +16,7 @@ const NAME = 'BButton'
 
 // --- Props ---
 
-const linkProps = omit(BLinkProps, ['event'])
+const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 delete linkProps.href.default
 delete linkProps.to.default
 

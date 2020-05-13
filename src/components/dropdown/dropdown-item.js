@@ -5,7 +5,7 @@ import attrsMixin from '../../mixins/attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BLink, props as BLinkProps } from '../link/link'
 
-export const props = omit(BLinkProps, ['event'])
+export const props = omit(BLinkProps, ['event', 'routerTag'])
 
 // @vue/component
 export const BDropdownItem = /*#__PURE__*/ Vue.extend({

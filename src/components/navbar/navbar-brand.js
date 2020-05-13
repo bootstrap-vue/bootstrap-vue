@@ -4,7 +4,7 @@ import pluckProps from '../../utils/pluck-props'
 import { omit } from '../../utils/object'
 import { BLink, props as BLinkProps } from '../link/link'
 
-const linkProps = omit(BLinkProps, ['event'])
+const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 linkProps.href.default = undefined
 linkProps.to.default = undefined
 

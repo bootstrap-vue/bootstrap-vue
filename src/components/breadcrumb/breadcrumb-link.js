@@ -18,7 +18,7 @@ export const props = {
     type: String,
     default: 'location'
   },
-  ...omit(BLinkProps, ['event'])
+  ...omit(BLinkProps, ['event', 'routerTag'])
 }
 
 // @vue/component

@@ -5,7 +5,7 @@ import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
 
-export const props = omit(BLinkProps, ['event'])
+export const props = omit(BLinkProps, ['event', 'routerTag'])
 
 // --- Main component ---
 // @vue/component
