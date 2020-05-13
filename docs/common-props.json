@@ -231,7 +231,8 @@
     "description": "router-link prop: Specify the event that triggers the link. In most cases you should leave this as the default"
   },
   "prefetch": {
-    "description": "nuxt-link prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'prefetch' to 'true' or 'false' will overwrite the default value of 'router.prefetchLinks'"
+    "description": "nuxt-link prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'prefetch' to 'true' or 'false' will overwrite the default value of 'router.prefetchLinks'",
+    "version": "2.15.0"
   },
   "noPrefetch": {
     "description": "nuxt-link prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'no-prefetch' will disabled this feature for the specific link"
