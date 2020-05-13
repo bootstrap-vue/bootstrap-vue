@@ -91,7 +91,7 @@ export const isRouterLink = tag => toString(tag).toLowerCase() !== ANCHOR_TAG
 
 export const computeTag = ({ to, disabled, routerComponentName } = {}, thisOrParent) => {
   const hasRouter = thisOrParent.$router
-  if (!hasRouter || (hasRouter && disabled) || !to) {
+  if (!hasRouter || (hasRouter && disabled) || (hasRouter && !to)) {
     return ANCHOR_TAG
   }
 
