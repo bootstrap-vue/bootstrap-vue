@@ -38,7 +38,8 @@ const linkProps = pluckProps(
     'exact',
     'exactActiveClass',
     'prefetch',
-    'noPrefetch'
+    'noPrefetch',
+    'routerComponentName'
   ],
   BLinkProps
 )
