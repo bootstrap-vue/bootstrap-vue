@@ -1,45 +1,17 @@
 import Vue from '../../utils/vue'
+import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
-import { isEvent, isFunction, isUndefined } from '../../utils/inspect'
+import { isBoolean, isEvent, isFunction, isUndefined } from '../../utils/inspect'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
-import { omit } from '../../utils/object'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-/**
- * The Link component is used in many other BV components
- * As such, sharing its props makes supporting all its features easier
- * However, some components need to modify the defaults for their own purpose
- * Prefer sharing a fresh copy of the props to ensure mutations
- * do not affect other component references to the props
- *
- * See: https://github.com/vuejs/vue-router/blob/dev/src/components/link.js
- */
-export const propsFactory = () => ({
-  href: {
-    type: String,
-    default: null
-  },
-  rel: {
-    type: String,
-    // Must be `null` if no value provided
-    default: null
-  },
-  target: {
-    type: String,
-    default: '_self'
-  },
-  active: {
-    type: Boolean,
-    default: false
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  // <router-link> specific props
+// --- Props ---
+
+// <router-link> specific props
+export const routerLinkProps = {
   to: {
     type: [String, Object],
     default: null
@@ -71,29 +43,61 @@ export const propsFactory = () => ({
   routerTag: {
     type: String,
     default: 'a'
-  },
-  // <nuxt-link> specific prop(s)
+  }
+}
+
+// <nuxt-link> specific props
+export const nuxtLinkProps = {
   prefetch: {
-    type: Boolean
-    // Must be `undefined` to fall back to the value defined in the
+    type: Boolean,
+    // Must be `null` to fall back to the value defined in the
     // `nuxt.config.js` configuration file for `router.prefetchLinks`
-    // default: undefined
+    // We convert `null` to `undefined`, so that Nuxt.js will use the
+    // compiled default. Vue treats `undefined` as default of `false`
+    // for Boolean props, so we must set it as `null` here to be a
+    // true tri-state prop
+    default: null
   },
   noPrefetch: {
     type: Boolean,
     default: false
   }
-})
+}
 
-export const props = propsFactory()
+export const props = {
+  href: {
+    type: String,
+    default: null
+  },
+  rel: {
+    type: String,
+    // Must be `null` if no value provided
+    default: null
+  },
+  target: {
+    type: String,
+    default: '_self'
+  },
+  active: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  ...routerLinkProps,
+  ...nuxtLinkProps
+}
 
+// --- Main component ---
 // @vue/component
 export const BLink = /*#__PURE__*/ Vue.extend({
   name: 'BLink',
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inheritAttrs: false,
-  props: propsFactory(),
+  props,
   computed: {
     computedTag() {
       // We don't pass `this` as the first arg as we need reactivity of the props
@@ -111,9 +115,16 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       return computeHref({ to: this.to, href: this.href }, this.computedTag)
     },
     computedProps() {
-      const props = this.isRouterLink ? { ...this.$props, tag: this.routerTag } : {}
-      // Ensure the `href` prop does not exist for router links
-      return this.computedHref ? props : omit(props, ['href'])
+      const prefetch = this.prefetch
+      return this.isRouterLink
+        ? {
+            ...pluckProps({ ...routerLinkProps, ...nuxtLinkProps }, this.$props),
+            // Coerce `prefetch` value `null` to be `undefined`
+            prefetch: isBoolean(prefetch) ? prefetch : undefined,
+            // Pass `router-tag` as `tag` prop
+            tag: this.routerTag
+          }
+        : {}
     },
     computedAttrs() {
       const {

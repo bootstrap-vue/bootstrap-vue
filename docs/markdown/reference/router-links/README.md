@@ -158,15 +158,18 @@ additional Nuxt.js specific props.
 ### `prefetch`
 
 - type: `boolean`
-- default: `undefined`
-- availability: Nuxt.js 2.10.0+
+- default: `null`
+- availability: Nuxt.js 2.10.0+ and BootstrapVue 2.15.0+
 
 To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within
 the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `prefetch` to
 `true` or `false` will overwrite the default value of `router.prefetchLinks` configured in the
 `nuxt.config.js` configuration file.
 
-**Note:** If you have are using a version of Nuxt.js `< 2.10.0`, then this prop will have no effect.
+**Notes:**
+
+- If you have are using a version of Nuxt.js `< 2.10.0`, then this prop will have no effect.
+- Remember to `v-bind` the prop value (e.g. `:prefetch="true"` or `:prefetch="false"`).
 
 Prefetching support requires
 [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)

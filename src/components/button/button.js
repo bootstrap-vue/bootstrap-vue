@@ -6,13 +6,19 @@ import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { addClass, removeClass } from '../../utils/dom'
 import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
-import { keys } from '../../utils/object'
+import { clone } from '../../utils/object'
 import { toString } from '../../utils/string'
-import { BLink, propsFactory as linkPropsFactory } from '../link/link'
+import { BLink, props as BLinkProps } from '../link/link'
 
-// --- Constants --
+// --- Constants ---
 
 const NAME = 'BButton'
+
+// --- Props ---
+
+const linkProps = clone(BLinkProps)
+delete linkProps.href.default
+delete linkProps.to.default
 
 const btnProps = {
   block: {
@@ -55,12 +61,7 @@ const btnProps = {
   }
 }
 
-const linkProps = linkPropsFactory()
-delete linkProps.href.default
-delete linkProps.to.default
-const linkPropKeys = keys(linkProps)
-
-export const props = { ...linkProps, ...btnProps }
+export const props = { ...btnProps, ...linkProps }
 
 // --- Helper methods ---
 
@@ -104,7 +105,7 @@ const computeClass = props => [
 ]
 
 // Compute the link props to pass to b-link (if required)
-const computeLinkProps = props => (isLink(props) ? pluckProps(linkPropKeys, props) : null)
+const computeLinkProps = props => (isLink(props) ? pluckProps(linkProps, props) : null)
 
 // Compute the attributes for a button
 const computeAttrs = (props, data) => {
@@ -142,6 +143,7 @@ const computeAttrs = (props, data) => {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BButton = /*#__PURE__*/ Vue.extend({
   name: NAME,

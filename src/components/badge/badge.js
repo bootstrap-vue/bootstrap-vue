@@ -1,17 +1,17 @@
 import Vue from '../../utils/vue'
+import pluckProps from '../../utils/pluck-props'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
-import pluckProps from '../../utils/pluck-props'
-import { BLink, propsFactory as linkPropsFactory } from '../link/link'
+import { clone } from '../../utils/object'
+import { BLink, props as BLinkProps } from '../link/link'
 
 const NAME = 'BBadge'
 
-const linkProps = linkPropsFactory()
+const linkProps = clone(BLinkProps)
 delete linkProps.href.default
 delete linkProps.to.default
 
 export const props = {
-  ...linkProps,
   tag: {
     type: String,
     default: 'span'
@@ -23,7 +23,8 @@ export const props = {
   pill: {
     type: Boolean,
     default: false
-  }
+  },
+  ...linkProps
 }
 
 // @vue/component

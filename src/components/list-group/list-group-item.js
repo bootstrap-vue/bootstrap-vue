@@ -1,14 +1,20 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { BLink, propsFactory as linkPropsFactory } from '../link/link'
+import { clone } from '../../utils/object'
+import { BLink, props as BLinkProps } from '../link/link'
+
+// --- Constants ---
 
 const NAME = 'BListGroupItem'
 
 const actionTags = ['a', 'router-link', 'button', 'b-link']
-const linkProps = linkPropsFactory()
+
+// --- Props ---
+
+const linkProps = clone(BLinkProps)
 delete linkProps.href.default
 delete linkProps.to.default
 
@@ -31,6 +37,8 @@ export const props = {
   },
   ...linkProps
 }
+
+// --- Main component ---
 // @vue/component
 export const BListGroupItem = /*#__PURE__*/ Vue.extend({
   name: NAME,
