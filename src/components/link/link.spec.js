@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router'
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import { createContainer } from '../../../tests/utils'
 import { BLink } from './link'
 
@@ -200,7 +200,7 @@ describe('b-link', () => {
   })
 
   describe('click handling', () => {
-    const localVue = new CreateLocalVue()
+    const localVue = createLocalVue()
 
     it('should invoke click handler bound by Vue when clicked on', async () => {
       let called = 0
@@ -320,7 +320,7 @@ describe('b-link', () => {
 
   describe('router-link support', () => {
     it('works', async () => {
-      const localVue = new CreateLocalVue()
+      const localVue = createLocalVue()
       localVue.use(VueRouter)
 
       const router = new VueRouter({
@@ -342,7 +342,7 @@ describe('b-link', () => {
           }
         },
         render(h) {
-          return h('router-link', { props: this.$props }, [this.$slots.default])
+          return h('RouterLink', { props: this.$props }, [this.$slots.default])
         }
       }
 
