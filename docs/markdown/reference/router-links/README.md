@@ -233,4 +233,3 @@ Set this prop to the name of the `<router-link>` compatible component, e.g. `'g-
 [Gridsome](https://gridsome.org/).
 
 If left at the default, BootstrapVue will automatically select `<router-link>` or `<nuxt-link>`.
-
