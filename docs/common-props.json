@@ -236,5 +236,9 @@
   },
   "noPrefetch": {
     "description": "nuxt-link prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'no-prefetch' will disabled this feature for the specific link"
+  },
+  "routerComponentName": {
+    "description": "BootstrapVue auto detects between `<router-link>` and `<nuxt-link>`. In cases where you want to use a 3rd party link component based on `<router-link>`, set this prop to the component name. e.g. set it to 'g-link' if you are using Gridsome",
+    "version": "2.15.0"
   }
 }
