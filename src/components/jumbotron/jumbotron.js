@@ -78,42 +78,35 @@ export const BJumbotron = /*#__PURE__*/ Vue.extend({
     const $slots = slots()
     const slotScope = {}
 
-    let $children = []
-
-    // Header
+    let $header = h()
     const hasHeaderSlot = hasNormalizedSlot('header', $scopedSlots, $slots)
     if (hasHeaderSlot || header || headerHtml) {
       const { headerLevel } = props
 
-      $children.push(
-        h(
-          props.headerTag,
-          {
-            class: { [`display-${headerLevel}`]: headerLevel },
-            domProps: hasHeaderSlot ? {} : htmlOrText(headerHtml, header)
-          },
-          normalizeSlot('header', slotScope, $scopedSlots, $slots)
-        )
+      $header = h(
+        props.headerTag,
+        {
+          class: { [`display-${headerLevel}`]: headerLevel },
+          domProps: hasHeaderSlot ? {} : htmlOrText(headerHtml, header)
+        },
+        normalizeSlot('header', slotScope, $scopedSlots, $slots)
       )
     }
 
-    // Lead
+    let $lead = h()
     const hasLeadSlot = hasNormalizedSlot('lead', $scopedSlots, $slots)
     if (hasLeadSlot || lead || leadHtml) {
-      $children.push(
-        h(
-          props.leadTag,
-          {
-            staticClass: 'lead',
-            domProps: hasLeadSlot ? {} : htmlOrText(leadHtml, lead)
-          },
-          normalizeSlot('lead', slotScope, $scopedSlots, $slots)
-        )
+      $lead = h(
+        props.leadTag,
+        {
+          staticClass: 'lead',
+          domProps: hasLeadSlot ? {} : htmlOrText(leadHtml, lead)
+        },
+        normalizeSlot('lead', slotScope, $scopedSlots, $slots)
       )
     }
 
-    // Default slot
-    $children.push(normalizeSlot('default', slotScope, $scopedSlots, $slots))
+    let $children = [$header, $lead, normalizeSlot('default', slotScope, $scopedSlots, $slots)]
 
     // If fluid, wrap content in a container
     if (props.fluid) {
