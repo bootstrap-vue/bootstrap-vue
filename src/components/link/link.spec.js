@@ -342,7 +342,9 @@ describe('b-link', () => {
           }
         },
         render(h) {
-          return h('RouterLink', { props: this.$props }, [this.$slots.default])
+          // We just us a simple A tag to render teh fake g-link
+          // and assume `to` is a string
+          return h('a', { attrs: { href: this.to } }, [this.$slots.default])
         }
       }
 
