@@ -3,7 +3,7 @@ import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { clone } from '../../utils/object'
+import { omit } from '../../utils/object'
 import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Constants ---
@@ -14,7 +14,7 @@ const actionTags = ['a', 'router-link', 'button', 'b-link']
 
 // --- Props ---
 
-const linkProps = clone(BLinkProps)
+const linkProps = omit(BLinkProps, ['event'])
 delete linkProps.href.default
 delete linkProps.to.default
 

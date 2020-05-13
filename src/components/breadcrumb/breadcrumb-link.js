@@ -1,7 +1,8 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { htmlOrText } from '../../utils/html'
+import { omit } from '../../utils/object'
 import { BLink, props as BLinkProps } from '../link/link'
 
 export const props = {
@@ -17,7 +18,7 @@ export const props = {
     type: String,
     default: 'location'
   },
-  ...BLinkProps
+  ...omit(BLinkProps, ['event'])
 }
 
 // @vue/component

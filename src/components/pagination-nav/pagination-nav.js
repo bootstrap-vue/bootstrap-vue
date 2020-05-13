@@ -13,10 +13,16 @@ import { warn } from '../../utils/warn'
 import paginationMixin from '../../mixins/pagination'
 import { props as BLinkProps } from '../link/link'
 
+// --- Constants ---
+
 const NAME = 'BPaginationNav'
 
-// Sanitize the provided number of pages (converting to a number)
-export const sanitizeNumberOfPages = value => mathMax(toInteger(value, 0), 1)
+// --- Props ---
+
+const linkProps = pluckProps(
+  ['activeClass', 'exact', 'exactActiveClass', 'prefetch', 'noPrefetch', 'routerComponentName'],
+  BLinkProps
+)
 
 const props = {
   size: {
@@ -61,9 +67,15 @@ const props = {
     type: Boolean,
     default: false
   },
-  ...pluckProps(['activeClass', 'exact', 'exactActiveClass', 'prefetch', 'noPrefetch'], BLinkProps)
+  ...linkProps
 }
 
+// --- Utility methods ---
+
+// Sanitize the provided number of pages (converting to a number)
+export const sanitizeNumberOfPages = value => mathMax(toInteger(value, 0), 1)
+
+// --- Main component ---
 // The render function is brought in via the pagination mixin
 // @vue/component
 export const BPaginationNav = /*#__PURE__*/ Vue.extend({

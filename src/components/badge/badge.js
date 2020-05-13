@@ -2,12 +2,12 @@ import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
-import { clone } from '../../utils/object'
+import { omit } from '../../utils/object'
 import { BLink, props as BLinkProps } from '../link/link'
 
 const NAME = 'BBadge'
 
-const linkProps = clone(BLinkProps)
+const linkProps = omit(BLinkProps, ['event'])
 delete linkProps.href.default
 delete linkProps.to.default
 

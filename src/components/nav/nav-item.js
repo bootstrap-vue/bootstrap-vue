@@ -1,11 +1,11 @@
 import { mergeData } from 'vue-functional-data-merge'
 import Vue from '../../utils/vue'
-import { clone } from '../../utils/object'
+import { omit } from '../../utils/object'
 import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
 
-export const props = clone(BLinkProps)
+export const props = omit(BLinkProps, ['event'])
 
 // --- Main component ---
 // @vue/component

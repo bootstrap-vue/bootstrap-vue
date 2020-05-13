@@ -6,7 +6,7 @@ import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { addClass, removeClass } from '../../utils/dom'
 import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
-import { clone } from '../../utils/object'
+import { omit } from '../../utils/object'
 import { toString } from '../../utils/string'
 import { BLink, props as BLinkProps } from '../link/link'
 
@@ -16,7 +16,7 @@ const NAME = 'BButton'
 
 // --- Props ---
 
-const linkProps = clone(BLinkProps)
+const linkProps = omit(BLinkProps, ['event'])
 delete linkProps.href.default
 delete linkProps.to.default
 
