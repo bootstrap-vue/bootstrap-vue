@@ -348,9 +348,11 @@ describe('b-link', () => {
         }
       }
 
+      localVue.component('GLink', GLink)
+
       const App = localVue.extend({
         router,
-        components: { BLink, GLink },
+        components: { BLink },
         render(h) {
           return h('main', [
             // router-link
